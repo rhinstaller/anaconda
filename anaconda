@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-import sys, os, signal
-signal.signal(signal.SIGINT, signal.SIG_DFL)
+import sys, os
 
 # For anaconda in test mode
 if (os.path.exists('isys')):
@@ -20,9 +19,7 @@ else:
     sys.path.append('/usr/lib/anaconda/iw')
     sys.path.append('/usr/lib/anaconda/installclasses')
 
-os.environ['HOME'] = '/tmp'
-os.environ["LC_NUMERIC"] = "C"
-
+# do this early to keep our import footprint as small as possible
 # Python passed my path as argv[0]!
 # if sys.argv[0][-7:] == "syslogd":
 if len(sys.argv) > 1:
@@ -31,110 +28,87 @@ if len(sys.argv) > 1:
         root = sys.argv[2]
         output = sys.argv[3]
         syslog = Syslogd (root, open (output, "w+"))
+	# this never returns
 
-import traceback
-import string
-
-import isys
-(osname, host, release, version, machine) = os.uname()
-if isys.isPsudoTTY(0) and not (machine == "s390" or machine == "s390x") :
-    os.environ["TERM"] = "kon"
-
-import iutil
+import signal, traceback, string, isys, iutil
+from log import log
 from translate import _
 from exception import handleException
+import dispatch
+from flags import flags
 
-setverPath = None
+# reset python's default SIGINT handler
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+# Silly GNOME stuff
+if os.environ.has_key('HOME'):
+    os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
+os.environ['HOME'] = '/tmp'
+os.environ['LC_NUMERIC'] = 'C'
 
 if os.environ.has_key ("ANACONDAARGS"):
     theargs = string.split (os.environ["ANACONDAARGS"])
 else:
     theargs = sys.argv[1:]
+
 try:
     (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
-          [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug', 'nofallback',
+          [ 'text', 'reconfig', 'xmode', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
-            'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
+            'lang=', 'keymap=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount'])
 except TypeError, msg:
-    print "Error:", msg
+    sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
 
-# save because we're about to munge argv
-[execname] = string.split(sys.argv[0], '/')[-1:]
+if extra:
+    sys.stderr.write("Unexpected arguments: %s\n" % extra)
+    sys.exit(-1)
 
-savedargs = []
+# Save the arguments in case we need to reexec anaconda for kon
+os.environ["ANACONDAARGS"] = string.join(sys.argv[1:])
 
 # remove the arguments - gnome_init doesn't understand them
-for arg in sys.argv[1:]:
-    savedargs.append (arg)
-    sys.argv.remove (arg)
+savedargs = sys.argv[1:]
+sys.argv = sys.argv[:1]
 sys.argc = 1
 
-os.environ["ANACONDAARGS"] = string.join(savedargs)
+# Parameters for the main anaconda routine
+#
+rootPath = '/mnt/sysimage'	# where to instal packages
+extraModules = []		# kernel modules to use
+display_mode = 'g'		# try GUI by default
+xmode = 0			# bring up text mode in a remote xterm?
+debug = 0			# start up pdb immediately
+traceOnly = 0			# don't run, just list modules we use
+nofallback = 0			# if GUI mode fails, exit
+rescue = 0			# run in rescue mode
+rescue_nomount = 0		# don't automatically mount device in rescue
+overhead = 0			# kilobytes of memory used already
+runres = '800x600'		# resolution to run the GUI install in
+nofbmode = 0			# don't use framebuffer X, no matter what
+instClass = None		# the install class to use
+progmode = 'install' 		# 'reconfig', 'rescue', or 'install'
+method = None			# URL representation of install method
+logFile = None			# may be a file object or a file name
 
 #
-# default root to install into if doing a normal install
-#
-rootPath = '/mnt/sysimage'
-
-extraModules = []
-
-# display mode is either 'g' for graphical or 't' for text
-display_mode = 'g'
-forced_display_mode = None
-
-# Force text mode on ia64
-#if iutil.getArch() == 'ia64':
-#    forced_display_mode = 't'
-
-# booleans - value is 0 for false or non-zero for true
-# test           - in test mode?
-# xmode          - bring up text mode in a X terminal window?
-# debug          - in debug mode?
-# serial         - install via serial port (?)
-# expert         - in expert mode?
-# traceOnly      - print out loaded modules
-# forceMount     - ? used ?
-# localInstall   - install to chroot
-# reconfigOnly   - allow user to reconfig installed box w/o reinstall
-# nofallback     - don't fall back to text mode on gui startup failure
-# runres         - resolution to run 
-# rescue	 - run rescue mode instead
-test = 0
-xmode = 0
-debug = 0
-serial = 0
-expert = 0
-traceOnly = 0
-forceMount = 0
-localInstall = 0
-reconfigOnly = 0
-nofallback = 0
-rescue = 0
-rescue_nomount = 0
-overhead = 0
-runres = '800x600'
-nofbmode = 0
-
-#
-# x          - xserver info (?)
+# xcfg       - xserver info (?)
+# mousehw    - mouseinfo info
+# videohw    - videocard info
+# monitorhw  - monitor info
 # lang       - language to use for install/machine default
-# method     - install method (not used if reconfigOnly is true)
 # keymap     - kbd map
-# kbdtype    - type of keyboard (84 key, 101 key, etc)
-# kickstart  - ?
-# mouseInfo  - type of mouse
-# progmode   - either 'reconfig', 'rescue', or 'install'
 #
-x = None
+xcfg = None
+monitorhw = None
+videohw = None
+mousehw = None
 lang = None
 method = None
 keymap = None
 kbdtpye = None
-kickstart = None
-mouseInfo = None
 progmode = None
 customClass = None
 
@@ -144,115 +118,158 @@ customClass = None
 for n in args:
     (str, arg) = n
 
-    if (str == '-G' or str == '--gui'):
-	forced_display_mode = 'g'
-    elif (str == '-T' or str == '--text'):
-	forced_display_mode = 't'
-    elif (str == '-R' or str == '--reconfig'):
-	reconfigOnly = 1
-        progmode = 'reconfig'
-    elif (str == '-x' or str == '--xmode'):
-	xmode = 1
-    elif (str == '-t' or str == '--test'):
-	test = 1
-    elif (str == '--overhead'):
-	overhead = int(arg)
-    elif (str == '--rescue'):
-        progmode = 'rescue'
-    elif (str == "--nomount"):
-        rescue_nomount = 1
-    elif (str == '--nofallback'):
-	nofallback = 1
+    if (str == '--class'):
+        customClass = arg
+    elif (str == '-d' or str == '--debug'):
+	debug = 1
+    elif (str == '--expert'):
+	flags.expert = 1 
+    elif (str == '--keymap'):
+        keymap = arg
+    elif (str == '--kickstart'):
+	from kickstart import Kickstart
+        instClass = Kickstart(arg, flags.serial)
+    elif (str == '--lang'):
+        lang = arg
+    elif (str == '--lowres'):
+        runres = '640x480'
+    elif (str == '-m' or str == '--method'):
+	method = arg
+	if method[0] == '@':
+	    # ftp installs pass the password via a file in /tmp so
+	    # ps doesn't show it
+	    filename = method[1:]
+	    method = open(filename, "r").readline()
+	    method = method[:len(method) - 1]
+	    os.unlink(filename)
     elif (str == '--module'):
 	(path, subdir, name) = string.split(arg, ":")
 	extraModules.append((path, subdir, name))
-    elif (str == '-m' or str == '--method'):
-	method = arg
-        reconfigOnly = 0
-        progmode = 'install'
-	if method[0] == '@':
-	    filename = method[1:]
-	    f = open(filename, "r")
-	    method = f.readline()
-	    method = method[:len(method) - 1]
-	    del f
-	    os.unlink(filename)
-    elif (str == '-d' or str == '--debug'):
-	debug = 1
-    elif (str == '--kickstart'):
-	kickstart = arg
-	forced_display_mode = 't'
-    elif (str == '-r' or str == '--rootpath'):
-	rootPath = arg
-	localInstall = 1
-    elif (str == '--mountfs'):
-	forceMount = 1
-    elif (str == '--traceonly'):
-	traceOnly = 1
-    elif (str == '--expert'):
-	expert = 1
-    elif (str == '--serial'):
-	serial = 1
-    elif (str == '--lang'):
-        lang = arg
-    elif (str == '--keymap'):
-        keymap = arg
-    elif (str == '--kbdtype'):
-        kbdtype = arg
-    elif (str == '--class'):
-        customClass = arg
-    elif (str == '--lowres'):
-        runres = '640x480'
+    elif (str == '--nofallback'):
+	nofallback = 1
     elif (str == '--nofb'):
         nofbmode = 1
+    elif (str == "--nomount"):
+        rescue_nomount = 1
+    elif (str == '--overhead'):
+	overhead = int(arg)
+    elif (str == '-R' or str == '--reconfig'):
+        progmode = 'reconfig'
+	rootPath = '/'
+	logFile = "/var/log/reconfig.log"
+	flags.setupFilesystems = 0
+	customClass = 'reconfig'
+    elif (str == '--rescue'):
+        progmode = 'rescue'
+    elif (str == '-r' or str == '--rootpath'):
+	rootPath = arg
+	flags.setupFilesystems = 0
+	logFile = sys.stderr
+    elif (str == '--traceonly'):
+	traceOnly = 1
+    elif (str == '--serial'):
+	logFile = "/tmp/install.log"
+	flags.serial = 1
+    elif (str == '-t' or str == '--test'):
+	flags.test = 1
+	flags.setupFilesystems = 0
+	logFile = "/tmp/anaconda-debug.log"
+    elif (str == '-T' or str == '--text'):
+	display_mode = 't'
+    elif (str == '-x' or str == '--xmode'):
+	xmode = 1
 
 #
 # must specify install, rescue or reconfig mode
 #
-if (progmode == None):
-    print "Must specify either --reconfig or --method for program mode"
-    sys.exit(1)
 
 if (progmode == 'rescue'):
+    if (not method):
+	sys.stderr.write('--method required for rescue mode\n')
+	sys.exit(1)
+
     import rescue
-    rescue.runRescue(method, serial, not rescue_nomount)
+    
+    log.open (logFile)
+    rescue.runRescue(method, flags.serial, not rescue_nomount)
     # shouldn't get back here
     sys.exit(1)
+elif (progmode == 'reconfig'):
+    pass
+else:
+    if (not method):
+	sys.stderr.write('no install method specified\n')
+	sys.exit(1)
 
-#
-# if not just reconfiguring box, must have install method
-#
-if (not reconfigOnly  and not method):
-    print "no install method specified"
-    sys.exit(1)
+log.open (logFile)
 
 if (debug):
     import pdb
     pdb.set_trace()
-#
-# don't let a developer reinstall their box unknowingly
-#
-if (not reconfigOnly and not test and not localInstall and os.getpid() > 90):
-    print "you're running me on a live system! that's incredibly stupid."
+
+# don't let folks do anything stupid
+if (not flags.test and os.getpid() > 90 and flags.setupFilesystems):
+    sys.stderr.write(
+	"You're running me on a live system! that's incredibly stupid.\n")
     sys.exit(1)
 
-import rpm
-import lilo
-from todo import ToDo
 import isys
-from installclass import DefaultInstall
-from installclass import ReconfigStation
-from kickstart import Kickstart
+import instdata
+import videocard
+import monitor
+import mouse
+
+# handle traceonly and exit
+if traceOnly:
+
+    if display_mode == 'g':
+        sys.stderr.write("traceonly is only supported for text mode\n")
+        sys.exit(0)
+    
+    # prints a list of all the modules imported
+    from text import InstallInterface
+    from text import stepToClasses
+    import pdb
+    import image
+    import harddrive
+    import urlinstall
+    import mimetools
+    import mimetypes
+    import syslogd
+    import installclass
+    import re
+    import rescue
+    import xserver
+
+    installclass.availableClasses()
+
+    if iutil.getArch() == "i386":
+	import edd
+
+    if display_mode == 't':
+        for step in stepToClasses.keys():
+            if stepToClasses[step]:
+                (mod, klass) = stepToClasses[step]
+                exec "import %s" % mod
+        
+    for module in sys.__dict__['modules'].keys ():
+        if module not in [ "__builtin__", "__main__" ]:
+            foo = repr (sys.__dict__['modules'][module])
+            bar = string.split (foo, "'")
+            if len (bar) > 3:
+                print bar[3]
+        
+    sys.exit(0)
 
 iutil.setMemoryOverhead(overhead)
 
 #
 # override display mode if machine cannot nicely run X
 #
-if (not test):
+if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
         print _("You do not have enough RAM to use the graphical installer.  Starting text mode.")
-	forced_display_mode = 't'
+	display_mode = 't'
 
 if iutil.memInstalled() < isys.MIN_RAM:
     from snack import *
@@ -260,7 +277,7 @@ if iutil.memInstalled() < isys.MIN_RAM:
     screen = SnackScreen()
     ButtonChoiceWindow(screen, _('Fatal Error'),
 			_('You do not have enough RAM to install Red Hat '
-			  'Linux on this machine. '
+			  'Linux on this machine.\n'
 			  '\n'
 			  'Press <return> to reboot your system.\n'), 
 			  buttons = (_("OK"),))
@@ -270,75 +287,99 @@ if iutil.memInstalled() < isys.MIN_RAM:
 #
 # handle class passed from loader
 #
-instClass = None
 if customClass:
     import installclass
 
     classes = installclass.availableClasses(showHidden=1)
     for (className, objectClass, logo) in classes:
 	if className == customClass:
-		instClass = objectClass(expert)
-                reqmode = instClass.requiredDisplayMode()
-                if reqmode:
-                    forced_display_mode = reqmode
+		instClass = objectClass(flags.expert)
 
     if not instClass:
-	raise TypeError, "installation class "+customClass+" not available"
-	sys.exit(0)
+	sys.stderr.write("installation class %s not available\n" % customClass)
+	sys.stderr.write("\navailable classes:\n")
+	for (className, objectClass, logo) in classes:
+	    sys.stderr.write("\t%s\n" % className)
+	sys.exit(1)
 
 #
-# if in reconfig mode set display mode based on inittab default runlevel
+# if no instClass declared by user figure it out based on other cmdline args
 #
-# but always let command line specified mode override defaults
+if not instClass:
+    from installclass import DefaultInstall
+    instClass = DefaultInstall(flags.expert)
+
+# this lets install classes force text mode instlls
+if instClass.forceTextMode:
+    display_mode = 't'
+
 #
-if (forced_display_mode == None):
-    if (reconfigOnly != 0):
-        if (iutil.getDefaultRunlevel() == '5' and
-            os.access("/etc/X11/XF86Config", os.R_OK)):
-                display_mode = 'g'
-        else:
-                display_mode = 't'
+# find out what video hardware is available to run installer 
+#
+
+mousehw    = mouse.Mouse(skipProbe = 1)
+#if display_mode == 'g':
+
+# lets try always probing this stuff, probably ought to provide way to
+# skip probing if we have really sensitive hw that HAS to use text mode
+if 1:
+    sys.stdout.write(    _("Probing for video card:   "))
+    videohw    = videocard.VideoCardInfo()
+    if videohw and videohw.primaryCard():
+        sys.stdout.write(videohw.primaryCard().shortDescription()+'\n')
+    sys.stdout.write(    _("Probing for monitor type: "))
+    monitorhw  = monitor.MonitorInfo()
+    sys.stdout.write(monitorhw.shortDescription()+'\n')
+
+    # only probe if we're installing a real box or
+    # we're running in a virtual console and need to startup X server
+    if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
+	sys.stdout.write(_("Probing for mouse type:   "))
+	mousehw.probe (frob = 1)
+        sys.stdout.write(mousehw.shortDescription()+'\n')
     else:
-        display_mode = 'g'
-else:
-    display_mode = forced_display_mode
+	sys.stdout.write(_("Skipping mouse probe.\n"))
 
 #
 # startup X server is we're not already running under an X session
 #
-
-#print "sleeping 40 seconds"
-#import os
-#os.read(2, 1)
-
-
-
 startXServer = 0
-if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
-    startXServer = 1
-    import xserver
-    try:
-        if (reconfigOnly == 0):
-            result = xserver.startX (runres, nofbmode)
-        else:
-            result = xserver.start_existing_X ()
+if display_mode == 'g':
+    import xf86config
+    
+    if not os.environ.has_key('DISPLAY'):
+        startXServer = 1
+        import xserver
+        try:
+            if os.access("/etc/X11/XF86Config", os.R_OK):
+                xcfg = xserver.start_existing_X ()
+            else:
+                xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw, mousehw)
             
-    except RuntimeError:
-	print " X startup failed, falling back to text mode"
-        display_mode = 't'
+        except RuntimeError:
+            print " X startup failed, falling back to text mode"
+            display_mode = 't'
     else:
-        (mouseInfo, x) = (result)
+        xcfg = xf86config.XF86Config(videohw, monitorhw, mousehw, runres)
+else:
+    import xf86config
+    xcfg = xf86config.XF86Config(videohw, monitorhw, mousehw, runres)
 
 #
 # setup links required by graphical mode if installing and verify display mode
 #
 if (display_mode == 'g'):
-    if not test and not localInstall and not reconfigOnly:
+    if not flags.test and flags.setupFilesystems:
         for i in ( "imrc", "im_palette.pal", "gtk" ):
             try:
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass
+
+    # display splash screen
+    from gui import display_splash_screen
+    display_splash_screen()
+
     if nofallback:
         from gui import InstallInterface
     else:
@@ -350,59 +391,17 @@ if (display_mode == 'g'):
             if startXServer:
                 isys.vtActivate (1)
             print "GUI installer startup failed, falling back to text mode."
-            display_mode = 't'
             from text import InstallInterface
-elif (display_mode == 't'):
-    if ((method and len (method) >= 6 and method[:6] == "ftp://")
-        or (method and len (method) >= 7 and method[:7] == "http://")):
+
+if (display_mode == 't'):
+    if (method and ((len (method) >= 6 and method[:6] == "ftp://")
+        or (len (method) >= 7 and method[:7] == "http://")
+	or (len (method) >= 5 and method[:5] == "hd://"))):
         print _("Graphical installation not available for %s installs.  "
                 "Starting text mode.") % (string.split(method, ':')[0],)
-    elif method and len (method) >= 5 and method[:5] == "hd://":
-        print _("Graphical installation not available for hard drive installs.  "
-                "Starting text mode.")
     from text import InstallInterface
-else:
-    sys.exit(1)
+    from text import stepToClasses
 
-if traceOnly:
-    # prints a list of all the modules imported
-    import pdb
-    import image
-    import harddrive
-    import urlinstall
-    import mimetools
-    import mimetypes
-    import syslogd
-    import installclass
-    import re
-    import rescue
-
-    installclass.availableClasses()
-
-    if iutil.getArch() == "i386":
-	import edd
-
-    if display_mode == 't':
-        from newtpyfsedit import fsedit        
-    for module in sys.__dict__['modules'].keys ():
-        if module not in [ "__builtin__", "__main__" ]:
-            foo = repr (sys.__dict__['modules'][module])
-            bar = string.split (foo, "'")
-            if len (bar) > 3:
-                print bar[3]
-        
-    sys.exit(0)
-
-#
-# if no instClass declared by user figure it out based on other cmdline args
-#
-if not instClass:
-    if kickstart:
-        instClass = Kickstart(kickstart, serial)
-    elif reconfigOnly:
-        instClass = ReconfigStation(expert)
-    else:
-        instClass = DefaultInstall(expert)
 
 # we like to have a way to shoot text mode back at a display
 if xmode:
@@ -428,14 +427,13 @@ if xmode:
             pass
         sys.exit (0)
 
-#print runres
 if display_mode == "t":
     intf = InstallInterface ()
 else:
     intf = InstallInterface (runres = runres, nofbmode = nofbmode)
 
 # imports after setting up the path
-if not reconfigOnly:
+if method:
     if (method[0:8] == "cdrom://"):
         from image import CdromInstallMethod
         method = CdromInstallMethod(method[8:], intf.messageWindow,
@@ -476,59 +474,55 @@ if not reconfigOnly:
         print "unknown install method:", method
         sys.exit(1)
 
-#
-# do some final sanity checking before going off into the great wide wonder
-#
-if reconfigOnly and method != None:
-    print "Conflicting options: cannot reconfig and install simultaneously!\n"
-    sys.exit(1)
+id = instClass.installDataClass(extraModules)
 
-# set the default actions
-installPackages = 1
-setupFilesystems = 1
+if mousehw:
+    id.setMouse(mousehw)
 
-if localInstall:
-    installPackages = 1
-    setupFilesystems = 0
-if test:
-    installPackages = 0
-    setupFilesystems = 0
-if forceMount:
-    setupFilesystems = 1
+if videohw:
+    id.setVideoCard(videohw)
+
+if monitorhw:
+    id.setMonitor(monitorhw)
+
+if xcfg:
+    id.setXconfig(xcfg)
+    
+instClass.setInstallData(id)
+
+dispatch = dispatch.Dispatcher(intf, id, method, rootPath)
 
 if lang:
-    instClass.addToSkipList("language")
-    instClass.setLanguage(lang)
+    dispatch.skipStep("language")
+    instClass.setLanguage(id, lang)
             
 if keymap:
-    instClass.addToSkipList("keyboard")
-    instClass.setKeyboard(keymap)
+    dispatch.skipStep("keyboard")
+    instClass.setKeyboard(id, keymap)
 
-if iutil.getArch() == "sparc":
-    import kudzu
-    mice = kudzu.probe (kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, kudzu.PROBE_ONE);
-    if mice:
-	(mouseDev, driver, descr) = mice[0]
-	if mouseDev == 'sunmouse':
-	    instClass.addToSkipList("mouse")
-	    instClass.setMouseType("Sun - Mouse", "sunmouse")
+instClass.setSteps(dispatch)
 
-if reconfigOnly:
-    installPackages = 0
-    setupFilesystems = 0
-    rootPath = '/'
+# We shouldn't need this again
+# XXX
+#del id
 
-todo = ToDo(intf, method, rootPath, installSystem = installPackages,
-	    setupFilesystems = setupFilesystems, mouse = mouseInfo,
-	    instClass = instClass, x = x, expert = expert,
-	    serial = serial, reconfigOnly = reconfigOnly, test = test,
-	    extraModules = extraModules)
+#
+# XXX This is surely broken
+#
+#if iutil.getArch() == "sparc":
+#    import kudzu
+#    mice = kudzu.probe (kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, kudzu.PROBE_ONE);
+#    if mice:
+#	(mouseDev, driver, descr) = mice[0]
+#	if mouseDev == 'sunmouse':
+#	    instClass.addToSkipList("mouse")
+#	    instClass.setMouseType("Sun - Mouse", "sunmouse")
 
 try:
-    intf.run(todo, test = test)
+    intf.run(id, dispatch)
 except SystemExit, code:
     intf.shutdown()
 except:
-    handleException(todo, sys.exc_info())
+    handleException(id, intf, sys.exc_info())
 
 del intf

@@ -1,4 +1,4 @@
-import sys, os
+import sys
 
 class LogFile:
     def __init__ (self):
@@ -7,18 +7,14 @@ class LogFile:
     def close (self):
         self.logFile.close ()
     
-    def open (self, serial, reconfigOnly, test, setupFilesystems):
-	if reconfigOnly:
+    def open (self, file):
+	if type(file) == type("hello"):
             try:
-                self.logFile = open("/var/log/reconfig.log", "w")
+                self.logFile = open(file, "w")
             except:
                 self.logFile = sys.stderr
-        elif not setupFilesystems:
-            self.logFile = sys.stderr
-        elif serial:
-	    self.logFile = open("/tmp/install.log", "w")
-	elif test:
-	    self.logFile = open("/tmp/anaconda-debug.log", "w")
+	elif file:
+	    self.logFile = file
 	else:
 	    self.logFile = open("/dev/tty3", "w")
 

@@ -14,17 +14,25 @@ import gettext_rh, os, iutil
 import string
 from xf86config import XF86Config
 from translate import _
+from instdata import InstallData
 
 class BaseInstallClass:
     # default to not being hidden
     hidden = 0
+    pixmap = None
 
     # don't select this class by default
     default = 0
 
-    # look in mouse.py for a list of valid mouse names -- use the LONG names
-    def setMouseType(self, name, device = None, emulateThreeButtons = 0):
-	self.mouse = (name, device, emulateThreeButtons)
+    # don't force text mode
+    forceTextMode = 0
+
+    # by default, place this under the "install" category; it gets it's
+    # own toplevel category otherwise
+    parentClass = ( _("Install"), "install.png" )
+
+    # we can use a different install data class
+    installDataClass = InstallData
 
     def postAction(self, rootPath, serial):
 	pass
@@ -97,132 +105,81 @@ class BaseInstallClass:
 
 	self.partitions.append((mntPoint, sizespec, (device, part, primOnly),typespec, fsopts))
 
-    # only defined in kickstart for now
-    # merges in fstab entries given in ks file
-    # expects the todo object, currently called from todo::setClass()
-    def mergeFstabEntries(self, todo):
-        pass
-    
     def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
 	self.fstab.append((mntpoint, (dev, fstype, reformat)))
 
-    def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
-	self.timezone = (timezone, asUtc, asArc)
+    def setSteps(self, dispatch):
+	dispatch.setStepList(
+		 "language",
+		 "keyboard",
+		 "mouse",
+		 "welcome",
+		 "installtype",
+                 "partition",
+		 "partitiondone",
+		 "bootloader",
+		 "network",
+		 "firewall",
+		 "languagesupport",
+		 "timezone",
+		 "accounts",
+		 "authentication",
+		 "readcomps",
+		 "package-selection",
+                 "handleX11pkgs",
+		 "checkdeps",
+		 "dependencies",
+		 "videocard",
+		 "monitor",
+		 "xcustom",
+		 "confirminstall",
+		 "enablefilesystems",
+		 "install",
+		 "installpackages",
+		 "writeconfig",
+		 "instbootloader",
+		 "writexconfig",
+		 "writeksconfig",
+		 "bootdisk",
+		 "complete"
+		)
 
-    def getTimezoneInfo(self):
-	return self.timezone
+        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
+	    dispatch.skipStep("bootdisk")
 
-    def removeFromSkipList(self, type):
-	if self.skipSteps.has_key(type):
-	    del self.skipSteps[type]
+    # This is called after the hdlist is read in.
+    def setPackageSelection(self, hdlist):
+	pass
 
-    def addToSkipList(self, type):
-	# this throws an exception if there is a problem
-	[ "lilo", "mouse", "network", "firewall", "authentication", "complete", "complete",
-	  "package-selection", "bootdisk", "partition", "format", "timezone",
-	  "accounts", "dependencies", "language", "keyboard", "xconfig",
-	  "welcome", "custom-upgrade", "installtype", "mouse", 
-	  "confirm-install", "confirm-upgrade", "languagesupport",
-          "languagedefault", "lba32warning", "indivpackage" ].index(type)
-	self.skipSteps[type] = 1
+    # This is called after the comps is read in (after setPackageSelection()).
+    # It can both select groups, change the default selection for groups, and
+    # change which groups are hidden.
+    def setGroupSelection(self, comps):
+	pass
 
-    def setHostname(self, hostname):
-	self.hostname = hostname
+    # this is a utility function designed to be called from setGroupSelection()
+    # it hides all of the groups not in the "groups" list
+    def showGroups(self, comps, groups):
+	groupSet = {}
 
-    def getHostname(self):
-	return self.hostname
-    
-    def setFirewall(self, enable = -1, policy = 1, trusts = [], ports = "",
-		    dhcp = 0, ssh = 0, telnet = 0, smtp = 0, http = 0,
-		    ftp = 0):
-	self.firewall = (enable, policy, trusts, ports, dhcp, ssh, telnet,
-			 smtp, http, ftp)
-    
-    def getFirewall(self):
-	return self.firewall
-    
-    def setAuthentication(self, useShadow, useMd5,
-                          useNIS = 0, nisDomain = "",  nisBroadcast = 0,
-                          nisServer = "",
-                          useLdap = 0, useLdapauth = 0, ldapServer = "",
-                          ldapBasedn = "",
-                          useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
-                          krb5Admin = "",
-                          useHesiod = 0, hesiodLhs = "", hesiodRhs = ""):
-        
-	self.auth = ( useShadow, useMd5,
-                      useNIS, nisDomain, nisBroadcast, nisServer,
-                      useLdap, useLdapauth, ldapServer, ldapBasedn,
-                      useKrb5, krb5Realm, krb5Kdc, krb5Admin,
-                      useHesiod, hesiodLhs, hesiodRhs)
+	for group in groups:
+	    if type(group) == type("a"):
+		groupSet[group] = None
+	    else:
+		(group, val) = group
+		groupSet[group] = val
+	    
+	for comp in comps:
+	    if groupSet.has_key(comp.name):
+		comp.hidden = 0
 
-    def getAuthentication(self):
-	return self.auth
-
-    def skipStep(self, step):
-	return self.skipSteps.has_key(step)
-
-    def configureX(self, server, card, monitor, hsync, vsync, noProbe, startX):
-	self.x = XF86Config(mouse = None)
-	if (not noProbe):
-	    self.x.probe()
-
-            if not self.x.server:
-                if (card != None):
-                    self.x.setVidcardByName (card)
-                elif (server != None):
-                    self.x.setVidcardByServer (server)
-                else:
-                    raise RuntimeError, "Could not probe video card and no fallback specified."
-                
-
-            if not self.x.monID and monitor:
-                self.x.setMonitor((monitor, (None, None)))
-            elif hsync and vsync:
-                self.x.setMonitor((None, (hsync, vsync)))
-
-            if startX:
-                self.defaultRunlevel = 5
-
-    # Groups is a list of group names -- the full list can be found in 
-    # ths comps file for each release
-    def setGroups(self, groups):
-	self.groups = groups
-
-    def getGroups(self):
-	return self.groups
-
-    # Groups is a list of group names -- the full list can be found in 
-    # ths comps file for each release
-    def setOptionalGroups(self, groups):
-	self.showgroups = groups
-
-    def getOptionalGroups(self):
-	return self.showgroups
-
-    def findOptionalGroup(self, needle):
-	for g in self.showgroups:
-	    name = g
-	    if type((1,)) == type(g):
-		(on, name) = g
-	    if name == needle:
-		return g
-
-	return None
-
-    # This is a list of packages -- it is combined with the group list
-    def setPackages(self, packages):
-        hash = {}
-        for package in packages:
-            hash[package] = None
-	self.packages = hash.keys()
-
-    def getPackages(self):
-	return self.packages
-
-    def doRootPw(self, pw, isCrypted = 0):
-	self.rootPassword = pw
-	self.rootPasswordCrypted = isCrypted
+		# do nothing if groupSet[comp.name] == None
+		if groupSet[comp.name] == 1:
+		    comp.select()
+		elif groupSet[comp.name] == 0:
+		    comp.unselect(0)
+	    else:
+		comp.hidden = 1
 
     def getMakeBootdisk(self):
 	return self.makeBootdisk
@@ -230,36 +187,11 @@ class BaseInstallClass:
     def setMakeBootdisk(self, state):
 	self.makeBootdisk = state 
 
-    def setNetwork(self, bootproto, ip, netmask, gateway, nameserver,
-		   device = None):
-	self.bootProto = bootproto
-	self.ip = ip
-	self.netmask = netmask
-	self.gateway = gateway
-	self.nameserver = nameserver
-	self.networkDevice = device
-
     def setZeroMbr(self, state):
 	self.zeroMbr = state
 
-    def getNetwork(self):
-	return (self.bootProto, self.ip, self.netmask, self.gateway, 
-		self.nameserver, self.networkDevice)
-
     def setEarlySwapOn(self, state = 0):
 	self.earlySwapOn = state
-
-    def setLanguage(self, lang):
-	self.language = lang
-
-    def setLanguageSupport(self, langlist):
-        self.langsupported = langlist
-
-    def setLanguageDefault(self, default):
-        self.langdefault = default
-
-    def setKeyboard(self, kb):
-	self.keyboard = kb
 
     def setDesktop(self, desktop):
         self.desktop = desktop
@@ -267,74 +199,222 @@ class BaseInstallClass:
     def getDesktop(self):
         return self.desktop
 
-    def __init__(self):
-	self.skipSteps = {}
-	self.hostname = None
-	self.lilo = ("mbr", 1, "")
-	self.groups = None
-	self.packages = None
-	self.makeBootdisk = 0
-	self.timezone = None
-	self.setFirewall()
-	self.setAuthentication(1, 1, 0)
-	self.rootPassword = None
-	self.rootPasswordCrypted = 0
-	self.installType = None
-	self.bootProto = None
-	self.ip = ""
-	self.networkDevice = None
-	self.netmask = ""
-	self.gateway = ""
-	self.nameserver = ""
-	self.partitions = []
-	self.clearParts = 0
-        self.clearType = None
-	self.clearText = None
-	self.clearPartText = None
-	self.zeroMbr = 0
-	self.language = None
-        self.langsupported = None
-        self.langdefault = None
-	self.keyboard = None
-	self.mouse = None
-	self.x = None
-	self.defaultRunlevel = None
-	self.postScript = None
-	self.postInChroot = 0
-	self.fstab = []
-	self.earlySwapOn = 0
-        self.desktop = ""
-	self.raidList = []
-        self.name = ""
-        self.pixmap = ""
-        self.showgroups = None
+    def setKeyboard(self, id, kb):
+	id.keyboard.set(kb)
 
-        if iutil.getArch () == "alpha":
-            self.addToSkipList("bootdisk")
-            self.addToSkipList("lilo")
-        elif iutil.getArch () == "ia64":
-            self.addToSkipList("bootdisk")
-            self.addToSkipList("lilo")
+	# XXX
+	#xkb = todo.keyboard.getXKB ()
+
+	#if xkb:
+	    #apply (todo.x.setKeyboard, xkb)
+
+	    ## hack - apply to instclass preset if present as well
+	    #if (todo.instClass.x):
+		#apply (todo.instClass.x.setKeyboard, xkb)
+
+    def setHostname(self, id, hostname):
+	id.network.setHostname(hostname);
+
+    def setTimezoneInfo(self, id, timezone, asUtc = 0, asArc = 0):
+	id.timezone.setTimezoneInfo(timezone, asUtc, asArc)
+
+    def setRootPassword(self, id, pw, isCrypted = 0):
+	id.rootPassword.set(pw, isCrypted)
+
+    def setAuthentication(self, id, useShadow, useMd5,
+                          useNIS = 0, nisDomain = "",  nisBroadcast = 0,
+                          nisServer = "",
+                          useLdap = 0, useLdapauth = 0, ldapServer = "",
+                          ldapBasedn = "",
+                          useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
+                          krb5Admin = "",
+                          useHesiod = 0, hesiodLhs = "", hesiodRhs = ""):
+
+        id.auth.useShadow = useShadow
+        id.auth.useMD5 = useMd5
+
+        id.auth.useNIS = useNIS
+        id.auth.nisDomain = nisDomain
+        id.auth.nisuseBroadcast = nisBroadcast
+        id.auth.nisServer = nisServer
+
+        id.auth.useLdap = useLdap
+        id.auth.useLdapauth = useLdapauth
+        id.auth.ldapServer = ldapServer
+        id.auth.ldapBasedn = ldapBasedn
+
+        id.auth.useKrb5 = useKrb5
+        id.auth.krb5Realm = krb5Realm
+        id.auth.krb5Kdc = krb5Kdc
+        id.auth.krb5Admin = krb5Admin
+
+        id.auth.useHesiod = useHesiod
+        id.auth.hesiodLhs = hesiodLhs
+        id.auth.hesiodRhs = hesiodRhs
+
+    def setNetwork(self, id, bootProto, ip, netmask, gateway, nameserver,
+		   device = None):
+	if bootProto:
+	    id.network.gateway = gateway
+	    id.network.primaryNS = nameserver
+
+	    devices = id.network.available ()
+	    if (devices and bootProto):
+		if not device:
+		    list = devices.keys ()
+		    list.sort()
+		    device = list[0]
+		dev = devices[device]
+                dev.set (("bootproto", bootProto))
+                dev.set (("onboot", "yes"))
+                if bootProto == "static":
+                    if (ip):
+                        dev.set (("ipaddr", ip))
+                    if (netmask):
+                        dev.set (("netmask", netmask))
+
+    def setLanguageSupport(self, id, langlist):
+	if len (langlist) == 0:
+	    id.langSupport.setSupported(id.langSupport.getAllSupported())
+	else:
+	    newlist = []
+	    for lang in langlist:
+		newlist.append(id.langSupport.getLangNameByNick(lang))
+	    id.langSupport.setSupported(newlist)
+
+    def setLanguageDefault(self, id, default):
+	id.langSupport.setDefault(id.langSupport.getLangNameByNick(default))
+
+    def setLanguage(self, id, lang):
+	instLangName = id.instLanguage.getLangNameByNick(lang)
+	id.instLanguage.setRuntimeLanguage(instLangName)
+
+    def setDesktop(self, id, desktop):
+	id.desktop.setDefaultDesktop (desktop)
+
+    def setFirewall(self, id, enable = -1, policy = 1, trusts = [], ports = "",
+		    dhcp = 0, ssh = 0, telnet = 0, smtp = 0, http = 0,
+		    ftp = 0):
+	id.firewall.enabled = enable
+	id.firewall.policy = policy
+	id.firewall.trustdevs = trusts
+	id.firewall.portlist = ports
+	id.firewall.dhcp = dhcp
+	id.firewall.ssh = ssh
+	id.firewall.telnet = telnet
+	id.firewall.smtp = smtp
+	id.firewall.http = http
+	id.firewall.ftp = ftp
+
+
+    def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
+        import videocard
+        import monitor
+
+        # XXX they could have sensitive hardware, but we need this info =\
+        videohw = videocard.VideoCardInfo()
+        if videohw:
+            id.setVideoCard(videohw)            
+            
+        if (not noProbe):
+            monitorhw = monitor.MonitorInfo()
+
+            if monitorhw:
+                id.setMonitor(monitorhw)
+
+        if id.videocard and not id.videocard.primaryCard().getXServer():
+            if (card != None):
+                vc = id.videocard.locateVidcardByName(card)
+            elif (server != None):
+                vc = id.videocard.locateVidcardByServer(server)
+            else:
+                raise RuntimeError, "Could not probe video card and no fallback specified"
+            id.videocard.setVidcard(vc)
+
+        if videoRam in id.videocard.possible_ram_sizes():
+            id.videocard.primaryCard().setVideoRam(videoRam)
+
+        if (id.monitor.getMonitorID() != "Unprobed monitor") and monitorName:
+            (model, eisa, vert, horiz) = id.monitor.lookupMonitor(monitorName)
+            id.monitor.setSpecs(horiz, vert, id=model, name=model)
+        elif hsync and vsync:
+            id.monitor.setSpecs(hsync, vsync)
+        else:
+            raise RuntimeError, "Could not probe monitor and no fallback specified"
+
+        if startX:
+            id.desktop.setDefaultRunLevel(5)
+        else:
+            id.desktop.setDefaultRunLevel(3)
+
+        import xf86config
+        xcfg = xf86config.XF86Config(id.videocard, id.monitor, id.mouse)
+
+        available = xcfg.availableModes()
+        
+        if resolution and depth:
+            if depth not in id.videocard.possible_depths():
+                raise RuntimeError, "Invalid depth specified"
+            # XXX should we fallback to our "best possible" here?
+            if resolution not in available[depth]:
+                raise RuntimeError, "Selected resolution and bitdepth not possible with video ram detected.  Perhaps you need to specify video ram"
+        else:
+            if len(available) == 1:
+                depth = "8"
+            elif len(available) >= 2:
+                depth = "16"
+
+            if "1024x768" in available[depth]:
+                resolution = "1024x768"
+            elif "800x600" in available[depth]:
+                resolution = "800x600" 
+            else:
+                resolution = "640x480"
+
+        xcfg.setManualModes( { depth: [ resolution ] } )
+        id.setXconfig(xcfg)
+
+
+    def setMouse(self, id, mouseType, device = None, emulThree = -1):
+        import mouse
+
+        # blindly trust what we're told
+        mouse = mouse.Mouse(skipProbe = 1)
+        mouseName = mouse.mouseToMouse()[mouseType]
+        mouse.set(mouseName, emulThree, device)
+        id.setMouse(mouse)
+    
+
+    def setInstallData(self, id):
+	id.reset()
+	id.instClass = self
+
+	# Classes should call these on __init__ to set up install data
+	#id.setKeyboard()
+	#id.setLanguage()
+	#id.setNetwork()
+	#id.setFirewall()
+	#id.setLanguageSupport()
+	#id.setLanguageDefault()
+	#id.setTimezone()
+	#id.setRootPassword()
+	#id.setAuthentication()
+	#id.setHostname()
+	#id.setDesktop()
+	#id.setMouse()
+
+	# These are callbacks used to let classes configure packages
+	#id.setPackageSelection()
+	#id.setGroupSelection()
+
+    def __init__(self, expert):
+	pass
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(BaseInstallClass):
 
     def __init__(self, expert):
-	BaseInstallClass.__init__(self)
-
-# reconfig machine w/o reinstall
-class ReconfigStation(BaseInstallClass):
-
-    def __init__(self, expert):
-	BaseInstallClass.__init__(self)
-	self.setHostname("localhost.localdomain")
-	self.addToSkipList("lilo")
-	self.addToSkipList("bootdisk")
-	self.addToSkipList("partition")
-	self.addToSkipList("package-selection")
-	self.addToSkipList("format")
-        self.addToSkipList("mouse")
-        self.addToSkipList("xconfig")
+	BaseInstallClass.__init__(self, expert)
 
 allClasses = []
 allClasses_hidden = []
@@ -371,6 +451,7 @@ def availableClasses(showHidden=0):
 	name = None
 	cmd = "import %s\nif %s.__dict__.has_key('InstallClass'): obj = %s.InstallClass\n" % (mainName, mainName, mainName)
 	exec(cmd)
+
 	if obj:
 	    if obj.__dict__.has_key('sortPriority'):
 		sortOrder = obj.sortPriority

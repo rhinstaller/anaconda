@@ -1,84 +1,94 @@
 import kudzu
 from simpleconfig import SimpleConfigFile
 import os
+from translate import _
 
 class Mouse (SimpleConfigFile):
     mice = {
-        # (gpm protocol, X protocol, emulate3)
+        # (gpm protocol, X protocol, device, emulate3, shortname)
 	"ALPS - GlidePoint (PS/2)" :
-		("ps/2", "GlidePointPS/2", "psaux", 1),
+		("ps/2", "GlidePointPS/2", "psaux", 1, "alpsps/2"),
 	"ASCII - MieMouse (serial)" :
-		("ms3", "IntelliMouse", "ttyS", 0),
+		("ms3", "IntelliMouse", "ttyS", 0, "ascii"),
 	"ASCII - MieMouse (PS/2)" : 
-		("ps/2", "NetMousePS/2", "psaux", 1),
+		("ps/2", "NetMousePS/2", "psaux", 1, "asciips/2"),
 	"ATI - Bus Mouse" :
-		("Busmouse", "BusMouse", "atibm", 1),
+		("Busmouse", "BusMouse", "atibm", 1, "atibm"),
 	"Generic - 2 Button Mouse (serial)" :
-		("Microsoft", "Microsoft", "ttyS", 1),
+		("Microsoft", "Microsoft", "ttyS", 1, "generic"),
 	"Generic - 3 Button Mouse (serial)" :
-		("Microsoft", "Microsoft", "ttyS", 0),
+		("Microsoft", "Microsoft", "ttyS", 0, "generic3"),
 	"Generic - 2 Button Mouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 1),
+		("ps/2", "PS/2", "psaux", 1, "generisps/2"),
 	"Generic - 3 Button Mouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 0),
+		("ps/2", "PS/2", "psaux", 0, "generic3ps/2"),
 	"Generic - 2 Button Mouse (USB)" :
-		("imps2", "IMPS/2", "input/mice", 1),
+		("imps2", "IMPS/2", "input/mice", 1, "genericusb"),
 	"Generic - 3 Button Mouse (USB)" :
-		("imps2", "IMPS/2", "input/mice", 0),
+		("imps2", "IMPS/2", "input/mice", 0, "generic3usb"),
 	"Genius - NetMouse (serial)" :
-	       ("ms3", "IntelliMouse", "ttyS", 1),
+	       ("ms3", "IntelliMouse", "ttyS", 1, "geniusnm"),
 	"Genius - NetMouse (PS/2)" :
-		("netmouse", "NetMousePS/2", "psaux", 1),
+		("netmouse", "NetMousePS/2", "psaux", 1, "geniusnmps/2"),
 	"Genius - NetMouse Pro (PS/2)" :
-		("netmouse", "NetMousePS/2", "psaux", 1),
+		("netmouse", "NetMousePS/2", "psaux", 1, "geniusprops/2"),
 	"Genius - NetScroll (PS/2)" :
-		("netmouse", "NetScrollPS/2", "psaux", 1),
+		("netmouse", "NetScrollPS/2", "psaux", 1, "geniusscrollps/2"),
 	"Kensington - Thinking Mouse (serial)" :
-		("Microsoft", "ThinkingMouse", "ttyS", 1),
+		("Microsoft", "ThinkingMouse", "ttyS", 1, "thinking"),
 	"Kensington - Thinking Mouse (PS/2)" :
-		("ps/2", "ThinkingMousePS/2", "psaux", 1),
+		("ps/2", "ThinkingMousePS/2", "psaux", 1, "thinkingps/2"),
 	"Logitech - C7 Mouse (serial, old C7 type)" :
-		("Logitech", "Logitech", "ttyS", 0),
+		("Logitech", "Logitech", "ttyS", 0, "logitech"),
 	"Logitech - CC Series (serial)" :
-		("logim", "MouseMan", "ttyS", 0),
+		("logim", "MouseMan", "ttyS", 0, "logitechcc"),
 	"Logitech - Bus Mouse" :
-		("Busmouse", "BusMouse", "logibm", 0),
+		("Busmouse", "BusMouse", "logibm", 0, "logibm"),
 	"Logitech - MouseMan/FirstMouse (serial)" :
-		("MouseMan", "MouseMan", "ttyS", 0),
+		("MouseMan", "MouseMan", "ttyS", 0, "logimman"),
 	"Logitech - MouseMan/FirstMouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 0),
+		("ps/2", "PS/2", "psaux", 0, "logimmanps/2"),
 	"Logitech - MouseMan+/FirstMouse+ (serial)" :
-		("pnp", "IntelliMouse", "ttyS", 0),
+		("pnp", "IntelliMouse", "ttyS", 0, "logimman+"),
 	"Logitech - MouseMan+/FirstMouse+ (PS/2)" :
-		("ps/2", "MouseManPlusPS/2", "psaux", 0),
+		("ps/2", "MouseManPlusPS/2", "psaux", 0, "logimman+ps/2"),
 	"Logitech - MouseMan Wheel (USB)" :
-		("ps/2", "IMPS/2", "input/mice", 0),
+		("ps/2", "IMPS/2", "input/mice", 0, "logimmusb"),
 	"Microsoft - Compatible Mouse (serial)" :
-		("Microsoft",    "Microsoft", "ttyS", 1),
+		("Microsoft",    "Microsoft", "ttyS", 1, "microsoft"),
 	"Microsoft - Rev 2.1A or higher (serial)" :
-		("pnp", "Auto", "ttyS", 1),
+		("pnp", "Auto", "ttyS", 1, "msnew"),
 	"Microsoft - IntelliMouse (serial)" :
-		("ms3", "IntelliMouse", "ttyS", 0),
+		("ms3", "IntelliMouse", "ttyS", 0, "msintelli"),
 	"Microsoft - IntelliMouse (PS/2)" :
-		("imps2", "IMPS/2", "psaux", 0),
+		("imps2", "IMPS/2", "psaux", 0, "msintellips/2"),
 
 	"Microsoft - IntelliMouse (USB)" :
-		("ps/2", "IMPS/2", "input/mice", 0),
+		("ps/2", "IMPS/2", "input/mice", 0, "msintelliusb"),
         
         
 	"Microsoft - Bus Mouse" :
-		("Busmouse", "BusMouse", "inportbm", 1),
+		("Busmouse", "BusMouse", "inportbm", 1, "msbm"),
 	"Mouse Systems - Mouse (serial)" :
-		("MouseSystems", "MouseSystems", "ttyS", 1), 
+		("MouseSystems", "MouseSystems", "ttyS", 1, "mousesystems"), 
 	"MM - Series (serial)" :
-		("MMSeries", "MMSeries", "ttyS", 1),
+		("MMSeries", "MMSeries", "ttyS", 1, "mmseries"),
 	"MM - HitTablet (serial)" :
-		("MMHitTab", "MMHittab", "ttyS", 1),
+		("MMHitTab", "MMHittab", "ttyS", 1, "mmhittab"),
         "None - None" :
-                ("none", "none", "null", 0),
+                ("none", "none", "null", 0, "none"),
 	"Sun - Mouse":
-		("sun", "sun", "sunmouse", 0),
+		("sun", "sun", "sunmouse", 0, "sun"),
 	}
+
+
+    def mouseToMouse(self):
+        types = {}
+        for mouse in self.mice.keys():
+            mouseType = self.mice[mouse][4]
+            types[mouseType] = mouse
+        return types
+        
 
     # XXX fixme - externalize
     def __init__ (self, skipProbe = 0):
@@ -94,6 +104,7 @@ class Mouse (SimpleConfigFile):
 	return self.wasProbed
 
     def probe (self, frob = 0):
+
         list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
                            kudzu.PROBE_ONE)
 
@@ -101,7 +112,7 @@ class Mouse (SimpleConfigFile):
             (device, module, desc) = list[0]
             
             if frob and device == 'psaux':
-            # kickstart some ps/2 mice.  Blame the kernel
+            # jumpstart some ps/2 mice.  Blame the kernel
                 try:
                     f = open ('/dev/psaux')
                     f.write ('1')
@@ -153,12 +164,17 @@ class Mouse (SimpleConfigFile):
     def getDevice(self):
 	return self.device
 
+    def shortDescription(self):
+        if self.info.has_key("FULLNAME"):
+            return self.info["FULLNAME"]
+        else:
+            return _("Unable to probe")
+
     def setDevice(self, device):
 	self.device = device
 
     def set (self, mouse, emulateThreeButtons = -1, thedev = None):
-
-        (gpm, x11, dev, em) = self.mice[mouse]
+        (gpm, x11, dev, em, shortname) = self.mice[mouse]
         self.info["MOUSETYPE"] = gpm
         self.info["XMOUSETYPE"] = x11
         self.info["FULLNAME"] = mouse
@@ -196,3 +212,31 @@ class Mouse (SimpleConfigFile):
             pass
         except TypeError:
             pass
+
+    def write(self, instPath):
+	f = open(instPath + "/etc/sysconfig/mouse", "w")
+	f.write(str (self))
+	f.close()
+	self.makeLink(instPath)
+
+
+    def writeKS(self, f):
+        f.write("mouse")
+
+        for arg in self.getArgList():
+            f.write(" " + arg)
+        f.write("\n")
+
+
+    def getArgList(self):
+        args = []
+
+        if self.info["FULLNAME"]:
+            mouseName = self.info["FULLNAME"]
+            args.append(self.mice[mouseName][4])
+        if self.device:
+            args.append("--device %s" %(self.device))
+        if self.emulate:
+            args.append("--emulthree")
+        
+        return args

@@ -7,27 +7,27 @@ from cPickle import Pickler
 from translate import _
 import iutil
 
-def handleException(todo, (type, value, tb)):
+def handleException( id, intf, (type, value, tb)):
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
-    rc = todo.intf.exceptionWindow (_("Exception Occurred"), text)
+    rc = intf.exceptionWindow (_("Exception Occurred"), text)
     if rc == 1:
-	todo.intf.__del__ ()
+	intf.__del__ ()
         print text
         import pdb
         pdb.post_mortem (tb)
         os.kill(os.getpid(), signal.SIGKILL)
     elif not rc:
-	todo.intf.__del__ ()
+	intf.__del__ ()
         os.kill(os.getpid(), signal.SIGKILL)
             
     while 1:
-	rc = todo.intf.dumpWindow()
+	rc = intf.dumpWindow()
 	if rc:
-	    todo.intf.__del__ ()
+	    intf.__del__ ()
             os.kill(os.getpid(), signal.SIGKILL)
 
-	device = todo.fdDevice
+	device = iutil.getFloppyDevice()
 	file = "/tmp/floppy"
         try:
             isys.makeDevInode(device, file)
@@ -72,16 +72,17 @@ def handleException(todo, (type, value, tb)):
             out.write ("%s: %s\n" % (key, value))
 
 	out.write("\nToDo object:\n")
-        intf = todo.intf
-	todo.intf = None
-	todo.fstab = None
-	todo.comps = None
-	todo.hdList = None
-        todo.rootpassword = None
-        todo.users = None
+
+	# these have C objects in them which can't dump
+	id.hdList = None
+	id.comps = None
+
+	# we don't need to know passwords
+        id.rootPassword = None
+        id.accounts = None
 
 	try:
-	    p.dump(todo)
+	    p.dump(id)
 	except:
 	    out.write("\n<failed>\n")
 

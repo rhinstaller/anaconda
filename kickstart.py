@@ -2,8 +2,8 @@ import iutil
 import isys
 import os
 from installclass import BaseInstallClass
-from installclass import FSEDIT_CLEAR_LINUX
-from installclass import FSEDIT_CLEAR_ALL
+from partitioning import *
+from autopart import doPartitioning
 import sys
 import string
 
@@ -67,7 +67,7 @@ class KickstartBase(BaseInstallClass):
 	for script in self.postScripts:
 	    script.run(rootPath, serial)
 
-    def doRootPw(self, args):
+    def doRootPw(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'iscrypted' ])
 
 	isCrypted = 0
@@ -79,10 +79,10 @@ class KickstartBase(BaseInstallClass):
 	if len(extra) != 1:
 	    raise ValueError, "a single argument is expected to rootPw"
 
-	BaseInstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
-	self.addToSkipList("accounts")
+	self.setRootPassword(id, extra[0], isCrypted = isCrypted)
+	self.skipSteps.append("accounts")
 	
-    def doFirewall(self, args):
+    def doFirewall(self, id, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp',
 		  'port=', 'high', 'medium', 'disabled', 'trust=' ])
@@ -128,12 +128,12 @@ class KickstartBase(BaseInstallClass):
 		else:
 		    ports = arg
 	    
-	self.setFirewall(enable, policy, trusts, ports, dhcp, ssh, telnet,
+	self.setFirewall(id, enable, policy, trusts, ports, dhcp, ssh, telnet,
 			smtp, http, ftp)
 	    
-    def doAuthconfig(self, args):
+    def doAuthconfig(self, id, args):
 	(args, extra) = isys.getopt(args, '',
-                [ 'useshadow',
+                [ 'useshadow', 'enableshadow',
 		  'enablemd5',
                   'enablenis', 'nisdomain=', 'nisserver=',
                   'enableldap', 'enableldapauth', 'ldapserver=', 'ldapbasedn=',
@@ -167,7 +167,7 @@ class KickstartBase(BaseInstallClass):
 	    (str, arg) = n
 	    if (str == '--enablenis'):
 		useNis = 1
-	    elif (str == '--useshadow'):
+	    elif (str == '--useshadow') or (str == '--enableshadow'):
 		useShadow = 1
 	    elif (str == '--enablemd5'):
 		useMd5 = 1
@@ -200,13 +200,13 @@ class KickstartBase(BaseInstallClass):
 
 	if useNis and not nisServer: nisBroadcast = 1
 	    
-	self.setAuthentication(useShadow, useMd5,
+	self.setAuthentication(id, useShadow, useMd5,
                                useNis, nisDomain, nisBroadcast, nisServer,
                                useLdap, useLdapauth, ldapServer, ldapBasedn,
                                useKrb5, krb5Realm, krb5Kdc, krb5Admin,
                                useHesiod, hesiodLhs, hesiodRhs )
         
-	self.addToSkipList("authentication")
+	self.skipSteps.append("authentication")
 
     def doLilo	(self, args):
 	(args, extra) = isys.getopt(args, '',
@@ -248,7 +248,7 @@ class KickstartBase(BaseInstallClass):
 	if block[6:10] == "LILO":
 	    sys.exit(0)
 
-    def doTimezone(self, args):
+    def doTimezone(self, id, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'utc' ])
 
@@ -259,14 +259,16 @@ class KickstartBase(BaseInstallClass):
 	    if str == '--utc':
 		isUtc = 1
 
-	self.setTimezoneInfo(extra[0], asUtc = isUtc)
+	self.setTimezoneInfo(id, extra[0], asUtc = isUtc)
 
-	self.addToSkipList("timezone")
+	self.skipSteps.append("timezone")
 
 
-    def doXconfig(self, args):
+    def doXconfig(self, id, args):
 	(args, extra) = isys.getopt(args, '',
-		[ 'server=', 'card=', 'monitor=', 'hsync=', 'vsync=',
+		[ 'server=', 'card=', 'videoram=',
+                  'monitor=', 'hsync=', 'vsync=',
+                  'resolution=', 'depth=', 
 		  'startxonboot', 'noprobe', 'defaultdesktop=' ])
 
 	if extra:
@@ -274,13 +276,17 @@ class KickstartBase(BaseInstallClass):
 
 	server = None
 	card = None
+        videoRam = None
 	monitor = None
 	hsync = None
 	vsync = None
+        resolution = None
+        depth = None
         noProbe = 0
 	startX = 0
         defaultdesktop = ""
 
+        # XXX make sure new xconfig args get documented
 	for n in args:
 	    (str, arg) = n
 	    if (str == "--noprobe"):
@@ -289,30 +295,42 @@ class KickstartBase(BaseInstallClass):
 		server = arg
 	    elif (str == "--card"):
 		card = arg
+            elif (str == "--videoram"):
+                videoRam = arg
 	    elif (str == "--monitor"):
 		monitor = arg
 	    elif (str == "--hsync"):
 		hsync = arg
 	    elif (str == "--vsync"):
 		vsync = arg
+            elif (str == "--resolution"):
+                resolution = arg
+            elif (str == "--depth"):
+                depth = arg
 	    elif (str == "--startxonboot"):
 		startX = 1
             elif (str == "--defaultdesktop"):
                 defaultdesktop = arg
 
-	self.configureX(server, card, monitor, hsync, vsync, noProbe,
-		        startX)
-        self.setDesktop(defaultdesktop)
-        
-	self.addToSkipList("xconfig")
+	self.configureX(id, server, card, videoRam, monitor, hsync, vsync,
+                        resolution, depth, noProbe, startX)
+        self.setDesktop(id, defaultdesktop)
 
-    def doInstall(self, args):
-	self.installType = "install"
+        self.skipSteps.append("videocard")
+        self.skipSteps.append("monitor")
+        self.skipSteps.append("xcustom")
+        self.skipSteps.append("handleX11pkgs")
 
-    def doUpgrade(self, args):
+
+    def doUpgrade(self, id, args):
+	#
+	# XXX
+	#
+	# this won't work. it needs to much with the set of install steps
+	#
 	self.installType = "upgrade"
 
-    def doNetwork(self, args):
+    def doNetwork(self, id, args):
 	# nodns is only used by the loader
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
@@ -341,66 +359,32 @@ class KickstartBase(BaseInstallClass):
 	    elif str == "--hostname":
 		hostname = arg
 
-	self.setNetwork(bootProto, ip, netmask, gateway, nameserver, device=device)
+	self.setNetwork(id, bootProto, ip, netmask, gateway, nameserver, device=device)
 	if hostname != "":
 	    self.setHostname(hostname)
 
-    def doLang(self, args):
-        self.setLanguage(args[0])
-        self.addToSkipList("language")
-        # XXX remove these two when langsupport is documented
-        self.addToSkipList("languagesupport")
-        self.addToSkipList("languagedefault")
+    def doLang(self, id, args):
+        self.setLanguage(id, args[0])
+	self.skipSteps.append("language")
 
-    def doLangSupport (self, args):
+    def doLangSupport (self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'default=' ])
         if args:
-            self.addToSkipList("languagedefault")
-            self.setLanguageDefault (args[0][1])
-        self.addToSkipList("languagesupport")
-        self.setLanguageSupport(extra)
+            self.setLanguageDefault (id, args[0][1])
+        self.setLanguageSupport(id, extra)
 
-    def doKeyboard(self, args):
-        self.setKeyboard(args[0])
-        self.addToSkipList("keyboard")
+        # XXX make sure langsupport command gets documented
+        self.skipSteps.append("languagesupport")
+
+    def doKeyboard(self, id, args):
+        self.setKeyboard(id, args[0])
+	self.skipSteps.append("keyboard")
 
     def doZeroMbr(self, args):
 	if args[0] == "yes":
 	    self.setZeroMbr(1)
 
-    def doMouse(self, args):
-	mouseToMouse = {
-	     "alpsps/2" : "ALPS - GlidePoint (PS/2)",
-	     "ascii" : "ASCII - MieMouse (serial)",
-	     "asciips/2" : "ASCII - MieMouse (PS/2)",
-	     "atibm" : "ATI - Bus Mouse",
-	     "generic" : "Generic - 2 Button Mouse (serial)" ,
-	     "generic3" : "Generic - 3 Button Mouse (serial)" ,
-	     "genericps/2" : "Generic - 2 Button Mouse (PS/2)" ,
-	     "generic3ps/2" : "Generic - 3 Button Mouse (PS/2)" ,
-	     "geniusnm" : "Generic - 2 Button Mouse (PS/2)" ,
-	     "geniusnmps/2" : "Genius - NetMouse (PS/2)" ,
-	     "geniusnsps/2" : "Genius - NetScroll (PS/2)" ,
-	     "thinking" : "" ,
-	     "thinkingps/2" : "" ,
-	     "logitech" : "Logitech - C7 Mouse (serial, old C7 type)" ,
-	     "logitechcc" : "Logitech - CC Series (serial)" ,
-	     "logibm" : "Logitech - Bus Mouse" ,
-	     "logimman" : "Logitech - MouseMan/FirstMouse (serial)" ,
-	     "logimmanps/2" : "Logitech - MouseMan/FirstMouse (PS/2)" ,
-	     "logimman+" : "Logitech - MouseMan+/FirstMouse+ (serial)" ,
-	     "logimman+ps/2" : "Logitech - MouseMan+/FirstMouse+ (PS/2)" ,
-	     "microsoft" : "Microsoft - Compatible Mouse (serial)" ,
-	     "msnew" : "Microsoft - Rev 2.1A or higher (serial)" ,
-	     "msintelli" : "Microsoft - IntelliMouse (serial)" ,
-	     "msintellips/2" : "Microsoft - IntelliMouse (PS/2)" ,
-	     "msbm" : "Microsoft - Bus Mouse" ,
-	     "mousesystems" : "Mouse Systems - Mouse (serial)" ,
-	     "mmseries" : "MM - Series (serial)" ,
-	     "mmhittab" : "MM - HitTablet (serial)" ,
-	     "sun" : "Sun - Mouse"
-	}
-
+    def doMouse(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree' ])
         mouseType = "none"
 	device = None
@@ -417,17 +401,21 @@ class KickstartBase(BaseInstallClass):
 	    mouseType = extra[0]
 
 	if mouseType != "none":
-	    self.setMouseType(mouseToMouse[mouseType], device, emulThree)
+            self.setMouse(id, mouseType, device, emulThree)
 
-        self.addToSkipList("mouse")
+        self.skipSteps.append("mouse")
 
     def doReboot(self, args):
         self.addToSkipList("complete")
 
-    def doSkipX(self, args):
-        self.addToSkipList("xconfig")
+    def doSkipX(self, id, args):
+        self.skipSteps.append("videocard")
+        self.skipSteps.append("monitor")
+        self.skipSteps.append("xcustom")
+        self.skipSteps.append("handleX11pkgs")
+        self.skipSteps.append("writexconfig")
 
-    def readKickstart(self, file):
+    def readKickstart(self, id, file):
 	handlers = { 
 		     "auth"		: self.doAuthconfig	,
 		     "authconfig"	: self.doAuthconfig	,
@@ -438,7 +426,7 @@ class KickstartBase(BaseInstallClass):
 		     "driverdisk"	: None			,
 		     "firewall"		: self.doFirewall	,
 		     "harddrive"	: None			,
-		     "install"		: self.doInstall	,
+		     "install"		: None          	,
 		     "keyboard"		: self.doKeyboard	,
 		     "lang"		: self.doLang		,
                      "langsupport"	: self.doLangSupport	,
@@ -465,8 +453,9 @@ class KickstartBase(BaseInstallClass):
 	where = "commands"
 	packages = []
 	groups = []
-	newSection = None
+        excludedPackages = []
 	for n in open(file).readlines():
+            print n
 	    args = isys.parseArgv(n)
 
 	    # don't eliminate white space or comments from scripts
@@ -520,28 +509,45 @@ class KickstartBase(BaseInstallClass):
 			n = n[1:]
                         n = string.strip (n)
 			groups.append(n)
+                    elif n[0] == '-':
+                        n = n[1:]
+                        n = string.strip(n)
+                        excludedPackages.append(n)
 		    else:
                         n = string.strip (n)
 			packages.append(n)
 		elif where == "commands":
 		    if handlers[args[0]]:
-			handlers[args[0]](args[1:])
+			handlers[args[0]](id, args[1:])
 		elif where == "pre" or where == "post":
 		    script = script + n
 		else:
 		    raise SyntaxError, "I'm lost in kickstart"
 
-	self.setGroups(groups)
-	self.setPackages(packages)
+	self.groupList = groups
+	self.packageList = packages
+        self.excludedList = excludedPackages
+
+        # XXX actual partitioning processing should happen after %pre
+        doPartitioning(id.diskset, id.partrequests)
+        for request in id.partrequests.requests:
+            # XXX improve sanity checking
+            if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
+                continue
+            entry = request.toEntry()
+            id.fsset.add (entry)        
 
         # test to see if they specified to clear partitions and also
         # tried to --onpart on a logical partition
-        if iutil.getArch() == 'i386' and self.fstab:
-            clear = self.getClearParts()
-            if clear == FSEDIT_CLEAR_LINUX or clear == FSEDIT_CLEAR_ALL:
-		for (mntpoint, (dev, fstype, reformat)) in self.fstab:
-		    if int(dev[-1:]) > 4:
-			raise RuntimeError, "Clearpart and --onpart on non-primary partition %s not allowed" % dev
+	#
+	# XXX
+	#
+        #if iutil.getArch() == 'i386' and self.fstab:
+            #clear = self.getClearParts()
+            #if clear == FSEDIT_CLEAR_LINUX or clear == FSEDIT_CLEAR_ALL:
+		#for (mntpoint, (dev, fstype, reformat)) in self.fstab:
+		    #if int(dev[-1:]) > 4:
+			#raise RuntimeError, "Clearpart and --onpart on non-primary partition %s not allowed" % dev
                 
 	if where =="pre" or where == "post":
 	    s = Script(script, scriptInterp, scriptChroot)
@@ -550,12 +556,29 @@ class KickstartBase(BaseInstallClass):
 	    else:
 		self.postScripts.append(s)
 
-    def doClearPart(self, args):
-	if args[0] == '--linux':
-	    clear = FSEDIT_CLEAR_LINUX
-	elif args[0] == '--all':
-	    clear = FSEDIT_CLEAR_ALL
-	self.setClearParts(clear)
+    def doClearPart(self, id, args):
+        if args[0] == '--linux':
+            linuxOnly = 1
+        elif args[0] == '--all':
+            linuxOnly = 0
+        else:
+            # XXX invalid clearpart arguments
+            return
+        drives = id.diskset.disks.keys()
+        drives.sort()
+        for drive in drives:
+            disk = id.diskset.disks[drive]
+            part = disk.next_partition()
+            while part:
+                if part.fs_type and ( (linuxOnly == 0) or (part.fs_type.isLinuxNativeFS()) ):
+                    old = id.partrequests.getRequestByDeviceName(get_partition_name(part))
+                    id.partrequests.removeRequest(old)
+                    
+                    drive = part.geom.disk.dev.path[5:]
+                    delete = DeleteSpec(drive, part.geom.start, part.geom.end)
+                    id.partrequests.addDelete(delete)
+                part = disk.next_partition(part)
+
 
     def defineRaid(self, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=' ] )
@@ -572,27 +595,27 @@ class KickstartBase(BaseInstallClass):
 
 	self.addRaidEntry(mntPoint, raidDev, level, extra)
 
-    def definePartition(self, args):
-	# we just set up the desired partitions -- magic in our base class 
-	# does the actual partitioning (no, you don't want to know the 
-	# details)
-	size = 0
-	grow = 0
-	maxSize = -1
+    def definePartition(self, id, args):
+	# we set up partition requests (whee!)
+	size = None
+	grow = None
+	maxSize = None
 	device = None
 	onPart = None
         fsopts = None
-        type = 0
-        partNum = 0
-        primOnly = 0
-        active = 0
+        type = None
+        partNum = None
+        primOnly = None
+        active = None
         format = 1
+        fstype = None
+        mountpoint = None
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
                                         'onprimary=', 'active', 'type=',
-                                        'asprimary', 'noformat'])
+                                        'fstype=', 'asprimary', 'noformat'])
 
 	for n in args:
 	    (str, arg) = n
@@ -618,46 +641,98 @@ class KickstartBase(BaseInstallClass):
                 primOnly = 1
             elif str == "--noformat":
                 format = 0
+            elif str == "--fstype":
+                fstype = arg
 
 	if len(extra) != 1:
 	    raise ValueError, "partition command requires one anonymous argument"
 
-	if onPart:
-           if extra[0] == 'swap':
-               # handle swap filesystems correctly 
-               self.addToFstab(extra[0], onPart, 'swap',1)
-           else:
-               if format == 0:
-                   self.addToFstab(extra[0], onPart, reformat = 0)
-               else:
-                   self.addToFstab(extra[0], onPart, 'ext2', 1)
-	else:
-	    self.addNewPartition(extra[0], (size, maxSize, grow), (device, partNum, primOnly), (type, active), fsopts)
+        if extra[0] == 'swap':
+            filesystem = fileSystemTypeGet('swap')
+            mountpoint = None
+        elif not fstype:
+            filesystem = fileSystemTypeGetDefault()
+            mountpoint = extra[0]
+        else:
+            filesystem = fileSystemTypeGet(fstype)
+            mountpoint = extra[0]            
 
-    def __init__(self, file, serial):
-	BaseInstallClass.__init__(self)
-	self.addToSkipList("bootdisk")
-        self.addToSkipList("welcome")
-        self.addToSkipList("package-selection")
-        self.addToSkipList("confirm-install")
-        self.addToSkipList("confirm-upgrade")
-        self.addToSkipList("custom-upgrade")
-        self.addToSkipList("network")
+        if not size:
+            raise ValueError, "temporarily requiring a size to be specified"
+
+        request = PartitionSpec(filesystem, size = size, mountpoint = mountpoint, format=1)
+        id.partrequests.addRequest(request)
+
+        self.skipSteps.append("partition")
+
+## 	if onPart:
+##            if extra[0] == 'swap':
+##                # handle swap filesystems correctly 
+##                self.addToFstab(extra[0], onPart, 'swap',1)
+##            else:
+##                if format == 0:
+##                    self.addToFstab(extra[0], onPart, reformat = 0)
+##                else:
+##                    self.addToFstab(extra[0], onPart, 'ext2', 1)
+## 	else:
+## 	    self.addNewPartition(extra[0], (size, maxSize, grow), (device, partNum, primOnly), (type, active), fsopts)
+
+    def setSteps(self, dispatch):
+	BaseInstallClass.setSteps(self, dispatch)
+
+	dispatch.skipStep("bootdisk")
+        dispatch.skipStep("welcome")
+        dispatch.skipStep("package-selection")
+        dispatch.skipStep("confirminstall")
+        dispatch.skipStep("confirmupgrade")
+        dispatch.skipStep("network")
+        dispatch.skipStep("installtype")
+
         # skipping firewall by default, disabled by default
-	self.addToSkipList("firewall")
-        # skip interactive warning about placing boot partition > 1024 cyl
-	self.addToSkipList("lba32warning")
-        
+	dispatch.skipStep("firewall")
+
+	for n in self.skipSteps:
+	    dispatch.skipStep(n)
+
+    def setInstallData(self, id):
+	BaseInstallClass.setInstallData(self, id)
+
 	self.setEarlySwapOn(1)
 	self.partitions = []
 	self.postScripts = []
 	self.preScripts = []
 
 	self.installType = "install"
-	self.readKickstart(file)
+	self.readKickstart(id, self.file)
 
 	for script in self.preScripts:
 	    script.run("/", serial)
+
+    # Note that this assumes setGroupSelection() is called after
+    # setPackageSelection()
+    def setPackageSelection(self, hdlist):
+	for pkg in hdlist.keys():
+	    hdlist[pkg].setState((0, 0))
+
+	for n in self.packageList:
+	    hdlist[n].select()
+
+    def setGroupSelection(self, comps):
+	for comp in comps:
+	    comp.unselect()
+
+	comps['Base'].select()
+	for n in self.groupList:
+	    comps[n].select()
+
+        for n in self.excludedList:
+            comps.packages[n].unselect()
+
+    def __init__(self, file, serial):
+	self.serial = serial
+	self.file = file
+	self.skipSteps = []
+	BaseInstallClass.__init__(self, 0)
 
 def Kickstart(file, serial):
 
@@ -665,7 +740,6 @@ def Kickstart(file, serial):
     lines = f.readlines()
     f.close()
 
-    customClass = None
     passedLines = []
     while lines:
 	l = lines[0]

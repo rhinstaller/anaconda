@@ -9,8 +9,6 @@ import rpm
 import string
 from translate import _, cat, N_
 
-import todo
-
 FILENAME = 1000000
 
 # Install from a set of files laid out on the hard drive like a CD

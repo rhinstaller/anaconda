@@ -2,9 +2,7 @@ import upgrade
 from snack import *
 from text import WaitWindow, OkCancelWindow
 from translate import _
-import _balkan
 import sys
-import raid
 import os
 from log import log
 import isys
@@ -26,11 +24,12 @@ class RescueInterface:
 
 def runRescue(url, serial, mountroot):
 
-    from fstab import NewtFstab
+#
+# XXX - disabling mounting of existing installations
+#
+#    from fstab import NewtFstab
 
     fstab = None
-
-    log.open (serial, 0, 0, 1)
 
     for file in [ "services", "protocols", "group" ]:
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
@@ -38,13 +37,16 @@ def runRescue(url, serial, mountroot):
     if (not mountroot):
 	os.execv("/bin/sh", [ "-/bin/sh" ])
 
-    try:
-	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
-			  requireBlockDevices = 0)
-    except SystemError, text:
-	print _("WARNING: no valid block devices were found.\n")
-    except:
-	print _("ERROR: unknown error encountered reading partition tables.\n")
+#
+# XXX - disabling mounting of existing installations
+#
+#    try:
+#	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
+#			  requireBlockDevices = 0)
+#    except SystemError, text:
+#	print _("WARNING: no valid block devices were found.\n")
+#    except:
+#	print _("ERROR: unknown error encountered reading partition tables.\n")
 	
     if not fstab:
 	os.execv("/bin/sh", [ "-/bin/sh" ])

@@ -46,6 +46,13 @@ clean:
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; [ $$? = 0 ] || exit 1; done
 
+# this rule is a hack
+install-python:
+	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
+	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
+	install -m 755 anaconda $(DESTDIR)/usr/bin/anaconda
+	for d in installclasses isys iw textw; do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
+
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
 		echo " "; \
@@ -89,6 +96,7 @@ create-snapshot:
 	echo "*** Pulling off $$tag!"; \
 	cd /tmp ; cvs -Q -d $(CVSROOT) export -r $$tag anaconda || echo "Um... export aborted."
 	@cd /tmp/anaconda ; rm isys/modutils/modutils.spec
+	@cd /tmp/anaconda ; rm pycheckrc-for-anaconda
 	@cd /tmp/anaconda ; rm -rf comps
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
@@ -101,3 +109,6 @@ create-snapshot:
 
 create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
+
+pycheck:
+	PYTHONPATH=edd:isys:balkan:textw:iw pychecker *.py textw/*.py gui/*.py  | grep -v "__init__() not called" 

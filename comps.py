@@ -1,4 +1,3 @@
-import sys
 import rpm
 import os
 from string import *
@@ -8,6 +7,7 @@ from translate import _
 from translate import N_
 from log import log
 import time
+import string
 
 ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'XFree86-AGX' : None, 	'XFree86-I128' : None,
@@ -30,13 +30,16 @@ ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
 #
 # Else:
 #
-# Each package contains a list of selection chains. Each chain consists
-# of a set of components. If all of the components in any chain are selected,
-# the package is selected.
+# Each package contains a list of components that include it.  Each
+# registered component is checked to see if it and all its parent
+# components are on (this is done by recursive checking of 
+# parent.isSelected()).  Some subcomps are keyed on the state of
+# another toplevel component.  If a component, all of its ancestors,
+# and conditional components are selected, the package is selected.
+# Otherwise it is not.
 #
-# Otherwise, the package is not selected.
 
-CHECK_CHAIN	= 0
+CHECK_COMPS	= 0
 FORCE_SELECT	= 1
 FORCE_UNSELECT	= 2
 
@@ -58,24 +61,41 @@ class Package:
     def isSelected(self):
 	return self.selected
 
+    def wasForcedOff(self):
+        if self.state == FORCE_UNSELECT and not self.selected:
+            return 1
+        else:
+            return 0
+
     def updateSelectionCache(self):
 	if self.state == FORCE_SELECT or self.state == FORCE_UNSELECT:
 	    return
 
 	self.selected = 0
-	for chain in self.chains:
+	for comp in self.comps:
 	    on = 1
-	    for comp in chain:
-		if not comp.isSelected(justManual = 0):
-		    on = 0
-                else:
-                    if comp.pkgDict[self] != None:
-                        on = 0
-                        for expr in comp.pkgDict[self]:
-                            if comp.set.exprMatch (expr):
+            # if this component is selected for any reason at all,
+            # the package is not selected.
+            if not comp.isSelected(justManual = 0):
+                on = 0
+            else:
+                # if the component is on, check to see if this package
+                # was listed with an expression conditional in the comps
+                # file.  If it did, we'll find a list of expressions
+                # in the component's package dictionary.  If any of them
+                # evaluates to be true, the package is selected.
+                if comp.pkgDict[self] != None:
+                    on = 0
+                    for expr in comp.pkgDict[self]:
+                        if comp.set.exprMatch (expr):
                                 on = 1
-	    if on: 
-		self.selected = 1
+                                # one is sufficient
+                                break
+            if on:
+                self.selected = 1
+                # one component is sufficient in the "package is selected"
+                # case, stop looking to save time.
+                break
 
     def getState(self):
 	return (self.state, self.selected)
@@ -83,14 +103,14 @@ class Package:
     def setState(self, state):
 	(self.state, self.selected) = state
 
-    def addSelectionChain(self, chain):
-	self.chains.append(chain)
+    def registerComponent(self, comp):
+	self.comps.append(comp)
 
     def __init__(self, header):
 	self.h = header
-	self.chains = []
+	self.comps = []
 	self.selected = 0
-	self.state = CHECK_CHAIN
+	self.state = CHECK_COMPS
 	self.name = header[rpm.RPMTAG_NAME]
 	self.size = header[rpm.RPMTAG_SIZE]
 
@@ -177,8 +197,8 @@ class HeaderListFD (HeaderList):
 # being selected. Selection and deselection recurses through included 
 # components.
 #
-# When the component file is parsed, the selection chain rules for the
-# packages are built up. Component selection is used by the packages to
+# When the component file is parsed, the comp lists that include each
+# package are built up. Component selection is used by the packages to
 # determine whether or not they are selected.
 #
 # The selection state consists of a manually selected flag and an included
@@ -188,38 +208,59 @@ class Component:
     def __len__(self):
 	return len(self.pkgs)
 
-    def __getitem__(self, key):
-	return self.pkgs[key]
-
     def __repr__(self):
 	return "comp %s" % (self.name)
 
-    def __keys__(self):
-	return self.pkgs.keys()
+    def packages(self):
+	return self.pkgs
 
     def includesPackage(self, pkg):
-	return self.pkgDict.has_key(pkg)
+        if not self.pkgDict.has_key(pkg):
+            return 0
+        if self.pkgDict[pkg] == None:
+            return 1
+        # if this package is the component with a condition,
+        # check to see if the condition is met before saying that
+        # the package is included in this component
+        for expr in self.pkgDict[pkg]:
+            if self.set.exprMatch (expr):
+                return 1
+        return 0
 
-    def select(self, forInclude = 0):
+    def select(self, forInclude = 0, toplevel = 1):
 	if forInclude:
-	    self.selectionCount = self.selectionCount + 1
+            self.selectionCount = self.selectionCount + 1
 	else:
 	    self.manuallySelected = 1
 
-	for pkg in self.pkgs:
-            pkg.updateSelectionCache()
+	for name in self.includes:
+            if not self.set.has_key(name):
+                log ("warning, unknown toplevel component %s "
+                     "included by component %s", name, self.name)
+            self.set[name].select(forInclude = 1, toplevel = 0)
 
-	for comp in self.includes:
-	    comp.select(forInclude = 1)
+        if toplevel:
+            self.set.updateSelections()
 
     def isSelected(self, justManual = 0):
+        if self.conditionalKey:
+            if not self.set.has_key(self.conditionalKey):
+                log ("warning, unknown conditional trigger %s wanted by %s",
+                     self.conditionalKey, self.name)
+                return 0
+            else:
+                if (self.set[self.conditionalKey].isSelected()
+                    and self.parent.isSelected()):
+                    return 1
+                return 0
+
 	# don't admit to selection-by-inclusion
 	if justManual:
 	    return self.manuallySelected
 
 	return self.manuallySelected or (self.selectionCount > 0)
 
-    def unselect(self, forInclude = 0):
+    def unselect(self, forInclude = 0, toplevel = 1):
 	if forInclude:
 	    self.selectionCount = self.selectionCount - 1
 	    if self.selectionCount < 0:
@@ -227,35 +268,33 @@ class Component:
 	else:
 	    self.manuallySelected = 0
 
-	for pkg in self.pkgs:
-	    pkg.updateSelectionCache()
+	for name in self.includes:
+            if not self.set.has_key(name):
+                log ("warning, unknown toplevel component %s "
+                     "included by component %s", name, self.name)
+            self.set[name].unselect(forInclude = 1, toplevel = 0)
 
-	for comp in self.includes:
-	    comp.unselect(forInclude = 1)
+        if toplevel:
+            self.set.updateSelections()
 
     def addInclude(self, comp):
 	self.includes.append(comp)
 
     def addPackage(self, p):
 	self.pkgs.append(p)
-	p.addSelectionChain([self])
+	p.registerComponent(self)
 	self.pkgDict[p] = None
 
     def addPackageWithExpression(self, expr, p):
         if not self.pkgDict.has_key (p):
             self.pkgDict[p] = [ expr ]
             self.pkgs.append(p)
-            p.addSelectionChain([self])
+            p.registerComponent(self)
         else:
             if type (self.pkgDict[p]) == type ([]):
                 self.pkgDict[p].append (expr)
             else:
                 self.pkgDict[p] = [ expr ]
-
-    def addConditionalPackage(self, condComponent, p):
-	self.pkgs.append(p)
-	p.addSelectionChain([self, condComponent])
-	self.pkgDict[p] = None
 
     def setDefault(self, default):
         self.default = default
@@ -270,11 +309,14 @@ class Component:
     def setState(self, state):
 	(self.manuallySelected, self.selectionCount) = state
 
-    def __init__(self, set, name, selected, hidden = 0):
+    def __init__(self, set, name, selected, hidden = 0, conditionalKey = "",
+                 parent=None):
         self.set = set
 	self.name = name
 	self.hidden = hidden
 	self.default = selected
+        self.conditionalKey = conditionalKey
+        self.parent = parent
 	self.pkgs = []
 	self.pkgDict = {}
 	self.includes = []
@@ -289,6 +331,9 @@ class ComponentSet:
 	if (type(key) == types.IntType):
 	    return self.comps[key]
 	return self.compsDict[key]
+
+    def has_key(self, key):
+        return self.compsDict.has_key(key)
 
     def getSelectionState(self):
 	compsState = []
@@ -379,7 +424,6 @@ class ComponentSet:
                 if theTags and "lang" not in theTags:
                     newTruth = 1
                 else:
-		    #print "check", l, "in", langs
                     if len(l) != 2:
                         raise ValueError, "too many arguments for lang"
                     if l[1] and l[1][0] == "!":
@@ -423,10 +467,10 @@ class ComponentSet:
 	    raise TypeError, "comp file version 3 or 4 expected"
 	
 	comp = None
-        conditional = None
 	self.comps = []
 	self.compsDict = {}
         self.expressions = {}
+        state = [ None ]
 	for l in lines:
 	    l = strip (l)
 	    if (not l): continue
@@ -445,7 +489,13 @@ class ComponentSet:
 	    if (find(l, "?") > -1):
                 (trash, cond) = split (l, '?', 1)
                 (cond, trash) = split (cond, '{', 1)
-                conditional = self.compsDict[strip (cond)]
+                cond = strip(cond)
+                conditional = "%s/%s" % (comp.name, cond)
+                # push our parent onto the stack, we'll need to restore
+                # it when this subcomp comes to a close.
+                parent = comp
+                state.append(parent)
+                comp = Component(self, conditional, 0, 1, cond, parent)
                 continue
 
 	    if (comp == None):
@@ -456,27 +506,26 @@ class ComponentSet:
 		    (foo, l) = split(l, None, 1)
                 (l, trash) = split(l, '{', 1)
                 l = strip (l)
-                if l == "Base":
+                if l == "Base" and expression == None:
                     hidden = 1
 		comp = Component(self, l, default == '1', hidden)
 	    elif (l == "}"):
-                if conditional:
-                    conditional = None
-                else:
+                parent = state.pop()
+                if parent == None:
+                    # toplevel, add it to the set
                     self.comps.append(comp)
                     self.compsDict[comp.name] = comp
                     comp = None
+                    state.append(None)
+                else:
+                    # end of a subcomp group, restore state
+                    comp = parent
 	    else:
 		if (l[0] == "@"):
 		    (at, l) = split(l, None, 1)
-		    comp.addInclude(self.compsDict[l])
+		    comp.addInclude(l)
 		else:
-                    if conditional:
-			# Let both components involved in this conditional
-			# know what's going on.
-                        comp.addConditionalPackage (conditional, packages[l])
-			conditional.addConditionalPackage (comp, packages[l])
-                    elif expression:
+                    if expression:
                         # this is a package with some qualifier prefixing it
                         # XXX last expression noted wins when setting up Everything.
                         self.expressions[packages[l]] = expression
@@ -502,10 +551,8 @@ class ComponentSet:
 	    comp.setDefaultSelection()
 
     def updateSelections(self):
-	for comp in self.comps:
-            if comp.isSelected ():
-                for pkg in comp.pkgs:
-                    pkg.updateSelectionCache()
+        for pkg in self.packages.values():
+            pkg.updateSelectionCache()
         
     def __repr__(self):
 	s = ""
@@ -520,9 +567,151 @@ class ComponentSet:
 
 	return s
 
+    def verifyDeps (self, instPath, upgrade):
+        def formatRequire (name, version, flags):
+            string = name
+            
+            if flags:
+                if flags & (rpm.RPMSENSE_LESS | rpm.RPMSENSE_GREATER | 
+                            rpm.RPMSENSE_EQUAL):
+                    string = string + " "
+                    if flags & rpm.RPMSENSE_LESS:
+                        string = string + "<"
+                    if flags & rpm.RPMSENSE_GREATER:
+                        string = string + ">"
+                    if flags & rpm.RPMSENSE_EQUAL:
+                        string = string + "="
+                    string = string + " %s" % version
+            return string
+
+        # if we still have the same packages selected, bail - we don't need to
+        # do this again.
+        if self.verifiedState == self.getSelectionState()[1]:
+            return
+
+        self.verifiedState = None
+        
+	if upgrade:
+            db = rpm.opendb (0, instPath)
+            ts = rpm.TransactionSet(instPath, db)
+	    how = 'u'
+	else:
+            ts = rpm.TransactionSet()
+	    db = None
+	    how = 'i'
+
+	for p in self.packages.packages.values ():
+            if p.selected:
+                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
+            else:
+                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
+
+	checkDeps = 1
+	rc = []
+	while checkDeps:
+	    deps = ts.depcheck()
+	    checkDeps = 0
+
+	    if not deps:
+		break
+
+            for ((name, version, release),
+                 (reqname, reqversion),
+                 flags, suggest, sense) in deps:
+                if sense == rpm.RPMDEP_SENSE_REQUIRES:
+                    if suggest:
+                        (header, sugname) = suggest
+                        log ("depcheck: package %s needs %s (provided by %s)",
+                             name, formatRequire(reqname, reqversion, flags),
+                             sugname)
+
+			ts.add(header, (header, header[rpm.RPMTAG_NAME]), how)
+			checkDeps = 1
+                    else:
+                        log ("depcheck: package %s needs %s (not provided)",
+                             name, formatRequire(reqname, reqversion, flags))
+                        sugname = _("no suggestion")
+                    if not (name, sugname) in rc:
+                        rc.append ((name, sugname))
+                elif sense == rpm.RPMDEP_SENSE_CONFLICTS:
+		    # We need to check if the one we are going to
+		    # install is ok.
+		    conflicts = 1
+		    if reqversion:
+			fields = string.split(reqversion, '-')
+			if (len (fields) == 2):
+			    needed = ("", fields [0], fields [1])
+			else:
+			    needed = ("", fields [0], "")
+                        try:
+                            h = self.packages[reqname].h
+                        except KeyError:
+                            conflicts = 0
+			installed = ("", h[rpm.RPMTAG_VERSION],
+				     h [rpm.RPMTAG_RELEASE])
+			if rpm.labelCompare (installed, needed) >= 0:
+			    conflicts = 0
+
+		    if conflicts:
+			log ("%s-%s-%s conflicts with to-be-installed "
+                             "package %s-%s, removing from set",
+                             name, version, release, reqname, reqversion)
+			if self.packages.packages.has_key (reqname):
+			    self.packages.packages[reqname].selected = 0
+			    log ("... removed")
+
+        del ts
+        if db:
+            del db
+
+        if not rc: 
+            self.verifiedState = self.getSelectionState()[1]
+
+        return rc
+
+    def selectDepCause (self, deps):
+	for (who, dep) in deps:
+	    self.packages[who].select ()
+
+    def unselectDepCause (self, deps):
+	for (who, dep) in deps:
+	    self.packages[who].unselect ()
+
+    def selectDeps (self, deps):
+	for (who, dep) in deps:
+	    # this skips right over "no suggestion"
+	    if self.packages.has_key(dep):
+		self.packages[dep].select ()
+
+    def unselectDeps (self, deps):
+	for (who, dep) in deps:
+	    # this skips right over "no suggestion"
+	    if self.packages.has_key(dep):
+		self.packages[dep].unselect ()
+
+    def kernelVersionList(self):
+	kernelVersions = []
+
+	# nick is used to generate the lilo name
+	for (ktag, nick) in [ ('kernel-enterprise', 'nick'),
+			      ('kernel-smp', 'smp') ]:
+	    tag = string.split(ktag, '-')[1]
+	    if (self.packages.has_key(ktag) and 
+		self.packages[ktag].selected):
+		version = (self.packages[ktag][rpm.RPMTAG_VERSION] + "-" +
+			   self.packages[ktag][rpm.RPMTAG_RELEASE] + tag)
+		kernelVersions.append((version, nick))
+ 
+ 	version = (self.packages['kernel'][rpm.RPMTAG_VERSION] + "-" +
+ 		   self.packages['kernel'][rpm.RPMTAG_RELEASE])
+ 	kernelVersions.append((version, 'up'))
+ 
+	return kernelVersions
+
     def __init__(self, file, hdlist, arch = None, matchAllLang = 0):
         self.allLangs = matchAllLang
         self.archList = []
+	self.verifiedState = None
 	if not arch:
 	    import iutil
 	    arch = iutil.getArch()

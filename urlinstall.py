@@ -16,8 +16,6 @@ import ftplib
 import httplib
 import StringIO
 
-import todo
-
 FILENAME = 1000000
 
 class UrlInstallMethod(InstallMethod):

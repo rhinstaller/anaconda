@@ -296,3 +296,12 @@ class Keyboard (SimpleConfigFile):
 	    if Keyboard.console2xsun.has_key (self.get ()):
 		keylayout = Keyboard.console2xsun[self.get ()]
 		return ("sun", self.model, keylayout, "", "")
+
+    def write(self, instPath):
+	f = open(instPath + "/etc/sysconfig/keyboard", "w")
+	f.write(str (self))
+	f.close()
+
+    def writeKS(self, f):
+	f.write("keyboard %s\n" % self.get())
+

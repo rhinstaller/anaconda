@@ -10,95 +10,121 @@ from _gtk import gtk_rc_init
 from _gtk import gtk_rc_reparse_all
 from _gtk import _gtk_nuke_rc_files
 from _gtk import _gtk_nuke_rc_mtimes
+import GDK
 import GdkImlib
-from GDK import *
+
 import time
-import glob
+import iutil
+from language import expandLangs
 
 from log import log
 
 StayOnScreen = "stayOnScreen"
 
-im = None
-splashwindow = None
+stepToClass = {
+    "language" : ( "language_gui", "LanguageWindow" ),
+    "keyboard" : ( "keyboard_gui", "KeyboardWindow" ),
+    "mouse" : ( "mouse_gui", "MouseWindow" ),
+    "welcome" : ("welcome_gui", "WelcomeWindow" ),
+    "installtype" : ( "installpath_gui", "InstallPathWindow" ),
+    "partitionmethod" : ( "partmethod_gui", "PartitionMethodWindow" ),
+    "partition" : ( "partition_gui", "PartitionWindow" ),
+    "custom-upgrade" : ( "examine_gui", "UpgradeExamineWindow" ),
+    "addswap" : ( "upgrade_swap_gui", "UpgradeSwapWindow" ),
+    "fdisk" : ( "fdisk_gui", "FDiskWindow" ),
+    "format" : ( "format_gui", "FormatWindow" ),
+    "bootloader": ("lilo_gui", "LiloWindow" ), 
+    "network" : ( "network_gui", "NetworkWindow" ),
+    "firewall" : ( "firewall_gui", "FirewallWindow" ),
+    "languagesupport" : ( "language_support_gui", "LanguageSupportWindow" ),
+    "timezone" : ( "timezone_gui", "TimezoneWindow" ),
+    "accounts" : ( "account_gui", "AccountWindow" ),
+    "authentication" : ( "auth_gui", "AuthWindow" ),
+    "package-selection" : ( "package_gui", "PackageSelectionWindow" ),
+    "indivpackage" : ( "package_gui", "IndividualPackageSelectionWindow" ),
+    "dependencies" : ( "dependencies_gui", "UnresolvedDependenciesWindow" ),
+    "videocard" : ( "xconfig_gui", "XConfigWindow" ),
+    "monitor" : ( "xconfig_gui", "MonitorWindow" ),
+    "xcustom" : ( "xconfig_gui", "XCustomWindow" ),
+    "confirminstall" : ( "confirm_gui", "InstallConfirmWindow" ),
+    "confirmupgrade" : ( "confirm_gui", "UpgradeConfirmWindow" ),
+    "finishxconfig" : None,
+    "install" : ( "progress_gui", "InstallProgressWindow" ),
+    "bootdisk" : ( "bootdisk_gui", "BootdiskWindow" ),
+    "complete" : ( "congrats_gui", "CongratulationWindow" )
+}
 
-#print "Inside gui.py"
-#print x.res
-#time.sleep (5)
-width = screen_width()
-
-#--If the xserver is running at 800x600 res or higher, use the 800x600 splash screen.
-if width >= 800:
-    try:
-        im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
-    except:
-        try:
-            im = GdkImlib.Image ("pixmaps/first.png")
-        except:
-            print "Unable to load", file
-#--Otherwise, use the old 640x480 one
+if iutil.getArch() == 'sparc':
+    stepToClass["bootloader"] = ( "silo_gui", "SiloWindow" )
 else:
-#    print "In lowres mode..."
-    try:
-        im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
-    except:
-        try:
-            im = GdkImlib.Image ("pixmaps/first-lowres.png")
-        except:
-            print "Unable to load", file
+    stepToClass["bootloader"] = ( "lilo_gui", "LiloWindow" )
 
-if im:
-    threads_enter ()
-    im.render ()
-    splashwindow = GtkWindow ()
-    splashwindow.set_position (WIN_POS_CENTER)
-    box = GtkEventBox ()
-    pix = im.make_pixmap ()
-    style = box.get_style ().copy ()
-    style.bg[STATE_NORMAL] = style.white
-    box.set_style (style)
-    box.add (pix)
-    splashwindow.add (box)
-    splashwindow.show_all ()
-    gdk_flush ()
-    while events_pending ():
-        mainiteration (FALSE)
-    threads_leave ()        
-
-root = _root_window ()
-
-
-
-cursor = cursor_new (LEFT_PTR)
-root.set_cursor (cursor)
 
 from translate import cat, _
 from gnome.ui import *
 from gnome.xmhtml import *
-from language_gui import *
-#from language_support_gui import *
-from welcome_gui import *
-from mouse_gui import *
-from keyboard_gui import *
-from installpath_gui import *
 
+import string
 import isys
 import sys
 import rpm
-from threading import *
 
-def processEvents():
-    thread = currentThread ()
-    if thread.getName () == "gtk_main":
-        gdk_flush()
+# setup globals
+root = _root_window ()
+cursor = cursor_new (GDK.LEFT_PTR)
+root.set_cursor (cursor)
+
+splashwindow = None
+
+def display_splash_screen():
+
+    def load_image(file):
+        try:
+            im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
+        except:
+            try:
+                im = GdkImlib.Image("pixmaps/" + file)
+            except:
+                print "Unable to load", file
+
+        return im
+
+    global splashwindow
+    
+    width = screen_width()
+    im = None
+
+    # If the xserver is running at 800x600 res or higher, use the
+    # 800x600 splash screen.
+    if width >= 800:
+        im = load_image('first.png')
+    else:
+        im = load_image('first-lowres.png')
+                        
+    if im:
+        im.render ()
+        splashwindow = GtkWindow ()
+        splashwindow.set_position (WIN_POS_CENTER)
+        box = GtkEventBox ()
+        pix = im.make_pixmap ()
+        style = box.get_style ().copy ()
+        style.bg[STATE_NORMAL] = style.white
+        box.set_style (style)
+        box.add (pix)
+        splashwindow.add (box)
+        box.show_all()
+        splashwindow.show_now()
+        gdk_flush ()
         while events_pending ():
             mainiteration (FALSE)
-    else:
-        gdk_flush()
+
+def processEvents():
+    gdk_flush()
+    while events_pending ():
+        mainiteration (FALSE)
 
 class WaitWindow:
     def __init__(self, title, text):
-	threads_enter ()
         self.window = GtkWindow (WINDOW_POPUP)
         self.window.set_title (_(title))
         self.window.set_position (WIN_POS_CENTER)
@@ -115,16 +141,12 @@ class WaitWindow:
 	self.window.add (frame)
 	self.window.show_all ()
         processEvents ()
-        threads_leave ()
             
     def pop(self):
-	threads_enter ()
         self.window.destroy ()
-	threads_leave ()
 
 class ProgressWindow:
     def __init__(self, title, text, total):
-	threads_enter ()
         self.window = GtkWindow (WINDOW_POPUP)
         self.window.set_title (_(title))
         self.window.set_position (WIN_POS_CENTER)
@@ -147,18 +169,13 @@ class ProgressWindow:
 	self.window.add (frame)
 	self.window.show_all ()
         processEvents ()
-        threads_leave ()
 
     def set (self, amount):
-        threads_enter ()
 	self.progress.update (float (amount) / self.total)
         processEvents ()        
-        threads_leave ()
     
     def pop(self):
-	threads_enter ()
         self.window.destroy ()
-	threads_leave ()
 
 class ExceptionWindow:
     def __init__ (self, text):
@@ -176,6 +193,8 @@ class ExceptionWindow:
         hbox = GtkHBox (FALSE)
         # XXX fix me, use util function when we upgrade pygnome
         # s = unconditional_pixmap_file ("gnome-error.png")
+        # use this for now
+        s = None
         if s:
             hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'),
                              FALSE)
@@ -195,21 +214,10 @@ class ExceptionWindow:
         win.set_position (WIN_POS_CENTER)
         win.show_all ()
         self.window = win
-        
-        thread = currentThread ()
-        if thread.getName () == "gtk_main":
-            self.mutex = None
-            self.rc = self.window.run ()
-            threads_leave()
-        else:
-            threads_leave ()
-            self.mutex = Event ()
-            self.mutex.wait ()
+        self.rc = self.window.run ()
         
     def quit (self, dialog, button):
         self.rc = button
-        if self.mutex:
-            self.mutex.set ()
 
     def getrc (self):
         # I did it this way for future expantion
@@ -233,27 +241,18 @@ class MessageWindow:
     def quit (self, dialog, button=None):
         if button != None:
             self.rc = button
-        if self.mutex:
-            self.mutex.set ()
-            self.mutex = None
 
     def okcancelquit (self, button):
         self.rc = button
-        if self.mutex:
-            self.mutex.set ()
 
     def questionquit (self, button):
         self.rc = button
-        
-        if self.mutex:
-            self.mutex.set ()
 
     def getrc (self):
         return self.rc
     
     def __init__ (self, title, text, type = "ok"):
         self.rc = None
-        threads_enter ()
         if type == "ok":
             self.window = GnomeOkDialog (_(text))
             self.window.connect ("clicked", self.quit)
@@ -271,29 +270,8 @@ class MessageWindow:
         win = self.window.get_window()
         win.keyboard_grab(0)
         self.window.show_all ()
-
-        threads_leave ()
-
-        # there are two cases to cover here in order to be
-        # modal:
-        # 1) the MessageWindow is being created by the gtk_main
-        #    thread, in which case we must call the mainloop recursively.
-        # 2) the MessageWindow is created by some other thread, in
-        #    which case we must _not_ call the mainloop (currently,
-        #    you can not call the mainloop from a second thread).
-        #    Instead, create an Event mutex and wait for it to get set.
-        #    by the clicked signal handler
-        thread = currentThread ()
-        if thread.getName () == "gtk_main":
-            self.mutex = None
-            threads_enter ()
-            self.rc = self.window.run ()
-            win.keyboard_ungrab()
-            threads_leave ()
-        else:
-            self.mutex = Event ()
-            self.mutex.wait ()
-            win.keyboard_ungrab()
+        self.rc = self.window.run ()
+        win.keyboard_ungrab()
     
 class InstallInterface:
     def __init__ (self, runres, nofbmode):
@@ -337,73 +315,52 @@ class InstallInterface:
         rc = window.getrc()
 	return rc
 
-    def getBootdisk ():
+    def getBootdisk (self):
         return None
 
-    def getCongratulation ():
+    def getCongratulation (self):
         return CongratulationWindow
 
-    def run (self, todo, test = 0):
-        # This is the same as the file
-        if todo.reconfigOnly:
-            if not todo.serial:
-                commonSteps = [ ( ReconfigWelcomeWindow, "reconfig"),
-                                ( KeyboardWindow, "keyboard" ),
-                                ]
-
-            commonSteps = commonSteps + [
-		     ( NetworkWindow, "network" ),
-                     ( FirewallWindow, "firewall" ),
-                     ( LanguageSupportWindow, "languagesupport" ),
-		     ( TimezoneWindow, "timezone" ),
-		     ( AccountWindow, "accounts" ),
-		     ( AuthWindow, "authentication" ),
-		     ( ReconfigCongratulationWindow, "complete" )
-		   ]
-
-        else:
-            if todo.serial:
-                commonSteps = [ ( LanguageWindow, "language" ),
-                                ( WelcomeWindow, "welcome" ),
-                                ( InstallPathWindow, "installtype" ),
-                                ]
-            else:
-                commonSteps = [ ( LanguageWindow, "language" ), 
-                                ( KeyboardWindow, "keyboard" ),
-                                ( MouseWindow, "mouse" ),
-                                ( WelcomeWindow, "welcome" ),
-                                ( InstallPathWindow, "installtype" ),
-                                ]
-
+    def run(self, id, dispatch):
         from xkb import XKB
         kb = XKB()
-        if todo.installSystem:
-            try:
-                kb.setMouseKeys (1)
-            except SystemError:
-                pass
-        if todo.instClass.keyboard:
-	    info = todo.keyboard.getXKB()
-	    if info:
-                (rules, model, layout, variant, options) = info
-                kb.setRule (model, layout, variant, "complete")
-        self.icw = InstallControlWindow (self, commonSteps, todo)
-        self.icw.run ()
+
+	self.dispatch = dispatch
+
+	# XXX
+        #if todo.installSystem:
+            #try:
+                #kb.setMouseKeys (1)
+            #except SystemError:
+                #pass
+        #if todo.instClass.keyboard:
+	    #info = todo.keyboard.getXKB()
+	    #if info:
+                #(rules, model, layout, variant, options) = info
+                #kb.setRule (model, layout, variant, "complete")
+
+        id.fsset.registerMessageWindow(self.messageWindow)
+        id.fsset.registerProgressWindow(self.progressWindow)
+
+	lang = id.instLanguage.getCurrent()
+	lang = id.instLanguage.getLangNick(lang)
+        self.icw = InstallControlWindow (self, self.dispatch, lang)
+        self.icw.run (self.runres)
 
 class InstallControlWindow:
     def getLanguage (self):
         return self.lang
     
-    def setLanguage (self, lang):
-	self.todo.instTimeLanguage.setRuntimeLanguage(lang)
-
+    def setLanguage (self, locale):
         gtk_set_locale ()
         _gtk_nuke_rc_files ()
         gtk_rc_init ()
         gtk_rc_reparse_all ()
+
+	self.langSearchPath = expandLangs(locale) + ['C']
         
         found = 0
-        for l in self.todo.instTimeLanguage.getCurrentLangSearchList():
+        for l in self.langSearchPath:
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)
                 found = 1
@@ -417,116 +374,63 @@ class InstallControlWindow:
 
         self.reloadRcQueued = 1
 
-        locale = self.todo.instTimeLanguage.getLangNick(lang)
-        self.html.set_font_charset (locale)
-
-        # get the labels
-        for (button, text) in [ (self.nextButtonStock, _("Next")),
-                                (self.prevButtonStock, _("Back")),
-                                (self.releaseButton, _("Release Notes")),
-                                (self.showHelpButton, _("Show Help")),
-                                (self.hideHelpButton, _("Hide Help")),
-                                (self.finishButton, _("Finish")) ]:
-            label = button.children ()[0].children ()[0].children()[1]
-            label.set_text (text)
-            button.queue_resize()
-        self.helpFrame.set_label (_("Online Help"))
+#        self.html.set_font_charset (locale)
+	self.updateStockButtons()
+        self.navFrame.set_label (_("Navigation"))
         self.installFrame.set_label (_("Language Selection"))
 	self.loadReleaseNotes()
 
-    def instantiateWindow (self, windowClass):
-        ics = InstallControlState (self, self.ii, self.todo)
-        self.buildingWindows = 1
-        window = windowClass (ics)
-        self.buildingWindows = 0
-        self.windowList.append (window)
-        return window
-
-    def setStateList (self, list, pos):
-        self.stateList = []
-	self.stateTagByWindow = {}
-        for x in list:
-	    if type(x) == type((1,)):
-		(x, tag) = x
-	    else:
-		tag = None
-            instantiated = 0
-            for y in self.windowList:
-                if isinstance (y, x):
-                    self.stateList.append (y)
-		    self.stateTagByWindow[y] = tag
-                    instantiated = 1
-                    break
-            if not instantiated:
-		instance = self.instantiateWindow (x)
-                self.stateList.append (instance)
-		self.stateTagByWindow[instance] = tag
-
-        self.stateListIndex = pos
-        
     def prevClicked (self, *args):
 	try:
-	    prev = self.currentScreen.getPrev ()
+	    self.currentWindow.getPrev ()
 	except StayOnScreen:
 	    return
 
-        self.prevList.pop ()
-        (self.currentScreen, self.stateListIndex) = self.prevList[-1]
+	self.dispatch.gotoPrev()
+	self.dir = -1
 
-        self.setScreen (self.currentScreen, self.prevClicked)
-
+        self.setScreen ()
 
     def nextClicked (self, *args):
 	try:
-	    next = self.currentScreen.getNext ()
+	    rc = self.currentWindow.getNext ()
 	except StayOnScreen:
 	    return
-	    
-        if next:
-            instantiated = 0
-            for x in self.windowList:
-                if isinstance (x, next):
-                    self.currentScreen = x
-                    instantiated = 1
-                    break
-            if not instantiated:
-                self.currentScreen = self.instantiateWindow (next)
-        else:
-            self.stateListIndex = self.stateListIndex + 1
-            if self.stateListIndex < len (self.stateList):
-                self.currentScreen = self.stateList[self.stateListIndex]
-            else:
-                mainquit ()
-        self.setScreen (self.currentScreen, self.nextClicked)
+
+	self.dispatch.gotoNext()
+	self.dir = 1
+
+        self.setScreen ()
+        if self.helpWin:
+            self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))
+        self.navigator.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+        self.navigator.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
+
 
     def helpClicked (self, widget, simulated = 0):
-	if not simulated:
-            self.helpState = (widget == self.showHelpButton)
-            
-        self.hbox.remove (widget)
-        if widget == self.hideHelpButton:
-            self.bin.remove (self.table)
-            self.installFrame.reparent (self.bin)
+        self.showHelpButton.set_sensitive(FALSE)
+        self.helpWin = GnomeDialog()
+        table = GtkTable(3, 3, FALSE)
+        self.helpWin.vbox.pack_start(table)
+        self.helpWin.append_button(_("Close"))
+        self.helpWin.set_default_size(620, 430)
+        self.helpWin.set_usize(620, 430)
+        self.helpWin.set_position(WIN_POS_CENTER)
+        self.helpWin.button_connect( 0, self.closeHelp)
+        self.html = GtkXmHTML()
+        self.html.set_allow_body_colors(TRUE)
+#        self.html.source ( "<HTML><BODY BGCOLOR=white>HTML Help Here</BODY></HTML>")
+        self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))        
+        self.helpWin.vbox.pack_start(self.html)
+        self.html.show()
+        self.helpWin.show()
 
-            self.showHelpButton.show ()
-            self.showHelpButton.set_state (STATE_NORMAL)
 
-            self.hbox.pack_start (self.showHelpButton, FALSE)
-            self.hbox.reorder_child (self.showHelpButton, 0)
-            self.displayHelp = FALSE
-        else:
-            self.bin.remove (self.installFrame)
-            self.table.attach (self.installFrame, 1, 3, 0, 1)
-            self.bin.add (self.table)
-            # fix to set the bgcolor to white (xmhtml sucks)
-            self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-            self.html.source (self.currentScreen.getICS ().getHTML ())
-            self.hideHelpButton.show ()
-            self.showHelpButton.set_state (STATE_NORMAL)
-            self.hbox.pack_start (self.hideHelpButton, FALSE)
-            self.hbox.reorder_child (self.hideHelpButton, 0)
-            self.displayHelp = TRUE
-
+    def closeHelp(self, args):
+        self.helpWin.destroy()
+        self.html.destroy()
+        self.helpWin = None
+        self.showHelpButton.set_sensitive(TRUE)
 
     def close (self, args):
         self.textWin.destroy()
@@ -583,8 +487,7 @@ class InstallControlWindow:
 
     def loadReleaseNotes(self):
         self.buff = ""
-	langList = self.todo.instTimeLanguage.getCurrentLangSearchList()
-	langList = langList + [ "" ]
+	langList = self.langSearchPath + [ "" ]
 	for lang in langList:
 	    fn = "/mnt/source/RELEASE-NOTES"
 	    if len(lang):
@@ -596,125 +499,131 @@ class InstallControlWindow:
 		file.close()
 		return
 
-	self.buff = "Release notes are missing.\n"
+	self.buff = _("Release notes are missing.\n")
 
-    def setScreen (self, screen, direction):
-        # if getScreen returns None, or we're supposed to skip this screen
-	# entirely, we continue advancing in direction given
-	if (self.stateTagByWindow.has_key(screen)
-            and self.todo.instClass.skipStep(self.stateTagByWindow[screen])):
-#            log("skipping step screen %s", screen)
-            direction ()
-            return
+    def setScreen (self):
+	(step, args) = self.dispatch.currentStep()
+	if not step:
+	    mainquit()
+	    return
 
-	new_screen = screen.getScreen ()
+	if not stepToClass[step]:
+	    if self.dir == 1:
+		return self.nextClicked()
+	    else:
+		return self.prevClicked()
+		
+	(file, className) = stepToClass[step]
+	s = "from %s import %s; newScreenClass = %s" % (file, className, className)
+	exec s
+
+	ics = InstallControlState (self)
+
+	self.destroyCurrentWindow()
+        self.currentWindow = newScreenClass(ics)
+
+	new_screen = apply(self.currentWindow.getScreen, args)
 	if not new_screen:
-            direction ()
             return
 
-        # if we're the initial screen (because of kickstart), make sure we can't go back.
-        if not self.initialScreenShown:
-            self.initialScreenShown = 1
-            screen.getICS ().setPrevEnabled (FALSE)
-            self.prevList = []
+        self.update (ics)
 
-        if not direction == self.prevClicked:
-            self.prevList.append ((screen, self.stateListIndex))
+        self.installFrame.set_label (ics.getTitle ())
+        self.installFrame.add (new_screen)
+        self.installFrame.show_all ()
+	self.currentWindow.renderCallback()
 
-        if self.helpState != self.displayHelp:
-            if self.displayHelp:
-                self.helpClicked (self.hideHelpButton, 1)
-            else:
-                self.helpClicked (self.showHelpButton, 1)
-        
-        self.update (screen.getICS ())
+        if self.reloadRcQueued:
+            self.window.reset_rc_styles ()
+            self.reloadRcQueued = 0
 
+    def destroyCurrentWindow(self):
         children = self.installFrame.children ()
         if children:
             child = children[0]
             self.installFrame.remove (child)
             child.destroy ()
-
-        self.installFrame.set_label (_(screen.getICS ().getTitle ()))
-        self.installFrame.add (new_screen)
-        self.installFrame.show_all ()
-        if self.reloadRcQueued:
-            self.window.reset_rc_styles ()
-            self.reloadRcQueued = 0
+	self.currentWindow = None
 
     def update (self, ics):
-        if self.buildingWindows or ics != self.currentScreen.getICS ():
-            return
-
         self.installFrame.set_label (_(ics.getTitle ()))
 
-        buttons = { "prev" : ics.getPrevButton (),
-                    "next" : ics.getNextButton () }
+	prevButton = self.prevButtonStock
+	nextButton = self.nextButtonStock
 
-	for (name, button) in buttons.items ():
-            if button["pixmap"] == STOCK_BUTTON_PREV and not button["label"]:
-                buttons[name] = self.prevButtonStock
-            elif button["pixmap"] == STOCK_BUTTON_NEXT and not button["label"]:
-                buttons[name] = self.nextButtonStock
-            else:
-                buttons[name] = GnomePixmapButton (GnomeStock (button["pixmap"]), _(button["label"]))
-                if   name == "prev": buttons[name].connect ("clicked", self.prevClicked)
-                elif name == "next": buttons[name].connect ("clicked", self.nextClicked)
-                buttons[name].show ()
+	if ics.getNextButton():
+	    (icon, text) = ics.getNextButton()
+	    nextButton = GnomePixmapButton (GnomeStock (icon), text)
+	    nextButton.connect ("clicked", self.nextClicked)
+	    nextButton.show_all()
 
         children = self.buttonBox.children ()
-        if not buttons["prev"] in children:
+
+        if not prevButton in children:
             self.buttonBox.remove (children[0])
-            self.buttonBox.pack_start (buttons["prev"])
-        if not buttons["next"] in children:
+            self.buttonBox.pack_start (prevButton)
+
+        if not nextButton in children:
             self.buttonBox.remove (children[1])
-            self.buttonBox.pack_end (buttons["next"])
+            self.buttonBox.pack_end (nextButton)
 
-        buttons["prev"].set_sensitive (ics.getPrevEnabled ())
-        buttons["next"].set_sensitive (ics.getNextEnabled ())
-        self.hideHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
-        self.showHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
+        prevButton.set_sensitive (ics.getPrevEnabled ())
+        nextButton.set_sensitive (ics.getNextEnabled ())
  
-        if ics.getHelpEnabled () == FALSE:
-            if self.displayHelp:
-                self.helpClicked (self.hideHelpButton, 1)
-        elif ics.getHelpEnabled () == TRUE:
-            if not self.displayHelp:
-                self.helpClicked (self.showHelpButton, 1)
-        
-        if self.displayHelp:
-            self.html.source (ics.getHTML ())
-
         if (ics.getGrabNext ()):
-            buttons["next"].grab_focus ()
+            nextButton.grab_focus ()
 
-    def __init__ (self, ii, steps, todo):
+    def __init__ (self, ii, dispatch, locale):
+	self.stockButtons = [ 
+	    ( STOCK_BUTTON_PREV, "prevButtonStock",
+		    _("Back"), self.prevClicked ),
+	    ( STOCK_BUTTON_NEXT, "nextButtonStock",
+		    _("Next"), self.nextClicked ),
+	    ( STOCK_BUTTON_HELP, "releaseButton",
+		    _("Release Notes"), self.releaseClicked ),
+	    ( STOCK_BUTTON_HELP, "showHelpButton",
+		    _("Show Help"), self.helpClicked )
+	    ]
+
         self.reloadRcQueued = 0
         self.ii = ii
-        self.todo = todo
-        self.steps = steps
-	self.setLanguage(todo.instTimeLanguage.getCurrent())
+        self.dispatch = dispatch
+	self.setLanguage(locale)
+        self.helpWin = None
 
     def keyRelease (self, window, event):
-        if ((event.keyval == KP_Delete or event.keyval == Delete)
-            and (event.state & (CONTROL_MASK | MOD1_MASK))):
+        if ((event.keyval == GDK.KP_Delete or event.keyval == GDK.Delete)
+            and (event.state & (GDK.CONTROL_MASK | GDK.MOD1_MASK))):
             mainquit ()
             import os
             os._exit (0)
 
-    def setup_window (self):
-        threads_enter()
-        self.window = GtkWindow ()
-        self.window.set_events (KEY_RELEASE_MASK)
+    def buildStockButtons(self):
+	for (icon, item, text, action) in self.stockButtons:
+	    button = GnomePixmapButton(GnomeStock(icon), text)
+	    button.connect("clicked", action)
+	    button.show_all()
+	    self.__dict__[item] = button
 
-        if self.todo.intf.runres == '640x480':
+    def updateStockButtons(self):
+	for (icon, item, text, action) in self.stockButtons:
+	    button = self.__dict__[item]
+            label = button.children ()[0].children ()[0].children()[1]
+            label.set_text (text)
+            button.queue_resize()
+
+    def setup_window (self, runres):
+        self.window = GtkWindow ()
+        self.window.set_events (GDK.KEY_RELEASE_MASK)
+
+        if runres == '640x480':
             self.window.set_default_size (640, 480)
             self.window.set_usize (640, 480)
         else:
             self.window.set_default_size (800, 600)
             self.window.set_usize (800, 600)
 
-        cursor = cursor_new (LEFT_PTR)
+        cursor = cursor_new (GDK.LEFT_PTR)
         _root_window ().set_cursor (cursor)
 
         self.window.set_border_width (10)
@@ -723,7 +632,7 @@ class InstallControlWindow:
 	if os.environ["DISPLAY"][:1] != ':':
 	    # from gnome.zvt import *
 	    # zvtwin = GtkWindow ()
-	    shtitle = _("Red Hat Linux Install Shell")
+#	    shtitle = _("Red Hat Linux Install Shell")
 	    try:
 		f = open ("/tmp/netinfo", "r")
 	    except:
@@ -735,7 +644,7 @@ class InstallControlWindow:
 		    netinf = string.splitfields (line, '=')
 		    if netinf[0] == "HOSTNAME":
 			title = _("Red Hat Linux Installer on %s") % string.strip (netinf[1])
-			shtitle = _("Red Hat Linux Install Shell on %s") % string.strip (netinf[1])
+#			shtitle = _("Red Hat Linux Install Shell on %s") % string.strip (netinf[1])
 			break
 
 	    # zvtwin.set_title (shtitle)
@@ -751,42 +660,27 @@ class InstallControlWindow:
         self.window.set_border_width(0)
         vbox = GtkVBox (FALSE, 10)
 
-
-        if self.todo.intf.runres != '640x480':
-                        
-        #Create header at the top of the installer
-            try:
-                im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/anaconda_header.png")
-                if im:
-                    im.render ()
-                    pix = im.make_pixmap ()
-                    a = GtkAlignment ()
-                    a.add (pix)
-                    a.set (0.5, 0.5, 1.0, 1.0)
-                    vbox.pack_start (a, FALSE, TRUE, 0)
-            except:
+        # Create header at the top of the installer
+        if runres != '640x480':
+            for dir in ["/usr/share/anaconda/pixmaps/",
+                      "pixmaps/",
+                      "/tmp/updates"]:
                 try:
-                    im = GdkImlib.Image ("pixmaps/anaconda_header.png")
-                    if im:
-                        im.render ()
-                        pix = im.make_pixmap ()
-                        a = GtkAlignment ()
-                        a.add (pix)
-                        a.set (0.5, 0.5, 1.0, 1.0)
-                        vbox.pack_start (a, FALSE, TRUE, 0)
+                    im = GdkImlib.Image (dir + "anaconda_header.png")
                 except:
-                    try:
-                        im = GdkImlib.Image ("/tmp/updates/anaconda_header.png")
-                        if im:
-                            im.render ()
-                            pix = im.make_pixmap ()
-                            a = GtkAlignment ()
-                            a.add (pix)
-                            a.set (0.5, 0.5, 1.0, 1.0)
-                            vbox.pack_start (a, FALSE, TRUE, 0)                    
-                    except:
-                        print "Unable to load anaconda_header.png"
-
+                    im = None
+                else:
+                    break
+                
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0.5, 0.5, 1.0, 1.0)
+                vbox.pack_start (a, FALSE, TRUE, 0)
+            else:
+                print _("Unable to load anaconda_header.png")
 
 	self.loadReleaseNotes()
 
@@ -795,21 +689,11 @@ class InstallControlWindow:
         self.buttonBox = GtkHButtonBox ()
         self.buttonBox.set_layout (BUTTONBOX_END)
         self.buttonBox.set_spacing (30)
-        self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), _("Back"))
-        self.nextButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_NEXT), _("Next"))
 
-        self.releaseButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Release Notes"))
-        self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), _("Finish"))
-	self.hideHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Hide Help"))
-        self.showHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Show Help"))
-        self.releaseButton.connect ("clicked", self.releaseClicked)
-        self.hideHelpButton.connect ("clicked", self.helpClicked)
-        self.showHelpButton.connect ("clicked", self.helpClicked)
-        self.prevButtonStock.connect ("clicked", self.prevClicked)
-        self.nextButtonStock.connect ("clicked", self.nextClicked)
+	self.buildStockButtons()
 
         group = GtkAccelGroup()
-        self.nextButtonStock.add_accelerator ("clicked", group, F12, RELEASE_MASK, 0);
+        self.nextButtonStock.add_accelerator ("clicked", group, GDK.F12, GDK.RELEASE_MASK, 0);
         self.window.add_accel_group (group)
         self.window.connect ("key-release-event", self.keyRelease)
 
@@ -818,40 +702,36 @@ class InstallControlWindow:
 
 	self.hbox = GtkHBox ()
         self.hbox.set_border_width(5)
-	self.hbox.pack_start (self.hideHelpButton, FALSE)
+	self.hbox.pack_start (self.showHelpButton, FALSE)
         self.hbox.set_spacing (25)
         self.hbox.pack_start (self.releaseButton, FALSE)
 	self.hbox.pack_start (self.buttonBox)
 
         vbox.pack_end (self.hbox, FALSE)
 
-        self.html = GtkXmHTML()
-        self.html.set_allow_body_colors(TRUE)
-        self.html.source ("<HTML><BODY>HTML Help Window</BODY></HTML>")
-        self.displayHelp = TRUE
-        self.helpState = TRUE
+        self.navigator = GtkXmHTML()
+        self.navigator.set_allow_body_colors(TRUE)
+        self.navigator.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+        self.navigator.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
 
-        self.helpFrame = GtkFrame (_("Online Help"))
+        self.navFrame = GtkFrame (_("Navigation"))
         self.box = GtkVBox (FALSE, 0)
         self.box.set_spacing(0)
 
         self.box.pack_start (GtkHSeparator (), FALSE)
-        self.box.pack_start (self.html, TRUE)
+        self.box.pack_start (self.navigator, TRUE)
         
-        self.helpFrame.add (self.box)
+        self.navFrame. add (self.box)
 
         table = GtkTable (1, 3, TRUE)
-        table.attach (self.helpFrame, 0, 1, 0, 1)
+        table.attach (self.navFrame, 0, 1, 0, 1)
 
         self.installFrame = GtkFrame ()
-#        self.installFrame.set_shadow_type (SHADOW_NONE)
 
         self.windowList = []
 
-        self.setStateList (self.steps, 0)
-        self.currentScreen = self.stateList[self.stateListIndex]
-        self.initialScreenShown = 0
-        self.setScreen (self.currentScreen, self.nextClicked)
+        #self.setStateList (self.steps, 0)
+        self.setScreen ()
                           
         table.attach (self.installFrame, 1, 3, 0, 1)
         table.set_col_spacing (0, 5)
@@ -869,28 +749,21 @@ class InstallControlWindow:
         global splashwindow
         if splashwindow:
             splashwindow.destroy ()
-        threads_leave ()
 
-    def run (self):
-        self.setup_window ()
-        threads_enter ()
-        thread = currentThread ()
-        thread.setName ("gtk_main")
+    def run (self, runres):
+        self.setup_window (runres)
         mainloop ()
-        threads_leave ()
             
 class InstallControlState:
-    def __init__ (self, cw, ii, todo, title = _("Install Window"),
-                  prevEnabled = 1, nextEnabled = 0, html = ""):
-        self.searchPath = [ "/usr/share/anaconda/", "./" ]
-        self.ii = ii
+    def __init__ (self, cw):
+        self.searchPath = [ "./", "/usr/share/anaconda/", "./" ]
         self.cw = cw
-        self.todo = todo
-        self.prevEnabled = prevEnabled
-        self.nextEnabled = nextEnabled
+        self.prevEnabled = 1
+        self.nextEnabled = 0
+	self.nextButtonInfo = None
         self.helpButtonEnabled = TRUE
-        self.title = title
-        self.html = html
+        self.title = _("Install Window")
+        self.html = ""
         self.htmlFile = None
         self.nextButton = STOCK_BUTTON_NEXT
         self.prevButton = STOCK_BUTTON_PREV
@@ -898,9 +771,6 @@ class InstallControlState:
         self.prevButtonLabel = None
         self.helpEnabled = 3 # Values other than TRUE or FALSE don't change the help setting
         self.grabNext = 0
-
-    def getState (self):
-        return (self.title, prevEnabled, nextEnabled, prevText, nextTest)
 
     def setTitle (self, title):
         self.title = title
@@ -918,9 +788,9 @@ class InstallControlState:
         return self.prevEnabled
     
     def setNextEnabled (self, value):
-        if value == self.nextEnabled: return
-        self.nextEnabled = value
-        self.cw.update (self)
+        if value != self.nextEnabled:
+	    self.nextEnabled = value
+	    self.cw.update (self)
 
     def getNextEnabled (self):
         return self.nextEnabled
@@ -951,13 +821,13 @@ class InstallControlState:
         self.html = text
         self.cw.update (self)
 
-    def getHTML (self):
+    def getHTML (self, langPath):
         text = None
         if self.htmlFile:
             file = self.htmlFile
             
             for path in self.searchPath:
-                for lang in self.todo.instTimeLanguage.getCurrentLangSearchList():
+                for lang in langPath:
                     try:
                         text = open("%s/help/%s/s1-help-screens-%s.html" %
                                     (path, lang, file)).read ()
@@ -980,31 +850,11 @@ class InstallControlState:
 
         return self.html
     
-    def getToDo (self):
-        return self.todo
-
-    def setNextButton (self, button, label=None):
-        self.nextButton = button
-        self.nextButtonLabel = label
-
-    def getNextButton (self):
-        return { "pixmap" : self.nextButton, "label" : self.nextButtonLabel }
-
-    def setPrevButton (self, button, label=None):
-        self.prevButton = button
-        self.prevButtonLabel = label
-
-    def getPrevButton (self):
-        return { "pixmap" : self.prevButton, "label" : self.prevButtonLabel }
-
     def setScreenPrev (self):
         self.cw.prevClicked ()
 
     def setScreenNext (self):
         self.cw.nextClicked ()
-
-    def getInstallInterface (self):
-        return self.ii
 
     def setHelpEnabled (self, value):
         self.helpEnabled = value
@@ -1022,3 +872,9 @@ class InstallControlState:
 
     def getICW (self):
         return self.cw
+
+    def setNextButton(self, icon, text):
+	self.nextButtonInfo = (icon, text)
+
+    def getNextButton(self):
+	return self.nextButtonInfo

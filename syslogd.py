@@ -35,16 +35,6 @@ class Syslogd:
 		    acceptedFds.remove(fd)
 		    fd.close()
 
-    def __del__(self):
-	self.kill()
-
-    def kill(self):
-	os.kill(self.child, 15)
-        try:
-            os.waitpid(self.child, 0)
-        except OSError, (errno, msg):
-            print __name__, "waitpid:", msg
-
     def __init__(self, root = "", output = sys.stdout, socket = "/dev/log"):
 	output = output
 	filename = root + socket;

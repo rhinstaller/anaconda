@@ -8,7 +8,7 @@ import fstab
 from log import log
 import os.path
 
-def findExistingRoots (intf, theFstab):
+def findExistingRoots (intf, diskset):
     rootparts = []
     win = intf.waitWindow (_("Searching"),
 		    _("Searching for Red Hat Linux installations..."))
@@ -194,3 +194,150 @@ def createSwapFile(instPath, theFstab, mntPoint, size):
     f.write(fstab.fstabFormatString % (prefix + file, "swap", "swap", "defaults",
 	    0, 0))
     f.close()
+
+def upgradeFindRoot(self):
+    if not self.setupFilesystems: return [ (self.instPath, 'ext2') ]
+    return upgrade.findExistingRoots(self.intf, self.fstab)
+
+def upgradeMountFilesystems(self, rootInfo):
+    # mount everything and turn on swap
+
+    if self.setupFilesystems:
+	try:
+	    upgrade.mountRootPartition(self.intf,rootInfo,
+				       self.fstab, self.instPath,
+				       allowDirty = 0)
+	except SystemError, msg:
+	    self.intf.messageWindow(_("Dirty Filesystems"),
+		_("One or more of the filesystems listed in the "
+		  "/etc/fstab on your Linux system cannot be mounted. "
+		  "Please fix this problem and try to upgrade again."))
+	    sys.exit(0)
+
+	checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
+		       '/boot', '/tmp', '/var/tmp' ]
+	badLinks = []
+	for n in checkLinks:
+	    if not os.path.islink(self.instPath + n): continue
+	    l = os.readlink(self.instPath + n)
+	    if l[0] == '/':
+		badLinks.append(n)
+
+	if badLinks:
+	    message = _("The following files are absolute symbolic " 
+			"links, which we do not support during an " 
+			"upgrade. Please change them to relative "
+			"symbolic links and restart the upgrade.\n\n")
+	    for n in badLinks:
+		message = message + '\t' + n + '\n'
+	    self.intf.messageWindow(("Absolute Symlinks"), message)
+	    sys.exit(0)
+    else:
+	fstab.readFstab(self.instPath + '/etc/fstab', self.fstab)
+	
+    # XXX fssetify
+    self.fstab.turnOnSwap(self.instPath, formatSwap = 0)
+		
+def upgradeFindPackages (self):
+    if not self.rebuildTime:
+	self.rebuildTime = str(int(time.time()))
+    self.getCompsList ()
+    self.getHeaderList ()
+    self.method.mergeFullHeaders(self.hdList)
+
+    win = self.intf.waitWindow (_("Finding"),
+				_("Finding packages to upgrade..."))
+
+    self.dbpath = "/var/lib/anaconda-rebuilddb" + self.rebuildTime
+    rpm.addMacro("_dbpath_rebuild", self.dbpath)
+    rpm.addMacro("_dbapi", "-1")
+
+    # now, set the system clock so the timestamps will be right:
+    iutil.setClock (self.instPath)
+    
+    # and rebuild the database so we can run the dependency problem
+    # sets against the on disk db
+    rc = rpm.rebuilddb (self.instPath)
+    if rc:
+        try:
+            iutil.rmrf (self.instPath + "/var/lib/anaconda-rebuilddb"
+                        + self.rebuildTime)
+        except:
+            pass
+        
+	win.pop()
+	self.intf.messageWindow(_("Error"),
+				_("Rebuild of RPM database failed. "
+				  "You may be out of disk space?"))
+	if self.setupFilesystems:
+	    self.fstab.umountFilesystems (self.instPath)
+	sys.exit(0)
+
+    rpm.addMacro("_dbpath", self.dbpath)
+    rpm.addMacro("_dbapi", "3")
+    try:
+	packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
+    except rpm.error:
+	iutil.rmrf (self.instPath + "/var/lib/anaconda-rebuilddb"
+		    + self.rebuildTime)
+	win.pop()
+	self.intf.messageWindow(_("Error"),
+				_("An error occured when finding the packages to "
+				  "upgrade."))
+	if self.setupFilesystems:
+	    self.fstab.umountFilesystems (self.instPath)
+	sys.exit(0)
+	    
+    # Turn off all comps
+    for comp in self.comps:
+	comp.unselect()
+
+    # unselect all packages
+    for package in self.hdList.packages.values ():
+	package.selected = 0
+
+    hasX = 0
+    hasFileManager = 0
+    # turn on the packages in the upgrade set
+    for package in packages:
+	self.hdList[package[rpm.RPMTAG_NAME]].select()
+	if package[rpm.RPMTAG_NAME] == "XFree86":
+	    hasX = 1
+	if package[rpm.RPMTAG_NAME] == "gmc":
+	    hasFileManager = 1
+	if package[rpm.RPMTAG_NAME] == "kdebase":
+	    hasFileManager = 1
+
+    # open up the database to check dependencies
+    db = rpm.opendb (0, self.instPath)
+
+    # if we have X but not gmc, we need to turn on GNOME.  We only
+    # want to turn on packages we don't have installed already, though.
+    if hasX and not hasFileManager:
+	log ("Has X but no desktop -- Installing GNOME")
+	for package in self.comps['GNOME'].pkgs:
+	    try:
+		rec = db.findbyname (package.name)
+	    except rpm.error:
+		rec = None
+	    if not rec:
+		log ("GNOME: Adding %s", package)
+		package.select()
+	
+    del db
+
+    # new package dependency fixup
+    deps = self.verifyDeps ()
+    loops = 0
+    while deps and self.canResolveDeps (deps) and loops < 10:
+	for (name, suggest) in deps:
+	    if name != _("no suggestion"):
+		log ("Upgrade Dependency: %s needs %s, "
+		     "automatically added.", name, suggest)
+	self.selectDeps (deps)
+	deps = self.verifyDeps ()
+	loops = loops + 1
+
+    win.pop ()
+
+

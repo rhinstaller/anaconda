@@ -1,14 +1,74 @@
-
 import types, os, sys, isys, select, string, stat, signal
 import os.path
-from log import *
+from log import log
 
 memoryOverhead = 0
+floppyDevice = None
 
 def setMemoryOverhead(amount):
     global memoryOverhead
 
     memoryOverhead = amount
+
+def SetFdDevice():
+    global floppyDevice
+
+    if floppyDevice:
+	return floppydevice
+
+    floppyDevice = "fd0"
+    if iutil.getArch() == "sparc":
+	try:
+	    f = open(floppyDevice, "r")
+	except IOError, (errnum, msg):
+	    if errno.errorcode[errnum] == 'ENXIO':
+		floppyDevice = "fd1"
+	else:
+	    f.close()
+    elif iutil.getArch() == "alpha":
+	pass
+    elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
+	# Look for the first IDE floppy device
+	drives = isys.floppyDriveDict()
+	if not drives:
+	    log("no IDE floppy devices found")
+	    return 0
+
+	floppyDrive = drives.keys()[0]
+	# need to go through and find if there is an LS-120
+	for dev in drives.keys():
+	    if re.compile(".*[Ll][Ss]-120.*").search(drives[dev]):
+		floppyDrive = dev
+
+	# No IDE floppy's -- we're fine w/ /dev/fd0
+	if not floppyDrive: return
+
+	if iutil.getArch() == "ia64":
+	    floppyDevice = floppyDrive
+	    log("anaconda floppy device is %s", floppyDevice)
+	    return
+
+	# Look in syslog for a real fd0 (which would take precedence)
+	try:
+	    f = open("/tmp/syslog", "r")
+	except IOError:
+	    return
+	for line in f.readlines():
+	    # chop off the loglevel (which init's syslog leaves behind)
+	    line = line[3:]
+	    match = "Floppy drive(s): "
+	    if match == line[:len(match)]:
+		# Good enough
+		floppyDrive = "fd0"
+		break
+
+	floppyDevice = floppyDrive
+    else:
+	raise SystemError, "cannot determine floppy device for this arch"
+
+    log("anaconda floppy device is %s", floppyDevice)
+
+    return floppyDevice
 
 def getArch ():
     arch = os.uname ()[4]
@@ -44,10 +104,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	stderr = getfd(stderr)
 
     if not os.access (root + command, os.X_OK):
-        if not os.access (command, os.X_OK):
-            raise RuntimeError, command + " can not be run"
-        else:
-            root = ""
+	raise RuntimeError, command + " can not be run"
 
     childpid = os.fork()
     if (not childpid):
@@ -104,10 +161,7 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
 		    catchfd = 1, closefd = -1):
 
     if not os.access (root + command, os.X_OK):
-        if not os.access (command, os.X_OK):
-            raise RuntimeError, command + " can not be run"
-        else:
-            root = ""
+	raise RuntimeError, command + " can not be run"
 
     (read, write) = os.pipe()
 
@@ -362,4 +416,68 @@ def swapAmount():
     mem = int(long (fields[1]) / 1024)
 
     return mem
+
+class InstSyslog:
+    def __init__ (self, root, log):
+        self.pid = os.fork ()
+        if not self.pid:
+            # look on PYTHONPATH first, so we use updated anaconda
+            path = None
+            if os.environ.has_key('PYTHONPATH'):
+                for f in string.split(os.environ['PYTHONPATH'], ":"):
+                    if os.access (f+"/anaconda", os.X_OK):
+                        path = f+"/anaconda"
+                        break
+                
+            if not path:
+                if os.access ("./anaconda", os.X_OK):
+                    path = "./anaconda"
+                elif os.access ("/usr/bin/anaconda.real", os.X_OK):
+                    path = "/usr/bin/anaconda.real"
+                else:
+                    path = "/usr/bin/anaconda"
+                    
+            os.execv (path, ("syslogd", "--syslogd", root, log))
+
+    def __del__ (self):
+        os.kill (self.pid, 15)
+	os.wait (self.pid)
+        
+# XXX this doesn't work!
+#
+# funky, but importing dispatch at the top of iutil breaks things!?!
+def makeBootdisk (intf):
+    # this is faster then waiting on mkbootdisk to fail
+
+    import dispatch
+    return dispatch.DISPATCH_NOOP
+
+    device = floppyDevice
+    file = "/tmp/floppy"
+    isys.makeDevInode(device, file)
+    try:
+	fd = os.open(file, os.O_RDONLY)
+    except:
+	import dispatch
+	return dispatch.DISPATCH_BACK
+    os.close(fd)
+
+    kernel = self.hdList['kernel']
+    kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
+			    kernel[rpm.RPMTAG_RELEASE])
+
+    w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
+    rc = iutil.execWithRedirect("/sbin/mkbootdisk",
+				[ "/sbin/mkbootdisk",
+				  "--noprompt",
+				  "--device",
+				  "/dev/" + floppyDevice,
+				  kernelTag[1:] ],
+				stdout = '/dev/tty5', stderr = '/dev/tty5',
+				searchPath = 1, root = self.instPath)
+    w.pop()
+
+    if rc:
+	import dispatch
+	return dispatch.DISPATCH_BACK
 

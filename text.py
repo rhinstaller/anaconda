@@ -1,550 +1,66 @@
 from snack import *
 import sys
-import isys
 import os
-import stat
 import iutil
-import rpm
 import time
 import gettext_rh
 import signal
-import installclass
 from translate import _, cat, N_
+from language import expandLangs
 from log import log
-
+from flags import flags
 from constants_text import *
-from lilo_text import LiloWindow
-from lilo_text import LiloAppendWindow
-from lilo_text import LiloImagesWindow
-from silo_text import SiloWindow
-from silo_text import SiloAppendWindow
-from silo_text import SiloImagesWindow
-from network_text import NetworkWindow
-from network_text import HostnameWindow
-from userauth_text import RootPasswordWindow
-from userauth_text import UsersWindow
-from userauth_text import AuthConfigWindow
-from partitioning_text import PartitionMethod
-from partitioning_text import LoopSizeWindow
-from partitioning_text import ManualPartitionWindow
-from partitioning_text import AutoPartitionWindow
-from partitioning_text import PartitionWindow
-from partitioning_text import TurnOnSwapWindow
-from partitioning_text import FormatWindow
-from partitioning_text import LBA32WarningWindow
-from packages_text import PackageGroupWindow
-from packages_text import IndividualPackageWindow
-from packages_text import PackageDepWindow
-from timezone_text import TimezoneWindow
-from bootdisk_text import BootDiskWindow
-from bootdisk_text import MakeBootDiskWindow
-from mouse_text import MouseWindow, MouseDeviceWindow
-from firewall_text import FirewallWindow
-from upgrade_text import UpgradeExamineWindow
-from upgrade_text import UpgradeSwapWindow
-from upgrade_text import CustomizeUpgradeWindow
 
-import installclass
+stepToClasses = {
+    "language" : ( "language_text", "LanguageWindow" ),
+    "keyboard" : ( "keyboard_text", "KeyboardWindow" ),
+    "mouse" : ( "mouse_text", ( "MouseWindow", "MouseDeviceWindow" ) ),
+    "welcome" : ("welcome_text", "WelcomeWindow" ),
+    "reconfigwelcome" : ("welcome_text", "ReconfigWelcomeWindow" ),
+    "installtype" : ("installpath_text", "InstallPathWindow" ),
+    "autopartition" : ("partitioning_text", ( "AutoPartitionWindow",
+                                              "PartitionMethod" ) ),
+    "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow" ),
+    "addswap" : ("upgrade_text", "UpgradeSwapWindow" ),
+    "fdisk" : ("partitioning_text", "ManualPartitionWindow" ),
+    "partition": ("partition_text", ("PartitionWindow") ),
+    "bootloader" : ("lilo_text", ("LiloAppendWindow",
+				  "LiloWindow",
+				  "LiloImagesWindow" ) ),
+    "network" : ("network_text", ( "NetworkWindow", "HostnameWindow" ) ),
+    "firewall" : ( "firewall_text", "FirewallWindow" ),
+    "languagesupport" : ( "language_text", ( "LanguageDefaultWindow",
+                                             "LanguageSupportWindow" ) ),
+    "timezone" : ( "timezone_text", "TimezoneWindow" ),
+    "accounts" : ( "userauth_text", ( "RootPasswordWindow", "UsersWindow" ) ),
+    "authentication" : ( "userauth_text", ( "AuthConfigWindow" ) ),
+    "package-selection"  : ( "packages_text", "PackageGroupWindow" ),
+    "indivpackage" : ("packages_text", ( "IndividualPackageWindow" ) ),
+    "dependencies" : ( "packages_text", "PackageDepWindow" ),
+    "videocard" : ( "xconfig_text", "XConfigWindowCard"),
+    "monitor" : ( "xconfig_text", "MonitorWindow" ),
+    "xcustom" : ( "xconfig_text", "XCustomWindow" ),
+    "confirminstall" : ( "confirm_text", "BeginInstallWindow" ),
+    "confirmupgrade" : ( "confirm_text", "BeginUpgradeWindow" ),
+    "install" : ( "progress_text", "setupForInstall" ),
+    "bootdisk" : ( "bootdisk_text", ( "BootDiskWindow",
+                                      "MakeBootDiskWindow" ) ),
+#    "finishxconfig" : ( "xconfig_text", "XconfiguratorWindow" ),
+    "complete" : ( "complete_text", "FinishedWindow" ),
+    "reconfigcomplete" : ( "complete_text", "ReconfigFinishedWindow" ),
+}
+
+stepToClasses["reconfigkeyboard"] = stepToClasses["keyboard"]
+
+if iutil.getArch() == 'sparc':
+    stepToClasses["bootloader"] = ( "silo_text", ( "SiloAppendWindow",
+                                                   "SiloWindow"
+                                                   "SiloImagesWindow" ) )
+else:
+    stepToClasses["bootloader"] = ( "lilo_text", ( "LiloAppendWindow",
+                                                   "LiloWindow",
+                                                   "LiloImagesWindow") )
 
-class LanguageWindow:
-    def __call__(self, screen, todo, textInterface):
-        languages = todo.instTimeLanguage.available ()
-
-        haveKon = os.access ("/sbin/continue", os.X_OK)
-        if "Japanese" in languages and not haveKon:
-	    languages.remove("Japanese")
-
-        current = todo.instTimeLanguage.getCurrent()
-
-        height = min((screen.height - 16, len(languages)))
-        if todo.reconfigOnly:
-            buttons = [_("Ok"), _("Back")]
-        else:
-            buttons = [_("Ok")]
-
-        translated = []
-        for lang in languages:
-            translated.append (_(lang))
-        (button, choice) = \
-            ListboxChoiceWindow(screen, _("Language Selection"),
-			_("What language would you like to use during the "
-			  "installation process?"), translated, 
-			buttons, width = 30, default = _(current), scroll = 1,
-                                height = height, help = "lang")
-
-	if (button == string.lower(_("Back"))): return INSTALL_BACK
-
-        choice = languages[choice]
-        
-        if (todo.setupFilesystems
-            and choice == "Japanese" and not isys.isPsudoTTY(0)):
-            # we're not running KON yet, lets fire it up
-            os.environ["ANACONDAARGS"] = (os.environ["ANACONDAARGS"] +
-                                          " --lang ja_JP.eucJP")
-            os.environ["TERM"] = "kon"
-            os.environ["LANG"] = "ja_JP.eucJP"
-            os.environ["LC_ALL"] = "ja_JP.eucJP"
-            os.environ["LC_NUMERIC"] = "C"
-            if os.access("/tmp/updates/anaconda", os.X_OK):
-                prog = "/tmp/updates/anaconda"
-            else:
-                prog = "/usr/bin/anaconda"
-            args = [ "kon", "-e", prog ]
-            screen.finish()
-            os.execv ("/sbin/loader", args)
-
-	todo.instTimeLanguage.setRuntimeLanguage(choice)
-                
-	if not todo.serial:
-	    map = todo.instTimeLanguage.getFontMap(choice)
-	    font = todo.instTimeLanguage.getFontFile(choice)
-	    if map != "None":
-		if os.access("/bin/consolechars", os.X_OK):
-		    iutil.execWithRedirect ("/bin/consolechars",
-					["/bin/consolechars", "-f", font, "-m", map])
-		else:
-		    try:
-			isys.loadFont(map)
-		    except SystemError, (errno, msg):
-			log("Could not load font %s: %s" % (font, msg))
-	    elif os.access("/bin/consolechars", os.X_OK):
-		# test and reconfig
-		iutil.execWithRedirect ("/bin/consolechars", 
-			["/bin/consolechars", "-d", "-m", "iso01"])
-
-	textInterface.drawFrame()
-	    
-        return INSTALL_OK
-
-class LanguageSupportWindow:
-    def __call__(self, screen, todo):
-	# should already be sorted
-
-        ct = CheckboxTree(height = 8, scroll = 1)
-
-        for lang in todo.language.getAllSupported():
-	    ct.append(lang, lang, 0)
-
-	for lang in todo.language.getSupported ():
-	    ct.setEntryValue(lang, 1)
-
-	current = todo.language.getDefault()
-	ct.setCurrent(current)
-	ct.setEntryValue(current, 1)
-
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Select All"), "all"), (_("Reset"), "reset"), (_("Back"), "back")))
-
-        message = (_("Choose the languages to be installed:"))
-        width = len(message)
-        tb = Textbox (width, 2, message)
-
-        g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
-        
-        g.add (tb, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
-        g.add (ct, 0, 1, (0, 0, 0, 1))
-        g.add (bb, 0, 3, growx = 1)
-
-        while 1:
-            result = g.run()
-
-            rc = bb.buttonPressed (result)
-
-            if rc == "back":
-                screen.popWindow()
-                return INSTALL_BACK
-
-            if rc == "all":
-                for lang in todo.language.getAllSupported():
-                    ct.setEntryValue(lang, 1)
-
-            if rc == "reset":
-                for lang in todo.language.getAllSupported():
-                    if lang == current:
-                        ct.setEntryValue(lang, 1)
-                    else:
-                        ct.setEntryValue(lang, 0)
-
-            if rc == "ok" or result == "F12":
-                # --If they selected all langs, then set todo.language.setSupported to 
-                # None.  This installs all langs
-
-                if ct.getSelection() == []:
-                    ButtonChoiceWindow(screen, _("Invalid Choice"),
-                                       _("You must select at least one language to install."),
-                                       buttons = [ _("OK") ], width = 40)
-
-                else:
-                    # we may need to reset the default language
-                    todo.language.setSupported (ct.getSelection())
-                    default = todo.language.getDefault()
-                    if default not in ct.getSelection():
-                        todo.language.setDefault(None)
-                    screen.popWindow()
-                    return INSTALL_OK
-
-
-class LanguageDefaultWindow:
-    def __call__(self,screen, todo):
-        langs = todo.language.getSupported ()
-	current = todo.language.getDefault()
-
-        if not langs or len(langs) <= 1:
-	    todo.language.setDefault(current)
-            return
-
-	langs.sort()
-
-        height = min((screen.height - 16, len(langs)))
-        
-        buttons = [_("Ok"), _("Back")]
-
-        (button, choice) = ListboxChoiceWindow(screen, _("Default Language"),
-			_("Choose the default language: "), langs, 
-			buttons, width = 30, default = current, scroll = 1,
-                                               height = height, help = "langdefault")
-
-	if (button == string.lower(_("Back"))): return INSTALL_BACK
-
-        todo.language.setDefault (langs[choice])
-        return INSTALL_OK
-
-class KeyboardWindow:
-    beenRun = 0
-
-    def __call__(self, screen, todo):
-	if todo.serial:
-	    return INSTALL_NOOP
-        keyboards = todo.keyboard.available ()
-        keyboards.sort ()
-
-	if self.beenRun:
-	    default = todo.keyboard.get ()
-	else:
-	    default = todo.instTimeLanguage.getDefaultKeyboard()
-
-        (button, choice) = \
-            ListboxChoiceWindow(screen, _("Keyboard Selection"),
-                                _("Which model keyboard is attached to this computer?"), keyboards, 
-                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
-                                default = default, help = "kybd")
-        
-        if button == string.lower (_("Back")):
-            return INSTALL_BACK
-
-        todo.keyboard.set (keyboards[choice])
-	self.beenRun = 1
-
-	if not todo.serial:
-            if todo.reconfigOnly:
-                iutil.execWithRedirect ("/bin/loadkeys",
-                                        ["/bin/loadkeys", keyboards[choice]],
-					stderr = "/dev/null")
-            else:
-                try:
-                    isys.loadKeymap(keyboards[choice])
-                except SystemError, (errno, msg):
-		    log("Could not install keymap %s: %s" % (keyboards[choice], msg))
-        return INSTALL_OK
-    
-class InstallPathWindow:
-    def __call__ (self, screen, todo, intf):
-	from fstab import NewtFstab
-
-        # see if kickstart specified install type
-	showScreen = 1
-	if (todo.instClass.installType == "install"):
-            intf.steps = intf.commonSteps + intf.installSteps
-            todo.upgrade = 0
-	    showScreen = 0
-	elif (todo.instClass.installType == "upgrade"):
-            intf.steps = intf.commonSteps + intf.upgradeSteps
-            todo.upgrade = 1
-	    showScreen = 0
-
-        # this is (probably) the first place todo.fstab gets created
-        if not showScreen:
-	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-                                   todo.serial, todo.zeroMbr, 0,
-                                   todo.intf.waitWindow,
-                                   todo.intf.messageWindow,
-                                   todo.intf.progressWindow,
-                                   not todo.expert,
-                                   todo.method.protectedPartitions(),
-                                   todo.expert, todo.upgrade)
-#
-# merge in fstab entries specified in ks
-#
-            todo.instClass.mergeFstabEntries(todo)
-
-	    return INSTALL_NOOP
-
-	classes = installclass.availableClasses()
-
-	choices = []
-	for (name, object, icon) in classes:
-	    choices.append(_(name))
-	upgradeChoice = len(choices)
-	choices.append(_("Upgrade Existing Installation"))
-
-	if (todo.upgrade):
-	    default = upgradeChoice
-	    orig = None
-	else:
-	    instClass = todo.getClass()
-	    orig = None
-	    default = 0
-	    i = 0
-	    for (name, object, icon) in classes:
-		if isinstance(instClass, object):
-		    orig = i
-		    break
-		elif object.default:
-		    default = i
-		    
-		i = i + 1
-
-	    if (orig):
-		default = orig
-
-	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
-			_("What type of system would you like to install?"),
-			    choices, [(_("OK"), "ok"), (_("Back"), "back")],
-			    width = 40, default = default, help = "installpath")
-
-        if button == "back":
-            return INSTALL_BACK
-
-	needNewDruid = 0
-
-	if (choice == upgradeChoice):
-            intf.steps = intf.commonSteps + intf.upgradeSteps
-	    if not todo.upgrade:
-		needNewDruid = 1
-            todo.upgrade = 1
-        else:
-            intf.steps = intf.commonSteps + intf.installSteps
-            todo.upgrade = 0
-	    if (choice != orig):
-		(name, objectClass, logo) = classes[choice]
-		todo.setClass(objectClass(todo.expert))
-		needNewDruid = 1
-
-	if needNewDruid or not todo.fstab:
-	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-                                   todo.serial, 0, 0,
-                                   todo.intf.waitWindow,
-                                   todo.intf.messageWindow,
-                                   todo.intf.progressWindow,
-                                   not todo.expert,
-                                   todo.method.protectedPartitions(),
-                                   todo.expert, todo.upgrade)
-
-        return INSTALL_OK
-
-
-class WelcomeWindow:
-    def __call__(self, screen):
-        rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
-                                _("Welcome to Red Hat Linux!\n\n"
-                                  "This installation process is outlined in detail in the "
-                                  "Official Red Hat Linux Installation Guide available from "
-                                  "Red Hat Software. If you have access to this manual, you "
-                                  "should read the installation section before continuing.\n\n"
-                                  "If you have purchased Official Red Hat Linux, be sure to "
-                                  "register your purchase through our web site, "
-                                  "http://www.redhat.com/."),
-                                buttons = [_("OK"), _("Back")], width = 50,
-				help = "welcome")
-
-	if rc == string.lower(_("Back")):
-	    return INSTALL_BACK
-
-        return INSTALL_OK
-
-class ReconfigWelcomeWindow:
-    def __call__(self, screen):
-        rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
-                                _("Welcome to the Red Hat Linux!\n\n"
-                                  "You have entered reconfiguration mode, "
-                                  "which will allow you to configure "
-                                  "site-specific options of your computer."
-                                  "\n\n"
-                                  "To exit without changing your setup "
-                                  "select the ""Cancel"" button below."),
-                                buttons = [_("OK"), _("Cancel")], width = 50,
-				help = "reconfigwelcome")
-
-	if rc == string.lower(_("Cancel")):
-            screen.finish()
-	    os._exit(0)
-
-        return INSTALL_OK
-
-class XConfigWindow:
-    def __call__(self, screen, todo):
-        #
-        # if in reconfigOnly mode we query existing rpm db
-        # if X not installed, just skip this step
-        #
-        if todo.reconfigOnly:
-#            import rpm
-#            db = rpm.opendb()
-#            rc = db.findbyname ("XFree86")
-#            if len(rc) == 0:
-#                return None
-
-#
-#       for now ignore request to configure X11 in reconfig mode
-#
-            return None
-        
-        else:
-            # we need to get the package list here for things like
-            # workstation install - which will not have read the
-            # package list yet.
-            todo.getCompsList ()
-
-            if not todo.hdList.packages.has_key('XFree86') or \
-               not todo.hdList.packages['XFree86'].selected:
-                return None
-
-        todo.x.probe (probeMonitor = 0)
-#        todo.x.server = None  #-hack
-        if todo.x.server:
-            rc = ButtonChoiceWindow (screen, _("X probe results"),
-                                     todo.x.probeReport (),
-                                     buttons = [ _("OK"), _("Back") ],
-                                     help = 'xprobe')
-        
-            if rc == string.lower (_("Back")):
-                return INSTALL_BACK
-
-	    todo._cardindex = -1
-            return INSTALL_OK
-
-	if todo.serial:
-	    # if doing serial installation and no card was probed,
-	    # assume no card is present (typical case).
-	    return INSTALL_NOOP
-
-	# if we didn't find a server, we need the user to choose...
-	carddb = todo.x.cards()
-	cards = carddb.keys ()
-	cards.sort ()
-	cards.append (_("Unlisted Card"))
-
-	servers = [ "Mono", "VGA16", "SVGA", "S3", "Mach32", "Mach8", "8514", "P9000", "AGX",
-		    "W32", "W32", "Mach64", "I128", "S3V", "3DLabs" ]
-
-	rc = INSTALL_NOOP
-        server = None
-	while rc != INSTALL_OK:
-	    (rc, choice) = ListboxChoiceWindow(screen, _("Video Card Selection"),
-					       _("Which video card do you have?"),
-					       cards,
-					       buttons = [_("OK"), _("Back")],
-					       width = 70, scroll = 1,
-					       height = screen.height - 14,
-					       help = "videocard")
-	    if rc == string.lower (_("Back")):
-		return INSTALL_BACK
-
-	    todo._cardindex = -1
-
-	    if cards[choice] == _("Unlisted Card"):
-		(rc , choice) = \
-		    ListboxChoiceWindow(screen, _("X Server Selection"), _("Choose a server"),
-					servers,
-					buttons = [ (_("Ok"), "ok"), (_("Back"), "back") ],
-					scroll = 1,
-					height = screen.height - 14,
-					help = "xserver")
-
-		if (rc == "back"):
-		    rc = INSTALL_BACK
-		else:
-		    rc = INSTALL_OK
-		    server = servers[choice]
-	    else:
-		todo._cardindex = choice
-		rc = INSTALL_OK
-
-	if server:
-	    todo.x.setVidcard ( { "NAME" : "Generic " + server,
-				  "SERVER" : server } )
-	else:
-	    card = carddb[cards[choice]]
-
-            depth = 0
-            while depth < 16 and card.has_key ("SEE"):
-                card = carddb[card["SEE"]]
-                depth = depth + 1
-
-	    todo.x.setVidcard (card)
-	
-	return INSTALL_OK
-
-
-class XconfiguratorWindow:
-    def __call__ (self, screen, todo):
-        if not todo.x.server: return INSTALL_NOOP
-
-	# if serial install, we can't run it.
-	if todo.serial:
-	    todo.x.skip = 1
-	    return INSTALL_NOOP
-
-        # if Xconfigurator isn't installed, we can't run it.
-        if not os.access (todo.instPath + '/usr/X11R6/bin/Xconfigurator',
-                          os.X_OK):
-            log("Could not find Xconfigurator, skipping X configuration.")
-            return INSTALL_NOOP
-
-        f = open (todo.instPath + "/var/run/SERVER", "w")
-	if todo._cardindex == -1:
-	    f.write ("%d\n" % todo._cardindex)
-	else:
-	    f.write ("%s %d\n" % (todo.x.server, todo._cardindex))
-        f.close ()
-
-	args = ["xconfigurator", "--continue"]
-	if todo.expert:
-	    args = args + [ '--noddcprobe' ]
-
-        screen.suspend ()
-        iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator", args,
-                                root = todo.instPath)
-        screen.resume ()
-	todo.x.skip = 1
-        return INSTALL_NOOP
-        
-class BeginInstallWindow:
-    def __call__ (self, dir, screen, todo):
-
-        if dir == -1:
-            return INSTALL_NOOP
-        
-        rc = ButtonChoiceWindow (screen, _("Installation to begin"),
-                                _("A complete log of your installation will be in "
-                                  "/tmp/install.log after rebooting your system. You "
-                                  "may want to keep this file for later reference."),
-                                buttons = [ _("OK"), _("Back") ],
-				help = "begininstall")
-        if rc == string.lower (_("Back")):
-            return INSTALL_BACK
-        return INSTALL_OK
-
-class BeginUpgradeWindow:
-    def __call__ (self, screen, todo):
-        rc = ButtonChoiceWindow (screen, _("Upgrade to begin"),
-                                _("A complete log of your upgrade will be in "
-                                  "/tmp/upgrade.log after rebooting your system. You "
-                                  "may want to keep this file for later reference."),
-                                buttons = [ _("OK"), _("Back") ],
-				help = "beginupgrade")
-        if rc == string.lower (_("Back")):
-            return INSTALL_BACK
-        return INSTALL_OK
 
 class InstallWindow:
     def __call__ (self, screen, todo):
@@ -552,178 +68,6 @@ class InstallWindow:
             return INSTALL_BACK
 
         return INSTALL_OK
-
-class FinishedWindow:
-    def __call__ (self, screen, todo):
-
-
-        screen.pushHelpLine (_("                              <Return> to reboot                              "))
-
-	rc = ButtonChoiceWindow (screen, _("Complete"), 
-		 _("Congratulations, installation is complete.\n\n"
-		   "Press return to reboot, and be sure to remove your "
-		   "boot medium after the system reboots, or your system "
-		   "will rerun the install. For information on fixes which "
-		   "are available for this release of Red Hat Linux, "
-		   "consult the "
-		   "Errata available from http://www.redhat.com/errata.\n\n"
-		   "Information on configuring and using your Red Hat "
-		   "Linux system is contained in the Red Hat Linux "
-		   "manuals."),
-		[ _("OK") ], help = "finished")
-
-        return INSTALL_OK
-
-
-class ReconfigFinishedWindow:
-    def __call__ (self, screen, todo):
-
-        screen.pushHelpLine (_("                                <Return> to exit                              "))
-
-        todo.writeConfiguration()
-            
-        rc = ButtonChoiceWindow (screen, _("Complete"), 
-                                 _("Congratulations, configuration is complete.\n\n"
-                                   " For information on fixes which "
-                                   "are available for this release of Red Hat Linux, "
-                                   "consult the "
-                                   "Errata available from http://www.redhat.com.\n\n"
-                                   "Information on further configuring your system is "
-                                   "available at http://www.redhat.com/support/manuals/"),
-
-                                 [ _("OK") ], help = "reconfigfinished")
-
-        return INSTALL_OK
-
-class InstallProgressWindow:
-    def completePackage(self, header, timer):
-        def formatTime(amt):
-            hours = amt / 60 / 60
-            amt = amt % (60 * 60)
-            min = amt / 60
-            amt = amt % 60
-            secs = amt
-
-            return "%01d:%02d:%02d" % (int(hours) ,int(min), int(secs))
-
-       	self.numComplete = self.numComplete + 1
-	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE] / 1024)
-	self.numCompleteW.setText("%12d" % self.numComplete)
-	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete/1024))
-	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
-	self.sizeRemainingW.setText("%10dM" % (self.sizeTotal/1024 - self.sizeComplete/1024))
-	self.total.set(self.sizeComplete)
-
-	elapsedTime = timer.elapsed()
-        if not elapsedTime:
-            elapsedTime = 1
-	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
-        if self.sizeComplete != 0:
-            finishTime = (float (self.sizeTotal) / (self.sizeComplete)) * elapsedTime;
-        else:
-            finishTime = (float (self.sizeTotal) / (self.sizeComplete+1)) * elapsedTime;
-	self.timeTotalW.setText("%12s" % formatTime(finishTime))
-	remainingTime = finishTime - elapsedTime;
-	self.timeRemainingW.setText("%12s" % formatTime(remainingTime))
-
-	self.g.draw()
-	self.screen.refresh()
-
-    def setPackageScale(self, amount, total):
-	self.s.set(int(((amount * 1.0)/ total) * 100))
-	self.g.draw()
-	self.screen.refresh()
-
-    def setPackage(self, header):
-	self.name.setText("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
-                                        header[rpm.RPMTAG_VERSION],
-                                        header[rpm.RPMTAG_RELEASE]))
-	self.size.setText("%dk" % (header[rpm.RPMTAG_SIZE] / 1024))
-	summary = header[rpm.RPMTAG_SUMMARY]
-	if (summary != None):
-	    self.summ.setText(summary)
-	else:
-            self.summ.setText("(none)")
-
-	self.g.draw()
-	self.screen.refresh()
-
-    def __init__(self, screen, total, totalSize):
-	self.screen = screen
-        toplevel = GridForm(self.screen, _("Package Installation"), 1, 5)
-        
-        name = _("Name   : ")
-        size = _("Size   : ")
-        sum =  _("Summary: ")
-        
-        width = 40 + max (len (name), len (size), len (sum))
-	self.name = Label(" " * 40)
-	self.size = Label(" ")
-	detail = Grid(2, 2)
-	detail.setField(Label(name), 0, 0, anchorLeft = 1)
-	detail.setField(Label(size), 0, 1, anchorLeft = 1)
-	detail.setField(self.name, 1, 0, anchorLeft = 1)
-	detail.setField(self.size, 1, 1, anchorLeft = 1)
-	toplevel.add(detail, 0, 0)
-
-	summary = Grid(2, 1)
-	summlabel = Label(sum)
-	self.summ = Textbox(40, 2, "", wrap = 1)
-	summary.setField(summlabel, 0, 0)
-	summary.setField(self.summ, 1, 0)
-	toplevel.add(summary, 0, 1)
-
-	self.s = Scale (width, 100)
-	toplevel.add (self.s, 0, 2, (0, 1, 0, 1))
-
-	overall = Grid(4, 4)
-	# don't ask me why, but if this spacer isn"t here then the 
-        # grid code gets unhappy
-	overall.setField (Label (" "), 0, 0, anchorLeft = 1)
-	overall.setField (Label (_("    Packages")), 1, 0, anchorLeft = 1)
-	overall.setField (Label (_("       Bytes")), 2, 0, anchorLeft = 1)
-	overall.setField (Label (_("        Time")), 3, 0, anchorLeft = 1)
-
-	overall.setField (Label (_("Total    :")), 0, 1, anchorLeft = 1)
-	overall.setField (Label ("%12d" % total), 1, 1, anchorLeft = 1)
-	overall.setField (Label ("%10dM" % (totalSize/1024)),
-                          2, 1, anchorLeft = 1)
-	self.timeTotalW = Label("")
-	overall.setField(self.timeTotalW, 3, 1, anchorLeft = 1)
-
-	overall.setField (Label (_("Completed:   ")), 0, 2, anchorLeft = 1)
-	self.numComplete = 0
-	self.numCompleteW = Label("%12d" % self.numComplete)
-	overall.setField(self.numCompleteW, 1, 2, anchorLeft = 1)
-	self.sizeComplete = 0
-        self.sizeCompleteW = Label("%10dM" % (self.sizeComplete))
-	overall.setField(self.sizeCompleteW, 2, 2, anchorLeft = 1)
-	self.timeCompleteW = Label("")
-	overall.setField(self.timeCompleteW, 3, 2, anchorLeft = 1)
-
-	overall.setField (Label (_("Remaining:  ")), 0, 3, anchorLeft = 1)
-	self.numRemainingW = Label("%12d" % total)
-        self.sizeRemainingW = Label("%10dM" % (totalSize/1024))
-	overall.setField(self.numRemainingW, 1, 3, anchorLeft = 1)
-	overall.setField(self.sizeRemainingW, 2, 3, anchorLeft = 1)
-	self.timeRemainingW = Label("")
-	overall.setField(self.timeRemainingW, 3, 3, anchorLeft = 1)
-
-	toplevel.add(overall, 0, 3)
-
-	self.numTotal = total
-	self.sizeTotal = totalSize
-	self.total = Scale (width, totalSize)
-	toplevel.add(self.total, 0, 4, (0, 1, 0, 0))
-
-	self.timeStarted = -1
-	
-	toplevel.draw()
-	self.g = toplevel
-	screen.refresh()
-
-    def __del__ (self):
-        self.screen.popWindow ()
 
 class WaitWindow:
 
@@ -761,7 +105,7 @@ class OkCancelWindow:
 
     def __init__(self, screen, title, text):
 	rc = ButtonChoiceWindow(screen, _(title), _(text),
-			        buttons = [ _("OK"), _("Cancel") ])
+			        buttons = [ TEXT_OK_BUTTON, _("Cancel") ])
 	if rc == string.lower(_("Cancel")):
 	    self.rc = 1
 	else:
@@ -798,7 +142,12 @@ class InstallInterface:
     def helpWindow(self, screen, key, firstTime = 1):
 	try:
             f = None
-            for lang in self.todo.instTimeLanguage.getCurrentLangSearchList():
+
+	    # XXX
+	    #
+	    # HelpWindow can't get to the langauge
+
+            for lang in self.langSearchPath:
                 fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
                      % (lang, key)
                 try:
@@ -817,7 +166,7 @@ class InstallInterface:
 		else:
 		    ButtonChoiceWindow(screen, _("Help not available"), 
 				_("No help is available for this install."),
-				       buttons = [ _("OK") ])
+				       buttons = [ TEXT_OK_BUTTON ])
 		    return None
 
 	    l = f.readlines()
@@ -843,7 +192,7 @@ class InstallInterface:
 		if len(line) > width:
 		    width = len(line)
 
-	    bb = ButtonBar(screen, [ (_("OK"), "ok" ) ] )
+	    bb = ButtonBar(screen, [ TEXT_OK_BUTTON ] )
 	    t = Textbox(width, height, stream, scroll = scroll)
 
 	    g = GridFormHelp(screen, title, "helponhelp", 1, 2)
@@ -852,7 +201,7 @@ class InstallInterface:
 
 	    g.runOnce()
 	except:
-	    import sys, traceback
+	    import traceback
 	    (type, value, tb) = sys.exc_info()
 	    from string import joinfields
 	    list = traceback.format_exception (type, value, tb)
@@ -869,7 +218,7 @@ class InstallInterface:
     def messageWindow(self, title, text, type = "ok"):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons = [ _("OK") ])
+			       buttons = [ TEXT_OK_BUTTON ])
 	else:
 	    return OkCancelWindow(self.screen, _(title), _(text))
 
@@ -877,7 +226,7 @@ class InstallInterface:
 	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),
 	    _("Please insert a floppy now. All contents of the disk "
 	      "will be erased, so please choose your diskette carefully."),
-	    [ _("OK"), _("Cancel") ])
+	    [ TEXT_OK_BUTTON, _("Cancel") ])
 
         if rc == string.lower (_("Cancel")):
 	    return 1
@@ -892,7 +241,7 @@ class InstallInterface:
 		"and will help Red Hat in fixing the problem.\n\n")
 
 	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
-                           buttons = [ _("OK"), _("Save"), _("Debug") ])
+                           buttons = [ TEXT_OK_BUTTON, _("Save"), _("Debug") ])
         if rc == string.lower (_("Debug")):
             return 1
 	elif rc == string.lower (_("Save")):
@@ -919,226 +268,81 @@ class InstallInterface:
 	self.screen = None
 
     def __init__(self):
+	signal.signal(signal.SIGINT, signal.SIG_IGN)
+	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
+	self.screen = None
+
+    def __del__(self):
+	if self.screen:
+	    self.screen.finish()
+
+    def run(self, id, dispatch):
         self.screen = SnackScreen()
 	self.screen.helpCallback(self.helpWindow)
 	self.drawFrame()
+
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
 	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
 	#self.screen.suspendCallback(debugSelf, self.screen)
-        self.individual = Flag(0)
-        self.step = 0
-        self.dir = 1
-	signal.signal(signal.SIGINT, signal.SIG_IGN)
-	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 
-    def __del__(self):
-        self.screen.finish()
-
-    def run(self, todo, test = 0):
-	if todo.serial:
+	if flags.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
-	self.todo = todo
+	# clear out the old root text by writing spaces in the blank
+	# area on the right side of the screen
+	#self.screen.drawRootText (len(_(self.welcomeText)), 0,
+		  #(self.screen.width - len(_(self.welcomeText))) * " ")
+	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
 
-        if todo.reconfigOnly:
-            self.commonSteps = [
-                [N_("Welcome"), ReconfigWelcomeWindow, 
-                 (self.screen,), "reconfig" ],
-                [N_("Keyboard Selection"), KeyboardWindow, 
-                 (self.screen, todo), "keyboard" ],
-                [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
-                 "network"],
-                [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
-                 "network"],
-		[N_("Firewall Configuration"), FirewallWindow, (self.screen, todo),
-		 "firewall" ],
-                [N_("Language Default"), LanguageDefaultWindow, 
-                 (self.screen, todo), "languagedefault" ],
-                [N_("Time Zone Setup"), TimezoneWindow, 
-                 (self.screen, todo, test), "timezone" ],
-                [N_("Root Password"), RootPasswordWindow, 
-                 (self.screen, todo), "accounts" ],
-                [N_("User Account Setup"), UsersWindow, 
-                 (self.screen, todo), "accounts" ],
-                [N_("Authentication"), AuthConfigWindow, (self.screen, todo),
-                 "authentication" ],
-                [N_("Configuration Complete"), ReconfigFinishedWindow, (self.screen,todo),
-                 "complete" ],
-                ]
-        else:
-            self.commonSteps = [
-                [N_("Language Selection"), LanguageWindow, 
-                 (self.screen, todo, self), "language" ],
-                [N_("Keyboard Selection"), KeyboardWindow, 
-                 (self.screen, todo), "keyboard" ],
-                [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
-                [N_("Installation Type"), InstallPathWindow, 
-                 (self.screen, todo, self), "installtype" ],
-                ]
+        lang = id.instLanguage.getCurrent()
+        lang = id.instLanguage.getLangNick(lang)
+        self.langSearchPath = expandLangs(lang) + ['C']
+        
+	lastrc = INSTALL_OK
+	(step, args) = dispatch.currentStep()
+	while step:
+	    (file, classNames) = stepToClasses[step]
 
-	if iutil.getArch() == 'sparc':
-	    BootloaderAppendWindow = SiloAppendWindow
-	    BootloaderWindow = SiloWindow
-	    BootloaderImagesWindow = SiloImagesWindow
-	    BootloaderConfiguration = _("SILO Configuration")
-            BootloaderSkipName = "silo"
-	else:
-	    BootloaderAppendWindow = LiloAppendWindow
-	    BootloaderWindow = LiloWindow
-	    BootloaderImagesWindow = LiloImagesWindow
-	    BootloaderConfiguration = _("LILO Configuration")
-            BootloaderSkipName = "lilo"            
+	    if type(classNames) != type(()):
+		classNames = (classNames,)
 
-	# note that the parameter "dir" will be replaced with the direction
-	# we're traveling
+	    if lastrc == INSTALL_OK:
+		step = 0
+	    else:
+		step = len(classNames) - 1
 
-        self.installSteps = [
-            [N_("Automatic Partition"), AutoPartitionWindow, 
-		    (self.screen, todo), "partition" ],
-            [N_("Partition"), PartitionMethod,
-		    (self.screen, todo), "partition" ],
-            [N_("Manually Partition"), ManualPartitionWindow, 
-		    (self.screen, todo), "partition" ],
-            [N_("Partition"), PartitionWindow, (self.screen, todo),
-		    "partition" ],
-            [N_("Root Filesystem Size"), LoopSizeWindow, (self.screen, todo),
-		    "partition" ],
-            [N_("Swap"), TurnOnSwapWindow, (self.screen, todo),
-		    "partition" ],
-            [N_("Boot Partition Warning"), LBA32WarningWindow, ("dir", self.screen, todo),
-		    "lba32warning" ],
-            [N_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
-		    "format" ],
-            [BootloaderConfiguration, BootloaderAppendWindow, 
-		    (self.screen, todo), BootloaderSkipName ],
-            [BootloaderConfiguration, BootloaderWindow, 
-		    (self.screen, todo), BootloaderSkipName ],
-	    [BootloaderConfiguration, BootloaderImagesWindow, 
-		    (self.screen, todo), BootloaderSkipName ],
-#            [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
-#		    "network"],
-            [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
-		    "network"],
+	    while step >= 0 and step < len(classNames):
+		s = "from %s import %s; nextWindow = %s" % \
+			(file, classNames[step], classNames[step])
+		exec s
 
-            [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
-		    "network"],
-	    [N_("Firewall Configuration"), FirewallWindow, (self.screen, todo),
-		 "firewall" ],
-            [N_("Mouse Configuration"), MouseWindow, (self.screen, todo.mouse),
-		    "mouse" ],
-            [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo.mouse),
-		    "mouse" ],
+		win = nextWindow()
 
-            [N_("Language Support"), LanguageSupportWindow, 
-             (self.screen, todo), "languagesupport" ],
-            [N_("Language Default"), LanguageDefaultWindow, 
-             (self.screen, todo), "languagedefault" ],
+		#log("TUI running step %s (class %s, file %s)" % 
+			    #(step, file, classNames))
 
-            [N_("Time Zone Setup"), TimezoneWindow, 
-		    (self.screen, todo, test), "timezone" ],
-            [N_("Root Password"), RootPasswordWindow, 
-		    (self.screen, todo), "accounts" ],
-            [N_("User Account Setup"), UsersWindow, 
-		    (self.screen, todo), "accounts" ],
-            [N_("Authentication"), AuthConfigWindow, (self.screen, todo),
-		    "authentication" ],
-            [N_("Package Groups"), PackageGroupWindow, 
-		(self.screen, todo, self.individual), "package-selection" ],
-            [N_("Individual Packages"), IndividualPackageWindow, 
-		(self.screen, todo, self.individual), "package-selection" ],
-            [N_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
-		"package-selection" ],
-            [N_("X Configuration"), XConfigWindow, (self.screen, todo),
-                "xconfig" ],
-            [N_("Installation Begins"), BeginInstallWindow, 
-		("dir", self.screen, todo), "confirm-install" ],
-            [N_("Install System"), InstallWindow, (self.screen, todo) ],
-            [N_("Boot Disk"), BootDiskWindow, (self.screen, todo),
-		"bootdisk" ],
-            [N_("Boot Disk"), MakeBootDiskWindow, (self.screen, todo), "bootdisk"],
-            [N_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
-		    "xconfig"],
-            [N_("Installation Complete"), FinishedWindow, (self.screen, todo),
-		"complete" ]
-            ]
+		rc = apply(win, (self.screen, ) + args)
 
-	self.upgradeSteps = [
-	    [_("Examine System"), UpgradeExamineWindow, ("dir", self.screen, todo)],
-	    [_("System Swap Space"), UpgradeSwapWindow, ("dir", self.screen, todo)],
-            [BootloaderConfiguration, BootloaderAppendWindow, 
-		    (self.screen, todo), "lilo"],
-            [BootloaderConfiguration, BootloaderWindow, 
-		    (self.screen, todo), "lilo"],
-	    [BootloaderConfiguration, BootloaderImagesWindow, 
-		    (self.screen, todo), "lilo"],
-	    [_("Customize Upgrade"), CustomizeUpgradeWindow, 
-		    (self.screen, todo, self.individual), "custom-upgrade" ],
-            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
-            [N_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
-		"package-selection" ],
-            [N_("Upgrade Begins"), BeginUpgradeWindow, 
-		(self.screen, todo), "confirm-upgrade" ],
-            [_("Upgrade System"), InstallWindow, (self.screen, todo)],
-            [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
-		"bootdisk" ],
-            [_("Boot Disk"), MakeBootDiskWindow, (self.screen, todo), "bootdisk"],
-            [_("Upgrade Complete"), FinishedWindow, (self.screen, todo),
-             "complete"]
-            ]
+		if rc == INSTALL_NOOP:
+		    rc = lastrc
 
-        # set to 1 if you want to see where in the install you are
-        debugsteps = 0
+		if rc == INSTALL_BACK:
+		    step = step - 1
+		elif rc == INSTALL_OK:
+		    step = step + 1
 
-	dir = 1
-        self.steps = self.commonSteps
+		lastrc = rc
 
-        while self.step >= 0 and self.step < len(self.steps) and self.steps[self.step]:
-	    step = self.steps[self.step]
-            if debugsteps:
-                log("step is %s", step[0])
-	    rc = INSTALL_OK
-	    if (len(step) == 4):
-                if debugsteps:
-                    log("skipStep[step] = %s", todo.instClass.skipStep(step[3]))
-		if (todo.instClass.skipStep(step[3])):
-		    rc = INSTALL_NOOP
+	    if step == -1:
+		dispatch.gotoPrev()
+	    else:
+		dispatch.gotoNext()
 
-	    if (rc != INSTALL_NOOP):
-		# clear out the old root text by writing spaces in the blank
-		# area on the right side of the screen
-		self.screen.drawRootText (len(_(self.welcomeText)), 0,
-			  (self.screen.width - len(_(self.welcomeText))) * " ")
-		self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
+	    (step, args) = dispatch.currentStep()
 
-		args = step[2]
-		if "dir" in args:
-		    newArgs = ()
-		    for n in args:
-			if n == "dir":
-			    n = dir
-
-			newArgs = newArgs + (n,)
-		    args = newArgs
-
-		rc = apply (step[1](), args)
-
-	    if rc == INSTALL_BACK:
-		dir = -1
-	    elif rc == INSTALL_OK:
-		dir = 1
-
-	    self.step = self.step + dir
-            if self.step < 0:
-                ButtonChoiceWindow(self.screen, _("Cancelled"),
-                                   _("I can't go to the previous step"
-                                     " from here. You will have to try again."),
-                                   buttons = [ _("OK") ])
-                                   
-                self.step = 0
-                dir = 1
         self.screen.finish ()
 
 def killSelf(screen):

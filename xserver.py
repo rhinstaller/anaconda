@@ -13,6 +13,7 @@ from translate import _
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
 
+serverPath = ""
 
 def mouseWindow(mouse):
     screen = SnackScreen()
@@ -58,131 +59,100 @@ def mouseWindow(mouse):
                 continue
     screen.finish()
     return 1
-    
-def startX(resolution, nofbmode):
+
+# start X server for install process ONLY
+def startX(resolution, nofbmode, video, monitor, mouse):
     global serverPath
     global mode
     
     os.environ['DISPLAY'] = ':1'
     serverPath = None
 
-    print _("Probing for mouse type...")
+    #--see if framebuffer works on this card
+    probedServer = video.primaryCard().getXServer()
+    if canUseFrameBuffer(video.primaryCard()) == 0:
+        video.primaryCard().setXServer("XF86_FBDev")
 
-    mouse = Mouse()
-    if not mouse.probe (frob=1):
-        if not mouseWindow(mouse):
-            raise RuntimeError, "failed to get a mouse for X startup"
-    else:
-        (Xtype, Xtmp) = mouse.get()
+    if not video.primaryCard().getXServer():
+        video.primaryCard().setXServer("XF86_VGA16")
 
-    x = XF86Config (mouse, resolution)
-    x.res = resolution    
-    x.probe ()
+    serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
+    
+    x = XF86Config (video, monitor, mouse, resolution)
 
-    probedServer = x.server
-
-    #--Run fb_check() and see if framebuffer works on this card
-    if fb_check() == 0:
-        x.server = "XF86_FBDev"
-
-    if x.server:
-        serverPath = '/usr/X11R6/bin/' + x.server
-#        print "Using X server", serverPath
+    #--If framebuffer server isn't there...try original probed server
+    if not os.access (serverPath, os.X_OK):
+        video.primaryCard().setXServer(probedServer)
+        serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
         
-    elif iutil.getArch() == "sparc":
-  	raise RuntimeError, "Unknown card"
-    else:
-          x.server = "XF86_VGA16"
-          serverPath = '/usr/X11R6/bin/XF86_VGA16'
-
-    if not os.access (serverPath, os.X_OK):    #--If framebuffer server isn't there...try original probed server
-        x.server = probedServer
-        serverPath = '/usr/X11R6/bin/' + x.server
-
-        
-        if not os.access (serverPath, os.X_OK):  #--If original server isn't there...send them to text mode
-#            print serverPath, "missing.  Falling back to text mode"
+        #--If original server isn't there...send them to text mode
+        if not os.access (serverPath, os.X_OK):
             raise RuntimeError, "No X server binaries found to run"
 
-#    try:
     if nofbmode == 0:
         try:
-            fbdevice = open("/dev/fb0", "r")   #-- If can't access /dev/fb0, we're not in framebuffer mode
+            #-- If can't access /dev/fb0, we're not in framebuffer mode
+            fbdevice = open("/dev/fb0", "r")
             fbdevice.close()
 
-            testx(mouse, x)
+            testx(x)
 
         except (RuntimeError, IOError):
-#            from log import log
-#            log.open(0, 0, 0, 0)
-#            log ("can't open /dev/fb0")
-#            log.close()
-    
-            x.server = probedServer
-
-            if not x.server:
+            if not probedServer:
                 print "Unknown card"
                 raise RuntimeError, "Unable to start X for unknown card"
-                        
+
+            video.primaryCard().setXServer(probedServer)
+            serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
+
             # if this fails, we want the exception to go back to anaconda to
             # it knows that this didn't work
-            testx(mouse, x)
+            testx(x)
 
     else:  #-We're in nofb mode
-	x.server = probedServer
-
-        if not x.server:
+        if not probedServer:
             print "Unknown card"
             raise RuntimeError, "Unable to start X for unknown card"
                         
+        x.getVideoCard().setXServer(probedServer)
+        serverPath = '/usr/X11R6/bin/' + x.getVideoCard().getXServer()
+        
 	# if this fails, we want the exception to go back to anaconda to
 	# it knows that this didn't work
-	testx(mouse, x)
+	testx(x)
 
-    return (mouse, x)
+    return x
 
-def fb_check ():
-    result = None
-    cards = kudzu.probe (kudzu.CLASS_VIDEO,
-                         kudzu.BUS_UNSPEC,
-                         kudzu.PROBE_ALL);
-    
-    if cards != []:
-        for card in cards: 
-            (junk, man, junk2) = card
+def canUseFrameBuffer (videocard):
+    if videocard:
+        carddata = videocard.getProbedCard()
 
-        if man[:13] == "Card:NeoMagic":
-            return 1
-        else:
-            return 0
-    else:
-        return 0
+        if carddata:
+            if carddata[:13] == "Card:NeoMagic":
+                return 0
 
-def testx(mouse, x):
-#    print "going to test the x server"
+    return 1
+
+def testx(x):
     try:
 	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
     except:
 	import traceback
 	from string import joinfields
+        server = None
 	(type, value, tb) = sys.exc_info()
 	list = traceback.format_exception (type, value, tb)
 	text = joinfields (list, "")
 	print text
-#    print "tested the x server"
 
     # give time for the server to fail (if it is going to fail...)
     # FIXME: Should find out if X server is already running
     # otherwise with NFS installs the X server may be still being
     # fetched from the network while we already continue to run
 
-#    print "in testx, server is  |%s| " %server
-#    time.sleep (4)
-
     if not server:
         sys.stderr.write("X SERVER FAILED");
         raise RuntimeError, "X server failed to start"
-
 
     count = 0
 
@@ -201,7 +171,6 @@ def testx(mouse, x):
 	    raise RuntimeError, "X server failed to start"
 	try:
 	    os.stat ("/tmp/.X11-unix/X1")
-#                print
 	    break
 	except OSError:
 	    pass
@@ -219,7 +188,7 @@ def testx(mouse, x):
 	    sys.exit (-1)
 
 	try:
-	    sys.kill(server, 15)
+	    os.kill(server, 15)
 	    os.waitpid(server, 0)
 	except:
 	    pass
@@ -255,7 +224,6 @@ def start_existing_X():
                     "/usr/share/fonts/KOI8-R/misc/,"
                     "/usr/share/fonts/KOI8-R/75dpi/")
                     
-#        print args
 	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)
