@@ -223,7 +223,7 @@ class NetworkWindow:
 
 class PartitionWindow:
     def run(self, screen, todo):
- 	if (not todo.setupFilesystems): return INSTALL_NOOP
+	if (not todo.setupFilesystems): return INSTALL_NOOP
 
         sys.path.append('libfdisk')
         from newtpyfsedit import fsedit        

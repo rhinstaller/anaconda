@@ -569,19 +569,22 @@ class ToDo:
 
 	p = self.intf.packageProgressWindow(total, totalSize)
 
-        def instCallback(what, amount, total, key, data):
+        def instCallback(what, amount, total, key, intf):
             if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
                 (h, method) = key
-                data.setPackage(h)
-                data.setPackageScale(0, 1)
+                intf.setPackage(h)
+                intf.setPackageScale(0, 1)
                 fn = method.getFilename(h)
                 d = os.open(fn, os.O_RDONLY)
-                return d
+                # XXX FIX ME - rpmmodule is broken
+                return (d,)
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-                data.setPackageScale(amount, total)
+                intf.setPackageScale(amount, total)
             elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
                 (h, method) = key
-                data.completePackage(h)
+                intf.completePackage(h)
+            else:
+                pass
 
 	ts.run(0, 0, instCallback, p)
 
