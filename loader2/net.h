@@ -31,8 +31,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
+
 int kickstartNetworkUp(struct knownDevices * kd, 
                        struct loaderData_s * loaderData,
+                       struct networkDeviceConfig *netCfgPtr,
                        int flags);
 
 #endif
