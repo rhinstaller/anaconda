@@ -7,7 +7,7 @@ close (F);
 shift @ARGV;
 
 foreach $n (@ARGV) {
-    $n =~ s/\.o$//;
+    $n =~ s/\.ko$//;
     $mods{"$n"} = $n;
 }
 
