@@ -26,7 +26,6 @@ import partedUtils
 import raid
 import lvm
 import types
-import copy
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -1310,7 +1309,8 @@ class FileSystemSet:
 #           log("Umount USB Fail")
             pass
 
-        reverse = copy.copy(self.entries)
+        # take a slice so we don't modify self.entries
+        reverse = self.entries[:]
         reverse.reverse()
 
 	for entry in reverse:
