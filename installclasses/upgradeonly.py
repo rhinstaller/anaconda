@@ -3,7 +3,7 @@ from translate import N_
 import os
 
 class InstallClass(BaseInstallClass):
-    name = N_("upgradeonly")
+    name = "upgradeonly"
     pixmap = ""
     hidden = 1
     sortPriority = 1
