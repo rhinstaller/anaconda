@@ -71,7 +71,7 @@
 #include "windows.h"
 
 int probe_main(int argc, char ** argv);
-int rmmod_main(int argc, char ** argv);
+int combined_insmod_main(int argc, char ** argv);
 int cardmgr_main(int argc, char ** argv);
 int ourInsmodCommand(int argc, char ** argv);
 int kon_main(int argc, char ** argv);
@@ -2135,7 +2135,7 @@ int main(int argc, char ** argv) {
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
 	return ourInsmodCommand(argc, argv);
     else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
-	return rmmod_main(argc, argv);
+	return combined_insmod_main(argc, argv);
     else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe"))
 	return ourInsmodCommand(argc, argv);
 
