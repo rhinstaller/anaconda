@@ -353,16 +353,19 @@ class ComponentSet:
                 else:
                     if len(l) != 2:
                         raise ValueError, "too many arguments for lang"
-                    if l[1] not in langs:
-                        newTruth = 0
+                    if l[1] and l[1][0] == "!":
+                        newTruth = l[1] not in langs
                     else:
-                        newTruth = 1
+                        newTruth = l[1] in langs
 	    elif l[0] == "arch":
                 if tags and "arch" not in tags:
                     newTruth = 1
                 if len(l) != 2:
                     raise ValueError, "too many arguments for arch"
-                newTruth = l[1] in self.archList
+                if l[1] and l[1][0] == "!":
+                    newTruth = l[1] not in self.archList
+                else:
+                    newTruth = l[1] in self.archList
 	    else:
 		s = "unknown condition type %s" % (l[0],)
 		raise ValueError, s
