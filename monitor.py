@@ -156,7 +156,7 @@ class MonitorInfo:
         self.monHoriz = self.orig_monHoriz
         self.monVert = self.orig_monVert
 
-    def __init__ (self, skipDDCProbe = 0):
+    def __init__ (self, skipDDCProbe = 0, fbDevice = None):
 
         self.monEisa = None
         self.monName = None
@@ -196,14 +196,13 @@ class MonitorInfo:
             except:
                 log("ddcprobe failed")
                 pass
-            
-        try:
-#            (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + self.device)
-#            self.fbmonSect = monitor
-            log("ERROR - trying to run fbconProbe w/o knowing fb device!!")
 
-        except:
-            pass
+        if fbDevice != None:
+            try:
+                (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + fbDevice)
+                self.fbmonSect = monitor
+            except:
+                pass
 
         # save for reset() method
         self.orig_monEisa = self.monEisa
