@@ -620,6 +620,8 @@ class InstallControlWindow:
                               N_("_Back"), self.prevClicked),
                              ('gtk-go-forward', "nextButtonStock",
                               N_("_Next"), self.nextClicked),
+                             ('gtk-close', "abortButton",
+                              N_("_Abort installation"), self.abortInstall),
                              ('gtk-new', "releaseButton",
                               N_("_Release Notes"), self.releaseClicked),
                              ('gtk-help', "showHelpButton",
@@ -632,6 +634,37 @@ class InstallControlWindow:
         self.dispatch = dispatch
 	self.setLanguage(locale)
         self.handle = None
+
+    def abortInstall (self, *args):
+        dlg = gtk.Dialog(_("Warning"))
+        dlg.set_modal(gtk.TRUE)
+        dlg.set_usize(350, 200)
+        dlg.set_position(gtk.WIN_POS_CENTER)
+        dlg.set_border_width(5)
+        dlg.add_button('gtk-yes', 0)
+        dlg.add_button('gtk-no', 1)
+
+        hbox = gtk.HBox()
+
+##         file = pixmap_file('gnome-warning.png')
+##         if file:
+##             hbox.pack_start (GnomePixmap (file), gtk.FALSE)
+
+        label = gtk.Label(_("Warning: Are you sure that you wish to exit the Red Hat Linux installation?"))
+        label.set_line_wrap(gtk.TRUE)
+        hbox.pack_start(label)
+
+        dlg.vbox.pack_start(hbox)
+        dlg.show_all()
+
+        rc = dlg.run()
+        dlg.destroy()
+
+        if rc == 0:
+            gtk.mainquit()
+            os._exit(0)
+        else:
+            pass
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete
@@ -755,6 +788,7 @@ class InstallControlWindow:
 	self.hbox.pack_start (self.hideHelpButton, gtk.FALSE)
         self.hbox.set_spacing (25)
         self.hbox.pack_start (self.releaseButton, gtk.FALSE)
+        self.hbox.pack_start (self.abortButton, gtk.FALSE, 15)
 	self.hbox.pack_start (self.buttonBox)
 
         vbox.pack_end (self.hbox, gtk.FALSE)
