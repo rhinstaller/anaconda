@@ -30,7 +30,7 @@ class BootdiskWindow (InstallWindow):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
             return None
         
-        if self.skipBootdisk.get_active ():
+        if self.skipDisk.get_active ():
 	    self.dispatch.skipStep("makebootdisk")
 	else:
 	    self.dispatch.skipStep("makebootdisk", skip = 0)
@@ -52,26 +52,30 @@ class BootdiskWindow (InstallWindow):
         label = None
 
         text = _("The boot disk allows you to boot your %s "
-                 "system from a floppy diskette.\n\n"
-                 "Please remove any diskettes from the floppy drive and "
-                 "insert a blank diskette. All data will be ERASED "
-                 "during creation of the boot disk.") % (productName,)
-
-        if fsset.rootOnLoop():
-            text = text + _("\n\nA boot disk is REQUIRED to boot a "
-                            "partitionless install.")
+                 "system from a floppy diskette.  A boot disk "
+		 "allows you to boot your system if your "
+		 "bootloader configuration stops working.\n\nIt is "
+		 "highly recommended you create a boot disk.\n\n"
+		 "Would you like to create a boot disk?") % (productName,)
 
         label = gtk.Label (text)
 
         label.set_line_wrap (gtk.TRUE)
         box.pack_start (label, gtk.FALSE)
-        
-        self.skipBootdisk = gtk.CheckButton (_("Skip boot disk creation"))
-        self.skipBootdisk.set_active (gtk.FALSE)
-        box.pack_start (gtk.HSeparator (), gtk.FALSE, padding=3)
-        box.pack_start (self.skipBootdisk, gtk.FALSE)
 
-	if fsset.rootOnLoop():
-	    self.skipBootdisk.set_sensitive(gtk.FALSE)
+        radioBox = gtk.VBox (gtk.FALSE)
+
+        self.createDisk = gtk.RadioButton(
+            None, _("Yes, I would like to create a boot disk"))
+	radioBox.pack_start(self.createDisk, gtk.FALSE, gtk.FALSE, padding=10)
+        self.skipDisk = gtk.RadioButton(
+            self.createDisk, _("No, I do not want to create a boot disk"))
+	radioBox.pack_start(self.skipDisk, gtk.FALSE, gtk.FALSE)
+
+	self.createDisk.set_active(1)
+
+	align = gtk.Alignment(0.5, 0.0)
+	align.add(radioBox)
+	box.pack_start(align)
 
         return box
