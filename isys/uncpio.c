@@ -187,7 +187,7 @@ static int getNextHeader(struct ourfd * fd, struct cpioHeader * chPtr,
     return 0;
 }
 
-static int myCpioFileMapCmp(const void * a, const void * b) {
+int myCpioFileMapCmp(const void * a, const void * b) {
     const struct cpioFileMapping * first = a;
     const struct cpioFileMapping * second = b;
 
