@@ -1093,8 +1093,23 @@ int main(int argc, char ** argv) {
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return ourRmmodCommand(argc, argv);
 
+    /* now we parse command line options */
+    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
+
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        fprintf(stderr, "bad option %s: %s\n",
+                poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                poptStrerror(rc));
+        exit(1);
+    }
+
+    if ((arg = (char *) poptGetArg(optCon))) {
+        fprintf(stderr, "unexpected argument: %s\n", arg);
+        exit(1);
+    }
+
     if (!testing && !access("/var/run/loader.run", R_OK)) {
-        printf(_("loader has already been run.  Starting shell."));
+        printf(_("loader has already been run.  Starting shell.\n"));
         execl("/bin/sh", "-/bin/sh", NULL);
         exit(0);
     }
@@ -1109,21 +1124,6 @@ int main(int argc, char ** argv) {
     if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136) {
         if (ioctl (0, TIOCLINUX, &twelve) < 0)
             flags |= LOADER_FLAGS_SERIAL;
-    }
-
-    /* now we parse command line options */
-    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
-
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
-        fprintf(stderr, "bad option %s: %s\n",
-                poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                poptStrerror(rc));
-        exit(1);
-    }
-
-    if ((arg = (char *) poptGetArg(optCon))) {
-        fprintf(stderr, "unexpected argument: %s\n", arg);
-        exit(1);
     }
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
