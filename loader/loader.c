@@ -508,8 +508,13 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	    return NULL;
 
 	path = alloca(50 + (dir ? strlen(dir) : 2));
+#ifdef __i386__
 	sprintf(path, "/tmp/hdimage/%s/RedHat/base/hdstg2.img", 
 		    dir ? dir : "");
+#else
+	sprintf(path, "/tmp/hdimage/%s/RedHat/base/stage2.img", 
+		    dir ? dir : "");
+#endif
 	if ((fd = open(path, O_RDONLY)) < 0) {
 	    logMessage("cannot open %s", path);
 	    umount("/tmp/hdimage");
@@ -989,8 +994,12 @@ static char * mountUrlImage(struct installMethod * method,
 		break;
 	    }
 
-	    fd = urlinstStartTransfer(&ui, "base/netstg2.img");
-	    
+#ifdef __i386__
+	    fd = urlinstStartTransfer(&ui, "base/netstg2.img";)
+#else
+	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
+#endif
+
 	    if (fd < 0) {
 		newtWinMessage(_("FTP"), _("OK"), 
 		       _("Unable to retrieve the second stage ramdisk"));
