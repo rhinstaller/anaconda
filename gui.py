@@ -207,6 +207,7 @@ class MessageWindow:
         if type == "ok":
             self.window = GnomeOkDialog (_(text))
             self.window.connect ("clicked", self.quit)
+            self.window.connect ("close", self.quit)
         if type == "okcancel":
             self.window = GnomeOkCancelDialog (_(text), self.okcancelquit)
         # this is the pixmap + the label
