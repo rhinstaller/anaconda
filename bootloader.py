@@ -564,6 +564,11 @@ class x86BootloaderInfo(bootloaderInfo):
         else:
             forcelba = ""
 
+        # FIXME: hack to make sure everything is written to the disk
+        isys.sync()
+        isys.sync()
+        isys.sync()
+
 	part = grubbyPartitionName(bootDev)
  	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
 	cmd = "root %s\ninstall %s%s/stage1 d %s %s/stage2 p %s%s/grub.conf" % \
