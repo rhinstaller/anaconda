@@ -2416,6 +2416,7 @@ logMessage("found url image %s", url);
     if (((access("/proc/bus/pci/devices", X_OK) &&
 	  access("/proc/openprom", X_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
+	startNewt(flags);
 	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
 
