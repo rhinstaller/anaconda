@@ -40,7 +40,6 @@ class NetworkWindow(InstallWindow):
 
     def getNext(self):
 
-
 	if self.getNumberActiveDevices() == 0:
 	    rc = self.handleNoActiveDevices()
 	    if not rc:
