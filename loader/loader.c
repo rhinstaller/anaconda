@@ -798,7 +798,6 @@ char *getReleaseDescriptorFromIso(char *file) {
     struct dirent * ent;
     struct stat sb;
     char *stampfile;
-    char *ptr;
     char *descr;
     char tmpstr[1024];
     int  filetype;
@@ -863,12 +862,6 @@ char *getReleaseDescriptorFromIso(char *file) {
     if (filetype == 2)
 	umountLoopback("tmp/testmnt", "loop6");
 
-/*
-    if (descr)
-	logMessage("descr = %s", descr);
-    else
-	logMessage("descr not found");
-*/
     if (descr)
 	return strdup(descr);
     else
