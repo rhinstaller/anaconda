@@ -304,7 +304,7 @@ static int detectHardware(struct moduleInfo *** modules) {
     int numMods, i;
 
     if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
-			              "/etc/pcitable")) {
+			              "/modules/pcitable")) {
         logMessage("An error occured while reading the PCI ID table");
 	return LOADER_ERROR;
     }
