@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-01-29 11:10-0500\n"
-"PO-Revision-Date: 2001-01-25 23:24+0100\n"
+"PO-Revision-Date: 2001-01-30 20:56+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -1080,7 +1080,7 @@ msgstr "Erro montando o sistema de ficheiros ext2 en %s: %s"
 
 #: ../upgrade.py:69
 msgid "Partitionless upgrades are NOT supported in this beta"
-msgstr ""
+msgstr "As actualizacións 'partitionless' NON están soportadas nesta beta"
 
 #: ../upgrade.py:101
 msgid ""
@@ -2762,6 +2762,10 @@ msgid ""
 "so do NOT report errors if you choose to do this.\n"
 " Do you want to continue?"
 msgstr ""
+"\n"
+"AVISO: As instalacións 'partitionless' (sen particións) fallan a miúdo nesta "
+"versión BETA, polo tanto NON informe de erros se decide usala.\n"
+" ¿Desexa continuar?"
 
 #: ../libfdisk/fsedit.c:972
 #, c-format
@@ -4249,14 +4253,3 @@ msgstr "Desenvolvemento do Núcleo"
 
 msgid "Utilities"
 msgstr "Utilidades"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-#~ "You can do this, but you may not use any other filesystems for your Linux "
-#~ "system. Additionally, there will be a speed penalty for not using "
-#~ "Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Vostede solicitou pór o seu sistema de ficheiros raíz (/) nunha partición "
-#~ "FAT de DOS. Pode facer isto, pero non poderá usar ningún outro sistema de "
-#~ "ficheiros para o seu sistema Linux. Ademais, haberá unha disminución na "
-#~ "velocidade por non usar particións nativas de Linux. ¿Quere continuar?"
