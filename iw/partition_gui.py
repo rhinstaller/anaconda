@@ -389,7 +389,9 @@ class DiskTreeModel(gtk.TreeStore):
 		title = _("Mount Point/\nRAID/Volume")
 	    elif title == "Size (MB)":
 		title = _("Size\n(MB)")
-            col = apply(gtk.TreeViewColumn, (_(title), renderer),
+            elif title != "":
+                title = _(title)
+            col = apply(gtk.TreeViewColumn, (title, renderer),
                         propertyMapping)
 	    col.set_alignment(0.5)
             self.columns.append(col)
