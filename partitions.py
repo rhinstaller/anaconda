@@ -247,7 +247,7 @@ class Partitions:
 
         for vg in lvm.partialvgs():
             spec = partRequests.PartialVolumeGroupRequestSpec(vgname = vg)
-            self.addRequest(spec)
+            self.addDelete(spec)
             
         lvm.vgdeactivate()
 

@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.8
+Version: 10.1.1.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec  8 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.9-1
+- Fix traceback with partial volume groups (#142304)
+
 * Fri Dec  3 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.8-1
 - Kill pygtk warning
 - Fix writing out of wep keys (#140645)

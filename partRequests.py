@@ -765,7 +765,7 @@ class VolumeGroupRequestSpec(RequestSpec):
 
         return totalspace
 
-class PartialVolumeGroupRequestSpec(RequestSpec):
+class PartialVolumeGroupRequestSpec:
     """Request to represent partial volume group devices."""
     # note, these are just used as placeholders so we don't collide on names
     
