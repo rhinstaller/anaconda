@@ -303,11 +303,9 @@ class ToDo:
 	    raise TypeError, "installation class expected"
         if x:
             self.x = x
+            self.x.setMouse (self.mouse)
         else:
-            if mouse:
-                self.x = XF86Config (mouse = mouse)
-            else:
-                self.x = XF86Config ()
+            self.x = XF86Config (mouse = self.mouse)
 
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)

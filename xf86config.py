@@ -51,13 +51,7 @@ class XF86Config:
         self.keyOptions = options
 
     def setMouse(self, mouse):
-        if mouse:
-            (mouseProtocol, mouseEmulate, mouseDev) = mouse
-            self.mouse = { "mouseDev" : "/dev/" + mouseDev,
-                           "mouseProto" : mouseProtocol }
-        else:
-            self.mouse = { "mouseDev" : "/dev/mouse",
-                           "mouseProto" : "PS/2" }
+        self.mouse = mouse
 
     def areaCompare (self, first, second):
         (sx1, sy1) = string.split (first, 'x')
@@ -396,7 +390,7 @@ EndSection
 # **********************************************************************
 
 Section "Pointer"
-    Protocol    "%(mouseProto)s"
+    Protocol    "%(XMOUSETYPE)s"
     Device      "/dev/mouse"
 
 # When using XQUEUE, comment out the above two lines, and uncomment
@@ -416,7 +410,7 @@ Section "Pointer"
 #    ChordMiddle
 
 EndSection
-""" % self.mouse
+""" % self.mouse.info
 
     def keyboardSection (self):
 	autorepeat = "AutoRepeat  500 5"
