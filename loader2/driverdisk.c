@@ -457,7 +457,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
             devices = probeDevices(class, BUS_UNSPEC, PROBE_LOADED);
             if (devices)
-                for(; devices[before]; found++);
+                for(; devices[found]; found++);
 
             if (found > before) {
                 stage = DEV_DONE;

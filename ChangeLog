@@ -1,5 +1,7 @@
 2004-09-29  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/driverdisk.c: Fix hang with driver disks (#131112, #122952)
+
 	* iw/examine_gui.py: Remove spurious option in upgrade combo (#134058)
 
 	* iw/language_support_gui.py: Avoid changing default language when
