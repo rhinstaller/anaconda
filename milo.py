@@ -34,7 +34,21 @@ def wholeDevice (path):
 
 class MiloInstall:
     def __init__ (self, todo):
+	self.initrdsMade = {}
         self.todo = todo
+
+    def makeInitrd (self, kernelTag, instRoot):
+	initrd = "/boot/initrd%s.img" % (kernelTag, )
+	if not self.initrdsMade.has_key(initrd):
+            iutil.execWithRedirect("/sbin/mkinitrd",
+                                  [ "/sbin/mkinitrd",
+				    "--ifneeded",
+                                    initrd,
+                                    kernelTag[1:] ],
+                                  stdout = None, stderr = None, searchPath = 1,
+                                  root = instRoot)
+	    self.initrdsMade[kernelTag] = 1
+	return initrd
 
     def writeAboot (self):
         bootDevice = self.todo.fstab.getBootDevice ()
@@ -75,9 +89,14 @@ class MiloInstall:
             if (self.todo.hdList.has_key(package) and
                 self.todo.hdList[package].selected):
                 kernel = self.todo.hdList[package]
+                initrd = self.makeInitrd (tag, self.todo.instPath)
+                extra=""
+                if os.access (instRoot + initrd, os.R_OK):
+                    extra=" initrd=%s/%s" % (kernelprefix, initrd)
                 version = "%s-%s" % (kernel['version'], kernel['release'])
-                f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s\n" %
-                         (lines, partition, kernelprefix, version, tag, rootDevice))
+                f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s%s\n" %
+                         (lines, partition, kernelprefix,
+                          version, tag, rootDevice, extra))
                 lines = lines + 1
 
         f.close ()
