@@ -216,13 +216,12 @@ void setLanguage (char * key) {
     int i;
     
     for (i = 0; i < numLanguages; i++) {
-	if (!strcmp(languages[i].key, key))
+	if (!strcmp(languages[i].key, key)) {
+	    setenv("LANG", languages[i].key, 1);
+	    setenv("LC_ALL", languages[i].lc_all, 1);
+	    setenv("LINGUAS", languages[i].key, 1);
 	    break;
-    }
-    if (i < numLanguages) {
-	setenv("LANG", languages[i].key, 1);
-	setenv("LC_ALL", languages[i].lc_all, 1);
-	setenv("LINGUAS", languages[i].key, 1);
+	}
     }
 }
 
