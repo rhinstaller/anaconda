@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-28 15:49+0700\n"
+"PO-Revision-Date: 2004-07-28 23:58+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
-"Language-Team: Thai <L10N@OpenTLE.org>\n"
+"Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3436,11 +3436,11 @@ msgstr "ชื่อ Volume Group:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr "_ส่วนขยายกายภาพ:"
+msgstr "_ส่วนยืดขยายกายภาพ:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
-msgstr "ส่วนขยายกายภาพ:"
+msgstr "ส่วนยืดขยายกายภาพ:"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
@@ -3717,7 +3717,7 @@ msgstr "บูตปริยาย"
 
 #: ../iw/osbootwidget.py:66
 msgid "Label"
-msgstr "ชื่อระบบปฏิบัติการ"
+msgstr "ชื่อรายการ"
 
 #: ../iw/osbootwidget.py:132
 msgid "Image"
@@ -3731,7 +3731,7 @@ msgstr "ใส่ชื่อสำหรับแสดงในเมนูบ
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr "_ชื่อ "
+msgstr "_ชื่อ"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
@@ -3739,27 +3739,27 @@ msgstr "_ตัวที่จะบูตโดยปริยาย"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
-msgstr "คุณจะต้องกำหนดชื่อ"
+msgstr "คุณจะต้องกำหนดชื่อสำหรับแต่ละรายการ"
 
 #: ../iw/osbootwidget.py:233
 msgid "Boot label contains illegal characters"
-msgstr "ชื่อบูตมีอักษรที่ไม่ถูกต้อง"
+msgstr "ชื่อมีอักษรที่ไม่ถูกต้อง"
 
 #: ../iw/osbootwidget.py:257
 msgid "Duplicate Label"
-msgstr "สำเนาชื่อ"
+msgstr "ชื่อซ้ำกัน"
 
 #: ../iw/osbootwidget.py:258
 msgid "This label is already in use for another boot entry."
-msgstr "ชื่อนี้มีแล้ว โปรดเลือกชื่ออื่น"
+msgstr "ชื่อนี้ถูกใช้แล้วในรายการบูตอันอื่น"
 
 #: ../iw/osbootwidget.py:271
 msgid "Duplicate Device"
-msgstr "ทำสำเนาอุปกรณ์"
+msgstr "อุปกรณ์ซ้ำกัน"
 
 #: ../iw/osbootwidget.py:272
 msgid "This device is already being used for another boot entry."
-msgstr "อุปกรณ์บูตนี้มีแล้ว โปรดเลือกอุปกรณ์บูตอื่น"
+msgstr "อุปกรณ์บูตนี้ถูกใช้แล้วในรายการบูตอันอื่น"
 
 #: ../iw/osbootwidget.py:336
 msgid "Cannot Delete"
@@ -3770,7 +3770,7 @@ msgstr "ไม่สามารถลบได้"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr "เป้าหมายที่จะบูตนี้ไม่สามารถลบได้ เพราะว่าเป็นของระบบ %s ที่คุณจะติดตั้ง"
+msgstr "รายการที่จะบูตนี้ไม่สามารถลบได้ เพราะว่าเป็นของระบบ %s ที่คุณจะติดตั้ง"
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -3791,19 +3791,19 @@ msgstr ""
 
 #: ../iw/package_gui.py:356
 msgid "_Tree View"
-msgstr "ดูแบบแผนภูมิต้นไม้"
+msgstr "ดูแบบผัง_ต้นไม้"
 
 #: ../iw/package_gui.py:358
 msgid "_Flat View"
-msgstr "ดูแบบรายการ"
+msgstr "ดูแบบ_รายการ"
 
 #: ../iw/package_gui.py:373
 msgid "_Package"
-msgstr "แพ็กเกจ"
+msgstr "แ_พ็กเกจ"
 
 #: ../iw/package_gui.py:375
 msgid "_Size (MB)"
-msgstr "ขนาด (เมกะไบต์)"
+msgstr "_ขนาด (เมกะไบต์)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
@@ -3815,7 +3815,7 @@ msgstr "เลือกทั้งหมดในกลุ่ม"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr "ยกเลิกการเลือกทั้งหมดในกลุ่ม"
+msgstr "_ยกเลิกการเลือกทั้งหมดในกลุ่ม"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
@@ -3837,10 +3837,10 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
-"กลุ่มของแพ็กเกจจะมีทั้ง แพ็กเกจพื้นฐาน และแพ็กเกจตัวเลือก "
-"แพ็กเกจพื้นฐานจะถูกเลือกเองพร้อมกับการเลือกกลุ่มแพ็กเกจนั้นๆ \n"
+"กลุ่มของแพ็กเกจจะมีทั้ง แพ็กเกจพื้นฐาน และแพ็กเกจเสริม  "
+"แพ็กเกจพื้นฐานจะถูกเลือกเสมอเมื่อเลือกกลุ่มแพ็กเกจนั้นๆ \n"
 "\n"
-"เลือกรายการแพ็กเกจที่จะทำการติดตั้ง: "
+"เลือกรายการแพ็กเกจเสริมที่จะติดตั้ง:"
 
 #: ../iw/package_gui.py:791
 msgid "Base Packages"
@@ -3848,31 +3848,31 @@ msgstr "แพ็กเกจพื้นฐาน"
 
 #: ../iw/package_gui.py:821
 msgid "Optional Packages"
-msgstr "แพ็กเกจตัวเลือก"
+msgstr "แพ็กเกจเสริม"
 
 #: ../iw/package_gui.py:1031
 msgid "Details"
-msgstr "รายละเอียด "
+msgstr "รายละเอียด"
 
 #: ../iw/package_gui.py:1125
 msgid "_Select individual packages"
-msgstr "เลือกแพ็กเกจเป็นรายตัว"
+msgstr "เ_ลือกแพ็กเกจเป็นรายตัว"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr "ตัวเลือกขนาดที่เพิ่มเติม"
+msgstr "ตัวเลือกขนาดเพิ่มเติม"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "ขนาดคงที่"
+msgstr "ขนาด_คงที่"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "ขยายพื้นที่จนได้ขนาด (เมกะไบต์): "
+msgstr "_ขยายพื้นที่จนได้ขนาด (เมกะไบต์): "
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "ขยายพื้นที่จนใหญ่ที่สุดที่เป็นไปได้"
+msgstr "ขยายพื้นที่จนใ_หญ่ที่สุดที่เป็นไปได้"
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3893,31 +3893,31 @@ msgstr "แก้ไขพาร์ทิชัน"
 
 #: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "ชนิดของระบบไฟล์:"
+msgstr "_ชนิดของระบบไฟล์:"
 
 #: ../iw/partition_dialog_gui.py:328
 msgid "Allowable _Drives:"
-msgstr "ไดรฟ์ที่สามารถใช้ได้:"
+msgstr "ไ_ดรฟ์ที่สามารถใช้ได้:"
 
 #: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
-msgstr "ไดรฟ์: "
+msgstr "ไดรฟ์:"
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Original File System Label:"
-msgstr "ชื่อของระบบไฟล์เดิม:"
+msgstr "ชื่อของระบบไฟล์ดั้งเดิม:"
 
 #: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
-msgstr "ไซลินเดอร์เริ่มต้น:"
+msgstr "ไซลินเดอร์เ_ริ่มต้น:"
 
 #: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
-msgstr "ไซลินเดอร์สุดท้าย:"
+msgstr "ไซลินเดอร์_สุดท้าย:"
 
 #: ../iw/partition_dialog_gui.py:454
 msgid "Force to be a _primary partition"
-msgstr "กำหนดให้เป็นพาร์ทิชันหลัก"
+msgstr "กำหนดให้เป็นพาร์ทิชันห_ลัก"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1130
@@ -3987,11 +3987,11 @@ msgstr "ข้อความเตือนเกี่ยวกับการ
 
 #: ../iw/partition_gui.py:688
 msgid "_Format"
-msgstr "ฟอร์แมต"
+msgstr "_ฟอร์แมต"
 
 #: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM Volume Groups"
 
 #: ../iw/partition_gui.py:758
 msgid "RAID Devices"
@@ -4013,11 +4013,11 @@ msgstr "พื้นที่ว่าง"
 
 #: ../iw/partition_gui.py:876 ../textw/partition_text.py:139
 msgid "Extended"
-msgstr ""
+msgstr "ส่วนยืดขยาย"
 
 #: ../iw/partition_gui.py:878 ../textw/partition_text.py:141
 msgid "software RAID"
-msgstr ""
+msgstr "RAID ซอฟต์แวร์"
 
 #: ../iw/partition_gui.py:913
 msgid "Free"
@@ -4039,21 +4039,21 @@ msgstr "ไม่สนับสนุน"
 
 #: ../iw/partition_gui.py:1195
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "แพลตฟอร์มนี้ไม่สนับสนุน LVM"
 
 #: ../iw/partition_gui.py:1209
 msgid "Software RAID is NOT supported on this platform."
-msgstr "ระบบของคุณไม่สนับสนุน Software RAID"
+msgstr "แพลตฟอร์มนี้ไม่สนับสนุน RAID ซอฟต์แวร์"
 
 #: ../iw/partition_gui.py:1216
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "ไม่มีหมายเลขอุปกรณ์ย่อย RAID เหลือ"
 
 #: ../iw/partition_gui.py:1217
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
+msgstr "ไม่สามารถอุปกรณ์ RAID ซอฟต์แวร์ได้ เพราะหมายเลขอุปกรณ์ย่อยของ RAID ถูกใช้หมดแล้ว"
 
 #: ../iw/partition_gui.py:1231
 msgid "RAID Options"
@@ -4070,6 +4070,10 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"RAID ซอฟต์แวร์จะทำให้คุณรวมเอาดิสก์หลายๆ ตัว เป็นอุปกรณ์ RAID ขนาดใหญ่  อุปกรณ์ RAID สามารถถูกปรับแต่งให้มีความเร็วและความน่าเชื่อถือเพิ่มขึ้นได้เมื่อเทียบกับการใช้แต่ละไดรฟ์แยกกัน  รายละเอียดเพิ่มเติมเกี่ยวกับการใช้อุปกรณ์ RAID กรุณาศึกษาจากเอกสารของ %s\n"
+"\n"
+"ปัจจุบันคุณมี พาร์ทิชัน RAID ซอฟต์แวร์ว่างพร้อมใช้งานทั้งหมด %s พาร์ทิชัน\n"
+"\n"
 
 #: ../iw/partition_gui.py:1253
 msgid ""
@@ -4078,6 +4082,8 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
+"การจะใช้ RAID คุณต้องสร้างพาร์ทิชันเป็นชนิด \"RAID ซอฟต์แวร์\" อย่างน้อย 2 พาร์ทิชัน  จากนั้นคุณจึงสร้างอุปกรณ์ RAID จึงจะสามารถฟอร์แมตและเมานท์ได้\n"
+"\n"
 
 #: ../iw/partition_gui.py:1259
 msgid "What do you want to do now?"
@@ -4085,45 +4091,45 @@ msgstr "คุณต้องการทำอะไร?"
 
 #: ../iw/partition_gui.py:1268
 msgid "Create a software RAID _partition."
-msgstr "สร้างพาร์ทิชัน software RAID"
+msgstr "สร้าง_พาร์ทิชัน RAID ซอฟต์แวร์"
 
 #: ../iw/partition_gui.py:1271
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "สร้าง_อุปกรณ์ RAID [โดยปริยายคือ /dev/md%s]"
 
 #: ../iw/partition_gui.py:1275
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "สำเนาไ_ดรฟ์เพื่อสร้างอุปกรณ์ RAID [โดยปริยายคือ /dev/md%s]"
 
 #: ../iw/partition_gui.py:1314
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "ไม่สามารถสร้างบรรณาธิกรณ์สำหรับการสำเนาไดรฟ์ได้"
 
 #: ../iw/partition_gui.py:1315
 msgid "The drive clone editor could not be created for some reason."
-msgstr "ตัวแก้ไขการโคลนไดรฟ์ไม่สามารถสร้างได้ด้วยเหตุผลบางประการ"
+msgstr "ไม่สามารถสร้างบรรณาธิกรณ์สำหรับสำเนาไดรฟ์ได้ด้วยเหตุผลบางประการ"
 
 #: ../iw/partition_gui.py:1359
 msgid "Ne_w"
-msgstr "สร้างใหม่"
+msgstr "_สร้างใหม่"
 
 #: ../iw/partition_gui.py:1362
 msgid "Re_set"
-msgstr "รีเซต"
+msgstr "_รีเซต"
 
 #: ../iw/partition_gui.py:1363
 msgid "R_AID"
-msgstr "RAID"
+msgstr "_RAID"
 
 #: ../iw/partition_gui.py:1364
 msgid "_LVM"
-msgstr "LVM"
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1405
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "ซ่อนสมาชิกของ อุปกรณ์ RAID หรือ LVM Volume _Group"
 
 #: ../iw/partition_gui.py:1420 ../textw/partition_text.py:1214
 msgid "Automatic Partitioning"
@@ -4136,22 +4142,22 @@ msgstr "คุณต้องเลือกอย่างน้อยหนึ
 
 #: ../iw/partition_gui.py:1490
 msgid "I want to have automatic partitioning:"
-msgstr "ต้องการแบ่งพาร์ทิชันแบบอัตโนมัติ: "
+msgstr "ต้องการแบ่งพาร์ทิชันแบบอัตโนมัติ:"
 
 #: ../iw/partition_gui.py:1521
 msgid "Select the drive(s) to use for this installation:"
-msgstr "เลือกไดรฟ์ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
+msgstr "เลือกไดรฟ์หนึ่งหรือหลายๆ ตัว ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
 
 #: ../iw/partition_gui.py:1545
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
+msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:247
 #: ../textw/partition_text.py:249 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:276
 msgid "<Not Applicable>"
-msgstr "<ไม่สามารถกำหนดได้>"
+msgstr "<ไม่สามารถเหมาะสม>"
 
 #: ../iw/partition_ui_helpers_gui.py:241
 msgid "How would you like to prepare the file system on this partition?"
@@ -4159,38 +4165,38 @@ msgstr "คุณต้องการจัดการกับระบบไ
 
 #: ../iw/partition_ui_helpers_gui.py:249
 msgid "Leave _unchanged (preserve data)"
-msgstr "ไม่เปลี่ยนแปลง (คงข้อมูลไว้)"
+msgstr "ไ_ม่เปลี่ยนแปลง (คงข้อมูลไว้)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
-msgstr "ฟอร์แมตพาร์ทิชันนี้เป็น:"
+msgstr "_ฟอร์แมตพาร์ทิชันนี้เป็น:"
 
 #: ../iw/partition_ui_helpers_gui.py:278
 msgid "Mi_grate partition to:"
-msgstr "เปลี่ยนระบบพาร์ทิชันให้เป็นแบบ: "
+msgstr "เ_ปลี่ยนระบบไฟล์ในพาร์ทิชันให้เป็นแบบ:"
 
 #: ../iw/partition_ui_helpers_gui.py:301
 msgid "Check for _bad blocks?"
-msgstr "ตรวจสอบพื้นที่เสียหรือไม่?"
+msgstr "ต้องการตรวจสอบ_พื้นที่เสีย?"
 
 #: ../iw/partition_ui_helpers_gui.py:336
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr "พาร์ทิชันชนิด '%s' จะต้องทำการลงบนไดรฟ์เดียว ทำได้โดยการเลือกไดรฟ์ในรายการ 'ไดรฟ์ที่อนุญาต'"
+msgstr "พาร์ทิชันชนิด '%s' จะต้องอยู่บนไดรฟ์เดียว  ทำได้โดยการเลือกไดรฟ์ในรายการ 'ไดรฟ์ที่อนุญาต'"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr "การจัดการการแบ่งพาร์ทิชันของดิสก์"
+msgstr "การติดตั้งพาร์ทิชันของดิสก์"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
-msgstr "การแบ่งพาร์ทิชันแบบอัตโนมัติ"
+msgstr "การแบ่งพาร์ทิชันแบบ_อัตโนมัติ"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr "แบ่งพาร์ทิชันเองด้วยโปรแกรม Disk Druid"
+msgstr "แบ่งพาร์ทิชันเองด้วยโปรแกรม _Disk Druid"
 
 #: ../iw/progress_gui.py:41
 #, python-format
@@ -4219,7 +4225,7 @@ msgstr "กำลังติดตั้งแพ็กเกจ"
 #: ../iw/progress_gui.py:167
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr "เวลาที่เหลือโดยประมาณ: %s นาที"
+msgstr "เหลือเวลา: %s นาที"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -4233,12 +4239,12 @@ msgstr "กำลังติดตั้ง %s-%s-%s %s (%s)"
 
 #: ../iw/progress_gui.py:352 ../iw/progress_gui.py:603
 msgid "Summary"
-msgstr "สรุป"
+msgstr "คำอธิบายสั้นๆ"
 
 #: ../iw/progress_gui.py:379 ../iw/progress_gui.py:643
 #: ../textw/progress_text.py:130
 msgid "Status: "
-msgstr "สถานะ:"
+msgstr "สถานะ: "
 
 #: ../iw/progress_gui.py:419 ../textw/progress_text.py:65
 #, python-format
@@ -4247,7 +4253,7 @@ msgstr "กำลังดาวน์โหลด - %s"
 
 #: ../iw/progress_gui.py:478 ../iw/progress_gui.py:672
 msgid "Total"
-msgstr "ทั้งหมด"
+msgstr "รวมทั้งหมด"
 
 #: ../iw/progress_gui.py:484 ../iw/progress_gui.py:674
 msgid "Remaining"
@@ -4260,11 +4266,11 @@ msgstr "กำลังติดตั้ง %s-%s-%s %s"
 
 #: ../iw/progress_gui.py:653
 msgid "Package Progress: "
-msgstr "แพ็กเกจกำลังดำเนินการ: "
+msgstr "ความคืบหน้าของแพ็กเกจ: "
 
 #: ../iw/progress_gui.py:658
 msgid "Total Progress:   "
-msgstr "กระบวนการทั้งหมด: "
+msgstr "ความคืบหน้าโดยรวม: "
 
 #: ../iw/progress_gui.py:685
 msgid "Status"
@@ -4286,11 +4292,14 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"จำเป็นต้องมีพาร์ทิชัน RAID ซอฟต์แวร์ที่ไม่ได้ใช้อย่างน้อย 2 พาร์ทิชัน จึงจะสร้างเป็นอุปกรณ์ RAID ได้\n"
+"\n"
+"แรกสุดต้องสร้างพาร์ทิชันให้เป็นชนิด \"RAID ซอฟต์แวร์\" อย่างน้อยสองพาร์ทิชัน จากนั้นให้เลือกตัวเลือก \"RAID\" อีกครั้ง"
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
 #: ../textw/partition_text.py:911
 msgid "Make RAID Device"
-msgstr "สร้างชุดอุปกรณ์ RAID"
+msgstr "สร้างอุปกรณ์ RAID"
 
 #: ../iw/raid_dialog_gui.py:278
 #, python-format
@@ -4299,38 +4308,38 @@ msgstr "แก้ไขชุดอุปกรณ์ RAID: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:909
 msgid "Edit RAID Device"
-msgstr "แก้ไขชุดอุปกรณ์ RAID"
+msgstr "แก้ไขอุปกรณ์ RAID"
 
 #: ../iw/raid_dialog_gui.py:321
 msgid "RAID _Device:"
-msgstr "ชุดอุปกรณ์ RAID:"
+msgstr "_อุปกรณ์ RAID:"
 
 #: ../iw/raid_dialog_gui.py:339
 msgid "RAID _Level:"
-msgstr "ระดับของ RAID:"
+msgstr "_ระดับของ RAID:"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr "สมาชิกของ RAID:"
+msgstr "สมาชิกของ _RAID:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr "จำนวนของตัวสำรอง:"
+msgstr "จำนวนของตัว_สำรอง:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr "ฟอร์แมตพาร์ทิชันหรือไม่?"
+msgstr "_ฟอร์แมตพาร์ทิชัน?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr "ไดรฟ์ต้นฉบับไม่มีพาร์ทิชันให้โคลน คุณต้องกำหนดชนิดของพาร์ทิชันใน 'software RAID' ก่อน"
+msgstr "ไดรฟ์ต้นฉบับไม่มีพาร์ทิชันให้สำเนา คุณต้องกำหนดชนิดของพาร์ทิชันเป็น 'RAID ซอฟต์แวร์' บนไดรฟ์นี้ก่อน จึงจะสำเนาได้"
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr "ไดรฟ์ต้นฉบับ ผิดพลาด"
+msgstr "ไดรฟ์ต้นฉบับมีข้อผิดพลาด"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -4339,6 +4348,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"ไดรฟ์ต้นฉบับที่เลือก มีพาร์ทิชันซึ่งไม่ได้เป็นชนิด 'RAID ซอฟต์แวร์'\n"
+"\n"
+"พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4349,6 +4361,9 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
+"ไดรฟ์ต้นฉบับที่เลือก มีพาร์ทิชันซึ่งไม่ได้จำกัดอยู่เพียงในไดรฟ์ /dev/%s\n"
+"\n"
+"พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้ง หรือถูกจำกัดให้อยู่เพียงในไดรฟ์นี้ก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -4357,20 +4372,23 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
+"ไดรฟ์ต้นฉบับที่เลือก มีพาร์ทิชัน RAID ซอฟต์แวร์ซึ่งเป็นสมาชิกของอุปกรณ์ RAID ซอฟต์แวร์ที่ใช้งานอยู่แล้ว\n"
+"\n"
+"พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
 msgid "Target Drive Error"
-msgstr "ไดรฟ์ปลายทางผิดพลาด"
+msgstr "ไดรฟ์เป้าหมายมีข้อผิดพลาด"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "กรุณาเลือกไดรฟ์เป้าหมายสำหรับการโคลน"
+msgstr "กรุณาเลือกไดรฟ์เป้าหมายสำหรับการสำเนา"
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "ไดรฟ์ต้นฉบับ /dev/%s ไม่สามารถถูกเลือกเป็นไดรฟ์เป้าหมายพร้อมๆ กันได้"
 
 #: ../iw/raid_dialog_gui.py:556
 #, python-format
@@ -4382,6 +4400,11 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"ไดรฟ์เป้าหมาย /dev/%s มีพาร์ทิชันซึ่งไม่สามารถเอาออกได้ เนื่องจากสาเหตุดังนี้:\n"
+"\n"
+"\"%s\"\n"
+"\n"
+"พาร์ทิชันนี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะใช้เป็นเป้าหมายได้"
 
 #: ../iw/raid_dialog_gui.py:617
 msgid "Please select a source drive."
@@ -4393,6 +4416,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"ไดรฟ์ /dev/%s จะถูกสำเนาไปยังไดรฟ์ต่อไปนี้:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:642
 msgid ""
@@ -4410,11 +4435,11 @@ msgstr "ข้อความเตือนครั้งสุดท้าย
 
 #: ../iw/raid_dialog_gui.py:647
 msgid "Clone Drives"
-msgstr "โคลนไดรฟ์:"
+msgstr "สำเนาไดรฟ์"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -4431,10 +4456,17 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"เครื่องมือสำเนาไดรฟ์\n"
+"\n"
+"เครื่องมือนี้ทำให้คุณลดขั้นตอนยุ่งยากในการติดตั้งชุด RAID  หลักการคือนำไดรฟ์ต้นฉบับซึ่งมีการเตรียมการโดยแบ่งพาร์ทิชันอย่างที่ต้องการ มาสำเนาไปยังไดรฟ์อื่นๆ ที่มีขนาดใกล้เคียงกัน  จากนั้นก็สามารถสร้างอุปกรณ์ RAID ได้ทันที\n"
+"\n"
+"ข้อสังเกต: ไดรฟ์ต้นฉบับจะต้องมีพาร์ทิชันที่จำกัดอยู่เพียงบนไดรฟ์นั้นเท่านั้น และมีเฉพาะพาร์ทิชัน RAID ซอฟต์แวร์ที่ไม่ได้ใช้งาน  พาร์ทิชันชนิดอื่นๆ ไม่อนุญาตให้มี\n"
+"\n"
+"ข้อมูลทุกอย่างบนไดรฟ์เป้าหมายจะถูกทำลายทั้งหมดในขั้นตอนนี้"
 
 #: ../iw/raid_dialog_gui.py:710
 msgid "Source Drive:"
-msgstr "ไดรฟ์ ต้นฉบับ: "
+msgstr "ไดรฟ์ต้นฉบับ:"
 
 #: ../iw/raid_dialog_gui.py:718
 msgid "Target Drive(s):"
@@ -4442,11 +4474,11 @@ msgstr "ไดรฟ์เป้าหมาย:"
 
 #: ../iw/raid_dialog_gui.py:726
 msgid "Drives"
-msgstr "ไดรฟ์: "
+msgstr "ไดรฟ์"
 
 #: ../iw/release_notes_viewer_gui.py:142
 msgid "Release Notes"
-msgstr "รีลีสโน้ต"
+msgstr "บันทึกการออกรุ่น"
 
 #: ../iw/release_notes_viewer_gui.py:146
 msgid "Unable to load file!"
@@ -4454,7 +4486,7 @@ msgstr "ไม่สามารถโหลดไฟล์ได้!"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
-msgstr "การกำหนดค่าให้โปรแกรม Silo"
+msgstr "การกำหนดค่า Silo"
 
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
@@ -4463,7 +4495,7 @@ msgstr "พาร์ทิชัน"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr "ติดตั้งโปรแกรม SILO boot record บน:"
+msgstr "ติดตั้งบูตเรคอร์ด SILO บน:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
@@ -4471,11 +4503,11 @@ msgstr "สร้าง PROM alias"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "กำหนดค่า PROM boot device ไปที่ linux"
+msgstr "ตั้งอุปกรณ์บูต PROM โดยปริยายเป็น linux"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
-msgstr "พารามิเตอร์พิเศษของ Kernel"
+msgstr "พารามิเตอร์ของ Kernel"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
@@ -4497,7 +4529,7 @@ msgstr "ชื่อรายการบูต"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr "บูตโดยปริยาย"
+msgstr "อิมเมจที่จะบูตโดยปริยาย"
 
 #: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
@@ -4505,15 +4537,15 @@ msgstr "การเลือกเขตเวลา"
 
 #: ../iw/timezone_gui.py:67
 msgid "System clock uses _UTC"
-msgstr "เวลาของระบบใช้แบบ UTC"
+msgstr "เวลาของระบบใช้แบบ _UTC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
-msgstr "กรุณาเลือกเขตเวลาที่ใกล้เคียงกับเขตเวลาคุณมากที่สุด:"
+msgstr "กรุณาเลือกเมืองที่ใกล้ที่สุดที่อยู่ในเขตเวลาเดียวกันกับคุณ:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
-msgstr "สถานที่ตั้ง"
+msgstr "_สถานที่ตั้ง"
 
 #: ../iw/timezone_map_gui.py:128
 msgid "Description"
@@ -4525,7 +4557,7 @@ msgstr "อัพเกรดการตั้งค่าให้บูตโ
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr "อัพเดทการตั้งค่าให้บูตโหลดเดอร์"
+msgstr "_อัพเดทการตั้งค่าให้บูตโหลดเดอร์"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
@@ -4534,41 +4566,39 @@ msgstr "กำลังจะอัพเดตบูตโหลดเดอร
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "ตัวติดตั้งได้ตรวจสอบพบ %s บูตโหลดเดอร์ปัจจุบันได้ติดตั้งไว้ที่ %s"
+msgstr "ตัวติดตั้งได้ตรวจสอบพบบูตโหลดเดอร์ของ %s ซึ่งถูกติดตั้งไว้ที่ %s"
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
-msgstr "นี้คือตัวเลือกที่แนะนำให้ใช้"
+msgstr "นี่คือตัวเลือกที่แนะนำให้ใช้"
 
 #: ../iw/upgrade_bootloader_gui.py:80 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr "ตัวติดตั้งไม่สามารถตรวจหาบูตโหลดเดอร์ปัจจุบันในระบบของคุณ"
+msgstr "ตัวติดตั้งตรวจไม่พบบูตโหลดเดอร์ที่ใช้อยู่ในปัจจุบันในระบบของคุณ"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
-msgstr "สร้างการตั้งค่าบูตโหลดเดอร์ใหม่"
+msgstr "_ติดตั้งบูตโหลดเดอร์ใหม่"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"ระบบให้คุณสามารถทำการกำหนดค่าบูตโหลดเดอร์ใหม่ ถ้าคุณจะเปลี่ยนบูตโหลดเดอร์ "
+"ตัวเลือกนี้จะทำให้คุณติดตั้งบูตโหลดเดอร์ใหม่ ถ้าคุณจะเปลี่ยนบูตโหลดเดอร์ "
 "คุณควรจะเลือกหัวข้อนี้"
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "ข้ามการอัพเดทบูตโหลดเดอร์"
+msgstr "_ข้ามการอัพเดทบูตโหลดเดอร์"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr ""
-"จะไม่มีการเปลี่ยนแปลงเกี่ยวกับการตั้งค่าของบูตโหลดเดอร์ ถ้าคุณกำลังใช้บูตโหลดเดอร์นอกเหนือจากนี้ "
-"คุณควรเลือกข้อนี้"
+msgstr "จะไม่มีการเปลี่ยนแปลงเกี่ยวกับบูตโหลดเดอร์ ถ้าคุณกำลังใช้บูตโหลดเดอร์ของผู้อื่นอยู่แล้ว คุณควรเลือกข้อนี้"
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -4576,7 +4606,7 @@ msgstr "คุณต้องการที่จะทำอะไร?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:34
 msgid "Migrate File Systems"
-msgstr "ย้ายระบบไฟล์"
+msgstr "แปลงระบบไฟล์"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:36
 #, python-format
@@ -4588,9 +4618,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"รีลีส %s นี้สนับสนุนระบบไฟล์แบบ ext3 ซึ่งระบบไฟล์แบบใหม่นี้มีข้อดีกว่าระบบไฟล์แบบ ext2 "
+"%s รุ่นนี้สนับสนุนระบบไฟล์แบบ ext3 ซึ่งระบบไฟล์แบบใหม่นี้มีข้อดีกว่าระบบไฟล์แบบ ext2 "
 "ที่เคยใช้กันตามปกติบน %s รุ่นเดิมหลายประการ "
-"โปรแกรมการติดตั้งสามารถที่จะย้ายรูปแบบของพาร์ทิชันแบบ ext2 เป็นแบบ ext3 ได้ "
+"โปรแกรมการติดตั้งสามารถที่จะแปลงรูปแบบของพาร์ทิชันแบบ ext2 เป็นแบบ ext3 ได้ "
 "โดยข้อมูลจะไม่สูญหาย\n"
 "\n"
 "พาร์ทิชันใดบ้างต่อไปนี้ที่คุณต้องการแปลง?"
@@ -4620,15 +4650,15 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"โปรแกรมการติดตั้งพบว่าหน่วยความจำของเครื่องมีขนาด %s เมกะไบต์\n"
+"โปรแกรมติดตั้งพบว่าหน่วยความจำของเครื่องมีขนาด %s เมกะไบต์\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
-msgstr "ฉันต้องการสร้างไฟล์สวอป"
+msgstr "_ต้องการสร้างไฟล์สวอป"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Select the _partition to put the swap file on:"
-msgstr "กรุณาเลือกพาร์ทิชันที่คุณต้องการเก็บไฟล์สวอป:"
+msgstr "กรุณาเลือก_พาร์ทิชันที่คุณต้องการเก็บไฟล์สวอป:"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
@@ -4643,20 +4673,18 @@ msgstr "แนะนำให้คุณสร้างไฟล์สวอป
 
 #: ../iw/upgrade_swap_gui.py:181
 msgid "Swap file _size (MB):"
-msgstr "ไฟล์สวอปมีขนาด (เมกะไบต์):"
+msgstr "ไฟล์สวอปมี_ขนาด (เมกะไบต์):"
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
-msgstr "ฉันไม่ต้องการสร้างไฟล์สวอป"
+msgstr "ฉันไ_ม่ต้องการสร้างไฟล์สวอป"
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
-"ขอแนะนำเป็นอย่างยิ่งให้คุณสร้างไฟล์สวอป เพราะต่อไปอาจจะทำให้เกิดข้อผิดพลาดได้ "
-"ซึ่งอาจจะทำให้การติดตั้งไม่สำเร็จ คุณต้องการดำเนินการติดตั้งต่อไปหรือไม่?"
+msgstr "ขอแนะนำเป็นอย่างยิ่งให้คุณสร้างไฟล์สวอป  เพราะต่อไปอาจจะทำให้เกิดข้อผิดพลาดได้ ซึ่งอาจจะทำให้การติดตั้งไม่สำเร็จ  คุณต้องการดำเนินการติดตั้งต่อไปหรือไม่?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4668,31 +4696,31 @@ msgstr "ฮาร์ดดิสก์ของคุณมีพื้นที
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
-msgstr "จอภาพที่ตรวจหาไม่ได้"
+msgstr "จอภาพที่ตรวจสอบไม่ได้"
 
 #: ../iw/xconfig_gui.py:51
 msgid "Customize Graphical Configuration"
-msgstr "การกำหนดค่าแบบกราฟิกเลือกเอง"
+msgstr "การกำหนดค่ากราฟิกเอง"
 
 #: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
-msgstr "ความลึกของสี: "
+msgstr "ความ_ลึกของสี: "
 
 #: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
-msgstr "256 สี (8 บิต)"
+msgstr "256 Colors (8 Bit)"
 
 #: ../iw/xconfig_gui.py:261 ../textw/xconfig_text.py:107
 msgid "High Color (16 Bit)"
-msgstr "ความละเอียดสีสูง (16 บิต)"
+msgstr "High Color (16 Bit)"
 
 #: ../iw/xconfig_gui.py:262 ../textw/xconfig_text.py:108
 msgid "True Color (24 Bit)"
-msgstr "ความละเอียดสีเหมือนจริง (24 บิต)"
+msgstr "True Color (24 Bit)"
 
 #: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
-msgstr "ความละเอียดของการแสดงผล:"
+msgstr "ความละเอียดของจอแ_สดงผล:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
@@ -4700,27 +4728,27 @@ msgstr "กรุณาเลือกสภาพแวดล้อมเดส
 
 #: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
-msgstr "ชนิดสภาพแวดล้อมของเดสก์ทอปของคุณคือ: "
+msgstr "ชนิดสภาพแวดล้อมของเดสก์ทอปของคุณคือ:"
 
 #: ../iw/xconfig_gui.py:355
 msgid "GNO_ME"
-msgstr "GNOME"
+msgstr "_GNOME"
 
 #: ../iw/xconfig_gui.py:357
 msgid "_KDE"
-msgstr "KDE"
+msgstr "_KDE"
 
 #: ../iw/xconfig_gui.py:388
 msgid "Please choose your login type:"
-msgstr "กรุณาเลือกชนิดการ login:"
+msgstr "กรุณาเลือกชนิดการล็อกอิน:"
 
 #: ../iw/xconfig_gui.py:395
 msgid "_Text"
-msgstr "โหมดตัวอักษร"
+msgstr "โหมด_ตัวอักษร"
 
 #: ../iw/xconfig_gui.py:396
 msgid "_Graphical"
-msgstr "โหมดกราฟิก"
+msgstr "โหมด_กราฟิก"
 
 #: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:416
 msgid "Monitor Configuration"
@@ -4735,32 +4763,30 @@ msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
-"คุณยังไม่ได้เลือกชนิดของจอภาพ แนะนำให้เลือกรุ่นที่ใกล้เคียงกับของคุณมากที่สุด "
-"เพราะถ้าไม่ระบุคุณจะแสดงผลได้แค่เพียง 800x600 เท่านั้น"
+"คุณยังไม่ได้เลือกชนิดของจอภาพ  แนะนำให้เลือกรุ่นที่ใกล้เคียงกับของคุณมากที่สุด "
+"เพื่อที่จะได้คุณภาพการแสดงผลที่ดีที่สุด"
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr "เลือกชนิดของจอแสดงผล: "
+msgstr "เ_ลือกชนิดของจอแสดงผล"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
-msgstr ""
-"โดยส่วนมาก จอแสดงผลสามารถตรวจสอบได้โดยอัตโนมัติ ถ้าไม่สามารถค้นหาได้ "
-"ให้เลือกค่าที่ถูกต้องหรือเหมาะสม"
+msgstr "โดยส่วนมาก จอแสดงผลสามารถตรวจสอบได้โดยอัตโนมัติ ถ้าค่าที่ตรวจสอบได้ไม่ถูกต้องสำหรับจอแสดงผลนี้ ให้เลือกค่าที่ถูกต้อง"
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
-msgstr "กลับไปใช้ค่าเดิม"
+msgstr "กลับไปใช้ค่าเ_ดิม"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
-msgstr "สัญญาณตามแนวนอน: "
+msgstr "ความถี่ sync ตามแนว_นอน:"
 
 #: ../iw/xconfig_gui.py:751
 msgid "_Vertical Sync:"
-msgstr "สัญญาณตามแนวตั้ง: "
+msgstr "ความถี่ sync ตามแนวตั้ง: "
 
 #: ../iw/xconfig_gui.py:758
 msgid "kHz"
@@ -4772,24 +4798,22 @@ msgstr "เฮิรตซ์"
 
 #: ../iw/xconfig_gui.py:781
 msgid "Graphical Interface (X) Configuration"
-msgstr "การกำหนดค่าให้การทำงานแบบกราฟิก (X)"
+msgstr "การกำหนดค่าการติดต่อกับผู้ใช้แบบกราฟิก (X)"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
-msgstr "ไม่รู้จักการ์ดแสดงผล"
+msgstr "การ์ดแสดงผลที่ไม่รู้จัก"
 
 #: ../iw/xconfig_gui.py:812
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr ""
-"เกิดข้อผิดพลาดขณะทำการเลือกการ์ดแสดงผล %s กรุณารายงานผลไปยัง http://bugs.opentle."
-"org "
+msgstr "เกิดข้อผิดพลาดขณะเลือกการ์ดแสดงผล %s กรุณารายงานผลไปยัง bugzilla.redhat.com"
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr "ไม่ระบุชนิดของการ์ดแสดงผล"
+msgstr "ไม่ระบุชนิดของการ์ดแสดงผล XXX"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -4857,7 +4881,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 msgid "Kernel Parameters"
-msgstr "พารามิเตอร์พิเศษสำหรับเคอร์เนล"
+msgstr "พารามิเตอร์สำหรับเคอร์เนล"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
 msgid "Chandev Parameters"
