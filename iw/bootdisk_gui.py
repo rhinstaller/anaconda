@@ -40,7 +40,7 @@ class BootdiskWindow (InstallWindow):
         if iutil.getArch() == "alpha":
             return None
 
-        if not self.todo.bootdisk: return None
+        if not self.todo.needBootdisk(): return None
 
         box = GtkVBox (FALSE, 5)
         im = self.ics.readPixmap ("gnome-floppy.png")
