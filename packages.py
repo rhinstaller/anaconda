@@ -637,7 +637,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             if select(id.grpset.hdrlist, 'kernel-smp'):
                 foundkernel = 1
                 if selected(id.grpset.hdrlist, "gcc"):
-                    select("kernel-smp-devel")
+                    select(id.grpset.hdrlist, "kernel-smp-devel")
 
         if iutil.needsEnterpriseKernel():
             if select(id.grpset.hdrlist, "kernel-bigmem"):
@@ -651,7 +651,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             # we *always* need to have some sort of kernel installed
             select(id.grpset.hdrlist, 'kernel')
             if selected(id.grpset.hdrlist, "gcc"):
-                select("kernel-devel")
+                select(id.grpset.hdrlist, "kernel-devel")
 
 	# if NIS is configured, install ypbind and dependencies:
 	if id.auth.useNIS:

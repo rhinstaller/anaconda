@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.12
+Version: 10.1.1.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 30 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.13-1
+- fix typo with kernel*devel (#143257)
+
 * Thu Dec 23 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.12-1
 - improved handling for kernel*devel (#143257)
 - make images look better (#143276)
