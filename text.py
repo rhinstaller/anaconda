@@ -74,12 +74,21 @@ class LanguageWindow:
         cat.setlangs (newlangs)
         todo.language.set (choice)
 	if not todo.serial:
+	    map = todo.language.getFontMap(choice)
 	    font = todo.language.getFontFile(choice)
-	    if font != "None":
-		try:
-		    isys.loadFont(font)
-		except SystemError, (errno, msg):
-		    log("Could not load font %s: %s" % (font, msg))
+	    if map != "None":
+		if os.access("/bin/consolechars", os.X_OK):
+		    iutil.execWithRedirect ("/bin/consolechars",
+					["/bin/consolechars", "-f", font, "-m", map])
+		else:
+		    try:
+			isys.loadFont(map)
+		    except SystemError, (errno, msg):
+			log("Could not load font %s: %s" % (font, msg))
+	    elif os.access("/bin/consolechars", os.X_OK):
+		# test and reconfig
+		iutil.execWithRedirect ("/bin/consolechars", 
+			["/bin/consolechars", "-d", "-m", "iso01"])
 
 	textInterface.drawFrame()
 	    
@@ -863,7 +872,7 @@ class InstallInterface:
                 [N_("Welcome"), ReconfigWelcomeWindow, 
                  (self.screen,), "reconfig" ],
                 [N_("Language Selection"), LanguageWindow, 
-                 (self.screen, todo), "language" ],
+                 (self.screen, todo, self), "language" ],
                 [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
                 [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
