@@ -917,6 +917,8 @@ static int PromiseSX8GetDevices(struct knownDevices * devices) {
     path = "/proc/driver/sx8";
 
     f = fopen(path, "r");
+    if (!f)
+        return 0;
 
     while (fgets(buf, sizeof(buf) - 1, f)) {
         if (!strncmp(buf, "sx8/", 4)) {
