@@ -96,7 +96,6 @@ class LanguageSupportWindow:
 
         # in reconfig skip
         if flags.reconfig:
-            ButtonChoiceWindow(screen, "test", "nooping langsupport")
             return INSTALL_NOOP
         
 	# should already be sorted
