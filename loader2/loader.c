@@ -638,6 +638,8 @@ static char *doLoaderMain(char * location,
     int needed = -1;
     int needsNetwork = 0;
 
+    int rhcdfnd = 0;
+
     char * devName = NULL;
     static struct networkDeviceConfig netDev;
 
@@ -661,7 +663,12 @@ static char *doLoaderMain(char * location,
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
         url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
-        if (url && !FL_RESCUE(flags)) return url;
+	/* if we found a CD and we're not in rescue or vnc mode return */
+	/* so we can short circuit straight to stage 2 from CD         */
+	if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
+	    return url;
+	else
+	    rhcdfnd = 1;
     }
 
     startNewt(flags);
@@ -716,9 +723,19 @@ static char *doLoaderMain(char * location,
         case STEP_METHOD:
             /* this is kind of crappy, but we want the first few questions
              * to be asked when using rescue mode even if we're going
-             * to short-circuit to the CD */
-            if (FL_RESCUE(flags) && url)
-                return url;
+             * to short-circuit to the CD.
+             *
+             * Alternately, if we're in a VNC install based from CD we
+             * can skip this step because we already found the CD */
+            if (url) {
+		if (FL_RESCUE(flags)) {
+		    return url;
+	        } else if (rhcdfnd) {
+		    step = STEP_NETWORK;
+		    dir = 1;
+		    break;
+		}
+	    }	    
 
             needed = -1;
 
@@ -863,6 +880,13 @@ static char *doLoaderMain(char * location,
             
         case STEP_URL:
             logMessage("starting to STEP_URL");
+	    /* if we found a CD already short circuit out */
+	    /* we get this case when we're doing a VNC install from CD */
+	    /* and we didnt short circuit earlier because we had to */
+	    /* prompt for network info for vnc to work */
+            if (url && rhcdfnd)
+		return url;
+
             url = installMethods[validMethods[methodNum]].mountImage(
                                       installMethods + validMethods[methodNum],
                                       location, kd, loaderData, modInfo, modLoaded, 
