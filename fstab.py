@@ -68,6 +68,27 @@ class Fstab:
 
 	return bootDevice
 
+    def getRootDevice(self):
+	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
+	    if mntpoint == '/':
+		return (partition, fsystem)
+
+    def rootOnLoop(self):
+	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
+	    if mntpoint == '/':
+		if fsystem == "vfat": 
+		    return 1
+		else:
+		    return 0
+
+	raise ValueError, "no root device has been set"
+
+    def getLoopbackSize(self):
+	return self.loopbackSize
+
+    def setLoopbackSize(self, size):
+	self.loopbackSize = size
+
     def setDruid(self, druid, raid):
 	self.ddruid = druid
 	self.fsCache = {}
@@ -341,7 +362,7 @@ class Fstab:
 		os.remove( '/tmp/' + device);
 		
 		isys.makeDevInode("loop0", '/tmp/' + "loop0")
-		isys.ddfile("/mnt/loophost/something", 200)
+		isys.ddfile("/mnt/loophost/something", self.loopbackSize)
 		isys.losetup("/tmp/loop0", "/mnt/loophost/something")
 
 		if self.serial:
@@ -491,6 +512,7 @@ class Fstab:
 	self.extraFilesystems = []
 	self.existingRaid = []
 	self.ddruid = self.createDruid()
+	self.loopbackSize = 0
 	# I intentionally don't initialize this, as all install paths should
 	# initialize this automatically
 	#self.shouldRunDruid = 0
