@@ -1,7 +1,7 @@
 #
 # upgrade.py - Existing install probe and upgrade procedure
 #
-# Matt Wilsonm <msw@redhat.com>
+# Matt Wilson <msw@redhat.com>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -14,7 +14,6 @@
 #
 
 import isys
-import _balkan
 import os
 import iutil
 import time
