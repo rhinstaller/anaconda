@@ -30,14 +30,14 @@ prepareBootTree() {
 
 # LATEUSBMODS go in the second stage.  
 # FIXME: bleah, have to include sd_mod for usb-storage
-USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod"
+USBMODS="ohci-hcd uhci-hcd usb-storage sd_mod sr_mod"
 # usb-storage goes on both so we can reload it.  *sigh*
-LATEUSBMODS="mousedev usb-storage"
+LATEUSBMODS="usb-storage"
 IDEMODS="ide-cd"
 SCSIMODS="sd_mod sg sr_mod st"
 
-FSMODS="msdos vfat ext3 reiserfs"
-SECSTAGE="agpgart md raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
+FSMODS="msdos vfat ext3 reiserfs jfs xfs"
+SECSTAGE="agpgart md raid0 raid1 raid5 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb"
 COMMONMODULES="vfat loop cramfs floppy $USBMODS $BTERMMODULES"
