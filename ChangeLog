@@ -1,5 +1,8 @@
 2005-03-14  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images (DEBUG): Fix handling of --debug (Ingo
+	Pakleppa, #150925)
+
 	* scripts/buildinstall (BUILDINSTALL): Fix passing --debug to
 	second buildinstall invocation (Ingo Pakleppa, #150920)
 
