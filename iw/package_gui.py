@@ -598,7 +598,7 @@ class PackageSelectionWindow (InstallWindow):
             print "Cannot read either header or comps or both"
             self.files = "FALSE"
 
-        print self.files
+#        print self.files
 
 #        threads_enter ()
 
