@@ -27,3 +27,13 @@ The /etc/rc.d/init.d/reconfig init script is run and it tests for the
 existence of the /etc/reconfigSys file. If it exists then anaconda is
 run with the --reconfig option.
 
+An alternate way to cause reconfig mode to be entered is to place the
+kernel option 'reconfig' on the boot prompt command line for the kernel.
+Using LILO for the boot loader, for example, one would start the 
+standard linux image with:
+
+LILO: linux reconfig
+
+and the system would enter reconfigure mode.
+
+
