@@ -9,6 +9,9 @@ int balkanReadTable(int fd, struct partitionTable * table) {
     ret = sunpReadTable(fd, table);
     if (ret != BALKAN_ERROR_BADMAGIC)
 	return ret;
+    ret = bsdlReadTable(fd, table);
+    if (ret != BALKAN_ERROR_BADMAGIC)
+	return ret;
 	
     return dospReadTable(fd, table);    
 }

@@ -1,6 +1,6 @@
 PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
-OBJECTS = rw.o dos.o sun.o
+OBJECTS = rw.o dos.o sun.o bsdlabel.o
 
 TARGET = libbalkan.a
 
