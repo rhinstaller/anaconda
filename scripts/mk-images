@@ -231,6 +231,7 @@ makemainmodules() {
 makebootdisk() {
     EXTRAKERNELPATH=""
     EXTRAINITRDPATH=""
+    PCMCIA=""
     while [ $(echo $1 | cut -c1-2) = "--" ]; do
 	if [ $1 = "--kernelto" ]; then
 	    EXTRAKERNELPATH=$2
@@ -238,6 +239,9 @@ makebootdisk() {
 	elif [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
 	    shift; shift
+	elif [ $1 = "--pcmcia" ]; then
+	    PCMCIA=yes
+	    shift
 	fi
     done
     MBD_FILENAME=$IMAGEPATH/$1
@@ -364,6 +368,11 @@ EOF
 	exit 1
     fi
 
+    if [ -n "$PCMCIA" ]; then
+	mkdir -p $MBD_BOOTTREE/etc
+	cp -a $KERNELROOT/etc/pcmcia $MBD_BOOTTREE/etc
+    fi
+
     if [ -n "$EXTRAKERNELPATH" ]; then
 	mkdir -p $EXTRAKERNELPATH
 	cp -a $KERNELROOT/boot/vmlinuz-* $EXTRAKERNELPATH/vmlinuz
@@ -374,7 +383,6 @@ EOF
 	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH/initrd.img
     fi
     
-    rmdir $MBD_BOOTTREE 
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
     rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE

@@ -12,7 +12,7 @@ makebootdisk --kernelto $TOPDESTPATH/images/pxeboot  \
 	de600 de620 depca dgrs eepro100 eepro hp-plus hp 
 	hp100 ibmtr ni52 old_tulip tulip ne nfs vfat"
 
-makebootdisk pcmcia.img loader-pcmcia "$PCMCIAMODULES"
+makebootdisk --pcmcia pcmcia.img loader-pcmcia "$PCMCIAMODULES"
 
 makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net"
 
