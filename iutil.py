@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 1999-2001 Red Hat, Inc.
+# Copyright 1999-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -209,10 +209,12 @@ def memInstalled(corrected = 1):
     return int(mem)
 
 # try to keep 2.4 kernel swapper happy!
-def swapSuggestion():
+def swapSuggestion(quiet=0):
     mem = memInstalled(corrected=0)/1024
     mem = ((mem/16)+1)*16
-    log("Detected %sM of memory", mem)
+    if not quiet:
+	log("Detected %sM of memory", mem)
+	
     if mem < 128:
         minswap = 96
         maxswap = 192
@@ -223,8 +225,9 @@ def swapSuggestion():
         else:
             minswap = mem
             maxswap = 2*mem
-            
-    log("Swap attempt of %sM to %sM", minswap, maxswap)
+
+    if not quiet:
+	log("Swap attempt of %sM to %sM", minswap, maxswap)
 
     return (minswap, maxswap)
 
