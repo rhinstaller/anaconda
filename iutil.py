@@ -34,11 +34,14 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	stderr = getfd(stderr)
 
     if not os.access (root + command, os.X_OK):
-        raise RuntimeError, command + " can not be run"
+        if not os.access (command, os.X_OK):
+            raise RuntimeError, command + " can not be run"
+        else:
+            root = ""
 
     childpid = os.fork()
     if (not childpid):
-        if (root != '/'): isys.chroot (root)
+        if (root and root != '/'): isys.chroot (root)
 
 	if type(stdin) == type("a"):
 	    stdin == os.open(stdin, os.O_RDONLY)
@@ -71,13 +74,16 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
 
     if not os.access (root + command, os.X_OK):
-        raise RuntimeError, command + " can not be run"
-    
+        if not os.access (command, os.X_OK):
+            raise RuntimeError, command + " can not be run"
+        else:
+            root = ""
+
     (read, write) = os.pipe()
 
     childpid = os.fork()
     if (not childpid):
-        if (root != '/'): isys.chroot (root)
+        if (root and root != '/'): isys.chroot (root)
 	os.dup2(write, 1)
 
 	if stdin:
