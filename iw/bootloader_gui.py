@@ -27,7 +27,6 @@ class BootloaderWindow (InstallWindow):
     def getPrev (self):
         # avoid coming back in here if the user backs past and then tries
         # to skip this screen
-        #self.bootdisk = None
 	pass
 
 	# XXX
@@ -50,13 +49,6 @@ class BootloaderWindow (InstallWindow):
                 #sys.exit(0)
 
     def getNext (self):
-        if not self.bootdisk: return None
-
-        if self.bootdisk.get_active ():
-	    self.dispatch.skipStep("bootdisk", skip = 0)
-        else:
-	    self.dispatch.skipStep("bootdisk")
-
         if not self.bootloader.get_active ():
 	    self.dispatch.skipStep("instbootloader")
         elif len(self.bootDevice.keys()) > 0:
@@ -314,11 +306,6 @@ class BootloaderWindow (InstallWindow):
 
         optionBox = GtkVBox (FALSE, 5)
         optionBox.set_border_width (5)
-        self.bootdisk = GtkCheckButton (_("Create Boot Disk"))
-
-	self.bootdisk.set_active(not dispatch.stepInSkipList("bootdisk"))
-
-        optionBox.pack_start (self.bootdisk)
 
         self.bootloader = GtkCheckButton (_("Install Boot Loader"))
 
