@@ -700,6 +700,34 @@ qlogicpti
 	scsi_hostadapter
 	"QLogic ISP1020 SCSI SBUS"
 
+sata_via
+        scsi_hostadapter
+        "VIA SATA controllers"
+
+sata_sil
+        scsi_hostadapter
+        "Silicon Image SATA controllers"
+
+sata_sis
+        scsi_hostadapter
+        "SIS SATA controllers"
+
+sata_vsc
+        scsi_hostadapter
+        "VSC7174 SATA controllers"
+
+sata_svw
+        scsi_hostadapter
+        "K2 SATA controllers"
+
+sata_promise
+        scsi_hostadapter
+        "Promise SATA controllers"
+
+siimage
+        scsi_hostadapter
+        "Silicon Image SATA controllers"
+
 # needed for sparc
 sym53c8xx
 	scsi_hostadapter
