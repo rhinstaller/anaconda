@@ -226,7 +226,6 @@ class Keyboard (SimpleConfigFile):
 
     def set (self, keytable):
 	if self.type != "Serial":
-            log ("Inside kbd.py %s", keytable)
 	    self.info["KEYTABLE"] = keytable
 
     def setfromx (self, model, layout, variant):
