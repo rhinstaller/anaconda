@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat installation\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 2000-01-19 13:50\n"
+"PO-Revision-Date: 2000-02-21 21:00+0100\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
@@ -147,7 +147,7 @@ msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
-"Za chwilê zostan± zniszczone WSZYSTKIE DANE na towim twardym dysku ¿eby "
+"Za chwilê zostan± zniszczone WSZYSTKIE DANE na twoim twardym dysku ¿eby "
 "zrobiæ miejsce na instalacje Linuxa."
 
 #. code to create dialog in gtk+
@@ -453,6 +453,7 @@ msgstr ""
 "\n"
 "Na maszynach Ultra zrobionych przez SMCC startowanie z dyskietki "
 "prawdopodobnie nie dzia³a\n"
+"\n"
 
 #: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
@@ -1448,9 +1449,8 @@ msgstr ""
 "prawid³owe ustawienia poni¿ej:"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Wyniki próbkowania X-Window"
+msgstr "Wyniki sprawdzania:"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1649,15 +1649,16 @@ msgid "User ID"
 msgstr "Identyfikator u¿ytkownika:"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Identyfikator u¿ytkownika:"
+msgstr "Z³y identyfikator u¿ytkownika"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Identyfikatory u¿ytkowników musz± mieæ mniej ni¿ 8 znaków i zawieraæ tylko "
+"znaki A-Z, a-z i 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
