@@ -472,7 +472,7 @@ class XconfiguratorWindow:
 	    args = args + [ '--noddcprobe' ]
 
         screen.suspend ()
-        iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator", args
+        iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator", args,
                                 root = todo.instPath)
         screen.resume ()
 	todo.x.skip = 1
