@@ -217,6 +217,10 @@ for p in $DEST $DESTGR; do
 	rm -f $p/ldconfig
 
 	find $p -name "*.so" | xargs strip
+
+	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
+		grep '^./[A-Z]' | sort | sed 's/^..//' | 
+		gzip -9) > $p/usr/lib/timezones.gz
 done
 
 pythondeps $DEST
