@@ -23,7 +23,8 @@ from partitioning import *
 
 from rhpl.log import log
 from rhpl.translate import _, N_
-			  
+
+from constants import BETANAG
 
 class BaseInstallClass:
     # default to not being hidden
@@ -130,6 +131,9 @@ class BaseInstallClass:
 		 "bootdisk",
 		 "complete"
 		)
+
+	if not BETANAG:
+	    dispatch.skipStep("betanag")
 
         # XXX ugh, this badly needs some clean up
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
