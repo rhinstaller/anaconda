@@ -44,10 +44,10 @@ class fdiskPartitionWindow:
             if button != "done" and button != TEXT_BACK_CHECK:
                 device = choices[choice]
                 
-                if os.access("/sbin/fdisk", os.X_OK):
-                    path = "/sbin/fdisk"
+                if os.access("/sbin/parted", os.X_OK):
+                    path = "/sbin/parted"
                 else:
-                    path = "/usr/sbin/fdisk"
+                    path = "/usr/sbin/parted"
 
                 try:
                     isys.makeDevInode(device, '/tmp/' + device)

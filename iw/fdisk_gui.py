@@ -59,10 +59,10 @@ class FDiskWindow (InstallWindow):
 
 	# free our fd's to the hard drive -- we have to 
 	# fstab.rescanDrives() after this or bad things happen!
-        if os.access("/sbin/fdisk", os.X_OK):
-            path = "/sbin/fdisk"
+        if os.access("/sbin/parted", os.X_OK):
+            path = "/sbin/parted"
         else:
-            path = "/usr/sbin/fdisk"
+            path = "/usr/sbin/parted"
         
 	isys.makeDevInode(drive, '/tmp/' + drive)
 
