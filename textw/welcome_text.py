@@ -4,7 +4,7 @@ from translate import _
 import os
 
 class WelcomeWindow:
-    def __call__(self, screen):
+    def __call__(self, screen, configFileData):
         rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
                                 _("Welcome to Red Hat Linux!\n\n"
                                   "This installation process is outlined in detail in the "

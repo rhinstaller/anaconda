@@ -318,7 +318,7 @@ class InstallInterface:
 	if self.screen:
 	    self.screen.finish()
 
-    def run(self, id, dispatch):
+    def run(self, id, dispatch, configFileData):
         self.screen = SnackScreen()
 	self.screen.helpCallback(self.helpWindow)
 	self.drawFrame()
