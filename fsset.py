@@ -456,10 +456,11 @@ class FileSystemSet:
                 and existing.mountpoint == entry.mountpoint):
                 self.remove(existing)
         # XXX debuggin'
-        log ("fsset at %s\n"
-             "adding entry for %s\n"
-             "entry object %s, class __dict__ is %s",
-             self, entry.mountpoint, entry, isys.printObject(entry.__dict__))
+##         log ("fsset at %s\n"
+##              "adding entry for %s\n"
+##              "entry object %s, class __dict__ is %s",
+##              self, entry.mountpoint, entry,
+##              isys.printObject(entry.__dict__))
         self.entries.append(entry)
         self.entries.sort (mountCompare)
 
