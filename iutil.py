@@ -138,20 +138,22 @@ def copyFile(source, to, pw = None):
 	total = os.path.getsize(source)
 	win = fn(title, text, total)
 
-    count = os.read(f, 262144)
-    total = 0
-    while (count):
-	os.write(t, count)
-	total = total + len(count)
-	if pw:
-	    win.set(total)
-	count = os.read(f, 16384)
-	
-    os.close(f)
-    os.close(t)
+    try:
+	count = os.read(f, 262144)
+	total = 0
+	while (count):
+	    os.write(t, count)
 
-    if pw:
-	win.pop()
+	    total = total + len(count)
+	    if pw:
+		win.set(total)
+	    count = os.read(f, 16384)
+    finally:
+	os.close(f)
+	os.close(t)
+
+	if pw:
+	    win.pop()
 
 def memInstalled():
     f = open("/proc/meminfo", "r")

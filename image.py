@@ -39,10 +39,19 @@ class CdromInstallMethod(ImageInstallMethod):
 	self.loopbackFile = mntPoint + fstab.filesystemSpace()[0][0] + \
 			    "/rhinstall-stage2.img"
 
-	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, 
-			self.loopbackFile,
-			(self.progressWindow, _("Copying File"),
-			_("Transferring install image to hard drive...")))
+	try:
+	    iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, 
+			    self.loopbackFile,
+			    (self.progressWindow, _("Copying File"),
+			    _("Transferring install image to hard drive...")))
+	except:
+	    self.messageWindow(_("Error"),
+		    _("An error occured transferring the install image "
+		      "to your hard drive. You are probably out of disk "
+		      "space."))
+	    os.unlink(self.loopbackFile)
+	    return 1
+
 	isys.makeDevInode("loop0", "/tmp/loop")
 	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
