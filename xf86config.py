@@ -442,8 +442,7 @@ EndSection
 
 Section "Module"
         Load  "dbe"
-        Load  "extmod"%(nonSparcMods)s
-        Load  "pex5"
+        Load  "extmod"%(nonSparcMods)s%(pex5Mod)s
         Load  "record"
         Load  "xie"%(ia64Mods)s
 EndSection
@@ -891,7 +890,7 @@ class XF86Config:
             config = self.Version4Config
         else:
             config = self.Version3Config
-        f.write (config ())
+        f.write (config (1))
         f.close ()
 
         self.files = files
@@ -926,7 +925,7 @@ class XF86Config:
                     raise RuntimeError, "X startup failed %d" % (status,)
             return
 
-    def Version3Config (self):
+    def Version3Config (self, test=0):
         info = {}
         devices = ""
 
@@ -1012,7 +1011,7 @@ Section "Screen"
 
         return XF86Config_template % info
         
-    def Version4Config(self):
+    def Version4Config(self, test=0):
         screens = ""
         for depth in self.modes.keys ():
             if not self.modes[depth]: continue
@@ -1041,13 +1040,16 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
                  "ia64Mods"     : "",
-		 "nonSparcMods" : '\nLoad "fbdevhw"',
+		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
+		 "pex5Mod"	: '\n\tLoad "pex5"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
                  "XkbVariant"   : self.keyVariant,
                  "XkbOptions"   : self.keyOptions }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
+	if test:
+	    data["pex5Mod"] = ""
 	if iutil.getArch() == "sparc":
 	    data["nonSparcMods"] = ""
 	    data["autorepeat"] = '#	Option	"AutoRepeat"	"200 20"'
