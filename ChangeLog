@@ -1,5 +1,8 @@
 2005-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* hdrlist.py: Make sure we don't hide groups which just have
+	metapkgs (#149182)
+
 	* loader2/selinux.c: Load SELinux booleans (#151896)
 
 2005-03-23  Chris Lumens  <clumens@redhat.com>

@@ -820,6 +820,8 @@ class GroupSet:
                         %(xmlgrp.id, id))
                     continue
                 group.addMetaPkg(xmlgrp.metapkgs[id])
+                if xmlgrp.user_visible and group.hidden:
+                    group.hidden = 0
         
 
     def selectGroup(self, group, asMeta = 0, missingOk = 0):
