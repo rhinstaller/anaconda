@@ -251,10 +251,11 @@ class InstallCallback:
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
 	    os.close (self.rpmFD)
 	    self.progress.completePackage(h, self.pkgTimer)
+	    self.progress.processEvents()
 	else:
 	    pass
 
-	self.progress.processEvents()
+#	self.progress.processEvents()
 
     def __init__(self, messageWindow, progress, pkgTimer, method,
 		 progressWindowClass, instLog, modeText):

@@ -52,6 +52,7 @@ class InstallProgressWindow (InstallWindow):
 	    return
                  
 	self.progress.set_percentage (newval)
+	self.processEvents()
 
     def completePackage(self, header, timer):
         def formatTime(amt):
