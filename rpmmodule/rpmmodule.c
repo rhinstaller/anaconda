@@ -798,6 +798,8 @@ static void rpmtransDealloc(PyObject * o) {
     rpmtransFree(trans->ts);
     if (trans->dbo) Py_DECREF(trans->dbo);
     if (trans->scriptFd) fdClose(trans->scriptFd);
+    /* this will free the keyList, and decrement the ref count of all
+       the items on the list as well :-) */
     Py_DECREF(trans->keyList);
 }
 
@@ -849,6 +851,7 @@ static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
     else
 	rpmtransAddPackage(s->ts, h->h, NULL, key, isUpgrade, NULL);
 
+    /* This should increment the usage count for me */
     if (key) PyList_Append(s->keyList, key);
 
     Py_INCREF(Py_None);
