@@ -33,7 +33,7 @@ class InstallClass(BaseInstallClass):
                     "findpackages",
                     "bootloadersetup",
 		    "bootloader",
-                    "bootloaderpassword"
+                    "bootloaderpassword",
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",
