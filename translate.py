@@ -11,5 +11,8 @@ class i18n:
     def gettext(self, string):
         return self.cat.gettext(string)
 
+def N_(str):
+    return str
+
 cat = i18n()
 _ = cat.gettext
