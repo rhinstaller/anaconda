@@ -14,7 +14,7 @@
 #
 
 from comps import ComponentSet, HeaderList
-from installmethod import InstallMethod
+from installmethod import InstallMethod, FileCopyException
 import os
 import rpm
 import time
@@ -69,8 +69,8 @@ class UrlInstallMethod(InstallMethod):
 
 	file = tmppath + os.path.basename(fullPath)
 
-        connected = 0
-        while not connected:
+        tries = 0
+        while tries < 5:
             try:
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
@@ -78,7 +78,11 @@ class UrlInstallMethod(InstallMethod):
 			errnum, fullPath, str(msg))
                 time.sleep(5)
             else:
-                connected = 1
+                break
+            tries = tries + 1
+
+        if tries >= 5:
+            raise FileCopyException
                 
 	return file
 
@@ -104,16 +108,16 @@ class UrlInstallMethod(InstallMethod):
                 time.sleep(5)
             else:
                 connected = 1
-                
+
 	return file
 
     def unlinkFilename(self, fullName):
 	os.remove(fullName)
 
     def readHeaders(self):
-        connected = 0
+        tries = 0
 
-        while not connected:
+        while tries < 5:
             try:
                 url = urllib2.urlopen(self.baseUrl + "/RedHat/base/hdlist")
             except IOError, (errnum, msg):
@@ -121,7 +125,11 @@ class UrlInstallMethod(InstallMethod):
 			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
                 time.sleep(5)
             else:
-                connected = 1
+                break
+            tries = tries + 1
+
+        if tries >= 5:
+            raise FileCopyException
                 
 	raw = url.read(16)
 	hl = []

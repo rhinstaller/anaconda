@@ -17,6 +17,10 @@ from comps import ComponentSet
 
 from rhpl.log import log
 
+class FileCopyException(Exception):
+    def __init__(self, s = ""):
+        self.str = s
+        
 
 class InstallMethod:
 

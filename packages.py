@@ -29,6 +29,7 @@ from flags import flags
 from constants import *
 from syslogd import syslog
 from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT
+from installmethod import FileCopyException
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -110,14 +111,32 @@ def writeXConfiguration(id, instPath):
     id.desktop.write(instPath)
 
 def readPackages(intf, method, id):
-    if (not id.hdList):
+    while id.hdList is None:
 	w = intf.waitWindow(_("Reading"), _("Reading package information..."))
-	id.hdList = method.readHeaders()
-	id.instClass.setPackageSelection(id.hdList)
-	w.pop()
+        try:
+            id.hdList = method.readHeaders()
+        except FileCopyException:
+            w.pop()
+            method.unmountCD()
+            intf.messageWindow(_("Error"),
+                               _("Unable to read header list.  This may be "
+                                 "due to a missing file or bad media.  "
+                                 "Press <return> to try again."))
+            continue
 
-    if not id.comps:
-	id.comps = method.readComps(id.hdList)
+        w.pop()
+        id.instClass.setPackageSelection(id.hdList)
+
+    while id.comps is None:
+        try:
+            id.comps = method.readComps(id.hdList)
+        except FileCopyException:
+            method.unmountCD()            
+            intf.messageWindow(_("Error"),
+                               _("Unable to read comps file.  This may be "
+                                 "due to a missing file or bad media.  "
+                                 "Press <return> to try again."))
+            continue
 	id.instClass.setGroupSelection(id.comps)
 
 	# XXX
@@ -280,9 +299,9 @@ class InstallCallback:
             self.size = h[rpm.RPMTAG_SIZE]
 
 	    while self.rpmFD < 0:
-                fn = self.method.getFilename(h, self.pkgTimer)
 #		log("Opening rpm %s", fn)
 		try:
+                    fn = self.method.getFilename(h, self.pkgTimer)
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 
                     # Make sure this package seems valid
@@ -300,7 +319,7 @@ class InstallCallback:
 			except:
 			    pass
 			self.rpmFD = -1
-			raise SystemError
+			raise FileCopyException
 		except:
                     self.method.unmountCD()
 		    self.messageWindow(_("Error"),
@@ -530,8 +549,17 @@ def doPreInstall(method, id, intf, instPath, dir):
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn
     # on the children
-
-    method.mergeFullHeaders(id.hdList)
+    while 1:
+        try:
+            method.mergeFullHeaders(id.hdList)
+        except FileCopyException:
+            method.unmountCD()
+            intf.messageWindow(_("Error"),
+                               _("Unable to merge header list.  This may be "
+                                 "due to a missing file or bad media.  "
+                                 "Press <return> to try again."))
+        else:
+            break
 
     if upgrade:
 	# An old mtab can cause confusion (esp if loop devices are
@@ -722,7 +750,7 @@ def doInstall(method, id, intf, instPath):
     cb.initWindow = intf.waitWindow(_("Install Starting"),
 				    _("Starting install process, this may take several minutes..."))
 
-    ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
+    ts.setProbFilter(rpm.RPMPROB_FILTER_DISKSPACE)
     problems = ts.run(cb.cb, 0)
 
     if problems:

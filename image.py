@@ -12,7 +12,7 @@
 #
 
 from comps import ComponentSet, HeaderListFromFile
-from installmethod import InstallMethod
+from installmethod import InstallMethod, FileCopyException
 import iutil
 import os
 import isys
@@ -251,9 +251,9 @@ class CdromInstallMethod(ImageInstallMethod):
                 pass
 
         tmppath = self.getTempPath()
-        copied = 0
+        tries = 0
         # FIXME: should retry a few times then prompt for new cd
-        while not copied:
+        while tries < 5:
             try:
                 shutil.copy(self.tree + "/RedHat/RPMS/" + h[1000000],
                             tmppath + h[1000000])
@@ -262,7 +262,11 @@ class CdromInstallMethod(ImageInstallMethod):
                     errnum, h[1000000], str(msg))
                 time.sleep(5)
             else:
-                copied = 1
+                break
+            tries = tries + 1
+
+        if tries >= 5:
+            raise FileCopyException
                         
 	return tmppath + h[1000000]
 
