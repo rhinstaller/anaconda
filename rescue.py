@@ -21,6 +21,7 @@ import sys
 import os
 from log import log
 import isys
+import fsset
 
 class RescueInterface:
 
@@ -37,14 +38,7 @@ class RescueInterface:
     def __init__(self, screen):
 	self.screen = screen
 
-def runRescue(url, serial, mountroot):
-
-#
-# XXX - disabling mounting of existing installations
-#
-#    from fstab import NewtFstab
-
-    fstab = None
+def runRescue(instPath, mountroot, id):
 
     for file in [ "services", "protocols", "group" ]:
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
@@ -52,22 +46,8 @@ def runRescue(url, serial, mountroot):
     if (not mountroot):
 	os.execv("/bin/sh", [ "-/bin/sh" ])
 
-#
-# XXX - disabling mounting of existing installations
-#
-#    try:
-#	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
-#			  requireBlockDevices = 0)
-#    except SystemError, text:
-#	print _("WARNING: no valid block devices were found.\n")
-#    except:
-#	print _("ERROR: unknown error encountered reading partition tables.\n")
-	
-    if not fstab:
-	os.execv("/bin/sh", [ "-/bin/sh" ])
-
     # lets create some devices
-    for drive in fstab.driveList():
+    for drive in isys.hardDriveDict().keys():
 	isys.makeDevInode(drive, "/dev/" + drive)
 	
 	for i in range(16):
@@ -81,31 +61,21 @@ def runRescue(url, serial, mountroot):
     screen = SnackScreen()
     intf = RescueInterface(screen)
 
-    # go ahead and set things up for reboot
-    if url[0:6] == "cdrom:" or url[0:4] == "nfs:":
-	f = open("/tmp/cleanup", "w")
+    disks = upgrade.findExistingRoots(intf, id, instPath)
 
-	isys.makeDevInode("loop0", "/tmp/loop0")
-	f.write("umount /mnt/runtime\n")
-	f.write("lounsetup /tmp/loop0\n")
-
-	f.close()
-
-    parts = upgrade.findExistingRoots(intf, fstab)
-
-    if not parts:
+    if not disks:
 	root = None
-    elif len(parts) == 1:
-	root = parts[0]
+    elif len(disks) == 1:
+	root = disks[0]
     else:
-	height = min (len (parts), 12)
+	height = min (len (disks), 12)
 	if height == 12:
 	    scroll = 1
 	else:
 	    scroll = 0
 
 	partList = []
-	for (drive, fs) in parts:
+	for (drive, fs) in disks:
 	    partList.append(drive)
 
 	(button, choice) = \
@@ -119,13 +89,14 @@ def runRescue(url, serial, mountroot):
 	if button == string.lower (_("Exit")):
 	    root = None
 	else:
-	    root = parts[choice]
+	    root = disks[choice]
 
     rootmounted = 0
     if root:
 	try:
-	    upgrade.mountRootPartition(intf, root, fstab, '/mnt/sysimage', 
-			       allowDirty = 1)
+	    fs = fsset.FileSystemSet()
+	    upgrade.mountRootPartition(intf, root, fs, instPath,
+				       allowDirty = 1)
 	    ButtonChoiceWindow(screen, _("Rescue"),
 		_("Your system has been mounted under /mnt/sysimage.\n\n"
 		  "Press <return> to get a shell. The system will reboot "
@@ -138,10 +109,11 @@ def runRescue(url, serial, mountroot):
 	    # errors raise exceptions, while any runtime error will
 	    # still result in a shell. 
 	    (exc, val) = sys.exc_info()[0:2]
-	    if exc in (IndexError, ValueError, SyntaxError):
+	    #if exc in (IndexError, ValueError, SyntaxError):
+	    if 1:
 		raise exc, val, sys.exc_info()[2]
 
-	    ButtonChoiceWindow(screen, _("Rescue").
+	    ButtonChoiceWindow(screen, _("Rescue"),
 		_("An error occured trying to mount some or all of your "
 		  "system. Some of it may be mounted under /mnt/sysimage.\n\n"
 		  "Press <return> to get a shell. The system will reboot "
