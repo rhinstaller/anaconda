@@ -32,7 +32,8 @@ import copy
 
 STRIPE_HEIGHT = 32.0
 LOGICAL_INSET = 3.0
-CANVAS_WIDTH = 500
+CANVAS_WIDTH_800 = 500
+CANVAS_WIDTH_640 = 400
 CANVAS_HEIGHT = 200
 TREE_SPACING = 2
 
@@ -106,8 +107,15 @@ class DiskStripeSlice:
         totalSectors = float(disk.dev.heads
                              * disk.dev.sectors
                              * disk.dev.cylinders)
-        xoffset = self.partition.geom.start / totalSectors * CANVAS_WIDTH
-        xlength = self.partition.geom.length / totalSectors * CANVAS_WIDTH
+
+        # XXX hack but will work for now
+        if screen_width() > 640:
+            width = CANVAS_WIDTH_800
+        else:
+            width = CANVAS_WIDTH_640
+
+        xoffset = self.partition.geom.start / totalSectors * width
+        xlength = self.partition.geom.length / totalSectors * width
         if self.partition.type & parted.PARTITION_LOGICAL:
             yoffset = 0.0 + LOGICAL_INSET
             yheight = STRIPE_HEIGHT - (LOGICAL_INSET * 2)
@@ -152,7 +160,16 @@ class DiskStripe:
         self.hash = {}
         self.editCb = editCb
         self.selected = None
-        group.add ("rect", x1=0.0, y1=10.0, x2=CANVAS_WIDTH,
+
+        # XXX hack but will work for now
+        if screen_width() > 640:
+            width = CANVAS_WIDTH_800
+        else:
+            width = CANVAS_WIDTH_640
+        
+        print "width = %s" % width
+
+        group.add ("rect", x1=0.0, y1=10.0, x2=width,
                    y2=STRIPE_HEIGHT, fill_color='green',
                    outline_color='grey71', width_units=1.0)
         group.lower_to_bottom()
