@@ -688,18 +688,12 @@ makemainimage () {
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     fi
     
-    if [ "$BUILDARCH" = "ia64" ]; then
-        ln -snf $mmi_tmpimage $INSTIMGPATH/${imagename}.img
-    else
-	cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
-    fi
+    cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
     chmod 644 $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
     
-    if [ "$BUILDARCH" != "ia64" ]; then
-      rm $mmi_tmpimage
-    fi
+    rm $mmi_tmpimage
 }
 
 makedriverdisk () {
