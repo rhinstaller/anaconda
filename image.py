@@ -97,14 +97,14 @@ class CdromInstallMethod(ImageInstallMethod):
         if h[1000002] == None:
             log ("header for %s has no disc location tag, assuming it's"
                  "on the current CD", h[1000000])
-        elif h[1000002] != self.currentDisc:
+        elif h[1000002] not in self.currentDisc:
 	    timer.stop()
 
 	    f = open("/mnt/source/.discinfo")
 	    timestamp = f.readline().strip()
 	    f.close()
 
-	    self.currentDisc = h[1000002]
+	    needed = h[1000002]
 	    isys.umount("/mnt/source")
 
 	    done = 0
@@ -131,14 +131,15 @@ class CdromInstallMethod(ImageInstallMethod):
                             except:
                                 arch = None
                             try:
-                                discNum = string.atoi(f.readline().strip())
+                                discNum = getDiscNums(f.readline().strip())
                             except:
                                 discNum = 0
 			    f.close()
 			    if (newStamp == timestamp and
                                 arch == iutil.getArch() and
-                                discNum == self.currentDisc):
+                                needed in discNum):
 				done = 1
+                                self.currentDisc = discNum
 
 			if not done:
 			    isys.umount("/mnt/source")
@@ -153,7 +154,7 @@ class CdromInstallMethod(ImageInstallMethod):
 
 	    while not done:
 		self.messageWindow(_("Change CDROM"), 
-		    _("Please insert disc %d to continue.") % self.currentDisc)
+		    _("Please insert disc %d to continue.") % needed)
 
 		try:
 		    if isys.mount(self.device, "/mnt/source", 
@@ -175,14 +176,15 @@ class CdromInstallMethod(ImageInstallMethod):
                         except:
                             arch = None
                         try:
-                            discNum = string.atoi(f.readline().strip())
+                            discNum = getDiscNums(f.readline().strip())
                         except:
-                            discNum = 0
+                            discNum = [ 0 ]
 			f.close()
                         if (newStamp == timestamp and
                             arch == iutil.getArch() and
-                            discNum == self.currentDisc):
+                            needed in discNum):
 			    done = 1
+                            self.currentDisc = discNum
                             # make /tmp/cdrom again so cd gets ejected
                             isys.makeDevInode(self.device, "/tmp/cdrom")
 
@@ -232,7 +234,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	(self.device, tree) = string.split(url, "/", 1)
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
-	self.currentDisc = 1
+	self.currentDisc = [ 1 ]
         self.loopbackFile = None
 	ImageInstallMethod.__init__(self, "/" + tree, rootPath)
 
@@ -240,6 +242,14 @@ class NfsInstallMethod(ImageInstallMethod):
 
     def __init__(self, tree, rootPath):
 	ImageInstallMethod.__init__(self, tree, rootPath)
+
+def getDiscNums(line):
+    # get the disc numbers for this disc
+    nums = line.split(",")
+    discNums = []
+    for num in nums:
+        discNums.append(int(num))
+    return discNums
 
 def findIsoImages(path, messageWindow):
     files = os.listdir(path)
@@ -268,14 +278,14 @@ def findIsoImages(path, messageWindow):
                         f.readline() # skip timestamp
                         f.readline() # skip release description
                         discArch = string.strip(f.readline()) # read architecture
-                        discNum = string.atoi(f.readline().strip()) # read disc number
+                        discNum = getDiscNums(f.readline().strip())
                     except:
                         discArch = None
-                        discNum = 0
+                        discNum = [ 0 ]
 
                     f.close()
 
-                    if discNum != num or discArch != arch:
+                    if num not in discNum or discArch != arch:
                         continue
                     
 		    # warn user if images appears to be wrong size
