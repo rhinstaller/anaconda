@@ -1433,7 +1433,7 @@ class TimezoneWindow:
 
 	c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
 
-	g = GridForm(screen, _("Mouse Selection"), 1, 4)
+	g = GridForm(screen, _("Time Zone Selection"), 1, 4)
 	g.add(t, 0, 0)
 	g.add(c, 0, 1, padding = (0, 1, 0, 1), anchorLeft = 1)
 	g.add(l, 0, 2, padding = (0, 0, 0, 1))
