@@ -494,50 +494,29 @@ class InstallControlWindow:
         frame.add(vbox1)
         self.textWin.add (frame)
 
-        try:
-            self.textWin.set_position (WIN_POS_CENTER)
-        
-            text = GtkText()
-            try:
-                file = open("/mnt/source/RELEASE-NOTES", "r")
-                for line in file.readlines():
-                    text.insert(None, None, None, line)
-                file.close()
+        self.textWin.set_position (WIN_POS_CENTER)
 
-            except:
-                file = open("/RELEASE-NOTES", "r")
-                for line in file.readlines():
-                    text.insert(None, None, None, line)
-                file.close()
+
+        if self.buff != "":
+            text = GtkText()
+            text.insert (None, None, None, self.buff)
                 
             sw = GtkScrolledWindow()
             sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
             sw.add(text)
-
+        
             vbox1.pack_start(sw, TRUE, TRUE)
-
-            try:
-                file = open("/mnt/source/RELEASE-NOTES", "r")
-                for line in file.readlines():
-                    text.insert(None, None, None, line)
-                file.close()
-
-            except:
-                file = open("/RELEASE-NOTES", "r")
-                for line in file.readlines():
-                    text.insert(None, None, None, line)
-                file.close()
-                
+            
             self.textWin.set_default_size (520, 400)
             self.textWin.set_usize (520, 400)
             self.textWin.set_position (WIN_POS_CENTER)
-
+            
             vbox1.pack_start(closeButton, FALSE, FALSE)
-
+            
             self.textWin.set_border_width(1)
             self.textWin.show_all()
 
-        except:
+        else:
             self.textWin.set_position (WIN_POS_CENTER)
             label = GtkLabel("Unable to load file!")
 
@@ -546,7 +525,6 @@ class InstallControlWindow:
 
             self.textWin.set_border_width(10)
             self.textWin.show_all()
-
 
     def setScreen (self, screen, direction):
         # if getScreen returns None, or we're supposed to skip this screen
@@ -733,6 +711,25 @@ class InstallControlWindow:
                             vbox.pack_start (a, FALSE, TRUE, 0)                    
                     except:
                         print "Unable to load anaconda_header.png"
+
+
+        #--Go ahead and pull the release notes into memory.  This allows them to be viewed
+        #--during package installation
+        self.buff = ""
+        try:
+            file = open("/mnt/source/RELEASE-NOTES", "r")
+            for line in file.readlines():
+                self.buff = self.buff + line
+            file.close()
+
+        except:
+            try:
+                file = open("/RELEASE-NOTES", "r")
+                for line in file.readlines():
+                    self.buff = self.buff + line
+                file.close()
+            except:
+                pass
 
         vbox.set_spacing(0)
 
