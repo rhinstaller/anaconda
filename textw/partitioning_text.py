@@ -313,7 +313,7 @@ class LoopSizeWindow:
         # add in size of loopback files if they exist
         extra = 0
         try:
-            import os, stat
+            import stat
             isys.mount(rootdev[0], "/mnt/space", fstype = rootdev[1])
             extra = extra + os.stat("/mnt/space/redhat.img")[stat.ST_SIZE]
             extra = extra + os.stat("/mnt/space/rh-swap.img")[stat.ST_SIZE]

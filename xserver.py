@@ -23,7 +23,6 @@ import time
 from xf86config import *
 from kbd import Keyboard
 from mouse import Mouse
-import time
 from snack import *
 from translate import _
 from constants_text import *
@@ -154,11 +153,10 @@ def testx(x):
 	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
     except:
 	import traceback
-	from string import joinfields
         server = None
 	(type, value, tb) = sys.exc_info()
 	list = traceback.format_exception (type, value, tb)
-	text = joinfields (list, "")
+	text = string.joinfields (list, "")
 	print text
 
     # give time for the server to fail (if it is going to fail...)

@@ -13,6 +13,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+DISPATCH_BACK = -1
+DISPATCH_FORWARD = 1
+DISPATCH_NOOP = None
+
 import string
 from types import *
 from packages import readPackages, checkDependencies, doInstall
@@ -24,10 +28,6 @@ from floppy import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
 from flags import flags
 from upgrade import upgradeFindPackages
-
-DISPATCH_BACK = -1
-DISPATCH_FORWARD = 1
-DISPATCH_NOOP = None
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while

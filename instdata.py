@@ -24,7 +24,6 @@ import fsset
 import partitioning
 import bootloader
 from simpleconfig import SimpleConfigFile
-from translate import _
 
 class Boolean:
     def set(self, val):

@@ -2,7 +2,6 @@
 # gui.py - Graphical front end for anaconda
 #
 # Matt Wilson <msw@redhat.com>
-# Paul Fisher <rao@gnu.org>
 #
 # Copyright 2001 Red Hat, Inc.
 #

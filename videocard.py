@@ -35,7 +35,7 @@ def Video_cardsDBLookup(thecard):
         count = count + 1
         
         if count >= 16:
-            raise RunTimeError, "Could not find card ",origcard
+            raise RuntimeError, "Could not find card %s" % (origcard,)
 
     return card
 

@@ -18,9 +18,10 @@ import isys
 import iutil
 import os
 import parted
+import sys
+import struct
 from log import log
 from translate import _, N_
-import sys
 
 defaultMountPoints = ('/', '/boot', '/home', '/tmp', '/usr', '/var')
 
@@ -217,6 +218,7 @@ class extFileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.maxSize = 4 * 1024 * 1024
+        self.extraFormatArgs = []
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -238,7 +240,6 @@ class ext2FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext2"
-        self.extraFormatArgs = []
 
 fileSystemTypeRegister(ext2FileSystem())
 
@@ -306,6 +307,8 @@ class swapFileSystem(FileSystemType):
                                      [ "mkswap", '-v1', file ],
                                      stdout = None, stderr = None,
                                      searchPath = 1)
+        if rc:
+            raise SystemError
 
 fileSystemTypeRegister(swapFileSystem())
 
@@ -351,6 +354,12 @@ class DevptsFileSystem(PsudoFileSystem):
         self.defaultOptions = "gid=5,mode=620"
 
 fileSystemTypeRegister(DevptsFileSystem())
+
+class AutoFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "auto")
+        
+fileSystemTypeRegister(AutoFileSystem())
 
 class FileSystemSet:
     def __init__(self):
@@ -495,11 +504,6 @@ class FileSystemSet:
                                            % (entry.device.getDevice(), msg))
                     sys.exit(0)
 
-    def turnOffSwap(self, devices = 1, files = 0):
-        for entry in self.entries:
-            if entry.fsystem and entry.fsystem.getName() == "swap":
-                entry.umount(chroot)
-
     def formattablePartitions(self):
         list = []
         for entry in self.entries:
@@ -574,8 +578,8 @@ class FileSystemSet:
 
     def hasDirtyFilesystems(self):
 	if self.rootOnLoop():
-	    (rootDev, rootFs) = self.getRootDevice()
-	    mountLoopbackRoot(rootDev, skipMount = 1)
+            entry = self.getEntryByMountPoint('/')
+	    mountLoopbackRoot(entry.device.host, skipMount = 1)
 	    dirty = isys.ext2IsDirty("loop1")
 	    unmountLoopbackRoot(skipMount = 1)
 	    if dirty: return 1
@@ -727,7 +731,7 @@ class RAIDDevice(Device):
         self.minor = minor
 
     def __del__ (self):
-        RAIDDevice.usedMajors.remove(minor)
+        RAIDDevice.usedMajors.remove(self.minor)
 
     def ext2Args (self):
         if self.level == 5:

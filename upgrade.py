@@ -127,9 +127,8 @@ def swapSuggestion(instPath, fsset):
     return (fsList, suggestion, suggMnt)
 
 def swapfileExists(swapname):
-
     try:
-        rc = os.lstat(swapname)
+        os.lstat(swapname)
 	return 1
     except:
 	return 0
@@ -138,7 +137,7 @@ def swapfileExists(swapname):
 def createSwapFile(instPath, thefsset, mntPoint, size):
     fstabPath = instPath + "/etc/fstab"
     prefix = ""
-    if theFstab.rootOnLoop():
+    if thefsset.rootOnLoop():
 	instPath = "/mnt/loophost"
 	prefix = "/initrd/loopfs"
 
@@ -147,7 +146,7 @@ def createSwapFile(instPath, thefsset, mntPoint, size):
     else:
         file = "/SWAP"
 
-    existingSwaps = theFstab.swapList(files = 1)
+    existingSwaps = thefsset.swapList(files = 1)
     swapFileDict = {}
     for n in existingSwaps:
 	dev = n[0]

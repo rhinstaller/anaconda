@@ -91,7 +91,7 @@ class RootPassword(Password):
 	    setPassword(instPath, "root", pure, auth.useMD5)
 	else:
 	    setPassword(instPath, "root", self.getCrypted (),
-			     auth.useMD5, alreadyCrypted = 1)
+                        auth.useMD5, alreadyCrypted = 1)
 
     def writeKS(self, f):
 	f.write("rootpw --iscrypted %s\n" % self.getCrypted())
@@ -106,7 +106,7 @@ def cryptPassword(password, useMD5):
 
     for i in range(saltLen):
 	salt = salt + whrandom.choice (string.letters +
-				 string.digits + './')
+                                       string.digits + './')
 
     return crypt.crypt (password, salt)
 

@@ -267,10 +267,6 @@ class InstallInterface:
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
-    def packageProgressWindow(self, total, totalSize):
-        self.screen.pushHelpLine (_(" "))
-	return InstallProgressWindow(self.screen, total, totalSize)
-
     def drawFrame(self):
         self.welcomeText = _("Red Hat Linux (C) 2001 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
@@ -331,6 +327,7 @@ class InstallInterface:
 		step = len(classNames) - 1
 
 	    while step >= 0 and step < len(classNames):
+                nextWindow = None
 		s = "from %s import %s; nextWindow = %s" % \
 			(file, classNames[step], classNames[step])
 		exec s
