@@ -257,7 +257,14 @@ class LanguageSupportWindow (InstallWindow):
         a1 = gtk.Alignment (0.5, 0.5)
         a1.add (all_button)
 
-        default_button = gtk.Button (_("Select Default _Only"))
+	# this one tends to be too long
+        default_button = gtk.Button()
+	label = gui.MnemonicLabel(_("Select Default _Only"))
+	label.set_size_request(150,-1)
+	label.set_line_wrap(gtk.TRUE)
+	label.set_justify(gtk.JUSTIFY_CENTER)
+	label.set_mnemonic_widget(default_button)
+	default_button.add(label)
         default_button.set_size_request(160, -1)
         default_button.connect ('clicked', self.select_default)
         a2 = gtk.Alignment (0.5, 0.5)
