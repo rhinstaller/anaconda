@@ -271,7 +271,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.packageList.column_titles_active ()
             
         except:
-            print "Except called"
+#            print "Except called"
             pass
 
         self.packageList.thaw ()
