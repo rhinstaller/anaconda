@@ -76,10 +76,10 @@ install:
 archive: create-archive
 
 src: create-archive
-	@rpm -ts anaconda-$(VERSION).tar.gz
+	@rpm -ts anaconda-$(VERSION).tar.bz2
 
 snapsrc: create-snapshot
-	@rpm -ts anaconda-$(VERSION).tar.gz
+	@rpm -ts anaconda-$(VERSION).tar.bz2
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
@@ -92,12 +92,12 @@ create-snapshot:
 	@cd /tmp/anaconda ; rm -rf comps
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
-	@cd /tmp ; tar -czSpf anaconda-$(VERSION).tar.gz anaconda-$(VERSION)
+	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
 	@rm -rf /tmp/anaconda-$(VERSION)
-	@cp /tmp/anaconda-$(VERSION).tar.gz .
-	@rm -f /tmp/anaconda-$(VERSION).tar.gz
+	@cp /tmp/anaconda-$(VERSION).tar.bz2 .
+	@rm -f /tmp/anaconda-$(VERSION).tar.bz2
 	@echo ""
-	@echo "The final archive is in anaconda-$(VERSION).tar.gz"
+	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
