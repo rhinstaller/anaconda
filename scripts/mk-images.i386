@@ -42,14 +42,11 @@ LATEUSBMODS="mousedev"
 SECSTAGE="vfat raid0 raid1 raid5 $LATEUSBMODS"
 
 COMMONMODULES="vfat $USBMODS agpgart"
-LOCALMODULES="$COMMONMODULES AM53C974 BusLogic DAC960 aacraid advansys 
-             aic7xxx cpqarray gdth ips megaraid ncr53c8xx 
-	     qlogicisp sym53c8xx"
+LOCALMODULES="$COMMONMODULES BusLogic 
+             aic7xxx megaraid ncr53c8xx 
+	     sym53c8xx"
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
-	       de600 de620 depca dgrs eepro100 eepro hp-plus hp hp100
-	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
-	       via-rhine 
-               nfs vfat"
+	       de600 de620 depca dgrs eepro100 eepro nfs "
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 2100 \
@@ -110,9 +107,9 @@ for I in `find $BOOTDISKDIR -type d`; do
 		 --imagename $BOOTDIR/bootnet.img \
 		 --initrd $TOPDESTPATH/images/pxeboot/initrd.img
 
-    makebootdisk --imagename $BOOTDIR/pcmcia.img \
-	         --bootdisksize 1440 \
-		 --initrd $TOPDESTPATH/images/initrd-pcmcia.img
+    #makebootdisk --imagename $BOOTDIR/pcmcia.img \
+	         #--bootdisksize 1440 \
+		 #--initrd $TOPDESTPATH/images/initrd-pcmcia.img
 done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
@@ -142,13 +139,13 @@ makebootdisk --bootdisksize 1440 \
 			    --loaderbin loader-network-kon \
 		 	    --modules "$NETWORKMODULES"'
 
-makebootdisk --imagename ja/pcmcia.img \
-	     --bootdisksize 1440 \
-	     --initrdflags '--japanese
-			    --pcmcia \
-		     	    --initrdsize 2600 \
-			    --loaderbin loader-pcmcia-kon \
-			    --modules "$PCMCIAMODULES nfs vfat"'
+#makebootdisk --imagename ja/pcmcia.img \
+	     #--bootdisksize 1440 \
+	     #--initrdflags '--japanese
+			    #--pcmcia \
+		     	    #--initrdsize 2600 \
+			    #--loaderbin loader-pcmcia-kon \
+			    #--modules "$PCMCIAMODULES nfs vfat"'
 
 makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net +cdrom"
 
