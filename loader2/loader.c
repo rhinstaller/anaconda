@@ -1363,6 +1363,8 @@ int main(int argc, char ** argv) {
 
     if (FL_RESCUE(flags)) {
         *argptr++ = "--rescue";
+        if (FL_SERIAL(flags))
+            *argptr++ = "--serial";
     } else {
         if (FL_SERIAL(flags))
             *argptr++ = "--serial";
