@@ -54,8 +54,8 @@ def startX():
                         kudzu.BUS_UNSPEC,
                         kudzu.PROBE_ONE);
     if not mice:
-        print "Unable to find a mouse!"
-        return 1
+        raise XServerError, "Unable to find a mouse!"
+
     device = None
     protocol = None
     (mouseDev, driver, descr) = mice[0]
