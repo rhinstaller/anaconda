@@ -28,6 +28,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
+#include <kudzu/device.h>
 #include <net/if.h>
 #include <newt.h>
 #include <popt.h>
@@ -44,10 +45,7 @@
 #include <unistd.h>
 #include <sys/vt.h>
 #include <linux/fb.h>
-
-#if !defined(__s390__) && !defined(__s390x__)
 #include <linux/cdrom.h>
-#endif
 
 #include <popt.h>
 /* Need to tell loop.h what the actual dev_t type is. */
@@ -457,6 +455,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 	    kdFindScsiList(kd, 0);
 	    kdFindNetList(kd, 0);
+	    kdFindDasdList(kd, 0);
 	} else 
 	    logMessage("found nothing");
     }
@@ -1089,10 +1088,12 @@ static char * mountHardDrive(struct installMethod * method,
     #ifdef __sparc__
     static int ufsloaded;
     #endif
+    #if defined (__s390__) || defined (__s390x__)
+    char c;
+    #endif
 
     while (!done) {
 	numPartitions = 0;
-#if !defined (__s390__) && !defined (__s390x__)
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class == CLASS_HD) {
 		devMakeInode(kd->known[i].name, "/tmp/hddevice");
@@ -1156,7 +1157,7 @@ static char * mountHardDrive(struct installMethod * method,
 	    continue;
 	}
 
-#else
+#if defined (__s390__) || defined (__s390x__)
 	/* s390 */
 	memset(&ui, 0, sizeof(ui));
         memset(&netDev, 0, sizeof(netDev));
@@ -1168,22 +1169,7 @@ static char * mountHardDrive(struct installMethod * method,
                 if (!FL_TESTING(flags)) pumpDisableInterface(devName);
                 return NULL;
 	}
-	setupRemote(&ui);
-	for(c = 'a'; c <= 'z'; c++) {
-	  for(i = 1; i < 4; i++) {
-	    char dev[7];
-	    sprintf(dev, "dasd%c%d", c, i);
-	    devMakeInode(dev, "/tmp/hddevice");
-	    fd = open("/tmp/hddevice", O_RDONLY);
-	    if (fd >= 0) {
-	      close(fd);
-	      sprintf(partitions[numPartitions].name, "/dev/%s", dev);
-	      partitions[numPartitions].type = BALKAN_PART_EXT2;
-	      numPartitions++;					
-	    }
-	  }
-        }
-	mlLoadModule("isofs", NULL, modLoaded, *modDepsPtr,
+	mlLoadModule("isofs", modLoaded, *modDepsPtr,
                  NULL, modInfo, flags);
 
 #endif
@@ -1640,19 +1626,19 @@ static char * mountNfsImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
-#if defined (__s390__) || defined (__s390x__)
-	    setupRemote(&ui);
-	    host = ui.address;
-	    dir = ui.prefix;
-#endif
 	    stage = NFS_STAGE_NFS;
 	    break;
 
 	  case NFS_STAGE_NFS:
 	    logMessage("going to do nfsGetSetup");
 	    if (nfsGetSetup(&host, &dir) == LOADER_BACK)
+            {
+#if defined (__s390__) || defined (__s390x__)
+                return NULL;
+                break;
+#endif
 		stage = NFS_STAGE_IP;
-	    else
+            } else
 		stage = NFS_STAGE_MOUNT;
 	    break;
 
@@ -1880,7 +1866,6 @@ static char * mountUrlImage(struct installMethod * method,
 	    if (dir == -1) {
 	      return NULL;
 	    }
-	    setupRemote(&ui);
 #endif
 	    stage = URL_STAGE_MAIN;
 	    dir = 1;
@@ -1888,6 +1873,9 @@ static char * mountUrlImage(struct installMethod * method,
 	  case URL_STAGE_MAIN:
 	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
 	    if (rc) {
+#if defined (__s390__) || defined (__s390x__)
+      return NULL;
+#endif
 			stage = URL_STAGE_IP;
 			dir = -1;
 	    } else {
@@ -1984,7 +1972,13 @@ static char * doMountImage(char * location,
 
 #if defined(__alpha__) || defined(__ia64__) \
     || defined(__s390__ ) || defined(__s390x__) || defined(__powerpc__)
-    for (i = 0; i < numMethods; i++) {
+#if defined (__s390__) || defined (__s390x__)
+    i = 1;  /* No CDROM */
+#else
+    i = 0;
+#endif
+   for (; i < numMethods; i++) {
+
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
@@ -2054,9 +2048,6 @@ static char * doMountImage(char * location,
     while (step != STEP_DONE) {
 	switch (step) {
 	case STEP_LANG:
-#if !defined (__s390__) && !defined (__s390x__)
-	    chooseLanguage(lang, flags);
-#endif
 	    defaultLang = 0;
 	    step = STEP_KBD;
             dir = 1;
@@ -3314,6 +3305,34 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     kdFindIdeList(kd, 0);
 }
 
+/* Load dasd modules probeonly, then parse proc to find active DASDs */
+/* Reload dasd_mod with correct range o DASD ports */
+static void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
+		moduleInfoSet modInfo, int flags,
+		struct knownDevices * kd) {
+
+	char **dasd_parms = NULL;
+	char *parms = NULL;
+	mlLoadModuleSet("dasd_mod:dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
+			modLoaded, modDeps, modInfo, flags);
+	if(getDasdPorts()) {
+		parms = (char *)malloc(strlen("dasd=") + strlen(getDasdPorts()) + 1);
+		strcpy(parms,"dasd=");
+		strcat(parms, getDasdPorts());
+		dasd_parms = malloc(sizeof(*dasd_parms) * 2);
+		dasd_parms[0] = parms;
+		dasd_parms[1] = NULL;
+		simpleRemoveLoadedModule("dasd_eckd_mod", modLoaded, flags);
+		simpleRemoveLoadedModule("dasd_fba_mod", modLoaded, flags);
+		simpleRemoveLoadedModule("dasd_diag_mod", modLoaded, flags);
+		simpleRemoveLoadedModule("dasd_mod", modLoaded, flags);
+		reloadUnloadedModule("dasd_mod", NULL, modLoaded, dasd_parms, flags);
+		reloadUnloadedModule("dasd_eckd_mod", NULL, modLoaded, dasd_parms, flags);
+		free(parms);
+		free(dasd_parms);
+	}
+}
+
 static void checkForRam(int flags) {
     if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
 	char *buf;
@@ -3458,6 +3477,13 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
+#if defined (__s390__) || defined (__s390x__)
+    textdomain("anaconda");
+    /* modules.conf is already written on S/390 by linuxrc. There`s no
+     * parallel port on S/390
+     */
+#else
+
     /* don't start modules.conf if continuing as there could be modules 
        already loaded from a driver disk */
     if ((!FL_TESTING(flags)) && !continuing) {
@@ -3477,7 +3503,8 @@ int main(int argc, char ** argv) {
 	    close(fd);
 	}
     }
-    
+#endif
+
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
@@ -3521,7 +3548,11 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     openLog(FL_TESTING(flags));
+#else
+    openLog(1);
+#endif
     if (!FL_TESTING(flags))
 		openlog("loader", 0, LOG_LOCAL0);
 
@@ -3532,7 +3563,8 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    mlLoadModuleSet("cramfs:vfat:nfs:loop", modLoaded, modDeps, modInfo, flags);
+#if !defined (__s390__) && !defined (__s390x__)
+    mlLoadModuleSet("cramfs:vfat:nfs", modLoaded, modDeps, modInfo, flags);
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
@@ -3554,6 +3586,12 @@ int main(int argc, char ** argv) {
 	kickstartFromFloppy(ksFile, modLoaded, &modDeps, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
     }
+#else
+    mlLoadModuleSet("cramfs:loop", modLoaded, modDeps, modInfo, flags);
+    if (!continuing) {
+	 dasdSetup(modLoaded, modDeps, modInfo, flags, &kd);
+    }
+#endif
 
 #ifdef INCLUDE_KON
     if (continuing)
@@ -3583,8 +3621,10 @@ int main(int argc, char ** argv) {
     kdFindIdeList(&kd, continuing ? 0 : CODE_PCMCIA);
     kdFindScsiList(&kd, continuing ? 0 : CODE_PCMCIA);
     kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
+    kdFindDasdList(&kd, continuing ? 0 : CODE_PCMCIA);
 #endif
 
+#if !defined (__s390__) && !defined (__s390x__)
     /* we have to explicitly read this to let libkudzu know we want to
        merge in future tables rather then replace the initial one */
     pciReadDrivers("/modules/pcitable");
@@ -3601,6 +3641,7 @@ int main(int argc, char ** argv) {
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
     }
+#endif
 
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";
@@ -3673,7 +3714,9 @@ int main(int argc, char ** argv) {
     }
 
     if (!FL_TESTING(flags)) {
+       int fd;
      
+#if !defined (__s390__) && !defined (__s390x__)
 	unlink("/usr");
 	symlink("mnt/runtime/usr", "/usr");
 #if defined(__x86_64__)
@@ -3681,6 +3724,12 @@ int main(int argc, char ** argv) {
 	symlink("mnt/runtime/lib64", "/lib64");
 #else
 	unlink("/lib");
+	symlink("mnt/runtime/lib", "/lib");
+#endif
+#else
+	rename("/usr", "/usr_old");
+	symlink("mnt/runtime/usr", "/usr");
+	rename("/lib", "/lib_old");
 	symlink("mnt/runtime/lib", "/lib");
 #endif
 
@@ -3710,9 +3759,11 @@ int main(int argc, char ** argv) {
 #endif
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     logMessage("getting ready to spawn shell now");
 
     spawnShell(flags);			/* we can attach gdb now :-) */
+#endif
 
     verifyImagesMatched();
 
@@ -3720,8 +3771,10 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
+#if !defined (__s390__) && !defined (__s390x__)
     /* merge in any new pci ids */
     pciReadDrivers("/modules/pcitable");
+#endif
 
     /* We reinit this from the beginning because we could have lost drivers
        when we switched media, and we don't want to list ones that don't
@@ -3767,6 +3820,7 @@ int main(int argc, char ** argv) {
 	if (rc != 2) flags |= LOADER_FLAGS_ISA;
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     if (((access("/proc/bus/pci/devices", R_OK) &&
 	  access("/proc/openprom", R_OK) &&
 	  access("/proc/iSeries", R_OK)) || 
@@ -3774,6 +3828,7 @@ int main(int argc, char ** argv) {
 	startNewt(flags);
 	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
+#endif
 
     if (FL_UPDATES(flags))
         loadUpdates(&kd, modLoaded, &modDeps, flags);
@@ -3783,8 +3838,13 @@ int main(int argc, char ** argv) {
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
+#if !defined (__s390__) && !defined (__s390x__)	 
     mlLoadModuleSet("raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod", 
 		    modLoaded, modDeps, modInfo, flags);
+#else
+    mlLoadModuleSet("raid0:raid1:raid5:ext3:jfs:xfs:lvm-mod",
+          modLoaded, modDeps, modInfo, flags);
+#endif
 
     initializeParallelPort(modLoaded, modDeps, modInfo, flags);
 
