@@ -18,25 +18,12 @@ from simpleconfig import SimpleConfigFile
 from mouse import Mouse
 from xf86config import XF86Config
 import errno
+import raid
+import fstab
 
 def _(x):
     return x
 
-class FakeDDruid:
-    """A disk druid looking thing for upgrades"""
-    def partitionList (self):
-        return (self.partitions, None)
-        
-    def append (self, name, table):
-        for i in range (len (table)):
-            (type, sector, size) = table[i]
-            if size and type != -1:
-                self.partitions.append ((name + str (i + 1)),
-                                        "Existing000" + str(len (self.partitions)),
-                                        type, sector, size)
-    def __init__ (self):
-        self.partitions = []
-        
 class LogFile:
     def __init__ (self, serial, reconfigOnly, test):
 	if serial or reconfigOnly:
@@ -449,33 +436,6 @@ class ToDo:
                 reformat = 1
         self.mounts[location] = (device, fsystem, reformat)
 
-    def readFstab (self, path):
-        f = open (path, "r")
-        lines = f.readlines ()
-        f.close
-        fstab = {}
-        for line in lines:
-            fields = string.split (line)
-            # skip comments
-            if fields and fields[0][0] == '#':
-                continue
-	    if not fields: continue
-            # all valid fstab entries have 6 fields
-            if len (fields) < 4 or len (fields) > 6: continue
- 
- 	    if fields[2] != "ext2" and fields[2] != "swap": continue
- 	    if string.find(fields[3], "noauto") != -1: continue
- 	    if (fields[0][0:7] != "/dev/hd" and 
- 		fields[0][0:7] != "/dev/sd" and
- 		fields[0][0:8] != "/dev/rd/" and
- 		fields[0][0:9] != "/dev/ida/"): continue
-            
- 	    format = 0
- 	    # XXX always format swap. 
- 	    if fields[2] == "swap": format = 1
- 	    fstab[fields[1]] = (fields[0][5:], fields[2], format)
-        return fstab
-
     def writeLanguage(self):
 	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
 	f.write(str (self.language))
@@ -853,7 +813,21 @@ class ToDo:
                                     _("Searching for Red Hat Linux installations..."))
         
         drives = self.drives.available ().keys ()
-        self.ddruid = FakeDDruid ()
+	mdList = raid.startAllRaid(drives)
+
+	for dev in mdList:
+	    isys.makeDevInode(dev, '/tmp/' + dev)
+	    try:
+		isys.mount('/tmp/' + dev, '/mnt/sysimage')
+	    except SystemError, (errno, msg):
+		self.intf.messageWindow(_("Error"),
+					_("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
+		continue
+	    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+		rootparts.append (dev)
+	    isys.umount('/mnt/sysimage')
+	    os.remove ('/tmp/' + dev)
+	
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
             
@@ -862,7 +836,6 @@ class ToDo:
             except SystemError:
                 pass
             else:
-                self.ddruid.append (drive, table)
                 for i in range (len (table)):
                     (type, sector, size) = table[i]
                     # 2 is ext2 in balkan speek
@@ -903,11 +876,11 @@ class ToDo:
         if self.setupFilesystems:
             isys.makeDevInode(root, '/tmp/' + root)
             isys.mount('/tmp/' + root, '/mnt/sysimage')
-            self.mounts = self.readFstab ('/mnt/sysimage/etc/fstab')
+	    fstab.readFstab('/mnt/sysimage/etc/fstab', self.fstab)
             isys.umount('/mnt/sysimage')        
-            self.mountFilesystems ()
+            self.fstab.mountFilesystems (self.instPath)
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
-        self.umountFilesystems ()
+        self.fstab.umountFilesystems (self.instPath)
 
         # unselect all packages
         for package in self.hdList.packages.values ():
@@ -1191,8 +1164,6 @@ class ToDo:
 		    self.fstab.savePartitions ()
 		    self.fstab.turnOnSwap()
 		    self.fstab.makeFilesystems ()
-            else:
-                (drives, raid) = self.ddruid.partitionList()
 
             self.fstab.mountFilesystems (self.instPath)
 

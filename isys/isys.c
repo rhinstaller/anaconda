@@ -47,8 +47,12 @@ static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
+static PyObject * doRaidStart(PyObject * s, PyObject * args);
+static PyObject * doRaidStop(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
+    { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
+    { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
     { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
@@ -942,4 +946,39 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     return Py_BuildValue("(iiiiiii)", sb.major_version, sb.minor_version,
 			 sb.set_magic, sb.level, sb.nr_disks,
 			 sb.raid_disks, sb.md_minor);
+}
+
+static PyObject * doRaidStop(PyObject * s, PyObject * args) {
+    int fd;
+
+    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
+
+    if (ioctl(fd, STOP_ARRAY, 0)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doRaidStart(PyObject * s, PyObject * args) {
+    int fd;
+    char * dev;
+    struct stat sb;
+
+    if (!PyArg_ParseTuple(args, "is", &fd, &dev)) return NULL;
+
+    if (stat(dev, &sb)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (ioctl(fd, START_ARRAY, sb.st_rdev)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
 }

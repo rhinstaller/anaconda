@@ -3,6 +3,29 @@ import _isys
 import string
 import os
 
+def raidstop(mdDevice):
+    makeDevInode(mdDevice, "/tmp/md")
+    fd = os.open("/tmp/md", os.O_RDONLY)
+    os.remove("/tmp/md")
+    _isys.raidstop(fd)
+    os.close(fd)
+
+def raidstart(mdDevice, aMember):
+    makeDevInode(mdDevice, "/tmp/md")
+    makeDevInode(aMember, "/tmp/member")
+    fd = os.open("/tmp/md", os.O_RDONLY)
+    os.remove("/tmp/md")
+    _isys.raidstart(fd, "/tmp/member")
+    os.close(fd)
+    os.remove("/tmp/member")
+
+def raidsb(mdDevice):
+    makeDevInode(mdDevice, "/tmp/md")
+    fd = os.open("/tmp/md", os.O_RDONLY)
+    rc = _isys.getraidsb(fd)
+    os.close(fd)
+    return rc
+
 def losetup(device, file):
     loop = os.open(device, os.O_RDONLY)
     targ = os.open(file, os.O_RDWR)

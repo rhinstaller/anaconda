@@ -17,6 +17,7 @@
 import isys
 import iutil
 import os
+import string
 
 def _(str):
     return str
@@ -147,6 +148,12 @@ class Fstab:
 	    if fsystem != "swap": continue
 
 	    fstab.append((partition, 1))
+
+	for n in self.extraFilesystems:
+	    (mntpoint, device, fsType, doFormat, size) = n
+	    if fsType != "swap": continue
+	    fstab.append((device, 1))
+
 	return fstab
 
     def turnOnSwap(self):
@@ -223,16 +230,15 @@ class Fstab:
 	rt.write("\n")
 	rt.close()
 
-    def umountFilesystems(self):
+    def umountFilesystems(self, instPath):
 	if (not self.setupFilesystems): return 
 
-	isys.umount(self.instPath + '/proc')
+	isys.umount(instPath + '/proc')
 
-	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
+	for (n, device, fsystem, doFormat, size) in self.mountList():
             if fsystem != "swap":
 		try:
-		    mntPoint = self.instPath + n
-		    self.log("unmounting " + mntPoint)
+		    mntPoint = instPath + n
                     isys.umount(mntPoint)
 		except SystemError, (errno, msg):
 		    self.messageWindow(_("Error"), 
@@ -425,6 +431,8 @@ class Fstab:
 
 	if not skipExtra:
 	    for n in self.extraFilesystems:
+		(mntpoint, sevice, fsType, doFormat, size) = n
+		if fsType == "swap": continue
 		fstab.append(n)
 
 	fstab.sort(sortMounts)
@@ -507,3 +515,26 @@ class NewtFstab(Fstab):
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow)
+
+def readFstab (path, fstab):
+    f = open (path, "r")
+    lines = f.readlines ()
+    f.close
+    for line in lines:
+	fields = string.split (line)
+	# skip comments
+	if fields and fields[0][0] == '#':
+	    continue
+	if not fields: continue
+	# all valid fstab entries have 6 fields
+	if len (fields) < 4 or len (fields) > 6: continue
+
+	if fields[2] != "ext2" and fields[2] != "swap": continue
+	if string.find(fields[3], "noauto") != -1: continue
+	if (fields[0][0:7] != "/dev/hd" and 
+	    fields[0][0:7] != "/dev/sd" and
+	    fields[0][0:7] != "/dev/md" and
+	    fields[0][0:8] != "/dev/rd/" and
+	    fields[0][0:9] != "/dev/ida/"): continue
+
+	fstab.addMount(fields[0][5:], fields[1], fields[2])
