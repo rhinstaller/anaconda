@@ -30,7 +30,7 @@ MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
-CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -I/usr/include/kudzu -I/usr/include/rpm -I.. -I../isys -DHAVE_LIBIO_H -DPRODUCTNAME='$(PRODUCTNAME)'
+CFLAGS = $(COPTS) $(OPTS) -Os -function-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -I/usr/include/kudzu -I/usr/include/rpm -I.. -I../isys -DHAVE_LIBIO_H -DPRODUCTNAME='$(PRODUCTNAME)'
 
 # XXX diet is i386 only at the moment
 ifeq (i386, $(ARCH))
