@@ -219,7 +219,6 @@ usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/sbin/anaconda
-usr/sbin/anaconda-runrescue
 usr/share/terminfo/l/linux
 usr/share/doc/kon2*/terminfo.kon
 usr/share/kudzu/pcitable
@@ -532,7 +531,6 @@ for p in $DEST $DESTGR; do
 	ln -s ../lib/anaconda/losetup-stub $p/usr/bin/losetup
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
-	mv $p/usr/sbin/anaconda-runrescue $p/usr/bin/anaconda-runrescue
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
 
 	mv $p/usr/lib/anaconda-runtime/collage $p/usr/bin
