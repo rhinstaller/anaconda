@@ -92,33 +92,11 @@ tag:
 
 archive: create-archive
 
-PWDIR=$(shell pwd)
-beehive-srpm: create-snapshot
-	@rpmbuild --define "_sourcedir $(PWDIR)" --define "_srcrpmdir $(PWDIR)" --define "_builddir $(PWDIR)" --define "_rpmdir $(PWDIR)" --define "_specdir $(PWDIR)" --nodeps -ts anaconda-$(VERSION).tar.bz2
-	@mv anaconda-$(VERSION)-$(SNAPRELEASE).src.rpm src.rpm
-
 src: create-archive
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
 
-snapsrc: create-snapshot
-	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
-
-do-beehive-build:
-	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
-	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
-	[ x"$$TAG" != x ] && tag=$$TAG; \
-	cvsroot=`cat CVS/Root |cut -d @ -f 2-` 2>/dev/null; \
-	host=`echo $$cvsroot |cut -d : -f 1`; \
-	root=`echo $$cvsroot |cut -d : -f 2`; \
-	cvsroot=$$host$$root ;\
-	echo "*** Building $$tag from $$cvsroot!"; \
-	bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
-
-build: 
-	make TAG=$(CVSTAG) do-beehive-build
-
-snapbuild: 
-	make do-beehive-build
+build: src
+	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
@@ -128,8 +106,7 @@ create-snapshot:
 	[ x"$$TAG" != x ] && tag=$$TAG; \
 	cvsroot=`cat CVS/Root` 2>/dev/null; \
         echo "*** Pulling off $$tag from $$cvsroot!"; \
-	cd /tmp ; cvs -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
-	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
+	cd /tmp ; cvs -z3 -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
 	@rm -rf /tmp/anaconda-$(VERSION)
@@ -152,7 +129,6 @@ local: clean
 	@rm -rf ${PKGNAME}-$(VERSION).tar.gz
 	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
 	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
-	@pushd /tmp/${PKGNAME} ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec ; popd
 	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
 	@dir=$$PWD; cd /tmp; tar --exclude CVS --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
 	@rm -rf /tmp/${PKGNAME}-$(VERSION)

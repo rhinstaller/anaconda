@@ -1,7 +1,7 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: @@VERSION@@
-Release: @@RELEASE@@
+Version: 10.0.3.1
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -73,12 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
-%define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
-
 %changelog
-* %{date} Anaconda team <bugzilla@redhat.com>
-- built new version from CVS
-
 * Thu Jun  3 2004 Jeremy Katz <katzj@redhat.com>
 - require system-logos and anaconda-help, obsolete anaconda-images
 

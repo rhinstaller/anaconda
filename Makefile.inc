@@ -1,8 +1,8 @@
 #
 # define destination locations
 #
-VERSION = 10.0.3
-RELEASE = 0
+VERSION=$(shell awk '/Version:/ { print $$2 }' anaconda.spec)
+RELEASE=$(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")
 SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
 
