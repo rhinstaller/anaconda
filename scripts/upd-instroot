@@ -25,26 +25,6 @@ if [ ! -d $1 ]; then
 	LATEST="latest --arch $ARCH"
 fi
 
-# remove all non unused python files
-pythondeps() {
-        DIR=$1
-
-	mkdir -p $DIR/proc
-	mount -t proc /proc $DIR/proc
-        if [ $ARCH = "sparc" ]; then
-	    mkdir $DIR/dev
-	    mknod $DIR/dev/openprom c 10 139
-	fi
-	(chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
-	cd $DIR; find usr/lib/python* usr/lib/anaconda -type f | sed 's,^,/,' ) | \
-        sort | uniq -u | sed s,^,./, | while read fn; do
-  	    [ ! -d $DIR/$fn ] && rm $DIR/$fn
-  	done
-	umount $DIR/proc
-	rmdir $DIR/proc
-	rm -rf $DIR/dev
-}
-
 prunePackageList() {
 	PACKAGEPATH=$1
 	PACKAGES="$2"
@@ -535,7 +515,12 @@ patch -p0 > /dev/null <<EOF
 EOF
 cd -
 
-pythondeps $DEST
+if [ -x /usr/bin/runroot ]; then
+    REALPATH=`(cd $DEST; /bin/pwd)`
+    runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
+else
+    $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
+fi
 
 for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do

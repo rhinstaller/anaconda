@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 /path/to/tree"
+    return 1
+fi
+
+# remove all non unused python files
+DIR=$1
+
+mkdir -p $DIR/proc
+mount -t proc /proc $DIR/proc
+if [ $ARCH = "sparc" ]; then
+    mkdir $DIR/dev
+    mknod $DIR/dev/openprom c 10 139
+fi
+(chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
+cd $DIR; find usr/lib/python* usr/lib/anaconda -type f | sed 's,^,/,' ) | \
+sort | uniq -u | sed s,^,./, | while read fn; do
+    [ ! -d $DIR/$fn ] && rm $DIR/$fn
+done
+umount $DIR/proc
+rmdir $DIR/proc
+rm -rf $DIR/dev
