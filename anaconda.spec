@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.16
+Version: 10.1.1.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 23 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.17-1
+- Load SElinux booleans file if it exists (#151896)
+
 * Mon Mar 14 2005 Chris Lumens <clumens@redhat.com> - 10.1.1.16-1
 - Fix typo in Xvnc parameters (#150498).
 
