@@ -735,7 +735,7 @@ class ToDo:
 			     alreadyCrypted = 1)
 	    
     def setupFirewall (self):
-	args = [ "/usr/sbin/lokkit", "--kickstart", "--nostart" ]
+	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart" ]
 	if self.firewall.policy:
 	    args.append ("--medium")
 	else:
