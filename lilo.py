@@ -474,11 +474,19 @@ class LiloConfiguration:
     def getAppend(self):
 	return self.liloAppend
 
+    def setDefaultAppend(self):
+	cdrw = isys.ideCdRwList()
+	str = ""
+	for device in cdrw:
+	    if str: str = str + " "
+	    str = str + ("%s=ide-scsi" % device)
+
+	self.liloAppend = str
+
     def __init__(self):
 	self.liloImages = {}
 	self.liloDevice = 'mbr'
 	self.liloLinear = 1
-	self.liloAppend = None
 	self.default = None
 	self.initrdsMade = {}
         # XXX only i386 supports edd, nothing else should
@@ -488,6 +496,8 @@ class LiloConfiguration:
             self.edd = edd.detect()
         else:
             self.edd = 0
+
+	self.setDefaultAppend()
 
 if __name__ == "__main__":
     config = LiloConfigFile ()
