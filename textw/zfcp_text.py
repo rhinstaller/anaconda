@@ -63,7 +63,7 @@ class ZFCPWindow:
 
 	    if (result == "cancel"):
 		screen.popWindow ()
-                break
+                return
             
             elif (result  == TEXT_OK_CHECK or result == TEXT_F12_CHECK):
                 # FIXME: do sanity checking here
@@ -89,10 +89,12 @@ class ZFCPWindow:
         
         listbox.clear()
         fcpdevs.sort(sortFcpDevs)
-        for dev in fcpdevs:
-            listbox.append(self.formatDevice(dev[0], dev[2], dev[4]), dev[0])
         if len(fcpdevs) == 0:
             listbox.append(self.formatDevice("", "", ""), "")
+            return
+        for dev in fcpdevs:
+            if dev != None:
+                listbox.append(self.formatDevice(dev[0], dev[2], dev[4]), dev[0])
         
     def __call__(self, screen, fcp, diskset, intf):
         fcp.cleanFcpSysfs(fcp.fcpdevices)
@@ -148,9 +150,10 @@ class ZFCPWindow:
 
             elif (result == "add" or result == "F2"):
                 dev = self.editDevice(screen, None)
-                fcpdevs.append(dev)
-                self.fillListbox(listbox, fcpdevs)
-                listbox.setCurrent(dev[0])
+                if dev is not None:
+                    fcpdevs.append(dev)
+                    self.fillListbox(listbox, fcpdevs)
+                    listbox.setCurrent(dev[0])
 
             elif (result == "remove" or result == "F4"):
                 item = listbox.current()
