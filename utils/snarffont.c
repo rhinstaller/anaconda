@@ -21,7 +21,7 @@ int main(void) {
     struct unimapdesc d;
     int fd;
 
-    if ((fd = open("/dev/tty", O_RDONLY)) < 0)
+    if ((fd = open("/dev/tty0", O_RDONLY)) < 0)
 	die("open");
 
     cfo.op = KD_FONT_OP_GET;
