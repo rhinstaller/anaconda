@@ -1,3 +1,4 @@
+# Translation of tmp.po to Traditional Chinese
 # Translation of anaconda to Traditional Chinese
 # Copyright (C) 2002 Red Hat, Inc.
 # This file is distributed under the same license as the anaconda package.
@@ -5,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda-taroon\n"
+"Project-Id-Version: anaconda 10\n"
 "POT-Creation-Date: 2003-06-30 21:10-0400\n"
-"PO-Revision-Date: 2003-07-03 14:04+1000\n"
+"PO-Revision-Date: 2003-07-29 15:58+1000\n"
 "Last-Translator: Ben Wu <hpwu@redhat.com>\n"
 "Language-Team: Traditional Chinese <i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +18,11 @@ msgstr ""
 
 #: ../anaconda:97
 msgid "Starting VNC..."
-msgstr "啟動 VNC..."
+msgstr "VNC 啟動中..."
 
 #: ../anaconda:114
 msgid "Unable to set vnc password - using no password!"
-msgstr "無法設定 vnc 密碼 - 將使用無密碼的設定！"
+msgstr "無法設定 vnc 的密碼 - 密碼未設定！"
 
 #: ../anaconda:115
 msgid "Make sure your password is at least 6 characters in length."
@@ -39,28 +40,28 @@ msgstr ""
 
 #: ../anaconda:136
 msgid "You can use the vncpasswd=<password> boot option"
-msgstr "您可以使用 vncpasswd=<password> 開機選項"
+msgstr "您可以使用 vncpasswd=<password> 的開機選項"
 
 #: ../anaconda:137
 msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
-"假如您想加強伺服器的安全性的話。\n"
+"假如您想要加強伺服器的安全性。\n"
 "\n"
 
 #: ../anaconda:165
 msgid "The VNC server now running."
-msgstr "VNC 伺服器正在執行中。"
+msgstr "VNC 伺服器現在正在執行中。"
 
 #: ../anaconda:167
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr "請連線至 %s 以開始安裝..."
+msgstr "請連線至 %s 以進行安裝..."
 
 #: ../anaconda:169
 msgid "Please connect to begin the install..."
-msgstr "請連線以開始進行安裝..."
+msgstr "請連線以進行安裝..."
 
 #: ../anaconda:495 ../anaconda:633 ../gui.py:238 ../rescue.py:40
 #: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
@@ -103,12 +104,12 @@ msgstr "確定"
 
 #: ../anaconda:541
 msgid "Unknown Error"
-msgstr "未知的錯誤"
+msgstr "不明的錯誤"
 
 #: ../anaconda:544
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "讀取 kickstart 檔案第二部份的內容時發生錯誤: %s！"
+msgstr "讀取 kickstart 設定檔案的第二部份時發生錯誤: %s！"
 
 #: ../anaconda:618
 msgid ""
@@ -118,7 +119,7 @@ msgstr "您沒有足夠的記憶體可使用圖形安裝模式，進入文字安
 
 #: ../anaconda:664
 msgid "Install class forcing text mode installation"
-msgstr "強制進入文字模式的安裝方式"
+msgstr "強制進入文字模式安裝方式"
 
 #: ../anaconda:691
 msgid "No video hardware found, assuming headless"
@@ -131,7 +132,7 @@ msgstr "無法舉例說明一個 X 硬體狀態的物件。"
 #: ../anaconda:729
 #, c-format
 msgid "Graphical installation not available for %s installs.  Starting text mode."
-msgstr "%s 安裝不支援圖形模式安裝。  開始文字模式安裝。"
+msgstr "無法使用圖形模式安裝 %s，開始文字模式安裝。"
 
 #: ../anaconda:742
 msgid ""
@@ -191,7 +192,7 @@ msgstr "Boot 分割區 %s 並不是一個 VFAT 的分割區。 EFI 將無法從�
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware wan't "
 "be able to boot this installation."
-msgstr "Boot 分割區並不位於磁碟上的有效位置，OpenFirmware 將無法從啟動安裝程式。"
+msgstr "Boot 分割區並非放置在磁碟的有效位置。  OpenFirmware 將無法從這個分割區開機。"
 
 #: ../autopart.py:1013
 #, python-format
@@ -224,7 +225,7 @@ msgstr ""
 
 #: ../autopart.py:1221
 msgid "Requested Raid Device Does Not Exist"
-msgstr "要求的 RAID 裝置不存在"
+msgstr "要求的 Raid 裝置並不存在"
 
 #: ../autopart.py:1222
 #, python-format
@@ -233,7 +234,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"無法配置 %s RAID 裝置以讓 %s 使用。\n"
+"無法配置 %s Raid 裝置以讓 %s 使用。\n"
 "\n"
 "請按『確定』重新啟動您的系統。"
 
@@ -411,7 +412,7 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"您選擇了移除下列磁碟機中所有的分割區(所有資料):%s\n"
+"您選擇了移除以下磁碟機上所有的分割區(所有資料):%s\n"
 "您確定要繼續嗎？"
 
 #: ../autopart.py:1487
@@ -421,7 +422,7 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"您選擇了移除下列磁碟機中所有的 Linux 分割區（包含其上的所有資料）:%s\n"
+"您選擇了移除以下磁碟機中所有的 Linux 分割區（包含其上的所有資料）:%s\n"
 "您確定要繼續嗎？"
 
 #: ../bootloader.py:99
@@ -444,7 +445,7 @@ msgstr "已完成"
 
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr "安裝中...   "
+msgstr "安裝進度...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
@@ -457,7 +458,7 @@ msgstr "在命令列模式無法處理 parted 的例外狀況！"
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr "完成 [%d/%d]"
+msgstr "已完成 [%d/%d]"
 
 #: ../cmdline.py:137
 #, python-format
@@ -977,7 +978,7 @@ msgid ""
 "\n"
 "The system will now reboot."
 msgstr ""
-"找不到安裝所需 CD #%d 的 ISO 映像檔。\n"
+"找不到安裝所需的 CD #%d ISO 映像檔。\n"
 "\n"
 "現在系統將重新開機。"
 
@@ -1168,7 +1169,7 @@ msgstr "無法合併表頭清單。 可能是由於遺失檔案或是媒體損�
 
 #: ../packages.py:681
 msgid "Preparing RPM transaction..."
-msgstr "準備 RPM 處理程序..."
+msgstr "正在設定 RPM 處理程序..."
 
 #: ../packages.py:751
 #, python-format
@@ -1298,10 +1299,10 @@ msgid ""
 "\n"
 "and file a report against '%s Beta'.\n"
 msgstr ""
-"感謝您下載 %s Beta 發行版本。\n"
+"感謝您下載 %s Beta 版的發行。\n"
 "\n"
-"這不是最後完整的版本，所以不適用在生產的系統上。 這個版本的目的是要從測試者"
-"收集回饋與使用心得，而且這版也不適合日常的用途。\n"
+"這不是最後完整的版本，所以不適用在生產的系統上。  這個版本的目的是要從測試者"
+"收集回應與使用心得，而且這版也不適合日常的用途。\n"
 "\n"
 "如要回報程式問題或錯誤，請造訪:\n"
 "\n"
@@ -1467,7 +1468,7 @@ msgstr "您無法刪除剩餘空間。"
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "您不能刪除一個 LDL 格式化的 DASD 分割區。"
+msgstr "您無法刪除 LDL 格式化 DASD 的這個分割區。"
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1709,7 +1710,7 @@ msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區,大小為 50 MB�
 
 #: ../partitions.py:831
 msgid "You must create a PPC PReP Boot partition."
-msgstr "您必須建立一個 PPC PReP 開機分割區。"
+msgstr "您必須建立一個 PPC PReP 的開機分割區。"
 
 #: ../partitions.py:838
 #, python-format
@@ -1837,7 +1838,7 @@ msgstr "啟動介面"
 #: ../rescue.py:94
 #, python-format
 msgid "Attempting to start %s"
-msgstr "試著要啟動 %s"
+msgstr "準備要啟動 %s"
 
 #: ../rescue.py:143
 msgid "Setup Networking"
@@ -2131,8 +2132,8 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"您即將進行升級的 %s 發行版本之主機架構為 %s，這與您之前安裝的 %s 主機架構不相符， "
-"這次的升級程序將很難成功，您確定要繼續升級程序嗎？"
+"您即將進行升級的 %s 發行版本之主機架構為 %s，這與您之前安裝的 %s 主機架構不相"
+"符， 這次的升級程序將很難成功，您確定要繼續升級程序嗎？"
 
 #: ../upgrade.py:470
 msgid ""
@@ -2142,8 +2143,8 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"這個系統有安裝其他廠商提供的套件，和 Red Hat 提供的套件重覆。 因為套件重覆，"
-"繼續升級可能會造成您的系統不穩定或功能不正常。 您想要繼續升級嗎?"
+"這個系統有安裝其他廠商提供的套件，和 Red Hat Linux 提供的套件重覆。 因為套件 "
+"重覆，繼續升級可能會造成您的系統不穩定或功能不正常。 您想要繼續升級程序嗎?"
 
 #: ../upgrade.py:490
 msgid ""
@@ -2182,7 +2183,7 @@ msgstr "密碼發生錯誤"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr "您必須輸入您的 root 密碼，並且再輸入一次以作確認，才能繼續安裝程式。"
+msgstr "您必須輸入您的 root 密碼，並再輸入一下以作確認，才能繼續安裝過程。"
 
 #: ../iw/account_gui.py:44
 msgid "The passwords you entered were different.  Please try again."
@@ -2572,7 +2573,8 @@ msgid ""
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"請移除安裝過程中您所使用的任何安裝媒體（磁碟片或光碟片），然後再按下 <Enter> 以重新開機。\n"
+"請移除安裝過程中您所使用的任何安裝媒體（磁碟片或光碟片），然後再按下 <Enter> "
+"以重新開機。\n"
 "\n"
 
 #: ../iw/congrats_gui.py:70
@@ -2597,7 +2599,7 @@ msgid ""
 msgstr ""
 "恭喜您，安裝已完成。\n"
 "\n"
-"%s%s如需要關於 Errata （更新與程式修正），請拜訪:\n"
+"%s%s如需要關於 Errata（更新與程式修正）的資訊，請拜訪:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "如需關於透過 Red Hat Network 自動更新程式的資訊，請拜訪:\n"
@@ -2751,7 +2753,7 @@ msgstr "接受目前的套件清單(_A)"
 
 #: ../iw/desktop_choice_gui.py:107
 msgid "_Customize the set of packages to be installed"
-msgstr "自訂要安裝的套件群組(_C)"
+msgstr "自訂要安裝的軟體套件(_C)"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
@@ -4551,7 +4553,7 @@ msgid ""
 "button."
 msgstr ""
 "在 X 設定繼續前，您必須先選擇您的顯示卡。 若您想要略過設定 X，請選擇 '略過 X "
-"視窗設定' 鈕。"
+"設定' 鈕。"
 
 #: ../iw/xconfig_gui.py:958
 msgid ""
@@ -4559,8 +4561,8 @@ msgid ""
 "System.  If you do not want to setup the X Window System , choose 'Skip X "
 "Configuration' below."
 msgstr ""
-"您的系統將設定 X 視窗系統使用 frame buffer 的驅動程式，假如您不想要設定 X 視窗 "
-"系統，請選擇以下的『略過 X 視窗設定』。"
+"您的系統將會設定為在 X 視窗系統上使用 framebuffer 驅動程式，假如您不想要設定 "
+"X 視窗系統，請選擇以下的 『略過 X 組態設定』。"
 
 #: ../iw/xconfig_gui.py:967
 msgid ""
@@ -4591,7 +4593,7 @@ msgstr "z/IPL 開機管理程式設定"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "將會安裝 z/IPL 開機管理程式在您的系統上。"
+msgstr "z/IPL 開機管理程式將會安裝在您的系統中。"
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -4783,7 +4785,7 @@ msgid ""
 "Press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"按下『確定』以重新啟動您的系統。\n"
+"按下 <Enter> 以重新啟動您的系統。\n"
 "\n"
 
 #: ../textw/complete_text.py:44
@@ -5126,11 +5128,11 @@ msgstr "閘道器:"
 
 #: ../textw/network_text.py:239
 msgid "Primary DNS:"
-msgstr "主要 DNS:"
+msgstr "主 DNS:"
 
 #: ../textw/network_text.py:244
 msgid "Secondary DNS:"
-msgstr "次要 DNS:"
+msgstr "次 DNS:"
 
 #: ../textw/network_text.py:249
 msgid "Tertiary DNS:"
@@ -5159,9 +5161,9 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"假如您的系統是位處於由 DHCP 來指派主機名稱的大型網路中，請選擇自動由 DHCP 取得， "
-"否則請選擇手動設定，並為您的系統輸入一個主機名稱。 假如您沒有輸入的話，您的系統 "
-"將被視為 'localhost'。"
+"假如您的系統位處於一個大型的網路環境中，主機名稱是由 DHCP 伺服器所指派， 請選"
+"擇自動由 DHCP 取得。 否則請選擇手動設定，並且為您的系統輸入一個主機名稱， 假"
+"如您沒有指定的話，您的系統將會被稱為 'localhost'。"
 
 #: ../textw/network_text.py:376 ../textw/network_text.py:382
 msgid "Invalid Hostname"
@@ -5987,8 +5989,8 @@ msgid ""
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
-"您的系統將設定 X 視窗系統使用 frame buffer 的驅動程式，假如您不想要設定 X 視窗 "
-"系統，請選擇以下的『略過 X 視窗設定』。"
+"您的系統將會設定為在 X 視窗系統上使用 framebuffer 驅動程式，假如您不想要設定 "
+"X 視窗系統，請選擇以下的 『略過 X 組態設定』。"
 
 #: ../textw/xconfig_text.py:632
 msgid "Select the video card and video RAM for your system."
@@ -6031,9 +6033,7 @@ msgstr "自訂安裝"
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
-msgstr ""
-"選擇這個安裝類型來獲取對安裝過程完全的控制，包括軟體套件的選擇與認證的偏好設"
-"定。"
+msgstr "選擇這個安裝類型來獲取對安裝過程完全的控制，包括軟體套件的選擇與認證設定。"
 
 #: ../installclasses/personal_desktop.py:12
 msgid ""
@@ -6215,14 +6215,14 @@ msgstr "Kickstart 錯誤"
 #: ../loader2/driverdisk.c:436
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "未知的 kickstart 來源之驅動程式磁片: %s"
+msgstr "未知的 kickstart 驅動程式磁片來源: %s"
 
 #: ../loader2/driverdisk.c:469
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "kickstart 驅動程式之指令的引數無效: %s:%s"
+msgstr "下列 kickstart 驅動程式磁片之指令的引數無效: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6485,7 +6485,7 @@ msgstr "新增裝置"
 
 #: ../loader2/loader.c:1068
 msgid "loader has already been run.  Starting shell."
-msgstr "已執行載入程式，啟動 shell 中。"
+msgstr "已經執行載入程式，啟動 shell 中。"
 
 #: ../loader2/loader.c:1396
 #, c-format
@@ -6590,7 +6590,7 @@ msgstr "Checksum 測試"
 #: ../loader2/modules.c:917
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "kickstart 方式之裝置指令 %s 的引數不正確: %s"
+msgstr "kickstart 方式之指令 %s 的裝置引數不正確: %s"
 
 #: ../loader2/net.c:44
 #, c-format
@@ -7362,7 +7362,7 @@ msgstr "羅拉尹瑪"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr "Rothera 科學研究站、阿德雷得島"
+msgstr "Rothera 科學研究站、Adelaide 島"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -7548,6 +7548,100 @@ msgstr "瑞典語"
 msgid "Turkish"
 msgstr "土耳其文"
 
+#~ msgid "Unrecoverable Error"
+#~ msgstr "無法復原的錯誤"
+
+#~ msgid "Your system will now be rebooted."
+#~ msgstr "您的系統現在將重新開機。"
+
+#~ msgid "The release notes are missing."
+#~ msgstr "找不到發行公告。"
+
+#~ msgid "Installing..."
+#~ msgstr "安裝中..."
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The following packages were available in this version but NOT installed:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "以下套件已收入此版本但並沒有安裝:\n"
+
+#~ msgid "Connecting..."
+#~ msgstr "連線中..."
+
+#~ msgid "_Install default software packages"
+#~ msgstr "安裝預設的軟體套件(_I)"
+
+#~ msgid "_Install %s"
+#~ msgstr "安裝 %s(_I)"
+
+#~ msgid ""
+#~ "Choose this option to freshly install your system. Existing software and "
+#~ "data may be overwritten depending on your configuration choices."
+#~ msgstr ""
+#~ "選擇這個選項以完整安裝您的系統，取決於您的設定選項，目前的軟體與資料也許會"
+#~ "被覆寫。"
+
+#~ msgid "(ex. \"host.domain.com\")"
+#~ msgstr "(例如：\"host.domain.com\")"
+
+#~ msgid "Downloading - %s"
+#~ msgstr "下載中 - %s"
+
+#~ msgid "Status: "
+#~ msgstr "狀態: "
+
+#~ msgid "Please select the nearest city in your timezone:"
+#~ msgstr "請選擇您所位處的時區中最靠近的城市:"
+
+#~ msgid "Monitor Unspecified"
+#~ msgstr "沒有指定螢幕"
+
+#~ msgid ""
+#~ "You have not selected a monitor type.  It is recommended you choose the "
+#~ "closest matching model in order to have the highest possible display "
+#~ "quality."
+#~ msgstr ""
+#~ "您並沒有選取一個螢幕類型，為了要擁有最好的顯示品質，建議您選擇最相近的適合"
+#~ "規格。"
+
+#~ msgid "Proceed"
+#~ msgstr "繼續"
+
+#~ msgid "Choose monitor type"
+#~ msgstr "選擇螢幕類型"
+
+#~ msgid ""
+#~ "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+#~ msgstr ""
+#~ "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
+
+#~ msgid "Package Group Details"
+#~ msgstr "套件群組細節"
+
+#~ msgid "Media Detected"
+#~ msgstr "偵測到媒體"
+
+#~ msgid "Local installation media detected..."
+#~ msgstr "偵測到本機的安裝媒體..."
+
+#~ msgid "VNC server now running - please connect to install..."
+#~ msgstr "VNC 伺服器正在執行中，請連線以進行安裝..."
+
+#~ msgid "Generic"
+#~ msgstr "一般"
+
+#~ msgid ""
+#~ "Your system will be setup to use the frame buffer driver for the X Window "
+#~ "System.  If you do not want setup the X Window System, choose 'Skip X "
+#~ "Configuration' below."
+#~ msgstr ""
+#~ "您的系統將會設定為在 X 視窗系統上使用 framebuffer 驅動程式，假如您不想要設"
+#~ "定 X 視窗系統，請選擇以下的 『略過 X 組態設定』。"
+
 #~ msgid "DASD partitions can only be deleted with fdasd"
 #~ msgstr "DASD 分割區只能使用 fdasd 來刪除"
 
@@ -7573,9 +7667,6 @@ msgstr "土耳其文"
 #~ msgstr ""
 #~ "建立\n"
 #~ "_RAID"
-
-#~ msgid "Generic"
-#~ msgstr "一般"
 
 #~ msgid ""
 #~ "If you created a boot disk to use to boot your %s system, insert it "
@@ -7823,9 +7914,6 @@ msgstr "土耳其文"
 #~ msgid "HTTP Proxy Port:"
 #~ msgstr "HTTP 代理伺服器埠號:"
 
-#~ msgid "Mouse Not Detected"
-#~ msgstr "偵測不到滑鼠"
-
 #~ msgid ""
 #~ "Your mouse was not automatically detected.  To proceed in the graphical "
 #~ "installation mode, please proceed to the next screen and provide your "
@@ -7868,9 +7956,6 @@ msgstr "土耳其文"
 
 #~ msgid "Probing for video card:   %s"
 #~ msgstr "偵測顯示卡:   %s"
-
-#~ msgid "Probing for monitor type: "
-#~ msgstr "偵測螢幕類型: "
 
 #~ msgid "Probing for monitor type: %s"
 #~ msgstr "偵測螢幕類型: %s"
@@ -8129,9 +8214,6 @@ msgstr "土耳其文"
 
 #~ msgid "Partition Request Sanity Check Errors"
 #~ msgstr "分割區完整性檢查發生錯誤"
-
-#~ msgid "Install"
-#~ msgstr "安裝"
 
 #~ msgid ""
 #~ "your install again.\n"
