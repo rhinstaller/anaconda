@@ -1,0 +1,8 @@
+2004-09-21  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: 
+	* Makefile:
+	* Makefile.inc:
+	Rework build to not get date substituted in with
+	a snapbuild.  Include changes explicitly in package changelog.
+
