@@ -336,6 +336,13 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
     h = i.next()
     while h:
         release = h[rpm.RPMTAG_RELEASE]
+        # I'm going to try to keep this message as politically correct
+        # as possible.  I think the Ximian GNOME is a very pretty desktop
+        # and the hackers there do an extraordinary amount of work on
+        # them.  But it throws a huge wrench in our upgrade process.  We
+        # just want to warn our users that there are packages on the system
+        # that might get messed up during the upgrade process.  Nothing
+        # personal, guys.  - msw
         if (string.find(h[rpm.RPMTAG_RELEASE], "helix") > -1
             or string.find(h[rpm.RPMTAG_RELEASE], "ximian") > -1
             or string.find(h[rpm.RPMTAG_RELEASE], "eazel") > -1):
