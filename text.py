@@ -151,11 +151,11 @@ class LanguageSupportWindow:
                 return INSTALL_BACK
 
             if rc == "all":
-                for lang in languages:
+                for lang in todo.language.getAllSupported():
                     ct.setEntryValue(lang, 1)
 
             if rc == "reset":
-                for lang in languages:
+                for lang in todo.language.getAllSupported():
                     if lang == current:
                         ct.setEntryValue(lang, 1)
                     else:
