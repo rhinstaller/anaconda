@@ -9,10 +9,9 @@ resolution. If you are having problems with the graphical installer, try
 one of the following options:
     -  Start the installer in 640x480 resolution by typing 0flowres <ENTER>07.
     -  Avoid using framebuffer mode by typing 0fnofb <ENTER>07.
-    -  Specify another framebuffer resolution at the boot prompt by appending 
-       'vga=xxx' according to one of the following modes:
-          1024x768x16bpp -> vga=791   1280x1024x16bpp -> vga=794
-          1024x768x24bpp -> vga=792   1280x1024x24bpp -> vga=795
+    -  Try another resolution by appending 'vga=xxx' according to these values:
+         1024x768x8bpp  -> vga=773        1024x768x16bpp  -> vga=791 
+         1280x1024x8bpp -> vga=775        1280x1024x16bpp -> vga=794
 
 Certain hardware configurations may have trouble with the automatic hardware
 detection done during the installation.  If you experience problems during the 
