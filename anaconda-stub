@@ -22,6 +22,11 @@ for n in *.cgz; do
     rm $n
 done
 
+cd /lib
+uncpio < libs.cgz
+rm -f libs.cgz
+done
+
 cd /
 
 exec /usr/bin/anaconda.real -T $*
