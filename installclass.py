@@ -166,7 +166,10 @@ class BaseInstallClass:
 
     # This is a list of packages -- it is combined with the group list
     def setPackages(self, packages):
-	self.packages = packages
+        hash = {}
+        for package in packages:
+            hash[package] = None
+	self.packages = hash.keys()
 
     def getPackages(self):
 	return self.packages
