@@ -1113,9 +1113,12 @@ class FileSystemSet:
             dev = entry.device.getDevice()
             if not dev or dev == "none":
                 continue
-            if not entry.mountpoint:
+            if not entry.mountpoint or entry.mountpoint == "swap":
                 continue
-            label = isys.readExt2Label(dev)
+            try:
+                label = isys.readExt2Label(dev)
+            except:
+                continue
             if label:
                 entry.setLabel(label)
             else:
