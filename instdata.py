@@ -133,7 +133,12 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
+        self.writePackagesKS(f)
 
+	f.write("\n%post\n")
+	self.accounts.writeKScommands(f, self.auth)
+
+    def writePackagesKS(self, f):
 	f.write("\n%packages")
         if self.handleDeps == IGNORE_DEPS:
             f.write(" --ignoredeps\n")
@@ -176,9 +181,6 @@ class InstallData:
 		f.write("%s\n" % pkg.name)
             if pkg.wasForcedOff() or forcedoff.has_key(pkg):
                 f.write("-%s\n" %(pkg.name))
-
-	f.write("\n%post\n")
-	self.accounts.writeKScommands(f, self.auth)
 
     def __init__(self, extraModules, floppyDevice, configFileData, methodstr):
 	self.instLanguage = language.InstallTimeLanguage()
