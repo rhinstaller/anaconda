@@ -11,7 +11,7 @@ endif
 
 SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
 	    textw utils scripts bootdisk installclasses \
-	    keymaps fonts iw pixmaps $(STUBS) iconvmodule
+	    keymaps fonts iw pixmaps $(STUBS) iconvmodule isomd5sum
 SUBDIRS = $(SUBDIRSHD)
 
 # DESTDIR        - destination for install image for install purposes
@@ -112,7 +112,7 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	PYTHONPATH=isys:balkan:textw:iw:installclasses:iconvmodule pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
+	PYTHONPATH=isys:balkan:textw:iw:installclasses:iconvmodule:booty:booty/edd pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
 
 pycheck-file:
-	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule pychecker $(CHECK) | grep -v "__init__() not called" 
+	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
