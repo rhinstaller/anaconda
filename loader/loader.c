@@ -48,6 +48,8 @@
 #define LOADER_BACK 1
 #define LOADER_ERROR -1
 
+typedef int int32;
+
 struct device {
     char * name;		/* malloced */
     char * model;
@@ -59,6 +61,147 @@ struct device {
 int testing = 0;
 struct device knownDevices[100];		/* arbitrary limit <shrug> */
 int numKnownDevices = 0;
+
+struct intfconfig_s {
+    newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
+    char * ip, * nm, * gw, * ns;
+};
+
+static void ipCallback(newtComponent co, void * dptr) {
+    struct intfconfig_s * data = dptr;
+    struct in_addr ipaddr, nmaddr, addr;
+    char * ascii;
+    int broadcast, network;
+
+    if (co == data->ipEntry) {
+	if (strlen(data->ip) && !strlen(data->nm)) {
+	    if (inet_aton(data->ip, &ipaddr)) {
+		ipaddr.s_addr = ntohl(ipaddr.s_addr);
+		if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 127)
+		    ascii = "255.0.0.0";
+		else if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 191)
+		    ascii = "255.255.0.0";
+		else 
+		    ascii = "255.255.255.0";
+		newtEntrySet(data->nmEntry, ascii, 1);
+	    }
+	}
+    } else if (co == data->nmEntry) {
+	if (!strlen(data->ip) || !strlen(data->nm)) return;
+	if (!inet_aton(data->ip, &ipaddr)) return;
+	if (!inet_aton(data->nm, &nmaddr)) return;
+
+        network = ipaddr.s_addr & nmaddr.s_addr;
+	broadcast = (ipaddr.s_addr & nmaddr.s_addr) | (~nmaddr.s_addr);
+
+	if (!strlen(data->gw)) {
+	    addr.s_addr = htonl(ntohl(broadcast) - 1);
+	    newtEntrySet(data->gwEntry, inet_ntoa(addr), 1);
+	}
+
+	if (!strlen(data->ns)) {
+	    addr.s_addr = htonl(ntohl(network) + 1);
+	    newtEntrySet(data->nsEntry, inet_ntoa(addr), 1);
+	}
+    }
+}
+
+int readNetConfig(char * device, struct intfInfo * dev) {
+    newtComponent text, f, okay, back, answer;
+    newtGrid grid, subgrid, buttons;
+    struct intfconfig_s c;
+    int i;
+    struct in_addr addr;
+
+    text = newtTextboxReflowed(-1, -1, 
+		_("Please enter the IP configuration for this machine. Each "
+		  "item should be entered as an IP address in dotted-decimal "
+		  "notation (for example, 1.2.3.4)."), 50, 5, 10, 0);
+
+    subgrid = newtCreateGrid(2, 4);
+    newtGridSetField(subgrid, 0, 0, NEWT_GRID_COMPONENT,
+		     newtLabel(-1, -1, _("IP address:")),
+		     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(subgrid, 0, 1, NEWT_GRID_COMPONENT,
+    		     newtLabel(-1, -1, _("Netmask:")),
+		     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(subgrid, 0, 2, NEWT_GRID_COMPONENT,
+    		     newtLabel(-1, -1, _("Default gateway (IP):")),
+		     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(subgrid, 0, 3, NEWT_GRID_COMPONENT,
+    		     newtLabel(-1, -1, _("Primary nameserver:")),
+		     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+    c.ipEntry = newtEntry(-1, -1, NULL, 16, &c.ip, 0);
+    c.nmEntry = newtEntry(-1, -1, NULL, 16, &c.nm, 0);
+    c.gwEntry = newtEntry(-1, -1, NULL, 16, &c.gw, 0);
+    c.nsEntry = newtEntry(-1, -1, NULL, 16, &c.ns, 0);
+
+    newtGridSetField(subgrid, 1, 0, NEWT_GRID_COMPONENT, c.ipEntry,
+		     1, 0, 0, 0, 0, 0);
+    newtGridSetField(subgrid, 1, 1, NEWT_GRID_COMPONENT, c.nmEntry,
+		     1, 0, 0, 0, 0, 0);
+    newtGridSetField(subgrid, 1, 2, NEWT_GRID_COMPONENT, c.gwEntry,
+		     1, 0, 0, 0, 0, 0);
+    newtGridSetField(subgrid, 1, 3, NEWT_GRID_COMPONENT, c.nsEntry,
+		     1, 0, 0, 0, 0, 0);
+
+    buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &back, NULL);
+
+    grid = newtCreateGrid(1, 3);
+    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
+		     0, 0, 0, 0, 0, 0);
+    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, subgrid,
+		     0, 1, 0, 1, 0, 0);
+    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
+		     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+
+    f = newtForm(NULL, NULL, 0);
+    newtGridAddComponentsToForm(grid, f, 1);
+    newtGridWrappedWindow(grid, _("Configure TCP/IP"));
+    newtGridFree(grid, 1);
+   
+    newtComponentAddCallback(c.ipEntry, ipCallback, &c);
+    newtComponentAddCallback(c.nmEntry, ipCallback, &c);
+    
+    do {
+	answer = newtRunForm(f);
+
+	if (answer == back) {
+	    newtFormDestroy(f);
+	    newtPopWindow();
+
+	    return LOADER_BACK;
+	} 
+
+	i = 0;
+	if (*c.ip && inet_aton(c.ip, &addr)) {
+	    i++;
+	    dev->ip = addr;
+	}
+
+	if (*c.nm && inet_aton(c.nm, &addr)) {
+	    i++;
+	    dev->netmask = addr;
+	}
+
+	if (i != 2) {
+	    newtWinMessage(_("Missing Information"), _("Retry"),
+			    _("You must enter both a valid IP address and a "
+			      "netmask."));
+	}
+    } while (i != 2);
+
+    *((int32 *) &dev->broadcast) = (*((int32 *) &dev->ip) & 
+		       *((int32 *) &dev->netmask)) | 
+		       ~(*((int32 *) &dev->netmask));
+
+    *((int32 *) &dev->network) = 
+	    *((int32 *) &dev->ip) &
+	    *((int32 *) &dev->netmask);
+
+    return 0;
+}
 
 int deviceKnown(char * dev) {
     int i;
@@ -365,6 +508,7 @@ int main(int argc, char ** argv) {
     int local = 0;
     int i, rc;
     int newtRunning = 0;
+    struct intfInfo netDev;
     struct moduleInfo ** modList;
     struct poptOption optionTable[] = {
 	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
@@ -439,6 +583,15 @@ int main(int argc, char ** argv) {
 	}
     }
 
+    
+    if (!newtRunning) {
+	newtInit();
+	newtCls();
+	newtRunning = 1;
+    }
+
+    readNetConfig("eth0", &netDev);
+
     if (newtRunning) newtFinished();
     closeLog();
 
@@ -454,6 +607,27 @@ int main(int argc, char ** argv) {
 	    printf(" %s\n", knownDevices[i].model);
 	else
 	    printf("\n");
+    }
+
+    printf("ip: %s\n", inet_ntoa(netDev.ip));
+    printf("netmask: %s\n", inet_ntoa(netDev.netmask));
+    printf("broadcast: %s\n", inet_ntoa(netDev.broadcast));
+    printf("network: %s\n", inet_ntoa(netDev.network));
+
+    doPwMount("207.175.42.68:/mnt/test/msw/i386",
+    	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
+ 
+    symlink("mnt/source/RedHat/instimage/usr", "/usr");
+    symlink("mnt/source/RedHat/instimage/lib", "/lib");
+
+    argptr = anacondaArgs;
+    *argptr++ = "/usr/bin/anaconda";
+    *argptr++ = "-p";
+    *argptr++ = "/mnt/source";
+
+    if (!testing) {
+    	execv(anacondaArgs[0], anacondaArgs);
+        perror("exec");
     }
 
     return 1;
