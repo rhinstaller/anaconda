@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.3
+Version: 10.0.3.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 24 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.4-1
+- fix megaraid module name (notting)
+- don't prompt for a driver disk on pSeries boxes with just 
+  virtual devices (#135292)
+- don't use PROBE_LOADED for cd probe (#131033)
+- i2o devices don't use a "p" separator (#133379)
+- switch back zh_CN font to default (#133330)
+- add 3w-9xxx to modules.cgz (#133525)
+- fix showing of freespace (#133425)
+
 * Wed Sep 22 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.3-1
 - fix going back unmount of /dev/pts (#133301)
 - fix SRPMs disc (#122737)
