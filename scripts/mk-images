@@ -189,7 +189,11 @@ getmoddeps () {
     what=$1
     final=$2
 
-    egrep $(echo $what | sed 's/\.o  */|^/g;s/\.o$//') $MODDEPS > $final
+    for mod in $what ; do
+	mod=$(echo $mod | sed 's/\.o  */|^/g;s/\.o$//;s/.*\///')
+	egrep $mod $MODDEPS >> $final.foo
+    done
+    mv $final.foo $final
 }
 
 padfile () {
@@ -211,6 +215,7 @@ intcopymodules () {
         else 
 	    echo $n >> $MODULESUSED
 	    for o in $m ; do 
+		echo $n
 		ver=$(echo $o |cut -d / -f 6)
 		if ! [ -d $dir/$ver ] ; then mkdir $dir/$ver ; fi
 		if ! cp $o $dir/$ver; then
@@ -305,7 +310,7 @@ makemoduleball() {
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
 
-    getmoddeps $(find . -name "*.o") ../modules.dep
+    getmoddeps "$(find . -name *.o)" ../modules.dep
 
     # create the pcitable
     $TRIMPCITABLE $(find . -name *.o) < $PCITABLE > ../pcitable
