@@ -87,7 +87,7 @@ def ddfile(file, megs, pw = None):
 def mount(device, location, fstype = "ext2", readOnly = 0):
     location = os.path.normpath(location)
 
-    if device != "/proc":
+    if device != "/proc" and device != "/usbdevfs":
 	devName = "/tmp/%s" % device
 	makeDevInode(device, devName)
 	device = devName
@@ -101,7 +101,7 @@ def mount(device, location, fstype = "ext2", readOnly = 0):
     if not rc:
 	mountCount[location] = 1
 
-    if device != "/proc":
+    if device != "/proc" and device != "/usbdevfs":
 	os.unlink(device)
 
     return rc
