@@ -602,6 +602,11 @@ def doPreInstall(method, id, intf, instPath, dir):
         if pcmcia.pcicType():
             select(id.grpset.hdrlist, 'kernel-pcmcia-cs')
 
+        if (os.access("/tmp/product/.userhgb", os.R_OK) and
+            (id.grpset.hdrlist.has_key("XFree86") and
+             id.grpset.hdrlist["XFree86"].isSelected())):
+            select(id.grpset.hdrlist, 'rhgb')
+
     if flags.test:
 	return
 
@@ -961,6 +966,10 @@ def doInstall(method, id, intf, instPath):
         for line in lines:
             instLog.write(line)
     instLog.close ()
+
+    if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected() and os.access("/tmp/product/.userhgb", os.R_OK):
+        log("rhgb installed, adding to boot loader config")
+        id.bootloader.args.append("rhgb quiet")
 
     id.instProgress = None
 
