@@ -555,7 +555,6 @@ int main(int argc, char **argv) {
 #if 0
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();
-    unmountFilesystems();
     exit(0);
 #endif
 
