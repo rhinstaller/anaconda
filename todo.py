@@ -483,7 +483,7 @@ class ToDo:
         for line in lines:
             fields = string.split (line)
             if fields and fields[2] == "ext2" or fields[2] == "swap":
-                fstab[fields[1]] = (fields[0][4:], fields[2], 0)
+                fstab[fields[1]] = (fields[0][5:], fields[2], 0)
         return fstab
 
     def writeLanguage(self):
