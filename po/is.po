@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-01-29 11:10-0500\n"
-"PO-Revision-Date: 2001-01-23 03:20+0000\n"
+"PO-Revision-Date: 2001-02-02 11:52+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1072,7 +1072,7 @@ msgstr "Villa við tengingu ext2 skráakerfis á %s: %s"
 
 #: ../upgrade.py:69
 msgid "Partitionless upgrades are NOT supported in this beta"
-msgstr ""
+msgstr "Disksneiðalausar uppfærslur er ekki studdar í þessari betu"
 
 #: ../upgrade.py:101
 msgid ""
@@ -1409,18 +1409,16 @@ msgid "Select drive to run fdisk on"
 msgstr "Veldu disk til að keyra fdisk á"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Aðvörun"
+msgstr "Aðvörun: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s er ekki gilt heiti vélar."
+msgstr " er ógild gátt."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Sniðið er 'gátt:prótókollur'. Til dæmis '1234:udp'"
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
@@ -1797,7 +1795,6 @@ msgstr ""
 "disksneiðatöfluna á diskinn núna.  Er það í lagi?"
 
 #: ../iw/rootpartition_gui.py:82
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1811,7 +1808,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
-"1023 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
+"1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
 "stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun kerfið að öllum "
 "líkindum ekki geta ræst Linux.\n"
 "\n"
@@ -1823,7 +1820,6 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1834,7 +1830,7 @@ msgid ""
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
 "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
-"1023 cylindra þakið en BIOS vélarinnar þinnar virðist ráða við að ræsa "
+"1024 cylindra þakið en BIOS vélarinnar þinnar virðist ráða við að ræsa "
 "stýrikerfi fyrir ofan þetta þak.\n"
 "\n"
 "Það er EINDREGIÐ mælt með því að þú útbúir ræsidiskling þegar þér býðst "
@@ -1936,7 +1932,6 @@ msgid "Boot Partition Location Warning"
 msgstr "Aðvörun um staðsetningu ræsisneiðar"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1950,7 +1945,7 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 "Þú hefur sett disksneiðina sem inniheldur kjarnann (ræsisneiðina) uppfyrir "
-"1023 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
+"1024 cylindra þakið og BIOS vélarinnar þinnar virðist ekki ráða við að ræsa "
 "stýrikerfi fyrir ofan þetta þak. Ef þú heldur áfram mun kerfið að öllum "
 "líkindum ekki geta ræst Linux.\n"
 "\n"
@@ -2261,9 +2256,9 @@ msgstr ""
 "sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s er ekki gilt heiti vélar."
+msgstr "Aðvörun: %s er ekki gild gátt."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2760,6 +2755,11 @@ msgid ""
 "so do NOT report errors if you choose to do this.\n"
 " Do you want to continue?"
 msgstr ""
+"\n"
+"AÐVÖRUN: Disksneiðalausar uppsetningar klikka oft í þessari BETA útgáfu svo "
+"þú þarft ekkert að hafa fyrir að senda inn villutilkynningu ef þú þýst að "
+"reyna þetta.\n"
+" Villtu halda áfram ?"
 
 #: ../libfdisk/fsedit.c:972
 #, c-format
@@ -4243,20 +4243,3 @@ msgstr "Kjarnaþróun"
 
 msgid "Utilities"
 msgstr "Tól"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-#~ "You can do this, but you may not use any other filesystems for your Linux "
-#~ "system. Additionally, there will be a speed penalty for not using "
-#~ "Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Þú ætlar að setja rótina (/) á DOS FAT disksneið. Það er allt í lagi að gera "
-#~ "þetta en þá getur þ.ú ekki notað aðrar gerðir skráarkerfa fyrir Linux og það "
-#~ "mun einnig koma þér illa því það er ekki eins hraðvirkt og að nota Linux "
-#~ "skráarkerfi. Viltu halda áfram ?"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Frumstilli IDE einingarnar..."
