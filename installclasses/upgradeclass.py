@@ -35,7 +35,6 @@ class InstallClass(BaseInstallClass):
 		    "bootloader",
                     "checkdeps",
 		    "dependencies",
-		    "monitor",
 		    "confirmupgrade",
 		    "install",
                     "preinstallconfig",
