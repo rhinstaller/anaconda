@@ -182,7 +182,10 @@ class InstallControlWindow (Thread):
                 sys.exit (0)
         self.setScreen (self.currentScreen, self.nextClicked)
 
-    def helpClicked (self, widget, *args):
+    def helpClicked (self, widget, simulated = 0):
+	if not simulated:
+            self.helpState = (widget == self.showHelpButton)
+            
         self.hbox.remove (widget)
         if widget == self.hideHelpButton:
             self.bin.remove (self.table)
@@ -213,6 +216,7 @@ class InstallControlWindow (Thread):
 	        self.todo.instClass.skipStep(self.stateTagByWindow[screen])):
             direction ()
             return
+
 	new_screen = screen.getScreen ()
 	if not new_screen:
             direction ()
@@ -222,7 +226,13 @@ class InstallControlWindow (Thread):
         if not self.initialScreenShown:
             self.initialScreenShown = 1
             screen.getICS ().setPrevEnabled (FALSE)
-            
+
+        if self.helpState != self.displayHelp:
+            if self.displayHelp:
+                self.helpClicked (self.hideHelpButton, 1)
+            else:
+                self.helpClicked (self.showHelpButton, 1)
+        
         self.update (screen.getICS ())
 
         children = self.installFrame.children ()
@@ -269,21 +279,15 @@ class InstallControlWindow (Thread):
             self.buttonBox.remove (children[1])
             self.buttonBox.pack_end (buttons["next"])
 
-# old flickery button changing code
-#        if not (buttons["prev"] in children and buttons["next"] in children):
-#            self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
-#            self.buttonBox.pack_start (buttons["prev"])
-#            self.buttonBox.pack_start (buttons["next"])
-
         buttons["prev"].set_sensitive (ics.getPrevEnabled ())
         buttons["next"].set_sensitive (ics.getNextEnabled ())
  
         if ics.getHelpEnabled () == FALSE:
             if self.displayHelp:
-                self.helpClicked (self.hideHelpButton)
+                self.helpClicked (self.hideHelpButton, 1)
         elif ics.getHelpEnabled () == TRUE:
             if not self.displayHelp:
-                self.helpClicked (self.showHelpButton)
+                self.helpClicked (self.showHelpButton, 1)
         
         if self.displayHelp:
             self.html.source (ics.getHTML ())
@@ -334,6 +338,7 @@ class InstallControlWindow (Thread):
         self.html.set_allow_body_colors(TRUE)
         self.html.source ("<HTML><BODY>HTML Help Window</BODY></HTML>")
         self.displayHelp = TRUE
+        self.helpState = TRUE
 
         self.helpFrame = GtkFrame (_("Online Help"))
         box = GtkVBox (FALSE, 0)
