@@ -398,7 +398,7 @@ class AuthConfigWindow:
         todo.auth.nisuseBroadcast = self.broadcast.selected ()
         todo.auth.nisServer = self.nisServer.value ()
         todo.auth.useLdap = self.ldap.selected ()
-        todo.auth.useLdapauth = todo.auth.useLdap
+        todo.auth.useLdapauth = 0
         todo.auth.ldapServer = self.ldapServer.value()
         todo.auth.ldapBasedn = self.ldapBasedn.value()
         todo.auth.useKrb5 = self.krb5.selected()
