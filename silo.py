@@ -327,7 +327,7 @@ class SiloInstall:
 	    if self.siloAppend:
 		sl.addEntry('append', '"%s"' % self.siloAppend)
 
-	    silo.addImage ("image", kernelFile, sl)
+	    silo.addImage (sl)
 
 	for (label, device) in otherList:
 	    try:
@@ -350,15 +350,6 @@ class SiloInstall:
 	#	if not isys.checkBoot ('/tmp/' + device):
 	#	    lilo.delImage (name)
 	#	os.remove ('/tmp/' + device)
-
-	# pass 2, remove duplicate entries
-	labels = []
-
-	for (siloType, name, config) in silo.images:
-	    if not name in labels:
-		labels.append (name)
-	    else: # duplicate entry, first entry wins
-		silo.delImage (name)
 
 	if fstab.getBootDevice() != fstab.getRootDevice()[0]:
 	    silo.write(instRoot + "/boot/silo.conf")
