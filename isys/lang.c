@@ -196,7 +196,7 @@ int isysStartBterm(void) {
     else if (!access("font.bgf.gz", R_OK))
 	btermargs[3] = "font.bgf.gz";
     else
-        return 0;
+        return 1;
     
     rc = bterm_main(4, btermargs);
 
