@@ -60,15 +60,12 @@ prunePackageList() {
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
 	    path=$PACKAGEPATH/../Updates/
-	    this=$path/${PKG}*{${ARCH},noarch}.rpm
+	    this=$(ls $path/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)
 	    if [ -z "$this" ]; then
 		path=$PACKAGEPATH
-		this=$path/${PKG}*{${ARCH},noarch}.rpm
+		this=$(ls $path/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)
 	    fi
-	    PACKAGEFILES="$PACKAGEFILES $(rpm -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm"  | egrep "(^$PKG )" | sed 's/.* //')"
-#	    echo "PKG is $PKG"
-#	    echo "this is $this"
-#	    echo "PACKAGEFILES is $PACKAGEFILES"
+	    PACKAGEFILES="$PACKAGEFILES $(rpm --nodigest --nosignature -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n"  | egrep "(^$PKG )" | sed 's/.* //')"
 	done
 
 	ls -1 $PACKAGEFILES |sort -u
@@ -755,7 +752,7 @@ EOF
 echo "Assembling package list..."
 RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
 [ -n "$DEBUG" ] && echo "RPMS are $RPMS"
-RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR $PACKAGESRESCUE")
+RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGES $PACKAGESGR $PACKAGESRESCUE")
 [ -n "$DEBUG" ] && echo "RPMSGR are $RPMSGR"
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin

@@ -11,6 +11,7 @@ usage () {
 DEBUG=""
 if [ "$1" == "--debug" ]; then
     DEBUG="--debug"
+    shift;
 fi
 
 if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]; then usage; fi
