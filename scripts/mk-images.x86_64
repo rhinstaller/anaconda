@@ -85,7 +85,7 @@ mkdir -p $TOPDESTPATH/images/pxeboot
 echo "Building initrd-everything.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
-	   --initrdsize 5000 \
+	   --initrdsize 8192 \
 	   --loaderbin loader \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
 [ $? = 0 ] || exit 1
