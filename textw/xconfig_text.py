@@ -546,16 +546,39 @@ class XConfigWindowCard:
             self.origCard = None
 
         try:
-            tmp = self.videocard.possible_ram_sizes()
-            self.selectedRam = tmp.index(int(self.videocard.primaryCard().getVideoRam()))
+            vidRam = string.atoi(self.videocard.primaryCard().getVideoRam())
         except:
-            self.selectedRam = 0
+            vidRam = 1024
+
+        count = 0
+        for size in self.videocard.possible_ram_sizes():
+            #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram
+            #  than it should
+            small = size - 64
+            if size == vidRam or small == vidRam:
+                break
+            count = count + 1
+
+        print vidRam, count
+
+        self.selectedRam = count
 
         try:
-            self.origRam = tmp.index(int(self.videocard.primaryCard(useProbed=1).getVideoRam()))
+            vidRam = string.atoi(self.videocard.primaryCard(useProbed=1).getVideoRam())
         except:
-            self.origRam = 0
+            vidRam = 1024
 
+        count = 0
+        for size in self.videocard.possible_ram_sizes():
+            #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram
+            #  than it should
+            small = size - 64
+            if size == vidRam or small == vidRam:
+                break
+            count = count + 1
+
+        self.origRam = count
+            
         skipx = 0
 	while 1:
             bb = ButtonBar (screen, (TEXT_OK_BUTTON,
