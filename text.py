@@ -1421,8 +1421,6 @@ class InstallInterface:
             ]
         
         self.installSteps = [
-            [_("User Account Setup"), UsersWindow, 
-		    (self.screen, todo), "accounts" ],
             [_("Partition"), PartitionWindow, (self.screen, todo),
 		    "partition" ],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
