@@ -2210,7 +2210,7 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 	if (mlLoadModule("mousedev", NULL, modLoaded, modDeps, NULL, modInfo, 
 			 flags)) {
 	    logMessage ("failed to loading mousedev module");
-	    return 1;
+	    return;
 	}
     }
 }
