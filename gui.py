@@ -751,14 +751,17 @@ class InstallControlWindow:
 
         image = self.configFileData["TitleBar"]
 
+        pixbuf = None
         # Create header at the top of the installer
         if runres != '640x480':
             for dir in ("/usr/share/anaconda/",
                         "",
                         "/tmp/updates"):
-                pixbuf = gtk.gdk.pixbuf_new_from_file(dir + image)
-                if not pixbuf is None:
+                try:
+                    pixbuf = gtk.gdk.pixbuf_new_from_file(dir + image)
                     break
+                except RuntimeError:
+                    pass
                 
             if pixbuf:
                 p = gtk.Image()
