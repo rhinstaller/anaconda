@@ -493,7 +493,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    /* numXfs isn't used by anything */
    env = getenv("MTU");
    if (env && *env) {
-       strncpy(newCfg.dev.numXfs, env, 6);
+       newCfg.dev.numXfs = atoi(env);
        newCfg.dev.set |= PUMP_NETINFO_HAS_XFNTSRVS;
    }
 #endif   /* s390 */
@@ -592,7 +592,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
    /* FIXME: Hack to avoid changes to pump.h (no dev.mtu available) */
    /* numXfs isn't used by anything */
     if (dev->dev.set & PUMP_NETINFO_HAS_XFNTSRVS)
-	fprintf(f, "MTU=%s\n", dev->dev.numXfs);
+	fprintf(f, "MTU=%d\n", dev->dev.numXfs);
 
     fclose(f);
 
