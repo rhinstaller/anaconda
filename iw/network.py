@@ -14,21 +14,59 @@ class NetworkWindow (InstallWindow):
         self.calcNMHandler = None
 
 
-#    def getNext (self):
-#        self.setupTODO ()
-#        return None
+    def getNext (self):
+        self.todo.network.gateway = self.gw.get_text ()
+        self.todo.network.primaryNS = self.ns.get_text ()
+        self.todo.network.secondaryNS = self.ns2.get_text ()
+        self.todo.network.ternaryNS = self.ns3.get_text ()
+        if (self.hostname.get_text () != ""):
+            self.todo.network.hostname = self.hostname.get_text ()
+        return None
 
-    def focusInIP (self, *args):
-        if self.nm.get_text() == "":
-            self.calcNetmask ()
-            self.calcNMHandler = self.ip.connect ("changed", self.calcNetmask)
+    def focusInIP (self, widget, event, (ip, nm)):
+        if nm.get_text() == "":
+            self.calcNetmask (None, (ip, nm))
+            ip.calcNMHandler = ip.connect ("changed", self.calcNetmask, (ip, nm))
 
-    def focusOutIP (self, *args):
-        if self.calcNMHandler != None:
-            self.ip.disconnect (self.calcNMHandler)
-            self.calcNMHandler = None
-        
+    def focusOutIP (self, widget, event, ip):
+        self.todo.network.guessHostnames ()
+        if (self.hostname.get_text () == ""
+            and self.todo.network.hostname != "localhost.localdomain"):
+            self.hostname.set_text (self.todo.network.hostname)
 
+        if ip.calcNMHandler != None:
+            ip.disconnect (ip.calcNMHandler)
+            ip.calcNMHandler = None
+
+    def focusOutNM (self, widget, event, (dev, ip, nm, nw, bc)):
+        try:
+            network, broadcast = inet_calcNetBroad (ip.get_text (), nm.get_text ())
+            if nw.get_text () == "":
+                nw.set_text (network)
+                dev.set (("network", network))
+            if bc.get_text () == "":
+                bc.set_text (broadcast)
+                dev.set (("broadcast", broadcast))
+        except:
+            pass
+
+    def focusOutBC (self, widget, event, dev):
+        if self.gw.get_text () == "":
+            try:
+                gw = inet_calcGateway (widget.get_text ())
+                self.gw.set_text (gw)
+            except:
+                pass
+
+    def focusOutNW (self, widget, event, dev):
+        if self.ns.get_text () == "":
+            try:
+                ns = inet_calcNS (widget.get_text ())
+                self.ns.set_text (ns)
+            except:
+                pass
+            
+    # not currently used
     def setupTODO (self):
         if self.devs:
             if self.DHCPcb.get_active ():
@@ -60,83 +98,39 @@ class NetworkWindow (InstallWindow):
         dev.set (("ipaddr", ip.get_text ()))
         dev.set (("netmask", nm.get_text ()))
 
-        try:
-            network, broadcast = inet_calcNetBroad (ip.get_text (), nm.get_text ())
-        except:
-            if nw.get_text () != "":
-                nw.set_text ("")
-            if bc.get_text () != "":
-                bc.set_text ("")
-            return
-        if network != nw.get_text ():
-            nw.set_text (network)
-            dev.set (("network", network))
-        if broadcast != bc.get_text ():
-            bc.set_text (broadcast)
-            dev.set (("broadcast", broadcast))
         
-    def calcNetmask (self, *args):
-        ip = self.ip.get_text ()
+    def calcNetmask (self, widget, (ip, nm)):
+        ip = ip.get_text ()
         dots = 0
         for x in ip:
             if x == '.':
                 dots = dots + 1
         if dots != 3: return
 
-        new_nm = inet_calcNetmask (self.ip.get_text ())
-        if (new_nm != self.nm.get_text ()):
-            self.nm.set_text (new_nm)
-
-    def calcHostname (self, box):
-        box.focus (DIR_TAB_FORWARD)
-        
-        self.dev.set (("ipaddr", self.ip.get_text (),))
-        self.todo.network.guessHostnames ()
-        if (self.todo.network.hostname != "localhost.localdomain"
-            and self.todo.network.hostname != self.hostname.get_text ()):
-            self.hostname.set_text (self.todo.network.hostname)
-
-    def devSelected (self, widget, key):
-        self.setupTODO ()
-        self.dev = self.devs[key]
-        if self.dev.get ("bootproto") == "dhcp":
-            self.DHCPcb.set_active (TRUE)
-            self.ip.set_text ("")
-            self.nm.set_text ("")
-        else:
-            self.DHCPcb.set_active (FALSE)
-            self.ip.set_text (self.dev.get ("ipaddr"))
-            self.nm.set_text (self.dev.get ("netmask"))
+        new_nm = inet_calcNetmask (ip)
+        if (new_nm != nm.get_text ()):
+            nm.set_text (new_nm)
 
     def getScreen (self):
-	hostnameBox = GtkHBox (FALSE)
-	label = GtkLabel ("System Hostname: ")
-	label.set_alignment (0.0, 0.0)
-	hostnameBox.pack_start (label, FALSE)
-	self.hostname = GtkEntry ()
-	hostnameBox.pack_start (self.hostname, TRUE)
-
         box = GtkVBox ()
-	box.pack_start (hostnameBox, FALSE)
-        box.pack_start (GtkHSeparator (), FALSE, padding=3)
-
+        box.set_border_width (5)
+        
         notebook = GtkNotebook ()
-        self.devs = self.todo.network.available ()
-	print self.devs
-        if self.devs:
-            self.devs.keys ().sort ()
-            for i in self.devs.keys ():
+        devs = self.todo.network.available ()
+        if devs:
+            devs.keys ().sort ()
+            for i in devs.keys ():
                 devbox = GtkVBox ()
                 align = GtkAlignment ()
                 DHCPcb = GtkCheckButton (_("Configure using DHCP"))
-#                DHCPcb.connect ("toggled", devs[i])
-                DHCPcb.set_active (TRUE)
+                DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
                 align.add (DHCPcb)
                 devbox.pack_start (align, FALSE)
                 
                 align = GtkAlignment ()
                 bootcb = GtkCheckButton (_("Activate on boot"))
-                bootcb.set_active (TRUE)
+                devs[i].set (("onboot", "yes"))  # TEMPRORY FIX UNTIL TODO SETS THIS
+                bootcb.set_active (devs[i].get ("onboot") == "yes")
                 align.add (bootcb)
 
                 devbox.pack_start (align, FALSE)
@@ -144,7 +138,7 @@ class NetworkWindow (InstallWindow):
                 devbox.pack_start (GtkHSeparator (), FALSE, padding=3)
 
                 options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
-                ipTable = GtkTable (2, len (options))
+                ipTable = GtkTable (len (options), 2)
 
 		forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
@@ -153,48 +147,59 @@ class NetworkWindow (InstallWindow):
                     label.set_alignment (0.0, 0.0)
                     ipTable.attach (label, 0, 1, t, t+1, FILL, 0, 10)
                     entry = GtkEntry (15)
-#                    entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
+                    # entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
                     entry.set_usize (7 * 15, -1)
                     entry.connect ("activate", forward)
                     options[t] = entry
-                    ipTable.attach (entry, 1, 2, t, t+1, 0, 0)
+                    ipTable.attach (entry, 1, 2, t, t+1, 0, FILL|EXPAND)
+
 
                 for t in range (len (options)):
                     if t == 0 or t == 1:
-                        options[t].connect ("changed", self.calcNWBC, (self.devs[i],) + tuple (options))
-                    else:
-                        options[t].set_sensitive (FALSE)
+                        options[t].connect ("changed", self.calcNWBC, (devs[i],) + tuple (options))
+#                      else:
+#                          options[t].set_sensitive (FALSE)
+#                          options[t].set_editable (FALSE)
+#                          options[t]['can_focus'] = FALSE
 
-#                self.ip.connect ("focus_in_event", self.focusInIP)
-#                self.ip.connect ("focus_out_event", self.focusOutIP)
-#                self.ip.connect ("activate", 
-#                self.nm.connect ("activate", lambda widget, box=box: box.focus (DIR_TAB_FORWARD))
+                # add event handlers for the main IP widget to calcuate the netmask
+                options[0].connect ("focus_in_event", self.focusInIP, (options[0], options[1]))
+                options[0].connect ("focus_out_event", self.focusOutIP, options[0])
+                options[1].connect ("focus_out_event", self.focusOutNM, (devs[i],) + tuple (options))
+                options[2].connect ("focus_out_event", self.focusOutNW, devs[i])
+                options[3].connect ("focus_out_event", self.focusOutBC, devs[i])
+
                 devbox.pack_start (ipTable, FALSE, FALSE, 5)
                 notebook.append_page (devbox, GtkLabel (i))
 
             box.pack_start (notebook, FALSE)
+            box.pack_start (GtkHSeparator (), FALSE, padding=10)
 
-            box.pack_start (GtkHSeparator (), FALSE, padding=3)
-        
-            ipTable = GtkTable (5, 2)
-            ipTable.attach (GtkLabel (_("Gateway: ")), 0, 1, 0, 1)
-            ipTable.attach (GtkLabel (_("Primary DNS: ")), 0, 1, 2, 3)
-            ipTable.attach (GtkLabel (_("Secondary DNS: ")), 0, 1, 3, 4)
-            ipTable.attach (GtkLabel (_("Ternary DNS: ")), 0, 1, 4, 5)
-            self.gw = GtkEntry (15)
-            self.gw.connect ("activate", lambda widget, box=box, self=self: self.calcHostname (box))
-            self.dns1 = GtkEntry (15)
-            self.dns1.connect ("activate", forward)
-            self.dns2 = GtkEntry (15)
-            self.dns2.connect ("activate", forward)
-            self.dns3 = GtkEntry (15)
-            ipTable.attach (self.gw, 1, 2, 0, 1)
-            ipTable.attach (self.dns1, 1, 2, 2, 3)
-            ipTable.attach (self.dns2, 1, 2, 3, 4)
-            ipTable.attach (self.dns3, 1, 2, 4, 5)
-            box.pack_start (ipTable, FALSE)
+            options = [_("Hostname"),
+                       _("Gateway"), _("Primary DNS"), _("Secondary DNS"), _("Ternary DNS")]
+            ipTable = GtkTable (len (options), 2)
+            for i in range (len (options)):
+                label = GtkLabel ("%s:" % (options[i],))
+                label.set_alignment (0.0, 0.0)
+                ipTable.attach (label, 0, 1, i, i+1, FILL, 0, 10)
+                if i == 0:
+                    options[i] = GtkEntry ()
+                    options[i].set_usize (7 * 30, -1)
+                else:
+                    options[i] = GtkEntry (15)
+                    options[i].set_usize (7 * 15, -1)
+                options[i].connect ("activate", forward)
+                align = GtkAlignment (0, 0.5)
+                align.add (options[i])
+                ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
+            ipTable.set_row_spacing (0, 5)
 
-        
+            self.hostname = options[0]
+            self.gw = options[1]
+            self.ns = options[2]
+            self.ns2 = options[3]
+            self.ns3 = options[4]
+            box.pack_start (ipTable, FALSE, FALSE, 5)
         return box
 
     
