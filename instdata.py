@@ -69,6 +69,7 @@ class InstallData:
         self.dbpath = None
         self.upgradeRoot = None
         self.upgradeSwapInfo = None
+        self.upgradeDeps = ""
         self.configFileData = self.tmpData
 
     def setInstallProgressClass(self, c):

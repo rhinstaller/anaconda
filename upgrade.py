@@ -33,17 +33,17 @@ def findRootParts(intf, id, dir, chroot):
     parts = findExistingRoots(intf, id, chroot)
     id.upgradeRoot = parts
 
-def findExistingRoots (intf, id, chroot):
-    if not flags.setupFilesystems: return [ (chroot, 'ext2') ]
+def findExistingRoots(intf, id, chroot):
+    if not flags.setupFilesystems: return [(chroot, 'ext2')]
 
     diskset = DiskSet()
     diskset.openDevices()
     
-    win = intf.waitWindow (_("Searching"),
-		    _("Searching for Red Hat Linux installations..."))
+    win = intf.waitWindow(_("Searching"),
+                          _("Searching for Red Hat Linux installations..."))
 
     rootparts = diskset.findExistingRootPartitions(intf)
-    win.pop ()
+    win.pop()
 
     return rootparts
 
@@ -81,7 +81,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 	sys.exit(0)
 
     if flags.setupFilesystems:
-        oldfsset.mountFilesystems (instPath)
+        oldfsset.mountFilesystems(instPath)
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(dispatch, thefsset):
@@ -97,7 +97,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     # mem is in kb -- round it up to the nearest 4Mb
     mem = iutil.memInstalled(corrected = 0)
     rem = mem % 16384
-    if (rem):
+    if rem:
 	mem = mem + (16384 - rem)
     mem = mem / 1024
 
@@ -251,7 +251,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 
 rebuildTime = None
 
-def upgradeFindPackages (intf, method, id, instPath, dir):
+def upgradeFindPackages(intf, method, id, instPath, dir):
     if dir == DISPATCH_BACK:
         return
     global rebuildTime
@@ -259,8 +259,8 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
 	rebuildTime = str(int(time.time()))
     method.mergeFullHeaders(id.hdList)
 
-    win = intf.waitWindow (_("Finding"),
-                           _("Finding packages to upgrade..."))
+    win = intf.waitWindow(_("Finding"),
+                          _("Finding packages to upgrade..."))
 
     id.dbpath = "/var/lib/anaconda-rebuilddb" + rebuildTime
     rpm.addMacro("_dbpath", "/var/lib/rpm")
@@ -269,7 +269,7 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
 
     # now, set the system clock so the timestamps will be right:
     if flags.setupFilesystems:
-        iutil.setClock (instPath)
+        iutil.setClock(instPath)
     
     # and rebuild the database so we can run the dependency problem
     # sets against the on disk db
@@ -277,14 +277,14 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
     rebuildpath = instPath + id.dbpath
 
     try:
-        iutil.rmrf (rebuildpath)
+        iutil.rmrf(rebuildpath)
     except:
         pass
 
-    rc = rpm.rebuilddb (instPath)
+    rc = rpm.rebuilddb(instPath)
     if rc:
         try:
-            iutil.rmrf (rebuildpath)
+            iutil.rmrf(rebuildpath)
         except:
             pass
         
@@ -297,9 +297,9 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
     rpm.addMacro("_dbpath", id.dbpath)
     rpm.addMacro("_dbapi", "3")
     try:
-	packages = rpm.findUpgradeSet (id.hdList.hdlist, instPath)
+	packages = rpm.findUpgradeSet(id.hdList.hdlist, instPath)
     except rpm.error:
-	iutil.rmrf (rebuildpath)
+	iutil.rmrf(rebuildpath)
 	win.pop()
 	intf.messageWindow(_("Error"),
                            _("An error occured when finding the packages to "
@@ -311,29 +311,23 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
 	comp.unselect()
 
     # unselect all packages
-    for package in id.hdList.packages.values ():
+    for package in id.hdList.packages.values():
 	package.selected = 0
 
-    hasX = 0
-    hasFileManager = 0
     # turn on the packages in the upgrade set
     for package in packages:
 	id.hdList[package[rpm.RPMTAG_NAME]].select()
-	if package[rpm.RPMTAG_NAME] == "XFree86":
-	    hasX = 1
-	if package[rpm.RPMTAG_NAME] == "gmc":
-	    hasFileManager = 1
-	if package[rpm.RPMTAG_NAME] == "kdebase":
-	    hasFileManager = 1
-	if package[rpm.RPMTAG_NAME] == "nautilus":
-	    hasFileManager = 1
 
-    # open up the database to check dependencies
-    db = rpm.opendb (0, instPath)
+    # open up the database to check dependencies and currently
+    # installed packages
+    db = rpm.opendb(0, instPath)
 
     i = db.match()
     h = i.next()
     found = 0
+    hasX = 0
+    hasFileManager = 0
+
     while h:
         release = h[rpm.RPMTAG_RELEASE]
         # I'm going to try to keep this message as politically correct
@@ -351,6 +345,14 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
                  h[rpm.RPMTAG_VERSION],
                  h[rpm.RPMTAG_RELEASE]))
             found = 1
+        if h[rpm.RPMTAG_NAME] == "XFree86":
+            hasX = 1
+	if h[rpm.RPMTAG_NAME] == "gmc":
+	    hasFileManager = 1
+	if h[rpm.RPMTAG_NAME] == "kdebase":
+	    hasFileManager = 1
+	if h[rpm.RPMTAG_NAME] == "nautilus":
+	    hasFileManager = 1
         h = i.next()
 
     if found:
@@ -367,12 +369,12 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
                                 type="yesno")
         if rc == 0:
             try:
-                iutil.rmrf (rebuildpath)
+                iutil.rmrf(rebuildpath)
             except:
                 pass
             sys.exit(0)
 
-    if not os.access (instPath + "/etc/redhat-release", os.R_OK):
+    if not os.access(instPath + "/etc/redhat-release", os.R_OK):
         rc = intf.messageWindow(_("Warning"),
                                 _("This system does not have an "
                                   "/etc/redhat-release file.  It is possible "
@@ -383,7 +385,7 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
                                   type="yesno")
         if rc == 0:
             try:
-                iutil.rmrf (rebuildpath)
+                iutil.rmrf(rebuildpath)
             except:
                 pass
             sys.exit(0)
@@ -393,7 +395,7 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
     if hasX and not hasFileManager:
         for name in ("gmc", "nautilus", "kdebase"):
             try:
-                recs = db.findbyname (name)
+                recs = db.findbyname(name)
                 if recs:
                     hasFileManager = 1
                     break
@@ -403,49 +405,55 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
     # if we have X but not gmc, we need to turn on GNOME.  We only
     # want to turn on packages we don't have installed already, though.
     if hasX and not hasFileManager:
-	log ("Upgrade: System has X but no desktop -- Installing GNOME")
+        text = "Upgrade: System has X but no desktop -- Installing GNOME"
+        id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
+	log(text)
         pkgs = ""
 	for package in id.comps['GNOME'].pkgs:
 	    try:
-		rec = db.findbyname (package.name)
+		rec = db.findbyname(package.name)
 	    except rpm.error:
 		rec = None
 	    if not rec:
                 pkgs = "%s %s" % (pkgs, package)
 		package.select()
-            log ("Upgrade: GNOME: Adding packages: %s", pkgs)
+            log("Upgrade: GNOME: Adding packages: %s", pkgs)
 
     if iutil.getArch() == "i386" and id.bootloader.useGrub():
-	log ("Upgrade: User selected to use GRUB for bootloader")
+        log("Upgrade: User selected to use GRUB for bootloader")
         if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected():
-            log ("Upgrade: grub is not currently selected to be upgraded")
+            log("Upgrade: grub is not currently selected to be upgraded")
             recs = None
             try:
-                recs = db.findbyname ("grub")
+                recs = db.findbyname("grub")
             except rpm.error:
                 pass
             if not recs:
-                log("Upgrade: GRUB is not already installed on the system, "
-                    "selecting GRUB")
+                text = ("Upgrade: GRUB is not already installed on the "
+                        "system, selecting GRUB")
+                id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
+                log(text)
                 id.hdList["grub"].select()
 	
     if (id.hdList.has_key("nautilus")
         and not id.hdList["nautilus"].isSelected()):
-        log ("Upgrade: nautilus is not currently selected to be upgraded")
+        log("Upgrade: nautilus is not currently selected to be upgraded")
         recs = None
         try:
-            recs = db.findbyname ("gnome-core")
+            recs = db.findbyname("gnome-core")
         except rpm.error:
             pass
         if recs:
             recs = None
             try:
-                recs = db.findbyname ("nautilus")
+                recs = db.findbyname("nautilus")
             except rpm.error:
                 pass
             if not recs:
-                log("Upgrade: gnome-core is on the system, but nautilus isn't."
-                    "  Selecting nautilus to be installed")
+                text = ("Upgrade: gnome-core is on the system, but "
+                        "nautilus isn't.  Selecting nautilus to be installed")
+                id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
+                log(text)
                 id.hdList["nautilus"].select()
 
     del db
@@ -453,11 +461,13 @@ def upgradeFindPackages (intf, method, id, instPath, dir):
     # new package dependency fixup
     deps = id.comps.verifyDeps(instPath, 1)
     for (name, suggest) in deps:
-        if name != _("no suggestion"):
-            log ("Upgrade Dependency: %s needs %s, "
-                 "automatically added.", name, suggest)
-    id.comps.selectDeps (deps)
+        if suggest != _("no suggestion"):
+            text = ("Upgrade Dependency: %s needs %s, "
+                    "automatically added." % (name, suggest))
+            log(text)
+            id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
+    id.comps.selectDeps(deps)
 
-    win.pop ()
+    win.pop()
 
 

@@ -536,6 +536,13 @@ def doInstall(method, id, intf, instPath):
     # write out migrate adjusted fstab so kernel RPM can get initrd right
     if upgrade:
         id.fsset.migratewrite(instPath)
+    if id.upgradeDeps:
+        instLog.write(_("\n\nThe following packages were automatically\n"
+                        "selected to be installed:"
+                        "\n"
+                        "%s"
+                        "\n\n") % (id.upgradeDeps,))
+        
 
     problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE, cb.cb, 0)
 
@@ -633,8 +640,8 @@ def doInstall(method, id, intf, instPath):
     method.filesDone ()
     
     if upgrade:
-	instLog.write ("\n\nThe following packages were available in this "
-                       "version but NOT upgraded:\n")
+        instLog.write(_("\n\nThe following packages were available in "
+                        "this version but NOT upgraded:\n"))
 	for p in id.hdList.packages.values ():
 	    if not p.selected:
 		instLog.write("%s-%s-%s.%s.rpm\n" %
