@@ -85,6 +85,7 @@ int kon_main(int argc, char ** argv);
 static int mountLoopback(char * fsystem, char * mntpoint, char * device);
 static int umountLoopback(char * mntpoint, char * device);
 int copyDirectory(char * from, char * to);
+static char * mediaCheckISODir(char *path);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -594,6 +595,10 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    }
 
 	    umount("/tmp/loopimage");
+
+	    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
+		mediaCheckISODir("/mnt/source");
+
 	} else {
 	    rc = 1;
 	}
@@ -602,7 +607,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 
 	if (rc) return NULL;
     }
-
+   
     url = malloc(50 + strlen(dirName ? dirName : ""));
     sprintf(url, "hd://%s:%s/%s", device, type, dirName ? dirName : ".");
 
@@ -776,6 +781,54 @@ static void useMntSourceUpdates() {
 	unlink("/tmp/ramfs/update-disk.img");
     }
   }
+}
+
+
+/* XXX this ignores "location", which should be fixed */
+static char * mediaCheckISODir(char *path) {
+    DIR * dir;
+    struct dirent * ent;
+    char isoImage[1024];
+    char tmpmessage[1024];
+    int rc;
+
+
+    if (!(dir = opendir(path))) {
+	newtWinMessage(_("Error"), _("OK"), 
+		       _("Failed to read directory %s: %s"),
+		       path, strerror(errno));
+	return 0;
+    }
+
+    /* Walk through the directories looking for a Red Hat CD images. */
+    errno = 0;
+    while ((ent = readdir(dir))) {
+	sprintf(isoImage, "%s/%s", path, ent->d_name);
+
+	if (fileIsIso(isoImage)) {
+	    errno = 0;
+	    continue;
+	}
+
+
+	snprintf(tmpmessage, sizeof(tmpmessage),
+		 _("Would you like to perform an integrity "
+		   "check of the ISO image %s?"), isoImage);
+
+	rc = newtWinChoice(_("Integrity Check"), _("Test"), _("Skip"),
+			   tmpmessage);
+
+	if (rc == 2) {
+	    closedir(dir);
+	    return NULL;
+	} else {
+	    mediaCheckFile(isoImage);
+	    continue;
+	}
+    }
+
+    closedir(dir);
+    return NULL;
 }
 
 #ifdef INCLUDE_LOCAL
@@ -1024,18 +1077,15 @@ void ejectCdrom(void) {
   }
 }
 
-
-
 /* XXX this ignores "location", which should be fixed */
-static char * mediaCheckCdrom(char *cddriver, int flags) {
-
+static char * mediaCheckCdrom(char *cddriver) {
     int rc;
-
+    
     devMakeInode(cddriver, "/tmp/cdrom");
-
+    
     do {
 	mediaCheckFile("/tmp/cdrom");
-
+	
 	ejectCdrom();
 	
 	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
@@ -1063,6 +1113,32 @@ static void wrongCDMessage(void) {
 		     "the Red Hat CD and press \"OK\" to retry."));
 }
 
+/* put mounts back and continue */
+static void mountCdromStage2(char *cddev) {
+    int gotcd1=0;
+
+    devMakeInode(cddev, "/tmp/cdrom");
+    do {
+	do {
+	    if (doPwMount("/tmp/cdrom", "/mnt/source", 
+			  "iso9660", 1, 0, NULL, NULL)) {
+		ejectCdrom();
+		wrongCDMessage();
+	    } else {
+		break;
+	    }
+	} while (1);
+	
+	if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
+			  "/mnt/runtime", "loop0")) {
+	    umount("/mnt/source");
+	    ejectCdrom();
+	    wrongCDMessage();
+	} else {
+	    gotcd1 = 1;
+	}
+    } while (!gotcd1);
+}
 
 /* XXX this ignores "location", which should be fixed */
 static char * setupCdrom(struct installMethod * method,
@@ -1072,7 +1148,7 @@ static char * setupCdrom(struct installMethod * method,
 		      int needRedHatCD) {
     int i;
     int rc;
-    int hasCdrom = 0, gotcd1;
+    int hasCdrom = 0;
     char * buf;
 
     do {
@@ -1105,35 +1181,17 @@ static char * setupCdrom(struct installMethod * method,
 
 			    if (rc != 2) {
 
+				/* unmount CD now we've identified */
+				/* a valid disc #1 is present */
 				umount("/mnt/runtime");
 				umountLoopback("/mnt/runtime", "loop0");
 				umount("/mnt/source");
 
-				mediaCheckCdrom(kd->known[i].name, flags);
+				/* test CD(s) */
+				mediaCheckCdrom(kd->known[i].name);
 
-				/* put mounts back and continue */
-				devMakeInode(kd->known[i].name, "/tmp/cdrom");
-				gotcd1 = 0;
-				do {
-				    do {
-					if (doPwMount("/tmp/cdrom", "/mnt/source", 
-						      "iso9660", 1, 0, NULL, NULL)) {
-					    ejectCdrom();
-					    wrongCDMessage();
-					} else {
-					    break;
-					}
-				    } while (1);
-
-				    if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
-						      "/mnt/runtime", "loop0")) {
-					umount("/mnt/source");
-					ejectCdrom();
-					wrongCDMessage();
-				    } else {
-					gotcd1 = 1;
-				    }
-				} while (!gotcd1);
+				/* remount stage2 from CD #1 and proceed */
+				mountCdromStage2(kd->known[i].name);
 			    }
 			}
 			return buf;
@@ -1349,6 +1407,9 @@ static char * mountNfsImage(struct installMethod * method,
 			} else {
 			    stage = NFS_STAGE_DONE;
 			    url = "nfsiso:/mnt/source";
+			    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
+				mediaCheckISODir("/mnt/source");
+
 			}
 		    }
 		} else {
@@ -3298,4 +3359,3 @@ int main(int argc, char ** argv) {
 
     return 1;
 }
-
