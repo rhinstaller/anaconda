@@ -1,5 +1,9 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/partition_dialog_gui.py (PartitionEditor.run): 
+	* iw/raid_dialog_gui.py (RaidEditor.run): 
+	Update SpinButtons before getting their value (#133456)
+
 	* iw/language_support_gui.py
 	(LanguageSupportWindow.rebuild_combo): Fix traceback when
 	unselecting last language (#133164)

@@ -139,7 +139,10 @@ class PartitionEditor:
                     else:
                         grow = gtk.TRUE
 
+                    self.sizespin.update()
+
                     if self.fillmaxszrb.get_active():
+                        self.fillmaxszsb.update()
                         maxsize = self.fillmaxszsb.get_value_as_int()
                     else:
                         maxsize = None
@@ -165,6 +168,9 @@ class PartitionEditor:
                     request.primary = primonly
                     request.maxSizeMB = maxsize
                 else:
+                    self.startcylspin.update()
+                    self.endcylspin.update()
+                    
                     request.start = self.startcylspin.get_value_as_int()
                     request.end = self.endcylspin.get_value_as_int()
                     request.primary = primonly

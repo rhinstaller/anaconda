@@ -161,6 +161,7 @@ class RaidEditor:
                 request.raidlevel = model[self.levelcombo.get_active()][0]
 
                 if request.raidlevel != "RAID0":
+                    self.sparesb.update()
                     request.raidspares = self.sparesb.get_value_as_int()
                 else:
                     request.raidspares = 0
