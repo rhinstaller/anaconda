@@ -552,7 +552,7 @@ class InstallProgressWindow:
 	self.numCompleteW.setText("%12d" % self.numComplete)
 	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete/1024))
 	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
-	self.sizeRemainingW.setText("%10dM" % ((self.sizeTotal - self.sizeComplete)/1024))
+	self.sizeRemainingW.setText("%10dM" % (self.sizeTotal/1024 - self.sizeComplete/1024))
 	self.total.set(self.sizeComplete)
 
 	elapsedTime = time.time() - self.timeStarted 
