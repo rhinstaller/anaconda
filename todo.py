@@ -298,7 +298,6 @@ class ToDo:
         self.initlevel = 3
 	self.expert = expert
         self.progressWindow = None
-	self.swapCreated = 0
 	self.fdDevice = None
 	if (not instClass):
 	    raise TypeError, "installation class expected"
@@ -877,14 +876,6 @@ class ToDo:
                             rootparts.append (dev)
                         isys.umount('/mnt/sysimage')
                         os.remove ('/tmp/' + dev)
-                    if size and type == 5:
-                        dev = drive + str (i + 1)
-                        isys.makeDevInode(dev, '/tmp/' + dev)
-                        try:
-                            isys.swapon ('/tmp/' + dev)
-                        except SystemError, (error, msg):
-                            self.log ("Error in swapon of %s: %s", dev, msg)
-                        os.remove ('/tmp/' + dev)
             os.remove ('/tmp/' + drive)
         win.pop ()
         return rootparts
@@ -902,6 +893,7 @@ class ToDo:
             isys.umount('/mnt/sysimage')        
 	    raid.stopAllRaid(mdList)
             self.fstab.mountFilesystems (self.instPath)
+	    self.fstab.turnOnSwap(formatSwap = 0)
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
 
         # unselect all packages

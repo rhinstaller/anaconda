@@ -100,6 +100,10 @@ class InstallPathWindow (InstallWindow):
 	if not self.__dict__.has_key("upgradeButton"):
 	    return
 
+	# Hack to let backing out of upgrades work properly
+	if self.todo.fstab:
+	    self.todo.fstab.turnOffSwap()
+
 	needNewDruid = 0
 	icw = self.ics.getICW ()
 	if self.upgradeButton.get_active():

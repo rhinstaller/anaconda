@@ -186,19 +186,12 @@ class InstallPathWindow:
 	if (todo.instClass.installType == "install"):
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
-	    showScreen = 0
+	    return INSTALL_NOOP
 	elif (todo.instClass.installType == "upgrade"):
             intf.steps = intf.commonSteps + intf.upgradeSteps
             todo.upgrade = 1
-	    showScreen = 0
-
-	if not showScreen:
-	    if not todo.fstab:
-		todo.fstab = NewtFstab(todo.setupFilesystems, 
-					   todo.serial, 0, 0,
-					   todo.intf.waitWindow,
-					   todo.intf.messageWindow)
 	    return INSTALL_NOOP
+	    showScreen = 0
 
 	if (todo.upgrade):
 	    default = 4
@@ -262,7 +255,20 @@ class InstallPathWindow:
         return INSTALL_OK
 
 class UpgradeExamineWindow:
-    def __call__ (self, screen, todo):
+    def __call__ (self, dir, screen, todo):
+	from fstab import NewtFstab
+
+	if dir == -1:
+	    # Hack to let backing out of upgrades work properly
+	    if todo.fstab:
+		todo.fstab.turnOffSwap()
+	    return INSTALL_NOOP
+
+	todo.fstab = NewtFstab(todo.setupFilesystems, 
+				   todo.serial, 0, 0,
+				   todo.intf.waitWindow,
+				   todo.intf.messageWindow)
+
         parts = todo.upgradeFindRoot ()
 
         if not parts:
@@ -1115,8 +1121,8 @@ class InstallInterface:
             [_("Upgrade Complete"), FinishedWindow, (self.screen, todo)]
             ]
 
-        self.steps = self.commonSteps
 	dir = 1
+        self.steps = self.commonSteps
 
         while self.step >= 0 and self.step < len(self.steps) and self.steps[self.step]:
 	    step = self.steps[self.step]
@@ -1133,7 +1139,11 @@ class InstallInterface:
 			     (self.screen.width - len(self.welcomeText)) * " ")
 		self.screen.drawRootText (0 - len(step[0]),
 					 0, step[0])
-		rc = apply (step[1](), step[2])
+		# This is *disgusting* (ewt)
+		if step[1] == UpgradeExamineWindow:
+		    rc = apply (step[1](), (dir,) + step[2])
+		else:
+		    rc = apply (step[1](), step[2])
 
 	    if rc == INSTALL_BACK:
 		dir = -1

@@ -181,30 +181,41 @@ class Fstab:
 
 	return fstab
 
-    def turnOnSwap(self):
+    def turnOffSwap(self):
+	if not self.swapOn: return
+	self.swapOn = 0
+	for (device, doFormat) in self.swapList():
+	    file = '/tmp/swap/' + device
+	    isys.swapoff(file)
+
+    def turnOnSwap(self, formatSwap = 1):
 	# we could be smarter about this
 	if self.swapOn: return
 	self.swapOn = 1
 
-	for (device, doFormat) in self.swapList():
-	    w = self.waitWindow(_("Formatting"),
-			  _("Formatting swap space on /dev/%s...") % (device,))
+	iutil.mkdirChain('/tmp/swap')
 
-	    file = '/tmp/' + device
+	for (device, doFormat) in self.swapList():
+	    file = '/tmp/swap/' + device
 	    isys.makeDevInode(device, file)
 
-	    rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
+	    if formatSwap:
+		w = self.waitWindow(_("Formatting"),
+			      _("Formatting swap space on /dev/%s...") % 
+				    (device,))
+
+		rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
 					 [ "mkswap", '-v1', '/tmp/' + device ],
 					 stdout = None, stderr = None,
 					 searchPath = 1)
-	    w.pop()
+		w.pop()
 
-	    if rc:
-		self.messageWindow(_("Error"), _("Error creating swap on device ") + device)
+		if rc:
+		    self.messageWindow(_("Error"), _("Error creating swap on device ") + device)
+		else:
+		    isys.swapon (file)
 	    else:
 		isys.swapon (file)
-
-	    os.unlink(file)
 
     def addNewRaidDevice(self, mountPoint, raidDevice, fileSystem, 
 		      raidLevel, deviceList):
