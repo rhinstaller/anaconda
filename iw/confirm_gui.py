@@ -81,7 +81,7 @@ class InstallConfirmWindow (ConfirmWindow):
 	      "the file '%s' after rebooting your system.\n\n"
               "A kickstart file containing the installation options "
 	      "selected can be found in the file '%s' after rebooting the "
-	      "system.") % (u'\uFEFF/\uFEFFroot\uFEFF/\uFEFFinstall.log', u'\uFEFF/\uFEFFroot\uFEFF/\uFEFFanaconda\uFEFF-\uFEFFks\uFEFF.\uFEFFcfg'))
+	      "system.") % (u'/root/install.log', '/root/anaconda-ks.cfg'))
 
 class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
