@@ -18,9 +18,9 @@ struct commandTableEntry commandTable[] = {
 	{ "lsmod", lsmodCommand },
 	{ "mkdir", mkdirCommand },
 	{ "mknod", mknodCommand },
+	{ "umount", umountCommand },
 	{ "mount", mountCommand },
 	{ "rm", rmCommand },
-	{ "umount", umountCommand },
 	{ "uncpio", uncpioCommand },
 	{ NULL, NULL }
 };
