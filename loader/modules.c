@@ -391,7 +391,8 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
     return rc;
 }
 
-/* loads a : separated list of modules */
+/* loads a : separated list of modules. the arg only applies to the
+   first module in the list */
 int mlLoadModuleSet(const char * origModNames, void * location, 
 		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
 		    moduleInfoSet modInfo, int flags) {
@@ -458,7 +459,9 @@ int mlLoadModuleSet(const char * origModNames, void * location,
 
     /* insert the modules now */
     for (l = list, p = paths; !i && *l; l++, p++) {
-	if (loadModule(*l, *p, modLoaded, args, modInfo, flags)) {
+	if (loadModule(*l, *p, modLoaded, 
+		       !strcmp(initialList[0], *l) ? args : NULL, 
+		       modInfo, flags)) {
 	    logMessage("failed to insert %s -- bailing\n", *p);
 	    i++;
 	}
