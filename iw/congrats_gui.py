@@ -84,7 +84,7 @@ class CongratulationWindow (InstallWindow):
         umounts.reverse()
         for part in umounts:
             try:
-                isys.umount(part)
+                _isys.umount(part)
             except:
                 print part + "is busy, couldn't umount."
         return hbox
@@ -140,7 +140,7 @@ class ReconfigCongratulationWindow (InstallWindow):
         umounts.reverse()
         for part in umounts:
             try:
-                isys.umount(part)
+                _isys.umount(part)
             except:
                 print part + "is busy, couldn't umount."
         return hbox

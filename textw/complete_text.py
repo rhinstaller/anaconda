@@ -76,7 +76,7 @@ class FinishedWindow:
 	umounts.reverse()
 	for part in umounts:
 	    try:
-		isys.umount(part)
+		_isys.umount(part)
 	    except:
 		print part + "is busy, couldn't umount."
 
@@ -110,7 +110,7 @@ class ReconfigFinishedWindow:
         umounts.reverse()
         for part in umounts:
             try:
-                isys.umount(part)
+                _isys.umount(part)
             except:
                 print part + "is busy, couldn't umount."
         return INSTALL_OK
