@@ -133,7 +133,7 @@ class LiloImagesWindow:
 
     def formatDevice(self, type, label, device, default):
 	if (type == 2):
-	    type = "Linux extended"
+	    type = "Linux"
 	elif (type == 1):
 	    type = "DOS/Windows"
 	elif (type == 4):	
