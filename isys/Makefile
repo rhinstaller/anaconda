@@ -67,6 +67,12 @@ subdirs:
 
 nfsmount.o: nfs_mountversion.h
 
+nfsmount.lo: nfs_mountversion.h
+	$(CC) -c $(CFLAGS) -fPIC -o nfsmount.lo nfsmount.c
+
+nfsmount.do: nfs_mountversion.h
+	$(DIET) $(CC) -c $(CFLAGS) -DDIET=1 "-Du_char=unsigned char" -o nfsmount.do nfsmount.c
+
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@
 
@@ -76,3 +82,5 @@ depend: nfs_mountversion.h
 ifeq (.depend,$(wildcard .depend))
 include .depend
 endif                                           
+
+.PHONY: nfsmount.lo nfsmount.do
