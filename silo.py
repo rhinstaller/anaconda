@@ -16,7 +16,7 @@ class SiloInstall:
 	lines = f.readlines ()
 	f.close ()
 	mounted = None
-	type = None
+	ufstype = None
 	for line in lines:
 	    fields = string.split (line)
 	    if fields[0] == '/dev/' + dev and fields[2] == 'ufs':
@@ -37,10 +37,22 @@ class SiloInstall:
 	    root = mounted
 	if os.access (root + "/etc/system", os.X_OK):
 	    if os.access (root + "/kernel/unix", os.X_OK):
-		type = "Solaris"
+		ufstype = "Solaris"
 	    elif os.access (root + "/kernel/genunix", os.X_OK):
-		type = "Solaris"
-	# FIXME - test for SunOS. Anyone?
+		ufstype = "Solaris"
+	if os.access (root + "/vmunix", os.X_OK) or os.access (root + "/stand", os.X_OK):
+	    if os.access (root + "/bin/sh", os.X_OK):
+		# Check if /bin/sh is a.out SPARC binary
+		aout = None
+		try:
+		    f = open (root + "/bin/sh", "r")
+		    aout = f.read(4)
+		    f.close()
+		except:
+		    pass
+		if aout and len(aout) == 4 and aout[1] == "\x03" and aout[2] == "\x01":
+		    if aout[3] == "\x07" or aout[3] == "\x08" or aout[3] == "\x0b":
+			ufstype = "SunOS"
 	if not mounted:
 	    try:
 		isys.umount ("/tmp/ufsmntpoint")
@@ -54,7 +66,7 @@ class SiloInstall:
 		os.remove ("/tmp/" + dev)
 	    except:
 		pass
-	return type
+	return ufstype
 
     def getSiloImages(self):
 	todo = self.todo
@@ -274,7 +286,15 @@ class SiloInstall:
 	    else: # duplicate entry, first entry wins
 		silo.delImage (name)
 
-	silo.write(todo.instPath + "/etc/silo.conf")
+	if self.todo.mounts.has_key ('/boot'):
+	    silo.write(todo.instPath + "/boot/silo.conf")
+	    try:
+		os.remove(todo.instPath + "/etc/silo.conf")
+	    except:
+		pass
+	    os.symlink("../boot/silo.conf", todo.instPath + "/etc/silo.conf")
+	else:
+	    silo.write(todo.instPath + "/etc/silo.conf")
 
 	# XXX make me "not test mode"
 	if todo.setupFilesystems:

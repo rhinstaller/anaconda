@@ -44,7 +44,7 @@ class LanguageWindow:
             if languages[lang] == current:
                 default = descriptions.index (lang)
             
-        height = screen.height - 16
+        height = min((screen.height - 16, len(descriptions)))
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
@@ -98,6 +98,8 @@ class MouseWindow:
         mice = todo.mouse.available ().keys ()
         mice.sort ()
 	(default, emulate) = todo.mouse.get ()
+	if default == "Sun - Mouse":
+	    return INSTALL_NOOP
         default = mice.index (default)
 
 	bb = ButtonBar(screen, [_("OK"), _("Back")])
@@ -437,8 +439,8 @@ class HostnameWindow:
 
 class BootDiskWindow:
     def __call__(self, screen, todo):
-        rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
-		_("A custom boot disk provides a way of booting into your "
+	buttons = [ _("Yes"), _("No"), _("Back") ]
+	text =  _("A custom boot disk provides a way of booting into your "
 		  "Linux system without depending on the normal bootloader. "
 		  "This is useful if you don't want to install lilo on your "
 		  "system, another operating system removes lilo, or lilo "
@@ -446,19 +448,31 @@ class BootDiskWindow:
 		  "boot disk can also be used with the Red Hat rescue image, "
 		  "making it much easier to recover from severe system "
 		  "failures.\n\n"
-		  "Would you like to create a boot disk for your system?"),
-		buttons = [ _("Yes"), _("No"), _("Back") ])
-                                
+		  "Would you like to create a boot disk for your system?")
 
-        if rc == string.lower (_("Yes")):
-            todo.bootdisk = 1
-        
-        if rc == string.lower (_("No")):
-            todo.bootdisk = 0
+	if todo.silo:
+	    floppy = todo.silo.hasUsableFloppy()
+	    if floppy == 0:
+		todo.bootdisk = 0
+		return INSTALL_NOOP
+	    text = string.replace (text, "lilo", "silo")
+	    if floppy == 1:
+		buttons = [ _("No"), _("Yes"), _("Back") ]
+		text = string.replace (text, "\n\n",
+				       _("\nOn SMCC made Ultra machines floppy booting "
+					 "probably does not work\n\n"))
 
-        if rc == string.lower (_("Back")):
-            return INSTALL_BACK
-        return INSTALL_OK
+	rc = ButtonChoiceWindow(screen, _("Bootdisk"), text, buttons = buttons)
+
+	if rc == string.lower (_("Yes")):
+	    todo.bootdisk = 1
+	
+	if rc == string.lower (_("No")):
+	    todo.bootdisk = 0
+
+	if rc == string.lower (_("Back")):
+	    return INSTALL_BACK
+	return INSTALL_OK
 
 class XConfigWindow:
     def __call__(self, screen, todo):
