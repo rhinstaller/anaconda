@@ -458,6 +458,7 @@ class ToDo:
     def addMount(self, device, location, fsystem, reformat = 0):
         if fsystem == "swap":
             location = "swap"
+            reformat = 1
         self.mounts[location] = (device, fsystem, reformat)
 
     def writeFstab(self):
