@@ -17,7 +17,7 @@ class Kickstart(InstallClass):
 	    if (str == '--iscrypted'):
 		isCrypted = 1
 
-	if len(extra[0]) != 1:
+	if len(extra) != 1:
 	    raise ValueError, "a single argument is expected to rootPw"
 
 	InstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
@@ -219,8 +219,7 @@ class Kickstart(InstallClass):
 	     "sun" : "Sun - Mouse"
 	}
 
-	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree',
-				    'kickstart'])
+	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree' ])
         mouseType = "none"
 	device = None
 	emulThree = 0
