@@ -17,7 +17,7 @@ attributes like timezone and root password.
 
 %prep
 
-%setup
+%setup -q
 
 %build
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
