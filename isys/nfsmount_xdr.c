@@ -206,12 +206,12 @@ xdr_ppathcnf (XDR *xdrs, ppathcnf *objp)
 				 return FALSE;
 
 		} else {
-		IXDR_PUT_LONG(buf, objp->pc_link_max);
-		IXDR_PUT_SHORT(buf, objp->pc_max_canon);
-		IXDR_PUT_SHORT(buf, objp->pc_max_input);
-		IXDR_PUT_SHORT(buf, objp->pc_name_max);
-		IXDR_PUT_SHORT(buf, objp->pc_path_max);
-		IXDR_PUT_SHORT(buf, objp->pc_pipe_buf);
+                IXDR_PUT_INT32(buf, (long)(objp->pc_link_max));
+		IXDR_PUT_INT32(buf, (long)(objp->pc_max_canon));
+		IXDR_PUT_INT32(buf, (long)(objp->pc_max_input));
+		IXDR_PUT_INT32(buf, (long)(objp->pc_name_max));
+		IXDR_PUT_INT32(buf, (long)(objp->pc_path_max));
+		IXDR_PUT_INT32(buf, (long)(objp->pc_pipe_buf));
 		}
 		 if (!xdr_u_char (xdrs, &objp->pc_vdisable))
 			 return FALSE;
@@ -228,7 +228,7 @@ xdr_ppathcnf (XDR *xdrs, ppathcnf *objp)
 
 				for (i = 0, genp = objp->pc_mask;
 					i < 2; ++i) {
-					IXDR_PUT_SHORT(buf, *genp++);
+					IXDR_PUT_INT32(buf, (long)(*genp++));
 				}
 			}
 		}
@@ -250,12 +250,12 @@ xdr_ppathcnf (XDR *xdrs, ppathcnf *objp)
 				 return FALSE;
 
 		} else {
-		objp->pc_link_max = IXDR_GET_LONG(buf);
-		objp->pc_max_canon = IXDR_GET_SHORT(buf);
-		objp->pc_max_input = IXDR_GET_SHORT(buf);
-		objp->pc_name_max = IXDR_GET_SHORT(buf);
-		objp->pc_path_max = IXDR_GET_SHORT(buf);
-		objp->pc_pipe_buf = IXDR_GET_SHORT(buf);
+		objp->pc_link_max = (long) IXDR_GET_U_INT32(buf);
+		objp->pc_max_canon = (long) IXDR_GET_U_INT32(buf);
+		objp->pc_max_input = (long) IXDR_GET_U_INT32(buf);
+		objp->pc_name_max = (long) IXDR_GET_U_INT32(buf);
+		objp->pc_path_max = (long) IXDR_GET_U_INT32(buf);
+		objp->pc_pipe_buf = (long) IXDR_GET_U_INT32(buf);
 		}
 		 if (!xdr_u_char (xdrs, &objp->pc_vdisable))
 			 return FALSE;
@@ -272,7 +272,7 @@ xdr_ppathcnf (XDR *xdrs, ppathcnf *objp)
 
 				for (i = 0, genp = objp->pc_mask;
 					i < 2; ++i) {
-					*genp++ = IXDR_GET_SHORT(buf);
+					*genp++ = (long) IXDR_GET_U_INT32(buf);
 				}
 			}
 		}
