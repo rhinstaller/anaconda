@@ -897,6 +897,10 @@ static tzObject * doNewTZ (PyObject * s, PyObject * args) {
 
 void inittimezonemap (void) {
     init_pygtk();
+    setlocale (LC_MESSAGES, "");
+    setlocale (LC_CTYPE, "");
+    bindtextdomain("anaconda","/usr/share/locale");
+    textdomain("anaconda");
     
     Py_InitModule("timezonemap", timezoneMethods);
 }

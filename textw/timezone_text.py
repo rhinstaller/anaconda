@@ -68,12 +68,9 @@ class TimezoneWindow:
 
     def __call__(self, screen, instLang, timezone):
 	timezones = self.getTimezoneList()
-	rc = timezone.getTimezoneInfo()
-	if rc:
-	    (default, asUtc, asArc) = rc
-	else:
+	(default, asUtc, asArc) = timezone.getTimezoneInfo()
+        if not default:
 	    default = instLang.getDefaultTimeZone()
-	    asUtc = 0
 
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 
