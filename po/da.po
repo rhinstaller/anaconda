@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.2 Install\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 2000-02-20 18:38+01:00\n"
+"PO-Revision-Date: 2000-02-21 20:13+01:00\n"
 "Last-Translator: K. Christiansen & B. Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locale@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -439,7 +439,7 @@ msgstr ""
 "ikke ønsker at installere lilo på dit system, hvis et andet operativsystem "
 "har fjernet lilo eller lilo ikke virker med din maskines konfiguration. En "
 "opstartsdiskette kan desuden bruges sammen med Red Hat redningsdisketten, "
-"som gør det meget lettere at komme sig over alvorlige systemfejl.\n"
+"som gør det meget lettere at reparere systemet efter alvorlige systemfejl.\n"
 "\n"
 "Ønsker du at oprette en opstartsdiskette for dette system?"
 
@@ -512,7 +512,7 @@ msgstr ""
 "\n"
 "Tryk venligst på retur/enter for at genstarte og husk at fjerne "
 "opstartsmediet først, ellers kommer du til at køre hele installationen én "
-"gang til. For information om hvilke fejlretninger der findes for denne "
+"gang til. For oplysninger om hvilke fejlretninger der findes for denne "
 "udgave af Red Hat Linux, læs erratadata som findes på "
 "http://www.redhat.com/errata\n"
 "\n"
@@ -531,7 +531,7 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"For information om hvilke fejlretninger/bugfixes der findes for denne udgave "
+"For oplysninger om hvilke fejlretninger/bugfixes der findes for denne udgave "
 "af Red Hat Linux, læs erratadata som du finder på http://www.redhat.com.\n"
 "\n"
 "Information om yderligere konfiguration af dit system kan du finde i den "
@@ -730,7 +730,7 @@ msgstr "Opgradér system"
 
 #: ../text.py:1128
 msgid "Upgrade Complete"
-msgstr "Upgradering er færdig"
+msgstr "Opgradering er færdig"
 
 #: ../text.py:1162
 msgid "Cancelled"
@@ -789,7 +789,7 @@ msgstr "Behandler"
 
 #: ../todo.py:955
 msgid "Preparing to install..."
-msgstr "Gør klar til at installere..."
+msgstr "Forbereder installation..."
 
 #: ../todo.py:1134
 #, c-format
@@ -988,7 +988,7 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"For information om hvilke fejlretninger der findes for denne udgave af Red "
+"For oplysninger om hvilke fejlretninger der findes for denne udgave af Red "
 "Hat Linux, læs erratadata på http://www.redhat.com.\n"
 "\n"
 "Information om yderligere konfiguration af dit system finder du i den "
@@ -1040,7 +1040,7 @@ msgstr "Vælg partitioner som skal formatteres"
 
 #: ../iw/format.py:47
 msgid "Check for bad blocks while formatting"
-msgstr "Se efter dårlige blokke under formatteringen"
+msgstr "Se efter beskadigede blokke under formatteringen"
 
 #: ../iw/installpath.py:38
 msgid "GNOME Workstation"
@@ -1201,7 +1201,7 @@ msgstr "Sekundær DNS"
 
 #: ../iw/network.py:208
 msgid "Ternary DNS"
-msgstr "Tredje DNS"
+msgstr "Tertiær DNS"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
@@ -1301,7 +1301,7 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
-"Du har valgt at at placere dit rodfilsystem i en fil på et allerede "
+"Du har valgt at placere dit rodfilsystem i en fil på et allerede "
 "eksisterende DOS eller Windows-filsystem. Hvor stort, i megabyte, vil du "
 "have at rodfilsystemet skal være og hvor megen swapplads vil du have? Totalt "
 "skal de være mindre end %d megabyte i størrelse."
@@ -1329,8 +1329,8 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Hvis du ikke vil gøre dette, kan du fortsætte med installationen ved at "
-"oprette partitionerne manuelt, eller du kan gå tilbage og lave en personlig, "
+"Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at oprette "
+"partitionerne manuelt, eller du kan gå tilbage og lave en personlig, "
 "brugerdefineret installation."
 
 #: ../iw/rootpartition.py:248
@@ -1430,7 +1430,7 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Kan ikke bestemme mængden af RAM på grafikkortet.  Vælg mængden af din "
+"Kan ikke identificere mængden af RAM på grafikkortet.  Vælg mængden af din "
 "video-RAM fra listen herunder:"
 
 #: ../iw/xconfig.py:342 ../iw/xconfig.py:363
@@ -1439,7 +1439,7 @@ msgid ""
 "the best settings for your display."
 msgstr ""
 "I de fleste tilfælde kan din grafikhardware undersøges for automatisk at "
-"afgøre de optimale indstillinger for din skærm."
+"identificere de optimale indstillinger for din skærm."
 
 #: ../iw/xconfig.py:351
 msgid ""
@@ -1558,7 +1558,7 @@ msgstr ""
 
 #: ../textw/partitioning.py:228
 msgid "Check for bad blocks during format"
-msgstr "Se efter ødelagte blokke under formattering"
+msgstr "Se efter beskadigede blokke under formattering"
 
 #: ../textw/partitioning.py:233
 msgid "Choose Partitions to Format"
@@ -1574,7 +1574,7 @@ msgstr "Swapplads"
 
 #: ../textw/partitioning.py:288 ../textw/partitioning.py:294
 msgid "Bad Size"
-msgstr "Dårlig størrelse"
+msgstr "Ugyldig størrelse"
 
 #: ../textw/partitioning.py:289
 msgid "The size you enter must be a number."
@@ -1653,7 +1653,7 @@ msgstr "Bruger-ID"
 
 #: ../textw/userauth.py:91
 msgid "Bad User ID"
-msgstr "Dårlig bruger-ID"
+msgstr "Ugyldig bruger-ID"
 
 #: ../textw/userauth.py:92
 msgid ""
@@ -1742,7 +1742,7 @@ msgstr "Spørg efter tjener via broadcast"
 #: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
 #: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
 msgid "Bad Mount Point"
-msgstr "Dårligt monteringspunkt"
+msgstr "Ugyldigt monteringspunkt"
 
 #: ../libfdisk/fsedit.c:740
 #, c-format
@@ -1756,7 +1756,7 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"Monteringspunktet %s er ulovligt.\n"
+"Monteringspunktet %s er ugyldigt.\n"
 "\n"
 "Monteringspunkter skal begynde med et /."
 
@@ -1767,7 +1767,7 @@ msgid ""
 "\n"
 "Mount points may not end with a /."
 msgstr ""
-"Monteringspunktet %s er ulovligt.\n"
+"Monteringspunktet %s er ugyldigt.\n"
 "\n"
 "Monteringspunkter må ikke ende på et /."
 
@@ -1778,7 +1778,7 @@ msgid ""
 "\n"
 "Mount points may only printable characters."
 msgstr ""
-"Monteringspunktet %s er ulovligt.\n"
+"Monteringspunktet %s er ugyldigt.\n"
 "\n"
 "Monteringspunkter må kun indeholde udskrivbare tegn."
 
@@ -1791,8 +1791,8 @@ msgid ""
 msgstr ""
 "Du har bedt om at lægge dit rodfilsystem (/) på en DOS FAT partition. Det er "
 "tilladt, men så kan du ikke bruge andre filsystemer under Linux. Desuden vil "
-"systemet også køre langsommere når du ikke bruger Linux's almindelige "
-"filsystem. Vil du fortsætte?"
+"systemet køre langsommere når du ikke bruger Linux's almindelige filsystem. "
+"Vil du fortsætte?"
 
 #: ../libfdisk/fsedit.c:790
 #, c-format
@@ -1801,7 +1801,7 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"Monteringspunktet %s er ulovligt.\n"
+"Monteringspunktet %s er ugyldigt.\n"
 "\n"
 "Systempartitioner skal ligge på indfødte Linux-partitioner."
 
@@ -1812,7 +1812,7 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
-"Monteringspunktet %s er ulovligt.\n"
+"Monteringspunktet %s er ugyldigt.\n"
 "\n"
 "/usr skal ligge på en indfødt Linux-partition eller et NFS-volumen."
 
@@ -1826,9 +1826,9 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"Du har flere drev end dette pogram kan klare. Brug venligst standard "
+"Du har flere drev end dette program kan håndtere. Brug venligst standard "
 "programmet 'fdisk' til at opsætte dine drev og giv venligst besked til Red "
-"Hat Software om at du så denne besked."
+"Hat Software om at du fik denne besked."
 
 #: ../libfdisk/fsedit.c:845
 msgid "No Drives Found"
@@ -1863,7 +1863,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1204
 msgid "Bad Partition Table"
-msgstr "Dårlig partitionstabel"
+msgstr "Ugyldig partitionstabel"
 
 #: ../libfdisk/fsedit.c:1205
 msgid "Initialize"
@@ -1983,7 +1983,7 @@ msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
-"Det ønskede monteringspunkt er enten en ulovlig sti eller er allerede i "
+"Det ønskede monteringspunkt er enten en ugyldig sti eller er allerede i "
 "brug. Vælg venligst et gyldigt monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
@@ -1995,7 +1995,7 @@ msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Den ønskede størrelse er ulovlig. Sørg for at størrelsen er større end nul "
+"Den ønskede størrelse er ugyldig. Sørg for at størrelsen er større end nul "
 "(0) og er angivet som heltal i decimal (base 10) format."
 
 #: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
@@ -2147,7 +2147,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2068
 msgid "Illegal /boot RAID Type"
-msgstr "Ulovlig /boot RAID-type"
+msgstr "Ugyldig /boot RAID-type"
 
 #: ../libfdisk/gnomefsedit.c:2070
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
@@ -2155,7 +2155,7 @@ msgstr "Opstartspartitioner (/boot) er kun tilladte på RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2077
 msgid "Illegal RAID mountpoint"
-msgstr "Ulovligt RAID-monteringspunkt"
+msgstr "Ugyldigt RAID-monteringspunkt"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
@@ -2666,12 +2666,12 @@ msgstr "kickstart"
 #: ../loader/net.c:561
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "dårligt argument til 'kickstart' netværkskommando %s: %s"
+msgstr "ugyldigt argument til 'kickstart' netværkskommando %s: %s"
 
 #: ../loader/net.c:592
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Dårlig bootproto %s angivet i netværkskommando"
+msgstr "Ugyldig bootproto %s angivet i netværkskommando"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
