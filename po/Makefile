@@ -62,12 +62,11 @@ depend:
 
 install:	all
 	mkdir -p $(PREFIX)/$(INSTALLNLSDIR)
-	for n in $(CATALOGS); do \
-	    l=`basename $$n .po`; \
-	    mo=$$l.mo; \
+	for n in $(FMTCATALOGS); do \
+	    l=`basename $$n .mo`; \
 	    $(INSTALL) -m 755 -d $(PREFIX)/$(INSTALLNLSDIR)/$$l; \
 	    $(INSTALL) -m 755 -d $(PREFIX)/$(INSTALLNLSDIR)/$$l/LC_MESSAGES; \
-	    $(INSTALL) -m 644 $$mo \
+	    $(INSTALL) -m 644 $$n \
 		$(PREFIX)/$(INSTALLNLSDIR)/$$l/LC_MESSAGES/$(NLSPACKAGE).mo; \
 	done
 
@@ -75,7 +74,7 @@ install:	all
 
 missing:
 	mkdir -p missing; \
-	for n in $(CATALOGS); do \
+	for n in $(FMTCATALOGS); do \
 	    msghack -w 999999 --missing $$n > missing/$$n-; \
             msghack -w 999999 --empty missing/$$n- | grep -v "^#," > missing/$$n; \
 	    rm missing/$$n-; \
@@ -83,7 +82,7 @@ missing:
 
 missing-mixed:
 	mkdir -p missing-mixed; \
-	for n in $(CATALOGS); do \
+	for n in $(FMTCATALOGS); do \
 	    msghack -w 999999 --missing $$n > missing-mixed/$$n; \
 	done
 
