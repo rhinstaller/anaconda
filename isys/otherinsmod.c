@@ -12,7 +12,6 @@
 
 /* hack */
 int combined_insmod_main(int argc, char ** argv);
-int combined_insmod64_main(int argc, char ** argv);
 
 int ourInsmodCommand(int argc, char ** argv) {
     char * file;
@@ -88,12 +87,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     argv[0] = "insmod";
     argv[1] = file;
 
-#ifdef __sparc__
-    if (sparc64)
-	rc = combined_insmod64_main(argc, argv);
-    else
-#endif
-	rc = combined_insmod_main(argc, argv);
+    rc = combined_insmod_main(argc, argv);
     
     if (rmObj) unlink(file);
 
