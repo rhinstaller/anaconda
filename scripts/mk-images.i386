@@ -225,7 +225,7 @@ if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	prepareBootTree
 
 	# isolinux needs the config file to be isolinux.cfg
-	mv $BOOTTREE/syslinux.cfg $BOOTTREE/isolinux.cfg
+	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
 else
 	echo "No isolinux binaries.  Skipping isolinux creation"
 fi
