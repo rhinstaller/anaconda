@@ -41,9 +41,9 @@ int canProbeDevices(void) {
     if ((access("/proc/bus/pci/devices", R_OK) &&
          access("/proc/openprom", R_OK) &&
          access("/proc/iSeries", R_OK)))
-        return 1;
+        return 0;
 
-    return 0;    
+    return 1;    
 }
 
 static int detectHardware(moduleInfoSet modInfo, 
