@@ -102,19 +102,15 @@ class IPEditor:
 	    
         try:
             widget = self.entrys['entry1']
-            if int(widget.get_text()) > 255:
-                raise IPError, (_("IP Addresses must contain numbers between 1 and 255"), widget)
-            widget = self.entrys['entry2']
-            if int(widget.get_text()) > 255:
-                raise IPError, (_("IP Addresses must contain numbers between 1 and 255"), widget)
-            widget = self.entrys['entry3']
-            if int(widget.get_text()) > 255:
-                raise IPError, (_("IP Addresses must contain numbers between 1 and 255"), widget)
-            widget = self.entrys['entry4']
-            if int(widget.get_text()) > 255:
-                raise IPError, (_("IP Addresses must contain numbers between 1 and 255"), widget)
+            if int(widget.get_text()) > 255 or int(widget.get_text()) <= 0:
+                raise IPError, (_("IP Addresses must contain numbers between 1 and 255"), widget)                    
+            
+            for ent in ['entry2', 'entry3', 'entry4']:
+                widget = self.entrys[ent]
+                if int(widget.get_text()) > 255:
+                    raise IPError, (_("IP Addresses must contain numbers between 0 and 255"), widget)                    
         except ValueError, msg:
-            raise IPError, (_("IP Addresses must contain numbers between 1 and 255"), widget)
+            raise IPError, (_("IP Addresses must contain numbers between 0 and 255"), widget)
 
         return self.entrys['entry1'].get_text() + "." + self.entrys['entry2'].get_text() + "." +self.entrys['entry3'].get_text() + "." +self.entrys['entry4'].get_text()
 
