@@ -40,7 +40,7 @@ startinetd()
 		echo
 		#echo "Please connect now to $IPADDR and start 'rhsetup' or start"
 		#echo "'rhsetup nointeractive' from this shell."
-		echo "Please connect now to $IPADDR and start 'rhsetup' from this shell."
+		echo "Please connect now to $IPADDR and start 'loader' from this shell."
 		/bin/sh -l
 	done
 	#	/sbin/mingetty console --noclear
@@ -54,6 +54,7 @@ export PATH
 
 #mount -n -o remount,rw /
 mount -t proc none /proc
+mount -t devpts /dev/pts /dev/pts 
 
 ifconfig lo 127.0.0.1 netmask 255.0.0.0
 route add -host 127.0.0.1 dev lo
@@ -149,11 +150,11 @@ fi
 
 # configure network-interface
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
-	insmod ctc $CTC
+	insmod ctc.o $CTC
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE
 elif [ ":$NETTYPE" = ":iucv" ]; then
-	insmod netiucv $IUCV
+	insmod netiucv.o $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE
 else

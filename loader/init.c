@@ -103,7 +103,7 @@ char * env[] = {
  *
  */
 
-int testing;
+int testing=0;
 
 void printstr(char * string) {
     write(1, string, strlen(string));
@@ -120,7 +120,9 @@ void fatal_error(int usePerror) {
 
     printf("\nI can't recover from this.\n");
     if (testing) exit(0);
+#if !defined(__s390__) && !defined(__s390x__)
     while (1) ;
+#endif
 }
 
 int doMke2fs(char * device, char * size) {
@@ -523,7 +525,7 @@ void ejectCdrom(void) {
     printf("\n");
   }
 }
-
+#define STARTANACONDA "startanaconda"
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -542,7 +544,9 @@ int main(int argc, char **argv) {
     char twelve = 12;
     int i;
 
+#if !defined(__s390__) && !defined(__s390x__)
     testing = (getppid() != 0) && (getppid() != 1);
+#endif
 
     if (!testing) {
 	/* turn off screen blanking */
@@ -564,6 +568,7 @@ int main(int argc, char **argv) {
 
     printf("Red Hat install init version %s starting\n", VERSION);
 
+#if !defined(__s390__) && !defined(__s390x__)
     printf("mounting /proc filesystem... "); 
     if (!testing) {
 	if (mount("/proc", "/proc", "proc", 0, NULL))
@@ -577,6 +582,7 @@ int main(int argc, char **argv) {
 	    fatal_error(1);
     }
     printf("done\n");
+#endif
 
     signal(SIGINT, SIG_IGN);
     signal(SIGTSTP, SIG_IGN);
@@ -587,6 +593,7 @@ int main(int argc, char **argv) {
 	    break;
 	}
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (ioctl (0, TIOCLINUX, &twelve) < 0)
 	isSerial = 2;
     
@@ -625,10 +632,17 @@ int main(int argc, char **argv) {
     if (testing)
 	exit(0);
 
+	fd = open("/proc/self/0", O_RDWR, 0);    
+	if (fd < 0) {
+	    printf("failed to open /proc/self/0\n");
+	    fatal_error(1);
+	}
+
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
     close(fd);
+#endif
 
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {

@@ -2540,7 +2540,7 @@ int main(int argc, char ** argv) {
     moduleList modLoaded;
     char * cmdLine = NULL;
     moduleDeps modDeps;
-    int i, rc;
+    int i, rc,fd;
     int flags = 0;
     int testing = 0;
     char * lang = NULL;
@@ -2599,6 +2599,25 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
+
+	fd = open("/dev/tty", O_RDWR, 0);    
+	if (fd < 0) {
+	    printf("failed to open /dev/tty\n");
+	    exit(1);
+	}
+
+    dup2(fd, 0);
+    dup2(fd, 1);
+    dup2(fd, 2);
+    close(fd);
+
+    setsid();
+    if (ioctl(0, TIOCSCTTY, NULL)) {
+	printf("could not set new controlling tty\n");
+	exit(1);
+    }
+
+
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
@@ -2630,7 +2649,7 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    openLog(FL_TESTING(flags));
+    openLog(FL_TESTING(flags)+1);
 
     checkForRam(flags);
 

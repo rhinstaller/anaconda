@@ -128,12 +128,18 @@ class BaseInstallClass:
             #dispatch.skipStep("partitionmethodsetup", permanent = 1)
             dispatch.skipStep("autopartition", permanent = 1)
             dispatch.skipStep("autopartitionexecute", permanent = 1)
+<<<<<<< installclass.py
+            #dispatch.skipStep("fdisk", permanent = 1)
+            #dispatch.skipStep("partition", permanent = 1)
+            #dispatch.skipStep("partitiondone", permanent = 1)
+=======
             dispatch.skipStep("fdisk", permanent = 1)
             #dispatch.skipStep("partition", permanent = 1)
             #dispatch.skipStep("partitiondone", permanent = 1)
             #dispatch.skipStep("bootloadersetup", permanent = 1)
             #dispatch.skipStep("bootloader",  permanent = 1)
             dispatch.skipStep("bootloaderpassword",  permanent = 1)
+>>>>>>> 1.132.2.5
 
 	    #dispatch.skipStep("network", permanent = 1)
 
@@ -143,6 +149,15 @@ class BaseInstallClass:
 	    dispatch.skipStep("videocard", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
             
+<<<<<<< installclass.py
+	    dispatch.skipStep("partition", permanent = 1)
+            
+            #dispatch.skipStep("bootloadersetup", permanent = 1)    
+            #dispatch.skipStep("bootloader", permanent = 1)
+            #dispatch.skipStep("bootloaderpassword", permanent = 1)
+
+=======
+>>>>>>> 1.132.2.5
             dispatch.skipStep("bootdisk", permanent = 1)
         else:
             dispatch.skipStep("fdasd", permanent = 1)
