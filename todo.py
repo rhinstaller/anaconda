@@ -1259,6 +1259,11 @@ class ToDo:
         # XXX FIXME FIXME: -1 IGNORES all problems
         ts.run(0, -1, instCallback, p)
 
+        # This should close the RPM database so that you can
+        # do RPM ops in the chroot in a %post ks script
+        del ts
+        del db
+
         self.method.filesDone ()
         
         del p
