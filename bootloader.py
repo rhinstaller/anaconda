@@ -78,7 +78,11 @@ class KernelArguments:
             if os.environ.has_key("DASD"):
                 self.args = "dasd=" + os.environ["DASD"]
             if os.environ.has_key("CHANDEV"):
-                self.args = self.args + " chandev=" + os.environ["CHANDEV"]
+                # self.args = self.args + " chandev=" + os.environ["CHANDEV"]
+		fd = os.open(instRoot + "/etc/chandev.conf", os.O_WRONLY | os.O_CREAT
+		os.write(fd, os.environ["CHANDEV"])
+		os.close(fd)
+	
         else:
             cdrw = isys.ideCdRwList()
             str = ""
