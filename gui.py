@@ -67,7 +67,10 @@ stepToClass = {
     "finishxconfig" : None,
     "install" : ( "progress_gui", "InstallProgressWindow" ),
     "bootdisk" : ( "bootdisk_gui", "BootdiskWindow" ),
-    "complete" : ( "congrats_gui", "CongratulationWindow" )
+    "complete" : ( "congrats_gui", "CongratulationWindow" ),
+    "reconfigwelcome" : ("welcome_gui", "ReconfigWelcomeWindow"),
+    "reconfigkeyboard" : ("keyboard_gui", "KeyboardWindow"),
+    "reconfigcomplete" : ("congrats_gui", "ReconfigCongratulationWindow")
 }
 
 if iutil.getArch() == 'sparc':
