@@ -93,7 +93,7 @@ class Network:
 	    f.close ()
 	    for line in lines:
 		resolv = string.split (line)
-		if resolv[0] == 'nameserver':
+		if resolv and resolv[0] == 'nameserver':
 		    if self.primaryNS == "":
 			self.primaryNS = resolv[1]
 		    elif self.secondaryNS == "":
