@@ -117,6 +117,10 @@ class Network:
 class Password:
     def __init__ (self):
         self.crypt = ""
+	self.pure = None
+
+    def getPure(self):
+	return self.pure
 
     def set (self, password, isCrypted = 0):
         if not isCrypted:
@@ -125,6 +129,7 @@ class Password:
                     whrandom.choice (string.letters +
                                      string.digits + './'))
             self.crypt = crypt.crypt (password, salt)
+	    self.pure = password
         else:
             self.crypt = password
 
@@ -290,6 +295,7 @@ class ToDo:
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
+	self.timezone = None
         self.upgrade = 0
 	self.lilo = LiloConfiguration()
 	self.initrdsMade = {}
@@ -326,6 +332,12 @@ class ToDo:
         boothd = drives[0]
 
 	return (bootpart, boothd)
+
+    def getTimezoneInfo(self):
+	return self.timezone
+
+    def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
+	self.timezone = (timezone, asUtc, asArc)
 
     def setLiloImages(self, images):
 	self.liloImages = images
@@ -798,6 +810,9 @@ class ToDo:
     def rpmError (todo):
         todo.instLog.write (rpm.errorString () + "\n")
 
+    def getClass(todo):
+	return todo.instClass
+
     def setClass(todo, instClass):
 	todo.instClass = instClass
 	todo.hostname = todo.instClass.getHostname()
@@ -810,9 +825,18 @@ class ToDo:
         todo.auth.domain = nisDomain
         todo.auth.useBroadcast = nisBroadcast
         todo.auth.server = nisServer
+	todo.timezone = instClass.getTimezoneInfo()
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
+	todo.users = []
+
+    # List of (accountName, fullName, password) tupes
+    def setUserList(todo, users):
+	todo.users = users
+
+    def getUserList(todo):
+	return todo.users
         
     def doInstall(self):
 	# make sure we have the header list and comps file
