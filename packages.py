@@ -374,11 +374,11 @@ def doPreInstall(method, id, intf, instPath, dir):
 	elif isys.smpAvailable():
             select(id.hdList, 'kernel-smp')
 
-	if (id.hdList.has_key('kernel-enterprise')):
+	if (id.hdList.has_key('kernel-bigmem')):
 	    import lilo
 
 	    if lilo.needsEnterpriseKernel():
-		id.hdList['kernel-enterprise'].selected = 1
+		id.hdList['kernel-bigmem'].selected = 1
 
 	# we *always* need a kernel installed
         select(id.hdList, 'kernel')
