@@ -1039,7 +1039,7 @@ class FileSystemSet:
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):
-        if entry.doLabel:
+        if entry.device.doLabel is not None:
             entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):
@@ -1102,8 +1102,6 @@ class FileSystemSet:
         # then set up the logical volumes
         for entry in self.entries:
             if isinstance(entry.device, LogicalVolumeDevice):
-                # logical volumes can't mount by label
-                entry.doLabel = None
                 entry.device.setupDevice(chroot)
 
         
@@ -1337,8 +1335,6 @@ class FileSystemSetEntry:
         self.format = format
         self.badblocks = badblocks
 
-        self.doLabel = 1
-
     def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
         # FIXME: we really should migrate before turnOnFilesystems.
@@ -1418,6 +1414,7 @@ class Device:
         self.fsoptions = {}
         self.label = None
         self.isSetup = 0
+        self.doLabel = 1
 
     def getComment (self):
         return ""
@@ -1465,6 +1462,7 @@ class RAIDDevice(Device):
         self.spares = spares
         self.numDisks = len(members) - spares
         self.isSetup = existing
+        self.doLabel = None
 
         if len(members) < spares:
             raise RuntimeError, ("you requiested more spare devices "
@@ -1637,6 +1635,7 @@ class LogicalVolumeDevice(Device):
         self.name = vgname
         self.isSetup = 0
         self.isSetup = existing
+        self.doLabel = None
 
         # these are attributes we might want to expose.  or maybe not.
         # self.chunksize
