@@ -406,13 +406,11 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
 	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-	if (dev->dev.numDns) 
-	    fprintf(f, "NS1=%s\n", inet_ntoa(dev->dev.dnsServers[0]));
-	if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
-	    fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
-	if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
-	    fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
     }
+    if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
+	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
+    if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
+	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
 
     fclose(f);
 
@@ -576,6 +574,7 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    logMessage("pump told us: %s", chptr);
 	    return -1;
 	}
+	netDev->isDynamic = 1;
     }
 
     fillInIpInfo(netDev);
