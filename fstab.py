@@ -1018,12 +1018,11 @@ def readFstab (path, fstab):
 	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
 				    fields[2], raidByDev[int(fields[0][7:])])
 	elif (fields[0][0:7] == "/dev/hd" or 
-	    fields[0][0:7] == "/dev/sd" or
-	    fields[0][0:9] == "/dev/loop" or
-	    fields[0][0:8] == "/dev/rd/" or
-	    fields[0][0:9] == "/dev/ida/") or
-	    fields[0][0:11] == "/dev/cciss/") : 
-
+              fields[0][0:7] == "/dev/sd" or
+              fields[0][0:9] == "/dev/loop" or
+              fields[0][0:8] == "/dev/rd/" or
+              fields[0][0:9] == "/dev/ida/" or
+              fields[0][0:11] == "/dev/cciss/"): 
 	    # this skips swap files! todo has to put them back for upgrades
 
 	    device = fields[0][5:]
