@@ -1456,10 +1456,10 @@ class FileSystemSet:
             
             rootDev = "/dev/%s" % (root.device.getDevice(),)
             rootdir = instPath + rootDev[:string.rfind(rootDev, "/")]
+            if not os.path.exists(instPath + "/dev/mapper/control"):
+                iutil.makeDMNode(root=instPath)
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
-            if not os.path.isdir(instPath + "/dev/mapper"):
-                os.makedirs(instPath + "/dev/mapper")
             dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
             os.symlink(dmdev, instPath + rootDev)
