@@ -946,8 +946,8 @@ def doPostInstall(method, id, intf, instPath):
 	    # Mouse Magic on Sparc (Mach64, specificly)
 	    # The s390 doesn't even have a mouse!
 	    if os.environ.has_key ("DISPLAY") and not (arch == "sparc" or arch == "s390"):
-		import xmouse
 		try:
+                    import xmouse
 		    mousedev = xmouse.get()[0]
 		except RuntimeError:
 		    pass
