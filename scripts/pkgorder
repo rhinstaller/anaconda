@@ -238,6 +238,7 @@ for p in pkgOrder:
     
     if p['name'] in outputted:
         continue
+    outputted.append(p['name'])
     pkgs = hdlist.pkgnames[p['name']]
     pkgs.sort(archSort)
     for pnevra in pkgs:
