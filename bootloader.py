@@ -188,7 +188,7 @@ class bootloaderInfo:
 
 	    sl.addEntry("label", label)
 	    if os.access (instRoot + initrd, os.R_OK):
-		sl.addEntry("initrd", initrd)
+		sl.addEntry("initrd", "%sinitrd%s.img" %(self.kernelLocation, kernelTag))
 
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
@@ -289,7 +289,7 @@ class ia64BootloaderInfo(bootloaderInfo):
     def __init__(self):
         bootloaderInfo.__init__(self)
 	self.useGrubVal = 1
-        self.kernelLocation = "/boot/efi"
+        self.kernelLocation = ""
         self.configfile = "/boot/efi/elilo.conf"
     
 	
@@ -440,7 +440,8 @@ def availableBootDevices(diskSet, fsset):
     devs = []
     foundDos = 0
     for (dev, type) in diskSet.partitionTypes():
-	if type == 'FAT' and not foundDos:
+        # XXX do we boot fat on anything other than i386?
+	if type == 'FAT' and not foundDos and iutil.getArch() == "i386":
 	    foundDos = 1
 	    isys.makeDevInode(dev, '/tmp/' + dev)
 
