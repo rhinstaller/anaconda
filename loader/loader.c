@@ -90,6 +90,10 @@ static int umountLoopback(char * mntpoint, char * device);
 int copyDirectory(char * from, char * to);
 static char * mediaCheckISODir(char *path);
 static void useMntSourceUpdates(char * path);
+static int getISOStatusFromFD(int isof, char *mediasum);
+static int getISOStatusFromFile(char *path, char *mediasum);
+static int getISOStatusFromCDROM(char *cddriver, char *mediasum);
+static void writeISOStatus(int status, char *mediasum);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -579,6 +583,9 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 
 	if (path) {
 	    char * updatesPath;
+	    char mediasum[33];
+	    int isostatus;
+
 
 	    /* handle updates.img now before we copy stage2 over... this allows
 	     * us to keep our ramdisk size as small as possible */
@@ -599,6 +606,9 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    }
 
 	    umountLoopback("/tmp/loopimage", "loop0");
+
+	    isostatus = getISOStatusFromFile(path, mediasum);
+	    writeISOStatus(isostatus, mediasum);
 
 	    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
 		mediaCheckISODir("/mnt/source");
@@ -967,6 +977,77 @@ static char * mediaCheckISODir(char *path) {
     return NULL;
 }
 
+static int getISOStatusFromCDROM(char *cddriver, char *mediasum) {
+    int isofd;
+    int isostatus;
+
+    devMakeInode(cddriver, "/tmp/cdrom");
+    isofd = open("/tmp/cdrom", O_RDONLY);
+    if (isofd < 0) {
+	logMessage("Could not check iso status: %s", strerror(errno));
+	unlink("/tmp/cdrom");
+	return 0;
+    }
+
+    isostatus = getISOStatusFromFD(isofd, mediasum);
+
+    close(isofd);
+    unlink("/tmp/cdrom");
+
+    return isostatus;
+}
+
+static int getISOStatusFromFile(char *path, char *mediasum) {
+    int isofd;
+    int isostatus;
+
+    isofd = open(path, O_RDONLY);
+    if (isofd < 0) {
+	logMessage("Could not check iso status: %s", strerror(errno));
+	return 0;
+    }
+
+    isostatus = getISOStatusFromFD(isofd, mediasum);
+
+    close(isofd);
+
+    return isostatus;
+}
+
+/* get support status */
+/* if returns 1 we found status, and mediasum will be checksum */
+static int getISOStatusFromFD(int isofd, char *mediasum) {
+    unsigned char tmpsum[33];
+    int skipsectors, isostatus;
+    long long isosize, pvd_offset;
+
+    if (mediasum)
+	mediasum[0] = '\0';
+
+    if ((pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus)) < 0) {
+	logMessage("Could not parse pvd");
+	return 0;
+    }
+
+    if (mediasum)
+	strcpy(mediasum, tmpsum);
+
+    return isostatus;
+}
+
+static void writeISOStatus(int status, char *mediasum) {
+    FILE *f;
+
+    if (!(f = fopen("/tmp/isoinfo", "w")))
+	return;
+
+    fprintf(f, "ISOSTATUS=%d\n", status);
+    fprintf(f, "MEDIASUM=%s\n", mediasum);
+
+    fclose(f);
+
+}
+
 #ifdef INCLUDE_LOCAL
 
 static char * mountHardDrive(struct installMethod * method,
@@ -1313,9 +1394,19 @@ static void mountCdromStage2(char *cddev) {
 /* ask about doing media check */
 static void queryMediaCheck(char *name, int flags) {
   int rc;
+  char mediasum[33];
+  int isostatus;
 
-  /* check image(s) if not kickstart and requested */
-  if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags)) {
+  /* dont bother to test in automated installs */
+  if (FL_KICKSTART(flags))
+      return;
+
+  /* see what status is */
+  isostatus = getISOStatusFromCDROM(name, mediasum);
+  writeISOStatus(isostatus, mediasum);
+
+  /* see if we should check image(s) */
+  if (!isostatus || FL_MEDIACHECK(flags)) {
     
     startNewt(flags);
     rc = newtWinChoice(_("CD Found"), _("OK"),
@@ -1589,9 +1680,16 @@ static char * mountNfsImage(struct installMethod * method,
 				         "/mnt/runtime", "loop0")) {
 			    logMessage("failed to mount install loopback!");
 			} else {
+			    char mediasum[33];
+			    int isostatus;
+
 			    useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 			    stage = NFS_STAGE_DONE;
 			    url = "nfsiso:/mnt/source";
+
+			    isostatus = getISOStatusFromFile(path, mediasum);
+			    writeISOStatus(isostatus, mediasum);
+
 			    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
 				mediaCheckISODir("/mnt/source");
 
@@ -3072,6 +3170,8 @@ static int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 			    modInfo, flags);
 	}
     }
+
+    return 0;
 }
 
 /* This loads the necessary parallel port drivers for printers so that
