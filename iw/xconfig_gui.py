@@ -738,7 +738,6 @@ class MonitorWindow (InstallWindow):
         if found == "FALSE":
             entry.emit_stop_by_name ("insert-text")
 
-
     def getScreen (self):
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
@@ -781,17 +780,9 @@ class MonitorWindow (InstallWindow):
         # If the user has not changed monitor setting before, set the state info to the probed value
         if self.todo.x.state == "":
             self.todo.x.state = self.todo.x.monID
-#            print self.todo.x.state
             self.todo.monitorOriginalName = self.todo.x.monID
         else:
-#            print "Inside else"
-#            print self.todo.monitorOriginalName
-#            print self.todo.monitorOriginalNode
-#            if self.todo.isDDC == "TRUE"
             pass
-
-#        print "ORIGINAL MONITOR NAME IS ", self.todo.monitorOriginalName
-
 
         select = None
         for man in keys:
@@ -799,29 +790,53 @@ class MonitorWindow (InstallWindow):
                                                   self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
             models = monitors[man]
-#            print models
-            
             models.sort()
+            previous_monitor = ""
+            count = 0
             for monitor in models:
-                node = self.ctree.insert_node (parent, None, (monitor[0],), 2)
-                self.ctree.node_set_row_data (node, (parent, monitor))
-#                if monitor[0] == self.todo.x.monID:
 
-                if monitor[0] == self.todo.monitorOriginalName:
-                    self.originalNode = node
-                    select = node
-                    selParent = parent              
+                if previous_monitor != "":
+                    dupe = models[count-1]
+                    if monitor[0] == dupe[0]:
+                        pass
+                    else:
+                        previous_monitor = monitor[0]
+                        node = self.ctree.insert_node (parent, None, (monitor[0],), 2)
+                        self.ctree.node_set_row_data (node, (parent, monitor))
 
-                elif monitor[0] == self.todo.x.state:
-#                    print "Here"
-                    select = node
-                    selParent = parent
+                        if monitor[0] == self.todo.monitorOriginalName:
+                            self.originalNode = node
+                            select = node
+                            selParent = parent              
+                            
+                        elif monitor[0] == self.todo.x.state:
+                            select = node
+                            selParent = parent
+
+                            if monitor[0] == self.todo.monitorOriginalName:
+                                tmp, self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
+                                self.originalNode = node
+
+                else:
+                    previous_monitor = monitor[0]
+                    node = self.ctree.insert_node (parent, None, (monitor[0],), 2)
+                    self.ctree.node_set_row_data (node, (parent, monitor))
+
+                    if monitor[0] == self.todo.monitorOriginalName:
+                        self.originalNode = node
+                        select = node
+                        selParent = parent              
+            
+                    elif monitor[0] == self.todo.x.state:
+                        select = node
+                        selParent = parent
+                        
+                        if monitor[0] == self.todo.monitorOriginalName:
+                            tmp, self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
+                            self.originalNode = node
 
                     
-                    if monitor[0] == self.todo.monitorOriginalName:
-#                        print monitor[0], " = ", self.todo.monitorOriginalName
-                        tmp, self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
-                        self.originalNode = node
+                count = count + 1
 
         #--Add a category for a DDC probed monitor if a DDC monitor was probed, but the user has selected
         #--another monitor, gone forward, and then returned to this screen.
