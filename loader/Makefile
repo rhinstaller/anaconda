@@ -68,7 +68,7 @@ STATIC=-static
 endif
 endif
 
-LANGS = cs hu is id it no ro ru sr sk sl tr uk
+LANGS = cs hu is id it no ro ru sr sk sl tr uk fr de
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 
