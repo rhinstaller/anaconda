@@ -90,6 +90,7 @@ class WaitWindow:
 	self.window.show_all ()
         thread = currentThread ()
         if thread.getName () == "gtk_main":
+            gdk_flush ()
             while events_pending ():
                 mainiteration (FALSE)
         threads_leave ()
@@ -244,6 +245,7 @@ class InstallControlWindow (Thread):
         
         if len(lang) > 2:
             newlangs.append(lang[:2])
+        self.locale = lang[:2]
         gettext.setlangs (newlangs)
         cat = gettext.Catalog ("anaconda", "/usr/share/locale")
         for l in newlangs:
@@ -449,6 +451,7 @@ class InstallControlWindow (Thread):
         self.ii = ii
         self.todo = todo
         self.steps = steps
+        self.locale = "C"
 
     def run (self):
         threads_enter ()
@@ -544,7 +547,6 @@ class InstallControlState:
     def __init__ (self, cw, ii, todo, title = "Install Window",
                   prevEnabled = 1, nextEnabled = 0, html = ""):
         self.searchPath = [ "/usr/share/anaconda/", "./" ]
-        self.locale = 'C'
         self.ii = ii
         self.cw = cw
         self.todo = todo
@@ -552,6 +554,7 @@ class InstallControlState:
         self.nextEnabled = nextEnabled
         self.title = title
         self.html = html
+        self.htmlFile = None
         self.nextButton = STOCK_BUTTON_NEXT
         self.prevButton = STOCK_BUTTON_PREV
         self.nextButtonLabel = None
@@ -601,32 +604,35 @@ class InstallControlState:
         return im
 
     def readHTML (self, file):
-        text = None
-        for path in self.searchPath:
-            try:
-                text = open("%s/help/%s/s1-help-screens-%s.html" %
-                            (path, self.locale, file)).read ()
-            except IOError:
-                try:
-                    text = open("%s/help/C/s1-help-screens-%s.html" %
-                                (path, file)).read ()
-                except IOError:
-                    continue
-                
-            if text:
-                break
-
-        if text:
-            self.html = text
-            self.cw.update (self)
-        else:
-            print "Unable to read %s help text" % (file,)
+        self.htmlFile = file
 
     def setHTML (self, text):
         self.html = text
         self.cw.update (self)
 
     def getHTML (self):
+        text = None
+        if self.htmlFile:
+            file = self.htmlFile
+            for path in self.searchPath:
+                try:
+                    text = open("%s/help/%s/s1-help-screens-%s.html" %
+                                (path, self.cw.locale, file)).read ()
+                except IOError:
+                    try:
+                        text = open("%s/help/C/s1-help-screens-%s.html" %
+                                    (path, file)).read ()
+                    except IOError:
+                        continue
+
+                if text:
+                    break
+
+            if text:
+                return text
+            else:
+                print "Unable to read %s help text" % (file,)
+
         return self.html
     
     def getToDo (self):
