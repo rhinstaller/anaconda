@@ -557,10 +557,10 @@ def doInstall(method, id, intf, instPath):
 	if not upgrade:
             # XXX should this go here?
 	    if self.fdDevice[0:2] == "fd":
-                dev = PartitionDevice(self.fdDevice)
-                fs = fileSystemTypeGet("auto")
-                entry = FileSystemSetEntry(dev, '/mnt/floppy', fs,
-                                           "nodefaults")
+                dev = fsset.PartitionDevice(self.fdDevice)
+                fs = fsset.fileSystemTypeGet("auto")
+                entry = fsset.FileSystemSetEntry(dev, '/mnt/floppy', fs,
+                                                 "nodefaults")
 		id.fsset.add(entry)
 
 	    w.set(1)
