@@ -52,6 +52,16 @@ BINS += loader-local loader-network loader-pcmcia
 OBJS += dietstubs.o ctype.o
 endif
 
+ifeq (x86_64, $(ARCH))
+BINS += loader-local loader-network loader-pcmcia
+ ifeq (1, $(JAPANESE))
+ KONOBJS = ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+ CFLAGS += -DINCLUDE_KON
+ DIRS += kon2
+ endif
+OBJS += stubs.o
+endif
+
 ifeq (ia64, $(ARCH))
 BINS += loader
 endif
@@ -101,6 +111,13 @@ CC=$(DIET) $(REALCC)
 STATIC=-static
 else
 REALCC=$(CC)
+ifeq (x86_64, $(ARCH))
+COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
+MINILIBC=minilibc.o
+LDFLAGS = -nostdlib /usr/lib64/crt1.o
+LOADERLIBS += -lresolv
+STATIC= -static
+else
 ifeq (sparc, $(ARCH))
 MINILIBC=minilibc.o /usr/lib/libc.a
 CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
@@ -111,6 +128,7 @@ else
 CFLAGS+=-DUSE_MINILIBC=0
 STATIC=-static
 LOADERLIBS += -lresolv
+endif
 endif
 endif
 
