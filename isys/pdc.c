@@ -9,10 +9,24 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <linux/hdreg.h>
+
+#ifdef DIET
+#include <sys/mount.h>
+#else
 #include <linux/fs.h>
+#endif
+
 #include <string.h>
 
+
+#ifdef DIET
+typedef char char16_t;
+typedef unsigned char u_int8_t;
+typedef unsigned short u_int16_t;
+typedef uint32_t u_int32_t;
+#else
 typedef unsigned int uint32_t;
+#endif
 
 struct promise_raid_conf {
     char                promise_id[24];
