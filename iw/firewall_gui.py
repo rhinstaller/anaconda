@@ -28,8 +28,6 @@ class FirewallWindow (InstallWindow):
 
     def getNext (self):
         if self.disabled_radio.get_active ():
-            self.firewall.enabled = 0
-
 	    rc2 = self.intf.messageWindow(_("Warning - No Firewall"),
 		   _("If this system is attached directly to the Internet or "
 		     "is on a large public network, it is recommended that a "
@@ -43,7 +41,7 @@ class FirewallWindow (InstallWindow):
 	    if rc2 == 0:
 		raise gui.StayOnScreen
 	    else:
-		self.firewall.enabled = 1
+		self.firewall.enabled = 0
 
             count = 0
             self.firewall.trustdevs = []
