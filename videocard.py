@@ -300,11 +300,14 @@ class VideoCardInfo:
 
     def readCardsDB (self):
         # all the straight servers
-        for server in [ "3DLabs", "8514", "FBDev", "I128",
-                        "Mach8", "Mach32", "Mach64", "Mono",
-                        "P9000", "S3", "S3V", "SVGA", "W32", "VGA16" ]:
-            Video_cardslist["Generic " + server] = { "SERVER" : server,
-                                           "NAME"   : "Generic " + server }
+	# uncomment if you're meaning to support XFree86 3.x servers
+        # will probably require hacking elsewhere to make sure the
+        # appropriate X Server package is in selected package list
+#        for server in [ "3DLabs", "8514", "FBDev", "I128",
+#                        "Mach8", "Mach32", "Mach64", "Mono",
+#                        "P9000", "S3", "S3V", "SVGA", "W32", "VGA16" ]:
+#            Video_cardslist["Generic " + server] = { "SERVER" : server,
+#                                           "NAME"   : "Generic " + server }
 
         if not os.access('/usr/X11R6/lib/X11/Cards', os.R_OK):
             return -1
@@ -317,7 +320,13 @@ class VideoCardInfo:
         for line in lines:
             line = string.strip (line)
             if not line and name:
-                Video_cardslist[name] = card
+		if card.has_key("DRIVER") and card.has_key("UNSUPPORTED"):
+		    print "WARNING: CardsDB entry for %s says XFree86 4.x is unsupported!" % name		    
+		
+		if card.has_key("SERVER") and not card.has_key("DRIVER"):
+		    print "WARNING: CardsDB entry for %s is XFree86 3.x only, dropping" % name
+		else:
+		    Video_cardslist[name] = card
                 card = {}
                 name = None
                 continue
@@ -403,14 +412,31 @@ class VideoCardInfo:
                 vc.setCardData (info)
                 vc.setDevID (info["NAME"])
 
-                if (vc.getCardData().has_key("DRIVER") and
-                    not vc.getCardData().has_key("UNSUPPORTED")):
+#
+# We are now not supporting XFree86 3.x at all, so we will take the
+# XFree86 4.x driver and complain if its unsupported
+#
+                if vc.getCardData().has_key("DRIVER"):
                     server = "XFree86"
+		    if vc.getCardData().has_key("UNSUPPORTED"):
+			log("Using CardsDB entry for %s even tho its "
+			    "marked unsupported" % info["NAME"])
                 else:
-                    server = "XF86_" + vc.getCardData()["SERVER"]
+                    server = None
 
-                vc.setXServer(server)
-                self.videocards.append(vc)
+#
+# This old code picked the XFree86 4.x driver if it exists and was not
+# marked unsupported. Its left here for reference.
+#
+#                if (vc.getCardData().has_key("DRIVER") and
+#                    not vc.getCardData().has_key("UNSUPPORTED")):
+#                    server = "XFree86"
+#                else:
+#                    server = "XF86_" + vc.getCardData()["SERVER"]
+#
+                if server:
+		    vc.setXServer(server)
+		    self.videocards.append(vc)
                 
         if len(self.videocards) == 0:
             # insert a best guess at a card
