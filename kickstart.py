@@ -786,7 +786,7 @@ class KickstartBase(BaseInstallClass):
 
         if not vgname:
             raise RuntimeError, "Must specify the volume group for the logical volume to be in"
-        if not size and not percent:
+        if not size and not percent and not preexist:
             raise RuntimeError, "Must specify the size of a logical volume"
         if percent and percent <= 0 or percent > 100:
             raise ValueError, "Logical Volume percentage must be between 0 and 100 percent"
