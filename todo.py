@@ -1423,11 +1423,15 @@ class ToDo:
 
         if self.upgrade and self.dbpath:
             # move the rebuilt db into place.
-            iutil.rmrf (self.instPath + "/var/lib/rpm.rpmsave")
+            try:
+                iutil.rmrf (self.instPath + "/var/lib/rpm-old")
+            except OSError:
+                pass
             os.rename (self.instPath + "/var/lib/rpm",
-                       self.instPath + "/var/lib/rpm.rpmsave")
+                       self.instPath + "/var/lib/rpm-old")
             os.rename (self.instPath + self.dbpath,
                        self.instPath + "/var/lib/rpm")
+            iutil.rmrf (self.instPath + "/var/lib/rpm-old")
             rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
             rpm.addMacro ("_dbapi", "3")
             # flag this so we only do it once.
@@ -1505,7 +1509,10 @@ class ToDo:
 
         problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE,
                           self.instCallback, p)
-        
+
+#        problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0,
+#                          self.instCallback, p)
+
         if problems:
             needed = {}
             size = 12
