@@ -192,7 +192,9 @@ for n in args:
         flags.reconfig = 1
 	customClass = 'reconfig'
     elif (str == '--resolution'):
+	# run native X server at specified resolution, ignore fb
         runres = arg
+	nofb = 1
     elif (str == '--rescue'):
         progmode = 'rescue'
     elif (str == "--autostep"):
@@ -434,7 +436,6 @@ if display_mode != 't' and mousedev[0] == "None - None":
 # startup X server is we're not already running under an X session
 #
 startXServer = 0
-
 
 if display_mode == 'g':
     import xf86config

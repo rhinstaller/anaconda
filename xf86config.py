@@ -617,14 +617,30 @@ class XF86Config:
 
         monsyncknown = (self.monitor.getMonitorHorizSync() != None) and (self.monitor.getMonitorVertSync() != None)
 
-        if self.res == "640x480":
-            self.modes = { "8" :  ["640x480"] }
-            if not monsyncknown:
-                self.monitor.setSpecs("31.5-35.5", "50-61")
-        else:
-            self.modes = { "16" :  ["800x600"] }
-            if not monsyncknown:
-                self.monitor.setSpecs("31.5-48.5", "50-70")
+	if self.res:
+	    if self.res == "640x480":
+		self.modes = { "8" :  ["640x480"] }
+		if not monsyncknown:
+		    self.monitor.setSpecs("31.5-35.5", "50-61")
+	    else:
+		# assume they are specifying resolution for laptop/lcd
+		# these are values for generic laptop display from monitorsdb
+		self.modes = { "16" :  [self.res] }
+		if not monsyncknown:
+		    if self.res == "800x600":
+			self.monitor.setSpecs("31.5-48.5", "50-70")
+		    elif self.res == "1024x768":
+			self.monitor.setSpecs("31.5-48.5", "40-70")
+		    elif self.res == "1280x1024":
+			self.monitor.setSpecs("31.5-67", "50-75")
+		    elif self.res == "1400x1050":
+			self.monitor.setSpecs("31.5-90", "59-75")
+		    elif self.res == "1600x1200":
+			self.monitor.setSpecs("31.5-90", "60")
+		    else:
+			# just pick something reasonable for most modes
+			self.monitor.setSpecs("31.5-65.0", "50-90")
+	    
 
         self.fallbackModes = self.modes
         
