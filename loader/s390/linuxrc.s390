@@ -35,37 +35,25 @@ startinetd()
 	echo
 	echo "Starting telnetd and sshd to allow login over the network."
 	/sbin/inetd
-	echo "Generating ssh keys, This can take a while..."
-	(cd /etc/ssh
-		echo "  Generating host_key"
-		ssh-keygen  -q -t rsa1 -f ssh_host_key -C '' -N '' >/dev/null 2>&1
-		echo "  Generating rsa_key"
-		ssh-keygen  -q -t rsa -f ssh_host_rsa_key -C '' -N '' >/dev/null 2>&1
-		echo "  Generating dsa_key"
-		ssh-keygen  -q -t dsa -f ssh_host_dsa_key -C '' -N '' >/dev/null 2>&1
-		chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key
-		chmod 644 *.pub
-		echo "Done"
-	)
 	/sbin/sshd
    while : ; do
 		echo
-		echo "Please connect now to $IPADDR and start 'rhsetup' or start"
-		echo "'rhsetup nointeractive' from this shell."
+		#echo "Please connect now to $IPADDR and start 'rhsetup' or start"
+		#echo "'rhsetup nointeractive' from this shell."
+		echo "Please connect now to $IPADDR and start 'rhsetup' from this shell."
 		/bin/sh -l
 	done
 	#	/sbin/mingetty console --noclear
 }
 
 
-echo "Starting the S390 initrd to configure networking. Version is 0.24."
+echo "Starting the S390 initrd to configure networking. Version is 0.30."
 
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 export PATH
 
 #mount -n -o remount,rw /
 mount -t proc none /proc
-mount -t devpts none /dev/pts
 
 ifconfig lo 127.0.0.1 netmask 255.0.0.0
 route add -host 127.0.0.1 dev lo
@@ -83,7 +71,7 @@ if [ -n "$HOST" ]; then
 		IUCV="iucv=$4"
 		GATEWAY=$5
 		MTU=$6
-	elif [ ":$NETTYPE" = ":ctc" ]; then
+	elif [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 		GATEWAY=$4
 		MTU=$5
 	else
@@ -98,7 +86,7 @@ if [ -n "$NETWORK" ]; then
 	NETWORKIP=$1
 	NETMASK=$2
 	BROADCAST=$3
-	if [ ":$NETTYPE" != ":ctc" ] && [ ":$NETTYPE" != ":iucv" ]; then
+	if [ ":$NETTYPE" != ":ctc" -a ":$NETTYPE" != ":iucv" -a ":$NETTYPE" != ":escon" ]; then
 		GATEWAY=$4
 	fi
 fi
@@ -109,7 +97,7 @@ while [ -z "$HNAME" ]; do
 	read HNAME
 done
 while [ -z "$DEVICE" ]; do
-	echo "Please enter the network device you intend to use (e.g. ctc0, iucv0, eth0, tr0):"
+	echo "Please enter the network device you intend to use (e.g. ctc0, escon0, iucv0, eth0, tr0):"
 	read DEVICE
 	NETTYPE=`echo $DEVICE |sed -e 's/[0-9].*//'`
 done
@@ -148,7 +136,7 @@ if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ]; then
 	done
 else
 	while [ -z "$GATEWAY" ]; do
-		echo "Enter the IP of your ctc/iucv point-to-point partner:"
+		echo "Enter the IP of your ctc/escon/iucv point-to-point partner:"
 		read GATEWAY
 	done
 	if [ ":$NETTYPE" = ":iucv" ]; then
@@ -160,7 +148,7 @@ else
 fi
 
 # configure network-interface
-if [ ":$NETTYPE" = ":ctc" ]; then
+if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 	insmod ctc $CTC
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE
@@ -176,15 +164,24 @@ else
 			LCS=`echo $LCS | sed -e '/^0x\|^0X/ b; s/^/0x/'`
 			LCS="noauto=1 devno_portno_pairs=$LCS"
 		fi
-		insmod -f /lib/lcs.o $LCS
+		if [ -f /lib/lcs.o ]; then
+			insmod -f /lib/lcs.o $LCS
+		else
+			echo "no lcs module found"
+		fi
 	else
 		if [ ":$QETH" = ":auto" ]; then
 			QETH="qeth_options="
 		else
 			QETH="qeth_options=noauto,$QETH"
 		fi
-		insmod -f /lib/qdio.o
-		insmod -f /lib/qeth.o $QETH
+		if [ -f /lib/qdio.o -a -f /lib/qeth.o ]; then
+			insmod -f /lib/qdio.o
+			insmod -f /lib/qeth.o $QETH
+		else
+			echo "The qdio and the qeth are needed for this"
+			echo "They cannot be found in /lib, skipping..."
+		fi
 	fi
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORKIP netmask $NETMASK dev $DEVICE
@@ -208,6 +205,7 @@ SEARCHDNS=`echo $SEARCHDNS |sed -e 's/:/ /g'`
  
 # transfer options into install environment
 cat > /tmp/install.cfg <<EOF
+CHANDEV="$CHANDEV"
 HNAME="$HNAME"
 DEVICE="$DEVICE"
 NETTYPE="$NETTYPE"
