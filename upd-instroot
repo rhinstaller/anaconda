@@ -358,6 +358,7 @@ done
 rm -f $KEEPFILE $KEEPFILEGR
 
 make install-hd DESTDIR=$DEST > /dev/null
+rm -rf $DEST/usr/share/locale
 make install DESTDIR=$DESTGR > /dev/null
 
 for p in $DESTGR $DEST; do
