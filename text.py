@@ -38,6 +38,8 @@ from textw.packages import PackageDepWindow
 from textw.timezone import TimezoneWindow
 import installclass
 
+
+
 class LanguageWindow:
     def __call__(self, screen, todo):
         languages = todo.language.available ()
@@ -49,12 +51,20 @@ class LanguageWindow:
                 default = descriptions.index (lang)
             
         height = min((screen.height - 16, len(descriptions)))
+        if todo.reconfigOnly:
+            buttons = [_("Ok"), _("Back")]
+        else:
+            buttons = [_("Ok")]
+               
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
 			  "installation process?"), descriptions, 
-			buttons = [_("OK")], width = 30, default = default, scroll = 1,
+			buttons, width = 30, default = default, scroll = 1,
                                 height = height)
+
+	if (button == string.lower(_("Back"))): return INSTALL_BACK
+
         choice = descriptions[choice]
         lang = languages [choice]
         newlangs = [lang]
@@ -298,6 +308,24 @@ class WelcomeWindow:
 
 	if rc == string.lower(_("Back")):
 	    return INSTALL_BACK
+
+        return INSTALL_OK
+
+class ReconfigWelcomeWindow:
+    def __call__(self, screen):
+        rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
+                                _("Welcome to the Red Hat Linux!\n\n"
+                                  "You have entered reconfiguration mode, "
+                                  "which will allow you to setup your "
+                                  "computer for your current location. "
+                                  "\n\n"
+                                  "To exit without changing your setup "
+                                  "select the ""Cancel"" button below."),
+                                buttons = [_("OK"), _("Cancel")], width = 50)
+
+	if rc == string.lower(_("Cancel")):
+            screen.finish()
+	    os._exit(0)
 
         return INSTALL_OK
 
@@ -934,6 +962,8 @@ class InstallInterface:
 
         if todo.reconfigOnly:
             self.commonSteps = [
+                [_("Welcome"), ReconfigWelcomeWindow, 
+                 (self.screen,), "reconfig" ],
                 [_("Language Selection"), LanguageWindow, 
                  (self.screen, todo), "language" ],
                 [_("Keyboard Selection"), KeyboardWindow, 
