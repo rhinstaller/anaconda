@@ -1049,14 +1049,20 @@ static char * doMountImage(char * location,
     }
 
 #if defined (INCLUDE_LOCAL) || defined (__sparc__)
+# ifdef __sparc__
+    /* Check any attached CDROM device for a
+       Red Hat CD. If there is one there, just die happy */
+    if (!FL_EXPERT(flags)) {
+# else
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
     if (!networkAvailable && !FL_EXPERT(flags)) {
+# endif
 	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps,
 			 flags, 1);
 	if (url) return url;
     }
-#endif
+#endif /* defined (INCLUDE_LOCAL) || defined (__sparc__) */
 
     startNewt(flags);
 
@@ -1450,12 +1456,14 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_KICKSTART;
         else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
+	else if (!strncasecmp(argv[i], "lang=", 5))
+	    setenv("LANG", argv[i] + 5, 1);
+	else if (!strncasecmp(argv[i], "display=", 8))
+	    setenv("DISPLAY", argv[i] + 8, 1);
         else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
 	    flags |= LOADER_FLAGS_KSHD;
 	    *ksSource = argv[i] + 6;
 	}
-        else if (!strncasecmp(argv[i], "display=", 8))
-	    setenv("DISPLAY", argv[i] + 8, 1);
     }
 
     return flags;
