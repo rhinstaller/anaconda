@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.4
+Version: 10.0.3.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 27 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.5-1
+- Fix driver disk segfault when using a partition (#133036)
+- Let driver disk images on ext2 partitions work
+- Fix nonet/nostorage
+- Allow name.arch syntax in ks.cfg (#124456)
+- Fix traceback unselecting last language (#133164)
+- Skip version 0 swap (#122101)
+- Handle /dev being present in device names of ks.cfg (#121486)
+- Use no instead of no-latin1 for Norwegian keyboard (#133757)
+- include other dm modules (#132001)
+
 * Fri Sep 24 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.4-1
 - fix megaraid module name (notting)
 - don't prompt for a driver disk on pSeries boxes with just 
