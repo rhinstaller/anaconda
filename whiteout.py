@@ -71,7 +71,17 @@ whiteout="""
         dbus>dbus-glib \
         openjade>docbook-dtds \
         xemacs>xemacs-sumo \
-        ncurses>gpm
+        ncurses>gpm \
+        cyrus-sasl>openldap \
+        initscripts>kernel \
+        initscripts>kernel-smp \
+        rpm-libs>rpm \
+        httpd>httpd-suexec \
+        php>php-pear \
+        gnome-python2>gnome-python2-bonobo \
+        openoffice.org-libs>openoffice.org \
+        gtk+>gdk-pixbuf \
+        nautilus>nautilus-cd-burner
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
