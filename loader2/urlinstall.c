@@ -373,13 +373,13 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     char *url;
     poptContext optCon;
     int rc;
-    struct poptOption ksHDOptions[] = {
+    struct poptOption ksUrlOptions[] = {
         { "url", '\0', POPT_ARG_STRING, &url, 0 },
         { 0, 0, 0, 0, 0 }
     };
 
     logMessage("kickstartFromUrl");
-    optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksUrlOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to Url kickstart method "
