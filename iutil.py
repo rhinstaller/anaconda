@@ -42,7 +42,9 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     childpid = os.fork()
     if (not childpid):
-        if (root and root != '/'): isys.chroot (root)
+        if (root and root != '/'): 
+	    isys.chroot (root)
+	    os.chdir("/")
 
 	if ignoreTermSigs:
 	    signal.signal(signal.SIGTSTP, signal.SIG_IGN)
