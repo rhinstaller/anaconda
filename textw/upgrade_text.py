@@ -220,10 +220,10 @@ class UpgradeExamineWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
         else:
-            if choice >= len(parts):
+            if choice == len(parts):
                 root = None
             else:
-                root = parts[choice]
+                root = parts[choice - 1]
 
         if root is not None:
             c = UpgradeClass(flags.expert)
