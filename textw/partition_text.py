@@ -786,6 +786,13 @@ class PartitionWindow:
             else:
                 request.format = 0
 
+            if request.raidlevel == "RAID0" and request.raidspares > 0:
+                self.intf.messageWindow(_("Too many spares"),
+                                          _("The maximum number of spares with "
+                                          "a RAID0 array is 0."))
+                continue
+                
+
             err = sanityCheckRaidRequest(self.partitions, request)
             if err:
                 self.intf.messageWindow(_("Error With Request"),

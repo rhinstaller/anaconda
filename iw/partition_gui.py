@@ -386,6 +386,9 @@ def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     
     if defindex:
         leveloption.set_history(defindex)
+
+    if reqlevel and reqlevel == "RAID0":
+        sparesb.set_sensitive(0)
         
     return (leveloption, leveloptionmenu)
 
@@ -432,7 +435,7 @@ def raidlevelchangeCB(widget, sparesb):
     raidlevel = widget.get_data("level")
     numparts = sparesb.get_data("numparts")
     maxspares = get_raid_max_spares(raidlevel, numparts)
-    if maxspares > 0:
+    if maxspares > 0 and raidlevel != "RAID0":
         sparesb.set_sensitive(1)
         adj = sparesb.get_adjustment()
         value = adj.value
@@ -443,6 +446,7 @@ def raidlevelchangeCB(widget, sparesb):
                     adj.page_size)
         sparesb.set_adjustment(adj)
         sparesb.set_value(value)
+        
     else:
         sparesb.set_value(0)
         sparesb.set_sensitive(0)
