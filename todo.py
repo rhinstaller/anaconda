@@ -349,6 +349,7 @@ class ToDo:
         self.auth = Authentication ()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
+#        self.bdstate = ""
 
         log.open (serial, reconfigOnly, test)
 
@@ -373,7 +374,7 @@ class ToDo:
 	self.fdDevice = None
 
         # If reconfig mode, don't probe floppy
-        print self.reconfigOnly
+        #print self.reconfigOnly
         if self.reconfigOnly != 1:
             self.setFdDevice()
         
