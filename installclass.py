@@ -159,6 +159,10 @@ class InstallClass:
     def setKeyboard(self, kb):
 	self.keyboard = kb
 
+    def setPostScript(self, postScript, inChroot = 1):
+	self.postScript = postScript
+	self.postInChroot = inChroot
+
     def __init__(self):
 	self.skipSteps = {}
 	self.hostname = None
@@ -186,6 +190,8 @@ class InstallClass:
 	self.mouse = None
 	self.x = None
 	self.defaultRunlevel = None
+	self.postScript = None
+	self.postInChroot = 0
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):

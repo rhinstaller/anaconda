@@ -241,14 +241,43 @@ class Kickstart(InstallClass):
 		     "zerombr"		: self.doZeroMbr	,
 		   }
 
+	where = "commands"
+	packages = []
+	groups = []
+	post = ""
+	postInChroot = 1
 	for n in open(file).readlines():
-	    n = n[:len(n) - 1]	    # chop
+	    if where == "post":
+		post = post + n
+	    else:
+		n = n[:len(n) - 1]	    # chop
 
-	    args = isys.parseArgv(n)
-	    if not args or args[0][0] == '#': continue
+		args = isys.parseArgv(n)
+		if not args or args[0][0] == '#': continue
 
-	    cmd = args[0]
-	    if handlers[cmd]: handlers[cmd](args[1:])
+		if where == "commands":
+		    cmd = args[0]
+		    if cmd == "%packages":
+			where = "packages"
+		    elif handlers[cmd]: 
+			handlers[cmd](args[1:])
+		elif where == "packages":
+		    if n[0:5] == "%post":
+			args = isys.parseArgv(n)
+			if len(args) >= 2 and args[1] == "--nochroot":
+			    postInChroot = 0
+			where = "post"
+		    elif n[0] == '@':
+			n = n[1:]
+			while n[0] == ' ':
+			    n = n[1:]
+			groups.append(n)
+		    else:
+			packages.append(n)
+
+	self.setGroups(groups)
+	self.setPackages(packages)
+	self.setPostScript(post, postInChroot)
 
     def doClearPart(self, args):
 	if args[0] == '--linux':
@@ -292,7 +321,7 @@ class Kickstart(InstallClass):
 	self.readKickstart(file)
 
 	self.setGroups(["Base"])
-	self.addToSkipList("package-selection")
+	#self.addToSkipList("package-selection")
 
         # need to take care of:
 	#[ "lilo", "mouse", "network", "complete",

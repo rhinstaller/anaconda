@@ -701,7 +701,7 @@ class ToDo:
 	# don't load it just for this
 	if (not self.comps): return
 	group = self.instClass.getGroups()
-	packages = self.instClass.getGroups()
+	packages = self.instClass.getPackages()
 	if (group == None and packages == None): return 0
 	for n in self.comps.keys():
 	    self.comps[n].unselect(0)
@@ -711,9 +711,9 @@ class ToDo:
 	    for n in group:
 		self.comps[n].select(1)
 
-	#if packages:
-	    #for n in packages:
-		#self.selectPackage(n)
+	if packages:
+	    for n in packages:
+		self.selectPackage(n)
 
 	if self.x.server:
 	    self.selectPackage('XFree86-' + self.x.server)
@@ -1159,6 +1159,24 @@ class ToDo:
             self.setDefaultRunlevel ()
         
 	self.installLilo ()
+
+	if self.instClass.postScript:
+	    if self.instClass.postInChroot:
+		path = self.instPath + "/tmp/ks-script"
+	    else:
+		path = "/tmp/ks-script"
+
+	    f = open(path, "w")
+	    f.write("#!/bin/bash\n\n")
+	    f.write(self.instClass.postScript)
+	    f.close()
+
+	    if self.instClass.postInChroot:
+		iutil.execWithRedirect (path, [path], root = self.instPath)
+	    else:
+		iutil.execWithRedirect (path, [path])
+				    
+	    os.unlink(path)
 
 	del syslog
         
