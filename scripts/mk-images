@@ -40,6 +40,12 @@ TOPDIR=$(cd $TOPDIR; pwd)
 	KERNELNAME=vmlinuz
 	KERNELARCH=$BUILDARCH
     fi
+
+    if [ "$BUILDARCH" = "ia64" ]; then
+	KERNELDIR="/boot/efi/efi/redhat"
+    else
+	KERNELDIR="/boot"
+    fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
 	BASEARCH=sparc
@@ -638,7 +644,7 @@ makebootdisk() {
 
     if [ -n "$EXTRAKERNELPATH" ]; then
 	mkdir -p `dirname $EXTRAKERNELPATH`
-	cp -f $KERNELROOT/boot/${KERNELNAME}-* $EXTRAKERNELPATH
+	cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
     fi
 
     mkdir -p `dirname $MBD_FILENAME`
@@ -866,8 +872,8 @@ for kernelvers in $vertag; do
 	usage
     fi
 
-    if [ ! -f "$KERNELROOT/boot/${KERNELNAME}-$version" ]; then
-	echo "$KERNELROOT/boot/${KERNELNAME}-$version does not exist"
+    if [ ! -f "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version" ]; then
+	echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
 	usage
     fi
 
