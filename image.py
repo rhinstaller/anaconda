@@ -5,6 +5,8 @@ from installmethod import InstallMethod
 import iutil
 import os
 import isys
+import string
+from translate import _
 
 class ImageInstallMethod(InstallMethod):
 
@@ -24,18 +26,38 @@ class ImageInstallMethod(InstallMethod):
 class CdromInstallMethod(ImageInstallMethod):
 
     def systemMounted(self, fstab, mntPoint):
+	self.mntPoint = mntPoint
 	target = "%s/rhinstall-stage2.img" % mntPoint
-	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, target)
+	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, target,
+			(self.progressWindow, _("Copying File"),
+			_("Transferring install image to hard drive...")))
 	isys.makeDevInode("loop0", "/tmp/loop")
 	isys.lochangefd("/tmp/loop", target)
 
+    def getFilename(self, h):
+	if h[1000002] != self.currentDisc:
+	    self.currentDisc = h[1000002]
+	    isys.makeDevInode(self.device, "/tmp/cdrom")
+	    isys.umount("/mnt/source")
+	    #isys.eject("/tmp/cdrom")
+	    self.messageWindow(_("Change CDROM"), 
+		    _("Please insert disc %d to continue.") % self.currentDisc)
+	    isys.mount("/tmp/cdrom", "/mnt/source", fstype = "iso9660",
+		       readOnly = 1)
+
+	return self.tree + "/RedHat/RPMS/" + h[1000000]
+
     def filesDone(self):
 	# this isn't the exact right place, but it's close enough
-	target = "%s/rhinstall-stage2.img" % mntPoint
+	target = "%s/rhinstall-stage2.img" % self.mntPoint
 	os.unlink(target)
 
-    def __init__(self, tree):
-	ImageInstallMethod.__init__(self, tree)
+    def __init__(self, url, messageWindow, progressWindow):
+	(self.device, tree) = string.split(url, "/", 1)
+	self.messageWindow = messageWindow
+	self.progressWindow = progressWindow
+	self.currentDisc = 1
+	ImageInstallMethod.__init__(self, "/" + tree)
 
 class NfsInstallMethod(ImageInstallMethod):
 
