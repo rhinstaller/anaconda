@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-03-17 13:31-0500\n"
-"PO-Revision-Date: 2001-03-17 09:09+0900\n"
+"PO-Revision-Date: 2001-03-20 03:24+0900\n"
 "Last-Translator: Jong-Hoon Ryu <queenrjh@chollian.net>\n"
 "Language-Team: Korean Linux Extension project <kle@kldp.org>\n"
 "MIME-Version: 1.0\n"
@@ -1408,7 +1408,7 @@ msgstr "루트 파일시스템이 있는 장치를 선택해 주십시요: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr ""
+msgstr "레드햇 리눅스가 설치되어 있는 파티션을 업그레이드 하고 있습니다: /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1910,6 +1910,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"파티션을 설정하기 위한 유형을 선택해 주십시요.\n"
+"\n"
+"%s\n"
+"\n"
+"수동 파티션 설정을 선택하시면, 여러분이 직접 파티션을 설정하실 수 있습니다."
 
 #: ../iw/rootpartition_gui.py:384
 msgid "Automatic Partitioning Failed"
@@ -2115,7 +2120,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "스왑 파일은 '2 GB' 한도 내에서 지정하셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
@@ -2574,6 +2579,11 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"자동 파티션 설정을 원하지 않으신다면, 수동으로 파티션을 설정하시거나, 이전 "
+"화면의 '사용자 설치' 를 선택하여 여러분이 원하시는 사항으로 설정하시기 "
+"바랍니다."
 
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
 msgid "Continue"
@@ -2858,6 +2868,7 @@ msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
 msgstr ""
+"자동 파티션 설정은 기존에 설치되어 있는 모든 리눅스 시스템을 삭제합니다."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2872,6 +2883,8 @@ msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
 msgstr ""
+"자동 파티션 설정은 리눅스를 설치하기 위해 여러분 시스템의 하드 드라이브 상에 "
+"있는 모든 자료를 전부 삭제합니다."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
