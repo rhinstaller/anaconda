@@ -26,6 +26,7 @@ import fsset
 import os
 from translate import _
 from log import log
+from flags import flags
 
 # different types of partition requests
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
@@ -767,9 +768,10 @@ class DiskSet:
         for drive in self.driveList ():
             if drive in DiskSet.skippedDisks:
                 continue
-	    deviceFile = '/dev/' + drive
-	    if not os.access(deviceFile, os.R_OK):
-		deviceFile = isys.makeDevInode(drive)
+            deviceFile = isys.makeDevInode(drive)
+            if isys.driveIsRemovable(drive) and not flags.expert:
+                DiskSet.skippedDisks.append(drive)
+                continue
             try:
                 dev = parted.PedDevice.get (deviceFile)
             except parted.error, msg:
