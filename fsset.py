@@ -1068,9 +1068,11 @@ class FileSystemSet:
 
     def makeFilesystems (self, chroot='/'):
         formatted = []
+        notformatted = []
         for entry in self.entries:
             if (not entry.fsystem.isFormattable() or not entry.getFormat()
                 or entry.isMounted()):
+                notformatted.append(entry)
                 continue
             try:
                 self.formatEntry(entry, chroot)
@@ -1092,6 +1094,17 @@ class FileSystemSet:
             except SystemError:
                 # should be OK, we'll still use the device name to mount.
                 pass
+
+        # go through and have labels for the ones we don't format
+        for entry in notformatted:
+            dev = entry.device.getDevice()
+            if not dev or dev == "none":
+                continue
+            label = isys.readExt2Label(dev)
+            if label:
+                entry.setLabel(label)
+            else:
+                self.labelEntry(entry, chroot)
 
     def haveMigratedFilesystems(self):
         return self.migratedfs
