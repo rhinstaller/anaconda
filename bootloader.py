@@ -415,7 +415,6 @@ def makeInitrd (kernelTag, instRoot):
 def grubbyDiskName(name):
     drives = isys.hardDriveDict().keys()
     drives.sort (isys.compareDrives)
-    print name
 
     return "hd%d" % drives.index(name)
 
