@@ -99,7 +99,7 @@ class MouseWindow(InstallWindow):
         # go though and find all the makes that have more than 1 mouse
         toplevels = {}
         for key, value in self.availableMice.items():
-            make = string.split(_(key), ' - ')[0]
+            make = string.split(key, ' - ')[0]
             if toplevels.has_key(make):
                 toplevels[make] = toplevels[make] + 1
             else:
@@ -117,7 +117,7 @@ class MouseWindow(InstallWindow):
                 
         # now go and add each child node
         for key, value in self.availableMice.items():
-            fields = string.split(_(key), ' - ')
+            fields = string.split(key, ' - ')
             make = fields[0]
             model = fields[1]
             parent = toplevels.get(make)
