@@ -171,7 +171,7 @@ class BaseInstallClass:
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         cmdline = open("/proc/cmdline", "r").read()
-        if cmdline.find("upgrade") == -1:
+        if cmdline.find("upgrade") == -1 or iutil.getArch() != "i386":
             dispatch.skipStep("findrootparts")
 
         # if there's only one install class, it doesn't make much sense
