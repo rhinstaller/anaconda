@@ -938,7 +938,7 @@ class FileSystemSet:
                                  fileSystemTypeGet("devpts"), "gid=5,mode=620")
         self.add(pts)
         shm = FileSystemSetEntry(Device(), '/dev/shm', fileSystemTypeGet("tmpfs"))
-	self.add(shm)
+        self.add(shm)
 
     def verify (self):
         for entry in self.entries:
