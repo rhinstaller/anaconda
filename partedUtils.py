@@ -117,6 +117,11 @@ def get_partition_name(partition):
         or partition.geom.dev.type == parted.DEVICE_CPQARRAY):
         return "%sp%d" % (partition.geom.dev.path[5:],
                           partition.num)
+    if (parted.__dict__.has_key("DEVICE_SX8") and
+        partition.geom.dev.type == parted.DEVICE_SX8):
+        return "%sp%d" % (partition.geom.dev.path[5:],
+                          partition.num)
+                          
     return "%s%d" % (partition.geom.dev.path[5:],
                      partition.num)
 
@@ -1099,5 +1104,6 @@ max_logical_partition_count = {
     "cciss/": 11,
     "i2o/": 11,
     "iseries/vd": 3,
-    "ida/": 11
+    "ida/": 11,
+    "sx8/": 11,
 }

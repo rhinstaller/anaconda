@@ -1,12 +1,19 @@
 2004-12-14  Jeremy Katz  <katzj@redhat.com>
 
+	* command-stubs/mknod-stub (main): Add 
+	* partedUtils.py (get_partition_name): 
+	* iutil.py (makeDriveDeviceNodes): 
+	* fsset.py (prepbootFileSystem.getDiskPart): 
+	Promise SX8 devices are of the form /dev/sx8/dpn; support this as 
+	needed.
+
 	* loader2/driverdisk.c (useKickstartDD): Add support for 
 	biosdev in driverdisk directive.  Patch basically from Rez Kabir
 	AT dell (#142738)
 
 2004-12-14  Paul Nasrat  <pnasrat@redhat.com>
 
-	* lvm.py: LVM on RAID - (#141781)
+	* lvm.py: LVM on RAID1 - (#141781)
 
 2004-12-09  Jeremy Katz  <katzj@redhat.com>
 
