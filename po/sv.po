@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-01-19 10:09-0500\n"
-"PO-Revision-Date: 2001-01-19 11:16+0100\n"
+"PO-Revision-Date: 2001-01-21 20:30+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
-"Följande partitioner har skapats, men du har valt att inte formatera dem. "
+"Följande partitioner är nyskapade, men du har valt att inte formatera dem. "
 "Detta kommer troligtvis att orsaka ett fel senare under installationen.\n"
 "\n"
 
@@ -221,7 +221,7 @@ msgstr "Utgåvenoteringar"
 
 #: ../gui.py:558
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Kan inte läsa in fil!"
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -285,15 +285,15 @@ msgstr "Detta är inte rätt Red Hat-cd."
 
 #: ../image.py:139
 msgid "The CDROM could not be mounted."
-msgstr "cdromskivan kunde inte monteras."
+msgstr "Cdromskivan kunde inte monteras."
 
 #: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "VARNING: inga giltiga blockenheter hittades.\n"
 
 #: ../rescue.py:28
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "FEL: ett okänt fel inträffade vid läsning av partitionstabeller.\n"
 
 #: ../rescue.py:54
 msgid "System to Rescue"
@@ -447,9 +447,8 @@ msgid "Default Language"
 msgstr "Standardspråk"
 
 #: ../text.py:206
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Välj standardspråket:"
+msgstr "Välj standardspråket: "
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -652,7 +651,7 @@ msgstr ""
 "\n"
 "Tryck enter för att starta om och se till att ta bort ditt bootmedium när "
 "systemet startar om, annars kommer installationsprogrammet att startas igen. "
-"Ta en titt på fellistan (som du hittar på http://www.redhat.com/errata) för "
+"Ta en titt på fellistan, som du hittar på http://www.redhat.com/errata, för "
 "information om vilka uppdateringar som finns för denna utgåva av Red Hat "
 "Linux.\n"
 "\n"
@@ -1006,8 +1005,8 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
-"Filen %s kan inte öppnas. Detta kan bero på att filen saknas, att ett paket "
-"saknas, eller felaktigt medium. Tryck <Enter> för att försöka igen."
+"Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
+"paket, eller felaktigt medium. Tryck <Enter> för att försöka igen."
 
 #: ../todo.py:1642
 #, c-format
@@ -1035,7 +1034,7 @@ msgstr "Monteringspunkt"
 
 #: ../todo.py:1692
 msgid "Space Needed"
-msgstr "Utrymme som behövs"
+msgstr "Nödvändigt utrymme"
 
 #: ../todo.py:1705
 msgid ""
@@ -1131,7 +1130,7 @@ msgid ""
 msgstr ""
 "Din mus kunde inte upptäckas automatiskt. För att kunna fortsätta "
 "installationen måste du fortsätta till nästa skärm och ange informationen om "
-"din mus. Du kan också använda textlägesinstallationen, som inte kräver en "
+"din mus. Du kan också använda textlägesinstallationen, som inte kräver någon "
 "mus."
 
 #: ../xserver.py:33 ../xserver.py:34
@@ -1896,7 +1895,7 @@ msgstr ""
 "troligtvis inte att kunna startas om i Linux.\n"
 "\n"
 "Om du väljer att fortsätta är det VARMT rekommenderat att du skapar en "
-"bootdiskett när du efterfrågas detta. Det garanterar att du har en möjlighet "
+"bootdiskett när du frågas om detta. Det garanterar att du har en möjlighet "
 "att starta systemet efter installationen.\n"
 "\n"
 "Är du säker på att du vill fortsätta?"
@@ -2948,7 +2947,7 @@ msgid ""
 msgstr ""
 "Du har försökt knyta \"/\"-monteringspunkten till en FAT-liknande "
 "partitition. Du kan inte göra det nu eftersom monteringspunkter även har "
-"knytits till ext2-partitioner. Ta bort de monteringspunkterna, så kan du "
+"knutits till ext2-partitioner. Ta bort de monteringspunkterna, så kan du "
 "sedan knyta \"/\" till denna partition."
 
 #: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
@@ -3283,7 +3282,7 @@ msgstr "Begärt"
 
 #: ../libfdisk/gnomefsedit.c:3036
 msgid "Actual"
-msgstr "Verklig"
+msgstr "Faktisk"
 
 #: ../libfdisk/gnomefsedit.c:3209
 msgid "Drive"
@@ -3384,7 +3383,7 @@ msgstr "Nuvarande diskpartitioner"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr "   Monteringspunkt      Enhet      Begärt      Verklig        Typ"
+msgstr "   Monteringspunkt      Enhet      Begärt      Faktisk        Typ"
 
 #: ../libfdisk/newtfsedit.c:1488
 msgid ""
