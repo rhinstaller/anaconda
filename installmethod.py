@@ -1,5 +1,8 @@
 class InstallMethod:
 
+    def protectedDevices(self):
+        return None
+
     def readComps(self, hdlist):
 	pass
 

@@ -60,6 +60,10 @@ class Fstab:
             for (mntpoint, (dev, fstype, reformat)) in prefstab:
                 fstab.append ((dev, mntpoint))
 
+        # if doing a harddrive install mark source partition so it isnt erased
+        for i in self.protectList:
+            fstab.append ((i, "DONT ERASE "+i))
+
 	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
 
         # skip out here if not partitions defined, just onpart def's
@@ -99,7 +103,7 @@ class Fstab:
             for (mntpoint, sizespce, locspec, typespec, fsopts) in partitions:
                 if fsopts != None:
                     self.setfsOptions (mntpoint, fsopts)
-            
+
             return ddruid
         else:
             return None
@@ -480,7 +484,11 @@ class Fstab:
 	    labels[label] = 1
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
-	    if not doFormat: continue
+	    if not doFormat:
+                continue
+            for i in self.protectList:
+                if i == device:
+                    continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
 		label = createLabel(labels, mntpoint)
@@ -604,6 +612,8 @@ class Fstab:
 	f = open (prefix + "/etc/fstab", "w")
 	labels = self.readLabels()
 	for (mntpoint, dev, fs, reformat, size) in self.mountList():
+            if mntpoint[:10] == 'DONT ERASE':
+                continue
 	    if fs == "vfat" and mntpoint == "/":
 		f.write("# LOOP0: /dev/%s %s /redhat.img\n" % (dev, fs))
 		dev = "loop0"
@@ -762,10 +772,12 @@ class Fstab:
 
     def __init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
 		 readOnly, waitWindow, messageWindow, progressWindow,
-		 ignoreRemovable):
+		 ignoreRemovable, protected):
+
 	self.fsedit = fsedit
 	self.fsCache = {}
         self.clearfsOptions()
+        self.protectList = protected
 	self.swapOn = 0
 	self.supplementalRaid = []
 	self.beenSaved = 1
@@ -816,13 +828,13 @@ class GuiFstab(Fstab):
 	self.beenSaved = 0
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
-		 messageWindow, progressWindow, ignoreRemovable):
+		 messageWindow, progressWindow, ignoreRemovable, protected):
 	from gnomepyfsedit import fsedit        
 	from gtk import *
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow, 
-		       progressWindow, ignoreRemovable)
+		       progressWindow, ignoreRemovable, protected)
 
 	self.GtkFrame = GtkFrame
         self.GtkAccelGroup = GtkAccelGroup
@@ -832,12 +844,12 @@ class GuiFstab(Fstab):
 class NewtFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
-		 messageWindow, progressWindow, ignoreRemovable):
+		 messageWindow, progressWindow, ignoreRemovable, protected):
 	from newtpyfsedit import fsedit        
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
 		       readOnly, waitWindow, messageWindow, progressWindow, 
-		       ignoreRemovable)
+		       ignoreRemovable, protected)
 
 def readFstab (path, fstab):
     loopIndex = {}

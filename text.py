@@ -225,11 +225,12 @@ class InstallPathWindow:
         # this is (probably) the first place todo.fstab gets created
         if not showScreen:
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-				       todo.serial, 0, 0,
-				       todo.intf.waitWindow,
-				       todo.intf.messageWindow,
-				       todo.intf.progressWindow,
-                                       not todo.expert)
+                                   todo.serial, 0, 0,
+                                   todo.intf.waitWindow,
+                                   todo.intf.messageWindow,
+                                   todo.intf.progressWindow,
+                                   not todo.expert,
+                                   todo.method.protectedDevices())
 	    return INSTALL_NOOP
 
 	classes = installclass.availableClasses()
@@ -281,11 +282,12 @@ class InstallPathWindow:
 
 	if needNewDruid or not todo.fstab:
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-				       todo.serial, 0, 0,
-				       todo.intf.waitWindow,
-				       todo.intf.messageWindow,
-				       todo.intf.progressWindow,
-                                       not todo.expert)
+                                   todo.serial, 0, 0,
+                                   todo.intf.waitWindow,
+                                   todo.intf.messageWindow,
+                                   todo.intf.progressWindow,
+                                   not todo.expert,
+                                   todo.method.protectedDevices())
 
         return INSTALL_OK
 
@@ -297,11 +299,13 @@ class UpgradeExamineWindow:
 	    if todo.fstab:
 		todo.fstab.turnOffSwap()
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-				       todo.serial, 0, 0,
-				       todo.intf.waitWindow,
-				       todo.intf.messageWindow,
-				       todo.intf.progressWindow,
-                                       not todo.expert)
+                                   todo.serial, 0, 0,
+                                   todo.intf.waitWindow,
+                                   todo.intf.messageWindow,
+                                   todo.intf.progressWindow,
+                                   not todo.expert,
+                                   todo.method.protectedDevices())
+
 	    return INSTALL_NOOP
 
         parts = todo.upgradeFindRoot ()

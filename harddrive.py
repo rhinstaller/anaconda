@@ -71,6 +71,11 @@ class HardDriveInstallMethod(InstallMethod):
     def filesDone(self):
 	self.umountMedia()
 
+    def protectedDevices(self):
+        rc = []
+        rc.append(self.device)
+        return rc
+    
     def __init__(self, device, type, path):
 	InstallMethod.__init__(self)
 	self.device = device
@@ -78,4 +83,5 @@ class HardDriveInstallMethod(InstallMethod):
 	self.fstype = type
 	self.fnames = {}
         self.isMounted = 0
+        
         
