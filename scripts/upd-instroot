@@ -104,7 +104,7 @@ mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
-	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
+	 libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm
 	 procps rpm XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
@@ -173,7 +173,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less man
-                mdadm modutils mtools mt-st mtr net-tools open 
+                modutils mtools mt-st mtr net-tools open 
                 openssh openssh-clients pciutils rsh traceroute tar"
 
 if [ $ARCH = i386 ]; then
