@@ -200,7 +200,7 @@ int isVioConsole(void) {
     isviocons = 0;
     start = buf;
     while (start && *start) {
-	if (sscanf(start, "%s %s", &driver, &device) == 2) {
+	if (sscanf(start, "%s %s", (char *) &driver, (char *) &device) == 2) {
 	    if (!strcmp(driver, "vioconsole") && !strcmp(device, "/dev/tty")) {
 		isviocons = 1;
 		break;
