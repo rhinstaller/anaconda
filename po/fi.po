@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2005-02-05 14:14+0200\n"
+"PO-Revision-Date: 2005-02-13 14:42+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
@@ -594,11 +594,10 @@ msgstr ""
 msgid "Completed"
 msgstr "Valmiina"
 
-#
 # ../iw/progress_gui.py:228
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr "edistyminen...   "
+msgstr "Edistyminen...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
@@ -611,7 +610,7 @@ msgstr "Parted-poikkeuksia ei voida käsitellä komentorivitilassa!"
 #: ../cmdline.py:132
 #, python-format
 msgid "Done [%d/%d]"
-msgstr "Tehty [%d/%d]"
+msgstr "Valmis [%d/%d]"
 
 # ../packages.py:524
 #: ../cmdline.py:138
@@ -698,15 +697,15 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Etäkirjautuminen (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "WWW-palvelin (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Tiedostonsiirto (FTP)"
 
 # ../textw/firewall_text.py:103
 #: ../firewall.py:58
@@ -1060,7 +1059,7 @@ msgstr ""
 
 #: ../fsset.py:2214
 msgid "Duplicate Labels"
-msgstr "Kahdenna nimiöt"
+msgstr "Kaksoisnimiö"
 
 #: ../fsset.py:2215
 #, python-format
@@ -1199,7 +1198,7 @@ msgstr "Jätä huomiotta"
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
 #: ../loader2/loader.c:299
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "Peru"
 
 #: ../gui.py:722 ../text.py:284
 #, python-format
@@ -1208,6 +1207,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Kickstart-asetuksia jäsennettäessä löytyi seuraava virhe:\n"
+"\n"
+"%s"
 
 # ../loader/kickstart.c:59
 #: ../gui.py:724 ../text.py:286
@@ -1287,7 +1289,7 @@ msgstr "_Uudelleen"
 
 #: ../gui.py:1180 ../packages.py:1554
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Asennusohjelma suljetaan..."
 
 #: ../gui.py:1183 ../packages.py:1557
 msgid "Your system will now be rebooted..."
@@ -1360,7 +1362,7 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"CD-levyä ei voitu irrottaa. Varmista, ettet ole varannut %s komentotulkissa "
+"CD-levyä ei voitu irrottaa. Varmista, ettet käytä hakemistoa %s komentorivillä "
 "virtuaalikonsolilla 2 ja valitse OK, jolloin irrotusta yritetään uudelleen."
 
 # ../image.py:62
@@ -1406,7 +1408,7 @@ msgstr "Asemassa ei ole oikeata %s -levyä."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "CD-aseman käyttäminen ei onnistu."
 
 #: ../installclass.py:61
 msgid "Install on System"
@@ -1514,6 +1516,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"Asennuspuun comps-tiedostosta puuttuu ratkaisevan tärkeitä ryhmiä. "
+"Varmista, että asennuspuu on luotu oikein."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1900,7 +1904,7 @@ msgstr ""
 # ../partitioning.py:1493
 #: ../partedUtils.py:1018 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
-msgstr "Levyjä ei löytynyt"
+msgstr "Asemia ei löytynyt"
 
 # ../partitioning.py:1494
 #: ../partedUtils.py:1019
@@ -2499,7 +2503,7 @@ msgstr ""
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 #: ../rescue.py:262 ../rescue.py:331 ../rescue.py:339 ../rescue.py:413
 msgid "Rescue"
-msgstr "Pelasta"
+msgstr "Pelastus"
 
 # ../rescue.py:91
 #: ../rescue.py:263
@@ -2890,6 +2894,9 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"X:ää ei voitu käynnistää tällä koneella. Haluatko käynnistää VNC:n, jota "
+"käyttäen tälle koneelle voidaan ottaa yhteys toiselta koneelta graafista "
+"asennusta varten, vai jatketaanko asennusta tekstitilassa?"
 
 #: ../vnc.py:62 ../vnc.py:65
 msgid "Use text mode"
@@ -2915,6 +2922,8 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Salasana estää luvattomia käyttäjiä yhdistämästä ja seuraamasta asennusta. "
+"Anna asennuksessa käytettävä salasana"
 
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
@@ -2959,6 +2968,11 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
+"zSeries-sarjan koneet voivat käyttää teollisuusstandardin mukaisia SCSI-"
+"laitteita kuitukanavan (FCP) kautta. Jokainen laite tarvitsee viisi "
+"parametria: 16-bittisen laitenumeron, 16-bittisen SCSI ID:n, 64-bittisen "
+"\"maailmanlaajuisen porttinimen\" (WWPN), 16-bittisen SCSI LUN:in sekä "
+"64-bittisen FCP LUN:in."
 
 # ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
 # ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
@@ -3800,6 +3814,10 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"\"Security Enhanced Linux\" (SELinux) tarjoaa yksityiskohtaisemmat "
+"turvallisuusasetukset kuin mitä on tarjolla perinteisissä Linux-"
+"järjestelmissä. SELinuxin voi jättää pois käytöstä, asettaa varoittamaan "
+"asioista, jotka olisi estetty, tai sen voi asettaa aktiiviseen tilaan."
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
@@ -5900,6 +5918,7 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Olet poistamassa kokoonpanosta FCP-levyä. Haluatko varmasti jatkaa?"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
@@ -6379,6 +6398,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Haluat ehkä sallia pääsyn tämän koneen tiettyihin palveluihin palomuurin "
+"läpi. Mihin palveluihin sallitaan pääsy?"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -9527,7 +9548,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
