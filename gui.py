@@ -142,7 +142,7 @@ class InstallInterface:
     def popWaitWindow(self, window):
 	window.destroy()
 
-    def run(self, hdlist):
+    def run(self, hdlist, rootPath):
         rc_parse("gtkrc")
 
         steps = [
