@@ -385,7 +385,7 @@ static void rpmdbDealloc(rpmdbObject * s) {
 static PyObject * rpmdbFirst(rpmdbObject * s, PyObject * args) {
     int first;
 
-    if (!PyArg_Parse(args, "")) return NULL;
+    if (!PyArg_ParseTuple(args, "")) return NULL;
 
     first = rpmdbFirstRecNum(s->db);
 
@@ -400,7 +400,7 @@ static PyObject * rpmdbFirst(rpmdbObject * s, PyObject * args) {
 static PyObject * rpmdbNext(rpmdbObject * s, PyObject * args) {
     int where;
 
-    if (!PyArg_Parse(args, "i", &where)) return NULL;
+    if (!PyArg_ParseTuple(args, "i", &where)) return NULL;
 
     where = rpmdbNextRecNum(s->db, where);
 
@@ -809,7 +809,7 @@ static int rpmtransSetAttr(rpmtransObject * o, char * name,
     int i;
 
     if (!strcmp(name, "scriptFd")) {
-	if (!PyArg_Parse(val, "i", &i)) return 0;
+	if (!PyArg_ParseTuple(val, "i", &i)) return 0;
 	if (i < 0) {
 	    PyErr_SetString(PyExc_TypeError, "bad file descriptor");
 	    return -1;
@@ -923,7 +923,7 @@ static void * tsCallback(const Header h, const rpmCallbackType what,
     }
 
     if (what == RPMCALLBACK_INST_OPEN_FILE) {
-        if (!PyArg_Parse(result, "i", &fd)) {
+        if (!PyArg_ParseTuple(result, "i", &fd)) {
 	    cbInfo->pythonError = 1;
 	    return NULL;
 	}
