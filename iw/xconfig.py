@@ -94,6 +94,9 @@ class XConfigWindow (InstallWindow):
         self.didTest = 0
 
     def getNext (self):
+	if not self.skip.get_active():
+	    self.todo.selectPackage('XFree86-' + self.todo.x.server)
+
         if self.custom.get_active () and not self.skip.get_active ():
             return XCustomWindow
         return None

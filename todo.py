@@ -657,13 +657,25 @@ class ToDo:
 	# don't load it just for this
 	if (not self.comps): return
 	group = self.instClass.getGroups()
-	if (group == None): return 0
+	packages = self.instClass.getGroups()
+	if (group == None and packages == None): return 0
 	for n in self.comps.keys():
 	    self.comps[n].unselect(0)
 
 	self.comps['Base'].select(1)
-	for n in group:
-	    self.comps[n].select(1)
+	if group:
+	    for n in group:
+		self.comps[n].select(1)
+
+	if packages:
+	    for n in packages:
+		self.hdlist[n].selected = 1
+
+	if self.x.server:
+	    self.hdlist['XFree86-' + self.x.server].selected = 1
+
+    def selectPackage(self, package):
+	self.hdlist[package].selected = 1
 
     def writeNetworkConfig (self):
         # /etc/sysconfig/network-scripts/ifcfg-*
