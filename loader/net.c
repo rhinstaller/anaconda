@@ -214,6 +214,35 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
     newtEntrySetFlags(c->nsEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
 }
 
+static int getDnsServers(struct networkDeviceConfig * cfg) {
+    int rc;
+    char * ns = NULL;
+    struct newtWinEntry entry[] = { { N_("Nameserver IP"), &ns, 0 },
+				      { NULL, NULL, 0 } };
+
+    do {
+	rc = newtWinEntries(_("Nameserver"), 
+		_("Your dynamic IP request returned IP configuration "
+		  "information, but it did not include a DNS nameserver. "
+		  "If you know what your nameserver is, please enter it "
+		  "now. If you don't have this information, you can leave "
+		  "this field blank and the install will continue."),
+		40, 5, 10, 25, entry, _("OK"), _("Back"));
+
+	if (rc == 2) return LOADER_BACK;
+
+	if (entry->value && !inet_aton(ns, &cfg->dev.dnsServers[0])) {
+	    newtWinMessage(_("Invalid IP Information"), _("Retry"),
+			_("You entered an invalid IP address."));
+	    rc = 2;
+	} 
+
+	cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+    } while (rc != 2);
+
+    return LOADER_OK;
+}
+
 int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
@@ -345,8 +374,14 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	    }
 
 	    if (!chptr) {
-		i = 2; 
 		newCfg.isDynamic = 1;
+		if (!(newCfg.dev.set & PUMP_NETINFO_HAS_DNS)) {
+		    logMessage("pump worked, but didn't return a DNS server");
+		    i = getDnsServers(&newCfg);
+		    i = i ? 0 : 2;
+		} else {
+		    i = 2; 
+		}
 	    } else {
 		logMessage("pump told us: %s", chptr);
 		i = 0;
