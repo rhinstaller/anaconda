@@ -358,7 +358,6 @@ int chooseLanguage(char ** lang, int flags) {
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
     for (i = 0; i < numLanguages; i++) {
-        printf("foo\n");
         if (!strncmp(languages[i].key, "en", 2))
             english = numLangs;
         if (currentLangName &&
