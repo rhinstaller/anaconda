@@ -746,19 +746,12 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
     int fd, size;
     PyObject * ret;
     struct fb_fix_screeninfo fix;
-    static int vidRam[8], idx = -1;
+    struct fb_var_screeninfo var;
+    char vidres[1024], vidmode[40];
+    int depth = 0;
 
     if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
     
-    /* Cache the results, because after X is fired off
-       the device may be busy */
-    if (!strncmp (path, "/dev/fb", 7) && path[7] >= '0' &&
-    	path[7] <= '7') {
-	idx = path[7] - '0';
-	if (vidRam[idx])
-	    return Py_BuildValue("i", vidRam[idx]);
-    }
-
     if ((fd = open (path, O_RDONLY)) < 0) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
@@ -770,6 +763,57 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
 	return NULL;
     }
 
+    vidres[0] = 0;    
+    if (ioctl(fd, FBIOGET_VSCREENINFO, &var) >= 0 && var.pixclock) {
+	int x[4], y[4], vtotal, laced = 0, dblscan = 0;
+	char *p;
+	double drate, hrate, vrate;
+	depth = var.bits_per_pixel;
+	sprintf(vidmode, "%dx%d", var.xres, var.yres);
+	x[0] = var.xres;
+	x[1] = x[0] + var.right_margin;
+	x[2] = x[1] + var.hsync_len;
+	x[3] = x[2] + var.left_margin;
+	y[0] = var.yres;
+	y[1] = y[0] + var.lower_margin;
+	y[2] = y[1] + var.vsync_len;
+	y[3] = y[2] + var.upper_margin;
+	vtotal = y[3];
+	drate = 1E12/var.pixclock;
+	switch (var.vmode & FB_VMODE_MASK) {
+	case FB_VMODE_INTERLACED: laced = 1; break;
+	case FB_VMODE_DOUBLE: dblscan = 1; break;
+	}
+	if (dblscan) vtotal <<= 2;
+	else if (!laced) vtotal <<= 1;
+	hrate = drate / x[3];
+	vrate = hrate / vtotal * 2;
+	sprintf (vidres,
+	    "Section \"Monitor\"\n"
+	    "    Identifier  \"Probed Monitor\"\n"
+	    "    VendorName  \"Unknown\"\n"
+	    "    ModelName   \"Unknown\"\n"
+	    "    HorizSync   %5.3f\n"
+	    "    VertRefresh %5.3f\n"
+	    "    ModeLine    \"%dx%d\" %5.3f %d %d %d %d %d %d %d %d",
+	    hrate/1E3, vrate,
+	    x[0], y[0],
+	    drate/1E6+0.001,
+	    x[0], x[1], x[2], x[3],
+	    y[0], y[1], y[2], y[3]);
+	if (laced) strcat (vidres, " Interlaced");
+	if (dblscan) strcat (vidres, " DoubleScan");
+	p = strchr (vidres, 0);
+	sprintf (p, " %cHSync %cVSync",
+		 (var.sync & FB_SYNC_HOR_HIGH_ACT) ? '+' : '-',
+		 (var.sync & FB_SYNC_VERT_HIGH_ACT) ? '+' : '-');
+	if (var.sync & FB_SYNC_COMP_HIGH_ACT)
+	    strcat (vidres, " Composite");
+	if (var.sync & FB_SYNC_BROADCAST)
+	    strcat (vidres, " bcast");
+	strcat (vidres, "\nEndSection\n");
+    }
+
     close (fd);
     /* Allow 64K from VIDRAM to be taken for other purposes */
     size = fix.smem_len + 65536;
@@ -778,8 +822,11 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
     /* And report in KB */
     size >>= 10;
 
-    if (idx != -1)
-	vidRam[idx] = size;
-
-    return Py_BuildValue("i", size);
+    switch (depth) {
+    case 8:
+    case 16:
+    case 32:
+    	return Py_BuildValue("(iiss)", size, depth, vidmode, vidres);
+    }
+    return Py_BuildValue("(iiss)", size, 0, "", "");
 }
