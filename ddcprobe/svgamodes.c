@@ -15,7 +15,7 @@
 #include <netinet/in.h>
 #include "vbe.h"
 #include "vesamode.h"
-#include "bioscall.h"
+#include "lrmi.h"
 #ident "$Id$"
 
 /* Callback for qsort(). */
