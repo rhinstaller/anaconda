@@ -118,7 +118,7 @@ class Mouse (SimpleConfigFile):
 	    os.unlink(root + "/dev/mouse")
 	except:
 	    pass
-	if (sel.device):
+	if (self.device):
 	    os.symlink(self.device, root + "/dev/mouse")
 
     def getDevice(self):
