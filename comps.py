@@ -77,13 +77,20 @@ class ComponentSet:
 	    if (find(l, ":") > -1):
 		(archList, l) = split(l, ":", 1)
 		while (l[0] == " "): l = l[1:]
+
+		skipIfFound = 0
+		if (archList[0] == '!'):
+		    skipIfFound = 1
+		    archList = archList[:2]
 		archList = split(archList)
-		skip = 1
+		found = 0
 		for n in archList:
 		    if (n == arch): 
-			skip = 0
+			found = 1
 			break
-		if (skip): continue
+		if ((found and skipIfFound) or 
+				(not found and not skipIfFound)):
+		    continue
 
 	    if (comp == None):
 		(default, l) = split(l, None, 1)
@@ -122,5 +129,12 @@ class ComponentSet:
 	self.list = []
 	self.packages = {}
 	for h in hdlist:
-	    self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+	    name = h[rpm.RPMTAG_NAME]
+	    if self.packages.has_key(name):
+		score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
+		score2 = rpm.archscore(self.packages[name].h[rpm.RPMTAG_ARCH])
+		if (score2 < score1):
+		    self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+	    else:
+		self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
 	self.readCompsFile(arch, file, self.packages)
