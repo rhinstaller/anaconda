@@ -22,6 +22,7 @@ import os.path
 import posix
 import sys
 import kudzu
+import iutil
 
 from rhpl.log import log
 
@@ -290,6 +291,20 @@ def hardDriveDict():
 
     # this is kind of ugly, but it's much easier to do this from python
     for (dev, descr) in dict.items():
+        # blacklist *STMF on power5 iSeries boxes
+        if iutil.getArch() == "ppc" and dev.startswith("sd"):
+            try:
+                devName = "/tmp/%s" % dev
+                makeDevInode(dev, devName)
+                peddev = parted.PedDevice.get(devName)
+                if peddev.model.find("IBM *STMF KERNEL") != -1:
+                    log("%s looks like STMF, ignoring" %(dev,))
+                    del dict[dev]
+                del peddev
+                os.unlink(devName)
+            except Exception, e:
+                log("exception looking for STMF on %s: %s" %(dev, e))
+        
         # the only raid devs like this are ide, so only worry about them
         if not dev.startswith("hd"):
             continue
