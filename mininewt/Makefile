@@ -24,6 +24,9 @@ LIBNEWT = libnewt.a($(OBJS))
 ifeq (i386, $(ARCH))
 LIBNEWT=libnewt-diet.a($(DOBJS))
 endif
+ifeq (ppc, $(ARCH))
+LIBNEWT=libnewt-diet.a($(DOBJS))
+endif
 LIBNEWTSH = libnewt.so.$(VERSION)
 LIBNEWTSONAME = libnewt.so.$(SONAME)
 

@@ -9,6 +9,9 @@ DOBJS = $(patsubst %.o,%.do,$(OBJS))
 ifeq (i386, $(ARCH))
 DIETLIB=libgunzip-diet.a($(DOBJS))
 endif
+ifeq (ppc, $(ARCH))
+DIETLIB=libgunzip-diet.a($(DOBJS))
+endif
 
 all: libgunzip.a($(OBJS)) $(DIETLIB) test
 

@@ -125,7 +125,7 @@ LOADERLIBS += -lresolv
 STATIC=-static
 else
 ifeq (ppc, $(ARCH))
-MINILIBC=MINILIBC.o
+MINILIBC=minilibc.o
 COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
 LDFLAGS = -nostdlib /usr/lib/crt1.o
 LOADERLIBS += -lrpc

@@ -11,6 +11,9 @@ STATICLIB=libslang.a($(OBJS))
 ifeq (i386, $(ARCH))
 STATICLIB=libslang-diet.a($(DOBJS))
 endif
+ifeq (ppc, $(ARCH))
+STATICLIB=libslang-diet.a($(DOBJS))
+endif
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
