@@ -62,8 +62,9 @@ def bootRequestCheck(requests, diskset):
         return bootAlphaCheckRequirements(part, diskset)
     elif iutil.getPPCMachine() == "pSeries":
         # FIXME: does this also have to be at the beginning of the disk
-        if part.native_type != 0x43:
-            return BOOTPSERIES_NOT_PREP
+##         if part.native_type != 0x41:
+##             return BOOTPSERIES_NOT_PREP
+        log("FIXME: unable to check suitability of boot partition on pseries right now")
         
     return PARTITION_SUCCESS
 
@@ -1104,7 +1105,7 @@ def doClearPartAction(partitions, diskset):
             elif ((iutil.getPPCMachine() == "pSeries") and (linuxOnly == 1)
                   and (not partitions.isKickstart) and
                   part.is_flag_available(parted.PARTITION_BOOT) and
-                  (part.native_type == 0x43) and
+                  (part.native_type == 0x41) and
                   part.get_flag(parted.PARTITION_BOOT)):
                 req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))                
                 req.mountpoint = None
