@@ -1296,7 +1296,7 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
-		 "driMod"	: '\n\tLoad "dri"',
+		 "driMod"	: '\n#\tLoad "dri"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
