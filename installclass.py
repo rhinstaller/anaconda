@@ -175,11 +175,11 @@ class Workstation(InstallClass):
 	self.addToSkipList("network")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
-	self.addToSkipList("partition")
+	#self.addToSkipList("partition")
 
-	self.partitions.append(('/boot', 16, 0, -1))
-	self.partitions.append(('/', 500, 1, -1))
-	self.partitions.append(('swap', 64, 1, -1))
+	self.partitions.append(('/boot', 16, 16, 0))
+	self.partitions.append(('/', 500, 500, 1))
+	self.partitions.append(('swap', 64, 64, 0))
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
 	    warningText = _("You are about to erase any preexisting Linux "
 			    "installations on your system."))
@@ -209,12 +209,12 @@ class Server(InstallClass):
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
 
-	self.partitions.append(('/boot', 16, 0, -1))
-	self.partitions.append(('/', 256, 0, -1))
-	self.partitions.append(('/usr', 512, 1, -1))
-	self.partitions.append(('/var', 256, 1, -1))
-	self.partitions.append(('/home', 512, 1, -1))
-	self.partitions.append(('swap', 64, 1, -1))
+	self.partitions.append(('/boot', 16, 16, 0))
+	self.partitions.append(('/', 256, 256, 0))
+	self.partitions.append(('/usr', 512, 512, 1))
+	self.partitions.append(('/var', 256, 256, 0))
+	self.partitions.append(('/home', 512, 512, 1))
+	self.partitions.append(('swap', 64, 64, 1))
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
 	    warningText = _("You are about to erase ALL DATA on your hard " + \
 			    "drive to make room for your Linux installation."))
