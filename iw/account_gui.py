@@ -321,7 +321,7 @@ class AccountWindow (InstallWindow):
 
         self.userList = GtkCList (2, (_("Account Name"), _("Full Name")))
         for x in range (2):
-            self.userList.set_selectable (x, FALSE)
+            self.userList.column_title_passive (x)
 
 	self.userList.connect("select_row", self.userSelected)
         sw.add (self.userList)
