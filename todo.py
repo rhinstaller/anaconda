@@ -951,7 +951,7 @@ class ToDo:
         if self.setupFilesystems:
 	    try:
 		upgrade.mountRootPartition(rootInfo, self.fstab, self.instPath,
-					   allowDirty = 0):
+					   allowDirty = 0)
 	    except SystemError, msg:
 		intf.messageWindow(("Dirty Filesystems"),
 		    _("One or more of the filesystems listed in the "
