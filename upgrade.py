@@ -309,6 +309,13 @@ def upgradeFindPackages (intf, method, id, instPath):
 	    if not rec:
 		log ("GNOME: Adding %s", package)
 		package.select()
+
+    if iutil.getArch() == "i386" and id.bootloader.useGrub():
+        if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected()
+            try:
+                db.findbyname ("grub")
+            except rpm.error:
+                id.hdList["grub"].select()
 	
     del db
 
