@@ -10,7 +10,9 @@ moddeps: moddeps.o
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz
-		
+
+install:
+	@echo "nothing to do"		
 
 clean:	
 	rm -f modlist
