@@ -768,8 +768,15 @@ class Fstab:
                 if fsopts:
                     args.extend(fsopts)
 
-		ext2FormatFilesystem(args, messageFile, self.progressWindow, 
-				     mntpoint)
+		rc = ext2FormatFilesystem(args, messageFile, 
+					  self.progressWindow, mntpoint)
+		if rc:
+		    self.messageWindow(_("Error"), 
+			_("An error occured trying to format %s. This problem "
+			  "is serious, and the install cannot continue.\n\n"
+			  "Press Enter to reboot your system.") % mntpoint)
+		    sys.exit(0)
+				
 	    elif fsystem == "vfat" and mntpoint == "/boot/efi":
                 args = [ "mkdosfs", '/tmp/' + device ]
 
@@ -1294,6 +1301,12 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     os.close(fd)
 
     w.pop()
+
+    if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+	return 0
+
+    return 1
+
 
 def enabledSwapDict():
     # returns a dict of swap areas currently being used
