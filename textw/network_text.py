@@ -155,12 +155,20 @@ class NetworkWindow:
 
 class HostnameWindow:
     def __call__(self, screen, network):
+        devices = network.available ()
+        if not devices:
+            return INSTALL_NOOP
 
+	list = devices.keys ()
+	list.sort()
+        dev = devices[list[0]]
+        if dev.get ("bootproto") == "dhcp":
+            return INSTALL_NOOP
+        
         entry = Entry (24)
 
         if network.hostname != "localhost.localdomain":
             entry.set (network.hostname)
-
 
         rc, values = EntryWindow(screen, _("Hostname Configuration"),
              _("The hostname is the name of your computer.  If your "
