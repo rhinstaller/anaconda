@@ -27,27 +27,8 @@ import fstab
 import time
 import gettext_rh
 from translate import _
+from log import log
 
-class LogFile:
-    def __init__ (self, serial, reconfigOnly, test):
-	if serial or reconfigOnly:
-	    self.logFile = open("/tmp/install.log", "w")
-	elif reconfigOnly:
-	    self.logFile = open("/tmp/reconfig.log", "w")
-	elif test:
-	    self.logFile = open("/tmp/anaconda-debug.log", "w")
-	else:
-	    self.logFile = open("/dev/tty3", "w")
-
-    def __call__ (self, format, *args):
-        if args:
-            self.logFile.write ("* %s\n" % (format % args))
-        else:
-            self.logFile.write ("* %s\n" % format)
-
-    def getFile (self):
-        return self.logFile.fileno ()
-            
 class NetworkDevice (SimpleConfigFile):
     def __str__ (self):
         s = ""
@@ -297,7 +278,6 @@ class ToDo:
 	self.serial = serial
 	self.fstab = None
         self.reconfigOnly = reconfigOnly
-        self.log = LogFile (serial, reconfigOnly, test)
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
@@ -307,6 +287,7 @@ class ToDo:
         self.desktop = Desktop ()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
+        log.open (serial, reconfigOnly, test)
 
 	# liloDevice, liloLinear, liloAppend are initialized form the
 	# default install class
@@ -536,7 +517,7 @@ class ToDo:
         f = open (self.instPath + "/etc/hosts", "w")
         localline = "127.0.0.1\t\t"
 
-        self.log ("self.network.hostname = %s", self.network.hostname)
+        log ("self.network.hostname = %s", self.network.hostname)
 
 	ip = self.network.lookupHostname()
 
@@ -645,12 +626,12 @@ class ToDo:
                     if not (name, sugname) in rc:
                         rc.append ((name, sugname))
                 elif sense == rpm.RPMDEP_SENSE_CONFLICTS:
-                    self.log ("%s-%s-%s conflicts with to-be-installed "
+                    log ("%s-%s-%s conflicts with to-be-installed "
                               "package %s, removing from set",
                               name, version, release, reqname)
                     if self.hdList.packages.has_key (reqname):
                         self.hdList.packages[reqname].selected = 0
-                        self.log ("... removed")
+                        log ("... removed")
 
         del ts
         if self.upgrade:
@@ -779,11 +760,11 @@ class ToDo:
         # if we have X but not gmc, we need to turn on GNOME.  We only
         # want to turn on packages we don't have installed already, though.
         if hasX and not hasgmc:
-            self.log ("Has X but not GNOME")
+            log ("Has X but not GNOME")
             for package in self.comps['GNOME'].items.keys ():
                 rec = db.findbyname (package.name)
                 if not rec:
-                    self.log ("GNOME: Adding %s", package)
+                    log ("GNOME: Adding %s", package)
                     self.comps['GNOME'].items[package].selected = 1
             
         del db
@@ -793,7 +774,7 @@ class ToDo:
         deps = self.verifyDeps ()
 
         for (name, suggest) in deps:
-            self.log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
+            log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
         self.selectDeps (deps)
         win.pop ()
 
@@ -921,7 +902,7 @@ class ToDo:
 	    os.close(devnull)
 
     def createCdrom(self):
-        self.log ("making cd-rom links")
+        log ("making cd-rom links")
 	list = isys.cdromList()
 	count = 0
 	for device in list:
@@ -930,10 +911,10 @@ class ToDo:
 		cdname = "%s%d" % (cdname, count)
 	    count = count + 1
 
-            self.log ("creating cdrom link for " + device)
+            log ("creating cdrom link for " + device)
             try:
                 os.stat(self.instPath + "/dev/" + cdname)
-                self.log ("link exists, removing")
+                log ("link exists, removing")
                 os.unlink(self.instPath + "/dev/" + cdname)
             except OSError:
                 pass
@@ -957,11 +938,11 @@ class ToDo:
 	    if string.find(string.upper(descript), string.upper(rType)) == -1:
 		continue
 
-	    self.log ("found %s disk, creating link", rType)
+	    log ("found %s disk, creating link", rType)
 
 	    try:
 		os.stat(self.instPath + "/dev/%s" % rType)
-		self.log ("link exists, removing")
+		log ("link exists, removing")
 		os.unlink(self.instPath + "/dev/%s" % rType)
 	    except OSError:
 		pass
@@ -1042,7 +1023,7 @@ class ToDo:
 	    command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | " +
 			"%s/bin/cpio  --quiet -iumd %s") % \
 		(self.instPath, path, self.instPath, pattern)
-	    self.log("running: '%s'" % (command, ))
+	    log("running: '%s'" % (command, ))
 	    os.system(command)
 
 	    for n in kernelVersions:
@@ -1051,10 +1032,10 @@ class ToDo:
 							subdir, name)
 
 		if (os.access(fromFile, os.R_OK)):
-		    self.log("copying %s to %s" % (fromFile, to))
+		    log("copying %s to %s" % (fromFile, to))
 		    os.rename(fromFile, to)
 		else:
-		    self.log("missing DD module %s (this may be okay)" % 
+		    log("missing DD module %s (this may be okay)" % 
 				fromFile)
 
     def depmodModules(self):

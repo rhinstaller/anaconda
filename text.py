@@ -10,6 +10,7 @@ import gettext_rh
 import glob
 import signal
 from translate import _, cat
+from log import log
 
 # dont do this anymore, makes update disk hard
 #from textw.constants import *
@@ -106,7 +107,7 @@ class LanguageWindow:
 		try:
 		    isys.loadFont(font)
 		except SystemError, (errno, msg):
-		    todo.log("Could not load font %s: %s" % (font, msg))
+		    log("Could not load font %s: %s" % (font, msg))
         return INSTALL_OK
 
 class MouseDeviceWindow:
@@ -219,7 +220,7 @@ class KeyboardWindow:
                 try:
                     isys.loadKeymap(keyboards[choice])
                 except SystemError, (errno, msg):
-		    todo.log("Could not install keymap %s: %s" % (keyboards[choice], msg))
+		    log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
     
 class InstallPathWindow:

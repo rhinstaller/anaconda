@@ -4,6 +4,7 @@ import isys
 from snack import *
 from constants_text import *
 from translate import _
+from log import log
 
 class NetworkWindow:
     def setsensitive (self):
