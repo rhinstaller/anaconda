@@ -49,7 +49,10 @@ def probeFloppyDevice():
     log("anaconda floppy device is %s", fdDevice)
     return fdDevice
 
-def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
+def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
+    if dir == DISPATCH_BACK:
+	return DISPATCH_NOOP
+    
     if flags.test:
 	return DISPATCH_NOOP
 
@@ -60,7 +63,7 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
 			  "be ERASED during creation of the boot disk."),
 			type="custom", custom_buttons=[_("Cancel"), _("Make boot disk")])
 
-    if rc:
+    if not rc:
 	return DISPATCH_NOOP
     
     # this is faster then waiting on mkbootdisk to fail
