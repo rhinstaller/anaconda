@@ -26,32 +26,27 @@ class XCustomWindow (InstallWindow):
         self.ics.setNextEnabled (TRUE)
         
         self.didTest = 0
+        self.selectedDepth = ""
+        self.selectedRes = ""
 
     def getNext (self):
         newmodes = {}
-
-        for depth in self.toggles.keys ():
-            newmodes[depth] = []
-            for (res, button) in self.toggles[depth]:
-                if button.get_active ():
-                    newmodes[depth].append (res)
+        newmodes[self.selectedDepth] = []
+        newmodes[self.selectedDepth].append (self.selectedRes)
 
         self.todo.x.manualModes = newmodes
-        self.todo.x.setModes(newmodes)
+        self.todo.x.setModes (newmodes)
 
     def getPrev (self):
         self.todo.x.setModes(self.oldmodes)
 
     def testPressed (self, widget, *args):
         newmodes = {}
-
-        for depth in self.toggles.keys ():
-            newmodes[depth] = []
-            for (res, button) in self.toggles[depth]:
-                if button.get_active ():
-                    newmodes[depth].append (res)
+        newmodes[self.selectedDepth] = []
+        newmodes[self.selectedDepth].append (self.selectedRes)
 
         self.todo.x.modes = newmodes
+
         try:
             self.todo.x.test ()
         except RuntimeError:
@@ -69,10 +64,10 @@ class XCustomWindow (InstallWindow):
             return -1
         return 0
 
-    def color_cb(self, widget, data):
-#        print data, " bit color depth selected"
-#        print self.depth_combo.list.child_position (data)
+    def color_cb (self, widget, data):
         depth = self.depth_combo.list.child_position (data)
+
+        self.selectedDepth = self.bit_depth[depth]
 
         if depth == 0:
             self.res_combo.set_popdown_strings (self.avail_res1)
@@ -82,13 +77,11 @@ class XCustomWindow (InstallWindow):
             self.res_combo.set_popdown_strings (self.avail_res3)
     
     def res_cb (self, widget, data):
-        pass
-#        print data, " resolution was selected"
-#        print self.res_combo.list.child_position (data)
+        res = self.res_combo.list.child_position (data)
+        self.selectedRes = self.res_list[res]
 
     def desktop_cb (self, widget, desktop):
         self.newDesktop = desktop
-#        print desktop
 
         if desktop == "GNOME":
             im = self.ics.readPixmap ("gnome.png")
@@ -113,14 +106,12 @@ class XCustomWindow (InstallWindow):
     def getScreen (self):
         self.oldmodes = self.todo.x.modes
         
-        box = GtkVBox (FALSE, 5)
+        box = GtkVBox (FALSE)
         box.set_border_width (5)
 
         hbox1 = GtkHBox (FALSE, 5)
         hbox2 = GtkHBox (FALSE, 5)
         hbox3 = GtkHBox (FALSE, 5)
-
-
 
         im = self.ics.readPixmap ("monitor.png")
         if im:
@@ -129,8 +120,7 @@ class XCustomWindow (InstallWindow):
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
-            hbox1.pack_start (a, TRUE, TRUE)
-
+            box.pack_start (a, TRUE, TRUE)
 
         available = self.todo.x.availableModes()
         availableDepths = available.keys()
@@ -138,17 +128,13 @@ class XCustomWindow (InstallWindow):
         depths = self.todo.x.modes.keys ()
         depths.sort (self.numCompare)
 
-
         self.depth_count = 0
         self.res_count1 = 0
         self.res_count2 = 0
         self.res_count3 = 0
 
         for depth in availableDepths:
-#            print "depth = ", depth
-
             for res in available[depth]:
-#                print "res = ", res
                 if self.depth_count == 0:
                     self.res_count1 = self.res_count1 + 1
                 if self.depth_count == 1:
@@ -165,20 +151,19 @@ class XCustomWindow (InstallWindow):
         if self.res_count3 == 0:
             self.depth_count = self.depth_count - 1
             
-#        print self.depth_count 
-#        print self.res_count1 
-#        print self.res_count2 
-#        print self.res_count3 
 
 
-
-        frame1 = GtkFrame (_("Color Depths"))
+        frame1 = GtkFrame (_("Color Depth:"))
+        frame1.set_shadow_type (SHADOW_NONE)
         frame1.set_border_width (10)
-        vbox1 = GtkVBox ()
-        frame1.add (vbox1)
-        hbox2.pack_start (frame1, TRUE, FALSE, 10)
+#        vbox1 = GtkVBox ()
+#        vbox1.pack_start (frame1, FALSE, FALSE, 0)
+        hbox1.pack_start(frame1, TRUE, FALSE, 0)
+#        frame1.add (vbox1)
+#        hbox2.pack_start (frame1, TRUE, FALSE, 10)
 
         depth_list = ["256 Colors (8 Bit)", "High Color (16 Bit)", "True Color (24 Bit)"]
+        self.bit_depth = ["8", "16", "32"]
 
         self.avail_depths = depth_list[:self.depth_count]
 #        print self.avail_depths
@@ -187,7 +172,9 @@ class XCustomWindow (InstallWindow):
         self.depth_combo = GtkCombo ()
         self.depth_combo.set_popdown_strings (self.avail_depths)
         self.depth_combo.list.connect ("select-child", self.color_cb)
-        vbox1.pack_start (self.depth_combo, TRUE, FALSE, 10)
+        self.selectedDepth = "8"
+#        vbox1.pack_start (self.depth_combo, TRUE, FALSE, 10)
+        frame1.add (self.depth_combo)
 
 #        im = self.ics.readPixmap ("spectrum.png")
 #        if im:
@@ -198,37 +185,43 @@ class XCustomWindow (InstallWindow):
 #            a.set (0.5, 0.5, 1.0, 1.0)
 #            vbox1.pack_start (a, TRUE, TRUE)
 
-        frame2 = GtkFrame (_("Screen Resolution"))
+        frame2 = GtkFrame (_("Screen Resolution:"))
+        frame2.set_shadow_type (SHADOW_NONE)
         frame2.set_border_width (10)
-        vbox2 = GtkVBox ()
-        frame2.add (vbox2)
-        hbox2.pack_start (frame2, TRUE, FALSE, 10)
+#        vbox2 = GtkVBox ()
+#        vbox1.pack_start (frame2, FALSE, FALSE, 0)
+#        frame2.add (vbox2)
+        hbox1.pack_start (frame2, TRUE, FALSE, 10)
 
 
-        res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+        self.res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
 
-        self.avail_res1 = res_list[:self.res_count1]
-        self.avail_res2 = res_list[:self.res_count2]
-        self.avail_res3 = res_list[:self.res_count3]
+        self.avail_res1 = self.res_list[:self.res_count1]
+        self.avail_res2 = self.res_list[:self.res_count2]
+        self.avail_res3 = self.res_list[:self.res_count3]
 
 #        print "8 bit res = ", self.avail_res1
 #        print "16 bit res = ", self.avail_res2
 #        print "32 bit res = ", self.avail_res3
         
         self.res_combo = GtkCombo ()
-        self.res_combo.set_popdown_strings (res_list)
+        self.res_combo.set_popdown_strings (self.res_list)
         self.res_combo.list.connect ("select-child", self.res_cb)
-        vbox2.pack_start (self.res_combo, TRUE, FALSE, 10)
-#        frame2.add (self.res_combo)
+        self.selectedRes = "640x480"
+#        vbox1.pack_start (self.res_combo, TRUE, FALSE, 10)
+        frame2.add (self.res_combo)
 
 
         box.pack_start (hbox1)
-        box.pack_start (hbox2, FALSE, TRUE, 10)
+#        box.pack_start (hbox2, FALSE, TRUE, 10)
 
 
+        hsep = GtkHSeparator ()
+        box.pack_start (hsep)
 
-#        frame3 = GtkFrame (_("Default Desktop"))
-#        hbox3.pack_start (frame3, TRUE, FALSE, 10)
+
+#        frame3 = GtkFrame (_("Default Desktop:"))
+#        box.pack_start (frame3, TRUE, FALSE, 10)
 
 #        self.hbox4 = GtkHBox ()
 #        frame3.add (self.hbox4)
@@ -243,7 +236,8 @@ class XCustomWindow (InstallWindow):
             and (self.todo.hdList.has_key('kdebase')
                  and self.todo.hdList['kdebase'].selected)):
 
-            frame3 = GtkFrame (_("Default Desktop"))
+            frame3 = GtkFrame (_("Default Desktop:"))
+            frame3.set_shadow_type (SHADOW_NONE)
             hbox3.pack_start (frame3, TRUE, FALSE, 10)
 
             self.hbox4 = GtkHBox ()
@@ -341,8 +335,6 @@ class XCustomWindow (InstallWindow):
              and self.todo.hdList['gnome-core'].selected)
             or (self.todo.hdList.has_key('kdebase')
                  and self.todo.hdList['kdebase'].selected)):
-
-#            print "Hello"
 
             self.xdm = GtkCheckButton (_("Use Graphical Login"))
             box.pack_start (self.xdm, FALSE, TRUE, 10)
