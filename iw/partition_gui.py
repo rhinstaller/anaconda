@@ -593,6 +593,7 @@ class PartitionWindow(InstallWindow):
                                                 expanded = TRUE,
                                                 spacing = TREE_SPACING)
                 self.tree.node_set_row_data (parent, request.device)
+                raidcounter = raidcounter + 1
                 
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
