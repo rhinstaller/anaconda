@@ -24,7 +24,7 @@ import sys
 import raid
 import string
 import partRequests
-import urllib2
+import urlgrabber.grabber
 import lvm
 
 from rhpl.translate import _
@@ -1656,7 +1656,7 @@ def parseKickstartVNC(ksfile):
 # pull <url> down and append to /tmp/ks.cfg. This is run before we actually
 # parse the complete kickstart file.
 #
-# Main use is to have the ks.cfg you send to the loader by minimal, and then
+# Main use is to have the ks.cfg you send to the loader be minimal, and then
 # use %ksappend to pull via https anything private (like passwords, etc) in
 # the second stage.
 #
@@ -1683,11 +1683,9 @@ def pullRemainingKickstartConfig(ksfile):
 	log("Attempting to pull second part of ks.cfg from url %s" % (ksurl,))
 
 	try:
-	    url = urllib2.urlopen(ksurl)
-	except urllib2.HTTPError, e:
-	    raise KSAppendException("IOError: %s:%s" % (e.code, e.msg))
-	except urllib2.URLError, e:
-	    raise KSAppendException("IOError: -1:%s" % (e.reason,))
+	    url = grabber.urlopen (ksurl)
+	except grabber.URLGrabError, e:
+	    raise KSAppendException ("IOError: %s" % e.strerror)
 	else:
 	    # sanity check result - sometimes FTP doesnt
 	    # catch a file is missing
@@ -1699,7 +1697,7 @@ def pullRemainingKickstartConfig(ksfile):
 	    if clen < 1:
 		raise KSAppendException("IOError: -1:File not found")
 
-	break
+        break
 
     # if we got something then rewrite /tmp/ks.cfg with new information
     if url is not None:

@@ -18,10 +18,10 @@ from installmethod import InstallMethod, FileCopyException
 import os
 import rpm
 import time
-import urllib2
 import string
 import struct
 import socket
+import urlgrabber.grabber
 
 from snack import *
 from constants import *
@@ -41,25 +41,20 @@ DISCNUM  = 1000002
 
 def urlretrieve(location, file, callback=None):
     """Downloads from location and saves to file."""
-
     if callback is not None:
 	callback(_("Connecting..."), 0)
-	
+
     try:
-        url = urllib2.urlopen(location)
-    except urllib2.HTTPError, e:
-        raise IOError(e.code, e.msg)
-    except urllib2.URLError, e:
-	raise IOError(-1, e.reason)
+	url = grabber.urlopen(location)
+    except grabber.URLGrabError, e:
+	raise IOError (e.errno, e.strerror)
 
     # see if there is a size
     try:
 	filesize = int(url.info()["Content-Length"])
+	if filesize == 0:
+	    filesize = None
     except:
-	filesize = None
-
-    # handle zero length case
-    if filesize == 0:
 	filesize = None
 
     # create output file
@@ -82,7 +77,6 @@ def urlretrieve(location, file, callback=None):
 
     f.close()
     url.close()
-    
 
 class UrlInstallMethod(InstallMethod):
     def readCompsViaMethod(self, hdlist):
@@ -170,28 +164,14 @@ class UrlInstallMethod(InstallMethod):
 	os.remove(fullName)
 
     def readHeaders(self):
-        tries = 0
+	hdurl = "%s/%s/base/hdlist" % (self.baseUrl, productPath)
 
-        while tries < 5:
-	    hdurl = "%s/%s/base/hdlist" % (self.baseUrl, productPath)
-            try:
-                url = urllib2.urlopen(hdurl)
-	    except urllib2.HTTPError, e:
-		log("HTTPError: %s occurred getting %s", hdurl, e)
-	    except urllib2.URLError, e:
-		log("URLError: %s occurred getting %s", hdurl, e)
-            except IOError, (errnum, msg):
-		log("IOError %s occurred getting %s: %s",
-			errnum, hdurl, msg)
-	    else:
-		break
+	try:
+	    url = grabber.urlopen (hdurl, retry = 5)
+	except grabber.URLGrabError, e:
+	    log ("URLGrabError: %s occurred getting %s", e.strerror, hdurl)
+	    raise FileCopyException
 
-	    time.sleep(5)
-            tries = tries + 1
-
-        if tries >= 5:
-            raise FileCopyException
-                
 	raw = url.read(16)
 	if raw is None or len(raw) < 1:
 	    raise TypeError, "header list is empty!"

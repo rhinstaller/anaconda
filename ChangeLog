@@ -1,3 +1,14 @@
+2005-02-02  Chris Lumens  <clumens@redhat.com>
+
+	* comps.py (ComponentSet.readCompsFile):  Use urlgrabber instead of
+	urllib2 directly.
+	* gui.py (InstallControlWindow.loadReleaseNotes):  Likewise.
+	* hdrlist.py (groupSetFromCompsFile):  Likewise.
+	* kickstart.py (pullRemainingKickstartConfig):  Likewise.
+	* urlinstall.py (urlretrieve, UrlInstallMethod.readHeaders):  Likewise.
+	* scripts/upd-instroot:  Pull in urlgrabber from yum until it's broken
+	out into its own package.
+
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
 	* partRequests.py: import math, fix a traceback

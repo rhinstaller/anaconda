@@ -906,32 +906,14 @@ class GroupSet:
 
 
 def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
-    import urllib2
+    import urlgrabber.grabber
 
-    file = None
-    tries = 0
-    while tries < 5:
-        try:
-            file = urllib2.urlopen(filename)
-        except urllib2.HTTPError, e:
-            log("HTTPError: %s occurred getting %s", filename, e)
-        except urllib2.URLError, e:
-            log("URLError: %s occurred getting %s", filename, e)
-        except IOError, (errnum, msg):
-            log("IOError %s occurred getting %s: %s", filename,
-                errnum, str(msg))
-        except IOError, (errnum, msg):
-            log("OSError %s occurred getting %s: %s", filename,
-                errnum, str(msg))
-        else:
-            break
+    try:
+        file = grabber.urlopen (filename, retry = 5)
+    except grabber.URLGrabError, e:
+        log ("URLGrabError: %s occurred getting %s", e.strerror, filename)
+        raise SystemError, "Could not get comps file"
 
-        time.sleep(5)
-        tries = tries + 1
-
-    if file is None:
-        raise FileCopyException
-        
     compsxml = rhpl.comps.Comps(file)
     file.close()
     grpset = GroupSet(compsxml, hdrlist)

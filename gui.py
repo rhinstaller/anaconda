@@ -900,12 +900,6 @@ class InstallControlWindow:
 		file = open(tmpfile, "r")
 		self.releaseNotesContents = file.read()
 		file.close()
-
-		# deal with stupid urllib2 creating a zero length file
-		# when the specified FTP URL doesnt exist
-		if len(self.releaseNotesContents) < 1:
-		    self.releaseNotesContents = None
-		    continue
 		
 	    except:
 		continue
