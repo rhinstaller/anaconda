@@ -124,7 +124,7 @@ class MiloInstall:
             f.write ("\troot=/dev/%s" % self.todo.mounts ['/'])
                 
     def write (self):
-        if onMilo ():
+        if onMILO ():
             writeMilo ()
         else:
             writeAboot ()
