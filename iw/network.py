@@ -157,6 +157,7 @@ class NetworkWindow (InstallWindow):
                        (_("Network"),    "network"),
                        (_("Broadcast"),  "broadcast") ]
             ipTable = GtkTable (len (options), 2)
+            self.ipTable = GtkTable (len (options), 2) # this is the iptable used for DNS, et. al
 
             DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
             DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
@@ -199,11 +200,11 @@ class NetworkWindow (InstallWindow):
 
         options = [_("Hostname"),
                    _("Gateway"), _("Primary DNS"), _("Secondary DNS"), _("Ternary DNS")]
-        ipTable = GtkTable (len (options), 2)
+
         for i in range (len (options)):
             label = GtkLabel ("%s:" % (options[i],))
             label.set_alignment (0.0, 0.0)
-            ipTable.attach (label, 0, 1, i, i+1, FILL, 0, 10)
+            self.ipTable.attach (label, 0, 1, i, i+1, FILL, 0, 10)
             if i == 0:
                 options[i] = GtkEntry ()
                 options[i].set_usize (7 * 30, -1)
@@ -213,10 +214,9 @@ class NetworkWindow (InstallWindow):
             options[i].connect ("activate", forward)
             align = GtkAlignment (0, 0.5)
             align.add (options[i])
-            ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
-        ipTable.set_row_spacing (0, 5)
+            self.ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
+        self.ipTable.set_row_spacing (0, 5)
 
-        self.ipTable = ipTable
         self.hostname = options[0]
 
         # bring over the value from the loader
@@ -231,5 +231,5 @@ class NetworkWindow (InstallWindow):
 
         self.ns2 = options[3]
         self.ns3 = options[4]
-        box.pack_start (ipTable, FALSE, FALSE, 5)
+        box.pack_start (self.ipTable, FALSE, FALSE, 5)
         return box
