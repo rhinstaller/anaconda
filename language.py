@@ -204,6 +204,9 @@ class Language (SimpleConfigFile):
         self.langInfoByName = langInfoByName
         self.allSupportedLangs = allSupportedLangs
 
+        # XXX hack since we don't really use language support anymore
+        self.setSupported(self.allSupportedLangs)
+
     def getAllSupported(self):
 	return self.allSupportedLangs
 
@@ -284,6 +287,9 @@ class Language (SimpleConfigFile):
 	    os.environ ["LINGUAS"] = ""
     
     def write(self, instPath):
+        # XXX hack since we don't actually use the supported aspects anymore
+        self.setDefault(self.getDefault())
+        
 	f = open(instPath + "/etc/sysconfig/i18n", "w")
 	f.write(str (self))
 	f.close()
