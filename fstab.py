@@ -140,6 +140,9 @@ class Fstab:
     def getLoopbackSize(self):
 	return (self.loopbackSize, self.loopbackSwapSize)
 
+    def setLoopbackSwapSize(self, swapSize):
+	self.loopbackSwapSize = swapSize
+
     def setLoopbackSize(self, size, swapSize):
 	self.loopbackSize = size
 	self.loopbackSwapSize = swapSize
@@ -280,8 +283,11 @@ class Fstab:
 
 	    isys.mount(rootDev, "/mnt/loophost", fstype = "vfat")
 
-	    isys.ddfile("/mnt/loophost/rh-swap.img", 
-			self.loopbackSwapSize)
+	    # loopbackSwapSize = -1 turns on existing swap space rather
+	    # then creating a new one
+	    if self.loopbackSwapSize > 0:
+		isys.ddfile("/mnt/loophost/rh-swap.img", 
+			    self.loopbackSwapSize)
 
 	    iutil.execWithRedirect ("/usr/sbin/mkswap",
 			     [ "mkswap", '-v1', 
@@ -546,20 +552,20 @@ class Fstab:
             os.remove('/tmp/' + device)
 
     def hasDirtyFilesystems(self):
-	log("setupFilesystems is %s\n", self.setupFilesystems)
 	if (not self.setupFilesystems): return 
 
-	log("mountList %s\n", self.mountList())
+	if self.rootOnLoop():
+	    (rootDev, rootFs) = self.getRootDevice()
+	    mountLoopbackRoot(rootDev, skipMount = 1)
+	    dirty = isys.ext2IsDirty("loop0")
+	    unmountLoopbackRoot(skipMount = 1)
+	    if dirty: return 1
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if fsystem != "ext2": continue
 	    if doFormat: continue
 
-	    log("checking device %s\n", device)
-
 	    if isys.ext2IsDirty(device): return 1
-
-	    log("clean\n")
 
 	return 0
 
@@ -834,6 +840,8 @@ class NewtFstab(Fstab):
 		       ignoreRemovable)
 
 def readFstab (path, fstab):
+    loopIndex = {}
+
     f = open (path, "r")
     lines = f.readlines ()
     f.close
@@ -849,18 +857,33 @@ def readFstab (path, fstab):
 
     for line in lines:
 	fields = string.split (line)
-	# skip comments
-	if fields and fields[0][0] == '#':
-	    continue
+
 	if not fields: continue
+
+	if fields[0] == "#" and fields[1][0:4] == "LOOP":
+	    device = string.lower(fields[1])
+	    if device[len(device) - 1] == ":":
+		device = device[0:len(device) - 1]
+	    realDevice = fields[2]
+	    if realDevice[0:5] == "/dev/":
+		realDevice = realDevice[5:]
+	    loopIndex[device] = (realDevice, fields[3])
+
+	elif fields and fields[0][0] == '#':
+	    # skip comments
+	    continue
+
 	# all valid fstab entries have 6 fields
 	if len (fields) < 4 or len (fields) > 6: continue
 
 	if fields[2] != "ext2" and fields[2] != "swap": continue
 	if string.find(fields[3], "noauto") != -1: continue
+
+	# this skips swap files! todo has to put them back for upgrades
 	if (fields[0][0:7] != "/dev/hd" and 
 	    fields[0][0:7] != "/dev/sd" and
 	    fields[0][0:7] != "/dev/md" and
+	    fields[0][0:9] != "/dev/loop" and
 	    fields[0][0:8] != "/dev/rd/" and
 	    fields[0][0:9] != "/dev/ida/"): continue
 
@@ -868,7 +891,14 @@ def readFstab (path, fstab):
 	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
 				    fields[2], raidByDev[int(fields[0][7:])])
 	else:
-	    fstab.addMount(fields[0][5:], fields[1], fields[2])
+	    device = fields[0][5:]
+	    fsystem = fields[2]
+	    if loopIndex.has_key(device):
+		(device, fsystem) = loopIndex[device]
+
+	    fstab.addMount(device, fields[1], fsystem)
+
+	log("got mount list %s", fstab.mountList())
 
 def createLabel(labels, newLabel):
     if len(newLabel) > 16:
@@ -885,3 +915,18 @@ def createLabel(labels, newLabel):
     labels[newLabel] = 1
 
     return newLabel
+
+def mountLoopbackRoot(device, skipMount = 0):
+    isys.mount(device, '/mnt/loophost', fstype = "vfat")
+    isys.makeDevInode("loop0", '/tmp/' + "loop0")
+    isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
+
+    if not skipMount:
+	isys.mount("loop0", '/mnt/sysimage')
+
+def unmountLoopbackRoot(skipMount = 0):
+    if not skipMount:
+	isys.umount('/mnt/sysimage')        
+    isys.makeDevInode("loop0", '/tmp/' + "loop0")
+    isys.unlosetup("/tmp/loop0")
+    isys.umount('/mnt/loophost')        
