@@ -708,22 +708,15 @@ class Fstab:
 		      _("Creating loopback filesystem on device /dev/%s...")
 			    % device))
 
-		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
-
 		if self.serial:
 		    messageFile = "/tmp/mke2fs.log"
 		else:
 		    messageFile = "/dev/tty5"
 
-		ext2FormatFilesystem([ "/usr/sbin/mke2fs", "/tmp/loop1" ], 
+		ext2FormatFilesystem([ "/usr/sbin/mke2fs", "-F",
+                                       "/mnt/loophost/redhat.img"], 
 				     messageFile, self.progressWindow, 
 				     mntpoint)
-
-		# don't leave this setup, or we'll get confused later
-		isys.unlosetup("/tmp/loop1")
-		isys.umount("/mnt/loophost")
-
-		# Next
 		continue
 
             if self.protectList:
