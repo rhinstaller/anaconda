@@ -16,6 +16,7 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 from hdrlist import orderPackageGroups
+from hdrlist import ON_STATES, OFF_STATES
 
 class PackageGroupWindow:
 
@@ -67,10 +68,78 @@ class PackageGroupWindow:
 #        g.add (cb, 0, 2, (0, 0, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
-        result = g.runOnce()
+	g.addHotKey("F2")
+
+	screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"))
+
+	while 1:
+	    result = g.run()
+	    if result != "F2":
+		break
+
+	    # if current group is not selected then select it first
+	    newSelection = 0
+	    cur = ct.getCurrent()
+	    lst = ct.getSelection()
+	    if cur not in lst:
+		newSelection = 1
+		try:
+		    if not cur.isSelected(justManual = 1):
+			cur.select()
+		except ValueError:
+		    pass
+		ct.setEntryValue(cur, 1)
+
+	    # do group details
+	    gct = CheckboxTree(height = 8, scroll = 1)
+
+	    origpkgselection = {}
+	    for (pkg, val) in cur.packageInfo().items():
+		origpkgselection[pkg] = val
+
+	    # make a copy
+	    pkgselection = {}
+	    for k in origpkgselection.keys():
+		pkgselection[k] = origpkgselection[k]
+
+	    for pkg in origpkgselection.keys():
+		gct.append(pkg, pkg, pkgselection[pkg][1])
+
+	    bb2 = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
+
+	    g2 = GridFormHelp (screen, _("Package Group Details"),  "", 1, 4)
+
+	    g2.add (gct, 0, 1, (0, 0, 0, 1))
+	    g2.add (bb2, 0, 3, growx = 1)
+
+	    rc2 = g2.runOnce()
+	    if bb2.buttonPressed(rc2) == TEXT_CANCEL_CHECK:
+		# unselect group if necessary
+		if newSelection:
+		    try:
+			cur.unselect()
+		    except:
+			pass
+		    ct.setEntryValue(cur, 0)
+	    else:
+		# reflect new packages selected
+		selectedlst = gct.getSelection()
+		for pkg in origpkgselection.keys():
+		    (otype, osel) = origpkgselection[pkg]
+		    if pkg in selectedlst:
+			if osel in ON_STATES:
+			    continue
+			cur.selectPackage(pkg)
+		    else:
+			if osel in OFF_STATES:
+			    continue
+			cur.unselectPackage(pkg)
 
         rc = bb.buttonPressed (result)
 
+	screen.popWindow()
+	screen.popHelpLine ()
+	    
         if rc == TEXT_BACK_CHECK:
 	    grpset.setSelectionState(origSelection)
             return INSTALL_BACK
