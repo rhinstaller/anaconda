@@ -1,13 +1,11 @@
 # Copyright (C) 1998-2002  Red Hat, Inc.
 include Makefile.inc
 
-MINISLANG=minislang
-MININEWT=mininewt
 ifneq (ia64, $(ARCH))
 STUBS=stubs
 endif
 
-SUBDIRSHD = isys $(MINISLANG) $(MININEWT) loader2 po \
+SUBDIRSHD = isys loader2 po \
 	    textw utils scripts bootdisk installclasses \
 	    fonts iw pixmaps $(STUBS) isomd5sum command-stubs
 SUBDIRS = $(SUBDIRSHD)
