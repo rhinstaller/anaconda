@@ -42,7 +42,8 @@ class PartitionWindow (InstallWindow):
         self.swapon = 0
 
     def checkSwap (self):
-        if PartitionWindow.swapon or (iutil.memInstalled() > 34000):
+        if PartitionWindow.swapon or (iutil.memInstalled() > 
+					isys.EARLY_SWAP_RAM):
 	    return 1
 
         threads_leave ()

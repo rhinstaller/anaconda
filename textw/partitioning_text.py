@@ -206,7 +206,7 @@ class TurnOnSwapWindow:
     beenTurnedOn = 0
 
     def __call__(self, screen, todo):
-	if self.beenTurnedOn or (iutil.memInstalled() > 34000):
+	if self.beenTurnedOn or (iutil.memInstalled() > isys.EARLY_SWAP_RAM):
 	    return INSTALL_NOOP
 
         if not todo.instClass.earlySwapOn:
