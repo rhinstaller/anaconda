@@ -15,7 +15,9 @@
  *
  */
 
+#if 0
 #include "edd.h"
+#endif
 
 #include <Python.h>
 
@@ -28,8 +30,22 @@ static PyMethodDef edd_module_methods[] = {
 
 static PyObject *
 edd_py_detect (PyObject * s, PyObject * args) {
-  int device = 0x80;
+
+    FILE *f = fopen("/proc/cmdline", "r");
+    if (f) {
+	char buf[100];
+	fgets(buf, sizeof(buf) - 1, f);
+	fclose(f);
+	if (strstr(buf, "lba32"))
+	    return Py_BuildValue ("i", 1);
+	return Py_BuildValue ("i", 0);
+    } else
+	return Py_BuildValue ("i", 0);
+
+#if 0
+  /* not reached */
   EDDCapability *ec;
+  int device = 0x80;
 
   if (!PyArg_ParseTuple(args, "|i", &device))
     return NULL;
@@ -39,6 +55,7 @@ edd_py_detect (PyObject * s, PyObject * args) {
     return Py_BuildValue ("i", 1);
   }
   return Py_BuildValue ("i", 0);
+#endif
 }
 
 void initedd (void) {

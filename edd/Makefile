@@ -2,7 +2,8 @@ include ../Makefile.inc
 
 CFLAGS=-Wall -O -g -fpic -I/usr/include/python1.5# -DDEBUG
 
-TARGETS=eddmodule.so libedd.a(edd.o lrmi.o)
+#libedd.a(edd.o lrmi.o)
+TARGETS=eddmodule.so 
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
@@ -20,9 +21,9 @@ install: all
 edd: lrmi.c edd.c
 	gcc -DDEBUG -o edd lrmi.c edd.c
 
-eddmodule.so: pyedd.c edd.o lrmi.o
+eddmodule.so: pyedd.c # edd.o lrmi.o
 	gcc -c -o pyedd.o -fpic pyedd.c $(CFLAGS)
-	gcc -shared -g -o $@ pyedd.o edd.o lrmi.o
+	gcc -shared -g -o $@ pyedd.o # edd.o lrmi.o
 
 clean:
 	rm -f *.o *.so *~ core
