@@ -392,6 +392,11 @@ tulip
 	"DEC 21040, most 21*40 Ethernet"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
+old_tulip
+	eth
+	"Older DEC 21040, most 21*40 Ethernet"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+
 via-rhine
 	eth
 	"VIA VT86c100A Rhine-II PCI"
