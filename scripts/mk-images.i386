@@ -73,11 +73,12 @@ disks.
 The drivers.img driver disk image has been split into several disks
 because of the increasing size of the supported modules.
 
-The following boot images images available:
+The following boot image:
 
-boot.img - boot image for CD and hard drive based install
-bootnet.img - boot image for network based install
-pcmcia.img - boot image for installing on laptops
+bootdisk.img - primary boot image for all install methods
+
+is to be used for all install methods. A secondary driver disk will be
+required for most install types other than IDE CDROM based installs.
 
 The following driver disks are available:
 
