@@ -91,6 +91,11 @@ def runRescue(instPath, mountroot, id):
 
 	    isys.makeDevInode(dev, "/dev/" + dev)
 
+    # need loopback devices too
+    for lpminor in range(8):
+	dev = "loop%s" % (lpminor,)
+	isys.makeDevInode(dev, "/dev/" + dev)
+
     screen = SnackScreen()
     intf = RescueInterface(screen)
 
