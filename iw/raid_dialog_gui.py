@@ -215,7 +215,10 @@ class RaidEditor:
 	    dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
 				    gtk.BUTTONS_OK,
 				    _("At least two software RAID "
-				      "partitions are needed."))
+				      "partitions are needed.\n\n"
+				      "First create at least two partitions "
+				      "of type \"software RAID\", and then "
+				      "select the \"RAID\" option again."))
 	    gui.addFrame(dlg)
 	    dlg.show_all()
 	    dlg.set_position(gtk.WIN_POS_CENTER)

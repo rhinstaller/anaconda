@@ -29,6 +29,38 @@ from constants import *
 
 class VolumeGroupEditor:
 
+    def getPVWastedRatio(self, newpe):
+        """ given a new pe value, return percentage of smallest PV wasted
+
+        newpe - (int) new value of PE, in KB
+        """
+        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+
+	waste = 0.0
+	for id in pvlist:
+	    pvreq = self.partitions.getRequestByID(id)
+	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+	    waste = max(waste, (long(pvsize*1024) % newpe)/(pvsize*1024.0))
+
+	return waste
+
+    def getSmallestPVSize(self):
+        """ finds the smallest PV and returns its size in MB
+        """
+	first = 1
+        pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
+	for id in pvlist:
+	    pvreq = self.partitions.getRequestByID(id)
+	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+	    if first:
+		minpvsize = pvsize
+		first = 0
+	    else:
+		minpvsize = min(pvsize, minpvsize)
+
+	return minpvsize
+
+
     def reclampLV(self, newpe):
         """ given a new pe value, set logical volume sizes accordingly
 
@@ -36,17 +68,21 @@ class VolumeGroupEditor:
         """
 
         pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-        availSpaceMB = self.computeVGSize(pvlist)
+        availSpaceMB = self.computeVGSize(pvlist, newpe)
 
+	# see if total space is enough
         oldused = 0
         used = 0
+	resize = 0
         for lv in self.logvolreqs:
             osize = lv.getActualSize(self.partitions, self.diskset)
             oldused = oldused + osize
             nsize = lvm.clampLVSizeRequest(osize, newpe)
+	    if nsize != osize:
+		resize = 1
+		
             used = used + nsize
 
-        print oldused, used, availSpaceMB
         if used > availSpaceMB:
             self.intf.messageWindow(_("Not enough space"),
                                     _("The physical extent size cannot be "
@@ -56,25 +92,28 @@ class VolumeGroupEditor:
                                       "to more than the available space."))
             return 0
 
-        rc = self.intf.messageWindow(_("Confirm Physical Extent Change"),
-                                     _("This change in the value of the "
-                                       "physical extent will require the "
-                                       "sizes of the current logical "
-                                       "volume requests to be rounded "
-                                       "up in size."), type="custom",
-                                     custom_buttons=["gtk-cancel", _("Continue")])
-        if not rc:
-            return 0
+	if resize:
+	    rc = self.intf.messageWindow(_("Confirm Physical Extent Change"),
+					 _("This change in the value of the "
+					   "physical extent will require the "
+					   "sizes of the current logical "
+					   "volume requests to be rounded "
+					   "up in size to an integer multiple "
+					   "of the "
+					   "physical extent.\n\nThis change "
+					   "will take affect immediately."),
+					 type="custom",
+					 custom_buttons=["gtk-cancel", _("Continue")])
+	    if not rc:
+		return 0
         
         for lv in self.logvolreqs:
             osize = lv.getActualSize(self.partitions, self.diskset)
             nsize = lvm.clampLVSizeRequest(osize, newpe)
-            lv.size = nsize
+            lv.setSize(nsize)
 
         return 1
             
-            
-        
     def peChangeCB(self, widget, peOption):
         """ handle changes in the Physical Extent option menu
 
@@ -84,18 +123,62 @@ class VolumeGroupEditor:
         """
         curval = widget.get_data("value")
         lastval = peOption.get_data("lastpe")
-        print curval, lastval
+	lastidx = peOption.get_data("lastidx")
+
+	# see if PE is too large compared to smallest PV
+	# remember PE is in KB, PV size is in MB
+	if curval > self.getSmallestPVSize()*1024:
+            self.intf.messageWindow(_("Not enough space"),
+                                    _("The physical extent size cannot be "
+                                      "changed because the value selected "
+				      "(%10.2f MB) is larger than the smallest "
+				      "physical volume (%10.2f MB) in the "
+				      "volume group.") % (curval/1024.0, pvsize))
+	    peOption.set_history(lastidx)
+            return 0
+
+	if self.getPVWastedRatio(curval) > 0.10:
+	    rc = self.intf.messageWindow(_("Too small"),
+					 _("This change in the value of the "
+					   "physical extent will waste "
+					   "substantial space on one or more "
+					   "of the phyical volumes in the "
+					   "volume group."),
+					 type="custom",
+					   custom_buttons=["gtk-cancel", _("Continue")])
+	    if not rc:
+		peOption.set_history(lastidx)
+		return 0
+
+	# now see if we need to fixup effect PV and LV sizes based on PE
         if curval > lastval:
             rc = self.reclampLV(curval)
             if not rc:
-                self.intf.messageWindow("grr", "Tried to stop activate signal "
-                                        "to no avail, PE menu changed anyways")
-                widget.emit_stop_by_name("activate")
+		peOption.set_history(lastidx)
             else:
                 self.updateLogVolStore()
+	else:
+	    maxlv = lvm.getMaxLVSize(curval)
+	    for lv in self.logvolreqs:
+		lvsize = lv.getActualSize(self.partitions, self.diskset)
+		if lvsize > maxlv:
+		    self.intf.messageWindow(_("Not enough space"),
+					    _("The physical extent size "
+					      "cannot be changed because the "
+					      "resulting maximum logical "
+					      "volume size (%10.2f MB) is "
+					      "smaller "
+					      "than one or more of the "
+					      "currently defined logical "
+					      "volumes.") % (maxlv,))
+		    peOption.set_history(lastidx)
             
         peOption.set_data("lastpe", curval)
-        
+	peOption.set_data("lastidx", peOption.get_history())
+        self.updateAllowedLvmPartitionsList(self.availlvmparts,
+					    self.partitions,
+					    self.lvmlist)
+	self.updateVGSpaceLabels()
 
     def createPEOptionMenu(self, default=4096):
 	peOption = gtk.OptionMenu()
@@ -128,7 +211,9 @@ class VolumeGroupEditor:
 
 	if defindex:
 	    peOption.set_history(defindex)
-	    
+
+        peOption.set_data("lastidx", peOption.get_history())
+	
 	return (peOption, peOptionMenu)
 
     def clickCB(self, row, data):
@@ -144,7 +229,8 @@ class VolumeGroupEditor:
 	else:
 	    pvlist.append(id)
 	
-	availSpaceMB = self.computeVGSize(pvlist)
+	pesize = self.peOptionMenu.get_active().get_data("value")
+	availSpaceMB = self.computeVGSize(pvlist, pesize)
 	neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
 
 	if availSpaceMB <= neededSpaceMB:
@@ -178,7 +264,11 @@ class VolumeGroupEditor:
 		partname = "%s" % (request.device,)
 	    else:
 		partname = "md%d" % (request.raidminor,)
-	    partsize = "%8.0f MB" % size
+
+	    # clip size to current PE
+	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    size = lvm.clampPVSize(size, pesize)
+	    partsize = "%10.2f MB" % size
 	    if used or not reqlvmpart:
 		selected = 1
 	    else:
@@ -188,8 +278,25 @@ class VolumeGroupEditor:
 
 	return (partlist, sw)
 
+    def updateAllowedLvmPartitionsList(self, alllvmparts, partitions, partlist):
+	""" update sizes in pv list
 
+	alllvmparts - list of pv from partitions.getAvailLVMPartitions
+	partitions - object holding all partition requests
+	partlist - the checklist containing pv list
+	"""
 
+	row = 0
+	for uid, size, used in alllvmparts:
+	    # clip size to current PE
+	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    size = lvm.clampPVSize(size, pesize)
+	    partsize = "%10.2f MB" % size
+
+	    iter = partlist.store.get_iter((int(row),))
+	    partlist.store.set_value(iter, 2, partsize)
+	    row = row + 1
+	
     def getCurrentLogicalVolume(self):
 	selection = self.logvollist.get_selection()
 	rc = selection.get_selected()
@@ -246,7 +353,7 @@ class VolumeGroupEditor:
         sizeEntry = gtk.Entry(16)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
 	if logrequest:
-	    sizeEntry.set_text("%g" % (logrequest.size,))
+	    sizeEntry.set_text("%g" % (logrequest.getActualSize(self.partitions, self.diskset),))
         row = row + 1
 
         dialog.vbox.pack_start(maintable)
@@ -282,40 +389,56 @@ class VolumeGroupEditor:
                 preexist = 0
 
 	    # test mount point
-	    if fsystem.isMountable():
-		err = sanityCheckMountPoint(mntpt, fsystem, preexist)
-	    else:
-		mntpt = None
-		err = None
-		
-	    if err:
-		self.intf.messageWindow(_("Bad mount point"), err)
-		continue
+#
+# XXX done in sanitycheckrequest
+#
+#	    if fsystem.isMountable():
+#		err = sanityCheckMountPoint(mntpt, fsystem, preexist)
+#	    else:
+#		mntpt = None
+#		err = None
+#	
+#	    if err:
+#		self.intf.messageWindow(_("Bad mount point"), err)
+#		continue
 
 	    # see if mount point is used already
-	    used = 0
+#
+# existing requests are checked by sanitycheckrequest
+#
+#	    used = 0
+#	    if fsystem.isMountable():
+#		if not logrequest or mntpt != logrequest.mountpoint:
+#		    # check in existing requests
+#		    curreq = self.partitions.getRequestByMountPoint(mntpt)
+#		    if curreq:
+#			used = 1
+#
+
+            # check in pending logical volume requests
+	    # these may not have been put in master list of requests
+	    # yet if we have not hit 'OK' for the volume group creation
 	    if fsystem.isMountable():
-		if not logrequest or mntpt != logrequest.mountpoint:
-		    # check in existing requests
-		    curreq = self.partitions.getRequestByMountPoint(mntpt)
-		    if curreq:
+		used = 0
+		if logrequest:
+		    curmntpt = logrequest.mountpoint
+		else:
+		    curmntpt = None
+		    
+		for lv in self.logvolreqs:
+		    if curmntpt and lv.mountpoint == curmntpt:
+			continue
+
+		    if lv.mountpoint == mntpt:
 			used = 1
+			break
 
-		    # check in pending logical volume requests
-		    if not used:
-			for lv in self.logvolreqs:
-			    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
-				continue
-
-			    if lv.mountpoint == mntpt:
-				used = 1
-				break
-
-	    if used:
-		self.intf.messageWindow(_("Mount point in use"),
-					_("The mount point %s is in use, "
-					  "please pick another.") % (mntpt,))
-		continue
+		if used:
+		    self.intf.messageWindow(_("Mount point in use"),
+					    _("The mount point \"%s\" is in "
+					      "use, please pick another.") %
+					    (mntpt,))
+		    continue
 
 	    # check out logical volumne name
 	    lvname = string.strip(lvnameEntry.get_text())
@@ -332,35 +455,68 @@ class VolumeGroupEditor:
 	    else:
 		origlvname = None
 		
-	    if not used:
-		for lv in self.logvolreqs:
-		    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
-			continue
+	    for lv in self.logvolreqs:
+		if origlvname and lv.logicalVolumeName == origlvname:
+		    continue
 
-		    if lv.logicalVolumeName == lvname:
-			used = 1
-			break
-	    else:
+		if lv.logicalVolumeName == lvname:
+		    used = 1
+		    break
+
+	    if used:
 		self.intf.messageWindow(_("Illegal logical volume name"),
-					_("The logical volume name %s is "
+					_("The logical volume name \"%s\" is "
 					  "already in use. Please pick "
 					  "another.") % (lvname,))
 		continue
 
 	    # create potential request
+	    request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
+					       lvname = lvname, size = size,
+					       format = 1)
+#	    request = copy.copy(logrequest)
 	    pesize = self.peOptionMenu.get_active().get_data("value")
 	    size = lvm.clampLVSizeRequest(size, pesize)
-	    request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
-					       lvname = lvname, size = size)
+
+	    # do some final tests
+	    maxlv = lvm.getMaxLVSize(pesize)
+	    if size > maxlv:
+		self.intf.messageWindow(_("Not enough space"),
+					_("The current requested size "
+					  "(%10.2f MB) is larger than maximum "
+					  "logical volume size (%10.2f MB) "
+					  "To increase this limit you can "
+					  "increase the Physical Extent size "
+					  "for this Volume Group."))
+		continue
+
+# 	    request.fstype = fsystem
+
+# 	    if request.fstype.isMountable():
+# 		request.mountpoint = mntpt
+# 	    else:
+# 		request.mountpoint = None
+
+# 	    if not logrequest.preexist:
+# 		request.format = 1
+# 	    else:
+# 		request.format = 0
+	    
+# 	    err = request.sanityCheckRequest(self.partitions)
+# 	    if err:
+# 		self.intf.messageWindow(_("Error With Request"),
+# 					"%s" % (err))
+# 		continue
 
 	    # see if there is room for request
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	    availSpaceMB = self.computeVGSize(pvlist)
+	    availSpaceMB = self.computeVGSize(pvlist, pesize)
 
 	    tmplogreqs = []
 	    for l in self.logvolreqs:
-		if logrequest and logrequest.mountpoint and l.mountpoint == logrequest.mountpoint:
+		if origlvname and l.logicalVolumeName == origlvname:
 		    continue
+		
 		tmplogreqs.append(l)
 
 	    tmplogreqs.append(request)
@@ -373,10 +529,8 @@ class VolumeGroupEditor:
 					  "volume group only has %g MB.  Please "
 					  "either make the volume group larger "
 					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB))
-		del request
 		del tmplogreqs
 		continue
-
 
 	    # everything ok
 	    break
@@ -393,6 +547,9 @@ class VolumeGroupEditor:
 	self.logvolstore.set_value(iter, 0, lvname)
 	if request.fstype and request.fstype.isMountable():
 	    self.logvolstore.set_value(iter, 1, mntpt)
+	else:
+	    self.logvolstore.set_value(iter, 1, "N/A")
+	    
 	self.logvolstore.set_value(iter, 2, "%g" % (size,))
 
 	self.updateVGSpaceLabels()
@@ -435,7 +592,7 @@ class VolumeGroupEditor:
 
 	rc = self.intf.messageWindow(_("Confirm Delete"),
 				_("Are you sure you want to Delete the "
-				"logical volume %s?") % (logvolname,),
+				"logical volume \"%s\"?") % (logvolname,),
 				type = "custom", custom_buttons=["gtk-cancel", _("Delete")])
 	if not rc:
 	    return
@@ -471,13 +628,15 @@ class VolumeGroupEditor:
 
 	return pv
 
-    def computeVGSize(self, pvlist):
+    def computeVGSize(self, pvlist, curpe):
 	availSpaceMB = 0
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
-	    availSpaceMB = (availSpaceMB +
-			    pvreq.getActualSize(self.partitions,
-						self.diskset))
+	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+	    pvsize = lvm.clampPVSize(pvsize, curpe)
+
+	    # have to clamp pvsize to multiple of PE
+	    availSpaceMB = availSpaceMB + pvsize
 	return availSpaceMB
 
     def computeLVSpaceNeeded(self, logreqs):
@@ -499,6 +658,8 @@ class VolumeGroupEditor:
                 
             if lv.fstype and lv.fstype.isMountable() and mntpt:
                 self.logvolstore.set_value(iter, 1, mntpt)
+	    else:
+		self.logvolstore.set_value(iter, 1, "N/A")
                 
             self.logvolstore.set_value(iter, 2, "%g" % (size,))
         
@@ -509,14 +670,16 @@ class VolumeGroupEditor:
 	else:
 	    pvlist = alt_pvlist
 	    
-	tspace = self.computeVGSize(pvlist)
+	pesize = self.peOptionMenu.get_active().get_data("value")
+	tspace = self.computeVGSize(pvlist, pesize)
 	uspace = self.computeLVSpaceNeeded(self.logvolreqs)
 	fspace =  tspace - uspace
+
 	self.totalSpaceLabel.set_text("%10.2f MB" % (tspace,))
 	self.usedSpaceLabel.set_text("%10.2f MB" % (uspace,))
-	self.usedPercentLabel.set_text("(%4.1f %%)" % (100.0*(uspace/tspace),))
+	self.usedPercentLabel.set_text("(%4.1f %%)" % ((100.0*uspace)/tspace,))
 	self.freeSpaceLabel.set_text("%10.2f MB" % (fspace,))
-	self.freePercentLabel.set_text("(%4.1f %%)" % (100.0*(fspace/tspace),))
+	self.freePercentLabel.set_text("(%4.1f %%)" % ((100.0*fspace)/tspace,))
 
 #
 # run the VG editor we created
@@ -533,7 +696,8 @@ class VolumeGroupEditor:
 		return None
 
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	    availSpaceMB = self.computeVGSize(pvlist)
+	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    availSpaceMB = self.computeVGSize(pvlist, pesize)
 	    neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
 	    if neededSpaceMB > availSpaceMB:
 		self.intf.messageWindow(_("Not enough space"),
@@ -561,7 +725,7 @@ class VolumeGroupEditor:
                                                 vgname = volname)
 		if self.partitions.isVolumeGroupNameInUse(volname):
 		    self.intf.messageWindow(_("Name in use"),
-					    _("The volume group name %s is "
+					    _("The volume group name \"%s\" is "
 					      "already in use. Please pick "
 					      "another." % (volname,)))
 		    del tmpreq
@@ -599,7 +763,11 @@ class VolumeGroupEditor:
         # if no PV exist, raise an error message and return
         if len(self.availlvmparts) < 1:
 	    self.intf.messageWindow(_("Not enough physical volumes"),
-			       _("At least one LVM partition is needed."))
+			       _("At least one physical volume partition is "
+				 "needed to create a LVM Volume Group.\n\n"
+				 "First create a partition or raid array "
+				 "of type \"physical volume (LVM)\" and then "
+				 "select the \"LVM\" option again."))
 	    self.dialog = None
             return
 
