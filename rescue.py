@@ -2,6 +2,7 @@ import upgrade
 from snack import *
 from text import WaitWindow, OkCancelWindow
 from translate import _
+import _balkan
 import raid
 import os
 from log import log
@@ -40,6 +41,18 @@ def runRescue(url, serial):
 	
     if not fstab:
 	os.execv("/bin/sh", [ "-/bin/sh" ])
+
+    # lets create some devices
+    for drive in fstab.driveList():
+	isys.makeDevInode(drive, "/dev/" + drive)
+	
+	for i in range(16):
+	    if drive [:3] == "rd/" or drive [:4] == "ida/" or drive [:6] == "cciss/":
+		dev = drive + 'p' + str (i + 1)
+	    else:
+		dev = drive + str (i + 1)
+
+	    isys.makeDevInode(dev, "/dev/" + dev)
 
     screen = SnackScreen()
     intf = RescueInterface(screen)
