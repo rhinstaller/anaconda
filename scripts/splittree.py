@@ -94,7 +94,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         self.total_discs = None
         self.bin_discs = None
         self.src_discs = None
-        self.product_path = "RedHat"
+        self.product_path = "anaconda"
         self.bin_list = []
         self.src_list = []
         self.shared_list = []
@@ -227,7 +227,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                     except OSError, (errno, msg):
                         pass
 
-                # now create the RedHat/RPMS dir
+                # now create the product/RPMS dir
                 os.makedirs("%s-disc%d/%s/RPMS" % (self.dist_dir, i, self.product_path))
                 
             else:
@@ -392,7 +392,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
 
 def usage(theerror):
     print theerror
-    print """Usage: %s --arch=i386 --total-discs=6 --bin-discs=3 --src-discs=3 --release-string="Red Hat Linux" --pkgorderfile=/tmp/pkgorder.12345 --distdir=/usr/src/someunifiedtree --srcdir=/usr/src/someunifiedtree/SRPMS --productpath=RedHat""" % sys.argv[0]
+    print """Usage: %s --arch=i386 --total-discs=6 --bin-discs=3 --src-discs=3 --release-string="distro name" --pkgorderfile=/tmp/pkgorder.12345 --distdir=/usr/src/someunifiedtree --srcdir=/usr/src/someunifiedtree/SRPMS --productpath=product""" % sys.argv[0]
     sys.exit(1)
 
         
