@@ -61,6 +61,7 @@ class Keyboard (SimpleConfigFile):
             ("ru2"               , ('pc102', 'ru', '')),
             ("ru_win"            , ('pc105', 'ru', '')),
             ("se-latin1"         , ('pc102', 'se', '')),
+            ("sg"    		 , ('pc102', 'de_CH', '')),
             ("sg-latin1"         , ('pc102', 'de_CH', '')),
             ("sk-qwerty"         , ('pc102', 'us_sk_qwerty', '')),
             ("trq"	         , ('pc102', 'tr', '')),
