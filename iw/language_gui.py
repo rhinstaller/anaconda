@@ -39,6 +39,7 @@ class LanguageWindow (InstallWindow):
         label = GtkLabel (_("What language would you like to use during the "
                          "installation process?"))
         label.set_line_wrap (TRUE)
+        label.set_usize(350, -1)
         hbox.pack_start(label, FALSE)
         
         self.language = GtkCList ()

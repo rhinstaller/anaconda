@@ -215,6 +215,7 @@ class MouseWindow (InstallWindow):
 
         label = GtkLabel (_("Which model mouse is attached to the computer?"))
         label.set_line_wrap (TRUE)
+        label.set_usize(350, -1)
         hbox.pack_start(label, FALSE)
         box.pack_start(hbox, FALSE)
             
