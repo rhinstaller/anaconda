@@ -559,7 +559,6 @@ static int writeModulesConf(moduleList list, int fd) {
                 switch(lm->minor) {
                 case DRIVER_MINOR_ETHERNET:
                     tmp = "eth";
-                    logMessage("got a %s device, first is %d, last is %d", tmp, lm->firstDevNum, lm->lastDevNum);
                     break;
                 case DRIVER_MINOR_TR:
                     tmp = "tr";
