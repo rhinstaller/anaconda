@@ -38,12 +38,13 @@ prepareBootImage() {
 USBMODS="usb-ohci usb-uhci hid keybdev"
 LATEUSBMODS="mousedev"
 IDEMODS="ide-mod ide-probe-mod ide-disk ide-cd"
+SCSIMODS="sd_mod sr_mod"
 
-SECSTAGE="vfat raid0 raid1 raid5 $IDEMODS $LATEUSBMODS"
+SECSTAGE="vfat raid0 raid1 raid5 $IDEMODS $SCSIMODS $LATEUSBMODS"
 
 COMMONMODULES="vfat $USBMODS agpgart"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
-	     sym53c8xx $IDEMODS"
+	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c509 3c59x 8390 ne ne2k-pci de4x5
 	       eepro100 e100 e1000 pcnet32 tulip pcnet32 rtl8129 hp100
 	       tlan sis900 dmfe"
@@ -83,7 +84,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
 	   --initrdsize 2100 \
 	   --loaderbin loader-pcmcia \
-	   --modules "nfs vfat $IDEMODS"
+	   --modules "nfs vfat $IDEMODS $SCSIMODS"
 
 for I in `find $BOOTDISKDIR -type d`; do
     BOOTLANG=`basename $I`
@@ -148,7 +149,8 @@ makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 4100 \
 	   --pcmcia \
 	   --loaderbin loader-pcmcia \
-	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS"
+	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS 
+		      $SCSIMODS"
 
 makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --bootdisksize 2880 \
