@@ -8,6 +8,8 @@ from GDK import *
 
 im = None
 splashwindow = None
+#print "Hello"
+#print self.todo.test
 try:
     im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
 except:
@@ -561,10 +563,10 @@ class InstallControlWindow:
         self.window = GtkWindow ()
         self.window.set_events (KEY_RELEASE_MASK)
 
-#        self.window.set_default_size (640, 480)
-#        self.window.set_usize (640, 480)
-        self.window.set_default_size (800, 600)
-        self.window.set_usize (800, 600)
+        self.window.set_default_size (640, 480)
+        self.window.set_usize (640, 480)
+#        self.window.set_default_size (800, 600)
+#        self.window.set_usize (800, 600)
 
         cursor = cursor_new (LEFT_PTR)
         _root_window ().set_cursor (cursor)
@@ -603,27 +605,24 @@ class InstallControlWindow:
         self.window.set_border_width(0)
         vbox = GtkVBox (FALSE, 10)
 
-        try:
-            pix, msk = create_pixmap_from_xpm(self.window, None, "/usr/share/anaconda/pixmaps/anaconda_header.xpm")
-            pixmap = GtkPixmap(pix, msk)
-            pixmap.show()
-            vbox.pack_start(pixmap, FALSE, TRUE, 0)
+        #Create header at the top of the installer
+#        try:
+#            pix, msk = create_pixmap_from_xpm(self.window, None, "/usr/share/anaconda/pixmaps/anaconda_header.xpm")
+#            pixmap = GtkPixmap(pix, msk)
+#            pixmap.show()
+#            vbox.pack_start(pixmap, FALSE, TRUE, 0)
 #            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
-        except:
-            try:
-                pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
-                pixmap = GtkPixmap(pix, msk)
-                pixmap.show()
-                vbox.pack_start(pixmap, FALSE, TRUE, 0)
+#        except:
+#            try:
+#                pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
+#                pixmap = GtkPixmap(pix, msk)
+#                pixmap.show()
+#                vbox.pack_start(pixmap, FALSE, TRUE, 0)
 #                im = GdkImlib.Image ("pixmaps/first.png")
 
-            except:
-                print "Unable to load", file
+#            except:
+#                print "Unable to load", file
 
-#        pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
-#        pixmap = GtkPixmap(pix, msk)
-#        pixmap.show()
-#        vbox.pack_start(pixmap, FALSE, TRUE, 0)
         vbox.set_spacing(0)
 
         self.buttonBox = GtkHButtonBox ()
@@ -662,9 +661,11 @@ class InstallControlWindow:
 
         self.helpFrame = GtkFrame (_("Online Help"))
         self.box = GtkVBox (FALSE, 0)
-        
+        self.box.set_spacing(0)
+
         self.box.pack_start (GtkHSeparator (), FALSE)
         self.box.pack_start (self.html, TRUE)
+        
         self.helpFrame.add (self.box)
 
         table = GtkTable (1, 3, TRUE)
