@@ -19,7 +19,7 @@ class InstallMethod:
 	return cs
 
     def getFilename(self, h):
-	return self.tree + "/RedHat/RPMS/" + h[FILENAME]
+	return self.tree + "/RedHat/RPMS/" + self.fnames[h]
 
     def readHeaders(self):
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
@@ -29,6 +29,7 @@ class InstallMethod:
 	    if (n[len(n) - 4:] == '.rpm'):
 		fd = os.open(path + "/" + n, 0)
 		(h, isSource) = rpm.headerFromPackage(fd)
+		self.fnames[h] = n
 		hl.append(h)
 		os.close(fd)
 		
@@ -59,3 +60,4 @@ class InstallMethod:
 	self.device = device
 	self.path = path
 	isys.makeDevInode(device, '/tmp/' + device)
+	self.fnames = {}
