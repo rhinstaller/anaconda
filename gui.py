@@ -89,7 +89,6 @@ class WaitWindow:
 	self.window.add (frame)
 	self.window.show_all ()
         thread = currentThread ()
-        print thread.getName ()
         if thread.getName () == "gtk_main":
             while events_pending ():
                 mainiteration (FALSE)
