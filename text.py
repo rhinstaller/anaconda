@@ -548,16 +548,19 @@ class InstallProgressWindow:
             return "%01d:%02d.%02d" % (int(hours) ,int(min), int(secs))
 
        	self.numComplete = self.numComplete + 1
-	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE] / 1024 / 1024)
+	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE] / 1024)
 	self.numCompleteW.setText("%12d" % self.numComplete)
-	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete))
+	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete/1024))
 	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
-	self.sizeRemainingW.setText("%10dM" % (self.sizeTotal - self.sizeComplete))
+	self.sizeRemainingW.setText("%10dM" % ((self.sizeTotal - self.sizeComplete)/1024))
 	self.total.set(self.sizeComplete)
 
 	elapsedTime = time.time() - self.timeStarted 
 	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
-	finishTime = (float (self.sizeTotal) / (self.sizeComplete+1)) * elapsedTime;
+        if self.sizeComplete != 0:
+            finishTime = (float (self.sizeTotal) / (self.sizeComplete)) * elapsedTime;
+        else:
+            finishTime = (float (self.sizeTotal) / (self.sizeComplete+1)) * elapsedTime;
 	self.timeTotalW.setText("%12s" % formatTime(finishTime))
 	remainingTime = finishTime - elapsedTime;
 	self.timeRemainingW.setText("%12s" % formatTime(remainingTime))
@@ -622,7 +625,7 @@ class InstallProgressWindow:
 
 	overall.setField (Label (_("Total    :")), 0, 1, anchorLeft = 1)
 	overall.setField (Label ("%12d" % total), 1, 1, anchorLeft = 1)
-	overall.setField (Label ("%10dM" % (totalSize)),
+	overall.setField (Label ("%10dM" % (totalSize/1024)),
                           2, 1, anchorLeft = 1)
 	self.timeTotalW = Label("")
 	overall.setField(self.timeTotalW, 3, 1, anchorLeft = 1)
@@ -639,7 +642,7 @@ class InstallProgressWindow:
 
 	overall.setField (Label (_("Remaining:  ")), 0, 3, anchorLeft = 1)
 	self.numRemainingW = Label("%12d" % total)
-        self.sizeRemainingW = Label("%10dM" % (totalSize))
+        self.sizeRemainingW = Label("%10dM" % (totalSize/1024))
 	overall.setField(self.numRemainingW, 1, 3, anchorLeft = 1)
 	overall.setField(self.sizeRemainingW, 2, 3, anchorLeft = 1)
 	self.timeRemainingW = Label("")
