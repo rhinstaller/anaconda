@@ -2962,7 +2962,7 @@ int main(int argc, char ** argv) {
 	if (!lang)
 	    lang = getenv ("LC_ALL");
 	
-	if (lang && !defaultLang) {
+	if (lang && !defaultLang && !FL_NOPASS(flags)) {
 	    *argptr++ = "--lang";
 	    *argptr++ = lang;
 	}
