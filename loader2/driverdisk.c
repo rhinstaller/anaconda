@@ -87,7 +87,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(file, "/tmp/ramfs/DD-%d", disknum);
     mkdirChain(file);
 
-    winStatus(40, 3, _("Loading"), _("Reading driver disk"));
+    winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
 
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
         sprintf(file, "%s/%s", mntpt, *fnPtr);
