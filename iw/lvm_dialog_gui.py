@@ -579,7 +579,9 @@ class VolumeGroupEditor:
 					  "logical volume size (%10.2f MB). "
 					  "To increase this limit you can "
 					  "increase the Physical Extent size "
-					  "for this Volume Group."), custom_icon="error")
+					  "for this Volume Group.") %(size,
+                                                                      maxlv),
+                                        custom_icon="error")
 		continue
 
  	    request.fstype = fsystem
@@ -595,6 +597,7 @@ class VolumeGroupEditor:
             request.format = format
             request.migrate = migrate
 	    request.badblock = None
+            request.grow = 0
 
 	    # this is needed to clear out any cached info about the device
 	    # only a workaround - need to change way this is handled in
