@@ -268,7 +268,7 @@ class Server(InstallClass):
 	self.addToSkipList("authentication")
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, 16, 0)
+	    self.addNewPartition('/boot', 16, 16, 0, None)
 	self.addNewPartition('/', 256, 256, 0, None)
 	self.addNewPartition('/usr', 512, 512, 1, None)
 	self.addNewPartition('/var', 256, 256, 0, None)
