@@ -1,9 +1,22 @@
+#
+# timezone_gui.py: gui timezone selection.
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+import string
+import iutil
 from gtk import *
 from iw_gui import *
-import string
 from gnome.ui import GnomeCanvas
 from translate import _
-import iutil
 
 import timezonemap
 

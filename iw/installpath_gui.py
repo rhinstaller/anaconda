@@ -1,8 +1,21 @@
-from gtk import *
-from translate import _, N_
+#
+# installpath_gui.py: screen for selecting which installclass to use.
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import installclass
+from gtk import *
 from iw_gui import InstallWindow
 from flags import flags
+from translate import _, N_
 
 UPGRADE = 0
 INSTALL = 1

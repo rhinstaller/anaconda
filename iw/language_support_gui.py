@@ -1,12 +1,23 @@
+#
+# langauge_support_gui.py: dialog for selection of which languages to support.
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+import gdkpixbuf
+import checklist
 from gtk import *
 from iw_gui import *
-from translate import _, N_
-from xpms_gui import CHECKBOX_ON_XPM
-from xpms_gui import CHECKBOX_OFF_XPM
-import gdkpixbuf
 from gnome.ui import *
 from flags import flags
-import checklist
+from translate import _, N_
 
 class LanguageSupportWindow (InstallWindow):
     windowTitle = _("Additional Language Support")
