@@ -6,6 +6,7 @@ from translate import _
 from kbd import Keyboard
 import iutil
 import isys
+from log import log
 
 class KeyboardWindow (InstallWindow):
 
@@ -32,7 +33,10 @@ class KeyboardWindow (InstallWindow):
             self.todo.x.setKeyboard (self.rulesbase, self.model,
                                      self.layout, self.variant, "")
             self.todo.keyboard.setfromx (self.model, self.layout)
-	    isys.loadKeymap(self.todo.keyboard.get())
+	    try:
+	    	isys.loadKeymap(self.todo.keyboard.get())
+	    except:
+		log("failed to load keymap")
         return None
 
     def select_row (self, clist, row, col, event):
