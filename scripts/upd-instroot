@@ -115,9 +115,9 @@ fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
-	sed net-tools inetd openssh openssh-server fileutils modutils
+	sed net-tools inetd openssh openssh-server coreutils modutils
 	initscripts mount gawk xauth
-	portmap textutils sh-utils telnet-server login ssh_keys"
+	portmap telnet-server login ssh_keys"
 fi
 
 # xpm is missing
@@ -129,10 +129,10 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-ISO8859-2-75dpi-fonts gtk2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
-           XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
+           XFree86-xfs e2fsprogs coreutils glibc glibc-common rsh less
            ftp readline gzip popt specspo util-linux rpm 
-           open grep net-tools traceroute tar procps textutils sed
-           ncurses bash cpio mt-st iputils sh-utils
+           open grep net-tools traceroute tar procps sed
+           ncurses bash cpio mt-st iputils
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pciutils pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
@@ -175,9 +175,9 @@ fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
-	sed net-tools inetd openssh openssh-server fileutils login 
+	sed net-tools inetd openssh openssh-server coreutils login 
 	wget initscripts xauth
-	modutils portmap textutils openssl telnet-server strace ssh_keys"
+	modutils portmap openssl telnet-server strace ssh_keys"
 fi
 
 if [ $ARCH = ppc ]; then
