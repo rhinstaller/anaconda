@@ -1548,7 +1548,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    logMessage("module %s inserted successfully", device);
     }
 
-    if (ksGetCommand(KS_CMD_DEVICEPROBE, ksArgv, &ksArgc, &ksArgv)) {
+    if (!ksGetCommand(KS_CMD_DEVICEPROBE, ksArgv, &ksArgc, &ksArgv)) {
 	if (ksArgc != 1) {
 	    logMessage("unexpected arguments to deviceprobe command");
 	}
@@ -1803,8 +1803,6 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupHardDrive(partname, fsType, dir, flags);
     } 
 #endif
-
-    kickstartDevices(kd, modInfo, modLoaded, modDepsPtr, flags);
 
     return imageUrl;
 }
@@ -2593,6 +2591,9 @@ logMessage("found url image %s", url);
 #endif
 
     readExtraModInfo(modInfo);
+
+    if (ksFile)
+	kickstartDevices(&kd, modInfo, modLoaded, &modDeps, flags);
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
