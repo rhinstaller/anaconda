@@ -200,7 +200,7 @@ class PackageWindow:
         ct = CheckboxTree(height = 10, scroll = 1)
         for comp in todo.comps:
             if not comp.hidden:
-                ct.append(comp.names, comp, comp.selected)
+                ct.append(comp.name, comp, comp.selected)
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
