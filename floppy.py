@@ -53,12 +53,16 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
     if flags.test:
 	return DISPATCH_NOOP
 
-    intf.messageWindow( _("Insert a floppy disk"),
+    rc = intf.messageWindow( _("Insert a floppy disk"),
 			_("Please remove any diskettes from the floppy "
 			  "drive, and insert the floppy diskette that "
 			  "is to contain the boot disk.\n\nAll data will "
-			  "be ERASED during creation of the boot disk."))
+			  "be ERASED during creation of the boot disk."),
+			type="okcancel")
 
+    if rc:
+	return DISPATCH_NOOP
+    
     # this is faster then waiting on mkbootdisk to fail
     device = floppyDevice
     file = "/tmp/floppy"
