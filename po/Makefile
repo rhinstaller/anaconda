@@ -11,7 +11,7 @@ NLSPACKAGE = anaconda
 POS = $(wildcard *.po)
 FMTCATALOGS = $(patsubst %.po,%.mo,$(POS))
 
-POTFILES = ../*.py ../iw/*.py ../textw/*.py \
+POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
            ../libfdisk/*.c ../loader/*.c \
            ../gnome-map/*.c \
