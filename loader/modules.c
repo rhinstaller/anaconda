@@ -200,7 +200,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 	    for (i = 0, arg = args; *arg; arg++, i++);
 	    newArgs = malloc(sizeof(*newArgs) * (i + 1));
 	    for (i = 0, arg = args; *arg; arg++, i++)
-		newArgs[i] = *arg;
+		newArgs[i] = strdup(*arg);
 	    newArgs[i] = NULL;
 	} else {
 	    newArgs = NULL;
