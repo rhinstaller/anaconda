@@ -316,7 +316,7 @@ class bootloaderPassword:
         self.entry2.setFlags(FLAG_DISABLED, flag)        
     
     def __call__(self, screen, dispatch, bl, fsset, diskSet):    
-        if not bl.useGrub:
+        if not bl.useGrub():
             return
 
         self.bl = bl
