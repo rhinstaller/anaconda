@@ -82,6 +82,10 @@ method = InstallMethod(imagepath)
 
 intf = InstallInterface()
 
+# set the default actions
+installPackages = 1
+setupFilesystems = 1
+
 if localInstall:
     installPackages = 1
     setupFilesystems = 0
