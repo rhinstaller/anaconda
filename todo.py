@@ -18,14 +18,14 @@ def _(x):
 class FakeDDruid:
     """A disk druid looking thing for upgrades"""
     def partitionList (self):
-        return (None, self.partitions)
+        return (self.partitions, None)
         
     def append (self, name, table):
         for i in range (len (table)):
             (type, sector, size) = table[i]
             if size:
                 self.partitions.append ((name + str (i)),
-                                        "Existing000" + len (self.partitions),
+                                        "Existing000" + str(len (self.partitions)),
                                         type)
     def __init__ (self):
         self.partitions = []
@@ -937,7 +937,7 @@ class ToDo:
                                     _("Searching for Red Hat Linux installations..."))
         
         drives = self.drives.available ().keys ()
-        todo.ddruid = FakeDDruid ()
+        self.ddruid = FakeDDruid ()
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
             
@@ -946,7 +946,7 @@ class ToDo:
             except SystemError:
                 pass
             else:
-                self.todo.ddruid.append (drive, table)
+                self.ddruid.append (drive, table)
                 for i in range (len (table)):
                     (type, sector, size) = table[i]
                     # 2 is ext2 in balkan speek
