@@ -276,6 +276,7 @@ class InstallCallback:
 
 	    self.rpmFD = -1
             self.size = h[rpm.RPMTAG_SIZE]
+
 	    while self.rpmFD < 0:
                 fn = self.method.getFilename(h, self.pkgTimer)
 #		log("Opening rpm %s", fn)
@@ -322,7 +323,10 @@ class InstallCallback:
 	    elif cur_amount < 0:
 		cur_amount = 0
 
-	    self.progress.setPackageScale(cur_amount, self.size)
+	    if self.size <= 0:
+		log("Bogus size %s!", self.size)
+	    else:
+		self.progress.setPackageScale(cur_amount, self.size)
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
 	    os.close (self.rpmFD)
 	    self.progress.completePackage(h, self.pkgTimer)
