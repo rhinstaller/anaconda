@@ -30,7 +30,8 @@ from log import log
 
 # sanity checking for various numeric input boxes
 def invalidInteger(str):
-    ints = range(0,10)
+    import string
+    ints = string.digits
     if str == "":
         return _("Must specify a value")
     for n in str:
