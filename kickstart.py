@@ -536,7 +536,15 @@ class KickstartBase(BaseInstallClass):
 
     def doAutoStep(self, id, args):
         flags.autostep = 1
+	flags.autoscreenshot = 0
 
+	(xargs, xtra) = isys.getopt(args, '', ['autoscreenshot'])
+	for n in xargs:
+	    (str, arg) = n
+	    if str == "--autoscreenshot":
+		flags.autoscreenshot = 1
+
+		
     # read the kickstart config...  if parsePre is set, only parse
     # the %pre, otherwise ignore the %pre.  assume we're starting in where
     def readKickstart(self, id, file, parsePre = 0, where = "commands"):
