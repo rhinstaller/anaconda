@@ -223,12 +223,14 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             devMakeInode(device, "/tmp/dddev");
             logMessage("trying to mount %s", device);
             if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL)) {
-                if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL)) {
+              if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL)) {
+                  if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL)) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("Failed to mount driver disk."));
                     stage = DEV_INSERT;
                     break;
                 }
+              }
             }
 
             rc = verifyDriverDisk("/tmp/drivers", flags);
