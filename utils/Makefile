@@ -18,7 +18,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist $(MODDEPS) snarffont mapshdr readmap checkisomd5 implantisomd5 genhdlist
+all:	modlist $(MODDEPS) snarffont mapshdr readmap genhdlist
 
 modlist:    modlist.o 
 
@@ -35,12 +35,6 @@ moddeps: moddeps.o moduledeps.o
 md5.o: md5.c md5.h
 	gcc -c -O -g md5.c
 
-implantisomd5: implantisomd5.c md5.o
-	gcc -O -g -o implantisomd5 implantisomd5.c md5.o -lm
-
-checkisomd5: checkisomd5.c md5.o
-	gcc -O -g -o checkisomd5 -DTESTING checkisomd5.c md5.o -lm
-
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm-4.0.4 -lrpmdb-4.0.4 -lrpmio-4.0.4 \
 	-lbz2 -lz -lpopt 
@@ -56,14 +50,11 @@ install: all
 	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 modlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 checkcards.py $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 checkisomd5 $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:	
 	rm -f modlist moddeps snarffont genhdlist mapshdr readmap *.o 
-	rm -f implantisomd5 checkisomd5
 
 depend:
 	$(CPP) -M $(CFLAGS) *.c > .depend
