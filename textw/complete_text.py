@@ -18,49 +18,41 @@ import iutil
 
 
 class FinishedWindow:
-
-  if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
-
-    def __call__ (self, screen):
+  
+  def __call__ (self, screen):
         screen.pushHelpLine (string.center(_("<Enter> to reboot"),
                                            screen.width))
 
         if iutil.getArch() != "ia64":
-            bootstr = _("If you created a boot disk to use to boot your "
+          bootstr = _("If you created a boot disk to use to boot your "
                         "Red Hat Linux system, insert it before you "
                         "press <Enter> to reboot.\n\n")
         else:
-            bootstr = ""
+          bootstr = ""
 
-	rc = ButtonChoiceWindow (screen, _("Complete"), 
+        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+          floppystr = ""
+        else:
+          floppystr = _("Remove any floppy diskettes you used during the "
+                        "installation process and press <Enter> to reboot "
+                        "your system."
+                        "\n\n")
+          
+
+        rc = ButtonChoiceWindow (screen, _("Complete"), 
              _("Congratulations, your Red Hat Linux installation is "
                "complete.\n\n"
-               "Remove any floppy diskettes you used during the "
-               "installation process and press <Enter> to reboot your system. "
-               "\n\n"
+               "%s"
                "%s"
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
                "Information on using your "
                "system is available in the Red Hat Linux manuals at "
-               "http://www.redhat.com/support/manuals.") % bootstr,
-		[ _("OK") ], help = "finished", width=60)
+               "http://www.redhat.com/support/manuals.") %
+                                 (floppystr, bootstr),
+                                 [ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
-
-  else:
-
-    def __call__ (self, screen):
-	screen.pushHelpLine (string.center(_("<Enter> to continue"),
-				screen.width))
-	rc = ButtonChoiceWindow (screen, _("Complete"),
-		_("Congratulations, package installation is complete.\n\n"
-		"Press return to continue.\n\n"
-		"Information on configuring and using your Red Hat "
-		"Linux system is contained in the Red Hat Linux "
-		"manuals."),
-		[ _("OK") ], help = "finished")
-	return INSTALL_OK
 
 
 class ReconfigFinishedWindow:
