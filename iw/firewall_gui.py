@@ -31,13 +31,19 @@ class FirewallWindow (InstallWindow):
             self.firewall.enabled = 0
 
 	    rc2 = self.intf.messageWindow(_("Warning - No Firewall"),
-					  _("You have elected to disable the firewall on this system.  This is not recomended if this system is attached directly to the Internet or is on a large public network. A firewall will help prevent unauthorized access to your system.\n\nAre you sure you want to turn off the firewall?"),
-					  type="custom", custom_icon="warning",
-					  custom_buttons=[_("_Back"), _("_Proceed")])
+		   _("If this system is attached directly to the Internet or "
+		     "is on a large public network, it is recommended that a "
+		     "firewall be configured to help prevent unauthorized "
+		     "access.  However, you have selected not to "
+		     "configure a firewall.  Choose \"Proceed\" to continue "
+		     "without a firewall."),
+		    type="custom", custom_icon="warning",
+		    custom_buttons=[_("_Configure Firewall"), _("_Proceed")])
+	    
 	    if rc2 == 0:
 		raise gui.StayOnScreen
-        else:
-            self.firewall.enabled = 1
+	    else:
+		self.firewall.enabled = 1
 
             count = 0
             self.firewall.trustdevs = []
