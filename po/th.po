@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-17 02:58+0700\n"
+"PO-Revision-Date: 2004-07-24 07:18+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
 "MIME-Version: 1.0\n"
@@ -558,10 +558,10 @@ msgid ""
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
-"เกิดข้อผิดพลาดที่ไม่สามารถจัดการได้ คล้ายจะเป็นบั๊ก \n"
-"กรุณาคัดลอกข้อความทั้งหมดที่แสดงนี้หรือบันทึก crash dump \n"
-"ลงในแผ่นฟลอปปี้ และรายงานรายละเอียดของบั๊กเกี่ยวกับอานาคอนดาที่ \n"
-"http://bugs.opentle.org "
+"เกิดข้อผิดพลาดที่ไม่สามารถจัดการได้ คล้ายจะเป็นบั๊ก "
+"กรุณาคัดลอกข้อความทั้งหมดที่แสดงนี้หรือบันทึก crash dump "
+"ลงในแผ่นฟลอปปี้ และส่งรายงานบั๊กพร้อมรายละเอียดที่เกี่ยวข้องกับอนาคอนดาไปที่ "
+"http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:79
 msgid ""
@@ -569,13 +569,14 @@ msgid ""
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
-"เกิดข้อผิดพลาดที่ไม่สามารถระบุได้ว่าคืออะไร คล้ายจะเป็นบั๊ก\n"
-"กรุณาคัดลอกข้อความทั้งหมดที่แสดงนี้ และบันทึกรายงานรายละเอียดของบั๊กเกี่ยวกับอานาคอนดาที่\n"
-"http://bugs.opentle.org "
+"เกิดข้อผิดพลาดที่ไม่สามารถจัดการได้ คล้ายจะเป็นบั๊ก "
+"กรุณาคัดลอกข้อความทั้งหมดที่แสดงนี้"
+" และส่งรายงานบั๊กพร้อมรายละเอียดที่เกี่ยวข้องกับอนาคอนดาไปที่ "
+"http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
-msgstr "มีกรณีพิเศษเกิดขึ้น"
+msgstr "มีความผิดปกติเกิดขึ้น"
 
 #: ../exception.py:295
 msgid "Dump Written"
@@ -585,23 +586,23 @@ msgstr "เขียนถ่ายข้อมูล"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะรีเซ็ต"
+msgstr "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "การล็อกอินระยะไกล (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "เว็บเซิร์ฟเวอร์ (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "การโอนถ่ายไฟล์ (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
-msgstr ""
+msgstr "ตัวบริการเมล (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -611,7 +612,7 @@ msgstr "ไม่สามารถสร้างแผ่นฟลอปปี
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
-msgstr "ขนาดของโมดูลเคอร์เนลที่ระบบของคุณต้องการมีขนาดโตกว่าที่จะสร้างเป็นแผ่นบูตในแผ่นเดียวได้"
+msgstr "ขนาดของโมดูลเคอร์เนลที่ระบบของคุณต้องการ มีขนาดโตกว่าที่จะสร้างเป็นแผ่นบูตแผ่นเดียวได้"
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
@@ -624,17 +625,17 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
-"กรุณานำแผ่นฟลอปปี้ดิสก์ออกจากช่องใส่ฟลอปปี้ แล้วใส่แผ่นฟลอปปี้ดิสก์สำหรับบูตเข้าไป\n"
+"กรุณานำแผ่นฟลอปปี้ดิสก์อื่นๆ ออกจากช่องใส่ฟลอปปี้ แล้วใส่แผ่นฟลอปปี้ดิสก์สำหรับบูต\n"
 "\n"
 "ข้อมูลทั้งหมดจะถูกลบทิ้งระหว่างการสร้างแผ่นบูต"
 
 #: ../floppy.py:118
 msgid "_Cancel"
-msgstr "ยกเลิก"
+msgstr "_ยกเลิก"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr "สร้างแผ่นบูต"
+msgstr "_สร้างแผ่นบูต"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
@@ -710,21 +711,21 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 "มีข้อผิดพลาดเกิดขึ้นขณะที่กำลังเปลี่ยนระบบไฟล์ของ %s ให้เป็นแบบ ext3 "
-"คุณสามารถดำเนินการติดตั้งต่อได้ โดยยกเลิกการปรับปรุงระบบไฟล์เดิมให้เป็นแบบ ext3\n"
+"คุณสามารถดำเนินการติดตั้งต่อได้ โดยไม่ต้องปรับปรุงระบบไฟล์ก็ได้\n"
 "\n"
 "คุณต้องการดำเนินการต่อโดยไม่เปลี่ยนระบบไฟล์ของ %s เป็น ext3 หรือไม่?"
 
 #: ../fsset.py:1182
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID Device"
 
 #: ../fsset.py:1186 ../fsset.py:1192
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Apple Bootstrap"
 
 #: ../fsset.py:1197 ../partitions.py:807
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP Boot"
 
 #: ../fsset.py:1200 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -732,7 +733,7 @@ msgstr "เซกเตอร์แรกของบูตพาร์ทิช
 
 #: ../fsset.py:1201 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "บูตเรคอร์ดหลัก (MBR)"
 
 #: ../fsset.py:1268
 #, python-format
@@ -758,7 +759,7 @@ msgid ""
 msgstr ""
 "เกิดข้อผิดพลาดขึ้นในระหว่างใช้งาน swap บนพื้นที่ %s: %s\n"
 "\n"
-"ปัญหานี้ส่วนใหญ่ดูเหมือนว่าจะเกิดจากการที่ไม่ได้มีการเตรียม swap ไว้\n"
+"ปัญหานี้ส่วนใหญ่มักเกิดจากการที่ไม่ได้มีการเตรียม swap ไว้\n"
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
@@ -807,14 +808,14 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"เกิดข้อผิดพลาดขณะที่พยายามถ่ายโอนระบบไฟล์ของ %s ปัญหานี้เป็นเรื่องรุนแรง "
+"เกิดข้อผิดพลาดขณะที่พยายามแปลงระบบไฟล์ของ %s ปัญหานี้เป็นเรื่องรุนแรง "
 "และการติดตั้งไม่สามารถดำเนินต่อไปได้\n"
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
 #: ../fsset.py:1455 ../fsset.py:1464
 msgid "Invalid mount point"
-msgstr "ตำแหน่งเมานท์ที่ไม่ถูกต้อง"
+msgstr "ตำแหน่งเมานท์ไม่ถูกต้อง"
 
 #: ../fsset.py:1456
 #, python-format
@@ -859,17 +860,17 @@ msgstr ""
 
 #: ../fsset.py:2117
 msgid "Duplicate Labels"
-msgstr "ชื่อซ้ำ"
+msgstr "ชื่อซ้ำซ้อน"
 
 #: ../fsset.py:2118
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"มีอุปกรณ์ชื่อ %s ซึ่งซ้ำกันบนระบบของคุณ ระบบไม่อนุญาต \n"
+"มีดีไวซ์หลายตัวบนระบบของคุณที่ตั้งชื่อว่า %s ชื่อที่ตั้งให้กับดีไวซ์แต่ละตัวต้องเป็นหนึ่งเดียว ซ้ำกันไม่ได้ จึงจะทำให้ระบบของคุณทำงานได้ถูกต้อง\n"
 "\n"
 "ให้ทำการแก้ไข แล้วเริ่มการติดตั้งใหม่ทั้งหมด "
 
@@ -878,11 +879,11 @@ msgstr ""
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "รีบูต"
+msgstr "_รีบูต"
 
 #: ../fsset.py:2378
 msgid "Formatting"
-msgstr "การฟอร์แมต"
+msgstr "กำลังฟอร์แมต"
 
 #: ../fsset.py:2379
 #, python-format
@@ -918,7 +919,7 @@ msgstr "กำลังบันทึกภาพหน้าจอ"
 #: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "ชื่อภาพหน้าจอที่ตั้ง %s ถูกบันทึกแล้ว"
+msgstr "ภาพหน้าจอชื่อ %s ถูกบันทึกแล้ว"
 
 #: ../gui.py:167
 msgid "Error Saving Screenshot"
@@ -930,7 +931,7 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 "เกิดข้อผิดพลาดขณะบันทึกภาพหน้าจอ หากข้อผิดพลาดเกิดขึ้นระหว่างการติดตั้งแพ็กเกจ "
-"คุณคงต้องพยายามอีกหลายครั้งเพื่อให้สำเร็จ"
+"คุณอาจต้องลองอีก 2-3 ครั้งจึงจะสำเร็จ"
 
 #: ../gui.py:236 ../text.py:334
 msgid "Fix"
@@ -979,11 +980,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ข้อผิดพลาดต่อไปนี้เกิดเมื่อตีความค่าที่กำหนดไว้สำหรับ kickstart:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "เกิดข้อผิดพลาดในการเปิดไฟล์คิกสตาร์ท %s: %s"
+msgstr "เกิดข้อผิดพลาดในการวิเคราะห์ค่าที่กำหนดของ Kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -992,9 +995,8 @@ msgid ""
 msgstr "กรุณาใส่แผ่นฟลอปปี้ ข้อมูลทั้งหมดในแผ่นจะถูกลบ ดังนั้นกรุณาเลือกแผ่นดิสก์อย่างระมัดระวัง"
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "ค่าปริยาย"
+msgstr "ค่าปริยาย:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1015,17 +1017,17 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"เกิดข้อผิดพลาดเมื่อกำลังพยายามโหลดส่วนองค์ประกอบของตัวติดตั้งอินเทอร์เฟซ\n"
+"เกิดข้อผิดพลาดเมื่อกำลังพยายามโหลดส่วนประกอบอินเทอร์เฟซของตัวติดตั้ง\n"
 "\n"
-"className=%s"
+"className = %s"
 
 #: ../gui.py:1095 ../packages.py:187 ../packages.py:596 ../packages.py:1479
 msgid "_Exit"
-msgstr "ออกจากโปรแกรม"
+msgstr "_ออกจากโปรแกรม"
 
 #: ../gui.py:1096
 msgid "_Retry"
-msgstr "ลองใหม่"
+msgstr "_ลองใหม่"
 
 #: ../gui.py:1098 ../packages.py:1482
 msgid "Rebooting System"
@@ -1039,27 +1041,27 @@ msgstr "ระบบของคุณกำลังจะถูกรีบู
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
-msgstr "ย้อนกลับ"
+msgstr "_ย้อนกลับ"
 
 #: ../gui.py:1192
 msgid "_Next"
-msgstr "ถัดไป "
+msgstr "_ถัดไป "
 
 #: ../gui.py:1194
 msgid "_Release Notes"
-msgstr "รีลีสโน้ต"
+msgstr "_รีลีสโน้ต"
 
 #: ../gui.py:1196
 msgid "Show _Help"
-msgstr "แสดงข้อความช่วยเหลือ"
+msgstr "แสดงข้อความ_ช่วยเหลือ"
 
 #: ../gui.py:1198
 msgid "Hide _Help"
-msgstr "ซ่อนข้อความช่วยเหลือ"
+msgstr "ซ่อนข้อความ_ช่วยเหลือ"
 
 #: ../gui.py:1200
 msgid "_Debug"
-msgstr "ดีบั๊ก"
+msgstr "_ดีบั๊ก"
 
 #: ../gui.py:1282
 #, python-format
@@ -1090,11 +1092,11 @@ msgstr ""
 "ไม่พบ ISO images ซึ่งจำเป็นสำหรับการติดตั้ง:\n"
 "\n"
 "%s\n"
-"ระบบจะทำการรีบูตในตอนนี้"
+"ระบบจะทำการรีบูตเดี๋ยวนี้"
 
 #: ../image.py:87
 msgid "Required Install Media"
-msgstr ""
+msgstr "สื่อสำหรับติดตั้งที่ต้องการ"
 
 #: ../image.py:88
 #, python-format
@@ -1113,7 +1115,7 @@ msgstr ""
 #: ../image.py:96 ../image.py:477 ../kickstart.py:1386 ../kickstart.py:1414
 #: ../iw/partition_gui.py:1016
 msgid "_Continue"
-msgstr "ต่อไป"
+msgstr "_ต่อไป"
 
 #: ../image.py:155
 #, python-format
@@ -1160,7 +1162,7 @@ msgstr "นี่ไม่ใช่ซีดีรอมของ %s"
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "ไม่สามารถเข้าถึงแผ่นซีดีได้"
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1181,7 +1183,7 @@ msgstr ""
 
 #: ../kickstart.py:1385 ../kickstart.py:1413
 msgid "_Abort"
-msgstr "ยกเลิก"
+msgstr "_ยกเลิก"
 
 #: ../kickstart.py:1405
 msgid "Missing Group"
@@ -1219,7 +1221,7 @@ msgid ""
 "\n"
 msgstr ""
 "ระบบไฟล์ของการติดตั้งลินุกซ์ที่คุณเลือกไว้เพื่ออัพเกรดนั้นถูกเมานท์เรียบร้อยแล้ว "
-"คุณไม่สามารถย้อนกลับไปได้ \n"
+"คุณไม่สามารถย้อนกลับไปจากจุดนี้ได้อีกแล้ว \n"
 "\n"
 
 #: ../packages.py:51 ../iw/package_gui.py:46
@@ -1239,7 +1241,7 @@ msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"ไฟล์ hdlist ไม่สามารถอ่านได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือไฟล์ได้รับความเสียหาย กดปุ่ม "
+"ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย กดปุ่ม "
 "<return> เพื่อลองดูอีกครั้ง"
 
 #: ../packages.py:164
@@ -1247,7 +1249,7 @@ msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"ไฟล์ comps ไม่สามารถอ่านได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือไฟล์ได้รับความเสียหาย กดปุ่ม "
+"ไม่สามารถอ่านไฟล์ comps ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย กดปุ่ม "
 "<return> เพื่อลองดูอีกครั้ง"
 
 #: ../packages.py:176 ../packages.py:677 ../upgrade.py:342
@@ -1255,7 +1257,7 @@ msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"ไม่สามารถผสานไฟล์ hdlist อาจจะมีสาเหตุมาจากไฟล์หายไป หรือไฟล์ได้รับความเสียหาย กดปุ่ม "
+"ไม่สามารถผสานรายการ header อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย กดปุ่ม "
 "<return> เพื่อลองดูอีกครั้ง"
 
 #: ../packages.py:183 ../packages.py:592
@@ -1263,7 +1265,7 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
+msgstr "คุณกำลังพยายามติดตั้งบนเครื่องซึ่ง %s รีลีสนี้ไม่สนับสนุน"
 
 #: ../packages.py:289
 msgid "Dependency Check"
@@ -1291,7 +1293,7 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 "แพ็กเกจ %s-%s-%s ไม่สามารถเปิดใช้งานได้ อาจเพราะว่าไม่มีอยู่ หรือเกิดความเสียหายกับข้อมูล "
-"ถ้าคุณติดตั้งกับแผ่น CD ก็อาจเป็นไปได้ว่าแผ่นไม่สมบูรณ์ หรือตัวอ่านชำรุด\n"
+"ถ้าคุณติดตั้งด้วยแผ่นซีดี ก็อาจเป็นไปได้ว่าแผ่นไม่สมบูรณ์ หรือตัวอ่านชำรุด\n"
 "\n"
 "กดปุ่ม <return> เพื่อลองใหม่"
 
@@ -1329,7 +1331,7 @@ msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
-"กำลังอัพเกรดแพ็กเกจ %s\n"
+"กำลังอัพเกรด %s แพ็กเกจ\n"
 "\n"
 
 #: ../packages.py:884
@@ -1338,7 +1340,7 @@ msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr ""
-"กำลังติดตั้งแพ็กเกจ %s\n"
+"กำลังติดตั้ง %s แพ็กเกจ\n"
 "\n"
 
 #: ../packages.py:892 ../packages.py:1192
@@ -1393,7 +1395,7 @@ msgstr "ตำแหน่งเมานท์"
 
 #: ../packages.py:962
 msgid "Space Needed"
-msgstr "พื้นที่ที่ต้องการ"
+msgstr "พื้นที่ว่างที่ต้องการ"
 
 #: ../packages.py:978
 msgid ""
@@ -1407,7 +1409,7 @@ msgstr ""
 
 #: ../packages.py:983
 msgid "Nodes Needed"
-msgstr "โหนดที่ต้องการ"
+msgstr "จำนวนโหนดที่ต้องการ"
 
 #: ../packages.py:994
 msgid "Disk Space"
@@ -1439,11 +1441,11 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"แพ็กเกจต่อไปนี้มีอยู่ในรุ่นปัจจุบัน แต่จะไม่ถูกติดตั้ง:\n"
+"แพ็กเกจต่อไปนี้ปรากฏมีอยู่ในรุ่นปัจจุบัน แต่จะไม่ถูกติดตั้ง:\n"
 
 #: ../packages.py:1465
 msgid "Warning! This is pre-release software!"
-msgstr ":คำเตือน! นี้เป็นซอฟต์แวร์รุ่นทดสอบเท่านั้น! "
+msgstr "คำเตือน! นี้เป็นซอฟต์แวร์รุ่นทดสอบเท่านั้น! "
 
 #: ../packages.py:1466
 #, python-format
@@ -1462,14 +1464,14 @@ msgid ""
 msgstr ""
 "ขอบคุณสำหรับการดาวน์โหลด %s รุ่นทดสอบ\n"
 "\n"
-"โปรแกรมนี้ยังไม่ถือเป็นรุ่นจริง และยังไม่จัดเป็นผลิตภัณฑ์ "
-"จุดประสงค์ของการออกชุดนี้เพื่อรวบรวมการตอบรับจากผู้ทดสอบ "
-"และยังไม่เหมาะสมสำหรับการนำไปใช้งานจริง\n"
-"รายงานผลการทดสอบได้ที่:\n"
+"โปรแกรมนี้ยังไม่ถือเป็นรุ่นจริง และยังไม่แนะนำสำหรับระบบที่สำคัญๆ "
+"จุดประสงค์ของการออกรุ่นนี้คือ เพื่อรวบรวมการตอบรับจากนักทดสอบ "
+"และยังไม่เหมาะสมสำหรับการนำไปใช้งานจริงในชีวิตประจำวัน\n"
+"ถ้าต้องการรายงานผลการทดสอบ ให้เข้าไปที่:\n"
 "\n"
-"http://www.opentle.org/\n"
+"   http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"และ http://bugs.opentle.org %s.\n"
+"และส่งรายงานที่เกี่ยวข้องกับ %s.\n"
 
 #: ../packages.py:1479
 msgid "_Install anyway"
@@ -1477,7 +1479,7 @@ msgstr "ดำเนินการติดตั้งต่อ"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:502
 msgid "Foreign"
-msgstr "นอกเหนือ"
+msgstr "อื่นๆ"
 
 #: ../partedUtils.py:274
 #, python-format
@@ -1489,9 +1491,12 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"ดีไวซ์ %s เป็นรูปแบบ LDL แทนที่จะเป็นรูปแบบ CDL ซึ่งรูปแบบ LDL จะยังไม่ได้รับการสนับสนุนสำหรับใช้ในระหว่างการติดตั้ง %s ถ้าคุณต้องการใช้ดิสก์นี้สำหรับติดตั้ง มันก็จะต้องถูกตระเตรียมขึ้นใหม่ ซึ่งจะทำให้สูญเสียข้อมูลทั้งหมดบนไดรฟ์นี้\n"
+"\n"
+"คุณต้องการเปลี่ยนรูปแบบของ DASD นี้ให้เป็นรูปแบบ CDL หรือไม่?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1499,20 +1504,17 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"ตารางของพาร์ทิชันบน /dev/%s เป็นของระบบที่ไม่รู้จัก ถ้าคุณต้องการใช้ฮาร์ดดิสก์นี้สำหรับการติดตั้ง %"
-"s %s จะต้องทำการเตรียมฮาร์ดดิสก์ใหม่ ซึ่งจะทำให้ข้อมูลที่อยู่ในฮาร์ดดิสก์นี้ถูกลบออกทั้งหมด\n"
+"ปัจจุบัน /dev/%s มีการจัดรูปแบบพาร์ทิชันแบบ %s ซึ่งถ้าต้องการใช้ดิสก์นี้สำหรับการติดตั้ง %s จะต้องตระเตรียมขึ้นใหม่ ซึ่งจะทำให้สูญเสียข้อมูลทั้งหมดบนไดรฟ์นี้\n"
 "\n"
-"คุณต้องการให้เตรียมฮาร์ดดิสก์นี้ใหม่หรือไม่?"
+"คุณต้องการให้ฟอร์แมตไดรฟ์นี้หรือไม่?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "ไม่ต้องสนใจ"
+msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "ฟอร์แมต"
+msgstr "_ฟอร์แมตไดรฟ์"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1526,10 +1528,10 @@ msgstr "กำลังเตรียมความพร้อม..."
 #: ../partedUtils.py:722
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "กรุณารอสักครู่กำลังฟอร์แมตไดรฟ์ %s...\n"
+msgstr "กรุณารอสักครู่ กำลังฟอร์แมตไดรฟ์ %s...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1540,12 +1542,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ตารางของพาร์ทิชันบน %s ไม่สามารถอ่านได้ จะต้องมีการจัดเตรียมสร้างพาร์ทิชันใหม่ "
-"ซึ่งจะทำให้ข้อมูลทั้งหมดในไดรฟ์หายไป\n"
+"ตารางของพาร์ทิชันบน %s (%s) ไม่สามารถอ่านได้ ถ้าต้องการจะสร้างพาร์ทิชันใหม่ จะต้องมีการตระเตรียมมันก่อน ซึ่งจะทำให้สูญเสียข้อมูลทั้งหมดบนไดรฟ์นี้\n"
 "\n"
-"การปฏิบัติการนี้จะทับตัวเลือกการติดตั้งก่อนหน้า\n"
+"การปฏิบัติการนี้จะกำหนดตัวเลือกใหม่ แทนที่ตัวเลือกของการติดตั้งก่อนหน้าที่เกี่ยวกับว่าไดรฟ์ใดที่จะถูกข้ามไป\n"
 "\n"
-"คุณต้องการให้มีการจัดเตรียมสร้างพาร์ทิชันใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
+"คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -1558,12 +1559,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ตารางของพาร์ทิชันบน %s ไม่สามารถอ่านได้ จะต้องมีการจัดเตรียมสร้างพาร์ทิชันใหม่ "
-"ซึ่งจะทำให้ข้อมูลทั้งหมดในไดรฟ์หายไป\n"
+"ตารางของพาร์ทิชันบน %s ไม่สามารถอ่านได้ ถ้าต้องการจะสร้างพาร์ทิชันใหม่ จะต้องมีการตระเตรียมมันก่อน ซึ่งจะทำให้สูญเสียข้อมูลทั้งหมดบนไดรฟ์นี้\n"
 "\n"
-"การปฏิบัติการนี้จะทับตัวเลือกการติดตั้งก่อนหน้า\n"
+"การปฏิบัติการนี้จะกำหนดตัวเลือกใหม่ แทนที่ตัวเลือกของการติดตั้งก่อนหน้าที่เกี่ยวกับว่าไดรฟ์ใดที่จะถูกข้ามไป\n"
 "\n"
-"คุณต้องการให้มีการจัดเตรียมสร้างพาร์ทิชันใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
+"คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
 #: ../partedUtils.py:988 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
