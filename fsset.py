@@ -70,9 +70,10 @@ def getUsableLinuxFs():
 
     # make sure the default is first in the list, kind of ugly
     default = fileSystemTypeGetDefault()
-    if default in rc:
-        del rc[rc.index(default)]
-	rc.insert(0, default)
+    defaultName = default.getName()
+    if defaultName in rc:
+        del rc[rc.index(defaultName)]
+        rc.insert(0, defaultName)
     return rc
 
 def mountCompare(a, b):
