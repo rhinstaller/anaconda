@@ -1100,6 +1100,7 @@ static char * mountNfsImage(struct installMethod * method,
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
 	  case NFS_STAGE_IP:
+logMessage("in mountNfsImage NFS_STAGE_IP");
 	    rc = readNetConfig(devName, &netDev, flags);
 	    if (rc) {
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
@@ -1109,8 +1110,13 @@ static char * mountNfsImage(struct installMethod * method,
 	    break;
 
 	  case NFS_STAGE_NFS:
+logMessage("in mountNfsImage NFS_STAGE_NFS");
 	    if (nfsGetSetup(&host, &dir) == LOADER_BACK)
-		stage = NFS_STAGE_IP;
+		{
+		   /* stage = NFS_STAGE_IP; */
+logMessage("in mountNfsImage nfsGetSetup=LOADER_BACK");
+		   return NULL;
+		}
 	    else
 		stage = NFS_STAGE_MOUNT;
 	    break;
