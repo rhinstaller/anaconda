@@ -724,12 +724,28 @@ class ToDo:
                     if not (name, sugname) in rc:
                         rc.append ((name, sugname))
                 elif sense == rpm.RPMDEP_SENSE_CONFLICTS:
-                    log ("%s-%s-%s conflicts with to-be-installed "
-                              "package %s, removing from set",
-                              name, version, release, reqname)
-                    if self.hdList.packages.has_key (reqname):
-                        self.hdList.packages[reqname].selected = 0
-                        log ("... removed")
+		    # We need to check if the one we are going to
+		    # install is ok.
+		    conflicts = 1
+		    if reqversion:
+			fields = string.split(reqversion, '-')
+			if (len (fields) == 2):
+			    needed = ("", fields [0], fields [1])
+			else:
+			    needed = ("", fields [0], "")
+			h = self.hdList[reqname].h
+			installed = ("", h[rpm.RPMTAG_VERSION],
+				     h [rpm.RPMTAG_RELEASE])
+			if rpm.labelCompare (installed, needed) >= 0:
+			    conflicts = 0
+
+		    if conflicts:
+			log ("%s-%s-%s conflicts with to-be-installed "
+                             "package %s, removing from set",
+                             name, version, release, reqname)
+			if self.hdList.packages.has_key (reqname):
+			    self.hdList.packages[reqname].selected = 0
+			    log ("... removed")
 
         del ts
         if self.upgrade:
