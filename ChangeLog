@@ -1,3 +1,9 @@
+2004-11-05  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (readJFSLabel_int): Fix exception handling.
+	(readXFSLabel_int): Likewise.
+	(readSwapLabel_int): Likewise.
+
 2004-11-04  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

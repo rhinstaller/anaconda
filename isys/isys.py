@@ -556,11 +556,14 @@ def readXFSLabel_int(device):
 
     try:
         buf = os.read(fd, 128)
+        os.close(fd)
     except OSError, e:
         log("error reading xfs label on %s: %s" %(device, e))
+        try:
+            os.close(fd)
+        except:
+            pass
         return None
-    finally:
-        os.close(fd)
 
     xfslabel = None
     if len(buf) == 128 and buf[0:4] == "XFSB":
@@ -587,11 +590,14 @@ def readJFSLabel_int(device):
     try:
         os.lseek(fd, 32768, 0)
         buf = os.read(fd, 180)
+        os.close(fd)
     except OSError, e:
         log("error reading jfs label on %s: %s" %(device, e))
+        try:
+            os.close(fd)
+        except:
+            pass
         return jfslabel
-    finally:
-        os.close(fd)
 
     if (len(buf) == 180 and buf[0:4] == "JFS1"):
         jfslabel = string.rstrip(buf[152:168],"\0x00")
@@ -616,11 +622,14 @@ def readSwapLabel_int(device):
 
     try:
         buf = os.read(fd, getpagesize())
+        os.close(fd)
     except OSError, e:
         log("error reading swap label on %s: %s" %(device, e))
+        try:
+            os.close(fd)
+        except:
+            pass
         return label
-    finally:
-        os.close(fd)
 
     if ((len(buf) == getpagesize()) and (buf[pagesize - 10:] == "SWAPSPACE2")):
         label = string.rstrip(buf[32:48], "\0x00")
