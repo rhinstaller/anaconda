@@ -3344,7 +3344,8 @@ int main(int argc, char ** argv) {
     startNewt(flags);
 
     if (!continuing && !FL_NOPCMCIA(flags)) {
-	startPcmcia(floppyDevice, modLoaded, modDeps, modInfo, pcic, flags);
+	startPcmcia(floppyDevice, modLoaded, modDeps, modInfo, pcic, &kd, 
+		    flags);
     }
 #endif
 

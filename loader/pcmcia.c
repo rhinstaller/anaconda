@@ -9,10 +9,12 @@
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
+#include "../isys/probe.h"
 
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
+#include "devices.h"
 #include "modules.h"
 #include "windows.h"
 
@@ -20,7 +22,8 @@ int probe_main (int argc, char ** argv);
 int cardmgr_main (int argc, char ** argv);
 
 int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps, 
-		moduleInfoSet modInfo, char * pcicPtr, int flags) {
+		moduleInfoSet modInfo, char * pcicPtr, 
+		struct knownDevices * kd, int flags) {
     pid_t child;
     struct device ** devices, ** device;
     char * probeArgs[] = { "/sbin/probe", NULL };
@@ -161,6 +164,8 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
     waitpid(child, &status, 0);
 
     logMessage("cardmgr returned 0x%x", status);
+
+    busProbe(modInfo, modLoaded, modDeps, 0, kd, flags);
 
     newtPopWindow();
     umount("/modules");
