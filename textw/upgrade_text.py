@@ -83,6 +83,7 @@ class UpgradeSwapWindow:
 		return INSTALL_OK
 
 	    val = amount.value()
+            
 	    try:
 		val = int(val)
 	    except ValueError:
@@ -95,6 +96,9 @@ class UpgradeSwapWindow:
 		    todo.intf.messageWindow(_("Error"),
 			_("There is not enough space on the device you "
 			  "selected for the swap partition."))
+                elif val > 2000 or val < 1:
+                    todo.intf.messageWindow(_("Warning"), 
+                    _("The swap file must be between 0 and 2000 MB in size."))
 		else:
 		    screen.popWindow()
 		    upgrade.createSwapFile(todo.instPath, todo.fstab, mnt, val,
