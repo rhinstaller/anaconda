@@ -174,6 +174,9 @@ static struct PyMethodDef hdrMethods[] = {
 	{NULL,		NULL}		/* sentinel */
 };
 
+/* External functions */
+int mdfile(const char *fn, unsigned char *digest);
+    
 /* Code */
 
 void initrpm(void) {
@@ -345,7 +348,7 @@ static void pkgSort(struct pkgSet * psp) {
 static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
     PyObject * hdrList, * result;
     char * root = "/";
-    int i, num;
+    int i;
     struct pkgSet list;
     hdrObject * hdr;
 
@@ -478,7 +481,6 @@ static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args) {
 }
 
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args) {
-    PyObject * fileObj;
     hdrObject * h;
     Header header;
     int rc;
@@ -900,7 +902,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 	PyTuple_SetItem(tuple, 0, attrName);
 	sprintf(buf, "0x%-4x", s->rdevs[fileNumber]);
 	PyTuple_SetItem(tuple, 1, PyString_FromString(buf));
-	sprintf(buf, "0x%-4x", sb.st_rdev);
+	sprintf(buf, "0x%-4x", (unsigned int) sb.st_rdev);
 	PyTuple_SetItem(tuple, 2, PyString_FromString(buf));
 	PyList_Append(list, tuple);
     }
@@ -984,7 +986,9 @@ static void rpmtransDealloc(PyObject * o) {
     rpmtransObject * trans = (void *) o;
 
     rpmtransFree(trans->ts);
-    if (trans->dbo) Py_DECREF(trans->dbo);
+    if (trans->dbo) {
+	Py_DECREF(trans->dbo);
+    }
     if (trans->scriptFd) fdClose(trans->scriptFd);
     /* this will free the keyList, and decrement the ref count of all
        the items on the list as well :-) */
