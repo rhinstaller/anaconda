@@ -16,12 +16,10 @@ gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = isys.getOpt(sys.argv[1:], 'GTtdr:fm:', 
+(args, extra) = isys.getopt(sys.argv[1:], 'GTtdr:fm:', 
           [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=', 
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
 	    'expert'])
-
-print "got args", args
 
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:

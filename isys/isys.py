@@ -131,5 +131,5 @@ def inet_calcNS (net):
 def parseArgv(str):
     return _isys.poptParseArgv(str)
 
-def getOpt(*args):
+def getopt(*args):
     return apply(_isys.getopt, args)
