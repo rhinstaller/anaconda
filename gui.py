@@ -5,6 +5,7 @@ from gtk import _root_window
 from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
+import systools_pixmaps
 
 im = None
 splashwindow = None
@@ -457,6 +458,54 @@ class InstallControlWindow:
             self.hbox.reorder_child (self.hideHelpButton, 0)
             self.displayHelp = TRUE
 
+    def releaseClicked (self, widget):
+
+        self.textWin = GtkWindow()
+
+        self.textWin.set_default_size (520, 400)
+        self.textWin.set_usize (520, 400)
+        self.textWin.set_position (WIN_POS_CENTER)
+        
+        text = GtkText()
+
+        sw = GtkScrolledWindow()
+        sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
+        sw.add(text)
+
+        vbox1 = GtkVBox()
+        vbox1.pack_start(sw, TRUE, TRUE)
+
+        try:
+            file = open("/mnt/source/RELEASE-NOTES", "r")
+            for line in file.readlines():
+                text.insert(None, None, None, line)
+            file.close()
+
+        except:
+            try:
+                file = open("/RELEASE-NOTES", "r")
+                for line in file.readlines():
+                    text.insert(None, None, None, line)
+                file.close()
+                
+            except:
+                print "Unable to load", file
+
+
+#        for line in file.readlines():
+#            text.insert(None, None, None, line)
+#        file.close()
+
+        self.textWin.add(vbox1)
+
+        closeButton = GtkButton("Close")
+        closeButton.connect("clicked", self.textWin.hide)
+        vbox1.pack_start(closeButton, FALSE, FALSE)
+
+        self.textWin.show_all()
+
+
+
     def setScreen (self, screen, direction):
         # if getScreen returns None, or we're supposed to skip this screen
 	# entirely, we continue advancing in direction given
@@ -630,10 +679,12 @@ class InstallControlWindow:
         self.buttonBox.set_spacing (30)
         self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), _("Back"))
         self.nextButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_NEXT), _("Next"))
-        
+
+        self.releaseButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Release Notes"))
         self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), _("Finish"))
 	self.hideHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Hide Help"))
         self.showHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Show Help"))
+        self.releaseButton.connect ("clicked", self.releaseClicked)
         self.hideHelpButton.connect ("clicked", self.helpClicked)
         self.showHelpButton.connect ("clicked", self.helpClicked)
         self.prevButtonStock.connect ("clicked", self.prevClicked)
@@ -649,9 +700,37 @@ class InstallControlWindow:
 
 	self.hbox = GtkHBox ()
 	self.hbox.pack_start (self.hideHelpButton, FALSE)
+        self.hbox.set_spacing (25)
+        self.hbox.pack_start (self.releaseButton, FALSE)
 	self.hbox.pack_start (self.buttonBox)
 
         vbox.pack_end (self.hbox, FALSE)
+
+
+
+        self.hbox2 = GtkHBox()
+        self.iconList = GnomeIconList (90)
+        self.iconList.set_selection_mode (SELECTION_MULTIPLE)
+
+        style = self.iconList.get_style().copy()
+#        print style
+        style.bg[STATE_NORMAL] = style.black
+#        print style
+        self.iconList.set_style(style)
+
+#        print self.iconList.get_color(None)
+
+        networkIcon = GdkImlib.create_image_from_xpm (systools_pixmaps.NETWORK_XPM)
+        self.iconList.append_imlib (networkIcon, "Network")
+
+#        self.hbox2.pack_start(self.iconList)
+#        self.iconList.set_usize(640, 10)
+
+#        vbox.pack_end (self.hbox2, TRUE, TRUE, 0)
+
+
+
+
 
         self.html = GtkXmHTML()
         self.html.set_allow_body_colors(TRUE)
