@@ -31,6 +31,7 @@ class Firewall:
 	self.portlist = ""
 	self.ports = []
 	self.trustdevs = []
+        self.selinux = ""
 
     def writeKS(self, f):
 	f.write("firewall")
@@ -74,6 +75,8 @@ class Firewall:
 	    args = args + [ "--port=ssh:tcp" ]
 	if self.telnet:
 	    args = args + [ "--port=telnet:tcp" ]
+        if self.selinux:
+            args = args + [ "--selinux=%s" % self.selinux ]
 	for dev in self.trustdevs:
 	    args = args + [ "--trust=%s" %(dev,) ]
 
