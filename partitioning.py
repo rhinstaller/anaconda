@@ -1826,14 +1826,15 @@ def queryFormatPreExisting(intf):
     return rc
 
 def queryNoFormatPreExisting(intf):
-    txt = _("You have chosen not to format a pre-existing "
-            "partition which is being mounted under a "
-            "system directory.  Unless you have particular "
-            "needs to preserve data on this partition, it is highly "
-            "recommended you format this partition to "
-            "guarantee the data formerly on the partition "
-            "does not corrupt your new installation.\n\n"
-            "Are you sure you want to do this?")
+    txt = _("You have chosen to use a pre-existing "
+            "partition for this installation without formatting it. "
+            "Red Hat recommends that you format this partition "
+            "to make sure files from a previous operating system installation "
+            "do not cause problems with this installation of Linux. "
+            "However, if this partition contains files that you need "
+            "to keep, such as a users home directories, then you should "
+            "continue without formatting this partition. \n\n"
+            "Are you sure you want to continue without formatting the partition ?")
 
     rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
     return rc
