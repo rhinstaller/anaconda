@@ -1128,8 +1128,6 @@ static char * mountNfsImage(struct installMethod * method,
         }
     }
 
-logMessage("mount complete");
-
     writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     free(host);
@@ -1792,10 +1790,13 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
 	if (doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) 
 	    return NULL;
-	    
-	umount("/mnt/runtime");
-	symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 
+	if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
+			   "/mnt/runtime", "loop0")) {
+	    umount("/mnt/source");
+	    return NULL;
+	}
+	    
 	imageUrl = "nfs://mnt/source/.";
     } else if (ksType == KS_CMD_URL) {
 	memset(&ui, 0, sizeof(ui));
