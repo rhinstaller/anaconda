@@ -543,6 +543,7 @@ def growParts(diskset, requests, newParts):
                 # binary search
 #                print "start min, max, cur, diffs = ",min,max,cur,diff,lastDiff
                 inner_iter = 0
+                ret = PARTITION_SUCCESS # request succeeded with initial size
                 while (max != min) and (lastDiff != diff) and (inner_iter < 2000):
 #                    printNewRequestsCyl(diskset, newRequest)
 
