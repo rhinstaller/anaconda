@@ -37,13 +37,13 @@ struct devnode devnodes[] = {
     {"ttyS2", CHARDEV, 4, 66, 0600, "root", "root"},
     {"ttyS3", CHARDEV, 4, 67, 0600, "root", "root"},
 #ifdef __ia64__
-    {"ttySG0", CHARDEV, 204, 40, 0600, "root", "root"}
+    {"ttySG0", CHARDEV, 204, 40, 0600, "root", "root"},
 #endif
 #ifdef __powerpc__
-    {"hvsi0", CHARDEV, 229, 128, 0600, "root", "root"}
-    {"hvsi1", CHARDEV, 229, 129, 0600, "root", "root"}
-    {"hvsi2", CHARDEV, 229, 130, 0600, "root", "root"}
-    {"hvc0", CHARDEV, 229, 0, 0600, "root", "root"}
+    {"hvsi0", CHARDEV, 229, 128, 0600, "root", "root"},
+    {"hvsi1", CHARDEV, 229, 129, 0600, "root", "root"},
+    {"hvsi2", CHARDEV, 229, 130, 0600, "root", "root"},
+    {"hvc0", CHARDEV, 229, 0, 0600, "root", "root"},
 #endif
     /* base unix */
     {"null", CHARDEV, 1, 3, 0666, "root", "root"},
