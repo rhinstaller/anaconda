@@ -37,23 +37,21 @@ class EliConfiguration:
 		      instRoot + '/boot/eli.cfg.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
-	# just removed those kernels. While we're here, build an index
-	# to the already-configured (and valid) eli images by the eli
-	# label, as we can normally only get them by filename which isn't
-	# easily done.
-	imagesByLabel = {}
-	for image in eli.listImages():
-	    (fsType, sl) = eli.getImage(image)
+	# just removed those kernels. 
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
 	    if fsType == "other": continue
-	    if not os.access(instRoot + image, os.R_OK):
-		eli.delImage(image)
-	    else:
-		imagesByLabel[sl.getEntry('label')] = image
+
+	    if not os.access(instRoot + sl.getPath(), os.R_OK):
+		lilo.delImage(label)
 
 	bootpart = fstab.getBootDevice()
 	boothd = fstab.getMbrDevice()
 
 	eli.addEntry("timeout", "50", replace = 0)
+
+	smpInstalled = (hdList.has_key('kernel-smp') and 
+                        hdList['kernel-smp'].selected)
 
         rootDev = fstab.getRootDevice ()
         if rootDev:
@@ -77,19 +75,29 @@ class EliConfiguration:
 
 	label = main
 
+	label = main
+	if (smpInstalled):
+	    kernelList.append((main, hdList['kernel-smp'], "smp"))
+	    label = main + "-up"
+
 	kernelList.append((label, hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
-	    if imagesByLabel.has_key(label):
-		(fsType, sl) = eli.getImage(imagesByLabel[label])
-		eli.delImage(imagesByLabel[label])
-	    else:
-		sl = LiloConfigFile()
-
 	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
 	    kernelFile = "/boot/vmlinuz" + kernelTag
 
+	    try:
+		(fsType, sl) = lilo.getImage(label)
+		lilo.delImage(label)
+	    except IndexError, msg:
+		sl = LiloConfigFile(imageType = "image", path = kernelFile)
+
+	    initrd = self.makeInitrd (kernelTag, instRoot)
+
 	    sl.addEntry("label", label)
+	    if os.access (instRoot + initrd, os.R_OK):
+		sl.addEntry("initrd", initrd)
+
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
 
@@ -97,6 +105,7 @@ class EliConfiguration:
 		sl.addEntry('append', '"%s"' % (self.eliAppend,))
 		
 	    eli.addImage ("image", kernelFile, sl)
+	    lilo.addImage (sl)
 
 	eli.write(instRoot + "/boot/eli.cfg", perms = perms)
 
