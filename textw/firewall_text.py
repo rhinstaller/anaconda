@@ -18,7 +18,8 @@ from constants_text import *
 from translate import _
 
 class FirewallWindow:
-    def __call__(self, screen, network, firewall):
+    def __call__(self, screen, intf, network, firewall):
+        self.intf = intf
 	
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Customize"), "customize"), TEXT_BACK_BUTTON))
 	
@@ -195,10 +196,9 @@ class FirewallWindow:
                                         pass
 
                         if bad_token_found == 1:
-                            pass
-                            ButtonChoiceWindow(screen, _("Invalid Choice"),
-                                               _("Warning: %s is not a valid port." %token),
-                                               buttons = [ _("OK") ], width = 40)
+                            self.intf.messageWindow(_("Invalid Choice"),
+                                                    _("Warning: %s is not a "
+                                                      "valid port.") %(token,))
                             screen.popWindow()
                         else:
                             firewall.portlist = portlist

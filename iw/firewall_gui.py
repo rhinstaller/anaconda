@@ -13,6 +13,7 @@
 
 import checklist
 import gtk
+import gui
 from iw_gui import *
 from isys import *
 from translate import _, N_
@@ -80,18 +81,20 @@ class FirewallWindow (InstallWindow):
                     tokens = string.split(portstring, ',')
                     for token in tokens:
                         try:
-                            if string.index(token,':'):         #- if there's a colon in the token, it's valid
+                            #- if there's a colon in the token, it's valid
+                            if string.index(token,':'):         
                                 parts = string.split(token, ':')
-                                if len(parts) > 2:              #- We've found more than one colon.  Break loop and raise an error.
+                                if len(parts) > 2: # more than one colon
                                     bad_token_found = 1
                                     bad_token = token
                                 else:
-                                    if parts[1] == 'tcp' or parts[1] == 'udp':  #-upd and tcp are the only valid protocols
+                                    # udp and tcp are the only valid protos
+                                    if parts[1] == 'tcp' or parts[1] == 'udp':
                                         if portlist == "":
                                             portlist = token
                                         else:
                                             portlist = portlist + ',' + token
-                                    else:                        #- Found a protocol other than tcp or udp.  Break loop
+                                    else: # found protocol !tcp && !udp
                                         bad_token_found = 1
                                         bad_token = token
                                         pass
@@ -105,37 +108,13 @@ class FirewallWindow (InstallWindow):
                 else:
                     pass
 
-                if bad_token_found == 1:         #- We've found a bad token...raise a warning
-                    from gnome.ui import *
-                    import gui
-                    self.textWin = GnomeDialog ()
-                    self.textWin.set_modal (gtk.TRUE)
+                if bad_token_found == 1: # raise a warning
+                    text = _("Invalid port given: %s.  The proper format is "
+                             "'port:protocol'.  For example, "
+                             "'1234:udp'") % (bad_token,)
 
-                    vbox = gtk.VBox()
-                    hbox = gtk.HBox()
-
-                    hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), gtk.FALSE)
-                    self.textWin.vbox.pack_start(hbox)
-                    hbox.pack_start(vbox)
-                    
-
-                    
-                    self.textWin.set_default_size (500, 200)
-                    self.textWin.set_usize (500, 200)
-                    self.textWin.set_position (WIN_POS_CENTER)
-
-                    label = gtk.Label((_("Warning: ")) + bad_token + (_(" is an invalid port.")))
-                    vbox.pack_start(label)
-
-                    label = gtk.Label(_("The format is 'port:protocol'.  For example, '1234:udp'"))
-                    vbox.pack_start(label)
-                    
-                    self.textWin.append_button(_("Close"))
-                    self.textWin.button_connect (0, self.textWin.destroy)
-
-                    self.textWin.set_border_width(0)
-                    self.textWin.show_all()
-
+                    self.intf.messageWindow(_("Warning: Bad Token"),
+                                            text, type="warning")
                     raise gui.StayOnScreen
                 else:                           # all the port data looks good
                     self.firewall.portlist = portlist
@@ -173,9 +152,10 @@ class FirewallWindow (InstallWindow):
                 self.label2.set_sensitive(self.custom_radio.get_active())
                 self.label3.set_sensitive(self.custom_radio.get_active())
 
-    def getScreen (self, network, firewall):
+    def getScreen (self, intf, network, firewall):
 	self.firewall = firewall
 	self.network = network
+        self.intf = intf
 
         self.devices = self.network.available().keys()
         self.devices.sort()
