@@ -166,9 +166,10 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
     fsset.reset()
     for request in partitions.requests:
         # XXX improve sanity checking
-        if (not request.fstype or (request.fstype.isMountable()
-                                   and not request.mountpoint)):
-            continue
+	if (not request.fstype or (request.fstype.isMountable()
+	    and not request.mountpoint)):
+	    continue
+	    
         entry = request.toEntry(partitions)
         if entry:
             fsset.add (entry)
@@ -178,6 +179,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         
     if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
         return
+    
     # XXX this attribute is probably going away
     if not partitions.isKickstart:
         rc = intf.messageWindow(_("Low Memory"),
@@ -185,7 +187,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
                               "machine, we need to turn on swap space "
                               "immediately. To do this we'll have to "
                               "write your new partition table to the disk "
-                              "immediately. Is that okay?"), "okcancel")
+                              "immediately. Is that OK?"), "okcancel")
     else:
         rc = 0
         
