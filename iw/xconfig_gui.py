@@ -429,15 +429,14 @@ class MonitorWindow (InstallWindow):
 
 
     def getNext (self):
-        if self.currentNode:
+        if self.currentMonitor:
             monHoriz = string.replace(self.hEntry.get_text(), " ", "")
             monVert = string.replace(self.vEntry.get_text(), " ", "")
 
-            (current_parent, current_monitor) = self.ctree.node_get_row_data (self.currentNode)
             self.monitor.setSpecs(monHoriz,
                                   monVert,
-                                  id=current_monitor[0],
-                                  name=current_monitor[0])
+                                  id=self.currentMonitor,
+                                  name=self.currentMonitor)
         return None
 
     def moveto (self, ctree, area, node):
@@ -519,9 +518,8 @@ class MonitorWindow (InstallWindow):
         box = gtk.VBox (gtk.FALSE, 5)
 
         # Monitor selection tree
-        self.ctree = gtk.CTree ()
-        self.ctree.set_selection_mode (gtk.SELECTION_BROWSE)
-
+	self.monitorstore = gtk.TreeStore(gobject.TYPE_STRING,
+					  gobject.TYPE_STRING)
         self.hEntry = gtk.Entry ()
         self.vEntry = gtk.Entry () 
 
@@ -531,7 +529,7 @@ class MonitorWindow (InstallWindow):
             self.monitor_p, self.monitor_b = p.render_pixmap_and_mask()
 
         # load monitor list and insert into tree
-        self.orig_name = self.monitor.getMonitorID(useProbed=1)
+        self.origMonitor = self.monitor.getMonitorID(useProbed=1)
         monitorslist = self.monitor.monitorsDB ()
         keys = monitorslist.keys ()
         keys.sort ()
@@ -540,22 +538,16 @@ class MonitorWindow (InstallWindow):
         keys.remove("Generic")
         keys.insert(0, "Generic")
 
-        select = None
-        first = 1
-        first_node = None
+	self.currentMonitor = None
+	toplevels={}
         for man in keys:
             if man == "Generic":
                 title = _("Generic")
             else:
                 title = man
-            parent = self.ctree.insert_node (None, None, (title,), 2,
-                                             self.monitor_p, self.monitor_b,
-                                             self.monitor_p, self.monitor_b,
-                                             is_leaf = gtk.FALSE)
-            # save location of top of tree
-            if first:
-                first_node = parent
-                first = 0
+
+	    toplevels[man] = self.monitorstore.append(None)
+	    self.monitorstore.set_value(toplevels[man], 0, man)
                 
             models = monitorslist[man]
             models.sort()
@@ -566,63 +558,40 @@ class MonitorWindow (InstallWindow):
                         continue
 
                 previous_monitor = amonitor[0]
-                
-                node = self.ctree.insert_node (parent, None, (amonitor[0],), 2)
-                self.ctree.node_set_row_data (node, (parent, amonitor))
+		iter = self.monitorstore.append(toplevels[man])
+		self.monitorstore.set_value(iter, 0, amonitor[0])
 
-                if amonitor[0] == self.orig_name:
-                    self.originalNode = node
-                            
                 if amonitor[0] == self.monitor.getMonitorID():
-                    select = node
-                    selParent = parent
+                    self.currentMonitor = amonitor[0]
 
         # Insert DDC probed monitor if it had no match in database
         # or otherwise if we did not detect a monitor at all
         #--Add a category for a DDC probed monitor if a DDC monitor was probed
-        if self.orig_name and not self.monitor.lookupMonitor(self.orig_name):
-            if self.orig_name != "Unprobed Monitor":
+        if self.origMonitor and not self.monitor.lookupMonitor(self.origMonitor):
+            if self.origMonitor != "Unprobed Monitor":
                 title = _("DDC Probed Monitor")
             else:
                 title = _("Unprobed Monitor")
 
-            parent = self.ctree.insert_node (None, None,
-                                             (title,),
-                                             2, self.monitor_p, self.monitor_b,
-                                             self.monitor_p, self.monitor_b,
-                                             is_leaf = gtk.FALSE)
-
-            self.originalNode = self.ctree.insert_node (parent,
-                                  None, (self.orig_name,), 2)
+	    toplevels["DDC Probed Monitor"] = self.monitorstore.append(None)
+	    self.monitorstore.set_value(iter, 0, title)
+	    iter = self.monitorstore.append(toplevels[man])
+	    self.monitorstore.set_value(iter, 0, title)
+	    self.currentMonitor = "DDC Probed Monitor"
             
-            monitordata = (self.orig_name, self.orig_name,
-                           self.monitor.getMonitorVertSync(),
-                           self.monitor.getMonitorHorizSync())
-
-            self.ctree.node_set_row_data (self.originalNode,
-                                          (parent, monitordata))
-
-            # make this the selection
-            select = self.originalNode
-            selParent = parent
-
-        self.currentNode = select
-
         self.setSyncField(self.hEntry, self.monitor.getMonitorHorizSync())
         self.setSyncField(self.vEntry, self.monitor.getMonitorVertSync())
         self.enableIfSyncsValid(self.hEntry, self.vEntry)
 
-        self.ctree.connect ("tree_select_row", self.selectCb)
-        if select:
-            self.ignoreTreeChanges = 1
-            self.ctree.select (select)
-            self.ctree.expand (selParent)
-            self.ctree.connect ("map-event", self.moveto, select)
-            self.ignoreTreeChanges = 0
+        self.monitorview = gtk.TreeView(self.monitorstore)
+        self.monitorview.set_property("headers-visible", gtk.FALSE)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
+        self.monitorview.append_column(col)
 
         sw = gtk.ScrolledWindow ()
-        sw.add (self.ctree)
+        sw.add (self.monitorview)
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+	sw.set_shadow_type(gtk.SHADOW_IN)
         box.pack_start (sw, gtk.TRUE, gtk.TRUE)
 
         self.hEntry.connect ("insert_text", self.insertCb, (self.hEntry, self.vEntry))
@@ -758,7 +727,6 @@ class XConfigWindow (InstallWindow):
 	    self.currentCard = model.get_value(iter, 0)
 	else:
 	    print "unknown error in selectCb_tree!"
-	    
             
     def restorePressed (self, button):
 	self.currentCard = self.probedCard
