@@ -18,6 +18,7 @@ import _isys
 import string
 import os
 import os.path
+import kudzu
 
 from rhpl.log import log
 
@@ -243,19 +244,20 @@ def flushDriveDict():
     global probedList
     probedList = None
 
-def driveDict(klassArg):
-    global probedList
-    if not probedList:
-        probedList = _isys.ProbedList()
-        probedList.updateIde()
-        probedList.updateScsi()
-        probedList.updateDasd()
+classMap = { "disk": kudzu.CLASS_HD,
+             "cdrom": kudzu.CLASS_CDROM,
+             "floppy": kudzu.CLASS_FLOPPY }
 
-    dict = {}
-    for (klass, dev, descr) in probedList:
-	if (klass == klassArg):
-	    dict[dev] = descr
-    return dict
+def driveDict(klassArg):
+    ret = {}
+    
+    # FIXME: need to add dasd probing to kudzu
+    devs = kudzu.probe(kudzu.CLASS_UNSPEC, kudzu.BUS_IDE | kudzu.BUS_SCSI, 0)
+    for dev in devs:
+        if dev.deviceclass == classMap[klassArg]:
+            ret[dev.device] = dev.desc
+
+    return ret
 
 def hardDriveDict():
     import parted
