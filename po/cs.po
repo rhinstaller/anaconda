@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-09-05 14:12+0200\n"
+"PO-Revision-Date: 2004-09-16 19:44+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2556,17 +2556,12 @@ msgid "DDC Probed Monitor"
 msgstr "Monitor detekovaný pomocí DDC"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr ""
-"Počítače zSeries mohou používat standardní zařízení SCSI přes Fibre Channel "
-"(FCP). Pro každé zařízení musíte zadat 5 parametrů: šestnáctibitové číslo "
-"zařízení, šestnáctibitové SCSI ID, šedesátičtyřbitové World Wide Port Number "
-"(WWPN), šestnáctibitové SCSI LUN a šedesátičtyřbitové FCP LUN."
+msgstr "Počítače zSeries mohou používat standardní zařízení SCSI přes Fibre Channel (FCP). Pro každé zařízení musíte zadat 5 parametrů: šestnáctibitové číslo zařízení, šestnáctibitové SCSI ID, šedesátičtyřbitové World Wide Port Name (WWPN), šestnáctibitové SCSI LUN a šedesátičtyřbitové FCP LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -3292,14 +3287,11 @@ msgid "_Enable firewall"
 msgstr "Po_volit firewall"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
-msgstr ""
-"Na firewallu možná budete chtít povolit ostatním přístup ke konkrétním "
-"službám ve vašem počítači. Ke kterým službám povolit přístup?"
+msgstr "Na firewallu můtete povolit přístup ke konkrétním službám ve vašem počítači z jiných počítačů. Ke kterým službám chete povolit přístup?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -5996,9 +5988,8 @@ msgid "No Volume Groups"
 msgstr "Žádná skupina svazků"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Neexistuje skupina svazků, ve které vytvořit logický svazek."
+msgstr "Neexistuje skupina svazků, ve které vytvořit logický svazek"
 
 #: ../textw/partition_text.py:1291
 #, python-format
@@ -8317,9 +8308,8 @@ msgid "Bengali"
 msgstr "Bengálština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Bengálština"
+msgstr "Bengálština(Indie)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8375,7 +8365,7 @@ msgstr "Němčina"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -8495,18 +8485,6 @@ msgstr "Zulu"
 
 #~ msgid "Device number:"
 #~ msgstr "Číslo zařízení:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP LUN:"
 
 #~ msgid "E Argentina (BA, DF, SC, TF)"
 #~ msgstr "Východní Argentina (BA, DF, SC, TF)"
