@@ -811,69 +811,68 @@ class ComponentSet:
 
 # this is a temporary way to set order of packages
 def orderPackageGroups(curgroups):
-    compsOrder = [
-    "Base X Support",
-    "Printing Support",
-    "GNOME Desktop Environment",
-    "KDE Desktop Environment",
-    "Messaging and Web Tools",
-    "GNOME Messaging and Web Tools",
-    "KDE Messaging and Web Tools",
-    "Multimedia Software",
-    "GNOME Multimedia Software",
-    "KDE Multimedia Software",
-    "Office/Productivity Software",
-    "GNOME Office/Productivity Software",
-    "KDE Office/Productivity Software",
-    "Authoring and Publishing",
-    "Games and Entertainment",
-    "GNOME Games and Entertainment",
-    "KDE Games and Entertainment",
-    "X Based Games and Entertainment",
-    "Emacs",
-    "Kernel Development",
-    "Software Development",
-    "GNOME Software Development",
-    "KDE Software Development",
-    "X Software Development",
-    "Multimedia Software Development",
-    "Utilities",
-    "Workstation Tools",
-    "Dialup Networking Support",
-    "NFS File Server",
-    "Web Server",
-    "FTP Server",
-    "Windows File Server",
-    "DNS Name Server",
-    "SQL Database Server",
-    "Network Servers",
-    "News Server",
-    ]
+    compsParents = ["Desktops", "Applications", "Servers", "Development", "System"]
+    compsHierarchy = { "Desktops" : ["GNOME Desktop Environment",
+				     "KDE Desktop Environment"],
+		       "Applications" : ["Internet Applications",
+					 "Office/Productivity Applications",
+					 "Sound and Video Applications",
+					 "Graphics Applications",
+					 "Games and Entertainment",
+					 "Authoring and Publishing",
+					 "Text Based Applications"],
+		       "Servers" : [ "Server Configuration Tools",
+				     "Web Server",
+				     "Windows File Server",
+				     "NFS File Server",
+				     "DNS Name Server",
+				     "FTP Server",
+				     "SQL Database Server",
+				     "News Server",
+				     "Network Servers"],
+		       "Development" : [ "Emacs",
+					 "Development Tools",
+					 "Development Libraries",
+					 "Kernel Development",
+					 "X Software Development",
+					 "GNOME Software Development",
+					 "KDE Software Development"],
+		       "System" : [ "System Tools",
+				    "Printing Support",
+				    "X Window System"] }
+
+    curgrpnames = []
+    for grp in curgroups:
+	curgrpnames.append(grp.name)
 
     ignorelst = []
-    retval = []
-    while 1:
-	bestfit = len(compsOrder)+1
-	bestgrp = None
-	for grp in curgroups:
-            if grp.name in ignorelst:
-		continue
-	    if grp.name in compsOrder:
-		if compsOrder.index(grp.name) < bestfit:
-		    bestfit = compsOrder.index(grp.name)
-		    bestgrp = grp
+    retlist = []
+    retdict = {}
 
-	if bestgrp is None:
-	    for grp in curgroups:
-		if grp.name not in ignorelst:
-		    bestgrp = grp
-		    break
+    for key in compsParents:
+	compslist = compsHierarchy[key]
+	for grp in compslist:
 
-	if bestgrp is None:
-	    break
+	    if grp in curgrpnames:
+		thecomp = curgroups[curgrpnames.index(grp)]
+		ignorelst.append(grp)
+		if key not in retlist:
+		    retlist.append(key)
+		    retdict[key] = [thecomp]
+		else:
+		    retdict[key].append(thecomp)
 
-	ignorelst.append(bestgrp.name)
-	retval.append(bestgrp)
+    miscgrp = "Miscellaneous"
+    for grp in curgrpnames:
+	if grp in ignorelst:
+	    continue
 
-    return retval
+	thecomp = curgroups[curgrpnames.index(grp)]
+	if miscgrp not in retlist:
+	    retlist.append(miscgrp)
+	    retdict[miscgrp] = [thecomp]
+	else:
+	    retdict[miscgrp].append(thecomp)
+		    
+    return (retlist, retdict)
 
