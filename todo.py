@@ -1265,7 +1265,7 @@ class ToDo:
 	if arch == "i386":	
 	    todo.lilo.setDevice(where)
 	    todo.lilo.setLinear(linear)
-	    todo.lilo.setAppend(append)
+	    if append: todo.lilo.setAppend(append)
  	elif arch == "sparc":
 	    todo.silo.setDevice(where)
 	    todo.silo.setAppend(append)
@@ -1391,72 +1391,6 @@ class ToDo:
 	    todo.setPassword(account, password)
 
 	    os.close(devnull)
-
-    def createCdrom(self):
-        log ("making cd-rom links")
-	list = isys.cdromList()
-	count = 0
-	for device in list:
-	    cdname = "cdrom"
-	    if (count):
-		cdname = "%s%d" % (cdname, count)
-	    count = count + 1
-
-            log ("creating cdrom link for " + device)
-            try:
-                os.unlink(self.instPath + "/dev/" + cdname)
-            except OSError:
-                pass
-	    os.symlink(device, self.instPath + "/dev/" + cdname)
-	    mntpoint = "/mnt/" + cdname
-	    self.fstab.addMount(cdname, mntpoint, "iso9660")
-
-    def createRemovable(self, rType, partNum = None, mntDirRoot = None):
-	devDict = isys.floppyDriveDict()
-
-	d = isys.hardDriveDict()
-	for item in d.keys():
-	    devDict[item] = d[item]
-
-	list = devDict.keys()
-	list.sort()
-
-	if not mntDirRoot:
-	    mntDirRoot = rType
-
-	count = 0
-	for device in list:
-	    descript = devDict[device]
-	    if string.find(string.upper(descript), string.upper(rType)) == -1:
-		continue
-
-	    log ("found %s disk, creating link", rType)
-
-	    try:
-		os.stat(self.instPath + "/dev/%s" % rType)
-		log ("link exists, removing")
-		os.unlink(self.instPath + "/dev/%s" % rType)
-	    except OSError:
-		pass
-
-	    if partNum:
-		device = device + str(partNum)
-
-	    devLink = rType
-	    if count:
-		devLink = rType + str(count)
-
-	    os.symlink(device, self.instPath + "/dev/%s" % devLink)
-
-	    mntpoint = "/mnt/" + mntDirRoot
-	    if count:
-		mntpoint = mntpoint + str(count)
-
-	    self.fstab.addMount(devLink, mntpoint, "auto")
-
-	    count = count + 1
-
-	return count
 
     def setDefaultRunlevel (self):
         try:
@@ -1891,14 +1825,7 @@ class ToDo:
 
         try:
             if not self.upgrade:
-                self.createCdrom()
-
                 self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
-                if self.fdDevice[0:2] == "fd":
-                    self.createRemovable("ls-120", mntDirRoot = "ls120")
-
-                self.createRemovable("zip", partNum = 4)
-                self.createRemovable("jaz", partNum = 4)
 
 		w.set(1)
 
