@@ -42,12 +42,16 @@ from exception import handleException
 setverPath = None
 
 
-(args, extra) = isys.getopt(sys.argv[1:], 'GTRxtdr:fm:', 
+try:
+    (args, extra) = isys.getopt(sys.argv[1:], 'GTRxtdr:fm:', 
           [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug',
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial' ])
+except TypeError, msg:
+    print "Error:", msg
+    sys.exit(-1)
 
 # save because we're about to munge argv
 [execname] = string.split(sys.argv[0], '/')[-1:]
