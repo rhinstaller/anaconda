@@ -1408,7 +1408,7 @@ static char * doMountImage(char * location,
     }
 #else
     /* platforms with split boot/bootnet disks */
-  #if defined(INCLUDE_PCMCIA)
+#if defined(INCLUDE_PCMCIA)
     for (i = 0; i < numMethods; i++) {
 	int j;
 
@@ -1422,7 +1422,7 @@ static char * doMountImage(char * location,
 	    validMethods[numValidMethods++] = i;
 	}
     }
-  #endif
+#endif
 
     if (!numValidMethods) {
 	for (i = 0; i < numMethods; i++) {
@@ -1719,10 +1719,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	};
 #endif
 #ifdef INCLUDE_LOCAL
-    int fd;
-    int partNum;
     char * partname = NULL;
-    struct partitionTable partTable;
     struct poptOption ksHDOptions[] = {
 	    { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
 	    { "partition", '\0', POPT_ARG_STRING, &partname, 0 },
@@ -1880,50 +1877,16 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, 
 			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
-	char * fsType;
 	logMessage("partname is %s", partname);
 
-	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class != CLASS_HD) continue;
-	    if (!strncmp(kd->known[i].name, partname, strlen(partname) - 1))
-		break;
-	}
-	if (i == kd->numKnown) {
-	    logMessage("unknown partition %s", partname);
-	    return NULL;
-	}
-
-	devMakeInode(kd->known[i].name, "/tmp/hddevice");
-	if ((fd = open("/tmp/hddevice", O_RDONLY)) < 0) {
-	    logMessage("failed to open device %s", kd->known[i].name);
-	    return NULL;
-	}
-
-	if ((rc = balkanReadTable(fd, &partTable))) {
-	    logMessage("failed to read partition partTable for "
-		       "device %s: %d", kd->known[i].name, rc);
-	    return NULL;
-	}
-
-	close (fd);
-	
-	partNum = atoi(partname + 3) - 1;
-	if (partTable.maxNumPartitions < partNum ||
-	    partTable.parts[partNum].type == -1) {
-	    logMessage("partition %d on device %s does not exist", partNum,
-		       kd->known[i].name);
-	    return NULL;
-	}
-
-	switch (partTable.parts[partNum].type) {
-	#ifdef __sparc__
-	  case BALKAN_PART_UFS: fsType = "ufs"; break;
-	#endif
-	  case BALKAN_PART_EXT2: fsType = "ext2"; break;
-	  default: fsType = "vfat"; break;
-	}
-	imageUrl = setupOldHardDrive(partname, fsType, dir, flags);
-    } 
+	imageUrl = setupOldHardDrive(partname, "ext2", dir, flags);
+	if (!imageUrl)
+	    imageUrl = setupOldHardDrive(partname, "vfat", dir, flags);
+	if (!imageUrl)	
+	    imageUrl = setupOldHardDrive(partname, "ufs", dir, flags);
+	if (!imageUrl)
+	    logMessage ("Failed to mount hd kickstart media");
+    }
 #endif
 
     return imageUrl;
@@ -2509,7 +2472,9 @@ int main(int argc, char ** argv) {
     struct knownDevices kd;
     moduleInfoSet modInfo;
     char * where;
+#ifdef INCLUDE_PCMCIA
     char pcic[20] = "";
+#endif
     struct moduleInfo * mi;
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
