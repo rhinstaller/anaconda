@@ -1,15 +1,15 @@
 # SLOVENIAN MESSAGE CATALOGUE FOR RHINSTALL.
-# Copyright (C) 1999 Free Software Foundation, Inc.
+# Copyright (C) 2000 Free Software Foundation, Inc.
 # Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1999.
-# Roman Maurer <roman.maurer@hermes.si>, 1999.
+# Roman Maurer <roman.maurer@hermes.si>, 2000.
 # $Id$
 # $Source$
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 6.1\n"
+"Project-Id-Version: install 6.2\n"
 "POT-Creation-Date: 2000-02-02 17:43-0500\n"
-"PO-Revision-Date: 2000-01-22 19:10+0200\n"
+"PO-Revision-Date: 2000-02-05 23:10+0100\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -101,11 +101,11 @@ msgstr "Nazaj"
 
 #: ../gui.py:272 ../gui.py:520
 msgid "Show Help"
-msgstr "Prika¾i pomoè"
+msgstr "Prika¾imo pomoè"
 
 #: ../gui.py:273 ../gui.py:519
 msgid "Hide Help"
-msgstr "Skrij pomoè"
+msgstr "Skrijmo pomoè"
 
 #: ../gui.py:274 ../gui.py:518
 msgid "Finish"
@@ -606,19 +606,18 @@ msgstr "Preostanek: "
 
 #: ../text.py:968 ../text.py:969
 msgid "Debug"
-msgstr "Razhro¹èi"
+msgstr "Razhro¹èimo"
 
 #: ../text.py:981
-#, fuzzy
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:983
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
+"  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
 #: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
 msgid "Welcome"
@@ -912,19 +911,19 @@ msgstr "Polno ime"
 
 #: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
 msgid "Add"
-msgstr "Dodaj"
+msgstr "Dodajmo"
 
 #: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
 #: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
 #: ../textw/userauth.py:176
 msgid "Edit"
-msgstr "Uredi"
+msgstr "Uredimo"
 
 #: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
 msgid "Delete"
-msgstr "Pobri¹i"
+msgstr "Pobri¹imo"
 
 #: ../iw/account.py:224
 msgid "New"
@@ -936,19 +935,19 @@ msgstr "Nastavitve identifikacije"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr "Vklopi gesla MD5"
+msgstr "Vklopimo gesla MD5"
 
 #: ../iw/auth.py:51
 msgid "Enable shadow passwords"
-msgstr "Omogoèi senèna gesla"
+msgstr "Omogoèimo senèna gesla"
 
 #: ../iw/auth.py:53 ../textw/userauth.py:255
 msgid "Enable NIS"
-msgstr "Vklop NIS"
+msgstr "Vklopimo NIS"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr "Uporabi oddajanje za iskanje stre¾nika NIS"
+msgstr "Uporabimo oddajanje za iskanje stre¾nika NIS"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
@@ -964,7 +963,7 @@ msgstr "Izdelava zagonske diskete"
 
 #: ../iw/bootdisk.py:61
 msgid "Skip boot disk creation"
-msgstr "Preskoèi izdelavo zagonske diskete"
+msgstr "Preskoèimo izdelavo zagonske diskete"
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
@@ -1019,7 +1018,7 @@ msgstr "Namésti pakete tako, da zadovolji¹ odvisnostim"
 
 #: ../iw/examine.py:10
 msgid "Upgrade Examine"
-msgstr "Prei¹èi nadgradnjo"
+msgstr "Prei¹èimo nadgradnjo"
 
 #: ../iw/examine.py:35
 msgid ""
@@ -1096,15 +1095,15 @@ msgstr "Videz"
 
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr "Mrtve tipke"
+msgstr "Neme tipke"
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr "Omogoèimo mrtve tipke"
+msgstr "Omogoèimo neme tipke"
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr "Onemogoèimo mrtve tipke"
+msgstr "Onemogoèimo neme tipke"
 
 #: ../iw/keyboard.py:113
 msgid "Test your selection here:"
@@ -1148,7 +1147,7 @@ msgstr "Izdelava zagonske diskete"
 
 #: ../iw/lilo.py:210
 msgid "Do not install LILO"
-msgstr "Ne name¹èaj zaganjalnika LILO"
+msgstr "Ne name¹èajmo zaganjalnika LILO"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
 #: ../textw/silo.py:176
@@ -1481,11 +1480,11 @@ msgstr "Kam bi radi namestili zaganjalnik sistema?"
 
 #: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
 msgid "Clear"
-msgstr "Pobri¹i"
+msgstr "Pobri¹imo"
 
 #: ../textw/lilo.py:114 ../textw/silo.py:132
 msgid "Edit Boot Label"
-msgstr "Uredi zagonsko oznako"
+msgstr "Uredimo zagonsko oznako"
 
 #: ../textw/lilo.py:181 ../textw/silo.py:188
 msgid ""
@@ -1643,11 +1642,11 @@ msgstr "Gesli, ki ste ju podali, se razlikujeta. Prosim poskusite ponovno."
 
 #: ../textw/userauth.py:71
 msgid "Edit User"
-msgstr "Uredi uporabnika"
+msgstr "Uredimo uporabnika"
 
 #: ../textw/userauth.py:73
 msgid "Add User"
-msgstr "Dodaj uporabnika"
+msgstr "Dodajmo uporabnika"
 
 #: ../textw/userauth.py:77
 msgid "User ID"
@@ -1858,7 +1857,7 @@ msgstr "Slaba razdelitvena tabela"
 
 #: ../libfdisk/fsedit.c:1191
 msgid "Initialize"
-msgstr "Inicializiraj"
+msgstr "Inicializirajmo"
 
 #: ../libfdisk/fsedit.c:1191 ../libfdisk/fsedit.c:1212
 msgid "Skip Drive"
@@ -1912,7 +1911,7 @@ msgstr "Ste preprièani, da ¾elite odstraniti to razdelitev?"
 #: ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266
 #: ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
 msgid "Edit Partition"
-msgstr "Uredi razdelitev"
+msgstr "Uredimo razdelitev"
 
 #: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
 msgid "Mount Point:"
@@ -2198,7 +2197,7 @@ msgstr "Ste preprièani, da ¾elite odstraniti to napravo RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
-msgstr "Povrni razdelitveno tabelo"
+msgstr "Povrnimo razdelitveno tabelo"
 
 #: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
@@ -2234,24 +2233,24 @@ msgstr "Razdelitve"
 
 #: ../libfdisk/gnomefsedit.c:3319
 msgid "_Add..."
-msgstr "_Dodaj..."
+msgstr "_Dodajmo..."
 
 #: ../libfdisk/gnomefsedit.c:3326
 msgid "_Edit..."
-msgstr "_Uredi..."
+msgstr "_Uredimo..."
 
 #: ../libfdisk/gnomefsedit.c:3327
 msgid "_Reset"
-msgstr "_Resetiraj"
+msgstr "_Resetirajmo"
 
 #: ../libfdisk/gnomefsedit.c:3332
 msgid "_Delete"
-msgstr "_Pobri¹i"
+msgstr "_Pobri¹imo"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3345
 msgid "_Make RAID Device"
-msgstr "_Izdelaj napravo RAID"
+msgstr "_Izdelajmo napravo RAID"
 
 #: ../libfdisk/gnomefsedit.c:3355
 msgid "Auto Partition"
@@ -2308,7 +2307,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1496
 msgid "Save Changes"
-msgstr "Shrani spremembe"
+msgstr "Shranimo spremembe"
 
 #: ../libfdisk/newtfsedit.c:1498
 msgid "Save changes to partition table(s)?"
@@ -2456,7 +2455,7 @@ msgstr "V sistemu so bile najdene naslednje naprave:"
 
 #: ../loader/loader.c:303 ../loader/loader.c:328
 msgid "Add Device"
-msgstr "Dodaj napravo"
+msgstr "Dodajmo napravo"
 
 #: ../loader/loader.c:329
 msgid ""
@@ -2555,7 +2554,7 @@ msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
 
 #: ../loader/loader.c:1666
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Ne morem najti ks.cfg na zagonski disketi."
+msgstr "Ne moremo najti ks.cfg na zagonski disketi."
 
 #: ../loader/loader.c:1712
 #, c-format
@@ -2645,7 +2644,7 @@ msgstr "Po¹iljam zahtevo po podatkih IP..."
 
 #: ../loader/net.c:460
 msgid "Determining host name and domain..."
-msgstr "Doloèam ime raèunalnika in domeno..."
+msgstr "Doloèamo ime raèunalnika in domeno..."
 
 #: ../loader/net.c:560 ../loader/net.c:591
 msgid "kickstart"
@@ -2690,7 +2689,7 @@ msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
+" <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
 #: ../loader/net.c:717
 #, c-format
@@ -2727,7 +2726,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Prosim vnesite naslednje informacije:\n"
+"Prosimo, vnesite naslednje informacije:\n"
 "\n"
 "    o ime ali ¹tevilko IP stre¾nika FTP\n"
 "    o imenik v tem stre¾niku, ki vsebuje\n"
@@ -2741,7 +2740,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Prosim vnesite naslednje informacije:\n"
+"Prosimo, vnesite naslednje informacije:\n"
 "\n"
 "    o ime ali ¹tevilko IP spletnega stre¾nika\n"
 "    o imenik v tem stre¾niku, ki vsebuje\n"
@@ -2761,7 +2760,7 @@ msgstr "Uporaba neanonimnega FTP-ja ali nadomestnega stre¾nika (proxy)"
 
 #: ../loader/urls.c:202
 msgid "Use proxy server"
-msgstr "Uporabljaj nadomestni stre¾nik"
+msgstr "Uporabljajmo nadomestni stre¾nik"
 
 #: ../loader/urls.c:213
 msgid "FTP Setup"
@@ -2828,7 +2827,7 @@ msgstr "Vrata nadomestnega HTTP:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Nalagam gonilnik za SCSI"
+msgstr "Nalagamo gonilnik za SCSI"
 
 #~ msgid "Rebuilding"
 #~ msgstr "Ponovno gradimo"
