@@ -1,6 +1,4 @@
 import sys
-sys.path.append ("rpmmodule")
-sys.path.append ("isys")
 import rpm
 from string import *
 import types
@@ -225,7 +223,7 @@ class ComponentSet:
 	    for package in n:
 		s = s + " " + package
 	    s = s + " ] } "
-	    
+
 	return s
 
     def __init__(self, file, hdlist):
