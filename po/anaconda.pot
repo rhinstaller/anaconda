@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-03 17:23+0200\n"
+"POT-Creation-Date: 2001-09-10 12:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,13 +14,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:319
+#: ../anaconda:320
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: ../anaconda:338 ../gui.py:114 ../iw/account_gui.py:150
+#: ../anaconda:339 ../gui.py:114 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
 #: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1329 ../loader/cdrom.c:34
 #: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
@@ -32,10 +32,10 @@ msgstr ""
 #: ../loader/loader.c:535 ../loader/loader.c:854 ../loader/loader.c:913
 #: ../loader/loader.c:968 ../loader/loader.c:1062 ../loader/loader.c:1141
 #: ../loader/loader.c:1146 ../loader/loader.c:1186 ../loader/loader.c:1213
-#: ../loader/loader.c:1244 ../loader/loader.c:1493 ../loader/loader.c:2210
-#: ../loader/loader.c:2240 ../loader/loader.c:2303 ../loader/loader.c:2318
-#: ../loader/loader.c:2527 ../loader/net.c:185 ../loader/net.c:272
-#: ../loader/net.c:359 ../loader/net.c:741 ../loader/net.c:774
+#: ../loader/loader.c:1244 ../loader/loader.c:1496 ../loader/loader.c:2219
+#: ../loader/loader.c:2249 ../loader/loader.c:2312 ../loader/loader.c:2327
+#: ../loader/loader.c:2536 ../loader/net.c:189 ../loader/net.c:276
+#: ../loader/net.c:363 ../loader/net.c:745 ../loader/net.c:778
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:188 ../loader/urls.c:266 ../loader/urls.c:271
@@ -52,39 +52,39 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../anaconda:385
+#: ../anaconda:386
 msgid "Probing for video card:   "
 msgstr ""
 
-#: ../anaconda:393
+#: ../anaconda:394
 msgid "Unable to probe\n"
 msgstr ""
 
-#: ../anaconda:395
+#: ../anaconda:396
 msgid "Probing for monitor type: "
 msgstr ""
 
-#: ../anaconda:402
+#: ../anaconda:403
 msgid "Probing for mouse type:   "
 msgstr ""
 
-#: ../anaconda:406
+#: ../anaconda:407
 msgid "Skipping mouse probe.\n"
 msgstr ""
 
-#: ../anaconda:420
+#: ../anaconda:421
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 
-#: ../anaconda:430
+#: ../anaconda:432
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 
-#: ../anaconda:435
+#: ../anaconda:437
 msgid "Using mouse type: "
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 #: ../iw/partition_gui.py:1280 ../iw/partition_gui.py:1615
 #: ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
 #: ../iw/upgrade_swap_gui.py:186 ../partitioning.py:701
-#: ../partitioning.py:1436 ../textw/bootloader_text.py:133
+#: ../partitioning.py:1441 ../textw/bootloader_text.py:133
 #: ../textw/bootloader_text.py:434 ../textw/fdasd_text.py:82
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:239 ../upgrade.py:357 ../upgrade.py:376
@@ -231,11 +231,11 @@ msgid ""
 "configuration will not be changed."
 msgstr ""
 
-#: ../bootloader.py:922
+#: ../bootloader.py:920
 msgid "Bootloader"
 msgstr ""
 
-#: ../bootloader.py:922
+#: ../bootloader.py:920
 msgid "Installing bootloader..."
 msgstr ""
 
@@ -261,20 +261,20 @@ msgid ""
 "will now be reset."
 msgstr ""
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:376 ../fsset.py:799
-#: ../fsset.py:818 ../fsset.py:863 ../fsset.py:883 ../fsset.py:917
-#: ../fsset.py:960 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:372 ../fsset.py:795
+#: ../fsset.py:814 ../fsset.py:859 ../fsset.py:879 ../fsset.py:913
+#: ../fsset.py:956 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../iw/partition_gui.py:1315 ../loader/devices.c:259 ../loader/devices.c:266
 #: ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500
 #: ../loader/lang.c:27 ../loader/lang.c:102 ../loader/loader.c:478
 #: ../loader/loader.c:535 ../loader/loader.c:913 ../loader/loader.c:968
 #: ../loader/loader.c:1141 ../loader/loader.c:1146 ../loader/loader.c:1186
-#: ../loader/loader.c:1244 ../loader/loader.c:2210 ../loader/loader.c:2240
-#: ../loader/loader.c:2318 ../loader/loader.c:2527 ../loader/pcmcia.c:114
+#: ../loader/loader.c:1244 ../loader/loader.c:2219 ../loader/loader.c:2249
+#: ../loader/loader.c:2327 ../loader/loader.c:2536 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:79 ../loader/urls.c:89
 #: ../loader/urls.c:97 ../loader/urls.c:266 ../loader/urls.c:271
 #: ../packages.py:240 ../partitioning.py:1270 ../partitioning.py:1301
-#: ../partitioning.py:1400 ../textw/fdasd_text.py:73
+#: ../partitioning.py:1405 ../textw/fdasd_text.py:73
 #: ../textw/partition_text.py:946 ../textw/upgrade_text.py:160
 #: ../textw/upgrade_text.py:167 ../textw/upgrade_text.py:190
 #: ../textw/xconfig_text.py:422 ../upgrade.py:292 ../upgrade.py:304
@@ -304,7 +304,7 @@ msgstr ""
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr ""
 
-#: ../fsset.py:377
+#: ../fsset.py:373
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -313,15 +313,15 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:733 ../iw/silo_gui.py:180 ../textw/silo_text.py:75
+#: ../fsset.py:729 ../iw/silo_gui.py:180 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../fsset.py:734 ../iw/silo_gui.py:183 ../textw/silo_text.py:76
+#: ../fsset.py:730 ../iw/silo_gui.py:183 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr ""
 
-#: ../fsset.py:800
+#: ../fsset.py:796
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -330,7 +330,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:819
+#: ../fsset.py:815
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -340,7 +340,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:864
+#: ../fsset.py:860
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -349,7 +349,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:884
+#: ../fsset.py:880
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -358,7 +358,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:918
+#: ../fsset.py:914
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -367,11 +367,11 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:938 ../fsset.py:947
+#: ../fsset.py:934 ../fsset.py:943
 msgid "Invalid mount point"
 msgstr ""
 
-#: ../fsset.py:939
+#: ../fsset.py:935
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -380,7 +380,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:948
+#: ../fsset.py:944
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -389,7 +389,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:961
+#: ../fsset.py:957
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -399,11 +399,11 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1504
+#: ../fsset.py:1500
 msgid "Formatting"
 msgstr ""
 
-#: ../fsset.py:1505
+#: ../fsset.py:1501
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
@@ -414,7 +414,7 @@ msgstr ""
 
 #: ../gui.py:112 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
-#: ../loader/loader.c:817 ../loader/net.c:908 ../text.py:283
+#: ../loader/loader.c:817 ../loader/net.c:912 ../text.py:283
 #: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
@@ -422,14 +422,14 @@ msgstr ""
 
 #: ../gui.py:113 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
-#: ../loader/net.c:908 ../text.py:284 ../textw/bootdisk_text.py:26
+#: ../loader/net.c:912 ../text.py:284 ../textw/bootdisk_text.py:26
 #: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
 msgstr ""
 
-#: ../gui.py:115 ../loader/net.c:277 ../loader/net.c:404 ../text.py:286
+#: ../gui.py:115 ../loader/net.c:281 ../loader/net.c:408 ../text.py:286
 msgid "Retry"
 msgstr ""
 
@@ -439,7 +439,7 @@ msgstr ""
 
 #: ../gui.py:117 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1330
-#: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2303
+#: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2312
 #: ../loader/pcmcia.c:104 ../text.py:117 ../text.py:118 ../text.py:252
 #: ../text.py:254 ../text.py:288 ../textw/bootloader_text.py:202
 #: ../textw/constants_text.py:24 ../textw/silo_text.py:147
@@ -489,8 +489,8 @@ msgstr ""
 #: ../gui.py:606 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
 #: ../loader/loader.c:323 ../loader/loader.c:817 ../loader/loader.c:854
-#: ../loader/loader.c:968 ../loader/loader.c:1062 ../loader/loader.c:1493
-#: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
+#: ../loader/loader.c:968 ../loader/loader.c:1062 ../loader/loader.c:1496
+#: ../loader/net.c:189 ../loader/net.c:276 ../loader/net.c:363
 #: ../loader/urls.c:188 ../loader/urls.c:417 ../textw/confirm_text.py:24
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:38 ../textw/constants_text.py:28
@@ -622,7 +622,7 @@ msgstr ""
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../packages.py:206 ../packages.py:477
+#: ../packages.py:206 ../packages.py:478
 msgid "Processing"
 msgstr ""
 
@@ -637,21 +637,21 @@ msgid ""
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:478
+#: ../packages.py:479
 msgid "Setting up RPM transaction..."
 msgstr ""
 
-#: ../packages.py:519
+#: ../packages.py:520
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../packages.py:521
+#: ../packages.py:522
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../packages.py:581
+#: ../packages.py:582
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -659,34 +659,34 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_gui.py:1552 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
+#: ../packages.py:586 ../packages.py:606 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr ""
 
-#: ../packages.py:586
+#: ../packages.py:587
 msgid "Space Needed"
 msgstr ""
 
-#: ../packages.py:601
+#: ../packages.py:602
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:606
+#: ../packages.py:607
 msgid "Nodes Needed"
 msgstr ""
 
-#: ../packages.py:612
+#: ../packages.py:613
 msgid "Disk Space"
 msgstr ""
 
-#: ../packages.py:650
+#: ../packages.py:651
 msgid "Post Install"
 msgstr ""
 
-#: ../packages.py:651
+#: ../packages.py:652
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -838,12 +838,12 @@ msgid ""
 "IBM for the lack of a progress bar!\n"
 msgstr ""
 
-#: ../partitioning.py:1401
+#: ../partitioning.py:1406
 #, c-format
 msgid "An error occured while running dasdfmt on drive %s."
 msgstr ""
 
-#: ../partitioning.py:1437
+#: ../partitioning.py:1442
 #, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -852,24 +852,24 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 
-#: ../partitioning.py:1541 ../textw/fdasd_text.py:97
+#: ../partitioning.py:1546 ../textw/fdasd_text.py:99
 msgid "No Drives Found"
 msgstr ""
 
-#: ../partitioning.py:1542
+#: ../partitioning.py:1547
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../partitioning.py:1636
+#: ../partitioning.py:1641
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
 "Are you sure?"
 msgstr ""
 
-#: ../partitioning.py:1639
+#: ../partitioning.py:1644
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -877,111 +877,111 @@ msgid ""
 "Are you sure?"
 msgstr ""
 
-#: ../partitioning.py:1643
+#: ../partitioning.py:1648
 msgid "Are you sure you want to delete this partition?"
 msgstr ""
 
-#: ../partitioning.py:1645
+#: ../partitioning.py:1650
 msgid "Confirm Delete"
 msgstr ""
 
-#: ../partitioning.py:1649
+#: ../partitioning.py:1654
 msgid "Confirm Reset"
 msgstr ""
 
-#: ../partitioning.py:1650
+#: ../partitioning.py:1655
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
-#: ../partitioning.py:1674
+#: ../partitioning.py:1679
 msgid "the partition in use by the installer."
 msgstr ""
 
-#: ../partitioning.py:1677
+#: ../partitioning.py:1682
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitioning.py:1686 ../partitioning.py:1692 ../partitioning.py:1700
-#: ../partitioning.py:1711 ../partitioning.py:1718
+#: ../partitioning.py:1691 ../partitioning.py:1697 ../partitioning.py:1705
+#: ../partitioning.py:1716 ../partitioning.py:1723
 msgid "Unable To Remove"
 msgstr ""
 
-#: ../partitioning.py:1687
+#: ../partitioning.py:1692
 msgid "You must first select a partition to remove."
 msgstr ""
 
-#: ../partitioning.py:1693
+#: ../partitioning.py:1698
 msgid "You cannot remove free space."
 msgstr ""
 
-#: ../partitioning.py:1701
+#: ../partitioning.py:1706
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
 
-#: ../partitioning.py:1712
+#: ../partitioning.py:1717
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr ""
 
-#: ../partitioning.py:1719
+#: ../partitioning.py:1724
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 
-#: ../partitioning.py:1750 ../partitioning.py:1772
+#: ../partitioning.py:1755 ../partitioning.py:1777
 msgid "Unable To Edit"
 msgstr ""
 
-#: ../partitioning.py:1751
+#: ../partitioning.py:1756
 msgid "You must select a partition to edit"
 msgstr ""
 
-#: ../partitioning.py:1773
+#: ../partitioning.py:1778
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
 
-#: ../partitioning.py:1781
+#: ../partitioning.py:1786
 msgid "Unable to Edit"
 msgstr ""
 
-#: ../partitioning.py:1782
+#: ../partitioning.py:1787
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 
-#: ../partitioning.py:1794
+#: ../partitioning.py:1799
 msgid "Installation cannot continue."
 msgstr ""
 
-#: ../partitioning.py:1795
+#: ../partitioning.py:1800
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:1815
+#: ../partitioning.py:1820
 msgid "Low Memory"
 msgstr ""
 
-#: ../partitioning.py:1816
+#: ../partitioning.py:1821
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../partitioning.py:1834
+#: ../partitioning.py:1839
 msgid "Format as Swap?"
 msgstr ""
 
-#: ../partitioning.py:1835
+#: ../partitioning.py:1840
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -990,11 +990,11 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 
-#: ../partitioning.py:1854 ../partitioning.py:1872
+#: ../partitioning.py:1859 ../partitioning.py:1877
 msgid "Format?"
 msgstr ""
 
-#: ../partitioning.py:1855
+#: ../partitioning.py:1860
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1002,7 +1002,7 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1863
+#: ../partitioning.py:1868
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1013,11 +1013,11 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1879
+#: ../partitioning.py:1884
 msgid "Error with Partitioning"
 msgstr ""
 
-#: ../partitioning.py:1880
+#: ../partitioning.py:1885
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1027,11 +1027,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partitioning.py:1893
+#: ../partitioning.py:1898
 msgid "Partitioning Warning"
 msgstr ""
 
-#: ../partitioning.py:1894
+#: ../partitioning.py:1899
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1041,19 +1041,19 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1906
+#: ../iw/partition_gui.py:576 ../partitioning.py:1911
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1909
+#: ../iw/partition_gui.py:579 ../partitioning.py:1914
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: ../partitioning.py:1915
+#: ../partitioning.py:1920
 msgid "Format Warning"
 msgstr ""
 
@@ -1766,6 +1766,14 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr ""
 
+#: ../iw/fdasd_gui.py:27
+msgid "fdasd"
+msgstr ""
+
+#: ../iw/fdasd_gui.py:28
+msgid "Select drive to run fdasd on"
+msgstr ""
+
 #: ../iw/fdisk_gui.py:28
 msgid "Select drive to run fdisk on"
 msgstr ""
@@ -1942,7 +1950,7 @@ msgstr ""
 msgid "IP Address"
 msgstr ""
 
-#: ../iw/network_gui.py:195 ../loader/net.c:825
+#: ../iw/network_gui.py:195 ../loader/net.c:829
 msgid "Netmask"
 msgstr ""
 
@@ -1954,7 +1962,7 @@ msgstr ""
 msgid "Broadcast"
 msgstr ""
 
-#: ../iw/network_gui.py:251 ../loader/net.c:629 ../loader/net.c:827
+#: ../iw/network_gui.py:251 ../loader/net.c:633 ../loader/net.c:831
 #: ../textw/network_text.py:177
 msgid "Hostname"
 msgstr ""
@@ -2854,7 +2862,7 @@ msgid ""
 "Do you really want this?"
 msgstr ""
 
-#: ../textw/fdasd_text.py:98
+#: ../textw/fdasd_text.py:100
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem or use "
@@ -2993,19 +3001,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../loader/net.c:309 ../textw/network_text.py:82
+#: ../loader/net.c:313 ../textw/network_text.py:82
 msgid "IP address:"
 msgstr ""
 
-#: ../loader/net.c:312 ../textw/network_text.py:83
+#: ../loader/net.c:316 ../textw/network_text.py:83
 msgid "Netmask:"
 msgstr ""
 
-#: ../loader/net.c:315 ../textw/network_text.py:84
+#: ../loader/net.c:319 ../textw/network_text.py:84
 msgid "Default gateway (IP):"
 msgstr ""
 
-#: ../loader/net.c:318 ../textw/network_text.py:85
+#: ../loader/net.c:322 ../textw/network_text.py:85
 msgid "Primary nameserver:"
 msgstr ""
 
@@ -3870,7 +3878,7 @@ msgid ""
 "like to load some now?"
 msgstr ""
 
-#: ../loader/loader.c:536 ../loader/loader.c:2241
+#: ../loader/loader.c:536 ../loader/loader.c:2250
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr ""
@@ -3946,76 +3954,76 @@ msgstr ""
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 
-#: ../loader/loader.c:1485
+#: ../loader/loader.c:1488
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1486
+#: ../loader/loader.c:1489
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader/loader.c:1488
+#: ../loader/loader.c:1491
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1490
+#: ../loader/loader.c:1493
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:2211
+#: ../loader/loader.c:2220
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:2303
+#: ../loader/loader.c:2312
 msgid "Updates Disk"
 msgstr ""
 
-#: ../loader/loader.c:2304
+#: ../loader/loader.c:2313
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader/loader.c:2309
+#: ../loader/loader.c:2318
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
 
-#: ../loader/loader.c:2319
+#: ../loader/loader.c:2328
 msgid "Failed to mount floppy disk."
 msgstr ""
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2324
+#: ../loader/loader.c:2333
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:2324
+#: ../loader/loader.c:2333
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:2527
+#: ../loader/loader.c:2536
 msgid "You do not have enough RAM to install Red Hat Linux on this machine."
 msgstr ""
 
-#: ../loader/loader.c:3024
+#: ../loader/loader.c:3102
 msgid "Running anaconda - please wait...\n"
 msgstr ""
 
-#: ../loader/net.c:170
+#: ../loader/net.c:174
 msgid "NFS server name:"
 msgstr ""
 
-#: ../loader/net.c:173 ../loader/urls.c:224
+#: ../loader/net.c:177 ../loader/urls.c:224
 msgid "Red Hat directory:"
 msgstr ""
 
-#: ../loader/net.c:179
+#: ../loader/net.c:183
 msgid "NFS Setup"
 msgstr ""
 
-#: ../loader/net.c:180
+#: ../loader/net.c:184
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4024,15 +4032,15 @@ msgid ""
 "      Red Hat Linux for your architecture"
 msgstr ""
 
-#: ../loader/net.c:262
+#: ../loader/net.c:266
 msgid "Nameserver IP"
 msgstr ""
 
-#: ../loader/net.c:266 ../loader/net.c:823
+#: ../loader/net.c:270 ../loader/net.c:827
 msgid "Nameserver"
 msgstr ""
 
-#: ../loader/net.c:267
+#: ../loader/net.c:271
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -4040,98 +4048,98 @@ msgid ""
 "blank and the install will continue."
 msgstr ""
 
-#: ../loader/net.c:277
+#: ../loader/net.c:281
 msgid "Invalid IP Information"
 msgstr ""
 
-#: ../loader/net.c:278
+#: ../loader/net.c:282
 msgid "You entered an invalid IP address."
 msgstr ""
 
-#: ../loader/net.c:303
+#: ../loader/net.c:307
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
 
-#: ../loader/net.c:345
+#: ../loader/net.c:349
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr ""
 
-#: ../loader/net.c:373
+#: ../loader/net.c:377
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: ../loader/net.c:404
+#: ../loader/net.c:408
 msgid "Missing Information"
 msgstr ""
 
-#: ../loader/net.c:405
+#: ../loader/net.c:409
 msgid "You must enter both a valid IP address and a netmask."
 msgstr ""
 
-#: ../loader/net.c:413 ../loader/net.c:757
+#: ../loader/net.c:417 ../loader/net.c:761
 msgid "Dynamic IP"
 msgstr ""
 
-#: ../loader/net.c:414 ../loader/net.c:758
+#: ../loader/net.c:418 ../loader/net.c:762
 msgid "Sending request for IP information..."
 msgstr ""
 
-#: ../loader/net.c:630
+#: ../loader/net.c:634
 msgid "Determining host name and domain..."
 msgstr ""
 
-#: ../loader/net.c:741 ../loader/net.c:774
+#: ../loader/net.c:745 ../loader/net.c:778
 msgid "kickstart"
 msgstr ""
 
-#: ../loader/net.c:742
+#: ../loader/net.c:746
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr ""
 
-#: ../loader/net.c:775
+#: ../loader/net.c:779
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader/net.c:817
+#: ../loader/net.c:821
 msgid "Boot protocol to use"
 msgstr ""
 
-#: ../loader/net.c:819
+#: ../loader/net.c:823
 msgid "Network gateway"
 msgstr ""
 
-#: ../loader/net.c:821
+#: ../loader/net.c:825
 msgid "IP address"
 msgstr ""
 
-#: ../loader/net.c:830
+#: ../loader/net.c:834
 msgid "Domain name"
 msgstr ""
 
-#: ../loader/net.c:833
+#: ../loader/net.c:837
 msgid "Network device"
 msgstr ""
 
-#: ../loader/net.c:905
+#: ../loader/net.c:909
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 
-#: ../loader/net.c:906
+#: ../loader/net.c:910
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../loader/net.c:908
+#: ../loader/net.c:912
 msgid "Network configuration"
 msgstr ""
 
-#: ../loader/net.c:909
+#: ../loader/net.c:913
 msgid "Would you like to set up networking?"
 msgstr ""
 

@@ -788,8 +788,6 @@ class s390BootloaderInfo(bootloaderInfo):
 
 	f = open(instRoot + cf, "w+")        
 
-	bootDev = bootDev.device.getDevice(asBoot = 1)
-
         f.write('[defaultboot]\n')
         f.write('default=' + kernelList[0][0] + '\n')
         

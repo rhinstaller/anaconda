@@ -138,9 +138,9 @@ class BaseInstallClass:
 	    #dispatch.skipStep("network", permanent = 1)
 
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
+	    dispatch.skipStep("videocard", permanent = 1)
 	    dispatch.skipStep("monitor", permanent = 1)
 	    dispatch.skipStep("xcustom", permanent = 1)
-	    dispatch.skipStep("videocard", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
             
             dispatch.skipStep("bootdisk", permanent = 1)
