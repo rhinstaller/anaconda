@@ -955,7 +955,7 @@ for KERNELARCH in $arches; do
   done
 done
 
-if [ -n "$foundakernel"]; then
+if [ -n "$foundakernel" ]; then
   # make the second stage
   find $KERNELBASE/*/lib/modules/ > $CACHE
   makeSecondStage
