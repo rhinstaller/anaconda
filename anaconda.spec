@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.4
+Version: 10.2.0.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 30 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.5-1
+- CTCPROT fix (karsten, #133088)
+- Fix LVM partitions becoming negative sized (nasrat, #141268)
+- Fix removal/editing of zfcp devices in gui (#140559)
+- Fix segfault (#140541, #140876)
+- Fix handling of pre-existing parts on disks that we then ignore (#131333)
+
 * Tue Nov 23 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.4-1
 - Update python version in urllib hack
 - /init in initramfs instead of /linuxrc
