@@ -144,6 +144,8 @@ Section "Monitor"
                                   480 491 493 525
 EndSection
 
+%(fbProbedMonitor)s
+
 Section "Monitor"
     Identifier  "%(monitorID)s"
     VendorName  "Unknown"
@@ -537,7 +539,7 @@ class XF86Config:
         self.monName = None
         self.monHoriz = "31.5"
         self.monVert = "60"
-	self.monSect = None
+	self.monSect = ""
         self.monID = "Unprobed Monitor"
         self.devID = None
         self.probed = 0
@@ -958,7 +960,9 @@ Section "Device"
                 if len(modes) > 0 and string.atoi(depth) > maxdepth:
                     maxdepth = string.atoi(depth)
 
-            if self.monID == "Unprobed Monitor":
+            if self.monSect:
+                monitor = "Probed Monitor"
+            elif self.monID == "Unprobed Monitor":
                 monitor = "Generic Monitor"
             else:
                 monitor = self.monID
@@ -1003,6 +1007,7 @@ Section "Screen"
                  "monitorID"	      : self.monID,
                  "monitorHoriz"       : self.monHoriz,
                  "monitorVert"        : self.monVert,
+                 "fbProbedMonitor"    : self.monSect,
                  "files"              : self.files }
 	if iutil.getArch() == "sparc":
 	    info["autorepeat"] = "#   AutoRepeat	200 20"
