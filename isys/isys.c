@@ -666,7 +666,7 @@ static PyObject * doCheckBoot (PyObject * s, PyObject * args) {
     
     if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
 
-    if ((fd = open (path, O_RDONLY)) < 0) {
+    if ((fd = open (path, O_RDONLY)) == -1) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
@@ -696,7 +696,7 @@ static PyObject * doCheckUFS (PyObject * s, PyObject * args) {
     
     if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
 
-    if ((fd = open (path, O_RDONLY)) < 0) {
+    if ((fd = open (path, O_RDONLY)) == -1) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
@@ -884,7 +884,7 @@ static int ideFilter(struct kddevice * dev) {
     sprintf(where, "/tmp/%s", dev->name);
     if (devMakeInode(dev->name, where)) return 1;
 
-    if ((fd = open(where, O_RDONLY)) < 0) return 1;
+    if ((fd = open(where, O_RDONLY)) == -1) return 1;
     rc = pdc_dev_running_raid(fd);
 
     /* no pdc magic, so include this device */
@@ -1025,7 +1025,7 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
     
-    if ((fd = open (path, O_RDONLY)) < 0) {
+    if ((fd = open (path, O_RDONLY)) == -1) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
@@ -1338,7 +1338,7 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
     inq.cmd[5] = 0x00;          /* control */
     
     fd = open (path, O_RDONLY);
-    if (fd < 0) {
+    if (fd == -1) {
 	if (errno == ENOMEDIUM)
 	    return Py_BuildValue("i", 1); 
 	else {
@@ -1481,7 +1481,7 @@ static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &dev)) return NULL;
 
     fd = open(dev, O_RDONLY);
-    if (fd < 0) {
+    if (fd == -1) {
 	snprintf(errstr, sizeof(errstr), "could not open device %s", dev);
 	PyErr_SetString(PyExc_ValueError, errstr);
         return NULL;
@@ -1527,7 +1527,7 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
     struct fb_var_screeninfo fb;
 
     fd = open("/dev/fb0", O_RDONLY);
-    if (fd < 0) {
+    if (fd == -1) {
 	Py_INCREF(Py_None);
 	return Py_None;
     }
