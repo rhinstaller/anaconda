@@ -118,8 +118,8 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
               sed net-tools xinetd openssl openssh openssh-server coreutils
               login initscripts XFree86-xauth bash portmap pam 
-              libcrack telnet-server login mount grep modutils gawk 
-              XFree86-libs"
+              telnet-server login mount grep modutils gawk 
+              XFree86-libs strace"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -371,6 +371,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
+usr/share/terminfo/k/kterm
 usr/share/terminfo/s/screen
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
@@ -379,22 +380,12 @@ usr/share/terminfo/x/xterm
 usr/share/terminfo/x/xterm-color
 usr/bin/strace
 usr/bin/ldd
-usr/bin/wget
-usr/bin/printf
-usr/bin/dasdformat
-usr/bin/formatmnt
-usr/bin/mountpoint
-usr/bin/netsetup
-usr/bin/pkgselect
-usr/bin/pkgsrc
 usr/sbin/chroot
 usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
 usr/sbin/in.telnetd
 usr/sbin/xinetd
 sbin/busybox.anaconda
-sbin/consoletype
-sbin/rhsetup
 sbin/ifconfig
 sbin/route
 sbin/portmap
@@ -403,7 +394,6 @@ sbin/dasdfmt
 sbin/swapon
 sbin/swapoff
 sbin/mkswap
-sbin/tune2fs
 bin/bash
 bin/dd
 bin/gawk
@@ -414,7 +404,6 @@ bin/login
 bin/cat
 bin/chmod
 bin/sort
-bin/rpm
 $LIBDIR/libpam.so*
 $LIBDIR/libdl.so*
 $LIBDIR/libdl-*.so*
@@ -434,16 +423,12 @@ $LIBDIR/libresolv-*.so*
 $LIBDIR/libvtoc*.so*
 lib/modules/ibm/*
 etc/xinetd.conf
-etc/xinetd.d/telnet
 etc/pam.d/sshd
-etc/pam.d/login
-etc/pam.d/system-auth
 etc/pam.d/other
 etc/security/limits.conf
 etc/security/pam_env.conf
 lib/security
 $LIBDIR/security/pam_*
-usr/$LIBDIR/libcrack.so*
 usr/$LIBDIR/libwrap.so*
 usr/X11R6/$LIBDIR/libXmuu.so*
 usr/X11R6/$LIBDIR/libX11.so*
