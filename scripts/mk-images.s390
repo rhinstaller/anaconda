@@ -119,7 +119,7 @@ makeS390initrd() {
     fi
 
     cat > $MBD_DIR/etc/passwd << EOF
-root::0:0:root:/tmp:/bin/bash
+root::0:0:root:/:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
