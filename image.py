@@ -13,7 +13,7 @@ from log import log
 
 class ImageInstallMethod(InstallMethod):
 
-    def readComps(self, hdlist):
+    def readCompsViaMethod(self, hdlist):
 	return ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
 
     def getFilename(self, h, timer):

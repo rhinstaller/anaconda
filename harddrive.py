@@ -40,7 +40,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 	    self.tree = None
 	    self.isMounted = 0
 	
-    def readComps(self, hdlist):
+    def readCompsViaMethod(self, hdlist):
 	self.mountMedia()
 	cs = ComponentSet(self.tree + self.path + 
                           '/RedHat/base/comps', hdlist)
@@ -147,7 +147,7 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.tree = None
 	    self.isoDirIsMounted = 0
 	
-    def readComps(self, hdlist):
+    def readCompsViaMethod(self, hdlist):
 	self.mountMedia(1)
 	cs = ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
 	self.umountMedia()
