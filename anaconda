@@ -137,9 +137,7 @@ else:
     print "unknown install method:", method
     sys.exit(1)
 
-print "INSTANTIATE interface..."
 intf = InstallInterface()
-print "INSTANTIATE interface DONE"
 
 # set the default actions
 installPackages = 1
@@ -155,7 +153,6 @@ if forceMount:
     setupFilesystems = 1
 
 try:
-    print "todo.init"
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo)
     intf.run(todo)
