@@ -66,7 +66,9 @@ Section "Files"
     FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
     FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
     FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic/"
+    FontPath    "/usr/share/fonts/ISO8859-2/misc/"
     FontPath    "/usr/share/fonts/ISO8859-2/75dpi/"
+    FontPath    "/usr/share/fonts/ISO8859-2/100dpi/"
 EndSection
 
 Section "ServerFlags"
@@ -118,6 +120,14 @@ EndSection
 	    if x.device:
 		args.append ("-dev")
 		args.append ('/dev/' + x.device)
+	    args.append("-fp")
+	    args.append("/usr/X11R6/lib/X11/fonts/misc/,"
+			"/usr/X11R6/lib/X11/fonts/75dpi/,"
+			"/usr/X11R6/lib/X11/fonts/100dpi/,"
+			"/usr/X11R6/lib/X11/fonts/cyrillic/,"
+			"/usr/share/fonts/ISO8859-2/misc/,"
+			"/usr/share/fonts/ISO8859-2/75dpi/,"
+			"/usr/share/fonts/ISO8859-2/100dpi/")
 	else:
 	    args.append("-xf86config")
 	    args.append("/tmp/XF86Config")

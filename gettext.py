@@ -37,7 +37,7 @@ compile it into a .mo file, ready for use with this module.  Note that you
 will have to use C style strings (ie. use double quotes) for proper string
 extraction.
 """
-import os, string
+import os, string, iutil
 
 prefix = '/usr/local'
 localedir = prefix + '/share/locale'
@@ -79,7 +79,12 @@ if os.environ.has_key('PY_XGETTEXT'):
 else:
 	xgettext = None
 
-del os, string
+if iutil.getArch() == 'sparc':
+	_gettext_byteorder = 'msb'
+else:
+	_gettext_byteorder = 'lsb'
+
+del os, string, iutil
 
 error = 'gettext.error'
 
@@ -93,6 +98,26 @@ def _intToLsbStr(int):
 	       chr((int >> 8)  & 0xff) + \
 	       chr((int >> 16) & 0xff) + \
 	       chr((int >> 24) & 0xff)
+def _msbStrToInt(str):
+	return ord(str[3]) + \
+	       (ord(str[2]) << 8) + \
+	       (ord(str[1]) << 16) + \
+	       (ord(str[0]) << 24)
+def _intToMsbStr(int):
+	return chr((int >> 24) & 0xff) + \
+	       chr((int >> 16) & 0xff) + \
+	       chr((int >> 8) & 0xff) + \
+	       chr(int & 0xff)
+def _StrToInt(str):
+	if _gettext_byteorder == 'msb':
+		return _msbStrToInt(str)
+	else:
+		return _lsbStrToInt(str)
+def _intToStr(int):
+	if _gettext_byteorder == 'msb':
+		return _intToMsbStr(str)
+	else:
+		return _intToLsbStr(str)
 
 def _getpos(levels = 0):
 	"""Returns the position in the code where the function was called.
@@ -132,26 +157,26 @@ class Catalog:
 		else:
 			return # assume C locale
 
-		if _lsbStrToInt(buffer[:4]) != 0x950412de:
+		if _StrToInt(buffer[:4]) != 0x950412de:
 			# magic number doesn't match
 			raise error, 'Bad magic number in %s' % (catalog,)
 
-		self.revision = _lsbStrToInt(buffer[4:8])
-		nstrings = _lsbStrToInt(buffer[8:12])
-		origTabOffset  = _lsbStrToInt(buffer[12:16])
-		transTabOffset = _lsbStrToInt(buffer[16:20])
+		self.revision = _StrToInt(buffer[4:8])
+		nstrings = _StrToInt(buffer[8:12])
+		origTabOffset  = _StrToInt(buffer[12:16])
+		transTabOffset = _StrToInt(buffer[16:20])
 		for i in range(nstrings):
-			origLength = _lsbStrToInt(buffer[origTabOffset:
-							 origTabOffset+4])
-			origOffset = _lsbStrToInt(buffer[origTabOffset+4:
-							 origTabOffset+8])
+			origLength = _StrToInt(buffer[origTabOffset:
+						      origTabOffset+4])
+			origOffset = _StrToInt(buffer[origTabOffset+4:
+						      origTabOffset+8])
 			origTabOffset = origTabOffset + 8
 			origStr = buffer[origOffset:origOffset+origLength]
 		
-			transLength = _lsbStrToInt(buffer[transTabOffset:
-							  transTabOffset+4])
-			transOffset = _lsbStrToInt(buffer[transTabOffset+4:
-							  transTabOffset+8])
+			transLength = _StrToInt(buffer[transTabOffset:
+						       transTabOffset+4])
+			transOffset = _StrToInt(buffer[transTabOffset+4:
+						       transTabOffset+8])
 			transTabOffset = transTabOffset + 8
 			transStr = buffer[transOffset:transOffset+transLength]
 			
@@ -177,9 +202,9 @@ class Catalog:
 			f = open(file, "wb")
 		except IOError:
 			raise error, "can't open " + file + " for writing"
-		f.write(_intToLsbStr(0x950412de))    # magic number
-		f.write(_intToLsbStr(0))             # revision
-		f.write(_intToLsbStr(len(self.cat))) # nstrings
+		f.write(_intToStr(0x950412de))    # magic number
+		f.write(_intToStr(0))             # revision
+		f.write(_intToStr(len(self.cat))) # nstrings
 
 		oIndex = []; oData = ''
 		tIndex = []; tData = ''
@@ -192,14 +217,14 @@ class Catalog:
 		tIndexOfs = oIndexOfs + 8 * len(oIndex)
 		oDataOfs = tIndexOfs + 8 * len(tIndex)
 		tDataOfs = oDataOfs + len(oData)
-		f.write(_intToLsbStr(oIndexOfs))
-		f.write(_intToLsbStr(tIndexOfs))
+		f.write(_intToStr(oIndexOfs))
+		f.write(_intToStr(tIndexOfs))
 		for length, offset in oIndex:
-			f.write(_intToLsbStr(length))
-			f.write(_intToLsbStr(offset + oDataOfs))
+			f.write(_intToStr(length))
+			f.write(_intToStr(offset + oDataOfs))
 		for length, offset in tIndex:
-			f.write(_intToLsbStr(length))
-			f.write(_intToLsbStr(offset + tDataOfs))
+			f.write(_intToStr(length))
+			f.write(_intToStr(offset + tDataOfs))
 		f.write(oData)
 		f.write(tData)
 
