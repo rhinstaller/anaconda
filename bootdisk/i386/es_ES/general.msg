@@ -1,24 +1,24 @@
 
 
-                    09Ayuda general para el inicio07
+                        09Ayuda general para el arranque07
 
-Es posible activar la instalaci¢n de 0cRed Hat07 Linux, directamente 
-desde este " prompt".  En la mayor¡a de los casos, la mejor manera de
-empezar es simplemente pulsando 0f<ENTER>07.
+Puede cargar el proceso de instalaci¢n 0cRed Hat07 Linux, y empezar el 
+proceso desde este prompt. En muchos casos, el mejor modo de
+empezar es simplemente pulsar 0f<ENTER>07.
 
-Algunas configuraciones hardware podr¡an crear problemas durante el
-reconocimiento autom tico del hardware. Aunque no es lo normal, puede
-suceder.  Si se presenta cualquier problema durante el proceso de instalaci¢n,
-reactive el sistema usando la modalidad para expertos.  Pulse 05<F3>07
-para obtener m s infomaci¢n sobre la modo experto.
+En determinadas configuraciones del hardware durante la instalaci¢n pueden
+darse errores en la detecci¢n autom tica del hardware. Pero no es muy normal,
+sucede en raras ocasiones. Si se dan problemas durante la instalaci¢n,
+vuelva a empezar y utilice el modo experto (expert). Pulse 05<F3>07 
+para obtener mayor informaci¢n sobre el modo experto.
 
-Existen varios par metros que pueden ser pasados al kernel de Linux desde el
-inicio del sistema. No es posible introducir los par metros para dispositivos
-como CD-ROM o tarjetas de red. Pulse 05<F5>07 para m s informaci¢n. 
-
-
+Existe una serie de par metros que pueden ser introducidos en el kernel de
+Linux durante el arranque. Pero no se dan par metros para dispositivos como 
+CD-ROM o tarjetas ethernet. Pulse 05<F4>07 para obtener mayor informaci¢n. 
 
 
 
-05[F1-Principal] [F2-General] [F3-Experto] [F4-Kernel] [F5-Recuperaci¢n]07
 
+
+
+05[F1-Main] [F2-General] [F3-Expert] [F4-Kernel] [F5-Rescue]07

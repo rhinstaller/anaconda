@@ -1,25 +1,25 @@
 
-
-
-                 09Bienvenidos a 0cRed Hat09 Linux 6.2!07
-
- o  Para instalar o actualizar un sistema con 0cRed Hat07 Linux 2.0 
-    o superior en modo gr fico, pulse la tecla 0f<ENTER>07.
-
- o  Para instalar o actualizar un sistema con 0cRed Hat07 Linux 2.0 
-    o superior en modo texto, teclee 0ftext <ENTER>07.
-
- o  Para activar el modo experto, teclee: 0fexpert <ENTER>07.
-    Pulse 05<F3>07 para obtener m s informaci¢n ver modo experto.
-
- o  Para activar el modo de recuperaci¢n, teclee: 0frescue <ENTER>07.
-    Pulse 05<F5>07 para obtener m s informaci¢n ver modo de recuperaci¢n.
-
- o  Si tiene un disquete con los driver, teclee 0flinux dd <ENTER>07.
  
- o  Pulse las teclas funci¢n que aparecen en la parte baja de la pantalla
-    para obtener m s informaci¢n.
+                09Bienvenido a 0cRed Hat09 Linux 7.007
+
+ o  Para instalar o actualizar un sistema que funcione con 0cRed Hat07
+    Linux 3.0.3 o con una versi¢n posterior en modo gr fico (graphic), pulse:
+    0f<ENTER>07.
+
+ o  Para instalar o actualizar un sistema que funcione con 0cRed Hat07
+    Linux 3.0.3 o con una versi¢n posterior en modo texto (text) teclee:
+    0ftext <ENTER>07.
+
+ o  Para activar el modo experto (expert) teclee: 0fexpert <ENTER>07. Pulse
+    05<F3>07 para obtener mayor informaci¢n sobre el modo experto.
+
+ o  Para activar el modo rescate (rescue) teclee: 0flinux rescue <ENTER>07.
+    Pulse 05<F5>07 para obtener mayor informaci¢n sobre el modo rescate.
+
+ o  Si tiene una unidad disco, teclee: 0flinux dd <ENTER>07.
+
+ o  Utilice las teclas de funci¢n que se muestran a continuaci¢n para obtener
+    mayor informaci¢n.
 
 
-
-05[F1-Principal] [F2-General] [F3-Experto] [F4-Kernel] [F5-Recuperaci¢n]07
+05[F1-Main] [F2-General] [F3-Expert] [F4-Kernel] [F5-Rescue]07
