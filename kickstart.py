@@ -288,6 +288,9 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderadvanced")
 
+        if location is None:
+            self.skipSteps.append("instbootloader")
+
     def doLilo	(self, id, args):
         self.doBootloader(id, args, useLilo = 1)
 
