@@ -223,7 +223,6 @@ class Keyboard (SimpleConfigFile):
             "sg",
             "sk-prog-qwertz",
             "sk-qwertz",
-            "sk-qwerty",
             "slovene",
             ]
 
