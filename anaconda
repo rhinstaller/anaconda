@@ -170,9 +170,9 @@ def startVNCServer(vncpassword=None, root='/'):
 	sys.exit (1)
 
     if vncpassword is None:
-	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
-	dup_log(_("You can use the vncpassword=<password> boot option"))
-	dup_log(_("if you would like to secure the server.\n\n"))
+	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
+                  "You can use the vncpassword=<password> boot option\n"
+                  "if you would like to secure the server.\n\n"))
 	
     dup_log(_("The VNC server now running."))
     if connxinfo is not None:
