@@ -26,7 +26,7 @@ class CongratulationWindow (InstallWindow):
 	InstallWindow.__init__(self, ics)
 
         ics.setPrevEnabled(gtk.FALSE)
-        ics.setNextButton(gtk.STOCK_QUIT, _("_Exit"))
+        ics.setNextButton(gtk.STOCK_QUIT, _("_Reboot"))
         ics.setHelpButtonEnabled(gtk.FALSE)
         ics.setHelpEnabled(gtk.FALSE)
 	ics.setGrabNext(1)
@@ -49,20 +49,14 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
 
-        if iutil.getArch() == 'i386':
-            bootstr = _("If you created a boot diskette during this "
-			"installation as your primary means of "
-			"booting %s, insert it before "
-			"rebooting your newly installed system.\n\n") % (productName,)
-        else:
-            bootstr = ""
-
+        bootstr = ""
         if iutil.getArch() == "s390":
             floppystr = ""
         else:
             floppystr = _("Remove any installation media (diskettes or "
                           "CD-ROMs) used during the installation process "
-                          "and press <Enter> to reboot your system."
+                          "and press the \"Reboot\" button to reboot your "
+                          "system."
                           "\n\n")
 
         txt = _("Congratulations, the installation is complete.\n\n"

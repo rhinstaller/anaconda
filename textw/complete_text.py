@@ -21,13 +21,7 @@ import iutil
 class FinishedWindow:
   
   def __call__ (self, screen):
-        if iutil.getArch() == "i386":
-          bootstr = _("If you created a boot diskette during this "
-                      "installation as your primary means of "
-                      "booting %s, insert it before "
-                      "rebooting your newly installed system.\n\n") % (productName,)
-        else:
-          bootstr = ""
+        bootstr = ""
 
         if iutil.getArch() == "s390":
           floppystr = _("Press <Enter> to end the installation process.\n\n")
@@ -51,7 +45,7 @@ class FinishedWindow:
                 "http://www.redhat.com/docs/.") %(productName,)
 
         rc = ButtonChoiceWindow (screen, _("Complete"), txt,
-                                 [ _("OK") ], help = "finished", width=60)
+                                 [ _("Reboot") ], help = "finished", width=60)
 
         return INSTALL_OK
 
