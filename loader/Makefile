@@ -22,7 +22,8 @@ BINS = init
 DIRS = 
 NETOBJS = net.o 
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
-OPTS = -O2 -g
+#OPTS = -O2 -g
+OPTS = -O -g
 
 MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
 	       	../isys/modutils/util/libutil.a          \
@@ -117,6 +118,9 @@ install: all
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 kon.cfg $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 minikon.fnt $(DESTDIR)/$(RUNTIMEDIR)/loader
+
+urltest: urltest.o ftp.o urls.o lang.o log.o windows.o
+	$(CC) -g -o urltest urltest.o -lnewt ftp.o urls.o lang.o log.o windows.o -lz ../isys/libisys.a -lresolv
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \

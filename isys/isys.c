@@ -27,6 +27,7 @@
 #include <scsi/scsi.h>
 #include <scsi/scsi_ioctl.h>
 #include <sys/vt.h>
+#include <sys/types.h>
 
 #include "Python.h"
 
@@ -41,8 +42,6 @@
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
 #endif
-
-long long llseek(int fd, long long offset, int whence);
 
 /* FIXME: this is such a hack -- moduleInfoList ought to be a proper object */
 moduleInfoSet modInfoList = NULL;
@@ -690,7 +689,8 @@ static PyObject * doCheckUFS (PyObject * s, PyObject * args) {
 	return NULL;
     }
     
-    return Py_BuildValue("i", (llseek(fd, (8192 + 0x55c), SEEK_SET) >= 0 &&
+    return Py_BuildValue("i", (lseek64(fd, (off64_t) (8192 + 0x55c),
+				       SEEK_SET) >= 0 &&
 			       read(fd, &magic, 4) == 4 &&
 			       (magic == UFS_SUPER_MAGIC ||
 				swab32(magic) == UFS_SUPER_MAGIC)));
@@ -1053,7 +1053,7 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     /* put the size in 1k blocks */
     size >>= 1;
 
-    if (llseek(fd, ((long long) 1024) * MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+    if (lseek64(fd, ((off64_t) 1024) * (off64_t) MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     } 

@@ -2,7 +2,7 @@ SECSTAGE="vfat raid0 raid1 raid5"
 
 prepareBootImage() {
         dd if=/dev/zero of=$MBD_TMPIMAGE bs=1k count=$BOOTDISKSIZE 2>/dev/null
-        echo y | /sbin/mke2fs -i 4096 $MBD_TMPIMAGE  > /dev/null 2>/dev/null
+        echo y | /sbin/mke2fs -b 1024 -r 0 -O none $MBD_TMPIMAGE  > /dev/null 2>/dev/null
 	LODEV=`findloopdevice $MBD_TMPIMAGE`
 	e2writeboot $LODEV $BOOTDISKDIR/bootlx
 	mount $LODEV -t ext2 $MBD_BOOTTREE
@@ -28,8 +28,24 @@ SCSIMODULES="DAC960"
 mkdir -p $TOPDESTPATH/boot
 cp $BOOTDISKDIR/bootlx $TOPDESTPATH/boot
 
+mkdir -p $TOPDESTPATH/etc
+cat > $TOPDESTPATH/etc/aboot.cfg <<EOF
+#
+# Red Hat Linux/Alpha aboot configuration
+#
+# Options:
+#
+#   0 - boot into the Red Hat Linux installer
+#   1 - boot into the Red Hat Linux installer using a 2.4 kernel
+#   2 - boot into the Red Hat Linux installer using a Jensen kernel
+#
+0:/kernels/vmlinux.gz initrd=/images/ramdisk.img
+1:/kernels/vmlinuz.24 initrd=/images/ramdisk.img
+2:/kernels/vmlinuz.j initrd=/images/ramdisk.img
+EOF
+
 makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
-	   --initrdsize 3000 \
+	   --initrdsize 4096 \
 	   --padsize 1440 \
 	   --loaderbin loader \
 	   --modules "$NETMODULES $SCSIMODULES vfat"
@@ -38,6 +54,27 @@ makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
 
 makemainmodules "$SECSTAGE $SCSIMODULES"
-makeinstimage --size1 3700 --size2 3600 "netstg" "$SECSTAGE $SCSIMODULES"
-makeinstimage --size1 3700 --size2 3600 "hdstg" "$SECSTAGE $NETMODULES"
+makeinstimage --size1 3800 --size2 4096 "netstg" "$SECSTAGE $SCSIMODULES"
+makeinstimage --size1 3800 --size2 4096 "hdstg" "$SECSTAGE $NETMODULES"
 makemainimage "stage2"
+
+if [ -f $TOPDESTPATH/preview/RPMS/kernel-2.4.0-*.alpha.rpm ]; then
+    K24_PKG=$TOPDESTPATH/preview/RPMS/kernel-2.4.0-*.alpha.rpm
+    K24_DIR=/tmp/kernel24.dir.$$
+    mkdir -p $K24_DIR
+    rpm2cpio $K24_PKG | (cd $K24_DIR; cpio --quiet -iumd ./boot/vmlinuz-*)
+    cp $K24_DIR/boot/vmlinuz-* $TOPDESTPATH/kernels/vmlinuz.24
+    rm -rf $K24_DIR
+fi
+
+
+if [ -f $KERNELPATH/kernel-jensen-*.rpm ]; then
+    KJ_PKG=$KERNELPATH/kernel-jensen-*.rpm
+    KJ_DIR=/tmp/kernelj.dir.$$
+    mkdir -p $KJ_DIR
+    rpm2cpio $KJ_PKG | (cd $KJ_DIR; cpio --quiet -iumd ./boot/vmlinuz-*)
+    cp $KJ_DIR/boot/vmlinuz-* $TOPDESTPATH/kernels/vmlinuz.j
+    rm -rf $KJ_DIR
+fi
+
+

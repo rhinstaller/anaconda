@@ -580,6 +580,11 @@ if [ -d $DEST/usr/share/locale ]; then
     done
 fi
 
+if [ $ARCH = "alpha" ]; then
+    rm -rf $DEST/usr/share/locale
+    rm -rf $DEST/usr/lib/locale
+fi
+
 echo "Patching python library..."
 
 # always use passive mode for ftp installs

@@ -22,16 +22,19 @@ def onMILO ():
         return 0
 
 def partitionNum (path):
-    i = 0
-    while path[i] not in string.digits:
-        i = i + 1
-    return string.atoi (path[i:])
+    i = len(path) - 1
+    while path[i] in string.digits:
+        i = i - 1
+    return string.atoi (path[i + 1:])
 
 def wholeDevice (path):
-    i = 0
-    while path[i] not in string.digits:
-        i = i + 1
-    return path[:i]
+    i = len(path) - 1
+    while path[i] in string.digits:
+        i = i - 1
+    extra = 1
+    if string.find(path, "rd/") >= 0:
+        extra = 0
+    return path[:i + extra]
 
 class MiloInstall:
     def __init__ (self, todo):
@@ -39,13 +42,13 @@ class MiloInstall:
         self.todo = todo
 
     def makeInitrd (self, kernelTag, instRoot):
-	initrd = "/boot/initrd%s.img" % (kernelTag, )
+	initrd = "initrd%s.img" % (kernelTag, )
 	if not self.initrdsMade.has_key(initrd):
             iutil.execWithRedirect("/sbin/mkinitrd",
-                                  [ "/sbin/mkinitrd",
+                                   ("/sbin/mkinitrd",
 				    "--ifneeded",
-                                    initrd,
-                                    kernelTag[1:] ],
+                                    "/boot/" + initrd,
+                                    kernelTag[1:]),
                                   stdout = None, stderr = None, searchPath = 1,
                                   root = instRoot)
 	    self.initrdsMade[kernelTag] = 1
@@ -86,20 +89,41 @@ class MiloInstall:
             f.write ("#          all kernel paths are relative to /boot/\n")
 
         lines = 0
-        for package, tag in (('kernel-smp', 'smp'), ('kernel', '')):
-            if (self.todo.hdList.has_key(package) and
-                self.todo.hdList[package].selected):
-                kernel = self.todo.hdList[package]
-                initrd = self.makeInitrd (tag, self.todo.instPath)
-                extra=""
-                if os.access (self.todo.instPath + initrd, os.R_OK):
-                    extra=" initrd=%s/%s" % (kernelprefix, initrd)
-                version = "%s-%s" % (kernel[rpm.RPMTAG_VERSION],
-                                     kernel[rpm.RPMTAG_RELEASE])
-                f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s%s\n" %
-                         (lines, partition, kernelprefix,
-                          version, tag, rootDevice, extra))
-                lines = lines + 1
+        kernelList = []
+        hdList = self.todo.hdList
+        upgrade = self.todo.upgrade
+	smpInstalled = (hdList.has_key('kernel-smp') and 
+                        hdList['kernel-smp'].selected)
+
+	# This is a bit odd, but old versions of Red Hat could install
+	# SMP kernels on UP systems, but (properly) configure the UP version.
+	# We don't want to undo that, but we do want folks using this install
+	# to be able to override the kernel to use during installs. This rule
+	# seems to nail this.
+	if (upgrade and not isys.smpAvailable()):
+	    smpInstalled = 0
+
+	if (isys.smpAvailable() and hdList.has_key('kernel-enterprise') and 
+            hdList['kernel-enterprise'].selected):
+	    kernelList.append((hdList['kernel-enterprise'], "enterprise"))
+
+	if (smpInstalled):
+	    kernelList.append((hdList['kernel-smp'], "smp"))
+
+	kernelList.append((hdList['kernel'], ""))
+        
+	for (kernel, tag) in kernelList:
+	    kernelTag = "-%s-%s%s" % (kernel[rpm.RPMTAG_VERSION],
+                                      kernel[rpm.RPMTAG_RELEASE], tag)
+	    kernelFile = "vmlinuz" + kernelTag
+            initrd = self.makeInitrd (kernelTag, self.todo.instPath)
+            extra=""
+            if os.access (self.todo.instPath + "/boot/" + initrd, os.R_OK):
+                extra=" initrd=%s%s" % (kernelprefix, initrd)
+            f.write ("%d:%d%s%s root=/dev/%s%s\n" %
+                     (lines, partition, kernelprefix,
+                      kernelFile, rootDevice, extra))
+            lines = lines + 1
 
         f.close ()
 

@@ -267,6 +267,7 @@ makemoduleball() {
     find $version -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
     cd ..
     rm -rf modules
+    chmod 644 *
     popd  > /dev/null
 }
 
@@ -588,6 +589,7 @@ makeImage () {
     rmdir $MI_MNTPOINT
 
     gzip -9 < $MI_TMPIMAGE > $MI_TO
+    chmod 644 $MI_TO
 
     echo "Wrote $MI_TO (${left}k of ${MI_SIZE}k free)"
 }
@@ -660,6 +662,7 @@ makemainimage () {
     umount $mmi_mntpoint
 
     cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
+    chmod 644 $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
 

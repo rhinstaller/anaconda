@@ -16,7 +16,7 @@ def scanForRaid(drives):
 	    parts = []
 
 	os.remove("/tmp/" + d)
-	for i in range(0, len(parts) - 1):
+	for i in range(0, len(parts)):
 	    (type, start, size) = parts[i]
 	    if type != _balkan.RAID: continue
 
