@@ -34,11 +34,13 @@ def findFreespace(diskset):
     return free
 
 
-def bestPartType(disk):
+def bestPartType(disk, request):
     numPrimary = len(get_primary_partitions(disk))
     if numPrimary == 4:
         # raise an error?
         return PARTITION_FAIL
+    if request.primary:
+        return parted.PARTITION_PRIMARY
     if numPrimary == 3 and not disk.extended_partition:
         return parted.PARTITION_EXTENDED
     return parted.PARTITION_PRIMARY
@@ -81,9 +83,11 @@ def fitConstrained(diskset, requests, primOnly=0):
                 
                 if (disk.extended_part.geom.start < startSec) and (disk.extended_part.geom.end > endSec):
                     partType = parted.PARTITION_LOGICAL
+                    if request.primary: # they've required a primary and we can't do it
+                        return PARTITION_FAIL
             else:
                 # XXX need a better way to do primary vs logical stuff
-                ret = bestPartType(disk)
+                ret = bestPartType(disk, request)
                 if ret == PARTITION_FAIL:
                     return ret
                 if ret == parted.PARTITION_PRIMARY:
@@ -150,7 +154,8 @@ def fitSized(diskset, requests, primOnly = 0):
                 for part in free[drive]:
                     partSize = getPartSize(part)
                     if partSize >= request.requestSize and partSize > largestPart[0]:
-                        largestPart = (partSize, part)
+                        if not request.primary or (part.type & parted.PARTITION_PRIMARY):
+                            largestPart = (partSize, part)
 
             if not largestPart[1]:
                 return PARTITION_FAIL
@@ -170,7 +175,7 @@ def fitSized(diskset, requests, primOnly = 0):
                 partType = parted.PARTITION_LOGICAL
             else:
                 # XXX need a better way to do primary vs logical stuff
-                ret = bestPartType(disk)
+                ret = bestPartType(disk, request)
                 if ret == PARTITION_FAIL:
                     return ret
                 if ret == parted.PARTITION_PRIMARY:
