@@ -6,10 +6,11 @@ all:	modlist moddeps
 
 moddeps: moddeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
-            ../loader/log.o $(LOADLIBES) \
+            $(LOADLIBES) \
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz
 		
 
-clean:	rm -f modlist
+clean:	
+	rm -f modlist

@@ -38,7 +38,7 @@ int main(int argc, char ** argv) {
     }
 
     mis = isysNewModuleInfoSet();
-    if (isysReadModuleInfo(modInfoFile, mis)) {
+    if (isysReadModuleInfo(modInfoFile, mis, NULL)) {
         fprintf(stderr, "Failed to read %s\n", modInfoFile);
 	exit(1);
     }
