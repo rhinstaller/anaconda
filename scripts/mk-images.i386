@@ -1,18 +1,44 @@
 SECSTAGE="vfat raid0 raid1 raid5"
 
-makebootdisk --kernelto $TOPDESTPATH/dosutils/autorun  \
-	     --initrdto $TOPDESTPATH/dosutils/autorun  \
-	boot.img loader-local "vfat
-	AM53C974 ips DAC960 megaraid ncr53c8xx cpqarray aic7xxx 
-	BusLogic qlogicisp advansys eata_dma"
+prepareBootImage() {
+	gunzip < $BOOTDISKDIR/template.img.gz |
+	    dd of=$MBD_TMPIMAGE conv=notrunc > /dev/null 2> /dev/null
+	$SYSLINUX $MBD_TMPIMAGE
+	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
 
-makebootdisk --kernelto $TOPDESTPATH/images/pxeboot  \
-	     --initrdto $TOPDESTPATH/images/pxeboot \
-	bootnet.img loader-network "3c59x ac3200 at1700 de4x5 
-	de600 de620 depca dgrs eepro100 eepro hp-plus hp 
-	hp100 ibmtr ni52 old_tulip tulip ne nfs vfat"
+	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
 
-makebootdisk --pcmcia pcmcia.img loader-pcmcia "$PCMCIAMODULES nfs vfat"
+	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
+	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
+	cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
+}
+
+makebootdisk --kernelto $TOPDESTPATH/dosutils/autorun/vmlinuz  \
+	     --bootdisksize 1440 \
+	     --imagename boot.img \
+	     --initrdflags '--initrdto $TOPDESTPATH/dosutils/autorun/initrd.img \
+		   	    --initrdsize 2000 \
+			    --loaderbin loader-local \
+			    --modules "vfat AM53C974 ips DAC960
+			    megaraid ncr53c8xx cpqarray aic7xxx
+			    BusLogic qlogicisp advansys eata_dma"'
+
+makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
+	     --bootdisksize 1440 \
+	     --imagename bootnet.img \
+	     --initrdflags '--initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+		     	    --initrdsize 2000 \
+			    --loaderbin loader-network \
+		 	    --modules "3c59x ac3200 at1700 de4x5 de600
+		  	    de620 depca dgrs eepro100 eepro hp-plus hp
+		  	    hp100 ibmtr ni52 old_tulip tulip ne nfs
+		  	    vfat"'
+
+makebootdisk --imagename pcmcia.img \
+	     --initrdflags '--pcmcia \
+		     	    --initrdsize 2000 \
+			    --loaderbin loader-pcmcia \
+			    --modules "$PCMCIAMODULES nfs vfat"'
 
 makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net"
 

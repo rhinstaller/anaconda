@@ -15,6 +15,8 @@ mkdir -p $BUILDINSTDIR
 UPD_INSTROOT=./upd-instroot
 MK_IMAGES=./mk-images
 
+BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/RedHat/RPMS/anaconda-runtime-[0-9]*`
+
 if [ ! -f $UPD_INSTROOT ]; then
     cd $BUILDINSTDIR
     rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd usr/lib/anaconda-runtime/upd-instroot
@@ -31,8 +33,8 @@ if [ ! -f $MK_IMAGES ]; then
     MK_IMAGES=$BUILDINSTDIR/mk-images
 fi
 
-$UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage
-$MK_IMAGES $p/RedHat/RPMS $p $p/image-template
+$UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage $BUILDARCH
+$MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
 
 rm -rf $BUILDINSTDIR
-rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime
+#rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime

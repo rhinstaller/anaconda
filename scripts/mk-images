@@ -1,11 +1,11 @@
 #!/bin/bash
 
 usage () {
-    echo "usage: mk-images <kernelpath> <imagepath> <fullmodpath> <imgpath> <temlpatepath>"
+	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch>"
     exit 0
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then usage; fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -25,9 +25,10 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
     ARCH=$(uname -m | sed 's/i.86/i386/')
+    BUILDARCH=$4
 
     if [ ! -d "$1" ]; then
-	LATEST=latest --arch $ARCH 
+	LATEST=latest --arch $BUILDARCH
     else
 	LATEST=findPackage
     fi
@@ -42,8 +43,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
-    KEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/keymaps-${ARCH}
-    FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${ARCH}
+    KEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/keymaps-${BUILDARCH}
+    FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${BUILDARCH}
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
     MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
@@ -58,9 +59,15 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     touch $MODULESUSED
 
+    REQUIREMENTS="$TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO
+		  $FILTERMODDEPS $LANGTABLE $KEYMAPS"
+
+    if [ $BUILDARCH = i386 ]; then
+	REQUIREMENTS="$REQUIREMENTS $SYSLINUX"
+    fi
+
     dieLater=
-    for n in $TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO $FILTERMODDEPS \
-	     $LANGTABLE $SYSLINUX $KEYMAPS; do
+    for n in $REQUIREMENTS; do
 	if [ ! -f $n ]; then
 	    echo "$n doesn't exist"
 	    dieLater=1
@@ -82,6 +89,9 @@ findPackage() {
     
     for n in $dir/$name*; do
 	thisName=$(rpm --qf '%{NAME}' -qp $n)
+	if [ -z "$thisName" ]; then
+	    return
+	fi
 	if [ $thisName = $name ]; then
 	    echo $n
 	    return
@@ -227,25 +237,53 @@ makemainmodules() {
     makemoduleball $FULLMODPATH "$modlist"
 }
 
-makebootdisk() {
+makeinitrd() {
     EXTRAKERNELPATH=""
     EXTRAINITRDPATH=""
     PCMCIA=""
-    while [ $(echo $1 | cut -c1-2) = "--" ]; do
-	if [ $1 = "--kernelto" ]; then
-	    EXTRAKERNELPATH=$2
-	    shift; shift
-	elif [ $1 = "--initrdto" ]; then
+    INITRDSIZE=""
+    KEEP=""
+    PADSIZE=""
+    LOADERBIN=""
+    INITRDMODULES=""
+    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
+	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
 	    shift; shift
 	elif [ $1 = "--pcmcia" ]; then
 	    PCMCIA=yes
 	    shift
+	elif [ $1 = "--keep" ]; then
+	    KEEP=yes
+	    shift
+	elif [ $1 = "--initrdsize" ]; then
+	     INITRDSIZE=$2
+	     shift; shift
+	elif [ $1 = "--padsize" ]; then
+	     PADSIZE=$2
+	     shift; shift
+	elif [ $1 = "--loaderbin" ]; then
+	     LOADERBIN=$2
+	     shift; shift
+	elif [ $1 = "--modules" ]; then
+	     LOADERMODULES=$2
+	     shift; shift
 	fi
     done
-    MBD_FILENAME=$IMAGEPATH/$1
-    LOADERBIN=$2
-    MODSET=`expandModuleSet "$3"`
+    if [ -z "$LOADERBIN" ]; then
+	echo "no loader binary specified!" >&2
+	exit 1
+    fi
+    if [ -z "$LOADERMODULES" ]; then
+	echo "no loader modules specified!" >&2
+	exit 1
+    fi
+    if [ -z "$INITRDSIZE" ]; then
+	echo "I don't know how big to make the initrd image!" >&2
+	exit 1
+    fi
+
+    MODSET=`expandModuleSet "$LOADERMODULES"`
     MBD_DIR=/tmp/makebootdisk.dir.$$
     MBD_FSIMAGE=/tmp/makebootdisk.initrdimage.$$
     MBD_MNTPOINT=/tmp/makebootdisk.mount.$$
@@ -282,7 +320,6 @@ EOF
 	mkdir -p $MBD_BOOTTREE/etc
 	cp -a $KERNELROOT/etc/pcmcia $MBD_DIR/etc
     fi
-
 
     for n in insmod rmmod modprobe; do
 	ln -s loader $MBD_DIR/sbin/$n
@@ -327,14 +364,6 @@ PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sbin:/mnt/usr/sbin:/mnt/bin:/mn
 export PATH
 EOF
 
-    if [ $ARCH = "i386" ]; then
-	INITRDSIZE=2000
-	FLOPPYSIZE=1440
-    else
-	echo "I don't know how big to make the image!" >&2
-	exit 1
-    fi
-
     rm -f $MBD_FSIMAGE
     dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
     echo y | mke2fs -i 8096 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
@@ -343,7 +372,13 @@ EOF
     mkdir $MBD_MNTPOINT
     mount -o loop -t ext2 $MBD_FSIMAGE $MBD_MNTPOINT
     (cd $MBD_DIR; find . | cpio --quiet -p $MBD_MNTPOINT)
+
+    left=$(df $MBD_MNTPOINT | tail +2)
+    left=$(echo $left | awk '{print $4'})
+
     umount $MBD_MNTPOINT
+
+    echo "Wrote initrd.img (${left}k free)"
 
     mv -f $MBD_FSIMAGE $MBD_FSIMAGE.uncompressed
     gzip -9 < $MBD_FSIMAGE.uncompressed > $MBD_FSIMAGE
@@ -352,41 +387,73 @@ EOF
     rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
     dd if=/dev/zero bs=1k count=$FLOPPYSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 
-    # Create the bootdisk image as $MBD_TMPIMAGE, mount it, copy
-    # $MBD_FSIMAGE (the initrd) to it, add a kernel, umount it. It should be
-    # left as $MBD_TMPIMAGE, with no side affects.
-    if [ $ARCH = "i386" ]; then
-	gunzip < $BOOTDISKDIR/template.img.gz |
-	    dd of=$MBD_TMPIMAGE conv=notrunc > /dev/null 2> /dev/null
-	$SYSLINUX $MBD_TMPIMAGE
-	mkdir -p $MBD_BOOTTREE
-	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
-
-	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
-
-	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
-	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
-	cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
-
-	left=$(df $MBD_BOOTTREE | tail +2)
-	left=$(echo $left | awk '{print $4'})
-
-	umount $MBD_BOOTTREE
-    else
-	echo "I don't know how big to make the image!" >&2
-	exit 1
-    fi
-
-    if [ -n "$EXTRAKERNELPATH" ]; then
-	mkdir -p $EXTRAKERNELPATH
-	cp -a $KERNELROOT/boot/vmlinuz-* $EXTRAKERNELPATH/vmlinuz
+    if [ -n "$PADSIZE" ]; then
+	size=`cat $MBD_FSIMAGE | wc -c`
+	filler=`expr $PADSIZE "*" 1024 - $size`
+	dd if=/dev/zero bs=$filler count=1 >> $MBD_FSIMAGE 2> /dev/null
     fi
 
     if [ -n "$EXTRAINITRDPATH" ]; then
-	mkdir -p $EXTRAINITRDPATH
-	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH/initrd.img
+	mkdir -p `dirname $EXTRAINITRDPATH`
+	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH
     fi
-    
+
+    if [ -z "$KEEP" ]; then
+	rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+    fi
+}
+
+makebootdisk() {
+    BOOTDISKSIZE=""
+    EXTRAKERNELPATH=""
+    INITRDFLAGS=""
+    MBD_FILENAME=""
+    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
+	if [ $1 = "--bootdisksize" ]; then
+	     BOOTDISKSIZE=$2
+	     shift; shift
+	     continue
+	elif [ $1 = "--kernelto" ]; then
+	    EXTRAKERNELPATH=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "--initrdflags" ]; then
+	    INITRDFLAGS=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "--imagename" ]; then
+	    MBD_FILENAME=$IMAGEPATH/$2
+	    shift; shift
+	    continue
+	fi
+	echo "Unknown option passed to makebootdisk"
+	exit 1
+    done
+
+    if [ -z "$MBD_FILENAME" ]; then
+	echo "No imagename passed"
+	exit 1
+    fi
+
+    if [ ! -z "$INITRDFLAGS" ]; then
+	eval makeinitrd --keep $INITRDFLAGS
+    fi
+
+    mkdir -p $MBD_BOOTTREE
+
+    # provided by the mk-image.$ARCH file
+    prepareBootImage
+
+    left=$(df $MBD_BOOTTREE | tail +2)
+    left=$(echo $left | awk '{print $4'})
+
+    umount $MBD_BOOTTREE
+
+    if [ -n "$EXTRAKERNELPATH" ]; then
+	mkdir -p `dirname $EXTRAKERNELPATH`
+	cp -a $KERNELROOT/boot/vmlinuz-* $EXTRAKERNELPATH
+    fi
+
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
     rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
@@ -535,7 +602,9 @@ makedriverdisk () {
     version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)BOOT
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
-    rpm2cpio $ppackage | (cd $KERNELROOT; cpio --quiet -iumd etc/pcmcia/*)
+    if [ ! -z $ppackage ]; then 
+	rpm2cpio $ppackage | (cd $KERNELROOT; cpio --quiet -iumd etc/pcmcia/*)
+    fi
 
     if [ ! -d "$KERNELROOT/lib/modules/$version/scsi" ]; then
 	echo "$1 is not a valid modules directory" 2>&1
@@ -555,6 +624,6 @@ makedriverdisk () {
     rundepmod "$KERNELROOT/lib/modules/$version/*/*.o" $MODDEPS
     rm -f $MODDEPS.foo
 
-. $TOPDIR/mk-images.${ARCH}
+. $TOPDIR/mk-images.${BUILDARCH}
 
 rm -rf $KERNELROOT

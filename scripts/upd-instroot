@@ -1,19 +1,7 @@
 #!/bin/bash
 
 ORIGDIR=`pwd`
-STRIP=strip
 
-ARCH=`uname -m | sed -e 's/i.86/i386/'`
-
-if [ "$ARCH" = sparc64 ]; then
-	exec sparc32 $0 $*
-fi
-
-NEEDGR=yes
-if [ $(uname -m) = ia64 ]; then
-    NEEDGR=""
-    STRIP=echo
-fi
 
 if [ -z "$1" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
@@ -23,6 +11,15 @@ fi
 
 if [ ! -d $1 ]; then
 	LATEST="latest --arch $ARCH"
+fi
+
+PACKAGEDIR=$1
+
+ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
+
+NEEDGR=yes
+if [ $ARCH = ia64 ]; then
+    NEEDGR=""
 fi
 
 prunePackageList() {
@@ -64,8 +61,6 @@ expandPackageSet() {
     done
 }
 
-PACKAGEDIR=$1
-
 if [ -z "$2" ]; then
     DEST=/tmp/upd-instroot
 else
@@ -86,10 +81,10 @@ mkdir -p $DESTGR
 PACKAGES="glibc setup python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
-	 kudzu-devel kudzu db1 db2 db3 rpm-python syslinux bzip2"
+	 kudzu-devel kudzu db1 db2 db3 rpm-python bzip2"
 
 if [ $ARCH = i386 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs syslinux"
 fi
 
 # xpm is missing
@@ -114,8 +109,6 @@ fi
 
 if [ $ARCH = sparc ]; then
     PACKAGESGR="$PACKAGESGR XFree86-Sun"
-elif [ $ARCH = alpha ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-TGA"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -486,8 +479,6 @@ if [ -d $DEST/usr/share/locale ]; then
 	mv -f $i.gz $i
     done
 fi
-
-echo -e "\rScrubbing trees..."
 
 echo "Patching python library..."
 
