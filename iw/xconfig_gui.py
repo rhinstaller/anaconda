@@ -948,12 +948,8 @@ class XConfigWindow (InstallWindow):
 	self.force_ppc_fb = 0
         arch = iutil.getArch()
         # we can only probe video ram on i386
-        if arch != "i386":
-            label = makeFormattedLabel (_("Your video ram size can not be "
-                                          "autodetected.  Choose your video "
-                                          "ram size from the choices below:"))
-            box.pack_start (label, gtk.FALSE)
-	elif arch == "ppc":
+	# and we force frame buffer on ppc currently
+	if arch == "ppc":
             label = makeFormattedLabel (_("Your system will be setup to "
 					  "use the frame buffer driver for "
 					  "the X Window System.  If you do "
@@ -962,6 +958,11 @@ class XConfigWindow (InstallWindow):
 					  "'Skip X Configuration' below."))
             box.pack_start (label, gtk.FALSE, gtk.FALSE)
 	    self.force_ppc_fb = 1
+        elif arch != "i386":
+            label = makeFormattedLabel (_("Your video ram size can not be "
+                                          "autodetected.  Choose your video "
+                                          "ram size from the choices below:"))
+            box.pack_start (label, gtk.FALSE)
         else:
             self.autoBox = gtk.VBox (gtk.FALSE, 5)
 
