@@ -743,12 +743,19 @@ def doInstall(method, id, intf, instPath):
         id.upgradeRemove = []
 
     i = 0
+    updcount = 0
+    updintv = len(l) / 25
     for p in l:
 	ts.addInstall(p.hdr, p.hdr, how)
 	total = total + 1
 	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024)
         i = i + 1
-        progress.set(i)
+
+	# HACK - dont overload progress bar with useless requests
+	updcount = updcount + 1
+	if updcount > updintv:
+	    progress.set(i)
+	    updcount = 0
 
     progress.pop()
 
