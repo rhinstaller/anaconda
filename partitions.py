@@ -1070,6 +1070,8 @@ class Partitions:
 
             args.append(request.volumeGroupName)
 
+            args.append("--pesize=%s" %(request.pesize,))
+
             # silly pv syntax
             pvs = []
             for member in request.physicalVolumes:
