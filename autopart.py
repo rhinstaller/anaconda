@@ -793,38 +793,6 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     # more specific message?
     raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
 
-# remove metadevices (lvm and raid) from partitions which depend on
-# the request which had the given id.  to be called from within clearpart
-# NOTE: I am called recursively to handle LVM on top of RAID and LVs in VGs
-def doClearDependentDevices(partitions, id):
-    toRemove = []
-    for req in partitions.requests:
-        if isinstance(req, partRequests.RaidRequestSpec):
-            if id in req.raidmembers:
-                toRemove.append(req)
-        elif isinstance(req, partRequests.VolumeGroupRequestSpec):
-            if id in req.physicalVolumes:
-                toRemove.append(req)
-                delete = partRequests.DeleteVolumeGroupSpec(req.volumeGroupName)
-                partitions.addDelete(delete)
-        elif isinstance(req, partRequests.LogicalVolumeRequestSpec):
-            if id == req.volumeGroup:
-                toRemove.append(req)
-                tmp = partitions.getRequestByID(req.volumeGroup)
-                if not tmp:
-                    log("Unable to find the vg for %s" (req.logicalVolumeName,))
-                    vgname = req.volumeGroup
-                else:
-                    vgname = tmp.volumeGroupName
-                delete = partRequests.DeleteLogicalVolumeSpec(req.logicalVolumeName,
-                                                              vgname)
-                partitions.addDelete(delete)
-
-    for request in toRemove:
-        doClearDependentDevices(partitions, request.uniqueID)
-        partitions.removeRequest(request)
-        
-
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
 # this the first time
@@ -866,7 +834,7 @@ def doClearPartAction(partitions, diskset):
                     part = disk.next_partition(part)
                     continue
 
-                doClearDependentDevices(partitions, old.uniqueID)
+                partitions.deleteDependentRequests(old)
                 partitions.removeRequest(old)
 
                 drive = partedUtils.get_partition_drive(part)

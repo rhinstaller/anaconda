@@ -988,3 +988,48 @@ class Partitions:
                 lvm.vgremove(delete.name)
 
         lvm.vgdeactivate()
+
+
+    def deleteDependentRequests(self, request):
+        """Handle deletion of this request and all requests which depend on it.
+
+        eg, delete all logical volumes from a volume group, all volume groups
+        which depend on the raid device.
+
+        Side effects: removes all dependent requests from self.requests
+                      adds needed dependent deletes to self.deletes
+        """
+
+        toRemove = []
+        id = request.uniqueID
+        for req in self.requests:
+            if isinstance(req, partRequests.RaidRequestSpec):
+                if id in req.raidmembers:
+                    toRemove.append(req)
+                # XXX do we need to do anything special with preexisting raids?
+            elif isinstance(req, partRequests.VolumeGroupRequestSpec):
+                if id in req.physicalVolumes:
+                    toRemove.append(req)
+                    if req.getPreExisting():
+                        delete = partRequests.DeleteVolumeGroupSpec(req.volumeGroupName)
+                        self.addDelete(delete)
+            elif isinstance(req, partRequests.LogicalVolumeRequestSpec):
+                if id == req.volumeGroup:
+                    toRemove.append(req)
+                    tmp = self.getRequestByID(req.volumeGroup)
+                    if not tmp:
+                        log("Unable to find the vg for %s"
+                            % (req.logicalVolumeName,))
+                        vgname = req.volumeGroup
+                    else:
+                        vgname = tmp.volumeGroupName
+
+                    if req.getPreExisting():
+                        delete = partRequests.DeleteLogicalVolumeSpec(req.logicalVolumeName,
+                                                                      vgname)
+                        self.addDelete(delete)
+
+        for req in toRemove:
+            self.deleteDependentRequests(req)
+            self.removeRequest(req)
+        
