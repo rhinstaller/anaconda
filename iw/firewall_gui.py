@@ -250,20 +250,19 @@ class FirewallWindow (InstallWindow):
         self.trusted.connect ('button_press_event', self.trusted_select_row)
         self.trusted.connect ("key_press_event", self.trusted_key_press)
 
-        table.attach (self.label1, 0, 1, 0, 1, FILL, FILL, 5, 5)
-        table.attach (self.trusted, 1, 2, 0, 1, EXPAND|FILL, FILL, 5, 5)
+        if self.devices != []:
+            table.attach (self.label1, 0, 1, 0, 1, FILL, FILL, 5, 5)
+            table.attach (self.trusted, 1, 2, 0, 1, EXPAND|FILL, FILL, 5, 5)
 
-
-        
-        count = 0
-        for device in self.devices:
-            if self.todo.firewall.trustdevs == []:
-                self.trusted.append_row ((device, device), FALSE)
-            else:
-                if device in self.todo.firewall.trustdevs:
-                    self.trusted.append_row ((device, device), TRUE)
-	    if self.todo.network.netdevices[device].get('bootproto') == 'dhcp':
-		self.todo.firewall.dhcp = 1
+            count = 0
+            for device in self.devices:
+                if self.todo.firewall.trustdevs == []:
+                    self.trusted.append_row ((device, device), FALSE)
+                else:
+                    if device in self.todo.firewall.trustdevs:
+                        self.trusted.append_row ((device, device), TRUE)
+                if self.todo.network.netdevices[device].get('bootproto') == 'dhcp':
+                    self.todo.firewall.dhcp = 1
 
             count = count + 1
 
