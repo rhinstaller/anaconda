@@ -111,7 +111,7 @@ class RequestSpec:
 
         # pin down our partitions so that we can reread the table
         device.solidify()
-        
+
         if self.fstype.getName() == "swap":
             mountpoint = "swap"
         else:
@@ -540,7 +540,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         """
 
         if not fstype:
-            fsset.fileSystemTypeGet("volume group (LVM)")
+            fstype = fsset.fileSystemTypeGet("volume group (LVM)")
         RequestSpec.__init__(self, fstype = fstype, format = format)
         self.type = REQUEST_VG
 
