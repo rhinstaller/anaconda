@@ -25,7 +25,7 @@ class XF86Config:
         self.monHoriz = None
         self.monVert = None
 	self.monSect = None
-        self.monID = None
+        self.monID = "Generic Monitor"
         self.devID = None
         self.probed = 0
         self.skip = 0
@@ -145,8 +145,15 @@ class XF86Config:
             if line and line[0] == '#':
                 continue
             fields = string.split (line, ';')
-            monitors [string.strip(fields[0])] = \
-		    (string.strip(fields[2]), string.strip(fields[3]))
+            man = string.strip(fields[0])
+            model = string.strip(fields[1])
+            eisa = string.strip(fields[2])
+            vert = string.strip(fields[3])
+            horiz = string.strip(fields[4])
+            if monitors.has_key(man):
+                monitors[man].append((model, eisa, vert, horiz))
+            else:
+                monitors[man] = [(model, eisa, vert, horiz)]
         return monitors
 
     def setMonitor (self, (monitor, (hrange, vrange))):
@@ -174,6 +181,7 @@ class XF86Config:
         cards = kudzu.probe (kudzu.CLASS_VIDEO,
                              kudzu.BUS_UNSPEC,
                              kudzu.PROBE_ALL);
+        
         for card in cards:
             section = ""
             (device, server, descr) = card
@@ -195,7 +203,6 @@ class XF86Config:
         if probeMonitor:
 	    try:
 		probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
-
 		for line in probe:
 		    if line and line[:9] == "OEM Name:":
 			self.cardMan = string.strip (line[10:])
@@ -246,6 +253,8 @@ class XF86Config:
         if not self.server:
             probe = probe + "\t" + _("Unable to detect video card")
 
+        return probe
+        # disable monitor report
         probe = probe + "\n"
 
         if self.monName:

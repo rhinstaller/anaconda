@@ -1393,6 +1393,7 @@ static void * tsCallback(const Header h, const rpmCallbackType what,
 	    return NULL;
 	}
 	fdt = fdDup(fd);
+	
 	Py_DECREF(result);
 	return fdt;
     }

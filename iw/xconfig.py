@@ -104,7 +104,127 @@ class XCustomWindow (InstallWindow):
 
     def getPrev (self):
         return XConfigWindow
-    
+
+class MonitorWindow (InstallWindow):
+    def __init__ (self, ics):
+	InstallWindow.__init__ (self, ics)
+        self.ics.setNextEnabled (FALSE)
+        ics.setTitle (_("Monitor Configuration"))
+        ics.readHTML ("monitor")
+        self.monitor = None
+
+    def selectCb (self, tree, node, column):
+        monitor = tree.node_get_row_data (node)
+        if not monitor:
+            self.ics.setNextEnabled (FALSE)
+            if self.hEntry and self.vEntry:
+                self.hEntry.set_text ("")
+                self.vEntry.set_text ("")
+                self.hEntry.set_editable (FALSE)
+                self.vEntry.set_editable (FALSE)
+        else:
+            self.ics.setNextEnabled (TRUE)
+            self.hEntry.set_text (monitor[2])            
+            self.vEntry.set_text (monitor[3])
+            self.hEntry.set_editable (TRUE)
+            self.vEntry.set_editable (TRUE)
+            self.monitor = monitor
+
+    def getNext (self):
+        if self.monitor:
+            self.todo.x.setMonitor ((self.monitor[0],
+                                    (self.hEntry.get_text (),
+                                     self.vEntry.get_text ())))
+        return None
+
+    def moveto (self, ctree, area, node):
+        ctree.node_moveto (node, 0, 0.5, 0.0)
+
+    def getScreen (self):
+        # Don't configure X in reconfig mode.
+        if self.todo.reconfigOnly:
+            return None
+        else:
+            # in regular install, check to see if the XFree86 package is
+            # installed.  If it isn't return None.
+            if (not self.todo.hdList.packages.has_key('XFree86')
+                or not self.todo.hdList.packages['XFree86'].selected
+                or self.todo.serial): return None
+        
+        self.todo.x.probe ()
+        box = GtkVBox (FALSE, 5)
+
+        monitors = self.todo.x.monitors ()
+        keys = monitors.keys ()
+        keys.sort ()
+        
+        # Monitor selection tree
+        ctree = GtkCTree ()
+        ctree.set_selection_mode (SELECTION_BROWSE)
+        ctree.connect ("tree_select_row", self.selectCb)
+
+        arch = iutil.getArch()
+
+        self.hEntry = GtkEntry ()
+        self.vEntry = GtkEntry () 
+
+        select = None
+        for man in keys:
+            parent = ctree.insert_node (None, None, (man,), 2, is_leaf = FALSE)
+            for monitor in monitors[man]:
+                node = ctree.insert_node (parent, None, (monitor[0],), 2)
+                ctree.node_set_row_data (node, monitor)
+                if monitor[0] == self.todo.x.monID:
+                    select = node
+                    selParent = parent
+
+        # Add a category for a DDC probed monitor that isn't in MonitorDB
+        if not select and self.todo.x.monID != "Generic Monitor":
+            parent = ctree.insert_node (None, None, ("DDC Probed Monitor",),
+                                        2, is_leaf = FALSE)
+            node = ctree.insert_node (parent, None, (self.todo.x.monID,), 2)
+            monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monHoriz,
+                       self.todo.x.monVert)
+            ctree.node_set_row_data (node, monitor)
+            select = node
+            selParent = parent
+
+        if select:
+            ctree.select (select)
+            ctree.expand (selParent)
+            ctree.connect ("draw", self.moveto, select)
+        
+        sw = GtkScrolledWindow ()
+        sw.add (ctree)
+        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+        box.pack_start (sw, TRUE, TRUE)
+
+        # Sync adjustments
+        syncbox = GtkHBox (FALSE, 5)
+        syncbox.set_border_width (2)
+
+        frame = GtkFrame (_("Horizontal Sync"))
+        hbox = GtkHBox (FALSE, 5)
+        hbox.set_border_width (2)
+        self.hEntry.set_usize (20, -1)
+        hbox.pack_start (self.hEntry)
+        hbox.pack_start (GtkLabel ("kHz"), FALSE, FALSE)
+        frame.add (hbox)
+        syncbox.pack_start (frame)
+
+        frame = GtkFrame (_("Vertical Sync"))
+        hbox = GtkHBox (FALSE, 5)
+        hbox.set_border_width (2)
+        self.vEntry.set_usize (20, -1)
+        hbox.pack_start (self.vEntry)
+        hbox.pack_start (GtkLabel ("Hz"), FALSE, FALSE)
+        frame.add (hbox)
+        syncbox.pack_start (frame)
+
+        box.pack_start (syncbox, FALSE, FALSE)
+        
+        return box
+
 class XConfigWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -123,14 +243,6 @@ class XConfigWindow (InstallWindow):
         self.didTest = 0
 
     def getNext (self):
-	if not self.__dict__.has_key("monlist"): return None
-
-        if self.monlist:
-            if self.monlist.selection:
-                row = self.monlist.selection[0]
-                setting = self.monlist.get_row_data (row)
-                self.todo.x.setMonitor (setting)
-
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -153,11 +265,6 @@ class XConfigWindow (InstallWindow):
         self.todo.x.skip = widget.get_active ()
 
     def testPressed (self, widget, *args):
-        if self.monlist and self.monlist.selection:
-	    row = self.monlist.selection[0]
-	    setting = self.monlist.get_row_data (row)
-	    self.todo.x.setMonitor (setting)
-
         try:
             self.todo.x.test ()
         except RuntimeError:
@@ -167,30 +274,17 @@ class XConfigWindow (InstallWindow):
             self.didTest = 1
             
     def getScreen (self):
-        #
-        # if in reconfigOnly mode we query existing rpm db
-        # if X not installed, just skip this step
-        #
+        # Don't configure X in reconfig mode.
         if self.todo.reconfigOnly:
-#            import rpm
-#            db = rpm.opendb()
-#            rc = db.findbyname ("XFree86")
-#            if len(rc) == 0:
-#                return None
-
-#
-#  for now we do not want to configure X11 in reconfig mode, so skip
-#
             return None
-            
-        else:            
-            if not self.todo.hdList.packages.has_key('XFree86') or \
-               not self.todo.hdList.packages['XFree86'].selected: return None
+        else:
+            # in regular install, check to see if the XFree86 package is
+            # installed.  If it isn't return None.
+            if (not self.todo.hdList.packages.has_key('XFree86')
+                or not self.todo.hdList.packages['XFree86'].selected
+                or self.todo.serial): return None
 
         self.todo.x.probe ()
-
-	if self.todo.serial: return None
-
         self.todo.x.filterModesByMemory ()
  
         box = GtkVBox (FALSE, 5)
@@ -204,6 +298,7 @@ class XConfigWindow (InstallWindow):
         label.set_justify (JUSTIFY_LEFT)
         label.set_line_wrap (TRUE)        
         label.set_alignment (0.0, 0.5)
+        label.set_usize (400, -1)
         self.autoBox.pack_start (label, FALSE)
         
         label = GtkLabel (_("Autoprobe results:"))
@@ -217,37 +312,6 @@ class XConfigWindow (InstallWindow):
         result.set_alignment (0.2, 0.5)
         result.set_justify (JUSTIFY_LEFT)
         self.autoBox.pack_start (result, FALSE)
-
-        self.monlist = None
-	if ( not self.sunServer ) and (not self.todo.x.monID or
-                                       self.todo.x.monID == "Generic Monitor"):
-            label = GtkLabel (_("Your monitor could not be "
-                                "autodetected. Please choose it "
-                                "from the list below:"))
-            label.set_alignment (0.0, 0.5)
-            label.set_justify (JUSTIFY_LEFT)
-            label.set_line_wrap (TRUE)        
-            self.autoBox.pack_start (label, FALSE)
-
-            monitors = self.todo.x.monitors ()
-            keys = monitors.keys ()
-            keys.sort ()
-            self.monlist = GtkCList ()
-            self.monlist.set_selection_mode (SELECTION_BROWSE)
-	    arch = iutil.getArch()
-	    select = 0
-                    
-            for monitor in keys:
-                index = self.monlist.append ((monitor,))
-                self.monlist.set_row_data (index, (monitor, monitors[monitor]))
-		if arch == 'sparc' and monitor[:3] == 'Sun':
-		    self.monlist.select_row (index, 0)
-		    select = index
-            sw = GtkScrolledWindow ()
-            sw.add (self.monlist)
-            sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
-            self.autoBox.pack_start (sw, TRUE, TRUE)
-	    self.monlist.moveto (select, 0, 0.5, 0)
 
 	if not self.sunServer:
 	    test = GtkAlignment ()

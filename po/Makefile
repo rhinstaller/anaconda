@@ -82,5 +82,11 @@ missing:
 	    rm missing/$$n-; \
 	done
 
+missing-mixed:
+	mkdir -p missing-mixed; \
+	for n in $(CATALOGS); do \
+	    msghack -w 999999 --missing $$n > missing-mixed/$$n; \
+	done
+
 %.mo: %.po
 	msgfmt -o $@ $<

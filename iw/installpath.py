@@ -62,6 +62,7 @@ class InstallPathWindow (InstallWindow):
 		     ( AuthWindow, "authentication" ),
 		     ( PackageSelectionWindow, "package-selection" ), 
 		     ( UnresolvedDependenciesWindow, "dependencies" ),
+                     ( MonitorWindow, "monitor" ),
                      ( XConfigWindow, "xconfig" ),
                      ( ConfirmWindow, "confirm" ),
 		     InstallProgressWindow,

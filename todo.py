@@ -1235,7 +1235,7 @@ class ToDo:
         else:
             self.modeText = _("Installing %s.\n")
 
-        rpm.errorSetCallback (self.rpmError)
+        oldError = rpm.errorSetCallback (self.rpmError)
 
         problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE,
                           self.instCallback, p)
@@ -1267,7 +1267,6 @@ class ToDo:
                     need = (need + 1023) / 1024,
                     suffix = "k"
 
-                
                 prob = "%-15s %d %c\n" % (mount, need, suffix)
                 probs = probs + prob
                 
@@ -1280,13 +1279,15 @@ class ToDo:
 
 	    self.fstab.umountFilesystems()
             
+            rpm.errorSetCallback (oldError)
             return 1
 
         # This should close the RPM database so that you can
         # do RPM ops in the chroot in a %post ks script
         del ts
         del db
-
+        rpm.errorSetCallback (oldError)
+        
         self.method.filesDone ()
         
         del p
