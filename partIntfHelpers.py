@@ -193,7 +193,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
                 drive = partedUtils.get_partition_drive(partition)
 
                 if partition.type & parted.PARTITION_EXTENDED:
-                    requestlist.deleteAllLogicalPartitions(disk, partition)
+                    requestlist.deleteAllLogicalPartitions(partition)
 
                 delete = partRequests.DeleteSpec(drive, partition.geom.start,
                                                  partition.geom.end)
