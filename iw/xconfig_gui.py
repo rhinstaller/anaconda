@@ -959,7 +959,7 @@ class XConfigWindow (InstallWindow):
 					  "use the frame buffer driver for "
 					  "the X Window System.  If you do "
 					  "not want to setup the X Window "
-					  "System , choose "
+					  "System, choose "
 					  "'Skip X Configuration' below."))
             box.pack_start (label, gtk.FALSE, gtk.FALSE)
 	    self.force_ppc_fb = 1
