@@ -546,6 +546,7 @@ Section "Monitor"
         ModelName    "Monitor Model"
         HorizSync   %(monitorHoriz)s
         VertRefresh %(monitorVert)s
+        Option "dpms"
 
         # -- 1400x1050 --
         # 1400x1050 @ 60Hz, 65.8 kHz hsync
