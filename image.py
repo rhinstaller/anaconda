@@ -76,6 +76,8 @@ class CdromInstallMethod(ImageInstallMethod):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def filesDone(self):
+        if not self.mntPoint: return
+
 	try:
 	    # this isn't the exact right place, but it's close enough
 	    target = "%s/rhinstall-stage2.img" % self.mntPoint
@@ -95,6 +97,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
 	self.currentDisc = 1
+        self.mntPoint = None
 	ImageInstallMethod.__init__(self, "/" + tree)
 
 class NfsInstallMethod(ImageInstallMethod):
