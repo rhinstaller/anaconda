@@ -268,11 +268,21 @@ if traceOnly:
         
     sys.exit(0)
 
+if kickstart:
+    instClass = Kickstart(kickstart, serial)
+elif reconfigOnly:
+    instClass = ReconfigStation(expert)
+else:
+    instClass = DefaultInstall(expert)
+
+intf = InstallInterface()
+
 # imports after setting up the path
 if not reconfigOnly:
-    if (method[0:7] == "cdrom:/"):
+    if (method[0:8] == "cdrom://"):
         from image import CdromInstallMethod
-        method = CdromInstallMethod(method[7:])
+        method = CdromInstallMethod(method[8:], intf.messageWindow,
+				    intf.progressWindow)
     elif (method[0:5] == "nfs:/"):
         from image import NfsInstallMethod
         method = NfsInstallMethod(method[5:])
@@ -301,15 +311,6 @@ if not reconfigOnly:
 if reconfigOnly and method != None:
     print "Conflicting options: cannot reconfig and install simultaneously!\n"
     sys.exit(1)
-
-if kickstart:
-    instClass = Kickstart(kickstart, serial)
-elif reconfigOnly:
-    instClass = ReconfigStation(expert)
-else:
-    instClass = DefaultInstall(expert)
-
-intf = InstallInterface()
 
 # set the default actions
 installPackages = 1
