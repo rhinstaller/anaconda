@@ -11,7 +11,7 @@ class ConfirmPartitionWindow (InstallWindow):
         self.todo = ics.getToDo ()
         ics.setTitle (_("Confirm Partitioning Selection"))
         ics.readHTML ("partition")
-	ics.setNextEnabled (TRUE)
+	ics.setNextEnabled (FALSE)
         
     def getScreen (self):
         return self.window
@@ -25,9 +25,8 @@ class PartitionWindow (InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("Root Partition Selection"))
-        ics.setHTML ("<HTML><BODY>Select a root partition"
-                     "</BODY></HTML>")
-	ics.setNextEnabled (TRUE)
+        ics.readHTML ("partition")
+	ics.setNextEnabled (FALSE)
 	self.skippedScreen = 0
 
     def getNext (self):
