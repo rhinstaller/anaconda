@@ -40,7 +40,7 @@ class SiloWindow (InstallWindow):
 
 	if self.silo.get_active ():
 	    self.todo.silo.setDevice(None)
-	elif self.silo.allowSiloLocationConfig(self.todo.fstab):
+	elif self.todo.silo.allowSiloLocationConfig(self.todo.fstab):
 	    if self.mbr.get_active ():
 		self.todo.silo.setDevice("mbr")
 	    else:
