@@ -30,7 +30,7 @@ prepareBootTree() {
 
 # LATEUSBMODS go in the second stage.  
 # FIXME: bleah, have to include sd_mod for usb-storage
-USBMODS="ohci-hcd uhci-hcd usb-storage sd_mod sr_mod"
+USBMODS="ohci-hcd uhci-hcd ehci-hcd hid usb-storage sd_mod sr_mod"
 # usb-storage goes on both so we can reload it.  *sigh*
 LATEUSBMODS="usb-storage"
 IDEMODS="ide-cd"
