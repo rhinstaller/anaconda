@@ -94,7 +94,7 @@ class MiloInstall:
             hasboot = 1
             kernelroot = '/'
             try:
-		os.remove(todo.instPath + "/etc/milo.conf", "w")
+		os.remove(todo.instPath + "/etc/milo.conf")
                 os.symlink("../boot/milo.conf",
                            self.todo.instPath + "/etc/milo.conf")
             except:
@@ -103,7 +103,7 @@ class MiloInstall:
             hasboot = 0
             kernelroot = '/boot/'
 
-        f = open (self.todo.instPath + "/etc/milo.conf")
+        f = open (self.todo.instPath + "/etc/milo.conf", "w")
         if hasboot:
             f.write ("# NOTICE:  You have a /boot partition.  This means that all\n")
             f.write ("#          paths are relative to /boot/\n")
