@@ -2,16 +2,15 @@
 # Finnish translation of Anaconda.
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
 # Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
-# Lauri Nurmi <lanurmi@iki.fi>, 2004.
+# Lauri Nurmi <lanurmi@iki.fi>, 2004, 2005.
 # Mikko Ikola <ikola@iki.fi>, 2004.
 # 
-# liitoskohta -> liitospiste!
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-11-24 19:47+0200\n"
+"PO-Revision-Date: 2005-02-05 14:14+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
@@ -910,7 +909,7 @@ msgstr ""
 
 # ../fsset.py:810
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -921,7 +920,7 @@ msgid ""
 msgstr ""
 "Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
 "\n"
-"Tämä johtuu luultavasti siitä, ettei sivutusosiota ole alustettu.\n"
+"Päivitysosion /etc/fstab-tiedosto ei viittaa kelvolliseen sivutusosioon.\n"
 "\n"
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
@@ -1047,7 +1046,6 @@ msgstr ""
 
 # ../fsset.py:952
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -1055,9 +1053,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Virhe liitettäessä laitetta %s kohtaan %s: %s\n"
+"Virhe etsittäessä /-riviä.\n"
 "\n"
-"Tämä johtuu luultavasti siitä, ettei osiota ole alustettu.\n"
+"Tämä johtuu luultavasti siitä, fstab-tiedosto on virheellinen.\n"
 "\n"
 "Käynnistä järjestelmä uudelleen painamalla OK."
 
@@ -1562,15 +1560,16 @@ msgstr ""
 
 # ../iw/partition_gui.py:1528
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Käynnistä uudelleen"
+msgstr "Käynnistä _uudelleen"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Jos käynnistät uudelleen, järjestelmä jää epämääräiseen tilaan, ja tarvitsee "
+"todennäköisesti uudelleenasennuksen. Haluatko varmasti jatkaa?"
 
 # ../packages.py:524
 #: ../packages.py:459
@@ -2869,14 +2868,13 @@ msgstr ""
 "käyttökelvottomaan tilaan. Haluatko jatkaa päivitystä?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"%sn arkkitehtuuri johon olet päivittämässä, on %s. Tämä ei vastaa viimeksi "
-"asennettua arkkitehtuuria %s. Päivitys ei todennäköisesti tule onnistumaan. "
-"Haluatko varmasti jatkaa päivittämistä?"
+"Järjestelmä on liian vanha, jotta sitä voitaisiin päivittää %sn tähän "
+"versioon. Haluatko varmasti jatkaa päivitystä?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2989,27 +2987,24 @@ msgid "WWPN"
 msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Et ole määritellyt konenimeä."
+msgstr "Et ole määritellyt maailmanlaajuista porttinimeä, tai nimi on virheellinen."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
 msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Et ole määritellyt konenimeä."
+msgstr "Et ole määritellyt SCSI LUN -arvoa, tai arvo on virheellinen."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
 msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Et ole määritellyt konenimeä."
+msgstr "Et ole määritellyt FCP LUN -arvoa, tai arvo on virheellinen."
 
 # ../textw/userauth_text.py:22
 #: ../iw/account_gui.py:25
@@ -3281,7 +3276,6 @@ msgstr "Käynnistyslataimen lisäasetukset"
 
 # ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:134
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -3289,9 +3283,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Jos käynnistyslatain pakotetaan käyttämään LBA32:ta, mutta BIOS ei tue sitä, "
-"koneesi ei välttämättä pysty lataamaan käyttöjärjestelmää. On erittäin "
-"suositeltavaa luoda käynnistyslevyke, kun siihen tarjotaan mahdollisuus "
-"asennuksen myöhemmässä vaiheessa.\n"
+"kone ei välttämättä pysty lataamaan käyttöjärjestelmää."
 "\n"
 "Haluatko jatkaa ja pakottaa LBA32-tilan käyttöön?"
 
@@ -3333,7 +3325,6 @@ msgstr "Vaihda käynnistyslatainta"
 
 # ../textw/bootloader_text.py:69
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3800,6 +3791,8 @@ msgid ""
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
+"Voit käyttää sallia yhteydet toisilta koneilta palomuurin läpi tiettyihin "
+"palveluihin. Mihin palveluihin, jos mihinkään, sallitaan yhteydet?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -4453,9 +4446,8 @@ msgstr ""
 
 # ../loader/net.c:309 ../textw/network_text.py:82
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP-osoite:"
+msgstr "Laitteisto-osoite:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5881,7 +5873,6 @@ msgstr "Ohita X-a_setukset"
 
 # ../iw/silo_gui.py:28
 #: ../iw/zfcp_gui.py:24
-#, fuzzy
 msgid "ZFCP Configuration"
 msgstr "ZFCP-asetukset"
 
@@ -6493,11 +6484,11 @@ msgstr "Kaksipisteyhteys (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:187
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:188
 msgid "Encryption Key"
-msgstr ""
+msgstr "Salausavain"
 
 # ../loader/net.c:814
 #: ../textw/network_text.py:88
@@ -6513,7 +6504,7 @@ msgstr "Kuvaus: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Laitteisto-osoite: %s"
 
 # ../iw/network_gui.py:177
 #: ../textw/network_text.py:103
@@ -6908,9 +6899,8 @@ msgstr "Ei taltioryhmiä"
 
 # ../iw/account_gui.py:192
 #: ../textw/partition_text.py:1173
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Syötä taltioryhmän nimi."
+msgstr "Ei taltioryhmiä loogisen taltion luomiseen"
 
 #: ../textw/partition_text.py:1289
 #, python-format
@@ -6934,7 +6924,6 @@ msgstr "Uusi osio vai looginen taltio?"
 
 # ../partitioning.py:524 ../partitioning.py:605
 #: ../textw/partition_text.py:1363
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Haluatko luoda uuden osion vai uuden loogisen taltion?"
 
@@ -6985,7 +6974,7 @@ msgstr "Asennusta varten tarvitaan \"/\"-osio."
 # ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Mitä levyä tai levyjä haluat käyttää asennuksen tekemiseen?"
+msgstr "Mitä levy(j)ä käytetään tähän asennukseen?"
 
 # ../textw/partmethod_text.py:26
 #: ../textw/partmethod_text.py:26
@@ -8236,9 +8225,9 @@ msgstr "Käynnistyslevykkeeltä ei löydy tiedostoa ks.cfg."
 
 # ../loader/net.c:723
 #: ../loader2/kickstart.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Virheellinen parametri kiintolevy-kickstartin komennolle %s: %s"
+msgstr "Virheellinen parametri sammutus-kickstartin komennolle %s: %s"
 
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 #: ../loader2/lang.c:52 ../loader2/loader.c:132
@@ -8248,9 +8237,9 @@ msgstr "%s - tervetuloa"
 
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "%s - tervetuloa"
+msgstr "%s - tervetuloa pelastustilaan"
 
 # ../loader/lang.c:41 ../loader/loader.c:188
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
@@ -8601,7 +8590,7 @@ msgstr "Dynaaminen IP"
 #: ../loader2/net.c:300 ../loader2/net.c:590
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Pyydän IP-tietoja laitteelle %s..."
+msgstr "Pyydetään IP-tietoja laitteelle %s..."
 
 # ../loader/net.c:303
 #: ../loader2/net.c:473
@@ -8849,15 +8838,13 @@ msgstr "Käyttäjätunnus:"
 
 # ../loader/urls.c:226
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP-asetukset"
+msgstr "FTP-lisäasetukset"
 
 # ../loader/urls.c:227
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP-asetukset"
+msgstr "HTTP-lisäasetukset"
 
 # ../loader/windows.c:46
 #: ../loader2/windows.c:64
