@@ -170,6 +170,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 elif ret == parted.PARTITION_EXTENDED:
                     newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
                     constraint = disk.constraint_any()
+                    disk.add_partition(newp, constraint)
                     disk.maximize_partition (newp, constraint)
                     newParts.parts.append(newp)
                     requests.nextUniqueID = requests.nextUniqueID + 1
