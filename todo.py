@@ -567,9 +567,6 @@ class ToDo:
             raise RuntimeError, "boot disk creation failed"
 
     def installLilo (self):
-        # XXX make me test mode
-        if not self.setupFilesystems: return
-
 	lilo = LiloConfiguration ()
         
         # on upgrade read in the lilo config file
@@ -606,8 +603,10 @@ class ToDo:
 
         for (drive, (label, type)) in self.liloImages.items ():
             if (drive == rootDev) and label:
+                self.log ("%s label %s is root (%s) \n", drive, label, rootDev)
                 main = label
             elif label:
+                self.log ("%s label %s is ohter\n", drive, label)
                 otherList.append (label, "/dev/" + drive)
 
         lilo.addEntry("default", main)        
@@ -662,8 +661,11 @@ class ToDo:
 
 	lilo.write(self.instPath + "/etc/lilo.conf")
 
-	iutil.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
-				"-r", self.instPath ], stdout = None)
+        # XXX make me "not test mode"
+        if self.setupFilesystems:
+            iutil.execWithRedirect(self.instPath + '/sbin/lilo' ,
+                                   [ "lilo", "-r", self.instPath ],
+                                   stdout = None)
 
     def freeHeaderList(self):
 	if (self.hdList):
