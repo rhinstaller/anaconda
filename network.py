@@ -22,13 +22,13 @@ import socket
 import os
 from log import log
 
-class NetworkDevice (SimpleConfigFile):
-    def __str__ (self):
+class NetworkDevice(SimpleConfigFile):
+    def __str__(self):
         s = ""
         s = s + "DEVICE=" + self.info["DEVICE"] + "\n"
-        keys = self.info.keys ()
-        keys.sort ()
-        keys.remove ("DEVICE")
+        keys = self.info.keys()
+        keys.sort()
+        keys.remove("DEVICE")
 
 	# Don't let onboot be turned on unless we have config information
 	# to go along with it
@@ -52,11 +52,11 @@ class NetworkDevice (SimpleConfigFile):
 
         return s
 
-    def __init__ (self, dev):
+    def __init__(self, dev):
         self.info = { "DEVICE" : dev }
 
 class Network:
-    def __init__ (self):
+    def __init__(self):
         self.netdevices = {}
         self.gateway = ""
         self.primaryNS = ""
@@ -68,43 +68,38 @@ class Network:
         self.hostname = "localhost.localdomain"
 
         try:
-            f = open ("/tmp/netinfo", "r")
+            f = open("/tmp/netinfo", "r")
         except:
             pass
         else:
-            lines = f.readlines ()
-	    f.close ()
+            lines = f.readlines()
+	    f.close()
             info = {}
 	    self.isConfigured = 1
             for line in lines:
-                netinf = string.splitfields (line, '=')
-                info [netinf[0]] = string.strip (netinf[1])
-            self.netdevices [info["DEVICE"]] = NetworkDevice (info["DEVICE"])
-            if info.has_key ("IPADDR"):
-                self.netdevices [info["DEVICE"]].set (("IPADDR", info["IPADDR"]))
-            if info.has_key ("NETMASK"):
-                self.netdevices [info["DEVICE"]].set (("NETMASK", info["NETMASK"]))
-            if info.has_key ("BOOTPROTO"):
-                self.netdevices [info["DEVICE"]].set (("BOOTPROTO", info["BOOTPROTO"]))
-            if info.has_key ("ONBOOT"):
-                self.netdevices [info["DEVICE"]].set (("ONBOOT", info["ONBOOT"]))
-            if info.has_key ("GATEWAY"):
+                netinf = string.splitfields(line, '=')
+                info [netinf[0]] = string.strip(netinf[1])
+            self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
+            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT"):
+                if info.has_key(key):
+                    self.netdevices [info["DEVICE"]].set((key, info[key]))
+            if info.has_key("GATEWAY"):
                 self.gateway = info["GATEWAY"]
-            if info.has_key ("DOMAIN"):
+            if info.has_key("DOMAIN"):
                 self.domains.append(info["DOMAIN"])
-            if info.has_key ("HOSTNAME"):
+            if info.has_key("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
             
             self.readData = 1
 	try:
-	    f = open ("/etc/resolv.conf", "r")
+	    f = open("/etc/resolv.conf", "r")
 	except:
 	    pass
 	else:
-	    lines = f.readlines ()
-	    f.close ()
+	    lines = f.readlines()
+	    f.close()
 	    for line in lines:
-		resolv = string.split (line)
+		resolv = string.split(line)
 		if resolv and resolv[0] == 'nameserver':
 		    if self.primaryNS == "":
 			self.primaryNS = resolv[1]
@@ -116,25 +111,27 @@ class Network:
     def getDevice(self, device):
 	return self.netdevices[device]
 
-    def available (self):
-        f = open ("/proc/net/dev")
+    def available(self):
+        f = open("/proc/net/dev")
         lines = f.readlines()
-        f.close ()
+        f.close()
         # skip first two lines, they are header
         lines = lines[2:]
         for line in lines:
-            dev = string.strip (line[0:6])
-            if dev != "lo" and not self.netdevices.has_key (dev):
-                self.netdevices[dev] = NetworkDevice (dev)
+            dev = string.strip(line[0:6])
+            if dev != "lo" and not self.netdevices.has_key(dev):
+                self.netdevices[dev] = NetworkDevice(dev)
         return self.netdevices
 
     def setHostname(self, hn):
 	self.hostname = hn
 
-    def lookupHostname (self):
+    def lookupHostname(self):
 	# can't look things up if they don't exist!
-	if not self.hostname or self.hostname == "localhost.localdomain": return None
-	if not self.primaryNS: return
+	if not self.hostname or self.hostname == "localhost.localdomain":
+            return None
+	if not self.primaryNS:
+            return
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
 		if dev.get('bootproto') == "dhcp":
@@ -150,18 +147,18 @@ class Network:
                         self.isConfigured = 1
                         break
                     except SystemError:
-                        log ("failed to configure network device %s when "
+                        log("failed to configure network device %s when "
                              "looking up host name", dev.get('device'))
 
 	if not self.isConfigured:
-            log ("no network devices were availabe to look up host name")
+            log("no network devices were availabe to look up host name")
             return None
 
 	f = open("/etc/resolv.conf", "w")
 	f.write("nameserver %s\n" % self.primaryNS)
 	f.close()
 	isys.resetResolv()
-	isys.setResolvRetry(2)
+	isys.setResolvRetry(1)
 
 	try:
 	    ip = socket.gethostbyname(self.hostname)
@@ -170,8 +167,8 @@ class Network:
 
 	return ip
 
-    def nameservers (self):
-        return [ self.primaryNS, self.secondaryNS, self.ternaryNS ]
+    def nameservers(self):
+        return (self.primaryNS, self.secondaryNS, self.ternaryNS)
 
     def writeKS(self, f):
 	# XXX
@@ -195,7 +192,7 @@ class Network:
 		f.write(" --bootproto dhcp")
 	    else:
 		f.write(" --bootproto static --ip %s --netmask %s --gateway %s" % 
-		    (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
+		   (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
 
 	    if dev.get('nameserver'):
 		f.write(" --nameserver %s" % dev.get('nameserver'))
@@ -205,37 +202,37 @@ class Network:
 
 	    f.write("\n");
 
-    def write (self, instPath):
+    def write(self, instPath):
         # /etc/sysconfig/network-scripts/ifcfg-*
-        for dev in self.netdevices.values ():
-            device = dev.get ("device")
-	    fn = instPath + "/etc/sysconfig/network-scripts/ifcfg-" + device
-            f = open (fn, "w")
+        for dev in self.netdevices.values():
+            device = dev.get("device")
+	    fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
+                                                                device)
+            f = open(fn, "w")
 	    os.chmod(fn, 0600)
-            f.write (str (dev))
-            f.close ()
+            f.write(str(dev))
+            f.close()
 
         # /etc/sysconfig/network
 
-        f = open (instPath + "/etc/sysconfig/network", "w")
-        f.write ("NETWORKING=yes\n"
-                 "HOSTNAME=")
+        f = open(instPath + "/etc/sysconfig/network", "w")
+        f.write("NETWORKING=yes\n"
+                "HOSTNAME=")
 
-
-        # use instclass hostname if set (kickstart) to override
+        # use instclass hostname if set(kickstart) to override
         if self.hostname:
 	    f.write(self.hostname + "\n")
 	else:
-	    f.write("localhost.localdomain" + "\n")
+	    f.write("localhost.localdomain\n")
 	if self.gateway:
-	    f.write("GATEWAY=" + self.gateway + "\n")
-        f.close ()
+	    f.write("GATEWAY=%s\n", (self.gateway,))
+        f.close()
 
         # /etc/hosts
-        f = open (instPath + "/etc/hosts", "w")
+        f = open(instPath + "/etc/hosts", "w")
         localline = "127.0.0.1\t\t"
 
-        log ("self.hostname = %s", self.hostname)
+        log("self.hostname = %s", self.hostname)
 
 	ip = self.lookupHostname()
 
@@ -249,29 +246,28 @@ class Network:
 	localline = localline + "localhost.localdomain localhost\n"
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
-        f.write (localline)
+        f.write(localline)
 
 	if ip:
-	    f.write ("%s\t\t%s\n" % (ip, self.hostname))
+	    f.write("%s\t\t%s\n" % (ip, self.hostname))
 
 	# If the hostname was not looked up, but typed in by the user,
 	# domain might not be computed, so do it now.
-	if self.domains == [ "localdomain" ] or not self.domains:
+	if self.domains == ["localdomain"] or not self.domains:
 	    if '.' in self.hostname:
 		# chop off everything before the leading '.'
 		domain = self.hostname[(string.find(self.hostname, '.') + 1):]
-		self.domains = [ domain ]
+		self.domains = [domain]
 
         # /etc/resolv.conf
-        f = open (instPath + "/etc/resolv.conf", "w")
+        f = open(instPath + "/etc/resolv.conf", "w")
 
-	if self.domains != [ 'localdomain' ] and self.domains:
-	    f.write ("search " + string.joinfields (self.domains, ' ') 
-			+ "\n")
+	if self.domains != ['localdomain'] and self.domains:
+	    f.write("search %s\n", (string.joinfields(self.domains, ' '),))
 
-        for ns in self.nameservers ():
+        for ns in self.nameservers():
             if ns:
-                f.write ("nameserver " + ns + "\n")
+                f.write("nameserver %s\n", (ns,))
 
-        f.close ()
+        f.close()
 
