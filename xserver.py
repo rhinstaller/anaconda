@@ -219,6 +219,6 @@ EndSection
                  '/tmp/XF86Config', 'vt5'])
     child = os.fork()
     if (child):
-        os.waitpid(child, 0)
+        pid, status = os.waitpid(child, 0)
         os.kill(server, 15)
-        sys.exit(0)
+        sys.exit(status)
