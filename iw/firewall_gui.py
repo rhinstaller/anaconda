@@ -290,9 +290,11 @@ class FirewallWindow (InstallWindow):
         elif self.todo.firewall.policy == 1:
             self.radio2.set_active (TRUE)
 
+        if self.todo.firewall.portlist != "":
+            self.ports.set_text (self.todo.firewall.portlist)
+
         if self.todo.firewallState == 1:
             self.radio5.set_active(TRUE)
-
         else:
             self.trusted.set_sensitive(FALSE)
             self.incoming.set_sensitive(FALSE)
