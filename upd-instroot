@@ -164,6 +164,10 @@ usr/bin/chattr*
 usr/bin/lsattr*
 EOF
 
+for I in $DESTGR/usr/X11R6/lib/X11/fonts/*; do
+    mkfontdir $I
+done
+
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
 	if [ "$I" != "rpm-devel" ]; then
