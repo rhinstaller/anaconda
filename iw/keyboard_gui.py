@@ -43,6 +43,9 @@ class KeyboardWindow (InstallWindow):
 	    	isys.loadKeymap(self.todo.keyboard.get())
 	    except:
 		log("failed to load keymap")
+
+            self.todo.deadkeyState = self.variant
+
         return None
 
     def select_row (self, clist, row, col, event):
@@ -60,9 +63,7 @@ class KeyboardWindow (InstallWindow):
     # KeyboardWindow tag="kybd"
     def getScreen (self):
         if not self.hasrun:
-#            default = iutil.defaultKeyboard(self.todo.language.get())
             default = self.todo.instTimeLanguage.getDefaultKeyboard()
-#            print default
             
             if Keyboard.console2x.has_key (default):
                 self.model = Keyboard.console2x[default][0]
@@ -132,10 +133,15 @@ class KeyboardWindow (InstallWindow):
 #  as special case, so the text can be less confusing.
 #        self.variantList.append (("None",))
 #        for (key, variant) in self.rules[2].items ():
+        count = 0
         for (key, variant) in (("", (_("Enable dead keys"))),
                                ("nodeadkeys", (_("Disable dead keys")))):
             loc = self.variantList.append ((variant,))
 	    self.variantList.set_row_data (loc, key)
+            if self.todo.deadkeyState == "nodeadkeys":
+                self.variantList.select_row(count, 0)
+            count = count + 1
+            
         self.variantList.sort ()
         self.variantList.connect ("select_row", self.select_row)
         self.variantList.columns_autosize ()
