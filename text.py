@@ -4,7 +4,7 @@
 # Erik Troan <ewt@redhat.com>
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -343,7 +343,7 @@ class InstallInterface:
 	return WaitWindow(self.screen, title, text)
 
     def drawFrame(self):
-        self.welcomeText = _("%s (C) 2003 Red Hat, Inc.") % (productName,)
+        self.welcomeText = _("%s (C) 2004 Red Hat, Inc.") % (productName,)
         self.screen.drawRootText (0, 0, self.welcomeText)
 	self.screen.drawRootText (len(_(self.welcomeText)), 0,
                                   (self.screen.width -
