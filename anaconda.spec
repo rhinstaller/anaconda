@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.36
+Version: 10.2.0.37
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar 30 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.37-1
+- try not using maxcpus=1 for arches which still had it
+- don't use the reserved variable name str (sopwith)
+- various language fixups (clumens)
+
 * Tue Mar 29 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.36-1
 - tree build fix
 

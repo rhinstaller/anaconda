@@ -1,8 +1,15 @@
 2005-03-30  Jeremy Katz  <katzj@redhat.com>
+	
+	* anaconda.spec: Bump version.
 
 	* bootdisk/ppc/yaboot.conf.mac: Nuke maxcpus=1
 	* bootdisk/ppc/yaboot.conf.pseries: Likewise.
 	* scripts/mk-images.ia64 (image): Likewise.
+
+2005-03-30  Elliot Lee  <sopwith@redhat.com>
+
+	* language.py (expandLangs): s/str/astring/ - as the name of 
+	the string type, 'str' is a pseudo-reserved word in python.
 
 2005-03-30  Chris Lumens  <clumens@redhat,com>
 
