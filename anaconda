@@ -387,7 +387,7 @@ try:
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc',
-	    'vnc', 'vncconnecthost=', 'vncconnectport=',
+	    'vnc', 'vncconnect=',
 	    'cmdline', 'headless'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
@@ -549,10 +549,12 @@ for n in args:
 				  buttons = (_("OK"),))
 	    screen.finish()
 	    sys.exit(0)
-    elif (str == '--vncconnecthost'):
-	vncconnecthost = arg
-    elif (str == '--vncconnectport'):
-	vncconnectport = arg
+    elif (str == '--vncconnect'):
+	cargs = string.split(arg, ":")
+	vncconnecthost = cargs[0]
+	if len(cargs) > 1:
+	    if len(cargs[1]) > 0:
+		vncconnectport = cargs[1]
 
 #
 # must specify install, rescue mode
