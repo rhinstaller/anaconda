@@ -918,11 +918,6 @@ int main(int argc, char ** argv) {
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
 
-    /* workaround for now... */
-#if defined(__x86_64__)
-    flags |= LOADER_FLAGS_NOUSB;
-#endif
-
     openLog(FL_TESTING(flags));
     if (!FL_TESTING(flags))
         openlog("loader", 0, LOG_LOCAL0);
