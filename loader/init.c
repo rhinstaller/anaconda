@@ -454,6 +454,12 @@ int main(void) {
     }
     printf("done\n");
 #endif
+
+    if (!isSerial) {
+	char twelve = 12;
+	if (ioctl (0, TIOCLINUX, &twelve) < 0)
+	    isSerial = 1;
+    }
     
     if (isSerial) {
 	printf("Red Hat install init version %s using a serial console\n", 
@@ -462,9 +468,9 @@ int main(void) {
 	printf("remember, cereal is an important part of a nutritionally "
 	       "balanced breakfast.\n\n");
 
-	fd = open("/dev/ttyS0", O_RDWR, 0);
+	fd = open("/dev/console", O_RDWR, 0);
 	if (fd < 0) {
-	    printf("failed to open /dev/ttyS0");
+	    printf("failed to open /dev/console");
 	    fatal_error(1);
 	}
 
