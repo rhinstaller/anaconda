@@ -129,8 +129,14 @@ def memInstalled():
     mem = f.readlines()[1]
     del f
 
+    # patch from hjl
     fields = string.split(mem)
-    return int(fields[1]) / 1024
+    try:
+       mem = int(fields[1]) / 1024
+    except:
+        mem = 2097151
+
+    return mem
 
 # this is a mkdir that won't fail if a directory already exists and will
 # happily make all of the directories leading up to it. 
