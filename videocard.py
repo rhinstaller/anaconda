@@ -168,13 +168,28 @@ class FrameBufferCard(VideoCard):
     def getCardData(self, dontResolve = 0):
         # fake entry for a frame buffer (not in cards db)
         card = {}
-        card["DRIVER"] = "fbdev"
+
+# This makes it use the XFree86 4.x fbdev
+# also uncomment the code below in getXServer()
+#        card["DRIVER"] = "fbdev"
+#
+# This makes is use the XFree 3.x.x fbdev
+# also uncomment the code below in getXServer()
+        card["SERVER"] = "FBDev"
+         
         card["NAME"] = "VGA VESA Framebuffer"
 
         return card
 
     def getXServer(self):
-        return "XFree86"
+        
+# This makes it use the XFree86 4.x fbdev        
+# also uncomment the code above in getCardData()
+#        return "XFree86"
+#
+# This makes is use the XFree 3.x.x fbdev
+# also uncomment the code above in getCardData()
+         return "XF86_FBDev"
 
     def isFrameBuffer(self):
         return 1
@@ -336,8 +351,10 @@ class VideoCardInfo:
             if len (server) > 9 and server[0:10] == "Server:Sun" and descr[0:4] == "Sun|":
                 server = "Card:Sun " + descr[4:]
             if len (server) > 5 and server[0:5] == "Card:":
-#                info = self.cardsDBLookup (server[5:])
-                info = Video_cardslist [server[5:]]
+                if server[5:] in Video_cardslist.keys():
+                    info = Video_cardslist [server[5:]]
+                else:
+                    info = None
             if len (server) > 7 and server[0:7] == "Server:":
                 info = { "NAME" : "Generic " + server[7:],
                          "SERVER" : server[7:] }
@@ -367,6 +384,7 @@ class VideoCardInfo:
             self.orig_videocards = copy.deepcopy(self.videocards)
             self.primary = 0
             self.orig_primary = self.primary
+
             return
 
         # default primary card to be the first card found
