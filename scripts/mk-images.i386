@@ -27,7 +27,7 @@ prepareBootImage() {
 	    fi
 	    for file in $BOOTDISKDIR/$BOOTLANG/*.msg; do
 		filename=`basename $file`
-		sed -s "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
+		sed -e "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
 	    done
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR/$BOOTLANG to $MBD_BOOTTREE.
@@ -38,7 +38,7 @@ prepareBootImage() {
 	else
 	    for file in $BOOTDISKDIR/*.msg; do
 		filename=`basename $file`
-		sed -s "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
+		sed -e "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
 	    done
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR to $MBD_BOOTTREE.
