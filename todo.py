@@ -1248,7 +1248,10 @@ class ToDo:
 
             # turn it off
             mousedev = None
-            if os.environ.has_key ("DISPLAY"):
+
+            # XXX currently Bad Things (X async reply) happen when doing
+            # Mouse Magic on Sparc (Mach64, specificly)
+            if os.environ.has_key ("DISPLAY") and not arch == "sparc":
                 import xmouse
                 try:
                     mousedev = xmouse.get()[0]
