@@ -2,10 +2,10 @@ DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
 
 CFLAGS = -I/usr/include/python1.5 -g
 OBJECTS = isys.o nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
-          inet.o smp.o moduleinfo.o devnodes.o otherinsmod.o cpio.o
+          inet.o smp.o moduleinfo.o devnodes.o otherinsmod.o cpio.o ilang.o
 STATICLIBS = pci/libpciprobe.a modutils/insmod/libmodutils.a \
 	     modutils/obj/libobj.a modutils/util/libutil.a
-LOADLIBES = -lrpm -lresolv -lz 
+LOADLIBES = -lrpm -lresolv -lz -lpci
 SUBDIRS = modutils pci
 
 all: subdirs _isys.so isys.a 

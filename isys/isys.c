@@ -20,7 +20,7 @@ static PyObject * doRmmod(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
-static PyObject * pciProbe(PyObject * s, PyObject * args);
+static PyObject * doPciProbe(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 
@@ -29,7 +29,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "insmod", (PyCFunction) doInsmod, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
-    { "pciprobe", (PyCFunction) pciProbe, METH_VARARGS, NULL },
+    { "pciprobe", (PyCFunction) doPciProbe, METH_VARARGS, NULL },
     { "readmoduleinfo", (PyCFunction) doReadModInfo, METH_VARARGS, NULL },
     { "rmmod", (PyCFunction) doRmmod, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
@@ -210,8 +210,8 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-static PyObject * pciProbe(PyObject * s, PyObject * args) {
-    char ** matches, ** item;
+static PyObject * doPciProbe(PyObject * s, PyObject * args) {
+    struct pciDevice ** matches, ** item;
     PyObject * list;
 
     if (!PyArg_ParseTuple(args, "")) return NULL;
@@ -220,7 +220,7 @@ static PyObject * pciProbe(PyObject * s, PyObject * args) {
     probePciReadDrivers("isys/pci/pcitable");
     probePciReadDrivers("/etc/pcitable");
 
-    matches = probePciDriverList();
+    matches = probePci(0, 1);
     if (!matches) {
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -228,7 +228,7 @@ static PyObject * pciProbe(PyObject * s, PyObject * args) {
 
     list = PyList_New(0);
     for (item = matches; *item; item++) {
-	PyList_Append(list, Py_BuildValue("s", *item));
+	PyList_Append(list, Py_BuildValue("s", (*item)->driver));
     }
 
     free(matches);
