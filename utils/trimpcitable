@@ -1,7 +1,8 @@
 #!/usr/bin/perl
 
-for $n (@ARGV) {
-    $mods{$n} = $n
+foreach $n (@ARGV) {
+    $n =~ s/\.o$//;
+    $mods{"\"$n\""} = $n;
 }
 
 while (<STDIN>) {
