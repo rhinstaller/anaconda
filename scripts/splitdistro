@@ -278,5 +278,5 @@ moveFiles("%s/SRPMS" % disc2SrcDir,
 
 sys.stdout.flush()
 
-os.system("du -sh %s %s %s %s %s" % (disc1Dir, disc2Dir, disc3Dir,
-                                     disc2SrcDir, disc3SrcDir))
+os.system("du -sh %s %s %s %s %s %s" % (disc1Dir, disc2Dir, disc3Dir,
+                                        disc1SrcDir, disc2SrcDir, disc3SrcDir))
