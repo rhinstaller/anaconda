@@ -90,13 +90,13 @@ class PartitionWindow (InstallWindow):
         if not self.checkSwap ():
             return PartitionWindow
 
-	for (mount, device, type, raidType, other) in raid:
-	    self.todo.addMount(device, mount, type)
-
-	    if mount == "/":
-		rootPartition = device
-	    elif mount == "/boot":
-		bootPartition = device
+        for (mount, device, fstype, raidType, start, size, makeup) in raid:
+            self.todo.addMount(device, mount, fstype)
+            
+            if mount == "/":
+                rootPartition = device
+            elif mount == "/boot":
+                bootPartition = device
 
 	if (bootPartition):
 	    liloBoot = bootPartition
