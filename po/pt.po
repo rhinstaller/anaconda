@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: redhat-install\n"
 "POT-Creation-Date: 2001-01-16 16:09-0500\n"
-"PO-Revision-Date: 2000-12-18 20:41+00:00\n"
+"PO-Revision-Date: 2001-01-17 20:29+00:00\n"
 "Last-Translator: Pedro Morais <morais@poli.org>\n"
 "Language-Team: Portuguese <morais@poli.org>\n"
 "MIME-Version: 1.0\n"
@@ -712,8 +712,9 @@ msgid " "
 msgstr ""
 
 #: ../text.py:987
+#, fuzzy
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:990
 msgid ""
@@ -2100,8 +2101,9 @@ msgid "WWW (HTTP)"
 msgstr ""
 
 #: ../textw/firewall_text.py:88
+#, fuzzy
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Total (M)"
 
 #: ../loader/loader.c:1220 ../loader/loader.c:1229
 #: ../textw/firewall_text.py:90
@@ -3085,7 +3087,9 @@ msgstr "Ponto de montagem RAID ilegal"
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
-msgstr "Partições RAID não podem ser montadas com root (/) num Alpha."
+msgstr ""
+"Partições RAID não podem ser montadas com root (/) num Alpha sem que exista "
+"também uma partição /boot (não RAID)."
 
 #: ../libfdisk/gnomefsedit.c:2360
 #, c-format
@@ -3559,9 +3563,9 @@ msgid ""
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"Quer partição e que directoria nessa partição é que encontram as directorias "
-"RedHat/RPMS e RedHat/base? Se não vê o disco que quer utilizar listado, "
-"carregue em F2 para configurar mais dispositivos."
+"Que partição e em que directoria nessa partição é que encontram as imagens "
+"(iso9660) dos CDs do Redhat Linux? Se não vê o disco que quer utilizar "
+"listado, carregue em F2 para configurar mais dispositivos."
 
 #: ../loader/loader.c:826
 msgid "Directory holding images:"
@@ -3574,7 +3578,7 @@ msgstr "Seleccione Partição"
 #: ../loader/loader.c:894
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Dispositivo %s não parece conter uma distribuição de Red Hat."
+msgstr "Dispositivo %s não parece conter as imagems dos CDROMs do Red Hat."
 
 #: ../loader/loader.c:949
 msgid ""
@@ -3836,11 +3840,13 @@ msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Por favor insira o controlador %s agora."
+msgstr ""
+"Por favor insira a sua disquete de controladores PCMCIA na unidade de "
+"leitura."
 
 #: ../loader/pcmcia.c:114
 msgid "Failed to mount disk."
-msgstr "Não consegui montar disquete de controladores."
+msgstr "Não consegui montar disco."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
@@ -3936,8 +3942,7 @@ msgid ""
 "wish to use below."
 msgstr ""
 "Se está a utilizar ftp não-anónimo, insira o nome da conta e a senha que "
-"quer utilizar. Se estiver a utilizar um \"proxy\" de FTP insira o nome da "
-"máquina que quer utilizar para o efeito."
+"quer utilizar."
 
 #: ../loader/urls.c:321
 msgid ""
@@ -4096,13 +4101,6 @@ msgstr "Desenvolvimento do Kernel"
 msgid "Utilities"
 msgstr "Utilitários"
 
-#, fuzzy
-#~ msgid "None"
-#~ msgstr "Pronto"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Partição de Memória Virtual>"
-
 #~ msgid "Test this configuration"
 #~ msgstr "Testar esta configuração"
 
@@ -4111,6 +4109,9 @@ msgstr "Utilitários"
 
 #~ msgid "Default Desktop:"
 #~ msgstr "Ambiente de trabalho por omissão:"
+
+#~ msgid "<Swap Partition"
+#~ msgstr "<Partição de Memória Virtual>"
 
 #~ msgid "Pacific Rim"
 #~ msgstr "Pacífico"
