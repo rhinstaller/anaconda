@@ -129,3 +129,19 @@ def clampLVSizeRequest(size, pe):
 	return size
     else:
 	return ((long((size*1024L)/pe)+1L)*pe)/1024
+
+def clampPVSize(pvsize, pesize):
+    """Given a PV size and a PE, returns the usable space of the PV.
+
+    pvsize - size (in MB) of PV request
+    pesize - PE size (in KB)
+    """
+
+    return (long(pvsize*1024/pesize)*pesize)/1024
+    
+def getMaxLVSize(pe):
+    """Given a PE size in KB, returns maximum size (in MB) of a logical volume.
+
+    pe - PE size in KB
+    """
+    return pe*64
