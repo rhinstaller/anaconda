@@ -1,8 +1,15 @@
+ARCH := $(patsubst i%86,i386,$(shell uname -m))
+ARCH := $(patsubst sparc%,sparc,$(ARCH))
+
 LOADLIBES =  -L../isys -lisys -lpopt
 CFLAGS = -Wall -g
 LDFLAGS = -g 
 
-all:	modlist moddeps genhdlist snarffont mapshdr readmap
+ifneq ($(ARCH),ia64)
+MODDEPS=moddeps
+endif
+
+all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
 
 moddeps: moddeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
