@@ -1,7 +1,7 @@
 SYSLINUX=$IMGPATH/usr/bin/syslinux
 
 if [ ! -f $SYSLINUX ]; then
-    echo "$n doesn't exist"
+    echo "$SYSLINUX doesn't exist"
     exit 1
 fi
 
