@@ -205,6 +205,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.iconList.thaw ()
         self.iconList.show_all ()
 
+    def updateSize(self):
+	print self.todo.comps.sizeStr()
 
     def installButtonToggled (self, cbutton, *args):
         if not self.currentPackage: return
@@ -215,7 +217,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         else:
             self.currentPackage.selected = 0
 
-        
+	self.updateSize()
+
         if oldSelectedStatus != self.currentPackage.selected:
             self.updatingIcons = TRUE
             self.ctree.select (self.ctree.selection[0])
@@ -367,6 +370,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         vbox.pack_start (iconHBox)
         vbox.pack_start (descVBox, FALSE)
 
+	self.updateSize()
+
         return vbox
 
 class PackageSelectionWindow (InstallWindow):
@@ -389,13 +394,6 @@ class PackageSelectionWindow (InstallWindow):
         for comp in self.todo.comps:
             if not comp.hidden:
                 comp.unselect(0)
-
-        # turn on each package group in order (msw's code requires this)
-        for (button, comp) in self.checkButtons:
-            if button.get_active ():
-                comp.select (1)
-
-        del self.checkButtons
 
         gotoIndividualPackages = self.individualPackages.get_active ()
         del self.individualPackages
