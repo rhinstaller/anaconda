@@ -47,6 +47,13 @@ static int aStringCmp(const void * a, const void * b) {
     return 1;
 }
 
+static int simpleStringCmp(const void * a, const void * b) {
+    const char * first = *((const char **) a);
+    const char * second = *((const char **) b);
+
+    return strcmp(first, second);
+}
+
 char * translateString(char * str) {
     unsigned int sum = 0, xor = 0;
     int len = 0;
@@ -563,6 +570,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 #endif
 
 	kbds[i] = NULL;
+	qsort(kbds, i, sizeof(*kbds), simpleStringCmp);
 
 	rc = newtWinMenu(_("Keyboard Type"), 
 			_("What type of keyboard do you have?"),
