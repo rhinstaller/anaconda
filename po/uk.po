@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-08-17 10:38+09:00\n"
+"PO-Revision-Date: 2000-08-17 16:58+09:00\n"
 "Last-Translator: Dmytro Koval'ov <kov@tokyo.email.ne.jp>\n"
 "Language-Team: Ukrainian language team <linux@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,11 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"Ядро неспроможне прочитати нову таблицю п╕дрозд╕л╕в у Ваш╕й систем╕. Можливо "
+"через те, що Ви зм╕нили розширен╕ п╕дрозд╕ли. Хоча це ╕ не критично, але "
+"рекоменду╓ться, щоб Ви перевантажили машину перш, н╕ж продовжувати. Вставте "
+"зараз завантажувальний диск Red Hat в дисков╕д ╕ натисн╕ть \"Гаразд\" щоб "
+"перезавантажити систему.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -190,6 +195,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Сталася помилка при перенесенн╕ установочного образу на жорсткий диск Вашого "
+"комп'ютера. Можливо не вистача╓ дискового простору."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -2858,6 +2865,8 @@ msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
+"Щоб установка могла продовжуватись, Ви ма╓те назначити точц╕ монтування "
+"/boot/efi основний п╕дрозд╕л типу FAT"
 
 #: ../libfdisk/newtfsedit.c:1640
 msgid ""
@@ -3471,61 +3480,60 @@ msgstr "Завантаження SCSI драйвера"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Зображення мапи для показу на екран╕"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Ширина зображення (в п╕кселах)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Дозволити antialias"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Св╕т"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "П╕вн╕чна Америка"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "П╕вденна Америка"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Тихоокеанський ре╜╕он"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "╢вропа"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Африка"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Аз╕я"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Не можу прочитати дан╕ часового поясу"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
 msgstr "Огляд:"
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "Америка/Н'ю_Йорк"
 
 msgid "Base"
 msgstr "Основне"
