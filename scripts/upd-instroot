@@ -31,7 +31,7 @@ fi
 PACKAGEDIR=$1
 
 if [ -z "$ARCH" ]; then
-	ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
+	ARCH=`rpm --nodigest --nosignature -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
 fi
 
 if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
@@ -68,7 +68,7 @@ prunePackageList() {
 
 	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
 
-	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
+	rpm --nodigest --nosignature --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
 		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
 }
 
@@ -79,7 +79,7 @@ expandPackageSet() {
 
     for n in $RPMS; do 
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
-	if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
+	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
 	    GLIBC=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
@@ -733,7 +733,9 @@ EOF
 
 echo "Assembling package list..."
 RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
+[ -n "$DEBUG" ] && echo "RPMS are $RPMS"
 RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR $PACKAGESRESCUE")
+[ -n "$DEBUG" ] && echo "RPMSGR are $RPMSGR"
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
 rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib
