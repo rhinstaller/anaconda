@@ -83,8 +83,8 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
 
     isys.makeDevInode("psaux", "/tmp/psaux")
 
-    for i in [ "imrc", "im_palette.pal" ]:
-        os.symlink ("../mnt/source/RedHat/instroot/etc/" + i, "/etc/" + i)
+    for i in ( "imrc", "im_palette.pal" ):
+        os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
     
     f = open ('/tmp/XF86Config', 'w')
     f.write ("""
