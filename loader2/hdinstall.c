@@ -200,6 +200,15 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 	return 1;
     } 
 
+    /* handle updates.img now before we copy stage2 over... this allows
+     * us to keep our ramdisk size as small as possible */
+    sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
+    copyUpdatesImg(path);
+
+    rc = copyFileAndLoopbackMount(fd, "/tmp/ramfs/hdstg2.img", flags, 
+				  device, mntpoint);
+    close(fd);
+
     if (!verifyStamp(mntpoint)) {
         char * buf;
         buf = sdupprintf(_("The %s installation tree in that directory does "
@@ -210,15 +219,6 @@ static int loadHDImages(char * prefix, char * dir, int flags,
         umountLoopback(mntpoint, device);
         return 1;
     }
-
-    /* handle updates.img now before we copy stage2 over... this allows
-     * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
-    copyUpdatesImg(path);
-
-    rc = copyFileAndLoopbackMount(fd, "/tmp/ramfs/hdstg2.img", flags, 
-				  device, mntpoint);
-    close(fd);
 
     return rc;
 }
