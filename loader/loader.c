@@ -2389,7 +2389,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
-			     char ** ksDevice, char ** instClass) {
+			     char ** ksDevice, char ** instClass, char **xres) {
     int fd;
     char buf[500];
     int len;
@@ -2485,6 +2485,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    setLanguage (argv[i] + 5, flags);
 	    defaultLang = 1;
 #endif
+	} else if (!strncasecmp(argv[i], "resolution=", 11)) {
+	    *xres = argv[i]+11;
 	}
     }
 
@@ -3133,10 +3135,12 @@ int main(int argc, char ** argv) {
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
     char * ksNetDevice = NULL;
+    char * xres = NULL;
     struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
+	    { "resolution", '\0', POPT_ARG_STRING, &xres, 0},
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
@@ -3222,7 +3226,7 @@ int main(int argc, char ** argv) {
 
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
-			      &instClass);
+			      &instClass, &xres);
 
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
 	flags |= LOADER_FLAGS_TEXT;
@@ -3601,6 +3605,11 @@ int main(int argc, char ** argv) {
 	    *argptr = malloc(20);
 	    sprintf(*argptr, "%d", memoryOverhead);
 	    argptr++;
+	}
+
+	if (xres) {
+	    *argptr++ = "--resolution";
+	    *argptr++ = xres;
 	}
 
 	for (i = 0; i < modLoaded->numModules; i++) {

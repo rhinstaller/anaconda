@@ -88,7 +88,7 @@ try:
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep'])
+            'autostep', 'resolution='])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -191,6 +191,8 @@ for n in args:
 	flags.setupFilesystems = 0
         flags.reconfig = 1
 	customClass = 'reconfig'
+    elif (str == '--resolution'):
+        runres = arg
     elif (str == '--rescue'):
         progmode = 'rescue'
     elif (str == "--autostep"):
