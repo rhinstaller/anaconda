@@ -40,6 +40,7 @@ def dup_log(format, *args):
 
 # start miniWM
 def startMiniWM(root='/'):
+    (rd, wr) = os.pipe()
     childpid = os.fork()
     if not childpid:
         if os.access("./mini-wm", os.X_OK):
@@ -49,9 +50,16 @@ def startMiniWM(root='/'):
         else:
             return None
         
+        os.dup2(wr, 1)
+        os.close(wr)
 	args = [cmd, '--display', ':1']
 	os.execv(args[0], args)
 	sys.exit (1)
+    else:
+        # We need to make sure that mini-wm is the first client to
+        # connect to the X server (see bug #108777).  Wait for mini-wm
+        # to write back an acknowledge token.
+        os.read(rd, 1)
 
     return childpid
 
