@@ -358,7 +358,7 @@ int chooseLanguage(char ** lang, int flags) {
 	newtWinMessage("Language Unavailable", "Ok", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "
-		       "display of %s is possible", languages[choice].lang,
+		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
     }
     if (languages[choice].map)
