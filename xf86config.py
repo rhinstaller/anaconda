@@ -47,7 +47,6 @@ Section "Files"
 EndSection
 
 Section "Module"
-        Load  "GLcore"
         Load  "dbe"
         Load  "extmod"%(nonSparcMods)s%(driMod)s
         Load  "glx"
@@ -116,24 +115,6 @@ Section "Monitor"
         Option "dpms"
 
 	%(displaySizeOptions)s
-
-        # -- 1400x1050 --
-        # 1400x1050 @ 60Hz, 65.8 kHz hsync
-        Modeline "1400x1050"  129   1400 1464 1656 1960
-                              1050 1051 1054 1100 +HSync +VSync
-
-        # 1400x1050 @ 70Hz, 76.8 kHz hsync
-        Modeline "1400x1050"  151   1400 1464 1656 1960
-                              1050 1051 1054 1100 +HSync +VSync
-
-        # 1400x1050 @ 75Hz, 82.3 kHz hsync
-        Modeline "1400x1050"  162   1400 1464 1656 1960
-                              1050 1051 1054 1100 +HSync +VSync
-
-        # 1400x1050 @ 85Hz, 93.2 kHz hsync
-        Modeline "1400x1050"  184   1400 1464 1656 1960
-                              1050 1051 1054 1100 +HSync +VSync
-
 EndSection
 
 Section "Device"
@@ -681,7 +662,7 @@ class XF86Config:
 
 	# see if we need to add a section for USB mice which aren't
 	# attached yet. This makes hotplug work
-	if self.mouse and self.mouse.anyUSBMice():
+	if self.mouse and not self.mouse.anyUSBMice():
 	    data["usbmouselayout"] = "InputDevice	\"Mouse1\" \"SendCoreEvents\""
 	    data["usbmousesection"] = """
 Section "InputDevice"
