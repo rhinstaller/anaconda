@@ -173,7 +173,7 @@ class LanguageSupportWindow (InstallWindow):
             
         self.combo.set_popdown_strings (list)
         self.combo.list.select_item(sel)
-        self.combo.entry.set_editable(gtk.FALSE)
+        self.combo.entry.set_property("editable", gtk.FALSE)
 
         sw = gtk.ScrolledWindow ()
         sw.set_border_width (5)
