@@ -52,7 +52,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     if rootFs == "vfat":
 	fsset.mountLoopbackRoot(root)
     else:
-	isys.mount(root, '/mnt/sysimage')
+	isys.mount(root, '/mnt/sysimage', rootFs)
 
     oldfsset.reset()
     newfsset = fsset.readFstab(instPath + '/etc/fstab')

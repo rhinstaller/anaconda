@@ -826,6 +826,7 @@ class DiskSet:
         mdList = raid.startAllRaid(drives)
 
         for dev in mdList:
+            # XXX multifsify
             if not fsset.isValidExt2 (dev):
                 continue
 
@@ -850,10 +851,11 @@ class DiskSet:
             part = disk.next_partition ()
             while part:
                 if part.fs_type and (part.fs_type.name == "ext2"
-                                     or part.fs_type.name == "ext3"):
+                                     or part.fs_type.name == "ext3"
+                                     or part.fs_type.name == "reiserfs"):
                     node = get_partition_name(part)
 		    try:
-			isys.mount(node, '/mnt/sysimage')
+			isys.mount(node, '/mnt/sysimage', part.fs_type.name)
 		    except SystemError, (errno, msg):
 			intf.messageWindow(_("Error"),
                                            _("Error mounting filesystem on "
@@ -861,9 +863,9 @@ class DiskSet:
                         part = disk.next_partition(part)
 			continue
 		    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-			rootparts.append ((node, "ext2"))
+			rootparts.append ((node, part.fs_type.name))
 		    isys.umount('/mnt/sysimage')
-                if part.fs_type and (part.fs_type.name == "DOS"):
+                if part.fs_type and (part.fs_type.name == "FAT"):
                     try:
                         isys.mount(node, '/mnt/sysimage', fstype = "vfat",
                                    readOnly = 1)
