@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-04-03 18:40-0400\n"
-"PO-Revision-Date: 2001-03-20 14:45+0100\n"
+"PO-Revision-Date: 2001-04-05 00:27+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"Ett fel inträffade vid försöket att formatera %s. Detta problem är "
+"allvarligt och installationsprogrammet kan inte fortsätta.\n"
+"\n"
+"Tryck Enter för att för att starta om ditt system."
 
 #: ../fstab.py:796 ../fstab.py:1255
 #, c-format
@@ -1183,11 +1187,11 @@ msgstr "Testar mustyp..."
 
 #: ../xserver.py:189
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
+msgstr "Väntar på att X-servern ska starta... logg finns i /tmp/X.log\n"
 
 #: ../xserver.py:211
 msgid " X server started successfully."
-msgstr ""
+msgstr " X-servern startade utan problem."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -2447,9 +2451,8 @@ msgstr ""
 "fältet vara tomt."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "Hoppa över"
+msgstr "Hoppa över LILO"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2460,6 +2463,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"Du har valt att inte installera LILO. Det rekommenderas varmt att du "
+"installerar LILO om du inte har ett avancerat behov. LILO behövs nästan "
+"alltid för att ditt system ska kunna startas om i Linux direkt från "
+"hårddisken.\n"
+"\n"
+"Är du säker på att du vill hoppa över LILO-installationen?"
 
 #: ../textw/lilo_text.py:108 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -3164,6 +3173,13 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
+"Detta fel har uppstått på grund av att det finns en logisk partition på "
+"enheten med en partitionstyp som är noll (0). En partitionstyp som är noll "
+"betyder att enhetens partitionering inte är helt definierad, och kan ha "
+"orsakats av ett annat operativsystems partitioneringsprogram. Denna "
+"situation stöds inte av installationsprogrammet anaconda. Du kanske kan "
+"ställa in partitionstypen korrekt genom att använda ditt andra "
+"operativsystems partitioneringsprogram."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -5005,9 +5021,8 @@ msgid "New South Wales - most locations"
 msgstr "New South Wales - större delen"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Broken Hill"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5131,7 +5146,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok-stationen, magnetiska Sydpolen"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5252,9 +5267,3 @@ msgstr "Turkiska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
-
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Uppgraderar Red Hat Linux-installationen på partitionen /dev/"
-
-#~ msgid "Transdniestria"
-#~ msgstr "Transdnjestrrepubliken"
