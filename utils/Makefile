@@ -34,9 +34,7 @@ moduledeps.o: $(LOADERDIR)/moduledeps.c
 
 moddeps: moddeps.o moduledeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o moduledeps.o \
-            $(LOADLIBES) -lresolv \
-	    -lmodutils -lmodutilobj -lmodutilutil  \
-	    -lpopt -lbz2
+            $(LOADLIBES) -lresolv -lpopt -lbz2
 
 md5.o: md5.c md5.h
 	gcc -c -O -g md5.c
