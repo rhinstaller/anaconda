@@ -272,8 +272,10 @@ else  # ctc0, iucv0
 		  read GATEWAY
 	 done
 
-	 if [ "$NETTYPE" = "ctc" -a -z "$MTU" ]; then
-		  MTU="1500"
+	 if [ "$NETTYPE" = "ctc" ]; then
+        if [ -z "$MTU" ]; then
+		      MTU="1500"
+        fi
         echo $"Select which protocol should be used for the CTC interface"
         echo $"0 for compatibility with p.e. VM TCP service machine (default)"
         echo $"1 for enhanced package checking for Linux peers"

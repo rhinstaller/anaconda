@@ -1,5 +1,10 @@
 2004-11-02  Karsten Hopp  <karsten@redhat.com>
 
+	* loader2/linuxrc.s390: Ask for CTCPROT even if MTU is already
+	specified (mainframe)
+
+2004-11-02  Karsten Hopp  <karsten@redhat.com>
+
 	* loader2/linuxrc.s390: Try harder to find out the LCS
 	interface name
 	
