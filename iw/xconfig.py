@@ -78,7 +78,7 @@ class XCustomWindow (InstallWindow):
         
         test = GtkAlignment ()
         button = GtkButton (_("Test this configuration"))
-        button.connect ("pressed", self.testPressed)
+        button.connect ("clicked", self.testPressed)
         test.add (button)
         
         box.pack_start (hbox, FALSE)
@@ -194,7 +194,7 @@ class XConfigWindow (InstallWindow):
 
         test = GtkAlignment ()
         button = GtkButton (_("Test this configuration"))
-        button.connect ("pressed", self.testPressed)
+        button.connect ("clicked", self.testPressed)
         test.add (button)
         
         self.custom = GtkCheckButton (_("Customize X Configuration"))
