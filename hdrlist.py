@@ -474,6 +474,8 @@ class Group:
                           continue
                       if dep in pkg[rpm.RPMTAG_PROVIDENAME]:
                           continue
+                      if dep.startsiwth("rpmlib("):
+                          continue
                       p = depMatch(dep, self.grpset.hdrlist)
                       if p in checked:
                           continue
@@ -520,8 +522,6 @@ class Group:
             for pkgnevra in tocheck:
                 pkg = self.grpset.hdrlist[pkgnevra]
 
-                if pkg.depsFound == 0:
-                    log("WARNING: deps not set for package %s being unselected" %(pkg,))
                 deps = pkg.dependencies
                 for dep in deps:
                     # hmm, not in the header list.  we can't do much but
