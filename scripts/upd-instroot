@@ -65,7 +65,11 @@ prunePackageList() {
 		path=$PACKAGEPATH
 		this=$(ls $path/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)
 	    fi
-	    PACKAGEFILES="$PACKAGEFILES $(rpm --nodigest --nosignature -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n"  | egrep "(^$PKG )" | sed 's/.* //')"
+
+	    # libstdc++, enough said
+	    PATTERN=$(echo $PKG | sed 's,[\+\*],\\&,g')
+
+	    PACKAGEFILES="$PACKAGEFILES $(rpm --nodigest --nosignature -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n"  | egrep "(^$PATTERN )" | sed 's/.* //')"
 	done
 
 	ls -1 $PACKAGEFILES |sort -u
