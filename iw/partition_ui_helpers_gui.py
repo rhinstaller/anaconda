@@ -334,6 +334,6 @@ def doUIRAIDLVMChecks(request, diskset):
 	if numdrives > 1 and (request.drive is None or len(request.drive) > 1):
 	    return (_("Partitions of type '%s' must be constrained to "
 		      "a single drive.  This is done by selecting the "
-		      "drive in the 'Allowed Drives' checklist.")) % (fstype.getName(),)
+		      "drive in the 'Allowable Drives' checklist.")) % (fstype.getName(),)
     
     return None
