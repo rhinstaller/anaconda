@@ -44,6 +44,29 @@ class LanguageWindow:
         
         return mainBox
 
+class NetworkConfigWindow:
+    def __init__ (self, ics):
+        self.ics = ics
+        ics.setTitle ("Network Configuration")
+
+    def getScreen (self):
+        devices = ["eth0", "eth1", "eth2" ]
+        vbox = GtkVBox (FALSE, 10)
+        optionmenu = GtkOptionMenu ()
+        menu = GtkMenu ()
+        for i in devices:
+            menuitem = GtkMenuItem (i)
+            menu.append (menuitem)
+
+        optionmenu.set_menu (menu)
+
+        hbox = GtkHBox (FALSE, 10)
+        devLabel = GtkLabel ("Device: ")
+        hbox.pack_start (devLabel, FALSE)
+        hbox.pack_start (optionmenu, TRUE)
+        vbox.pack_start (hbox, FALSE, padding=10)
+        return vbox
+
 class PackageSelectionWindow:
     def __init__ (self, ics):
         self.ics = ics
@@ -80,7 +103,17 @@ class PackageSelectionWindow:
                 box.pack_start (checkButton)
 
         sw.add_with_viewport (box)
-        return sw
+
+        vbox = GtkVBox (FALSE, 5)
+        indivPackages = GtkCheckButton ("Select individual packages")
+        indivPackages.set_active (FALSE)
+        align = GtkAlignment (0.5, 0.5)
+        align.add (indivPackages)
+
+        vbox.pack_start (sw, TRUE)
+        vbox.pack_start (align, FALSE)
+        
+        return vbox
 
 class WelcomeWindow:		
     def __init__ (self, ics):
@@ -218,13 +251,15 @@ class InstallProgressWindow:
         self.window.destroy()
         threads_leave ()
 
-    def __init__(self, total, totalSize):
-        threads_enter ()
-        self.window = GtkWindow()
-        self.window.set_border_width(10)
-        self.window.set_title("Installing Packages")
-        self.window.set_default_size(640, 480)
-        self.window.set_position(WIN_POS_CENTER)
+    def setSizes (self, total, totalSize):
+        self.total = total
+        self.totalSize = totalSize
+
+    def __init__ (self, ics):
+        ics.setTitle ("Installing Packages")
+        ics.setPrevEnabled (0)
+
+    def getScreen (self):
 	table = GtkTable()
 	# x1, x2, y1, y2
 	label = GtkLabel("Package Name:")
@@ -251,9 +286,7 @@ class InstallProgressWindow:
 	self.progress = GtkProgressBar()
 	table.attach(self.progress, 0, 2, 3, 4)
 
-	self.window.add(table)
-	self.window.show_all()
-        threads_leave ()
+	return table
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -284,6 +317,10 @@ class GtkMainThread:
 	threads_leave ()	
     
 class InstallInterface:
+
+    def filledToDo (self):
+        self.mutex.release ()
+        
     def waitWindow (self, title, text):
 	return WaitWindow (title, text)
 
@@ -298,10 +335,14 @@ class InstallInterface:
             ["Partition", PartitionWindow, (todo,)]
         ]
 
-        steps = (WelcomeWindow, LanguageWindow, PackageSelectionWindow)
-
+        steps = [WelcomeWindow, LanguageWindow, PackageSelectionWindow]
+                 
         icw = InstallControlWindow (steps, todo)
-	icw.run ()
+	
+	self.mutex = allocate_lock ()
+	self.mutex.acquire ()
+	start_new_thread (icw.run, ())
+	self.mutex.acquire ()
 
 	todo.liloLocation("hda")
 
@@ -315,24 +356,13 @@ class InstallControlWindow:
         self.setScreen (self.currentScreen + 1)
 
     def setScreen (self, screen):
-        if screen == len (self.stateList)     :
-            self.window.destroy ()
+        if screen == len (self.stateList):
             self.mutex.release ()
             return
-        elif screen == len (self.stateList) - 1 :
-            self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
-            self.buttonBox.pack_start (self.prevButton)
-            self.buttonBox.pack_start (self.finishButton)
-            self.buttonBox.show_all ()
-        elif screen == len (self.stateList) - 2 :
-            self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
-            self.buttonBox.pack_start (self.prevButton)
-            self.buttonBox.pack_start (self.nextButton)
-            self.buttonBox.show_all ()
         
         self.currentScreen = screen
-        self.update (self.stateList[self.currentScreen][1])
         newScreen = self.stateList[self.currentScreen][0].getScreen ()
+        self.update (self.stateList[self.currentScreen][1])
 
         child = self.installFrame.children ()[0]
         self.installFrame.remove (child)
@@ -342,13 +372,33 @@ class InstallControlWindow:
         self.installFrame.show_all ()
 
     def update (self, ics):
-        if (self.buildingWindows):
+        if self.buildingWindows or ics != self.stateList[self.currentScreen][1]:
             return
-        if (ics == self.stateList[self.currentScreen][1]):
-            self.installFrame.set_label (ics.getTitle ())
-            self.nextButton.set_sensitive (ics.getNextEnabled ())
-            self.prevButton.set_sensitive (ics.getPrevEnabled ())
-            self.html.source (ics.getHTML ())
+
+        self.installFrame.set_label (ics.getTitle ())
+
+        buttons = { "prev" : ics.getPrevButton (),
+                    "next" : ics.getNextButton () }
+
+	for (name, button) in buttons.items ():
+            if button["pixmap"] == STOCK_BUTTON_PREV and not button["label"]:
+                buttons[name] = self.prevButtonStock
+            elif button["pixmap"] == STOCK_BUTTON_NEXT and not button["label"]:
+                buttons[name] = self.nextButtonStock
+            else:
+                buttons[name] = GnomePixmapButton (GnomeStock (button["pixmap"], button["label"]))
+                if   name == "prev": buttons[name].connect ("clicked", self.prevClicked)
+                elif name == "next": buttons[name].connect ("clicked", self.nextClicked)
+                buttons[name].show ()
+            buttons[name].set_state (STATE_NORMAL)
+            buttons[name].show ()
+
+        self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
+        self.buttonBox.pack_start (buttons["prev"])
+        self.buttonBox.pack_start (buttons["next"])
+        buttons["prev"].set_sensitive (ics.getPrevEnabled ())
+        buttons["next"].set_sensitive (ics.getNextEnabled ())
+        self.html.source (ics.getHTML ())
 
     def __init__ (self, steps, todo):
         self.steps = steps
@@ -356,24 +406,23 @@ class InstallControlWindow:
         threads_enter ()
         self.window = GtkWindow ()
         self.window.set_border_width (10)
-        self.window.set_title ('Install Control Window')
+        self.window.set_title ("Install Control Window")
         self.window.set_position (WIN_POS_CENTER)
         self.window.set_default_size (640, 480)
         vbox = GtkVBox (FALSE, 10)
 
         self.buttonBox = GtkHButtonBox ()
         self.buttonBox.set_layout (BUTTONBOX_END)
-        self.prevButton = GnomeStockButton (STOCK_BUTTON_PREV)
-        self.nextButton = GnomeStockButton (STOCK_BUTTON_NEXT)
+        self.prevButtonStock = GnomeStockButton (STOCK_BUTTON_PREV)
+        self.nextButtonStock = GnomeStockButton (STOCK_BUTTON_NEXT)
         
         self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY),
                                                "Finish")
-        self.prevButton.connect ("clicked", self.prevClicked)
-        self.nextButton.connect ("clicked", self.nextClicked)
-        self.finishButton.connect ("clicked", self.nextClicked)
+        self.prevButtonStock.connect ("clicked", self.prevClicked)
+        self.nextButtonStock.connect ("clicked", self.nextClicked)
 
-        self.buttonBox.add (self.prevButton)
-        self.buttonBox.add (self.nextButton)
+        self.buttonBox.add (self.prevButtonStock)
+        self.buttonBox.add (self.nextButtonStock)
 
         vbox.pack_end (self.buttonBox, FALSE)
 
@@ -421,6 +470,7 @@ class InstallControlWindow:
         threads_leave ()
 
         self.mutex.acquire ()
+        
 
 class InstallControlState:
 
@@ -432,6 +482,10 @@ class InstallControlState:
         self.nextEnabled = nextEnabled
         self.title = title
         self.html = html
+        self.nextButton = STOCK_BUTTON_NEXT
+        self.prevButton = STOCK_BUTTON_PREV
+        self.nextButtonLabel = None
+        self.prevButtonLabel = None
 
     def getState (self):
         return (self.title, prevEnabled, nextEnabled, prevText, nextTest)
@@ -470,3 +524,19 @@ class InstallControlState:
     
     def getToDo (self):
         return self.todo
+
+    def setNextButton (self, button, label=None):
+        self.nextButton = button
+        self.nextButtonLabel = label
+
+    def getNextButton (self):
+        return { "pixmap" : self.nextButton, "label" : self.nextButtonLabel }
+
+    def setPrevButton (self, button, label=None):
+        self.prevButton = button
+        self.prevButtonLabel = label
+
+    def getPrevButton (self):
+        return { "pixmap" : self.prevButton, "label" : self.prevButtonLabel }
+
+
