@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3.94\n"
 "POT-Creation-Date: 2003-02-05 01:45-0500\n"
-"PO-Revision-Date: 2003-02-11 16:48+0100\n"
+"PO-Revision-Date: 2003-02-12 13:09+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -265,7 +265,6 @@ msgstr ""
 msgid "Warning"
 msgstr "Waarschuwing"
 
-# mount point->aankoppelpunt? of onvertaald
 #: ../autopart.py:1316
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
@@ -275,13 +274,13 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Automatische Partitionering maakt een partitieverdeling, gebaseerd op het "
-"gekozen installatietype.  Nadat de partities zijn aangemaakt kunt u ze "
-"zonodig nog handmatig aanpassen.\n"
+"Bij 'Automatisch partitioneren' wordt een  partitieverdeling gemaakt die "
+"gebaseerd is op het gekozen installatietype.  Nadat de partities zijn "
+"aangemaakt kunt u ze zonodig nog handmatig aanpassen.\n"
 "\n"
-"Het handmatige partitie-programma 'Disk Druid', biedt de mogelijkheid op "
-"interactieve wijze partities aan te maken. U kunt zelf bestandssysteemtypes, "
-"koppelpunten en partitiegroottes instellen."
+"Bij 'Handmatig partitioneren' biedt het programma 'Disk Druid' de "
+"mogelijkheid op interactieve wijze partities aan te maken. U kunt zelf "
+"bestandssysteemtypes, koppelpunten en partitiegroottes instellen."
 
 #: ../autopart.py:1327
 msgid ""
@@ -361,17 +360,16 @@ msgid ""
 "groups on this page."
 msgstr ""
 "Deze groep bevat alle beschikbare pakketten. Bedenk wel dat dit substantieel "
-"meer pakketten zijn dan de pakketten van al de overige pakketgroepen op deze "
-"pagina samen."
+"meer pakketten zijn dan de pakketten van alle overige pakketgroepen op deze "
+"pagina tesamen."
 
 #: ../comps.py:1096
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
-"Kies deze groep om een zo klein mogelijke verzameling pakketten.  Dit is "
-"bijvoorbeeld handig voor het opzetten van een kleine "
-"router/firewall-computer."
+"Kies deze groep voor een zo klein mogelijke verzameling pakketten.  Dat is "
+"bijvoorbeeld handig bij het opzetten van een kleine router/firewall-computer."
 
 #: ../constants.py:65
 msgid ""
@@ -837,7 +835,7 @@ msgstr "_Volgende"
 
 #: ../gui.py:1054
 msgid "_Release Notes"
-msgstr "_Versie-informatie"
+msgstr "Versie-_informatie"
 
 #: ../gui.py:1056
 msgid "Show _Help"
@@ -1437,7 +1435,7 @@ msgstr ""
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
 #: ../iw/partition_gui.py:1344
 msgid "_Delete"
-msgstr "_Verwijderen"
+msgstr "Verwij_deren"
 
 #: ../partIntfHelpers.py:289
 msgid "Notice"
@@ -2171,7 +2169,7 @@ msgstr "Beeldscherm onderzocht met DDC"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Geef het root-wachtwoord"
+msgstr "Root-wachtwoord instellen"
 
 #: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
 msgid "Error with Password"
@@ -2187,7 +2185,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:51
 msgid "Root password accepted."
-msgstr "Root-wachtwoord geaccepteerd"
+msgstr "Het root-wachtwoord is geaccepteerd"
 
 #: ../iw/account_gui.py:56
 msgid "Root password is too short."
@@ -2199,7 +2197,7 @@ msgstr "De root-wachtwoorden komen niet overeen."
 
 #: ../iw/account_gui.py:80
 msgid "Enter the root (administrator) password for the system."
-msgstr "Het (beheerder) root-wachtwoord voor het systeem invoeren."
+msgstr "Voer het root-wachtwoord voor de beheerder van het systeem in."
 
 #: ../iw/account_gui.py:96
 msgid "Root _Password: "
@@ -2323,7 +2321,7 @@ msgstr "Kies de station(s) die u voor deze installatie wilt gebruiken:"
 
 #: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1526
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr "De aangemaakte partities her_zien en zonodig aanpassen"
+msgstr "De aangemaakte partities herzien en zonodig _aanpassen"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2481,7 +2479,7 @@ msgid ""
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
 "Selecteer de bootloader die de computer zal gebruiken.  GRUB is de standaard "
-"bootloader.  Als u echter uw standaard bootloader niet wilt overschrijven, "
+"bootloader.  Als u echter uw huidige bootloader niet wilt overschrijven, "
 "selecteer dan: \"Geen bootloader installeren\"."
 
 #: ../iw/bootloader_main_gui.py:135
@@ -2499,7 +2497,7 @@ msgstr "_Geen bootloader installeren"
 #: ../iw/bootloader_main_gui.py:166
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr "De %s bootloader zal worden geïnstalleerd op /dev/%s."
+msgstr "De bootloader %s zal worden geïnstalleerd op /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:171
 msgid "No boot loader will be installed."
@@ -2507,11 +2505,11 @@ msgstr "Er zal geen bootloader worden geïnstalleerd."
 
 #: ../iw/bootloader_main_gui.py:223
 msgid "_Change boot loader"
-msgstr "Bootloader _veranderen"
+msgstr "Bootloader _aanpassen"
 
 #: ../iw/bootloader_main_gui.py:251
 msgid "Configure advanced boot loader _options"
-msgstr "Geavanceerde bootloader-_opties configureren"
+msgstr "_Geavanceerde bootloader-opties configureren"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2559,7 +2557,7 @@ msgstr "Beginnen met Installatie"
 #: ../iw/confirm_gui.py:60
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Kies 'volgende' om te beginnen met de installatie van %s."
+msgstr "Kies 'Volgende' om te beginnen met de installatie van %s."
 
 #: ../iw/confirm_gui.py:61
 #, python-format
@@ -2583,7 +2581,7 @@ msgstr "Beginnen met Upgrade"
 #: ../iw/confirm_gui.py:73
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Kies 'volgende' om te beginnen met de upgrade van %s."
+msgstr "Kies 'Volgende' om te beginnen met de upgrade van %s."
 
 #: ../iw/confirm_gui.py:74
 #, python-format
@@ -2633,7 +2631,7 @@ msgid ""
 "\n"
 "Click 'Exit' to reboot the system."
 msgstr ""
-"Gefeliciteerd, de installatie is compleet!\n"
+"Gefeliciteerd, de installatie is voltooid!\n"
 "\n"
 "Verwijder de installatie-mediadragers (diskettes of CD-ROMs) die tijdens de "
 "installatie werden gebruikt\n"
@@ -2641,14 +2639,14 @@ msgstr ""
 "%s Voor Errata-informatie (updates en bug fixes), bezoek:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
-"Voor informatie over automatische updates middels Red Hat Network, bezoek:\n"
+"Voor informatie over automatische updates via Red Hat Network, bezoek:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
-"Voor informatie over het gebruik en het configureren van het systeem, "
-"bezoek:\n\thttp://www.redhat.com/docs/\n"
+"Voor informatie over het gebruik en het configureren van uw systeem, bezoek:\n"
+"\thttp://www.redhat.com/docs/\n"
 "\thttp://www.redhat.com/apps/support/\n"
 "\n"
-"Om te registreren voor ondersteuning, bezoek:\n"
+"Om te uw systeem te registreren voor ondersteuning, bezoek:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 "Klik op 'Afsluiten' om het systeem te herstarten."
@@ -2828,8 +2826,8 @@ msgid ""
 "This option will preserve the existing data on your drives."
 msgstr ""
 "Kies voor deze optie als u uw huidige %s Linux systeem een upgrade wilt "
-"geven. Deze optie zal de gegevens die reeds op uw harde schijf staan, "
-"bewaren."
+"geven. Met deze optie zullen de gegevens die nu op uw harde schijf staan, "
+"behouden blijven."
 
 #: ../iw/examine_gui.py:67
 #, python-format
@@ -2842,9 +2840,9 @@ msgid ""
 "choose to partition your system the existing data on your drives may or may "
 "not be preserved."
 msgstr ""
-"Kies deze optie om uw systeem opnieuw te installeren. Afhankelijk van de "
-"manier waarop u kiest om uw systeem te partitioneren zal bestaande data op uw "
-"drives worden bewaard."
+"Kies deze optie om een nieuwe installatie te maken. Afhankelijk van de wijze "
+"waarop u uw systeem partitioneert, zullen de gegevens op uw harde schijf "
+"behouden blijven of niet."
 
 #: ../iw/examine_gui.py:114
 msgid "_Customize packages to be upgraded"
@@ -2852,7 +2850,7 @@ msgstr "De pakketten die worden bijgewerkt _aanpassen."
 
 #: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:194
 msgid "The following Red Hat product will be upgraded:"
-msgstr "Het volgende Red Hat produkt zal worden ge-upgrade."
+msgstr "Het onderstaande produkt van Red Hat zal een upgrade krijgen:"
 
 #: ../iw/examine_gui.py:134
 msgid "Unknown Linux system"
@@ -3308,13 +3306,14 @@ msgstr "Grootte (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1076 ../iw/osbootwidget.py:94
 msgid "_Add"
-msgstr "_Toevoegen"
+msgstr "To_evoegen"
 
+# was eerst Wijzig_en
 #: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
 #: ../iw/partition_gui.py:1343
 msgid "_Edit"
-msgstr "Wijzig_en"
+msgstr "_Aanpassen"
 
 #: ../iw/lvm_dialog_gui.py:1093
 msgid "Logical Volumes"
@@ -3461,10 +3460,11 @@ msgstr ""
 "inactief laten. Wanneer u uw systeem herstart zal de adapter automatisch "
 "worden geactiveerd."
 
+# instellen hier beter dan bewerken of aanpassen
 #: ../iw/network_gui.py:200
 #, python-format
 msgid "Edit Interface %s"
-msgstr "Interface %s bewerken"
+msgstr "Interface %s instellen"
 
 #: ../iw/network_gui.py:210
 msgid "Configure using _DHCP"
@@ -3639,11 +3639,11 @@ msgstr ""
 
 #: ../iw/package_gui.py:367
 msgid "_Tree View"
-msgstr "_Hiërarchisch weergeven"
+msgstr "Hiër_archisch weergeven"
 
 #: ../iw/package_gui.py:369
 msgid "_Flat View"
-msgstr "_Vlak weergeven"
+msgstr "_Plat weergeven"
 
 #: ../iw/package_gui.py:384
 msgid "_Package"
@@ -3659,15 +3659,15 @@ msgstr "Totale grootte:"
 
 #: ../iw/package_gui.py:440
 msgid "Select _all in group"
-msgstr "_Alles in de groep selecteren"
+msgstr "_Gehele groep selecteren"
 
 #: ../iw/package_gui.py:444
 msgid "_Unselect all in group"
-msgstr "Alles in de groep _deselecteren"
+msgstr "Gehele groep _deselecteren"
 
 #: ../iw/package_gui.py:481 ../textw/packages_text.py:57
 msgid "Package Group Selection"
-msgstr "Pakketgroep Selectie"
+msgstr "Pakketgroepen selecteren"
 
 #: ../iw/package_gui.py:701
 msgid "Minimal"
@@ -3686,10 +3686,10 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 "Een pakketgroep kan zowel basispakketten als facultatieve pakketten bevatten. "
-" Basispakketten worden vanzelf geselecteerd als de pakketgroep is "
+" Basispakketten worden automatisch geselecteerd als de pakketgroep is "
 "geselecteerd.\n"
 "\n"
-"Selecteer de facultatieve pakketten die u wilt installeren:"
+"Kies de facultatieve pakketten die u wilt installeren:"
 
 #: ../iw/package_gui.py:822
 msgid "Base Packages"
@@ -3991,7 +3991,7 @@ msgstr "_RAID maken"
 
 #: ../iw/partition_gui.py:1342
 msgid "Ne_w"
-msgstr "Nieu_w"
+msgstr "_Nieuw"
 
 #: ../iw/partition_gui.py:1345
 msgid "Re_set"
@@ -3999,7 +3999,7 @@ msgstr "Re_setten"
 
 #: ../iw/partition_gui.py:1346
 msgid "R_AID"
-msgstr "R_AID"
+msgstr "_RAID"
 
 #: ../iw/partition_gui.py:1347
 msgid "_LVM"
@@ -4364,7 +4364,7 @@ msgstr "Standaard boot-image"
 
 #: ../iw/timezone_gui.py:26 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
-msgstr "Tijdzone Keuze"
+msgstr "Tijdzone Kiezen"
 
 #: ../iw/timezone_gui.py:146 ../iw/timezone_gui.py:147
 msgid "System clock uses _UTC"
@@ -4376,11 +4376,11 @@ msgstr "Lokatie"
 
 #: ../iw/timezone_gui.py:219
 msgid "Use _daylight saving time (US only)"
-msgstr "_Zomertijd gebruiken (alleen in de VS)"
+msgstr "_Zomertijd gebruiken (alleen voor de VS)"
 
 #: ../iw/timezone_gui.py:232
 msgid "UTC Offset"
-msgstr "UTC Verschil"
+msgstr "Verschil met UTC"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -4602,7 +4602,7 @@ msgstr "Kies uw login-type:"
 
 #: ../iw/xconfig_gui.py:393
 msgid "_Text"
-msgstr "_Tekst"
+msgstr "T_ekst"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4938,7 +4938,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at "
 "http://www.redhat.com/docs."
 msgstr ""
-"Gefeliciteerd! uw %s installatie is compleet.\n"
+"Gefeliciteerd! uw %s installatie is voltooid.\n"
 "\n"
 "%s%sVoor informatie over errata (updates en bug fixes), bezoek "
 "http://www.redhat.com/errata.\n"
@@ -5104,7 +5104,7 @@ msgstr "Geen firewall"
 
 #: ../textw/firewall_text.py:73
 msgid "Trusted Devices:"
-msgstr "Betrouwbare interfaces:"
+msgstr "Betrouwbare verbindingen:"
 
 #: ../textw/firewall_text.py:85
 msgid "Allow incoming:"
@@ -6191,14 +6191,14 @@ msgstr "Chandev-lijn"
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
-msgstr "Aangepast"
+msgstr "Aangepast aan uw wensen"
 
 #: ../installclasses/custom.py:14
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
 msgstr ""
-"Selecteer dit installatietype om volledige controle te hebben tijdens het "
+"Selecteer deze optie om volledige controle te verkrijgen over het "
 "installatieproces, inclusief de selectie van softwarepakketten en "
 "authenticatie-voorkeuren."
 
@@ -6208,9 +6208,8 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home or "
 "desktop use."
 msgstr ""
-"Perfect voor PCs of laptops. Selecteer dit type om een grafische "
-"desktopomgeving te installeren. Een desktopsysteem dat ideaal is voor gebruik "
-"thuis, of op het werk."
+"Ideaal voor PC's en laptops. Met deze optie installeert u een grafische "
+"desktop die uitermate geschikt is voor thuisgebruik, of voor op het werk."
 
 #: ../installclasses/server.py:11
 msgid "Server"
@@ -6222,18 +6221,17 @@ msgid ""
 "sharing, and Web services. Additional services can also be enabled, and you "
 "can choose whether or not to install a graphical environment."
 msgstr ""
-"Selecteer dit installatietype als u bestand-delen (file-sharing), "
-"printer-delen, of Webservices wilt instellen. Ook kunnen extra services "
-"worden aangezet en kunt u kiezen of u een grafische omgeving wilt "
-"installeren."
+"Kies voor dit installatietype als u bestand-delen (file-sharing), "
+"printer-delen, of webservices wilt instellen. Tevens kunnen extra diensten "
+"worden aangezet en kunt u kiezen of u een grafische desktop wilt installeren."
 
 #: ../installclasses/workstation.py:9
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
-"Deze optie installeert een grafische desktopomgeving met gereedschap voor "
-"software-ontwikkeling en systeembeheer."
+"Met deze optie wordt er een grafische desktop geïnstalleerd met gereedschap "
+"voor software-ontwikkeling en systeembeheer."
 
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:116
 #: ../loader2/mediacheck.c:272

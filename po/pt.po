@@ -36,7 +36,7 @@ msgstr ""
 "X-Spell-Extra: Catamarca Cazaquistão Celebes Chatham Chihuahua Chuuk\n"
 "X-Spell-Extra: Coahuila Columbia County Crawford Dawson Creek Crimea\n"
 "X-Spell-Extra: Dakota Dornod Durango Frances Galápagos Gambier Gansu Govi\n"
-"X-Spell-Extra: Gilbert Guangdong Guizhou Gur Hawai Heilongjiang Hills\n"
+"X-Spell-Extra: Gilbert Guangdong Guizhou Gur Havai Heilongjiang Hills\n"
 "X-Spell-Extra: Holiday Holme Hovd Howe Idaho Ittoqqortoormiit Irian Jan\n"
 "X-Spell-Extra: Jaya Johnston Jujuy Kaliningrad Kamchatka \n"
 "X-Spell-Extra: Kosrae Kwajalein Kyzylorda Kzyl Line Manchuria\n"
@@ -1395,7 +1395,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
-msgstr "Por favor especifique onde montar esta partição."
+msgstr "Por favor indique onde deve ser montada esta partição."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
@@ -1732,19 +1732,14 @@ msgstr "Partições de arranque não são permitidas em volumes lógicos."
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
-"Não especificou um partição de paginação ('swap'). Embora não seja "
-"necessária em todos os casos, a sua utilização aumenta significativamente a "
-"performance na maior parte das instalações. "
+msgstr "Não indicou um partição de paginação ('swap'). Embora não seja necessária em todos os casos, a sua utilização aumenta significativamente a performance na maior parte das instalações. "
 
 #: ../partitions.py:813
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
-"Especificou mais do que 32 dispositivos de paginação ('swap'). O kernel do %"
-"s suporta no máximo 32 dispositivos deste tipo."
+msgstr "Indicou mais do que 32 dispositivos de paginação ('swap'). O kernel do %s suporta no máximo 32 dispositivos deste tipo."
 
 #: ../partitions.py:824
 #, python-format
@@ -1831,7 +1826,7 @@ msgstr "As partições não podem terminar num cilindro negativo."
 
 #: ../partRequests.py:627
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "Nenhum membro num pedido RAID, ou nível RAID não especificado."
+msgstr "Nenhum membro num pedido RAID, ou nível RAID não indicado."
 
 #: ../partRequests.py:639
 #, python-format
@@ -2030,7 +2025,7 @@ msgstr ""
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
-msgstr "Actualizar sistema existente"
+msgstr "Actualizar Sistema Existente"
 
 #: ../upgradeclass.py:12
 msgid "Upgrade"
@@ -2859,14 +2854,11 @@ msgid ""
 "Choose this option to install your system from scratch.  Depending on how "
 "you choose to partition your system the existing data on your drives may or "
 "may not be preserved."
-msgstr ""
-"Escolha esta opção apra instalar o seu sistema de raíz.  Dependendo da forma "
-"como escolhe particionar o seu sistema os dados actuais nas suas unidades de "
-"armazenamento podem ou não ser preservados."
+msgstr "Escolha esta opção para instalar o seu sistema de raíz.  Dependendo da forma como escolhe particionar o seu sistema os dados actuais nas suas unidades de armazenamento podem ou não ser preservados."
 
 #: ../iw/examine_gui.py:114
 msgid "_Customize packages to be upgraded"
-msgstr "Personalizar pa_cotes a actualizar"
+msgstr "Es_colher os pacotes a actualizar"
 
 #: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:195
 msgid "The following Red Hat product will be upgraded:"
@@ -3419,18 +3411,14 @@ msgstr "Erro nos Dados"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"Não especificou o nome da máquina. Dependendo do seu ambiente na rede, isto "
-"poderá causar problemas posteriormente."
+msgstr "Não indicou o nome da máquina. Dependendo do seu ambiente na rede, isto poderá causar problemas posteriormente."
 
 #: ../iw/network_gui.py:158
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"Não especificou o campo \"%s\". Dependendo da sua configuração de rede, isto "
-"poderá trazer problemas posteriormente."
+msgstr "Não indicou o campo \"%s\". Dependendo da sua configuração de rede, isto poderá trazer problemas posteriormente."
 
 #: ../iw/network_gui.py:162
 #, python-format
@@ -4677,7 +4665,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:809 ../textw/xconfig_text.py:637
 msgid "Unspecified video card"
-msgstr "Placa gráfica não especificada"
+msgstr "Placa gráfica não indicada"
 
 #: ../iw/xconfig_gui.py:810 ../textw/xconfig_text.py:638
 msgid ""
@@ -5164,11 +5152,7 @@ msgid ""
 "all traffic from certain network interfaces. Second, you can allow certain "
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
-msgstr ""
-"Pode personalizar a sua 'firewall' de duas maneira. Primeiro, pode permitir "
-"todo o tráfego de algumas das interfaces de rede. Em segundo lugar, pode "
-"permitir a passagem de alguns protocolos pela 'firewall'. Especifique portos "
-"adicionais no formato 'serviço:protocolo'; por exemplo 'imap:tcp'. "
+msgstr "Pode personalizar a sua 'firewall' de duas maneira. Primeiro, pode permitir todo o tráfego de algumas das interfaces de rede. Em segundo lugar, pode permitir a passagem de alguns protocolos pela 'firewall'. Indique portos adicionais no formato 'serviço:protocolo'; por exemplo 'imap:tcp'. "
 
 #: ../textw/firewall_text.py:194
 #, python-format
@@ -5353,7 +5337,7 @@ msgstr "Ignorar dependências dos pacotes"
 
 #: ../textw/partition_text.py:39
 msgid "Must specify a value"
-msgstr "Tem que especificar um valor"
+msgstr "Tem que indicar um valor"
 
 #: ../textw/partition_text.py:42
 msgid "Requested value is not an integer"
@@ -6856,7 +6840,7 @@ msgstr "Argumento inválido para o comando network do kickstart %s: %s"
 #: ../loader2/net.c:682
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "bootproto %s inválido especificado no comando network"
+msgstr "bootproto %s inválido indicado no comando network"
 
 #: ../loader2/net.c:740
 msgid "Networking Device"
@@ -7277,7 +7261,7 @@ msgstr "Grã-Bretanha"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr "Hawai"
+msgstr "Havai"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
@@ -7773,9 +7757,6 @@ msgstr "Ucraniano"
 #~ "Que controlador devo tentar utilizar? Se o controlador que precisa não "
 #~ "aparecer nesta lista, e tiver uma disquete de controladores adicional, "
 #~ "carregue em F2."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "Especifique parâmetros do módulo"
 
 #~ msgid "Failed to insert %s module."
 #~ msgstr "Não foi possível inserir o módulo %s"
