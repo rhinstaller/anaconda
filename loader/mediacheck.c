@@ -310,12 +310,16 @@ int mediaCheckFile(char *file, char *descr) {
     /*    printf("isosize = %lld\n", isosize); 
 	  printf("%s\n%s\n", mediasum, computedsum);*/
 
-    if (rc == 0)
+    if (rc == 0) {
 	result = _("FAIL.\n\nIt is not recommended to use this media.");
-    else if (rc > 0)
+	logMessage("mediacheck: %s (%s) FAILED", file, descr);
+    } else if (rc > 0) {
 	result = _("PASS.\n\nIt is OK to install from this media.");
-    else
+	logMessage("mediacheck: %s (%s) PASSED", file, descr);
+    } else {
 	result = _("NA.\n\nNo checksum information available, unable to verify media.");
+	logMessage("mediacheck: %s (%s) has no checksum info", file, descr);
+    }
 
     newtCenteredWindow(60, 13, _("Media Check Result"));
     t = newtTextbox(4, 1, 52, 8, NEWT_TEXTBOX_WRAP);

@@ -945,6 +945,7 @@ static char * mediaCheckISODir(char *path) {
 			   tmpmessage);
 
 	if (rc == 2) {
+	    logMessage("mediacheck: skipped checking of %s", isoImage);
 	    continue;
 	    /*
 	    closedir(dir);
