@@ -1,5 +1,6 @@
 #define LOADER_OK 0
 #define LOADER_BACK 1
+#define LOADER_NOOP 2
 #define LOADER_ERROR -1
 
 #define LOADER_FLAGS_TESTING		(1 << 0)

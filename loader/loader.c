@@ -1029,7 +1029,7 @@ static char * doMountImage(char * location,
 			   char ** kbdtype,
 			   int flags) {
     static int defaultMethod = 0;
-    int i, rc;
+    int i, rc, dir = 1;
     int validMethods[10];
     int numValidMethods = 0;
     char * installNames[10];
@@ -1116,15 +1116,27 @@ static char * doMountImage(char * location,
 	case STEP_LANG:
 	    chooseLanguage(lang, flags);
 	    step = STEP_KBD;
+            dir = 1;
 	    break;
 	    
 	case STEP_KBD:
 	    rc = chooseKeyboard (keymap, kbdtype, flags);
 
-	    if (rc == LOADER_BACK)
+            if (rc == LOADER_NOOP) {
+                if (dir == -1)
+                    step = STEP_LANG;
+                else
+                    step = STEP_METHOD;
+                break;
+            }
+            
+	    if (rc == LOADER_BACK) {
 		step = STEP_LANG;
-	    else
+                dir = -1;
+            } else {
 		step = STEP_METHOD;
+                dir = 1;
+            }
 	    break;
 	    
 	case STEP_METHOD:
@@ -1137,19 +1149,25 @@ static char * doMountImage(char * location,
 			       "installed?"), 
 			     30, 10, 20, 6, installNames, 
 			     &methodNum, _("OK"), _("Back"), NULL);
-	    if (rc && rc != 1)
+	    if (rc && rc != 1) {
 		step = STEP_KBD;
-	    else
+                dir = -1;
+            } else {
 		step = STEP_URL;
+                dir = 1;
+            }
 	    break;
 	case STEP_URL:
 	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDeps, flags);
-	    if (!url)
+	    if (!url) {
 		step = STEP_METHOD;
-	    else
+                dir = -1;
+	    } else {
 		step = STEP_DONE;
+                dir = 1;
+            }
 	    break;
 	default:
 	    break;
