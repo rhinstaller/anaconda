@@ -306,8 +306,9 @@ static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args) {
     }
 
     list = PyList_New(0);
-
+    Py_BEGIN_ALLOW_THREADS
     header = headerRead(fd, HEADER_MAGIC_YES);
+    Py_END_ALLOW_THREADS
     while (header) {
 	h = (hdrObject *) PyObject_NEW(PyObject, &hdrType);
 	h->h = header;
@@ -322,7 +323,9 @@ static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args) {
 
 	Py_DECREF(h);
 
+	Py_BEGIN_ALLOW_THREADS
 	header = headerRead(fd, HEADER_MAGIC_YES);
+	Py_END_ALLOW_THREADS
     }
 
     fdClose(fd);
