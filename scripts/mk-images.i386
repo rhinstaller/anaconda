@@ -76,7 +76,8 @@ EOF
 
 # LATEUSBMODS go in the second stage
 USBMODS="usb-ohci usb-uhci hid keybdev usb-storage"
-LATEUSBMODS="mousedev"
+# usb-storge in both so we can reload it
+LATEUSBMODS="mousedev usb-storage"
 IDEMODS=""
 SCSIMODS="sd_mod sr_mod"
 
