@@ -453,6 +453,7 @@ class PartitionWindow(InstallWindow):
 	InstallWindow.__init__(self, ics)
         ics.setTitle (_("Disk Setup"))
         ics.setNextEnabled (FALSE)
+        ics.readHTML("partition")
         self.parent = ics.getICW().window
         
     def getNext(self):
@@ -814,8 +815,11 @@ class PartitionWindow(InstallWindow):
                 formatrb = GtkRadioButton (label=_("Format partition as:"),
                                            group = noformatrb)
                 formatrb.set_active(0)
+                print isFormatOnByDefault(origrequest)
                 if origrequest.format:
                     formatrb.set_active(1)
+                elif origrequest.format == None and not origrequest.migrate:
+                    formatrb.set_active(isFormatOnByDefault(origrequest))
                     
                 maintable.attach(formatrb, 0, 1, row, row + 1)
                 (fstype, fstypeMenu) = createFSTypeMenu(ofstype,fstypechangeCB,
@@ -1313,6 +1317,7 @@ class AutoPartitionWindow(InstallWindow):
     	InstallWindow.__init__(self, ics)
         ics.setTitle (_("Automatic Partitioning"))
         ics.setNextEnabled (TRUE)
+        ics.readHTML("autopart")
         self.parent = ics.getICW().window
 
     def getNext(self):

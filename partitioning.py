@@ -334,6 +334,29 @@ def isMountPointInUse(reqpartitions, newrequest):
                              "choose a different mount point." %(mntpt))
     return None
 
+# figure out whether we should format by default
+def isFormatOnByDefault(request):
+    deflist = ['/home', '/usr/local/', '/opt', '/var/www']
+
+    # check first to see if its a Linux filesystem or not
+    if not request.fstype:
+        return 0
+
+    if not request.fstype.isLinuxNativeFS():
+        return 0
+
+    if request.fstype.isMountable():
+        if request.mountpoint and request.mountpoint in deflist:
+            return 0
+        else:
+            return 1
+    else:
+        if request.fstype.getName() == "swap":
+            return 1
+
+    # be safe for anything else and default to off
+    return 0
+
 def doMountPointLinuxFSChecks(newrequest):
     mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root','/mnt']
     mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']

@@ -37,9 +37,22 @@ class PartitionMethodWindow(InstallWindow):
             
 	return None
 
-    def getScreen (self, partitions):
+    def getScreen (self, partitions, instclass):
 
-        # XXX Change to not use id in (use more specific components of id)
+        # XXX messy - set help based on installclass
+        helpfile = None
+        if instclass.name == _("Workstation"):
+            helpfile = "wkst"
+        elif instclass.name == _("Server"):
+            helpfile = "svr"
+        elif instclass.name == _("Custom"):
+            helpfile = "cust"
+        elif instclass.name == _("Laptop"):
+            helpfile = "laptop"
+
+        if helpfile:
+            self.ics.readHTML(helpfile)
+
         self.partitions = partitions
         
         box = GtkVBox (FALSE)

@@ -50,7 +50,7 @@ installSteps = [
     ( "reconfigkeyboard", ("id.instLanguage", "id.keyboard" ) ),
     ( "installtype", ("dispatch", "id", "method", "intf") ),
     ( "findinstall", ("dispatch", "intf", "id", "instPath") ),
-    ( "partitionmethod", ("id.partitions",) ),
+    ( "partitionmethod", ("id.partitions", "id.instClass") ),
     ( "partitionobjinit", partitionObjectsInitialize, ("id.diskset", "id.partitions", "dir") ),
     ( "partitionmethodsetup", partitionMethodSetup, ("id.partitions", "dispatch") ),
     ( "autopartition", ("id.diskset", "id.partitions", "intf") ),
