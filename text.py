@@ -931,7 +931,7 @@ class InstallInterface:
                  (self.screen, todo), "keyboard" ],
                 [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
                 [N_("Installation Type"), InstallPathWindow, 
-                 (self.screen, todo, self) ],
+                 (self.screen, todo, self), "installtype" ],
                 ]
 
 	if iutil.getArch() == 'sparc':
