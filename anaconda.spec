@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.40
+Version: 10.2.0.41
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 05 2005 Chris Lumens <clumens@redhat.com> 10.2.0.41-1
+- Make sure $LANG is set right for the second stage.
+- Fix kickstart traceback trying to skip a nonexistant step.
+- Import encodings.idna (sopwith, #153754).
+- Fix image building problems.
+- Fix kickstart traceback when using shortened forms of language names
+  (#153656).
+
 * Mon Apr 04 2005 Chris Lumens <clumens@redhat.com> 10.2.0.40-1
 - Add locale information for 'C' to fix RPM building.
 

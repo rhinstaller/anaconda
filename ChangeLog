@@ -1,3 +1,13 @@
+2005-04-05  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* language.py (Language.setDefault):  Use canonicalized nick
+	(#153656).
+	* scripts/mk-images:  Don't delete anaconda-runtime before it's
+	needed.
+	* scripts/upd-instroot:  Fix path to chroot.
+
 2005-04-05  Elliot Lee  <sopwith@redhat.com>
 
 	* anaconda: import encodings.idna to fix #153754
