@@ -24,7 +24,7 @@ class CheckList (gtk.TreeView):
 
     # XXX need to handle the multicolumn case better still....
     def __init__ (self, columns = 1):
-        self.store = gtk.ListStore(gobject.TYPE_BOOLEAN,
+        self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING)
         gtk.TreeView.__init__ (self, self.store)
         
@@ -63,7 +63,7 @@ class CheckList (gtk.TreeView):
         init_value: initial state of the indicator"""
 
         textList = ("",) + textList        
-        iter = self.store.append()
+        iter = self.store.append(None)
         self.store.set_value(iter, 0, init_value)
 
         # add the text for the number of columns we have

@@ -248,6 +248,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             packages = []
 
             self.packageTreeView.set_model(self.packageGroupStore)
+            self.packageTreeView.expand_all()            
         else:
             # cache the full package list
             if not self.allPkgs:
@@ -501,7 +502,7 @@ class PackageSelectionWindow (InstallWindow):
 
 class PackageCheckList(checklist.CheckList):
     def __init__(self, columns = 2):
-        self.store = gtk.ListStore(gobject.TYPE_BOOLEAN,
+        self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_STRING, gobject.TYPE_INT)
         gtk.TreeView.__init__ (self, self.store)
         
