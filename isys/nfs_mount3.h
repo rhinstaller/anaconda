@@ -11,10 +11,13 @@
 #define _LINUX_IN_H 1
 
 #define NFS_MAXFHSIZE		64
+
+#ifndef __ia64__
 struct nfs_fh {
 	unsigned short		size;
 	unsigned char		data[NFS_MAXFHSIZE];
 };
+#endif
 
 #include <linux/nfs2.h>
 #include <linux/nfs_mount.h>
