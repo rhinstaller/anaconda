@@ -867,6 +867,10 @@ class ToDo:
         if todo.instClass.desktop:
             todo.desktop.set (todo.instClass.desktop)
 
+        # this is messy, needed for upgradeonly install class
+        if todo.instClass.installType == "upgrade":
+            todo.upgrade = 1
+
     def getPartitionWarningText(self):
 	return self.instClass.clearPartText
 

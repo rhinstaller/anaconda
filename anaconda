@@ -48,7 +48,7 @@ _ = gettext_rh.gettext
           [ 'gui', 'text', 'reconfig', 'test', 'debug',
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
-            'lang=', 'keymap=', 'kbdtype=', 'module=',
+            'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial' ])
 
 # save because we're about to munge argv
@@ -106,6 +106,7 @@ kbdtpye = None
 kickstart = None
 mouseInfo = None
 progmode = None
+customClass = None
 
 #
 # parse off command line arguments
@@ -158,6 +159,8 @@ for n in args:
         keymap = arg
     elif (str == '--kbdtype'):
         kbdtype = arg
+    elif (str == '--class'):
+        customClass = arg
 
 #
 # must specify install or reconfig mode
@@ -275,7 +278,22 @@ if traceOnly:
         
     sys.exit(0)
 
-if kickstart:
+#
+# handle class passed from loader
+#
+if customClass:
+    import installclass
+
+    instClass = None
+    classes = installclass.availableClasses(1)
+    for (className, objectClass, logo) in classes:
+	if className == customClass:
+		instClass = objectClass(expert)
+
+    if not instClass:
+	raise TypeError, "installation class "+customClass+" not available"
+	sys.exit(0)
+elif kickstart:
     instClass = Kickstart(kickstart, serial)
 elif reconfigOnly:
     instClass = ReconfigStation(expert)

@@ -16,6 +16,8 @@ from xf86config import XF86Config
 from translate import _
 
 class BaseInstallClass:
+    # default to not being hidden
+    hidden = 0
 
     # look in mouse.py for a list of valid mouse names -- use the LONG names
     def setMouseType(self, name, device = None, emulateThreeButtons = 0):
@@ -256,7 +258,7 @@ class ReconfigStation(BaseInstallClass):
 allClasses = []
 
 # returns ( className, classObject, classLogo ) tuples
-def availableClasses():
+def availableClasses(showhidden=0):
     global allClasses
 
     if allClasses: return allClasses
@@ -288,7 +290,9 @@ def availableClasses():
 		sortOrder = obj.sortPriority
 	    else:
 		sortOrder = 0
-	    list.append(((obj.name, obj, obj.pixmap), sortOrder))
+                
+            if obj.hidden == 0 or showhidden == 1:
+                list.append(((obj.name, obj, obj.pixmap), sortOrder))
 
     list.sort(ordering)
     for (item, priority) in list:
