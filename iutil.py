@@ -188,15 +188,24 @@ def copyFile(source, to, pw = None):
 def memInstalled(corrected = 1):
     global memoryOverhead
 
-    f = open("/proc/meminfo", "r")
-    mem = f.readlines()[1]
-    del f
+    if not os.access('/proc/e820info', os.R_OK):
+        f = open("/proc/meminfo", "r")
+        mem = f.readlines()[1]
+        del f
 
-    fields = string.split(mem)
-    mem = int(long(fields[1]) / 1024)
-
+        fields = string.split(mem)
+        mem = int(long(fields[1]) / 1024)
+    else:
+        f = open("/proc/e820info", "r")
+        lines = f.readlines()
+        mem = 0
+        for line in lines:
+            fields = string.split(line)
+            if fields[3] == "(usable)":
+                mem = mem + string.atoi(fields[0], 16)
+                
     if corrected:
-	mem = mem - memoryOverhead
+        mem = mem - memoryOverhead
 
     return mem
 
