@@ -3010,7 +3010,10 @@ int main(int argc, char ** argv) {
 	    writeNetInfo("/tmp/netinfo", &netDev, &kd);
 	}
 
-	if (!beTelnet(flags)) flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
+	if (!beTelnet(flags)) {
+	    flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
+	    haveKon = 0;
+	}
     }
 #endif
 
