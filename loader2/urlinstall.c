@@ -55,8 +55,10 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         if (fd < 0) {
             if (!silentErrors) 
                 newtWinMessage(_("Error"), _("OK"),
-                               _("File %s/%s not found on server."), 
-                               ui->prefix, file);
+                               _("Unable to retrieve %s://%s/%s/%s."),
+                               (ui->protocol == URL_METHOD_FTP ? "ftp" : 
+                                "http"),
+                               ui->address, ui->prefix, file);
             return 1;
         }
     }
