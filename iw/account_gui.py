@@ -350,8 +350,8 @@ class AccountWindow (InstallWindow):
         hbox.pack_start(a, gtk.FALSE, 20)
         box.pack_start(hbox, gtk.FALSE)
        
-        self.forward = lambda widget, box=box: box.focus (gtk.DIR_TAB_FORWARD)
-
+        self.forward = lambda widget, box=box: box.emit('focus', gtk.DIR_TAB_FORWARD)
+        
         table = gtk.Table (2, 2)
         table.set_row_spacings (5)
 	table.set_col_spacings (5)
