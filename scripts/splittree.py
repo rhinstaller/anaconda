@@ -238,7 +238,7 @@ and RPMs. Set to 1 to turn on."""
 
                 
         
-    def splitRPMS(self):
+    def splitRPMS(self, reportSize = 1):
         """Creates links in the split dirs for the RPMs"""
         
         packages = {}
@@ -280,6 +280,8 @@ and RPMs. Set to 1 to turn on."""
         disc = self.bin_list[0]
 
         for rpm_nvr in orderedlist:
+            if not packages.has_key(rpm_nvr):
+                continue
             for file_name in packages[rpm_nvr]:
                 curused = self.getSize("%s-disc%s" % (self.dist_dir, disc), blocksize=1)
                 filesize = self.getSize("%s/RedHat/RPMS/%s" % (self.dist_dir, file_name), blocksize=1)
@@ -318,8 +320,9 @@ and RPMs. Set to 1 to turn on."""
                     os.link("%s/RedHat/RPMS/%s" % (self.dist_dir, file_name),
                             "%s-disc%d/RedHat/RPMS/%s" % (self.dist_dir, disc, file_name))
                     lastpackage = file_name
-        
-        self.reportSizes(disc, firstpkg=firstpackage, lastpkg=lastpackage)
+
+        if reportSize == 1:
+            self.reportSizes(disc, firstpkg=firstpackage, lastpkg=lastpackage)
 
         
 
