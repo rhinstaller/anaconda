@@ -1008,8 +1008,6 @@ Section "Device"
 
             if self.monSect:
                 monitor = "Probed Monitor"
-            elif self.monID == "Unprobed Monitor":
-                monitor = "Generic Monitor"
             else:
                 monitor = self.monID
 
@@ -1086,7 +1084,10 @@ Section "Screen"
 	Subsection "Display"
         	Depth       %s
                 Modes       """ % depth
-            for res in self.modes[depth]:
+            
+            modes = self.modes[depth]
+            modes.sort (self.areaCompare)
+            for res in modes:
                 screens = screens + '"' + res + '" '
             screens = screens + """
 	EndSubsection
