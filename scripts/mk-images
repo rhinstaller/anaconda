@@ -9,6 +9,8 @@ usage () {
 
 if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then usage; fi
 
+VERSION=$5
+
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
     $TOPDIR="."
