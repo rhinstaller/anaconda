@@ -12,9 +12,10 @@ class CongratulationWindow (InstallWindow):
         ics.setPrevEnabled (0)
         ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
         ics.setNextEnabled (1)
-        ics.setHelpEnabled (FALSE)
 
     def getScreen (self):
+        self.ics.setHelpEnabled (0)
+
         hbox = GtkHBox (TRUE, 5)
         
         im = self.ics.readPixmap ("done.png")
@@ -42,3 +43,4 @@ class CongratulationWindow (InstallWindow):
         hbox.pack_start (box)
 
         return hbox
+
