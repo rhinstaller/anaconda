@@ -36,6 +36,15 @@ class BootdiskWindow (InstallWindow):
         if not self.todo.bootdisk: return None
 
         box = GtkVBox (FALSE, 5)
+        im = self.ics.readPixmap ("gnome-floppy.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.0, 0.0, 0.0, 0.0)
+            box.pack_start (a, FALSE)
+        
         label = None
         if BootdiskWindow.initial:
             label = GtkLabel (_("Insert a blank floppy in the first floppy drive. "
