@@ -233,6 +233,8 @@ class SiloInstall:
 	return self.getMbrDevices(fstab)[0]
 
     def install(self, fstab, instRoot, hdList, upgrade):
+	if not self.siloDevice: return
+
 	silo = LiloConfigFile ()
 
 	if not self.siloImages:
