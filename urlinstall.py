@@ -199,8 +199,8 @@ class UrlInstallMethod(InstallMethod):
 	hl = []
 	while (raw and len(raw)>0):
 	    info = struct.unpack("iiii", raw)
-	    magic1 = socket.ntohl(info[0]) & 0xffffffff
-	    if (magic1 != 0x8eade801 or info[1]):
+	    magic1 = socket.ntohl(info[0]) & 0xffffffffL
+	    if (magic1 != 0x8eade801L or info[1]):
 		raise TypeError, "bad magic in header"
 
 	    il = socket.ntohl(info[2])
