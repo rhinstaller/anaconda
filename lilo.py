@@ -1,5 +1,62 @@
+#
+# lilo.py: LILO config file class
+#
+# Erik Troan <ewt@redhat.com>
+# Matt Wilson <msw@redhat.com>
+# Adrian Likins <alikins@redhat.com>
+#
+# Copyright 1999-2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
 import string
 import os
+
+from UserDict import UserDict
+
+
+class UserDictCase(UserDict):
+    """A dictionary with case insensitive keys"""
+    def __init__(self, data = {}):
+        UserDict.__init__(self)
+        # if we are passed a dictionary transfer it over...
+        for k in data.keys():
+            kl = string.lower(k)
+            self.data[kl] = data[k]
+    # some methods used to make the class work as a dictionary
+    def __setitem__(self, key, value):
+        key = string.lower(key)
+        self.data[key] = value
+    def __getitem__(self, key):
+        key = string.lower(key)
+        if not self.data.has_key(key):
+            return None
+        return self.data[key]
+    get = __getitem__
+    def __delitem__(self, key):
+        key = string.lower(key)
+        del self.data[key]
+    def has_key(self, key):
+        key = string.lower(key)
+        return self.data.has_key(key)
+    # return this data as a real hash
+    def get_hash(self):
+        return self.data
+    # return the data for marshalling
+    def __getstate__(self):
+        return self.data
+    # we need a setstate because of the __getstate__ presence screws up deepcopy
+    def __setstate__(self, state):
+        self.__init__(state)
+    # get a dictionary out of this instance ({}.update doesn't get instances)
+    def dict(self):
+        return self.data
+
 
 def needsEnterpriseKernel():
     rc = 0
@@ -48,7 +105,10 @@ class LiloConfigFile:
 	    self.items[item] = None
 
     def getEntry(self, item):
-	return self.items[item]
+        if self.items.has_key(item):
+            return self.items[item]
+        else:
+            return None
 
     def delEntry(self, item):
 	newOrder = []
@@ -66,10 +126,14 @@ class LiloConfigFile:
 
     def getImage(self, label):
         for config in self.images:
-	    if config.getEntry('label') == label:
+	    if string.lower(config.getEntry('label')) == string.lower(label):
 		return (config.imageType, config)
-
-	raise IndexError, "unknown image %s" % (label,)
+            if config.getEntry('alias'):
+                if string.lower(config.getEntry('alias')) == string.lower(label):
+                    return (config.imageType, config)
+    
+        
+	raise IndexError, "unknown image %s" % (label)
 
     def addImage (self, config):
 	# make sure the config has a valid label
@@ -81,7 +145,7 @@ class LiloConfigFile:
 
     def delImage (self, label):
         for config in self.images:
-	    if config.getEntry('label') == label:
+            if string.lower(config.getEntry('label')) == string.lower(label):
                 self.images.remove (config)
 		return
 
@@ -143,4 +207,4 @@ class LiloConfigFile:
 	self.path = path
 	self.order = []
 	self.images = []
-	self.items = {}
+	self.items = UserDictCase()
