@@ -259,7 +259,7 @@ else  # ctc0, escon0, iucv0
 			   read PEERID
 		  done
 	 fi
-	 if [ ":$NETTYPE" = ":lcs" -o ":$NETTYPE" = ":tr" ]; then
+	 if [ ":$NETTYPE" = ":lcs" ]; then
 			echo $"Enter the relative port number of your LCS device"
 			echo $"(required for OSA-Express ATM cards only):"
 			read PORTNAME
