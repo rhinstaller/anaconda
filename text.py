@@ -486,11 +486,17 @@ class XConfigWindow:
         # if X not installed, just skip this step
         #
         if todo.reconfigOnly:
-            import rpm
-            db = rpm.opendb()
-            rc = db.findbyname ("XFree86")
-            if len(rc) == 0:
-                return None
+#            import rpm
+#            db = rpm.opendb()
+#            rc = db.findbyname ("XFree86")
+#            if len(rc) == 0:
+#                return None
+
+#
+#       for now ignore request to configure X11 in reconfig mode
+#
+            return None
+        
         else:
             # we need to get the package list here for things like
             # workstation install - which will not have read the

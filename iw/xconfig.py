@@ -172,11 +172,16 @@ class XConfigWindow (InstallWindow):
         # if X not installed, just skip this step
         #
         if self.todo.reconfigOnly:
-            import rpm
-            db = rpm.opendb()
-            rc = db.findbyname ("XFree86")
-            if len(rc) == 0:
-                return None
+#            import rpm
+#            db = rpm.opendb()
+#            rc = db.findbyname ("XFree86")
+#            if len(rc) == 0:
+#                return None
+
+#
+#  for now we do not want to configure X11 in reconfig mode, so skip
+#
+            return None
             
         else:            
             if not self.todo.hdList.packages.has_key('XFree86') or \
