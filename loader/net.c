@@ -568,7 +568,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
      if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
        fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
-	fprintf(f, "GATEWAY=%s\n", dev->dev.gateway);
+	fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
 
     fclose(f);
 
