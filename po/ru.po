@@ -488,7 +488,6 @@ msgid "Complete"
 msgstr "Готово"
 
 #: ../iw/congrats.py:32 ../text.py:700
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -502,15 +501,14 @@ msgid ""
 msgstr ""
 "Поздравляем, установка завершена.\n"
 "\n"
-"Удалите дискету из дисковода и нажмите <Enter> для перезагрузки. Информация "
-"об исправлениях, доступных для данного выпуска Red Hat Linux, доступна в "
-"разделе Errata на http://www.redhat.com.\n"
+"Удалите загрузочные носители (дискета, CD-ROM)из устройств и нажмите <Enter> "
+"для перезагрузки. Информация об исправлениях, доступных для данного выпуска "
+"Red Hat Linux, доступна в разделе Errata на http://www.redhat.com.\n"
 "\n"
 "Информацию о конфигурировании вашей системы после установки можно почерпнуть "
 "из Официального руководства пользователя Red Hat Linux."
 
 #: ../text.py:715 ../text.py:735
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -520,14 +518,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Поздравляем, установка завершена.\n"
+"Поздравляем, конфигурирование завершено.\n"
 "\n"
-"Удалите дискету из дисковода и нажмите <Enter> для перезагрузки. Информация "
-"об исправлениях, доступных для данного выпуска Red Hat Linux, доступна в "
-"разделе Errata на http://www.redhat.com.\n"
+"Информация об исправлениях, доступных для данного выпуска Red Hat Linux, "
+"доступна в разделе Errata на http://www.redhat.com.\n"
 "\n"
-"Информацию о конфигурировании вашей системы после установки можно почерпнуть "
-"из Официального руководства пользователя Red Hat Linux."
+"Информацию о дальнейшем конфигурировании вашей системы можно почерпнуть в "
+"разделе \"post install\" Официального руководства пользователя Red Hat Linux."
 
 #: ../iw/bootdisk.py:50 ../text.py:754
 msgid ""
@@ -588,16 +585,15 @@ msgstr "Завершено:   "
 
 #: ../text.py:879
 msgid "Remaining:  "
-msgstr " Осталось:   "
+msgstr " Осталось:  "
 
 #: ../text.py:968 ../text.py:969
 msgid "Debug"
 msgstr "Отладка"
 
 #: ../text.py:981
-#, fuzzy
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:983
 msgid ""
@@ -635,15 +631,13 @@ msgid "Authentication"
 msgstr "Аутентификация"
 
 #: ../text.py:1029
-#, fuzzy
 msgid "Configuration Complete"
-msgstr "Настройка Х"
+msgstr "Конфигурирование завершено"
 
 #: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:90
 #: ../textw/silo.py:202
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "Конфигурация LILO"
+msgstr "Конфигурация SILO"
 
 #: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
@@ -730,31 +724,28 @@ msgstr "Обновление завершено"
 #: ../text.py:1162
 #, fuzzy
 msgid "Cancelled"
-msgstr "Отмена"
+msgstr "Отменено"
 
 #: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
 #: ../todo.py:331
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying file: %s"
-msgstr "Ошибка открытия: файл kickstart %s: %s"
+msgstr "Ошибка копирования файла: %s"
 
 #: ../todo.py:412
-#, fuzzy
 msgid "Creating boot disk..."
-msgstr "Создать загрузочный диск"
+msgstr "Создание загрузочного диск..."
 
 #: ../todo.py:432
-#, fuzzy
 msgid "Reading"
-msgstr "Осталось"
+msgstr "Чтение"
 
 #: ../todo.py:433
-#, fuzzy
 msgid "Reading package information..."
-msgstr "Посылаю запрос конфигурации IP..."
+msgstr "Чтение информации о пакете..."
 
 #: ../todo.py:629 ../todo.py:642
 msgid "no suggestion"
@@ -762,44 +753,42 @@ msgstr ""
 
 #: ../todo.py:648
 msgid "Searching"
-msgstr ""
+msgstr "Поиск"
 
 #: ../todo.py:649
 msgid "Searching for Red Hat Linux installations..."
-msgstr ""
+msgstr "Поиск инсталляций Red Hat Linux..."
 
 #: ../todo.py:660 ../todo.py:691
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Ошибка открытия: файл kickstart %s: %s"
+msgstr "Ошибка монтирования файловой системы ext2 на %s: %s"
 
 #: ../todo.py:702
-#, fuzzy
 msgid "Finding"
-msgstr "Осталось"
+msgstr "Поиск"
 
 #: ../todo.py:703
-#, fuzzy
 msgid "Finding packages to upgrade..."
-msgstr "Уточните пакеты для обновления"
+msgstr "Поиск пакетов для обновления..."
 
 #: ../todo.py:952
 msgid "Processing"
-msgstr ""
+msgstr "Обработка"
 
 #: ../todo.py:953
 msgid "Preparing to install..."
-msgstr ""
+msgstr "Подготовка к инсталляции..."
 
 #: ../todo.py:1120
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr ""
+msgstr "Обновление %s.\n"
 
 #: ../todo.py:1122
-#, fuzzy, c-format
+#, c-format
 msgid "Installing %s.\n"
-msgstr "Инсталляция пакетов"
+msgstr "Инсталляция %s.\n"
 
 #: ../todo.py:1143
 msgid ""
@@ -809,28 +798,24 @@ msgid ""
 msgstr ""
 
 #: ../todo.py:1146
-#, fuzzy
 msgid "Mount Point"
-msgstr "Точка монтирования:"
+msgstr "Точка монтирования"
 
 #: ../todo.py:1146
 msgid "Space Needed"
 msgstr ""
 
 #: ../todo.py:1159
-#, fuzzy
 msgid "Disk Space"
-msgstr "Разбиение диска"
+msgstr "Дисковое пространство"
 
 #: ../todo.py:1183
-#, fuzzy
 msgid "Post Install"
-msgstr "Инсталляция"
+msgstr "Post Install"
 
 #: ../todo.py:1184
-#, fuzzy
 msgid "Performing post install configuration..."
-msgstr "Проверить эту конфигурацию"
+msgstr "выполняется настройка после инсталляции..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:243
 msgid "Video Card"
@@ -841,14 +826,12 @@ msgid "Video Ram"
 msgstr "Видео ОЗУ"
 
 #: ../xf86config.py:247
-#, fuzzy
 msgid "X server"
-msgstr "Сервер"
+msgstr "X сервер"
 
 #: ../xf86config.py:249
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "Невозможно получить виртуальный диск второго этапа"
+msgstr "Невозможно определить видеокарту"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:256 ../xf86config.py:258
 msgid "Monitor"
@@ -856,36 +839,31 @@ msgstr "Монитор"
 
 #: ../xf86config.py:258
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Монитор Plug and Play"
 
 #: ../xf86config.py:260
-#, fuzzy
 msgid "Horizontal frequency range"
-msgstr "Частоты строчной развертки"
+msgstr "Диапазон строчной развертки"
 
 #: ../xf86config.py:262
-#, fuzzy
 msgid "Vertical frequency range"
-msgstr "Частоты кадровой развертки"
+msgstr "Диапазон кадровой развертки"
 
 #: ../iw/account.py:15
 msgid "Account Configuration"
 msgstr "Учетная запись пользователя"
 
 #: ../iw/account.py:36
-#, fuzzy
 msgid "Root password accepted."
-msgstr "Пароль пользователя root:"
+msgstr "Пароль пользователя root принят"
 
 #: ../iw/account.py:39
-#, fuzzy
 msgid "Root password is too short."
-msgstr "Пароль пользователя root:"
+msgstr "Пароль пользователя root слишком краток."
 
 #: ../iw/account.py:41
-#, fuzzy
 msgid "Root password does not match."
-msgstr "Пароли не совпадают"
+msgstr "Введенные пароли не совпадают."
 
 #: ../iw/account.py:168
 msgid "Root Password: "
@@ -974,11 +952,11 @@ msgstr "Начало инсталляции"
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Нажмите \"Next\" для начала инсталляции Red Hat Linux."
+msgstr "Нажмите \"Далее\" для начала инсталляции Red Hat Linux."
 
 #: ../iw/congrats.py:11 ../iw/congrats.py:58
 msgid "Congratulations"
-msgstr "Поздравляем!"
+msgstr "Поздравляем"
 
 #: ../iw/congrats.py:13 ../iw/congrats.py:60
 msgid "Exit"
@@ -1658,15 +1636,16 @@ msgid "User ID"
 msgstr "Имя пользователя"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Имя пользователя"
+msgstr "недопустимое имя пользователя"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Имя пользователя должно иметь не более 8 символов и содержать только символы "
+"A-Z, a-z и 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
