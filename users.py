@@ -183,6 +183,8 @@ class Authentication:
             if not self.nisuseBroadcast:
                 args.append ("--nisserver")
                 args.append (self.nisServer)
+        else:
+            args.append ("--disablenis")
 
         if self.useLdap:
             args.append ("--enableldap")
