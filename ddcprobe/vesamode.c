@@ -19,7 +19,7 @@ struct vesa_mode_t known_vesa_modes[] = {
 	{0x10a,	132, 43, 0,	"132x43 (text)"},
 	{0x10b,	132, 50, 0,	"132x50 (text)"},
 	{0x10c,	132, 60, 0,	"132x60 (text)"},
-	/* VESA 1.2 */
+	/* VESA 1.2+ */
 	{0x10d,	320, 200, 32768,	"320x200x32k"},
 	{0x10e,	320, 200, 65536,	"320x200x64k"},
 	{0x10f,	320, 200, 16777216,	"320x200x16m"},
@@ -35,37 +35,57 @@ struct vesa_mode_t known_vesa_modes[] = {
 	{0x119,	1280, 1024, 32768,	"1280x1024x32k"},
 	{0x11a,	1280, 1024, 65536,	"1280x1024x64k"},
 	{0x11b,	1280, 1024, 16777216,	"1280x1024x16m"},
-	/* VESA 2.0 */
+	/* VESA 2.0+ */
 	{0x120,	1600, 1200, 256,	"1600x1200x256"},
 	{0x121,	1600, 1200, 32768,	"1600x1200x32k"},
-	{0x122,	1600, 1200, 16777216,	"1600x1200x64k"},
+	{0x122,	1600, 1200, 65536,	"1600x1200x64k"},
 	{    0,    0,    0, 0,		""},
 };
 
 struct vesa_timing_t known_vesa_timings[] = {
+	 { 640,  480, 60,  25.175,{ 640, 16,  96,  48,  480,10, 2, 33},
+	  hsync_neg, vsync_neg}, /* ? */
+	 { 640,  480, 72,  31.50, { 640, 16,  64, 120,  480, 1, 3, 16},
+	  hsync_neg, vsync_pos}, /* knowplace */
 	 { 640,  480, 75,  31.50, { 640, 16,  64, 120,  480, 1, 3, 16},
-	  hsync_neg, vsync_pos},
+	  hsync_neg, vsync_pos}, /* knowplace */
 	 { 640,  480, 85,  36.00, { 640, 56,  56,  80,  480, 1, 3, 25},
-	  hsync_neg, vsync_pos},
+	  hsync_neg, vsync_pos}, /* knowplace */
+	 { 800,  600, 60,  40.00, { 800, 40, 128,  88,  600, 1, 4, 23},
+	  hsync_pos, vsync_pos}, /* ? */
 	 { 800,  600, 75,  49.50, { 800, 16,  80, 160,  600, 1, 3, 21},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
 	 { 800,  600, 85,  56.25, { 800, 32,  64, 132,  600, 1, 3, 27},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
+	 {1024,  768, 60,  65.00, {1024, 24, 136, 160,  768, 3, 6, 29},
+	  hsync_neg, vsync_neg}, /* ? */
 	 {1024,  768, 75,  78.75, {1024, 16,  96, 176,  768, 1, 3, 28},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
 	 {1024,  768, 85,  94.50, {1024, 48,  96, 208,  768, 1, 3, 36},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
+	 {1024,  768, 60,  65.00, {1024, 24, 136, 160,  768, 3, 6, 29},
+	  hsync_neg, vsync_neg}, /* ? */
+	 {1152,  864, 70,  94.20, {1152, 32,  96, 192,  864, 1, 3, 46},
+	  hsync_pos, vsync_pos}, /* ? */
 	 {1152,  864, 75, 108.00, {1152, 64, 128, 256,  864, 1, 3, 32},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
 	 {1152,  864, 85, 121.50, {1152, 64, 128, 224,  864, 1, 3, 43},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
+	 {1280, 1024, 60, 108.00, {1280, 48, 112, 248, 1024, 1, 3, 38},
+	  hsync_pos, vsync_pos}, /* ? */
 	 {1280, 1024, 75, 135.00, {1280, 16, 144, 248, 1024, 1, 3, 38},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
 	 {1280, 1024, 85, 157.50, {1280, 64, 160, 224, 1024, 1, 3, 44},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
+	 {1600, 1200, 60, 162.00, {1600, 64, 192, 304, 1200, 1, 3, 46},
+	  hsync_pos, vsync_pos}, /* ? */
+	 {1600, 1200, 65, 175.50, {1600, 64, 192, 304, 1200, 1, 3, 46},
+	  hsync_pos, vsync_pos}, /* ? */
+	 {1600, 1200, 70, 189.00, {1600, 64, 192, 304, 1200, 1, 3, 46},
+	  hsync_pos, vsync_pos}, /* ? */
 	 {1600, 1200, 75, 202.50, {1600, 64, 192, 304, 1200, 1, 3, 46},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
 	 {1600, 1200, 85, 229.50, {1600, 64, 192, 304, 1200, 1, 3, 46},
-	  hsync_pos, vsync_pos},
+	  hsync_pos, vsync_pos}, /* knowplace */
 	 {   0,    0,  0,   0.00, {   0,  0,   0,   0,    0, 0, 0,  0}, 0, 0},
 };

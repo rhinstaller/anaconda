@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "vbe.h"
 
 int main(int argc, char **argv)
@@ -7,18 +8,24 @@ int main(int argc, char **argv)
 	int i, j;
 	unsigned char hmin, hmax, vmin, vmax;
 	if(argc < 2) {
-		fprintf(stderr, "usage: %s [-hsync] [-vsync] [-modelines]\n",
-			argv[0]);
+		char *p = argv[0];
+		if(strchr(p, '/')) {
+			p = strchr(p, '/');
+			p++;
+		}
+		fprintf(stderr,"syntax: %s [-hsync] [-vsync] [-modelines]\n",p);
 		exit(1);
 	}
 	for(i = 1; i < argc; i++) {
 		if(strcmp(argv[i], "-hsync") == 0) {
 			vbe_get_edid_ranges(&hmin, &hmax, &vmin, &vmax);
-			printf("%d-%d\n", hmin, hmax);
+			if(hmin || hmax)
+				printf("%d-%d\n", hmin, hmax);
 		}
 		if(strcmp(argv[i], "-vsync") == 0) {
 			vbe_get_edid_ranges(&hmin, &hmax, &vmin, &vmax);
-			printf("%d-%d\n", vmin, vmax);
+			if(vmin || vmax)
+				printf("%d-%d\n", vmin, vmax);
 		}
 		if(strcmp(argv[i], "-modelines") == 0) {
 			struct vbe_modeline* modelines;
