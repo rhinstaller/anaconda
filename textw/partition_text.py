@@ -625,7 +625,13 @@ class PartitionWindow:
 
             fsoptLbl = None
 
-        elif origrequest.type == REQUEST_PREEXIST and origrequest.fstype:
+	elif origrequest.type == REQUEST_VG:
+	    self.intf.messageWindow(_("Not Supported"),
+				    _("LVM Volume Groups can only be "
+				      "editted in the graphical installer."))
+	    return
+
+        elif (origrequest.type == REQUEST_LV or origrequest.type == REQUEST_PREEXIST) and origrequest.fstype:
 
             # set some defaults
             format = origrequest.format
@@ -668,10 +674,6 @@ class PartitionWindow:
             subgrid.setField(fsoptLbl, 1, srow, (0,0,0,1), anchorLeft = 1)
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
-
-        elif origrequest.type == REQUEST_LV or origrequest.type == REQUEST_VG:
-	    self.intf.messageWindow("Not Supported", "Cant edit this type yet")
-	    return
 
 
         row = row + 1
@@ -793,7 +795,7 @@ class PartitionWindow:
             else:
                 request = copy.copy(origrequest)
 
-                if request.type == REQUEST_PREEXIST:
+                if request.type == REQUEST_PREEXIST or request.type == REQUEST_LV:
                     request.fstype = newfstype
                     
                 if request.fstype.isMountable():
@@ -801,7 +803,7 @@ class PartitionWindow:
                 else:
                     request.mountpoint = None
 
-                if request.type == REQUEST_PREEXIST:
+                if request.type == REQUEST_PREEXIST or request.type == REQUEST_LV:
                     request.format = format
                     request.migrate = migrate
                     request.fstype = newfstype
