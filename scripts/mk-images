@@ -28,7 +28,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     MODDEPS=$KERNELROOT/moddeps
     BUILDARCH=$4
     
-    if [ $BUILDARCH = "sparc64" ];
+    if [ $BUILDARCH = "sparc64" ]; then
 	BASEARCH=sparc
     else
 	BASEARCH=$BUILDARCH
