@@ -136,7 +136,7 @@ class NetworkDevice(SimpleConfigFile):
 	elif dev.startswith('escon'):
 	    self.info["TYPE"] = "ESCON"
 	elif dev.startswith('tr'):
-	    self.info["TYPE"] = "Token Ring"
+	    self.info["TYPE"] = "\"Token Ring\""
 	else:
 	    self.info["TYPE"] = "Ethernet"
 
