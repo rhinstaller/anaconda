@@ -68,7 +68,7 @@ def startX():
     print "Probing for mouse type..."
 
     mouse = Mouse()
-    if not mouse.probe ():
+    if not mouse.probe (frob=1):
         if not mouseWindow(mouse):
             raise RuntimeError, "failed to get a mouse for X startup"
     else:

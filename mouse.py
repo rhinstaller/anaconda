@@ -86,14 +86,14 @@ class Mouse (SimpleConfigFile):
     def probed(self):
 	return self.wasProbed
 
-    def probe (self):
+    def probe (self, frob = 0):
         list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
                            kudzu.PROBE_ONE)
 
         if (list):
             (device, module, desc) = list[0]
             
-            if device == 'psaux':
+            if frob and device == 'psaux':
             # kickstart some ps/2 mice.  Blame the kernel
                 try:
                     f = open ('/dev/psaux')
