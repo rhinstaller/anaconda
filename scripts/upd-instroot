@@ -3,22 +3,24 @@
 ORIGDIR=`pwd`
 STRIP=strip
 
+ARCH=`uname -m | sed -e 's/i.86/i386/'`
+
+if [ "$ARCH" = sparc64 ]; then
+	exec sparc32 $0 $*
+fi
+
 NEEDGR=yes
 if [ $(uname -m) = ia64 ]; then
     NEEDGR=""
     STRIP=echo
 fi
 
-if [ -z "$1" -o ! -d "$1" ]; then
+LATEST="latest --arch $ARCH"
+
+if [ -z "$1" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
 	echo "usage:        $0 <packagedir>"
 	exit 1
-fi
-
-ARCH=`uname -m | sed -e 's/i.86/i386/'`
-
-if [ "$ARCH" = sparc64 ]; then
-	exec sparc32 $0 $*
 fi
 
 HOMEDIR=`pwd`
@@ -46,6 +48,11 @@ pythondeps() {
 prunePackageList() {
 	PACKAGEPATH=$1
 	PACKAGES="$2"
+
+	if [ -n "$LATEST" ]; then
+	    $LATEST $PACKAGEPATH $PACKAGES
+	    return
+	fi
 
 	PATTERN=""
 	PACKAGEFILES=""
@@ -77,19 +84,16 @@ expandPackageSet() {
 
 PACKAGEDIR=$1
 
-mkdir -p ../trees/hdimage
-cd ../trees/hdimage
-DEST=$PWD
-cd -
+rm -rf /tmp/upd-instroot
+DEST=/tmp/upd-instroot/hd
+mkdir -p $DEST
 
-mkdir -p ../../../RedHat/instimage
-cd ../../../RedHat/instimage
-DESTGR=$PWD
-cd -
+DESTGR=/tmp/upd-instroot/gr
+mkdir -p $DESTGR
 
 PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash e2fsprogs
 	  util-linux raidtools locale-ja popt mount procps rpm XFree86
-	  Xconfigurator"
+	  Xconfigurator anaconda anaconda-runtime kudzu-devel kudzu"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -168,6 +172,12 @@ lib/libss*
 lib/libuuid*
 usr/X11R6/lib/X11/Cards
 usr/X11R6/share/Xconfigurator/MonitorsDB
+usr/lib/anaconda/*
+usr/lib/anaconda/textw/*
+usr/lib/anaconda-runtime/*
+usr/sbin/anaconda
+usr/lib/python1.5/site-packages/kudzumodule.so
+usr/share/kudzu/pcitable
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
@@ -347,6 +357,11 @@ usr/bin/tac
 usr/bin/uniq
 usr/sbin/chroot
 usr/sbin/traceroute
+usr/lib/anaconda/iw
+usr/share/locale/*/LC_MESSAGES/anaconda.mo
+usr/share/anaconda/*
+usr/share/anaconda/help/*/*
+usr/share/anaconda/pixmaps/*
 EOF
 
 TIMEZONES="
@@ -411,17 +426,15 @@ fi
 
 rm -f $KEEPFILE $KEEPFILEGR
 
-echo "Installing anaconda..."
-make install-hd DESTDIR=$DEST > /dev/null
-rm -rf $DEST/usr/share/locale
-make install DESTDIR=$DESTGR > /dev/null
-
 echo -n "Scrubbing trees..."
 for p in $DEST $DESTGR; do
 	echo -n -e "\rScrubbing trees..." "$p"
 	rm -f $p/usr/lib/anaconda/lang-table
 	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
+
+	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
+	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
 
 	find $p -type d | xargs chmod 755
 
@@ -542,9 +555,9 @@ echo "Compressing ramdisk install images..."
 	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
 	rm -f [a-r]*
 
-	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
+	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub $DEST/usr/bin/anaconda
 
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
-    utils/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
 fi
