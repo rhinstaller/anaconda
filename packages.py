@@ -593,7 +593,16 @@ def doPostInstall(method, id, intf, instPath):
     w = apply(apply, createWindow)
 
     upgrade = id.upgrade.get()
-    arch = iutil.getArch ()    
+    arch = iutil.getArch ()
+
+    if upgrade:
+	logname = '/tmp/upgrade.log'
+    else:
+	logname = '/tmp/install.log'
+
+    instLogName = instPath + logname
+    instLog = open(instLogName, "a")
+    
     try:
 	if not upgrade:
             # XXX should this go here?
