@@ -115,7 +115,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          policy policycoreutils pyparted xorg-x11"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils memtest86+"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -194,7 +194,7 @@ if [ $ARCH = sparc ]; then
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGESGR="$PACKAGESGR syslinux" 
+    PACKAGESGR="$PACKAGESGR syslinux memtest86+" 
 fi
 
 if [ $ARCH = alpha ]; then
@@ -463,6 +463,7 @@ KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
 boot/efi/EFI/redhat/elilo.efi
+boot/memtest86*
 bin/bash
 bin/cat
 bin/chmod
@@ -757,7 +758,6 @@ usr/kerberos/$LIBDIR/libgssapi*
 usr/kerberos/$LIBDIR/libkrb5*
 usr/kerberos/$LIBDIR/libk5crypto*
 usr/kerberos/$LIBDIR/libcom_err*
-boot/memtest86+-*
 usr/sbin/mtr
 usr/sbin/traceroute
 EOF
@@ -769,7 +769,7 @@ RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR $PACKAGESRESCUE")
 [ -n "$DEBUG" ] && echo "RPMSGR are $RPMSGR"
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
-rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib
+rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib $DESTGR/boot
 ln -s /tmp $DESTGR/var/lib/xkb 
 
 #
