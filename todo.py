@@ -496,6 +496,7 @@ class ToDo:
 				    [ "/usr/bin/dumpkeys"],
 				    stdout = mapfile, stderr = None,
 				    searchPath = 0, root = self.instPath)
+	    mapfile.close()
 	except:
 	    pass
 
