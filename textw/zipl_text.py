@@ -12,6 +12,8 @@
 #
 
 import iutil
+import isys
+import string
 from snack import *
 from constants_text import *
 from rhpl.translate import _
@@ -25,12 +27,16 @@ class ZiplWindow:
                            "chandev parameters which your machine or your "
                            "setup may require."))
 
+        kernelparms = ""
         kernelentry = Entry(48, scroll = 1, returnExit = 1)
         chandeventry1 = Entry(48, scroll = 1, returnExit = 1)
         chandeventry2 = Entry(48, scroll = 1, returnExit = 1)
 
         if bl.args and bl.args.get():
-            kernelentry.set(bl.args.get())
+            kernelparms = bl.args.get()
+        if isys.getDasdPorts():
+            kernelparms = kernelparms + " dasd=" + isys.getDasdPorts()
+        kernelentry.set(kernelparms)
 
         if bl.args and bl.args.chandevget():
             cdevs = bl.args.chandevget()
