@@ -666,19 +666,20 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 }
 
 void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
-    char * c;
+    char * c, * dup;
     ld->method = strdup(arg);
 
-    c = ld->method;
+    dup = strdup(arg);
+    c = dup;
     /* : will let us delimit real information on the method */
     if ((c = strtok(c, ":"))) {
         c = strtok(NULL, ":");
  
         if (!strcmp(ld->method, "nfs")) {
             ld->methodData = calloc(sizeof(struct nfsInstallData *), 1);
-            ((struct nfsInstallData *)ld->methodData)->host = c;
+            ((struct nfsInstallData *)ld->methodData)->host = strdup(c);
             if ((c = strtok(NULL, ":"))) {
-                ((struct nfsInstallData *)ld->methodData)->directory = c;
+                ((struct nfsInstallData *)ld->methodData)->directory = strdup(c);
             }
         } else if (!strcmp(ld->method, "ftp") || 
                    !strcmp(ld->method, "http")) {
@@ -689,12 +690,13 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
         } else if (!strcmp(ld->method, "harddrive") ||
                    !strcmp(ld->method, "hd")) {
             ld->methodData = calloc(sizeof(struct hdInstallData *), 1);
-            ((struct hdInstallData *)ld->methodData)->partition = c;
+            ((struct hdInstallData *)ld->methodData)->partition = strdup(c);
             if ((c = strtok(NULL, ":"))) {
-                ((struct hdInstallData *)ld->methodData)->directory = c;
+                ((struct hdInstallData *)ld->methodData)->directory = strdup(c);
             }
         }
                 
     }
+    free(dup);
     
 }
