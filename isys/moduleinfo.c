@@ -42,7 +42,7 @@ struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis,
 	if (!strcmp(moduleName, mis->moduleList[i].moduleName)) {
 	    if (!found)
 		found = mis->moduleList + i;
-	    else if (found->path && !mis->moduleList[i].path)
+	    else if (found->locationID && !mis->moduleList[i].locationID)
 		;
 	    else
 		found = mis->moduleList + i;
@@ -57,13 +57,14 @@ moduleInfoSet isysNewModuleInfoSet(void) {
 }
 
 int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
-		       char * modPath) {
+		       char * ident) {
     int fd, isIndented;
     char * buf, * start, * next, * chptr;
     struct stat sb;
     char oldch;
     struct moduleInfo * nextModule;
     int modulesAlloced;
+    int i;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0) return -1;
@@ -102,22 +103,36 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
 
 	if (*start != '\n' && *start && *start != '#') {
 	    if (!isIndented) {
-		if (nextModule && nextModule->moduleName) mis->numModules++;
+		if (nextModule && nextModule->moduleName &&
+		    nextModule == (mis->moduleList + mis->numModules)) 
+			mis->numModules++;
 
 		if (mis->numModules == modulesAlloced) {
 		    modulesAlloced += 5;
 		    mis->moduleList = realloc(mis->moduleList,
 			modulesAlloced * sizeof(*mis->moduleList));
 		}
-		nextModule = mis->moduleList + mis->numModules;
-		nextModule->moduleName = strdup(start);
-		nextModule->major = DRIVER_NONE;
-		nextModule->minor = DRIVER_MINOR_NONE;
-		nextModule->description = NULL;
-		nextModule->flags = 0;
-		nextModule->args = NULL;
-		nextModule->numArgs = 0;
-		nextModule->path = modPath;
+
+		nextModule = NULL;
+		for (i = 0; i < mis->numModules; i++) {
+		    if (!strcmp(mis->mods[i]->name, start) {
+			nextModule = mis->mods[i];
+			break;
+		    }
+		}
+
+		if (!nextModule) {
+		    nextModule = mis->moduleList + mis->numModules;
+
+		    nextModule->moduleName = strdup(start);
+		    nextModule->major = DRIVER_NONE;
+		    nextModule->minor = DRIVER_MINOR_NONE;
+		    nextModule->description = NULL;
+		    nextModule->flags = 0;
+		    nextModule->args = NULL;
+		    nextModule->numArgs = 0;
+		    nextModule->locationID = ident;
+		}
 	    } else if (!nextModule) {
 		/* ACK! syntax error */
 		return 1;
