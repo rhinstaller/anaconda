@@ -1,0 +1,129 @@
+/*
+ * usb.c - usb probing/module loading functionality
+ *
+ * Erik Troan <ewt@redhat.com>
+ * Matt Wilson <msw@redhat.com>
+ * Michael Fulbright <msf@redhat.com>
+ * Jeremy Katz <katzj@redhat.com>
+ *
+ * Copyright 1999 - 2002 Red Hat, Inc.
+ *
+ * This software may be freely redistributed under the terms of the GNU
+ * General Public License.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <alloca.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <kudzu/kudzu.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "loader.h"
+#include "log.h"
+#include "modules.h"
+#include "moduledeps.h"
+
+#include "../isys/imount.h"
+
+
+/* This forces a pause between initializing usb and trusting the /proc 
+   stuff */
+static void sleepUntilUsbIsStable(void) {
+    struct stat sb;
+    time_t last = 0;
+    int i, count = 0;
+
+    /* sleep for a maximum of 20 seconds, minimum of 2 seconds */
+    logMessage("waiting for usb to become stable...");
+    for (i = 0; i < 20; i++) {
+	stat("/proc/bus/usb/devices", &sb);
+	if (last == sb.st_mtime) {
+	    count++;
+	    /* if we get the same mtime twice in a row, should be
+	       good enough to use now */
+	    if (count > 1)
+		break;
+	} else {
+	    /* if we didn't match mtimes, reset the stability counter */
+	    count = 0;
+	}
+	last = sb.st_mtime;
+	sleep(1);
+    }
+    logMessage("%d seconds.", i);
+}
+
+int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
+			 moduleInfoSet modInfo, int flags) {
+    struct device ** devices;
+    char * buf;
+    int i;
+
+    if (FL_NOUSB(flags)) return 0;
+
+    logMessage("looking for usb controllers");
+
+    devices = probeDevices(CLASS_USB, BUS_PCI, PROBE_ALL);
+
+    if (!devices) {
+	logMessage("no usb controller found");
+	return 0;
+    }
+
+    /* JKFIXME: if we looked for all of them, we could batch this up and it
+     * would be faster */
+    for (i=0; devices[i]; i++) {
+        logMessage("found USB controller %s", devices[i]->driver);
+
+        if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps,
+                            modInfo, flags)) {
+            /* dont return, just keep going. */
+            /* may have USB built into kernel */
+            /* return 1; */
+        }
+    }
+
+    if (FL_TESTING(flags)) return 0;
+
+    if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbdevfs", 0, 0, 
+		  NULL, NULL))
+	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
+
+    /* sleep so we make sure usb devices get properly enumerated.
+       that way we should block when initializing each usb driver until
+       the device is ready for use */
+    sleepUntilUsbIsStable();
+
+    buf = alloca(40);
+    sprintf(buf, "hid:keybdev%s", 
+		  (FL_NOUSBSTORAGE(flags) ? "" : ":usb-storage"));
+    mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
+    sleep(1);
+
+    return 0;
+}
+
+void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
+                        moduleInfoSet modInfo, int flags) {
+    extern struct moduleBallLocation * secondStageModuleLocation;
+
+    if (FL_NOUSB(flags)) return;
+
+    if (access("/proc/bus/usb/devices", R_OK)) return;
+    
+    logMessage("looking for USB mouse...");
+    if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
+        logMessage("USB mouse found, loading mousedev module");
+        if (mlLoadModuleSetLocation("mousedev", modLoaded, modDeps, modInfo, flags, secondStageModuleLocation)) {
+            logMessage ("failed to loading mousedev module");
+            return;
+        }
+    }
+}
+
