@@ -141,7 +141,11 @@ def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
             if os.access (serverPath, os.X_OK):
                 try:
                     x = XF86Config (card, monitor, mouse, keyboard, resolution)
-		    x.setForcedDPI(75)
+
+                    if x.res == "640x480":
+                        x.setForcedDPI(75)
+                    else:
+                        x.setForcedDPI(96)
 		    
                     testx(x)
                     failed = 0
