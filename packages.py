@@ -627,7 +627,7 @@ def doInstall(method, id, intf, instPath):
     ts = rpm.TransactionSet(instPath)
 
     ts.setVSFlags(~rpm.RPMVSF_NORSA|~rpm.RPMVSF_NODSA)
-    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_CHAINSAW)
+    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|~rpm.RPMTRANS_FLAG_CHAINSAW)
 
     total = 0
     totalSize = 0
@@ -659,7 +659,9 @@ def doInstall(method, id, intf, instPath):
     
     if not id.hdList.preordered():
 	log ("WARNING: not all packages in hdlist had order tag")
-	ts.order()
+        # have to call ts.check before ts.order() to set up the alIndex
+        ts.check()
+        ts.order()
 
     if upgrade:
 	logname = '/root/upgrade.log'
