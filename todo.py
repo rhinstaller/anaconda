@@ -341,6 +341,7 @@ class ToDo:
 	self.expert = expert
         self.progressWindow = None
 	self.fdDevice = None
+	self.setFdDevice()
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
@@ -355,15 +356,53 @@ class ToDo:
     def setFdDevice(self):
 	if self.fdDevice:
 	    return
-	self.fdDevice = "/dev/fd0"
+
+	self.fdDevice = "fd0"
 	if iutil.getArch() == "sparc":
 	    try:
 		f = open(self.fdDevice, "r")
 	    except IOError, (errnum, msg):
 		if errno.errorcode[errnum] == 'ENXIO':
-		    self.fdDevice = "/dev/fd1"
+		    self.fdDevice = "fd1"
 	    else:
 		f.close()
+	elif iutil.getArch() == "alpha":
+	    pass
+	elif iutil.getArch() == "ia64":
+	    fdDevice = "hda"
+	elif iutil.getArch() == "i386":
+	    # Look for the first IDE floppy device
+	    drives = isys.hardDriveDict().keys()
+
+	    # We don't need to be picky about sort order as we toss
+	    # items that aren't hd* anyway
+	    drives.sort()
+	    floppyDrive = None
+	    for drive in drives:
+		if drives[0:2] != 'hd': continue
+		f = open("/proc/ide/%s/media" % floppyDevice, "r")
+		type = f.readline()
+		f.close()
+		if type == "floppy\n":
+		    floppyDrive = drive
+		    break
+
+	    # No IDE floppy's -- we're fine w/ /dev/fd0
+	    if not floppyDrive: return
+
+	    # Look in syslog for a real fd0 (which would take precedence)
+	    f = open("/tmp/syslog", "r")
+	    for line in f.readlines():
+		# chop off the loglevel (which init's syslog leaves behind)
+		line = line[1:]
+		match = "Floppy drive(s): "
+		if match == line[:len(match)]:
+		    # Good enough
+		    return
+
+	    self.fdDevice = "%s" % floppyDevice
+	else:
+	    raise SystemError, "cannot determine floppy device for this arch"
 
     def writeTimezone(self):
 	if (self.timezone):
@@ -428,8 +467,7 @@ class ToDo:
 
     def makeBootdisk (self):
 	# this is faster then waiting on mkbootdisk to fail
-	self.setFdDevice()
-	device = self.fdDevice[5:]
+	device = self.fdDevice
 	file = "/tmp/floppy"
 	isys.makeDevInode(device, file)
 	try:
@@ -442,12 +480,11 @@ class ToDo:
         kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
 
         w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
-	self.setFdDevice ()
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
                                     [ "/sbin/mkbootdisk",
                                       "--noprompt",
                                       "--device",
-                                      self.fdDevice,
+                                      "/dev/" + self.fdDevice,
                                       kernelTag[1:] ],
                                     stdout = None, stderr = None, 
 				    searchPath = 1, root = self.instPath)
@@ -1413,7 +1450,6 @@ class ToDo:
 	    self.createRemovable("zip")
 	    self.createRemovable("jaz")
 	    self.copyExtraModules()
-	    self.setFdDevice()
             self.fstab.write (self.instPath, fdDevice = self.fdDevice)
             self.writeConfiguration ()
             self.writeDesktop ()

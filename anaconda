@@ -443,8 +443,7 @@ except:
 	    intf.__del__ ()
 	    os._exit(1)
 
-	todo.setFdDevice()
-	device = todo.fdDevice[5:]
+	device = todo.fdDevice
 	file = "/tmp/floppy"
 	isys.makeDevInode(device, file)
 	try:
