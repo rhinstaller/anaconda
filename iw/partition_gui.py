@@ -557,8 +557,10 @@ class PartitionWindow(InstallWindow):
 
         image = gtk.Image()
         image.set_from_stock('gtk-dialog-warning', gtk.ICON_SIZE_DIALOG)
-        hbox = gtk.HBox(gtk.FALSE)
-        hbox.pack_start(image, gtk.FALSE)
+        hbox = gtk.HBox(gtk.FALSE, 9)
+	al=gtk.Alignment(0.0, 0.0)
+	al.add(image)
+        hbox.pack_start(al, gtk.FALSE)
 
         buffer = gtk.TextBuffer(None)
         buffer.set_text(comments)
@@ -570,25 +572,33 @@ class PartitionWindow(InstallWindow):
         
         sw = gtk.ScrolledWindow()
         sw.add(text)
+	sw.set_size_request(400, 200)
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         sw.set_shadow_type(gtk.SHADOW_IN)
         
         info1 = gtk.Label(labelstr1)
         info1.set_line_wrap(gtk.TRUE)
-#        info1.set_size_request(300, -1)
+        info1.set_size_request(400, -1)
 
         info2 = gtk.Label(labelstr2)
         info2.set_line_wrap(gtk.TRUE)
-#        info2.set_size_request(300, -1)
+        info2.set_size_request(400, -1)
         
-        vbox = gtk.VBox(gtk.FALSE)
-        vbox.pack_start(info1, gtk.FALSE)
-        vbox.pack_start(sw, gtk.TRUE)
-        vbox.pack_start(info2, gtk.FALSE)
-        hbox.pack_start(vbox, gtk.FALSE)
+        vbox = gtk.VBox(gtk.FALSE, 9)
+
+	al=gtk.Alignment(0.0, 0.0)
+	al.add(info1)
+        vbox.pack_start(al, gtk.FALSE)
+	
+        vbox.pack_start(sw, gtk.TRUE, gtk.TRUE)
+
+	al=gtk.Alignment(0.0, 0.0)
+	al.add(info2)
+        vbox.pack_start(al, gtk.TRUE)
+	
+        hbox.pack_start(vbox, gtk.TRUE, gtk.TRUE)
 
         win.vbox.pack_start(hbox)
-#        win.set_size_request(400,300)
         win.set_position(gtk.WIN_POS_CENTER)
         win.set_default_response(defaultchoice)
         win.show_all()
