@@ -54,37 +54,36 @@ class NetworkWindow:
                 ns = isys.inet_calcNS (net)
                 self.ns.set (ns)
 
-    def __call__(self, screen, network):
+    def runScreen(self, screen, network, dev):
 
-
-        devices = network.available ()
-        if not devices:
-            return INSTALL_NOOP
-
-        if network.readData:
-            # XXX expert mode, allow changing network settings here
-            return INSTALL_NOOP
-        
-	list = devices.keys ()
-	list.sort()
-        dev = devices[list[0]]
-
-        firstg = Grid (1, 1)
+        firstg = Grid (1, 3)
         boot = dev.get ("bootproto")
+        onboot = dev.get('onboot')
+        onbootIsOn = ((dev == network.available().values()[0] and not onboot)
+                      or onboot == 'yes')
         
         if not boot:
             boot = "dhcp"
+        firstg.setField (Label (_("Network Device: %s") %
+                                (dev.info['DEVICE'],)),
+                         0, 0, padding = (0, 0, 0, 1), anchorLeft = 1)
         self.cb = Checkbox (_("Use bootp/dhcp"),
                             isOn = (boot == "dhcp"))
-        firstg.setField (self.cb, 0, 0, anchorLeft = 1)
+        firstg.setField (self.cb, 0, 1, anchorLeft = 1)
+        self.onboot = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
+        firstg.setField (self.onboot, 0, 2, anchorLeft = 1)
 
         secondg = Grid (2, 6)
         secondg.setField (Label (_("IP address:")), 0, 0, anchorLeft = 1)
 	secondg.setField (Label (_("Netmask:")), 0, 1, anchorLeft = 1)
-	secondg.setField (Label (_("Default gateway (IP):")), 0, 2, anchorLeft = 1)
-        secondg.setField (Label (_("Primary nameserver:")), 0, 3, anchorLeft = 1)
-        secondg.setField (Label (_("Secondary nameserver:")), 0, 4, anchorLeft = 1)
-        secondg.setField (Label (_("Ternary nameserver:")), 0, 5, anchorLeft = 1)
+	secondg.setField (Label (_("Default gateway (IP):")), 0, 2,
+                          anchorLeft = 1)
+        secondg.setField (Label (_("Primary nameserver:")), 0, 3,
+                          anchorLeft = 1)
+        secondg.setField (Label (_("Secondary nameserver:")), 0, 4,
+                          anchorLeft = 1)
+        secondg.setField (Label (_("Ternary nameserver:")), 0, 5,
+                          anchorLeft = 1)
 
         self.ip = Entry (16)
         self.ip.set (dev.get ("ipaddr"))
@@ -112,7 +111,8 @@ class NetworkWindow:
 
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
-        toplevel = GridFormHelp (screen, _("Network Configuration"), 
+        toplevel = GridFormHelp (screen, _("Network Configuration for %s") %
+                                 (dev.info['DEVICE']), 
 				 "network", 1, 3)
         toplevel.add (firstg, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         toplevel.add (secondg, 0, 1, (0, 0, 0, 1))
@@ -122,12 +122,18 @@ class NetworkWindow:
 
         while 1:
             result = toplevel.run ()
+            screen.suspend()
+            if self.onboot.selected() != 0:
+                dev.set (('onboot', 'yes'))
+            else:
+                dev.unset ('onboot')
             if self.cb.selected ():
                 dev.set (("bootproto", "dhcp"))
                 dev.unset ("ipaddr", "netmask", "network", "broadcast")
             else:
                 try:
-                    (net, bc) = isys.inet_calcNetBroad (self.ip.value (), self.nm.value ())
+                    (net, bc) = isys.inet_calcNetBroad (self.ip.value (),
+                                                        self.nm.value ())
                 except:
                     ButtonChoiceWindow(screen, _("Invalid information"),
                                        _("You must enter valid IP information to continue"),
@@ -135,7 +141,8 @@ class NetworkWindow:
                     continue
 
                 dev.set (("bootproto", "static"))
-                dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
+                dev.set (("ipaddr", self.ip.value ()), ("netmask",
+                                                        self.nm.value ()),
                          ("network", net), ("broadcast", bc))
                 network.gateway = self.gw.value ()
                 network.primaryNS = self.ns.value ()
@@ -145,16 +152,40 @@ class NetworkWindow:
             screen.popWindow()
             break
                      
-        dev.set (("onboot", "yes"))
-
         rc = bb.buttonPressed (result)
 
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
         return INSTALL_OK
 
+    def __call__(self, screen, network, dispatch):
+
+        devices = network.available ()
+        if not devices:
+            return INSTALL_NOOP
+
+	list = devices.keys ()
+	list.sort()
+        devLen = len(list)
+        if dispatch.dir == 1:
+            currentDev = 0
+        else:
+            currentDev = devLen - 1
+
+        while currentDev < devLen and currentDev >= 0:
+            rc = self.runScreen(screen, network, devices[list[currentDev]])
+            if rc == INSTALL_BACK:
+                currentDev = currentDev - 1
+            else:
+                currentDev = currentDev + 1
+
+        if currentDev < 0:
+            return INSTALL_BACK
+        else:
+            return INSTALL_OK
+
 class HostnameWindow:
-    def __call__(self, screen, network):
+    def __call__(self, screen, network, dispatch):
         devices = network.available ()
         if not devices:
             return INSTALL_NOOP

@@ -69,7 +69,6 @@ class Network:
         self.secondaryNS = ""
         self.ternaryNS = ""
         self.domains = []
-        self.readData = 0
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
 
@@ -96,7 +95,6 @@ class Network:
             if info.has_key("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
             
-            self.readData = 1
 	try:
 	    f = open("/etc/resolv.conf", "r")
 	except:
