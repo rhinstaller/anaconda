@@ -893,7 +893,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     fd = os.open(messageFile, os.O_RDWR | os.O_CREAT | os.O_APPEND)
     p = os.pipe()
     childpid = os.fork()
-    if (not childpid):
+    if not childpid:
         os.close(p[0])
         os.dup2(p[1], 1)
         os.dup2(fd, 2)
@@ -935,7 +935,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
                     l = string.split(num, '/')
                     w and w.set((int(l[0]) * 100) / int(l[1]))
                     isys.sync()
-            num = ''
+                num = ''
         except OSError, args:
             (num, str) = args
             if (num != 4):
