@@ -505,6 +505,7 @@ for p in $DEST $DESTGR; do
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
+	mv $p/usr/sbin/anaconda-runrescue $p/usr/bin/anaconda-runrescue
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
 
 	mv $p/usr/lib/anaconda-runtime/collage $p/usr/bin
