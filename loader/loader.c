@@ -111,6 +111,9 @@ static struct installMethod installMethods[] = {
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int newtRunning = 0;
+#ifdef INCLUDE_KON
+static int startKon = 1;
+#endif
 
 void doSuspend(void) {
     newtFinished();
@@ -1466,12 +1469,12 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	} else if (!strncasecmp(argv[i], "lang=", 5)) {
 	    setLanguage (argv[i] + 5);
 #ifdef INCLUDE_KON
-	    if (!strcmp (argv[i] + 5, "ja")) {
+	    if (!strcmp (argv[i] + 5, "ja") && startKon) {
 		char * args[5];
 
 		args[0] = "kon";
 		args[1] = "-e";
-		args[2] = "/sbin/loader";
+		args[2] = "/sbin/loader-continue";
 		args[3] = NULL;
 		
 		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
@@ -1704,6 +1707,8 @@ int main(int argc, char ** argv) {
 #ifdef INCLUDE_KON
     else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
 	return kon_main(argc, argv);
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 15, "loader-continue"))
+	startKon = 0;
 #endif
 
 #ifdef INCLUDE_PCMCIA
