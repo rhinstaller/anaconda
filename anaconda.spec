@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.8
+Version: 10.0.3.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 30 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.9-1
+- translation updates
+- Install compat-arch-support by default (#133514)
+- Warn if an older version is chosen for upgrading if product is RHEL (#134523)
+- Fix traceback on upgrade with possible lvm1 (#134258)
+- Make changing the DNS server work (#122554)
+- More fixes from pnasrat for arch handling on upgrade
+
 * Thu Sep 30 2004 Paul Nasrat <pnasrat@redhat.com> - 10.0.3.8-1
 - Fix missing rpm.ts (#133045)
 
