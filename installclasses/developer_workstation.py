@@ -15,8 +15,8 @@ class InstallClass(workstation.InstallClass):
     def setGroupSelection(self, comps):
 	workstation.InstallClass.__init__(self, comps)
         comps["Emacs"].select()
-        comps["GNOME Development"].select()
-	comps["X Development"].select()
+        comps["GNOME Software Development"].select()
+	comps["X Software Development"].select()
 
     def __init__(self, expert):
 	workstation.InstallClass.__init__(self, expert)
