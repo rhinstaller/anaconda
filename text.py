@@ -561,7 +561,11 @@ class InstallProgressWindow:
 	self.sizeRemainingW.setText("%10dM" % (self.sizeTotal/1024 - self.sizeComplete/1024))
 	self.total.set(self.sizeComplete)
 
-	elapsedTime = time.time() - self.timeStarted 
+        if self.timeStarted == -1:
+            self.timeStarted = time.time()
+	elapsedTime = time.time() - self.timeStarted
+        if not elapsedTime:
+            elapsedTime = 1
 	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
         if self.sizeComplete != 0:
             finishTime = (float (self.sizeTotal) / (self.sizeComplete)) * elapsedTime;
@@ -661,7 +665,7 @@ class InstallProgressWindow:
 	self.total = Scale (width, totalSize)
 	toplevel.add(self.total, 0, 4, (0, 1, 0, 0))
 
-	self.timeStarted = time.time()	
+	self.timeStarted = -1
 	
 	toplevel.draw()
 	self.g = toplevel
