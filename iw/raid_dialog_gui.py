@@ -178,7 +178,7 @@ class RaidEditor:
 		if formatrb:
                     request.format = formatrb.get_active()
                     if request.format:
-                        request.fstype = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
+                        request.fstype = self.fsoptionsDict["fstypeCombo"].get_active().get_data("type")
                 else:
                     request.format = 0
 
@@ -190,7 +190,7 @@ class RaidEditor:
 		if migraterb:
                     request.migrate = migraterb.get_active()
                     if request.migrate:
-                        request.fstype =self.fsoptionsDict["migfstypeMenu"].get_active().get_data("type")
+                        request.fstype =self.fsoptionsDict["migfstypeCombo"].get_active().get_data("type")
                 else:
                     request.migrate = 0
 

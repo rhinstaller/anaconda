@@ -462,7 +462,7 @@ class VolumeGroupEditor:
 		if formatrb:
                     format = formatrb.get_active()
                     if format:
-                        fsystem = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
+                        fsystem = self.fsoptionsDict["fstypeCombo"].get_active().get_data("type")
                 else:
                     format = 0
 
@@ -474,7 +474,7 @@ class VolumeGroupEditor:
 		if migraterb:
                     migrate = migraterb.get_active()
                     if migrate:
-                        fsystem = self.fsoptionsDict["migfstypeMenu"].get_active().get_data("type")
+                        fsystem = self.fsoptionsDict["migfstypeCombo"].get_active().get_data("type")
                 else:
                     migrate = 0
 
