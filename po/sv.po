@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2001-08-20 11:30-0400\n"
-"PO-Revision-Date: 2001-08-17 01:03+0200\n"
+"POT-Creation-Date: 2001-08-17 14:41-0400\n"
+"PO-Revision-Date: 2001-08-20 23:00+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -189,9 +189,9 @@ msgstr ""
 #: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:434
+#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:239 ../upgrade.py:357 ../upgrade.py:376
+#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
 msgid "Warning"
 msgstr "Varning"
 
@@ -269,11 +269,11 @@ msgstr ""
 "följande enheter:%s\n"
 "Är du säker på att det är det du vill?"
 
-#: ../bootloader.py:716
+#: ../bootloader.py:710
 msgid "Bootloader"
 msgstr "Startprogram"
 
-#: ../bootloader.py:716
+#: ../bootloader.py:710
 msgid "Installing bootloader..."
 msgstr "Installerar startprogram..."
 
@@ -281,19 +281,19 @@ msgstr "Installerar startprogram..."
 msgid "Everything"
 msgstr "Allt"
 
-#: ../comps.py:672 ../upgrade.py:456
+#: ../comps.py:672 ../upgrade.py:457
 msgid "no suggestion"
 msgstr "inget förslag"
 
-#: ../exception.py:112 ../text.py:219
+#: ../exception.py:95 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Ett undantagsfel inträffade"
 
-#: ../exception.py:179
+#: ../exception.py:162
 msgid "Dump Written"
 msgstr "Minnesdump skriven"
 
-#: ../exception.py:180
+#: ../exception.py:163
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -301,9 +301,9 @@ msgstr ""
 "Systemets tillstånd har skrivits till disketten. Ditt system kommer nu att "
 "startas om."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:790
-#: ../fsset.py:809 ../fsset.py:854 ../fsset.py:874 ../fsset.py:908
-#: ../fsset.py:951 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:783
+#: ../fsset.py:802 ../fsset.py:847 ../fsset.py:867 ../fsset.py:901
+#: ../fsset.py:944 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -315,8 +315,8 @@ msgstr ""
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
-#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
-#: ../upgrade.py:304
+#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
+#: ../upgrade.py:305
 msgid "Error"
 msgstr "Fel"
 
@@ -366,7 +366,7 @@ msgstr "Huvudstartposten (MBR)"
 msgid "First sector of boot partition"
 msgstr "Första sektorn av startpartitionen"
 
-#: ../fsset.py:791
+#: ../fsset.py:784
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -379,7 +379,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:810
+#: ../fsset.py:803
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -394,7 +394,7 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:855
+#: ../fsset.py:848
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -407,7 +407,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:875
+#: ../fsset.py:868
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -420,7 +420,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:909
+#: ../fsset.py:902
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -433,11 +433,11 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:929 ../fsset.py:938
+#: ../fsset.py:922 ../fsset.py:931
 msgid "Invalid mount point"
 msgstr "Ogiltig monteringspunkt"
 
-#: ../fsset.py:930
+#: ../fsset.py:923
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -451,7 +451,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:939
+#: ../fsset.py:932
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -464,7 +464,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:952
+#: ../fsset.py:945
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -479,11 +479,11 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:1495
+#: ../fsset.py:1488
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:1496
+#: ../fsset.py:1489
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterar %s-filsystem..."
@@ -495,7 +495,7 @@ msgstr "Fixa"
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
-#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
+#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Ja"
@@ -503,7 +503,7 @@ msgstr "Ja"
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
 #: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:26
-#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
@@ -521,7 +521,7 @@ msgstr "Ignorera"
 #: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
-#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:202
+#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
 #: ../textw/constants_text.py:24 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 #: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
@@ -1379,19 +1379,19 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
 
-#: ../upgrade.py:42
+#: ../upgrade.py:43
 msgid "Searching"
 msgstr "Söker"
 
-#: ../upgrade.py:43
+#: ../upgrade.py:44
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Söker efter Red Hat Linux-installationer..."
 
-#: ../upgrade.py:76
+#: ../upgrade.py:77
 msgid "Dirty Filesystems"
 msgstr "Nedsmutsade filsystem"
 
-#: ../upgrade.py:77
+#: ../upgrade.py:78
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
@@ -1401,11 +1401,11 @@ msgstr ""
 "korrekt. Starta upp din Linuxinstallation och låt filsystemen kontrolleras, "
 "och stäng sedan ner korrekt för att uppgradera."
 
-#: ../upgrade.py:213
+#: ../upgrade.py:214
 msgid "Mount failed"
 msgstr "Montering misslyckades"
 
-#: ../upgrade.py:214
+#: ../upgrade.py:215
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -1414,7 +1414,7 @@ msgstr ""
 "Linuxsystem kan inte monteras. Var vänlig och åtgärda detta problem och "
 "prova sedan att uppgradera igen."
 
-#: ../upgrade.py:229
+#: ../upgrade.py:230
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1426,29 +1426,29 @@ msgstr ""
 "starta om uppgraderingen.\n"
 "\n"
 
-#: ../upgrade.py:240
+#: ../upgrade.py:241
 #, c-format
 msgid "%s not found"
 msgstr "%s hittades inte"
 
-#: ../upgrade.py:262
+#: ../upgrade.py:263
 msgid "Finding"
 msgstr "Letar"
 
-#: ../upgrade.py:263
+#: ../upgrade.py:264
 msgid "Finding packages to upgrade..."
 msgstr "Letar efter paket att uppgradera..."
 
-#: ../upgrade.py:293
+#: ../upgrade.py:294
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
-#: ../upgrade.py:305
+#: ../upgrade.py:306
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Ett fel inträffade vid sökning av paketen att uppgradera."
 
-#: ../upgrade.py:358
+#: ../upgrade.py:359
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1462,7 +1462,7 @@ msgstr ""
 "ordentligt eller orsaka instabilitet i systemet. Vill du fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../upgrade.py:377
+#: ../upgrade.py:378
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1572,7 +1572,7 @@ msgid "Password:"
 msgstr "Lösenord:"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:395
+#: ../textw/bootloader_text.py:390
 msgid "Confirm:"
 msgstr "Bekräfta:"
 
@@ -1605,7 +1605,7 @@ msgstr "Fullständigt namn"
 msgid "Add"
 msgstr "Lägg till"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:282
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
@@ -1749,12 +1749,12 @@ msgid "Skip boot disk creation"
 msgstr "Hoppa över skapandet av startdiskett"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
-#: ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
-#: ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
+#: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
+#: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
 msgid "Boot Loader Configuration"
 msgstr "Konfiguration av startprogram"
 
-#: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:134
+#: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:129
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -1788,7 +1788,7 @@ msgstr "Installera startprogramspost på:"
 msgid "Kernel Parameters"
 msgstr "Parametrar till kärnan"
 
-#: ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:111
+#: ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:106
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Tvinga fram användning av LBA32 (behövs normalt inte)"
 
@@ -1803,7 +1803,7 @@ msgstr ""
 "startprogram kan du välja \"Installera inte ett startprogram\"."
 
 #: ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:377 ../textw/xconfig_text.py:384
 #: ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 #: ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
@@ -1812,20 +1812,20 @@ msgstr "Standard"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
 #: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:267
+#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Enhet"
 
 #: ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "Partitionstyp"
 
 #: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:197
-#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:192
+#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Startetikett"
@@ -1850,7 +1850,7 @@ msgstr "Normal startfil"
 msgid "Boot Loader Password Configuration"
 msgstr "Konfiguration av lösenord för startprogram"
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:435
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:430
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -1874,7 +1874,7 @@ msgstr "Lösenordet är för kort."
 msgid "Passwords do not match."
 msgstr "Lösenorden stämmer inte överens."
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:367
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -2193,7 +2193,7 @@ msgstr "/dev/ttyS2 (COM3 i DOS)"
 
 #: ../iw/mouse_gui.py:148 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS4 (COM4 i DOS)"
+msgstr "/dev/ttyS3 (COM4 i DOS)"
 
 #: ../iw/mouse_gui.py:150
 msgid "Emulate 3 Buttons"
@@ -2984,11 +2984,11 @@ msgstr "Använd startprogrammet LILO"
 msgid "No Boot Loader"
 msgstr "Inget startprogram"
 
-#: ../textw/bootloader_text.py:68
+#: ../textw/bootloader_text.py:66
 msgid "Skip Boot Loader"
 msgstr "Hoppa över startprogram"
 
-#: ../textw/bootloader_text.py:69
+#: ../textw/bootloader_text.py:67
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2998,13 +2998,13 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Du har valt att inte installera något startprogram. Det rekommenderas varmt "
-"att du installerar ett startprogram om du inte har ett avancerat behov. Ett "
+"att du installerar ett startprogram om du inte har särskilda behov. Ett "
 "startprogram  behövs nästan alltid för att ditt system ska kunna startas om "
 "i Linux direkt från hårddisken.\n"
 "\n"
 "Är du säker på att du vill hoppa över installationen av startprogram?"
 
-#: ../textw/bootloader_text.py:102 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:97 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -3016,32 +3016,32 @@ msgstr ""
 "dem nu. Om du inte behöver några, eller om du inte är säker, låter du fältet "
 "vara tomt."
 
-#: ../textw/bootloader_text.py:169
+#: ../textw/bootloader_text.py:164
 msgid "Where do you want to install the boot loader?"
 msgstr "Var vill du installera startprogrammet?"
 
-#: ../textw/bootloader_text.py:201 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:196 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Töm"
 
-#: ../textw/bootloader_text.py:210
+#: ../textw/bootloader_text.py:205
 msgid "Edit Boot Label Please"
 msgstr "Redigera startetiketten är du snäll"
 
-#: ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
+#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 msgid "Invalid Boot Label"
 msgstr "Ogiltig startetikett"
 
-#: ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:224
 msgid "Boot label may not be empty."
 msgstr "Startetiketten får inte vara tom."
 
-#: ../textw/bootloader_text.py:234
+#: ../textw/bootloader_text.py:229
 msgid "Boot label contains illegal characters."
 msgstr "Startetiketten innehåller ogiltiga tecken."
 
-#: ../textw/bootloader_text.py:286 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -3051,27 +3051,27 @@ msgstr ""
 "måste berätta vilka andra partitioner du vill kunna starta och vilka "
 "startetiketter du vill använda för att starta dem."
 
-#: ../textw/bootloader_text.py:382
+#: ../textw/bootloader_text.py:377
 msgid "Use a GRUB Password"
 msgstr "Använd ett GRUB-lösenord"
 
-#: ../textw/bootloader_text.py:394
+#: ../textw/bootloader_text.py:389
 msgid "Boot Loader Password:"
 msgstr "Lösenord för startprogram:"
 
-#: ../textw/bootloader_text.py:424
+#: ../textw/bootloader_text.py:419
 msgid "Passwords Do Not Match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../textw/bootloader_text.py:425
+#: ../textw/bootloader_text.py:420
 msgid "Passwords do not match"
 msgstr "Lösenorden stämmer inte överens"
 
-#: ../textw/bootloader_text.py:429
+#: ../textw/bootloader_text.py:424
 msgid "Password Too Short"
 msgstr "Lösenordet är för kort"
 
-#: ../textw/bootloader_text.py:430
+#: ../textw/bootloader_text.py:425
 msgid "Boot loader password is too short"
 msgstr "Lösenordet till startprogrammet är för kort"
 
@@ -3457,7 +3457,7 @@ msgstr "Migrera till %s"
 
 #: ../textw/partition_text.py:632 ../textw/partition_text.py:666
 msgid "Leave unchanged"
-msgstr "Lämna oändrad"
+msgstr "Lämna oförändrad"
 
 #: ../textw/partition_text.py:691 ../textw/partition_text.py:740
 msgid "Invalid Entry for Partition Size"
@@ -4305,8 +4305,7 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Du har flera nätverksenheter i detta system. Vilken vill du installera "
-"igenom?"
+"Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
 
 #: ../loader/loader.c:1141
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -5381,7 +5380,7 @@ msgstr "mellersta Kazakstan"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "östra och södra Borneo, Celeberna, Nusa Tengarra, Västtimor"
+msgstr "östra och södra Borneo, Celeberna, Bali, Nusa Tengarra, Västtimor"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-08-20 11:30-0400\n"
-"PO-Revision-Date: 2001-08-18 00:50+0200\n"
+"PO-Revision-Date: 2001-08-20 10:50+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgid ""
 "mode."
 msgstr ""
 "Du har ikke nok RAM til at bruge grafisk installation på denne maskine. "
-"Starter tekstmodus."
+"Starter teksttilstand."
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
@@ -68,7 +68,7 @@ msgstr "Søger efter musetype:   "
 
 #: ../anaconda:396
 msgid "Skipping mouse probe.\n"
-msgstr "Hopper over søgning efter mus.\n"
+msgstr "Overspringer søgning efter mus.\n"
 
 #: ../anaconda:410
 #, c-format
@@ -114,7 +114,7 @@ msgid ""
 "Creation of a boot disk is highly encouraged."
 msgstr ""
 "Opstartspartition %s opfylder muligvis ikke opstartsbegrænsningene for din "
-"arkitektur. Det er stærkt anbefalet at oprette en opstartsdiskette."
+"maskinarkitektur. Det er stærkt anbefalet at oprette en opstartsdiskette."
 
 #: ../autopart.py:856
 msgid "Requested Partition Does Not Exist"
@@ -209,8 +209,8 @@ msgstr ""
 "tilgodese dine behov.\n"
 "Værktøjet for manuel partitionering, Disk Druid, lader dig opsætte dine "
 "partitioner i et interaktivt miljø. Du kan sætte filsystemtyper, "
-"monteringspunkter, størrelse og mere i dette letanvendelige, stærke "
-"grænsesnit.\n"
+"monteringspunkter, størrelse og mere i denne letanvendelige, stærke "
+"grænseflade.\n"
 "\n"
 "fdisk er det traditionelle, tekstbaserede partitioneringsværktøj som "
 "tilbydes af Red Hat. Selv om dette kan være noget vanskeligere i brug, "
@@ -288,7 +288,7 @@ msgstr "Undtagelse hændte"
 
 #: ../exception.py:179
 msgid "Dump Written"
-msgstr "Dumpning skrevet"
+msgstr "Kopi af stakken skrevet for senere fejlsøgning"
 
 #: ../exception.py:180
 msgid ""
@@ -334,12 +334,12 @@ msgstr "Opretter opstartsdiskette..."
 
 #: ../fsset.py:145
 msgid "Checking for Bad Blocks"
-msgstr "Leder efter dårlige blokke"
+msgstr "Kontrollerer for dårlige blokke"
 
 #: ../fsset.py:146
 #, c-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Leder efter dårlige blokke på /dev/%s..."
+msgstr "Kontrollerer for dårlige blokke på /dev/%s..."
 
 #: ../fsset.py:372
 #, c-format
@@ -546,7 +546,7 @@ msgstr ""
 
 #: ../gui.py:381 ../gui.py:743
 msgid "Online Help"
-msgstr "Online-hjælp"
+msgstr "Online-vejledning"
 
 #: ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:38
 msgid "Language Selection"
@@ -586,7 +586,7 @@ msgstr "Næste"
 
 #: ../gui.py:609
 msgid "Show Help"
-msgstr "Vis hjælp"
+msgstr "Vis vejledning"
 
 #: ../gui.py:611
 msgid "Hide Help"
@@ -612,7 +612,7 @@ msgstr "Installeringsvindue"
 #: ../harddrive.py:172
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "Mangler CD #%d, som er krævet af installationen."
+msgstr "Mangler cd #%d, som er krævet af installationen."
 
 #: ../image.py:62
 msgid "Copying File"
@@ -637,7 +637,7 @@ msgstr "skift cd-rom"
 #: ../image.py:120
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr "Indsæt CD %d for at fortsætte."
+msgstr "Indsæt cd %d for at fortsætte."
 
 #: ../image.py:137
 msgid "Wrong CDROM"
@@ -1026,7 +1026,7 @@ msgstr "partitionen er i brug af installationsprogrammet."
 
 #: ../partitioning.py:1617
 msgid "a partition which is a member of a RAID array."
-msgstr "en partition som er medlem af et RAID-array."
+msgstr "en partition som er medlem af en RAID-række."
 
 #: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
 #: ../partitioning.py:1651 ../partitioning.py:1658
@@ -1114,7 +1114,7 @@ msgid ""
 msgstr ""
 "Da du ikke har ret megen hukommelse på denne maskine, bliver vi nødt til slå "
 "swap til med det samme. For at gøre det er vi nødt at skrive den nye "
-"partitionstabel på disken. Er det o.k.?"
+"partitionstabel på disken. Er det i orden?"
 
 #: ../partitioning.py:1774
 msgid "Format as Swap?"
@@ -1287,7 +1287,7 @@ msgid ""
 msgstr ""
 "Dit system blev monteret under /mnt/sysimage.\n"
 "\n"
-"Tryk <Enter> for at gå til skallen. Hvis du vil gøre dit system til rod-"
+"Tryk <retur> for at gå til skallen. Hvis du vil gøre dit system til rod-"
 "miljø, kør kommandoen:\n"
 "\n"
 "chroot /mnt/sysimage\n"
@@ -1305,7 +1305,7 @@ msgstr ""
 "Der opstod en fejl under montering af hele eller dele af dit system. Noget "
 "af det er måske monteret under /mnt/sysimage.\n"
 "\n"
-"Tryk <return> for at gå til en kommandofortolker. Computeren vil automatisk "
+"Tryk <retur> for at gå til en kommandofortolker. Computeren vil automatisk "
 "genstarte når du afslutter kommandofortolkeren."
 
 #: ../rescue.py:170
@@ -1467,11 +1467,11 @@ msgstr "Ukendt kort"
 
 #: ../textw/xconfig_text.py:476 ../xf86config.py:850
 msgid "Video Card"
-msgstr "Grafikkort"
+msgstr "Skærmkort"
 
 #: ../xf86config.py:852
 msgid "Video Ram"
-msgstr "Video-hukommelse"
+msgstr "Skærm-hukommelse"
 
 #: ../xf86config.py:855
 msgid "X server"
@@ -1479,7 +1479,7 @@ msgstr "X-server"
 
 #: ../xf86config.py:858
 msgid "Unable to detect video card"
-msgstr "Kunne ikke identificere grafikkort"
+msgstr "Kunne ikke identificere skærmkort"
 
 #: ../xserver.py:101
 msgid "Attempting to start framebuffer based X server"
@@ -1650,11 +1650,11 @@ msgstr "Anvend LDAP"
 
 #: ../iw/auth_gui.py:142
 msgid "Use TLS lookups"
-msgstr "Brug TLS opslag."
+msgstr "Brug TLS-opslag."
 
 #: ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
 msgid "LDAP Server:"
-msgstr "LDAP-Server:"
+msgstr "LDAP-server:"
 
 #: ../iw/auth_gui.py:145 ../textw/userauth_text.py:370
 msgid "LDAP Base DN:"
@@ -2068,7 +2068,7 @@ msgstr "Middel"
 
 #: ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 msgid "No firewall"
-msgstr "Ingen brandmur (firewall)"
+msgstr "Ingen brandmur"
 
 #: ../iw/firewall_gui.py:246
 msgid "Use default firewall rules"
@@ -2100,7 +2100,7 @@ msgstr "Installationstype"
 
 #: ../iw/keyboard_gui.py:26
 msgid "Keyboard Configuration"
-msgstr "Tastaturkonfiguration"
+msgstr "Konfiguration af tastatur"
 
 #: ../iw/keyboard_gui.py:102
 msgid "Which model keyboard is attached to the computer?"
@@ -2577,7 +2577,7 @@ msgstr "Installerer pakker"
 #: ../iw/progress_gui.py:119
 #, c-format
 msgid "%s KBytes"
-msgstr "%s KByte"
+msgstr "%s Kb"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
@@ -2625,11 +2625,11 @@ msgstr "Indstilling af SILO"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr "Installér SILO opstartsblok på:"
+msgstr "Installér SILO-opstartsblok på:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
-msgstr "Lav PROM alias"
+msgstr "Lav PROM-alias"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
@@ -2684,10 +2684,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denne udgave af Red Hat Linux støtter det journalførende ext3-filsystem. Det "
-"har flere fordele frem for ext2-filsystemet som traditionelt har vært brugt "
-"i Red Hat Linux. Det er muligt at migrere ext2-formaterede partitioner til "
-"ext3 uden tab af data.\n"
+"Denne udgave af Red Hat Linux understøtter det journaliserende ext3-"
+"filsystem. Det har flere fordele frem for ext2-filsystemet som traditionelt "
+"har vært brugt i Red Hat Linux. Det er muligt at migrere ext2-formaterede "
+"partitioner til ext3 uden tab af data.\n"
 "\n"
 "Hvilken af disse partitioner vil du migrere?"
 
@@ -2788,7 +2788,7 @@ msgstr "Farvedybde:"
 
 #: ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
 msgid "256 Colors (8 Bit)"
-msgstr "256 farver (8 Bit)"
+msgstr "256 farver (8 bit)"
 
 #: ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
 msgid "High Color (16 Bit)"
@@ -2808,7 +2808,7 @@ msgstr "Test indstilling"
 
 #: ../iw/xconfig_gui.py:311
 msgid "Please choose your default desktop environment:"
-msgstr "Vælg dit standard skrivebords miljø:"
+msgstr "Vælg dit standard skrivebordsmiljø:"
 
 #: ../iw/xconfig_gui.py:313
 msgid "Your desktop environment is:"
@@ -2838,7 +2838,7 @@ msgstr "Brug grafisk logind"
 
 #: ../iw/xconfig_gui.py:384 ../textw/xconfig_text.py:380
 msgid "Monitor Configuration"
-msgstr "Skærmkonfiguration"
+msgstr "Konfiguration af skærm"
 
 #: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:867
 msgid "Generic"
@@ -2874,7 +2874,7 @@ msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:667
 msgid "Graphical Interface (X) Configuration"
-msgstr "Konfiguration af grafisk grænsesnit (X)"
+msgstr "Konfiguration af grafisk grænseflade (X)"
 
 #: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:608
 msgid "Unspecified video card"
@@ -2920,7 +2920,7 @@ msgstr "Andre"
 
 #: ../iw/xconfig_gui.py:960
 msgid "Video card RAM: "
-msgstr "Grafikkorthukommelse"
+msgstr "Skærmkorthukommelse"
 
 #: ../iw/xconfig_gui.py:986 ../textw/xconfig_text.py:566
 msgid "Skip X Configuration"
@@ -3472,7 +3472,7 @@ msgstr "For mange reservediske"
 
 #: ../textw/partition_text.py:894
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "Maksimalt antal reservediske med en RAID0-array er 0."
+msgstr "Maksimalt antal reservediske med en RAID0-række er 0."
 
 #: ../textw/partition_text.py:979
 msgid "Partitioning"
@@ -3786,7 +3786,7 @@ msgstr "Spørg efter server via rundkastning"
 
 #: ../textw/userauth_text.py:380
 msgid "Use TLS connections"
-msgstr "Brug TLS forbindelser"
+msgstr "Brug TLS-forbindelser"
 
 #: ../textw/welcome_text.py:21 ../textw/welcome_text.py:40
 msgid "Red Hat Linux"
@@ -3905,11 +3905,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:287
 msgid "HSync Rate: "
-msgstr "HSync frekvens: "
+msgstr "Vandret synkroniseringsfrekvens: "
 
 #: ../textw/xconfig_text.py:292
 msgid "VSync Rate: "
-msgstr "VSync frekvens: "
+msgstr "Lodret synkroniseringsfrekvens: "
 
 #: ../textw/xconfig_text.py:316
 msgid "horizontal"
@@ -3982,7 +3982,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:495
 msgid "Video RAM"
-msgstr "Video-RAM"
+msgstr "Skærmhukommelse"
 
 #: ../textw/xconfig_text.py:496
 #, c-format
@@ -4003,7 +4003,7 @@ msgstr "Vælg skærmkort og video-RAM for dit system."
 
 #: ../textw/xconfig_text.py:575
 msgid "Video Card:"
-msgstr "Grafikkort:"
+msgstr "Skærmkort:"
 
 #: ../textw/xconfig_text.py:580
 msgid "Unknown card"
@@ -4011,7 +4011,7 @@ msgstr "Ukendt kort"
 
 #: ../textw/xconfig_text.py:588
 msgid "Video RAM:"
-msgstr "Grafik RAM:"
+msgstr "Skærm RAM:"
 
 #: ../installclasses/custom.py:12
 msgid "Custom"
@@ -4755,16 +4755,16 @@ msgid "Anonymous FTP Server"
 msgstr "Anonym ftp-server"
 
 msgid "SQL Database Server"
-msgstr "SQL databasetjener"
+msgstr "SQL-databasetjener"
 
 msgid "Web Server"
-msgstr "Web-Server"
+msgstr "Web-server"
 
 msgid "Router / Firewall"
 msgstr "Ruter / brandmur"
 
 msgid "DNS Name Server"
-msgstr "DNS-navnet Server"
+msgstr "DNS-navneserver"
 
 msgid "Network Managed Workstation"
 msgstr "Netværksadministreret arbejdsstation"
@@ -4779,7 +4779,7 @@ msgid "Utilities"
 msgstr "Tilbehør"
 
 msgid "Legacy Application Support"
-msgstr "Støtte for ældre applikationer"
+msgstr "Støtte for ældre programmer"
 
 msgid "Software Development"
 msgstr "Programmeludvikling"
