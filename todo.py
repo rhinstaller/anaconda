@@ -781,9 +781,13 @@ class ToDo:
             out = open (self.instPath + "/etc/conf.modules", "a")
             out.write (inf.read ())
 
-    def verifyDeps (self):
+    def verifyDeps (self, path = None, db = None):
 	self.getCompsList()
-	ts = rpm.TransactionSet()
+        if path and db:
+            ts = rpm.TransactionSet(path, db)
+        else:
+            ts = rpm.TransactionSet()
+            
         self.comps['Base'].select (1)
 
 	for p in self.hdList.packages.values ():
@@ -912,13 +916,23 @@ class ToDo:
                 hasX = 1
             if package[rpm.RPMTAG_NAME] == "gmc":
                 hasgmc = 1
-                
-        # yes, this is rude
+
+        # open up the database to check dependencies
+        db = rpm.opendb (0, self.instPath)
+
+        # if we have X but not gmc, we need to turn on GNOME.  We only
+        # want to turn on packages we don't have installed already, though.
         if hasX and not hasgmc:
-            self.comps['GNOME'].select(1)
+            for package in self.comps['GNOME'].items.keys ():
+                rec = db.findbyname (package)
+                if not rec:
+                    self.comps['GNOME'].items[package].selected = 1
             
         # new package dependency fixup
-        self.selectDeps (self.verifyDeps ())
+        deps = self.verifyDeps (self.instPath, db)
+        for (name, suggest) in deps:
+            self.log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
+        self.selectDeps (deps)
         win.pop ()
 
     def rpmError (todo):
