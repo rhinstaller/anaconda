@@ -748,10 +748,14 @@ def doPreInstall(method, id, intf, instPath, dir):
     # write out the fstab
     if not upgrade:
         id.fsset.write(instPath)
-        # rootpath mode doesn't have this file around
-        if os.access("/tmp/modprobe.conf", os.R_OK):
-            iutil.copyFile("/tmp/modprobe.conf", 
-                           instPath + "/etc/modprobe.conf")
+
+    # rootpath mode doesn't have this file around
+    # we need this on upgrades now that we move the old modprobe.conf
+    # out of the way and let kudzu regen stuff.  otherwise, initrds
+    # won't end up being right
+    if os.access("/tmp/modprobe.conf", os.R_OK):
+        iutil.copyFile("/tmp/modprobe.conf", 
+                       instPath + "/etc/modprobe.conf")
 
     # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
     f = open(instPath + "/etc/mtab", "w+")
@@ -1068,6 +1072,9 @@ def doPostInstall(method, id, intf, instPath):
 		       
 	    w.set(3)
 
+        # we need to run kudzu on upgrades now so that modprobe.conf
+        # gets generated right
+        if 1:
 	    # blah.  If we're on a serial mouse, and we have X, we need to
 	    # close the mouse device, then run kudzu, then open it again.
 
