@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-15 10:29-0400\n"
+"POT-Creation-Date: 2004-05-25 18:58-0400\n"
 "PO-Revision-Date: 2004-02-22 09:09+0200\n"
 "Last-Translator: Thobile Mhlongo <thobile@obsidian.co.za>\n"
 "Language-Team: Zulu <zulu@translate.org.za>\n"
@@ -96,9 +96,9 @@ msgstr "Siza uxhume kwi- %s ukuqala ukufakwa..."
 msgid "Please connect to begin the install..."
 msgstr "Siza uxhume ukuqala ukufakwa..."
 
-#: ../anaconda:560 ../anaconda:741 ../gui.py:238 ../gui.py:982 ../rescue.py:40
+#: ../anaconda:562 ../anaconda:743 ../gui.py:239 ../gui.py:992 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:337 ../text.py:483
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -106,25 +106,25 @@ msgstr "Siza uxhume ukuqala ukufakwa..."
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:160 ../loader2/cdinstall.c:136
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
-#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:373
-#: ../loader2/cdinstall.c:378 ../loader2/cdinstall.c:381
-#: ../loader2/cdinstall.c:446 ../loader2/driverdisk.c:249
+#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
+#: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
+#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:249
 #: ../loader2/driverdisk.c:265 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:442 ../loader2/driverdisk.c:475
+#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:242 ../loader2/hdinstall.c:295
 #: ../loader2/hdinstall.c:354 ../loader2/hdinstall.c:516
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
-#: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:106
-#: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
-#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
+#: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
+#: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
+#: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/lang.c:375
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
 #: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
-#: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
-#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:868
-#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
+#: ../loader2/modules.c:919 ../loader2/net.c:188 ../loader2/net.c:210
+#: ../loader2/net.c:479 ../loader2/net.c:811 ../loader2/net.c:834
+#: ../loader2/net.c:952 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
 #: ../loader2/urlinstall.c:136 ../loader2/urlinstall.c:149
@@ -135,50 +135,50 @@ msgstr "Siza uxhume ukuqala ukufakwa..."
 msgid "OK"
 msgstr "KULUNGILE"
 
-#: ../anaconda:611
+#: ../anaconda:613
 msgid "Unknown Error"
 msgstr "Iphutha Elingaziwa"
 
-#: ../anaconda:614
+#: ../anaconda:616
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Iphutha elidonsa ingxenye yesibili yokuqala inhlanganiselo: %s!"
 
-#: ../anaconda:726
+#: ../anaconda:728
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 "Awunayo i-RAM eyanele ukusebenzisa umfaki wemidwebo.  Iqala indlela yombhalo."
 
-#: ../anaconda:778
+#: ../anaconda:780
 msgid "Install class forcing text mode installation"
 msgstr "Faka iqoqo eliphoqa ukufakwa kwendlela yombhalo"
 
-#: ../anaconda:805
+#: ../anaconda:807
 msgid "No video hardware found, assuming headless"
 msgstr "Alikho ingaphakathi lekhomputha, cabanga njengokungenakhanda"
 
-#: ../anaconda:816 ../anaconda:1063 ../bar.py:23
+#: ../anaconda:818 ../anaconda:1066
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Ayikwazi ukwazinga ilunga lesimo sengaphakathi lekhomputha la-X."
 
-#: ../anaconda:840
+#: ../anaconda:842
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Ukufakwa kwemidwebo akukho...  Iqala indlela yombhalo."
 
-#: ../anaconda:855
+#: ../anaconda:857
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr "Ayikho i-mouse ecoshiwe.  I-mouse iyadingeka ukufaka imidwebo"
 
-#: ../anaconda:865
+#: ../anaconda:867
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "Uhlobo lwe-mouse olucoshiwe: %s"
 
-#: ../anaconda:869
+#: ../anaconda:871
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Sebenzisa uhlobo lwe-mouse: %s"
@@ -239,7 +239,7 @@ msgstr ""
 "Ukwahlula kokulayisha akutholakali ngokushesha kwidiski.  I-OpenFirmware "
 "ayikwazanga ukulayisha lokhu kufaka."
 
-#: ../autopart.py:1013
+#: ../autopart.py:1017
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -248,7 +248,7 @@ msgstr ""
 "Ukwahlula kokulayisha kwe-%s angeke kuhlangabezane nemibandela yokulayisha "
 "yokwakheka kwakho.  Ukudaleka kwediski yokulayisha kuyagqugquzelwa."
 
-#: ../autopart.py:1038
+#: ../autopart.py:1042
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -257,11 +257,11 @@ msgstr ""
 "Ukongeza lokhu kwahlula angeke kushiye isikhala esanele sokuhlela izisindo "
 "kwi-%s."
 
-#: ../autopart.py:1195
+#: ../autopart.py:1208
 msgid "Requested Partition Does Not Exist"
 msgstr "Ukwahlula Okuceliwe Akukho"
 
-#: ../autopart.py:1196
+#: ../autopart.py:1209
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -272,11 +272,11 @@ msgstr ""
 "\n"
 "Cofa 'KULUNGILE' sokukhuphula kabusha kwisistimu yakho."
 
-#: ../autopart.py:1221
+#: ../autopart.py:1234
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Ithuluzi le-RAID Eliceliwe Alikho"
 
-#: ../autopart.py:1222
+#: ../autopart.py:1235
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -287,11 +287,11 @@ msgstr ""
 "\n"
 "Cofa 'KULUNGILE' ukulayisha kabusha isistimu yakho."
 
-#: ../autopart.py:1251
+#: ../autopart.py:1264
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Iqembu Lesissindo Eliceliwe Alikho"
 
-#: ../autopart.py:1252
+#: ../autopart.py:1265
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -302,11 +302,11 @@ msgstr ""
 "\n"
 "Cofa 'KULUNGILE' ukulayisha kabusha isistimu yakho."
 
-#: ../autopart.py:1287
+#: ../autopart.py:1300
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Isisindo Esikaliwe Esiceliwe Asikho"
 
-#: ../autopart.py:1288
+#: ../autopart.py:1301
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -317,11 +317,11 @@ msgstr ""
 "\n"
 "Cofa 'KULUNGILE' ukulayisha kabusha isistimu yakho."
 
-#: ../autopart.py:1320 ../autopart.py:1368
+#: ../autopart.py:1333 ../autopart.py:1381
 msgid "Automatic Partitioning Errors"
 msgstr "Amaphutha Okwahlula Azenzekelayo"
 
-#: ../autopart.py:1321
+#: ../autopart.py:1334
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -336,11 +336,11 @@ msgstr ""
 "\n"
 "Cindezela 'KULUNGILE' ukulayisha kabusha isistimu yakho."
 
-#: ../autopart.py:1331
+#: ../autopart.py:1344
 msgid "Warnings During Automatic Partitioning"
 msgstr "Izexwayiso Ngesikhathi Sokwahlula Esizenzekelayo"
 
-#: ../autopart.py:1332
+#: ../autopart.py:1345
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -351,7 +351,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1345 ../autopart.py:1362
+#: ../autopart.py:1358 ../autopart.py:1375
 msgid ""
 "\n"
 "\n"
@@ -361,12 +361,12 @@ msgstr ""
 "\n"
 "Cofa 'KULUNGILE' ukulayisha kabusha isistimu yakho."
 
-#: ../autopart.py:1346 ../iw/partition_gui.py:998
-#: ../textw/partition_text.py:219
+#: ../autopart.py:1359 ../iw/partition_gui.py:1002
+#: ../textw/partition_text.py:223
 msgid "Error Partitioning"
 msgstr "Iphutha Lokwahlula"
 
-#: ../autopart.py:1347
+#: ../autopart.py:1360
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -377,7 +377,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1364
+#: ../autopart.py:1377
 msgid ""
 "\n"
 "\n"
@@ -393,7 +393,7 @@ msgstr ""
 "\n"
 "Cofa 'KULUNGILE' ukuqhubeka."
 
-#: ../autopart.py:1369
+#: ../autopart.py:1382
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -409,15 +409,15 @@ msgstr ""
 "\n"
 "Lokhu kungenzeka uma singekho isikhala esanele kwi-drive eqinile yokufakwa.%s"
 
-#: ../autopart.py:1380
+#: ../autopart.py:1393
 msgid "Unrecoverable Error"
 msgstr "Iphutha Elingatholakali"
 
-#: ../autopart.py:1381
+#: ../autopart.py:1394
 msgid "Your system will now be rebooted."
 msgstr "Isistimu yakho izolayishwa kabusha."
 
-#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:441
+#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:465
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -425,12 +425,12 @@ msgstr "Isistimu yakho izolayishwa kabusha."
 #: ../iw/fdasd_gui.py:93 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
-#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:223
+#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
 #: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
 msgid "Warning"
 msgstr "Isexwayiso"
 
-#: ../autopart.py:1470
+#: ../autopart.py:1483
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -440,7 +440,7 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr "Ukwahlula ng"
 
-#: ../autopart.py:1481
+#: ../autopart.py:1494
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -448,19 +448,19 @@ msgstr ""
 "Ngaphambi kokuba ukwahlula kumiswe ngohlelo lwakho lwemisebenzi, kumele "
 "ukhethe ukuthi uzosisebenzisa kanjani isikhala sakho esikuma-drive aqinile."
 
-#: ../autopart.py:1486
+#: ../autopart.py:1499
 msgid "Remove all partitions on this system"
 msgstr "Gudluza zonke izahlulo ezikulesistimu"
 
-#: ../autopart.py:1487
+#: ../autopart.py:1500
 msgid "Remove all Linux partitions on this system"
 msgstr "Gudluza zonke izahlulo ze-Linux kulesistimu"
 
-#: ../autopart.py:1488
+#: ../autopart.py:1501
 msgid "Keep all partitions and use existing free space"
 msgstr "Gcina zonke izahlulo ebese usebenzisa isikhala esikhulekile"
 
-#: ../autopart.py:1490
+#: ../autopart.py:1503
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -470,7 +470,7 @@ msgstr ""
 "Ukhethe ukugudluza zonke izahlulo (LONKE ULWAZI) kulamadrive alandelayo:%s\n"
 "Uqinisekile ufuna ukwenza lokhu?"
 
-#: ../autopart.py:1494
+#: ../autopart.py:1507
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -489,7 +489,7 @@ msgstr "Umlayishi"
 msgid "Installing bootloader..."
 msgstr "Ifaka umlayishi..."
 
-#: ../bootloader.py:149
+#: ../bootloader.py:156
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -523,7 +523,7 @@ msgstr "Kwenziwe [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "Iyafaka %s-%s-%s... "
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:749
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:779
 msgid "Everything"
 msgstr "Yonke into"
 
@@ -531,11 +531,11 @@ msgstr "Yonke into"
 msgid "no suggestion"
 msgstr "awukho umbono"
 
-#: ../comps.py:1098 ../hdrlist.py:972
+#: ../comps.py:1098 ../hdrlist.py:1002
 msgid "Miscellaneous"
 msgstr "Ingxubevange"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:919
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:949
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -544,7 +544,7 @@ msgstr ""
 "Leli qembu libala ohlwini amaphakethe akhona.  Yazi ukuthi kukhona "
 "amaphakethe amaningi kunalawo akwamanye amaqembu ephakethe kule likhasi."
 
-#: ../comps.py:1118 ../hdrlist.py:923
+#: ../comps.py:1118 ../hdrlist.py:953
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -627,21 +627,21 @@ msgid "_Make boot disk"
 msgstr "-Yakha isidiski yokulayisha"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
-#: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:301
-#: ../image.py:498 ../packages.py:150 ../packages.py:163 ../packages.py:175
-#: ../packages.py:182 ../packages.py:408 ../packages.py:583 ../packages.py:668
+#: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
+#: ../fsset.py:1348 ../fsset.py:1383 ../fsset.py:1433 ../fsset.py:1477
+#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:325
+#: ../image.py:522 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../packages.py:182 ../packages.py:408 ../packages.py:591 ../packages.py:676
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:446 ../loader2/driverdisk.c:279
+#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:279
 #: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
-#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
+#: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/loader.c:346
 #: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
@@ -706,27 +706,27 @@ msgstr ""
 "Kwenzeke iphutha ekufudukisweni kwe-%s kuya kwi-ext3.  Kungenzeka ukuqhubeka "
 "ngaphandle kokufudukisa le sistimu %s?"
 
-#: ../fsset.py:1158
+#: ../fsset.py:1182
 msgid "RAID Device"
 msgstr "Ithuluzi le-RAID"
 
-#: ../fsset.py:1162 ../fsset.py:1168
+#: ../fsset.py:1186 ../fsset.py:1192
 msgid "Apple Bootstrap"
 msgstr "Intambo yokulayisha Yahhapula"
 
-#: ../fsset.py:1173 ../partitions.py:802
+#: ../fsset.py:1197 ../partitions.py:802
 msgid "PPC PReP Boot"
 msgstr "Ukulayishwa kwe-PPC PReP"
 
-#: ../fsset.py:1176 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1200 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Isigaba sokuqala sesahlulo sokulayisha"
 
-#: ../fsset.py:1177 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1201 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "I-Master Boot Record (MBR)"
 
-#: ../fsset.py:1244
+#: ../fsset.py:1268
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -739,7 +739,7 @@ msgstr ""
 "\n"
 "Cindezela <Enter> ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:1263
+#: ../fsset.py:1287
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -754,7 +754,7 @@ msgstr ""
 "\n"
 "Cofa KULUNGILE ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:1314
+#: ../fsset.py:1338
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -767,7 +767,7 @@ msgstr ""
 "\n"
 "Cindezela <Enter> ukulayisha kabusha isistimu yakho"
 
-#: ../fsset.py:1325
+#: ../fsset.py:1349
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -780,7 +780,7 @@ msgstr ""
 "\n"
 "Cindezela <Enter> ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:1360
+#: ../fsset.py:1384
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -793,7 +793,7 @@ msgstr ""
 "\n"
 "Cofa <Enter> ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:1410
+#: ../fsset.py:1434
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -806,11 +806,11 @@ msgstr ""
 "\n"
 "Cofa <Enter> ukulayisha isistimu yakho kabusha."
 
-#: ../fsset.py:1431 ../fsset.py:1440
+#: ../fsset.py:1455 ../fsset.py:1464
 msgid "Invalid mount point"
 msgstr "Iphuzu lokukhuphuka elingasebenzi"
 
-#: ../fsset.py:1432
+#: ../fsset.py:1456
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -824,7 +824,7 @@ msgstr ""
 "\n"
 "Cofa <Enter> ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:1441
+#: ../fsset.py:1465
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -837,7 +837,7 @@ msgstr ""
 "\n"
 "Cofa <Enter> ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:1454
+#: ../fsset.py:1478
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -852,11 +852,11 @@ msgstr ""
 "\n"
 "Cindezela KULUNGILE ukulayisha kabusha isistimu yakho."
 
-#: ../fsset.py:2068
+#: ../fsset.py:2117
 msgid "Duplicate Labels"
 msgstr "Amalebula Akhishiwe"
 
-#: ../fsset.py:2069
+#: ../fsset.py:2118
 #, fuzzy, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -869,30 +869,31 @@ msgstr ""
 "\n"
 "Siza ulungise le nkinga ebese uqala kabusha inqubo yokufaka."
 
-#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:451
-#: ../packages.py:1453 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
+#: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
+#: ../image.py:475 ../packages.py:1485 ../iw/confirm_gui.py:68
+#: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_Layisha kabusha"
 
-#: ../fsset.py:2329
+#: ../fsset.py:2378
 msgid "Formatting"
 msgstr "Isakhiwo"
 
-#: ../fsset.py:2330
+#: ../fsset.py:2379
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Isistimu yefayela %s yesakhelo..."
 
-#: ../gui.py:105
+#: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
 msgstr "Kwenzeke iphutha ngesikhathi sokukhipha izithombe zesikrini."
 
-#: ../gui.py:117
+#: ../gui.py:118
 msgid "Screenshots Copied"
 msgstr "Izithombe zesikrini Zikhishiwe"
 
-#: ../gui.py:118
+#: ../gui.py:119
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -906,20 +907,20 @@ msgstr ""
 "\n"
 "Ungazithola lezi uma ulayish kabusha futhi ungena ngaphakathi njengempande."
 
-#: ../gui.py:162
+#: ../gui.py:163
 msgid "Saving Screenshot"
 msgstr "Igcina Isithombe sesikrini"
 
-#: ../gui.py:163
+#: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Isithombe sesikrini esibizwa '%s' sigciniwe."
 
-#: ../gui.py:166
+#: ../gui.py:167
 msgid "Error Saving Screenshot"
 msgstr "Iphutha Ekugcineni Isithombe sesikrini"
 
-#: ../gui.py:167
+#: ../gui.py:168
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -928,11 +929,11 @@ msgstr ""
 "kwenzeka ngesikhathi sokufaka iphakethe, ungadinga ukuzama izikhathi "
 "ezimbalwa ngaphambi kouqhubeka."
 
-#: ../gui.py:235 ../text.py:323
+#: ../gui.py:236 ../text.py:334
 msgid "Fix"
 msgstr "Lungisa"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
+#: ../gui.py:237 ../rescue.py:176 ../text.py:335 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -940,7 +941,7 @@ msgstr "Lungisa"
 msgid "Yes"
 msgstr "Yebo"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
+#: ../gui.py:238 ../rescue.py:176 ../rescue.py:178 ../text.py:336
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -949,17 +950,17 @@ msgstr "Yebo"
 msgid "No"
 msgstr "Cha"
 
-#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:524
 msgid "Retry"
 msgstr "Phinda uzame"
 
-#: ../gui.py:240 ../text.py:328
+#: ../gui.py:241 ../text.py:339
 msgid "Ignore"
 msgstr "Ziba"
 
-#: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
-#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
+#: ../gui.py:242 ../gui.py:557 ../partIntfHelpers.py:232
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:297
+#: ../text.py:299 ../text.py:340 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -967,7 +968,19 @@ msgstr "Ziba"
 msgid "Cancel"
 msgstr "Nqamula"
 
-#: ../gui.py:638 ../text.py:284
+#: ../gui.py:638 ../text.py:283
+#, python-format
+msgid ""
+"The following error was found while parsing your kickstart configuration:n\n"
+"%s"
+msgstr ""
+
+#: ../gui.py:640 ../text.py:285
+#, fuzzy
+msgid "Error Parsing Kickstart Config"
+msgstr "Iphutha ekuvulweni kwefayela lokuqala %s: %s"
+
+#: ../gui.py:648 ../text.py:295
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -975,19 +988,24 @@ msgstr ""
 "Ngenisa idiski ezimele manje. Konke okuqukethwe kulediski kuzocishwa. Konke "
 "okuqukethwe kuzocishwa, ngakho siza ukhethe ngokucophelela idiski encane."
 
-#: ../gui.py:810 ../iw/release_notes_viewer_gui.py:44
+#: ../gui.py:746
+#, fuzzy
+msgid "default:LTR"
+msgstr "Indalo"
+
+#: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
 msgstr "Amapheshana okukhipha alahlekile.\n"
 
-#: ../gui.py:980
+#: ../gui.py:990
 msgid "The release notes are missing."
 msgstr "Amapheshana okukhipha alahlekile."
 
-#: ../gui.py:1080
+#: ../gui.py:1090
 msgid "Error!"
 msgstr "Iphutha!"
 
-#: ../gui.py:1081
+#: ../gui.py:1091
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -999,67 +1017,67 @@ msgstr ""
 "\n"
 "IgamaLeqoqo= %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:588 ../packages.py:1447
+#: ../gui.py:1095 ../packages.py:187 ../packages.py:596 ../packages.py:1479
 msgid "_Exit"
 msgstr "-Phuma"
 
-#: ../gui.py:1086
+#: ../gui.py:1096
 msgid "_Retry"
 msgstr "_Zama kabusha"
 
-#: ../gui.py:1088 ../packages.py:1450
+#: ../gui.py:1098 ../packages.py:1482
 msgid "Rebooting System"
 msgstr "Isistimu Yokulayisha kabusha"
 
-#: ../gui.py:1089 ../packages.py:1451
+#: ../gui.py:1099 ../packages.py:1483
 msgid "Your system will now be rebooted..."
 msgstr "Isistimu yakho izolayisha kabusha manje..."
 
-#: ../gui.py:1180 ../packages.py:1453 ../iw/confirm_gui.py:68
+#: ../gui.py:1190 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
 msgstr "_Emuva"
 
-#: ../gui.py:1182
+#: ../gui.py:1192
 msgid "_Next"
 msgstr "_Okulandelayo"
 
-#: ../gui.py:1184
+#: ../gui.py:1194
 msgid "_Release Notes"
 msgstr "_Amapheshana Okukhipha"
 
-#: ../gui.py:1186
+#: ../gui.py:1196
 msgid "Show _Help"
 msgstr "Khombisa _Usizo"
 
-#: ../gui.py:1188
+#: ../gui.py:1198
 msgid "Hide _Help"
 msgstr "Fihla _Usizo"
 
-#: ../gui.py:1190
+#: ../gui.py:1200
 msgid "_Debug"
 msgstr "_Khipha igciwane"
 
-#: ../gui.py:1272
+#: ../gui.py:1282
 #, python-format
 msgid "%s Installer"
 msgstr "%s Umfaki"
 
-#: ../gui.py:1287
+#: ../gui.py:1297
 #, python-format
 msgid "%s Installer on %s"
 msgstr "%s Umfaki uku- %s"
 
-#: ../gui.py:1315
+#: ../gui.py:1325
 msgid "Unable to load title bar"
 msgstr "Ayikwazi ukulayisha uphawu lwesihloko"
 
-#: ../gui.py:1421
+#: ../gui.py:1432
 msgid "Install Window"
 msgstr "Faka Iwindi"
 
-#: ../harddrive.py:166 ../image.py:499
+#: ../harddrive.py:166 ../image.py:523
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1072,11 +1090,11 @@ msgstr ""
 "%s\n"
 "Njengamanje isistimu izolayisha kabusha."
 
-#: ../image.py:63
+#: ../image.py:87
 msgid "Required Install Media"
 msgstr "Izithombe Zokufaka Ezidingekayo"
 
-#: ../image.py:64
+#: ../image.py:88
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -1091,12 +1109,12 @@ msgstr ""
 "Siza ube usuwalungisile ngaphambi kokuqhubeka nokufakwa .  Uma udinga "
 "ukuhushula ukufakwa ukuze uqale kabusha khetha \"Layisha kabusha\"."
 
-#: ../image.py:72 ../image.py:452 ../kickstart.py:1342 ../kickstart.py:1369
-#: ../iw/partition_gui.py:1012
+#: ../image.py:96 ../image.py:476 ../kickstart.py:1381 ../kickstart.py:1409
+#: ../iw/partition_gui.py:1016
 msgid "_Continue"
 msgstr "_Qhubeka"
 
-#: ../image.py:131
+#: ../image.py:155
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1105,15 +1123,15 @@ msgstr ""
 "Kwenzeke iphutha kwehliswa i-CD.  Siza uqiniseke ukuthi awungenisi i-5%s "
 "esuka kwigobolondo eku-tty2 ebese ucofa KULUNGILE ukuzama futhi."
 
-#: ../image.py:164
+#: ../image.py:188
 msgid "Copying File"
 msgstr "Ikhipha Ifayela"
 
-#: ../image.py:165
+#: ../image.py:189
 msgid "Transferring install image to hard drive..."
 msgstr "Ihambisa isithombe sokufaka kwi-drive eqinile..."
 
-#: ../image.py:169
+#: ../image.py:193
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1121,25 +1139,25 @@ msgstr ""
 "Kwenzeke iphutha ekuhambiseni isithombe sokufaka kwi-drive yakho eqinile.  "
 "Hlawube uphelelwe isikhala sediski."
 
-#: ../image.py:259
+#: ../image.py:283
 msgid "Change CDROM"
 msgstr "Shintsha i-CDROM"
 
-#: ../image.py:260
+#: ../image.py:284
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Siza ufake idiski %d ukuqhubeka."
 
-#: ../image.py:295
+#: ../image.py:319
 msgid "Wrong CDROM"
 msgstr "I-CDROM Engalungile"
 
-#: ../image.py:296
+#: ../image.py:320
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Akuyona i-%s CDROM elungile."
 
-#: ../image.py:302
+#: ../image.py:326
 msgid "The CDROM could not be mounted."
 msgstr "I-CDROM ayikhushulwanga."
 
@@ -1147,11 +1165,11 @@ msgstr "I-CDROM ayikhushulwanga."
 msgid "Install on System"
 msgstr "Faka Kwisistimu"
 
-#: ../kickstart.py:1334
+#: ../kickstart.py:1373
 msgid "Missing Package"
 msgstr "Iphakethe Elilahlekile"
 
-#: ../kickstart.py:1335
+#: ../kickstart.py:1374
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1160,15 +1178,15 @@ msgstr ""
 "Ucacisile iphakethe le-'%s' okumele lifakwe.  Leli phakethe alikho. Uthanda "
 "ukuqhubeka noma ukuhushula ukufakwa kwakho?"
 
-#: ../kickstart.py:1341 ../kickstart.py:1368
+#: ../kickstart.py:1380 ../kickstart.py:1408
 msgid "_Abort"
 msgstr "_Hushula"
 
-#: ../kickstart.py:1360
+#: ../kickstart.py:1400
 msgid "Missing Group"
 msgstr "Iqembu Elilahlekile"
 
-#: ../kickstart.py:1361
+#: ../kickstart.py:1401
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1235,7 +1253,7 @@ msgstr ""
 "Ayikwazo ukufunda ifayela le-comps.  Lokhu kungenxa yefayela elilahlekile "
 "noma onozindaba omubi.  Cindezela <return> ukuzama futhi."
 
-#: ../packages.py:176 ../packages.py:669 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:677 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1243,7 +1261,7 @@ msgstr ""
 "Ayikwazi ukuhlanganisa uhlu lombhalo ongaphezulu. Lokhu kungenxa yefayela "
 "elilahlekile noma unozindaba omubi.  Cofa <return> ukuzama futhi."
 
-#: ../packages.py:183 ../packages.py:584
+#: ../packages.py:183 ../packages.py:592
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1259,7 +1277,7 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr "Ibheka okuncikile emaphaketheni akhethelwe ukufakwa..."
 
 # source\dialogs\prnsetup.src string STR_SVT_PRNDLG_PROCESSING
-#: ../packages.py:349 ../packages.py:767
+#: ../packages.py:349 ../packages.py:798
 msgid "Processing"
 msgstr "Iyakhiqiza"
 
@@ -1306,11 +1324,11 @@ msgstr ""
 "lekhomputha.  Lokhu kuyiphutha elibucayi futhi ukufaka kwakho kuzohushulwa.  "
 "Zisa ucacise  uku"
 
-#: ../packages.py:768
+#: ../packages.py:799
 msgid "Preparing RPM transaction..."
 msgstr "Ilungisela ukukhishwa kwe-RPM..."
 
-#: ../packages.py:851
+#: ../packages.py:882
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1319,7 +1337,7 @@ msgstr ""
 "Ivuselela %s amaphakethe\n"
 "\n"
 
-#: ../packages.py:853
+#: ../packages.py:884
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1328,17 +1346,17 @@ msgstr ""
 "Ifaka amaphakethe e-%s\n"
 "\n"
 
-#: ../packages.py:861 ../packages.py:1161
+#: ../packages.py:892 ../packages.py:1192
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Iyavuselela %s-%s-%s.%s.\n"
 
-#: ../packages.py:863 ../packages.py:1163
+#: ../packages.py:894 ../packages.py:1194
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Ifaka %s-%s-%s.%s.\n"
 
-#: ../packages.py:879
+#: ../packages.py:910
 #, python-format
 msgid ""
 "\n"
@@ -1355,15 +1373,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:885
+#: ../packages.py:916
 msgid "Install Starting"
 msgstr "Faka Okokuqala"
 
-#: ../packages.py:886
+#: ../packages.py:917
 msgid "Starting install process, this may take several minutes..."
 msgstr "Iqala inqubo yokufaka, lokhu kungathatha imizuzu emibalwa..."
 
-#: ../packages.py:926
+#: ../packages.py:957
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1373,17 +1391,17 @@ msgstr ""
 "owakhethile. Udinga isikhala esiningi kulama sistimu alandelayo:\n"
 "\n"
 
-#: ../packages.py:930 ../packages.py:951 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:961 ../packages.py:982 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
+#: ../textw/partition_text.py:1130 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Izinga Lokukhuphuka"
 
-#: ../packages.py:931
+#: ../packages.py:962
 msgid "Space Needed"
 msgstr "Isikhala Esidingekayo"
 
-#: ../packages.py:947
+#: ../packages.py:978
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1393,23 +1411,23 @@ msgstr ""
 "owakhethile. Udinga isikhala esiningi kulama sistimu alandelayo:\n"
 "\n"
 
-#: ../packages.py:952
+#: ../packages.py:983
 msgid "Nodes Needed"
 msgstr "Amagatsha Adingekayo"
 
-#: ../packages.py:963
+#: ../packages.py:994
 msgid "Disk Space"
 msgstr "Isikhala Sediski"
 
-#: ../packages.py:1012
+#: ../packages.py:1043
 msgid "Post Install"
 msgstr "Posa Ukufaka"
 
-#: ../packages.py:1013
+#: ../packages.py:1044
 msgid "Performing post install configuration..."
 msgstr "Yenza inhlanganiselo yokufakwa kokweposi..."
 
-#: ../packages.py:1187
+#: ../packages.py:1218
 msgid ""
 "\n"
 "\n"
@@ -1419,7 +1437,7 @@ msgstr ""
 "\n"
 "Lama phakethe alandelayo atholakala ngale nguqulo kodwa AYIVUSELELWE:\n"
 
-#: ../packages.py:1190
+#: ../packages.py:1221
 msgid ""
 "\n"
 "\n"
@@ -1429,12 +1447,12 @@ msgstr ""
 "\n"
 "Lama phakethe alandelayo atholakala ngale nguqulo kodwa AYIFAKIWE:\n"
 
-#: ../packages.py:1433
+#: ../packages.py:1465
 msgid "Warning! This is pre-release software!"
 msgstr ""
 "Isexwayiso! Lokhu kungukhishwa ngamaphambili kwengaphakathi lekhomputha!"
 
-#: ../packages.py:1434
+#: ../packages.py:1466
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1461,11 +1479,11 @@ msgstr ""
 "\n"
 "ebese ufaka umbiko efayeleni '%s'.\n"
 
-#: ../packages.py:1447
+#: ../packages.py:1479
 msgid "_Install anyway"
 msgstr "_Faka noma kunjalo"
 
-#: ../partedUtils.py:185 ../textw/partition_text.py:498
+#: ../partedUtils.py:185 ../textw/partition_text.py:502
 msgid "Foreign"
 msgstr "Okungaziwa"
 
@@ -1671,7 +1689,7 @@ msgstr "Njengamanje uzocisha zonke izahlulo ezisethuluzinie '/dev/%s'."
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
-#: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1357
+#: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1361
 msgid "_Delete"
 msgstr "_Cisha"
 
@@ -1755,7 +1773,7 @@ msgstr ""
 msgid "Format?"
 msgstr "Isakhelo?"
 
-#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1010
+#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1014
 msgid "_Modify Partition"
 msgstr "_Lungisa Ukwahlula"
 
@@ -1924,7 +1942,7 @@ msgstr ""
 "Isahlulo sakho se-%s sincane kunamabyte amakhulu angu-%s angaphansi kwalawa "
 "acetshiswayoe-%s azofakwa."
 
-#: ../partitions.py:839 ../partRequests.py:649
+#: ../partitions.py:839 ../partRequests.py:651
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Izahlulo ezilayishekayo kumele zibe ngamathuluzi kuphela e-RAID1."
 
@@ -2029,16 +2047,16 @@ msgstr "Izahlulo angeke ziqalwe ngezansi kwesilinda yokuqala."
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Izahlulo aziphethi ngesilinda engenamphumela."
 
-#: ../partRequests.py:641
+#: ../partRequests.py:643
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Awekho amalunga esicelweni se-RAID, noma izinga le-RAID alicacisiwe."
 
-#: ../partRequests.py:653
+#: ../partRequests.py:655
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "Uhlobo lwethuluzi le-RAID %s ludinga okungenani amalunga angu-%s."
 
-#: ../partRequests.py:659
+#: ../partRequests.py:661
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -2064,11 +2082,11 @@ msgstr "Misa Uxhumano"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Ufuna ukuqala uxhumano kule sistimu?"
 
-#: ../rescue.py:220 ../text.py:468
+#: ../rescue.py:220 ../text.py:479
 msgid "Cancelled"
 msgstr "Inqanyuliwe"
 
-#: ../rescue.py:221 ../text.py:469
+#: ../rescue.py:221 ../text.py:480
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Angikwazi ukubuyela kwisigaba esedlule. Kumele uzame futhi."
 
@@ -2202,11 +2220,11 @@ msgstr "Usizo alukho"
 msgid "No help is available for this step of the install."
 msgstr "Alukho usizo olutholakele lwalesi sigaba sokufaka."
 
-#: ../text.py:283
+#: ../text.py:294
 msgid "Save Crash Dump"
 msgstr "Gcina Ukulahlwa Kwadoti"
 
-#: ../text.py:304 ../text.py:312
+#: ../text.py:315 ../text.py:323
 msgid "Save"
 msgstr "Gcina"
 
@@ -2218,23 +2236,23 @@ msgstr "Gcina"
 # #-#-#-#-#  messengercompose.po (messengercompose)  #-#-#-#-#
 # <!--LOCALIZATION NOTE Debug Menu Don't translate anything in the Debug menu section -->
 # <!-- Debug Menu, imported from editorAppShell.dtd -->
-#: ../text.py:304 ../text.py:307 ../text.py:310
+#: ../text.py:315 ../text.py:318 ../text.py:321
 msgid "Debug"
 msgstr "Cosha amaphutha"
 
-#: ../text.py:347
+#: ../text.py:358
 #, fuzzy, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:354
+#: ../text.py:365
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> ukuthola usizo | <Tab> phakathi kwamalunga | <Space> khetha | <F12> "
 "kwesilandelayo isikrini"
 
-#: ../text.py:356
+#: ../text.py:367
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2563,29 +2581,6 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
-
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Ukuhlula Okuzenzekelayo"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Udinga ukukhetha okungenani i-drive eqinile ukuze ube ne-%s afakwe kuyona."
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Ngifuna ukwahlula okuzenzekelayo:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Khetha ama-drive azosetshenziswa kulokhu kufakwa:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "_Buyekeza (esebe uyalungisa uma kudingeka) izahlulo ezidaliwe"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3026,7 +3021,7 @@ msgid "Drive"
 msgstr "i-drive"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:602
-#: ../iw/progress_gui.py:685 ../textw/partition_text.py:1126
+#: ../iw/progress_gui.py:685 ../textw/partition_text.py:1130
 msgid "Size"
 msgstr "Usayizi"
 
@@ -3226,7 +3221,7 @@ msgstr ""
 msgid "Language Selection"
 msgstr "Ukhetho Lolimi"
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:372
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
 msgid "What language would you like to use during the installation process?"
 msgstr "Iluphi ulimi ongathanda ukulisebenzisa ngesikhathi senqubo yokufaka?"
 
@@ -3396,8 +3391,8 @@ msgid "_Size (MB):"
 msgstr "_Usayizi (MB):"
 
 #: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:379
-#: ../iw/partition_dialog_gui.py:422 ../textw/partition_text.py:339
-#: ../textw/partition_text.py:422 ../textw/partition_text.py:509
+#: ../iw/partition_dialog_gui.py:422 ../textw/partition_text.py:343
+#: ../textw/partition_text.py:426 ../textw/partition_text.py:513
 msgid "Size (MB):"
 msgstr "Usayizi (MB):"
 
@@ -3451,8 +3446,8 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:173
 #: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
-#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:850
-#: ../textw/partition_text.py:872 ../textw/partition_text.py:1045
+#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:854
+#: ../textw/partition_text.py:876 ../textw/partition_text.py:1049
 msgid "Error With Request"
 msgstr "Iphutha Nokucelwayo"
 
@@ -3585,7 +3580,7 @@ msgid "_Add"
 msgstr "_Yongeza"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:481
-#: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1356
+#: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
 msgid "_Edit"
 msgstr "_Lungisa"
 
@@ -3769,7 +3764,7 @@ msgstr "Iyanyakaza ekulayisheni"
 #: ../iw/network_gui.py:426 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:212 ../textw/bootloader_text.py:283
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1126
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1130
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Ithuluzi"
@@ -3798,7 +3793,7 @@ msgstr "_ngokwenza"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(ex. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:521 ../loader2/net.c:647
+#: ../iw/network_gui.py:521 ../loader2/net.c:729
 msgid "Hostname"
 msgstr "Igama lesiteshi sekhomputha"
 
@@ -3995,7 +3990,7 @@ msgstr "Gcwalisa usayizi ongaphezulu _ovunyiwe"
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "Isiphetho sesilinda kumele sibe ngaphezulu kokuqala kwesilinda."
 
-#: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:651
+#: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:655
 msgid "Add Partition"
 msgstr "Yongeza Isahlulo"
 
@@ -4037,7 +4032,7 @@ msgid "Force to be a _primary partition"
 msgstr "Phoqa ukwahlula ukuba kube _ngokuqala"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1126
+#: ../textw/partition_text.py:1130
 msgid "Type"
 msgstr "Uhlobo"
 
@@ -4047,11 +4042,11 @@ msgstr "Uhlobo"
 msgid "Format"
 msgstr "Isakhiwo"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1126
+#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1130
 msgid "Start"
 msgstr "Qala"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1126
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1130
 msgid "End"
 msgstr "Isiphetho"
 
@@ -4071,7 +4066,7 @@ msgstr ""
 "Usayizi\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:547 ../textw/partition_text.py:1120
+#: ../iw/partition_gui.py:547 ../textw/partition_text.py:1124
 msgid "Partitioning"
 msgstr "Ukwahlula"
 
@@ -4119,8 +4114,8 @@ msgstr "Amaqembu Esisindo se-LVM"
 msgid "RAID Devices"
 msgstr "Amathuluzi e-RAID"
 
-#: ../iw/partition_gui.py:786 ../iw/partition_gui.py:907
-#: ../textw/partition_text.py:93 ../textw/partition_text.py:151
+#: ../iw/partition_gui.py:786 ../iw/partition_gui.py:911
+#: ../textw/partition_text.py:93 ../textw/partition_text.py:155
 msgid "None"
 msgstr "Lutho"
 
@@ -4128,50 +4123,50 @@ msgstr "Lutho"
 msgid "Hard Drives"
 msgstr "Ama-drive Aqinile"
 
-#: ../iw/partition_gui.py:870 ../textw/partition_text.py:133
-#: ../textw/partition_text.py:172
+#: ../iw/partition_gui.py:874 ../textw/partition_text.py:137
+#: ../textw/partition_text.py:176
 msgid "Free space"
 msgstr "Isikhala esikhululekile"
 
-#: ../iw/partition_gui.py:872 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:876 ../textw/partition_text.py:139
 msgid "Extended"
 msgstr "Okunwetshiwe"
 
-#: ../iw/partition_gui.py:874 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:878 ../textw/partition_text.py:141
 msgid "software RAID"
 msgstr "I-RAID yengaphakathi lekhomputha"
 
-#: ../iw/partition_gui.py:909
+#: ../iw/partition_gui.py:913
 msgid "Free"
 msgstr "Eyamahhala"
 
-#: ../iw/partition_gui.py:999 ../textw/partition_text.py:220
+#: ../iw/partition_gui.py:1003 ../textw/partition_text.py:224
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Ayikwazanga ukuthola izahlulo eziceliwe: %s."
 
-#: ../iw/partition_gui.py:1008
+#: ../iw/partition_gui.py:1012
 #, python-format
 msgid "Warning: %s."
 msgstr "Isexwayiso: %s."
 
-#: ../iw/partition_gui.py:1190 ../iw/partition_gui.py:1204
+#: ../iw/partition_gui.py:1194 ../iw/partition_gui.py:1208
 msgid "Not supported"
 msgstr "Akuxhasiwe"
 
-#: ../iw/partition_gui.py:1191
+#: ../iw/partition_gui.py:1195
 msgid "LVM is NOT supported on this platform."
 msgstr "I-LVM ayixhasiwe kule ndawo."
 
-#: ../iw/partition_gui.py:1205
+#: ../iw/partition_gui.py:1209
 msgid "Software RAID is NOT supported on this platform."
 msgstr "Ingaphakathi lekhomputha le-RAID alixhasiwe kule ndawo."
 
-#: ../iw/partition_gui.py:1212
+#: ../iw/partition_gui.py:1216
 msgid "No RAID minor device numbers available"
 msgstr "Azikho izinombolo zethuluzi le-RAID ezikhona"
 
-#: ../iw/partition_gui.py:1213
+#: ../iw/partition_gui.py:1217
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -4179,11 +4174,11 @@ msgstr ""
 "Ingaphakathi lekhomputha lethuluzi le-RAID angeke lidaleke ngoba zonke "
 "izinombolo zethuluzi elincane le-RAID sezisetshenzisiwe."
 
-#: ../iw/partition_gui.py:1227
+#: ../iw/partition_gui.py:1231
 msgid "RAID Options"
 msgstr "Izinketho ze-RAID"
 
-#: ../iw/partition_gui.py:1238
+#: ../iw/partition_gui.py:1242
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -4204,7 +4199,7 @@ msgstr ""
 "ezikhululekile ukusetshenziswa.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1249
+#: ../iw/partition_gui.py:1253
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -4216,57 +4211,79 @@ msgstr ""
 "elingakhelwa futhi likhushulwe.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1255
+#: ../iw/partition_gui.py:1259
 msgid "What do you want to do now?"
 msgstr "Ufunani manje?"
 
-#: ../iw/partition_gui.py:1264
+#: ../iw/partition_gui.py:1268
 msgid "Create a software RAID _partition."
 msgstr "Dala ukwahlula kwengaphakathi lekhomputha le_RAID."
 
-#: ../iw/partition_gui.py:1267
+#: ../iw/partition_gui.py:1271
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Dala _ithuluzi le-RAID [default=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1271
+#: ../iw/partition_gui.py:1275
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 "Dala ngokufanayo _idiski yokudala ithuluzi le-RAID [okwendalo=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1310
+#: ../iw/partition_gui.py:1314
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "Ayikwazanga Ukudala Umhleli We-drive Ebunjiwe"
 
-#: ../iw/partition_gui.py:1311
+#: ../iw/partition_gui.py:1315
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Ngesizathu esithile umhleli wokudala ngokufanayo akadalekanga."
 
-#: ../iw/partition_gui.py:1355
+#: ../iw/partition_gui.py:1359
 msgid "Ne_w"
 msgstr "Oku_sha"
 
-#: ../iw/partition_gui.py:1358
+#: ../iw/partition_gui.py:1362
 msgid "Re_set"
 msgstr "Misa_kabusha"
 
-#: ../iw/partition_gui.py:1359
+#: ../iw/partition_gui.py:1363
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1360
+#: ../iw/partition_gui.py:1364
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1401
+#: ../iw/partition_gui.py:1405
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Fihla ithuluzi le-RAID/Amaqembu elunga _lesisindo se-LVM"
 
+#: ../iw/partition_gui.py:1420 ../textw/partition_text.py:1214
+msgid "Automatic Partitioning"
+msgstr "Ukuhlula Okuzenzekelayo"
+
+#: ../iw/partition_gui.py:1448
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"Udinga ukukhetha okungenani i-drive eqinile ukuze ube ne-%s afakwe kuyona."
+
+#: ../iw/partition_gui.py:1490
+msgid "I want to have automatic partitioning:"
+msgstr "Ngifuna ukwahlula okuzenzekelayo:"
+
+#: ../iw/partition_gui.py:1521
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Khetha ama-drive azosetshenziswa kulokhu kufakwa:"
+
+#: ../iw/partition_gui.py:1545
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "_Buyekeza (esebe uyalungisa uma kudingeka) izahlulo ezidaliwe"
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
-#: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
-#: ../textw/partition_text.py:245 ../textw/partition_text.py:247
-#: ../textw/partition_text.py:272
+#: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:247
+#: ../textw/partition_text.py:249 ../textw/partition_text.py:251
+#: ../textw/partition_text.py:276
 msgid "<Not Applicable>"
 msgstr "<Not Applicable>"
 
@@ -4420,7 +4437,7 @@ msgstr ""
 "\", ebese ukhetha futhi i-\"RAID."
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
-#: ../textw/partition_text.py:907
+#: ../textw/partition_text.py:911
 msgid "Make RAID Device"
 msgstr "Yakha Ithuluzi le-RAID"
 
@@ -4429,7 +4446,7 @@ msgstr "Yakha Ithuluzi le-RAID"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Lungisa Ithuluzi le-RAID: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:905
+#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:909
 msgid "Edit RAID Device"
 msgstr "Lungisa Ithuluzi le-RAID"
 
@@ -4669,11 +4686,11 @@ msgstr "Ilebula yokulayisha"
 msgid "Default boot image"
 msgstr "Isithombe sokulayisha sendalo"
 
-#: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:102
+#: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
 msgstr "Ukhetho Lwesikhathi Ezahlukene"
 
-#: ../iw/timezone_gui.py:67 ../textw/timezone_text.py:96
+#: ../iw/timezone_gui.py:67
 msgid "System clock uses _UTC"
 msgstr "Iwashi lesistimu lisebenzisa i_UTC"
 
@@ -5163,7 +5180,7 @@ msgid "Boot label contains illegal characters."
 msgstr "Ilebula yokulayisha iqukethe izimpawu ezingekho emthethweni."
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1131 ../textw/silo_text.py:216
+#: ../textw/partition_text.py:1135 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "Lungisa"
@@ -5300,14 +5317,14 @@ msgstr ""
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:381
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
 #: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:174
-#: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
-#: ../loader2/urls.c:254 ../loader2/urls.c:444
+#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:188
+#: ../loader2/net.c:210 ../loader2/net.c:479 ../loader2/net.c:952
+#: ../loader2/nfsinstall.c:54 ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
 msgstr "Emuva"
 
@@ -5759,98 +5776,98 @@ msgstr "Inani eliceliwe likhulu kakhulu"
 msgid "RAID Device %s"
 msgstr "Ithuluzi le-RAID %s"
 
-#: ../textw/partition_text.py:223
+#: ../textw/partition_text.py:227
 #, python-format
 msgid "Warning: %s"
 msgstr "Isexwayiso: %s"
 
-#: ../textw/partition_text.py:224
+#: ../textw/partition_text.py:228
 msgid "Modify Partition"
 msgstr "Lungisa Ukwahlula"
 
-#: ../textw/partition_text.py:224
+#: ../textw/partition_text.py:228
 msgid "Add anyway"
 msgstr "Nomakunjalo yongeza"
 
-#: ../textw/partition_text.py:262
+#: ../textw/partition_text.py:266
 msgid "Mount Point:"
 msgstr "Izinga Lokukhuphuka"
 
-#: ../textw/partition_text.py:283
+#: ../textw/partition_text.py:287
 msgid "File System type:"
 msgstr "Uhlobo Lwesistimu Yefayela:"
 
-#: ../textw/partition_text.py:317
+#: ../textw/partition_text.py:321
 msgid "Allowable Drives:"
 msgstr "Amadiski Avunyelwe:"
 
-#: ../textw/partition_text.py:373
+#: ../textw/partition_text.py:377
 msgid "Fixed Size:"
 msgstr "Usayizi Ongashintshi:"
 
-#: ../textw/partition_text.py:375
+#: ../textw/partition_text.py:379
 msgid "Fill maximum size of (MB):"
 msgstr "Gcwalisa usayizi omkhulu we-(MB):"
 
-#: ../textw/partition_text.py:379
+#: ../textw/partition_text.py:383
 msgid "Fill all available space:"
 msgstr "Gcwalisa isikhala esikhona:"
 
-#: ../textw/partition_text.py:402
+#: ../textw/partition_text.py:406
 msgid "Start Cylinder:"
 msgstr "Qala Isilinda:"
 
-#: ../textw/partition_text.py:415
+#: ../textw/partition_text.py:419
 msgid "End Cylinder:"
 msgstr "Phetha Isilinda:"
 
-#: ../textw/partition_text.py:439
+#: ../textw/partition_text.py:443
 msgid "RAID Level:"
 msgstr "Izinga le-RAID:"
 
-#: ../textw/partition_text.py:457
+#: ../textw/partition_text.py:461
 msgid "RAID Members:"
 msgstr "Amalunga e-RAID:"
 
-#: ../textw/partition_text.py:476
+#: ../textw/partition_text.py:480
 msgid "Number of spares?"
 msgstr "Inani lokuseleyo?"
 
-#: ../textw/partition_text.py:490
+#: ../textw/partition_text.py:494
 msgid "File System Type:"
 msgstr "Uhlobo Lwesistimu Yefayela:"
 
-#: ../textw/partition_text.py:503
+#: ../textw/partition_text.py:507
 msgid "File System Label:"
 msgstr "Ilebula Yesistimu Yefayela:"
 
-#: ../textw/partition_text.py:514
+#: ../textw/partition_text.py:518
 msgid "File System Option:"
 msgstr "Ukhetho Lwesistimu Yefayela:"
 
-#: ../textw/partition_text.py:517 ../textw/partition_text.py:755
-#: ../textw/partition_text.py:992
+#: ../textw/partition_text.py:521 ../textw/partition_text.py:759
+#: ../textw/partition_text.py:996
 #, python-format
 msgid "Format as %s"
 msgstr "Yakha njenge-%s"
 
-#: ../textw/partition_text.py:519 ../textw/partition_text.py:757
-#: ../textw/partition_text.py:994
+#: ../textw/partition_text.py:523 ../textw/partition_text.py:761
+#: ../textw/partition_text.py:998
 #, python-format
 msgid "Migrate to %s"
 msgstr "Fudukisa kwi-%s"
 
-#: ../textw/partition_text.py:521 ../textw/partition_text.py:759
-#: ../textw/partition_text.py:996
+#: ../textw/partition_text.py:525 ../textw/partition_text.py:763
+#: ../textw/partition_text.py:1000
 msgid "Leave unchanged"
 msgstr "Shiya kungashintshiwe"
 
-#: ../textw/partition_text.py:537 ../textw/partition_text.py:732
-#: ../textw/partition_text.py:972
+#: ../textw/partition_text.py:541 ../textw/partition_text.py:736
+#: ../textw/partition_text.py:976
 msgid "File System Options"
 msgstr "Izinketho Zesistimu Yefayela"
 
-#: ../textw/partition_text.py:540
+#: ../textw/partition_text.py:544
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
@@ -5858,103 +5875,103 @@ msgstr ""
 "Siza ukhethe ukuthi ungathanda ukuba isistimu yakho yefayela ibonakale "
 "kanjani kulesi sahlulo."
 
-#: ../textw/partition_text.py:548
+#: ../textw/partition_text.py:552
 msgid "Check for bad blocks"
 msgstr "Bheka izigaxa ezimbi"
 
-#: ../textw/partition_text.py:552
+#: ../textw/partition_text.py:556
 msgid "Leave unchanged (preserve data)"
 msgstr "Shiya kungashintshiwe (gcina ulwazi)"
 
-#: ../textw/partition_text.py:561
+#: ../textw/partition_text.py:565
 msgid "Format as:"
 msgstr "Yakha njenge:"
 
-#: ../textw/partition_text.py:581
+#: ../textw/partition_text.py:585
 msgid "Migrate to:"
 msgstr "Fudukisa e:"
 
-#: ../textw/partition_text.py:693
+#: ../textw/partition_text.py:697
 msgid "Force to be a primary partition"
 msgstr "Phoqa kube njengokwahlula okokuqala"
 
-#: ../textw/partition_text.py:710
+#: ../textw/partition_text.py:714
 msgid "Not Supported"
 msgstr "Akuxhasiwe"
 
-#: ../textw/partition_text.py:711
+#: ../textw/partition_text.py:715
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr "Amaqembu Esisindo se-LVM angalungiswa kuphela kumfaki wemidwebo."
 
-#: ../textw/partition_text.py:787 ../textw/partition_text.py:840
+#: ../textw/partition_text.py:791 ../textw/partition_text.py:844
 msgid "Invalid Entry for Partition Size"
 msgstr "Isingeniso esingasebenzi Sasayizi Wokwahlula"
 
-#: ../textw/partition_text.py:799
+#: ../textw/partition_text.py:803
 msgid "Invalid Entry for Maximum Size"
 msgstr "Usayizi Omukhulu Wesingeniso Esingasebenzi"
 
-#: ../textw/partition_text.py:818
+#: ../textw/partition_text.py:822
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "Isingeniso Esingasebenzi Sokuqalisa Isilinda"
 
-#: ../textw/partition_text.py:832
+#: ../textw/partition_text.py:836
 msgid "Invalid Entry for End Cylinder"
 msgstr "Isingeniso Esingasebenzi Sesiphetho Sesilinda"
 
-#: ../textw/partition_text.py:945
+#: ../textw/partition_text.py:949
 msgid "No RAID partitions"
 msgstr "Azikho izahlulo ze-RAID"
 
-#: ../textw/partition_text.py:946
+#: ../textw/partition_text.py:950
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 "Okungenani izahlulo ezimbili zengaphakathi lekhomputha ye-RAID ziyadingeka."
 
-#: ../textw/partition_text.py:958
+#: ../textw/partition_text.py:962
 msgid "Format partition?"
 msgstr "Kwakhiwe isahlulo?"
 
-#: ../textw/partition_text.py:1020
+#: ../textw/partition_text.py:1024
 msgid "Invalid Entry for RAID Spares"
 msgstr "Isingeniso Esingasebenzi Sokusele kwe-RAID"
 
-#: ../textw/partition_text.py:1033
+#: ../textw/partition_text.py:1037
 msgid "Too many spares"
 msgstr "Okuseleyo okuningi"
 
-#: ../textw/partition_text.py:1034
+#: ../textw/partition_text.py:1038
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "inombolo enkulu yezinsalelo ezine nhlansi ye-RAID0 zingu-0."
 
-#: ../textw/partition_text.py:1130
+#: ../textw/partition_text.py:1134
 msgid "New"
 msgstr "Okusha"
 
-#: ../textw/partition_text.py:1132 ../textw/userauth_text.py:236
+#: ../textw/partition_text.py:1136 ../textw/userauth_text.py:236
 msgid "Delete"
 msgstr "Cisha"
 
-#: ../textw/partition_text.py:1133
+#: ../textw/partition_text.py:1137
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1136
+#: ../textw/partition_text.py:1140
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Siza     F2-Okusha      F3-Lungisa   F4-Cisha    F5-Misa kabusha    "
 "F12-KULUNGILE        "
 
-#: ../textw/partition_text.py:1165
+#: ../textw/partition_text.py:1169
 msgid "No Root Partition"
 msgstr "Akukho Ukwahlula Kwempande"
 
-#: ../textw/partition_text.py:1166
+#: ../textw/partition_text.py:1170
 msgid "Must have a / partition to install on."
 msgstr "Kumele ibe ne- /ukwahlula ukuze kufakwe."
 
-#: ../textw/partition_text.py:1233
+#: ../textw/partition_text.py:1237
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Imaphi amadiski ofuna ukuwasebenzisa ekufakeni?"
 
@@ -6711,7 +6728,7 @@ msgstr ""
 "\n"
 "Ukuqala inqubo yokufaka, shutheka i-CD #1 kwidiski ebese ucofa \"%s\"."
 
-#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:375
+#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:376
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -6735,7 +6752,7 @@ msgstr ""
 "\n"
 "Khetha %s ukweqa ukuvivinywa kwezithombe ebese uqala ukufakwa."
 
-#: ../loader2/cdinstall.c:370
+#: ../loader2/cdinstall.c:371
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -6744,11 +6761,11 @@ msgstr ""
 "Ayikho i-CD ye-%s etholakele efanna nonozindaba wakho wokulayisha.  Siza "
 "ufake i-CD %s ebese ucindezela %s ukuzama kabusha."
 
-#: ../loader2/cdinstall.c:380
+#: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
 msgstr "I-CD Ayitholakali"
 
-#: ../loader2/cdinstall.c:447
+#: ../loader2/cdinstall.c:448
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Ayikwazi ukuthola ifayela lokuqala kwi-CDROM."
 
@@ -6819,21 +6836,21 @@ msgstr "Amanye Amadiski Omshayeli?"
 msgid "Do you wish to load any more driver disks?"
 msgstr "Uyafisa ukulayisha amanye amadiski amaning omshayeli?"
 
-#: ../loader2/driverdisk.c:442 ../loader2/driverdisk.c:475
-#: ../loader2/hdinstall.c:599 ../loader2/kickstart.c:106
-#: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
-#: ../loader2/modules.c:919 ../loader2/net.c:729 ../loader2/net.c:752
+#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
+#: ../loader2/hdinstall.c:599 ../loader2/kickstart.c:109
+#: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
+#: ../loader2/modules.c:919 ../loader2/net.c:811 ../loader2/net.c:834
 #: ../loader2/nfsinstall.c:247 ../loader2/urlinstall.c:431
 #: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
 msgstr "Iphutha le-Kickstart"
 
-#: ../loader2/driverdisk.c:443
+#: ../loader2/driverdisk.c:445
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Imvelaphi engaziwa yokuqalisa idiski: %s"
 
-#: ../loader2/driverdisk.c:476
+#: ../loader2/driverdisk.c:478
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6961,22 +6978,22 @@ msgstr "Uhlobo Lwebhodi Lezikhiye"
 msgid "What type of keyboard do you have?"
 msgstr "Unohlobo olunjani lwebhodi yezikhiye?"
 
-#: ../loader2/kickstart.c:107
+#: ../loader2/kickstart.c:110
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Iphutha ekuvulweni kwefayela lokuqala %s: %s"
 
-#: ../loader2/kickstart.c:117
+#: ../loader2/kickstart.c:120
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Iphutha ekufundweni kokuphakathi kwefayeka lokuqala %s: %s"
 
-#: ../loader2/kickstart.c:160
+#: ../loader2/kickstart.c:163
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Iphutha kwi-%s kulayini we-%d wefayela lokuqalisa %s."
 
-#: ../loader2/kickstart.c:259
+#: ../loader2/kickstart.c:262
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "A"
 
@@ -6992,7 +7009,7 @@ msgstr ""
 "  <Tab>/<Alt-Tab> phakathi kwamalunga  | <Space> khetha | <F12> isikrini "
 "esilandelayo "
 
-#: ../loader2/lang.c:371
+#: ../loader2/lang.c:372
 msgid "Choose a Language"
 msgstr "Khetha Ulimi"
 
@@ -7123,17 +7140,17 @@ msgstr "Kwenziwe"
 msgid "Add Device"
 msgstr "Yongeza Ithuluzi"
 
-#: ../loader2/loader.c:1097
-#, c-format
-msgid "loader has already been run.  Starting shell."
+#: ../loader2/loader.c:1112
+#, fuzzy, c-format
+msgid "loader has already been run.  Starting shell.\n"
 msgstr "umlayishi usevele uyasebenza.  Iqala igobolondo."
 
-#: ../loader2/loader.c:1457
+#: ../loader2/loader.c:1460
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Isebenzisa i-anaconda, umfaki wesistimu ye-%s - siza ulinde...\n"
 
-#: ../loader2/loader.c:1459
+#: ../loader2/loader.c:1462
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Isebenzisa i-anaconda, umfaki wesistimu ye-%s - siza ulinde...\n"
@@ -7242,7 +7259,7 @@ msgstr "Ukuvivinywa Kwesibalo"
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Umfalela omubi ethuluzini lomyalelo wendlela yokuqalisa %s: %s"
 
-#: ../loader2/net.c:45
+#: ../loader2/net.c:46
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -7257,15 +7274,36 @@ msgstr ""
 "    o uhlu lwamafayela akumlekeleli oqukethe\n"
 "      %s ukwakheka\n"
 
-#: ../loader2/net.c:164
+#: ../loader2/net.c:177
+#, c-format
+msgid ""
+"%s is a wireless network adapter.  Please provide the ESSID and encryption "
+"key needed to access your wireless network.  If no key is needed, leave this "
+"field blank and the install will continue."
+msgstr ""
+
+#: ../loader2/net.c:183
+msgid "ESSID"
+msgstr ""
+
+#: ../loader2/net.c:184
+msgid "Encryption Key"
+msgstr ""
+
+#: ../loader2/net.c:187
+#, fuzzy
+msgid "Wireless Settings"
+msgstr "Amalungiselelo Axubene"
+
+#: ../loader2/net.c:200
 msgid "Nameserver IP"
 msgstr "Igama lomlekeleli we-IP"
 
-#: ../loader2/net.c:168
+#: ../loader2/net.c:204
 msgid "Nameserver"
 msgstr "Igama lomlekeleli"
 
-#: ../loader2/net.c:169
+#: ../loader2/net.c:205
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7277,24 +7315,24 @@ msgstr ""
 "wakho, siza ulingenise manje. Uma ungenalo lolu lwazi, ungashiya le nkundla "
 "ingenalutho futhi ukufaka kuzoqhubeka."
 
-#: ../loader2/net.c:179
+#: ../loader2/net.c:215
 msgid "Invalid IP Information"
 msgstr "Ulwazi lwe-IP Olungasebenzi"
 
-#: ../loader2/net.c:180
+#: ../loader2/net.c:216
 msgid "You entered an invalid IP address."
 msgstr "Ungenise ikhele le-IP elingasebenzi."
 
-#: ../loader2/net.c:229 ../loader2/net.c:487
+#: ../loader2/net.c:265 ../loader2/net.c:533
 msgid "Dynamic IP"
 msgstr "IP Yekhethelo"
 
-#: ../loader2/net.c:230 ../loader2/net.c:488
+#: ../loader2/net.c:266 ../loader2/net.c:534
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Ithumela isicelo solwazi lwe-IP lwe-%s..."
 
-#: ../loader2/net.c:377
+#: ../loader2/net.c:423
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7303,57 +7341,57 @@ msgstr ""
 "lingeniswe njenge kheli le-IP emugqeni onamachashaza (njengesibonelo, "
 "1.2.3.4)."
 
-#: ../loader2/net.c:383
+#: ../loader2/net.c:429
 msgid "IP address:"
 msgstr "Ikheli le-IP:"
 
-#: ../loader2/net.c:386
+#: ../loader2/net.c:432
 msgid "Netmask:"
 msgstr "Imaski yoxhumano:"
 
-#: ../loader2/net.c:389
+#: ../loader2/net.c:435
 msgid "Default gateway (IP):"
 msgstr "Isango lendalo (IP):"
 
-#: ../loader2/net.c:392
+#: ../loader2/net.c:438
 msgid "Primary nameserver:"
 msgstr "Igama lomlekeleli wasekuqaleni:"
 
-#: ../loader2/net.c:419
+#: ../loader2/net.c:465
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Sebenzisa inhlanganiselo emsulwa ye-IP (BOOTP/DHCP)"
 
-#: ../loader2/net.c:447
+#: ../loader2/net.c:493
 msgid "Configure TCP/IP"
 msgstr "Hlanganisela i-TCP/IP"
 
-#: ../loader2/net.c:478
+#: ../loader2/net.c:524
 msgid "Missing Information"
 msgstr "Ulwazi Olulahlekile"
 
-#: ../loader2/net.c:479
+#: ../loader2/net.c:525
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Kumele ungenise kokubili ikheli le-IP kanye nemaski yoxhumano."
 
-#: ../loader2/net.c:648
+#: ../loader2/net.c:730
 msgid "Determining host name and domain..."
 msgstr "Ichaza igama lesiteshi kanye nendawo yokulawula..."
 
-#: ../loader2/net.c:730
+#: ../loader2/net.c:812
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Umfakela omubi wokuqala umyalelo woxhumano %s: %s"
 
-#: ../loader2/net.c:753
+#: ../loader2/net.c:835
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Ukulayishwa okubi %s okucaciswe emyalweni woxhumano"
 
-#: ../loader2/net.c:864
+#: ../loader2/net.c:948
 msgid "Networking Device"
 msgstr "Ithuluzi Lokuxhumana"
 
-#: ../loader2/net.c:865
+#: ../loader2/net.c:949
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
