@@ -367,9 +367,16 @@ def isMountPointInUse(reqpartitions, newrequest):
 
 # figure out whether we should format by default
 def isFormatOnByDefault(request):
-    deflist = ['/home', '/usr/local/', '/opt', '/var/www']
-
+    def inExceptionList(mntpt):
+        exceptlist = ['/home', '/usr/local', '/opt', '/var/www']
+        for q in exceptlist:
+            if os.path.commonprefix([mntpt, q]) == q:
+                return 1
+        return 0
+        
     # check first to see if its a Linux filesystem or not
+    formatlist = ['/boot', '/var', '/tmp', '/usr']
+
     if not request.fstype:
         return 0
 
@@ -377,10 +384,21 @@ def isFormatOnByDefault(request):
         return 0
 
     if request.fstype.isMountable():
-        if request.mountpoint and request.mountpoint in deflist:
-            return 0
-        else:
+        mntpt = request.mountpoint
+        if mntpt == "/":
             return 1
+
+        if mntpt in formatlist:
+            return 1
+        
+        for p in formatlist:
+            if os.path.commonprefix([mntpt, p]) == p:
+                if inExceptionList(mntpt):
+                    return 0
+                else:
+                    return 1
+
+        return 0
     else:
         if request.fstype.getName() == "swap":
             return 1
@@ -389,7 +407,7 @@ def isFormatOnByDefault(request):
     return 0
 
 def doMountPointLinuxFSChecks(newrequest):
-    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root','/mnt']
+    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root','/mnt', 'lost+found', '/proc']
     mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
 
     if not newrequest.mountpoint:
@@ -1733,15 +1751,16 @@ def queryFormatPreExisting(intf):
     return rc
 
 def queryNoFormatPreExisting(intf):
-    rc = intf.messageWindow(_("Format?"),
-                            _("You have chosen not to format a pre-existing "
-                              "partition which is being mounted as a "
-                              "system directory.  It is highly "
-                              "recommended you format this partition to "
-                              "guarantee the data formerly on the partition "
-                              "does not corrupt your new installation.\n\n"
-                              "Are you sure you want to do this?"),
-                            type = "yesno", default = "no")
+    txt = _("You have chosen not to format a pre-existing "
+            "partition which is being mounted under a "
+            "system directory.  Unless you have particular "
+            "needs to preserve data on this partition, it is highly "
+            "recommended you format this partition to "
+            "guarantee the data formerly on the partition "
+            "does not corrupt your new installation.\n\n"
+            "Are you sure you want to do this?")
+
+    rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
     return rc
 
 def partitionSanityErrors(intf, errors):
