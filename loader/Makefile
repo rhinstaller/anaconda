@@ -1,10 +1,18 @@
 DESTDIR = ../../trees/initrd
 
+ARCH := $(patsubst i%86,i386,$(shell uname -m))
+ARCH := $(patsubst sparc%,sparc,$(ARCH))
+
 OBJS = log.o windows.o modules.o devices.o net.o cdrom.o urls.o kickstart.o
 LOADEROBJS = loader.o loader-pcmcia.o pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
-BINS = loader loader-pcmcia init
-DIRS = pcmcia-install
+BINS = loader init
+DIRS = 
+
+ifeq (i386, $(ARCH))
+BINS = $(BINS) loader-pcmcia
+DIRS = $(DIRS) pcmcia-install
+endif
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
@@ -14,14 +22,13 @@ endif
 
 OPTS = -O2 -g
 
-CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1
+CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"'
 
 STATIC = -static
 
-ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ifeq (i386,$(ARCH))
 MINILIBC=minilibc.o
-CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
+CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
 LDFLAGS = -nostdlib /usr/lib/crt1.o
 STATIC=-static
 else

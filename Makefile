@@ -1,7 +1,14 @@
+ARCH := $(patsubst i%86,i386,$(shell uname -m))
+ARCH := $(patsubst sparc%,sparc,$(ARCH))
+
 SUBDIRSHD = rpmmodule isys balkan libfdisk collage loader stubs po kudzu \
 	    minislang
-SUBDIRS = $(SUBDIRSHD) gnome-map iw ddcprobe help
+SUBDIRS = $(SUBDIRSHD) gnome-map iw help
 BUILDONLYSUBDIRS = pump
+
+ifeq (i386, $(ARCH))
+SUBDIRS += ddcprobe
+endif
 
 TOPDIR = ../../..
 DESTDIR = ../../../RedHat/instimage

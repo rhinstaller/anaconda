@@ -56,7 +56,7 @@
 #define ENV_TERM		3
 #define ENV_DEBUG		4
 
-char * environ[] = {
+char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sbin:/mnt/usr/sbin:"
         "/mnt/bin:/mnt/usr/bin",
     "LD_LIBRARY_PATH=/lib:/usr/lib:/usr/X11R6/lib:/mnt/lib:/mnt/usr/lib",
@@ -106,7 +106,7 @@ int doMke2fs(char * device, char * size) {
 
     if (!(pid = fork())) {
 	/* child */
-	execve("/usr/bin/mke2fs", args, environ);
+	execve("/usr/bin/mke2fs", args, env);
 	fatal_error(1);
     }
 
@@ -341,7 +341,7 @@ int setupTerminal(int fd) {
 	fatal_error(1);
     }
 
-    environ[ENV_TERM] = "TERM=vt100";
+    env[ENV_TERM] = "TERM=vt100";
 
     return 0;
 }
@@ -572,7 +572,7 @@ int main(void) {
 	*argvp++ = "/sbin/loader";
 
 	printf("running %s\n", argv[0]);
-	execve(argv[0], argv, environ);
+	execve(argv[0], argv, env);
 	
 	exit(0);
     }
