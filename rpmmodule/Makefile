@@ -1,4 +1,4 @@
-DESTDIR = $TOPDIR/RedHat/instimage/usr/lib/python1.5/site-packages
+DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
 
 CFLAGS += -I/usr/include/rpm -I/usr/include/python1.5 -g
 

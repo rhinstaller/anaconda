@@ -1,4 +1,4 @@
-DESTDIR = $TOPDIR/RedHat/instimage/usr/lib/python1.5/site-packages
+DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
 
 OBJECTS = rw.o dos.o
 
