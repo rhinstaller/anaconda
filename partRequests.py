@@ -685,7 +685,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
     
     def __init__(self, fstype, format = None, mountpoint = None,
                  size = None, volgroup = None, lvname = None,
-                 preexist = 0):
+                 preexist = 0, percent = None):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -695,6 +695,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         volgroup is the request ID of the volume group.
         lvname is the name of the logical volume.
         preexist is whether the logical volume previously existed or not.
+        percent is the percentage of the volume group's space this should use.
         """
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
@@ -704,6 +705,10 @@ class LogicalVolumeRequestSpec(RequestSpec):
 
         self.logicalVolumeName = lvname
         self.volumeGroup = volgroup
+        self.percent = percent
+
+        if not percent and not size:
+            raise RuntimeError, "Logical Volume must specify either percentage of vgsize or size"
 
     def __str__(self):
         if self.fstype:
