@@ -512,8 +512,9 @@ class NetworkWindow(InstallWindow):
 	tmphbox=gtk.HBox()
 	tmphbox.pack_start(self.hostnameManual, gtk.FALSE, gtk.FALSE, padding=15)
 	self.hostnameEntry = gtk.Entry()
-	    
-	tmphbox.pack_start(self.hostnameEntry, gtk.FALSE, gtk.FALSE, padding=15)
+	tmphbox.pack_start(self.hostnameEntry, gtk.FALSE, gtk.FALSE, padding=5)
+
+	tmphbox.pack_start(gtk.Label(_('(ex. "host.domain.com")')), gtk.FALSE, gtk.FALSE, padding=0)
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
 
 	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
