@@ -377,6 +377,12 @@ class Network:
 		f.write("# %s\n" % (dev.get("DESC"),))
 		
             f.write(str(dev))
+
+            # write out the hostname as DHCP_HOSTNAME if given (#81613)
+            if (dev.get('bootproto') == 'dhcp' and self.hostname and
+                self.overrideDHCPhostname):
+                f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
+                
             f.close()
 
         # /etc/sysconfig/network
