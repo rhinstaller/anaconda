@@ -276,7 +276,6 @@ class ToDo:
 	self.installSystem = installSystem
         self.language = Language ()
 	self.serial = serial
-	self.fstab = None
         self.reconfigOnly = reconfigOnly
         self.network = Network ()
         self.rootpassword = Password ()
@@ -287,7 +286,13 @@ class ToDo:
         self.desktop = Desktop ()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
+
         log.open (serial, reconfigOnly, test)
+
+        # try to get --onpart working again
+        from fstab import NewtFstab
+        self.fstab = NewtFstab(self.setupFilesystems,serial,0,0,
+                                self.intf.waitWindow,self.intf.messageWindow)
 
 	# liloDevice, liloLinear, liloAppend are initialized form the
 	# default install class
@@ -364,21 +369,24 @@ class ToDo:
     def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
 	self.timezone = (timezone, asUtc, asArc)
 
-    def addMount(self, device, location, fsystem, reformat = 1):
-        if fsystem == "swap":
-            ufs = 0
-            try:
-                isys.makeDevInode(device, '/tmp/' + device)
-            except:
-                pass
-            try:
-                ufs = isys.checkUFS ('/tmp/' + device)
-            except:
-                pass
-            if not ufs:
-                location = "swap"
-                reformat = 1
-        self.mounts[location] = (device, fsystem, reformat)
+#
+# apparently this is cruft
+#
+#      def addMount(self, device, location, fsystem, reformat = 1):
+#          if fsystem == "swap":
+#              ufs = 0
+#              try:
+#                  isys.makeDevInode(device, '/tmp/' + device)
+#              except:
+#                  pass
+#              try:
+#                  ufs = isys.checkUFS ('/tmp/' + device)
+#              except:
+#                  pass
+#              if not ufs:
+#                  location = "swap"
+#                  reformat = 1
+#          self.mounts[location] = (device, fsystem, reformat)
 
     def writeLanguage(self):
 	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
@@ -811,7 +819,7 @@ class ToDo:
 	    todo.silo.setAppend(append)
 
 	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
-	    todo.addMount(dev, mntpoint, fstype, reformat)
+	    todo.fstab.addMount(dev, mntpoint, fstype, reformat)
 
 	todo.users = []
 	if todo.instClass.rootPassword:
