@@ -1,3 +1,10 @@
+SYSLINUX=$IMGPATH/usr/bin/syslinux
+
+if [ ! -f $SYSLINUX ]; then
+    echo "$n doesn't exist"
+    exit 1
+fi
+
 SECSTAGE="vfat raid0 raid1 raid5"
 
 prepareBootImage() {

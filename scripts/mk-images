@@ -24,7 +24,6 @@ TOPDIR=$(cd $TOPDIR; pwd)
     IMGPATH=$2/RedHat/instimage
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
-    ARCH=$(uname -m | sed 's/i.86/i386/')
     BUILDARCH=$4
 
     if [ ! -d "$1" ]; then
@@ -52,7 +51,6 @@ TOPDIR=$(cd $TOPDIR; pwd)
     LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
     LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
-    SYSLINUX=$IMGPATH/usr/bin/syslinux
     PCITABLE=$IMGPATH/usr/share/kudzu/pcitable
     CACHE=$KERNELROOT/lib/modules/.cache
     MODULESUSED=$KERNELROOT/modules-used
@@ -61,10 +59,6 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     REQUIREMENTS="$TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO
 		  $FILTERMODDEPS $LANGTABLE $KEYMAPS"
-
-    if [ $BUILDARCH = i386 ]; then
-	REQUIREMENTS="$REQUIREMENTS $SYSLINUX"
-    fi
 
     dieLater=
     for n in $REQUIREMENTS; do
@@ -366,7 +360,7 @@ EOF
 
     rm -f $MBD_FSIMAGE
     dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
-    echo y | mke2fs -i 8096 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
+    echo y | /sbin/mke2fs -i 8096 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
 
     rm -rf $MBD_MNTPOINT
     mkdir $MBD_MNTPOINT
@@ -471,7 +465,7 @@ makeImage () {
     mkdir -p $MI_MNTPOINT
 
     dd if=/dev/zero of=$MI_TMPIMAGE bs=1k count=$MI_SIZE 2>/dev/null
-    echo y | mke2fs -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
+    echo y | /sbin/mke2fs -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
     mount -o loop $MI_TMPIMAGE $MI_MNTPOINT
     (cd $MI_FROM; find . | cpio --quiet -p $MI_MNTPOINT)
 
@@ -531,7 +525,7 @@ makemainimage () {
     SIZE=$(du -sk $IMGPATH | awk '{print $1}')
 
     dd if=/dev/zero of=$tmpimage bs=1k count=$SIZE 2>/dev/null
-    echo y | mke2fs -m 0 -i 4096 $tmpimage  > /dev/null 2>/dev/null
+    echo y | /sbin/mke2fs -m 0 -i 4096 $tmpimage  > /dev/null 2>/dev/null
     mount -o loop $tmpimage $mntpoint
     (cd $IMGPATH; find . | cpio --quiet -p $mntpoint)
 
@@ -566,7 +560,7 @@ makedriverdisk () {
     fi
 
     dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
-    echo y | mke2fs -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
+    echo y | /sbin/mke2fs -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
     mkdir -p /tmp/mkdd.$$
     mount -t ext2 -o loop /tmp/$diskname.img /tmp/mkdd.$$
     rmdir /tmp/mkdd.$$/lost+found

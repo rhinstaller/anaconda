@@ -424,7 +424,7 @@ fi
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
     for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*; do
-	mkfontdir $I
+	/usr/X11R6/bin/mkfontdir $I
     done
 fi
 
@@ -465,7 +465,7 @@ for p in $DEST $DESTGR; do
 
 	if [ -x /usr/bin/runroot ]; then
 	    REALPATH=`(cd $p; /bin/pwd)`
-            runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH" > /dev/null
+            runroot dist-7.0 --arch $ARCH cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
@@ -506,12 +506,14 @@ patch -p0 > /dev/null <<EOF
 EOF
 cd -
 
+echo -n -e "\Removing unused python files in $DEST... "
 if [ -x /usr/bin/runroot ]; then
     REALPATH=`(cd $DEST; /bin/pwd)`
     runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH" > /dev/null
 else
     $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
 fi
+echo "done."
 
 for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do

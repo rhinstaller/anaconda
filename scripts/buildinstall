@@ -5,9 +5,9 @@ if [ ! -d $1/RedHat/RPMS ]; then
     exit 1
 fi
 
-p=$1
+p=`cd $1; /bin/pwd`
 
-BUILDINSTDIR=/tmp/buildinstall.tree.$$
+BUILDINSTDIR=$p/buildinstall.tree.$$
 
 rm -rf $BUILDINSTDIR
 mkdir -p $BUILDINSTDIR
@@ -22,19 +22,27 @@ if [ ! -f $UPD_INSTROOT ]; then
     rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd usr/lib/anaconda-runtime/upd-instroot
     mv usr/lib/anaconda-runtime/upd-instroot .
     rm -rf usr
-    UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
+else
+    cp -a $UPD_INSTROOT $BUILDINSTDIR/upd-instroot
 fi
+UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
 
 if [ ! -f $MK_IMAGES ]; then
     cd $BUILDINSTDIR
     rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd usr/lib/anaconda-runtime/mk-images*
     mv usr/lib/anaconda-runtime/mk-images* .
     rm -rf usr
-    MK_IMAGES=$BUILDINSTDIR/mk-images
+else
+    cp $MK_IMAGES* $BUILDINSTDIR/
 fi
+MK_IMAGES=$BUILDINSTDIR/mk-images
 
 $UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage $BUILDARCH
-$MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
+if [ -x /usr/bin/runroot ]; then
+    runroot dist-7.0 --arch $BUILDARCH "cd $BUILDINSTDIR\; $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH"
+else
+    $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
+fi
 
 rm -rf $BUILDINSTDIR
 rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime
