@@ -73,6 +73,7 @@ for n in args:
 	debug = 1
     elif (str == '--kickstart'):
 	kickstart = arg
+	mode = 't'
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
 	localInstall = 1
