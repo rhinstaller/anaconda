@@ -14,7 +14,6 @@
 #
 
 import sys
-import iutil
 
 class LogFile:
     def __init__ (self):
@@ -28,17 +27,11 @@ class LogFile:
             try:
                 self.logFile = open(file, "w")
             except:
-		if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
-		    self.logFile = sys.stderr
-		else:
-		    self.logFile = open("/tmp/anaconda-s390.log", "w")
+                self.logFile = sys.stderr
 	elif file:
 	    self.logFile = file
 	else:
-	    if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
-		self.logFile = open("/dev/tty3", "w")
-	    else:
-		self.logFile = open("/tmp/anaconda-s390.log", "w")
+            self.logFile = open("/dev/tty3", "w")
 
     def __call__ (self, format, *args):
         if not self.logFile:
