@@ -665,7 +665,10 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     if (bootreq and (bootreq.type == REQUEST_RAID) and
         (not isRaid1(bootreq.raidlevel))):
         errors.append(_("Bootable partitions can only be on RAID1 devices."))
-                
+
+    # can't have bootable partition on LV
+    if (bootreq and (bootreq.type == REQUEST_LV)):
+        errors.append(_("Bootable partitions can not be on a logical volume."))
         
     if foundSwap == 0:
         warnings.append(_("You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."))

@@ -1843,6 +1843,18 @@ class PartitionWindow(InstallWindow):
 		self.intf.messageWindow(_("Bad mount point"), err)
 		continue
 
+	    used = 0
+	    if isNew or logrequest is None or mntpt != logrequest.mountpoint:
+		curreq = self.partitions.getRequestByMountPoint(mntpt)
+		if curreq:
+		    used = 1
+
+	    if used:
+		self.intf.messageWindow(_("Mount point in use"),
+					_("The mount point %s is in use, "
+					  "please pick another.") % (mntpt,))
+		continue
+
 	    if len(lvname) < 1:
 		self.intf.messageWindow(_("Illegal Logical Volume Name"),
 					_("Please enter a logical volume name."))
