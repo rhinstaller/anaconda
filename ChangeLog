@@ -1,5 +1,9 @@
 2005-02-08  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/timezone_map_gui.py: Fix-up for new gnome-python2-canvas
+	module naming.  Handle fallback for older gnome-python2.
+	* iw/partition_gui.py: Likewise.
+
 	* comps.py: Remove old code.
 
 2005-02-08  Jeremy Katz  <katzj@redhat.com>

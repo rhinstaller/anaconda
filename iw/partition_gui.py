@@ -16,7 +16,10 @@
 
 import gobject
 import gtk
-import gnome.canvas
+try:
+    import gnomecanvas
+except ImportError:
+    import gnome.canvas as gnomecanvas
 import pango
 import autopart
 import gui
@@ -180,10 +183,10 @@ class DiskStripeSlice:
         self.editCb = editCb
         pgroup = parent.getGroup()
 
-        self.group = pgroup.add(gnome.canvas.CanvasGroup)
-        self.box = self.group.add(gnome.canvas.CanvasRect)
+        self.group = pgroup.add(gnomecanvas.CanvasGroup)
+        self.box = self.group.add(gnomecanvas.CanvasRect)
         self.group.connect("event", self.eventHandler)
-        self.text = self.group.add(gnome.canvas.CanvasText,
+        self.text = self.group.add(gnomecanvas.CanvasText,
                                     font="sans", size_points=8)
         self.update()
 
@@ -204,7 +207,7 @@ class DiskStripe:
         else:
             width = CANVAS_WIDTH_640
         
-        group.add(gnome.canvas.CanvasRect, x1=0.0, y1=10.0, x2=width,
+        group.add(gnomecanvas.CanvasRect, x1=0.0, y1=10.0, x2=width,
                   y2=STRIPE_HEIGHT, fill_color='green',
                   outline_color='grey71', width_units=1.0)
         group.lower_to_bottom()
@@ -255,7 +258,7 @@ class DiskStripe:
 
 class DiskStripeGraph:
     def __init__(self, tree, editCb):
-        self.canvas = gnome.canvas.Canvas()
+        self.canvas = gnomecanvas.Canvas()
         self.diskStripes = []
         self.textlabels = []
         self.tree = tree
@@ -299,7 +302,7 @@ class DiskStripeGraph:
     def add(self, drive, disk):
 #        yoff = len(self.diskStripes) * (STRIPE_HEIGHT + 5)
         yoff = self.next_ypos
-        text = self.canvas.root().add(gnome.canvas.CanvasText,
+        text = self.canvas.root().add(gnomecanvas.CanvasText,
                                       x=0.0, y=yoff,
                                       font="sans",
                                       size_points=9)
@@ -323,7 +326,7 @@ class DiskStripeGraph:
         (xxx1, yyy1, xxx2, yyy2) =  text.get_bounds()
         textheight = yyy2 - yyy1
         self.textlabels.append(text)
-        group = self.canvas.root().add(gnome.canvas.CanvasGroup,
+        group = self.canvas.root().add(gnomecanvas.CanvasGroup,
                                        x=0, y=yoff+textheight)
         stripe = DiskStripe(drive, disk, group, self.tree, self.editCb)
         self.diskStripes.append(stripe)

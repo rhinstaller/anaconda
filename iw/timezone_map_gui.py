@@ -14,7 +14,10 @@
 import gobject
 import pango
 import gtk
-import gnome.canvas
+try:
+    import gnomecanvas
+except ImportError:
+    import gnome.canvas as gnomecanvas
 import string
 import re
 import math
@@ -44,7 +47,7 @@ class TimezoneMap(gtk.VBox):
         self.highlightedEntry = None
 
         # set up the map canvas
-        self.canvas = gnome.canvas.Canvas()
+        self.canvas = gnomecanvas.Canvas()
         root = self.canvas.root()
         tpixbuf = gtk.gdk.pixbuf_new_from_file(map)
 
@@ -61,20 +64,20 @@ class TimezoneMap(gtk.VBox):
         self.mapWidth = pixbuf.get_width()
         self.mapHeight = pixbuf.get_height()
 
-        root.add(gnome.canvas.CanvasPixbuf, x=0, y=0, pixbuf=pixbuf)
+        root.add(gnomecanvas.CanvasPixbuf, x=0, y=0, pixbuf=pixbuf)
         x1, y1, x2, y2 = root.get_bounds()
         self.canvas.set_scroll_region(x1, y1, x2, y2)
         self.canvas.set_size_request(int(x2), int(y2))
         self.pack_start(self.canvas, gtk.FALSE, gtk.FALSE)
 
-        self.current = root.add(gnome.canvas.CanvasText, text='x',
+        self.current = root.add(gnomecanvas.CanvasText, text='x',
                                 fill_color='red', anchor=gtk.ANCHOR_CENTER,
                                 weight=pango.WEIGHT_BOLD)
         
         root.connect("event", self.mapEvent)
         self.canvas.connect("event", self.canvasEvent)
 
-        self.arrow = root.add(gnome.canvas.CanvasLine,
+        self.arrow = root.add(gnomecanvas.CanvasLine,
                               fill_color='limegreen',
                               width_pixels=2,
                               first_arrowhead=gtk.FALSE,
@@ -109,7 +112,7 @@ class TimezoneMap(gtk.VBox):
             self.listStore.set_value(iter, self.columns.ENTRY, entry)
             
             x, y = self.map2canvas(entry.lat, entry.long)
-            marker = root.add(gnome.canvas.CanvasText, x=x, y=y,
+            marker = root.add(gnomecanvas.CanvasText, x=x, y=y,
                               text=u'\u00B7', fill_color='yellow',
                               anchor=gtk.ANCHOR_CENTER,
                               weight=pango.WEIGHT_BOLD)
