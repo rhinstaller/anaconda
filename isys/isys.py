@@ -51,8 +51,9 @@ def raidstop(mdDevice):
     os.remove("/tmp/md")
     try:
         _isys.raidstop(fd)
-    finally:
-        os.close(fd)
+    except:
+        pass
+    os.close(fd)
 
 def raidstart(mdDevice, aMember):
     if raidCount.has_key(mdDevice) and raidCount[mdDevice]:
@@ -67,17 +68,20 @@ def raidstart(mdDevice, aMember):
     os.remove("/tmp/md")
     try:
         _isys.raidstart(fd, "/tmp/member")
-    finally:
-        os.close(fd)
-        os.remove("/tmp/member")
+    except:
+        pass
+    os.close(fd)
+    os.remove("/tmp/member")
 
 def raidsb(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
+    rc = 0
     try:
         rc = _isys.getraidsb(fd)
-    finally:
-        os.close(fd)
+    except:
+        pass
+    os.close(fd)
     return rc
 
 def losetup(device, file, readOnly = 0):
