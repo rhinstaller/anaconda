@@ -1,4 +1,4 @@
-import gettext
+#import gettext
 from snack import *
 from textw.constants import *
 from text import _

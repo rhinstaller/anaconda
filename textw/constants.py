@@ -1,4 +1,4 @@
-import gettext
+#import gettext
 from text import _
 INSTALL_OK = 0
 INSTALL_BACK = -1
