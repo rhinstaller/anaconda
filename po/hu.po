@@ -1,10 +1,10 @@
 # Hungarian translation by László Németh <nemeth@qwertynet.hu>,
 # with great help from Andrea Vida <vidaa@bibl.u-szeged.hu> :-)
-#: ../libfdisk/gnomefsedit.c:2729
+#: ../libfdisk/gnomefsedit.c:2733
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 1999-08-29 12:09-0400\n"
+"POT-Creation-Date: 1999-09-01 19:20-0400\n"
 "PO-Revision-Date: 1999-04-14 23:34+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../iw/language.py:10 ../text.py:28 ../text.py:1375
+#: ../iw/language.py:10 ../text.py:28 ../text.py:1419
 msgid "Language Selection"
 msgstr ""
 
@@ -21,13 +21,13 @@ msgstr ""
 msgid "What language would you like to use during the installation process?"
 msgstr "Milyen nyelvet használjon a telepítõ?"
 
-#: ../text.py:31 ../text.py:79 ../text.py:130 ../text.py:147 ../text.py:184
-#: ../text.py:237 ../text.py:253 ../text.py:258 ../text.py:288 ../text.py:300
-#: ../text.py:308 ../text.py:317 ../text.py:370 ../text.py:430 ../text.py:452
-#: ../text.py:583 ../text.py:603 ../text.py:634 ../text.py:689 ../text.py:729
-#: ../text.py:794 ../text.py:845 ../text.py:895 ../text.py:940 ../text.py:1084
-#: ../text.py:1104 ../text.py:1116 ../text.py:1128 ../text.py:1300
-#: ../text.py:1342 ../text.py:1348
+#: ../text.py:31 ../text.py:79 ../text.py:130 ../text.py:156 ../text.py:193
+#: ../text.py:250 ../text.py:264 ../text.py:269 ../text.py:303 ../text.py:315
+#: ../text.py:323 ../text.py:332 ../text.py:393 ../text.py:461 ../text.py:483
+#: ../text.py:616 ../text.py:636 ../text.py:667 ../text.py:725 ../text.py:765
+#: ../text.py:830 ../text.py:881 ../text.py:931 ../text.py:976 ../text.py:1120
+#: ../text.py:1140 ../text.py:1152 ../text.py:1164 ../text.py:1342
+#: ../text.py:1386 ../text.py:1392
 msgid "OK"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:156 ../text.py:61 ../text.py:953 ../text.py:1011
+#: ../iw/lilo.py:161 ../text.py:61 ../text.py:989 ../text.py:1047
 msgid "Device"
 msgstr "Eszköz"
 
@@ -58,35 +58,35 @@ msgstr ""
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:263 ../libfdisk/fsedit.c:283 ../libfdisk/fsedit.c:295
-#: ../libfdisk/fsedit.c:704 ../libfdisk/fsedit.c:711 ../libfdisk/fsedit.c:718
-#: ../libfdisk/fsedit.c:727 ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:749
-#: ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:793 ../libfdisk/fsedit.c:1084
-#: ../libfdisk/gnomefsedit.c:596 ../libfdisk/gnomefsedit.c:936
-#: ../libfdisk/gnomefsedit.c:962 ../libfdisk/gnomefsedit.c:998
-#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:1297
-#: ../libfdisk/gnomefsedit.c:1315 ../libfdisk/gnomefsedit.c:1553
-#: ../libfdisk/gnomefsedit.c:1782 ../libfdisk/gnomefsedit.c:1793
-#: ../libfdisk/gnomefsedit.c:1803 ../libfdisk/gnomefsedit.c:1811
-#: ../libfdisk/gnomefsedit.c:1826 ../libfdisk/gnomefsedit.c:1883
-#: ../libfdisk/gnomefsedit.c:1957 ../libfdisk/newtfsedit.c:116
+#: ../libfdisk/fsedit.c:706 ../libfdisk/fsedit.c:713 ../libfdisk/fsedit.c:720
+#: ../libfdisk/fsedit.c:729 ../libfdisk/fsedit.c:741 ../libfdisk/fsedit.c:751
+#: ../libfdisk/fsedit.c:780 ../libfdisk/fsedit.c:795 ../libfdisk/fsedit.c:1089
+#: ../libfdisk/gnomefsedit.c:600 ../libfdisk/gnomefsedit.c:940
+#: ../libfdisk/gnomefsedit.c:966 ../libfdisk/gnomefsedit.c:1002
+#: ../libfdisk/gnomefsedit.c:1207 ../libfdisk/gnomefsedit.c:1301
+#: ../libfdisk/gnomefsedit.c:1319 ../libfdisk/gnomefsedit.c:1557
+#: ../libfdisk/gnomefsedit.c:1786 ../libfdisk/gnomefsedit.c:1797
+#: ../libfdisk/gnomefsedit.c:1807 ../libfdisk/gnomefsedit.c:1815
+#: ../libfdisk/gnomefsedit.c:1830 ../libfdisk/gnomefsedit.c:1887
+#: ../libfdisk/gnomefsedit.c:1961 ../libfdisk/newtfsedit.c:116
 #: ../libfdisk/newtfsedit.c:449 ../libfdisk/newtfsedit.c:527
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
-#: ../libfdisk/newtfsedit.c:1303 ../libfdisk/newtfsedit.c:1311
-#: ../libfdisk/newtfsedit.c:1436 ../libfdisk/newtfsedit.c:1457
-#: ../libfdisk/newtfsedit.c:1551 ../text.py:63 ../text.py:958 ../text.py:971
-#: ../text.py:1026
+#: ../libfdisk/newtfsedit.c:1309 ../libfdisk/newtfsedit.c:1317
+#: ../libfdisk/newtfsedit.c:1442 ../libfdisk/newtfsedit.c:1463
+#: ../libfdisk/newtfsedit.c:1557 ../text.py:63 ../text.py:994 ../text.py:1007
+#: ../text.py:1062
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:266 ../libfdisk/fsedit.c:995 ../libfdisk/newtfsedit.c:1303
-#: ../libfdisk/newtfsedit.c:1311 ../text.py:63 ../text.py:64 ../text.py:79
-#: ../text.py:102 ../text.py:130 ../text.py:133 ../text.py:147 ../text.py:170
-#: ../text.py:184 ../text.py:186 ../text.py:205 ../text.py:207 ../text.py:237
-#: ../text.py:339 ../text.py:370 ../text.py:430 ../text.py:432 ../text.py:452
-#: ../text.py:583 ../text.py:634 ../text.py:636 ../text.py:689 ../text.py:729
-#: ../text.py:794 ../text.py:845 ../text.py:854 ../text.py:870 ../text.py:879
-#: ../text.py:896 ../text.py:940 ../text.py:947 ../text.py:1027
-#: ../text.py:1084 ../text.py:1085 ../text.py:1300 ../text.py:1322
+#: ../gui.py:279 ../libfdisk/fsedit.c:1000 ../libfdisk/newtfsedit.c:1309
+#: ../libfdisk/newtfsedit.c:1317 ../text.py:63 ../text.py:64 ../text.py:79
+#: ../text.py:102 ../text.py:130 ../text.py:133 ../text.py:156 ../text.py:179
+#: ../text.py:193 ../text.py:195 ../text.py:214 ../text.py:216 ../text.py:250
+#: ../text.py:362 ../text.py:393 ../text.py:461 ../text.py:463 ../text.py:483
+#: ../text.py:616 ../text.py:667 ../text.py:669 ../text.py:725 ../text.py:765
+#: ../text.py:830 ../text.py:881 ../text.py:890 ../text.py:906 ../text.py:915
+#: ../text.py:932 ../text.py:976 ../text.py:983 ../text.py:1063
+#: ../text.py:1120 ../text.py:1121 ../text.py:1342 ../text.py:1364
 msgid "Back"
 msgstr "Vissza"
 
@@ -98,12 +98,12 @@ msgstr ""
 msgid "Emulate 3 Buttons?"
 msgstr ""
 
-#: ../text.py:92 ../text.py:1312
+#: ../text.py:92 ../text.py:1354
 #, fuzzy
 msgid "Mouse Selection"
 msgstr "Modul opciók"
 
-#: ../text.py:128 ../text.py:1376
+#: ../text.py:128 ../text.py:1421
 #, fuzzy
 msgid "Keyboard Selection"
 msgstr "Billentyûzet típus"
@@ -112,65 +112,65 @@ msgstr "Billentyûzet típus"
 msgid "Which model keyboard is attached to this computer?"
 msgstr ""
 
-#: ../text.py:140
+#: ../text.py:149
 #, fuzzy
 msgid "Install GNOME Workstation"
 msgstr "Munkaállomás"
 
-#: ../text.py:141
+#: ../text.py:150
 #, fuzzy
 msgid "Install KDE Workstation"
 msgstr "Munkaállomás"
 
-#: ../text.py:142
+#: ../text.py:151
 #, fuzzy
 msgid "Install Server System"
 msgstr "A rendszer telepítése"
 
-#: ../text.py:143
+#: ../text.py:152
 #, fuzzy
 msgid "Install Custom System"
 msgstr "A rendszer telepítése"
 
-#: ../text.py:144
+#: ../text.py:153
 #, fuzzy
 msgid "Upgrade Existing Installation"
 msgstr "Lilo telepítés"
 
-#: ../text.py:145 ../text.py:1378
+#: ../text.py:154 ../text.py:1424
 #, fuzzy
 msgid "Installation Type"
 msgstr "Telepítési lépések"
 
-#: ../text.py:146
+#: ../text.py:155
 #, fuzzy
 msgid "What type of system would you like to install?"
 msgstr "Milyen adathordozón vannak a telepítendõ csomagok?"
 
-#: ../libfdisk/newtfsedit.c:1551 ../text.py:167 ../text.py:1124
+#: ../libfdisk/newtfsedit.c:1557 ../text.py:176 ../text.py:1160
 msgid "Error"
 msgstr "Hiba"
 
-#: ../text.py:168
+#: ../text.py:177
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Nincsenek Linux partíciók. Ez a rendszer nem frissíthetõ!"
 
 # , c-format
-#: ../text.py:181
+#: ../text.py:190
 #, fuzzy
 msgid "System to Upgrade"
 msgstr "Rendszerhiba %d"
 
-#: ../text.py:182
+#: ../text.py:191
 msgid "What partition holds the root partition of your installation?"
 msgstr "Melyik partíció a meglévõ rendszer root-partíciója?"
 
-#: ../text.py:197
+#: ../text.py:206
 #, fuzzy
 msgid "Customize Packages to Upgrade"
 msgstr "Válassza ki a frissítendõ csomagokat"
 
-#: ../text.py:198
+#: ../text.py:207
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -180,30 +180,30 @@ msgstr ""
 "kiválasztásra kerültek a telepítéshez. Akarja módosítani a frissítendõ "
 "csomagok listáját?"
 
-#: ../libfdisk/fsedit.c:272 ../libfdisk/gnomefsedit.c:521
-#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:1016
-#: ../libfdisk/gnomefsedit.c:2119 ../libfdisk/gnomefsedit.c:2140
+#: ../libfdisk/fsedit.c:272 ../libfdisk/gnomefsedit.c:525
+#: ../libfdisk/gnomefsedit.c:901 ../libfdisk/gnomefsedit.c:1020
+#: ../libfdisk/gnomefsedit.c:2123 ../libfdisk/gnomefsedit.c:2144
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
-#: ../libfdisk/newtfsedit.c:1489 ../libfdisk/newtfsedit.c:1507
-#: ../libfdisk/newtfsedit.c:1592 ../text.py:205 ../text.py:870 ../text.py:873
+#: ../libfdisk/newtfsedit.c:1495 ../libfdisk/newtfsedit.c:1513
+#: ../libfdisk/newtfsedit.c:1598 ../text.py:214 ../text.py:906 ../text.py:909
 msgid "Yes"
 msgstr "Igen"
 
-#: ../libfdisk/fsedit.c:272 ../libfdisk/gnomefsedit.c:521
-#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:1016
-#: ../libfdisk/gnomefsedit.c:2119 ../libfdisk/gnomefsedit.c:2140
+#: ../libfdisk/fsedit.c:272 ../libfdisk/gnomefsedit.c:525
+#: ../libfdisk/gnomefsedit.c:901 ../libfdisk/gnomefsedit.c:1020
+#: ../libfdisk/gnomefsedit.c:2123 ../libfdisk/gnomefsedit.c:2144
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
-#: ../libfdisk/newtfsedit.c:1489 ../libfdisk/newtfsedit.c:1507
-#: ../libfdisk/newtfsedit.c:1592 ../text.py:205 ../text.py:210 ../text.py:870
-#: ../text.py:876
+#: ../libfdisk/newtfsedit.c:1495 ../libfdisk/newtfsedit.c:1513
+#: ../libfdisk/newtfsedit.c:1598 ../text.py:214 ../text.py:219 ../text.py:906
+#: ../text.py:912
 msgid "No"
 msgstr "Nem"
 
-#: ../text.py:220 ../text.py:1397
+#: ../text.py:229 ../text.py:1449
 msgid "Root Password"
 msgstr "Root jelszó"
 
-#: ../text.py:222
+#: ../text.py:231
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
@@ -213,132 +213,132 @@ msgstr ""
 "elkerülése végett. Ne felejtse el, hogy a root jelszó a rendszer "
 "biztonságának kritikus része!"
 
-#: ../text.py:231
+#: ../text.py:244
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../text.py:232
+#: ../text.py:245
 msgid "Password (again):"
 msgstr "Jelszó (újra):"
 
-#: ../text.py:250 ../text.py:297
+#: ../text.py:261 ../text.py:312
 #, fuzzy
 msgid "Password Length"
 msgstr "Hibás jelszó"
 
-#: ../text.py:251
+#: ../text.py:262
 msgid "The root password must be at least 6 characters long."
 msgstr "A root jelszónak legalább 6 karakter hosszúnak kell lenni."
 
-#: ../text.py:255 ../text.py:305
+#: ../text.py:266 ../text.py:320
 msgid "Password Mismatch"
 msgstr "Hibás jelszó"
 
-#: ../text.py:256 ../text.py:306
+#: ../text.py:267 ../text.py:321
 msgid "The passwords you entered were different. Please try again."
 msgstr "Az ön által beírt jelszók különbözõek voltak. Próbálkozzon újra."
 
-#: ../libfdisk/fsedit.c:263 ../libfdisk/gnomefsedit.c:596
-#: ../libfdisk/gnomefsedit.c:1553 ../libfdisk/gnomefsedit.c:1957
-#: ../libfdisk/newtfsedit.c:450 ../libfdisk/newtfsedit.c:1507 ../text.py:268
-#: ../text.py:958 ../text.py:976
+#: ../libfdisk/fsedit.c:263 ../libfdisk/gnomefsedit.c:600
+#: ../libfdisk/gnomefsedit.c:1557 ../libfdisk/gnomefsedit.c:1961
+#: ../libfdisk/newtfsedit.c:450 ../libfdisk/newtfsedit.c:1513 ../text.py:283
+#: ../text.py:994 ../text.py:1012
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ../text.py:277
+#: ../text.py:292
 #, fuzzy
 msgid "Edit User"
 msgstr "Szerkesztés"
 
-#: ../text.py:279
+#: ../text.py:294
 #, fuzzy
 msgid "Add User"
 msgstr "Nyomtató hozzáadása"
 
-#: ../text.py:284
+#: ../text.py:299
 #, fuzzy
 msgid "User ID"
 msgstr "Felhasználó:"
 
-#: ../iw/account.py:158 ../iw/account.py:179 ../text.py:285 ../text.py:358
+#: ../iw/account.py:170 ../iw/account.py:191 ../text.py:300 ../text.py:381
 msgid "Full Name"
 msgstr ""
 
-#: ../iw/account.py:153 ../text.py:286
+#: ../iw/account.py:165 ../text.py:301
 #, fuzzy
 msgid "Password"
 msgstr "Jelszó:"
 
-#: ../iw/account.py:155 ../text.py:287
+#: ../iw/account.py:167 ../text.py:302
 #, fuzzy
 msgid "Password (confirm)"
 msgstr "Jelszó (újra):"
 
-#: ../text.py:298
+#: ../text.py:313
 #, fuzzy
 msgid "The password must be at least 6 characters long."
 msgstr "A root jelszónak legalább 6 karakter hosszúnak kell lenni."
 
-#: ../text.py:315
+#: ../text.py:330
 msgid "User Exists"
 msgstr ""
 
-#: ../text.py:316
+#: ../text.py:331
 msgid "This user id already exists.  Choose another."
 msgstr ""
 
-#: ../text.py:335
+#: ../text.py:358
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
 
-#: ../text.py:346 ../text.py:1398
+#: ../text.py:369 ../text.py:1451
 msgid "User Account Setup"
 msgstr ""
 
-#: ../text.py:348
+#: ../text.py:371
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
 
-#: ../text.py:358
+#: ../text.py:381
 #, fuzzy
 msgid "User name"
 msgstr "Felhasználó név:"
 
-#: ../iw/account.py:165 ../libfdisk/newtfsedit.c:1309 ../text.py:369
+#: ../iw/account.py:177 ../libfdisk/newtfsedit.c:1315 ../text.py:392
 msgid "Add"
 msgstr "Hozzáad"
 
-#: ../iw/account.py:169 ../libfdisk/newtfsedit.c:1302
-#: ../libfdisk/newtfsedit.c:1310 ../text.py:369
+#: ../iw/account.py:181 ../libfdisk/newtfsedit.c:1308
+#: ../libfdisk/newtfsedit.c:1316 ../text.py:392
 msgid "Delete"
 msgstr "Töröl"
 
-#: ../iw/account.py:167 ../libfdisk/newtfsedit.c:1302
-#: ../libfdisk/newtfsedit.c:1310 ../text.py:370 ../text.py:1026
-#: ../text.py:1047
+#: ../iw/account.py:179 ../libfdisk/newtfsedit.c:1308
+#: ../libfdisk/newtfsedit.c:1316 ../text.py:393 ../text.py:1062
+#: ../text.py:1083
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: ../text.py:382
+#: ../text.py:405
 msgid "Enter the information for the user."
 msgstr ""
 
-#: ../text.py:394
+#: ../text.py:417
 msgid "Change the information for this user."
 msgstr ""
 
-#: ../text.py:421
+#: ../text.py:452
 #, fuzzy
 msgid "Red Hat Linux"
 msgstr "Üdvözli a Red Hat Linux"
 
-#: ../text.py:422
+#: ../text.py:453
 #, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
@@ -359,92 +359,92 @@ msgstr ""
 "Amennyiben az Official Red Hat Linux csomagot vette meg, mindenképpen "
 "regisztrálja vásárlását a http://www.redhat.com web címen."
 
-#: ../iw/auth.py:11 ../text.py:454
+#: ../iw/auth.py:11 ../text.py:485
 #, fuzzy
 msgid "Authentication Configuration"
 msgstr "Hálózati beállítások"
 
-#: ../text.py:455
+#: ../text.py:486
 #, fuzzy
 msgid "Use Shadow Passwords"
 msgstr "Root jelszó"
 
-#: ../text.py:457
+#: ../text.py:488
 msgid "Enable MD5 Passwords"
 msgstr ""
 
-#: ../iw/auth.py:49 ../text.py:459
+#: ../iw/auth.py:52 ../text.py:490
 msgid "Enable NIS"
 msgstr ""
 
-#: ../text.py:464
+#: ../text.py:495
 #, fuzzy
 msgid "NIS Domain:"
 msgstr "Domain név:"
 
-#: ../text.py:466
+#: ../text.py:497
 #, fuzzy
 msgid "NIS Server:"
 msgstr "Szerver:"
 
-#: ../text.py:468
+#: ../text.py:499
 msgid "or use:"
 msgstr ""
 
-#: ../text.py:471
+#: ../text.py:502
 msgid "Request server via broadcast"
 msgstr ""
 
-#: ../text.py:555
+#: ../text.py:588
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:560
+#: ../text.py:593
 msgid "IP address:"
 msgstr "IP cím:"
 
-#: ../text.py:561
+#: ../text.py:594
 msgid "Netmask:"
 msgstr "Alhálózati maszk:"
 
-#: ../text.py:562
+#: ../text.py:595
 msgid "Default gateway (IP):"
 msgstr "Alapértelmezett átjáró (IP):"
 
-#: ../text.py:563
+#: ../text.py:596
 msgid "Primary nameserver:"
 msgstr "Elsõdleges névszerver:"
 
-#: ../text.py:585
+#: ../text.py:618
 msgid "Network Configuration"
 msgstr "Hálózati beállítások"
 
-#: ../text.py:601
+#: ../text.py:634
 #, fuzzy
 msgid "Invalid information"
 msgstr "Hiányzó információ"
 
-#: ../text.py:602
+#: ../text.py:635
 #, fuzzy
 msgid "You must enter valid IP information to continue"
 msgstr "Adjon meg egy érvényes IP címet és alhálózati maszkot."
 
-#: ../text.py:630
+#: ../text.py:663
 #, fuzzy
 msgid "Hostname Configuration"
 msgstr "SCSI beállítás"
 
-#: ../text.py:631
+#: ../text.py:664
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../text.py:634
+#: ../iw/network.py:180 ../text.py:667
 msgid "Hostname"
 msgstr "Host név"
 
-#: ../text.py:667
+#: ../text.py:703
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -456,29 +456,29 @@ msgstr ""
 "Nem szükséges formázni a /home és /usr/local partíciókat, ha egy elõzõ "
 "telepítés során már létre lettek hozva."
 
-#: ../text.py:687
+#: ../text.py:723
 msgid "Check for bad blocks during format"
 msgstr "Hibás blokkok keresése formázás közben"
 
-#: ../text.py:691
+#: ../text.py:727
 #, fuzzy
 msgid "Choose Partitions to Format"
 msgstr "Válassza ki a formázandó partíciókat"
 
-#: ../iw/package.py:441 ../text.py:727
+#: ../iw/package.py:443 ../text.py:763
 msgid "Select individual packages"
 msgstr "Csomagok egyedi kiválasztása"
 
-#: ../iw/package.py:377 ../text.py:731 ../text.py:796
+#: ../iw/package.py:376 ../text.py:767 ../text.py:832
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../text.py:823 ../text.py:1405
+#: ../text.py:859 ../text.py:1459
 #, fuzzy
 msgid "Package Dependencies"
 msgstr "Feloldatlan függõségek"
 
-#: ../text.py:824
+#: ../text.py:860
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
@@ -488,23 +488,23 @@ msgstr ""
 "telepítésére is, melyeket nem választott ki. Ha az Ok-t válassza, ezek a "
 "csomagok telepítésre kerülnek."
 
-#: ../iw/dependencies.py:27 ../iw/progress.py:105 ../text.py:830
+#: ../iw/dependencies.py:29 ../iw/progress.py:105 ../text.py:866
 msgid "Package"
 msgstr "Csomag"
 
-#: ../iw/dependencies.py:27 ../text.py:830
+#: ../iw/dependencies.py:29 ../text.py:866
 msgid "Requirement"
 msgstr "Igény"
 
-#: ../iw/dependencies.py:34 ../text.py:842
+#: ../iw/dependencies.py:36 ../text.py:878
 msgid "Install packages to satisfy dependencies"
 msgstr "Csomagok telepítése a függõségek szerint"
 
-#: ../text.py:860 ../text.py:1112 ../text.py:1411
+#: ../text.py:896 ../text.py:1148 ../text.py:1466
 msgid "Bootdisk"
 msgstr "Boot lemez"
 
-#: ../text.py:861
+#: ../text.py:897
 msgid ""
 "A custom bootdisk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -524,7 +524,7 @@ msgstr ""
 "\n"
 "Akar boot lemezt készíteni a rendszerhez?"
 
-#: ../text.py:887
+#: ../text.py:923
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -535,46 +535,46 @@ msgstr ""
 "kernelnek. Ha szüksége van ilyen opciókra, akkor most adja meg ezeket. Ha "
 "nincs szüksége ezekre, vagy nem biztos benne, hagyja üresen."
 
-#: ../iw/lilo.py:128 ../text.py:893
+#: ../iw/lilo.py:128 ../text.py:929
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Linear mód használata (néhány SCSI meghajtóhoz szükséges)"
 
-#: ../text.py:895 ../text.py:1116 ../text.py:1117 ../text.py:1128
-#: ../text.py:1129
+#: ../text.py:931 ../text.py:1152 ../text.py:1153 ../text.py:1164
+#: ../text.py:1165
 msgid "Skip"
 msgstr "Kihagy"
 
-#: ../text.py:898 ../text.py:937 ../text.py:1034 ../text.py:1384
-#: ../text.py:1386 ../text.py:1388
+#: ../text.py:934 ../text.py:973 ../text.py:1070 ../text.py:1433
+#: ../text.py:1435 ../text.py:1437
 #, fuzzy
 msgid "LILO Configuration"
 msgstr "SCSI beállítás"
 
-#: ../text.py:938
+#: ../text.py:974
 msgid "Where do you want to install the bootloader?"
 msgstr "Hová akarja telepíteni a boot betöltõt?"
 
-#: ../iw/lilo.py:156 ../iw/lilo.py:192 ../text.py:954 ../text.py:1011
+#: ../iw/lilo.py:161 ../iw/lilo.py:196 ../text.py:990 ../text.py:1047
 msgid "Boot label"
 msgstr "Boot címke"
 
-#: ../text.py:958 ../text.py:978
+#: ../text.py:994 ../text.py:1014
 msgid "Clear"
 msgstr "Töröl"
 
-#: ../text.py:966
+#: ../text.py:1002
 msgid "Edit Boot Label"
 msgstr "Boot címke szerkesztése"
 
-#: ../iw/lilo.py:156 ../text.py:1011
+#: ../iw/lilo.py:161 ../text.py:1047
 msgid "Partition type"
 msgstr "Partíció-típus"
 
-#: ../iw/lilo.py:156 ../text.py:1011
+#: ../iw/lilo.py:161 ../text.py:1047
 msgid "Default"
 msgstr "Alapértelmezés"
 
-#: ../text.py:1029
+#: ../text.py:1065
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -584,12 +584,12 @@ msgstr ""
 "képes. Adja meg, melyik partíciókról akar bootolni, és milyen címkét akar "
 "használni hozzájuk."
 
-#: ../text.py:1080
+#: ../text.py:1116
 #, fuzzy
 msgid "Installation to begin"
 msgstr "Telepítési lépések"
 
-#: ../text.py:1081
+#: ../text.py:1117
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -598,11 +598,11 @@ msgstr ""
 "file-ban a rendszer újraindítása után. Késõbb esetleg szüksége lehet erre a "
 "file-ra."
 
-#: ../text.py:1096
+#: ../text.py:1132
 msgid "Complete"
 msgstr "Kész"
 
-#: ../iw/congrats.py:17 ../text.py:1097
+#: ../iw/congrats.py:17 ../text.py:1133
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -623,80 +623,80 @@ msgstr ""
 "A rendszer beállításáról az Official Red Hat Linux User's Guide címû könyv "
 "\"post install\" fejezetében olvashat."
 
-#: ../iw/bootdisk.py:40 ../text.py:1113
+#: ../iw/bootdisk.py:40 ../text.py:1149
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
 
-#: ../iw/bootdisk.py:44 ../text.py:1125
+#: ../iw/bootdisk.py:44 ../text.py:1161
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
 
-#: ../text.py:1187
+#: ../text.py:1223
 #, fuzzy
 msgid "Package Installation"
 msgstr "Lilo telepítés"
 
-#: ../text.py:1189
+#: ../text.py:1225
 #, fuzzy
 msgid "Name   : "
 msgstr "Queue neve:"
 
-#: ../text.py:1190
+#: ../text.py:1226
 #, fuzzy
 msgid "Size   : "
 msgstr "Méret  :"
 
-#: ../text.py:1191
+#: ../text.py:1227
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:1217
+#: ../text.py:1253
 #, fuzzy
 msgid "    Packages"
 msgstr "Csomag"
 
-#: ../text.py:1218
+#: ../text.py:1254
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:1219
+#: ../text.py:1255
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:1221
+#: ../text.py:1257
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:1228
+#: ../text.py:1264
 #, fuzzy
 msgid "Completed:   "
 msgstr "Kész"
 
-#: ../text.py:1238
+#: ../text.py:1274
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:1302
+#: ../text.py:1344
 msgid "What time zone are you located in?"
 msgstr ""
 
-#: ../text.py:1310
+#: ../text.py:1352
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
-#: ../text.py:1348 ../text.py:1349
+#: ../text.py:1392 ../text.py:1393
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:1361
+#: ../text.py:1405
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:1363
+#: ../text.py:1407
 #, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
@@ -704,109 +704,109 @@ msgid ""
 msgstr ""
 " <Tab>/<AltTab> elemek között |<Space> kiválaszt |<F12> következõ képernyõ "
 
-#: ../text.py:1377
+#: ../text.py:1423
 msgid "Welcome"
 msgstr ""
 
-#: ../iw/lilo.py:85 ../iw/lilo.py:179 ../text.py:1382
+#: ../iw/lilo.py:84 ../iw/lilo.py:184 ../text.py:1429
 #, fuzzy
 msgid "Partition"
 msgstr "Újrapartícionálás"
 
-#: ../text.py:1383
+#: ../text.py:1431
 #, fuzzy
 msgid "Filesystem Formatting"
 msgstr "Formázás"
 
-#: ../text.py:1390
+#: ../text.py:1439
 #, fuzzy
 msgid "Hostname Setup"
 msgstr "Host név keresése"
 
-#: ../text.py:1392
+#: ../text.py:1441
 #, fuzzy
 msgid "Network Setup"
 msgstr "NFS beállítás"
 
-#: ../text.py:1394 ../text.py:1395
+#: ../text.py:1443 ../text.py:1445
 #, fuzzy
 msgid "Mouse Configuration"
 msgstr "SCSI beállítás"
 
-#: ../text.py:1396
+#: ../text.py:1447
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:1399
+#: ../text.py:1453
 #, fuzzy
 msgid "Authentication"
 msgstr "Azonosítás beállítása"
 
-#: ../text.py:1401
+#: ../text.py:1455
 #, fuzzy
 msgid "Package Groups"
 msgstr "Csomag"
 
-#: ../text.py:1403 ../text.py:1419
+#: ../text.py:1457 ../text.py:1474
 #, fuzzy
 msgid "Individual Packages"
 msgstr "Csomagok egyedi kiválasztása"
 
-#: ../text.py:1406
+#: ../text.py:1461
 #, fuzzy
 msgid "Boot Disk"
 msgstr "Boot lemez"
 
-#: ../text.py:1408
+#: ../text.py:1463
 #, fuzzy
 msgid "Installation Begins"
 msgstr "Telepítési lépések"
 
-#: ../text.py:1409
+#: ../text.py:1465
 #, fuzzy
 msgid "Install System"
 msgstr "A rendszer telepítése"
 
-#: ../text.py:1412
+#: ../text.py:1467
 #, fuzzy
 msgid "Installation Complete"
 msgstr "Telepítési osztály"
 
-#: ../text.py:1417
+#: ../text.py:1472
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:1418
+#: ../text.py:1473
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1420
+#: ../text.py:1475
 #, fuzzy
 msgid "Upgrade System"
 msgstr "Rendszerfrissítés"
 
-#: ../text.py:1421
+#: ../text.py:1476
 #, fuzzy
 msgid "Upgrade Complete"
 msgstr "Rendszerfrissítés"
 
-#: ../gui.py:259
+#: ../gui.py:272
 msgid "Red Hat Linux Installer"
 msgstr ""
 
-#: ../gui.py:269
+#: ../gui.py:282
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:270
+#: ../gui.py:283
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:271
+#: ../gui.py:284
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:292
+#: ../gui.py:305
 msgid "Online Help"
 msgstr ""
 
@@ -815,69 +815,46 @@ msgstr ""
 msgid "Account Configuration"
 msgstr "SCSI beállítás"
 
-#: ../iw/account.py:108
+#: ../iw/account.py:114
 #, fuzzy
 msgid "Root Password: "
 msgstr "Root jelszó"
 
-#: ../iw/account.py:109
+#: ../iw/account.py:115
 #, fuzzy
 msgid "Confirm: "
 msgstr "X beállítása"
 
-#: ../iw/account.py:151 ../iw/account.py:179
+#: ../iw/account.py:163 ../iw/account.py:191
 #, fuzzy
 msgid "Account Name"
 msgstr "Felhasználónév:"
 
-#: ../iw/account.py:171
+#: ../iw/account.py:183
 msgid "New"
 msgstr ""
 
-#: ../iw/auth.py:46
+#: ../iw/auth.py:49
 msgid "Enable MD5 passwords"
 msgstr ""
 
-#: ../iw/auth.py:47
+#: ../iw/auth.py:50
 #, fuzzy
 msgid "Enable shadow passwords"
 msgstr "root jelszó megadása"
 
-#: ../iw/auth.py:50
+#: ../iw/auth.py:53
 msgid "Use broadcast to find NIS server"
 msgstr ""
 
-#: ../iw/auth.py:62
+#: ../iw/auth.py:65
 msgid "NIS Domain: "
 msgstr ""
 
-#: ../iw/auth.py:64
+#: ../iw/auth.py:67
 #, fuzzy
 msgid "NIS Server: "
 msgstr "Szerver:"
-
-#: ../iw/autopartition.py:16
-#, fuzzy
-msgid "Auto partition"
-msgstr "Újrapartícionálás"
-
-#: ../iw/autopartition.py:29 ../libfdisk/gnomefsedit.c:2045
-msgid "Workstation"
-msgstr "Munkaállomás"
-
-#: ../iw/autopartition.py:38
-#, fuzzy
-msgid "Remove all data"
-msgstr "Távoli lpd"
-
-#: ../iw/autopartition.py:41 ../libfdisk/gnomefsedit.c:1983
-#, fuzzy
-msgid "Remove Linux partitions"
-msgstr "Partíciók átméretezése"
-
-#: ../iw/autopartition.py:44 ../libfdisk/gnomefsedit.c:1994
-msgid "Use existing free space"
-msgstr ""
 
 #: ../iw/bootdisk.py:10
 #, fuzzy
@@ -924,40 +901,40 @@ msgstr "Válassza ki a frissítendõ csomagokat"
 msgid "Choose partitions to Format"
 msgstr "Válassza ki a formázandó partíciókat"
 
-#: ../iw/format.py:44
+#: ../iw/format.py:46
 #, fuzzy
 msgid "Check for bad blocks while formatting"
 msgstr "Hibás blokkok keresése formázás közben"
 
-#: ../iw/installpath.py:33
+#: ../iw/installpath.py:34
 msgid "Custom"
 msgstr "Egyéni"
 
-#: ../iw/installpath.py:34
+#: ../iw/installpath.py:35
 #, fuzzy
 msgid "GNOME Workstation"
 msgstr "Munkaállomás"
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 #, fuzzy
 msgid "KDE Workstation"
 msgstr "Munkaállomás"
 
-#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2025
-#: ../libfdisk/gnomefsedit.c:2045
+#: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2029
+#: ../libfdisk/gnomefsedit.c:2049
 msgid "Server"
 msgstr "Szerver"
 
-#: ../iw/installpath.py:68
+#: ../iw/installpath.py:71
 #, fuzzy
 msgid "Install Type"
 msgstr "A rendszer telepítése"
 
-#: ../iw/installpath.py:86
+#: ../iw/installpath.py:120
 msgid "Install"
 msgstr "Telepítés"
 
-#: ../iw/installpath.py:88
+#: ../iw/installpath.py:122
 msgid "Upgrade"
 msgstr "Frissítés"
 
@@ -982,12 +959,12 @@ msgstr ""
 msgid "What language should be used during the installation process?"
 msgstr "Milyen nyelvet használjon a telepítõ?"
 
-#: ../iw/lilo.py:17
+#: ../iw/lilo.py:16
 #, fuzzy
 msgid "Lilo Configuration"
 msgstr "SCSI beállítás"
 
-#: ../iw/lilo.py:90 ../iw/lilo.py:180
+#: ../iw/lilo.py:89 ../iw/lilo.py:185
 msgid "Type"
 msgstr ""
 
@@ -1009,82 +986,81 @@ msgstr "Boot-partíció elsõ szektora"
 msgid "Kernel parameters"
 msgstr "Modul paraméterek"
 
-#: ../iw/lilo.py:143
+#: ../iw/lilo.py:146
 #, fuzzy
 msgid "Create boot disk"
 msgstr "Boot lemez létrehozása"
 
-#: ../iw/lilo.py:147
-#, fuzzy
-msgid "Skip LILO install"
-msgstr "SILO telepítés"
+#: ../iw/lilo.py:150
+msgid "Do not install LILO"
+msgstr ""
 
-#: ../iw/network.py:131
+#: ../iw/network.py:127
 #, fuzzy
 msgid "Configure using DHCP"
 msgstr "Az egér beállítása"
 
-#: ../iw/network.py:138
+#: ../iw/network.py:133
 msgid "Activate on boot"
 msgstr ""
 
-#: ../iw/network.py:146
+#: ../iw/network.py:142
 #, fuzzy
 msgid "IP Address"
 msgstr "IP cím:"
 
-#: ../iw/network.py:146
+#: ../iw/network.py:142
 #, fuzzy
 msgid "Netmask"
 msgstr "Alhálózati maszk:"
 
-#: ../iw/network.py:146
+#: ../iw/network.py:142
 msgid "Network"
 msgstr ""
 
-#: ../iw/network.py:146
+#: ../iw/network.py:142
 msgid "Broadcast"
 msgstr ""
 
-#: ../iw/network.py:180
-msgid "Gateway: "
+#: ../iw/network.py:181
+msgid "Gateway"
 msgstr ""
 
 #: ../iw/network.py:181
-msgid "Primary DNS: "
+msgid "Primary DNS"
 msgstr ""
 
-#: ../iw/network.py:182
-msgid "Secondary DNS: "
+#: ../iw/network.py:181
+msgid "Secondary DNS"
 msgstr ""
 
-#: ../iw/network.py:183
-msgid "Ternary DNS: "
+#: ../iw/network.py:181
+msgid "Ternary DNS"
 msgstr ""
 
-#: ../iw/package.py:21
+#: ../iw/package.py:20
 msgid "Individual Package Selection"
 msgstr ""
 
-#: ../iw/package.py:178
+#: ../iw/package.py:177
 msgid "Up"
 msgstr ""
 
-#: ../iw/package.py:324
+#: ../iw/package.py:323
 msgid "Name: "
 msgstr ""
 
-#: ../iw/package.py:329
+#: ../iw/package.py:328
 #, fuzzy
 msgid "Package Details"
 msgstr "Csomag"
 
-#: ../iw/package.py:335
+#: ../iw/package.py:334
 #, fuzzy
 msgid "Size: "
 msgstr "Méret  :"
 
-#: ../iw/package.py:341
+#: ../iw/package.py:340
 #, fuzzy
 msgid "Select Package For Installation"
 msgstr "Silo telepítés"
@@ -1146,14 +1122,91 @@ msgstr "Root-partíció"
 msgid "Time Zone Selection"
 msgstr ""
 
-#: ../iw/timezone.py:49
-msgid "View"
+#: ../iw/timezone.py:108
+msgid "View:"
+msgstr ""
+
+#: ../iw/timezone.py:138
+msgid "Use Daylight Saving Time"
+msgstr ""
+
+#: ../iw/timezone.py:145
+#, fuzzy
+msgid "Location"
+msgstr "Munkaállomás"
+
+#: ../iw/timezone.py:146
+msgid "UTC Offset"
+msgstr ""
+
+#: ../iw/timezone.py:150
+msgid "System clock uses UTC"
 msgstr ""
 
 #: ../iw/welcome.py:10
 #, fuzzy
 msgid "Welcome to Red Hat Linux!"
 msgstr "Üdvözli a Red Hat Linux"
+
+#: ../iw/xconfig.py:9
+msgid "Video Card"
+msgstr ""
+
+#: ../iw/xconfig.py:10
+msgid "Monitor"
+msgstr ""
+
+#: ../iw/xconfig.py:11
+msgid "Video Ram"
+msgstr ""
+
+#: ../iw/xconfig.py:12
+msgid "Horizontal Frequency Range"
+msgstr ""
+
+#: ../iw/xconfig.py:13
+msgid "Vertical Frequency Range"
+msgstr ""
+
+#: ../iw/xconfig.py:14
+msgid "Test failed"
+msgstr ""
+
+#: ../iw/xconfig.py:24 ../iw/xconfig.py:128
+#, fuzzy
+msgid "Customize X Configuration"
+msgstr "SCSI beállítás"
+
+#: ../iw/xconfig.py:40
+#, fuzzy
+msgid "Bits per Pixel"
+msgstr "Bit / pixel:"
+
+#: ../iw/xconfig.py:59
+#, fuzzy
+msgid "X Configuration"
+msgstr "SCSI beállítás"
+
+#: ../iw/xconfig.py:103
+msgid ""
+"In most cases your video hardware can be probed to automatically determine "
+"the best settings for your display."
+msgstr ""
+
+#: ../iw/xconfig.py:111
+#, fuzzy
+msgid "Autoprobe results:"
+msgstr "Automatikus keresés"
+
+#: ../iw/xconfig.py:124
+#, fuzzy
+msgid "Test this configuration"
+msgstr "SCSI beállítás"
+
+#: ../iw/xconfig.py:131
+#, fuzzy
+msgid "Skip X Configuration"
+msgstr "SCSI beállítás"
 
 #: ../libfdisk/fsedit.c:231
 msgid "Your machine will be partition for "
@@ -1212,19 +1265,19 @@ msgstr "Nincs elegendõ lemezterület ehhez a telepítés-típushoz."
 msgid "There is not enough disk space for the chosen partitioning."
 msgstr "Nincs elegendõ lemezterület ehhez a telepítés-típushoz."
 
-#: ../libfdisk/fsedit.c:704 ../libfdisk/fsedit.c:711 ../libfdisk/fsedit.c:718
-#: ../libfdisk/fsedit.c:727 ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:749
+#: ../libfdisk/fsedit.c:706 ../libfdisk/fsedit.c:713 ../libfdisk/fsedit.c:720
+#: ../libfdisk/fsedit.c:729 ../libfdisk/fsedit.c:741 ../libfdisk/fsedit.c:751
 msgid "Bad Mount Point"
 msgstr "Hibás mount-pont"
 
 # , c-format
-#: ../libfdisk/fsedit.c:705
+#: ../libfdisk/fsedit.c:707
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "A(z) %s könyvtárnak a root file-rendszeren kell lenni."
 
 # , c-format
-#: ../libfdisk/fsedit.c:712
+#: ../libfdisk/fsedit.c:714
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1236,7 +1289,7 @@ msgstr ""
 "A mount-pontok nevének bevezetõ / jellel kell kezdõdni."
 
 # , c-format
-#: ../libfdisk/fsedit.c:719
+#: ../libfdisk/fsedit.c:721
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1248,7 +1301,7 @@ msgstr ""
 "A mount-pontok neve nem végzõdhet / jellel."
 
 # , c-format
-#: ../libfdisk/fsedit.c:728
+#: ../libfdisk/fsedit.c:730
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1260,7 +1313,7 @@ msgstr ""
 "A mount-pontok neve csak nyomtatható karakterekbõl állhat."
 
 # , c-format
-#: ../libfdisk/fsedit.c:740
+#: ../libfdisk/fsedit.c:742
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1272,7 +1325,7 @@ msgstr ""
 "A rendszer-partícióknak Linux Native partíciókon kell lenniük."
 
 # , c-format
-#: ../libfdisk/fsedit.c:750
+#: ../libfdisk/fsedit.c:752
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1283,11 +1336,11 @@ msgstr ""
 "\n"
 "A /usr-nek Linux Native partíción vagy egy NFS köteten kell lenni."
 
-#: ../libfdisk/fsedit.c:778
+#: ../libfdisk/fsedit.c:780
 msgid "Too Many Drives"
 msgstr "Túl sok meghajtó"
 
-#: ../libfdisk/fsedit.c:779
+#: ../libfdisk/fsedit.c:781
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -1297,11 +1350,11 @@ msgstr ""
 "Kérem,használja a hagyományos fdisk programot a meghajtók beállításához, és "
 "értesítse a Red Hat Software-t errõl az üzenetrõl."
 
-#: ../libfdisk/fsedit.c:793
+#: ../libfdisk/fsedit.c:795
 msgid "No Drives Found"
 msgstr "Nem találtam meghajtókat"
 
-#: ../libfdisk/fsedit.c:794
+#: ../libfdisk/fsedit.c:796
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -1310,7 +1363,7 @@ msgstr ""
 "file-rendszereket. Ellenõrizze a hardvert a probléma okának kiderítéséhez."
 
 # , c-format
-#: ../libfdisk/fsedit.c:990
+#: ../libfdisk/fsedit.c:995
 #, c-format
 msgid ""
 "A disk with a corrupt Sun disklabel has been found while reading block "
@@ -1321,17 +1374,17 @@ msgstr ""
 "találtam. Új label létrehozásához és erre az eszközre írásához az fdisk-et "
 "alkalmazza."
 
-#: ../libfdisk/fsedit.c:994
+#: ../libfdisk/fsedit.c:999
 msgid "Corrupt Sun disklabel"
 msgstr "Hibás Sun disklabel"
 
-#: ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1048
-#: ../libfdisk/fsedit.c:1072
+#: ../libfdisk/fsedit.c:1000 ../libfdisk/fsedit.c:1053
+#: ../libfdisk/fsedit.c:1077
 msgid "Skip Drive"
 msgstr "Meghajtó kihagyása"
 
 # , c-format
-#: ../libfdisk/fsedit.c:1004 ../libfdisk/fsedit.c:1068
+#: ../libfdisk/fsedit.c:1009 ../libfdisk/fsedit.c:1073
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -1339,7 +1392,7 @@ msgid ""
 msgstr "Hiba a %s blokk eszköz partíciós táblájának olvasásakor. A hiba:"
 
 # , c-format
-#: ../libfdisk/fsedit.c:1042
+#: ../libfdisk/fsedit.c:1047
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -1348,23 +1401,23 @@ msgstr ""
 "A %s eszköz partíciós táblája hibás. Új partíciók létrehozása elõtt "
 "inicializálnia kell, ami a meghajtón lévõ ÖSSZES ADAT elvesztését jelenti."
 
-#: ../libfdisk/fsedit.c:1047
+#: ../libfdisk/fsedit.c:1052
 msgid "Bad Partition Table"
 msgstr "Hibás partíciós tábla"
 
-#: ../libfdisk/fsedit.c:1048
+#: ../libfdisk/fsedit.c:1053
 msgid "Initialize"
 msgstr "Inicializálás"
 
-#: ../libfdisk/fsedit.c:1072
+#: ../libfdisk/fsedit.c:1077
 msgid "Retry"
 msgstr "Újra"
 
-#: ../libfdisk/fsedit.c:1084
+#: ../libfdisk/fsedit.c:1089
 msgid "BSD Disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1084
+#: ../libfdisk/fsedit.c:1089
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -1375,95 +1428,95 @@ msgstr ""
 "az fdisk programra lesz szüksége BSD disklabel-t használó gépeken."
 
 # , c-format
-#: ../libfdisk/fsedit.c:1114
+#: ../libfdisk/fsedit.c:1119
 #, c-format
 msgid "System error %d"
 msgstr "Rendszerhiba %d"
 
-#: ../libfdisk/fsedit.c:1123 ../libfdisk/fsedit.c:1125
+#: ../libfdisk/fsedit.c:1128 ../libfdisk/fsedit.c:1130
 msgid "Fdisk Error"
 msgstr "Fdisk hiba"
 
-#: ../libfdisk/gnomefsedit.c:458 ../libfdisk/gnomefsedit.c:627
+#: ../libfdisk/gnomefsedit.c:462 ../libfdisk/gnomefsedit.c:631
 #, fuzzy
 msgid "<Swap Partition>"
 msgstr "Swap partíció"
 
-#: ../libfdisk/gnomefsedit.c:466 ../libfdisk/gnomefsedit.c:629
+#: ../libfdisk/gnomefsedit.c:470 ../libfdisk/gnomefsedit.c:633
 #, fuzzy
 msgid "<RAID Partition>"
 msgstr "Root-partíció"
 
-#: ../libfdisk/gnomefsedit.c:521 ../libfdisk/newtfsedit.c:697
+#: ../libfdisk/gnomefsedit.c:525 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
 msgstr "Partíció-törlés"
 
-#: ../libfdisk/gnomefsedit.c:522 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:526 ../libfdisk/newtfsedit.c:698
 msgid "Are you sure you want to delete this partition?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
-#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:586
-#: ../libfdisk/gnomefsedit.c:590 ../libfdisk/gnomefsedit.c:592
+#: ../libfdisk/gnomefsedit.c:584 ../libfdisk/gnomefsedit.c:590
+#: ../libfdisk/gnomefsedit.c:594 ../libfdisk/gnomefsedit.c:596
 #: ../libfdisk/newtfsedit.c:263 ../libfdisk/newtfsedit.c:269
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
 msgstr "Partíció szerkesztés"
 
-#: ../libfdisk/gnomefsedit.c:607 ../libfdisk/gnomefsedit.c:1562
+#: ../libfdisk/gnomefsedit.c:611 ../libfdisk/gnomefsedit.c:1566
 #, fuzzy
 msgid "Mount Point:"
 msgstr "Mount pont"
 
-#: ../libfdisk/gnomefsedit.c:642
+#: ../libfdisk/gnomefsedit.c:646
 #, fuzzy
 msgid "Size (Megs):"
 msgstr "Méret  :"
 
-#: ../libfdisk/gnomefsedit.c:673
+#: ../libfdisk/gnomefsedit.c:677
 msgid "Grow to fill disk?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:692 ../libfdisk/newtfsedit.c:335
+#: ../libfdisk/gnomefsedit.c:696 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
 msgstr "Lekötöttség:"
 
-#: ../libfdisk/gnomefsedit.c:696 ../libfdisk/newtfsedit.c:337
+#: ../libfdisk/gnomefsedit.c:700 ../libfdisk/newtfsedit.c:337
 msgid "Successful"
 msgstr "Eredményes"
 
-#: ../libfdisk/gnomefsedit.c:699 ../libfdisk/newtfsedit.c:339
+#: ../libfdisk/gnomefsedit.c:703 ../libfdisk/newtfsedit.c:339
 msgid "Failed"
 msgstr "Hibás"
 
-#: ../libfdisk/gnomefsedit.c:711 ../libfdisk/newtfsedit.c:344
+#: ../libfdisk/gnomefsedit.c:715 ../libfdisk/newtfsedit.c:344
 msgid "Failure Reason:"
 msgstr "A hiba oka:"
 
-#: ../libfdisk/gnomefsedit.c:725 ../libfdisk/gnomefsedit.c:1588
+#: ../libfdisk/gnomefsedit.c:729 ../libfdisk/gnomefsedit.c:1592
 #, fuzzy
 msgid "Partition Type:"
 msgstr "Partíció-típus"
 
-#: ../libfdisk/gnomefsedit.c:792
+#: ../libfdisk/gnomefsedit.c:796
 msgid "Allowable Drives:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:1782
+#: ../libfdisk/gnomefsedit.c:901 ../libfdisk/gnomefsedit.c:1786
 #: ../libfdisk/newtfsedit.c:486
 msgid "No Mount Point"
 msgstr "Nincs mount-pont"
 
-#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/newtfsedit.c:487
+#: ../libfdisk/gnomefsedit.c:902 ../libfdisk/newtfsedit.c:487
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr "Nem adott meg mount-pontot a partícióhoz. Biztosan ezt akarja?"
 
-#: ../libfdisk/gnomefsedit.c:936 ../libfdisk/newtfsedit.c:527
+#: ../libfdisk/gnomefsedit.c:940 ../libfdisk/newtfsedit.c:527
 msgid "Mount Point Error"
 msgstr "Mount-pont hiba"
 
-#: ../libfdisk/gnomefsedit.c:937 ../libfdisk/newtfsedit.c:528
+#: ../libfdisk/gnomefsedit.c:941 ../libfdisk/newtfsedit.c:528
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -1471,11 +1524,11 @@ msgstr ""
 "A kért mount-pont érvénytelen útvonal, vagy már használatban van. Válasszon "
 "egy érvényes mount-pontot."
 
-#: ../libfdisk/gnomefsedit.c:962 ../libfdisk/newtfsedit.c:545
+#: ../libfdisk/gnomefsedit.c:966 ../libfdisk/newtfsedit.c:545
 msgid "Size Error"
 msgstr "Mérethiba"
 
-#: ../libfdisk/gnomefsedit.c:963 ../libfdisk/newtfsedit.c:546
+#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:546
 #, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
@@ -1484,13 +1537,13 @@ msgstr ""
 "A kért méret hibás. Gyõzõdjön meg, hogy a méret nagyobb nullánál (0), és "
 "tízes számrendszerben, egész számként van megadva."
 
-#: ../libfdisk/gnomefsedit.c:998 ../libfdisk/gnomefsedit.c:1883
+#: ../libfdisk/gnomefsedit.c:1002 ../libfdisk/gnomefsedit.c:1887
 #: ../libfdisk/newtfsedit.c:581
 msgid "Swap Size Error"
 msgstr "Swapméret-hiba"
 
 # , c-format
-#: ../libfdisk/gnomefsedit.c:999 ../libfdisk/gnomefsedit.c:1884
+#: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1888
 #: ../libfdisk/newtfsedit.c:582
 #, c-format
 msgid ""
@@ -1500,11 +1553,11 @@ msgstr ""
 "Túlságosan nagy swap-partíciót hozott létre. A swap-partíció legnagyobb "
 "mérete %ld Megabyte."
 
-#: ../libfdisk/gnomefsedit.c:1015 ../libfdisk/gnomefsedit.c:1022
+#: ../libfdisk/gnomefsedit.c:1019 ../libfdisk/gnomefsedit.c:1026
 msgid "No RAID Drive Constraint"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1017
+#: ../libfdisk/gnomefsedit.c:1021
 #, fuzzy
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
@@ -1512,12 +1565,12 @@ msgid ""
 " Are you sure you want to do this?"
 msgstr "Nem adott meg mount-pontot a partícióhoz. Biztosan ezt akarja?"
 
-#: ../libfdisk/gnomefsedit.c:1023
+#: ../libfdisk/gnomefsedit.c:1027
 #, fuzzy
 msgid "Close"
 msgstr "Töröl"
 
-#: ../libfdisk/gnomefsedit.c:1024
+#: ../libfdisk/gnomefsedit.c:1028
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -1525,11 +1578,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1203
+#: ../libfdisk/gnomefsedit.c:1207
 msgid "RAID Entry Incomplete"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1204
+#: ../libfdisk/gnomefsedit.c:1208
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -1538,12 +1591,12 @@ msgid ""
 msgstr ""
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1297 ../libfdisk/gnomefsedit.c:1316
-#: ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1488
+#: ../libfdisk/gnomefsedit.c:1301 ../libfdisk/gnomefsedit.c:1320
+#: ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1494
 msgid "Unallocated Partitions"
 msgstr "Lekötetlen partíciók"
 
-#: ../libfdisk/gnomefsedit.c:1301 ../libfdisk/gnomefsedit.c:1311
+#: ../libfdisk/gnomefsedit.c:1305 ../libfdisk/gnomefsedit.c:1315
 #: ../libfdisk/newtfsedit.c:88
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -1553,146 +1606,161 @@ msgstr ""
 "Egy vagy több lekötetlen partíció van a használni kívánt partíciók között. A "
 "lekötetlen partíciók listája a következõ:"
 
-#: ../libfdisk/gnomefsedit.c:1574
+#: ../libfdisk/gnomefsedit.c:1578
 #, fuzzy
 msgid "<Swap Partition"
 msgstr "Swap partíció"
 
-#: ../libfdisk/gnomefsedit.c:1632
+#: ../libfdisk/gnomefsedit.c:1636
 msgid "RAID Device: /dev/"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1655
+#: ../libfdisk/gnomefsedit.c:1659
 msgid "RAID Type:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1692
+#: ../libfdisk/gnomefsedit.c:1696
 #, fuzzy
 msgid "Partitions For RAID Array:"
 msgstr "Formázandó partíciók"
 
-#: ../libfdisk/gnomefsedit.c:1783
+#: ../libfdisk/gnomefsedit.c:1787
 #, fuzzy
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Nem adott meg mount-pontot a partícióhoz. Biztosan ezt akarja?"
 
-#: ../libfdisk/gnomefsedit.c:1793
+#: ../libfdisk/gnomefsedit.c:1797
 msgid "Booting From RAID Warning"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1794
+#: ../libfdisk/gnomefsedit.c:1798
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1803
+#: ../libfdisk/gnomefsedit.c:1807
 #, fuzzy
 msgid "No RAID Device"
 msgstr "Eszköz"
 
-#: ../libfdisk/gnomefsedit.c:1804
+#: ../libfdisk/gnomefsedit.c:1808
 msgid "You have not selected a RAID device. A RAID point is required."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1811
+#: ../libfdisk/gnomefsedit.c:1815
 msgid "Used Raid Device"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1812
+#: ../libfdisk/gnomefsedit.c:1816
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1825
+#: ../libfdisk/gnomefsedit.c:1829
 #, fuzzy
 msgid "Not Enough Partitions"
 msgstr "Nincs root-partíció"
 
-#: ../libfdisk/gnomefsedit.c:1827
+#: ../libfdisk/gnomefsedit.c:1831
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1957
+#: ../libfdisk/gnomefsedit.c:1961
 #, fuzzy
 msgid "Auto-Partition"
 msgstr "Partíció szerkesztés"
 
-#: ../libfdisk/gnomefsedit.c:1964
+#: ../libfdisk/gnomefsedit.c:1968
 msgid "Using Existing Disk Space"
 msgstr ""
 
+#: ../libfdisk/gnomefsedit.c:1987
+#, fuzzy
+msgid "Remove Linux partitions"
+msgstr "Partíciók átméretezése"
+
+#: ../libfdisk/gnomefsedit.c:1998
+msgid "Use existing free space"
+msgstr ""
+
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2006
+#: ../libfdisk/gnomefsedit.c:2010
 msgid "Intended Use"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2119
+#: ../libfdisk/gnomefsedit.c:2049
+msgid "Workstation"
+msgstr "Munkaállomás"
+
+#: ../libfdisk/gnomefsedit.c:2123
 msgid "Delete RAID Device?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2120
+#: ../libfdisk/gnomefsedit.c:2124
 #, fuzzy
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
-#: ../libfdisk/gnomefsedit.c:2139 ../libfdisk/newtfsedit.c:1591
+#: ../libfdisk/gnomefsedit.c:2143 ../libfdisk/newtfsedit.c:1597
 msgid "Reset Partition Table"
 msgstr "Partíciós tábla alaphelyzetbe állítása"
 
-#: ../libfdisk/gnomefsedit.c:2141 ../libfdisk/newtfsedit.c:1593
+#: ../libfdisk/gnomefsedit.c:2145 ../libfdisk/newtfsedit.c:1599
 msgid "Reset partition table to original contents? "
 msgstr "Visszaállítsam a partíciós táblát az eredeti tartalmára?"
 
-#: ../libfdisk/gnomefsedit.c:2177 ../libfdisk/gnomefsedit.c:2228
+#: ../libfdisk/gnomefsedit.c:2181 ../libfdisk/gnomefsedit.c:2232
 msgid "<Swap>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2179
+#: ../libfdisk/gnomefsedit.c:2183
 msgid "<RAID>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2181
+#: ../libfdisk/gnomefsedit.c:2185
 msgid "<not set>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2804
-msgid "Partitions (unallocated shown in RED)"
-msgstr ""
+#: ../libfdisk/gnomefsedit.c:2808
+#, fuzzy
+msgid "Partitions"
+msgstr "Újrapartícionálás"
 
-#: ../libfdisk/gnomefsedit.c:2848
+#: ../libfdisk/gnomefsedit.c:2852
 #, fuzzy
 msgid "_Add..."
 msgstr "Hozzáad"
 
-#: ../libfdisk/gnomefsedit.c:2860
+#: ../libfdisk/gnomefsedit.c:2864
 #, fuzzy
 msgid "_Edit..."
 msgstr "Szerkesztés"
 
-#: ../libfdisk/gnomefsedit.c:2861
+#: ../libfdisk/gnomefsedit.c:2865
 #, fuzzy
 msgid "_Delete"
 msgstr "Töröl"
 
-#: ../libfdisk/gnomefsedit.c:2862
+#: ../libfdisk/gnomefsedit.c:2866
 msgid "_Reset"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2892
-msgid "_Make Raid Device"
-msgstr ""
+#: ../libfdisk/gnomefsedit.c:2896
+#, fuzzy
+msgid "_Make RAID Device"
+msgstr "Eszköz"
 
-#: ../libfdisk/gnomefsedit.c:2901
+#: ../libfdisk/gnomefsedit.c:2905
 #, fuzzy
 msgid "Auto Partition"
 msgstr "Partíció szerkesztés"
 
-#: ../libfdisk/gnomefsedit.c:2914
+#: ../libfdisk/gnomefsedit.c:2918
 #, fuzzy
 msgid "Drive Summary"
 msgstr "Meghajtók összefoglalása"
@@ -1701,19 +1769,19 @@ msgstr "Meghajtók összefoglalása"
 msgid "Swap Partition"
 msgstr "Swap partíció"
 
-#: ../libfdisk/newtfsedit.c:1288
+#: ../libfdisk/newtfsedit.c:1294
 msgid "Current Disk Partitions"
 msgstr "Jelenlegi lemez-partíciók"
 
-#: ../libfdisk/newtfsedit.c:1321
+#: ../libfdisk/newtfsedit.c:1327
 msgid "Drive Summaries"
 msgstr "Meghajtók összefoglalása"
 
-#: ../libfdisk/newtfsedit.c:1436
+#: ../libfdisk/newtfsedit.c:1442
 msgid "No Root Partition"
 msgstr "Nincs root-partíció"
 
-#: ../libfdisk/newtfsedit.c:1437
+#: ../libfdisk/newtfsedit.c:1443
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -1721,15 +1789,15 @@ msgstr ""
 "A telepítés folytatásához hozzá kell rendelnie egy root (/) partíciót "
 "valamelyik Linux Native (ext2) partícióhoz."
 
-#: ../libfdisk/newtfsedit.c:1457
+#: ../libfdisk/newtfsedit.c:1463
 msgid "No Swap Partition"
 msgstr "Nincs swap-partíció"
 
-#: ../libfdisk/newtfsedit.c:1458
+#: ../libfdisk/newtfsedit.c:1464
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
 
-#: ../libfdisk/newtfsedit.c:1490
+#: ../libfdisk/newtfsedit.c:1496
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -1740,17 +1808,29 @@ msgstr ""
 "lemezre.\n"
 "Biztosan ki akar lépni?"
 
-#: ../libfdisk/newtfsedit.c:1506
+#: ../libfdisk/newtfsedit.c:1512
 msgid "Save Changes"
 msgstr "Változások mentése"
 
-#: ../libfdisk/newtfsedit.c:1508
+#: ../libfdisk/newtfsedit.c:1514
 msgid "Save changes to partition table(s)?"
 msgstr "Mentsem a partíciós tábla változásait?"
 
-#: ../libfdisk/newtfsedit.c:1552
+#: ../libfdisk/newtfsedit.c:1558
 msgid "You may only delete NFS mounts."
 msgstr "Csak NFS mountokat törölhet."
+
+#, fuzzy
+#~ msgid "Auto partition"
+#~ msgstr "Újrapartícionálás"
+
+#, fuzzy
+#~ msgid "Remove all data"
+#~ msgstr "Távoli lpd"
+
+#, fuzzy
+#~ msgid "Skip LILO install"
+#~ msgstr "SILO telepítés"
 
 #~ msgid "No BOOTP reply received"
 #~ msgstr "Nincs BOOTP válasz"
@@ -1787,9 +1867,6 @@ msgstr "Csak NFS mountokat törölhet."
 
 #~ msgid "IO base, IRQ, label:"
 #~ msgstr "IO báziscím, IRQ, név:"
-
-#~ msgid "Autoprobe"
-#~ msgstr "Automatikus keresés"
 
 #~ msgid "Specify options"
 #~ msgstr "Opciók megadása"
@@ -2980,9 +3057,6 @@ msgstr "Csak NFS mountokat törölhet."
 
 #~ msgid "Resolution:"
 #~ msgstr "Felbontás:"
-
-#~ msgid "Bits per pixel:"
-#~ msgstr "Bit / pixel:"
 
 #~ msgid "Uniprint driver:"
 #~ msgstr "Uniprint meghajtó:"
