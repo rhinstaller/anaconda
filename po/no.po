@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2003-01-27 23:51-0500\n"
+"POT-Creation-Date: 2003-01-31 18:40-0500\n"
 "PO-Revision-Date: 2003-01-18 14:58+0100\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Du har ikke nok RAM til å bruke grafisk installasjon på denne maskinen. "
 "Starter tekstmodus."
 
-#: ../anaconda:416 ../gui.py:239 ../rescue.py:40 ../rescue.py:224
-#: ../rescue.py:252 ../rescue.py:262 ../rescue.py:331 ../rescue.py:337
+#: ../anaconda:416 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
+#: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
 #: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:154 ../textw/silo_text.py:110
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:160
 #: ../loader2/cdinstall.c:143 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:259
-#: ../loader2/cdinstall.c:350 ../loader2/cdinstall.c:355
-#: ../loader2/cdinstall.c:358 ../loader2/cdinstall.c:427
+#: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:260
+#: ../loader2/cdinstall.c:352 ../loader2/cdinstall.c:357
+#: ../loader2/cdinstall.c:360 ../loader2/cdinstall.c:429
 #: ../loader2/driverdisk.c:200 ../loader2/driverdisk.c:216
 #: ../loader2/driverdisk.c:227 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:255
@@ -36,7 +36,7 @@ msgstr ""
 #: ../loader2/hdinstall.c:504 ../loader2/hdinstall.c:554 ../loader2/kbd.c:125
 #: ../loader2/kickstart.c:97 ../loader2/kickstart.c:106
 #: ../loader2/kickstart.c:149 ../loader2/kickstart.c:249 ../loader2/lang.c:100
-#: ../loader2/lang.c:416 ../loader2/loader.c:297 ../loader2/loader.c:309
+#: ../loader2/lang.c:387 ../loader2/loader.c:297 ../loader2/loader.c:309
 #: ../loader2/loader.c:320 ../loader2/loader.c:580 ../loader2/loader.c:696
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
 #: ../loader2/mediacheck.c:354 ../loader2/method.c:158 ../loader2/method.c:366
@@ -236,7 +236,7 @@ msgstr ""
 
 #: ../autopart.py:1310 ../bootloader.py:123 ../image.py:372
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
-#: ../upgrade.py:445 ../upgrade.py:464 ../upgrade.py:505
+#: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -322,19 +322,19 @@ msgstr ""
 "Ingen kjerne-pakker ble installert på systemet. "
 "Oppstartslasterkonfigurasjonen vil ikke bli endret."
 
-#: ../comps.py:721 ../comps.py:749
+#: ../comps.py:724 ../comps.py:752
 msgid "Everything"
 msgstr "Alt"
 
-#: ../comps.py:890 ../comps.py:955 ../upgrade.py:622
+#: ../comps.py:893 ../comps.py:958 ../upgrade.py:607
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../comps.py:1050
+#: ../comps.py:1053
 msgid "Miscellaneous"
 msgstr "Forskjellig"
 
-#: ../comps.py:1066
+#: ../comps.py:1069
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -343,7 +343,7 @@ msgstr ""
 "Denne gruppen inneholder alle tilgjengelige pakker. Merk at dette er mange "
 "flere pakker enn det som vises i alle pakkegruppene på denne siden."
 
-#: ../comps.py:1070
+#: ../comps.py:1073
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -430,13 +430,13 @@ msgstr "_Lag oppstartsdiskett"
 #: ../harddrive.py:208 ../image.py:68 ../image.py:99 ../image.py:235
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:365 ../upgrade.py:391
+#: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
 #: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
 #: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:427 ../loader2/driverdisk.c:227
+#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:227
 #: ../loader2/driverdisk.c:291 ../loader2/hdinstall.c:255
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
 #: ../loader2/kickstart.c:249 ../loader2/lang.c:100 ../loader2/loader.c:320
@@ -701,18 +701,20 @@ msgstr ""
 msgid "Fix"
 msgstr "Fiks"
 
-#: ../gui.py:237 ../rescue.py:140 ../text.py:322 ../textw/bootdisk_text.py:22
+#: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:339
-#: ../loader2/hdinstall.c:368 ../loader2/loader.c:345
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
+#: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
+#: ../loader2/loader.c:345
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:238 ../rescue.py:140 ../rescue.py:142 ../text.py:323
+#: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:339 ../loader2/loader.c:345
+#: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
+#: ../loader2/loader.c:345
 msgid "No"
 msgstr "Nei"
 
@@ -779,7 +781,7 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:952 ../packages.py:1260 ../iw/congrats_gui.py:29
+#: ../gui.py:952 ../packages.py:1258 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "A_vslutt"
 
@@ -787,19 +789,19 @@ msgstr "A_vslutt"
 msgid "_Retry"
 msgstr "P_røv igjen"
 
-#: ../gui.py:955 ../packages.py:1263
+#: ../gui.py:955 ../packages.py:1261
 msgid "Rebooting System"
 msgstr "Starter maskinen på nytt"
 
-#: ../gui.py:956 ../packages.py:1264
+#: ../gui.py:956 ../packages.py:1262
 msgid "Your system will now be rebooted..."
 msgstr "Maskinen vil nå startes på nytt..."
 
-#: ../gui.py:959 ../packages.py:1266
+#: ../gui.py:959 ../packages.py:1264
 msgid "_Reboot"
 msgstr "Sta_rt på nytt"
 
-#: ../gui.py:1050 ../packages.py:1266
+#: ../gui.py:1050 ../packages.py:1264
 msgid "_Back"
 msgstr "Til_bake"
 
@@ -1072,12 +1074,12 @@ msgstr ""
 "Installerer %s pakker\n"
 "\n"
 
-#: ../packages.py:776 ../packages.py:1098
+#: ../packages.py:777 ../packages.py:1096
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Oppgraderer %s-%s-%s.\n"
 
-#: ../packages.py:778 ../packages.py:1100
+#: ../packages.py:779 ../packages.py:1098
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Installerer %s-%s-%s.\n"
@@ -1145,7 +1147,7 @@ msgstr "Manglende noder"
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../packages.py:919
+#: ../packages.py:917
 msgid ""
 "\n"
 "\n"
@@ -1155,19 +1157,19 @@ msgstr ""
 "\n"
 "Følgende pakker er tilgjengelige i denne versjonen men IKKE oppgradert:\n"
 
-#: ../packages.py:940
+#: ../packages.py:938
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../packages.py:941
+#: ../packages.py:939
 msgid "Performing post install configuration..."
 msgstr "Utfører etter-installasjons konfigurasjon..."
 
-#: ../packages.py:1246
+#: ../packages.py:1244
 msgid "Warning! This is a beta!"
 msgstr "Advarsel! Dette er en beta!"
 
-#: ../packages.py:1247
+#: ../packages.py:1245
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1193,7 +1195,7 @@ msgstr ""
 "\n"
 "og send inn en rapport under «Red Hat Public Beta».\n"
 
-#: ../packages.py:1260
+#: ../packages.py:1258
 msgid "_Install BETA"
 msgstr "_Installer BETA"
 
@@ -1754,23 +1756,23 @@ msgstr ""
 "Denne RAID-enheten kan ha maksimalt %s reservedisker. For å ha flere "
 "reservedisker må du legge til medlemmer på RAID-enheten."
 
-#: ../rescue.py:138
+#: ../rescue.py:139
 msgid "Setup Networking"
 msgstr "Oppsett av nettverk"
 
-#: ../rescue.py:139
+#: ../rescue.py:140
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Ønsker du å starte nettverksgrensesnittene på dette systemet?"
 
-#: ../rescue.py:159 ../rescue.py:194 ../rescue.py:347
+#: ../rescue.py:165 ../rescue.py:200 ../rescue.py:353
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Når ferdig, avslutt skallet for å starte systemet på nytt."
 
-#: ../rescue.py:178 ../rescue.py:247 ../rescue.py:255 ../rescue.py:326
+#: ../rescue.py:184 ../rescue.py:253 ../rescue.py:261 ../rescue.py:332
 msgid "Rescue"
 msgstr "Redning"
 
-#: ../rescue.py:179
+#: ../rescue.py:185
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1792,34 +1794,34 @@ msgstr ""
 "dette steget bli hoppet over og du vil gå direkte til et kommandoskall.\n"
 "\n"
 
-#: ../rescue.py:189 ../iw/partition_gui.py:560 ../loader2/cdinstall.c:116
+#: ../rescue.py:195 ../iw/partition_gui.py:560 ../loader2/cdinstall.c:116
 #: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:292
 msgid "Continue"
 msgstr "Fortsett"
 
-#: ../rescue.py:189 ../rescue.py:198
+#: ../rescue.py:195 ../rescue.py:204
 msgid "Read-Only"
 msgstr "Kun lesbart"
 
-#: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:257
-#: ../loader2/cdinstall.c:259 ../loader2/method.c:413
+#: ../rescue.py:195 ../rescue.py:197 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:260 ../loader2/method.c:413
 msgid "Skip"
 msgstr "Hopp over"
 
-#: ../rescue.py:221
+#: ../rescue.py:227
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:222
+#: ../rescue.py:228
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
-#: ../rescue.py:224 ../rescue.py:228
+#: ../rescue.py:230 ../rescue.py:234
 msgid "Exit"
 msgstr "Avslutt"
 
-#: ../rescue.py:248
+#: ../rescue.py:254
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1830,7 +1832,7 @@ msgstr ""
 "kjøre filsystemsjekk og montere dine partisjoner. Systemet vil starte på "
 "nytt når du avslutter skallet."
 
-#: ../rescue.py:256
+#: ../rescue.py:262
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1851,7 +1853,7 @@ msgstr ""
 "\n"
 "Systemet vil starte på nytt automatisk når du avslutter skallet."
 
-#: ../rescue.py:327
+#: ../rescue.py:333
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1866,11 +1868,11 @@ msgstr ""
 "Trykk <Linjeskift> for å få et skall. Systemet vil starte på nytt automatisk "
 "når du avslutter skallet."
 
-#: ../rescue.py:333
+#: ../rescue.py:339
 msgid "Rescue Mode"
 msgstr "Redningsmodus"
 
-#: ../rescue.py:334
+#: ../rescue.py:340
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1878,7 +1880,7 @@ msgstr ""
 "Du har ingen Linux-partisjoner. Trykk <Enter> for å gå til et skall. "
 "Systemet vil starte på nytt når du avslutter skallet."
 
-#: ../rescue.py:344
+#: ../rescue.py:350
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Systemet er montert under katalogen %s."
@@ -2046,15 +2048,15 @@ msgstr "Finner"
 msgid "Finding packages to upgrade..."
 msgstr "Finner pakker som skal oppgraderes..."
 
-#: ../upgrade.py:366
+#: ../upgrade.py:354
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 
-#: ../upgrade.py:392
+#: ../upgrade.py:377
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
-#: ../upgrade.py:446
+#: ../upgrade.py:431
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2068,7 +2070,7 @@ msgstr ""
 "ustabilt hvis du fortsetter med oppgraderingen. Vil du fortsette med "
 "oppgraderingsprosessen?"
 
-#: ../upgrade.py:465
+#: ../upgrade.py:450
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2080,7 +2082,7 @@ msgstr ""
 "risikere at systemet ender som ubrukelig. Vil du fortsette "
 "oppgraderingsprosessen?"
 
-#: ../upgrade.py:506
+#: ../upgrade.py:491
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -2865,7 +2867,7 @@ msgstr "IP-adresser må inneholde tall mellom 1 og 255"
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser må inneholde tall mellom 0 og 255"
 
-#: ../iw/language_gui.py:61 ../textw/language_text.py:38 ../loader2/lang.c:414
+#: ../iw/language_gui.py:62 ../textw/language_text.py:38 ../loader2/lang.c:385
 msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket språk ønsker du å bruke under installeringen?"
 
@@ -4514,7 +4516,7 @@ msgstr ""
 msgid "Generic"
 msgstr "Vanlig"
 
-#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1059
+#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1056
 msgid "Restore _original values"
 msgstr "Gjenopprett _opprinnelige verdier"
 
@@ -4565,7 +4567,7 @@ msgstr ""
 "ønsker å hoppe over X-konfigurasjonen velg 'Hopp over konfigurasjon av X'-"
 "knappen."
 
-#: ../iw/xconfig_gui.py:941
+#: ../iw/xconfig_gui.py:942
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4582,11 +4584,11 @@ msgstr ""
 "I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk. Hvis disse "
 "innstillingene ikke er riktige må du velge de korrekte selv."
 
-#: ../iw/xconfig_gui.py:1037
+#: ../iw/xconfig_gui.py:1034
 msgid "_Video card RAM: "
 msgstr "_Minne på skjermkort: "
 
-#: ../iw/xconfig_gui.py:1063
+#: ../iw/xconfig_gui.py:1060
 msgid "_Skip X configuration"
 msgstr "_Hopp over konfigurasjon av X"
 
@@ -4849,7 +4851,7 @@ msgstr ""
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:358
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:360
 #: ../loader2/driverdisk.c:201 ../loader2/driverdisk.c:216
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
@@ -6140,7 +6142,7 @@ msgstr ""
 "For å fortsette installeringsprosessen sett inn CD #1 i CD-ROM-stasjonen og "
 "trykk \"%s\"."
 
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:352
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:354
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -6149,11 +6151,11 @@ msgstr ""
 "%s CDen ble ikke funnet i noen av dine CD-ROM-stasjoner. Sett inn %s CDen og "
 "press %s for å forsøke på nytt"
 
-#: ../loader2/cdinstall.c:256
+#: ../loader2/cdinstall.c:257
 msgid "CD Found"
 msgstr "CD funnet"
 
-#: ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:259
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -6164,7 +6166,7 @@ msgstr ""
 "\n"
 "Velg %s for å hoppe over denne testen og starte installeringen."
 
-#: ../loader2/cdinstall.c:347
+#: ../loader2/cdinstall.c:349
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -6173,11 +6175,11 @@ msgstr ""
 "Fant ingen %s-CD som passer ditt oppstartsmedie. Vennligst sett inn %s-CDen "
 "og trykk %s for å prøve på nytt"
 
-#: ../loader2/cdinstall.c:357
+#: ../loader2/cdinstall.c:359
 msgid "CD Not Found"
 msgstr "CD ikke funnet"
 
-#: ../loader2/cdinstall.c:428
+#: ../loader2/cdinstall.c:430
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan ikke finne kickstart-fil på CD-ROM."
 
@@ -6229,11 +6231,20 @@ msgid ""
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:336
+#, fuzzy
+msgid "Driver disk"
+msgstr "Driverdisk"
+
+#: ../loader2/driverdisk.c:337
+msgid "Do you have a driver disk?"
+msgstr "Har du en driverdisk?"
+
+#: ../loader2/driverdisk.c:347
 msgid "More Driver Disks?"
 msgstr "Flere driverdisker?"
 
-#: ../loader2/driverdisk.c:340
+#: ../loader2/driverdisk.c:348
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ønsker du å laste flere driverdisker?"
 
@@ -6383,7 +6394,7 @@ msgid ""
 msgstr ""
 "  <Tab>/Alt-Tab> mellom elementer  | <Mellomrom> velger | <F12> neste skjerm "
 
-#: ../loader2/lang.c:413
+#: ../loader2/lang.c:384
 msgid "Choose a Language"
 msgstr "Velg et språk"
 
@@ -7590,9 +7601,6 @@ msgstr "Ukrainsk"
 #~ msgid "Module Parameters"
 #~ msgstr "Parametere for moduler"
 
-#~ msgid "Do you have a driver disk?"
-#~ msgstr "Har du en driverdisk?"
-
 #~ msgid "Insert your driver disk and press \"OK\" to continue."
 #~ msgstr "Sett inn driverdisketten og trykk \"OK\" for å fortsette."
 
@@ -7698,9 +7706,6 @@ msgstr "Ukrainsk"
 
 #~ msgid "The wrong diskette was inserted."
 #~ msgstr "Feil diskett ble satt inn."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Driverdisk"
 
 #~ msgid "Please insert the %s driver disk now."
 #~ msgstr "Vennligst sett inn %s-driverdisketten nå."
