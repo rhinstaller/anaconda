@@ -47,7 +47,7 @@ class KeyboardWindow (InstallWindow):
         for (key, model) in self.rules[0].items ():
             loc = self.modelList.append ((model,))
 	    self.modelList.set_row_data (loc, key)
-            if key == "pc104":
+            if key == "pc101":
                 self.modelList.select_row (loc, 0)
         self.modelList.sort ()
         self.modelList.connect ("select_row", self.select_row)
