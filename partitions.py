@@ -136,20 +136,58 @@ class Partitions:
                 part = disk.next_partition(part)
 
         # now we need to read in all pre-existing RAID stuff
-        # XXX still needs implementing
+        diskset.startAllRaid()
+        mdList = diskset.mdList
+        for raidDev in mdList:
+            (theDev, devices, level, numActive) = raidDev
+            
+            # is minor always mdN ?
+            minor = int(theDev[2:])
+            raidvols = []
+            for dev in devices:
+                req = self.getRequestByDeviceName(dev)
+                if not req:
+                    log("RAID device %s using non-existent partition %s"
+                        %(theDev, dev))
+                    continue
+                raidvols.append(req.uniqueID)
+                
+
+            fs = partedUtils.sniffFilesystemType(theDev)
+            if fs is None:
+                fsystem = fsset.fileSystemTypeGet("foreign")
+            else:
+                fsystem = fsset.fileSystemTypeGet(fs)
+
+            if fs == "swap":
+                mnt = "swap"
+                # more forced swap format hacking
+                format = 1
+            else:
+                mnt = None
+                format = 0
+                    
+            spares = len(devices) - numActive
+            spec = partRequests.RaidRequestSpec(fsystem, format = format,
+                                                raidlevel = level,
+                                                raidmembers = raidvols,
+                                                raidminor = minor,
+                                                raidspares = spares,
+                                                mountpoint = mnt,
+                                                preexist = 1)
+            spec.size = spec.getActualSize(self, diskset)
+            self.addRequest(spec)
+        diskset.stopAllRaid()
 
         # now to read in pre-existing LVM stuff
         lvm.vgscan()
         lvm.vgactivate()
 
-        log("looking for logical volumes")
         vgs = []
         if os.path.isdir("/proc/lvm/VGs"):
             vgs = os.listdir("/proc/lvm/VGs")
-            log("found vgs %s" %(vgs,))
 
         for vg in vgs:
-            log("looking at VG: %s" %(vg,))
             # first find the PE size
             f = open("/proc/lvm/VGs/%s/group" %(vg,), "r")
             lines = f.readlines()
@@ -205,34 +243,32 @@ class Partitions:
                 if lvsize is None:
                     log("Unable to find LV size for %s/%s" % (vg, lv))
                     continue
-                lvsize = int(lvsize) / 1024.0
+                # size is listed as number of blocks, we want size in megs
+                lvsize = int(lvsize) / 2048.0
 
-                found = 0
-                try:
-                    os.mkdir("/tmp/testmnt")
-                except:
-                    pass
-                for fs in fsset.getFStoTry("/dev/%s/%s" %(vg, lv)):
-                    try:
-                        isys.mount("/dev/%s/%s" % (vg, lv),
-                                   "/tmp/testmnt", fs, readOnly = 1)
-                        isys.umount("/tmp/testmnt")
-                        found = 1
-                        break
-                    except SystemError, (errno, msg):
-                        pass
-                if not found:
+                theDev = "/dev/%s/%s" %(vg, lv)
+                fs = partedUtils.sniffFilesystemType(theDev)
+                if fs is None:
                     fsystem = fsset.fileSystemTypeGet("foreign")
                 else:
                     fsystem = fsset.fileSystemTypeGet(fs)
 
+                if fs == "swap":
+                    mnt = "swap"
+                    format = 1
+                else:
+                    mnt = None
+                    format = 0
+
                 spec = partRequests.LogicalVolumeRequestSpec(fsystem,
-                                                             format = 0,
+                                                             format = format,
                                                              size = lvsize,
                                                              volgroup = vgid,
                                                              lvname = lv,
+                                                             mountpoint = mnt,
                                                              preexist = 1)
                 self.addRequest(spec)
+        lvm.vgdeactivate()
             
         
 
