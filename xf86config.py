@@ -1019,8 +1019,8 @@ Section "Screen"
         maxdepth = -1
         for depth in self.modes.keys ():
             if not self.modes[depth]: continue
-            if maxdepth < depth:
-                maxdepth = depth
+            if maxdepth < string.atoi(depth):
+                maxdepth = string.atoi(depth)
             screens = screens + """
 	Subsection "Display"
         	Depth       %s
