@@ -2,8 +2,9 @@
 # raid_dialog_gui.py: dialog for editting a raid request
 #
 # Michael Fulbright <msf@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -17,6 +18,7 @@ import copy
 
 import gobject
 import gtk
+import datacombo
 
 from rhpl.translate import _, N_
 
@@ -56,59 +58,43 @@ class RaidEditor:
 	return (partlist, sw)
 
     def createRaidLevelMenu(self, levels, reqlevel):
-	leveloption = gtk.OptionMenu()
-	leveloptionmenu = gtk.Menu()
-	defindex = None
+        levelcombo = gtk.combo_box_new_text()
+	defindex = 0
 	i = 0
 	for lev in levels:
-	    item = gtk.MenuItem(lev)
-	    item.set_data("level", lev)
-	    # XXX gtk bug, if you don't show then the menu will be larger
-	    # than the largest menu item
-	    item.show()        
-	    leveloptionmenu.add(item)
+            levelcombo.append_text(lev)
+
 	    if reqlevel and lev == reqlevel:
 		defindex = i
-	    if self.sparesb:
-		item.connect("activate", self.raidlevelchangeCB, self.sparesb)
 	    i = i + 1
 
-	leveloption.set_menu(leveloptionmenu)
-
-	if defindex:
-	    leveloption.set_history(defindex)
+        levelcombo.set_active(defindex)
 
 	if reqlevel and reqlevel == "RAID0":
 	    self.sparesb.set_sensitive(0)
 
-	return (leveloption, leveloptionmenu)
+        if self.sparesb:
+            levelcombo.connect("changed", self.raidlevelchangeCB, self.sparesb)
+            
+	return levelcombo
 
     def createRaidMinorMenu(self, minors, reqminor):
-	minoroption = gtk.OptionMenu()
-	minoroptionmenu = gtk.Menu()
-	defindex = None
+        minorcombo = datacombo.DataComboBox()
+	defindex = 0
 	i = 0
 	for minor in minors:
-	    item = gtk.MenuItem("md%d" % (minor,))
-	    item.set_data("minor", minor)
-	    # XXX gtk bug, if you don't show then the menu will be larger
-	    # than the largest menu item
-	    item.show()
-	    minoroptionmenu.add(item)
+            minorcombo.append("md%d" %(minor,), minor)
 	    if reqminor and minor == reqminor:
 		defindex = i
 	    i = i + 1
 
-	minoroption.set_menu(minoroptionmenu)
+        minorcombo.set_active(defindex)
 
-	if defindex:
-	    minoroption.set_history(defindex)
-
-	return (minoroption, minoroptionmenu)
+	return minorcombo
 
 
     def raidlevelchangeCB(self, widget, sparesb):
-	raidlevel = widget.get_data("level")
+	raidlevel = widget.get_model()[widget.get_active()][0]
 	numparts = sparesb.get_data("numparts")
 	maxspares = raid.get_raid_max_spares(raidlevel, numparts)
 
@@ -168,10 +154,12 @@ class RaidEditor:
                 iter = model.iter_next(iter)
 
             if not self.origrequest.getPreExisting():
-                request.raidminor = self.minorOptionMenu.get_active().get_data("minor")
+                request.raidminor = int(self.minorCombo.get_active_value())
 
                 request.raidmembers = raidmembers
-                request.raidlevel = self.leveloptionmenu.get_active().get_data("level")
+                model = self.levelcombo.get_model()
+                request.raidlevel = model[self.levelcombo.get_active()][0]
+
                 if request.raidlevel != "RAID0":
                     request.raidspares = self.sparesb.get_value_as_int()
                 else:
@@ -328,11 +316,11 @@ class RaidEditor:
                 availminors.append(reqminor)
 
             availminors.sort()
-            (self.minorOption, self.minorOptionMenu) = self.createRaidMinorMenu(availminors, reqminor)
-	    lbl.set_mnemonic_widget(self.minorOption)
+            self.minorCombo = self.createRaidMinorMenu(availminors, reqminor)
+	    lbl.set_mnemonic_widget(self.minorCombo)
         else:
-            self.minorOption = gtk.Label("md%s" %(origrequest.raidminor,))
-	maintable.attach(self.minorOption, 1, 2, row, row + 1)
+            self.minorCombo = gtk.Label("md%s" %(origrequest.raidminor,))
+	maintable.attach(self.minorCombo, 1, 2, row, row + 1)
 	row = row + 1
 
 	# raid level
@@ -367,14 +355,13 @@ class RaidEditor:
 
 
         if not origrequest.getPreExisting():
-            (self.leveloption, self.leveloptionmenu) = \
-                               self.createRaidLevelMenu(availRaidLevels,
-                                                        origrequest.raidlevel)
-	    lbl.set_mnemonic_widget(self.leveloption)
+            self.levelcombo = self.createRaidLevelMenu(availRaidLevels,
+                                                       origrequest.raidlevel)
+	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
-            self.leveloption = gtk.Label(origrequest.raidlevel)
+            self.levelcombo = gtk.Label(origrequest.raidlevel)
 
-	maintable.attach(self.leveloption, 1, 2, row, row + 1)
+	maintable.attach(self.levelcombo, 1, 2, row, row + 1)
 	row = row + 1
 
 	# raid members
