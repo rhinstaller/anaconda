@@ -862,6 +862,9 @@ class Partitions:
         # reinitialize all partitions to default labels?
         self.reinitializeDisks = 0
 
+        # zero mbr flag for kickstart
+        self.zeroMbr = 0
+
         # partition method
         self.useAutopartitioning = 1
         self.useFdisk = 0
@@ -1363,15 +1366,15 @@ class DiskSet:
             del disk
         self.refreshDevices()
 
-    def refreshDevices (self, intf = None, initAll = 0):
+    def refreshDevices (self, intf = None, initAll = 0, zeroMbr = 0):
         self.disks = {}
-        self.openDevices(intf, initAll)
+        self.openDevices(intf, initAll, zeroMbr)
 
     def closeDevices (self):
         for disk in self.disks.keys():
             del self.disks[disk]
 
-    def openDevices (self, intf = None, initAll = 0):
+    def openDevices (self, intf = None, initAll = 0, zeroMbr = 0):
         if self.disks:
             return
         for drive in self.driveList ():
@@ -1399,7 +1402,12 @@ class DiskSet:
                 disk = parted.PedDisk.open(dev)
                 self.disks[drive] = disk
             except parted.error, msg:
-                if not intf:
+                recreate = 0
+                if zeroMbr:
+                    log("zeroMBR was set and invalid partition table found "
+                        "on %s" % (dev.path[5:]))
+                    recreate = 1
+                elif not intf:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
@@ -1413,13 +1421,15 @@ class DiskSet:
                         DiskSet.skippedDisks.append(drive)
                         continue
                     else:
-                        try:
-                            dev.disk_create(getDefaultDiskType())
-                            disk = parted.PedDisk.open(dev)
-                            self.disks[drive] = disk
-                        except parted.error, msg:
-                            DiskSet.skippedDisks.append(drive)
-                            continue
+                        recreate = 1
+                if recreate == 1 and not flags.test:
+                    try:
+                        dev.disk_create(getDefaultDiskType())
+                        disk = parted.PedDisk.open(dev)
+                        self.disks[drive] = disk
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
 
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
@@ -1503,7 +1513,8 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
         return
 
     # read in drive info
-    diskset.refreshDevices(intf, partitions.reinitializeDisks)
+    diskset.refreshDevices(intf, partitions.reinitializeDisks,
+                           partitions.zeroMbr)
 
     checkNoDisks(diskset, intf)
 

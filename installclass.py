@@ -172,8 +172,8 @@ class BaseInstallClass:
     def setMakeBootdisk(self, state):
 	self.makeBootdisk = state 
 
-    def setZeroMbr(self, id, initAll):
-        id.partitions.reinitializeDisks = initAll        
+    def setZeroMbr(self, id, zeroMbr):
+        id.partitions.zeroMbr = zeroMbr
 
     def setEarlySwapOn(self, state = 0):
 	self.earlySwapOn = state
