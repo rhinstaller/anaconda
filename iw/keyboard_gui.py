@@ -46,10 +46,14 @@ class KeyboardWindow (InstallWindow):
         self.kbd.setfromx(self.model, self.layout, self.variant)
         self.kbd.beenset = 1
 
-        try:
-            isys.loadKeymap(self.kbd.get())
-        except:
-            log("failed to load keymap")
+#
+#
+# XXX FIX THIS - NEED TO FIX!!!
+#
+#        try:
+#            isys.loadKeymap(self.kbd.get())
+#        except:
+#            log("failed to load keymap")
 
         return None
 
