@@ -24,7 +24,7 @@ class InstallClass:
 
     def setLiloInformation(self, location, linear = 1, appendLine = None):
 	# this throws an exception if there is a problem
-	["mbr", "partition", "none"].index(location)
+	["mbr", "partition", None].index(location)
 
 	self.lilo = (location, linear, appendLine)
 
