@@ -19,15 +19,17 @@ import rpm404 as rpm
 import gui
 import string
 import sys
-import checklist
 import gtk
 import gobject
+import checklist
 from iw_gui import *
 from string import *
 from thread import *
 from examine_gui import *
 from rhpl.translate import _, N_, utf8
-from comps import orderPackageGroups
+from comps import orderPackageGroups, getCompGroupDescription
+from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
+from comps import Package, Component
 
 
 def queryUpgradeContinue(intf):
@@ -493,14 +495,306 @@ class PackageSelectionWindow (InstallWindow):
         self.sizelabel.set_text (_("Total install size: %s") % 
 					self.comps.sizeStr())
 
-    def componentToggled(self, widget, comp):
+    def componentToggled(self, widget, data):
         # turn on all the comps we selected
+	(comp, lbl, ebutton) = data
 	if widget.get_active ():
 	    comp.select ()
 	else:
 	    comp.unselect ()
 
 	self.setSize()
+	
+	if lbl:
+	    self.setCompLabel(comp, lbl)
+
+        if ebutton:
+            ebutton.set_sensitive(widget.get_active())
+
+        ### XXX - need to i18n??
+        if comp.name == "Everything":
+            for (cb, cb2, cbcomp) in self.checkButtons:
+                if cbcomp.name == 'Everything':
+                    continue
+		if cb:
+		    cb.set_sensitive(not widget.get_active())
+		if cb2:
+		    cb2.set_sensitive(not widget.get_active())
+
+
+    def pkgGroupMemberToggled(self, widget, data):
+	(comp, sizeLabel, pkg) = data
+	(ptype, sel) = self.getFullInfo(pkg, comp)
+
+	# DONT handle metapackages write yet!
+	if pkg in comp.metapackagesFullInfo().keys():
+	    log("cant toggle metapackage yet!")
+	    return
+
+	# dont select or unselect if its already in that state
+	if widget.get_active():
+	    if not sel:
+		if ptype == PKGTYPE_OPTIONAL:
+		    comp.selectOptionalPackage(pkg)
+		else:
+		    log("Got callback with mandatory pkg %s!!", pkg.name)
+	    else:
+		log("already selected, not selecting!")
+	else:
+	    if sel:
+		if ptype == PKGTYPE_OPTIONAL:
+		    comp.unselectOptionalPackage(pkg)
+		else:
+		    log("Got callback with mandatory pkg %s!!", pkg.name)
+	    else:
+		log("already unselected, not unselecting!")
+
+	if sizeLabel:
+	    self.setDetailSizeLabel(comp, sizeLabel)
+
+    def getFullInfo(self, obj, comp):
+	if isinstance(obj, Package):
+	    return comp.packagesFullInfo()[obj]
+	elif isinstance(obj, Component):
+	    return comp.metapackagesFullInfo()[obj]
+	else:
+	    return None
+	
+    def getStats(self, comp):
+	allpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
+	
+	if comp.name == u"Everything":
+	    total = len(allpkgs)
+	    if comp.isSelected(justManual = 1):
+		selected = total
+	    else:
+		selected = 0
+	    return (selected, total)
+	
+	total = 0
+	selected = 0
+	for pkg in allpkgs:
+	    total = total + 1
+	    (ptype, sel) = self.getFullInfo(pkg, comp)
+	    if sel:
+		selected = selected + 1
+
+        return (selected, total)
+
+    def setDetailSizeLabel(self, comp, sizeLabel):
+        text = _("Total install size: %s") % (self.comps.sizeStr(),)
+	sizeLabel.set_text(text)
+
+    def setCompLabel(self, comp, label):
+	(selpkg, totpkg) = self.getStats(comp)
+        if not comp.isSelected(justManual = 1):
+            selpkg = 0
+		    
+	txt = "<b>%s [%d/%d]</b>" % (_(comp.name), selpkg, totpkg)
+	label.set_markup(txt)
+
+    def editDetails(self, button, data):
+
+	# do all magic for packages and metapackages
+	def getDescription(obj, comp):
+	    if isinstance(obj, Package):
+		basedesc = obj.h[rpm.RPMTAG_SUMMARY]
+	    elif isinstance(obj, Component):
+		basedesc = getCompGroupDescription(obj)
+	    else:
+		return None
+
+	    if basedesc is not None:
+		desc = replace (basedesc, "\n\n", "\x00")
+		desc = replace (desc, "\n", " ")
+		desc = replace (desc, "\x00", "\n\n")
+		desc = utf8(desc)
+	    else:
+		desc = ""
+	    return "%s - %s" % (obj.name, desc)
+
+	# pull out member sorted by name
+	def getNextMember(goodpkgs, comp, domandatory = 0):
+	    curpkg = None
+	    for pkg in goodpkgs:
+		pkgname = pkg.name
+
+		if domandatory:
+		    (ptype, sel) = self.getFullInfo(pkg, comp)
+		    if ptype != PKGTYPE_MANDATORY:
+			continue
+
+		foundone = 1
+		if curpkg is not None:
+		    if pkgname < curpkg.name:
+			curpkg = pkg
+		else:
+		    curpkg = pkg
+
+	    return curpkg
+
+
+	#
+	# START OF editDetails
+	#
+	# backup state
+	(comp, hdrlbl) = data
+	origpkgselection = {}
+	for pkg in comp.packagesFullInfo().keys():
+	    val = comp.packagesFullInfo()[pkg]
+	    origpkgselection[pkg] = val
+	    
+	origmetapkgselection = {}
+	for pkg in comp.metapackagesFullInfo().keys():
+	    val = comp.metapackagesFullInfo()[pkg]
+	    origmetapkgselection[pkg] = val
+	
+        self.dialog = gtk.Dialog(_("Details for '%s'") % (_(comp.name),))
+        gui.addFrame(self.dialog)
+        self.dialog.add_button('gtk-cancel', 2)
+        self.dialog.add_button('gtk-ok', 1)
+        self.dialog.set_position(gtk.WIN_POS_CENTER)
+
+        mainvbox = self.dialog.vbox
+
+        lbl = gtk.Label(_("A package group can have both Base and "
+                          "Optional package members.  Base packagess "
+                          "are always selected as long as the package group "
+			  "is selected.\n\nSelect the optional packages "
+			  "to be installed:"))
+        lbl.set_line_wrap(gtk.TRUE)
+	lbl.set_size_request(450, -1)
+	lbl.set_alignment(0.0, 0.5)
+        mainvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE)
+
+        cbvbox = gtk.VBox(gtk.FALSE)
+	cbvbox.set_border_width(5)
+
+	# will pack this last, need to create it for toggle callback below
+        sizeLabel = gtk.Label("")
+	self.setDetailSizeLabel(comp, sizeLabel)
+	
+        goodpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
+
+	# first show default members, if any
+	haveBase = 0
+	next = getNextMember(goodpkgs, comp, domandatory = 1)
+	if next:
+	    haveBase = 1
+	    lbl = gtk.Label("")
+	    lbl.set_markup("<b>%s</b>" % (_("Base Packages"),))
+	    lbl.set_alignment(0.0, 0.0)
+	    cbvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE);
+	    while 1:
+		next = getNextMember(goodpkgs, comp, domandatory = 1)
+		if not next:
+		    break
+
+		goodpkgs.remove(next)
+		desc = getDescription(next, comp)
+		lbl = gtk.Label(desc)
+		lbl.set_alignment(0.0, 0.0)
+
+		thbox = gtk.HBox(gtk.FALSE)
+		chbox = gtk.HBox(gtk.FALSE)
+		chbox.set_size_request(10,-1)
+		thbox.pack_start(chbox, gtk.FALSE, gtk.FALSE)
+		thbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
+
+		cbvbox.pack_start(thbox, gtk.TRUE, gtk.TRUE)
+
+	# now the optional parts, if any
+	next = getNextMember(goodpkgs, comp, domandatory = 0)
+	if next:
+	    optvbox = gtk.VBox(gtk.FALSE)
+	    cbvbox.pack_start(optvbox, gtk.FALSE, gtk.FALSE, haveBase*10)
+	    
+	    lbl = gtk.Label("")
+	    lbl.set_markup("<b>%s</b>" % (_("Optional Packages"),))
+	    lbl.set_alignment(0.0, 0.0)
+	    optvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE)
+	    while 1:
+		next = getNextMember(goodpkgs, comp, domandatory = 0)
+		if not next:
+		    break
+
+		goodpkgs.remove(next)
+
+		desc = getDescription(next, comp)
+		cb = gtk.CheckButton(desc)
+		(ptype, sel) = self.getFullInfo(next, comp)
+		cb.set_active(sel)
+		cb.connect("toggled", self.pkgGroupMemberToggled,
+			   (comp, sizeLabel, next))
+
+		thbox = gtk.HBox(gtk.FALSE)
+		chbox = gtk.HBox(gtk.FALSE)
+		chbox.set_size_request(10,-1)
+		thbox.pack_start(chbox, gtk.FALSE, gtk.FALSE)
+		thbox.pack_start(cb, gtk.TRUE, gtk.TRUE)
+
+		optvbox.pack_start(thbox, gtk.FALSE, gtk.FALSE)
+
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+
+        wrapper = gtk.VBox (gtk.FALSE, 0)
+        wrapper.pack_start (cbvbox, gtk.FALSE)
+        
+        sw.add_with_viewport (wrapper)
+        viewport = sw.get_children()[0]
+        viewport.set_shadow_type (gtk.SHADOW_IN)
+	viewport.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
+        cbvbox.set_focus_hadjustment(sw.get_hadjustment ())
+        cbvbox.set_focus_vadjustment(sw.get_vadjustment ())
+        
+        mainvbox.pack_start(sw, gtk.TRUE, gtk.TRUE, 10)
+
+        mainvbox.pack_start(sizeLabel, gtk.FALSE, gtk.FALSE)
+                            
+        self.dialog.set_size_request(500, 420)
+        self.dialog.show_all()
+
+	while 1:
+	    rc = self.dialog.run()
+
+	    # they hit cancel, restore original state and quit
+	    if rc == 2:
+		allpkgs = comp.packagesFullInfo().keys()
+		for pkg in allpkgs:
+		    (ptype, sel) = comp.packagesFullInfo()[pkg]
+		    (optype, osel) = origpkgselection[pkg]
+
+		    if ptype == PKGTYPE_OPTIONAL:
+			if osel:
+			    if not sel:
+				comp.selectOptionalPackage(pkg)
+			else:
+			    if sel:
+				comp.unselectOptionalPackage(pkg)
+		allpkgs = comp.metapackagesFullInfo().keys()
+		for pkg in allpkgs:
+		    (ptype, sel) = comp.metapackagesFullInfo()[pkg]
+		    (optype, osel) = origmetapkgselection[pkg]
+
+		    if ptype == PKGTYPE_OPTIONAL:
+			if osel:
+			    if not sel:
+				comp.selectOptionalPackage(pkg)
+			else:
+			    if sel:
+				comp.unselectOptionalPackage(pkg)
+
+	    break
+	
+        self.dialog.destroy()
+	self.setSize()
+
+	if hdrlbl:
+	    self.setCompLabel(comp, hdrlbl)
+	    
+        return
+    
 
     def getScreen(self, comps, dispatch):
     # PackageSelectionWindow tag="sel-group"
@@ -508,7 +802,7 @@ class PackageSelectionWindow (InstallWindow):
 	self.dispatch = dispatch
 
 	self.origSelection = self.comps.getSelectionState()
-            
+
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
@@ -528,36 +822,90 @@ class PackageSelectionWindow (InstallWindow):
 	    vbox.pack_start(lbl)
 
 	    for comp in pardict[par]:
-		if not comp.hidden:
-		    pixname = string.replace (comp.name, ' ', '-')
-		    pixname = string.replace (pixname, '/', '-')
-		    pixname = string.replace (pixname, '.', '-')
-		    pixname = string.replace (pixname, '(', '-')
-		    pixname = string.replace (pixname, ')', '-')
-		    pixname = string.lower (pixname) + ".png"
-		    checkButton = None
-		    pix = self.ics.readPixmap (pixname)
-		    if pix and 0:
-			hbox = gtk.HBox (gtk.FALSE, 5)
-			hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
-			label = gtk.Label (_(comp.name))
-			label.set_alignment (0.0, 0.5)
-			hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
-			checkButton = gtk.CheckButton ()
-			checkButton.add (hbox)
-		    else:
-			checkButton = gtk.CheckButton (comp.name)
+		if comp.hidden:
+		    continue
+		
+		pixname = string.lower(comp.id) + ".png"
+		fn = self.ics.findPixmap("comps/"+pixname)
+		if not fn:
+		    print "could not load pix ",pixname
+		    pix = None
+		else:
+		    rawpix = gtk.gdk.pixbuf_new_from_file(fn)
+		    sclpix = rawpix.scale_simple(32, 32,
+						 gtk.gdk.INTERP_BILINEAR)
+		    pix = gtk.Image()
+		    pix.set_from_pixbuf(sclpix)
 
-		    checkButton.set_active (comp.isSelected(justManual = 1))
-		    checkButton.connect('toggled', self.componentToggled, comp)
-		    self.checkButtons.append ((checkButton, comp))
+		# vbox for everything
+		cvbox = gtk.VBox(gtk.FALSE)
 
-		    tmphbox = gtk.HBox(gtk.FALSE)
-		    crackhbox = gtk.HBox(gtk.FALSE)
-		    crackhbox.set_size_request(30, -1)
-		    tmphbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-		    tmphbox.pack_start(checkButton, gtk.TRUE, gtk.TRUE)
-		    vbox.pack_start (tmphbox)
+		# create check button and edit button
+		# make the comps title + edit button
+		hdrhbox=gtk.HBox(gtk.FALSE)
+		hdrlabel=gtk.Label("")
+		hdrlabel.set_alignment (0.0, 0.5)
+		self.setCompLabel(comp, hdrlabel)
+
+		checkButton = gtk.CheckButton()
+		checkButton.add(hdrlabel)
+		hdrhbox.pack_start(checkButton, gtk.FALSE, gtk.FALSE, 10)
+
+		# now make the url looking button for details
+		if comp.name != u"Everything":
+		    nlbl = gtk.Label("")
+		    nlbl.set_markup('<span foreground="#3030c0"><u>%s</u></span>' % (_('Details'),))
+		    editbutton = gtk.Button()
+		    editbutton.add(nlbl)
+		    editbutton.set_relief(gtk.RELIEF_NONE)
+		    hdrhbox.pack_start(editbutton, gtk.FALSE, gtk.FALSE, 15)
+		    editbutton.connect("clicked", self.editDetails,
+				       (comp, hdrlabel))
+		    editbutton.set_sensitive(comp.isSelected(justManual = 1))
+		else:
+		    editbutton = None
+
+		cvbox.pack_start(hdrhbox, gtk.FALSE, gtk.FALSE)
+
+		# now create the description
+		dhbox = gtk.HBox(gtk.FALSE)
+		dcrackhbox = gtk.HBox(gtk.FALSE)
+		dcrackhbox.set_size_request(15, -1)
+		dhbox.pack_start(dcrackhbox, gtk.FALSE, gtk.FALSE)
+		packed_dhbox = 0
+		if pix is not None:
+		    al = gtk.Alignment(0.5, 0.5)
+		    al.add(pix)
+		    packed_dhbox = 1
+		    dhbox.pack_start(al, gtk.FALSE, gtk.FALSE)
+
+		# add description if it exists
+		descr = getCompGroupDescription(comp)
+		if descr is not None:
+		    label=gtk.Label("")
+		    label.set_alignment (0.0, 0.0)
+		    label.set_line_wrap(gtk.TRUE)
+		    label.set_size_request(350, -1)
+		    label.set_markup("%s" % (_(descr),))
+		    packed_dhbox = 1
+		    dhbox.pack_start(label, gtk.TRUE, gtk.TRUE,10)
+
+		if packed_dhbox:
+		    cvbox.pack_start(dhbox, gtk.FALSE, gtk.FALSE)
+		else:
+		    dhbox = None
+
+		checkButton.set_active (comp.isSelected(justManual = 1))
+		checkButton.connect('toggled', self.componentToggled,
+				    (comp, hdrlabel, editbutton))
+		self.checkButtons.append ((hdrhbox, dhbox, comp))
+
+		tmphbox = gtk.HBox(gtk.FALSE)
+		crackhbox = gtk.HBox(gtk.FALSE)
+		crackhbox.set_size_request(30, -1)
+		tmphbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
+		tmphbox.pack_start(cvbox, gtk.TRUE, gtk.TRUE)
+		vbox.pack_start (tmphbox)
 
         wrapper = gtk.VBox (gtk.FALSE, 0)
         wrapper.pack_start (box, gtk.FALSE)
@@ -565,6 +913,7 @@ class PackageSelectionWindow (InstallWindow):
         sw.add_with_viewport (wrapper)
         viewport = sw.get_children()[0]
         viewport.set_shadow_type (gtk.SHADOW_IN)
+	viewport.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
 
