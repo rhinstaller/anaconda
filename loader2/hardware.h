@@ -9,6 +9,7 @@ int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
                             moduleInfoSet modInfo, int flags);
 
+void updateKnownDevices(struct knownDevices * kd);
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
              int justProbe, struct knownDevices * kd, int flags);
 

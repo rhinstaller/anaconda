@@ -170,14 +170,16 @@ int getRemovableDevices(char *** devNames) {
 /* Prompt for loading a driver from "media"
  *
  * class: type of driver to load.
+ * usecancel: if 1, use cancel instead of back
  */
-int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr,
-                        moduleInfoSet modInfo, struct knownDevices * kd, 
-                        int flags) {
+int loadDriverFromMedia(int class, moduleList modLoaded, 
+                        moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
+                        struct knownDevices * kd, int flags, int usecancel) {
 
     char * device = NULL;
     char ** devNames = NULL;
-    enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_DONE } stage = DEV_DEVICE;
+    enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_PROBE, 
+           DEV_DONE } stage = DEV_DEVICE;
     int rc, i, num = 0;
 
     while (stage != DEV_DONE) {
@@ -193,7 +195,8 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
                                "as sources for a driver disk.  Which would "
                                "you like to use?"), 40, 10, 10,
                              rc < 6 ? rc : 6, devNames,
-                             &num, _("OK"), _("Back"), NULL);
+                             &num, _("OK"), 
+                             (usecancel) ? _("Cancel") : _("Back"), NULL);
 
             if (rc == 2) {
                 free(devNames);
@@ -206,7 +209,8 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
         case DEV_INSERT: {
             char * buf;
 
-            buf = sdupprintf(_("Insert your driver disk into /dev/%s and press \"OK\" to continue."), device);
+            buf = sdupprintf(_("Insert your driver disk into /dev/%s "
+                               "and press \"OK\" to continue."), device);
             rc = newtWinChoice(_("Insert Driver Disk"), _("OK"), _("Back"),
                                buf);
             if (rc == 2) {
@@ -235,7 +239,19 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
             break;
         }
         case DEV_LOAD: {
-            int found = 0;
+            int found = 0, before = 0;
+
+            if (class != CLASS_UNSPEC) {
+                for (i = 0; i < kd->numKnown; i++) {
+                    if (kd->known[i].class == class) {
+                        stage = DEV_DONE;
+                        before++;
+                        break;
+                    }
+                }
+            } else {
+                before = kd->numKnown;
+            }
 
             rc = loadDriverDisk(modInfo, modLoaded, modDepsPtr, 
                                 "/tmp/drivers", flags);
@@ -244,7 +260,10 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
                 stage = DEV_INSERT;
                 break;
             }
+            /* fall through to probing */
+            stage = DEV_PROBE;
 
+        case DEV_PROBE:
             busProbe(modInfo, modLoaded, *modDepsPtr, 0, kd, flags);
 
             if (class != CLASS_UNSPEC) {
@@ -256,20 +275,40 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
                     }
                 }
             } else {
-                /* JKFIXME: for now, we'll just assume that the driver disk
-                 * loading did what they wanted */
-                found = 1;
+                found = kd->numKnown;
             }
 
-            if (found > 0)
+            if (found > before)
                 break;
+
+            /* we don't have any more modules of the proper class.  ask
+             * them to manually load */
+            rc = newtWinTernary(_("Error"), _("Manually choose"), 
+                                _("Continue"), _("Load another disk"),
+                                _("No devices of the appropriate type were "
+                                  "found on this driver disk.  Would you "
+                                  "like to manually select the driver, "
+                                  "continue anyway, or load another "
+                                  "driver disk?"));
             
-            /* if we get here then we couldn't find it */
-            /* JKFIXME: this should allow manual loading of drivers */
-            newtWinMessage(_("Error"), _("OK"),
-                           _("Unable to find a device driver of the needed "
-                             "type on this driver disk."));
-            stage = DEV_INSERT;
+            if (rc == 2) {
+                /* if they choose to continue, just go ahead and continue */
+                stage = DEV_DONE;
+            } else if (rc == 3) {
+                /* if they choose to load another disk, back to the 
+                 * beginning with them */
+                stage = DEV_DEVICE;
+            } else {
+                rc = chooseManualDriver(class, modLoaded, *modDepsPtr, modInfo,
+                                        kd, flags);
+                /* if they go back from a manual driver, we'll ask again.
+                 * if they load something, assume it's what we need */
+                if (rc == LOADER_OK) {
+                    updateKnownDevices(kd);
+                    stage = DEV_DONE;
+                }
+            }
+
             break;
         }
                            
@@ -283,16 +322,4 @@ int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr
 }
 
 
-/* simple test */
-#if 0
-int main(int argc, char **argv) {
-    char * devName = NULL;
-    loadDriverFromMedia(CLASS_NETWORK, &devName, 0);
 
-    stopNewt();
-    fprintf(stdout, "chosen device is %s\n", devName);
-
-
-    return 0;
-}
-#endif

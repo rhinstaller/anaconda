@@ -284,8 +284,9 @@ void loadUpdates(struct knownDevices *kd, int flags) {
     return;
 }
 
-static void checkForHardDrives(struct knownDevices * kd, int flags) {
+static void checkForHardDrives(struct knownDevices * kd, int * flagsPtr) {
     int i;
+    int flags = (*flagsPtr);
 
     for (i = 0; i < kd->numKnown; i++)
         if (kd->known[i].class == CLASS_HD) break;
@@ -299,15 +300,8 @@ static void checkForHardDrives(struct knownDevices * kd, int flags) {
                         "to manually choose device drivers for the "
                         "installation to succeed.  Would you like to "
                         "select drivers now?"));
-    if (i != 2) flags |= LOADER_FLAGS_ISA;
+    if (i != 2) (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_ISA;
 
-    if (((access("/proc/bus/devices", R_OK) &&
-          access("/proc/openprom", R_OK) &&
-          access("/proc/iSeries", R_OK)) ||
-         FL_ISA(flags) || FL_NOPROBE(flags)) && !FL_KICKSTART(flags)) {
-        /* JKFIXME: do a manual device load */
-    }
-    
     return;
 }
 
@@ -548,7 +542,7 @@ static char *doLoaderMain(char * location,
                           moduleDeps * modDepsPtr,
                           int flags) {
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER, 
-           STEP_URL, STEP_DONE } step;
+           STEP_DRIVERDISK, STEP_URL, STEP_DONE } step;
     char * url = NULL;
     int dir = 1;
     int rc, i;
@@ -673,19 +667,47 @@ static char *doLoaderMain(char * location,
                 dir = 1;
                 break;
             }
-            
-            rc = loadDriverFromMedia(installMethods[validMethods[methodNum]].deviceType,
-                                     modLoaded, modDepsPtr, modInfo, kd, flags);
-            if (rc == LOADER_BACK) {
+
+
+            rc = newtWinTernary(_("No driver found"), _("Select driver"),
+                                _("Use a driver disk"), _("Back"),
+                                _("Unable to find any devices of the type "
+                                  "needed for this installation type.  "
+                                  "Would you like to manually select your "
+                                  "driver or use a driver disk?"));
+            if (rc == 2) {
+                step = STEP_DRIVERDISK;
+                dir = 1;
+                break;
+            } else if (rc == 3) {
                 step = STEP_METHOD;
                 dir = -1;
                 break;
             }
 
-            step = STEP_URL;
-            dir = 1;
+            chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
+                                    modLoaded, *modDepsPtr, modInfo, kd, flags);
+            /* it doesn't really matter what we return here; we just want
+             * to reprobe and make sure we have the driver */
+            step = STEP_DRIVER;
             break;
         }
+
+        case STEP_DRIVERDISK:
+
+            rc = loadDriverFromMedia(installMethods[validMethods[methodNum]].deviceType,
+                                     modLoaded, modDepsPtr, modInfo, kd, 
+                                     flags, 0);
+            if (rc == LOADER_BACK) {
+                step = STEP_DRIVER;
+                dir = -1;
+                break;
+            }
+
+            /* need to come back to driver so that we can ensure that we found
+             * the right kind of driver after loading the driver disk */
+            step = STEP_DRIVER;
+            break;
             
         case STEP_URL:
             logMessage("starting to STEP_URL");
@@ -712,6 +734,15 @@ static char *doLoaderMain(char * location,
     return url;
 }
 
+static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
+                             moduleDeps * modDepsPtr, struct knownDevices * kd,
+                             int flags) {
+    /* JKFIXME: need to give a "these devices are on your system, 
+     * add more? type of thing */
+    return 0;
+}
+
+
 int main(int argc, char ** argv) {
     int flags = 0;
     struct stat sb;
@@ -737,13 +768,11 @@ int main(int argc, char ** argv) {
     char * cmdLine = NULL;
     char * ksFile = NULL;
     int testing = 0;
-    int probeOnly; /* JKFIXME: this option can probably die */
     int mediacheck = 0;
     poptContext optCon;
     struct poptOption optionTable[] = {
             { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
         { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
-        { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
         { "test", '\0', POPT_ARG_NONE, &testing, 0 },
         { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
         { 0, 0, 0, 0, 0 }
@@ -852,10 +881,12 @@ int main(int argc, char ** argv) {
          access("/proc/openprom", R_OK) &&
          access("/proc/iSeries", R_OK)) || FL_MODDISK(flags)) {
         startNewt(flags);
-        /* JKFIXME: do the driver disk thing here for an isa machine.  bah. */
+
+        loadDriverFromMedia(CLASS_UNSPEC, modLoaded, &modDeps, 
+                            modInfo, &kd, flags, 1);
     }
 
-    busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
+    busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
@@ -907,7 +938,17 @@ int main(int argc, char ** argv) {
     scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
-    checkForHardDrives(&kd, flags);
+    checkForHardDrives(&kd, &flags);
+
+    if (((access("/proc/bus/devices", R_OK) &&
+          access("/proc/openprom", R_OK) &&
+          access("/proc/iSeries", R_OK)) ||
+         FL_ISA(flags) || FL_NOPROBE(flags)) && !FL_KICKSTART(flags)) {
+        
+        startNewt(flags);
+        manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
+    }
+    
 
     if (FL_UPDATES(flags)) 
         loadUpdates(&kd, flags);

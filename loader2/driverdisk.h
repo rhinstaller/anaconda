@@ -6,10 +6,15 @@
 #include "moduleinfo.h"
 #include "../isys/probe.h"
 
-int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDeps,
-                        moduleInfoSet modInfo, struct knownDevices * kd, 
-                        int flags);
+int loadDriverFromMedia(int class, moduleList modLoaded, 
+                        moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
+                        struct knownDevices * kd, int flags, int usecancel);
 
 int getRemovableDevices(char *** devNames);
+
+
+int chooseManualDriver(int class, moduleList modLoaded, moduleDeps modDeps,
+                       moduleInfoSet modInfo, struct knownDevices * kd, 
+                       int flags);
 
 #endif

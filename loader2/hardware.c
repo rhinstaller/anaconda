@@ -139,6 +139,11 @@ void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
     }
 }
 
+void updateKnownDevices(struct knownDevices * kd) {
+    kdFindScsiList(kd, 0);
+    kdFindNetList(kd, 0);
+}
+
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
              int justProbe, struct knownDevices * kd, int flags) {
     int i;
@@ -165,9 +170,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
             }
             
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
-            
-            kdFindScsiList(kd, 0);
-            kdFindNetList(kd, 0);
+    
+            updateKnownDevices(kd);
         } else 
             logMessage("found nothing");
     }

@@ -28,6 +28,9 @@ struct moduleList_s {
 };
 
 int mlReadLoadedList(moduleList * mlp);
+int mlLoadModule(const char * module, moduleList modLoaded, 
+                 moduleDeps modDeps, moduleInfoSet modInfo, 
+                 char ** args, int flags);
 int mlLoadModuleSet(const char * modNames, 
 		    moduleList modLoaded, moduleDeps modDeps, 
 		    moduleInfoSet modInfo, int flags);
@@ -38,6 +41,6 @@ int mlLoadModuleSetLocation(const char * modNames,
 			    moduleInfoSet modInfo, int flags,
 			    struct moduleBallLocation * location);
 
-
+int mlModuleInList(const char * modName, moduleList list);
 
 #endif

@@ -38,7 +38,6 @@
 
 #include "../isys/cpio.h"
 
-static int mlModuleInList(const char * modName, moduleList list);
 static int writeModulesConf(moduleList list, int fd);
 static struct extractedModule * extractModules (char * const * modNames,
                                                 struct extractedModule * oldPaths,
@@ -214,7 +213,7 @@ char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args,
     return list;
 }
 
-static int mlModuleInList(const char * modName, moduleList list) {
+int mlModuleInList(const char * modName, moduleList list) {
     int i;
 
     if (!list) return 0;
@@ -506,8 +505,15 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     return i;
 }
 
-/* loads a : separated list of modules. the arg only applies to the
-   first module in the list */
+/* load a module with a given list of arguments */
+int mlLoadModule(const char * module, moduleList modLoaded, 
+                 moduleDeps modDeps, moduleInfoSet modInfo, 
+                 char ** args, int flags) {
+    return doLoadModules(module, modLoaded, modDeps, modInfo, flags, module,
+                         args, NULL);
+}
+
+/* loads a : separated list of modules */
 int mlLoadModuleSet(const char * modNames, 
                     moduleList modLoaded, moduleDeps modDeps, 
                     moduleInfoSet modInfo, int flags) {
