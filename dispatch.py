@@ -85,7 +85,7 @@ installSteps = [
     ("bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset")),
     ("bootloaderpassword", ("id.bootloader", "intf")),
     ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
-    ("network", ("id.network",)),
+    ("network", ("id.network", "dispatch")),
     ("firewall", ("id.network", "id.firewall")),
     ("languagesupport", ("id.langSupport",)),
     ("timezone", ("id.instLanguage", "id.timezone")),
