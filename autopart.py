@@ -147,6 +147,9 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
 
             endSec = end_cyl_to_sector(disk.dev, endCyl)
 
+            if endSec > disk.dev.length:
+                raise PartitioningError, "Unable to create partition which extends beyond the end of the disk."
+
             # XXX need to check overlaps properly here
             if startSec < 0:
                 startSec = 0L
