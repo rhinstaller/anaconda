@@ -186,7 +186,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             
             # drop the leading slash off the package namespace
             for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
-                if header.selected:
+                if header.isSelected():
                     packageIcon = self.packageSelectedImage
                     self.cbutton.set_active (TRUE)
                 else:
@@ -210,23 +210,23 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     def installButtonToggled (self, cbutton, *args):
         if not self.currentPackage: return
-        oldSelectedStatus = self.currentPackage.selected
+        oldSelectedStatus = self.currentPackage.isSelected()
         
         if cbutton.get_active ():
-            self.currentPackage.selected = 1
+            self.currentPackage.select()
         else:
-            self.currentPackage.selected = 0
+            self.currentPackage.unselect()
 
 	self.updateSize()
 
-        if oldSelectedStatus != self.currentPackage.selected:
+        if oldSelectedStatus != self.currentPackage.isSelected():
             self.updatingIcons = TRUE
             self.ctree.select (self.ctree.selection[0])
             self.iconList.select_icon (self.currentPackagePos)
             self.updatingIcons = FALSE
             
 #            self.iconList.freeze ()
-#            if self.currentPackage.selected:
+#            if self.currentPackage.isSelected()
 #                packageIcon = "/home/devel/pnfisher/gnome-package-checked.png"
 #            else:
 #                packageIcon = "/usr/src/gnorpm/gnome-package.xpm"
@@ -268,7 +268,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             if not groups.has_key (header[rpm.RPMTAG_GROUP]):
                 groups[header[rpm.RPMTAG_GROUP]] = []
             # don't display package if it is in the Base group
-            if not self.todo.comps["Base"].items.has_key (header):
+            if not self.todo.comps["Base"].includesPackage (header):
                 groups[header[rpm.RPMTAG_GROUP]].append (header)
 
         keys = groups.keys ()
@@ -413,19 +413,12 @@ class PackageSelectionWindow (InstallWindow):
     def setSize(self):
         self.sizelabel.set_text (_("Total install size: %s") % self.todo.comps.sizeStr())
 
-    def componentToggled(self, widget):
-        # turn off all the comps
-        for comp in self.todo.comps:
-            if not comp.hidden: comp.unselect(0)
-
-	# it's a shame component selection sucks
-#        self.todo.comps['Base'].select (1)
-        self.todo.updateInstClassComps()
-
+    def componentToggled(self, widget, comp):
         # turn on all the comps we selected
-        for (button, comp) in self.checkButtons:
-            if button.get_active ():
-                comp.select (1)
+	if widget.get_active ():
+	    comp.select ()
+	else:
+	    comp.unselect ()
 
 	self.setSize()
 
@@ -479,8 +472,8 @@ class PackageSelectionWindow (InstallWindow):
                 else:
                     checkButton = GtkCheckButton (comp.name)
 
-                checkButton.set_active (comp.selected)
-		checkButton.connect('toggled', self.componentToggled)
+                checkButton.set_active (comp.isSelected())
+		checkButton.connect('toggled', self.componentToggled, comp)
                 self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
 

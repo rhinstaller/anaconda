@@ -14,17 +14,70 @@ XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
 			'XFree86-W32' : 1,	'XFree86-Sun' : 1,
 			'XFree86-SunMono' : 1,	'XFree86-Sun24' : 1 }
 
+# Package selection is complicated. Here are the rules:
+#
+# Calling package.select() forces the package on. No other rules apply.
+# Calling package.unselect() forces the package off. No other rules apply.
+#
+# Else:
+#
+# Each package contains a list of selection chains. Each chain consists
+# of a set of components. If all of the components in any chain are selected,
+# the package is selected.
+#
+# Otherwise, the package is not selected.
+
+CHECK_CHAIN	= 0
+FORCE_SELECT	= 1
+FORCE_UNSELECT	= 2
+
 class Package:
     def __getitem__(self, item):
 	return self.h[item]
 
     def __repr__(self):
-	return self.name
+	return "%s" % self.name
+
+    def select(self):
+	self.state = FORCE_SELECT
+	self.selected = 1
+
+    def unselect(self):
+	self.state = FORCE_UNSELECT
+	self.selected = 0
+
+    def isSelected(self):
+	return self.selected
+
+    def updateSelectionCache(self):
+	if self.state == FORCE_SELECT or self.state == FORCE_UNSELECT:
+	    return
+
+	self.selected = 0
+	for chain in self.chains:
+	    on = 1
+	    for comp in chain:
+		if not comp.isSelected(justManual = 0):
+		    on = 0
+	    if on: 
+		self.selected = 1
+
+    def getState(self):
+	return (self.state, self.selected)
+
+    def setState(self, state):
+	(self.state, self.selected) = state
+
+    def addSelectionChain(self, chain):
+	self.chains.append(chain)
 
     def __init__(self, header):
 	self.h = header
-	self.name = header[rpm.RPMTAG_NAME]
+	self.chains = []
 	self.selected = 0
+	self.state = CHECK_CHAIN
+	self.name = header[rpm.RPMTAG_NAME]
+	self.size = header[rpm.RPMTAG_SIZE]
 
 class HeaderList:
     def selected(self):
@@ -40,6 +93,9 @@ class HeaderList:
 
     def keys(self):
         return self.packages.keys()
+
+    def values(self):
+        return self.packages.values()
 
     def __getitem__(self, item):
 	return self.packages[item]
@@ -81,100 +137,117 @@ class HeaderListFD (HeaderList):
 	hdlist = rpm.readHeaderListFromFD (fd)
 	HeaderList.__init__(self, hdlist)
 
+# A component has a name, a selection state, a list of included components,
+# and a list of packages whose selection depends in some way on this component 
+# being selected. Selection and deselection recurses through included 
+# components.
+#
+# When the component file is parsed, the selection chain rules for the
+# packages are built up. Component selection is used by the packages to
+# determine whether or not they are selected.
+#
+# The selection state consists of a manually selected flag and an included
+# selection count. They are separate to make UI coding easier.
+
 class Component:
     def __len__(self):
-	return len(self.items)
+	return len(self.pkgs)
 
     def __getitem__(self, key):
-	return self.items[key]
+	return self.pkgs[key]
 
     def __repr__(self):
 	return "comp %s" % (self.name)
 
-    def addPackage(self, package):
-	self.items[package] = package
+    def __keys__(self):
+	return self.pkgs.keys()
 
-    def addConditional (self, condition, package):
-        if self.conditional.has_key (condition):
-            self.conditional[condition].append (package)
-        else:
-            self.conditional[condition] = [ package ]
+    def includesPackage(self, pkg):
+	return self.pkgDict.has_key(pkg)
 
-    def addInclude(self, component):
-	self.includes.append(component)
+    def select(self, forInclude = 0):
+	if forInclude:
+	    self.selectionCount = self.selectionCount + 1
+	    if self.manuallySelected or self.selectionCount > 1:
+		# We're already selected -- no need to redo the work
+		return
+	else:
+	    alreadySelected = self.manuallySelected or self.selectionCount
+	    self.manuallySelected = 1
+	    
+	    if alreadySelected:
+		# We're already selected -- no need to redo the work
+		return
+
+	if forInclude:
+	    self.selectionCount = 1
+	else:
+	    self.manuallySelected = 1
+
+	for pkg in self.pkgs:
+	    pkg.updateSelectionCache()
 	
-    def addRequires(self, component):
-	self.requires = component
+	for comp in self.includes:
+	    comp.select(forInclude = 1)
 
-    def conditionalSelect (self, key):
-        for pkg in self.conditional[key]:
-            pkg.selected = 1
+    def isSelected(self, justManual = 0):
+	# don't admit to selection-by-inclusion
+	if justManual:
+	    return self.manuallySelected
 
-    def conditionalUnselect (self, key):
-        for pkg in self.conditional[key]:
-            pkg.selected = 0
+	return self.manuallySelected or (self.selectionCount > 0)
 
-    def select(self, recurse = 1):
-        self.selected = 1
-	for pkg in self.items.keys ():
-	    self.items[pkg].selected = 1
-        # turn on any conditional packages
-        for (condition, pkgs) in self.conditional.items ():
-            if condition.selected:
-                for pkg in pkgs:
-                    pkg.selected = 1
+    def unselect(self, forInclude = 0):
+	if not forInclude and not self.manuallySelected:
+	    # redundant manual deselection
+	    return
+	elif forInclude and not self.selectionCount:
+	    # redundant include deselection
+	    return
 
-        # components that have conditional packages keyed on this
-        # component AND are currently selected have those conditional
-        # packages turned turned on when this component is turned on.
-        if self.dependents:
-            for dep in self.dependents:
-                if dep.selected:
-                    dep.conditionalSelect (self)
-                
-	if recurse:
-	    for n in self.includes:
-		if n.requires:
-		    if n.requires.selected:
-			n.select(recurse)
-	        else:
-		    n.select(recurse)
-		if n.requires:
-		    if n.requires.selected:
-			n.select(recurse)
-	        else:
-		    n.select(recurse)
+	if forInclude:
+	    self.selectionCount = self.selectionCount - 1
+	else:
+	    self.manuallySelected = 0
 
-    def unselect(self, recurse = 1):
-        self.selected = 0
-	for n in self.items.keys ():
-	    self.items[n].selected = 0
+	for pkg in self.pkgs:
+	    pkg.updateSelectionCache()
 
-        # always turn off conditional packages, regardless
-        # if the condition is met or not.
-        for (condition, pkgs) in self.conditional.items ():
-            for pkg in pkgs:
-                pkg.selected = 0
+	for comp in self.includes:
+	    comp.unselect(forInclude = 1)
 
-        # now we must turn off conditional packages in components that
-        # are keyed on this package
-        if self.dependents:
-            for dep in self.dependents:
-                dep.conditionalUnselect (self)
+    def addInclude(self, comp):
+	self.includes.append(comp)
 
-	if recurse:
-	    for n in self.includes:
-		n.unselect(recurse)
+    def addPackage(self, p):
+	self.pkgs.append(p)
+	p.addSelectionChain([self])
+	self.pkgDict[p] = 1
+
+    def addConditionalPackage(self, condComponent, p):
+	self.pkgs.append(p)
+	p.addSelectionChain([self, condComponent])
+	self.pkgDict[p] = 1
+
+    def setDefaultSelection(self):
+	if self.default:
+	    self.select()
+
+    def getState(self):
+	return (self.manuallySelected, self.selectionCount)
+
+    def setState(self, state):
+	(self.manuallySelected, self.selectionCount) = state
 
     def __init__(self, name, selected, hidden = 0):
 	self.name = name
 	self.hidden = hidden
-	self.selected = selected
-	self.items = {}
-        self.conditional = {}
-        self.dependents = []
-	self.requires = None
+	self.default = selected
+	self.pkgs = []
+	self.pkgDict = {}
 	self.includes = []
+	self.manuallySelected = 0
+	self.selectionCount = 0
 
 class ComponentSet:
     def __len__(self):
@@ -186,32 +259,25 @@ class ComponentSet:
 	return self.compsDict[key]
 
     def getSelectionState(self):
-	compsSelected = []
-	pkgsSelected = []
+	compsState = []
 	for comp in self.comps:
-	    if comp.selected:
-		compsSelected.append(comp)
+	    compsState.append((comp, comp.getState()))
 
+	pkgsState = []
 	for pkg in self.packages.list():
-	    if pkg.selected:
-		pkgsSelected.append(pkg)
+	    pkgsState.append((pkg, pkg.getState()))
 
-	return (compsSelected, pkgsSelected)
+	return (compsState, pkgsState)
 
     def setSelectionState(self, pickle):
-	(compsSelected, pkgsSelected) = pickle
+	(compsState, pkgsState) = pickle
 
-        for comp in self.comps:
-            if not comp.hidden: comp.unselect(0)
-	for comp in compsSelected:
-	    comp.select(1)
-	self['Base'].select(1)
+        for (comp, state) in compsState:
+	    comp.setState(state)
 
-	for pkg in self.packages.list():
-	    pkg.selected = 0
-	for pkg in pkgsSelected:
-	    pkg.selected = 1
-
+	for (pkg, state) in pkgsState:
+	    pkg.setState(state)
+	    
     def sizeStr(self):
 	megs = self.size() / 1024 / 1024
 	if (megs >= 1000):
@@ -228,10 +294,11 @@ class ComponentSet:
 	return total
 
     def size(self):
-	total = 0
+	size = 0
 	for pkg in self.packages.list():
-	    if pkg.selected: total = total + pkg['size']
-	return total
+	    if pkg.isSelected(): size = size + pkg['size']
+
+	return size
 
     def keys(self):
 	return self.compsDict.keys()
@@ -350,8 +417,6 @@ class ComponentSet:
 		comp = Component(l, default == '1', hidden)
 	    elif (l == "}"):
                 if conditional:
-		    if comp.conditional.has_key (conditional):
-			conditional.dependents.append (comp)
                     conditional = None
                 else:
                     self.comps.append(comp)
@@ -363,10 +428,13 @@ class ComponentSet:
 		    comp.addInclude(self.compsDict[l])
 		else:
                     if conditional:
-                        comp.addConditional (conditional, packages[l])
+			# Let both components involved in this conditional
+			# know what's going on.
+                        comp.addConditionalPackage (conditional, packages[l])
+			conditional.addConditionalPackage (comp, packages[l])
                     else:
                         comp.addPackage(packages[l])
-                    
+
         everything = Component("Everything", 0, 0)
         for package in packages.keys ():
 	    if (packages[package]['name'] != 'kernel' and
@@ -376,6 +444,9 @@ class ComponentSet:
 		everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything
+
+	for comp in self.comps:
+	    comp.setDefaultSelection()
         
     def __repr__(self):
 	s = ""
@@ -383,9 +454,9 @@ class ComponentSet:
 	    s = s + "{ " + n.name + " [";
 	    for include in n.includes:
 		s = s + " @" + include.name
-		
+
 	    for package in n:
-		s = s + " " + package
+		s = s + " " + str(package)
 	    s = s + " ] } "
 
 	return s

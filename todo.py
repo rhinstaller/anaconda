@@ -442,11 +442,6 @@ class ToDo:
 	if (not self.comps):
 	    self.getHeaderList()
 	    self.comps = self.method.readComps(self.hdList)
-	    for comp in self.comps:
-		if comp.selected:
-		    comp.select (1)
-            self.comps['Base'].select(1)
-
             self.updateInstClassComps()
             
 	return self.comps
@@ -454,16 +449,17 @@ class ToDo:
     def updateInstClassComps(self):
 	# don't load it just for this
 	if (not self.comps): return
+
 	group = self.instClass.getGroups()
 	packages = self.instClass.getPackages()
 	if (group == None and packages == None): return 0
 	for n in self.comps.keys():
-	    self.comps[n].unselect(0)
+	    self.comps[n].unselect()
 
-	self.comps['Base'].select(1)
+	self.comps['Base'].select()
 	if group:
 	    for n in group:
-		self.comps[n].select(1)
+		self.comps[n].select()
 
 	if packages:
 	    for n in packages:
@@ -599,7 +595,7 @@ class ToDo:
         else:
             ts = rpm.TransactionSet()
             
-        self.comps['Base'].select (1)
+        self.comps['Base'].select ()
 
 	for p in self.hdList.packages.values ():
             if p.selected:
@@ -743,7 +739,7 @@ class ToDo:
         # always upgrade all packages in Base package group
         # XXX, well - people say this isn't a good idea, so we won't
         # do it anymore.
-#	self.comps['Base'].select(1)
+#	self.comps['Base'].select()
 
         hasX = 0
         hasgmc = 0
@@ -782,7 +778,7 @@ class ToDo:
                 rec = db.findbyname (package.name)
                 if not rec:
                     log ("GNOME: Adding %s", package)
-                    self.comps['GNOME'].items[package].selected = 1
+                    self.comps['GNOME'].items[package].select()
             
         del db
         self.fstab.umountFilesystems (self.instPath)

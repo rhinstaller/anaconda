@@ -6,23 +6,24 @@ from translate import _
 
 class PackageGroupWindow:
 
+    # Unfortunately, the checkboxtree is callback-happy
+
     def size(self, comps):
 	return _("Total install size: %s") % comps.sizeStr()
     
     def updateSize(self, args):
-	(label, todo, ct) = args
+	(label, todo, ct ) = args
 
-        # turn off all the comps
-        for comp in todo.comps:
-            if not comp.hidden: comp.unselect(0)
+	comp = ct.getCurrent()
+	list = ct.getSelection()
 
-	# it's a shame component selection sucks
-#        comps['Base'].select (1)
-        todo.updateInstClassComps()
-
-        # turn on all the comps we selected
-        for comp in ct.getSelection():
-            comp.select (1)
+	try:
+	    list.index(comp)
+	    if comp.isSelected(justManual = 1): return
+	    comp.select()
+	except ValueError:
+	    if not comp.isSelected(justManual = 1): return
+	    comp.unselect()
 
 	label.setText(self.size(todo.comps))
 
@@ -47,7 +48,7 @@ class PackageGroupWindow:
             else:
                 show = not comp.hidden
             if show:
-                ct.append(_(comp.name), comp, comp.selected)
+                ct.append(_(comp.name), comp, comp.isSelected(justManual = 1))
 
         cb = Checkbox (_("Select individual packages"), individual.get ())
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
@@ -123,7 +124,12 @@ class IndividualPackageWindow:
 	    return " "
 
     def ctSet(self, header, isOn):
-	header.selected = isOn
+	isSelected = header.isSelected()
+	if isSelected and not isOn:
+	    header.unselect()
+	elif not isSelected and isOn:
+	    header.select()
+
 	key = header[rpm.RPMTAG_GROUP]
 	if isOn:
 	    self.groupSize[key] = self.groupSize[key] + header[rpm.RPMTAG_SIZE]
@@ -146,16 +152,16 @@ class IndividualPackageWindow:
 	data = self.ct.getCurrent()
 	(branch, isOn) = self.ct.getEntryValue(data)
 	if not branch:
-	    if data.selected and not isOn:
+	    if data.isSelected() and not isOn:
 		self.ctSet(data, 0)
-	    elif isOn and not data.selected:
+	    elif isOn and not data.isSelected():
 		self.ctSet(data, 1)
 	else:
 	    for header in self.groups[data]:
 		(branch, isOn) = self.ct.getEntryValue(header)
-		if header.selected and not isOn:
+		if header.isSelected() and not isOn:
 		    self.ctSet(header, 0)
-		elif isOn and not header.selected:
+		elif isOn and not header.isSelected():
 		    self.ctSet(header, 1)
 
     def __call__(self, screen, todo, individual):
@@ -180,7 +186,7 @@ class IndividualPackageWindow:
         for key in todo.hdList.packages.keys():
             header = todo.hdList.packages[key]
             # don't show this package if it is in the base group
-            if not todo.comps["Base"].items.has_key (header):
+            if not todo.comps["Base"].includesPackage (header):
 		group = header[rpm.RPMTAG_GROUP]
 		if not self.groups.has_key (group):
 		    self.groups[group] = []
@@ -190,7 +196,7 @@ class IndividualPackageWindow:
 		self.groups[group].append (header)
 		self.length = max((self.length, len(header[rpm.RPMTAG_NAME])))
 		self.groupCount[group] = self.groupCount[group] + 1
-		if header.selected:
+		if header.isSelected():
 		    self.groupSize[group] = self.groupSize[group] + header[rpm.RPMTAG_SIZE]
 		    self.groupSelCount[group] = self.groupSelCount[group] + 1
 	    else:
@@ -217,12 +223,12 @@ class IndividualPackageWindow:
 	    name = "[%s] %-*s %s" % (self.printNum(key), self.length - 1, key, self.printSize(self.groupSize[key]))
 	    ct.append (name, key)
 	    for header in self.groups[key]:
-		if header.selected:
+		if header.isSelected():
 		    name = "%-*s %s" % (self.length, header[rpm.RPMTAG_NAME], self.printSize(header[rpm.RPMTAG_SIZE]))
 		else:
 		    name = "%-*s" % (self.length + 7, header[rpm.RPMTAG_NAME])
 		ct.addItem (name, (index, snackArgs["append"]),
-                            header, header.selected)
+                            header, header.isSelected())
             index = index + 1
                 
 	ct.setCallback(self.ctCallback)
