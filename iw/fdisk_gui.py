@@ -13,8 +13,8 @@ class FDiskWindow (InstallWindow):
         ics.readHTML ("fdisk")
 
     def getNext(self):
-
         # reread partitions
+        self.diskset.refreshDevices()
         self.partrequests.setFromDisk(self.diskset)
 
         return None
@@ -29,10 +29,12 @@ class FDiskWindow (InstallWindow):
         except:
             # XXX fixme
             pass
+
         self.ics.readHTML ("fdisk")
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
 #        self.ics.setHelpEnabled (1)
+
 
     def button_clicked (self, widget, drive):
         zvt = ZvtTerm (80, 24)
@@ -63,7 +65,7 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     # FDiskWindow tag="fdisk"
-    def getScreen (self, useFdisk, diskset, partrequests):
+    def getScreen (self, diskset, partrequests):
         
         self.diskset = diskset
         self.partrequests = partrequests
@@ -74,7 +76,12 @@ class FDiskWindow (InstallWindow):
         box = GtkVButtonBox ()
         label = GtkLabel (_("Select drive to run fdisk on"))
 
-        for drive in self.diskset.driveList():
+        drives =  self.diskset.driveList()
+        
+        # close all references we had to the diskset
+        self.diskset.closeDevices()
+
+        for drive in drives:
             button = GtkButton (drive)
             button.connect ("clicked", self.button_clicked, drive)
             box.add (button)

@@ -22,15 +22,15 @@ from translate import _, cat, N_
 from constants_text import *
 
 class fdiskPartitionWindow:
-    def __call__(self, screen, useFdisk, diskset, partrequests):
-        if not useFdisk:
-            return INSTALL_NOOP
-
+    def __call__(self, screen, diskset, partrequests):
         choices = []
         drives = diskset.disks.keys()
         drives.sort()
         for drive in drives:
             choices.append("%s" %(drive))
+
+        # close all references we had to the diskset
+        diskset.closeDevices()
 
         button = None
         while button != "done" and button != "back":
@@ -63,7 +63,9 @@ class fdiskPartitionWindow:
                 except:
                     pass
 
-            partrequests.setFromDisk(diskset)
+
+        diskset.refreshDevices()
+        partrequests.setFromDisk(diskset)
 
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK

@@ -941,6 +941,10 @@ class DiskSet:
         self.disks = {}
         self.openDevices()
 
+    def closeDevices (self):
+        for disk in self.disks.keys():
+            del self.disks[disk]
+
     def openDevices (self):
         if self.disks:
             return

@@ -55,7 +55,7 @@ installSteps = [
     ( "partitionmethodsetup", partitionMethodSetup, ("id.partitions", "dispatch") ),
     ( "autopartition", ("id.diskset", "id.partitions", "intf", "dispatch") ),
     ( "autopartitionexecute", doAutoPartition, ("dir", "id.diskset", "id.partitions", "intf")),
-    ( "fdisk", ("id.useFdisk", "id.diskset", "id.partitions")),
+    ( "fdisk", ("id.diskset", "id.partitions")),
     ( "partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),
     ( "upgrademount", upgradeMountFilesystems, ("intf", "id.upgradeRoot",
                                                 "id.fsset", "instPath")),
