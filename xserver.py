@@ -74,9 +74,7 @@ def startX():
 
     x = XF86Config (mouse)
     x.probe ()
-    if x.server and len (x.server) >= 3 and x.server[0:3] == 'Sun':
-	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
-    elif x.server:
+    if x.server:
         serverPath = '/usr/X11R6/bin/' + x.server
     elif iutil.getArch() == "sparc":
   	raise RuntimeError, "Unknown card"

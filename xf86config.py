@@ -122,7 +122,7 @@ Section "Keyboard"
 # If you'd like to switch the positions of your capslock and
 # control keys, use:
 #    XkbOptions  "ctrl:nocaps"
-     XkbRules    "%(XkbOptions)s"
+     XkbRules    "%(XkbRules)s"
      XkbModel    "%(XkbModel)s"
      XkbLayout   "%(XkbLayout)s"
      XkbVariant  "%(XkbVariant)s"
@@ -441,7 +441,7 @@ EndSection
 Section "Module"
         Load  "dbe"
         Load  "extmod"
-        Load  "fbdevhw"
+	%(nonSparcMods)s
         Load  "pex5"
         Load  "record"
         Load  "xie"
@@ -451,6 +451,41 @@ EndSection
 Section "InputDevice"
         Identifier  "Keyboard0"
         Driver      "keyboard"
+
+%(autorepeat)s
+
+# when using XQUEUE, comment out the above line, and uncomment the
+# following line
+#	Option	"Protocol"	"Xqueue"
+
+# Specify which keyboard LEDs can be user-controlled (eg, with xset(1))
+#	Option	"Xleds"		"1 2 3"
+
+# To disable the XKEYBOARD extension, uncomment XkbDisable.
+#	Option	"XkbDisable"
+
+# To customise the XKB settings to suit your keyboard, modify the
+# lines below (which are the defaults).  For example, for a non-U.S.
+# keyboard, you will probably want to use:
+#	Option	"XkbModel"	"pc102"
+# If you have a US Microsoft Natural keyboard, you can use:
+#	Option	"XkbModel"	"microsoft"
+#
+# Then to change the language, change the Layout setting.
+# For example, a german layout can be obtained with:
+#	Option	"XkbLayout"	"de"
+# or:
+#	Option	"XkbLayout"	"de"
+#	Option	"XkbVariant"	"nodeadkeys"
+#
+# If you'd like to switch the positions of your capslock and
+# control keys, use:
+#	Option	"XkbOptions"	"ctrl:nocaps"
+	Option	"XkbRules"	"%(XkbRules)s"
+	Option	"XkbModel"	"%(XkbModel)s"
+	Option	"XkbLayout"	"%(XkbLayout)s"
+	Option	"XkbVariant"	"%(XkbVariant)s"
+	Option	"XkbOptions"	"%(XkbOptions)s"
 EndSection
 
 Section "InputDevice"
@@ -723,6 +758,8 @@ class XF86Config:
 	    if device and not self.device:
 		self.device = device
 		self.primary = len(self.vidCards)
+	    if len (server) > 9 and server[0:10] == "Server:Sun" and descr[0:4] == "Sun|":
+		server = "Card:Sun " + descr[4:]
             if len (server) > 5 and server[0:5] == "Card:":
                 self.vidCards.append (self.cards (server[5:]))
             if len (server) > 7 and server[0:7] == "Server:":
@@ -968,9 +1005,9 @@ Section "Screen"
                  "monitorVert"        : self.monVert,
                  "files"              : self.files }
 	if iutil.getArch() == "sparc":
-	    info["autorepeat"] = "#   AutoRepeat  200 20"
+	    info["autorepeat"] = "#   AutoRepeat	200 20"
         else:
-            info["autorepeat"] = "    AutoRepeat  500 5"
+            info["autorepeat"] = "    AutoRepeat	500 5"
 
         return XF86Config_template % info
         
@@ -999,9 +1036,19 @@ Section "Screen"
                  "monitorVert"  : self.monVert,
                  "files"        : self.files,
                  "screenModes"  : screens,
-                 "ia64Mods"     : ""
-                 }
+                 "ia64Mods"     : "",
+		 "nonSparcMods" : "fbdevhw",
+                 "XkbRules"     : self.keyRules,
+                 "XkbModel"     : self.keyModel,
+                 "XkbLayout"    : self.keyLayout,
+                 "XkbVariant"   : self.keyVariant,
+                 "XkbOptions"   : self.keyOptions }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
+	if iutil.getArch() == "sparc":
+	    data["nonSparcMods"] = ""
+	    data["autorepeat"] = '#	Option	"AutoRepeat"	"200 20"'
+        else:
+            data["autorepeat"] = '#	Option	"AutoRepeat"	"500 5"'
 	if iutil.getArch() == "ia64":
 	    data["ia64Mods"] = """
         Load  "mfb"
@@ -1014,8 +1061,8 @@ Section "Screen"
             data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
         else:
             raise RuntimeError, "Don't know which XFree86-4.0 video driver to use!"
-        return XF86Config_4_template % data
-            
+	return XF86Config_4_template % data
+
 if __name__ == "__main__":
     sys.path.append ("kudzu")
     x = XF86Config ()

@@ -1480,22 +1480,11 @@ class ToDo:
                 pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
-		if self.x.server[0:3] == 'Sun':
-                    try:
-                        os.unlink(self.instPath + "/etc/X11/X")
-                    except:
-                        pass
-		    script = open(self.instPath + "/etc/X11/X","w")
-		    script.write("#!/bin/bash\n")
-		    script.write("exec /usr/X11R6/bin/Xs%s -fp unix/:-1 $@\n" % self.x.server[1:])
-		    script.close()
-		    os.chmod(self.instPath + "/etc/X11/X", 0755)
-		else:
-                    if os.access (self.instPath + "/etc/X11/X", os.R_OK):
-                        os.rename (self.instPath + "/etc/X11/X",
-                                   self.instPath + "/etc/X11/X.rpmsave")
-		    os.symlink ("../../usr/X11R6/bin/" + self.x.server,
-				self.instPath + "/etc/X11/X")
+		if os.access (self.instPath + "/etc/X11/X", os.R_OK):
+		    os.rename (self.instPath + "/etc/X11/X",
+			       self.instPath + "/etc/X11/X.rpmsave")
+		os.symlink ("../../usr/X11R6/bin/" + self.x.server,
+			    self.instPath + "/etc/X11/X")
 
 		self.x.write (self.instPath + "/etc/X11")
             self.setDefaultRunlevel ()
