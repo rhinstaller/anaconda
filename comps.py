@@ -263,6 +263,15 @@ class Component:
         if toplevel:
             self.set.updateSelections()
 
+    def includeMembers(self):
+        for name in self.includes:
+            if not self.set.has_key(name):
+                log ("warning, unknown toplevel component %s "
+                     "included by component %s", name, self.name)
+            self.set[name].select(forInclude = 0, toplevel = 0)
+
+        self.set.updateSelections()
+
     def isSelected(self, justManual = 0):
         if self.conditionalKey:
             if not self.set.has_key(self.conditionalKey):
