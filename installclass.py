@@ -72,7 +72,8 @@ class InstallClass:
 	self.nameserver = nameserver
 
     def getNetwork(self):
-	return (bootProto, ip, netmask, gateway, nameserver)
+	return (self.bootProto, self.ip, self.netmask, self.gateway, 
+		self.nameserver)
 
     def __init__(self):
 	self.skipSteps = {}
@@ -85,10 +86,10 @@ class InstallClass:
 	self.rootPassword = None
 	self.installType = None
 	self.bootProto = None
-	self.ip = None
-	self.netmask = None
-	self.gateway = None
-	self.nameserver = None
+	self.ip = ""
+	self.netmask = ""
+	self.gateway = ""
+	self.nameserver = ""
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
