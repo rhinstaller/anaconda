@@ -1664,7 +1664,8 @@ class RAIDDevice(Device):
 
     # members is a list of Device based instances that will be
     # a part of this raid device
-    def __init__(self, level, members, minor=-1, spares=0, existing=0):
+    def __init__(self, level, members, minor=-1, spares=0, existing=0,
+                 chunksize = 64):
         Device.__init__(self)
         self.level = level
         self.members = members
@@ -1672,6 +1673,7 @@ class RAIDDevice(Device):
         self.numDisks = len(members) - spares
         self.isSetup = existing
         self.doLabel = None
+        self.chunksize = chunksize
 
         if len(members) < spares:
             raise RuntimeError, ("you requiested more spare devices "
@@ -1715,7 +1717,7 @@ class RAIDDevice(Device):
                                                                 self.device,)
         entry = entry + "raid-level		    %d\n" % (self.level,)
         entry = entry + "nr-raid-disks		    %d\n" % (self.numDisks,)
-        entry = entry + "chunk-size		    64k\n"
+        entry = entry + "chunk-size		    %d\n" %(self.chunksize,)
         entry = entry + "persistent-superblock	    1\n"
         entry = entry + "nr-spare-disks		    %d\n" % (self.spares,)
         i = 0

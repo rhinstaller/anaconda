@@ -541,13 +541,14 @@ class RaidRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
                  raidspares = None, raidminor = None,
-                 preexist = 0):
+                 preexist = 0, chunksize = None):
         """Create a new RaidRequestSpec object.
 
         fstype is the fsset filesystem type.
         format is whether or not the partition should be formatted.
         mountpoint is the mountpoint.
         raidlevel is the raidlevel (as 'RAID0', 'RAID1', 'RAID5').
+        chunksize is the chunksize which should be used.
         raidmembers is list of ids corresponding to the members of the RAID.
         raidspares is the number of spares to setup.
         raidminor is the minor of the device which should be used.
@@ -569,6 +570,7 @@ class RaidRequestSpec(RequestSpec):
         self.raidmembers = raidmembers
         self.raidspares = raidspares
         self.raidminor = raidminor
+        self.chunksize = chunksize
 
     def __str__(self):
         if self.fstype:
@@ -602,7 +604,8 @@ class RaidRequestSpec(RequestSpec):
         self.dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
                                     raidmems, minor = self.raidminor,
                                     spares = self.raidspares,
-                                    existing = self.preexist)
+                                    existing = self.preexist,
+                                    chunksize = self.chunksize)
         return self.dev
 
     def getActualSize(self, partitions, diskset):

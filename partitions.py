@@ -146,6 +146,11 @@ class Partitions:
             (theDev, devices, level, numActive) = raidDev
 
             level = "RAID%s" %(level,)
+            try:
+                chunk = isys.getRaidChunkFromDevice(theDev)
+            except Exception, e:
+                log("couldn't get chunksize of %s: %s" %(theDev, e))
+                chunk = None
             
             # is minor always mdN ?
             minor = int(theDev[2:])
@@ -180,7 +185,8 @@ class Partitions:
                                                 raidminor = minor,
                                                 raidspares = spares,
                                                 mountpoint = mnt,
-                                                preexist = 1)
+                                                preexist = 1,
+                                                chunksize = chunk)
             spec.size = spec.getActualSize(self, diskset)
             self.addRequest(spec)
 

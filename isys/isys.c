@@ -75,6 +75,7 @@ static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doLoChangeFd(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
+static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
@@ -118,6 +119,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
     { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
     { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
+    { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
     { "lochangefd", (PyCFunction) doLoChangeFd, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
@@ -960,6 +962,39 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     return Py_BuildValue("(iiiiiii)", sb.major_version, sb.minor_version,
 			 sb.set_magic, sb.level, sb.nr_disks,
 			 sb.raid_disks, sb.md_minor);
+}
+
+static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args) {
+    int fd;
+    unsigned long size;
+    struct md_superblock_s sb;
+
+    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
+
+    if (ioctl(fd, BLKGETSIZE, &size)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    /* put the size in 1k blocks */
+    size >>= 1;
+
+    if (lseek64(fd, ((off64_t) 1024) * (off64_t) MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    } 
+
+    if (read(fd, &sb, sizeof(sb)) != sizeof(sb)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (sb.md_magic != MD_SB_MAGIC) {
+	PyErr_SetString(PyExc_ValueError, "bad md magic on device");
+	return NULL;
+    }
+
+    return Py_BuildValue("i", sb.chunk_size / 1024);
 }
 
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args) {

@@ -87,6 +87,15 @@ def raidsbFromDevice(device):
         os.close(fd)
     return rc
 
+def getRaidChunkFromDevice(device):
+    fd = os.open(device, os.O_RDONLY)
+    rc = 64
+    try:
+        rc = _isys.getraidchunk(fd)
+    finally:
+        os.close(fd)
+    return rc
+
 def losetup(device, file, readOnly = 0):
     if readOnly:
 	mode = os.O_RDONLY
