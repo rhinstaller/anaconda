@@ -69,8 +69,8 @@ class PartitionWindow:
     def __init__(self):
         self.rc = 0
 
-    def run(self, rootPath):
-	if (rootPath): return -2
+    def run(self, todo):
+	if (todo.runLive): return -2
 
         window = GtkWindow()
         window.set_border_width(10)
@@ -187,12 +187,12 @@ class InstallInterface:
     def popWaitWindow(self, lock):
 	lock.release()
 
-    def run(self, hdlist, rootPath):
+    def run(self, todo):
         rc_parse("gtkrc")
 
         steps = [
             ["Welcome", WelcomeWindow, ()],
-            ["Partition", PartitionWindow, (rootPath,)]
+            ["Partition", PartitionWindow, (todo,)]
         ]
 
         step = 0
