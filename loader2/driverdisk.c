@@ -29,6 +29,7 @@
 #include "modules.h"
 #include "moduledeps.h"
 #include "moduleinfo.h"
+#include "windows.h"
 
 #include "../isys/isys.h"
 #include "../isys/imount.h"
@@ -107,6 +108,8 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
     sprintf(file, "%s/pcitable", mntpt);
     pciReadDrivers(file);
+
+    newtPopWindow();
 
     disknum++;
     return 0;
