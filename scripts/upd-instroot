@@ -104,7 +104,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted
 	 busybox-anaconda rpm-python anaconda-help booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python rdate glib2
-	 elfutils-libelf bogl-bterm"
+	 elfutils-libelf bogl-bterm db1 db2"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -124,56 +124,65 @@ fi
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
-
+#
+# The packages in this list are needed for the graphical installer to run
+# 
+# Extra stuff we want for rescue mode should go in PACKAGESRESCUE
+#
 PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts gtk2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
-           XFree86-xfs e2fsprogs coreutils glibc glibc-common rsh less
-           ftp readline gzip popt specspo util-linux rpm 
-           open grep net-tools traceroute tar procps sed
-           ncurses bash cpio mt-st iputils
+           XFree86-xfs e2fsprogs coreutils glibc glibc-common
+           readline popt specspo util-linux rpm 
+           grep procps ncurses bash cpio
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
-           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pciutils pam 
+           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
            libgnomecanvas libart_lgpl vte
-           anaconda-images anaconda-help hdparm XFree86-base-fonts
+           anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig expat redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data"
 
+#
+# stuff ONLY included for rescue mode
+#
+# these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
+#
+PACKAGESRESCUE="findutils ftp gzip iputils less modutils mtools mt-st 
+                net-tools open pciutils pine rsh sed traceroute tar"
+
+# turn off options we dont want, ie. set package list to something harmless
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
+    PACKAGESRESCUE="bash"
 fi
 
-PACKAGES="$PACKAGES db1 db2"
-if [ $ARCH != ia64 ]; then
-    PACKAGESGR="$PACKAGESGR mtools pine modutils"
-fi
-
+#
+# add bootloader for particular arch
+#
 if [ $ARCH = sparc ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mach64 tilo silo"
+    PACKAGESGR="$PACKAGESGR tilo silo"
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-8514 XFree86-AGX
-	       XFree86-FBDev XFree86-I128 XFree86-Mach32
-	       XFree86-Mach64 XFree86-Mach8 XFree86-Mono XFree86-P9000
-	       XFree86-S3 XFree86-S3V XFree86-SVGA XFree86-VGA16
-	       XFree86-W32 syslinux" 
+    PACKAGESGR="$PACKAGESGR syslinux" 
 fi
 
 if [ $ARCH = alpha ]; then
-    PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mono XFree86-P9000
-                XFree86-S3 XFree86-SVGA aboot"
+    PACKAGESGR="$PACKAGESGR aboot"
 fi
 
 if [ $ARCH = ia64 ]; then
     PACKAGESGR="$PACKAGESGR elilo"
 fi
 
+#
+# special packages for particular arches
+#
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
 	sed net-tools inetd openssh openssh-server coreutils login 
@@ -185,6 +194,15 @@ if [ $ARCH = ppc ]; then
     PACKAGESGR="$PACKAGESGR fbset"
 fi
 
+#
+# KEEPFILE is all files to keep from the packages in PACKAGES
+#
+# This is what is present in http, ftp, and hard drive installs, and is
+# supposed to be a small image because these methods keep it in RAM.
+#
+# It also is the base on which the other install images build on top of,
+# so if something is needed by all images it should go here
+#
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
@@ -382,7 +400,6 @@ bin/login
 bin/ksh
 bin/cat
 bin/chmod
-bin/sed
 bin/sort
 bin/mount
 bin/umount
@@ -413,7 +430,17 @@ usr/X11R6/bin/xauth
 EOF
 fi
       
-
+#
+# KEEPFILEGR is all files to keep from the packages in PACKAGESGR
+#
+# This defines the files in addition to KEEPFILE that make up the install
+# images for NFS and CD/DVD based installs.  This image is not loaded into
+# memory so it can be considerably larger.
+#
+# The rescue mode of anaconda uses these files as well as those defined
+# by KEEPFILERESCUE below.  The total size of this image should be
+# under the size of the miniature CD used for the rescue CD (around 68MB).
+#
 KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
@@ -427,23 +454,17 @@ bin/dd
 bin/df
 bin/du
 bin/grep
-bin/gunzip
-bin/gzip
 bin/ln
 bin/ls
 bin/mkdir
-bin/mt
 bin/mv
-bin/ping
 bin/ps
 bin/rm
 bin/rpm
 bin/sed
 bin/sync
-bin/tar
 bin/touch
 bin/umount
-bin/zcat
 boot/*.b
 boot/bootlx
 etc/fb.modes
@@ -455,7 +476,6 @@ etc/fonts/*
 $LIBDIR/libnss_dns*
 $LIBDIR/libpam*
 $LIBDIR/libproc*
-sbin/depmod
 sbin/debugfs
 sbin/e2fsck
 sbin/e2label
@@ -464,26 +484,9 @@ sbin/fsck
 sbin/fsck.ext2
 sbin/fsck.ext3
 sbin/fsck.jfs
-sbin/ifconfig
-sbin/insmod
-sbin/lsmod
-sbin/lspci
-sbin/modprobe
 sbin/parted
-sbin/rmmod
-sbin/route
 sbin/silo
 sbin/tune2fs
-usr/X11R6/bin/XF86_3DLabs
-usr/X11R6/bin/XF86_FBDev
-usr/X11R6/bin/XF86_I128
-usr/X11R6/bin/XF86_Mach32
-usr/X11R6/bin/XF86_Mach64
-usr/X11R6/bin/XF86_S3
-usr/X11R6/bin/XF86_S3V
-usr/X11R6/bin/XF86_SVGA
-usr/X11R6/bin/XF86_TGA
-usr/X11R6/bin/XF86_VGA16
 usr/X11R6/bin/XFree86
 usr/X11R6/bin/Xsun
 usr/X11R6/bin/Xsun24
@@ -516,44 +519,14 @@ usr/X11R6/$LIBDIR/libXt*
 usr/X11R6/$LIBDIR/modules/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
-usr/bin/ftp
 usr/bin/fc-cache
 usr/bin/gtk-query*
 usr/bin/gdk-pixbuf-query-loaders
 usr/bin/head
-usr/bin/less
 usr/bin/lsattr*
 usr/bin/maketilo
-usr/bin/mattrib
-usr/bin/mbadblocks
-usr/bin/mcd
-usr/bin/mcopy
-usr/bin/mdel
-usr/bin/mdeltree
-usr/bin/mdir
-usr/bin/mdu
-usr/bin/mformat
-usr/bin/minfo
 usr/bin/mini-wm
-usr/bin/mlabel
-usr/bin/mmd
-usr/bin/mmount
-usr/bin/mmove
-usr/bin/mpartition
-usr/bin/mrd
-usr/bin/mread
-usr/bin/mren
-usr/bin/mshowfat
-usr/bin/mtools
-usr/bin/mtype
-usr/bin/mwrite
-usr/bin/mzip
-usr/bin/open
 usr/bin/pango*
-usr/bin/pico
-usr/bin/rcp
-usr/bin/rlogin
-usr/bin/rsh
 usr/bin/syslinux
 usr/bin/tac
 usr/bin/tail
@@ -607,7 +580,6 @@ usr/sbin/ddcprobe
 usr/sbin/fbset
 usr/sbin/gnome-pty-helper
 usr/sbin/smartctl
-usr/sbin/traceroute
 usr/share/anaconda/*
 usr/share/fonts/bitmap-fonts/fangsongti*
 usr/share/fonts/default/Type1/n019003l*
@@ -662,14 +634,86 @@ usr/share/fonts/ISO8859-2/100dpi/fonts*
 EOF
 fi
 
+#
+# KEEPFILERESCUE is all files to keep from the packages in PACKAGESRESCUE
+#
+# This defines the files in addition to KEEPFILE and KEEPFILEGR that make up 
+# the install images for NFS and CD/DVD based rescue mode installs.  This 
+# image is not loaded into memory so it can be considerably larger.
+#
+# NOTE: hd, ftp, and http rescue mode use and image based on KEEPFILE since
+#       it has to be much smaller due to memory usage.
+#
+KEEPFILERESCUE=/tmp/keepfile.$$
+cat > $KEEPFILERESCUE <<EOF
+bin/gunzip
+bin/gzip
+bin/mt
+bin/ping
+bin/sed
+bin/tar
+bin/zcat
+sbin/arp
+sbin/depmod
+sbin/ifconfig
+sbin/insmod
+sbin/lsmod
+sbin/lspci
+sbin/modinfo
+sbin/modprobe
+sbin/netstat
+sbin/rmmod
+sbin/route
+usr/bin/find
+usr/bin/ftp
+usr/bin/less
+usr/bin/mattrib
+usr/bin/mbadblocks
+usr/bin/mcd
+usr/bin/mcopy
+usr/bin/mdel
+usr/bin/mdeltree
+usr/bin/mdir
+usr/bin/mdu
+usr/bin/mformat
+usr/bin/minfo
+usr/bin/mlabel
+usr/bin/mmd
+usr/bin/mmount
+usr/bin/mmove
+usr/bin/mpartition
+usr/bin/mrd
+usr/bin/mread
+usr/bin/mren
+usr/bin/mshowfat
+usr/bin/mtools
+usr/bin/mtype
+usr/bin/mzip
+usr/bin/open
+usr/bin/pico
+usr/bin/rcp
+usr/bin/rlogin
+usr/bin/rsh
+usr/bin/xargs
+usr/sbin/traceroute
+EOF
+
 echo "Assembling package list..."
 RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
-RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR")
+RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR $PACKAGESRESCUE")
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
 rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib
 ln -s /tmp $DESTGR/var/lib/xkb 
 
+#
+# concat KEEPFILEGR and KEEPFILERESCUE lists
+#
+cat $KEEPFILERESCUE >> $KEEPFILEGR
+
+#
+# filter paths in keepfile lists for use by cpio
+#
 for file in $KEEPFILE $KEEPFILEGR; do
    cat $file | awk '{print $1 "\n./" $1}' > $file-
    mv -f $file- $file
@@ -701,10 +745,6 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 	mv $i/bin/sort $i/bin/sort_save
 	mv $i/bin/mknod $i/bin/mknod_save
     done
-fi
-
-if [ $ARCH = sparc ]; then
-    rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
 fi
 
 # Remove locales unused during the install
@@ -798,7 +838,7 @@ if [ -n "$NEEDGR" ]; then
     mv $DESTGR/etc/fonts/fonts.conf.foo $DESTGR/etc/fonts/fonts.conf
 fi
 
-rm -f $KEEPFILE $KEEPFILEGR
+rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
 echo -n "Scrubbing trees..."
 for p in $DEST $DESTGR; do
