@@ -264,14 +264,16 @@ class IndividualPackageSelectionWindow (InstallWindow):
             header = self.todo.hdList.packages[key]
             if not groups.has_key (header[rpm.RPMTAG_GROUP]):
                 groups[header[rpm.RPMTAG_GROUP]] = []
-            groups[header[rpm.RPMTAG_GROUP]].append (header)
+            # don't display package if it is in the Base group
+            if not self.todo.comps["Base"].items.has_key (header):
+                groups[header[rpm.RPMTAG_GROUP]].append (header)
 
         keys = groups.keys ()
         keys.sort ()
         self.flat_groups = groups
         index = 0
 
-        # now insert the groups into the list, then each group s packages
+        # now insert the groups into the list, then each group's packages
         # after sorting the list
         def cmpHdrName(first, second):
             if first[rpm.RPMTAG_NAME] < second[rpm.RPMTAG_NAME]:
