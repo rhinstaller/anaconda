@@ -98,7 +98,8 @@ class KickstartBase(BaseInstallClass):
     def doFirewall(self, id, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp', 'enabled',
-		  'port=', 'high', 'medium', 'disabled', 'trust=' ])
+                  'enable' 'port=', 'high', 'medium', 'disabled', 'disable',
+                  'trust=' ])
 		  
 	ssh = 0
 	telnet = 0
@@ -124,9 +125,9 @@ class KickstartBase(BaseInstallClass):
 	    elif str == '--high' or str == '--medium':
                 log("used deprecated firewall option: %s" %(str[2:],))
 		enable = 1
-	    elif str == '--enabled':
+	    elif str == '--enabled' or str == "--enable":
 		enable = 1
-	    elif str == '--disabled':
+	    elif str == '--disabled' or str == "--disable":
 		enable = 0
 	    elif str == '--trust':
 		trusts.append(arg)
@@ -329,7 +330,8 @@ class KickstartBase(BaseInstallClass):
 
     def doFirstboot(self, id, args):
         (args, extra) = isys.getopt(args, '',
-                                    ['reconfig', 'enable', 'disable'])
+                                    ['reconfig', 'enable', 'enabled'
+                                     'disable', 'disabled'])
 
         fb = FIRSTBOOT_SKIP
 
@@ -337,9 +339,9 @@ class KickstartBase(BaseInstallClass):
 	    (str, arg) = n
 	    if str == '--reconfig':
                 fb = FIRSTBOOT_RECONFIG
-            elif str == '--enable':
+            elif str == '--enable' or str == "--enabled":
                 fb = FIRSTBOOT_DEFAULT
-            elif str == '--disable':
+            elif str == '--disable' or str == "--disabled":
                 fb = FIRSTBOOT_SKIP
 
         id.firstboot = fb
