@@ -26,12 +26,19 @@ import getopt
 import time
 import types
 
-def stamp(path, releasestr, num, arch, startedAt):
+def stamp(path, releasestr, num, arch, startedAt, dirInfo):
+    try:
+        os.unlink("%s/.discinfo" % path)
+    except:
+        pass
     f = open("%s/.discinfo" % path, "w")
     f.write("%f\n" % startedAt)
     f.write("%s\n" % releasestr)
     f.write("%s\n" % arch)
     f.write("%s\n" % num)
+    if dirInfo is not None:
+        for item in dirInfo:
+            f.write("%s\n" % item)
     f.close()
 
 def moveFiles(srcDir, destDir, files):
@@ -101,8 +108,6 @@ def spaceUsed(path):
     os.path.walk (path, foo.traverse, None)
     return foo.total()
 
-startedAt = time.time()
-
 fns = {}
 
 (args, extra) = getopt.getopt(sys.argv[1:], '', [ 'fileorder=', 'release=' ])
@@ -128,6 +133,21 @@ if not packageOrderFile:
 arch = extra[1]
 distDir = os.path.normpath(extra[0] + "/" + arch)
 srcDir = os.path.normpath(extra[0] + "/" + arch + "/SRPMS")
+
+if not os.access("%s/.discinfo" %(distDir,), os.O_RDONLY):
+    startedAt = time.time()
+    dirInfo = None
+else:
+    f = open("%s/.discinfo" %(distDir,), "r")
+    startedAt = string.atof(f.readline()[:-1])
+    releasestr = f.readline()[:-1]
+    newarch = f.readline()[:-1]
+    if newarch != arch:
+        raise RuntimeError, "Passed arch doesn't match arch in .discinfo file"
+    # throw out discnum
+    f.readline()
+    # basedir, packagedir, and pixmapdir
+    dirInfo = [ f.readline()[:-1], f.readline()[:-1], f.readline()[:-1] ]
 
 if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir
@@ -189,13 +209,13 @@ os.system("mkdir -p %s %s/SRPMS %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS"
 print "Creating disc1..."
 
 os.system("cp -al %s/. %s" % (distDir, disc1Dir))
-stamp(disc1Dir, releasestr, "1", arch, startedAt)
+stamp(disc1Dir, releasestr, "1", arch, startedAt, dirInfo)
 
 # remove the srpms dir from disc1 since it shouldn't be there
 os.system("rm -rf %s/SRPMS" % (disc1Dir,))
 
 print "Creating disc2..."
-stamp(disc2Dir, releasestr, "2", arch, startedAt)
+stamp(disc2Dir, releasestr, "2", arch, startedAt, dirInfo)
 
 for file in jointfiles:
     linkFile(disc1Dir, disc2Dir, file)
@@ -214,7 +234,7 @@ moveFiles("%s/RedHat/RPMS" % disc1Dir,
 disc1Size = spaceUsed(disc1Dir)
 
 print "Creating disc3..."
-stamp(disc3Dir, releasestr, "3", arch, startedAt)
+stamp(disc3Dir, releasestr, "3", arch, startedAt, dirInfo)
 
 for file in jointfiles:
     linkFile(disc1Dir, disc2Dir, file)
@@ -232,7 +252,7 @@ print "Creating first source disc..."
 os.system("cp -al %s %s" % (srcDir, disc1SrcDir))
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, releasestr, "4", arch, startedAt)
+stamp(disc2SrcDir, releasestr, "4", arch, startedAt, dirInfo)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
@@ -245,7 +265,7 @@ moveFiles("%s/SRPMS" % disc1SrcDir,
 srcDisc1Size = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
-stamp(disc2SrcDir, releasestr, "5", arch, startedAt)
+stamp(disc2SrcDir, releasestr, "5", arch, startedAt, dirInfo)
 disc3pkgs = excessFiles(srcDir, srcPkgList,
                         srcDisc1Size - disc3used + targetSize - fudgeFactor)
 print "first src pkg to move to 3rd src cd is", disc3pkgs[0]

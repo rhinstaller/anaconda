@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] <root>" >&2
+	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--release <comment>] <root>" >&2
 	exit 1
 }
 
@@ -21,6 +21,10 @@ while [ $# -gt 0 ]; do
 	    VERSION=$2
 	    shift; shift
 	    ;;
+	--release)
+	    RELEASESTR=$2
+	    shift; shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
 		usage
@@ -36,6 +40,10 @@ if [ -z "$VERSION" ]; then
 fi
 
 if [ -z "$DIR" ]; then
+    usage
+fi
+
+if [ -z "$RELEASESTR" ]; then
     usage
 fi
 
@@ -94,6 +102,21 @@ if [ -x /usr/bin/runroot ]; then
 else
     $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH $VERSION
 fi
+
+MK_STAMP=./makestamp.py
+echo "Writing .discinfo file"
+if [ ! -f $MK_STAMP ]; then
+    cd $BUILDINSTDIR
+    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd ./usr/lib/anaconda-runtime/makestamp* usr/lib/anaconda-runtime/makestamp*
+    mv usr/lib/anaconda-runtime/makestamp* .
+    rm -rf usr
+else
+    cp $MK_STAMP* $BUILDINSTDIR/
+fi
+MK_STAMP=$BUILDINSTDIR/makestamp.py
+
+$MK_STAMP --releasestr="$RELEASESTR $VERSION" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
+
 
 rm -rf $BUILDINSTDIR
 rm -rf $p/image-template $p/RedHat/instimage
