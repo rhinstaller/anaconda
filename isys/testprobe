@@ -17,3 +17,9 @@ print len (p)
 
 for i in p:
     print "\t", i
+
+print "Removable test"
+for (dclass, path, comment) in p:
+    print path,_isys.isScsiRemovable("/dev/"+path)
+    
+

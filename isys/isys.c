@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include <resolv.h>
 #include <pump.h>
+#include <scsi/scsi.h>
+#include <scsi/scsi_ioctl.h>
 
 #include "Python.h"
 
@@ -72,6 +74,7 @@ static PyObject * doLoadFont(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
+static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
@@ -112,6 +115,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
     { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
+    { "isScsiRemovable", (PyCFunction) doIsScsiRemovable, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1172,4 +1176,52 @@ static PyObject * doExt2Dirty(PyObject * s, PyObject * args) {
     ext2fs_close(fsys);
 
     return Py_BuildValue("i", !clean); 
+}
+
+static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
+    char *path;
+    int fd;
+    int rc;
+    typedef struct sdata_t {
+	u_int32_t inlen;
+	u_int32_t outlen;
+	unsigned char cmd[128];
+    } sdata;
+    sdata inq;
+    
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    memset (&inq, 0, sizeof (sdata));
+    
+    inq.inlen = 0;
+    inq.outlen = 96;
+    
+    inq.cmd[0] = 0x12;          /* INQUIRY */
+    inq.cmd[1] = 0x00;          /* lun=0, evpd=0 */
+    inq.cmd[2] = 0x00;          /* page code = 0 */
+    inq.cmd[3] = 0x00;          /* (reserved) */
+    inq.cmd[4] = 96;            /* allocation length */
+    inq.cmd[5] = 0x00;          /* control */
+    
+    fd = open (path, O_RDONLY);
+    if (fd < 0) {
+	if (errno == ENOMEDIUM)
+	    return Py_BuildValue("i", 1); 
+	else {
+	    return Py_BuildValue("i", -1);
+	}
+    }
+
+    /* look at byte 1, bit 7 for removable flag */
+    if (!(rc = ioctl(fd, SCSI_IOCTL_SEND_COMMAND, &inq))) {
+	if (inq.cmd[1] & (1 << 7))
+	    rc = 1;
+	else
+	    rc = 0;
+    } else {
+/*	printf ("ioctl resulted in error %d\n", rc); */
+	rc = -1;
+    }
+
+    return Py_BuildValue("i", rc); 
 }
