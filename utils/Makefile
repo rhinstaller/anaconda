@@ -12,7 +12,7 @@ moddeps: moddeps.o
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz
 
 genhdlist: genhdlist.c
-	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2
+	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz
 
 snarffont: snarffont.c
 	$(CC) -o snarffont snarffont.c
