@@ -1042,7 +1042,7 @@ class ToDo:
 
 	    os.symlink(device, self.instPath + "/dev/" + cdname)
 	    mntpoint = "/mnt/" + cdname
-	    self.mounts[mntpoint] = ("/dev/" + cdname, "iso9660", 0)
+	    self.mounts[mntpoint] = (cdname, "iso9660", 0)
 
     def setDefaultRunlevel (self):
         inittab = open (self.instPath + '/etc/inittab', 'r')
