@@ -526,7 +526,8 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
             logMessage("error appending to /tmp/modprobe.conf: %s\n",
                        strerror(errno));
         } else {
-            writeModulesConf(modLoaded, fd);
+            write(fd, "include /etc/modprobe.conf.dist\n", strlen("include /etc/modprobe.conf.dist\n"));
+	    writeModulesConf(modLoaded, fd);
             close(fd);
         }
     }
