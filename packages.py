@@ -543,12 +543,14 @@ def doPreInstall(method, id, intf, instPath, dir):
 
 
     try:
-        os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
+        if not os.path.islink("/var/tmp"):
+            iutil.rmrf("/var/tmp")
+            os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
+        else:
+            log("/var/tmp already exists as a symlink to %s" %(os.readlink("/var/tmp"),))
     except:
-        # could be a problem later, but the most likely cause is that
-        # they've had to go deselect packages and then try again
-        # FIXME: maybe we should verify it's the symlink we want and
-        # iutil.rmrf it if not?
+        # how this could happen isn't entirely clear; log it in case
+        # it does and causes problems later
         log("unable to create symlink for /var/tmp.  assuming already created")
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
@@ -680,10 +682,6 @@ def doInstall(method, id, intf, instPath):
         if upgrade:
             id.fsset.restoreMigratedFstab(instPath)
 
-        # remove the symlink we made so we can do it again on next round
-        # of preinstall
-        os.unlink("/mnt/sysimage/var/tmp")
-        
 	spaceneeded = {}
 	nodeneeded = {}
 	size = 12
