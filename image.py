@@ -37,8 +37,8 @@ class CdromInstallMethod(ImageInstallMethod):
 
     def getFilename(self, h):
         if h[1000002] == None:
-            log.log ("header for %s has no disc location tag, assuming it's"
-                     "on the current CD", h[1000000])
+            log ("header for %s has no disc location tag, assuming it's"
+                 "on the current CD", h[1000000])
         elif h[1000002] != self.currentDisc:
 	    self.currentDisc = h[1000002]
 	    isys.umount("/mnt/source")
