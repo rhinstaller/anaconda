@@ -80,6 +80,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         else:
             current = _("The installer is unable to detect the boot loader "
                         "currently in use on your system.")
+            self.update_label = GtkLabel(N_("%s") % (updatestr,))
             self.update_radio.set_sensitive(FALSE)
             self.update_label.set_sensitive(FALSE)
             update = 0
