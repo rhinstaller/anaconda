@@ -329,7 +329,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
             strcpy(parms,"dasd=");
             strcat(parms, ports);
             dasd_parms[0] = parms;
-            removeLoaded("dasd_eckd_mod", modLoaded, flags);
+            removeLoadedModule("dasd_eckd_mod", modLoaded, flags);
             removeLoadedModule("dasd_fba_mod", modLoaded, flags);
             removeLoadedModule("dasd_diag_mod", modLoaded, flags);
             removeLoadedModule("dasd_mod", modLoaded, flags);
