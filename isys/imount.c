@@ -56,7 +56,7 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 	if (mkdirChain(where))
 	    return IMOUNT_ERR_ERRNO;
 
-  	if (!isnfs && *dev == '/') {
+  	if (!isnfs && (*dev == '/' || !strcmp(dev, "none"))) {
 	    buf = dev;
 	} else if (!isnfs) {
 	    buf = alloca(200);

@@ -287,7 +287,7 @@ class FATFileSystem(FileSystemType):
 
 fileSystemTypeRegister(FATFileSystem())
 
-class ForeignFileSystem(FileSystemType):
+class ForeignFileSystemType(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.formattable = 0
@@ -297,14 +297,39 @@ class ForeignFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, message, chroot='/'):
         return
 
-fileSystemTypeRegister(ForeignFileSystem())
+fileSystemTypeRegister(ForeignFileSystemType())
+
+class PsudoFileSystem(FileSystemType):
+    def __init__(self, name):
+        FileSystemType.__init__(self)
+        self.formattable = 0
+        self.checked = 0
+        self.name = name
+
+    def formatDevice(self, entry, progress, message, chroot='/'):
+        return
+
+    def isSupported(self):
+        return 0
+
+class ProcFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "proc")
+
+fileSystemTypeRegister(ProcFileSystem())
+
+class DevptsFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "devpts")
+
+fileSystemTypeRegister(DevptsFileSystem())
 
 class FileSystemSet:
     def __init__(self):
-        self.entries = []
         self.messageWindow = None
         self.progressWindow = None
-
+        self.reset()
+        
     def registerMessageWindow(self, method):
         self.messageWindow = method
         
@@ -313,6 +338,11 @@ class FileSystemSet:
 
     def reset (self):
         self.entries = []
+        proc = FileSystemSetEntry(Device(), '/proc', fileSystemTypeGet("proc"))
+        self.add(proc)
+        pts = FileSystemSetEntry(Device(), '/dev/pts',
+                                 fileSystemTypeGet("devpts"), "gid=5,mode=620")
+        self.add(pts)
 
     def add (self, entry):
         self.entries.append(entry)
@@ -456,14 +486,6 @@ class FileSystemSet:
                                     entry.mountpoint, msg))
                 sys.exit(0)
 
-        # XXX remove special case...
-        try:
-            os.mkdir (instPath + '/proc')
-        except:
-            pass
-            
-	isys.mount('/proc', instPath + '/proc', 'proc')
-
     def umountFilesystems(self, instPath, ignoreErrors = 0):
         # XXX remove special case
         try:
@@ -551,7 +573,7 @@ class Device:
         return self.device
 
     def setupDevice (self, chroot='/', devPrefix='/tmp'):
-        pass
+        return self.device
 
     def cleanupDevice (self, chroot, devPrefix='/tmp'):
         pass
