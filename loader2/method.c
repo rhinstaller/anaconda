@@ -100,6 +100,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
         logMessage("LOOP_SET_FD failed: %s", strerror(errno));
+        ioctl(loopfd, LOOP_CLR_FD, 0);
         close(targfd);
         close(loopfd);
         return LOADER_ERROR;
@@ -124,9 +125,9 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
                       0, NULL, NULL, 0)) {
             if (doPwMount(filename, mntpoint, "cramfs", 1,
                           0, NULL, NULL, 0)) {
-            
                 logMessage("failed to mount loop: %s", 
                            strerror(errno));
+                ioctl(loopfd, LOOP_CLR_FD, 0);
                 return LOADER_ERROR;
             }
         }
