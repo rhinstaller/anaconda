@@ -379,6 +379,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->subchannels = strdup(loaderData->subchannels);
     }
 
+    if (loaderData->ctcprot) {
+        cfg->ctcprot = strdup(loaderData->ctcprot);
+    }
+
     if (loaderData->portname) {
         cfg->portname = strdup(loaderData->portname);
     }
