@@ -2450,6 +2450,8 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     mlLoadModule("ide-cd", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     newtPopWindow();
+
+    kdFindIdeList(&kd, CODE_PCMCIA);
 }
 
 int main(int argc, char ** argv) {
