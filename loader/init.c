@@ -543,6 +543,8 @@ int main(void) {
 
     printf("running install...\n"); 
 
+    setsid();
+
     if (!(installpid = fork())) {
 	/* child */
 #if 0
