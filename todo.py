@@ -582,6 +582,9 @@ class ToDo:
     def setLiloLocation(self, device):
 	self.liloDevice = device
 
+    def getLiloLocation (self):
+        return self.liloDevice
+
     def getCompsList(self):
 	if (not self.comps):
 	    self.getHeaderList()
