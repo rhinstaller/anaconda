@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.14
+Version: 10.1.1.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar  2 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.15-1
+- Ensure Xvnc exits when the last client goes away (#137337)
+- Allow logical partitions to go all the way to the end of an 
+  extended (clumens, #101432)
+- Don't install a bootloader if --location=none (clumens, #146448)
+
 * Thu Feb 24 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.14-1
 - Fix multiple DNS servers being specified on the command line.  Patch 
   from mattdm (#84409)
