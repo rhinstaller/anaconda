@@ -1,3 +1,4 @@
+import iutil
 import isys
 import os
 from installclass import InstallClass
@@ -6,7 +7,44 @@ from installclass import FSEDIT_CLEAR_ALL
 import sys
 import string
 
+class Script:
+    def __repr__(self):
+	str = ("(s: '%s' i: %s c: %d)") %  \
+	    (self.script, self.interp, self.inChroot)
+	return string.replace(str, "\n", "|")
+
+    def __init__(self, script, interp, inChroot):
+	self.script = script
+	self.interp = interp
+	self.inChroot = inChroot
+
+    def run(self, chroot, serial):
+	scriptRoot = "/"
+	if self.inChroot:
+	    scriptRoot = chroot
+
+	path = scriptRoot + "/tmp/ks-script"
+
+	f = open(path, "w")
+	f.write(self.script)
+	f.close()
+	os.chmod(path, 0700)
+
+	if serial:
+	    messages = "/tmp/ks-script.log"
+	else:
+	    messages = "/dev/tty3"
+
+	iutil.execWithRedirect (self.interp, [self.interp, "/tmp/ks-script" ], 
+		stdout = messages, stderr = messages, root = scriptRoot)
+				
+	os.unlink(path)
+
 class Kickstart(InstallClass):
+
+    def postAction(self, rootPath, serial):
+	for script in self.postScripts:
+	    script.run(rootPath, serial)
 
     def doRootPw(self, args):
 	(args, extra) = isys.getopt(args, '', [ 'iscrypted' ])
@@ -285,45 +323,70 @@ class Kickstart(InstallClass):
 	where = "commands"
 	packages = []
 	groups = []
-	post = ""
-	postInChroot = 1
+	newSection = None
 	for n in open(file).readlines():
-	    if where == "post":
-		post = post + n
-	    else:
-		n = n[:len(n) - 1]	    # chop
+	    args = isys.parseArgv(n)
+	    if not args or args[0][0] == '#': continue
 
+	    if args[0] == "%post" or args[0] == "%pre":
+		if where =="pre" or where == "post":
+		    s = Script(script, scriptInterp, scriptChroot)
+		    if where == "pre":
+			self.preScripts.append(s)
+		    else:
+			self.postScripts.append(s)
+
+		where = args[0][1:]
 		args = isys.parseArgv(n)
-		if not args or args[0][0] == '#': continue
 
-		if where == "commands":
-		    cmd = args[0]
-		    if cmd == "%packages":
-			where = "packages"
-		    elif cmd[0:5] == "%post":
-			args = isys.parseArgv(n)
-			if len(args) >= 2 and args[1] == "--nochroot":
-			    postInChroot = 0
-			where = "post"
-		    elif handlers[cmd]: 
-			handlers[cmd](args[1:])
-		elif where == "packages":
-		    if n[0:5] == "%post":
-			args = isys.parseArgv(n)
-			if len(args) >= 2 and args[1] == "--nochroot":
-			    postInChroot = 0
-			where = "post"
-		    elif n[0] == '@':
+		scriptInterp = "/bin/sh"
+		if where == "pre":
+		    scriptChroot = 0
+		else:
+		    scriptChroot = 1
+
+		script = ""
+
+		argList = [ 'interpreter=' ]
+		if where == "post":
+		    argList.append('nochroot')
+
+		(args, extra) = isys.getopt(args, '', argList)
+		for n in args:
+		    (str, arg) = n
+		    
+		    if str == "--nochroot":
+			scriptChroot = 0
+		    elif str == "--interpreter":
+			scriptInterp = arg
+
+	    elif args[0] == "%packages":
+		where = "packages"
+	    else:
+		if where == "packages":
+		    if n[0] == '@':
 			n = n[1:]
                         n = string.strip (n)
 			groups.append(n)
 		    else:
                         n = string.strip (n)
 			packages.append(n)
+		elif where == "commands":
+		    handlers[args[0]](args[1:])
+		elif where == "pre" or where == "post":
+		    script = script + n
+		else:
+		    raise SyntaxError, "I'm lost in kickstart"
 
 	self.setGroups(groups)
 	self.setPackages(packages)
-	self.setPostScript(post, postInChroot)
+
+	if where =="pre" or where == "post":
+	    s = Script(script, scriptInterp, scriptChroot)
+	    if where == "pre":
+		self.preScripts.append(s)
+	    else:
+		self.postScripts.append(s)
 
     def doClearPart(self, args):
 	if args[0] == '--linux':
@@ -381,7 +444,7 @@ class Kickstart(InstallClass):
 	else:
 	    self.addNewPartition(extra[0], size, maxSize, grow, device)
 
-    def __init__(self, file):
+    def __init__(self, file, serial):
 	InstallClass.__init__(self)
 	self.addToSkipList("bootdisk")
         self.addToSkipList("welcome")
@@ -391,7 +454,11 @@ class Kickstart(InstallClass):
         self.addToSkipList("network")
 	self.setEarlySwapOn(1)
 	self.partitions = []
+	self.postScripts = []
+	self.preScripts = []
 
 	self.installType = "install"
 	self.readKickstart(file)
 
+	for script in self.preScripts:
+	    script.run("/", serial)
