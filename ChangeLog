@@ -1,3 +1,8 @@
+2005-02-16  Karsten Hopp  <karsten@redhat.com>
+
+	* scripts/mk-images: the s390 linuxrc creates some devices 
+	during boot, shut up warnings about nonexistant groups
+
 2005-02-12  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
