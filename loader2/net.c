@@ -565,6 +565,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                 newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
             }
 
+            if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
+                cfg->dev.dnsServers[0] = addr;
+                cfg->dev.numDns = 1;
+            }
+
             if (i != 2) {
                 newtWinMessage(_("Missing Information"), _("Retry"),
                             _("You must enter both a valid IP address and a "
@@ -618,13 +623,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         if (c.gw && *c.gw && inet_aton(c.gw, &addr)) {
             cfg->dev.gateway = addr;
             cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-        }
-    }
-
-    if (!cfg->isDynamic && !(cfg->dev.numDns)) {
-        if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
-            cfg->dev.dnsServers[0] = addr;
-            cfg->dev.numDns = 1;
         }
     }
 
