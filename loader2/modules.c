@@ -88,12 +88,14 @@ static int scsiCount(void) {
 
 
 static int scsiDiskCount(void) {
-    struct device ** devices, ** device;
+    struct device ** devices;
     int i = 0;
 
     devices = probeDevices(CLASS_HD, BUS_SCSI, PROBE_ALL);
+    if (!devices)
+        return 0;
 
-    for (device = devices; *device; device++) i++;
+    for (i = 0; devices[i]; i++);
 
     return i;
 }
@@ -318,7 +320,6 @@ static int loadModule(const char * modName, struct extractedModule * path,
 	    modLoaded->mods[num].major = DRIVER_NONE;
 	    modLoaded->mods[num].minor = DRIVER_MINOR_NONE;
 	}
-
         if (args) {
             for (i=0, arg = args; *arg; arg++, i++);
             newArgs = malloc(sizeof(*newArgs) * (i + 1));
