@@ -560,7 +560,7 @@ class PartitionRequests:
                     
                 start = part.geom.start
                 end = part.geom.end
-                size = getPartSize(part)
+                size = getPartSizeMB(part)
                 drive = part.geom.disk.dev.path[5:]
                 
                 spec = PartitionSpec(ptype, requesttype = REQUEST_PREEXIST,
