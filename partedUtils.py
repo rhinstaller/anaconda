@@ -860,7 +860,7 @@ class DiskSet:
 
 
 # XXX is this all of the possibilities?
-dosPartitionTypes = [ 1, 6, 11, 12, 14, 15 ]
+dosPartitionTypes = [ 1, 6, 7, 11, 12, 14, 15 ]
 
 # master list of partition types
 allPartitionTypesDict = {
