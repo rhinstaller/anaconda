@@ -11,6 +11,7 @@
 #include "linux/kd.h"
 
 #include "cpio.h"
+#include "lang.h"
 #include "stubs.h"
 
 int isysLoadFont(char * fontFile) {
