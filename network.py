@@ -225,7 +225,7 @@ class Network:
 	else:
 	    f.write("localhost.localdomain\n")
 	if self.gateway:
-	    f.write("GATEWAY=%s\n", (self.gateway,))
+	    f.write("GATEWAY=%s\n" % (self.gateway,))
         f.close()
 
         # /etc/hosts
@@ -263,11 +263,11 @@ class Network:
         f = open(instPath + "/etc/resolv.conf", "w")
 
 	if self.domains != ['localdomain'] and self.domains:
-	    f.write("search %s\n", (string.joinfields(self.domains, ' '),))
+	    f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
 
         for ns in self.nameservers():
             if ns:
-                f.write("nameserver %s\n", (ns,))
+                f.write("nameserver %s\n" % (ns,))
 
         f.close()
 
