@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-08-02 00:36+0200\n"
+"PO-Revision-Date: 2000-08-02 14:20+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -787,9 +787,8 @@ msgstr ""
 "Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
 #: ../todo.py:945
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
-msgstr "Letar efter paket att uppgradera..."
+msgstr "Ett fel inträffade vid sökning av paketen som skall uppgraderas."
 
 #: ../todo.py:1250
 msgid "Processing"
@@ -1052,8 +1051,8 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Ett fel uppstod under skapandet av bootdisketten. Kontrollera att det finns "
-"en formaterad diskett i den första diskettstationen."
+"Ett fel inträffade under skapandet av bootdisketten. Kontrollera att det "
+"finns en formaterad diskett i den första diskettstationen."
 
 #: ../iw/bootdisk_gui.py:68
 msgid "Skip boot disk creation"
@@ -2200,8 +2199,8 @@ msgid ""
 "you saw this message."
 msgstr ""
 "Du har för fler hårddiskar än detta program stöder. Använd programmet fdisk "
-"för att konfigurera hårddiskarna och vänligen skicka en notis (på engelska) "
-"till Red Hat Software om att du fick detta meddelande."
+"för att konfigurera hårddiskarna och var vänlig och meddela Red Hat Software "
+"(på engelska) om att du fick detta meddelande."
 
 #: ../libfdisk/fsedit.c:1077
 msgid "Error Creating Device Nodes"
@@ -2227,8 +2226,8 @@ msgid ""
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 "Ett fel har uppstått - inga giltiga enheter, som kan användas för att skapa "
-"nya filsystem, kunde hittas. Vänligen undersök din hårdvara för orsaken till "
-"problemet."
+"nya filsystem, kunde hittas. Var vänlig och undersök din hårdvara för "
+"orsaken till problemet."
 
 #: ../libfdisk/fsedit.c:1408 ../libfdisk/fsedit.c:1488
 #, c-format
@@ -2236,7 +2235,7 @@ msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
-"Det uppstog ett fel vid läsning av partitionstabellen för blockenhet %s. "
+"Det inträffade ett fel vid läsning av partitionstabellen för blockenhet %s. "
 "Felet var"
 
 #: ../libfdisk/fsedit.c:1465
@@ -2487,7 +2486,7 @@ msgid ""
 msgstr ""
 "Raidenheten /dev/%s innehåller nu partitioner som inte har allokerats. "
 "Raidenheten /dev/%s kommer nu att delas upp i de partitioner den består av. "
-"Vänligen bygg ihop raidenheten igen med allokerade partitioner."
+"Var vänlig och sätt samman raidenheten igen med allokerade partitioner."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1598
@@ -2579,8 +2578,8 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"Raidenheten \"/dev/%s\" är redan konfigurerad som en raidenhet. Vänligen "
-"välj en annan."
+"Raidenheten \"/dev/%s\" är redan konfigurerad som en raidenhet. Var vänlig "
+"och välj en annan."
 
 #: ../libfdisk/gnomefsedit.c:2207
 msgid "Not Enough Partitions"
