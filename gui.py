@@ -9,9 +9,10 @@ from GDK import *
 import time
 import glob
 
+StayOnScreen = "stayOnScreen"
+
 im = None
 splashwindow = None
-
 
 #print "Inside gui.py"
 #print x.res
@@ -292,8 +293,8 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def messageWindow(self, title, text):
-        return MessageWindow (title, text)
+    def messageWindow(self, title, text, type):
+        return MessageWindow (title, text, type)
 
     def exceptionWindow(self, title, text):
         print text
@@ -442,7 +443,11 @@ class InstallControlWindow:
         self.stateListIndex = pos
         
     def prevClicked (self, *args):
-        prev = self.currentScreen.getPrev ()
+	try:
+	    prev = self.currentScreen.getPrev ()
+	except StayOnScreen:
+	    return
+
         self.prevList.pop ()
         (self.currentScreen, self.stateListIndex) = self.prevList[-1]
 
@@ -450,7 +455,11 @@ class InstallControlWindow:
 
 
     def nextClicked (self, *args):
-        next = self.currentScreen.getNext ()
+	try:
+	    next = self.currentScreen.getNext ()
+	except StayOnScreen:
+	    return
+	    
         if next:
             instantiated = 0
             for x in self.windowList:
