@@ -206,7 +206,7 @@ class HardDriveInstallMethod(InstallMethod):
             import sys
 	    if not self.discImages.has_key(h[1000002]):
 		self.messageWindow(_("Error"),
-			_("Missing CD #%d, which is required for the "
+			_("Missing ISO image for CD #%d, which is required for the "
 			  "install.\n\nThe system will now reboot.") % h[1000002])
 		sys.exit(0)
 
