@@ -1141,73 +1141,74 @@ class XConfigWindow:
         
             if rc == string.lower (_("Back")):
                 return INSTALL_BACK
+	    todo._cardindex = -1
             return INSTALL_OK
-        else:
-            # if we didn't find a server, we need the user to choose...
-            carddb = todo.x.cards()
-            cards = carddb.keys ()
-            cards.sort ()
-            cards.append (_("Unlisted Card"))
 
-            servers = [ "Mono", "VGA16", "SVGA", "S3", "Mach32", "Mach8", "8514", "P9000", "AGX",
-                        "W32", "W32", "Mach64", "I128", "S3V", "3DLabs" ]
-            server = None
+	# if we didn't find a server, we need the user to choose...
+	carddb = todo.x.cards()
+	cards = carddb.keys ()
+	cards.sort ()
+	cards.append (_("Unlisted Card"))
 
-            rc = INSTALL_NOOP
-            while rc != INSTALL_OK:
-                (rc, choice) = ListboxChoiceWindow(screen, _("Video Card Selection"),
-                                                   _("Which video card do you have?"),
-                                                   cards,
-                                                   buttons = [_("OK"), _("Back")],
-                                                   width = 70, scroll = 1,
-                                                   height = screen.height - 14)
-                if rc == string.lower (_("Back")):
-                    return INSTALL_BACK
+	servers = [ "Mono", "VGA16", "SVGA", "S3", "Mach32", "Mach8", "8514", "P9000", "AGX",
+		    "W32", "W32", "Mach64", "I128", "S3V", "3DLabs" ]
+	server = None
 
-                todo._cardindex = -1
+	rc = INSTALL_NOOP
+	while rc != INSTALL_OK:
+	    (rc, choice) = ListboxChoiceWindow(screen, _("Video Card Selection"),
+					       _("Which video card do you have?"),
+					       cards,
+					       buttons = [_("OK"), _("Back")],
+					       width = 70, scroll = 1,
+					       height = screen.height - 14)
+	    if rc == string.lower (_("Back")):
+		return INSTALL_BACK
 
-                if cards[choice] == _("Unlisted Card"):
-                    (rc , choice) = \
-                        ListboxChoiceWindow(screen, _("X Server Selection"), _("Choose a server"),
-                                            servers,
-                                            buttons = [ (_("Ok"), "ok"), (_("Back"), "back") ],
-                                            scroll = 1,
-                                            height = screen.height - 14)
+	    todo._cardindex = -1
 
-                    if (rc == "back"):
-                        rc = INSTALL_BACK
-                    else:
-                        rc = INSTALL_OK
-                        server = servers[choice]
-                else:
-                    todo._cardindex = choice
-                    rc = INSTALL_OK
+	    if cards[choice] == _("Unlisted Card"):
+		(rc , choice) = \
+		    ListboxChoiceWindow(screen, _("X Server Selection"), _("Choose a server"),
+					servers,
+					buttons = [ (_("Ok"), "ok"), (_("Back"), "back") ],
+					scroll = 1,
+					height = screen.height - 14)
 
-            if server:
-                todo.x.setVidcard ( { "NAME" : "Generic " + server,
-                                      "SERVER" : server } )
-            else:
-                card = carddb[cards[choice]]
+		if (rc == "back"):
+		    rc = INSTALL_BACK
+		else:
+		    rc = INSTALL_OK
+		    server = servers[choice]
+	    else:
+		todo._cardindex = choice
+		rc = INSTALL_OK
 
-                if card.has_key ("SEE"):
-                    card = carddb[card["SEE"]]
+	if server:
+	    todo.x.setVidcard ( { "NAME" : "Generic " + server,
+				  "SERVER" : server } )
+	else:
+	    card = carddb[cards[choice]]
 
-                todo.x.setVidcard (card)
-            
-            return INSTALL_OK
+	    if card.has_key ("SEE"):
+		card = carddb[card["SEE"]]
+
+	    todo.x.setVidcard (card)
+	
+	return INSTALL_OK
 
 
 class XconfiguratorWindow:
     def __call__ (self, screen, todo):
         if not todo.x.server: return INSTALL_NOOP
 
-        f = open (todo.instPath + "/tmp/SERVER")
-        f.write ("%s %d\n", % (todo.x.server, todo._cardindex))
+        f = open (todo.instPath + "/tmp/SERVER", "w")
+        f.write ("%s %d\n" % (todo.x.server, todo._cardindex))
         f.close ()
 
         screen.suspend ()
         iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator",
-                                ["xconfigurator", "--contine"],
+                                ["xconfigurator", "--continue"],
                                 root = todo.instPath)
         screen.resume ()
         return INSTALL_NOOP
