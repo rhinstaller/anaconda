@@ -39,7 +39,7 @@
 #include "../isys/probe.h"
 
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
-                                    "modules.cgz", "rhdd-6.1", NULL };
+                                    "modules.cgz", NULL };
 
 
 
