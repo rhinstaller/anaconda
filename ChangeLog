@@ -1,3 +1,17 @@
+2004-09-24  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/Makefile (VERSION): Define VERSION.
+
+	* Makefile: Define VERSION and RELEASE here.
+
+	* Makefile.inc (VERSION):
+	* Makefile.inc (RELEASE):
+	Move to Makefile
+
+2004-09-24  Bill Nottingham  <notting@redhat.com>
+
+	* loader2/driverdisk.c, scripts/mk-images: Backport pci.ids changes.
+
 2004-09-22  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/net.c (chooseNetworkInterface): Support using
