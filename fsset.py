@@ -1473,7 +1473,7 @@ class RAIDDevice(Device):
         if not self.isSetup:
             raidtab = '/tmp/raidtab.%s' % (self.device,)
             f = open(raidtab, 'w')
-            f.write(self.raidTab('/tmp'))
+            f.write(self.raidTab(devPrefix=devPrefix))
             f.close()
             for device in self.members:
                 PartitionDevice(device).setupDevice(chroot,
@@ -1523,9 +1523,7 @@ class VolumeGroupDevice(Device):
             nodes = []
             for volume in self.physicalVolumes:
                 # XXX the lvm tools are broken and will only work for /dev
-                node = PartitionDevice(volume).setupDevice(chroot,
-                                                           devPrefix="/dev")
-#                node = "/dev/%s" % (volume,)
+                node = volume.setupDevice(chroot, devPrefix="/dev")
 
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should

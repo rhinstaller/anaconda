@@ -609,7 +609,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         """Return a device which can be solidified."""
         pvs = []
         for pv in self.physicalVolumes:
-            pvs.append(partitions.getRequestByID(pv).device)
+            pvs.append(partitions.getRequestByID(pv).getDevice(partitions))
         dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs)
         return dev
 
