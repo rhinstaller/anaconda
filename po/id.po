@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-11-26 16:36+0700\n"
+"PO-Revision-Date: 2004-11-30 12:00+0700\n"
 "Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
 "Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -3652,7 +3652,7 @@ msgstr "Label Terduplikasi"
 
 #: ../iw/osbootwidget.py:254
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "Label tersebut sudah digunakan untuk boot yang lainya."
 
 #: ../iw/osbootwidget.py:267
 msgid "Duplicate Device"
@@ -3660,7 +3660,7 @@ msgstr "Divais Terduplikasi"
 
 #: ../iw/osbootwidget.py:268
 msgid "This device is already being used for another boot entry."
-msgstr ""
+msgstr "Divais tersebut sudah digunakan untuk boot yang lainya."
 
 #: ../iw/osbootwidget.py:332
 msgid "Cannot Delete"
@@ -3669,7 +3669,7 @@ msgstr "Tidak bisa diHapus"
 #: ../iw/osbootwidget.py:333
 #, python-format
 msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
-msgstr ""
+msgstr "Target dari boot tersebut tidak bisa dihapus karena sistem %s inilah yang anda gunakan untuk instalasi."
 
 #: ../iw/package_gui.py:52
 #: ../textw/packages_text.py:318
@@ -6411,12 +6411,12 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:330
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr ""
+msgstr "Anda sepertinya tidak mempunya hardisk dalam sistem anda! Maukah anda melakukan konfigurasi untuk divais tambahan?"
 
 #: ../loader2/hdinstall.c:346
 #, c-format
 msgid "What partition and directory on that partition hold the CD (iso9660) images for %s? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr ""
+msgstr "Partisi dan direktori mana yang pada partisi tersebut yang ada image CD (iso9660) untuk %s? Jika anda tidak drive disk yang anda gunakan disini, tekan F2 untuk melakukan konfigurasi divais tambahan."
 
 #: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
@@ -6444,7 +6444,7 @@ msgstr "Tidak dapat menemukan file kickstart dalam hard drive"
 #: ../loader2/hdinstall.c:581
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Tidak menemukan hardisk untuk %s disk BIOS"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -6511,7 +6511,7 @@ msgstr "Disk Source diUpdate"
 
 #: ../loader2/loader.c:322
 msgid "You have multiple devices which could serve as sources for an update disk.  Which would you like to use?"
-msgstr ""
+msgstr "Anda mempunyai banyak divais yang bisa dijadikan sebagai sumber dari disk update. Mana yang akan anda gunakan?"
 
 #: ../loader2/loader.c:337
 #, c-format
@@ -6553,11 +6553,11 @@ msgstr "Metode Instalasi"
 
 #: ../loader2/loader.c:834
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Tipe media yang mana yang berisikan image untuk penyelamatan?"
 
 #: ../loader2/loader.c:836
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "Tipe media apa yang berisikan paket-paket yang akan diinstall?"
 
 #: ../loader2/loader.c:860
 msgid "No driver found"
@@ -6573,7 +6573,7 @@ msgstr "Pergunakan disket driver"
 
 #: ../loader2/loader.c:862
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "Tidak menemukan divais apapun dari tipe yang diperlukan untuk tipe instalasi ini. Maukah anda memilih secara manual driver atau disk driver yang akan anda gunakan ?"
 
 #: ../loader2/loader.c:1022
 msgid "The following devices have been found on your system."
@@ -6581,7 +6581,7 @@ msgstr "Devais berikut ini telah ditemukan pada sistem anda."
 
 #: ../loader2/loader.c:1024
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
-msgstr ""
+msgstr "Tidak ada divais dari driver yang di pakai untuk sistem anda. Akankah anda memakai beberapa sekarang?"
 
 #: ../loader2/loader.c:1028
 msgid "Devices"
@@ -6598,7 +6598,7 @@ msgstr "Tambah Devais"
 #: ../loader2/loader.c:1148
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
+msgstr "Loader telah jalan. Shell dimulai.\n"
 
 #: ../loader2/loader.c:1509
 #, c-format
@@ -6612,7 +6612,7 @@ msgstr "Menjalankan anaconda, instaler sistem %s - silahkan tunggu...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
-msgstr ""
+msgstr "Tidak bisa membaca checksum disk dari diskriptor volume yang utama. Yang bisa diartikan disk ini dibuat tanpa menambahkan checksumnya."
 
 #: ../loader2/mediacheck.c:264
 #, c-format
@@ -6635,6 +6635,9 @@ msgid ""
 "\n"
 "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"GAGAL.\n"
+"\n"
+"Image yang baru saja dites ada kesalahan.Hal ini mungkin dikarenakan download yang korup atau disk yang jelek."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6691,6 +6694,9 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Maukan anda melakukan tes checksum untuk image dari ISO:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:412
 msgid "Checksum Test"
@@ -6710,11 +6716,16 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"Silakan masukan beberapa informasi berikut:\n"
+"\n"
+"    o Nama atau nomer IP dari server %s anda\n"
+"    o Direktori dalam server berisikan\n"
+"      %s untuk arsitektur anda\n"
 
 #: ../loader2/net.c:181
 #, c-format
 msgid "%s is a wireless network adapter.  Please provide the ESSID and encryption key needed to access your wireless network.  If no key is needed, leave this field blank and the install will continue."
-msgstr ""
+msgstr "%s adalah adapter jaringan wireless. Silakan berikan ESSID dan kunci enkripsi yang diperlukan untuk mengakses jaringan wireless. Jika kunci tidak dibutuhkan , kosongi saja dan instalasi akan dilanjutkan."
 
 #: ../loader2/net.c:191
 msgid "Wireless Settings"
@@ -6730,7 +6741,7 @@ msgstr "Nameserver"
 
 #: ../loader2/net.c:225
 msgid "Your dynamic IP request returned IP configuration information, but it did not include a DNS nameserver. If you know what your nameserver is, please enter it now. If you don't have this information, you can leave this field blank and the install will continue."
-msgstr ""
+msgstr "Permintaan IP dinamis anda sudah mengembalikan informasi konfigurasi IP, tetapi tidak menyertakan DNS nameserver. Jika anda tahu apa namaserver anda, silakan masukan sekarang. Jika anda tidak mengetahuinya, anda dapat kosongi dan instalasi akan dilanjutkan."
 
 #: ../loader2/net.c:235
 msgid "Invalid IP Information"
@@ -6799,7 +6810,7 @@ msgstr "Argumentasi yang kurang bagus untuk perintah jaringan metode kickstart  
 #: ../loader2/net.c:906
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "%s bad bootproto akan dispesifikasikan pada perintah jaringan"
 
 #: ../loader2/net.c:1048
 msgid "Networking Device"
@@ -6807,7 +6818,7 @@ msgstr "Device Jaringan"
 
 #: ../loader2/net.c:1049
 msgid "You have multiple network devices on this system. Which would you like to install through?"
-msgstr ""
+msgstr "Anda mempunyai banya divais jaringan pada sistem. Mana yang anda akan install ?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
