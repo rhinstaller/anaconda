@@ -245,3 +245,9 @@ def readExt2Label(device):
     label = _isys.e2fslabel("/tmp/disk");
     os.unlink("/tmp/disk")
     return label
+
+def ext2IsDirty(device):
+    makeDevInode(device, "/tmp/disk")
+    label = _isys.e2dirty("/tmp/disk");
+    os.unlink("/tmp/disk")
+    return label
