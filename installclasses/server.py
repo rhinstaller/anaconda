@@ -43,7 +43,7 @@ class InstallClass(BaseInstallClass):
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append((None, "swap", minswap, maxswap, 1, 1))
 
-        id.partitions.autoClearPartType = CLEARPART_TYPE_ALL
+        id.partitions.autoClearPartType = CLEARPART_TYPE_LINUX
         id.partitions.autoClearPartDrives = []
         id.partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
 
