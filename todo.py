@@ -1028,6 +1028,7 @@ class ToDo:
 	    os.close(devnull)
 
     def createCdrom(self):
+        self.log ("making cd-rom links")
 	list = isys.cdromList()
 	count = 0
 	for device in list:
@@ -1037,6 +1038,13 @@ class ToDo:
 		cdname = "%s%d" % (cdname, count)
 	    count = count + 1
 
+            self.log ("creating cdrom link for" + device)
+            try:
+                os.stat(self.instPath + "/dev/" + cdname)
+                self.log ("link exists, removing")
+                os.unlink(self.instPath + "/dev/" + cdname)
+            except OSError:
+                pass
 	    os.symlink(device, self.instPath + "/dev/" + cdname)
 	    mntpoint = "/mnt/" + cdname
 	    self.fstab.addMount(cdname, mntpoint, "iso9660")
