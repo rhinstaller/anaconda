@@ -162,6 +162,7 @@ class InstallPathWindow (InstallWindow):
 	if (self.todo.upgrade):
 	    self.upgradeButton.set_active(1)
 	    self.orig = None
+	    default = None
 	else:
 	    instClass = self.todo.getClass()
 	    self.orig = None
