@@ -206,7 +206,7 @@ class Fstab:
 				    (device,))
 
 		rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
-					 [ "mkswap", '-v1', '/tmp/' + device ],
+					 [ "mkswap", '-v1', file ],
 					 stdout = None, stderr = None,
 					 searchPath = 1)
 		w.pop()
