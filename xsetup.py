@@ -17,6 +17,8 @@
 # should probably go in rhpl
 #
 import rhpl.xserver as xserver
+from rhpl.translate import _
+
 
 import string
 class XSetup:
@@ -36,10 +38,28 @@ class XSetup:
 	# always turn dri on
 	#
 	self.xhwstate.set_dri_enabled(1)
-	
+
+	#
+	# XXX - cleanup monitor name to not include 'DDC Probed Monitor'
+	#       in its string if its there.
+	#
+	#       This is around for legacy reasons.  The monitor description
+	#       string passed around inside anaconda includes this prefix
+	#       so that the UI can properly display the monitor as a DDC
+	#       probed value versus a user selected value.
+	#
+	monname = self.xhwstate.get_monitor_name()
+	if monname is not None:
+	    ddc_monitor_string = _("DDC Probed Monitor")
+	    if monname[:len(ddc_monitor_string)] == ddc_monitor_string:
+		self.xhwstate.set_monitor_name(monname[len(ddc_monitor_string)+3:])
+		
 	outfile = fn + "/XF86Config"
 	xserver.writeXConfig(outfile, self.xhwstate, mouse, keyboard,
-			     standalone = 0)	
+			     standalone = 0)
+
+	# restore monitor name
+	self.xhwstate.set_monitor_name(monname)
 
     def writeKS(self, f, desktop=None):
 	if self.skipx:
