@@ -66,6 +66,7 @@ installSteps = [
                                                "id.partitions", "intf",
                                                "id.instClass", "dispatch")),
     ("fdisk", ("id.diskset", "id.partitions", "intf")),
+    ("fdasd", ("id.diskset", "id.partitions", "intf")),
     ("partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),
     ("upgrademount", upgradeMountFilesystems, ("intf", "id.upgradeRoot",
                                                "id.fsset", "instPath")),
