@@ -865,16 +865,30 @@ class InstallInterface:
 	    else:
 		lang = lang[0]
 
-	    fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
-			% (lang, key)
+            # stolen from gettext.py
+            langs = [lang]
+            # remove charset ...
+            if '.' in lang:
+                    langs.append(string.split(lang, '.')[0])
+            # also add 2 character language code ...
+            if len(lang) > 2:
+                    langs.append(lang[:2])
 
+            f = None
+            for lang in langs:
+                fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
+                     % (lang, key)
+                try:
+                    f = open (fn)
+                except IOError, msg:
+                    continue
+                break
+                    
 # uncomment to test help text installed in local directory instead            
 #	    fn = "./text-help/%s/s1-help-screens-%s.txt" \
 #			% (lang, key)
 
-	    try:
-		f = open(fn)
-	    except IOError, msg:
+            if not f:
 		if firstTime:	
 		    return self.helpWindow(screen, "helponhelp", firstTime = 0)
 		else:
