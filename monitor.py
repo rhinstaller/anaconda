@@ -74,6 +74,9 @@ class MonitorInfo:
             if line and line[0] == '#':
                 continue
             fields = string.split (line, ';')
+            if len(fields) < 5:
+                log("Bad MonitorsDB entry\n: %s", line)
+                continue
             man = string.strip(fields[0])
             model = string.strip(fields[1])
             eisa = string.lower(string.strip(fields[2]))
