@@ -179,7 +179,7 @@ class NetworkWindow(InstallWindow):
 				  "invalid."))
 
     def handleNoActiveDevices(self):
-	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to commuciate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
+	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
     
     def setHostnameRadioState(self):
 	pass
