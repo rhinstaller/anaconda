@@ -710,10 +710,12 @@ static char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
+/* XXX this ignores "location", which should be fixed */
 static char * setupCdrom(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags, int probeQuickly) {
+		      moduleDeps modDeps, int flags, int probeQuickly,
+		      int needRedHatCD) {
     int i;
     int rc;
     int hasCdrom = 0;
@@ -728,8 +730,11 @@ static char * setupCdrom(struct installMethod * method,
 	    devMakeInode(kd->known[i].name, "/tmp/cdrom");
 	    if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
 			  NULL)) {
-		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
+		if (!needRedHatCD || 
+			!access(
+			    "/mnt/source/RedHat/instimage/usr/bin/anaconda", 
 			    X_OK)) {
+		    unlink("/mnt/runtime");
 		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 		    return "dir://mnt/source/.";
 		}
@@ -764,7 +769,26 @@ static char * mountCdromImage(struct installMethod * method,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     return setupCdrom(method, location, kd, modInfo, modLoaded, modDeps,
-		      flags, 0);
+		      flags, 0, 1);
+}
+
+int kickstartFromCdrom(char * ksFile, char * fromFile, 
+		       struct knownDevices * kd, 
+    		       moduleInfoSet modInfo, moduleList modLoaded,
+		       moduleDeps modDeps, int flags) {
+    char * fullFn;
+
+    if (!setupCdrom(NULL, NULL, kd, modInfo, modLoaded, modDeps, flags, 1, 0)) {
+	logMessage("kickstart failed to find CD device");
+	return 1;
+    }
+
+    fullFn = alloca(strlen(fromFile) + 20);
+    sprintf(fullFn, "/mnt/source/%s", fromFile);
+    copyFile(fullFn, ksFile);
+    umount("/mnt/source");
+
+    return 0;
 }
 
 #endif
@@ -1079,7 +1103,7 @@ static char * doMountImage(char * location,
     if (!networkAvailable && !FL_EXPERT(flags)) {
 # endif
 	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps,
-			 flags, 1);
+			 flags, 1, 1);
 	if (url) return url;
     }
 #endif /* defined (INCLUDE_LOCAL) || defined (__sparc__) */
@@ -1383,7 +1407,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 #ifdef INCLUDE_LOCAL
     if (ksType == KS_CMD_CDROM) {
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
-			  flags, 1);
+			  flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
 	char * fsType;
 	logMessage("partname is %s", partname);
@@ -1481,6 +1505,9 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
         else if (!strcasecmp(argv[i], "ks")) {
 	    flags |= LOADER_FLAGS_KICKSTART;
 	    *ksSource = NULL;
+        } else if (!strncasecmp(argv[i], "ks=cdrom:", 7)) {
+	    flags |= LOADER_FLAGS_KSCDROM;
+	    *ksSource = argv[i] + 9;
         } else if (!strncasecmp(argv[i], "ks=nfs:", 7)) {
 	    flags |= LOADER_FLAGS_KICKSTART;
 	    *ksSource = argv[i] + 7;
@@ -1903,6 +1930,7 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     if (FL_KSFLOPPY(flags)) {
+	startNewt(flags);
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
@@ -1938,6 +1966,15 @@ int main(int argc, char ** argv) {
 	ksFile = ksSource;
 	flags |= LOADER_FLAGS_KICKSTART;
     } 
+
+#ifdef INCLUDE_LOCAL
+    if (FL_KSCDROM(flags)) {
+	ksFile = "/tmp/ks.cfg";
+	kickstartFromCdrom(ksFile, ksSource, &kd, modInfo, modLoaded, modDeps,
+			   flags);
+	flags |= LOADER_FLAGS_KICKSTART;
+    }
+#endif
     
 #ifdef INCLUDE_NETWORK
     if (FL_KICKSTART(flags) && !ksFile) {
