@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.16
+Version: 10.0.3.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 12 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.17-1
+- Only use "our" LVM partitions with auto-partitioning (#135440)
+- Remove localboot option from syslinux.cfg for diskboot.img (#135263)
+- Handle the great input method switch on upgrade (#129218)
+- Don't save the hwaddr for qeth (#135023)
+- Add rhgb boot loader arguments in postinstall (msw)
+- Reverse Norwegian blacklisting (#129453) (notting)
+- Add sata_nv, sata_sx4, ixgb, ahci, sx8 modules to the initrd (notting)
+
 * Thu Oct  7 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.16-1
 - s390/s390x: Fix traceback with unpartitioned disks (karsten)
 - improve fit of bengali network screen (#134762)
