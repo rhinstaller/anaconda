@@ -351,24 +351,25 @@ class InstallInterface:
         return None
 
     def run(self, id, dispatch, configFileData):
-        from xkb import XKB
-        kb = XKB()
+##         from xkb import XKB
+##         kb = XKB()
 
 	self.dispatch = dispatch
 
         # XXX users complain when the keypad doesn't work for input.
-        if 0 and flags.setupFilesystems:
-            try:
-                kb.setMouseKeys (1)
-            except SystemError:
-                pass
+##         if 0 and flags.setupFilesystems:
+##             try:
+##                 kb.setMouseKeys (1)
+##             except SystemError:
+##                 pass
 
         # XXX x_already_set is a hack
         if id.keyboard and not id.x_already_set:
-	    info = id.keyboard.getXKB()
-	    if info:
-                (rules, model, layout, variant, options) = info
-                kb.setRule (model, layout, variant, "complete")
+            id.keyboard.activate()
+## 	    info = id.keyboard.getXKB()
+## 	    if info:
+##                 (rules, model, layout, variant, options) = info
+##                 kb.setRule (model, layout, variant, "complete")
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)

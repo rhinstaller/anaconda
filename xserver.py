@@ -79,7 +79,7 @@ def mouseWindow(mouse):
     return 1
 
 # start X server for install process ONLY
-def startX(resolution, nofbmode, video, monitor, mouse):
+def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
     global serverPath
     global mode
     
@@ -148,7 +148,7 @@ def startX(resolution, nofbmode, video, monitor, mouse):
 
             if os.access (serverPath, os.X_OK):
                 try:
-                    x = XF86Config (card, monitor, mouse, resolution)
+                    x = XF86Config (card, monitor, mouse, keyboard, resolution)
 		    x.setForcedDPI(75)
 		    
                     testx(x)

@@ -200,10 +200,8 @@ class BaseInstallClass:
     def setKeyboard(self, id, kb):
 	id.keyboard.set(kb)
 
-	xkb = id.keyboard.getXKB ()
-
-	if xkb:
-            apply(id.xconfig.setKeyboard, xkb)
+        # activate the keyboard changes
+#        id.keyboard.activate()
 
 	# XXX
         #apply (todo.x.setKeyboard, xkb)
@@ -388,10 +386,11 @@ class BaseInstallClass:
         else:
             id.desktop.setDefaultRunLevel(3)
 
-        xcfg = XF86Config(id.videocard.primaryCard(), id.monitor, id.mouse)
-	xkb = id.keyboard.getXKB()
-	if xkb:
-            apply(xcfg.setKeyboard, xkb)
+        xcfg = XF86Config(id.videocard.primaryCard(), id.monitor, id.mouse,
+                          id.keyboard)
+## 	xkb = id.keyboard.getXKB()
+## 	if xkb:
+##             apply(xcfg.setKeyboard, xkb)
         
 
         available = xcfg.availableModes()
@@ -420,7 +419,7 @@ class BaseInstallClass:
 
 
     def setMouse(self, id, mouseType, device = None, emulThree = -1):
-        import mouse
+        import rhpl.mouse as mouse
 
         # blindly trust what we're told
         mouse = mouse.Mouse(skipProbe = 1)

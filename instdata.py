@@ -78,6 +78,10 @@ class InstallData:
     def setInstallProgressClass(self, c):
 	self.instProgress = c
 
+    # expects a Keyboard object
+    def setKeyboard(self, keyboard):
+        self.keyboard = keyboard
+
     # expects a Mouse object
     def setMouse(self, mouse):
         self.mouse = mouse

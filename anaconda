@@ -155,6 +155,7 @@ keymap = None
 kbdtpye = None
 progmode = None
 customClass = None
+kbd = None
 
 #
 # parse off command line arguments
@@ -284,6 +285,7 @@ import floppy
 import rhpl.videocard as videocard
 import rhpl.monitor as monitor
 import rhpl.mouse as mouse
+import rhpl.keyboard as keyboard
 
 # handle traceonly and exit
 if traceOnly:
@@ -408,6 +410,10 @@ sys.stdout.write(    _("Probing for monitor type: "))
 monitorhw  = monitor.MonitorInfo(fbDevice=fbdev, skipDDCProbe = (skipddc or flags.test))
 sys.stdout.write(monitorhw.shortDescription()+'\n')
 
+kbd = keyboard.Keyboard()
+if keymap:
+    kbd.set(keymap)
+
 # only probe if we're installing a real box or
 # we're running in a virtual console and need to startup X server
 if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
@@ -464,13 +470,13 @@ if display_mode == 'g':
                 xcfg = xserver.start_existing_X ()
             else:
 		xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                         monitorhw, mousehw, runres)
+                                         monitorhw, mousehw, kbd, runres)
                 testxcfg = xserver.startX(runres, nofbmode, videohw, monitorhw,
-					  mousehw)
+					  mousehw, kbd)
         except RuntimeError:
             print " X startup failed, falling back to text mode"
             xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                         monitorhw, mousehw, runres)
+                                         monitorhw, mousehw, kbd, runres)
             display_mode = 't'
             time.sleep(2)            
     else:
@@ -479,7 +485,7 @@ if display_mode == 'g':
             card = videocard.VideoCard()
         else:
             card = videohw.primaryCard()
-        xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
+        xcfg = xf86config.XF86Config(card, monitorhw, mousehw, kbd, runres)
 else:
     # text mode
     import xf86config
@@ -490,7 +496,7 @@ else:
         card = videocard.VideoCard()
     else:
         card = videohw.primaryCard()
-    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
+    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, kbd, runres)
 
 
 
@@ -627,6 +633,9 @@ if monitorhw:
 
 if xcfg:
     id.setXconfig(xcfg)
+
+if kbd:
+    id.setKeyboard(kbd)
     
 instClass.setInstallData(id)
 

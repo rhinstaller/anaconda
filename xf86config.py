@@ -581,7 +581,7 @@ EndSection
 """
 
 class XF86Config:
-    def __init__ (self, videocard, monitor, mouse, resolution = None):
+    def __init__ (self, videocard, monitor, mouse, keyboard, resolution = None):
 
         if videocard:
             self.setVideoCard(videocard)
@@ -597,6 +597,11 @@ class XF86Config:
             self.setMouse(mouse)
         else:
             raise RuntimeError, "no mouse specified in XF86Config __init__"
+
+        if keyboard:
+            self.setKeyboard(keyboard)
+        else:
+            raise RuntimeError, "no keyboard specified in XF86Config __init__"
 
         self.skip = 0
         self.res = resolution
@@ -637,16 +642,6 @@ class XF86Config:
         self.fallbackModes = self.modes
         
 	self.device = None
-        self.keyRules = "xfree86"
-        self.keyModel = "pc101"
-        self.keyLayout = "us"
-	kbd = Keyboard()
-	if kbd.type == 'Sun':
-	    self.keyRules = "sun"
-	    self.keyModel = kbd.model
-	    self.keyLayout = kbd.layout
-        self.keyVariant = ""
-        self.keyOptions = ""
         self.monlist = {}
         self.monids = {}
 
@@ -686,19 +681,18 @@ class XF86Config:
     def getForcedDPI(self):
 	return self.forcedDPI
         
-    def setKeyboard(self, rules, model, layout, variant, options):
-        self.keyRules = rules
-        self.keyModel = model
-        self.keyLayout = layout
-        self.keyVariant = variant
-        self.keyOptions = options
-
     def getKeyboard(self):
-        return (self.keyRules, self.keyModel, self.keyLayout,
-                self.keyVariant, self.keyOptions)
+        return (self.keyboard["rules"],
+                self.keyboard["model"],
+                self.keyboard["layout"],
+                self.keyboard["variant"],
+                self.keyboard["options"])
 
     def setMouse(self, mouse):
         self.mouse = mouse
+
+    def setKeyboard(self, keyboard):
+        self.keyboard = keyboard
 
     def setVideoCard(self, videocard):
         self.videocard = videocard
@@ -1161,12 +1155,12 @@ Section "Screen"
                  "devID"              : card.getDevID(),
                  "mouseProto"         : mouseProto,
                  "mouseDevice"        : self.mouse.device,
-                 "XkbRules"           : self.keyRules,
-                 "XkbModel"           : self.keyModel,
-                 "XkbLayout"          : self.keyLayout,
-                 "XkbVariant"         : self.keyVariant,
+                 "XkbRules"           : self.keyboard["rules"],
+                 "XkbModel"           : self.keyboard["model"],
+                 "XkbLayout"          : self.keyboard["layout"],
+                 "XkbVariant"         : self.keyboard["variant"],
                  "enableVariant"      : "#",
-                 "XkbOptions"         : self.keyOptions,
+                 "XkbOptions"         : self.keyboard["options"],
                  "enableOptions"      : "#",
                  "monitorID"	      : monitor.getMonitorID(),
                  "monitorHoriz"       : monitor.getMonitorHorizSync(),
@@ -1187,9 +1181,9 @@ Section "Screen"
 #
 #        info["fbDepth"] = self.fbDepth
         
-        if self.keyVariant:
+        if self.keyboard["variant"]:
             info["enableVariant"] = ""
-        if self.keyOptions:
+        if self.keyboard["options"]:
             info["enableOptions"] = ""
         if self.mouse.get()[1]:
             info["emulate3"] = "    Emulate3Buttons\n    Emulate3Timeout    50"
@@ -1299,12 +1293,12 @@ Section "Screen"
                  "screenModes"  : screens,
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
 		 "driMod"	: '\n\tLoad "dri"',
-                 "XkbRules"     : self.keyRules,
-                 "XkbModel"     : self.keyModel,
-                 "XkbLayout"    : self.keyLayout,
-                 "XkbVariant"   : self.keyVariant,
+                 "XkbRules"     : self.keyboard["rules"],
+                 "XkbModel"     : self.keyboard["model"],
+                 "XkbLayout"    : self.keyboard["layout"],
+                 "XkbVariant"   : self.keyboard["variant"],
                  "enableVariant": "#",
-                 "XkbOptions"   : self.keyOptions,
+                 "XkbOptions"   : self.keyboard["options"],
                  "enableOptions": "#",
                  "defaultDepth" : "",
                  "emulate3"     : emulate3,
@@ -1315,9 +1309,9 @@ Section "Screen"
         # see if 16 bpp is available, and if it should be the
         # default depth
 
-        if self.keyVariant:
+        if self.keyboard["variant"]:
             data["enableVariant"] = ""
-        if self.keyOptions:
+        if self.keyboard["options"]:
             data["enableOptions"] = ""
 
         if maxdepth > 0:
