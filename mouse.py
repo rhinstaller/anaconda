@@ -53,7 +53,7 @@ class Mouse (SimpleConfigFile):
 	"Microsoft - IntelliMouse (serial)" :
 		("ms3", "IntelliMouse", "ttyS", 0),
 	"Microsoft - IntelliMouse (PS/2)" :
-		("imps2", "IMPS/2", "psaux", 1), 
+		("imps2", "IMPS/2", "psaux", 0), 
 	"Microsoft - Bus Mouse" :
 		("Busmouse", "BusMouse", "inportbm", 1),
 	"Mouse Systems - Mouse (serial)" :
