@@ -1190,10 +1190,9 @@ class InstallControlState:
         except RuntimeError, msg:
             log("unable to read %s: %s", file, msg)
             return None
-        curheight = pixbuf.get_height()
-        curwidth = pixbuf.get_width()
         if (height is not None and width is not None
-            and height != curheight and width != curwidth):
+            and height != pixbuf.get_height()
+            and width != pixbuf.get_width()):
             sclpix = pixbuf.scale_simple(height, width,
                                          gtk.gdk.INTERP_BILINEAR)
             p = gtk.Image()
