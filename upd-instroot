@@ -6,6 +6,9 @@ if [ -z "$1" -o ! -d "$1" ]; then
 	exit 1
 fi
 
+HOMEDIR=`pwd`
+echo HOMEDIR $HOMEDIR
+
 pythondeps() {
         DIR=$1
 
@@ -180,6 +183,9 @@ done
 
 rm -f $KEEPFILE $KEEPFILEGR
 
+make install DESTDIR=$DEST > /dev/null
+make install DESTDIR=$DESTGR > /dev/null
+
 for p in $DEST $DESTGR; do
 	find $p -type d | xargs chmod 755
 
@@ -203,10 +209,17 @@ for p in $DEST $DESTGR; do
 	rm -f $p/ldconfig
 
 	find $p -name "*.so" | xargs strip
+done
 
+pythondeps $DEST
+
+for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do
 	    if [ -f ${fn}c ]; then
-		rm -f $fn
+		rm -f ${fn}c
+	    fi
+	    if [ -f ${fn}o ]; then
+		rm -f ${fn}o
 	    fi
 	done
 done
@@ -214,11 +227,6 @@ done
 # Xserver needs a place to put the compiled xkb maps.
 rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-
-make install DESTDIR=$DEST > /dev/null
-make install DESTDIR=$DESTGR > /dev/null
-
-pythondeps $DEST
 
 # this is only for the minimal second stage
 
@@ -228,13 +236,18 @@ pythondeps $DEST
 	ls libnewt* libslang* | cpio --quiet -H crc -o | 
 		gzip -9 > slang-newt.cgz
 	rm -f libnewt* libslang*
-	cd -
 
 	cd $DEST/usr/bin
 	echo python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
 	rm -f python python1.5
 	ln -s python1.5 python
 	mv anaconda anaconda.real
-	cd -
 
-	cp -a anaconda-stub $DEST/usr/bin/anaconda
+	cd $DEST/lib
+	ls    libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
+	   libpthread* libss* libtermcap* libuuid* \
+			| cpio --quiet -H crc -o | gzip -9 > libs.cgz
+	rm -f libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
+	   libpthread* libss* libtermcap* libuuid* \
+
+	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
