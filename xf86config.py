@@ -173,7 +173,8 @@ Section "Monitor"
 # NOTE: THE VALUES HERE ARE EXAMPLES ONLY.  REFER TO YOUR MONITOR'S
 # USER MANUAL FOR THE CORRECT NUMBERS.
 
-    HorizSync   %(monitorHoriz)s
+#    HorizSync   %(monitorHoriz)s
+    HorizSync 30-35.2
 
 # VertRefresh is in Hz unless units are specified.
 # VertRefresh may be a comma separated list of discrete values, or a
@@ -181,7 +182,8 @@ Section "Monitor"
 # NOTE: THE VALUES HERE ARE EXAMPLES ONLY.  REFER TO YOUR MONITOR'S
 # USER MANUAL FOR THE CORRECT NUMBERS.
 
-    VertRefresh %(monitorVert)s
+#    VertRefresh %(monitorVert)s
+    VertRefresh 55-60
 
 # Modes can be specified in two formats.  A compact one-line format, or
 # a multi-line format.
