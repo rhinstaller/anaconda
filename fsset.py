@@ -1444,11 +1444,11 @@ class DevDevice(Device):
         Device.__init__(self)
         self.device = dev
 
-    def getDevice(self):
-        return "/dev/%s" %(self.device,)
+    def getDevice(self, asBoot = 0):
+        return self.device
 
     def setupDevice(self, chroot='/', devPrefix='/dev'):
-        return self.getDevice()
+        return "/dev/%s" %(self.getDevice(),)
 
 class RAIDDevice(Device):
     # XXX usedMajors does not take in account any EXISTING md device
