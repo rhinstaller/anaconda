@@ -11,7 +11,7 @@ LOOPMNT=/tmp/updboottree.$$.initrdmnt
 
 rm -rf $MNTPOINT $LOOPMNT
 mkdir $MNTPOINT $LOOPMNT
-mount -o loop $1 $MNTPOINT
+mount -t vfat -o loop $1 $MNTPOINT
 
 gunzip < $MNTPOINT/initrd.img > $INITRD
 
