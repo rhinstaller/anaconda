@@ -606,8 +606,8 @@ def doInstall(method, id, intf, instPath):
     method.filesDone ()
     
     if upgrade:
-	instLog.write ("\n\nThe following packages were available on the "
-                       "CD but NOT upgraded:\n")
+	instLog.write ("\n\nThe following packages were available in this "
+                       "version but NOT upgraded:\n")
 	for p in id.hdList.packages.values ():
 	    if not p.selected:
 		instLog.write("%s-%s-%s.%s.rpm\n" %
