@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-03-28 17:32-0500\n"
-"PO-Revision-Date: 2001-03-23 10:56GMT\n"
+"PO-Revision-Date: 2001-03-28 23:22GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -1041,13 +1041,13 @@ msgid ""
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Du ser ikke ud til at have nok diskplads til at installere de pakker du har "
+"Du ser ikke ud til at have nok filpladser til at installere de pakker du har "
 "valgt. Du har brug for mere plads på følgende filsystemer:\n"
 "\n"
 
 #: ../todo.py:1894
 msgid "Nodes Needed"
-msgstr "Nødvendig plads"
+msgstr "Nødvendige filpladser"
 
 #: ../todo.py:1900
 msgid "Disk Space"
@@ -1420,9 +1420,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vælg enheden som indeholder rodfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, c-format
+#, fuzzy, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
-msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/%s"
+msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -3033,7 +3033,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1034
 msgid "Error Creating Device Nodes"
-msgstr "Fejl ved oprettelse af enheds-'nodes'"
+msgstr "Fejl ved oprettelse af enhedsknuder"
 
 #: ../libfdisk/fsedit.c:1035
 msgid ""
@@ -3041,7 +3041,7 @@ msgid ""
 "drives in your system.  This may be because you have run out of disk space "
 "on the /tmp partition."
 msgstr ""
-"En fejl opstod ved forsøg på at oprette enheds-'nodes' for diskdrevene i dit "
+"En fejl opstod ved forsøg på at oprette enhedsknuder for diskdrevene i dit "
 "system. Dette er måske fordi du er løbet tør for diskplads på /tmp "
 "partitionen."
 
@@ -5233,9 +5233,6 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
 
 #~ msgid "Transdniestria"
 #~ msgstr "Transdniestria"
