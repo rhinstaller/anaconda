@@ -160,7 +160,7 @@ def get_available_raid_partitions(diskset, requests):
 
             if not used:
                 rc.append(part)
-                print "appended", get_partition_name(part), part.fs_type.name
+
     return rc
 
 # return minimum numer of raid members required for a raid level
@@ -194,7 +194,7 @@ def get_raid_device_size(raidrequest):
     for member in raidrequest.raidmembers:
         part = member.partition
         partsize =  part.geom.length * part.geom.disk.dev.sector_size
-        print "raid members, size->",get_partition_name(part), partsize
+
         if raidlevel == "RAID0":
             sum = sum + partsize
         else:
@@ -316,8 +316,8 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
     
     for member in newraid.raidmembers:
         part = member.partition
-        print get_partition_name(part), part.fs_type.name
-        if part.fs_type and part.get_flag(parted.PARTITION_RAID) != 1:
+
+        if part.get_flag(parted.PARTITION_RAID) != 1:
             return _("Some members of RAID request are not RAID partitions.")
 
     rc = sanityCheckPartitionRequest(reqpartitions, newraid)
@@ -325,8 +325,10 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
         return rc
 
     # XXX fix this code to look to see if there is a bootable partition
-#    if newraid.mountpoint and newraid.raidlevel != "RAID1":
-#        return _("Bootable partitions can only be on RAID1 devices.")
+    bootreq = reqpartitions.getBootableRequest()
+    if not bootreq and newraid.mountpoint:
+        if (newraid.mountpoint == "/boot" or newraid.mountpoint == "/") and newraid.raidlevel != "RAID1":
+            return _("Bootable partitions can only be on RAID1 devices.")
 
     minmembers = get_raid_min_members(newraid.raidlevel)
     if len(newraid.raidmembers) < minmembers:
@@ -462,6 +464,8 @@ class PartitionRequests:
                     ptype = None
                 elif part.type & parted.PARTITION_EXTENDED:
                     ptype = None
+                elif part.get_flag(parted.PARTITION_RAID) == 1:
+                    ptype = None
                 elif part.fs_type:
                     if part.fs_type.name == "linux-swap":
                         ptype = fileSystemTypeGet("swap")
@@ -484,6 +488,7 @@ class PartitionRequests:
                                      start = start, end = end, size = size,
                                      drive = drive)
                 spec.device = PartedPartitionDevice(part).getDevice()
+
                 self.addRequest(spec)
                 part = disk.next_partition(part)
 
@@ -500,8 +505,6 @@ class PartitionRequests:
 
     def getRequestByMountPoint(self, mount):
         for request in self.requests:
-            if request.mountpoint:
-                print "considering", request.mountpoint, mount
             if request.mountpoint == mount:
                 return request
         return None
@@ -522,13 +525,9 @@ class PartitionRequests:
 
     # return name of boot mount point in current requests
     def getBootableRequest(self):
-        print "doing boot"
         bootreq = self.getRequestByMountPoint("/boot")
-        print "bootreq ->",bootreq
         if not bootreq:
-            print "doing /"
             bootreq = self.getRequestByMountPoint("/")
-            print "bootreq 2->", bootreq
             
         return bootreq
 
