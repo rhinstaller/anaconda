@@ -1109,7 +1109,7 @@ def doPostInstall(method, id, intf, instPath):
 		except RuntimeError:
 		    pass
 
-	    if arch != "s390":
+	    if arch != "s390" and flags.setupFilesystems:
 		# we need to unmount usbdevfs before mounting it
 		usbWasMounted = iutil.isUSBDevFSMounted()
 		if usbWasMounted:
