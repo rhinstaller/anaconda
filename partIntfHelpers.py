@@ -167,9 +167,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
 	    intf.messageWindow(_("Unable To Delete"), state % ("delete",))
 	    return (None, None)
 
-        if confirmDeleteRequest(intf, request):
-            requestlist.removeRequest(request)
-        else:
+        if not confirmDeleteRequest(intf, request):
             return 0
 
         if request.getPreExisting():
@@ -191,6 +189,10 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
                 delete = partRequests.DeleteVolumeGroupSpec(request.volumeGroupName)
                 requestlist.addDelete(delete)
             # FIXME: do we need to do anything with preexisting raids?
+
+        # now remove the request
+        requestlist.deleteDependentRequests(request)
+        requestlist.removeRequest(request)
     else: # is this a extended partition we made?
         if partition.type & parted.PARTITION_EXTENDED:
             requestlist.deleteAllLogicalPartitions(partition)
