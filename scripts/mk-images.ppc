@@ -28,7 +28,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES =scsi =net"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODS =scsi =net"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp $TOPDESTPATH/images/pseries
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/chrp/vmlinuz
@@ -88,7 +88,7 @@ EOF
         makeinitrd --initrdto $TOPDESTPATH/ppc/mac/ramdisk.image.gz \
             --initrdsize 8192 \
             --loaderbin loader \
-            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES =scsi =net"
+            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODS =scsi =net"
 
         mkdir -p $TOPDESTPATH/ppc/mac
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinuz
