@@ -1233,7 +1233,7 @@ class ToDo:
 
 	devnull = os.open("/dev/null", os.O_RDWR)
 
-	argv = [ "/usr/sbin/usermod", "-p", password, "root" ]
+	argv = [ "/usr/sbin/usermod", "-p", password, account ]
 	iutil.execWithRedirect(argv[0], argv, root = self.instPath, 
 			       stdout = '/dev/null', stderr = None)
 	os.close(devnull)
