@@ -1,7 +1,9 @@
 #ifndef H_FTP
 #define H_FTP
 
-const char * ftpStrerror(int ftpErrno);
+#include "urls.h"
+
+const char * ftpStrerror(int ftpErrno, urlprotocol protocol);
 
 #define FTPERR_BAD_SERVER_RESPONSE   -1
 #define FTPERR_SERVER_IO_ERROR       -2
@@ -13,6 +15,7 @@ const char * ftpStrerror(int ftpErrno);
 #define FTPERR_PASSIVE_ERROR         -8
 #define FTPERR_FAILED_DATA_CONNECT   -9
 #define FTPERR_FILE_NOT_FOUND        -10
+#define FTPERR_TOO_MANY_CONNECTIONS  -11
 #define FTPERR_UNKNOWN               -100
 
 int ftpOpen(char * host, char * name, char * password, char * proxy, int port);

@@ -171,7 +171,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"), 
                                _("Failed to log into %s: %s"), ui->address, 
-                               ftpStrerror(ui->ftpPort));
+                               ftpStrerror(ui->ftpPort, ui->protocol));
             return -2;
         }
 
@@ -180,7 +180,8 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             close(ui->ftpPort);
             if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"), 
-                    _("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
+                    _("Failed to retrieve %s: %s"), buf,
+		    ftpStrerror(fd, ui->protocol));
             return -1;
         }
     } else {
@@ -188,7 +189,8 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
         if (fd < 0) {
             if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"), 
-                    _("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
+                    _("Failed to retrieve %s: %s"), buf,
+		    ftpStrerror(fd, ui->protocol));
             return -1;
         }
     }

@@ -149,7 +149,10 @@ static int ftpCheckResponse(int sock, char ** str) {
     } while (doesContinue && !rc);
 
     if (*errorCode == '4' || *errorCode == '5') {
-	if (!strncmp(errorCode, "550", 3)) {
+	if (!strncmp(errorCode, "421", 3)) {
+	    return FTPERR_TOO_MANY_CONNECTIONS;
+	}
+	else if (!strncmp(errorCode, "550", 3)) {
 	    return FTPERR_FILE_NOT_FOUND;
 	}
 
@@ -381,28 +384,34 @@ int ftpGetFileDone(int sock) {
     return 0;
 }
 
-const char *ftpStrerror(int errorNumber) {
+const char *ftpStrerror(int errorNumber, urlprotocol protocol) {
   switch (errorNumber) {
     case FTPERR_BAD_SERVER_RESPONSE:
-      return ("Bad FTP server response");
+      return(protocol == URL_METHOD_FTP ? "Bad FTP server response" :
+                                          "Bad HTTP server response");
 
     case FTPERR_SERVER_IO_ERROR:
-      return("FTP IO error");
+      return(protocol == URL_METHOD_FTP ? "FTP IO error" : "HTTP IO error");
 
     case FTPERR_SERVER_TIMEOUT:
-      return("FTP server timeout");
+      return(protocol == URL_METHOD_FTP ? "FTP server timeout" :
+                                          "HTTP server timeout");
 
     case FTPERR_BAD_HOST_ADDR:
-      return("Unable to lookup FTP server host address");
+      return(protocol == URL_METHOD_FTP ? "Unable to lookup FTP server host address" :
+                                          "Unable to lookup HTTP server host address");
 
     case FTPERR_BAD_HOSTNAME:
-      return("Unable to lookup FTP server host name");
+      return(protocol == URL_METHOD_FTP ? "Unable to lookup FTP server host name" :
+                                          "Unable to lookup HTTP server host name");
 
     case FTPERR_FAILED_CONNECT:
-      return("Failed to connect to FTP server");
+      return(protocol == URL_METHOD_FTP ? "Failed to connect to FTP server" :
+                                          "Failed to connect to HTTP server");
 
     case FTPERR_FAILED_DATA_CONNECT:
-      return("Failed to establish data connection to FTP server");
+      return(protocol == URL_METHOD_FTP ? "Failed to establish data connection to FTP server" :
+                                          "Failed to establish data connection to HTTP server");
 
     case FTPERR_FILE_IO_ERROR:
       return("IO error to local file");
@@ -413,9 +422,13 @@ const char *ftpStrerror(int errorNumber) {
     case FTPERR_FILE_NOT_FOUND:
       return("File not found on server");
 
+    case FTPERR_TOO_MANY_CONNECTIONS:
+      return(protocol == URL_METHOD_FTP ? "Too many connections to FTP server" :
+                                          "Too many connections to HTTP server");
+
     case FTPERR_UNKNOWN:
     default:
-      return("FTP Unknown or unexpected error");
+      return("Unknown or unexpected error");
   }
 }
 

@@ -49,7 +49,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     /* BNFIXME: hack - all callers want RedHat/<foo>, so add prefix here */
     snprintf(filepath, sizeof(filepath), "%s/%s", getProductPath(), file);
 
-    fd = urlinstStartTransfer(ui, filepath, NULL, 1, flags);
+    fd = urlinstStartTransfer(ui, filepath, NULL, silentErrors, flags);
 
     if (fd == -2) return 2;
 
@@ -59,7 +59,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         newFile = alloca(strlen(filepath) + 20);
         sprintf(newFile, "disc1/%s", filepath);
 
-        fd = urlinstStartTransfer(ui, newFile, NULL, 1, flags);
+        fd = urlinstStartTransfer(ui, newFile, NULL, silentErrors, flags);
 
         if (fd == -2) return 2;
         if (fd < 0) {
@@ -400,7 +400,7 @@ int getFileFromUrl(char * url, char * dest,
 	}
     }
 	
-    fd = urlinstStartTransfer(&ui, file, ehdrs, 1, flags);
+    fd = urlinstStartTransfer(&ui, file, ehdrs, 0, flags);
     if (fd < 0) {
         logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
