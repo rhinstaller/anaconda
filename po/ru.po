@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-07-30 16:18+0400\n"
+"PO-Revision-Date: 2004-09-03 17:55+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -193,9 +193,8 @@ msgid "Using mouse type: %s"
 msgstr "Используется тип мыши: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Поиск установок %s..."
+msgstr "Запуск графической установки..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -253,12 +252,11 @@ msgstr ""
 "OpenFirmware не сможет загрузиться с этого раздела."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+#, python-format
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Загрузочный раздел %s не соответствует требованиям загрузки для вашей "
-"архитектуры. Настоятельно рекомендуется создать загрузочный диск."
+"архитектуры."
 
 #: ../autopart.py:1056
 #, python-format
@@ -479,8 +477,7 @@ msgstr "Удалить все разделы Linux на этой системе"
 
 #: ../autopart.py:1621
 msgid "Keep all partitions and use existing free space"
-msgstr ""
-"Сохранить все разделы и использовать существующее свободное пространство"
+msgstr "Сохранить все разделы и использовать существующее свободное пространство"
 
 #: ../autopart.py:1623
 #, python-format
@@ -618,7 +615,7 @@ msgstr "Удаленный вход (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr "Веб сервер (HTTP, HTTPS)"
+msgstr "Веб-сервер (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -903,8 +900,8 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Несколько устройтсв в вашей системе имеют одинаковые ярлыки %s.  Для "
-"нормальной работы системы ярлыки должны быть уникальнвми.\n"
+"Несколько устройств в вашей системе имеют одинаковые ярлыки %s.  Для "
+"нормальной работы системы ярлыки должны быть уникальными.\n"
 "\n"
 "Исправьте эту проблему и перезапустите установку."
 
@@ -1054,7 +1051,8 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Ошибка при попытке загрузки компонента интерфейса установщика\n"
+"Ошибка при попытке загрузки компонента интерфейса установщика.\n"
+"\n"
 "className = %s"
 
 #: ../gui.py:1112 ../gui.py:1117 ../packages.py:187 ../packages.py:600
@@ -1068,7 +1066,7 @@ msgstr "_Повторить"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Программа установки завершает свою работу..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -1192,7 +1190,7 @@ msgstr "Смена CD-ROM"
 #: ../image.py:284
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Вставьте пожалуйста %s диск %d для продолжения"
+msgstr "Вставьте пожалуйста %s диск %d для продолжения."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1201,7 +1199,7 @@ msgstr "Неверный CD-ROM"
 #: ../image.py:321
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "Этот диск не является необходимым %s CD-ROM"
+msgstr "Этот диск не является необходимым %s CD-ROM."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
@@ -1541,12 +1539,12 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-"DASDs are not supported for usage during an install of %s.  If you wish to "
-"use this disk for installation, it must be re-initialized causing the loss "
-"of ALL DATA on this drive.\n"
+"Устройство %s имеет формат LDL вместо формата CDL. DASD с форматом "
+"LDL не поддерживаются в процессе установки %s.  Если вы хотите "
+"использовать этот диск для установки, его необходимо инициализировать "
+"повторно с потерей ВСЕХ ДАННЫХ на этом диске.\n"
 "\n"
-"Would you like to reformat this DASD using CDL format?"
+"Вы действительно хотите отформатировать DASD с использованием формата CDL?"
 
 #: ../partedUtils.py:308
 #, python-format
@@ -1939,10 +1937,8 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -1990,8 +1986,7 @@ msgstr ""
 "мало для установки %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Вы должны создать раздел /boot/efi типа FAT размером 50 мегабайт."
 
 #: ../partitions.py:796
@@ -2055,8 +2050,7 @@ msgstr "раздел, который является членом группы 
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Точка монтирования неверна. Каталог %s должен быть на корневой файловой "
 "системе."
@@ -2309,17 +2303,14 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2579,52 +2570,50 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"Машины типа zSeries могут получать доступ к стандартным SCSI устройствам "
+"через Fibre Channel (FCP). Для каждого устройства необходимо указать 5 "
+"параметров: 16-битный номер устройства, 16-битный SCSI ID, 64-битный "
+"World Wide Port Number (WWPN), 16-битный SCSI LUN и 64-битный FCP LUN."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Устройство"
+msgstr "Номер устройства"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Вы не указали имя узла."
+msgstr "Вы не задали номер устройства или номер указан не правильно"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Вы не указали имя узла."
+msgstr "Вы не задали SCSI ID устройства или ID указан не правильно."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Вы не указали имя узла."
+msgstr "Вы не задали worldwide port name устройства или имя указано не правильно."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Вы не указали имя узла."
+msgstr "Вы не задали SCSI LUN устройства или номер указан не правильно."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Вы не указали имя узла."
+msgstr "Вы не задали FCP LUN устройства или номер указан не правильно."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3323,7 +3312,6 @@ msgstr ""
 "сервисам вашего компьютера извне. К каким сервисам нужно разрешить доступ? "
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3333,7 +3321,7 @@ msgstr ""
 "Linux c Улучшенной Безопасностью (SELinux) позволяет точнее управлять "
 "безопасностью, чем традиционные Linux системы. Вы можете настроить его в "
 "выключенном состоянии, в котором только формируются сообщения о том, что "
-"должно быть запрещено, или  в полностью включенном состоянии."
+"должно быть запрещено, или в полностью включенном состоянии."
 
 #: ../iw/firewall_gui.py:157
 msgid "Enable _SELinux?:"
@@ -3373,8 +3361,7 @@ msgstr "Выберите основной язык для этой систем�
 
 #: ../iw/language_support_gui.py:212
 msgid "Select _additional languages to install on the system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе:"
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
 #: ../iw/language_support_gui.py:247
 msgid "_Select All"
@@ -4218,14 +4205,12 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Эти ошибки должны быть исправлены перед продолжением установки %s."
 
 #: ../iw/partition_gui.py:637
@@ -4380,8 +4365,7 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1307
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4850,8 +4834,7 @@ msgstr "Ваш текущий загрузчик будет обновлен"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4986,10 +4969,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла свопинга должен быть между 1 и 2000 Мбайт."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
@@ -5163,34 +5144,33 @@ msgid "_Skip X configuration"
 msgstr "Пропустить настройку Х"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Настройка VNC"
+msgstr "Настройка ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Удалить"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Устройства"
+msgstr "FCP Устройства"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Добавить устройство"
+msgstr "Добавить FCP устройство"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Изменить устройство RAID"
+msgstr "Изменить FCP устройство %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Вы пытаетесь удалить FCP диск из вашей конфигурации. Вы действительно "
+"хотите продолжить?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5216,19 +5196,17 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"The z/IPL Boot Loader will now be installed on your system.\n"
+"Cейчас будет установлен начальный загрузчик z/IPL в вашей системе.\n"
 "\n"
-"The root partition will be the one you selected previously in the partition "
-"setup.\n"
+"Корневым разделом будет тот, который вы ранее задали при настройке разделов.\n"
 "\n"
-"The kernel used to start the machine will be the one to be installed by "
-"default.\n"
+"Для запуска машины будет использоваться устанавливаемое по умолчанию ядро.\n"
 "\n"
-"If you wish to make changes later after the installation feel free to change "
-"the /etc/zipl.conf configuration file.\n"
+"Для внесения изменений после установки достаточно изменить "
+"конфигурационный файл /etc/zipl.conf.\n"
 "\n"
-"You can now enter any additional kernel parameters which your machine or "
-"your setup may require."
+"Сейчас вы можете задать дополнительные параметры ядра, которые "
+"могут понадобиться для вашей машины или при вашей настройке."
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 msgid "Kernel Parameters"
@@ -5355,10 +5333,8 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:394
 msgid ""
@@ -5644,8 +5620,7 @@ msgstr "Сбросить изменения"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе:"
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
@@ -5796,10 +5771,8 @@ msgid "Select individual packages"
 msgstr "Индивидуальный выбор пакетов"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Пробел>,<+>,<-> выбор   |   <F2> Описане группы   |  <F12> след. экран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Пробел>,<+>,<-> выбор   |   <F2> Описане группы   |  <F12> след. экран"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5823,10 +5796,8 @@ msgid "Total size"
 msgstr "Всего"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -6044,22 +6015,20 @@ msgstr "Максимальное количество резервных уст�
 #: ../textw/partition_text.py:1174
 #, fuzzy
 msgid "No Volume Groups"
-msgstr "Группы томов LVM"
+msgstr "Группы томов не определены"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Введите имя логического тома."
+msgstr "Не определены группы томов, в которых можно создать логический том."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Запрошенный размер (%10.2f Мбайт) больше, чем максимальный размер "
-"логического тома (%10.2f Мбайт). Чтобы увеличить это ограничение, вам "
-"необходимо увеличить размер физического расширения для этой группы томов."
+"логического тома (%10.2f Мбайт)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6067,26 +6036,24 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Запрошенный размер (%10.2f Мбайт) больше, чем доступно в "
+"группе томов (%10.2f Мбайт)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Изменение логического тома"
+msgstr "Новый раздел или Логический том?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Загружаемые разделы на логических томах не допускаются"
+msgstr "Вы планируете создать новый раздел или новый логический том?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Раздел"
+msgstr "раздел"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Логические тома"
+msgstr "логический том"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6101,8 +6068,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-Ok    "
 
 #: ../textw/partition_text.py:1476
@@ -6240,7 +6206,7 @@ msgstr "Размер файла свопинга (Мбайт):"
 
 #: ../textw/upgrade_text.py:141
 msgid "Add Swap"
-msgstr "Добавить своп"
+msgstr "Добавить пространство свопинга"
 
 #: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
@@ -6349,14 +6315,11 @@ msgid "User Exists"
 msgstr "Пользователь существует"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Пользователь root уже существует. Нет необходимости добавлять его здесь."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Пользователь root уже существует. Нет необходимости добавлять его здесь."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Этот системный пользователь уже настроен. Нет необходимости добавлять его "
 "здесь."
@@ -6688,40 +6651,36 @@ msgid "Video RAM:"
 msgstr "Видео ОЗУ:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Устройство"
+msgstr "Номер устройства:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Устройство"
+msgstr "FCP Устройство:"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Устройство"
+msgstr "Устройство #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6729,9 +6688,10 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"The z/IPL Boot Loader will be installed on your system after installation is "
-"complete. You can now enter any additional kernel and chandev parameters "
-"which your machine or your setup may require."
+"Начальный загрузчик z/IPL может быть установлен в системе после "
+"завершения установки. Сейчас вы можете ввести дополнительные "
+"параметры ядра и chandev которые могут требоваться для вашей "
+"машины или для вашей настройки."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -6739,7 +6699,7 @@ msgstr "Настройка z/IPL"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
-msgstr "Строка changedev "
+msgstr "Строка chandev "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
@@ -7026,9 +6986,7 @@ msgstr "Неизвестный источник драйвера диска kick
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"The following invalid argument was specified for the kickstart driver disk "
-"command: %s:%s"
+msgstr "Следующий некорректный аргумент был передан kickstart команде driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -7059,8 +7017,7 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -7144,8 +7101,9 @@ msgstr "Не удается найти файл kickstart на жестком д
 
 #: ../loader2/hdinstall.c:578
 #, c-format
+#, fuzzy
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Не удается найти жесткий диск для диска, определенного в BIOS %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7185,10 +7143,8 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7298,8 +7254,7 @@ msgstr "В вашей системе были найдены следующие 
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
 #: ../loader2/loader.c:1021
 msgid "Devices"
@@ -7321,14 +7276,12 @@ msgstr "Загрузчик уже выполнялся.  Запускается 
 #: ../loader2/loader.c:1496
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1498
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7459,7 +7412,7 @@ msgid ""
 msgstr ""
 "%s является беспроводным сетевым адаптером.  Укажите ESSID и ключ "
 "шифрования, необходимые для доступа к вашей беспроводной сети.  Если ключ не "
-"требуется, оставьте данное поле пустыи и продолжите установку."
+"требуется, оставьте данное поле пустым и продолжите установку."
 
 #: ../loader2/net.c:190
 msgid "Wireless Settings"
@@ -7570,7 +7523,7 @@ msgstr ""
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
-msgstr "Имя cервера NFS:"
+msgstr "Имя сервера NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
 #, c-format
@@ -7631,7 +7584,7 @@ msgstr "Неверный аргумент команды kickstart метода 
 
 #: ../loader2/urlinstall.c:441
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Для метода Url комады kickstart необходимо передать параметр --url."
+msgstr "Для метода Url команды kickstart необходимо передать параметр --url."
 
 #: ../loader2/urlinstall.c:452
 #, c-format
@@ -7658,7 +7611,7 @@ msgstr "Имя сервера FTP:"
 
 #: ../loader2/urls.c:281
 msgid "Web site name:"
-msgstr "Имя Web-сайта:"
+msgstr "Имя Веб-сайта:"
 
 #: ../loader2/urls.c:300
 msgid "Use non-anonymous ftp"
@@ -7713,27 +7666,27 @@ msgstr "Загрузка драйвера SCSI"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr "Acre"
+msgstr "Акри"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr "Alagoas, Sergipe"
+msgstr "Алагоас, Сержипи"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr "Alaska Time"
+msgstr "Время Аляски"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr "Alaska Time - Alaska panhandle"
+msgstr "Время Аляски - полуострова Аляски"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr "Alaska Time - Alaska panhandle neck"
+msgstr "Время Аляски - перешеек Аляски"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr "Alaska Time - west Alaska"
+msgstr "Время Аляски - восточная Аляска"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
@@ -7741,11 +7694,11 @@ msgstr "Алеутские острова"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr "Amapa, E Para"
+msgstr "Амапа, Восток Пара"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr "Amundsen-Scott Station, South Pole"
+msgstr "Станция Амундсен-Скотт, Южный полюс"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
@@ -7753,22 +7706,19 @@ msgstr "Актобе"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr "Atlantic islands"
+msgstr "Атлантические острова"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr "Atlantic Time - E Labrador"
+msgstr "Атлантическое время - Западный Лабрадор"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Атлантическое время - Новая Шотландия (большая часть), NB, Восточный Лабрадор, Западный Квебек & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr "Атлантическое время - Новая Шотландия - местность, где не происходила смена летнего/зимнего времени в 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7776,19 +7726,19 @@ msgstr "Атирау(Гурьев), Мангыштау"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr "Azores"
+msgstr "Азорские о-ва"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr "Bahia"
+msgstr "Баия"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
+msgstr "Баян-Улгий, Говь-Алтай, Ховд, Увс , Завхан"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Буэнос-Айрес (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7796,15 +7746,15 @@ msgstr "Канарские острова"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Casey Station, Bailey Peninsula"
+msgstr "Станция Кейси, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr "Catamarca (CT)"
+msgstr "Катамарка (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr "центральный Китай - Ганьсу, Гуйчжоу, Сычуань, Юньнань и т.д."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -7812,59 +7762,59 @@ msgstr "центральный Крым"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "Central Standard Time - Saskatchewan - midwest"
+msgstr "Центральное стандартное время - Саскачеван - средний запад"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Central Standard Time - Saskatchewan - most locations"
+msgstr "Центральное стандартное время - Саскачеван - большая часть"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr "Central Time"
+msgstr "Центральное время"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr "Central Time - Campeche, Yucatan"
+msgstr "Центральное время - зал. Кампече, п-ов Юкатан"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+msgstr "Центральное время - Коауила, Durango, Нуэво-Леон, Тамаулипас"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr "Central Time - Manitoba & west Ontario"
+msgstr "Центральное время - Манитоба и запад Онтарио"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr "Central Time - Michigan - Wisconsin border"
+msgstr "Центральное время - Мичиган - граница с Висконсин"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr "Central Time - most locations"
+msgstr "Центральное время - большая часть"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Central Time - North Dakota - Oliver County"
+msgstr "Центральное время - Северная Дакота - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr "Central Time - Quintana Roo"
+msgstr "Центральное время - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Central Time - Rainy River & Fort Frances, Ontario"
+msgstr "Центральное время - Rainy River & Форт Франсес, Онтарио"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr "Central Time - west Nunavut"
+msgstr "Центральное время - западный Нунавут"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr "Ceuta & Melilla"
+msgstr "Сеута & Мелилья"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr "Chatham Islands"
+msgstr "о-ва Чатем"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
@@ -7872,19 +7822,19 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr "Davis Station, Vestfold Hills"
+msgstr "Станция Дейвис, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr "Dornod, Sukhbaatar"
+msgstr "Дорнод, Сухэ-Батор"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
+msgstr "Станция Дюмон-д`Юрвиль, Земля Адели"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr "E Amazonas"
+msgstr "Западная Амазонка"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
@@ -7892,81 +7842,79 @@ msgstr "Восточный Китай - Пекин, Гуанчжоу, Шанха
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr "east coast, north of Scoresbysund"
+msgstr "восточное побережье, север Скорсбисунн"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "east Dem. Rep. of Congo"
+msgstr "восток Дем. Республики Конго"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr "Easter Island & Sala y Gomez"
+msgstr "Остров Пасхи & о. Сала-и-Гомес"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr "Eastern Standard Time - central Nunavut"
+msgstr "Восточное стандартное время - центральный Нунавут"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr "Eastern Standard Time - east Nunavut"
+msgstr "Восточное стандартное время - западный Нунавут"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr "Eastern Standard Time - Indiana - Crawford County"
+msgstr "Восточное стандартное время - Индиана - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - most locations"
+msgstr "Восточное стандартное время - Индиана - большая часть"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Восточное стандартное время - Индиана - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr "Eastern Standard Time - Indiana - Switzerland County"
+msgstr "Восточное стандартное время - Индиана - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr "Восточное стандартное время - Пангниртанг, Нунавут"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr "Eastern Time"
+msgstr "Время вост. побережья"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Eastern Time - Kentucky - Louisville area"
+msgstr "Время вост. побережья - Кентукки - район Луисвилля"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Eastern Time - Kentucky - Wayne County"
+msgstr "Время вост. побережья - Кентукки - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Eastern Time - Michigan - most locations"
+msgstr "Время вост. побережья - Мичиган - большая часть"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Eastern Time - Ontario - most locations"
+msgstr "Время вост. побережья - Онтарио - большая часть"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Время вост. побережья - Онтарио - местность, где не происходила смена летнего/зимнего времени в 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Eastern Time - Quebec - most locations"
+msgstr "Время вост. побережья - Квебек - большая часть"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr "Eastern Time - Thunder Bay, Ontario"
+msgstr "Время вост. побережья - Тандер-Бей, Онтарио"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "восточный и южный Борнео, Celebes, Бали, Нуса-Тенгара, западный Тимор"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -7978,11 +7926,11 @@ msgstr "Галапагосские острова"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr "Gambier Islands"
+msgstr "о-ва Гамбье"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr "Gilbert Islands"
+msgstr "о-ва Гилберта"
 
 #. generated from zone.tab
 msgid "Great Britain"
@@ -7994,15 +7942,15 @@ msgstr "Гаваи"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr "Heilongjiang"
+msgstr "Хейлунцзян"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr "Irian Jaya & the Moluccas"
+msgstr "Ириан Джая & Молуккские острова"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr "Jan Mayen"
+msgstr "о. Ян-Майен"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
@@ -8010,19 +7958,19 @@ msgstr "Ява и Суматра"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr "Johnston Atoll"
+msgstr "атолл Джонстон"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr "Jujuy (JY)"
+msgstr "Жужуй (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr "Kosrae"
+msgstr "о. Кусаие"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr "Kwajalein"
+msgstr ""
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
@@ -8030,11 +7978,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr "Line Islands"
+msgstr "о-ва Лайн (Центральные Полинезийские Спорады)"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr "Lord Howe Island"
+msgstr "остров Лорд-Хау"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
@@ -8042,7 +7990,7 @@ msgstr "Острова Мадейра"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr "mainland"
+msgstr "материк"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -8050,27 +7998,27 @@ msgstr "Маркизские острова"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr "Mato Grosso"
+msgstr "Мату-Гросу"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso do Sul"
+msgstr "Мату-Гросу-Ду-Сул"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr "Mawson Station, Holme Bay"
+msgstr "Станция Моусон, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr "McMurdo Station, Ross Island"
+msgstr "Станция Мак-Мердо, ледник Росса"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr "Mendoza (MZ)"
+msgstr "Мендоса (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Midway Islands"
+msgstr "о-ва Мидуэй"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -8130,62 +8078,59 @@ msgstr "Москва+10 - Берингово море"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr "most locations"
+msgstr "большая часть"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "большая часть (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr "Mountain Standard Time - Sonora"
+msgstr "Стандартное горное время - Сонора"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr "Mountain Time"
+msgstr "Горное время"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+msgstr "Горное время - Альберта, запад Британской Колумбии & западный Саскачева"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - central Northwest Territories"
+msgstr "Горное время - центральные Северные Территории"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr "Mountain Time - Chihuahua"
+msgstr "Горное время - Чиуауа"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr "Mountain Time - Navajo"
+msgstr "Горное время - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
+msgstr "Горное время - S Baja, Наярит, Синалоа"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Mountain Time - south Idaho & east Oregon"
+msgstr "Горное время - юг Айдахо & западный Орегон"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Mountain Time - west Northwest Territories"
+msgstr "Горное время - западные Северные Территории"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "NE Brazil (MA, PI, CE, RN, PB)"
+msgstr "Северо-восток Бразилии (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -8193,15 +8138,15 @@ msgstr "остров Ньюфаундленд"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "New South Wales - most locations"
+msgstr "Новый Южный Уэльс - большая часть"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
+msgstr "Новый Южный Уэльс - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr "northeast Mali"
+msgstr "север Мали"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -8209,51 +8154,51 @@ msgstr "Северная Ирландия"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr "Northern Territory"
+msgstr "Северные Территории"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr "Pacific Time"
+msgstr "Время тихоокеанского побережья"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "Pacific Time - north Yukon"
+msgstr "Время тихоокеанского побережья - северный Юкон"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "Pacific Time - south Yukon"
+msgstr "Время тихоокеанского побережья - южный Юкон"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr "Pacific Time - west British Columbia"
+msgstr "Время тихоокеанского побережья - запад Британской Колумбии"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr "Palmer Station, Anvers Island"
+msgstr "Станция Палмер, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr "peninsular Malaysia"
+msgstr "полуостров на территории Малайзии"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr "Pernambuco"
+msgstr "Пернамбуку"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr "Phoenix Islands"
+msgstr "о-ва Феникс"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr "Ponape (Pohnpei)"
+msgstr "о. Понпей"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Holiday Islands"
+msgstr "Квинсленд - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Queensland - most locations"
+msgstr "Квинсленд - большая часть"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -8261,19 +8206,19 @@ msgstr "Кызыл-Орда"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr "Roraima"
+msgstr "г. Рорайма"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr "Rothera Station, Adelaide Island"
+msgstr "Станция Ротера, о. Аделейд"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr "Ruthenia"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr "Sabah & Sarawak"
+msgstr "Сабах & Саравак"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
@@ -8285,11 +8230,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "Scoresbysund / Ittoqqortoormiit"
+msgstr "Скорсбисунн / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr "Society Islands"
+msgstr "Острова Общества"
 
 #. generated from zone.tab
 msgid "South Australia"
@@ -8297,23 +8242,23 @@ msgstr "Южная Австралия"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr "southwest Mali"
+msgstr "юг Мали"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr "southwest Xinjiang Uyghur"
+msgstr "юг Синьцзянь-Уйгурский"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "Юг и Юго-восток Бразилии (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr "Svalbard"
+msgstr "Шпицберген"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr "Syowa Station, E Ongul I"
+msgstr "Станция Сёва, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -8321,11 +8266,11 @@ msgstr "Тасмания"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr "Thule / Pituffik"
+msgstr "Туле / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tibet & most of Xinjiang Uyghur"
+msgstr "Тибет и большая часть Синьцзянь-Уйгурский"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
@@ -8333,11 +8278,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr "Tocantins"
+msgstr "Токантинс"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr "Truk (Chuuk)"
+msgstr "о-ва Трук (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -8345,7 +8290,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr "Victoria"
+msgstr "Виктория"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -8353,23 +8298,23 @@ msgstr "Станция Восток, Южный Магн. Полюс"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "Wake Island"
+msgstr "остров Уэйк"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr "W Amazonas"
+msgstr "Западная Амазонка"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr "west & central Borneo"
+msgstr "западное и центральное Борнео"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr "west Dem. Rep. of Congo"
+msgstr "запад Дем. Республики Конго"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "западная Австралия"
+msgstr "Западная Австралия"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
@@ -8381,11 +8326,11 @@ msgstr "западный Узбекистан"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
+msgstr "запад Пара, Рондония"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr "Yap"
+msgstr "о. Яп"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -8400,13 +8345,12 @@ msgid "Bengali"
 msgstr "Бенгальский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Венгерский"
+msgstr "Болгарский"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr "Каталанский"
+msgstr "Каталонский"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8493,9 +8437,8 @@ msgid "Persian"
 msgstr "Персидский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Английский"
+msgstr "Польский"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8549,91 +8492,3 @@ msgstr "Валлийский"
 msgid "Zulu"
 msgstr "Зулусский"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "E Argentina (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Указан неверный порт: %s.  Правильный формат 'port:protocol', где порт "
-#~ "между 1 и 65535, а протокол 'tcp' или 'udp'.\n"
-#~ "\n"
-#~ "Например, '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Внимание: неверный токен"
-
-#~ msgid "Allow others on the internet to access these services."
-#~ msgstr "Разрешить подключение к данным сервисам из Интернет."
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Разрешить входящие:"
-
-#~ msgid "Web Server"
-#~ msgstr "Веб Сервер"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Другие _порты:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Расширение для усиления безопасности (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Доверенные устройства:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Почта (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Другие порты"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Настройка брандмауэра - Уточнить"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Существует два способа улучшить брандмауэр. Во-первых, можно разрешить "
-#~ "весь трафик с определенных сетевых интерфейсов. Во-вторых, можно просто "
-#~ "разрешить прохождение определенных протоколов через брандмауэр. Укажите "
-#~ "дополнительные порты в разделенном запятыми списке в формате 'service:"
-#~ "protocol', например 'imap:tcp'."
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Внимание: %s не является допустимым портом."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Этот CD-диск не может быть смонтирован."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Введите пароль пользователя root (администратора) этой системы."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Выборочный брандмауэр"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Укажите службы, к которым будет разрешен доступ через брандмауэр."
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Если вы хотите разрешить весь трафик через устройство, выберите его ниже."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Доверенные устройства:"
