@@ -168,23 +168,30 @@ class InstallProgressWindow (InstallWindow):
         import glob
 
 	files = []
-#	if (not os.environ.has_key('LANG') or 
-#	    not os.environ['LANG'] or
-#	    os.environ['LANG'] == 'en_US'):
 
-#	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/progress_*")
-#	    pixmaps2 = glob.glob("pixmaps/progress_*")
+        if (os.environ.has_key('LANG')):
+            try:
+                shortlang = string.split(os.environ['LANG'], '_')[0]
+            except:
+                shortlang = ''
+                
 
-#	    if len(pixmaps1) < len(pixmaps2):
-#		files = pixmaps2
-#	    else:
-#		files = pixmaps1
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % shortlang)
+	    pixmaps2 = glob.glob("pixmaps/rnotes/%s/*.png" % shortlang)
 
-        files = ["progress_first.png"]
+            if len(pixmaps1) > 0 or len(pixmaps2) > 0:
+                if len(pixmaps1) < len(pixmaps2):
+                    files = pixmaps2
+                else:
+                    files = pixmaps1
+            else:
+                files = ["progress_first.png"]
+
         pixmaps = []
         for pixmap in files:
             if string.find (pixmap, "progress_first.png") < 0:
-                pixmaps.append(pixmap[string.find(pixmap, "progress_"):])
+                pixmaps.append(pixmap[string.find(pixmap, "rnotes/"):])
+
         self.pixmaps = pixmaps
         
 	table = GtkTable (3, 2)
