@@ -227,8 +227,10 @@ static int setupLanguage(int choice, int flags) {
     int i;
 
     logMessage("going to set language to %s", languages[choice].lc_all);
-    /* load the language only if it is displayable */
-    if (!strcmp(languages[choice].font, "bterm") && startBterm(flags)) {
+    /* load the language only if it is displayable.  if they're using
+     * a serial console, we hope it's smart enough */
+    if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
+        startBterm(flags)) {
         if (FL_KICKSTART(flags)) return 0;
 
 	newtWinMessage("Language Unavailable", "OK", 
@@ -384,8 +386,10 @@ int chooseLanguage(char ** lang, int flags) {
     /* this can't happen */
     if (i == numLanguages) abort();
 
-    /* load the language only if it is displayable */
-    if (!strcmp(languages[choice].font, "bterm") && startBterm(flags)) {
+    /* load the language only if it is displayable.  assume that if they're
+     * on a serial console that their terminal is smart. */
+    if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) &&
+        startBterm(flags)) {
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "
