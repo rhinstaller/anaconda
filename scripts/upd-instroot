@@ -96,10 +96,10 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
-         hdparm lvm jfsutils librpm404 rhpl slang"
+         hdparm lvm jfsutils librpm404 rhpl slang libxml2 libxml2-python"
 
 if [ $ARCH = i386 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils lilo"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -216,7 +216,6 @@ sbin/fdisk
 sbin/hdparm
 sbin/hwclock
 sbin/ldconfig
-sbin/lilo
 sbin/lvchange
 sbin/lvcreate
 sbin/lvdisplay
@@ -291,8 +290,10 @@ usr/lib/librpm-*4.0.4.so*
 usr/lib/librpmdb*4.0.4.so*
 usr/lib/librpmio*4.0.4.so*
 usr/lib/libslang*
+usr/lib/libxml2.so*
 usr/lib/libz.*
 usr/lib/python2.2/*
+usr/lib/python2.2/site-packages/libxml2*
 usr/lib/python2.2/site-packages/*vte*
 usr/lib/python2.2/site-packages/*kudzu*
 usr/lib/python2.2/site-packages/rpmmodule.so
