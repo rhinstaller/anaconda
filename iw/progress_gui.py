@@ -44,6 +44,17 @@ class InstallProgressWindow (InstallWindow):
     def processEvents(self):
 	gui.processEvents()
         
+    def setPackageStatus(self, state, amount):
+	if self.pkgstatus is None:
+	    return
+	
+	if state == "downloading":
+	    msgstr = _("Downloading - %s") % (amount,)
+	else:
+	    msgstr = state
+	self.pkgstatus.set_text(msgstr)
+	self.processEvents()
+
     def setPackageScale (self, amount, total):
 	# only update widget if we've changed by 5%, otherwise
 	# we update widget hundreds of times a seconds because RPM
@@ -246,8 +257,22 @@ class InstallProgressWindow (InstallWindow):
         vbox = gtk.VBox (gtk.FALSE, 10)
         vbox.pack_start (table, gtk.FALSE, gtk.FALSE)
 
+	statusflag = 0
+	for m in ['http://', 'ftp://']:
+	    if id.methodstr.startswith(m):
+		statusflag = 1
+		break
+
+	if statusflag:
+	    statusTable = gtk.Table (2, 2, gtk.FALSE)
+	    self.pkgstatus = gtk.Label("")
+	    vbox.pack_start(statusTable, gtk.FALSE, gtk.FALSE)
+	    statusTable.attach (gtk.Label(_("Status: ")), 0, 1, 0, 1, gtk.SHRINK)
+	    statusTable.attach (self.pkgstatus, 1, 2, 0, 1, gtk.FILL, gtk.FILL, ypadding=2)
+	
 	self.progress = gtk.ProgressBar ()
         self.totalProgress = gtk.ProgressBar ()
+        vbox.pack_start (statusTable, gtk.FALSE, gtk.FALSE)
 
         progressTable = gtk.Table (2, 2, gtk.FALSE)
         label = gtk.Label (_("Package Progress: "))

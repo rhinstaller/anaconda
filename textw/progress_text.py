@@ -10,12 +10,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-
 import rpm
 from constants import *
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+
+from rhpl.log import log
 
 class InstallProgressWindow:
     def completePackage(self, header, timer):
@@ -56,6 +57,18 @@ class InstallProgressWindow:
 	self.g.draw()
 	self.screen.refresh()
 
+    def setPackageStatus(self, state, amount):
+	if self.pkgstatus is None:
+	    return
+	
+	if state == "downloading":
+	    msgstr = _("Downloading - %s") % (amount,)
+	else:
+	    msgstr = state
+	self.pkgstatus.setText(msgstr)
+	self.g.draw()
+	self.screen.refresh()
+
     def setPackage(self, header):
 	self.name.setText("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                         header[rpm.RPMTAG_VERSION],
@@ -76,11 +89,18 @@ class InstallProgressWindow:
     def setSizes(self, total, totalSize):
 	screen = self.screen
 
-        toplevel = GridForm(self.screen, _("Package Installation"), 1, 5)
+	if self.showdownload:
+	    totlen = 7
+	else:
+	    totlen = 6
+	    
+        toplevel = GridForm(self.screen, _("Package Installation"), 1, totlen)
         
         name = _(" Name   : ")
         size = _(" Size   : ")
         sum =  _(" Summary: ")
+
+	currow = 0
         
         width = 47 + max (len (name), len (size), len (sum))
 	self.name = Label(" " * 48)
@@ -90,17 +110,34 @@ class InstallProgressWindow:
 	detail.setField(Label(size), 0, 1, anchorLeft = 1)
 	detail.setField(self.name, 1, 0, anchorLeft = 1)
 	detail.setField(self.size, 1, 1, anchorLeft = 1)
-	toplevel.add(detail, 0, 0)
+	toplevel.add(detail, 0, currow)
+	currow += 1
 
 	summary = Grid(2, 1)
 	summlabel = Label(sum)
 	self.summ = Textbox(48, 2, "", wrap = 1)
 	summary.setField(summlabel, 0, 0)
 	summary.setField(self.summ, 1, 0)
-	toplevel.add(summary, 0, 1)
+	toplevel.add(summary, 0, currow)
+	currow += 1
+
+	if self.showdownload:
+	    toplevel.add(Label(""), 0, currow)
+	    currow += 1
+	    
+	    pkgstatgrid = Grid(2, 1)
+	    pkgstatlabel = Label(_("Status: "))
+	    self.pkgstatus = Label(" " * 48)
+	    pkgstatgrid.setField(pkgstatlabel, 0, 0)
+	    pkgstatgrid.setField(self.pkgstatus, 1, 0)
+	    toplevel.add(pkgstatgrid, 0, currow)
+	    currow += 1
+	else:
+	    self.pkgstatus = None
 
 	self.s = Scale (width, 100)
-	toplevel.add (self.s, 0, 2, (0, 1, 0, 1))
+	toplevel.add (self.s, 0, currow, (0, 1, 0, 1))
+	currow += 1
 
 	overall = Grid(4, 4)
 	# don't ask me why, but if this spacer isn"t here then the 
@@ -135,12 +172,14 @@ class InstallProgressWindow:
 	self.timeRemainingW = Label("")
 	overall.setField(self.timeRemainingW, 3, 3, anchorLeft = 1)
 
-	toplevel.add(overall, 0, 3)
+	toplevel.add(overall, 0, currow)
+	currow += 1
 
 	self.numTotal = total
 	self.sizeTotal = totalSize
 	self.total = Scale (width, totalSize)
-	toplevel.add(self.total, 0, 4, (0, 1, 0, 0))
+	toplevel.add(self.total, 0, currow, (0, 1, 0, 0))
+	currow += 1
 
 	self.timeStarted = -1
 	
@@ -149,8 +188,9 @@ class InstallProgressWindow:
 	screen.refresh()
 	self.drawn = 1
 
-    def __init__(self, screen):
+    def __init__(self, screen, showdownload=0):
 	self.screen = screen
+	self.showdownload = showdownload
 	self.drawn = 0
 
     def __del__ (self):
@@ -163,6 +203,13 @@ class setupForInstall:
 	    id.setInstallProgressClass(None)
 	    return INSTALL_BACK
 	else:
-	    id.setInstallProgressClass(InstallProgressWindow(screen))
+	    flag = 0
+	    for m in ['http://', 'ftp://']:
+		if id.methodstr.startswith(m):
+		    flag = 1
+		    break
+
+	    log("id.methodstr = %s %s", id.methodstr, flag)
+	    id.setInstallProgressClass(InstallProgressWindow(screen, showdownload=flag))
 
 	return INSTALL_OK
