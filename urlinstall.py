@@ -41,6 +41,19 @@ def urlretrieve(location, file):
         url = urllib2.urlopen(location)
     except urllib2.HTTPError, e:
         raise IOError(e.code, e.msg)
+    except urllib2.URLError, e:
+	raise IOError(-1, e.reason)
+    else:
+	# sanity check result - sometimes FTP doesnt
+	# catch a file is missing
+	try:
+	    clen = file.info()['content-length']
+	except:
+	    clen = 0
+
+	if clen < 1:
+	    raise IOError(-1, "File not found")
+	
     f = open(file, 'w+')
     f.write(url.read())
     f.close()
