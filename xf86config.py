@@ -993,7 +993,9 @@ Section "Screen"
                  "cardID"       : self.vidCards[self.primary]["NAME"],
                  "cardVendor"   : self.vidCards[self.primary]["NAME"],
                  "cardBoardName": self.vidCards[self.primary]["NAME"],
-                 "files"        : self.files }
+                 "monitorHoriz"       : self.monHoriz,
+                 "monitorVert"        : self.monHoriz,
+                 "files"        : self.files
                  }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         if self.vidCards[self.primary].has_key ("DRIVER"):
