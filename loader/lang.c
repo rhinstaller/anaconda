@@ -125,9 +125,9 @@ void loadLanguage (char * file, int flags) {
     char filename[200];
     gzFile stream;
     int fd, hash, rc;
-    char * key = getenv("LANG");
+    char * key = getenv("LANGKEY");
 
-    if (!key || !strcmp(key, "en")) {
+    if (!key || !strcmp(key, "en_US")) {
 	if (strings) {
 	    free(strings), strings = NULL;
 	    numStrings = allocedStrings = 0;
@@ -251,9 +251,10 @@ void setLanguage (char * key, int flags) {
 
     for (i = 0; i < numLanguages; i++) {
 	if (!strcmp(languages[i].key, key)) {
-	    setenv("LANG", languages[i].key, 1);
+	    setenv("LANG", languages[i].lc_all, 1);
+	    setenv("LANGKEY", languages[i].key, 1);
 	    setenv("LC_ALL", languages[i].lc_all, 1);
-	    setenv("LINGUAS", languages[i].key, 1);
+	    setenv("LINGUAS", languages[i].lc_all, 1);
 	    loadLanguage (NULL, flags);
 	    if (languages[i].map)
 		loadFont(languages[i].map, 0);
@@ -284,7 +285,7 @@ int chooseLanguage(char ** lang, int flags) {
     
     if (getenv("LANG")) {
 	for (choice = 0; choice < numLanguages; choice++)
-	    if (!strcmp(languages[choice].key, getenv("LANG"))) break;
+	    if (!strcmp(languages[choice].lc_all, getenv("LANG"))) break;
 	if (choice == numLanguages) choice = 0;
     }
 
@@ -297,6 +298,7 @@ int chooseLanguage(char ** lang, int flags) {
     if (choice == english) {
 	/* stick with the default (English) */
 	unsetenv("LANG");
+	unsetenv("LANGKEY");
 	unsetenv("LC_ALL");
 	unsetenv("LINGUAS");
         if (strings) {
@@ -306,9 +308,10 @@ int chooseLanguage(char ** lang, int flags) {
 	return 0;
     }
 
-    setenv("LANG", languages[choice].key, 1);
+    setenv("LANG", languages[choice].lc_all, 1);
+    setenv("LANGKEY", languages[choice].key, 1);
     setenv("LC_ALL", languages[choice].lc_all, 1);
-    setenv("LINGUAS", languages[choice].key, 1);
+    setenv("LINGUAS", languages[choice].lc_all, 1);
 
     if (strings) {
 	free(strings), strings = NULL;
@@ -348,8 +351,8 @@ int chooseLanguage(char ** lang, int flags) {
 struct defaultKeyboardByLang {
     char * lang, * keyboard;
 } defaultSunKeyboards[] = {
-    { "fi", "sunt5-fi-latin1" },   
-    { "cs", "sunt5-cz-us" },
+    { "fi_FI", "sunt5-fi-latin1" },   
+    { "cs_CZ", "sunt5-cz-us" },
     { NULL, NULL } };
 #endif
 
@@ -479,7 +482,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     lang = getenv("LANG");
     if (!defkbd && lang) {
 	for (i = 0; i < numLanguages; i++) {
-	    if (!strncmp(languages[i].key, lang, 2)) {
+	    if (!strncmp(languages[i].lc_all, lang, 2)) {
 		defkbd = languages[i].keyboard;
 		break;
 	    }
