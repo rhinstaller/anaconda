@@ -1,5 +1,8 @@
 2005-03-30  Chris Lumens  <clumens@redhat,com>
 
+	* language.py (InstallTimeLanguage.setSupported):  supported is a list
+	of language names, not nicknames.
+
 	* loader2/lang.c (loadLanguageList):  Language names may now contain
 	spaces, which sscanf splits on.  Change what it's looking for.
 	* loader2/lang.c (setLangEnv):  Don't set $LANG to the language's name.

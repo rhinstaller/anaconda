@@ -50,7 +50,6 @@ class InstallTimeLanguage:
         self.default = None
 
         self.allSupportedLangs = []
-        self.allSupportedNicks = []
         self.langInfoByName = {}
         self.nativeLangNames = {}
         self.localeInfo = {}
@@ -217,11 +216,9 @@ class InstallTimeLanguage:
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
 
     def setSupported (self, langlist):
-        log ("starting setSupported")
 	if len(langlist) == len(self.allSupportedLangs):
-            allSupportedNicks = map (lambda name: self.langInfoByName[name][0], self.allSupportedLangs)
             self.info["SUPPORTED"] = None
-	    self.supported = allSupportedNicks
+	    self.supported = self.getAllSupported()
         elif langlist:
 	    rpmNickList = []
 	    for name in langlist:
