@@ -927,7 +927,9 @@ class ToDo:
             self.intf.messageWindow(_("Error"),
                                     _("Rebuild of RPM database failed. "
                                       "You may be out of disk space?"))
-            raise RuntimeError, "Rebuild of RPM database failed."
+	    if self.setupFilesystems:
+		self.fstab.umountFilesystems (self.instPath)
+	    sys.exit(0)
 
 ### XXXXXXXXXXXXXXXXXXXXXXXXXXX fix me - move the replace back down to
 #                               doInstall        
