@@ -549,10 +549,10 @@ TODO:
  it will complain !
 */
                 if (!deviceKnown(devices, ctl)) {
-                    newDevice.name = strdup(ctl);
-                    newDevice.model = strdup("I2O Block Device");
-                    newDevice.class = CLASS_HD;
-                    addDevice(devices, newDevice);
+/*                      newDevice.name = strdup(ctl); */
+/*                      newDevice.model = strdup("I2O Block Device"); */
+/*                      newDevice.class = CLASS_HD; */
+/*                      addDevice(devices, newDevice); */
                 }
     return 0;
 }
