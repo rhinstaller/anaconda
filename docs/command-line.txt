@@ -121,3 +121,15 @@ vnc             Do graphical installation via VNC.  Instead of
                 installation.
 
 vncpassword=<password>  Set a password for the vnc session.
+
+vncconnecthost=<host>   Once installation is up and running, connect to
+                the vnc client named <host>.
+
+                Requires 'vnc' option to be specified as well.
+
+vncconnectport=<host>   Once installation is up and running, connect to
+                the vnc client on port <port>.  Requires that
+                vncconnecthost= option is also specified.
+
+                Requires 'vnc' option to be specified as well.
+
