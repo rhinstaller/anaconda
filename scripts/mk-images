@@ -425,12 +425,6 @@ makeinitrd() {
       for i in a/ansi d/dumb s/screen v/vt100 v/vt102 x/xterm; do
          install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
       done
-      cat > $MBD_DIR/etc/issue.net <<EOF
-Welcome to the Red Hat Linux install environment for S/390.
- 
-Login as 'root' and run 'loader' to install Red Hat Linux.
- 
-EOF
     fi
     if [ -n "$JAPANESE" ]; then
         mkdir -p $MBD_DIR/etc/terminfo/k
@@ -497,6 +491,8 @@ EOF
        cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
        cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
        cp -f $IMGPATH/etc/services $MBD_DIR/etc/
+       cp -f $IMGPATH/etc/motd $MBD_DIR/etc/
+       cp -f $IMGPATH/etc/issue.net $MBD_DIR/etc/
        cp -df $IMGPATH/lib/libpam.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libdl.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libdl-*.so* $MBD_DIR/lib
@@ -529,12 +525,6 @@ EOF
 /lib
 /mnt/runtime/lib
 /mnt/runtime/usr/lib
-EOF
-	echo >$MBD_DIR/etc/motd <<EOF
-Welcome to the Red Hat Linux install environment (v0.34) for S/390.
- 
-Now run 'rhsetup' or 'loader' to install Red Hat Linux.
- 
 EOF
     else
        ln -s /usr/bin/sh $MBD_DIR/sbin/sh
