@@ -443,7 +443,7 @@ class ToDo:
             os.remove('/tmp/' + device)
 	    w.pop()
 
-    def addMount(self, device, location, fsystem, reformat = 1):
+    def addMount(self, device, location, fsystem, reformat = 0):
         if fsystem == "swap":
             location = "swap"
         self.mounts[location] = (device, fsystem, reformat)

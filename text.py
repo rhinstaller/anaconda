@@ -305,10 +305,61 @@ class PartitionWindow:
             todo.ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
         dir = todo.ddruid.edit ()
         for (partition, mount, fstype, size) in todo.ddruid.getFstab ():
-            todo.log ("adding %s %s %s\n", partition, mount, fstype)
             todo.addMount(partition, mount, fstype)
                 
         return dir
+
+
+class FormatWindow:
+    def run(self, screen, todo):
+	if (not todo.setupFilesystems): return INSTALL_NOOP
+
+        tb = TextboxReflowed (55,
+                              _("What partitions would you like to "
+                                "format? We strongly suggest formatting "
+                                "all of the system partitions, including "
+                                "/, /usr, and /var. There is no need to "
+                                "format /home or /usr/local if they have "
+                                "already been configured during a "
+                                "previous install."))
+
+        height = min (screen.height - 12, len (todo.mounts.items()))
+        
+        ct = CheckboxTree(height = height)
+
+        mounts = todo.mounts.keys ()
+        mounts.sort ()
+
+        for mount in mounts:
+            (dev, fstype, format) = todo.mounts[mount]
+            if fstype == "ext2":
+                ct.append("/dev/%s   %s" % (dev, mount), mount, format)
+
+        cb = Checkbox (_("Check for bad blocks during format"))
+
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+
+        g = GridForm (screen, _("Choose Partitions to Format"), 1, 4)
+        g.add (tb, 0, 0, (0, 0, 0, 1))
+        g.add (ct, 0, 1)
+        g.add (cb, 0, 2, (0, 0, 0, 1))
+        g.add (bb, 0, 3, growx = 1)
+
+        result = g.runOnce()
+
+        for mount in todo.mounts.keys ():
+            (dev, fstype, format) = todo.mounts[mount]
+            todo.mounts[mount] = (dev, fstype, 0)
+
+        for mount in ct.getSelection():
+            (dev, fstype, format) = todo.mounts[mount]
+            todo.mounts[mount] = (dev, fstype, 1)
+
+        rc = bb.buttonPressed (result)
+
+        if rc == "back":
+            return INSTALL_BACK
+        return INSTALL_OK
 
 class PackageGroupWindow:
     def run(self, screen, todo, individual):
@@ -629,8 +680,9 @@ class InstallInterface:
             [_("Language Selection"), LanguageWindow, (self.screen, todo)],
             [_("Keyboard Selection"), KeyboardWindow, (self.screen, todo)],
             [_("Welcome"), WelcomeWindow, (self.screen,)],
-            [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
+            [_("Partition"), PartitionWindow, (self.screen, todo)],
+            [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, individual)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
