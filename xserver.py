@@ -255,7 +255,7 @@ def start_existing_X():
                     "/usr/share/fonts/KOI8-R/misc/,"
                     "/usr/share/fonts/KOI8-R/75dpi/")
                     
-        print args
+#        print args
 	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)
@@ -276,17 +276,3 @@ def start_existing_X():
     # reconfig mode?
     
     return (None, None)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

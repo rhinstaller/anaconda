@@ -622,10 +622,8 @@ class XF86Config:
         if isys.fbinfo() != None:
             x, y, depth = isys.fbinfo()
             self.fbDepth = depth
-#            print "here"
         else:
             self.fbDepth = 16
-#            print "nofb"
 
         self.files = """
 # The location of the RGB database.  Note, this is the name of the
@@ -669,17 +667,7 @@ class XF86Config:
         return 0
 
     def availableModes (self):
-#        print "Inside xf86Config...availableModes", self.res
-#        print x.res
-#        time.sleep (5)
-
-#        if self.res == "640x480":
-#            modes = { "8" :  ["640x480"] }
-#        else:
-#            modes = { "16" :  ["800x600"] }
-            
         modes = { "8" : [ "640x480" ] }
-#        modes = { "16" : [ "800x600" ] }
 
         if not self.vidRam:
             return modes
@@ -717,7 +705,6 @@ class XF86Config:
             modes["32"] = []
             return modes
         elif string.atoi(self.vidRam) >= 256:
-            print "256k of memory"
             modes["8"] = ["640x480"]
             return modes
 
@@ -762,7 +749,6 @@ class XF86Config:
                 card[info[0]] = string.joinfields (info[1:], ' ')
 
         if thecard:
-            print thecard
             card = cards[thecard]
             # XXX set a max depth here to avoid infinite loops
             while card.has_key ("SEE"):
@@ -1068,16 +1054,7 @@ class XF86Config:
 		pass
 
             os.execv(args[0], args)
-#	    print "exec failed"
-#	    time.sleep(5)
      	    os.exit (1)
-
-#        time.sleep (10)
-#	print "Here"
-
-#        print "server is", server
-#	time.sleep (5)
-
 
 
         if spawn:
@@ -1104,10 +1081,6 @@ class XF86Config:
             return
 
     def Version3Config (self, test=0):
-#        print "Inside Version3Config"
-#        print self.res
-#        time.sleep (5)
-
         info = {}
         devices = ""
         screens = ""
