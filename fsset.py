@@ -2054,9 +2054,9 @@ def readFstab (path, intf = None):
         # shenanigans to handle ext3,ext2 format in fstab
         fstotry = fields[2]
         if fstotry.find(","):
-            fs = fstotry.split(",")
+            fstotry = fstotry.split(",")
         else:
-            fs = [ fstotry ]
+            fstotry = [ fstotry ]
         fsystem = None            
         for fs in fstotry:
             # if we don't support mounting the filesystem, continue
