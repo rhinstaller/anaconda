@@ -1005,6 +1005,16 @@ done
 # do some stripping of debugging symbols
 find $DESTGR -type f -name '*.so' |xargs strip -g
 
+# some python stuff we don't need for stage2
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/encodings/
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
+rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
+
+
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
 rm -rf $DEST/usr/lib/anaconda-runtime
