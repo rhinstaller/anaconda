@@ -64,9 +64,15 @@ def findExistingRoots (intf, theFstab):
 			continue
 
 		    if os.access('/mnt/sysimage/redhat.img', os.R_OK):
-			rootparts.append((dev, "vfat"))
+# old code		rootparts.append((dev, "vfat"))
+			intf.messageWindow(_("Error"),
+			_("Partitionless upgrades are NOT supported in this beta"))
+                        isys.umount('/mnt/sysimage')
+                        win.pop ()
+                        return []
 
 		    isys.umount('/mnt/sysimage')
+
 	os.remove ('/tmp/' + drive)
     win.pop ()
     return rootparts
