@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
-"PO-Revision-Date: 1999-09-15 20:51+0900\n"
+"PO-Revision-Date: 1999-09-16 06:26+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -337,7 +337,7 @@ msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"설치에 대한 기록은 재부팅 후 /tmp/install.log 를 참고하시기 바랍니다.추후 "
+"설치에 대한 기록은 재부팅 후 /tmp/install.log 를 참고하시기 바랍니다. 추후 "
 "참고하기 위해 이 파일을 보관 하실 수 있습니다."
 
 #: ../text.py:534
@@ -703,11 +703,11 @@ msgstr "업그레이드할 패키지 선택"
 
 #: ../iw/fdisk.py:11 ../textw/partitioning.py:25
 msgid "fdisk"
-msgstr "fdisk"
+msgstr "FDISK"
 
 #: ../iw/fdisk.py:42
 msgid "Select drive to run fdisk on"
-msgstr ""
+msgstr "FDISK 할 드라이브 선택"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -748,7 +748,7 @@ msgstr "업그레이드"
 
 #: ../iw/installpath.py:183
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "드라이브 포맷에 FDISK 이용"
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
@@ -950,7 +950,7 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"이 설정을 원하지 않는다면, 파티션을 직접 설정하여 설치를 계속 하거나,뒤로 "
+"이 설정을 원하지 않는다면, 파티션을 직접 설정하여 설치를 계속 하거나, 뒤로 "
 "가서 사용자 설치를 할 수 있습니다."
 
 #: ../iw/rootpartition.py:137
@@ -1050,6 +1050,9 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
+"특정한 소수 시스템에서는 시스템이 정상 동작을 하기 위해서, 부팅시에 커널에 "
+"매계변수 설정을 해야 합니다. 매계변수 설정이 필요하면 입력을 하십시요. "
+"확실하지 않거나 필요가 없으면 공백으로 두시기 바랍니다."
 
 #: ../textw/lilo.py:62
 msgid "Where do you want to install the bootloader?"
@@ -1076,6 +1079,8 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
+"레드햇 리눅스가 이용하는 부트 관리자는 다른 운영체제도 부팅을 할수 있습니다. "
+"부팅시키기를 원하는 파티션과 레이블을 입력해 주십시요."
 
 #: ../textw/packages.py:117
 msgid ""
@@ -1083,6 +1088,8 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
+"선택하신 패키지중에 일부 패키지는 선택을 안한 패키지를 필요로 합니다. OK를 "
+"선택하면 필요한 패키지가 설치됩니다."
 
 #: ../textw/partitioning.py:17 ../textw/partitioning.py:56
 msgid "Disk Setup"
@@ -1097,6 +1104,9 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
+"디스크 드루이드(Disk Druid)는 파티션 할당과 마운트를 위한 도구입니다. "
+"전통적인 FDISK 보다 쉽고 편하게 사용 할수 있는 도구이긴 하지만, FDISK의 "
+"사용이 필요한 경우가 있습니다."
 
 #: ../textw/partitioning.py:57
 msgid ""
@@ -1104,6 +1114,9 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
+"레드햇 리눅스를 설치하기 위해서는 적어도 150M의 리눅스용 파티션이 있어야만 "
+"합니다. LILO를 이용해 리눅스를 부팅을 하기 위해서는 두개의 하드 드라이브 중 "
+"맨 앞의 파티션을 리눅스용 파티션으로 하시기 바랍니다."
 
 #: ../loader/loader.c:287 ../loader/loader.c:311 ../textw/partitioning.py:62
 msgid "Done"
@@ -1115,7 +1128,7 @@ msgstr "계속"
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
-msgstr ""
+msgstr "메모리가 작음"
 
 #: ../textw/partitioning.py:131
 msgid ""
@@ -1123,6 +1136,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"이 시스템에는 충분한 메모리가 없기 때문에 즉시 스왑공간을 이용해야만 합니다. "
+"스왑을 이용하기 위해서는 새로운 파티션 테이블의 내용을 지금 저장해야만 "
+"합니다. 저장 하시겠습니까 ?"
 
 #: ../textw/partitioning.py:150
 msgid ""
@@ -1131,6 +1147,9 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
+"어느 파티션을 포맷 하시겠습니까? /, /usr, /var를 포함한 모든 시스템 파티션을 "
+"포맷하기 바랍니다. 이전의 설치에서 /home or /usr/local 파티션을 설정 했다면 "
+"이 파티션은 포맷을 할 필요가 없습니다"
 
 #: ../textw/partitioning.py:170
 msgid "Check for bad blocks during format"
@@ -1146,6 +1165,8 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"ROOT 패스워드를 정해 주십시요. 정확하게 각각의 공란에 입력해 주십시요.ROOT "
+"패스워드는 시스템 보안에 중요한 요소입니다."
 
 #: ../loader/urls.c:298 ../textw/userauth.py:25
 msgid "Password:"
@@ -1201,6 +1222,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"시스템을 이용 하실때에는 일반 사용자 계정을 이용하시고 ROOT 계정의 이용을 "
+"자제 하시기 바랍니다. 무분별한 ROOT 계정의 이용은 시스템 설정을 망칠 수 "
+"있습니다."
 
 #: ../textw/userauth.py:152
 msgid ""
@@ -1208,6 +1232,9 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
+"일반 사용자 계정을 추가 하시기 바랍니다. 일반적인 시스템 사용을 위해 적어도 "
+"하나의 일반 사용자 계정이 필요합니다. 많은 사용자가 있다면 필요한 만큼 추가 "
+"하시기 바랍니다."
 
 #: ../textw/userauth.py:162
 msgid "User name"
@@ -1320,7 +1347,7 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"이 프로그램이 지원하는 것보다 더 많은 드라이브가 있습니다. 기존의 fdisk를 "
+"이 프로그램이 지원하는 것보다 더 많은 드라이브가 있습니다. 기존의 FDISK를 "
 "사용해서 설정을 하시기 바랍니다. 그리고 레드햇 소프트웨어에 이 메세지에 "
 "대해서 알려 주시기 바랍니다."
 
@@ -1368,8 +1395,8 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
-"디바이스 %s의  파티션 테이블이 잘못됨. 새로은 파티션을 만들기 위해서는 "
-"초기화가 필요하며 모든 데이타는 소실됩니다."
+"장치 %s의  파티션 테이블이 잘못됨. 새로은 파티션을 만들기 위해서는 초기화가 "
+"필요하며 모든 데이타는 소실됩니다."
 
 #: ../libfdisk/fsedit.c:1010
 msgid "Bad Partition Table"
@@ -1518,7 +1545,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "RAIDD 설정이 없음"
 
 #: ../libfdisk/gnomefsedit.c:1081
 msgid ""
@@ -1526,6 +1553,8 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
+"다른 드라이브에 종속 시키지 않고 RAID 파티션을 설정 했습니다.\n"
+"설정을 하신것이 맞습니까 ?"
 
 #: ../libfdisk/gnomefsedit.c:1087
 msgid "Close"
@@ -1536,6 +1565,8 @@ msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
+"다른 드라이브에 종속 시키지 않고 RAID 파티션을 설정 했습니다. 이 파티션을 "
+"종속시킬 다른 드라이브를 선택해 주십시요."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -1550,6 +1581,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
+"RAID 장치 /dev/%s는 할당되지 않은 파티션을 가지고 있습니다. RAID 장치 "
+"/dev/%는 각각의 파티션으로 나눕니다. 할당된 파티션으로 RAID 장치를 설정해 "
+"주십시요."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1361 ../libfdisk/gnomefsedit.c:1380
@@ -1604,6 +1638,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
+"RAID 장치를 부트 파티션으로 마운트 했습니다. 각각의 파티션들이 부팅가능 "
+"해야만 합니다."
 
 #: ../libfdisk/gnomefsedit.c:1879
 msgid "No RAID Device"
