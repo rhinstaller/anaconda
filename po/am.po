@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-12-19 09:46+EDT\n"
+"PO-Revision-Date: 2004-12-23 17:37+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -195,7 +195,7 @@ msgstr "የፕሮግራም መጫኛ መከፈያፈያ %s ከBSD ዲስክ ስ�
 #: ../autopart.py:1006
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
-msgstr "የማስጀመሪያው መከፋፈያ በጅማሬው ላይ ማስጀመሪያ መጫኛውን እንዳለ ለማስቀጠል በቂ የሆነ ነፃ ቦታ ካለው ዲስክ ጋር አይሄድም። በዲስኩ መጀመሪያ ላይ በትንሹ 5ሜጋባይት ነፃ ቦታ እንዳለና ማስጀመሪያውን ያጠቃለለ መሆኑን ያረጋግጡ fix-%s"
+msgstr "የማስጀመሪያው መከፋፈያ %s በጅማሬው ላይ ማስጀመሪያ መጫኛውን እንዳለ ለማስቀጠል በቂ የሆነ ነፃ ቦታ ካለው ዲስክ ጋር አይሄድም። በዲስኩ መጀመሪያ ላይ በትንሹ 5ሜጋባይት ነፃ ቦታ እንዳለና ማስጀመሪያውን ያጠቃለለ መሆኑን ያረጋግጡ"
 
 #: ../autopart.py:1008
 #, python-format
@@ -226,7 +226,7 @@ msgstr "የተጠየቀው መከፋፈያ የለም"
 #, python-format
 msgid "Unable to locate partition %s to use for %s.\n"
 "Press 'OK' to reboot your system."
-msgstr "ለ%s ለመጠቀም መከፋፈያው ያለበትን ቦታ ማግኘት አልተቻለም። fix-%s\n"
+msgstr "ለ%s ለመጠቀም የ%s መከፋፈያው ያለበትን ቦታ ማግኘት አልተቻለም።\n"
 "ሲስተምዎትን እንደገና ለመጫን ‹እሺ›ን ተጫኑ።"
 
 #: ../autopart.py:1234
@@ -635,7 +635,7 @@ msgstr "%sን ለመፍጠር በሚሞክርበት ጊዜ ስሕተት ተከ�
 #, python-format
 msgid "An error occurred when trying to create %s: %s.  This is a fatal error and the install cannot continue.\n"
 "Press  to reboot your system."
-msgstr "%sን ለመፍጠር በሚሞክርበት ጊዜ ስሕተት ተከስቷውል። ይህ ከፍተኛ የሆነ ስሕተት ስለሆነ የማስገባቱን ሥራ መቀጠል አይቻልም። fix-%s\n"
+msgstr "%sን ለመፍጠር በሚሞክርበት ጊዜ ስሕተት ተከስቷውል፦ %s። ይህ ከፍተኛ የሆነ ስሕተት ስለሆነ የማስገባቱን ሥራ መቀጠል አይቻልም።\n"
 "ሲስተምዎትን እንደገና ለማስጀመር ይጫኑ።"
 
 #: ../fsset.py:1478
@@ -1158,13 +1158,12 @@ msgid "The device %s is LDL formatted instead of CDL formatted.  LDL formatted  
 "Would you like to reformat this DASD using CDL format?"
 msgstr "የመሣሪያ %s  በCDL  ማስተካከያ ምትክ የLDL ማስተካከያ ነው።  %sን በሚያስገባበት ወቅት የLDL ማስተካከያ DASD ለመተቀሚያነት የሚረዱ አይደሉም። ይህንን መረጃ ማከማቻ ለማስገቢያነት መጠቀም ከፈለጉ ሁሉም ዳታዎች የጠፉበትን ምክንያት በዚህ ድራይቭ ላይ ገልጾ መነሻው እንደገና መደረግ አለበት። ይህንን  DASD የCDLን ማስተካከያ መጠቀም እንደገና ማስተካከል ይፈልጋሉ?"
 
-
 #: ../partedUtils.py:304
 #, python-format
 msgid "The partition table on device /dev/%s is of an unexpected type %s for your architecture.  To use this disk for installation of %s, it must be re-initialized causing the loss of ALL DATA on this drive.\n"
 "\n"
 "Would you like to initialize this drive?"
-msgstr "በመሥሪያ ላይ ያለው የመከፋፈያው ሠርንጠረዥ ለእርስዎ ንድፍ ያልተጠበቀ ዓይነት %s ነው። %sን ለማስገቢያ ይህንን ዲስክ ለመጠቀም፤ ሁሉንም እዚህ ድራይቭ ላይ ያሉትን ሁሉንም ዳታዎች የመጥፋት ምክንያት እንዳይሆን እንደገና ምልክት መደረግ አለበት። fix-%s\n"
+msgstr "በመሥሪያ ላይ ያለው የመከፋፈያው ሠርንጠረዥ /dev/%s ለእርስዎ ንድፍ ያልተጠበቀ ዓይነት %s ነው። %sን ለማስገቢያ ይህንን ዲስክ ለመጠቀም፤ ሁሉንም እዚህ ድራይቭ ላይ ያሉትን ሁሉንም ዳታዎች የመጥፋት ምክንያት እንዳይሆን እንደገና ምልክት መደረግ አለበት።\n"
 "\n"
 "ይህንን ድራይቭ መጀመሪያ ማድረግ ይፈልጋሉ?"
 
@@ -1358,7 +1357,7 @@ msgstr "እንደ ስዋፕ ይስተካክል?"
 msgid "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
-msgstr "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n"
+msgstr "/dev/%s የ0x82 (Linux swap) የሆነ የመከፋፈያ ዓይነት አለው፣ ግን እንደ ሊኑክስ ስዋፕ መከፋፈያ ሆኖ ፎርማት የተደረገ አይመስልም። \n"
 "\n"
 "ይህንን መከፋፈያ እንደ ስዋፕ መከፋፈያ ማስተካከል ይፈልጋሉ?"
 
@@ -1484,9 +1483,11 @@ msgstr "ዋናው መከፋፈያዎች ከ250 ሜጋባይት ያነሰና አ�
 #: ../partitions.py:768
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "የ/boot/efi መከፋፈያ ዓይነቱ የፋት እና የ50 ሜጋባይት መጠን መፍጠር አለብዎት።"
+
 #: ../partitions.py:791
 msgid "You must create a PPC PReP Boot partition."
 msgstr "የ PPC PReP Boot መከፋፈያ መፍጠር አለብዎት።"
+
 #: ../partitions.py:799 ../partitions.py:810
 #, python-format
 msgid "Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install."
@@ -1495,12 +1496,15 @@ msgstr "የ%s መከፋፈያዎት ከ%s ሜጋባይት ያነሰና %sን ለ
 #: ../partitions.py:839 ../partRequests.py:651
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "ሊጫኑ የሚቻሉት መከፋፈያዎች በRAID1 መሣሪያ ላይ ብቻ ነው ሊሆን የሚችለው።"
+
 #: ../partitions.py:846
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "ሊጫኑ የሚችሉ መከፋፈያዎች በተገቢው ድምፅ/መጠን መሆን አይችሉም።"
+
 #: ../partitions.py:857
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
 msgstr "የስዋፕን መከፋፈያ አልገለጹም። በሁሉም ጉዳይዎች ላይ በጥብቅ ባያስፈልጉም በእርግጥ ብዙ የማስገባት ሥራዎችን ያሻሽላል።"
+
 #: ../partitions.py:864
 #, python-format
 msgid "You have specified more than 32 swap devices.  The kernel for %s only supports 32 swap devices."
@@ -1791,9 +1795,9 @@ msgstr "እያሻሻሉ ያሉት የ%s ዋናው መልቀቂያው ቀደም �
 msgid "This system appears to have third party packages installed that overlap with packages included in %s. Because these packages overlap, continuing the upgrade process may cause them to stop functioning properly or may cause other system instability.  Please see the release notes for more information.\n"
 "\n"
 "Do you wish to continue the upgrade process?"
-msgstr "ይህ ሲስተም ሦስተኛ ወገን ጥቅሎች ተደራርበው በ ውስጥ የተጠቃለሉ ጥቅሎች የገቡ ሆኖ ይታያል። ምክንያቱም የነዚህ ፕቅሎች መደራርብ የማሻሻሉን ሥራ ለመቀጠልና በትክክል እንዳይሰሩ ሊያግዳቸው ወይንም ሌላው ሲስተም እንዳይረጋጋ ያደርጋል። እባክዎን የመልቀቂያውን ማስታወሻዎች ለተጨማሪ መረጃ። fix-%s\n"
+msgstr "ይህ ሲስተም ሦስተኛ ወገን ጥቅሎች ተደራርበው በ%s ውስጥ የተጠቃለሉ ጥቅሎች የገቡ ሆኖ ይታያል። ምክንያቱም የነዚህ ፕቅሎች መደራርብ የማሻሻሉን ሥራ ለመቀጠልና በትክክል እንዳይሰሩ ሊያግዳቸው ወይንም ሌላው ሲስተም እንዳይረጋጋ ያደርጋል። እባክዎን የመልቀቂያውን ማስታወሻዎች ለተጨማሪ መረጃ ይመልከቱ።\n"
 "\n"
-"ይመልከቱ። <fix>"
+"የማሻሻሉን ሥራ ለመቀጠል ይፈልጋሉ?"
 
 #: ../upgrade.py:498
 #, python-format
@@ -2278,10 +2282,9 @@ msgstr "የጥቅል ነባሮች"
 
 #: ../iw/desktop_choice_gui.py:53
 #, python-format
-msgid "After installation, additional software can be added or removed using the 'system-config-packages' tool.\n"
-"If you are familiar with %s, you may have specific packages you would like to install or avoid installing. Check the box below to customize your installation."
-msgstr "ካስገቡ በኋላ ተጨማሪ ሶፍትዌር የ‹system-config-packages› tool።\n በመጠቀም ለመጨመር ወይንም ለማጥፋት ይቻላል። fix-%s\n"
-"ከዚህ በፊት የሚያውቁት ከሆነ ሊያስገቡት የሚፈልጉት የታወቁ ጥቅሎች ወይንም ማስገባቱን ሊተውት ይችላሉ። ከስር ያለውን ሳጥን የማስገባት ሥራዎትን ለማስተካከል ያረጋግጡ።"
+msgid "After installation, additional software can be added or removed using the 'system-config-packages' tool.\n" "If you are familiar with %s, you may have specific packages you would like to install or avoid installing. Check the box below to customize your installation."
+msgstr "ካስገቡ በኋላ ተጨማሪ ሶፍትዌር የ'system-config-packages' tool።\n በመጠቀም ለመጨመር ወይንም ለማጥፋት ይቻላል።\n"
+"%sን ከዚህ በፊት የሚያውቁት ከሆነ ሊያስገቡት የሚፈልጉት የታወቁ ጥቅሎች ወይንም ማስገባቱን ሊተውት ይችላሉ። ከስር ያለውን ሳጥን የማስገባት ሥራዎትን ለማስተካከል ያረጋግጡ።"
 
 #: ../iw/desktop_choice_gui.py:65
 msgid "If you would like to change the default package set to be installed you can choose to customize this below."
@@ -2997,6 +3000,7 @@ msgstr "መስሪያዎችን አባዛ"
 #: ../iw/osbootwidget.py:272
 msgid "This device is already being used for another boot entry."
 msgstr "ይህ መሥሪያ ቀደም ብሎ ለሌላ ማስጀመርያ መግቢያ እየተጠቀመበት ነው።"
+
 #: ../iw/osbootwidget.py:336
 msgid "Cannot Delete"
 msgstr "መሰረዝ አይቻልም"
@@ -3281,11 +3285,10 @@ msgid "Software RAID allows you to combine several disks into a larger RAID devi
 "\n"
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
-msgstr "ሶፍትዌር RAID ብዙ መረጃ ማከማቻዎችን ተለቅ ወደአለ የRAID መሥሪያ እንዲያቀላቅሉ አይስችልዎታል። አንድ ድራይቭን ከመጠቀም ጋር።  የRAID መሥሪያ ሲወዳደር ተጨማሪ ፍጥነት እና አስተማማኝነት ሊሰጥ ይችላል። የRAID መሥሪያዎችን ስለመጠቀም የበለጠ መረጃ ለማግኘት የ%s መረጃዎችን ያማክሩ።\n"
+msgstr "ሶፍትዌር RAID ብዙ መረጃ ማከማቻዎችን ተለቅ ወደአለ የRAID መሥሪያ እንዲያቀላቅሉ አይስችልዎታል። አንድ ድራይቭን ከመጠቀም ጋር።  የRAID መሥሪያ ሲወዳደር ተጨማሪ ፍጥነት እና አስተማማኝነት ሊሰጥ ይችላል። የRAID መሥሪያዎችን ስለመጠቀም የበለጠ መረጃ ለማግኘት የ%sን መረጃዎች ያማክሩ።\n"
 "\n"
-"<fix> %s\n"
+"በአሁኑ ጊዜ ለመጠቀም ነፃ የሆኑ የ%s ሶፍትዌር RAID መከፋፈያ(ዎች) አልዎት። \n"
 "\n"
-
 
 #: ../iw/partition_gui.py:1253
 msgid "To use RAID you must first create at least two partitions of type 'software "
@@ -3347,7 +3350,7 @@ msgstr "አውቶማቲክ መከፋፈል"
 #: ../iw/partition_gui.py:1448
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "በላይ ላይ እንዲገባ በትንሹ አንድ ሀርድ ድራይች መምረጥ አለብዎት። fix-%s"
+msgstr "%s በላዪ ላይ እንዲገባ በትንሹ አንድ ሀርድ ድራይች መምረጥ አለብዎት።" 
 
 #: ../iw/partition_gui.py:1490
 msgid "I want to have automatic partitioning:"
@@ -4173,8 +4176,11 @@ msgstr "አጠቃላይ ተሻሽለው የተመዘገቡት እንደገና �
 msgid "The default installation environment includes our recommended package selection.  After installation, additional software can be added or removed using the 'system-config-packages' tool.\n"
 "\n"
 "However %s ships with many more applications, and you may customize the selection of software installed if you want."
-msgstr "ነባሩ የማስገቢያው አካባቢ እኛ የመከርነውን የጥቅል ምርጫ አጠቃሏል። ከማስገባት ሥራው በኋላ ተጨማሪ ሶፍትዌር የሲስተሙን ማስተካከያ ጥቅሎች መሣሪያ በመጠቀም ሊጨመር ወይንም ሊወገድ ይችላል።"
+msgstr "ነባሩ የማስገቢያው አካባቢ እኛ የመከርነውን የጥቅል ምርጫ አጠቃሏል። ከማስገባት ሥራው በኋላ ተጨማሪ ሶፍትዌር 'system-config-packages' መሣሪያ በመጠቀም ሊጨመር ወይንም ሊወገድ ይችላል።\n"
+"\n"
 "ቢሆንም %s በጣም ከብዙ ፕሮግራሞች ጋር ይጓዛል እና ከፈለጉ የገቡትን የሶፍትዌሮቹን ምርጫዎች ሊያስተካክሉ ይችላሉ።"
+
+
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
 msgstr "የሶፍትዌሩን ምርጫ አስተካክል"
@@ -4209,7 +4215,7 @@ msgid "Running dasdfmt means the loss of \n"
 "ALL DATA on drive %s.\n"
 "\n"
 "Do you really want this?"
-msgstr "dasdfmtን ማስኬድ ማለት fix-%sን\n"
+msgstr "dasdfmtን ማስኬድ ማለት %sን\n"
 "\n"
 "ማጣት ማለት ነው?"
 
@@ -5094,6 +5100,10 @@ msgid "The %s sync rate is invalid:\n\n%s\n\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr "የ%s sync ፍጥነት ተቀባይነት የለውም፦\n\n%s\n\n"
 "ተቀባይነት ያለው የsync ፍጥነት በ... ቅርጽ ሊሆን ይችላል፦\n"
+"\n"
+"	  31.5                ነጠላ ቁጥር\n"
+"	50.1-90.2             የቁጥሮች ስብስብ\n"
+"31.5,35.0,39.3-40.0          የቁጥሮች ዝርዝር/ስብስብ\n"
 
 #: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
@@ -5286,7 +5296,7 @@ msgstr "ተጨማሪ ማሰራጫውን መሞከር ከፈለጉ፣ የሚቀ�
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:376
 #, c-format
 msgid "The %s CD was not found in any of your CDROM drives. Please insert the %s CD and press %s to retry."
-msgstr "በየትኛውም የሲዲሮም ድራይቮችዎት ውስጥ የ%s ሲዲ አልተገኘም። እንደገና ለመሞከር እባክዎትን የ%sን ሲዲ ይክተቱ። fix-%s"
+msgstr "በየትኛውም የሲዲሮም ድራይቮችዎት ውስጥ የ%s ሲዲ አልተገኘም። እንደገና ለመሞከር እባክዎትን የ%sን ሲዲ ይክተቱና %sን ይጫኑ።"
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -5304,7 +5314,7 @@ msgstr "ከማስገባዎት በፊት የሲዲውን ማሰራጫ ሙከራ �
 #: ../loader2/cdinstall.c:371
 #, c-format
 msgid "No %s CD was found which matches your boot media.  Please insert the %s CD and press %s to retry."
-msgstr "ከማስጀመሪያዎት ማሰራጫ ጋር የሚመሳሰል ምንም ሲዲ አልተገኘም። እባክዎን የ%sን ሲዲ ያስገቡና እንደገና ለመሞከር %sን ይጫኑ። fix-%s"
+msgstr "ከማስጀመሪያዎት ማሰራጫ ጋር የሚመሳሰል ምንም የ%s ሲዲ አልተገኘም። እባክዎን የ%sን ሲዲ ይክተቱና እንደገና ለመሞከር %sን ይጫኑ።"
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
@@ -5825,7 +5835,7 @@ msgstr "ለኪክስታርት መረብ ትእዛዝ %s መጥፎ ክርክር�
 #: ../loader2/net.c:857
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "በመረቡ ትእዛዝ ውስጥ የተጠቀሰ መጥፎ የማስጀመሪያ ፕሮቶ fix-%s"
+msgstr "በመረቡ ትእዛዝ ውስጥ መጥፎ የማስጀመሪያ ፕሮቶ %s ተጠቅሷል"
 
 #: ../loader2/net.c:970
 msgid "network Device"
