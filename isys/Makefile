@@ -7,7 +7,7 @@ CFLAGS = -ffunction-sections -I/usr/include/python1.5 -I.. -Wall -Os -g  -DHAVE_
 OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o isofs.o pdc.o
-SOBJECTS = $(patsubst %.o,%.so,$(OBJECTS))
+SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs
@@ -31,11 +31,11 @@ everything: $(TARGET)
 
 all: subdirs $(PYMODULES) libisys.a
 
-%.so: %.c
+%.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
 
-_isys.so: isys.so $(SOBJECTS)
-	gcc -shared -g -o $@ isys.so $(SOBJECTS) $(LOADLIBES)
+_isys.so: isys.lo $(SOBJECTS)
+	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
 
 _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
@@ -43,7 +43,7 @@ _silo.so: silo.c
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 clean:
-	rm -f *.o *.so *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
+	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
