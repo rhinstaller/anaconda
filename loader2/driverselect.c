@@ -176,7 +176,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
         for (i = 0; i < modInfo->numModules; i++) {
             if (mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded) ||
                 !modInfo->moduleList[i].description ||
-                ((type >= 0) && (type != modInfo->moduleList[i].major)))
+                ((type != -1) && (type != modInfo->moduleList[i].major)))
                 continue;
             sortedOrder[numSorted].index = i;
             sortedOrder[numSorted++].modInfo = modInfo;
