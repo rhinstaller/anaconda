@@ -49,7 +49,7 @@ fileSystemTypes = {}
 
 # XXX define availraidlevels and defaultmntpts as arch characteristics
 # FIXME: this should be done dynamically by reading /proc/mdstat
-availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
+availRaidLevels = ['RAID0', 'RAID1', 'RAID5', 'RAID6']
 
 def fileSystemTypeGetDefault():
     if fileSystemTypeGet('ext3').isSupported():

@@ -115,6 +115,15 @@ def stopAllRaid(mdList):
     for dev, devices, level, numActive in mdList:
 	isys.raidstop(dev)
 
+def isRaid6(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID6."""
+    if raidlevel == "RAID6":
+        return 1
+    elif raidlevel == 6:
+        return 1
+    elif raidlevel == "6":
+        return 1
+    return 0
 
 def isRaid5(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID5."""
@@ -154,6 +163,8 @@ def get_raid_min_members(raidlevel):
         return 2
     elif isRaid5(raidlevel):
         return 3
+    elif isRaid6(raidlevel):
+        return 4
     else:
         raise ValueError, "invalid raidlevel in get_raid_min_members"
 
@@ -161,7 +172,7 @@ def get_raid_max_spares(raidlevel, nummembers):
     """Return the maximum number of raid spares for raidlevel."""
     if isRaid0(raidlevel):
         return 0
-    elif isRaid1(raidlevel) or isRaid5(raidlevel):
+    elif isRaid1(raidlevel) or isRaid5(raidlevel) or isRaid6(raidlevel):
         return max(0, nummembers - get_raid_min_members(raidlevel))
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"

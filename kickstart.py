@@ -1082,6 +1082,8 @@ class KickstartBase(BaseInstallClass):
             level = "RAID1"
         elif raid.isRaid5(level):
             level = "RAID5"
+        elif raid.isRaid6(level):
+            level = "RAID6"
 
         if not level and preexist == 0:
             raise KickstartValueError, "RAID Partition defined without RAID level"

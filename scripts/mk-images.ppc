@@ -4,7 +4,7 @@ IDEMODS="ide-cd"
 SCSIMODS="sd_mod sg sr_mod st"
 USBMODS="ohci-hcd uhci-hcd hid usb-storage sd_mod sr_mod"
 LATEUSBMODS="mousedev usb-storage"
-SECSTAGE="md raid0 raid1 raid5 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
+SECSTAGE="md raid0 raid1 raid5 raid6 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
 NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too olympic
 	   de4x5 acenic pcnet32 tulip natsemi e100 e1000 airport"
 
