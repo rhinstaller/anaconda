@@ -227,6 +227,7 @@ char * mountUrlImage(struct installMethod * method,
 	    } else if (urlMainSetupPanel(&ui, proto, &needsSecondary)) {
                 stage = URL_STAGE_IP;
                 dir = -1;
+		break;
             }
 
 	    /* got required information from user, proceed */
