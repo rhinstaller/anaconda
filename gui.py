@@ -103,7 +103,7 @@ class InstallInterface:
         gtkThread = GtkMainThread ()
         gtkThread.start ()
 
-        commonSteps = [LanguageWindow, KeyboardWindow, 
+        commonSteps = [LanguageWindow, KeyboardWindow, MouseWindow
                        WelcomeWindow, InstallPathWindow]
 
         self.finishedTODO = Event ()
