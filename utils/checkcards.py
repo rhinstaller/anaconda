@@ -2,15 +2,46 @@
 import sys
 import string
 
-sys.path.append ("..")
-sys.path.append ("../isys")
-sys.path.append ("../kudzu")
+def usage():
+    print "Usage: checkcards.py [pcitable] [Cards]"
 
-from xf86config import XF86Config
+if len(sys.argv) < 2:
+    usage ()
+    sys.exit (1)
 
-xconfig = XF86Config()
+pcifile = sys.argv[1]
+cardsfile = sys.argv[2]
 
-pcitable = open ("../kudzu/pcitable", 'r')
+def getcards (cardsfile):
+    cards = {}
+    db = open (cardsfile)
+    lines = db.readlines ()
+    db.close ()
+    card = {}
+    name = None
+    for line in lines:
+        line = string.strip (line)
+        if not line and name:
+            cards[name] = card
+            card = {}
+            name = None
+            continue
+
+        if line and line[0] == '#':
+            continue
+
+        if len (line) > 4 and line[0:4] == 'NAME':
+            name = line[5:]
+
+        info = string.splitfields (line, ' ')
+        if card.has_key (info[0]):
+            card[info[0]] = card[info[0]] + '\n' + (string.joinfields (info[1:], ' '))
+        else:
+            card[info[0]] = string.joinfields (info[1:], ' ')
+
+    return cards
+
+pcitable = open (pcifile, 'r')
 lines = pcitable.readlines()
 cards = []
 for line in lines:
@@ -23,9 +54,8 @@ for line in lines:
     if card[1:6] == "Card:":
         cards.append (card[6:-1])
 
-carddb = xconfig.cards()
+carddb = getcards (cardsfile)
 
 for card in cards:
     if not carddb.has_key(card):
-        print "Card not found:", card
-    
+        print "*** pcitable error *** Card not found:", card
