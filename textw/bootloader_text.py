@@ -359,7 +359,7 @@ class BootloaderPassword:
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 
 	text = TextboxReflowed(55,
-		    _("A GRUB password prevents users from passing arbitrary "
+		    _("A boot loader password prevents users from passing arbitrary "
                       "options to the kernel.  For highest security, we "
                       "recommend setting a password, but this is not "
                       "necessary for more casual users."))

@@ -62,7 +62,7 @@ class BootloaderPasswordWindow (InstallWindow):
         self.passtable = GtkTable (2, 2)
         self.passtable.set_row_spacings (5)
 	self.passtable.set_col_spacings (5)
-        grubpassinfo = GtkLabel(_("A GRUB password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."))
+        grubpassinfo = GtkLabel(_("A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."))
         self.password = None
         grubpassinfo.set_line_wrap(TRUE)
         grubpassinfo.set_usize(400, -1)
