@@ -37,6 +37,7 @@ class FDiskWindow (InstallWindow):
         except:
             # XXX FIXME
             pass
+        print "running", path, '/tmp/' + drive
         if zvt.forkpty() == 0:
             os.execvp (path, (path, '/tmp/' + drive))
         zvt.show ()
