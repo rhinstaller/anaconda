@@ -1846,8 +1846,10 @@ class ToDo:
                                         p.h[rpm.RPMTAG_ARCH]))
         self.instLog.close ()
 
-        w = self.intf.progressWindow(_("Post Install"), 
-			     _("Performing post install configuration..."), 8)
+	createWindow = (self.intf.progressWindow,
+			(_("Post Install"),
+			 _("Performing post install configuration..."), 8))
+	w = apply(apply, createWindow)
 
         try:
             if not self.upgrade:
@@ -1964,24 +1966,32 @@ class ToDo:
 
             # XXX make me "not test mode"
             if self.setupFilesystems:
+		errors = None
+
                 if arch == "sparc":
-                    self.silo.install (self.fstab, self.instPath, self.hdList, 
-                                       self.upgrade)
+                    errors = self.silo.install (self.fstab, self.instPath, 
+					self.hdList, self.upgrade)
                 elif arch == "i386":
                     defaultlang = self.language.getLangNickByName(self.language.getDefault())
                     langlist = expandLangs(defaultlang)
-                    self.lilo.install (self.fstab, self.instPath, self.hdList, 
-                                       self.upgrade, langlist)
+                    errors = self.lilo.install (self.fstab, self.instPath, 
+					self.hdList, self.upgrade, langlist)
                 elif arch == "ia64":
-                    self.eli.install (self.fstab, self.instPath, self.hdList, 
-                                       self.upgrade)
+                    errors = self.eli.install (self.fstab, self.instPath, 
+					self.hdList, self.upgrade)
                 elif arch == "alpha":
-                    self.milo.write ()
+                    errors = self.milo.write ()
                 else:
                     raise RuntimeError, "What kind of machine is this, anyway?!"
 
-		w.set(5)
+		if errors:
+		    w.pop()
+		    mess = _("The following error occured while installing "
+			     "the bootloader:\n\n") + errors
+		    self.intf.messageWindow(_("Bootloader Errors"), mess)
+		    w = apply(apply, createWindow)
 
+		w.set(5)
 
                 # go ahead and depmod modules as modprobe in rc.sysinit
                 # will complain loaduly if we don't do it now.
