@@ -177,6 +177,7 @@ class AutoPartitionWindow(InstallWindow):
             self.todo.fstab.rescanPartitions(clearcache)
 	    self.todo.instClass.removeFromSkipList("format")
 	elif self.manuallyPartition.get_active():
+            del self.druid
             # see comment above about clearing cache
             clearcache = not self.todo.fstab.getRunDruid()
 	    self.todo.fstab.setRunDruid(1)

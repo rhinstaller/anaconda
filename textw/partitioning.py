@@ -153,6 +153,7 @@ class AutoPartitionWindow:
 #           clearcache = not todo.fstab.getRunDruid()
             clearcache = 1
 	    todo.fstab.setRunDruid(1)
+	    del druid
 	    todo.fstab.rescanPartitions(clearcache)
 	    todo.instClass.removeFromSkipList("format")
 	else:
