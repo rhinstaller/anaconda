@@ -27,18 +27,18 @@ locale-list:
 	PYTHONPATH="." $(PYTHON) scripts/genlocalelist.py > locale-list
 
 mini-wm: mini-wm.c
-	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs`
+	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs` -Wall -Werror
 
 _xkb.so: xkb.c
-	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c 
+	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c  -Wall -Werror
 	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/$(LIBDIR)/libxkbfile.a `pkg-config --libs gtk+-2.0`
 
 xmouse.so: xmouse.c
-	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c 
+	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c -Wall -Werror
 	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/$(LIBDIR)/libXxf86misc.a -L/usr/X11R6/$(LIBDIR) -lX11 -lXext
 
 xutils.so: xutils.c
-	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c 
+	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c -Wall -Werror
 	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$(LIBDIR) -lX11
 
 depend:
