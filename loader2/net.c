@@ -141,6 +141,45 @@ static int waitForLink(char * dev) {
     return 1;
 }
 
+static void parseEthtoolSettings(struct loaderData_s * loaderData) {
+    char * option, * buf;
+    ethtool_duplex duplex = ETHTOOL_DUPLEX_UNSPEC;
+    ethtool_speed speed = ETHTOOL_SPEED_UNSPEC;
+    
+    buf = strdup(loaderData->ethtool);
+    option = strtok(buf, " ");
+    while (option) {
+        if (option[strlen(option) - 1] == '\"')
+            option[strlen(option) - 1] = '\0';
+        if (option[0] == '\"')
+            option++;
+        if (!strncmp(option, "duplex", 6)) {
+            if (!strncmp(option + 7, "full", 4)) 
+                duplex = ETHTOOL_DUPLEX_FULL;
+            else if (!strncmp(option + 7, "half", 4))
+                duplex = ETHTOOL_DUPLEX_HALF;
+            else
+                logMessage("Unknown duplex setting: %s", option + 7);
+            option = strtok(NULL, " ");
+        } else if (!strncmp("speed", option, 5)) {
+            if (!strncmp(option + 6, "1000", 4))
+                speed = ETHTOOL_SPEED_1000;
+            else if (!strncmp(option + 6, "100", 3))
+                speed = ETHTOOL_SPEED_100;
+            else if (!strncmp(option + 6, "10", 2))
+                speed = ETHTOOL_SPEED_10;
+            else
+                logMessage("Unknown speed setting: %s", option + 6);
+            option = strtok(NULL, " ");
+        } else {
+            logMessage("Unknown ethtool setting: %s", option);
+        }
+        option = strtok(NULL, " ");
+    }
+    setEthtoolSettings(loaderData->netDev, speed, duplex);
+    free(buf);
+}
+
 void initLoopback(void) {
     struct pumpNetIntf dev;
 
@@ -271,6 +310,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     printLoaderDataIPINFO(loaderData);
 #endif
 
+    if (loaderData->ethtool) {
+        parseEthtoolSettings(loaderData);
+    }
+
     if (loaderData->ip) {
         if (is_wireless_interface(loaderData->netDev)) {
             if (loaderData->essid) {
@@ -392,42 +435,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     if (loaderData->ethtool) {
-        char * option, * buf;
-        ethtool_duplex duplex = ETHTOOL_DUPLEX_UNSPEC;
-        ethtool_speed speed = ETHTOOL_SPEED_UNSPEC;
-
-        buf = strdup(loaderData->ethtool);
-        option = strtok(buf, " ");
-        while (option) {
-            if (option[strlen(option) - 1] == '\"')
-                option[strlen(option) - 1] = '\0';
-            if (option[0] == '\"')
-                option++;
-            if (!strncmp(option, "duplex", 6)) {
-                if (!strncmp(option + 7, "full", 4)) 
-                    duplex = ETHTOOL_DUPLEX_FULL;
-                else if (!strncmp(option + 7, "half", 4))
-                    duplex = ETHTOOL_DUPLEX_HALF;
-                else
-                    logMessage("Unknown duplex setting: %s", option + 7);
-                option = strtok(NULL, " ");
-            } else if (!strncmp("speed", option, 5)) {
-                if (!strncmp(option + 6, "1000", 4))
-                    speed = ETHTOOL_SPEED_1000;
-                else if (!strncmp(option + 6, "100", 3))
-                    speed = ETHTOOL_SPEED_100;
-                else if (!strncmp(option + 6, "10", 2))
-                    speed = ETHTOOL_SPEED_10;
-                else
-                    logMessage("Unknown speed setting: %s", option + 6);
-                option = strtok(NULL, " ");
-            } else {
-                logMessage("Unknown ethtool setting: %s", option);
-            }
-            option = strtok(NULL, " ");
-        }
-        setEthtoolSettings(loaderData->netDev, speed, duplex);
-        free(buf);
+        parseEthtoolSettings(loaderData);
     }
 
     cfg->noDns = loaderData->noDns;
