@@ -74,19 +74,13 @@ class KernelArguments:
 
     def __init__(self):
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            self.args = ""
-            if os.environ.has_key("DASD"):
+	    self.args = ""
+	    if os.environ.has_key("DASD"):
                 self.args = "dasd=" + os.environ["DASD"]
-            if os.environ.has_key("CHANDEV"):
-                # self.args = self.args + " chandev=" + os.environ["CHANDEV"]
-		fd = os.open(instRoot + "/etc/chandev.conf", os.O_WRONLY | os.O_CREAT)
-		os.write(fd, os.environ["CHANDEV"])
-		os.close(fd)
-	
-        else:
-            cdrw = isys.ideCdRwList()
-            str = ""
-            for device in cdrw:
+	else:
+	    cdrw = isys.ideCdRwList()
+	    str = ""
+	    for device in cdrw:
                 if str: str = str + " "
                 str = str + ("%s=ide-scsi" % device)
                 
@@ -281,7 +275,6 @@ class bootloaderInfo:
             config.write(instRoot + self.configfile, perms = self.perms)
         else:
             self.noKernelsWarn(intf)
-
         return ""
 
     # XXX in the future we also should do some validation on the config
@@ -784,6 +777,16 @@ class s390BootloaderInfo(bootloaderInfo):
 		lilo.delEntry('single-key')
 
         return lilo
+
+    def writeChandevConf(self, instroot):   # S/390 only 
+	cf = "/etc/chandev.conf"
+	self.perms = 0644
+	if os.environ.has_key("CHANDEV"):
+	    fd = os.open(instRoot + "/etc/chandev.conf", os.O_WRONLY | os.O_CREAT)
+	    os.write(fd, os.environ["CHANDEV"])
+	    os.close(fd)
+	return ""
+	
     
     def writeZipl(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfigFile):
@@ -851,6 +854,7 @@ class s390BootloaderInfo(bootloaderInfo):
         str = self.writeZipl(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useZiplVal))
+	str = self.writeChandevConf(instroot)
     
     def __init__(self):
         bootloaderInfo.__init__(self)
