@@ -415,6 +415,7 @@ nofallback = 0			# if GUI mode fails, exit
 rescue = 0			# run in rescue mode
 rescue_nomount = 0		# don't automatically mount device in rescue
 runres = '800x600'		# resolution to run the GUI install in
+runres_override = 0             # was run resolution overridden by user?
 skipddc = 0			# if true skip ddcprobe (locks some machines)
 instClass = None		# the install class to use
 progmode = 'install' 		# 'rescue', or 'install'
@@ -501,6 +502,7 @@ for n in args:
     elif (str == '--resolution'):
         # run native X server at specified resolution, ignore fb
         runres = arg
+	runres_override = 1
     elif (str == "--skipddc"):	
 	skipddc = 1
     elif (str == "--autostep"):
@@ -876,20 +878,15 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
     if not res_supported:
 	import rhpl.guesslcd as guesslcd
 
+	# pick a monitor spec that is adequate for requested runres
 	(hsync, vsync) = guesslcd.getSyncForRes(runres)
 	monitorhw.setSpecs(hsync, vsync)
+
+	# recreate X config object
+	xcfg = xhwstate.XF86HardwareState(defcard=videohw,
+					  defmon=monitorhw)
+	xcfg.set_resolution(runres)
 	
-	# XXX - need to fix
-	#
-	# messy hack for how rhpl.xhwstate works
-	# current it wants to use probed values which we dont have so we'll
-	# fake them
-	hsync = monitorhw.getMonitorHorizSync()
-	vsync = monitorhw.getMonitorVertSync()
-	monitorhw.orig_monHoriz = hsync
-	monitorhw.orig_monVert  = vsync
-
-
     # make sure we can write log to ramfs
     if os.access("/tmp/ramfs", os.W_OK):
 	xlogfile = "/tmp/ramfs/X.log"
@@ -1057,6 +1054,12 @@ if xcfg is not None:
 	xcfg.set_resolution("640x480")
 	
     xsetup = xsetup.XSetup(xcfg)
+
+    # HACK - if user overrides resolution then use it and disable
+    #	     choosing a sane default for them
+    if runres_override:
+	xsetup.imposed_sane_default = 1
+	
     id.setXSetup(xsetup)
 
 if kbd:
