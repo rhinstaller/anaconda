@@ -1,5 +1,11 @@
 2004-09-28  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (readSwapLabel): Add function to read label from
+	swap filesystems.
+	(readFSLabel): Read swap and JFS labels too.
+
+	* fsset.py: Add support for label'ing swap filesystems (#127892).
+
 	* anaconda: Lack of a mouse if using remote display shouldn't ask
 	about the mouse type (#133902)
 

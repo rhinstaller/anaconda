@@ -694,6 +694,7 @@ class swapFileSystem(FileSystemType):
         self.maxSizeMB = 8 * 1024 * 1024
         self.linuxnativefs = 1
         self.supported = 1
+        
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
         pagesize = isys.getpagesize()
@@ -731,6 +732,19 @@ class swapFileSystem(FileSystemType):
                                      searchPath = 1)
         if rc:
             raise SystemError
+
+    def labelDevice(self, entry, chroot):
+        file = entry.device.setupDevice(chroot)
+	label = labelFactory.createLabel("SWAP-%s" %entry.device.getDevice(),
+                                         self.maxLabelChars)
+        rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
+                                     [ "mkswap", '-v1', "-L", label, file ],
+                                     stdout = "/dev/tty5",
+                                     stderr = "/dev/tty5",
+                                     searchPath = 1)
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
 
 fileSystemTypeRegister(swapFileSystem())
 
@@ -1283,12 +1297,19 @@ MAILADDR root
                 del bootPart
 
     def formatSwap (self, chroot):
+        formatted = []
+        notformatted = []
+        
         for entry in self.entries:
-            if (not entry.fsystem or not entry.fsystem.getName() == "swap"
-                or not entry.getFormat() or entry.isMounted()):
+            if (not entry.fsystem or not entry.fsystem.getName() == "swap" or
+                entry.isMounted()):
+                continue
+            if not entry.getFormat():
+                notformatted.append(entry)
                 continue
             try:
                 self.formatEntry(entry, chroot)
+                formatted.append(entry)
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
@@ -1299,7 +1320,25 @@ MAILADDR root
                                          "Press <Enter> to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
-                    
+
+        for entry in formatted:
+            try:
+                self.labelEntry(entry, chroot)
+            except SystemError:
+                # should be OK, fall back to by device
+                pass
+
+        # find if there's a label on the ones we're not formatting
+        for entry in notformatted:
+            dev = entry.device.getDevice()
+            if not dev or dev == "none":
+                continue
+            try:
+                label = isys.readFSLabel(dev)
+            except:
+                continue
+            if label:
+                entry.setLabel(label)
                 
     def turnOnSwap (self, chroot):
         for entry in self.entries:

@@ -596,6 +596,28 @@ def readJFSLabel(device, makeDevNode = 1):
         label = readJFSLabel_int(device)
     return label
 
+def readSwapLabel_int(device):
+    label = None
+    try:
+        fd = os.open(device, os.O_RDONLY)
+    except:
+        return label
+
+    buf = os.read(fd, getpagesize())
+    os.close(fd)
+
+    if ((len(buf) == getpagesize()) and (buf[pagesize - 10:] == "SWAPSPACE2")):
+        label = string.rstrip(buf[32:48], "\0x00")
+    return label
+
+def readSwapLabel(device, makeDevNode = 1):
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+        label = readSwapLabel_int(device)
+        os.unlink("/tmp/disk")
+    else:
+        label = readSwapLabel_int(device)
+    return label
 
 def readExt2Label(device, makeDevNode = 1):
     if makeDevNode:
@@ -609,7 +631,11 @@ def readExt2Label(device, makeDevNode = 1):
 def readFSLabel(device, makeDevNode = 1):
     label = readExt2Label(device, makeDevNode)
     if label is None:
+        label = readSwapLabel(device, makeDevNode)
+    if label is None:
         label = readXFSLabel(device, makeDevNode)
+    if label is None:
+        label = readJFSLabel(device, makeDevNode)
     return label
 
 def ext2IsDirty(device):
