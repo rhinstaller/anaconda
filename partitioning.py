@@ -1698,7 +1698,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
                                                         part.geom.end),
                                 drive = [ get_partition_drive(part) ])
 
-        return ("PARTITION", request)
+        return ("NEW", request)
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
 

@@ -941,6 +941,8 @@ class PartitionWindow:
         if request:
             if type == "RAID":
                 self.editRaidRequest(request)
+            elif type == "NEW":
+                self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
         
