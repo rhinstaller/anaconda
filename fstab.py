@@ -48,10 +48,14 @@ class Fstab:
 	swapCount = 0
 
 	fstab = []
-	for (mntpoint, dev, fstype, reformat, size, fsopts) in self.extraFilesystems:
+	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
             fstab.append ((dev, mntpoint))
 
 	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
+
+        # skip out here if not partitions defined, just onpart def's
+        if partitions == None:
+            return ddruid
 
 	for (mntpoint, size, maxsize, grow, device, fsopts) in partitions:
 	    type = 0x83
@@ -66,7 +70,8 @@ class Fstab:
 
 	try:
 	    ddruid.attempt (attempt, "Junk Argument", clearParts)
-	    return ddruid
+
+            return ddruid
 	except:
 	    pass
 
@@ -634,8 +639,21 @@ class Fstab:
 	if not skipExtra:
 	    for n in self.extraFilesystems:
 		(mntpoint, sevice, fsType, doFormat, size) = n
-		if fsType == "swap": continue
-		fstab.append(n)
+
+                # skip swap
+		if fsType == "swap":
+                    continue
+
+                # skip duplicate entries (happens when ks used with --onpart)
+                foundit = 0
+                for p in fstab:
+                    (mntpoint2, device2, fsType2, doFormat2, size2) = p
+                    if mntpoint2 == mntpoint:
+                        foundit = 1
+                        break
+
+                if not foundit:
+                    fstab.append(n)
 
 	fstab.sort(sortMounts)
 
