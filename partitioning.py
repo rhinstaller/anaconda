@@ -446,6 +446,9 @@ def doPartitionSizeCheck(newrequest):
     if not newrequest.fstype:
         return None
 
+    if not newrequest.format:
+        return None
+
     # XXX need to figure out the size for partitions specified by cyl range
     if newrequest.size and newrequest.size > newrequest.fstype.getMaxSize():
         return (_("The size of the %s partition (size = %s MB) "
