@@ -4,6 +4,7 @@ import os
 
 class Mouse (SimpleConfigFile):
     mice = {
+        # (gpm protocol, X protocol, emulate3)
 	"ALPS - GlidePoint (PS/2)" :
 		("ps/2", "GlidePointPS/2", "psaux", 1),
 	"ASCII - MieMouse (serial)" :
