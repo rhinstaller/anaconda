@@ -2676,7 +2676,9 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     if (mlLoadModuleSet(devices[0]->driver, modLoaded, modDeps, modInfo, 
 			flags)) {
 	logMessage("failed to insert usb module");
-	return 1;
+	/* dont return, just keep going. */
+	/* may have USB built into kernel */
+	/* return 1; */
     }
 
     if (FL_TESTING(flags)) return 0;
