@@ -723,9 +723,10 @@ int main(int argc, const char **argv) {
 		    exit(0);
 	    }
 	    if (!device) device="eth0";
-	    readNetConfig(device,netDev,0);
-	    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
-	    writeNetInfo(path,netDev);
+	    if (readNetConfig(device,netDev,0) != LOADER_BACK) {
+		    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
+		    writeNetInfo(path,netDev);
+	    }
 	    newtFinished();
     }
     exit(0);
