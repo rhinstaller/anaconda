@@ -526,7 +526,7 @@ int main(void) {
 	printstr("\033[8]");
     }
 
-    printstr("hello\n");
+    printstr("Greetings.\n");
 
     printf("Red Hat install init version %s starting\n", VERSION);
 

@@ -50,8 +50,9 @@ class PartitionWindow:
         device = 'hda';
 
 	isys.makeDevInode(device, '/tmp/' + device)
-
 	table = _balkan.readTable('/tmp/' + device)
+	os.remove('/tmp/' + device)
+
 	partList = []
 	for i in range(0, len(table) - 1):
 	    (type, start, size) = table[i]

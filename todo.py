@@ -27,7 +27,9 @@ class ToDo:
 	self.mounts.sort(mountListCmp)
 	self.mounts.reverse()
 	for n in self.mounts:
+	    isys.makeDevInode(n, '/tmp/' + n)
 	    isys.umount(n)
+            os.remove('/tmp/' + n)
 
     def makeFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -38,8 +40,10 @@ class ToDo:
 	    if not format: continue
 	    w = self.intf.waitWindow("Formatting", 
 			"Formatting %s filesystem..." % (mntpoint,))
+	    isys.makeDevInode(n, '/tmp/' + device)
 	    util.execWithRedirect("mke2fs", [ "mke2fs", '/tmp/' + device ],
-				  stdout = None, searchPath = 1)
+				  stdout = None, stderr = None, searchPath = 1)
+            os.remove('/tmp/' + device)
 	    w.pop()
 
     def mountFilesystems(self):
@@ -47,7 +51,9 @@ class ToDo:
 
 	for n in self.mounts:
 	    (device, mntpoint, format) = n
+            isys.makeDevInode(device, '/tmp/' + device)
 	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+	    os.remove( '/tmp' + device);
 
     def doInstall(self):
 	# make sure we have the header list and comps file
