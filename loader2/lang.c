@@ -92,7 +92,7 @@ static void loadLanguageList(int flags) {
     FILE * f;
     char line[256];
     char name[256], key[256], font[256], map[256], code[256],
-         keyboard[256], timezone[256];
+         keyboard[256], timezone[256], instlang[256];
     int lineNum = 0;
 
     f = fopen(file, "r");
@@ -105,8 +105,8 @@ static void loadLanguageList(int flags) {
     while (fgets(line, sizeof(line), f)) {
         lineNum++;
         languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
-        if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, font, map,
-                                             code, keyboard, timezone) != 7) {
+        if (sscanf(line, "%s %s %s %s %s %s %s %s\n", name, key, font, map,
+                   code, keyboard, timezone, instlang) != 8) {
             logMessage("bad line %d in lang-table", lineNum);
         } else {
             languages[numLanguages].lang = strdup(name);
@@ -115,6 +115,7 @@ static void loadLanguageList(int flags) {
             languages[numLanguages].map = strdup(map);
             languages[numLanguages].lc_all = strdup(code);
             languages[numLanguages].keyboard = strdup(keyboard);
+            languages[numLanguages].instlang = strdup(instlang);
             numLanguages++;
         }
     }
@@ -213,9 +214,9 @@ static void setLangEnv (int i, int flags) {
     if (!strcmp(languages[i].font, "None"))
         return;
 
-    setenv("LANG", languages[i].lc_all, 1);
+    setenv("LANG", languages[i].instlang, 1);
     setenv("LANGKEY", languages[i].key, 1);
-    setenv("LINGUAS", languages[i].lc_all, 1);
+    setenv("LINGUAS", languages[i].instlang, 1);
     loadLanguage (NULL, flags);
 }
 
@@ -363,7 +364,7 @@ int chooseLanguage(char ** lang, int flags) {
         if (!strncmp(languages[i].key, "en", 2))
             english = numLangs;
         if (currentLangName &&
-            !strcmp(languages[i].lc_all, currentLangName))
+            !strcmp(languages[i].instlang, currentLangName))
             current = numLangs;
 
         langs[numLangs++] = languages[i].lang;

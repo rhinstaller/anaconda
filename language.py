@@ -74,6 +74,7 @@ class InstallTimeLanguage:
 	self.kbd = {}
 	self.tz = {}
 	self.langList = []
+        self.runtimeLangs = {}
 
         self.tempDefault = ""
 
@@ -87,6 +88,7 @@ class InstallTimeLanguage:
 	    shortName = l[4]
 	    keyboard = l[5]
 	    timezone = l[6]
+            runtime = l[7]
 
 	    self.langList.append(longName)
 	    self.langNicks[longName] = shortName
@@ -94,6 +96,10 @@ class InstallTimeLanguage:
 	    self.map[longName] = map
 	    self.kbd[longName] = keyboard
 	    self.tz[longName] = timezone
+            self.runtimeLangs[runtime] = shortName
+
+        if self.runtimeLangs.has_key(self.current):
+            self.current = self.runtimeLangs[self.current]
 
 	self.langList.sort()
         self.setRuntimeLanguage(self.getLangNameByNick(self.current))
@@ -119,6 +125,13 @@ class InstallTimeLanguage:
 	for (langName, nick) in self.langNicks.items():
             if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):
 		return langName
+
+        # FIXME: this could end up infinitely recursing if we screw up the
+        # lang-table.  need to revise the whole thing with post-install
+        # language not being the same as the installer language
+        for (nick, main) in self.runtimeLangs.items():
+            if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):
+                return self.getLangNameByNick(main)
 
         #raise KeyError, "language %s not found" % lang
         return self.getLangNameByNick("en_US.UTF-8")

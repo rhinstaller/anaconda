@@ -7,7 +7,7 @@
 #define N_(foo) (foo)
 
 struct langInfo {
-    char * lang, * key, * font, * map, * lc_all, * keyboard;
+    char * lang, * key, * font, * map, * lc_all, * keyboard, * instlang;
 } ;
 
 
