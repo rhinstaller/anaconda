@@ -229,6 +229,11 @@ if [ "$NETTYPE" = "qeth" ] || [ "$NETTYPE" = "lcs" ]; then
 		  echo $"Enter your default gateway:"
 		  read GATEWAY
 	 done
+	 if [ ":$NETTYPE" = ":lcs" ]; then
+			echo $"Enter the relative port number of your LCS device"
+			echo $"(required for OSA-Express ATM cards only):"
+			read PORTNAME
+	 fi
 else  # ctc0, iucv0
     if [ -z "$NETMASK" ]; then
         # If the user did not supply netmask, we add the right one.
@@ -256,11 +261,6 @@ else  # ctc0, iucv0
 				echo $"connect to (in capital letters)."
 			   read PEERID
 		  done
-	 fi
-	 if [ ":$NETTYPE" = ":lcs" ]; then
-			echo $"Enter the relative port number of your LCS device"
-			echo $"(required for OSA-Express ATM cards only):"
-			read PORTNAME
 	 fi
 fi
 # don't ask for MTU, but use it if it has been set in the .parm file
