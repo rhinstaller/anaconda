@@ -111,6 +111,8 @@ find_nearest (GPtrArray * Locations, double longitude, double latitude )
     gboolean first=TRUE;
     TimeZoneLocation  *loc;
 
+    mindist = 0;
+
     mini = -1;
     for (i=0; i < Locations->len; i++) {
 	loc = g_ptr_array_index (Locations, i);
@@ -123,7 +125,7 @@ find_nearest (GPtrArray * Locations, double longitude, double latitude )
 	dy = (loc->latitude-latitude);
 	dist = dx*dx + dy*dy;
 
-	if (dist < mindist || first) {
+	if ((dist < mindist) || first) {
 	    mindist = dist;
 	    mini = i;
 	    first = FALSE;
@@ -371,13 +373,14 @@ item_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
     int    nearest;
     MapData *mapdata = (MapData *) data;
 
-    item_x = event->button.x;
-    item_y = event->button.y;
-    gnome_canvas_item_w2i (WorldMap->image_item, &item_x, &item_y);
+    if (event->type == GDK_BUTTON_PRESS ||
+	event->type == GDK_MOTION_NOTIFY) {
+        item_x = event->button.x;
+        item_y = event->button.y;
+	gnome_canvas_item_w2i (WorldMap->image_item, &item_x, &item_y);
+    }
 
     switch (event->type) {
-
-	/* User selected a new location with a left mouse button press */
       case GDK_BUTTON_PRESS:
 	switch (event->button.button) {
 	  case 1:
