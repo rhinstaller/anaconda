@@ -38,6 +38,8 @@ from upgrade import findRootParts
 from network import networkDeviceCheck
 from installmethod import doMethodComplete
 
+from rhpl.log import log
+
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
 # installs skip upgrade steps.
@@ -218,6 +220,7 @@ class Dispatcher:
 	    info = installSteps[self.step]
 	    if ((type(info[1]) == FunctionType)
                 and (not self.skipSteps.has_key(info[0]))):
+                log("moving (%d) to step %s" %(self.dir, info[0]))
 		(func, args) = info[1:]
 		rc = apply(func, self.bindArgs(args))
 		if rc == DISPATCH_BACK:
@@ -239,6 +242,7 @@ class Dispatcher:
 	    self.step = len(installSteps) - 1
 	    while self.skipSteps.has_key(installSteps[self.step][0]):
 		self.step = self.step - 1
+        log("moving (%d) to step %s" %(self.dir, installSteps[self.step][0]))
 
     def bindArgs(self, args):
 	newArgs = ()
