@@ -185,7 +185,6 @@ class Fstab:
         except:
             bootgeom = None
 
-        log("Boot drive is %s, geometry is %s" % (boothd, bootgeom))
         if bootgeom != None:
             isys.makeDevInode(boothd, '/tmp/' + boothd)
                     
@@ -200,8 +199,6 @@ class Fstab:
                         (type, sector, size) = table[i]
                         maxcyl = (sector+size) / string.atoi(bootgeom[2])
                         maxcyl = maxcyl /  string.atoi(bootgeom[1])
-
-                        log("Boot part %s ends on cyl %s" % (bootpart, maxcyl))
                                     
             os.remove ('/tmp/' + boothd)
 
@@ -228,7 +225,6 @@ class Fstab:
             if type == 1:
                 continue
             if dev == bootpart:
-                log ("maxcyl of %s is %s" % (dev, maxcyl))
                 return maxcyl
 
         return 0
@@ -599,7 +595,7 @@ class Fstab:
             isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
             log("Umount USB OK")
         except:
-            log("Umount USB Fail")
+#           log("Umount USB Fail")
             pass
 
 	mounts = self.mountList()
