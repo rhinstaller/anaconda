@@ -365,10 +365,10 @@ def doPreInstall(method, id, intf, instPath, dir):
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
 	if arch == "s390" or arch == "s390x":
-	    if (string.find(os.uname()[2], "vrdr") > -1):
-		select(id.hdList, 'kernel-vrdr')
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
+	    else:
+		select(id.hdList, 'kernel')
 	elif isys.smpAvailable():
             select(id.hdList, 'kernel-smp')
 
