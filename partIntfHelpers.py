@@ -212,16 +212,18 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
     del partition
     return 1
 
-def doDeletePartitionsByDevice(intf, requestlist, diskset, device):
+def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
+			       confirm=1, quiet=0):
     """ Remove all partitions currently on device """
-    rc = intf.messageWindow(_("Confirm Delete"),
-                            _("You are about to delete all partitions on "
-                              "the device '/dev/%s'.") % (device,),
-                            type="custom",
-                            custom_buttons=[_("Cancel"), _("_Delete")])
+    if confirm:
+	rc = intf.messageWindow(_("Confirm Delete"),
+				_("You are about to delete all partitions on "
+				  "the device '/dev/%s'.") % (device,),
+				type="custom",
+				custom_buttons=[_("Cancel"), _("_Delete")])
 
-    if not rc:
-        return
+	if not rc:
+	    return
     
     requests = requestlist.getRequestsByDevice(diskset, device)
     if not requests:
@@ -249,7 +251,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device):
         if newreq:
             outlist = outlist + "\t/dev/%s\n" % (newreq.device,)
 
-    if outlist != "":
+    if outlist != "" and not quiet:
         intf.messageWindow(_("Notice"),
                            _("The following partitions were not deleted "
                              "because they are in use:\n\n%s") % outlist)
