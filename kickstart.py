@@ -193,7 +193,7 @@ class Kickstart(InstallClass):
 	# nodns is only used by the loader
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
-		  'nodns', 'hostname='])
+		  'nodns', 'device=', 'hostname='])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
@@ -212,6 +212,9 @@ class Kickstart(InstallClass):
 		gateway = arg
 	    elif str == "--nameserver":
 		nameserver = arg
+	    elif str == "--device":
+		# XXX ignored, is that okay?
+		device = arg
 	    elif str == "--hostname":
 		hostname = arg
 	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
@@ -314,6 +317,7 @@ class Kickstart(InstallClass):
 		     "skipx"		: self.doSkipX		,
 		     "text"		: None			,
 		     "timezone"		: self.doTimezone	,
+		     "url"		: None			,
 		     "upgrade"		: self.doUpgrade	,
 		     "xconfig"		: self.doXconfig	,
 		     "xdisplay"		: None			,
