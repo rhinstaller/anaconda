@@ -33,7 +33,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
 	self.packageSelectedImage = GdkImlib.create_image_from_xpm (PACKAGE_SELECTED_XPM)
 
     def getPrev (self):
-        return PackageSelectionWindow
+        for x in self.ics.getICW ().stateList:
+            if isinstance (x, PackageSelectionWindow):
+                return PackageSelectionWindow
+            elif isinstance (x, UpgradeExamineWindow):
+                return UpgradeExamineWindow
+        return None
 
     def build_tree (self, x):
         if (x == ()): return ()
@@ -389,6 +394,10 @@ class PackageSelectionWindow (InstallWindow):
 
         box = GtkVBox (FALSE, 0)
 
+	self.list = GtkCList ()
+        self.list.set_row_height (50)
+        self.list.set_selection_mode (SELECTION_MULTIPLE)
+
         for comp in self.todo.comps:
             if not comp.hidden:
                 pixname = string.replace (comp.name, ' ', '_')
@@ -402,32 +411,24 @@ class PackageSelectionWindow (InstallWindow):
                 checkButton = None
                 if pixname in xpms.__dict__.keys ():
                     picture = xpms.__dict__[pixname]
+
+                row = self.list.append ((comp.name,))
                 if picture:
                     im = GdkImlib.create_image_from_xpm (picture)
                     im.render ()
                     pix = im.make_pixmap ()
-                    hbox = GtkHBox (FALSE, 5)
-                    hbox.pack_start (pix, FALSE, FALSE, 0)
-                    label = GtkLabel (comp.name)
-                    label.set_alignment (0.0, 0.5)
-                    hbox.pack_start (label, TRUE, TRUE, 0)
-                    checkButton = GtkCheckButton ()
-                    checkButton.add (hbox)
-                else:
-                    checkButton = GtkCheckButton (comp.name)
-                checkButton.set_active (comp.selected)
+                    self.list.set_pixtext (row, 0, comp.name, 5, pix)
+                if comp.selected:
+                    self.list.select_row (row, 0)
 
                 def toggled (widget, comp):
                   if widget.get_active ():
                     comp.select (1)
                   else:
                     comp.unselect (0)
-                    
-                checkButton.connect ("toggled", toggled, comp)
 
-                box.pack_start (checkButton)
-
-        sw.add_with_viewport (box)
+        self.list.columns_autosize ()
+        sw.add (self.list)
 
         vbox = GtkVBox (FALSE, 5)
         self.individualPackages = GtkCheckButton ("Select individual packages")
