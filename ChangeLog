@@ -1,3 +1,8 @@
+2005-03-23  Peter Jones  <pjones@redhat.com>
+
+	* fsset.py (xfsFileSystem.formatDevice): Fix mkfs on xfs,
+	from Lars Hamann (#151378)
+
 2005-03-23  Chris Lumens  <clumens@redhat.com>
 
 	* Bump version.
