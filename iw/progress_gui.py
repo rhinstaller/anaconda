@@ -33,18 +33,20 @@ from gui import processEvents, takeScreenShot
 
 # FIXME: from redhat-config-packages.  perhaps move to common location
 def size_string (size):
+    def number_format(s):
+        return locale.format("%s", s, 1)
+
     if size > 1024 * 1024:
         size = size / (1024*1024)
-        units_str = _(" MB")
+        return _("%s MB") %(number_format(size),)
     elif size > 1024:
         size = size / 1024
-        units_str = _(" KB")
+        return _("%s KB") %(number_format(size),)        
     else:
         if size == 1:
-            units_str = _(" Byte")
+            return _("%s Byte") %(number_format(size),)                    
         else:
-            units_str = _(" Bytes")
-    return locale.format ("%s", size, 1) + units_str
+            return _("%s Bytes") %(number_format(size),)
 
 class InstallProgressWindow_NEW (InstallWindow):
 
