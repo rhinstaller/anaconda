@@ -1207,6 +1207,30 @@ class InstallControlState:
             p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
         return p
 
+    def readPixmapDithered(self, file, height = None, width = None):
+        fn = self.findPixmap(file)
+        if not fn:
+            log("unable to load %s", file)
+            return None
+        try:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+        except RuntimeError, msg:
+            log("unable to read %s: %s", file, msg)
+            return None
+        if (height is not None and width is not None
+            and height != pixbuf.get_height()
+            and width != pixbuf.get_width()):
+            pixbuf = pixbuf.scale_simple(height, width,
+                                         gtk.gdk.INTERP_BILINEAR)
+
+        pixmap = pixbuf.render_pixmap_and_mask()[0]
+        pixbuf.render_to_drawable(pixmap, gtk.gdk.gc_new(pixmap), 0, 0, 0, 0,
+                                  pixbuf.get_width(), pixbuf.get_height(),
+                                  gtk.gdk.RGB_DITHER_MAX, 0, 0)
+        p = gtk.Image()
+        p.set_from_pixmap(pixmap, None)
+        return p
+
     def readHTML (self, file):
         self.htmlFile = file
 

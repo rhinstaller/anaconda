@@ -30,7 +30,7 @@ class WelcomeWindow (InstallWindow):
         frame.set_shadow_type (gtk.SHADOW_IN)
 
         image = configFileData["WelcomeScreen"]
-        pix = self.ics.readPixmap(image)
+        pix = self.ics.readPixmapDithered(image)
         
         if pix:
             box = gtk.EventBox ()
