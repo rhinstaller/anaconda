@@ -1,5 +1,7 @@
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (BaseInstallClass.setSteps): Nuke languagesupport.
+
 	* packages.py (selectLanguageSupportGroups): Switch to selecting
 	metapkgs of a "language-support" group so that language selection
 	is just like other package selection

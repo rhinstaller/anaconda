@@ -140,7 +140,6 @@ class BaseInstallClass:
                  "networkdevicecheck",
 		 "network",
 		 "firewall",
-		 "languagesupport",
 		 "timezone",
 		 "accounts",
 		 "readcomps",
