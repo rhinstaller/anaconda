@@ -15,8 +15,8 @@
 
 import parted
 import math
+import fsset
 from partitioning import *
-from fsset import *
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
@@ -519,7 +519,7 @@ def doAutoPartition(id):
 
     # reset drive and request info to original state
     id.diskset.refreshDevices()
-    id.partrequests = partitioning.PartitionRequests(id.diskset)
+    id.partrequests = PartitionRequests(id.diskset)
 
     doClearPartAction(id, id.autoClearPartType, id.autoClearPartDrives)
 

@@ -20,7 +20,6 @@ import os
 import parted
 from log import log
 from translate import _, N_
-import partitioning
 import sys
 
 defaultMountPoints = ('/', '/boot', '/home', '/tmp', '/usr', '/var')
@@ -61,6 +60,8 @@ class LabelFactory:
 
     def createLabel(self, mountpoint):
         if self.labels == None:
+            import partitioning
+
             self.labels = {}
             diskset = partitioning.DiskSet()
             diskset.openDevices()
@@ -850,6 +851,8 @@ class LoopbackDevice(Device):
 
 # XXX fix RAID
 def readFstab (path):
+    import partitioning
+
     fsset = FileSystemSet()
 
     # first, we look at all the disks on the systems and get any ext2/3
