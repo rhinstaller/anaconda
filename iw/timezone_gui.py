@@ -130,7 +130,7 @@ class TimezoneWindow (InstallWindow):
         swList = List (tz.citylist)
         self.list = swList.children ()[0]
 
-	(self.default, asUTC, asArc) = rc = self.timezone.getTimezoneInfo()
+	(self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
 
 	if self.default:
             self.default = _(self.default)
