@@ -593,11 +593,11 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 		continue;
 	    }
 
-	    rc = loadSingleImage("/tmp/loopimage", dirName, 
+	    rc = loadSingleImage("/tmp/loopimage", "/",
 				 "RedHat/base/hdstg1.img", 
 				 flags, "ram3", "/mnt/runtime");
 	    if (!rc) {
-		rc = loadSingleImage("/tmp/loopimage", dirName, 
+		rc = loadSingleImage("/tmp/loopimage", "/",
 				     "RedHat/base/hdstg2.img", 
 				     flags, "ram4", "/mnt/runtime/usr");
 		if (!rc) { 
