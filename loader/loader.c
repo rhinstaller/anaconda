@@ -3262,6 +3262,9 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
+    /* Turn on mediacheck for testing */
+    mediacheck = 1;
+
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
 
