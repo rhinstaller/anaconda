@@ -2013,7 +2013,7 @@ def readFstab (path, intf = None):
             labelToDevice[label] = device
         elif intf is not None:
             intf.messageWindow(_("Duplicate Labels"),
-                               _("Multiple devices on your system have are "
+                               _("Multiple devices on your system are "
                                  "labelled %s.  Labels across devices must be "
                                  "unique for your system to function "
                                  "properly.\n\n"
