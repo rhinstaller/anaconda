@@ -596,6 +596,7 @@ int main(int argc, char **argv) {
 
     printf("Red Hat install init version %s starting\n", VERSION);
 
+#if !defined(__s390__) && !defined(__s390x__)	 
     printf("mounting /proc filesystem... "); 
     if (!testing) {
 	if (mount("/proc", "/proc", "proc", 0, NULL))
@@ -609,6 +610,7 @@ int main(int argc, char **argv) {
 	    fatal_error(1);
     }
     printf("done\n");
+#endif	 
 
     signal(SIGINT, SIG_IGN);
     signal(SIGTSTP, SIG_IGN);
@@ -666,12 +668,18 @@ int main(int argc, char **argv) {
 
     if (testing)
 	exit(0);
+#else
+   fd = open("/proc/self/0", O_RDWR, 0);
+   if (fd < 0) {
+        printf("failed to open /proc/self/0\n");
+        fatal_error(1);
+    }
+#endif
 
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
     close(fd);
-#endif
 
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
