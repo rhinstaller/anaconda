@@ -193,7 +193,7 @@ class KickstartBase(BaseInstallClass):
 
     def doLilo	(self, args):
 	(args, extra) = isys.getopt(args, '',
-		[ 'append=', 'location=', 'linear' ])
+		[ 'append=', 'location=', 'linear', 'nolinear' ])
 
 	appendLine = None
 	location = "mbr"
@@ -205,6 +205,8 @@ class KickstartBase(BaseInstallClass):
 		appendLine = arg
 	    elif str == '--linear':
 		linear = 1
+	    elif str == '--nolinear':
+		linear = 0
 	    elif str == '--location':
 	        if arg == 'mbr' or arg == 'partition':
 		    location = arg
