@@ -64,8 +64,10 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
     sprintf(buf, "%s/RedHat/%s", ui->prefix, filename);
 
     if (ui->protocol == URL_METHOD_FTP) {
-	ui->ftpPort = ftpOpen(ui->address, "anonymous", "rhinstall@", NULL,
-			      -1);
+	ui->ftpPort = ftpOpen(ui->address, 
+			      ui->login ? ui->login : "anonymous", 
+			      ui->password ? ui->password : "rhinstall@", 
+			      NULL, -1);
 	if (ui->ftpPort < 0) {
 	    newtWinMessage(_("Error"), _("Ok"), 
 		_("Failed to log into %s: %s"), ui->address, 
@@ -124,6 +126,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 		      char * doSecondarySetup) {
     newtComponent form, okay, cancel, siteEntry, dirEntry;
     newtComponent answer, text;
+    newtComponent * cb = NULL;
     char * site, * dir;
     char * reflowedText = NULL;
     int width, height;
@@ -192,20 +195,21 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, entryGrid,
 		     0, 0, 0, 1, 0, 0);
 
-#ifdef NO_PROXY
     switch (protocol) {
     case URL_METHOD_FTP:
 	cb = newtCheckbox(3, 11, _("Use non-anonymous ftp or a proxy server"),
 			  *doSecondarySetup, NULL, doSecondarySetup);
 	break;
+#ifdef NO_PROXY
     case URL_METHOD_HTTP:
 	cb = newtCheckbox(3, 11, _("Use proxy server"),
 			  *doSecondarySetup, NULL, doSecondarySetup);
+#endif
     }
 
-    newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, cb,
-		     0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-#endif
+    if (cb)
+	newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, cb,
+			 0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
 	
     newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
 		     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
@@ -292,7 +296,6 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     return 0;
 }
 
-#if 0
 int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     newtComponent form, okay, cancel, answer, text, accountEntry = NULL;
     newtComponent passwordEntry = NULL, proxyEntry = NULL;
@@ -337,6 +340,7 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
 		     newtLabel(-1, -1, _("Password:")),
 		     0, 0, 2, 0, NEWT_ANCHOR_LEFT, 0);
     }
+#if 0
     newtGridSetField(entryGrid, 0, 2, NEWT_GRID_COMPONENT,
 		     protocol == URL_METHOD_FTP ?
 		                 newtLabel(-1, -1, _("FTP Proxy:")) :
@@ -347,16 +351,21 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
 		                 newtLabel(-1, -1, _("FTP Proxy Port:")) :
 		                 newtLabel(-1, -1, _("HTTP Proxy Port:")),
 		     0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
+#endif
+
     if (protocol == URL_METHOD_FTP) {
 	newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, accountEntry,
 			 0, 0, 0, 0, 0, 0);
 	newtGridSetField(entryGrid, 1, 1, NEWT_GRID_COMPONENT, passwordEntry,
 			 0, 0, 0, 0, 0, 0);
     }
+
+#if 0
     newtGridSetField(entryGrid, 1, 2, NEWT_GRID_COMPONENT, proxyEntry,
 		     0, 1, 0, 0, 0, 0);
     newtGridSetField(entryGrid, 1, 3, NEWT_GRID_COMPONENT, proxyPortEntry,
 		     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+#endif
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
@@ -402,45 +411,8 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
 	    ui->password = NULL;
     }
     
-    if (ui->proxy) free(ui->proxy);
-    if (strlen(proxy)) {
-	ui->proxy = strdup(proxy);
-	if (protocol == URL_METHOD_FTP)
-	    addMacro(NULL, "_ftpproxy", NULL, ui->proxy, RMIL_RPMRC);
-	else
-	    addMacro(NULL, "_httproxy", NULL, ui->proxy, RMIL_RPMRC);
-    } else
-	ui->proxy = NULL;
-    
-    if (ui->proxyPort) free(ui->proxyPort);
-    if (strlen(proxy)) {
-	ui->proxyPort = strdup(proxyPort);
-	if (protocol == URL_METHOD_FTP)
-	    addMacro(NULL, "_ftpproxyport", NULL,
-		     ui->proxyPort, RMIL_RPMRC);
-	else
-	    addMacro(NULL, "_httpproxyport", NULL,
-		     ui->proxyPort, RMIL_RPMRC);
-    } else
-	ui->proxyPort = NULL;
-
-    if (ui->urlprefix) free(ui->urlprefix);
-    ui->urlprefix = malloc(sizeof(char) * (strlen(ui->address) +
-		   strlen(ui->prefix) +
-			   (ui->login ? strlen(ui->login) : 0) +
-			   (ui->password ? strlen(ui->password) : 0) + 15));
-					   
-    sprintf(ui->urlprefix, "%s://%s%s%s%s%s/%s",
-	    protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    ui->login ? ui->login : "",
-	    ui->password ? ":" : "",
-	    ui->password ? ui->password : "",
-	    ui->login ? "@" : "",
-	    ui->address, ui->prefix);
-
     newtFormDestroy(form);
     newtPopWindow();
 
     return 0;
 }
-#endif

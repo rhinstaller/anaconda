@@ -952,6 +952,7 @@ static char * mountUrlImage(struct installMethod * method,
     static struct networkDeviceConfig netDev;
     int fd;
     char * url;
+    char * login;
     enum urlprotocol_t proto = 
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
@@ -982,12 +983,10 @@ static char * mountUrlImage(struct installMethod * method,
 			URL_STAGE_SECOND : URL_STAGE_FETCH;
 	    break;
 
-#if 0	    /* we don't support proxies, etc right now */
 	  case URL_STAGE_SECOND:
 	    rc = urlSecondarySetupPanel(&ui, proto);
 	    stage = rc ? URL_STAGE_MAIN : URL_STAGE_FETCH;
 	    break;
-#endif
 
 	  case URL_STAGE_FETCH:
 	    if (FL_TESTING(flags)) {
@@ -1017,10 +1016,27 @@ static char * mountUrlImage(struct installMethod * method,
         }
     }
 
-    url = malloc(strlen(ui.prefix) + 25 + strlen(ui.address));
-    sprintf(url, "%s://%s/%s", 
+    i = 0;
+    /* password w/o login isn't usefull */
+    if (strlen(ui.login)) {
+	i += strlen(ui.login) + 5;
+	if (strlen(ui.password))
+	    i += strlen(ui.password) + 5;
+	if (ui.login || ui.password) {
+	    login = alloca(i);
+	    sprintf(login, "%s%s%s@",
+		    ui.login, 
+		    ui.password ? ":" : "",
+		    ui.password ? ui.password : "");
+	}
+    } else {
+	login = "";
+    }
+
+    url = malloc(strlen(ui.prefix) + 25 + strlen(ui.address) + strlen(login));
+    sprintf(url, "%s://%s%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    ui.address, ui.prefix);
+	    login, ui.address, ui.prefix);
 
     writeNetInfo("/tmp/netinfo", &netDev);
 
