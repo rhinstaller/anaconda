@@ -17,13 +17,6 @@ import types, os, sys, isys, select, string, stat, signal
 import os.path
 from rhpl.log import log
 
-memoryOverhead = 0
-
-def setMemoryOverhead(amount):
-    global memoryOverhead
-
-    memoryOverhead = amount
-
 def getArch ():
     arch = os.uname ()[4]
     if (len (arch) == 4 and arch[0] == 'i' and
@@ -197,8 +190,6 @@ def copyFile(source, to, pw = None):
 
 # this is in kilobytes
 def memInstalled(corrected = 1):
-    global memoryOverhead
-
     if not os.access('/proc/e820info', os.R_OK):
         f = open("/proc/meminfo", "r")
         mem = f.readlines()[1]
@@ -215,9 +206,6 @@ def memInstalled(corrected = 1):
             if fields[3] == "(usable)":
                 mem = mem + (string.atol(fields[0], 16) / 1024)
                 
-    if corrected:
-        mem = mem - memoryOverhead
-
     return int(mem)
 
 # try to keep 2.4 kernel swapper happy!
