@@ -220,7 +220,7 @@ class KickstartBase(BaseInstallClass):
                   'password=', 'md5pass=', 'linear', 'nolinear'])
 
         validLocations = [ "mbr", "partition", "none" ]
-        appendLine = None
+        appendLine = ""
         location = "mbr"
         password = None
         md5pass = None

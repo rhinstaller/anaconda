@@ -33,12 +33,13 @@ class BaseInstallClass:
     def postAction(self, rootPath, serial):
 	pass
 
-    def setBootloader(self, id, useLilo = 0, location = None, linear = 1,
-                      forceLBA = 0, password = None, md5pass = None,
-                      appendLine = None):
+    def setBootloader(self, id, useLilo=0, location=None, linear=1,
+                      forceLBA=0, password=None, md5pass=None,
+                      appendLine=""):
         if useLilo:
             id.bootloader.useGrubVal = 0
-        id.bootloader.args.set(appendLine)
+        if appendLine:
+            id.bootloader.args.set(appendLine)
         id.bootloader.setForceLBA(forceLBA)
         id.bootloader.useLinear = linear
         if password:
