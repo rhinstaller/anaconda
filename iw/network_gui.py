@@ -196,7 +196,7 @@ class NetworkWindow(InstallWindow):
                        (_("Network"),    "network"),
                        (_("Broadcast"),  "broadcast")]
 
-            if len(i) >= 3 and i[:3] == 'ctc':
+            if len(i.info["DEVICE"]) >= 3 and i.info["DEVICE"][:3] == 'ctc':
                 newopt = (_("Point to Point (IP)"), "remip")
                 options.append(newopt)
             
