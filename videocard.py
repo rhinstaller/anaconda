@@ -127,6 +127,9 @@ class VideoCard:
 
     def getFBBpp(self):
         return self.fbbpp
+
+    def isFrameBuffer(self):
+        return 0
         
     def shortDescription(self):
         if self.devID and self.devID != "":
@@ -140,7 +143,10 @@ class VideoCard:
         if dontResolve:
             return self.cardData
         else:
-            return Video_cardsDBLookup(self.cardData["NAME"])
+            if self.cardData:
+                return Video_cardsDBLookup(self.cardData["NAME"])
+            else:
+                return None
 
     def canTestSafely(self):
         cardData = self.getCardData()
@@ -153,7 +159,57 @@ class VideoCard:
 
         return 1
 
+    def hasFixedMode(self):
+        return 0
 
+
+# fake card entry for frame buffer
+class FrameBufferCard(VideoCard):
+    def getCardData(self, dontResolve = 0):
+        # fake entry for a frame buffer (not in cards db)
+        card = {}
+        card["DRIVER"] = "fbdev"
+        card["NAME"] = "VGA VESA Framebuffer"
+
+        return card
+
+    def getXServer(self):
+        return "XFree86"
+
+    def isFrameBuffer(self):
+        return 1
+
+    def hasFixedMode(self):
+        return 1
+
+    def FixedMode(self):
+        fb = isys.fbinfo()
+        if fb:
+            (x, y, bpp) = fb
+            rc = {}
+            rc[str(bpp)] = ["%sx%s" % (x, y)]
+            return rc
+        return None
+
+# fake card entry for frame buffer
+class VGA16Card(VideoCard):
+    def getCardData(self, dontResolve = 0):
+        # fake entry for a frame buffer (not in cards db)
+        card = {}
+        card["DRIVER"] = "vga"
+        card["NAME"] = "Generic VGA"
+
+        return card
+
+    def getXServer(self):
+        return "XFree86"
+
+    def hasFixedMode(self):
+        return 1
+
+    def FixedMode(self):
+        return { "4" : ["640x480"]}
+    
 class VideoCardInfo:
 
 #
@@ -178,7 +234,6 @@ class VideoCardInfo:
                 return self.videocards[self.primary]
             else:
                 return None
-        
 
     def possible_ram_sizes(self):
         #--Valid video ram sizes--
@@ -303,9 +358,15 @@ class VideoCardInfo:
 
                 vc.setXServer(server)
                 self.videocards.append(vc)
-            
                 
         if len(self.videocards) == 0:
+            # insert a best guess at a card
+            vc = VideoCard()
+            vc.setDescription(_("Unknown Card"))
+            self.videocards.append(vc)
+            self.orig_videocards = copy.deepcopy(self.videocards)
+            self.primary = 0
+            self.orig_primary = self.primary
             return
 
         # default primary card to be the first card found
