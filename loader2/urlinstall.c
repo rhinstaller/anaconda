@@ -307,9 +307,10 @@ char * mountUrlImage(struct installMethod * method,
 
     /* sanitize url so we dont have problems like bug #101265 */
     /* basically avoid duplicate /'s                          */
-    for (p=finalPrefix; *p == '/'; p++);
-
-    finalPrefix = p;
+    if (ui.protocol == URL_METHOD_HTTP) {
+        for (p=finalPrefix; *p == '/'; p++);
+        finalPrefix = p;
+    }
 
     sprintf(url, "%s://%s%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",

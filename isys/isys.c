@@ -107,6 +107,7 @@ static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
+static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -161,6 +162,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
     { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
+    { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1394,6 +1396,18 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
 	return NULL;
 
     ret = getMacAddr(dev);
+
+    return Py_BuildValue("s", ret);
+}
+
+static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
+    char *dev;
+    char *ret;
+
+    if (!PyArg_ParseTuple(args, "s", &dev))
+	return NULL;
+
+    ret = getIPAddr(dev);
 
     return Py_BuildValue("s", ret);
 }

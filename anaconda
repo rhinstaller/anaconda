@@ -79,11 +79,6 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	# write password again
 	os.write(fd, passwd + "\n")
 
-	# write out a 'n\n' to answer question about creating a view only pw
-	os.read(fd, 1000)
-	os.read(fd, 1000)
-	os.write(fd, "n\n")
-        
 	# read remaining output
 	os.read(fd, 1000)
 
@@ -112,10 +107,13 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	else:
 	    for dev in netinfo.netdevices.keys():
 		try:
-		    ip = netinfo.netdevices[dev].get("ipaddr")
-		except:
+                    ip = isys.getIPAddress(dev)
+                    log("ip of %s is %s" %(dev, ip))
+		except Exception, e:
+                    log("Got an exception trying to get the ip addr of %s: "
+                        "%s" %(dev, e))
 		    continue
-		if ip == '127.0.0.1':
+		if ip == '127.0.0.1' or ip is None:
 		    continue
 		srvname = ip
 		break
@@ -144,8 +142,9 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	if vncpassword is not None:
 	    try:
 		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
-	    except:
-		dup_log("Unknown expection setting vnc password.")
+	    except Exception, e:
+		dup_log("Unknown exception setting vnc password.")
+                log("Exception was: %s" %(e,))
 		rc = 1
 
 	    if rc:

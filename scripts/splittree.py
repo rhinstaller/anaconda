@@ -76,7 +76,7 @@ self.reverse_sort_srpms : sort the srpms in reverse order to
 fit. Usually only needed if we share a disc between SRPMs
 and RPMs. Set to 1 to turn on."""
         
-        self.target_size = 648.0 * 1024.0 * 1024
+        self.target_size = 640.0 * 1024.0 * 1024
         self.fudge_factor = 1.2 * 1024.0 * 1024
         self.comps_size = 10.0 * 1024 * 1024
         self.release_str = None

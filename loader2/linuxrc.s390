@@ -201,11 +201,8 @@ else  # ctc0, escon0, iucv0
 		  read GATEWAY
 	 done
 
-	 if [ "$NETTYPE" = "ctc" ]; then
-		 if [ -z "$MTU" ]; then
-			   MTU="1500"
-		 fi
-		 MMTU="mtu 1500"   # always use mtu 1500 for the installer
+	 if [ "$NETTYPE" = "ctc" -a -z "$MTU" ]; then
+		  MTU="1500"
 	 fi
 	 if [ ":$NETTYPE" = ":iucv" ]; then
 		  while [ -z "$IUCV" ]; do
@@ -289,6 +286,17 @@ fi
 if [ -n "$DNS" ]; then
 	DNS=`echo $DNS |sed -e 's/:/ /g'`
 	for i in "$DNS"; do echo "nameserver $i"; done   >> /etc/resolv.conf
+fi
+
+if [ -z "$DASD" ]; then
+   echo
+   echo $"Enter DASD range (e.g. 200-203   or  200,201,202,203)"
+   echo $"Press <Enter> for autoprobing (not recommended):"
+   echo
+   read DASD
+fi
+if [ -n "$DASD" ]; then
+       echo "DASD=$DASD" > /tmp/dasd_ports
 fi
 
 grep -q ext3 /proc/filesystems

@@ -637,7 +637,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
         if (!FL_CMDLINE(flags))
-            winStatus(40, 3, _("Hostname"), 
+            winStatus(50, 3, _("Hostname"), 
                       _("Determining host name and domain..."));
         else
             printf("Determining host name and domain...\n");

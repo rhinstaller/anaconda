@@ -668,8 +668,10 @@ static char *doLoaderMain(char * location,
 	/* so we can short circuit straight to stage 2 from CD         */
 	if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
 	    return url;
-	else
+	else {
 	    rhcdfnd = 1;
+            methodNum = 0; /* FIXME: this assumes cdrom is always first */
+        }
     }
 
     if (!FL_CMDLINE(flags))
@@ -749,6 +751,7 @@ static char *doLoaderMain(char * location,
                 for (i = 0; i < numMethods; i++) {
                     installNames[i] = _(installMethods[i].name);
                 }
+                installNames[i] = NULL;
 
                 rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
                                  _("Installation Method"),
@@ -1157,6 +1160,15 @@ int main(int argc, char ** argv) {
         loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, 
                         modInfo, &kd, flags);
     }
+
+    /* this allows us to do an early load of modules specified on the
+     * command line to allow automating the load order of modules so that
+     * eg, certain scsi controllers are definitely first.
+     * FIXME: this syntax is likely to change in a future release
+     *        but is done as a quick hack for the present.
+     */
+    earlyModuleLoad(modInfo, modLoaded, modDeps, 0, &kd, flags);
+    
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 

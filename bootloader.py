@@ -38,7 +38,7 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
         return
 
     choices = fsset.bootloaderChoices(diskSet, bl)
-    if not choices:
+    if not choices and iutil.getPPCMachine() != "iSeries":
 	dispatch.skipStep("instbootloader")
     else:
 	dispatch.skipStep("instbootloader", skip = 0)

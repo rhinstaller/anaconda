@@ -205,7 +205,7 @@ class Dispatcher:
 		if skip:
                     if permanent:
                         self.skipSteps[name] = 2
-                    else:
+                    elif not self.skipSteps.has_key(name):
                         self.skipSteps[name] = 1
 		elif self.skipSteps.has_key(name):
 		    # if marked as permanent then dont change

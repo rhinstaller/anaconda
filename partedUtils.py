@@ -241,7 +241,7 @@ def getDefaultDiskType():
         return parted.disk_type_get("msdos")
 
 archLabels = {'i386': ['msdos'],
-              's390': ['dasd'],
+              's390': ['dasd', 'msdos'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
               'ia64': ['msdos', 'gpt'],
@@ -394,7 +394,7 @@ def sniffFilesystemType(device):
 	return None
 
     # ext2 check
-    if struct.unpack("H", buf[1080:1082]) == (0xef53,):
+    if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
         if isys.ext2HasJournal(dev, makeDevNode = 0):
             return "ext3"
         else:

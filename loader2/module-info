@@ -94,6 +94,10 @@ acenic
 	eth
 	"Alteon AceNIC Gigabit"
 
+amd8111e
+	eth
+	"AMD8111 based 10/100 Ethernet Controller"
+
 #aironet4500_card
 #	eth
 #	"Aironet 4500 PCI-ISA-i365 wireless"
@@ -134,6 +138,10 @@ at1700
 #	atp
 #	"Attached (pocket) ethernet adapter"
 
+b44
+	eth
+	"Broadcom 4400 10/100 PCI ethernet adapter"
+
 bcm5700
 	eth
 	"Broadcom BCM5700 10/100/1000 ethernet adapter"
@@ -170,6 +178,10 @@ dgrs
 	hashexpire "Hash Expiration"
 	ipaddr "List of four IP addresses"
 	ipxnet "IPX network number"
+
+dl2k
+	eth
+	"D-Link DL2000-based Gigabit Ethernet Adapter"
 
 #dlci
 	#dlci
@@ -239,6 +251,10 @@ ewrk3
 	"EtherWORKS 3: DE203, DE204, DE205"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
+
+fealnx
+	eth
+	"Myson MTD-8xx 100/10M Ethernet PCI Adapter"
 
 fmv18x
 	eth
@@ -452,6 +468,10 @@ tmspci
 	tr
 	"TMS380-based PCI token ring cards"
 
+typhoon
+	eth
+	"3Com Typhoon Family (3C990, 3CR990 and variants)"
+
 lanstreamer
 	tr
 	"IBM Auto LANStreamer"
@@ -623,6 +643,10 @@ ips
 megaraid
 	scsi_hostadapter
 	"MegaRAID 418, 428, 438, 466, 762"
+
+megaraid2
+	scsi_hostadapter
+	"LSI MegaRAID Controllers"
 
 mptbase
 	scsi_hostadapter

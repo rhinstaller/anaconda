@@ -157,9 +157,8 @@ int getRemovableDevices(char *** devNames) {
     int numDevices = 0;
     int i = 0, j = 0;
 
-    floppies = probeDevices(CLASS_FLOPPY, 
-                            BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
-    cdroms = probeDevices(CLASS_CDROM, BUS_IDE | BUS_SCSI, PROBE_ALL);
+    floppies = probeDevices(CLASS_FLOPPY, BUS_UNSPEC, PROBE_ALL);
+    cdroms = probeDevices(CLASS_CDROM, BUS_UNSPEC, PROBE_ALL);
 
     /* we should probably take detached into account here, but it just
      * means we use a little bit more memory than we really need to */
@@ -195,6 +194,7 @@ int getRemovableDevices(char *** devNames) {
     for (i = 0; devices[i] && (i < numDevices); i++)
         (*devNames)[i] = strdup(devices[i]->device);
     free(devices);
+    (*devNames)[i] = NULL;
 
     if (i != numDevices)
         logMessage("somehow numDevices != len(devices)");
@@ -441,11 +441,19 @@ void getDDFromSource(struct knownDevices * kd,
             logMessage("unable to retrieve driver disk: %s", src);
             return;
         }
+    /* FIXME: this is a hack so that you can load a driver disk from, eg, 
+     * scsi cdrom drives */
+    } else if (!strncmp(src, "cdrom", 5)) {
+        loadDriverDisks(CLASS_UNSPEC, loaderData->modLoaded, 
+                        loaderData->modDepsPtr, loaderData->modInfo,
+                        kd, flags);
+        return;
     } else {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown driver disk kickstart source: %s"), src);
         return;
     }
+
     if (!mountLoopback("/tmp/dd.img", "/tmp/drivers", "loop6")) {
         loadFromLocation(kd, loaderData, "/tmp/drivers", flags);
         umountLoopback("/tmp/drivers", "loop6");
