@@ -13,6 +13,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+DEBUG = 1
+
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
 DISPATCH_NOOP = None
@@ -54,3 +56,5 @@ FIRSTBOOT_RECONFIG = 2
 # common string needs to be easy to change
 import product
 productName = product.productName
+
+
