@@ -938,12 +938,12 @@ class XF86Config:
     def test (self, serverflags=None, spawn=0, root='/'):
 
         if self.videocard == None:
-            return
+            return None
 
         servername = self.videocard.getXServer()
 
         if not servername:
-            return
+            return None
 
         files = self.files
         laptop = self.laptop()
@@ -1039,7 +1039,6 @@ class XF86Config:
 
             os.execv(args[0], args)
      	    os.exit (1)
-
 
         if spawn:
             return serverpid
