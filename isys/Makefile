@@ -44,7 +44,7 @@ all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
 
 %.do: %.c
-	$(DIET) $(CC) -c $(CFLAGS) -DDIET=1 "-Du_char=unsigned char" -o $@ $<
+	$(DIET) $(CC) -c $(CFLAGS) -DGZLIB=1 -DDIET=1 "-Du_char=unsigned char" -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
