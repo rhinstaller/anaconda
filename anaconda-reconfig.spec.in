@@ -43,7 +43,9 @@ fi
 %doc COPYING
 /usr/sbin/anaconda-reconfig
 /usr/sbin/ddcprobe
-/usr/sbin/anaconda/*
+/usr/share/anaconda/*
+/usr/share/locale/*/*/*
+/usr/lib/anaconda/*
 
 %config /etc/rc.d/init.d/reconfig
 

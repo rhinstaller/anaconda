@@ -51,7 +51,10 @@ install-reconfig: all
 	fi
 
 	mkdir -p $(RECFGDESTDIR)/usr/sbin
+	mkdir -p $(DESTDIR)/etc/rc.d/init.d
 	mkdir -p $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+
+	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d
 	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda-reconfig
 	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
@@ -67,12 +70,10 @@ install-hd: all
 	fi
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	mkdir -p $(DESTDIR)/etc/rc.d/init.d
 
 	cp -a anaconda $(DESTDIR)/usr/bin
 	cp -a *.py $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d
 	for d in $(SUBDIRSHD); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 install: all
