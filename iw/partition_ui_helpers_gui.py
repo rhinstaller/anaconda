@@ -137,6 +137,9 @@ def createAllowedDrivesList(disks, reqdrives):
 	sizestr = "%8.0f MB" % size
 	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
 
+    if len(drives) < 2:
+	drivelist.set_sensitive(0)
+
     return drivelist
 
 # pass in callback for when fs changes because of python scope issues
