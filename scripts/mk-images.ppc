@@ -29,6 +29,8 @@ mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
 cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
 cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
+cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
+
 
 # mac
 # echo "Building Mac initrd"

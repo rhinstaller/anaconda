@@ -188,7 +188,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = ppc ]; then
-    PACKAGESGR="$PACKAGESGR fbset"
+    PACKAGESGR="$PACKAGESGR fbset yaboot"
 fi
 
 #
@@ -570,6 +570,7 @@ usr/$LIBDIR/pango/*
 usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
+usr/lib/yaboot/*
 usr/sbin/chroot
 usr/sbin/ddcprobe
 usr/sbin/fbset
