@@ -483,7 +483,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
 
         /* here we need to save the state of stage2 */
-        simpleRemoveLoadedModule("usb-storage", modLoaded, flags);
+        removeLoadedModule("usb-storage", modLoaded, flags);
         
         /* JKFIXME: here are the big hacks... for now, just described.
          * 1) figure out which scsi devs are claimed by usb-storage.
@@ -510,7 +510,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     if (reloadUsbStorage) {
-        reloadUnloadedModule("usb-storage", modLoaded, NULL, flags);
+        mlLoadModule("usb-storage", modLoaded, modDeps, modInfo, NULL, flags);
         /* JKFIXME: here's the rest of the hacks.  basically do the reverse
          * of what we did before.
          */
@@ -828,13 +828,11 @@ static struct extractedModule * extractModules (char * const * modNames,
 
 
 
-/* simple removal of a loaded module which is going to be reloaded.
- * Note that this doesn't remove the module from the modLoaded struct
- * but we do update the loadedModuleInfo to reflect the fact that its using
- * no devices anymore.
+/* remove a module which has been loaded, including removal from the 
+ * modLoaded struct
  */
-int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
-                                    int flags) {
+int removeLoadedModule(const char * modName, moduleList modLoaded,
+                       int flags) {
     int status, rc = 0;
     pid_t child;
     struct loadedModuleInfo * mod;
@@ -870,70 +868,25 @@ int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
 	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
 	    rc = 1;
 	} else {
-	    rc = 0;
+            int found = -1;
+            int i;
+
+            /* find our module.  once we've found it, shutffle everything
+             * else back one */
+            for (i = 0; i < modLoaded->numModules; i++) {
+                if (found > -1) {
+                    modLoaded->mods[i - 1] = modLoaded->mods[i];
+                } else if (!strcmp(modLoaded->mods[i].name, modName)) {
+                    found = i;
+                    free(modLoaded->mods[i].name);
+                    free(modLoaded->mods[i].path);
+                } 
+            }
+            modLoaded->numModules--;
+
+            rc = 0;
 	}
     }
-    return rc;
-}
-
-/* simple reinsertion of a module; just looks for the module and reloads it
- * if we think it was already loaded.  we also update firstDevNum and 
- * lastDevNum to be current
- */
-int reloadUnloadedModule(char * modName, moduleList modLoaded, 
-                         char ** args, int flags) {
-    char fileName[200];
-    int rc, status;
-    pid_t child;
-    struct extractedModule * path = NULL;
-    char * list[2];
-    int i;
-
-    for (i = 0; i < modLoaded->numModules; i++) 
-        if (!strcmp(modLoaded->mods[i].name, modName))
-            break;
-
-    if (i >= modLoaded->numModules)
-        return 0;
-
-    modLoaded->mods[i].firstDevNum = scsiDiskCount();
-
-    list[0] = modName;
-    list[1] = NULL;
-
-    path = extractModules(list, path, NULL);
-
-    sprintf(fileName, "%s.o", modName);
-
-    if (FL_TESTING(flags)) {
-	logMessage("would have insmod %s", fileName);
-	rc = 0;
-    } else {
-	logMessage("going to insmod %s", fileName);
-
-	if (!(child = fork())) {
-	    int fd = open("/dev/tty3", O_RDWR);
-
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-	    close(fd);
-
-	    rc = insmod(fileName, NULL, args);
-	    _exit(rc);
-	}
-
-	waitpid(child, &status, 0);
-
-	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-	    rc = 1;
-	} else {
-	    rc = 0;
-	}
-    }
-
-    modLoaded->mods[i].lastDevNum = scsiDiskCount();
-    logMessage("reloadModule returning %d", rc);
     return rc;
 }
 
