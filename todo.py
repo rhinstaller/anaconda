@@ -25,6 +25,9 @@ class LogFile:
             self.logFile.write (format % args)
         else:
             self.logFile.write (format)
+
+    def getFile:
+        return self.logFile
             
 class SimpleConfigFile:
     def __str__ (self):
@@ -441,12 +444,14 @@ class ToDo:
             if fsystem == "ext2":
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                        [ "mke2fs", '/tmp/' + device ],
-                                       stdout = None, stderr = None,
+                                        stdout = self.log.getFile (),
+                                        stderr = self.log.getFile (),
                                        searchPath = 1)
             elif fsystem == "swap":
                 rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                              [ "mkswap", '/tmp/' + device ],
-                                             stdout = None, stderr = None,
+                                             stdout = self.log.getFile (),
+                                             stderr = self.log.getFile (),
                                              searchPath = 1)
                 if rc:
                     raise ToDoError, "error making swap on " + device
