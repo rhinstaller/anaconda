@@ -569,7 +569,7 @@ class ComponentSet:
                     for expression in expressions:
                         everything.addPackageWithExpression (expression,
                                                              packages[package])
-           else:
+            else:
                 everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything
