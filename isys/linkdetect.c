@@ -109,7 +109,7 @@ static int get_ethtool_link_status(int sock) {
 
     edata.cmd = ETHTOOL_GLINK;
     ifr.ifr_data = (caddr_t)&edata;
-    rc = ioctl(sock, SIOCETHTOOL, ifr);
+    rc = ioctl(sock, SIOCETHTOOL, &ifr);
     if (rc == 0) {
         return edata.data;
     } else if (errno != EOPNOTSUPP) {
@@ -169,5 +169,6 @@ int main(int argc, char **argv) {
         dev = strdup("eth0");
 
     printf("link status of %s is %d\n", dev, get_link_status(dev));
+    return 0;
 }
 #endif
