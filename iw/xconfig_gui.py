@@ -676,6 +676,8 @@ class XConfigWindow (InstallWindow):
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
             self.xconfig.skipx = 1
+
+            return None
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
