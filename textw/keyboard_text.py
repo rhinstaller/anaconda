@@ -21,7 +21,7 @@ from rhpl.log import log
 from rhpl.translate import _
 
 class KeyboardWindow:
-    def __call__(self, screen, defaultByLang, kbd, xconfig):
+    def __call__(self, screen, defaultByLang, kbd):
 	if flags.serial:
 	    return INSTALL_NOOP
         keyboards = kbd.modelDict.keys()
@@ -45,8 +45,6 @@ class KeyboardWindow:
 	kbd.beenset = 1
 
         kbd.activate()
-##         if (xconfig != (None, None)) and (xconfig != None):
-##             apply(xconfig.setKeyboard, kbd.getXKB())
 
         # FIXME: eventually, kbd.activate will do this
 	try:
