@@ -160,9 +160,6 @@ class BaseInstallClass:
 	elif iutil.getArch() == "s390":
 	    dispatch.skipStep("keyboard", permanent = 1)
 	    dispatch.skipStep("mouse", permanent = 1)
-	    dispatch.skipStep("partitionmethod", permanent = 1)
-	    dispatch.skipStep("autopartition", permanent = 1)
-	    dispatch.skipStep("autopartitionexecute", permanent = 1)
 	    dispatch.skipStep("fdisk", permanent = 1)
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("videocard", permanent = 1)
