@@ -406,6 +406,7 @@ class FATFileSystem(FileSystemType):
         self.partedFileSystemType = parted.file_system_type_get("FAT")
         self.formattable = 1
         self.checked = 0
+        self.maxSize = 2 * 1024
         self.name = "vfat"
 
     def formatDevice(self, entry, progress, chroot='/'):
