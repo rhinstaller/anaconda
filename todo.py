@@ -483,16 +483,21 @@ class ToDo:
 	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
 	f.write(str (self.keyboard))
-	rc = iutil.execWithRedirect("/usr/bin/loadkeys",
-				    [ "/usr/bin/loadkeys", self.keyboard.layout ],
+	f.close()
+	try:
+	    os.stat(self.instPath + "/bin/loadkeys")
+	    rc = iutil.execWithRedirect("/bin/loadkeys",
+				    [ "/bin/loadkeys", self.keyboard.layout ],
 				    stdout = None, stderr = None,
 				    searchPath = 0, root = self.instPath)
-	mapfile = open(self.instPath + "/etc/sysconfig/console/default.kmap", "w")
-	rc = iutil.execWithRedirect("/usr/bin/dumpkeys",
+	
+	    mapfile = open(self.instPath + "/etc/sysconfig/console/default.kmap", "w")
+	    rc = iutil.execWithRedirect("/usr/bin/dumpkeys",
 				    [ "/usr/bin/dumpkeys"],
 				    stdout = mapfile, stderr = None,
 				    searchPath = 0, root = self.instPath)
-	f.close()
+	except:
+	    pass
 
     def needBootdisk (self):
 	if self.bootdisk or self.fstab.rootOnLoop(): return 1
@@ -1443,7 +1448,26 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
+        if self.upgrade and self.dbpath:
+            # move the rebuilt db into place.
+            try:
+                iutil.rmrf (self.instPath + "/var/lib/rpm-old")
+            except OSError:
+                pass
+            os.rename (self.instPath + "/var/lib/rpm",
+                       self.instPath + "/var/lib/rpm-old")
+            os.rename (self.instPath + self.dbpath,
+                       self.instPath + "/var/lib/rpm")
+            iutil.rmrf (self.instPath + "/var/lib/rpm-old")
+            rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
+            rpm.addMacro ("_dbapi", "3")
+            # flag this so we only do it once.
+            self.dbpath = None
+
+<<<<<<< todo.py
+=======
         if self.upgrade:
+>>>>>>> 1.468
 	    # An old mtab can cause confusion (esp if loop devices are
 	    # in it)
 	    f = open(self.instPath + "/etc/mtab", "w+")
