@@ -35,6 +35,7 @@ class KeyboardWindow (InstallWindow):
 	self.model = self.modelList.get_row_data (self.modelList.selection[0])
 	self.layout = self.layoutList.get_row_data (self.layoutList.selection[0])
 	self.variant = self.variantList.get_row_data (self.variantList.selection[0])
+        print self.variant
 
 	self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
@@ -90,13 +91,17 @@ class KeyboardWindow (InstallWindow):
         sw.add (self.layoutList)
 	box.pack_start (sw, TRUE)
 
-	box.pack_start (GtkLabel (_("Variant")), FALSE)
+	box.pack_start (GtkLabel (_("Dead Keys")), FALSE)
         sw = GtkScrolledWindow ()
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
         self.variantList = GtkCList ()
         self.variantList.set_selection_mode (SELECTION_BROWSE)
-        self.variantList.append (("None",))
-        for (key, variant) in self.rules[2].items ():
+#  For now, the only variant is deadkeys, so we'll just handle that
+#  as special case, so the text can be less confusing.
+#        self.variantList.append (("None",))
+#        for (key, variant) in self.rules[2].items ():
+        for (key, variant) in ((None, (_("Enable dead keys"))),
+                               ("nodeadkeys", (_("Disable dead keys")))):
             loc = self.variantList.append ((variant,))
 	    self.variantList.set_row_data (loc, key)
         self.variantList.sort ()
