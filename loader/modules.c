@@ -185,11 +185,13 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 	}
     }
 
-    if (testing) return 0;
-
     sprintf(fileName, "%s.o", modName);
 
-    rc = insmod(fileName, args);
+    if (testing) 
+	rc = 0;
+    else
+	rc = insmod(fileName, args);
+
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
 	modLoaded->mods[modLoaded->numModules].weLoaded = 1;

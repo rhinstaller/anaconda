@@ -174,9 +174,11 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     rc = mlLoadModule(mod->moduleName, modLoaded, modDeps, args,
 		      FL_TESTING(flags));
 
-    for (arg = args; *arg; arg++)
-        free(*arg);
-    free(args);
+    if (args) {
+	for (arg = args; *arg; arg++)
+	    free(*arg);
+	free(args);
+    }
 
     if (!rc && moduleName)
         *moduleName = mod->moduleName;

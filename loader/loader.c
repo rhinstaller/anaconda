@@ -182,29 +182,83 @@ static int detectHardware(moduleInfoSet modInfo,
     return LOADER_OK;
 }
 
-int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded, 
+int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
-    int rc, i;
-    char buf[2000] = "";
-    struct moduleInfo * mi;
+    char * pristineItems[] = { N_("SCSI"), N_("Network"), NULL };
+    char * items[3];
+    int i, rc;
+    int choice = 0;
+    enum deviceClass type;
 
-    for (i = 0; i < modLoaded->numModules; i++) {
-	if (!modLoaded->mods[i].weLoaded) continue;
-
-	strcat(buf, "\t");
-
-	if ((mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name))) {
-	    strcat(buf, mi->description);
-	} else {
-	    strcat(buf, modLoaded->mods[i].name);
-	}
-
-	strcat(buf, "\n");
+    for (i = 0; i < 3; i++) {
+	items[i] = _(pristineItems[i]);
     }
 
-    newtWinMessage(_("Devices"), _("Ok"),
-	       ("I know about the following devices on your system:\n\n %s"),
-		buf);
+    do {
+	rc = newtWinMenu(_("Devices"), 
+		       _("What kind of device would you like to add"), 40,
+		       0, 20, 2, items, &choice, _("Ok"), _("Back"), NULL);
+	if (rc == 2) return LOADER_BACK;
+
+	if (choice == 1)
+	    type = DRIVER_NET;
+	else
+	    type = DRIVER_SCSI;
+
+	rc = devDeviceMenu(type, modInfo, modLoaded, modDeps, flags, NULL);
+    } while (rc);
+
+    return 0;
+}
+
+int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded, 
+		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
+    int i;
+    char buf[2000];
+    struct moduleInfo * mi;
+    newtComponent done, add, text, items, form, answer;
+    newtGrid grid, buttons;
+
+    do {
+	text = newtTextboxReflowed(-1, -1, 
+	    _("I have found the following devices in your system:"), 
+	    40, 5, 20, 0);
+	buttons = newtButtonBar(_("Done"), &done, _("Add Device"), &add, NULL);
+	items = newtTextbox(-1, -1, 30, 5, NEWT_FLAG_SCROLL);
+
+	for (i = 0, *buf = '\0'; i < modLoaded->numModules; i++) {
+	    if (!modLoaded->mods[i].weLoaded) continue;
+
+	    strcat(buf, "\t");
+
+	    if ((mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name))) {
+		strcat(buf, mi->description);
+	    } else {
+		strcat(buf, modLoaded->mods[i].name);
+	    }
+
+	    strcat(buf, "\n");
+	}
+
+	newtTextboxSetText(items, buf);
+
+	grid = newtGridSimpleWindow(text, items, buttons);
+	newtGridWrappedWindow(grid, _("Devices"));
+
+	form = newtForm(NULL, NULL, 0);
+	newtGridAddComponentsToForm(grid, form, 1);
+
+	answer = newtRunForm(form);
+	newtPopWindow();
+
+	newtGridFree(grid, 1);
+	newtFormDestroy(form);
+
+	addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
+    } while (answer == add);
+
+
+    return 0;
 }
 
 int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
