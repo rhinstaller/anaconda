@@ -1307,7 +1307,6 @@ msgid "Create boot disk"
 msgstr "Створити системний диск"
 
 #: ../iw/lilo_gui.py:300
-#, fuzzy
 msgid "Install LILO"
 msgstr "Встановити"
 
@@ -1335,7 +1334,6 @@ msgid "Boot label"
 msgstr "Етикетка системи"
 
 #: ../iw/lilo_gui.py:359 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
 msgstr "Встановити стандартний пристр╕й завантаження в PROM"
 
@@ -1421,12 +1419,10 @@ msgid "Total install size: "
 msgstr "Загальний об'╓м: "
 
 #: ../iw/package_gui.py:367
-#, fuzzy
 msgid "Size (MB)"
 msgstr "Розм╕р (Megs):"
 
 #: ../iw/package_gui.py:396
-#, fuzzy
 msgid "Total size: "
 msgstr "Загальний розм╕р"
 
@@ -1671,7 +1667,6 @@ msgid "Test failed"
 msgstr "Тест не пройшов"
 
 #: ../iw/xconfig_gui.py:24
-#, fuzzy
 msgid "Customize Graphics Configuration"
 msgstr "Виб╕р конф╕гурац╕╕ Х"
 
@@ -1756,7 +1751,6 @@ msgid "Autoprobe results:"
 msgstr "Результат випробування Х"
 
 #: ../iw/xconfig_gui.py:1553
-#, fuzzy
 msgid "Video card RAM: "
 msgstr "В╕деокарта"
 
@@ -1913,12 +1907,10 @@ msgid "Primary nameserver:"
 msgstr "Первинний сервер ╕мен (DNS):"
 
 #: ../textw/network_text.py:73
-#, fuzzy
 msgid "Secondary nameserver:"
 msgstr "Первинний сервер ╕мен (DNS):"
 
 #: ../textw/network_text.py:74
-#, fuzzy
 msgid "Ternary nameserver:"
 msgstr "Первинний сервер ╕мен (DNS):"
 
@@ -2369,7 +2361,6 @@ msgid "Error Creating Device Nodes"
 msgstr "Помилка створення спец╕альних пристро╖в "
 
 #: ../libfdisk/fsedit.c:1029
-#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -2775,7 +2766,6 @@ msgid "Illegal RAID mountpoint"
 msgstr "Некоретна точка монтування RAID"
 
 #: ../libfdisk/gnomefsedit.c:2240
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3126,7 +3116,7 @@ msgid "Loading"
 msgstr "Завантаження"
 
 #: ../loader/devices.c:488 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
 msgstr "Завантаження %s ramdisk..."
 
@@ -3242,7 +3232,6 @@ msgstr ""
 "сконф╕гурувати додатков╕ пристро╖?"
 
 #: ../loader/loader.c:812
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3253,7 +3242,6 @@ msgstr ""
 "додаткових пристро╖в."
 
 #: ../loader/loader.c:826
-#, fuzzy
 msgid "Directory holding images:"
 msgstr "Директор╕я, що м╕стить Red Hat:"
 
@@ -3262,7 +3250,7 @@ msgid "Select Partition"
 msgstr "Обер╕ть розд╕л"
 
 #: ../loader/loader.c:894
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Пристр╕й %s не ма╓ дерева встановлення Red Hat"
 
@@ -3357,12 +3345,10 @@ msgid "Reading anaconda updates..."
 msgstr "Читаю anaconda updates..."
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "IDE"
 msgstr "KDE"
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "Initializing IDE modules..."
 msgstr "╤н╕ц╕ювання CD-ROM..."
 
@@ -3523,12 +3509,10 @@ msgid "PCMCIA"
 msgstr ""
 
 #: ../loader/pcmcia.c:92
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
 msgstr "Вставте диск з драйвером %s."
 
 #: ../loader/pcmcia.c:101
-#, fuzzy
 msgid "Failed to mount disk."
 msgstr "Не можу змонтувати диск з драйвером."
 
@@ -3587,7 +3571,6 @@ msgid "Web site name:"
 msgstr "Назва Web-сервера :"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
 msgstr "Використовувати авторизований ftp або прокс╕-сервер"
 
@@ -3621,7 +3604,6 @@ msgid "%s is not a valid hostname."
 msgstr "%s не ╓ коректним ╕менем хосту"
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -3768,7 +3750,6 @@ msgstr "Сервер WWW"
 msgid "DNS Name Server"
 msgstr "Сервер DNS"
 
-#, fuzzy
 msgid "SQL Server"
 msgstr "Сервер NFS"
 
@@ -3789,41 +3770,3 @@ msgstr "Розробка ядра"
 
 msgid "Utilities"
 msgstr "Утил╕ти"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Помилка монтування %s: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Не встановлювати LILO"
-
-#~ msgid "Up"
-#~ msgstr "Вгору"
-
-#~ msgid "Name: "
-#~ msgstr "Назва: "
-
-#~ msgid "Package Details"
-#~ msgstr "Подробиц╕ про пакет"
-
-#~ msgid "Size: "
-#~ msgstr "Об'╓м :"
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Виб╕р пакет╕в до встановленя"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "П╕дтверд╕ть виб╕р п╕дрозд╕л╕в"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Менеджер завантаження Red Hat може також завантажувати ╕нш╕ операц╕йн╕ "
-#~ "системи. Вкаж╕ть, з яких розд╕л╕в необх╕дно завантажуватись та як╕ позначки "
-#~ "ви хочетете використовувати для кожного з них.\n"
-#~ "\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Postgres (SQL) Server"
