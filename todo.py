@@ -725,7 +725,7 @@ class ToDo:
 	self.getHeaderList()
         isys.makeDevInode(root, '/tmp/' + root)
         isys.mount('/tmp/' + root, '/mnt/sysimage')
-        self.mounts = self.readFstab ('/mnt/sysimage')
+        self.mounts = self.readFstab ('/mnt/sysimage/etc/fstab')
         self.mountFilesystems ()
         packages = rpm.findUpgradeSet (self.hdList.hdlist, '/mnt/sysimage')
         self.umountFilesystems ()
