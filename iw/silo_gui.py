@@ -142,6 +142,7 @@ class SiloWindow (InstallWindow):
 	    self.defaultCheck.set_active(0)
 	self.ignoreSignals = 0
 
+    # SiloWindow tag="silo"
     def getScreen (self):
 	(self.images, defaultLabel) = self.todo.silo.getSiloImages(self.todo.fstab)
 	self.ignoreSignals = 0

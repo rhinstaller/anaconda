@@ -149,6 +149,7 @@ class XCustomWindow (InstallWindow):
         self.hbox4.pack_start (self.vbox4)
         self.hbox4.show_all ()
 
+    # XCustomWindow tag="xcustom"
     def getScreen (self):
         self.oldmodes = self.todo.x.modes
         
@@ -652,6 +653,7 @@ class MonitorWindow (InstallWindow):
             self.hEntry.emit_stop_by_name ("insert_text")
             self.hEntry.emit_stop_by_name ("insert_text")
 
+    # MonitorWindow tag="monitor"
     def getScreen (self):
 
         # Don't configure X in reconfig mode.
@@ -987,7 +989,8 @@ class XConfigWindow (InstallWindow):
 
     def desktopCb (self, widget, desktop):
         self.newDesktop = desktop
-        
+
+    # XConfigWindow tag="xconf"
     def getScreen (self):
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is

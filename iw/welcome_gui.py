@@ -13,6 +13,7 @@ class WelcomeWindow (InstallWindow):
         ics.readHTML ("wel")
         self.ics = ics
 
+    # WelcomeWindow tag="wel"
     def getScreen (self):
         frame = GtkFrame ()
         frame.set_shadow_type (SHADOW_IN)
@@ -55,6 +56,7 @@ class ReconfigWelcomeWindow (InstallWindow):
             self.beingDisplay = 0
             return None
 
+    # ReconfigWelcomeWindow tag="welreconfig"
     def getScreen (self):
 
 

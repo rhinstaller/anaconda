@@ -16,6 +16,7 @@ class ConfirmWindow (InstallWindow):
             ics.setTitle (_("About to Install"))
             ics.readHTML ("aboutinstall")
 
+    # ConfirmWindow tag="aboutupgrade" or "aboutinstall"
     def getScreen (self):
         hbox = GtkHBox (TRUE, 5)
         box = GtkVBox (FALSE, 5)

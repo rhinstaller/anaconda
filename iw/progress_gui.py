@@ -154,7 +154,7 @@ class InstallProgressWindow (InstallWindow):
         for x in range (4):
             widget.set_column_width (x, width / 4)
 
-            
+    # InstallProgressWindow tag="installing"
     def getScreen (self):
         import glob
 

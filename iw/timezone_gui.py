@@ -106,7 +106,8 @@ class TimezoneWindow (InstallWindow):
         except SystemError:
             pass
         widget.disconnect (self.id)
-        
+
+    # TimezoneWindow tag="timezone"
     def getScreen (self):
         try:
             f = open ("/usr/share/anaconda/pixmaps/map480.png")

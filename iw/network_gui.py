@@ -133,6 +133,7 @@ class NetworkWindow (InstallWindow):
 	    onboot = "no"
 	dev.set (("onboot", onboot))
 
+    # NetworkWindow tag="netconf"
     def getScreen (self):
         box = GtkVBox ()
         box.set_border_width (5)

@@ -51,6 +51,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
             self.todo.unselectDeps (self.deps)            
         self.updateSize ()
 
+    #UnresolvedDependenciesWindow tag="depend"
     def getScreen (self):
         if not UnresolvedDependenciesWindow.moredeps:
             threads_leave ()

@@ -71,7 +71,8 @@ class AuthWindow (InstallWindow):
         self.todo.auth.krb5Realm = self.krb5Realm.get_text ()
         self.todo.auth.krb5Kdc = self.krb5Kdc.get_text ()
         self.todo.auth.krb5Admin = self.krb5Admin.get_text ()
-        
+
+    # AuthWindow tag="authconf"
     def getScreen (self):
         box = GtkVBox (FALSE, 10)
         self.md5 = GtkCheckButton (_("Enable MD5 passwords"))

@@ -78,6 +78,7 @@ class FDiskWindow (InstallWindow):
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 
+    # FDiskWindow tag="fdisk"
     def getScreen (self):
 #        from installpath_gui import InstallPathWindow
 #

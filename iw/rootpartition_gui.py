@@ -12,21 +12,22 @@ CHOICE_FDISK = 1
 CHOICE_DDRUID = 2
 CHOICE_AUTOPART = 3
 
-
-class ConfirmPartitionWindow (InstallWindow):
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-
-        self.todo = ics.getToDo ()
-        ics.setTitle (_("Confirm Partitioning Selection"))
-        ics.readHTML ("partition")
-	ics.setNextEnabled (TRUE)
-        
-    def getScreen (self):
-        return self.window
-
-    def getPrev (self):
-        return PartitionWindow
+# 12-12-2000 msf - this is no longer used - leaving just in case I'm wrong
+#class ConfirmPartitionWindow (InstallWindow):
+#    def __init__ (self, ics):
+#	InstallWindow.__init__ (self, ics)
+#
+#        self.todo = ics.getToDo ()
+#        ics.setTitle (_("Confirm Partitioning Selection"))
+#        ics.readHTML ("partition")
+#	ics.setNextEnabled (TRUE)
+#
+#    # ConfirmPartitionWindow tag="partition"
+#    def getScreen (self):
+#        return self.window
+#
+#    def getPrev (self):
+#        return PartitionWindow
 
 class PartitionWindow (InstallWindow):
     swapon = 0
@@ -92,6 +93,7 @@ class PartitionWindow (InstallWindow):
     def enableCallback (self, value):
         self.ics.setNextEnabled (value)
 
+    # PartitionWindow tag="partition"
     def getScreen (self):
 	self.running = 0
 	if not self.todo.fstab.getRunDruid(): return None
@@ -127,6 +129,7 @@ class LoopSizeWindow(InstallWindow):
                     
         self.swapAdj.set_value(swapsize)
 
+    # LoopSizeWindow tag="loopback"
     def getScreen (self):
         # XXX error check mount that this check tries
         if self.todo.setupFilesystems:
@@ -252,6 +255,7 @@ class AutoPartitionWindow(InstallWindow):
 	self.beingDisplayed = 0
         self.lastChoice = None
 
+    # AutoPartitionWindow tag="wkst" or "svr", in installclass.py:setClearParts
     def getScreen (self):   
 
         # XXX hack

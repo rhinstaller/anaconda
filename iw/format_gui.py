@@ -14,6 +14,7 @@ class FormatWindow (InstallWindow):
 ##         ics.setHTML ("<HTML><BODY>Choose partitions to Format</BODY></HTML>")
         ics.readHTML ("format")
 
+    # FormatWindow tag="format"
     def getScreen (self):
         def toggled (widget, (todo, dev)):
             if widget.get_active ():

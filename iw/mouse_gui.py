@@ -120,6 +120,7 @@ class MouseWindow (InstallWindow):
 	    self.locList.set_sensitive(FALSE)
 	    self.ics.setNextEnabled (TRUE)
 
+    # MouseWindow tag="mouse"
     def getScreen (self):
 	self.availableMice = self.todo.mouse.available()
         sorted_mice_keys = self.availableMice.keys()

@@ -167,6 +167,7 @@ class InstallPathWindow (InstallWindow):
             button = GtkRadioButton (group, label)
         return button
 
+    # InstallPathWindow tag="instpath"
     def getScreen (self):
 	if (self.todo.instClass.installType == "install"):
             self.ics.getICW ().setStateList (self.commonSteps + 

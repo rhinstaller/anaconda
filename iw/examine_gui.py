@@ -25,6 +25,7 @@ class UpgradeExamineWindow (InstallWindow):
             return IndividualPackageSelectionWindow
         return None
 
+    #UpgradeExamineWindow tag = "upgrade"
     def getScreen (self):
         threads_leave ()
         self.parts = self.todo.upgradeFindRoot ()

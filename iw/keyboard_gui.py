@@ -47,6 +47,7 @@ class KeyboardWindow (InstallWindow):
         if self.todo.setupFilesystems:
             self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
+    # KeyboardWindow tag="kybd"
     def getScreen (self):
         if not self.hasrun:
             default = iutil.defaultKeyboard()

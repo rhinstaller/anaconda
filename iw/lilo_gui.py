@@ -209,6 +209,7 @@ class LiloWindow (InstallWindow):
             self.defaultCheck.set_active(0)
         self.ignoreSignals = 0
 
+    # LiloWindow tag="lilo"
     def getScreen (self):
         (self.rootdev, rootfs) = self.todo.fstab.getRootDevice()
 

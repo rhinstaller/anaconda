@@ -286,6 +286,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def updateSize(self):
         self.totalSizeLabel.set_text(_("Total install size: ")+ str(self.todo.comps.sizeStr()))
 
+    # IndividualPackageSelectionWindow tag="sel-indiv"
     def getScreen (self):
         threads_leave ()
         self.todo.getHeaderList()
@@ -512,7 +513,7 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.setSize()
 
-
+    # PackageSelectionWindow tag="sel-group"
     def getScreen (self):
         #--If we can't retreive hdlist or comps files, raise an error
         try:

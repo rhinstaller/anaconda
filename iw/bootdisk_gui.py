@@ -36,6 +36,7 @@ class BootdiskWindow (InstallWindow):
         threads_enter ()
         return None
 
+    # BootdiskWindow tag="bootdisk"
     def getScreen (self):
         if iutil.getArch() == "alpha":
             return None

@@ -15,6 +15,7 @@ class CongratulationWindow (InstallWindow):
         ics.setHelpButtonEnabled (FALSE)
 	ics.setGrabNext (1)
 
+    # CongratulationWindow tag=NA
     def getScreen (self):
         self.ics.setHelpEnabled (FALSE)
 
@@ -62,6 +63,7 @@ class ReconfigCongratulationWindow (InstallWindow):
         ics.setNextEnabled (1)
 	ics.setGrabNext (1)
 
+    # ReconfigCongratulationWindow tag=NA
     def getScreen (self):
         self.ics.setHelpEnabled (0)
 

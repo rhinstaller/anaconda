@@ -163,6 +163,7 @@ class AccountWindow (InstallWindow):
     def setFocus (self, area, data):
         self.pw.grab_focus ()
 
+    # AccountWindow tag="accts"
     def getScreen (self):
 	self.passwords = {}
 	self.editingUser = None

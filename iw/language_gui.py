@@ -32,7 +32,8 @@ class LanguageWindow (InstallWindow):
         if self.running:
             lang = clist.get_text (clist.selection[0], 0)
             self.lang = lang
-        
+
+    # LanguageWindow tag="lang"
     def getScreen (self):
         self.running = 0
         mainBox = GtkVBox (FALSE, 10)
