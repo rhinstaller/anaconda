@@ -126,7 +126,7 @@ def startNetworking(network):
     
 def runRescue(instPath, mountroot, id):
 
-    for file in [ "services", "protocols", "group" ]:
+    for file in [ "services", "protocols", "group", "joe", "man.config" ]:
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
 
     # see if they would like networking enabled
@@ -276,24 +276,41 @@ def runRescue(instPath, mountroot, id):
 
 		# find groff data dir
 		try:
-		    glst = os.listdir["/mnt/sysimage/usr/share/groff"]
+		    glst = os.listdir("/mnt/sysimage/usr/share/groff")
 
 		    # find a directory which is a numeral, its where
 		    # data files are
+		    gversion = None
 		    for gdir in glst:
 			try:
-			    gversion = float(gdir)
+			    isone = 1
+			    for idx in range(0, len(gdir)):
+				if string.find(string.digits + '.', gdir[idx]) == -1:
+				    isone = 0
+				    break
+			    if isone:
+				gversion = gdir
+				break
+				
 			except:
 			    gversion = None
 			    continue
+			
 		except:
 		    gversion = None
 
 		if gversion is not None:
 		    gpath = "/mnt/sysimage/usr/share/groff/"+gversion
 		    os.environ["GROFF_FONT_PATH"] = gpath + '/font'
-		    os.environ["GROFF_TMAC_PATH"] = gpath + '/tmac'
+		    os.environ["GROFF_TMAC_PATH"] = "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',)
 		    
+
+		# do we have bash?
+		try:
+		    if os.access("/usr/bin/bash", os.R_OK):
+			os.symlink ("/usr/bin/bash", "/bin/bash")
+		except:
+		    pass
 		    
 			
 	except:
