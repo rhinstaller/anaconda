@@ -13,12 +13,6 @@ SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
 DIRS = 
 NETOBJS = net.o 
-# XXX Japanese is i386 only at the moment.
-ifeq (i386, $(ARCH))
- ifeq (1, $(JAPANESE))
-  KON = 1
- endif
-endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
 
@@ -26,16 +20,13 @@ CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_AL
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
-ifeq (1, $(KON))
-DIRS += kon2
-OBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
-CFLAGS += -DINCLUDE_KON=1
-endif
-
+# XXX Japanese is i386 only at the moment
 ifeq (i386, $(ARCH))
-BINS += loader-local loader-network loader-pcmcia
-DIRS += pcmcia-install
-OBJS += stubs.o 
+BINS += loader-local loader-network loader-pcmcia \
+        loader-local-kon loader-network-kon loader-pcmcia-kon
+DIRS += pcmcia-install kon2
+OBJS += stubs.o
+KONOBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 endif
 
 ifeq (alpha, $(ARCH))
@@ -124,6 +115,15 @@ loader-local: loader-local.o $(OBJS)
         ../isys/modutils/obj/libobj.a            \
         -L ../stubs -L../pump -lpump -lz -lresolv -lnewt -lslang -lpci
 
+loader-local-kon: loader-local-kon.o $(OBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -L ../stubs -L../pump -lpump -lz -lresolv -lnewt -lslang -lpci \
+        ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
@@ -131,6 +131,15 @@ loader-network: loader-net.o $(OBJS) $(NETOBJS)
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
+
+loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci \
+        ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
@@ -142,18 +151,39 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
+loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
+	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
+	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
+        -lpopt     \
+        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci \
+        ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+
 loader.o: loader.c
 	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
 
 loader-local.o: loader.c
 	$(CC) -DINCLUDE_LOCAL $(CFLAGS) -o $@ -c $^
 
+loader-local-kon.o: loader.c
+	$(CC) -DINCLUDE_LOCAL -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
+
 loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^
+
+loader-net-kon.o: loader.c
+	$(CC) -DINCLUDE_NETWORK -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
 
 loader-pcmcia.o: loader.c
 	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
 	    $(CFLAGS) -o $@ -c $^
+
+loader-pcmcia-kon.o: loader.c
+	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
+	    -DINCLUDE_KON $(CFLAGS) -o $@ -c $^
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
