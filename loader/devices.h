@@ -1,9 +1,10 @@
 #ifndef H_DEVICES
 #define H_DEVICES
 
+#include "../isys/isys.h"
 #include "modules.h"
 
-int devDeviceMenu(moduleInfoSet modInfo, moduleList modLoaded, 
-		  moduleDeps modDeps, int flags);
+int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
+		  moduleList modLoaded, moduleDeps modDeps, int flags);
 
 #endif
