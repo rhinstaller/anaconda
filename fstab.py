@@ -631,6 +631,11 @@ class Fstab:
 		continue
 
 	    for i in range (len (table)):
+		(type, start, size) = table[i]
+
+		# right now we only support label's on ext2 partitions
+		if type != _balkan.EXT2: continue
+
 		dev = drive + str (i + 1)
 		try:
 		    skipList.index(dev)
