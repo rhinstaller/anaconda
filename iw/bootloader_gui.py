@@ -121,6 +121,7 @@ class BootloaderWindow (InstallWindow):
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(dialog)
         
         label = gui.WrappingLabel(_("Please select the resolution and bit "
                                     "depth that you would prefer to use as "
@@ -219,6 +220,7 @@ class BootloaderWindow (InstallWindow):
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(dialog)
         
         label = gui.WrappingLabel(_("A boot loader password prevents users "
                                     "from passing arbitrary options to the "
@@ -489,6 +491,7 @@ class AdvancedBootloaderWindow (InstallWindow):
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
         dialog.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(dialog)
 
         dialog.vbox.pack_start(gui.WrappingLabel(
             _("The label is what is displayed in the boot loader to "
