@@ -43,7 +43,7 @@ md5.o: md5.c md5.h
 
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c \
-	-lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt -lelf -lpthread
+	-lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt -lelf -lpthread -lbeecrypt
 
 depends:
 
