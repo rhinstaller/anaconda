@@ -1345,7 +1345,7 @@ class ToDo:
 		    "/tmp/ks-script" ], stdout = messages,
 		    stderr = messages, root = scriptRoot)
 				    
-	    #os.unlink(path)
+	    os.unlink(path)
 
         del syslog
         
