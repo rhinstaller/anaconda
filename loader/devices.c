@@ -141,7 +141,8 @@ static struct moduleInfo * pickModule(moduleInfoSet modInfo,
 }
 
 int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps modDeps, int flags) {
+		  moduleList modLoaded, moduleDeps modDeps, int flags,
+		  char ** moduleName) {
     struct moduleInfo * mod = NULL;
     enum { S_MODULE, S_ARGS, S_DONE } stage = S_MODULE;
     int rc;
@@ -170,11 +171,14 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	}
     }
 
-    mlLoadModule(mod->moduleName, modLoaded, modDeps, FL_TESTING(flags));
+    rc = mlLoadModule(mod->moduleName, modLoaded, modDeps, FL_TESTING(flags));
 
     for (arg = args; *arg; arg++)
         free(*arg);
     free(args);
+
+    if (!rc && moduleName)
+        *moduleName = mod->moduleName;
     
-    return 0;
+    return rc;
 }

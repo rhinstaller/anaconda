@@ -5,6 +5,7 @@
 #include "modules.h"
 
 int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps modDeps, int flags);
+		  moduleList modLoaded, moduleDeps modDeps, int flags,
+		  char ** moduleName);
 
 #endif
