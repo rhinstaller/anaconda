@@ -246,7 +246,7 @@ class KickstartBase(BaseInstallClass):
         (args, extra) = isys.getopt(args, '',
                 [ 'append=', 'location=', 'useLilo', 'lba32',
                   'password=', 'md5pass=', 'linear', 'nolinear',
-                  'upgrade'])
+                  'upgrade', 'driveorder='])
 
         validLocations = [ "mbr", "partition", "none" ]
         appendLine = ""
@@ -256,6 +256,7 @@ class KickstartBase(BaseInstallClass):
         forceLBA = 0
         linear = 1
         upgrade = 0
+        driveorder = []
 
         for n in args:
             (str, arg) = n
@@ -277,6 +278,8 @@ class KickstartBase(BaseInstallClass):
                 md5pass = arg
             elif str == '--upgrade':
                 upgrade = 1
+            elif str == '--driveorder':
+                driveorder = string.split(arg, ',')
 
         if location not in validLocations:
             raise ValueError, "mbr, partition, or none expected for bootloader command"
@@ -296,7 +299,7 @@ class KickstartBase(BaseInstallClass):
         self.showSteps.append("bootloadersetup")
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
-                           password, md5pass, appendLine)
+                           password, md5pass, appendLine, driveorder)
         self.skipSteps.append("upgbootloader")
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderadvanced")

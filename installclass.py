@@ -52,7 +52,7 @@ class BaseInstallClass:
 
     def setBootloader(self, id, useLilo=0, location=None, linear=1,
                       forceLBA=0, password=None, md5pass=None,
-                      appendLine=""):
+                      appendLine="", driveorder = []):
         if useLilo:
             id.bootloader.useGrubVal = 0
         if appendLine:
@@ -67,6 +67,18 @@ class BaseInstallClass:
             id.bootloader.defaultDevice = location
         else:
             id.bootloader.defaultDevice = -1
+
+        # XXX throw out drives specified that don't exist.  anything else
+        # seems silly
+        if driveorder and len(driveorder) > 0:
+            new = []
+            for drive in driveorder:
+                if drive in id.bootloader.drivelist:
+                    new.append(drive)
+                else:
+                    log("requested drive %s in boot drive order doesn't "
+                        "exist" %(drive,))
+            id.bootloader.drivelist = new
         
     def setClearParts(self, id, clear, drives = None, warningText = None,
                       initAll = 0):
