@@ -977,7 +977,12 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	free(class);
     }
 
-#if !defined(__i386__) || defined(INCLUDE_PCMCIA)
+#if !defined(__i386__) 
+    for (i = 0; i < numMethods; i++) {
+	installNames[numValidMethods] = installMethods[i].name;
+	validMethods[numValidMethods++] = i;
+    }
+#elif defined(INCLUDE_PCMCIA)
     for (i = 0; i < numMethods; i++) {
 	int j;
 

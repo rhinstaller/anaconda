@@ -37,7 +37,7 @@ LDFLAGS = -nostdlib /usr/lib/crt1.o
 STATIC=-static
 else
 CFLAGS+=-DUSE_MINILIBC=0
-STATIC=
+STATIC=-static
 endif
 
 VERSION = 6.0
