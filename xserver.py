@@ -78,6 +78,17 @@ def mouseWindow(mouse):
     screen.finish()
     return 1
 
+# start miniWM
+def startMiniWM(root='/'):
+    childpid = os.fork()
+    if not childpid:
+	args = [root+'/'+'/usr/bin/mini-wm', '--display', ':1']
+	os.execv(args[0], args)
+	sys.exit (1)
+
+    return
+	
+
 # start X server for install process ONLY
 def startX(resolution, nofbmode, video, monitor, mouse, keyboard):
     global serverPath
