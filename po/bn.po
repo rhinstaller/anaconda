@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 9.0\n"
-"POT-Creation-Date: 2003-07-08 00:11-0400\n"
+"POT-Creation-Date: 2003-08-13 22:03-0400\n"
 "PO-Revision-Date: 2003-03-19 14:30+0600\n"
 "Last-Translator: Progga <abulfazl@juniv.edu>\n"
 "Language-Team: Bangla <redhat-tran@bengalinux.org>\n"
@@ -15,104 +15,131 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # এই ফাইলের ২য় অনুবাদক হলেন মহামান্য দীপায়ন সরকার। 
-
-#: ../anaconda:97
+#: ../anaconda:99
 msgid "Starting VNC..."
 msgstr "ভিএনসি চালু করা হচ্ছে..."
 
-#: ../anaconda:114
-msgid "Unable to set vnc password - using no password!"
-msgstr "ভিএনসি'র পাসওয়ার্ড নির্ধারণ করা যায়নি - তাই কোন পাসওয়ার্ড ব্যবহার করা হচ্ছে না!"
+#: ../anaconda:131
+#, fuzzy, c-format
+msgid "%s %s installation on host %s"
+msgstr "%s এর ওপর %s ইনস্টলার"
 
-#: ../anaconda:115
+#: ../anaconda:133
+#, fuzzy, c-format
+msgid "%s %s installation"
+msgstr "প্যাকেজ ইনস্টলেশন"
+
+#: ../anaconda:151
+msgid "Unable to set vnc password - using no password!"
+msgstr ""
+"ভিএনসি'র পাসওয়ার্ড নির্ধারণ করা যায়নি - তাই কোন পাসওয়ার্ড ব্যবহার করা হচ্ছে না!"
+
+#: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Root পাসওয়ার্ড অন্তত ৬ অক্ষর দীর্ঘ হতে হবে।"
 
-#: ../anaconda:135
+#: ../anaconda:175
 msgid ""
 "\n"
 "\n"
-"WARNING!!! VNC server running with NO PASSWORD!"
-msgstr ""
-"\n"
-"\n"
-"সাবধান!!! ভিএনসি সার্ভার কোন পাসওয়ার্ড ছাড়াই চলছে!"
-
-#: ../anaconda:136
-msgid "You can use the vncpasswd=<password> boot option"
-msgstr "আপনি vncpasswd=<password> এই বুট অপশনটি ব্যবহার করতে পারেন"
-
-#: ../anaconda:137
-msgid ""
+"WARNING!!! VNC server running with NO PASSWORD!\n"
+"You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
-"আপনি সার্ভারটিকে নিরাপদ করতে চান কিনা।\n"
-"\n"
 
-#: ../anaconda:165
-msgid "The VNC server now running."
+#: ../anaconda:179
+#, fuzzy
+msgid "The VNC server is now running."
 msgstr "এখন ভিএনসি (VNC) সার্ভারটি চলছে।"
 
-#: ../anaconda:167
+#: ../anaconda:182
+#, c-format
+msgid "Attempting to connect to vnc client on host %s..."
+msgstr ""
+
+#: ../anaconda:196
+msgid "Giving up attempting to connect after 50 tries!\n"
+msgstr ""
+
+#: ../anaconda:198
+#, fuzzy, c-format
+msgid "Please manually connect your vnc client to %s to begin the install."
+msgstr "ইনস্টল প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহপূর্বক %s এর সাথে সংযোগ স্থাপন করুন..."
+
+#: ../anaconda:200
+#, fuzzy
+msgid "Please manually connect your vnc client to begin the install."
+msgstr "ইনস্টল প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহপূর্বক %s এর সাথে সংযোগ স্থাপন করুন..."
+
+#: ../anaconda:204
+msgid "Will try to connect again in 15 seconds..."
+msgstr ""
+
+#: ../anaconda:208
+#, fuzzy
+msgid "Connected!"
+msgstr "সম্পন্ন"
+
+#: ../anaconda:212
 #, c-format
 msgid "Please connect to %s to begin the install..."
 msgstr "ইনস্টল প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহপূর্বক %s এর সাথে সংযোগ স্থাপন করুন..."
 
-#: ../anaconda:169
+#: ../anaconda:214
 msgid "Please connect to begin the install..."
 msgstr "অনুগ্রহপূর্বক ইনস্টল প্রক্রিয়া আরম্ভ করার জন্য সংযোগ স্থাপন করুন..."
 
-#: ../anaconda:492 ../anaconda:650 ../gui.py:239 ../gui.py:979 ../rescue.py:40
-#: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
-#: ../rescue.py:378 ../rescue.py:384 ../text.py:325 ../text.py:471
-#: ../textw/complete_text.py:55 ../textw/confirm_text.py:24
+#: ../anaconda:549 ../anaconda:711 ../gui.py:239 ../gui.py:981 ../rescue.py:40
+#: ../rescue.py:223 ../rescue.py:301 ../rescue.py:329 ../rescue.py:339
+#: ../rescue.py:408 ../rescue.py:414 ../text.py:325 ../text.py:471
+#: ../textw/complete_text.py:56 ../textw/confirm_text.py:24
 #: ../textw/confirm_text.py:36 ../textw/constants_text.py:36
 #: ../textw/fdisk_text.py:41 ../textw/network_text.py:32
-#: ../textw/network_text.py:150 ../textw/network_text.py:378
-#: ../textw/network_text.py:386 ../textw/silo_text.py:110
+#: ../textw/network_text.py:166 ../textw/network_text.py:394
+#: ../textw/network_text.py:402 ../textw/silo_text.py:110
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:160
 #: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:250 ../loader2/cdinstall.c:253
-#: ../loader2/cdinstall.c:348 ../loader2/cdinstall.c:353
-#: ../loader2/cdinstall.c:356 ../loader2/cdinstall.c:427
-#: ../loader2/driverdisk.c:239 ../loader2/driverdisk.c:255
-#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:435
-#: ../loader2/driverdisk.c:468 ../loader2/driverselect.c:73
+#: ../loader2/cdinstall.c:251 ../loader2/cdinstall.c:254
+#: ../loader2/cdinstall.c:373 ../loader2/cdinstall.c:378
+#: ../loader2/cdinstall.c:381 ../loader2/cdinstall.c:452
+#: ../loader2/driverdisk.c:247 ../loader2/driverdisk.c:263
+#: ../loader2/driverdisk.c:277 ../loader2/driverdisk.c:445
+#: ../loader2/driverdisk.c:478 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:243
 #: ../loader2/hdinstall.c:296 ../loader2/hdinstall.c:355
 #: ../loader2/hdinstall.c:518 ../loader2/hdinstall.c:569
 #: ../loader2/hdinstall.c:602 ../loader2/hdinstall.c:652 ../loader2/kbd.c:125
 #: ../loader2/kickstart.c:112 ../loader2/kickstart.c:122
 #: ../loader2/kickstart.c:165 ../loader2/kickstart.c:265 ../loader2/lang.c:102
-#: ../loader2/lang.c:374 ../loader2/loader.c:304 ../loader2/loader.c:317
-#: ../loader2/loader.c:328 ../loader2/loader.c:601 ../loader2/loader.c:742
+#: ../loader2/lang.c:374 ../loader2/loader.c:302 ../loader2/loader.c:315
+#: ../loader2/loader.c:326 ../loader2/loader.c:601 ../loader2/loader.c:760
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:146 ../loader2/method.c:354
-#: ../loader2/method.c:439 ../loader2/modules.c:916 ../loader2/net.c:173
-#: ../loader2/net.c:417 ../loader2/net.c:704 ../loader2/net.c:727
-#: ../loader2/net.c:832 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:185
-#: ../loader2/nfsinstall.c:189 ../loader2/nfsinstall.c:228
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:147 ../loader2/method.c:355
+#: ../loader2/method.c:440 ../loader2/modules.c:918 ../loader2/net.c:173
+#: ../loader2/net.c:427 ../loader2/net.c:720 ../loader2/net.c:743
+#: ../loader2/net.c:848 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:190
+#: ../loader2/nfsinstall.c:194 ../loader2/nfsinstall.c:233
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:62
-#: ../loader2/urlinstall.c:127 ../loader2/urlinstall.c:140
-#: ../loader2/urlinstall.c:419 ../loader2/urlinstall.c:428
-#: ../loader2/urlinstall.c:439 ../loader2/urls.c:170 ../loader2/urls.c:180
-#: ../loader2/urls.c:188 ../loader2/urls.c:250 ../loader2/urls.c:313
-#: ../loader2/urls.c:318 ../loader2/urls.c:324 ../loader2/urls.c:438
+#: ../loader2/urlinstall.c:129 ../loader2/urlinstall.c:142
+#: ../loader2/urlinstall.c:426 ../loader2/urlinstall.c:435
+#: ../loader2/urlinstall.c:446 ../loader2/urls.c:171 ../loader2/urls.c:181
+#: ../loader2/urls.c:189 ../loader2/urls.c:254 ../loader2/urls.c:317
+#: ../loader2/urls.c:322 ../loader2/urls.c:328 ../loader2/urls.c:442
 msgid "OK"
 msgstr "ঠিক আছে"
 
-#: ../anaconda:538
+#: ../anaconda:599
 msgid "Unknown Error"
 msgstr "অজ্ঞাত সমস্যা"
 
-#: ../anaconda:541
+#: ../anaconda:602
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "কিকস্টার্ট কনফিগ-এর দ্বিতীয় অংশ এগিয়ে নিতে (Pulling) সমস্যা: %s!"
 
 # এইটা নিয়ে Confusion আছে
-#: ../anaconda:635
+#: ../anaconda:696
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -120,23 +147,23 @@ msgstr ""
 "গ্রাফিক্যাল ইনস্টলার চালানোর মত যথেষ্ট র্যাম (RAM) আপনার কম্পিউটারে নেই। তাই টেক্সট "
 "মোড চালু করা হচ্ছে।"
 
-#: ../anaconda:681
+#: ../anaconda:748
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: ../anaconda:708
+#: ../anaconda:775
 msgid "No video hardware found, assuming headless"
 msgstr "কোন ভিডিও হার্ডওয়ার পাওয়া যায়নি, ধরে নেয়া হচ্ছে মস্তকবিহীন (Headless)"
 
-#: ../anaconda:719 ../anaconda:953 ../bar.py:23
+#: ../anaconda:786 ../anaconda:1024 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "কোন এক্স (X Window) হার্ডওয়ার অবস্থাসূচক (State) অবজেক্ট প্রস্তুত করা যায়নি।"
 
-#: ../anaconda:743
+#: ../anaconda:810
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "%s ইনস্টল করার জন্য কোন গ্রাফিক্যাল ব্যবস্থা নেই। টেক্সট মোড চালু করছি।"
 
-#: ../anaconda:756
+#: ../anaconda:823
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -144,14 +171,15 @@ msgstr ""
 "কোন মাউস সনাক্ত করা যায়নি। গ্রাফিক্যাল ইনস্টল প্রক্রিয়ায় mouse আবশ্যক। একারণে টেক্সট "
 "মোড চালু করছি।"
 
-#: ../anaconda:761
+#: ../anaconda:828
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "যে ধরনের মাউস ব্যবহার করা হচ্ছে: %s"
 
 #: ../autopart.py:933
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "প্রাথমিক (Primary) পার্টিশন হিসেবে কোন সিলিন্ডারভিত্তিক পার্টিশন তৈরি করা যায়নি"
+msgstr ""
+"প্রাথমিক (Primary) পার্টিশন হিসেবে কোন সিলিন্ডারভিত্তিক পার্টিশন তৈরি করা যায়নি"
 
 #: ../autopart.py:936
 msgid "Could not allocate partitions as primary partitions"
@@ -197,11 +225,13 @@ msgstr ""
 "থেকে বুট করতে সক্ষম হবে না।"
 
 #: ../autopart.py:1010
+#, fuzzy
 msgid ""
-"Boot partition isn't located early enough on the disk.  OpenFirmware wan't "
+"Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
-"বুট পার্টিশন ডিস্কের যথেষ্ট প্রথমে অবস্থিত নয়।  তাই ওপেনফার্মওয়ার এই ইনস্টলেশনটি বুট করতে সক্ষম হয় নি।"
+"বুট পার্টিশন ডিস্কের যথেষ্ট প্রথমে অবস্থিত নয়।  তাই ওপেনফার্মওয়ার এই ইনস্টলেশনটি বুট "
+"করতে সক্ষম হয় নি।"
 
 #: ../autopart.py:1013
 #, python-format
@@ -341,17 +371,19 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
+#, fuzzy
 msgid ""
 "\n"
 "\n"
-"You can choose a different automatic partitioning options or click 'Back' to "
+"You can choose a different automatic partitioning option, or click 'Back' to "
 "select manual partitioning.\n"
 "\n"
 "Press 'OK' to continue."
 msgstr ""
 "\n"
 "\n"
-"আপনি অন্যভাবে স্বয়ংক্রিয় পার্টিশন করতে পারেন অথবা 'পূর্বাবস্থান' চেপে নিজ হাতে পার্টিশন করার ব্যবস্থা বেছে নিতে পারেন।\n"
+"আপনি অন্যভাবে স্বয়ংক্রিয় পার্টিশন করতে পারেন অথবা 'পূর্বাবস্থান' চেপে নিজ হাতে "
+"পার্টিশন করার ব্যবস্থা বেছে নিতে পারেন।\n"
 "\n"
 "চালিয়ে যাওয়ার জন্য 'ঠিক আছে' চাপুন।"
 
@@ -380,20 +412,20 @@ msgstr "অসমাধানযোগ্য সমস্যা"
 msgid "Your system will now be rebooted."
 msgstr "আপনার কম্পিউটার এবার রিবুট করা হবে"
 
-#: ../autopart.py:1462 ../bootloader.py:139 ../gui.py:976 ../image.py:395
-#: ../partedUtils.py:263 ../partedUtils.py:784 ../upgrade.py:305
-#: ../upgrade.py:416 ../upgrade.py:469 ../upgrade.py:492 ../upgrade.py:533
-#: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
-#: ../iw/bootloader_main_gui.py:91 ../iw/fdasd_gui.py:93
-#: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:142
-#: ../textw/bootloader_text.py:457 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:223 ../textw/upgrade_text.py:177
-#: ../loader2/loader.c:353
+#: ../autopart.py:1464 ../bootloader.py:139 ../gui.py:978 ../image.py:406
+#: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:838
+#: ../upgrade.py:305 ../upgrade.py:416 ../upgrade.py:469 ../upgrade.py:492
+#: ../upgrade.py:533 ../iw/blpasswidget.py:148
+#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:91
+#: ../iw/fdasd_gui.py:93 ../iw/upgrade_swap_gui.py:200
+#: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
+#: ../textw/bootloader_text.py:142 ../textw/bootloader_text.py:457
+#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:223
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:351
 msgid "Warning"
 msgstr "সতর্কবাণী"
 
-#: ../autopart.py:1468
+#: ../autopart.py:1470
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -410,7 +442,7 @@ msgstr ""
 "মধ্যে ফাইল সিস্টেমের প্রকৃতি, মাউন্ট করার অবস্থান ও পার্টিশনের আকার নির্ধারণ করতে "
 "পারবেন।"
 
-#: ../autopart.py:1479
+#: ../autopart.py:1481
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -418,19 +450,19 @@ msgstr ""
 "ইনস্টলেশন প্রোগ্রাম কর্তৃক স্বয়ংক্রিয় পার্টিশন প্রক্রিয়া চালু করার পূর্বে আপনাকে নির্ধারণ "
 "করতে হবে যে আপনার হার্ড ড্রাইভের জায়গাকে আপনি কিভাবে ব্যবহার করবেন।"
 
-#: ../autopart.py:1484
+#: ../autopart.py:1486
 msgid "Remove all partitions on this system"
 msgstr "সিস্টেমের সকল পার্টিশন মুছে ফেলা হোক"
 
-#: ../autopart.py:1485
+#: ../autopart.py:1487
 msgid "Remove all Linux partitions on this system"
 msgstr "সিস্টেমের সকল লিন্যাক্স পার্টিশন মুছে ফেলা হোক"
 
-#: ../autopart.py:1486
+#: ../autopart.py:1488
 msgid "Keep all partitions and use existing free space"
 msgstr "বিদ্যমান সকল পার্টিশনকে অক্ষত রেখে বর্তমানে অব্যবহৃত জায়গা ব্যবহার করা হোক"
 
-#: ../autopart.py:1488
+#: ../autopart.py:1490
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -440,7 +472,7 @@ msgstr ""
 "আপনি নিম্নোক্ত ড্রাইভগুলোর সকল পার্টিশন (সকল তথ্য) মুছে ফেলার সিদ্ধান্ত নিয়েছেন:%s\n"
 "আপনি কি এব্যাপারে নিশ্চিত?"
 
-#: ../autopart.py:1492
+#: ../autopart.py:1494
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -467,7 +499,7 @@ msgstr ""
 "এই সিস্টেমে কোন কার্নেল প্যাকেজ ইনস্টল করা হয়নি। তাই আপনার ব্যবহৃত বুটলোডারের "
 "কনফিগারেশন পরিবর্তন করা হবে না।"
 
-#: ../cmdline.py:42 ../iw/progress_gui.py:104 ../iw/progress_gui.py:301
+#: ../cmdline.py:42 ../iw/progress_gui.py:104 ../iw/progress_gui.py:305
 msgid "Completed"
 msgstr "সম্পন্ন"
 
@@ -493,7 +525,7 @@ msgstr "সম্পন্ন [%d%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s ইনস্টল করা হচ্ছে"
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:727
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:739
 msgid "Everything"
 msgstr "সব কিছু"
 
@@ -501,11 +533,11 @@ msgstr "সব কিছু"
 msgid "no suggestion"
 msgstr "পরামর্শ দেয়া যাচ্ছে না"
 
-#: ../comps.py:1098 ../hdrlist.py:931
+#: ../comps.py:1098 ../hdrlist.py:943
 msgid "Miscellaneous"
 msgstr "বিবিধ"
 
-#: ../comps.py:1114 ../hdrlist.py:43 ../hdrlist.py:878
+#: ../comps.py:1114 ../hdrlist.py:43 ../hdrlist.py:890
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -514,7 +546,7 @@ msgstr ""
 "যত প্যাকেজ আছে তার সবগুলোই এই গ্রুপের অন্তর্গত।  লক্ষণীয় যে, এখানে যত প্যাকেজ প্রদর্শন "
 "করার হচ্ছে, তা অন্য যেকোন প্যাকেজ গ্রুপ অপেক্ষা বেশি।"
 
-#: ../comps.py:1118 ../hdrlist.py:882
+#: ../comps.py:1118 ../hdrlist.py:894
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -545,16 +577,16 @@ msgstr ""
 "bugzilla.redhat.com/bugzilla/ এই ঠিকানায় অ্যানাকোন্ডার বিপরীতে একটি প্রোগ্রাম "
 "ত্রুটির বিবরণ দিন"
 
-#: ../exception.py:226 ../text.py:239
+#: ../exception.py:227 ../text.py:239
 msgid "Exception Occurred"
 msgstr "Exception সংঘটিত হয়েছে"
 
-#: ../exception.py:294
+#: ../exception.py:295
 msgid "Dump Written"
 msgstr "মেমরির কপি (Dump) লেখা হয়েছে"
 
 # এইটা নিয়ে সমস্যা আছে, বুঝতেই পারতেছেন
-#: ../exception.py:295
+#: ../exception.py:296
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -598,28 +630,28 @@ msgid "_Make boot disk"
 msgstr "বুট ডিস্ক তৈরি করা হোক (_ত)"
 
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
-#: ../fsset.py:562 ../fsset.py:1195 ../fsset.py:1214 ../fsset.py:1264
-#: ../fsset.py:1275 ../fsset.py:1311 ../fsset.py:1361 ../fsset.py:1404
-#: ../harddrive.py:162 ../image.py:80 ../image.py:117 ../image.py:256
-#: ../image.py:446 ../packages.py:150 ../packages.py:163 ../packages.py:355
-#: ../packages.py:528 ../packages.py:611 ../partedUtils.py:581
+#: ../fsset.py:562 ../fsset.py:1198 ../fsset.py:1217 ../fsset.py:1267
+#: ../fsset.py:1278 ../fsset.py:1314 ../fsset.py:1364 ../fsset.py:1407
+#: ../harddrive.py:164 ../image.py:90 ../image.py:127 ../image.py:267
+#: ../image.py:458 ../packages.py:150 ../packages.py:163 ../packages.py:365
+#: ../packages.py:540 ../packages.py:620 ../partedUtils.py:631
 #: ../upgrade.py:336 ../upgrade.py:361 ../upgrade.py:388
 #: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:427 ../loader2/driverdisk.c:267
-#: ../loader2/driverdisk.c:339 ../loader2/hdinstall.c:243
+#: ../loader2/cdinstall.c:452 ../loader2/driverdisk.c:277
+#: ../loader2/driverdisk.c:349 ../loader2/hdinstall.c:243
 #: ../loader2/hdinstall.c:296 ../loader2/hdinstall.c:355
 #: ../loader2/hdinstall.c:569 ../loader2/hdinstall.c:652
-#: ../loader2/kickstart.c:265 ../loader2/lang.c:102 ../loader2/loader.c:328
+#: ../loader2/kickstart.c:265 ../loader2/lang.c:102 ../loader2/loader.c:326
 #: ../loader2/loader.c:601 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:146 ../loader2/method.c:354
-#: ../loader2/method.c:439 ../loader2/nfsinstall.c:185
-#: ../loader2/nfsinstall.c:189 ../loader2/telnetd.c:86
-#: ../loader2/urlinstall.c:62 ../loader2/urlinstall.c:127
-#: ../loader2/urlinstall.c:140 ../loader2/urls.c:170 ../loader2/urls.c:180
-#: ../loader2/urls.c:188 ../loader2/urls.c:313 ../loader2/urls.c:318
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:147 ../loader2/method.c:355
+#: ../loader2/method.c:440 ../loader2/nfsinstall.c:190
+#: ../loader2/nfsinstall.c:194 ../loader2/telnetd.c:86
+#: ../loader2/urlinstall.c:62 ../loader2/urlinstall.c:129
+#: ../loader2/urlinstall.c:142 ../loader2/urls.c:171 ../loader2/urls.c:181
+#: ../loader2/urls.c:189 ../loader2/urls.c:317 ../loader2/urls.c:322
 msgid "Error"
 msgstr "ভুল"
 
@@ -678,28 +710,28 @@ msgstr ""
 "\n"
 "আপনি কি %s'কে পরিবর্তন না করেই এগিয়ে যেতে চান?"
 
-#: ../fsset.py:1110
+#: ../fsset.py:1113
 msgid "RAID Device"
 msgstr "রেইড (RAID) ডিভাইস"
 
-#: ../fsset.py:1114 ../fsset.py:1120
+#: ../fsset.py:1117 ../fsset.py:1123
 msgid "Apple Bootstrap"
 msgstr "অ্যাপল বুটস্ট্র্যাপ"
 
-#: ../fsset.py:1125
+#: ../fsset.py:1128
 msgid "PPC PReP Boot"
 msgstr "পিপিসি পিরেপ (PReP) বুট"
 
 # এইটা নিয়ে Confusion আছে
-#: ../fsset.py:1128 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1131 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "বুট পার্টিশনের প্রথম সেক্টর"
 
-#: ../fsset.py:1129 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1132 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "মাস্টার বুট রেকর্ড (MBR)"
 
-#: ../fsset.py:1196
+#: ../fsset.py:1199
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -712,7 +744,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করার জন্য <Enter> চাপুন।"
 
-#: ../fsset.py:1215
+#: ../fsset.py:1218
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -727,7 +759,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে 'ঠিক আছে' চাপুন।"
 
-#: ../fsset.py:1265
+#: ../fsset.py:1268
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -740,7 +772,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন"
 
-#: ../fsset.py:1276
+#: ../fsset.py:1279
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -753,7 +785,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
-#: ../fsset.py:1312
+#: ../fsset.py:1315
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -766,7 +798,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
-#: ../fsset.py:1362
+#: ../fsset.py:1365
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -779,11 +811,11 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
-#: ../fsset.py:1382 ../fsset.py:1391
+#: ../fsset.py:1385 ../fsset.py:1394
 msgid "Invalid mount point"
 msgstr "মাউন্ট করার অবস্থানটি ঠিক নেই"
 
-#: ../fsset.py:1383
+#: ../fsset.py:1386
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -796,7 +828,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
-#: ../fsset.py:1392
+#: ../fsset.py:1395
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -809,7 +841,7 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
-#: ../fsset.py:1405
+#: ../fsset.py:1408
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -824,11 +856,29 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করতে হলে <Enter> চাপুন।"
 
-#: ../fsset.py:2219
+#: ../fsset.py:2010
+#, fuzzy
+msgid "Duplicate Labels"
+msgstr "অনুরূপ লেবেল"
+
+#: ../fsset.py:2011
+#, python-format
+msgid ""
+"Multiple devices on your system have are labelled %s.  Labels across devices "
+"must be unique for your system to function properly.\n"
+"\n"
+"Please fix this problem and restart the installation process."
+msgstr ""
+
+#: ../fsset.py:2018 ../gui.py:1086 ../packages.py:1295
+msgid "_Reboot"
+msgstr "রিবুট (_র)"
+
+#: ../fsset.py:2250
 msgid "Formatting"
 msgstr "ফরম্যাট করা হচ্ছে"
 
-#: ../fsset.py:2220
+#: ../fsset.py:2251
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s ফাইল সিস্টেম ফরম্যাট করা হচ্ছে..."
@@ -862,7 +912,8 @@ msgstr "পর্দায় প্রদর্শিত বর্তমান চ
 #: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "'পর্দায় প্রদর্শিত বর্তমান চিত্রটি (স্ক্রিনশট) %s নামে সংরক্ষণ (Save) করা হয়েছে।"
+msgstr ""
+"'পর্দায় প্রদর্শিত বর্তমান চিত্রটি (স্ক্রিনশট) %s নামে সংরক্ষণ (Save) করা হয়েছে।"
 
 #: ../gui.py:167
 msgid "Error Saving Screenshot"
@@ -882,24 +933,24 @@ msgid "Fix"
 msgstr "সমস্যা দূর করা হোক"
 
 # এইটা নিয়ে Confusion আছে
-#: ../gui.py:237 ../rescue.py:145 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:237 ../rescue.py:175 ../text.py:323 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:384
-#: ../loader2/driverdisk.c:395 ../loader2/hdinstall.c:464
-#: ../loader2/loader.c:353
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:394
+#: ../loader2/driverdisk.c:405 ../loader2/hdinstall.c:464
+#: ../loader2/loader.c:351
 msgid "Yes"
 msgstr "হ্যাঁ"
 
-#: ../gui.py:238 ../rescue.py:145 ../rescue.py:147 ../text.py:324
+#: ../gui.py:238 ../rescue.py:175 ../rescue.py:177 ../text.py:324
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:384 ../loader2/driverdisk.c:395
-#: ../loader2/loader.c:353
+#: ../loader2/driverdisk.c:394 ../loader2/driverdisk.c:405
+#: ../loader2/loader.c:351
 msgid "No"
 msgstr "না"
 
-#: ../gui.py:240 ../text.py:326 ../loader2/net.c:178 ../loader2/net.c:462
+#: ../gui.py:240 ../text.py:326 ../loader2/net.c:178 ../loader2/net.c:472
 msgid "Retry"
 msgstr "পুনঃপ্রচেষ্টা"
 
@@ -907,18 +958,17 @@ msgstr "পুনঃপ্রচেষ্টা"
 msgid "Ignore"
 msgstr "উপেক্ষা"
 
-#: ../gui.py:242 ../gui.py:551 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:413 ../partIntfHelpers.py:524 ../text.py:115
-#: ../text.py:116 ../text.py:285 ../text.py:287 ../text.py:328
-#: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:103
-#: ../textw/bootloader_text.py:219 ../textw/constants_text.py:40
-#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:240
-#: ../loader2/loader.c:317
+#: ../gui.py:242 ../gui.py:553 ../partIntfHelpers.py:232
+#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
+#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../iw/bootloader_main_gui.py:103 ../textw/bootloader_text.py:219
+#: ../textw/constants_text.py:40 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
+#: ../loader2/driverdisk.c:248 ../loader2/loader.c:315
 msgid "Cancel"
 msgstr "বাতিল"
 
-#: ../gui.py:633 ../text.py:283
+#: ../gui.py:635 ../text.py:283
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -926,27 +976,27 @@ msgstr ""
 "অনুগ্রহপূর্বক এখন একটি ফ্লপি ঢোকান। ডিস্কের সবকিছুই মুছে যাবে, অনুগ্রহ করে তাই করে "
 "ফ্লপি বেছে নেয়ার ক্ষেত্রে সতর্ক হোন।"
 
-#: ../gui.py:741 ../gui.py:1363
+#: ../gui.py:743 ../gui.py:1365
 msgid "Online Help"
 msgstr "কম্পিউটার থেকে পড়ার সহায়িকা"
 
-#: ../gui.py:742 ../iw/language_gui.py:23 ../textw/language_text.py:38
+#: ../gui.py:744 ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "ভাষা বেছে নিন"
 
-#: ../gui.py:807 ../iw/release_notes_viewer_gui.py:44
+#: ../gui.py:809 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
 msgstr "প্রকাশনা বক্তব্য (Release notes) পাওয়া যাচ্ছে না।\n"
 
-#: ../gui.py:977
+#: ../gui.py:979
 msgid "The release notes are missing."
 msgstr "প্রকাশনা বক্তব্য (Release notes) পাওয়া যাচ্ছে না।"
 
-#: ../gui.py:1072
+#: ../gui.py:1074
 msgid "Error!"
 msgstr "সমস্যা!"
 
-#: ../gui.py:1073
+#: ../gui.py:1075
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -957,70 +1007,66 @@ msgstr ""
 "\n"
 "ক্লাস-নাম (className) = %s"
 
-#: ../gui.py:1077 ../packages.py:533 ../packages.py:1263
+#: ../gui.py:1079 ../packages.py:545 ../packages.py:1289
 #: ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "প্রস্থান (_প)"
 
-#: ../gui.py:1078
+#: ../gui.py:1080
 msgid "_Retry"
 msgstr "পুনরায় চেষ্টা (_চ)"
 
-#: ../gui.py:1080 ../packages.py:1266
+#: ../gui.py:1082 ../packages.py:1292
 msgid "Rebooting System"
 msgstr "সিস্টেম রিবুট করা হচ্ছে"
 
-#: ../gui.py:1081 ../packages.py:1267
+#: ../gui.py:1083 ../packages.py:1293
 msgid "Your system will now be rebooted..."
 msgstr "আপনার কম্পিউটার এবার রিবুট করা হবে"
 
-#: ../gui.py:1084 ../packages.py:1269
-msgid "_Reboot"
-msgstr "রিবুট (_র)"
-
-#: ../gui.py:1175 ../packages.py:1269
+#: ../gui.py:1177 ../packages.py:1295
 msgid "_Back"
 msgstr "পূর্ববর্তী (_ব)"
 
-#: ../gui.py:1177
+#: ../gui.py:1179
 msgid "_Next"
 msgstr "পরবর্তী (_র)"
 
-#: ../gui.py:1179
+#: ../gui.py:1181
 msgid "_Release Notes"
 msgstr "প্রকাশনা বক্তব্য (_ক)"
 
-#: ../gui.py:1181
+#: ../gui.py:1183
 msgid "Show _Help"
 msgstr "সহায়িকা প্রদর্শন করা হোক (_"
 
-#: ../gui.py:1183
+#: ../gui.py:1185
 msgid "Hide _Help"
 msgstr "_সহায়িকা আড়াল করা হোক"
 
-#: ../gui.py:1185
+#: ../gui.py:1187
 msgid "_Debug"
 msgstr "_ডিবাগ"
 
-#: ../gui.py:1267
+#: ../gui.py:1269
 #, python-format
 msgid "%s Installer"
 msgstr "%s ইনস্টলার"
 
-#: ../gui.py:1282
+#: ../gui.py:1284
 #, python-format
 msgid "%s Installer on %s"
 msgstr "%s এর ওপর %s ইনস্টলার"
 
-#: ../gui.py:1321
+#: ../gui.py:1323
 msgid "Unable to load title bar"
 msgstr "টাইটেল বার প্রদর্শনে সমস্যা"
 
-#: ../gui.py:1425
+#: ../gui.py:1427
 msgid "Install Window"
 msgstr "ইনস্টল উইন্ডো"
 
-#: ../harddrive.py:163 ../image.py:447
+#: ../harddrive.py:165 ../image.py:459
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1033,7 +1079,7 @@ msgstr ""
 "%s\n"
 "এখন সিস্টেম রিবুট করা হবে।"
 
-#: ../image.py:81
+#: ../image.py:91
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1042,15 +1088,15 @@ msgstr ""
 "সিডি আনমাউন্ট করার সময় সমস্যা হয়েছে। অনুগ্রহপূর্বক নিশ্চিত হোন যে আপনি tty2 থেকে %s "
 "ব্যবহার করছেন। এরপর 'ঠিক আছে' ক্লিক করুন।"
 
-#: ../image.py:114
+#: ../image.py:124
 msgid "Copying File"
 msgstr "ফাইল কপি করা হচ্ছে"
 
-#: ../image.py:115
+#: ../image.py:125
 msgid "Transferring install image to hard drive..."
 msgstr "ইনস্টল ফাইলকে (Image) হার্ড ড্রাইভে স্থানান্তর করা হচ্ছে..."
 
-#: ../image.py:118
+#: ../image.py:128
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1058,37 +1104,37 @@ msgstr ""
 "ইনস্টল ফাইলকে (Image) হার্ড ড্রাইভে স্থানান্তরের সময় সমস্যা হয়েছে। সম্ভবত আপনার "
 "ডিস্কে আর কোন জায়গা ফাঁকা নেই।"
 
-#: ../image.py:214
+#: ../image.py:225
 msgid "Change CDROM"
 msgstr "সিডিরম পরিবর্তন করুন"
 
-#: ../image.py:215
+#: ../image.py:226
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "অনুগ্রহপূর্বক কাজ চালিয়ে যাওয়ার জন্য %d নম্বর ডিস্কটিকে ঢোকান।"
 
-#: ../image.py:250
+#: ../image.py:261
 msgid "Wrong CDROM"
 msgstr "ভুল সিডিরম"
 
-#: ../image.py:251
+#: ../image.py:262
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "এটা সঠিক %s সিডিরম নয়।"
 
-#: ../image.py:257
+#: ../image.py:268
 msgid "The CDROM could not be mounted."
 msgstr "সিডিরমটিকে মাউন্ট করা যায়নি।"
 
-#: ../installclass.py:47
+#: ../installclass.py:59
 msgid "Install on System"
 msgstr "সিস্টেমের ওপর ইনস্টল করা হোক"
 
-#: ../kickstart.py:1251
+#: ../kickstart.py:1247
 msgid "Missing Package"
 msgstr "প্যাকেজ পাওয়া যাচ্ছে না"
 
-#: ../kickstart.py:1252
+#: ../kickstart.py:1248
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1097,19 +1143,19 @@ msgstr ""
 "আপনি উল্লেখ করেছেন যে প্যাকেজ %s'কে ইনস্টল করতে হবে।  কিন্তু এই প্যাকেজটি নেই। এ "
 "অবস্থায় আপনি কি ইনস্টলেশন প্রক্রিয়া চালিয়ে যেতে নাকি বাতিল করতে চান?"
 
-#: ../kickstart.py:1258 ../kickstart.py:1285
+#: ../kickstart.py:1254 ../kickstart.py:1281
 msgid "_Abort"
 msgstr "_বাতিল"
 
-#: ../kickstart.py:1259 ../kickstart.py:1286 ../iw/partition_gui.py:1012
+#: ../kickstart.py:1255 ../kickstart.py:1282 ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_চালিয়ে যাওয়া"
 
-#: ../kickstart.py:1277
+#: ../kickstart.py:1273
 msgid "Missing Group"
 msgstr "গ্রুপ পাওয়া যাচ্ছে না"
 
-#: ../kickstart.py:1278
+#: ../kickstart.py:1274
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1118,13 +1164,18 @@ msgstr ""
 "আপনি উল্লেখ করেছেন যে গ্রুপ %s'কে ইনস্টল করা প্রয়োজন।  কিন্তু এই গ্রুপটি নেই। এ "
 "অবস্থায় আপনি কি ইনস্টলেশন প্রক্রিয়া চালিয়ে যেতে নাকি বাতিল করতে চান?"
 
-#: ../network.py:40
+#: ../network.py:41
+#, fuzzy
+msgid "Hostname must be 64 or less characters in length."
+msgstr "Root পাসওয়ার্ড অন্তত ৬ অক্ষর দীর্ঘ হতে হবে।"
+
+#: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
 "'a-z' অথবা 'A-Z' এই সীমার মধ্যে যেকোন একটি অক্ষর দিয়ে হোস্টনাম (Hostname) আরম্ভ "
 "হতে হবে"
 
-#: ../network.py:45
+#: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 "শুধুমাত্র 'a-z', 'A-Z', '-' বা '.' অক্ষরগুলো দিয়ে হোস্টনাম (Hostname) লেখা যাবে"
@@ -1179,17 +1230,18 @@ msgstr "নির্ভরতা (Dependency) পরীক্ষা"
 
 #: ../packages.py:251
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "ইনস্টলেশনের জন্য বাছাইকৃত প্যাকেজগুলোর নির্ভরতা (Dependency) পরীক্ষা করা হচ্ছে..."
+msgstr ""
+"ইনস্টলেশনের জন্য বাছাইকৃত প্যাকেজগুলোর নির্ভরতা (Dependency) পরীক্ষা করা হচ্ছে..."
 
-#: ../packages.py:305 ../packages.py:709
+#: ../packages.py:310 ../packages.py:718
 msgid "Processing"
 msgstr "প্রক্রিয়াধীন আছে"
 
-#: ../packages.py:306
+#: ../packages.py:311
 msgid "Preparing to install..."
 msgstr "ইনস্টল করার জন্য প্রস্তুতি নেয়া হচ্ছে..."
 
-#: ../packages.py:356
+#: ../packages.py:366
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1204,15 +1256,15 @@ msgstr ""
 "\n"
 "পুনরায় চেষ্টা করতে চাইলে <return> চাপুন।"
 
-#: ../packages.py:364
+#: ../packages.py:374
 msgid "Installing..."
 msgstr "ইনস্টল করা হচ্ছে..."
 
-#: ../packages.py:385
+#: ../packages.py:395
 msgid "Error Installing Package"
 msgstr "প্যাকেজ ইনস্টল করার ক্ষেত্রে সমস্যা"
 
-#: ../packages.py:386
+#: ../packages.py:396
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1230,15 +1282,14 @@ msgstr ""
 "\n"
 "সিস্টেম রিবুট করার জন্য 'ঠিক আছে' চাপুন।"
 
-#: ../packages.py:529
+#: ../packages.py:541
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr""
-"আপনার কম্পিউটারটিতে %s এর এই সংস্করণটি ইনস্টলযোগ্য নয়। দুঃখিত।"
+msgstr "আপনার কম্পিউটারটিতে %s এর এই সংস্করণটি ইনস্টলযোগ্য নয়। দুঃখিত।"
 
-#: ../packages.py:612 ../upgrade.py:337
+#: ../packages.py:621 ../upgrade.py:337
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1247,11 +1298,11 @@ msgstr ""
 "পাওয়া অথবা যে মাধ্যম থেকে ইনস্টল করছেন (যেমন সিডি) তাতে সমস্যা থাকা।  পুনর্বার "
 "চেষ্টা করতে হলে <return> চাপুন।"
 
-#: ../packages.py:710
+#: ../packages.py:719
 msgid "Preparing RPM transaction..."
 msgstr "আর.পি.এম. (RPM) এর তালিকা তৈরি করা হচ্ছে..."
 
-#: ../packages.py:780
+#: ../packages.py:789
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1260,7 +1311,7 @@ msgstr ""
 "প্যাকেজ %s আপগ্রেড করা হচ্ছে\n"
 "\n"
 
-#: ../packages.py:782
+#: ../packages.py:791
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1269,17 +1320,17 @@ msgstr ""
 "প্যাকেজ %s ইনস্টল করা হচ্ছে\n"
 "\n"
 
-#: ../packages.py:790 ../packages.py:1077
+#: ../packages.py:799 ../packages.py:1086
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "%s-%s-%s.%s. আপগ্রেড করা হচ্ছে\n"
 
-#: ../packages.py:792 ../packages.py:1079
+#: ../packages.py:801 ../packages.py:1088
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "%s-%s-%s.%s. ইনস্টল করা হচ্ছে\n"
 
-#: ../packages.py:808
+#: ../packages.py:817
 #, python-format
 msgid ""
 "\n"
@@ -1296,15 +1347,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:814
+#: ../packages.py:823
 msgid "Install Starting"
 msgstr "ইনস্টল প্রক্রিয়া আরম্ভ হচ্ছে"
 
-#: ../packages.py:815
+#: ../packages.py:824
 msgid "Starting install process, this may take several minutes..."
 msgstr "ইনস্টল প্রক্রিয়া আরম্ভ হতে যাচ্ছে, এজন্য কয়েক মিনিট সময় লাগতে পারে..."
 
-#: ../packages.py:855
+#: ../packages.py:864
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1314,17 +1365,17 @@ msgstr ""
 "না। ইনস্টল করার জন্য নিম্নোক্ত ফাইল সিস্টেমগুলোতে আরো ফাঁকা জায়গা প্রয়োজন:\n"
 "\n"
 
-#: ../packages.py:859 ../packages.py:880 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:868 ../packages.py:889 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "মাউন্ট করার অবস্থান"
 
-#: ../packages.py:860
+#: ../packages.py:869
 msgid "Space Needed"
 msgstr "ফাঁকা জায়গা প্রয়োজন"
 
-#: ../packages.py:876
+#: ../packages.py:885
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1334,23 +1385,23 @@ msgstr ""
 "করার জন্য নিম্নোক্ত ফাইল সিস্টেমগুলোতে আরো ফাইল নোড প্রয়োজন:\n"
 "\n"
 
-#: ../packages.py:881
+#: ../packages.py:890
 msgid "Nodes Needed"
 msgstr "ফাইল নোড প্রয়োজন"
 
-#: ../packages.py:892
+#: ../packages.py:901
 msgid "Disk Space"
 msgstr "ডিস্কের জায়গা"
 
-#: ../packages.py:936
+#: ../packages.py:945
 msgid "Post Install"
 msgstr "ইনস্টল পরবর্তী"
 
-#: ../packages.py:937
+#: ../packages.py:946
 msgid "Performing post install configuration..."
 msgstr "ইনস্টল পরবর্তী কনফিগারেশন করা হচ্ছে..."
 
-#: ../packages.py:1102
+#: ../packages.py:1111
 msgid ""
 "\n"
 "\n"
@@ -1360,7 +1411,7 @@ msgstr ""
 "\n"
 "নিম্নোক্ত প্যাকেজগুলো এই সংস্করণের অন্তর্ভুক্ত হলেও আপগ্রেড করা হয়নি:\n"
 
-#: ../packages.py:1105
+#: ../packages.py:1114
 msgid ""
 "\n"
 "\n"
@@ -1370,12 +1421,12 @@ msgstr ""
 "\n"
 "নিম্নোক্ত প্যাকেজগুলো এই সংস্করণের অন্তর্ভুক্ত হলেও আপগ্রেড করা হয়নি:\n"
 
-#: ../packages.py:1249
+#: ../packages.py:1275
 msgid "Warning! This is a beta!"
 msgstr "সতর্ক হোন! এটি একটি বেটা সফটওয়ার!"
 
-#: ../packages.py:1250
-#, python-format
+#: ../packages.py:1276
+#, fuzzy, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1387,7 +1438,7 @@ msgid ""
 "\n"
 "   http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"and file a report against '%s Beta'.\n"
+"and file a report against '%s'.\n"
 msgstr ""
 "এই %s বেটা সংস্করণটি ডাউনলোড করার জন্য আপনাকে অশেষ ধন্যবাদ।\n"
 "\n"
@@ -1401,7 +1452,7 @@ msgstr ""
 "\n"
 "এরপর '%s Beta' এর বিপরীতে আপনার বিবরণ লিখুন।\n"
 
-#: ../packages.py:1263
+#: ../packages.py:1289
 msgid "_Install BETA"
 msgstr "বেটা _ইনস্টল করা হোক"
 
@@ -1409,7 +1460,24 @@ msgstr "বেটা _ইনস্টল করা হোক"
 msgid "Foreign"
 msgstr "বাহিরের"
 
-#: ../partedUtils.py:264
+#: ../partedUtils.py:274
+#, fuzzy, python-format
+msgid ""
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
+"DASDs are not supported for usage during an install of %s.  If you wish to "
+"use this disk for installation, it must be re-initialized causing the loss "
+"of ALL DATA on this drive.\n"
+"\n"
+"Would you like to reformat this DASD using CDL format?"
+msgstr ""
+"আপনি যে নির্মাণ-কৌশলের (Architecture) কম্পিউটার ব্যবহার করছেন, ডিভাইস /dev/%s এ "
+"প্রাপ্ত পার্টিশন তালিকার প্রকৃতি %s তার সাথে মিলছে না।  এই ডিস্কে %s ইনস্টল করতে "
+"হলে ডিস্কের সবকিছু নতুন করে বিন্যস্ত করতে হবে যার ফলস্বরূপ ডিস্কে ধারণকৃত সকল তথ্য "
+"হারিয়ে যাবে।\n"
+"\n"
+"এ অবস্থায় আপনি কি ড্রাইভটিকে পুনর্বিন্যস্ত করতে চান?"
+
+#: ../partedUtils.py:304
 #, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
@@ -1425,21 +1493,21 @@ msgstr ""
 "\n"
 "এ অবস্থায় আপনি কি ড্রাইভটিকে পুনর্বিন্যস্ত করতে চান?"
 
-#: ../partedUtils.py:582
+#: ../partedUtils.py:632
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "%s এ ফাইল সিস্টেম মাউন্ট করতে সমস্যা: %s"
 
-#: ../partedUtils.py:666
+#: ../partedUtils.py:720
 msgid "Initializing"
 msgstr "পুনর্বিন্যাস করা হচ্ছে"
 
-#: ../partedUtils.py:667
+#: ../partedUtils.py:721
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "অনুগ্রহপূর্বক ড্রাইভ %s ফরম্যাট করার সময় অপেক্ষা করুন...\n"
 
-#: ../partedUtils.py:785
+#: ../partedUtils.py:839
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1459,11 +1527,11 @@ msgstr ""
 "\n"
 "আপনি কি সকল তথ্য হারিয়ে যাওয়া সত্ত্বেও এই ড্রাইভটিকে পুনর্বিন্যস্ত করতে চান?"
 
-#: ../partedUtils.py:903 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:957 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "কোন ড্রাইভ পাওয়া যায়নি"
 
-#: ../partedUtils.py:904
+#: ../partedUtils.py:958
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1528,7 +1596,8 @@ msgstr "অনুগ্রহপূর্বক এই পার্টিশন�
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr "এই পার্টিশনটিতে হার্ড ড্রাইভ থেকে লিন্যাক্স ইনস্টল করার জন্য প্রয়োজনীয় তথ্য রয়েছে।"
+msgstr ""
+"এই পার্টিশনটিতে হার্ড ড্রাইভ থেকে লিন্যাক্স ইনস্টল করার জন্য প্রয়োজনীয় তথ্য রয়েছে।"
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -1564,7 +1633,8 @@ msgstr "ফাঁকা জায়গা মোছা যায় না।"
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "কোন এলডিএল (LDL) ফরম্যাটকৃত ডিএএসডি (DASD) পার্টিশনটিকে আপনি মুছতে পারেন না।"
+msgstr ""
+"কোন এলডিএল (LDL) ফরম্যাটকৃত ডিএএসডি (DASD) পার্টিশনটিকে আপনি মুছতে পারেন না।"
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1583,7 +1653,7 @@ msgstr ""
 "আপনি এই পার্টিশনটিকে মুছতে পারেন না:\n"
 "\n"
 
-#: ../partIntfHelpers.py:228 ../partIntfHelpers.py:523
+#: ../partIntfHelpers.py:228 ../partIntfHelpers.py:519
 #: ../iw/lvm_dialog_gui.py:730
 msgid "Confirm Delete"
 msgstr "মুছে ফেলা হবে কি না তা নিশ্চিত করুন"
@@ -1593,7 +1663,7 @@ msgstr "মুছে ফেলা হবে কি না তা নিশ্চ
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "আপনি ডিভাইস '/dev/%s' এর সকল পার্টিশনকে মুছে ফেলতে যাচ্ছেন।"
 
-#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:524
+#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1356
 msgid "_Delete"
@@ -1672,19 +1742,23 @@ msgstr ""
 "এই পার্টিশনটিতে কোন প্রয়োজনীয় ফাইল থাকে, যেমন ব্যবহারকারীদের প্রথম ডিরেক্টরি "
 "(Home), তবে ফরম্যাট না করেই আপনার এগিয়ে যাওয়া উচিত্‍।"
 
-#: ../partIntfHelpers.py:413
+#: ../partIntfHelpers.py:409
 msgid "Format?"
 msgstr "ফরম্যাট করা হবে কি?"
 
-#: ../partIntfHelpers.py:413
+#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1010
+msgid "_Modify Partition"
+msgstr "পার্টিশন _পরিবর্তন করা হোক"
+
+#: ../partIntfHelpers.py:409
 msgid "Do _Not Format"
 msgstr "ফরম্যাট করা হবে _না"
 
-#: ../partIntfHelpers.py:421
+#: ../partIntfHelpers.py:417
 msgid "Error with Partitioning"
 msgstr "পার্টিশন প্রক্রিয়ায় সমস্যা"
 
-#: ../partIntfHelpers.py:422
+#: ../partIntfHelpers.py:418
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1697,11 +1771,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:436
+#: ../partIntfHelpers.py:432
 msgid "Partitioning Warning"
 msgstr "পার্টিশন প্রক্রিয়া সংক্রান্ত সতর্কতা"
 
-#: ../partIntfHelpers.py:437
+#: ../partIntfHelpers.py:433
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1716,7 +1790,7 @@ msgstr ""
 "\n"
 "আপনি কি আপনার বর্তমান পার্টিশন পরিকল্পনা নিয়েই এগিয়ে যেতে চান?"
 
-#: ../partIntfHelpers.py:451 ../iw/partition_gui.py:671
+#: ../partIntfHelpers.py:447 ../iw/partition_gui.py:671
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1724,7 +1798,7 @@ msgstr ""
 "নিম্নোক্ত বিদ্যমান পার্টিশনগুলোকে ফরম্যাট করার জন্য বাছাই করা হয়েছে যার ফলে এসব "
 "পার্টিশনের সকল তথ্য হারিয়ে যাবে।"
 
-#: ../partIntfHelpers.py:454
+#: ../partIntfHelpers.py:450
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1732,11 +1806,11 @@ msgstr ""
 "এই পার্টিশনগুলোকে ফরম্যাট করে এগিয়ে যাওয়ার জন্য 'হ্যাঁ' অথবা পূর্বাবস্থানে ফিরে গিয়ে "
 "পার্টিশন সংক্রান্ত বৈশিষ্ট্যাবলী পরিবর্তনের জন্য 'না' বেছে নিন।"
 
-#: ../partIntfHelpers.py:460
+#: ../partIntfHelpers.py:456
 msgid "Format Warning"
 msgstr "ফরম্যাট সংক্রান্ত সতর্কতা"
 
-#: ../partIntfHelpers.py:508
+#: ../partIntfHelpers.py:504
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1747,29 +1821,29 @@ msgstr ""
 "\n"
 "এই ফাইল সিস্টেম গ্রুপের সকল লজিকাল ফাইল সিস্টেম মুছে যাবে!"
 
-#: ../partIntfHelpers.py:512
+#: ../partIntfHelpers.py:508
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "আপনি লজিকাল ফাইল সিস্টেম \"%s\" মুছে ফেলতে যাচ্ছেন।"
 
-#: ../partIntfHelpers.py:515
+#: ../partIntfHelpers.py:511
 msgid "You are about to delete a RAID device."
 msgstr "আপনি একটি রেইড (RAID) ডিভাইস মুছে ফেলতে যাচ্ছেন।"
 
-#: ../partIntfHelpers.py:518
+#: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "আপনি /dev/%s পার্টিশনটি মুছে ফেলতে যাচ্ছেন।"
 
-#: ../partIntfHelpers.py:521
+#: ../partIntfHelpers.py:517
 msgid "The partition you selected will be deleted."
 msgstr "আপনি যে পার্টিশনটি বেছে নিয়েছেন তা মুছে ফেলা হবে।"
 
-#: ../partIntfHelpers.py:531
+#: ../partIntfHelpers.py:527
 msgid "Confirm Reset"
 msgstr "রিসেট (পূর্বাবস্থায় পরিবর্তন) নিশ্চিত করুন"
 
-#: ../partIntfHelpers.py:532
+#: ../partIntfHelpers.py:528
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
@@ -1828,11 +1902,11 @@ msgstr ""
 "আপনাকে অবশ্যই ফ্যাট (FAT) জাতীয় একটি /boot/efi পার্টিশন তৈরি করতে হবে যার আকার "
 "হবে ৫০ মেগাবাইট।"
 
-#: ../partitions.py:832
+#: ../partitions.py:835
 msgid "You must create a PPC PReP Boot partition."
 msgstr "আপনাকে অবশ্যই একটি পিপিসি (PPC) প্রেপ (PReP) বুট পার্টিশন তৈরি করতে হবে।"
 
-#: ../partitions.py:839
+#: ../partitions.py:842
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1841,15 +1915,15 @@ msgstr ""
 "আপনার %s পার্টিশনের আকার %s মেগাবাইট অপেক্ষা কম। এটি সাধারণ একটি %s ইনস্টলেশনের "
 "জন্য যে আকার ব্যবহারের পরামর্শ দেয়া হয় তা থেকেও কম।"
 
-#: ../partitions.py:869 ../partRequests.py:636
+#: ../partitions.py:872 ../partRequests.py:636
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "শুধুমাত্র রেইড১ (RAID1) ডিভাইসেই বুট করার যোগ্য পার্টিশনগুলো থাকতে পারবে।"
 
-#: ../partitions.py:876
+#: ../partitions.py:879
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "বুট করার যোগ্য পার্টিশনগুলো কোন লজিকাল ফাইল সিস্টেমে থাকতে পারবে না।"
 
-#: ../partitions.py:880
+#: ../partitions.py:883
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1857,7 +1931,7 @@ msgstr ""
 "আপনি কোন সোয়াপ (Swap) পার্টিশন উল্লেখ করেননি। অত্যাবশ্যক না হলেও এটি যথেষ্ট "
 "পরিমাণে সিস্টেমের কার্যদক্ষতা বৃদ্ধি করে।"
 
-#: ../partitions.py:887
+#: ../partitions.py:890
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1866,7 +1940,7 @@ msgstr ""
 "আপনি ৩২টিরও অধিক সোয়াপ (Swap) ডিভাইসের উল্লেখ করছেন।  কিন্তু %s এর কার্নেল ৩২টির "
 "বেশি সোয়াপ ডিভাইস ব্যবহার করতে পারে না।"
 
-#: ../partitions.py:898
+#: ../partitions.py:901
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1876,15 +1950,15 @@ msgstr ""
 "আপনি তা থেকেও কম জায়গা (%d মেগাবাইট) বরাদ্দ করেছেন। এর ফলস্বরূপ সিস্টেমের "
 "কার্যদক্ষতায় বিরূপ প্রভাব পড়তে পারে।"
 
-#: ../partitions.py:1179
+#: ../partitions.py:1182
 msgid "the partition in use by the installer."
 msgstr "ইনস্টলার যে পার্টিশনটি ব্যবহার করছে।"
 
-#: ../partitions.py:1182
+#: ../partitions.py:1185
 msgid "a partition which is a member of a RAID array."
 msgstr "এই পার্টিশনটি একটি রেইড (RAID) গুচ্ছের (Array) অংশ।"
 
-#: ../partitions.py:1185
+#: ../partitions.py:1188
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "এই পার্টিশনটি একটি এল.ভি.এম. (LVM) ফাইল সিস্টেম গ্রুপের সদস্য।"
 
@@ -1968,40 +2042,40 @@ msgstr ""
 "আরো বেশি অতিরিক্ত অংশ রাখতে চাইলে রেইড (RAID) ডিভাইসটিতে আরো সদস্য যোগ করতে "
 "হবে।"
 
-#: ../rescue.py:93
+#: ../rescue.py:123
 msgid "Starting Interface"
 msgstr "ইন্টারফেস চালু করা হচ্ছে"
 
-#: ../rescue.py:94
+#: ../rescue.py:124
 #, python-format
 msgid "Attempting to start %s"
 msgstr "%s চালু করার চেষ্টা হচ্ছে"
 
-#: ../rescue.py:143
+#: ../rescue.py:173
 msgid "Setup Networking"
 msgstr "নেটওয়ার্ক স্থাপন করা হোক"
 
-#: ../rescue.py:144
+#: ../rescue.py:174
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "আপনি কি এই সিস্টেমের নেটওয়ার্ক ইন্টারফেস সচল করতে চান?"
 
-#: ../rescue.py:189 ../text.py:467
+#: ../rescue.py:219 ../text.py:467
 msgid "Cancelled"
 msgstr "বাতিল"
 
-#: ../rescue.py:190 ../text.py:468
+#: ../rescue.py:220 ../text.py:468
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "এ অবস্থায় পূর্ববর্তী ধাপে যাওয়া যাচ্ছে না। আপনাকে পুনরায় চেষ্টা করতে হবে।"
 
-#: ../rescue.py:206 ../rescue.py:241 ../rescue.py:394
+#: ../rescue.py:236 ../rescue.py:271 ../rescue.py:425
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "কাজ শেষ হয়ে গেলে শেল থেকে বের হয়ে যান; এর ফলে সিস্টেম রিবুট হবে।"
 
-#: ../rescue.py:225 ../rescue.py:294 ../rescue.py:302 ../rescue.py:373
+#: ../rescue.py:255 ../rescue.py:324 ../rescue.py:332 ../rescue.py:403
 msgid "Rescue"
 msgstr "মেরামত (Rescue)"
 
-#: ../rescue.py:226
+#: ../rescue.py:256
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -2024,34 +2098,34 @@ msgstr ""
 "সরাসরি কমান্ড শেলও চালু করতে পারবেন।\n"
 "\n"
 
-#: ../rescue.py:236 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:340
+#: ../rescue.py:266 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:350
 msgid "Continue"
 msgstr "চালিয়ে যাওয়া"
 
-#: ../rescue.py:236 ../rescue.py:245
+#: ../rescue.py:266 ../rescue.py:275
 msgid "Read-Only"
 msgstr "অপরিবর্তনীয়"
 
-#: ../rescue.py:236 ../rescue.py:238 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:251
-#: ../loader2/cdinstall.c:253 ../loader2/method.c:401
+#: ../rescue.py:266 ../rescue.py:268 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:252
+#: ../loader2/cdinstall.c:254 ../loader2/method.c:402
 msgid "Skip"
 msgstr "এড়িয়ে যাওয়া"
 
-#: ../rescue.py:268
+#: ../rescue.py:298
 msgid "System to Rescue"
 msgstr "যে সিস্টেমটি মেরামত করা হবে"
 
-#: ../rescue.py:269
+#: ../rescue.py:299
 msgid "What partition holds the root partition of your installation?"
 msgstr "আপনার সিস্টেমের root পার্টিশন কোনটি?"
 
-#: ../rescue.py:271 ../rescue.py:275
+#: ../rescue.py:301 ../rescue.py:305
 msgid "Exit"
 msgstr "প্রস্থান"
 
-#: ../rescue.py:295
+#: ../rescue.py:325
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2062,7 +2136,7 @@ msgstr ""
 "দূর করতে পারবেন ও তারপর পার্টিশনগুলো মাউন্ট করতে পারবেন।  যখন আপনি এই শেল থেকে "
 "প্রস্থান করবেন তখন সিস্টেমটি স্বয়ংক্রিয়ভাবে রিবুট হবে।"
 
-#: ../rescue.py:303
+#: ../rescue.py:333
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -2083,7 +2157,7 @@ msgstr ""
 "\n"
 "যখন আপনি এই শেল থেকে প্রস্থান করবেন তখন সিস্টেমটি স্বয়ংক্রিয়ভাবে রিবুট হবে।"
 
-#: ../rescue.py:374
+#: ../rescue.py:404
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -2098,11 +2172,11 @@ msgstr ""
 "এখন শেল চালু করার জন্য কীবোর্ড থেকে <return> চাপুন। যখন আপনি এই শেল থেকে প্রস্থান "
 "করবেন তখন সিস্টেমটি স্বয়ংক্রিয়ভাবে রিবুট হবে।"
 
-#: ../rescue.py:380
+#: ../rescue.py:410
 msgid "Rescue Mode"
 msgstr "মেরামত প্রক্রিয়া (Rescue Mode)"
 
-#: ../rescue.py:381
+#: ../rescue.py:411
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2110,7 +2184,7 @@ msgstr ""
 "আপনার সিস্টেমে কোন লিন্যাক্স পার্টিশন নেই। শেল চালু করতে হলে কীবোর্ড থেকে Return "
 "চাপুন। যখন আপনি এই শেল থেকে প্রস্থান করবেন তখন সিস্টেমটি স্বয়ংক্রিয়ভাবে রিবুট হবে।"
 
-#: ../rescue.py:391
+#: ../rescue.py:422
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "আপনার সিস্টেমটি %s ডিরেক্টরিতে মাউন্ট করা হয়েছে।"
@@ -2289,8 +2363,9 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"%s এর যে সংস্করণটি আপনি আপগ্রেড করার চেষ্টা করছেন তার কম্পিউটার স্থাপত্য সম্ভবত %s।  কিন্তু ইতিপূর্বে স্থাপত্য ছিল %s। ফলে "
-"আপগ্রেড প্রক্রিয়া সফল না হওয়ার সম্ভাবনাই বেশি। আপনি কি আপগ্রেড প্রক্রিয়া চালিয়ে যাওয়ার ব্যাপারে নিশ্চিত?"
+"%s এর যে সংস্করণটি আপনি আপগ্রেড করার চেষ্টা করছেন তার কম্পিউটার স্থাপত্য সম্ভবত %"
+"s।  কিন্তু ইতিপূর্বে স্থাপত্য ছিল %s। ফলে আপগ্রেড প্রক্রিয়া সফল না হওয়ার সম্ভাবনাই "
+"বেশি। আপনি কি আপগ্রেড প্রক্রিয়া চালিয়ে যাওয়ার ব্যাপারে নিশ্চিত?"
 
 #: ../upgrade.py:470
 msgid ""
@@ -2359,7 +2434,9 @@ msgstr ""
 
 #: ../iw/account_gui.py:44
 msgid "The passwords you entered were different.  Please try again."
-msgstr "আপনি ইতিপূর্বে যে পাসওয়ার্ডটি লিখেছিলেন তা ভিন্ন ছিল।  অনুগ্রহপূর্বক পুনরায় পাসওয়ার্ডটি লিখুন।"
+msgstr ""
+"আপনি ইতিপূর্বে যে পাসওয়ার্ডটি লিখেছিলেন তা ভিন্ন ছিল।  অনুগ্রহপূর্বক পুনরায় "
+"পাসওয়ার্ডটি লিখুন।"
 
 #: ../iw/account_gui.py:51
 msgid "The root password must be at least six characters long."
@@ -2403,7 +2480,9 @@ msgstr "এন_আই.এস (NIS) সক্রিয় করা হোক"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "এন.আই.এস. (NIS) সার্ভার খুঁজে পাওয়ার জন্য _সম্প্রচার (ব্রডকাস্ট) প্রক্রিয়া ব্যবহার করা হোক"
+msgstr ""
+"এন.আই.এস. (NIS) সার্ভার খুঁজে পাওয়ার জন্য _সম্প্রচার (ব্রডকাস্ট) প্রক্রিয়া ব্যবহার করা "
+"হোক"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
@@ -2520,8 +2599,10 @@ msgid "Enter Boot Loader Password"
 msgstr "বুট লোডারের পাসওয়ার্ড লিখুন"
 
 #: ../iw/blpasswidget.py:105
-msgid "Enter a boot loader password and then confirm it."
-msgstr "বুট লোডারের জন্য একটি পাসওয়ার্ড লিখুন ও এরপর তা নিশ্চিত করুন।"
+msgid ""
+"Enter a boot loader password and then confirm it.  (Note that your BIOS "
+"keymap may be different than the actual keymap you are used to.)"
+msgstr ""
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2698,7 +2779,8 @@ msgstr "লিলো'র (LILO) জন্য প্রয়োজনীয় ড্�
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr "লিলো'র (LILO) সাথে ব্যবহারের জন্য ড্রাইভের বিন্যাস পরিবর্তন করা আমরা সমর্থন করিনা।"
+msgstr ""
+"লিলো'র (LILO) সাথে ব্যবহারের জন্য ড্রাইভের বিন্যাস পরিবর্তন করা আমরা সমর্থন করিনা।"
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -2731,13 +2813,13 @@ msgid "Click next to begin installation of %s."
 msgstr "%s'কে ইনস্টল করতে হলে 'পরবর্তী' চাপুন।"
 
 #: ../iw/confirm_gui.py:61
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"A complete log of the installation can be found in the %s file after "
+"A complete log of the installation can be found in the file '%s' after "
 "rebooting your system.\n"
 "\n"
 "A kickstart file containing the installation options selected can be found "
-"in the %s file after rebooting the system."
+"in the file '%s' after rebooting the system."
 msgstr ""
 "ইনস্টলেশনের একটি সম্পূর্ণ বিবরণ লেখা হয়েছে %s ফাইলে এবং সিস্টেম রিবুট করার পর তা "
 "পড়তে পারবেন।\n"
@@ -2755,9 +2837,9 @@ msgid "Click next to begin upgrade of %s."
 msgstr "%s এর আপগ্রেড প্রক্রিয়া আরম্ভ করতে হলে 'পরবর্তী'তে ক্লিক করুন।"
 
 #: ../iw/confirm_gui.py:74
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"A complete log of the upgrade can be found in the %s file after rebooting "
+"A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
 "আপগ্রেড প্রক্রিয়ার একটি সম্পূর্ণ বিবরণ পাওয়া যাবে %s ফাইলে এবং এটি পড়া যাবে সিস্টেম "
@@ -2767,7 +2849,7 @@ msgstr ""
 msgid "Congratulations"
 msgstr "স্বাগতম"
 
-#: ../iw/congrats_gui.py:53 ../textw/complete_text.py:28
+#: ../iw/congrats_gui.py:53 ../textw/complete_text.py:25
 #, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
@@ -2779,7 +2861,7 @@ msgstr ""
 "করে থাকেন তবে সদ্য ইনস্টলকৃত সিস্টেমটি চালু করার পূর্বে তা ফ্লপি ড্রাইভে ঢোকান।\n"
 "\n"
 
-#: ../iw/congrats_gui.py:63 ../textw/complete_text.py:38
+#: ../iw/congrats_gui.py:63 ../textw/complete_text.py:36
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press <Enter> to reboot your system.\n"
@@ -2790,7 +2872,7 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:70
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2807,7 +2889,6 @@ msgid ""
 "To register the product for support, visit:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Click 'Exit' to reboot the system."
 msgstr ""
 "ইনস্টল সম্পন্ন হওয়ায় আপনাকে স্বাগতম।\n"
 "\n"
@@ -2858,71 +2939,22 @@ msgstr "যেসকল প্যাকেজের নির্ভরতা (De
 msgid "I_gnore package dependencies"
 msgstr "প্যাকেজ নির্ভরতা (Dependency) অ_গ্রাহ্য করা হোক"
 
-#: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
-#: ../textw/desktop_choice_text.py:24
-msgid "Workstation Defaults"
-msgstr "ওয়ার্কস্টেশনের ডিফল্ট"
+#: ../iw/desktop_choice_gui.py:25
+#, fuzzy
+msgid "Package Defaults"
+msgstr "প্যাকেজ গ্রুপের বিস্তারিত বিবরণ"
 
-#: ../iw/desktop_choice_gui.py:58
-#, python-format
+#: ../iw/desktop_choice_gui.py:51
 msgid ""
-"The default workstation environment includes our recommendations for new "
-"users, including:\n"
+"The default installation environment includes our recommended package "
+"selection, including:\n"
 "\n"
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
-"\n"
-"After installation, additional software can be added or removed using the "
-"'redhat-config-packages' tool.\n"
-"\n"
-"If you are familiar with %s, you may have specific packages you would like "
-"to install or avoid installing. Check the box below to customize your "
-"installation."
 msgstr ""
-"নতুন ব্যবহারকারীদের জন্য ডিফল্ট ওয়ার্কস্টেশন বেশ সুবিধাজনক, এর মূল অংশগুলো হল:\n"
-"\n"
-"\tডেস্কটপ শেল (গুহ্‌নোম)\n"
-"\tঅফিস স্যুট (ওপেন অফিস)\n"
-"\tওয়েব ব্রাউজার (মোজিলা) \n"
-"\tইমেইল (ইভলিউশন)\n"
-"\tইনস্ট্যান্ট মেসেঞ্জার\n"
-"\t \n"
-"\tঅডিও এবং ভিডিও অ্যাপলিকেশন \n"
-"\tখেলা (গেম্‌স) \n"
-"\tসফটওয়ার তৈরির সরঞ্জাম \n"
-"\tসিস্টেম অ্যাডমিনস্ট্রেশনে ব্যবহৃত সফটওয়ার \n"
-"\n"
-"ইনস্টলেশনের পর 'redhat-config-packages' নামক সফটওয়ারটি ব্যবহার করে অন্যান্য "
-"সফটওয়ারকে সিস্টেমে যোগ করা বা বাদ দেয়া যাবে।\n"
-"\n"
-"যদি আপনি %s ব্যবহারে ইতিমধ্যেই অভ্যস্ত হয়ে থাকেন তবে হয়তো কিছু বিশেষ প্যাকেজকে "
-"ইনস্টল করতে অথবা ইনস্টল তালিকা থেকে বাদ রাখতে চাইবেন। সেক্ষেত্রে নিচের বাক্সগুলোতে "
-"টিক দিয়ে আপনার পছন্দের প্যাকেজগুলো বেছে নিতে পারেন।"
 
-#: ../iw/desktop_choice_gui.py:76
-msgid "Personal Desktop Defaults"
-msgstr "ব্যক্তিগত ডেস্কটপের ডিফল্ট"
-
-#: ../iw/desktop_choice_gui.py:81
-#, python-format
+#: ../iw/desktop_choice_gui.py:53
+#, fuzzy, python-format
 msgid ""
-"The default personal desktop environment includes our recommendations for "
-"new users, including:\n"
 "\n"
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
 "\n"
 "After installation, additional software can be added or removed using the "
 "'redhat-config-packages' tool.\n"
@@ -2949,7 +2981,7 @@ msgstr ""
 "ইনস্টল করতে অথবা ইনস্টল তালিকা থেকে বাদ রাখতে চাইবেন। সেক্ষেত্রে নিচের বাক্সগুলোতে "
 "টিক দিয়ে আপনার পছন্দের প্যাকেজগুলো বেছে নিতে পারেন।"
 
-#: ../iw/desktop_choice_gui.py:98
+#: ../iw/desktop_choice_gui.py:65
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
@@ -2957,11 +2989,11 @@ msgstr ""
 "যদি আপনি ডিফল্ট প্যাকেজগুলো ইনস্টল করতে না চান, তবে নিচ থেকে ইচ্ছামাফিক প্যাকেজ "
 "বেছে নিতে পারেন।"
 
-#: ../iw/desktop_choice_gui.py:106
+#: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
 msgstr "ডিফল্ট সফটওয়ার প্যাকেজ _ইনস্টল করা হোক"
 
-#: ../iw/desktop_choice_gui.py:107
+#: ../iw/desktop_choice_gui.py:74
 msgid "_Customize software packages to be installed"
 msgstr "ইনস্টলের উদ্দেশ্যে _ইচ্ছামাফিক প্যাকেজ বেছে নেয়া হোক"
 
@@ -2970,7 +3002,7 @@ msgid "Drive"
 msgstr "ড্রাইভ"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:234
-#: ../iw/progress_gui.py:313 ../textw/partition_text.py:1126
+#: ../iw/progress_gui.py:317 ../textw/partition_text.py:1126
 msgid "Size"
 msgstr "আকার"
 
@@ -3042,10 +3074,11 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "fdisk-এর সাহায্যে পার্টিশন করার জন্য একটি ড্রাইভ বেছে নিন:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
-msgid "Firewall Configuration"
-msgstr "ফায়ারওয়াল কনফিগারেশন"
+#, fuzzy
+msgid "Firewall"
+msgstr "ফায়ারওয়ালবিহীন"
 
-#: ../iw/firewall_gui.py:132
+#: ../iw/firewall_gui.py:115
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3058,45 +3091,49 @@ msgstr ""
 "\n"
 "যেমন, '1234:udp'"
 
-#: ../iw/firewall_gui.py:136
+#: ../iw/firewall_gui.py:119
 msgid "Warning: Bad Token"
 msgstr "সতর্কতা: ত্রুটিপূর্ণ টোকেন"
 
-#: ../iw/firewall_gui.py:188
-msgid "Select a security level for the system:  "
-msgstr "সিস্টেমের জন্য নিরাপত্তার মাত্রা বেছে নিন:  "
+#: ../iw/firewall_gui.py:145 ../textw/firewall_text.py:28
+msgid ""
+"A firewall can help prevent unauthorized access to your computer from the "
+"outside world.  Would you like to enable a firewall?"
+msgstr ""
 
-#: ../iw/firewall_gui.py:197
-msgid "Hi_gh"
-msgstr "বে_শি"
-
-#: ../iw/firewall_gui.py:198
-msgid "_Medium"
-msgstr "_মধ্যম"
-
-#: ../iw/firewall_gui.py:199
+#: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
 msgstr "ফায়ারওয়ালবি_হীন"
 
-#: ../iw/firewall_gui.py:215
-msgid "Use _default firewall rules"
-msgstr "ফায়ারওয়ালে _ডিফল্ট নীতিমালা ব্যবহার করা হোক"
+#: ../iw/firewall_gui.py:157
+#, fuzzy
+msgid "_Enable firewall"
+msgstr "ফায়ারওয়ালবি_হীন"
 
-#: ../iw/firewall_gui.py:216
-msgid "_Customize"
-msgstr "_ইচ্ছামাফিক পরিবর্তন"
+#: ../iw/firewall_gui.py:159
+#, fuzzy
+msgid "_Custom firewall"
+msgstr "ফায়ারওয়ালবি_হীন"
 
-#: ../iw/firewall_gui.py:229
-msgid "_Trusted devices:"
-msgstr "_বিশ্বস্থ ডিভাইস:"
+#: ../iw/firewall_gui.py:178
+msgid "What services should be allowed to pass through the firewall?"
+msgstr ""
 
-#: ../iw/firewall_gui.py:255
+#: ../iw/firewall_gui.py:186
 msgid "_Allow incoming:"
 msgstr "যেসব অন্তর্মুখী যোগাযোগ _অনুমোদন করা হবে:"
 
-#: ../iw/firewall_gui.py:280
+#: ../iw/firewall_gui.py:211
 msgid "Other _ports:"
 msgstr "অন্যান্য _পোর্ট:"
+
+#: ../iw/firewall_gui.py:219
+msgid "If you would like to allow all traffic from a device, select it below."
+msgstr ""
+
+#: ../iw/firewall_gui.py:228
+msgid "_Trusted devices:"
+msgstr "_বিশ্বস্থ ডিভাইস:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3360,7 +3397,8 @@ msgstr "কোন ফাঁকা ঘর নেই"
 #: ../iw/lvm_dialog_gui.py:696
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr "আপনি ফাইল সিস্টেম গ্রুপ প্রতি %s এর অধিক লজিক্যাল ফাইল সিস্টেম তৈরি করতে পারবেন না।"
+msgstr ""
+"আপনি ফাইল সিস্টেম গ্রুপ প্রতি %s এর অধিক লজিক্যাল ফাইল সিস্টেম তৈরি করতে পারবেন না।"
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "No free space"
@@ -3392,7 +3430,9 @@ msgstr "যে নামটি ব্যবহৃত হচ্ছে"
 #: ../iw/lvm_dialog_gui.py:877
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "ফাইল সিস্টেম গ্রুপের নাম হিসেবে \"%s\" ইতিমধ্যেই ব্যবহৃত হচ্ছে। অনুগ্রহপূর্বক অন্য একটি নাম বেছে নিন।"
+msgstr ""
+"ফাইল সিস্টেম গ্রুপের নাম হিসেবে \"%s\" ইতিমধ্যেই ব্যবহৃত হচ্ছে। অনুগ্রহপূর্বক অন্য একটি "
+"নাম বেছে নিন।"
 
 #: ../iw/lvm_dialog_gui.py:921
 msgid "Not enough physical volumes"
@@ -3469,7 +3509,7 @@ msgstr "আকার (মেগাবাইট)"
 msgid "_Add"
 msgstr "_যোগ করা হোক"
 
-#: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:490
+#: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:515
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1355
 msgid "_Edit"
 msgstr "_এডিট করা হোক"
@@ -3514,39 +3554,39 @@ msgstr "৩ বাটন (বোতাম) বিশিষ্ট মাউসক
 msgid "Select the appropriate mouse for the system."
 msgstr "সিস্টেমের জন্য উপযুক্ত মাউসটি বেছে নিন।"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:572
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:597
 msgid "Gateway"
 msgstr "গেটওয়ে"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:574
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:599
 msgid "Primary DNS"
 msgstr "প্রথম ডি.এন.এস. (DNS)"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:576
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:601
 msgid "Secondary DNS"
 msgstr "দ্বিতীয় ডি.এন.এস. (DNS)"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:578
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:603
 msgid "Tertiary DNS"
 msgstr "তৃতীয় ডি.এন.এস. (DNS)"
 
-#: ../iw/network_gui.py:29
+#: ../iw/network_gui.py:30
 msgid "_Gateway"
 msgstr "_গেটওয়ে"
 
-#: ../iw/network_gui.py:29
+#: ../iw/network_gui.py:30
 msgid "_Primary DNS"
 msgstr "_প্রথম ডি.এন.এস. (DNS)"
 
-#: ../iw/network_gui.py:30
+#: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
 msgstr "_দ্বিতীয় ডি.এন.এস. (DNS)"
 
-#: ../iw/network_gui.py:30
+#: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
 msgstr "_তৃতীয় ডি.এন.এস. (DNS)"
 
-#: ../iw/network_gui.py:34
+#: ../iw/network_gui.py:35
 msgid "Network Configuration"
 msgstr "নেটওয়ার্ক কনফিগারেশন"
 
@@ -3573,7 +3613,7 @@ msgstr ""
 "আপনি \"%s\" এর জন্য কিছু লেখেননি।  নেটওয়ার্কের অবস্থাভেদে পরবর্তীতে আপনি এ কারণে "
 "সমস্যায় পড়তে পারেন।"
 
-#: ../iw/network_gui.py:164 ../textw/network_text.py:383
+#: ../iw/network_gui.py:164 ../textw/network_text.py:399
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3624,36 +3664,36 @@ msgstr ""
 msgid "Edit Interface %s"
 msgstr "ইন্টারফেস %s এডিট করা হোক"
 
-#: ../iw/network_gui.py:212
+#: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
 msgstr "_ডি.এইচ.সি.পি. (DHCP) ব্যবহার করে কনফিগার করা হোক"
 
-#: ../iw/network_gui.py:218
+#: ../iw/network_gui.py:219
 msgid "_Activate on boot"
 msgstr "বুট হওয়ার সময় _সক্রিয় করা হোক"
 
-#: ../iw/network_gui.py:227
+#: ../iw/network_gui.py:228
 msgid "_IP Address"
 msgstr "_আই.পি. (IP) ঠিকানা"
 
-#: ../iw/network_gui.py:228
+#: ../iw/network_gui.py:229
 msgid "Net_mask"
 msgstr "নেট_মাস্ক"
 
-#: ../iw/network_gui.py:231
+#: ../iw/network_gui.py:232
 msgid "_Point to Point (IP)"
 msgstr "_পয়েন্ট টু পয়েন্ট (আই.পি.)"
 
-#: ../iw/network_gui.py:254
+#: ../iw/network_gui.py:255
 #, python-format
 msgid "Configure %s"
 msgstr "%s কনফিগার করা হোক"
 
-#: ../iw/network_gui.py:396
+#: ../iw/network_gui.py:419
 msgid "Active on Boot"
 msgstr "বুট হওয়ার সময় সক্রিয় হবে"
 
-#: ../iw/network_gui.py:398 ../iw/osbootwidget.py:65
+#: ../iw/network_gui.py:421 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:213 ../textw/bootloader_text.py:284
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1126
@@ -3661,39 +3701,39 @@ msgstr "বুট হওয়ার সময় সক্রিয় হবে"
 msgid "Device"
 msgstr "ডিভাইস (যন্ত্র)"
 
-#: ../iw/network_gui.py:400
+#: ../iw/network_gui.py:423
 msgid "IP/Netmask"
 msgstr "আই.পি./নেটমাস্ক"
 
-#: ../iw/network_gui.py:423 ../iw/network_gui.py:525 ../loader2/net.c:627
+#: ../iw/network_gui.py:448 ../iw/network_gui.py:550 ../loader2/net.c:638
 msgid "Hostname"
 msgstr "হোস্টনাম (Hostname)"
 
-#: ../iw/network_gui.py:428
+#: ../iw/network_gui.py:453
 msgid "Set hostname"
 msgstr "হোস্টনাম (Hostname) লিখুন"
 
-#: ../iw/network_gui.py:496
+#: ../iw/network_gui.py:521
 msgid "Network Devices"
 msgstr "নেটওয়ার্ক ডিভাইস"
 
-#: ../iw/network_gui.py:503
+#: ../iw/network_gui.py:528
 msgid "Set the hostname:"
 msgstr "হোস্টনাম (Hostname) লিখুন:"
 
-#: ../iw/network_gui.py:507
+#: ../iw/network_gui.py:532
 msgid "_automatically via DHCP"
 msgstr "_স্বয়ংক্রিয়ভাবে ডি.এইচ.সি.পি. (DHCP) ব্যবহার করে"
 
-#: ../iw/network_gui.py:513
+#: ../iw/network_gui.py:538
 msgid "_manually"
 msgstr "_নিজ হাতে"
 
-#: ../iw/network_gui.py:519
+#: ../iw/network_gui.py:544
 msgid "(ex. \"host.domain.com\")"
 msgstr "(যেমন, \"host.domain.com\")"
 
-#: ../iw/network_gui.py:582
+#: ../iw/network_gui.py:607
 msgid "Miscellaneous Settings"
 msgstr "বিবিধ বৈশিষ্ট্যসূচক মান"
 
@@ -3759,7 +3799,8 @@ msgstr "অনুরূপ লেবেল"
 
 #: ../iw/osbootwidget.py:257
 msgid "This label is already in use for another boot entry."
-msgstr "এই লেবেলটি বুট তালিকার অন্য একটি অন্তর্ভুক্তির (Entry) জন্য ইতিমধ্যেই ব্যবহৃত হচ্ছে।"
+msgstr ""
+"এই লেবেলটি বুট তালিকার অন্য একটি অন্তর্ভুক্তির (Entry) জন্য ইতিমধ্যেই ব্যবহৃত হচ্ছে।"
 
 #: ../iw/osbootwidget.py:270
 msgid "Duplicate Device"
@@ -3767,7 +3808,8 @@ msgstr "অনুরূপ ডিভাইস"
 
 #: ../iw/osbootwidget.py:271
 msgid "This device is already being used for another boot entry."
-msgstr "এই ডিভাইসটি বুট তালিকার অন্য একটি অন্তর্ভুক্তির (Entry) জন্য ইতিমধ্যেই ব্যবহৃত হচ্ছে।"
+msgstr ""
+"এই ডিভাইসটি বুট তালিকার অন্য একটি অন্তর্ভুক্তির (Entry) জন্য ইতিমধ্যেই ব্যবহৃত হচ্ছে।"
 
 #: ../iw/osbootwidget.py:335
 msgid "Cannot Delete"
@@ -4044,10 +4086,6 @@ msgstr "এই পার্টিশনগুলো তৈরি করার �
 msgid "Warning: %s."
 msgstr "সতর্কবাণী: %s।"
 
-#: ../iw/partition_gui.py:1010
-msgid "_Modify Partition"
-msgstr "পার্টিশন _পরিবর্তন করা হোক"
-
 #: ../iw/partition_gui.py:1189 ../iw/partition_gui.py:1203
 msgid "Not supported"
 msgstr "অসমর্থিত"
@@ -4211,11 +4249,11 @@ msgstr "প্যাকেজ ইনস্টল করা হচ্ছে"
 msgid "Downloading - %s"
 msgstr "%s ডাউনলোড করা হচ্ছে"
 
-#: ../iw/progress_gui.py:110 ../iw/progress_gui.py:300
+#: ../iw/progress_gui.py:110 ../iw/progress_gui.py:304
 msgid "Total"
 msgstr "সর্বমোট"
 
-#: ../iw/progress_gui.py:116 ../iw/progress_gui.py:302
+#: ../iw/progress_gui.py:116 ../iw/progress_gui.py:306
 msgid "Remaining"
 msgstr "অবশিষ্ট"
 
@@ -4228,27 +4266,27 @@ msgstr "%s কিলোবাইট"
 msgid "Summary"
 msgstr "সংক্ষিপ্ত বর্ণনা"
 
-#: ../iw/progress_gui.py:271 ../textw/progress_text.py:130
+#: ../iw/progress_gui.py:275 ../textw/progress_text.py:130
 msgid "Status: "
 msgstr "অবস্থা: "
 
-#: ../iw/progress_gui.py:281
+#: ../iw/progress_gui.py:285
 msgid "Package Progress: "
 msgstr "প্যাকেজের অগ্রগতি: "
 
-#: ../iw/progress_gui.py:286
+#: ../iw/progress_gui.py:290
 msgid "Total Progress:   "
 msgstr "মোট অগ্রগতি:   "
 
-#: ../iw/progress_gui.py:313
+#: ../iw/progress_gui.py:317
 msgid "Status"
 msgstr "অবস্থা"
 
-#: ../iw/progress_gui.py:313
+#: ../iw/progress_gui.py:317
 msgid "Packages"
 msgstr "প্যাকেজ"
 
-#: ../iw/progress_gui.py:313
+#: ../iw/progress_gui.py:317
 msgid "Time"
 msgstr "সময়"
 
@@ -4358,7 +4396,9 @@ msgstr "গন্তব্য ড্রাইভে সমস্যা"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr "অনুগ্রহপূর্বক অনুরূপ কপি (Clone) তৈরির প্রক্রিয়ায় ব্যবহারের জন্য গন্তব্য ড্রাইভগুলো বেছে নিন।"
+msgstr ""
+"অনুগ্রহপূর্বক অনুরূপ কপি (Clone) তৈরির প্রক্রিয়ায় ব্যবহারের জন্য গন্তব্য ড্রাইভগুলো বেছে "
+"নিন।"
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
@@ -4416,7 +4456,8 @@ msgstr "ড্রাইভের অনুরূপ কপি (Clone) তৈর�
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
-"গন্তব্য ড্রাইভকে ফাঁকা করার সময় সমস্যা হয়েছে।  অনুরূপ কপি (Clone) তৈরির প্রচেষ্টা ব্যর্থ হয়েছে।"
+"গন্তব্য ড্রাইভকে ফাঁকা করার সময় সমস্যা হয়েছে।  অনুরূপ কপি (Clone) তৈরির প্রচেষ্টা "
+"ব্যর্থ হয়েছে।"
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -4832,14 +4873,14 @@ msgstr ""
 "নিতে হবে।  যদি আপনি এক্স কনফিগারেশনকে সম্পূর্ণরূপে এড়িয়ে যেতে চান তবে 'এক্স "
 "কনফিগারেশন এড়িয়ে যাওয়া হোক' নামক বাটনটি চাপুন।"
 
-#: ../iw/xconfig_gui.py:973
+#: ../iw/xconfig_gui.py:973 ../textw/xconfig_text.py:638
 msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
-"System.  If you do not want to setup the X Window System , choose 'Skip X "
+"System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
-"এক্স উইন্ডো সিস্টেমের সাথে ফ্রেম বাফার ড্রাইভার ব্যবহারের জন্য আপনার সিস্টেমকে প্রস্তুত "
-"করা হবে। যদি আপনি এক্স উইন্ডোকে প্রস্তুত করতে না চান, তবে নিচ থেকে 'এক্স উইন্ডো "
+"এক্স উইন্ডো সিস্টেমের ফ্রেম বাফার ড্রাইভার ব্যবহারের জন্য আপনার সিস্টেমকে প্রস্তুত করা "
+"হবে। যদি আপনি এক্স উইন্ডোকে প্রস্তুত করতে না চান, তবে নিচ থেকে 'এক্স উইন্ডো "
 "কনফিগারেশন এড়িয়ে যাওয়া হোক' বেছে নিন।"
 
 #: ../iw/xconfig_gui.py:982
@@ -5070,23 +5111,29 @@ msgstr "পাসওয়ার্ডের আকার খুবই ছোট"
 msgid "Boot loader password is too short"
 msgstr "বুট লোডারের পাসওয়ার্ডের আকার খুবই ছোট"
 
-#: ../textw/complete_text.py:24
-msgid "<Enter> to reboot"
-msgstr "<Enter> রিবুট করার জন্য"
-
-#: ../textw/complete_text.py:36
+#: ../textw/complete_text.py:33
+#, fuzzy
 msgid ""
-"Press <Enter> to reboot your system.\n"
+"Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
 "সিস্টেম রিবুট করার জন্য <Enter> চাপুন।\n"
 "\n"
 
-#: ../textw/complete_text.py:44
+#: ../textw/complete_text.py:34
+#, fuzzy
+msgid "<Enter> to exit"
+msgstr "<Enter> রিবুট করার জন্য"
+
+#: ../textw/complete_text.py:40
+msgid "<Enter> to reboot"
+msgstr "<Enter> রিবুট করার জন্য"
+
+#: ../textw/complete_text.py:45
 msgid "Complete"
 msgstr "ইনস্টল প্রক্রিয়া সম্পন্ন হয়েছে"
 
-#: ../textw/complete_text.py:45
+#: ../textw/complete_text.py:46
 #, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
@@ -5121,14 +5168,14 @@ msgstr ""
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:356
-#: ../loader2/driverdisk.c:240 ../loader2/driverdisk.c:255
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:381
+#: ../loader2/driverdisk.c:248 ../loader2/driverdisk.c:263
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:464
-#: ../loader2/hdinstall.c:518 ../loader2/kbd.c:125 ../loader2/loader.c:304
-#: ../loader2/loader.c:742 ../loader2/loader.c:765 ../loader2/net.c:173
-#: ../loader2/net.c:417 ../loader2/net.c:832 ../loader2/nfsinstall.c:54
-#: ../loader2/urls.c:250 ../loader2/urls.c:438
+#: ../loader2/hdinstall.c:518 ../loader2/kbd.c:125 ../loader2/loader.c:302
+#: ../loader2/loader.c:760 ../loader2/loader.c:783 ../loader2/net.c:173
+#: ../loader2/net.c:427 ../loader2/net.c:848 ../loader2/nfsinstall.c:54
+#: ../loader2/urls.c:254 ../loader2/urls.c:442
 msgid "Back"
 msgstr "পূর্বাবস্থান"
 
@@ -5145,13 +5192,16 @@ msgstr ""
 "সিস্টেম রিবুট করার পর সম্পূর্ণ আপগ্রেড প্রক্রিয়ার একটি বিবরণ পাবেন %s এ। পরবর্তিতে "
 "প্রয়োজন হতে পারে বলে আপনি হয়তো বিবরণটি সংরক্ষণ করতে পারেন।"
 
+#: ../textw/desktop_choice_text.py:24
+msgid "Workstation Defaults"
+msgstr "ওয়ার্কস্টেশনের ডিফল্ট"
+
 #: ../textw/desktop_choice_text.py:27
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The Personal Desktop and Workstation options install a default set of "
-"applications that will allow you to browse the Internet, send and receive "
-"email, and create and edit documents on your %s system. The Workstation "
-"option includes development and administration tools as well.\n"
+"The default installation environment includes our recommended package "
+"selection.  After installation, additional software can be added or removed "
+"using the 'redhat-config-packages' tool.\n"
 "\n"
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
@@ -5164,7 +5214,7 @@ msgstr ""
 "তবে %s এ আরো অনেক অ্যাপলিকশন থাকে এবং আপনি চাইলে যেসব অ্যাপলিকেশন ইনস্টল করা "
 "হবে, তার তালিকা ইচ্ছামাফিক পরিবর্তন করতে পারেন।"
 
-#: ../textw/desktop_choice_text.py:39
+#: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
 msgstr "ইচ্ছামাফিক সফটওয়ার বেছে নিন"
 
@@ -5228,85 +5278,62 @@ msgstr "যে ডিস্কের ওপর fdisk চালানো হব�
 msgid "Customize"
 msgstr "ইচ্ছামাফিক পরিবর্তন"
 
-#: ../textw/firewall_text.py:28
-msgid ""
-"A firewall protects against unauthorized network intrusions. High security "
-"blocks all incoming accesses. Medium blocks access to system services (such "
-"as telnet or printing), but allows other connections. No firewall allows all "
-"connections and is not recommended. "
-msgstr ""
-"নেটওয়ার্কের মাধ্যমে অনাকাংক্ষিত অনুপ্রবেশ থেকে ফায়ারওয়াল সিস্টেমকে রক্ষা করে। উচ্চ "
-"নিরাপত্তা যেকোন ধরনের প্রবেশ রোধ করে। মধ্যম নিরাপত্তা বিভিন্ন সিস্টেম সার্ভিস (যেমন "
-"টেলনেট না প্রিন্ট করা) ব্যতীত অন্যান্য যোগাযোগ অনুমোদন করে। ফায়ারওয়ালবিহীন থাকলে "
-"সব রকম যোগাযোগই চলতে পারে এবং এই অবস্থাটি পরিহারের পরামর্শ দেয়া হচ্ছে।"
-
-#: ../textw/firewall_text.py:44
-msgid "Security Level:"
-msgstr "নিরাপত্তার মাত্রা:"
+#: ../textw/firewall_text.py:45
+#, fuzzy
+msgid "Enable firewall"
+msgstr "ফায়ারওয়ালবিহীন"
 
 #: ../textw/firewall_text.py:48
-msgid "High"
-msgstr "উচ্চ"
-
-#: ../textw/firewall_text.py:51
-msgid "Medium"
-msgstr "মধ্যম"
-
-#: ../textw/firewall_text.py:54
 msgid "No firewall"
 msgstr "ফায়ারওয়ালবিহীন"
 
-#: ../textw/firewall_text.py:73
+#: ../textw/firewall_text.py:67
 msgid "Trusted Devices:"
 msgstr "বিশ্বস্ত ডিভাইস:"
 
-#: ../textw/firewall_text.py:85
+#: ../textw/firewall_text.py:77
 msgid "Allow incoming:"
 msgstr "যেসব অন্তর্মুখী যোগাযোগ অনুমোদন করা হবে:"
 
-#: ../textw/firewall_text.py:90
-msgid "DHCP"
-msgstr "ডি.এইচ.সি.পি. (DHCP)"
-
-#: ../textw/firewall_text.py:92
+#: ../textw/firewall_text.py:82
 msgid "SSH"
 msgstr "এস.এস.এইচ. (SSH)"
 
-#: ../textw/firewall_text.py:94 ../loader2/telnetd.c:82
+#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:82
 #: ../loader2/telnetd.c:124
 msgid "Telnet"
 msgstr "টেলনেট"
 
-#: ../textw/firewall_text.py:96
+#: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
 msgstr "ডব্লিউ.ডব্লিউ.ডব্লিউ. (এইচ.টি.টি.পি.)"
 
-#: ../textw/firewall_text.py:98
+#: ../textw/firewall_text.py:88
 msgid "Mail (SMTP)"
 msgstr "মেইল (এস.এম.টি.পি.)"
 
-#: ../textw/firewall_text.py:100
+#: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "এফ.টি.পি. (FTP)"
 
-#: ../textw/firewall_text.py:104
+#: ../textw/firewall_text.py:94
 msgid "Other ports"
 msgstr "অন্যান্য পোর্ট"
 
-#: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
+#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "বেঠিক পছন্দ"
 
-#: ../textw/firewall_text.py:131
+#: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
 msgstr "কোন নিষ্ক্রিয় ফায়ারওয়ালকে আপনি ইচ্ছামাফিক পরিবর্তন করতে পারেন না।"
 
-#: ../textw/firewall_text.py:136
+#: ../textw/firewall_text.py:126
 msgid "Firewall Configuration - Customize"
 msgstr "ফায়ারওয়াল কনফিগারেশন - ইচ্ছামাফিক পরিবর্তন"
 
-#: ../textw/firewall_text.py:138
+#: ../textw/firewall_text.py:128
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5319,7 +5346,7 @@ msgstr ""
 "পোর্টগুলোর যোগাযোগ অনুমোদন করতে চান, তাদেরকে 'সার্ভিস:প্রোটোকল' যেমন, 'icmp:tcp' "
 "এভাবে লিখুন এবং তালিকার প্রতিটি অন্তর্ভুক্তিকে (Entry) কমা দিয়ে পৃথক করুন।"
 
-#: ../textw/firewall_text.py:194
+#: ../textw/firewall_text.py:184
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "সতর্কবাণী: %s কোন বৈধ পোর্ট নয়।"
@@ -5401,65 +5428,70 @@ msgstr "নেটমাস্ক"
 msgid "Point to Point (IP)"
 msgstr "পয়েন্ট টু পয়েন্ট (আই.পি.)"
 
-#: ../textw/network_text.py:76
+#: ../textw/network_text.py:83
 #, python-format
 msgid "Network Device: %s"
 msgstr "নেটওয়ার্ক ডিভাইস: %s"
 
-#: ../textw/network_text.py:81
+#: ../textw/network_text.py:89
+#, fuzzy, python-format
+msgid "Description: %s"
+msgstr "বর্ণনা"
+
+#: ../textw/network_text.py:94
 msgid "Configure using DHCP"
 msgstr "ডি.এইচ.সি.পি. (DHCP) ব্যবহার করে কনফিগার করা হোক"
 
-#: ../textw/network_text.py:91
+#: ../textw/network_text.py:107
 msgid "Activate on boot"
 msgstr "বুট হওয়ার সময় সক্রিয় করার হোক"
 
-#: ../textw/network_text.py:116
+#: ../textw/network_text.py:130
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "%s এর নেটওয়ার্ক কনফিগারেশন"
 
-#: ../textw/network_text.py:147
+#: ../textw/network_text.py:163
 msgid "Invalid information"
 msgstr "ভুল তথ্য"
 
-#: ../textw/network_text.py:148
+#: ../textw/network_text.py:164
 msgid "You must enter valid IP information to continue"
 msgstr "পরবর্তি ধাপে যাওয়ার জন্য আপনাকে সঠিক আই.পি. (IP) তথ্য লিখতে হবে"
 
-#: ../textw/network_text.py:229
+#: ../textw/network_text.py:245
 msgid "Gateway:"
 msgstr "গেটওয়ে"
 
-#: ../textw/network_text.py:239
+#: ../textw/network_text.py:255
 msgid "Primary DNS:"
 msgstr "প্রথম ডি.এন.এস. (DNS):"
 
-#: ../textw/network_text.py:244
+#: ../textw/network_text.py:260
 msgid "Secondary DNS:"
 msgstr "দ্বিতীয় ডি.এন.এস. (DNS):"
 
-#: ../textw/network_text.py:249
+#: ../textw/network_text.py:265
 msgid "Tertiary DNS:"
 msgstr "তৃতীয় ডি.এন.এস. (DNS):"
 
-#: ../textw/network_text.py:256
+#: ../textw/network_text.py:272
 msgid "Miscellaneous Network Settings"
 msgstr "নেটওয়ার্ক সংক্রান্ত বিবিধ মান"
 
-#: ../textw/network_text.py:324
+#: ../textw/network_text.py:340
 msgid "automatically via DHCP"
 msgstr "স্বয়ংক্রিয়ভাবে ডি.এইচ.সি.পি. (DHCP) ব্যবহার করে"
 
-#: ../textw/network_text.py:328
+#: ../textw/network_text.py:344
 msgid "manually"
 msgstr "নিজ হাতে"
 
-#: ../textw/network_text.py:347
+#: ../textw/network_text.py:363
 msgid "Hostname Configuration"
 msgstr "হোস্টনাম (Hostname) কনফিগারেশন"
 
-#: ../textw/network_text.py:350
+#: ../textw/network_text.py:366
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -5471,11 +5503,11 @@ msgstr ""
 "বেছে নিন। অন্যথায় 'নিজ হাতে' বেছে নিন ও তারপর আপনার সিস্টেমের জন্য একটি হোস্টনাম "
 "লিখুন। যদি কোন হোস্টনাম উল্লেখ না করেন, তবে সিস্টেমটি localhost নামে পরিচিত হবে।"
 
-#: ../textw/network_text.py:376 ../textw/network_text.py:382
+#: ../textw/network_text.py:392 ../textw/network_text.py:398
 msgid "Invalid Hostname"
 msgstr "অবৈধ হোস্টনাম"
 
-#: ../textw/network_text.py:377
+#: ../textw/network_text.py:393
 msgid "You have not specified a hostname."
 msgstr "আপনি কোন হোস্টনাম উল্লেখ করেননি।"
 
@@ -5681,7 +5713,8 @@ msgstr "ব্যবহারযোগ্য নয়"
 
 #: ../textw/partition_text.py:711
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "এল.ভি.এম. (LVM) ফাইল সিস্টেম গ্রুপকে শুধুমাত্র গ্রাফিক্যাল ইনস্টলার থেকে এডিট করা যায়।"
+msgstr ""
+"এল.ভি.এম. (LVM) ফাইল সিস্টেম গ্রুপকে শুধুমাত্র গ্রাফিক্যাল ইনস্টলার থেকে এডিট করা যায়।"
 
 #: ../textw/partition_text.py:787 ../textw/partition_text.py:840
 msgid "Invalid Entry for Partition Size"
@@ -5925,7 +5958,7 @@ msgstr ""
 "পাসওয়ার্ড লিখে থাকেন তবে এভাবে তা বোঝা যাবে। মনে রাখবেন যে, সিস্টেমের "
 "নিরাপত্তার জন্য root পাসওয়ার্ডের ভূমিকা খুবই গুরুত্বপূর্ণ!"
 
-#: ../textw/userauth_text.py:44 ../loader2/urls.c:428
+#: ../textw/userauth_text.py:44 ../loader2/urls.c:432
 msgid "Password:"
 msgstr "পাসওয়ার্ড:"
 
@@ -6016,7 +6049,9 @@ msgstr ""
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
-msgstr "ইতিমধ্যেই কোন একজন ব্যবহারকারীর জন্য এই আই.ডি. (ID) ব্যবহার করা হয়েছে।  অনুগ্রহপূর্বক অন্য একটি বেছে নিন।"
+msgstr ""
+"ইতিমধ্যেই কোন একজন ব্যবহারকারীর জন্য এই আই.ডি. (ID) ব্যবহার করা হয়েছে।  "
+"অনুগ্রহপূর্বক অন্য একটি বেছে নিন।"
 
 #: ../textw/userauth_text.py:198
 msgid ""
@@ -6166,7 +6201,9 @@ msgstr "এক্স (X Window) এর বৈশিষ্ট্য পরিব�
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "আপনার সিস্টেমের জন্য যে ভিডিও মোড (Mode) ও রঙের গভীরতা ব্যবহার করতে চান তা বেছে নিন। "
+msgstr ""
+"আপনার সিস্টেমের জন্য যে ভিডিও মোড (Mode) ও রঙের গভীরতা ব্যবহার করতে চান তা বেছে "
+"নিন। "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6328,16 +6365,6 @@ msgstr "এক্স (X Window) কনফিগারেশন এড়িয়ে �
 msgid "Video Card Configuration"
 msgstr "ভিডিও কার্ড কনফিগারেশন"
 
-#: ../textw/xconfig_text.py:638
-msgid ""
-"Your system will be setup to use the frame buffer driver for the X Window "
-"System.  If you do not want to setup the X Window System, choose 'Skip X "
-"Configuration' below."
-msgstr ""
-"এক্স উইন্ডো সিস্টেমের ফ্রেম বাফার ড্রাইভার ব্যবহারের জন্য আপনার সিস্টেমকে প্রস্তুত "
-"করা হবে। যদি আপনি এক্স উইন্ডোকে প্রস্তুত করতে না চান, তবে নিচ থেকে 'এক্স উইন্ডো "
-"কনফিগারেশন এড়িয়ে যাওয়া হোক' বেছে নিন।"
-
 #: ../textw/xconfig_text.py:646
 msgid "Select the video card and video RAM for your system."
 msgstr "আপনার সিস্টেমের ভিডিও কার্ড এবং ভিডিও র্যামের পরিমাণ বেছে নিন।"
@@ -6381,8 +6408,8 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"সফটওয়ার প্যাকেজ নির্বাচন ও পার্টিশন তৈরির সহ সম্পূর্ণ ইনস্টল প্রক্রিয়াটির ওপর যদি "
-"পূর্ণ নিয়ন্ত্রণ চান, তবে এই ইনস্টল প্রণালীটি বেছে নিন।"
+"সফটওয়ার প্যাকেজ নির্বাচন ও পার্টিশন তৈরির সহ সম্পূর্ণ ইনস্টল প্রক্রিয়াটির ওপর যদি পূর্ণ "
+"নিয়ন্ত্রণ চান, তবে এই ইনস্টল প্রণালীটি বেছে নিন।"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6397,6 +6424,17 @@ msgstr ""
 "ব্যক্তিগত বা ল্যাপটপ কম্পিউটারের জন্য এই ইনস্টল প্রক্রিয়াটি বেশ ভাল। এটির সাহায্যে "
 "একটি গ্রাফিক্যাল ডেস্কটপ দাঁড়া করাতে পারেন, যা গৃহের বা ডেস্কটপ কম্পিউটারের জন্য "
 "আদর্শ।"
+
+#: ../installclasses/personal_desktop.py:18
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+msgstr ""
 
 # **************************************************************************************************
 # পরবর্তী অধিকাংশ পংক্তির অনুবাদক - মহামান্য দীপায়ন সরকার
@@ -6432,6 +6470,19 @@ msgstr ""
 "এই অপশনটি বেছে নিলে একটি গ্রাফিক্যাল ইন্টারফেস, সফটওয়ার তৈরির সরঞ্জাম ও সিস্টেম "
 "অ্যাডমিনস্ট্রেশনে প্রয়োজনীয় সফটওয়ার ইনস্টল করা হবে।"
 
+#: ../installclasses/workstation.py:14
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
@@ -6439,7 +6490,7 @@ msgstr "মিডিয়া (যেমন সিডি) পরীক্ষা"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:401
+#: ../loader2/method.c:402
 msgid "Test"
 msgstr "টেস্ট"
 
@@ -6474,7 +6525,7 @@ msgstr ""
 "ইনস্টল প্রক্রিয়া আরম্ভ করার জন্য প্রথম সিডিটি ড্রাইভে প্রবেশ করান ও তারপর  \"%s\"  "
 "চাপুন।"
 
-#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:350
+#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:375
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -6483,11 +6534,11 @@ msgstr ""
 "আপনার কম্পিউটারের কোন সিডি ড্রাইভেই %s সিডিটি পাওয়া যায়নি। অনুগ্রহপূর্বক %s সিডিটি "
 "ড্রাইভে ঢোকান ও তারপর %s চেপে পুনরায় চেষ্টা করুন।"
 
-#: ../loader2/cdinstall.c:250
+#: ../loader2/cdinstall.c:251
 msgid "CD Found"
 msgstr "সি. ডি. পাওয়া গিয়েছে"
 
-#: ../loader2/cdinstall.c:252
+#: ../loader2/cdinstall.c:253
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -6498,7 +6549,7 @@ msgstr ""
 "\n"
 "আর সিডি পরীক্ষা না করেই ইনস্টল প্রক্রিয়া আরম্ভ করতে চাইলে %s চাপুন।"
 
-#: ../loader2/cdinstall.c:345
+#: ../loader2/cdinstall.c:370
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -6507,27 +6558,27 @@ msgstr ""
 "আপনার বুট মাধ্যমের (Media) সাথে মিলে যায় এমন কোন %s সিডি পাওয়া যায়নি।  "
 "অনুগ্রহপূর্বক %s সিডিটি ড্রাইভে ঢোকান ও তারপর পুনরায় চেষ্টা করার জন্য %s চাপুন।"
 
-#: ../loader2/cdinstall.c:355
+#: ../loader2/cdinstall.c:380
 msgid "CD Not Found"
 msgstr "সি ডি পাওয়া যায় নি"
 
-#: ../loader2/cdinstall.c:428
+#: ../loader2/cdinstall.c:453
 msgid "Cannot find kickstart file on CDROM."
 msgstr "সি ডি রম-এ কিকস্টার্ট ফাইল পাওয়া যায় নি"
 
-#: ../loader2/driverdisk.c:119 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:120 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "লোড করছি"
 
-#: ../loader2/driverdisk.c:119
+#: ../loader2/driverdisk.c:120
 msgid "Reading driver disk..."
 msgstr "ড্রাইভার ডিস্ক পড়ছি..."
 
-#: ../loader2/driverdisk.c:234
+#: ../loader2/driverdisk.c:242
 msgid "Driver Disk Source"
 msgstr "ড্রাইভার ডিস্ক সোর্স"
 
-#: ../loader2/driverdisk.c:235
+#: ../loader2/driverdisk.c:243
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6535,28 +6586,28 @@ msgstr ""
 "একাধিক ডিভাইস ড্রাইভার ডিস্ক সোর্স হিসেবে ব্যবহার করা যেতে পারে।  আপনি কোনটি "
 "ব্যবহার করতে চান?"
 
-#: ../loader2/driverdisk.c:253
+#: ../loader2/driverdisk.c:261
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "/dev/%s-এ ড্রাইভার ডিস্ক ঢুকিয়ে \"ঠিক আছে\" টিপুন।"
 
-#: ../loader2/driverdisk.c:255
+#: ../loader2/driverdisk.c:263
 msgid "Insert Driver Disk"
 msgstr "ড্রাইভার ডিস্ক ঢোকান"
 
-#: ../loader2/driverdisk.c:268
+#: ../loader2/driverdisk.c:278
 msgid "Failed to mount driver disk."
 msgstr "ড্রাইভার ডিস্ক মাউন্ট করতে ব্যর্থ।"
 
-#: ../loader2/driverdisk.c:339
+#: ../loader2/driverdisk.c:349
 msgid "Manually choose"
 msgstr "নিজেই বেছে নিন"
 
-#: ../loader2/driverdisk.c:340
+#: ../loader2/driverdisk.c:350
 msgid "Load another disk"
 msgstr "আরেকটি ডিস্ক লোড কর"
 
-#: ../loader2/driverdisk.c:341
+#: ../loader2/driverdisk.c:351
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6566,37 +6617,37 @@ msgstr ""
 "ড্রাইভারটি বেছে নেবেন, এভাবেই চালিয়ে যাবেন, না কি অন্য একটি ড্রাইভার ডিস্ক দিয়ে "
 "চেষ্টা করবেন?"
 
-#: ../loader2/driverdisk.c:384
+#: ../loader2/driverdisk.c:394
 msgid "Driver disk"
 msgstr "ড্রাইভার ডিস্ক"
 
-#: ../loader2/driverdisk.c:385
+#: ../loader2/driverdisk.c:395
 msgid "Do you have a driver disk?"
 msgstr "আপনার কাছে কি কোনো ড্রাইভার ডিস্ক আছে?"
 
-#: ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:405
 msgid "More Driver Disks?"
 msgstr "আরো ড্রাইভার ডিস্ক?"
 
-#: ../loader2/driverdisk.c:396
+#: ../loader2/driverdisk.c:406
 msgid "Do you wish to load any more driver disks?"
 msgstr "আপনি কি আর কোনো ড্রাইভার ডিস্ক লোড করতে চান?"
 
-#: ../loader2/driverdisk.c:435 ../loader2/driverdisk.c:468
+#: ../loader2/driverdisk.c:445 ../loader2/driverdisk.c:478
 #: ../loader2/hdinstall.c:602 ../loader2/kickstart.c:112
 #: ../loader2/kickstart.c:122 ../loader2/kickstart.c:165
-#: ../loader2/modules.c:916 ../loader2/net.c:704 ../loader2/net.c:727
-#: ../loader2/nfsinstall.c:228 ../loader2/urlinstall.c:419
-#: ../loader2/urlinstall.c:428 ../loader2/urlinstall.c:439
+#: ../loader2/modules.c:918 ../loader2/net.c:720 ../loader2/net.c:743
+#: ../loader2/nfsinstall.c:233 ../loader2/urlinstall.c:426
+#: ../loader2/urlinstall.c:435 ../loader2/urlinstall.c:446
 msgid "Kickstart Error"
 msgstr "কিকস্টার্টে সমস্যা"
 
-#: ../loader2/driverdisk.c:436
+#: ../loader2/driverdisk.c:446
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "ড্রাইভার ডিস্কের কিকস্টার্ট উত্‍স অজ্ঞাত: %s"
 
-#: ../loader2/driverdisk.c:469
+#: ../loader2/driverdisk.c:479
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6658,7 +6709,7 @@ msgid "Loading %s driver..."
 msgstr "%s ড্রাইভার লোড করছি..."
 
 #: ../loader2/hdinstall.c:239 ../loader2/hdinstall.c:292
-#: ../loader2/nfsinstall.c:178 ../loader2/urlinstall.c:136
+#: ../loader2/nfsinstall.c:183 ../loader2/urlinstall.c:138
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6769,11 +6820,11 @@ msgstr "হার্ড ড্রাইভ"
 msgid "NFS image"
 msgstr "এন. এফ. এস. ইমেজ"
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:297
 msgid "Update Disk Source"
 msgstr "আপডেট ডিস্ক সোর্স"
 
-#: ../loader2/loader.c:300
+#: ../loader2/loader.c:298
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6781,29 +6832,29 @@ msgstr ""
 "একাধিক ডিভাইস আপডেট ডিস্ক সোর্স হিসেবে ব্যবহার করা যেতে পারে।আপনি কোনটি ব্যবহার "
 "করতে চান?"
 
-#: ../loader2/loader.c:315
+#: ../loader2/loader.c:313
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "/dev/%s-এ আপডেট ডিস্ক ঢুকিয়ে \"ঠিক আছে\" টিপুন"
 
 # Altered by Progga
-#: ../loader2/loader.c:317
+#: ../loader2/loader.c:315
 msgid "Updates Disk"
 msgstr "আপডেট ডিস্ক"
 
-#: ../loader2/loader.c:329
+#: ../loader2/loader.c:327
 msgid "Failed to mount updates disk"
 msgstr "আপডেট ডিস্ক মাউন্ট করার প্রয়াস ব্যর্থ"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:330
 msgid "Updates"
 msgstr "আপডেট"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:330
 msgid "Reading anaconda updates..."
 msgstr "অ্যানাকোণ্ডার আপডেট পড়ছি..."
 
-#: ../loader2/loader.c:354
+#: ../loader2/loader.c:352
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6817,35 +6868,35 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "এই কম্পিউটারে %s ইনস্টল করার মত যথেষ্ট RAM নেই"
 
-#: ../loader2/loader.c:734
+#: ../loader2/loader.c:752
 msgid "Rescue Method"
 msgstr "রেস্কিঊ-এর উপায়"
 
-#: ../loader2/loader.c:735
+#: ../loader2/loader.c:753
 msgid "Installation Method"
 msgstr "ইনস্টলেশনের উপায়"
 
-#: ../loader2/loader.c:737
+#: ../loader2/loader.c:755
 msgid "What type of media contains the rescue image?"
 msgstr "রেস্কিউ ইমেজটি কি ধরনের মিডিয়ায় আছে?"
 
-#: ../loader2/loader.c:739
+#: ../loader2/loader.c:757
 msgid "What type of media contains the packages to be installed?"
 msgstr "যে প্যাকেজগুলি ইনস্টল করবেন সেগুলি কি ধরনের মিডিয়ায় আছে?"
 
-#: ../loader2/loader.c:764
+#: ../loader2/loader.c:782
 msgid "No driver found"
 msgstr "কোনো ড্রাইভার পাওয়া যায়নি"
 
-#: ../loader2/loader.c:764
+#: ../loader2/loader.c:782
 msgid "Select driver"
 msgstr "ড্রাইভার বাছাই করুন"
 
-#: ../loader2/loader.c:765
+#: ../loader2/loader.c:783
 msgid "Use a driver disk"
 msgstr "ড্রাইভার ডিস্ক ব্যবহার করুন"
 
-#: ../loader2/loader.c:766
+#: ../loader2/loader.c:784
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6853,11 +6904,11 @@ msgstr ""
 "এই ধরনের ইনস্টলেশনের জন্য প্রয়োজনীয় কোনো ডিভাইস পাওয়া যায় নি।আপনি কি নিজে কোনো "
 "ড্রাইভার বাছাই করতে চান বা কোনো ড্রাইভার ডিস্ক ব্যবহার করতে চান?"
 
-#: ../loader2/loader.c:917
+#: ../loader2/loader.c:945
 msgid "The following devices have been found on your system."
 msgstr "আপনার সিস্টেম-এ এই ডিভাইস-গুলি পাওয়া গেছে"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:947
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6865,23 +6916,23 @@ msgstr ""
 "আপনার সিস্টেম-এর জন্য কোনো ডিভাইস ড্রাইভার লোড করা হয় নি। আপনি কি কিছু লোড করতে "
 "চান?"
 
-#: ../loader2/loader.c:923
+#: ../loader2/loader.c:951
 msgid "Devices"
 msgstr "ডিভাইস"
 
-#: ../loader2/loader.c:924
+#: ../loader2/loader.c:952
 msgid "Done"
 msgstr "হয়ে গিয়েছে"
 
-#: ../loader2/loader.c:925
+#: ../loader2/loader.c:953
 msgid "Add Device"
 msgstr "ডিভাইস যোগ করুন"
 
-#: ../loader2/loader.c:1026
+#: ../loader2/loader.c:1054
 msgid "loader has already been run.  Starting shell."
 msgstr "ইতিমধ্যেই লোডার চালানো হয়েছে।  এখন শেল চালু করা হচ্ছে।"
 
-#: ../loader2/loader.c:1359
+#: ../loader2/loader.c:1387
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "%s সিস্টেম ইনস্টলার অ্যানাকোণ্ডা চালানো হচ্ছে -- অনুগ্রহ করে অপেক্ষা করুন...\n"
@@ -6964,12 +7015,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "%s মিডিয়া পরীক্ষণ সম্পন্ন হয়েছে, ফলাফল: %s\n"
 
-#: ../loader2/method.c:147 ../loader2/method.c:355 ../loader2/method.c:440
+#: ../loader2/method.c:148 ../loader2/method.c:356 ../loader2/method.c:441
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s: %s ডিরেক্টরি পড়তে ব্যর্থ"
 
-#: ../loader2/method.c:398
+#: ../loader2/method.c:399
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6980,11 +7031,11 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:401
+#: ../loader2/method.c:402
 msgid "Checksum Test"
 msgstr "চেকসাম (Checksum) পরীক্ষা"
 
-#: ../loader2/modules.c:917
+#: ../loader2/modules.c:919
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
@@ -7033,16 +7084,16 @@ msgstr "আই. পি. সংক্রান্ত তথ্য অবৈধ"
 msgid "You entered an invalid IP address."
 msgstr "আপনার দেওয়া আই. পি. address অবৈধ"
 
-#: ../loader2/net.c:225 ../loader2/net.c:471
+#: ../loader2/net.c:226 ../loader2/net.c:481
 msgid "Dynamic IP"
 msgstr "ডাইনামিক আই. পি."
 
-#: ../loader2/net.c:226 ../loader2/net.c:472
+#: ../loader2/net.c:227 ../loader2/net.c:482
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "%s-এর আই. পি. ইনফর্মেশন-এর জন্য অনুরোধ পাঠাচ্ছি"
 
-#: ../loader2/net.c:361
+#: ../loader2/net.c:371
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7050,57 +7101,57 @@ msgstr ""
 "এই কম্পিউটরের আই. পি. কনফিগারেশন এখানে লিখুন। প্রত্যেকটি ক্ষেত্রেdotted-decimal "
 "notation-এ (উদাহরণস্বরূপ, 1.2.3.4) একটি আই.পি. অ্যাড্রেস দিতে হবে"
 
-#: ../loader2/net.c:367
+#: ../loader2/net.c:377
 msgid "IP address:"
 msgstr "আই.পি. (IP) ঠিকানা:"
 
-#: ../loader2/net.c:370
+#: ../loader2/net.c:380
 msgid "Netmask:"
 msgstr "নেটমাস্ক:"
 
-#: ../loader2/net.c:373
+#: ../loader2/net.c:383
 msgid "Default gateway (IP):"
 msgstr "ডিফল্ট গেটওয়ে (আই.পি.):"
 
-#: ../loader2/net.c:376
+#: ../loader2/net.c:386
 msgid "Primary nameserver:"
 msgstr "প্রথম নেইমসার্ভার:"
 
-#: ../loader2/net.c:403
+#: ../loader2/net.c:413
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "ডাইনামিক আই. পি. কনফিগারেশন ব্যবহার কর (BOOTP/DHCP)"
 
-#: ../loader2/net.c:431
+#: ../loader2/net.c:441
 msgid "Configure TCP/IP"
 msgstr "টি. সি. পি./আই. পি. কনফিগার করুন"
 
-#: ../loader2/net.c:462
+#: ../loader2/net.c:472
 msgid "Missing Information"
 msgstr "কিছু তথ্যের এখনো অভাব"
 
-#: ../loader2/net.c:463
+#: ../loader2/net.c:473
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "আপনাকে একটি বৈধ আই. পি. অ্যাডরেস এবং একটি নেট মাস্ক, দুই দিতে হবে"
 
-#: ../loader2/net.c:628
+#: ../loader2/net.c:639
 msgid "Determining host name and domain..."
 msgstr "হোস্টনেম এবং ডোমেন ধার্য করছি..."
 
-#: ../loader2/net.c:705
+#: ../loader2/net.c:721
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "কিকস্টার্ট নেটওয়ার্ক কমান্ড %s এর  নিকট ভুল মান প্রেরণ করা হয়েছে: %s"
 
-#: ../loader2/net.c:728
+#: ../loader2/net.c:744
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "নেটওয়ার্ক কমান্ডে ভুল বুটপ্রোটো (Bootproto) %s উল্লেখ করা হয়েছে"
 
-#: ../loader2/net.c:828
+#: ../loader2/net.c:844
 msgid "Networking Device"
 msgstr "নেটওয়ার্কিং ডিভাইস"
 
-#: ../loader2/net.c:829
+#: ../loader2/net.c:845
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7111,7 +7162,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "NFS সার্ভারের নাম:"
 
-#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:280
+#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:284
 msgid "Red Hat directory:"
 msgstr "রেড হ্যাট ডিরেক্টরি:"
 
@@ -7119,16 +7170,16 @@ msgstr "রেড হ্যাট ডিরেক্টরি:"
 msgid "NFS Setup"
 msgstr "এন. এফ. এস. সেট আপ"
 
-#: ../loader2/nfsinstall.c:182
+#: ../loader2/nfsinstall.c:187
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "ঐ ডিরেক্টরিটিতে %s ইনস্টল করার কোন ব্যবস্থা আছে বলে মনে হয় না।"
 
-#: ../loader2/nfsinstall.c:190
+#: ../loader2/nfsinstall.c:195
 msgid "That directory could not be mounted from the server."
 msgstr "ঐ ডিরেক্টরিটি সার্ভার থেকে মাউন্ট করা যায়নি।"
 
-#: ../loader2/nfsinstall.c:229
+#: ../loader2/nfsinstall.c:234
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr ""
@@ -7148,87 +7199,88 @@ msgstr "টেলনেটের মাধ্যমে অ্যানাকো�
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "%s://%s/%s/%s আনতে ব্যর্থ"
 
-#: ../loader2/urlinstall.c:128
+#: ../loader2/urlinstall.c:130
 msgid "Unable to retrieve the install image."
 msgstr "ইনস্টল ইমেজ আনতে ব্যর্থ"
 
-#: ../loader2/urlinstall.c:264
+#: ../loader2/urlinstall.c:266
 msgid "Media Detected"
 msgstr "মিডিয়া (যেমন সিডি) সনাক্ত করা গিয়েছে"
 
-#: ../loader2/urlinstall.c:265
+#: ../loader2/urlinstall.c:267
 msgid "Local installation media detected..."
 msgstr "স্থানীয় ইনস্টলেশন মাধ্যম (Media) সনাক্ত করা হয়েছে..."
 
-#: ../loader2/urlinstall.c:420
+#: ../loader2/urlinstall.c:427
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr ""
 "ইউ.আর.এল. (Url) কিকস্টার্ট মেথড কমান্ড %s এর  নিকট এই ভুল মানটি প্রেরণ করা হয়েছে: "
 "%s"
 
-#: ../loader2/urlinstall.c:429
+#: ../loader2/urlinstall.c:436
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "ইউ.আর.এল. (Url) কিকস্টার্ট কমান্ডের নিকট অবশ্যই -url এর জন্য একটি মান পাঠাতে হবে।"
+msgstr ""
+"ইউ.আর.এল. (Url) কিকস্টার্ট কমান্ডের নিকট অবশ্যই -url এর জন্য একটি মান পাঠাতে হবে।"
 
-#: ../loader2/urlinstall.c:440
+#: ../loader2/urlinstall.c:447
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "অজানা ইউ. আর. এল. মেথড %s"
 
-#: ../loader2/urls.c:171
+#: ../loader2/urls.c:172
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "%s: %s-এ লগ ইন করতে ব্যর্থ"
 
-#: ../loader2/urls.c:181 ../loader2/urls.c:189
+#: ../loader2/urls.c:182 ../loader2/urls.c:190
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "%s: %s আনতে ব্যর্থ"
 
-#: ../loader2/urls.c:194
+#: ../loader2/urls.c:196
 msgid "Retrieving"
 msgstr "আনছি"
 
-#: ../loader2/urls.c:276
+#: ../loader2/urls.c:280
 msgid "FTP site name:"
 msgstr "এফ. টি. পি. সাইটের নাম"
 
-#: ../loader2/urls.c:277
+#: ../loader2/urls.c:281
 msgid "Web site name:"
 msgstr "ওয়েবসাইটের নাম"
 
-#: ../loader2/urls.c:294
+#: ../loader2/urls.c:298
 msgid "Use non-anonymous ftp"
 msgstr "non-anonymous এফ. টি. পি. ব্যবহার করুন"
 
 # msgstr "non-anonymous এফ. টি. পি. ব্যবহার করো" ?
-#: ../loader2/urls.c:303
+#: ../loader2/urls.c:307
 msgid "FTP Setup"
 msgstr "এফ. টি. পি. সেটাপ"
 
-#: ../loader2/urls.c:304
+#: ../loader2/urls.c:308
 msgid "HTTP Setup"
 msgstr "এইচ. টি. টি. পি. সেটাপ"
 
-#: ../loader2/urls.c:314
+#: ../loader2/urls.c:318
 msgid "You must enter a server name."
 msgstr "আপনাকে এখানে একটি সার্ভারের নাম দিতেই হবে।"
 
-#: ../loader2/urls.c:319
+#: ../loader2/urls.c:323
 msgid "You must enter a directory."
 msgstr "আপনাকে এখানে একটি ডিরেক্টরির নাম দিতেই হবে।"
 
-#: ../loader2/urls.c:324
+#: ../loader2/urls.c:328
 msgid "Unknown Host"
 msgstr "অজানা হোস্ট"
 
-#: ../loader2/urls.c:325
+#: ../loader2/urls.c:329
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s নামটি hostname হিসেবে অবৈধ"
 
-#: ../loader2/urls.c:398
+#: ../loader2/urls.c:402
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -7236,13 +7288,13 @@ msgstr ""
 "যদি আপনি অ্যানোনিমাস এফ. টি. পি না করতে চান, তাহলেঅ্যাকাউন্ট নাম এবং পাসওয়ার্ড "
 "দিন।"
 
-#: ../loader2/urls.c:403
+#: ../loader2/urls.c:407
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "যদি আপনি কোন HTTP proxy server ব্যবহার করতে চান তাহলে তারনাম এখানে দিন।"
 
-#: ../loader2/urls.c:425
+#: ../loader2/urls.c:429
 msgid "Account name:"
 msgstr "অ্যাকাউন্ট নাম:"
 
@@ -7657,7 +7709,7 @@ msgstr "বেশির ভাগ জায়গা (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr "পার্বত্য মান সময় - অ্যারিজোনা" 
+msgstr "পার্বত্য মান সময় - অ্যারিজোনা"
 
 #. generated from zone.tab
 msgid ""
@@ -7967,3 +8019,120 @@ msgstr "সুইডিশ"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "তুর্কি"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "WARNING!!! VNC server running with NO PASSWORD!"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "সাবধান!!! ভিএনসি সার্ভার কোন পাসওয়ার্ড ছাড়াই চলছে!"
+
+#~ msgid "You can use the vncpasswd=<password> boot option"
+#~ msgstr "আপনি vncpasswd=<password> এই বুট অপশনটি ব্যবহার করতে পারেন"
+
+#~ msgid ""
+#~ "if you would like to secure the server.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "আপনি সার্ভারটিকে নিরাপদ করতে চান কিনা।\n"
+#~ "\n"
+
+#~ msgid "Enter a boot loader password and then confirm it."
+#~ msgstr "বুট লোডারের জন্য একটি পাসওয়ার্ড লিখুন ও এরপর তা নিশ্চিত করুন।"
+
+#~ msgid ""
+#~ "The default workstation environment includes our recommendations for new "
+#~ "users, including:\n"
+#~ "\n"
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice)\n"
+#~ "\tWeb browser (Mozilla) \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ "\tSoftware Development Tools\n"
+#~ "\tAdministration Tools\n"
+#~ "\n"
+#~ "After installation, additional software can be added or removed using the "
+#~ "'redhat-config-packages' tool.\n"
+#~ "\n"
+#~ "If you are familiar with %s, you may have specific packages you would "
+#~ "like to install or avoid installing. Check the box below to customize "
+#~ "your installation."
+#~ msgstr ""
+#~ "নতুন ব্যবহারকারীদের জন্য ডিফল্ট ওয়ার্কস্টেশন বেশ সুবিধাজনক, এর মূল অংশগুলো হল:\n"
+#~ "\n"
+#~ "\tডেস্কটপ শেল (গুহ্‌নোম)\n"
+#~ "\tঅফিস স্যুট (ওপেন অফিস)\n"
+#~ "\tওয়েব ব্রাউজার (মোজিলা) \n"
+#~ "\tইমেইল (ইভলিউশন)\n"
+#~ "\tইনস্ট্যান্ট মেসেঞ্জার\n"
+#~ "\t \n"
+#~ "\tঅডিও এবং ভিডিও অ্যাপলিকেশন \n"
+#~ "\tখেলা (গেম্‌স) \n"
+#~ "\tসফটওয়ার তৈরির সরঞ্জাম \n"
+#~ "\tসিস্টেম অ্যাডমিনস্ট্রেশনে ব্যবহৃত সফটওয়ার \n"
+#~ "\n"
+#~ "ইনস্টলেশনের পর 'redhat-config-packages' নামক সফটওয়ারটি ব্যবহার করে অন্যান্য "
+#~ "সফটওয়ারকে সিস্টেমে যোগ করা বা বাদ দেয়া যাবে।\n"
+#~ "\n"
+#~ "যদি আপনি %s ব্যবহারে ইতিমধ্যেই অভ্যস্ত হয়ে থাকেন তবে হয়তো কিছু বিশেষ প্যাকেজকে "
+#~ "ইনস্টল করতে অথবা ইনস্টল তালিকা থেকে বাদ রাখতে চাইবেন। সেক্ষেত্রে নিচের "
+#~ "বাক্সগুলোতে টিক দিয়ে আপনার পছন্দের প্যাকেজগুলো বেছে নিতে পারেন।"
+
+#~ msgid "Personal Desktop Defaults"
+#~ msgstr "ব্যক্তিগত ডেস্কটপের ডিফল্ট"
+
+#~ msgid "Firewall Configuration"
+#~ msgstr "ফায়ারওয়াল কনফিগারেশন"
+
+#~ msgid "Select a security level for the system:  "
+#~ msgstr "সিস্টেমের জন্য নিরাপত্তার মাত্রা বেছে নিন:  "
+
+#~ msgid "Hi_gh"
+#~ msgstr "বে_শি"
+
+#~ msgid "_Medium"
+#~ msgstr "_মধ্যম"
+
+#~ msgid "Use _default firewall rules"
+#~ msgstr "ফায়ারওয়ালে _ডিফল্ট নীতিমালা ব্যবহার করা হোক"
+
+#~ msgid "_Customize"
+#~ msgstr "_ইচ্ছামাফিক পরিবর্তন"
+
+#~ msgid ""
+#~ "Your system will be setup to use the frame buffer driver for the X Window "
+#~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
+#~ "Configuration' below."
+#~ msgstr ""
+#~ "এক্স উইন্ডো সিস্টেমের সাথে ফ্রেম বাফার ড্রাইভার ব্যবহারের জন্য আপনার সিস্টেমকে "
+#~ "প্রস্তুত করা হবে। যদি আপনি এক্স উইন্ডোকে প্রস্তুত করতে না চান, তবে নিচ থেকে 'এক্স "
+#~ "উইন্ডো কনফিগারেশন এড়িয়ে যাওয়া হোক' বেছে নিন।"
+
+#~ msgid ""
+#~ "A firewall protects against unauthorized network intrusions. High "
+#~ "security blocks all incoming accesses. Medium blocks access to system "
+#~ "services (such as telnet or printing), but allows other connections. No "
+#~ "firewall allows all connections and is not recommended. "
+#~ msgstr ""
+#~ "নেটওয়ার্কের মাধ্যমে অনাকাংক্ষিত অনুপ্রবেশ থেকে ফায়ারওয়াল সিস্টেমকে রক্ষা করে। "
+#~ "উচ্চ নিরাপত্তা যেকোন ধরনের প্রবেশ রোধ করে। মধ্যম নিরাপত্তা বিভিন্ন সিস্টেম "
+#~ "সার্ভিস (যেমন টেলনেট না প্রিন্ট করা) ব্যতীত অন্যান্য যোগাযোগ অনুমোদন করে। "
+#~ "ফায়ারওয়ালবিহীন থাকলে সব রকম যোগাযোগই চলতে পারে এবং এই অবস্থাটি পরিহারের "
+#~ "পরামর্শ দেয়া হচ্ছে।"
+
+#~ msgid "Security Level:"
+#~ msgstr "নিরাপত্তার মাত্রা:"
+
+#~ msgid "High"
+#~ msgstr "উচ্চ"
+
+#~ msgid "Medium"
+#~ msgstr "মধ্যম"
+
+#~ msgid "DHCP"
+#~ msgstr "ডি.এইচ.সি.পি. (DHCP)"
