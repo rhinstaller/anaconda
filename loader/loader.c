@@ -207,12 +207,23 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     return 0;
 }
 
-int readNetConfig(char * device, struct pumpNetIntf * dev) {
-    newtComponent text, f, okay, back, answer;
+static void dhcpBoxCallback(newtComponent co, void * ptr) {
+    struct intfconfig_s * c = ptr;
+
+    newtEntrySetFlags(c->ipEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
+    newtEntrySetFlags(c->gwEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
+    newtEntrySetFlags(c->nmEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
+    newtEntrySetFlags(c->nsEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
+}
+
+int readNetConfig(char * device, struct pumpNetIntf * dev, int flags) {
+    newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
     struct intfconfig_s c;
     int i;
     struct in_addr addr;
+    char dhcpChoice;
+    char * chptr;
 
     text = newtTextboxReflowed(-1, -1, 
 		_("Please enter the IP configuration for this machine. Each "
@@ -238,6 +249,11 @@ int readNetConfig(char * device, struct pumpNetIntf * dev) {
     c.gwEntry = newtEntry(-1, -1, NULL, 16, &c.gw, 0);
     c.nsEntry = newtEntry(-1, -1, NULL, 16, &c.ns, 0);
 
+    dhcpCheckbox = newtCheckbox(-1, -1, 
+    		_("Use dynamic IP configuration (BOOTP/DHCP)"),
+		' ', NULL, &dhcpChoice);
+    newtComponentAddCallback(dhcpCheckbox, dhcpBoxCallback, &c);
+
     newtGridSetField(subgrid, 1, 0, NEWT_GRID_COMPONENT, c.ipEntry,
 		     1, 0, 0, 0, 0, 0);
     newtGridSetField(subgrid, 1, 1, NEWT_GRID_COMPONENT, c.nmEntry,
@@ -249,12 +265,14 @@ int readNetConfig(char * device, struct pumpNetIntf * dev) {
 
     buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &back, NULL);
 
-    grid = newtCreateGrid(1, 3);
+    grid = newtCreateGrid(1, 4);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
-		     0, 0, 0, 0, 0, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, subgrid,
-		     0, 1, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
+		     0, 0, 0, 1, 0, 0);
+    newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, dhcpCheckbox,
+		     0, 0, 0, 1, 0, 0);
+    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, subgrid,
+		     0, 0, 0, 1, 0, 0);
+    newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
 		     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
     f = newtForm(NULL, NULL, 0);
@@ -275,39 +293,55 @@ int readNetConfig(char * device, struct pumpNetIntf * dev) {
 	    return LOADER_BACK;
 	} 
 
-	i = 0;
-	if (*c.ip && inet_aton(c.ip, &addr)) {
-	    i++;
-	    dev->ip = addr;
-	    dev->set |= PUMP_INTFINFO_HAS_IP;
-	}
+	if (dhcpChoice == ' ') {
+	    i = 0;
+	    if (*c.ip && inet_aton(c.ip, &addr)) {
+		i++;
+		dev->ip = addr;
+		dev->set |= PUMP_INTFINFO_HAS_IP;
+	    }
 
-	if (*c.nm && inet_aton(c.nm, &addr)) {
-	    i++;
-	    dev->netmask = addr;
-	    dev->set |= PUMP_INTFINFO_HAS_NETMASK;
-	}
+	    if (*c.nm && inet_aton(c.nm, &addr)) {
+		i++;
+		dev->netmask = addr;
+		dev->set |= PUMP_INTFINFO_HAS_NETMASK;
+	    }
 
-	if (i != 2) {
-	    newtWinMessage(_("Missing Information"), _("Retry"),
+	    if (i != 2) {
+		newtWinMessage(_("Missing Information"), _("Retry"),
 			    _("You must enter both a valid IP address and a "
 			      "netmask."));
+	    }
+	} else {
+	    if (FL_TESTING(flags))
+	    	i = 2;
+	    else {
+		chptr = pumpDhcpRun(device, 0, 0, NULL, dev, NULL);
+		logMessage("pump told us: %s", chptr);
+		if (!chptr) i = 2; else i = 0;
+	    }
 	}
     } while (i != 2);
 
-    *((int32 *) &dev->broadcast) = (*((int32 *) &dev->ip) & 
-		       *((int32 *) &dev->netmask)) | 
-		       ~(*((int32 *) &dev->netmask));
-    dev->set |= PUMP_INTFINFO_HAS_BROADCAST;
+    if (!(dev->set & PUMP_INTFINFO_HAS_BROADCAST)) {
+	*((int32 *) &dev->broadcast) = (*((int32 *) &dev->ip) & 
+			   *((int32 *) &dev->netmask)) | 
+			   ~(*((int32 *) &dev->netmask));
+	dev->set |= PUMP_INTFINFO_HAS_BROADCAST;
+    }
 
-    *((int32 *) &dev->network) = 
-	    *((int32 *) &dev->ip) &
-	    *((int32 *) &dev->netmask);
-    dev->set |= PUMP_INTFINFO_HAS_NETWORK;
+    if (!(dev->set & PUMP_INTFINFO_HAS_NETWORK)) {
+	*((int32 *) &dev->network) = 
+		*((int32 *) &dev->ip) &
+		*((int32 *) &dev->netmask);
+	dev->set |= PUMP_INTFINFO_HAS_NETWORK;
+    }
 
-    if (*c.gw && inet_aton(c.gw, &addr)) {
-	dev->gateway = addr;
-	dev->set = PUMP_NETINFO_HAS_GATEWAY;
+    if (!(dev->set & PUMP_NETINFO_HAS_GATEWAY)) {
+	if (*c.gw && inet_aton(c.gw, &addr)) {
+	    dev->gateway = addr;
+	    dev->set = PUMP_NETINFO_HAS_GATEWAY;
+	}
     }
 
     strcpy(dev->device, device);
@@ -495,7 +529,7 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
     if (i) return i;
 
-    readNetConfig(devName, &netDev);
+    readNetConfig(devName, &netDev, flags);
     nfsGetSetup(&host, &dir);
     
     if (!FL_TESTING(flags)) {
