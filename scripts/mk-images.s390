@@ -111,6 +111,9 @@ makeS390initrd() {
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,d,k,l,s,v,x}
     mkdir -p $MBD_DIR/var/state
+    mkdir -p $MBD_DIR/var/empty/sshd
+    mkdir -p $MBD_DIR/etc/{pam.d,security}
+    mkdir -p $MBD_DIR/$LIBDIR/security
     ln -s /tmp $MBD_DIR/var/state/xkb
 
     if [ -n "$LOADERMODULES" ]; then
@@ -123,8 +126,6 @@ root::0:0:root:/:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
-    mkdir -p $MBD_DIR/var/empty/sshd $MBD_DIR/etc/pam.d \
-         $MBD_DIR/etc/security $MBD_DIR/$LIBDIR/security
     chmod 111 $MBD_DIR/var/empty/sshd
     for i in pam_stack.so pam_nologin.so pam_limits.so pam_console.so \
          pam_env.so pam_unix.so pam_deny.so \
@@ -151,7 +152,6 @@ auth        required      pam_env.so
 auth        sufficient    pam_unix.so likeauth nullok
 auth        required      pam_deny.so
 account     required      pam_unix.so
-password    required      pam_cracklib.so retry=3 type=
 password    sufficient    pam_unix.so nullok use_authtok md5 shadow
 password    required      pam_deny.so
 session     required      pam_limits.so
@@ -225,9 +225,6 @@ EOF
     cp -f $IMGPATH/usr/sbin/xinetd $MBD_DIR/sbin/xinetd
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cat > $MBD_DIR/etc/xinetd.d/telnet <<EOF
-# default: on
-# description: The telnet server serves telnet sessions; it uses \
-#       unencrypted username/password pairs for authentication.
 service telnet
 {
         flags           = REUSE
@@ -256,9 +253,11 @@ EOF
     /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
                         -C '' -N '' >&/dev/null
     echo
+pwd
     (cd $MBD_DIR/etc/ssh; \
         chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
         chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
+pwd
     cat > $MBD_DIR/etc/ssh/sshd_config <<EOF
 Port 22
 HostKey /etc/ssh/ssh_host_key
@@ -335,7 +334,7 @@ EOF
            printf("chmod %s %s/dev/%s\n", $6, $1, $2);
            printf("chown %s %s/dev/%s\n", $7, $1, $2);
          }' <<EOF | sh
-        $MBD_DIR console c 4 64 600 root:root
+        $MBD_DIR console c 5 1 600 root:root
         $MBD_DIR random c 1 8 644 root:root
         $MBD_DIR ram0 b 1 1 640 root:root
         $MBD_DIR ram1 b 1 2 640 root:root
@@ -368,8 +367,6 @@ EOF
         $MBD_DIR ttyp7 c 3 7 644 root:root
         $MBD_DIR ttyp8 c 3 8 644 root:root
         $MBD_DIR ttyp9 c 3 9 644 root:root
-        $MBD_DIR fd0 b 2 0 644 root:root
-        $MBD_DIR fd1 b 2 1 644 root:root
 EOF
     ln -s ram1 $MBD_DIR/dev/ram
     for i in `seq 2 9`; do
@@ -469,7 +466,7 @@ done
 unset BOOTLANG
 unset BOOTDIR
 
-if [ "$kernelvers" = "" ]; then
+if [ "$kernelvers" = "smp" ]; then
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
