@@ -95,12 +95,10 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     try:
         result = xserver.startX ()
     except RuntimeError:
-        print "X startup failed, falling back to text mode"
-        mode = 't'
-    if not result:
+	print "X startup failed, falling back to text mode"
         mode = 't'
     else:
-	(mouseInfo, x) = (result)
+        (mouseInfo, x) = (result)
 
 if (mode == 'g'):
     if not test and not localInstall:
