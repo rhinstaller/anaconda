@@ -146,62 +146,7 @@ static void fatal_error(int usePerror) {
 #endif
 }
 
-int doMke2fs(char * device, char * size) {
-    char * args[] = { "/usr/sbin/mke2fs", NULL, NULL, NULL };
-    int pid, status;
-
-    args[1] = device;
-    args[2] = size;
-
-    if (!(pid = fork())) {
-	/* child */
-	execve("/usr/sbin/mke2fs", args, env);
-	fatal_error(1);
-    }
-
-    wait4(-1, &status, 0, NULL);
-    
-    return 0;
-}
-
-int hasNetConfiged(void) {
-    int rc;
-    int s;
-    struct ifconf configs;
-    struct ifreq devs[10];
-
-#ifdef __i386__
-    return 0;
-#endif
-
-    s = socket(AF_INET, SOCK_STREAM, 0);
-    if (s < 0) {
-	/* FIXME was perror*/
-	printf("error creating socket: %d\n", errno);
-	return 0;
-    } else {
-	/* this is just good enough to tell us if we have anything 
-	   configured */
-	configs.ifc_len = sizeof(devs);
-	configs.ifc_buf = (void *) devs;
-
-	rc = ioctl(s, SIOCGIFCONF, &configs);
-	if (rc < 0) {
-	    /* FIXME was perror*/
-	    printstr("SIOCGIFCONF");
-	    return 0;
-	}
-	if (configs.ifc_len == 0) {
-	    return 0;
-	}
-
-	return 1;
-    }
-
-    return 0;
-}
-
-void doklog(char * fn) {
+static void doklog(char * fn) {
     fd_set readset, unixs;
     int in, out, i;
     int log;
@@ -324,7 +269,7 @@ void doklog(char * fn) {
     }    
 }
 
-int setupTerminal(int fd) {
+static int setupTerminal(int fd) {
     struct winsize winsize;
     int fdn, len;
     char buf[65535];
@@ -356,27 +301,8 @@ int setupTerminal(int fd) {
     return 0;
 }
 
-void ejectCdrom(void) {
-  int ejectfd;
-  struct stat sb;
-
-  stat("/tmp/cdrom", &sb);
-
-  if ((sb.st_mode & S_IFBLK) == S_IFBLK) {
-    printf("ejecting /tmp/cdrom...");
-    if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
-      if (ioctl(ejectfd, CDROMEJECT, 0))
-	printf("eject failed %d ", errno);
-      close(ejectfd);
-    } else {
-      printf("eject failed %d ", errno);
-    }
-    printf("\n");
-  }
-}
-
 /* Recursive -- copied (and tweaked)from loader2/method.c */ 
-int copyDirectory(char * from, char * to) {
+static int copyDirectory(char * from, char * to) {
     DIR * dir;
     struct dirent * ent;
     int fd, outfd;
@@ -451,19 +377,19 @@ static void termReset(void) {
 }
 
 /* reboot handler */
-void sigintHandler(int signum) {
+static void sigintHandler(int signum) {
     termReset();
     shutDown(getNoKill(), 1, 0);
 }
 
 /* halt handler */
-void sigUsr1Handler(int signum) {
+static void sigUsr1Handler(int signum) {
     termReset();
     shutDown(getNoKill(), 0, 0);
 }
 
 /* poweroff handler */
-void sigUsr2Handler(int signum) {
+static void sigUsr2Handler(int signum) {
     termReset();
     shutDown(getNoKill(), 0, 1);
 }
