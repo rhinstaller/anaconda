@@ -477,7 +477,7 @@ def makeDriveDeviceNodes():
     for drive in cdroms:
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
 
-    for mdMinor in range(0, 16):
+    for mdMinor in range(0, 32):
         md = "md%d" %(mdMinor,)
         isys.makeDevInode(md, "/dev/%s" %(md,))
 
