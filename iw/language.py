@@ -38,17 +38,22 @@ class LanguageWindow (InstallWindow):
         label.set_alignment (0.5, 0.5)
         
  	language_keys = self.languages.keys ()
+        language_keys.sort ()
 
         self.language = GtkCList ()
         self.language.set_selection_mode (SELECTION_BROWSE)
         self.language.connect ("select_row", self.select_row)
 
-        for locale in language_keys[1:]:
+        default = -1
+        n = 0
+        for locale in language_keys:
             row = self.language.append ((locale,))
+            if self.languages[locale] == self.todo.language.get ():
+                default = n
+            n = n + 1
 
-        default = self.languages.values ().index (self.todo.language.get ())
         if default > 0:
-            self.language.select_row (default - 1, 0)
+            self.language.select_row (default, 0)
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
