@@ -1,5 +1,8 @@
 2004-10-26  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (KickstartBase.definePartition): More fixing for
+	size of zero (#137120)
+
 	* scripts/mk-images: Use busybox sleep for s390 instead of
 	coreutils sleep to avoid needing librt and libpthread (#131167)
 

@@ -1304,7 +1304,7 @@ class KickstartBase(BaseInstallClass):
                                              mountpoint = mountpoint,
                                              format = 1)
         
-        if size:
+        if size is not None:
             request.size = size
         if start:
             request.start = start
