@@ -786,10 +786,10 @@ def doInstall(method, id, intf, instPath):
 	    nodeprob = rpm.RPMPROB_DISKNODES
 
 	for (descr, (type, mount, need)) in problems:
-            if mount.startswith(instPath):
+            if mount and mount.startswith(instPath):
 		mount = mount[len(instPath):]
-		if not mount:
-		    mount = '/'
+            if not mount:
+                mount = '/'
 
 	    if type == rpm.RPMPROB_DISKSPACE:
 		if spaceneeded.has_key (mount) and spaceneeded[mount] < need:
