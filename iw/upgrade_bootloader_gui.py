@@ -65,7 +65,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                     checkbootloader.getBootloaderTypeAndBoot(dispatch.instPath)
 
 
-        self.update_radio = gtk.RadioButton(None, _("Update boot loader configuration"))
+        self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")
 
         if self.type != None:
@@ -86,7 +86,7 @@ class UpgradeBootloaderWindow (InstallWindow):
             
     
         self.newbl_radio = gtk.RadioButton(self.update_radio,
-                                          _("Create new boot loader "
+                                          _("_Create new boot loader "
                                             "configuration"))
         self.newbl_label = gtk.Label(_("This will let you create a "
                                       "new boot loader configuration.  If "
@@ -95,7 +95,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                                       
         self.newbl_radio.set_active(gtk.FALSE)
         self.nobl_radio = gtk.RadioButton(self.update_radio,
-                                         _("Skip boot loader updating"))
+                                         _("_Skip boot loader updating"))
         self.nobl_label = gtk.Label(_("This will make no changes to boot "
                                      "loader configuration.  If you are "
                                      "using a third party boot loader, you "
