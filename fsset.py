@@ -1714,7 +1714,7 @@ class RAIDDevice(Device):
         if chunksize is not None:
             self.chunksize = chunksize
         else:
-            self.chunksize = 64
+            self.chunksize = 256
 
         if len(members) < spares:
             raise RuntimeError, ("you requiested more spare devices "
