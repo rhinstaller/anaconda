@@ -1,5 +1,8 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* partRequests.py (LogicalVolumeRequestSpec.getDevice): Fix
+	changing of VG name carrying through to boot loader setup (#132213)
+
 	* partitions.py (Partitions.writeKS): Include PPC PReP boot
 	partition (#133934)
 

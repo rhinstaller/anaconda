@@ -828,11 +828,6 @@ class LogicalVolumeRequestSpec(RequestSpec):
     
     def getDevice(self, partitions):
         """Return a device which can be solidified."""
-        if self.dev:
-            # FIXME: this warning can probably be removed post-beta            
-            log("WARNING: getting self.dev more than once for %s" %(self,))
-            return self.dev
-        
         vg = partitions.getRequestByID(self.volumeGroup)
         vgname = vg.volumeGroupName
         self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
