@@ -1,5 +1,5 @@
 import rpm
-
+from constants import *
 
 # set DB_PRIVATE to make rpm happy
 rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     else:
         instPath = "/"
     
-    fd = os.open("%s/RedHat/base/hdlist" %(tree,), os.O_RDONLY)
+    fd = os.open("%s/%s/base/hdlist" %(tree, productPath), os.O_RDONLY)
     hdlist = rpm.readHeaderListFromFD(fd)
     os.close(fd)
 

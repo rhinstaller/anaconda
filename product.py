@@ -22,14 +22,17 @@ else:
 if path is None:
     productName = "anaconda"
     productVersion = "bluesky"
+    productPath = "RedHat"
 else:
     f = open(path, "r")
     lines = f.readlines()
     if len(lines) < 3:
         productName = "anaconda"
         productVersion = "bluesky"
+	productPath = "RedHat"
     else:
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
+	productPath = lines[3][:-1]
         
 

@@ -197,7 +197,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     target = NULL;
     for (; stg2list[idx]; idx++) {
 	target = stg2list[idx];
-	sprintf(path, "%s/%s/RedHat/base/%s", prefix, dir ? dir : "", target);
+	sprintf(path, "%s/%s/%s/base/%s", prefix, dir ? dir : "", getProductPath(), target);
 
 	logMessage("Looking for hd stage2 image %s", path);
 	if (!access(path, F_OK))
@@ -221,12 +221,12 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
+    sprintf(path, "%s/%s/%s/base/updates.img", prefix, dir ? dir : "", getProductPath());
     copyUpdatesImg(path);
 
     /* handle product.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/RedHat/base/product.img", prefix, dir ? dir : "");
+    sprintf(path, "%s/%s/%s/base/product.img", prefix, dir ? dir : "", getProductPath());
     copyProductImg(path);
 
     dest = alloca(strlen(target) + 50);
@@ -262,7 +262,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
     target = NULL;
     for (idx=0; stg2list[idx]; idx++) {
 	target = stg2list[idx];
-	sprintf(path, "%s/%s/RedHat/base/%s", prefix, dir ? dir : "", target);
+	sprintf(path, "%s/%s/%s/base/%s", prefix, dir ? dir : "", getProductPath(), target);
 
 	logMessage("Looking for hd stage2 image %s", path);
 	if (!access(path, F_OK))
@@ -302,7 +302,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
+    sprintf(path, "%s/%s/%s/base/updates.img", prefix, dir ? dir : "", getProductPath());
     copyUpdatesImg(path);
 
     return rc;

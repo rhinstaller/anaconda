@@ -15,7 +15,7 @@ import sys
 import string
 
 def usage():
-    print "usage: mk-rescueimage.i386 <toplevel> <dest-dir> <productname>"
+    print "usage: mk-rescueimage.i386 <toplevel> <dest-dir> <productname> [<productpath>]"
     sys.exit(0)
 
 
@@ -31,6 +31,11 @@ srcdir  = sys.argv[1]
 destdir = sys.argv[2]+"/i386-rescueimage"
 productname = sys.argv[3]
 
+if len(sys.argv) > 4:
+    productpath = sys.argv[4]
+else:
+    productpath = "RedHat"
+
 # clean and create destination directory
 os.system("rm -rf %s" % (destdir,))
 os.system("mkdir %s" % (destdir,))
@@ -43,8 +48,8 @@ for pat in ["*eula*", "*EULA*", "README*", "RELEASE*", "GPL", "RPM-*"]:
 os.system("cp -a %s/isolinux     %s/" % (srcdir, destdir))
 
 # cp stage image
-os.system("mkdir -p %s/RedHat/base" % (destdir,))
-os.system("cp -a %s/RedHat/base/stage2.img %s/RedHat/base" % (srcdir, destdir))
+os.system("mkdir -p %s/%s/base" % (destdir,productpath))
+os.system("cp -a %s/%s/base/stage2.img %s/%s/base" % (srcdir, productpath, destdir, productpath))
 
 # munge syslinux config to have a default of rescue mode
 cfgfile = open("%s/isolinux/isolinux.cfg" % (destdir,), "r")

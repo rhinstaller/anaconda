@@ -103,7 +103,7 @@ int getOrder (char * fn)
 int onePrePass(const char * dirName) {
     struct dirent * ent;
     DIR * dir;
-    char * subdir = alloca(strlen(dirName) + 20);
+    char * subdir = strdup(dirName);
     FD_t fd;
     int rc;
     Header h;
@@ -113,8 +113,6 @@ int onePrePass(const char * dirName) {
     rpmtsSetRootDir(ts, "/");
     rpmtsSetVSFlags(ts, ~RPMVSF_NOHDRCHK);
     rpmtsCloseDB(ts);
-
-    sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
     dir = opendir(subdir);
     if (!dir) {
@@ -178,7 +176,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
             int doSplit) {
     FD_t fd;
     struct dirent * ent;
-    char * subdir = alloca(strlen(dirName) + 20);
+    char * subdir = strdup(dirName);
     int errno;
     Header h, nh, h2;
     int rc;
@@ -197,8 +195,6 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
     rpmtsSetVSFlags(ts, ~RPMVSF_NOHDRCHK);
     rpmtsCloseDB(ts);
     
-    sprintf(subdir, "%s/RedHat/RPMS", dirName);
-
     dir = opendir(subdir);
     if (!dir) {
 	fprintf(stderr,"error opening directory %s: %s\n", subdir,
@@ -420,7 +416,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
 }
 
 static void usage(void) {
-    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--fileorder <path>] [--hdlist <path>] <paths>+\n");
+    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--fileorder <path>] [--hdlist <path>] [--productpath <path>] <paths>+\n");
     exit(1);
 }
 
@@ -436,6 +432,7 @@ int main(int argc, const char ** argv) {
     char * hdListFile = NULL;
     char * hdListFile2 = NULL;
     char * depOrderFile = NULL;
+    char * prodDir = strdup("RedHat");
     poptContext optCon;
     struct poptOption options[] = {
             { "hdlist", '\0', POPT_ARG_STRING, &hdListFile, 0 },
@@ -443,6 +440,7 @@ int main(int argc, const char ** argv) {
 	    { "fileorder", '\0', POPT_ARG_STRING, &depOrderFile, 0 },
             { "nosplit", '\0', 0, &noSplit, 0 },
             { "split", '\0', 0, &split, 0 },
+            { "productpath", '\0', POPT_ARG_STRING, &prodDir, 0 },
             { 0, 0, 0, 0, 0 }
     };
 
@@ -504,7 +502,7 @@ int main(int argc, const char ** argv) {
     
     if (!hdListFile) {
 	strcpy(buf, args[0]);
-	strcat(buf, "/RedHat/base/hdlist");
+        sprintf(buf, "%s/%s/base/hdlist", buf, prodDir);
 	hdListFile = buf;
     }
 
@@ -542,14 +540,16 @@ int main(int argc, const char ** argv) {
 
     i = 0;
     while (args[i]) {
-	if (onePrePass(args[i]))
+        sprintf(buf, "%s/%s/RPMS", args[i], prodDir);
+	if (onePrePass(buf))
 	    return 1;
 	i++;
     }
 
     i = 0;
     while (args[i]) {
-	if (onePass(outfd, out2fd, args[i], cdNum, doSplit))
+        sprintf(buf, "%s/%s/RPMS", args[i], prodDir);
+	if (onePass(outfd, out2fd, buf, cdNum, doSplit))
 	    return 1;
 	if (doNumber) cdNum++;
 	i++;

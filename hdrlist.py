@@ -25,6 +25,8 @@ from rhpl.translate import _, N_
 import rhpl.comps
 import rhpl.arch
 
+from constants import *
+
 import language
 
 ON = 1
@@ -997,8 +999,8 @@ if __name__ == "__main__":
 
 	if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
             print "Installing %s" %(nevra(h),)
-            rpmfd = os.open("%s/RedHat/RPMS/%s-%s-%s.%s.rpm"
-                            %(tree, h['name'], h['version'], h['release'],
+            rpmfd = os.open("%s/%s/RPMS/%s-%s-%s.%s.rpm"
+                            %(tree, productPath, h['name'], h['version'], h['release'],
                               h['arch']), os.O_RDONLY)
 	    return rpmfd
 	elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
@@ -1023,7 +1025,7 @@ if __name__ == "__main__":
         return 0
         
     
-    fd = os.open(tree + "/RedHat/base/hdlist", os.O_RDONLY)
+    fd = os.open("%s/%s/base/hdlist" % (tree, productPath), os.O_RDONLY)
     hdrs = rpm.readHeaderListFromFD(fd)
     os.close(fd)
     showMem()
@@ -1031,12 +1033,12 @@ if __name__ == "__main__":
 #     rpm.mergeHeaderListFromFD(hdrs, fd, 1000004)
 #     os.close(fd)
     showMem()
-    f = open(tree + "/RedHat/base/comps.xml", "r")
+    f = open("%s/%s/base/comps.xml" % (tree, productPath), "r")
     comps = rhpl.comps.Comps(f)
     f.close()
     showMem()
     hdrlist = HeaderList(hdrs)
-    hdrlist.mergeFullHeaders(tree + "/RedHat/base/hdlist2")
+    hdrlist.mergeFullHeaders("%s/%s/base/hdlist2" % (tree, productPath))
     showMem()
     groups = GroupSet(comps, hdrlist)
     showMem()

@@ -137,6 +137,11 @@ if len(sys.argv) < 3:
 arch = sys.argv[2]
 distDir = os.path.normpath(sys.argv[1])
 
+if len(sys.argv) > 3:
+    productPath = sys.argv[3]
+else
+    productPath = "RedHat"
+
 if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir
     sys.exit(1)
@@ -146,16 +151,16 @@ disc1SrcDir = distDir + "-srpms"
 disc2Dir = distDir + "-disc2"
 
 # pull in the hdlist
-f = distDir + "/RedHat/base/hdlist"
+f = distDir + "/%s/base/hdlist" % (productPath,)
 try:
     hdlist = hdrlist.HeaderListFromFile(f)
-    hdlist.mergeFullHeaders(distDir + "/RedHat/base/hdlist2")    
+    hdlist.mergeFullHeaders(distDir + "/%s/base/hdlist2" % (productPath,))    
 except rpm.error:
     print "Failed to read header list", f
     sys.exit(1)
 # and read the comps file
-grpset = hdrlist.groupSetFromCompsFile("file://%s/RedHat/base/comps.xml"
-                                       %(distDir,), hdlist, doSelect = 0)
+grpset = hdrlist.groupSetFromCompsFile("file://%s/%s/base/comps.xml"
+                                       %(distDir,productPath), hdlist, doSelect = 0)
 grpset.unselectAll()
 #grpset.groups["everything"].select()
 

@@ -1,12 +1,13 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] <root>" >&2
+	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] <root>" >&2
 	exit 1
 }
 
 COMPNAME=dist-7.0
 RUN=1
+PRODUCTPATH="RedHat"
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -31,6 +32,10 @@ while [ $# -gt 0 ]; do
 	    PRODUCTSTR=$2
 	    shift; shift
 	    ;;
+	--prodpath)
+	    PRODUCTPATH=$2
+	    shift; shift
+	    ;;
 	--debug)
 	    DEBUGSTR="--debug"
 	    shift
@@ -44,7 +49,7 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 	*)
-	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
+	    if [ -n "$DIR" -o ! -d $1/$PRODUCTPATH/RPMS ]; then
 		usage
 	    fi
 	    DIR=$1
@@ -58,7 +63,7 @@ if [ -z "$PRODUCTSTR" ]; then
 fi
 
 if [ -z "$VERSION" ]; then
-    VERSION=$(rpm --qf '%{VERSION}' -qp $DIR/RedHat/RPMS/redhat-release-*.rpm)
+    VERSION=$(rpm --qf '%{VERSION}' -qp $DIR/$PRODUCTPATH/RPMS/redhat-release-*.rpm)
 fi
 
 if [ -z "$DIR" ]; then
@@ -83,13 +88,13 @@ MK_IMAGES=$BUILDINSTDIR/mk-images
 MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
-BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/RedHat/RPMS/anaconda-runtime-[0-9]*`
+BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/$PRODUCTPATH/RPMS/anaconda-runtime-[0-9]*`
 
 firstRun() {
 echo "Running buildinstall..."
 
 pushd $BUILDINSTDIR
-rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
+rpm2cpio $p/$PRODUCTPATH/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
 popd
 
 UPD_INSTROOT=./upd-instroot
@@ -115,9 +120,9 @@ rm -rf $BUILDINSTDIR/usr
 echo "Going to run buildinstall again"
 # run it again for the second half
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' $DIR" 
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --prodpath $PRODUCTPATH $DIR" 
 else
-    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\" $DIR
+    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\" --prodpath $PRODUCTPATH $DIR
 fi
 
 rm -rf $BUILDINSTDIR
@@ -126,30 +131,30 @@ rm -rf $BUILDINSTDIR
 secondRun() {
 echo "Building images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage"
 else
-    $UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage
+    $UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage
 fi
 
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then
 	runroot --quiet $COMPNAME --onlyone --arch $BUILDARCH \
-	    "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH" > $PKGORDER
+	    "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH" > $PKGORDER
     else
-	PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
+	PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH > $PKGORDER
     fi
 fi
 
 echo "Making images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION $PRODUCTPATH"
 else
-    $MK_IMAGES $DEBUGSTR $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION
+    $MK_IMAGES $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH
 fi
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
 
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"

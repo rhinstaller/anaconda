@@ -65,6 +65,7 @@ FIRSTBOOT_RECONFIG = 2
 import product
 productName = product.productName
 productVersion = product.productVersion
+productPath = product.productPath
 
 exceptionText = N_("An unhandled exception has occurred.  This "
                    "is most likely a bug.  Please copy the "

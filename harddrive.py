@@ -24,6 +24,7 @@ import rpm
 import string
 from rhpl.translate import _, cat, N_
 from rhpl.log import log
+from constants import *
 
 FILENAME = 1000000
 
@@ -138,14 +139,14 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
 
-	return self.tree + "/RedHat/RPMS/" + h[1000000]
+	return "%s/%s/RPMS/%s" % (self.tree, productPath, h[1000000])
 
     def readHeaders(self):
 	self.mountMedia(1)
-        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+        if not os.access("%s/%s/base/hdlist" % (self.tree, productPath), os.R_OK):
             self.umountMedia()
             raise FileCopyException
-	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
+	hl = HeaderListFromFile("%s/%s/base/hdlist" % (self.tree, productPath))
 	self.umountMedia()
 
 	# Make sure all of the correct CD images are available
@@ -169,10 +170,10 @@ class HardDriveInstallMethod(InstallMethod):
 
     def mergeFullHeaders(self, hdlist):
 	self.mountMedia(1)
-        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+        if not os.access("%s/%s/base/hdlist" % (self.tree, productPath), os.R_OK):
             self.umountMedia()
             raise FileCopyException
-	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
+	hdlist.mergeFullHeaders("%s/%s/base/hdlist2" % (self.tree, productPath))
 	self.umountMedia()
 
     def systemMounted(self, fsset, mntPoint):

@@ -24,6 +24,7 @@ import struct
 import socket
 
 from snack import *
+from constants import *
 
 from rhpl.translate import _
 
@@ -88,7 +89,7 @@ class UrlInstallMethod(InstallMethod):
 	fname = self.findBestFileMatch(None, 'comps.xml')
 	# if not local then assume its on host
 	if fname is None:
-	    fname = self.baseUrl + '/RedHat/base/comps.xml'
+	    fname = '%s/%s/base/comps.xml' % (self.baseUrl, productPath)
 	    log("Comps not in update dirs, using %s",fname)
         return groupSetFromCompsFile(fname, hdlist)
 
@@ -133,7 +134,7 @@ class UrlInstallMethod(InstallMethod):
 
     def getRPMFilename(self, h, timer, callback=None):
 
-	fullPath = "/RedHat/RPMS/" + h[FILENAME]
+	fullPath = "/%s/RPMS/%s" % (productPath, h[FILENAME])
 
 	return self.getFilename(fullPath, callback=callback, disc = h[DISCNUM])
 
@@ -172,7 +173,7 @@ class UrlInstallMethod(InstallMethod):
         tries = 0
 
         while tries < 5:
-	    hdurl = self.baseUrl + "/RedHat/base/hdlist"
+	    hdurl = "%s/%s/base/hdlist" % (self.baseUrl, productPath)
             try:
                 url = urllib2.urlopen(hdurl)
 	    except urllib2.HTTPError, e:
@@ -214,7 +215,7 @@ class UrlInstallMethod(InstallMethod):
 	return HeaderList(hl)
 
     def mergeFullHeaders(self, hdlist):
-	fn = self.getFilename("RedHat/base/hdlist2", callback=None)
+	fn = self.getFilename("%s/base/hdlist2" % (productPath,), callback=None)
 	hdlist.mergeFullHeaders(fn)
 	os.unlink(fn)
 

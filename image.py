@@ -88,18 +88,18 @@ class ImageInstallMethod(InstallMethod):
         if self.currentIso is not None and self.currentIso != h[1000002]:
             log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
-	return self.getFilename("/RedHat/RPMS/" + h[1000000], callback=callback)
+	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]), callback=callback)
     def readHeaders(self):
-        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+        if not os.access("%s/%s/base/hdlist" % (self.tree, productPath), os.R_OK):
             raise FileCopyException
-	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
+	hl = HeaderListFromFile("%s/%s/base/hdlist" % (self.tree, productPath))
 
 	return hl
     
     def mergeFullHeaders(self, hdlist):
-        if not os.access(self.tree + "/RedHat/base/hdlist2", os.R_OK):
+        if not os.access("%s/%s/base/hdlist2" % (self.tree, productPath), os.R_OK):
             raise FileCopyException
-	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
+	hdlist.mergeFullHeaders("%s/%s/base/hdlist2" % (self.tree, productPath))
 
     def getSourcePath(self):
         return self.tree
@@ -149,7 +149,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	if self.loopbackFile:
 	    isys.makeDevInode("loop0", "/tmp/loop")
 	    isys.lochangefd("/tmp/loop", 
-			"%s/RedHat/base/stage2.img" % self.tree)
+			"%s/%s/base/stage2.img" % (self.tree, productPath))
 	    self.loopbackFile = None
 
     def systemMounted(self, fsset, chroot):
@@ -158,7 +158,7 @@ class CdromInstallMethod(ImageInstallMethod):
                                         "/rhinstall-stage2.img")
 
 	try:
-	    iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, 
+	    iutil.copyFile("%s/%s/base/stage2.img" % (self.tree, productPath), 
 			    self.loopbackFile,
 			    (self.progressWindow, _("Copying File"),
 			    _("Transferring install image to hard drive...")))
@@ -316,7 +316,8 @@ class CdromInstallMethod(ImageInstallMethod):
         # FIXME: should retry a few times then prompt for new cd
         while tries < 5:
             try:
-                shutil.copy(self.tree + "/RedHat/RPMS/" + h[1000000],
+                shutil.copy("%s/%s/RPMS/%s" % (self.tree, productPath,
+                                               h[1000000]),
                             tmppath + h[1000000])
             except IOError, (errnum, msg):
                 log("IOError %s occurred copying %s: %s",
@@ -429,7 +430,7 @@ def findIsoImages(path, messageWindow):
 
                     # if it's disc1, it needs to have RedHat/base/stage2.img
                     if (num == 1 and not
-                        os.access("/mnt/cdimage/RedHat/base/stage2.img",
+                        os.access("/mnt/cdimage/%s/base/stage2.img" % (productPath,),
                                   os.R_OK)):
                         continue
                     
@@ -466,7 +467,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-	return self.getFilename("/RedHat/RPMS/" + h[1000000])
+	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]))
 
     def readHeaders(self):
 	hl = NfsInstallMethod.readHeaders(self)

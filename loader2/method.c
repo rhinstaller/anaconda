@@ -143,6 +143,7 @@ char * validIsoImages(char * dirName) {
     DIR * dir;
     struct dirent * ent;
     char isoImage[1024];
+    char path[1024];
 
     if (!(dir = opendir(dirName))) {
         newtWinMessage(_("Error"), _("OK"), 
@@ -167,7 +168,8 @@ char * validIsoImages(char * dirName) {
             continue;
         }
         
-        if (!access("/tmp/loopimage/RedHat/base/hdstg2.img", F_OK)) {
+	snprintf(path, sizeof(path), "/tmp/loopimage/%s/base/hdstg2.img", getProductPath());
+        if (!access(path, F_OK)) {
             umountLoopback("/tmp/loopimage", "loop7");
             break;
         }
@@ -570,6 +572,7 @@ void umountStage2(void) {
 /* mount a second stage, verify the stamp file, copy updates 
  * Returns 0 on success, 1 on failure to mount, -1 on bad stamp */
 int mountStage2(char * path) {
+    char imgPath[1024];
     if (access(path, R_OK)) {
         return 1;
     }
@@ -584,10 +587,12 @@ int mountStage2(char * path) {
     }
 
     /* JKFIXME: this is kind of silly.. /mnt/source is hardcoded :/ */
-    copyUpdatesImg("/mnt/source/RedHat/base/updates.img");
+    snprintf(imgPath, sizeof(imgPath), "/mnt/source/%s/base/updates.img", getProductPath());
+    copyUpdatesImg(imgPath);
 
     /* more hard coding */
-    copyProductImg("/mnt/source/RedHat/base/product.img");
+    snprintf(imgPath, sizeof(imgPath), "/mnt/source/%s/base/product.img", getProductPath());
+    copyProductImg(imgPath);
 
     return 0;
 }

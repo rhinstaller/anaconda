@@ -43,8 +43,12 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     int fd;
     int rc;
     char * newFile = NULL;
+    char filepath[1024];
+	
+    /* BNFIXME: hack - all callers want RedHat/<foo>, so add prefix here */
+    snprintf(filepath, sizeof(filepath), "%s/%s", getProductPath(), file);
 
-    fd = urlinstStartTransfer(ui, file, NULL, 1, flags);
+    fd = urlinstStartTransfer(ui, filepath, NULL, 1, flags);
 
     if (fd == -2) return 2;
 
@@ -52,7 +56,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         /* file not found */
 
         newFile = alloca(strlen(device) + 20);
-        sprintf(newFile, "disc1/%s", file);
+        sprintf(newFile, "disc1/%s", filepath);
 
         fd = urlinstStartTransfer(ui, newFile, NULL, 1, flags);
 
@@ -63,7 +67,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
                                _("Unable to retrieve %s://%s/%s/%s."),
                                (ui->protocol == URL_METHOD_FTP ? "ftp" : 
                                 "http"),
-                               ui->address, ui->prefix, file);
+                               ui->address, ui->prefix, filepath);
             return 2;
         }
     }
@@ -92,7 +96,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 
     /* grab the updates.img before netstg1.img so that we minimize our
      * ramdisk usage */
-    if (!loadSingleUrlImage(ui, "RedHat/base/updates.img", flags,
+    if (!loadSingleUrlImage(ui, "base/updates.img", flags,
                             "/tmp/ramfs/updates-disk.img", "/tmp/update-disk",
                             "loop7", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates");
@@ -103,7 +107,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 
     /* grab the product.img before netstg1.img so that we minimize our
      * ramdisk usage */
-    if (!loadSingleUrlImage(ui, "RedHat/base/product.img", flags,
+    if (!loadSingleUrlImage(ui, "base/product.img", flags,
                             "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
                             "loop7", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product");
@@ -122,7 +126,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 	stage2img = "stage2.img";
     }
 
-    snprintf(tmpstr1, sizeof(tmpstr1), "RedHat/base/%s", stage2img);
+    snprintf(tmpstr1, sizeof(tmpstr1), "base/%s", stage2img);
     snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
 
     rc = loadSingleUrlImage(ui, tmpstr1, flags, tmpstr2,

@@ -65,7 +65,7 @@
 void startNewt(int flags);
 void stopNewt();
 char * getProductName(void);
-
+char * getProductPath(void);
 
 #include "modules.h"
 #include "moduledeps.h"

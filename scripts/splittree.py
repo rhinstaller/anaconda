@@ -90,6 +90,7 @@ and RPMs. Set to 1 to turn on."""
         self.total_discs = None
         self.bin_discs = None
         self.src_discs = None
+        self.product_path = "RedHat"
         self.bin_list = []
         self.src_list = []
         self.shared_list = []
@@ -224,10 +225,10 @@ and RPMs. Set to 1 to turn on."""
                         pass
 
                 # now create the RedHat/RPMS dir
-                os.makedirs("%s-disc%d/RedHat/RPMS" % (self.dist_dir, i))
+                os.makedirs("%s-disc%d/%s/RPMS" % (self.dist_dir, i, self.product_path))
                 
             else:
-                os.makedirs("%s-disc%d/RedHat/RPMS" % (self.dist_dir, i))
+                os.makedirs("%s-disc%d/%s/RPMS" % (self.dist_dir, i, self.product_path))
                 self.linkFiles(self.dist_dir, "%s-disc%d" %(self.dist_dir, i), self.common_files)
             self.createDiscInfo(i)
             
@@ -243,13 +244,13 @@ and RPMs. Set to 1 to turn on."""
         
         packages = {}
                 
-        rpmlist = os.listdir("%s/RedHat/RPMS" % self.dist_dir)
+        rpmlist = os.listdir("%s/%s/RPMS" % (self.dist_dir, self.product_path))
         rpmlist.sort()
 
         # create the packages dictionary in this format: n-v-r.a:['n-v-r.arch.rpm']
         for filename in rpmlist:
-            filesize = os.path.getsize("%s/RedHat/RPMS/%s" % (self.dist_dir, filename))
-            pkg_nvr = nvra("%s/RedHat/RPMS/%s" %(self.dist_dir, filename))
+            filesize = os.path.getsize("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, filename))
+            pkg_nvr = nvra("%s/%s/RPMS/%s" %(self.dist_dir, self.product_path, filename))
             
             if packages.has_key(pkg_nvr):
                 # append in case we have multiple packages with the
@@ -284,7 +285,7 @@ and RPMs. Set to 1 to turn on."""
                 continue
             for file_name in packages[rpm_nvr]:
                 curused = self.getSize("%s-disc%s" % (self.dist_dir, disc), blocksize=1)
-                filesize = self.getSize("%s/RedHat/RPMS/%s" % (self.dist_dir, file_name), blocksize=1)
+                filesize = self.getSize("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, file_name), blocksize=1)
                 newsize = filesize + curused
 
                 # compensate for the size of the comps package which has yet to be created
@@ -305,8 +306,8 @@ and RPMs. Set to 1 to turn on."""
                     try:
                         nextdisc=self.bin_list.index(disc+1)
                         disc = self.bin_list[nextdisc]
-                        os.link("%s/RedHat/RPMS/%s" % (self.dist_dir, file_name),
-                                "%s-disc%d/RedHat/RPMS/%s" % (self.dist_dir, disc, file_name))
+                        os.link("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, file_name),
+                                "%s-disc%d/%s/RPMS/%s" % (self.dist_dir, disc, self.product_path, file_name))
                         packagenum = 1
                         firstpackage = file_name
                         
@@ -317,8 +318,8 @@ and RPMs. Set to 1 to turn on."""
                         continue
                     
                 else:
-                    os.link("%s/RedHat/RPMS/%s" % (self.dist_dir, file_name),
-                            "%s-disc%d/RedHat/RPMS/%s" % (self.dist_dir, disc, file_name))
+                    os.link("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, file_name),
+                            "%s-disc%d/%s/RPMS/%s" % (self.dist_dir, disc, self.product_path, file_name))
                     lastpackage = file_name
 
         if reportSize == 1:
@@ -384,7 +385,7 @@ and RPMs. Set to 1 to turn on."""
 
 def usage(theerror):
     print theerror
-    print """Usage: %s --arch=i386 --total-discs=6 --bin-discs=3 --src-discs=3 --release-string="Red Hat Linux" --pkgorderfile=/tmp/pkgorder.12345 --distdir=/usr/src/someunifiedtree --srcdir=/usr/src/someunifiedtree/SRPMS""" % sys.argv[0]
+    print """Usage: %s --arch=i386 --total-discs=6 --bin-discs=3 --src-discs=3 --release-string="Red Hat Linux" --pkgorderfile=/tmp/pkgorder.12345 --distdir=/usr/src/someunifiedtree --srcdir=/usr/src/someunifiedtree/SRPMS --productpath=RedHat""" % sys.argv[0]
     sys.exit(1)
 
         
@@ -395,7 +396,7 @@ if "__main__" == __name__:
 
     theargs = ["arch=", "total-discs=", "bin-discs=",
                "src-discs=", "release-string=", "pkgorderfile=",
-               "distdir=", "srcdir="]
+               "distdir=", "srcdir=", "productpath="]
 
     try:
         options, args = getopt.getopt(sys.argv[1:], '', theargs)
@@ -447,6 +448,9 @@ if "__main__" == __name__:
         timber.src_dir = options["--srcdir"]
     else:
         usage("You forgot to specify --srcdir")
+    
+    if (options.has_key("--productpath"):
+	timber.product_path = options["--productpath"]
 
     logfile = timber.main()
     

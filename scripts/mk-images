@@ -4,7 +4,7 @@ PATH=$PATH:/sbin:/usr/sbin
 IMAGEUUID=$(date +%Y%m%d%H%M)
 
 usage () {
-	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version>"
+	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"
     exit 0
 }
 
@@ -17,6 +17,11 @@ if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]
 
 PRODUCT=$6
 VERSION=$7
+if [ -z "$8" ]; then
+    PRODUCTPATH="RedHat"
+else
+    PRODUCTPATH=$8
+fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -31,7 +36,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     IMAGEPATH=$TOPDESTPATH/images
     FULLMODPATH=/tmp/instimagemods.$$
     FINALFULLMODPATH=$4/modules
-    INSTIMGPATH=$TOPDESTPATH/RedHat/base
+    INSTIMGPATH=$TOPDESTPATH/$PRODUCTPATH/base
     INSTIMGTEMPLATE=$3
     IMGPATH=$4
     KERNELBASE=/tmp/updboot.kernel.$$

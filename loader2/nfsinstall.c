@@ -132,10 +132,13 @@ char * mountNfsImage(struct installMethod * method,
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0, 0)) {
+		char mntPath[1024];
+
                 logMessage("mounted %s on /mnt/source", fullPath);
-                if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
+		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
+                if (!access(mntPath, R_OK)) {
                     logMessage("can access stage2.img");
-                    rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
+                    rc = mountStage2(mntPath);
                     logMessage("after mountStage2, rc is %d", rc);
                     if (rc) {
                         if (rc == -1) { 
@@ -156,7 +159,8 @@ char * mountNfsImage(struct installMethod * method,
                     if (mountLoopback(path, "/mnt/source2", "loop1")) 
                         logMessage("failed to mount iso %s loopback", path);
                     else {
-                        rc = mountStage2("/mnt/source2/RedHat/base/stage2.img");
+			snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/stage2.img", getProductPath());
+                        rc = mountStage2(mntPath);
                         if (rc) {
                             umountLoopback("/mnt/source2", "loop1");
                             if (rc == -1)
@@ -164,8 +168,10 @@ char * mountNfsImage(struct installMethod * method,
                         } else {
                             /* JKFIXME: hack because /mnt/source is hard-coded
                              * in mountStage2() */
-                            copyUpdatesImg("/mnt/source2/RedHat/base/updates.img");
-                            copyProductImg("/mnt/source2/RedHat/base/product.img");
+			    snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/updates.img", getProductPath());
+                            copyUpdatesImg(mntPath);
+			    snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/product.img", getProductPath());
+                            copyProductImg(mntPath);
 
                             queryIsoMediaCheck(path, flags);
 

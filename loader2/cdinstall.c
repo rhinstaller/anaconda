@@ -147,6 +147,7 @@ static void wrongCDMessage(void) {
 static void mountCdromStage2(char *cddev) {
     int gotcd1=0;
     int rc;
+    char path[1024];
 
     devMakeInode(cddev, "/tmp/cdrom");
     do {
@@ -160,7 +161,8 @@ static void mountCdromStage2(char *cddev) {
 	    }
 	} while (1);
 
-	rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
+	snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
+	rc = mountStage2(path);
 
 	/* if we failed, umount /mnt/source and keep going */
 	if (rc) {
@@ -318,7 +320,10 @@ char * setupCdrom(char * location,
             devMakeInode(kd->known[i].name, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL, 0, 0)) {
-                if (!access("/mnt/source/RedHat/base/stage2.img", R_OK) &&
+		char path[1024];
+
+		snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath()); 
+                if (!access(path, R_OK) &&
 		    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
 
 
@@ -326,11 +331,13 @@ char * setupCdrom(char * location,
 		    /* free up the CD drive and user can have it avaiable to  */
 		    /* aid system recovery.                                   */
 		    if (FL_RESCUE(flags) && totalMemory() > 128000) {
-			rc = copyFile("/mnt/source/RedHat/base/stage2.img", "/tmp/ramfs/stage2.img");
+		        snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
+			rc = copyFile(path, "/tmp/ramfs/stage2.img");
 			stage2img = "/tmp/ramfs/stage2.img";
 			stage2inram = 1;
 		    } else {
-			stage2img = "/mnt/source/RedHat/base/stage2.img";
+			snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
+			stage2img = strdup(path);
 			stage2inram = 0;
 		    }
 	

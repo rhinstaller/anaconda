@@ -705,7 +705,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
-        id.compspkg = method.copyFileToTemp("RedHat/base/comps.rpm")
+        id.compspkg = method.copyFileToTemp("%s/base/comps.rpm" % (productPath,))
     except:
         log("Unable to copy comps package")
         id.compspkg = None

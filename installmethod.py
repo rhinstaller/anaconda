@@ -30,8 +30,8 @@ class InstallMethod:
 	rc = None
 	tryloc = ["/tmp/updates"]
 	if treebase is not None:
-	    tryloc.append(treebase + "/RHupdates")
-	    tryloc.append(treebase + "/RedHat/base")
+	    tryloc.append("%s/RHupdates" %(treebase,))
+	    tryloc.append("%s/%s/base" % (treebase, productPath))
 	    
 	for pre in tryloc:
 	    tmpname = pre + "/" + file

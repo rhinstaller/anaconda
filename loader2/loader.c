@@ -183,34 +183,55 @@ void stopNewt(void) {
     newtRunning = 0;
 }
 
-char * getProductName(void) {
-    static char * productName = NULL;
+static char * productName = NULL;
+static char * productPath = NULL;
+
+static void initProductInfo(void) {
     FILE *f;
     int i;
 
-    if (!productName) {
-        f = fopen("/.buildstamp", "r");
-        if (!f) {
-            productName = strdup("anaconda");
-        } else {
-            productName = malloc(256);
-            fgets(productName, 256, f); /* stamp time */
-            fgets(productName, 256, f); /* product name */
-
-            i = strlen(productName) - 1;
-            while (isspace(*(productName + i))) {
-                *(productName + i) = '\0';
-                i--;
-            }
-
-            return productName;
-        }
+    f = fopen("/.buildstamp", "r");
+    if (!f) {
+        productName = strdup("anaconda");
+	productPath = strdup("RedHat");
     } else {
-        return productName;
-    }
+	productName = malloc(256);
+	productPath = malloc(256);
+        fgets(productName, 256, f); /* stamp time */
+        fgets(productName, 256, f); /* product name */
+	fgets(productPath, 256, f); /* product version */
+	fgets(productPath, 256, f); /* product path */
 
-    return NULL;
+        i = strlen(productName) - 1;
+	while (isspace(*(productName + i))) {
+            *(productName + i) = '\0';
+            i--;
+        }
+        i = strlen(productPath) - 1;
+	while (isspace(*(productPath + i))) {
+            *(productPath + i) = '\0';
+            i--;
+        }
+    }
 }
+
+char * getProductName(void) {
+    if (!productName) {
+       initProductInfo();
+    }
+    return productName;
+}
+
+char * getProductPath(void) {
+    if (!productPath) {
+       initProductInfo();
+    }
+    return productPath;
+}
+
+
+
+	
 
 void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
                        moduleInfoSet modInfo, int flags) {
