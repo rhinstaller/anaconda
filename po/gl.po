@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-03-08 11:38-0500\n"
-"PO-Revision-Date: 2001-02-19 22:36+0100\n"
+"PO-Revision-Date: 2001-03-08 20:54+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -15,11 +15,11 @@ msgstr "Todo"
 
 #: ../exception.py:13 ../text.py:961
 msgid "Exception Occurred"
-msgstr "Ocorreu unha Excepción"
+msgstr "Ocorreu unha excepción"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr "Envorcado Gardado"
+msgstr "Envorcado gardado"
 
 #: ../exception.py:92
 msgid ""
@@ -195,15 +195,15 @@ msgstr "Anterior"
 
 #: ../gui.py:423 ../gui.py:542 ../gui.py:796
 msgid "Release Notes"
-msgstr "Notas da Versión"
+msgstr "Notas da versión"
 
 #: ../gui.py:424 ../gui.py:799
 msgid "Show Help"
-msgstr "Amosar Axuda"
+msgstr "Amosar a axuda"
 
 #: ../gui.py:425 ../gui.py:798
 msgid "Hide Help"
-msgstr "Agochar Axuda"
+msgstr "Agochar a axuda"
 
 #: ../gui.py:426 ../gui.py:797
 msgid "Finish"
@@ -211,12 +211,12 @@ msgstr "Rematar"
 
 #: ../gui.py:429 ../gui.py:829
 msgid "Online Help"
-msgstr "Axuda Online"
+msgstr "Axuda online"
 
 #: ../gui.py:430 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:66 ../text.py:1051 ../text.py:1084
 msgid "Language Selection"
-msgstr "Selección de Lingua"
+msgstr "Selección de lingua"
 
 #: ../gui.py:537 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
@@ -233,7 +233,7 @@ msgstr "Instalador de Red Hat Linux"
 
 #: ../gui.py:721
 msgid "Red Hat Linux Install Shell"
-msgstr "Shell de Instalación de Red Hat Linux"
+msgstr "Shell de instalación de Red Hat Linux"
 
 #: ../gui.py:732
 #, c-format
@@ -243,11 +243,11 @@ msgstr "Instalador de Red Hat Linux en %s"
 #: ../gui.py:733
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Shell de Instalación de Red Hat Linux en %s"
+msgstr "Shell de instalación de Red Hat Linux en %s"
 
 #: ../gui.py:878
 msgid "Install Window"
-msgstr "Fiestra de Instalación"
+msgstr "Fiestra de instalación"
 
 #: ../harddrive.py:174
 #, c-format
@@ -256,7 +256,7 @@ msgstr "Falla o CD #%d, que é necesario para a instalación."
 
 #: ../image.py:61
 msgid "Copying File"
-msgstr "Copiando Ficheiro"
+msgstr "Copiando ficheiro"
 
 #: ../image.py:62
 msgid "Transferring install image to hard drive..."
@@ -344,7 +344,7 @@ msgstr "ERRO: atopouse un erro descoñecido ó ler as táboas de partición.\n"
 
 #: ../rescue.py:88
 msgid "System to Rescue"
-msgstr "Sistema para Rescatar"
+msgstr "Sistema para recuperar"
 
 #: ../rescue.py:89 ../text.py:396
 msgid "What partition holds the root partition of your installation?"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: ../rescue.py:119
 msgid "Rescue Mode"
-msgstr "Modo de Rescate"
+msgstr "Modo de recuperación"
 
 #: ../rescue.py:120
 msgid ""
@@ -442,7 +442,7 @@ msgstr "¿Que lingua quere usar no proceso de instalación?"
 
 #: ../text.py:132
 msgid "Select All"
-msgstr "Seleccionar Todas"
+msgstr "Seleccionar todas"
 
 #: ../iw/language_support_gui.py:208 ../text.py:132
 msgid "Reset"
@@ -454,7 +454,7 @@ msgstr "Escolla as linguas que desexa instalar:"
 
 #: ../text.py:138 ../text.py:1147
 msgid "Language Support"
-msgstr "Soporte de Linguas"
+msgstr "Soporte de linguas"
 
 #: ../text.py:169 ../textw/firewall_text.py:124 ../textw/firewall_text.py:189
 msgid "Invalid Choice"
@@ -466,7 +466,7 @@ msgstr "Ten que seleccionar polo menos unha lingua para instalar."
 
 #: ../text.py:198
 msgid "Default Language"
-msgstr "Lingua Predeterminada"
+msgstr "Lingua predeterminada"
 
 #: ../text.py:199
 msgid "Choose the default language: "
@@ -474,7 +474,7 @@ msgstr "Escolla a lingua predeterminada: "
 
 #: ../text.py:223 ../text.py:1053 ../text.py:1090
 msgid "Keyboard Selection"
-msgstr "Selección do Teclado"
+msgstr "Selección do teclado"
 
 #: ../text.py:224
 msgid "Which model keyboard is attached to this computer?"
@@ -482,11 +482,11 @@ msgstr "¿Que modelo de teclado ten o seu ordenador?"
 
 #: ../text.py:284
 msgid "Upgrade Existing Installation"
-msgstr "Actualizar Instalación Existente"
+msgstr "Actualizar instalación existente"
 
 #: ../text.py:306 ../text.py:1093
 msgid "Installation Type"
-msgstr "Tipo de Instalación"
+msgstr "Tipo de instalación"
 
 #: ../text.py:307
 msgid "What type of system would you like to install?"
@@ -494,7 +494,7 @@ msgstr "¿Que tipo de sistema quere instalar?"
 
 #: ../iw/lilo_gui.py:50 ../text.py:343
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "¿Continuar coa actualización?"
 
 #: ../iw/lilo_gui.py:51 ../text.py:344
 msgid ""
@@ -502,12 +502,18 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Os sistemas de ficheiros da instalación de Linux que escolleu para "
+"actualizar xa están montados. Non poderá voltar para atrás despois deste "
+"punto.\n"
+"\n"
 
 #: ../text.py:348
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
+"Se quere saír da actualización, seleccione Saír, ou escolla Aceptar para "
+"continuar coa actualización."
 
 #: ../text.py:378
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -515,22 +521,23 @@ msgstr "Non ten ningunha partición Linux. ¡Non pode actualizar este sistema!"
 
 #: ../text.py:395
 msgid "System to Upgrade"
-msgstr "Sistema para Actualizar"
+msgstr "Sistema para actualizar"
 
 #: ../text.py:413
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "Partición Raid"
+msgstr "Partición para actualizar"
 
 #: ../text.py:414
 #, c-format
 msgid ""
 "The Red Hat Linux OS installed on partition /dev/%s will now be upgraded."
 msgstr ""
+"O sistema operativo Red Hat Linux instalado na partición /dev/%s vai ser "
+"actualizado."
 
 #: ../text.py:423
 msgid "Customize Packages to Upgrade"
-msgstr "Especificar os Paquetes para Actualizar"
+msgstr "Especificar os paquetes para actualizar"
 
 #: ../text.py:424
 msgid ""
@@ -628,11 +635,11 @@ msgstr "Resultados da detección das X"
 
 #: ../text.py:534 ../text.py:554
 msgid "Unlisted Card"
-msgstr "Tarxeta non Listada"
+msgstr "Tarxeta non listada"
 
 #: ../text.py:542
 msgid "Video Card Selection"
-msgstr "Selección da Tarxeta Gráfica"
+msgstr "Selección da tarxeta gráfica"
 
 #: ../text.py:543
 msgid "Which video card do you have?"
@@ -640,7 +647,7 @@ msgstr "¿Que tarxeta gráfica ten?"
 
 #: ../text.py:556
 msgid "X Server Selection"
-msgstr "Selección do Servidor X"
+msgstr "Selección do servidor X"
 
 #: ../text.py:556
 msgid "Choose a server"
@@ -734,7 +741,7 @@ msgstr ""
 
 #: ../text.py:756
 msgid "Package Installation"
-msgstr "Instalación de Paquetes"
+msgstr "Instalación de paquetes"
 
 #: ../text.py:758
 msgid "Name   : "
@@ -782,7 +789,7 @@ msgstr "Non hai axuda dispoñible para esta instalación."
 
 #: ../text.py:978
 msgid "Save Crash Dump"
-msgstr "Gardar o Envorcado do Erro"
+msgstr "Gardar o envorcado do erro"
 
 #: ../text.py:989
 msgid ""
@@ -835,28 +842,28 @@ msgstr "Benvido"
 
 #: ../text.py:1055 ../text.py:1138
 msgid "Hostname Setup"
-msgstr "Configuración do Nome da máquina"
+msgstr "Configuración do nome da máquina"
 
 #: ../text.py:1057 ../text.py:1135
 msgid "Network Setup"
-msgstr "Configuración da Rede"
+msgstr "Configuración da rede"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1059 ../text.py:1140
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
-msgstr "Configuración do Firewall"
+msgstr "Configuración do firewall"
 
 #: ../text.py:1067 ../text.py:1152
 msgid "Time Zone Setup"
-msgstr "Configuración da Zona Horaria"
+msgstr "Configuración da zona horaria"
 
 #: ../text.py:1069 ../text.py:1154 ../textw/userauth_text.py:9
 msgid "Root Password"
-msgstr "Contrasinal de Root"
+msgstr "Contrasinal de root"
 
 #: ../text.py:1071 ../text.py:1156 ../textw/userauth_text.py:172
 msgid "User Account Setup"
-msgstr "Configuración das Contas de Usuario"
+msgstr "Configuración das contas de usuario"
 
 #: ../text.py:1073 ../text.py:1158
 msgid "Authentication"
@@ -864,7 +871,7 @@ msgstr "Autenticación"
 
 #: ../text.py:1079
 msgid "Configuration Complete"
-msgstr "Configuración Completa"
+msgstr "Configuración completa"
 
 #: ../text.py:1101 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
@@ -878,7 +885,7 @@ msgstr "Configuración do LILO"
 
 #: ../text.py:1111
 msgid "Automatic Partition"
-msgstr "Particionar Automáticamente"
+msgstr "Particionar automaticamente"
 
 #: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:280 ../text.py:1113 ../text.py:1117
@@ -887,11 +894,11 @@ msgstr "Partición"
 
 #: ../text.py:1115
 msgid "Manually Partition"
-msgstr "Particionar Manualmente"
+msgstr "Particionar manualmente"
 
 #: ../text.py:1119 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
-msgstr "Tamaño do Sistema de Ficheiros Raíz"
+msgstr "Tamaño do sistema de ficheiros raíz"
 
 #: ../text.py:1121
 msgid "Swap"
@@ -900,31 +907,31 @@ msgstr "Intercambio"
 #: ../text.py:1123 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 msgid "Boot Partition Warning"
-msgstr "Aviso da Partición de Arrinque"
+msgstr "Aviso da partición de arrinque"
 
 #: ../text.py:1125
 msgid "Filesystem Formatting"
-msgstr "Formatado dos Sistemas de Ficheiros"
+msgstr "Formatado dos sistemas de ficheiros"
 
 #: ../iw/mouse_gui.py:56 ../text.py:1142 ../text.py:1144
 msgid "Mouse Configuration"
-msgstr "Configuración do Rato"
+msgstr "Configuración do rato"
 
 #: ../text.py:1149
 msgid "Language Default"
-msgstr "Lingua Predeterminada"
+msgstr "Lingua predeterminada"
 
 #: ../text.py:1160
 msgid "Package Groups"
-msgstr "Grupos de Paquetes"
+msgstr "Grupos de paquetes"
 
 #: ../text.py:1162 ../text.py:1190
 msgid "Individual Packages"
-msgstr "Paquetes Individuais"
+msgstr "Paquetes individuais"
 
 #: ../text.py:1164 ../text.py:1191 ../textw/packages_text.py:304
 msgid "Package Dependencies"
-msgstr "Dependencias de Paquetes"
+msgstr "Dependencias de paquetes"
 
 #: ../iw/xconfig_gui.py:846 ../text.py:1166 ../text.py:1174
 msgid "X Configuration"
@@ -932,39 +939,39 @@ msgstr "Configuración das X"
 
 #: ../text.py:1168
 msgid "Installation Begins"
-msgstr "A Instalación Comeza"
+msgstr "A instalación comeza"
 
 #: ../text.py:1170
 msgid "Install System"
-msgstr "Instalar Sistema"
+msgstr "Instalar sistema"
 
 #: ../text.py:1171 ../text.py:1173 ../text.py:1196 ../text.py:1198
 msgid "Boot Disk"
-msgstr "Disquete de Arrinque"
+msgstr "Disquete de arrinque"
 
 #: ../text.py:1176
 msgid "Installation Complete"
-msgstr "Instalación Completa"
+msgstr "Instalación completa"
 
 #: ../text.py:1181
 msgid "Examine System"
-msgstr "Examinar Sistema"
+msgstr "Examinar sistema"
 
 #: ../text.py:1188
 msgid "Customize Upgrade"
-msgstr "Personalizar a Actualización"
+msgstr "Personalizar a actualización"
 
 #: ../text.py:1193
 msgid "Upgrade Begins"
-msgstr "A Actualización Comeza"
+msgstr "A actualización comeza"
 
 #: ../text.py:1195
 msgid "Upgrade System"
-msgstr "Actualizar Sistema"
+msgstr "Actualizar sistema"
 
 #: ../text.py:1199
 msgid "Upgrade Complete"
-msgstr "Actualización Completa"
+msgstr "Actualización completa"
 
 #: ../text.py:1237
 msgid "Cancelled"
@@ -989,7 +996,7 @@ msgstr "Lendo a información do paquete..."
 
 #: ../todo.py:999
 msgid "Dependency Check"
-msgstr "Comprobación de Dependencias"
+msgstr "Comprobación de dependencias"
 
 #: ../todo.py:1000
 msgid "Checking dependencies in packages selected for installation..."
@@ -1079,11 +1086,11 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3132 ../todo.py:1790 ../todo.py:1808
 msgid "Mount Point"
-msgstr "Punto de Montaxe"
+msgstr "Punto de montaxe"
 
 #: ../todo.py:1790
 msgid "Space Needed"
-msgstr "Espacio Necesario"
+msgstr "Espacio necesario"
 
 #: ../todo.py:1805
 msgid ""
@@ -1098,15 +1105,15 @@ msgstr ""
 
 #: ../todo.py:1808
 msgid "Nodes Needed"
-msgstr "Nodos Necesarios"
+msgstr "Nodos necesarios"
 
 #: ../todo.py:1814
 msgid "Disk Space"
-msgstr "Espacio de Disco"
+msgstr "Espacio de disco"
 
 #: ../todo.py:1850
 msgid "Post Install"
-msgstr "Pos-Instalación"
+msgstr "Post instalación"
 
 #: ../todo.py:1851
 msgid "Performing post install configuration..."
@@ -1122,10 +1129,18 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"Ocorreu un erro ó instalar o cargador de arrinque.\n"
+"\n"
+"É MOI recomendable que faga un disquete de arrinque de recuperación cando se "
+"lle pregunte, doutro xeito pode que non sexa capaz de reiniciar en Red Hat "
+"Linux.\n"
+"\n"
+"O erro recibido foi:\n"
+"\n"
 
 #: ../todo.py:1995
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "Erros do cargador de arrinque"
 
 #: ../upgrade.py:11
 msgid "Searching"
@@ -1152,11 +1167,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:933
 msgid "Video Card"
-msgstr "Tarxeta Gráfica"
+msgstr "Tarxeta gráfica"
 
 #: ../iw/xconfig_gui.py:14 ../xf86config.py:935
 msgid "Video Ram"
-msgstr "Memoria da Tarxeta Gráfica"
+msgstr "Memoria da tarxeta gráfica"
 
 #: ../xf86config.py:938
 msgid "X server"
@@ -1184,7 +1199,7 @@ msgstr "Intervalo de frecuencias verticais"
 
 #: ../xserver.py:27
 msgid "Mouse Not Detected"
-msgstr "Rato non Detectado"
+msgstr "Rato non detectado"
 
 #: ../xserver.py:28
 msgid ""
@@ -1203,11 +1218,11 @@ msgstr "Usar modo texto"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "Analizando o tipo do rato..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
-msgstr "Configuración das Contas"
+msgstr "Configuración das contas"
 
 #: ../iw/account_gui.py:39
 msgid "Root password accepted."
@@ -1247,7 +1262,7 @@ msgstr "Os contrasinais do usuario non coinciden."
 
 #: ../iw/account_gui.py:192
 msgid "Root Password: "
-msgstr "Contrasinal de Root: "
+msgstr "Contrasinal de root: "
 
 #: ../iw/account_gui.py:195
 msgid "Confirm: "
@@ -1255,7 +1270,7 @@ msgstr "Confirmar: "
 
 #: ../iw/account_gui.py:256 ../iw/account_gui.py:305
 msgid "Account Name"
-msgstr "Nome da Conta"
+msgstr "Nome da conta"
 
 #: ../iw/account_gui.py:260 ../textw/userauth_text.py:81
 msgid "Password"
@@ -1268,7 +1283,7 @@ msgstr "Contrasinal (confirmar)"
 #: ../iw/account_gui.py:275 ../iw/account_gui.py:305
 #: ../textw/userauth_text.py:83 ../textw/userauth_text.py:184
 msgid "Full Name"
-msgstr "Nome Completo"
+msgstr "Nome completo"
 
 #: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1483
 #: ../textw/userauth_text.py:198
@@ -1293,7 +1308,7 @@ msgstr "Novo"
 
 #: ../iw/auth_gui.py:11 ../textw/userauth_text.py:299
 msgid "Authentication Configuration"
-msgstr "Configuración da Autenticación"
+msgstr "Configuración da autenticación"
 
 #: ../iw/auth_gui.py:78
 msgid "Enable MD5 passwords"
@@ -1333,7 +1348,7 @@ msgstr "Servidor LDAP:"
 
 #: ../iw/auth_gui.py:142 ../textw/userauth_text.py:350
 msgid "LDAP Base DN:"
-msgstr "DN Base de LDAP:"
+msgstr "DN base de LDAP:"
 
 #: ../iw/auth_gui.py:173 ../textw/userauth_text.py:371
 msgid "Enable Kerberos"
@@ -1353,7 +1368,7 @@ msgstr "Servidor de Admin:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
-msgstr "Creación de Disquete de Arrinque"
+msgstr "Creación de disquete de arrinque"
 
 #: ../iw/bootdisk_gui.py:58
 msgid ""
@@ -1379,11 +1394,11 @@ msgstr "Omitir a creación do disquete de arrinque"
 
 #: ../iw/confirm_gui.py:13
 msgid "About to Upgrade"
-msgstr "A piques de Actualizar"
+msgstr "A piques de actualizar"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
-msgstr "A piques de Instalar"
+msgstr "A piques de instalar"
 
 #: ../iw/confirm_gui.py:34
 msgid "Click next to begin upgrade of Red Hat Linux."
@@ -1417,7 +1432,7 @@ msgstr ""
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
-msgstr "Dependencias non Resoltas"
+msgstr "Dependencias non resoltas"
 
 #: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
@@ -1448,7 +1463,7 @@ msgstr "Ignorar as dependencias dos paquetes"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
-msgstr "Análise da Actualización"
+msgstr "Análise da actualización"
 
 #: ../iw/examine_gui.py:36
 msgid ""
@@ -1532,7 +1547,7 @@ msgstr "Comprobar os bloques erróneos ó formatar"
 
 #: ../iw/installpath_gui.py:97
 msgid "Install Type"
-msgstr "Tipo de Instalación"
+msgstr "Tipo de instalación"
 
 #: ../iw/installpath_gui.py:179
 msgid "Install"
@@ -1544,7 +1559,7 @@ msgstr "Actualizar"
 
 #: ../iw/keyboard_gui.py:16
 msgid "Keyboard Configuration"
-msgstr "Configuración do Teclado"
+msgstr "Configuración do teclado"
 
 #: ../iw/keyboard_gui.py:87
 msgid "Model"
@@ -1556,7 +1571,7 @@ msgstr "Disposición"
 
 #: ../iw/keyboard_gui.py:127
 msgid "Dead Keys"
-msgstr "Teclas de Tiles"
+msgstr "Teclas de tiles"
 
 #: ../iw/keyboard_gui.py:137
 msgid "Enable dead keys"
@@ -1595,14 +1610,12 @@ msgid "Lilo Configuration"
 msgstr "Configuración do Lilo"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "¿Quere configurar o seu sistema?"
+msgstr "¿Desexa continuar coa actualización?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "A piques de Actualizar"
+msgstr "Abortando a actualización"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -1660,7 +1673,7 @@ msgstr "Tipo de partición"
 #: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
-msgstr "Etiqueta de Arrinque"
+msgstr "Etiqueta de arrinque"
 
 #: ../iw/lilo_gui.py:401 ../iw/silo_gui.py:288
 msgid "Default boot image"
@@ -1684,7 +1697,7 @@ msgstr "/dev/ttyS3 (COM4 en DOS)"
 
 #: ../iw/mouse_gui.py:139
 msgid "Emulate 3 Buttons"
-msgstr "Emular 3 Botóns"
+msgstr "Emular 3 botóns"
 
 #: ../iw/mouse_gui.py:145
 msgid "Port"
@@ -1692,7 +1705,7 @@ msgstr "Porto"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:104
 msgid "Network Configuration"
-msgstr "Configuración da Rede"
+msgstr "Configuración da rede"
 
 #: ../iw/network_gui.py:178
 msgid "Configure using DHCP"
@@ -1708,7 +1721,7 @@ msgstr "Enderezo IP"
 
 #: ../iw/network_gui.py:194 ../loader/net.c:762
 msgid "Netmask"
-msgstr "Máscara de Rede"
+msgstr "Máscara de rede"
 
 #: ../iw/network_gui.py:195 ../loader/loader.c:276
 msgid "Network"
@@ -1729,19 +1742,19 @@ msgstr "Pasarela"
 
 #: ../iw/network_gui.py:249
 msgid "Primary DNS"
-msgstr "DNS Primario"
+msgstr "DNS primario"
 
 #: ../iw/network_gui.py:249
 msgid "Secondary DNS"
-msgstr "DNS Secundario"
+msgstr "DNS secundario"
 
 #: ../iw/network_gui.py:249
 msgid "Ternary DNS"
-msgstr "DNS Ternario"
+msgstr "DNS ternario"
 
 #: ../iw/package_gui.py:25
 msgid "Individual Package Selection"
-msgstr "Selección Individual de Paquetes"
+msgstr "Selección individual de paquetes"
 
 #: ../iw/package_gui.py:302
 msgid "Total install size: "
@@ -1770,7 +1783,7 @@ msgstr "Ficheiro non atopado"
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
-msgstr "Selección de Grupo de Paquetes"
+msgstr "Selección de grupos de paquetes"
 
 #: ../iw/package_gui.py:558
 #, c-format
@@ -1801,7 +1814,7 @@ msgstr "Seleccionar paquetes individuais"
 
 #: ../iw/progress_gui.py:51
 msgid "Installing Packages"
-msgstr "Instalando Paquetes"
+msgstr "Instalando paquetes"
 
 #: ../iw/progress_gui.py:140
 #, c-format
@@ -1818,11 +1831,11 @@ msgstr "Resume"
 
 #: ../iw/progress_gui.py:230
 msgid "Package Progress: "
-msgstr "Evolución dos Paquetes: "
+msgstr "Evolución dos paquetes: "
 
 #: ../iw/progress_gui.py:235
 msgid "Total Progress:   "
-msgstr "Evolución Total:  "
+msgstr "Evolución total:  "
 
 #: ../iw/progress_gui.py:252
 msgid "Status"
@@ -1850,11 +1863,11 @@ msgstr "Falta"
 
 #: ../iw/rootpartition_gui.py:39 ../textw/partitioning_text.py:23
 msgid "Disk Druid"
-msgstr "Disk Druid"
+msgstr "Disk druid"
 
 #: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:214
 msgid "Low Memory"
-msgstr "Pouca Memoria"
+msgstr "Pouca memoria"
 
 #: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:215
 msgid ""
@@ -1935,7 +1948,7 @@ msgstr "Tamaño do espacio de intercambio:"
 #: ../iw/rootpartition_gui.py:324 ../iw/rootpartition_gui.py:375
 #: ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
-msgstr "Particionamento Automático"
+msgstr "Particionamento automático"
 
 #: ../iw/rootpartition_gui.py:377 ../textw/partitioning_text.py:150
 #, c-format
@@ -1954,7 +1967,7 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
-msgstr "O Particionamento Automático Fallou"
+msgstr "O particionamento automático fallou"
 
 #: ../iw/rootpartition_gui.py:384
 msgid ""
@@ -1975,7 +1988,7 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:391
 msgid "Manual Partitioning"
-msgstr "Particionamento Manual"
+msgstr "Particionamento manual"
 
 #: ../iw/rootpartition_gui.py:392
 msgid ""
@@ -1993,7 +2006,7 @@ msgstr "Particionar automaticamente e BORRAR OS DATOS"
 
 #: ../iw/rootpartition_gui.py:413
 msgid "Manually partition with Disk Druid"
-msgstr "Particionar manualmente con Disk Druid"
+msgstr "Particionar manualmente co Disk Druid"
 
 #: ../iw/rootpartition_gui.py:425
 msgid "Manually partition with fdisk [experts only]"
@@ -2001,7 +2014,7 @@ msgstr "Particionar manualmente con fdisk [só expertos]"
 
 #: ../iw/rootpartition_gui.py:448
 msgid "Boot Partition Location Warning"
-msgstr "Aviso da Localización da Partición de Arrinque"
+msgstr "Aviso da localización da partición de arrinque"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
 msgid ""
@@ -2049,7 +2062,7 @@ msgstr "Non instalar o SILO"
 
 #: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
-msgstr "Selección da Zona Horaria"
+msgstr "Selección da zona Horaria"
 
 #: ../iw/timezone_gui.py:158
 msgid "View:"
@@ -2061,7 +2074,7 @@ msgstr "O reloxo de sistema ten a hora universal"
 
 #: ../iw/timezone_gui.py:215
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Usar Hora de Verán (Só nos EUA)"
+msgstr "Usar hora de verán (Só nos EUA)"
 
 #: ../iw/timezone_gui.py:229
 msgid "Location"
@@ -2069,7 +2082,7 @@ msgstr "Lugar"
 
 #: ../iw/timezone_gui.py:230
 msgid "UTC Offset"
-msgstr "Desprazamento da Hora Universal"
+msgstr "Desprazamento da hora universal"
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2077,11 +2090,11 @@ msgstr "¿Quere configurar o seu sistema?"
 
 #: ../iw/xconfig_gui.py:15
 msgid "Horizontal Frequency Range"
-msgstr "Intervalo de Frecuencias Horizontais"
+msgstr "Intervalo de frecuencias horizontais"
 
 #: ../iw/xconfig_gui.py:16
 msgid "Vertical Frequency Range"
-msgstr "Intervalo de Frecuencias Verticais"
+msgstr "Intervalo de frecuencias verticais"
 
 #: ../iw/xconfig_gui.py:17
 msgid "Test failed"
@@ -2089,31 +2102,31 @@ msgstr "A proba fallou"
 
 #: ../iw/xconfig_gui.py:25
 msgid "Customize Graphics Configuration"
-msgstr "Personalizar a Configuración Gráfica"
+msgstr "Personalizar a configuración gráfica"
 
 #: ../iw/xconfig_gui.py:233
 msgid "Color Depth:"
-msgstr "Profundidade de Cor:"
+msgstr "Profundidade de cor:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 cores (8 bits)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Moitas cores (16 bits)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Cor real (24 bits)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
-msgstr "Resolución de Pantalla:"
+msgstr "Resolución da pantalla:"
 
 #: ../iw/xconfig_gui.py:358
 msgid "   Test Setting   "
-msgstr "Probar Configuración"
+msgstr "Probar configuración"
 
 #: ../iw/xconfig_gui.py:375
 msgid "Please choose your default desktop environment:"
@@ -2145,11 +2158,11 @@ msgstr "Gráfico"
 
 #: ../iw/xconfig_gui.py:513
 msgid "Bits per Pixel"
-msgstr "Bits por Punto"
+msgstr "Bits por punto"
 
 #: ../iw/xconfig_gui.py:531
 msgid "Monitor Configuration"
-msgstr "Configuración do Monitor"
+msgstr "Configuración do monitor"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2157,11 +2170,11 @@ msgstr "Restaurar valores orixinais"
 
 #: ../iw/xconfig_gui.py:808
 msgid "Horizontal Sync:"
-msgstr "Sincronismo Horizontal:"
+msgstr "Sincronismo horizontal:"
 
 #: ../iw/xconfig_gui.py:810
 msgid "Vertical Sync:"
-msgstr "Sincronismo Vertical:"
+msgstr "Sincronismo vertical:"
 
 #: ../iw/xconfig_gui.py:816
 msgid "kHz"
@@ -2205,7 +2218,7 @@ msgstr "RAM da tarxeta gráfica: "
 
 #: ../iw/xconfig_gui.py:1534
 msgid "Skip X Configuration"
-msgstr "Omitir a Configuración das X"
+msgstr "Omitir a configuración das X"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -2273,11 +2286,11 @@ msgstr ""
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr "Nivel de Seguridade:"
+msgstr "Nivel de seguridade:"
 
 #: ../textw/firewall_text.py:59
 msgid "Trusted Devices:"
-msgstr "Dispositivo Seguros:"
+msgstr "Dispositivo seguros:"
 
 #: ../textw/firewall_text.py:84
 msgid "DHCP"
@@ -2314,7 +2327,7 @@ msgstr "Non pode personalizar un firewall desactivado."
 
 #: ../textw/firewall_text.py:130
 msgid "Firewall Configuration - Customize"
-msgstr "Configuración de Firewall - Personalizar"
+msgstr "Configuración do firewall - Personalizar"
 
 #: ../textw/firewall_text.py:132
 msgid ""
@@ -2390,11 +2403,11 @@ msgstr "¿Que modelo de rato ten o seu ordenador?"
 
 #: ../textw/mouse_text.py:68
 msgid "Emulate 3 Buttons?"
-msgstr "¿Emular 3 Botóns?"
+msgstr "¿Emular 3 botóns?"
 
 #: ../textw/mouse_text.py:71
 msgid "Mouse Selection"
-msgstr "Selección do Rato"
+msgstr "Selección do rato"
 
 #: ../textw/network_text.py:66
 msgid "Use bootp/dhcp"
@@ -2479,7 +2492,7 @@ msgstr ""
 
 #: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
 msgid "Disk Setup"
-msgstr "Configuración do Disco"
+msgstr "Configuración do disco"
 
 #: ../textw/partitioning_text.py:16
 msgid ""
@@ -2519,7 +2532,7 @@ msgstr "Continuar"
 
 #: ../textw/partitioning_text.py:154
 msgid "Manually partition"
-msgstr "Particionar Manualmente"
+msgstr "Particionar manualmente"
 
 #: ../textw/partitioning_text.py:235
 msgid ""
@@ -2538,7 +2551,7 @@ msgstr "Comprobar os bloques erróneos ó formatar"
 
 #: ../textw/partitioning_text.py:260
 msgid "Choose Partitions to Format"
-msgstr "Escolla as Particións para Formatar"
+msgstr "Escolla as particións para formatar"
 
 #: ../textw/partitioning_text.py:339
 msgid "Root filesystem size"
@@ -2551,7 +2564,7 @@ msgstr "Espacio de intercambio"
 #: ../textw/partitioning_text.py:350 ../textw/partitioning_text.py:356
 #: ../textw/partitioning_text.py:363
 msgid "Bad Size"
-msgstr "Tamaño Incorrecto"
+msgstr "Tamaño incorrecto"
 
 #: ../textw/partitioning_text.py:351
 msgid "The size you enter must be a number."
@@ -2614,7 +2627,7 @@ msgstr "Contrasinal (novamente):"
 
 #: ../textw/userauth_text.py:41 ../textw/userauth_text.py:108
 msgid "Password Length"
-msgstr "Lonxitude do Contrasinal"
+msgstr "Lonxitude do contrasinal"
 
 #: ../textw/userauth_text.py:42
 msgid "The root password must be at least 6 characters long."
@@ -2630,19 +2643,19 @@ msgstr "Os contrasinais que introduciu foron diferentes. Probe de novo."
 
 #: ../textw/userauth_text.py:72
 msgid "Edit User"
-msgstr "Editar Usuario"
+msgstr "Editar usuario"
 
 #: ../textw/userauth_text.py:75
 msgid "Add User"
-msgstr "Engadir Usuario"
+msgstr "Engadir usuario"
 
 #: ../textw/userauth_text.py:80
 msgid "User ID"
-msgstr "ID do Usuario"
+msgstr "ID do usuario"
 
 #: ../textw/userauth_text.py:95
 msgid "Bad User ID"
-msgstr "ID de Usuario erróneo"
+msgstr "ID de usuario erróneo"
 
 #: ../textw/userauth_text.py:96
 msgid ""
@@ -2654,7 +2667,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:103
 msgid "Missing User ID"
-msgstr "Falta o ID de Usuario"
+msgstr "Falta o ID de usuario"
 
 #: ../textw/userauth_text.py:104
 msgid "You must provide a user ID"
@@ -2712,11 +2725,11 @@ msgstr "Modificar a información deste usuario."
 
 #: ../textw/userauth_text.py:301
 msgid "Use Shadow Passwords"
-msgstr "Usar Contrasinais Shadow"
+msgstr "Usar contrasinais shadow"
 
 #: ../textw/userauth_text.py:303
 msgid "Enable MD5 Passwords"
-msgstr "Activar Contrasinais MD5"
+msgstr "Activar contrasinais MD5"
 
 #: ../textw/userauth_text.py:314
 msgid "NIS Domain:"
@@ -2740,7 +2753,7 @@ msgstr "Usar conexións TLS"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
-msgstr "Sistema Personalizado"
+msgstr "Sistema personalizado"
 
 #: ../installclasses/custom.py:23 ../installclasses/workstation.py:30
 msgid ""
@@ -2755,7 +2768,7 @@ msgstr "Portátil"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
-msgstr "Sistema Servidor"
+msgstr "Sistema servidor"
 
 #: ../installclasses/server.py:38
 msgid ""
@@ -2767,7 +2780,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
-msgstr "Estación de Traballo"
+msgstr "Estación de traballo"
 
 #: ../libfdisk/fsedit.c:400
 msgid "partitioning did not meet requirements"
@@ -2777,7 +2790,7 @@ msgstr "o particionamento non cumpriu os requisitos"
 #: ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
 #: ../libfdisk/fsedit.c:994
 msgid "Bad Mount Point"
-msgstr "Punto de Montaxe Erróneo"
+msgstr "Punto de montaxe erróneo"
 
 #: ../libfdisk/fsedit.c:922
 #, c-format
@@ -2860,7 +2873,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1023
 msgid "Too Many Drives"
-msgstr "Demasiadas Unidades"
+msgstr "Demasiadas unidades"
 
 #: ../libfdisk/fsedit.c:1024
 msgid ""
@@ -2874,7 +2887,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1033
 msgid "Error Creating Device Nodes"
-msgstr "Erro Creando os Ficheiros de Dispositivo"
+msgstr "Erro creando os ficheiros de dispositivo"
 
 #: ../libfdisk/fsedit.c:1034
 msgid ""
@@ -2916,7 +2929,7 @@ msgstr "Retentar"
 #: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1425
 #: ../libfdisk/fsedit.c:1447 ../libfdisk/fsedit.c:1454
 msgid "Skip Drive"
-msgstr "Omitir Unidade"
+msgstr "Omitir unidade"
 
 #: ../libfdisk/fsedit.c:1419
 #, c-format
@@ -2930,7 +2943,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1424
 msgid "Bad Partition Table"
-msgstr "Táboa de Particións Errónea"
+msgstr "Táboa de particións errónea"
 
 #: ../libfdisk/fsedit.c:1425
 msgid "Initialize"
@@ -2959,7 +2972,7 @@ msgstr "Erro de sistema %d"
 #: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1508
 #: ../libfdisk/fsedit.c:1535
 msgid "Fdisk Error"
-msgstr "Erro de Fdisk"
+msgstr "Erro de fdisk"
 
 #: ../libfdisk/fsedit.c:1530
 msgid ""
@@ -2976,7 +2989,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
-msgstr "<Partición de Intercambio>"
+msgstr "<Partición de intercambio>"
 
 #: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
 msgid "<RAID Partition>"
@@ -3013,7 +3026,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
-msgstr "Eliminar Partición"
+msgstr "Eliminar partición"
 
 #: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
@@ -3021,7 +3034,7 @@ msgstr "¿Está seguro de que quere eliminar esta partición?"
 
 #: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 msgid "Cannot Edit Partitions"
-msgstr "Non se Poden Editar Particións"
+msgstr "Non é posible editar particións"
 
 #: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
 msgid ""
@@ -3036,12 +3049,12 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
-msgstr "Editar Partición"
+msgstr "Editar partición"
 
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
-msgstr "Punto de Montaxe:"
+msgstr "Punto de montaxe:"
 
 #: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
@@ -3053,7 +3066,7 @@ msgstr "¿Usar o espacio restante?"
 
 #: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
-msgstr "Estado da Asignación:"
+msgstr "Estado da asignación:"
 
 #: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
@@ -3065,20 +3078,20 @@ msgstr "Fallou"
 
 #: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
-msgstr "Razón do Fallo:"
+msgstr "Motivo do fallo:"
 
 #: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
-msgstr "Tipo de Partición:"
+msgstr "Tipo de partición:"
 
 #: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
-msgstr "Unidades Dispoñibles:"
+msgstr "Unidades dispoñibles:"
 
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
-msgstr "Sen Punto de Montaxe"
+msgstr "Sen punto de montaxe"
 
 #: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
@@ -3092,7 +3105,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
-msgstr "Erro do Punto de Montaxe"
+msgstr "Erro do punto de montaxe"
 
 #: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
@@ -3116,7 +3129,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
-msgstr "Erro de Tamaño"
+msgstr "Erro de tamaño"
 
 #: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid ""
@@ -3129,7 +3142,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
 #: ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
-msgstr "Erro de Tamaño de Intercambio"
+msgstr "Erro de tamaño de intercambio"
 
 #: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
 #: ../libfdisk/newtfsedit.c:718
@@ -3170,7 +3183,7 @@ msgstr "Ten que limitar esta partición polo menos a unha unidade."
 
 #: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
 msgid "No RAID Drive Constraint"
-msgstr "Sen Limitación de Unidade para RAID"
+msgstr "Sen limitación de unidade para RAID"
 
 #: ../libfdisk/gnomefsedit.c:1399
 msgid ""
@@ -3205,7 +3218,7 @@ msgstr ""
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1601
 msgid "RAID Entry Incomplete"
-msgstr "Entrada RAID Incompleta"
+msgstr "Entrada RAID incompleta"
 
 #: ../libfdisk/gnomefsedit.c:1602
 #, c-format
@@ -3234,7 +3247,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
-msgstr "Particións sen Asignar"
+msgstr "Particións sen asignar"
 
 #: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
 #: ../libfdisk/newtfsedit.c:142
@@ -3248,7 +3261,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
-msgstr "Non se pode editar Raid"
+msgstr "Non se pode editar o Raid"
 
 #: ../libfdisk/gnomefsedit.c:2016
 msgid ""
@@ -3268,7 +3281,7 @@ msgstr "Tipo de RAID:"
 
 #: ../libfdisk/gnomefsedit.c:2176
 msgid "Partitions For RAID Array:"
-msgstr "Particións para o Array RAID:"
+msgstr "Particións para o array RAID:"
 
 #: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
@@ -3296,11 +3309,11 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2322
 msgid "Booting From RAID Warning"
-msgstr "Aviso de Arrinque dende RAID"
+msgstr "Aviso de arrinque dende RAID"
 
 #: ../libfdisk/gnomefsedit.c:2332
 msgid "No RAID Device"
-msgstr "Ningún Dispositivo RAID"
+msgstr "Ningún dispositivo RAID"
 
 #: ../libfdisk/gnomefsedit.c:2333
 msgid "You need to selected a RAID device."
@@ -3308,7 +3321,7 @@ msgstr "Ten que escoller un dispositivo RAID."
 
 #: ../libfdisk/gnomefsedit.c:2339
 msgid "Used Raid Device"
-msgstr "Dispositivo Raid Utilizado"
+msgstr "Dispositivo Raid utilizado"
 
 #: ../libfdisk/gnomefsedit.c:2340
 #, c-format
@@ -3331,7 +3344,7 @@ msgstr "Non configurou particións dabondo para o tipo de RAID que escolleu."
 
 #: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
-msgstr "Tipo de RAID /boot Ilegal"
+msgstr "Tipo de RAID /boot ilegal"
 
 #: ../libfdisk/gnomefsedit.c:2365
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
@@ -3382,7 +3395,7 @@ msgstr "Auto-Particionar"
 
 #: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
-msgstr "Usar o Espacio de Disco Existente"
+msgstr "Usar o espacio de disco existente"
 
 #: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
@@ -3395,7 +3408,7 @@ msgstr "Usar o espacio libre existente"
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
-msgstr "Uso Previsto"
+msgstr "Uso previsto"
 
 #: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
@@ -3403,7 +3416,7 @@ msgstr "Servidor"
 
 #: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
-msgstr "¿Eliminar o Dispositivo RAID?"
+msgstr "¿Eliminar o dispositivo RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
@@ -3411,7 +3424,7 @@ msgstr "¿Está seguro de que quere eliminar este dispositivo RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
-msgstr "Restablecer as Táboas de Particións"
+msgstr "Restablecer as táboas de particións"
 
 #: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
@@ -3463,7 +3476,7 @@ msgstr "Usado (%)"
 
 #: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
-msgstr "Hai Particións sen Asignar..."
+msgstr "Hai particións sen asignar..."
 
 #: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid ""
@@ -3496,19 +3509,19 @@ msgstr "_Borrar"
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3712
 msgid "_Make RAID Device"
-msgstr "_Crear Dispositivo RAID"
+msgstr "_Crear dispositivo RAID"
 
 #: ../libfdisk/gnomefsedit.c:3722
 msgid "Auto Partition"
-msgstr "Auto Particionar"
+msgstr "Particionar automaticamente"
 
 #: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
-msgstr "Resume de Unidades"
+msgstr "Resume de unidades"
 
 #: ../libfdisk/newtfsedit.c:204
 msgid "Swap Partition"
-msgstr "Partición de Intercambio"
+msgstr "Partición de intercambio"
 
 #: ../libfdisk/newtfsedit.c:210
 msgid "Raid Partition"
@@ -3516,7 +3529,7 @@ msgstr "Partición Raid"
 
 #: ../libfdisk/newtfsedit.c:366
 msgid "Edit New Partition"
-msgstr "Editar Nova Partición"
+msgstr "Editar nova partición"
 
 #: ../libfdisk/newtfsedit.c:432 ../libfdisk/newtfsedit.c:433
 msgid "Use remaining space?:"
@@ -3532,7 +3545,7 @@ msgstr "Descoñecido"
 
 #: ../libfdisk/newtfsedit.c:1461
 msgid "Current Disk Partitions"
-msgstr "Particións de Disco Actuais"
+msgstr "Particións de disco actuais"
 
 #: ../libfdisk/newtfsedit.c:1467
 msgid "   Mount Point          Device     Requested   Actual         Type"
@@ -3546,7 +3559,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1494
 msgid "Drive Summaries"
-msgstr "Resumes de Unidades"
+msgstr "Resumes de unidades"
 
 #: ../libfdisk/newtfsedit.c:1496
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
@@ -3554,7 +3567,7 @@ msgstr "  Unidade    Xeom [C/H/S]      Total    Usado   Libre"
 
 #: ../libfdisk/newtfsedit.c:1610
 msgid "No Root Partition"
-msgstr "Sen Partición Raíz"
+msgstr "Sen partición raíz"
 
 #: ../libfdisk/newtfsedit.c:1611
 msgid ""
@@ -3566,7 +3579,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1630
 msgid "No Swap Partition"
-msgstr "Sen Partición de Intercambio"
+msgstr "Sen partición de intercambio"
 
 #: ../libfdisk/newtfsedit.c:1632
 msgid "You must assign a swap partition for the install to proceed."
@@ -3576,7 +3589,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1658
 msgid "No /boot/efi Partition"
-msgstr "Sen Partición /boot/efi"
+msgstr "Sen partición /boot/efi"
 
 #: ../libfdisk/newtfsedit.c:1660
 msgid ""
@@ -3599,7 +3612,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1697
 msgid "Save Changes"
-msgstr "Gardar Cambios"
+msgstr "Gardar cambios"
 
 #: ../libfdisk/newtfsedit.c:1699
 msgid "Save changes to partition table(s)?"
@@ -3641,7 +3654,7 @@ msgstr ""
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
-msgstr "Parámetros do Módulo"
+msgstr "Parámetros do módulo"
 
 #: ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:356
 #: ../loader/loader.c:289 ../loader/loader.c:350 ../loader/loader.c:366
@@ -3734,7 +3747,7 @@ msgstr "Erro na liña %d do ficheiro kickstart %s."
 
 #: ../loader/lang.c:292
 msgid "Choose a Language"
-msgstr "Escoller unha Lingua"
+msgstr "Escoller unha lingua"
 
 #: ../loader/lang.c:344 ../loader/loader.c:155
 msgid "Welcome to Red Hat Linux"
@@ -3748,7 +3761,7 @@ msgstr ""
 
 #: ../loader/lang.c:583
 msgid "Keyboard Type"
-msgstr "Tipo de Teclado"
+msgstr "Tipo de teclado"
 
 #: ../loader/lang.c:584
 msgid "What type of keyboard do you have?"
@@ -3756,7 +3769,7 @@ msgstr "¿Que tipo de teclado ten?"
 
 #: ../loader/loader.c:123
 msgid "Local CDROM"
-msgstr "CDROM Local"
+msgstr "CDROM local"
 
 #: ../loader/loader.c:126
 msgid "NFS image"
@@ -3764,7 +3777,7 @@ msgstr "Imaxe NFS"
 
 #: ../loader/loader.c:131
 msgid "Hard drive"
-msgstr "Disco Duro"
+msgstr "Disco duro"
 
 #: ../loader/loader.c:276
 msgid "SCSI"
@@ -3780,7 +3793,7 @@ msgstr "Atopáronse os seguintes dispositivos no seu sistema:"
 
 #: ../loader/loader.c:341 ../loader/loader.c:366
 msgid "Add Device"
-msgstr "Engadir Dispositivo"
+msgstr "Engadir dispositivo"
 
 #: ../loader/loader.c:367
 msgid ""
@@ -3806,7 +3819,7 @@ msgstr "Fallo ó ler o directorio %s: %s"
 
 #: ../loader/loader.c:870
 msgid "Hard Drives"
-msgstr "Discos Duros"
+msgstr "Discos duros"
 
 #: ../loader/loader.c:871
 msgid ""
@@ -3832,7 +3845,7 @@ msgstr "Directorio que contén as imaxes:"
 
 #: ../loader/loader.c:919
 msgid "Select Partition"
-msgstr "Seleccionar Partición"
+msgstr "Seleccionar partición"
 
 #: ../loader/loader.c:967
 #, c-format
@@ -3849,7 +3862,7 @@ msgstr ""
 
 #: ../loader/loader.c:1109
 msgid "Networking Device"
-msgstr "Dispositivo de Rede"
+msgstr "Dispositivo de rede"
 
 #: ../loader/loader.c:1110
 msgid ""
@@ -3886,11 +3899,11 @@ msgstr ""
 
 #: ../loader/loader.c:1508
 msgid "Rescue Method"
-msgstr "Método de Rescate"
+msgstr "Método de recuperación"
 
 #: ../loader/loader.c:1509
 msgid "Installation Method"
-msgstr "Método de Instalación"
+msgstr "Método de instalación"
 
 #: ../loader/loader.c:1511
 msgid "What type of media contains the rescue image?"
@@ -3906,7 +3919,7 @@ msgstr "Non se atopa ks.cfg no disquete de arrinque."
 
 #: ../loader/loader.c:2222
 msgid "Updates Disk"
-msgstr "Disco de Actualizacións"
+msgstr "Disco de actualizacións"
 
 #: ../loader/loader.c:2223
 msgid "Insert your updates disk and press \"OK\" to continue."
@@ -3942,9 +3955,8 @@ msgstr ""
 "Non ten memoria de sistema dabondo para instalar Red Hat nesta máquina."
 
 #: ../loader/loader.c:2909
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Lendo as actualizacións de anaconda..."
+msgstr "Executando anaconda - por favor, agarde...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -3974,7 +3986,7 @@ msgstr ""
 
 #: ../loader/net.c:262
 msgid "Nameserver IP"
-msgstr "IP do Servidor de Nomes"
+msgstr "IP do servidor de nomes"
 
 #: ../loader/net.c:266 ../loader/net.c:760
 msgid "Nameserver"
@@ -4019,7 +4031,7 @@ msgstr "Configurar TCP/IP"
 
 #: ../loader/net.c:402
 msgid "Missing Information"
-msgstr "Falta Información"
+msgstr "Falta información"
 
 #: ../loader/net.c:403
 msgid "You must enter both a valid IP address and a netmask."
@@ -4097,7 +4109,7 @@ msgstr "PC Card"
 
 #: ../loader/pcmcia.c:35
 msgid "Initializing PC Card Devices..."
-msgstr "Inicializando Dispositivos PC Card..."
+msgstr "Inicializando os dispositivos PC Card..."
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
@@ -4192,7 +4204,7 @@ msgstr "Ten que introducir un directorio."
 
 #: ../loader/urls.c:244
 msgid "Unknown Host"
-msgstr "Máquina Descoñecida"
+msgstr "Máquina descoñecida"
 
 #: ../loader/urls.c:245
 #, c-format
@@ -4227,11 +4239,11 @@ msgstr "Proxy HTTP:"
 
 #: ../loader/urls.c:356
 msgid "FTP Proxy Port:"
-msgstr "Porto do Proxy FTP:"
+msgstr "Porto do proxy FTP:"
 
 #: ../loader/urls.c:357
 msgid "HTTP Proxy Port:"
-msgstr "Porto do Proxy HTTP:"
+msgstr "Porto do proxy HTTP:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
@@ -4239,7 +4251,7 @@ msgstr "Cargando o controlador SCSI"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr "Imaxe de Mapa para visualizar"
+msgstr "Imaxe de mapa para visualizar"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
@@ -4366,697 +4378,696 @@ msgstr "Utilidades"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Hora de Alaska"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Hora de Alaska - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Hora de Alaska - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Hora de Alaska - oeste de Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Illas Aleutianas"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E de Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Estación Admundsen-Scott, Polo Sur"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Illas atlánticas"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Hora Atlántica - E do Labrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
+"Hora Atlántica - Nova Escocia (maioría dos lugares), NB, O do Labrador, E de "
+"Quebec e PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Hora Atlántica - Nova Escocia - lugares que non cumpren DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
-msgstr ""
+msgstr "Bayan-Olgiy, Hovd, Uvs"
 
 #. generated from zone.tab
 msgid "Borneo & Celebes"
-msgstr ""
+msgstr "Borneo e Célebes"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Illas Canarias"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Estación Casey, Península de Bailey"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "Crimea central"
 
 #. generated from zone.tab
 msgid "central Kazakhstan"
-msgstr ""
+msgstr "Kazajstán central"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Hora estándar Central - Saskatchewan - centro-oeste"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Hora estándar Central - Saskatchewan - maioría dos lugares"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Hora central"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Hora central - Campeche, Yucatán"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Hora Central - Coahuila, Durango, Nuevo León, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Hora Central - Manitoba e Ontario occidental"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Hora Central - Michigan - fronteira con Wisconsin"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Hora Central - maioría dos lugares"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Hora Central - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Hora Central - Rainy River e Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Hora Central - oeste de Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta e Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Illas Chatham"
 
 #. generated from zone.tab
 msgid "China coast"
-msgstr ""
+msgstr "Costa de China"
 
 #. generated from zone.tab
 msgid "China mountains"
-msgstr ""
+msgstr "Montañas de China"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Estación Davis, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Base Dumont-d'Urville, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E do Amazonas"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "E da Arxentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "leste da Rep. Dem. do Congo"
 
 #. generated from zone.tab
 msgid "Easter Island"
-msgstr ""
+msgstr "Easter Island"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - Nunavut central"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Hora estándar Oriental - leste de Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Hora estándar Oriental - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Hora estándar Oriental - Indiana - maioría dos lugares"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Hora estándar Oriental - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Hora estándar Oriental - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Hora estándar Oriental - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Hora Oriental"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Hora Oriental - Kentucky - Área de Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Hora Oriental - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Hora Oriental - Michigan - maioría dos lugares"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr ""
+msgstr "Hora Oriental - Ontario e Quebec - maioría dos lugares"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
+"Hora Oriental - Ontario e Quebec - lugares que non cumpren DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Hora Oriental - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "Eastern Turkestan"
-msgstr ""
+msgstr "Turkestan oriental"
 
 #. generated from zone.tab
 msgid "east Greenland"
-msgstr ""
+msgstr "leste de Gronlandia"
 
 #. generated from zone.tab
 msgid "east Kazakhstan"
-msgstr ""
+msgstr "leste de Kazajstán"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "leste de Uzbekistán"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Illas Galápagos"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Illas Gambier"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Illas Gilbert"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Gran Bretaña"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya e as Molucas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java e Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Atol Johnston"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Illa Lord Howe"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Illas Madeira"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Illas Marquesas"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso, Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Estación Mawson, Baía Holme"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "Estación McMurdo, Illa Ross"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Illas Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moscova+00 - Rusia occidental"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moscova+01 - Mar Caspio"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moscova-01 - Kaliningrado"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moscova+02 - Urais"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscova+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moscova+03 - Siberia occidental"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moscova+04 - Río Yenisei"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moscova+05 - Lago Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moscova+06 - Río Lena"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moscova+07 - Río Amur"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr ""
+msgstr "Moscova+08 - Magadan e Sakhalin"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscova+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moscova+10 - Mar de Bering"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Hora estándar da Montaña - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
+"Hora estándar da Montaña - Dawson Creek e Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Hora estándar da Montaña - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Hora da Montaña"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr ""
+"Hora da Montaña - Alberta, leste de British Columbia e oeste de Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Hora da Montaña - centro dos Territorios do Noroeste"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Hora da Montaña - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Hora da Montaña - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Hora da Montaña - S de Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Hora da Montaña - sur de Idaho e leste de Oregón"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Hora da Montaña - oeste dos Territorios do Noroeste"
 
 #. generated from zone.tab
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr ""
+msgstr "NE da Arxentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr ""
+msgstr "NE do Brasil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Illa Newfoundland"
 
 #. generated from zone.tab
 msgid "New South Wales - Broken Hill"
-msgstr ""
+msgstr "Nova Gales do Sur - Broken Hill"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "Nova Gales do Sur - maioría dos lugares"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "nordeste de Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Irlanda do norte"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Territorio do norte"
 
 #. generated from zone.tab
 msgid "north Manchuria"
-msgstr ""
+msgstr "norte de Manchuria"
 
 #. generated from zone.tab
 msgid "northwest Greenland"
-msgstr ""
+msgstr "noroeste de Gronlandia"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Hora do Pacífico - norte de Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Hora do Pacífico - sur de Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Hora do Pacífico - oeste de British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Estación Palmer, Illa Anvers"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "Malasia peninsular"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Illas Phoenix"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Illas Holiday"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - maioría dos lugares"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ruthenia"
-msgstr "Autenticación"
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah e Sarawak"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Illas Society"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "South Australia"
-msgstr "América do Sur"
+msgstr "Australia do Sur"
 
 #. generated from zone.tab
 msgid "southwest Greenland"
-msgstr ""
+msgstr "suroeste de Gronlandia"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "suroeste de Mali"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S e SE do Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Estación Syowa, E de Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
-msgstr ""
+msgstr "Tibet e Xinjiang"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tocantins"
-msgstr "Lugar"
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Transdniestria"
-msgstr ""
+msgstr "Transdniestria"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Illa Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "O do Amazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
+msgstr "O da Arxentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "oeste da Rep. Dem. do Congo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Australia occidental"
 
 #. generated from zone.tab
 msgid "west Kazakhstan"
-msgstr ""
+msgstr "oeste de Kazajstán"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "oeste de Uzbekistán"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "O de Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E de Lugansk"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #. generated from lang-table
-#, fuzzy
 msgid "English"
-msgstr "Rematar"
+msgstr "Inglés"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "Rematar"
+msgstr "Dinamarqués"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #. generated from lang-table
 msgid ""
 "German          de      lat0-16         iso09           de_DE           "
 "de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"German          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Xaponés"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruegués"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugués"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Falta"
+msgstr "Romanés"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Buscando"
+msgstr "Serbio"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Esloveno"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Spanish"
-msgstr "Rematar"
+msgstr "Castelán"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucraíno"
