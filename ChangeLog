@@ -1,3 +1,8 @@
+2004-11-09  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (doPreInstall): If we go back, we need to try
+	unmount /dev, too (#133773)
+
 2004-11-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
