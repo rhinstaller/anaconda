@@ -46,15 +46,12 @@ class KeyboardWindow (InstallWindow):
         self.kbd.setfromx(self.model, self.layout, self.variant)
         self.kbd.beenset = 1
 
-#
-#
-# XXX FIX THIS - NEED TO FIX!!!
-#
-#        try:
-#            isys.loadKeymap(self.kbd.get())
-#        except:
-#            log("failed to load keymap")
 
+        try:
+            isys.loadKeymap(self.kbd.get())
+        except:
+            log("failed to load keymap")
+            
         return None
 
     def select_row(self, clist, row, col, event):
