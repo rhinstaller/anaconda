@@ -485,6 +485,7 @@ int main(int argc, const char ** argv) {
 	    strcpy (depOrder[numpkgs], b);
 	    numpkgs++;
 	}
+        depOrder[numpkgs] = NULL;  /* end with a null */
     }
 
     requireTable = htNewTable(1000);
