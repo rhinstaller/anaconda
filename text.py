@@ -29,10 +29,12 @@ class PartitionWindow:
             rc = ListboxChoiceWindow(screen, 'Root Partition',
                                      'What partition would you '
                                      'like to use for your root partition?',
-                                     partList, buttons = ['Ok'])
+                                     partList, buttons = ['Ok', 'Back'])
 
             print rc
-        except:
+	    if rc[0] == 'back':
+                return -1
+        except IOError:
             print "unable to read partition table"
 
         return 0

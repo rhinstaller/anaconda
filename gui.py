@@ -136,8 +136,6 @@ class InstallInterface:
 
         step = 0
         while step >= 0 and step < len(steps) and steps[step]:
-            print steps[step]
-
             if steps[step][1]().run() == -1:
                 step = step - 1
             else:
