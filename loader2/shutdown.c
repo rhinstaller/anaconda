@@ -102,7 +102,7 @@ int main(int argc, char ** argv) {
     signal(SIGTSTP, SIG_IGN);
 
     /* now change to / */
-    chdir("/");
+    i = chdir("/");
 
     /* redirect output to the real console */
     fd = open("/dev/console", O_RDWR);
@@ -112,5 +112,6 @@ int main(int argc, char ** argv) {
     close(fd);
 
     shutDown(0, doReboot, 0);
+    return 0;
 }
 #endif
