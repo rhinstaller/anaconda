@@ -780,18 +780,24 @@ class ToDo:
         drives = self.drives.available ().keys ()
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
-            table = _balkan.readTable ('/tmp/' + drive)
-            for i in range (len (table)):
-                (type, sector, size) = table[i]
-                # 2 is ext2 in balkan speek
-                if size and type == 2:
-                    dev = drive + str (i + 1)
-                    isys.makeDevInode(dev, '/tmp/' + dev)                    
-                    isys.mount('/tmp/' + dev, '/mnt/sysimage')
-                    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                        rootparts.append (dev)
-                    isys.umount('/mnt/sysimage')
-                    os.remove ('/tmp/' + dev)
+            
+            try:
+                table = _balkan.readTable ('/tmp/' + drive)
+            except SystemError:
+                pass
+            else:
+                for i in range (len (table)):
+                    (type, sector, size) = table[i]
+                    # 2 is ext2 in balkan speek
+                    if size and type == 2:
+                        dev = drive + str (i + 1)
+                        isys.makeDevInode(dev, '/tmp/' + dev)                    
+                        isys.mount('/tmp/' + dev, '/mnt/sysimage')
+                        if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+                            rootparts.append (dev)
+                        isys.umount('/mnt/sysimage')
+                        os.remove ('/tmp/' + dev)
+                        
             os.remove ('/tmp/' + drive)
         win.pop ()
         return rootparts
