@@ -53,6 +53,23 @@ static int ethCount(void) {
     return count;
 }
 
+static int scsiCount(void) {
+    FILE *f;
+    char buf[16384];
+    int count = 0;
+
+    f = fopen("/tmp/modules.conf", "r");
+    if (!f)
+	return 0;
+    while (fgets(buf, sizeof(buf) - 1, f)) {
+	if (!strncmp(buf, "scsi_hostadaptor", 16))
+	    count++;
+    }
+    fclose(f);
+    return count;
+}
+
+
 int mlReadLoadedList(moduleList * mlp) {
     int fd;
     char * start;
@@ -368,13 +385,15 @@ int mlWriteConfModules(moduleList list, int fd) {
     int i;
     struct loadedModuleInfo * lm;
     char buf[200], buf2[200];
-    int scsiNum = 0;
+    int scsiNum;
     int ethNum;
     int trNum = 0;
     char ** arg;
 
     if (!list) return 0;
 
+    scsiNum = scsiCount();
+    
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
     	if (!lm->weLoaded) continue;
 	if (lm->written) continue;
