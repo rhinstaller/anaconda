@@ -73,7 +73,6 @@ class UsersWindow:
 	    title = _("Add User")
 
         while 1:
-                
             (rc, ent) = EntryWindow (self.screen, title, text,
 			 [ (_("User ID"), userid),
 			   (_("Full Name"), fullname),
@@ -87,6 +86,11 @@ class UsersWindow:
 	       not len(userid.value()) and not len(fullname.value()):
                 return INSTALL_OK
 
+	    if not userid.value ():
+		ButtonChoiceWindow(self.screen, _("Missing User ID"),
+                                   _("You must provide a user ID"),
+                                   buttons = [ _("OK") ], width = 50)
+		continue
 	    if len (pass1.value ()) < 6:
 		ButtonChoiceWindow(self.screen, _("Password Length"),
 		       _("The password must be at least 6 characters "
