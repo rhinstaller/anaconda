@@ -64,6 +64,45 @@ class WaitWindow:
         self.window.destroy ()
 	threads_leave ()
 
+class ProgressWindow:
+    def __init__(self, title, text, total):
+	threads_enter ()
+        self.window = GtkWindow (WINDOW_POPUP)
+        self.window.set_title (title)
+        self.window.set_position (WIN_POS_CENTER)
+        self.window.set_modal (TRUE)
+        box = GtkVBox (5)
+        box.set_border_width (10)
+
+        label = GtkLabel (text)
+        label.set_line_wrap (TRUE)
+        label.set_alignment (0.0, 0.5)
+        box.pack_start (label)
+        
+        self.total = total
+	self.progress = GtkProgressBar ()
+        box.pack_start (self.progress)
+        
+        frame = GtkFrame ()
+        frame.set_shadow_type (SHADOW_OUT)
+        frame.add (box)
+	self.window.add (frame)
+	self.window.show_all ()
+	gdk_flush ()
+	while events_pending ():
+            mainiteration (FALSE)
+        threads_leave ()
+
+    def set (self, amount):
+        threads_enter ()
+	self.progress.update (float (amount) / self.total)
+        threads_leave ()
+    
+    def pop(self):
+	threads_enter ()
+        self.window.destroy ()
+	threads_leave ()
+
 class GtkMainThread (Thread):
     def run (self):
         threads_enter ()
@@ -77,14 +116,22 @@ class InstallInterface:
     def waitWindow (self, title, text):
 	return WaitWindow (title, text)
 
+    def progressWindow (self, title, text, total):
+	return ProgressWindow (title, text, total)
+
     def packageProgressWindow (self, total, totalSize):
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
+
+#    def messageWindowBlock (self, title, text):
+#
+
     def messageWindow(self, title, text):
-        print text
-#        dialog = GnomeOkDialog (text)
-#        dialog.set_position (WIN_POS_CENTER)
+        print "got called"
+        dialog = GnomeOkDialog (text)
+        dialog.set_position (WIN_POS_CENTER)
+        dialog.run ()
 
     def exceptionWindow(self, title, text):
         print text
