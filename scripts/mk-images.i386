@@ -56,27 +56,35 @@ prepareBootTree() {
 
 mkdir -p $TOPDESTPATH/images
 cat > $TOPDESTPATH/images/README <<EOF
+This directory contains image files that can be used to create media
+capable of starting the Red Hat Linux installation process.
 
-The files in this directory are raw disk images.  Some are boot disks
-for booting the Red Hat Linux installation program.  Others are driver
-disks to support loading the installation program from less common
-hardware.
+The boot.iso file is an ISO 9660 image of a bootable CD-ROM.  It is useful
+in cases where the CD-ROM installation method is not desired, but the
+CD-ROM's boot speed would be an advantage.
 
-Follow the instructions in the Red Hat Linux Installation Guide,
-Chapter 1, section "Making Installation Diskettes" to create the
-disks.
+To use this image file, burn the file onto CD-R (or CD-RW) media as you
+normally would.
 
-The drivers.img driver disk image has been split into several disks
-because of the increasing size of the supported modules.
+While most present-day computers are able to start the installation process
+by booting directly from Red Hat Linux CD #1, some hardware configurations
+require the use of boot and driver diskettes.  If your hardware requires
+boot and driver diskettes to start the installation process, you can create
+them using the image files in this directory.
 
-The following boot image:
+To create boot and driver diskettes from these image files, follow the
+instructions in the Red Hat Linux Installation Guide, Chapter 1, under the
+section entitled, "Making an Installation Boot Diskette."
+
+All installation methods must use a boot diskette created from the
+following image file:
 
 bootdisk.img - primary boot image for all install methods
 
-is to be used for all install methods. A secondary driver disk will be
-required for most install types other than IDE CDROM and HD based installs.
+A driver diskette will be required for installation types other than those
+using ATAPI CD-ROM drives or ATA (also known as IDE) hard drives.
 
-The following driver disks are available:
+The following driver diskette image files are available:
 
 EOF
 
