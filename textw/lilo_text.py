@@ -49,8 +49,23 @@ class LiloAppendWindow:
             return INSTALL_BACK
 
 	if button == "skip":
-	    todo.skipLilo = 1
-            todo.lilo.setDevice(None)
+            rc = ButtonChoiceWindow(screen, _("Skip LILO"),
+                                    _("You have elected to not install "
+                                      "LILO. It is strongly recommended "
+                                      "that you do install LILO unless "
+                                      "you have an advanced need.  LILO "
+                                      "is almost always required in order "
+                                      "to reboot your system into Linux "
+                                      "directly from the hard drive.\n\n"
+                                      "Are you sure you want to skip LILO "
+                                      "installation?"),
+                                    [ (_("Yes"), "yes"), (_("No"), "no") ],
+                                    width = 50)
+            if rc == "yes":
+                todo.skipLilo = 1
+                todo.lilo.setDevice(None)
+            else:
+                todo.skipLilo = 0
 	else:
 	    todo.skipLilo = 0
 
