@@ -241,9 +241,6 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", modLoaded, (*modDepsPtr), NULL, modInfo, 
-		     flags);
-
 	ddi->device = strdup(device);
 	ddi->mntDevice = malloc(strlen(device) + 10);
 	sprintf(ddi->mntDevice, "/tmp/%s", device);
@@ -603,9 +600,9 @@ char ** extractModules(struct driverDiskInfo * ddi,
 	    /* can't trust map; the order changed thanks to qsort */
 	    sprintf(fn, "/tmp/%s.o", modNames[i]);
 	    if (!access(fn, R_OK)) {
-		logMessage("module %s found%s%s", modNames[i],
-			ddi ? " on driver disk " : "",
-			ddi ? ddi->title : "");
+		if (ddi)
+		    logMessage("module %s found on driver disk %s", 
+				modNames[i], ddi->title);
 		oldPaths[i] = strdup(fn);
 	    }
 	    numMaps++;

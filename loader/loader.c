@@ -746,9 +746,6 @@ static char * mountHardDrive(struct installMethod * method,
     static int ufsloaded;
     #endif
 
-    mlLoadModule("vfat", modLoaded, *modDepsPtr, 
-		 NULL, modInfo, flags);
-
     while (!done) {
 	numPartitions = 0;
 	for (i = 0; i < kd->numKnown; i++) {
@@ -1562,10 +1559,6 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 		ddi->mntDevice = fsDevice;
 	    }
 
-	    if (!strcmp(ddi->fs, "vfat"))
-		mlLoadModule("vfat", modLoaded, *modDepsPtr, NULL, 
-			     modInfo, flags);
-
 	    logMessage("looking for driver disk (%s, %s, %s)",
 		       ddi->fs, ddi->device, ddi->mntDevice);
 
@@ -2137,7 +2130,6 @@ int kickstartFromHardDrive(char * location,
     char * fileName;
     char * fullFn;
 
-    mlLoadModule("vfat", modLoaded, *modDepsPtr, NULL, NULL, flags);
 #ifdef __sparc__
     mlLoadModule("ufs", modLoaded, *modDepsPtr, NULL, NULL, flags);
 #endif
@@ -2180,8 +2172,6 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
-    mlLoadModule("vfat", modLoaded, *modDepsPtr, NULL, NULL, flags);
-
     if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
 
@@ -2637,7 +2627,7 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    mlLoadModule("cramfs", modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("cramfs:vfat", modLoaded, modDeps, NULL, modInfo, flags);
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
@@ -2857,7 +2847,7 @@ int main(int argc, char ** argv) {
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModule("raid0:raid1:raid5:msdos:vfat:ext3:reiserfs", 
+    mlLoadModule("raid0:raid1:raid5:msdos:ext3:reiserfs", 
 		 modLoaded, modDeps, NULL, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
