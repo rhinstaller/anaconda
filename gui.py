@@ -251,9 +251,14 @@ class InstallInterface:
                                 ]
 
         self.finishedTODO = Event ()
+
+        from xkb import XKB
+        kb = XKB()
+        try:
+            kb.setMouseKeys (1)
+        except SystemError:
+            pass
         if todo.instClass.keyboard:
-            from xkb import XKB
-            kb = XKB()
 	    info = todo.keyboard.getXKB()
 	    if info:
                 (rules, model, layout, variant, options) = info

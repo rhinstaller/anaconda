@@ -51,8 +51,11 @@ class XKB:
         # lots of memory
         return _xkb.set_rule (model, layout, variant, options)
 
-
-
     def getRulesBase (self):
         return _xkb.get_rulesbase ()
 
+    def setMouseKeys (self, flag):
+        return _xkb.set_mousekeys (flag)
+    
+    def getMouseKeys (self):
+        return _xkb.get_mousekeys ()

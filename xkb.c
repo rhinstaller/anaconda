@@ -19,6 +19,8 @@ static XkbRF_RulesPtr rules;
 PyObject *list_rules ();
 PyObject *set_rule (PyObject *, PyObject *);
 PyObject * py_get_rulesbase ();
+PyObject *py_get_mousekeys ();
+PyObject *py_set_mousekeys (PyObject * s, PyObject * args);
 
 char * get_rulesbase ();
 
@@ -26,6 +28,8 @@ static PyMethodDef _xkbMethods[] = {
     { "list_rules", list_rules, 1 },
     { "set_rule", set_rule, 1 },
     { "get_rulesbase", py_get_rulesbase, 1 },
+    { "get_mousekeys", py_get_mousekeys, 1 },
+    { "set_mousekeys", py_set_mousekeys, 1 },
     { NULL, NULL }
 };
 
@@ -50,7 +54,48 @@ py_get_rulesbase ()
 {
   return Py_BuildValue ("s", get_rulesbase ());
 }
-  
+
+
+PyObject *
+py_get_mousekeys ()
+{
+    XkbDescPtr desc;
+    
+    desc = XkbGetKeyboard (GDK_DISPLAY(),
+			   XkbAllComponentsMask,
+			   XkbUseCoreKbd);
+    if (desc == NULL) {
+	return NULL;
+    }
+    
+    if (XkbGetControls (GDK_DISPLAY(), ~0, desc) != Success) {
+	return NULL;
+    }
+
+    if (desc->ctrls->enabled_ctrls & XkbMouseKeysMask)
+	return Py_BuildValue ("i", 1);
+    else
+	return Py_BuildValue ("i", 0);
+}
+
+PyObject *
+py_set_mousekeys (PyObject * s, PyObject * args)
+{
+    int setting;
+    
+    if (!PyArg_ParseTuple(args, "i", &setting))
+	return NULL;
+
+    if (XkbChangeEnabledControls (GDK_DISPLAY(), XkbUseCoreKbd,
+				  XkbMouseKeysMask,
+				  setting ? XkbMouseKeysMask : 0) != True) {
+	return NULL;
+    }
+    
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 void 
 init_xkb ()
 {
