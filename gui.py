@@ -52,14 +52,17 @@ class NetworkConfigWindow:
 class WaitWindow:
     def __init__(self, title, text):
 	threads_enter ()
-        self.window = GtkWindow ()
-        self.window.set_border_width (10)
+        self.window = GtkWindow (WINDOW_POPUP)
         self.window.set_title (title)
         self.window.set_position (WIN_POS_CENTER)
         self.window.set_modal (TRUE)
         label = GtkLabel (text)
         label.set_line_wrap (TRUE)
-	self.window.add (label)
+        frame = GtkFrame ()
+        frame.set_shadow_type (SHADOW_OUT)
+        frame.add (label)
+        frame.set_border_width (10)
+	self.window.add (frame)
 	self.window.show_all ()
 	gdk_flush ()
 	while events_pending ():
