@@ -204,8 +204,8 @@ class AccountWindow (InstallWindow):
 	
         # if there is data there to edit
 	self.win = self.userWindow(title, 1)
-	self.win.add_button('gtk-ok', 0)
 	self.win.add_button('gtk-cancel', 1)
+	self.win.add_button('gtk-ok', 0)
 	self.win.connect("response", self.close, "editUser")
 	self.win.show_all()
 
