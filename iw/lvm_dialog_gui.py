@@ -328,7 +328,10 @@ class VolumeGroupEditor:
 	if isNew:
 	    tstr = _("Make Logical Volume")
 	else:
-	    tstr = _("Edit Logical Volume")
+	    try:
+		tstr = _("Edit Logical Volume: %s") % (logrequest.logicalVolumeName,)
+	    except:
+		tstr = _("Edit Logical Volume")
 	    
         dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
@@ -866,9 +869,12 @@ class VolumeGroupEditor:
             return
 
 	if isNew:
-	    tstr = _("Make LVM Device")
+	    tstr = _("Make LVM Volume Group")
 	else:
-	    tstr = _("Edit LVM Device")
+	    try:
+		tstr = _("Edit LVM Volume Group: %s") % (origvgrequest.volumeGroupName,)
+	    except:
+		tstr = _("Edit LVM Volume Group")
 	    
         dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)

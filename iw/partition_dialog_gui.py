@@ -258,7 +258,10 @@ class PartitionEditor:
 	if isNew:
 	    tstr = _("Add Partition")
 	else:
-	    tstr = _("Edit Partition")
+	    try:
+		tstr = _("Edit Partition: /dev/%s") % (origrequest.device,)
+	    except:
+		tstr = _("Edit Partition")
 	    
         self.dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(self.dialog)
