@@ -33,6 +33,8 @@ class MouseDeviceWindow:
 
 class MouseWindow:
     def __call__(self, screen, mouse):
+	if mouse.probed(): return
+
         mice = mouse.available ().keys ()
         mice.sort ()
         (default, emulate) = mouse.get ()
