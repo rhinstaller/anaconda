@@ -54,7 +54,7 @@ if (os.path.exists('rpmmodule')):
     sys.path.append('balkan')
     sys.path.append('rpmmodule')
     sys.path.append('isys')
-elif (mode == None):
+#elif (mode == None):
 #      try:
 #          f = open('/dev/fb0', 'r')
 #  	f.close()
