@@ -1300,6 +1300,7 @@ class ToDo:
 	    f.write("#!/bin/sh\n\n")
 	    f.write(self.instClass.postScript)
 	    f.close()
+	    os.chmod(path, 0700)
 
 	    if self.serial:
 		messages = "/tmp/ks-script.log"
