@@ -9,6 +9,15 @@ if [ "$1" == "--debug" ]; then
     shift
 fi
 
+# XXX gross hack
+# This is really "allow use of nptl if it's the default"
+if [ "$1" == "--nptl" ]; then
+	NPTL="1"
+	shift
+else
+	NPTL="0"
+fi
+
 if [ "$1" == "--comp" ]; then
     COMPONENT=$2
     shift; shift
@@ -235,7 +244,26 @@ fi
 # so if something is needed by all images it should go here
 #
 KEEPFILE=/tmp/keepfile.$$
-cat > $KEEPFILE <<EOF
+
+# XXX gross hack, until we're sure NPTL anaconda builds work, which is
+# highly suspect today.
+if [ "$NPTL" = "0" -a -d /lib/obsolete/linuxthreads/ ]; then
+	EXPR="s,$LIBDIR/,$LIBDIR/obsolete/linuxthreads/,"
+else
+	# this won't get us NPTL if we've got a glibc that doesn't put it
+	# in /lib directly, but really this hack is to make sure we _don't_
+	# get it, not to make sure we do...
+	EXPR=""
+fi
+
+sed -e "$EXPR" > $KEEPFILE <<EOF
+$LIBDIR/libc*
+$LIBDIR/libm[-.]*
+$LIBDIR/libpthread*
+$LIBDIR/librt[-.]*
+EOF
+
+cat >> $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
 bin/ash
 bin/fdisk*
@@ -252,7 +280,6 @@ etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
 $LIBDIR/ld*.so*
 $LIBDIR/libblkid*
-$LIBDIR/libc*
 $LIBDIR/libcom_err*
 $LIBDIR/libcrypt*
 $LIBDIR/libdevmapper*
@@ -261,13 +288,10 @@ $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
 $LIBDIR/liblvm-10.so*
 $LIBDIR/libgcc_s*
-$LIBDIR/libm[-.]*
 $LIBDIR/libnsl*
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
-$LIBDIR/libpthread*
 $LIBDIR/libresolv*
-$LIBDIR/librt[-.]*
 $LIBDIR/libselinux*
 $LIBDIR/libsepol*
 $LIBDIR/libss*
