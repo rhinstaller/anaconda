@@ -2,6 +2,7 @@ import string
 import os
 from lilo import LiloConfiguration
 import _silo
+import iutil
 
 class SiloInstall:
     def __init__ (self, todo):
