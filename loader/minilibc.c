@@ -20,12 +20,27 @@ void _init (int __status) {
 void __libc_init_first (int __status) {
 }
 
-int
-__libc_start_main (int (*main) (int, char **, char **), int argc,
-                   char **argv, void (*init) (void), void (*fini) (void),
-                   void (*rtld_fini) (void), void *stack_end)
+#ifndef __powerpc__
+int __libc_start_main (int (*main) (void), int argc, char **argv,
+                       void (*init) (void), void (*fini) (void),
+                       void (*rtld_fini) (void), void * stack_end)
+#else
+struct startup_info
 {
-    exit ((*main) (argc, argv, NULL));
+  void *sda_base;
+  int (*main) (int, char **, char **, void *);
+  int (*init) (int, char **, char **, void *);
+  void (*fini) (void);
+};
+
+int __libc_start_main (int argc, char **argv,
+                       char **ubp_ev,
+                       void *auxvec, void (*rtld_fini) (void),
+                       struct startup_info *stinfo,
+                       char **stack_on_entry)
+#endif
+{
+    exit (main(argc, argv, NULL));
     /* never get here */
     return 0;
 }
