@@ -658,6 +658,9 @@ class ToDo:
 		localline = localline + l[0] + " "
                 
 	localline = localline + "localhost.localdomain localhost\n"
+        f.write("\n")
+        f.write("# Do not remove the following line, or various programs\n")
+        f.write("# that require network functionality will fail.\n")
         f.write (localline)
 
 	if ip:
