@@ -12,14 +12,12 @@
 #
 
 # must replace with explcit form so update disks will work
-from iw_gui import *
-
-from gtk import *
-from gnome.ui import *
-from rhpl.translate import _, N_
-import iutil
-from package_gui import queryUpgradeContinue
+import gtk
 import gui
+import iutil
+from iw_gui import *
+from rhpl.translate import _, N_
+from package_gui import queryUpgradeContinue
 
 class ZiplWindow (InstallWindow):
     checkMark = None
@@ -69,9 +67,9 @@ class ZiplWindow (InstallWindow):
 	defaultDevice = bl.images.getDefault()
         self.ignoreSignals = 0
 
-        box  = GtkVBox(FALSE, 5)
+        box  = gtk.VBox(gtk.FALSE, 5)
         box.set_border_width(5)
-        label = GtkLabel(_("The z/IPL Boot Loader will now be installed "
+        label = gtk.Label(_("The z/IPL Boot Loader will now be installed "
                            "on your system."
                            "\n"
                            "\n"
@@ -91,21 +89,21 @@ class ZiplWindow (InstallWindow):
                            "You can now enter any additional kernel parameters "
                            "which your machine or your setup may require."))
         label.set_size_request(500, -1)
-        label.set_line_wrap(TRUE)
+        label.set_line_wrap(gtk.TRUE)
         label.set_alignment(0.0, 0.0)
         label.set_padding(50,50)
-        box.pack_start(label, FALSE)
+        box.pack_start(label, gtk.FALSE)
 
-        box.pack_start (GtkHSeparator (), FALSE)
+        box.pack_start (gtk.HSeparator (), gtk.FALSE)
 
-        label = GtkLabel(_("Kernel Parameters") + ":")
+        label = gtk.Label(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
-        self.appendEntry = GtkEntry()
+        self.appendEntry = gtk.Entry()
         if bl.args and bl.args.get():
             self.appendEntry.set_text(bl.args.get())
-        hbox = GtkHBox(FALSE, 5)
-        hbox.pack_start(label, FALSE)
+        hbox = gtk.HBox(gtk.FALSE, 5)
+        hbox.pack_start(label, gtk.FALSE)
         hbox.pack_start(self.appendEntry)
-        box.pack_start(hbox, FALSE)
+        box.pack_start(hbox, gtk.FALSE)
 
         return box

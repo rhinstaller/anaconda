@@ -1062,22 +1062,13 @@ class PartitionWindow:
             if type == "RAID":
                 self.editRaidRequest(request)
             elif type == "NEW":
-                if iutil.getArch() == "s390":
-                    self.intf.messageWindow(_("Error"),
-                        _("You must go back and use fdasd to initialize this partition"))
-                else:
-                    self.editPartitionRequest(request, isNew = 1)
+                self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
         
     def deleteCb(self):
         partition = self.lb.current()
 
-        if iutil.getArch() == "s390" and type(partition) != type("RAID"):
-            self.intf.messageWindow(_("Error"),
-                                    _("DASD partitions can only be deleted with fdasd"))
-            return
-            
         if doDeletePartitionByRequest(self.intf, self.partitions, partition):
             self.refresh()
         
@@ -1115,20 +1106,13 @@ class PartitionWindow:
                            col_label_align=[CENTER, CENTER,CENTER,CENTER,CENTER,CENTER])
         self.g.add(self.lb, 0, 1)
 
-        if iutil.getArch() == "s390":
-            self.bb = ButtonBar (screen, ((_("Edit"), "edit", "F3"),
-                                          (_("Delete"), "delete", "F4"),
-                                          (_("RAID"), "raid", "F11"),
-                                          TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
-            screen.pushHelpLine( _("    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "))
-        else:
-            self.bb = ButtonBar (screen, ((_("New"), "new", "F2"),
-                                          (_("Edit"), "edit", "F3"),
-                                          (_("Delete"), "delete", "F4"),
-                                          (_("RAID"), "raid", "F11"),
-                                          TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
-            
-            screen.pushHelpLine( _("    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "))
+        self.bb = ButtonBar (screen, ((_("New"), "new", "F2"),
+                                      (_("Edit"), "edit", "F3"),
+                                      (_("Delete"), "delete", "F4"),
+                                      (_("RAID"), "raid", "F11"),
+                                      TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+        
+        screen.pushHelpLine( _("    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "))
 
         self.g.add(self.bb, 0, 2, (0, 1, 0, 0))
         self.g.addHotKey("F5")

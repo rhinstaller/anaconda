@@ -43,7 +43,6 @@ stepToClasses = {
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow"),
-    "fdasd" : ("fdasd_text", "fdasdPartitionWindow"),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod")),
     "partition": ("partition_text", ("PartitionWindow")),
     "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",
@@ -387,12 +386,14 @@ class InstallInterface:
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
         lang = id.instLanguage.getCurrent()
         # if we don't have any way to display the preselected language,
-        # fall back to English.
-        if ((id.instLanguage.getFontFile(lang) == "Kon" and not
-             isys.isPsudoTTY(0)) or
-            id.instLanguage.getFontFile(lang) == "None"):
-            lang = "English"
-            id.instLanguage.setRuntimeLanguage(lang)
+        # fall back to English.(Except S390, where the installation
+        # is done remotely and the display is handled by the remote machine)
+        if iutil.getArch() != 's390':
+            if ((id.instLanguage.getFontFile(lang) == "Kon" and not
+                 isys.isPsudoTTY(0)) or
+                id.instLanguage.getFontFile(lang) == "None"):
+                lang = "English"
+                id.instLanguage.setRuntimeLanguage(lang)
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage

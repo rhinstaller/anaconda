@@ -45,8 +45,9 @@ class LanguageWindow:
 
         choice = languages[choice]
         
-        if ((instLanguage.getFontFile(choice) == "bterm") or
-            instLanguage.getFontFile(choice) == "None"):
+        if (((instLanguage.getFontFile(choice) == "bterm") or
+            instLanguage.getFontFile(choice) == "None") and
+            (iutil.getArch() != "s390")):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),
@@ -64,13 +65,14 @@ class LanguageWindow:
             os.environ["LANG"] = "ja_JP.eucJP"
             os.environ["LC_ALL"] = "ja_JP.eucJP"
             os.environ["LC_NUMERIC"] = "C"
-            if os.access("/tmp/updates/anaconda", os.X_OK):
-                prog = "/tmp/updates/anaconda"
-            else:
-                prog = "/usr/bin/anaconda"
-            args = [ "kon", "-e", prog ]
-            screen.finish()
-            os.execv ("/sbin/loader", args)
+            if iutil.getArch() != "s390":
+                if os.access("/tmp/updates/anaconda", os.X_OK):
+                    prog = "/tmp/updates/anaconda"
+                else:
+                    prog = "/usr/bin/anaconda"
+                args = [ "kon", "-e", prog ]
+                screen.finish()
+                os.execv ("/sbin/loader", args)
 
 	instLanguage.setRuntimeLanguage(choice)
                 

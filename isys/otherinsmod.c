@@ -20,8 +20,10 @@ int ourInsmodCommand(int argc, char ** argv) {
     gzFile fd;
     int rc, rmObj = 0;
     int sparc64 = 0, i;
+    int force = 0;
     char * ballPath = NULL;
     char fullName[100];
+    FILE *fptr;
     struct utsname u;
 
     uname(&u);
@@ -34,6 +36,24 @@ int ourInsmodCommand(int argc, char ** argv) {
     if (argc < 2) {
 	fprintf(stderr, "usage: insmod [-p <path>] <module>.o [params]\n");
 	return 1;
+    }
+
+    /* hidden parameter for S390 installer usage */
+    if (!strcmp(argv[1], "-f")) {
+       force = 1;
+    }
+
+    /* test if module is available in /lib */
+    fptr = fopen(argv[1+force], "r");
+    if (fptr) {
+       fclose(fptr);
+       argv[0] = "insmod";
+        return combined_insmod_main(argc, argv);
+    }
+
+    if(force) {
+       argc--;
+       argv++;
     }
 
     if (!strcmp(argv[1], "-p")) {
@@ -57,6 +77,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 	    /* it might be having a ball */
 	    fd = gunzip_open(ballPath);
 	    if (!fd) {
+		fprintf(stderr, "cannot unzip %s\n", ballPath);
 		free(ballPath);
 		return 1;
 	    }

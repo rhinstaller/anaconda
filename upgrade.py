@@ -343,6 +343,14 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     else:
         id.upgradeInfoFound = id.upgradeRoot
 
+    # if we've been through here once for this root, then short-circuit
+    if ((id.upgradeInfoFound is not None) and 
+        (id.upgradeInfoFound == id.upgradeRoot)):
+        log("already found packages to upgrade for %s" %(id.upgradeRoot,))
+        return
+    else:
+        id.upgradeInfoFound = id.upgradeRoot
+
     win = intf.waitWindow(_("Finding"),
                           _("Finding packages to upgrade..."))
 

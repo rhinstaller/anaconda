@@ -488,7 +488,8 @@ class extFileSystem(FileSystemType):
                                     stderr = "/dev/tty5")
         if rc:
             raise SystemError
-        entry.setLabel(label)
+        if entry.device.getName() != "RAIDDevice":
+            entry.setLabel(label)
         
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)

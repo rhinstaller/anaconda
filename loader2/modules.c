@@ -45,12 +45,6 @@ static struct extractedModule * extractModules (char * const * modNames,
                                                 struct moduleBallLocation * location);
 
 
-static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
-                                    int flags);
-static int reloadUnloadedModule(char * modName, moduleList modLoaded, 
-                                int flags);
-
-
 /* pass in the type of device (eth or tr) that you're looking for */
 static int ethCount(const char * type) {
     int fd;
@@ -110,7 +104,6 @@ static int scsiDiskCount(void) {
         for (i; devices[i]; i++);
         free(devices);
     }
-
     return i;
 }
 
@@ -792,14 +785,13 @@ static struct extractedModule * extractModules (char * const * modNames,
 }
 
 
-
 /* simple removal of a loaded module which is going to be reloaded.
  * Note that this doesn't remove the module from the modLoaded struct
  * but we do update the loadedModuleInfo to reflect the fact that its using
  * no devices anymore.
  */
-static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
-                                    int flags) {
+int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
+                             int flags) {
     int status, rc = 0;
     pid_t child;
     struct loadedModuleInfo * mod;
@@ -812,41 +804,43 @@ static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
      * ever happen with things at the end */
     mod->firstDevNum = 0;
     mod->lastDevNum = 0;
-    
+
     if (FL_TESTING(flags)) {
-	logMessage("would have rmmod %s", modName);
-	rc = 0;
+        logMessage("would have rmmod %s", modName);
+        rc = 0;
     } else {
-	logMessage("going to rmmod %s", modName);
-	if (!(child = fork())) {
-	    int fd = open("/dev/tty3", O_RDWR);
+        logMessage("going to rmmod %s", modName);
+        if (!(child = fork())) {
+            int fd = open("/dev/tty3", O_RDWR);
 
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-	    close(fd);
+            dup2(fd, 0);
+            dup2(fd, 1);
+            dup2(fd, 2);
+            close(fd);
 
-	    execl("/sbin/rmmod", "/sbin/rmmod", modName, NULL);
-	    _exit(rc);
-	}
+            execl("/sbin/rmmod", "/sbin/rmmod", modName, NULL);
+            _exit(rc);
+        }
 
-	waitpid(child, &status, 0);
-	
-	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-	    rc = 1;
-	} else {
-	    rc = 0;
-	}
+        waitpid(child, &status, 0);
+
+        if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+            rc = 1;
+        } else {
+            rc = 0;
+        }
     }
     return rc;
 }
 
 /* simple reinsertion of a module; just looks for the module and reloads it
- * if we think it was already loaded.  we also update firstDevNum and 
+ * if we think it was already loaded.  we also update firstDevNum and
  * lastDevNum to be current
  */
-static int reloadUnloadedModule(char * modName, moduleList modLoaded, 
-                                int flags) {
+/* FIXME KH: Add module parameters until Jeremy comes up with another solution
+ */
+int reloadUnloadedModule(char * modName, moduleList modLoaded,
+                         char ** args, int flags) {
     char fileName[200];
     int rc, status;
     pid_t child;
@@ -854,7 +848,7 @@ static int reloadUnloadedModule(char * modName, moduleList modLoaded,
     char * list[2];
     int i;
 
-    for (i = 0; i < modLoaded->numModules; i++) 
+    for (i = 0; i < modLoaded->numModules; i++)
         if (!strcmp(modLoaded->mods[i].name, modName))
             break;
 
@@ -871,30 +865,30 @@ static int reloadUnloadedModule(char * modName, moduleList modLoaded,
     sprintf(fileName, "%s.o", modName);
 
     if (FL_TESTING(flags)) {
-	logMessage("would have insmod %s", fileName);
-	rc = 0;
+        logMessage("would have insmod %s", fileName);
+        rc = 0;
     } else {
-	logMessage("going to insmod %s", fileName);
+        logMessage("going to insmod %s", fileName);
 
-	if (!(child = fork())) {
-	    int fd = open("/dev/tty3", O_RDWR);
+        if (!(child = fork())) {
+            int fd = open("/dev/tty3", O_RDWR);
 
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-	    close(fd);
+            dup2(fd, 0);
+            dup2(fd, 1);
+            dup2(fd, 2);
+            close(fd);
 
-	    rc = insmod(fileName, NULL, NULL);
-	    _exit(rc);
-	}
+            rc = insmod(fileName, NULL, args);
+            _exit(rc);
+        }
 
-	waitpid(child, &status, 0);
+        waitpid(child, &status, 0);
 
-	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-	    rc = 1;
-	} else {
-	    rc = 0;
-	}
+        if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+            rc = 1;
+        } else {
+            rc = 0;
+        }
     }
 
     modLoaded->mods[i].lastDevNum = scsiDiskCount();

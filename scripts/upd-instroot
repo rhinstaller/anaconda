@@ -1,4 +1,11 @@
 #!/bin/bash
+# Until someone has a better idea how to handle stripped
+# down rpm-packages for the s390 installer:
+#
+# export a variable LOCALRPMDIR if you need some special packages
+# for the installer that you don't want to have in the normal
+# RPM directory !
+
 
 ORIGDIR=`pwd`
 COMPONENT=""
@@ -28,7 +35,7 @@ if [ -z "$ARCH" ]; then
 	ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
 fi
 
-if [ $ARCH = x86_64 ]; then
+if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
     LIBDIR=lib64
 else
     LIBDIR=lib
@@ -53,8 +60,19 @@ prunePackageList() {
 	PATTERN=""
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
+       LOCALFOUND=""
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+       if [ -n "$LOCALRPMDIR" ]; then
+           LOCALFOUND="$(ls $LOCALRPMDIR/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+           if [ -n "$LOCALFOUND" ]; then
+               echo "Found local: $(basename $LOCALFOUND)" >/dev/stderr
+               LOCALFILES="$LOCALFILES $LOCALFOUND"
+           else
+               PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+           fi
+       else
+           PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+       fi
 	done
 
 	# gtk+, enough said
@@ -64,6 +82,10 @@ prunePackageList() {
 
 	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
 		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
+   if [ -n "$LOCALFILES" ]; then
+      rpm --qf "%{NAME} $LOCALRPMDIR/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
+          -qp $LOCALFILES  | egrep "$PATTERN"  | sed 's/.* //'
+   fi
 }
 
 expandPackageSet() {
@@ -115,10 +137,10 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
-	net-tools inetd openssh openssh-server coreutils modutils
-	initscripts gawk xauth
-	portmap telnet-server login ssh_keys"
+    PACKAGES="$PACKAGES s390utils binutils s390installer libgcc
+	sed net-tools inetd openssh openssh-server coreutils modutils
+	initscripts gawk xauth bash pygtk2 portmap pam libcrack
+	telnet-server login ssh_keys mount grep"
 fi
 
 # xpm is missing
@@ -185,9 +207,9 @@ fi
 # special packages for particular arches
 #
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
-	net-tools inetd openssh openssh-server coreutils login 
-	wget initscripts xauth
+    PACKAGESGR="$PACKAGESGR s390utils binutils s390installer
+	sed net-tools inetd openssh openssh-server coreutils login 
+	initscripts xauth bash 
 	modutils portmap openssl telnet-server strace ssh_keys"
 fi
 
@@ -363,6 +385,8 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 linuxrc
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
+usr/share/terminfo/k/kterm
+usr/share/terminfo/k/kon
 usr/share/terminfo/s/screen
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt102
@@ -395,11 +419,11 @@ sbin/swapon
 sbin/swapoff
 sbin/mkswap
 sbin/tune2fs
+bin/bash
 bin/dd
-bin/gawk-3.1.0
+bin/gawk
 bin/mknod
 bin/login
-bin/ksh
 bin/cat
 bin/chmod
 bin/sort
@@ -416,17 +440,25 @@ $LIBDIR/libutil-*.so*
 $LIBDIR/libcrypt*
 $LIBDIR/libc.so*
 $LIBDIR/libc-*so*
-$LIBDIR/ld.so*
-$LIBDIR/ld-*.so*
+$LIBDIR/ld*.so*
 $LIBDIR/libresolv.so*
 $LIBDIR/libresolv-*.so*
 $LIBDIR/libvtoc*.so*
-$LIBDIR/modules/ibm*
+lib/modules/ibm*
 etc/inetd.conf
 etc/ssh/*
-etc/motd
-etc/issue.net
+etc/pam.d/sshd
+etc/pam.d/login
+etc/pam.d/system-auth
+etc/pam.d/other
+etc/security/limits.conf
+etc/security/pam_env.conf
+$LIBDIR/security/pam_*
+usr/$LIBDIR/libcrack.so*
+usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
+usr/$LIBDIR/python2.2/site-packages/gnome/uimodule.so
 usr/X11R6/bin/xauth
+usr/share/anaconda/*
 EOF
 fi
       

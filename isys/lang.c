@@ -24,6 +24,9 @@ int isysLoadFont(void) {
     gzFile stream;
     int rc;
 
+#if defined (__s390__) || defined (__s390x__)
+    return 0;
+#endif
     stream = gunzip_open("/etc/screenfont.gz");
     if (!stream)
 	return -EACCES;
@@ -55,6 +58,9 @@ int isysLoadFont(void) {
 int isysSetUnicodeKeymap(void) {
     int console;
 
+#if defined (__s390__) || defined (__s390x__)
+    return 0;
+#endif
     console = open("/dev/console", O_RDWR);
     if (console < 0)
 	return -EACCES;
@@ -75,6 +81,9 @@ int loadKeymap(gzFile stream) {
     int magic;
     short keymap[NR_KEYS];
 
+#if defined (__s390__) || defined (__s390x__)
+    return 0;
+#endif
     if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic))
 	return -EIO;
 

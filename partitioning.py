@@ -70,10 +70,7 @@ def partitionMethodSetup(partitions, dispatch):
     if dispatch.stepInSkipList("partition") and not partitions.useAutopartitioning:
 	dispatch.skipStep("partition", skip = 0)
     
-    if iutil.getArch() == "s390":
-        dispatch.skipStep("fdasd", skip = not partitions.useFdisk)
-    else:
-        dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
+    dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
 
     partitions.setProtected(dispatch)
 

@@ -227,6 +227,12 @@ static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
+    /* KH: there is already a shell running on S/390, */
+    /* we don't want to start another one (on a non accessable tty)*/
+#if defined(__s390__) && !defined(__s390x__)
+    return;
+#endif
+
     if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
         logMessage("not spawning a shell");
         return;
@@ -966,6 +972,7 @@ int main(int argc, char ** argv) {
     /* now let's do some initial hardware-type setup */
     ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
     scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
+    dasdSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
     /* Note we *always* do this. If you could avoid this you could get
        a system w/o USB keyboard support, which would be bad. */
@@ -976,12 +983,14 @@ int main(int argc, char ** argv) {
 
     kdFindIdeList(&kd, 0);
     kdFindScsiList(&kd, 0);
+    kdFindDasdList(&kd, 0);
     kdFindNetList(&kd, 0);
 
     /* explicitly read this to let libkudzu know we want to merge
      * in future tables rather than replace the initial one */
     pciReadDrivers("/modules/pcitable");
 
+#if !defined (__s390__) && !defined (__s390x__)
     if ((access("/proc/bus/pci/devices", R_OK) &&
          access("/proc/openprom", R_OK) &&
          access("/proc/iSeries", R_OK)) || FL_MODDISK(flags)) {
@@ -990,6 +999,7 @@ int main(int argc, char ** argv) {
         loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, 
                         modInfo, &kd, flags);
     }
+#endif
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
@@ -1018,6 +1028,9 @@ int main(int argc, char ** argv) {
     url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
+	/* S390 is slighly different here because it has a full 
+	   blown environment */
+#if !defined (__s390__) && !defined (__s390x__)
         unlink("/usr");
         symlink("/mnt/runtime/usr", "/usr");
         unlink("/lib");
@@ -1026,6 +1039,13 @@ int main(int argc, char ** argv) {
             unlink("/lib64");
             symlink("/mnt/runtime/lib64", "/lib64");
         }
+#else
+	rename("/usr", "/usr_old");
+        symlink("mnt/runtime/usr", "/usr");
+        rename("/lib", "/lib_old");
+	symlink("mnt/runtime/lib", "/lib");
+	system("/sbin/ldconfig");
+#endif
     }
 
     logMessage("getting ready to spawn shell now");
@@ -1052,6 +1072,7 @@ int main(int argc, char ** argv) {
 
     checkForHardDrives(&kd, &flags);
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (((access("/proc/bus/pci/devices", R_OK) &&
           access("/proc/openprom", R_OK) &&
           access("/proc/iSeries", R_OK)) ||
@@ -1059,7 +1080,9 @@ int main(int argc, char ** argv) {
         startNewt(flags);
         manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
+#endif
     
+
     if (FL_UPDATES(flags)) 
         loadUpdates(&kd, flags);
 

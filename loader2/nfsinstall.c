@@ -171,7 +171,6 @@ char * mountNfsImage(struct installMethod * method,
                 if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
                     logMessage("can access stage2.img");
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
-                    logMessage("after mountStage2, rc is %d", rc);
                     if (rc) {
                         umount("/mnt/source");
                         if (rc == -1) { 
@@ -233,7 +232,9 @@ char * mountNfsImage(struct installMethod * method,
         }
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     writeNetInfo("/tmp/netinfo", &netDev, kd);
+#endif
     free(host);
     free(directory);
 

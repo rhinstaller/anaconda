@@ -151,6 +151,66 @@ bye:
     free (buf);
     return 0;
 }
+char *getDasdPorts() {
+        char * line, *ports = NULL;
+        char port[6];
+        FILE *fd;
+        fd = fopen ("/proc/dasd/devices", "r");
+        if(!fd) {
+                return NULL;
+        }
+        line = (char *)malloc(100*sizeof(char));
+        while (fgets (line, 100, fd) != NULL) {
+                if ((strstr(line, "unknown") != NULL)) {
+                        continue;
+                }
+                if(sscanf (line, "%[A-Za-z0-9](%*s", port)) {
+                        if(!ports) {
+                                ports = (char *)malloc(strlen("dasd=") + strlen(port) + 1);
+                                strcpy(ports, port);
+                        } else {
+                                ports = (char *)realloc(ports, strlen(ports) + strlen(port) + 2);   /* portnumber + ',' */
+                                strcat(ports, ",");
+                                strcat(ports, port);
+                        }
+                }
+        }
+        if (fd) fclose(fd);
+        return ports;
+}
+
+int kdFindDasdList(struct knownDevices * devices, int code) {
+        char format[10], devname[10];
+        char *line;
+        int ret;
+        FILE *fd;
+
+        struct kddevice device;
+
+        fd = fopen ("/proc/dasd/devices", "r");
+        if(!fd) {
+                return 0;
+        }
+
+        line = (char *)malloc(100*sizeof(char));
+        while (fgets (line, 100, fd) != NULL) {
+                ret = sscanf (line, "%*[A-Za-z0-9](%[A-Z]) at ( %*d: %*d) is %s : %*s",
+                                format, devname);
+                if (ret == 2) {
+                        if(!deviceKnown(devices, devname)) {
+                                device.code = code;
+                                device.class = CLASS_HD;
+                                device.name = strdup(devname);
+                                device.model = strdup(format);
+                                addDevice(devices, device);
+                        }
+                }
+        }
+        if (fd) fclose(fd);
+        qsort(devices->known, devices->numKnown, sizeof(*devices->known),
+                        sortDevices);
+        return 0;
+}
 
 int kdFindIdeList(struct knownDevices * devices, int code) {
     return kdFindFilteredIdeList(devices, code, NULL);
@@ -407,47 +467,6 @@ bye:
     free (buf);
     return val;
 }
-
-#if defined (__s390__) || defined (__s390x__)
-int kdFindDasdList(struct knownDevices * devices, int code) {
-   /* patch for s390 by Oliver Paukstadt <oliver.paukstadt@millenux.com> */
-   /* based upon code by Erik Tews <erik.tews@gmx.net> */
-   FILE * fd;
-   struct kddevice device;
-   char line[200];
-   char name[10];
-   char status[10];
-   char model[30];
-
-   if (access("/proc/dasd/devices", R_OK)) return 0;
-   /* a system without /proc/dasd/devices is nothing to worry about */
-
-   fd = fopen ("/proc/dasd/devices", "r");
-   if (fd == NULL) return 1;
-
-   /* Every line in this file is a harddisk */
-   while ((fgets(line, 190, fd)) != NULL) {
-      int num;
-      num = sscanf(line, "%*X %*[(A-Z)] at (%*d:%*d) is %[a-z0-9] : %s ", 
-				   name, status);
-      /* Take every dasd, formated and unformated */
-
-      if ((num == 2) && (strlen(name) <= 6) && !deviceKnown(devices, name)) {
-         snprintf(model, sizeof(model), "IBM DASD (%s)", status);
-         device.class = CLASS_HD;
-         device.name = strdup(name);
-         device.model = strdup(model);
-         device.code = code;
-         addDevice(devices, device);
-      }
-   }
-   fclose (fd);
-
-   qsort(devices->known, devices->numKnown, sizeof(*devices->known),
-	sortDevices);
-   return 0;
-}
-#endif
 
 struct knownDevices kdInit(void) {
     struct knownDevices kd;

@@ -96,7 +96,6 @@ class BaseInstallClass:
                  "autopartition",
                  "autopartitionexecute",
                  "fdisk",
-                 "fdasd",
                  "partition",
 		 "partitiondone",
 		 "bootloadersetup",                 
@@ -142,12 +141,10 @@ class BaseInstallClass:
         # XXX ugh, this badly needs some clean up
         if iutil.getArch() == "x86_64":
             dispatch.skipStep("bootdisk")
-            dispatch.skipStep("fdasd", permanent = 1)            
         elif (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
             iutil.getArch() == "sparc" or iutil.getArch() == "ppc"):
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
-            dispatch.skipStep("fdasd", permanent = 1)
 	elif iutil.getArch() == "s390":
 	    dispatch.skipStep("keyboard", permanent = 1)
 	    dispatch.skipStep("mouse", permanent = 1)
@@ -161,8 +158,6 @@ class BaseInstallClass:
 	    dispatch.skipStep("xcustom", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 	    dispatch.skipStep("bootdisk", permanent = 1)
-	else:
-	    dispatch.skipStep("fdasd", permanent = 1)
 
     # This is called after the hdlist is read in.
     def setPackageSelection(self, hdlist, intf):

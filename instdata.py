@@ -23,6 +23,7 @@ import fsset
 import bootloader
 import partitions
 import partedUtils
+import iutil
 from flags import *
 from constants import *
 
@@ -127,7 +128,8 @@ class InstallData:
 	self.langSupport.writeKS(f)
 	self.keyboard.writeKS(f)
         self.mouse.writeKS(f)
-        self.xsetup.writeKS(f, self.desktop)
+        if iutil.getArch() != "s390":
+            self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)

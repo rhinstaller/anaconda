@@ -1,15 +1,14 @@
 # Copyright (C) 1998-2002  Red Hat, Inc.
 include Makefile.inc
 
-SUBDIRS = isys loader2 po stubs \
+SUBDIRSHD = isys loader2 po stubs \
 	    textw utils scripts bootdisk installclasses \
 	    iw pixmaps isomd5sum command-stubs
-# fonts aren't on s390/s390x
-ifneq (s390, $(ARCH))
-ifneq (s390x, $(ARCH))
-SUBDIRS += fonts
+ifeq (,$(findstring s390,$(ARCH)))
+	SUBDIRSHD += fonts
 endif
-endif
+
+SUBDIRS = $(SUBDIRSHD)
 
 # DESTDIR        - destination for install image for install purposes
 DESTDIR = ../../../RedHat/instimage
@@ -17,6 +16,8 @@ DESTDIR = ../../../RedHat/instimage
 CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
+
+CVSROOT = $(shell cat CVS/Root)
 
 all:  subdirs mini-wm _xkb.so xmouse.so xutils.so $(CATALOGS) lang-table lang-names locale-list
 

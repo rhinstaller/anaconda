@@ -470,7 +470,6 @@ if keymap:
     kbd.set(keymap)
 
 # setup a X hw state for use later with configuration
-xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
 try:
     xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
 except:

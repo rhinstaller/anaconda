@@ -1,0 +1,36 @@
+#!/usr/bin/python
+
+import os
+import sys
+
+# for testing
+if (os.path.exists('isys')):
+    sys.path.append('isys')
+
+sys.path.append('/usr/lib/anaconda')
+
+import isys
+from sys import argv
+
+def usage():
+    print "usage: pump [-i device]"
+    sys.exit(1)
+
+iface = "eth0"
+
+argv = argv[1:]
+while (argv):
+    if argv[0] == "-i":
+	if len(argv) < 2: usage()
+	iface = argv[1]
+	argv = argv[2:]
+    else:
+	usage()
+	
+ns = isys.pumpNetDevice(iface)
+if ns:
+    f = open("/etc/resolv.conf", "w")
+    f.write("nameserver %s\n" % ns)
+    f.close()
+
+sys.exit(0)

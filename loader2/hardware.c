@@ -21,6 +21,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #include "loader.h"
 #include "hardware.h"
@@ -239,3 +240,71 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
               struct knownDevices * kd) {
     mlLoadModuleSet("ide-cd", modLoaded, modDeps, modInfo, flags);
 }
+
+
+/* check if the system has been booted with dasd parameters */
+/* These parameters define the order in which the DASDs */
+/* are visible to Linux. Otherwise load dasd modules probeonly, */
+/* then parse proc to find active DASDs */
+/* Reload dasd_mod with correct range o DASD ports */
+void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
+		moduleInfoSet modInfo, int flags,
+		struct knownDevices * kd) {
+
+	char **dasd_parms;
+	char *line, *ports = NULL;
+	char *parms = NULL, *parms_end;
+	FILE *fd;
+
+	dasd_parms = malloc(sizeof(*dasd_parms) * 2);
+	dasd_parms[0] = NULL;
+	dasd_parms[1] = NULL;
+
+	fd = fopen ("/proc/cmdline", "r");
+	if(fd) {
+		line = (char *)malloc(sizeof(char) * 200);
+		while (fgets (line, 199, fd) != NULL) {
+			if((parms = strstr(line, " dasd=")) ||
+			   (parms = strstr(line, " DASD="))) {
+			   parms++;
+			   strncpy(parms, "dasd", 4);
+			   parms_end = parms;
+			   while(*parms_end && !(isspace(*parms_end))) parms_end++;
+			   *parms_end = '\0';
+			   break;
+			}
+		}
+		fclose(fd);
+		free(line);
+	}
+	if(!parms || (strlen(parms) == 5)) {
+		parms = NULL;
+	} else {
+		dasd_parms[0] = strdup(parms);
+		mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo,
+			     dasd_parms, flags);
+
+		mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
+				modLoaded, modDeps, modInfo, flags);
+		return;
+	}
+	if(!parms) {
+		mlLoadModuleSet("dasd_mod:dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
+				modLoaded, modDeps, modInfo, flags);
+		if((ports = getDasdPorts())) {
+			parms = (char *)malloc(strlen("dasd=") + strlen(getDasdPorts()) + 1);
+			strcpy(parms,"dasd=");
+			strcat(parms, ports);
+			dasd_parms[0] = parms;
+			simpleRemoveLoadedModule("dasd_eckd_mod", modLoaded, flags);
+			simpleRemoveLoadedModule("dasd_fba_mod", modLoaded, flags);
+			simpleRemoveLoadedModule("dasd_diag_mod", modLoaded, flags);
+			simpleRemoveLoadedModule("dasd_mod", modLoaded, flags);
+			reloadUnloadedModule("dasd_mod", modLoaded, dasd_parms, flags);
+			reloadUnloadedModule("dasd_eckd_mod", modLoaded, dasd_parms, flags);
+			free(dasd_parms);
+			free(ports);
+		}
+	}
+}
+

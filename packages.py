@@ -965,7 +965,10 @@ def doPostInstall(method, id, intf, instPath):
 	    if arch == "i386":
 		pcmcia.createPcmciaConfig(
 			instPath + "/etc/sysconfig/pcmcia")
-		       
+
+	    if arch == "s390":
+		copyOCOModules(instPath)
+
 	    w.set(3)
 
 	    # blah.  If we're on a serial mouse, and we have X, we need to
@@ -998,21 +1001,13 @@ def doPostInstall(method, id, intf, instPath):
 		# we need to unmount usbdevfs before mounting it
 		usbWasMounted = iutil.isUSBDevFSMounted()
 		if usbWasMounted:
-                    isys.umount('/proc/bus/usb', removeDir = 0)
+		    isys.umount('/proc/bus/usb', removeDir = 0)
 
 		    # see if unmount suceeded, if not pretent it isnt mounted
 		    # because we're screwed anywyas if system is going to
 		    # lock up
 		    if iutil.isUSBDevFSMounted():
-			usbWasMounted = 0
-		    
-                unmountUSB = 0
-                try:
-                    isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
-                    unmountUSB = 1
-                except:
-                    log("Mount of /proc/bus/usb in chroot failed")
-                    pass
+		        usbWasMounted = 0
 
                 argv = [ "/usr/sbin/kudzu", "-q" ]
                 if id.hdList.has_key("kernel"):
@@ -1043,10 +1038,10 @@ def doPostInstall(method, id, intf, instPath):
                         # suckage
                         usbWasMounted = 0
 
-		if usbWasMounted:
-                    isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
+	    if usbWasMounted:
+		isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
 
-	w.set(4)
+	    w.set(4)
 
         if upgrade and id.dbpath is not None:
             # remove the old rpmdb
@@ -1068,7 +1063,10 @@ def doPostInstall(method, id, intf, instPath):
             try:
                 # ugly hack
                 path = id.compspkg.split("/mnt/sysimage")[1]
-                args = ["/bin/rpm", "-Uvh", path]
+                if iutil.getArch() != "s390":
+                    args = ["/bin/rpm", "-Uvh", path]
+                else:
+                    args = ["/bin/rpm", "-Uv", path]
                 rc = iutil.execWithRedirect(args[0], args,
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5",
@@ -1196,6 +1194,10 @@ def copyExtraModules(instPath, comps, extraModules):
 
             recreateInitrd(n, instPath)
 
+def copyOCOModules(instPath):
+    command = ("[ -d /OCO ] && cp -a /OCO/* %s/lib/modules" % (instPath))
+    log("running: '%s'" % (command, ))
+    os.system(command)
 
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
@@ -1301,3 +1303,5 @@ def selectLanguageSupportGroups(comps, langSupport):
                             comp.addDependencyPackage(pkg)
                             comp.updateDependencyCountForAddition(pkg)
     comps.updateSelections()
+
+# vim:ts=8:sw=8

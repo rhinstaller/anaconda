@@ -20,6 +20,16 @@ ifeq (1, $(USEDIET))
 DIETLIB=libisys-diet.a
 endif
 
+ifeq ($(ARCH),s390)
+LDFLAGS=-fPIC
+CFLAGS += -fPIC
+endif
+
+ifeq ($(ARCH),s390x)
+LDFLAGS=-fPIC
+CFLAGS += -fPIC
+endif
+
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
 SOURCES += silo.c
@@ -47,7 +57,7 @@ all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 	$(DIET) $(CC) -c $(CFLAGS) -DGZLIB=1 -DDIET=1 "-Du_char=unsigned char" -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
-	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
+	gcc -shared $(LDFLAGS) -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
 
 _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a

@@ -445,17 +445,17 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
      if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
-   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-     env = getenv("REMIP");
-     if (env && *env) {
-       if(inet_aton(env, &newCfg.dev.gateway))
-         newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-     }
-   }
    env = getenv("BROADCAST");
    if (env && *env) {
      if(inet_aton(env, &newCfg.dev.broadcast))
        newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
+   }
+   /* FIXME: Hack to avoid changes to pump.h (no dev.mtu available) */
+   /* numXfs isn't used by anything */
+   env = getenv("MTU");
+   if (env && *env) {
+       newCfg.dev.numXfs = atoi(env);
+       newCfg.dev.set |= PUMP_NETINFO_HAS_XFNTSRVS;
    }
 #endif   /* s390 */
 
@@ -464,7 +464,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     fillInIpInfo(cfg);
 
-#if !defined(__s390__) && !defined(__s390x__)
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
         if (*c.gw && inet_aton(c.gw, &addr)) {
             cfg->dev.gateway = addr;
@@ -480,7 +479,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     }
 
     newtPopWindow();
-#endif
     if (!FL_TESTING(flags)) {
         configureNetwork(cfg);
         findHostAndDomain(cfg, flags);
@@ -491,13 +489,10 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
-#if !defined(__s390__) && !defined(__s390x__)
     pumpSetupInterface(&dev->dev);
 
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
-
-#endif
     return 0;
 }
 
@@ -524,9 +519,6 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
         if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
           fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-          if (!strncmp(dev->dev.device, "ctc", 3) || \
-              !strncmp(dev->dev.device, "iucv", 4)) 
-            fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
         }
         if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
           fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));    
@@ -536,6 +528,12 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
+
+    /* FIXME: Hack to avoid changes to pump.h (no dev.mtu available) */
+    /* numXfs isn't used by anything */
+    if (dev->dev.set & PUMP_NETINFO_HAS_XFNTSRVS)
+        fprintf(f, "MTU=%d\n", dev->dev.numXfs);
+
 
     fclose(f);
 

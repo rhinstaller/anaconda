@@ -73,11 +73,11 @@ class NetworkWindow:
         self.onboot = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
         firstg.setField (self.onboot, 0, 2, anchorLeft = 1)
 
-        ask_ptp = None
         if len(dev.info["DEVICE"]) >= 3 and dev.info["DEVICE"][:3] == "ctc":
             ask_ptp = 1
             secondg = Grid (2, 7)
         else:
+            ask_ptp = None
             secondg = Grid (2, 6)
             
         secondg.setField (Label (_("IP address:")), 0, 0, anchorLeft = 1)

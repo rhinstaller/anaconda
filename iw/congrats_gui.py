@@ -17,6 +17,7 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
 import iutil
+import _isys
 
 class CongratulationWindow (InstallWindow):		
 
@@ -49,7 +50,7 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
 
-        if iutil.getArch() == 'i386':
+        if not iutil.getArch() in ('ia64', 's390'):
             bootstr = _("If you created a boot diskette during this "
 			"installation as your primary means of "
 			"booting %s, insert it before "
@@ -77,5 +78,27 @@ class CongratulationWindow (InstallWindow):
 	       "Click 'Exit' to reboot the system.") % (bootstr,))
 
         hbox.pack_start (label, gtk.TRUE, gtk.TRUE)
-        return hbox
+	# FIXME: Need to investigate why the normal umount didn't work and
+	# remove this hack
+	if iutil.getArch() == "s390":
+	    try:
+	        f = open("/proc/mounts", "r")
+	    except:
+	        pass
+	    else:
+	        lines = f.readlines()
+	        f.close()
+	        umounts = []
+	        for line in lines:
+	            if string.find(line, "/mnt/sysimage") > -1:
+	                tokens = string.split(line)
+	                umounts.append(tokens[1])
+	        umounts.sort()
+	        umounts.reverse()
+	        for part in umounts:
+	            try:
+	                _isys.umount(part)
+	            except:
+	                print part + "is busy, couldn't umount."
+	return hbox
 

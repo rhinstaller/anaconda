@@ -118,30 +118,17 @@ makeS390initrd() {
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
     fi
 
-    echo "PermitEmptyPasswords yes" >> $MBD_DIR/etc/ssh/sshd_config
     cat > $MBD_DIR/etc/passwd << EOF
-root::0:0:root:/tmp:/bin/bash
-sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+    root::0:0:root:/tmp:/bin/bash
+    sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
-    mkdir -p $MBD_DIR/var/empty/sshd $MBD_DIR/etc/pam.d $MBD_DIR/lib/security \
-         $MBD_DIR/etc/security
-    chmod 111 $MBD_DIR/var/empty/sshd
-    for i in pam_stack.so pam_nologin.so pam_limits.so pam_console.so \
-         pam_securetty.so pam_env.so pam_unix.so pam_deny.so pam_cracklib.so \
-         pam_limits.so; do
-       cp -f $IMGPATH/lib/security/$i $MBD_DIR/lib/security
-    done
-    cp -f $IMGPATH/lib/libpam_misc.so* $IMGPATH/lib/libpam.so* $MBD_DIR/lib
-    for i in sshd login system-auth other; do 
-       cp -f $IMGPATH/etc/pam.d/$i $MBD_DIR/etc/pam.d
-    done
-    cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
-    cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
-    cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
 
-    install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
-    #install -s -m 755 $LOADERBINDIR/load_anaconda $MBD_DIR/sbin/loader
+    mkdir -p $MBD_DIR/var/empty/sshd
+    chmod 111 $MBD_DIR/var/empty/sshd
+
+    install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loaderbin
+    install -s -m 755 $LOADERBINDIR/load_anaconda $MBD_DIR/sbin/loader
     # install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
     # install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
@@ -163,11 +150,13 @@ EOF
     fi
 
     for n in insmod rmmod modprobe; do
-        ln -s loader $MBD_DIR/sbin/$n
+        ln -s loaderbin $MBD_DIR/sbin/$n
     done
 
-    mkdir -p $MBD_DIR/lib $MBD_DIR/usr/kerberos/lib $MBD_DIR/mnt1 \
+    mkdir -p $MBD_DIR/lib $MBD_DIR/mnt1 \
+     $MBD_DIR/usr/lib/locale/{de_DE,en_US,ja_JP.eucjp}/LC_MESSAGES \
      $MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh $MBD_DIR/mnt/source \
+     $MBD_DIR/etc/locale/{de,en,ja}/LC_MESSAGES \
      $MBD_DIR/usr/lib/gconv/
     for links in X11R6 bin sbin share; do
        ln -sf /mnt/runtime/usr/$links $MBD_DIR/usr/$links
@@ -176,10 +165,24 @@ EOF
     ln -s ../linuxrc $MBD_DIR/sbin/init
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     ln -sf bash $MBD_DIR/sbin/sh
+    cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
     cp -f $IMGPATH/usr/bin/gawk $MBD_DIR/sbin/awk
+    cp -f $IMGPATH/usr/bin/formatmnt $MBD_DIR/sbin/formatmnt
+    cp -f $IMGPATH/usr/bin/netsetup $MBD_DIR/sbin/netsetup
+    cp -f $IMGPATH/usr/bin/gettext $MBD_DIR/sbin/gettext
+    cp -f $IMGPATH/usr/bin/pkgsrc $MBD_DIR/sbin/pkgsrc
+    cp -f $IMGPATH/usr/bin/pkgselect $MBD_DIR/sbin/pkgselect
     cp -f $IMGPATH/usr/bin/sort_save $MBD_DIR/sbin/sort
+    cp -f $IMGPATH/usr/bin/mknod_save $MBD_DIR/sbin/mknod
+    cp -f $IMGPATH/usr/bin/wget $MBD_DIR/sbin/wget
+    cp -f $IMGPATH/usr/bin/printf $MBD_DIR/sbin/printf
     cp -f $IMGPATH/usr/sbin/chroot $MBD_DIR/sbin/chroot
     cp -f $IMGPATH/usr/sbin/consoletype $MBD_DIR/sbin/consoletype
+    cp -f $IMGPATH/usr/sbin/rhsetup $MBD_DIR/sbin/rhsetup
+    cp -f $IMGPATH/usr/sbin/swapon $MBD_DIR/sbin/swapon
+    cp -f $IMGPATH/usr/sbin/swapoff $MBD_DIR/sbin/swapoff
+    cp -f $IMGPATH/usr/sbin/mkswap $MBD_DIR/sbin/mkswap
+    cp -f $IMGPATH/usr/sbin/tune2fs $MBD_DIR/sbin/tune2fs
     cp -f $IMGPATH/usr/sbin/mke2fs $MBD_DIR/sbin/mke2fs
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
     for i in cp uname tee rm ps mv more mkdir ls ln hostname head \
@@ -193,6 +196,7 @@ EOF
     ln -s gzip $MBD_DIR/sbin/zcat
     cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
     cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
+    cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
     cp -df $IMGPATH/lib/libtermcap* $MBD_DIR/lib/
     install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
@@ -204,6 +208,26 @@ EOF
     cp -f $IMGPATH/usr/sbin/portmap $MBD_DIR/sbin/portmap
     cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
     cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
+    for loc in de en ja; do
+       cp -pRf $IMGPATH/etc/locale/$loc/* \
+         $MBD_DIR/etc/locale/$loc/
+    done
+    for loc in de ja; do
+       cp -pRf $IMGPATH/usr/share/locale/$loc/LC_MESSAGES/anaconda.mo \
+               $IMGPATH/usr/share/locale/$loc/LC_MESSAGES/s390installer.mo \
+         $MBD_DIR/etc/locale/$loc/LC_MESSAGES/
+    done
+    cp -pRf $IMGPATH/usr/share/locale/de/LC_MESSAGES/anaconda.mo \
+            $IMGPATH/usr/share/locale/de/LC_MESSAGES/s390installer.mo \
+       $MBD_DIR/usr/lib/locale/de_DE/LC_MESSAGES/
+    cp -pRf $IMGPATH/usr/share/locale/ja/LC_MESSAGES/anaconda.mo \
+            $IMGPATH/usr/share/locale/ja/LC_MESSAGES/s390installer.mo \
+       $MBD_DIR/usr/lib/locale/ja_JP.eucjp/LC_MESSAGES/
+    for loc in de_DE en_US ja_JP.eucjp; do
+       cp -pRf $IMGPATH/usr/lib/locale/$loc/* \
+             $MBD_DIR/usr/lib/locale/$loc/
+    done
+    ln -sf ja_JP.eucjp $MBD_DIR/usr/lib/locale/ja_JP
     for file in ISO8859-15.so EUC-JP.so libJIS.so gconv-modules; do
        cp -f $IMGPATH/usr/lib/gconv/$file $MBD_DIR/usr/lib/gconv/$file
     done
@@ -219,6 +243,7 @@ EOF
     cp -df $IMGPATH/lib/libutil.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libutil-*.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libcrypt*so* $MBD_DIR/lib
+    cp -df $IMGPATH/usr/lib/libcrypt*so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libc.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libc-*.so* $MBD_DIR/lib
     if [ "$BUILDARCH" = "s390" ]; then
@@ -236,21 +261,15 @@ EOF
     cp -df $IMGPATH/lib/libssl* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libext2* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libcom_err* $MBD_DIR/lib
-    cp -df $IMGPATH/usr/kerberos/lib/libgssapi_krb5* $MBD_DIR/usr/kerberos/lib
-    cp -df $IMGPATH/usr/kerberos/lib/libkrb5.so* $MBD_DIR/usr/kerberos/lib
-    cp -df $IMGPATH/usr/kerberos/lib/libk5crypto.so* $MBD_DIR/usr/kerberos/lib
-    cp -df $IMGPATH/usr/kerberos/lib/libcom_err.so* $MBD_DIR/usr/kerberos/lib
     cp -df $IMGPATH/lib/libe2p* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libuuid* $MBD_DIR/lib
     cp -df $IMGPATH/usr/lib/libnewt.so* $MBD_DIR/lib
-    cp -df $IMGPATH/usr/lib/libslang* $MBD_DIR/lib
-    cat >>$MBD_DIR/etc/ld.so.conf <<EOF
-/usr/kerberos/lib
-/usr/X11R6/lib
+    cp -df $IMGPATH/usr/lib/libslang.so* $MBD_DIR/lib
+    echo >$MBD_DIR/etc/ld.so.conf <<EOF
+/lib
 /mnt/runtime/lib
 /mnt/runtime/usr/lib
 EOF
-    (/usr/sbin/chroot $MBD_DIR /sbin/ldconfig -v )
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
 
@@ -260,7 +279,6 @@ EOF
          }' <<EOF | sh
         $MBD_DIR console c 4 64 600 root:root
         $MBD_DIR random c 1 8 644 root:root
-        $MBD_DIR ram0 b 1 1 640 root:root
         $MBD_DIR ram1 b 1 2 640 root:root
         $MBD_DIR ram2 b 1 3 640 root:root
         $MBD_DIR ram3 b 1 4 640 root:root
@@ -269,6 +287,9 @@ EOF
         $MBD_DIR loop2 b 7 2 640 root:disk
         $MBD_DIR loop3 b 7 3 640 root:disk
         $MBD_DIR urandom c 1 9 644 root:root
+        $MBD_DIR mnda b 95 0 660 root:disk
+        $MBD_DIR mndb b 95 1 660 root:disk
+        $MBD_DIR mndc b 95 2 660 root:disk
         $MBD_DIR xpram0 b 35 0 600 root:root
         $MBD_DIR xpram1 b 35 1 600 root:root
         $MBD_DIR xpram2 b 35 2 600 root:root
@@ -277,6 +298,7 @@ EOF
         $MBD_DIR zero c 1 5 666 root:root
         $MBD_DIR md0 b 9 0 644 root:root
         $MBD_DIR mem c 1 1 600 root:root
+        $MBD_DIR ram b 1 1 640 root:root
         $MBD_DIR ptmx c 5 2 666 root:root
         $MBD_DIR tty0 c 4 0 600 root:tty
         $MBD_DIR tty1 c 4 1 600 root:tty
@@ -294,7 +316,6 @@ EOF
         $MBD_DIR fd0 b 2 0 644 root:root
         $MBD_DIR fd1 b 2 1 644 root:root
 EOF
-    ln -s ram1 $MBD_DIR/dev/ram
     for i in `seq 2 9`; do
       ln -s console $MBD_DIR/dev/tty$i
     done
@@ -358,7 +379,7 @@ NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 echo "In mk-images.s390: kernelvers is $kernelvers"
 if [ "$kernelvers" = "BOOT" ]; then
     makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 15000 \
+	   --initrdsize 16000 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
     cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
@@ -366,7 +387,7 @@ fi
 
 if [ "$kernelvers" = "BOOTtape" ]; then
     makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
-	   --initrdsize 15000 \
+	   --initrdsize 16000 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
     cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img

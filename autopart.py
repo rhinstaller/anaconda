@@ -135,7 +135,7 @@ def bestPartType(disk, request):
     maxPrimary = disk.max_primary_partition_count
     if numPrimary == maxPrimary:
         raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.dev.path[5:])
-    if request.primary:
+    if request.primary or iutil.getArch() == "s390":
         return parted.PARTITION_PRIMARY
     if (numPrimary == (maxPrimary - 1)) and not disk.extended_partition:
         return parted.PARTITION_EXTENDED
