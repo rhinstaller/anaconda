@@ -441,7 +441,11 @@ class Kickstart(InstallClass):
 	    raise ValueError, "partition command requires one anonymous argument"
 
 	if onPart:
-	    self.addToFstab(extra[0], onPart)
+           if extra[0] == 'swap':
+               # handle swap filesystems correctly 
+               self.addToFstab(extra[0], onPart,'swap',1)
+           else:
+               self.addToFstab(extra[0], onPart)
 	else:
 	    self.addNewPartition(extra[0], size, maxSize, grow, device)
 
