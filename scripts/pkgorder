@@ -7,7 +7,6 @@ import rpm
 import string
 
 rpmFD = None
-fns = {}
 
 import comps
 
@@ -21,26 +20,6 @@ def cmpHeaderByName(h1, h2):
 	return 0;
 
     return 1
-
-def transCB(what, amount, total, h, intf):
-    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-	global rpmFD
-	global distDir
-	global pkgOrder
-	global fns
-	name = h[1000000]
-
-	# we need the real header for later
-	rpmFD = os.open(distDir + '/RedHat/RPMS/' + name, os.O_RDONLY)
-	fd = os.open(distDir + '/RedHat/RPMS/' + name, os.O_RDONLY)
-	(newH, isSource) = rpm.headerFromPackage(fd)
-	os.close(fd)
-	pkgOrder.append(newH)
-	fns[newH] = name
-	return rpmFD
-    elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
-	global rpmFD
-	os.close (rpmFD)
 
 if len(sys.argv) != 3:
     print "splitdistro <toppath> <arch>"
@@ -101,7 +80,11 @@ pkgOrder = []
 
 ts.order()
 
-problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, transCB, None)
+try:
+    pkgOrder = ts.getKeys()
+except AttributError:
+    print "you don't have the latest RPM!"
 
 for p in pkgOrder:
-    print fns[p]
+    print p[1000000]
+
