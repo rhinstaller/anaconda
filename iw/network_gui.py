@@ -212,7 +212,7 @@ class NetworkWindow(InstallWindow):
             
             num = num + 1
 
-            forward = lambda widget, box=box: box.focus(DIR_TAB_FORWARD)
+            forward = lambda widget, box=box: box.emit('focus', gtk.DIR_TAB_FORWARD)
 
             for t in range(len(options)):
                 label = gtk.Label("%s:" %(options[t][0],))
