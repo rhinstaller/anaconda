@@ -136,7 +136,7 @@ int devMakeInode(char * devName, char * path) {
     } else if (!strncmp(devName, "cciss/", 6)) {
 	/* Compaq Smart Array 5300 "cciss/c0d0{p1} */
 	type = S_IFBLK;
-	major = 130 + devName[7] - '0';    /* controller */
+	major = 104 + devName[7] - '0';    /* controller */
 	minor = (devName[9] - '0') * 16;  /* disk */
 	if (strlen(devName) > 10)          /* partition */
 	    minor += atoi(devName + 11);
