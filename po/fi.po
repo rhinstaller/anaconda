@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-02-13 14:42+0200\n"
+"PO-Revision-Date: 2005-03-07 23:29+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
@@ -252,14 +252,14 @@ msgid "Could not allocate partitions"
 msgstr "Osioiden varaus epäonnistui"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
 "Käynnistysosio %s ei kuulu BSD-levynimiöön. SRM ei voi käynnistää tältä "
-"osiolta. Käytä BSD-levynimiöön kuuluvaa osiointia tai vaihda tämän levyn "
+"osiolta. Käytä BSD-levynimiöön kuuluvaa osiota tai vaihda tämän levyn "
 "nimiö BSD:ksi."
 
 #: ../autopart.py:1024
@@ -1412,21 +1412,20 @@ msgstr "Asenna järjestelmä"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Sovelma epäonnistui"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"%s:n asennuksessa syntyi virhe. Tämä voi johtua asennusmedian virheestä,"
-"levytilan vähyydestä ja tai laiteongelmasta. Tämä on vakava virhe ja asennus "
-"keskeytyy. Tarkista asennusmedia ja yritä asennusta uudelleen.\n"
+"Sovelman ajamisessa tapahtui virhe. Tulostetta voi tutkia: %s. "
+"Tämä on vakava virhe ja asennus keskeytyy.\n"
 "\n"
-"Valitse OK käynnistääksesi järjestelmän uudelleen."
+"Käynnistä järjestelmä uudelleen painamalla OK-painiketta."
 
 # ../iw/progress_gui.py:28
 #: ../kickstart.py:1489
@@ -2328,9 +2327,8 @@ msgid ""
 msgstr "On luotava /boot/efi-osio, jonka tyyppi on FAT ja koko 50 megatavua."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "On luotava PPC PReP -käynnistysosio."
+msgstr "On luotava Apple Bootstrap -käynnistysosio."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3509,13 +3507,12 @@ msgid "Congratulations"
 msgstr "Onnittelut"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Poista asennuslevyt (levyke tai CD-ROM), ja käynnistä kone uudelleen "
+"Poista asennuslevy asemasta, ja käynnistä kone uudelleen "
 "painikkeella \"Käynnistä uudelleen\".\n"
 "\n"
 
@@ -6170,14 +6167,12 @@ msgid "<Enter> to exit"
 msgstr "Poistu painamalla <Enter>"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Poista asennuslevyt (levyke tai CD-ROM) ja paina <Enter>, jolloin kone "
-"käynnistyy uudelleen.\n"
+"Poista asennuslevyt asemasta ja käynnistä kone uudelleen painamalla <Enter>.\n"
 "\n"
 
 # ../textw/complete_text.py:25
