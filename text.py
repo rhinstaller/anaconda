@@ -320,10 +320,14 @@ class UpgradeExamineWindow:
             else:
                 scroll = 0
 
+	    partList = []
+	    for (drive, fstype) in parts:
+		partList.append(drive)
+
             (button, choice) = \
                 ListboxChoiceWindow(screen, _("System to Upgrade"),
                                     _("What partition holds the root partition "
-                                      "of your installation?"), parts, 
+                                      "of your installation?"), partList, 
                                     [ _("OK"), _("Back") ], width = 30,
                                     scroll = scroll, height = height,
 				    root = "multipleroot")
