@@ -32,6 +32,13 @@ LIBNEWTSONAME = libnewt.so.$(SONAME)
 
 SHCFLAGS = -fPIC
 
+ifeq (s390, $(ARCH))
+CFLAGS += -fPIC
+endif
+
+ifeq (s390x, $(ARCH))
+CFLAGS += -fPIC
+endif
 
 #--------------------------------------
 
@@ -69,7 +76,7 @@ $(SHAREDDIR):
 sharedlib: $(LIBNEWTSH)
 
 $(LIBNEWTSH): $(SOBJS)
-	gcc -shared -o $(LIBNEWTSH) -Wl,-soname,$(LIBNEWTSONAME) $(SOBJS) $(SHLIBS)
+	gcc -shared $(SHCFLAGS) -o $(LIBNEWTSH) -Wl,-soname,$(LIBNEWTSONAME) $(SOBJS) $(SHLIBS)
 
 %.do: %.c
 	diet $(CC) -c $(CFLAGS) -o $@ $<

@@ -15,6 +15,15 @@ ifeq (ppc, $(ARCH))
 STATICLIB=libslang-diet.a($(DOBJS))
 endif
 
+ifeq (s390, $(ARCH))
+CFLAGS += -fPIC
+endif
+
+ifeq (s390x, $(ARCH))
+CFLAGS += -fPIC
+endif
+
+
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
 else
@@ -32,7 +41,7 @@ all:	libslang.so $(STATICLIB)
 	diet $(CC) -c $(CFLAGS) -o $@ $<
 
 libslang.so: $(SOBJS)
-	gcc -o $@ -shared -Wl,-soname,libslang.so.1 $(SOBJS)
+	gcc -o $@ -shared -fPIC -Wl,-soname,libslang.so.1 $(SOBJS)
 
 clean:
 	rm -f *.o *.so *.lo *.do libslang.so libslang.a libslang-diet.a
