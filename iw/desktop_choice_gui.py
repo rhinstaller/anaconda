@@ -68,7 +68,7 @@ class DesktopChoiceWindow (InstallWindow):
 		"\tAdministration Tools\n"
 		"\n"
 		"After installation, additional software can be added or removed using "
-		"the 'redhat-config-package' tool.\n\n"
+		"the 'redhat-config-packages' tool.\n\n"
 		"If you are familiar with %s, you may have specific packages "
 		"you would like to install or avoid installing. Check the box below to "
 		"customize your installation.") % (productName,)
@@ -89,7 +89,7 @@ class DesktopChoiceWindow (InstallWindow):
 		"\tGames\n"
 		"\n"
 		"After installation, additional software can be added or removed using "
-		"the 'redhat-config-package' tool.\n\n"
+		"the 'redhat-config-packages' tool.\n\n"
 		"If you are familiar with %s, you may have specific packages "
 		"you would like to install or avoid installing. Check the box below to "
 		"customize your installation.") % (productName,)
