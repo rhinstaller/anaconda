@@ -55,7 +55,7 @@ COMMONMODULES="vfat $USBMODS agpgart"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci de4x5
-	       eepro100 e100 e1000 tulip pcnet32 hp100
+	       eepro100 e100 tulip pcnet32 hp100
 	       sis900 "
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
