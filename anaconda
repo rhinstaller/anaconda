@@ -33,6 +33,7 @@ if len(sys.argv) > 1:
 
 import traceback
 import string
+from pickle import Pickler
 
 import isys
 import iutil
@@ -411,12 +412,14 @@ if reconfigOnly:
     setupFilesystems = 0
     rootPath = '/'
     
+todo = ToDo(intf, method, rootPath, installSystem = installPackages,
+	    setupFilesystems = setupFilesystems, mouse = mouseInfo,
+	    instClass = instClass, x = x, expert = expert,
+	    serial = serial, reconfigOnly = reconfigOnly, test = test,
+	    extraModules = extraModules)
+
 try:
-    todo = ToDo(intf, method, rootPath, installSystem = installPackages,
-                setupFilesystems = setupFilesystems, mouse = mouseInfo,
-                instClass = instClass, x = x, expert = expert,
-                serial = serial, reconfigOnly = reconfigOnly, test = test,
-                extraModules = extraModules)
+    raise ValueError, "something went wrong"
     intf.run(todo, test = test)
 except SystemExit, code:
     intf.shutdown()
@@ -427,10 +430,22 @@ except:
     text = joinfields (list, "")
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
     intf.__del__ ()
-    if rc:
+    if rc == 1:
         print text
         import pdb
         pdb.post_mortem (tb)
+    elif rc == 2:
+	out = open("anacdump.txt", "w")
+	p = Pickler(out)
+
+	out.write(text)
+
+	out.write("\nToDo object:\n")
+	todo.intf = None
+	todo.fstab = None
+	p.dump(todo)
+
+	out.close()
     os._exit (1)
 
 del intf

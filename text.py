@@ -779,10 +779,18 @@ class InstallInterface:
                            buttons = [ _("OK") ])
     
     def exceptionWindow(self, title, text):
-	rc = ButtonChoiceWindow(self.screen, title, text,
-                           buttons = [ _("OK"), _("Debug") ])
+	ugh = _("An internal error occured in the installation program. "
+		"Please report this error to Red Hat (through the "
+		"bugzilla.redhat.com web site) as soon as possible. The "
+		"information on this failure may be saved to a floppy disk, "
+		"and will help Red hat in fixing the problem.\n\n")
+
+	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
+                           buttons = [ _("OK"), _("Save"), _("Debug") ])
         if rc == string.lower (_("Debug")):
             return 1
+	elif rc == string.lower (_("Save")):
+            return 2
         return None
 
     def waitWindow(self, title, text):
