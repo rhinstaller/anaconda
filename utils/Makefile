@@ -26,10 +26,10 @@ genhdlist: genhdlist.c
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 #	install -m755 -s genhdlist $(DESTDIR)/usr/bin
-	install -m755 -s trimpcitable $(RUNTIMEDIR)
-	install -m755 -s moddeps $(RUNTIMEDIR)
-	install -m755 -s filtermoddeps $(RUNTIMEDIR)
-	install -m755 -s modlist $(RUNTIMEDIR)
+	install -m755 -s trimpcitable $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 -s moddeps $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 -s filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 -s modlist $(DESTDIR)/$(RUNTIMEDIR)
 
 #
 # removed genhdlist from clean line so it will be distributed on CDROM image
