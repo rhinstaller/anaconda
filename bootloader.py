@@ -19,7 +19,6 @@ import partitioning
 import partedUtils
 import os
 import crypt
-import whrandom
 import language
 import iutil
 import string

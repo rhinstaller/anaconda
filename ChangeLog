@@ -1,5 +1,7 @@
 2004-11-08  Jeremy Katz  <katzj@redhat.com>
 
+	* bootloader.py: remove unneeded import of deprecated whrandom module
+
 	* iw/bootloader_main_gui.py
 	(MainBootloaderWindow.changeBootloaderCallback): Fix syntax.
 
