@@ -1697,7 +1697,10 @@ class ToDo:
                 self.hdList['krbafs'].selected = 1
                 self.hdList['krb5-libs'].selected = 1
 
-            if self.x.server and not self.x.server == "XFree86":
+            if (self.x.server
+                and self.hdList.packages.has_key('XFree86')
+                and self.hdList.packages['XFree86'].selected
+                and self.x.server != "XFree86"):
                 # trim off the XF86_
                 try:
                     self.selectPackage ('XFree86-' + self.x.server[5:])
