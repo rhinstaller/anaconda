@@ -104,7 +104,7 @@ class BaseInstallClass:
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "custom-upgrade", "installtype", "mouse", 
-	  "confirm-install" ].index(type)
+	  "confirm-install", "confirm-upgrade" ].index(type)
 	self.skipSteps[type] = 1
 
     def setHostname(self, hostname):
