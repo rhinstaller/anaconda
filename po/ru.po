@@ -437,7 +437,6 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Какой язык должен использоваться в процессе установки?"
 
 #: ../text.py:146
-#, fuzzy
 msgid "Select All"
 msgstr "Выбрать все"
 
@@ -2885,9 +2884,8 @@ msgid "Couldnt find partition named %s\n"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Не указан корневой раздел"
+msgstr "Корневой раздел"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -4247,9 +4245,3 @@ msgstr "Средства разработки ядра"
 
 msgid "Utilities"
 msgstr "Утилиты"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Строчная развертка"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Кадровая развертка"
