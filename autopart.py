@@ -505,6 +505,25 @@ def deletePart(diskset, delete):
         part = disk.next_partition(part)
 
 def processPartitioning(diskset, requests, newParts):
+    # collect a hash of all the devices that we have created extended
+    # partitions on.  When we remove these extended partitions the logicals
+    # (all of which we created) will be destroyed along with it.
+    extendeds = {}
+    for part in newParts.parts:
+        if part.type == parted.PARTITION_EXTENDED:
+            extendeds[part.geom.disk.dev.path] = None
+
+    # Go through the list again and check for each logical partition we have.
+    # If we created the extended partition on the same device as the logical
+    # partition, remove it from out list, as it will be cleaned up for us
+    # when the extended partition gets removed.
+    for part in newParts.parts:
+        if (part.type & parted.PARTITION_LOGICAL
+            and extendeds.has_key(part.geom.disk.dev.path)):
+            newParts.parts.remove(part)
+
+    # Finally, remove all of the partitions we added in the last try from
+    # the disks.  We'll start again from there.
     for part in newParts.parts:
         disk = part.geom.disk
         if part.type & parted.PARTITION_LOGICAL:
