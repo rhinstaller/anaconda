@@ -124,8 +124,8 @@ class MonitorWindow (InstallWindow):
                 self.vEntry.set_editable (FALSE)
         else:
             self.ics.setNextEnabled (TRUE)
-            self.hEntry.set_text (monitor[3])
             self.vEntry.set_text (monitor[2])
+            self.hEntry.set_text (monitor[3])
             self.hEntry.set_editable (TRUE)
             self.vEntry.set_editable (TRUE)
             self.monitor = monitor
@@ -190,8 +190,8 @@ class MonitorWindow (InstallWindow):
             parent = ctree.insert_node (None, None, ("DDC Probed Monitor",),
                                         2, is_leaf = FALSE)
             node = ctree.insert_node (parent, None, (self.todo.x.monID,), 2)
-            monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monHoriz,
-                       self.todo.x.monVert)
+            monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monVert,
+                       self.todo.x.monHoriz)
             ctree.node_set_row_data (node, monitor)
             select = node
             selParent = parent
