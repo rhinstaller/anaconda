@@ -155,12 +155,12 @@ class FileSystemType:
         self.extraFormatArgs = []
         self.maxLabelChars = 16
 
-    def mount(self, device, mountpoint, readOnly=0):
+    def mount(self, device, mountpoint, readOnly=0, bindMount=0):
         if not self.isMountable():
             return
         iutil.mkdirChain(mountpoint)
         isys.mount(device, mountpoint, fstype = self.getName(), 
-                   readOnly = readOnly)
+                   readOnly = readOnly, bindMount = bindMount)
 
     def umount(self, device, path):
         isys.umount(path, removeDir = 0)
@@ -752,8 +752,17 @@ fileSystemTypeRegister(DevshmFileSystem())
 class AutoFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "auto")
-        
+
 fileSystemTypeRegister(AutoFileSystem())
+
+class BindFileSystem(AutoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "bind")
+
+    def isMountable(self):
+        return 1
+        
+fileSystemTypeRegister(BindFileSystem())        
 
 class FileSystemSet:
     def __init__(self):
@@ -1361,14 +1370,19 @@ class FileSystemSetEntry:
 
     def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
+
         # FIXME: we really should migrate before turnOnFilesystems.
         # but it's too late now
         if (self.migrate == 1) and (self.origfsystem is not None):
             self.origfsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
-                                   readOnly = readOnly)
+                                   readOnly = readOnly,
+                                   bindMount = isinstance(self.device,
+                                                          BindMountDevice)
         else:
             self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
-                               readOnly = readOnly)
+                               readOnly = readOnly,
+                               bindMount = isinstance(self.device,
+                                                      BindMountDevice)
 
         self.mountcount = self.mountcount + 1
 
@@ -1725,6 +1739,16 @@ class PartedPartitionDevice(PartitionDevice):
         # the current minor number allocation
         self.device = self.getDevice()
         self.partition = None
+
+class BindMountDevice(Device):
+    def __init__(self, directory):
+        Device.__init__(self)
+        self.device = directory
+
+    def setupDevice(self, chroot, devPrefix="/tmp"):
+        return chroot + self.device
+
+    
         
 class SwapFileDevice(Device):
     def __init__(self, file):
@@ -1854,6 +1878,11 @@ def readFstab (path):
 
 	if fields[0] == "none":
             device = Device()
+        elif ((string.find(fields[3], "bind") != -1) and
+              fields[0].startswith("/")):
+            # it's a bind mount, they're Weird (tm)
+            device = BindMountDevice(fields[0])
+            fsystem = fileSystemTypeGet("bind")
         elif len(fields) >= 6 and fields[0].startswith('LABEL='):
             label = fields[0][6:]
             if labelToDevice.has_key(label):

@@ -143,7 +143,7 @@ int setupRamdisk(void) {
         gunzip_close(f);
     }
     
-    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL))
+    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL, 0))
         logMessage("failed to mount ramfs image");
     
     return 0;
@@ -152,7 +152,7 @@ int setupRamdisk(void) {
 
 void setupRamfs(void) {
     mkdirChain("/tmp/ramfs");
-    doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL);
+    doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL, 0);
 }
 
 
@@ -314,9 +314,9 @@ void loadUpdates(struct knownDevices *kd, int flags) {
 
         devMakeInode(device, "/tmp/upd.disk");
         if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 1, 0, 
-                      NULL, NULL) && 
+                      NULL, NULL, 0) && 
             doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 1, 0,
-                      NULL, NULL)) {
+                      NULL, NULL, 0)) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Failed to mount updates disk"));
         } else {
