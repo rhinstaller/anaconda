@@ -407,7 +407,7 @@ export LD_LIBRARY_PATH PATH HOME PYTHONPATH
 EOF
 
 echo $DEVICE | grep ctc && echo "REMIP=$GATEWAY" >> /tmp/netinfo 
-echo $DEVICE | grep ctc && echo "REMIP=$GATEWAY" >> /etc/profile
+echo $DEVICE | grep ctc && echo "export REMIP=$GATEWAY" >> /etc/profile
 
 [ -n "$DEBUG" ] && debugshell
 
