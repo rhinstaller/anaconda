@@ -1,5 +1,8 @@
 2004-10-05  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.i386 (SYSLINUX): Next attempt at getting boot
+	images to fit.  Remove splash.lss from the boot disk for now.
+
 	* scripts/mk-images: Revert pci.ids bits so that boot images fit.
 
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
