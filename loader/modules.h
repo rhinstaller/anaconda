@@ -20,7 +20,7 @@ void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps * moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
 int mlLoadModule(char * modName, moduleList modLoaded,
-	         moduleDeps modDeps, char ** args, int testing);
+	         moduleDeps modDeps, char ** args, int flags);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 int mlModuleInList(const char * modName, moduleList list);
 int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd);

@@ -10,6 +10,7 @@
 
 #include "isys/isys.h"
 
+#include "loader.h"
 #include "modules.h"
 
 struct moduleDependency_s {
@@ -162,7 +163,7 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 }
 
 int mlLoadModule(char * modName, moduleList modLoaded,
-	         moduleDeps modDeps, char ** args, int testing) {
+	         moduleDeps modDeps, char ** args, int flags) {
     moduleDeps dep;
     char ** nextDep;
     char fileName[80];
@@ -179,7 +180,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    mlLoadModule(*nextDep, modLoaded, modDeps, NULL, testing);
+	    mlLoadModule(*nextDep, modLoaded, modDeps, NULL, flags);
 
 	    nextDep++;
 	}
@@ -187,7 +188,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 
     sprintf(fileName, "%s.o", modName);
 
-    if (testing) 
+    if (FL_TESTING(flags)) 
 	rc = 0;
     else
 	rc = insmod(fileName, args);
