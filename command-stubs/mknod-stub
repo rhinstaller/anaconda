@@ -26,7 +26,7 @@ def main():
         while (drive.find('/') != -1):
             if (drive.startswith("cciss") or drive.startswith("ida") or
                 drive.startswith("rd") or drive.startswith("ataraid")
-                or drive.startswith("iseries")):
+                or drive.startswith("iseries") or drive.startswith("i2o")):
                 break
             drive = drive[drive.find('/') + 1:]
         isys.makeDevInode(drive, path)

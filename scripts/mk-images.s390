@@ -16,7 +16,7 @@ SECSTAGE="$IDEMODS $SCSIMODS $FSMODS md raid0 raid1 raid5 dm-mod"
 DASDMODS=" dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod"
 COMMONMODULES="loop cramfs tape390 isofs $DASDMODS"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs ctc netiucv smsgiucv lcs qdio qeth_mod ccwgroup"
+NETWORKMODULES="$COMMONMODULES nfs ctc netiucv smsgiucv lcs qdio qeth ccwgroup"
 
 makeBootImages() {
 	makeinitrd --nobogl --initrdto $TOPDESTPATH/images/initrd.img \

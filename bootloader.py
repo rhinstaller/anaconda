@@ -126,6 +126,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 
     if kernelLabel is None:
         log("unable to find default image, bailing")
+        return
 
     plainLabelUsed = 0
     for (version, nick) in comps.kernelVersionList():

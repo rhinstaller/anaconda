@@ -376,6 +376,13 @@ class HeaderList:
             arches = (rhpl.arch.getBaseArch(), rhpl.arch.canonArch)
         else:
             arches = (rhpl.arch.canonArch, )
+
+        # FIXME: this is a bad bad bad hack.  we should probably tag
+        # the kernel in the comps file somehow instead.  basearchonly
+        # was sort of intended for this, but ppc is kind of backwards on
+        # what basearch means :/
+        if item == "kernel":
+            arches = (rhpl.arch.canonArch,)
             
         for basearch in arches:
             for (nevra, arch) in self.pkgnames[item]:

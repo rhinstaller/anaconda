@@ -1065,6 +1065,7 @@ max_logical_partition_count = {
     "ataraid/": 11,
     "rd/": 3,
     "cciss/": 11,
+    "i2o/": 11,
     "iseries/vd": 3,
     "ida/": 11
 }
