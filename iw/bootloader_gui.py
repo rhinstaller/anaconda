@@ -318,8 +318,8 @@ class AdvancedBootloaderWindow (InstallWindow):
     # adds/edits a new "other" os to the boot loader config
     def editOther(self, oldDevice, oldLabel, isDefault, isRoot = 0):
         dialog = gtk.Dialog(_("Image"), self.parent)
-        dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(dialog)
 
@@ -602,6 +602,8 @@ class AdvancedBootloaderWindow (InstallWindow):
         radio.set_label("/dev/%s %s" % (firstDrive, _(desc)))
         self.bootDevices["mbr"] = (radio, firstDrive, desc)
 
+    def osTreeActivateCb(self, view, path, col):
+        self.editEntry(view)
         
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
@@ -663,6 +665,8 @@ class AdvancedBootloaderWindow (InstallWindow):
         self.osTreeView.columns_autosize()
         self.osTreeView.set_size_request(100, 100)
         sw.add(self.osTreeView)
+
+        self.osTreeView.connect('row-activated', self.osTreeActivateCb)
 
         self.imagelist = self.bl.images.getImages()
         self.defaultDev = self.bl.images.getDefault()
