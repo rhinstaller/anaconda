@@ -32,7 +32,13 @@ class AccountWindow (InstallWindow):
 
         if pw == confirm and len (pw) >= 6:
             self.ics.setNextEnabled (TRUE)
+            self.rootStatus.set_text (_("Root password accepted."))
         else:
+            if len (pw) < 6:
+                self.rootStatus.set_text (_("Root password is too short."))
+            else:
+                self.rootStatus.set_text (_("Root password does not match."))
+                
             self.ics.setNextEnabled (FALSE)
 
     def userOkay(self, *args):
@@ -151,6 +157,11 @@ class AccountWindow (InstallWindow):
         
 
         box.pack_start (table, FALSE)
+
+        # root password statusbar
+        self.rootStatus = GtkLabel ("")
+        self.rootPasswordsMatch ()
+        box.pack_start (self.rootStatus, FALSE)
 
         box.pack_start (GtkHSeparator (), FALSE, padding=3)
 
