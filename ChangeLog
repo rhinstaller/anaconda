@@ -1,5 +1,11 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/buildinstall (PRODUCTPATH): Product path simplification.
+	* scripts/pkgorder: Likewise.
+	* scripts/mk-rescueimage.x86_64 (productname): Likewise.
+	* scripts/mk-rescueimage.i386 (productname): Likewise.
+	* scripts/mk-images (PRODUCTPATH): Likewise.
+
 	* text.py (stepToClasses): Remove silo stuff.
 	* gui.py (stepToClasses): Likewise.
 	* iw/silo_gui.py: Remove.

@@ -151,7 +151,7 @@ while n < len(sys.argv):
         args.append(arg)
 
 if len(args) < 3:
-    print "pkgorder <toppath> <arch>"
+    print "pkgorder <toppath> <arch> <productpath>"
     sys.exit(1)
 
 distDir = os.path.normpath(args[1])
@@ -165,7 +165,7 @@ if productPath is None:
     if len(args) > 3:
         productPath = args[3]
     else:
-        productPath = "RedHat"
+        raise RuntimeError, "no product path specified"
 
 if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir

@@ -46,7 +46,7 @@ class Timber:
     """Split trees like no other"""
     def __init__(self):
         
-        """self.release_str : the name and version of the product, ie "Red Hat Linux 9"
+        """self.release_str : the name and version of the product"
      
 self.package_order_file : the location of the file which has
 the package ordering

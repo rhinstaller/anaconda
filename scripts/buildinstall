@@ -5,9 +5,8 @@ usage() {
 	exit 1
 }
 
-COMPNAME=dist-7.0
 RUN=1
-PRODUCTPATH="RedHat"
+PRODUCTPATH="anaconda"
 
 while [ $# -gt 0 ]; do
     case $1 in

@@ -19,11 +19,7 @@ if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]
 
 PRODUCT=$6
 VERSION=$7
-if [ -z "$8" ]; then
-    PRODUCTPATH="RedHat"
-else
-    PRODUCTPATH=$8
-fi
+PRODUCTPATH=$8
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
