@@ -357,7 +357,7 @@ class InstallControlWindow:
 
 #        self.html.set_font_charset (locale)
 	self.updateStockButtons()
-        self.navFrame.set_label (_("Navigation"))
+        self.navFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
 	self.loadReleaseNotes()
 
@@ -705,7 +705,7 @@ class InstallControlWindow:
         self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
         self.html.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
 
-        self.navFrame = GtkFrame (_("Navigation"))
+        self.navFrame = GtkFrame (_("Online Help"))
         self.box = GtkVBox (FALSE, 0)
         self.box.set_spacing(0)
 
