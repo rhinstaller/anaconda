@@ -167,14 +167,9 @@ class Authentication:
 
         if self.useShadow:
             args.append ("--enableshadow")
-	else:
-            args.append ("--disableshadow")
 
         if self.useMD5:
             args.append ("--enablemd5")
-	else:
-            args.append ("--disablemd5")
-	
 
         if self.useNIS:
             args.append ("--enablenis")
@@ -183,17 +178,11 @@ class Authentication:
             if not self.nisuseBroadcast:
                 args.append ("--nisserver")
                 args.append (self.nisServer)
-        else:
-            args.append ("--disablenis")
 
         if self.useLdap:
             args.append ("--enableldap")
-        else:
-            args.append ("--disableldap")
         if self.useLdapauth:
             args.append ("--enableldapauth")
-        else:
-            args.append ("--disableldapauth")
         if self.useLdap or self.useLdapauth:
             args.append ("--ldapserver")
             args.append (self.ldapServer)
@@ -201,8 +190,6 @@ class Authentication:
             args.append (self.ldapBasedn)
         if self.ldapTLS:
             args.append ("--enableldaptls")
-        else:
-            args.append ("--disableldaptls")
 
         if self.useKrb5:
             args.append ("--enablekrb5")
@@ -212,8 +199,6 @@ class Authentication:
             args.append (self.krb5Kdc)
             args.append ("--krb5adminserver")
             args.append (self.krb5Admin)
-        else:
-            args.append ("--disablekrb5")
 
         if self.useHesiod:
             args.append ("--enablehesiod")
@@ -221,8 +206,6 @@ class Authentication:
             args.append (self.hesiodLhs)
             args.append ("--hesiodrhs")
             args.append (self.hesiodRhs)
-        else:
-            args.append ("--disablehesiod")
 
         if self.useSamba:
             args.append ("--enablesmbauth")
@@ -230,8 +213,6 @@ class Authentication:
             args.append (self.sambaServer)
             args.append ("--smbworkgroup")
             args.append (self.sambaWorkgroup)
-        else:
-            args.append ("--disablesmbauth")
 
 	return args
  
