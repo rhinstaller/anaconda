@@ -738,7 +738,6 @@ class ToDo:
 	group = self.instClass.getGroups()
         optional = self.instClass.getOptionalGroups()
 	packages = self.instClass.getPackages()
-        print group,optional,packages
 	for comp in self.comps:
 	    comp.unselect()
 
