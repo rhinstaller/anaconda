@@ -14,6 +14,7 @@
 #define KS_CMD_LANG         8
 #define KS_CMD_DD           9
 #define KS_CMD_DEVICE      10
+#define KS_CMD_CMDLINE     11
 
 int ksReadCommands(char * cmdFile, int flags);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);

@@ -35,6 +35,7 @@
 #define LOADER_FLAGS_NOPARPORT          (1 << 25)
 #define LOADER_FLAGS_NOIEEE1394         (1 << 26)
 #define LOADER_FLAGS_NOFB		(1 << 27)
+#define LOADER_FLAGS_CMDLINE            (1 << 28)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -67,6 +68,7 @@
 #define FL_NOPARPORT(a)     ((a) & LOADER_FLAGS_NOPARPORT)
 #define FL_NOIEEE1394(a)    ((a) & LOADER_FLAGS_NOIEEE1394)
 #define FL_NOFB(a)	    ((a) & LOADER_FLAGS_NOFB)
+#define FL_CMDLINE(a)	    ((a) & LOADER_FLAGS_CMDLINE)
 
 
 

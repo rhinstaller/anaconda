@@ -255,13 +255,13 @@ if os.environ.has_key("LD_PRELOAD"):
     del os.environ["LD_PRELOAD"]
 
 try:
-    (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
+    (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
           [ 'text', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep', 'resolution=', 'skipddc', 'vnc'])
+            'autostep', 'resolution=', 'skipddc', 'vnc', 'cmdline'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -388,6 +388,8 @@ for n in args:
 	logFile = "/tmp/anaconda-debug.log"
     elif (str == '-T' or str == '--text'):
 	display_mode = 't'
+    elif (str == "-C" or str == "--cmdline"):
+        display_mode = 'c'
     elif (str == '--kbdtype'):
         kbdtype = arg
     elif (str == '--vnc'):
@@ -599,7 +601,7 @@ time.sleep(3)
 #
 # now determine if we're going to run in GUI or TUI mode
 #
-if (display_mode != 't' and method and
+if (display_mode == 'g' and method and
     method.startswith('ftp://') or
     method.startswith('http://') or
     method.startswith('hd://') or
@@ -612,7 +614,7 @@ if (display_mode != 't' and method and
 if doXProbe:
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if display_mode != 't' and mousedev[0] == "No - mouse":
+    if display_mode == 'g' and mousedev[0] == "No - mouse":
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
@@ -730,7 +732,9 @@ if (display_mode == 'g'):
 
 if (display_mode == 't'):
     from text import InstallInterface
-    from text import stepToClasses
+
+if (display_mode == 'c'):
+    from cmdline import InstallInterface
 
 
 # go ahead and set up the interface

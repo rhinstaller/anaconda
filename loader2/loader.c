@@ -417,6 +417,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text"))
             flags |= LOADER_FLAGS_TEXT;
+        else if (!strcasecmp(argv[i], "cmdline"))
+            flags |= LOADER_FLAGS_CMDLINE;
         else if (!strcasecmp(argv[i], "updates"))
             flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
@@ -1174,6 +1176,8 @@ int main(int argc, char ** argv) {
             *argptr++ = "--serial";
         if (FL_TEXT(flags))
             *argptr++ = "-T";
+        if (FL_CMDLINE(flags))
+            *argptr++ = "-C";
         if (FL_EXPERT(flags))
             *argptr++ = "--expert";
         
