@@ -1360,6 +1360,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    return NULL;
 	}
 
+	close (fd);
+	
 	if ((rc = balkanReadTable(fd, &partTable))) {
 	    logMessage("failed to read partition partTable for "
 		       "device %s: %d", kd->known[i].name, rc);
