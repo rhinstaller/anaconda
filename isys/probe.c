@@ -166,7 +166,7 @@ char *getDasdPorts() {
                 }
                 if(sscanf (line, "%[A-Za-z0-9](%*s", port)) {
                         if(!ports) {
-                                ports = (char *)malloc(strlen("dasd=") + strlen(port) + 1);
+                                ports = (char *)malloc(strlen(port) + 1);
                                 strcpy(ports, port);
                         } else {
                                 ports = (char *)realloc(ports, strlen(ports) + strlen(port) + 2);   /* portnumber + ',' */
