@@ -18,6 +18,7 @@ import _isys
 import string
 import os
 import os.path
+import sys
 import kudzu
 
 from rhpl.log import log
@@ -688,6 +689,9 @@ def getMacAddress(dev):
 
 def getIPAddress(dev):
     return _isys.getIPAddress(dev)
+
+def resetFileContext(fn):
+    return _isys.resetFileContext(fn)
 
 def startBterm():
     return _isys.startBterm()

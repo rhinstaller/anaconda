@@ -39,6 +39,7 @@
 #include <linux/hdreg.h>
 #include <linux/fb.h>
 #include <libintl.h>
+#include <selinux/selinux.h>
 
 #include "md-int.h"
 #include "imount.h"
@@ -107,6 +108,7 @@ static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
+static PyObject * doResetFileContext(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -162,6 +164,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
     { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
     { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
+    { "resetFileContext", (PyCFunction) doResetFileContext, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -1287,6 +1290,22 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
     ret = getIPAddr(dev);
 
     return Py_BuildValue("s", ret);
+}
+
+static PyObject * doResetFileContext(PyObject * s, PyObject * args) {
+    char *fn, *buf = NULL;
+    int ret;
+
+    if (!PyArg_ParseTuple(args, "s", &fn))
+        return NULL;
+
+    ret = matchpathcon(fn, 0, &buf);
+    /*    fprintf(stderr, "matchpathcon returned %d: set %s to %s\n", ret, fn, buf);*/
+    if (ret == 0) {
+        ret = setfilecon(fn, buf);
+    }
+
+    return Py_BuildValue("s", buf);
 }
 
 static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {
