@@ -134,6 +134,11 @@ at1700
 #	atp
 #	"Attached (pocket) ethernet adapter"
 
+bcm5700
+	eth
+	"Broadcom BCM5700 10/100/1000 ethernet adapter"
+	line_speed "Line speed" "1[0]+"
+
 cs89x0
 	eth
 	"Crystal SemiconductorCS89[02]0"
