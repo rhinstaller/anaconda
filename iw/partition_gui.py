@@ -25,6 +25,8 @@ import string
 import copy
 import types
 import raid
+import constants
+
 from iw_gui import *
 from flags import flags
 
@@ -997,7 +999,7 @@ class PartitionWindow(InstallWindow):
 	    request = parteditor.run()
 
 	    if request is None:
-		return
+		return 0
 
             if not isNew:
                 self.partitions.removeRequest(origrequest)
@@ -1017,7 +1019,7 @@ class PartitionWindow(InstallWindow):
 		break
 
 	parteditor.destroy()
-
+	return 1
 
     def editLVMVolumeGroup(self, origvgrequest, isNew = 0):
 	vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.partitions,
@@ -1087,15 +1089,121 @@ class PartitionWindow(InstallWindow):
 
 
     def makeLvmCB(self, widget):
+	if not fileSystemTypeGet('physical volume (LVM)').isSupported():
+	    self.intf.messageWindow(_("Not supported"),
+				    _("LVM is NOT supported on "
+				      "this platform."), type="ok")
+	    return
+
         request = VolumeGroupRequestSpec()
         self.editLVMVolumeGroup(request, isNew = 1)
 
 	return
 
     def makeraidCB(self, widget):
-        request = RaidRequestSpec(fileSystemTypeGetDefault())
-        self.editRaidRequest(request, isNew = 1)
 
+	if not fileSystemTypeGet('software RAID').isSupported():
+	    self.intf.messageWindow(_("Not supported"),
+				    _("Software RAID is NOT supported on "
+				      "this platform."), type="ok")
+	    return
+
+	availminors = self.partitions.getAvailableRaidMinors()
+	if len(availminors) < 1:
+	    self.intf.messageWindow(_("No RAID minors available"),
+				    _("A software RAID device cannot "
+				      "be created because all of the "
+				      "available minors have been used."),
+				    type="ok")
+	    return
+	    
+	
+	# see if we have enough free software RAID partitions first
+	# if no raid partitions exist, raise an error message and return
+	request = RaidRequestSpec(fileSystemTypeGetDefault())
+	availraidparts = self.partitions.getAvailRaidPartitions(request,
+								self.diskset)
+
+	dialog = gtk.Dialog(_("RAID Options"), self.parent)
+	gui.addFrame(dialog)
+	dialog.add_button('gtk-cancel', 2)
+	dialog.add_button('gtk-ok', 1)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+	
+        maintable = gtk.Table()
+        maintable.set_row_spacings(5)
+        maintable.set_col_spacings(5)
+        row = 0
+
+	lbltxt = _("Software RAID allows you to combine "
+		   "several disks into a larger "
+		   "RAID device.  A RAID device can be configured to "
+		   "provide additional speed and "
+		   "reliability compared to using an individual drive.  "
+		   "For more information on using RAID devices "
+		   "please consult the %s documentation.\n\n"
+		   "You currently have %s software RAID "
+		   "partition(s) free to use.\n\n") % (constants.productName, len(availraidparts))
+
+	haveenuf = len(availraidparts) > 1
+
+	if not haveenuf:
+	    lbltxt = lbltxt + _("To use RAID you must first "
+				"create least two partitions of type "
+				"'software RAID'.  Then you can "
+				"create a RAID device which can "
+				"be formatted and mounted.\n\n")
+	    
+	lbltxt = lbltxt + _("What do you want to do now?")
+	
+	lbl = gui.WrappingLabel(lbltxt)
+	maintable.attach(lbl, 0, 1, row, row + 1)
+	row = row + 1
+	
+	newminor = availminors[0]
+        radioBox = gtk.VBox (gtk.FALSE)
+
+        createRAIDpart = gtk.RadioButton(None, _("Create a software RAID partition."))
+	radioBox.pack_start(createRAIDpart, gtk.FALSE, gtk.FALSE, padding=10)
+        createRAIDdev = gtk.RadioButton(createRAIDpart,
+		    _("Create a RAID device [default=/dev/md%s].") % newminor)
+	radioBox.pack_start(createRAIDdev, gtk.FALSE, gtk.FALSE, padding=10)
+
+        doRAIDclone = gtk.RadioButton(createRAIDpart,
+				      _("Clone a drive to create a "
+					"RAID device [default=/dev/md%s].") % newminor)
+	radioBox.pack_start(doRAIDclone, gtk.FALSE, gtk.FALSE, padding=10)
+
+	if not haveenuf:
+	    createRAIDpart.set_active(1)
+	    createRAIDdev.set_sensitive(0)
+	    doRAIDclone.set_sensitive(0)
+	else:
+	    createRAIDdev.set_active(1)
+
+	align = gtk.Alignment(0.5, 0.0)
+	align.add(radioBox)
+	maintable.attach(align,0,1,row, row+1)
+	row = row + 1
+
+	maintable.show_all()
+	dialog.vbox.pack_start(maintable)
+	dialog.show_all()
+	rc = dialog.run()
+	dialog.destroy()
+	if rc == 2:
+	    return
+
+	# see which option they choose
+	if createRAIDpart.get_active():
+	    rdrequest = NewPartitionSpec(fileSystemTypeGet("software RAID"), size = 100)
+	    rc = self.editPartitionRequest(rdrequest, isNew = 1)
+	elif createRAIDdev.get_active():
+	    self.editRaidRequest(request, isNew=1)
+	else:
+	    self.intf.messageWindow("not yet", "Cloning not allowed")
+
+	    
     def viewButtonCB(self, widget):
 	self.show_uneditable = not widget.get_active()
         self.diskStripeGraph.shutDown()
@@ -1131,11 +1239,11 @@ class PartitionWindow(InstallWindow):
                    (_("_Reset"), self.resetCb),
                    (_("Make _RAID"), self.makeraidCB),)
         else:
-            ops = ((_("_New"), self.newCB),
+            ops = ((_("Ne_w"), self.newCB),
                    (_("_Edit"), self.editCb),
                    (_("_Delete"), self.deleteCb),
                    (_("Re_set"), self.resetCb),
-                   (_("_RAID"), self.makeraidCB),
+                   (_("R_AID"), self.makeraidCB),
                    (_("_LVM"), self.makeLvmCB))
         
         for label, cb in ops:
