@@ -12,7 +12,7 @@ SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -L./gzlib -lgunzip
 PYMODULES = _isys.so
-SUBDIRS = modutils gzlib
+SUBDIRS = gzlib
 DIET = diet
 
 DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS) $(STATICOBJS))

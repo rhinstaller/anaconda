@@ -29,9 +29,8 @@ modules.o: ../loader/modules.c
 moddeps: moddeps.o modules.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o modules.o \
             $(LOADLIBES) \
-	    ../isys/modutils/insmod/libmodutils.a    \
-	    ../isys/modutils/util/libutil.a          \
-	    ../isys/modutils/obj/libobj.a -lrpm -lrpmdb -lrpmio -lbz2 \
+	    -lmodutils -lmodutilobj -lmodutilutil  \
+	    -lrpm -lrpmdb -lrpmio -lbz2 \
 	    -lpopt -lgunzip -L../isys/gzlib
 
 genhdlist: genhdlist.c hash.c

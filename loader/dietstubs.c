@@ -160,3 +160,9 @@ void warn(char * format, ...) {
 int pwrite(int fd, const void *buf, size_t count, off_t offset) {
     return __pwrite(fd, buf, count, offset);
 }
+
+void * __rawmemchr (void* s, int c) {
+    while (*(char *)s != c)
+	s++;
+    return s;
+}

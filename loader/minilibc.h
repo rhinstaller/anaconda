@@ -20,6 +20,18 @@ extern char ** _environ;
 
 extern int errno;
 
+/* from /usr/include/bits/sigset.h */
+/* A `sigset_t' has a bit for each signal.  */
+
+#define _SIGSET_NWORDS (1024 / (8 * sizeof (unsigned long int)))
+typedef struct
+  {
+    unsigned long int __val[_SIGSET_NWORDS];
+  } __sigset_t;
+
+/* from /usr/include/signal.h */
+typedef __sigset_t sigset_t;
+
 /* Aieee, gcc 2.95+ creates a stub for posix_types.h on i386 which brings
    glibc headers in and thus makes __FD_SET etc. not defined with 2.3+ kernels. */
 #define _FEATURES_H 1

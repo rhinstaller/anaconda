@@ -24,9 +24,7 @@ PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -Os
 DEBUG = -g
 
-MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
-	       	../isys/modutils/util/libutil.a          \
-	       	../isys/modutils/obj/libobj.a
+MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
