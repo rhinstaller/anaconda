@@ -1,5 +1,7 @@
 2005-03-02  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py: Support 2 TB filesystems (#116286)
+
 	* scripts/upd-instroot: Touch files so that netstg2 has X driver
 	files and we don't fall back to vesa for all ftp/http 
 	installs (#144128)
