@@ -1,3 +1,4 @@
+# translation of anaconda.po to Gujarati
 # translation of gu.po to Gujarati
 # Gujarati translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
@@ -7,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gu\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-02 15:46+0530\n"
+"PO-Revision-Date: 2004-08-04 14:30+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -3358,11 +3359,15 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"ભૌતિક મર્યાદાની કિંમતમાં આ બદલાવને વર્તમાન લોજિકલ વોલ્યુમનું માપ "
+"પૂર્ણાંકમા અમુક મર્યાદા સુધી ફેરવાઈ જવાની માંગણીઓ કરે છે.\n"
+"\n"
+"આ બદલાવ તુરંત જ અસર કરે છે."
 
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:183
 msgid "C_ontinue"
-msgstr ""
+msgstr "ચાલુ રાખો (_o)"
 
 #: ../iw/lvm_dialog_gui.py:154
 #, python-format
@@ -3371,6 +3376,9 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"ભૌતિક મર્યાદાનું માપ બદલી શકાતું નથી કારણકે પસંદ કરેલ કિંમત "
+"(%10.2f MB) એ વોલ્યુમ જૂથમાં નાનામાં નાના ભૌતિક વોલ્યુમ (%10.2f MB) "
+"કરતાં મોટી છે."
 
 #: ../iw/lvm_dialog_gui.py:165
 #, python-format
@@ -3379,16 +3387,21 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
+"ભૌતિક મર્યાદાનું માપ બદલી શકાતું નથી કારણકે પસંદ કરેલ કિંમત "
+"(%10.2f MB) એ વોલ્યુમ જૂથમાં નાનામાં નાના ભૌતિક વોલ્યુમ (%10.2f MB) "
+"ની સરખામણીમાં ખૂબ મોટી છે."
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
-msgstr ""
+msgstr "ખૂબ નાનું"
 
 #: ../iw/lvm_dialog_gui.py:180
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
+"ભૌતિક મર્યાદાની કિંમતામાં આ બદલાવ વોલ્યુમ જૂથમાં એક અથવા વધુ ભૌતિક "
+"વોલ્યુમોની જરુરી જગ્યાને બગાડશે."
 
 #: ../iw/lvm_dialog_gui.py:205
 #, python-format
@@ -3397,96 +3410,103 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
+"ભૌતિક મર્યાદાનું માપ બદલી શકાતું નથી કારણકે પરિણામી મહત્તમ લોજિકલ "
+"વોલ્યુમનું માપ (%10.2f MB) એ વર્તમાનમાં વ્યાખ્યાયિત એક અથવા વધુ "
+"લોજિકલ વોલ્યુમો કરતાં નાનું છે."
 
 #: ../iw/lvm_dialog_gui.py:287
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
+"તમે આ ભૌતિક વોલ્યુમ દૂર કરી શકતા નથી કારણકે નહિંતર વર્તમાનમાં "
+"વ્યાખ્યાયિત વોલ્યુમોને રાખવા માટે વોલ્યુમ જૂથ ખૂબ નાનું પડશે."
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમ બનાવો"
 
 #: ../iw/lvm_dialog_gui.py:361
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમોમાં ફેરફાર કરો: %s"
 
 #: ../iw/lvm_dialog_gui.py:363
 msgid "Edit Logical Volume"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમોમાં ફેરફાર કરો"
 
 #: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
-msgstr ""
+msgstr "માઉન્ટ બિંદુ (_M):"
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમનો પ્રકાર (_F):"
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:305
 msgid "Original File System Type:"
-msgstr ""
+msgstr "મૂળ ફાઈલ સિસ્ટમનો પ્રકાર:"
 
 #: ../iw/lvm_dialog_gui.py:397 ../iw/partition_dialog_gui.py:316
 #: ../iw/raid_dialog_gui.py:315
 msgid "Unknown"
-msgstr ""
+msgstr "અજ્ઞાત"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમનું નામ (_L):"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમનું નામ:"
 
 #: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
-msgstr ""
+msgstr "માપ (_S) (MB):"
 
 #: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:379
 #: ../iw/partition_dialog_gui.py:422 ../textw/partition_text.py:343
 #: ../textw/partition_text.py:426 ../textw/partition_text.py:513
 msgid "Size (MB):"
-msgstr ""
+msgstr "માપ (MB):"
 
 #: ../iw/lvm_dialog_gui.py:440
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr ""
+msgstr "(મહત્તમ માપ છે %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:501
 msgid "Illegal size"
-msgstr ""
+msgstr "અયોગ્ય માપ"
 
 #: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
+msgstr "દાખલ કરીને માંગણી કરેલ માપ એ ૦ કરતાં મોટો માન્ય નંબર નથી."
 
 #: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
-msgstr ""
+msgstr "માઉન્ટ બિંદુ વપરાશમાં છે"
 
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
+msgstr "માઉન્ટ બિંદુ \"%s\" વપરાશમાં છે, મહેરબાની કરીને બીજુ પસંદ કરો."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
-msgstr ""
+msgstr "અયોગ્ય લોજિકલ વોલ્યુમ નામ"
 
 #: ../iw/lvm_dialog_gui.py:566
 msgid "Illegal logical volume name"
-msgstr ""
+msgstr "અયોગ્ય લોજિકલ વોલ્યુમ નામ"
 
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
+"લોજિકલ વોલ્યુમ નામ \"%s\" પહેલાથી જ વપરાશમાં છે. મહેરબાની કરીને "
+"બીજું પસંદ કરો."
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -3495,13 +3515,16 @@ msgid ""
 "size (%10.2f MB). To increase this limit you can increase the Physical "
 "Extent size for this Volume Group."
 msgstr ""
+"હાલમાં માંગણી થયેલ માપ (%10.2f MB) એ મહત્તમ લોજિકલ વોલ્યુમ માપ"
+"(%10.2f MB) કરતાં મોટું છે. આ મર્યાદા વધારવા માટે તમે ભૌતિક મર્યાદાનું "
+"માપ આ લોજિકલ જૂથ માટે વધારી શકો છો."
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:173
 #: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:854
 #: ../textw/partition_text.py:876 ../textw/partition_text.py:1049
 msgid "Error With Request"
-msgstr ""
+msgstr "માંગણી સાથે ભૂલ"
 
 #: ../iw/lvm_dialog_gui.py:645 ../iw/lvm_dialog_gui.py:852
 #, python-format
@@ -3510,19 +3533,22 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
+"તમે રિપરેખાંકિત કરેલ લોજિકલ વોલ્યુમોને %g MB જરુરી છે, પરંતુ વોલ્યુમ જૂથ"
+"પાસે માત્ર %g MB છે. મહેરબાની કરીને વોલ્યુમ જૂથ મોટુ બનાવો અથવા"
+"લોજિકલ જૂથ નાનું બનાવો."
 
 #: ../iw/lvm_dialog_gui.py:695
 msgid "No free slots"
-msgstr ""
+msgstr "કોઈ ખાલી સ્લોટ નથી"
 
 #: ../iw/lvm_dialog_gui.py:696
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "તમે વોલ્યુમ જૂથ દીઠ %s લોજિકલ વોલ્યુમો બનાવી શકતા નથી."
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "No free space"
-msgstr ""
+msgstr "ખાલી જગ્યા નથી"
 
 #: ../iw/lvm_dialog_gui.py:703
 msgid ""
@@ -3530,28 +3556,33 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
+"નવા લોજિકલ વોલ્યુમો બનાવવા માટે ત્યાં કોઈ ખાલી ખંડ છોડેલો નથી. "
+"લોજિકલ વોલ્યુમ ઉમેરવા માટે તમારે એક અ અથવા વધારે વર્તમાનમાં "
+"હાજર એવા લોજિકલ વોલ્યુમનું માપ ઘટાડવું પડશે."
 
 #: ../iw/lvm_dialog_gui.py:731
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr ""
+msgstr "શું તમે ખરેખર લોજિકલ વોલ્યુમ \"%s\" દૂર કરવા માંગો છો?"
 
 #: ../iw/lvm_dialog_gui.py:863
 msgid "Invalid Volume Group Name"
-msgstr ""
+msgstr "અયોગ્ય લોજિકલ જૂથ નામ"
 
 #: ../iw/lvm_dialog_gui.py:876
 msgid "Name in use"
-msgstr ""
+msgstr "નામ વપરાશમાં છે"
 
 #: ../iw/lvm_dialog_gui.py:877
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
+"વોલ્યુમ જૂથ નામ \"%s\" પહેલાથી જ વપરાશમાં છે. મહેરબાની કરીને બીજુ "
+"પસંદ કરો."
 
 #: ../iw/lvm_dialog_gui.py:921
 msgid "Not enough physical volumes"
-msgstr ""
+msgstr "ભૌતિક વોલ્યુમો પૂરતા નથી"
 
 #: ../iw/lvm_dialog_gui.py:922
 msgid ""
@@ -3561,156 +3592,163 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
+"LVM વોલ્યુમ જૂથ બનાવવા માટે ઓછામાં ઓછો એક ભૌતિક પાર્ટીશન જે "
+"વપરાયો નહિં હોય તે જરુરી છે.\n"
+"\n"
+"પાર્ટીશન અથવા \"ભૌતિક વોલ્યુ (LVM)\" પ્રકારનો RAID બનાવો અને પછી "
+"\"LVM\" વિકલ્પ ફરીથી પસંદ કરો."
 
 #: ../iw/lvm_dialog_gui.py:933
 msgid "Make LVM Volume Group"
-msgstr ""
+msgstr "LVM વોલ્યુમ જૂથ બનાવો"
 
 #: ../iw/lvm_dialog_gui.py:936
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr ""
+msgstr "LVM વોલ્યુમ જૂથમાં ફેરફાર કરો: %s"
 
 #: ../iw/lvm_dialog_gui.py:938
 msgid "Edit LVM Volume Group"
-msgstr ""
+msgstr "LVM વોલ્યુમ જૂથમાં ફેરફાર કરો"
 
 #: ../iw/lvm_dialog_gui.py:954
 msgid "_Volume Group Name:"
-msgstr ""
+msgstr "વોલ્યુમ જૂથ નામ (_V):"
 
 #: ../iw/lvm_dialog_gui.py:962
 msgid "Volume Group Name:"
-msgstr ""
+msgstr "વોલ્યુમ જૂથ નામ:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr ""
+msgstr "ભૌતિક મર્યાદા (_P):"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
-msgstr ""
+msgstr "ભૌતિક મર્યાદા:"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
-msgstr ""
+msgstr "ભૌતિક વોલ્યુમો વાપરવા જઈ રહ્યા છીએ (_U):"
 
 #: ../iw/lvm_dialog_gui.py:997
 msgid "Used Space:"
-msgstr ""
+msgstr "વપરાયેલ જગ્યા:"
 
 #: ../iw/lvm_dialog_gui.py:1014
 msgid "Free Space:"
-msgstr ""
+msgstr "ખાલી જગ્યા:"
 
 #: ../iw/lvm_dialog_gui.py:1032
 msgid "Total Space:"
-msgstr ""
+msgstr "કુલ જગ્યા:"
 
 #: ../iw/lvm_dialog_gui.py:1061
 msgid "Logical Volume Name"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમ નામ"
 
 #: ../iw/lvm_dialog_gui.py:1067 ../iw/partition_gui.py:363
 msgid "Size (MB)"
-msgstr ""
+msgstr "માપ (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/osbootwidget.py:95
 msgid "_Add"
-msgstr ""
+msgstr "ઉમેરો (_A)"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:508
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
 msgid "_Edit"
-msgstr ""
+msgstr "ફેરફાર કરો (_E)"
 
 #: ../iw/lvm_dialog_gui.py:1099
 msgid "Logical Volumes"
-msgstr ""
+msgstr "લોજિકલ વોલ્યુમો"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr ""
+msgstr "માઉસનું રુપરેખાંકન"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (DOS હેઠળ COM1)"
 
 #: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (DOS હેઠળ COM2)"
 
 #: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS2 (DOS હેઠળ COM3)"
 
 #: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS3 (DOS હેઠળ COM4)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:159
 msgid "_Device"
-msgstr ""
+msgstr "ઉપકરણ (_D)"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
-msgstr ""
+msgstr "મોડેલ (_M)"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr ""
+msgstr "બટનો ૩ સુધી પહોંચો (_E)"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "સિસ્ટમ માટે યોગ્ય માઉસ પસંદ કરો."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:598
 msgid "Gateway"
-msgstr ""
+msgstr "ગેટવે"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:600
 msgid "Primary DNS"
-msgstr ""
+msgstr "પ્રાથમિક DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:602
 msgid "Secondary DNS"
-msgstr ""
+msgstr "ગૌણ DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:604
 msgid "Tertiary DNS"
-msgstr ""
+msgstr "તૃતિય DNS"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr ""
+msgstr "ગેટવે (_G)"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr ""
+msgstr "પ્રાથમિક DNS (_P)"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr ""
+msgstr "ગૌણ DNS (_S)"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr ""
+msgstr "તૃતિય DNS (_T)"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
-msgstr ""
+msgstr "નેટવર્ક રુપરેખાંકન"
 
 #: ../iw/network_gui.py:155 ../iw/network_gui.py:159 ../iw/network_gui.py:163
 #: ../iw/network_gui.py:168 ../iw/network_gui.py:174 ../iw/network_gui.py:178
 #: ../iw/network_gui.py:183
 msgid "Error With Data"
-msgstr ""
+msgstr "માહિતી સાથે ભૂલ છે"
 
 #: ../iw/network_gui.py:156
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
+"તમે યજમાન નામ સ્પષ્ટ કરેલ નથી. તમારા નેટવર્ક પર્યાવરણને "
+"અનુલક્ષીને આ કદાચ પાછળથી સમસ્યાઓ ઊભી કરશે."
 
 #: ../iw/network_gui.py:160
 #, python-format
@@ -3718,6 +3756,9 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
+"તમે ક્ષેત્ર \"%s\" સ્પષ્ટ કરેલ નથી. તમારા નેટવર્ક પર્યાવરણને "
+"અનુલક્ષીને "
+"આ કદાચ પાછળથી સમસ્યાઓ ઊભી કરશે."
 
 #: ../iw/network_gui.py:164 ../textw/network_text.py:410
 #, python-format
@@ -3726,6 +3767,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"યજમાનનામ \"%s\" નીચેના કારણોસર માન્ય નથી:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:169
 #, python-format
@@ -3733,15 +3777,17 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
+"\"%s\" માટે દાખલ કરેલી કિંમત ફેરવતી વખતે ભૂલ ઉદ્ભવી:\n"
+"%s"
 
 #: ../iw/network_gui.py:175
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "ક્ષેત્ર \"%s\" માટે કિંમત જરુરી છે."
 
 #: ../iw/network_gui.py:179
 msgid "The IP information you have entered is invalid."
-msgstr ""
+msgstr "તમે દાખલ કરેલ IP જાણકારી અમાન્ય છે."
 
 #: ../iw/network_gui.py:183
 msgid ""
@@ -3752,48 +3798,54 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
+"તમારી પાસે કોઈ સક્રિય નેટવર્ક ઉપકરણો નથી. તમારી સિસ્ટમ "
+"ઓછામા ઓછી એક સક્રિય ઉપકરણ વિના નેટવર્ક સાથે સંપર્ક કરવા સમર્થ નથી.\n"
+"\n"
+"નોંધ: જો તમારી પાસે PCMCIA-આધારિત નેટવર્ક એડપ્ટર હોય તો એને "
+"આ બિંદુએ નિષ્ક્રિય રહેવા દો. તમે જ્યારે તમારી સિસ્ટમ રીબુટ કરો "
+"ત્યારે એડપ્ટર આપોઆપ સક્રિય થઈ જશે."
 
 #: ../iw/network_gui.py:202
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "ઈન્ટરફેસ %s માં ફેરફાર કરો"
 
 #: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
-msgstr ""
+msgstr "_DHCP ની મદદથી રુપરેખાંકિત કરો"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
-msgstr ""
+msgstr "બુટ વખતે સક્રિય કરો (_A)"
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
-msgstr ""
+msgstr "_IP સરનામુ"
 
 #: ../iw/network_gui.py:229
 msgid "Net_mask"
-msgstr ""
+msgstr "નેટમાસ્ક (_m)"
 
 #: ../iw/network_gui.py:234
 msgid "_Point to Point (IP)"
-msgstr ""
+msgstr "પોઈન્ટ ટુ પોઈન્ટ (IP) (_P)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "એનક્રિપ્શન કી (_K)"
 
 #: ../iw/network_gui.py:279
 #, python-format
 msgid "Configure %s"
-msgstr ""
+msgstr "%s રુપરેખાંકિત કરો"
 
 #: ../iw/network_gui.py:451
 msgid "Active on Boot"
-msgstr ""
+msgstr "બુટ વખતે સક્રિય કરો"
 
 #: ../iw/network_gui.py:453 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
@@ -3801,27 +3853,27 @@ msgstr ""
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1130
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
-msgstr ""
+msgstr "ઉપકરણ"
 
 #: ../iw/network_gui.py:455
 msgid "IP/Netmask"
-msgstr ""
+msgstr "IP/નેટમાસ્ક"
 
 #: ../iw/network_gui.py:515
 msgid "Network Devices"
-msgstr ""
+msgstr "નેટવર્ક ઉપકરણો"
 
 #: ../iw/network_gui.py:525
 msgid "Set the hostname:"
-msgstr ""
+msgstr "યજમાનનામ સુયોજિત કરો:"
 
 #: ../iw/network_gui.py:529
 msgid "_automatically via DHCP"
-msgstr ""
+msgstr "DHCP મારફત આપોઆપ (_a)"
 
 #: ../iw/network_gui.py:535
 msgid "_manually"
-msgstr ""
+msgstr "જાતે (_m)"
 
 #: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
