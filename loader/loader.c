@@ -2346,22 +2346,38 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, 
 			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
+	char *hdfstypes[]={"ext2", "vfat", "ufs", NULL};
+	int i;
+
 	if (!strncmp(partname, "/dev/", 5))
 	    partname += 5;
 
 	logMessage("partname is %s", partname);
 
-	imageUrl = setupOldHardDrive(partname, "ext2", dir, flags);
-	if (!imageUrl)
-	    imageUrl = setupOldHardDrive(partname, "vfat", dir, flags);
-	if (!imageUrl)	
-	    imageUrl = setupOldHardDrive(partname, "ufs", dir, flags);
+	for (i=0; hdfstypes[i]; i++) {
+	    logMessage("Trying to find hdtree %s %s %s", partname, hdfstypes[i], dir);
+	    imageUrl = setupOldHardDrive(partname, hdfstypes[i], dir, flags);
+	    if (imageUrl)
+		break;
+	}
+
+	if (!imageUrl) {
+	    for (i=0; hdfstypes[i]; i++) {
+		logMessage("Trying to find hdiso %s %s %s", partname, hdfstypes[i], dir);
+		imageUrl = setupIsoImages(partname, hdfstypes[i], dir, flags);
+		if (imageUrl) {
+		    logMessage("returned imageUrl = %s", imageUrl);
+		    break;
+		}
+	    }
+	}
+
 	if (!imageUrl)
 	    logMessage ("Failed to mount hd kickstart media");
     }
 #endif
 
-    return imageUrl;
+   return imageUrl;
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
@@ -2681,6 +2697,7 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
+
     if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
 
