@@ -76,7 +76,6 @@ maketftp --kernel $KERNELROOT/boot/vmlinux-* \
          --initrdfrom $TOPDESTPATH/boot/initrd64.img
 
 makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
-	     --bootdisksize 1440 \
 	     --imagename boot64.img \
 	     --initrdflags '--initrdto $TOPDESTPATH/boot/initrd64.img \
 			    --initrdsize 2000 \

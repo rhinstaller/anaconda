@@ -1,8 +1,7 @@
 SECSTAGE="vfat raid0 raid1 raid5"
 
 prepareBootImage() {
-	gunzip < $BOOTDISKDIR/generic.img.gz |
-	    dd of=$MBD_TMPIMAGE conv=notrunc > /dev/null 2> /dev/null
+	gunzip < $BOOTDISKDIR/generic.img.gz > $MBD_TMPIMAGE
 	mount -o loop -t ext2 $MBD_TMPIMAGE $MBD_BOOTTREE
 
 	zcat $KERNELROOT/boot/vmlinuz-* | gzip -9 > $MBD_BOOTTREE/vmlinux.gz
