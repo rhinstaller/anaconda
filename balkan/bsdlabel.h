@@ -3,4 +3,4 @@
 
 int bsdlReadTable(int fd, struct partitionTable * table);
 
-#endif;
+#endif

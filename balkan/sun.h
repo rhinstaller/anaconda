@@ -3,4 +3,4 @@
 
 int sunpReadTable(int fd, struct partitionTable * table);
 
-#endif;
+#endif
