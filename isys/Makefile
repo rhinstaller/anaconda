@@ -1,3 +1,5 @@
+include ../Makefile.inc
+
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 CFLAGS = -I/usr/include/python1.5 -I.. -g
@@ -7,7 +9,7 @@ STATICOBJS = otherinsmod.o
 STATICLIBS = ../kudzu/kudzumodule.so
 LOADLIBES = -lrpm -lbz2 -lresolv -lz -lpci -lpopt
 SUBDIRS = modutils pci
-PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
+#PYTHONLIBDIR = $(DESTDIR)/Pusr/lib/python1.5/site-packages
 PYMODULES = _isys.so
 
 ifeq ($(ARCH),sparc)
@@ -29,7 +31,7 @@ clean:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
 
 install: all
-	cp $(PYMODULES) isys.py $(PYTHONLIBDIR)
+	cp $(PYMODULES) isys.py $(DESTDIR)/$(PYTHONLIBDIR)
 
 subdirs:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done

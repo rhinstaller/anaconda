@@ -1,4 +1,6 @@
-PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
+include ../Makefile.inc
+
+#PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
 OBJECTS = rw.o dos.o sun.o bsdlabel.o
 
@@ -22,4 +24,5 @@ dos.o: dos.h
 sun.o: sun.h
 
 install: all
-	cp _balkanmodule.so $(PYTHONLIBDIR)
+	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
+	cp _balkanmodule.so $(DESTDIR)/$(PYTHONLIBDIR)

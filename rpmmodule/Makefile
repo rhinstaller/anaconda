@@ -3,7 +3,9 @@
 #
 # $Id$
 
-PYTHON   = $(DESTDIR)/usr/lib/python1.5/site-packages
+include ../Makefile.inc
+
+PYTHON   = $(DESTDIR)/$(PYTHONLIBDIR)
 
 CC       = gcc
 

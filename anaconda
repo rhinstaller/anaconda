@@ -2,13 +2,19 @@
 
 import sys, os
 
+#
+# only used by anaconda in unconfig mode
+#
+sys.path.append('/usr/lib/anaconda')
+
 # Python passed my path as argv[0]!
 # if sys.argv[0][-7:] == "syslogd":
-if sys.argv[1] == "--syslogd":
-    from syslogd import Syslogd
-    root = sys.argv[2]
-    output = sys.argv[3]
-    syslog = Syslogd (root, open (output, "w+"))
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--syslogd":
+        from syslogd import Syslogd
+        root = sys.argv[2]
+        output = sys.argv[3]
+        syslog = Syslogd (root, open (output, "w+"))
 
 if (os.path.exists('isys')):
     sys.path.append('isys')
@@ -22,12 +28,15 @@ import iutil
 
 setverPath = None
 
+# save because we munge argv below
+[execname] = string.split(sys.argv[0], '/')[-1:]
+
 gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = isys.getopt(sys.argv[1:], 'GTtdr:fm:', 
-          [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=',
+(args, extra) = isys.getopt(sys.argv[1:], 'GTUtdr:fm:', 
+          [ 'gui', 'text', 'unconfig', 'test', 'debug', 'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=',
 	    'expert', 'serial' ])
@@ -63,6 +72,8 @@ for n in args:
 	mode = 'g'
     elif (str == '-T' or str == '--text'):
 	mode = 't'
+    elif (str == '-U' or str == '--unconfig'):
+	mode = 'u'
     elif (str == '-t' or str == '--test'):
 	test = 1
     elif (str == '--module'):
@@ -93,7 +104,13 @@ for n in args:
     elif (str == '--kbdtype'):
         kbdtype = arg
 
-if (not method):
+# see how we were run, override command line mode selection
+if (execname == "anaconda-unconfig"):
+    print "overriding to unconfig mode based on exec name"
+    mode = 'u'
+
+
+if (mode != 'u' and not method):
     print "no install method specified"
     sys.exit(1)
 
@@ -101,7 +118,7 @@ if (debug):
     import pdb
     pdb.set_trace()
 
-if (not test and not localInstall and os.getpid() > 50):
+if (mode != 'u' and not test and not localInstall and os.getpid() > 50):
     print "you're running me on a live system! that's incredibly stupid."
     sys.exit(1)
 
@@ -147,6 +164,9 @@ if (mode == 'g'):
     from gui import InstallInterface
 elif (mode == 't'):
     from text import InstallInterface
+elif (mode == 'u'):
+    print "Going to go into uninstall mode"
+    sys.exit(1)
 else:
     print "No mode was specified"
     sys.exit(1)
