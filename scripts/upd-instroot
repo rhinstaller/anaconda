@@ -5,7 +5,7 @@ ORIGDIR=`pwd`
 
 if [ -z "$1" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 <packagedir> [<targetdir>]"
+	echo "usage:        $0 <packagedir> [templatedir] [instroot]"
 	exit 1
 fi
 
@@ -35,7 +35,7 @@ prunePackageList() {
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*)"
+	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm)"
 	done
 	# gtk+, enough said
 	PATTERN=$(echo $PATTERN | sed 's,[\+\*],\\&,g')
@@ -72,7 +72,6 @@ if [ -z "$3" ]; then
 else
     DESTGR=$3
 fi
-
 
 rm -rf $DEST $DESTGR
 mkdir -p $DEST
