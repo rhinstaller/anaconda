@@ -168,6 +168,9 @@ class MouseWindow (InstallWindow):
         self.locList.connect ("select_row", self.selectDeviceType)
 	self.locList.set_sensitive(FALSE)
 
+        self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
+        self.ctree.set_line_style(CTREE_LINES_NONE)
+
         sw.add (self.ctree)
 	
 	if (currentDev and currentDev[0:4] == "ttyS"):
