@@ -409,7 +409,7 @@ class PackageSelectionWindow (InstallWindow):
         return None
 
     def setSize(self):
-	print "updated size", self.todo.comps.sizeStr()
+        self.sizelabel.set_text (_("Total install size: %s") % self.todo.comps.sizeStr())
 
     def componentToggled(self, widget):
         # turn off all the comps
@@ -474,16 +474,19 @@ class PackageSelectionWindow (InstallWindow):
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
 
-	self.setSize()
+        hbox = GtkHBox (FALSE, 5)
 
-        vbox = GtkVBox (FALSE, 5)
         self.individualPackages = GtkCheckButton (_("Select individual packages"))
         self.individualPackages.set_active (self.selectIndividualPackages)
-        align = GtkAlignment (0.5, 0.5)
-        align.add (self.individualPackages)
+        hbox.pack_start (self.individualPackages, FALSE)
 
+        self.sizelabel = GtkLabel ("")
+	self.setSize()
+        hbox.pack_start (self.sizelabel, TRUE)
+        
+        vbox = GtkVBox (FALSE, 5)
         vbox.pack_start (sw, TRUE)
-        vbox.pack_start (align, FALSE)
+        vbox.pack_start (hbox, FALSE)
         
         return vbox
 
