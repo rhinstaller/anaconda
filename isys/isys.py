@@ -570,14 +570,15 @@ def ext2HasJournal(device, makeDevNode = 1):
 def ejectCdrom(device, makeDevice = 1):
     if makeDevice:
         makeDevInode(device, "/tmp/cdrom")
-        fd = os.open("/tmp/cdrom", os.O_RDONLY)
+        fd = os.open("/tmp/cdrom", os.O_RDONLY|os.O_NONBLOCK)
     else:
-        fd = os.open(device, os.O_RDONLY)
+        fd = os.open(device, os.O_RDONLY|os.O_NOBLOCK)
 
     # this is a best effort
     try:
 	_isys.ejectcdrom(fd)
-    except SystemError:
+    except SystemError, e:
+        log("error ejecting cdrom (%s): %s" %(device, e))
 	pass
 
     os.close(fd)
