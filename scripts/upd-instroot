@@ -125,7 +125,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh wget installer
+    PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
 	sed net-tools inetd openssh openssh-server fileutils modutils
 	initscripts mount gawk
 	portmap textutils sh-utils telnet-server login ssh_keys"
@@ -180,7 +180,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh installer
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
 	sed net-tools inetd openssh openssh-server fileutils login 
 	wget initscripts
 	modutils portmap textutils openssl telnet-server strace ssh_keys"
