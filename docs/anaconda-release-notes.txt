@@ -11,18 +11,18 @@ Contents
  - Patching/updating installer
  - Invocation options
  - Troubleshooting
- - Customization
+ - More info
 
 
 Overview
 --------
 
    Anaconda is the name of the install program used by Red Hat Linux.
-It is python based with some custom modules written in C.  Being
+It is python-based with some custom modules written in C.  Being
 written in a scripting language makes development quicker, and it is
 easier to distribute updates in a non-binary form.  The anaconda
 installer works on a wide variety of Linux-based computing
-architectures (ia32, Itanium, Alpha, S/390), and is designed to make
+architectures (ia32, Itanium, Alpha, S/390, PowerPC), and is designed to make
 it easy to add platforms.
 
    The first stage of the installer is a loader program written in C.
@@ -43,7 +43,7 @@ source that can create kickstart configurations dynamically based on
 the machine which is requesting the script.  This allows endless
 possibilities in automating large sets of servers.
 
-   This documents purpose is to go over technical details that will
+   This document's purpose is to go over technical details that will
 make using and customizing the installer, and the distribution, much
 easier.  The anaconda installer arguably is one of the most flexible
 and powerful installers available, and hopefully this document will
@@ -71,16 +71,17 @@ the installation source is specified in the kickstart file, and the user is
 not required to be present unless necessary information is missing from the
 kickstart script.
 
-   For NFS-based installs the installer mounts the directory specified and
-looks for a set of CD images, or a installation tree.  If present then a
-image is loopback-mounted and the second stage installer is run from this
-image.  For FTP and HTTP installs a smaller (no graphical install options) 
-second stage image is downloaded into memory, mounted, and the second stage
-installer run from this.  On harddrive based installs a similar small second
-stage image is put into memory and the second stage installer run from it.
-This is necessary because for partitioning to suceed the installer can not have
-partitions on the harddrive mounted in order for the kernel to be able to
-acknowledge partition table changes.
+   For NFS-based installs the installer mounts the directory specified
+and looks for a set of ISO images, or an installation tree.  If
+present then a filesystem image is loopback-mounted and the second
+stage installer is run from this image.  For FTP and HTTP installs a
+smaller (no graphical install options) second stage image is
+downloaded into memory, mounted, and the second stage installer run
+from this.  On harddrive based installs a similar small second stage
+image is put into memory and the second stage installer run from it.
+This is necessary because for partitioning to suceed the installer can
+not have partitions on the harddrive mounted in order for the kernel
+to be able to acknowledge partition table changes.
 
    The bootable installation images are as follow:
 
@@ -128,7 +129,7 @@ and the installer then installing over NFS is the fastest way to work.
     The installer will also use an 'updates.img' file to get patched
 source files. This is particularly useful for FTP and HTTP based installs.
 When the second stage image is retrieved from the server, a download of
-theupdates.img is also attempted.  This file must be an ext2 filesystem image.
+the updates.img is also attempted.  This file must be an ext2 filesystem image.
 It is mounted loopback, then the contents are copied to the ramdisk location
 that Python is setup to look at for module updates.  This update image will
 also work with all the other installation mechanisms, although the exact
@@ -137,4 +138,64 @@ has the details on this.
 
 Invocation Options
 ------------------
- Go into command line options document elsewhere, plus all graphical vga=xxx stuff.
+    The documentation file 'command-line.txt' has a quick summary of all the
+command line options anaconda accepts.
+
+Troubleshooting
+---------------
+
+- Cannot get graphical installer working
+
+    On some video hardware (laptops in particular) the graphical
+    installer will not work.  The installer attempts to run at
+    800x600, and some hardware does not work in this mode, or the
+    output looks poor when scaled to this mode.  This can be worked
+    around by specifying the 'vga=xxx' option on the command line when
+    booting the installer.  Here 'xxx' is the VESA mode number for the
+    video mode which will work on your hardware, and can be one of the
+    following:
+
+
+        | 640x480  800x600  1024x768 1280x1024  <-Resolution
+    ----+-------------------------------------
+    256 |    769      771      773      775
+    32k |    784      787      790      793   
+    64k |    785      788      791	794   
+    16M |    786      789      792	795   
+     ^
+     |
+     Number of colors
+
+    Find the row with the number of colors and the column with the resolution
+    and then use the number at the intersection. For example, to run at
+    1024x768 with 64k colors, use 'vga=791'
+
+    Alternately, you can specify "resolution=<mode>", where mode is:
+
+         640x480
+	 800x600
+	 1024x768
+	 1152x864
+	 1280x1024
+	 1400x1050
+	 1600x1200
+
+    and the installer will start up in graphical mode in the resolution
+    specified.
+
+
+
+More Info
+---------
+
+   For more info, goto the kickstart-list and anaconda-devel mailing lists
+hosted by Red Hat.  You can find these at:
+
+
+ anaconda-devel-list - 
+        https://listman.redhat.com/mailman/listinfo/anaconda-devel-list
+
+ kickstart-list -
+        https://listman.redhat.com/mailman/listinfo/kickstart-list
+
+<end of document>
