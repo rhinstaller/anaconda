@@ -1017,6 +1017,8 @@ if __name__ == "__main__":
 #    x.modes["32"] = [ "640x480" ]
     print x.screenSection ()
 
+# stuff from xserver.py
+
 #      server = os.fork()
 #      if not server:
 #          print "starting", serverPath
@@ -1056,3 +1058,32 @@ if __name__ == "__main__":
 #  	    args.append("-logfile")
 #  	    args.append("/dev/null")
 #  	os.execv(serverPath, args)
+
+#  # --------------------------------------------------
+#      keycodes = "xfree86"
+#      symbols = "us(pc101)"
+#      geometry = "pc"
+#      rules = "xfree86"
+#      model = "pc101"
+
+#      kbd = Keyboard()
+#      if kbd.type == 'Sun':
+#  	rules = "sun"
+#  	model = kbd.model
+#  	keycodes = "sun(" + kbd.model + ")"
+#  	if model == 'type4':
+#  	    geometry = "sun(type4)"
+#  	    symbols = "sun/us(sun4)"
+#  	else:
+#  	    if model == 'type5':
+#  		geometry = "sun"
+#  	    elif model == 'type5_euro':
+#  		geometry = "sun(type5euro)"
+#  	    else:
+#  		geometry = "sun(type5unix)"
+#  	    symbols = "sun/us(sun5)"
+#  	if kbd.layout == 'en_US':
+#  	    symbols = symbols + "+iso9995-3(basic)"
+#  	elif kbd.layout != 'us':
+#  	    symbols = symbols + "+" + kbd.layout
+

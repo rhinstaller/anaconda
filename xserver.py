@@ -28,47 +28,19 @@ def startX():
     x.probe ()
     if x.server and len (x.server) >= 3 and x.server[0:3] == 'Sun':
 	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
-#      elif x.server:
-#          serverPath = '/usr/X11R6/bin/XF86_' + x.server
-#      elif iutil.getArch() == "sparc":
-#  	raise RuntimeError, "Unknown card"
-#      else:
-#          print "Unknown card, falling back to VGA16"
-    serverPath = '/usr/X11R6/bin/XFree86'
-
+    elif x.server:
+        serverPath = '/usr/X11R6/bin/' + x.server
+    elif iutil.getArch() == "sparc":
+  	raise RuntimeError, "Unknown card"
+    else:
+          print "Unknown card, falling back to VGA16"
+    
     if not os.access (serverPath, os.X_OK):
 	if iutil.getArch() == "sparc":
 	    raise RuntimeError, "Missing X server"
         print serverPath, "missing.  Falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
         
-    keycodes = "xfree86"
-    symbols = "us(pc101)"
-    geometry = "pc"
-    rules = "xfree86"
-    model = "pc101"
-
-    kbd = Keyboard()
-    if kbd.type == 'Sun':
-	rules = "sun"
-	model = kbd.model
-	keycodes = "sun(" + kbd.model + ")"
-	if model == 'type4':
-	    geometry = "sun(type4)"
-	    symbols = "sun/us(sun4)"
-	else:
-	    if model == 'type5':
-		geometry = "sun"
-	    elif model == 'type5_euro':
-		geometry = "sun(type5euro)"
-	    else:
-		geometry = "sun(type5unix)"
-	    symbols = "sun/us(sun5)"
-	if kbd.layout == 'en_US':
-	    symbols = symbols + "+iso9995-3(basic)"
-	elif kbd.layout != 'us':
-	    symbols = symbols + "+" + kbd.layout
-
     server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
 
     # give time for the server to fail (if it is going to fail...)
