@@ -403,28 +403,35 @@ class InstallControlWindow:
         self.setScreen ()
         if self.helpWin:
             self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))
-        self.navigator.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-        self.navigator.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
+
+        self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))
+#        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+#        self.html.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
+
 
 
     def helpClicked (self, widget, simulated = 0):
-        self.showHelpButton.set_sensitive(FALSE)
-        self.helpWin = GnomeDialog()
-        table = GtkTable(3, 3, FALSE)
-        self.helpWin.vbox.pack_start(table)
-        self.helpWin.append_button(_("Close"))
-        self.helpWin.set_default_size(620, 430)
-        self.helpWin.set_usize(620, 430)
-        self.helpWin.set_position(WIN_POS_CENTER)
-        self.helpWin.button_connect( 0, self.closeHelp)
-        self.html = GtkXmHTML()
-        self.html.set_allow_body_colors(TRUE)
-#        self.html.source ( "<HTML><BODY BGCOLOR=white>HTML Help Here</BODY></HTML>")
-        self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))        
-        self.helpWin.vbox.pack_start(self.html)
-        self.html.show()
-        self.helpWin.show()
-
+        self.hbox.remove (widget)
+        if widget == self.hideHelpButton:
+            self.bin.remove (self.table)
+            self.installFrame.reparent (self.bin)
+            self.showHelpButton.show ()
+            self.showHelpButton.set_state (STATE_NORMAL)
+            self.hbox.pack_start (self.showHelpButton, FALSE)
+            self.hbox.reorder_child (self.showHelpButton, 0)
+            self.displayHelp = FALSE
+        else:
+            self.bin.remove (self.installFrame)
+            self.table.attach (self.installFrame, 1, 3, 0, 1)
+            self.bin.add (self.table)
+            # fix to set the bgcolor to white (xmhtml sucks)
+            self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+            self.html.source (self.currentWindow.getICS().getHTML(self.langSearchPath))        
+            self.hideHelpButton.show ()
+            self.showHelpButton.set_state (STATE_NORMAL)
+            self.hbox.pack_start (self.hideHelpButton, FALSE)
+            self.hbox.reorder_child (self.hideHelpButton, 0)
+            self.displayHelp = TRUE
 
     def closeHelp(self, args):
         self.helpWin.destroy()
@@ -570,6 +577,9 @@ class InstallControlWindow:
         prevButton.set_sensitive (ics.getPrevEnabled ())
         nextButton.set_sensitive (ics.getNextEnabled ())
  
+        self.html.source (ics.getHTML(self.langSearchPath))
+
+
         if (ics.getGrabNext ()):
             nextButton.grab_focus ()
 
@@ -582,7 +592,9 @@ class InstallControlWindow:
 	    ( STOCK_BUTTON_HELP, "releaseButton",
 		    _("Release Notes"), self.releaseClicked ),
 	    ( STOCK_BUTTON_HELP, "showHelpButton",
-		    _("Show Help"), self.helpClicked )
+		    _("Show Help"), self.helpClicked ),
+	    ( STOCK_BUTTON_HELP, "hideHelpButton",
+		    _("Hide Help"), self.helpClicked ),
 	    ]
 
         self.reloadRcQueued = 0
@@ -702,24 +714,25 @@ class InstallControlWindow:
 
 	self.hbox = GtkHBox ()
         self.hbox.set_border_width(5)
-	self.hbox.pack_start (self.showHelpButton, FALSE)
+#	self.hbox.pack_start (self.showHelpButton, FALSE)
+	self.hbox.pack_start (self.hideHelpButton, FALSE)
         self.hbox.set_spacing (25)
         self.hbox.pack_start (self.releaseButton, FALSE)
 	self.hbox.pack_start (self.buttonBox)
 
         vbox.pack_end (self.hbox, FALSE)
 
-        self.navigator = GtkXmHTML()
-        self.navigator.set_allow_body_colors(TRUE)
-        self.navigator.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-        self.navigator.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
+        self.html = GtkXmHTML()
+        self.html.set_allow_body_colors(TRUE)
+        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+        self.html.source ("<HTML><BODY BGCOLOR=white><H1>Flight of the Navigator</h1><br>&nbsp;<br>&nbsp;<br><p>Coming soon to an anaconda near you</BODY></HTML>")
 
         self.navFrame = GtkFrame (_("Navigation"))
         self.box = GtkVBox (FALSE, 0)
         self.box.set_spacing(0)
 
         self.box.pack_start (GtkHSeparator (), FALSE)
-        self.box.pack_start (self.navigator, TRUE)
+        self.box.pack_start (self.html, TRUE)
         
         self.navFrame. add (self.box)
 
