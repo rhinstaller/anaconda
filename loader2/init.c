@@ -555,7 +555,7 @@ int main(int argc, char **argv) {
 	}
 
 	setupTerminal(fd);
-    } else {
+    } else if (fd < 0)  {
 	fd = open("/dev/tty1", O_RDWR, 0);
 	if (fd < 0)
 	    fd = open("/dev/vc/1", O_RDWR, 0);
@@ -572,7 +572,8 @@ int main(int argc, char **argv) {
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
-    close(fd);
+    if (fd > 2)
+        close(fd);
 #else
     dup2(0, 1);
     dup2(0, 2);
