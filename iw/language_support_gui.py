@@ -18,6 +18,8 @@ from iw_gui import *
 from flags import flags
 from rhpl.translate import _, N_
 
+from gui import setupTreeViewFixupIdleHandler
+
 class LanguageSupportWindow (InstallWindow):
     windowTitle = _("Additional Language Support")
     htmlTag = "langsupport"
@@ -238,5 +240,8 @@ class LanguageSupportWindow (InstallWindow):
 					       self.toggled_language)
 
 	store = self.languageList.get_model()
+
+	setupTreeViewFixupIdleHandler(self.languageList, store)
+
 
         return vbox

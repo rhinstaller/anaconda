@@ -16,6 +16,8 @@ import gtk
 from iw_gui import *
 from rhpl.translate import _, N_
 
+from gui import setupTreeViewFixupIdleHandler
+
 class LanguageWindow (InstallWindow):
 
     windowTitle = N_("Language Selection")
@@ -97,6 +99,8 @@ class LanguageWindow (InstallWindow):
         sw.set_shadow_type(gtk.SHADOW_IN)
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add (self.listView)
+
+	setupTreeViewFixupIdleHandler(self.listView, self.listStore)
 
         mainBox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 10)
         mainBox.pack_start (sw, gtk.TRUE, gtk.TRUE)

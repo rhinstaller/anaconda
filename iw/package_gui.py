@@ -929,7 +929,29 @@ class PackageSelectionWindow (InstallWindow):
 	    self.setCompCountLabel(comp, count)
 	    
         return
-    
+
+    def focusIdleHandler(self, data):
+	if not self.needToFocus:
+	    return
+
+	if self.scrolledWindow is None:
+	    return
+
+	vadj = self.scrolledWindow.get_vadjustment()
+	swmin = vadj.lower
+	swmax = vadj.upper
+	pagesize = vadj.page_size
+	curval = vadj.get_value()
+
+	self.scrolledWindow.get_vadjustment().set_value(swmax-pagesize)
+
+	if self.idleid is not None:
+	    gtk.idle_remove(self.idleid)
+
+	self.idleid = None
+	self.needToFocus = 0
+	
+	
 
     def getScreen(self, comps, langSupport, instClass, dispatch):
 
@@ -1102,13 +1124,22 @@ class PackageSelectionWindow (InstallWindow):
         topbox.set_focus_hadjustment(sw.get_hadjustment())
         topbox.set_focus_vadjustment(sw.get_vadjustment())
 
+	# save so we can scrfoll if needed
+	self.scrolledWindow = sw
+	self.needToFocus = 0
+
 	# if special case we do things a little differently
 	if minimalActive:
 	    self.setComponentsSensitive(minimalComp, 0)
 	    sw.set_focus_child(minimalCB)
+	    self.needToFocus = 1
 	elif everythingActive:
 	    self.setComponentsSensitive(everythingComp, 0)
 	    sw.set_focus_child(everythingCB)
+	    self.needToFocus = 1
+
+	if self.needToFocus:
+	    self.idleid = gtk.idle_add(self.focusIdleHandler, None)
 
 	# pack rest of screen
         hbox = gtk.HBox (gtk.FALSE, 5)

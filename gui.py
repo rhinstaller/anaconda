@@ -75,6 +75,39 @@ if iutil.getArch() == 'sparc':
 elif iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
+
+#
+# HACK to make treeview work
+# 
+ 
+def setupTreeViewFixupIdleHandler(view, store):
+    id = {}
+    id["id"] = gtk.idle_add(scrollToIdleHandler, (view, store, id))
+
+def scrollToIdleHandler((view, store, iddict)):
+    if not view or not store or not iddict:
+	return
+
+    try:
+	id = iddict["id"]
+    except:
+	return
+    
+    selection = view.get_selection()
+    if not selection:
+	return
+    
+    model, iter = selection.get_selected()
+    if not iter:
+	return
+
+    path = store.get_path(iter)
+    col = view.get_column(0)
+    view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+
+    if id:
+	gtk.idle_remove(id)
+
 # setup globals
 def processEvents():
     gtk.gdk.flush()
