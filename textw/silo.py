@@ -55,7 +55,8 @@ class SiloWindow:
 	if mount != '/': return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
-	(bootpart, boothd, mbrpart) = todo.silo.getSiloOptions()
+	bootpart = todo.fstab.getBootDevice()
+	boothd = todo.fstab.getMbrDevice()
 
 	format = "/dev/%-11s %s%*s" 
 	str1 = _("Master Boot Record (MBR)")
