@@ -2,7 +2,7 @@ include ../Makefile.inc
 
 CFLAGS=-Wall -O -g -fpic -I/usr/include/python1.5# -DDEBUG
 
-#libedd.a(edd.o lrmi.o)
+libedd.a(edd.o lrmi.o)
 TARGETS=eddmodule.so 
 
 ifeq (.depend,$(wildcard .depend))

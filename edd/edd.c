@@ -108,6 +108,18 @@ edd_supported(int drive)
 {
   struct LRMI_regs regs;
 
+  FILE *f = fopen("/proc/cmdline", "r");
+  if (f) {
+      char buf[100];
+      fgets(buf, sizeof(buf) - 1, f);
+      fclose(f);
+      if (strstr(buf, "lba32")) {
+	  EDDCapability *ec = malloc (sizeof (EDDCapability));
+	  ec->edd = 1;
+	  return rc;
+      }
+      return NULL;
+  }
   return NULL; 
  
   if (edd_lrmi_init() == EDD_ERROR) {
