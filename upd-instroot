@@ -26,7 +26,7 @@ pythondeps() {
 	    mknod $DIR/dev/openprom c 10 139
 	fi
 	(chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
-	cd $DIR; find usr/lib/python* /usr/lib/anaconda -type f | sed 's,^,/,' ) | \
+	cd $DIR; find usr/lib/python* usr/lib/anaconda -type f | sed 's,^,/,' ) | \
         sort | uniq -u | sed s,^,./, | while read fn; do
   	    [ ! -d $DIR/$fn ] && rm $DIR/$fn
   	done
