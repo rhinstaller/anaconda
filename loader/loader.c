@@ -850,9 +850,42 @@ char *getReleaseDescriptorFromIso(char *file) {
 	    /* now read OS description line */
 	    if (tmpptr)
 		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-	    fclose(f);
+
 	    if (tmpptr)
-		descr = tmpstr;
+		descr = strdup(tmpstr);
+
+	    /* skip over arch */
+	    if (tmpptr)
+		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+
+	    /* now get the CD number */
+	    if (tmpptr) {
+		unsigned int len;
+		char *p, *newstr;
+
+		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+		
+		/* nuke newline from end of descr, stick number on end*/
+		for (p=descr+strlen(descr); p != descr && !isspace(*p); p--);
+
+		*p = '\0';
+		len = strlen(descr) + strlen(tmpstr) + 10;
+		newstr = malloc(len);
+		strncpy(newstr, descr, len-1);
+		strncat(newstr, " disc ", len-1);
+
+		/* is this a DVD or not?  If disc id has commas, like */
+		/* "1,2,3", its a DVD                                 */
+		if (strchr(tmpstr, ','))
+		    strncat(newstr, "DVD\n", len-1);
+		else
+		    strncat(newstr, tmpstr, len-1);
+
+		free(descr);
+		descr = newstr;
+	    }
+
+	    fclose(f);
 	}
     }
 
