@@ -281,8 +281,10 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 found = kd->numKnown;
             }
 
-            if (found > before)
+            if (found > before) {
+                stage = DEV_DONE;
                 break;
+            }
 
             /* we don't have any more modules of the proper class.  ask
              * them to manually load */
