@@ -761,6 +761,11 @@ def doPostInstall(method, id, intf, instPath):
 
 		    if unmountUSB:
 			isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+	    else:
+		if os.access(instPath + '/etc/securetty', os.R_OK):
+			securetty = open(instPath + '/etc/securetty','a')
+			securetty.write("console\n")
+			securetty.close()
 
 	w.set(4)
 
