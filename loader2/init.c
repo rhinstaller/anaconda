@@ -532,7 +532,7 @@ int main(int argc, char **argv) {
 
     printf("creating /dev filesystem... "); 
     if (!testing) {
-	if (mount("/dev", "/dev", "ramfs", 0, NULL))
+	if (mount("/dev", "/dev", "tmpfs", 0, NULL))
 	    fatal_error(1);
         createDevices();
     }
