@@ -520,7 +520,7 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
 
     # XXX fix this code to look to see if there is a bootable partition
     bootreq = reqpartitions.getBootableRequest()
-    if not bootreq and newraid.mountpoint:
+    if not bootreq and newraid.mountpoint and not (iutil.getArch() == "s390" or iutil.getArch() == "s390x"):
         if ((newraid.mountpoint == "/boot" or newraid.mountpoint == "/")
             and not isRaid1(newraid.raidlevel)):
             return _("Bootable partitions can only be on RAID1 devices.")
@@ -1440,7 +1440,7 @@ class DiskSet:
                             val = int(val[5][:-1])
                             w and w.set(val)
                             # sync every 10%
-                            if sync + 10 < val:
+                            if sync + 10 <= val:
                                 isys.sync()
                                 sync = val
                     num = ''
