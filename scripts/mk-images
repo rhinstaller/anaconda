@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash
 
 PATH=$PATH:/sbin:/usr/sbin
 
@@ -450,19 +450,22 @@ EOF
     done
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-       mkdir -p $MBD_DIR/lib
-       mkdir -p $MBD_DIR/etc/ssh 
+       mkdir -p $MBD_DIR/lib $MBD_DIR/mnt1 \
+	$MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh 
+       ln -sf mnt/runtime/usr $MBD_DIR/usr
        cp -f $IMGPATH/linuxrc $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
        ln -sf ksh $MBD_DIR/sbin/sh
        cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
-       cp -f $IMGPATH/usr/lib/anaconda-runtime/loader/formatmnt \
-	   $MBD_DIR/sbin/formatmnt
-       cp -f $IMGPATH/usr/bin/wget $MBD_DIR/bin/wget
-       cp -f $IMGPATH/usr/bin/head $MBD_DIR/bin/head
-       cp -f $IMGPATH/usr/bin/printf $MBD_DIR/bin/printf
-       cp -f $IMGPATH/usr/bin/tee $MBD_DIR/bin/tee
+       cp -f $IMGPATH/usr/bin/formatmnt $MBD_DIR/sbin/formatmnt
+       cp -f $IMGPATH/usr/bin/netsetup $MBD_DIR/sbin/netsetup
+       #cp -f $IMGPATH/usr/bin/rpm $MBD_DIR/sbin/rpm
+       cp -f $IMGPATH/usr/bin/pkgsrc $MBD_DIR/sbin/pkgsrc
+       cp -f $IMGPATH/usr/bin/pkgselect $MBD_DIR/sbin/pkgselect
+       cp -f $IMGPATH/usr/bin/sort_save $MBD_DIR/sbin/sort
+       cp -f $IMGPATH/usr/bin/wget $MBD_DIR/sbin/wget
+       cp -f $IMGPATH/usr/bin/printf $MBD_DIR/sbin/printf
        cp -f $IMGPATH/usr/sbin/chroot $MBD_DIR/sbin/chroot
        cp -f $IMGPATH/usr/sbin/consoletype $MBD_DIR/sbin/consoletype
        cp -f $IMGPATH/usr/sbin/rhsetup $MBD_DIR/sbin/rhsetup
@@ -470,21 +473,14 @@ EOF
        cp -f $IMGPATH/usr/sbin/swapoff $MBD_DIR/sbin/swapoff
        cp -f $IMGPATH/usr/sbin/mkswap $MBD_DIR/sbin/mkswap
        cp -f $IMGPATH/usr/sbin/tune2fs $MBD_DIR/sbin/tune2fs
-       cp -f $IMGPATH/usr/bin/ls $MBD_DIR/bin/ls
-       cp -f $IMGPATH/usr/bin/ln $MBD_DIR/bin/ln
-       cp -f $IMGPATH/usr/bin/dd $MBD_DIR/bin/dd
-       cp -f $IMGPATH/usr/bin/mv $MBD_DIR/bin/mv
-       cp -f $IMGPATH/usr/bin/rm $MBD_DIR/bin/rm
-       cp -f $IMGPATH/usr/bin/sort $MBD_DIR/bin/sort
-       cp -f $IMGPATH/usr/bin/more $MBD_DIR/bin/more
-       cp -f $IMGPATH/usr/bin/mkdir $MBD_DIR/bin/mkdir
-       cp -f $IMGPATH/usr/bin/grep $MBD_DIR/bin/grep
-       cp -f $IMGPATH/usr/bin/gzip $MBD_DIR/bin/gzip
-       cp -f $IMGPATH/usr/bin/mount $MBD_DIR/bin/mount
-       cp -f $IMGPATH/usr/bin/umount $MBD_DIR/bin/umount
-       cp -f $IMGPATH/usr/bin/uname $MBD_DIR/bin/uname
-       cp -f $IMGPATH/usr/bin/ps $MBD_DIR/bin/ps
-       ln -s gzip $MBD_DIR/bin/zcat
+       cp -f $IMGPATH/usr/sbin/mke2fs $MBD_DIR/sbin/mke2fs
+       cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
+       for i in uname tee sed rm ps mv more mkdir ls ln hostname head gzip grep dd chmod cat; do
+          ln -sf busybox $MBD_DIR/sbin/$i
+       done
+       cp -f $IMGPATH/usr/bin/mount_save $MBD_DIR/sbin/mount
+       cp -f $IMGPATH/usr/bin/umount $MBD_DIR/sbin/umount
+       ln -s gzip $MBD_DIR/sbin/zcat
        cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
        cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
        cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
@@ -497,10 +493,6 @@ EOF
        cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
        cp -f $IMGPATH/usr/sbin/route $MBD_DIR/sbin/route
        cp -f $IMGPATH/usr/sbin/portmap $MBD_DIR/sbin/portmap
-       cp -f $IMGPATH/usr/bin/cat $MBD_DIR/sbin/cat
-       cp -f $IMGPATH/usr/bin/chmod $MBD_DIR/sbin/chmod
-       cp -f $IMGPATH/usr/bin/sed $MBD_DIR/sbin/sed
-       cp -f $IMGPATH/usr/bin/hostname $MBD_DIR/sbin/hostname
        cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
        cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
        cp -f $IMGPATH/etc/services $MBD_DIR/etc/
@@ -522,7 +514,16 @@ EOF
        cp -df $IMGPATH/lib/libresolv.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libvtoc*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libm.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libm-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/usr/lib/libz.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libssl* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libext2* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libcom_err* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libe2p* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libuuid* $MBD_DIR/lib
+       cp -df $IMGPATH/usr/lib/libnewt.so* $MBD_DIR/lib
+       cp -df $IMGPATH/usr/lib/libslang.so* $MBD_DIR/lib
        echo >$MBD_DIR/etc/ld.so.conf <<EOF
 /lib
 /mnt/runtime/lib
@@ -589,13 +590,22 @@ EOF
 	$MBD_DIR fd1 b 2 1 644 root:root
 EOF
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-       rm -f $MBD_DIR/dev/console $MBD_DIR/dev/tty[2-9]
+       for i in console tty[2-9] fb fb[0-9] agpgart input kbd psaux sunmouse; do
+          rm -rf $MBD_DIR/dev/$i
+       done
        awk '{ printf("mknod %s/dev/%s %s %s %s\n", $1, $2, $3, $4, $5);
 	      printf("chmod %s %s/dev/%s\n", $6, $1, $2);
 	      printf("chown %s %s/dev/%s\n", $7, $1, $2); 
 	    }' <<EOF | sh
 	    $MBD_DIR console c 4 64 600 root:root
 	    $MBD_DIR random c 1 8 644 root:root
+	    $MBD_DIR ram1 b 1 2 640 root:root
+	    $MBD_DIR ram2 b 1 3 640 root:root
+	    $MBD_DIR ram3 b 1 4 640 root:root
+	    $MBD_DIR loop0 b 7 0 640 root:disk
+	    $MBD_DIR loop1 b 7 1 640 root:disk
+	    $MBD_DIR loop2 b 7 2 640 root:disk
+	    $MBD_DIR loop3 b 7 3 640 root:disk
 	    $MBD_DIR urandom c 1 9 644 root:root
 	    $MBD_DIR mnda b 95 0 660 root:disk
 	    $MBD_DIR mndb b 95 1 660 root:disk
@@ -604,9 +614,9 @@ EOF
 	    $MBD_DIR xpram1 b 35 1 600 root:root
 	    $MBD_DIR xpram2 b 35 2 600 root:root
 EOF
-	for i in `seq 2 9`; do
-	    ln -s console $MBD_DIR/dev/tty$i
-	done
+      for i in `seq 2 9`; do
+        ln -s console $MBD_DIR/dev/tty$i
+      done
     fi
     ln -s fb0 $MBD_DIR/dev/fb
 

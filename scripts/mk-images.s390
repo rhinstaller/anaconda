@@ -40,12 +40,12 @@ SCSIMODS=""
 #SECSTAGE="raid0 raid1 raid5 ext3 $IDEMODS $SCSIMODS "
 SECSTAGE="$IDEMODS $SCSIMODS ext3"
 
-COMMONMODULES="vfat loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390"
+COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
 
 makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 7900 \
+	   --initrdsize 8192 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
 
@@ -58,6 +58,11 @@ for I in `find $BOOTDISKDIR -type d`; do
 	BOOTDIR=""
     fi
 done
+
+#makebootdisk --kernelto $TOPDESTPATH/boot/vmlinuz  \
+#	 --bootdisksize 1440 \
+#	 --imagename $BOOTDIR/kernel.img #\
+#	 #--initrd $TOPDESTPATH//autoboot/initrd.img
 
 #makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "+scsi +net"
 

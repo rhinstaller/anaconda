@@ -127,6 +127,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils installer pdksh wget installer
 	sed net-tools inetd openssh openssh-server fileutils modutils
+	initscripts mount
 	portmap textutils sh-utils telnet-server login ssh_keys"
 fi
 
@@ -180,7 +181,8 @@ fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh installer
-	sed net-tools inetd openssh openssh-server fileutils login wget
+	sed net-tools inetd openssh openssh-server fileutils login 
+	wget initscripts
 	modutils portmap textutils openssl telnet-server strace ssh_keys"
 fi
 
@@ -281,6 +283,7 @@ EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
+linuxrc
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
 usr/share/terminfo/s/screen
@@ -290,14 +293,19 @@ usr/share/terminfo/x/xterm
 usr/bin/strace
 usr/bin/ldd
 usr/bin/wget
-usr/bin/head
 usr/bin/printf
-usr/bin/tee
+usr/bin/dasdformat
+usr/bin/formatmnt
+usr/bin/mountpoint
+usr/bin/netsetup
+usr/bin/pkgselect
+usr/bin/pkgsrc
 usr/sbin/chroot
 usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
 usr/sbin/inetd
 usr/sbin/in.telnetd
+sbin/busybox.anaconda
 sbin/consoletype
 sbin/rhsetup
 sbin/ifconfig
@@ -310,26 +318,15 @@ sbin/swapoff
 sbin/mkswap
 sbin/tune2fs
 bin/dd
-bin/ln
-bin/ls
-bin/mv
-bin/rm
-bin/sort
-bin/more
-bin/mkdir
-bin/grep
-bin/gzip
-bin/zcat
 bin/login
 bin/ksh
 bin/cat
 bin/chmod
 bin/sed
+bin/sort
 bin/mount
 bin/umount
-bin/uname
-bin/hostname
-bin/ps
+bin/rpm
 lib/libpam.so*
 lib/libdl.so*
 lib/libdl-*.so*
@@ -630,6 +627,8 @@ chmod -R a+rX-w $DEST $DESTGR
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     for i in $DEST $DESTGR; do
 	(cd $i/etc/ssh; chmod og-r ssh_host*key primes sshd_config)
+	mv $i/bin/mount $i/bin/mount_save
+	mv $i/bin/sort $i/bin/sort_save
     done
 fi
 
