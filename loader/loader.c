@@ -133,6 +133,7 @@ static struct installMethod installMethods[] = {
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
+static int memoryOverhead = 0;
 static int newtRunning = 0;
 int continuing = 0;
 #ifdef INCLUDE_KON
@@ -486,6 +487,8 @@ static int loadCompressedRamdisk(int fd, off_t size, char *title,
     }
 
     logMessage("done loading %d bytes", total);
+
+    memoryOverhead += (total / 1024);
 
     if (title != NULL) {
 	newtPopWindow();
@@ -1512,6 +1515,7 @@ static char * doMountImage(char * location,
             }
 	    break;
 	case STEP_URL:
+logMessage("starting to STEP_URL");
 	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDepsPtr, flags);
@@ -2869,6 +2873,12 @@ int main(int argc, char ** argv) {
 	if (pcic[0]) {
 	    *argptr++ = "--pcic";
 	    *argptr++ = pcic;
+	}
+
+	if (memoryOverhead) {
+	    *argptr++ = "--overhead";
+	    *argptr = malloc(20);
+	    sprintf(*argptr, "%d", memoryOverhead);
 	}
 
 	for (i = 0; i < modLoaded->numModules; i++) {
