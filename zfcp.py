@@ -102,7 +102,7 @@ class ZFCP:
             pass
         foundalias = 0
         for line in lines:
-            if line == "alias scsi_hostadapter zfcp":
+            if string.find(string.strip(line), "alias scsi_hostadapter zfcp") == 0:
                 foundalias = 1
                 break
         if len(fcpdevices):
@@ -118,7 +118,7 @@ class ZFCP:
                 try:
                     f = open("/tmp/modprobe.conf", "w")
                     for line in lines:
-                        if line != "alias scsi_hostadapter zfcp":
+                        if string.find(string.strip(line), "alias scsi_hostadapter zfcp") != 0:
                             f.write(line)
                     f.close()
                 except:
