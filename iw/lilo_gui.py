@@ -112,13 +112,9 @@ class LiloWindow (InstallWindow):
         return 1
 
     def toggled (self, widget, *args):
-        print "Inside toggled"
-
         if widget.get_active ():
-#            state = FALSE
             state = TRUE
         else:
-#            state = TRUE
             state = FALSE
 
         for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
@@ -130,27 +126,6 @@ class LiloWindow (InstallWindow):
             self.mbr.set_sensitive(0)
             self.part.set_sensitive(0)
             self.linearCheck.set_sensitive(0)
-#            self.sw.set_sensitive(0)
-
-#    def OLD-toggled (self, widget, *args):
-#        print "Inside toggled"
-#        if widget.get_active ():
-#            state = FALSE
-#            state = TRUE
-#        else:
-#            state = TRUE
-#            state = FALSE
-
-#        for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
-#                  self.imageList, self.liloLocationBox, self.radioBox ]:
-#            n.set_sensitive (state)
-
-#        if state and not \
-#                self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-#            self.liloLocationBox.set_sensitive(0)
-#            self.mbr.set_sensitive(0)
-#            self.part.set_sensitive(0)
-#            self.linearCheck.set_sensitive(0)
 
     def labelInsertText(self, entry, text, len, data):
         i = 0
@@ -316,23 +291,16 @@ class LiloWindow (InstallWindow):
 
         optionBox.pack_start (self.bootdisk)
 
-#        self.lilo = GtkCheckButton (_("Do not install LILO"))
         self.lilo = GtkCheckButton (_("Install LILO"))
-#        self.lilo.set_active (FALSE)
 
-#        print "self.todo.lilostate = ", self.todo.lilostate
-        # If this screen hasn't been reached before, then activate self.lilo
         if self.todo.lilostate == "":
             self.todo.lilostate = "TRUE"
             
-        print "self.todo.lilostate = ", self.todo.lilostate
 
         # If first time or self.lilo was activated in the past, activate now.  Else deactivate
         if self.todo.lilostate == "TRUE":
-#            print "Setting true"
             self.lilo.set_active (TRUE)
         else:
-#            print "Setting false"
             self.lilo.set_active (FALSE)
             self.toggled (self.lilo)
 
@@ -340,15 +308,7 @@ class LiloWindow (InstallWindow):
                       self.imageList, self.liloLocationBox, self.radioBox ]:
                 n.set_sensitive (FALSE)
 
-#            if state and not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-#            self.liloLocationBox.set_sensitive(0)
-#            self.mbr.set_sensitive(0)
-#            self.part.set_sensitive(0)
-#            self.linearCheck.set_sensitive(0)
 
-
-
-#        self.lilo.set_active (TRUE)
         self.lilo.connect ("toggled", self.toggled)
         optionBox.pack_start (self.lilo, FALSE)
 
@@ -435,9 +395,7 @@ class LiloWindow (InstallWindow):
             else:
                 self.part.set_active(1)
         else:
-            print "inside else"
             self.editBox.set_sensitive(FALSE)
-#            tempBox2.set_sensitive(FALSE)
             self.radioBox.set_sensitive(FALSE)
             self.sw.set_sensitive(FALSE)
 
