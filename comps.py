@@ -984,7 +984,9 @@ class ComponentSet:
 	for (ktag, nick) in [ ('kernel-summit', 'summit'),
                               ('kernel-bigmem', 'bigmem'),
 			      ('kernel-smp', 'smp'),
-			      ('kernel-tape', 'tape') ]:
+			      ('kernel-tape', 'tape'),
+                              ('kernel-pseries', ''),
+                              ('kernel-iseries', '') ]:
 	    tag = split(ktag, '-')[1]
 	    if (self.packages.has_key(ktag) and 
 		self.packages[ktag].selected):
