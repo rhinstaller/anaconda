@@ -177,8 +177,17 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
             buffer = self.packageDesc.get_buffer()
             description = self.get_rpm_desc(self.pkgs[package])
-            buffer.set_text(description)
+	    try:
+		version = self.pkgs[package][rpm.RPMTAG_VERSION]
+	    except:
+		version = None
 
+	    if version:
+		outtext = _("Package: %s\nVersion: %s\n") % (package, version ) + description
+	    else:
+		outtext =description
+		
+            buffer.set_text(outtext)
         else:
             buffer = self.packageDesc.get_buffer()
             buffer.set_text("")
