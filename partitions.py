@@ -149,7 +149,7 @@ class Partitions:
                 continue
 
             try:
-                chunk = isys.getRaidChunkFromDevice(theDev)
+                chunk = isys.getRaidChunkFromDevice("/dev/%s" %(theDev,))
             except Exception, e:
                 log("couldn't get chunksize of %s: %s" %(theDev, e))
                 chunk = None
