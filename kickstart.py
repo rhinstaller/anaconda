@@ -261,7 +261,7 @@ class KickstartBase(BaseInstallClass):
     def doLilo	(self, id, args):
         self.doBootloader(id, args, useLilo = 1)
         
-    def doLiloCheck (self, args):
+    def doLiloCheck (self, id, args):
         drives = isys.hardDriveDict ().keys()
 	drives.sort(isys.compareDrives)
 	device = drives[0]
