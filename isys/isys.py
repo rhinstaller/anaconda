@@ -58,9 +58,27 @@ def unlosetup(device):
     _isys.unlosetup(loop)
     os.close(loop)
 
-def ddfile(file, megs):
+def ddfile(file, megs, pw = None):
+    fd = os.open("/dev/zero", os.O_RDONLY);
+    buf = os.read(fd, 1024 * 256)
+    os.close(fd)
+
     fd = os.open(file, os.O_RDWR | os.O_CREAT)
-    _isys.ddfile(fd, megs)
+
+    total = megs * 4	    # we write out 1/4 of a meg each time through
+
+    if pw:
+	(fn, title, text) = pw
+	win = fn(title, text, total - 1)
+
+    for n in range(total):
+	os.write(fd, buf)
+	if pw:
+	    win.set(n)
+
+    if pw:
+	win.pop()
+
     os.close(fd)
 
 def mount(device, location, fstype = "ext2", readOnly = 0):
@@ -69,12 +87,14 @@ def mount(device, location, fstype = "ext2", readOnly = 0):
 	makeDevInode(device, devName)
 	device = devName
 
+    if mountCount.has_key(location) and mountCount[location] > 0:
+	mountCount[location] = mountCount[location] + 1
+	return
+
     rc = _isys.mount(fstype, device, location, readOnly)
 
     if not rc:
-	if not mountCount.has_key(location):
-	    mountCount[location] = 0
-	mountCount[location] = mountCount[location] + 1
+	mountCount[location] = 1
 
     if device != "/proc":
 	os.unlink(device)
