@@ -579,7 +579,7 @@ class PackageSelectionWindow (InstallWindow):
 		    continue
 		
 		if newstate:
-			sel = c.isSelected()			
+			sel = c.isSelected(justManual = 1)
 #			print "saving ",c.name," at state ",sel
 			if savestate:
 			    self.savedStateDict[c.id] = sel

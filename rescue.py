@@ -247,7 +247,7 @@ def runRescue(instPath, mountroot, id):
     else:
         readOnly = 0
 
-    disks = upgrade.findExistingRoots(intf, id, instPath)
+    disks = upgrade.findExistingRoots(intf, id, instPath, upgradeany = 1)
 
     if not disks:
 	root = None

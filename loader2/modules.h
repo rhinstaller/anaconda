@@ -44,9 +44,8 @@ int mlLoadModuleSetLocation(const char * modNames,
 int mlModuleInList(const char * modName, moduleList list);
 void writeScsiDisks(moduleList list);
 
-int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
+int removeLoadedModule(const char * modName, moduleList modLoaded,
                              int flags);
-int reloadUnloadedModule(char * modName, moduleList modLoaded,
-                         char **, int flags);
+char * getModuleLocation(int version);
 
 #endif

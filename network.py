@@ -121,7 +121,8 @@ class NetworkDevice(SimpleConfigFile):
         return s
 
     def __init__(self, dev):
-        self.info = { "DEVICE" : dev }
+        self.info = { "DEVICE" : dev,
+                      "ONBOOT": "no" }
 
 class Network:
     def __init__(self):
@@ -236,7 +237,7 @@ class Network:
                              "looking up host name", dev.get('device'))
 
 	if not self.isConfigured:
-            log("no network devices were availabe to look up host name")
+            log("no network devices were available to look up host name")
             return None
 
 	f = open("/etc/resolv.conf", "w")

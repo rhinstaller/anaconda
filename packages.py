@@ -37,6 +37,7 @@ from installmethod import FileCopyException
 
 from rhpl.log import log
 from rhpl.translate import _
+import rhpl.arch
 
 def queryUpgradeContinue(intf, dir):
     if dir == DISPATCH_FORWARD:
@@ -132,10 +133,12 @@ def writeXConfiguration(id, instPath):
 def readPackages(intf, method, id):
     if id.grpset:
         grpset = id.grpset
-        hdrlist = idr.grpset.hdrlist
+        hdrlist = id.grpset.hdrlist
+        doselect = 0
     else:
         grpset = None
         hdrlist = None
+        doselect = 1
         
     while hdrlist is None:
 	w = intf.waitWindow(_("Reading"), _("Reading package information..."))
@@ -151,7 +154,6 @@ def readPackages(intf, method, id):
             continue
 
         w.pop()
-        id.instClass.setPackageSelection(hdrlist, intf)
 
     while grpset is None:
         try:
@@ -163,9 +165,11 @@ def readPackages(intf, method, id):
                                  "due to a missing file or bad media.  "
                                  "Press <return> to try again."))
             continue
-        id.instClass.setGroupSelection(grpset, intf)
     id.grpset = grpset
 
+    if doselect:
+        id.instClass.setGroupSelection(grpset, intf)
+        id.instClass.setPackageSelection(hdrlist, intf)
 
 def handleX11Packages(dir, intf, disp, id, instPath):
 
@@ -224,6 +228,21 @@ def setSaneXSettings(xsetup):
 	    xsetup.xhwstate.choose_sane_default()
 	    xsetup.imposed_sane_default = 1
 	    
+def getAnacondaTS(instPath = None):
+    if instPath:
+        ts = rpm.TransactionSet(instPath)
+    else:
+        ts = rpm.TransactionSet()
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
+    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+
+    # set color if needed.  FIXME: why isn't this the default :/
+    if (rhpl.arch.canonArch.startswith("ppc64") or
+        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+        ts.setColor(3)
+
+    return ts
+
 def checkDependencies(dir, intf, disp, id, instPath):
     if dir == DISPATCH_BACK:
 	return
@@ -234,13 +253,11 @@ def checkDependencies(dir, intf, disp, id, instPath):
     # FIXME: we really don't need to build up a ts more than once
     # granted, this is better than before still
     if id.upgrade.get():
-        ts = rpm.TransactionSet(instPath)
+        ts = getAnacondaTS(instPath)
         how = "u"
     else:
-        ts = rpm.TransactionSet()
+        ts = getAnacondaTS()        
         how = "i"
-    ts.setVSFlags(-1)
-    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
     
     for p in id.grpset.hdrlist.pkgs.values():
         if p.isSelected():
@@ -250,7 +267,7 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     win.pop()
 
-    if id.dependencies and id.handleDeps == CHECK_DEPS:
+    if depcheck.added and id.handleDeps == CHECK_DEPS:
 	disp.skipStep("dependencies", skip = 0)
         log("FIXME: had dependency problems.  resolved them without informing the user")
 	disp.skipStep("dependencies")
@@ -609,7 +626,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-	       '/etc/X11', '/root', '/var/tmp' ):
+	       '/etc/X11', '/root', '/var/tmp', '/etc/rpm' ):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
@@ -618,6 +635,9 @@ def doPreInstall(method, id, intf, instPath, dir):
 
 
     if flags.setupFilesystems:
+        # setup /etc/rpm/platform for the post-install environment
+        iutil.writeRpmPlatform(instPath)
+        
 	try:
             # FIXME: making the /var/lib/rpm symlink here is a hack to
             # workaround db->close() errors from rpm
@@ -667,10 +687,7 @@ def doInstall(method, id, intf, instPath):
     import whiteout
     
     upgrade = id.upgrade.get()
-    ts = rpm.TransactionSet(instPath)
-
-    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+    ts = getAnacondaTS(instPath)
 
     total = 0
     totalSize = 0
@@ -709,9 +726,7 @@ def doInstall(method, id, intf, instPath):
         # new transaction set
         ts.closeDB()
         del ts
-        ts = rpm.TransactionSet(instPath)
-        ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-        ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+        ts = getAnacondaTS(instPath)
 
         # we don't want to try to remove things more than once (#84221)
         id.upgradeRemove = []
@@ -975,9 +990,9 @@ def doPostInstall(method, id, intf, instPath):
 	    # XXX currently Bad Things (X async reply) happen when doing
 	    # Mouse Magic on Sparc (Mach64, specificly)
 	    # The s390 doesn't even have a mouse!
-	    if os.environ.has_key ("DISPLAY") and not (arch == "sparc" or arch == "s390"):
-		import xmouse
+            if os.environ.get('DISPLAY') == ':1' and arch != 'sparc':
 		try:
+                    import xmouse
 		    mousedev = xmouse.get()[0]
 		except RuntimeError:
 		    pass
@@ -1278,9 +1293,10 @@ def selectLanguageSupportGroups(grpset, langSupport):
                 # add to the deps in the dependencies structure for the
                 # package.  this should take care of whenever we're
                 # selected
-                grpset.hdrlist[req].addDeps([package])
+                grpset.hdrlist[req].addDeps([package], main = 0)
                 if grpset.hdrlist[req].isSelected():
                     grpset.hdrlist[package].select()
                     sys.stdout.flush()
                     grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
-                    group.selectDeps([package], uses = grpset.hdrlist[req].usecount - 1)
+                    group.selectDeps([package], uses = grpset.hdrlist[req].usecount)
+    

@@ -483,7 +483,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
 
         /* here we need to save the state of stage2 */
-        simpleRemoveLoadedModule("usb-storage", modLoaded, flags);
+        removeLoadedModule("usb-storage", modLoaded, flags);
         
         /* JKFIXME: here are the big hacks... for now, just described.
          * 1) figure out which scsi devs are claimed by usb-storage.
@@ -510,7 +510,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     if (reloadUsbStorage) {
-        reloadUnloadedModule("usb-storage", modLoaded, NULL, flags);
+        mlLoadModule("usb-storage", modLoaded, modDeps, modInfo, NULL, flags);
         /* JKFIXME: here's the rest of the hacks.  basically do the reverse
          * of what we did before.
          */
@@ -701,6 +701,40 @@ void writeScsiDisks(moduleList list) {
     return;
 }
 
+char * getModuleLocation(int version) {
+    struct utsname u;
+    static char * arch = NULL;
+    const char * archfile = "/etc/arch";
+    char * ret;
+
+    uname(&u);
+
+    if (!arch) {
+        struct stat sb;
+        int fd;
+
+        stat(archfile, &sb);
+        arch = malloc(sb.st_size + 1);
+
+        fd = open(archfile, O_RDONLY);
+        read(fd, arch, sb.st_size);
+        if (arch[sb.st_size -1 ] == '\n')
+            sb.st_size--;
+        arch[sb.st_size] = '\0';
+        close(fd);
+    }
+
+    if (version == 1) {
+        ret = malloc(strlen(u.release) + strlen(arch) + 1);
+        sprintf(ret, "%s/%s", u.release, arch);
+        return ret;
+    } else {
+        ret = malloc(strlen(u.release) + 1);
+        strcpy(ret, u.release);
+        return ret;
+    }
+}
+
 /* JKFIXME: needs a way to know about module locations.  also, we should
  * extract them to a ramfs instead of /tmp */
 static struct extractedModule * extractModules (char * const * modNames,
@@ -715,15 +749,15 @@ static struct extractedModule * extractModules (char * const * modNames,
     char fn[255];
     const char * failedFile;
     struct stat sb;
-    struct utsname u;
+    char * modpath;
 
-    uname(&u);
-
-    /* JKFIXME: handle driver disk path somehow */
-    if (!location)
+    if (!location) {
         ballPath = strdup("/modules/modules.cgz");
-    else
+        modpath = getModuleLocation(CURRENT_MODBALLVER);
+    } else {
         ballPath = strdup(location->path);
+        modpath = getModuleLocation(location->version);
+    }
 
     fd = gunzip_open(ballPath);
     if (!fd) {
@@ -744,9 +778,9 @@ static struct extractedModule * extractModules (char * const * modNames,
     for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
         /* if we don't know the path of this module yet, "figure" it out */
         if (!oldPaths[i].path) {
-            map[numMaps].archivePath = alloca(strlen(u.release) + 
+            map[numMaps].archivePath = alloca(strlen(modpath) + 
                                               strlen(*m) + 25);
-            sprintf(map[numMaps].archivePath, "%s/%s.o", u.release, *m);
+            sprintf(map[numMaps].archivePath, "%s/%s.o", modpath, *m);
             map[numMaps].fsPath = alloca(10 + strlen(*m));
             sprintf(map[numMaps].fsPath, "/tmp/%s.o", *m);
             unlink(map[numMaps].fsPath);
@@ -758,6 +792,7 @@ static struct extractedModule * extractModules (char * const * modNames,
     if (!numMaps) {
         gunzip_close(fd);
         free(ballPath);
+        free(modpath);
         return oldPaths;
     }
 
@@ -787,18 +822,17 @@ static struct extractedModule * extractModules (char * const * modNames,
     }
 
     free(ballPath);
+    free(modpath);
     return oldPaths;
 }
 
 
 
-/* simple removal of a loaded module which is going to be reloaded.
- * Note that this doesn't remove the module from the modLoaded struct
- * but we do update the loadedModuleInfo to reflect the fact that its using
- * no devices anymore.
+/* remove a module which has been loaded, including removal from the 
+ * modLoaded struct
  */
-int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
-                                    int flags) {
+int removeLoadedModule(const char * modName, moduleList modLoaded,
+                       int flags) {
     int status, rc = 0;
     pid_t child;
     struct loadedModuleInfo * mod;
@@ -834,70 +868,25 @@ int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
 	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
 	    rc = 1;
 	} else {
-	    rc = 0;
+            int found = -1;
+            int i;
+
+            /* find our module.  once we've found it, shutffle everything
+             * else back one */
+            for (i = 0; i < modLoaded->numModules; i++) {
+                if (found > -1) {
+                    modLoaded->mods[i - 1] = modLoaded->mods[i];
+                } else if (!strcmp(modLoaded->mods[i].name, modName)) {
+                    found = i;
+                    free(modLoaded->mods[i].name);
+                    free(modLoaded->mods[i].path);
+                } 
+            }
+            modLoaded->numModules--;
+
+            rc = 0;
 	}
     }
-    return rc;
-}
-
-/* simple reinsertion of a module; just looks for the module and reloads it
- * if we think it was already loaded.  we also update firstDevNum and 
- * lastDevNum to be current
- */
-int reloadUnloadedModule(char * modName, moduleList modLoaded, 
-                         char ** args, int flags) {
-    char fileName[200];
-    int rc, status;
-    pid_t child;
-    struct extractedModule * path = NULL;
-    char * list[2];
-    int i;
-
-    for (i = 0; i < modLoaded->numModules; i++) 
-        if (!strcmp(modLoaded->mods[i].name, modName))
-            break;
-
-    if (i >= modLoaded->numModules)
-        return 0;
-
-    modLoaded->mods[i].firstDevNum = scsiDiskCount();
-
-    list[0] = modName;
-    list[1] = NULL;
-
-    path = extractModules(list, path, NULL);
-
-    sprintf(fileName, "%s.o", modName);
-
-    if (FL_TESTING(flags)) {
-	logMessage("would have insmod %s", fileName);
-	rc = 0;
-    } else {
-	logMessage("going to insmod %s", fileName);
-
-	if (!(child = fork())) {
-	    int fd = open("/dev/tty3", O_RDWR);
-
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-	    close(fd);
-
-	    rc = insmod(fileName, NULL, args);
-	    _exit(rc);
-	}
-
-	waitpid(child, &status, 0);
-
-	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-	    rc = 1;
-	} else {
-	    rc = 0;
-	}
-    }
-
-    modLoaded->mods[i].lastDevNum = scsiDiskCount();
-    logMessage("reloadModule returning %d", rc);
     return rc;
 }
 
@@ -963,3 +952,4 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     mlLoadModule(module, loaderData->modLoaded, *(loaderData->modDepsPtr),
                  loaderData->modInfo, args, flags);
 }
+

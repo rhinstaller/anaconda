@@ -159,6 +159,9 @@ EOF
     cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
     cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
 
+    # set up the arch bits
+    echo $arch > $MBD_DIR/etc/arch
+
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
     #install -s -m 755 $LOADERBINDIR/load_anaconda $MBD_DIR/sbin/loader
@@ -434,25 +437,14 @@ SECSTAGE="$IDEMODS $SCSIMODS raid0 raid1 raid5 lvm-mod"
 
 COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390 isofs ext3"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
+NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6 lcs"
 
 makeBootImages() {
-    echo "In mk-images.s390: kernelvers is $kernelvers"
-    if [ "$kernelvers" = "" ]; then
 	makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
 	    --initrdsize 15000 \
 	    --loaderbin loader \
 	    --modules "$NETWORKMODULES"
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
-    fi
-
-    if [ "$kernelvers" = "tape" ]; then
-	makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
-	    --initrdsize 15000 \
-	    --loaderbin loader \
-	    --modules "$NETWORKMODULES"
-	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
-    fi
 }
 
 makeSecondStage() {

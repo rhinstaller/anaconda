@@ -20,6 +20,7 @@ log.handler = anaconda_log
 rpmFD = None
 
 import hdrlist
+import rhpl.arch
 
 def cmpHeaderByName(h1, h2):
     n1 = string.lower(h1.nevra())
@@ -32,19 +33,35 @@ def cmpHeaderByName(h1, h2):
 
     return 1
 
-# returns 1 if comp is in the parent chain for subcomp
-def isParent(comp, subcomp):
-    if not subcomp:
-        return 0
-    if subcomp.parent == comp:
-        return 1
-    return isParent(comp, comp.parent)
-
-# turns on a whole comp chain
-def selectComp(comp):
-    comp.select()
-    if comp.parent:
-        selectComp(comp.parent)
+def addIfNeeded(pkg):
+    global pkgOrder, pkgHash
+    canon = rhpl.arch.canonArch
+    second = rhpl.arch.getSecondaryArch()
+    diff = rhpl.arch.archDifference
+    if not pkgHash.has_key (pkg.name):
+        pkgHash[pkg.name] = [ pkg ]
+        pkgOrder.append(pkg.nevra())
+    elif second is None:
+        # this isn't a biarch arch, so we don't need to worry about
+        # multiple glibcs
+        return
+    else:
+        # this is a biarch arch.  we want to just have a primary package
+        # for each here
+        for p in pkgHash[pkg.name]:
+            arch1 = p['arch']
+            arch2 = pkg['arch']
+            # same arch, don't worry about it
+            if arch1 == arch2:
+                continue
+            # if one of them doesn't work for the canon arch and the other
+            # does, then one of them is for the secondary arch and we want
+            # to add it.  
+            if ( ((diff(canon, arch1) == 0) and (diff(second, arch2) != 0)) or
+                 ((diff(canon, arch2) == 0) and (diff(second, arch1) != 0)) ):
+                pkgHash[pkg.name].append(pkg)
+                pkgOrder.append(pkg.nevra())
+        
 
 # set PKGORDER_DEBUG to get rpm debugging
 if os.environ.has_key("PKGORDER_DEBUG"):
@@ -75,7 +92,9 @@ except rpm.error:
     sys.exit(1)
 # and read the comps file
 grpset = hdrlist.groupSetFromCompsFile("file://%s/RedHat/base/comps.xml"
-                                       %(distDir,), hdlist)
+                                       %(distDir,), hdlist, doSelect = 0)
+grpset.unselectAll()
+#grpset.groups["everything"].select()
 
 # work out the order we'd like to install everything in
 pkgOrder = []
@@ -87,9 +106,13 @@ for package in hdlist.keys():
         not package.startswith("kernel-doc") and
         not package.startswith("kernel-source") and
         not package.startswith("kernel-debug")):
-        hdlist[package].select()
+        try:
+            hdlist[package].select()
+        except:
+            print package
+            print type(package)
         pkgOrder.append(hdlist[package].nevra())
-        pkgHash[hdlist[package].name] = None
+        pkgHash[hdlist[package].name] = [ hdlist[package] ]
 
 # Tier 1 language packages get priority.
 tier1langs = ("en:en_US:de:de_DE:es:es_ES:fr:fr_FR:it:it_IT:ja:ja_JP:"
@@ -121,6 +144,8 @@ latelangs = []
 for id in grpids:
     if id in complist:
         continue
+    if id == "everything": #this would be silly
+        continue
     if ((grpset.groups[id].langonly is not None) and
         (tier1langs.find(grpset.groups[id].langonly) == -1)):
         latelangs.append(id)
@@ -136,6 +161,7 @@ for id in complist:
     group = grpset.groups[id]
     list = []
 
+    grpset.unselectAll()
     group.select()
 
     # append what got turned on to our order.
@@ -144,9 +170,7 @@ for id in complist:
             list.append(p)
     list.sort(cmpHeaderByName)
     for item in list:
-        if not pkgHash.has_key (item.name):
-            pkgOrder.append(item.nevra())
-            pkgHash[item.name] = None
+        addIfNeeded(item)
 
 # add all of the packages that haven't been added yet.
 list = []
@@ -163,9 +187,11 @@ os.system ("mkdir -p " + testpath + "/var/lib/rpm")
 
 ts = rpm.TransactionSet(testpath)
 ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_ANACONDA)
+ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+i = 0
 for h in pkgOrder:
-    #print "in:", h[1000000]
+#    sys.stderr.write("%s: %s\n" %(i, h))
+    i += 1
     ts.addInstall(hdlist[h].hdr, hdlist[h].hdr, 'i')
 pkgOrder = []
 
@@ -181,7 +207,25 @@ except AttributeError:
     print "you don't have the latest RPM!"
     sys.exit(1)
 
+outputted = []
 # print the results.
 for p in pkgOrder:
-    print "%s-%s-%s" % (p['name'], p['version'], p['release'])
+    def archSort(hdr1, hdr2):
+        h1 = hdlist[hdr1[0]]
+        h2 = hdlist[hdr2[0]]
+        
+        if rhpl.arch.score(h1['arch']) > rhpl.arch.score(h2['arch']):
+            return -1
+        elif rhpl.arch.score(h1['arch']) < rhpl.arch.score(h2['arch']):
+            return 1
+        return 0
+    
+    if p['name'] in outputted:
+        continue
+    pkgs = hdlist.pkgnames[p['name']]
+    pkgs.sort(archSort)
+    for pnevra in pkgs:
+        pkg = hdlist.pkgs[pnevra[0]]
+        print "%s-%s-%s.%s" % (pkg['name'], pkg['version'],
+                               pkg['release'], pkg['arch'])
 

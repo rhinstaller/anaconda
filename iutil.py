@@ -16,6 +16,7 @@
 import types, os, sys, isys, select, string, stat, signal
 import os.path
 from rhpl.log import log
+from flags import flags
 
 def getArch ():
     arch = os.uname ()[4]
@@ -560,3 +561,27 @@ def getPPCMacBook():
       if not string.find(string.lower(line), 'book') == -1:
         return 1
     return 0
+
+def writeRpmPlatform(root="/"):
+    import rhpl.arch
+
+    if flags.test:
+        return
+    if os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
+        return
+    if not os.access("%s/etc/rpm" %(root,), os.X_OK):
+        os.mkdir("%s/etc/rpm" %(root,))
+    f = open("%s/etc/rpm/platform" %(root,), 'w+')
+    f.write("%s-redhat-linux\n" %(rhpl.arch.canonArch,))
+    f.close()
+
+    # FIXME: writing /etc/rpm/macros feels wrong somehow
+    # temporary workaround for #92285
+    if os.access("%s/etc/rpm/macros" %(root,), os.R_OK):
+        return
+    if not (rhpl.arch.canonArch.startswith("ppc64") or
+            rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+        return
+    f = open("%s/etc/rpm/macros" %(root,), 'w+')
+    f.write("_transaction_color   3\n")
+    f.close()

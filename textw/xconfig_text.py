@@ -84,7 +84,7 @@ class XCustomWindow:
             print "Invalid widget in xconfig_text::desktopCB"
 
 
-    def __call__(self, screen, xsetup, monitor, videocard, desktop, comps,
+    def __call__(self, screen, xsetup, monitor, videocard, desktop, grpset,
                  instClass, instPath):
 
         self.instPath = instPath
@@ -113,11 +113,11 @@ class XCustomWindow:
 			 "1920x1440", "2048x1536"]
 	       
         #--If both KDE and GNOME are selected
-        if comps:
-            gnomeSelected = (comps.packages.has_key('gnome-session')
-                             and comps.packages['gnome-session'].selected)
-            kdeSelected = (comps.packages.has_key('kdebase')
-                           and comps.packages['kdebase'].selected)
+        if grpset:
+            gnomeSelected = (grpset.hdrlist.has_key('gnome-session')
+                             and grpset.hdrlist['gnome-session'].isSelected())
+            kdeSelected = (grpset.hdrlist.has_key('kdebase')
+                           and grpset.hdrlist['kdebase'].isSelected())
         else:
             gnomeSelected = 0
             kdeSelected = 0
@@ -619,7 +619,7 @@ class XConfigWindowCard:
 		text = _("Your system will be setup to "
 		  "use the frame buffer driver for "
 		  "the X Window System.  If you do "
-		  "not want setup the X Window "
+		  "not want to setup the X Window "
 		  "System, choose "
 		  "'Skip X Configuration' below.")
 		

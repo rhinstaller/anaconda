@@ -303,7 +303,9 @@ class CdromInstallMethod(ImageInstallMethod):
         
 
     def __init__(self, url, messageWindow, progressWindow, rootPath):
-	(self.device, tree) = string.split(url, "/", 1)
+	(self.device, tree) = string.split(url, ":", 1)
+        if not tree.startswith("/"):
+            tree = "/%s" %(tree,)
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
         self.loopbackFile = None
@@ -324,7 +326,7 @@ class CdromInstallMethod(ImageInstallMethod):
         else:                
             self.currentDisc = [ 1 ]
         
-	ImageInstallMethod.__init__(self, "/" + tree, rootPath)
+	ImageInstallMethod.__init__(self, tree, rootPath)
 
 class NfsInstallMethod(ImageInstallMethod):
 

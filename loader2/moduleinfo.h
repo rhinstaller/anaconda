@@ -33,7 +33,14 @@ struct moduleBallLocation {
     char * path; /* path to module ball that this driver is from. if NULL,
                   * implies /modules/modules.cgz */
     char * title; /* title used for driver disk -- may be NULL */
+    int version;  /* module ball version, used to determine layout */
 };
+#define CURRENT_MODBALLVER 1
+
+/* valid moduleball versions
+ * 0: old single-arch module ball, modules are in uname.release
+ * 1: multi-arch, modules are in uname.release/arch
+ */
 
 typedef struct moduleInfoSet_s * moduleInfoSet;
 

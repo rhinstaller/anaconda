@@ -36,6 +36,9 @@ BOOTEFI_NOT_VFAT = -2
 BOOTALPHA_NOT_BSD = -3
 BOOTALPHA_NO_RESERVED_SPACE = -4
 BOOTPSERIES_NOT_PREP = -5
+# XXX TODO: check for PReP partitions > 4 MiB and starting over 4096M.
+BOOTPSERIES_LARGER_THAN_4M = -6
+BOOTPSERIES_ABOVE_4096M = -7
 
 DEBUG_LVM_GROW = 0
 
@@ -1410,7 +1413,7 @@ def getAutopartitionBoot():
         return ("/boot/efi", "vfat", 100, None, 0, 1)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
-        return(None, "PPC PReP Boot", 8, None, 0, 1)
+        return(None, "PPC PReP Boot", 4, None, 0, 1)
     else:
         return ("/boot", None, 100, None, 0, 1)
 

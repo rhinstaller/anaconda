@@ -23,6 +23,7 @@ from network import sanityCheckHostname
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+from rhpl.log import log
 
 
 def badIPDisplay(screen, the_ip):
@@ -54,8 +55,13 @@ class NetworkDeviceWindow:
     def runScreen(self, screen, network, dev, showonboot=1):
         boot = dev.get("bootproto")
         onboot = dev.get("onboot")
-        onbootIsOn = ((dev == network.available().values()[0] and not onboot)
-                      or onboot == "yes")
+
+        devnames = self.devices.keys()
+        devnames.sort()
+        if devnames.index(dev.get("DEVICE")) == 0:
+            onbootIsOn = 1
+        else:
+            onbootIsOn = (onboot == "yes")
         if not boot:
             boot = "dhcp"
 
@@ -118,9 +124,9 @@ class NetworkDeviceWindow:
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed (result)
-            screen.popWindow()
 
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             if self.onbootCb.selected() != 0:
@@ -158,16 +164,17 @@ class NetworkDeviceWindow:
 
             break
 
+        screen.popWindow()
         return INSTALL_OK
 
 
     def __call__(self, screen, network, dir, intf, showonboot=1):
 
-        devices = network.available()
-        if not devices:
+        self.devices = network.available()
+        if not self.devices:
             return INSTALL_NOOP
 
-        list = devices.keys()
+        list = self.devices.keys()
         list.sort()
         devLen = len(list)
         if dir == 1:
@@ -176,7 +183,8 @@ class NetworkDeviceWindow:
             currentDev = devLen - 1
 
         while currentDev < devLen and currentDev >= 0:
-            rc = self.runScreen(screen, network, devices[list[currentDev]], showonboot)
+            rc = self.runScreen(screen, network,
+                                self.devices[list[currentDev]], showonboot)
             if rc == INSTALL_BACK:
                 currentDev = currentDev - 1
             else:
@@ -252,9 +260,9 @@ class NetworkGlobalWindow:
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed (result)
-            screen.popWindow()
 
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             val = gwEntry.value()
@@ -281,7 +289,8 @@ class NetworkGlobalWindow:
                 continue
             network.ternaryNS = val
             break
-        
+
+        screen.popWindow()        
         return INSTALL_OK
         
 
@@ -352,9 +361,9 @@ class HostnameWindow:
         while 1:
             result = toplevel.run()
             rc = bb.buttonPressed(result)
-            screen.popWindow()
             
             if rc == TEXT_BACK_CHECK:
+                screen.popWindow()
                 return INSTALL_BACK
 
             if radio.getSelection() != "manual":
@@ -363,13 +372,13 @@ class HostnameWindow:
             else:
                 hname = string.strip(hostEntry.value())
                 if len(hname) == 0:
-                    ButtonChoiceWindow(_("Invalid Hostname"),
+                    ButtonChoiceWindow(screen, _("Invalid Hostname"),
                                        _("You have not specified a hostname."),
                                        buttons = [ _("OK") ])
                     continue
                 neterrors = sanityCheckHostname(hname)
                 if neterrors is not None:
-                    ButtonChoiceWindow(_("Invalid Hostname"),
+                    ButtonChoiceWindow(screen, _("Invalid Hostname"),
                                        _("The hostname \"%s\" is not valid "
                                          "for the following reason:\n\n%s")
                                        %(hname, neterrors),
@@ -380,6 +389,7 @@ class HostnameWindow:
                 network.hostname = hname
             break
 
+        screen.popWindow()
         return INSTALL_OK
             
 

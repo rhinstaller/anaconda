@@ -1184,7 +1184,7 @@ class PartitionWindow(InstallWindow):
 
     def makeLvmCB(self, widget):
 	if (not fileSystemTypeGet('physical volume (LVM)').isSupported() or
-            lvm.lvmDevicePresent == 0):
+            not lvm.has_lvm()):
 	    self.intf.messageWindow(_("Not supported"),
 				    _("LVM is NOT supported on "
 				      "this platform."), type="ok",

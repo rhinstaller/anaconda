@@ -328,8 +328,11 @@ class InstallInterface:
             if exc.options & flag:
                 buttons.append(_(errorstring))
                 buttonToAction[string.lower(_(errorstring))] = flag
-        rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
-                                buttons=buttons)
+
+        rc = None
+        while not buttonToAction.has_key(rc):
+            rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
+                                    buttons=buttons)
 
         return buttonToAction[rc]
     
@@ -388,10 +391,10 @@ class InstallInterface:
 #	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-        if DEBUG:
+        if DEBUG or flags.test:
             self.screen.suspendCallback(debugSelf, self.screen)
 
-	if flags.serial or isys.isPsudoTTY(0):
+	if flags.serial or isys.isPsudoTTY(0) or isys.isVioConsole():
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
 	# clear out the old root text by writing spaces in the blank
@@ -430,6 +433,9 @@ class InstallInterface:
 		step = len(classNames) - 1
 
 	    while step >= 0 and step < len(classNames):
+                # reget the args.  they could change (especially direction)
+                (foo, args) = dispatch.currentStep()
+
                 nextWindow = None
 		s = "from %s import %s; nextWindow = %s" % \
 			(file, classNames[step], classNames[step])
@@ -447,8 +453,10 @@ class InstallInterface:
 
 		if rc == INSTALL_BACK:
 		    step = step - 1
+                    dispatch.dir = DISPATCH_BACK
 		elif rc == INSTALL_OK:
 		    step = step + 1
+                    dispatch.dir = DISPATCH_FORWARD
 
 		lastrc = rc
 

@@ -127,7 +127,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
         f = open("/proc/sys/kernel/exec-shield", "w")
         f.write("0")
         f.close()
-    
+
     dosync()
     try:
         bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,

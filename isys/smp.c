@@ -337,6 +337,7 @@ static int groupForSMP(int mode)
 	    if (!strncmp(cth.oem_id, "IBM ENSW", 8) &&
 		(!strncmp(cth.product_id, "NF 6000R", 8) ||
 		 !strncmp(cth.product_id, "VIGIL SMP", 9) ||
+		 !strncmp(cth.product_id, "EXA", 3) ||
 		 !strncmp(cth.product_id, "RUTHLESS", 8)))
 		return 1;
 	    return 0;

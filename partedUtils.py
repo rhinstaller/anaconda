@@ -468,7 +468,7 @@ class DiskSet:
 
         return labels
 
-    def findExistingRootPartitions(self, intf, mountpoint):
+    def findExistingRootPartitions(self, intf, mountpoint, upgradeany = 0):
         """Return a list of all of the partitions which look like a root fs."""
         rootparts = []
 
@@ -552,7 +552,8 @@ class DiskSet:
                         cmdline = open('/proc/cmdline', 'r').read()
                         
                         if (relstr.startswith(productName) or
-                            cmdline.find("upgradeany") != -1):
+                            cmdline.find("upgradeany") != -1 or
+                            upgradeany == 1):
                             rootparts.append ((node, part.fs_type.name,
                                                relstr))
 		    isys.umount(mountpoint)

@@ -94,4 +94,5 @@ int vioGetCdDevs(struct knownDevices * devices);
 int readFD (int fd, char **buf);
 void addDevice(struct knownDevices * devices, struct kddevice dev);
 int deviceKnown(struct knownDevices * devices, char * dev);
+int isUsableDasd(char *device);
 #endif

@@ -688,6 +688,11 @@ static char *doLoaderMain(char * location,
         if (url && !FL_RESCUE(flags)) return url;
     }
 
+    /* iSeries vio console users will be telnetting in to the primary
+       partition, so use a terminal type that is appripriate */
+    if (isVioConsole())
+	setenv("TERM", "vt100", 1);
+    
     startNewt(flags);
 
     step = STEP_LANG;
@@ -984,6 +989,7 @@ int main(int argc, char ** argv) {
     /* JKFIXME: very very bad hack */
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
     secondStageModuleLocation->path = strdup("/mnt/runtime/modules/modules.cgz");
+    secondStageModuleLocation->version = CURRENT_MODBALLVER;
     
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
         return ourInsmodCommand(argc, argv);

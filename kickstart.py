@@ -1202,7 +1202,7 @@ class KickstartBase(BaseInstallClass):
 	for script in self.tracebackScripts:
 	    script.run("/", self.serial)
 
-    # Note that this assumes setGroupSelection() is called after
+    # Note that this assumes setGroupSelection() is called before
     # setPackageSelection()
     def setPackageSelection(self, hdlist, intf):
 	for n in self.packageList:
@@ -1228,7 +1228,7 @@ class KickstartBase(BaseInstallClass):
 
     def setGroupSelection(self, grpset, intf):
         grpset.unselectAll()
-
+        
 	grpset.selectGroup("base")
 	for n in self.groupList:
             try:
@@ -1251,7 +1251,7 @@ class KickstartBase(BaseInstallClass):
                         sys.exit(1)
                     else:
                         pass
-                
+
         for n in self.excludedList:
             if grpset.hdrlist.has_key(n):
                 grpset.hdrlist[n].unselect(isManual = 1)

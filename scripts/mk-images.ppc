@@ -21,7 +21,7 @@ prepareBootImage() {
 makeBootImages() {
     echo "Building boot images for kernel $kernelvers"
 
-    if [ "$kernelvers" = "pseries" ]; then
+    if [ "$KERNELARCH" = "ppc64pseries" ]; then
 	echo "Building pSeries initrd"
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
@@ -29,7 +29,7 @@ makeBootImages() {
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-	cp $KERNELROOT/boot/vmlinux-*pseries* $TOPDESTPATH/ppc/chrp/vmlinux
+	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
 	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
@@ -45,7 +45,7 @@ makeBootImages() {
 	cp $TOPDESTPATH/boot_image $TOPDESTPATH/isopath/boot_image
 	mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -v -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
 	rm -rf $TOPDESTPATH/isopath/
-    elif [ "$kernelvers" = "iseries" ]; then
+    elif [ "$KERNELARCH" = "ppc64iseries" ]; then
 	mkdir -p $TOPDESTPATH/ppc/iSeries
 
 	echo "Building iSeries initrd"
@@ -54,12 +54,14 @@ makeBootImages() {
 	    --loaderbin loader \
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES"
 
-	cp $KERNELROOT/boot/vmlinux-*iseries* $TOPDESTPATH/ppc/iSeries/vmlinux
-	cp $KERNELROOT/boot/System.map-*iseries* $TOPDESTPATH/ppc/iSeries/System.map
-	
-	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/boot.img
+	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
+	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
+
+	$IMGPATH/usr/sbin/addSystemMap $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/vmlinux.sm
+	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/ppc/iSeries/boot.img
+	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
     else
-	echo "Unknown kernel version: $kernelvers"
+	echo "Unknown kernel arch: $KERNELARCH"
     # mac?
     # echo "Building Mac initrd"
     # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \

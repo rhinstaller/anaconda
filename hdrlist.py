@@ -23,25 +23,27 @@ import os,sys,time
 from rhpl.log import log
 from rhpl.translate import _, N_
 import rhpl.comps
+import rhpl.arch
 
 import language
 
 ON = 1
 MANUAL_ON = 2
+DEP_ON = 3
 OFF = -1
 MANUAL_OFF = -2
 MANUAL_NONE = 0
-ON_STATES = (ON, MANUAL_ON)
+ON_STATES = (ON, MANUAL_ON, DEP_ON)
 OFF_STATES = (OFF, MANUAL_OFF)
 
 PKGTYPE_MANDATORY = 0
 PKGTYPE_DEFAULT = 1
 PKGTYPE_OPTIONAL = 2
 
-EVERYTHING_DESCRIPTION = N_("This group includes all the packages available.  "
-                            "Note that there are substantially more packages "
-                            "than just the ones in all the other package "
-                            "groups on this page.")
+EVERYTHING_DESCRIPTION = _("This group includes all the packages available.  "
+                           "Note that there are substantially more packages "
+                           "than just the ones in all the other package "
+                           "groups on this page.")
 
 EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-smp' : None,	'kernel-bigmem' : None,
@@ -81,6 +83,97 @@ def getLangs():
         langs = []
     return langs
 
+# poor heuristic for figuring out the best of two packages with the same
+# name.  it sucks, but it's the best we've got right now.
+# basically, we generally prefer the shorter name with some special-case
+# caveats.
+def betterPackageForProvides(h1, h2):
+    # if one is none, return the other
+    if h2 is None:
+        return h1
+    if h1 is None:
+        return h2
+
+    # if we're already being installed, then we're clearly the superior
+    # answer
+    if h1.isSelected():
+        return h1
+    if h2.isSelected():
+        return h2
+    
+    # sendmail is preferred over postfix
+    if h1['name'] == "sendmail" and h2['name'] == "postfix":
+        return h1
+    if h2['name'] == "sendmail" and h1['name'] == "postfix":
+        return h2
+
+    # we generally prefer non-devel over devel
+    if h1['name'].endswith("-devel") and not h2["name"].endswith("-devel"):
+        return h2
+    if h2['name'].endswith("-devel") and not h1["name"].endswith("-devel"):
+        return h1
+
+    # else, shorter name wins
+    # this handles glibc-debug, kernel-*, kde2-compat, etc
+    if len(h1['name']) < len(h2['name']):
+        return h1
+    if len(h2['name']) < len(h1['name']):
+        return h2
+
+    # same package names, which is a better arch?
+    score1 = rhpl.arch.score(h1['arch'])
+    score2 = rhpl.arch.score(h2['arch'])
+    if score1 == 0:
+        return h2
+    elif score2 == 0:
+        return h1
+    elif (score1 < score2):
+        return h1
+    elif (score2 < score1):
+        return h2
+
+    # okay, there's no convincing difference.  just go with the first
+    return h1
+
+cached = {}
+# returns the best nevra in hdrlist to match dep
+# FIXME: doesn't care about EVR right now -- the tree is assumed to be
+# sane and dep is just the name
+def depMatch(dep, hdrlist):
+    # ignore rpmlib
+    if dep.startswith("rpmlib("):
+        return None
+    # try to see if it just exists first
+    elif hdrlist.has_key(dep):
+        return nevra(hdrlist[dep])
+    elif cached.has_key(dep):
+        return cached[dep]
+    # next, see if its a file dep (FIXME: we have Provides: /usr/sbin/sendmail
+    # with alternatives)
+    elif dep[0] == "/":
+        hdr = None
+        for h in hdrlist.pkgs.values():
+            l = []
+            for f in h.hdr.fiFromHeader():
+                l.append(f[0])
+            if (dep in l):
+                hdr = betterPackageForProvides(h, hdr)
+        if hdr is not None:
+            # cache all binaries from this package.  helps with, eg, coreutils
+            for f in hdr.hdr.fiFromHeader():
+                if f[0].find("bin") != -1: cached[f[0]] = nevra(hdr)
+            cached[dep] = nevra(hdr)
+            return nevra(hdr)
+    else:
+        hdr = None
+        for h in hdrlist.pkgs.values():
+            if (dep in h[rpm.RPMTAG_PROVIDENAME]):
+                hdr = betterPackageForProvides(h, hdr)
+        if hdr is not None:
+            cached[dep] = nevra(hdr)
+            return nevra(hdr)
+    return None
+    
 
 class DependencyChecker:
     def __init__(self, grpset, how = "i"):
@@ -90,39 +183,25 @@ class DependencyChecker:
         self.how = how
 
     # FIXME: this is the simple stupid version.  it doesn't actually handle
-    # paying attention to EVR
+    # paying attention to EVR.  
     def callback(self, ts, tag, name, evr, flags):
         if tag == rpm.RPMTAG_REQUIRENAME:
-            hdr = None
-            if name[0] == "/":
-                for h in self.grpset.hdrlist.pkgs.values():
-                    l = []
-                    for f in h.hdr.fiFromHeader(): l.append(f[0])
-                    
-                    if ((name in l) and
-                        ((hdr is None) or (len(h[rpm.RPMTAG_NAME]) <
-                                           len(hdr[rpm.RPMTAG_NAME])))):
-                        hdr = h
+            pkgnevra = depMatch(name, self.grpset.hdrlist)
+            if pkgnevra and self.grpset.hdrlist.has_key(pkgnevra):
+                hdr = self.grpset.hdrlist[pkgnevra]
             else:
-                # do we have a package named this?
-                if self.grpset.hdrlist.has_key(name):
-                    hdr = self.grpset.hdrlist[name]
-                # otherwise, go through provides and find the shortest name
-                else:
-                    for h in self.grpset.hdrlist.pkgs.values():
-                        if ((name in h[rpm.RPMTAG_PROVIDENAME]) and
-                            ((hdr is None) or (len(h[rpm.RPMTAG_NAME]) <
-                                               len(hdr[rpm.RPMTAG_NAME])))):
-                            hdr = h
-                            
-            if hdr is not None:
+                hdr = None
+                
+            if hdr is not None and not hdr.isSelected():
                 if evr:
                     nevr = "%s-%s" %(name, evr)
                 else:
                     nevr = name
                 log("using %s to satisfy %s" %(nevra(hdr), nevr))
                 ts.addInstall(hdr.hdr, hdr.hdr, self.how)
+                hdr.select(isDep = 1)
                 self.added.append(nevra(hdr.hdr))
+
                 return -1
 
         return 1
@@ -134,6 +213,7 @@ class Package:
         self.usecount = 0
         self.manual_state = MANUAL_NONE
         self.dependencies = []
+        self.depsFound = 0
 
         self.name = self.hdr[rpm.RPMTAG_NAME]
 
@@ -143,16 +223,22 @@ class Package:
     def setState(self, state):
         (self.usecount, self.manual_state) = state
 
-    def addDeps(self, deps):
+    def addDeps(self, deps, main = 1):
         self.dependencies.extend(deps)
+        # FIXME: this is a hack so that adding deps for lang support stuff
+        # doesn't set depsFound
+        if main:
+            self.depsFound = 1
 
-    def select(self, isManual = 0):
+    def select(self, isManual = 0, isDep = 0):
         self.usecount = self.usecount + 1
         if isManual:
             if self.manual_state == MANUAL_NONE:
                 self.manual_state = MANUAL_ON
             elif self.manual_state == MANUAL_OFF:
                 self.manual_state = MANUAL_NONE
+        if isDep:
+            self.manual_state = DEP_ON
 
     def unselect(self, isManual = 0):
         self.usecount = self.usecount - 1
@@ -169,7 +255,7 @@ class Package:
     # if we've been manually turned on or off, follow that
     # otherwise, if the usecount is > 0, then we're selected
     def isSelected(self):
-        if self.manual_state == MANUAL_ON:
+        if self.manual_state == MANUAL_ON or self.manual_state == DEP_ON:
             return 1
         elif self.manual_state == MANUAL_OFF:
             return 0
@@ -215,7 +301,7 @@ class HeaderList:
     def has_key(self, item):
         if self.pkgs.has_key(item):
             return 1
-        elif self.pkgnames.has_key(item):
+        elif self.getBestNevra(item):
             return 1
         return 0
 
@@ -225,17 +311,10 @@ class HeaderList:
     def values(self):
         return self.pkgs.values()
 
-    # FIXME: the package deps stuff needs to be nevra instead of name based
-    def mergePackageDeps(self, pkgsxml):
-        for pkg in pkgsxml.values():
-            for (p, a) in self.pkgnames[pkg.name]:
-                self.pkgs[p].addDeps(pkg.dependencies)
-
     # this is definite crack rock, but it allows us to avoid tripling
     # our memory usage :(
     # reads an hdlist2 file and merges the header information we split out
     # (things like file lists)
-    # FIXME: BUSTED!
     def mergeFullHeaders(self, file):
         if self.hasFullHeaders is not None:
             return
@@ -255,22 +334,33 @@ class HeaderList:
     # FIXME: surely this can be made faster/less complicated
     # doing scoring everytime seems like it might be overkill
     # then again, it shouldn't be called *that* often so it might not matter
-    def getBestNevra(self, item):
+    def getBestNevra(self, item, prefArch = None):
         bestscore = 0
         bestpkg = None
 
         if not self.pkgnames.has_key(item):
             return None
-        
-        for (nevra, arch) in self.pkgnames[item]:
-            # FIXME: need to use our replacement for arch scoring
-            # so that we can work with biarch
-            score = rpm.archscore(arch)
-            if not score:
-                continue
-            if (bestscore == 0) or (score < bestscore):
-                bestpkg = nevra
-                bestscore = score
+
+        # the best nevra is going to be defined by being 1) the best match
+        # for the primary arch (eg, x86_64 on AMD64, ppc on pSeries) and
+        # if that fails, fall back to the canonical (which could be the same)
+        # This will allow us to get the best package by name for both
+        # system packages and kernel while not getting the secondary arch
+        # glibc.
+        if rhpl.arch.getBaseArch() != rhpl.arch.canonArch:
+            arches = (rhpl.arch.getBaseArch(), rhpl.arch.canonArch)
+        else:
+            arches = (rhpl.arch.canonArch, )
+        for basearch in arches:
+            for (nevra, arch) in self.pkgnames[item]:
+                score = rhpl.arch.archDifference(basearch, arch)
+                if not score:
+                    continue
+                if (bestscore == 0) or (score < bestscore):
+                    bestpkg = nevra
+                    bestscore = score
+            if bestpkg is not None:
+                return bestpkg
         return bestpkg
 
     # FIXME: surely this can be made faster/less complicated
@@ -296,10 +386,6 @@ class HeaderListFromFile (HeaderList):
 
 class Group:
     def __init__(self, grpset, xmlgrp):
-        # dict of package info.  nevra and type are obvious
-        # state is one of the ON/OFF states
-        def makePackageDict(pkgnevra, type, installed = 0):
-            return { "nevra": pkgnevra, "type": type, "state": installed }
         
         self.id = xmlgrp.id
         self.basename = xmlgrp.name
@@ -314,17 +400,25 @@ class Group:
             if (self.description is None and
                 xmlgrp.translated_description.has_key(lang)):
                 self.description = xmlgrp.translated_description[lang]
-        # fall back to english if they're not set
+        # fall back to english if they're not set and try to see if the
+        # translation is in the anaconda.po (eg, Everything)
         if self.name is None:
-            self.name = xmlgrp.name
+            self.name = _(xmlgrp.name)
         if self.description is None:
             self.description = xmlgrp.description
 
         # obviously enough, hidden components aren't shown
         self.hidden = not xmlgrp.user_visible
+
         # whether or not a group should be enabled by default.  only
         # really matters for custom installs
         self.default = xmlgrp.default
+
+        # if it's a biarch group and we're not a biarch-arch, be hidden and off
+        if xmlgrp.biarchonly and rhpl.arch.getSecondaryArch() is None:
+            self.hidden = 1
+            self.default = 0
+        
         # FIXME: this is a hack to handle language support groups
         self.langonly = xmlgrp.langonly
 
@@ -347,18 +441,7 @@ class Group:
                     %(self.id, pkg))
                 continue
 
-            if type == u'mandatory':
-                pkgtype = PKGTYPE_MANDATORY
-            elif type == u'default':
-                pkgtype = PKGTYPE_DEFAULT
-            elif type == u'optional':
-                pkgtype = PKGTYPE_OPTIONAL
-            else:
-                log("Invalid package type of %s for %s in %s; defaulting to "
-                    "optional" % (type, pkgnevra, self.id))
-                pkgtype = PKGTYPE_OPTIONAL
-
-            self.packages[pkgnevra] = makePackageDict(pkgnevra, pkgtype)
+            self.packages[pkgnevra] = self.makePackageDict(pkgnevra, type)
 
     def getState(self):
         return (self.usecount, self.manual_state)
@@ -370,6 +453,30 @@ class Group:
         if grpid not in self.groupreqs:
             self.groupreqs.append(grpid)
 
+    def addMetaPkg(self, metapkginfo):
+        (type, id) = metapkginfo
+        if id in self.packages.keys():
+            log("already have %s in %s" %(id, self.id))
+            return
+        self.packages[id] = self.makePackageDict(id, type, isMeta = 1)
+
+    # dict of package info.  nevra and type are obvious
+    # state is one of the ON/OFF states
+    def makePackageDict(self, pkgnevra, type, installed = 0, isMeta = 0):
+        if type == u'mandatory':
+            pkgtype = PKGTYPE_MANDATORY
+        elif type == u'default':
+            pkgtype = PKGTYPE_DEFAULT
+        elif type == u'optional':
+            pkgtype = PKGTYPE_OPTIONAL
+        else:
+            log("Invalid package type of %s for %s in %s; defaulting to "
+                "optional" % (type, pkgnevra, self.id))
+            pkgtype = PKGTYPE_OPTIONAL
+        
+        return { "nevra": pkgnevra, "type": pkgtype, "state": installed,
+                 "meta": isMeta }
+
     # FIXME: this doesn't seem like the right place for it, but ... :/
     def selectDeps(self, pkgs, uses = 1):
         checked = []
@@ -377,25 +484,65 @@ class Group:
             tocheck = pkgs
             pkgs = []
             for pkgnevra in tocheck:
-                pkg = self.grpset.hdrlist[pkgnevra]
+              if pkgnevra in checked:
+                  continue
+              pkg = self.grpset.hdrlist[pkgnevra]
 
-                deps = pkg.dependencies
-                for dep in deps:
-                    # hmm, not in the header list.  we can't do much but
-                    # hope for the best
-                    if not self.grpset.hdrlist.has_key(dep):
-                        log("Package %s requires %s which we don't have"
-                            %(tocheck, dep))
-                        continue
-                    # if we've already checked for this package, don't worry
-                    if dep in checked:
-                        continue
-                    self.grpset.hdrlist[dep].select()
-                    # FIXME: this is a hack so we can make sure the usecount
-                    # is bumped high enough for langsupport packages
-                    self.grpset.hdrlist[dep].usecount += uses - 1
-                    pkgs.append(nevra(self.grpset.hdrlist[dep]))
-                    checked.append(dep)
+              # this is a little bit complicated.  we don't want to keep
+              # the deps in the comps file (because that gets ugly with biarch)
+              # but we also don't want to have to resolve every time
+              # (it's slow!).  so, we cache the first time through 
+              if pkg.depsFound == 0:
+                  deps = pkg[rpm.RPMTAG_REQUIRENAME]
+                  thisone = []
+                  for dep in deps:
+                      # hey wait, this is me!
+                      if ((pkg[rpm.RPMTAG_PROVIDENAME] is not None) and
+                          (dep in pkg[rpm.RPMTAG_PROVIDENAME])):
+                          continue
+                      for f in pkg.hdr.fiFromHeader():
+                          if f[0] == dep:
+                              continue
+                      # ignore rpmlib stuff
+                      if dep.startswith("rpmlib("):
+                          continue
+                      p = depMatch(dep, self.grpset.hdrlist)
+                      # don't care about self referential deps
+                      if p == pkg.nevra():
+                          continue
+                      if p in checked or p in tocheck or p in pkgs:
+                          continue
+                      if p is None:
+#                          log("ERROR: unable to resolve dep %s" %(dep,))
+                          continue
+
+                      self.grpset.hdrlist[p].select()
+                      # FIXME: this is a hack so we can make sure the
+                      # usecount is bumped high enough for
+                      # langsupport packages
+                      self.grpset.hdrlist[p].usecount += uses - 1
+
+                      pkgs.append(p)
+                      thisone.append(p)
+                  pkg.addDeps(thisone)
+              else:
+                  deps = pkg.dependencies
+                  for dep in deps:
+                      # if we've already checked for this package, don't worry
+                      if dep in checked or dep in tocheck or dep in pkgs:
+                          continue
+                      # hmm, not in the header list.  we can't do much but
+                      # hope for the best
+                      if not self.grpset.hdrlist.has_key(dep):
+                          log("Package %s requires %s which we don't have"
+                              %(tocheck, dep))
+                          continue
+                      self.grpset.hdrlist[dep].select()
+                      # FIXME: this is a hack so we can make sure the usecount
+                      # is bumped high enough for langsupport packages
+                      self.grpset.hdrlist[dep].usecount += uses - 1
+                      pkgs.append(dep)
+              checked.append(pkgnevra)
 
 
     # FIXME: this doesn't seem like the right place for it, but ... :/
@@ -409,19 +556,18 @@ class Group:
 
                 deps = pkg.dependencies
                 for dep in deps:
+                    # if we've already checked for this package, don't worry
+                    if dep in checked or dep in tocheck or dep in pkgs:
+                        continue
                     # hmm, not in the header list.  we can't do much but
                     # hope for the best
                     if not self.grpset.hdrlist.has_key(dep):
                         log("Package %s requires %s which we don't have"
                             %(tocheck, dep))
                         continue
-                    # if we've already checked for this package, don't worry
-                    if dep in checked:
-                        continue
-                    sys.stdout.flush()
                     self.grpset.hdrlist[dep].unselect()
-                    pkgs.append(nevra(self.grpset.hdrlist[dep]))
-                    checked.append(dep)
+                    pkgs.append(dep)
+                checked.append(pkgnevra)
         
 
     # forInclude is whether this group is an include from a previous
@@ -436,6 +582,10 @@ class Group:
         self.usecount = self.usecount + 1
         if not forInclude:
             self.manual_state = MANUAL_ON
+
+        for grpid in self.groupreqs:
+            self.grpset.groups[grpid].select(forInclude = (not subAsInclude))
+
         if self.usecount > 1:
             return
 
@@ -445,12 +595,12 @@ class Group:
             if pkg["type"] == PKGTYPE_OPTIONAL:
                 continue
             pkg["state"] = ON
-            hdrlist[pkgnevra].select()
-            selected.append(pkgnevra)
-        self.selectDeps(selected)
-
-        for grpid in self.groupreqs:
-            self.grpset.groups[grpid].select(forInclude = (not subAsInclude))
+            if pkg["meta"] == 0:
+                hdrlist[pkgnevra].select()
+                selected.append(pkgnevra)
+                self.selectDeps([pkgnevra])                
+            else:
+                self.grpset.groups[pkgnevra].select(forInclude = 1)
 
     # manual package selection
     def selectPackage(self, pkgnevra):
@@ -458,8 +608,11 @@ class Group:
         if pkg["state"] in ON_STATES:
             return
         pkg["state"] = ON
-        self.grpset.hdrlist[pkgnevra].select()
-        self.selectDeps([pkgnevra])
+        if pkg["meta"] == 0:
+            self.grpset.hdrlist[pkgnevra].select()
+            self.selectDeps([pkgnevra])
+        else:
+            self.grpset.groups[pkgnevra].select(forInclude = 1)
             
     def unselect(self, forInclude = 0):
         hdrlist = self.grpset.hdrlist
@@ -471,6 +624,10 @@ class Group:
         if not forInclude:
             self.manual_state = MANUAL_OFF
         if self.usecount < 0: log("WARNING: usecount for %s < 0 (%d)" %(self.id, self.usecount))
+
+        for grpid in self.groupreqs:
+            self.grpset.groups[grpid].unselect(forInclude = 1)
+
         if self.usecount > 0:
             return
 
@@ -479,21 +636,24 @@ class Group:
             pkgnevra = pkg["nevra"]
             if pkg["state"] not in ON_STATES:
                 continue
-            hdrlist[pkgnevra].unselect()
             pkg["state"] = OFF
-            selected.append(pkgnevra)
-        self.unselectDeps(selected)
-        
-        for grpid in self.groupreqs:
-            self.grpset.groups[grpid].unselect(forInclude = 1)
+            if pkg["meta"] == 0:
+                hdrlist[pkgnevra].unselect()
+                selected.append(pkgnevra)
+                self.unselectDeps([pkgnevra])
+            else:
+                self.grpset.groups[pkgnevra].unselect(forInclude = 1)
 
     def unselectPackage(self, pkgnevra):
         pkg = self.packages[pkgnevra]
         if pkg["state"] not in ON_STATES:
             return
-        self.grpset.hdrlist[pkgnevra].unselect()
         pkg["state"] = OFF
-        self.unselectDeps([pkgnevra])        
+        if pkg["meta"] == 0:
+            self.grpset.hdrlist[pkgnevra].unselect()
+            self.unselectDeps([pkgnevra])
+        else:
+            self.grpset.groups[pkgnevra].unselect(forInclude = 1)
 
     def isSelected(self, justManual = 0):
         if justManual:
@@ -531,13 +691,7 @@ class Group:
                         tocheck.append(m)
         return 0
             
-
     def getDescription(self):
-        if self.id == "everything":
-            return _("This group includes all the packages available.  "
-                     "Note that there are substantially more packages than "
-                     "just the ones in all the other package groups on "
-                     "this page.")
         return self.description
         
 
@@ -573,11 +727,14 @@ class GroupSet:
                         %(xmlgrp.id, id))
                     continue
                 group.addGroupRequires(id)
-            # FIXME: need to add back metapkgs
-        
 
-    def mergePackageDeps(self):
-        self.hdrlist.mergePackageDeps(self.compsxml.packages)
+            for id in xmlgrp.metapkgs.keys():
+                if not self.groups.has_key(id):
+                    log("%s references component %s which doesn't exist"
+                        %(xmlgrp.id, id))
+                    continue
+                group.addMetaPkg(xmlgrp.metapkgs[id])
+        
 
     def selectGroup(self, group, asMeta = 0):
         if self.groups.has_key(group):
@@ -590,9 +747,13 @@ class GroupSet:
         raise KeyError, "No such group %s" %(group,)
 
     def unselectAll(self):
+        # force everything to be in an off state
         for group in self.groups.values():
-            if group.isSelected(justManual = 1):
-                group.unselect()
+            group.usecount = 0
+            group.manual_state = MANUAL_NONE
+        for pkg in self.hdrlist.pkgs.values():
+            pkg.usecount = 0
+            pkg.manual_state = MANUAL_NONE
 
     def getSelectionState(self):
         grpst = []
@@ -656,7 +817,7 @@ class GroupSet:
 	return kernelVersions
 
 
-def groupSetFromCompsFile(filename, hdrlist):
+def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
     import urllib2
     
     tries = 0
@@ -683,12 +844,16 @@ def groupSetFromCompsFile(filename, hdrlist):
     file.close()
     grpset = GroupSet(compsxml, hdrlist)
 
-    grpset.mergePackageDeps()
+    # precache provides of base and core.  saves us about 10% time-wise
+    for pnevra in (grpset.groups["base"].packages.keys() +
+                   grpset.groups["core"].packages.keys()):
+        for prov in grpset.hdrlist[pnevra][rpm.RPMTAG_PROVIDENAME]:
+            cached[prov] = pnevra
 
-    for group in grpset.groups.values():
-        if group.default:
-            group.select()
-    
+    if doSelect:
+        for group in grpset.groups.values():
+            if group.default:
+                group.select()
     return grpset
 
 def getGroupDescription(group):
@@ -761,7 +926,7 @@ def orderPackageGroups(grpset):
     return (retlist, retdict)
 
 if __name__ == "__main__":
-    tree = "/mnt/test/latest-taroon-i386/"
+    tree = "/mnt/redhat/test/katzj2/i386/i386/"
     
     def simpleInstallCallback(what, amount, total, h, (param)):
         global rpmfd
@@ -819,12 +984,8 @@ if __name__ == "__main__":
     hdrlist = HeaderList(hdrs)
     hdrlist.mergeFullHeaders(tree + "/RedHat/base/hdlist2")
     showMem()
-    hdrlist.mergePackageDeps(comps.packages)
-    showMem()    
     groups = GroupSet(comps, hdrlist)
     showMem()
-
-#    sys.exit(0)
 
     ts = rpm.TransactionSet("/tmp/testinstall")
     ts.setVSFlags(-1)

@@ -706,6 +706,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
     int deviceNums = 0;
     int deviceNum;
     char ** devices;
+    int foundDev = 0;
 
     /* JKFIXME: this is a lot bigger than it has to be.. */
     devices = alloca((kd->numKnown + 1) * sizeof(*devices));
@@ -715,12 +716,17 @@ int chooseNetworkInterface(struct knownDevices * kd,
 
         devices[deviceNums++] = kd->known[i].name;
 
+        /* make sure that this device is disabled */
+        pumpDisableInterface(kd->known[i].name);
+
         /* this device has been set and we don't really need to ask 
          * about it again... */
         if (loaderData->netDev && (loaderData->netDev_set == 1) &&
             !strcmp(loaderData->netDev, kd->known[i].name))
-            return LOADER_NOOP;
+            foundDev = 1;
     }
+    if (foundDev == 1)
+        return LOADER_NOOP;
 
     devices[deviceNums] = NULL;
 

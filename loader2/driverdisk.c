@@ -56,7 +56,18 @@ static int verifyDriverDisk(char *mntpt, int flags) {
         }
     }
 
-    /* side effect: file is still mntpt/rhdd-6.1 */
+    /* check for both versions */
+    sprintf(file, "%s/rhdd", mntpt);
+    if (!access(file, R_OK)) {
+        logMessage("not a new format driver disk, checking for old");
+        sprintf(file, "%s/rhdd-6.1", mntpt);
+        if (!access(file, R_OK)) {
+            logMessage("can't find either driver disk identifier, bad "
+                       "driver disk");
+        }
+    }
+
+    /* side effect: file is still mntpt/ddident */
     stat(file, &sb);
     if (!sb.st_size)
         return LOADER_BACK;
@@ -74,9 +85,19 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
+    int version = 1;
     int fd;
 
-    sprintf(file, "%s/rhdd-6.1", mntpt);
+    /* check for both versions */
+    sprintf(file, "%s/rhdd", mntpt);
+    if (!access(file, R_OK)) {
+        version = 0;
+        sprintf(file, "%s/rhdd-6.1", mntpt);
+        if (!access(file, R_OK)) {
+            /* this can't happen, we already verified it! */
+            return LOADER_BACK;
+        } 
+    }
     stat(file, &sb);
     title = malloc(sb.st_size + 1);
 
@@ -101,6 +122,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
     location->path = sdupprintf("/tmp/ramfs/DD-%d/modules.cgz", disknum);
+    location->version = version;
 
     sprintf(file, "%s/modinfo", mntpt);
     readModuleInfo(file, modInfo, location, 1);

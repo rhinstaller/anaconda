@@ -299,7 +299,7 @@ char * setupCdrom(char * location,
         for (i = 0; i < kd->numKnown; i++) {
             if (kd->known[i].class != CLASS_CDROM) continue;
 	    buf = malloc(200);
-	    sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
+	    sprintf(buf, "cdrom://%s:/mnt/source", kd->known[i].name);
 	    return buf;
 	}
     }
@@ -328,7 +328,7 @@ char * setupCdrom(char * location,
                     queryCDMediaCheck(kd->known[i].name, flags);
 
                     buf = malloc(200);
-                    sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
+                    sprintf(buf, "cdrom://%s:/mnt/source", kd->known[i].name);
                     return buf;
                 }
 

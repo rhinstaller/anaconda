@@ -653,6 +653,7 @@ class MonitorWindow (InstallWindow):
         keys = monitorslist.keys ()
         keys.sort ()
 
+        # treat Generic monitors special
 	idx = 0
 	for man in ["Generic LCD Display", "Generic CRT Display", "Generic"]:
 	    if man in keys:
@@ -697,7 +698,7 @@ class MonitorWindow (InstallWindow):
 
 	    toplevels[man] = self.monitorstore.append(None)
 	    self.monitorstore.set_value(toplevels[man], 0, man)
-                
+
             previous_monitor = ""
             for amonitor in models:
                 if previous_monitor != "":
