@@ -42,6 +42,88 @@ class PackageGroupWindow:
         return INSTALL_OK
 
 class IndividualPackageWindow:
+    def get_rpm_desc (self, header):
+	desc = string.replace (header[rpm.RPMTAG_DESCRIPTION], "\n\n", "\x00")
+	desc = string.replace (desc, "\n", " ")
+	desc = string.replace (desc, "\x00", "\n\n")
+	return desc
+
+    def printHelp(self, screen, header):
+	sg = Grid(2, 2)
+	bb = ButtonBar (screen, ((_("OK"), "ok"),))
+
+	sg.setField (Label (_("Package:")), 0, 0, (0, 0, 4, 0))
+	sg.setField (Label ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
+	                                  header[rpm.RPMTAG_VERSION],
+	                                  header[rpm.RPMTAG_RELEASE])),
+	             1, 0)
+	sg.setField (Label (_("Size:")), 0, 1, (0, 0, 4, 0))
+	sg.setField (Label ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0)),
+	             1, 1)
+
+	txt = TextboxReflowed(60, self.get_rpm_desc(header), maxHeight = 10)
+
+	g = GridForm (screen, header[rpm.RPMTAG_NAME], 1, 3)
+	g.add (sg, 0, 0, (0, 0, 0, 1))
+	g.add (txt, 0, 1, (0, 0, 0, 1))
+	g.add (bb, 0, 2, growx = 1)
+
+	g.runOnce()
+
+    def printSize(self, size):
+	if not size:
+	    return "      "
+	size = size / 1024
+	return "%3d.%dM" % (size / 1024, (((size * 10) / 1024) % 10))
+
+    def printTotal(self):
+	size = self.total / 1024
+	self.lbl.setText("%4d.%dM" % (size / 1024, (((size * 10) / 1024) % 10)))
+
+    def printNum(self, group):
+	if self.groupCount[group] == self.groupSelCount[group]:
+	    return "*"
+	elif self.groupSelCount[group]:
+	    return "o"
+	else:
+	    return " "
+
+    def ctSet(self, header, isOn):
+	header.selected = isOn
+	key = header[rpm.RPMTAG_GROUP]
+	if isOn:
+	    self.groupSize[key] = self.groupSize[key] + header[rpm.RPMTAG_SIZE]
+	    self.total = self.total + header[rpm.RPMTAG_SIZE]
+	    self.groupSelCount[key] = self.groupSelCount[key] + 1
+	    self.ct.setEntry(header, "%-*s %s" % (self.length,
+						  header[rpm.RPMTAG_NAME],
+						  self.printSize(header[rpm.RPMTAG_SIZE])))
+	else:
+	    self.groupSize[key] = self.groupSize[key] - header[rpm.RPMTAG_SIZE]
+	    self.total = self.total - header[rpm.RPMTAG_SIZE]
+	    self.groupSelCount[key] = self.groupSelCount[key] - 1
+	    self.ct.setEntry(header, "%-*s" % (self.length + 7, header[rpm.RPMTAG_NAME]))
+	self.ct.setEntry(key, "[%s] %-*s %s" % (self.printNum(key),
+						self.length - 1, key,
+						self.printSize(self.groupSize[key])))
+	self.printTotal()
+
+    def ctCallback(self):
+	data = self.ct.getCurrent()
+	(branch, isOn) = self.ct.getEntryValue(data)
+	if not branch:
+	    if data.selected and not isOn:
+		self.ctSet(data, 0)
+	    elif isOn and not data.selected:
+		self.ctSet(data, 1)
+	else:
+	    for header in self.groups[data]:
+		(branch, isOn) = self.ct.getEntryValue(header)
+		if header.selected and not isOn:
+		    self.ctSet(header, 0)
+		elif isOn and not header.selected:
+		    self.ctSet(header, 1)
+
     def __call__(self, screen, todo, individual):
         if not individual.get():
             return
@@ -49,7 +131,13 @@ class IndividualPackageWindow:
         todo.getCompsList()
 
         ct = CheckboxTree(height = 10, scroll = 1)
-        groups = {}
+	self.ct = ct
+	self.groups = {}
+	self.groupSize = {}
+	self.groupCount = {}
+	self.groupSelCount = {}
+	self.length = 0
+	self.total = 0
 
         # go through all the headers and grok out the group names, placing
         # packages in lists in the groups dictionary.
@@ -58,9 +146,20 @@ class IndividualPackageWindow:
             header = todo.hdList.packages[key]
             # don't show this package if it is in the base group
             if not todo.comps["Base"].items.has_key (header):
-                if not groups.has_key (header[rpm.RPMTAG_GROUP]):
-                    groups[header[rpm.RPMTAG_GROUP]] = []
-                groups[header[rpm.RPMTAG_GROUP]].append (header)
+		group = header[rpm.RPMTAG_GROUP]
+		if not self.groups.has_key (group):
+		    self.groups[group] = []
+		    self.groupSize[group] = 0
+		    self.groupCount[group] = 0
+		    self.groupSelCount[group] = 0
+		self.groups[group].append (header)
+		self.length = max((self.length, len(header[rpm.RPMTAG_NAME])))
+		self.groupCount[group] = self.groupCount[group] + 1
+		if header.selected:
+		    self.groupSize[group] = self.groupSize[group] + header[rpm.RPMTAG_SIZE]
+		    self.groupSelCount[group] = self.groupSelCount[group] + 1
+	    else:
+		self.total = self.total + header[rpm.RPMTAG_SIZE]
 
         # now insert the groups into the list, then each group's packages
         # after sorting the list
@@ -71,40 +170,54 @@ class IndividualPackageWindow:
                 return 0
             return 1
         
-        keys = groups.keys ()
+	keys = self.groups.keys ()
         keys.sort ()
+	for key in keys:
+	    self.length = max((self.length, 1+len(key)))
+	    self.total = self.total + self.groupSize[key]
+
         index = 0
         for key in keys:
-            groups[key].sort (cmpHdrName)
-            ct.append (key)
-            for header in groups[key]:
-                ct.addItem (header[rpm.RPMTAG_NAME], (index, snackArgs["append"]),
+	    self.groups[key].sort (cmpHdrName)
+	    name = "[%s] %-*s %s" % (self.printNum(key), self.length - 1, key, self.printSize(self.groupSize[key]))
+	    ct.append (name, key)
+	    for header in self.groups[key]:
+		if header.selected:
+		    name = "%-*s %s" % (self.length, header[rpm.RPMTAG_NAME], self.printSize(header[rpm.RPMTAG_SIZE]))
+		else:
+		    name = "%-*s" % (self.length + 7, header[rpm.RPMTAG_NAME])
+		ct.addItem (name, (index, snackArgs["append"]),
                             header, header.selected)
             index = index + 1
                 
+	ct.setCallback(self.ctCallback)
+		
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
-        g = GridForm (screen, _("Package Group Selection"), 1, 2)
-        g.add (ct, 0, 0, (0, 0, 0, 1))
-        g.add (bb, 0, 1, growx = 1)
+	self.lbl = Label ("")
+	self.printTotal()
+
+	g = GridForm (screen, _("Package Group Selection"), 1, 3)
+	g.add (ct, 0, 0, (0, 0, 0, 0))
+	g.add (self.lbl, 0, 1, (self.length + 5, 0, 0, 1))
+	g.add (bb, 0, 2, growx = 1)
+
 	g.addHotKey("F1")
 
-	result = g.run()
-	while result == "F1":
-	    h = ct.getCurrent()
-	    if type(h) != type(""):
-		ButtonChoiceWindow(screen, h['name'], h['description'], 
-				    buttons = [ _('Ok') ], x = 5, y = 5)
-	    result = g.run()
-	screen.popWindow()
- 
-        # turn off all the packages
-        for key in todo.hdList.packages.keys ():
-            todo.hdList.packages[key].selected = 0
+	screen.pushHelpLine (_("  <Space>,<+>,<-> selection  |  <F1> package description  |  <F12> next screen"))
 
-        # turn on all the packages we selected
-        for package in ct.getSelection ():
-            package.selected = 1
+	while 1:
+	    result = g.run ()
+	    if result != "F1":
+		break
+	    header = self.ct.getCurrent()
+	    (branch, isOn) = self.ct.getEntryValue(header)
+	    if not branch:
+		self.printHelp(screen, header)
+
+	screen.popWindow()
+
+	screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
         rc = bb.buttonPressed (result)
         
