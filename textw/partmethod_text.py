@@ -23,9 +23,10 @@ class PartitionMethod:
     def __call__(self, screen, partitions, instclass):
         rc = ButtonChoiceWindow(screen, _("Disk Partitioning Setup"),
                                 PARTMETHOD_TYPE_DESCR_TEXT,
-             [ (_("Autopartitioning"), "auto"), (_("Disk Druid"), "ds"),
-                (_("fdisk"), "fd"), TEXT_BACK_BUTTON ],
-               width = 50, help = "parttool")
+                                [ (_("Autopartition"), "auto"),
+                                  (_("Disk Druid"), "ds"),
+                                  (_("fdisk"), "fd"), TEXT_BACK_BUTTON ],
+                                width = 50, help = "parttool")
 
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
