@@ -17,6 +17,7 @@ from translate import _, N_
 import re
 import string
 from gnome.ui import *
+from flags import flags
 
 class AccountWindow (InstallWindow):
 
@@ -374,6 +375,13 @@ class AccountWindow (InstallWindow):
 	    self.userList.append((user, name))
 	    self.passwords[user] = password
 	    index = index + 1
+
+        if flags.reconfig:
+            label.set_sensitive(FALSE)
+            self.userList.set_sensitive(FALSE)
+            self.add.set_sensitive(FALSE)
+            self.edit.set_sensitive(FALSE)
+            self.delete.set_sensitive(FALSE)
 
 	box.set_border_width (5)
 
