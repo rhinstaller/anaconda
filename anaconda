@@ -37,12 +37,15 @@ if (os.path.exists('isys')):
     sys.path.append('iw')
     sys.path.append('installclasses')
     sys.path.append('iconvmodule')
-    sys.path.append('booty')
 else:
     sys.path.append('/usr/lib/anaconda')
     sys.path.append('/usr/lib/anaconda/textw')
     sys.path.append('/usr/lib/anaconda/iw')
     sys.path.append('/usr/lib/anaconda/installclasses')
+
+if (os.path.exists('booty')):
+    sys.path.append('booty')
+else:
     sys.path.append('/usr/lib/booty')
 
 try:
