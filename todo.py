@@ -568,7 +568,7 @@ class ToDo:
 
     def installLilo (self):
         # XXX make me test mode
-#        if not self.setupFilesystems: return
+        if not self.setupFilesystems: return
 
 	lilo = LiloConfiguration ()
         
@@ -601,6 +601,8 @@ class ToDo:
 
         kernelList = []
         otherList = []
+
+        main = "linux"
 
         for (drive, (label, type)) in self.liloImages.items ():
             if (drive == rootDev) and label:
