@@ -134,7 +134,7 @@ class CdromInstallMethod(ImageInstallMethod):
 		# we swap CDs, so we never revisit original CD device
 		# this way we go back to it if we're looking for something
 		# other than the first CD image
-		if dev != self.device and needed > 1:
+		if needed > 1 or dev != self.device:
 		    cdlist.append(dev)
 
 	    for dev in cdlist:
