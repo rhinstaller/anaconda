@@ -312,7 +312,7 @@ textdomain("anaconda")
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 # Silly GNOME stuff
-if os.environ.has_key('HOME'):
+if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
     os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
 os.environ['HOME'] = '/tmp'
 os.environ['LC_NUMERIC'] = 'C'
