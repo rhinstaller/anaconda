@@ -5,16 +5,10 @@ DESTDIR = $TOPDIR/RedHat/instimage/usr/bin
 all: subdirs
 
 clean: 
-	for d in $(SUBDIRS); do \
-	(cd $$d; $(MAKE) clean) \
-	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;\
-        done && test -z "$$fail"
+	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
-	for d in $(SUBDIRS); do \
-	(cd $$d; $(MAKE) TOPDIR=../$(TOPDIR)) \
-	  || case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;\
-        done && test -z "$$fail"
+	for d in $(SUBDIRS); do make -C $$d; done
 
 install: all
 	mkdir -p $(DESTDIR)
