@@ -1953,6 +1953,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "lowres"))
 	    flags |= LOADER_FLAGS_LOWRES;
+	else if (!strcasecmp(argv[i], "nofb"))
+	    flags |= LOADER_FLAGS_NOFB;
         else if (!strcasecmp(argv[i], "nousb"))
 	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
@@ -2854,6 +2856,8 @@ int main(int argc, char ** argv) {
 	    *argptr++ = "--expert";
 	if (FL_LOWRES(flags))
 	    *argptr++ = "--lowres";
+	if (FL_NOFB(flags))
+	    *argptr++ = "--nofb";
 
 	if (FL_KICKSTART(flags)) {
 	    *argptr++ = "--kickstart";

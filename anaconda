@@ -55,7 +55,7 @@ try:
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
-	    'expert', 'serial', 'lowres', 'rescue'])
+	    'expert', 'serial', 'lowres', 'nofb', 'rescue'])
 except TypeError, msg:
     print "Error:", msg
     sys.exit(-1)
@@ -114,6 +114,7 @@ nofallback = 0
 rescue = 0
 overhead = 0
 runres = '800x600'
+fbmode = 0
 
 #
 # x          - xserver info (?)
@@ -201,6 +202,8 @@ for n in args:
         customClass = arg
     elif (str == '--lowres'):
         runres = '640x480'
+    elif (str == '--nofb'):
+        fbmode = 1
 
 #
 # must specify install, rescue or reconfig mode
@@ -307,7 +310,7 @@ if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
     try:
         if (reconfigOnly == 0):
-            result = xserver.startX (runres)
+            result = xserver.startX (runres, fbmode)
         else:
             result = xserver.start_existing_X ()
             
@@ -412,7 +415,7 @@ if xmode:
 if display_mode == "t":
     intf = InstallInterface ()
 else:
-    intf = InstallInterface (runres = runres)
+    intf = InstallInterface (runres = runres, fbmode = fbmode)
 
 # imports after setting up the path
 if not reconfigOnly:

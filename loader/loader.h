@@ -22,6 +22,7 @@
 #define LOADER_FLAGS_NOUSB              (1 << 16)
 #define LOADER_FLAGS_NOSHELL            (1 << 17)
 #define LOADER_FLAGS_LOWRES             (1 << 18)
+#define LOADER_FLAGS_NOFB               (1 << 19)
 #define LOADER_FLAGS_NOPCMCIA           (1 << 16)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
@@ -43,6 +44,7 @@
 #define FL_NOUSB(a)	    ((a) & LOADER_FLAGS_NOUSB)
 #define FL_NOSHELL(a)	    ((a) & LOADER_FLAGS_NOSHELL)
 #define FL_LOWRES(a)	    ((a) & LOADER_FLAGS_LOWRES)
+#define FL_NOFB(a)          ((a) & LOADER_FLAGS_NOFB)
 #define FL_NOPCMCIA(a)	    ((a) & LOADER_FLAGS_NOPCMCIA)
 
 #define CODE_PCMCIA	1
