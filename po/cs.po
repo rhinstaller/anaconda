@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
 "POT-Creation-Date: 2000-07-16 14:00-0400\n"
-"PO-Revision-Date: 2000-02-21 23:18+0100\n"
+"PO-Revision-Date: 2000-07-26 17:06+0100\n"
 "Last-Translator: Milan Kerslager <milan.kerslager@spsselib.hiedu.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -10,13 +10,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
-msgstr "Hledání"
+msgstr "V¹echno"
 
 #: ../exception.py:13 ../text.py:768
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Nastala výjimka"
 
 #: ../fstab.py:363 ../fstab.py:576 ../fstab.py:586 ../fstab.py:610
 msgid "Formatting"
@@ -161,40 +160,37 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Instalaèní shell Red Hat Linuxu na %s"
 
 #: ../gui.py:678
-#, fuzzy
 msgid "Install Window"
-msgstr "Instalace"
+msgstr "Instalaèní okno"
 
 #: ../image.py:40
 msgid "Copying File"
-msgstr ""
+msgstr "Kopírování souboru"
 
 #: ../image.py:41
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Pøená¹ím instalaèní obraz na pevný disk"
 
 #: ../image.py:58
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Dal¹í CD-ROM"
+msgstr "Vymìnit CD-ROM"
 
 #: ../image.py:59
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Vlo¾te prosím disk %d pro pokraèování."
 
 #: ../image.py:68
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Dal¹í CD-ROM"
+msgstr "Nesprávné CD-ROM"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "Toto není správné CD-ROM s Red Hat Linuxem."
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "Nelze pøipojit CDROM."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
@@ -430,18 +426,16 @@ msgstr ""
 "/tmp/install.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
 
 #: ../text.py:475
-#, fuzzy
 msgid "Upgrade to begin"
-msgstr "Aktualizace systému"
+msgstr "Zahájení aktualizace"
 
 #: ../iw/confirm_gui.py:40 ../text.py:476
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Úplný protokol o instalaci bude po restartu systému v souboru "
-"/tmp/install.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
+"Úplný protokol o aktualizaci bude po restartu systému v souboru "
+"/tmp/upgrade.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
 
 #: ../text.py:493 ../text.py:514
 msgid "Complete"
@@ -561,19 +555,17 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:817
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  | <Mezera> výbìr | <F12> pokraèovat"
+"  <F1> nápovìda | <Tab> mezi polo¾kami | <Mezera> výbìr | <F12> pokraèovat"
 
 #: ../text.py:819
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-" <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  |  <Mezera> výbìr |  <F12> "
-"pokraèovat"
+"  <Tab>/<Alt-Tab> mezi polo¾kami  |  <Mezera> výbìr  |  <F12> pokraèovat"
 
 #: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:38 ../text.py:850
 #: ../text.py:885
@@ -688,9 +680,8 @@ msgid "Customize Upgrade"
 msgstr "Úprava aktualizace"
 
 #: ../text.py:971
-#, fuzzy
 msgid "Upgrade Begins"
-msgstr "Kontrola aktualizace"
+msgstr "Zaèátek aktualizace"
 
 #: ../text.py:973
 msgid "Upgrade System"
@@ -852,9 +843,8 @@ msgid "Vertical frequency range"
 msgstr "Rozsah snímkových kmitoètù (vertical)"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Výbìr my¹i"
+msgstr "My¹ nezji¹tìna"
 
 #: ../xserver.py:27
 msgid ""
@@ -863,10 +853,13 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Va¹e my¹ nebyla automaticky detekována. Abyste mohli pou¾ít grafickou "
+"instalaci, vlo¾te prosím v následující obrazovce informace o své my¹i. "
+"Mù¾ete také pou¾ít textovou instalaci, která nevy¾aduje pøipojenou my¹."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Pou¾ít textový re¾im"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -878,39 +871,35 @@ msgstr "Heslo správce systému nastaveno."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr ""
+msgstr "Vlo¾te prosím heslo správce."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
 msgstr "Heslo správce systému je pøíli¹ krátké."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
-msgstr "Zadání hesla nesouhlasí"
+msgstr "Heslo správce nesouhlasí."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Heslo správce systému nastaveno."
+msgstr "Heslo u¾ivatele nastaveno."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr ""
+msgstr "Úèet správce zde nemù¾e být vlo¾en."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
-msgstr ""
+msgstr "Vlo¾te prosím heslo u¾ivatele."
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
-msgstr "Heslo správce systému je pøíli¹ krátké."
+msgstr "Heslo u¾ivatele je pøíli¹ krátké."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
-msgstr "Zadání hesla nesouhlasí"
+msgstr "Heslo u¾ivatele nesouhlasí."
 
 #: ../iw/account_gui.py:183
 msgid "Root Password: "
@@ -988,50 +977,46 @@ msgid "NIS Server: "
 msgstr "NIS server:"
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Povolit NIS"
+msgstr "Povolit LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS server:"
+msgstr "LDAP server:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP Base DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Povolit mrtvé klávesy"
+msgstr "Povolit Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS server:"
+msgstr "Server správce:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
 msgstr "Vytvoøení zavádìcí diskety"
 
 #: ../iw/bootdisk_gui.py:57
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
 "the boot disk."
 msgstr ""
-"Vlo¾te prázdnou disketu do první disketové jednotka. Pùvodní obsah diskety "
-"bude pøi vytváøení zavádìcí diskety pøepsán."
+"Ostraòte prosím instalaèní disketu (pokud byla pou¾ita) a vlo¾te prázdnou "
+"disketu do první disketové jednotky. Pùvodní obsah diskety bude pøi "
+"vytváøení zavádìcí diskety pøepsán."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:70
 msgid ""
@@ -1046,7 +1031,6 @@ msgid "Skip boot disk creation"
 msgstr "Pøeskoèit vytváøení zavádìcí diskety"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
 msgstr "Upgrade systému"
 
@@ -1055,9 +1039,8 @@ msgid "About to Install"
 msgstr "Zahájení instalace"
 
 #: ../iw/confirm_gui.py:33
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Kliknìte na Dal¹í pro zahájení instalace Red Hat Linuxu."
+msgstr "Kliknìte na Dal¹í pro zahájení aktualiazace Red Hat Linuxu."
 
 #: ../iw/confirm_gui.py:35
 msgid "Click next to begin installation of Red Hat Linux."
@@ -1113,14 +1096,12 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Instalace balíèkù k vyøe¹ení závislostí"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
-#, fuzzy
 msgid "Do not install packages that have dependencies"
-msgstr "Instalace balíèkù k vyøe¹ení závislostí"
+msgstr "Neinstalovat balíèky, které mají závislosti"
 
 #: ../iw/dependencies_gui.py:93 ../textw/packages_text.py:329
-#, fuzzy
 msgid "Ignore package dependencies"
-msgstr "Závislosti balíèkù"
+msgstr "Nebrat ohled na závislosti balíèkù"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1135,9 +1116,8 @@ msgstr ""
 " Tento systém nelze aktualizovat!"
 
 #: ../iw/examine_gui.py:46
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "Adresáø %s musí být v koøenovém systému souborù."
+msgstr "Zvolte prosím zaøízení, které obsahuje koøenový systém souborù: "
 
 #: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
@@ -1453,9 +1433,8 @@ msgstr ""
 "po¾adavkù."
 
 #: ../iw/rootpartition_gui.py:275
-#, fuzzy
 msgid "Automatic Partitioning Failed"
-msgstr "Automatické rozdìlování na oddíly"
+msgstr "Automatické dìlení na oddíly selhalo"
 
 #: ../iw/rootpartition_gui.py:276
 msgid ""
@@ -1469,9 +1448,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:283
-#, fuzzy
 msgid "Manual Partitioning"
-msgstr "Ruèní rozdìlování disku"
+msgstr "Ruèní dìlení disku"
 
 #: ../iw/rootpartition_gui.py:284
 msgid ""
@@ -1481,18 +1459,16 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:298
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Automatické rozdìlování na oddíly"
+msgstr "Automatické dìlení na oddíly a SMAZÁNÍ DAT"
 
 #: ../iw/rootpartition_gui.py:305
-#, fuzzy
 msgid "Manually partition with Disk Druid"
-msgstr "Ruèní rozdìlování diskù"
+msgstr "Ruèní dìlení diskù pomocí Disk Druida"
 
 #: ../iw/rootpartition_gui.py:317
 msgid "Manually partition with fdisk [experts only]"
-msgstr ""
+msgstr "Ruèní dìlení diskù pomocí fdisk [pouze experti]"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1613,9 +1589,8 @@ msgid "Skip X Configuration"
 msgstr "Pøeskoèit konfiguraci X"
 
 #: ../iw/xconfig_gui.py:488
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Implicitní"
+msgstr "Implicitní desktop:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1659,14 +1634,14 @@ msgid "Skip"
 msgstr "Vynechat"
 
 #: ../textw/bootdisk_text.py:57
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"Vlo¾te prázdnou disketu do první disketové jednotka. Pùvodní obsah diskety "
-"bude pøi vytváøení zavádìcí diskety pøepsán."
+"Ostraòte prosím instalaèní disketu (pokud byla pou¾ita) a vlo¾te prázdnou "
+"disketu do první disketové jednotky. Pùvodní obsah diskety bude pøi "
+"vytváøení zavádìcí diskety pøepsán."
 
 #: ../textw/lilo_text.py:18 ../textw/silo_text.py:14
 msgid ""
@@ -1689,25 +1664,22 @@ msgid "Clear"
 msgstr "Smazat"
 
 #: ../textw/lilo_text.py:126
-#, fuzzy
 msgid "Edit Boot Label Please"
-msgstr "Zmìnit jméno systému"
+msgstr "Zmìnte prosím jméno systému"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#, fuzzy
 msgid "Invalid Boot Label"
-msgstr "Zmìnit jméno systému"
+msgstr "Neplatné jméno systému"
 
 #: ../textw/lilo_text.py:145
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "Jméno systému nesmí být prázdné."
 
 #: ../textw/lilo_text.py:150
 msgid "Boot label contains illegal characters."
 msgstr ""
 
 #: ../textw/lilo_text.py:206
-#, fuzzy
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1715,8 +1687,9 @@ msgid ""
 "\n"
 msgstr ""
 "Zavadìè, který pou¾ívá systém Red Hat, lze pou¾ít i pro zavádìní jiných "
-"operaèních systémù. Je tøeba zadat, ve kterých oddílech jsou tyto systémy a "
-"jméno, které bude pou¾ito pro jejich výbìr pøi startu poèítaèe."
+"operaèních systémù. Zadejte prosím, ve kterých oddílech jsou tyto systémy a "
+"jméno, které bude pou¾ito pro jejich výbìr pøi startu poèítaèe.\n"
+"\n"
 
 #: ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1735,9 +1708,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (v DOSu COM4)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "K jakému zaøízení je pøipojena va¹e my¹? %s %i"
+msgstr "K jakému zaøízení je pøipojena va¹e my¹?"
 
 #: ../textw/mouse_text.py:45
 msgid "Which model mouse is attached to this computer?"
@@ -1792,24 +1764,21 @@ msgstr ""
 "do sítì, mù¾e mu být jméno pøidìleno správcem sítì."
 
 #: ../textw/packages_text.py:90
-#, fuzzy
 msgid "Package :"
-msgstr "Balíèek"
+msgstr "Balíèek:"
 
 #: ../textw/packages_text.py:95
-#, fuzzy
 msgid "Size    :"
-msgstr "Velikost: "
+msgstr "Velikost:"
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
 msgstr "Celkem"
 
 #: ../textw/packages_text.py:249
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
+msgstr "   <Space>,<+>,<->  výbìr   |   <F1>  nápovìda  |   <F2> popis balíèku"
 
 #: ../textw/packages_text.py:306
 msgid ""
@@ -2186,9 +2155,8 @@ msgstr ""
 "fdisk a upozornìte firmu Red Hat Software, ¾e se vám zobrazila tato zpráva."
 
 #: ../libfdisk/fsedit.c:1077
-#, fuzzy
 msgid "Error Creating Device Nodes"
-msgstr "Chyba pøi vytváøení odkládacího prostoru na zaøízení "
+msgstr "Chyba pøi vytváøení zaøízení"
 
 #: ../libfdisk/fsedit.c:1078
 msgid ""
@@ -2196,6 +2164,9 @@ msgid ""
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
+"Vyskytla se chyba pøi vytváøení speciálních souborù, pomocí nih¾ jsou "
+"pøipojována zaøízení. Mù¾e to být tím, ¾e na disku není v adresáøi /tmp ji¾ "
+"volné místo."
 
 #: ../libfdisk/fsedit.c:1094
 msgid "No Drives Found"
@@ -2282,15 +2253,16 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Skuteènì chcete tento oddíl zru¹it?"
 
 #: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
-#, fuzzy
 msgid "Cannot Edit Partitions"
-msgstr "Úprava oddílu"
+msgstr "Nelze upravovat oddíly"
 
 #: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
+"Definovali jste koøen systému souborù (/) na oddílu, který není typu ext2. Z "
+"tohoto dùvodu nemù¾ete upravovat ostatní oddíly."
 
 #: ../libfdisk/gnomefsedit.c:796 ../libfdisk/gnomefsedit.c:802
 #: ../libfdisk/gnomefsedit.c:806 ../libfdisk/gnomefsedit.c:808
@@ -2309,9 +2281,8 @@ msgid "Size (Megs):"
 msgstr "Velikost (MB):"
 
 #: ../libfdisk/gnomefsedit.c:897
-#, fuzzy
 msgid "Use remaining space?"
-msgstr "Pou¾ít stávající volný prostor"
+msgstr "Pou¾ít zbývající volný prostor?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
@@ -2399,18 +2370,16 @@ msgstr ""
 "oddílu je %ld megabajtù."
 
 #: ../libfdisk/gnomefsedit.c:1265
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Nenalezeny ¾ádné jednotky"
+msgstr "Neurèen ¾ádný disk"
 
 #: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Zavøít"
 
 #: ../libfdisk/gnomefsedit.c:1267
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr "Aby mohla instalace pokraèovat, musíte definovat odkládací oddíl."
+msgstr "Oddíl se musí rozkládat alespoò na jednom disku."
 
 #: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
@@ -2434,15 +2403,16 @@ msgstr ""
 "jednu jednotku, na kterou tento oddíl omezíte."
 
 #: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
-#, fuzzy
 msgid "Cannot Add Partitions"
-msgstr "Nepøidìlené oddíly"
+msgstr "Nemohu pøidat oddíl"
 
 #: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
+"Definovali jste koøen systému souborù (/) na oddílu, který není typu ext2. Z "
+"tohoto dùvodu nemù¾ete pøidat ostatní oddíly."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2590,15 +2560,16 @@ msgid "Use Pre-existing Partition?"
 msgstr "Pou¾ít døíve existující oddíl?"
 
 #: ../libfdisk/gnomefsedit.c:2394
-#, fuzzy
 msgid "Cannot Add RAID Devices"
-msgstr "®ádné RAID zaøízení"
+msgstr "Nemohu pøidat RAID zaøízení"
 
 #: ../libfdisk/gnomefsedit.c:2395
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
+"Definovali jste koøen systému souborù (/) na oddílu, který není typu ext2. Z "
+"tohoto dùvodu nemù¾ete pøidat RAID zaøízení."
 
 #: ../libfdisk/gnomefsedit.c:2436
 msgid "Auto-Partition"
@@ -2666,30 +2637,28 @@ msgid "Actual"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3151
-#, fuzzy
 msgid "Drive"
-msgstr "Vynechat jednotku"
+msgstr "Jednotka"
 
 #: ../libfdisk/gnomefsedit.c:3152
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3153
-#, fuzzy
 msgid "Total (M)"
-msgstr "Celkem"
+msgstr "Celkem (M)"
 
 #: ../libfdisk/gnomefsedit.c:3154
 msgid "Free (M)"
-msgstr ""
+msgstr "Volno (M)"
 
 #: ../libfdisk/gnomefsedit.c:3155
 msgid "Used (M)"
-msgstr ""
+msgstr "Vyu¾ito (M)"
 
 #: ../libfdisk/gnomefsedit.c:3156
 msgid "Used (%)"
-msgstr ""
+msgstr "Vyu¾ito (%)"
 
 #: ../libfdisk/gnomefsedit.c:3392
 msgid "Unallocated Partitions Exist..."
@@ -2741,29 +2710,24 @@ msgid "Swap Partition"
 msgstr "Odkládací oddíl"
 
 #: ../libfdisk/newtfsedit.c:208
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Úprava oddílu"
+msgstr "RAID oddíl"
 
 #: ../libfdisk/newtfsedit.c:363
-#, fuzzy
 msgid "Edit New Partition"
-msgstr "Úprava oddílu"
+msgstr "Úprava nového oddílu"
 
 #: ../libfdisk/newtfsedit.c:428
-#, fuzzy
 msgid "Use remaining space?:"
-msgstr "Pou¾ít stávající volný prostor"
+msgstr "Pou¾ít zbývající volný prostor?"
 
 #: ../libfdisk/newtfsedit.c:472
-#, fuzzy
 msgid "Type:"
-msgstr "Typ"
+msgstr "Typ:"
 
 #: ../libfdisk/newtfsedit.c:486
-#, fuzzy
 msgid "Unknown"
-msgstr "Neznámý poèítaè"
+msgstr "Neznámý"
 
 #: ../libfdisk/newtfsedit.c:1422
 msgid "Current Disk Partitions"
@@ -2803,16 +2767,16 @@ msgid "You must assign a swap partition for the install to proceed."
 msgstr "Aby mohla instalace pokraèovat, musíte definovat odkládací oddíl."
 
 #: ../libfdisk/newtfsedit.c:1617
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Chybí koøenový oddíl"
+msgstr "®ádný /boot/efi oddíl"
 
 #: ../libfdisk/newtfsedit.c:1619
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
-msgstr "Aby mohla instalace pokraèovat, musíte definovat odkládací oddíl."
+msgstr ""
+"Aby mohla instalace pokraèovat, musíte pøiøadit pøípojné místo /boot/efi na "
+"FAT oddíl."
 
 #: ../libfdisk/newtfsedit.c:1640
 msgid ""
@@ -2879,16 +2843,15 @@ msgstr "Zaøízení"
 
 #: ../loader/devices.c:205
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "Máte disketu s ovladaèi?"
 
 #: ../loader/devices.c:212
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Vlo¾te disk s ovladaèi a stisknìte \"OK\"."
+msgstr "Vlo¾te disketu s ovladaèi a stisknìte \"OK\"."
 
 #: ../loader/devices.c:233
-#, fuzzy
 msgid "Failed to mount driver disk."
-msgstr "Nelze pøipojit disketu."
+msgstr "Nelze pøipojit disketu s ovladaèi."
 
 #: ../loader/devices.c:240
 msgid ""
@@ -2911,28 +2874,27 @@ msgid "Specify module parameters"
 msgstr "Zadání parametrù modulu"
 
 #: ../loader/devices.c:397
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
-msgstr "Nelze vést ¾urnál (log) %s: %s"
+msgstr "Zavedeni modulu %s selhalo."
 
 #: ../loader/devices.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Nelze pøipojit disketu."
+msgstr "Pøipojení diskety s ovladaèi selhalo: %s."
 
 #: ../loader/devices.c:463
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Vlo¾ena ¹patná disketa."
 
 #: ../loader/devices.c:490
-#, fuzzy
 msgid "Driver Disk"
-msgstr "Souhrny jednotek"
+msgstr "Disketa s ovladaèi"
 
 #: ../loader/devices.c:491
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "Vlo¾te prosím disketu %s s ovladaèi."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3016,9 +2978,9 @@ msgid "Loading"
 msgstr "Zavádìní"
 
 #: ../loader/loader.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
-msgstr "Naèítám sekundární ramdisk..."
+msgstr "Naèítám %s ramdisk..."
 
 #: ../loader/loader.c:504
 msgid "Error loading ramdisk."
@@ -3068,16 +3030,14 @@ msgstr ""
 "Red Hat Linux a stisknìte tlaèítko \"OK\" pro opakování."
 
 #: ../loader/loader.c:940
-#, fuzzy
 msgid "Networking Device"
 msgstr "Sí»ové zaøízení"
 
 #: ../loader/loader.c:941
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "Jaký druh systému chcete instalovat?"
+msgstr "V systému je více sí»ových zaøízení. Pomocí kterého chcete instalovat?"
 
 #: ../loader/loader.c:1023
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -3093,17 +3053,15 @@ msgstr "FTP"
 
 #: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../loader/loader.c:1072
-#, fuzzy
 msgid "Unable to retrieve the first install image"
-msgstr "Nelze naèíst sekundární RAM disk"
+msgstr "Nelze získat první instalaèní obraz"
 
 #: ../loader/loader.c:1081
-#, fuzzy
 msgid "Unable to retrieve the second install image"
-msgstr "Nelze naèíst sekundární RAM disk"
+msgstr "Nelze získat druhý instalaèní obraz"
 
 #: ../loader/loader.c:1322
 msgid "Rescue Method"
@@ -3131,9 +3089,8 @@ msgid "Failed to read directory %s: %s"
 msgstr "Nelze èíst adresáø %s: %s"
 
 #: ../loader/loader.c:2067
-#, fuzzy
 msgid "Updates Disk"
-msgstr "Updaty"
+msgstr "Disk s aktualiazací"
 
 #: ../loader/loader.c:2068
 msgid "Insert your updates disk and press \"OK\" to continue."
@@ -3189,9 +3146,8 @@ msgstr ""
 "      Red Hat Linux pro va¹i architekturu."
 
 #: ../loader/net.c:239
-#, fuzzy
 msgid "Nameserver IP"
-msgstr "DNS server"
+msgstr "IP DNS serveru"
 
 #: ../loader/net.c:243 ../loader/net.c:725
 msgid "Nameserver"
@@ -3206,14 +3162,12 @@ msgid ""
 msgstr ""
 
 #: ../loader/net.c:254
-#, fuzzy
 msgid "Invalid IP Information"
-msgstr "Chybná informace"
+msgstr "Chybná IP informace"
 
 #: ../loader/net.c:255
-#, fuzzy
 msgid "You entered an invalid IP address."
-msgstr "Pro pokraèování musíte zadat platnou IP adresu a masku sítì."
+msgstr "Vlo¾ili jste chybnou IP adresu."
 
 #: ../loader/net.c:278
 msgid ""
@@ -3428,14 +3382,12 @@ msgid "Loading SCSI driver"
 msgstr "Naèítám SCSI ovladaè"
 
 #: ../installclasses/custom.py:7
-#, fuzzy
 msgid "Custom System"
-msgstr "Vlastní instalace"
+msgstr "Vlastní systém"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Instalace serveru"
+msgstr "Serverový systém"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3450,145 +3402,83 @@ msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr "Døívìj¹í instalace Linuxu na va¹em poèítaèi bude nyní smazána."
 
-# ../comps/comps-master:3
 msgid "Base"
-msgstr ""
+msgstr "Základ"
 
-# ../comps/comps-master:150
 msgid "Printer Support"
-msgstr ""
+msgstr "Podpora tisku"
 
-#, fuzzy
 msgid "X Window System"
-msgstr "Kontrola systému"
+msgstr "X Window System"
 
-# ../comps/comps-master:259
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
-# ../comps/comps-master:315
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
-# ../comps/comps-master:332
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "Po¹ta/WWW/News"
 
-# ../comps/comps-master:360
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "Propojení s DOS/Windows"
 
-# ../comps/comps-master:371
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Grafické nástroje"
 
-# ../comps/comps-master:389
 msgid "Games"
-msgstr ""
+msgstr "Hry"
 
-# ../comps/comps-master:417
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Multimédia"
 
-# ../comps/comps-master:446
 msgid "Laptop Support"
-msgstr ""
+msgstr "Laptop"
 
-#, fuzzy
 msgid "Networked Workstation"
-msgstr "Sí»ová konfigurace"
+msgstr "Pracovní stanice v síti"
 
-#, fuzzy
 msgid "Dialup Workstation"
-msgstr "Pracovní stanice s KDE"
+msgstr "Pracovní stanice s dial-up"
 
-#, fuzzy
 msgid "News Server"
-msgstr "DNS server"
+msgstr "News server"
 
-#, fuzzy
 msgid "NFS Server"
-msgstr "NIS server:"
+msgstr "NFS server"
 
-# ../comps/comps-master:517
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "SMB (Samba) server"
 
-# ../comps/comps-master:524
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "Propojení s IPX/Netware(tm)"
 
-# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "Anonymní FTP server"
 
-#, fuzzy
 msgid "Web Server"
-msgstr "Server"
+msgstr "WWW Server"
 
-#, fuzzy
 msgid "DNS Name Server"
 msgstr "DNS server"
 
-# ../comps/comps-master:557
 msgid "Postgres (SQL) Server"
-msgstr ""
+msgstr "Postgres (SQL) server"
 
-#, fuzzy
 msgid "Network Management Workstation"
 msgstr "Sí»ová konfigurace"
 
-# ../comps/comps-master:574
 msgid "Authoring/Publishing"
 msgstr ""
 
-# ../comps/comps-master:597
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
-# ../comps/comps-master:610
 msgid "Development"
-msgstr ""
+msgstr "Vývojové nástroje"
 
-#, fuzzy
 msgid "Kernel Development"
-msgstr "Parametry jádra"
+msgstr "Vývoj jádra"
 
-# ../comps/comps-master:738
 msgid "Utilities"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Chyba pøi kopírovaní souboru: %s"
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "Instalace stanice s prostøedím GNOME"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "Instalace stanice s prostøedím KDE"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "Pracovní stanice s GNOME"
-
-#~ msgid "Custom"
-#~ msgstr "Vlastní"
-
-#~ msgid "Use fdisk"
-#~ msgstr "Pou¾ít fdisk"
-
-#~ msgid "Remove data"
-#~ msgstr "Smazat data"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Roz¹iøitelný?"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Zvolili jste toto RAID zaøízení jako zavádìcí oddíl. Prosím zkontrolujte, ¾e "
-#~ "v¹echny oddíly, z nich¾ se skládá, jsou zavádìcí."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Který ovladaè mám zkusit?"
+msgstr "Pomocné nástroje"
