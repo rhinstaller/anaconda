@@ -21,7 +21,7 @@ class XCustomWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle (_("Customize X Configuration"))
+        ics.setTitle (_("Customize Graphics Configuration"))
         ics.readHTML ("xcustom")
         self.ics.setNextEnabled (TRUE)
         
@@ -34,12 +34,12 @@ class XCustomWindow (InstallWindow):
         newmodes[self.selectedDepth] = []
         newmodes[self.selectedDepth].append (self.selectedRes)
 
-        print newmodes
+#        print newmodes
         self.todo.x.manualModes = newmodes
         self.todo.x.setModes (newmodes)
 
-        print "Res", self.todo.resState
-        print "Depth", self.todo.depthState
+#        print "Res", self.todo.resState
+#        print "Depth", self.todo.depthState
         self.todo.resState = self.selectedRes
         self.todo.depthState = self.selectedDepth
 
@@ -118,6 +118,7 @@ class XCustomWindow (InstallWindow):
         hbox1 = GtkHBox (FALSE, 5)
         hbox2 = GtkHBox (FALSE, 5)
         hbox3 = GtkHBox (FALSE, 5)
+        hbox4 = GtkHBox (FALSE, 5)
 
         im = self.ics.readPixmap ("monitor.png")
         if im:
@@ -211,10 +212,17 @@ class XCustomWindow (InstallWindow):
         self.res_combo.list.connect ("select-child", self.res_cb)
 
 
-        box.pack_start (hbox1)
+        box.pack_start (hbox1, FALSE)
 
-        hsep = GtkHSeparator ()
-        box.pack_start (hsep)
+        test = GtkAlignment (.9, 0, 0, 0)
+        button = GtkButton (_("   Test Setting   "))
+        button.connect ("clicked", self.testPressed)
+        test.add (button)
+        
+#        box.pack_start (hbox, FALSE)
+        box.pack_start (test, FALSE)
+
+
 
         #--If both KDE and GNOME are selected
         if ((self.todo.hdList.has_key('gnome-core')
@@ -222,7 +230,10 @@ class XCustomWindow (InstallWindow):
             and (self.todo.hdList.has_key('kdebase')
                  and self.todo.hdList['kdebase'].selected)):
 
-            frame3 = GtkFrame (_("Default Desktop:"))
+            hsep = GtkHSeparator ()
+            box.pack_start (hsep)
+
+            frame3 = GtkFrame (_("Please Choose Your Default Desktop Environment:"))
             frame3.set_shadow_type (SHADOW_NONE)
             hbox3.pack_start (frame3, TRUE, FALSE, 10)
 
@@ -254,80 +265,31 @@ class XCustomWindow (InstallWindow):
             self.hbox4.pack_start (self.vbox4)
             box.pack_start (hbox3, FALSE, TRUE, 10)
             
-        elif (self.todo.hdList.has_key('gnome-core')
-             and self.todo.hdList['gnome-core'].selected):
-            
-            frame3 = GtkFrame (_("Default Desktop"))
-            hbox3.pack_start (frame3, TRUE, FALSE, 10)
-
-            self.hbox4 = GtkHBox ()
-            frame3.add (self.hbox4)
-
-            vbox3 = GtkVBox()
-            self.vbox4 = GtkVBox()
-
-            gnome_radio = GtkRadioButton (None, (_("GNOME")))
-            vbox3.pack_start (gnome_radio, TRUE, FALSE, 10)
-
-            im = self.ics.readPixmap ("gnome.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
-                a.set (0.5, 0.5, 1.0, 1.0)
-                self.vbox4.pack_start (a, TRUE, TRUE)
-
-            self.hbox4.pack_start (vbox3)
-            self.hbox4.pack_start (self.vbox4)
-            box.pack_start (hbox3, FALSE, TRUE, 10)
-            
-        elif (self.todo.hdList.has_key('kdebase')
-                 and self.todo.hdList['kdebase'].selected):
-
-            
-            frame3 = GtkFrame (_("Default Desktop"))
-            hbox3.pack_start (frame3, TRUE, FALSE, 10)
-
-            self.hbox4 = GtkHBox ()
-            frame3.add (self.hbox4)
-
-            vbox3 = GtkVBox()
-            self.vbox4 = GtkVBox()
-
-            kde_radio = GtkRadioButton(None, (_("KDE")))
-            vbox3.pack_start (kde_radio, TRUE, FALSE, 10)
-
-            im = self.ics.readPixmap ("kde.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
-                a.set (0.5, 0.5, 1.0, 1.0)
-                self.vbox4.pack_start (a, TRUE, TRUE)
-
-
-            self.hbox4.pack_start (vbox3)
-            self.hbox4.pack_start (self.vbox4)
-            box.pack_start (hbox3, FALSE, TRUE, 10)
         else:
             pass
 
+        hsep = GtkHSeparator ()
+        box.pack_start (hsep)
+
+#        self.xdm = GtkCheckButton (_("Please Choose Your Login Type"))
+        frame4 = GtkFrame (_("Please Choose Your Login Type:"))
+        frame4.set_shadow_type (SHADOW_NONE)
+        hbox4.pack_start (frame4, TRUE, FALSE, 10)
+        
+#        box.pack_start (frame4, TRUE, FALSE, 10)
+
+        self.hbox5 = GtkHBox (TRUE, 10)
+        frame4.add (self.hbox5)
+
+        text = GtkRadioButton (None, "Text")
+        graphical = GtkRadioButton (text, "Graphical")
 
 
-        #--If both KDE and GNOME are selected
-        if ((self.todo.hdList.has_key('gnome-core')
-             and self.todo.hdList['gnome-core'].selected)
-            or (self.todo.hdList.has_key('kdebase')
-                 and self.todo.hdList['kdebase'].selected)):
-
-            self.xdm = GtkCheckButton (_("Use Graphical Login"))
-            box.pack_start (self.xdm, FALSE, TRUE, 10)
-            self.xdm.set_active (TRUE)
-
-
-
+        self.hbox5.pack_start (text, FALSE, 15)
+        self.hbox5.pack_start (graphical, FALSE, 15)
+        
+        box.pack_start (hbox4, FALSE, TRUE, 10)
+#        self.xdm.set_active (TRUE)
 
 
 #        box.pack_start (hbox1)
@@ -366,13 +328,6 @@ class XCustomWindow (InstallWindow):
 #            hbox.pack_start (vbox)
 
         
-        test = GtkAlignment ()
-        button = GtkButton (_("Test this configuration"))
-        button.connect ("clicked", self.testPressed)
-        test.add (button)
-        
-#        box.pack_start (hbox, FALSE)
-        box.pack_start (test, FALSE)
         return box
 
     def getPrev (self):
@@ -503,6 +458,7 @@ class MonitorWindow (InstallWindow):
             selParent = parent
 
         if select:
+#            print "inside if"
             ctree.select (select)
             ctree.expand (selParent)
             ctree.connect ("draw", self.moveto, select)
@@ -607,14 +563,20 @@ class XConfigWindow (InstallWindow):
             count = count + 1
 
     def movetree (self, ctree, area, selected_node):
+#        print "movetree"
         self.ctree.freeze()
-        self.ctree.select(self.selected_node)
-        parent_node, cardname = self.ctree.node_get_row_data(self.selected_node)                        
+        node = self.selected_node
+        parent_node, cardname = self.ctree.node_get_row_data(node)
+#        print cardname
+
+        self.ctree.select(node)
+
         self.ctree.expand(parent_node)
-        self.ctree.node_moveto(self.selected_node, 0, 0.5, 0)
+        self.ctree.node_moveto(node, 0, 0.5, 0.5)
         self.ctree.thaw()
 
     def movetree2 (self, ctree, area, node):
+#        print "movetree2"
         self.ctree.freeze()
         node = self.todo.videoCardOriginalNode
         current_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
