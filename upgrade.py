@@ -520,41 +520,35 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 
     # Figure out current version for upgrade nag and for determining weird
     # upgrade cases
-    currentVersion = 0.0
     supportedUpgradeVersion = -1
-    mi = ts.dbMatch('name', 'redhat-release')
+    mi = ts.dbMatch('provides', 'redhat-release')
     for h in mi:
-        try:
-            vers = string.atof(h[rpm.RPMTAG_VERSION])
-        except ValueError:
-            vers = 0.0
-        if vers > currentVersion:
-            currentVersion = vers
-
         if h[rpm.RPMTAG_EPOCH] is None:
             epoch = None
         else:
             epoch = str(h[rpm.RPMTAG_EPOCH])
 
-        # if we haven't found a redhat-release that compares favorably
-        # to 6.2, check this one
         if supportedUpgradeVersion <= 0:
-            val = rpm.labelCompare((None, '6.2', '1'),
+            val = rpm.labelCompare((None, '3', '1'),
                                    (epoch, h[rpm.RPMTAG_VERSION],
                                     h[rpm.RPMTAG_RELEASE]))
             if val > 0:
                 supportedUpgradeVersion = 0
             else:
                 supportedUpgradeVersion = 1
+                break
 
-    if 0 and supportedUpgradeVersion == 0:
+    if productName.find("Red Hat Enterprise Linux") == -1:
+        supportedUpgradeVersion = 1
+
+    if supportedUpgradeVersion == 0:
         rc = intf.messageWindow(_("Warning"),
-                                _("Upgrades for this version of %s "
-                                  "are only supported from Red Hat Linux "
-                                  "6.2 or higher.  This appears to be an "
-                                  "older system.  Do you wish to continue "
-                                  "the upgrade process?") %(productName,),
-                                type="yesno")
+                                _("You appear to be upgrading from a system "
+                                  "which is too old to upgrade to this "
+                                  "version of %s.  Are you sure you wish to "
+                                  "continue the upgrade "
+                                  "process?") %(productName,),
+                                type = "yesno")
         if rc == 0:
             try:
                 resetRpmdb(id.dbpath, instPath)

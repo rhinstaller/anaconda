@@ -1,5 +1,8 @@
 2004-09-30  Jeremy Katz  <katzj@redhat.com>
 
+	* upgrade.py (upgradeFindPackages): If this is RHEL, warn if
+	they're upgrading from < RHEL 3 (#134523)
+
 	* fsset.py (FileSystemSet.makeLVMNodes): Try to fix upgrade
 	traceback (#134258)
 
