@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.3
+Version: 10.1.1.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov  4 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.4-1
+- Fix traceback with CJK upgrades (#137345)
+- Allow 128 bit WEP keys (#137447)
+- Fix race condition with X client startup (krh, #108777)
+- Fix segfault in hd kickstart install (twaugh, #137533)
+- Better handling of errors reading labels (#137846)
+- Try harder to find LCS interface names (karsten)
+- Improve CTCPROT handling (karsten)
+- Fix traceback going back in rescue mode network config (#137844)
+- Don't use busybox shutdown, poweroff, reboot (#137948)
+- Set permissions on anaconda logs
+- Make autopartioning better with native storage on legacy iSeries
+- Sync onboot behavior of gui/text network screens (#138011)
+- Load some drivers later to try to avoid having FC disks be sda
+- Sizes in ks.cfg need to be an integer (#138109)
+
 * Tue Oct 26 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.3-1
 - Pull in firefox on upgrade if mozilla/netscape were installed (#137244)
 - Fix s390 tracebacks (#130123, #137239)
