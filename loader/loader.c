@@ -1372,6 +1372,7 @@ static char * doMountImage(char * location,
     }
 
 #if defined(__alpha__) || defined(__ia64__)
+    /* || defined (__s390__) || defined (__s390x__) */
     for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
@@ -2614,7 +2615,6 @@ int main(int argc, char ** argv) {
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
 	printf("could not set new controlling tty\n");
-	exit(1);
     }
 
 
@@ -2649,7 +2649,11 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     openLog(FL_TESTING(flags)+1);
+#else
+    openLog(1);
+#endif
 
     checkForRam(flags);
 
@@ -2663,6 +2667,7 @@ int main(int argc, char ** argv) {
     mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
 
+#if !defined (__s390__) && !defined (__s390x__)
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 	scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
@@ -2671,6 +2676,7 @@ int main(int argc, char ** argv) {
 	   a system w/o USB keyboard support, which would be bad. */
 	usbInitialize(modLoaded, modDeps, modInfo, flags);
     }
+#endif
 
     setFloppyDevice(flags);
 
@@ -2826,9 +2832,11 @@ int main(int argc, char ** argv) {
 #endif
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     logMessage("getting ready to spawn shell now");
 
     spawnShell(flags);			/* we can attach gdb now :-) */
+#endif
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
