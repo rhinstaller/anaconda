@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
-"POT-Creation-Date: 2001-03-22 15:24-0500\n"
+"POT-Creation-Date: 2001-03-26 15:39-0500\n"
 "PO-Revision-Date: 2001-03-23 10:56GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -14,7 +14,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Altsammen"
 
-#: ../exception.py:13 ../text.py:855
+#: ../exception.py:13 ../text.py:857
 msgid "Exception Occurred"
 msgstr "Undtagelse hændte"
 
@@ -54,12 +54,12 @@ msgstr ""
 #: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
 #: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174
 #: ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190
-#: ../textw/upgrade_text.py:100
+#: ../textw/upgrade_text.py:117
 msgid "Warning"
 msgstr "Advarsel"
 
-#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:774
-#: ../fstab.py:841 ../harddrive.py:173 ../image.py:64 ../image.py:141
+#: ../fstab.py:320 ../fstab.py:529 ../fstab.py:629 ../fstab.py:780
+#: ../fstab.py:847 ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
@@ -69,9 +69,9 @@ msgstr "Advarsel"
 #: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
-#: ../textw/upgrade_text.py:96 ../textw/upgrade_text.py:150 ../todo.py:1206
-#: ../todo.py:1219 ../todo.py:1539 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1238
+#: ../todo.py:1251 ../todo.py:1571 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Fejl"
 
@@ -87,49 +87,49 @@ msgstr ""
 "genstarte din maskine før du fortsætter. Indsæt Red Hat opstartsdisketten nu "
 "og tryk \"O.k.\" for at genstarte.\n"
 
-#: ../fstab.py:494
+#: ../fstab.py:500
 msgid "Swap Space"
 msgstr "Swapområde"
 
-#: ../fstab.py:495
+#: ../fstab.py:501
 msgid "Creating swap space..."
 msgstr "Formaterer swapområde..."
 
-#: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
+#: ../fstab.py:519 ../fstab.py:789 ../fstab.py:1248
 msgid "Formatting"
 msgstr "Formaterer"
 
-#: ../fstab.py:514
+#: ../fstab.py:520
 msgid "Formatting swap space..."
 msgstr "Formaterer swapområde..."
 
-#: ../fstab.py:523
+#: ../fstab.py:529
 msgid "Error creating swap on device "
 msgstr "Kunne ikke oprette swap på enhed "
 
-#: ../fstab.py:624
+#: ../fstab.py:630
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Kunne ikke afmontere %s: %s"
 
-#: ../fstab.py:677 ../todo.py:740
+#: ../fstab.py:683 ../todo.py:740
 msgid "Creating"
 msgstr "Opretter"
 
-#: ../fstab.py:677
+#: ../fstab.py:683
 msgid "Creating RAID devices..."
 msgstr "Opretter RAID-enheder..."
 
-#: ../fstab.py:718
+#: ../fstab.py:724
 msgid "Loopback"
 msgstr "Loopback"
 
-#: ../fstab.py:719
+#: ../fstab.py:725
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Opretter loopback-filsystem på enhed /dev/%s..."
 
-#: ../fstab.py:775
+#: ../fstab.py:781
 #, c-format
 msgid ""
 "An error occured trying to format %s. This problem is serious, and the "
@@ -142,12 +142,12 @@ msgstr ""
 "\n"
 "Tryk på retur for at genstarte systemet."
 
-#: ../fstab.py:784 ../fstab.py:1243
+#: ../fstab.py:790 ../fstab.py:1249
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterer %s filsystem..."
 
-#: ../fstab.py:842
+#: ../fstab.py:848
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -173,7 +173,7 @@ msgstr ""
 "fulde tekst fra denne hændelse og udfyld en fejlrapport på "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:327 ../text.py:873
+#: ../gui.py:327 ../text.py:875
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -181,11 +181,11 @@ msgstr ""
 "Indsæt en diskette. Alt indhold på disketten vil blive slettet, så vælg "
 "disketten med omhu."
 
-#: ../gui.py:419 ../gui.py:788
+#: ../gui.py:419 ../gui.py:789
 msgid "Next"
 msgstr "Næste"
 
-#: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:420 ../gui.py:788 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
@@ -193,9 +193,9 @@ msgstr "Næste"
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
-#: ../text.py:231 ../text.py:311 ../text.py:354 ../text.py:357 ../text.py:414
-#: ../text.py:417 ../text.py:443 ../text.py:447 ../text.py:456 ../text.py:529
-#: ../text.py:531 ../text.py:541 ../text.py:543 ../textw/bootdisk_text.py:30
+#: ../text.py:231 ../text.py:311 ../text.py:356 ../text.py:359 ../text.py:416
+#: ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531
+#: ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
 #: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -205,41 +205,41 @@ msgstr "Næste"
 #: ../textw/packages_text.py:55 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:225
-#: ../textw/partitioning_text.py:264 ../textw/partitioning_text.py:347
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220
+#: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
-#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
-#: ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171
-#: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:188
-#: ../textw/upgrade_text.py:189 ../textw/upgrade_text.py:204
-#: ../textw/upgrade_text.py:207 ../textw/userauth_text.py:30
+#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68
+#: ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173
+#: ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190
+#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:209 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "Tilbage"
 
-#: ../gui.py:421 ../gui.py:540 ../gui.py:790
+#: ../gui.py:421 ../gui.py:540 ../gui.py:791
 msgid "Release Notes"
 msgstr "Udgivelsesnoter"
 
-#: ../gui.py:422 ../gui.py:793
+#: ../gui.py:422 ../gui.py:794
 msgid "Show Help"
 msgstr "Vis hjælp"
 
-#: ../gui.py:423 ../gui.py:792
+#: ../gui.py:423 ../gui.py:793
 msgid "Hide Help"
 msgstr "Skjul hjælp"
 
-#: ../gui.py:424 ../gui.py:791
+#: ../gui.py:424 ../gui.py:792
 msgid "Finish"
 msgstr "Færdig"
 
-#: ../gui.py:427 ../gui.py:823
+#: ../gui.py:427 ../gui.py:824
 msgid "Online Help"
 msgstr "Online-hjælp"
 
 #: ../gui.py:428 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:69 ../text.py:968
+#: ../text.py:69 ../text.py:970
 msgid "Language Selection"
 msgstr "Sprogvalg"
 
@@ -252,25 +252,25 @@ msgstr "Luk"
 msgid "Unable to load file!"
 msgstr "Kan ikke læse fil!"
 
-#: ../gui.py:711
+#: ../gui.py:712
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux installation"
 
-#: ../gui.py:715
+#: ../gui.py:716
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux installationsskal"
 
-#: ../gui.py:726
+#: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux installerer på %s"
 
-#: ../gui.py:727
+#: ../gui.py:728
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux installationsskal på %s"
 
-#: ../gui.py:872
+#: ../gui.py:873
 msgid "Install Window"
 msgstr "Installeringsvindue"
 
@@ -328,15 +328,15 @@ msgstr "cd-rom'en kunne ikke monteres."
 #: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
 #: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
 #: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
-#: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
-#: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
+#: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:687
+#: ../loader/net.c:720 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
 #: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92
 #: ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174
-#: ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414
-#: ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591
-#: ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875
-#: ../text.py:890 ../text.py:1127 ../textw/bootdisk_text.py:52
+#: ../text.py:228 ../text.py:311 ../text.py:356 ../text.py:374 ../text.py:416
+#: ../text.py:445 ../text.py:531 ../text.py:543 ../text.py:572 ../text.py:593
+#: ../text.py:763 ../text.py:817 ../text.py:843 ../text.py:869 ../text.py:877
+#: ../text.py:892 ../text.py:1129 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -345,12 +345,12 @@ msgstr "cd-rom'en kunne ikke monteres."
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:264
-#: ../textw/partitioning_text.py:347 ../textw/partitioning_text.py:358
-#: ../textw/partitioning_text.py:366 ../textw/partitioning_text.py:373
+#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:259
+#: ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353
+#: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
-#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
-#: ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30
+#: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67
+#: ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
 #: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
@@ -372,12 +372,12 @@ msgstr "FEJL: ukendt fejl opstået ved læsning af partitionstabeller.\n"
 msgid "System to Rescue"
 msgstr "System som skal reddes"
 
-#: ../rescue.py:90 ../textw/upgrade_text.py:169
+#: ../rescue.py:90 ../textw/upgrade_text.py:171
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partition indeholder din installations rodpartition?"
 
 #: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92
-#: ../rescue.py:96 ../textw/upgrade_text.py:124
+#: ../rescue.py:96 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141
 msgid "Exit"
 msgstr "Afslut"
 
@@ -455,12 +455,12 @@ msgstr "Dit system er monteret i kataloget /mnt/sysimage"
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:199 ../text.py:456 ../textw/lilo_text.py:123
+#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:426
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:124
-#: ../textw/upgrade_text.py:188
+#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
+#: ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
 msgid "Ok"
 msgstr "O.k."
 
@@ -480,7 +480,7 @@ msgstr "Nulstil"
 msgid "Choose the languages to be installed:"
 msgstr "Vælg de sprogunderstøttelser der skal installeres:"
 
-#: ../text.py:141 ../text.py:1030
+#: ../text.py:141 ../text.py:1032
 msgid "Language Support"
 msgstr "Understøttelse af sprog"
 
@@ -500,7 +500,7 @@ msgstr "Standard-sprog"
 msgid "Choose the default language: "
 msgstr "Vælg et standard-sprog"
 
-#: ../text.py:226 ../text.py:945 ../text.py:970
+#: ../text.py:226 ../text.py:947 ../text.py:972
 msgid "Keyboard Selection"
 msgstr "Tastaturvalg"
 
@@ -512,7 +512,7 @@ msgstr "Hvilken tastaturtype er forbundet til denne maskine?"
 msgid "Upgrade Existing Installation"
 msgstr "Opgradér eksisterende installation"
 
-#: ../text.py:309 ../text.py:973
+#: ../text.py:309 ../text.py:975
 msgid "Installation Type"
 msgstr "Installationstype"
 
@@ -520,11 +520,11 @@ msgstr "Installationstype"
 msgid "What type of system would you like to install?"
 msgstr "Hvilken type system ønsker du at installere?"
 
-#: ../text.py:345 ../text.py:364
+#: ../text.py:347 ../text.py:366
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:346
+#: ../text.py:348
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -545,7 +545,7 @@ msgstr ""
 "Har du købt den officielle Red Hat Linux, husk da at registrere dit køb "
 "gennem vores webside, http://www.redhat.com/."
 
-#: ../text.py:365
+#: ../text.py:367
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -565,41 +565,41 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
-#: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
-#: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../text.py:374 ../text.py:377 ../text.py:763 ../text.py:764 ../text.py:877
+#: ../text.py:879 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Annullér"
 
-#: ../text.py:412
+#: ../text.py:414
 msgid "X probe results"
 msgstr "Resultat af X-test"
 
-#: ../text.py:432 ../text.py:452
+#: ../text.py:434 ../text.py:454
 msgid "Unlisted Card"
 msgstr "Andet kort"
 
-#: ../text.py:440
+#: ../text.py:442
 msgid "Video Card Selection"
 msgstr "Valg af grafikkort"
 
-#: ../text.py:441
+#: ../text.py:443
 msgid "Which video card do you have?"
 msgstr "Hvilket grafikkort har du?"
 
-#: ../text.py:454
+#: ../text.py:456
 msgid "X Server Selection"
 msgstr "Valg af X Server"
 
-#: ../text.py:454
+#: ../text.py:456
 msgid "Choose a server"
 msgstr "Vælg en værtsmaskine"
 
-#: ../text.py:525
+#: ../text.py:527
 msgid "Installation to begin"
 msgstr "Installation begynder"
 
-#: ../iw/confirm_gui.py:45 ../text.py:526
+#: ../iw/confirm_gui.py:45 ../text.py:528
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -607,11 +607,11 @@ msgstr ""
 "En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan beholde denne fil for senere reference."
 
-#: ../text.py:537
+#: ../text.py:539
 msgid "Upgrade to begin"
 msgstr "Opgradér system"
 
-#: ../iw/confirm_gui.py:41 ../text.py:538
+#: ../iw/confirm_gui.py:41 ../text.py:540
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -619,7 +619,7 @@ msgstr ""
 "En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan beholde denne fil til senere reference."
 
-#: ../text.py:557
+#: ../text.py:559
 msgid ""
 "                              <Return> to reboot                             "
 " "
@@ -627,11 +627,11 @@ msgstr ""
 "                              <Return> for at genstarte                      "
 "        "
 
-#: ../text.py:559 ../text.py:582
+#: ../text.py:561 ../text.py:584
 msgid "Complete"
 msgstr "Færdig"
 
-#: ../iw/congrats_gui.py:34 ../text.py:560
+#: ../iw/congrats_gui.py:34 ../text.py:562
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -653,7 +653,7 @@ msgstr ""
 "Information om konfiguration og brug af dit Redhat Linux system finder du i "
 "Red Hat Linux manualerne."
 
-#: ../text.py:578
+#: ../text.py:580
 msgid ""
 "                                <Return> to exit                             "
 " "
@@ -661,7 +661,7 @@ msgstr ""
 "                                <Return> for at afslutte                     "
 "         "
 
-#: ../text.py:583
+#: ../text.py:585
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -679,59 +679,59 @@ msgstr ""
 "Information om yderligere konfiguration af dit system kan du finde på "
 "http://www.redhat.com/support/manuals/"
 
-#: ../text.py:650
+#: ../text.py:652
 msgid "Package Installation"
 msgstr "Pakkeinstallation"
 
-#: ../text.py:652
+#: ../text.py:654
 msgid "Name   : "
 msgstr "Navn     : "
 
-#: ../text.py:653
+#: ../text.py:655
 msgid "Size   : "
 msgstr "Størrelse: "
 
-#: ../text.py:654
+#: ../text.py:656
 msgid "Summary: "
 msgstr "Resumé   : "
 
-#: ../text.py:680
+#: ../text.py:682
 msgid "    Packages"
 msgstr "      Pakker"
 
-#: ../text.py:681
+#: ../text.py:683
 msgid "       Bytes"
 msgstr "        Byte"
 
-#: ../text.py:682
+#: ../text.py:684
 msgid "        Time"
 msgstr "         Tid"
 
-#: ../text.py:684
+#: ../text.py:686
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:691
+#: ../text.py:693
 msgid "Completed:   "
 msgstr "Færdig   :   "
 
-#: ../text.py:701
+#: ../text.py:703
 msgid "Remaining:  "
 msgstr "Tilbage  :  "
 
-#: ../text.py:813
+#: ../text.py:815
 msgid "Help not available"
 msgstr "Ingen hjælp tilgængelig"
 
-#: ../text.py:814
+#: ../text.py:816
 msgid "No help is available for this install."
 msgstr "Ingen hjælp er tilgængelig for denne installation."
 
-#: ../text.py:872
+#: ../text.py:874
 msgid "Save Crash Dump"
 msgstr "Gem krash-information"
 
-#: ../text.py:883
+#: ../text.py:885
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -745,183 +745,183 @@ msgstr ""
 "Red Hat skal rette fejlen.\n"
 "\n"
 
-#: ../text.py:890 ../text.py:893
+#: ../text.py:892 ../text.py:895
 msgid "Save"
 msgstr "Gem"
 
-#: ../text.py:890 ../text.py:891
+#: ../text.py:892 ../text.py:893
 msgid "Debug"
 msgstr "Fejlfind"
 
-#: ../text.py:901
+#: ../text.py:903
 msgid " "
 msgstr " "
 
-#: ../text.py:905
+#: ../text.py:907
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:908
+#: ../text.py:910
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
-#: ../text.py:910
+#: ../text.py:912
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:943
-#: ../text.py:972
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:945
+#: ../text.py:974
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../text.py:947 ../text.py:1021
+#: ../text.py:949 ../text.py:1023
 msgid "Hostname Setup"
 msgstr "Opsætning af værtsnavn"
 
-#: ../text.py:949 ../text.py:1018
+#: ../text.py:951 ../text.py:1020
 msgid "Network Setup"
 msgstr "Opsætning af Netværk"
 
-#: ../iw/firewall_gui.py:12 ../text.py:951 ../text.py:1023
+#: ../iw/firewall_gui.py:12 ../text.py:953 ../text.py:1025
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "Konfiguration af brandmur (firewall)"
 
-#: ../text.py:953 ../text.py:1032
+#: ../text.py:955 ../text.py:1034
 msgid "Language Default"
 msgstr "Sprogvalg"
 
-#: ../text.py:955 ../text.py:1035
+#: ../text.py:957 ../text.py:1037
 msgid "Time Zone Setup"
 msgstr "Tidszoneopsætning"
 
-#: ../text.py:957 ../text.py:1037 ../textw/userauth_text.py:9
+#: ../text.py:959 ../text.py:1039 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "'root'-adgangskode"
 
-#: ../text.py:959 ../text.py:1039 ../textw/userauth_text.py:172
+#: ../text.py:961 ../text.py:1041 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Brugerkontiopsætning"
 
-#: ../text.py:961 ../text.py:1041
+#: ../text.py:963 ../text.py:1043
 msgid "Authentication"
 msgstr "Godkendelse"
 
-#: ../text.py:963
+#: ../text.py:965
 msgid "Configuration Complete"
 msgstr "Konfiguration er komplet"
 
-#: ../text.py:981 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:983 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "SILO-konfiguration"
 
-#: ../text.py:987 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:989 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "LILO-konfiguration"
 
-#: ../text.py:994
+#: ../text.py:996
 msgid "Automatic Partition"
 msgstr "Automatisk partitionering"
 
 #: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:996
-#: ../text.py:1000 ../textw/upgrade_text.py:40
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:998
+#: ../text.py:1002 ../textw/upgrade_text.py:56
 msgid "Partition"
 msgstr "Partition"
 
-#: ../text.py:998
+#: ../text.py:1000
 msgid "Manually Partition"
 msgstr "Manuel partitionering"
 
-#: ../text.py:1002 ../textw/partitioning_text.py:339
+#: ../text.py:1004 ../textw/partitioning_text.py:334
 msgid "Root Filesystem Size"
 msgstr "Rodfilsystemstørrelse"
 
-#: ../text.py:1004
+#: ../text.py:1006
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1006 ../textw/partitioning_text.py:396
-#: ../textw/partitioning_text.py:416
+#: ../text.py:1008 ../textw/partitioning_text.py:391
+#: ../textw/partitioning_text.py:411
 msgid "Boot Partition Warning"
 msgstr "Automatisk partitionering"
 
-#: ../text.py:1008
+#: ../text.py:1010
 msgid "Filesystem Formatting"
 msgstr "Filsystemsformatering"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1025 ../text.py:1027
+#: ../iw/mouse_gui.py:56 ../text.py:1027 ../text.py:1029
 msgid "Mouse Configuration"
 msgstr "Musekonfiguration"
 
-#: ../text.py:1043
+#: ../text.py:1045
 msgid "Package Groups"
 msgstr "Pakkegrupper"
 
-#: ../text.py:1045 ../text.py:1074
+#: ../text.py:1047 ../text.py:1076
 msgid "Individual Packages"
 msgstr "Individuelle pakker"
 
-#: ../text.py:1047 ../text.py:1075 ../textw/packages_text.py:304
+#: ../text.py:1049 ../text.py:1077 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Pakkeafhængigheder"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1049 ../text.py:1057
+#: ../iw/xconfig_gui.py:846 ../text.py:1051 ../text.py:1059
 msgid "X Configuration"
 msgstr "X-konfiguration"
 
-#: ../text.py:1051
+#: ../text.py:1053
 msgid "Installation Begins"
 msgstr "Installationen begynder"
 
-#: ../text.py:1053
+#: ../text.py:1055
 msgid "Install System"
 msgstr "Installér system"
 
-#: ../text.py:1054 ../text.py:1056 ../text.py:1080 ../text.py:1082
+#: ../text.py:1056 ../text.py:1058 ../text.py:1082 ../text.py:1084
 msgid "Boot Disk"
 msgstr "Opstartsdiskette"
 
-#: ../text.py:1059
+#: ../text.py:1061
 msgid "Installation Complete"
 msgstr "Installationen er færdig"
 
-#: ../text.py:1064
+#: ../text.py:1066
 msgid "Examine System"
 msgstr "Undersøg system"
 
-#: ../text.py:1065
+#: ../text.py:1067
 msgid "System Swap Space"
 msgstr "System-swapområde"
 
-#: ../text.py:1072
+#: ../text.py:1074
 msgid "Customize Upgrade"
 msgstr "Manuel opgradering"
 
-#: ../text.py:1077
+#: ../text.py:1079
 msgid "Upgrade Begins"
 msgstr "Opgraderingsundersøgelse"
 
-#: ../text.py:1079
+#: ../text.py:1081
 msgid "Upgrade System"
 msgstr "Opgradér system"
 
-#: ../text.py:1083
+#: ../text.py:1085
 msgid "Upgrade Complete"
 msgstr "Opgradering er færdig"
 
-#: ../text.py:1124
+#: ../text.py:1126
 msgid "Cancelled"
 msgstr "Annulleret"
 
-#: ../text.py:1125
+#: ../text.py:1127
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Jeg kan ikke gå til forrige trin herfra. Du må prøve igen."
 
@@ -937,24 +937,24 @@ msgstr "Læser"
 msgid "Reading package information..."
 msgstr "Læser pakkeinformation..."
 
-#: ../todo.py:1041
+#: ../todo.py:1057
 msgid "Dependency Check"
 msgstr "Afhængighedstjek"
 
-#: ../todo.py:1042
+#: ../todo.py:1058
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Tjekker afhængigheder i pakkerne som er valgt til installering....."
 
-#: ../todo.py:1071 ../todo.py:1115 ../todo.py:1121 ../todo.py:1138
-#: ../todo.py:1269
+#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
+#: ../todo.py:1301
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../todo.py:1155 ../upgrade.py:99
+#: ../todo.py:1188 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr "Urene filsystemer"
 
-#: ../todo.py:1156
+#: ../todo.py:1189
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -962,7 +962,7 @@ msgstr ""
 "Et eller flere af de filsystemer der står i din /etc/fstab kunne ikke "
 "monteres. Ret venligst dette problem, og prøv opgraderingen igen."
 
-#: ../todo.py:1171
+#: ../todo.py:1204
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -973,31 +973,31 @@ msgstr ""
 "opgradering. Ret dem til relative symlænker og genstart opgraderingen.\n"
 "\n"
 
-#: ../todo.py:1191
+#: ../todo.py:1223
 msgid "Finding"
 msgstr "Finder"
 
-#: ../todo.py:1192
+#: ../todo.py:1224
 msgid "Finding packages to upgrade..."
 msgstr "Finder pakker som skal opgraderes..."
 
-#: ../todo.py:1207
+#: ../todo.py:1239
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Genopbygning af RPM-database mislykkedes. Har du nok ledig diskplads?"
 
-#: ../todo.py:1220
+#: ../todo.py:1252
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Der skete en fejl under søgning efter pakker som skal opgraderes."
 
-#: ../todo.py:1505
+#: ../todo.py:1537
 msgid "Processing"
 msgstr "Behandler"
 
-#: ../todo.py:1506
+#: ../todo.py:1538
 msgid "Preparing to install..."
 msgstr "Forbereder installation..."
 
-#: ../todo.py:1540
+#: ../todo.py:1572
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1006,17 +1006,17 @@ msgstr ""
 "Filen %s kan ikke åbnes. Dette skyldes en manglende fil, en defekt "
 "pakke,eller defekt medie. Tryk <return> for at prøve igen."
 
-#: ../todo.py:1795
+#: ../todo.py:1826
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Opgraderer %s.\n"
 
-#: ../todo.py:1797
+#: ../todo.py:1828
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1842
+#: ../todo.py:1873
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1027,15 +1027,15 @@ msgstr ""
 "\n"
 
 #: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:39 ../todo.py:1845 ../todo.py:1863
+#: ../textw/upgrade_text.py:55 ../todo.py:1876 ../todo.py:1894
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1845
+#: ../todo.py:1876
 msgid "Space Needed"
 msgstr "Nødvendig plads"
 
-#: ../todo.py:1860
+#: ../todo.py:1891
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1045,23 +1045,23 @@ msgstr ""
 "valgt. Du har brug for mere plads på følgende filsystemer:\n"
 "\n"
 
-#: ../todo.py:1863
+#: ../todo.py:1894
 msgid "Nodes Needed"
 msgstr "Nødvendig plads"
 
-#: ../todo.py:1869
+#: ../todo.py:1900
 msgid "Disk Space"
 msgstr "Diskplads"
 
-#: ../todo.py:1904
+#: ../todo.py:1935
 msgid "Post Install"
 msgstr "Efter installation"
 
-#: ../todo.py:1905
+#: ../todo.py:1936
 msgid "Performing post install configuration..."
 msgstr "Konfigurerer systemet efter installation..."
 
-#: ../todo.py:2043
+#: ../todo.py:2075
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1079,7 +1079,7 @@ msgstr ""
 "Den rapporterede fejl var:\n"
 "\n"
 
-#: ../todo.py:2049
+#: ../todo.py:2081
 msgid "Bootloader Errors"
 msgstr "Opstartsindlæser-fejl"
 
@@ -1419,7 +1419,7 @@ msgstr ""
 msgid "Please select the device containing the root filesystem: "
 msgstr "Vælg enheden som indeholder rodfilsystemet: "
 
-#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
+#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
 msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
 
@@ -1665,7 +1665,7 @@ msgstr "Aktivér ved opstart"
 msgid "IP Address"
 msgstr "IP-adresse"
 
-#: ../iw/network_gui.py:194 ../loader/net.c:762
+#: ../iw/network_gui.py:194 ../loader/net.c:771
 msgid "Netmask"
 msgstr "Netmaske"
 
@@ -1677,7 +1677,7 @@ msgstr "Netværk"
 msgid "Broadcast"
 msgstr "Rundkastning"
 
-#: ../iw/network_gui.py:248 ../loader/net.c:566 ../loader/net.c:764
+#: ../iw/network_gui.py:248 ../loader/net.c:575 ../loader/net.c:773
 #: ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "Værtsnavn"
@@ -1698,11 +1698,13 @@ msgstr "Sekundær DNS"
 msgid "Ternary DNS"
 msgstr "Tertiær DNS"
 
-#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:116
+#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:14
+#: ../textw/upgrade_text.py:133
 msgid "Proceed with upgrade?"
 msgstr "Vil du fortsætte opgraderingen?"
 
-#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:117
+#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:15
+#: ../textw/upgrade_text.py:134
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1829,11 +1831,11 @@ msgstr "Tilbage"
 msgid "Disk Druid"
 msgstr "Diskdruide"
 
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:220
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:215
 msgid "Low Memory"
 msgstr "Lav hukommelse"
 
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:221
+#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:216
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1869,7 +1871,7 @@ msgstr ""
 "opstartspatition."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
-#: ../textw/partitioning_text.py:417
+#: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1888,7 +1890,7 @@ msgstr ""
 "installationsprogrammet tilbyder det. En opstartsdiskette vil sikre at du "
 "har en måde at starte Linux på, efter installationen."
 
-#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:340
+#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:335
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1983,7 +1985,7 @@ msgstr "Manuel partitionering med 'fdisk' [for eksperter]"
 msgid "Boot Partition Location Warning"
 msgstr "Advarsel om opstartspartitionens placering"
 
-#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:397
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2015,10 +2017,10 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
+#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:225
-#: ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
+#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
 msgid "Yes"
 msgstr "Ja"
 
@@ -2030,10 +2032,10 @@ msgstr "Ja"
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
+#: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
-#: ../textw/upgrade_text.py:210
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:212
 msgid "No"
 msgstr "Nej"
 
@@ -2085,7 +2087,7 @@ msgstr "GMT forskydning"
 msgid "Upgrade Swap Partition"
 msgstr "Opgradér Swappartitionen"
 
-#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
+#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:38
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -2118,7 +2120,7 @@ msgstr ""
 "Det anbefalse, at din swapfil er mindst %d Mb. Angiv ønsket størrelse på "
 "swapfilen:"
 
-#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
+#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:74
 msgid "Swap file size (MB):"
 msgstr "Swapområdestørrelse (Mb):"
 
@@ -2136,11 +2138,11 @@ msgstr ""
 "installationsprogrammet blive afbrudt uventet. Er du sikker på, at du ønsker "
 "at fortsætte?"
 
-#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
+#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:118
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
-#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
+#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:114
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
@@ -2321,7 +2323,7 @@ msgstr "Opstartsdiskette"
 
 #: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
 #: ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33
-#: ../textw/silo_text.py:25 ../textw/upgrade_text.py:51
+#: ../textw/silo_text.py:25 ../textw/upgrade_text.py:67
 msgid "Skip"
 msgstr "Spring over"
 
@@ -2611,7 +2613,7 @@ msgstr "Fortsæt"
 msgid "Manually partition"
 msgstr "Manuel partitionering"
 
-#: ../textw/partitioning_text.py:241
+#: ../textw/partitioning_text.py:236
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -2623,32 +2625,32 @@ msgstr ""
 "til at formatere /home eller /usr/local hvis de allerede er blevet "
 "konfigureret under en tidligere installation."
 
-#: ../textw/partitioning_text.py:261
+#: ../textw/partitioning_text.py:256
 msgid "Check for bad blocks during format"
 msgstr "Se efter beskadigede blokke under formatering"
 
-#: ../textw/partitioning_text.py:266
+#: ../textw/partitioning_text.py:261
 msgid "Choose Partitions to Format"
 msgstr "Vælg partitioner at formatere"
 
-#: ../textw/partitioning_text.py:345
+#: ../textw/partitioning_text.py:340
 msgid "Root filesystem size"
 msgstr "Rodfilsystemstørrelse"
 
-#: ../textw/partitioning_text.py:346
+#: ../textw/partitioning_text.py:341
 msgid "Swap space"
 msgstr "Swapplads"
 
-#: ../textw/partitioning_text.py:356 ../textw/partitioning_text.py:362
-#: ../textw/partitioning_text.py:369
+#: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357
+#: ../textw/partitioning_text.py:364
 msgid "Bad Size"
 msgstr "Ugyldig størrelse"
 
-#: ../textw/partitioning_text.py:357
+#: ../textw/partitioning_text.py:352
 msgid "The size you enter must be a number."
 msgstr "Størrelsen, du angiver, skal være et tal."
 
-#: ../textw/partitioning_text.py:363
+#: ../textw/partitioning_text.py:358
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -2657,7 +2659,7 @@ msgstr ""
 "Den totale størrelse skal være mindre end mængden af ledig plads på disken, "
 "som er %d megabyte."
 
-#: ../textw/partitioning_text.py:370
+#: ../textw/partitioning_text.py:365
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -2684,23 +2686,7 @@ msgstr "Hvilken tidszone befinder du dig i?"
 msgid "Hardware clock set to GMT?"
 msgstr "Sæt indbygget ur til GMT?"
 
-#: ../textw/upgrade_text.py:40
-msgid "Free Space"
-msgstr "Ledig plads"
-
-#: ../textw/upgrade_text.py:55
-msgid "Suggested size (MB):"
-msgstr "Forestlået størrelse (Mb)"
-
-#: ../textw/upgrade_text.py:66
-msgid "Add Swap"
-msgstr "Tilføj swap"
-
-#: ../textw/upgrade_text.py:91
-msgid "The value you entered is not a valid number."
-msgstr "Den værdi, du angav, er ikke et gyldigt tal."
-
-#: ../textw/upgrade_text.py:121
+#: ../textw/upgrade_text.py:19 ../textw/upgrade_text.py:138
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
@@ -2708,23 +2694,39 @@ msgstr ""
 "Vælg Afslut hvis du vil afbryde opgraderingen. Vælg O.k. for at fortsætte "
 "opgraderingen."
 
-#: ../textw/upgrade_text.py:151
+#: ../textw/upgrade_text.py:56
+msgid "Free Space"
+msgstr "Ledig plads"
+
+#: ../textw/upgrade_text.py:71
+msgid "Suggested size (MB):"
+msgstr "Forestlået størrelse (Mb)"
+
+#: ../textw/upgrade_text.py:82
+msgid "Add Swap"
+msgstr "Tilføj swap"
+
+#: ../textw/upgrade_text.py:108
+msgid "The value you entered is not a valid number."
+msgstr "Den værdi, du angav, er ikke et gyldigt tal."
+
+#: ../textw/upgrade_text.py:153
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux-partitioner. Du kan ikke opgradere dette system!"
 
-#: ../textw/upgrade_text.py:168
+#: ../textw/upgrade_text.py:170
 msgid "System to Upgrade"
 msgstr "System som skal opgraderes"
 
-#: ../textw/upgrade_text.py:186
+#: ../textw/upgrade_text.py:188
 msgid "Upgrade Partition"
 msgstr "Opgrader patition"
 
-#: ../textw/upgrade_text.py:196
+#: ../textw/upgrade_text.py:198
 msgid "Customize Packages to Upgrade"
 msgstr "Vælg selv pakker, som skal opgraderes"
 
-#: ../textw/upgrade_text.py:197
+#: ../textw/upgrade_text.py:199
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -3098,7 +3100,7 @@ msgid "System error %d"
 msgstr "Systemfejl %d"
 
 #: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516
-#: ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1570
+#: ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1573
 msgid "Fdisk Error"
 msgstr "Fdisk-fejl"
 
@@ -3116,11 +3118,14 @@ msgstr ""
 "installationsprogrammet."
 
 #: ../libfdisk/fsedit.c:1564
+#, fuzzy
 msgid ""
-"This occurs because there is a logical partition on the drive which has a "
-"partition type of zero (0). This is not supported by the anaconda installer. "
-"This logical partition was most likely created by the partitioning program "
-"of another OS, so you may be able to correct the problem using that utility."
+"This error has occurred because there is a logical partition on the drive "
+"which has a partition type of zero (0).  A partition type of zero means that "
+"the drive's partitioning is not completely defined, and may have been caused "
+"by another operating system's partitioning program.  This condition is not "
+"supported by the anaconda installer.  You may be able to set the partition "
+"type correctly using your other operating system's partitioning program."
 msgstr ""
 "Dette sker, fordi er er en logisk partition på drevet, som har "
 "partitionstype nul (0). Dette understøttes ikke af "
@@ -4128,7 +4133,7 @@ msgstr ""
 msgid "Nameserver IP"
 msgstr "Navneserver-IP"
 
-#: ../loader/net.c:266 ../loader/net.c:760
+#: ../loader/net.c:266 ../loader/net.c:769
 msgid "Nameserver"
 msgstr "Navneserver"
 
@@ -4176,69 +4181,69 @@ msgstr "Manglende information"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Du skal indtaste både en gyldig IP-adresse og en netmaske."
 
-#: ../loader/net.c:411 ../loader/net.c:694
+#: ../loader/net.c:411 ../loader/net.c:703
 msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
-#: ../loader/net.c:412 ../loader/net.c:695
+#: ../loader/net.c:412 ../loader/net.c:704
 msgid "Sending request for IP information..."
 msgstr "Sender forespørgsel efter IP-information..."
 
-#: ../loader/net.c:567
+#: ../loader/net.c:576
 msgid "Determining host name and domain..."
 msgstr "Afgør værtsnavn og domæne..."
 
-#: ../loader/net.c:678 ../loader/net.c:711
+#: ../loader/net.c:687 ../loader/net.c:720
 msgid "kickstart"
 msgstr "kickstart"
 
-#: ../loader/net.c:679
+#: ../loader/net.c:688
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "ugyldigt argument til 'kickstart' netværkskommando %s: %s"
 
-#: ../loader/net.c:712
+#: ../loader/net.c:721
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Ugyldig bootproto %s angivet i netværkskommando"
 
-#: ../loader/net.c:754
+#: ../loader/net.c:763
 msgid "Boot protocol to use"
 msgstr "Opstartsprotokol"
 
-#: ../loader/net.c:756
+#: ../loader/net.c:765
 msgid "Network gateway"
 msgstr "Netværkets gateway"
 
-#: ../loader/net.c:758
+#: ../loader/net.c:767
 msgid "IP address"
 msgstr "IP-adresse"
 
-#: ../loader/net.c:767
+#: ../loader/net.c:776
 msgid "Domain name"
 msgstr "Domænenavn"
 
-#: ../loader/net.c:770
+#: ../loader/net.c:779
 msgid "Network device"
 msgstr "Netværksenhed"
 
-#: ../loader/net.c:842
+#: ../loader/net.c:851
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 " <Tab>/<Alt-Tab> mellem elementer  |  <Mellemrum> Vælger  |  <F12> næste side"
 
-#: ../loader/net.c:843
+#: ../loader/net.c:852
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:845
+#: ../loader/net.c:854
 msgid "Network configuration"
 msgstr "Netværkskonfiguration"
 
-#: ../loader/net.c:846
+#: ../loader/net.c:855
 msgid "Would you like to set up networking?"
 msgstr "Ønsker du at opsætte netværk?"
 
@@ -4959,12 +4964,13 @@ msgid "Newfoundland Island"
 msgstr "Newfoundland-øen"
 
 #. generated from zone.tab
-msgid "New South Wales - Broken Hill"
-msgstr "New South Wales - Broken Hill"
-
-#. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "New South Wales - de fleste steder"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "New South Wales - Yancowinna"
+msgstr "New South Wales - Broken Hill"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5080,16 +5086,16 @@ msgid "Tocantins"
 msgstr "Tocantinerne"
 
 #. generated from zone.tab
-msgid "Transdniestria"
-msgstr "Transdniestria"
-
-#. generated from zone.tab
 msgid "Truk (Chuuk)"
 msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
 msgstr "Victoria"
+
+#. generated from zone.tab
+msgid "Vostok Station, S Magnetic Pole"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5210,3 +5216,6 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "Transdniestria"
+#~ msgstr "Transdniestria"

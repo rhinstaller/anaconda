@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-03-22 15:24-0500\n"
+"POT-Creation-Date: 2001-03-26 15:39-0500\n"
 "PO-Revision-Date: 2001-02-09 15:55-0500\n"
 "Last-Translator: Anaconda Team <msw@redhat.com>\n"
 "Language-Team: Chinese-S <msw@redhat.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Everything"
 msgstr "正在搜索"
 
-#: ../exception.py:13 ../text.py:855
+#: ../exception.py:13 ../text.py:857
 msgid "Exception Occurred"
 msgstr ""
 
@@ -43,12 +43,12 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be formatted (RECOMMENDED)."
 msgstr ""
 
-#: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174 ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190 ../textw/upgrade_text.py:100
+#: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174 ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190 ../textw/upgrade_text.py:117
 #, fuzzy
 msgid "Warning"
 msgstr "正在搜索"
 
-#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:774 ../fstab.py:841 ../harddrive.py:173 ../image.py:64 ../image.py:141 ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238 ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90 ../textw/upgrade_text.py:96 ../textw/upgrade_text.py:150 ../todo.py:1206 ../todo.py:1219 ../todo.py:1539 ../upgrade.py:24 ../upgrade.py:52
+#: ../fstab.py:320 ../fstab.py:529 ../fstab.py:629 ../fstab.py:780 ../fstab.py:847 ../harddrive.py:173 ../image.py:64 ../image.py:141 ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238 ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107 ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1238 ../todo.py:1251 ../todo.py:1571 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "错误"
 
@@ -56,52 +56,52 @@ msgstr "错误"
 msgid "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press \"Ok\" to reboot your system.\n"
 msgstr ""
 
-#: ../fstab.py:494
+#: ../fstab.py:500
 #, fuzzy
 msgid "Swap Space"
 msgstr "磁盘空间"
 
-#: ../fstab.py:495
+#: ../fstab.py:501
 #, fuzzy
 msgid "Creating swap space..."
 msgstr "正在创建 RAID 设备..."
 
-#: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
+#: ../fstab.py:519 ../fstab.py:789 ../fstab.py:1248
 msgid "Formatting"
 msgstr "正在格式化"
 
-#: ../fstab.py:514
+#: ../fstab.py:520
 #, fuzzy
 msgid "Formatting swap space..."
 msgstr "正在格式化 %s 文件系统..."
 
-#: ../fstab.py:523
+#: ../fstab.py:529
 msgid "Error creating swap on device "
 msgstr ""
 
-#: ../fstab.py:624
+#: ../fstab.py:630
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "卸载 %s 时出现错误： %s"
 
-#: ../fstab.py:677 ../todo.py:740
+#: ../fstab.py:683 ../todo.py:740
 msgid "Creating"
 msgstr "正在创建"
 
-#: ../fstab.py:677
+#: ../fstab.py:683
 msgid "Creating RAID devices..."
 msgstr "正在创建 RAID 设备..."
 
-#: ../fstab.py:718
+#: ../fstab.py:724
 msgid "Loopback"
 msgstr ""
 
-#: ../fstab.py:719
+#: ../fstab.py:725
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:775
+#: ../fstab.py:781
 #, c-format
 msgid ""
 "An error occured trying to format %s. This problem is serious, and the install cannot continue.\n"
@@ -109,12 +109,12 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fstab.py:784 ../fstab.py:1243
+#: ../fstab.py:790 ../fstab.py:1249
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "正在格式化 %s 文件系统..."
 
-#: ../fstab.py:842
+#: ../fstab.py:848
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -128,39 +128,39 @@ msgstr ""
 msgid "An exceptional condition has occured.  This is most likely a bug.  Please copy the full text of this exception and file a bug report at http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:327 ../text.py:873
+#: ../gui.py:327 ../text.py:875
 msgid "Please insert a floppy now. All contents of the disk will be erased, so please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:419 ../gui.py:788
+#: ../gui.py:419 ../gui.py:789
 msgid "Next"
 msgstr "下一步"
 
-#: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61 ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228 ../text.py:231 ../text.py:311 ../text.py:354 ../text.py:357 ../text.py:414 ../text.py:417 ../text.py:443 ../text.py:447 ../text.py:456 ../text.py:529 ../text.py:531 ../text.py:541 ../text.py:543 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101 ../textw/lilo_text.py:209 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:225 ../textw/partitioning_text.py:264 ../textw/partitioning_text.py:347 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52 ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171 ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:188 ../textw/upgrade_text.py:189 ../textw/upgrade_text.py:204 ../textw/upgrade_text.py:207 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
+#: ../gui.py:420 ../gui.py:788 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61 ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228 ../text.py:231 ../text.py:311 ../text.py:356 ../text.py:359 ../text.py:416 ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531 ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101 ../textw/lilo_text.py:209 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68 ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173 ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190 ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:209 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "上一步"
 
-#: ../gui.py:421 ../gui.py:540 ../gui.py:790
+#: ../gui.py:421 ../gui.py:540 ../gui.py:791
 msgid "Release Notes"
 msgstr ""
 
-#: ../gui.py:422 ../gui.py:793
+#: ../gui.py:422 ../gui.py:794
 msgid "Show Help"
 msgstr "显示帮助"
 
-#: ../gui.py:423 ../gui.py:792
+#: ../gui.py:423 ../gui.py:793
 msgid "Hide Help"
 msgstr "隐藏帮助"
 
-#: ../gui.py:424 ../gui.py:791
+#: ../gui.py:424 ../gui.py:792
 msgid "Finish"
 msgstr "完成"
 
-#: ../gui.py:427 ../gui.py:823
+#: ../gui.py:427 ../gui.py:824
 msgid "Online Help"
 msgstr "联机帮助"
 
-#: ../gui.py:428 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25 ../text.py:69 ../text.py:968
+#: ../gui.py:428 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25 ../text.py:69 ../text.py:970
 msgid "Language Selection"
 msgstr "选择语言"
 
@@ -172,25 +172,25 @@ msgstr "关闭"
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:711
+#: ../gui.py:712
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux 安装程序"
 
-#: ../gui.py:715
+#: ../gui.py:716
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux 安装 Shell 程序"
 
-#: ../gui.py:726
+#: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "用于 %s 的 Red Hat Linux 安装程序"
 
-#: ../gui.py:727
+#: ../gui.py:728
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "用于 %s 的 Red Hat Linux 安装Shell 程序"
 
-#: ../gui.py:872
+#: ../gui.py:873
 #, fuzzy
 msgid "Install Window"
 msgstr "安装"
@@ -235,7 +235,7 @@ msgstr ""
 msgid "The CDROM could not be mounted."
 msgstr ""
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241 ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678 ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92 ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174 ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414 ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591 ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875 ../text.py:890 ../text.py:1127 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:264 ../textw/partitioning_text.py:347 ../textw/partitioning_text.py:358 ../textw/partitioning_text.py:366 ../textw/partitioning_text.py:373 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51 ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
+#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241 ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:687 ../loader/net.c:720 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92 ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174 ../text.py:228 ../text.py:311 ../text.py:356 ../text.py:374 ../text.py:416 ../text.py:445 ../text.py:531 ../text.py:543 ../text.py:572 ../text.py:593 ../text.py:763 ../text.py:817 ../text.py:843 ../text.py:869 ../text.py:877 ../text.py:892 ../text.py:1129 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353 ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67 ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
 msgstr "确定"
 
@@ -252,11 +252,11 @@ msgstr ""
 msgid "System to Rescue"
 msgstr "要升级的系统"
 
-#: ../rescue.py:90 ../textw/upgrade_text.py:169
+#: ../rescue.py:90 ../textw/upgrade_text.py:171
 msgid "What partition holds the root partition of your installation?"
 msgstr "哪个分区包含安装的根分区？"
 
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92 ../rescue.py:96 ../textw/upgrade_text.py:124
+#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92 ../rescue.py:96 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141
 msgid "Exit"
 msgstr "退出"
 
@@ -293,7 +293,7 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024 ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051 ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879 ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333 ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526 ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651 ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332 ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354 ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63 ../text.py:199 ../text.py:456 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:426 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205 ../textw/upgrade_text.py:124 ../textw/upgrade_text.py:188
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024 ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051 ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879 ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333 ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526 ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651 ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332 ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354 ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63 ../text.py:199 ../text.py:458 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205 ../textw/upgrade_text.py:22 ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
 msgid "Ok"
 msgstr "确定"
 
@@ -316,7 +316,7 @@ msgstr "重置(_R)"
 msgid "Choose the languages to be installed:"
 msgstr "哪一类介质包含要安装的软件包？"
 
-#: ../text.py:141 ../text.py:1030
+#: ../text.py:141 ../text.py:1032
 #, fuzzy
 msgid "Language Support"
 msgstr "选择语言"
@@ -341,7 +341,7 @@ msgstr "选择语言"
 msgid "Choose the default language: "
 msgstr "选择语言"
 
-#: ../text.py:226 ../text.py:945 ../text.py:970
+#: ../text.py:226 ../text.py:947 ../text.py:972
 msgid "Keyboard Selection"
 msgstr "选择键盘"
 
@@ -353,7 +353,7 @@ msgstr "与此计算机连接的键盘属于何种类型？"
 msgid "Upgrade Existing Installation"
 msgstr "升级现有的安装"
 
-#: ../text.py:309 ../text.py:973
+#: ../text.py:309 ../text.py:975
 msgid "Installation Type"
 msgstr "安装类型"
 
@@ -361,11 +361,11 @@ msgstr "安装类型"
 msgid "What type of system would you like to install?"
 msgstr "您要安装何种类型的系统？"
 
-#: ../text.py:345 ../text.py:364
+#: ../text.py:347 ../text.py:366
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:346
+#: ../text.py:348
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -380,7 +380,7 @@ msgstr ""
 "\n"
 "如果您购买了 Red Hat Linux 正式版，请务必通过我们的 Web 站点( http://www.redhat.com/) 登记此产品。"
 
-#: ../text.py:365
+#: ../text.py:367
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -389,61 +389,61 @@ msgid ""
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104 ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875 ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104 ../text.py:374 ../text.py:377 ../text.py:763 ../text.py:764 ../text.py:877 ../text.py:879 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "取消"
 
-#: ../text.py:412
+#: ../text.py:414
 msgid "X probe results"
 msgstr "X 探测结果"
 
-#: ../text.py:432 ../text.py:452
+#: ../text.py:434 ../text.py:454
 msgid "Unlisted Card"
 msgstr "未列出的插卡"
 
-#: ../text.py:440
+#: ../text.py:442
 msgid "Video Card Selection"
 msgstr "选择视频卡"
 
-#: ../text.py:441
+#: ../text.py:443
 msgid "Which video card do you have?"
 msgstr "您使用的视频卡属于何种类型？"
 
-#: ../text.py:454
+#: ../text.py:456
 msgid "X Server Selection"
 msgstr "选择 X 服务器"
 
-#: ../text.py:454
+#: ../text.py:456
 msgid "Choose a server"
 msgstr "选择一台服务器"
 
-#: ../text.py:525
+#: ../text.py:527
 msgid "Installation to begin"
 msgstr "开始安装"
 
-#: ../iw/confirm_gui.py:45 ../text.py:526
+#: ../iw/confirm_gui.py:45 ../text.py:528
 msgid "A complete log of your installation will be in /tmp/install.log after rebooting your system. You may want to keep this file for later reference."
 msgstr "重新引导后，系统将在 /tmp/install.log 中对安装进行完整的记录。 您可能需要保留此文件供以后参考。"
 
-#: ../text.py:537
+#: ../text.py:539
 #, fuzzy
 msgid "Upgrade to begin"
 msgstr "升级系统"
 
-#: ../iw/confirm_gui.py:41 ../text.py:538
+#: ../iw/confirm_gui.py:41 ../text.py:540
 #, fuzzy
 msgid "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting your system. You may want to keep this file for later reference."
 msgstr "重新引导后，系统将在 /tmp/install.log 中对安装进行完整的记录。 您可能需要保留此文件供以后参考。"
 
-#: ../text.py:557
+#: ../text.py:559
 msgid "                              <Return> to reboot                              "
 msgstr ""
 
-#: ../text.py:559 ../text.py:582
+#: ../text.py:561 ../text.py:584
 msgid "Complete"
 msgstr "完成"
 
-#: ../iw/congrats_gui.py:34 ../text.py:560
+#: ../iw/congrats_gui.py:34 ../text.py:562
 #, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
@@ -457,11 +457,11 @@ msgstr ""
 "取出引导介质，然后按回车键以重新引导系统。 有关为此 Red Hat Linux 版本提供的校正信息，请查阅 http://www.redhat.com 上的勘误表。\n"
 "《Red Hat Linux 正式版用户指南》中的“安装之后”一章提供了有关配置系统的信息。"
 
-#: ../text.py:578
+#: ../text.py:580
 msgid "                                <Return> to exit                              "
 msgstr ""
 
-#: ../text.py:583
+#: ../text.py:585
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -475,236 +475,236 @@ msgstr ""
 "取出引导介质，然后按回车键以重新引导系统。 有关为此 Red Hat Linux 版本提供的校正信息，请查阅 http://www.redhat.com 上的勘误表。\n"
 "《Red Hat Linux 正式版用户指南》中的“安装之后”一章提供了有关配置系统的信息。"
 
-#: ../text.py:650
+#: ../text.py:652
 msgid "Package Installation"
 msgstr "安装软件包"
 
-#: ../text.py:652
+#: ../text.py:654
 msgid "Name   : "
 msgstr "名称： "
 
-#: ../text.py:653
+#: ../text.py:655
 msgid "Size   : "
 msgstr "大小： "
 
-#: ../text.py:654
+#: ../text.py:656
 msgid "Summary: "
 msgstr "摘要： "
 
-#: ../text.py:680
+#: ../text.py:682
 msgid "    Packages"
 msgstr " 软件包"
 
-#: ../text.py:681
+#: ../text.py:683
 msgid "       Bytes"
 msgstr " 字节"
 
-#: ../text.py:682
+#: ../text.py:684
 msgid "        Time"
 msgstr " 时间"
 
-#: ../text.py:684
+#: ../text.py:686
 msgid "Total    :"
 msgstr "合计："
 
-#: ../text.py:691
+#: ../text.py:693
 msgid "Completed:   "
 msgstr "已完成：   "
 
-#: ../text.py:701
+#: ../text.py:703
 msgid "Remaining:  "
 msgstr "剩余：  "
 
-#: ../text.py:813
+#: ../text.py:815
 msgid "Help not available"
 msgstr ""
 
-#: ../text.py:814
+#: ../text.py:816
 msgid "No help is available for this install."
 msgstr ""
 
-#: ../text.py:872
+#: ../text.py:874
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:883
+#: ../text.py:885
 msgid ""
 "An internal error occurred in the installation program. Please report this error to Red Hat (through the bugzilla.redhat.com web site) as soon as possible. The information on this failure may be saved to a floppy disk, and will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
 
-#: ../text.py:890 ../text.py:893
+#: ../text.py:892 ../text.py:895
 msgid "Save"
 msgstr ""
 
-#: ../text.py:890 ../text.py:891
+#: ../text.py:892 ../text.py:893
 msgid "Debug"
 msgstr "调试"
 
-#: ../text.py:901
+#: ../text.py:903
 msgid " "
 msgstr ""
 
-#: ../text.py:905
+#: ../text.py:907
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:908
+#: ../text.py:910
 #, fuzzy
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<Tab>/<Alt-Tab> 选项间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
-#: ../text.py:910
+#: ../text.py:912
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
 msgstr "<Tab>/<Alt-Tab> 选项间切换   |  <Space> 选择   |  <F12> 下一屏幕"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:943 ../text.py:972
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:945 ../text.py:974
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:947 ../text.py:1021
+#: ../text.py:949 ../text.py:1023
 msgid "Hostname Setup"
 msgstr "主机名设置"
 
-#: ../text.py:949 ../text.py:1018
+#: ../text.py:951 ../text.py:1020
 msgid "Network Setup"
 msgstr "网络设置"
 
-#: ../iw/firewall_gui.py:12 ../text.py:951 ../text.py:1023 ../textw/firewall_text.py:11
+#: ../iw/firewall_gui.py:12 ../text.py:953 ../text.py:1025 ../textw/firewall_text.py:11
 #, fuzzy
 msgid "Firewall Configuration"
 msgstr "Lilo 配置"
 
-#: ../text.py:953 ../text.py:1032
+#: ../text.py:955 ../text.py:1034
 #, fuzzy
 msgid "Language Default"
 msgstr "选择语言"
 
-#: ../text.py:955 ../text.py:1035
+#: ../text.py:957 ../text.py:1037
 msgid "Time Zone Setup"
 msgstr "时区设置"
 
-#: ../text.py:957 ../text.py:1037 ../textw/userauth_text.py:9
+#: ../text.py:959 ../text.py:1039 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "根口令"
 
-#: ../text.py:959 ../text.py:1039 ../textw/userauth_text.py:172
+#: ../text.py:961 ../text.py:1041 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "设置用户帐号"
 
-#: ../text.py:961 ../text.py:1041
+#: ../text.py:963 ../text.py:1043
 msgid "Authentication"
 msgstr "验证"
 
-#: ../text.py:963
+#: ../text.py:965
 #, fuzzy
 msgid "Configuration Complete"
 msgstr "X 配置"
 
-#: ../text.py:981 ../textw/silo_text.py:28 ../textw/silo_text.py:101 ../textw/silo_text.py:213
+#: ../text.py:983 ../textw/silo_text.py:28 ../textw/silo_text.py:101 ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "SILO 配置"
 
-#: ../text.py:987 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90 ../textw/lilo_text.py:217
+#: ../text.py:989 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90 ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "LILO 配置"
 
-#: ../text.py:994
+#: ../text.py:996
 msgid "Automatic Partition"
 msgstr "自动分区"
 
-#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127 ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:996 ../text.py:1000 ../textw/upgrade_text.py:40
+#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127 ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:998 ../text.py:1002 ../textw/upgrade_text.py:56
 msgid "Partition"
 msgstr "分区"
 
-#: ../text.py:998
+#: ../text.py:1000
 msgid "Manually Partition"
 msgstr "手动分区"
 
-#: ../text.py:1002 ../textw/partitioning_text.py:339
+#: ../text.py:1004 ../textw/partitioning_text.py:334
 msgid "Root Filesystem Size"
 msgstr ""
 
-#: ../text.py:1004
+#: ../text.py:1006
 msgid "Swap"
 msgstr "交换"
 
-#: ../text.py:1006 ../textw/partitioning_text.py:396 ../textw/partitioning_text.py:416
+#: ../text.py:1008 ../textw/partitioning_text.py:391 ../textw/partitioning_text.py:411
 #, fuzzy
 msgid "Boot Partition Warning"
 msgstr "自动分区"
 
-#: ../text.py:1008
+#: ../text.py:1010
 msgid "Filesystem Formatting"
 msgstr "正在格式化文件系统"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1025 ../text.py:1027
+#: ../iw/mouse_gui.py:56 ../text.py:1027 ../text.py:1029
 msgid "Mouse Configuration"
 msgstr "鼠标配置"
 
-#: ../text.py:1043
+#: ../text.py:1045
 msgid "Package Groups"
 msgstr "软件包分组"
 
-#: ../text.py:1045 ../text.py:1074
+#: ../text.py:1047 ../text.py:1076
 msgid "Individual Packages"
 msgstr "单独软件包"
 
-#: ../text.py:1047 ../text.py:1075 ../textw/packages_text.py:304
+#: ../text.py:1049 ../text.py:1077 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "软件包相关性"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1049 ../text.py:1057
+#: ../iw/xconfig_gui.py:846 ../text.py:1051 ../text.py:1059
 msgid "X Configuration"
 msgstr "X 配置"
 
-#: ../text.py:1051
+#: ../text.py:1053
 msgid "Installation Begins"
 msgstr "开始安装"
 
-#: ../text.py:1053
+#: ../text.py:1055
 msgid "Install System"
 msgstr "安装系统"
 
-#: ../text.py:1054 ../text.py:1056 ../text.py:1080 ../text.py:1082
+#: ../text.py:1056 ../text.py:1058 ../text.py:1082 ../text.py:1084
 msgid "Boot Disk"
 msgstr "引导盘"
 
-#: ../text.py:1059
+#: ../text.py:1061
 msgid "Installation Complete"
 msgstr "安装完成"
 
-#: ../text.py:1064
+#: ../text.py:1066
 msgid "Examine System"
 msgstr "检查系统"
 
-#: ../text.py:1065
+#: ../text.py:1067
 #, fuzzy
 msgid "System Swap Space"
 msgstr "要升级的系统"
 
-#: ../text.py:1072
+#: ../text.py:1074
 msgid "Customize Upgrade"
 msgstr "定制升级"
 
-#: ../text.py:1077
+#: ../text.py:1079
 #, fuzzy
 msgid "Upgrade Begins"
 msgstr "升级检查"
 
-#: ../text.py:1079
+#: ../text.py:1081
 msgid "Upgrade System"
 msgstr "升级系统"
 
-#: ../text.py:1083
+#: ../text.py:1085
 msgid "Upgrade Complete"
 msgstr "升级完成"
 
-#: ../text.py:1124
+#: ../text.py:1126
 msgid "Cancelled"
 msgstr "已取消"
 
-#: ../text.py:1125
+#: ../text.py:1127
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "无法从此处返回上一步， 您必须重试。"
 
@@ -720,73 +720,73 @@ msgstr "正在读取"
 msgid "Reading package information..."
 msgstr "正在读取软件包信息..."
 
-#: ../todo.py:1041
+#: ../todo.py:1057
 msgid "Dependency Check"
 msgstr ""
 
-#: ../todo.py:1042
+#: ../todo.py:1058
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../todo.py:1071 ../todo.py:1115 ../todo.py:1121 ../todo.py:1138 ../todo.py:1269
+#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171 ../todo.py:1301
 msgid "no suggestion"
 msgstr "没有建议"
 
-#: ../todo.py:1155 ../upgrade.py:99
+#: ../todo.py:1188 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr ""
 
-#: ../todo.py:1156
+#: ../todo.py:1189
 msgid "One or more of the filesystems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../todo.py:1171
+#: ../todo.py:1204
 msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1191
+#: ../todo.py:1223
 msgid "Finding"
 msgstr "正在查找"
 
-#: ../todo.py:1192
+#: ../todo.py:1224
 msgid "Finding packages to upgrade..."
 msgstr "正在查找要升级的软件包..."
 
-#: ../todo.py:1207
+#: ../todo.py:1239
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "重建 RPM 数据库失败。 是否磁盘空间已满？"
 
-#: ../todo.py:1220
+#: ../todo.py:1252
 #, fuzzy
 msgid "An error occured when finding the packages to upgrade."
 msgstr "正在查找要升级的软件包..."
 
-#: ../todo.py:1505
+#: ../todo.py:1537
 msgid "Processing"
 msgstr "正在处理"
 
-#: ../todo.py:1506
+#: ../todo.py:1538
 msgid "Preparing to install..."
 msgstr "正在进行安装准备..."
 
-#: ../todo.py:1540
+#: ../todo.py:1572
 #, c-format
 msgid "The file %s cannot be opened. This is due to a missing file, a bad package, or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../todo.py:1795
+#: ../todo.py:1826
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "正在升级 %s。\n"
 
-#: ../todo.py:1797
+#: ../todo.py:1828
 #, c-format
 msgid "Installing %s.\n"
 msgstr "正在安装 %s。\n"
 
-#: ../todo.py:1842
+#: ../todo.py:1873
 msgid ""
 "You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
 "\n"
@@ -794,15 +794,15 @@ msgstr ""
 "磁盘空间不足，无法安装已选定的软件包。 您需要更多的磁盘空间才能安装以下文件系统：\n"
 "\n"
 
-#: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1845 ../todo.py:1863
+#: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:55 ../todo.py:1876 ../todo.py:1894
 msgid "Mount Point"
 msgstr "安装点"
 
-#: ../todo.py:1845
+#: ../todo.py:1876
 msgid "Space Needed"
 msgstr "所需空间"
 
-#: ../todo.py:1860
+#: ../todo.py:1891
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've selected. You need more file nodes on the following filesystems:\n"
@@ -811,24 +811,24 @@ msgstr ""
 "磁盘空间不足，无法安装已选定的软件包。 您需要更多的磁盘空间才能安装以下文件系统：\n"
 "\n"
 
-#: ../todo.py:1863
+#: ../todo.py:1894
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "所需空间"
 
-#: ../todo.py:1869
+#: ../todo.py:1900
 msgid "Disk Space"
 msgstr "磁盘空间"
 
-#: ../todo.py:1904
+#: ../todo.py:1935
 msgid "Post Install"
 msgstr "安装后"
 
-#: ../todo.py:1905
+#: ../todo.py:1936
 msgid "Performing post install configuration..."
 msgstr "正在执行安装后配置..."
 
-#: ../todo.py:2043
+#: ../todo.py:2075
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -838,7 +838,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:2049
+#: ../todo.py:2081
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -1158,7 +1158,7 @@ msgstr ""
 msgid "Please select the device containing the root filesystem: "
 msgstr "%s 目录必须位于根文件系统上。"
 
-#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
+#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
 #, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
 msgstr "正在搜索 Red Hat Linux 安装..."
@@ -1404,7 +1404,7 @@ msgstr "启动引导"
 msgid "IP Address"
 msgstr "IP 地址"
 
-#: ../iw/network_gui.py:194 ../loader/net.c:762
+#: ../iw/network_gui.py:194 ../loader/net.c:771
 msgid "Netmask"
 msgstr "网络掩码"
 
@@ -1416,7 +1416,7 @@ msgstr "网络"
 msgid "Broadcast"
 msgstr "广播"
 
-#: ../iw/network_gui.py:248 ../loader/net.c:566 ../loader/net.c:764 ../textw/network_text.py:161
+#: ../iw/network_gui.py:248 ../loader/net.c:575 ../loader/net.c:773 ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "主机名"
 
@@ -1436,11 +1436,11 @@ msgstr "次 DNS"
 msgid "Ternary DNS"
 msgstr "第三 DNS"
 
-#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:116
+#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:14 ../textw/upgrade_text.py:133
 msgid "Proceed with upgrade?"
 msgstr ""
 
-#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:117
+#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:15 ../textw/upgrade_text.py:134
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
@@ -1558,11 +1558,11 @@ msgstr "剩余"
 msgid "Disk Druid"
 msgstr "磁盘 Druid"
 
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:220
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:215
 msgid "Low Memory"
 msgstr "内存不足"
 
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:221
+#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:216
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that okay?"
 msgstr "如果本机内存不足，则必须立即打开交换空间。要执行此操作，必须将新分区表立即写入磁盘。是否执行？"
 
@@ -1575,14 +1575,14 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490 ../textw/partitioning_text.py:417
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490 ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above the 1024 cylinder limit. It appears that this systems BIOS supports booting from above this limit. \n"
 "\n"
 "It is HIGHLY recommended you make a boot floppy when asked by the installer, as this is a new feature in recent motherboards and is not always reliable. Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:340
+#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:335
 #, c-format
 msgid "You've chosen to put your root filesystem in a file on an already-existing DOS or Windows filesystem. How large, in megabytes, should would you like the root filesystem to be, and how much swap space would you like? They must total less then %d megabytes in size."
 msgstr ""
@@ -1656,7 +1656,7 @@ msgstr ""
 msgid "Boot Partition Location Warning"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:397
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above the 1024 cylinder limit, and it appears that this systems BIOS does not support booting from above this limit. Proceeding will most likely make the system unable to reboot into Linux.\n"
 "\n"
@@ -1665,11 +1665,11 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:225 ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
+#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206
 msgid "Yes"
 msgstr "是"
 
-#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204 ../textw/upgrade_text.py:210
+#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
 msgid "No"
 msgstr "否"
 
@@ -1722,7 +1722,7 @@ msgstr "UTC 偏移"
 msgid "Upgrade Swap Partition"
 msgstr "编辑分区"
 
-#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
+#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:38
 #, c-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
 msgstr ""
@@ -1745,7 +1745,7 @@ msgstr "磁盘空间"
 msgid "It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
+#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:74
 #, fuzzy
 msgid "Swap file size (MB):"
 msgstr "大小 (MB)："
@@ -1758,11 +1758,11 @@ msgstr ""
 msgid "It is stongly recommended that you create a swap file.  Failure to do so could cause the installer to abort abnormally.  Are you sure that you wish to continue?"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
+#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:118
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
+#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:114
 msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
@@ -1929,7 +1929,7 @@ msgstr ""
 msgid "Bootdisk"
 msgstr "引导盘"
 
-#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62 ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33 ../textw/silo_text.py:25 ../textw/upgrade_text.py:51
+#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62 ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33 ../textw/silo_text.py:25 ../textw/upgrade_text.py:67
 msgid "Skip"
 msgstr "跳过"
 
@@ -2164,41 +2164,41 @@ msgstr "继续"
 msgid "Manually partition"
 msgstr "手动分区"
 
-#: ../textw/partitioning_text.py:241
+#: ../textw/partitioning_text.py:236
 msgid "What partitions would you like to format? We strongly suggest formatting all of the system partitions, including /, /usr, and /var. There is no need to format /home or /usr/local if they have already been configured during a previous install."
 msgstr "您希望对哪个分区执行格式化？郑重建议格式化所有系统分区，包括 /、/usr 和 /var。如果在上一次安装过程中已配置 /home 或 /usr/local，则无需对它们执行格式化。"
 
-#: ../textw/partitioning_text.py:261
+#: ../textw/partitioning_text.py:256
 msgid "Check for bad blocks during format"
 msgstr "格式化过程中检查磁盘坏块"
 
-#: ../textw/partitioning_text.py:266
+#: ../textw/partitioning_text.py:261
 msgid "Choose Partitions to Format"
 msgstr "选择要格式化的分区"
 
-#: ../textw/partitioning_text.py:345
+#: ../textw/partitioning_text.py:340
 msgid "Root filesystem size"
 msgstr ""
 
-#: ../textw/partitioning_text.py:346
+#: ../textw/partitioning_text.py:341
 msgid "Swap space"
 msgstr ""
 
-#: ../textw/partitioning_text.py:356 ../textw/partitioning_text.py:362 ../textw/partitioning_text.py:369
+#: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357 ../textw/partitioning_text.py:364
 #, fuzzy
 msgid "Bad Size"
 msgstr "大小"
 
-#: ../textw/partitioning_text.py:357
+#: ../textw/partitioning_text.py:352
 msgid "The size you enter must be a number."
 msgstr ""
 
-#: ../textw/partitioning_text.py:363
+#: ../textw/partitioning_text.py:358
 #, c-format
 msgid "The total size must be smaller then the amount of free space on the disk, which is %d megabytes."
 msgstr ""
 
-#: ../textw/partitioning_text.py:370
+#: ../textw/partitioning_text.py:365
 msgid "Neither the root file system size nor the swap space size may be greater then 2000 megabytes."
 msgstr ""
 
@@ -2222,47 +2222,47 @@ msgstr "您位于哪一个时区？"
 msgid "Hardware clock set to GMT?"
 msgstr "是否将硬件时钟设置为 GMT？"
 
-#: ../textw/upgrade_text.py:40
+#: ../textw/upgrade_text.py:19 ../textw/upgrade_text.py:138
+msgid "If you would like to exit the upgrade select Exit, or choose Ok to continue with the upgrade."
+msgstr ""
+
+#: ../textw/upgrade_text.py:56
 #, fuzzy
 msgid "Free Space"
 msgstr "磁盘空间"
 
-#: ../textw/upgrade_text.py:55
+#: ../textw/upgrade_text.py:71
 #, fuzzy
 msgid "Suggested size (MB):"
 msgstr "大小 (MB)："
 
-#: ../textw/upgrade_text.py:66
+#: ../textw/upgrade_text.py:82
 #, fuzzy
 msgid "Add Swap"
 msgstr "交换"
 
-#: ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:108
 msgid "The value you entered is not a valid number."
 msgstr ""
 
-#: ../textw/upgrade_text.py:121
-msgid "If you would like to exit the upgrade select Exit, or choose Ok to continue with the upgrade."
-msgstr ""
-
-#: ../textw/upgrade_text.py:151
+#: ../textw/upgrade_text.py:153
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "没有任何 Linux 分区，无法升级本系统！"
 
-#: ../textw/upgrade_text.py:168
+#: ../textw/upgrade_text.py:170
 msgid "System to Upgrade"
 msgstr "要升级的系统"
 
-#: ../textw/upgrade_text.py:186
+#: ../textw/upgrade_text.py:188
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "编辑分区"
 
-#: ../textw/upgrade_text.py:196
+#: ../textw/upgrade_text.py:198
 msgid "Customize Packages to Upgrade"
 msgstr "定制要升级的软件包"
 
-#: ../textw/upgrade_text.py:197
+#: ../textw/upgrade_text.py:199
 msgid "The packages you have installed, and any other packages which are needed to satisfy their dependencies, have been selected for installation. Would you like to customize the set of packages that will be upgraded?"
 msgstr "系统已选定用于安装的已安装软件包，以及满足其相关性要求的其它任何软件包。是否要定制升级的软件包集？"
 
@@ -2558,7 +2558,7 @@ msgstr "已找到一个磁盘卷标为 BSD 的磁盘。Red Hat 安装仅以只读模式支持 BSD 磁盘卷
 msgid "System error %d"
 msgstr "系统错误 %d"
 
-#: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516 ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1570
+#: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516 ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1573
 msgid "Fdisk Error"
 msgstr "Fdisk 错误"
 
@@ -2567,7 +2567,7 @@ msgid "This occurs because the drive geometry detected by the kernel used by the
 msgstr ""
 
 #: ../libfdisk/fsedit.c:1564
-msgid "This occurs because there is a logical partition on the drive which has a partition type of zero (0). This is not supported by the anaconda installer. This logical partition was most likely created by the partitioning program of another OS, so you may be able to correct the problem using that utility."
+msgid "This error has occurred because there is a logical partition on the drive which has a partition type of zero (0).  A partition type of zero means that the drive's partitioning is not completely defined, and may have been caused by another operating system's partitioning program.  This condition is not supported by the anaconda installer.  You may be able to set the partition type correctly using your other operating system's partitioning program."
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:2050
@@ -3420,7 +3420,7 @@ msgstr ""
 msgid "Nameserver IP"
 msgstr "名称服务器"
 
-#: ../loader/net.c:266 ../loader/net.c:760
+#: ../loader/net.c:266 ../loader/net.c:769
 msgid "Nameserver"
 msgstr "名称服务器"
 
@@ -3458,66 +3458,66 @@ msgstr "缺少信息"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "必须输入有效的 IP 地址和网络掩码。"
 
-#: ../loader/net.c:411 ../loader/net.c:694
+#: ../loader/net.c:411 ../loader/net.c:703
 msgid "Dynamic IP"
 msgstr "动态 IP"
 
-#: ../loader/net.c:412 ../loader/net.c:695
+#: ../loader/net.c:412 ../loader/net.c:704
 msgid "Sending request for IP information..."
 msgstr "正在发送 IP 信息请求..."
 
-#: ../loader/net.c:567
+#: ../loader/net.c:576
 msgid "Determining host name and domain..."
 msgstr "正在确定主机的名称和域..."
 
-#: ../loader/net.c:678 ../loader/net.c:711
+#: ../loader/net.c:687 ../loader/net.c:720
 msgid "kickstart"
 msgstr "反冲启动"
 
-#: ../loader/net.c:679
+#: ../loader/net.c:688
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "反冲启动网络命令 %s 的变量错误：%s"
 
-#: ../loader/net.c:712
+#: ../loader/net.c:721
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader/net.c:754
+#: ../loader/net.c:763
 msgid "Boot protocol to use"
 msgstr "要使用的引导协议"
 
-#: ../loader/net.c:756
+#: ../loader/net.c:765
 msgid "Network gateway"
 msgstr "网络网关"
 
-#: ../loader/net.c:758
+#: ../loader/net.c:767
 msgid "IP address"
 msgstr "IP 地址"
 
-#: ../loader/net.c:767
+#: ../loader/net.c:776
 msgid "Domain name"
 msgstr "域名"
 
-#: ../loader/net.c:770
+#: ../loader/net.c:779
 msgid "Network device"
 msgstr "网络设备"
 
-#: ../loader/net.c:842
+#: ../loader/net.c:851
 msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
 msgstr "<Tab>/<Alt-Tab> 选项间切换   |  <Space> 选择   |  <F12> 下一屏幕"
 
-#: ../loader/net.c:843
+#: ../loader/net.c:852
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:845
+#: ../loader/net.c:854
 msgid "Network configuration"
 msgstr "网络配置"
 
-#: ../loader/net.c:846
+#: ../loader/net.c:855
 msgid "Would you like to set up networking?"
 msgstr "是否要设置联网？"
 
@@ -4249,11 +4249,11 @@ msgid "Newfoundland Island"
 msgstr ""
 
 #. generated from zone.tab
-msgid "New South Wales - Broken Hill"
+msgid "New South Wales - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid "New South Wales - most locations"
+msgid "New South Wales - Yancowinna"
 msgstr ""
 
 #. generated from zone.tab
@@ -4371,15 +4371,15 @@ msgid "Tocantins"
 msgstr "位置"
 
 #. generated from zone.tab
-msgid "Transdniestria"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Truk (Chuuk)"
 msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Vostok Station, S Magnetic Pole"
 msgstr ""
 
 #. generated from zone.tab
