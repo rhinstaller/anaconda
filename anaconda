@@ -406,7 +406,8 @@ if (progmode == 'reconfig'):
 if (display_mode != 't' and method and
     ((len (method) >= 6 and method[:6] == "ftp://")
     or (len (method) >= 7 and method[:7] == "http://")
-    or (len (method) >= 5 and method[:5] == "hd://"))):
+    or (len (method) >= 5 and method[:5] == "hd://")
+    or (len (method) >= 8 and method[:8] == "oldhd://"))):
     print _("Graphical installation not available for %s installs.  "
             "Starting text mode.") % (string.split(method, ':')[0],)
     display_mode = 't'
