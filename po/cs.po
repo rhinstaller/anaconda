@@ -1,14 +1,14 @@
 # $Id$
-# Copyright (C) 2004 anaconda's COPYRIGHT HOLDER
-# Copyright (C) 2004 Miloslav Trmac <mitr@volny.cz>
-# Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004.
+# Copyright (C) 2004, 2005 anaconda's COPYRIGHT HOLDER
+# Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
+# Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install VERSION\n"
+"Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-10-01 01:27+0200\n"
+"PO-Revision-Date: 2005-01-15 21:39+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -771,7 +771,7 @@ msgstr ""
 "Stiskněte Enter pro restart systému."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -780,9 +780,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Chyba při aktivaci odkládacího prostotu %s: %s\n"
+"Chyba při povolování odkládacího zařízení %s: %s\n"
 "\n"
-"Chyba je obvykle způsobena tím, že odkládací prostor není naformátován.\n"
+"/etc/fstab na vašem aktualizovaném oddílu nepopisuje platný odkládací oddíl.\n"
 "\n"
 "Stiskněte OK pro restart systému."
 
@@ -899,7 +899,6 @@ msgstr ""
 "Stiskněte OK pro restart systému."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -907,9 +906,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Chyba při připojování zařízení %s jako %s: %s\n"
+"Chyba při hledání položky /.\n"
 "\n"
-"Chyba je obvykle způsobena tím, že zařízení není naformátováno.\n"
+"To pravděpodobně znamená, že vaše fstab není správná.\n"
 "\n"
 "Stiskněte OK pro restart systému."
 
@@ -1294,7 +1293,7 @@ msgstr ""
 msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
-msgstr ""
+msgstr "V souboru comps ve vašem instalačním stromě chybí kritické skupiny. Zajistěte prosím, aby váš instalační strom byl správně vygenerován."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1337,15 +1336,14 @@ msgstr ""
 "Stiskněte Enter pro nový pokus."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Restartovat"
+msgstr "_Restartovat"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "Pokud váš systém restartujete, bude ponechán v nekonzistentním stavu, který bude pravděpodobně vyžadovat reinstalaci. Opravdu chcete pokračovat?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2860,16 +2858,13 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Pokročilé nastavení zavaděče systému"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Pokud přikážete použití LBA32 a váš BIOS to nepodporuje, počítač nebude "
-"schopen nastartovat. Důrazně proto doporučujeme, abyste si v zaváděcí "
-"disketu vytvořili, až vám to instalační program nabídne.\n"
+"Pokud přikážete použití LBA32 a váš BIOS to nepodporuje, počítač nebude schopen nastartovat.\n"
 "\n"
 "Opravdu použití LBA32 přikázat?"
 
@@ -2904,7 +2899,6 @@ msgid "Change Boot Loader"
 msgstr "Změnit zavaděč systému"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2913,11 +2907,9 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"Nezvolili jste instalaci žádného zavaděče. Doporučujeme jeho instalaci "
-"neprovádět jen v případě, že k tomu nemáte zvláštní důvody. Zavaděč je "
-"potřeba pro zavedení systému přímo z pevného disku.\n"
+"Rozhodli jste se neinstalovat žádný zavaděč. Důrazně doporučujeme jeho instalaci neprovádět jen v případě, že k tomu máte zvláštní důvody. Zavaděč je vždy potřeba pro restart vašeho systému do Linuxu přímo z pevného disku.\n"
 "\n"
-"Opravdu chcete vynechat instalaci zavaděče systému?"
+"Chcete pokračovat a neinstalovat zavaděč systému?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3891,9 +3883,8 @@ msgid "Encryption _Key"
 msgstr "_Šifrovací klíč"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP adresa:"
+msgstr "Hardwarová adresa:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5660,7 +5651,7 @@ msgstr "Popis: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Hardwarová adresa: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7137,9 +7128,9 @@ msgid "Welcome to %s"
 msgstr "Vítá vás %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Vítá vás %s"
+msgstr "Vítá vás %s - Záchranný režim"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7661,14 +7652,12 @@ msgid "Account name:"
 msgstr "Jméno účtu:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP instalace"
+msgstr "Další nastavení FTP"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP instalace"
+msgstr "Další nastavení HTTP"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -8542,17 +8531,6 @@ msgstr "Zulu"
 
 #~ msgid "%s Installer on %s"
 #~ msgstr "%s Instalační program na %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Rozhodli jste se neinstalovat zavaděč systému. Budete muset vytvořit "
-#~ "zaváděcí disketu.\n"
-#~ "\n"
-#~ "Chcete pokračovat a neinstalovat zavaděč?"
 
 #~ msgid "Total"
 #~ msgstr "Celkem"
