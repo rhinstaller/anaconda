@@ -63,7 +63,7 @@ class Fstab:
 	    elif (mntpoint[0:5] == "raid."):
 		type = 0xfd
 
-	    attempt.append((mntpoint, size, type, grow, -1, device))
+	    attempt.append((mntpoint, size, maxsize, type, grow, -1, device))
 
 	try:
 	    ddruid.attempt (attempt, "Junk Argument", clearParts)
