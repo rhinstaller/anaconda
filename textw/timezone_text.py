@@ -45,6 +45,9 @@ class TimezoneWindow:
 	self.updateClock()
 
     def updateClock(self):
+        # disable for now
+        return
+        
 	if os.access("/usr/share/zoneinfo/" + self.l.current(), os.R_OK):
 	    os.environ['TZ'] = self.l.current()
 	    self.label.setText(self.currentTime())
@@ -67,7 +70,10 @@ class TimezoneWindow:
 	t = TextboxReflowed(30, 
 			_("What time zone are you located in?"))
 
-	self.label = Label(self.currentTime())
+#
+# disabling this for now
+# 
+#	self.label = Label(self.currentTime())
 		
 	self.l = Listbox(5, scroll = 1, returnExit = 0)
 
@@ -83,21 +89,24 @@ class TimezoneWindow:
 	self.g = GridFormHelp(screen, _("Time Zone Selection"), "timezone",
 			      1, 5)
 	self.g.add(t, 0, 0)
-	self.g.add(self.label, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
+#	self.g.add(self.label, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	self.g.add(self.c, 0, 2, padding = (0, 1, 0, 1), anchorLeft = 1)
 	self.g.add(self.l, 0, 3, padding = (0, 0, 0, 1))
 	self.g.add(bb, 0, 4, growx = 1)
 
-	self.updateClock()
-	self.updateSysClock()
+# disabling for now
+#	self.updateClock()
+#	self.updateSysClock()
+#
+#	self.g.setTimer(500)
+#
+#	result = "TIMER"
+#	while result == "TIMER":
+#	    result = self.g.run()
+#	    if result == "TIMER":
+#		self.updateClock()
 
-	self.g.setTimer(500)
-
-	result = "TIMER"
-	while result == "TIMER":
-	    result = self.g.run()
-	    if result == "TIMER":
-		self.updateClock()
+        result = self.g.run()
 
 	screen.popWindow()
 
