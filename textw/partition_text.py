@@ -62,7 +62,7 @@ class PartitionWindow:
                 elif part.type & parted.PARTITION_EXTENDED:
                     ptype = _("Extended")
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
-                    ptype = _("software RAID component")
+                    ptype = _("software RAID")
                 elif part.fs_type:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()

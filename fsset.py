@@ -323,7 +323,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 0
         self.linuxnativefs = 1
-        self.name = "software raid component"
+        self.name = "software RAID"
         self.maxSize = 4 * 1024 * 1024
         self.supported = 1
 

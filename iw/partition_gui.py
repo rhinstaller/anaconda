@@ -16,6 +16,7 @@
 from iw_gui import *
 from gtk import *
 from GDK import *
+import GdkImlib
 from gnome.ui import *
 from translate import _, N_
 from partitioning import *
@@ -24,6 +25,8 @@ from autopart import doPartitioning
 from autopart import CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
 from autopart import CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_NONE_DESCR_TEXT
 from autopart import AUTOPART_DISK_CHOICE_DESCR_TEXT
+from xpms_gui import CHECKBOX_ON_XPM
+from xpms_gui import CHECKBOX_OFF_XPM
 
 import gui
 import parted
@@ -503,12 +506,16 @@ class PartitionWindow(InstallWindow):
                 elif part.type == parted.PARTITION_EXTENDED:
                     ptype = _("Extended")
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
-                    ptype = _("software RAID component")
+                    ptype = _("software RAID")
                 elif part.fs_type:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()
                     else:
                         ptype = part.fs_type.name
+                    if request.format:
+                        text[self.titleSlot["Format"]] = _("Yes")
+                    else:
+                        text[self.titleSlot["Format"]] = _("No")
                 else:
                     ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:
@@ -548,7 +555,7 @@ class PartitionWindow(InstallWindow):
                 else:
                     node = self.tree.insert_node (parent, None, text,
                                                   spacing = TREE_SPACING)
-                
+               
                 self.tree.node_set_row_data (node, part)
 
                 part = disk.next_partition (part)
@@ -563,6 +570,11 @@ class PartitionWindow(InstallWindow):
                 
                 if request.fstype:
                     ptype = request.fstype.getName()
+                    print request.format
+                    if request.format:
+                        text[self.titleSlot["Format"]] = _("Yes")
+                    else:
+                        text[self.titleSlot["Format"]] = _("No")
                 else:
                     ptype = _("None")
 
@@ -574,7 +586,6 @@ class PartitionWindow(InstallWindow):
                 text[self.titleSlot["Size (MB)"]] = \
                                           "%g" % (get_raid_device_size(request)
                                                   / 1024.0 / 1024.0)
-                
                 # add a parent node to the tree
                 parent = self.tree.insert_node (None, None, text,
                                                 is_leaf = FALSE,
@@ -1237,7 +1248,7 @@ class PartitionWindow(InstallWindow):
         
         self.diskset.openDevices()
         self.partitions = partitions
-        
+
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in
 #        self.newFsset = self.fsset.copy()
@@ -1258,7 +1269,7 @@ class PartitionWindow(InstallWindow):
         
         # set up the tree
         titles = [N_("Device"), N_("Start"), N_("End"),
-                  N_("Size (MB)"), N_("Type"), N_("Mount Point")]
+                  N_("Size (MB)"), N_("Type"), N_("Mount Point"), N_("Format")]
         
         # do two things: enumerate the location of each field and translate
         self.titleSlot = {}
@@ -1396,5 +1407,9 @@ class AutoPartitionWindow(InstallWindow):
         box.pack_start(drivesbox, FALSE, FALSE)
         self.ics.setNextEnabled (TRUE)
 
-	return box
+	align = GtkAlignment()
+	align.add(box)
+	align.set(0.5, 0.5, 0.0, 0.0)
+
+	return align
         
