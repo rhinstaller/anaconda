@@ -550,6 +550,7 @@ class InstallWindow:
     def __call__ (self, screen, todo):
         if todo.doInstall ():
             return INSTALL_BACK
+
         return INSTALL_OK
 
 class FinishedWindow:
@@ -1086,14 +1087,20 @@ class InstallInterface:
              "complete"]
             ]
 
+        # set to 1 if you want to see where in the install you are
+        debugsteps = 0
+
 	dir = 1
         self.steps = self.commonSteps
 
         while self.step >= 0 and self.step < len(self.steps) and self.steps[self.step]:
 	    step = self.steps[self.step]
-
+            if debugsteps:
+                log("step is %s", step[0])
 	    rc = INSTALL_OK
 	    if (len(step) == 4):
+                if debugsteps:
+                    log("skipStep[step] = %s", todo.instClass.skipStep(step[3]))
 		if (todo.instClass.skipStep(step[3])):
 		    rc = INSTALL_NOOP
 
