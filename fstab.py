@@ -167,7 +167,7 @@ class Fstab:
     def getBootPartitionMaxCylFromDrive(self):
 
         # avoid if partitionless install
-        if rootOnLoop(self):
+        if self.rootOnLoop():
             return 0
         
 	bootpart = self.getBootDevice()
