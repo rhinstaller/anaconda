@@ -6,132 +6,133 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.1 Install\n"
-"POT-Creation-Date: 2000-02-02 17:43-0500\n"
-"PO-Revision-Date: 1999-11-10 03:43+01:00\n"
+"POT-Creation-Date: 2000-02-15 16:36-0500\n"
+"PO-Revision-Date: 2000-02-03 14:34+01:00\n"
 "Last-Translator: Birger Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../fstab.py:234 ../fstab.py:390
+#: ../fstab.py:235 ../fstab.py:394
 msgid "Formatting"
 msgstr "Formatterer"
 
-#: ../fstab.py:235
+#: ../fstab.py:236
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr ""
+msgstr "Formatterer swapplads på /dev/%s..."
 
-#: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
-#: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711
-#: ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79
-#: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
+#: ../fstab.py:246 ../fstab.py:326 ../fstab.py:460
+#: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:182
+#: ../loader/devices.c:187 ../loader/lang.c:89 ../loader/loader.c:471
+#: ../loader/loader.c:481 ../loader/loader.c:701 ../loader/loader.c:753
+#: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1692
+#: ../loader/loader.c:1738 ../loader/loader.c:1809 ../loader/urls.c:70
+#: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
+#: ../loader/urls.c:228 ../text.py:281 ../text.py:766 ../todo.py:328
+#: ../todo.py:658 ../todo.py:689
 msgid "Error"
 msgstr "Fejl"
 
-#: ../fstab.py:245
+#: ../fstab.py:246
 msgid "Error creating swap on device "
-msgstr ""
+msgstr "Kunne ikke oprette swap på enhed "
 
-#: ../fstab.py:323
+#: ../fstab.py:327
 #, c-format
 msgid "Error unmounting %s: %s"
-msgstr ""
+msgstr "Kunne ikke afmontere %s: %s"
 
-#: ../fstab.py:345 ../todo.py:410
+#: ../fstab.py:349 ../todo.py:411
 msgid "Creating"
 msgstr "Opretter"
 
-#: ../fstab.py:345
+#: ../fstab.py:349
 msgid "Creating RAID devices..."
 msgstr "Opretter RAID-enheder..."
 
-#: ../fstab.py:391
+#: ../fstab.py:395
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formatterer %s filsystem..."
 
-#: ../fstab.py:413
+#: ../fstab.py:417
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
-#: ../fstab.py:414
+#: ../fstab.py:418
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Opretter loopback filsystem på enhed /dev/%s..."
 
-#: ../fstab.py:457
+#: ../fstab.py:461
 #, c-format
 msgid "Error mounting %s: %s"
-msgstr ""
+msgstr "Kunne ikke montere %s: %s"
 
-#: ../gui.py:270 ../gui.py:516
+#: ../gui.py:277 ../gui.py:523
 msgid "Next"
 msgstr "Næste"
 
-#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
+#: ../gui.py:278 ../gui.py:522 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
-#: ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639
-#: ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162
+#: ../loader/devices.c:171 ../loader/devices.c:249 ../loader/lang.c:548
+#: ../loader/loader.c:255 ../loader/loader.c:608 ../loader/loader.c:644
+#: ../loader/loader.c:753 ../loader/loader.c:1160 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
 #: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
-#: ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297
-#: ../text.py:299 ../text.py:318 ../text.py:320 ../text.py:342 ../text.py:344
-#: ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
-#: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
-#: ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10
+#: ../text.py:173 ../text.py:176 ../text.py:230 ../text.py:284 ../text.py:298
+#: ../text.py:300 ../text.py:319 ../text.py:321 ../text.py:343 ../text.py:345
+#: ../text.py:452 ../text.py:503 ../text.py:505 ../text.py:518 ../text.py:536
+#: ../text.py:549 ../text.py:586 ../text.py:588 ../text.py:614 ../text.py:617
+#: ../text.py:626 ../text.py:686 ../text.py:687 ../textw/constants.py:10
 #: ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94
 #: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:144 ../textw/packages.py:153
-#: ../textw/partitioning.py:23 ../textw/partitioning.py:63
-#: ../textw/partitioning.py:214 ../textw/partitioning.py:263
-#: ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186
-#: ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145
-#: ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../textw/partitioning.py:23 ../textw/partitioning.py:64
+#: ../textw/partitioning.py:231 ../textw/partitioning.py:280
+#: ../textw/silo.py:26 ../textw/silo.py:88 ../textw/silo.py:195
+#: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
-msgstr "Tilbage"
+msgstr ""
 
-#: ../gui.py:272 ../gui.py:520
+#: ../gui.py:279 ../gui.py:527
 msgid "Show Help"
 msgstr "Vis hjælp"
 
-#: ../gui.py:273 ../gui.py:519
+#: ../gui.py:280 ../gui.py:526
 msgid "Hide Help"
 msgstr "Skjul hjælp"
 
-#: ../gui.py:274 ../gui.py:518
+#: ../gui.py:281 ../gui.py:525
 msgid "Finish"
 msgstr "Færdig"
 
-#: ../gui.py:277 ../gui.py:545
+#: ../gui.py:284 ../gui.py:552
 msgid "Online Help"
 msgstr "Onlinehjælp"
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005
-#: ../text.py:1034
+#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1006
+#: ../text.py:1035
 msgid "Language Selection"
 msgstr "Sprogvalg"
 
-#: ../gui.py:482
+#: ../gui.py:489
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux installation"
 
-#: ../gui.py:486
+#: ../gui.py:493
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux installationsskal"
 
-#: ../gui.py:497
+#: ../gui.py:504
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux installerer på %s"
 
-#: ../gui.py:498
+#: ../gui.py:505
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux installationsskal på %s"
@@ -141,7 +142,7 @@ msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
-#: ../installclass.py:289
+#: ../installclass.py:288
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
@@ -167,11 +168,11 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
-#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
-#: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
-#: ../textw/silo.py:185
+#: ../text.py:626 ../textw/constants.py:10 ../textw/lilo.py:105
+#: ../textw/lilo.py:177 ../textw/silo.py:125 ../textw/silo.py:138
+#: ../textw/silo.py:194
 msgid "Ok"
-msgstr "Ok"
+msgstr ""
 
 #: ../text.py:60
 msgid "What language would you like to use during the installation process?"
@@ -194,7 +195,7 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 under DOS)"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
-#: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
+#: ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:185
 msgid "Device"
 msgstr "Enhed"
 
@@ -203,32 +204,32 @@ msgstr "Enhed"
 msgid "What device is your mouse located on? %s %i"
 msgstr "Hvilken enhed befinder din mus sig på? %s %i"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
-#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
+#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:170
+#: ../loader/devices.c:182 ../loader/devices.c:187 ../loader/devices.c:249
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255
-#: ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139
-#: ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774
-#: ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146
-#: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
-#: ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342
-#: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
-#: ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744
-#: ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165
-#: ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20
-#: ../textw/packages.py:85 ../textw/packages.py:144
-#: ../textw/partitioning.py:214 ../textw/partitioning.py:263
-#: ../textw/partitioning.py:273 ../textw/partitioning.py:281
-#: ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66
-#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
-#: ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98
-#: ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176
-#: ../textw/userauth.py:248
+#: ../loader/lang.c:89 ../loader/lang.c:277 ../loader/lang.c:548
+#: ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481
+#: ../loader/loader.c:644 ../loader/loader.c:701 ../loader/loader.c:753
+#: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1004
+#: ../loader/loader.c:1160 ../loader/loader.c:1692 ../loader/loader.c:1738
+#: ../loader/loader.c:1801 ../loader/loader.c:1809 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591
+#: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
+#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:230
+#: ../text.py:298 ../text.py:343 ../text.py:360 ../text.py:452 ../text.py:472
+#: ../text.py:503 ../text.py:586 ../text.py:614 ../text.py:686 ../text.py:711
+#: ../text.py:725 ../text.py:745 ../text.py:758 ../text.py:770 ../text.py:965
+#: ../text.py:969 ../text.py:1166 ../textw/lilo.py:30 ../textw/lilo.py:87
+#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
+#: ../textw/partitioning.py:231 ../textw/partitioning.py:280
+#: ../textw/partitioning.py:290 ../textw/partitioning.py:298
+#: ../textw/silo.py:25 ../textw/silo.py:88 ../textw/timezone.py:66
+#: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
+#: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
+#: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: ../text.py:122
 msgid "Which model mouse is attached to this computer?"
@@ -242,7 +243,7 @@ msgstr "Emulér tre knapper?"
 msgid "Mouse Selection"
 msgstr "Musevalg"
 
-#: ../text.py:171 ../text.py:1007 ../text.py:1036
+#: ../text.py:171 ../text.py:1008 ../text.py:1037
 msgid "Keyboard Selection"
 msgstr "Tastaturvalg"
 
@@ -250,51 +251,51 @@ msgstr "Tastaturvalg"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Hvilken tastaturtype er forbundet til denne computer?"
 
-#: ../text.py:222
+#: ../text.py:223
 msgid "Install GNOME Workstation"
 msgstr "Installér GNOME arbejdsstation"
 
-#: ../text.py:223
+#: ../text.py:224
 msgid "Install KDE Workstation"
 msgstr "Installér KDE arbejdsstation"
 
-#: ../text.py:224
+#: ../text.py:225
 msgid "Install Server System"
 msgstr "Installér server system"
 
-#: ../text.py:225
+#: ../text.py:226
 msgid "Install Custom System"
 msgstr "Installér egendefineret system"
 
-#: ../text.py:226
+#: ../text.py:227
 msgid "Upgrade Existing Installation"
 msgstr "Upgradér eksisterende installation"
 
-#: ../text.py:227 ../text.py:1039
+#: ../text.py:228 ../text.py:1040
 msgid "Installation Type"
 msgstr "Installationstype"
 
-#: ../text.py:228
+#: ../text.py:229
 msgid "What type of system would you like to install?"
 msgstr "Hvilken systemtype ønsker du at installere?"
 
-#: ../text.py:281
+#: ../text.py:282
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Du har ingen Linux partitioner. Du kan ikke opgradere dette system!"
 
-#: ../text.py:294
+#: ../text.py:295
 msgid "System to Upgrade"
 msgstr "System som skal opgraderes"
 
-#: ../text.py:295
+#: ../text.py:296
 msgid "What partition holds the root partition of your installation?"
 msgstr "Hvilken partition indeholder rodpartitionen af din installation?"
 
-#: ../text.py:310
+#: ../text.py:311
 msgid "Customize Packages to Upgrade"
 msgstr "Angiv hvilke pakker som skal opgraderes"
 
-#: ../text.py:311
+#: ../text.py:312
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -310,8 +311,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/loader.c:603 ../loader/net.c:719 ../text.py:318 ../text.py:517
-#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:175
+#: ../loader/loader.c:608 ../loader/net.c:719 ../text.py:319 ../text.py:518
+#: ../text.py:536 ../text.py:543 ../textw/partitioning.py:192
 msgid "Yes"
 msgstr "Ja"
 
@@ -321,16 +322,16 @@ msgstr "Ja"
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/net.c:719 ../text.py:318 ../text.py:323 ../text.py:517
-#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:175
+#: ../loader/net.c:719 ../text.py:319 ../text.py:324 ../text.py:518
+#: ../text.py:536 ../text.py:546 ../textw/partitioning.py:192
 msgid "No"
 msgstr "Nej"
 
-#: ../text.py:333 ../text.py:351
+#: ../text.py:334 ../text.py:352
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:334
+#: ../text.py:335
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -351,7 +352,7 @@ msgstr ""
 "Har du købt den officielle Red Hat Linux, husk da at registrerer dit køb "
 "gennem vores webside, http://www.redhat.com/."
 
-#: ../text.py:352
+#: ../text.py:353
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -360,62 +361,71 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"Velkommen til Red Hat Linux!\n"
+"\n"
+"Du er i en rekonfigurationsmodus som giver dig mulighed for at konfigurere "
+"din komputers site-specifikke indstillinger.\n"
+"\n"
+"Tryk på Annullér knappen for afslutte uden at ændre dine opsætning."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
-#: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
-#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
+#: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:171
+#: ../loader/loader.c:1801 ../text.py:360 ../text.py:362 ../textw/lilo.py:106
+#: ../textw/silo.py:125 ../textw/silo.py:143 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr "Annullér"
 
-#: ../text.py:423
+#: ../text.py:424
 msgid "Use bootp/dhcp"
 msgstr "Brug bootp/dhcp"
 
-#: ../loader/net.c:234 ../text.py:428
+#: ../loader/net.c:234 ../text.py:429
 msgid "IP address:"
 msgstr "IP adresse:"
 
-#: ../loader/net.c:237 ../text.py:429
+#: ../loader/net.c:237 ../text.py:430
 msgid "Netmask:"
 msgstr "Netmaske:"
 
-#: ../loader/net.c:240 ../text.py:430
+#: ../loader/net.c:240 ../text.py:431
 msgid "Default gateway (IP):"
 msgstr "Standard gateway (IP):"
 
-#: ../loader/net.c:243 ../text.py:431
+#: ../loader/net.c:243 ../text.py:432
 msgid "Primary nameserver:"
-msgstr "Primær navnserver:"
+msgstr "Primær navneserver:"
 
-#: ../iw/network.py:11 ../text.py:453
+#: ../iw/network.py:11 ../text.py:454
 msgid "Network Configuration"
 msgstr "Netværkskonfiguration"
 
-#: ../text.py:469
+#: ../text.py:470
 msgid "Invalid information"
 msgstr "Ugyldig information"
 
-#: ../text.py:470
+#: ../text.py:471
 msgid "You must enter valid IP information to continue"
 msgstr "Du skal indtaste gyldig IP information for at fortsætte"
 
-#: ../text.py:498
+#: ../text.py:499
 msgid "Hostname Configuration"
 msgstr "Værtsnavnskonfiguration"
 
-#: ../text.py:499
+#: ../text.py:500
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
+"Værtsnavnet er det navn, du giver din komputer. Hvis komputeren er "
+"tilsluttet et netværk, skal din netværksadministrator muligvis tildele dig "
+"et navn."
 
-#: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
+#: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:638 ../text.py:503
 msgid "Hostname"
 msgstr "Værtsnavn"
 
-#: ../text.py:518
+#: ../text.py:519
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -426,55 +436,57 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"En bootdiskkette giver mulighed for at boote ind i dit Linux system uden "
-"afhængighed af den normale bootindlæser. Dette er brugbart hvis du ikke "
-"ønsker at installere lilo på dit system, hvis et andet operativsystem "
-"fjerner lilo, eller lilo ikke virker med din maskinnel konfiguration. En "
-"boot diskette kan desuden blive brugt sammen med Red Hat redningsdisketten, "
-"hvilket gør det meget lettere at komme sig efter system fejl.\n"
+"En bootdiskette giver mulighed for at boote ind i dit Linux system uden at "
+"være afhængig af den normale bootindlæser. Dette er praktisk hvis du ikke "
+"ønsker at installere lilo på dit system, hvis et andet operativsystem har "
+"fjernet lilo eller lilo ikke virker med din maskines konfiguration. En "
+"bootdiskette kan desuden blive brugt sammen med Red Hat redningsdisketten, "
+"som gør det meget lettere at komme sig efter alvorlige systemfejl.\n"
 "\n"
-"Ønsker du at oprette en boot diskette for dette system?"
+"Ønsker du at oprette en bootdiskette for dette system?"
 
-#: ../text.py:537
+#: ../text.py:538
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
+"\n"
+"Booting med floppy virker formentlig ikke med en Ultra maskine fra SMCC\n"
 
-#: ../text.py:540 ../text.py:753
+#: ../text.py:541 ../text.py:754
 msgid "Bootdisk"
 msgstr "Bootdiskette"
 
-#: ../text.py:583
+#: ../text.py:584
 msgid "X probe results"
-msgstr "X søgningsresultater"
+msgstr "X testresultater"
 
-#: ../text.py:602 ../text.py:621
+#: ../text.py:603 ../text.py:622
 msgid "Unlisted Card"
 msgstr "Ulistet kort"
 
-#: ../text.py:610
+#: ../text.py:611
 msgid "Video Card Selection"
 msgstr "Valg af videokort"
 
-#: ../text.py:611
+#: ../text.py:612
 msgid "Which video card do you have?"
 msgstr "Hvilket videokort har du?"
 
-#: ../text.py:623
+#: ../text.py:624
 msgid "X Server Selection"
 msgstr "Valg af X server"
 
-#: ../text.py:623
+#: ../text.py:624
 msgid "Choose a server"
 msgstr "Vælg en server"
 
-#: ../text.py:681
+#: ../text.py:682
 msgid "Installation to begin"
 msgstr "Installation begynder"
 
-#: ../iw/confirm.py:31 ../text.py:682
+#: ../iw/confirm.py:33 ../text.py:683
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -482,12 +494,11 @@ msgstr ""
 "En komplet log af din installation vil befinde sig i /tmp/install.log efter "
 "du har genstartet dit system. Du kan gemme denne fil for senere reference."
 
-#: ../text.py:699 ../text.py:714 ../text.py:734
+#: ../text.py:700 ../text.py:715 ../text.py:735
 msgid "Complete"
 msgstr "Færdig"
 
-#: ../iw/congrats.py:32 ../text.py:700
-#, fuzzy
+#: ../iw/congrats.py:32 ../text.py:701
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -501,15 +512,15 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"Fjern boot mediet og tryk på retur/enter for at genstarte. For information "
-"om fejlretninger som er tilgængelig for denne udgave at RH Linux, opsøg "
-"errataen som er tilgængelig på http://www.redhat.com.\n"
+"Tryk venligst på retur/enter for at genstarte og husk at fjerne boot-mediet "
+"først, ellers kommer du til at køre hele installationen én gang til. For "
+"information om hvilke fejlretninger der findes for denne udgave af Red Hat "
+"Linux, læs erratadata som findes på http://www.redhat.com/errata\n"
 "\n"
-"Information om konfigurering af dit system er tilgængelig i den officielle "
-"Red Hat brugerguide i afsnittende efter installationen."
+"Information om konfiguration og brug af dit Redhat Linux system finder du i "
+"Red Hat Linux manualerne."
 
-#: ../text.py:715 ../text.py:735
-#, fuzzy
+#: ../text.py:716 ../text.py:736
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -521,14 +532,13 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"Fjern boot mediet og tryk på retur/enter for at genstarte. For information "
-"om fejlretninger som er tilgængelig for denne udgave at RH Linux, opsøg "
-"errataen som er tilgængelig på http://www.redhat.com.\n"
+"For information om hvilke fejlretninger/bugfixes der findes for denne udgave "
+"af Red Hat Linux, læs erratadata som du finder på http://www.redhat.com.\n"
 "\n"
-"Information om konfigurering af dit system er tilgængelig i den officielle "
-"Red Hat brugerguide i afsnittende efter installationen."
+"Information om yderligere konfigureration af dit system kan du finde i den "
+"officielle Red Hat brugerguide i kapitlet efter installation."
 
-#: ../iw/bootdisk.py:50 ../text.py:754
+#: ../iw/bootdisk.py:57 ../text.py:755
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -536,12 +546,12 @@ msgstr ""
 "Indsæt en tom diskette i diskettedrevet. Alle data på denne diskette vil "
 "blive slettet under oprettelsen af boot disketten."
 
-#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770
+#: ../text.py:758 ../text.py:759 ../text.py:770 ../text.py:771
 #: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr "Spring over"
 
-#: ../iw/bootdisk.py:54 ../text.py:766
+#: ../iw/bootdisk.py:61 ../text.py:767
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -549,56 +559,55 @@ msgstr ""
 "En fejl forudlykkede under oprettelsen af boot disketten. Tjek efter om der "
 "er en formateret diskette i det første diskettedrev."
 
-#: ../text.py:828
+#: ../text.py:829
 msgid "Package Installation"
 msgstr "Pakkeinstallation"
 
-#: ../text.py:830
-msgid "Name   : "
-msgstr "Navn   : "
-
 #: ../text.py:831
+msgid "Name   : "
+msgstr "Navn     : "
+
+#: ../text.py:832
 msgid "Size   : "
 msgstr "Størrelse: "
 
-#: ../text.py:832
+#: ../text.py:833
 msgid "Summary: "
-msgstr "Resumé  : "
-
-#: ../text.py:858
-msgid "    Packages"
-msgstr "    Pakker"
+msgstr "Resumé   : "
 
 #: ../text.py:859
-msgid "       Bytes"
-msgstr "       Byte"
+msgid "    Packages"
+msgstr "      Pakker"
 
 #: ../text.py:860
-msgid "        Time"
-msgstr "        Tid"
+msgid "       Bytes"
+msgstr "        Byte"
 
-#: ../text.py:862
+#: ../text.py:861
+msgid "        Time"
+msgstr "         Tid"
+
+#: ../text.py:863
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:869
+#: ../text.py:870
 msgid "Completed:   "
 msgstr "Færdig:   "
 
-#: ../text.py:879
+#: ../text.py:880
 msgid "Remaining:  "
 msgstr "Tilbage:  "
 
-#: ../text.py:968 ../text.py:969
+#: ../text.py:969 ../text.py:970
 msgid "Debug"
 msgstr "Aflus"
 
-#: ../text.py:981
-#, fuzzy
+#: ../text.py:982
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
-#: ../text.py:983
+#: ../text.py:984
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -606,337 +615,333 @@ msgstr ""
 "  <Tab>/<Alt-Tab> imellem elementer   |  <Space> vælger   |  <F12> næste "
 "skærm"
 
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1004 ../text.py:1039
 msgid "Welcome"
 msgstr "Velkommen"
 
-#: ../text.py:1009 ../text.py:1077
+#: ../text.py:1010 ../text.py:1078
 msgid "Hostname Setup"
 msgstr "Værtnavnsopsætning"
 
-#: ../text.py:1011 ../text.py:1079
+#: ../text.py:1012 ../text.py:1080
 msgid "Network Setup"
 msgstr "Netværksopsætning"
 
-#: ../text.py:1017 ../text.py:1085
+#: ../text.py:1018 ../text.py:1086
 msgid "Time Zone Setup"
 msgstr "Tidszoneopsætning"
 
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:8
+#: ../text.py:1020 ../text.py:1088 ../textw/userauth.py:9
 msgid "Root Password"
 msgstr "Root adgangskode"
 
-#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:152
+#: ../text.py:1022 ../text.py:1090 ../textw/userauth.py:161
 msgid "User Account Setup"
 msgstr "Brugerkontiopsætning"
 
-#: ../text.py:1023 ../text.py:1091
+#: ../text.py:1024 ../text.py:1092
 msgid "Authentication"
 msgstr "Godkendelse"
 
-#: ../text.py:1029
-#, fuzzy
+#: ../text.py:1030
 msgid "Configuration Complete"
-msgstr "X konfiguration"
+msgstr "Konfiguration er komplet"
 
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
-#: ../textw/silo.py:193
+#: ../text.py:1048 ../textw/silo.py:28 ../textw/silo.py:90
+#: ../textw/silo.py:202
 msgid "SILO Configuration"
 msgstr "SILO konfiguration"
 
-#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
+#: ../text.py:1054 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
 msgid "LILO Configuration"
 msgstr "LILO konfiguration"
 
 #: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:269
-#: ../text.py:1057 ../text.py:1063
+#: ../text.py:1058 ../text.py:1064
 msgid "Partition"
 msgstr "Partition"
 
-#: ../text.py:1059
+#: ../text.py:1060
 msgid "Manually Partition"
 msgstr "Manuel partitionering"
 
-#: ../text.py:1061
+#: ../text.py:1062
 msgid "Automatic Partition"
 msgstr "Automatisk partitionering"
 
-#: ../text.py:1065 ../textw/partitioning.py:255
+#: ../text.py:1066 ../textw/partitioning.py:272
 msgid "Root Filesystem Size"
-msgstr ""
+msgstr "Rodfilsystemstørrelse"
 
-#: ../text.py:1067
+#: ../text.py:1068
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1069
+#: ../text.py:1070
 msgid "Filesystem Formatting"
 msgstr "Filsystemsformatering"
 
-#: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
+#: ../iw/mouse.py:55 ../text.py:1082 ../text.py:1084
 msgid "Mouse Configuration"
 msgstr "Musekonfiguration"
 
-#: ../text.py:1093
+#: ../text.py:1094
 msgid "Package Groups"
 msgstr "Pakkegrupper"
 
-#: ../text.py:1095 ../text.py:1123
+#: ../text.py:1096 ../text.py:1124
 msgid "Individual Packages"
 msgstr "Individuelle pakker"
 
-#: ../text.py:1097 ../textw/packages.py:122
+#: ../text.py:1098 ../textw/packages.py:122
 msgid "Package Dependencies"
 msgstr "Pakkeafhængigheder"
 
-#: ../iw/xconfig.py:249 ../text.py:1099 ../text.py:1107
+#: ../iw/xconfig.py:250 ../text.py:1100 ../text.py:1108
 msgid "X Configuration"
 msgstr "X konfiguration"
 
-#: ../text.py:1101
+#: ../text.py:1102
 msgid "Installation Begins"
 msgstr "Installationen begynder"
 
-#: ../text.py:1103
+#: ../text.py:1104
 msgid "Install System"
 msgstr "Installér system"
 
-#: ../text.py:1104 ../text.py:1106 ../text.py:1125 ../text.py:1127
+#: ../text.py:1105 ../text.py:1107 ../text.py:1126 ../text.py:1128
 msgid "Boot Disk"
 msgstr "Bootdiskette"
 
-#: ../text.py:1109
+#: ../text.py:1110
 msgid "Installation Complete"
 msgstr "Installationen er færdig"
 
-#: ../text.py:1114
+#: ../text.py:1115
 msgid "Examine System"
 msgstr "Undersøg system"
 
-#: ../text.py:1121
+#: ../text.py:1122
 msgid "Customize Upgrade"
 msgstr "Egendefineret opgradering"
 
-#: ../text.py:1124
+#: ../text.py:1125
 msgid "Upgrade System"
 msgstr "Opgradér system"
 
-#: ../text.py:1128
+#: ../text.py:1129
 msgid "Upgrade Complete"
 msgstr "Upgradering er færdig"
 
-#: ../text.py:1162
+#: ../text.py:1163
 msgid "Cancelled"
 msgstr "Annulleret"
 
-#: ../text.py:1163
+#: ../text.py:1164
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jeg kan ikke gå til forrige trin herfra. Du bliver nødt til at prøve igen."
 
 #: ../todo.py:329
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying file: %s"
-msgstr "Fejl under montering af ext2 filsystem på %s: %s"
+msgstr "Fejl ved kopiering af fil: %s"
 
-#: ../todo.py:410
+#: ../todo.py:411
 msgid "Creating boot disk..."
 msgstr "Opretter bootdiskette..."
 
-#: ../todo.py:430
+#: ../todo.py:431
 msgid "Reading"
 msgstr "Læser"
 
-#: ../todo.py:431
+#: ../todo.py:432
 msgid "Reading package information..."
 msgstr "Læser pakkeinformation..."
 
-#: ../todo.py:627 ../todo.py:640
+#: ../todo.py:628 ../todo.py:641
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../todo.py:646
+#: ../todo.py:647
 msgid "Searching"
 msgstr "Søger"
 
-#: ../todo.py:647
+#: ../todo.py:648
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Søger efter Red Hat Linux installationer..."
 
-#: ../todo.py:658 ../todo.py:689
+#: ../todo.py:659 ../todo.py:690
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Fejl under montering af ext2 filsystem på %s: %s"
 
-#: ../todo.py:700
+#: ../todo.py:701
 msgid "Finding"
 msgstr "Finder"
 
-#: ../todo.py:701
+#: ../todo.py:702
 msgid "Finding packages to upgrade..."
 msgstr "Finder pakker som skal opgraderes"
 
-#: ../todo.py:944
+#: ../todo.py:951
 msgid "Processing"
 msgstr "Behandler"
 
-#: ../todo.py:945
+#: ../todo.py:952
 msgid "Preparing to install..."
 msgstr "Gør parat til at installere..."
 
-#: ../todo.py:1112
+#: ../todo.py:1121
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Opgraderer %s.\n"
 
-#: ../todo.py:1114
+#: ../todo.py:1123
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1135
+#: ../todo.py:1144
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1138
+#: ../todo.py:1147
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1138
+#: ../todo.py:1147
 msgid "Space Needed"
 msgstr "Diskplads krævet"
 
-#: ../todo.py:1151
+#: ../todo.py:1160
 msgid "Disk Space"
 msgstr "Diskplads"
 
-#: ../todo.py:1175
+#: ../todo.py:1184
 msgid "Post Install"
-msgstr ""
+msgstr "Efterinstallation"
 
-#: ../todo.py:1176
+#: ../todo.py:1185
 msgid "Performing post install configuration..."
-msgstr ""
+msgstr "Udfører efterinstallationskonfiguration..."
 
-#: ../iw/xconfig.py:10 ../xf86config.py:243
+#: ../iw/xconfig.py:10 ../xf86config.py:257
 msgid "Video Card"
 msgstr "Videokort"
 
-#: ../iw/xconfig.py:12 ../xf86config.py:245
+#: ../iw/xconfig.py:12 ../xf86config.py:259
 msgid "Video Ram"
 msgstr "Video ram"
 
-#: ../xf86config.py:247
+#: ../xf86config.py:261
 msgid "X server"
 msgstr "X server"
 
-#: ../xf86config.py:249
+#: ../xf86config.py:263
 msgid "Unable to detect video card"
 msgstr "Kunne ikke bestemme videokort"
 
-#: ../iw/xconfig.py:11 ../xf86config.py:256 ../xf86config.py:258
+#: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
 msgid "Monitor"
 msgstr "Skærm"
 
-#: ../xf86config.py:258
+#: ../xf86config.py:272
 msgid "Plug and Play Monitor"
 msgstr "Plug and Play skærm"
 
-#: ../xf86config.py:260
+#: ../xf86config.py:274
 msgid "Horizontal frequency range"
-msgstr ""
+msgstr "Vandret frekvensområde"
 
-#: ../xf86config.py:262
+#: ../xf86config.py:276
 msgid "Vertical frequency range"
-msgstr ""
+msgstr "Lodret frekvensområde"
 
-#: ../iw/account.py:14
+#: ../iw/account.py:15
 msgid "Account Configuration"
 msgstr "Kontokonfiguration"
 
-#: ../iw/account.py:35
-#, fuzzy
+#: ../iw/account.py:36
 msgid "Root password accepted."
-msgstr "Root adgangskode: "
+msgstr "Root adgangskode accepteret."
 
-#: ../iw/account.py:38
-#, fuzzy
+#: ../iw/account.py:39
 msgid "Root password is too short."
-msgstr "Root adgangskode: "
+msgstr "Root adgangskode er for kort."
 
-#: ../iw/account.py:40
-#, fuzzy
+#: ../iw/account.py:41
 msgid "Root password does not match."
-msgstr "Adgangskode stemmer ikke"
+msgstr "Root adgangskode stemmer ikke."
 
-#: ../iw/account.py:138
+#: ../iw/account.py:168
 msgid "Root Password: "
 msgstr "Root adgangskode: "
 
-#: ../iw/account.py:141
+#: ../iw/account.py:171
 msgid "Confirm: "
 msgstr "Bekræft: "
 
-#: ../iw/account.py:197 ../iw/account.py:236
+#: ../iw/account.py:229 ../iw/account.py:268
 msgid "Account Name"
 msgstr "Kontonavn"
 
-#: ../iw/account.py:201 ../textw/userauth.py:79
+#: ../iw/account.py:233 ../textw/userauth.py:80
 msgid "Password"
 msgstr "Adgangskode"
 
-#: ../iw/account.py:205 ../textw/userauth.py:80
+#: ../iw/account.py:237 ../textw/userauth.py:81
 msgid "Password (confirm)"
 msgstr "Adgangskode (bekræft)"
 
-#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
-#: ../textw/userauth.py:164
+#: ../iw/account.py:241 ../iw/account.py:268 ../textw/userauth.py:79
+#: ../textw/userauth.py:173
 msgid "Full Name"
 msgstr "Fulde navn"
 
-#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
+#: ../iw/account.py:250 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:184
 msgid "Add"
 msgstr "Tilføj"
 
-#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
-#: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
-#: ../textw/userauth.py:176
+#: ../textw/partitioning.py:63 ../textw/silo.py:194 ../textw/silo.py:216
+#: ../textw/userauth.py:185
 msgid "Edit"
 msgstr "Redigér"
 
-#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
+#: ../iw/account.py:254 ../libfdisk/newtfsedit.c:1291
+#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
 msgid "Delete"
 msgstr "Slet"
 
-#: ../iw/account.py:224
+#: ../iw/account.py:256
 msgid "New"
 msgstr "Ny"
 
-#: ../iw/auth.py:11 ../textw/userauth.py:250
+#: ../iw/auth.py:11 ../textw/userauth.py:259
 msgid "Authentication Configuration"
 msgstr "Godkendelseskonfiguration"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr "Slå MD5 adgangskoder til"
+msgstr "Brug MD5 adgangskoder"
 
 #: ../iw/auth.py:51
 msgid "Enable shadow passwords"
-msgstr "Slå skygge adgangskoder til"
+msgstr "Brug skygge-adgangskoder"
 
-#: ../iw/auth.py:53 ../textw/userauth.py:255
+#: ../iw/auth.py:53 ../textw/userauth.py:264
 msgid "Enable NIS"
 msgstr "Slå NIS til"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr "Brug 'broadcast' til at finde NIS tjener"
+msgstr "Brug 'broadcast' til at finde NIS server"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
@@ -946,21 +951,21 @@ msgstr "NIS domæne: "
 msgid "NIS Server: "
 msgstr "NIS server: "
 
-#: ../iw/bootdisk.py:10
+#: ../iw/bootdisk.py:11
 msgid "Bootdisk Creation"
-msgstr "Bootdiskette oprettelse"
+msgstr "Opret bootdiskette"
 
-#: ../iw/bootdisk.py:61
+#: ../iw/bootdisk.py:68
 msgid "Skip boot disk creation"
-msgstr "Spring bootdiskette oprettelse over"
+msgstr "Spring bootdiskette opretning over"
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
-msgstr "Parat til at installere"
+msgstr "Klar til at installere"
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Klik på næste for at begynde installationen af Red Hat Linux"
+msgstr "Klik på næste for at begynde installation af Red Hat Linux"
 
 #: ../iw/congrats.py:11 ../iw/congrats.py:58
 msgid "Congratulations"
@@ -971,7 +976,6 @@ msgid "Exit"
 msgstr "Afslut"
 
 #: ../iw/congrats.py:80
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -983,18 +987,17 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"Fjern boot mediet og tryk på retur/enter for at genstarte. For information "
-"om fejlretninger som er tilgængelig for denne udgave at RH Linux, opsøg "
-"errataen som er tilgængelig på http://www.redhat.com.\n"
+"For information om hvilke fejlretninger der findes for denne udgave at Red "
+"Hat Linux, læs erratadata på http://www.redhat.com.\n"
 "\n"
-"Information om konfigurering af dit system er tilgængelig i den officielle "
-"Red Hat brugerguide i afsnittende efter installationen."
+"Information om yderligere konfigureration af dit system finder du i den "
+"officielle Red Hat brugerguide i kapitlet efter installationen."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
 msgstr "Uløste afhængigheder"
 
-#: ../iw/dependencies.py:30 ../iw/progress.py:121 ../textw/packages.py:129
+#: ../iw/dependencies.py:30 ../iw/progress.py:127 ../textw/packages.py:129
 msgid "Package"
 msgstr "Pakke"
 
@@ -1059,15 +1062,15 @@ msgstr "Egendefineret"
 msgid "Install Type"
 msgstr "Installationstype"
 
-#: ../iw/installpath.py:181
+#: ../iw/installpath.py:187
 msgid "Install"
 msgstr "Installér"
 
-#: ../iw/installpath.py:183
+#: ../iw/installpath.py:189
 msgid "Upgrade"
 msgstr "Opgradér"
 
-#: ../iw/installpath.py:236
+#: ../iw/installpath.py:242
 msgid "Use fdisk"
 msgstr "Brug fdisk"
 
@@ -1085,23 +1088,23 @@ msgstr "Udseende"
 
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr ""
+msgstr "Accenter"
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr ""
+msgstr "Brug accenter"
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr ""
+msgstr "Brug ikke accenter"
 
 #: ../iw/keyboard.py:113
 msgid "Test your selection here:"
 msgstr "Test dit valg her:"
 
-#: ../iw/language.py:21 ../loader/lang.c:267
+#: ../iw/language.py:21 ../loader/lang.c:275
 msgid "What language should be used during the installation process?"
-msgstr "Hvilket sprog skal benyttes under installationen?"
+msgstr "Hvilket sprog skal benyttes under installationsprocessen?"
 
 #: ../iw/lilo.py:18
 msgid "Lilo Configuration"
@@ -1115,11 +1118,11 @@ msgstr "Type"
 msgid "Install LILO boot record on:"
 msgstr "Installér LILO boot record på:"
 
-#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:61
+#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:62
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:62
+#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "First sector of boot partition"
 msgstr "Første sektor på boot partitionen"
 
@@ -1140,22 +1143,22 @@ msgid "Do not install LILO"
 msgstr "Installér ikke LILO"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:176
+#: ../textw/silo.py:185
 msgid "Default"
 msgstr "Standard"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:176
+#: ../textw/silo.py:185
 msgid "Partition type"
 msgstr "Partitionstype"
 
 #: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281
-#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
-#: ../textw/silo.py:176
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:121
+#: ../textw/silo.py:185
 msgid "Boot label"
 msgstr "Bootetikette"
 
-#: ../iw/mouse.py:134
+#: ../iw/mouse.py:132
 msgid "Emulate 3 Buttons"
 msgstr "Emulér 3 knapper"
 
@@ -1235,35 +1238,35 @@ msgstr "Vælg individuelle pakker"
 msgid "Installing Packages"
 msgstr "Installerer pakker"
 
-#: ../iw/progress.py:122 ../iw/progress.py:157
+#: ../iw/progress.py:128 ../iw/progress.py:163
 msgid "Size"
 msgstr "Størrelse"
 
-#: ../iw/progress.py:123
+#: ../iw/progress.py:129
 msgid "Summary"
 msgstr "Resumé"
 
-#: ../iw/progress.py:157
+#: ../iw/progress.py:163
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress.py:157
+#: ../iw/progress.py:163
 msgid "Packages"
 msgstr "Pakker"
 
-#: ../iw/progress.py:157
+#: ../iw/progress.py:163
 msgid "Time"
 msgstr "Tid"
 
-#: ../iw/progress.py:162
+#: ../iw/progress.py:168
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress.py:163
+#: ../iw/progress.py:169
 msgid "Completed"
 msgstr "Færdig"
 
-#: ../iw/progress.py:164
+#: ../iw/progress.py:170
 msgid "Remaining"
 msgstr "Tilbage"
 
@@ -1275,11 +1278,11 @@ msgstr "Bekræft partitioneringsvalg"
 msgid "Disk Druid"
 msgstr "Diskdruide"
 
-#: ../iw/rootpartition.py:43 ../textw/partitioning.py:170
+#: ../iw/rootpartition.py:43 ../textw/partitioning.py:187
 msgid "Low Memory"
 msgstr "Lav hukommelse"
 
-#: ../iw/rootpartition.py:44 ../textw/partitioning.py:171
+#: ../iw/rootpartition.py:44 ../textw/partitioning.py:188
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1289,7 +1292,7 @@ msgstr ""
 "øjeblikkelig at slå swapning til. For at gøre dette bliver vi  nødt at "
 "skrive den nye patitionstabel på disken. Er dette ok?"
 
-#: ../iw/rootpartition.py:115 ../textw/partitioning.py:256
+#: ../iw/rootpartition.py:115 ../textw/partitioning.py:273
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1300,17 +1303,17 @@ msgstr ""
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
-msgstr ""
+msgstr "Rodfilsystemstørrelse:"
 
 #: ../iw/rootpartition.py:140
 msgid "Swap space size:"
-msgstr ""
+msgstr "Swappladsstørrelse:"
 
-#: ../iw/rootpartition.py:159 ../textw/partitioning.py:124
+#: ../iw/rootpartition.py:159 ../textw/partitioning.py:125
 msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
-#: ../iw/rootpartition.py:225 ../textw/partitioning.py:125
+#: ../iw/rootpartition.py:234 ../textw/partitioning.py:126
 #, c-format
 msgid ""
 "%s\n"
@@ -1320,13 +1323,13 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:239
+#: ../iw/rootpartition.py:248
 msgid "Remove data"
 msgstr "Fjern data"
 
-#: ../iw/rootpartition.py:242 ../textw/partitioning.py:129
+#: ../iw/rootpartition.py:251 ../textw/partitioning.py:130
 msgid "Manually partition"
-msgstr "Manuel partition"
+msgstr "Manuel partitionering"
 
 #: ../iw/silo.py:18
 msgid "Silo Configuration"
@@ -1352,91 +1355,94 @@ msgstr "Installér ikke SILO"
 msgid "Time Zone Selection"
 msgstr "Valg af tidszone"
 
-#: ../iw/timezone.py:143
+#: ../iw/timezone.py:147
 msgid "View:"
 msgstr "Vis:"
 
-#: ../iw/timezone.py:151 ../iw/timezone.py:152
+#: ../iw/timezone.py:155 ../iw/timezone.py:156
 msgid "System clock uses UTC"
-msgstr "System klokke benytter UTC"
+msgstr "Systemur benytter UTC"
 
-#: ../iw/timezone.py:200
+#: ../iw/timezone.py:204
 msgid "Use Daylight Saving Time (US only)"
-msgstr ""
+msgstr "Brug Daylight Saving Time (kun i USA)"
 
-#: ../iw/timezone.py:214
+#: ../iw/timezone.py:218
 msgid "Location"
 msgstr "Placering"
 
-#: ../iw/timezone.py:215
+#: ../iw/timezone.py:219
 msgid "UTC Offset"
-msgstr ""
+msgstr "UTC-offset"
 
 #: ../iw/welcome.py:80
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "Ønsker du at indstille netværk?"
+msgstr "Ønsker du at indstille dit system?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
-msgstr ""
+msgstr "Vandret frekvensområde"
 
 #: ../iw/xconfig.py:14
 msgid "Vertical Frequency Range"
-msgstr ""
+msgstr "Lodret frekvensområde"
 
 #: ../iw/xconfig.py:15
 msgid "Test failed"
-msgstr "Test fejlet"
+msgstr "Test fejlede"
 
-#: ../iw/xconfig.py:23 ../iw/xconfig.py:413
+#: ../iw/xconfig.py:23 ../iw/xconfig.py:427
 msgid "Customize X Configuration"
-msgstr ""
+msgstr "Personlig X konfiguration"
 
 #: ../iw/xconfig.py:87
 msgid "Bits per Pixel"
 msgstr "Bit per pixel"
 
-#: ../iw/xconfig.py:97 ../iw/xconfig.py:409
+#: ../iw/xconfig.py:97 ../iw/xconfig.py:423
 msgid "Test this configuration"
 msgstr "Test denne konfiguration"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "Lilo konfiguration"
+msgstr "Skærmkonfiguration"
 
-#: ../iw/xconfig.py:215
+#: ../iw/xconfig.py:216
 msgid "Horizontal Sync"
-msgstr ""
+msgstr "Vandret sync"
 
-#: ../iw/xconfig.py:224
+#: ../iw/xconfig.py:225
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Lodret sync"
 
-#: ../iw/xconfig.py:329
+#: ../iw/xconfig.py:331
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
 
-#: ../iw/xconfig.py:340
+#: ../iw/xconfig.py:342 ../iw/xconfig.py:363
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
 
-#: ../iw/xconfig.py:361
+#: ../iw/xconfig.py:351
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
 
-#: ../iw/xconfig.py:418
+#: ../iw/xconfig.py:372
+#, fuzzy
+msgid "Autoprobe results:"
+msgstr "X testresultater"
+
+#: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
 msgstr "Brug grafisk logind"
 
-#: ../iw/xconfig.py:419
+#: ../iw/xconfig.py:433
 msgid "Skip X Configuration"
 msgstr "Spring X konfigurationen over"
 
@@ -1448,19 +1454,19 @@ msgid ""
 "blank."
 msgstr ""
 
-#: ../textw/lilo.py:85 ../textw/silo.py:91
+#: ../textw/lilo.py:85 ../textw/silo.py:92
 msgid "Where do you want to install the bootloader?"
 msgstr "Hvor vil du installere bootindlæseren"
 
-#: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
+#: ../textw/lilo.py:105 ../textw/silo.py:125 ../textw/silo.py:146
 msgid "Clear"
-msgstr ""
+msgstr "Ryd"
 
-#: ../textw/lilo.py:114 ../textw/silo.py:132
+#: ../textw/lilo.py:114 ../textw/silo.py:133
 msgid "Edit Boot Label"
 msgstr "Redigér bootetikette"
 
-#: ../textw/lilo.py:181 ../textw/silo.py:188
+#: ../textw/lilo.py:181 ../textw/silo.py:197
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1474,7 +1480,7 @@ msgid ""
 "installed."
 msgstr ""
 
-#: ../textw/partitioning.py:14 ../textw/partitioning.py:56
+#: ../textw/partitioning.py:14 ../textw/partitioning.py:57
 msgid "Disk Setup"
 msgstr "Diskopsætning"
 
@@ -1488,68 +1494,74 @@ msgid ""
 "Which tool would you like to use?"
 msgstr ""
 
-#: ../textw/partitioning.py:57
+#: ../textw/partitioning.py:58
 msgid ""
 "To install Red Hat Linux, you must have at least one partition of 150 MB "
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
+"For at installere Red Hat Linux skal du have mindst én partition med 150 Mb "
+"bare til Linux. Vi anbefaler at du placerer den partition på én af de to "
+"første harddiske på dit system så du kan boote ind i Linux ved hjælp af LILO."
 
-#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:62
+#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:63
 msgid "Done"
 msgstr "Færdig"
 
-#: ../textw/partitioning.py:129 ../textw/partitioning.py:130
+#: ../textw/partitioning.py:130 ../textw/partitioning.py:131
 msgid "Continue"
 msgstr "Fortsæt"
 
-#: ../textw/partitioning.py:190
+#: ../textw/partitioning.py:207
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
+"Hvilke partitioner vil du formattere? Vi anbefaler kraftigt at du "
+"formatterer alle dine systempartitioner, inklusive /, /usr og /var. Der er "
+"ingen grund til at formattere /home eller /usr/local hvis de allerede er "
+"blevet konfigureret under en tidligere installation."
 
-#: ../textw/partitioning.py:211
+#: ../textw/partitioning.py:228
 msgid "Check for bad blocks during format"
-msgstr "Tjek for dårlige blokke under formatering"
+msgstr "Tjek efter ødelagte blokke under formattering"
 
-#: ../textw/partitioning.py:216
+#: ../textw/partitioning.py:233
 msgid "Choose Partitions to Format"
-msgstr "Vælg partitioner som skal formateres"
-
-#: ../textw/partitioning.py:261
-msgid "Root filesystem size"
-msgstr ""
-
-#: ../textw/partitioning.py:262
-msgid "Swap space"
-msgstr ""
-
-#: ../textw/partitioning.py:271 ../textw/partitioning.py:277
-#, fuzzy
-msgid "Bad Size"
-msgstr "Størrelse"
-
-#: ../textw/partitioning.py:272
-msgid "The size you enter must be a number."
-msgstr ""
+msgstr "Vælg partitioner at formattere"
 
 #: ../textw/partitioning.py:278
+msgid "Root filesystem size"
+msgstr "Rodfilsystemstørrelse"
+
+#: ../textw/partitioning.py:279
+msgid "Swap space"
+msgstr "Swapplads"
+
+#: ../textw/partitioning.py:288 ../textw/partitioning.py:294
+msgid "Bad Size"
+msgstr "Dårlig størrelse"
+
+#: ../textw/partitioning.py:289
+msgid "The size you enter must be a number."
+msgstr "Størrelsen, du angiver, skal være et tal."
+
+#: ../textw/partitioning.py:295
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
 
-#: ../textw/silo.py:63
+#: ../textw/silo.py:64
 msgid "Create PROM alias `linux'"
 msgstr "Opret PROM alias `linux'"
 
-#: ../textw/silo.py:64
+#: ../textw/silo.py:65
 msgid "Set default PROM boot device"
-msgstr ""
+msgstr "Angiv standard PROM bootenhed"
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
@@ -1559,130 +1571,148 @@ msgstr "Hvilken tidszone befinder du dig i?"
 msgid "Hardware clock set to GMT?"
 msgstr "Indbygget ur sat til GMT?"
 
-#: ../textw/userauth.py:10
+#: ../textw/userauth.py:11
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"Vælg en 'root' adgangskode. Du skal skrive det to gange for at sikre at du "
+"ved hvad det er og ikke taster forkert (caps lock). Husk at root "
+"adgangskoden er en meget vigtig del af systemets sikkerhed!"
 
-#: ../loader/urls.c:337 ../textw/userauth.py:23
+#: ../loader/urls.c:337 ../textw/userauth.py:24
 msgid "Password:"
 msgstr "Adgangskode:"
 
-#: ../textw/userauth.py:24
+#: ../textw/userauth.py:25
 msgid "Password (again):"
 msgstr "Adgangskode (igen):"
 
-#: ../textw/userauth.py:40 ../textw/userauth.py:95
+#: ../textw/userauth.py:41 ../textw/userauth.py:104
 msgid "Password Length"
 msgstr "Adgangskodelængde"
 
-#: ../textw/userauth.py:41
+#: ../textw/userauth.py:42
 msgid "The root password must be at least 6 characters long."
-msgstr "Root adgangskoden skal være mindst 6 bogstaver lang."
+msgstr "Root adgangskoden skal være på mindst 6 tegn."
 
-#: ../textw/userauth.py:45 ../textw/userauth.py:103
+#: ../textw/userauth.py:46 ../textw/userauth.py:112
 msgid "Password Mismatch"
 msgstr "Adgangskode stemmer ikke"
 
-#: ../textw/userauth.py:46 ../textw/userauth.py:104
+#: ../textw/userauth.py:47 ../textw/userauth.py:113
 msgid "The passwords you entered were different. Please try again."
-msgstr "De to adgangskoder du indtastede var forskellige. Prøv igen."
+msgstr "De to adgangskoder du indtastede var ikke éns. Prøv igen."
 
-#: ../textw/userauth.py:71
+#: ../textw/userauth.py:72
 msgid "Edit User"
 msgstr "Redigér bruger"
 
-#: ../textw/userauth.py:73
+#: ../textw/userauth.py:74
 msgid "Add User"
 msgstr "Tilføj bruger"
 
-#: ../textw/userauth.py:77
+#: ../textw/userauth.py:78
 msgid "User ID"
-msgstr "Bruger ID"
-
-#: ../textw/userauth.py:90
-#, fuzzy
-msgid "Missing User ID"
 msgstr "Bruger ID"
 
 #: ../textw/userauth.py:91
 #, fuzzy
+msgid "Bad User ID"
+msgstr "Bruger ID"
+
+#: ../textw/userauth.py:92
+msgid ""
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
+msgstr ""
+
+#: ../textw/userauth.py:99
+msgid "Missing User ID"
+msgstr "Manglende bruger ID"
+
+#: ../textw/userauth.py:100
 msgid "You must provide a user ID"
-msgstr "Du skal indtaste et servernavn."
+msgstr "Du skal komme med en bruger ID"
 
-#: ../textw/userauth.py:96
+#: ../textw/userauth.py:105
 msgid "The password must be at least 6 characters long."
-msgstr "Adgangskoden skal være mindst 6 bogstaver lang."
+msgstr "Adgangskoden skal være på mindst 6 tegn."
 
-#: ../textw/userauth.py:113
+#: ../textw/userauth.py:122
 msgid "User Exists"
 msgstr "Bruger eksisterer"
 
-#: ../textw/userauth.py:114
+#: ../textw/userauth.py:123
 msgid "This user id already exists.  Choose another."
 msgstr "Denne bruger id eksisterer allerede. Vælg en anden."
 
-#: ../textw/userauth.py:141
+#: ../textw/userauth.py:150
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"Du bør bruge en almindelig brugerkonto for de fleste aktiviteter på dit "
+"system. Ved ikke at bruge root kontoen til daglig reducerer du faren for at "
+"beskadige din systemkonfiguration."
 
-#: ../textw/userauth.py:154
+#: ../textw/userauth.py:163
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
+"Hvilken brugerkonto vil du gerne have på systemet? Du bør have mindst én "
+"ikke-rootkonto til dit almindelige arbejde, men flerbrugersystemer kan "
+"opsætte så mange kontoer som behøves."
 
-#: ../textw/userauth.py:164
+#: ../textw/userauth.py:173
 msgid "User name"
 msgstr "Brugernavn"
 
-#: ../textw/userauth.py:188
+#: ../textw/userauth.py:197
 msgid "Enter the information for the user."
 msgstr "Indtast brugerens informationer."
 
-#: ../textw/userauth.py:200
+#: ../textw/userauth.py:209
 msgid "Change the information for this user."
 msgstr "Ændr denne brugers informationer."
 
-#: ../textw/userauth.py:251
+#: ../textw/userauth.py:260
 msgid "Use Shadow Passwords"
 msgstr "Brug 'skygge'-adgangskoder"
 
-#: ../textw/userauth.py:253
-msgid "Enable MD5 Passwords"
-msgstr "Slå MD5 adgangskoder til"
-
-#: ../textw/userauth.py:260
-msgid "NIS Domain:"
-msgstr "NIS domæne"
-
 #: ../textw/userauth.py:262
+msgid "Enable MD5 Passwords"
+msgstr "Brug MD5 adgangskoder"
+
+#: ../textw/userauth.py:269
+msgid "NIS Domain:"
+msgstr "NIS domæne:"
+
+#: ../textw/userauth.py:271
 msgid "NIS Server:"
 msgstr "NIS server:"
 
-#: ../textw/userauth.py:264
+#: ../textw/userauth.py:273
 msgid "or use:"
 msgstr "eller brug:"
 
-#: ../textw/userauth.py:267
+#: ../textw/userauth.py:276
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Spørg efter server vha. broadcast"
 
 #: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
 #: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
 msgid "Bad Mount Point"
-msgstr "Forkert monterings punkt"
+msgstr "Dårligt monteringspunkt"
 
 #: ../libfdisk/fsedit.c:729
 #, c-format
 msgid "The %s directory must be on the root filesystem."
-msgstr ""
+msgstr "%s mappen skal ligge på rodfilsystemet."
 
 #: ../libfdisk/fsedit.c:736
 #, c-format
@@ -1723,6 +1753,9 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
+"Monteringspunktet %s er ulovligt.\n"
+"\n"
+"Systempartitioner skal ligge på indfødte Linux partitioner."
 
 #: ../libfdisk/fsedit.c:789
 #, c-format
@@ -1731,6 +1764,9 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
+"Monteringspunktet %s er ulovligt.\n"
+"\n"
+"/usr skal ligge på en indfødt Linux partition eller NFS volume."
 
 #: ../libfdisk/fsedit.c:817
 msgid "Too Many Drives"
@@ -1766,10 +1802,12 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
+"Partitionstabellen på enheden %s er ødelagt. For at oprette nye partitioner "
+"skal den initialiseres, hvilket vil medføre tab af ALLE DATA på dette drev."
 
 #: ../libfdisk/fsedit.c:1190
 msgid "Bad Partition Table"
-msgstr ""
+msgstr "Dårlig partitionstabel"
 
 #: ../libfdisk/fsedit.c:1191
 msgid "Initialize"
@@ -1809,7 +1847,7 @@ msgstr "<Swap partition>"
 
 #: ../libfdisk/gnomefsedit.c:545 ../libfdisk/gnomefsedit.c:829
 msgid "<RAID Partition>"
-msgstr "<Raid partition>"
+msgstr "<RAID partition>"
 
 #: ../libfdisk/gnomefsedit.c:713 ../libfdisk/newtfsedit.c:692
 msgid "Delete Partition"
@@ -1832,23 +1870,23 @@ msgstr "Monteringspunkt:"
 
 #: ../libfdisk/gnomefsedit.c:842
 msgid "Size (Megs):"
-msgstr ""
+msgstr "Størrelse (Mb):"
 
 #: ../libfdisk/gnomefsedit.c:873
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "Udfyld hele disken?"
 
 #: ../libfdisk/gnomefsedit.c:892 ../libfdisk/newtfsedit.c:332
 msgid "Allocation Status:"
-msgstr ""
+msgstr "Allokeringsstatus:"
 
 #: ../libfdisk/gnomefsedit.c:896 ../libfdisk/newtfsedit.c:334
 msgid "Successful"
-msgstr "Lykkedes"
+msgstr "Succes"
 
 #: ../libfdisk/gnomefsedit.c:899 ../libfdisk/newtfsedit.c:336
 msgid "Failed"
-msgstr "Mislykkedes"
+msgstr "Fiasko"
 
 #: ../libfdisk/gnomefsedit.c:911 ../libfdisk/newtfsedit.c:341
 msgid "Failure Reason:"
@@ -1872,6 +1910,8 @@ msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
+"Du har ikke valgt et monteringspunkt for denne partition. Er du sikker på at "
+"du vil gøre dette?"
 
 #: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013
 #: ../libfdisk/newtfsedit.c:540
@@ -1886,7 +1926,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
 msgid "Size Error"
-msgstr ""
+msgstr "Størrelsesfejl"
 
 #: ../libfdisk/gnomefsedit.c:1185 ../libfdisk/newtfsedit.c:559
 msgid ""
@@ -1897,7 +1937,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
 #: ../libfdisk/newtfsedit.c:576
 msgid "Swap Size Error"
-msgstr ""
+msgstr "Swapstørrelsesfejl"
 
 #: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118
 #: ../libfdisk/newtfsedit.c:577
@@ -1946,7 +1986,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
 #: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
 msgid "Unallocated Partitions"
-msgstr ""
+msgstr "Uallokerede partitioner"
 
 #: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528
 #: ../libfdisk/newtfsedit.c:85
@@ -1974,7 +2014,7 @@ msgstr "Partitioner for RAID array:"
 
 #: ../libfdisk/gnomefsedit.c:2006
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
+msgstr "Du har ikke valgt et monteringspunkt. Et monteringspunkt er påkrævet."
 
 #: ../libfdisk/gnomefsedit.c:2014
 msgid ""
@@ -1998,11 +2038,11 @@ msgstr "Ingen RAID enhed"
 
 #: ../libfdisk/gnomefsedit.c:2039
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Du skal vælge en RAID enhed."
 
 #: ../libfdisk/gnomefsedit.c:2045
 msgid "Used Raid Device"
-msgstr ""
+msgstr "Anvendt RAID enhed"
 
 #: ../libfdisk/gnomefsedit.c:2046
 #, c-format
@@ -2013,7 +2053,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2059
 msgid "Not Enough Partitions"
-msgstr ""
+msgstr "Ikke nok partitioner"
 
 #: ../libfdisk/gnomefsedit.c:2061
 msgid ""
@@ -2027,16 +2067,15 @@ msgstr "Ulovlig /boot RAID type"
 
 #: ../libfdisk/gnomefsedit.c:2070
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Boot partitioner (/boot) er kun tilladte på RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2077
-#, fuzzy
 msgid "Illegal RAID mountpoint"
-msgstr "Ulovlig /boot RAID type"
+msgstr "Ulovligt RAID monteringspunkt"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "RAID partitioner kan ikke monteres som root (/) på Alpha."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2064,7 +2103,7 @@ msgstr "Fjern Linux partitioner"
 
 #: ../libfdisk/gnomefsedit.c:2315
 msgid "Use existing free space"
-msgstr ""
+msgstr "Brug eksisterende ledig plads"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2327
@@ -2081,7 +2120,7 @@ msgstr "Slet RAID enhed?"
 
 #: ../libfdisk/gnomefsedit.c:2441
 msgid "Are you sure you want to remove this RAID device?"
-msgstr ""
+msgstr "Er du sikker på at du vil fjerne denne RAID enhed?"
 
 #: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
@@ -2093,7 +2132,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
 msgid "<Swap>"
-msgstr "<swap>"
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2532
 msgid "<RAID>"
@@ -2105,13 +2144,15 @@ msgstr "<ikke sat>"
 
 #: ../libfdisk/gnomefsedit.c:3198
 msgid "Unallocated Partitions Exist..."
-msgstr ""
+msgstr "Uallokerede partitioner eksisterer..."
 
 #: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
+"Du skal tildele en rodpartition (/) til en indfødt Linux partition (ext2) "
+"eller en RAID partition for at installationen kan gå videre."
 
 #: ../libfdisk/gnomefsedit.c:3289
 msgid "Partitions"
@@ -2167,6 +2208,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
+"Du skal tildele en rodpartition (/) til en indfødt Linux partition (ext2) "
+"for at installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
@@ -2174,7 +2217,7 @@ msgstr "Ingen swappartition"
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "You must assign a swap partition for the install to proceed."
-msgstr ""
+msgstr "Du skal tildele en swappartition for installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1480
 msgid ""
@@ -2183,6 +2226,10 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
+"Der er uallokerede partitioner tilbage. Hvis du afslutter nu, vil de ikke "
+"blive skrevet på disken.\n"
+"\n"
+"Er du sikker på at du vil afslutte?"
 
 #: ../libfdisk/newtfsedit.c:1496
 msgid "Save Changes"
@@ -2190,7 +2237,7 @@ msgstr "Gem ændringer"
 
 #: ../libfdisk/newtfsedit.c:1498
 msgid "Save changes to partition table(s)?"
-msgstr ""
+msgstr "Gem ændringer af partitionstabel(ler)?"
 
 #: ../libfdisk/newtfsedit.c:1542
 msgid "You may only delete NFS mounts."
@@ -2227,36 +2274,36 @@ msgstr ""
 msgid "Module Parameters"
 msgstr "Modulparametere"
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
-#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
+#: ../loader/devices.c:170 ../loader/devices.c:272 ../loader/loader.c:253
+#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1801
 msgid "Devices"
 msgstr "Enheder"
 
-#: ../loader/devices.c:169
+#: ../loader/devices.c:172
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Indsæt din driverdisk og tast \"OK\" for at fortsætte."
 
-#: ../loader/devices.c:179 ../loader/loader.c:1783
+#: ../loader/devices.c:183 ../loader/loader.c:1810
 msgid "Failed to mount floppy disk."
 msgstr ""
 
-#: ../loader/devices.c:184
+#: ../loader/devices.c:188
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
 
-#: ../loader/devices.c:206
+#: ../loader/devices.c:237
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 
-#: ../loader/devices.c:211
+#: ../loader/devices.c:242
 msgid "Which driver should I try?"
-msgstr ""
+msgstr "Hvilken driver skal jeg prøve?"
 
-#: ../loader/devices.c:219
+#: ../loader/devices.c:250
 msgid "Specify module parameters"
 msgstr "Angiv modulparametere"
 
@@ -2279,15 +2326,15 @@ msgstr ""
 msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader/lang.c:267
+#: ../loader/lang.c:275
 msgid "Choose a Language"
 msgstr "Vælg et sprog"
 
-#: ../loader/lang.c:534
+#: ../loader/lang.c:546
 msgid "Keyboard Type"
 msgstr "Tastaturtype"
 
-#: ../loader/lang.c:535
+#: ../loader/lang.c:547
 msgid "What type of keyboard do you have?"
 msgstr "Hvilken type tastatur har du?"
 
@@ -2319,11 +2366,11 @@ msgstr "SCSI"
 
 #: ../loader/loader.c:254
 msgid "What kind of device would you like to add"
-msgstr ""
+msgstr "Hvilken slags enhed vil du gerne tilføje"
 
 #: ../loader/loader.c:301
 msgid "I have found the following devices in your system:"
-msgstr ""
+msgstr "Jeg har fundet følgende enheder på dit system:"
 
 #: ../loader/loader.c:303 ../loader/loader.c:328
 msgid "Add Device"
@@ -2334,6 +2381,8 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"Jeg har ikke indlæst nogle specialenhedsdrivere for dit system. Vil du gerne "
+"have nogle indlæst nu?"
 
 #: ../loader/loader.c:413 ../loader/loader.c:415
 msgid "Loading"
@@ -2347,106 +2396,105 @@ msgstr ""
 msgid "Error loading ramdisk."
 msgstr ""
 
-#: ../loader/loader.c:603
+#: ../loader/loader.c:608
 msgid "Hard Drives"
 msgstr "Harddiske"
 
-#: ../loader/loader.c:604
+#: ../loader/loader.c:609
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
 
-#: ../loader/loader.c:617
+#: ../loader/loader.c:622
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
 
-#: ../loader/loader.c:631
+#: ../loader/loader.c:636
 msgid "Directory holding Red Hat:"
 msgstr ""
 
-#: ../loader/loader.c:651
+#: ../loader/loader.c:656
 msgid "Select Partition"
 msgstr "Vælg partition"
 
-#: ../loader/loader.c:697
+#: ../loader/loader.c:702
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr ""
 
-#: ../loader/loader.c:749
+#: ../loader/loader.c:754
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
-#: ../loader/loader.c:906
+#: ../loader/loader.c:911
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr ""
 
-#: ../loader/loader.c:911
+#: ../loader/loader.c:916
 msgid "I could not mount that directory from the server"
 msgstr ""
 
-#: ../loader/loader.c:995
+#: ../loader/loader.c:1004
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:996
+#: ../loader/loader.c:1005
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr ""
 
-#: ../loader/loader.c:1131
+#: ../loader/loader.c:1152
 msgid "Rescue Method"
-msgstr ""
+msgstr "Redningsmetode"
 
-#: ../loader/loader.c:1132
+#: ../loader/loader.c:1153
 msgid "Installation Method"
 msgstr "Installationsmetode"
 
-#: ../loader/loader.c:1134
+#: ../loader/loader.c:1155
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1136
+#: ../loader/loader.c:1157
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1666
+#: ../loader/loader.c:1693
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "Kan ikke finde ks.cfg på bootdiskette."
 
-#: ../loader/loader.c:1712
-#, fuzzy, c-format
+#: ../loader/loader.c:1739
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Red Hat mappe:"
+msgstr "Kunne ikke læse mappe %s: %s"
 
-#: ../loader/loader.c:1775
-#, fuzzy
+#: ../loader/loader.c:1802
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Indsæt din driverdisk og tast \"OK\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette og tast \"OK\" for at fortsætte."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1815
 msgid "Updates"
-msgstr ""
+msgstr "Opdateringer"
 
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1815
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Læser anaconda opdateringer..."
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1969
 msgid "PC Card"
 msgstr "PC kort"
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1969
 msgid "Initializing PC Card Devices..."
-msgstr ""
+msgstr "Opstarter PC kort enheder..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2477,7 +2525,7 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Brug dynamisk IP konfiguration (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
@@ -2489,7 +2537,7 @@ msgstr "Manglende information"
 
 #: ../loader/net.c:330
 msgid "You must enter both a valid IP address and a netmask."
-msgstr ""
+msgstr "Du skal indtaste både en gyldig IP adresse og en netmaske."
 
 #: ../loader/net.c:338 ../loader/net.c:574
 msgid "Dynamic IP"
@@ -2497,11 +2545,11 @@ msgstr "Dynamisk IP"
 
 #: ../loader/net.c:339 ../loader/net.c:575
 msgid "Sending request for IP information..."
-msgstr ""
+msgstr "Sender forespørgsel efter IP information..."
 
 #: ../loader/net.c:460
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "Afgør værtsnavn og domæne..."
 
 #: ../loader/net.c:560 ../loader/net.c:591
 msgid "kickstart"
@@ -2546,6 +2594,8 @@ msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
+" <Tab>/<Alt-Tab> mellem elementer  |  <Mellemrum> Vælger  |  <F12> næste "
+"skærm"
 
 #: ../loader/net.c:717
 #, c-format
@@ -2561,14 +2611,14 @@ msgid "Would you like to set up networking?"
 msgstr "Ønsker du at indstille netværk?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Red Hat mappe:"
+msgstr "Kunne ikke logge ind på %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Red Hat mappe:"
+msgstr "Kune ikke hente %s: %s:"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
@@ -2586,7 +2636,7 @@ msgstr ""
 "\n"
 "    o navnet eller IP nummeret på din ftptjener\n"
 "    o mappen på tjeneren som indeholder\n"
-"      Red Hat Linux'en for din arkitektur\n"
+"      Red Hat Linux for din arkitektur\n"
 
 #: ../loader/urls.c:160
 msgid ""
@@ -2636,12 +2686,12 @@ msgstr "Du skal indtaste en mappe"
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr ""
+msgstr "Ukendt vært"
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s er ikke et gyldigt værtsnavn."
 
 #: ../loader/urls.c:307
 msgid ""
@@ -2678,7 +2728,7 @@ msgstr "HTTP proxyport:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Indlæser scsi driver"
+msgstr "Indlæser SCSI driver"
 
 #~ msgid "Rebuilding"
 #~ msgstr "Genbygger"
