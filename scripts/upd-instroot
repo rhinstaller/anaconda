@@ -82,7 +82,8 @@ PACKAGES="glibc setup python newt libtermcap zlib ash
 	 kudzu-devel kudzu db1 db2 db3 rpm-python bzip2"
 
 if [ $ARCH = i386 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs syslinux"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs"
+    PACKAGESGR="$PACKAGESGR syslinux"
 fi
 
 # xpm is missing
