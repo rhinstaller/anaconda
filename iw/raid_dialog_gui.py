@@ -493,7 +493,7 @@ class RaidCloneDialog:
                                           "partitions on it which are not of "
                                           "type 'software RAID'.\n\n"
                                           "These "
-                                          "partitions will have to removed "
+                                          "partitions will have to be removed "
                                           "before this drive can be cloned. "),
 					custom_icon="error")
                 return 1
@@ -504,7 +504,7 @@ class RaidCloneDialog:
                                         _("The source drive selected has "
                                           "partitions which are not "
                                           "constrained to the drive /dev/%s.\n\n"
-                                          "These partitions will have to "
+                                          "These partitions will have to be "
                                           "removed or restricted to this "
                                           "drive "
                                           "before this drive can be cloned. ")
@@ -518,7 +518,7 @@ class RaidCloneDialog:
                                           "software RAID partition(s) which "
                                           "are members of an active "
                                           "software RAID device.\n\n"
-                                          "These partitions will have to "
+                                          "These partitions will have to be "
                                           "removed before this drive "
                                           "can be cloned."), custom_icon="error")
                 return 1
