@@ -1234,6 +1234,8 @@ int main(int argc, char ** argv) {
 
     if (FL_SERIAL(flags) && !hasGraphicalOverride())
         flags |= LOADER_FLAGS_TEXT;
+    if (FL_SERIAL(flags)
+        flags |= LOADER_FLAGS_NOFB;
 
     setupRamfs();
 
