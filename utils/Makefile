@@ -25,7 +25,8 @@ moddeps: moddeps.o
             $(LOADLIBES) \
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
-	    ../isys/modutils/obj/libobj.a -lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt
+	    ../isys/modutils/obj/libobj.a -lrpm -lrpmdb -lrpmio -lbz2 \
+	    -lpopt -lgunzip -L../isys/gzlib
 
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
