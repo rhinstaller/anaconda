@@ -385,7 +385,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageDesc.set_buffer(buffer)
         self.packageDesc.set_editable(gtk.FALSE)
         self.packageDesc.set_cursor_visible(gtk.FALSE)
-        self.packageDesc.set_wrap_mode(gtk.TRUE)
+        self.packageDesc.set_wrap_mode(gtk.WRAP_WORD)
         descSW.add (self.packageDesc)
         descSW.set_size_request (-1, 100)
 

@@ -18,6 +18,7 @@ import gnome.canvas
 import string
 import re
 import math
+from translate import _
 
 class Enum:
     def __init__(self, *args):
@@ -81,10 +82,10 @@ class TimezoneMap(gtk.VBox):
         
         for entry in zonetab.getEntries():
             iter = self.listStore.append()
-            self.listStore.set_value(iter, self.columns.TZ, entry.tz)
+            self.listStore.set_value(iter, self.columns.TZ, _(entry.tz))
             if entry.comments:
                 self.listStore.set_value(iter, self.columns.COMMENTS,
-                                         entry.comments)
+                                         _(entry.comments))
             else:
                 self.listStore.set_value(iter, self.columns.COMMENTS, "")
             self.listStore.set_value(iter, self.columns.ENTRY, entry)

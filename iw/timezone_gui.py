@@ -108,11 +108,11 @@ class TimezoneWindow (InstallWindow):
 
     def setcurrent (self, widget, area):
         try:
-            self.tz.setcurrent (self.default)
+            self.tz.setcurrent(self.default)
         except SystemError:
             self.default = _(self.langDefault)
             try:
-                self.tz.setcurrent (self.default)
+                self.tz.setcurrent(self.default)
             except:
                 pass
 
@@ -137,6 +137,7 @@ class TimezoneWindow (InstallWindow):
         self.tz = TimezoneMap(zonetab=zonetab, map=path)
 
 	(self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
+        print "default is", self.default
         entry = zonetab.findEntryByTZ(self.default)
         if entry:
             self.tz.setCurrent(entry)
