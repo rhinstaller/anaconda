@@ -3,6 +3,7 @@
 
 int catCommand(int argc, char ** argv);
 int chmodCommand(int argc, char ** argv);
+int dfCommand(int argc, char ** argv);
 int lsmodCommand(int argc, char ** argv);
 int mkdirCommand(int argc, char ** argv);
 int mknodCommand(int argc, char ** argv);

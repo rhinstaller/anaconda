@@ -8,6 +8,7 @@
 #include <asm/page.h>
 #include <sys/swap.h>
 #include <sys/sysmacros.h>
+#include <sys/statfs.h>
 #include <unistd.h>
 #include <zlib.h>
 
@@ -18,6 +19,7 @@
 #include "idmap.h"
 #include "ls.h"
 #include "popt.h"
+#include "../isys/cpio.h"
 
 static int copyfd(int to, int from);
 
@@ -299,17 +301,72 @@ int chmodCommand(int argc, char ** argv) {
     return 0;
 }
 
+#define CPIOERR_CHECK_ERRNO	0x00008000
+
 int uncpioCommand(int argc, char ** argv) {
     int rc;
     char * fail;
+    CFD_t cfd;
 
     if (argc != 1) {
 	fprintf(stderr, "uncpio reads from stdin");
 	return 1;
     }
 
-    rc = cpioInstallArchive(gzdopen(0, "r"), NULL, 0, NULL, NULL, &fail);
+    cfd.cpioPos = 0;
+    cfd.cpioIoType = cpioIoTypeGzFd;
+    cfd.cpioGzFd = gzdFdopen(fdDup(0), "r");
+
+    rc = cpioInstallArchive(&cfd, NULL, 0, NULL, NULL, &fail);
+
+    if (rc) {
+	fprintf(stderr, "cpio failed on %s: ", fail);
+	if (rc & CPIOERR_CHECK_ERRNO)
+	    fprintf(stderr, "%s\n", strerror(errno));
+ 	else
+	    fprintf(stderr, "(internal)\n");
+    }
+
     return (rc != 0);
+}
+
+int dfCommand(int argc, char ** argv) {
+    int fd;
+    char * buf = alloca(2048);
+    char * end;
+    struct statfs fs;
+    int i;
+
+    if ((fd = open("/proc/mounts", O_RDONLY)) < 0) {
+	perror("failed to open /proc/mounts");
+	return 1;
+    }
+
+    i = read(fd, buf, 2048);
+    buf[i] = '\0';
+
+    printf("%-30s %-10s %-10s %-10s\n",
+	   "Mount Point", "1k-blocks", "Used", "Available");
+
+    while (buf && *buf) {
+	end = strchr(buf, ' ');
+	if (!end) return 1;
+	buf = end + 1;
+
+	end = strchr(buf, ' ');
+	if (!end) return 1;
+	*end = '\0';
+
+	statfs(buf, &fs);
+
+	printf("%-30s %-10d %-10d %-10d\n",
+		buf, fs.f_blocks, fs.f_blocks - fs.f_bfree, fs.f_bfree);
+
+	buf = strchr(end + 1, '\n');
+	if (buf) buf++;
+    }
+
+    return 0;
 }
 
 int lsCommand(int argc, char ** argv) {

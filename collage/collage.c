@@ -9,6 +9,7 @@ struct commandTableEntry {
 };
 
 struct commandTableEntry commandTable[] = {
+	{ "df", dfCommand },
 	{ "umount", umountCommand },
 	{ "mount", mountCommand },
 	{ "mkdir", mkdirCommand },
