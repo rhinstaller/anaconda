@@ -159,22 +159,34 @@ class InstallInterface:
 	try:
             f = None
 
+            if self.configFileData.has_key("helptag"):
+                helpTag = "-%s" % (self.cw.configFileData["helptag"],)
+            else:
+                helpTag = ""
+            arch = "-%s" % (iutil.getArch(),)
+            tags = [ "%s%s" % (helpTag, arch), "%s" % (helpTag,),
+                     "%s" % (arch,), "" ]
+
 	    # XXX
 	    #
 	    # HelpWindow can't get to the langauge
 
-            for lang in self.langSearchPath:
-                fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
-                     % (lang, key)
-# uncomment to test help text installed in local directory instead            
-#                fn = "./text-help/%s/s1-help-screens-%s.txt" % (lang, key)
+            found = 0
+            for path in [ "./text-", "/usr/share/anaconda/" ]:
+                if found:
+                    break
+                for lang in self.langSearchPath:
+                    for tag in tags:
+                        fn = "%shelp/%s/s1-help-screens-%s%s.txt" \
+                             % (path, lang, key, tag)
 
-                try:
-                    f = open(fn)
-                except IOError, msg:
-                    continue
-                break
-                    
+                        try:
+                            f = open(fn)
+                        except IOError, msg:
+                            continue
+                        found = 1
+                        break
+
             if not f:
                 ButtonChoiceWindow(screen, _("Help not available"), 
                                    _("No help is available for this "
@@ -325,6 +337,7 @@ class InstallInterface:
 
     def run(self, id, dispatch, configFileData):
         self.screen = SnackScreen()
+        self.configFileData = configFileData
 	self.screen.helpCallback(self.helpWindow)
 	self.drawFrame()
 
