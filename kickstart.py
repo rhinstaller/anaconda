@@ -788,6 +788,10 @@ class KickstartBase(BaseInstallClass):
 
             mountpoint = extra[0]
 
+	# sanity check mountpoint
+	if mountpoint is not None and mountpoint[0] != '/':
+	    raise RuntimeError, "The mount point \"%s\" is not valid." % (mountpoint,)
+
         if not vgname:
             raise RuntimeError, "Must specify the volume group for the logical volume to be in"
         if not size and not percent and not preexist:
@@ -903,6 +907,10 @@ class KickstartBase(BaseInstallClass):
                 filesystem = fileSystemTypeGetDefault()
 
             mountpoint = extra[0]
+
+	# sanity check mountpoint
+	if mountpoint is not None and mountpoint[0] != '/':
+	    raise RuntimeError, "The mount point \"%s\" is not valid." % (mountpoint,)
 
         raidmems = []
         # get the unique ids of each of the raid members
