@@ -451,12 +451,15 @@ class PartitionWindow(InstallWindow):
         
         if type == "ok":
             win.add_button('gtk-ok', 1)
+	    defaultchoice = 0
         elif type == "yesno":
             win.add_button('gtk-no', 2)
             win.add_button('gtk-yes', 1)
+	    defaultchoice = 1
 	elif type == "continue":
             win.add_button('gtk-cancel', 0)
             win.add_button(_("Continue"), 1)
+	    defaultchoice = 1
 	elif type == "custom":
 	    rid=0
 
