@@ -582,7 +582,7 @@ class ToDo:
 		log("no IDE floppy devices found")
 		return 0
 
-            flopyyDrive = drives.keys()[0]
+            floppyDrive = drives.keys()[0]
             # need to go through and find if there is an LS-120
             for dev in drives.keys():
                 if re.compile(".*[Ll][Ss]-120.*").search(drives[dev]):
