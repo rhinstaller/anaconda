@@ -48,7 +48,7 @@ class InstallClass(BaseInstallClass):
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderadvanced")
 
-        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64"::
+        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("upgbootloader")            
 
     def setInstallData(self, id):
