@@ -390,7 +390,7 @@ class XCustomWindow (InstallWindow):
 	    self.hbox5 = gtk.HBox (gtk.TRUE, 2)
 	    frame4.add (self.hbox5)
 
-	    self.text = gtk.RadioButton (None, (_("T_ext")))
+	    self.text = gtk.RadioButton (None, (_("_Text")))
 	    self.graphical = gtk.RadioButton (self.text, (_("_Graphical")))
 
 	    self.runLevel = self.desktop.getDefaultRunLevel()
