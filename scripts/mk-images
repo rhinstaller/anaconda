@@ -35,8 +35,10 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	KERNELNAME=vmlinux
+	KERNELARCH=ppc64
     else
 	KERNELNAME=vmlinuz
+	KERNELARCH=$BUILDARCH
     fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
@@ -113,7 +115,7 @@ findPackage() {
     dir=$1
     name=$2
     
-    for n in $dir/$name*{${BUILDARCH},noarch}.rpm; do
+    for n in $dir/$name*{${KERNELARCH},noarch}.rpm; do
 	thisName=$(rpm --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    continue
@@ -807,6 +809,9 @@ makedriverdisk () {
 vertag="BOOT"
 if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
     vertag="BOOT BOOTtape"
+fi
+if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
+    vertag="pseries"
 fi
 for kernelvers in $vertag; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
