@@ -122,7 +122,7 @@ int mountCommand(int argc, char ** argv) {
     }
 
     if (doPwMount(dev, dir, fs, 0, 1, NULL, NULL)) {
-	fprintf(strerror, "mount failed: %s\n", strerror(errno));
+	fprintf(stderr, "mount failed: %s\n", strerror(errno));
 	return 1;
     }
 
@@ -280,6 +280,30 @@ int rmCommand(int argc, char ** argv) {
     return 0;
 }
 
+int chrootCommand(int argc, char ** argv) {
+    char * defaultCommand[] = { "/bin/sh", NULL };
+    char ** command = defaultCommand;
+
+    if (argc < 2) {
+	fprintf(stderr, "usage: chroot <dir> [<cmd>...]\n");
+	return 1;
+    }
+
+    if (chroot(argv[1])) {
+	fprintf(stderr, "chroot failed: %s\n", strerror(errno));
+	return 1;
+    }
+
+    if (argc > 2)
+	command = argv + 2;
+
+    execvp(command[0], command);
+
+    fprintf(stderr, "exec failed: %s\n", strerror(errno));
+
+    return 1;
+}
+
 int chmodCommand(int argc, char ** argv) {
     char ** argptr = argv + 2;
     int mode;
@@ -366,7 +390,7 @@ int dfCommand(int argc, char ** argv) {
 
 	badjust = fs.f_bsize / 1024;
 
-	printf("%-30s %-10d %-10d %-10d\n",
+	printf("%-30s %-10ld %-10ld %-10ld\n",
 		buf, fs.f_blocks * badjust, 
 		(fs.f_blocks - fs.f_bfree) * badjust,  
 		fs.f_bfree * badjust);
@@ -400,7 +424,7 @@ int lsCommand(int argc, char ** argv) {
 	{ NULL, '\0', 0, NULL, '\0' }
     };
 
-    optCon = poptGetContext(NULL, argc, argv, ksOptions, 0);
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksOptions, 0);
     if (isatty(1)) flags |= SENDDIR_MULTICOLUMN;
 
     while ((rc = poptGetNextOpt(optCon)) >= 0) {
@@ -434,7 +458,7 @@ int lsCommand(int argc, char ** argv) {
     } else {
 	idInit();
 
-	argv = poptGetArgs(optCon);
+	argv = (char **) poptGetArgs(optCon);
 	if (argv) {
 	    while (*argv) {
 		if (argv[0][0] == '/')

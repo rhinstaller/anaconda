@@ -11,6 +11,7 @@ struct commandTableEntry {
 struct commandTableEntry commandTable[] = {
 	{ "cat", catCommand },
 	{ "chmod", chmodCommand },
+	{ "chroot", chrootCommand },
 	{ "df", dfCommand },
 	{ "gunzip", gunzipCommand },
 	{ "ln", lnCommand },

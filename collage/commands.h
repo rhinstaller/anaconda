@@ -3,6 +3,7 @@
 
 int catCommand(int argc, char ** argv);
 int chmodCommand(int argc, char ** argv);
+int chrootCommand(int argc, char ** argv);
 int dfCommand(int argc, char ** argv);
 int gunzipCommand(int argc, char ** argv);
 int lnCommand(int argc, char ** argv);
