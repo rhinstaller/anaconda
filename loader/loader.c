@@ -73,6 +73,7 @@ int main(int argc, char ** argv) {
     openLog(testing);
     
     newtInit();
+    newtCls();
     newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
     
     newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
@@ -85,7 +86,7 @@ int main(int argc, char ** argv) {
 	    while ((module = *modules++)) {
 		if (!testing) {
 		    winStatus(60, 5, "Module Insertion",
-			      "Inserting module %s");
+			      "Inserting module %s", module);
 		    insmod(module, NULL);
 		    newtPopWindow();
 		} else {
