@@ -668,13 +668,15 @@ class KickstartBase(BaseInstallClass):
         (args, extra) = isys.getopt(args, '', [ 'vgname=',
                                                 'size=',
                                                 'name=',
-                                                'fstype=' ])
+                                                'fstype=',
+                                                'percent='])
 
         mountpoint = None
         vgname = None
         size = None
         name = None
         fstype = None
+        percent = None
         format = 1
 
         for n in args:
@@ -687,6 +689,8 @@ class KickstartBase(BaseInstallClass):
                 name = arg
             elif str == '--fstype':
                 fstype = arg
+            elif str == '--percent':
+                percent = int(arg)
             else:
                 print str, " ", arg
 
@@ -703,7 +707,7 @@ class KickstartBase(BaseInstallClass):
 
         if not vgname:
             raise RuntimeError, "Must specify the volume group for the logical volume to be in"
-        if not size:
+        if not size and not percent:
             raise RuntimeError, "Must specify the size of a logical volume"
         if not name:
             raise RuntimeError, "Must specify a logical volume name"
@@ -716,6 +720,7 @@ class KickstartBase(BaseInstallClass):
                                                         format = format,
                                                         mountpoint = mountpoint,
                                                         size = size,
+                                                        percent = percent,
                                                         volgroup = vgid,
                                                         lvname = name)
         id.partitions.autoPartitionRequests.append(request)        
