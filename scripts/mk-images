@@ -719,7 +719,7 @@ makedriverdisk () {
 	rpm2cpio $ppackage | (cd $KERNELROOT; cpio --quiet -iumd etc/pcmcia/* ./etc/pcmcia/*)
     fi
 
-    if [ ! -d "$KERNELROOT/lib/modules/$version/scsi" ]; then
+    if [ ! -d "$KERNELROOT/lib/modules/$version" -o ]; then
 	echo "$1 is not a valid modules directory" 2>&1
 	usage
     fi
