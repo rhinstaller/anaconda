@@ -484,21 +484,6 @@ class ToDo:
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
 	f.write(str (self.keyboard))
 	f.close()
-	try:
-	    os.stat(self.instPath + "/bin/loadkeys")
-	    rc = iutil.execWithRedirect("/bin/loadkeys",
-				    [ "/bin/loadkeys", self.keyboard.layout ],
-				    stdout = None, stderr = None,
-				    searchPath = 0, root = self.instPath)
-	
-	    mapfile = open(self.instPath + "/etc/sysconfig/console/default.kmap", "w")
-	    rc = iutil.execWithRedirect("/usr/bin/dumpkeys",
-				    [ "/usr/bin/dumpkeys"],
-				    stdout = mapfile, stderr = None,
-				    searchPath = 0, root = self.instPath)
-	    mapfile.close()
-	except:
-	    pass
 
     def needBootdisk (self):
 	if self.bootdisk or self.fstab.rootOnLoop(): return 1
