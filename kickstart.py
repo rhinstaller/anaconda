@@ -1226,6 +1226,19 @@ class KickstartBase(BaseInstallClass):
     # setPackageSelection()
     def setPackageSelection(self, hdlist, intf):
 	for n in self.packageList:
+
+            # allow arch:name syntax
+            if n.find("."):
+                fields = n.split(".")
+                name = string.join(fields[:-1], ".")
+                arch = fields[-1]
+                if hdlist.pkgnames.has_key(name):
+                    pkgs = hdlist.pkgnames[name]
+                    for (nevra, parch) in pkgs:
+                        if parch == arch:
+                            hdlist.pkgs[nevra].select()
+                            continue
+            
             if hdlist.has_key(n):
                 hdlist[n].select()
             elif self.handleMissing == KS_MISSING_IGNORE:
@@ -1274,6 +1287,18 @@ class KickstartBase(BaseInstallClass):
                         pass
 
         for n in self.excludedList:
+            # allow arch:name syntax
+            if n.find("."):
+                fields = n.split(".")
+                name = string.join(fields[:-1], ".")
+                arch = fields[-1]
+                if grpset.hdrlist.pkgnames.has_key(name):
+                    pkgs = grpset.hdrlist.pkgnames[name]
+                    for (nevra, parch) in pkgs:
+                        if parch == arch:
+                            grpset.hdrlist.pkgs[nevra].unselect(isManual = 1)
+                            continue
+            
             if grpset.hdrlist.has_key(n):
                 grpset.hdrlist[n].unselect(isManual = 1)
             else:
