@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Brent Fox <bfox@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -21,6 +21,7 @@ import isys
 import socket
 import os
 import re
+import kudzu
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -197,8 +198,8 @@ class Network:
 	# object member so we dont need to
 	available_devices = self.available()
 
-	# set first device to start up onboot
 	if len(available_devices) > 0:
+	    # set first device to start up onboot
 	    oneactive = 0
 	    for dev in available_devices.keys():
 		try:
@@ -210,6 +211,19 @@ class Network:
 
 	    if not oneactive:
 		self.netdevices[self.firstnetdevice].set(("onboot", "yes"))
+
+	    # assign description to each device based on kudzu information
+	    probedevs = kudzu.probe(kudzu.CLASS_NETWORK, kudzu.CLASS_UNSPEC, kudzu.PROBE_ALL)
+	    for netdev in probedevs:
+		device = netdev.device
+		if device in self.netdevices.keys():
+		    desc = netdev.desc
+		    if desc is not None and len(desc) > 0:
+			self.netdevices[device].set(("desc", desc))
+
+		    # add hwaddr
+		    self.netdevices[device].set(("hwaddr", isys.getMacAddress(device)))
+		    
 
     def getDevice(self, device):
 	return self.netdevices[device]
