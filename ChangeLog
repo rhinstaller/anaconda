@@ -1,3 +1,8 @@
+2005-01-10  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot (KEEPFILE): Add /usr/sbin/lvm since
+	/sbin/lvm is gone
+
 2005-01-05  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
