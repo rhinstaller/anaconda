@@ -4,6 +4,9 @@ TARGETS=ddcprobe svgamodes ddcxinfo modetest libvbe.a
 
 all: $(TARGETS)
 
+install: $(TARGETS)
+	cp -a ddcprobe $(DESTDIR)/usr/sbin/ddcprobe
+
 ddcprobe: lrmi.o vesamode.o vbe.o ddcprobe.o
 
 svgamodes: lrmi.o vesamode.o vbe.o svgamodes.o
