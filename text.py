@@ -23,6 +23,7 @@ import time
 import signal
 import parted
 import string
+import kudzu
 from language import expandLangs
 from flags import flags
 from constants_text import *

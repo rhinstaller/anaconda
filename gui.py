@@ -23,6 +23,7 @@ import parted
 import gtk
 import htmlbuffer
 import rpm
+import kudzu
 from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
