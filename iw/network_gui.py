@@ -26,6 +26,9 @@ import ipwidget
 global_options = [_("Gateway"), _("Primary DNS"),
 		  _("Secondary DNS"), _("Tertiary DNS")]
 
+global_option_labels = [_("_Gateway"), _("_Primary DNS"),
+		  _("_Secondary DNS"), _("_Tertiary DNS")]
+
 class NetworkWindow(InstallWindow):		
 
     windowTitle = N_("Network Configuration")
@@ -205,13 +208,13 @@ class NetworkWindow(InstallWindow):
 	# create contents
 	devbox = gtk.VBox()
 	align = gtk.Alignment()
-	DHCPcb = gtk.CheckButton(_("Configure using DHCP"))
+	DHCPcb = gtk.CheckButton(_("Configure using _DHCP"))
 
 	align.add(DHCPcb)
 	devbox.pack_start(align, gtk.FALSE)
 
 	align = gtk.Alignment()
-	bootcb = gtk.CheckButton(_("Activate on boot"))
+	bootcb = gtk.CheckButton(_("_Activate on boot"))
 
 	bootcb.connect("toggled", self.onBootToggled, self.devices[dev])
 	bootcb.set_active(onboot)
@@ -220,8 +223,8 @@ class NetworkWindow(InstallWindow):
 	devbox.pack_start(align, gtk.FALSE)
 	devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
 
-	options = [(_("IP Address"), "ipaddr"),
-		   (_("Netmask"),    "netmask")]
+	options = [(_("_IP Address"), "ipaddr"),
+		   (_("Net_mask"),    "netmask")]
 
 	if len(dev) >= 3 and dev[:3] == 'ctc':
 	    newopt = (_("Point to Point (IP)"), "remip")
@@ -236,11 +239,13 @@ class NetworkWindow(InstallWindow):
 	for t in range(len(options)):
 	    label = gtk.Label("%s:" %(options[t][0],))
 	    label.set_alignment(0.0, 0.5)
+	    label.set_property("use-underline", gtk.TRUE)
 	    ipTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
 
 	    entry = ipwidget.IPEditor()
 	    entry.hydrate(self.devices[dev].get(options[t][1]))
 	    entrys[t] = entry
+	    label.set_mnemonic_widget(entry.getFocusableWidget())
 	    ipTable.attach(entry.getWidget(), 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
 
 	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 5)
@@ -467,13 +472,13 @@ class NetworkWindow(InstallWindow):
 	label.set_alignment(0.0, 0.0)
 	hostbox.pack_start(label, gtk.FALSE, gtk.FALSE)
 	tmphbox=gtk.HBox()
-        self.hostnameUseDHCP = gtk.RadioButton(label=_("automatically via DHCP"))
+        self.hostnameUseDHCP = gtk.RadioButton(label=_("_automatically via DHCP"))
 	self.hostnameUseDHCP.connect("toggled", self.hostnameUseDHCPCB, None)
 	
 	tmphbox.pack_start(self.hostnameUseDHCP, gtk.FALSE, gtk.FALSE, padding=15)
 	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
 
-	self.hostnameManual  = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("manually"))
+	self.hostnameManual  = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
 	tmphbox=gtk.HBox()
 	tmphbox.pack_start(self.hostnameManual, gtk.FALSE, gtk.FALSE, padding=15)
 	self.hostnameEntry = gtk.Entry()
@@ -503,12 +508,14 @@ class NetworkWindow(InstallWindow):
 	self.ipTable = gtk.Table(len(global_options), 2)
 	options = {}
 	for i in range(len(global_options)):
-	    label = gtk.Label("%s:" %(global_options[i],))
+	    label = gtk.Label("%s:" %(global_option_labels[i],))
+	    label.set_property("use-underline", gtk.TRUE)
 	    label.set_alignment(0.0, 0.0)
 	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
 	    align = gtk.Alignment(0, 0.5)
 	    options[i] = ipwidget.IPEditor()
 	    align.add(options[i].getWidget())
+	    label.set_mnemonic_widget(options[i].getFocusableWidget())
 
 	    self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
 
