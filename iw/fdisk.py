@@ -24,7 +24,11 @@ class FDiskWindow (InstallWindow):
         zvt = ZvtTerm (80, 24)
         zvt.connect ("child_died", self.child_died, widget)
         if zvt.forkpty() == 0:
-           execvp ("/sbin/fdisk", ("/sbin/fdisk", "/dev/%s" % (drive,)))
+            if os.access ("/usr/sbin/fdisk", os.X_OK):
+                path = "/usr/sbin/fdisk"
+            else:
+                path = "/sbin/fdisk"
+            execvp (path, ("fdisk", "/dev/%s" % (drive,)))
         zvt.show ()
 
         self.windowContainer.remove (self.buttonBox)
