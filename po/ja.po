@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-20 14:01+1000\n"
+"PO-Revision-Date: 2004-07-28 17:25+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -1006,6 +1006,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"キックスタート設定の解析中に次のエラーが見つかりました。\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
 msgid "Error Parsing Kickstart Config"
@@ -1189,7 +1192,7 @@ msgstr "適切な %s CD-ROM ではありません。"
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "CDROM にアクセスできません。"
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1534,7 +1537,7 @@ msgstr ""
 "この DASD を CDL 形式で初期化しますか?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1542,21 +1545,19 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"デバイス /dev/%s のパーティションテーブルは、このアーキテクチャーには予想外の"
-"タイプ %s です。%s のインストール用にこのディスクを使用するには、再度初期化を"
-"する必要がありますが、このドライブ上のすべてのデータを失うことになります。\n"
+"/dev/%s は現在、%s パーティションレイアウトになっています。"
+"%s のインストールにこのディスクを使用するには、再度初期化する必要がありますが、"
+"このドライブ上にあるすべてのデータを失うことになります。\n"
 "\n"
-"このディスクを初期化しますか?"
+"このドライブをフォーマット化しますか?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "無視"
+msgstr "ドライブを無視(_I)"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "フォーマット(_F)"
+msgstr "ドライブをフォーマット(_F)"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1573,7 +1574,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "ドライブ %s をフォーマットの間、お待ち下さい...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1584,12 +1585,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"デバイス%s のパーティションテーブルが壊れています。新規パーティションを作成す"
-"るには初期化が必要ですが、本ドライブのデータを全て喪失します。\n"
+"デバイス %s (%s) にあるパーティションテーブルを読み込めませんでした。"
+"新規パーティションを作成するには初期化が必要ですが、本ドライブのデータを全て喪失します。\n"
 "\n"
 "この操作は無視するドライブに関する以前のインストール選択を全て上書きしてしま"
 "います。\n"
-" \n"
+"\n"
 "全てのデータを喪失しますがこのドライブを初期化しますか?"
 
 #: ../partedUtils.py:870
@@ -2479,14 +2480,17 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"ご使用のマシンで X が起動できませんでした。VNC を起動して"
+"別のコンピュータからこのコンピュータに接続してグラフィカルインストールを"
+"行ないますか、あるいはテキストモードのインストールを続行しますか?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "テキストモードを使用する"
 
 #: ../vnc.py:45
 msgid "Start VNC"
-msgstr "VNCを起動"
+msgstr "VNCを起動する"
 
 #: ../vnc.py:55
 msgid "VNC Configuration"
@@ -2502,6 +2506,8 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"パスワードで許可のないリスナーが接続してインストールの進捗を傍受するのを"
+"防ぎます。インストールに使用するパスワードを入力してください。"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2569,6 +2575,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"root アカウントはシステムの管理に使用します。root ユーザーの"
+"パスワードを入力してください。"
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3211,6 +3219,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"ファイアウォールを使う場合、別のコンピュータから特定のサービスへ"
+"アクセスを許可することができます。どのサービスへのアクセスを許可しますか?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3219,15 +3229,18 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Security Enhanced Linux (SELinux) では、従来の Linux システムよりも"
+"詳細にセキュリティをコントロールすることができます。無効にする、"
+"拒否するものについて警告のみを行なう、完全に有効にするなどの状態に"
+"設定することができます。"
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "SELinux の機能を無効にする"
+msgstr "SELinux を有効にしますか?(_S)"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
-msgstr "SELinux を無効にする"
+msgstr "無効"
 
 #: ../iw/firewall_gui.py:161
 msgid "Warn"
@@ -3783,11 +3796,11 @@ msgstr "ポイントツーポイント (IP)(_P)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "暗号鍵(_K)"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5452,9 +5465,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "無効なファイアウォールはカスタマイズできません。"
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "グラフィカル設定のカスタマイズ"
+msgstr "ファイアウォールの設定をカスタマイズ"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5557,11 +5569,11 @@ msgstr "ポイント ツー ポイント (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "暗号鍵"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -6920,9 +6932,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ブートフロッピーには ks.cfg がありません。"
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "HD キックスタートコマンド %s に対する引数が不正です: %s"
+msgstr "キックスタートコマンド %s のシャットダウンに対する引数が不正です: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7197,6 +7209,9 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s はワイヤレスネットワークアダプタです。ワイヤレスネットワークへの"
+"アクセスに必要な暗号鍵と ESSID を入力してください。暗号鍵が必要ない場合は、"
+"空白のままにしておくとインストールを続行します。"
 
 #: ../loader2/net.c:190
 msgid "Wireless Settings"
@@ -8114,7 +8129,7 @@ msgstr "ザポロージェ/東ルガンスク"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "アラビア語"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8169,9 +8184,8 @@ msgid "German"
 msgstr "独語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "検索中"
+msgstr "ヒンディー語"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8195,7 +8209,7 @@ msgstr "韓国語"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "マケドニア語"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8219,7 +8233,7 @@ msgstr "ポルトガル語(ブラジル系)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "パンジャブ語"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8238,9 +8252,8 @@ msgid "Swedish"
 msgstr "スウェーデン語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "タスマニア"
+msgstr "タミル語"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8252,7 +8265,7 @@ msgstr "ウクライナ語"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "ベトナム語"
 
 #. generated from lang-table
 msgid "Welsh"
