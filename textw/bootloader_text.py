@@ -209,7 +209,9 @@ class BootloaderImagesWindow:
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
 	g.add(buttons, 0, 3, growx = 1)
-
+        g.addHotKey("F2")
+#        g.addHotKey(" ")
+        
 	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
 
 	result = None
@@ -228,8 +230,8 @@ class BootloaderImagesWindow:
 		    default = ""
 		listbox.replace(self.formatDevice(type, label, item, default), item)
 		listbox.setCurrent(item)
-#	    elif result == "F2":
-	    elif result == " ":
+	    elif result == "F2":
+#	    elif result == " ":
 		item = listbox.current()
 		(label, type) = images[item]
 		if (label):
