@@ -250,7 +250,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
             sys.exit(0)
 
 	checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
-		       '/boot', '/tmp', '/var/tmp' ]
+		       '/boot', '/tmp', '/var/tmp', '/root' ]
 	badLinks = []
 	for n in checkLinks:
 	    if not os.path.islink(instPath + n): continue
