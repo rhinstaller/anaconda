@@ -521,7 +521,7 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
     # XXX fix this code to look to see if there is a bootable partition
     bootreq = reqpartitions.getBootableRequest()
     if not bootreq and newraid.mountpoint:
-        if ((newraid.mountpoint == "/boot" or newraid.mountpoint == "/"):
+        if (newraid.mountpoint == "/boot" or newraid.mountpoint == "/"):
             return _("Bootable partitions can only be on non-RAID devices.")
 
     minmembers = get_raid_min_members(newraid.raidlevel)
