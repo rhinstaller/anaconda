@@ -95,8 +95,8 @@ create-snapshot:
 	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
 	echo "*** Pulling off $$tag!"; \
 	cd /tmp ; cvs -Q -d $(CVSROOT) export -r $$tag anaconda || echo "Um... export aborted."
-	@cd /tmp/anaconda ; rm isys/modutils/modutils.spec
-	@cd /tmp/anaconda ; rm pycheckrc-for-anaconda
+	@cd /tmp/anaconda ; rm -f isys/modutils/modutils.spec
+	@cd /tmp/anaconda ; rm -f pycheckrc-for-anaconda
 	@cd /tmp/anaconda ; rm -rf comps
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
