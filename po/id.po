@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 2003-02-24 19:53-0500\n"
+"POT-Creation-Date: 2003-05-28 21:50-0400\n"
 "PO-Revision-Date: 1998-09-22 13:40+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -13,90 +13,140 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../anaconda:397
+#: ../anaconda:92 ../anaconda:174
+#, fuzzy
+msgid "Starting VNC..."
+msgstr "Mulai menggunakan PCMCIA..."
+
+#: ../anaconda:104 ../anaconda:186
+msgid "Unable to set vnc password - using no password!"
+msgstr ""
+
+#: ../anaconda:105 ../anaconda:187
+#, fuzzy
+msgid "Make sure your password is at least 6 characters in length."
+msgstr "Password root haruslah minimal 6 karakter"
+
+#: ../anaconda:125 ../anaconda:207
+msgid ""
+"\n"
+"\n"
+"WARNING!!! VNC server running with NO PASSWORD!"
+msgstr ""
+
+#: ../anaconda:126 ../anaconda:208
+msgid "You can use the vncpasswd=<password> boot option"
+msgstr ""
+
+#: ../anaconda:127 ../anaconda:209
+msgid ""
+"if you would like to secure the server.\n"
+"\n"
+msgstr ""
+
+#: ../anaconda:129 ../anaconda:211
+msgid "VNC server now running - please connect to install..."
+msgstr ""
+
+#: ../anaconda:571
+#, fuzzy
+msgid "Unknown Error"
+msgstr "Server X"
+
+#: ../anaconda:574
+#, fuzzy, c-format
+msgid "Error pulling second part of kickstart config: %s!"
+msgstr "Error saat membaca isi file kickstart %s: %s"
+
+#: ../anaconda:667
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:224
-#: ../rescue.py:252 ../rescue.py:262 ../rescue.py:331 ../rescue.py:337
-#: ../text.py:324 ../text.py:456 ../textw/complete_text.py:54
-#: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
-#: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
-#: ../textw/network_text.py:154 ../textw/silo_text.py:110
+#: ../anaconda:682 ../gui.py:239 ../gui.py:952 ../rescue.py:40
+#: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
+#: ../rescue.py:378 ../rescue.py:384 ../text.py:323 ../text.py:461
+#: ../textw/complete_text.py:55 ../textw/confirm_text.py:24
+#: ../textw/confirm_text.py:36 ../textw/constants_text.py:36
+#: ../textw/fdisk_text.py:41 ../textw/network_text.py:31
+#: ../textw/network_text.py:144 ../textw/network_text.py:368
+#: ../textw/network_text.py:376 ../textw/silo_text.py:110
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:160
-#: ../loader2/cdinstall.c:143 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:260
-#: ../loader2/cdinstall.c:352 ../loader2/cdinstall.c:357
-#: ../loader2/cdinstall.c:360 ../loader2/cdinstall.c:429
-#: ../loader2/driverdisk.c:211 ../loader2/driverdisk.c:227
-#: ../loader2/driverdisk.c:239 ../loader2/driverdisk.c:392
+#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
+#: ../loader2/cdinstall.c:250 ../loader2/cdinstall.c:253
+#: ../loader2/cdinstall.c:348 ../loader2/cdinstall.c:353
+#: ../loader2/cdinstall.c:356 ../loader2/cdinstall.c:426
+#: ../loader2/driverdisk.c:212 ../loader2/driverdisk.c:228
+#: ../loader2/driverdisk.c:240 ../loader2/driverdisk.c:393
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
-#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
-#: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
-#: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:375
-#: ../loader2/loader.c:303 ../loader2/loader.c:316 ../loader2/loader.c:327
-#: ../loader2/loader.c:572 ../loader2/loader.c:694 ../loader2/mediacheck.c:255
+#: ../loader2/hdinstall.c:208 ../loader2/hdinstall.c:269
+#: ../loader2/hdinstall.c:339 ../loader2/hdinstall.c:510
+#: ../loader2/hdinstall.c:561 ../loader2/hdinstall.c:592
+#: ../loader2/hdinstall.c:642 ../loader2/kbd.c:125 ../loader2/kickstart.c:107
+#: ../loader2/kickstart.c:117 ../loader2/kickstart.c:160
+#: ../loader2/kickstart.c:260 ../loader2/lang.c:101 ../loader2/lang.c:373
+#: ../loader2/loader.c:302 ../loader2/loader.c:315 ../loader2/loader.c:326
+#: ../loader2/loader.c:638 ../loader2/loader.c:760 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
-#: ../loader2/method.c:160 ../loader2/method.c:368 ../loader2/method.c:453
-#: ../loader2/modules.c:928 ../loader2/net.c:170 ../loader2/net.c:366
-#: ../loader2/net.c:702 ../loader2/net.c:725 ../loader2/net.c:788
-#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:223
-#: ../loader2/nfsinstall.c:227 ../loader2/nfsinstall.c:265
-#: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:58
-#: ../loader2/urlinstall.c:98 ../loader2/urlinstall.c:111
-#: ../loader2/urlinstall.c:368 ../loader2/urlinstall.c:377
-#: ../loader2/urlinstall.c:388 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/method.c:146 ../loader2/method.c:354 ../loader2/method.c:439
+#: ../loader2/modules.c:921 ../loader2/net.c:170 ../loader2/net.c:377
+#: ../loader2/net.c:662 ../loader2/net.c:685 ../loader2/net.c:748
+#: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:224
+#: ../loader2/nfsinstall.c:228 ../loader2/nfsinstall.c:266
+#: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:60
+#: ../loader2/urlinstall.c:110 ../loader2/urlinstall.c:123
+#: ../loader2/urlinstall.c:398 ../loader2/urlinstall.c:407
+#: ../loader2/urlinstall.c:418 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:248 ../loader2/urls.c:309
 #: ../loader2/urls.c:314 ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:477 ../anaconda:695
+#: ../anaconda:739
+msgid "No video hardware found, assuming headless"
+msgstr ""
+
+#: ../anaconda:750 ../anaconda:984 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:494
-#, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+#: ../anaconda:774
+msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
 
-#: ../anaconda:508
+#: ../anaconda:787
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 
-#: ../anaconda:513
+#: ../anaconda:792
 #, fuzzy, c-format
 msgid "Using mouse type: %s"
 msgstr "Tipe printer:"
 
-#: ../autopart.py:910
+#: ../autopart.py:919
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../autopart.py:913
+#: ../autopart.py:922
 #, fuzzy
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../autopart.py:916
+#: ../autopart.py:925
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../autopart.py:919
+#: ../autopart.py:928
 #, fuzzy
 msgid "Could not allocate partitions"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../autopart.py:981
+#: ../autopart.py:990
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -104,7 +154,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 
-#: ../autopart.py:983
+#: ../autopart.py:992
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -112,35 +162,40 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 
-#: ../autopart.py:985
+#: ../autopart.py:994
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
 
-#: ../autopart.py:988
+#: ../autopart.py:996
+#, python-format
+msgid ""
+"Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be "
+"able to boot from this partition."
+msgstr ""
+
+#: ../autopart.py:999
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
 
-#: ../autopart.py:1013
+#: ../autopart.py:1024
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
 
-#: ../autopart.py:1160 ../autopart.py:1186 ../autopart.py:1216
-#: ../autopart.py:1252
+#: ../autopart.py:1189
 #, fuzzy
 msgid "Requested Partition Does Not Exist"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../autopart.py:1161 ../autopart.py:1187 ../autopart.py:1217
-#: ../autopart.py:1253
+#: ../autopart.py:1190
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -148,12 +203,51 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1285 ../autopart.py:1326
+#: ../autopart.py:1215
+#, fuzzy
+msgid "Requested Raid Device Does Not Exist"
+msgstr "Ada partisi yang belum dialokasikan..."
+
+#: ../autopart.py:1216
+#, python-format
+msgid ""
+"Unable to locate raid device %s to use for %s.\n"
+"\n"
+"Press 'OK' to reboot your system."
+msgstr ""
+
+#: ../autopart.py:1245
+#, fuzzy
+msgid "Requested Volume Group Does Not Exist"
+msgstr "Ada partisi yang belum dialokasikan..."
+
+#: ../autopart.py:1246
+#, python-format
+msgid ""
+"Unable to locate volume group %s to use for %s.\n"
+"\n"
+"Press 'OK' to reboot your system."
+msgstr ""
+
+#: ../autopart.py:1281
+#, fuzzy
+msgid "Requested Logical Volume Does Not Exist"
+msgstr "Ada partisi yang belum dialokasikan..."
+
+#: ../autopart.py:1282
+#, python-format
+msgid ""
+"Unable to locate logical volume %s to use for %s.\n"
+"\n"
+"Press 'OK' to reboot your system."
+msgstr ""
+
+#: ../autopart.py:1314 ../autopart.py:1355
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Partisi otomatis"
 
-#: ../autopart.py:1286
+#: ../autopart.py:1315
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -163,12 +257,12 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1296
+#: ../autopart.py:1325
 #, fuzzy
 msgid "Warnings During Automatic Partitioning"
 msgstr "Partisi otomatis"
 
-#: ../autopart.py:1297
+#: ../autopart.py:1326
 #, fuzzy, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -176,20 +270,20 @@ msgid ""
 "%s"
 msgstr "Partisi otomatis"
 
-#: ../autopart.py:1310
+#: ../autopart.py:1339
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1311 ../iw/partition_gui.py:983
+#: ../autopart.py:1340 ../iw/partition_gui.py:998
 #: ../textw/partition_text.py:213
 #, fuzzy
 msgid "Error Partitioning"
 msgstr "Partisi manual"
 
-#: ../autopart.py:1312
+#: ../autopart.py:1341
 #, fuzzy, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -197,7 +291,7 @@ msgid ""
 "%s.%s"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../autopart.py:1327
+#: ../autopart.py:1356
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -211,20 +305,28 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1405 ../bootloader.py:123 ../image.py:386
-#: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
-#: ../upgrade.py:439 ../upgrade.py:459 ../upgrade.py:500
+#: ../autopart.py:1370
+msgid "Unrecoverable Error"
+msgstr ""
+
+#: ../autopart.py:1371
+msgid "Your system will now be rebooted."
+msgstr ""
+
+#: ../autopart.py:1451 ../bootloader.py:139 ../gui.py:949 ../image.py:387
+#: ../partedUtils.py:252 ../partedUtils.py:747 ../upgrade.py:304
+#: ../upgrade.py:441 ../upgrade.py:464 ../upgrade.py:505
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
-#: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
+#: ../iw/bootloader_main_gui.py:91 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
-#: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:142
+#: ../textw/bootloader_text.py:457 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
-#: ../loader2/loader.c:352
+#: ../loader2/loader.c:351
 msgid "Warning"
 msgstr "Perhatian"
 
-#: ../autopart.py:1411
+#: ../autopart.py:1457
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -234,84 +336,111 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 
-#: ../autopart.py:1422
+#: ../autopart.py:1468
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
 
-#: ../autopart.py:1427
+#: ../autopart.py:1473
 #, fuzzy
 msgid "Remove all partitions on this system"
 msgstr "Hapus partisi Linux"
 
-#: ../autopart.py:1428
+#: ../autopart.py:1474
 #, fuzzy
-msgid "Remove all Linux Partitions on this system"
+msgid "Remove all Linux partitions on this system"
 msgstr "Hapus partisi Linux"
 
-#: ../autopart.py:1429
+#: ../autopart.py:1475
 #, fuzzy
 msgid "Keep all partitions and use existing free space"
 msgstr "Gunakan space yang ada"
 
-#: ../autopart.py:1431
+#: ../autopart.py:1477
 #, fuzzy, python-format
 msgid ""
-"You have selected to remove all partitions (ALL DATA) on the following "
-"drives:%s\n"
+"You have chosen to remove all partitions (ALL DATA) on the following drives:%"
+"s\n"
 "Are you sure you want to do this?"
 msgstr ""
 "Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive.\n"
 "Bener maunya seperti ini?"
 
-#: ../autopart.py:1435
+#: ../autopart.py:1481
 #, fuzzy, python-format
 msgid ""
-"You have selected to remove all Linux partitions (and ALL DATA on them) on "
-"the following drives:%s\n"
+"You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
+"following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
 "Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive.\n"
 "Bener maunya seperti ini?"
 
-#: ../bootloader.py:89
+#: ../bootloader.py:99
 #, fuzzy
 msgid "Bootloader"
 msgstr "Label boot"
 
-#: ../bootloader.py:89
+#: ../bootloader.py:99
 #, fuzzy
 msgid "Installing bootloader..."
 msgstr "Instalasi boot loader..."
 
-#: ../bootloader.py:124
+#: ../bootloader.py:140
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
 
-#: ../comps.py:752 ../comps.py:780
+#: ../cmdline.py:42 ../iw/progress_gui.py:104 ../iw/progress_gui.py:300
+msgid "Completed"
+msgstr "Selesai"
+
+#: ../cmdline.py:47
+#, fuzzy
+msgid "In progress...   "
+msgstr "Total    :"
+
+#: ../cmdline.py:68
+msgid "Can't have a question in command line mode!"
+msgstr ""
+
+#: ../cmdline.py:86
+msgid "Parted exceptions can't be handled in command line mode!"
+msgstr ""
+
+#: ../cmdline.py:131
+#, python-format
+msgid "Done [%d/%d]"
+msgstr ""
+
+#: ../cmdline.py:137
+#, fuzzy, python-format
+msgid "Installing %s-%s-%s... "
+msgstr "Instalasi %s.\n"
+
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:556
 #, fuzzy
 msgid "Everything"
 msgstr "Saya sedang mencari"
 
-#: ../comps.py:921 ../comps.py:986 ../upgrade.py:618
+#: ../comps.py:936 ../comps.py:1001
 msgid "no suggestion"
 msgstr "tidak tahu"
 
-#: ../comps.py:1081
+#: ../comps.py:1098 ../hdrlist.py:754
 msgid "Miscellaneous"
 msgstr "Lain-lain"
 
-#: ../comps.py:1097
+#: ../comps.py:1114 ../hdrlist.py:41 ../hdrlist.py:537 ../hdrlist.py:701
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1101
+#: ../comps.py:1118 ../hdrlist.py:705
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -332,15 +461,15 @@ msgid ""
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 
-#: ../exception.py:168 ../text.py:240
+#: ../exception.py:226 ../text.py:239
 msgid "Exception Occurred"
 msgstr ""
 
-#: ../exception.py:235
+#: ../exception.py:294
 msgid "Dump Written"
 msgstr ""
 
-#: ../exception.py:236
+#: ../exception.py:295
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -384,27 +513,27 @@ msgid "_Make boot disk"
 msgstr "Buat bootdisk"
 
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
-#: ../fsset.py:559 ../fsset.py:1040 ../fsset.py:1059 ../fsset.py:1106
-#: ../fsset.py:1117 ../fsset.py:1153 ../fsset.py:1203 ../fsset.py:1246
-#: ../harddrive.py:217 ../image.py:76 ../image.py:113 ../image.py:249
-#: ../packages.py:140 ../packages.py:154 ../packages.py:341 ../packages.py:513
-#: ../packages.py:586 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:334 ../upgrade.py:359
-#: ../upgrade.py:385 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../fsset.py:562 ../fsset.py:1189 ../fsset.py:1208 ../fsset.py:1255
+#: ../fsset.py:1266 ../fsset.py:1302 ../fsset.py:1352 ../fsset.py:1395
+#: ../harddrive.py:102 ../image.py:77 ../image.py:114 ../image.py:250
+#: ../image.py:432 ../packages.py:147 ../packages.py:161 ../packages.py:337
+#: ../packages.py:510 ../packages.py:593 ../partedUtils.py:545
+#: ../upgrade.py:335 ../upgrade.py:360 ../upgrade.py:387
+#: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
-#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1068
-#: ../textw/partition_text.py:1079 ../textw/upgrade_text.py:165
-#: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:239
-#: ../loader2/driverdisk.c:311 ../loader2/hdinstall.c:255
-#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
-#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:327
-#: ../loader2/loader.c:572 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:160 ../loader2/method.c:368
-#: ../loader2/method.c:453 ../loader2/nfsinstall.c:223
-#: ../loader2/nfsinstall.c:227 ../loader2/telnetd.c:86
-#: ../loader2/urlinstall.c:58 ../loader2/urlinstall.c:98
-#: ../loader2/urlinstall.c:111 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
+#: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
+#: ../loader2/cdinstall.c:426 ../loader2/driverdisk.c:240
+#: ../loader2/driverdisk.c:312 ../loader2/hdinstall.c:208
+#: ../loader2/hdinstall.c:269 ../loader2/hdinstall.c:339
+#: ../loader2/hdinstall.c:561 ../loader2/hdinstall.c:642
+#: ../loader2/kickstart.c:260 ../loader2/lang.c:101 ../loader2/loader.c:326
+#: ../loader2/loader.c:638 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:146 ../loader2/method.c:354
+#: ../loader2/method.c:439 ../loader2/nfsinstall.c:224
+#: ../loader2/nfsinstall.c:228 ../loader2/telnetd.c:86
+#: ../loader2/urlinstall.c:60 ../loader2/urlinstall.c:110
+#: ../loader2/urlinstall.c:123 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
 msgid "Error"
 msgstr "Error"
@@ -446,17 +575,17 @@ msgstr ""
 "Error terjadi saat membuat bootdisk. Silahkan diperiksa apakah ada disket "
 "kosong di drive."
 
-#: ../fsset.py:176
+#: ../fsset.py:174
 #, fuzzy
 msgid "Checking for Bad Blocks"
 msgstr "Mengecek bad blok pada saat format"
 
-#: ../fsset.py:177
+#: ../fsset.py:175
 #, fuzzy, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Mengecek bad blok pada saat format"
 
-#: ../fsset.py:560
+#: ../fsset.py:563
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -465,20 +594,28 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:973
+#: ../fsset.py:1103
 #, fuzzy
 msgid "RAID Device"
 msgstr "Tidak ada device RAID"
 
-#: ../fsset.py:976 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1107 ../fsset.py:1113
+msgid "Apple Bootstrap"
+msgstr ""
+
+#: ../fsset.py:1119
+msgid "PPC PReP Boot"
+msgstr ""
+
+#: ../fsset.py:1122 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Partisi pertama dari partisi boot"
 
-#: ../fsset.py:977 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1123 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1041
+#: ../fsset.py:1190
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -487,7 +624,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1060
+#: ../fsset.py:1209
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -497,7 +634,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1107
+#: ../fsset.py:1256
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -506,7 +643,7 @@ msgid ""
 "Press <Enter> to reboot your system"
 msgstr ""
 
-#: ../fsset.py:1118
+#: ../fsset.py:1267
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -515,7 +652,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1154
+#: ../fsset.py:1303
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -524,7 +661,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1204
+#: ../fsset.py:1353
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -533,12 +670,12 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1224 ../fsset.py:1233
+#: ../fsset.py:1373 ../fsset.py:1382
 #, fuzzy
 msgid "Invalid mount point"
 msgstr "Lokasi mount tidak dapat digunakan"
 
-#: ../fsset.py:1225
+#: ../fsset.py:1374
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -547,7 +684,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1234
+#: ../fsset.py:1383
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -556,7 +693,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1247
+#: ../fsset.py:1396
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -566,12 +703,12 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:2019
+#: ../fsset.py:2204
 #, fuzzy
 msgid "Formatting"
 msgstr "Saya sedang memformat "
 
-#: ../fsset.py:2020
+#: ../fsset.py:2205
 #, fuzzy, python-format
 msgid "Formatting %s file system..."
 msgstr "Sedang membuat filesystem %s"
@@ -613,54 +750,54 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: ../gui.py:236 ../text.py:321
+#: ../gui.py:236 ../text.py:320
 msgid "Fix"
 msgstr ""
 
-#: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
+#: ../gui.py:237 ../rescue.py:145 ../text.py:321 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:356
-#: ../loader2/driverdisk.c:367 ../loader2/hdinstall.c:368
-#: ../loader2/loader.c:352
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:357
+#: ../loader2/driverdisk.c:368 ../loader2/hdinstall.c:456
+#: ../loader2/loader.c:351
 msgid "Yes"
 msgstr "YA"
 
-#: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
+#: ../gui.py:238 ../rescue.py:145 ../rescue.py:147 ../text.py:322
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:356 ../loader2/driverdisk.c:367
-#: ../loader2/loader.c:352
+#: ../loader2/driverdisk.c:357 ../loader2/driverdisk.c:368
+#: ../loader2/loader.c:351
 msgid "No"
 msgstr "Tidak"
 
-#: ../gui.py:240 ../text.py:325 ../loader2/net.c:175 ../loader2/net.c:411
+#: ../gui.py:240 ../text.py:324 ../loader2/net.c:175 ../loader2/net.c:422
 msgid "Retry"
 msgstr "Ulangi lagi"
 
-#: ../gui.py:241 ../text.py:326
+#: ../gui.py:241 ../text.py:325
 #, fuzzy
 msgid "Ignore"
 msgstr "Abaikan semuanya"
 
-#: ../gui.py:242 ../gui.py:549 ../partIntfHelpers.py:231
-#: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:116
-#: ../text.py:117 ../text.py:286 ../text.py:288 ../text.py:327
-#: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
-#: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
+#: ../gui.py:242 ../gui.py:549 ../partIntfHelpers.py:225
+#: ../partIntfHelpers.py:406 ../partIntfHelpers.py:517 ../text.py:115
+#: ../text.py:116 ../text.py:285 ../text.py:287 ../text.py:326
+#: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:103
+#: ../textw/bootloader_text.py:219 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:212
-#: ../loader2/loader.c:316
+#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:213
+#: ../loader2/loader.c:315
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../gui.py:631 ../text.py:284
+#: ../gui.py:631 ../text.py:283
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:739 ../gui.py:1249
+#: ../gui.py:739 ../gui.py:1336
 msgid "Online Help"
 msgstr "Help online"
 
@@ -668,25 +805,20 @@ msgstr "Help online"
 msgid "Language Selection"
 msgstr "Pilih Bahasa"
 
-#: ../gui.py:861 ../gui.py:890
-msgid "Release Notes"
-msgstr ""
-
-#: ../gui.py:895
-#, fuzzy
-msgid "Unable to load file!"
-msgstr "Error IO pada file lokal"
-
-#: ../gui.py:932
+#: ../gui.py:790 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
 msgstr ""
 
-#: ../gui.py:964
+#: ../gui.py:950
+msgid "The release notes are missing."
+msgstr ""
+
+#: ../gui.py:1045
 #, fuzzy
 msgid "Error!"
 msgstr "Error"
 
-#: ../gui.py:965
+#: ../gui.py:1046
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -694,131 +826,132 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: ../gui.py:969 ../packages.py:518 ../packages.py:1257
+#: ../gui.py:1050 ../packages.py:515 ../packages.py:1243
 #: ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Keluar"
 
-#: ../gui.py:970
+#: ../gui.py:1051
 #, fuzzy
 msgid "_Retry"
 msgstr "Ulangi lagi"
 
-#: ../gui.py:972 ../packages.py:1260
+#: ../gui.py:1053 ../packages.py:1246
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Upgrade sistem"
 
-#: ../gui.py:973 ../packages.py:1261
+#: ../gui.py:1054 ../packages.py:1247
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../gui.py:976 ../packages.py:1263
+#: ../gui.py:1057 ../packages.py:1249
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Reset"
 
-#: ../gui.py:1067 ../packages.py:1263
+#: ../gui.py:1148 ../packages.py:1249
 #, fuzzy
 msgid "_Back"
 msgstr "Kembali"
 
-#: ../gui.py:1069
+#: ../gui.py:1150
 #, fuzzy
 msgid "_Next"
 msgstr "Lanjutkan"
 
-#: ../gui.py:1071
+#: ../gui.py:1152
 msgid "_Release Notes"
 msgstr ""
 
-#: ../gui.py:1073
+#: ../gui.py:1154
 #, fuzzy
 msgid "Show _Help"
 msgstr "Lihat Help"
 
-#: ../gui.py:1075
+#: ../gui.py:1156
 #, fuzzy
 msgid "Hide _Help"
 msgstr "Sembunyikan help"
 
-#: ../gui.py:1077
+#: ../gui.py:1158
 #, fuzzy
 msgid "_Debug"
 msgstr "Debug"
 
-#: ../gui.py:1153
+#: ../gui.py:1240
 #, fuzzy, python-format
 msgid "%s Installer"
 msgstr "Install Tahap Akhir"
 
-#: ../gui.py:1168
+#: ../gui.py:1255
 #, fuzzy, python-format
 msgid "%s Installer on %s"
 msgstr "Installer Red Hat Linux untuk %s"
 
-#: ../gui.py:1207
+#: ../gui.py:1294
 #, fuzzy
 msgid "Unable to load title bar"
 msgstr "Error IO pada file lokal"
 
-#: ../gui.py:1311
+#: ../gui.py:1398
 #, fuzzy
 msgid "Install Window"
 msgstr "Log instalasi"
 
-#: ../harddrive.py:218
+#: ../harddrive.py:103 ../image.py:433
 #, python-format
 msgid ""
-"Missing ISO image for CD #%d, which is required for the install.\n"
+"The following ISO images are missing which are required for the install:\n"
 "\n"
+"%s\n"
 "The system will now reboot."
 msgstr ""
 
-#: ../image.py:77
+#: ../image.py:78
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:110
+#: ../image.py:111
 msgid "Copying File"
 msgstr ""
 
-#: ../image.py:111
+#: ../image.py:112
 #, fuzzy
 msgid "Transferring install image to hard drive..."
 msgstr "Mencari hard disk..."
 
-#: ../image.py:114
+#: ../image.py:115
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 
-#: ../image.py:207
+#: ../image.py:208
 #, fuzzy
 msgid "Change CDROM"
 msgstr "CDROM lain"
 
-#: ../image.py:208
+#: ../image.py:209
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr ""
 
-#: ../image.py:243
+#: ../image.py:244
 #, fuzzy
 msgid "Wrong CDROM"
 msgstr "CDROM lain"
 
-#: ../image.py:244
+#: ../image.py:245
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "CDROM ini tidak berisi Red Hat"
 
-#: ../image.py:250
+#: ../image.py:251
 #, fuzzy
 msgid "The CDROM could not be mounted."
 msgstr "Partisi %s tidak dapat dialokasikan."
@@ -828,104 +961,104 @@ msgstr "Partisi %s tidak dapat dialokasikan."
 msgid "Install on System"
 msgstr "Install sistem"
 
-#: ../kickstart.py:1168
+#: ../kickstart.py:1214
 #, fuzzy
 msgid "Missing Package"
 msgstr "Instalasi paket"
 
-#: ../kickstart.py:1169
+#: ../kickstart.py:1215
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1175 ../kickstart.py:1201
+#: ../kickstart.py:1221 ../kickstart.py:1248
 #, fuzzy
 msgid "_Abort"
 msgstr "_Reset"
 
-#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
+#: ../kickstart.py:1222 ../kickstart.py:1249 ../iw/partition_gui.py:1012
 #, fuzzy
 msgid "_Continue"
 msgstr "Lanjutkan"
 
-#: ../kickstart.py:1194
+#: ../kickstart.py:1240
 #, fuzzy
 msgid "Missing Group"
 msgstr "Informasi kurang"
 
-#: ../kickstart.py:1195
+#: ../kickstart.py:1241
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../network.py:39
+#: ../network.py:40
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
 
-#: ../network.py:44
+#: ../network.py:45
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
-#: ../packages.py:45 ../iw/package_gui.py:38
+#: ../packages.py:45 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
 msgstr ""
 
-#: ../packages.py:46 ../iw/package_gui.py:39
+#: ../packages.py:46 ../iw/package_gui.py:42
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
 
-#: ../packages.py:50 ../iw/package_gui.py:43
+#: ../packages.py:50 ../iw/package_gui.py:46
 #, fuzzy
 msgid "Would you like to continue with the upgrade?"
 msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
 
-#: ../packages.py:134
+#: ../packages.py:141
 #, fuzzy
 msgid "Reading"
 msgstr "Saya sedang membaca"
 
-#: ../packages.py:134
+#: ../packages.py:141
 #, fuzzy
 msgid "Reading package information..."
 msgstr "Saya sedang membaca informasi paket..."
 
-#: ../packages.py:141
+#: ../packages.py:148
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:155
+#: ../packages.py:162
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:227
+#: ../packages.py:231
 msgid "Dependency Check"
 msgstr ""
 
-#: ../packages.py:228
+#: ../packages.py:232
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../packages.py:293 ../packages.py:709
+#: ../packages.py:288 ../packages.py:690
 msgid "Processing"
 msgstr "Mulai diproses"
 
-#: ../packages.py:294
+#: ../packages.py:289
 #, fuzzy
 msgid "Preparing to install..."
 msgstr "Mengecek file yang hendak diinstall"
 
-#: ../packages.py:342
+#: ../packages.py:338
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -935,12 +1068,17 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:371
+#: ../packages.py:346
+#, fuzzy
+msgid "Installing..."
+msgstr "Instalasi boot loader..."
+
+#: ../packages.py:367
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Instalasi paket"
 
-#: ../packages.py:372
+#: ../packages.py:368
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -951,48 +1089,49 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:514
+#: ../packages.py:511
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
 
-#: ../packages.py:587 ../upgrade.py:335
+#: ../packages.py:594 ../upgrade.py:336
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:710
-msgid "Setting up RPM transaction..."
-msgstr ""
+#: ../packages.py:691
+#, fuzzy
+msgid "Preparing RPM transaction..."
+msgstr "Mengecek file yang hendak diinstall"
 
-#: ../packages.py:779
+#: ../packages.py:763
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "Upgrade Paket"
 
-#: ../packages.py:781
+#: ../packages.py:765
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Instalasi paket"
 
-#: ../packages.py:789 ../packages.py:1095
+#: ../packages.py:773 ../packages.py:1081
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Sedang mengupgrade %s.\n"
 
-#: ../packages.py:791 ../packages.py:1097
+#: ../packages.py:775 ../packages.py:1083
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Instalasi %s.\n"
 
-#: ../packages.py:807
+#: ../packages.py:791
 #, python-format
 msgid ""
 "\n"
@@ -1003,16 +1142,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:813
+#: ../packages.py:797
 #, fuzzy
 msgid "Install Starting"
 msgstr "Instalasi Mulai"
 
-#: ../packages.py:814
+#: ../packages.py:798
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:859
+#: ../packages.py:838
 #, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
@@ -1023,18 +1162,18 @@ msgstr ""
 "Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
 "\n"
 
-#: ../packages.py:863 ../packages.py:884 ../iw/lvm_dialog_gui.py:1064
-#: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1116 ../textw/upgrade_text.py:111
+#: ../packages.py:842 ../packages.py:863 ../iw/lvm_dialog_gui.py:1064
+#: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
+#: ../textw/partition_text.py:1119 ../textw/upgrade_text.py:111
 #, fuzzy
 msgid "Mount Point"
 msgstr "Lokasi Mount"
 
-#: ../packages.py:864
+#: ../packages.py:843
 msgid "Space Needed"
 msgstr "Spasi yg dibutuhkan"
 
-#: ../packages.py:880
+#: ../packages.py:859
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1045,39 +1184,47 @@ msgstr ""
 "Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
 "\n"
 
-#: ../packages.py:885
+#: ../packages.py:864
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Spasi yg dibutuhkan"
 
-#: ../packages.py:896
+#: ../packages.py:875
 msgid "Disk Space"
 msgstr "Space disk"
 
-#: ../packages.py:933
+#: ../packages.py:912
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:954
+#: ../packages.py:915
+msgid ""
+"\n"
+"\n"
+"The following packages were available in this version but NOT installed:\n"
+msgstr ""
+
+#: ../packages.py:940
 #, fuzzy
 msgid "Post Install"
 msgstr "Install Tahap Akhir"
 
-#: ../packages.py:955
+#: ../packages.py:941
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Lakukan konfigurasi install tahap akhir.."
 
-#: ../packages.py:1243
+#: ../packages.py:1229
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1244
+#: ../packages.py:1230
+#, python-format
 msgid ""
-"Thank you for downloading this Red Hat Beta release.\n"
+"Thank you for downloading this %s Beta release.\n"
 "\n"
 "This is not a final release and is not intended for use on production "
 "systems.  The purpose of this release is to collect feedback from testers, "
@@ -1085,21 +1232,21 @@ msgid ""
 "\n"
 "To report feedback, please visit:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"   http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"and file a report against 'Red Hat Public Beta'.\n"
+"and file a report against '%s Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1257
+#: ../packages.py:1243
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Install sistem"
 
-#: ../partedUtils.py:172 ../textw/partition_text.py:491
+#: ../partedUtils.py:174 ../textw/partition_text.py:491
 msgid "Foreign"
 msgstr ""
 
-#: ../partedUtils.py:248
+#: ../partedUtils.py:253
 #, fuzzy, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
@@ -1111,22 +1258,22 @@ msgstr ""
 "Tabel partisi di device %s rusak. Untuk membuat partisi baru maka harus "
 "diformat dulu, dengan resiko SEMUA DATA HILANG di drive ini."
 
-#: ../partedUtils.py:532
+#: ../partedUtils.py:546
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Error saat memount filesistem ext2 %s: %s"
 
-#: ../partedUtils.py:615
+#: ../partedUtils.py:629
 #, fuzzy
 msgid "Initializing"
 msgstr "Inisialisasi"
 
-#: ../partedUtils.py:616
+#: ../partedUtils.py:630
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr ""
 
-#: ../partedUtils.py:733
+#: ../partedUtils.py:748
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1140,11 +1287,11 @@ msgstr ""
 "Tabel partisi di device %s rusak. Untuk membuat partisi baru maka harus "
 "diformat dulu, dengan resiko SEMUA DATA HILANG di drive ini."
 
-#: ../partedUtils.py:851 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:866 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../partedUtils.py:852
+#: ../partedUtils.py:867
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -1233,8 +1380,8 @@ msgstr "Anda harus membuat partisi swap."
 msgid "This partition is part of a LVM volume group."
 msgstr "Anda harus membuat partisi swap."
 
-#: ../partIntfHelpers.py:141 ../partIntfHelpers.py:155
-#: ../partIntfHelpers.py:165 ../partIntfHelpers.py:182
+#: ../partIntfHelpers.py:141 ../partIntfHelpers.py:149
+#: ../partIntfHelpers.py:159 ../partIntfHelpers.py:176
 #, fuzzy
 msgid "Unable To Delete"
 msgstr "Error IO pada file lokal"
@@ -1244,52 +1391,47 @@ msgstr "Error IO pada file lokal"
 msgid "You must first select a partition to delete."
 msgstr "Partisi pertama dari partisi boot"
 
-#: ../partIntfHelpers.py:148 ../textw/partition_text.py:1080
-msgid "DASD partitions can only be deleted with fdasd"
-msgstr ""
-
-#: ../partIntfHelpers.py:156
+#: ../partIntfHelpers.py:150
 msgid "You cannot delete free space."
 msgstr ""
 
-#: ../partIntfHelpers.py:166
+#: ../partIntfHelpers.py:160
 #, fuzzy, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr "Anda harus membuat partisi swap."
 
-#: ../partIntfHelpers.py:183
+#: ../partIntfHelpers.py:177
 #, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr "Benar ingin menghapus partisi ini?"
 
-#: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
+#: ../partIntfHelpers.py:221 ../partIntfHelpers.py:516
 #: ../iw/lvm_dialog_gui.py:730
 #, fuzzy
 msgid "Confirm Delete"
 msgstr "Konfirmasi:"
 
-#: ../partIntfHelpers.py:228
+#: ../partIntfHelpers.py:222
 #, fuzzy, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Benar ingin menghapus partisi ini?"
 
-#: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
+#: ../partIntfHelpers.py:225 ../partIntfHelpers.py:517
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1340
-#: ../iw/partition_gui.py:1346
+#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1355
 msgid "_Delete"
 msgstr "_Hapus"
 
-#: ../partIntfHelpers.py:289
+#: ../partIntfHelpers.py:283
 #, fuzzy
 msgid "Notice"
 msgstr "Catatan"
 
-#: ../partIntfHelpers.py:290
+#: ../partIntfHelpers.py:284
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1297,41 +1439,37 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partIntfHelpers.py:306 ../partIntfHelpers.py:319
-#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
+#: ../partIntfHelpers.py:300 ../partIntfHelpers.py:313
+#: ../partIntfHelpers.py:339 ../partIntfHelpers.py:350
 #, fuzzy
 msgid "Unable To Edit"
 msgstr "Error IO pada file lokal"
 
-#: ../partIntfHelpers.py:307
+#: ../partIntfHelpers.py:301
 #, fuzzy
 msgid "You must select a partition to edit"
 msgstr "Pilihlah paket yang hendak diinstall"
 
-#: ../partIntfHelpers.py:319 ../partIntfHelpers.py:362
+#: ../partIntfHelpers.py:313 ../partIntfHelpers.py:351
 #, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr "Edit Partisi"
 
-#: ../partIntfHelpers.py:333
-msgid "You must go back and use fdasd to inititalize this partition"
-msgstr ""
-
-#: ../partIntfHelpers.py:351
+#: ../partIntfHelpers.py:340
 #, fuzzy, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "Anda harus membuat partisi swap."
 
-#: ../partIntfHelpers.py:383
+#: ../partIntfHelpers.py:372
 #, fuzzy
 msgid "Format as Swap?"
 msgstr "Saya sedang memformat "
 
-#: ../partIntfHelpers.py:384
+#: ../partIntfHelpers.py:373
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1340,7 +1478,7 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 
-#: ../partIntfHelpers.py:405
+#: ../partIntfHelpers.py:394
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. Red Hat recommends that you format this partition to "
@@ -1350,21 +1488,21 @@ msgid ""
 "you should continue without formatting this partition."
 msgstr ""
 
-#: ../partIntfHelpers.py:417
+#: ../partIntfHelpers.py:406
 #, fuzzy
 msgid "Format?"
 msgstr "Saya sedang memformat "
 
-#: ../partIntfHelpers.py:417
+#: ../partIntfHelpers.py:406
 msgid "Do _Not Format"
 msgstr ""
 
-#: ../partIntfHelpers.py:425
+#: ../partIntfHelpers.py:414
 #, fuzzy
 msgid "Error with Partitioning"
 msgstr "Partisi manual"
 
-#: ../partIntfHelpers.py:426
+#: ../partIntfHelpers.py:415
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1373,12 +1511,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partIntfHelpers.py:440
+#: ../partIntfHelpers.py:429
 #, fuzzy
 msgid "Partitioning Warning"
 msgstr "Pilih Partisi root"
 
-#: ../partIntfHelpers.py:441
+#: ../partIntfHelpers.py:430
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1388,24 +1526,24 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:660
+#: ../partIntfHelpers.py:444 ../iw/partition_gui.py:671
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../partIntfHelpers.py:458
+#: ../partIntfHelpers.py:447
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: ../partIntfHelpers.py:464
+#: ../partIntfHelpers.py:453
 #, fuzzy
 msgid "Format Warning"
 msgstr "Saya sedang memformat "
 
-#: ../partIntfHelpers.py:512
+#: ../partIntfHelpers.py:501
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1413,53 +1551,53 @@ msgid ""
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
 
-#: ../partIntfHelpers.py:516
+#: ../partIntfHelpers.py:505
 #, fuzzy, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Anda harus pilih device RAID"
 
-#: ../partIntfHelpers.py:519
+#: ../partIntfHelpers.py:508
 #, fuzzy
 msgid "You are about to delete a RAID device."
 msgstr "Anda harus pilih device RAID"
 
-#: ../partIntfHelpers.py:522
+#: ../partIntfHelpers.py:511
 #, fuzzy, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "Benar ingin menghapus partisi ini?"
 
-#: ../partIntfHelpers.py:525
+#: ../partIntfHelpers.py:514
 msgid "The partition you selected will be deleted."
 msgstr ""
 
-#: ../partIntfHelpers.py:535
+#: ../partIntfHelpers.py:524
 #, fuzzy
 msgid "Confirm Reset"
 msgstr "Konfirmasi:"
 
-#: ../partIntfHelpers.py:536
+#: ../partIntfHelpers.py:525
 #, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Benar ingin menghapus partisi ini?"
 
-#: ../partitioning.py:83
+#: ../partitioning.py:76
 #, fuzzy
 msgid "Installation cannot continue."
 msgstr "Instalasi dimulai"
 
-#: ../partitioning.py:84
+#: ../partitioning.py:77
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:114
+#: ../partitioning.py:107
 msgid "Low Memory"
 msgstr "Memory kurang"
 
-#: ../partitioning.py:115
+#: ../partitioning.py:108
 #, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
@@ -1470,72 +1608,72 @@ msgstr ""
 "perlu mengaktifkan swap secepatnya. Tetapi proses ini harus menuliskan "
 "partisi yang baru ke disk secepatnya. Ok ?"
 
-#: ../partitions.py:752
+#: ../partitions.py:772
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: ../partitions.py:757
+#: ../partitions.py:777
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: ../partitions.py:764
+#: ../partitions.py:784
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
-#: ../partitions.py:772
+#: ../partitions.py:792
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 
-#: ../partitions.py:799 ../partRequests.py:635
+#: ../partitions.py:819 ../partRequests.py:635
 #, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Partisi boot (/boot) hanya boleh untuk RAID-1 saja."
 
-#: ../partitions.py:805
+#: ../partitions.py:825
 #, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Partisi boot (/boot) hanya boleh untuk RAID-1 saja."
 
-#: ../partitions.py:809
+#: ../partitions.py:829
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: ../partitions.py:816
+#: ../partitions.py:836
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
 
-#: ../partitions.py:827
+#: ../partitions.py:847
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
 
-#: ../partitions.py:1108
+#: ../partitions.py:1128
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr "Anda harus membuat partisi swap."
 
-#: ../partitions.py:1111
+#: ../partitions.py:1131
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitions.py:1114
+#: ../partitions.py:1134
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr ""
 
@@ -1607,27 +1745,46 @@ msgid ""
 "will need to add members to the RAID device."
 msgstr ""
 
-#: ../rescue.py:139
+#: ../rescue.py:93
+#, fuzzy
+msgid "Starting Interface"
+msgstr "Mulai menggunakan PCMCIA..."
+
+#: ../rescue.py:94
+#, python-format
+msgid "Attempting to start %s"
+msgstr ""
+
+#: ../rescue.py:143
 #, fuzzy
 msgid "Setup Networking"
 msgstr "Konfigurasikan jaringan"
 
-#: ../rescue.py:140
+#: ../rescue.py:144
 #, fuzzy
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 "Apakah Anda ingin mengkonfigurasikan LAN (bukan dialup) untuk sistem ini?"
 
-#: ../rescue.py:159 ../rescue.py:194 ../rescue.py:347
+#: ../rescue.py:189 ../text.py:457
+msgid "Cancelled"
+msgstr "Dibatalkan"
+
+#: ../rescue.py:190 ../text.py:458
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr ""
+"Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
+
+#: ../rescue.py:206 ../rescue.py:241 ../rescue.py:394
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: ../rescue.py:178 ../rescue.py:247 ../rescue.py:255 ../rescue.py:326
+#: ../rescue.py:225 ../rescue.py:294 ../rescue.py:302 ../rescue.py:373
 #, fuzzy
 msgid "Rescue"
 msgstr "_Reset"
 
-#: ../rescue.py:179
+#: ../rescue.py:226
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1641,43 +1798,43 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:189 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:116
-#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:312
+#: ../rescue.py:236 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:313
 msgid "Continue"
 msgstr "Lanjutkan"
 
-#: ../rescue.py:189 ../rescue.py:198
+#: ../rescue.py:236 ../rescue.py:245
 #, fuzzy
 msgid "Read-Only"
 msgstr "Saya sedang membaca"
 
-#: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
-#: ../loader2/cdinstall.c:260 ../loader2/method.c:415
+#: ../rescue.py:236 ../rescue.py:238 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:251
+#: ../loader2/cdinstall.c:253 ../loader2/method.c:401
 msgid "Skip"
 msgstr "Lewatkan"
 
-#: ../rescue.py:221
+#: ../rescue.py:268
 #, fuzzy
 msgid "System to Rescue"
 msgstr "Sistem yang hendak diupgrade"
 
-#: ../rescue.py:222
+#: ../rescue.py:269
 msgid "What partition holds the root partition of your installation?"
 msgstr "Partisi mana yang menyimpan partisi root di instalasi ini?"
 
-#: ../rescue.py:224 ../rescue.py:228
+#: ../rescue.py:271 ../rescue.py:275
 msgid "Exit"
 msgstr "Keluar"
 
-#: ../rescue.py:248
+#: ../rescue.py:295
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:256
+#: ../rescue.py:303
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1690,7 +1847,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:327
+#: ../rescue.py:374
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1700,70 +1857,61 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:333
+#: ../rescue.py:380
 #, fuzzy
 msgid "Rescue Mode"
 msgstr "Metode Rescue"
 
-#: ../rescue.py:334
+#: ../rescue.py:381
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:344
+#: ../rescue.py:391
 #, fuzzy, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Masukkan nama direktorinya."
 
-#: ../text.py:193
+#: ../text.py:192
 #, fuzzy
 msgid "Help not available"
 msgstr "(tidak ada yg tersedia)"
 
-#: ../text.py:194
+#: ../text.py:193
 msgid "No help is available for this step of the install."
 msgstr ""
 
-#: ../text.py:283
+#: ../text.py:282
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:302 ../text.py:310
+#: ../text.py:301 ../text.py:309
 msgid "Save"
 msgstr ""
 
-#: ../text.py:302 ../text.py:305 ../text.py:308
+#: ../text.py:301 ../text.py:304 ../text.py:307
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:342
+#: ../text.py:341
 #, fuzzy, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:349
+#: ../text.py:348
 #, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../text.py:351
+#: ../text.py:350
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
-
-#: ../text.py:452
-msgid "Cancelled"
-msgstr "Dibatalkan"
-
-#: ../text.py:453
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
 
 #: ../upgradeclass.py:8
 #, fuzzy
@@ -1774,22 +1922,22 @@ msgstr "Upgrade sistem"
 msgid "Upgrade"
 msgstr "Upgrade"
 
-#: ../upgrade.py:61
+#: ../upgrade.py:62
 #, fuzzy
 msgid "Searching"
 msgstr "Saya sedang mencari"
 
-#: ../upgrade.py:62
+#: ../upgrade.py:63
 #, fuzzy, python-format
 msgid "Searching for %s installations..."
 msgstr "Saya sedang mencari instalasi Red Hat Linux..."
 
-#: ../upgrade.py:113 ../upgrade.py:121
+#: ../upgrade.py:114 ../upgrade.py:122
 #, fuzzy
 msgid "Dirty File Systems"
 msgstr "Ukuran sistem yang diinstal:"
 
-#: ../upgrade.py:114
+#: ../upgrade.py:115
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1798,7 +1946,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../upgrade.py:122
+#: ../upgrade.py:123
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1806,25 +1954,25 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../upgrade.py:251 ../upgrade.py:257
+#: ../upgrade.py:252 ../upgrade.py:258
 #, fuzzy
 msgid "Mount failed"
 msgstr "mount gagal: %s"
 
-#: ../upgrade.py:252
+#: ../upgrade.py:253
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:258
+#: ../upgrade.py:259
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
 
-#: ../upgrade.py:275
+#: ../upgrade.py:276
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1832,59 +1980,61 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../upgrade.py:281
+#: ../upgrade.py:282
 msgid "Absolute Symlinks"
 msgstr ""
 
-#: ../upgrade.py:292
+#: ../upgrade.py:293
 msgid ""
-"The following are directories which should instead be symbolic link, which "
+"The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
-"state as a symbolic link and restart the upgrade.\n"
+"state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
 
-#: ../upgrade.py:298
+#: ../upgrade.py:299
 #, fuzzy
 msgid "Invalid Directories"
 msgstr "Ganti label boot"
 
-#: ../upgrade.py:304
+#: ../upgrade.py:305
 #, fuzzy, python-format
 msgid "%s not found"
 msgstr "Device HD %s tidak ketemu"
 
-#: ../upgrade.py:347
+#: ../upgrade.py:348
 #, fuzzy
 msgid "Finding"
 msgstr "Ketemu"
 
-#: ../upgrade.py:348
+#: ../upgrade.py:349
 msgid "Finding packages to upgrade..."
 msgstr "Mencari paket yang hendak diupgrade..."
 
-#: ../upgrade.py:360
+#: ../upgrade.py:361
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
 
-#: ../upgrade.py:386
+#: ../upgrade.py:388
 #, fuzzy
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Mencari paket yang hendak diupgrade..."
 
-#: ../upgrade.py:440
+#: ../upgrade.py:442
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
 "continuing the upgrade process may cause them to stop functioning properly "
-"or may cause other system instability.  Do you wish to continue the upgrade "
-"process?"
+"or may cause other system instability.  Please see the release notes for "
+"more information.\n"
+"\n"
+"Do you wish to continue the upgrade process?"
 msgstr ""
 
-#: ../upgrade.py:460
+#: ../upgrade.py:465
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1892,7 +2042,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:501
+#: ../upgrade.py:506
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -1900,7 +2050,11 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: ../xsetup.py:53 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
+#: ../urlinstall.py:45
+msgid "Connecting..."
+msgstr ""
+
+#: ../xsetup.py:54 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
 msgstr ""
 
@@ -1909,43 +2063,45 @@ msgstr ""
 msgid "Set Root Password"
 msgstr "Password Root"
 
-#: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
+#: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
 #, fuzzy
 msgid "Error with Password"
 msgstr "Password Root"
 
-#: ../iw/account_gui.py:36 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:36
+msgid ""
+"You must enter your root password and confirm it by typing it a second time "
+"to continue."
+msgstr ""
+
+#: ../iw/account_gui.py:44
+#, fuzzy
+msgid "The passwords you entered were different.  Please try again."
+msgstr "Password yang Anda ketikkan saling berbeda. Ulangi lagi."
+
+#: ../iw/account_gui.py:51
+#, fuzzy
+msgid "The root password must be at least six characters long."
+msgstr "Password root haruslah minimal 6 karakter"
+
+#: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
 
-#: ../iw/account_gui.py:51
-#, fuzzy
-msgid "Root password accepted."
-msgstr "Password Root:"
-
-#: ../iw/account_gui.py:56
-#, fuzzy
-msgid "Root password is too short."
-msgstr "Password Root:"
-
-#: ../iw/account_gui.py:58
-#, fuzzy
-msgid "Root passwords do not match."
-msgstr "Password tidak sama"
-
-#: ../iw/account_gui.py:80
+#: ../iw/account_gui.py:87
 #, fuzzy
 msgid "Enter the root (administrator) password for the system."
 msgstr "Masukkan keterangan tentang user ini."
 
-#: ../iw/account_gui.py:96
+#: ../iw/account_gui.py:103
 #, fuzzy
 msgid "Root _Password: "
 msgstr "Password Root:"
 
-#: ../iw/account_gui.py:99
+#: ../iw/account_gui.py:106
 #, fuzzy
 msgid "_Confirm: "
 msgstr "Konfirmasi:"
@@ -2051,6 +2207,30 @@ msgstr ""
 msgid "SMB"
 msgstr ""
 
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1412
+#: ../textw/partition_text.py:1203
+msgid "Automatic Partitioning"
+msgstr "Partisi otomatis"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1440
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Pilihlah paket yang hendak diinstall"
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1482
+#, fuzzy
+msgid "I want to have automatic partitioning:"
+msgstr "Partisi otomatis"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1513
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Dimana hendak diinstallkan bootloadernya?"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1537
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr ""
+
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -2093,12 +2273,12 @@ msgstr "Konfirmasi:"
 msgid "Passwords don't match"
 msgstr "Password tidak sama"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:448
 #, fuzzy
 msgid "Passwords do not match"
 msgstr "Password tidak sama"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:458
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2135,7 +2315,7 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:140
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:143
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -2164,18 +2344,18 @@ msgid "_General kernel parameters"
 msgstr "Parameter Kernel"
 
 #: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
-#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
-#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:126 ../textw/bootloader_text.py:185
+#: ../textw/bootloader_text.py:308 ../textw/bootloader_text.py:400
 #, fuzzy
 msgid "Boot Loader Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/bootloader_main_gui.py:71
+#: ../iw/bootloader_main_gui.py:74
 #, fuzzy
 msgid "Change Boot Loader"
 msgstr "Label boot"
 
-#: ../iw/bootloader_main_gui.py:89
+#: ../iw/bootloader_main_gui.py:92
 msgid ""
 "You have selected not to install a boot loader on your system.  You will "
 "have to create a boot disk to boot your system with this option.\n"
@@ -2183,46 +2363,46 @@ msgid ""
 "Would you like to continue and not install a boot loader?"
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:101
+#: ../iw/bootloader_main_gui.py:104
 #, fuzzy
 msgid "C_ontinue with no boot loader"
 msgstr "Instalasi boot loader..."
 
-#: ../iw/bootloader_main_gui.py:127
+#: ../iw/bootloader_main_gui.py:130
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:135
+#: ../iw/bootloader_main_gui.py:138
 msgid "Use _GRUB as the boot loader"
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:139
+#: ../iw/bootloader_main_gui.py:142
 msgid "Use _LILO as the boot loader"
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:143
+#: ../iw/bootloader_main_gui.py:146
 #, fuzzy
 msgid "_Do not install a boot loader"
 msgstr "Instalasi boot loader..."
 
-#: ../iw/bootloader_main_gui.py:166
+#: ../iw/bootloader_main_gui.py:169
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:171
+#: ../iw/bootloader_main_gui.py:174
 msgid "No boot loader will be installed."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:223
+#: ../iw/bootloader_main_gui.py:226
 #, fuzzy
 msgid "_Change boot loader"
 msgstr "Instalasi boot loader..."
 
-#: ../iw/bootloader_main_gui.py:251
+#: ../iw/bootloader_main_gui.py:254
 #, fuzzy
 msgid "Configure advanced boot loader _options"
 msgstr "Konfigurasi LILO"
@@ -2298,7 +2478,7 @@ msgstr ""
 msgid "Congratulations"
 msgstr "Selamet"
 
-#: ../iw/congrats_gui.py:53
+#: ../iw/congrats_gui.py:53 ../textw/complete_text.py:28
 #, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
@@ -2307,15 +2487,19 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/congrats_gui.py:62
+#: ../iw/congrats_gui.py:63 ../textw/complete_text.py:38
+msgid ""
+"Remove any installation media (diskettes or CD-ROMs) used during the "
+"installation process and press <Enter> to reboot your system.\n"
+"\n"
+msgstr ""
+
+#: ../iw/congrats_gui.py:70
 #, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
-"Remove any installation media (diskettes or CD-ROMs) used during the "
-"installation.\n"
-"\n"
-"%sFor information on Errata (updates and bug fixes), visit:\n"
+"%s%sFor information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "For information on automatic updates through Red Hat Network, visit:\n"
@@ -2335,14 +2519,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Ketergantungan paket tidak diketahui"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:263
-#: ../iw/package_gui.py:506 ../iw/package_gui.py:696
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:252
+#: ../iw/package_gui.py:495 ../iw/package_gui.py:672
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, fuzzy, python-format
 msgid "Total install size: %s"
 msgstr "saya gagal membuka %s: %s"
 
-#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:209
+#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:232
 #: ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Nama Paket"
@@ -2372,10 +2556,6 @@ msgstr "Ketergantungan paket"
 msgid "Workstation Defaults"
 msgstr "Workstation"
 
-#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:7
-msgid "Workstation"
-msgstr "Workstation"
-
 #: ../iw/desktop_choice_gui.py:58
 #, python-format
 msgid ""
@@ -2399,11 +2579,6 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-
-#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:11
-#, fuzzy
-msgid "Personal Desktop"
-msgstr "Default"
 
 #: ../iw/desktop_choice_gui.py:76
 #, fuzzy
@@ -2439,12 +2614,13 @@ msgid ""
 msgstr ""
 
 #: ../iw/desktop_choice_gui.py:106
-msgid "_Accept the current package list"
-msgstr ""
+#, fuzzy
+msgid "_Install default software packages"
+msgstr "Instalasi paket"
 
 #: ../iw/desktop_choice_gui.py:107
 #, fuzzy
-msgid "_Customize the set of packages to be installed"
+msgid "_Customize software packages to be installed"
 msgstr "Pilih paket yang hendak diupgrade"
 
 #: ../iw/driveorderwidget.py:44
@@ -2452,8 +2628,8 @@ msgstr "Pilih paket yang hendak diupgrade"
 msgid "Drive"
 msgstr "Lewati drive"
 
-#: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:210
-#: ../iw/progress_gui.py:273 ../textw/partition_text.py:1116
+#: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:233
+#: ../iw/progress_gui.py:312 ../textw/partition_text.py:1119
 msgid "Size"
 msgstr "Ukuran"
 
@@ -2467,7 +2643,7 @@ msgstr "Periksa Upgrade"
 
 #: ../iw/examine_gui.py:59
 #, fuzzy
-msgid "Perform an upgrade of an existing installation"
+msgid "_Upgrade an existing installation"
 msgstr "Upgrade Instalasi yang ada"
 
 #: ../iw/examine_gui.py:61
@@ -2479,26 +2655,20 @@ msgstr ""
 
 #: ../iw/examine_gui.py:67
 #, fuzzy, python-format
-msgid "Perform a new %s installation"
-msgstr "Saya sedang mencari instalasi Red Hat Linux..."
+msgid "_Install %s"
+msgstr "Install"
 
 #: ../iw/examine_gui.py:69
 msgid ""
-"Choose this option to install your system from scratch.  Depending on how "
-"you choose to partition your system the existing data on your drives may or "
-"may not be preserved."
+"Choose this option to freshly install your system. Existing software and "
+"data may be overwritten depending on your configuration choices."
 msgstr ""
 
-#: ../iw/examine_gui.py:114
-#, fuzzy
-msgid "_Customize packages to be upgraded"
-msgstr "Pilih paket yang hendak diupgrade"
-
-#: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:195
+#: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following Red Hat product will be upgraded:"
 msgstr ""
 
-#: ../iw/examine_gui.py:134
+#: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
 msgstr ""
 
@@ -2576,33 +2746,33 @@ msgstr "Bebas"
 msgid "_Trusted devices:"
 msgstr "Device printer:"
 
-#: ../iw/firewall_gui.py:254
+#: ../iw/firewall_gui.py:255
 msgid "_Allow incoming:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:278
+#: ../iw/firewall_gui.py:280
 #, fuzzy
 msgid "Other _ports:"
 msgstr "Server Printer:"
 
-#: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:42
+#: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
 msgstr "Tipe Instalasi"
 
-#: ../iw/ipwidget.py:104
+#: ../iw/ipwidget.py:92
 #, fuzzy
 msgid "IP Address is missing"
 msgstr "Alamat IP"
 
-#: ../iw/ipwidget.py:109
+#: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
 msgstr ""
 
-#: ../iw/ipwidget.py:114 ../iw/ipwidget.py:116
+#: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr ""
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:371
 msgid "What language would you like to use during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -2813,8 +2983,8 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
-#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
-#: ../textw/partition_text.py:853 ../textw/partition_text.py:1026
+#: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:843
+#: ../textw/partition_text.py:865 ../textw/partition_text.py:1038
 msgid "Error With Request"
 msgstr ""
 
@@ -2933,7 +3103,7 @@ msgstr "Total"
 msgid "Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1067 ../iw/partition_gui.py:354
+#: ../iw/lvm_dialog_gui.py:1067 ../iw/partition_gui.py:363
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Ukuran (Mega):"
@@ -2944,8 +3114,7 @@ msgid "_Add"
 msgstr "Tambah"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:488
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1339
-#: ../iw/partition_gui.py:1345
+#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1354
 #, fuzzy
 msgid "_Edit"
 msgstr "Edit"
@@ -2993,19 +3162,19 @@ msgstr "Emulasikan 3 tombol"
 msgid "Select the appropriate mouse for the system."
 msgstr ""
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:569
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:570
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:26 ../iw/network_gui.py:571
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:572
 msgid "Primary DNS"
 msgstr "DNS Primer"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:573
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:574
 msgid "Secondary DNS"
 msgstr "DNS Sekunder"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:575
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:576
 #, fuzzy
 msgid "Tertiary DNS"
 msgstr "DNS Tersier"
@@ -3054,7 +3223,7 @@ msgid ""
 "environment this may cause problems later."
 msgstr ""
 
-#: ../iw/network_gui.py:162
+#: ../iw/network_gui.py:162 ../textw/network_text.py:373
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3115,8 +3284,9 @@ msgid "Net_mask"
 msgstr "Netmask"
 
 #: ../iw/network_gui.py:229
-msgid "Point to Point (IP)"
-msgstr ""
+#, fuzzy
+msgid "_Point to Point (IP)"
+msgstr "Lokasi Mount:"
 
 #: ../iw/network_gui.py:252
 #, fuzzy, python-format
@@ -3129,9 +3299,9 @@ msgid "Active on Boot"
 msgstr "Aktifkan saat boot"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
-#: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1116
+#: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
+#: ../textw/bootloader_text.py:213 ../textw/bootloader_text.py:284
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1119
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Perangkat"
@@ -3141,8 +3311,7 @@ msgstr "Perangkat"
 msgid "IP/Netmask"
 msgstr "Netmask"
 
-#: ../iw/network_gui.py:421 ../iw/network_gui.py:522
-#: ../textw/network_text.py:224 ../loader2/net.c:627
+#: ../iw/network_gui.py:421 ../iw/network_gui.py:523 ../loader2/net.c:587
 msgid "Hostname"
 msgstr "Hostname"
 
@@ -3169,7 +3338,11 @@ msgstr ""
 msgid "_manually"
 msgstr ""
 
-#: ../iw/network_gui.py:579
+#: ../iw/network_gui.py:517
+msgid "(ex. \"host.domain.com\")"
+msgstr ""
+
+#: ../iw/network_gui.py:580
 #, fuzzy
 msgid "Miscellaneous Settings"
 msgstr "Lain-lain"
@@ -3184,10 +3357,10 @@ msgid ""
 msgstr ""
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
-#: ../textw/xconfig_text.py:395 ../textw/xconfig_text.py:402
-#: ../textw/xconfig_text.py:516 ../textw/xconfig_text.py:517
-#: ../textw/xconfig_text.py:536 ../textw/xconfig_text.py:537
+#: ../textw/bootloader_text.py:284 ../textw/silo_text.py:207
+#: ../textw/xconfig_text.py:394 ../textw/xconfig_text.py:401
+#: ../textw/xconfig_text.py:528 ../textw/xconfig_text.py:529
+#: ../textw/xconfig_text.py:548 ../textw/xconfig_text.py:549
 msgid "Default"
 msgstr "Default"
 
@@ -3253,69 +3426,69 @@ msgid ""
 "system you are about to install."
 msgstr ""
 
-#: ../iw/package_gui.py:49 ../textw/packages_text.py:237
+#: ../iw/package_gui.py:52 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
 msgstr "Pilih masing-masing paket"
 
-#: ../iw/package_gui.py:77
+#: ../iw/package_gui.py:66
 #, fuzzy
 msgid "All Packages"
 msgstr "Nama Paket"
 
-#: ../iw/package_gui.py:197
+#: ../iw/package_gui.py:186
 #, fuzzy, python-format
 msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr "Paket %s tidak ada.\n"
 
-#: ../iw/package_gui.py:367
+#: ../iw/package_gui.py:356
 msgid "_Tree View"
 msgstr ""
 
-#: ../iw/package_gui.py:369
+#: ../iw/package_gui.py:358
 msgid "_Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:384
+#: ../iw/package_gui.py:373
 #, fuzzy
 msgid "_Package"
 msgstr "Nama Paket"
 
-#: ../iw/package_gui.py:386
+#: ../iw/package_gui.py:375
 #, fuzzy
 msgid "_Size (MB)"
 msgstr "Ukuran (Mega):"
 
-#: ../iw/package_gui.py:437
+#: ../iw/package_gui.py:426
 #, fuzzy
 msgid "Total size: "
 msgstr "Total"
 
-#: ../iw/package_gui.py:440
+#: ../iw/package_gui.py:429
 #, fuzzy
 msgid "Select _all in group"
 msgstr "Pilih Kelompok Paket"
 
-#: ../iw/package_gui.py:444
+#: ../iw/package_gui.py:433
 #, fuzzy
 msgid "_Unselect all in group"
 msgstr "Pilih Kelompok Paket"
 
-#: ../iw/package_gui.py:481 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:470 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Pilihan Grup Paket"
 
-#: ../iw/package_gui.py:701
+#: ../iw/package_gui.py:677
 msgid "Minimal"
 msgstr ""
 
-#: ../iw/package_gui.py:772
+#: ../iw/package_gui.py:739
 #, python-format
 msgid "Details for '%s'"
 msgstr ""
 
-#: ../iw/package_gui.py:781
+#: ../iw/package_gui.py:748
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3323,22 +3496,22 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 
-#: ../iw/package_gui.py:822
+#: ../iw/package_gui.py:791
 #, fuzzy
 msgid "Base Packages"
 msgstr "Nama Paket"
 
-#: ../iw/package_gui.py:852
+#: ../iw/package_gui.py:821
 #, fuzzy
 msgid "Optional Packages"
 msgstr "Nama Paket"
 
-#: ../iw/package_gui.py:1072
+#: ../iw/package_gui.py:1027
 #, fuzzy
 msgid "Details"
 msgstr "Keterangan Paket"
 
-#: ../iw/package_gui.py:1166
+#: ../iw/package_gui.py:1121
 #, fuzzy
 msgid "_Select individual packages"
 msgstr "Pilih beberapa paket"
@@ -3411,171 +3584,166 @@ msgstr ""
 msgid "Force to be a _primary partition"
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../iw/partition_dialog_gui.py:456
-#, fuzzy
-msgid "Check for _bad blocks"
-msgstr "Mengecek bad blok pada saat format"
-
-#: ../iw/partition_gui.py:350 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1116
+#: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../textw/partition_text.py:1119
 msgid "Type"
 msgstr "Tipe"
 
-#: ../iw/partition_gui.py:353
+#: ../iw/partition_gui.py:362
 #, fuzzy
 msgid "Format"
 msgstr "Saya sedang memformat "
 
-#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1116
+#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1119
 #, fuzzy
 msgid "Start"
 msgstr "Status"
 
-#: ../iw/partition_gui.py:356 ../textw/partition_text.py:1116
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1119
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:393
+#: ../iw/partition_gui.py:402
 #, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr "Lokasi Mount"
 
-#: ../iw/partition_gui.py:395
+#: ../iw/partition_gui.py:404
 #, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
 msgstr "Ukuran (Mega):"
 
-#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1110
+#: ../iw/partition_gui.py:547 ../textw/partition_text.py:1113
 #, fuzzy
 msgid "Partitioning"
 msgstr "Partisi"
 
-#: ../iw/partition_gui.py:628
+#: ../iw/partition_gui.py:639
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:631
+#: ../iw/partition_gui.py:642
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
-#: ../iw/partition_gui.py:637
+#: ../iw/partition_gui.py:648
 #, fuzzy
 msgid "Partitioning Errors"
 msgstr "Partisi"
 
-#: ../iw/partition_gui.py:643
+#: ../iw/partition_gui.py:654
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:645
+#: ../iw/partition_gui.py:656
 #, fuzzy
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
 
-#: ../iw/partition_gui.py:650
+#: ../iw/partition_gui.py:661
 #, fuzzy
 msgid "Partitioning Warnings"
 msgstr "Pilih Partisi root"
 
-#: ../iw/partition_gui.py:672
+#: ../iw/partition_gui.py:683
 #, fuzzy
 msgid "Format Warnings"
 msgstr "Saya sedang memformat "
 
-#: ../iw/partition_gui.py:677
+#: ../iw/partition_gui.py:688
 #, fuzzy
 msgid "_Format"
 msgstr "Saya sedang memformat "
 
-#: ../iw/partition_gui.py:712
+#: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
 msgstr ""
 
-#: ../iw/partition_gui.py:747
+#: ../iw/partition_gui.py:758
 #, fuzzy
 msgid "RAID Devices"
 msgstr "Tidak ada device RAID"
 
-#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:892
+#: ../iw/partition_gui.py:786 ../iw/partition_gui.py:907
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 #, fuzzy
 msgid "None"
 msgstr "Selesai"
 
-#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:368
+#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:456
 msgid "Hard Drives"
 msgstr "Hard Disk"
 
-#: ../iw/partition_gui.py:855 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:870 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 #, fuzzy
 msgid "Free space"
 msgstr "Space disk"
 
-#: ../iw/partition_gui.py:857 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:872 ../textw/partition_text.py:135
 msgid "Extended"
 msgstr ""
 
-#: ../iw/partition_gui.py:859 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:874 ../textw/partition_text.py:137
 msgid "software RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:894
+#: ../iw/partition_gui.py:909
 msgid "Free"
 msgstr ""
 
-#: ../iw/partition_gui.py:984 ../textw/partition_text.py:214
+#: ../iw/partition_gui.py:999 ../textw/partition_text.py:214
 #, fuzzy, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../iw/partition_gui.py:993
+#: ../iw/partition_gui.py:1008
 #, fuzzy, python-format
 msgid "Warning: %s."
 msgstr "Perhatian"
 
-#: ../iw/partition_gui.py:995
+#: ../iw/partition_gui.py:1010
 #, fuzzy
 msgid "_Modify Partition"
 msgstr "Edit Partisi"
 
-#: ../iw/partition_gui.py:1173 ../iw/partition_gui.py:1187
+#: ../iw/partition_gui.py:1188 ../iw/partition_gui.py:1202
 #, fuzzy
 msgid "Not supported"
 msgstr "Setup Network"
 
-#: ../iw/partition_gui.py:1174
+#: ../iw/partition_gui.py:1189
 msgid "LVM is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1188
+#: ../iw/partition_gui.py:1203
 msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1195
+#: ../iw/partition_gui.py:1210
 #, fuzzy
 msgid "No RAID minor device numbers available"
 msgstr "(tidak ada yg tersedia)"
 
-#: ../iw/partition_gui.py:1196
+#: ../iw/partition_gui.py:1211
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
 
-#: ../iw/partition_gui.py:1210
+#: ../iw/partition_gui.py:1225
 #, fuzzy
 msgid "RAID Options"
 msgstr "<Partisi RAID>"
 
-#: ../iw/partition_gui.py:1221
+#: ../iw/partition_gui.py:1236
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3587,7 +3755,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1232
+#: ../iw/partition_gui.py:1247
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3595,88 +3763,56 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1238
+#: ../iw/partition_gui.py:1253
 #, fuzzy
 msgid "What do you want to do now?"
 msgstr "Perangkat apa yang hendak dimasukkan ?"
 
-#: ../iw/partition_gui.py:1247
+#: ../iw/partition_gui.py:1262
 #, fuzzy
 msgid "Create a software RAID _partition."
 msgstr "<Partisi RAID>"
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1265
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1254
+#: ../iw/partition_gui.py:1269
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1293
+#: ../iw/partition_gui.py:1308
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1294
+#: ../iw/partition_gui.py:1309
 #, fuzzy
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Saya tak dapat memount direktori tersebut dari server"
 
-#: ../iw/partition_gui.py:1341
-msgid "_Reset"
-msgstr "_Reset"
-
-#: ../iw/partition_gui.py:1342
-#, fuzzy
-msgid "Make _RAID"
-msgstr "gunakan device RAID"
-
-#: ../iw/partition_gui.py:1344
+#: ../iw/partition_gui.py:1353
 #, fuzzy
 msgid "Ne_w"
 msgstr "Baru"
 
-#: ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:1356
 #, fuzzy
 msgid "Re_set"
 msgstr "_Reset"
 
-#: ../iw/partition_gui.py:1348
+#: ../iw/partition_gui.py:1357
 #, fuzzy
 msgid "R_AID"
 msgstr "<RAID>"
 
-#: ../iw/partition_gui.py:1349
+#: ../iw/partition_gui.py:1358
 msgid "_LVM"
 msgstr ""
 
-#: ../iw/partition_gui.py:1388
+#: ../iw/partition_gui.py:1397
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
-
-#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:1207
-msgid "Automatic Partitioning"
-msgstr "Partisi otomatis"
-
-#: ../iw/partition_gui.py:1431
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Pilihlah paket yang hendak diinstall"
-
-#: ../iw/partition_gui.py:1473
-#, fuzzy
-msgid "I want to have automatic partitioning:"
-msgstr "Partisi otomatis"
-
-#: ../iw/partition_gui.py:1504
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Dimana hendak diinstallkan bootloadernya?"
-
-#: ../iw/partition_gui.py:1528
-msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
@@ -3710,7 +3846,7 @@ msgstr "Partisi root takada"
 msgid "Check for _bad blocks?"
 msgstr "Mengecek bad blok pada saat format"
 
-#: ../iw/partition_ui_helpers_gui.py:335
+#: ../iw/partition_ui_helpers_gui.py:336
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -3732,50 +3868,56 @@ msgstr "Partisi Otomatis"
 msgid "Manually partition with _Disk Druid"
 msgstr "Partisi manual"
 
-#: ../iw/progress_gui.py:29
+#: ../iw/progress_gui.py:30
 msgid "Installing Packages"
 msgstr "Instalasi paket"
 
-#: ../iw/progress_gui.py:92 ../iw/progress_gui.py:261
-msgid "Completed"
-msgstr "Selesai"
+#: ../iw/progress_gui.py:52 ../textw/progress_text.py:65
+#, python-format
+msgid "Downloading - %s"
+msgstr ""
 
-#: ../iw/progress_gui.py:98 ../iw/progress_gui.py:260
+#: ../iw/progress_gui.py:110 ../iw/progress_gui.py:299
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:104 ../iw/progress_gui.py:262
+#: ../iw/progress_gui.py:116 ../iw/progress_gui.py:301
 msgid "Remaining"
 msgstr "Sisa waktu"
 
-#: ../iw/progress_gui.py:137
+#: ../iw/progress_gui.py:154
 #, python-format
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:211
+#: ../iw/progress_gui.py:234
 msgid "Summary"
 msgstr "Keterangan"
 
-#: ../iw/progress_gui.py:241
+#: ../iw/progress_gui.py:270 ../textw/progress_text.py:129
+#, fuzzy
+msgid "Status: "
+msgstr "Status"
+
+#: ../iw/progress_gui.py:280
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Grup Paket"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:285
 #, fuzzy
 msgid "Total Progress:   "
 msgstr "Total    :"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:312
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:312
 msgid "Packages"
 msgstr "Nama Paket"
 
-#: ../iw/progress_gui.py:273
+#: ../iw/progress_gui.py:312
 msgid "Time"
 msgstr "Waktu"
 
@@ -3789,7 +3931,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
-#: ../textw/partition_text.py:888
+#: ../textw/partition_text.py:900
 #, fuzzy
 msgid "Make RAID Device"
 msgstr "_Buat Perangkat RAID"
@@ -3799,7 +3941,7 @@ msgstr "_Buat Perangkat RAID"
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "Device RAID: /dev/"
 
-#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:886
+#: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:898
 #, fuzzy
 msgid "Edit RAID Device"
 msgstr "Tidak ada device RAID"
@@ -3956,6 +4098,15 @@ msgstr "Hard Disk"
 msgid "Drives"
 msgstr "Lewati drive"
 
+#: ../iw/release_notes_viewer_gui.py:142
+msgid "Release Notes"
+msgstr ""
+
+#: ../iw/release_notes_viewer_gui.py:146
+#, fuzzy
+msgid "Unable to load file!"
+msgstr "Error IO pada file lokal"
+
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
 msgstr "Konfigurasi LILO"
@@ -3993,8 +4144,8 @@ msgstr "Jangan install SILO"
 msgid "Partition type"
 msgstr "Tipe partisi"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:214
+#: ../textw/bootloader_text.py:284 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Label boot"
@@ -4008,23 +4159,15 @@ msgstr "Set device boot default PROM"
 msgid "Time Zone Selection"
 msgstr "Pilih Timezone"
 
-#: ../iw/timezone_gui.py:146 ../iw/timezone_gui.py:147
+#: ../iw/timezone_gui.py:65
 #, fuzzy
 msgid "System clock uses _UTC"
 msgstr "Jam sistem menggunakan UTC"
 
-#: ../iw/timezone_gui.py:170
-msgid "Location"
-msgstr "Lokasi"
-
-#: ../iw/timezone_gui.py:219
+#: ../iw/timezone_gui.py:73
 #, fuzzy
-msgid "Use _daylight saving time (US only)"
-msgstr "Gunakan Daylight Saving Time (US saja)"
-
-#: ../iw/timezone_gui.py:232
-msgid "UTC Offset"
-msgstr "Offset UTC"
+msgid "Please select the nearest city in your timezone:"
+msgstr "Direktori %s harus ada di filesystem root"
 
 #: ../iw/timezone_map_gui.py:126
 #, fuzzy
@@ -4180,7 +4323,7 @@ msgstr "Spasi disk tidak cukup untuk partisi yang dipilih"
 msgid "Welcome"
 msgstr "Selamat Datang"
 
-#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
+#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 #, fuzzy
 msgid "Unprobed Monitor"
 msgstr "Monitor"
@@ -4190,133 +4333,160 @@ msgstr "Monitor"
 msgid "Customize Graphical Configuration"
 msgstr "Konfigurasi X Custom"
 
-#: ../iw/xconfig_gui.py:249
+#: ../iw/xconfig_gui.py:251
 #, fuzzy
 msgid "_Color Depth:"
 msgstr "Konfigurasi kedalaman warna"
 
-#: ../iw/xconfig_gui.py:258 ../textw/xconfig_text.py:108
+#: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:259 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:261 ../textw/xconfig_text.py:107
 msgid "High Color (16 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:110
+#: ../iw/xconfig_gui.py:262 ../textw/xconfig_text.py:108
 msgid "True Color (24 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:280
+#: ../iw/xconfig_gui.py:282
 #, fuzzy
 msgid "_Screen Resolution:"
 msgstr "Resolusi:"
 
-#: ../iw/xconfig_gui.py:336
+#: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:338
+#: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:353
+#: ../iw/xconfig_gui.py:355
 #, fuzzy
 msgid "GNO_ME"
 msgstr "GNOME"
 
-#: ../iw/xconfig_gui.py:355
+#: ../iw/xconfig_gui.py:357
 msgid "_KDE"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:386
+#: ../iw/xconfig_gui.py:388
 msgid "Please choose your login type:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:393
+#: ../iw/xconfig_gui.py:395
 #, fuzzy
 msgid "_Text"
 msgstr "Lanjutkan"
 
-#: ../iw/xconfig_gui.py:394
+#: ../iw/xconfig_gui.py:396
 #, fuzzy
 msgid "_Graphical"
 msgstr "Gunakan login grafikal"
 
-#: ../iw/xconfig_gui.py:411 ../textw/xconfig_text.py:398
+#: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:397
 #, fuzzy
 msgid "Monitor Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/xconfig_gui.py:608
+#: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:448
+msgid "Monitor Unspecified"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:449
+msgid ""
+"You have not selected a monitor type.  It is recommended you choose the "
+"closest matching model in order to have the highest possible display quality."
+msgstr ""
+
+#: ../iw/xconfig_gui.py:444 ../textw/xconfig_text.py:454
+#, fuzzy
+msgid "Proceed"
+msgstr "Deteksi"
+
+#: ../iw/xconfig_gui.py:445 ../textw/xconfig_text.py:454
+#, fuzzy
+msgid "Choose monitor type"
+msgstr "Tipe printer:"
+
+#: ../iw/xconfig_gui.py:625
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:671
+#: ../iw/xconfig_gui.py:689
 msgid "Generic"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:718 ../iw/xconfig_gui.py:1061
+#: ../iw/xconfig_gui.py:736 ../iw/xconfig_gui.py:1098
 msgid "Restore _original values"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:726
+#: ../iw/xconfig_gui.py:744
 #, fuzzy
 msgid "Hori_zontal Sync:"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../iw/xconfig_gui.py:729
+#: ../iw/xconfig_gui.py:747
 #, fuzzy
 msgid "_Vertical Sync:"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../iw/xconfig_gui.py:736
+#: ../iw/xconfig_gui.py:754
 msgid "kHz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:739
+#: ../iw/xconfig_gui.py:757
 msgid "Hz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:759
+#: ../iw/xconfig_gui.py:777
 #, fuzzy
 msgid "Graphical Interface (X) Configuration"
 msgstr "Periksa Konfigurasi Printer"
 
-#: ../iw/xconfig_gui.py:784
+#: ../iw/xconfig_gui.py:806
 #, fuzzy
 msgid "Unknown video card"
 msgstr "Server X"
 
-#: ../iw/xconfig_gui.py:785
+#: ../iw/xconfig_gui.py:807
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:809 ../textw/xconfig_text.py:637
+#: ../iw/xconfig_gui.py:833 ../textw/xconfig_text.py:669
 #, fuzzy
 msgid "Unspecified video card"
 msgstr "Saya gagal mendeteksi video card"
 
-#: ../iw/xconfig_gui.py:810 ../textw/xconfig_text.py:638
+#: ../iw/xconfig_gui.py:834 ../textw/xconfig_text.py:670
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:947
+#: ../iw/xconfig_gui.py:969
+msgid ""
+"Your system will be setup to use the frame buffer driver for the X Window "
+"System.  If you do not want to setup the X Window System , choose 'Skip X "
+"Configuration' below."
+msgstr ""
+
+#: ../iw/xconfig_gui.py:978
 #, fuzzy
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr "Monitor Anda tidak bisa dideteksi, silahkan pilih di daftar:"
 
-#: ../iw/xconfig_gui.py:954
+#: ../iw/xconfig_gui.py:985
 #, fuzzy
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
@@ -4326,12 +4496,12 @@ msgstr ""
 "Biasanya hardware video akan dideteksi otomatis untuk menentukan setting "
 "terbaik untuk sistem Anda."
 
-#: ../iw/xconfig_gui.py:1039
+#: ../iw/xconfig_gui.py:1073
 #, fuzzy
 msgid "_Video card RAM: "
 msgstr "Card Video"
 
-#: ../iw/xconfig_gui.py:1065
+#: ../iw/xconfig_gui.py:1102
 #, fuzzy
 msgid "_Skip X configuration"
 msgstr "Tidak Konfigurasikan X"
@@ -4341,7 +4511,11 @@ msgstr "Tidak Konfigurasikan X"
 msgid "z/IPL Boot Loader Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/zipl_gui.py:74
+#: ../iw/zipl_gui.py:75
+msgid "The z/IPL boot loader will be installed on your system."
+msgstr ""
+
+#: ../iw/zipl_gui.py:77
 msgid ""
 "The z/IPL Boot Loader will now be installed on your system.\n"
 "\n"
@@ -4358,9 +4532,14 @@ msgid ""
 "your setup may require."
 msgstr ""
 
-#: ../iw/zipl_gui.py:101 ../textw/zipl_text.py:51
+#: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 #, fuzzy
 msgid "Kernel Parameters"
+msgstr "Parameter Kernel"
+
+#: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
+#, fuzzy
+msgid "Chandev Parameters"
 msgstr "Parameter Kernel"
 
 #: ../textw/bootdisk_text.py:24
@@ -4413,7 +4592,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 
-#: ../textw/bootloader_text.py:108 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:111 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -4424,45 +4603,44 @@ msgstr ""
 "agar sistem berfungsi baik. Bila sistem ini juga demikian, ketikkan option "
 "kernelnya sekarang. Bila tidak, maka kosongkan saja."
 
-#: ../textw/bootloader_text.py:117
+#: ../textw/bootloader_text.py:120
 msgid "Force use of LBA32 (not normally required)"
 msgstr ""
 
-#: ../textw/bootloader_text.py:183
+#: ../textw/bootloader_text.py:186
 #, fuzzy
 msgid "Where do you want to install the boot loader?"
 msgstr "Dimana hendak diinstallkan bootloadernya?"
 
-#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:218 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Hapus"
 
-#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:226 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "Ganti label boot"
 
-#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
+#: ../textw/bootloader_text.py:244 ../textw/bootloader_text.py:249
 #, fuzzy
 msgid "Invalid Boot Label"
 msgstr "Ganti label boot"
 
-#: ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:245
 msgid "Boot label may not be empty."
 msgstr ""
 
-#: ../textw/bootloader_text.py:247
+#: ../textw/bootloader_text.py:250
 msgid "Boot label contains illegal characters."
 msgstr ""
 
-#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1121 ../textw/partition_text.py:1128
-#: ../textw/silo_text.py:216 ../textw/silo_text.py:238
-#: ../textw/userauth_text.py:237
+#: ../textw/bootloader_text.py:299 ../textw/fdisk_text.py:41
+#: ../textw/partition_text.py:1124 ../textw/silo_text.py:216
+#: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "Edit"
 
-#: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:303 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4472,44 +4650,44 @@ msgstr ""
 "operasi lain. Anda bisa menambahkan partisi yang Anda ingin gunakan untuk "
 "boot dan sertakan juga labelnya untuk masing-masing partisi"
 
-#: ../textw/bootloader_text.py:313
+#: ../textw/bootloader_text.py:316
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
-#: ../textw/bootloader_text.py:392
+#: ../textw/bootloader_text.py:395
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
 
-#: ../textw/bootloader_text.py:402
+#: ../textw/bootloader_text.py:405
 #, fuzzy
 msgid "Use a GRUB Password"
 msgstr "Gunakan password shadow"
 
-#: ../textw/bootloader_text.py:414
+#: ../textw/bootloader_text.py:417
 #, fuzzy
 msgid "Boot Loader Password:"
 msgstr "Password Root:"
 
-#: ../textw/bootloader_text.py:415
+#: ../textw/bootloader_text.py:418
 #, fuzzy
 msgid "Confirm:"
 msgstr "Konfirmasi:"
 
-#: ../textw/bootloader_text.py:444
+#: ../textw/bootloader_text.py:447
 #, fuzzy
 msgid "Passwords Do Not Match"
 msgstr "Password tidak sama"
 
-#: ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:452
 #, fuzzy
 msgid "Password Too Short"
 msgstr "Password Root:"
 
-#: ../textw/bootloader_text.py:450
+#: ../textw/bootloader_text.py:453
 #, fuzzy
 msgid "Boot loader password is too short"
 msgstr "Password Root:"
@@ -4518,26 +4696,17 @@ msgstr "Password Root:"
 msgid "<Enter> to reboot"
 msgstr ""
 
-#: ../textw/complete_text.py:28
-#, python-format
+#: ../textw/complete_text.py:36
 msgid ""
-"If you created a boot disk to use to boot your %s system, insert it before "
-"you press <Enter> to reboot.\n"
+"Press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
 
-#: ../textw/complete_text.py:37
-msgid ""
-"Remove any floppy diskettes you used during the installation process and "
-"press <Enter> to reboot your system.\n"
-"\n"
-msgstr ""
-
-#: ../textw/complete_text.py:43
+#: ../textw/complete_text.py:44
 msgid "Complete"
 msgstr "Selesai"
 
-#: ../textw/complete_text.py:44
+#: ../textw/complete_text.py:45
 #, fuzzy, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
@@ -4573,13 +4742,13 @@ msgstr ""
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:360
-#: ../loader2/driverdisk.c:212 ../loader2/driverdisk.c:227
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:356
+#: ../loader2/driverdisk.c:213 ../loader2/driverdisk.c:228
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
-#: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:303
-#: ../loader2/loader.c:694 ../loader2/loader.c:723 ../loader2/net.c:170
-#: ../loader2/net.c:366 ../loader2/net.c:788 ../loader2/nfsinstall.c:54
+#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:456
+#: ../loader2/hdinstall.c:510 ../loader2/kbd.c:125 ../loader2/loader.c:302
+#: ../loader2/loader.c:760 ../loader2/loader.c:789 ../loader2/net.c:170
+#: ../loader2/net.c:377 ../loader2/net.c:748 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
 msgstr "Kembali"
@@ -4740,7 +4909,7 @@ msgid "Other ports"
 msgstr "Server Printer:"
 
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:161
+#: ../textw/language_text.py:144
 #, fuzzy
 msgid "Invalid Choice"
 msgstr "Ganti label boot"
@@ -4767,7 +4936,7 @@ msgstr ""
 msgid "Warning: %s is not a valid port."
 msgstr ""
 
-#: ../textw/installpath_text.py:43
+#: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
@@ -4779,36 +4948,36 @@ msgstr "Pilih Keyboard"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Keyboard mana yang disambung ke komputer ini?"
 
-#: ../textw/language_text.py:124
+#: ../textw/language_text.py:107
 #, fuzzy
 msgid "Select All"
 msgstr "Pilih Kelompok Paket"
 
-#: ../textw/language_text.py:124
+#: ../textw/language_text.py:107
 #, fuzzy
 msgid "Reset"
 msgstr "_Reset"
 
-#: ../textw/language_text.py:126
+#: ../textw/language_text.py:109
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr ""
 
-#: ../textw/language_text.py:130
+#: ../textw/language_text.py:113
 #, fuzzy
 msgid "Language Support"
 msgstr "Server Printer:"
 
-#: ../textw/language_text.py:162
+#: ../textw/language_text.py:145
 #, fuzzy
 msgid "You must select at least one language to install."
 msgstr "Pilihlah paket yang hendak diinstall"
 
-#: ../textw/language_text.py:190
+#: ../textw/language_text.py:188
 #, fuzzy
 msgid "Default Language"
 msgstr "Pilih bahasanya:"
 
-#: ../textw/language_text.py:191
+#: ../textw/language_text.py:189
 #, fuzzy
 msgid "Choose the default language for this system: "
 msgstr "Pilih bahasanya:"
@@ -4830,74 +4999,111 @@ msgstr "Emulasikan 3 tombol?"
 msgid "Mouse Selection"
 msgstr "Pilih Mouse"
 
-#: ../textw/network_text.py:67
+#: ../textw/network_text.py:29
+#, fuzzy
+msgid "Invalid IP string"
+msgstr "Informasi yang dimasukkan salah"
+
+#: ../textw/network_text.py:30
+#, fuzzy, python-format
+msgid "The entered IP '%s' is not a valid IP."
+msgstr "error: %sport haruslah angka\n"
+
+#: ../textw/network_text.py:62
+#, fuzzy
+msgid "IP Address"
+msgstr "Alamat IP"
+
+#: ../textw/network_text.py:63
+msgid "Netmask"
+msgstr "Netmask"
+
+#: ../textw/network_text.py:65
+msgid "Point to Point (IP)"
+msgstr ""
+
+#: ../textw/network_text.py:70
 #, fuzzy, python-format
 msgid "Network Device: %s"
 msgstr "Device Network"
 
-#: ../textw/network_text.py:70
-msgid "Use bootp/dhcp"
-msgstr "Gunakan bootp/dhcp"
+#: ../textw/network_text.py:75
+#, fuzzy
+msgid "Configure using DHCP"
+msgstr "Konfigurasikan pakai DHCP"
 
-#: ../textw/network_text.py:73
+#: ../textw/network_text.py:85
 msgid "Activate on boot"
 msgstr "Aktifkan saat boot"
 
-#: ../textw/network_text.py:83 ../loader2/net.c:316
-msgid "IP address:"
-msgstr "Alamat IP:"
-
-#: ../textw/network_text.py:84 ../loader2/net.c:319
-msgid "Netmask:"
-msgstr "Netmask:"
-
-#: ../textw/network_text.py:85 ../loader2/net.c:322
-msgid "Default gateway (IP):"
-msgstr "Gateway default (IP):"
-
-#: ../textw/network_text.py:87 ../loader2/net.c:325
-msgid "Primary nameserver:"
-msgstr "Nameserver Utama:"
-
-#: ../textw/network_text.py:89
-#, fuzzy
-msgid "Secondary nameserver:"
-msgstr "Nameserver Cadangan (IP):"
-
-#: ../textw/network_text.py:91
-#, fuzzy
-msgid "Tertiary nameserver:"
-msgstr "Nameserver Utama:"
-
-#: ../textw/network_text.py:94
-#, fuzzy
-msgid "Point to Point (IP):"
-msgstr "Lokasi Mount:"
-
-#: ../textw/network_text.py:129
+#: ../textw/network_text.py:110
 #, fuzzy, python-format
 msgid "Network Configuration for %s"
 msgstr "Konfigurasi Jaringan"
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:141
 msgid "Invalid information"
 msgstr "Informasi yang dimasukkan salah"
 
-#: ../textw/network_text.py:153
+#: ../textw/network_text.py:142
 msgid "You must enter valid IP information to continue"
 msgstr "Anda harus memberikan alamat IP yang valid"
 
 #: ../textw/network_text.py:220
+#, fuzzy
+msgid "Gateway:"
+msgstr "Gateway"
+
+#: ../textw/network_text.py:230
+#, fuzzy
+msgid "Primary DNS:"
+msgstr "DNS Primer"
+
+#: ../textw/network_text.py:235
+#, fuzzy
+msgid "Secondary DNS:"
+msgstr "DNS Sekunder"
+
+#: ../textw/network_text.py:240
+#, fuzzy
+msgid "Tertiary DNS:"
+msgstr "DNS Tersier"
+
+#: ../textw/network_text.py:247
+#, fuzzy
+msgid "Miscellaneous Network Settings"
+msgstr "Lain-lain"
+
+#: ../textw/network_text.py:314
+#, fuzzy
+msgid "automatically via DHCP"
+msgstr "Partisi Otomatis"
+
+#: ../textw/network_text.py:318
+#, fuzzy
+msgid "manually"
+msgstr "Partisi manual"
+
+#: ../textw/network_text.py:337
 msgid "Hostname Configuration"
 msgstr "Konfigurasi Hostname"
 
-#: ../textw/network_text.py:221
+#: ../textw/network_text.py:340
 msgid ""
-"The hostname is the name of your computer.  If your computer is attached to "
-"a network, this may be assigned by your network administrator."
+"If your system is part of a larger network where hostnames are assigned by "
+"DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
+"a hostname for your system. If you do not, your system will be known as "
+"'localhost.'"
 msgstr ""
-"Nama host adalah nama komputer Anda. Bila komputer Anda dihubungkan ke "
-"jaringan, maka biasanya namanya ditentukan oleh administrator jaringan."
+
+#: ../textw/network_text.py:366 ../textw/network_text.py:372
+#, fuzzy
+msgid "Invalid Hostname"
+msgstr "Ganti label boot"
+
+#: ../textw/network_text.py:367
+msgid "You have not specified a hostname."
+msgstr ""
 
 #: ../textw/packages_text.py:50
 msgid "Select individual packages"
@@ -5052,26 +5258,26 @@ msgstr "Ukuran sistem yang diinstal:"
 msgid "File System Option:"
 msgstr "Ukuran sistem yang diinstal:"
 
-#: ../textw/partition_text.py:510 ../textw/partition_text.py:743
-#: ../textw/partition_text.py:973
+#: ../textw/partition_text.py:510 ../textw/partition_text.py:748
+#: ../textw/partition_text.py:985
 #, python-format
 msgid "Format as %s"
 msgstr ""
 
-#: ../textw/partition_text.py:512 ../textw/partition_text.py:745
-#: ../textw/partition_text.py:975
+#: ../textw/partition_text.py:512 ../textw/partition_text.py:750
+#: ../textw/partition_text.py:987
 #, python-format
 msgid "Migrate to %s"
 msgstr ""
 
-#: ../textw/partition_text.py:514 ../textw/partition_text.py:747
-#: ../textw/partition_text.py:977
+#: ../textw/partition_text.py:514 ../textw/partition_text.py:752
+#: ../textw/partition_text.py:989
 #, fuzzy
 msgid "Leave unchanged"
 msgstr "Simpan"
 
-#: ../textw/partition_text.py:530 ../textw/partition_text.py:719
-#: ../textw/partition_text.py:953
+#: ../textw/partition_text.py:530 ../textw/partition_text.py:725
+#: ../textw/partition_text.py:965
 #, fuzzy
 msgid "File System Options"
 msgstr "Sedang memformat sistem file"
@@ -5082,7 +5288,7 @@ msgid ""
 "partition."
 msgstr ""
 
-#: ../textw/partition_text.py:541 ../textw/partition_text.py:689
+#: ../textw/partition_text.py:541
 #, fuzzy
 msgid "Check for bad blocks"
 msgstr "Mengecek bad blok pada saat format"
@@ -5103,98 +5309,88 @@ msgstr ""
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../textw/partition_text.py:697
+#: ../textw/partition_text.py:703
 #, fuzzy
 msgid "Not Supported"
 msgstr "Setup Network"
 
-#: ../textw/partition_text.py:698
+#: ../textw/partition_text.py:704
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
 
-#: ../textw/partition_text.py:772 ../textw/partition_text.py:821
+#: ../textw/partition_text.py:780 ../textw/partition_text.py:833
 #, fuzzy
 msgid "Invalid Entry for Partition Size"
 msgstr "Informasi yang dimasukkan salah"
 
-#: ../textw/partition_text.py:784
+#: ../textw/partition_text.py:792
 msgid "Invalid Entry for Maximum Size"
 msgstr ""
 
-#: ../textw/partition_text.py:803
+#: ../textw/partition_text.py:811
 msgid "Invalid Entry for Starting Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:813
+#: ../textw/partition_text.py:825
 msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
-#: ../textw/partition_text.py:926
+#: ../textw/partition_text.py:938
 #, fuzzy
 msgid "No RAID partitions"
 msgstr "<Partisi RAID>"
 
-#: ../textw/partition_text.py:927
+#: ../textw/partition_text.py:939
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../textw/partition_text.py:939
+#: ../textw/partition_text.py:951
 #, fuzzy
 msgid "Format partition?"
 msgstr "Partisi root takada"
 
-#: ../textw/partition_text.py:1001
+#: ../textw/partition_text.py:1013
 #, fuzzy
 msgid "Invalid Entry for RAID Spares"
 msgstr "Informasi yang dimasukkan salah"
 
-#: ../textw/partition_text.py:1014
+#: ../textw/partition_text.py:1026
 #, fuzzy
 msgid "Too many spares"
 msgstr "Drive terlalu banyak"
 
-#: ../textw/partition_text.py:1015
+#: ../textw/partition_text.py:1027
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:1069
-msgid "You must go back and use fdasd to initialize this partition"
-msgstr ""
+#: ../textw/partition_text.py:1123
+msgid "New"
+msgstr "Baru"
 
-#: ../textw/partition_text.py:1122 ../textw/partition_text.py:1129
-#: ../textw/userauth_text.py:236
+#: ../textw/partition_text.py:1125 ../textw/userauth_text.py:236
 msgid "Delete"
 msgstr "Hapus"
 
-#: ../textw/partition_text.py:1123 ../textw/partition_text.py:1130
+#: ../textw/partition_text.py:1126
 #, fuzzy
 msgid "RAID"
 msgstr "<RAID>"
 
-#: ../textw/partition_text.py:1125
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-
-#: ../textw/partition_text.py:1127
-msgid "New"
-msgstr "Baru"
-
-#: ../textw/partition_text.py:1133
+#: ../textw/partition_text.py:1129
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
-#: ../textw/partition_text.py:1162
+#: ../textw/partition_text.py:1158
 msgid "No Root Partition"
 msgstr "Partisi root takada"
 
-#: ../textw/partition_text.py:1163
+#: ../textw/partition_text.py:1159
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr "Anda harus membuat partisi swap."
 
-#: ../textw/partition_text.py:1230
+#: ../textw/partition_text.py:1226
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Dimana hendak diinstallkan bootloadernya?"
@@ -5208,46 +5404,46 @@ msgstr "Partisi Otomatis"
 msgid "Disk Druid"
 msgstr "Setup disk"
 
-#: ../textw/progress_text.py:79
+#: ../textw/progress_text.py:97
 msgid "Package Installation"
 msgstr "Instalasi Paket"
 
-#: ../textw/progress_text.py:81
+#: ../textw/progress_text.py:99
 #, fuzzy
 msgid " Name   : "
 msgstr "Nama   :"
 
-#: ../textw/progress_text.py:82
+#: ../textw/progress_text.py:100
 #, fuzzy
 msgid " Size   : "
 msgstr "Ukuran  :"
 
-#: ../textw/progress_text.py:83
+#: ../textw/progress_text.py:101
 #, fuzzy
 msgid " Summary: "
 msgstr "Keterangan:"
 
-#: ../textw/progress_text.py:109
+#: ../textw/progress_text.py:146
 msgid "    Packages"
 msgstr "Nama Paket"
 
-#: ../textw/progress_text.py:110
+#: ../textw/progress_text.py:147
 msgid "       Bytes"
 msgstr "       Byte"
 
-#: ../textw/progress_text.py:111
+#: ../textw/progress_text.py:148
 msgid "        Time"
 msgstr "        Waktu"
 
-#: ../textw/progress_text.py:113
+#: ../textw/progress_text.py:150
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../textw/progress_text.py:120
+#: ../textw/progress_text.py:157
 msgid "Completed:   "
 msgstr "Selesai:"
 
-#: ../textw/progress_text.py:130
+#: ../textw/progress_text.py:167
 msgid "Remaining:  "
 msgstr "Sisa Waktu:"
 
@@ -5599,103 +5795,103 @@ msgstr ""
 "Bila Anda telah membeli Red Hat Linux Official, maka segera daftarkan "
 "pembelian Anda di http://www.redhat.com."
 
-#: ../textw/xconfig_text.py:37
+#: ../textw/xconfig_text.py:35
 #, fuzzy
 msgid "Color Depth"
 msgstr "Konfigurasi kedalaman warna"
 
-#: ../textw/xconfig_text.py:38
+#: ../textw/xconfig_text.py:36
 msgid "Please select the color depth you would like to use:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:61
+#: ../textw/xconfig_text.py:59
 msgid "Resolution"
 msgstr "Resolusi"
 
-#: ../textw/xconfig_text.py:62
+#: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:133
+#: ../textw/xconfig_text.py:131
 #, fuzzy
 msgid "X Customization"
 msgstr "Konfigurasi X"
 
-#: ../textw/xconfig_text.py:136
+#: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
 msgstr ""
 
-#: ../textw/xconfig_text.py:140
+#: ../textw/xconfig_text.py:138
 #, fuzzy
 msgid "Color Depth:"
 msgstr "Konfigurasi kedalaman warna"
 
-#: ../textw/xconfig_text.py:144 ../textw/xconfig_text.py:151
-#: ../textw/xconfig_text.py:409 ../textw/xconfig_text.py:420
-#: ../textw/xconfig_text.py:614 ../textw/xconfig_text.py:621
+#: ../textw/xconfig_text.py:142 ../textw/xconfig_text.py:149
+#: ../textw/xconfig_text.py:408 ../textw/xconfig_text.py:419
+#: ../textw/xconfig_text.py:639 ../textw/xconfig_text.py:646
 #, fuzzy
 msgid "Change"
 msgstr "CDROM lain"
 
-#: ../textw/xconfig_text.py:147
+#: ../textw/xconfig_text.py:145
 #, fuzzy
 msgid "Resolution:"
 msgstr "Resolusi"
 
-#: ../textw/xconfig_text.py:157
+#: ../textw/xconfig_text.py:155
 #, fuzzy
 msgid "Default Desktop:"
 msgstr "Default"
 
-#: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
+#: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
 msgstr "GNOME"
 
 # ../comps/comps-master:315
-#: ../textw/xconfig_text.py:163 ../textw/xconfig_text.py:172
+#: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
 msgstr ""
 
-#: ../textw/xconfig_text.py:178
+#: ../textw/xconfig_text.py:176
 #, fuzzy
 msgid "Default Login:"
 msgstr "Pilih bahasanya:"
 
-#: ../textw/xconfig_text.py:180
+#: ../textw/xconfig_text.py:178
 #, fuzzy
 msgid "Graphical"
 msgstr "Gunakan login grafikal"
 
-#: ../textw/xconfig_text.py:182
+#: ../textw/xconfig_text.py:180
 #, fuzzy
 msgid "Text"
 msgstr "Lanjutkan"
 
-#: ../textw/xconfig_text.py:230
+#: ../textw/xconfig_text.py:228
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../textw/xconfig_text.py:231
+#: ../textw/xconfig_text.py:229
 #, fuzzy
 msgid "Please select the monitor attached to your system."
 msgstr "Direktori %s harus ada di filesystem root"
 
-#: ../textw/xconfig_text.py:256
+#: ../textw/xconfig_text.py:254
 #, fuzzy
 msgid "horizontal"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../textw/xconfig_text.py:259
+#: ../textw/xconfig_text.py:257
 #, fuzzy
 msgid "vertical"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../textw/xconfig_text.py:263
+#: ../textw/xconfig_text.py:261
 #, fuzzy
 msgid "Invalid Sync Rates"
 msgstr "Ganti label boot"
 
-#: ../textw/xconfig_text.py:264
+#: ../textw/xconfig_text.py:262
 #, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
@@ -5709,11 +5905,11 @@ msgid ""
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
 
-#: ../textw/xconfig_text.py:278
+#: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
 msgstr ""
 
-#: ../textw/xconfig_text.py:283
+#: ../textw/xconfig_text.py:281
 msgid ""
 "Please enter the sync rates for your monitor. \n"
 "\n"
@@ -5721,103 +5917,110 @@ msgid ""
 "should be taken to make sure the values entered are accurate."
 msgstr ""
 
-#: ../textw/xconfig_text.py:288
+#: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
 msgstr ""
 
-#: ../textw/xconfig_text.py:293
+#: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
 msgstr ""
 
-#: ../textw/xconfig_text.py:401
+#: ../textw/xconfig_text.py:400
 #, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
 
-#: ../textw/xconfig_text.py:405
+#: ../textw/xconfig_text.py:404
 #, fuzzy
 msgid "Monitor:"
 msgstr "Monitor"
 
-#: ../textw/xconfig_text.py:412
+#: ../textw/xconfig_text.py:411
 msgid "HSync Rate:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:422
+#: ../textw/xconfig_text.py:421
 msgid "VSync Rate:"
 msgstr ""
 
-#: ../textw/xconfig_text.py:512
+#: ../textw/xconfig_text.py:524
 msgid "Video Card"
 msgstr "Card Video"
 
-#: ../textw/xconfig_text.py:513
+#: ../textw/xconfig_text.py:525
 #, python-format
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
 
-#: ../textw/xconfig_text.py:531
+#: ../textw/xconfig_text.py:543
 #, fuzzy
 msgid "Video RAM"
 msgstr "Video Ram"
 
-#: ../textw/xconfig_text.py:532
+#: ../textw/xconfig_text.py:544
 #, python-format
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 
-#: ../textw/xconfig_text.py:595
+#: ../textw/xconfig_text.py:610
 msgid "Skip X Configuration"
 msgstr "Tidak Konfigurasikan X"
 
-#: ../textw/xconfig_text.py:598
+#: ../textw/xconfig_text.py:613
 #, fuzzy
 msgid "Video Card Configuration"
 msgstr "Konfigurasi Keyboard"
 
-#: ../textw/xconfig_text.py:601
+#: ../textw/xconfig_text.py:619
+msgid ""
+"Your system will be setup to use the frame buffer driver for the X Window "
+"System.  If you do not want setup the X Window System, choose 'Skip X "
+"Configuration' below."
+msgstr ""
+
+#: ../textw/xconfig_text.py:627
 msgid "Select the video card and video RAM for your system."
 msgstr ""
 
-#: ../textw/xconfig_text.py:604
+#: ../textw/xconfig_text.py:629
 #, fuzzy
 msgid "Video Card:"
 msgstr "Card Video"
 
-#: ../textw/xconfig_text.py:609
+#: ../textw/xconfig_text.py:634
 msgid "Unknown card"
 msgstr ""
 
-#: ../textw/xconfig_text.py:617
+#: ../textw/xconfig_text.py:642
 #, fuzzy
 msgid "Video RAM:"
 msgstr "Card Video"
 
-#: ../textw/zipl_text.py:22
+#: ../textw/zipl_text.py:24
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
 
-#: ../textw/zipl_text.py:47
+#: ../textw/zipl_text.py:56
 #, fuzzy
 msgid "z/IPL Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
+#: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
 msgstr ""
 
-#: ../installclasses/custom.py:10
+#: ../installclasses/custom.py:12
 #, fuzzy
-msgid "Custom"
+msgid "_Custom"
 msgstr "Bebas"
 
 #: ../installclasses/custom.py:14
@@ -5826,54 +6029,65 @@ msgid ""
 "process, including software package selection and authentication preferences."
 msgstr ""
 
-#: ../installclasses/personal_desktop.py:13
+#: ../installclasses/personal_desktop.py:12
+#, fuzzy
+msgid "_Personal Desktop"
+msgstr "Default"
+
+#: ../installclasses/personal_desktop.py:14
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
 
-#: ../installclasses/server.py:11
-msgid "Server"
+#: ../installclasses/server.py:12
+#, fuzzy
+msgid "_Server"
 msgstr "Server"
 
-#: ../installclasses/server.py:13
+#: ../installclasses/server.py:14
 msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
 
-#: ../installclasses/workstation.py:9
+#: ../installclasses/workstation.py:8
+#, fuzzy
+msgid "_Workstation"
+msgstr "Workstation"
+
+#: ../installclasses/workstation.py:10
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
 
-#: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:116
+#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
 msgstr ""
 
-#: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:98
-#: ../loader2/cdinstall.c:116 ../loader2/cdinstall.c:124
-#: ../loader2/method.c:415
+#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
+#: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
+#: ../loader2/method.c:401
 #, fuzzy
 msgid "Test"
 msgstr "Lanjutkan"
 
-#: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:99
+#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
 msgstr ""
 
-#: ../loader2/cdinstall.c:96
+#: ../loader2/cdinstall.c:89
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
 
-#: ../loader2/cdinstall.c:117
+#: ../loader2/cdinstall.c:110
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5884,7 +6098,7 @@ msgid ""
 "\"."
 msgstr ""
 
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:354
+#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:350
 #, fuzzy, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -5893,12 +6107,12 @@ msgstr ""
 "Saya tidak dapat menemukan CDROM Red Hat LInux di drive CD Anda nih. "
 "Silahkan masukkan CDnya dan tekan \"OK\" untuk mengulangi."
 
-#: ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:250
 #, fuzzy
 msgid "CD Found"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../loader2/cdinstall.c:259
+#: ../loader2/cdinstall.c:252
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -5906,7 +6120,7 @@ msgid ""
 "Choose %s to skip the media test and start the installation."
 msgstr ""
 
-#: ../loader2/cdinstall.c:349
+#: ../loader2/cdinstall.c:345
 #, fuzzy, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -5915,95 +6129,100 @@ msgstr ""
 "Saya tidak dapat menemukan CDROM Red Hat LInux di drive CD Anda nih. "
 "Silahkan masukkan CDnya dan tekan \"OK\" untuk mengulangi."
 
-#: ../loader2/cdinstall.c:359
+#: ../loader2/cdinstall.c:355
 #, fuzzy
 msgid "CD Not Found"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../loader2/cdinstall.c:430
+#: ../loader2/cdinstall.c:427
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
-#: ../loader2/driverdisk.c:92 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:93 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Sedang Meload"
 
-#: ../loader2/driverdisk.c:92
+#: ../loader2/driverdisk.c:93
 #, fuzzy
 msgid "Reading driver disk..."
 msgstr "Saya gagal memount floppy disk."
 
-#: ../loader2/driverdisk.c:206
+#: ../loader2/driverdisk.c:207
 #, fuzzy
 msgid "Driver Disk Source"
 msgstr "Disket Driver"
 
-#: ../loader2/driverdisk.c:207
+#: ../loader2/driverdisk.c:208
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../loader2/driverdisk.c:225
+#: ../loader2/driverdisk.c:226
 #, fuzzy, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
-#: ../loader2/driverdisk.c:227
+#: ../loader2/driverdisk.c:228
 #, fuzzy
 msgid "Insert Driver Disk"
 msgstr "Disket Driver"
 
-#: ../loader2/driverdisk.c:240
+#: ../loader2/driverdisk.c:241
 #, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Saya gagal memount floppy disk."
 
-#: ../loader2/driverdisk.c:311
+#: ../loader2/driverdisk.c:312
 #, fuzzy
 msgid "Manually choose"
 msgstr "Partisi manual"
 
-#: ../loader2/driverdisk.c:312
+#: ../loader2/driverdisk.c:313
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:313
+#: ../loader2/driverdisk.c:314
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:356
+#: ../loader2/driverdisk.c:357
 #, fuzzy
 msgid "Driver disk"
 msgstr "Disket Driver"
 
-#: ../loader2/driverdisk.c:357
+#: ../loader2/driverdisk.c:358
 #, fuzzy
 msgid "Do you have a driver disk?"
 msgstr "Apakah Anda memiliki adapter SCSI?"
 
-#: ../loader2/driverdisk.c:367
+#: ../loader2/driverdisk.c:368
 #, fuzzy
 msgid "More Driver Disks?"
 msgstr "Disket Driver"
 
-#: ../loader2/driverdisk.c:368
+#: ../loader2/driverdisk.c:369
 #, fuzzy
 msgid "Do you wish to load any more driver disks?"
 msgstr "Apakah Anda memiliki adapter SCSI?"
 
-#: ../loader2/driverdisk.c:392 ../loader2/hdinstall.c:504
-#: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
-#: ../loader2/kickstart.c:154 ../loader2/modules.c:928 ../loader2/net.c:702
-#: ../loader2/net.c:725 ../loader2/nfsinstall.c:265
-#: ../loader2/urlinstall.c:368 ../loader2/urlinstall.c:377
-#: ../loader2/urlinstall.c:388
+#: ../loader2/driverdisk.c:393 ../loader2/hdinstall.c:592
+#: ../loader2/kickstart.c:107 ../loader2/kickstart.c:117
+#: ../loader2/kickstart.c:160 ../loader2/modules.c:921 ../loader2/net.c:662
+#: ../loader2/net.c:685 ../loader2/nfsinstall.c:266
+#: ../loader2/urlinstall.c:398 ../loader2/urlinstall.c:407
+#: ../loader2/urlinstall.c:418
 msgid "Kickstart Error"
 msgstr "Errok Kickstart"
+
+#: ../loader2/driverdisk.c:394
+#, fuzzy, c-format
+msgid "Bad argument to driver disk kickstart method command %s: %s"
+msgstr "perintah kickstart hd salah di %s: %s"
 
 #: ../loader2/driverselect.c:60
 #, fuzzy, c-format
@@ -6061,14 +6280,22 @@ msgstr "Pilih drive untuk menjalankan fdisk"
 msgid "Loading %s driver..."
 msgstr "Sedang mengambil ramdisk tahap kedua..."
 
-#: ../loader2/hdinstall.c:256
+#: ../loader2/hdinstall.c:204 ../loader2/hdinstall.c:265
+#: ../loader2/nfsinstall.c:217 ../loader2/urlinstall.c:119
+#, c-format
+msgid ""
+"The %s installation tree in that directory does not seem to match your boot "
+"media."
+msgstr ""
+
+#: ../loader2/hdinstall.c:340
 #, fuzzy
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr "Ada error sewaktu membaca tabel partisi pada device blok %s, yaitu "
 
-#: ../loader2/hdinstall.c:369
+#: ../loader2/hdinstall.c:457
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6076,7 +6303,7 @@ msgstr ""
 "Sekarang belum ada hard disk di sistem Anda lho! Apakah ingin "
 "mengkonfigurasikan perangkat tambahan lain?"
 
-#: ../loader2/hdinstall.c:385
+#: ../loader2/hdinstall.c:473
 #, fuzzy, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6087,26 +6314,26 @@ msgstr ""
 "RPMS dan direktori RedHat/base ? Kalau di disk drive yang ada RedHatnya "
 "tidak kelihatan di sini, silahkan pencet F2 untuk tambah device lagi."
 
-#: ../loader2/hdinstall.c:407
+#: ../loader2/hdinstall.c:495
 #, fuzzy
 msgid "Directory holding images:"
 msgstr "Direktori yang berisi Red Hat:"
 
-#: ../loader2/hdinstall.c:434
+#: ../loader2/hdinstall.c:522
 msgid "Select Partition"
 msgstr "Pilih Partisinya"
 
-#: ../loader2/hdinstall.c:474
+#: ../loader2/hdinstall.c:562
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
 
-#: ../loader2/hdinstall.c:505
+#: ../loader2/hdinstall.c:593
 #, fuzzy, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "perintah kickstart hd salah di %s: %s"
 
-#: ../loader2/hdinstall.c:555
+#: ../loader2/hdinstall.c:643
 #, fuzzy
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Mencari hard disk..."
@@ -6119,45 +6346,45 @@ msgstr "Tipe Keyboard"
 msgid "What type of keyboard do you have?"
 msgstr "Keyboard mana yang Anda punya?"
 
-#: ../loader2/kickstart.c:102
+#: ../loader2/kickstart.c:108
 #, fuzzy, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Error membuka file kickstart %s: %s"
 
-#: ../loader2/kickstart.c:112
+#: ../loader2/kickstart.c:118
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Error saat membaca isi file kickstart %s: %s"
 
-#: ../loader2/kickstart.c:155
+#: ../loader2/kickstart.c:161
 #, fuzzy, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Error pada baris %d di file kickstart %s."
 
-#: ../loader2/kickstart.c:255
+#: ../loader2/kickstart.c:261
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
-#: ../loader2/lang.c:51 ../loader2/loader.c:166
+#: ../loader2/lang.c:51 ../loader2/loader.c:165
 #, fuzzy, c-format
 msgid "Welcome to %s"
 msgstr "Selamat Datang"
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:172
+#: ../loader2/lang.c:52 ../loader2/loader.c:171
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../loader2/lang.c:372
+#: ../loader2/lang.c:370
 msgid "Choose a Language"
 msgstr "Pilih bahasanya:"
 
-#: ../loader2/loader.c:97
+#: ../loader2/loader.c:98
 msgid "Local CDROM"
 msgstr "CDROM lokal"
 
-#: ../loader2/loader.c:98
+#: ../loader2/loader.c:100
 msgid "Hard drive"
 msgstr "Hard Disk"
 
@@ -6165,94 +6392,94 @@ msgstr "Hard Disk"
 msgid "NFS image"
 msgstr "Image NFS"
 
-#: ../loader2/loader.c:298
+#: ../loader2/loader.c:297
 msgid "Update Disk Source"
 msgstr ""
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:298
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../loader2/loader.c:314
+#: ../loader2/loader.c:313
 #, fuzzy, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
-#: ../loader2/loader.c:316
+#: ../loader2/loader.c:315
 msgid "Updates Disk"
 msgstr ""
 
-#: ../loader2/loader.c:328
+#: ../loader2/loader.c:327
 #, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Saya gagal memount floppy disk."
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:330
 msgid "Updates"
 msgstr ""
 
-#: ../loader2/loader.c:331
+#: ../loader2/loader.c:330
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader2/loader.c:353
+#: ../loader2/loader.c:352
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:569
+#: ../loader2/loader.c:635
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Pilihlah paket yang hendak diinstall"
 
-#: ../loader2/loader.c:686
+#: ../loader2/loader.c:752
 msgid "Rescue Method"
 msgstr "Metode Rescue"
 
-#: ../loader2/loader.c:687
+#: ../loader2/loader.c:753
 msgid "Installation Method"
 msgstr "Metode Instalasi"
 
-#: ../loader2/loader.c:689
+#: ../loader2/loader.c:755
 msgid "What type of media contains the rescue image?"
 msgstr "Tipe media yang berisi image rescue itu apa?"
 
-#: ../loader2/loader.c:691
+#: ../loader2/loader.c:757
 msgid "What type of media contains the packages to be installed?"
 msgstr "Media macam mana yang berisi paket yang hendak diinstal ?"
 
-#: ../loader2/loader.c:722
+#: ../loader2/loader.c:788
 #, fuzzy
 msgid "No driver found"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../loader2/loader.c:722
+#: ../loader2/loader.c:788
 #, fuzzy
 msgid "Select driver"
 msgstr "Pilih drive untuk menjalankan fdisk"
 
-#: ../loader2/loader.c:723
+#: ../loader2/loader.c:789
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Apakah Anda memiliki adapter SCSI?"
 
-#: ../loader2/loader.c:724
+#: ../loader2/loader.c:790
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:884
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "Saya menemukan card %s di sistem ini."
 
-#: ../loader2/loader.c:820
+#: ../loader2/loader.c:886
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6261,19 +6488,23 @@ msgstr ""
 "Sekarang belum ada device driver yang diload untuk sistem ini. Mau meloadnya "
 "sekarang ?"
 
-#: ../loader2/loader.c:824
+#: ../loader2/loader.c:890
 msgid "Devices"
 msgstr "Perangkat"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:891
 msgid "Done"
 msgstr "Selesai"
 
-#: ../loader2/loader.c:826
+#: ../loader2/loader.c:892
 msgid "Add Device"
 msgstr "Tambah Perangkat"
 
-#: ../loader2/loader.c:1204
+#: ../loader2/loader.c:992
+msgid "loader has already been run.  Starting shell."
+msgstr ""
+
+#: ../loader2/loader.c:1313
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6339,12 +6570,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr ""
 
-#: ../loader2/method.c:161 ../loader2/method.c:369 ../loader2/method.c:454
+#: ../loader2/method.c:147 ../loader2/method.c:355 ../loader2/method.c:440
 #, fuzzy, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "saya gagal membuat %s"
 
-#: ../loader2/method.c:412
+#: ../loader2/method.c:398
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6352,9 +6583,14 @@ msgid ""
 "   %s?"
 msgstr ""
 
-#: ../loader2/method.c:415
+#: ../loader2/method.c:401
 msgid "Checksum Test"
 msgstr ""
+
+#: ../loader2/modules.c:922
+#, fuzzy, c-format
+msgid "Bad argument to device kickstart method command %s: %s"
+msgstr "perintah kickstart hd salah di %s: %s"
 
 #: ../loader2/net.c:43
 #, fuzzy, c-format
@@ -6398,16 +6634,16 @@ msgstr "Informasi yang dimasukkan salah"
 msgid "You entered an invalid IP address."
 msgstr "Anda harus memberikan alamat IP dan netmask yang valid"
 
-#: ../loader2/net.c:222 ../loader2/net.c:420
+#: ../loader2/net.c:222 ../loader2/net.c:431
 msgid "Dynamic IP"
 msgstr "IP Dinamis"
 
-#: ../loader2/net.c:223 ../loader2/net.c:421
+#: ../loader2/net.c:223 ../loader2/net.c:432
 #, fuzzy, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Mengirimkan permintaan IP..."
 
-#: ../loader2/net.c:310
+#: ../loader2/net.c:321
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -6415,42 +6651,58 @@ msgstr ""
 "Sekarang masukkan alamat IP untuk mesin ini. Tiap IP harus dituliskandalam "
 "bentuk notasi desimal bertitik (misalnya, 202.159.123.25)."
 
-#: ../loader2/net.c:352
+#: ../loader2/net.c:327
+msgid "IP address:"
+msgstr "Alamat IP:"
+
+#: ../loader2/net.c:330
+msgid "Netmask:"
+msgstr "Netmask:"
+
+#: ../loader2/net.c:333
+msgid "Default gateway (IP):"
+msgstr "Gateway default (IP):"
+
+#: ../loader2/net.c:336
+msgid "Primary nameserver:"
+msgstr "Nameserver Utama:"
+
+#: ../loader2/net.c:363
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Gunakan IP dinamis (BOOTP/DHCP)"
 
-#: ../loader2/net.c:380
+#: ../loader2/net.c:391
 msgid "Configure TCP/IP"
 msgstr "Konfigurasi TCP/IP"
 
-#: ../loader2/net.c:411
+#: ../loader2/net.c:422
 msgid "Missing Information"
 msgstr "Informasi kurang"
 
-#: ../loader2/net.c:412
+#: ../loader2/net.c:423
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Anda harus memberikan alamat IP dan netmask yang valid"
 
-#: ../loader2/net.c:628
+#: ../loader2/net.c:588
 msgid "Determining host name and domain..."
 msgstr "Sedang mencari tahu nama host dan domain..."
 
-#: ../loader2/net.c:703
+#: ../loader2/net.c:663
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
 
-#: ../loader2/net.c:726
+#: ../loader2/net.c:686
 #, fuzzy, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "alamat IP di perintah %s salah"
 
-#: ../loader2/net.c:784
+#: ../loader2/net.c:744
 #, fuzzy
 msgid "Networking Device"
 msgstr "Device Network"
 
-#: ../loader2/net.c:785
+#: ../loader2/net.c:745
 #, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
@@ -6469,24 +6721,17 @@ msgstr "Direktori Red Hat:"
 msgid "NFS Setup"
 msgstr "Setup NFS"
 
-#: ../loader2/nfsinstall.c:216 ../loader2/urlinstall.c:107
-#, c-format
-msgid ""
-"The %s installation tree in that directory does not seem to match your boot "
-"media."
-msgstr ""
-
-#: ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:221
 #, fuzzy, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Direktori ini tidak memiliki tree Red Hat"
 
-#: ../loader2/nfsinstall.c:228
+#: ../loader2/nfsinstall.c:229
 #, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "Saya tak dapat memount direktori tersebut dari server"
 
-#: ../loader2/nfsinstall.c:266
+#: ../loader2/nfsinstall.c:267
 #, fuzzy, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "perintah kickstart hd salah di %s: %s"
@@ -6499,26 +6744,35 @@ msgstr ""
 msgid "Running anaconda via telnet..."
 msgstr ""
 
-#: ../loader2/urlinstall.c:59
+#: ../loader2/urlinstall.c:61
 #, fuzzy, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "saya gagal membuat %s"
 
-#: ../loader2/urlinstall.c:99
+#: ../loader2/urlinstall.c:111
 #, fuzzy
 msgid "Unable to retrieve the install image."
 msgstr "Saya gagal mengambil ramdisk tahap kedua"
 
-#: ../loader2/urlinstall.c:369
+#: ../loader2/urlinstall.c:283
+#, fuzzy
+msgid "Media Detected"
+msgstr "Terdeteksi\n"
+
+#: ../loader2/urlinstall.c:284
+msgid "Local installation media detected..."
+msgstr ""
+
+#: ../loader2/urlinstall.c:399
 #, fuzzy, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "perintah kickstart hd salah di %s: %s"
 
-#: ../loader2/urlinstall.c:378
+#: ../loader2/urlinstall.c:408
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: ../loader2/urlinstall.c:389
+#: ../loader2/urlinstall.c:419
 #, c-format
 msgid "Unknown Url method %s"
 msgstr ""
@@ -7130,6 +7384,10 @@ msgid "Roraima"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Rothera Station, Adelaide Island"
+msgstr ""
+
+#. generated from zone.tab
 #, fuzzy
 msgid "Ruthenia"
 msgstr "Autentikasi"
@@ -7317,6 +7575,69 @@ msgstr "Selesai"
 msgid "Swedish"
 msgstr ""
 
+#. generated from lang-table
+msgid "Turkish"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Root password accepted."
+#~ msgstr "Password Root:"
+
+#, fuzzy
+#~ msgid "Root password is too short."
+#~ msgstr "Password Root:"
+
+#, fuzzy
+#~ msgid "Root passwords do not match."
+#~ msgstr "Password tidak sama"
+
+#, fuzzy
+#~ msgid "Perform a new %s installation"
+#~ msgstr "Saya sedang mencari instalasi Red Hat Linux..."
+
+#, fuzzy
+#~ msgid "_Customize packages to be upgraded"
+#~ msgstr "Pilih paket yang hendak diupgrade"
+
+#, fuzzy
+#~ msgid "Check for _bad blocks"
+#~ msgstr "Mengecek bad blok pada saat format"
+
+#~ msgid "_Reset"
+#~ msgstr "_Reset"
+
+#, fuzzy
+#~ msgid "Make _RAID"
+#~ msgstr "gunakan device RAID"
+
+#~ msgid "Location"
+#~ msgstr "Lokasi"
+
+#, fuzzy
+#~ msgid "Use _daylight saving time (US only)"
+#~ msgstr "Gunakan Daylight Saving Time (US saja)"
+
+#~ msgid "UTC Offset"
+#~ msgstr "Offset UTC"
+
+#~ msgid "Use bootp/dhcp"
+#~ msgstr "Gunakan bootp/dhcp"
+
+#, fuzzy
+#~ msgid "Secondary nameserver:"
+#~ msgstr "Nameserver Cadangan (IP):"
+
+#, fuzzy
+#~ msgid "Tertiary nameserver:"
+#~ msgstr "Nameserver Utama:"
+
+#~ msgid ""
+#~ "The hostname is the name of your computer.  If your computer is attached "
+#~ "to a network, this may be assigned by your network administrator."
+#~ msgstr ""
+#~ "Nama host adalah nama komputer Anda. Bila komputer Anda dihubungkan ke "
+#~ "jaringan, maka biasanya namanya ditentukan oleh administrator jaringan."
+
 #~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 #~ msgstr "Gagal dalam pembuatan database RPM. Mungkin spasi disk habis?"
 
@@ -7447,9 +7768,6 @@ msgstr ""
 #~ msgid "IP address"
 #~ msgstr "Alamat IP"
 
-#~ msgid "Netmask"
-#~ msgstr "Netmask"
-
 #~ msgid "Domain name"
 #~ msgstr "Nama Domain"
 
@@ -7527,10 +7845,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Probing for video card:   %s"
-#~ msgstr "Tipe printer:"
-
-#, fuzzy
-#~ msgid "Probing for monitor type: "
 #~ msgstr "Tipe printer:"
 
 #, fuzzy
@@ -7728,9 +8042,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Developer Workstation"
 #~ msgstr "Workstation KDE"
-
-#~ msgid "Install"
-#~ msgstr "Install"
 
 #, fuzzy
 #~ msgid "User _Name:"
@@ -8984,9 +9295,6 @@ msgstr ""
 #~ msgid "Load module"
 #~ msgstr "Load modul"
 
-#~ msgid "Probe"
-#~ msgstr "Deteksi"
-
 #~ msgid "device command"
 #~ msgstr "perintah device"
 
@@ -9315,9 +9623,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Untuk menggunakan PCMCIA, maka ganti disket boot pada drive sekarang "
 #~ "dengan disket PCMCIA Red Hat."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "Mulai menggunakan PCMCIA..."
 
 #~ msgid ""
 #~ "\n"
@@ -9672,9 +9977,6 @@ msgstr ""
 
 #~ msgid "Not "
 #~ msgstr "Tidak"
-
-#~ msgid "Detected\n"
-#~ msgstr "Terdeteksi\n"
 
 #~ msgid "Local Printer Device"
 #~ msgstr "Device Printer Lokal"
