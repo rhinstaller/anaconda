@@ -179,6 +179,7 @@ class LanguageSupportWindow (InstallWindow):
         sw.set_border_width (5)
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add (self.language)
+        sw.set_shadow_type(gtk.SHADOW_IN)
 
         vbox2 = gtk.VBox (gtk.FALSE, 12)
 
