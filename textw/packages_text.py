@@ -45,7 +45,7 @@ class PackageGroupWindow:
         ct = CheckboxTree(height = 8, scroll = 1)
         for comp in comps:
             if not comp.hidden:
-                ct.append(_(comp.name), comp, comp.isSelected(justManual = 1))
+                ct.append(comp.name, comp, comp.isSelected(justManual = 1))
 
         cb = Checkbox (_("Select individual packages"), 
 			    not dispatch.stepInSkipList("indivpackage"))
