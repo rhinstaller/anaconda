@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
-"POT-Creation-Date: 2001-03-01 11:37-0500\n"
+"POT-Creation-Date: 2001-03-05 11:43-0500\n"
 "PO-Revision-Date: 2001-01-29 14:33+0100\n"
 "Last-Translator: Bettina De Monti <bdemonti@redhat.it>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Tout"
 
-#: ../exception.py:13 ../text.py:949
+#: ../exception.py:13 ../text.py:950
 msgid "Exception Occurred"
 msgstr "Une exception s'est produite"
 
@@ -156,7 +156,7 @@ msgstr ""
 "d'un bogue. Copiez le texte complet de cette exception et signalez le bogue "
 "à l'adresse http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:325 ../text.py:967
+#: ../gui.py:325 ../text.py:968
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -164,11 +164,11 @@ msgstr ""
 "Insérez une disquette. Tout le contenu du disque va être effacé, choisissez "
 "donc soigneusement votre disquette."
 
-#: ../gui.py:421 ../gui.py:788
+#: ../gui.py:421 ../gui.py:789
 msgid "Next"
 msgstr "Suivant"
 
-#: ../gui.py:422 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:422 ../gui.py:788 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
@@ -179,7 +179,7 @@ msgstr "Suivant"
 #: ../text.py:225 ../text.py:305 ../text.py:377 ../text.py:395 ../text.py:398
 #: ../text.py:407 ../text.py:408 ../text.py:423 ../text.py:426 ../text.py:448
 #: ../text.py:451 ../text.py:508 ../text.py:511 ../text.py:537 ../text.py:541
-#: ../text.py:550 ../text.py:623 ../text.py:625 ../text.py:635 ../text.py:637
+#: ../text.py:550 ../text.py:624 ../text.py:626 ../text.py:636 ../text.py:638
 #: ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9
 #: ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -198,59 +198,59 @@ msgstr "Suivant"
 msgid "Back"
 msgstr "Précédent"
 
-#: ../gui.py:423 ../gui.py:793
+#: ../gui.py:423 ../gui.py:542 ../gui.py:791
+msgid "Release Notes"
+msgstr "Notes de mise à jour"
+
+#: ../gui.py:424 ../gui.py:794
 msgid "Show Help"
 msgstr "Afficher l'aide"
 
-#: ../gui.py:424 ../gui.py:792
+#: ../gui.py:425 ../gui.py:793
 msgid "Hide Help"
 msgstr "Masquer l'aide"
 
-#: ../gui.py:425 ../gui.py:791
+#: ../gui.py:426 ../gui.py:792
 msgid "Finish"
 msgstr "Terminer"
 
-#: ../gui.py:428 ../gui.py:823
+#: ../gui.py:429 ../gui.py:824
 msgid "Online Help"
 msgstr "Aide en ligne"
 
-#: ../gui.py:429 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:63 ../text.py:1039 ../text.py:1072
+#: ../gui.py:430 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:63 ../text.py:1040 ../text.py:1073
 msgid "Language Selection"
 msgstr "Sélection de la langue"
 
-#: ../gui.py:536 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:537 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Fermer"
 
-#: ../gui.py:541 ../gui.py:790
-msgid "Release Notes"
-msgstr "Notes de mise à jour"
-
-#: ../gui.py:572
+#: ../gui.py:573
 msgid "Unable to load file!"
 msgstr "Impossible de charger le fichier !"
 
-#: ../gui.py:711
+#: ../gui.py:712
 msgid "Red Hat Linux Installer"
 msgstr "Programme d'installation de Red Hat Linux"
 
-#: ../gui.py:715
+#: ../gui.py:716
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell d'installation de Red Hat Linux"
 
-#: ../gui.py:726
+#: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Programme d'installation de Red Hat Linux sur %s"
 
-#: ../gui.py:727
+#: ../gui.py:728
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell d'installation de Red Hat Linux sur %s"
 
-#: ../gui.py:872
+#: ../gui.py:873
 msgid "Install Window"
 msgstr "Fenêtre Install"
 
@@ -314,9 +314,9 @@ msgstr "Le CD-ROM n'a pas pu être monté."
 #: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
 #: ../rescue.py:109 ../rescue.py:117 ../text.py:129 ../text.py:168
 #: ../text.py:222 ../text.py:305 ../text.py:395 ../text.py:448 ../text.py:466
-#: ../text.py:508 ../text.py:537 ../text.py:623 ../text.py:635 ../text.py:664
-#: ../text.py:685 ../text.py:855 ../text.py:909 ../text.py:935 ../text.py:961
-#: ../text.py:969 ../text.py:984 ../text.py:1228 ../textw/bootdisk_text.py:52
+#: ../text.py:508 ../text.py:537 ../text.py:624 ../text.py:636 ../text.py:665
+#: ../text.py:686 ../text.py:856 ../text.py:910 ../text.py:936 ../text.py:962
+#: ../text.py:970 ../text.py:985 ../text.py:1229 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -461,7 +461,7 @@ msgid "Choose the languages to be installed:"
 msgstr "Choisir la langue à installer :"
 
 # ../comps/comps-master:446
-#: ../text.py:135 ../text.py:1135
+#: ../text.py:135 ../text.py:1136
 msgid "Language Support"
 msgstr "Support langue"
 
@@ -470,9 +470,8 @@ msgid "Invalid Choice"
 msgstr "Choix non valide"
 
 #: ../text.py:167
-#, fuzzy
 msgid "You must select at least one language to install."
-msgstr "Sélection des langues à installer :"
+msgstr "Sélectionnez au moins une des langues à installer."
 
 #: ../text.py:195
 msgid "Default Language"
@@ -482,7 +481,7 @@ msgstr "Langue par défaut"
 msgid "Choose the default language: "
 msgstr "Choisir la langue par défaut :"
 
-#: ../text.py:220 ../text.py:1041 ../text.py:1078
+#: ../text.py:220 ../text.py:1042 ../text.py:1079
 msgid "Keyboard Selection"
 msgstr "Sélection du clavier"
 
@@ -494,7 +493,7 @@ msgstr "Quel est le modèle du clavier connecté à cet ordinateur ?"
 msgid "Upgrade Existing Installation"
 msgstr "Mise à jour du système existant"
 
-#: ../text.py:303 ../text.py:1081
+#: ../text.py:303 ../text.py:1082
 msgid "Installation Type"
 msgstr "Type d'installation"
 
@@ -536,9 +535,8 @@ msgid "System to Upgrade"
 msgstr "Système à mettre à jour"
 
 #: ../text.py:405
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "Partition RAID"
+msgstr "Mise à jour de la partition"
 
 #: ../text.py:406
 msgid "Going to upgrade partition /dev/"
@@ -635,8 +633,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:530 ../loader/loader.c:2249 ../loader/pcmcia.c:104
-#: ../text.py:466 ../text.py:469 ../text.py:855 ../text.py:856 ../text.py:969
-#: ../text.py:971 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../text.py:466 ../text.py:469 ../text.py:856 ../text.py:857 ../text.py:970
+#: ../text.py:972 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Annuler"
@@ -665,11 +663,11 @@ msgstr "Sélection du serveur X"
 msgid "Choose a server"
 msgstr "Choisir un serveur"
 
-#: ../text.py:619
+#: ../text.py:620
 msgid "Installation to begin"
 msgstr "Début de l'installation"
 
-#: ../iw/confirm_gui.py:45 ../text.py:620
+#: ../iw/confirm_gui.py:45 ../text.py:621
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -678,11 +676,11 @@ msgstr ""
 "/tmp/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
-#: ../text.py:631
+#: ../text.py:632
 msgid "Upgrade to begin"
 msgstr "Début de la mise à jour"
 
-#: ../iw/confirm_gui.py:41 ../text.py:632
+#: ../iw/confirm_gui.py:41 ../text.py:633
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -691,18 +689,18 @@ msgstr ""
 "/tmp/upgrade.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
-#: ../text.py:651
+#: ../text.py:652
 msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
 "                         Appuyer sur <Quitter> pour redémarrer l'ordinateur"
 
-#: ../text.py:653 ../text.py:676
+#: ../text.py:654 ../text.py:677
 msgid "Complete"
 msgstr "Terminé"
 
-#: ../iw/congrats_gui.py:34 ../text.py:654
+#: ../iw/congrats_gui.py:34 ../text.py:655
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -725,13 +723,13 @@ msgstr ""
 "Des informations sur la configuration et l'utilisation de votre système Red "
 "Hat Linux sont disponibles dans les manuels Red Hat Linux."
 
-#: ../text.py:672
+#: ../text.py:673
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr "                          Appuyer sur <Quitter> pour quitter"
 
-#: ../text.py:677
+#: ../text.py:678
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -749,59 +747,59 @@ msgstr ""
 "Des informations complémentaires sur la configuration de votre système sont "
 "disponibles à l'adresse http://www.redhat.com/support/manuals/"
 
-#: ../text.py:744
+#: ../text.py:745
 msgid "Package Installation"
 msgstr "Installation du paquetage"
 
-#: ../text.py:746
+#: ../text.py:747
 msgid "Name   : "
 msgstr "Nom    : "
 
-#: ../text.py:747
+#: ../text.py:748
 msgid "Size   : "
 msgstr "Taille : "
 
-#: ../text.py:748
+#: ../text.py:749
 msgid "Summary: "
 msgstr "Résumé  : "
 
-#: ../text.py:774
+#: ../text.py:775
 msgid "    Packages"
 msgstr "  Paquetages"
 
-#: ../text.py:775
+#: ../text.py:776
 msgid "       Bytes"
 msgstr "     Octets"
 
-#: ../text.py:776
+#: ../text.py:777
 msgid "        Time"
 msgstr "       Temps"
 
-#: ../text.py:778
+#: ../text.py:779
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:785
+#: ../text.py:786
 msgid "Completed:   "
 msgstr "Effectué :   "
 
-#: ../text.py:795
+#: ../text.py:796
 msgid "Remaining:  "
 msgstr "Restant  :  "
 
-#: ../text.py:907
+#: ../text.py:908
 msgid "Help not available"
 msgstr "Aide non disponible"
 
-#: ../text.py:908
+#: ../text.py:909
 msgid "No help is available for this install."
 msgstr "Aucune aide n'est disponible pour cette installation."
 
-#: ../text.py:966
+#: ../text.py:967
 msgid "Save Crash Dump"
 msgstr "Sauvegarde d'une image système en raison d'un crash"
 
-#: ../text.py:977
+#: ../text.py:978
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -814,178 +812,178 @@ msgstr ""
 "plus tôt. Vous pouvez enregistrer les informations relatives à cette panne "
 "sur disquette ; cela aidera Red Hat à résoudre le problème.\n"
 
-#: ../text.py:984 ../text.py:987
+#: ../text.py:985 ../text.py:988
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../text.py:984 ../text.py:985
+#: ../text.py:985 ../text.py:986
 msgid "Debug"
 msgstr "Déboguer"
 
-#: ../text.py:995
+#: ../text.py:996
 msgid " "
 msgstr " "
 
-#: ../text.py:999
+#: ../text.py:1000
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:1002
+#: ../text.py:1003
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <F1> Aide|<Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
 
-#: ../text.py:1004
+#: ../text.py:1005
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1037
-#: ../text.py:1080
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1038
+#: ../text.py:1081
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: ../text.py:1043 ../text.py:1126
+#: ../text.py:1044 ../text.py:1127
 msgid "Hostname Setup"
 msgstr "Configuration du nom d'hôte"
 
-#: ../text.py:1045 ../text.py:1123
+#: ../text.py:1046 ../text.py:1124
 msgid "Network Setup"
 msgstr "Configuration du réseau"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1047 ../text.py:1128
+#: ../iw/firewall_gui.py:12 ../text.py:1048 ../text.py:1129
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "Configuration du pare-feu"
 
-#: ../text.py:1055 ../text.py:1140
+#: ../text.py:1056 ../text.py:1141
 msgid "Time Zone Setup"
 msgstr "Configuration du fuseau horaire"
 
-#: ../text.py:1057 ../text.py:1142 ../textw/userauth_text.py:9
+#: ../text.py:1058 ../text.py:1143 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Mot de passe root"
 
-#: ../text.py:1059 ../text.py:1144 ../textw/userauth_text.py:172
+#: ../text.py:1060 ../text.py:1145 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Configuration du compte utilisateur"
 
-#: ../text.py:1061 ../text.py:1146
+#: ../text.py:1062 ../text.py:1147
 msgid "Authentication"
 msgstr "Authentification"
 
-#: ../text.py:1067
+#: ../text.py:1068
 msgid "Configuration Complete"
 msgstr "Configuration terminée"
 
-#: ../text.py:1089 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1090 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Configuration de SILO"
 
-#: ../text.py:1095 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1096 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Configuration de LILO"
 
-#: ../text.py:1099
+#: ../text.py:1100
 msgid "Automatic Partition"
 msgstr "Partitionnement automatique"
 
 #: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1101 ../text.py:1105
+#: ../iw/silo_gui.py:280 ../text.py:1102 ../text.py:1106
 msgid "Partition"
 msgstr "Partition"
 
-#: ../text.py:1103
+#: ../text.py:1104
 msgid "Manually Partition"
 msgstr "Partitionnement manuel"
 
-#: ../text.py:1107 ../textw/partitioning_text.py:333
+#: ../text.py:1108 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
 msgstr "Taille du système de fichiers root"
 
-#: ../text.py:1109
+#: ../text.py:1110
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1111 ../textw/partitioning_text.py:390
+#: ../text.py:1112 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 msgid "Boot Partition Warning"
 msgstr "Avertissement : partition d'amorçage"
 
-#: ../text.py:1113
+#: ../text.py:1114
 msgid "Filesystem Formatting"
 msgstr "Création du système de fichiers"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1130 ../text.py:1132
+#: ../iw/mouse_gui.py:56 ../text.py:1131 ../text.py:1133
 msgid "Mouse Configuration"
 msgstr "Configuration de la souris"
 
-#: ../text.py:1137
+#: ../text.py:1138
 msgid "Language Default"
 msgstr "Langue par défaut"
 
-#: ../text.py:1148
+#: ../text.py:1149
 msgid "Package Groups"
 msgstr "Groupes de paquetages"
 
-#: ../text.py:1150 ../text.py:1178
+#: ../text.py:1151 ../text.py:1179
 msgid "Individual Packages"
 msgstr "Paquetages individuels"
 
-#: ../text.py:1152 ../text.py:1179 ../textw/packages_text.py:304
+#: ../text.py:1153 ../text.py:1180 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Dépendances entre les paquetages"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1154 ../text.py:1162
+#: ../iw/xconfig_gui.py:846 ../text.py:1155 ../text.py:1163
 msgid "X Configuration"
 msgstr "Configuration X"
 
-#: ../text.py:1156
+#: ../text.py:1157
 msgid "Installation Begins"
 msgstr "Début de l'installation"
 
-#: ../text.py:1158
+#: ../text.py:1159
 msgid "Install System"
 msgstr "Installation du système"
 
-#: ../text.py:1159 ../text.py:1161 ../text.py:1184 ../text.py:1186
+#: ../text.py:1160 ../text.py:1162 ../text.py:1185 ../text.py:1187
 msgid "Boot Disk"
 msgstr "Disquette d'amorçage"
 
-#: ../text.py:1164
+#: ../text.py:1165
 msgid "Installation Complete"
 msgstr "Installation terminée"
 
-#: ../text.py:1169
+#: ../text.py:1170
 msgid "Examine System"
 msgstr "Analyse du système"
 
-#: ../text.py:1176
+#: ../text.py:1177
 msgid "Customize Upgrade"
 msgstr "Personnalisation de la mise à jour"
 
-#: ../text.py:1181
+#: ../text.py:1182
 msgid "Upgrade Begins"
 msgstr "Début de la mise à jour"
 
-#: ../text.py:1183
+#: ../text.py:1184
 msgid "Upgrade System"
 msgstr "Mise à jour du système"
 
-#: ../text.py:1187
+#: ../text.py:1188
 msgid "Upgrade Complete"
 msgstr "Mise à jour terminée"
 
-#: ../text.py:1225
+#: ../text.py:1226
 msgid "Cancelled"
 msgstr "Annulé"
 
-#: ../text.py:1226
+#: ../text.py:1227
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Impossible de revenir à l'étape précédente à partir d'ici. Essayer à nouveau."
@@ -1604,12 +1602,10 @@ msgid "Lilo Configuration"
 msgstr "Configuration de LILO"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Voulez-vous configurer votre système ?"
+msgstr "Voulez-vous continuer la mise à jour ?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
 msgstr "Début de la mise à jour"
 
@@ -3979,9 +3975,8 @@ msgstr ""
 "ordinateur."
 
 #: ../loader/loader.c:2934
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Lecture des mises à jour anaconda..."
+msgstr "Lecture d'anaconda - attendez...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
