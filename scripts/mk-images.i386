@@ -61,12 +61,12 @@ NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci de4x5
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
-	   --initrdsize 2100 \
+	   --initrdsize 2250 \
 	   --loaderbin loader-local \
 	   --modules "$LOCALMODULES"
 
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	   --initrdsize 2100 \
+	   --initrdsize 2250 \
 	   --loaderbin loader-network \
 	   --modules "$NETWORKMODULES"
 
@@ -93,7 +93,7 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
-	   --initrdsize 2200 \
+	   --initrdsize 2350 \
 	   --loaderbin loader-pcmcia \
 	   --modules "$PCMCIAMAINMODULES"
 
@@ -133,14 +133,14 @@ BOOTDIR="ja"
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/boot.img \
 	     --initrdflags '--japanese
-			    --initrdsize 2800 \
+			    --initrdsize 2950 \
 			    --loaderbin loader-local-kon \
 			    --modules "$LOCALMODULES"'
 
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/bootnet.img \
 	     --initrdflags '--japanese
-			    --initrdsize 2800 \
+			    --initrdsize 2950 \
 			    --loaderbin loader-network-kon \
 		 	    --modules "$NETWORKMODULES"'
 
@@ -148,7 +148,7 @@ makebootdisk --imagename ja/pcmcia.img \
 	     --bootdisksize 1440 \
 	     --initrdflags '--japanese
 			    --pcmcia \
-		     	    --initrdsize 3072 \
+		     	    --initrdsize 3232 \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "$PCMCIAMAINMODULES"'
 
