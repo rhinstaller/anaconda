@@ -1,5 +1,8 @@
 2004-09-22  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (DevptsFileSystem.isMountable): Don't mount /dev/pts
+	during install (#133301)
+
 	* scripts/splittree.py: Fix for SRPMs (#122737)
 
 	* bootdisk/i386/syslinux.cfg: 

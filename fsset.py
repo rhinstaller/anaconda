@@ -905,6 +905,9 @@ class DevptsFileSystem(PsudoFileSystem):
         PsudoFileSystem.__init__(self, "devpts")
         self.defaultOptions = "gid=5,mode=620"
 
+    def isMountable(self):
+        return 0
+
 fileSystemTypeRegister(DevptsFileSystem())
 
 class DevshmFileSystem(PsudoFileSystem):
