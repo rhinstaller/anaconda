@@ -319,7 +319,6 @@ class ToDo:
 	self.expert = expert
 	if (not instClass):
 	    raise TypeError, "installation class expected"
-	self.setClass(instClass)
         if x:
             self.x = x
         else:
@@ -327,6 +326,9 @@ class ToDo:
                 self.x = XF86Config (mouse)
             else:
                 self.x = XF86Config ()
+
+	# This absolutely, positively MUST BE LAST
+	self.setClass(instClass)
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -445,30 +447,49 @@ class ToDo:
 	# let's make the RAID devices first -- the fstab will then proceed
 	# naturally
         (devices, raid) = self.ddruid.partitionList()
+	  
 	if raid:
+	    deviceDict = {}
+	    for (device, name, type) in devices:
+		deviceDict[name] = device
+
 	    rt = open("/tmp/raidtab", "w")
-	    for (mntpoint, device, makeup) in raid:
-		rt.write("raiddev		    /dev/%s\n" % (device,))
-		rt.write("raid-level		    1\n")
+	    for (mntpoint, device, raidType, makeup) in raid:
+
+		isys.makeDevInode(device, '/tmp/' + device)
+
+		rt.write("raiddev		    /tmp/%s\n" % (device,))
+		rt.write("raid-level		    %d\n % (raidType,)")
 		rt.write("nr-raid-disks		    %d\n" % (len(makeup),))
-		rt.write("chunk-size		    64k\n" % (len(makeup),))
+		rt.write("chunk-size		    64k\n")
 		rt.write("persistent-superblock	    1\n");
 		rt.write("#nr-spare-disks	    0\n")
 		i = 0
-		for subDev in makeup:
-		    rt.write("    device	    /dev/%s\n" % (subDev,))
+		for subDevName in makeup:
+		    isys.makeDevInode(deviceDict[subDevName], '/tmp/%s' % 
+				deviceDict[subDevName])
+		    rt.write("    device	    /tmp/%s\n" % 
+			(deviceDict[subDevName],))
 		    rt.write("    raid-disk     %d\n" % (i,))
 		    i = i + 1
 
 	    rt.write("\n")
 	    rt.close()
 
+	    w = self.intf.waitWindow(_("Creating"),
+			  _("Creating RAID devices..."))
+
 	    for (mntpoint, device, makeup) in raid:
-                iutil.execWithRedirect ("/usr/sbin/mkraid",
-			[ 'mkraid', '/dev/' + device ])
+                iutil.execWithRedirect ("/usr/sbin/mkraid", 
+			[ 'mkraid', '--really-force', '--configfile', 
+			  '/tmp/raidtab', '/tmp/' + device ])
+
+	    w.pop()
         
-	    iutil.execWithRedirect ("/usr/sbin/raidstart",
-		    [ 'raidstart', '-a' ])
+	    #iutil.execWithRedirect ("/usr/sbin/raidstart",
+		    #[ 'raidstart', '--configfile', '/tmp/raidtab', '-a' ])
+
+	    # XXX remove extraneous inodes here
 
         keys = self.mounts.keys ()
 	keys.sort()
@@ -596,6 +617,9 @@ class ToDo:
 
     def installLilo (self):
 	lilo = LiloConfiguration ()
+
+	if not self.liloImages:
+	    self.setLiloImages(self.getLiloImages())
         
         # on upgrade read in the lilo config file
         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
@@ -959,6 +983,7 @@ class ToDo:
 	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
+
 	todo.users = []
 	if todo.instClass.rootPassword:
 	    todo.rootpassword.set(todo.instClass.rootPassword)
@@ -988,6 +1013,9 @@ class ToDo:
 	if (todo.instClass.mouse):
 	    (type, device, emulateThreeButtons) = todo.instClass.mouse
 	    todo.mouse.set(type, emulateThreeButtons, thedev = device)
+
+	if (todo.instClass.x):
+	    todo.x = todo.instClass.x
 
     def getSkipPartitioning(self):
 	return self.instClass.skipPartitioning
@@ -1184,7 +1212,8 @@ class ToDo:
 	    self.createAccounts ()
 	    self.writeTimezone()
 	    if (self.instClass.defaultRunlevel):
-		self.setDefaultRunlevel (self.instClass.defaultRunlevel)
+		self.initlevel = self.instClass.defaultRunlevel
+		self.setDefaultRunlevel ()
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
@@ -1207,9 +1236,11 @@ class ToDo:
 	    f.close()
 
 	    if self.instClass.postInChroot:
-		iutil.execWithRedirect (path, [path], root = self.instPath)
+		iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
+			"/tmp/ks-script" ], root = self.instPath)
 	    else:
-		iutil.execWithRedirect (path, [path])
+		iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
+				"/tmp/ks-script"])
 				    
 	    os.unlink(path)
 
