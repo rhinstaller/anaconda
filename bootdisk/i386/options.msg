@@ -17,4 +17,7 @@
 
  -  If you have an installer update disk, type: 0flinux updates <ENTER>07.
 
+ -  To test the memory in your system type: 0fmemtest86 <ENTER>07.
+    (This option is only available on the x86 arch with the CD boot image)
+
 02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07
