@@ -110,6 +110,13 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 /* JKFIXME: bad hack for second stage modules without module-info */
 struct moduleBallLocation * secondStageModuleLocation;
 
+#if defined(__x86_64__) || defined(__s390x__) || defined(__ppc64__)
+#define LIBPATH "/lib64:/usr/lib64:/usr/X11R6/lib64:/usr/kerberos/lib64:/mnt/usr/lib64:/mnt/sysimage/lib64:/mnt/sysimage/usr/lib64"
+#else
+#define LIBPATH "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib"
+#endif
+
+
 #if 0
 #if !defined(__s390__) && !defined(__s390x__)
 #define RAMDISK_DEVICE "/dev/ram"
@@ -283,15 +290,7 @@ static void spawnShell(int flags) {
         signal(SIGINT, SIG_DFL);
         signal(SIGTSTP, SIG_DFL);
 
-#if defined(__x86_64__) || defined(__s390x__) || defined(__ppc64__)
-        setenv("LD_LIBRARY_PATH",
-               "/lib64:/usr/lib64:/usr/X11R6/lib64:/usr/kerberos/lib64:/mnt/usr/lib64:"
-               "/mnt/sysimage/lib64:/mnt/sysimage/usr/lib64", 1);
-#else
-        setenv("LD_LIBRARY_PATH",
-               "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
-               "/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
-#endif
+        setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         
         execl("/bin/sh", "-/bin/sh", NULL);
         logMessage("exec of /bin/sh failed: %s", strerror(errno));
@@ -1312,11 +1311,11 @@ int main(int argc, char ** argv) {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product:/mnt/source/RHupdates", 1);
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
-                           getenv("LD_LIBRARY_PATH")), 1);
+                           LIBPATH), 1);
     } else {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
         setenv("LD_LIBRARY_PATH", 
-               sdupprintf("/tmp/updates:/tmp/product:%s", getenv("LD_LIBRARY_PATH")), 1);
+               sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
     }
 
 
