@@ -85,3 +85,7 @@ makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
 			    --moduleballname modules64.cgz'
 
 makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES" modules64.cgz
+
+makeinstimage --size1 2660 --size2 2460 "netstg" "=scsi $SECSTAGE"
+makeinstimage --size1 2660 --size2 2460 "hdstg" "=net $SECSTAGE"
+makemainimage "stage2"
