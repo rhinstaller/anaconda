@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.0
+Version: 10.2.0.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -73,6 +73,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov  8 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.1-1
+- whrandom is deprecated in python 2.4, use random instead
+- fix some syntax errors
+- fallback to English for languages that can't do text-mode (#138308)
+- More CTCPROT/PORTNAME tweaks (karsten)
+
 * Sun Nov  7 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.0-1
 - Switch to python 2.4
 - Clean up warning on network screen from pygtk
