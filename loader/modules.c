@@ -312,6 +312,7 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	}
 
 	if (mi->major == DRIVER_SCSI) {
+	    startNewt(flags);
 	    scsiWindow(modName);
 	    popWindow = 1;
 	}
@@ -477,7 +478,7 @@ int mlLoadModuleSet(const char * origModNames,
 	if (loadModule(*l, *p, modLoaded, 
 		       !strcmp(initialList[0], *l) ? args : NULL, 
 		       modInfo, flags)) {
-	    logMessage("failed to insert %s -- bailing\n", *p);
+	    logMessage("failed to insert %s\n", *p);
 	    i++;
 	}
     }
