@@ -1041,14 +1041,14 @@ class Partitions:
 
 	    if request.grow:
 		if request.startSize is not None:
-		    args.append("--size=%s" %(request.startSize,))
+		    args.append("--size=%s" % (request.startSize,))
 		else:
 		    # shouldnt happen
 		    continue
 		
 		args.append("--grow")
 		if request.maxSizeMB is not None and int(request.maxSizeMB) > 0:
-		    args.append("--maxsize=%s",%(request.maxSizeMB,))
+		    args.append("--maxsize=%s" % (request.maxSizeMB,))
 	    else:
 		if request.percent is not None:
 		    args.append("--percent=%s" %(request.percent,))
