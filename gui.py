@@ -423,6 +423,7 @@ class ProgressWindow:
         self.total = total
 	self.progress = gtk.ProgressBar ()
         box.pack_start (self.progress, gtk.TRUE)
+        self.window.add(box)
 
         addFrame(self.window)
 	self.window.show_all ()
