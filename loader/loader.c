@@ -2596,6 +2596,24 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
+    if (!FL_TESTING(flags)) {
+        int fd;
+
+	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
+	if (fd < 0) {
+	    logMessage("error creating /tmp/modules.conf: %s\n", 
+	    	       strerror(errno));
+	} else {
+	    /* HACK - notting */
+#ifdef __sparc__
+	    write(fd,"alias parport_lowlevel parport_ax\n",34);
+#else
+	    write(fd,"alias parport_lowlevel parport_pc\n",34);
+#endif
+	    close(fd);
+	}
+    }
+    
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
@@ -2851,25 +2869,6 @@ int main(int argc, char ** argv) {
         loadUpdates(&kd, modLoaded, &modDeps, flags);
 
     loadUfs(&kd, modLoaded, &modDeps, flags);
-
-    if (!FL_TESTING(flags)) {
-        int fd;
-
-	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
-	if (fd < 0) {
-	    logMessage("error creating /tmp/modules.conf: %s\n", 
-	    	       strerror(errno));
-	} else {
-	    mlWriteConfModules(modLoaded, fd);
-	    /* HACK - notting */
-#ifdef __sparc__
-	    write(fd,"alias parport_lowlevel parport_ax\n",34);
-#else
-	    write(fd,"alias parport_lowlevel parport_pc\n",34);
-#endif
-	    close(fd);
-	}
-    }
 
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);

@@ -295,7 +295,8 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	modLoaded->mods[modLoaded->numModules].path = path;
 	modLoaded->mods[modLoaded->numModules].firstDevNum = -1;
 	modLoaded->mods[modLoaded->numModules].lastDevNum = -1;
-
+	modLoaded->mods[modLoaded->numModules].written = 0;
+	
 	if (ethDevices >= 0) {
 	    modLoaded->mods[modLoaded->numModules].firstDevNum = ethDevices;
 	    modLoaded->mods[modLoaded->numModules].lastDevNum = ethCount() - 1;
@@ -320,6 +321,20 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	}
 
 	modLoaded->mods[modLoaded->numModules++].args = newArgs;
+	/* */
+	if (!FL_TESTING(flags)) {
+	    int fd;
+	    
+	    fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT | O_APPEND,
+		      0666);
+	    if (fd == -1) {
+		logMessage("error appending to /tmp/modules.conf: %s\n", 
+			   strerror(errno));
+	    } else {
+		mlWriteConfModules(modLoaded, fd);
+		close(fd);
+	    }
+	}
     } else {
 	if (path) removeExtractedModule(path);
 	free(path);
@@ -362,6 +377,8 @@ int mlWriteConfModules(moduleList list, int fd) {
 
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
     	if (!lm->weLoaded) continue;
+	if (lm->written) continue;
+	lm->written = 1;
 	if (lm->major != DRIVER_NONE) {
 	    strcpy(buf, "alias ");
 	    switch (lm->major) {

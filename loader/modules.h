@@ -10,6 +10,7 @@ struct loadedModuleInfo {
     char * name;
     char ** args;
     int weLoaded;
+    int written;
     char * path;
     int firstDevNum, lastDevNum;	/* only used for ethernet currently */
     enum driverMajor major;
