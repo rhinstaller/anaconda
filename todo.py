@@ -301,9 +301,8 @@ class ToDo:
         self.badBlockCheck = 0
         self.bootdisk = 0
 	self.liloImages = {}
-        self.liloDevice = None
-        self.liloLinear = 1
-        self.liloAppend = None
+	# liloDevice, liloLinear, liloAppend are initialized form the
+	# default install class
         arch = iutil.getArch ()
 	if arch == "sparc":
 	    self.silo = SiloInstall (self)
