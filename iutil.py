@@ -184,12 +184,8 @@ def memInstalled(corrected = 1):
     mem = f.readlines()[1]
     del f
 
-    # patch from hjl
     fields = string.split(mem)
-    try:
-       mem = int(fields[1]) / 1024
-    except:
-        mem = 2097151
+    mem = int(long(fields[1]) / 1024)
 
     if corrected:
 	mem = mem - memoryOverhead
@@ -354,3 +350,14 @@ esac
     execWithRedirect('/bin/sh', args, stdin = None,
                      stdout = None, stderr = None,
                      root = root)
+
+def swapAmount():
+    f = open("/proc/meminfo", "r")
+    mem = f.readlines()[2]
+    del f
+
+    fields = string.split(mem)
+    mem = int(long (fields[1]) / 1024)
+
+    return mem
+
