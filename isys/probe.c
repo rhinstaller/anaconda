@@ -16,6 +16,7 @@
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
+static int I2OGetDevices(struct knownDevices * devices, int code);
 
 static int readFD (int fd, char **buf)
 {
@@ -262,6 +263,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+	I2OGetDevices(devices, code);
 	return 0;
     }
 
@@ -280,6 +282,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+	I2OGetDevices(devices, code);
 	goto bye;
     }
 
@@ -406,6 +409,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
+    I2OGetDevices(devices, code);
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
@@ -512,6 +516,48 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     
     return 0;
 }
+
+
+static int I2OGetDevices(struct knownDevices * devices, int code) {
+    struct kddevice newDevice;
+    FILE *f;
+    char buf[256];
+    char *ptr;
+    int numMatches = 0, ctlNum = 0;
+    char ctl[40];
+/*
+TODO:
+ Currently just allowing user to install on the
+ first I2O volume created. Look at I2O code,
+ it will guarantee that a bootable volume
+ always shows up as /dev/i2o/hda. The other
+ volumes may change device names if there is 
+ TID reuse.
+ Other reason is that currently in 2.2 kernels
+ we cannot determine how many I2O volumes were 
+ created via the /proc file system. Too cumbersome
+ to wade thru the syslog !
+*/
+    sprintf(ctl, "i2o/hda");
+
+/*
+TODO:
+ There is currently no checking to see if
+ the I2O Block device /dev/i2o/hda ACTUALLY
+ exists. Consequently this hack should be used
+ only when installing on I2O devices. Otherwise
+ it will complain !
+*/
+                if (!deviceKnown(devices, ctl)) {
+                    newDevice.name = strdup(ctl);
+                    newDevice.model = strdup("I2O Block Device");
+                    newDevice.class = CLASS_HD;
+                    addDevice(devices, newDevice);
+                }
+    return 0;
+}
+
+
 
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
     struct kddevice newDevice;

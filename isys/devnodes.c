@@ -140,6 +140,15 @@ int devMakeInode(char * devName, char * path) {
 	minor = (devName[9] - '0') * 16;  /* disk */
 	if (strlen(devName) > 10)          /* partition */
 	    minor += atoi(devName + 11);
+ } else if (!strncmp(devName, "i2o/", 4)) {
+        /* I2O Block Device "i2o/hda */
+        type = S_IFBLK;
+        major = 80;    /* controller */
+	minor = (devName[6] - 'a')*16;
+	if ((devName[7]) && isdigit(devName[7]))
+	{
+		minor = minor + atoi(devName + 7);
+	}
     } else {
 	for (i = 0; i < numDevices; i++) {
 	    if (!strcmp(devices[i].name, devName)) break;
