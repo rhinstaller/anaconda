@@ -2023,6 +2023,11 @@ int main(int argc, char ** argv) {
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, flags);
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, flags);
 
+    #ifdef __i386__
+	/* We need this for loopback installs */
+	mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
+    #endif
+
     stopNewt();
     closeLog();
 
