@@ -50,6 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc COPYING
 %doc docs/command-line.txt
+%doc docs/install-methods.txt
 /usr/sbin/anaconda
 /usr/share/anaconda
 /usr/share/locale/*/*/*
