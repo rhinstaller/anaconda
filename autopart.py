@@ -338,7 +338,7 @@ def growParts(diskset, requests, newParts):
             # if less than one sector left, we're done
 #            if drive not in freeSize.keys() or freeSize[drive] == lastFreeSize:
             if drive not in freeSize.keys():
-                print "leaving outer loop because no more space on %s\n\n" % drive
+#                print "leaving outer loop because no more space on %s\n\n" % drive
                 break
 ##             print "\nAt start:"
 ##             print drive,freeSize.keys()
@@ -459,7 +459,7 @@ def growParts(diskset, requests, newParts):
                 # we could have failed on the last try, in which case we
                 # should go back to the smaller size
                 if ret == PARTITION_FAIL:
-                    print "growing finally failed at size", min
+#                    print "growing finally failed at size", min
                     request.requestSize = min*sector_size/1024.0/1024.0
                     # XXX this can't fail (?)
                     (retxxx, msgxxx) = processPartitioning(diskset, newRequest, newParts)
