@@ -258,6 +258,20 @@ class XConfigWindow (InstallWindow):
         
         self.didTest = 0
 
+        # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
+        # need it since they are fixed resolution
+
+        self.cantprobe = 0
+        if not self.sunServer:
+            if self.todo.x.vidCards[self.todo.x.primary].has_key("DRIVER"):
+                curdriver = self.todo.x.vidCards[self.todo.x.primary]["DRIVER"]
+                noprobedriverList = ("i810", "tdfx")
+                for adriver in noprobedriverList:
+                    if curdriver == adriver:
+                        self.cantprobe = 1
+        else:
+            self.cantprobe = 1
+
     def getNext (self):
         if self.skipme:
             return None
@@ -272,7 +286,7 @@ class XConfigWindow (InstallWindow):
         else:
             self.todo.initlevel = 3
 
-	if not self.sunServer:
+	if not self.cantprobe:
 	    if self.custom.get_active () and not self.skip.get_active ():
 		return XCustomWindow
 
@@ -433,7 +447,8 @@ class XConfigWindow (InstallWindow):
                 count = count + 1
             box.pack_start (table, FALSE)
         optbox = GtkVBox (FALSE, 5)
-        if not self.sunServer:
+
+        if not self.cantprobe:
             test = GtkAlignment ()
             button = GtkButton (_("Test this configuration"))
             button.connect ("clicked", self.testPressed)
