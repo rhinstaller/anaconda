@@ -15,7 +15,7 @@ case "$1" in
  start)
         if [ -f /etc/reconfigSys ]; then
 	    echo -n "Running system reconfiguration tool"
-	    /usr/sbin/anaconda-reconfig
+	    /usr/sbin/anaconda --reconfig
 	    rm /etc/reconfigSys
 	fi
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-12-01 17:54-0500\n"
+"POT-Creation-Date: 1999-12-06 12:29-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,8 +33,8 @@ msgstr ""
 #: ../textw/lilo.py:27 ../textw/lilo.py:77 ../textw/lilo.py:84
 #: ../textw/lilo.py:159 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:136 ../textw/packages.py:145
-#: ../textw/partitioning.py:25 ../textw/partitioning.py:64
-#: ../textw/partitioning.py:202 ../textw/silo.py:26 ../textw/silo.py:86
+#: ../textw/partitioning.py:24 ../textw/partitioning.py:65
+#: ../textw/partitioning.py:205 ../textw/silo.py:26 ../textw/silo.py:86
 #: ../textw/silo.py:185 ../textw/userauth.py:29 ../textw/userauth.py:141
 #: ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "Back"
@@ -111,7 +111,7 @@ msgstr ""
 #: ../text.py:926 ../text.py:999 ../text.py:1003 ../text.py:1191
 #: ../textw/lilo.py:26 ../textw/lilo.py:77 ../textw/packages.py:20
 #: ../textw/packages.py:85 ../textw/packages.py:136
-#: ../textw/partitioning.py:202 ../textw/silo.py:25 ../textw/silo.py:86
+#: ../textw/partitioning.py:205 ../textw/silo.py:25 ../textw/silo.py:86
 #: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
 #: ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102
 #: ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
@@ -256,7 +256,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1478 ../libfdisk/newtfsedit.c:1496
 #: ../libfdisk/newtfsedit.c:1581 ../loader/loader.c:603 ../loader/net.c:703
 #: ../text.py:270 ../text.py:447 ../text.py:465 ../text.py:472
-#: ../textw/partitioning.py:165
+#: ../textw/partitioning.py:168
 msgid "Yes"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1478 ../libfdisk/newtfsedit.c:1496
 #: ../libfdisk/newtfsedit.c:1581 ../loader/net.c:703 ../text.py:270
 #: ../text.py:275 ../text.py:447 ../text.py:465 ../text.py:475
-#: ../textw/partitioning.py:165
+#: ../textw/partitioning.py:168
 msgid "No"
 msgstr ""
 
@@ -811,7 +811,7 @@ msgstr ""
 
 #: ../iw/account.py:207 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:158 ../textw/lilo.py:180
-#: ../textw/partitioning.py:63 ../textw/silo.py:184 ../textw/silo.py:206
+#: ../textw/partitioning.py:64 ../textw/silo.py:184 ../textw/silo.py:206
 #: ../textw/userauth.py:172
 msgid "Edit"
 msgstr ""
@@ -918,7 +918,7 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr ""
 
-#: ../iw/fdisk.py:12 ../textw/partitioning.py:24
+#: ../iw/fdisk.py:12 ../textw/partitioning.py:23
 msgid "fdisk"
 msgstr ""
 
@@ -1159,26 +1159,26 @@ msgstr ""
 msgid "Confirm Partitioning Selection"
 msgstr ""
 
-#: ../iw/rootpartition.py:32 ../textw/partitioning.py:24
+#: ../iw/rootpartition.py:32 ../textw/partitioning.py:23
 msgid "Disk Druid"
 msgstr ""
 
-#: ../iw/rootpartition.py:43 ../textw/partitioning.py:160
+#: ../iw/rootpartition.py:43 ../textw/partitioning.py:163
 msgid "Low Memory"
 msgstr ""
 
-#: ../iw/rootpartition.py:44 ../textw/partitioning.py:161
+#: ../iw/rootpartition.py:44 ../textw/partitioning.py:164
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../iw/rootpartition.py:143 ../textw/partitioning.py:123
+#: ../iw/rootpartition.py:143 ../textw/partitioning.py:126
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:191 ../textw/partitioning.py:124
+#: ../iw/rootpartition.py:191 ../textw/partitioning.py:127
 #, c-format
 msgid ""
 "%s\n"
@@ -1192,7 +1192,7 @@ msgstr ""
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/rootpartition.py:208 ../textw/partitioning.py:128
+#: ../iw/rootpartition.py:208 ../textw/partitioning.py:131
 msgid "Manually partition"
 msgstr ""
 
@@ -1326,11 +1326,11 @@ msgid ""
 "installed."
 msgstr ""
 
-#: ../textw/partitioning.py:16 ../textw/partitioning.py:57
+#: ../textw/partitioning.py:15 ../textw/partitioning.py:58
 msgid "Disk Setup"
 msgstr ""
 
-#: ../textw/partitioning.py:17
+#: ../textw/partitioning.py:16
 msgid ""
 "Disk Druid is a tool for partitioning and setting up mount points. It is "
 "designed to be easier to use than Linux's traditional disk partitioning "
@@ -1340,22 +1340,22 @@ msgid ""
 "Which tool would you like to use?"
 msgstr ""
 
-#: ../textw/partitioning.py:58
+#: ../textw/partitioning.py:59
 msgid ""
 "To install Red Hat Linux, you must have at least one partition of 150 MB "
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
 
-#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:63
+#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:64
 msgid "Done"
 msgstr ""
 
-#: ../textw/partitioning.py:128 ../textw/partitioning.py:129
+#: ../textw/partitioning.py:131 ../textw/partitioning.py:132
 msgid "Continue"
 msgstr ""
 
-#: ../textw/partitioning.py:180
+#: ../textw/partitioning.py:183
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -1363,11 +1363,11 @@ msgid ""
 "previous install."
 msgstr ""
 
-#: ../textw/partitioning.py:200
+#: ../textw/partitioning.py:203
 msgid "Check for bad blocks during format"
 msgstr ""
 
-#: ../textw/partitioning.py:204
+#: ../textw/partitioning.py:207
 msgid "Choose Partitions to Format"
 msgstr ""
 

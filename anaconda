@@ -32,8 +32,9 @@ gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = isys.getopt(sys.argv[1:], 'GTRtdr:fm:', 
-          [ 'gui', 'text', 'reconfig', 'test', 'debug', 'method=', 'rootpath=',
+(args, extra) = isys.getopt(sys.argv[1:], 'GITRtdr:fm:', 
+          [ 'gui', 'install', 'text', 'reconfig', 'test', 'debug',
+            'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=',
 	    'expert', 'serial' ])
@@ -82,6 +83,8 @@ reconfigOnly = 0
 # kbdtype    - type of keyboard (84 key, 101 key, etc)
 # kickstart  - ?
 # mouseInfo  - type of mouse
+# progmode   - either 'reconfig' or 'install'
+#
 x = None
 lang = None
 method = None
@@ -89,6 +92,7 @@ keymap = None
 kbdtpye = None
 kickstart = None
 mouseInfo = None
+progmode = None
 
 #
 # parse off command line arguments
@@ -98,10 +102,14 @@ for n in args:
 
     if (str == '-G' or str == '--gui'):
 	display_mode = 'g'
+    elif (str == '-I' or str == '--install'):
+        reconfigOnly = 0
+        progmode = 'install'
     elif (str == '-T' or str == '--text'):
 	display_mode = 't'
     elif (str == '-R' or str == '--reconfig'):
 	reconfigOnly = 1
+        progmode = 'reconfig'
     elif (str == '-t' or str == '--test'):
 	test = 1
     elif (str == '--module'):
@@ -137,6 +145,14 @@ for n in args:
 if (execname == "anaconda-reconfig"):
     print "overriding to reconfig mode based on script name"
     reconfigOnly = 1
+
+
+#
+# must specify install or reconfig mode
+#
+if (progmode == None)
+    print "Must specify either --reconfig or --install for program mode"
+    sys.exit(1)
 
 #
 # if not just reconfiguring box, must have install method
