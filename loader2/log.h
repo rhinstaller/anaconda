@@ -6,7 +6,7 @@
 extern FILE * log;
 extern int logfd;
 
-void logMessage(const char * s, ...);
+void logMessage(const char * s, ...) __attribute__ ((format (printf, 1, 2)));;
 void openLog(int useLocal);
 void closeLog(void);
 void setLogLevel(int level);
