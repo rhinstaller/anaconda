@@ -137,12 +137,14 @@ class FirewallWindow:
 		    poplevel.add (popbb, 0, 4, (0, 0, 0, 0), growx = 1)
 		    poplevel.add (bigGrid, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
 		    
-		    result = poplevel.run()
+		    result2 = poplevel.run()
 		    screen.popWindow()
 	
-	    if rc == "ok":
+	    if rc == "ok" or result == "F12":
 		break
-	screen.popWindow()
+                
+        screen.popWindow()
+
 	for device in self.netCBs.keys():
 	    if self.netCBs[device].selected():
 		todo.firewall.trustdevs.append(device)
