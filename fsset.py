@@ -361,6 +361,11 @@ class FileSystemSet:
         self.add(pts)
 
     def add (self, entry):
+        # remove any existing duplicate entries
+        for existing in self.entries:
+            if (existing.device.getDevice() == entry.device.getDevice()
+                and existing.mountpoint == entry.mountpoint):
+                self.remove(existing)
         self.entries.append(entry)
         self.entries.sort (mountCompare)
 
@@ -997,22 +1002,6 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 	return 0
 
     return 1
-
-def enabledSwapDict():
-    # returns a dict of swap areas currently being used
-    f = open("/proc/swaps", "r")
-    lines = f.readlines()
-    f.close()
-
-    # the first line is header
-    lines = lines[1:]
-
-    swaps = {}
-    for line in lines:
-	l = string.split(line)
-	swaps[l[0]] = 1
-
-    return swaps
 
 if __name__ == "__main__":
     import sys
