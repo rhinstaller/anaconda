@@ -6,7 +6,7 @@ import lang
 _=lang.gettext 
 
 # fixme - first stage install passes --method
-(args, extra) = getopt.getopt(sys.argv[1:], 'p:gTtdr:f', 
+(args, extra) = getopt.getopt(sys.argv[1:], 'p:GTtdr:f', 
           [ 'gui', 'text', 'test', 'debug', 'rootpath=', 
 	    'testpath=', 'mountfs', 'method' ])
 
