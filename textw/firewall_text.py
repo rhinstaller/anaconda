@@ -204,6 +204,8 @@ class FirewallWindow:
 			continue
 		    else:
 			break
+		else:
+		    break
                 
         screen.popWindow()
 
