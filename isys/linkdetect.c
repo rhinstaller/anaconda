@@ -1,11 +1,11 @@
 /*
  * linkdetect.c - simple link detection
  *
- * heavily based on mii-tool.c from net-tools, just cut down to what we need
- * for anaconda
+ * pulls code from mii-tool.c in net-toools and ethtool so
+ * that we can do everything that jgarzik says we should check
  *
- * Copyright 2002 Red Hat, Inc.
- * Copyright 2000 David A. Hinds -- dhinds@pcmcia.sourceforge.org
+ * Copyright 2002,2003 Red Hat, Inc.
+ * Portions Copyright 2000 David A. Hinds -- dhinds@pcmcia.sourceforge.org
  *
  * Jeremy Katz <katzj@redhat.com>
  *
@@ -27,10 +27,34 @@
 
 #include <sys/socket.h>
 #include <sys/types.h>
-
 #include <net/if.h>
 
+/* type definitions so that the kernel-ish includes can be shared */
+#ifndef uint8_t
+#  define uint8_t       unsigned char
+#endif
+#ifndef uint16_t
+#  define uint16_t      unsigned short int
+#endif
+#ifndef uint32_t
+#  define uint32_t      unsigned int
+#endif
+#ifndef uint64_t
+#  define uint64_t      unsigned long long int
+#endif
+typedef uint64_t u64;
+typedef uint32_t u32;
+typedef uint16_t u16;
+typedef uint8_t u8;
+
+#ifdef DIET
+typedef void * caddr_t;
+#endif
+
+
+#include <linux/sockios.h>
 #include "mii.h"
+#include "ethtool-copy.h"
 
 static struct ifreq ifr;
 
@@ -39,8 +63,10 @@ static int mdio_read(int skfd, int location)
     struct mii_data *mii = (struct mii_data *)&ifr.ifr_data;
     mii->reg_num = location;
     if (ioctl(skfd, SIOCGMIIREG, &ifr) < 0) {
+#ifdef STANDALONE
 	fprintf(stderr, "SIOCGMIIREG on %s failed: %s\n", ifr.ifr_name,
 		strerror(errno));
+#endif
 	return -1;
     }
     return mii->val_out;
@@ -54,28 +80,25 @@ static void mdio_write(int skfd, int location, int value)
     mii->reg_num = location;
     mii->val_in = value;
     if (ioctl(skfd, SIOCSMIIREG, &ifr) < 0) {
+#ifdef STANDALONE
 	fprintf(stderr, "SIOCSMIIREG on %s failed: %s\n", ifr.ifr_name,
 		strerror(errno));
+#endif
     }
 }
 #endif
 
 
 
-int get_link_status(char *ifname) {
-    int sock, i, mii_val[32];
+static int get_mii_link_status(int sock) {
+    int i, mii_val[32];
 
-    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        fprintf(stderr, "Error creating socket: %s\n", strerror(errno));
-        return -1;
-    }
-
-    /* Get the vitals from the interface. */
-    strncpy(ifr.ifr_name, ifname, IFNAMSIZ);
     if (ioctl(sock, SIOCGMIIPHY, &ifr) < 0) {
 	if (errno != ENODEV)
+#ifdef STANDALONE
 	    fprintf(stderr, "SIOCGMIIPHY on '%s' failed: %s\n",
-		    ifname, strerror(errno));
+		    ifr.ifr_name, strerror(errno));
+#endif
 	return -1;
     }
 
@@ -86,7 +109,9 @@ int get_link_status(char *ifname) {
 	mii_val[i] = mdio_read(sock, i);
 
     if (mii_val[MII_BMCR] == 0xffff) {
+#ifdef STANDALONE
 	fprintf(stderr, "  No MII transceiver present!.\n");
+#endif
 	return -1;
     }
 
@@ -96,9 +121,71 @@ int get_link_status(char *ifname) {
         return 0;
 }
 
+static int get_ethtool_link_status(int sock) {
+    struct ethtool_value edata;
+    int rc;
+
+    edata.cmd = ETHTOOL_GLINK;
+    ifr.ifr_data = (caddr_t)&edata;
+    rc = ioctl(sock, SIOCETHTOOL, ifr);
+    if (rc == 0) {
+        return edata.data;
+    } else if (errno != EOPNOTSUPP) {
+#ifdef STANDALONE
+        fprintf(stderr, "Cannot get link status (%d): %s\n", errno, strerror(errno));
+#endif
+    }
+
+    return -1;
+}
+
+
+
+int get_link_status(char * devname) {
+    int sock, rc;
+
+    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+#ifdef STANDALONE
+        fprintf(stderr, "Error creating socket: %s\n", strerror(errno));
+#endif
+        return -1;
+    }
+
+    /* Setup our control structures. */
+    memset(&ifr, 0, sizeof(ifr));
+    strcpy(ifr.ifr_name, devname);
+
+    /* check for link with both ethtool and mii registers.  ethtool is
+     * supposed to be the One True Way (tm), but it seems to not work
+     * with much yet :/ */
+
+    rc = get_ethtool_link_status(sock);
+#ifdef STANDALONE
+    printf("ethtool link status of %s is: %d\n", devname, rc);
+#endif
+    if (rc == 1)
+        return 1;
+
+    rc = get_mii_link_status(sock);
+#ifdef STANDALONE
+    printf("MII link status of %s is: %d\n", devname, rc);
+#endif
+    if (rc == 1)
+        return 1;
+
+    return 0;
+}
+
 #ifdef STANDALONE
 /* hooray for stupid test programs! */
 int main(int argc, char **argv) {
-    printf("link status of eth0 is %d\n", get_link_status("eth0"));
+    char * dev;
+
+    if (argc >= 2) 
+        dev = argv[1];
+    else
+        dev = strdup("eth0");
+
+    printf("link status of %s is %d\n", dev, get_link_status(dev));
 }
 #endif
