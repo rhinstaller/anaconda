@@ -712,8 +712,10 @@ static char *doLoaderMain(char * location,
 	/* so we can short circuit straight to stage 2 from CD         */
 	if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
 	    return url;
-	else
+	else {
 	    rhcdfnd = 1;
+            methodNum = 0; /* FIXME: this assumes cdrom is always first */
+        }
     }
 
     if (!FL_CMDLINE(flags))
