@@ -322,7 +322,7 @@ class XCustomWindow (InstallWindow):
             gnomeSelected = (grpset.hdrlist.has_key('gnome-session')
                              and grpset.hdrlist['gnome-session'].isSelected())
             kdeSelected = (grpset.hdrlist.has_key('kdebase')
-                           and grpset.hdrlist['kdebase'].isSelected)()
+                           and grpset.hdrlist['kdebase'].isSelected())
         else:
             gnomeSelected = 0
             kdeSelected = 0
