@@ -290,9 +290,6 @@ class ToDo:
             else:
                 self.x = XF86Config ()
 
-        if iutil.getArch () == "alpha":
-            instClass.addToSkipList("lilo")
-            instClass.addToSkipList("silo")
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)
 
@@ -1120,6 +1117,10 @@ class ToDo:
 
 	if (todo.instClass.x):
 	    todo.x = todo.instClass.x
+
+        if iutil.getArch () == "alpha":
+            instClass.addToSkipList("lilo")
+            instClass.addToSkipList("silo")
 
     def getSkipPartitioning(self):
 	return self.instClass.skipPartitioning
