@@ -99,7 +99,7 @@ def runRescue(instPath, mountroot, id):
           "Linux installation and mount it under the directory "
           "%s.  You can then make any changes required to your "
           "system.  If you want to proceed with this step choose "
-          "'Continue'.  You can also choose to mount your filesystems "
+          "'Continue'.  You can also choose to mount your file systems "
           "read-only instead of read-write by choosing 'Read-Only'."
           "\n\n"
           "If for some reason this process fails you can choose 'Skip' "
@@ -159,7 +159,7 @@ def runRescue(instPath, mountroot, id):
 
             if rc == -1:
                 ButtonChoiceWindow(screen, _("Rescue"),
-                    _("Your system had dirty filesystems which you chose not "
+                    _("Your system had dirty file systems which you chose not "
                       "to mount.  Press return to get a shell from which "
                       "you can fsck and mount your partitions.  The system "
                       "will reboot automatically when you exit from the "

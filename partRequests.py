@@ -212,11 +212,11 @@ class RequestSpec:
         if self.fstype.isMountable():    
             if self.mountpoint in mustbeonroot:
                 return _("This mount point is invalid.  This directory must "
-                         "be on the / filesystem.")
+                         "be on the / file system.")
 
         if not self.fstype.isLinuxNativeFS():
             if self.mountpoint in mustbeonlinuxfs:
-                return _("This mount point must be on a linux filesystem.")
+                return _("This mount point must be on a linux file system.")
 
         return None
 

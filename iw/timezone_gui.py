@@ -215,7 +215,7 @@ class TimezoneWindow(InstallWindow):
         tzBox.pack_start(sw)
         box = gtk.HBox(gtk.FALSE)
         align = gtk.Alignment(0.5, 0.5)
-        self.daylightCB = gtk.CheckButton(_("Use _Daylight Saving Time (US only)"))
+        self.daylightCB = gtk.CheckButton(_("Use _daylight saving time (US only)"))
         self.daylightCB.set_active(self.old_use_dst)
         align.add(self.daylightCB)
         box.pack_start(align, gtk.FALSE)

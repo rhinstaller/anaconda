@@ -29,11 +29,11 @@ class UpgradeMigrateFSWindow:
       
         migent = thefsset.getMigratableEntries()
 
-	g = GridFormHelp(screen, _("Migrate Filesystems"), "upmigfs", 1, 4)
+	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
 	text = _("This release of %s supports "
-                 "the ext3 journalling filesystem.  It has several "
-                 "benefits over the ext2 filesystem traditionally shipped "
+                 "the ext3 journalling file system.  It has several "
+                 "benefits over the ext2 file system traditionally shipped "
                  "in %s.  It is possible to migrate the ext2 "
                  "formatted partitions to ext3 without data loss.\n\n"
                  "Which of these partitions would you like to migrate?"

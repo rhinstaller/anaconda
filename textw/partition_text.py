@@ -258,7 +258,7 @@ class PartitionWindow:
         row = 0
         # filesystem type selection
         if uselabel:
-            typeLbl = Label(_("Filesystem type:"))
+            typeLbl = Label(_("File System type:"))
             subgrid.setField(typeLbl, 0, row)
             row = row + 1
             
@@ -465,7 +465,7 @@ class PartitionWindow:
 	subgrid = Grid(2, 4)
 	# filesystem type selection
 	srow = 0
-	typeLbl = Label(_("Filesystem Type:"))
+	typeLbl = Label(_("File System Type:"))
 	subgrid.setField(typeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
 	ptype = origrequest.fstype.getName()
 	if ptype == "foreign":
@@ -475,7 +475,7 @@ class PartitionWindow:
 	subgrid.setField(type, 1, srow, (0,0,0,1), anchorRight = 1)
 	srow = srow +1
 	if origrequest.type != REQUEST_NEW and origrequest.fslabel:
-	    fsLbl = Label(_("Filesystem Label:"))
+	    fsLbl = Label(_("File System Label:"))
 	    subgrid.setField(fsLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
 	    label = Label(origrequest.fslabel)
 	    subgrid.setField(label, 1, srow, (0,0,0,1), anchorRight = 1)
@@ -486,7 +486,7 @@ class PartitionWindow:
 	size = Label("%s" %(int(origrequest.size)))
 	subgrid.setField(size, 1, srow, (0,0,0,1), anchorRight = 1)
 	srow = srow + 1
-	tmpLbl = Label(_("Filesystem Option:"))
+	tmpLbl = Label(_("File System Option:"))
 	subgrid.setField(tmpLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
 	if origrequest.format:
 	    fsoptLbl = Label(_("Format as %s") % (newfstype.getName()))
@@ -509,11 +509,11 @@ class PartitionWindow:
 	    if badblocksCB:
 		badblocksCB.setFlags(FLAG_DISABLED, flag)
 
-        poplevel = GridFormHelp(self.screen, _("Filesystem Options"),
+        poplevel = GridFormHelp(self.screen, _("File System Options"),
                                 "fsoption", 1, 6)
         row = 0
         poplevel.add(TextboxReflowed(40, _("Please choose how you would "
-                                           "like to prepare the filesystem "
+                                           "like to prepare the file system "
                                            "on this partition.")), 0, 0)
         row = row + 1
         subgrid = Grid(2, 5)
@@ -698,7 +698,7 @@ class PartitionWindow:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
         else:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
-                                            (_("Filesystem Options"), "fsopts"),
+                                            (_("File System Options"), "fsopts"),
                                             TEXT_CANCEL_BUTTON))
         poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)
 
@@ -930,7 +930,7 @@ class PartitionWindow:
         row = row + 1
 	if preexist:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
-                                            (_("Filesystem Options"), "fsopts"),
+                                            (_("File System Options"), "fsopts"),
                                             TEXT_CANCEL_BUTTON))
 	else:
 	    popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,TEXT_CANCEL_BUTTON))

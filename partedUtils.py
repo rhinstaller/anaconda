@@ -449,7 +449,7 @@ class DiskSet:
 			isys.mount(node, mountpoint, part.fs_type.name)
 		    except SystemError, (errno, msg):
 			intf.messageWindow(_("Error"),
-                                           _("Error mounting filesystem on "
+                                           _("Error mounting file system on "
                                              "%s: %s") % (node, msg))
                         part = disk.next_partition(part)
 			continue
@@ -462,7 +462,7 @@ class DiskSet:
                         isys.mount(node, mountpoint, fstype = "vfat",
                                    readOnly = 1)
                     except:
-			log("failed to mount vfat filesystem on %s\n" 
+			log("failed to mount vfat file system on %s\n" 
                             % node)
                         part = disk.next_partition(part)
 			continue
@@ -768,7 +768,7 @@ class DiskSet:
         if len(self.disks.keys()) == 0:
             intf.messageWindow(_("No Drives Found"),
                                _("An error has occurred - no valid devices were "
-                                 "found on which to create new filesystems. "
+                                 "found on which to create new file systems. "
                                  "Please check your hardware for the cause "
                                  "of this problem."))
             sys.exit(0)

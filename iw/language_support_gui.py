@@ -144,7 +144,7 @@ class LanguageSupportWindow (InstallWindow):
         
         self.combo = gtk.Combo ()
 
-        label = gui.MnemonicLabel(_("_Choose the default language for this system:   "))
+        label = gui.MnemonicLabel(_("Select the _default language for the system:   "))
         label.set_mnemonic_widget(self.combo.entry)
         hbox.pack_start (label, gtk.FALSE, 20)
 
@@ -154,8 +154,8 @@ class LanguageSupportWindow (InstallWindow):
         sep = gtk.HSeparator ()
         vbox.pack_start (sep, gtk.FALSE, 15)
 
-	label = gui.MnemonicLabel(_("Choose _additional languages you would "
-                                    "like to use on this system:"))
+	label = gui.MnemonicLabel(_("Select _additional languages to install "
+				    "on the system:"))
         
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (gtk.TRUE)
@@ -203,13 +203,13 @@ class LanguageSupportWindow (InstallWindow):
 
         vbox2 = gtk.VBox (gtk.FALSE, 12)
 
-        all_button = gtk.Button (_("_Select all"))
+        all_button = gtk.Button (_("_Select All"))
         all_button.set_size_request(160, -1)
         all_button.connect ('clicked', self.select_all)
         a1 = gtk.Alignment (0.5, 0.5)
         a1.add (all_button)
 
-        default_button = gtk.Button (_("Select _Default Only"))
+        default_button = gtk.Button (_("Select Default _Only"))
         default_button.set_size_request(160, -1)
         default_button.connect ('clicked', self.select_default)
         a2 = gtk.Alignment (0.5, 0.5)

@@ -349,7 +349,7 @@ class VolumeGroupEditor:
         row = row + 1
 
         if not logrequest or not logrequest.getPreExisting():
-            lbl = createAlignedLabel(_("_Filesystem Type:"))
+            lbl = createAlignedLabel(_("_File System Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
             (newfstype, newfstypeMenu) = createFSTypeMenu(logrequest.fstype,
                                                           fstypechangeCB,
@@ -357,7 +357,7 @@ class VolumeGroupEditor:
                                                           ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
             lbl.set_mnemonic_widget(newfstype)
         else:
-            maintable.attach(createAlignedLabel(_("Original Filesystem Type:")),
+            maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
             if logrequest.origfstype and logrequest.origfstype.getName():
                 newfstype = gtk.Label(logrequest.origfstype.getName())

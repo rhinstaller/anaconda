@@ -225,7 +225,7 @@ class AccountWindow (InstallWindow):
         userAddFrame.add(vbox)
         userWin.vbox.pack_start(userAddFrame)
 
-        label = gui.MnemonicLabel (_("User _Name:"))
+        label = gui.MnemonicLabel (_("Enter a user _name:"))
         a = gtk.Alignment(0.0, 0.5, 0, 1)
         a.add(label)
         userTable.attach(a, 0, 1, 0, 1, gtk.FILL)
@@ -233,7 +233,7 @@ class AccountWindow (InstallWindow):
         label.set_mnemonic_widget(self.accountName)
         userTable.attach(self.accountName, 1, 2, 0, 1, gtk.EXPAND, gtk.EXPAND)
 
-        label = gui.MnemonicLabel (_("_Password:"))
+        label = gui.MnemonicLabel (_("Enter a user _password:"))
         a = gtk.Alignment(0.0, 0.5, 0, 1)
         a.add(label)
         userTable.attach(a, 0, 1, 1, 2, gtk.FILL)
@@ -342,8 +342,8 @@ class AccountWindow (InstallWindow):
             a.set (0.0, 0.0, 0.0, 0.0)
             hbox.pack_start (a, gtk.FALSE)
 
-        label = gtk.Label (_("Enter the password for the root user "
-                             "(administrator) of this system."))
+        label = gtk.Label (_("Enter the root (administrator) password "
+                             "for the system."))
         label.set_line_wrap(gtk.TRUE)
         label.set_size_request(350, -1)
 
@@ -443,12 +443,9 @@ class AccountWindow (InstallWindow):
 
         a = gtk.Alignment (0.0, 0.5)
         label = gui.WrappingLabel(
-            _("Additional accounts can be created for other "
-              "users of this system. Such accounts could be for "
-              "a personal login account, or for other "
-              "non-administrative users who need to use this "
-              "system. Use the <Add> button to enter additional "
-              "user accounts."))
+            _("It is recommended that you create a personal account "
+	      "for normal (non-administrative) use. Accounts can also "
+	      "be created for additional users."))
         label.set_line_wrap(gtk.TRUE)
         a.add(label)
         hbox.pack_start(a, gtk.FALSE)

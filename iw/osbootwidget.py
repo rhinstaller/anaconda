@@ -38,7 +38,12 @@ class OSBootWidget:
         self.setIllegalChars()
         
         self.vbox = gtk.VBox(gtk.FALSE, 5)
-        label = gui.WrappingLabel(_("You can configure the boot loader to boot other operating systems.  Additional operating systems can be added to the below list to choose between them on boot."))
+        label = gui.WrappingLabel(_("You can configure the boot loader to boot other operating systems. "
+				    "It will allow you to select an operating system to boot from the list. "
+				    "To add additional operating systems, which are not automatically "
+				    "detected, click 'Add.' To change the operating system booted by default, "
+				    "select 'Default' by the desired operating system."))
+	label.set_alignment(0.0, 0.0)
         self.vbox.pack_start(label, gtk.FALSE)
 
         spacer = gtk.Label("")
@@ -129,9 +134,9 @@ class OSBootWidget:
         gui.addFrame(dialog)
 
         dialog.vbox.pack_start(gui.WrappingLabel(
-            _("The label is what is displayed in the boot loader to "
-              "choose to boot this operating system.  The device "
-              "is the device which it boots from.")))
+            _("Enter a label to be displayed in the boot loader menu. The "
+	      "device (or hard drive and partition number) is the device "
+	      "from which it boots.")))
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)

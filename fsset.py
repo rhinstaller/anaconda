@@ -554,7 +554,7 @@ class ext2FileSystem(extFileSystem):
                 rc = message(_("Error"),
                         _("An error occurred migrating %s to ext3.  It is "
                           "possible to continue without migrating this "
-                          "filesystem if desired.\n\n"
+                          "file system if desired.\n\n"
                           "Would you like to continue without migrating %s?")
                              % (devicePath, devicePath), type = "yesno")
                 if rc == 0:
@@ -1846,7 +1846,7 @@ def readFstab (path):
                 device = makeDevice(labelToDevice[label])
             else:
                 log ("Warning: fstab file has LABEL=%s, but this label "
-                     "could not be found on any filesystem", label)
+                     "could not be found on any file system", label)
                 # bad luck, skip this entry.
                 continue
 	elif fields[2] == "swap" and not fields[0].startswith('/dev/'):
@@ -1963,7 +1963,7 @@ def allocateLoopback(file):
 def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     if windowCreator:
         w = windowCreator(_("Formatting"),
-                          _("Formatting %s filesystem...") % (mntpoint,), 100)
+                          _("Formatting %s file system...") % (mntpoint,), 100)
     else:
         w = None
 

@@ -85,16 +85,16 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
         import sys
         diskset.stopAllRaid()
         lvm.vgdeactivate()
-	intf.messageWindow(_("Dirty Filesystems"),
-                           _("The following filesystems for your Linux system "
+	intf.messageWindow(_("Dirty File Systems"),
+                           _("The following file systems for your Linux system "
                              "were not unmounted cleanly.  Please boot your "
-                             "Linux installation, let the filesystems be "
+                             "Linux installation, let the file systems be "
                              "checked and shut down cleanly to upgrade.\n"
                              "%s" %(getDirtyDevString(dirtyDevs),)))
 	sys.exit(0)
     elif warnDirty and dirtyDevs != []:
-        rc = intf.messageWindow(_("Dirty Filesystems"),
-                                _("The following filesystems for your Linux "
+        rc = intf.messageWindow(_("Dirty File Systems"),
+                                _("The following file systems for your Linux "
                                   "system were not unmounted cleanly.  Would "
                                   "you like to mount them anyway?\n"
                                   "%s" % (getDirtyDevString(dirtyDevs,))),
@@ -224,13 +224,13 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
                                allowDirty = 0)
 	except SystemError, msg:
 	    intf.messageWindow(_("Mount failed"),
-		_("One or more of the filesystems listed in the "
+		_("One or more of the file systems listed in the "
 		  "/etc/fstab on your Linux system cannot be mounted. "
 		  "Please fix this problem and try to upgrade again."))
 	    sys.exit(0)
         except RuntimeError, msg:
             intf.messageWindow(_("Mount failed"),
-		_("One or more of the filesystems listed in the "
+		_("One or more of the file systems listed in the "
                   "/etc/fstab of your Linux system are inconsistent and "
                   "cannot be mounted.  Please fix this problem and try to "
                   "upgrade again."))

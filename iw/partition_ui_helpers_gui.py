@@ -238,7 +238,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
     row = row + 1
 
-    label = gtk.Label(_("How would you like to prepare the filesystem "
+    label = gtk.Label(_("How would you like to prepare the file system "
 		       "on this partition?"))
     label.set_line_wrap(1)
     label.set_alignment(0.0, 0.0)

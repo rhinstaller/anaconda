@@ -58,12 +58,11 @@ class InstallConfirmWindow (ConfirmWindow):
     def getScreen(self):
 	return ConfirmWindow.getScreen(self,
 	    _("Click next to begin installation of %s.") % (productName,),
-	    _("A complete log of your installation will be in "
-	      "%s after rebooting your system. You "
-	      "may want to keep this file for later reference. "
-              "A kickstart file representing the choices you have made "
-              "will be in %s.") % ("/root/install.log",
-                                   "/root/anaconda-ks.cfg"))
+	    _("A complete log of the installation can be found in "
+	      "the %s file after rebooting your system.\n\n"
+              "A kickstart file containing the installation options "
+	      "selected can be found in the %s file after rebooting the "
+	      "system") % ("/root/install.log", "/root/anaconda-ks.cfg"))
 
 class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
@@ -72,8 +71,6 @@ class UpgradeConfirmWindow (ConfirmWindow):
     def getScreen(self):
 	return ConfirmWindow.getScreen(self,
             _("Click next to begin upgrade of %s.") % (productName,),
-            _("A complete log of your upgrade will be in "
-	      "after rebooting your system. You "
-	      "may want to keep this file for later "
-              "reference.") % ("/root/upgrade.log",))
+            _("A complete log of the upgrade can be found in "
+	      "the %s file after rebooting your system.") % ("/root/upgrade.log",))
 

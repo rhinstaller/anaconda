@@ -34,12 +34,12 @@ class BootloaderPasswordWidget:
         
         vbox = gtk.VBox(gtk.FALSE, 5)
         
-        label = gui.WrappingLabel(_("A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."))
+        label = gui.WrappingLabel(_("A boot loader password prevents users from changing options passed to the kernel.  For greater system security, it is recommended that you set a password."))
         label.set_alignment(0.0, 0.5)
         vbox.pack_start(label, gtk.FALSE)
 
         # password widgets + callback
-        self.usePassCb = gtk.CheckButton(_("_Use a Boot Loader Password"))
+        self.usePassCb = gtk.CheckButton(_("_Use a boot loader password"))
         self.passButton = gtk.Button("No password")
         if usePass:
             self.usePassCb.set_active(gtk.TRUE)
@@ -102,11 +102,7 @@ class BootloaderPasswordWidget:
         dialog.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(dialog)
         
-        label = gui.WrappingLabel(_("A boot loader password prevents users "
-                                    "from passing arbitrary options to the "
-                                    "kernel.  For highest security, we "
-                                    "recommend setting a password, but this "
-                                    "is not necessary for more casual users."))
+        label = gui.WrappingLabel(_("Enter a boot loader password and then confirm it."))
         label.set_alignment(0.0, 0.0)
         dialog.vbox.pack_start(label)
 

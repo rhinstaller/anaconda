@@ -27,7 +27,7 @@ import gtk
 from rhpl.log import log
 
 class UpgradeMigrateFSWindow (InstallWindow):		
-    windowTitle = N_("Migrate Filesystems")
+    windowTitle = N_("Migrate File Systems")
     htmlTag = "upmigfs"
 
     def getNext (self):
@@ -53,8 +53,8 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box.set_border_width (5)
 
 	text = N_("This release of %s supports "
-                 "the ext3 journalling filesystem.  It has several "
-                 "benefits over the ext2 filesystem traditionally shipped "
+                 "the ext3 journalling file system.  It has several "
+                 "benefits over the ext2 file system traditionally shipped "
                  "in %s.  It is possible to migrate the ext2 "
                  "formatted partitions to ext3 without data loss.\n\n"
                  "Which of these partitions would you like to migrate?" %

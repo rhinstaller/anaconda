@@ -23,7 +23,7 @@ import os
 class FDiskWindow (InstallWindow):		
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setTitle (_("fdisk"))
+        ics.setTitle (_("Partitioning with fdisk"))
         ics.readHTML ("fdisk")
 
     def getNext(self):
@@ -97,7 +97,7 @@ class FDiskWindow (InstallWindow):
         self.buttonBox.set_border_width (5)
         box = gtk.VButtonBox ()
         box.set_layout("start")
-        label = gtk.Label (_("Select drive to run fdisk on"))
+        label = gtk.Label (_("Select a drive to partition with fdisk:"))
 
         drives =  self.diskset.driveList()
         

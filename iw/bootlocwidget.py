@@ -94,14 +94,15 @@ class BootloaderLocationWidget:
         dialog.set_modal(gtk.TRUE)
         dialog.set_position(gtk.WIN_POS_CENTER)
 
-        label = gui.WrappingLabel(_("Please arrange your drives in the order "
-                                    "in which they are handled by your "
-                                    "BIOS.  This is usually only useful if "
-                                    "you have multiple SCSI adaptors or both "
-                                    "SCSI and IDE and wish to boot from the "
-                                    "SCSI device.\n\n"
-                                    "This does change where we think the "
-                                    "master boot record is."))
+        label = gui.WrappingLabel(_("Arrange the drives to be in the same "
+				    "order as used by the BIOS. Changing "
+				    "the drive order may be useful if you "
+				    "have multiple SCSI adapters or both SCSI "
+				    "and IDE adapters and want to boot from "
+				    "the SCSI device.\n\n"
+				    "Changing the drive order will change "
+				    "where the installation program "
+				    "locates the Master Boot Record (MBR)."))
         label.set_alignment(0.0, 0.0)
         dialog.vbox.pack_start(label, padding = 25)
 

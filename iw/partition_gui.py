@@ -517,7 +517,7 @@ class DiskTreeModel(gtk.TreeStore):
 class PartitionWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
-        ics.setTitle(_("Disk Setup"))
+        ics.setTitle(_("Partitioning"))
         ics.setNextEnabled(gtk.TRUE)
         ics.readHTML("partition")
         self.parent = ics.getICW().window
@@ -1459,8 +1459,8 @@ class AutoPartitionWindow(InstallWindow):
 
         # which drives to use?
         drivesbox = gtk.VBox(gtk.FALSE)
-        label = gui.WrappingLabel(_("Which drive(s) do you want to use for "
-                                    "this installation?"))
+        label = gui.WrappingLabel(_("Select the drive(s) to use for "
+                                    "this installation:"))
         label.set_alignment(0.0, 0.0)
         drivesbox.pack_start(label, gtk.FALSE, gtk.FALSE, 10)
         self.drivelist = createAllowedDrivesList(diskset.disks, cleardrives)
@@ -1483,8 +1483,8 @@ class AutoPartitionWindow(InstallWindow):
 
         self.inspect = gtk.CheckButton()
         gui.widgetExpander(self.inspect)
-        label = gui.MnemonicLabel(_("Re_view (allows you to see and change "
-                                    "the automatic partitioning results)"))
+        label = gui.MnemonicLabel(_("Re_view (and modify if needed) "
+                                    "the partitions created"))
         label.set_mnemonic_widget(self.inspect)
         label.set_line_wrap(gtk.TRUE)
         gui.widgetExpander(label, self.inspect)

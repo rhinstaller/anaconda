@@ -32,7 +32,7 @@ from comps import orderPackageGroups
 
 def queryUpgradeContinue(intf):
     rc = intf.messageWindow(_("Proceed with upgrade?"),
-                       _("The filesystems of the Linux installation "
+                       _("The file systems of the Linux installation "
                          "you have chosen to upgrade have already been "
                          "mounted. You cannot go back past this point. "
                          "\n\n") + 

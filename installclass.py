@@ -52,7 +52,7 @@ class BaseInstallClass:
 
     # by default, place this under the "install" category; it gets it's
     # own toplevel category otherwise
-    parentClass = ( _("Install"), "install.png" )
+    parentClass = ( _("Install on System"), "install.png" )
 
     # we can use a different install data class
     installDataClass = InstallData

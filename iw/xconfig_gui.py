@@ -34,10 +34,20 @@ ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
 
 
+### why is this here???
+def makeFormattedLabel(text):
+    label = gtk.Label (text)
+    label.set_justify (gtk.JUSTIFY_LEFT)
+    label.set_line_wrap (gtk.TRUE)        
+    label.set_alignment (0.0, 0.5)
+    label.set_size_request (400, -1)
+    return label
+
+
 class XCustomWindow (InstallWindow):
 
     htmlTag = "xcustom"
-    windowTitle = N_("Customize Graphics Configuration")
+    windowTitle = N_("Customize Graphical Configuration")
 
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
@@ -587,6 +597,13 @@ class MonitorWindow (InstallWindow):
 
         box = gtk.VBox (gtk.FALSE, 5)
 
+	label = makeFormattedLabel (_("In most cases, the monitor can be "
+				      "automatically detected. If the "
+				      "detected settings are not correct "
+				      "for the monitor, select the right "
+				      "settings."))
+	box.pack_start (label, gtk.FALSE)
+
         # Monitor selection tree
 	self.monitorstore = gtk.TreeStore(gobject.TYPE_STRING,
 					  gobject.TYPE_STRING)
@@ -894,14 +911,6 @@ class XConfigWindow (InstallWindow):
     def getScreen (self, dispatch, xconfig, videocard, intf):
         self.ics.setHelpEnabled (gtk.TRUE)
 
-        def makeFormattedLabel(text):
-            label = gtk.Label (text)
-            label.set_justify (gtk.JUSTIFY_LEFT)
-            label.set_line_wrap (gtk.TRUE)        
-            label.set_alignment (0.0, 0.5)
-            label.set_size_request (400, -1)
-            return label
-            
         self.dispatch = dispatch
         self.videocard = videocard
         self.xconfig = xconfig
@@ -922,15 +931,11 @@ class XConfigWindow (InstallWindow):
             # but we can on everything else
             self.autoBox = gtk.VBox (gtk.FALSE, 5)
 
-            label = makeFormattedLabel (_("In most cases your video hardware "
-                                          "can be probed to automatically "
-                                          "determine the best settings for "
-                                          "your display."))
-            self.autoBox.pack_start (label, gtk.FALSE)
-
-            label = makeFormattedLabel (_("If the probed settings do not "
-                                          "match your hardware, select the "
-                                          "correct hardware settings below:"))
+            label = makeFormattedLabel (_("In most cases, the video hardware "
+                                          "can be automatically detected. "
+                                          "If the detected settings are not "
+                                          "correct for the hardware, select "
+					  "the right settings."))
             self.autoBox.pack_start (label, gtk.FALSE)
 
             box.pack_start (self.autoBox, gtk.FALSE)
@@ -1045,7 +1050,7 @@ class XConfigWindow (InstallWindow):
         restore.connect ("clicked", self.restorePressed)
         hbox.pack_start(restore, gtk.FALSE, 25)
         
-        self.skip = gtk.CheckButton (_("_Skip X Configuration"))
+        self.skip = gtk.CheckButton (_("_Skip X configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
         
         hbox = gtk.HBox (gtk.TRUE, 5)

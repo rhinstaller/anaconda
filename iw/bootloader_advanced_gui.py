@@ -69,9 +69,15 @@ class AdvancedBootloaderWindow(InstallWindow):
         self.options_vbox = gtk.VBox(gtk.FALSE, 5)
         self.options_vbox.set_border_width(5)
         
-        self.forceLBA = gtk.CheckButton(_("_Force LBA32 (Not normally required)"))
+        self.forceLBA = gtk.CheckButton(_("_Force LBA32 (not normally required)"))
         self.options_vbox.pack_start(self.forceLBA, gtk.FALSE)
         self.forceLBA.set_active(self.bl.forceLBA32)
+
+        label = gui.WrappingLabel(_("If you wish to add default options to the "
+			    "boot command, enter them into "
+			    "the 'General kernel parameters' field."))
+	label.set_alignment(0.0, 0.0)
+        self.options_vbox.pack_start(label, gtk.FALSE)
 
         label = gui.MnemonicLabel(_("_General kernel parameters"))
         self.appendEntry = gtk.Entry()
@@ -79,10 +85,12 @@ class AdvancedBootloaderWindow(InstallWindow):
         args = self.bl.args.get()
         if args:
             self.appendEntry.set_text(args)
-        box = gtk.HBox(gtk.FALSE, 5)
+        box = gtk.HBox(gtk.FALSE, 0)
         box.pack_start(label)
         box.pack_start(self.appendEntry)
-        self.options_vbox.pack_start(box, gtk.FALSE)
+	al = gtk.Alignment(0.0, 0.0)
+	al.add(box)
+        self.options_vbox.pack_start(al, gtk.FALSE)
 
 
     def getScreen(self, dispatch, bl, fsset, diskset):

@@ -952,7 +952,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 intf.messageWindow(_("Requested Partition Does Not Exist"),
                                    _("Unable to locate partition %s to use "
                                      "for %s.\n\n"
-                                     "Press OK to reboot your system.")
+                                     "Press 'OK' to reboot your system.")
                                    % (request.device, request.mountpoint))
                 sys.exit(0)
 
@@ -980,11 +980,11 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     for req in partitions.requests:
         errors = req.sanityCheckRequest(partitions)
         if errors:
-            intf.messageWindow(_("Partition Request Sanity Check Errors"),
+            intf.messageWindow(_("Automatic Partitioning Errors"),
                                _("The following errors occurred with your "
                                  "partitioning:\n\n%s\n\n"
-                                 "Press OK to reboot your system.") %
-                               (errors))
+                                 "Press 'OK' to reboot your system.") %
+                               (errors,))
 
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
@@ -992,7 +992,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         if not isKickstart:
             intf.messageWindow(_("Warnings During Automatic Partitioning"),
                            _("Following warnings occurred during automatic "
-                           "partitioning:\n\n%s") % (msg.value))
+                           "partitioning:\n\n%s") % (msg.value,))
         else:
             log("WARNING: %s" % (msg.value))
     except PartitioningError, msg:
@@ -1003,7 +1003,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             extra = ""
             dispatch.skipStep("partition", skip = 0)
         else:
-            extra = _("\n\nPress OK to reboot your system.")
+            extra = _("\n\nPress 'OK' to reboot your system.")
         intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
                  "%s.%s") % (msg.value, extra))
@@ -1019,17 +1019,17 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             log("WARNING: %s" % (warning))
     if errors:
         errortxt = string.join(errors, '\n')
-        intf.messageWindow(_("Partition Request Sanity Check Errors"),
+        intf.messageWindow(_("Automatic Partitioning Errors"),
                            _("The following errors occurred with your "
                              "partitioning:\n\n%s\n\n"
-			     "This can happen when there is not enough "
-			     "space on your disk drive(s) for autopartitioning "
-			     "to succeed.  You may need to manually "
-			     "partition your drives to complete the install.\n\n"
-                             "Press OK to continue.") % (errortxt))
+			     "This can happen if there is not enough "
+			     "space on your hard drive(s) for the "
+			     "installation. "
+			     "You can choose a different automatic "
+			     "partitioning option, or click 'Back' "
+			     "to select manual partitioning.\n\n"
+                             "Press 'OK' to continue.") % (errortxt))
 	return DISPATCH_BACK
-#                             "Press OK to reboot your system.") % (errortxt))
-#        sys.exit(0)
 
 def autoCreatePartitionRequests(autoreq):
     """Return a list of requests created with a shorthand notation.
@@ -1103,21 +1103,19 @@ def queryAutoPartitionOK(intf, diskset, partitions):
 
 
 # XXX hack but these are common strings to TUI and GUI
-PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets up your "
-                               "partitioning based on your installation type. "
+PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets partitions "
+                               "based on the selected installation type. "
                                "You also "
-                               "can customize the resulting partitions "
-                               "to meet your needs.\n\n"
+                               "can customize the partitions once they "
+                               "have been created.\n\n"
                                "The manual disk partitioning tool, Disk Druid, "
                                "allows you "
-                               "to set up your partitions in an interactive "
-                               "environment. You can set the filesystem "
-                               "types, mount points, size and more in this "
-                               "easy to use, powerful interface.\n\n"
-                               "fdisk is the traditional, text-based "
-                               "partitioning tool offered by Red Hat. "
-                               "Although it is not as easy to use, there are "
-                               "cases where fdisk is preferred.")
+                               "to create partitions in an interactive "
+                               "environment. You can set the file system "
+                               "types, mount points, partition sizes, and more.\n\n"
+                               "The partitioning tool, fdisk, is a text-based "
+                               "utility only recommended for advanced users "
+			       "who need to perform specialized tasks.")
 
 AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
                                      "set up by the installation program, you "
@@ -1128,13 +1126,11 @@ CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
 CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
 CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
 
-CLEARPART_TYPE_ALL_WARNING_MSG = N_("WARNING!!\tWARNING!!\n\n"
-                                    "You have selected to remove "
+CLEARPART_TYPE_ALL_WARNING_MSG = N_("You have selected to remove "
                                     "all partitions (ALL DATA) on the "
                                     "following drives:%s\nAre you sure you "
                                     "want to do this?")
-CLEARPART_TYPE_LINUX_WARNING_MSG = N_("WARNING!!\tWARNING!!\n\n"
-                                      "You have selected to "
+CLEARPART_TYPE_LINUX_WARNING_MSG = N_("You have selected to "
                                       "remove all Linux partitions "
                                       "(and ALL DATA on them) on the "
                                       "following drives:%s\n"

@@ -297,7 +297,7 @@ class RaidEditor:
 	row = row + 1
 
 	# Filesystem Type
-	lbl = createAlignedLabel(_("Filesystem _Type:"))
+	lbl = createAlignedLabel(_("File System _Type:"))
 	maintable.attach(lbl, 0, 1, row, row + 1)
 
         if not origrequest.getPreExisting():

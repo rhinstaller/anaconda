@@ -132,8 +132,8 @@ class MouseWindow(InstallWindow):
 
         self.mousestore.set_sort_column_id(0, gtk.SORT_ASCENDING)
         self.mouseview = gtk.TreeView(self.mousestore)
-        self.mouseview.set_property("headers-visible", gtk.FALSE)
-        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
+        self.mouseview.set_property("headers-visible", gtk.TRUE)
+        col = gtk.TreeViewColumn(_("_Model"), gtk.CellRendererText(), text=0)
         self.mouseview.append_column(col)
         selection = self.mouseview.get_selection()
         selection.connect("changed", self.selectMouseType)
@@ -217,7 +217,7 @@ class MouseWindow(InstallWindow):
         # populate the big widgets with the available selections
         self.setupMice()
         self.setupDeviceList()
-        self.emulate3 = gtk.CheckButton(_("_Emulate 3 Buttons"))
+        self.emulate3 = gtk.CheckButton(_("_Emulate 3 buttons"))
         self.setCurrent(currentDev, currentMouse, emulate3)
 
         # set up the box for this screen
@@ -231,7 +231,7 @@ class MouseWindow(InstallWindow):
             a.add(pix)
             a.set(0.0, 0.0, 0.0, 0.0)
             hbox.pack_start(a, gtk.FALSE)
-        label = gui.MnemonicLabel(_("Which _model mouse is attached to the computer?"))
+        label = gui.MnemonicLabel(_("Select the appropriate mouse for the system."))
         label.set_line_wrap(gtk.TRUE)
         label.set_size_request(350, -1)
         hbox.pack_start(label, gtk.FALSE)

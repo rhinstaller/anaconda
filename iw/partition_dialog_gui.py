@@ -285,7 +285,7 @@ class PartitionEditor:
 
         # Partition Type
         if self.origrequest.type == REQUEST_NEW:
-	    lbl = createAlignedLabel(_("Filesystem _Type:"))
+	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
             (self.newfstype, self.newfstypeMenu) = createFSTypeMenu(self.origrequest.fstype,
@@ -294,7 +294,7 @@ class PartitionEditor:
 	    lbl.set_mnemonic_widget(self.newfstype)
             maintable.attach(self.newfstype, 1, 2, row, row + 1)
         else:
-            maintable.attach(createAlignedLabel(_("Original Filesystem "
+            maintable.attach(createAlignedLabel(_("Original File System "
                                                   "Type:")),
                              0, 1, row, row + 1)
 
@@ -339,7 +339,7 @@ class PartitionEditor:
 
         # original fs label
         if self.origrequest.type != REQUEST_NEW and self.origrequest.fslabel:
-            maintable.attach(createAlignedLabel(_("Original Filesystem "
+            maintable.attach(createAlignedLabel(_("Original File System "
                                                   "Label:")),
                              0, 1, row, row + 1)
             fslabel = gtk.Label(self.origrequest.fslabel)

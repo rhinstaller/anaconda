@@ -468,7 +468,7 @@ class NetworkWindow(InstallWindow):
 	# show hostname and dns/misc network info and offer chance to modify
 	hostbox = gtk.HBox()
 	hostbox=gtk.VBox()
-	label=gtk.Label(_("I would like the hostname to be set:"))
+	label=gtk.Label(_("Set the hostname:"))
 	label.set_alignment(0.0, 0.0)
 	hostbox.pack_start(label, gtk.FALSE, gtk.FALSE)
 	tmphbox=gtk.HBox()

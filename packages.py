@@ -37,7 +37,7 @@ def queryUpgradeContinue(intf, dir):
         return
 
     rc = intf.messageWindow(_("Proceed with upgrade?"),
-                       _("The filesystems of the Linux installation "
+                       _("The file systems of the Linux installation "
                          "you have chosen to upgrade have already been "
                          "mounted. You cannot go back past this point. "
                          "\n\n") + 
@@ -664,7 +664,7 @@ def doInstall(method, id, intf, instPath):
 	    probs = probs + _("You don't appear to have enough disk space "
                               "to install the packages you've selected. "
                               "You need more space on the following "
-                              "filesystems:\n\n")
+                              "file systems:\n\n")
 	    probs = probs + ("%-15s %s\n") % (_("Mount Point"),
                                               _("Space Needed"))
 
@@ -684,7 +684,7 @@ def doInstall(method, id, intf, instPath):
 	    probs = probs + _("You don't appear to have enough file nodes "
                               "to install the packages you've selected. "
                               "You need more file nodes on the following "
-                              "filesystems:\n\n")
+                              "file systems:\n\n")
 	    probs = probs + ("%-15s %s\n") % (_("Mount Point"),
                                               _("Nodes Needed"))
 

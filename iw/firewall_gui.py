@@ -177,7 +177,7 @@ class FirewallWindow (InstallWindow):
         box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (5)
 
-        label = gtk.Label (_("Please choose your security level:  "))
+        label = gtk.Label (_("Select a security level for the system:  "))
         label.set_alignment (0.0, 0.5)
 
         label.set_line_wrap (gtk.TRUE)

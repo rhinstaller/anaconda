@@ -55,13 +55,13 @@ class PartitionMethodWindow(InstallWindow):
         radioBox = gtk.VBox (gtk.FALSE)
 
         self.useAuto = gtk.RadioButton(
-            None, _("Have the installer _automatically partition for you"))
+            None, _("_Automatically partition"))
 	radioBox.pack_start(self.useAuto, gtk.FALSE, gtk.FALSE)
         self.useDS = gtk.RadioButton(
             self.useAuto, _("Manually partition with _Disk Druid"))
 	radioBox.pack_start(self.useDS, gtk.FALSE, gtk.FALSE)
         self.useFdisk = gtk.RadioButton(
-            self.useAuto, _("Manually partition with _fdisk [experts only]"))
+            self.useAuto, _("Manually partition with _fdisk (experts only)"))
 	radioBox.pack_start(self.useFdisk, gtk.FALSE, gtk.FALSE)
 
         if partitions.useAutopartitioning:

@@ -34,44 +34,48 @@ class CongratulationWindow (InstallWindow):
     def getScreen (self):
         self.ics.setHelpEnabled (gtk.FALSE)
 
-        hbox = gtk.HBox (gtk.TRUE, 5)
+        hbox = gtk.HBox (gtk.FALSE, 5)
         
         pix = self.ics.readPixmap ("done.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
+	    a.set_size_request(200, -1)
             hbox.pack_start (a, gtk.FALSE)
 
         if iutil.getArch() != "ia64":
-            bootstr = _("If you created a boot disk to use to boot your "
-                        "%s system, insert it before you "
-                        "press <Enter> to reboot.\n\n") % (productName,)
+            bootstr = _("If you created a boot diskette to boot the "
+			"system, insert it before rebooting.\n\n")
         else:
             bootstr = ""
             
 
 	label = gtk.Label(
-             _("Congratulations, your %s installation is "
-               "complete.\n\n"
-               "Remove any floppy diskettes you used during the "
-               "installation process and press <Enter> to reboot your system. "
+             _("Congratulations, the installation is complete.\n\n"
+               "Remove any installation media (diskettes or CD-ROMs) used during the "
+               "installation."
                "\n\n"
                "%s"
-               "For information on errata (updates and bug fixes), visit "
-               "http://www.redhat.com/errata.\n\n"
-               "Information on using and configuring your "
-               "system is available in the %s manuals "
-               "at http://www.redhat.com/docs.") % (productName,
-                                                    bootstr, productName),
-             )
+	       "For information on Errata (updates and bug fixes), visit:\n"
+	       "\thttp://www.redhat.com/errata/\n\n"
+	       "For information on automatic updates through Red Hat "
+	       "Network, visit:\n"
+	       "\thttp://rhn.redhat.com/\n\n"
+	       "For information on using and configuring the system, visit:\n"
+	       "\thttp://www.redhat.com/docs/\n"
+	       "\thttp://www.redhat.com/apps/support/\n\n"
+	       "To register the product for support, visit:\n"
+	       "\thttp://www.redhat.com/apps/activate/\n\n"
+	       "Click 'Exit' to reboot the system.") % (bootstr,))
                 
         label.set_line_wrap (gtk.TRUE)
+	label.set_size_request(500, -1)
         label.set_alignment (0.0, 0.5)
 
         box = gtk.VBox (gtk.FALSE, 10)
         box.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
 
-        hbox.pack_start (box)
+        hbox.pack_start (box, gtk.TRUE, gtk.TRUE)
         return hbox
 
