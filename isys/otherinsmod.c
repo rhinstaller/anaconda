@@ -57,7 +57,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 	    /* it might be having a ball */
 	    fd = gzopen(ballPath, "r");
 	    if (!fd) {
-	      fprintf(stderr, "cannot unzip %s\n", ballPath);
+	        fprintf(stderr, "cannot unzip %s\n", ballPath);
 		free(ballPath);
 		return 1;
 	    }
@@ -74,7 +74,6 @@ int ourInsmodCommand(int argc, char ** argv) {
 		    continue;
 		}
 		free(ballPath);
-		fprintf(stderr, "cannot uncpio %s\n", ballPath);
 		return 1;
 	    }
 
