@@ -180,6 +180,10 @@ int isysStartBterm(void) {
     int rc;
     struct stat sb;
 
+    /* if we've already successfully started bterm, we don't need to again */
+    if (!access("/.bterm", R_OK))
+        return 0;
+
     /* assume that if we're already on a pty we can handle unicode */
     fstat(0, &sb);
     if (major(sb.st_rdev) == 3 || major(sb.st_rdev) == 136)
@@ -195,6 +199,11 @@ int isysStartBterm(void) {
         return 0;
     
     rc = bterm_main(4, btermargs);
+
+    if (!rc) {
+        int fd = open("/.bterm", O_CREAT | O_TRUNC | O_RDWR, 0600);
+        close(fd);
+    }
  
     return rc;
 }
