@@ -37,7 +37,10 @@ DISCNUM  = 1000002
 def urlretrieve(location, file):
     """Downloads from location and saves to file."""
 
-    url = urllib2.urlopen(location)
+    try:
+        url = urllib2.urlopen(location)
+    except urllib2.HTTPError, e:
+        raise IOError(e.code, e.msg)
     f = open(file, 'w+')
     f.write(url.read())
     f.close()
@@ -74,8 +77,8 @@ class UrlInstallMethod(InstallMethod):
             try:
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
-		log("IOError %s occurred getting %s: %s",
-			errnum, fullPath, str(msg))
+		log("IOError %s occurred getting %s: %s"
+                    %(errnum, fullPath, str(msg)))
                 time.sleep(5)
             else:
                 break
