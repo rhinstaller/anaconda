@@ -20,8 +20,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         ics.setTitle (_("Individual Package Selection"))
         ics.setNextEnabled (1)
         ics.readHTML ("sel-indiv")
-##         ics.setHTML ("<HTML><BODY>Next you must select which packages to install."
-##                      "</BODY></HTML>")
         ics.setHelpEnabled (FALSE)
         self.DIR = 0
         self.DIR_UP = 1
