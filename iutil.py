@@ -515,6 +515,8 @@ def isUSBDevFSMounted():
 	for l in lines:
 	    if string.find(l, "usbfs") != -1:
 		return 1
+	    if string.find(l, "usbdevfs") != -1:
+		return 1
     except:
 	log("In isUSBMounted, failed to open /proc/mounts")
 	return 0
