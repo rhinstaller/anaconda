@@ -23,6 +23,7 @@ from partitioning import *
 from fsset import *
 from autopart import doPartitioning
 from autopart import CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
+import gui
 import parted
 import string
 import copy
@@ -368,7 +369,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
             partclist.select_row(partrow, 0)
         partrow = partrow + 1
 
-    return partclist, sw
+    return (partclist, sw)
 
 def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     leveloption = GtkOptionMenu()
@@ -1110,7 +1111,7 @@ class PartitionWindow(InstallWindow):
                          0, 1, row, row + 1)
 
         # XXX need to pass in currently used partitions for this device
-        raidclist, sw = createAllowedRaidPartitionsClist(availraidparts,
+        (raidclist, sw) = createAllowedRaidPartitionsClist(availraidparts,
                                                      raidrequest.raidmembers)
 
         maintable.attach(sw, 1, 2, row, row + 1)
@@ -1281,28 +1282,96 @@ class AutoPartitionWindow(InstallWindow):
         self.parent = ics.getICW().window
 
     def getNext(self):
-        pass
+        if self.clearLinuxRB.get_active():
+            self.id.autoClearPartType = CLEARPART_TYPE_LINUX
+        elif self.clearAllRB.get_active():
+            self.id.autoClearPartType = CLEARPART_TYPE_ALL
+        else:
+            self.id.autoClearPartType = CLEARPART_TYPE_NONE
 
-    def getScreen(self, id, intf):
+        allowdrives = []
+        for i in self.driveclist.selection:
+            allowdrives.append(self.diskset.disks.keys()[i])
+
+        if len(allowdrives) < 1:
+            self.intf.messageWindow(_("Warning"), 
+                                    _("You need to select at least one drive to have "
+                                      "Red Hat Linux installed onto."), type = "ok")
+            raise gui.StayOnScreen
+
+        self.id.autoClearPartDrives = allowdrives
+
+        return None
+
+
+    def getScreen(self, id, diskset, intf):
+        
+        # XXX Change to not use id in (use more specific components of id)
+        self.id = id
+        self.diskset = diskset
         type = id.autoClearPartType
         cleardrives = id.autoClearPartDrives
+        alldrives = id.diskset.disks.keys()
         
-        vbox = GtkVBox(FALSE, 5)
+        box = GtkVBox (FALSE)
+        box.set_border_width (5)
+
+        label = GtkLabel(
+             _("Before we can autopartition we need to know how you want us "
+               "to use the space on your harddrives."))
+
+        label.set_line_wrap(1)
+        label.set_alignment(0.0, 0.0)
+        label.set_usize(400, -1)
+        box.pack_start(label, FALSE, FALSE)
+
+        # what partition types to remove
+        clearbox = GtkVBox(FALSE)
+        label = GtkLabel(_("I want to have autopartitioning:"))
+        label.set_alignment(0.0, 0.0)
+        clearbox.pack_start(label, FALSE, FALSE, 10)
+        
+        radioBox = GtkVBox (FALSE)
+        self.clearLinuxRB = GtkRadioButton(
+            None, _("Remove all Linux partitions"))
+	radioBox.pack_start(self.clearLinuxRB, FALSE, FALSE)
+        self.clearAllRB = GtkRadioButton(
+            self.clearLinuxRB, _("Remove all partitions"))
+	radioBox.pack_start(self.clearAllRB, FALSE, FALSE)
+        self.clearNoneRB = GtkRadioButton(
+            self.clearLinuxRB, _("Remove no partitions and use existing free space"))
+	radioBox.pack_start(self.clearNoneRB, FALSE, FALSE)
+
         if type == CLEARPART_TYPE_LINUX:
-            clearstring = "all Linux partitions"
+            self.clearLinuxRB.set_active(1)
         elif type == CLEARPART_TYPE_ALL:
-            clearstring = "all partitions"
+            self.clearAllRB.set_active(1)
         else:
-            clearstring = "no partitions"
+            self.clearNoneRB.set_active(1)
+           
+	align = GtkAlignment()
+	align.add(radioBox)
+	align.set(0.5, 0.5, 0.0, 0.0)
+	clearbox.pack_start(align, FALSE, FALSE)
 
-        if not cleardrives or len(cleardrives) < 1:
-            cleardrivestring = "on all drives"
-        else:
-            cleardrivestring = "on these drives: "
-            for drive in cleardrives:
-                cleardrivestring = cleardrivestring + drive + " "
-                
-        vbox.pack_start(GtkLabel(_("Autopartitioning will clear %s %s.") %
-                                 (clearstring, cleardrivestring)))
+        box.pack_start(clearbox, FALSE, FALSE, 10)
 
-        return vbox
+        # which drives to use?
+        drivesbox = GtkVBox(FALSE)
+        label = GtkLabel(_("Which drives do you want to use for Linux?"))
+        label.set_alignment(0.0, 0.0)
+        drivesbox.pack_start(label, FALSE, FALSE, 10)
+        self.driveclist = createAllowedDrivesClist(alldrives, cleardrives)
+        self.driveclist.set_usize(200, -1)
+
+	align = GtkAlignment()
+	align.add(self.driveclist)
+	align.set(0.5, 0.5, 0.0, 0.0)
+        
+        drivesbox.pack_start(align, FALSE, FALSE)
+
+        box.pack_start(drivesbox, FALSE, FALSE)
+        self.ics.setNextEnabled (TRUE)
+
+	return box
+        

@@ -530,7 +530,7 @@ def doClearPartAction(id, type, cleardrives):
             id.partrequests.addDelete(delete)
             continue
     
-def doAutoPartition(dir, id):
+def doAutoPartition(dir, id, intf):
 
     if dir == DISPATCH_BACK:
         return
@@ -554,5 +554,5 @@ def doAutoPartition(dir, id):
         # restore drives to original state
         id.diskset.refreshDevices()
         id.partrequests = PartitionRequests(id.diskset)
-        id.intf.messageWindow(_("Error Partitioning"),
+        intf.messageWindow(_("Error Partitioning"),
                _("Could not allocated requested partitions: %s.") % (msg))

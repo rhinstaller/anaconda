@@ -61,19 +61,19 @@ class PartitionMethodWindow(InstallWindow):
         label.set_alignment(0.0, 0.0)
         label.set_usize(400, -1)
 
-        box.pack_start(label)
+        box.pack_start(label, FALSE, FALSE)
 
         radioBox = GtkVBox (FALSE)
 
         self.useAuto = GtkRadioButton(
             None, _("Have the installer autopartition for you"))
-	radioBox.pack_start(self.useAuto, FALSE)
+	radioBox.pack_start(self.useAuto, FALSE, FALSE)
         self.useDS = GtkRadioButton(
             self.useAuto, _("Manually partition with Disk Shaman"))
-	radioBox.pack_start(self.useDS, FALSE)
+	radioBox.pack_start(self.useDS, FALSE, FALSE)
         self.useFdisk = GtkRadioButton(
             self.useAuto, _("Manually partition with fdisk [experts only]"))
-	radioBox.pack_start(self.useFdisk, FALSE)
+	radioBox.pack_start(self.useFdisk, FALSE, FALSE)
 
         if id.useAutopartitioning:
             self.useAuto.set_active(1)
@@ -86,7 +86,7 @@ class PartitionMethodWindow(InstallWindow):
 	align.add(radioBox)
 	align.set(0.5, 0.5, 0.0, 0.0)
 
-	box.pack_start(align, TRUE, TRUE)
+	box.pack_start(align, FALSE, FALSE, 10)
 	box.set_border_width (5)
 
         self.ics.setNextEnabled (TRUE)
