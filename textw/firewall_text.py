@@ -164,7 +164,7 @@ class SELinuxWindow:
                  "in a traditional Linux system.  It can "
                  "be set up in a disabled state, a state "
                  "which only warns about things which would "
-                 "be denied, or a fully active state."))        
+                 "be denied, or a fully active state.")
 
         toplevel.add(TextboxReflowed(50, text), 0, 0, (0,0,0,1))
 
