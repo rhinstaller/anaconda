@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
-"PO-Revision-Date: 1998-09-12 09:57+0700\n"
+"PO-Revision-Date: 1998-09-15 07:29+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -711,9 +711,8 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:42
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Pilih koneksi printer"
+msgstr "Pilih drive untuk menjalankan fdisk"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -754,7 +753,7 @@ msgstr "Upgrade"
 
 #: ../iw/installpath.py:183
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "Gunakan fdisk untuk memformat"
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
@@ -1139,7 +1138,7 @@ msgstr "Lanjutkan"
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
-msgstr ""
+msgstr "Memory kurang"
 
 #: ../textw/partitioning.py:131
 msgid ""
@@ -1147,6 +1146,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Karena sepertinya Anda kurang memiliki memori di mesin ini, Sekarang kita "
+"perlu mengaktifkan swap secepatnya. Tetapi proses ini harus menuliskan "
+"partisi yang baru ke disk secepatnya. Ok ?"
 
 #: ../textw/partitioning.py:150
 msgid ""
@@ -1885,14 +1887,12 @@ msgid "Initializing CDROM..."
 msgstr "Inisialisasi CDROM..."
 
 #: ../loader/devices.c:45
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Pilihan Lain-lain:"
+msgstr "Lain-lain"
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid "Module Parameters"
-msgstr "Parameter Kernel"
+msgstr "Parameter Modul"
 
 #: ../loader/devices.c:54
 msgid ""
@@ -1900,19 +1900,19 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
+"Module ini bisa menggunakan parameter khusus. Bila Anda tidak tahu "
+"parameternya apa, lewati saja layar ini, tekan tombol \"OK\" sekarang."
 
 #: ../loader/devices.c:120
 msgid "Which driver should I try?"
 msgstr "Driver mana yang ingin dipakai ?"
 
 #: ../loader/devices.c:135
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "Parameter Kernel"
+msgstr "Tuliskan Parameter module"
 
 #: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
 #: ../loader/loader.c:311
-#, fuzzy
 msgid "Devices"
 msgstr "Perangkat"
 
@@ -1940,35 +1940,30 @@ msgid "Choose a Language"
 msgstr "Pilih bahasanya:"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "Pilih Keyboard"
+msgstr "Tipe Keyboard"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Printer mana yang Anda punya?"
+msgstr "Keyboard mana yang Anda punya?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
-msgstr ""
+msgstr "CDROM lokal"
 
 #: ../loader/loader.c:101
 msgid "NFS image"
-msgstr ""
+msgstr "Image NFS"
 
 #: ../loader/loader.c:106
-#, fuzzy
 msgid "Hard drive"
 msgstr "Hard Disk"
 
 #: ../loader/loader.c:122
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
 msgstr "Selamat Datang di Linux Red Hat!"
 
 #: ../loader/loader.c:124
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -1976,67 +1971,62 @@ msgstr ""
 
 #: ../loader/loader.c:226
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:238
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Sistem macam mana yang hendak diinstal ?"
+msgstr "Perangkat apa yang hendak dimasukkan ?"
 
 #: ../loader/loader.c:285
-#, fuzzy
 msgid "I have found the following devices in your system:"
-msgstr ""
-"Saya menemukan adapter SCSI berikut ini:\n"
-"\n"
+msgstr "Saya menemukan perangkat berikut ini di sistem:"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
-#, fuzzy
 msgid "Add Device"
-msgstr "Perangkat"
+msgstr "Tambah Perangkat"
 
 #: ../loader/loader.c:312
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"Sekarang belum ada device driver yang diload untuk sistem ini. Mau meloadnya "
+"sekarang ?"
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
-#, fuzzy
 msgid "Loading"
-msgstr "Lokasi"
+msgstr "Sedang Meload"
 
 #: ../loader/loader.c:447
 msgid "Loading second stage ramdisk..."
 msgstr "Sedang mengambil ramdisk tahap kedua..."
 
 #: ../loader/loader.c:451
-#, fuzzy
 msgid "Error loading ramdisk."
-msgstr "Error saat membaca ramdisk tahap kedua"
+msgstr "Error saat membaca ramdisk."
 
 #: ../loader/loader.c:572
 msgid "Hard Drives"
 msgstr "Hard Disk"
 
 #: ../loader/loader.c:573
-#, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Anda belum memberitahu saya area swapnya. Lanjutkan saja atau partisi ulang "
-"disk Anda ?"
+"Sekarang belum ada hard disk di sistem Anda lho! Apakah ingin "
+"mengkonfigurasikan perangkat tambahan lain?"
 
 #: ../loader/loader.c:586
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
 "Partisi mana dan di direktori mana yang berisi file-file instalasi "
-"RedHat/RPMS dan direktori RedHat/base ?"
+"RedHat/RPMS dan direktori RedHat/base ? Kalau di disk drive yang ada "
+"RedHatnya tidak kelihatan di sini, silahkan pencet F2 untuk tambah device "
+"lagi."
 
 #: ../loader/loader.c:600
 msgid "Directory holding Red Hat:"
@@ -2056,6 +2046,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
+"Saya tidak dapat menemukan CDROM Red Hat LInux di drive CD Anda nih. "
+"Silahkan masukkan CDnya dan tekan \"OK\" untuk mengulangi."
 
 #: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2067,16 +2059,15 @@ msgstr "Saya tak dapat memount direktori tersebut dari server"
 
 #: ../loader/loader.c:932
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:933
-#, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Saya gagal mengambil ramdisk tahap kedua: %s"
+msgstr "Saya gagal mengambil ramdisk tahap kedua"
 
 #: ../loader/loader.c:1057
 msgid "Rescue Method"
-msgstr ""
+msgstr "Metode Rescue"
 
 #: ../loader/loader.c:1058
 msgid "Installation Method"
@@ -2084,12 +2075,11 @@ msgstr "Metode Instalasi"
 
 #: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Tipe media yang berisi image rescue itu apa?"
 
 #: ../loader/loader.c:1062
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Sistem macam mana yang hendak diinstal ?"
+msgstr "Media macam mana yang berisi paket yang hendak diinstal ?"
 
 #: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2097,12 +2087,11 @@ msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
 #: ../loader/loader.c:1500
 msgid "PC Card"
-msgstr ""
+msgstr "Card PC"
 
 #: ../loader/loader.c:1500
-#, fuzzy
 msgid "Initializing PC Card Devices..."
-msgstr "Inisialisasi CDROM..."
+msgstr "Inisialisasi PC Card..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2113,9 +2102,8 @@ msgid "Red Hat directory:"
 msgstr "Direktori Red Hat:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
-msgstr "Setup SMB"
+msgstr "Setup NFS"
 
 #: ../loader/net.c:157
 msgid ""
@@ -2141,30 +2129,27 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Gunakan IP dinamis (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
 msgstr "Konfigurasi TCP/IP"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "Informasi Printer"
+msgstr "Informasi kurang"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Anda harus memberikan alamat IP yang valid"
+msgstr "Anda harus memberikan alamat IP dan netmask yang valid"
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
-msgstr ""
+msgstr "IP Dinamis"
 
 #: ../loader/net.c:339 ../loader/net.c:570
-#, fuzzy
 msgid "Sending request for IP information..."
-msgstr "Mengirimkan permintaan DHCP..."
+msgstr "Mengirimkan permintaan IP..."
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
@@ -2180,37 +2165,30 @@ msgid "bad argument to kickstart network command %s: %s"
 msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
 
 #: ../loader/net.c:607
-#, fuzzy
 msgid "Boot protocol to use"
-msgstr "Protokol Boot"
+msgstr "Protokol Boot yang digunakan"
 
 #: ../loader/net.c:609
-#, fuzzy
 msgid "Network gateway"
-msgstr "Setup Network"
+msgstr "Gateway Network"
 
 #: ../loader/net.c:611
-#, fuzzy
 msgid "IP address"
-msgstr "Alamat IP:"
+msgstr "Alamat IP"
 
 #: ../loader/net.c:613
-#, fuzzy
 msgid "Nameserver"
-msgstr "Server"
+msgstr "Server DNS"
 
 #: ../loader/net.c:620
-#, fuzzy
 msgid "Domain name"
-msgstr "Domain NIS:"
+msgstr "Nama Domain"
 
 #: ../loader/net.c:623
-#, fuzzy
 msgid "Network device"
-msgstr "Setup Network"
+msgstr "Device Network"
 
 #: ../loader/net.c:695
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -2218,19 +2196,17 @@ msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
 #: ../loader/net.c:696
-#, fuzzy, c-format
+#, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "netconfig %s (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:698
-#, fuzzy
 msgid "Network configuration"
 msgstr "Konfigurasi Jaringan"
 
 #: ../loader/net.c:699
-#, fuzzy
 msgid "Would you like to set up networking?"
-msgstr "Jangan mensetup jaringan"
+msgstr "Ingin mensetup jaringan?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
@@ -2277,9 +2253,8 @@ msgid "Use non-anonymous ftp or a proxy server"
 msgstr "Gunakan non-anonim ftp atau proxy server"
 
 #: ../loader/urls.c:180
-#, fuzzy
 msgid "Use proxy server"
-msgstr "Pilih server"
+msgstr "Pakai server proxy"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
@@ -2315,9 +2290,8 @@ msgstr ""
 "Bila Anda menggunakan proxy HTTP, maka tuliskan nama server proxy HTTPnya."
 
 #: ../loader/urls.c:295
-#, fuzzy
 msgid "Account name:"
-msgstr "Nama Account"
+msgstr "Nama Account:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
@@ -2336,9 +2310,8 @@ msgid "HTTP Proxy Port:"
 msgstr "Port Proxy HTTP:"
 
 #: ../loader/windows.c:46
-#, fuzzy
 msgid "Loading SCSI driver"
-msgstr "Meload Disket Driver..."
+msgstr "Meload Driver SCSI..."
 
 #~ msgid "Root Partition Selection"
 #~ msgstr "Pilih Partisi root"
