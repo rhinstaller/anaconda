@@ -253,3 +253,54 @@ class Mouse (SimpleConfigFile):
             args.append("--emulthree")
         
         return args
+
+
+# maybe doesnt belong here - just ask user what mouse they have on
+# startup if kudzu didn't find one
+def mouseWindow(mouse):
+    from snack import *
+    from mouse_text import MouseWindow, MouseDeviceWindow
+    from constants_text import INSTALL_BACK, INSTALL_OK
+    screen = SnackScreen()
+
+    STEP_MESSAGE = 0
+    STEP_TYPE = 1
+    STEP_DEVICE = 2
+    STEP_DONE = 3
+    step = 0
+    while step < STEP_DONE:
+        if step == STEP_MESSAGE:
+            button = ButtonChoiceWindow(screen, _("Mouse Not Detected"),
+                            _("Your mouse was not automatically "
+                              "detected.  To proceed in the graphical "
+                              "installation mode, please proceed to "
+                              "the next screen and provide your mouse "
+                              "information. You may also use text mode "
+                              "installation which does not require a mouse."),
+                              buttons = [ _("OK"), _("Use text mode") ])
+            if button == string.lower (_("Use text mode")):
+                screen.finish ()
+                return 0
+            else:
+                step = STEP_TYPE
+                continue
+
+        if step == STEP_TYPE:
+            rc = MouseWindow()(screen, mouse)
+            if rc == INSTALL_BACK:
+                step = STEP_MESSAGE
+                continue
+            else:
+                step = STEP_DEVICE
+                continue
+
+        if step == STEP_DEVICE:
+            rc = MouseDeviceWindow()(screen, mouse)
+            if rc == INSTALL_BACK:
+                step = STEP_TYPE
+                continue
+            else:
+                step = STEP_DONE
+                continue
+    screen.finish()
+    return 1
