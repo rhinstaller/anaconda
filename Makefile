@@ -36,7 +36,7 @@ lang-table: lang-table.in
 	if [ $(JAPANESE) ]; then \
 	     egrep "(English)|(Japanese)" lang-table.in > lang-table; \
 	else \
-	     cp lang-table.in lang-table; \
+	     grep -v Japanese lang-table.in > lang-table; \
         fi
 
 _xkb.so: xkb.c
