@@ -923,8 +923,6 @@ class ComponentSet:
 			    log ("... removed")
             
         del ts
-        if db:
-            del db
 
         if not rc: 
             self.verifiedState = self.getSelectionState()[1]
