@@ -23,7 +23,6 @@ import time
 import rpm
 import sys
 import os.path
-import dispatch
 from flags import flags
 from partitioning import *
 from log import log
