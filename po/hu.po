@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-08-04 00:06+0200\n"
+"PO-Revision-Date: 2000-08-17 11:34+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"A kernel nem tudja olvasni az új partíciós táblát, valószínûleg azért, mert "
+"extended partíciókat is módosított. Ez nem kritikus hiba, azonban a "
+"folytatáshoz újra kell indítania a számítógépet. Helyezze be a Red Hat boot "
+"lemezt, és nyomja meg az \"Ok\" gombot az újraindításhoz.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -190,6 +194,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Hiba történt a telepítõ image merevlemezre írásakor. Valószínüleg kevés a "
+"szabad lemezterülete."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -3468,61 +3474,60 @@ msgstr "SCSI meghajtó betöltése"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Megjelenítendõ térkép"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Térkép szélessége (pixelekben)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Antialias engedélyezése"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Világ"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Észak-Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Dél-Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Csendes-óceáni part"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Európa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Afrika"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Ázsia"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Nem tudom betölteni az idõzóna-adatokat"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
 msgstr "Nézet:"
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "Amerika/New_York"
 
 msgid "Base"
 msgstr "Alap"
@@ -3584,9 +3589,8 @@ msgstr "Web szerver"
 msgid "DNS Name Server"
 msgstr "DNS névszerver"
 
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "SQL szerver"
+msgstr "Postgres (SQL) szerver"
 
 msgid "Network Management Workstation"
 msgstr "Hálózat felügyeleti munkaállomás"
