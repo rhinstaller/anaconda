@@ -39,6 +39,8 @@
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
                                     "modules.cgz", "rhdd-6.1", NULL };
 
+
+
 static int verifyDriverDisk(char *mntpt, int flags) {
     char ** fnPtr;
     char file[200];
@@ -322,4 +324,20 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 }
 
 
+/* looping way to load driver disks */
+int loadDriverDisks(int class, moduleList modLoaded, 
+                    moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
+                    struct knownDevices * kd, int flags) {
+    int rc;
+    loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
+                        kd, flags, 1);
 
+    do {
+        rc = newtWinChoice(_("More Driver Disks?"), _("Yes"), _("No"),
+                           _("Do you wish to load any more driver disks?"));
+        if (rc != 1)
+            break;
+        loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
+                            kd, flags, 1);
+    } while (1);
+}

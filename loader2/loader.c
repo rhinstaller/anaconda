@@ -923,8 +923,8 @@ int main(int argc, char ** argv) {
          access("/proc/iSeries", R_OK)) || FL_MODDISK(flags)) {
         startNewt(flags);
 
-        loadDriverFromMedia(CLASS_UNSPEC, modLoaded, &modDeps, 
-                            modInfo, &kd, flags, 1);
+        loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, 
+                        modInfo, &kd, flags);
     }
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
