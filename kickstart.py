@@ -760,7 +760,7 @@ class KickstartBase(BaseInstallClass):
                 else:
                     scriptChroot = 1
 
-		argList = [ 'interpreter=' ]
+		argList = [ 'interpreter=', "log=", "logfile=" ]
 		if where == "post":
 		    argList.append('nochroot')
 
