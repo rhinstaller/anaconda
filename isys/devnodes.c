@@ -105,7 +105,7 @@ int devMakeInode(char * devName, char * path) {
 	type = S_IFBLK;
 	major = 7;
 	minor = atoi(devName + 4);
-    } else if (!(strncmp(devName, "scd", 3)) {
+    } else if (!strncmp(devName, "scd", 3)) {
 	type = S_IFBLK;
 	major = 11;
 	minor = atoi(devName + 3);
