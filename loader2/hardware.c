@@ -40,9 +40,9 @@ static int detectHardware(moduleInfoSet modInfo,
     
     devices = probeDevices(CLASS_UNSPEC,
                            BUS_PCI | BUS_SBUS | 
-                           (has_pcmcia() ? BUS_PCMCIA : 0),
+                           ((has_pcmcia() >= 0) ? BUS_PCMCIA : 0),
                            PROBE_ALL);
-    
+
     logMessage("finished bus probing");
     
     if (devices == NULL) {
