@@ -99,7 +99,9 @@ def runRescue(instPath, mountroot, id):
 				       allowDirty = 1)
 	    ButtonChoiceWindow(screen, _("Rescue"),
 		_("Your system has been mounted under /mnt/sysimage.\n\n"
-		  "Press <return> to get a shell. The system will reboot "
+		  "Press <return> to get a shell. If you would like to "
+		  "make your system the root environment, run the command:\n\n"
+		  "\tchroot /mnt/sysimage\n\nThe system will reboot "
 		  "automatically when you exit from the shell."),
 		  [_("OK")] )
             rootmounted = 1
