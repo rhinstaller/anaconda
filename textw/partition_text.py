@@ -744,7 +744,7 @@ class PartitionWindow:
                 delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
                 self.partitions.addDelete(delete)
         else: # shouldn't happen
-            raise ValueError, "Deleting a non-existenent partition"
+            raise ValueError, "Deleting a non-existent partition"
             
         del partition
         self.refresh()
