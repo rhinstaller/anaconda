@@ -405,7 +405,7 @@ class AuthConfigWindow:
         todo.auth.krb5Realm = self.krb5Realm.value()
         todo.auth.krb5Kdc = self.krb5Kdc.value()
         todo.auth.krb5Admin = self.krb5Admin.value()
-                
+
         rc = bb.buttonPressed (result)
 
         if rc == "back":
