@@ -185,7 +185,7 @@ def runRescue(instPath, mountroot, id):
           "\n\n"
           "If for some reason this process fails you can choose 'Skip' "
           "and this step will be skipped and you will go directly to a "
-          "command shell.\n\n" % (instPath,)),
+          "command shell.\n\n") % (instPath,),
           [_("Continue"), _("Read-Only"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
@@ -327,7 +327,7 @@ def runRescue(instPath, mountroot, id):
 		_("An error occurred trying to mount some or all of your "
 		  "system. Some of it may be mounted under %s.\n\n"
 		  "Press <return> to get a shell. The system will reboot "
-		  "automatically when you exit from the shell." % (instPath,)),
+		  "automatically when you exit from the shell.") % (instPath,),
 		  [_("OK")] )
     else:
 	ButtonChoiceWindow(screen, _("Rescue Mode"),
@@ -341,7 +341,7 @@ def runRescue(instPath, mountroot, id):
     print
     if rootmounted and not readOnly:
         makeMtab(instPath, fs)
-        print _("Your system is mounted under the %s directory." % (instPath,))
+        print _("Your system is mounted under the %s directory.") % (instPath,)
         print
 
     print _("When finished please exit from the shell and your "
