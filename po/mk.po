@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-20 19:12+0200\n"
+"PO-Revision-Date: 2004-06-22 00:52+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -206,6 +206,8 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
+"Стартната партиција %s не припаѓа на ознаката на BSD диск. SRM нема да биде во можност да се стартува од оваа партиција. Користете партиција чија што ознака припаѓа на BSD диск или "
+"променете ја ознаката на овој диск во BSD."
 
 #: ../autopart.py:1006
 #, python-format
@@ -214,6 +216,9 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"Стартната партиција %s не припаѓа на диск со доволно празен простор на неговиот "
+"почеток за поставување на покренувачката програма. Осигурајте се дека постојат најмалку 5MB "
+"празен простор на почетокот на дискот кој го содржи /boot"
 
 #: ../autopart.py:1008
 #, python-format
@@ -221,12 +226,14 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"Стартната партиција %s не е VFAT партиција.  EFI нема да може да се стартува од "
+"оваа партиција."
 
 #: ../autopart.py:1010
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
+msgstr "Стартната партиција не е поставена доволно блиску на почетокот на дискот.  OpenFirmware нема да биде во можност да ја започне оваа инсталација."
 
 #: ../autopart.py:1017
 #, python-format
@@ -283,6 +290,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Не можам да ја пронајдам групата со дискови %s за користење со %s.\n"
+"\n"
+"Притисни 'Во ред' за рестартирање на системот."
 
 #: ../autopart.py:1300
 msgid "Requested Logical Volume Does Not Exist"
@@ -295,6 +305,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Не можам да го пронајдам логичкиот диск %s за користење со %s.\n"
+"\n"
+"Притисни 'Во ред' за рестартирање на системот."
 
 #: ../autopart.py:1333 ../autopart.py:1381
 msgid "Automatic Partitioning Errors"
@@ -312,7 +325,7 @@ msgstr ""
 
 #: ../autopart.py:1344
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "Предупредувања во тек на автоматското партиционирање"
 
 #: ../autopart.py:1345
 #, python-format
@@ -344,6 +357,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"Не можам да ја пронајдам бараната партиција: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1377
 msgid ""
@@ -368,11 +384,11 @@ msgstr ""
 
 #: ../autopart.py:1393
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Не поправлива грешка"
 
 #: ../autopart.py:1394
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "Вашиот систем сега ќе се рестартира."
 
 #: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
@@ -385,7 +401,7 @@ msgstr ""
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
 #: ../textw/upgrade_text.py:177 ../loader2/loader.c:377
 msgid "Warning"
-msgstr ""
+msgstr "Предупредување"
 
 #: ../autopart.py:1483
 msgid ""
@@ -6806,7 +6822,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Источно време"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6842,7 +6858,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "источен Узбекистан"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -6858,11 +6874,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Велика Британија"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Хаваи"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
@@ -6998,7 +7014,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "повеќе локации"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -7018,7 +7034,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Планинско време"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
@@ -7066,7 +7082,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "североисточен Мали"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -7074,11 +7090,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Северни територии"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "Пацифичко време"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -7118,7 +7134,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Квинсленд - повеќе локации"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -7154,7 +7170,7 @@ msgstr "Јужна Австралија"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "југозападен Мали"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
@@ -7194,7 +7210,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Викторија"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -7210,23 +7226,23 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "западно & централно Борнео"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "западна Демократска Република Конго"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Западна Австралија"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "Западен Казакстан"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "западен Узбекистан"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -7318,7 +7334,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Норвешки"
 
 #. generated from lang-table
 msgid "Persian"
