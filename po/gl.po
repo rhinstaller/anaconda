@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-01-16 16:09-0500\n"
-"PO-Revision-Date: 2001-01-14 22:33+0100\n"
+"PO-Revision-Date: 2001-01-16 23:12+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -2917,9 +2917,9 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
-"Vostede tentou asignar o punto de montaxe '/' a unha partición tipo FAT.  "
-"Agora non pode facer iso, porque os puntos de montaxe tamén foron asignados "
-"a particións ext2.  Quite eses puntos de montaxe, e entón poderá asignar '/' "
+"Vostede tentou asociar o punto de montaxe '/' a unha partición tipo FAT.  "
+"Agora non pode facer iso, porque os puntos de montaxe tamén foron asociados "
+"a particións ext2.  Quite eses puntos de montaxe, e entón poderá asociar '/' "
 "a esta partición."
 
 #: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
@@ -3246,7 +3246,7 @@ msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2751
 msgid "<not set>"
-msgstr "<non establecido>"
+msgstr "<sen asociar>"
 
 #: ../libfdisk/gnomefsedit.c:3035
 msgid "Requested"
@@ -3289,7 +3289,7 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Ten que asignar unha partición raíz (/) a unha partición nativa de Linux "
+"Ten que asociar unha partición raíz (/) a unha partición nativa de Linux "
 "(ext2) ou unha partición RAID para que a instalación poida proseguir."
 
 #: ../libfdisk/gnomefsedit.c:3551
@@ -3369,7 +3369,7 @@ msgstr "Resumes de Unidades"
 
 #: ../libfdisk/newtfsedit.c:1482
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr "  Unidade    Xeom [C/T/S]      Total    Usado   Libre"
+msgstr "  Unidade    Xeom [C/H/S]      Total    Usado   Libre"
 
 #: ../libfdisk/newtfsedit.c:1596
 msgid "No Root Partition"
@@ -3380,7 +3380,7 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Ten que asignar unha partición raíz (/) a unha partición nativa de Linux "
+"Ten que asociar unha partición raíz (/) a unha partición nativa de Linux "
 "(ext2) para poder continuar coa instalación."
 
 #: ../libfdisk/newtfsedit.c:1616
@@ -3402,7 +3402,7 @@ msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Ten que asignar o punto de montaxe /boot/efi a unha partición primaria de "
+"Ten que asociar o punto de montaxe /boot/efi a unha partición primaria de "
 "tipo FAT para poder continuar coa instalación."
 
 #: ../libfdisk/newtfsedit.c:1667
@@ -3414,7 +3414,7 @@ msgid ""
 msgstr ""
 "Hai aínda particións sen asignar. Se sae agora, non serán escritas ó disco.\n"
 "\n"
-"¿Está seguro de querer saír?"
+"¿Está seguro de que quere saír?"
 
 #: ../libfdisk/newtfsedit.c:1683
 msgid "Save Changes"
