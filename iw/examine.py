@@ -29,6 +29,10 @@ class UpgradeExamineWindow (InstallWindow):
         parts = self.todo.upgradeFindRoot ()
         threads_enter ()
 
+        # if there is only one partition, go on.
+        if parts and len (parts) == 1:
+            return None
+
 	box = GtkVBox (FALSE)
         if not parts:
             box.pack_start (GtkLabel (_("You don't have any Linux partitions.\n You can't upgrade this sytem!")),
