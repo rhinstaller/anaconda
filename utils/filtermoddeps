@@ -1,4 +1,7 @@
 #!/bin/bash
 
-cat $1 | grep ':.*o' | sed -e 's/\.o//g' | sed 's,/[^: 	]*/,,g'
+perl -e 'while (<>) { if (/\\\n/) { chop; s/\\$//; print;} else { print $_; } }' | grep ':.*o' | sed -e '
+s/\.o//g
+s,/[^: 	]*/,,g
+s/[ 	][ 	]*/ /g'
 
