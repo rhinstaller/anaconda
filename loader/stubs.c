@@ -76,6 +76,17 @@ __gconv_lookup_alias (const char *name)
     return NULL;
 }
 
+int
+__gconv_compare_alias (const char *name1, const char *name2) {
+    return 0;
+}
+
+void
+__gconv_release_step () { }
+
+void
+__gconv_release_cache () { }
+
 int RETURNZERO() { return 0; }
 
 int getlogin_r ( char * name, int size ) {
