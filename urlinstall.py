@@ -43,17 +43,6 @@ def urlretrieve(location, file):
         raise IOError(e.code, e.msg)
     except urllib2.URLError, e:
 	raise IOError(-1, e.reason)
-    else:
-	# sanity check result - sometimes FTP doesnt
-	# catch a file is missing
-	try:
-	    clen = url.info()['content-length']
-	except Exception, e:
-            log("exception %s getting content-length" %(e,))
-	    clen = 0
-
-	if clen < 1:
-	    raise IOError(-1, "File not found")
 	
     f = open(file, 'w+')
     f.write(url.read())
@@ -149,18 +138,7 @@ class UrlInstallMethod(InstallMethod):
 		log("IOError %s occurred getting %s: %s",
 			errnum, hdurl, msg)
 	    else:
-		# sanity check result - sometimes FTP doesnt
-		# catch a file is missing
-		try:
-		    clen = url.info()['content-length']
-		except Exception, e:
-		    log("readHeaders(): exception %s getting content-length" %(e,))
-		    clen = 0
-
-		if clen < 1:
-		    log("File %s not found.", hdurl)
-		else:
-		    break
+		break
 
 	    time.sleep(5)
             tries = tries + 1
