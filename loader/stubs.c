@@ -19,7 +19,7 @@ int
 __gconv_OK () {return GCONV_OK;}
 
 int
-__gconv_NOCONV () {return GCONV_OK;}
+__gconv_NOCONV () {return GCONV_NOCONV;}
 
 strong_alias (__gconv_OK, __gconv_close_transform); 
 strong_alias (__gconv_NOCONV, __gconv);
