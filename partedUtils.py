@@ -807,7 +807,7 @@ class DiskSet:
             if isys.driveIsRemovable(drive) and not flags.expert:
                 DiskSet.skippedDisks.append(drive)
                 continue
-            if iutil.getArch() == "s390" and isys.getLength(deviceFile) == 0:
+            if 0 and iutil.getArch() == "s390" and isys.getLength(deviceFile) == 0:
                 rc = intf.messageWindow(_("Warning"),
                         _("The partition table on device %s was unreadable. "
                           "To create new partitions it must be initialized, "
