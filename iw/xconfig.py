@@ -4,7 +4,6 @@ from gui import _
 
 import string
 import sys
-import iutil
 
 """
 _("Video Card")
@@ -105,11 +104,6 @@ class XConfigWindow (InstallWindow):
         self.ics.setNextEnabled (TRUE)
 
         self.todo = ics.getToDo ()
-	self.sunServer = 0
-	if self.todo.x.server and len (self.todo.x.server) >= 3 and self.todo.x.server[0:3] == 'Sun':
-	    self.sunServer = 1
-        else:
-	    self.sunServer = 0            
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
         
@@ -124,9 +118,6 @@ class XConfigWindow (InstallWindow):
                 setting = self.monlist.get_row_data (row)
                 self.todo.x.setMonitor (setting)
 
-	if not self.sunServer:
-	    if self.custom.get_active () and not self.skip.get_active ():
-		return XCustomWindow
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -134,6 +125,10 @@ class XConfigWindow (InstallWindow):
                 self.todo.initlevel = 3
         else:
             self.todo.initlevel = 3
+
+        if self.custom.get_active () and not self.skip.get_active ():
+            return XCustomWindow
+
         return None
 
     def customToggled (self, widget, *args):
@@ -162,9 +157,6 @@ class XConfigWindow (InstallWindow):
 	   not self.todo.hdList.packages['XFree86'].selected: return None
 
         self.todo.x.probe ()
-
-	if self.todo.serial: return None
-
         self.todo.x.filterModesByMemory ()
  
         box = GtkVBox (FALSE, 5)
@@ -193,7 +185,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (result, FALSE)
 
         self.monlist = None
-	if ( not self.sunServer ) and self.todo.x.monID == "Generic Monitor":
+        if self.todo.x.monID == "Generic Monitor":
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "
                                 "from the list below:"))
@@ -207,38 +199,30 @@ class XConfigWindow (InstallWindow):
             keys.sort ()
             self.monlist = GtkCList ()
             self.monlist.set_selection_mode (SELECTION_BROWSE)
-	    arch = iutil.getArch()
-	    select = 0
                     
             for monitor in keys:
                 index = self.monlist.append ((monitor,))
                 self.monlist.set_row_data (index, (monitor, monitors[monitor]))
-		if arch == 'sparc' and monitor[:3] == 'Sun':
-		    self.monlist.select_row (index, 0)
-		    select = index
             sw = GtkScrolledWindow ()
             sw.add (self.monlist)
             sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
             self.autoBox.pack_start (sw, TRUE, TRUE)
-	    self.monlist.moveto (select, 0, 0.5, 0)
 
-	if not self.sunServer:
-	    test = GtkAlignment ()
-	    button = GtkButton (_("Test this configuration"))
-	    button.connect ("clicked", self.testPressed)
-	    test.add (button)
+        test = GtkAlignment ()
+        button = GtkButton (_("Test this configuration"))
+        button.connect ("clicked", self.testPressed)
+        test.add (button)
         
-	    self.custom = GtkCheckButton (_("Customize X Configuration"))
-	    self.custom.connect ("toggled", self.customToggled)
+        self.custom = GtkCheckButton (_("Customize X Configuration"))
+        self.custom.connect ("toggled", self.customToggled) 
 
         self.xdm = GtkCheckButton (_("Use Graphical Login"))
 
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
-	if not self.sunServer:
-	    self.autoBox.pack_start (test, FALSE)
-	    self.autoBox.pack_start (self.custom, FALSE)
+        self.autoBox.pack_start (test, FALSE)
+        self.autoBox.pack_start (self.custom, FALSE)
         self.autoBox.pack_start (self.xdm, FALSE)
 
         box.pack_start (self.autoBox, TRUE, TRUE)
