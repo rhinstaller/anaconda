@@ -171,7 +171,7 @@ class InstallPathWindow:
 	    return INSTALL_NOOP
 
 	if (todo.upgrade):
-	    default = 5
+	    default = 4
 	else:
 	    instClass = todo.getClass()
 	    orig = None
