@@ -1176,7 +1176,7 @@ class PartitionWindow(InstallWindow):
         #
         # start of editRaidRuquest
         #
-        dialog = GnomeDialog(_("Make Raid Device"))
+        dialog = GnomeDialog(_("Make RAID Device"))
         dialog.set_parent(self.parent)
         dialog.append_button (_("OK"))
         dialog.append_button (_("Cancel"))
@@ -1241,7 +1241,7 @@ class PartitionWindow(InstallWindow):
         row = row + 1
 
         # raid members
-        maintable.attach(createAlignedLabel(_("Raid Members:")),
+        maintable.attach(createAlignedLabel(_("RAID Members:")),
                          0, 1, row, row + 1)
 
         # XXX need to pass in currently used partitions for this device
@@ -1366,7 +1366,7 @@ class PartitionWindow(InstallWindow):
                (_("_Edit"), self.editCb),
                (_("_Delete"), self.deleteCb),
                (_("_Reset"), self.resetCb),
-               (_("Make _Raid"), self.makeraidCB))
+               (_("Make _RAID"), self.makeraidCB))
         
         for label, cb in ops:
             labelwid = GtkLabel(label)

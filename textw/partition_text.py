@@ -376,7 +376,7 @@ class PartitionWindow:
     # make the list of drives for the RAID
     def makeRaidDriveList(self, request):
         subgrid = Grid(1, 2)
-        driveLbl = Label(_("Raid Members:"))
+        driveLbl = Label(_("RAID Members:"))
         subgrid.setField(driveLbl, 0, 0)
         disks = self.diskset.disks.keys()
         drivelist = CheckboxTree(height=2, scroll=1)
