@@ -1,23 +1,13 @@
 from gtk import *
 from iw import *
-from language import *
-from welcome import *
-from progress import *
-from package import *
-from network import *
-from account import *
-from rootpartition import *
-from auth import *
-from mouse import *
-from keyboard import *
-from format import *
-from congrats import *
-from autopartition import *
-from dependencies import *
-from lilo import *
-from examine import *
-from bootdisk import *
-from timezone import *
+#from autopartition import *
+
+# import only screens common to both upgrade and install here.
+
+from progress import InstallProgressWindow
+from dependencies import UnresolvedDependenciesWindow
+from congrats import CongratulationWindow
+
 from gui import _
 
 UPGRADE = 0
@@ -29,33 +19,17 @@ WORKSTATION_KDE = 2
 SERVER = 3
 
 class InstallPathWindow (InstallWindow):		
-
     installTypes = ((CUSTOM, _("Custom")),
 			 (WORKSTATION_GNOME, _("GNOME Workstation")),
 			 (WORKSTATION_KDE, _("KDE Workstation")),
 			 (SERVER, _("Server")))
 
-    installSteps = [ PartitionWindow,
-		     FormatWindow,
-		     LiloWindow,
-		     NetworkWindow,
-		     TimezoneWindow,
-		     AccountWindow,
-		     AuthWindow,
-		     PackageSelectionWindow,
-		     UnresolvedDependenciesWindow,
-		     InstallProgressWindow,
-		     BootdiskWindow,
-		     CongratulationWindow
-		   ]
-
-    upgradeSteps = [ UpgradeExamineWindow,
-		     UnresolvedDependenciesWindow,
-		     InstallProgressWindow,
-		     CongratulationWindow
-		   ]
-
     def __init__ (self, ics):
+        from language import LanguageWindow
+        from mouse import MouseWindow
+        from keyboard import KeyboardWindow
+        from welcome import WelcomeWindow
+        
 	InstallWindow.__init__ (self, ics)
 
 	self.commonSteps = [ LanguageWindow, 
@@ -71,11 +45,60 @@ class InstallPathWindow (InstallWindow):
     def toggled (self, widget, type):
         if not widget.get_active (): return
         if type == INSTALL:
+            if not self.__dict__.has_key ("installSteps"):
+                print '1'
+                from xconfig import XConfigWindow
+                print '2'
+                from package import PackageSelectionWindow
+                print '3'
+                from network import NetworkWindow
+                print '4'
+                from account import AccountWindow
+                print '5'
+                from rootpartition import PartitionWindow
+                print '6'
+                from auth import AuthWindow
+                print '7'
+                from format import FormatWindow
+                print '8'
+                from lilo import LiloWindow
+                print '9'
+                from bootdisk import BootdiskWindow
+                print '10'
+                from timezone import TimezoneWindow
+                print '11'
+                
+                self.installSteps = [ XConfigWindow,
+                                      PartitionWindow,
+                                      FormatWindow,
+                                      LiloWindow,
+                                      NetworkWindow,
+                                      TimezoneWindow,
+                                      AccountWindow,
+                                      PackageSelectionWindow,
+                                      UnresolvedDependenciesWindow,
+                                      AuthWindow,
+                                      XConfigWindow,
+                                      InstallProgressWindow,
+                                      BootdiskWindow,
+                                      CongratulationWindow
+                                    ]
+            
             self.ics.getICW ().setStateList (self.commonSteps + 
 				self.installSteps, len (self.commonSteps)-1)
             self.todo.upgrade = 0
 	    self.installBox.set_sensitive(1)
         else:
+            # upgrade
+            if not self.__dict__.has_key ("upgradeSteps"):
+                from examine import UpgradeExamineWindow
+
+                self.upgradeSteps = [ UpgradeExamineWindow,
+                                      UnresolvedDependenciesWindow,
+                                      InstallProgressWindow,
+                                      CongratulationWindow
+                                    ]
+            
             self.ics.getICW ().setStateList (self.commonSteps + 
 				self.upgradeSteps, len (self.commonSteps)-1)
             self.todo.upgrade = 1
