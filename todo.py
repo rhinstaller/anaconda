@@ -765,11 +765,15 @@ class ToDo:
 	    for n in packages:
 		self.selectPackage(n)
 
-        if self.x.server and not self.x.server == "XFree86":
-            try:
-                self.selectPackage ('XFree86-' + self.x.server[5:])
-            except ValueError, message:
-                log ("Error selecting XFree86 server package: %s", message)
+
+        if self.hdList.packages.has_key('XFree86') and self.hdList.packages['XFree86'].selected:
+            log ("X is being installed, need to enable server if set")
+            if self.x.server and not self.x.server == "XFree86":
+                log("enabling server %s" % self.x.server)
+                try:
+                    self.selectPackage ('XFree86-' + self.x.server[5:])
+                except ValueError, message:
+                    log ("Error selecting XFree86 server package: %s", message)
 
     def selectPackage(self, package):
 	if not self.hdList.packages.has_key(package):

@@ -7,6 +7,8 @@ from xpms_gui import CHECKBOX_ON_XPM
 from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
 import iutil
+import gui
+
 if iutil.getArch() == 'i386':
     import edd
 
@@ -38,6 +40,29 @@ class LiloWindow (InstallWindow):
         # avoid coming back in here if the user backs past and then tries
         # to skip this screen
         self.bootdisk = None
+
+        # if doing an upgrade, offer choice of aborting upgrade.
+        # we can't allow them to go back in install, since we've
+        # started swap and mounted the systems filesystems
+        # if we've already started an upgrade, cannot back out
+        if self.todo.upgrade:
+            threads_leave()
+            rc = self.todo.intf.messageWindow(_("Proceed with upgrade?"),
+              _("The filesystems of the Linux installation "
+                "you have chosen to upgrade have already been "
+                "mounted. You cannot go back past this point. "
+                "\n\n") + 
+              _( "Would you like to continue with the upgrade?"),
+                type = "yesno").getrc()
+
+            threads_enter()
+
+            if not rc:
+                raise gui.StayOnScreen
+            else:
+                import sys
+                print _("Aborting upgrade")
+                sys.exit(0)
 
     def getNext (self):
         if not self.bootdisk: return None
@@ -227,6 +252,10 @@ class LiloWindow (InstallWindow):
         if self.todo.fstab.rootOnLoop():
             self.todo.bootdisk = 1
             return None
+
+#       cant go back past this screen in upgrades
+#        if self.todo.upgrade:
+#            self.ics.setPrevEnabled (0)
 
 # comment these two lines to get lilo screen in test mode
 #        if not self.todo.fstab.setupFilesystems:

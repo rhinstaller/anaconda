@@ -18,7 +18,7 @@ class UpgradeExamineWindow (InstallWindow):
         threads_leave ()
         self.todo.upgradeFindPackages (self.root)
         threads_enter ()
-        
+
         if self.individualPackages.get_active ():
             # XXX fix me
             from package_gui import IndividualPackageSelectionWindow

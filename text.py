@@ -336,6 +336,23 @@ class InstallPathWindow:
 class UpgradeExamineWindow:
     def __call__ (self, dir, screen, todo):
 	if dir == -1:
+            # msf dont go back!
+            rc = ButtonChoiceWindow(screen, _("Proceed with upgrade?"),
+                            _("The filesystems of the Linux installation "
+                              "you have chosen to upgrade have already been "
+                              "mounted. You cannot go back past this point. "
+                              "\n\n") +
+                              _("If you would like to exit the upgrade select "
+                              "Exit, or choose Ok to continue with the "
+                              "upgrade."),
+                               [ _("Ok"), _("Exit") ], width = 50)
+
+            if rc == 'ok':
+                return INSTALL_OK
+            else:
+                import sys
+                sys.exit(0)
+           
 	    # Hack to let backing out of upgrades work properly
 	    from fstab import NewtFstab
 	    if todo.fstab:
@@ -384,6 +401,12 @@ class UpgradeExamineWindow:
                 root = parts[choice]
         else:
             root = parts[0]
+            (drive, fs) = root
+            rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
+                                     _("Going to upgrade partition /dev/") + drive,
+                                     buttons = [ _("Ok"), _("Back") ])
+            if rc  == string.lower (_("Back")):
+                return INSTALL_BACK
 
         todo.upgradeFindPackages (root)
 

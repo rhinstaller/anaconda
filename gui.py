@@ -235,6 +235,12 @@ class MessageWindow:
         if self.mutex:
             self.mutex.set ()
 
+    def questionquit (self, button):
+        self.rc = button
+        
+        if self.mutex:
+            self.mutex.set ()
+
     def getrc (self):
         return self.rc
     
@@ -247,6 +253,9 @@ class MessageWindow:
             self.window.connect ("close", self.quit)
         if type == "okcancel":
             self.window = GnomeOkCancelDialog (_(text), self.okcancelquit)
+        if type == "yesno":
+            self.window = GnomeQuestionDialog (_(text), self.questionquit)
+
         # this is the pixmap + the label
         hbox = self.window.vbox.children ()[0]
         label = hbox.children ()[1]
