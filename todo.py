@@ -5,7 +5,7 @@ arch = iutil.getArch ()
 if arch == "sparc":
     from silo import SiloInstall
 elif arch == "alpha":
-    from milo import MiloInstall
+    from milo import MiloInstall, onMILO
 import string
 import socket
 import crypt
@@ -1315,6 +1315,16 @@ class ToDo:
 	self.getCompsList()
 
         arch = iutil.getArch ()
+
+        if arch == "alpha":
+            # if were're on alpha with ARC console, set the clock
+            # so that our installed files won't be in the future
+            if onMILO ():
+                args = ("clock", "-A", "-s")
+                try:
+                    iutil.execWithRedirect('/sbin/clock', args)
+                except:
+                    pass
 
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
