@@ -211,7 +211,8 @@ class BaseInstallClass:
                           ldapBasedn = "",
                           useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
                           krb5Admin = "",
-                          useHesiod = 0, hesiodLhs = "", hesiodRhs = ""):
+                          useHesiod = 0, hesiodLhs = "", hesiodRhs = "",
+                          useSamba = 0, sambaServer= "", sambaWorkgroup = ""):
 
         id.auth.useShadow = useShadow
         id.auth.useMD5 = useMd5
@@ -234,6 +235,10 @@ class BaseInstallClass:
         id.auth.useHesiod = useHesiod
         id.auth.hesiodLhs = hesiodLhs
         id.auth.hesiodRhs = hesiodRhs
+
+        id.auth.useSamba = useSamba
+        id.auth.sambaServer = sambaServer
+        id.auth.sambaWorkgroup = sambaWorkgroup
 
     def setNetwork(self, id, bootProto, ip, netmask, gateway, nameserver,
 		   device = None):

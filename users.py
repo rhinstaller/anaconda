@@ -131,6 +131,10 @@ class Authentication:
         self.hesiodLhs = ""
         self.hesiodRhs = ""
 
+        self.useSamba = 0
+        self.sambaServer = ""
+        self.sambaWorkgroup = ""
+
     def writeKS(self, f):
 	f.write("authconfig")
 	for arg in self.getArgList():
@@ -200,8 +204,16 @@ class Authentication:
         else:
             args.append ("--disablehesiod")
 
-	return args
+        if self.useSamba:
+            args.append ("--enablesmbauth")
+            args.append ("--smbservers")
+            args.append (self.sambaServer)
+            args.append ("--smbworkgroup")
+            args.append (self.sambaWorkgroup)
+        else:
+            args.append ("--disablesamba")
 
+	return args
  
     def write (self, instPath):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
