@@ -339,36 +339,21 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # we should only have to rebuild for upgrades of pre rpm 4.0.x systems
     # according to jbj
     if os.access(instPath + "/var/lib/rpm/packages.rpm", os.R_OK):
-        id.dbpath = "/var/lib/anaconda-rebuilddb" + rebuildTime
-        rpm.addMacro("_dbpath", "/var/lib/rpm")
-        rpm.addMacro("_dbpath_rebuild", id.dbpath)
-        rpm.addMacro("_dbapi", "-1")
-        # have to make sure this isn't set, otherwise rpm won't even
-        # *try* to use old-format dbs
-        #rpm.addMacro("__dbi_cdb", "")
-
-        rebuildpath = instPath + id.dbpath
-
-        try:
-            iutil.rmrf(rebuildpath)
-        except:
-            pass
-
-        rc = rpm.rebuilddb(instPath)
-        if rc:
-            try:
-                iutil.rmrf(rebuildpath)
-            except:
-                pass
+        id.dbpath = None
+        rebuildpath = None
         
+        args = [ "/usr/libexec/convertdb1",
+                 instPath + "/var/lib/rpm/packages.rpm" ]
+        rc = iutil.execWithRedirect(args[0], args,
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+
+        if rc:
             win.pop()
             intf.messageWindow(_("Error"),
                                _("Rebuild of RPM database failed. "
                                  "You may be out of disk space?"))
             sys.exit(0)
-
-        rpm.addMacro("_dbpath", id.dbpath)
-        rpm.addMacro("_dbapi", "3")
     else:
         id.dbpath = None
         rebuildpath = None
