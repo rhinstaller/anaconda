@@ -106,6 +106,30 @@ int devMakeInode(char * devName, char * path) {
 	    major = 34, minor = 0;
 	else if (devName[2] == 'h')
 	    major = 34, minor = 64;
+	else if (devName[2] == 'i')
+            major = 56, minor = 0;
+        else if (devName[2] == 'j')
+            major = 56, minor = 64;
+        else if (devName[2] == 'k')
+            major = 57, minor = 0;
+        else if (devName[2] == 'l')
+            major = 57, minor = 64;
+        else if (devName[2] == 'm')
+            major = 88, minor = 0;
+        else if (devName[2] == 'n')
+            major = 88, minor = 64;
+        else if (devName[2] == 'o')
+            major = 89, minor = 0;
+        else if (devName[2] == 'p')
+            major = 89, minor = 64;
+        else if (devName[2] == 'q')
+            major = 90, minor = 0;
+        else if (devName[2] == 'r')
+            major = 90, minor = 64;
+        else if (devName[2] == 's')
+            major = 91, minor = 0;
+        else if (devName[2] == 't')
+            major = 91, minor = 64;
 	else
 	    return -1;
 
