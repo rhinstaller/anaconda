@@ -15,7 +15,7 @@
 
 import iutil
 import isys
-import rpm
+import rpm404 as rpm
 import os
 import timer
 import time

@@ -17,7 +17,7 @@ import isys
 import os
 import iutil
 import time
-import rpm
+import rpm404 as rpm
 import sys
 import os.path
 import partedUtils

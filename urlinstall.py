@@ -16,7 +16,7 @@
 from comps import ComponentSet, HeaderList
 from installmethod import InstallMethod
 import os
-import rpm
+import rpm404 as rpm
 import time
 import urllib
 import string

@@ -4,7 +4,7 @@
 # Copyright 2002  Red Hat, Inc.
 #
 
-import rpm
+import rpm404 as rpm
 
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\

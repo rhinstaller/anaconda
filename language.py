@@ -16,7 +16,7 @@
 import os
 import string
 import locale
-import rpm
+import rpm404 as rpm
 
 from rhpl.translate import cat
 from rhpl.simpleconfig import SimpleConfigFile

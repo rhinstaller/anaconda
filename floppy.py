@@ -18,7 +18,7 @@ import errno
 import iutil
 import re
 import os
-import rpm
+import rpm404 as rpm
 import kudzu
 from constants import *
 from flags import flags

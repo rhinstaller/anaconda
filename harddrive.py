@@ -18,7 +18,7 @@ from image import findIsoImages
 import os
 import isys
 import iutil
-import rpm
+import rpm404 as rpm
 import string
 from rhpl.translate import _, cat, N_
 
