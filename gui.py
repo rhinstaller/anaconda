@@ -1223,12 +1223,12 @@ class InstallControlState:
             pixbuf = pixbuf.scale_simple(height, width,
                                          gtk.gdk.INTERP_BILINEAR)
 
-        pixmap = pixbuf.render_pixmap_and_mask()[0]
+        (pixmap, mask) = pixbuf.render_pixmap_and_mask()
         pixbuf.render_to_drawable(pixmap, gtk.gdk.gc_new(pixmap), 0, 0, 0, 0,
                                   pixbuf.get_width(), pixbuf.get_height(),
                                   gtk.gdk.RGB_DITHER_MAX, 0, 0)
         p = gtk.Image()
-        p.set_from_pixmap(pixmap, None)
+        p.set_from_pixmap(pixmap, mask)
         return p
 
     def readHTML (self, file):
