@@ -1059,7 +1059,9 @@ class PartitionWindow(InstallWindow):
             badblocks.set_active(0)
             maintable.attach(badblocks, 0, 1, row, row + 1)
             formatrb.connect("toggled", noformatCB, badblocks)
-            noformatCB(noformatrb, badblocks)
+            if not origrequest.format:
+                badblocks.set_sensitive(0)
+
             if origrequest.badblocks:
                 badblocks.set_active(1)
             
@@ -1102,7 +1104,6 @@ class PartitionWindow(InstallWindow):
             
         # put main table into dialog
         dialog.vbox.pack_start(maintable)
-
         dialog.show_all()
 
         while 1:
