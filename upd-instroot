@@ -40,7 +40,7 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           gnome-libs python-1 newt imlib-1 libpng libtiff libjpeg-
           libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk- pygnome-
           util-linux procps esound-0 audiofile-0 kernel-pcmcia-cs
-          Xconfigurator"
+          Xconfigurator raidtools-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -49,6 +49,8 @@ sbin/mke2fs
 sbin/mkswap
 sbin/probe
 sbin/fdisk
+sbin/mkraid
+sbin/raidstart
 etc/nsswitch.conf
 lib/ld-*
 lib/libc*
