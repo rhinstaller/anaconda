@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.32
+Version: 10.2.0.33
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar 25 2005 Bill Nottingham <notting@redhat.com> - 10.2.0.33-1
+- fix typo in partedUtils.py
+
 * Thu Mar 24 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.32-1
 - Switch theme to clearlooks
 - Add new Solaris partition id
