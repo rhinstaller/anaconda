@@ -107,7 +107,7 @@ class TimezoneWindow (InstallWindow):
             f = open ("/usr/share/anaconda/pixmaps/map480.png")
             f.close ()
         except:
-            path = "gnome-map/map480.png"
+            path = "pixmaps/map480.png"
         else:
             path = "/usr/share/anaconda/pixmaps/map480.png"
         
