@@ -840,13 +840,27 @@ if not isHeadless:
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
-        if mouse.mouseWindow(mousehw) == 0:
-	    dup_log(_("No mouse was detected.  A mouse is required for "
-		      "graphical installation.  Starting text mode."))
-            display_mode = 't'
-            time.sleep(2)
-        else:
-	    dup_log(_("Using mouse type: %s"), mousehw.shortDescription())
+	while 1:
+	    mouserc = mouse.mouseWindow(mousehw)
+	    if mouserc == 0:
+		dup_log(_("No mouse was detected.  A mouse is required for "
+			  "graphical installation.  Starting text mode."))
+		display_mode = 't'
+		time.sleep(2)
+		break
+	    elif mouserc == -1:
+		# rescan
+		mousehw.probe()
+		mousedev = mousehw.get()
+		if mousedev[0] != "No - mouse":
+		    dup_log(_("Detected mouse type: %s"), mousehw.shortDescription())
+		    time.sleep(5)
+		    break
+	    else:
+		dup_log(_("Using mouse type: %s"), mousehw.shortDescription())
+		break
+
+	    
 else: # s390/iSeries checks
     if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
                                     flags.usevnc):
