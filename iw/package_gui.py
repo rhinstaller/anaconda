@@ -501,7 +501,7 @@ class PackageSelectionWindow (InstallWindow):
     def setComponentsSensitive(self, comp, value):
 	tmpval = self.ignoreComponentToggleEvents
 	self.ignoreComponentToggleEvents = 1
-	for (cb, lbl, cbox, cbox2, cbcomp) in self.checkButtons:
+	for (cb, lbl, al, ebutton, cbox, cbox2, cbcomp) in self.checkButtons:
 	    if cbcomp.name == comp.name:
 		continue
 
@@ -516,6 +516,15 @@ class PackageSelectionWindow (InstallWindow):
 		    cb.set_active(0)
 	    else:
 		cb.set_active(0)
+
+	    if cb.get_active():
+		if ebutton:
+		    al.add(ebutton)
+		    al.show_all()
+	    else:
+		if ebutton:
+		    if ebutton in al.get_children():
+			al.remove(ebutton)
 
 	    if lbl:
 		self.setCompCountLabel(cbcomp, lbl)
@@ -540,7 +549,6 @@ class PackageSelectionWindow (InstallWindow):
 	else:
             if ebutton in al.get_children():
                 al.remove(ebutton)
-
 	    if comp.name != u"Base":
 		comp.unselect ()
 
@@ -926,7 +934,7 @@ class PackageSelectionWindow (InstallWindow):
         return
     
 
-    def getScreen(self, comps, langSupport, dispatch):
+    def getScreen(self, comps, langSupport, instClass, dispatch):
     # PackageSelectionWindow tag="sel-group"
         ICON_SIZE = 32
         
@@ -972,11 +980,15 @@ class PackageSelectionWindow (InstallWindow):
             pad.set_border_width(3)
             eventBox.add(pad)
             topbox.pack_start(eventBox)
-            
+
 	    for comp in pardict[par]:
-		if comp.hidden and comp.name != u"Base":
-		    continue
-		
+		if comp.hidden:
+		    if comp.name != u"Base":
+			continue
+		    else:
+			if not instClass.showMinimal:
+			    continue
+			
 		pixname = string.lower(comp.id) + ".png"
 		fn = self.ics.findPixmap("comps/"+pixname)
 		if not fn:
@@ -1074,7 +1086,7 @@ class PackageSelectionWindow (InstallWindow):
 		checkButton.connect('toggled', self.componentToggled,
 				    (comp, hdrlabel, count, buttonal,
                                      editbutton))
-		self.checkButtons.append ((checkButton, count, compbox, detailbox, comp))
+		self.checkButtons.append ((checkButton, count, buttonal, editbutton, compbox, detailbox, comp))
 
             # add some extra space to the end of each group
             spacer = gtk.Fixed()
