@@ -3,7 +3,6 @@
 # in text mode
 #
 # Jeremy Katz <katzj@redhat.com>
-# Harald Hoyer <harald@redhat.de>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -26,24 +25,8 @@ import partitioning
 class fdiskPartitionWindow:
     def __call__(self, screen, diskset, partrequests, intf):
         choices = []
-
-        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            fdisk_name = "fdasd"
-            listboxtext = _("Choose a disk to run fdasd or dasdfmt on")
-            buttons = [ (_("OK"), "done"), (_("Edit"), "edit"),
-                        (_("DasdFormat"), "dasdfmt"),
-                        TEXT_BACK_BUTTON ]        
-            drives =  diskset.driveList()
-        else:
-            fdisk_name = "fdisk"
-            listboxtext = _("Choose a disk to run fdisk on")
-            buttons = [ (_("OK"), "done"), (_("Edit"), "edit"),
-                        TEXT_BACK_BUTTON ]
-            drives = diskset.disks.keys()
-        
-        
+        drives = diskset.disks.keys()
         drives.sort()
-        
         for drive in drives:
             choices.append("%s" %(drive))
 
@@ -51,27 +34,20 @@ class fdiskPartitionWindow:
         diskset.closeDevices()
 
         button = None
-
-        while button != "done" and button != TEXT_BACK_CHECK:
-            
+        while button != "done" and button != "back":
             (button, choice) = \
                      ListboxChoiceWindow(screen, _("Disk Setup"),
-                     listboxtext, choices,
-                     buttons, width = 50, help = fdisk_name)
+                     _("Choose a disk to run fdisk on"), choices,
+                     [ (_("OK"), "done"), (_("Edit"), "edit"),
+                       TEXT_BACK_BUTTON ], width = 50, help = "fdisk")
 
-            if button == "edit":
+            if button != "done" and button != TEXT_BACK_CHECK:
                 device = choices[choice]
                 
-                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-                    if os.access("/sbin/fdasd", os.X_OK):
-                        path = "/sbin/fdasd"
-                    else:
-                        path = "/usr/sbin/fdasd"
+                if os.access("/sbin/fdisk", os.X_OK):
+                    path = "/sbin/fdisk"
                 else:
-                    if os.access("/sbin/fdisk", os.X_OK):
-                        path = "/sbin/fdisk"
-                    else:
-                        path = "/usr/sbin/fdisk"
+                    path = "/usr/sbin/fdisk"
 
                 try:
                     isys.makeDevInode(device, '/tmp/' + device)
@@ -79,53 +55,21 @@ class fdiskPartitionWindow:
                     pass
 
                 screen.suspend()
-                rc = iutil.execWithRedirect (path, [ path, "/tmp/" + device ],
+                iutil.execWithRedirect (path, [ path, "/tmp/" + device ],
                                         ignoreTermSigs = 1)
                 screen.resume()
-                
-                if rc:
-                    intf.messageWindow( _("Error"),
-                                        _("An error occured while running %s on drive %s.") % (path, drive))
-                    
+
                 try:
                     os.remove('/tmp/' + device)
                 except:
                     pass
 
-            elif button == "dasdfmt":
-                rc = intf.messageWindow(_("Warning"),
-                                        _("Running dasdfmt means the loss of \n"
-                                          "ALL DATA on drive %s.\n\n"
-                                          "Do you really want this?")
-                                        % (drive,), type = "yesno")
-                if rc == 0:
-                    continue
-                
-                device = choices[choice]
-                diskset.dasdFmt(intf, device)
 
-            elif button == "done" or button == TEXT_BACK_CHECK:
-                diskset.refreshDevices(intf)
+        diskset.refreshDevices(intf)
+        partitioning.checkNoDisks(diskset, intf)
+        partrequests.setFromDisk(diskset)
 
-                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-                    if len(diskset.disks.keys()) == 0:
-                        rc = intf.messageWindow(_("No Drives Found"),
-                                                _("An error has occurred - no valid devices were "
-                                                  "found on which to create new filesystems. "
-                                                  "Please check your hardware for the cause "
-                                                  "of this problem or use dasdfmt.\n\n"
-                                                  "Back to the fdasd screen?"), type = "yesno")
-                        
-                        if rc:
-                            button = ""
-
-                    
-            
-        
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        partitioning.checkNoDisks(diskset, intf)            
-        partrequests.setFromDisk(diskset)
-        
         return INSTALL_OK

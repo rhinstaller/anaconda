@@ -42,6 +42,7 @@ stepToClasses = {
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow"),
+    "fdasd" : ("fdasd_text", "fdasdPartitionWindow"),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod")),
     "partition": ("partition_text", ("PartitionWindow")),
     "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",

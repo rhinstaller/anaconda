@@ -24,12 +24,8 @@ import iutil
 class FDiskWindow (InstallWindow):		
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            self.fdisk_name = _("fdasd")
-            self.selectlabel = _("Select drive to run fdasd on")
-        else:
-            self.fdisk_name = ("fdisk")
-            self.selectlabel = _("Select drive to run fdisk on")
+        self.fdisk_name = ("fdisk")
+        self.selectlabel = _("Select drive to run fdisk on")
 
         ics.setTitle (self.fdisk_name)
         ics.readHTML (self.fdisk_name)
@@ -65,26 +61,13 @@ class FDiskWindow (InstallWindow):
         zvt.connect ("child_died", self.child_died, widget)
         self.drive = drive
 
-        #print "CALLING FDASD arch=" + iutil.getArch()
-
-
-	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            # free our fd's to the hard drive -- we have to 
-            # fstab.rescanDrives() after this or bad things happen!
-            if os.access("/sbin/fdasd", os.X_OK):
-                path = "/sbin/fdasd"
-            else:
-                path = "/usr/sbin/fdasd"
-                
-            #print "CALLING FDASD"
+        # free our fd's to the hard drive -- we have to 
+        # fstab.rescanDrives() after this or bad things happen!
+        if os.access("/sbin/fdisk", os.X_OK):
+            path = "/sbin/fdisk"
         else:
-            # free our fd's to the hard drive -- we have to 
-            # fstab.rescanDrives() after this or bad things happen!
-            if os.access("/sbin/fdisk", os.X_OK):
-                path = "/sbin/fdisk"
-            else:
-                path = "/usr/sbin/fdisk"
-        
+            path = "/usr/sbin/fdisk"
+            
 	isys.makeDevInode(drive, '/tmp/' + drive)
 
         if zvt.forkpty() == 0:
@@ -95,11 +78,7 @@ class FDiskWindow (InstallWindow):
         self.windowContainer.remove (self.buttonBox)
         self.windowContainer.pack_start (zvt)
 
-#        self.ics.setHelpEnabled (0)
-	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-            self.ics.readHTML ("fdasdpart")
-        else:
-            self.ics.readHTML ("fdiskpart")
+        self.ics.readHTML ("fdiskpart")
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 
