@@ -41,7 +41,6 @@ int vioGetCdDevs(struct knownDevices * devices) {
     i = readFD(fd, &buf);
     if (i < 1) {
         close(fd);
-        free (buf);
 	fprintf(stderr, "error reading /proc/iSeries/viocd!\n");
         return 1;
     }
@@ -120,7 +119,6 @@ int vioGetDasdDevs(struct knownDevices * devices) {
     i = readFD(fd, &buf);
     if (i < 1) {
         close(fd);
-        free (buf);
 	fprintf(stderr, "error reading /proc/iSeries/viodasd!\n");
         return 1;
     }
@@ -191,12 +189,14 @@ int isVioConsole(void) {
 	return 0;
     }
     i = readFD(fd, &buf);
-    if (i == -1) {
+    if (i < 1) {
         close(fd);
-        free(buf);
 	fprintf(stderr, "error reading /proc/tty/drivers!\n");
         return 0;
     }
+    close(fd);
+    buf[i] = '\0';
+
     isviocons = 0;
     start = buf;
     while (start && *start) {
