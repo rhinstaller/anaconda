@@ -942,7 +942,7 @@ echo "Creating bogl font..."
 OLDLANG=$LANG
 export LANG=en_US.UTF-8
 zcat $DESTGR/usr/lib/bogl/font.bdf.gz > $DESTGR/usr/lib/bogl/font.bdf
-(cat $DESTGR/usr/lib/anaconda-runtime/loader/unicode-linedraw-chars.txt ; find $DESTGR/usr/share/locale -name '*.mo' -exec msgunfmt {} \; | msguniq -t utf-8) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
+(cat $DESTGR/usr/lib/anaconda-runtime/loader/unicode-linedraw-chars.txt ; for i in $(find $DESTGR/usr/share/locale -name '*.mo'); do msgunfmt $i 2>/dev/null | msgconv -t utf-8 -o - - ; done) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
 $DESTGR/usr/bin/bdftobogl -b $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
 rm -f $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf $DESTGR/usr/lib/bogl/font.bdf $DESTGR/usr/bin/reduce-font $DESTGR/usr/bin/bdftobogl
 gzip -9 -f $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
