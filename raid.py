@@ -53,6 +53,7 @@ def scanForRaid(drives):
                         isys.raidsb(dev)
             except ValueError:
                 # bad magic, this can't be part of our raid set
+                log("reading raid sb failed for %s",dev)
                 continue
 
 	    if raidSets.has_key(raidSet):
