@@ -15,6 +15,7 @@ import isys
 import iutil
 import string
 import xkb
+import gobject
 import gtk
 from iw_gui import *
 from kbd import Keyboard
@@ -53,10 +54,15 @@ class KeyboardWindow (InstallWindow):
 
         return None
 
-    def select_row(self, clist, row, col, event):
-	self.model = self.modelList.get_row_data(self.modelList.selection[0])
-	self.layout = self.layoutList.get_row_data(self.layoutList.selection[0])
-	self.variant = self.variantList.get_row_data(self.variantList.selection[0])
+    def select_row(self, *args):        
+        model, iter = self.modelView.get_selection().get_selected()
+        self.model = model.get_value(iter, 0)
+
+        model, iter = self.layoutView.get_selection().get_selected()
+        self.layout = model.get_value(iter, 0)
+
+        model, iter = self.variantView.get_selection().get_selected()
+        self.variant = model.get_value(iter, 0)        
 
     def setMap(self, data):
         if self.flags.setupFilesystems:
@@ -110,66 +116,110 @@ class KeyboardWindow (InstallWindow):
 	box.pack_start(gtk.Label(_("Model")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.modelList = gtk.CList(1)
-	self.modelList.freeze()
-        self.modelList.set_selection_mode(gtk.SELECTION_BROWSE)
+
+        self.modelStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+
         for key, model in self.rules[0].items():
-            loc = self.modelList.append((model,))
-	    self.modelList.set_row_data(loc, key)
-            if key == self.model:
-                self.modelList.select_row(loc, 0)
-        self.modelList.sort()
-        self.modelList.connect("select_row", self.select_row)
-        self.modelList.columns_autosize()
-        self.modelList.connect_after("size-allocate", moveto)
-	self.modelList.thaw()
-        sw.add(self.modelList)
+            iter = self.modelStore.append()
+            self.modelStore.set_value(iter, 0, key)
+            self.modelStore.set_value(iter, 1, model)
+
+        self.modelView = gtk.TreeView(self.modelStore)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=1)
+        self.modelView.append_column(col)
+        self.modelView.set_property("headers-visible", gtk.FALSE)
+
+        iter = self.modelStore.get_iter_root()
+        next = 1        
+        while next:
+            if self.modelStore.get_value(iter, 0) == self.model:
+                path = self.modelStore.get_path(iter)
+                self.modelView.set_cursor(path, col, gtk.FALSE)
+                self.modelView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                break
+            next = self.modelStore.iter_next(iter)
+             
+
+        sw.add(self.modelView)
+        
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         box.pack_start(sw, gtk.TRUE)
 
 	box.pack_start(gtk.Label(_("Layout")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.layoutList = gtk.CList(1)
-	self.layoutList.freeze()
-        self.layoutList.set_selection_mode(gtk.SELECTION_BROWSE)
+
+        self.layoutStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+
         for key, layout in self.rules[1].items():
-            loc = self.layoutList.append((layout,))
-	    self.layoutList.set_row_data(loc, key)
-            if key == self.layout:
-                self.layoutList.select_row(loc, 0)
-        self.layoutList.sort()
-        self.layoutList.connect("select_row", self.select_row)
-        self.layoutList.columns_autosize()
-	self.layoutList.connect_after("size-allocate", moveto)
-	self.layoutList.thaw()
-        sw.add(self.layoutList)
-        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-	box.pack_start(sw, gtk.TRUE)
+            iter = self.layoutStore.append()
+            self.layoutStore.set_value(iter, 0, key)
+            self.layoutStore.set_value(iter, 1, layout)
+
+        self.layoutView = gtk.TreeView(self.layoutStore)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=1)
+        self.layoutView.append_column(col)
+        self.layoutView.set_property("headers-visible", gtk.FALSE)
+
+        iter = self.layoutStore.get_iter_root()
+        next = 1
+
+        while next:
+            if self.layoutStore.get_value(iter, 0) == self.layout:
+
+                path = self.layoutStore.get_path(iter)
+                self.layoutView.set_cursor(path, col, gtk.FALSE)
+                self.layoutView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                break
+            next = self.layoutStore.iter_next(iter)
+             
+
+        sw.add(self.layoutView)
+        box.pack_start(sw, gtk.TRUE)
 
 	box.pack_start(gtk.Label(_("Dead Keys")), gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.variantList = gtk.CList(1)
-        self.variantList.set_selection_mode(gtk.SELECTION_BROWSE)
-#  For now, the only variant is deadkeys, so we'll just handle that
-#  as special case, so the text can be less confusing.
-#        self.variantList.append(("None",))
-#        for (key, variant) in self.rules[2].items():
-        count = 0
-        for key, variant in(("basic",(_("Enable dead keys"))),
-                            ("nodeadkeys",(_("Disable dead keys")))):
-            loc = self.variantList.append((variant,))
-	    self.variantList.set_row_data(loc, key)
+
+        self.variantStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+
+        iter = self.variantStore.append()
+        self.variantStore.set_value(iter, 0, "basic")
+        self.variantStore.set_value(iter, 1, (_("Enable dead keys")))
+        iter = self.variantStore.append()
+        self.variantStore.set_value(iter, 0, "nodeadkeys")
+        self.variantStore.set_value(iter, 1, (_("Disable dead keys")))
+
+        self.variantView = gtk.TreeView(self.variantStore)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=1)
+        self.variantView.append_column(col)
+        self.variantView.set_property("headers-visible", gtk.FALSE)
+
+        iter = self.variantStore.get_iter_root()
+        next = 1
+
+        while next:
             if self.variant == "nodeadkeys":
-                self.variantList.select_row(count, 0)
-            count = count + 1
-            
-        self.variantList.sort()
-        self.variantList.connect("select_row", self.select_row)
-        self.variantList.columns_autosize()
-        sw.add(self.variantList)
-	box.pack_start(sw, gtk.FALSE)
+                path = self.variantStore.get_path(iter)
+                self.variantView.set_cursor(path, col, gtk.FALSE)
+                self.variantView.scroll_to_cell(path, col, gtk.FALSE, 0.5, 0.5)
+                break
+            else:
+                path = self.variantStore.get_path(iter)
+                self.variantView.set_cursor(path, col, gtk.FALSE)
+                self.variantView.scroll_to_cell(path, col, gtk.FALSE, 0.5, 0.5)
+            next = self.variantStore.iter_next(iter)
+
+        selection = self.modelView.get_selection()
+        selection.connect("changed", self.select_row)
+        
+        selection = self.layoutView.get_selection()
+        selection.connect("changed", self.select_row)
+
+        selection = self.variantView.get_selection()
+        selection.connect("changed", self.select_row)
+        sw.add(self.variantView)
+ 	box.pack_start(sw, gtk.FALSE)
 
         label = gtk.Label(_("Test your selection here:"))
         label.set_alignment(0.0, 0.5)
