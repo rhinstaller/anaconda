@@ -170,11 +170,11 @@ class FrameBufferCard(VideoCard):
 
 # This makes it use the XFree86 4.x fbdev
 # also uncomment the code below in getXServer()
-        card["DRIVER"] = "fbdev"
+#        card["DRIVER"] = "fbdev"
 #
 # This makes is use the XFree 3.x.x fbdev
 # also uncomment the code below in getXServer()
-#        card["SERVER"] = "FBDev"
+        card["SERVER"] = "FBDev"
          
         card["NAME"] = "VGA VESA Framebuffer"
 
@@ -184,11 +184,11 @@ class FrameBufferCard(VideoCard):
         
 # This makes it use the XFree86 4.x fbdev        
 # also uncomment the code above in getCardData()
-        return "XFree86"
+#        return "XFree86"
 #
 # This makes is use the XFree 3.x.x fbdev
 # also uncomment the code above in getCardData()
-#         return "XF86_FBDev"
+         return "XF86_FBDev"
 
     def isFrameBuffer(self):
         return 1
