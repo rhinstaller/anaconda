@@ -58,7 +58,7 @@ class BootloaderWindow (InstallWindow):
             self.dispatch.skipStep("bootloaderadvanced", skip = 0)            
         
         # set the bootloader pass XXX should handle the only crypted pass case
-        if self.usePassCb and self.password:
+        if self.usePassCb.get_active() and self.password:
             self.bl.setPassword(self.password, isCrypted = 0)
         else:
             self.bl.setPassword(None)
