@@ -296,6 +296,8 @@ int chrootCommand(int argc, char ** argv) {
 	return 1;
     }
 
+    chdir ("/");
+
     if (argc > 2)
 	command = argv + 2;
 
