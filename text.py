@@ -520,7 +520,6 @@ class XConfigWindow:
 
 	servers = [ "Mono", "VGA16", "SVGA", "S3", "Mach32", "Mach8", "8514", "P9000", "AGX",
 		    "W32", "W32", "Mach64", "I128", "S3V", "3DLabs" ]
-	server = None
 
 	rc = INSTALL_NOOP
 	while rc != INSTALL_OK:
