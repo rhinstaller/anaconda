@@ -555,10 +555,6 @@ aha1542
 	scsi_hostadapter
 	"Adaptec AHA-154x and 631x-based"
 
-aha1740
-	scsi_hostadapter
-	"Adaptec AHA-174x"
-
 aic7xxx
 	scsi_hostadapter
 	"Adaptec AHA-2740, 28xx, 29xx, 39xx"
@@ -599,10 +595,6 @@ dpt_i2o
 	scsi_hostadapter
 	"Adaptec I2O RAID Driver"
 	
-dtc
-	scsi_hostadapter
-	"DTC 3180/3280"
-
 # deprecated
 eata
 	scsi_hostadapter
@@ -642,15 +634,6 @@ i2o_block
         scsi
         "I2O Block driver"
 
-imm
-	scsi_hostadapter
-	"Iomega ZIP Plus"
-
-in2000
-	scsi_hostadapter
-	"IN2000 SCSI"
-	setup_string "ioport:addr"
-
 initio
 	scsi_hostadapter
 	"Initio SCSI"
@@ -675,10 +658,6 @@ ncr53c8xx
 	scsi_hostadapter
 	"Symbios/NCR 53C8xx"
 
-pas16
-	scsi_hostadapter
-	"Pro Audio Spectrum/Studio 16"
-
 pci2000
 	scsi_hostadapter
 	"PCI-2000 IntelliCache"
@@ -691,21 +670,9 @@ pluto
 	scsi_hostadapter
 	"SparcSTORAGE Array"
 
-ppa
-	scsi_hostadapter
-	"IOMEGA VPI0/Parallel ZIP"
-
-imm
-	scsi_hostadapter
-	"IOMEGA VPI2/Parallel ZIP"
-
 pcd
 	block-major-46  cdrom
 	"Parallel-port IDE CDROM"
-
-psi240i
-	scsi_hostadapter
-	"PSI240I EIDE"
 
 qlogicfas
 	scsi_hostadapter
@@ -775,10 +742,6 @@ sym53c8xx
 	scsi_hostadapter
 	"Symbios 53C896"
 
-t128
-	scsi_hostadapter
-	"Trantor T128/T128F/T228"
-
 tmscsim
 	scsi_hostadapter
 	"Tekram DC-390(T) PCI"
@@ -794,10 +757,6 @@ ultrastor
 #wd33c93
 #	scsi_hostadapter
 #	"Amiga A2091/590"
-
-wd7000
-	scsi_hostadapter
-	"WD7000 series"
 
 # drivers/cdrom
 
