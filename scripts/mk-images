@@ -821,12 +821,10 @@ for kernelvers in $vertag; do
 	usage
     fi
 
-    if [ -d $KERNELROOT/lib/modules/$version/pcmcia -a -f $KERNELROOT/etc/pcmcia/config ]; then
-	# This gets all of the modules in the pcmcia directory, as well as
-	# everything mentioned in /etc/pcmcia/config
-	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config;
-	 cd $KERNELROOT/lib/modules/$version/pcmcia; ls *.o | sed 's/\.o//g') |
-	    sort -u)
+    if [ -f $KERNELROOT/etc/pcmcia/config ]; then
+	# This gets everything mentioned in /etc/pcmcia/config.  We probably
+	# want to do some module-info stuff here too
+	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.o//g') | sort -u)
     fi
 
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
