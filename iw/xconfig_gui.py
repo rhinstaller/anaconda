@@ -331,13 +331,28 @@ class XConfigWindow (InstallWindow):
         self.todo.x.vidRam = size[:-1]
         self.todo.x.filterModesByMemory ()
 
-    def moveto (self, clist, area, row):
-        clist.select_row (row, 0)
-        clist.moveto (row, 0, 0.5, 0.0)
+#    def moveto (self, clist, area, row):
+#        clist.select_row (row, 0)
+#        clist.moveto (row, 0, 0.5, 0.0)
 
+    def movetree (self, ctree, area, selected_node):
+        self.ctree.select(selected_node)
+        parent_node, cardname = self.ctree.node_get_row_data(selected_node)                        
+        self.ctree.expand(parent_node)
+        self.ctree.node_moveto(selected_node, 0, 0.5, 0)
 
-    def selectCb (self, list, row, col, event):
-        cardname = list.get_row_data (row)
+#    def selectCb (self, list, row, col, event):
+#        cardname = list.get_row_data (row)
+#        if cardname:
+#            card = self.cards[cardname]
+#            depth = 0
+#            while depth < 16 and card.has_key ("SEE"):
+#                card = self.cards[card["SEE"]]
+#                depth = depth + 1
+#            self.todo.x.setVidcard (card)
+
+    def selectCb_tree (self, ctree, node, column):
+        parent, cardname = ctree.node_get_row_data (node)
         if cardname:
             card = self.cards[cardname]
             depth = 0
@@ -345,7 +360,7 @@ class XConfigWindow (InstallWindow):
                 card = self.cards[card["SEE"]]
                 depth = depth + 1
             self.todo.x.setVidcard (card)
-
+            
     def desktopCb (self, widget, desktop):
         self.newDesktop = desktop
         
@@ -429,13 +444,13 @@ class XConfigWindow (InstallWindow):
         if arch == "i386" or arch == "alpha":
 
         # Monitor selection tree
-            ctree = GtkCTree ()
-            ctree.set_selection_mode (SELECTION_BROWSE)
-            ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
-            ctree.set_line_style(CTREE_LINES_NONE)
-#            ctree.connect ("tree_select_row", self.selectCb)
+            self.ctree = GtkCTree ()
+            self.ctree.set_selection_mode (SELECTION_BROWSE)
+            self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
+            self.ctree.set_line_style(CTREE_LINES_NONE)
+#            self.ctree.connect ("tree_select_row", self.selectCb)
 
-            self.videocard_p, self.videocard_b = create_pixmap_from_xpm_d (ctree, None, xpms_gui.VIDEOCARD_XPM)
+            self.videocard_p, self.videocard_b = create_pixmap_from_xpm_d (self.ctree, None, xpms_gui.VIDEOCARD_XPM)
 
             manufacturer = ["AOpen", "ASUS", "ATI", "Actix", "Ark Logic", "Avance Logic", "Compaq",
                             "Canopus", "Cardex", "Chaintech", "Chips & Technologies", "Cirrus", "Creative Labs",
@@ -447,334 +462,395 @@ class XConfigWindow (InstallWindow):
                             "Sierra", "Sigma", "Soyo", "Spider", "Sun", "TechWorks", "Toshiba", "Trident",
                             "VideoLogic", "ViewTop", "Voodoo", "WD", "WinFast"]     
 
-            parents = ["AOpen", "ASUS", "ATI", "Actix", "Ark Logic", "Avance Logic", "Compaq",
-                            "Canopus", "Cardex", "Chaintech", "Chips & Technologies", "Cirrus", "Creative Labs",
-                            "DFI", "DSV", "DataExpert", "Dell", "Diamond", "Digital", "ELSA", "EONtronics",
-                            "Epson", "ExpertColor", "Gainward", "Generic", "Genoa", "Hercules", "Intel",
-                            "Jaton", "LeadTek", "MELCO", "MachSpeed", "Matrox", "Miro", "NVIDIA", "NeoMagic",
-                            "Number Nine", "Oak", "Octek", "Orchid", "Paradise", "PixelView", "Quantum",
-                            "RIVA", "Real3D", "Rendition", "S3", "Sharp", "SMI", "SNI", "SPEA", "STB", "SiS",
-                            "Sierra", "Sigma", "Soyo", "Spider", "Sun", "TechWorks", "Toshiba", "Trident",
-                            "VideoLogic", "ViewTop", "Voodoo", "WD", "WinFast"]
-#            for man in manufacturer:
-#                for parent in parents:
-                    
-#                print man
-#                    parent = ctree.insert_node (None, None, (man,), 2, self.videocard_p, self.videocard_b,
-#                                                self.videocard_p, self.videocard_b, FALSE)
- 
-
                 
-            aopen = ctree.insert_node (None, None, ("AOpen",), 2, self.videocard_p, self.videocard_b,
+            aopen = self.ctree.insert_node (None, None, ("AOpen",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            asus = ctree.insert_node (None, None, ("ASUS ",), 2, self.videocard_p, self.videocard_b,
+            asus = self.ctree.insert_node (None, None, ("ASUS ",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            ati = ctree.insert_node (None, None, ("ATI",), 2, self.videocard_p, self.videocard_b,
+            ati = self.ctree.insert_node (None, None, ("ATI",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            actix = ctree.insert_node (None, None, ("Actix ",), 2, self.videocard_p, self.videocard_b,
+            actix = self.ctree.insert_node (None, None, ("Actix ",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            arklogic = ctree.insert_node (None, None, ("Ark Logic ",), 2, self.videocard_p, self.videocard_b,
+            arklogic = self.ctree.insert_node (None, None, ("Ark Logic ",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            avancelogic = ctree.insert_node (None, None, ("Avance Logic ",), 2, self.videocard_p, self.videocard_b,
+            avancelogic = self.ctree.insert_node (None, None, ("Avance Logic ",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            compaq = ctree.insert_node (None, None, ("Compaq",), 2, self.videocard_p, self.videocard_b,
+            compaq = self.ctree.insert_node (None, None, ("Compaq",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            canopus = ctree.insert_node (None, None, ("Canopus",), 2, self.videocard_p, self.videocard_b,
+            canopus = self.ctree.insert_node (None, None, ("Canopus",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            cardex = ctree.insert_node (None, None, ("Cardex",), 2, self.videocard_p, self.videocard_b,
+            cardex = self.ctree.insert_node (None, None, ("Cardex",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            chaintech = ctree.insert_node (None, None, ("Chaintech",), 2, self.videocard_p, self.videocard_b,
+            chaintech = self.ctree.insert_node (None, None, ("Chaintech",), 2, self.videocard_p, self.videocard_b,
                                            self.videocard_p, self.videocard_b, FALSE)
-            cnt = ctree.insert_node (None, None, ("Chips & Technologies",), 2, self.videocard_p, self.videocard_b,
+            cnt = self.ctree.insert_node (None, None, ("Chips & Technologies",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            cirrus = ctree.insert_node (None, None, ("Cirrus",), 2, self.videocard_p, self.videocard_b,
+            cirrus = self.ctree.insert_node (None, None, ("Cirrus",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            creativelabs = ctree.insert_node (None, None, ("Creative Labs",), 2, self.videocard_p, self.videocard_b,
+            creativelabs = self.ctree.insert_node (None, None, ("Creative Labs",), 2, self.videocard_p, self.videocard_b,
                                               self.videocard_p, self.videocard_b, FALSE)
-            dfi = ctree.insert_node (None, None, ("DFI",), 2, self.videocard_p, self.videocard_b,
+            dfi = self.ctree.insert_node (None, None, ("DFI",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            dsv = ctree.insert_node (None, None, ("DSV",), 2, self.videocard_p, self.videocard_b,
+            dsv = self.ctree.insert_node (None, None, ("DSV",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            dataexpert = ctree.insert_node (None, None, ("Data Expert",), 2, self.videocard_p, self.videocard_b,
+            dataexpert = self.ctree.insert_node (None, None, ("Data Expert",), 2, self.videocard_p, self.videocard_b,
                                             self.videocard_p, self.videocard_b, FALSE)
-            dell = ctree.insert_node (None, None, ("Dell",), 2, self.videocard_p, self.videocard_b,
+            dell = self.ctree.insert_node (None, None, ("Dell",), 2, self.videocard_p, self.videocard_b,
                                       self.videocard_p, self.videocard_b, FALSE)
-            diamond = ctree.insert_node (None, None, ("Diamond",), 2, self.videocard_p, self.videocard_b,
+            diamond = self.ctree.insert_node (None, None, ("Diamond",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            digital = ctree.insert_node (None, None, ("Digital",), 2, self.videocard_p, self.videocard_b,
+            digital = self.ctree.insert_node (None, None, ("Digital",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            elsa = ctree.insert_node (None, None, ("ELSA",), 2, self.videocard_p, self.videocard_b,
+            elsa = self.ctree.insert_node (None, None, ("ELSA",), 2, self.videocard_p, self.videocard_b,
                                       self.videocard_p, self.videocard_b, FALSE)
-            eontronics = ctree.insert_node (None, None, ("EONtronics",), 2, self.videocard_p, self.videocard_b,
+            eontronics = self.ctree.insert_node (None, None, ("EONtronics",), 2, self.videocard_p, self.videocard_b,
                                             self.videocard_p, self.videocard_b, FALSE)
-            epson = ctree.insert_node (None, None, ("Epson",), 2, self.videocard_p, self.videocard_b,
+            epson = self.ctree.insert_node (None, None, ("Epson",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            expertcolor = ctree.insert_node (None, None, ("ExpertColor",), 2, self.videocard_p, self.videocard_b,
+            expertcolor = self.ctree.insert_node (None, None, ("ExpertColor",), 2, self.videocard_p, self.videocard_b,
                                              self.videocard_p, self.videocard_b, FALSE)
-            gainward = ctree.insert_node (None, None, ("Gainward",), 2, self.videocard_p, self.videocard_b,
+            gainward = self.ctree.insert_node (None, None, ("Gainward",), 2, self.videocard_p, self.videocard_b,
                                           self.videocard_p, self.videocard_b, FALSE)
-            generic = ctree.insert_node (None, None, ("Generic",), 2, self.videocard_p, self.videocard_b,
+            generic = self.ctree.insert_node (None, None, ("Generic",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            genoa = ctree.insert_node (None, None, ("Genoa",), 2, self.videocard_p, self.videocard_b,
+            genoa = self.ctree.insert_node (None, None, ("Genoa",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            hercules = ctree.insert_node (None, None, ("Hercules",), 2, self.videocard_p, self.videocard_b,
+            hercules = self.ctree.insert_node (None, None, ("Hercules",), 2, self.videocard_p, self.videocard_b,
                                           self.videocard_p, self.videocard_b, FALSE)
-            intel = ctree.insert_node (None, None, ("Intel",), 2, self.videocard_p, self.videocard_b,
+            intel = self.ctree.insert_node (None, None, ("Intel",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            jaton = ctree.insert_node (None, None, ("Jaton",), 2, self.videocard_p, self.videocard_b,
+            jaton = self.ctree.insert_node (None, None, ("Jaton",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            leadtek = ctree.insert_node (None, None, ("LeadTek",), 2, self.videocard_p, self.videocard_b,
+            leadtek = self.ctree.insert_node (None, None, ("LeadTek",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            melco = ctree.insert_node (None, None, ("MELCO",), 2, self.videocard_p, self.videocard_b,
+            melco = self.ctree.insert_node (None, None, ("MELCO",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            machspeed = ctree.insert_node (None, None, ("MachSpeed",), 2, self.videocard_p, self.videocard_b,
+            machspeed = self.ctree.insert_node (None, None, ("MachSpeed",), 2, self.videocard_p, self.videocard_b,
                                            self.videocard_p, self.videocard_b, FALSE)
-            matrox = ctree.insert_node (None, None, ("Matrox",), 2, self.videocard_p, self.videocard_b,
+            matrox = self.ctree.insert_node (None, None, ("Matrox",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            miro = ctree.insert_node (None, None, ("Miro",), 2, self.videocard_p, self.videocard_b,
+            miro = self.ctree.insert_node (None, None, ("Miro",), 2, self.videocard_p, self.videocard_b,
                                       self.videocard_p, self.videocard_b, FALSE)
-            nvidia = ctree.insert_node (None, None, ("NVIDIA",), 2, self.videocard_p, self.videocard_b,
+            nvidia = self.ctree.insert_node (None, None, ("NVIDIA",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            neomagic = ctree.insert_node (None, None, ("NeoMagic",), 2, self.videocard_p, self.videocard_b,
+            neomagic = self.ctree.insert_node (None, None, ("NeoMagic",), 2, self.videocard_p, self.videocard_b,
                                           self.videocard_p, self.videocard_b, FALSE)
-            numbernine = ctree.insert_node (None, None, ("Number Nine",), 2, self.videocard_p, self.videocard_b,
+            numbernine = self.ctree.insert_node (None, None, ("Number Nine",), 2, self.videocard_p, self.videocard_b,
                                             self.videocard_p, self.videocard_b, FALSE)
-            oak = ctree.insert_node (None, None, ("Oak",), 2, self.videocard_p, self.videocard_b,
+            oak = self.ctree.insert_node (None, None, ("Oak",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            octek = ctree.insert_node (None, None, ("Octek",), 2, self.videocard_p, self.videocard_b,
+            octek = self.ctree.insert_node (None, None, ("Octek",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            orchid = ctree.insert_node (None, None, ("Orchid",), 2, self.videocard_p, self.videocard_b,
+            orchid = self.ctree.insert_node (None, None, ("Orchid",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            other = ctree.insert_node (None, None, ("Other",), 2, self.videocard_p, self.videocard_b,
+            other = self.ctree.insert_node (None, None, ("Other",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            paradise = ctree.insert_node (None, None, ("Paradise",), 2, self.videocard_p, self.videocard_b,
+            paradise = self.ctree.insert_node (None, None, ("Paradise",), 2, self.videocard_p, self.videocard_b,
                                           self.videocard_p, self.videocard_b, FALSE)
-            pixelview = ctree.insert_node (None, None, ("PixelView",), 2, self.videocard_p, self.videocard_b,
+            pixelview = self.ctree.insert_node (None, None, ("PixelView",), 2, self.videocard_p, self.videocard_b,
                                            self.videocard_p, self.videocard_b, FALSE)
-            quantum = ctree.insert_node (None, None, ("Quantum",), 2, self.videocard_p, self.videocard_b,
+            quantum = self.ctree.insert_node (None, None, ("Quantum",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            riva = ctree.insert_node (None, None, ("RIVA",), 2, self.videocard_p, self.videocard_b,
+            riva = self.ctree.insert_node (None, None, ("RIVA",), 2, self.videocard_p, self.videocard_b,
                                       self.videocard_p, self.videocard_b, FALSE)
-            real3D = ctree.insert_node (None, None, ("Real3D",), 2, self.videocard_p, self.videocard_b,
+            real3D = self.ctree.insert_node (None, None, ("Real3D",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            rendition = ctree.insert_node (None, None, ("Rendition",), 2, self.videocard_p, self.videocard_b,
+            rendition = self.ctree.insert_node (None, None, ("Rendition",), 2, self.videocard_p, self.videocard_b,
                                            self.videocard_p, self.videocard_b, FALSE)
-            s3 = ctree.insert_node (None, None, ("S3",), 2, self.videocard_p, self.videocard_b,
+            s3 = self.ctree.insert_node (None, None, ("S3",), 2, self.videocard_p, self.videocard_b,
                                     self.videocard_p, self.videocard_b, FALSE)
-            sharp = ctree.insert_node (None, None, ("Sharp",), 2, self.videocard_p, self.videocard_b,
+            sharp = self.ctree.insert_node (None, None, ("Sharp",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            smi = ctree.insert_node (None, None, ("SMI",), 2, self.videocard_p, self.videocard_b,
+            smi = self.ctree.insert_node (None, None, ("SMI",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            sni = ctree.insert_node (None, None, ("SNI",), 2, self.videocard_p, self.videocard_b,
+            sni = self.ctree.insert_node (None, None, ("SNI",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            spea = ctree.insert_node (None, None, ("SPEA",), 2, self.videocard_p, self.videocard_b,
+            spea = self.ctree.insert_node (None, None, ("SPEA",), 2, self.videocard_p, self.videocard_b,
                                       self.videocard_p, self.videocard_b, FALSE)
-            stb = ctree.insert_node (None, None, ("STB",), 2, self.videocard_p, self.videocard_b,
+            stb = self.ctree.insert_node (None, None, ("STB",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            sis = ctree.insert_node (None, None, ("SiS",), 2, self.videocard_p, self.videocard_b,
+            sis = self.ctree.insert_node (None, None, ("SiS",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            sierra = ctree.insert_node (None, None, ("Sierra",), 2, self.videocard_p, self.videocard_b,
+            sierra = self.ctree.insert_node (None, None, ("Sierra",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            sigma = ctree.insert_node (None, None, ("Sigma",), 2, self.videocard_p, self.videocard_b,
+            sigma = self.ctree.insert_node (None, None, ("Sigma",), 2, self.videocard_p, self.videocard_b,
                                        self.videocard_p, self.videocard_b, FALSE)
-            soyo = ctree.insert_node (None, None, ("Soyo",), 2, self.videocard_p, self.videocard_b,
+            soyo = self.ctree.insert_node (None, None, ("Soyo",), 2, self.videocard_p, self.videocard_b,
                                       self.videocard_p, self.videocard_b, FALSE)
-            spider = ctree.insert_node (None, None, ("Spider",), 2, self.videocard_p, self.videocard_b,
+            spider = self.ctree.insert_node (None, None, ("Spider",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            sun = ctree.insert_node (None, None, ("Sun",), 2, self.videocard_p, self.videocard_b,
+            sun = self.ctree.insert_node (None, None, ("Sun",), 2, self.videocard_p, self.videocard_b,
                                      self.videocard_p, self.videocard_b, FALSE)
-            techworks = ctree.insert_node (None, None, ("TechWorks",), 2, self.videocard_p, self.videocard_b,
+            techworks = self.ctree.insert_node (None, None, ("TechWorks",), 2, self.videocard_p, self.videocard_b,
                                            self.videocard_p, self.videocard_b, FALSE)
-            toshiba = ctree.insert_node (None, None, ("Toshiba",), 2, self.videocard_p, self.videocard_b,
+            toshiba = self.ctree.insert_node (None, None, ("Toshiba",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            trident = ctree.insert_node (None, None, ("Trident",), 2, self.videocard_p, self.videocard_b,
+            trident = self.ctree.insert_node (None, None, ("Trident",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            videologic = ctree.insert_node (None, None, ("VideoLogic",), 2, self.videocard_p, self.videocard_b,
+            videologic = self.ctree.insert_node (None, None, ("VideoLogic",), 2, self.videocard_p, self.videocard_b,
                                             self.videocard_p, self.videocard_b, FALSE)
-            viewtop = ctree.insert_node (None, None, ("ViewTop",), 2, self.videocard_p, self.videocard_b,
+            viewtop = self.ctree.insert_node (None, None, ("ViewTop",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
-            voodoo = ctree.insert_node (None, None, ("Voodoo",), 2, self.videocard_p, self.videocard_b,
+            voodoo = self.ctree.insert_node (None, None, ("Voodoo",), 2, self.videocard_p, self.videocard_b,
                                         self.videocard_p, self.videocard_b, FALSE)
-            wd = ctree.insert_node (None, None, ("WD",), 2, self.videocard_p, self.videocard_b,
+            wd = self.ctree.insert_node (None, None, ("WD",), 2, self.videocard_p, self.videocard_b,
                                     self.videocard_p, self.videocard_b, FALSE)
-            winfast = ctree.insert_node (None, None, ("WinFast",), 2, self.videocard_p, self.videocard_b,
+            winfast = self.ctree.insert_node (None, None, ("WinFast",), 2, self.videocard_p, self.videocard_b,
                                          self.videocard_p, self.videocard_b, FALSE)
 
 
-            self.cardList = GtkCList ()
-            self.cardList.set_selection_mode (SELECTION_BROWSE)
-            self.cardList.connect ("select_row", self.selectCb)
+
+#            self.cardList = GtkCList ()
+#            self.cardList.set_selection_mode (SELECTION_BROWSE)
+#            self.cardList.connect ("select_row", self.selectCb)
+
+            self.ctree.connect ("tree_select_row", self.selectCb_tree)
+
 
             self.cards = self.todo.x.cards ()
             cards = self.cards.keys ()
             cards.sort ()
             select = 0
-
-
+ 
+            
 #            print parent
             for card in cards:
-                
                 temp = string.lower(card)
 #                print card[:5]
 #                print temp
 #                print manufacturer[1]
 
+
                 if temp[:5] == "aopen":
-                    node = ctree.insert_node (aopen, None, (card,), 2)
+                    node = self.ctree.insert_node (aopen, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (aopen, card))
 #                    print card
                 elif temp[:4] == "asus":
-                    node = ctree.insert_node (asus, None, (card,), 2)
+                    node = self.ctree.insert_node (asus, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (asus, card))
                 elif temp[:3] == "ati":
-                    node = ctree.insert_node (ati, None, (card,), 2)
+                    node = self.ctree.insert_node (ati, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (ati, card))
                 elif temp[:5] == "actix":
-                    node = ctree.insert_node (actix, None, (card,), 2)
+                    node = self.ctree.insert_node (actix, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (actix, card))
                 elif temp[:9] == "ark logic":
-                    node = ctree.insert_node (arklogic, None, (card,), 2)
+                    node = self.ctree.insert_node (arklogic, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (arklogic, card))
                 elif temp[:12] == "avance logic":
-                    node = ctree.insert_node (avancelogic, None, (card,), 2)
+                    node = self.ctree.insert_node (avancelogic, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (avancelogic, card))
                 elif temp[:6] == "compaq":
-                    node = ctree.insert_node (compaq, None, (card,), 2)
+                    node = self.ctree.insert_node (compaq, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (compaq, card))
                 elif temp[:7] == "canopus":
-                    node = ctree.insert_node (canopus, None, (card,), 2)
+                    node = self.ctree.insert_node (canopus, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (canopus, card))
                 elif temp[:6] == "cardex":
-                    node = ctree.insert_node (cardex, None, (card,), 2)
+                    node = self.ctree.insert_node (cardex, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (cardex, card))
                 elif temp[:9] == "chaintech":
-                    node = ctree.insert_node (chaintech, None, (card,), 2)
+                    node = self.ctree.insert_node (chaintech, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (chaintech, card))
                 elif temp[:5] == "chips":
-                    node = ctree.insert_node (cnt, None, (card,), 2)
+                    node = self.ctree.insert_node (cnt, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (cnt, card))
                 elif temp[:6] == "cirrus":
-                    node = ctree.insert_node (cirrus, None, (card,), 2)
+                    node = self.ctree.insert_node (cirrus, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (cirrus, card))
                 elif temp[:8] == "creative":
-                    node = ctree.insert_node (creativelabs, None, (card,), 2)
+                    node = self.ctree.insert_node (creativelabs, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (creativelabs, card))
                 elif temp[:3] == "dfi":
-                    node = ctree.insert_node (dfi, None, (card,), 2)
+                    node = self.ctree.insert_node (dfi, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (dfi, card))
                 elif temp[:3] == "dsv":
-                    node = ctree.insert_node (dsv, None, (card,), 2)
+                    node = self.ctree.insert_node (dsv, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (dsv, card))
                 elif temp[:4] == "data":
-                    node = ctree.insert_node (dataexpert, None, (card,), 2)
+                    node = self.ctree.insert_node (dataexpert, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (dataexpert, card))
                 elif temp[:4] == "dell":
-                    node = ctree.insert_node (dell, None, (card,), 2)
+                    node = self.ctree.insert_node (dell, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (dell, card))
                 elif temp[:7] == "diamond":
-                    node = ctree.insert_node (diamond, None, (card,), 2)
+                    node = self.ctree.insert_node (diamond, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (diamond, card))
                 elif temp[:7] == "digital":
-                    node = ctree.insert_node (digital, None, (card,), 2)
+                    node = self.ctree.insert_node (digital, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (digital, card))
                 elif temp[:4] == "elsa":
-                    node = ctree.insert_node (elsa, None, (card,), 2)
+                    node = self.ctree.insert_node (elsa, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (elsa, card))
                 elif temp[:10] == "eontronics":
-                    node = ctree.insert_node (eontronics, None, (card,), 2)
+                    node = self.ctree.insert_node (eontronics, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (eontronics, card))
                 elif temp[:5] == "epson":
-                    node = ctree.insert_node (epson, None, (card,), 2)
+                    node = self.ctree.insert_node (epson, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (epson, card))
                 elif temp[:11] == "expertcolor":
-                    node = ctree.insert_node (expertcolor, None, (card,), 2)
+                    node = self.ctree.insert_node (expertcolor, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (expertcolor, card))
                 elif temp[:8] == "gainward":
-                    node = ctree.insert_node (gainward, None, (card,), 2)
+                    node = self.ctree.insert_node (gainward, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (gainward, card))
                 elif temp[:7] == "generic":
-                    node = ctree.insert_node (generic, None, (card,), 2)
+                    node = self.ctree.insert_node (generic, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (generic, card))
                 elif temp[:5] == "genoa":
-                    node = ctree.insert_node (genoa, None, (card,), 2)
+                    node = self.ctree.insert_node (genoa, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (genoa, card))
                 elif temp[:8] == "hercules":
-                    node = ctree.insert_node (hercules, None, (card,), 2)
+                    node = self.ctree.insert_node (hercules, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (hercules, card))
                 elif temp[:5] == "intel":
-                    node = ctree.insert_node (intel, None, (card,), 2)
+                    node = self.ctree.insert_node (intel, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (intel, card))
                 elif temp[:5] == "jaton":
-                    node = ctree.insert_node (jaton, None, (card,), 2)
+                    node = self.ctree.insert_node (jaton, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (jaton, card))
                 elif temp[:7] == "leadtek":
-                    node = ctree.insert_node (leadtek, None, (card,), 2)
+                    node = self.ctree.insert_node (leadtek, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (leadtek, card))
                 elif temp[:5] == "melco":
-                    node = ctree.insert_node (melco, None, (card,), 2)
+                    node = self.ctree.insert_node (melco, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (melco, card))
                 elif temp[:9] == "machspeed":
-                    node = ctree.insert_node (machspeed, None, (card,), 2)
+                    node = self.ctree.insert_node (machspeed, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (machspeed, card))
                 elif temp[:6] == "matrox":
-                    node = ctree.insert_node (matrox, None, (card,), 2)
+                    node = self.ctree.insert_node (matrox, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (matrox, card))
                 elif temp[:4] == "miro":
-                    node = ctree.insert_node (miro, None, (card,), 2)
+                    node = self.ctree.insert_node (miro, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (miro, card))
                 elif temp[:6] == "nvidia":
-                    node = ctree.insert_node (nvidia, None, (card,), 2)
+                    node = self.ctree.insert_node (nvidia, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (nvidia, card))
                 elif temp[:8] == "neomagic":
-                    node = ctree.insert_node (neomagic, None, (card,), 2)
+                    node = self.ctree.insert_node (neomagic, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (neomagic, card))
                 elif temp[:6] == "number":
-                    node = ctree.insert_node (numbernine, None, (card,), 2)
+                    node = self.ctree.insert_node (numbernine, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (numbernine, card))
                 elif temp[:3] == "oak":
-                    node = ctree.insert_node (oak, None, (card,), 2)
+                    node = self.ctree.insert_node (oak, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (oak, card))
                 elif temp[:5] == "octek":
-                    node = ctree.insert_node (octek, None, (card,), 2)
+                    node = self.ctree.insert_node (octek, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (octek, card))
                 elif temp[:6] == "orchid":
-                    node = ctree.insert_node (orchid, None, (card,), 2)
+                    node = self.ctree.insert_node (orchid, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (orchid, card))
                 elif temp[:8] == "paradise":
-                    node = ctree.insert_node (paradise, None, (card,), 2)
+                    node = self.ctree.insert_node (paradise, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (paradise, card))
                 elif temp[:9] == "pixelview":
-                    node = ctree.insert_node (pixelview, None, (card,), 2)
+                    node = self.ctree.insert_node (pixelview, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (pixelview, card))
                 elif temp[:7] == "quantum":
-                    node = ctree.insert_node (quantum, None, (card,), 2)
+                    node = self.ctree.insert_node (quantum, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (quantum, card))
                 elif temp[:4] == "riva":
-                    node = ctree.insert_node (riva, None, (card,), 2)
+                    node = self.ctree.insert_node (riva, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (riva, card))
                 elif temp[:6] == "real3d":
-                    node = ctree.insert_node (real3D, None, (card,), 2)
+                    node = self.ctree.insert_node (real3D, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (real3D, card))
                 elif temp[:9] == "rendition":
-                    node = ctree.insert_node (rendition, None, (card,), 2)
+                    node = self.ctree.insert_node (rendition, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (rendition, card))
                 elif temp[:2] == "s3":
-                    node = ctree.insert_node (s3, None, (card,), 2)
+                    node = self.ctree.insert_node (s3, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (s3, card))
                 elif temp[:5] == "sharp":
-                    node = ctree.insert_node (sharp, None, (card,), 2)
+                    node = self.ctree.insert_node (sharp, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (sharp, card))
                 elif temp[:3] == "smi":
-                    node = ctree.insert_node (smi, None, (card,), 2)
+                    node = self.ctree.insert_node (smi, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (smi, card))
                 elif temp[:3] == "sni":
-                    node = ctree.insert_node (sni, None, (card,), 2)
+                    node = self.ctree.insert_node (sni, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (sni, card))
                 elif temp[:4] == "spea":
-                    node = ctree.insert_node (spea, None, (card,), 2)
+                    node = self.ctree.insert_node (spea, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (spea, card))
                 elif temp[:3] == "stb":
-                    node = ctree.insert_node (stb, None, (card,), 2)
+                    node = self.ctree.insert_node (stb, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (stb, card))
                 elif temp[:3] == "sis":
-                    node = ctree.insert_node (sis, None, (card,), 2)
+                    node = self.ctree.insert_node (sis, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (sis, card))
                 elif temp[:6] == "sierra":
-                    node = ctree.insert_node (sierra, None, (card,), 2)
+                    node = self.ctree.insert_node (sierra, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (sierra, card))
                 elif temp[:5] == "sigma":
-                    node = ctree.insert_node (sigma, None, (card,), 2)
+                    node = self.ctree.insert_node (sigma, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (sigma, card))
                 elif temp[:4] == "soyo":
-                    node = ctree.insert_node (soyo, None, (card,), 2)
+                    node = self.ctree.insert_node (soyo, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (soyo, card))
                 elif temp[:6] == "spider":
-                    node = ctree.insert_node (spider, None, (card,), 2)
+                    node = self.ctree.insert_node (spider, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (spider, card))
                 elif temp[:3] == "sun":
-                    node = ctree.insert_node (sun, None, (card,), 2)
+                    node = self.ctree.insert_node (sun, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (sun, card))
                 elif temp[:9] == "techworks":
-                    node = ctree.insert_node (techworks, None, (card,), 2)
+                    node = self.ctree.insert_node (techworks, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (techworks, card))
                 elif temp[:7] == "toshiba":
-                    node = ctree.insert_node (toshiba, None, (card,), 2)
+                    node = self.ctree.insert_node (toshiba, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (toshiba, card))
                 elif temp[:7] == "trident":
-                    node = ctree.insert_node (trident, None, (card,), 2)
+                    node = self.ctree.insert_node (trident, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (trident, card))
                 elif temp[:10] == "videologic":
-                    node = ctree.insert_node (videologic, None, (card,), 2)
+                    node = self.ctree.insert_node (videologic, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (videologic, card))
                 elif temp[:7] == "viewtop":
-                    node = ctree.insert_node (viewtop, None, (card,), 2)
+                    node = self.ctree.insert_node (viewtop, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (viewtop, card))
                 elif temp[:6] == "voodoo":
-                    node = ctree.insert_node (voodoo, None, (card,), 2)
+                    node = self.ctree.insert_node (voodoo, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (voodoo, card))
                 elif temp[:2] == "wd":
-                    node = ctree.insert_node (wd, None, (card,), 2)
+                    node = self.ctree.insert_node (wd, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (wd, card))
                 elif temp[:7] == "winfast":
-                    node = ctree.insert_node (winfast, None, (card,), 2)
+                    node = self.ctree.insert_node (winfast, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (winfast, card))
                 else:
-                    node = ctree.insert_node (other, None, (card,), 2)
+                    node = self.ctree.insert_node (other, None, (card,), 2)
+                    self.ctree.node_set_row_data(node, (other, card))
 
 
-
-
-
-                    
-            for card in cards:
-                row = self.cardList.append ((card,))
-                self.cardList.set_row_data (row, card)
-#                print "Row = ", row
-#                print "Card = ", card
                 if self.todo.x.vidCards:
                     if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
-                        select = row
+                        selected_node = node
                 else:
                     if card == "Generic VGA compatible":
-                        select = row
-            self.cardList.connect ("draw", self.moveto, select)
+                        selected_node = node
+                    
+#            for card in cards:
+#                row = self.cardList.append ((card,))
+#                self.cardList.set_row_data (row, card)
+#                print "Row = ", row
+#                print "Card = ", card
+#                if self.todo.x.vidCards:
+#                    if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
+#                        select = row
+#                else:
+#                    if card == "Generic VGA compatible":
+#                        select = row
+
+            #- Once ctree is realized, then expand necessary branch and select selected item.
+            self.ctree.connect ("draw", self.movetree, selected_node)
+            
+#            self.cardList.connect ("draw", self.moveto, select)
             sw = GtkScrolledWindow ()
 #            sw.add (self.cardList)
-            sw.add (ctree)
+            sw.add (self.ctree)
             box.pack_start (sw, TRUE)
 
 
