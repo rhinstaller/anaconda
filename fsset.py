@@ -696,6 +696,26 @@ class swapFileSystem(FileSystemType):
         self.supported = 1
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
+        pagesize = isys.getpagesize()
+        buf = None
+        if pagesize > 2048:
+            num = pagesize
+        else:
+            num = 2048
+        try:
+            fd = os.open(dev, os.O_RDONLY)
+            buf = os.read(fd, num)
+            os.close(fd)
+        except:
+            pass
+
+        # FIXME: we should ask if they want to reinitialize swaps that
+        # are of format 0 (#122101)
+        if buf is not None and len(buf) == pagesize:
+            if buf[pagesize - 10:] == "SWAP-SPACE":
+                log("SWAP is of format 0, skipping it")
+                return
+        
         isys.swapon (device)
 
     def umount(self, device, path):
