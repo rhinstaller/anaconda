@@ -738,6 +738,9 @@ class KickstartBase(BaseInstallClass):
             elif extra[0][:5] == "raid.":
                 filesystem = fileSystemTypeGet("software RAID")
                 uniqueID = extra[0]
+            elif extra[0:9] == "/boot/efi":
+                filesystem = fileSystemTypeGet("vfat")
+                mountpoint = extra[0]
             else:
                 filesystem = fileSystemTypeGetDefault()
                 mountpoint = extra[0]
