@@ -317,8 +317,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
         return 0;
     }        
 
-    /* JKFIXME: I do NOT like this crap */
-#if !defined(__s390__) && !defined(__s390x__)
     text = newtTextboxReflowed(-1, -1, 
                 _("Please enter the IP configuration for this machine. Each "
                   "item should be entered as an IP address in dotted-decimal "
@@ -455,63 +453,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
             }
         }
     } while (i != 2);
-
-#else /* s390 now */
-   char * env;
-
-   /* JKFIXME: this is something of a hack... will go away better once
-    * we start just reading this into the ip info in loaderdata */
-   winStatus(50, 3, _("Setting up networking"), 
-             _("Setting up networking for %s..."), device, 0);
-
-   memset(&newCfg, 0, sizeof(newCfg));
-   strcpy(newCfg.dev.device, device);
-   newCfg.isDynamic = 0;
-   env = getenv("IPADDR");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.ip))
-      newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
-   }
-   env = getenv("NETMASK");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.netmask))
-      newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-   }
-   env = getenv("GATEWAY");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.gateway))
-      newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-   }
-   env = getenv("NETWORK");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.network))
-      newCfg.dev.set |= PUMP_INTFINFO_HAS_NETWORK;
-   }
-   env = getenv("DNS");
-   if (env && *env) {
-     char *s = strdup (env);
-     char *t = strtok (s, ":");
-     if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
-      newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
-   }
-   env = getenv("BROADCAST");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.broadcast))
-       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
-   }
-   env = getenv("MTU");
-   if (env && *env) {
-       newCfg.dev.mtu = atoi(env);
-       newCfg.dev.set |= PUMP_INTFINFO_HAS_MTU;
-   }
-   env = getenv("REMIP");
-   if (env && *env) {
-       if (inet_aton(env, &newCfg.dev.ptpaddr))
-           newCfg.dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
-   }
-
-   sleep(1);
-#endif   /* s390 */
 
     /* preserve extra dns servers for the sake of being nice */
     if (cfg->dev.numDns > newCfg.dev.numDns) {
