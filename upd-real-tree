@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ -z "$1" -o ! -d "$1" ]; then
+	echo "usage: $0 <dir>"
+	exit 1
+fi
+
+DEST=$1/RedHat/instimage
+SRC=../../../RedHat/instimage
+
+if [ ! -d $SRC ]; then
+	echo "$SRC does not exist"
+	exit 1
+fi
+
+if [ ! -d $DEST ]; then
+	echo "$DEST does not exist"
+	exit 1
+fi
+
+
+rm -rf $DEST
+mkdir -p $DEST
+
+cd $SRC
+tar cSpf - . | (cd $DEST; tar xvSpf -)
