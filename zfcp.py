@@ -171,6 +171,26 @@ class ZFCP:
                 fcpconf[4] = self.expandLun(fcpconf[4])
                 self.fcpdevices.append(fcpconf)
 
+    def handleInvalidDevice(self, intf):
+        intf.messageWindow(_("Error With Data"),
+        _("You have not specified a device number or the number is invalid"))
+
+    def handleInvalidSCSIId(self, intf):
+        intf.messageWindow(_("Error With Data"),
+            _("You have not specified a SCSI ID or the ID is invalid."))
+
+    def handleInvalidWWPN(self, intf):
+        intf.messageWindow(_("Error With Data"),
+            _("You have not specified a worldwide port name or the name is invalid."))
+
+    def handleInvalidSCSILun(self, intf):
+        intf.messageWindow(_("Error With Data"),
+            _("You have not specified a SCSI LUN or the number is invalid."))
+
+    def handleInvalidFCPLun(self, intf):
+        intf.messageWindow(_("Error With Data"),
+            _("You have not specified a FCP LUN or the number is invalid."))
+
     def sanityCheckHexValue(self, length, value):
         # FIXME: do a real checking if this is a valid hex value
         if len(value) == length:

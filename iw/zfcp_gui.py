@@ -26,34 +26,6 @@ class ZFCPWindow(InstallWindow):
 
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
-        self.options = [(_("Device number"), 1, self.handleInvalidDevice),
-                        (_("SCSI Id"),       0, self.handleInvalidSCSIId),
-                        (_("WWPN"),          1, self.handleInvalidWWPN),
-                        (_("SCSI LUN"),      0, self.handleInvalidSCSILun),
-                        (_("FCP LUN"),       1, self.handleInvalidFCPLun)]
-
-    def getNext(self):
-        self.fcp.updateConfig(self.fcpdevices, self.diskset, self.intf)
-
-    def handleInvalidDevice(self):
-        self.intf.messageWindow(_("Error With Data"),
-        _("You have not specified a device number or the number is invalid"))
-
-    def handleInvalidSCSIId(self):
-        self.intf.messageWindow(_("Error With Data"),
-            _("You have not specified a SCSI ID or the ID is invalid."))
-
-    def handleInvalidWWPN(self):
-        self.intf.messageWindow(_("Error With Data"),
-            _("You have not specified a worldwide port name or the name is invalid."))
-
-    def handleInvalidSCSILun(self):
-        self.intf.messageWindow(_("Error With Data"),
-            _("You have not specified a SCSI LUN or the number is invalid."))
-
-    def handleInvalidFCPLun(self):
-        self.intf.messageWindow(_("Error With Data"),
-            _("You have not specified a FCP LUN or the number is invalid."))
 
     def setupDevices(self):
         self.store = gtk.TreeStore(gobject.TYPE_STRING,
@@ -89,6 +61,11 @@ class ZFCPWindow(InstallWindow):
     def getScreen(self, fcp, diskset, intf):
         self.diskset = diskset
         self.intf = intf
+        self.options = [(_("Device number"), 1, fcp.handleInvalidDevice, intf),
+                        (_("SCSI Id"),       0, fcp.handleInvalidSCSIId, intf),
+                        (_("WWPN"),          1, fcp.handleInvalidWWPN, intf),
+                        (_("SCSI LUN"),      0, fcp.handleInvalidSCSILun, intf),
+                        (_("FCP LUN"),       1, fcp.handleInvalidFCPLun, intf)]
         box = gtk.VBox(gtk.FALSE)
         box.set_border_width(6)
         fcp.cleanFcpSysfs(fcp.fcpdevices)
@@ -170,7 +147,7 @@ class ZFCPWindow(InstallWindow):
                 for t in range(len(self.options)):
                     tmpvals[t] = string.lower(entrys[t].get_text())
                     if tmpvals[t] == "":
-                        self.options[t][2]()   # FIXME: This hides addWin behind the main window
+                        self.options[t][2](self.options[t][3])   # FIXME: This hides addWin behind the main window
                         invalid = 1
                         break
                     if t != 0 and tmpvals[t][:2] != "0x":
