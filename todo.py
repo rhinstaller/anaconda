@@ -1386,7 +1386,7 @@ class ToDo:
             self.intf.messageWindow (_("Disk Space"), probs)
 
             if self.setupFilesystems:
-                self.mountFilesystems ()
+                self.umountFilesystems ()
             
             return 1
 
