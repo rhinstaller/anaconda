@@ -882,7 +882,7 @@ class Partitions:
                               "The kernel for %s only supports 32 "
                               "swap devices.") % (productName,))
 
-        mem = iutil.memInstalled(corrected = 0)
+        mem = iutil.memInstalled()
         rem = mem % 16384
         if rem:
             mem = mem + (16384 - rem)
