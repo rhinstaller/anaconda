@@ -17,3 +17,6 @@ alpha:
 
 sparc:
 	./updfonts sparc
+
+ia64:
+	./updfonts ia64
