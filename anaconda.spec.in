@@ -74,8 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
-* %{date} Anaconda team <bugzilla@redhat.com>
-- built new version from CVS
+* Wed Mar 19 2003 Jeremy Katz <katzj@redhat.com>
+- look for libunicode-lite in either libdir (#86320)
+- enable USB on x86_64 (#82122)
 
 * Tue Oct  8 2002 Jeremy Katz <katzj@redhat.com>
 - back to mainstream rpm instead of rpm404
