@@ -210,6 +210,7 @@ class KickstartBase(BaseInstallClass):
                 [ 'append=', 'location=', 'useLilo', '--lba32',
                   'password=', 'md5pass=', 'linear', 'nolinear'])
 
+        validLocations = [ "mbr", "partition", "none" ]
         appendLine = None
         location = "mbr"
         useLilo = 0
@@ -223,8 +224,8 @@ class KickstartBase(BaseInstallClass):
             if str == '--append':
                 appendLine = arg
             elif str == '--location':
+                location = arg
                 # XXX need this to do something
-                pass
             elif str == '--useLilo':
                 useLilo = 1
             elif str == '--lba32':
@@ -237,9 +238,15 @@ class KickstartBase(BaseInstallClass):
 		linear = 1
 	    elif str == '--nolinear':
 		linear = 0
+
+        if location not in validLocations:
+            raise ValueError, "mbr, partition, or none expected for bootloader command"
+        if location == "none":
+            location = None
+        else:
+            location = validLocations.index(location)
                 
-                
-        self.setBootloader(id, useLilo, forceLBA, password, md5pass, appendLine)
+        self.setBootloader(id, useLilo, location, forceLBA, password, md5pass, appendLine)
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderpassword")
 

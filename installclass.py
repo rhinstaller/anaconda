@@ -32,7 +32,7 @@ class BaseInstallClass:
     def postAction(self, rootPath, serial):
 	pass
 
-    def setBootloader(self, id, useLilo = 0, forceLBA = 0, password = None, md5pass = None, appendLine = None):
+    def setBootloader(self, id, useLilo = 0, location = None, forceLBA = 0, password = None, md5pass = None, appendLine = None):
         if useLilo:
             id.bootloader.useGrubVal = 0
         id.bootloader.args.set(appendLine)
@@ -41,6 +41,11 @@ class BaseInstallClass:
             id.bootloader.setPassword(password, isCrypted = 0)
         if md5pass:
             id.bootloader.setPassword(md5pass)
+        if location != None:
+            id.bootloader.defaultDevice = location
+        else:
+            id.bootloader.defaultDevice = -1
+        
 
     def setLiloInformation(self, id, location, linear = 1, forceLBA = 0, appendLine = None):
 	# this throws an exception if there is a problem

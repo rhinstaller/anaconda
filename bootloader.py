@@ -286,7 +286,7 @@ class bootloaderInfo:
 	self.images = BootImages()
 	self.device = None
         self.useLinear = 1    # only used for kickstart compatibility
-        self.useDefaultDevice = 0  # XXX hack, used by kickstart
+        self.defaultDevice = None  # XXX hack, used by kickstart
         self.useGrubVal = 0      # only used on x86
         self.configfile = None
         self.kernelLocation = "/boot/"
@@ -564,11 +564,16 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
 
     bl.images.setup(diskSet, fsset)
 
-    if bl.useDefaultDevice and choices:
-        bl.setDevice(choices[0][0])
+    if bl.defaultDevice != None and choices:
+        if bl.defaultDevice > len(choices):
+            bl.defaultDevice = len(choices)
+        bl.setDevice(choices[bl.defaultDevice][0])
 
 def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     justConfigFile = not flags.setupFilesystems
+
+    if bl.defaultDevice == -1:
+        return
 
     w = intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
 
