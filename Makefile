@@ -11,7 +11,7 @@ endif
 
 SUBDIRSHD = balkan isys collage $(MINISLANG) loader po text-help \
 	    textw utils scripts bootdisk installclasses \
-	    keymaps fonts gnome-map iw help pixmaps $(STUBS) iconvmodule
+	    keymaps fonts iw help pixmaps $(STUBS) iconvmodule
 SUBDIRS = $(SUBDIRSHD)
 
 ifeq (i386, $(ARCH))
@@ -113,7 +113,7 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	PYTHONPATH=edd:isys:balkan:textw:iw:installclasses:gnome-map pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
+	PYTHONPATH=edd:isys:balkan:textw:iw:installclasses pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
 
 pycheck-file:
 	PYTHONPATH=.:edd:isys:balkan:textw:iw:installclasses:gnome-map pychecker $(CHECK) | grep -v "__init__() not called" 
