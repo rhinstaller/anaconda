@@ -151,7 +151,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     def bubblesort (self, args, col):
         count = 0
-        print "self.rownum = ", self.rownum
+#        print "self.rownum = ", self.rownum
 
         #--For empty groups, don't sort.  Just return.
         if self.rownum == 0:
@@ -176,7 +176,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     self.packageList._update_row(currow)
                     self.packageList._update_row(nextrow)
 
-        print count, " swaps for BubbleSort"
+#        print count, " swaps for BubbleSort"
 
 #    def merge (self, min, max):
 #        mid = total / 2
