@@ -1,7 +1,7 @@
 # List of PCI cards supported by kernel modules
 #
 # Indented (tab or space) items are cards, unindented items are module names
-aic7xxx
+aic7xxx.o
 	Adaptec                  |AIC-7810
 	Adaptec                  |AIC-7821
 	Adaptec                  |AIC-7850
@@ -45,8 +45,7 @@ aic7xxx
 	Adaptec                  |7899B
 	Adaptec                  |7899D
 	Adaptec                  |7899P
-
-3c59x
+3c59x.o
 	3Com Corporation         |3c590 10BaseT [Vortex]
 	3Com Corporation         |3c595 100BaseTX [Vortex]
 	3Com Corporation         |3c595 100BaseT4 [Vortex]
@@ -56,7 +55,7 @@ aic7xxx
 	3Com Corporation         |3c905 100BaseTX [Boomerang]
 	3Com Corporation         |3c905 100BaseT4
 	3Com Corporation         |3c905B 100BaseTX [Cyclone]
-53c7,8xx
+53c7,8xx.o
 	Symbios                  |53c810
 	Symbios                  |53c820
 	Symbios                  |53c825
@@ -68,16 +67,16 @@ aic7xxx
 	Symbios                  |53c885
 	Symbios                  |53c875
 	Symbios                  |53c875J
-yellowfin
+yellowfin.o
 	Symbios                  |Yellowfin G-NIC gigabit ethernet
 	Symbios                  |83C885 gigabit ethernet
-dac960
+dac960.o
 	Mylex Corporation        |DAC960P
-qlogicisp
+qlogicisp.o
 	Q Logic                  |ISP1020
 	Q Logic                  |ISP1022
 	Q Logic                  |ISP2100
-tulip
+tulip.o
 	DEC                      |DECchip 21041 [Tulip Pass 3]
 	DEC                      |DECchip 21140 [FasterNet]
 	DEC                      |DECchip 21050
@@ -87,13 +86,14 @@ tulip
 	DEC                      |DECchip 21150
 	DEC                      |DECchip 21152
 	DEC                      |DECchip 21153
-lance
+	Lite-On                  |LNE100TX
+lance.o
 	Advanced Micro Devices   |79c970 [PCnet LANCE]
-BusLogic
+BusLogic.o
 	BusLogic                 |BT-946C (old) [multimaster 01]
 	BusLogic                 |BT-946C (BA80C30) [MultiMaster 10]
 	BusLogic                 |Flashpoint LT
-gdth
+gdth.o
 	ICP Vortex               |GDT6000/6020/6050
 	ICP Vortex               |GDT6000b/6010
 	ICP Vortex               |GDT6110/6510
