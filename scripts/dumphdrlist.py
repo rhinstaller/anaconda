@@ -50,8 +50,8 @@ for hdr in hdlist:
         epoch = "0"
     else:
         epoch = hdr[rpm.RPMTAG_EPOCH]
-    print "%s:%s-%s-%s.%s %s" %(epoch,
+    print "%s:%s-%s-%s.%s %s %s" %(epoch,
                                 hdr[rpm.RPMTAG_NAME], hdr[rpm.RPMTAG_VERSION],
                                 hdr[rpm.RPMTAG_RELEASE], hdr[rpm.RPMTAG_ARCH],
-                                hdr[1000002])
+                                hdr[1000002], hdr[1000003])
     
