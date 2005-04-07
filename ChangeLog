@@ -1,3 +1,9 @@
+2005-04-07  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/upd-instroot:  Move /usr/lib/locale/* into KEEPFILE so we
+	have it around for running build-locale-archive.  Also add
+	/usr/share/locale/locale.alias.
+
 2005-04-06  Elliot Lee  <sopwith@redhat.com>
 
 	* textw/language_text.py: The language display is now in English names instead of nicknames - make this
