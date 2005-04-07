@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.46
+Version: 10.2.0.47
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,10 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr  7 2005 Peter Jones <pjones@redhat.com> - 10.2.0.47-1
+- put ncurses in the net images, too.
+- (notting) put redhat-artwork in the GR images.
+
 * Thu Apr  7 2005 Peter Jones <pjones@redhat.com> - 10.2.0.46-1
 - put readline in the net images
 - fix linxuthreads warnings in upd-instroot
-- (cluments) fix build-locale-archive
+- (clumens) fix build-locale-archive
 
 * Wed Apr  6 2005 Elliot Lee <sopwith@redhat.com> - 10.2.0.45-1
 - Deal with GUI-mode language traceback
