@@ -33,7 +33,7 @@ class LanguageWindow:
 
         translated = []
         for lang in languages:
-            translated.append (_(lang))
+            translated.append ((_(lang), instLanguage.getNickByName(lang)))
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
@@ -44,8 +44,6 @@ class LanguageWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        choice = languages[choice]
-        
         if ((instLanguage.getFontFile(choice) == "None")):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
@@ -53,7 +51,7 @@ class LanguageWindow:
                                buttons=[TEXT_OK_BUTTON])
             instLanguage.setRuntimeDefaults(choice)
             return INSTALL_OK
-            
+
         if (flags.setupFilesystems and
             instLanguage.getFontFile(choice) == "bterm"
             and not flags.serial and not flags.virtpconsole
