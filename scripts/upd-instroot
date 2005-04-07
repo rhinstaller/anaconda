@@ -93,17 +93,18 @@ expandPackageSet() {
 	    TZDATA=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
-	( cd $PKGDEST/$LIBDIR
-	if [ -d obsolete/linuxthreads/ ]; then
-		for x in obsolete/linuxthreads/*-* ; do 
-			lib_base=$(basename $x | cut -d- -f1)
-			rm -f ./$lib_base[.-]*
-			mv -f obsolete/linuxthreads/$lib_base[.-]* .
-		done
-		rmdir obsolete/linuxthreads obsolete
-	fi )
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
+    pushd $PKGDEST/$LIBDIR >/dev/null 2>&1
+    if [ -d obsolete/linuxthreads/ ]; then
+	for x in obsolete/linuxthreads/*-* ; do 
+	    lib_base=$(basename $x | cut -d- -f1)
+	    rm -vf ./$lib_base[.-]*
+	    mv -f obsolete/linuxthreads/$lib_base[.-]* .
+	done
+	rmdir obsolete/linuxthreads obsolete
+    fi
+    popd >/dev/null 2>&1
 }
 
 die () {
@@ -138,7 +139,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
-	 libstdc++ expat libgcc"
+	 libstdc++ expat libgcc readline"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -173,7 +174,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            XFree86-ISO8859-9-75dpi-fonts  
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs coreutils glibc glibc-common
-           readline popt specspo util-linux rpm rpm-libs tzdata
+           popt specspo util-linux rpm rpm-libs tzdata
            procps ncurses bash cpio gpm pygtk2-libglade
            XFree86 Xconfigurator pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
@@ -266,7 +267,7 @@ else
 fi
 
 sed -e "$EXPR" > $KEEPFILE <<EOF
-$LIBDIR/libc*
+$LIBDIR/libc[-.]*
 $LIBDIR/libm[-.]*
 $LIBDIR/libpthread*
 $LIBDIR/librt[-.]*
@@ -402,6 +403,7 @@ usr/$LIBDIR/libstdc++.so.6*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
 usr/$LIBDIR/libbogl.so*
+usr/$LIBDIR/libreadline*
 usr/$LIBDIR/python?.?/*
 usr/$LIBDIR/python?.?/site-packages/libxml2*
 usr/$LIBDIR/python?.?/site-packages/*kudzu*
@@ -662,7 +664,6 @@ usr/$LIBDIR/libncurses*
 usr/$LIBDIR/libpango*
 usr/$LIBDIR/libpng.so.3*
 usr/$LIBDIR/libpng12.so*
-usr/$LIBDIR/libreadline*
 usr/$LIBDIR/libstdc++.so.*
 usr/$LIBDIR/libwrap*
 usr/$LIBDIR/pango/*

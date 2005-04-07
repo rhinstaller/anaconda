@@ -1,3 +1,10 @@
+2005-04-08  Peter Jones  <pjones@redhat.com>
+
+	* scripts/upd-instroot: - Move the linuxthreads stuff around some,
+	to stop bogus error messages.  
+	- move readline to KEEPFILES/PACKAGES, not GR
+	- bump version
+
 2005-04-07  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/upd-instroot:  Move /usr/lib/locale/* into KEEPFILE so we
@@ -6,8 +13,8 @@
 
 2005-04-06  Elliot Lee  <sopwith@redhat.com>
 
-	* textw/language_text.py: The language display is now in English names instead of nicknames - make this
-	a reality in more of the code.
+	* textw/language_text.py: The language display is now in English
+	names instead of nicknames - make this a reality in more of the code.
 	* iw/language_gui.py: Ditto
 
 2005-04-06  Chris Lumens  <clumens@redhat.com>

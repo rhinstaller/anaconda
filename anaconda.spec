@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.45
+Version: 10.2.0.46
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,7 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Wed Apr  6 2005 Elliot Lee <sopwith@redhat.com> 10.2.0.45-1
+* Thu Apr  7 2005 Peter Jones <pjones@redhat.com> - 10.2.0.46-1
+- put readline in the net images
+- fix linxuthreads warnings in upd-instroot
+- (cluments) fix build-locale-archive
+
+* Wed Apr  6 2005 Elliot Lee <sopwith@redhat.com> - 10.2.0.45-1
 - Deal with GUI-mode language traceback
 
 * Wed Apr  6 2005 Elliot Lee <sopwith@redhat.com> - 10.2.0.44-1
@@ -83,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 - Use linuxthreads libraries even if they're not the default, unless
   explicitly told to use nptl
 
-* Tue Apr 05 2005 Chris Lumens <clumens@redhat.com> 10.2.0.41-1
+* Tue Apr 05 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.41-1
 - Make sure $LANG is set right for the second stage.
 - Fix kickstart traceback trying to skip a nonexistant step.
 - Import encodings.idna (sopwith, #153754).
@@ -91,13 +96,13 @@ rm -rf $RPM_BUILD_ROOT
 - Fix kickstart traceback when using shortened forms of language names
   (#153656).
 
-* Mon Apr 04 2005 Chris Lumens <clumens@redhat.com> 10.2.0.40-1
+* Mon Apr 04 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.40-1
 - Add locale information for 'C' to fix RPM building.
 
 * Sat Apr  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.39-1
 - fix makefile deps to fix build
 
-* Fri Apr 01 2005 Chris Lumens <clumens@redhat.com> 10.2.0.38-1
+* Fri Apr 01 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.38-1
 - Set default language for /etc/sysconfig/i18n (#149688).
 - Make sure hostname option isn't greyed out if using static IP (#149116).
 - Remove unused packages, python library bits, and locale info (katzj).
@@ -115,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Mar 29 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.35-1
 - dead files can't really be installed (aka, fix the build)
 
-* Tue Mar 29 2005 Chris Lumens <clumens@redhat.com> 10.2.0.34-1
+* Tue Mar 29 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.34-1
 - Adjust pcmcia module loading for new in-kernel ds (pjones, #151235)
 - Make the rescue images identify which arch they're for (pjones, #151501)
 - Delete LV snapshots before the parent LV (pjones, #151524)
@@ -134,14 +139,14 @@ rm -rf $RPM_BUILD_ROOT
 - Mark some more strings for translation
 - Fix xfs fs creation (Lars Hamann, #151378)
 
-* Wed Mar 23 2005 Chris Lumens <clumens@redhat.com> 10.2.0.31-1
+* Wed Mar 23 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.31-1
 - Add libgcc for images.
 - Rewrite language handling.
 - Fix readImageFromFile deprecation warning (katzj).
 - Don't hide groups which just have metapkgs (katzj, #149182).
 - Load SELinux booleans (katzj, #151896).
 
-* Tue Mar 22 2005 Chris Lumens <clumens@redhat.com> 10.2.0.30-1
+* Tue Mar 22 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.30-1
 - Try harder on the libstdc++ include.
 - Fix /etc/resolv.conf fir interactive kickstart installs (#151472).
 
@@ -256,7 +261,7 @@ rm -rf $RPM_BUILD_ROOT
 - Hopefully fix LVM size bug (#145183)
 - Support multiple iso sets in the same directory (#146053)
 
-* Wed Jan 19 2005 Chris Lumens <clumens@redhat.com> 10.2.0.12-1 
+* Wed Jan 19 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.12-1 
 - Fix partitioning bugs (#101432, #137119)
 - Support --bytes-per-inode on a per-partition basis (#57550)
 
