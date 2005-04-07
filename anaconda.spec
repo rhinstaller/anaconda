@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.44
+Version: 10.2.0.45
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr  6 2005 Elliot Lee <sopwith@redhat.com> 10.2.0.45-1
+- Deal with GUI-mode language traceback
+
 * Wed Apr  6 2005 Elliot Lee <sopwith@redhat.com> - 10.2.0.44-1
 - Deal with text-mode language traceback
 - (clumens) Don't set SYSFONTACM 

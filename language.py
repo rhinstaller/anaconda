@@ -133,7 +133,7 @@ class Language:
             row = self.localeInfo[k]
             if row[0] == name:
                 return k
-        
+
     def getNativeLangName(self, lang):
         return self.nativeLangNames[lang]
 
