@@ -99,7 +99,7 @@ expandPackageSet() {
     if [ -d obsolete/linuxthreads/ ]; then
 	for x in obsolete/linuxthreads/*-* ; do 
 	    lib_base=$(basename $x | cut -d- -f1)
-	    rm -vf ./$lib_base[.-]*
+	    rm -f ./$lib_base[.-]*
 	    mv -f obsolete/linuxthreads/$lib_base[.-]* .
 	done
 	rmdir obsolete/linuxthreads obsolete
