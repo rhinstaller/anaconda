@@ -1,7 +1,9 @@
 2005-04-08  Chris Lumens  <clumens@redhat.com>
 
-	* loader2/init.c (createDevices):   Use the right flag for creating
-	block devices.
+	* loader2/init.c (createDevices):  Use the right flag for creating
+	block devices (#152381, #154132).
+	* loader2/net.c (setupNetworkDeviceConfig):  Don't free a string we
+	need to print out later.
 
 2005-04-07  Bill Nottingham  <notting@redhat.com>
 
