@@ -406,7 +406,7 @@ static void createDevices(void) {
             type = S_IFCHR;
             break;
         case BLOCKDEV:
-            type = S_IFDIR;
+            type = S_IFBLK;
             break;
         }
         if (type == -1) continue;
