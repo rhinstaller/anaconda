@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-07 23:29+0200\n"
+"PO-Revision-Date: 2005-04-08 15:45+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
@@ -619,34 +619,32 @@ msgstr "Asennetaan %s-%s-%s..."
 
 # ../gui.py:196 ../text.py:258
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
 msgstr ""
-"On ilmennyt epänormaali tilanne. Se on luultavasti ohjelmavirhe. Voit "
-"kopioida kaikki virhetekstit tai tallentaa kaatumisdatan levykkeelle ja "
-"tehdä anacondasta yksityiskohtaisen virheraportin osoitteessa http://"
-"bugzilla.redhat.com/"
+"On ilmennyt käsittelemätön poikkeustilanne. Tämä on luultavasti ohjelmavirhe. "
+"Voit kopioida kaikki virhetekstit tai tallentaa kaatumisdatan levykkeelle ja "
+"tehdä anacondasta yksityiskohtaisen virheraportin osoitteessa %s"
 
 # ../gui.py:196 ../text.py:258
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
-"On ilmennyt epänormaali tilanne. Se on luultavasti ohjelmavirhe. Voit "
-"kopioida kaikki virhetekstit tai tallentaa kaatumisdatan levykkeelle ja "
-"tehdä anacondasta yksityiskohtaisen virheraportin osoitteessa http://"
-"bugzilla.redhat.com/"
+"On ilmennyt käsittelemätön poikkeustilanne. Tämä on luultavasti ohjelmavirhe. "
+"Voit kopioida kaikki virhetekstit ja tehdä anacondasta yksityiskohtaisen "
+"virheraportin osoitteessa %s"
 
 # ../exception.py:147 ../text.py:219
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
-msgstr "Syntyi poikkeus"
+msgstr "Tapahtui poikkeus"
 
 # ../exception.py:214
 #: ../exception.py:296
@@ -1168,9 +1166,8 @@ msgstr "Peru"
 
 # ../exception.py:147 ../text.py:219
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
-msgstr "Syntyi poikkeus"
+msgstr "Tapahtui poikkeus"
 
 # ../text.py:266 ../text.py:267
 #: ../gui.py:549 tmp/anaconda.glade.h:4
@@ -1179,7 +1176,7 @@ msgstr "_Vianjäljitys"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Tallenna levykkeelle"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1778,7 +1775,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Varoitus! Tämä on ennakkojulkaistu ohjelmisto!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1792,7 +1789,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Kiitos kun latasit ennakkojulkaisun %s-ohjelmistosta.\n"
+"Kiitos kun latasit tämän ennakkojulkaisun %s-ohjelmistosta.\n"
 "\n"
 "Tämä ei ole lopullinen julkaisu eikä tätä ole tarkoitettu käytettäväksi "
 "tuotantojärjestelmissä.Julkaisun tarkoitus on kerätä palautetta testaajilta, "
@@ -1800,9 +1797,9 @@ msgstr ""
 "\n"
 "Lähettääksesi palautetta, vieraile osoitteessa\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
-"ja lähetä raportti koskien \"%s\".\n"
+"ja lähetä raportti koskien pakettia \"%s\".\n"
 
 # ../gui.py:791
 #: ../packages.py:1557
@@ -3521,14 +3518,13 @@ msgid "Congratulations"
 msgstr "Onnittelut"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Poista asennuslevy asemasta, ja käynnistä kone uudelleen painikkeella "
-"\"Käynnistä uudelleen\".\n"
+"Poista asennuslevy asemasta, ja käynnistä kone uudelleen "
+"\"Käynnistä uudelleen\"-painikkeella.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5754,13 +5750,13 @@ msgid "Unknown video card"
 msgstr "Tuntematon näytönohjain"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "Tapahtui virhe valittaessa näytönohjainta %s. Ilmoita tästä virheestä "
-"bugzilla.redhat.com-sivuston kautta."
+"%s-sivuston kautta."
 
 # ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:608
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
@@ -6998,9 +6994,8 @@ msgstr "Millä aikavyöhykkeellää olet?"
 
 # ../iw/timezone_gui.py:181 ../iw/timezone_gui.py:182
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Järjestelmän kello on _UTC-ajassa"
+msgstr "Järjestelmän kello on UTC-ajassa"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
@@ -9490,12 +9485,11 @@ msgstr "Zaporozh'ye, Itä-Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "arabia"
+msgstr "amhara"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -9580,9 +9574,8 @@ msgid "Icelandic"
 msgstr "islanti"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "makedonia"
+msgstr "indonesia"
 
 #. generated from lang-table
 msgid "Italian"
@@ -9609,9 +9602,8 @@ msgid "Norwegian"
 msgstr "norja"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Pohjoisterritorio"
+msgstr "pohjoissotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -9638,9 +9630,8 @@ msgid "Russian"
 msgstr "venäjä"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "slovenia"
+msgstr "slovakki"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -9659,9 +9650,8 @@ msgid "Tamil"
 msgstr "tamili"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "tamili"
+msgstr "thai"
 
 #. generated from lang-table
 msgid "Turkish"
