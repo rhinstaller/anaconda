@@ -1,5 +1,5 @@
 # Swedish messages for the Red Hat/Fedora Anaconda installation framework.
-# Copyright 2000, 2001, 2002, 2003, 2004 Christian Rose <menthos@menthos.com>.
+# Copyright 2000, 2001, 2002, 2003, 2004, 2005 Christian Rose <menthos@menthos.com>.
 #
 # $Id$
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2004-10-05 00:53+0200\n"
+"PO-Revision-Date: 2005-04-10 00:34+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -206,7 +206,7 @@ msgid "Could not allocate partitions"
 msgstr "Kunde inte allokera partitioner"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -537,7 +537,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Installerar %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -546,10 +546,10 @@ msgstr ""
 "En undantagshändelse som inte hanteras har inträffat. Detta är med största "
 "sannolikhet ett fel. Var vänlig och kopiera hela texten från detta "
 "undantagsfel eller spara kraschdumpen på en diskett, och skapa sedan en "
-"detaljerad felrapport på http://bugzilla.redhat.com/bugzilla/"
+"detaljerad felrapport för anaconda på %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -557,11 +557,13 @@ msgid ""
 msgstr ""
 "En undantagshändelse som inte hanteras har inträffat. Detta är med största "
 "sannolikhet ett fel. Var vänlig och kopiera hela texten från detta "
-"undantagsfel och skapa en detaljerad felrapport för anaconda på http://"
-"bugzilla.redhat.com/bugzilla/"
+"undantagsfel och skapa en detaljerad felrapport för anaconda på %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
+msgstr "Undantagsfel inträffade"
+
+msgid "An Exception Occurred"
 msgstr "Ett undantagsfel inträffade"
 
 #: ../exception.py:296
@@ -748,7 +750,7 @@ msgstr ""
 "Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1366
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -759,7 +761,8 @@ msgid ""
 msgstr ""
 "Fel vid aktivering av växlingsenheten %s: %s\n"
 "\n"
-"Detta betyder med största sannolikhet att partitionen inte har initierats.\n"
+"Filen /etc/fstab på din uppgraderingspartition refererar inte till en "
+"giltig växlingspartition.\n"
 "\n"
 "Tryck OK för att starta om ditt system."
 
@@ -877,7 +880,6 @@ msgstr ""
 "Tryck OK för att starta om ditt system."
 
 #: ../fsset.py:1586
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -885,9 +887,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Fel vid montering av enheten %s som %s: %s\n"
+"Fel vid sökning efter /-posten.\n"
 "\n"
-"Detta betyder med största sannolikhet att partitionen inte har formaterats.\n"
+"Detta betyder med största sannolikhet att din fstab är felaktig.\n"
 "\n"
 "Tryck OK för att starta om ditt system."
 
@@ -1008,9 +1010,8 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
-msgstr "Ett undantagsfel inträffade"
+msgstr "Undantagsfel inträffade"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -1018,7 +1019,7 @@ msgstr "_Felsök"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Spara till diskett"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1224,20 +1225,18 @@ msgstr "Installera på system"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Skriptfel"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Det uppstod ett fel vid installationen av %s. Detta kan bero på ett "
-"mediafel, brist på hårddiskutrymme, och/eller hårdvaruproblem. Detta är ett "
-"ödesdigert fel och din installation kommer att avbrytas. Verifiera mediumet "
-"och försök att installera igen.\n"
+"Det uppstod ett fel vid körningen av skriptet. Du kan granska utdata i %s. "
+"Detta är ett ödesdigert fel och din installation kommer att avbrytas.\n"
 "\n"
 "Tryck OK-knappen för att starta om ditt system."
 
@@ -1333,6 +1332,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"comps-filen i ditt installationsträd saknar viktiga grupper. Försäkra dig om "
+"att ditt installationsträd genererats korrekt."
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
@@ -1374,15 +1375,17 @@ msgstr ""
 "Tryck <Retur> för att försöka igen."
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
-msgstr "Starta om"
+msgstr "Starta _om"
 
 #: ../packages.py:447
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Om du startar om kommer ditt system att lämnas i ett inkonsekvent tillstånd "
+"som sannolikt kommer att kräva ominstallation. Är du säker på att du vill "
+"fortsätta?"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -1549,7 +1552,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Varning! Detta är en förhandsutgåva!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1565,13 +1568,13 @@ msgid ""
 msgstr ""
 "Tack för att du har hämtat denna förhandsutgåva av %s.\n"
 "\n"
-"Detta är inte den slutgiltiga versionen och den är inte avsedd för "
-"användning på system i produktion. Ändamålet med denna version är att samla "
-"återkoppling från testare, och den är inte lämplig för daglig användning.\n"
+"Detta är inte en slutgiltig version och den är inte avsedd för användning på "
+"system i produktion. Ändamålet med denna version är att samla återkoppling "
+"från testare, och den är inte lämplig för daglig användning.\n"
 "\n"
 "För att skicka återkoppling besöker du:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "och fyller i en felrapport mot \"%s\".\n"
 
@@ -2060,9 +2063,8 @@ msgstr ""
 "megabyte."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Du måste skapa en PPC PReP-startpartition."
+msgstr "Du måste skapa en Apple Bootstrap-partition."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
@@ -2927,7 +2929,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Avancerad konfiguration av startprogram"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2935,9 +2936,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Att tvinga fram användandet av LBA32 för ditt startprogram kan göra att din "
-"dator inte startar om detta inte också stöds av datorns BIOS. Vi "
-"rekommenderar att du skapar en startdiskett när du frågas om detta senare "
-"under installationen.\n"
+"dator inte startar om detta inte också stöds av datorns BIOS.\n"
 "\n"
 "Vill du fortsätta och tvinga fram LBA32-läge?"
 
@@ -2972,7 +2971,6 @@ msgid "Change Boot Loader"
 msgstr "Byt startprogram"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2982,11 +2980,11 @@ msgid ""
 "Would you like to continue and not install a boot loader?"
 msgstr ""
 "Du har valt att inte installera något startprogram. Det rekommenderas varmt "
-"att du installerar ett startprogram om du inte har särskilda behov. Ett "
+"att du installerar ett startprogram om du inte har ett särskilt behov. Ett "
 "startprogram  behövs nästan alltid för att ditt system ska kunna startas om "
 "i Linux direkt från hårddisken.\n"
 "\n"
-"Är du säker på att du vill hoppa över installationen av startprogram?"
+"Vill du fortsätta utan att installera ett startprogram?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3113,15 +3111,13 @@ msgid "Congratulations"
 msgstr "Gratulerar"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Ta bort all installationsmedia (disketter eller cd-romskivor) som användes "
-"under installationen och tryck på knappen \"Starta om\" för att starta om "
-"din maskin.\n"
+"Ta bort all installationsmedia som användes under installationen och tryck "
+"på knappen \"Starta om\" för att starta om ditt system.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -3930,9 +3926,8 @@ msgid "Encryption _Key"
 msgstr "_Krypteringsnyckel"
 
 #: ../iw/network_gui.py:260
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP-adress:"
+msgstr "Hårdvaruadress:"
 
 #: ../iw/network_gui.py:299
 #, python-format
@@ -5061,13 +5056,13 @@ msgid "Unknown video card"
 msgstr "Okänt grafikkort"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "Ett fel har inträffat vid valet av grafikkortet %s. Var vänlig och "
-"rapportera detta fel på bugzilla.redhat.com."
+"rapportera detta fel på %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5364,14 +5359,13 @@ msgid "<Enter> to exit"
 msgstr "<Retur> för att avsluta"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Ta bort all installationsmedia (disketter eller cd-romskivor) som användes "
-"under installationen och tryck <Retur> för att starta om din maskin.\n"
+"Ta bort all installationsmedia som användes under installationen och tryck "
+"<Retur> för att starta om din maskin.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -5667,7 +5661,7 @@ msgstr "Beskrivning: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Hårdvaruadress: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -6121,9 +6115,8 @@ msgid "What time zone are you located in?"
 msgstr "Vilken tidszon befinner du dig i?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Systemklockan använder _UTC"
+msgstr "Systemklockan använder UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -7124,9 +7117,9 @@ msgstr ""
 "Felaktigt argument till kickstartmetodkommandot för nedstängning %s: %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Välkommen till %s"
+msgstr "Välkommen till %s - Räddningsläge"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
 msgid ""
@@ -7656,14 +7649,12 @@ msgid "Account name:"
 msgstr "Kontonamn:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP-konfiguration"
+msgstr "Ytterligare FTP-konfiguration"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP-konfiguration"
+msgstr "Ytterligare HTTP-konfiguration"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -8368,12 +8359,11 @@ msgstr "Zaporizjzja, Ö Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabiska"
+msgstr "Amhariska"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8456,9 +8446,8 @@ msgid "Icelandic"
 msgstr "Isländska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Indien"
+msgstr "Indonesiska"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8485,9 +8474,8 @@ msgid "Norwegian"
 msgstr "Norska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Nordterritoriet"
+msgstr "Nordsotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8534,9 +8522,8 @@ msgid "Tamil"
 msgstr "Tamil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamil"
+msgstr "Thailändska"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8707,47 +8694,6 @@ msgstr "Zulu"
 #~ "Uppgraderingar för denna version av %s stöds endast från Red Hat Linux "
 #~ "6.2 eller högre. Detta verkar vara ett äldre system. Vill du fortsätta "
 #~ "uppgraderingsprocessen?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivbordsskal (GNOME)\n"
-#~ "\tKontorsprogramvara (OpenOffice.org)\n"
-#~ "\tWebbläsare (Mozilla) \n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tSnabbmeddelanden\n"
-#~ "\tProgram för ljud och video\n"
-#~ "\tSpel\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivbordsskal (GNOME)\n"
-#~ "\tKontorsprogramvara (OpenOffice.org)\n"
-#~ "\tWebbläsare (Mozilla) \n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tSnabbmeddelanden\n"
-#~ "\tProgram för ljud och video\n"
-#~ "\tSpel\n"
-#~ "\tProgramutvecklingsverktyg\n"
-#~ "\tAdministrationsverktyg\n"
 
 #~ msgid "Bengali (India)"
 #~ msgstr "Bengali (Indien)"
