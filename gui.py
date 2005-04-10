@@ -544,7 +544,7 @@ class ExceptionWindow:
         except:
             floppyDevices = 0
 
-        win = gtk.Dialog(_("Exception Occured"), mainWindow, gtk.DIALOG_MODAL)
+        win = gtk.Dialog(_("Exception Occurred"), mainWindow, gtk.DIALOG_MODAL)
         win.add_button(_("_Debug"), 0)
         if floppyDevices > 0 or DEBUG:
             win.add_button(_("_Save to floppy"), 1)
