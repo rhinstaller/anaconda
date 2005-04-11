@@ -127,6 +127,7 @@ class Language:
                     return key
         except:
             return 'en_US.UTF-8'
+        return 'en_US.UTF-8'
 
     def getNickByName (self, name):
         for k in self.localeInfo.keys():
