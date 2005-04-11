@@ -146,6 +146,10 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
         not oldfsset.getEntryByMountPoint("/").fsystem.isMountable()):
         raise RuntimeError, "/etc/fstab did not list a fstype for the root partition which we support"
 
+def bindMountDevDirectory(instPath):
+    fs = fsset.fileSystemTypeGet("bind")
+    fs.mount("/dev", "%s/dev" % (instPath,), bindMount=1)
+
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(dispatch, thefsset):
     migents = thefsset.getMigratableEntries()
@@ -313,6 +317,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 	    intf.messageWindow(_("Invalid Directories"), message)
 	    sys.exit(0)
            
+        bindMountDevDirectory(instPath)
     else:
         if not os.access (instPath + "/etc/fstab", os.R_OK):
             rc = intf.messageWindow(_("Warning"),

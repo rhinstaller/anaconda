@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.47
+Version: 10.2.0.48
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,10 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Mon Apr 11 2005 Peter Jones <pjones@redhat.com> - XX-XX
+* Mon Apr 11 2005 Peter Jones <pjones@redhat.com> - 10.2.0.48-1
 - Typo fixes in gui.py (menthos, #154324)
 - Don't try to do early swap in test mode, and use yesno not okcancel (msw)
 - If the install language is an unknown locale, use en_US.UTF_8
+- Fix upgrade to make devices available in the changeroot
 
 * Thu Apr  7 2005 Peter Jones <pjones@redhat.com> - 10.2.0.47-1
 - put ncurses in the net images, too.

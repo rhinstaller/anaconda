@@ -2,6 +2,10 @@
 
 	* language.py (Language.CanonLangNick): Always return some value;
 	if the input language isn't in the list, use en_US.UTF-8
+	* upgrade.py (bindMountDevDirectory): function that does bind mounting
+	of /dev to /mnt/sysimage/dev, so there are devices there.
+	* upgrade.py (upgradeMountFileSystems): mount dev once we've found
+	the new root directory.
 
 2005-04-11  Jeremy Katz  <katzj@redhat.com>
 
