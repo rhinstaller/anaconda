@@ -359,7 +359,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (chptr) {
                 logMessage("pump told us: %s", chptr);
-                if (loaderData->netDev != NULL) free(loaderData->netDev);
                 return;
             }
             
