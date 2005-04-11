@@ -1,3 +1,8 @@
+2005-04-11  Peter Jones  <pjones@redhat.com>
+
+	* language.py (Language.CanonLangNick): Always return some value;
+	if the input language isn't in the list, use en_US.UTF-8
+
 2005-04-11  Jeremy Katz  <katzj@redhat.com>
 
 	* partitioning.py (partitioningComplete): Don't try to do
