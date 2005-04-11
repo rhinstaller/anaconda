@@ -100,7 +100,8 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
             raise RuntimeError, ("Managed to not get an entry back from "
                                  "request.toEntry")
 
-    if iutil.memAvailable() > isys.EARLY_SWAP_RAM:
+    if (not flags.setupFilesystems
+        or iutil.memAvailable() > isys.EARLY_SWAP_RAM):
         return
     
     # XXX this attribute is probably going away
@@ -110,7 +111,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
                               "machine, we need to turn on swap space "
                               "immediately. To do this we'll have to "
                               "write your new partition table to the disk "
-                              "immediately. Is that OK?"), "okcancel")
+                              "immediately. Is that OK?"), "yesno")
     else:
         rc = 1
         

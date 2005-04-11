@@ -1,3 +1,8 @@
+2005-04-11  Jeremy Katz  <katzj@redhat.com>
+
+	* partitioning.py (partitioningComplete): Don't try to do
+	early swap in test mode and use yesno instead of okcancel (msw)
+
 2005-04-10  Jeremy Katz  <katzj@redhat.com>
 
 	* gui.py (ExceptionWindow.__init__): Fix typo (menthos, #154324)
