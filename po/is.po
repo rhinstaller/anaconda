@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-02-15 01:31+0000\n"
+"PO-Revision-Date: 2005-04-11 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -206,7 +206,7 @@ msgid "Could not allocate partitions"
 msgstr "Gat ekki búið til disksneiðar"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -537,7 +537,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Set inn %s-%s-%s..."
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -545,11 +545,10 @@ msgid ""
 msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
 "uppsetningarforritinu. Vinsamlegast afritaðu allan textann hérna eða vistaðu "
-"hann á diskling og sendu inn villutilkynningu um anaconda á http://bugzilla."
-"redhat.com/bugzilla"
+"hann á diskling og sendu inn villutilkynningu um anaconda á %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -557,7 +556,7 @@ msgid ""
 msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa. Vinsamlegast "
 "afritaðu allan textann hérna og sendu inn villutilkynningu um anaconda á "
-"http://bugzilla.redhat.com/bugzilla/"
+"%s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1005,7 +1004,6 @@ msgid "Cancel"
 msgstr "Hætta við"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Óeðlilegt ástand"
 
@@ -1015,7 +1013,7 @@ msgstr "_Aflúsun"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Vista á diskling"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1218,20 +1216,18 @@ msgstr "Setja upp á kerfi"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Smáforritavilla"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Það kom upp villa við uppsetningu %s. Þetta gæti orsakast af skemmdum disk, "
-"ekki nógu diskplássi og/eða vélbúnaðarbilun. Þetta er banvæn villa og því "
-"mun uppsetningin ekki halda áfram.  Vinsamlegast láttu yfirfara diskinn og "
-"reyndu aftur.\n"
+"Það kom upp villa við keyrslu smáforritsins. Þú getur litið á frálagið í "
+"%s. Þetta er banvæn villa og því mun uppsetningin ekki halda áfram.\n"
 "\n"
 "Veldu Í lagi hnappinn til að endurræsa."
 
@@ -1539,7 +1535,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Aðvörun! Þetta er beta-hugbúnaður!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1560,7 +1556,7 @@ msgstr ""
 "\n"
 "Þú getur látið ljós þitt skína á:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "og flokkað það í flokkinn '%s'.\n"
 
@@ -2043,9 +2039,8 @@ msgstr ""
 "Þú verður að búa til /boot/efi sneið af gerðinni FAT sem er 50 megabæti."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Þú verður að búa til PPC PReP ræsisneið."
+msgstr "Þú verður að búa til Apple Bootstrap ræsisneið."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
@@ -3075,14 +3070,13 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Vinsamlegast fjarlægðu uppsetningardiska úr drifunum (disklinga eða "
-"geisladiska) og sláðu á \"Endurræsa\" hnappinn til að endurræsa vélina.\n"
+"Vinsamlegast fjarlægðu uppsetningardiska úr drifunum og sláðu á "
+"\"Endurræsa\" hnappinn til að endurræsa vélina.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5006,13 +5000,12 @@ msgid "Unknown video card"
 msgstr "Óþekkt skjákort"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
-"Villa kom upp við val skjákorts %s. Vinsamlegast tilkynntu þetta á bugzilla."
-"redhat.com."
+"Villa kom upp við val skjákorts %s. Vinsamlegast tilkynntu þetta á %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5301,7 +5294,6 @@ msgid "<Enter> to exit"
 msgstr "<Enter> til hætta"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
@@ -6059,9 +6051,8 @@ msgid "What time zone are you located in?"
 msgstr "Í hvaða tímabelti ertu?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Klukkan í vélinni er á _UTC"
+msgstr "Klukkan í vélinni er á UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8292,12 +8283,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabíska"
+msgstr "Amharic"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8380,9 +8370,8 @@ msgid "Icelandic"
 msgstr "Íslenska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Makedónía"
+msgstr "Indónesíska"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8409,9 +8398,8 @@ msgid "Norwegian"
 msgstr "Norska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "Norður Sotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8438,9 +8426,8 @@ msgid "Russian"
 msgstr "Rússneska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Slóveníska"
+msgstr "Slóvenska"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8459,9 +8446,8 @@ msgid "Tamil"
 msgstr "Tamil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamil"
+msgstr "Tælenska"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8482,98 +8468,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Fyrir frekari upplýsingar um villuleiðréttingar eða uppfærslur, farðu á:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Upplýsingar um sjálfvirkar uppfærslur um Red Hat Network eru á:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Ef þig vantar upplýsingar um notkun eða stillingar á kerfinu farðu á:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Til að skrá þessa vél, farðu á:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Stillingar Silo"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Setja SILO ræsifærsluna á:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Búa til auknefni í PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Stilla PROM til að ræsa upp linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Viðföng kjarnans"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Búa til ræsidiskling"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Ekki setja upp SILO"
-
-#~ msgid "Partition type"
-#~ msgstr "Tegund sneiðar"
-
-#~ msgid "Default boot image"
-#~ msgstr "Sjálfgefin ræsimynd"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "Stillingar SILO"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Búa til auknefnið `linux' í PROM"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Stilla sjálfgefna PROM ræsitækið"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Hvar viltu setja upp ræsistjórann?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Ræsistjórinn sem fylgir Red Hat getur einnig ræst upp önnur stýrikerfi. "
-#~ "Þú þarft að að merkja við þær sneiðar sem þú vilt geta ræst upp af og "
-#~ "hvaða heiti þær eiga að fá."
-
-#~ msgid "no suggestion"
-#~ msgstr "engin tillaga"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Nota _LILO ræsistjórann"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Get ekki breytt röðun drifa með LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Við styðjum ekki breytta röð drifa með LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Nota LILO ræsistjórann"
