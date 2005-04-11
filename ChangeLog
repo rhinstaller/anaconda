@@ -17,7 +17,7 @@
 	* loader2/init.c (createDevices):  Use the right flag for creating
 	block devices (#152381, #154132).
 	* loader2/net.c (setupNetworkDeviceConfig):  Don't free a string we
-	need to print out later.
+	need later. (#150844, #153072)
 
 2005-04-07  Bill Nottingham  <notting@redhat.com>
 
