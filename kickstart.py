@@ -1456,31 +1456,39 @@ class KickstartBase(BaseInstallClass):
                 fields = n.split(".")
                 name = string.join(fields[:-1], ".")
                 arch = fields[-1]
+                found = 0
                 if hdlist.pkgnames.has_key(name):
                     pkgs = hdlist.pkgnames[name]
                     for (nevra, parch) in pkgs:
                         if parch == arch:
                             hdlist.pkgs[nevra].select()
+                            found = 0 
                             continue
+                    if found:
+                        continue
             
             if hdlist.has_key(n):
                 hdlist[n].select()
-            elif self.handleMissing == KS_MISSING_IGNORE:
+                continue
+
+            if self.handleMissing == KS_MISSING_IGNORE:
                 log("package %s doesn't exist, ignoring" %(n,))
+                continue
+
+            
+            rc = intf.messageWindow(_("Missing Package"),
+                                    _("You have specified that the "
+                                      "package '%s' should be installed.  "
+                                      "This package does not exist. "
+                                      "Would you like to continue or "
+                                      "abort your installation?") %(n,),
+                                    type="custom",
+                                    custom_buttons=[_("_Abort"),
+                                                    _("_Continue")])
+            if rc == 0:
+                sys.exit(1)
             else:
-                rc = intf.messageWindow(_("Missing Package"),
-                                        _("You have specified that the "
-                                          "package '%s' should be installed.  "
-                                          "This package does not exist. "
-                                          "Would you like to continue or "
-                                          "abort your installation?") %(n,),
-                                        type="custom",
-                                        custom_buttons=[_("_Abort"),
-                                                        _("_Continue")])
-                if rc == 0:
-                    sys.exit(1)
-                else:
-                    pass
+                pass
                                 
 
     def setGroupSelection(self, grpset, intf):
