@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.17
+Version: 10.1.1.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 12 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.18-1
+- Don't free needed string (clumens, #149871, #150844, #153072)
+- Correct name.arch (#133396, #154407)
+- hostname option isn't greyed out when using static IP (#149116)
+
 * Wed Mar 23 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.17-1
 - Load SElinux booleans file if it exists (#151896)
 
