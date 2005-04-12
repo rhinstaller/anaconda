@@ -136,7 +136,7 @@ static int parse_wep_key(char * in, unsigned char * key) {
         char *buff, *hex, *out, *p;
 
         /* hexadecimal digits, straight from iwlib.c */
-        buff = alloca(IW_ENCODING_TOKEN_MAX + strlen(in) + 1);
+        buff = malloc(IW_ENCODING_TOKEN_MAX + strlen(in) + 1);
         if(buff == NULL) {
             fprintf(stderr, "Malloc failed (string too long ?)\n");
             return(-1);
