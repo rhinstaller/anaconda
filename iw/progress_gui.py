@@ -230,6 +230,8 @@ class InstallProgressWindow_NEW (InstallWindow):
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):
             summary = "(none)"
+        else:
+            summary = "%.75s" %(summary,)
         self.curPackage["summary"].set_text (summary)
 
     def setSizes (self, total, totalSize, totalFiles):

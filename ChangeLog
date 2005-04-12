@@ -1,5 +1,12 @@
+2005-04-11  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/progress_gui.py (InstallProgressWindow_NEW.setPackage): Cut
+	summary off at a reasonable length to avoid changing the screen
+	layout (#154459)
+
 2005-04-11  Peter Jones  <pjones@redhat.com>
 
+	* anaconda.spec: Bump version.
 	* language.py (Language.CanonLangNick): Always return some value;
 	if the input language isn't in the list, use en_US.UTF-8
 	* upgrade.py (bindMountDevDirectory): function that does bind mounting
