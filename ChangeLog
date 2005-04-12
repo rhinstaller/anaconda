@@ -1,5 +1,8 @@
 2005-04-12  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-initrd: Add simple stupid script to update the
+	loader in an initrd to make my life easier.
+
 	* upgrade.py (upgradeFindPackages): Fix message (#154552)
 
 	* rescue.py (runRescue): Fix rescue mode network enabling (#153961)
