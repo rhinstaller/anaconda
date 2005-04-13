@@ -761,7 +761,11 @@ class InstallInterface:
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
         id.fsset.registerWaitWindow(self.waitWindow)
-        id.instLanguage.setSupported([id.instLanguage.getDefault()])
+
+        # Don't set if kickstart already set up a supported lang list.
+        if not id.instLanguage.getSupported():
+            id.instLanguage.setSupported([id.instLanguage.getDefault()])
+
         parted.exception_set_handler(partedExceptionWindow)
 
         self.icw = InstallControlWindow (self, self.dispatch, id)

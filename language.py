@@ -116,7 +116,6 @@ class Language:
         # Set the language for anaconda to be using based on current $LANG.
         self.setRuntimeLanguage(self.current)
         self.setDefault(self.current)
-        self.setSupported([self.current])
 
     # Convert what might be a shortened form of a language's nick (en or
     # en_US, for example) into the full version (en_US.UTF-8).  If we
