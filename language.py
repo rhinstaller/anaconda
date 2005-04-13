@@ -116,17 +116,16 @@ class Language:
         # Set the language for anaconda to be using based on current $LANG.
         self.setRuntimeLanguage(self.current)
         self.setDefault(self.current)
-        self.setSupported([self.getLangNameByNick(self.current)])
+        self.setSupported([self.current])
 
     # Convert what might be a shortened form of a language's nick (en or
-    # en_US, for example) into the full version (en_US.UTF-8).
+    # en_US, for example) into the full version (en_US.UTF-8).  If we
+    # don't find it, return our default of en_US.UTF-8.
     def canonLangNick (self, nick):
-        try:
-            for key in self.localeInfo.keys():
-                if nick in expandLangs(key):
-                    return key
-        except:
-            return 'en_US.UTF-8'
+        for key in self.localeInfo.keys():
+            if nick in expandLangs(key):
+                return key
+
         return 'en_US.UTF-8'
 
     def getNickByName (self, name):
@@ -139,27 +138,18 @@ class Language:
         return self.nativeLangNames[lang]
 
     def getLangNameByNick(self, nick):
-	canonNick = self.canonLangNick (nick)
+        return self.localeInfo[self.canonLangNick(nick)][0]
 
-        try:
-            return self.localeInfo[canonNick][0]
-        except KeyError:
-            curNick = self.canonLangNick (self.getCurrent())
-            return self.localeInfo[curNick][0]
-
-    def getFontFile (self, lang):
+    def getFontFile (self, nick):
 	# Note: in /etc/fonts.cgz fonts are named by the map
 	# name as that's unique, font names are not
-        lang = self.canonLangNick (lang)
-        return self.localeInfo[lang][2]
+        return self.localeInfo[self.canonLangNick(nick)][2]
 
     def getDefaultKeyboard(self):
-        lang = self.canonLangNick (self.getCurrent())
-        return self.localeInfo[lang][3]
+        return self.localeInfo[self.canonLangNick(self.getCurrent())][3]
 
     def getDefaultTimeZone(self):
-        lang = self.canonLangNick (self.getCurrent())
-        return self.localeInfo[lang][4]
+        return self.localeInfo[self.canonLangNick(self.getCurrent())][4]
 
     def available (self):
         return self.nativeLangNames.keys()
@@ -179,83 +169,71 @@ class Language:
     def getDefault(self):
         if self.default:
             return self.default
-        elif os.environ.has_key('RUNTIMELANG'):
-            lang = os.environ['RUNTIMELANG']
-            name = self.getLangNameByNick(lang)
-            if name not in self.getSupported():
+        elif self.current:
+            nick = self.getNickByName (self.current)
+            if nick not in self.getSupported():
                 # the default language needs to be in the supported list!
                 s = self.getSupported()
-                s.append(name)
+                s.append(nick)
                 s.sort()
                 self.setSupported(s)
 
-            return name
+            return nick
         else:
-            return 'English'
+            return 'en_US.UTF-8'
 
     def setDefault(self, nick):
-	canonNick = self.canonLangNick(nick)
-
-	if not canonNick or not self.localeInfo[canonNick]:
-	    self.default = None
-	    return
-
-	self.default = self.getLangNameByNick(canonNick)
-
-	self.info['LANG'] = canonNick
-	self.info['SYSFONT'] = self.localeInfo[canonNick][2]
+	self.default = nick
+	self.info['LANG'] = nick
+	self.info['SYSFONT'] = self.localeInfo[self.canonLangNick(nick)][2]
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
 	if nick == "zh_CN.GB18030":
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
 
-    def setSupported (self, namelist):
-	if len(namelist) == len(self.allSupportedLangs):
+    def setSupported (self, nickList):
+	if len(nickList) == len(self.allSupportedLangs):
             self.info["SUPPORTED"] = None
 	    self.supported = self.getAllSupported()
-        elif namelist:
+        elif nickList:
 	    rpmNickList = []
-	    for name in namelist:
-                nick = self.getNickByName(name)
-		rpmNickList = rpmNickList + expandLangs(nick)
+
+	    for nick in nickList:
+                for sub in expandLangs(nick):
+                    if not sub in rpmNickList:
+                        rpmNickList.append(sub)
 
             linguas = string.join (rpmNickList, ':')
             self.info["SUPPORTED"] = linguas
-	    self.supported = namelist
+            self.supported = rpmNickList
 
             shortLinguas = string.join (rpmNickList, ':')
         else:
             self.info["SUPPORTED"] = None
-	    self.supported = None
+            self.supported = None
 	
 	if self.info["SUPPORTED"]:
-	    os.environ ["LINGUAS"] = self.info["SUPPORTED"]
+            os.environ ["LINGUAS"] = self.info["SUPPORTED"]
 	else:
-	    os.environ ["LINGUAS"] = ""
+            os.environ ["LINGUAS"] = ""
 
     def setRuntimeDefaults(self, nick):
-        self.current = nick
-        # XXX HACK HACK, I'm using an environment variable to communicate
-        # between two classes (runtimelang and lang support)
-        os.environ["RUNTIMELANG"] = nick
+        canonNick = self.canonLangNick(nick)
+        self.current = canonNick
 
     def setRuntimeLanguage(self, nick):
+        canonNick = self.canonLangNick(nick)
         self.setRuntimeDefaults(nick)
-        lang = nick
 
-        os.environ["LANG"] = lang
+        os.environ["LANG"] = canonNick
         os.environ["LC_NUMERIC"] = 'C'
+
         try:
             locale.setlocale(locale.LC_ALL, "")
         except locale.Error:
             pass
 
-        newlangs = [lang]
-        if lang.find(".") != -1:
-            newlangs.append(lang[:lang.find(".")])
-	if len(lang) > 2:
-            newlangs.append(lang[:2])
-        cat.setlangs(newlangs)
+        cat.setlangs(expandLangs(os.environ["LANG"]))
 
     def write(self, instPath):
 	f = open(instPath + "/etc/sysconfig/i18n", "w")
@@ -269,8 +247,7 @@ class Language:
 
         if self.info["SUPPORTED"] != None:
             for n in self.getSupported():
-                sup = sup + " " + self.getNickByName(n)
+                sup = sup + " " + n
 
-	f.write("lang %s\n" % self.getCurrent())
-        f.write("langsupport --default=%s%s\n" %
-		(self.getNickByName(self.getDefault()), sup))
+	f.write("lang %s\n" % self.info['LANG'])
+        f.write("langsupport --default=%s%s\n" % (self.getDefault(), sup))

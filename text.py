@@ -143,10 +143,6 @@ class ProgressWindow:
 
 class InstallInterface:
     def helpWindow(self, screen, key):
-        lang = self.instLanguage.getCurrent()
-        lang = self.instLanguage.getNickByName(lang)
-        self.langSearchPath = expandLangs(lang) + ['C']
-
         if key == "helponhelp":
             if self.showingHelpOnHelp:
                 return None
@@ -167,7 +163,7 @@ class InstallInterface:
                          "/usr/share/anaconda/"):
                 if found:
                     break
-                for lang in self.langSearchPath:
+                for lang in self.instLanguage.getCurrentLangSearchList():
                     for tag in tags:
                         fn = "%shelp/%s/s1-help-screens-%s%s.txt" \
                              % (path, lang, key, tag)
@@ -393,12 +389,13 @@ class InstallInterface:
                 log("unable to start bterm, falling back to english")
                 oldlang = id.instLanguage.getCurrent()
                 log("old language was %s" %(oldlang,))
-                id.instLanguage.setRuntimeLanguage("English")
+                id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
                 id.instLanguage.setRuntimeDefaults(oldlang)
 
         if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
+            log("run:  setting default runtime language")
             oldlang = id.instLanguage.getCurrent()
-            id.instLanguage.setRuntimeLanguage("English")
+            id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
             id.instLanguage.setRuntimeDefaults(oldlang)
         
         self.screen = SnackScreen()
@@ -420,9 +417,6 @@ class InstallInterface:
 	#self.screen.drawRootText (len(_(self.welcomeText)), 0,
 		  #(self.screen.width - len(_(self.welcomeText))) * " ")
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
-        lang = id.instLanguage.getCurrent()
-
-        self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage
 
         # draw the frame after setting up the fallback
@@ -442,6 +436,7 @@ class InstallInterface:
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
         id.fsset.registerWaitWindow(self.waitWindow)        
+        id.instLanguage.setSupported([id.instLanguage.getDefault()])
         parted.exception_set_handler(self.partedExceptionWindow)        
         
 	lastrc = INSTALL_OK

@@ -1122,7 +1122,8 @@ dispatch = dispatch.Dispatcher(intf, id, methodobj, rootPath)
 if lang:
     dispatch.skipStep("language", permanent = 1)
     instClass.setLanguage(id, lang)
-            
+    instClass.setLanguageDefault(id, lang)
+
 if keymap:
     dispatch.skipStep("keyboard", permanent = 1)
     instClass.setKeyboard(id, keymap)

@@ -345,15 +345,14 @@ class BaseInstallClass:
                     if wepkey:
                         dev.set(("wepkey", wepkey))
 
-    def setLanguageSupport(self, id, langlist):
-	if len (langlist) == 0:
+    def setLanguageSupport(self, id, nickList):
+	if len (nickList) == 0:
 	    id.instLanguage.setSupported(id.instLanguage.getAllSupported())
 	else:
 	    newlist = []
-	    for lang in langlist:
-		name = id.instLanguage.getLangNameByNick (lang)
-		if name not in newlist:
-		    newlist.append(name)
+	    for nick in nickList:
+		if nick not in newlist:
+		    newlist.append(nick)
 
             default = id.instLanguage.getDefault()
             if default not in newlist:

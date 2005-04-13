@@ -1147,6 +1147,9 @@ int main(int argc, char ** argv) {
         { 0, 0, 0, 0, 0 }
     };
 
+    /* Make sure sort order is right. */
+    setenv ("LC_COLLATE", "C", 1);	
+
     /* JKFIXME: very very bad hack */
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
     secondStageModuleLocation->path = strdup("/mnt/runtime/modules/modules.cgz");

@@ -761,12 +761,10 @@ class InstallInterface:
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
         id.fsset.registerWaitWindow(self.waitWindow)
+        id.instLanguage.setSupported([id.instLanguage.getDefault()])
         parted.exception_set_handler(partedExceptionWindow)
 
-        lang = id.instLanguage.getCurrent()
-        id.instLanguage.setRuntimeLanguage (lang)
-        id.instLanguage.setDefault (lang)
-        self.icw = InstallControlWindow (self, self.dispatch, lang)
+        self.icw = InstallControlWindow (self, self.dispatch, id)
         self.icw.run (self.runres)
 
 class TextViewBrowser(gtk.TextView):
@@ -812,9 +810,7 @@ class TextViewBrowser(gtk.TextView):
 
     
 class InstallControlWindow:
-    def setLanguage (self, locale):
-	self.langSearchPath = expandLangs(locale) + ['C']
-        
+    def setLanguage (self):
 	if not self.__dict__.has_key('window'): return
 
         self.reloadRcQueued = 1
@@ -873,7 +869,7 @@ class InstallControlWindow:
         self.setScreen ()
 
     def loadReleaseNotes(self):
- 	langList = self.langSearchPath + [ "" ]
+ 	langList = self.id.instLanguage.getCurrentLangSearchList() + [ "" ]
 	suffixList = []        
  	for lang in langList:
  	    if lang:
@@ -1122,7 +1118,7 @@ class InstallControlWindow:
             self.mainxml.get_widget("mainTable").set_homogeneous(False)
         
         buffer = htmlbuffer.HTMLBuffer()
-        buffer.feed(ics.getHTML(self.langSearchPath))
+        buffer.feed(ics.getHTML(self.id.instLanguage.getCurrentLangSearchList()))
         textbuffer = buffer.get_buffer()
         self.help.set_buffer(textbuffer)
         # scroll to the top.  Do this with a mark so it's done in the idle loop
@@ -1231,11 +1227,11 @@ class InstallControlWindow:
         if ics.getGrabNext():
             self.mainxml.get_widget("nextButton").grab_focus()
 
-    def __init__ (self, ii, dispatch, locale):
+    def __init__ (self, ii, dispatch, id):
         self.reloadRcQueued = 0
         self.ii = ii
+        self.id = id
         self.dispatch = dispatch
-	self.setLanguage(locale)
         self.handle = None
         self.displayHelp = True
 

@@ -1,3 +1,18 @@
+2005-04-13  Chris Lumenss  <clumens@redhat.com>
+
+	* anaconda:  Always set a default language.
+	* gui.py  (InstallInterface.run):  Set supported languages.  Use
+	Language's search path instead of making our own.
+	* installclass.py  (BaseInstallClass.setLanguageSupport):  Use
+	language nicknames instead of regular names.
+	* language.py:  Use language nicknames throughout.  Have canonLangNick
+	return en_US.UTF-8 if the nickname isn't found.  Set up the runtime
+	language properly even if the installtime langauge is not supported by
+	anaconda  (#152404).
+	* loader2/loader.c (main):  Set LC_COLLATE=C.
+	* text.py:  Use Language's search patch instead of making our own.
+	Use language nicknames throughout.  Set supported languages.
+
 2005-04-13  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: add libaudit to the graphical environment,
