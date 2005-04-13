@@ -1286,7 +1286,7 @@ msgstr ""
 
 #: ../network.py:50
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "Nazwy komputerów mogą zawierać tylko znaki 'a-z', 'A-Z', '-', lub '.'"
+msgstr "Nazwy komputerów mogą zawierać tylko znaki 'a-z', 'A-Z', '-' lub '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -2909,7 +2909,7 @@ msgid ""
 msgstr ""
 "Dyskietka startowa pozwala wystartować system %s z dyskietki.  Umożliwia to "
 "uruchomienie systemu, gdy program startowy przestanie działać, jeśli nie "
-"zainstalujesz programu startowego, lub gdy twój program startowy innego "
+"zainstalujesz programu startowego lub gdy twój program startowy innego "
 "producenta nie obsługuje Linuksa.\n"
 "\n"
 "Utworzenie dyskietki startowej jest wysoce zalecane.\n"
@@ -2956,7 +2956,7 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:80
 msgid "_General kernel parameters"
-msgstr "O_gólne parametry jądra"
+msgstr "Ogólne pa_rametry jądra"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:43
 #: ../textw/bootloader_text.py:109 ../textw/bootloader_text.py:166
@@ -3530,7 +3530,7 @@ msgstr "Punkt _montowania:"
 
 #: ../iw/lvm_dialog_gui.py:385
 msgid "_File System Type:"
-msgstr "Typ systemu _plików:"
+msgstr "_Typ systemu plików:"
 
 #: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:311
 msgid "Original File System Type:"
@@ -3709,7 +3709,7 @@ msgstr "Nazwa grupy woluminów:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "_Physical Extent:"
-msgstr "Obszar _fizyczny:"
+msgstr "Obszar fi_zyczny:"
 
 #: ../iw/lvm_dialog_gui.py:993
 msgid "Physical Volumes to _Use:"
@@ -4192,7 +4192,7 @@ msgstr "Pierwotna etykieta systemu plików:"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
-msgstr "Cylinder _początkowy:"
+msgstr "_Cylinder początkowy:"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
@@ -4200,7 +4200,7 @@ msgstr "Cylinder _końcowy:"
 
 #: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
-msgstr "Wymuś, aby była partycją _podstawową"
+msgstr "Wymuś, aby była partycją p_odstawową"
 
 #: ../iw/partition_gui.py:362 ../textw/partition_text.py:1436
 msgid "Type"
@@ -4384,7 +4384,7 @@ msgstr "Co chcesz teraz zrobić?"
 
 #: ../iw/partition_gui.py:1263
 msgid "Create a software RAID _partition."
-msgstr "Utworzyć _partycję programowego RAID."
+msgstr "Utworzyć pa_rtycję programowego RAID."
 
 #: ../iw/partition_gui.py:1266
 #, python-format
@@ -4422,7 +4422,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1400
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "Ukryj składniki urządzeń RAID/_grup woluminów LVM"
+msgstr "Ukryj składniki urządzeń RAID/g_rup woluminów LVM"
 
 #: ../iw/partition_gui.py:1415 ../textw/partition_text.py:1520
 msgid "Automatic Partitioning"
@@ -4467,7 +4467,7 @@ msgstr "_Formatuj partycję jako:"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr "Mi_gruj partycję do:"
+msgstr "Mig_ruj partycję do:"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
@@ -4587,7 +4587,7 @@ msgstr "Liczba dysków zapa_sowych:"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
-msgstr "Czy s_formatować partycję?"
+msgstr "Czy _sformatować partycję?"
 
 #: ../iw/raid_dialog_gui.py:476
 msgid ""
@@ -4889,7 +4889,7 @@ msgstr "Chcę ut_worzyć plik wymiany"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Select the _partition to put the swap file on:"
-msgstr "Wybierz _partycję, na której ma się znaleźć plik wymiany:"
+msgstr "Wybierz pa_rtycję, na której ma się znaleźć plik wymiany:"
 
 #: ../iw/upgrade_swap_gui.py:148 ../textw/upgrade_text.py:112
 msgid "Partition"
@@ -7647,7 +7647,7 @@ msgstr "Pokaż pomo_c"
 
 #: tmp/anaconda.glade.h:5
 msgid "_Next"
-msgstr "Dale_j"
+msgstr "_Dalej"
 
 #: tmp/anaconda.glade.h:6
 msgid "_Release Notes"
