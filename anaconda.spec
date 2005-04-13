@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 13 2005 XXX - 10.2.0.XX-1
+- Cut summaries off to avoid layout problems (katzj, #154459)
+- Add script to update loader in initrd (katzj)
+- Typo fixes in upgrade.py (katzj, #154522)
+- Fix rescue mode network enabling (katz, #153961)
+- Add libaudit to the graphical stage2 file list, for Xorg
+
 * Mon Apr 11 2005 Peter Jones <pjones@redhat.com> - 10.2.0.48-1
 - Typo fixes in gui.py (menthos, #154324)
 - Don't try to do early swap in test mode, and use yesno not okcancel (msw)
