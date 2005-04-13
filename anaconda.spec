@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.49
+Version: 10.2.0.50
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 13 2005 Peter Jones <pjones@redhat.com> - 10.2.0.50-1
+- revert last week's nptl hack in upd-instroot
+
 * Wed Apr 13 2005 Peter Jones <pjones@redhat.com> - 10.2.0.49-1
 - Cut summaries off to avoid layout problems (katzj, #154459)
 - Add script to update loader in initrd (katzj)
