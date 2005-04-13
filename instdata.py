@@ -28,6 +28,7 @@ import partitions
 import partedUtils
 import hdrlist
 import zfcp
+import urllib
 from flags import *
 from constants import *
 
@@ -131,7 +132,7 @@ class InstallData:
 
 	# figure out the install method and write out a line
 	if self.methodstr.startswith('ftp://') or self.methodstr.startswith('http://'):
-	    f.write("url --url %s\n" % (self.methodstr,))
+	    f.write("url --url %s\n" % urllib.unquote(self.methodstr))
 	elif self.methodstr.startswith('cdrom://'):
 	    f.write("cdrom\n")
 	elif self.methodstr.startswith('hd://'):

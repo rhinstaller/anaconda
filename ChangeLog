@@ -1,3 +1,7 @@
+2005-04-13  Chris Lumens  <clumens@redhat.com>
+
+	* instdata.py (InstallData.writeKS):  Decode source URL (#154149).
+
 2005-04-13  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: revert last week's nptl hack
