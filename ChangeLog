@@ -7,6 +7,8 @@
 	alignment internally in case this gets wrapped in another alignment.
 	* iw/bootloader_main_gui.py (MainBootloaderWindow.getScreen):  Fix
 	left alignment on all widgets.
+	* iw/network_window.py (NetworkWindow.getScreen):  Fix spacing so UI
+	elements don't run off the screen in French translation.
 	* iw/osbootwidget.py (OSBootWidget.__init__):  Don't set alignment
 	internally in case this gets wrapped in another alignment.
 

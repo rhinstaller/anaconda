@@ -517,6 +517,7 @@ class NetworkWindow(InstallWindow):
 	self.hostname = self.network.hostname
 
 	devhbox = gtk.HBox(False)
+	devhbox.set_spacing(10)
 
 	self.devlist = self.setupDevices()
 
@@ -526,7 +527,7 @@ class NetworkWindow(InstallWindow):
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
 	devlistSW.set_size_request(-1, 100)
-	devhbox.pack_start(devlistSW, False, padding=10)
+	devhbox.pack_start(devlistSW, False)
 
         buttonbar = gtk.VButtonBox()
         buttonbar.set_layout(gtk.BUTTONBOX_START)
@@ -546,28 +547,28 @@ class NetworkWindow(InstallWindow):
 	box.pack_start(frame, False)
 	
 	# show hostname and dns/misc network info and offer chance to modify
-	hostbox = gtk.HBox()
 	hostbox=gtk.VBox()
+	hostbox.set_spacing(5)
+
 	label=gtk.Label(_("Set the hostname:"))
 	label.set_alignment(0.0, 0.0)
 	hostbox.pack_start(label, False, False)
+
 	tmphbox=gtk.HBox()
         self.hostnameUseDHCP = gtk.RadioButton(label=_("_automatically via DHCP"))
 	self.hostnameUseDHCP.connect("toggled", self.hostnameUseDHCPCB, None)
-	
-	tmphbox.pack_start(self.hostnameUseDHCP, False, False, padding=15)
-	hostbox.pack_start(tmphbox, False, False, padding=5)
+	tmphbox.pack_start (self.hostnameUseDHCP, False, False)
+	hostbox.pack_start(tmphbox, False, False)
 
-	self.hostnameManual  = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
 	tmphbox=gtk.HBox()
-	tmphbox.pack_start(self.hostnameManual, False, False, padding=15)
+	tmphbox.set_spacing(5)
+	self.hostnameManual = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
+	tmphbox.pack_start(self.hostnameManual, False, False)
 	self.hostnameEntry = gtk.Entry()
-
-	tmphbox.pack_start(self.hostnameEntry, False, False, padding=5)
-	tmphbox.pack_start(gtk.Label(_('(ex. "host.domain.com")')), False, False, padding=0)
+	tmphbox.pack_start(self.hostnameEntry, False, False)
+	tmphbox.pack_start(gtk.Label(_('(ex. "host.domain.com")')), False, False)
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
-
-	hostbox.pack_start(tmphbox, False, False, padding=5)
+	hostbox.pack_start(tmphbox, False, False)
 
 	hostbox.set_border_width(12)
         l = gtk.Label()
