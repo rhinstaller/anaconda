@@ -11,6 +11,7 @@
 	elements don't run off the screen in French translation.
 	* iw/osbootwidget.py (OSBootWidget.__init__):  Don't set alignment
 	internally in case this gets wrapped in another alignment.
+	* ui/anaconda.glade:  Use the correct forward button image.
 
 2005-04-14  Jeremy Katz  <katzj@redhat.com>
 
