@@ -1,3 +1,15 @@
+2005-04-14  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py (growToParent):  Make WrappingLabel wrap (#153071, #154786).
+	* iw/examine_gui.py (UpgradeExamineWindow.getScreen):  Don't indent
+	the upgrade selection box so much.
+	* iw/blpasswidget.py (BootloaderPasswordWidget.__init__):  Don't set
+	alignment internally in case this gets wrapped in another alignment.
+	* iw/bootloader_main_gui.py (MainBootloaderWindow.getScreen):  Fix
+	left alignment on all widgets.
+	* iw/osbootwidget.py (OSBootWidget.__init__):  Don't set alignment
+	internally in case this gets wrapped in another alignment.
+
 2005-04-14  Jeremy Katz  <katzj@redhat.com>
 
 	* hdrlist.py (EverythingExclude): Add kernel-xen?-devel too (#154819)

@@ -161,10 +161,6 @@ class UpgradeExamineWindow (InstallWindow):
 	# hack indent it
 	upbox = gtk.HBox(False)
 
-	crackhbox = gtk.HBox(False)
-	crackhbox.set_size_request(70, -1)
-
-	upbox.pack_start(crackhbox, False, False)
 #	upbox.pack_start(upboxtmp, True, True)
 	upbox.pack_start(upboxtmp, False, False)
 

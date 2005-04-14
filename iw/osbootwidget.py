@@ -108,10 +108,7 @@ class OSBootWidget:
 
         self.vbox.pack_start(box, False)
 
-        alignment = gtk.Alignment()
-        alignment.set(0.1, 0, 0, 0)
-        alignment.add(self.vbox)
-        self.widget = alignment
+        self.widget = self.vbox
 
     def setIllegalChars(self):
         # illegal characters for boot loader labels

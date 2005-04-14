@@ -52,14 +52,11 @@ class BootloaderPasswordWidget:
         self.setPassLabel()
             
         box = gtk.HBox(False, 5)
-        box.pack_start(self.usePassCb)
-        box.pack_start(self.passButton)
+        box.pack_start(self.usePassCb, False)
+        box.pack_start(self.passButton, False)
         vbox.pack_start(box, False)
 
-        alignment = gtk.Alignment()
-        alignment.set(0.1, 0, 0, 0)
-        alignment.add(vbox)
-        self.widget = alignment
+        self.widget = vbox
 
     def getWidget(self):
         return self.widget

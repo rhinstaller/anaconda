@@ -254,7 +254,6 @@ def widgetExpander(widget, growTo=None):
     widget.connect("size-allocate", growToParent, growTo)
 
 def growToParent(widget, rect, growTo=None):
-    return
     if not widget.parent:
         return
     ignore = widget.__dict__.get("ignoreEvents")

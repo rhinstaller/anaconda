@@ -171,7 +171,8 @@ class MainBootloaderWindow(InstallWindow):
             self.usePass = 0
             self.password = None
 
-        thebox = gtk.VBox (False, 10)
+        thebox = gtk.VBox (False, 5)
+        thebox.set_border_width(10)
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
         thebox.pack_start(spacer, False)
@@ -205,11 +206,7 @@ class MainBootloaderWindow(InstallWindow):
         hbox.pack_start(button, False)
         button.connect("clicked", self.changeBootloaderCallback)
 
-        alignment = gtk.Alignment()
-        alignment.set(0.1, 0, 0, 0)
-        alignment.add(hbox)
-        
-        thebox.pack_start(alignment, False)
+        thebox.pack_start(hbox, False)
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
@@ -242,5 +239,3 @@ class MainBootloaderWindow(InstallWindow):
         self.updateBootLoaderLabel()
 
         return thebox
-        
-
