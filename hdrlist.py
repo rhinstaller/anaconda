@@ -54,6 +54,7 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-pseries': None,    'kernel-iseries': None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
                      'kernel-xen0': None, 'kernel-xenU': None,
+                     'kernel-xen0-devel': None, 'kernel-xenU-devel': None,
                      'kernel-bigmem-unsupported': None,
                      'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None }
@@ -106,6 +107,9 @@ def betterPackageForProvides(h1, h2):
         return h1
     if h1 is None:
         return h2
+
+    if "openoffice.org-core" in (h1['name'], h2['name']):
+        log("looking at ooo-core between %s and %s" %(h1['name'], h1['arch']))
 
     # if we're already being installed, then we're clearly the superior
     # answer
@@ -250,6 +254,9 @@ class Package:
             self.depsFound = 1
 
     def select(self, isManual = 0, isDep = 0):
+        print "selecting ", self.hdr['name']        
+#        if self.hdr['name'] in ("tk", "tcl", "compat-libstdc++"):
+
         self.usecount = self.usecount + 1
         if isManual:
             if self.manual_state == MANUAL_NONE:

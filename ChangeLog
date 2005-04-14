@@ -1,3 +1,7 @@
+2005-04-14  Jeremy Katz  <katzj@redhat.com>
+
+	* hdrlist.py (EverythingExclude): Add kernel-xen?-devel too (#154819)
+
 2005-04-13  Chris Lumens  <clumens@redhat.com>
 
 	* instdata.py (InstallData.writeKS):  Decode source URL (#154149).
@@ -27,6 +31,8 @@
 	because the new Xorg needs it.
 
 2005-04-12  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/wireless.c: Free'ing mem from alloca() can be bad (#129058)
 
 	* scripts/upd-initrd: Add simple stupid script to update the
 	loader in an initrd to make my life easier.
