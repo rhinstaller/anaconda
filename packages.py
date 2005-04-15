@@ -1577,18 +1577,7 @@ def selectLanguageSupportGroups(grpset, instLanguage):
     if not grpset.groups.has_key("language-support"):
         return
 
-    instLanguage.getDefault()
-    sup = instLanguage.supported
-    if len(sup) == 0:
-        sup = instLanguage.getAllSupported()
-
-    langs = []
-    for name in sup:
-        try:
-            lang = instLanguage.langInfoByName[name][0]
-            langs.extend(language.expandLangs(lang))
-        except:
-            continue
+    langs = instLanguage.getSupported()
 
     grp = grpset.groups["language-support"]
     for (pid, pdict) in grp.packages.items():

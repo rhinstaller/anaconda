@@ -1,3 +1,8 @@
+2005-04-15  Chris Lumens  <clumens@redhat.com>
+
+	* packages.py (selectLanguageSupportGroups):  Select language support
+	packages for all requested languages (#153746, #154181).
+
 2005-04-14  Chris Lumens  <clumens@redhat.com>
 
 	* gui.py (growToParent):  Make WrappingLabel wrap (#153071, #154786).
