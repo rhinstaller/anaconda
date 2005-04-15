@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.50
+Version: 10.2.0.51
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 15 2005 Chris Lumens <clumens@redhat.com> 10.2.0.51-1
+- Decode source URL for writing to anaconda-ks.cfg (#154149).
+- Add kernel-xen?-devel to the exclude list (katzj, #154819).
+- Fix text wrapping (#153071, #154786).
+- Various UI fixes.
+- Select language packages for all selected languages (#153748, #154181).
+
 * Wed Apr 13 2005 Peter Jones <pjones@redhat.com> - 10.2.0.50-1
 - revert last week's nptl hack in upd-instroot
 
