@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-04-14 16:13+0200\n"
+"PO-Revision-Date: 2005-04-16 12:19+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -2972,7 +2972,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
-msgstr "A _GRUB legyen a rendszerindító"
+msgstr "A GR_UB legyen a rendszerindító"
 
 #: ../iw/bootloader_main_gui.py:130
 msgid "_Do not install a boot loader"
@@ -3052,9 +3052,9 @@ msgid ""
 "in the file '%s' after rebooting the system."
 msgstr ""
 "A rendszer újraindítása után a teljes rendszertelepítési napló megtekinthető "
-"a(z) '%s' fájlban.\n"
+"a(z) \"%s\" fájlban.\n"
 "\n"
-"A telepítési opciókat tartalmazó Kickstart-fájl '%s' néven érhető el a "
+"A telepítési opciókat tartalmazó Kickstart-fájl \"%s\" néven érhető el a "
 "rendszer újraindítása után."
 
 #: ../iw/confirm_gui.py:87
@@ -4083,7 +4083,7 @@ msgstr "Minimális"
 #: ../iw/package_gui.py:740
 #, python-format
 msgid "Details for '%s'"
-msgstr "'%s' részletei"
+msgstr "\"%s\" részletei"
 
 #: ../iw/package_gui.py:749
 msgid ""
@@ -4434,7 +4434,7 @@ msgstr "Hogyan szeretné előkészíteni a fájlrendszert ezen a partíción?"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
-msgstr "Nem akarom mód_osítani (az adatok megőrzése)"
+msgstr "_Nem akarom módosítani (az adatok megőrzése)"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
