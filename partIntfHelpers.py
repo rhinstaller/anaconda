@@ -396,6 +396,11 @@ def checkForSwapNoMatch(intf, diskset, partitions):
                     
                 partedUtils.set_partition_file_system_type(part,
                                                            request.fstype)
+
+def mustHaveSelectedDrive(intf):
+    txt =_("You need to select at least one hard drive to have %s installed "
+           "onto.") % (productName,)
+    intf.messageWindow(_("Error"), txt, custom_icon="error")
      
 def queryNoFormatPreExisting(intf):
     """Ensure the user wants to use a partition without formatting."""

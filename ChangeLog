@@ -1,3 +1,21 @@
+2005-04-16  Jeremy Katz  <katzj@redhat.com>
+
+	* textw/partition_text.py (AutoPartitionWindow.__call__): Check
+	for a drive being selected (#124296)
+	* partIntfHelpers.py (mustHaveSelectedDrive): Add UI helper for
+	selected drives error.
+	* iw/partition_gui.py (AutoPartitionWindow.getNext): Use helper.
+
+	* loader2/kickstart.c: Allow specifying 'mediacheck' in ks.cfg to
+	specify mediacheck.
+	* loader2/kickstart.h: Define constant.
+	* kickstart.py (KickstartBase.readKickstart): Define no-op for
+	'mediacheck' keyword for stage2
+
+	* loader2/method.c (queryIsoMediaCheck): Allow mediacheck for 
+	kickstart if 'mediacheck' passed on the command line. (#116429)
+	* loader2/cdinstall.c (queryCDMediaCheck): Likewise.
+
 2005-04-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

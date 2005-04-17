@@ -1576,6 +1576,10 @@ class AutoPartitionWindow:
                 
                 return INSTALL_BACK
 
+            if len(self.drivelist.getSelection()) < 1:
+                mustHaveSelectedDrive(intf)
+                continue
+
             partitions.autoClearPartType = typebox.current()
             partitions.autoClearPartDrives = self.drivelist.getSelection()
 

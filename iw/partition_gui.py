@@ -1438,15 +1438,7 @@ class AutoPartitionWindow(InstallWindow):
 	    iter = model.iter_next(iter)
 
         if len(allowdrives) < 1:
-            dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
-                                    gtk.BUTTONS_OK,
-                                    _("You need to select at least one "
-                                      "hard drive to have %s installed "
-                                      "onto.") % (productName,))
-            gui.addFrame(dlg)
-            dlg.show_all()
-            rc = dlg.run()
-            dlg.destroy()
+            mustHaveSelectedDrive(self.intf)
             raise gui.StayOnScreen
 
         self.partitions.autoClearPartDrives = allowdrives
