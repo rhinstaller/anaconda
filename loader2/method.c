@@ -344,7 +344,7 @@ void queryIsoMediaCheck(char *isoFile, int flags) {
     int rc, first;
 
     /* dont bother to test in automated installs */
-    if (FL_KICKSTART(flags))
+    if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
 	return;
 
     /* if they did not specify to mediacheck explicitely then return */

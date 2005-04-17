@@ -703,6 +703,7 @@ class KickstartBase(BaseInstallClass):
                      "autostep"         : self.doAutoStep       ,
                      "firstboot"        : self.doFirstboot      ,
                      "vnc"              : None                  ,
+                     "mediacheck"       : None                  ,
 		   }
 
 	packages = []

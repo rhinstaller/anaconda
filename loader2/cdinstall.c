@@ -238,7 +238,7 @@ static void queryCDMediaCheck(char *dev, int flags) {
   int isostatus;
 
   /* dont bother to test in automated installs */
-  if (FL_KICKSTART(flags))
+  if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
       return;
 
   /* see what status is */

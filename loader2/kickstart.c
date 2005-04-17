@@ -74,6 +74,8 @@ static void setHalt(struct loaderData_s * loaderData, int argc,
                     char ** argv, int * flagsPtr);
 static void setShutdown(struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr);
+static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
+                          char ** argv, int * flagsPtr);
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
 
@@ -94,6 +96,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_POWEROFF, "poweroff", setPowerOff },
     { KS_CMD_HALT, "halt", setHalt },
     { KS_CMD_SHUTDOWN, "shutdown", setShutdown },
+    { KS_CMD_MEDIACHECK, "mediacheck", setMediaCheck },
     { KS_CMD_NONE, NULL, NULL }
 };
 
@@ -416,6 +419,12 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
     if ((!poweroff && !reboot) || (halt))
         (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_HALT;
 
+    return;
+}
+
+static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
+                          char ** argv, int * flagsPtr) {
+    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_MEDIACHECK;
     return;
 }
 
