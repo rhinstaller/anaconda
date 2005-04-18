@@ -3,14 +3,15 @@
 # Copyright (C) 2004 Alan Cox
 # Translated by Owain Green <owaing@oceanfree.net>, 2004.
 # Dafydd Walters <dwalters@dragontechnology.com>, 2004.
+# Rhys Jones <rhys@sgwarnog.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: cy\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2004-10-26 11:43+0100\n"
-"Last-Translator: Dafydd Walters <dwalters@dragontechnology.com>\n"
+"PO-Revision-Date: 2005-04-16 12:00+0100\n"
+"Last-Translator: Rhys Jones <rhys@sgwarnog.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +38,7 @@ msgstr "Methu gosod cyfrinair vnc - ddim yn defnyddio cyfrinair!"
 
 #: ../anaconda:160
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Sicrhewch bod eich cyfrinair o leiaf 6 nod o hyd."
+msgstr "Sicrhewch fod eich cyfrinair o leiaf 6 nod o hyd."
 
 #: ../anaconda:183
 msgid ""
@@ -161,7 +162,7 @@ msgstr "Dosbarth arsefydlu'n gorfodi arsefydliad modd testun"
 
 #: ../anaconda:824
 msgid "No video hardware found, assuming headless"
-msgstr "Ni ganfuwyd galedwedd fideo, tybir yn ddi-ben"
+msgstr "Ni chanfuwyd caledwedd fideo, tybir yn ddi-ben"
 
 #: ../anaconda:835 ../anaconda:1090
 msgid "Unable to instantiate a X hardware state object."
@@ -176,7 +177,7 @@ msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
-"Ni ganfuwyd llygoden.  Mae angen llygoden ar gyfer arsefydliad graffigol.  "
+"Ni chanfuwyd llygoden.  Mae angen llygoden ar gyfer arsefydliad graffigol.  "
 "Yn dechrau'r modd testun."
 
 #: ../anaconda:884
@@ -191,15 +192,15 @@ msgstr "Yn defnyddio llygoden math: %s"
 
 #: ../anaconda:970
 msgid "Starting graphical installation..."
-msgstr "Yn dechrau arsefydliad grafigol..."
+msgstr "Yn dechrau arsefydliad graffigol..."
 
 #: ../autopart.py:961
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Methwyd neilltuo rhaniadau sail silindr yn raniadau cynradd"
+msgstr "Methwyd neilltuo rhaniadau sail silindr yn rhaniadau cynradd"
 
 #: ../autopart.py:964
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Methwyd neilltuo rhaniadau yn raniadau cynradd"
+msgstr "Methwyd neilltuo rhaniadau yn rhaniadau cynradd"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions"
@@ -210,7 +211,7 @@ msgid "Could not allocate partitions"
 msgstr "Methwyd neilltuo rhaniadau"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -218,7 +219,7 @@ msgid ""
 msgstr ""
 "Nid yw'r rhaniad cychwyn %s yn perthyn i label disg BSD. Ni fydd modd i SRM "
 "gychwyn o'r rhaniad hwn. Defnyddiwch raniad sy'n perthyn i label disg BSD "
-"neu newidiwch y label disg dyfais yma i BSD."
+"neu newidiwch label disg y ddyfais hon i BSD."
 
 #: ../autopart.py:1034
 #, python-format
@@ -228,7 +229,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "Nid yw'r rhaniad cychwyn %s yn perthyn i ddisg â digon o le rhydd wrth ei "
-"dechrau i'r cychwynnydd i fyw ynddo. Sicrhewch bod o leiaf 5MB o le rhydd "
+"dechrau i'r cychwynnydd i fyw ynddo. Sicrhewch fod o leiaf 5MB o le rhydd "
 "wrth ddechrau'r disg sy'n cynnwys /boot"
 
 #: ../autopart.py:1036
@@ -237,7 +238,7 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
-"Nid yw'r rhaniad cychwyn %s yn raniad VFAT.  Ni fydd modd i EFI gychwyn o'r "
+"Nid yw'r rhaniad cychwyn %s yn rhaniad VFAT.  Ni fydd modd i EFI gychwyn o'r "
 "rhaniad hwn."
 
 #: ../autopart.py:1038
@@ -263,7 +264,7 @@ msgid ""
 "allocated logical volumes in %s."
 msgstr ""
 "Ni fyddai ychwanegu'r rhaniad yma'n gadael digon o le disg ar gyfer cyfrolau "
-"rhesymegol neilltuwyd eisioes yn %s."
+"rhesymegol neilltuwyd eisoes yn %s."
 
 #: ../autopart.py:1239
 msgid "Requested Partition Does Not Exist"
@@ -411,12 +412,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
-"Digwyddodd yn gwallau canlynol gyda'ch rhannu:\n"
+"Digwyddodd y gwallau canlynol gyda'ch rhannu:\n"
 "\n"
 "%s\n"
 "\n"
-"Gall hyn ddigwydd os nad oes digon o le ar eich disg(iau) g(c)aled ar gyfer "
-"yr arsefydliad. %s"
+"Gall hyn ddigwydd os nad oes digon o le ar eich disg(iau) caled ar gyfer yr "
+"arsefydliad. %s"
 
 #: ../autopart.py:1484
 msgid "Unrecoverable Error"
@@ -450,7 +451,7 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 "Mae Rhannu Awtomatig yn gosod rhaniadau'n seiliedig ar y math arsefydliad "
-"dewisiedig. Gallwch hefyd addasu'r rhaniadau wedi'u creu.\n"
+"dewisedig. Gallwch hefyd addasu'r rhaniadau wedi'u creu.\n"
 "\n"
 "Galluoga'r erfyn rhannu disgiau â llaw, Derwydd Disgiau, i chi greu "
 "rhaniadau mewn amgylchedd rhyngweithiol. Gallwch osod mathau'r systemau "
@@ -541,27 +542,26 @@ msgid "Installing %s-%s-%s... "
 msgstr "Yn arsefydlu %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
 msgstr ""
-"Digwyddodd eithriad anrhinedig.  Mwy na thebyg nam yw hwn.  Copïwch destun "
-"cyflawn yr eithriad yma neu gadwch y domen chwaliad i ddisg feddal wedyn "
-"cyflwynwch adroddiad nam manwl yn erbyn anaconda wrth http://bugzilla.redhat."
-"com/bugzilla/"
+"Digwyddodd eithriad anrhinedig. Nam yw hwn, yn fwy na thebyg. Copïwch destun "
+"cyflawn yr eithriad yma, neu cadwch y domen chwaliad i ddisg feddal, wedyn "
+"cyflwynwch adroddiad nam manwl ar gyfer anaconda fan hyn: %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
-"Digwyddodd eithriad anrhinedig.  Mwy na thebyg nam yw hwn.  Copïwch destun "
-"cyflawn yr eithriad yma wedyn cyflwynwch adroddiad nam manwl yn erbyn "
-"anaconda wrth http://bugzilla.redhat.com/bugzilla/"
+"Digwyddodd eithriad anrhinedig. Nam yw hwn, yn fwy na thebyg. Copïwch destun "
+"cyflawn yr eithriad yma, wedyn cyflwynwch adroddiad nam manwl ar gyfer "
+"anaconda fan hyn: %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -666,8 +666,8 @@ msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
-"Digwyddodd gwall tra'n gwneud y ddisg gychwyn. Sicrhewch bod yna ddisg "
-"feddal yn y gyrrydd disgiau meddal cyntaf, os gwelwch yn dda."
+"Digwyddodd gwall wrth wneud y ddisg gychwyn. Sicrhewch fod yna ddisg feddal "
+"yn y gyrrydd disgiau meddal cyntaf, os gwelwch yn dda."
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -682,7 +682,7 @@ msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Digwyddodd gwall tra'n ceisio gwirio'r ddisg gychwyn.  Sicrhewch bod yna "
+"Digwyddodd gwall wrth geisio gwirio'r ddisg gychwyn.  Sicrhewch fod yna "
 "ddisg feddal dda yn y gyrrydd disgiau meddal cyntaf, os gwelwch yn dda."
 
 #: ../floppy.py:201
@@ -691,9 +691,9 @@ msgid ""
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Mae'ch disg gychwyn feddal i'w gweld yn annilys.  Mae'n debyg bod hyn "
-"oherwydd disg feddal gwael.  Sicrhewch bod yna ddisg feddal dda yn y gyrrydd "
-"disgiau meddal cyntaf, os gwelwch yn dda."
+"Mae'ch disg gychwyn feddal i'w gweld yn annilys.  Mae'n bosib bod nam ar y "
+"disg meddal.  Sicrhewch fod yna ddisg feddal dda yn y gyrrydd disgiau meddal "
+"cyntaf, os gwelwch yn dda."
 
 #: ../fsset.py:175
 msgid "Checking for Bad Blocks"
@@ -746,12 +746,12 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Digwyddodd gwall wrth geisio ymgychwyn cyfnewid ar y ddyfais %s.  Mae'r "
-"broblem hon yn ddifrifol, a ni all yr arsefydlu barhau.\n"
+"broblem hon yn ddifrifol, a ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
 #: ../fsset.py:1366
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -762,7 +762,8 @@ msgid ""
 msgstr ""
 "Gwall wrth weithredoli'r ddyfais gyfnewid %s: %s\n"
 "\n"
-"Mwy na thebyg bod hyn yn golygu nad yw'r rhaniad cyfnewid wedi'i ymgychwyn.\n"
+"Nid yw'r ffeil /etc/fstab ar eich rhaniad uwchraddio yn cyfeirio at raniad "
+"cyfnewid dilys.\n"
 "\n"
 "Gwasgwch Iawn i ailgychwyn eich system."
 
@@ -803,7 +804,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Digwyddodd gwall wrth chwilio am flociau gwael ar %s. Mae'r broblem yma'n "
-"ddifrifol, a ni all yr arsefydlu barhau.\n"
+"ddifrifol, a ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
@@ -816,7 +817,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Digwyddodd gwall wrth geisio fformadu %s. Mae'r broblem yma'n ddifrifol, a "
-"ni all yr arsefydlu barhau.\n"
+"ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
@@ -829,7 +830,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Digwyddodd gwall wrth geisio mudo %s. Mae'r broblem yma'n ddifrifol, a ni "
-"all yr arsefydlu barhau.\n"
+"all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
@@ -846,7 +847,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Digwyddodd gwall wrth geisio creu %s.  Nid yw rhyw elfen o'r llwybr yma'n "
-"gyfeiriadur. Mae hwn yn wall angheuol a ni all yr arsefydlu barhau.\n"
+"gyfeiriadur. Mae hwn yn wall angheuol a ni all yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
@@ -859,7 +860,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Digwyddodd gwall wrth geisio creu %s: %s.  Mae hwn yn wall angheuol a ni all "
-"yr arsefydlu barhau.\n"
+"yr arsefydlu parhau.\n"
 "\n"
 "Gwasgwch <Enter> i ailgychwyn eich system."
 
@@ -874,12 +875,11 @@ msgid ""
 msgstr ""
 "Gwall wrth osod y ddyfais %s ar %s: %s\n"
 "\n"
-"Mwy na thebyg golyga hyn na fformadwyd y rhaniad yma.\n"
+"Mwy na thebyg na chafodd y rhaniad ei fformadu.\n"
 "\n"
-"Gwagwch Iawn i ailgychwyn eich system."
+"Gwasgwch Iawn i ailgychwyn eich system."
 
 #: ../fsset.py:1586
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -887,11 +887,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Gwall wrth osod y ddyfais %s ar %s: %s\n"
+"Methu dod o hyd i gofnod / .\n"
 "\n"
-"Mwy na thebyg golyga hyn na fformadwyd y rhaniad yma.\n"
+"Mwy na thebyg golyga hyn bod eich fstab yn anghywir.\n"
 "\n"
-"Gwagwch Iawn i ailgychwyn eich system."
+"Gwasgwch Iawn i ailgychwyn eich system."
 
 #: ../fsset.py:2227
 msgid "Duplicate Labels"
@@ -929,7 +929,7 @@ msgstr "Yn fformadu system ffeil %s..."
 
 #: ../gui.py:108
 msgid "An error occurred copying the screenshots over."
-msgstr "Digwyddodd gwall wrth gopïo'r sgrînluniau ar draws."
+msgstr "Digwyddodd gwall wrth gopïo'r sgrînluniau."
 
 #: ../gui.py:120
 msgid "Screenshots Copied"
@@ -968,8 +968,8 @@ msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"Digwyddodd gwall tra'n cadw'r sgrînlun.  Os digwyddodd hyn yn ystod "
-"arsefydlu pecynnau, gall fod angen i chi geisio sawl gwaith iddo lwyddo."
+"Digwyddodd gwall wrth gadw'r sgrînlun.  Os digwyddodd hyn yn ystod arsefydlu "
+"pecynnau, gall fod angen i chi geisio sawl gwaith iddo lwyddo."
 
 #: ../gui.py:239 ../text.py:327
 msgid "Fix"
@@ -981,7 +981,7 @@ msgstr "Trwsio"
 #: ../loader2/driverdisk.c:530 ../loader2/hdinstall.c:330
 #: ../loader2/loader.c:363
 msgid "Yes"
-msgstr "Ïe"
+msgstr "Ie"
 
 #: ../gui.py:241 ../rescue.py:180 ../rescue.py:182 ../text.py:329
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
@@ -1011,7 +1011,6 @@ msgid "Cancel"
 msgstr "Diddymu"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Digwyddodd Eithriad"
 
@@ -1021,7 +1020,7 @@ msgstr "_Dadnamu"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Cadw ar ddisg hyblyg"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1030,14 +1029,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Digwyddodd y gwall canlynol wrth dosrannu eich ffurfwedd kickstart:\n"
+"Digwyddodd y gwall canlynol wrth ddosrannu eich ffurfwedd kickstart:\n"
 "\n"
 "%s"
 
 #
 #: ../gui.py:723 ../text.py:277
 msgid "Error Parsing Kickstart Config"
-msgstr "Gwall Wrth Dosrannu Y Ffeil Kickstart"
+msgstr "Gwall Wrth Ddosrannu'r Ffeil Kickstart"
 
 #: ../gui.py:731 ../text.py:287
 msgid ""
@@ -1045,7 +1044,7 @@ msgid ""
 "please choose your diskette carefully."
 msgstr ""
 "Rhowch ddisg feddal i mewn nawr. Dilëir ei chynnwys yn hollol, felly "
-"dewiswch eich ddisgen yn ofalus."
+"dewiswch eich disgen yn ofalus."
 
 #: ../gui.py:845
 msgid "default:LTR"
@@ -1070,7 +1069,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Digwyddodd gwall tra'n ceisio llwytho cydran rhyngwyneb arsefydlydd.\n"
+"Digwyddodd gwall wrth geisio llwytho cydran rhyngwyneb arsefydlydd.\n"
 "\n"
 "enwDosbarth = %s"
 
@@ -1085,7 +1084,7 @@ msgstr "_Ail-geisio"
 
 #: ../gui.py:1177 ../packages.py:1561
 msgid "The installer will now exit..."
-msgstr "Gadawith y gosdwr nawr..."
+msgstr "Gadawith y gosodwr nawr..."
 
 #: ../gui.py:1180 ../packages.py:1564
 msgid "Your system will now be rebooted..."
@@ -1129,7 +1128,7 @@ msgid ""
 "groups on this page."
 msgstr ""
 "Mae'r grŵp yma'n cynnwys yr holl becynnau sydd ar gael.  Noder bod llawer "
-"rhagor o becynnau na'r holl rai yn y grŵpiau pecynnau eraill ar y dudalen "
+"rhagor o becynnau na'r holl rai yn y grwpiau pecynnau eraill ar y dudalen "
 "hon yn unig."
 
 #: ../hdrlist.py:780
@@ -1164,7 +1163,7 @@ msgstr ""
 "Bydd angen y CDdau canlynol ar y feddalwedd y dewisoch ei arsefydlu:\n"
 "\n"
 "%s\n"
-"Sicrhewch fod gennych yr rhain yn barod cyn parhau â'r arsefydliad.  Os oes "
+"Sicrhewch fod gennych y rhain yn barod cyn parhau â'r arsefydliad.  Os oes "
 "angen i chi erthylu'r arsefydliad ac ailgychwyn, dewiswch \"Ailgychwyn\"."
 
 #: ../image.py:96 ../image.py:484 ../kickstart.py:1497 ../kickstart.py:1525
@@ -1194,8 +1193,8 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Digwyddodd gwall wrth drawsgludo'r ddelwedd arsefydlu i'ch ddisg galed. "
-"Mae'n debyg nad oes gennych le disg ar ôl."
+"Digwyddodd gwall wrth drawsgludo'r ddelwedd arsefydlu i'ch disg galed. Mae'n "
+"debyg nad oes gennych le disg ar ôl."
 
 #: ../image.py:283
 msgid "Change CDROM"
@@ -1225,25 +1224,24 @@ msgstr "Arsefydlu ar System"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Methiant Sgriptyn"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Bu gwall wrth arsefydlu %s.  Gall hyn nodi methiant cyfrwng, diffyg lle "
-"disg, a/neu broblemau caledwedd.  Mae hwn yn wall angheuol ac fe erthylir "
-"eich arsefydliad.  Gwiriwch eich cyfrwng a cheisiwch eich arsefydliad eto.\n"
+"Bu gwall wrth redeg y sgriptyn.  Gallwch weld yr allbwn yn %s.  Gwall "
+"angheuol yw hwn ac fe erthylir eich arsefydliad.\n"
 "\n"
 "Gwasgwch y botwm Iawn i ailgychwyn eich system."
 
 #: ../kickstart.py:1489
 msgid "Missing Package"
-msgstr "Pecyn Coll"
+msgstr "Pecyn ar Goll"
 
 #: ../kickstart.py:1490
 #, python-format
@@ -1316,7 +1314,7 @@ msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Methu darllen y restr bennawdau.  Gall fod hyn o achos ffeil goll neu "
+"Methu darllen y rhestr benawdau.  Gall fod hyn o achos ffeil goll neu "
 "gyfrwng gwael.  Gwasgwch <return> i geisio eto."
 
 #: ../packages.py:176
@@ -1332,6 +1330,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"Mae sawl grŵp hanfodol ar goll o'r ffeil 'comps' yn eich coeden arsefydlu. "
+"Gwnewch yn siŵr bod eich coeden arsefydlu wedi ei gynhyrchu'n gywir."
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
@@ -1347,7 +1347,7 @@ msgstr "Gwiriad Dibyniaeth"
 
 #: ../packages.py:312
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Yn gwirio dibyniaethau mewn pecynnau a ddewisiwyd i'w harsefydlu..."
+msgstr "Yn gwirio dibyniaethau mewn pecynnau a ddewiswyd i'w harsefydlu..."
 
 #: ../packages.py:373 ../packages.py:869
 msgid "Processing"
@@ -1374,15 +1374,16 @@ msgstr ""
 "Gwasgwch <return> i geisio eto."
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
-msgstr "Ailgychwyn"
+msgstr "Ail_gychwyn"
 
 #: ../packages.py:447
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Os wnewch chi ailgychwyn, bydd eich system yn anghyson, ac yn fwy na thebyg "
+"bydd angen ei arsefydlu eto. Ydych chi'n siŵr eich bod am ailgychwyn?"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -1413,7 +1414,7 @@ msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Methu cyfuno'r restr bennawdau.  Gall fod hyn o achos ffeil goll neu gyfrwng "
+"Methu cyfuno'r rhestr benawdau.  Gall fod hyn o achos ffeil goll neu gyfrwng "
 "gwael.  Gwasgwch <return> i geisio eto."
 
 #: ../packages.py:870
@@ -1460,7 +1461,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Dewisiwyd y pecynnau canlynol i'w\n"
+"Dewiswyd y pecynnau canlynol i'w\n"
 "harsefydlu'n awtomatig:\n"
 "%s\n"
 "\n"
@@ -1471,7 +1472,7 @@ msgstr "Arsefydliad yn Dechrau"
 
 #: ../packages.py:995
 msgid "Starting install process, this may take several minutes..."
-msgstr "Yn dechrau'r broses arsefydlu, gall hyn gymeryd sawl munud..."
+msgstr "Yn dechrau'r broses arsefydlu, gall hyn gymryd sawl munud..."
 
 #: ../packages.py:1035
 msgid ""
@@ -1479,7 +1480,7 @@ msgid ""
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
-"Nid oes i weld fod gennych ddigon o le disg i arsefydlu'r pecynnau y "
+"Nid oes i weld fod gennych ddigon o le disg i arsefydlu'r pecynnau a "
 "dewisoch. Mae angen rhagor o le arnoch ar y systemau ffeil canlynol:\n"
 "\n"
 
@@ -1499,7 +1500,7 @@ msgid ""
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
-"Nid oes i weld fod gennych ddigon o nodau ffeil i arsefydlu'r pecynnau y "
+"Nid oes i weld fod gennych ddigon o nodau ffeil i arsefydlu'r pecynnau a "
 "dewisoch. Mae angen rhagor o nodau ffeil arnoch ar y systemau ffeil "
 "canlynol:\n"
 "\n"
@@ -1542,10 +1543,10 @@ msgstr ""
 
 #: ../packages.py:1543
 msgid "Warning! This is pre-release software!"
-msgstr "Rhybudd! Mae hyn yn feddalwedd gyn-ryddhad!"
+msgstr "Rhybudd! Meddalwedd cynderfynol yw hwn!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1559,17 +1560,17 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Diolch am lawrlwytho'r cyn-ryddhad yma o %s.\n"
+"Diolch am lwytho i lawr fersiwn gynderfynol o %s.\n"
 "\n"
-"Nid yw hwn yn ryddhad terfynol ac ni fwriedir ei ddefnyddio ar systemau "
-"cynhyrchol.  Bwriad y rhyddhad yma yw casglu adborth oddiwrth brofwyr, ac "
-"nid yw'n addas at ddefnydd beunyddiol.\n"
+"Nid fersiwn derfynol yw hon, felly ni ddylech ei defnyddio ar systemau "
+"critigol, pwysig.  Y bwriad yw casglu adborth oddi wrth y rhai sy'n ei "
+"phrofi, ac nid yw'r fersiwn hon yn addas at ddefnydd bob dydd.\n"
 "\n"
-"I adrodd adborth, ymwelwch â:\n"
+"I roi adborth, ymwelwch â:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
-"a chofnodwch adroddiad yn erbyn '%s'.\n"
+"a rhowch adroddiad ar gyfer y cynnyrch '%s'.\n"
 
 #: ../packages.py:1557
 msgid "_Install anyway"
@@ -1600,7 +1601,7 @@ msgstr ""
 "s.  Os hoffech ddefnyddio'r ddisg yma ar gyfer arsefydlu, rhaid ei hail- "
 "ymgychwyn gan achosi colled yr HOLL DDATA arni.\n"
 "\n"
-"A hoffec ail-fformadu'r DASD yma gan ddefnyddio fformat CDL?"
+"A hoffech chi ail-fformadu'r DASD yma gan ddefnyddio fformat CDL?"
 
 #: ../partedUtils.py:320
 #, python-format
@@ -1611,7 +1612,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Mae'r dabl raniadau ar y ddyfais /dev/%s o fath %s. I ddefnyddio'r ddisg hon "
+"Mae'r tabl raniadau ar y ddyfais /dev/%s o fath %s. I ddefnyddio'r ddisg hon "
 "ar gyfer arsefydliad o %s, rhaid ei hail-ymgychwyn gan achosi colled yr HOLL "
 "DDATA arni.\n"
 "\n"
@@ -1651,12 +1652,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Roedd y dabl raniadau ar y ddyfais %s (%s) yn annarllenadwy. I greu raniadau "
-"newydd rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y gyriant "
-"yma.\n"
+"Roedd y tabl raniadau ar y ddyfais %s (%s) yn annarllenadwy. I greu "
+"rhaniadau newydd, rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y "
+"gyriant yma.\n"
 "\n"
-"Bydd y weithred hon yn cymeryd blaenoriaeth dros unrhyw ddewisiadau "
-"arsefydlu blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
+"Bydd y weithred hon yn cymryd blaenoriaeth dros unrhyw ddewisiadau arsefydlu "
+"blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
 "\n"
 "A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
 
@@ -1671,26 +1672,26 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Roedd y dabl raniadau ar y ddyfais %s yn annarllenadwy. I greu raniadau "
-"newydd rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y gyriant "
+"Roedd y tabl raniadau ar y ddyfais %s yn annarllenadwy. I greu rhaniadau "
+"newydd, rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y gyriant "
 "yma.\n"
 "\n"
-"Bydd y weithred hon yn cymeryd blaenoriaeth dros unrhyw ddewisiadau "
-"arsefydlu blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
+"Bydd y weithred hon yn cymryd blaenoriaeth dros unrhyw ddewisiadau arsefydlu "
+"blaenorol ynglŷn â pha yriannau i'w hanwybyddu.\n"
 "\n"
 "A hoffech ymgychwyn y gyriant yma, gan ddileu'r HOLL DDATA?"
 
 #: ../partedUtils.py:1023 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
-msgstr "Ni Ganfuwyd Yriannau"
+msgstr "Ni Chanfuwyd Gyriannau"
 
 #: ../partedUtils.py:1024
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Digwyddodd gwall - ni ganfuwyd unrhyw ddyfeisiau dilys i greu systemau ffeil "
-"newydd arnynt. Gwiriwch eich caledwedd am sail y broblem yma."
+"Digwyddodd gwall - ni chanfuwyd unrhyw ddyfeisiau dilys i greu systemau "
+"ffeil newydd arnynt. Gwiriwch eich caledwedd am sail y broblem yma."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1698,7 +1699,7 @@ msgstr "Rhowch enw grŵp cyfrolau."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "Rhaid bod Enwau Grŵpiau Cyfrolau'n llai na 128 nod."
+msgstr "Rhaid bod Enwau Grwpiau Cyfrolau'n llai na 128 nod."
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1753,20 +1754,20 @@ msgstr "Mae'r rhaniad yma'n dal y data ar gyfer yr arsefydliad disg galed."
 #: ../partIntfHelpers.py:116
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr "Mae'r rhaniad yma'n ran o'r ddyfais RAID /dev/md%s."
+msgstr "Mae'r rhaniad yma'n rhan o'r ddyfais RAID /dev/md%s."
 
 #: ../partIntfHelpers.py:119
 msgid "This partition is part of a RAID device."
-msgstr "Mae'r rhaniad yma'n ran o ddyfais RAID."
+msgstr "Mae'r rhaniad yma'n rhan o ddyfais RAID."
 
 #: ../partIntfHelpers.py:124
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Mae'r rhaniad yma'n ran o'r grŵp cyfrolau LVM '%s'."
+msgstr "Mae'r rhaniad yma'n rhan o'r grŵp cyfrolau LVM '%s'."
 
 #: ../partIntfHelpers.py:127
 msgid "This partition is part of a LVM volume group."
-msgstr "Mae'r rhaniad yma'n ran o grŵp cyfrolau LVM."
+msgstr "Mae'r rhaniad yma'n rhan o grŵp cyfrolau LVM."
 
 #: ../partIntfHelpers.py:142 ../partIntfHelpers.py:150
 #: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
@@ -1792,8 +1793,8 @@ msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Ni allwch ddileu'r rhaniad yma, gan ei fod yn raniad estynedig sy'n cynnwys %"
-"s"
+"Ni allwch ddileu'r rhaniad yma, gan ei fod yn rhaniad estynedig sy'n cynnwys "
+"%s"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1857,7 +1858,8 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Ni allwch olygu'r rhaniad yma, gan ei fod yn raniad estynedig sy'n cynnwys %s"
+"Ni allwch olygu'r rhaniad yma, gan ei fod yn rhaniad estynedig sy'n cynnwys %"
+"s"
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
@@ -1871,7 +1873,7 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"Mae gan /dev/%s fath rhaniad o 0x82 (Cyfnewidfa Linux) ond nid yw i weld "
+"Mae gan /dev/%s fath rhaniad o 0x82 (Cyfnewidfa Linux) ond ymddengys nad yw "
 "wedi'i fformadu fel rhaniad cyfnewid Linux.\n"
 "\n"
 "A hoffech chi fformadu'r rhaniad yma fel rhaniad cyfnewid?"
@@ -1885,12 +1887,12 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Rydych wedi dewis defnyddio rhaniad goroesol ar gyfer yr arsefydliad yma heb "
-"ei fformadu. Mae hi'nn argymell eich bod yn fformadu'r rhaniad yma i sicrhau "
-"nad yw ffeiliau o system weithredu flaenorol yn achosi problemau gyda'r "
+"Rydych am ddefnyddio rhaniad sy'n bodoli eisoes ar gyfer yr arsefydliad, heb "
+"ei fformadu. Argymhellir eich bod yn fformadu'r rhaniad yma, i sicrhau nad "
+"yw ffeiliau o system weithredu flaenorol yn achosi problemau gyda'r "
 "arsefydliad yma o Linux. Serch hynny, os yw'r rhaniad yma'n cynnwys ffeiliau "
-"bod arnoch angen eu cadw, megis cyfeiriaduron cartref defnyddwyr, yna dylech "
-"barhau heb fformadu'r rhaniad yma."
+"mae arnoch angen eu cadw, ffolderi cartref defnyddwyr er enghraifft, yna "
+"dylech barhau heb fformadu'r rhaniad yma."
 
 #: ../partIntfHelpers.py:410
 msgid "Format?"
@@ -1945,7 +1947,7 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Dewisiwyd y rhaniadau goroesol canlynol i'w fformadu, gan ddinistrio'u holl "
+"Fe fformadir y rhaniadau canlynol sy'n bodoli eisoes, gan ddinistrio'u holl "
 "ddata."
 
 #: ../partIntfHelpers.py:451
@@ -1953,7 +1955,7 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Dewiswch 'Ĩe' i barhau a fformadu'r rhaniadau yma, neu 'Na' i fynd yn ôl a "
+"Dewiswch 'le' i barhau a fformadu'r rhaniadau yma, neu 'Na' i fynd yn ôl a "
 "newid y gosodiadau yma."
 
 #: ../partIntfHelpers.py:457
@@ -2009,8 +2011,8 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Gweithredolwyd eisioes y dewisiadau rhannu a ddewisoch. Ni allwch ddychwelyd "
-"at y sgrîn golygu disgiau mwyach. A hoffech barhau â'r broses arsefydlu?"
+"Gweithredolwyd eisoes y dewisiadau rhannu a ddewisoch. Ni allwch ddychwelyd "
+"at y sgrin golygu disgiau mwyach. A hoffech barhau â'r broses arsefydlu?"
 
 #: ../partitioning.py:108
 msgid "Low Memory"
@@ -2032,8 +2034,8 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Ni ddiffinioch raniad gwraidd (root) (/), sydd yn angenrhaid er mwyn i "
-"arsefydlu %s barhau."
+"Ni ddiffinioch raniad gwraidd (root) (/), sydd yn anghenraid er mwyn i "
+"arsefydliad %s barhau."
 
 #: ../partitions.py:794
 #, python-format
@@ -2050,13 +2052,12 @@ msgid ""
 msgstr "Rhaid i chi greu rhaniad /boot/efi o fath FAT â maint o 50 megabeit."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Rhaid i chi greu rhaniad Cychwyn PReP PPC."
+msgstr "Rhaid i chi greu rhaniad o fath Cychwynnydd Apple."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
-msgstr "Rhaid i chi greu rhaniad Cychwyn PReP PPC."
+msgstr "Rhaid i chi greu rhaniad o fath Cychwyn PReP PPC."
 
 #: ../partitions.py:851 ../partitions.py:862
 #, python-format
@@ -2064,8 +2065,8 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"Mae'ch rhaniad %s yn llai na %s megabeit sy'n llai na sy'n argymelledig ar "
-"gyfer arsefydliad %s arferol."
+"Mae'ch rhaniad %s yn llai na %s megabeit sy'n llai nag argymhellir ar gyfer "
+"arsefydliad %s fel arfer."
 
 #: ../partitions.py:891 ../partRequests.py:666
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2080,7 +2081,7 @@ msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"Ni benodoch raniad cyfnewid.  Er nad yw'n gwbl angenrheidiol mewn pob "
+"Ni phenodoch raniad cyfnewid.  Er nad yw'n gwbl angenrheidiol mewn pob "
 "sefyllfa, fe fydd yn gwella perfformiad yn sylweddol ar gyfer y rhan fwyaf o "
 "arsefydliadau."
 
@@ -2129,11 +2130,11 @@ msgid ""
 "system operation.  Please select a different mount point."
 msgstr ""
 "Ni ellir defnyddio'r man gosod %s.  Rhaid ei fod yn gyswllt symbolaidd er "
-"gweithredu cywir y system.  Dewiswch man gosod gwahanol."
+"gweithredu cywir y system.  Dewiswch fan gosod gwahanol."
 
 #: ../partRequests.py:253
 msgid "This mount point must be on a linux file system."
-msgstr "Rhaid i'r man gosod yma fod ar system ffeil linux."
+msgstr "Rhaid i'r man gosod yma fod ar system ffeil Linux."
 
 #: ../partRequests.py:274
 #, python-format
@@ -2141,7 +2142,7 @@ msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr ""
-"Mae'r man gosod \"%s\" eisioes mewn defnydd, dewiswch man gosod gwahanol, os "
+"Mae'r man gosod \"%s\" eisoes mewn defnydd, dewiswch fan gosod gwahanol, os "
 "gwelwch yn dda."
 
 #: ../partRequests.py:288
@@ -2189,8 +2190,8 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"Gall fod gan y ddyfais RAID yma uchafswm o %s o sbariau. Er mwyn cael rhagor "
-"o sbariau, bydd angen i chi ychwanegu aelodau at y ddyfais RAID."
+"Gall fod gan y ddyfais RAID yma uchafswm o %s o sbarion. Er mwyn cael rhagor "
+"o sbarion, bydd angen i chi ychwanegu aelodau at y ddyfais RAID."
 
 #: ../rescue.py:124
 msgid "Starting Interface"
@@ -2221,7 +2222,7 @@ msgstr ""
 #: ../rescue.py:243 ../rescue.py:278 ../rescue.py:438
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
-"Pan ydych wedi gorffen, gadewch o'r plisgyn ac fe ailgychwyna'ch system."
+"Pan ydych wedi gorffen, gadewch o'r plisgyn ac fe ailgychwynna’ch system."
 
 #: ../rescue.py:262 ../rescue.py:331 ../rescue.py:339 ../rescue.py:413
 msgid "Rescue"
@@ -2285,7 +2286,7 @@ msgid ""
 msgstr ""
 "Roedd gan eich system systemau ffeil brwnt y dewisoch beidio'u gosod.  "
 "Gwasgwch return i gael plisgyn y gallwch fsck ohono a gosod eich rhaniadau.  "
-"Fe ailgychwynna'r system yn awtomatig pan y gadewch o'r plisgyn."
+"Fe ailgychwynna'r system yn awtomatig wedi i chi adael y plisgyn."
 
 #: ../rescue.py:340
 #, python-format
@@ -2306,7 +2307,7 @@ msgstr ""
 "\n"
 "\tchroot %s\n"
 "\n"
-"Fe ailgychwynna'r system yn awtomatig pan y gadewch o'r plisgyn."
+"Fe ailgychwynna'r system yn awtomatig wedi i chi adael y plisgyn."
 
 #: ../rescue.py:414
 #, python-format
@@ -2333,7 +2334,7 @@ msgid ""
 "will reboot automatically when you exit from the shell."
 msgstr ""
 "Nid oes gennych unrhyw raniadau Linux. Gwasgwch return i gael plisgyn. Fe "
-"ailgychwynna'r system yn awtomatig pan y gadewch o'r plisgyn."
+"ailgychwynna'r system yn awtomatig wedi i chi adael y plisgyn."
 
 #: ../rescue.py:435
 #, python-format
@@ -2369,7 +2370,7 @@ msgstr "Croeso i %s"
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <F1> am gymorth | <Tab> rhwng elfennau | <Gofodnod> dewis | <F12> sgrîn "
+" <F1> am gymorth | <Tab> rhwng elfennau | <Gofodnod> dewis | <F12> sgrin "
 "nesaf"
 
 #: ../text.py:360
@@ -2377,7 +2378,7 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Eil-Tab> rhwng elfennau  |  <Gofodnod> i ddewis  |  <F12> sgrîn "
+"  <Tab>/<Eil-Tab> rhwng elfennau  |  <Gofodnod> i ddewis  |  <F12> sgrin "
 "nesaf"
 
 #: ../upgradeclass.py:19
@@ -2409,9 +2410,9 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Ni ddad-osodwyd systemau ffeil canlynol eich system Linux yn lân.   "
+"Ni ddadosodwyd systemau ffeil canlynol eich system Linux yn lân.   "
 "Cychwynnwch eich arsefydliad Linux, gadewch i'r systemau ffeil gael eu "
-"gwirio a cheuwch i lawr yn lân er mwyn uwchraddio.\n"
+"gwirio a chaewch i lawr yn lân er mwyn uwchraddio.\n"
 "%s"
 
 #: ../upgrade.py:132
@@ -2421,7 +2422,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Ni ddad-osodwyd systemau ffeil canlynol eich system Linux yn lân. A hoffech "
+"Ni ddadosodwyd systemau ffeil canlynol eich system Linux yn lân. A hoffech "
 "chi eu gosod beth bynnag?\n"
 "%s"
 
@@ -2454,14 +2455,14 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"Mae'r ffeiliau canlynol yn gysylltau symbolaidd absoliwt, nas cynhalwn yn "
-"ystod uwchraddio. Newidiwch nhw'n gysylltau symbolaidd cymharol ac "
+"Mae'r ffeiliau canlynol yn gysylltau symbolaidd absoliwt, na chynhelir yn "
+"ystod uwchraddio. Newidiwch nhw i gysylltau symbolaidd cymharol ac "
 "ailddechreuwch yr uwchraddio.\n"
 "\n"
 
 #: ../upgrade.py:296
 msgid "Absolute Symlinks"
-msgstr "Cysylltau Symbolaid Absoliwt"
+msgstr "Cysylltau Symbolaidd Absoliwt"
 
 #: ../upgrade.py:307
 msgid ""
@@ -2498,13 +2499,13 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
-"Ni all y raglen arsefydlu uwchraddio systemau â chronfa ddata cyn-rpm 4.x. "
+"Ni all y rhaglen arsefydlu uwchraddio systemau â chronfa ddata cyn-rpm 4.x. "
 "Arsefydlwch y pecynnau rhestri gwallau rpm ar gyfer eich rhyddhad fel y "
 "disgrifir yn y nodiadau rhyddhau ac wedyn rhedwch y drefn uwchraddio."
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
-msgstr "Digwyddodd gwall tra'n canfod y pecynnau i'w huwchraddio."
+msgstr "Digwyddodd gwall wrth ganfod y pecynnau i'w huwchraddio."
 
 #: ../upgrade.py:430
 #, python-format
@@ -2514,7 +2515,7 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "Mae arch y rhyddhad o %s yr ydych yn ei uwchraddio i'w weld yn %s sydd ddim "
-"yn cydweddu â'ch arch a sefydlwyd eisios sef %s.  Nid yw hyn yn debygol o "
+"yn cydweddu â'ch arch a sefydlwyd eisoes sef %s.  Nid yw hyn yn debygol o "
 "lwyddo.  A ydych yn sicr eich bod am barhau â'r broses uwchraddio?"
 
 #: ../upgrade.py:483
@@ -2528,8 +2529,8 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"Mae i weld fod gan y system yma becynnau'n arsefydledig sy'n gorgyffwrd â "
-"phecynnau sydd yn ran o %s. Gan fod y pecynnau yma'n gorgyffwrdd, gall "
+"Mae i weld fod gan y system yma becynnau'n arsefydledig sy'n gorgyffwrdd â "
+"phecynnau sydd yn rhan o %s. Gan fod y pecynnau yma'n gorgyffwrdd, gall "
 "barhau â'r broses uwchraddio'u hachosi i beidio â gweithredu'n gywir, neu "
 "gall achosi ansadrwydd system arall.  Gweler y nodiadau rhyddhad am fwy o "
 "wybodaeth.\n"
@@ -2545,7 +2546,7 @@ msgid ""
 msgstr ""
 "Nid oes gan y system yma ffeil /etc/redhat-release.  Mae'n bosib nad system %"
 "s yw hon. Gall barhau â'r broses uwchraddio adael y system mewn cyflwr "
-"annefnyddiadwy.  A ydych am barhau â'r broses uwchraddio?"
+"annefnyddadwy.  A ydych am barhau â'r broses uwchraddio?"
 
 #: ../upgrade.py:546
 #, python-format
@@ -2553,7 +2554,7 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Mae'n debyg eich bod chi'n ceisio uwchraddio o system sy'n ry hen i "
+"Mae'n debyg eich bod chi'n ceisio uwchraddio o system sy'n rhy hen i "
 "uwchraddio i'r fersiwn yma o %s.  Ydych chi am fynd ymlaen a'r broses "
 "uwchraddio?"
 
@@ -2571,13 +2572,13 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-"Methu dechrau X ar eich cyfrifiadur. Hoffech chi'n dechrau VNC i cysylltu'r "
-"cyfrifiadur hwn o'r cyfrifiadur arall i wneud gosod grafigol neu parhau gyda "
-"gosod modd testun?"
+"Methu dechrau X ar eich cyfrifiadur. Hoffech chi'n dechrau VNC i gysylltu'r "
+"cyfrifiadur hwn o'r cyfrifiadur arall i wneud gosod graffigol neu barhau "
+"gyda gosod modd testun?"
 
 #: ../vnc.py:62 ../vnc.py:65
 msgid "Use text mode"
-msgstr "Defynddio modd testun"
+msgstr "Defnyddio modd testun"
 
 #: ../vnc.py:63
 msgid "Start VNC"
@@ -2589,7 +2590,7 @@ msgstr "Cyfluniad VNC"
 
 #: ../vnc.py:77
 msgid "No password"
-msgstr "Heb cyfrinair"
+msgstr "Heb gyfrinair"
 
 #: ../vnc.py:80
 msgid ""
@@ -2597,8 +2598,8 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
-"Bydd gwrandawyr heb awdurdod ddim cyslltu neu monitro eich gosod os "
-"byddechchi rhowch cyfrinair. Rhowch cyfrinair i defynddio yn ystod yr gosod"
+"Fedr rhai heb awdurdod ddim cysylltu na monitro'r broses osod os rhowch "
+"gyfrinair. Rhowch gyfrinair i'w ddefnyddio yn ystod y broses osod"
 
 #: ../vnc.py:88 ../textw/userauth_text.py:44 ../loader2/urls.c:437
 msgid "Password:"
@@ -2610,7 +2611,7 @@ msgstr "Cyfrinair (gwiriwch):"
 
 #: ../vnc.py:111 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
-msgstr "Anghydweddiad Cyfrinair"
+msgstr "Cyfrineiriau yn Wahanol"
 
 #: ../vnc.py:112 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
@@ -2623,7 +2624,7 @@ msgstr "Hyd Cyfrinair"
 
 #: ../vnc.py:118
 msgid "The password must be at least six characters long."
-msgstr "Rhaid i'r cyfrinair fod o leiaf six nod o hyd."
+msgstr "Rhaid i'r cyfrinair fod o leiaf chwe nod o hyd."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2638,8 +2639,8 @@ msgid ""
 "LUN and a 64 bit FCP LUN."
 msgstr ""
 "Mae peiriannau zSeries yn cael cyrchu dyfeisiau SCSI safonol dros sianeli "
-"ffibr (FCP). Bydd rhaid i chi rhoi pum paramedrau o pob dyfais: rhif dyfais "
-"16did, SCSI ID 16did, enw porth byd-eang (WWPN) 64did, LUN SCSI 16did ac LUN "
+"ffibr (FCP). Bydd rhaid i chi roi pum paramedr i bob dyfais: rhif dyfais "
+"16did, SCSI ID 16did, enw porth byd-eang (WWPN) 64did, LUN SCSI 16did a LUN "
 "FCP 64did."
 
 #: ../zfcp.py:29
@@ -2720,8 +2721,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Mae cyfrif root yn defynddio i weinyddu'r system hwn. Rhowch cyfrinair i "
-"ddefynddiwr root."
+"Defnyddir cyfrif gwraidd i weinyddu'r system hon. Rhowch gyfrinair ar gyfer "
+"y defnyddiwr gwraidd."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2826,7 +2827,7 @@ msgid ""
 "password."
 msgstr ""
 "Mae cyfrinair cychwynnydd yn atal defnyddwyr rhag newid dewisiadau a basir "
-"at y cnewyllyn.  Er diogelwch system uwch, argymellir eich bod yn gosod "
+"at y cnewyllyn.  Er diogelwch system uwch, argymhellir eich bod yn gosod "
 "cyfrinair."
 
 #: ../iw/blpasswidget.py:42
@@ -2847,7 +2848,7 @@ msgid ""
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
 "Rhowch gyfrinair cychwynnydd ac wedyn ei wirio.  (Noder gall fod eich "
-"bysellfap BIOS yn wahanol i'r bysellfap yr ydych wedi arfer âg ef.)"
+"bysellfap BIOS yn wahanol i'r bysellfap yr ydych wedi arfer ag ef.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2893,10 +2894,10 @@ msgid ""
 msgstr ""
 "Galluoga'r ddisgen gychwyn i chi gychwyn eich system %s o ddisgen feddal.  "
 "Galluoga ddisgen gychwyn i chi gychwyn eich system os beidia'ch cyfluniad "
-"cychwynnir â gweithio, os dewiswch beidio âg arsefydlu cychwynnydd, neu os "
-"nad yw'ch cychwynnydd trydydd plaid yn cynnal Linux.\n"
+"cychwynnir â gweithio, os dewiswch beidio ag arsefydlu cychwynnydd, neu os "
+"nad yw'ch cychwynnydd trydydd person yn cynnal Linux.\n"
 "\n"
-"Argymellir yn gryf eich bod yn creu disgen gychwyn.\n"
+"Argymhellir yn gryf eich bod yn creu disgen gychwyn.\n"
 
 #: ../iw/bootdisk_gui.py:71
 msgid "_Yes, I would like to create a boot diskette"
@@ -2911,7 +2912,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Cyfluniad Cychwynnydd Uwch"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2919,10 +2919,9 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Gall gorfodi defnyddio LBA32 ar gyfer eich cychwynnydd pan na'i gynhelir gan "
-"y BIOS atal eich peiriant rhag gallu cychwyn.  Argymellir yn gryf eich bod "
-"yn creu disg gychwyn pan ofynnir nes ymlaen yn y broses arsefydlu.\n"
+"y BIOS atal eich peiriant rhag cychwyn.\n"
 "\n"
-"A hoffech barhau, a gorfodi modd LBA32?"
+"A hoffech chi barhau, a gorfodi modd LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:49
 msgid "Force LBA32"
@@ -2955,7 +2954,6 @@ msgid "Change Boot Loader"
 msgstr "Newid Cychwynnydd"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2964,12 +2962,12 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"Rydych wedi ethol pedio âg arsefydlu unrhyw gychwynnydd. Argymellir yn gryf "
-"eich bod yn arsefydlu cychwynnydd os nad oes gennych angen uwch.  Mae angen "
-"cychwynnydd bron bob amser i ailgychwyn eich system i Linux yn uniongyrchol "
-"o'r ddisg galed.\n"
+"Rydych wedi dewis peidio ag arsefydlu unrhyw gychwynnydd. Argymhellir yn "
+"gryf eich bod yn arsefydlu cychwynnydd os nad oes gennych angen uwch.  Mae "
+"angen cychwynnydd bron bob amser i allu ailgychwyn eich system yn Linux yn "
+"uniongyrchol o'r ddisg galed.\n"
 "\n"
-"A ydych yn sicr eich bod am hepgor arsefydlu cychwynnydd?"
+"Hoffech chi barhau, a pheidio gosod cychwynnydd?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -2983,7 +2981,7 @@ msgid ""
 msgstr ""
 "Dewiswch y cychwynnydd i'r cyfrifiadur ei ddefnyddio.  GRUB yw'r cychwynnydd "
 "rhagosodedig, ond os nad ydych am drosysgrifo'ch cychwynnydd cyfredol, "
-"dewiswch \"Peidio âg arsefydlu cychwynnydd.\"  "
+"dewiswch \"Peidio ag arsefydlu cychwynnydd.\"  "
 
 #: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
@@ -2991,7 +2989,7 @@ msgstr "Defnyddio _GRUB yn gychwynnydd"
 
 #: ../iw/bootloader_main_gui.py:130
 msgid "_Do not install a boot loader"
-msgstr "_Peidio âg arsefydlu cychwynnydd"
+msgstr "_Peidio ag arsefydlu cychwynnydd"
 
 #: ../iw/bootloader_main_gui.py:149
 #, python-format
@@ -3031,11 +3029,11 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Trefnu'r gyriannau i fod yn yr un drefn â defnyddia'r BIOS. Gall newid trefn "
-"y gyriannau fod yn ddefnyddiol os oes gennych sawl addasydd SCSI neu "
-"addasyddion IDE a SCSI ill dau, a'ch bod am gychwyn o'r ddyfais SCSI.\n"
+"Trefnu'r gyriannau i fod yn yr un drefn a threfn y BIOS. Gall newid trefn y "
+"gyriannau fod yn ddefnyddiol os oes gennych sawl addasydd SCSI, neu rai IDE "
+"yn ogystal â SCSI, a'ch bod am gychwyn o'r ddyfais SCSI.\n"
 "\n"
-"Bydd newid trefn y gyriannau'n newid ym mhle y lleola'r raglen arsefydlu'r "
+"Bydd newid trefn y gyriannau'n newid ym mhle y lleola'r rhaglen arsefydlu'r "
 "Brif Gofnod Cychwyn (MBR)."
 
 #: ../iw/confirm_gui.py:57
@@ -3095,15 +3093,13 @@ msgid "Congratulations"
 msgstr "Llongyfarchiadau"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Tynnwch unrhyw gyfryngau arsefydlu (disgenni neu CDd-ROMau) a ddefnyddwyd yn "
-"ystod y broses arsefydlu a gwasgwch y botwm \"Ailgychwyn\" i ailgychwyn eich "
-"system.\n"
+"Tynnwch unrhyw gyfryngau arsefydlu a ddefnyddiwyd yn ystod y broses "
+"arsefydlu a gwasgwch y botwm \"Ailgychwyn\" i ailgychwyn eich system.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -3113,13 +3109,13 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Llongyfarchiadau, cwblhäwyd yr arsefydlu.\n"
+"Llongyfarchiadau, cwblhawyd yr arsefydlu.\n"
 "\n"
 "%s%s"
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
-msgstr "Dibyniaethau Annatrysedig"
+msgstr "Dibyniaethau heb eu Datrys"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:253
 #: ../iw/package_gui.py:496 ../iw/package_gui.py:673
@@ -3143,7 +3139,7 @@ msgstr "_Arsefydlu pecynnau i fodloni dibyniaethau"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr "_Peidio âg arsefydlu pecynnau sydd â dibyniaethau"
+msgstr "_Peidio ag arsefydlu pecynnau sydd â dibyniaethau"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
@@ -3151,7 +3147,7 @@ msgstr "_Anwybyddu dibyniaethau pecynnau"
 
 #: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
 msgid "Package Defaults"
-msgstr "Rhagosodion Pecyn"
+msgstr "Rhagosodiadau Pecyn"
 
 #: ../iw/desktop_choice_gui.py:56
 msgid ""
@@ -3159,8 +3155,8 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
-"Mae'r amgylchedd arsefydlu ragosodedig yn cynnwys ein dewis pecynnau "
-"argymelledig, gan gynnwys:\n"
+"Yn yr amgylchedd arsefydlu rhagosodedig ceir y pecynnau yr ydym ni yn eu "
+"hargymell, sy'n cynnwys:\n"
 "\n"
 
 #: ../iw/desktop_choice_gui.py:58
@@ -3245,7 +3241,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr "Uwchraddir y system osodedig canlynol:"
+msgstr "Uwchraddir y system osodedig ganlynol:"
 
 #: ../iw/examine_gui.py:144
 msgid "Unknown Linux system"
@@ -3264,8 +3260,8 @@ msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
-"Bydd fformadu'r ddyfais DASD ddewisiedig yn dinistrio holl gynnwys y "
-"ddyfais. A ydych wir am fformadu'r ddyfais DASD ddewisiedig?"
+"Bydd fformadu'r ddyfais DASD ddewisedig yn dinistrio holl gynnwys y ddyfais. "
+"A ydych wir am fformadu'r ddyfais DASD ddewisedig?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -3303,7 +3299,7 @@ msgid ""
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
 "Os yw'r system hon wedi'i chysylltu'n uniongyrchol i'r Rhyngrwyd neu ar "
-"rwydwaith gyhoeddus fawr, argymellir dylid cyflunio mur cadarn i gynorthwyo "
+"rwydwaith gyhoeddus fawr, argymhellir dylid cyflunio mur cadarn i gynorthwyo "
 "atal cyrchiant anawdurdodedig.  Serch hynny, rydych wedi dewis peidio â "
 "chyflunio mur cadarn.  Dewiswch \"Parhau\" i barhau heb fur cadarn."
 
@@ -3338,9 +3334,9 @@ msgid ""
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Cewch chi caniatâu cysylltiadau i wasanaethwyr penodol ar eich cyfrifiadur "
-"trwy'r mur cadarn. Pa gwasanaethwyr hoffech chi caniatâu cysylltiadau o'r "
-"cyfrifiaduron eraill?"
+"Gallwch ddefnyddio mur cadarn er mwyn i gyfrifiaduron eraill ddefnyddio "
+"gwasanaethau penodol ar eich cyfrifiadur. Pa wasanaethau ydych chi am adael "
+"i eraill eu defnyddio?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -3349,10 +3345,10 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
-"Mae Linux Diogelwch Cryfach (SELinux) yn darparu rheolaeth mwy trylwyr na "
+"Mae Linux Diogelwch Cryfach (SELinux) yn darparu rheolaeth fwy trylwyr na "
 "sydd ar gael mewn systemau Linux traddodiadol. Medrwch ei ddarparu mewn "
-"cyflwr anweithredol, cyflwr sy'n eich rhybyddio am bethau y dylsid eu "
-"gwrthod, neu cyflwr llawn weithredol."
+"cyflwr anweithredol, cyflwr sy'n eich rhybuddio am bethau y dylid eu "
+"gwrthod, neu gyflwr llawn weithredol."
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
@@ -3426,7 +3422,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:123
 msgid "Confirm Physical Extent Change"
-msgstr "Cadarnháu Newid Mesur Corfforol"
+msgstr "Cadarnhau Newid Mesur Corfforol"
 
 #: ../iw/lvm_dialog_gui.py:124
 msgid ""
@@ -3436,7 +3432,7 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Bydd y newid hon yng ngwerth y mesur corfforol yn gofyn am dalgrynnu "
+"Bydd y newid hwn yng ngwerth y mesur corfforol yn gofyn am dalgrynnu "
 "meintiau'r gofynion cyfrolau rhesymegol cyfredol i fyny mewn maint yn "
 "luosrif cyfannol o'r mesur corfforol.\n"
 "\n"
@@ -3454,8 +3450,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"Ni ellir newid y maint mesur corfforol oherwydd bod y werth a ddewisiwyd (%"
-"10.2f MB) yn fwy na'r gyfrol gorfforol lleiaf (%10.2f MB) yn y grŵp cyfrolau."
+"Ni ellir newid y maint mesur corfforol oherwydd bod y gwerth a ddewiswyd (%"
+"10.2f MB) yn fwy na'r gyfrol gorfforol leiaf (%10.2f MB) yn y grŵp cyfrolau."
 
 #: ../iw/lvm_dialog_gui.py:172
 #, python-format
@@ -3464,8 +3460,8 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
-"Ni ellir newid y maint mesur corfforol oherwydd bod y werth a ddewisiwyd (%"
-"10.2f MB) yn rhy fawr o'i chymharu â maint y gyfrol gorfforol lleiaf (%10.2f "
+"Ni ellir newid y maint mesur corfforol oherwydd bod y gwerth a ddewiswyd (%"
+"10.2f MB) yn rhy fawr o'i chymharu â maint y gyfrol gorfforol leiaf (%10.2f "
 "MB) yn y grŵp cyfrolau."
 
 #: ../iw/lvm_dialog_gui.py:186
@@ -3614,8 +3610,8 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 "Mae gofyn am %g MB ar y cyfrolau rhesymegol y cyflunioch, ond dim ond %g MB "
-"sydd gan y grŵp cyfrolau.  Naill ai gwnewch y grŵp cyfrolau'n fwy neu wnewch "
-"y gyfrol/cyfrolau rhesymegol yn llai."
+"sydd gan y grŵp cyfrolau.  Naill ai gwnewch y grŵp cyfrolau'n fwy neu "
+"gwnewch y gyfrol/cyfrolau rhesymegol yn llai."
 
 #: ../iw/lvm_dialog_gui.py:699
 msgid "No free slots"
@@ -3657,7 +3653,7 @@ msgstr "Enw mewn defnydd"
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
-"Mae'r enw grŵp cyfrolau \"%s\" eisioes mewn defnydd. Dewiswch un arall os "
+"Mae'r enw grŵp cyfrolau \"%s\" eisoes mewn defnydd. Dewiswch un arall os "
 "gwelwch yn dda."
 
 #: ../iw/lvm_dialog_gui.py:929
@@ -3709,7 +3705,7 @@ msgstr "Cyfrolau Corfforol i'w _Defnyddio:"
 
 #: ../iw/lvm_dialog_gui.py:999
 msgid "Used Space:"
-msgstr "Lle Defnyddiedig:"
+msgstr "Lle wedi Defnyddio:"
 
 #: ../iw/lvm_dialog_gui.py:1016
 msgid "Free Space:"
@@ -3774,11 +3770,11 @@ msgstr "_Efelychu 3 botwm"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr "Dewiswch y lygoden briodol ar gyfer y system."
+msgstr "Dewiswch y llygoden briodol ar gyfer y system."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:610
 msgid "Gateway"
-msgstr "Porthydd"
+msgstr "Porth"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:612
 msgid "Primary DNS"
@@ -3794,7 +3790,7 @@ msgstr "DNS Trydyddol"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr "_Porthydd"
+msgstr "_Porth"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
@@ -3853,7 +3849,7 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"Digwyddodd gwall wrth drosi'r werth a roddwyd ar gyfer \"%s\":\n"
+"Digwyddodd gwall wrth drosi'r gwerth a roddwyd ar gyfer \"%s\":\n"
 "%s"
 
 #: ../iw/network_gui.py:185
@@ -3916,9 +3912,8 @@ msgid "Encryption _Key"
 msgstr "_Allwedd Amgryptio"
 
 #: ../iw/network_gui.py:260
-#, fuzzy
 msgid "Hardware address:"
-msgstr "Cyfeiriad IP:"
+msgstr "Cyfeiriad caledwedd:"
 
 #: ../iw/network_gui.py:299
 #, python-format
@@ -3977,7 +3972,7 @@ msgid ""
 "the desired operating system."
 msgstr ""
 "Gallwch gyflunio'r cychwynnydd i gychwyn systemau gweithredu eraill. Bydd yn "
-"eich galluogi i ddewis system weithredu i'w chychwyn o'r restr. I ychwanegu "
+"eich galluogi i ddewis system weithredu i'w chychwyn o'r rhestr. I ychwanegu "
 "systemau gweithredu ychwanegol, nas canfyddir yn awtomatig, cliciwch ar "
 "'Ychwanegu.' I newid y system weithredu a gychwynnir yn ragosodedig, "
 "dewiswch 'Rhagosodyn' wrth y system weithredu yr hoffech."
@@ -4015,7 +4010,7 @@ msgstr "_Targed Cychwyn Ragosodedig"
 
 #: ../iw/osbootwidget.py:220
 msgid "You must specify a label for the entry"
-msgstr "Rhaid i chi benodi label i'r gofnod"
+msgstr "Rhaid i chi benodi label i'r cofnod"
 
 #: ../iw/osbootwidget.py:229
 msgid "Boot label contains illegal characters"
@@ -4254,7 +4249,7 @@ msgstr "Mae'r rhybuddion canlynol yn bod â'ch cynllun rhannu gofynnol."
 
 #: ../iw/partition_gui.py:648
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "A hoffech parhau â'ch cynllun rhannu gofynnol?"
+msgstr "A hoffech barhau â'ch cynllun rhannu gofynnol?"
 
 #: ../iw/partition_gui.py:653
 msgid "Partitioning Warnings"
@@ -4296,7 +4291,7 @@ msgstr "Estynedig"
 
 #: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
 msgid "software RAID"
-msgstr "RAID meddalweddol"
+msgstr "RAID meddalwedd"
 
 #: ../iw/partition_gui.py:906
 msgid "Free"
@@ -4322,7 +4317,7 @@ msgstr "NI chynhelir LVM ar y platfform yma."
 
 #: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
-msgstr "NI chynhelir RAID meddalweddol ar y platfform yma."
+msgstr "NI chynhelir RAID meddalwedd ar y platfform yma."
 
 #: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
@@ -4351,8 +4346,8 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"Galluoga RAID meddalweddol i chi gyfuno saw disg yn un ddyfais RAID mwy.  "
-"Gellir cyflunio dyfais RAID ar gyfer darparu cyfymder â dibynadwyedd "
+"Galluoga RAID meddalwedd i chi gyfuno sawl disg yn un ddyfais RAID mwy.  "
+"Gellir cyflunio dyfais RAID ar gyfer darparu cyflymder â dibynadwyedd "
 "ychwanegol o gymharu â defnyddio gyriant unigol.  Am fwy o wybodaeth ar "
 "defnyddio dyfeisiau RAID gweler y ddogfennaeth %s os gwelwch yn dda.\n"
 "\n"
@@ -4451,7 +4446,7 @@ msgstr "Sut hoffech baratoi'r system ffeiliau ar y rhaniad yma?"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
-msgstr "Gadael yn _ddinewid (cadw data)"
+msgstr "Gadael _heb newid (cadw data)"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
@@ -4541,10 +4536,10 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"Mae ange o leaif dau raniad RAID meddalweddol heb eu defnyddio i greu dyfais "
-"RAID.\n"
+"Mae angen o leiaf ddau raniad RAID meddalweddol, sydd heb eu defnyddio, er "
+"mwyn creu dyfais RAID.\n"
 "\n"
-"Yn gyntaf crëwch dau raniad o fath \"RAID meddalweddol\", wedyn dewiswch y "
+"Yn gyntaf crëwch ddau raniad o fath \"RAID meddalweddol\", wedyn dewiswch y "
 "dewisiad \"RAID\" eto."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
@@ -4575,7 +4570,7 @@ msgstr "Aelodau _RAID:"
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr "Nifer _sbariau:"
+msgstr "Nifer _sbarion:"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
@@ -4627,7 +4622,7 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
-"Mae rhaniad(au) RAID meddalweddol ar y gyriant tarddiad ddewisiedig sydd yn "
+"Mae rhaniad(au) RAID meddalweddol ar y gyriant tarddiad dewisedig sydd yn "
 "aelodau o ddyfais RAID meddalweddol gweithredol.\n"
 "\n"
 "Bydd rhaid gwaredu'r rhaniadau yma cyn y gellir clonio'r gyriant hwn. "
@@ -4716,11 +4711,11 @@ msgstr ""
 "Erfyn Clonio Gyriannau\n"
 "\n"
 "Galluoga'r erfyn yma i chi leihau'n sylweddol yr ymdrech sydd angen i osod "
-"araeau RAID.  Cymeryd gyriant tarddiad sydd wedi'i osod â'r cynllun rhannu "
-"awyddol, a chlonio'r cynllun yma ar yriannau eraill o feintiau tebyg, yw'r "
+"araeau RAID.  Cymryd gyriant tarddiad sydd wedi'i baratoi â'r cynllun rhannu "
+"ddymunir, a chlonio'r cynllun yma ar yriannau eraill o feintiau tebyg, yw'r "
 "syniad.  Wedyn gellir creu dyfais RAID.\n"
 "\n"
-"NODER: Rhaid fod gan y gyriant tarddiad raniadau sydd wedi'u cyfyngu i fod "
+"NODER: Rhaid bod gan y gyriant tarddiad raniadau sydd wedi'u cyfyngu i fod "
 "ar y gyriant yna'n unig, a gall gynnwys rhaniadau RAID meddalweddol heb eu "
 "defnyddio'n unig. Ni chaniateir mathau rhaniad eraill.\n"
 "\n"
@@ -4783,12 +4778,12 @@ msgstr "Bydd hyn yn uwchraddio'ch cychwynnydd cyfredol."
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
-"Mae'r arsefydlydd wedi canfod y cychwynnydd %s yn arsefydlog ar %s yn "
-"gyfredol."
+"Mae'r arsefydlydd wedi canfod y cychwynnydd %s wedi ei arsefydlu ar %s ar "
+"hyn o bryd."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
-msgstr "Dyma'r dewisiad argymelledig."
+msgstr "Dyma'r dewis a argymhellir."
 
 #: ../iw/upgrade_bootloader_gui.py:80 ../textw/upgrade_bootloader_text.py:57
 msgid ""
@@ -4820,7 +4815,7 @@ msgid ""
 "third party boot loader, you should choose this."
 msgstr ""
 "Ni fydd hyn yn gwneud unrhyw newidiadau i'ch cyfluniad cychwynnydd.  Os "
-"ydych yn defnyddio cychwynnydd trydydd plaid, dylech ddewis hwn."
+"ydych yn defnyddio cychwynnydd trydydd parti, dylech ddewis hwn."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -4896,7 +4891,7 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"Argymellir bod eich ffeil gyfnewid yn %d MB o leiaf.  Rhowch faint ar gyfer "
+"Argymhellir bod eich ffeil gyfnewid yn %d MB o leiaf.  Rhowch faint ar gyfer "
 "y ffeil gyfnewid, os gwelwch yn dda."
 
 #: ../iw/upgrade_swap_gui.py:181
@@ -4913,7 +4908,7 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-"Argymellir yn gryf eich bod yn creu ffeil gyfnewid.  Gallai methu gwneud "
+"Argymhellir yn gryf eich bod yn creu ffeil gyfnewid.  Gallai methu gwneud "
 "hynny achosi'r arsefydlydd i erthylu'n anarferol.  A ydych yn sicr eich bod "
 "am barhau?"
 
@@ -4973,7 +4968,7 @@ msgstr "_KDE"
 
 #: ../iw/xconfig_gui.py:389
 msgid "Please choose your login type:"
-msgstr "Dewiswch eich math mewgofnod:"
+msgstr "Dewiswch eich dull mewngofnodi:"
 
 #: ../iw/xconfig_gui.py:396
 msgid "_Text"
@@ -4996,12 +4991,12 @@ msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
-"Nid ydych wedi dewis math monitor.  Argymellir eich bod yn dewis y model "
+"Nid ydych wedi dewis math monitor.  Argymhellir eich bod yn dewis y model "
 "sy'n cydweddu orau er mwyn cael yr ansawdd dangosiad uchaf posib."
 
 #: ../iw/xconfig_gui.py:446
 msgid "_Choose monitor type"
-msgstr "_Dewiswch math monitor"
+msgstr "_Dewiswch fath monitor"
 
 #: ../iw/xconfig_gui.py:626
 msgid ""
@@ -5040,13 +5035,13 @@ msgid "Unknown video card"
 msgstr "Cerdyn fideo anhysbys"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
-"Digwyddodd gwall wrth ddewis y cerdyn fideo %s. Adroddwch y gwall yma at "
-"bugzilla.redhat.com os gwelwch yn dda."
+"Digwyddodd gwall wrth ddewis y cerdyn fideo %s. Adroddwch y gwall fan hyn: %"
+"s. "
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5076,8 +5071,8 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Nid oes modd awtoganfod eich maint ram fideo.  Dewiswch eich maint ram fideo "
-"o'r dewision isod:"
+"Nid oes modd darganfod yn awtomatig faint o ram fideo sydd gennych.  "
+"Dewiswch y maint cywir isod:"
 
 #: ../iw/xconfig_gui.py:991
 msgid ""
@@ -5122,7 +5117,7 @@ msgstr "Golygu Dyfais FCP %s"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr "Dych ar fin gwaredu disg FCP o'ch ffurfosodiad. Hoffech chi barhau?"
+msgstr "Rydych ar fin gwaredu disg FCP o'ch ffurfosodiad. Hoffech chi barhau?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5156,7 +5151,7 @@ msgstr ""
 "Y cnewyllyn a ddefnyddiwyd i gychwyn y peiriant fydd yr un i'w arsefydlu'n "
 "ragosodedig.\n"
 "\n"
-"Os ydych am wneud newidiadu nes ymlaen ar ôl yr arsefydliad, mae croeso i "
+"Os ydych am wneud newidiadau nes ymlaen ar ôl yr arsefydliad, mae croeso i "
 "chi newid y ffeil gyflunio /etc/zipl.conf.\n"
 "\n"
 "Gallwch nawr roi unrhyw baramedrau cnewyllyn ychwanegol gall fod angen ar "
@@ -5185,7 +5180,7 @@ msgstr ""
 "Galluoga disgen gychwyn i chi gychwyn eich system os yw'ch cyfluniad "
 "cychwynnydd yn peidio â gweithio.\n"
 "\n"
-"Argymellir yn gryf eich bod yn creu disgen gychwyn.\n"
+"Argymhellir yn gryf eich bod yn creu disgen gychwyn.\n"
 "\n"
 "A hoffech chi greu disgen gychwyn?"
 
@@ -5218,10 +5213,10 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Rydych wedi ethol pedio âg arsefydlu unrhyw gychwynnydd. Argymellir yn gryf "
-"eich bod yn arsefydlu cychwynnydd os nad oes gennych angen uwch.  Mae angen "
-"cychwynnydd bron bob amser i ailgychwyn eich system i Linux yn uniongyrchol "
-"o'r ddisg galed.\n"
+"Rydych wedi ethol peidio ag arsefydlu unrhyw gychwynnydd. Argymhellir yn "
+"gryf eich bod yn arsefydlu cychwynnydd os nad oes gennych angen uwch.  Mae "
+"angen cychwynnydd bron bob amser i ailgychwyn eich system i Linux yn "
+"uniongyrchol o'r ddisg galed.\n"
 "\n"
 "A ydych yn sicr eich bod am hepgor arsefydlu cychwynnydd?"
 
@@ -5239,7 +5234,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:103
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Gorfodi defnyddio LBA32 (ddim yn angenrhaid fel arfer)"
+msgstr "Gorfodi defnyddio LBA32 (ddim yn anghenraid fel arfer)"
 
 #: ../textw/bootloader_text.py:167
 msgid "Where do you want to install the boot loader?"
@@ -5263,7 +5258,7 @@ msgstr "Label Cychwyn Annilys"
 
 #: ../textw/bootloader_text.py:226
 msgid "Boot label may not be empty."
-msgstr "Ni cha'r label cychwyn fod yn wag."
+msgstr "Gall label cychwyn ddim bod yn wag"
 
 #: ../textw/bootloader_text.py:231
 msgid "Boot label contains illegal characters."
@@ -5291,7 +5286,7 @@ msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Gofodnod> dewis botwm | <F2> dewis cofnod cychwyn rhagosodedig | <F12> "
-"sgrîn nesaf>"
+"sgrin nesaf>"
 
 #: ../textw/bootloader_text.py:376
 msgid ""
@@ -5341,14 +5336,13 @@ msgid "<Enter> to exit"
 msgstr "<Dychwelydd> i adael"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Tynnwch unrhyw gyfryngau (disgenni neu CDd-ROMau) a ddefnyddiwyd yn ystod y "
-"broses arsefydlu a gwasgwch y <Dychwelydd> i ailgychwyn eich system.\n"
+"Tynnwch unrhyw gyfryngau arsefydlu a ddefnyddiwyd yn ystod y broses "
+"arsefydlu a gwasgwch <Enter> i ailgychwyn eich system.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -5383,7 +5377,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
-msgstr "Cwblhäwyd"
+msgstr "Cwblhawyd"
 
 #: ../textw/complete_text.py:48
 msgid "Reboot"
@@ -5400,7 +5394,7 @@ msgid ""
 "system. You may want to keep this file for later reference."
 msgstr ""
 "Bydd cofnod cyflawn o'ch arsefydliad yn %s wedi ailgychwyn eich system. "
-"Efallai byddwch am gadw'r ffeil yma i chyfeirio ati nes ymlaen."
+"Efallai byddwch am gadw'r ffeil yma i gyfeirio ati nes ymlaen."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
@@ -5427,7 +5421,7 @@ msgid ""
 "You may want to keep this file for later reference."
 msgstr ""
 "Bydd cofnod cyflawn o'ch uwchraddiad yn %s wedi ailgychwyn eich system. "
-"Efallai byddwch am gadw'r ffeil yma i chyfeirio ati nes ymlaen."
+"Efallai byddwch am gadw'r ffeil yma i gyfeirio ati nes ymlaen."
 
 #: ../textw/desktop_choice_text.py:27
 #, python-format
@@ -5443,8 +5437,8 @@ msgstr ""
 "argymelledig.  Wedi'r arsefydlu, gellir ychwanegu neu waredu meddalwedd "
 "ychwanegol drwy'r erfyn 'system-config-packages'.\n"
 "\n"
-"Serch hynny, dosberthir %s â llawer rhagor o gymhwysiadau, a gallwch "
-"addasu'r dewisiad o feddalwedd i'w arsefydlu os hoffech."
+"Serch hynny, dosberthir %s â llawer rhagor o gymwysiadau, a gallwch addasu'r "
+"dewisiad o feddalwedd i'w arsefydlu os hoffech."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5473,7 +5467,7 @@ msgstr "Gosodiad Disg"
 #: ../textw/fdasd_text.py:74
 #, python-format
 msgid "An error occurred while running %s on drive %s."
-msgstr "Digwyddodd gwall tra'n rhedeg %s ar yriant %s."
+msgstr "Digwyddodd gwall wrth redeg %s ar yriant %s."
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -5500,7 +5494,7 @@ msgstr ""
 "ffeil newydd arnynt. Gwiriwch eich caledwedd am achos y broblem yma neu "
 "ddefnyddiwch dasdfmt.\n"
 "\n"
-"Yn ôl i'r sgrîn fdasd?"
+"Yn ôl i'r sgrin fdasd?"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
@@ -5539,9 +5533,9 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
-"Cewch chi caniatâu cysylltiadau i wasanaethwyr penodol ar eich cyfrifiadur "
-"trwy'r mur cadarn. Pa gwasanaethwyr hoffech chi caniatâu cysylltiadau o'r "
-"cyfrifiaduron eraill?"
+"Gyda mur cadarn, gallwch ddewis i eraill gael mynediad i wasanaethau penodol "
+"ar eich cyfrifiadur o'u cyfrifiaduron nhw.  Caniatáu defnydd o ba "
+"wasanaethau?"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5630,7 +5624,7 @@ msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:227
 msgid "Encryption Key"
-msgstr "Alwedd Amgryptio"
+msgstr "Allwedd Amgryptio"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -5645,7 +5639,7 @@ msgstr "Disgrifiad: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Cyfeiriad Caledwedd: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -5670,7 +5664,7 @@ msgstr "Rhaid i chi roi gwybodaeth IP dilys i barhau"
 
 #: ../textw/network_text.py:260
 msgid "Gateway:"
-msgstr "Porthydd:"
+msgstr "Porth:"
 
 #: ../textw/network_text.py:270
 msgid "Primary DNS:"
@@ -5707,7 +5701,7 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Os yw'ch system yn ran o rwydwaith mwy lle neilltuir enwau gwesteiwyr drwy "
+"Os yw'ch system yn rhan o rwydwaith mwy lle neilltuir enwau gwesteiwyr drwy "
 "DHCP, dewiswch yn awtomatig drwy DHCP. Fel arall, dewiswch â llaw a rhowch "
 "enw gwesteiwr i'ch system. Os na wnewch hynny, gelwir eich system yn "
 "'localhost.'"
@@ -5728,7 +5722,7 @@ msgstr "Dewiswch becynnau unigol"
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
-"<Gofodnod>,<+>,<-> dewisiad   |   <F2> Manylion Grŵp   |   <F12> sgrîn nesaf"
+"<Gofodnod>,<+>,<-> dewisiad   |   <F2> Manylion Grŵp   |   <F12> sgrin nesaf"
 
 #: ../textw/packages_text.py:119
 msgid "Package Group Details"
@@ -5776,7 +5770,7 @@ msgstr "Arsefydlu pecynnau i fodloni dibyniaethau"
 
 #: ../textw/packages_text.py:400
 msgid "Do not install packages that have dependencies"
-msgstr "Peidio âg arsefydlu pecynnau sydd â dibyniaethau"
+msgstr "Peidio ag arsefydlu pecynnau sydd â dibyniaethau"
 
 #: ../textw/packages_text.py:401
 msgid "Ignore package dependencies"
@@ -5788,11 +5782,11 @@ msgstr "Rhaid penodi gwerth"
 
 #: ../textw/partition_text.py:43
 msgid "Requested value is not an integer"
-msgstr "Nid yw'r werth ofynnol yn gyfanrif"
+msgstr "Nid yw'r gwerth gofynnol yn gyfanrif"
 
 #: ../textw/partition_text.py:45
 msgid "Requested value is too large"
-msgstr "Mae'r werth ofynnol rhy fawr"
+msgstr "Mae'r gwerth gofynnol rhy fawr"
 
 #: ../textw/partition_text.py:99
 #, python-format
@@ -5858,7 +5852,7 @@ msgstr "Aelodau RAID:"
 
 #: ../textw/partition_text.py:534
 msgid "Number of spares?"
-msgstr "Nifer sbariau?"
+msgstr "Nifer sbarion?"
 
 #: ../textw/partition_text.py:548
 msgid "File System Type:"
@@ -5906,7 +5900,7 @@ msgstr "Gwirio am flociau gwael"
 
 #: ../textw/partition_text.py:610
 msgid "Leave unchanged (preserve data)"
-msgstr "Gadael yn ddinewid (cadw data)"
+msgstr "Gadael heb newid (cadw data)"
 
 #: ../textw/partition_text.py:619
 msgid "Format as:"
@@ -5959,15 +5953,15 @@ msgstr "Fformadu rhaniad?"
 
 #: ../textw/partition_text.py:1078
 msgid "Invalid Entry for RAID Spares"
-msgstr "Cofnod Annilys ar gyfer Sbariau RAID"
+msgstr "Cofnod Annilys ar gyfer Sbarion RAID"
 
 #: ../textw/partition_text.py:1091
 msgid "Too many spares"
-msgstr "Gormod o sbariau"
+msgstr "Gormod o sbarion"
 
 #: ../textw/partition_text.py:1092
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "0 yw uchafswm nifer y sbariau âg aräe RAID0."
+msgstr "0 yw uchafswm nifer y sbarion ag aräe RAID0."
 
 #: ../textw/partition_text.py:1173
 msgid "No Volume Groups"
@@ -5975,7 +5969,7 @@ msgstr "Does Dim Grŵpiau Cyfrolau"
 
 #: ../textw/partition_text.py:1174
 msgid "No volume groups in which to create a logical volume"
-msgstr "Does dim grŵpiau cyfrolau i creu cyfrolau rhesymegol."
+msgstr "Does dim grwpiau cyfrolau i greu cyfrolau rhesymegol."
 
 #: ../textw/partition_text.py:1290
 #, python-format
@@ -5997,11 +5991,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:1363
 msgid "New Partition or Logical Volume?"
-msgstr "Rhaniad newydd neu Cyfrol Resymegol?"
+msgstr "Rhaniad newydd neu Gyfrol Resymegol?"
 
 #: ../textw/partition_text.py:1364
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Hoffech chi creu rhaniad newydd neu cyfrol resymegol?"
+msgstr "Hoffech chi greu rhaniad newydd neu gyfrol resymegol?"
 
 #: ../textw/partition_text.py:1366
 msgid "partition"
@@ -6089,7 +6083,7 @@ msgstr "Cyfanswm    :"
 
 #: ../textw/progress_text.py:158
 msgid "Completed:   "
-msgstr "Cwblhäwyd:   "
+msgstr "Cwblhawyd:   "
 
 #: ../textw/progress_text.py:168
 msgid "Remaining:  "
@@ -6100,9 +6094,8 @@ msgid "What time zone are you located in?"
 msgstr "Ym mha gylchfa amser ydych chi?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Cloc system yn defnyddio _UTC"
+msgstr "Cloc system yn defnyddio UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6152,7 +6145,7 @@ msgstr "Ychwanegu Cyfnewidfa"
 
 #: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
-msgstr "Nid yw'r werth a roddoch yn rif dilys."
+msgstr "Nid yw'r gwerth a roddoch yn rif dilys."
 
 #: ../textw/upgrade_text.py:199
 msgid "Reinstall System"
@@ -6184,9 +6177,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Dewiswyd y pecynnau sydd gennych yn arsefydlog, ac unrhyw becynnau eraill "
-"sydd eu hangen i fodloni'u dibyniaethau, i'w harsefydlu. A hoffech addasu'r "
-"set o becynnau sydd i'w diweddaru?"
+"Mae'r pecynnau yr ydych wedi eu harsefydlu, ac unrhyw becynnau eraill maen "
+"nhw'n ddibynnol arnynt, wedi eu dewis ar gyfer eu harsefydlu. Hoffech chi "
+"addasu'r set o becynnau sydd i'w diweddaru?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -6199,7 +6192,7 @@ msgid ""
 "critical part of system security!"
 msgstr ""
 "Dewiswch gyfrinair gwraidd. Rhaid i chi'i deipio ddwywaith i sicrhau'ch bod "
-"yn gwybod beth yw ef, ac na wnaethoch gamgymeriad teipio. Cofiwch bod y "
+"yn gwybod beth yw ef, ac na wnaethoch gamgymeriad teipio. Cofiwch fod y "
 "cyfrinair gwraidd yn rhan holl bwysig o ddiogelwch system!"
 
 #: ../textw/userauth_text.py:62
@@ -6281,7 +6274,7 @@ msgid ""
 "your system's configuration."
 msgstr ""
 "Dylech ddefnyddio cyfrif defnyddiwr arferol ar gyfer y rhan fwyaf o "
-"weithgareddau ar eich system. Drwy beidio â defnyddio'r gyfrif gwraidd yn "
+"weithgareddau ar eich system. Drwy beidio â defnyddio'r cyfrif gwraidd yn "
 "ddidaro, byddwch yn lleihau'r tebygrwydd o darfu ar gyfluniad eich system."
 
 #: ../textw/userauth_text.py:209
@@ -6295,7 +6288,7 @@ msgid ""
 "can have any number of accounts set up."
 msgstr ""
 "Pa gyfrifon eraill yr hoffech eu cael ar y system? Dylai bod gennych o leiaf "
-"un gyfrif di-wraidd ar gyfer gwaith arferol, ond gall fod unrhyw nifer o "
+"un cyfrif di-wraidd ar gyfer gwaith arferol, ond gall fod unrhyw nifer o "
 "gyfrifon wedi'u gosod ar system aml-ddefnyddiwr."
 
 #: ../textw/userauth_text.py:222
@@ -6508,7 +6501,7 @@ msgstr ""
 "Rhowch y cyfraddau cysoni ar gyfer eich monitor. \n"
 "\n"
 "NODER - nid yw'n angenrheidiol golygu cyfraddau cysoni â llaw fel arfer, a "
-"dylid cymeryd gofal i sicrhau bod y gwerthoedd a roddir yn fanwl gywir."
+"dylid cymryd gofal i sicrhau bod y gwerthoedd a roddir yn fanwl gywir."
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
@@ -6525,7 +6518,7 @@ msgid ""
 "probed values."
 msgstr ""
 "Dewiswch y monitor ar gyfer eich system.  Defnyddiwch y botwm '%s' i ailosod "
-"i'r gwerthoedd archwiledig."
+"i'r gwerthoedd archwiliedig."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6541,7 +6534,7 @@ msgstr "Cyfradd Cysoni F:"
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
-msgstr "Dewiswch math monitor"
+msgstr "Dewiswch fath monitor"
 
 #: ../textw/xconfig_text.py:473
 msgid "Proceed"
@@ -6558,7 +6551,8 @@ msgid ""
 "the selection to the card the installer detected in your system."
 msgstr ""
 "Dewiswch y cerdyn fideo sy'n bresennol yn eich system.  Dewiswch '%s' i "
-"ailosod y dewisiad i'r cerdyn y canfyddod yr arsefydlydd yn eich system."
+"ailosod y dewisiad i'r cerdyn a ddarganfuwyd gan yr arsefydlydd yn eich "
+"system."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
@@ -6571,7 +6565,8 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Dewiswch faint o RAM fideo sy'n bresennol ar eich cerdyn fideo.  Dewiswch '%"
-"s' i ailosod y dewisiad i'r maint y canfyddod yr arsefydlydd ar eich cerdyn."
+"s' i ailosod y dewisiad i'r maint a ddarganfuwyd gan yr arsefydlydd ar eich "
+"cerdyn."
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
@@ -6603,7 +6598,7 @@ msgstr "Dyfais FCP"
 
 #: ../textw/zfcp_text.py:102
 msgid "Device #"
-msgstr "Rhif o'r dyfais"
+msgstr "Rhif o'r ddyfais"
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
@@ -6629,14 +6624,14 @@ msgstr "Llinell Chandev "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "_Addasiedig"
+msgstr "_Addasedig"
 
 #: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"Dewiswch y math arsefydliad yma i enill rheolaeth hollol dros yr broses "
+"Dewiswch y math arsefydliad yma i ennill rheolaeth hollol dros y broses "
 "arsefydlu, gan gynnwys dewis pecynnau meddalwedd â rhannu."
 
 #: ../installclasses/personal_desktop.py:11
@@ -6649,9 +6644,9 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Yn berffaith ar gyfer cyfrifiaduron personol, neu gluniaduron, dewiswch y "
+"Yn berffaith ar gyfer cyfrifiaduron personol, neu liniaduron, dewiswch y "
 "math arsefydliad yma i arsefydlu amgylchedd penbwrdd graffigol a chreu "
-"system delfrydol ar gyfer defnydd cartref neu benbwrdd."
+"system ddelfrydol ar gyfer defnydd cartref neu benbwrdd."
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
@@ -6669,7 +6664,7 @@ msgstr ""
 "\tPorwr Gwe (Mozilla) \n"
 "\tEbost (Evolution)\n"
 "\tNegesu Chwim\n"
-"\tCymhwysiadau sain a fideo\n"
+"\tCymwysiadau sain a fideo\n"
 "\tGêmau\n"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
@@ -6685,8 +6680,8 @@ msgid ""
 "\tWindows File Server (SMB)\n"
 msgstr ""
 "\tPlisgyn penbwrdd (GNOME)\n"
-"\tErfynnau Rheoli\n"
-"\tErfynnau Cyflunio Gweinydd\n"
+"\tArfau Rheoli\n"
+"\tArfau Cyflunio Gweinydd\n"
 "\tGweinydd Gwe\n"
 "\tGweinydd Ffeiliau Windows\n"
 
@@ -6721,8 +6716,8 @@ msgstr ""
 "\tNegesu Chwim\n"
 "\tCymhwysiadau sain a fideo\n"
 "\tGêmau\n"
-"\tErfynnau Datblygu Meddalwedd\n"
-"\tErfynnau Gweinyddol\n"
+"\tArfau Datblygu Meddalwedd\n"
+"\tArfau Gweinyddol\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6747,7 +6742,7 @@ msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
-"Mae'r dewisiad yma'n arsefydlu amgylchedd penbwrdd graffigol âg erfynnau "
+"Mae'r dewisiad yma'n arsefydlu amgylchedd penbwrdd graffigol ag arfau "
 "datblygu meddalwedd a gweinyddu system."
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
@@ -6771,7 +6766,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Dewiswch \"%s\" i profi'r CDd sydd yn y gyriant yn gyfredol, neu \"%s\" i "
+"Dewiswch \"%s\" i brofi'r CDd sydd yn y gyriant yn gyfredol, neu \"%s\" i "
 "allyrru'r CDd a mewnosod un arall i'w phrofi."
 
 #: ../loader2/cdinstall.c:110
@@ -6796,8 +6791,8 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Ni ganfuwyd yr CDd %s yn unrhyw un o'ch gyriannau CDdROM. Rhowch y CDd %s i "
-"mewn a gwasgwch %s i ailgeisio."
+"Ni chanfuwyd yr CDd %s yn unrhyw un o'ch gyriannau CDdROM. Rhowch y CDd %s i "
+"mewn a gwasgwch %s i ail-geisio."
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -6820,12 +6815,12 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Ni ganfuwyd CDd %s sy'n cydweddu â'ch cyfrwng cychwyn.  Rhowch y CDd %s i "
-"mewn a gwasgwch %s i ailgeisio."
+"Ni chanfuwyd CDd %s sy'n cydweddu â'ch cyfrwng cychwyn.  Rhowch y CDd %s i "
+"mewn a gwasgwch %s i ail-geisio."
 
 #: ../loader2/cdinstall.c:382
 msgid "CD Not Found"
-msgstr "Ni Ganfuwyd CDd"
+msgstr "Ni Chanfuwyd CDd"
 
 #: ../loader2/cdinstall.c:449
 msgid "Cannot find kickstart file on CDROM."
@@ -6865,7 +6860,7 @@ msgstr "Methwyd gosod rhaniad."
 
 #: ../loader2/driverdisk.c:348
 msgid "Select driver disk image"
-msgstr "Dewiswch delwedd disg gyrrydd"
+msgstr "Dewiswch ddelwedd disg gyrrydd"
 
 #: ../loader2/driverdisk.c:349
 msgid "Select the file which is your driver disk image."
@@ -6902,8 +6897,8 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"Ni ganfuwyd dyfeisiau o'r math addas ar y ddisg yrrydd yma. A hoffech ddewis "
-"y gyrrydd â llaw, parhau beth bynnaug, neu lwytho disg yrrydd arall?"
+"Ni chanfuwyd dyfeisiau o'r math addas ar y ddisg yrrydd yma. A hoffech "
+"ddewis y gyrrydd â llaw, parhau beth bynnag, neu lwytho disg yrrydd arall?"
 
 #: ../loader2/driverdisk.c:519
 msgid "Driver disk"
@@ -6953,18 +6948,18 @@ msgid ""
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"Rhowch unrhwy baramedrau yr hoffech eu pasio at y modwl %s wedi'u gwahanu "
+"Rhowch unrhyw baramedrau yr hoffech eu pasio at y modwl %s, wedi'u gwahanu "
 "gan ofodau.  Os nad ydych yn gwybod pa baramedrau i'w cyflenwi, hepgorwch y "
-"sgrîn yma drwy wasgu'r botwm \"Iawn\".  Gellir cael rhestr o'r dewisiadau "
+"sgrin yma drwy wasgu'r botwm \"Iawn\".  Gellir cael rhestr o'r dewisiadau "
 "sydd ar gael drwy wasgu'r fysell F1."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
-msgstr "Rhowch Paramedrau Modwl"
+msgstr "Rhowch Baramedrau Modwl"
 
 #: ../loader2/driverselect.c:186
 msgid "No drivers found"
-msgstr "Ni ganfuwyd gyrryddion"
+msgstr "Ni chanfuwyd unrhyw yrrydd"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
@@ -6975,7 +6970,8 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Ni ganfuwyd gyrryddion i'w mewnosod â llaw.  A hoffech ddefnydio disg yrrydd?"
+"Ni chanfuwyd unrhyw yrrydd i'w fewnosod â llaw.  A hoffech ddefnyddio disg "
+"gyrrydd?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6983,7 +6979,7 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "Dewiswch y gyrrydd isod yr hoffech ei lwytho.  Os nad yw'n ymddangos, a bod "
-"gennych disg gyrrydd, gwasgwch F2."
+"gennych ddisg gyrrydd, gwasgwch F2."
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
@@ -7051,7 +7047,7 @@ msgstr "Nid yw'r ddyfais %s i weld yn cynnwys delweddau CDdROM %s."
 #: ../loader2/hdinstall.c:471
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Ymresymiad gwael i orchymun dull kickstartd DG %s: %s"
+msgstr "Ymresymiad gwael i orchymyn dull kickstartd DG %s: %s"
 
 #: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
 msgid "Cannot find kickstart file on hard drive."
@@ -7092,18 +7088,18 @@ msgstr "Methu canfod ks.cfg ar y ddisg feddal gychwyn."
 #: ../loader2/kickstart.c:406
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Ymresymiad gwael i orchymun dull kickstartd %s: %s"
+msgstr "Ymresymiad gwael i orchymyn dull kickstartd %s: %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Croeso i %s"
+msgstr "Croeso i %s - Modd Achub"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-"  <Tab>/<Eil-Tab> rhwng elfennau  | <Gofodnod> i ddewis | <F12> sgrîn nesaf "
+"  <Tab>/<Eil-Tab> rhwng elfennau  | <Gofodnod> i ddewis | <F12> sgrin nesaf "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -7160,7 +7156,7 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
-"Ni ganfuwyd unrhyw ddisgiau caled.  Mae'n debyg bod angen i chi ddewis "
+"Ni chanfuwyd unrhyw ddisgiau caled.  Mae'n debyg bod angen i chi ddewis "
 "gyrryddion dyfeisiau er mwyn i'r arsefydlu lwyddo.  A hoffech ddewis "
 "gyrryddion nawr?"
 
@@ -7179,7 +7175,7 @@ msgstr "Dull Arsefydlu"
 
 #: ../loader2/loader.c:863
 msgid "What type of media contains the rescue image?"
-msgstr "Pa fath o gyfrwng sy'n cynnwys y delwedd achub?"
+msgstr "Pa fath o gyfrwng sy'n cynnwys y ddelwedd achub?"
 
 #: ../loader2/loader.c:865
 msgid "What type of media contains the packages to be installed?"
@@ -7233,7 +7229,7 @@ msgstr "Ychwanegu Dyfais"
 #: ../loader2/loader.c:1178
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "rhedwyd y llwythwr eisioes.  Yn decharu plisgyn.\n"
+msgstr "rhedwyd y llwythwr eisioes.  Yn dechrau plisgyn.\n"
 
 #: ../loader2/loader.c:1547
 #, c-format
@@ -7243,7 +7239,7 @@ msgstr "Yn rhedeg anaconda, y modd achub %s - arhoswch...\n"
 #: ../loader2/loader.c:1549
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Yn rhedeg anaconda, yr arsefydlydd system %s - arhoswch OGYDd...\n"
+msgstr "Yn rhedeg anaconda, yr arsefydlydd system %s - arhoswch...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7280,7 +7276,7 @@ msgstr ""
 "\n"
 "Mae gwallau yn y ddelwedd sydd newydd ei phrofi. Gallai hyn fod o achos "
 "lawrlwythiad llygredig, neu ddisg gwael.  Os yn berthnasol, glanhewch y "
-"ddisg a cheisiwch eto.  Os yw'r brawf hon yn parhau i fethu, ni ddylech "
+"ddisg a cheisiwch eto.  Os yw'r prawf hwn yn parhau i fethu, ni ddylech "
 "barhau â'r arsefydliad."
 
 #: ../loader2/mediacheck.c:333
@@ -7348,7 +7344,7 @@ msgstr "Prawf Prawfswm"
 #: ../loader2/modules.c:969
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "Ymresymiad gwael i orchymun dull kickstart dyfais %s: %s"
+msgstr "Ymresymiad gwael i orchymyn dull kickstart dyfais %s: %s"
 
 #: ../loader2/net.c:47
 #, c-format
@@ -7362,7 +7358,7 @@ msgstr ""
 "Rhowch y wybodaeth ganlynol:\n"
 "\n"
 "    o enw neu rif IP eich gweinydd %s\n"
-"    o y cyfeiriadur ar y gwenydd hwnnw sy'n cynnwys\n"
+"    o'r cyfeiriadur ar y gweinydd hwnnw sy'n cynnwys\n"
 "      %s ar gyfer eich saernïaeth\n"
 
 #: ../loader2/net.c:220
@@ -7372,13 +7368,13 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"dyfais rwydwaith di-wifr yw %s. Rhowch yr ESSID ac allwedd amgryptiad i "
-"gyrchu eich rhwydwaith di-wifr. Os nid rhaid i chi defnyddio allwedd, "
-"gadwech y maes yn wag a pharhau'r gosod."
+"dyfais rwydwaith diwifr yw %s. Rhowch yr ESSID ac allwedd amgryptiad i "
+"gyrchu eich rhwydwaith diwifr. Os nad oes rhaid defnyddio allwedd, gadewch y "
+"maes yn wag a pharhau'r â'r gosod."
 
 #: ../loader2/net.c:230
 msgid "Wireless Settings"
-msgstr "Gosodiadau Di-wifr"
+msgstr "Gosodiadau Diwifr"
 
 #: ../loader2/net.c:259
 msgid "Nameserver IP"
@@ -7435,7 +7431,7 @@ msgstr "Masg Rhwyd:"
 
 #: ../loader2/net.c:493
 msgid "Default gateway (IP):"
-msgstr "Porthydd Rhagosodedig (IP):"
+msgstr "Porth Rhagosodedig (IP):"
 
 #: ../loader2/net.c:496
 msgid "Primary nameserver:"
@@ -7577,7 +7573,7 @@ msgstr "Enw safle gwe:"
 
 #: ../loader2/urls.c:303
 msgid "Use non-anonymous ftp"
-msgstr "Defnyddio ftp di-di-enw"
+msgstr "Defnyddio FTP gydag enw defnyddiwr"
 
 #: ../loader2/urls.c:312
 msgid "FTP Setup"
@@ -7589,7 +7585,7 @@ msgstr "Cyfluniad HTTP"
 
 #: ../loader2/urls.c:323
 msgid "You must enter a server name."
-msgstr "Rhaid i chi roi enw gweinydd."
+msgstr "Rhaid rhoi enw gweinydd."
 
 #: ../loader2/urls.c:328
 msgid "You must enter a directory."
@@ -7609,7 +7605,7 @@ msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Os ydych yn defnyddio ftp di-di-enw, rhowch enw a chyfrinair y gyfrif yr "
+"Os ydych yn defnyddio ftp gydag enw, rhowch enw a chyfrinair y cyfrif yr "
 "ydych am ei defnyddio isod."
 
 #: ../loader2/urls.c:412
@@ -7625,14 +7621,12 @@ msgid "Account name:"
 msgstr "Enw cyfrif:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "Cyfluniad FTP"
+msgstr "Cyfluniad Pellach FTP"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "Cyfluniad HTTP"
+msgstr "Cyfluniad Pellach HTTP"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -7668,7 +7662,7 @@ msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr "Amser Alasga"
+msgstr "Amser Alaska"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
@@ -7736,7 +7730,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr "Bueonos Aires (BA, CF)"
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -8345,12 +8339,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabeg"
+msgstr "Amhareg"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8430,12 +8423,11 @@ msgstr "Hwngareg"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr "Iaith Ynys yr Iâ"
+msgstr "Islandeg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Macedoneg"
+msgstr "Indoneseg"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8443,7 +8435,7 @@ msgstr "Eidaleg"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr "Siapaneg"
+msgstr "Japaneaidd"
 
 #. generated from lang-table
 msgid "Korean"
@@ -8462,9 +8454,8 @@ msgid "Norwegian"
 msgstr "Norwyeg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Y Diriogaeth Ogleddol"
+msgstr "Sotho'r Gogledd"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8491,9 +8482,8 @@ msgid "Russian"
 msgstr "Rwsieg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Slofeneg"
+msgstr "Slofac"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8512,9 +8502,8 @@ msgid "Tamil"
 msgstr "Tamileg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamileg"
+msgstr "Thai"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8589,7 +8578,7 @@ msgstr "Zwlŵeg"
 #~ msgstr "Creu disg gychwyn"
 
 #~ msgid "Do not install SILO"
-#~ msgstr "Peidio âg arsefydlu SILO"
+#~ msgstr "Peidio ag arsefydlu SILO"
 
 #~ msgid "Partition type"
 #~ msgstr "Math rhaniad"
@@ -8643,10 +8632,10 @@ msgstr "Zwlŵeg"
 #~ "\n"
 #~ "Would you like to continue and not install a boot loader?"
 #~ msgstr ""
-#~ "Rydych wedi dewis peidio âg arsefydlu cychwynnydd ar eich system.  Bydd "
+#~ "Rydych wedi dewis peidio ag arsefydlu cychwynnydd ar eich system.  Bydd "
 #~ "rhaid i chi greu disg gychwyn i cychwyn eich system â'r dewisiad yma.\n"
 #~ "\n"
-#~ "A hoffech barhau â pheidio âg arsefydlu cychwynnydd?"
+#~ "A hoffech barhau â pheidio ag arsefydlu cychwynnydd?"
 
 #~ msgid "Total"
 #~ msgstr "Cyfanswm"
