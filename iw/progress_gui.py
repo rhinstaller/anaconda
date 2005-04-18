@@ -180,7 +180,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 	    return
 	
 	if state == "downloading":
-	    msgstr = N_("Downloading %s") % (amount,)
+	    msgstr = _("Downloading %s") % (amount,)
 	else:
 	    msgstr = state
 	self.pkgstatus.set_text(msgstr)
