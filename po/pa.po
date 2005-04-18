@@ -6,6 +6,16 @@
 # Amanpreet Singh Alam <aalam@redhat.com>, 2004, 2005.
 # Amanpreet Singh Alam <amanpreetalam@yahoo.com>, 2005.
 # Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
+# Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>, 2005.
 #
 #
 msgid ""
@@ -13,7 +23,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-04-16 13:14+0530\n"
+"PO-Revision-Date: 2005-04-18 18:47+0530\n"
 "Last-Translator: Amanpreet Singh Alam[ਆਲਮ] <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <punlinux-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -531,7 +541,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s ਇੰਸਟਾਲ ਹੋ ਰਿਹਾ ਹੈ... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -539,17 +549,17 @@ msgid ""
 msgstr ""
 "ਇੱਕ ਨਾ-ਸੁਧਾਰਨਯੋਗ ਅਪਵਾਦ ਆਇਆ ਹੈ। ਇਹ ਬੱਗ ਹੋ ਸਕਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਅਪਵਾਦ ਦੇ ਪੂਰਾ ਪਾਠ ਦੀ "
 "ਨਕਲ ਕਰੋ ਜਾਂ ਅਚਾਨਕ ਖਤਮ ਹੋਏ ਡੰਮ ਨੂੰ ਫਲਾਪੀ ਵਿੱਚ ਸੰਭਾਲੋ ਅਤੇ ਇਸ ਦੀ ਵੇਰਵਾ ਜਾਣਕਾਰੀ ਵੈਬਸਾਇਟ "
-"http://bugzilla.redhat.com/bugzilla/ ਤੇ ਦਿਉ।"
+"%s ਤੇ ਦਿਉ।"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
-"ਇੱਕ ਨਾ-ਸੁਧਾਰਨਯੋਗ ਅਪਵਾਦ ਆਇਆ ਹੈ। ਇਹ ਬੱਗ ਹੋ ਸਕਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਅਪਵਾਦ ਦੇ ਪੂਰਾ ਪਾਠ ਦੀ "
-"ਨਕਲ ਕਰੋ ਅਤੇ ਇਸ ਦੀ ਵੇਰਵਾ ਜਾਣਕਾਰੀ ਵੈਬਸਾਇਟ http://bugzilla.redhat.com/bugzilla/ ਤੇ "
+"ਇੱਕ ਨਾ-ਸੁਧਾਰਨਯੋਗ ਅਪਵਾਦ ਆਇਆ ਹੈ। ਇਹ ਬੱਗ ਹੋ ਸਕਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ "
+"ਅਪਵਾਦ ਦੇ ਪੂਰਾ ਪਾਠ ਦੀ ਨਕਲ ਕਰੋ ਅਤੇ ਇਸ ਦੀ ਵੇਰਵਾ ਜਾਣਕਾਰੀ ਵੈਬਸਾਇਟ %s ਤੇ "
 "ਦਿਉ।"
 
 #: ../exception.py:228 ../text.py:232
@@ -992,9 +1002,8 @@ msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
-msgstr "ਅਪਵਾਦ ਮੌਜੂਦ"
+msgstr "ਅਪਵਾਦ ਆਇਆ"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -1520,7 +1529,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "ਚੇਤਵਾਨੀ! ਇਹ ਪਹਿਲਾਂ-ਜਾਰੀ ਸਾਫਟਵੇਅਰ ਹੈ!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1542,13 +1551,13 @@ msgstr ""
 "\n"
 "ਜਾਣਕਾਰੀ ਦੇਣ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ ਇਥੇ ਸੰਪਰਕ ਕਰੋ:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "'%s' ਦੇ ਲਈ ਰਿਪੋਰਟ ਦਿਉ।\n"
 
 #: ../packages.py:1557
 msgid "_Install anyway"
-msgstr "ਕਿਸੇ ਤਰਾਂ ਵੀ ਇੰਸਟਾਲ ਕਰੋ(_I)"
+msgstr "ਕਿਸੇ ਤਰਾਂ ਵੀ ਇੰਸਟਾਲ(_I)"
 
 #: ../packages.py:1562 ../packages.py:1565 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
@@ -3015,14 +3024,13 @@ msgid "Congratulations"
 msgstr "ਮੁਬਾਰਕ"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"ਕੋਈ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਮਾਧਿਅਮ, ਜੋ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤਿਆ ਹੈ, ਹਟਾਓ ਅਤੇ \"ਮੁਡ਼ ਚਾਲੂ\" ਬਟਨ ਨਾਲ "
-"ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਲਈ ਇਸਤੇਮਾਲ ਕਰੋ।\n"
+"ਕੋਈ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਮਾਧਿਅਮ, ਜੋ ਵੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤਿਆ ਹੈ, ਹਟਾਓ ਅਤੇ \"ਮੁਡ਼ ਚਾਲੂ\" "
+"ਬਟਨ ਨਾਲ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨ ਲਈ ਇਸਤੇਮਾਲ ਕਰੋ।\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -4918,12 +4926,12 @@ msgid "Unknown video card"
 msgstr "ਅਣਪਛਾਤਾ ਵੀਡਿਓ ਕਾਰਡ"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
-"ਵੀਡਿਓ ਕਾਰਡ %s ਨੂੰ ਚੁਣਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਦੀ ਸੂਚਨਾ bugzilla.redhat.com ਨੂੰ "
+"ਵੀਡਿਓ ਕਾਰਡ %s ਨੂੰ ਚੁਣਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਦੀ ਸੂਚਨਾ %s ਨੂੰ "
 "ਦਿਓ।"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
@@ -5947,9 +5955,8 @@ msgid "What time zone are you located in?"
 msgstr "ਕਿਸ ਸਮੇਂ ਖੇਤਰ ਵਿੱਚ ਤੁਸੀ ਰਹਿ ਰਹੇ ਹੋ?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "ਸਿਸਟਮ ਘਡ਼ੀ _UTC ਵਰਤਦੀ ਹੈ"
+msgstr "ਸਿਸਟਮ ਘਡ਼ੀ UTC ਵਰਤਦੀ ਹੈ"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8139,12 +8146,11 @@ msgstr "ਜ਼ਾਪੂਰੂਜ਼ਹ'ਯੀ, ਪੂਰਬੀ ਲੂਗਾਨ�
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "ਅਫਰੀਕਨ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "ਅਰਬੀ"
+msgstr "ਅਮਹੀਕਿਨ"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8227,9 +8233,8 @@ msgid "Icelandic"
 msgstr "ਆਈਸਲੈਂਡਿਕ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "ਮੇਕਾਡੋਨੀਅਨ"
+msgstr "ਇੰਡੋਨੇਸ਼ੀਆਈ"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8256,9 +8261,8 @@ msgid "Norwegian"
 msgstr "ਨਾਰਵੇਗੀਅਨ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "ਉੱਤਰੀ ਪ੍ਰਦੇਸ਼"
+msgstr "ਉੱਤਰੀ ਸੋਥੋ"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8266,7 +8270,7 @@ msgstr "ਪਰਸੀਅਨ"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr "ਪੋਲਿਸ਼"
+msgstr "ਪੋਲੈਂਡੀ"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8285,9 +8289,8 @@ msgid "Russian"
 msgstr "ਰੂਸੀ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "ਸਲੋਵੀਨੀਅਨ"
+msgstr "ਸਲੋਵਾਕ"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8306,9 +8309,8 @@ msgid "Tamil"
 msgstr "ਤਾਮਿਲ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "ਤਾਮਿਲ"
+msgstr "ਥਾਈ"
 
 #. generated from lang-table
 msgid "Turkish"
