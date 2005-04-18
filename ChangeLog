@@ -6,6 +6,8 @@
 2005-04-18  Chris Lumens  <clumens@redhat.com>
 
 	* iw/language_gui.py:  Fix traceback (#155103).
+	* kickstart.py (KickstartBase.definePartition):  Write out filesystem
+	options for regular partitions instead of "--fsoptions".
 
 2005-04-16  Jeremy Katz  <katzj@redhat.com>
 

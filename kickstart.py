@@ -1250,7 +1250,7 @@ class KickstartBase(BaseInstallClass):
             elif str == "--recommended":
                 recommended = 1
             elif str == "--fsoptions":
-                fsopts = str
+                fsopts = arg
 
 	if len(extra) != 1:
 	    raise KickstartValueError, "partition command requires one anonymous argument"
