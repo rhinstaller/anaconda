@@ -11,12 +11,12 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2004-10-18 21:59+0200\n"
+"PO-Revision-Date: 2005-04-21 17:17+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -180,8 +180,8 @@ msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
-"Не е пронајдено глувче.  Глувче е потребно за графичка инсталација.  "
-"Стартувам во текстуален режим."
+"Не е пронајдено глувче.  Глувчето е потребно за графичка инсталација.  "
+"Подигнувам во текстуален режим."
 
 #: ../anaconda:884
 #, c-format
@@ -232,7 +232,7 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"Стартната партиција %s не припаѓа на диск со доволно слободен простор на "
+"Партиција од која што треба да се подигне %s не припаѓа на диск со доволно слободен простор на "
 "неговиот почеток за поставување на покренувачката програма. Осигурајте се "
 "дека постојат најмалку 5MB слободен простор на почетокот на дискот кој го "
 "содржи /boot"
@@ -251,7 +251,7 @@ msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
-"Стартната партиција не е поставена доволно блиску на почетокот на дискот.  "
+"Партиција од која што треба да се подигне не е поставена доволно блиску на почетокот на дискот.  "
 "OpenFirmware нема да биде во можност да ја започне оваа инсталација."
 
 #: ../autopart.py:1045
@@ -455,13 +455,13 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Автоматското партиционирање ги подеси партициите во согласност со избраниот "
+"Автоматското партиционирање ќе ги постави партициите во согласност со избраниот "
 "тип на инсталирање. Еднаш креираните партиции можете да ги прилагодите на "
 "вашите потреби.\n"
 "\n"
-"Алатката за рачно партиционирање, Disk Druid, ви овозможува креирање на "
+"Алатката за рачно партиционирање, Диск друид, ви овозможува креирање на "
 "партиции во интерактивна околина. Можете да го подесите типот на датотечниот "
-"систем, монтирачките папки, големините на партициите и друго."
+"систем, папките за монтирање, големините на партициите и друго."
 
 #: ../autopart.py:1648
 msgid ""
@@ -511,7 +511,7 @@ msgstr "Програма за подигнување на системот"
 
 #: ../bootloader.py:96
 msgid "Installing bootloader..."
-msgstr "Инсталирање на програмата за подигнување на системот..."
+msgstr "Ја инсталирам програмата за подигнување на системот..."
 
 #: ../bootloader.py:154
 msgid ""
@@ -527,7 +527,7 @@ msgstr "Завршено"
 
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr "Во тек...   "
+msgstr "Работам...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
@@ -739,7 +739,7 @@ msgstr "PPC PReP подигнување на системот"
 
 #: ../fsset.py:1253
 msgid "First sector of boot partition"
-msgstr "Прв сектор на стартната партиција"
+msgstr "Прв сектор на партиција за подигнување"
 
 #: ../fsset.py:1254
 msgid "Master Boot Record (MBR)"
@@ -925,11 +925,11 @@ msgstr ""
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "Рестартирај"
+msgstr "_Рестартирај"
 
 #: ../fsset.py:2488
 msgid "Formatting"
-msgstr "Форматирање"
+msgstr "Форматирам"
 
 #: ../fsset.py:2489
 #, python-format
@@ -1025,11 +1025,11 @@ msgstr "Појава на исклучок"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
-msgstr "Дебагирај"
+msgstr "_Дебагирај"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Зачувај на дискета"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1086,11 +1086,11 @@ msgstr ""
 #: ../gui.py:1173 ../gui.py:1178 ../packages.py:190 ../packages.py:201
 #: ../packages.py:635 ../packages.py:1557 ../packages.py:1562
 msgid "_Exit"
-msgstr "Излез"
+msgstr "_Излез"
 
 #: ../gui.py:1174 ../packages.py:444
 msgid "_Retry"
-msgstr "Повтори"
+msgstr "_Пробај пак"
 
 #: ../gui.py:1177 ../packages.py:1561
 msgid "The installer will now exit..."
@@ -1111,11 +1111,11 @@ msgstr "%s инсталациона програма"
 
 #: ../gui.py:1272
 msgid "Unable to load title bar"
-msgstr "Неможам да ја вчитам насловната линија"
+msgstr "Не можам да ја вчитам насловната линија"
 
 #: ../gui.py:1333
 msgid "Install Window"
-msgstr "Инсталациски прозор"
+msgstr "Инсталациски прозорец"
 
 #: ../harddrive.py:166 ../image.py:531
 #, python-format
@@ -1179,7 +1179,7 @@ msgstr ""
 #: ../image.py:96 ../image.py:484 ../kickstart.py:1497 ../kickstart.py:1525
 #: ../iw/partition_gui.py:1009
 msgid "_Continue"
-msgstr "Продолжи"
+msgstr "_Продолжи"
 
 #: ../image.py:155
 #, python-format
@@ -1197,7 +1197,7 @@ msgstr "Копирање на датотека"
 
 #: ../image.py:189
 msgid "Transferring install image to hard drive..."
-msgstr "Пренос на инсталационата слика на диск..."
+msgstr "Ја пренесувам инсталационата слика на диск..."
 
 #: ../image.py:193
 msgid ""
@@ -1254,7 +1254,7 @@ msgstr ""
 
 #: ../kickstart.py:1489
 msgid "Missing Package"
-msgstr "Недостасува пакет"
+msgstr "Пакет што недостасува"
 
 #: ../kickstart.py:1490
 #, python-format
@@ -1267,7 +1267,7 @@ msgstr ""
 
 #: ../kickstart.py:1496 ../kickstart.py:1524
 msgid "_Abort"
-msgstr "Запри"
+msgstr "_Прекини"
 
 #: ../kickstart.py:1516
 msgid "Missing Group"
@@ -1318,7 +1318,7 @@ msgstr "Сакате ли да продолжите со надградбата?
 
 #: ../packages.py:156
 msgid "Reading"
-msgstr "Отчитување"
+msgstr "Вчитување"
 
 #: ../packages.py:156
 msgid "Reading package information..."
@@ -1369,7 +1369,7 @@ msgstr "Се извршува"
 
 #: ../packages.py:374
 msgid "Preparing to install..."
-msgstr "Припрема за инсталирање..."
+msgstr "Се припремам за инсталација..."
 
 #: ../packages.py:433
 #, python-format
@@ -1387,15 +1387,14 @@ msgstr ""
 "Притиснете <return> за да се обидете повторно."
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
-msgstr "Рестартирај"
+msgstr "Ре_стартирај"
 
 #: ../packages.py:447
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "Ако го рестартирате системот ќе бидете оставени во неконзистетна состојба и најверојатно ќе треба повторно да инсталирате.  Дали сте сигурни дека сакате да продолжите?"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -1485,7 +1484,7 @@ msgstr "Почеток на инсталацијата"
 
 #: ../packages.py:995
 msgid "Starting install process, this may take several minutes..."
-msgstr "Стартува инсталацијата, која може да потрае неколку минути..."
+msgstr "Започнува инсталацијата. Ова може да потрае неколку минути..."
 
 #: ../packages.py:1035
 msgid ""
@@ -1593,7 +1592,7 @@ msgstr "_Сепак инсталирај"
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:120
 msgid "_Back"
-msgstr "Назад"
+msgstr "_Назад"
 
 #: ../partedUtils.py:194 ../textw/partition_text.py:556
 msgid "Foreign"
@@ -1833,7 +1832,7 @@ msgstr "Настојувате да ги избришите сите парти�
 #: ../iw/lvm_dialog_gui.py:737 ../iw/lvm_dialog_gui.py:1089
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1356
 msgid "_Delete"
-msgstr "Бриши"
+msgstr "_Бриши"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
@@ -1911,15 +1910,15 @@ msgstr ""
 
 #: ../partIntfHelpers.py:410
 msgid "Format?"
-msgstr "Форматирање?"
+msgstr "Да форматирам?"
 
 #: ../partIntfHelpers.py:410 ../iw/partition_gui.py:1007
 msgid "_Modify Partition"
-msgstr "Измена на партиција"
+msgstr "_Промена на партиција"
 
 #: ../partIntfHelpers.py:410
 msgid "Do _Not Format"
-msgstr "Не форматирај"
+msgstr "Не _форматирај"
 
 #: ../partIntfHelpers.py:418
 msgid "Error with Partitioning"
@@ -2278,7 +2277,7 @@ msgstr ""
 #: ../rescue.py:273 ../iw/partition_gui.py:565 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:477
 msgid "Continue"
-msgstr "Продолжете"
+msgstr "Продолжи"
 
 #: ../rescue.py:273 ../rescue.py:282
 msgid "Read-Only"
@@ -2288,7 +2287,7 @@ msgstr "Само за читање"
 #: ../loader2/cdinstall.c:254 ../loader2/cdinstall.c:256
 #: ../loader2/method.c:419
 msgid "Skip"
-msgstr "Прескокнете"
+msgstr "Прескокни"
 
 #: ../rescue.py:305
 msgid "System to Rescue"
@@ -2422,7 +2421,7 @@ msgstr "Барање"
 #: ../upgrade.py:71
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Барање на %s инсталации..."
+msgstr "Барам инсталации на %s ..."
 
 #: ../upgrade.py:123 ../upgrade.py:131
 msgid "Dirty File Systems"
@@ -2596,7 +2595,7 @@ msgstr "Поврзување..."
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
-msgstr "Не можам да стартувам X"
+msgstr "Не можам да подигнам X"
 
 #: ../vnc.py:55
 msgid ""
@@ -2819,7 +2818,7 @@ msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "_Администрациски серверr:"
+msgstr "_Администрациски сервер:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
@@ -2894,7 +2893,7 @@ msgstr "Лозинките не совпаѓаат"
 
 #: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:429
 msgid "Passwords do not match"
-msgstr "Лозинките не соодветствуваат"
+msgstr "Лозинките не се совпаѓаат"
 
 #: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:439
 msgid ""
@@ -3018,7 +3017,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
-msgstr "Користи го GRUB како подигнувач"
+msgstr "Користи_ го GRUB како подигнувач"
 
 #: ../iw/bootloader_main_gui.py:130
 msgid "_Do not install a boot loader"
@@ -3098,7 +3097,7 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Целосен лог од инсталацијата ќе можете да најдете во датотеката '%s' откако "
+"Целосен запис од инсталацијата ќе можете да најдете во датотеката '%s' откако "
 "ќе го рестарирате системот.\n"
 "\n"
 "Датотеката за kickstart која што ги содржи сите одбрани опции за "
@@ -3273,8 +3272,7 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"Одберете ја оваа опција доколку сакате да го надградите Вашиот постоечко %s "
-"систем.  Оваа опција ќе ги зачува податоците на Вашите дискови."
+"Одберете ја оваа опција доколку сакате да го надградите Вашиот постоечки %s  систем.  Оваа опција ќе ги зачува податоците на Вашите дискови."
 
 #: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3282,7 +3280,7 @@ msgstr "Следниов инсталиран систем ќе биде над�
 
 #: ../iw/examine_gui.py:144
 msgid "Unknown Linux system"
-msgstr "Непознат Linux систем"
+msgstr "Непознат Линукс систем"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -3310,7 +3308,7 @@ msgstr "Одбери ги дисковите за партиционирање �
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:173
 msgid "Disabled"
-msgstr "Оневозможено"
+msgstr "Исклучено"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:175
 msgid "Warn"
@@ -3721,7 +3719,7 @@ msgstr "Големина (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1083 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
 msgid "_Add"
-msgstr "_Додади"
+msgstr "_Додај"
 
 #: ../iw/lvm_dialog_gui.py:1086 ../iw/network_gui.py:533
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1355 ../iw/zfcp_gui.py:101
@@ -3907,9 +3905,8 @@ msgid "Encryption _Key"
 msgstr "Клуч за _енкрипција"
 
 #: ../iw/network_gui.py:260
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP адреса:"
+msgstr "Хардверска адреса:"
 
 #: ../iw/network_gui.py:299
 #, python-format
@@ -3970,7 +3967,7 @@ msgstr ""
 "Можете да го конфигурирате подигнувачот да подигнува и други оперативни "
 "системи. Тој ќе ви дозволи да одберете оперативен систем за подигнување од "
 "листата. За да додадете додатен оперативен систем, кој што не е автоматски "
-"детектиран, кликнете 'Додади.' За да го промените стандардниот оперативен "
+"детектиран, кликнете 'Додај.' За да го промените стандардниот оперативен "
 "систем, одберете 'Стандарден' веднаш до посакуваниот оперативен систем."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:265
@@ -4150,7 +4147,7 @@ msgstr "Крајнито цилиндер мора да е поголем од �
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:709
 msgid "Add Partition"
-msgstr "Додади партиција"
+msgstr "Додај партиција"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
@@ -4195,7 +4192,7 @@ msgstr "Тип"
 
 #: ../iw/partition_gui.py:365
 msgid "Format"
-msgstr "Формат"
+msgstr "Форматирај"
 
 #: ../iw/partition_gui.py:367 ../textw/partition_text.py:1436
 msgid "Start"
@@ -4344,7 +4341,10 @@ msgid ""
 "\n"
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
-msgstr ""
+msgstr "Софтверскиот RAID Ви дозволува да комбинирате повеќе дискови во еден поголем RAID уред.  RAID уред може да биде конфигуриран да нуди додатна брзина и стабилност во споредба со само еден уред.  За повеќе информации за RAID уредите консултирајте се со документацијата за %s.\n"
+"\n"
+"Моментално имате %s партици/ја(и) која/кои што претставуваат софтверски RAID.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1248
 msgid ""
@@ -4574,7 +4574,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
 #: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
 msgid "Source Drive Error"
-msgstr "Грешка со изворниот драјв"
+msgstr "Грешка со изворниот уред"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -5068,7 +5068,7 @@ msgstr "FCP уреди"
 
 #: ../iw/zfcp_gui.py:122
 msgid "Add FCP device"
-msgstr "Додади FCP уред"
+msgstr "Додај FCP уред"
 
 #: ../iw/zfcp_gui.py:185
 #, python-format
@@ -5333,7 +5333,7 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
-"Целосен лог од Вашата инсталација ќе биде запишан во %s откако ќе го "
+"Целосен запис од Вашата инсталација ќе биде запишан во %s откако ќе го "
 "рестартирате системот. Може ќе сакате да ја чувате оваа датотека за понатаму."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
@@ -5568,7 +5568,7 @@ msgstr "Опис: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Хардверска адреса: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -6023,9 +6023,8 @@ msgid "What time zone are you located in?"
 msgstr "Во која временска зона се наоѓате?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Системскиот часовник користи _UTC"
+msgstr "Системскиот часовник користи UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6067,7 +6066,7 @@ msgstr "Големина на swap датотеката (MB):"
 
 #: ../textw/upgrade_text.py:141
 msgid "Add Swap"
-msgstr "Додади swap"
+msgstr "Додај swap"
 
 #: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
@@ -6131,7 +6130,7 @@ msgstr "Уреди го корисникот"
 
 #: ../textw/userauth_text.py:105
 msgid "Add User"
-msgstr "Додади корисник"
+msgstr "Додај корисник"
 
 #: ../textw/userauth_text.py:110
 msgid "User Name"
@@ -6223,7 +6222,7 @@ msgstr "Корисничко име"
 
 #: ../textw/userauth_text.py:236 ../textw/zfcp_text.py:108
 msgid "Add"
-msgstr "Додади"
+msgstr "Додај"
 
 #: ../textw/userauth_text.py:249
 msgid "Enter the information for the user."
@@ -6231,7 +6230,7 @@ msgstr "Внеси информација за корисникот."
 
 #: ../textw/userauth_text.py:267
 msgid "Change the information for this user."
-msgstr "Промени ја информацијата за овој корисник."
+msgstr "Променете ги информациите за овој корисник."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
@@ -6357,7 +6356,7 @@ msgstr "Гном"
 
 #: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
-msgstr "KDE"
+msgstr "КДЕ"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
@@ -7125,7 +7124,7 @@ msgstr "Завршено"
 
 #: ../loader2/loader.c:1059
 msgid "Add Device"
-msgstr "Додади уред"
+msgstr "Додај уред"
 
 #: ../loader2/loader.c:1178
 #, c-format
@@ -7546,7 +7545,7 @@ msgstr "Прикажи помош"
 
 #: tmp/anaconda.glade.h:5
 msgid "_Next"
-msgstr "Следно"
+msgstr "_Напред"
 
 #: tmp/anaconda.glade.h:6
 msgid "_Release Notes"
@@ -8233,12 +8232,11 @@ msgstr "Запорожје, Источен Луганск"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Африкански"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Арапски"
+msgstr "Amharic"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8254,7 +8252,7 @@ msgstr "Бенгалски(Индија)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr "Bulgarian"
+msgstr "Бугарски"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8270,7 +8268,7 @@ msgstr "Chinese(Traditional)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr "Croatian"
+msgstr "Хрватски"
 
 #. generated from lang-table
 msgid "Czech"
@@ -8321,9 +8319,8 @@ msgid "Icelandic"
 msgstr "Icelandic"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Македонски"
+msgstr "Индонезиски"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8379,9 +8376,8 @@ msgid "Russian"
 msgstr "Russian"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Slovenian"
+msgstr "Словачки"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8400,9 +8396,8 @@ msgid "Tamil"
 msgstr "Tamil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamil"
+msgstr "Тајвански"
 
 #. generated from lang-table
 msgid "Turkish"
