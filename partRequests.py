@@ -671,6 +671,9 @@ class RaidRequestSpec(RequestSpec):
                      "requires at least %s members.") % (self.raidlevel,
                                                          minmembers)
 
+        if len(self.raidmembers) > 27:
+            return "RAID devices are limited to 27 members."
+
         if self.raidspares:
             if (len(self.raidmembers) - self.raidspares) < minmembers:
                 return _("This RAID device can have a maximum of %s spares. "
