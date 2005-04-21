@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.51
+Version: 10.2.0.52
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 21 2005 Chris Lumens <clumens@redhat.com> 10.2.0.52-1
+- Allow mediacheck in kickstart (katzj, #116429)
+- Check for a drive being selected in autopart (katzj, #124296)
+- Fix traceback in language selection screen (#155103)
+- Mark "Downloading" for translation (katzj, #155214)
+- Applied Dustin Kirkland's checkpoint fragment sum patch for mediacheck.
+- Make anaconda-ks.cfg ro (pnasrat)
+- Ensure there are <= 27 RAID members (katzj, #155509)
+- Fix fsoptions for preexisting partitions in kickstart (#97560).
+
 * Fri Apr 15 2005 Chris Lumens <clumens@redhat.com> 10.2.0.51-1
 - Decode source URL for writing to anaconda-ks.cfg (#154149).
 - Add kernel-xen?-devel to the exclude list (katzj, #154819).
