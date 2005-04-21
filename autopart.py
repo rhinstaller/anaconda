@@ -1252,6 +1252,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.badblocks = request.badblocks
             if request.uniqueID:  # for raid to work
                 req.uniqueID = request.uniqueID
+            if request.fsopts:
+                req.fsopts = request.fsopts
             if not request.format:
                 req.format = 0
             else:
@@ -1279,6 +1281,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.badblocks = request.badblocks
             if request.uniqueID:  # for raid to work
                 req.uniqueID = request.uniqueID
+            if request.fsopts:
+                req.fsopts = request.fsopts
             if not request.format:
                 req.format = 0
             else:
@@ -1311,6 +1315,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             if request.uniqueID:  # for raid to work
                 oldid = req.uniqueID
                 req.uniqueID = request.uniqueID
+            if request.fsopts:
+                req.fsopts = request.fsopts
             if not request.format:
                 req.format = 0
             else:
@@ -1345,6 +1351,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.mountpoint = request.mountpoint
             if request.uniqueID:  # for raid to work
                 req.uniqueID = request.uniqueID
+            if request.fsopts:
+                req.fsopts = request.fsopts
             if not request.format:
                 req.format = 0
             else:

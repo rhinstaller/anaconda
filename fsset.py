@@ -1798,11 +1798,12 @@ class FileSystemSetEntry:
             
         str = ("fsentry -- device: %(device)s   mountpoint: %(mountpoint)s\n"
                "           fsystem: %(fsystem)s format: %(format)s\n"
-               "           ismounted: %(mounted)s\n"
+               "           ismounted: %(mounted)s  options: '%(options)s'\n"
                "           bytesPerInode: %(bytesPerInode)s\n"%
                {"device": self.device.getDevice(), "mountpoint": mntpt,
                 "fsystem": self.fsystem.getName(), "format": self.format,
-		"mounted": self.mountcount, "bytesPerInode": self.bytesPerInode})
+                "mounted": self.mountcount, "options": self.options,
+                "bytesPerInode": self.bytesPerInode})
         return str
         
 

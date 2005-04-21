@@ -1,3 +1,9 @@
+2005-04-21  Chris Lumens  <clumens@redhat.com>
+
+	* autopart.py (doAutoPartition):  Copy filesystem options over for
+	preexisting partitions so they show up in /etc/fstab (#97560).
+	* fsset.py (FileSystemSetEntry.__str__):  Better output.
+
 2005-04-21  Jeremy Katz  <katzj@redhat.com>
 
 	* partRequests.py (RaidRequestSpec.sanityCheckRaid): Ensure there
