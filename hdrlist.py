@@ -254,7 +254,6 @@ class Package:
             self.depsFound = 1
 
     def select(self, isManual = 0, isDep = 0):
-        print "selecting ", self.hdr['name']        
 #        if self.hdr['name'] in ("tk", "tcl", "compat-libstdc++"):
 
         self.usecount = self.usecount + 1
