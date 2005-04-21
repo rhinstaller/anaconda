@@ -27,7 +27,7 @@ msgstr ""
 
 #: ../anaconda:102
 msgid "Starting VNC..."
-msgstr "Uruchamiam VNC..."
+msgstr "Uruchamianie VNC..."
 
 #: ../anaconda:137
 #, c-format
@@ -159,7 +159,7 @@ msgid ""
 "mode."
 msgstr ""
 "Nie masz wystarczającej ilości pamięci RAM do instalacji w trybie "
-"graficznym.  Startuję w trybie tekstowym."
+"graficznym.  Startowanie w trybie tekstowym."
 
 #: ../anaconda:797
 msgid "Install class forcing text mode installation"
@@ -167,7 +167,7 @@ msgstr "Typ instalacji wymusza instalację w trybie tekstowym"
 
 #: ../anaconda:824
 msgid "No video hardware found, assuming headless"
-msgstr "Nie znaleziono żadnego sprzętu wideo, zakładam jego brak"
+msgstr "Nie znaleziono żadnego sprzętu wideo, zakładanie jego braku"
 
 #: ../anaconda:835 ../anaconda:1090
 msgid "Unable to instantiate a X hardware state object."
@@ -177,7 +177,7 @@ msgstr ""
 #: ../anaconda:859
 msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
-"Instalacja w trybie graficznym niedostępna...  Uruchamiam tryb tekstowy."
+"Instalacja w trybie graficznym niedostępna...  Uruchamianie trybu tekstowego."
 
 #: ../anaconda:874
 msgid ""
@@ -185,7 +185,7 @@ msgid ""
 "Starting text mode."
 msgstr ""
 "Nie wykryto myszy, a jest ona niezbędna do instalacji w trybie graficznym."
-"Uruchamiam tryb tekstowy."
+"Uruchamianie trybu tekstowego."
 
 #: ../anaconda:884
 #, c-format
@@ -195,11 +195,11 @@ msgstr "Wykryto mysz typu: %s"
 #: ../anaconda:888
 #, c-format
 msgid "Using mouse type: %s"
-msgstr "Używam mysz typu: %s"
+msgstr "Używanie myszy typu: %s"
 
 #: ../anaconda:970
 msgid "Starting graphical installation..."
-msgstr "Uruchamiam tryb graficzny instalacji..."
+msgstr "Uruchamianie trybu graficznego instalacji..."
 
 #: ../autopart.py:961
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -548,7 +548,7 @@ msgstr "Zakończono [%d/%d]"
 #: ../cmdline.py:136
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "Instaluję %s-%s-%s... "
+msgstr "Instalowanie %s-%s-%s... "
 
 #: ../constants.py:73
 #, python-format
@@ -630,7 +630,7 @@ msgstr ""
 "Jeśli w napędzie dyskietek jest dyskietka, wyjmij ją. Włóż do napędu "
 "dyskietkę, która ma zostać dyskietką startową.\n"
 "\n"
-"Wszystkie dane zostaną SKASOWANE podczas tworzenia dyskietki startowej."
+"Wszystkie dane zostaną USUNIĘTE podczas tworzenia dyskietki startowej."
 
 #: ../floppy.py:118 ../packages.py:456
 msgid "_Cancel"
@@ -810,7 +810,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Podczas poszukania uszkodzonych bloków na %s wystąpił błąd. Jest to poważny "
+"Podczas wyszukiwania uszkodzonych bloków na %s wystąpił błąd. Jest to poważny "
 "problem i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter>, aby zrestartować system."
@@ -1048,7 +1048,7 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Włóż dyskietkę. Ponieważ cała zawartość dyskietki zostanie skasowana, "
+"Włóż dyskietkę. Ponieważ cała zawartość dyskietki zostanie usunięta, "
 "upewnij się, że wkładasz odpowiednią dyskietkę."
 
 #: ../gui.py:845
@@ -2212,7 +2212,7 @@ msgstr "Uruchamianie interfejsu"
 #: ../rescue.py:125
 #, python-format
 msgid "Attempting to start %s"
-msgstr "Próbuję uruchomić %s"
+msgstr "Próba uruchomienia %s"
 
 #: ../rescue.py:178
 msgid "Setup Networking"
@@ -2404,7 +2404,7 @@ msgstr "Aktualizacja"
 
 #: ../upgrade.py:70
 msgid "Searching"
-msgstr "Szukanie"
+msgstr "Wyszukiwanie"
 
 #: ../upgrade.py:71
 #, python-format
@@ -2501,11 +2501,11 @@ msgstr "Nie znaleziono %s"
 
 #: ../upgrade.py:362
 msgid "Finding"
-msgstr "Szukam"
+msgstr "Wyszukiwanie"
 
 #: ../upgrade.py:363
 msgid "Finding packages to upgrade..."
-msgstr "Szukanie pakietów do aktualizacji..."
+msgstr "Wyszukiwanie pakietów do aktualizacji..."
 
 #: ../upgrade.py:375
 msgid ""
@@ -2520,7 +2520,7 @@ msgstr ""
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
-msgstr "Podczas szukania pakietów do aktualizacji wystąpił błąd."
+msgstr "Podczas wyszukiwania pakietów do aktualizacji wystąpił błąd."
 
 #: ../upgrade.py:430
 #, python-format
@@ -3274,7 +3274,7 @@ msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
-"Formatowanie wskazanego urządzenia DASD skasuje całą zawartość urządzenia "
+"Formatowanie wskazanego urządzenia DASD usunie całą zawartość urządzenia "
 "Czy na pewno chcesz formatować wybrane urządzenie DASD?"
 
 #: ../iw/fdisk_gui.py:26
@@ -4706,7 +4706,7 @@ msgstr "Klonuj dyski"
 #: ../iw/raid_dialog_gui.py:645
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
-"Podczas kasowania dysków docelowych nastąpił błąd. Klonowanie nie udało się."
+"Podczas usuwania dysków docelowych nastąpił błąd. Klonowanie nie udało się."
 
 #: ../iw/raid_dialog_gui.py:679
 msgid ""
@@ -4734,7 +4734,7 @@ msgstr ""
 "tego dysku i może zawierać tylko niewykorzystane partycje programowego RAID. "
 "Inne typy partycji nie są dozwolone.\n"
 "\n"
-"WSZYSTKO na dyskach docelowych zostanie skasowane podczas klonowania."
+"WSZYSTKO na dyskach docelowych zostanie usunięte podczas klonowania."
 
 #: ../iw/raid_dialog_gui.py:699
 msgid "Source Drive:"
@@ -7231,17 +7231,17 @@ msgstr "Dodaj urządzenie"
 #: ../loader2/loader.c:1178
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "loader został już uruchomiony.  Uruchamiam powłokę.\n"
+msgstr "loader został już uruchomiony.  Uruchamianie powłoki.\n"
 
 #: ../loader2/loader.c:1547
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Uruchamiam anacondę, tryb ratunkowy systemu %s - proszę czekać...\n"
+msgstr "Uruchamianie anacondy, trybu ratunkowego systemu %s - proszę czekać...\n"
 
 #: ../loader2/loader.c:1549
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Uruchamiam anacondę, instalatora systemu %s - proszę czekać...\n"
+msgstr "Uruchamianie anacondy, instalatora systemu %s - proszę czekać...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
