@@ -31,6 +31,7 @@ from rhpl.translate import _
 
 from booty import *
 from bootloaderInfo import *
+from fsset import *
 
 showLilo = 0
 try:
@@ -45,6 +46,27 @@ except:
 def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     if dir == DISPATCH_BACK:
         return
+
+# iSeries bootloader on upgrades
+    if iutil.getPPCMachine() == "iSeries" and not bl.device:        
+        drives = diskSet.disks.keys()
+        drives.sort()
+        bootPart = None
+        for drive in drives:
+            disk = diskSet.disks[drive]
+            part = disk.next_partition()
+            while part:
+                if part.is_active() and part.native_type == 0x41:
+                    bootPart = partedUtils.get_partition_name(part)
+                    break
+                part = disk.next_partition(part)
+            if bootPart:
+                break
+        if bootPart:
+            bl.setDevice(bootPart)
+            dev = Device()
+            dev.device = bootPart
+            fsset.add(FileSystemSetEntry(dev, None, fileSystemTypeGet("PPC PReP Boot")))
 
     choices = fsset.bootloaderChoices(diskSet, bl)
     if not choices and iutil.getPPCMachine() != "iSeries":
