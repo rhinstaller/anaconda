@@ -6,7 +6,7 @@
 # Abbas Izad <abbasizad@hotmail.com>, 2003, 2004.
 # Hedayat Vatankhah <hedavat@mail15.com>, 2004.
 # Roozbeh Pournader <roozbeh@farsiweb.info>, 2005.
-# Hamed Malek <hamed@bamdad.org>, 2005.
+# Hamed Malek <hamed@farsiweb.info>, 2005.
 # Meelad Zakaria <meelad@farsiweb.info>, 2005.
 #
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: anaconda HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-04-17 17:30+0430\n"
-"Last-Translator: Meelad Zakaria <meelad@bamdad.org>\n"
+"PO-Revision-Date: 2005-04-18 17:14+0430\n"
+"Last-Translator: Meelad Zakaria <meelad@farsiweb.info>\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -240,7 +240,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "افراز راه‌اندازی %s متعلق به هیچ دیسکی نیست که ابتدای آن فضای آزاد کافی برای استفاده‌ی بارکننده‌ی راه‌انداز داشته باشد.  "
-"مطمئن شوید که حداقل ۵ مگابایت فضای آزاد در شروع دیسکی که دارای /boot است وجود دارد."
+"مطمئن شوید که حداقل ۵ مگابایت فضای آزاد در شروع دیسکی که دارای ‎/boot است وجود دارد."
 
 #: ../autopart.py:1036
 #, python-format
@@ -299,7 +299,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"یافتن دستگاه %s raid برای استفاده در %s ممکن نیست. \n"
+"یافتن دستگاه %s‏ raid برای استفاده در %s ممکن نیست. \n"
 "\n"
 "برای راه‌اندازی مجدد سیستم خود «تأیید» را فشار دهید."
 
@@ -474,15 +474,15 @@ msgstr ""
 
 #: ../autopart.py:1653
 msgid "Remove all partitions on this system"
-msgstr "حذف همه‌ی افرازها در این سیستم"
+msgstr "حذف همه‌ی افرازهای این سیستم"
 
 #: ../autopart.py:1654
 msgid "Remove all Linux partitions on this system"
-msgstr "حذف همه‌ی افرازهای لینوکس در این سیستم"
+msgstr "حذف همه‌ی افرازهای لینوکسی این سیستم"
 
 #: ../autopart.py:1655
 msgid "Keep all partitions and use existing free space"
-msgstr "نگه‌داشتن همه‌ی افراز‌ها و استفاده از فضای آزاد موجود"
+msgstr "نگه داشتن همه‌ی افراز‌ها و استفاده از فضای آزاد موجود"
 
 #: ../autopart.py:1657
 #, python-format
@@ -491,8 +491,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"شما حذف همه‌ی افراز‌های (همه‌ی داده‌های) موجود در دستگاه‌های زیر را "
-"انتخاب کرده‌اید:%s\n"
+"شما حذف همه‌ی افراز‌های  موجود در دستگاه‌های زیر را (یعنی همه‌ی داده‌ها!) "
+"انتخاب کرده‌اید: %s‏\n"
 "آیا مطمئنید که می‌خواهید این کار را انجام دهید؟"
 
 #: ../autopart.py:1661
@@ -502,7 +502,7 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"شما حذف همه‌ی افراز‌های لینوکس (و همه‌ی داده‌های روی آنها) در دستگاه‌های "
+"شما حذف همه‌ی افراز‌های لینوکس (و همه‌ی داده‌های روی آنها) را در دستگاه‌های "
 "زیر را انتخاب کرده‌اید:%s\n"
 "آیا مطمئنید که می‌خواهید این کار را انجام دهید؟"
 
@@ -710,7 +710,7 @@ msgstr "بررسی برای بلوک‌های بد"
 #: ../fsset.py:176
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "بررسی برای بلوک‌های بد روی /dev/%s..."
+msgstr "بررسی برای بلوک‌های بد روی ‎/dev/%s‎..."
 
 #: ../fsset.py:597
 #, python-format
@@ -797,7 +797,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"بلوک‌های بد بر روی دستگاه /dev/%s تشخیص داده شده‌اند. ما توصیه نمی‌کنیم "
+"بلوک‌های بد بر روی دستگاه ‎/dev/%s‎ تشخیص داده شده‌اند. ما توصیه نمی‌کنیم "
 "از این دستگاه استفاده کنید. \n"
 "برای راه‌اندازی مجدد سیستم خود <Enter> را فشار دهید"
 
@@ -7395,7 +7395,7 @@ msgid ""
 "blank and the install will continue."
 msgstr ""
 "درخواست شما برای IPپویا اطلاعات پیکربندی آی‌پی را برگرداند، اما پاسخش شامل "
-"یک کارگزار نام DNS نبود. اگر مشخصات کارگزار نام خود را می‌دانید، لطفاً آن را وارد کنید. "
+"کارگزار نام DNS نبود. اگر مشخصات کارگزار نام خود را می‌دانید، لطفاً آن را وارد کنید. "
 "اگر چنین اطلاعاتی ندارید، می‌توانید این فیلد را خالی بگذارید و نصب را ادامه "
 "دهید."
 
@@ -8363,7 +8363,7 @@ msgstr "بلغاری"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr "کاتلونیایی"
+msgstr "کاتالونیایی"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
