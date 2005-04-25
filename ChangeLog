@@ -3,6 +3,7 @@
 	* iw/language_gui.py (LanguageWindow.getNext):  Set language properly
 	on CD and nopass installs  (#149688).  Also fixes the button bar
 	disappearing on CD installs (#151837).
+	* textw/language_text.py  (LanguageWindow.__call__):  Likewise.
 
 2005-04-22  Paul Nasrat <pnasrat@redhat.com>
 
