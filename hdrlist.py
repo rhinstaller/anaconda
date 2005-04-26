@@ -55,6 +55,7 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
                      'kernel-xen0': None, 'kernel-xenU': None,
                      'kernel-xen0-devel': None, 'kernel-xenU-devel': None,
+                     'kernel-smp-devel': None, 'kernel-hugemem-devel': None,
                      'kernel-bigmem-unsupported': None,
                      'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None }

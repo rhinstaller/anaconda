@@ -1,3 +1,8 @@
+2005-04-26  Jeremy Katz  <katzj@redhat.com>
+
+	* hdrlist.py (EverythingExclude): Add kernel-smp-devel and
+	kernel-hugemem-devel to the exclude too
+
 2004-04-26  Chris Lumens  <clumens@redhat.com>
 
 	* isys/isys.c (doLoSetup):  Don't overflow the buffer when copying
