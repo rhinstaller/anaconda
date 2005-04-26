@@ -2,6 +2,10 @@
 /* Copyright 2001 Red Hat, Inc.                                    */
 /* Michael Fulbright msf@redhat.com                                */
 
+/*   4/2005	Dustin Kirkland	(dustin.kirkland@gmail.com)        */
+/* 	Added support for checkpoint fragment sums;                */
+/*	Exits media check as soon as bad fragment md5sum'ed        */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -17,6 +21,9 @@
 
 #define APPDATA_OFFSET 883
 #define SIZE_OFFSET 84
+
+/* Length in characters of string used for fragment md5sum checking */
+#define FRAGMENT_SUM_LENGTH 60
 
 #define MAX(x, y)  ((x > y) ? x : y)
 #define MIN(x, y)  ((x < y) ? x : y)
@@ -36,11 +43,12 @@ struct progressCBdata {
 
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
-int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *isostatus) {
-    char buf[2048];
+/* fragmentsums must be a preallocated buffer at least FRAGMENT_SUM_LENGTH+1 bytes long */
+int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *supported, char *fragmentsums, long long *fragmentcount) {
+    unsigned char buf[2048];
     char buf2[512];
     char tmpbuf[512];
-    int skipfnd, md5fnd, isostatusfnd;
+    int skipfnd, md5fnd, supportedfnd, fragsumfnd, fragcntfnd;
     unsigned int loc;
     long long offset;
     char *p;
@@ -56,26 +64,26 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	if (buf[0] == 1)
 	    /* found primary volume descriptor */
 	    break;
-	else if ((unsigned char)buf[0] == 255)
+	else if (buf[0] == 255)
 	    /* hit end and didn't find primary volume descriptor */
 	    return ((long long)-1);
 	offset += 2048L;
     }
 
-        /* read out md5sum */
+    /* read out md5sum */
     memcpy(buf2, buf + APPDATA_OFFSET, 512);
     buf2[511] = '\0';
 
-    *isostatus = 0;
+    *supported = 0;
 
     md5fnd = 0;
     skipfnd = 0;
-    isostatusfnd = 0;
+    fragsumfnd = 0;
+    fragcntfnd = 0;
+    supportedfnd = 0;
     loc = 0;
     while (loc < 512) {
 	if (!strncmp(buf2 + loc, "ISO MD5SUM = ", 13)) {
-
-	    /*	    logMessage("Found ISO MD5SUM"); */
 
 	    /* make sure we dont walk off end */
 	    if ((loc + 32) > 511)
@@ -88,7 +96,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	    logMessage("MD5SUM -> %s", mediasum);
 
 	    loc += 45;
-	    for (p=buf2+loc; loc < 512 && *p != ';'; p++, loc++);
+	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
 	} else if (!strncmp(buf2 + loc, "SKIPSECTORS = ", 14)) {
 	    char *errptr;
 
@@ -96,9 +104,8 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	    if ((loc + 14) > 511)
 		return -1;
 
-	    /*	    logMessage("Found SKIPSECTORS"); */
 	    loc = loc + 14;
-	    for (p=tmpbuf; loc < 512 && buf2[loc] != ';'; p++, loc++)
+	    for (p=tmpbuf; buf2[loc] != ';' && loc < 512; p++, loc++)
 		*p = buf2[loc];
 
 	    *p = '\0';
@@ -114,23 +121,55 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
  	        skipfnd = 1;
 	    }
 
-	    for (p=buf2+loc; loc < 512 && *p != ';'; p++, loc++);
+	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
 	} else if (!strncmp(buf2 + loc, "RHLISOSTATUS=1", 14)) {
-	    *isostatus = 1;
-	    isostatusfnd = 1;
-	    logMessage("isostatus = 1");
+	    *supported = 1;
+	    supportedfnd = 1;
+	    logMessage("supported = 1");
+	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
 	} else if (!strncmp(buf2 + loc, "RHLISOSTATUS=0", 14)) {
-	    *isostatus = 0;
-	    isostatusfnd = 1;
-	    logMessage("isostatus = 0");
-	} else {
+	    *supported = 0;
+	    supportedfnd = 1;
+	    logMessage("supported = 0");
+	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
+	} else if (!strncmp(buf2 + loc, "FRAGMENT SUMS = ", 16)) {
+            /* make sure we dont walk off end */
+            if ((loc + FRAGMENT_SUM_LENGTH) > 511)
+                return -1;
+
+            memcpy(fragmentsums, buf2 + loc + 16, FRAGMENT_SUM_LENGTH);
+            fragmentsums[FRAGMENT_SUM_LENGTH] = '\0';
+            fragsumfnd = 1;
+            loc += FRAGMENT_SUM_LENGTH + 16;
+            for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
+        } else if (!strncmp(buf2 + loc, "FRAGMENT COUNT = ", 17)) {
+            char *errptr;
+            /* make sure we dont walk off end */
+            if ((loc + 17) > 511)
+                return -1;
+
+            loc = loc + 17;
+            for (p=tmpbuf; buf2[loc] != ';' && loc < 512; p++, loc++)
+                *p = buf2[loc];
+
+            *p = '\0';
+
+            *fragmentcount = strtol(tmpbuf, &errptr, 10);
+            if (errptr && *errptr) {
+                return -1;
+            } else {
+                fragcntfnd = 1;
+            }
+
+            for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
+        } else {
 	    loc++;
 	}
 
-	if ((skipfnd & md5fnd) & isostatusfnd)
+	if ((skipfnd & md5fnd & fragsumfnd & fragcntfnd) & supportedfnd)
  	    break;
     }
-	    
+
     if (!(skipfnd & md5fnd))
 	return -1;
 
@@ -144,23 +183,28 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 /* returns -1 if no checksum encoded in media, 0 if no match, 1 if match */
 /* mediasum is the sum encoded in media, computedsum is one we compute   */
 /* both strings must be pre-allocated at least 33 chars in length        */
-int checkmd5sum(int isofd, char *mediasum, char *computedsum, 
+static int checkmd5sum(int isofd, char *mediasum, char *computedsum, 
 		checkCallback cb, void *cbdata) {
     int nread;
-    int i;
+    int i, j;
     int appdata_start_offset, appdata_end_offset;
     int nattempt;
     int skipsectors;
-    int isostatus;
+    int supported;
+    int current_fragment = 0;
+    int previous_fragment = 0;
     unsigned int bufsize = 32768;
     unsigned char md5sum[16];
+    unsigned char fragmd5sum[16];
     unsigned int len;
     unsigned char *buf;
     long long isosize, offset, pvd_offset, apoff;
-    MD5_CTX md5ctx;
+    char fragmentsums[FRAGMENT_SUM_LENGTH];
+    char thisfragsum[FRAGMENT_SUM_LENGTH];
+    long long fragmentcount = 0;
+    MD5_CTX md5ctx, fragmd5ctx;
 
-    isostatus = 0;
-    if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize, &isostatus)) < 0)
+    if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize, &supported, fragmentsums, &fragmentcount)) < 0)
 	return -1;
 
     /* rewind, compute md5sum */
@@ -199,6 +243,30 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 	}
 
 	MD5_Update(&md5ctx, buf, nread);
+        if (fragmentcount) {
+            current_fragment = offset * (fragmentcount+1) / (isosize - skipsectors*2048);
+            /* if we're onto the next fragment, calculate the previous sum and check */
+            if ( current_fragment != previous_fragment ) {
+		memcpy(&fragmd5ctx, &md5ctx, sizeof(MD5_CTX));
+                MD5_Final(fragmd5sum, &fragmd5ctx);
+                *computedsum = '\0';
+                j = (current_fragment-1)*FRAGMENT_SUM_LENGTH/fragmentcount;
+                for (i=0; i<FRAGMENT_SUM_LENGTH/fragmentcount; i++) {
+                    char tmpstr[2];
+                    snprintf(tmpstr, 2, "%01x", fragmd5sum[i]);
+                    strncat(computedsum, tmpstr, 2);
+                    thisfragsum[i] = fragmentsums[j++];
+                }
+                thisfragsum[j] = '\0';
+                /*  printf("\nFragment [%i]: %s ?= %s\n", previous_fragment, computedsum, thisfragsum);   */
+                previous_fragment = current_fragment;
+                /* Exit immediatiately if current fragment sum is incorrect */
+                if (strcmp(thisfragsum, computedsum) != 0) {
+                    free(buf);
+                    return 0;
+                }
+            }
+        }
 	offset = offset + nread;
 	if (cb)
 	    cb(cbdata, offset);
@@ -217,14 +285,14 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
     for (i=0; i<16; i++) {
 	char tmpstr[4];
 	snprintf (tmpstr, 4, "%02x", md5sum[i]);
-	strcat(computedsum, tmpstr);
+	strncat(computedsum, tmpstr, 2);
     }
 
     if (strcmp(mediasum, computedsum))
 	return 0;
     else
 	return 1;
-    }
+}
 
 
 static void readCB(void *co, long long pos) {
@@ -242,7 +310,7 @@ static void readCB(void *co, long long pos) {
     newtRefresh();
 }
 
-int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long long *isosize, int *isostatus) {
+static int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long long *isosize, int *supported) {
     struct progressCBdata data;
     newtComponent t, f, scale, label;
     int rc;
@@ -250,8 +318,10 @@ int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long
     int llen;
     int skipsectors;
     char tmpstr[1024];
+    long long fragmentcount = 0;
+    char fragmentsums[FRAGMENT_SUM_LENGTH+1];
 
-    if (parsepvd(isofd, mediasum, &skipsectors, isosize, isostatus) < 0) {
+    if (parsepvd(isofd, mediasum, &skipsectors, isosize, supported, fragmentsums, &fragmentcount) < 0) {
 	newtWinMessage(_("Error"), _("OK"),
 		       _("Unable to read the disc checksum from the "
 			 "primary volume descriptor.  This probably "
@@ -298,7 +368,7 @@ int doMediaCheck(int isofd, char *descr, char *mediasum, char *computedsum, long
 int mediaCheckFile(char *file, char *descr) {
     int isofd;
     int rc;
-    int isostatus;
+    int supported;
     char *result;
     char mediasum[33], computedsum[33];
     char tmpstr[512];
@@ -314,8 +384,8 @@ int mediaCheckFile(char *file, char *descr) {
 	return -1;
     }
 
-    isostatus = 0;
-    rc = doMediaCheck(isofd, descr, mediasum, computedsum, &isosize, &isostatus);
+    supported = 0;
+    rc = doMediaCheck(isofd, descr, mediasum, computedsum, &isosize, &supported);
     close(isofd);
 
     if (rc == 0) {
@@ -328,11 +398,11 @@ int mediaCheckFile(char *file, char *descr) {
 		   "should not continue the install.");
 
 	logMessage("mediacheck: %s (%s) FAILED", file, descr);
-	logMessage("value of isostatus iso flag is %d", isostatus);
+	logMessage("value of supported iso flag is %d", supported);
     } else if (rc > 0) {
 	result = _("PASS.\n\nIt is OK to install from this media.");
 	logMessage("mediacheck: %s (%s) PASSED", file, descr);
-	logMessage("value of isostatus iso flag is %d", isostatus);
+	logMessage("value of supported iso flag is %d", supported);
     } else {
 	result = _("NA.\n\nNo checksum information available, unable to verify media.");
 	logMessage("mediacheck: %s (%s) has no checksum info", file, descr);

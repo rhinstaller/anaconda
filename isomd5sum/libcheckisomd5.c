@@ -37,14 +37,12 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
     long long offset;
     char *p;
 
-    *supported = 0;
-
     if (lseek(isofd, (off_t)(16L * 2048L), SEEK_SET) == -1)
 	return ((long long)-1);
 
     offset = (16L * 2048L);
     for (;1;) {
-	if (read(isofd, buf, 2048) <=0)
+	if (read(isofd, buf, 2048) <= 0)
 	    return ((long long)-1);
 
 	if (buf[0] == 1)
@@ -55,10 +53,12 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
 	    return ((long long)-1);
 	offset += 2048L;
     }
-    
+
     /* read out md5sum */
     memcpy(buf2, buf + APPDATA_OFFSET, 512);
     buf2[511] = '\0';
+
+    *supported = 0;
 
     md5fnd = 0;
     skipfnd = 0;
@@ -72,7 +72,7 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
 	    /* make sure we dont walk off end */
 	    if ((loc + 32) > 511)
 		return -1;
-	    
+
 	    memcpy(mediasum, buf2 + loc + 13, 32);
 	    mediasum[32] = '\0';
 	    md5fnd = 1;
@@ -84,7 +84,7 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
 	    /* make sure we dont walk off end */
 	    if ((loc + 14) > 511)
 		return -1;
-	    
+
 	    loc = loc + 14;
 	    for (p=tmpbuf; buf2[loc] != ';' && loc < 512; p++, loc++)
 		*p = buf2[loc];
@@ -144,8 +144,7 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
 	if ((skipfnd & md5fnd & fragsumfnd & fragcntfnd) & supportedfnd)
  	    break;
     }
-	    
-	    
+
     if (!(skipfnd & md5fnd))
 	return -1;
 
