@@ -1,3 +1,10 @@
+2005-04-26  Peter Jones  <pjones@redhat.com>
+
+	* isomd5sum/libcheckisomd5.c: sync the code with loader's version.
+	Also check result from read to make sure it's not larger than 
+	requested.
+	* loader2/mediacheck.c: sync the code with isomd5sum's version.
+
 2005-04-26  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/congrats_gui.py (CongratulationWindow.getScreen): Beep on
