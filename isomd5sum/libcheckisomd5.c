@@ -206,6 +206,11 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
 	if (nread <= 0)
 	    break;
 
+        if (nread > nattempt) {
+            fprintf(stderr, "Warning: read got more data than requested\n");
+            nread = nattempt;
+            lseek(isofd, offset+nread, SEEK_SET);
+        }
 	/* overwrite md5sum we implanted with original data */
 	if (offset < apoff && offset+nread >= apoff) {
 	    appdata_start_offset = apoff - offset;
