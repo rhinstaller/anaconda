@@ -19,6 +19,10 @@
 
 2004-04-26  Chris Lumens  <clumens@redhat.com>
 
+	* gui.py (InstallControlWindow.setLanguage):  Work around the buttons
+	being drawn in English only.
+	* iw/language_gui.py  (LanguageWindow.getNext):  Likewise.
+
 	* isys/isys.c (doLoSetup):  Don't overflow the buffer when copying
 	over image location in case loopback images are buried (#154715).
 	* loader2/method.c (mountLoopback):  Likewise.

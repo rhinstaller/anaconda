@@ -827,20 +827,25 @@ class InstallControlWindow:
 
         # reload the glade file, although we're going to keep our toplevel
         self.loadGlade()
-        win = self.mainxml.get_widget("mainWindow")
-        win.hide()
+#        win = self.mainxml.get_widget("mainWindow")
+#        win.hide()
+#
+#        # gtk reparenting leaves us with non-working buttons, so
+#        # do our own reparenting per the FAQ
+#        orig = self.window.get_child()
+#        child = win.get_child()
+#        win.remove(child)
+#        orig.hide() # don't flicker!
+#        self.window.remove(orig)
+#        self.window.add(child)
 
-        # gtk reparenting leaves us with non-working buttons, so
-        # do our own reparenting per the FAQ
-        orig = self.window.get_child()
-        child = win.get_child()
-        win.remove(child)
-        orig.hide() # don't flicker!
-        self.window.remove(orig)
-        self.window.add(child)
+	self.window.destroy()
+	self.window = self.mainxml.get_widget("mainWindow")
         
         self.createWidgets()
         self.connectSignals()
+	self.setScreen()
+	self.window.show()
 
     def setLtR(self):
         ltrrtl = gettext.dgettext("gtk20", "default:LTR")
