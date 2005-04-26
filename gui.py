@@ -715,6 +715,9 @@ class InstallInterface:
         win = ExceptionWindow (text)
         return win.getrc ()
 
+    def beep(self):
+        gtk.gdk.beep()
+
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing your "
               "kickstart configuration:\n\n%s") %(text,)

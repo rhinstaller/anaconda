@@ -94,6 +94,9 @@ class InstallInterface:
     def waitWindow(self, title, text):
         return WaitWindow(title, text)
 
+    def beep(self):
+        pass
+
     def run(self, id, dispatch):
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)

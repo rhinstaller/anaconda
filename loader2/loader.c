@@ -1247,7 +1247,7 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
 	setenv("TERM", "vt100", 1);
     
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd", 
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr", 
                     modLoaded, modDeps, modInfo, flags);
 
     /* now let's do some initial hardware-type setup */

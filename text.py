@@ -341,6 +341,10 @@ class InstallInterface:
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
+    def beep(self):
+        # no-op.  could call newtBell() if it was bound
+        pass
+
     def drawFrame(self):
         self.welcomeText = _("Welcome to %s") % (productName,)
         self.screen.drawRootText (0, 0, self.welcomeText)
