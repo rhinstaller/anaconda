@@ -29,6 +29,7 @@
 #include <sys/mount.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <libgen.h>
 
 #include "loader.h"
 #include "loadermisc.h"
@@ -110,7 +111,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     close(targfd);
 
     memset(&loopInfo, 0, sizeof(loopInfo));
-    strcpy(loopInfo.lo_name, fsystem);
+    strncpy(loopInfo.lo_name, basename(fsystem), 63);
 
     if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
         logMessage("LOOP_SET_STATUS failed: %s", strerror(errno));

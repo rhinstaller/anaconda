@@ -39,6 +39,7 @@
 #include <linux/fb.h>
 #include <libintl.h>
 #include <selinux/selinux.h>
+#include <libgen.h>
 
 #include "md-int.h"
 #include "imount.h"
@@ -288,7 +289,7 @@ static PyObject * doLoSetup(PyObject * s, PyObject * args) {
     }
 
     memset(&loopInfo, 0, sizeof(loopInfo));
-    strcpy(loopInfo.lo_name, loopName);
+    strncpy(loopInfo.lo_name, basename(loopName), 63);
 
     if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
