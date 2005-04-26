@@ -1019,45 +1019,19 @@ intf = InstallInterface ()
 if method:
     if method.startswith('cdrom://'):
         from image import CdromInstallMethod
-        methodobj = CdromInstallMethod(method[8:], intf.messageWindow,
-				    intf.progressWindow, rootPath)
+        methodobj = CdromInstallMethod(method[8:], rootPath, intf)
     elif method.startswith('nfs:/'):
         from image import NfsInstallMethod
-        methodobj = NfsInstallMethod(method[5:], rootPath)
+        methodobj = NfsInstallMethod(method[5:], rootPath, intf)
     elif method.startswith('nfsiso:/'):
         from image import NfsIsoInstallMethod
-        methodobj = NfsIsoInstallMethod(method[8:], intf.messageWindow, rootPath)
+        methodobj = NfsIsoInstallMethod(method[8:], rootPath, intf)
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
-        methodobj = UrlInstallMethod(method, rootPath)
-	methodobj.setIntf(intf)
+        methodobj = UrlInstallMethod(method, rootPath, intf)
     elif method.startswith('hd://'):
-        tmpmethod = method[5:]
-
-        i = string.index(tmpmethod, ":")
-        drive = tmpmethod[0:i]
-        tmpmethod = tmpmethod[i+1:]
-        
-        i = string.index(tmpmethod, "/")
-        type = tmpmethod[0:i]
-        dir = tmpmethod[i+1:]
-
         from harddrive import HardDriveInstallMethod
-        methodobj = HardDriveInstallMethod(drive, type, dir, intf.messageWindow,
-                                        rootPath)
-    elif method.startswith('oldhd://'):
-        tmpmethod = method[8:]
-
-        i = string.index(tmpmethod, ":")
-        drive = tmpmethod[0:i]
-        tmpmethod = tmpmethod[i+1:]
-        
-        i = string.index(tmpmethod, "/")
-        type = tmpmethod[0:i]
-        dir = tmpmethod[i+1:]
-        
-        from harddrive import OldHardDriveInstallMethod
-        methodobj = OldHardDriveInstallMethod(drive, type, dir, rootPath)
+        methodobj = HardDriveInstallMethod(method[5:], rootPath, intf)
     else:
         print "unknown install method:", method
         sys.exit(1)

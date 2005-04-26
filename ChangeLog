@@ -1,5 +1,19 @@
 2005-04-26  Jeremy Katz  <katzj@redhat.com>
 
+	* image.py (CdromInstallMethod.getRPMFilename): Beep if we need to
+	insert a new CD (#109264)
+
+	* harddrive.py (HardDriveInstallMethod.__init__): Do method
+	parsing here instead of in anaconda.  Pass intf down.
+	* image.py (ImageInstallMethod.__init__): Likewise.
+	* image.py (CdromImageInstallMethod.__init__): Likewise.	
+	* image.py (NfsInstallMethod.__init__): Likewise.	
+	* image.py (NfsISOInstallMethod.__init__): Likewise.
+	* installmethod.py (InstallMethod.__init__): Likewise.
+	* urlinstall.py (UrlInstallMethod.__init__): Likewise.
+
+	* anaconda: Make method __init__'s all basically act the same
+
 	* hdrlist.py (EverythingExclude): Add kernel-smp-devel and
 	kernel-hugemem-devel to the exclude too
 

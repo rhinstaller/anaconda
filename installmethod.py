@@ -102,9 +102,9 @@ class InstallMethod:
     def unlinkFilename(self, fullName):
 	pass
 
-    def __init__(self, rootpath):
+    def __init__(self, method, rootpath, intf):
         self.rootPath = rootpath
-	pass
+        self.intf = intf
 
     def getSourcePath(self):
         pass

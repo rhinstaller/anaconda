@@ -135,8 +135,8 @@ class ImageInstallMethod(InstallMethod):
         
         return path
 
-    def __init__(self, tree, rootPath):
-	InstallMethod.__init__(self, rootPath)
+    def __init__(self, tree, rootPath, intf):
+	InstallMethod.__init__(self, tree, rootPath, intf)
 	self.tree = tree
         self.currentIso = None
 
@@ -283,6 +283,8 @@ class CdromInstallMethod(ImageInstallMethod):
 		self.messageWindow(_("Change CDROM"), 
 		    _("Please insert %s disc %d to continue.") % (productName,
                                                                   needed))
+                if self.intf is not None:
+                    self.intf.beep()
 
 		try:
 		    if isys.mount(self.device, "/mnt/source", 
@@ -379,12 +381,12 @@ class CdromInstallMethod(ImageInstallMethod):
 	    pass
         
 
-    def __init__(self, url, messageWindow, progressWindow, rootPath):
+    def __init__(self, url, rootPath, intf):
 	(self.device, tree) = string.split(url, ":", 1)
         if not tree.startswith("/"):
             tree = "/%s" %(tree,)
-	self.messageWindow = messageWindow
-	self.progressWindow = progressWindow
+	self.messageWindow = intf.messageWindow
+	self.progressWindow = intf.progressWindow
         self.loopbackFile = None
 
         # figure out which disc is in.  if we fail for any reason,
@@ -403,12 +405,12 @@ class CdromInstallMethod(ImageInstallMethod):
         else:                
             self.currentDisc = [ 1 ]
         
-	ImageInstallMethod.__init__(self, tree, rootPath)
+	ImageInstallMethod.__init__(self, tree, rootPath, intf)
 
 class NfsInstallMethod(ImageInstallMethod):
 
-    def __init__(self, tree, rootPath):
-	ImageInstallMethod.__init__(self, tree, rootPath)
+    def __init__(self, tree, rootPath, intf):
+	ImageInstallMethod.__init__(self, tree, rootPath, intf)
 
 def getDiscNums(line):
     # get the disc numbers for this disc
@@ -567,8 +569,8 @@ class NfsIsoInstallMethod(NfsInstallMethod):
             log("unable to unmount image in filesDone: %s" %(e,))
             pass
 
-    def __init__(self, tree, messageWindow, rootPath):
-	self.messageWindow = messageWindow
+    def __init__(self, tree, rootPath, intf):
+	self.messageWindow = intf.messageWindow
 	self.imageMounted = None
 	self.isoPath = tree
 
@@ -580,5 +582,5 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	self.discImages = findIsoImages(tree, messageWindow)
 	self.mountImage(1)
 
-	ImageInstallMethod.__init__(self, self.mntPoint, rootPath)
+	ImageInstallMethod.__init__(self, self.mntPoint, rootPath, intf)
 

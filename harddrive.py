@@ -194,15 +194,21 @@ class HardDriveInstallMethod(InstallMethod):
     def protectedPartitions(self):
 	return [self.device]
     
-    def __init__(self, device, type, path, messageWindow, rootPath):
-	InstallMethod.__init__(self, rootPath)
+    def __init__(self, method, rootPath, intf):
+	InstallMethod.__init__(self, method, rootPath, intf)
+
+        device = method[0:method.index(":")]
+        tmpmethod = method[method.index(":") + 1:]
+        fstype = tmpmethod[0:tmpmethod.index("/")]
+        path = tmpmethod[tmpmethod.index("/") + 1:]
+
 	self.device = device
 	self.path = path
-	self.fstype = type
+	self.fstype = fstype
 	self.fnames = {}
         self.isoDirIsMounted = 0
         self.mediaIsMounted = 0
-	self.messageWindow = messageWindow
+	self.messageWindow = intf.messageWindow
 
 	# Go ahead and poke through the directory looking for interesting
 	# iso images

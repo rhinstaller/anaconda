@@ -202,8 +202,8 @@ class UrlInstallMethod(InstallMethod):
     def setIntf(self, intf):
 	self.intf = intf
 
-    def __init__(self, url, rootPath):
-	InstallMethod.__init__(self, rootPath)
+    def __init__(self, url, rootPath, intf):
+	InstallMethod.__init__(self, url, rootPath, intf)
 
         if url.startswith("ftp"):
             isFtp = 1
@@ -238,6 +238,4 @@ class UrlInstallMethod(InstallMethod):
 	else:
 	    self.multiDiscs = 0
 	    self.pkgUrl = self.baseUrl
-
-	self.intf = None
 	
