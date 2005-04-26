@@ -1,5 +1,8 @@
 2005-04-26  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/congrats_gui.py (CongratulationWindow.getScreen): Beep on
+	install completion (#116681)
+
 	* text.py (InstallInterface.beep): Add no-op beep method.  Could
 	actually do something if newtBell() were bound in snack.
 

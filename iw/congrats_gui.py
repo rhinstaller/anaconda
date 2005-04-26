@@ -67,5 +67,7 @@ class CongratulationWindow (InstallWindow):
 	label = gui.WrappingLabel(txt)
 
         hbox.pack_start (label, True, True)
+
+        gtk.gdk.beep()
         return hbox
 
