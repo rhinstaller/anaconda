@@ -20,7 +20,7 @@
 2004-04-26  Chris Lumens  <clumens@redhat.com>
 
 	* gui.py (InstallControlWindow.setLanguage):  Work around the buttons
-	being drawn in English only.
+	being drawn in English only.  Thanks to Ronny Buchmann for the patch.
 	* iw/language_gui.py  (LanguageWindow.getNext):  Likewise.
 
 	* isys/isys.c (doLoSetup):  Don't overflow the buffer when copying
