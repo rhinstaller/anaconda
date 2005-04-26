@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.52
+Version: 10.2.0.53
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 26 2005 Chris Lumens <clumens@redhat.com> 10.2.0.53-1
+- Beep at CD prompt and on install completion (katzj, #109264, #116681).
+- Add kernel-smp-devel and kernel-hugemem-devel to exclude list (katzj).
+- Fix buffer overflow when CD/DVD images are several directories deep
+  (#154715).
+- Fix media check (pjones).
+- Set language on CD and no pass installs (#149688).
+- Fix disappearing button bar (#151837).
+- Upgrade PReP on iSeries (pnasrat).
+
 * Thu Apr 21 2005 Chris Lumens <clumens@redhat.com> 10.2.0.52-1
 - Allow mediacheck in kickstart (katzj, #116429)
 - Check for a drive being selected in autopart (katzj, #124296)
