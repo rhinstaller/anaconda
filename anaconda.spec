@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.53
+Version: 10.2.0.54
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 27 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.54-1
+- Only select kernel-smp that matches the arch of kernel (#149618)
+- Apply the read of Dustin Kirkland's checkpoint fragment sum patch
+- Fix order of retry/reboot (#155884)
+- Probe macio (pnasrat, #154846)
+
 * Tue Apr 26 2005 Chris Lumens <clumens@redhat.com> 10.2.0.53-1
 - Beep at CD prompt and on install completion (katzj, #109264, #116681).
 - Add kernel-smp-devel and kernel-hugemem-devel to exclude list (katzj).
