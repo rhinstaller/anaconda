@@ -1,5 +1,8 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.i386: Bump size of diskboot.img
+	* scripts/mk-images.x86_64: Likewise.
+
 	* textw/partition_text.py (PartitionWindow.__call__): Give a
 	little bit more room for cylinder #s (#119767)
 
