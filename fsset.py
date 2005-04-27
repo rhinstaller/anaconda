@@ -98,7 +98,7 @@ class LabelFactory:
     def __init__(self):
         self.labels = None
 
-    def createLabel(self, mountpoint, maxLabelChars):
+    def createLabel(self, mountpoint, maxLabelChars, kslabel = None):
         if self.labels == None:
 
             self.labels = {}
@@ -109,6 +109,13 @@ class LabelFactory:
             labels = diskset.getLabels()
             del diskset
             self.reserveLabels(labels)
+
+        # If a label was specified in the kickstart file, return that as
+        # the label - unless it's already in the reserved list.  If that's
+        # the case, make a new one.
+        if kslabel and kslabel not in self.labels:
+           self.labels[kslabel] = 1
+           return kslabel
         
         if len(mountpoint) > maxLabelChars:
             mountpoint = mountpoint[0:maxLabelChars]
@@ -435,7 +442,8 @@ class xfsFileSystem(FileSystemType):
         
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
         db_cmd = "label " + label
         rc = iutil.execWithRedirect("/usr/sbin/xfs_db",
                                     ["xfs_db", "-x", "-c", db_cmd,
@@ -481,7 +489,8 @@ class jfsFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-	label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
 	rc = iutil.execWithRedirect("/usr/sbin/jfs_tune",
 	                            ["jfs_tune", "-L", label, devicePath],
                                     stdout = "/dev/tty5",
@@ -516,7 +525,9 @@ class extFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
+
         rc = iutil.execWithRedirect("/usr/sbin/e2label",
                                     ["e2label", devicePath, label],
                                     stdout = "/dev/tty5",
@@ -1797,13 +1808,13 @@ class FileSystemSetEntry:
             mntpt = self.mountpoint
             
         str = ("fsentry -- device: %(device)s   mountpoint: %(mountpoint)s\n"
-               "           fsystem: %(fsystem)s format: %(format)s\n"
-               "           ismounted: %(mounted)s  options: '%(options)s'\n"
-               "           bytesPerInode: %(bytesPerInode)s\n"%
+               "  fsystem: %(fsystem)s format: %(format)s\n"
+               "  ismounted: %(mounted)s  options: '%(options)s'\n"
+               "  bytesPerInode: %(bytesPerInode)s label: %(label)s\n"%
                {"device": self.device.getDevice(), "mountpoint": mntpt,
                 "fsystem": self.fsystem.getName(), "format": self.format,
                 "mounted": self.mountcount, "options": self.options,
-                "bytesPerInode": self.bytesPerInode})
+                "bytesPerInode": self.bytesPerInode, "label": self.label})
         return str
         
 

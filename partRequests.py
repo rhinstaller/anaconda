@@ -112,7 +112,7 @@ class DeleteRAIDSpec:
 class RequestSpec:
     """Generic Request specification."""
     def __init__(self, fstype, size = None, mountpoint = None, format = None,
-                 badblocks = None, preexist = 0,
+                 badblocks = None, preexist = 0, fslabel = None,
                  migrate = None, origfstype = None, bytesPerInode = 4096):
         """Create a generic RequestSpec.
 
@@ -127,7 +127,7 @@ class RequestSpec:
 
         self.migrate = migrate
         self.origfstype = origfstype
-        self.fslabel = None
+        self.fslabel = fslabel
         self.fsopts = None
 
         if bytesPerInode == None:
@@ -161,12 +161,13 @@ class RequestSpec:
 
         str = ("Generic Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
-               "  device: %(dev)s  migrate: %(migrate)s\n"
+               "  device: %(dev)s  migrate: %(migrate)s  fslabel: %(fslabel)s\n"
                "  bytesPerInode:  %(bytesPerInode)s  options: '%(fsopts)s'" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "dev": self.device, "migrate": self.migrate,
-                "bytesPerInode": self.bytesPerInode, "fsopts": self.fsopts})
+                "fslabel": self.fslabel, "bytesPerInode": self.bytesPerInode,
+                "fsopts": self.fsopts})
         return str
 
     def getActualSize(self, partitions, diskset):
@@ -207,6 +208,9 @@ class RequestSpec:
 
         if self.badblocks:
             entry.setBadblocks(self.badblocks)
+
+        if self.fslabel:
+            entry.setLabel(self.fslabel)
 
         return entry
 
@@ -370,11 +374,10 @@ class PartitionSpec(RequestSpec):
 
     # XXX eep, still a few too many options but a lot better
     def __init__(self, fstype, size = None, mountpoint = None,
-                 preexist = 0, migrate = None, 
-                 grow = 0, maxSizeMB = None,
-                 start = None, end = None,
-                 drive = None, primary = None, format = None,
-                 multidrive = None, bytesPerInode = 4096):
+                 preexist = 0, migrate = None, grow = 0, maxSizeMB = None,
+                 start = None, end = None, drive = None, primary = None,
+                 format = None, multidrive = None, bytesPerInode = 4096,
+                 fslabel = None):
         """Create a new PartitionSpec object.
 
         fstype is the fsset filesystem type.
@@ -392,6 +395,7 @@ class PartitionSpec(RequestSpec):
         multidrive specifies if this is a request that should be replicated
             across _all_ of the drives in drive
         bytesPerInode is the size of the inodes on the filesystem.
+        fslabel is the label to give to the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -403,7 +407,8 @@ class PartitionSpec(RequestSpec):
         RequestSpec.__init__(self, fstype = fstype, size = size,
                              mountpoint = mountpoint, format = format,
                              preexist = preexist, migrate = None,
-                             origfstype = origfs, bytesPerInode = bytesPerInode)
+                             origfstype = origfs, bytesPerInode = bytesPerInode,
+                             fslabel = fslabel)
         self.type = REQUEST_NEW
 
         self.grow = grow
@@ -441,17 +446,17 @@ class PartitionSpec(RequestSpec):
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  device: %(dev)s drive: %(drive)s  primary: %(primary)s\n"
                "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
-               "  start: %(start)s  end: %(end)s"
-               "  migrate: %(migrate)s  origfstype: %(origfs)s\n"
+               "  start: %(start)s  end: %(end)s  migrate: %(migrate)s  "
+               "  fslabel: %(fslabel)s  origfstype: %(origfs)s\n"
                "  bytesPerInode: %(bytesPerInode)s  options: '%(fsopts)s'" % 
                {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
-                "fstype": fsname, "format": self.format,
-                "dev": self.device, "drive": self.drive,
-                "primary": self.primary, "size": self.size,
-                "grow": self.grow, "max": self.maxSizeMB,
+                "fstype": fsname, "format": self.format, "dev": self.device,
+                "drive": self.drive, "primary": self.primary,
+                "size": self.size, "grow": self.grow, "max": self.maxSizeMB,
                 "start": self.start, "end": self.end, "bb": self.badblocks,
-                "migrate": self.migrate, "origfs": oldfs,
-                "bytesPerInode": self.bytesPerInode, "fsopts": self.fsopts})
+                "migrate": self.migrate, "fslabel": self.fslabel,
+                "origfs": oldfs, "bytesPerInode": self.bytesPerInode,
+                "fsopts": self.fsopts})
         return str
 
 
@@ -555,7 +560,7 @@ class RaidRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
                  raidspares = None, raidminor = None,
-                 preexist = 0, chunksize = None):
+		 preexist = 0, chunksize = None):
         """Create a new RaidRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -576,7 +581,7 @@ class RaidRequestSpec(RequestSpec):
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
                              mountpoint = mountpoint, preexist = preexist,
-			     origfstype = origfs)
+                             origfstype = origfs)
         self.type = REQUEST_RAID
         
 

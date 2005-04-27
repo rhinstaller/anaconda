@@ -916,6 +916,12 @@ Creating the Kickstart File
            /etc/fstab file of the installed system and should be enclosed
            in quotes.
 
+       --label=
+
+           Specify the label to give to the filesystem to be made on the
+           partition.  If the given label is already in use by another
+           filesystem, a new label will be created for this partition.
+
        --start=
 
            Specifies the starting cylinder for the partition. It requires

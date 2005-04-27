@@ -1089,7 +1089,7 @@ class KickstartBase(BaseInstallClass):
         uniqueID = None
         preexist = 0
         fsopts = None
-					
+
 	for n in args:
 	    (str, arg) = n
 	    if str == '--level':
@@ -1171,7 +1171,7 @@ class KickstartBase(BaseInstallClass):
                                                format = format,
                                                raidminor = raidDev,
                                                preexist = preexist)
-        
+
         if uniqueID:
             request.uniqueID = uniqueID
         if preexist and raidDev is not None:
@@ -1201,6 +1201,7 @@ class KickstartBase(BaseInstallClass):
         badblocks = None
         recommended = None
         bytesPerInode = None
+        label = None
 
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
@@ -1209,7 +1210,7 @@ class KickstartBase(BaseInstallClass):
                                         'noformat', 'start=', 'end=',
                                         'badblocks', 'recommended',
                                         'ondrive=', 'onbiosdisk=',
-                                        'fsoptions='])
+                                        'fsoptions=', 'label='])
 
 	for n in args:
 	    (str, arg) = n
@@ -1251,6 +1252,8 @@ class KickstartBase(BaseInstallClass):
                 recommended = 1
             elif str == "--fsoptions":
                 fsopts = arg
+            elif str == "--label":
+                label = arg
 
 	if len(extra) != 1:
 	    raise KickstartValueError, "partition command requires one anonymous argument"
@@ -1316,7 +1319,7 @@ class KickstartBase(BaseInstallClass):
 
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = mountpoint,
-                                             format = 1,
+                                             format = 1, fslabel = label,
                                              bytesPerInode = bytesPerInode)
         
         if size is not None:
