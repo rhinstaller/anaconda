@@ -1,5 +1,10 @@
 2005-04-26  Jeremy Katz  <katzj@redhat.com>
 
+	* isomd5sum/libimplantisomd5.c: Add Dustin Kirkland's patch for
+	implanting the isomd5 fragments. 
+	* isomd5sum/libcheckisomd5.c: Add Dustin's patch to give slightly
+	more verbose output.
+
 	* packages.py (handleMiscPackages): Only select a kernel-smp that
 	matches the arch of the primary kernel (#149618).  Remove dead code.
 

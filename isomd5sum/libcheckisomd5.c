@@ -167,6 +167,7 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
     int supported;
     int current_fragment = 0;
     int previous_fragment = 0;
+    int printed_frag_status = 0;
     unsigned int bufsize = 32768;
     unsigned char md5sum[16];
     unsigned char fragmd5sum[16];
@@ -246,10 +247,17 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
                     thisfragsum[i] = fragmentsums[j++];
                 }
                 thisfragsum[j] = '\0';
-                /*  printf("\nFragment [%i]: %s ?= %s\n", previous_fragment, computedsum, thisfragsum);   */
+                if (!quiet) {
+                    printf("   Fragment[%02i/%02lld] -> OK", previous_fragment+1, fragmentcount);
+                    printed_frag_status = 1;
+                    fflush(stdout);
+                }
                 previous_fragment = current_fragment;
-                /* Exit immediatiately if current fragment sum is incorrect */
+                /* Exit immediately if current fragment sum is incorrect */
                 if (strcmp(thisfragsum, computedsum) != 0) {
+                    if (!quiet) {
+                        printf("\nFragment %02i of %02lld is BAD!\n", previous_fragment+1, fragmentcount);
+                    }
                     free(buf);
                     return 0;
                 }
@@ -258,6 +266,10 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
 	offset = offset + nread;
 	
 	if (!quiet) {
+            if (printed_frag_status) {
+                printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+                printed_frag_status = 0;
+            }
 	    printf("\b\b\b\b\b\b%05.1f%%", (100.0*offset)/(isosize-skipsectors*2048.0));
 	    fflush(stdout);
 	}

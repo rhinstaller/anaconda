@@ -1,6 +1,10 @@
 /* Copyright 2001 Red Hat, Inc.                                    */
 /* Michael Fulbright msf@redhat.com                                */
 
+/*   4/2005	Dustin Kirkland	(dustin.kirkland@gmail.com)        */
+/* 	Added support for checkpoint fragment sums;                */
+/*	Allows for exiting media check when bad fragment md5sum'ed */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -14,6 +18,12 @@
 
 #define APPDATA_OFFSET 883
 #define SIZE_OFFSET 84
+
+/* Length in characters of string used for fragment md5sum checking  */
+#define FRAGMENT_SUM_LENGTH 60
+/* FRAGMENT_COUNT must be an integral divisor or FRAGMENT_SUM_LENGTH */
+/* 60 => 2, 3, 4, 5, 6, 10, 12, 15, 20, or 30 */
+#define FRAGMENT_COUNT 20
 
 /* number of sectors to ignore at end of iso when computing sum */
 #define SKIPSECTORS 15
@@ -87,15 +97,21 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     int nread;
     int dirty;
     int pvd_offset;
+    int current_fragment = 0;
+    int previous_fragment = 0;
+    int nattempt;
     long long isosize, total;
     unsigned char md5sum[16];
+    unsigned char fragmd5sum[16];
     unsigned int loc;
-    unsigned char buf[2048];
+    unsigned int bufsize = 32768;
+    unsigned char *buf;
     unsigned char orig_appdata[512];
     unsigned char new_appdata[512];
     char mediasum[33];
     char md5str[40];
-    MD5_CTX md5ctx;
+    char fragstr[FRAGMENT_SUM_LENGTH+1];
+    MD5_CTX md5ctx, fragmd5ctx;
 
     isofd = open(fname, O_RDWR);
 
@@ -138,18 +154,38 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     lseek(isofd, 0L, SEEK_SET);
 
     MD5_Init(&md5ctx);
+    *fragstr = '\0';
+    buf = malloc(bufsize * sizeof(unsigned char));
 
     total = 0;
     /* read up to 15 sectors from end, due to problems reading last few */
     /* sectors on burned CDs                                            */
     while (total < isosize - SKIPSECTORS*2048) {
-	nread = read(isofd, buf, 2048);
+        nattempt = MIN(isosize - SKIPSECTORS*2048 - total, bufsize);
+	nread = read(isofd, buf, nattempt);
+
 	if (nread <= 0)
 	    break;
-
+	
 	MD5_Update(&md5ctx, buf, nread);
+
+        /* if we're onto the next fragment, calculate the previous sum and write */
+        current_fragment = total * (FRAGMENT_COUNT+1) / (isosize - SKIPSECTORS*2048);
+        if ( current_fragment != previous_fragment ) {
+	    memcpy(&fragmd5ctx, &md5ctx, sizeof(MD5_CTX));
+            MD5_Final(fragmd5sum, &fragmd5ctx);
+            for (i=0; i<FRAGMENT_SUM_LENGTH/FRAGMENT_COUNT; i++) {
+                char tmpstr[2];
+                snprintf(tmpstr, 2, "%01x", fragmd5sum[i]);
+                strncat(fragstr, tmpstr, 2);
+            }
+            /*  printf("\nFragment [%i]: %s\n", previous_fragment, fragstr);  */
+            previous_fragment = current_fragment;
+        }
+
 	total = total + nread;
     }
+    free(buf);
 
     MD5_Final(md5sum, &md5ctx);
 
@@ -157,12 +193,15 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     for (i=0; i<16; i++) {
 	char tmpstr[4];
 	snprintf (tmpstr, 4, "%02x", md5sum[i]);
-	strcat(md5str, tmpstr);
+	strncat(md5str, tmpstr, 2);
     }
 
     if (!quiet) {
 	printf("Inserting md5sum into iso image...\n");
 	printf("md5 = %s\n", md5str);
+	printf("Inserting fragment md5sums into iso image...\n");
+	printf("fragmd5 = %s\n", fragstr);
+	printf("frags = %d\n", FRAGMENT_COUNT);
     }
     /*    memcpy(new_appdata, orig_appdata, 512); */
     memset(new_appdata, ' ', 512);
@@ -171,9 +210,13 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     loc = writeAppData(new_appdata, "ISO MD5SUM = ", loc);
     loc = writeAppData(new_appdata, md5str, loc);
     loc = writeAppData(new_appdata, ";", loc);
-    snprintf((char *)buf, sizeof(buf), "SKIPSECTORS = %d", SKIPSECTORS);
+
+    buf = malloc(512 * sizeof(unsigned char));
+    snprintf((char *)buf, 512, "SKIPSECTORS = %d", SKIPSECTORS);
+
     loc = writeAppData(new_appdata, (char *)buf, loc);
     loc = writeAppData(new_appdata, ";", loc);
+    free(buf);
 
     if (supported) {
 	if (!quiet)
@@ -186,6 +229,16 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     }
 	
     loc = writeAppData(new_appdata, ";", loc);
+
+    loc = writeAppData(new_appdata, "FRAGMENT SUMS = ", loc);
+    loc = writeAppData(new_appdata, fragstr, loc);
+    loc = writeAppData(new_appdata, ";", loc);
+
+    buf = malloc(512 * sizeof(unsigned char));
+    snprintf((char *)buf, 512, "FRAGMENT COUNT = %d", FRAGMENT_COUNT);
+    loc = writeAppData(new_appdata, (char *)buf, loc);
+    loc = writeAppData(new_appdata, ";", loc);
+    free(buf);
 
     loc = writeAppData(new_appdata, "THIS IS NOT THE SAME AS RUNNING MD5SUM ON THIS ISO!!", loc);
     
