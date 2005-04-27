@@ -60,7 +60,6 @@ class InstallConfirmWindow (ConfirmWindow):
     def getNext(self):
 	if self.id.methodstr.startswith("cdrom://") and (self.id.instClass.name and self.id.instClass.name != "kickstart"):
 	    rc = presentRequiredMediaMessage(self.intf, self.id.grpset)
-	    
 	    if rc == 0:
 		rc2 = self.intf.messageWindow(_("Reboot?"),
 					_("The system will be rebooted now."),
@@ -70,6 +69,10 @@ class InstallConfirmWindow (ConfirmWindow):
 		    sys.exit(0)
 		else:
 		    raise gui.StayOnScreen
+            elif rc == 1: # they asked to go back
+                self.intf.icw.prevClicked()
+                raise gui.StayOnScreen
+                return DISPATCH_BACK
 
     def getScreen(self, intf, id):
 	self.intf = intf
@@ -100,6 +103,10 @@ class UpgradeConfirmWindow (ConfirmWindow):
 		    sys.exit(0)
 		else:
 		    raise gui.StayOnScreen
+            elif rc == 1: # they asked to go back
+                self.intf.icw.prevClicked()
+                raise gui.StayOnScreen
+                return DISPATCH_BACK
 
     def getScreen(self, intf, id):
 	self.intf = intf

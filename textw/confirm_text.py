@@ -40,6 +40,8 @@ class BeginInstallWindow:
 		    sys.exit(0)
 		else:
 		    return INSTALL_BACK
+            elif rc == 1: # they asked to go back
+                return INSTALL_BACK
 	
         return INSTALL_OK
 
@@ -66,5 +68,7 @@ class BeginUpgradeWindow:
 		    sys.exit(0)
 		else:
 		    return INSTALL_BACK
+            elif rc == 1: # they asked to go back
+                return INSTALL_BACK
 
         return INSTALL_OK

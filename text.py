@@ -259,7 +259,7 @@ class InstallInterface:
 	    idx = 0
 	    for b in tmpbut:
 		if string.lower(b) == rc:
-		    return idx != 0
+		    return idx
 		idx = idx + 1
 	    return 0
 	else:

@@ -44,7 +44,7 @@ else:
 def presentRequiredMediaMessage(intf, grpset):
     reqcds = []
     for hdr in grpset.hdrlist.values():
-	if not hdr.isSelected():
+        if not hdr.isSelected():
 	    continue
 	elif hdr[1000002] not in reqcds:
 	    reqcds.append(hdr[1000002])
@@ -93,7 +93,7 @@ def presentRequiredMediaMessage(intf, grpset):
 				      "the installation and reboot please "
 				      "select \"Reboot\".") % (reqcdstr,),
 				    type="custom", custom_icon="warning",
-				    custom_buttons=[_("_Reboot"), _("_Continue")])
+				    custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
 
 
