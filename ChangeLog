@@ -1,5 +1,8 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/partition_text.py (PartitionWindow.__call__): Give a
+	little bit more room for cylinder #s (#119767)
+
 	* gui.py (InstallInterface.run): Don't set SUPPORTED 
 	unnecessarily (#155847)
 	* language.py (Language.getDefault): Likewise.

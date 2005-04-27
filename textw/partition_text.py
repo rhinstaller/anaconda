@@ -1430,7 +1430,7 @@ class PartitionWindow:
         self.g = GridFormHelp(screen, _("Partitioning"), "partition", 1, 5)
 
         self.lb = CListbox(height=10, cols=6,
-                           col_widths=[17,5,5,7,10,12],
+                           col_widths=[17,6,6,7,10,12],
                            scroll=1, returnExit = 1,
                            width=70, col_pad=2,
                            col_labels=[_('Device'), _('Start'), _('End'), _('Size'), _('Type'), _('Mount Point')],
