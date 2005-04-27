@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-04-25 19:42+0200\n"
+"PO-Revision-Date: 2005-04-27 22:11+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -3474,6 +3474,7 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
+"Оваа промена во вредноста на физичкиот опсег ќе потроши значителен простор на еден или повеќе физички простори во групата на простори."
 
 #: ../iw/lvm_dialog_gui.py:212
 #, python-format
@@ -4513,6 +4514,9 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"За креирање на RAID уред потребни се најмалку две неискористени софтверски RAID партиции.\n"
+"\n"
+"Прво креирајте најмалку две партиции од типот \"софтверски RAID\" и потоа повторно одберете ја опцијата „RAID“."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:965
@@ -5011,6 +5015,7 @@ msgid ""
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Вашиот систем ќе биде поставен да го користи фрејм бафер драјверот на X Window системот.  Ако не сакате да го поставите системот X, одберете „Прескокни конфигурација на X“."
 
 #: ../iw/xconfig_gui.py:984
 msgid ""
@@ -5209,6 +5214,7 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
+"Подигнувачот на системот %s може да подигнува и други оперативни системи. Треба да ми кажете кои партиции сакате да го подигнувате како и како сакате да ги означите."
 
 #: ../textw/bootloader_text.py:297
 msgid ""
@@ -5222,7 +5228,7 @@ msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
-msgstr ""
+msgstr "Лозинката на подигнувачот ги спречува корисниците да додаваат додатни опции на кернелот.  За највисока безбедност Ви препорачуваме да поставите лозинка. Ова не е потребно за обични корисници."
 
 #: ../textw/bootloader_text.py:386
 msgid "Use a GRUB Password"
@@ -5411,6 +5417,9 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
+"Се појави грешка - не беа пронајдени валидни уреди на кои што можете да креирате нов датотечен систем. Ве молиме проверете го Вашиот хардвер и побарајте ја причината за овој проблем.\n"
+"\n"
+"Назад до fdasd екранот?"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
@@ -6409,6 +6418,9 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
+"Ве молам внесете ги вредностите за освежување на Вашиот монитор. \n"
+"\n"
+"ЗАБЕЛЕШКА - обично не е потребно ова да го менувате рачно. Пазете кога ги внесувате вредностите и осигурајте се дека се точни."
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
@@ -6750,6 +6762,7 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
+"Постојат повеќе партиции на овој уред кои што го содржат драјверот за сликата од дискот.  Која сакате да ја користите?"
 
 #: ../loader2/driverdisk.c:340
 msgid "Failed to mount partition."
