@@ -1,5 +1,8 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.setFromDisk): Fix lvs showing up with
+	a mountpoint of 0 (#153965)
+
 	* text.py (InstallInterface.messageWindow): Properly return the
 	idx of the return on a custom messageWindow
 

@@ -233,7 +233,7 @@ class Partitions:
                 else:
                     fsystem = fsset.fileSystemTypeGet(fs)
 
-                mnt = 0
+                mnt = None
                 format = 0
 
                 spec = partRequests.LogicalVolumeRequestSpec(fsystem,
