@@ -86,7 +86,13 @@ class Language:
             if len(l) < 6:
                 continue
 
-            self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
+            # "bterm" and "none" are only useful for loader.
+            if l[2] == "none" or l[2] == "bterm":
+                font = "latarcyrheb-sun16"
+            else:
+                font = l[2]
+
+            self.localeInfo[l[3]] = (l[0], l[1], font, l[4], string.strip(l[5]))
 
         f.close()
 

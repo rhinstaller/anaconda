@@ -14,6 +14,9 @@
 	* kickstart.py:  Recognize --label for the part keyword  (#79832).
 	* partRequests.py:  Pass labels between kickstart and requests.
 
+	* language.py (Language.__init__):  Set a default font for bterm and
+	none, which only mean something to the loader (#156052).
+
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.c (doDevSpaceFree): Apply Jindrich Novy's patch to fix
