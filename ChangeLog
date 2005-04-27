@@ -1,3 +1,8 @@
+2005-04-27  Jeremy Katz  <katzj@redhat.com>
+
+	* cmdline.py (progressDisplay.setPackageStatus): Don't spam about
+	package downloads in cmdline mode (#155250)
+
 2005-04-22  Paul Nasrat <pnasrat@redhat.com>
 
 	* bootloader.py: Ensure kernel written to PReP #146915
