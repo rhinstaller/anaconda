@@ -150,7 +150,8 @@ class progressDisplay:
         self.sizeComplete = 0
 
     def setPackageStatus(self, state, amount):
-        print state
+        if state != "downloading":
+            print state
 
 
 def setupProgressDisplay(dir, intf, id):
