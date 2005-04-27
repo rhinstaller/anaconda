@@ -1,5 +1,10 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (InstallInterface.run): Don't set SUPPORTED 
+	unnecessarily (#155847)
+	* language.py (Language.getDefault): Likewise.
+	* text.py (InstallInterface.run): Likewise.
+
 	* iutil.py (writeRpmPlatform): patch from Joe Pruett to improve
 	rpmarch= support (#101971)
 

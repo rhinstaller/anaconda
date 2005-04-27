@@ -176,12 +176,6 @@ class Language:
             return self.default
         elif self.current:
             nick = self.getNickByName (self.current)
-            if nick not in self.getSupported():
-                # the default language needs to be in the supported list!
-                s = self.getSupported()
-                s.append(nick)
-                s.sort()
-                self.setSupported(s)
 
             return nick
         else:

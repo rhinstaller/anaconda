@@ -441,10 +441,6 @@ class InstallInterface:
         id.fsset.registerProgressWindow(self.progressWindow)
         id.fsset.registerWaitWindow(self.waitWindow)        
 
-        # Don't set if kickstart already set up a supported lang list.
-        if not id.instLanguage.getSupported():
-            id.instLanguage.setSupported([id.instLanguage.getDefault()])
-
 	parted.exception_set_handler(self.partedExceptionWindow)        
         
 	lastrc = INSTALL_OK
