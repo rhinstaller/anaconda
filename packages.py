@@ -652,18 +652,13 @@ def handleMiscPackages(intf, id, dir):
     if not upgrade:
         foundkernel = 0
 	if isys.smpAvailable() or isys.htavailable():
-            if select(id.grpset.hdrlist, 'kernel-smp'):
-                foundkernel = 1
-                if selected(id.grpset.hdrlist, "gcc"):
-                    select(id.grpset.hdrlist, "kernel-smp-devel")
-
-        if iutil.needsEnterpriseKernel():
-            if select(id.grpset.hdrlist, "kernel-bigmem"):
-                foundkernel = 1
-
-        if isys.summitavailable():
-            if select(id.grpset.hdrlist, "kernel-summit"):
-                foundkernel = 1
+            if id.grpset.hdrlist.has_key("kernel-smp") and \
+               id.grpset.hdrlist["kernel-smp"][rpm.RPMTAG_ARCH] == \
+               id.grpset.hdrlist["kernel"][rpm.RPMTAG_ARCH]:
+                if select(id.grpset.hdrlist, 'kernel-smp'):
+                    foundkernel = 1
+                    if selected(id.grpset.hdrlist, "gcc"):
+                        select(id.grpset.hdrlist, "kernel-smp-devel")
 
         if foundkernel == 0:
             # we *always* need to have some sort of kernel installed

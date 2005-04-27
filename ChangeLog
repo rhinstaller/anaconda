@@ -1,3 +1,8 @@
+2005-04-26  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (handleMiscPackages): Only select a kernel-smp that
+	matches the arch of the primary kernel (#149618).  Remove dead code.
+
 2005-04-26  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
