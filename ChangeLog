@@ -1,3 +1,7 @@
+2005-04-27  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (InstallCallback.cb): Fix order of retry/reboot (#155884)
+
 2005-04-26  Jeremy Katz  <katzj@redhat.com>
 
 	* isomd5sum/libimplantisomd5.c: Add Dustin Kirkland's patch for
