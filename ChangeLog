@@ -1,5 +1,7 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* hdrlist.py (betterPackageForProvides): Nuke debug code.
+
 	* partitions.py (Partitions.setFromDisk): Fix lvs showing up with
 	a mountpoint of 0 (#153965)
 

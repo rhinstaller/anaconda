@@ -109,9 +109,6 @@ def betterPackageForProvides(h1, h2):
     if h1 is None:
         return h2
 
-    if "openoffice.org-core" in (h1['name'], h2['name']):
-        log("looking at ooo-core between %s and %s" %(h1['name'], h1['arch']))
-
     # if we're already being installed, then we're clearly the superior
     # answer
     if h1.isSelected():
