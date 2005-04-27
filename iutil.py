@@ -662,10 +662,13 @@ def writeRpmPlatform(root="/"):
     f = open("/proc/cmdline", "r")
     buf = f.read()
     f.close()
-    args = buf.split(" ")
+    args = buf.split()
     for arg in args:
         if arg.startswith("rpmarch="):
             myarch = arg[8:]
+
+    # now make the current install believe it, too
+    rhpl.arch.canonArch = myarch            
         
     f = open("%s/etc/rpm/platform" %(root,), 'w+')
     f.write("%s-redhat-linux\n" %(myarch,))

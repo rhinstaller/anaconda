@@ -1,3 +1,11 @@
+2005-04-27  Jeremy Katz  <katzj@redhat.com>
+
+	* iutil.py (writeRpmPlatform): patch from Joe Pruett to improve
+	rpmarch= support (#101971)
+
+	* iw/ipwidget.py (IPEditor.dehydrate): Make sure people get
+	decimal IP addrs.  (#122038)
+
 2004-04-27  Chris Lumens  <clumens@redhat.com>
 
 	* docs/kickstart-docs.txt:  Updated for new --label parameter.

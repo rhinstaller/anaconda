@@ -103,7 +103,17 @@ class IPEditor:
         except ValueError, msg:
             raise IPError, (_("IP Addresses must contain numbers between 0 and 255"), widget)
 
-        return self.entrys['entry1'].get_text() + "." + self.entrys['entry2'].get_text() + "." +self.entrys['entry3'].get_text() + "." +self.entrys['entry4'].get_text()
+        ents = []
+        for ent in (self.entrys['entry1'].get_text(),
+                    self.entrys['entry2'].get_text(),
+                    self.entrys['entry3'].get_text(),
+                    self.entrys['entry4'].get_text()):
+            if ent != "0":
+                ents.append(ent.lstrip("0"))
+            else:
+                ents.append(ent)
+
+        return "%s.%s.%s.%s" %(ents[0], ents[1], ents[2], ents[3])
 
     def entry_insert_text_cb(self, entry, text, length, pos, next):
         if text == '.':
