@@ -1,5 +1,8 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.c (doDevSpaceFree): Apply Jindrich Novy's patch to fix
+	space calculation on > 2 TB devices (#155709)
+
 	* cmdline.py (progressDisplay.setPackageStatus): Don't spam about
 	package downloads in cmdline mode (#155250)
 
