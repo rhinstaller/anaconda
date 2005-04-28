@@ -1,3 +1,8 @@
+2005-04-27  Peter Jones  <pjones@redhat.com>
+
+	* installmethod.py (doMethodComplete): write a minimal mtab when
+	we're done installing, so fsck/mount don't complain on first boot.
+
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/undomounts.c: Stop error'ing out on umounting of (tmpfs) /dev
@@ -34,7 +39,7 @@
 	* iw/ipwidget.py (IPEditor.dehydrate): Make sure people get
 	decimal IP addrs.  (#156088)
 
-2004-04-27  Chris Lumens  <clumens@redhat.com>
+2005-04-27  Chris Lumens  <clumens@redhat.com>
 
 	* docs/kickstart-docs.txt:  Updated for new --label parameter.
 	* fsset.py:  Modify LabelFactory to use kickstart-provided
