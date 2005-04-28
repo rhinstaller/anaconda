@@ -121,3 +121,17 @@ class InstallMethod:
 # is ejecting the cdrom
 def doMethodComplete(method):
     method.ejectCD()
+
+    f = open(method.rootPath + "/etc/mtab", "r")
+    lines = f.readlines()
+    f.close()
+
+    mtab = "/dev/root / ext3 ro 0 0\n"
+    for line in lines:
+        values = line.split()
+        if values[1] == '/':
+            mtab = "/dev/root / %s ro 0 0\n" % (values[2],)
+    
+    f = open(method.rootPath + "/etc/mtab", "w+")
+    f.write(mtab)
+    f.close()
