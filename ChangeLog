@@ -3,6 +3,9 @@
 	* fsset.py (readFstab):  Don't skip bind mounts with an fstype of none
 	on upgrades (#151458).
 
+	* harddrive.py (HardDriveInstallMethod.__init__):  Fix parameter
+	passing so ISO image installs work again.
+
 2005-04-28  Peter Jones  <pjones@redhat.com>:
 	
 	* mediacheck.h: add FRAGMENT_SUM_LENGTH here, fix parsepvd prototype.

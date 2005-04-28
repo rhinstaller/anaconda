@@ -213,5 +213,5 @@ class HardDriveInstallMethod(InstallMethod):
 	# Go ahead and poke through the directory looking for interesting
 	# iso images
 	self.mountDirectory()
-	self.discImages = findIsoImages(self.isoDir + '/' + self.path, messageWindow)
+	self.discImages = findIsoImages(self.isoDir + '/' + self.path, self.messageWindow)
 	self.umountDirectory()
