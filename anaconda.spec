@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.55
+Version: 10.2.0.56
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 28 2005 Peter Jones <pjones@redhat.com> - 10.2.0.56-1
+- Fix mediacheck calls from cdinstall.c, and make mediacheck.c include
+  its own header so typechecking works.
+
 * Wed Apr 27 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.55-1
 - Don't spam about package downloads in cmdline mode (#155250)
 - Apply jnovy's patch to fix space calculations for > 2 TB devices (#155709)

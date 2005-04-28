@@ -5,7 +5,10 @@
 /* Copyright 2001 Red Hat, Inc.                                    */
 /* Michael Fulbright msf@redhat.com                                */
 
+/* Length in characters of string used for fragment md5sum checking */
+#define FRAGMENT_SUM_LENGTH 60
+
 int mediaCheckFile(char *file, char *descr);
-int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *isostatus);
+int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *supported, char *fragmentsums, long long *fragmentcount);
 
 #endif

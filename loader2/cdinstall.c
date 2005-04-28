@@ -199,13 +199,16 @@ static int getISOStatusFromCDROM(char *cddriver, char *mediasum) {
 /* if returns 1 we found status, and mediasum will be checksum */
 static int getISOStatusFromFD(int isofd, char *mediasum) {
     char tmpsum[33];
+    char fragmentsums[FRAGMENT_SUM_LENGTH+1];
     int skipsectors, isostatus;
-    long long isosize, pvd_offset;
+    long long isosize, pvd_offset, fragmentcount = 0;
 
     if (mediasum)
 	mediasum[0] = '\0';
 
-    if ((pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus)) < 0) {
+    fragmentsums[0] = '\0';
+
+    if ((pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus, fragmentsums, &fragmentcount)) < 0) {
 	logMessage("Could not parse pvd");
 	return 0;
     }
