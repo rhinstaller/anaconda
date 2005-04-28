@@ -2296,7 +2296,8 @@ def readFstab (path, intf = None):
                 continue
             fsystem = fileSystemTypeGet(fs)
             break
-        if fsystem is None:
+        # "none" is valid as an fs type for bind mounts (#151458)
+        if fsystem is None and (string.find(fields[3], "bind") == -1):
             continue
         
         label = None
