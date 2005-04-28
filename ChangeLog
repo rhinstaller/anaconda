@@ -1,5 +1,7 @@
 2005-04-27  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/undomounts.c: Stop error'ing out on umounting of (tmpfs) /dev
+
 	* hdrlist.py (betterPackageForProvides): Nuke debug code.
 
 	* partitions.py (Partitions.setFromDisk): Fix lvs showing up with
@@ -30,7 +32,7 @@
 	rpmarch= support (#101971)
 
 	* iw/ipwidget.py (IPEditor.dehydrate): Make sure people get
-	decimal IP addrs.  (#122038)
+	decimal IP addrs.  (#156088)
 
 2004-04-27  Chris Lumens  <clumens@redhat.com>
 
