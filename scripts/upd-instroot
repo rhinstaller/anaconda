@@ -917,10 +917,10 @@ for p in $DEST $DESTGR; do
     else
 	/usr/sbin/chroot $p /usr/sbin/build-locale-archive
     fi
-    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
-    rm -rf $p/usr/lib/locale/*
-    rm -f $p/usr/sbin/build-locale-archive
-    mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
+#    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
+#    rm -rf $p/usr/lib/locale/*
+#    rm -f $p/usr/sbin/build-locale-archive
+#    mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
 done
 
 # Remove unneeded XFree86 modules
