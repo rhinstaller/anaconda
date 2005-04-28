@@ -157,7 +157,7 @@ installSteps = [
     ("setfilecon", setFileCons, ("instPath","id.partitions")),
     ("copylogs", copyAnacondaLogs, ("instPath",)),
     ("dopostaction", doPostAction, ("id", "instPath", "intf")),
-    ("methodcomplete", doMethodComplete, ("method",)),
+    ("methodcomplete", doMethodComplete, ("method", "id.fsset")),
     ("complete", ()),
     ]
 

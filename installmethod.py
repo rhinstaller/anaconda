@@ -119,18 +119,13 @@ class InstallMethod:
 # this handles any cleanup needed for the method.  it occurs *very* late
 # (ie immediately before the congratulations screen).  main use right now
 # is ejecting the cdrom
-def doMethodComplete(method):
+def doMethodComplete(method, fsset):
     method.ejectCD()
 
-    f = open(method.rootPath + "/etc/mtab", "r")
-    lines = f.readlines()
-    f.close()
-
     mtab = "/dev/root / ext3 ro 0 0\n"
-    for line in lines:
-        values = line.split()
-        if values[1] == '/':
-            mtab = "/dev/root / %s ro 0 0\n" % (values[2],)
+    for ent in fsset.entries:
+        if ent.mountpoint == "/":
+            mtab = "/dev/root / %s ro 0 0\n" %(ent.fsystem.name,)
     
     f = open(method.rootPath + "/etc/mtab", "w+")
     f.write(mtab)
