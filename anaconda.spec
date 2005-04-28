@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.56
+Version: 10.2.0.57
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 28 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.57-1
+- Fix bind mounts (clumens, #151458)
+- Fix hard drive installs (clumens)
+- Re-add bluecurve icons
+- Attempt to fix Chinese
+
 * Wed Apr 28 2005 Peter Jones <pjones@redhat.com> - 10.2.0.56-1
 - Fix mediacheck calls from cdinstall.c, and make mediacheck.c include
   its own header so typechecking works.
