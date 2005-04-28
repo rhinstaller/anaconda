@@ -1,7 +1,9 @@
 2005-04-28  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (LC_ALL): Don't do the locale trimming in
-	an attempt to fix Chinese
+	an attempt to fix Chinese.
+	(KEEPFILEGR): Add bluecurve icons back since we should be 
+	using them now.
 
 2005-04-28  Chris Lumens  <clumens@redhat.com>
 
