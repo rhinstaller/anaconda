@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.54
+Version: 10.2.0.55
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 27 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.55-1
+- Don't spam about package downloads in cmdline mode (#155250)
+- Apply jnovy's patch to fix space calculations for > 2 TB devices (#155709)
+- Set default font for CJK better (clumens, #156052)
+- Add --label for part in kickstart (clumens, #79832)
+- Ensure decimal IP addrs (#156088)
+- Apply patch from Joe Pruett for rpmarch= fixes (#101971)
+- Don't set SUPPORTED unnecessarily (#115847)
+- Give more room for cyl #s (#119767)
+- Bump size of diskboot.img
+- Add back button for required media message (#114770)
+- Fix lvs showing up with a mountpoint of 0 (#153965)
+- Nuke some debug code
+- Don't try to unmount (tmpfs) /dev
+- Write a minimal mtab to avoid fsck/mount complaints (pjones)
+
 * Wed Apr 27 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.54-1
 - Only select kernel-smp that matches the arch of kernel (#149618)
 - Apply the read of Dustin Kirkland's checkpoint fragment sum patch
