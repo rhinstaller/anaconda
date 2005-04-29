@@ -440,8 +440,8 @@ class InstallCallback:
                                                              h['release']),
                                             type="custom",
                                             custom_icon="error",
-                                            custom_buttons = [ _("_Retry"),
-                                                               _("Re_boot") ])
+                                            custom_buttons = [ _("Re_boot"),
+                                                               _("_Retry") ])
                     if rc == 0:
                         rc = self.messageWindow(_("Warning"),
                                                 _("If you reboot, your system "
