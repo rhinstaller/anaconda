@@ -280,12 +280,12 @@ class CdromInstallMethod(ImageInstallMethod):
 		isys.ejectCdrom(self.device)
 
 	    while not done:
-		self.messageWindow(_("Change CDROM"), 
-		    _("Please insert %s disc %d to continue.") % (productName,
-                                                                  needed))
                 if self.intf is not None:
                     self.intf.beep()
 
+		self.messageWindow(_("Change CDROM"), 
+		    _("Please insert %s disc %d to continue.") % (productName,
+                                                                  needed))
 		try:
 		    if isys.mount(self.device, "/mnt/source", 
 				  fstype = "iso9660", readOnly = 1):
