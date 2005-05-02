@@ -1,3 +1,8 @@
+2005-05-02  Chris Lumens  <clumens@redhat.com>
+
+	* image.py  (NfsIsoInstallMethod.__init__):  Fix parameter passing so
+	mounted ISO image installs work again, too.
+
 2005-04-29  Jeremy Katz  <katzj@redhat.com>
 
 	* image.py (CdromInstallMethod.getRPMFilename): Beep when asking

@@ -579,7 +579,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	# easiest to just mount it again so that we can treat all of the
 	# images the same way -- we use loop3 for everything
 
-	self.discImages = findIsoImages(tree, messageWindow)
+	self.discImages = findIsoImages(tree, self.messageWindow)
 	self.mountImage(1)
 
 	ImageInstallMethod.__init__(self, self.mntPoint, rootPath, intf)
