@@ -1573,6 +1573,8 @@ def selectLanguageSupportGroups(grpset, instLanguage):
         return
 
     langs = instLanguage.getSupported()
+    for l in language.expandLangs (instLanguage.getDefault()):
+        langs.append(l)
 
     grp = grpset.groups["language-support"]
     for (pid, pdict) in grp.packages.items():

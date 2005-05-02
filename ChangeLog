@@ -2,6 +2,8 @@
 
 	* image.py  (NfsIsoInstallMethod.__init__):  Fix parameter passing so
 	mounted ISO image installs work again, too.
+	* packages.py  (selectLanguageSupportGroups):  Select language support
+	package for install-time language.
 
 2005-04-29  Jeremy Katz  <katzj@redhat.com>
 
