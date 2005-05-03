@@ -1,5 +1,8 @@
 2005-05-03  Chris Lumens  <clumens@redhat.com>
 
+	* autopart.py (doAutoPartition):  Remove bogus preexisting LVM
+	information when doing kickstart installs with --onpart for everything
+	(#156283, possibly others).
 	* partRequests.py (LogicalVolumeRequestSpec.__str__):  Allow the
 	resulting string to be put into a call to rhpl.log.
 
