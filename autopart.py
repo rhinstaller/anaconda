@@ -1205,14 +1205,14 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 	partitions.setProtected(dispatch)
     else:
         isKickstart = 0
-        
+
     if dir == DISPATCH_BACK:
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
         partitions.setProtected(dispatch)
         partitions.autoPartitionRequests = []
         return
-    
+
     # if no auto partition info in instclass we bail
     if len(partitions.autoPartitionRequests) < 1:
         #return DISPATCH_NOOP
@@ -1327,8 +1327,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             if oldid is not None:
                 for lv in partitions.getLVMLVForVGID(oldid):
                     lv.volumeGroup = req.uniqueID
-                
-                
+
+
         elif (isinstance(request, partRequests.LogicalVolumeRequestSpec) and
               request.preexist == 1):
             # get the preexisting partition they want to use
@@ -1403,8 +1403,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                     if req.autoname == 1 and req.volumeGroupName == "lvm":
                         n = lvm.createSuggestedVGName(partitions)
                         req.volumeGroupName = n
-                        
-                        
+
             if (isinstance(req, partRequests.LogicalVolumeRequestSpec)):
                 # if the volgroup is set to a string, we probably need
                 # to find that volgroup and use it's id
@@ -1423,6 +1422,19 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                         raise RuntimeError, "Unable to find the volume group for logical volume %s" %(req.logicalVolumeName,)
                         
             partitions.addRequest(req)
+
+    # Remove all preexisting VG requests that reference nonexistant PV
+    # requests.  These VGs should only be present on installs where we're
+    # using preexisting partitions that already have LVM information.
+    for req in filter (lambda r: isinstance(r, partRequests.VolumeGroupRequestSpec), partitions.requests):
+        if len(filter (lambda id: partitions.getRequestByID(id) != None, req.physicalVolumes)) == 0:
+            partitions.removeRequest (req)
+
+    # Now that we've removed bad VGs, remove all LVs that would have
+    # resided on those VGs.
+    for req in filter (lambda r: isinstance(r, partRequests.LogicalVolumeRequestSpec), partitions.requests):
+        if partitions.getRequestByID(req.volumeGroup) == None:
+            partitions.removeRequest (req)
 
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane
@@ -1458,7 +1470,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
                  "%s.%s") % (msg.value, extra), custom_icon='error')
-        
+
 
         if isKickstart:
             sys.exit(0)

@@ -863,7 +863,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         if self.size is not None:
             size = self.size
         else:
-            size = "%s%%" %(self.percent,)
+            size = "%s percent" %(self.percent,)
         
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"

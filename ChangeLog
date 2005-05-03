@@ -1,3 +1,8 @@
+2005-05-03  Chris Lumens  <clumens@redhat.com>
+
+	* partRequests.py (LogicalVolumeRequestSpec.__str__):  Allow the
+	resulting string to be put into a call to rhpl.log.
+
 2005-05-03  Bill Nottingham  <notting@redhat.com>
 
 	* loader2/init.c: always reset terminal attributes on ppc (#156411)
