@@ -911,6 +911,14 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
     # if no monitor probed lets guess based on runres
     hsync = monitorhw.getMonitorHorizSync()
     vsync = monitorhw.getMonitorVertSync()
+
+    # if we're on a pmac, try to use the fb resolution
+    if not runres_override and iutil.getPPCMachine() == "PMac":
+        fbinfo = isys.fbinfo()
+        fbres = "%sx%s" %(fbinfo[0], fbinfo[1])
+        if monitor.monitor_supports_mode(hsync, vsync, fbres):
+            runres = fbres
+    
     res_supported = monitor.monitor_supports_mode(hsync, vsync,  runres)
 
     # XXX: this is a bit of a hack, but there are a reasonable number of
