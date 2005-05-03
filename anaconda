@@ -406,7 +406,7 @@ try:
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
-	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless',
+	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx'
             'virtpconsole='])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
@@ -448,6 +448,9 @@ graphical_failed = 0
 # out eventually to circumvent all probing and just fall back to text mode
 # on hardware where we break things if we probe
 isHeadless = 0
+
+# should we use fbdev for X?
+useFBX = False
 
 # probing for hardware on an s390 seems silly...
 if iutil.getArch() == "s390":
@@ -554,6 +557,8 @@ for n in args:
         flags.virtpconsole = arg
     elif (str == '--headless'):
         isHeadless = 1
+    elif (str == '--usefbx'):
+        useFBX = True
     elif (str == '--vnc'):
 	flags.usevnc = 1
 
@@ -907,6 +912,15 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
     hsync = monitorhw.getMonitorHorizSync()
     vsync = monitorhw.getMonitorVertSync()
     res_supported = monitor.monitor_supports_mode(hsync, vsync,  runres)
+
+    # XXX: this is a bit of a hack, but there are a reasonable number of
+    # monitors that will work in 1024x768 and not 800x600... check if this
+    # is one of them
+    if not res_supported and runres == "800x600":
+        runres = "1024x768"
+        res_supported = monitor.monitor_supports_mode(hsync, vsync,  runres)
+        if not res_supported:
+            runres = "800x600"
     
     if not res_supported:
 	import rhpl.guesslcd as guesslcd
@@ -925,12 +939,17 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
 	xlogfile = "/tmp/ramfs/X.log"
     else:
 	xlogfile = None
-	
-    xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
-                                         runres,
-                                         xStartedCB=doStartupX11Actions,
-                                         xQuitCB=doShutdownX11Actions,
-                                         logfile=xlogfile)
+
+
+    xsetup_failed = False
+    try:
+        xcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd,
+                              logfile = xlogfile,
+                              xStartedCB = doStartupX11Actions,
+                              xQuitCB = doShutdownX11Actions,
+                              useFB = useFBX)
+    except RuntimeError:
+        xsetup_failed = True
 
     if xsetup_failed:
 	dup_log(" X startup failed, falling back to text mode")
@@ -1066,17 +1085,6 @@ if xcfg is None and not isHeadless:
 	xcfg = None
 
 if xcfg is not None:
-    #
-    # XXX - hack - here we want to enforce frame buffer requirement on ppc
-    #       pick 640x480x8bpp cause that is what frame buffer inits to
-    #       when the machine reboots
-    if iutil.getArch() == "ppc":
-	cardname = "Framebuffer driver (generic)"
-	xcfg.set_videocard_card(cardname)
-	xcfg.set_videocard_name(cardname)
-	xcfg.set_colordepth(8)
-	xcfg.set_resolution("640x480")
-	
     xsetup = xsetup.XSetup(xcfg)
 
     # HACK - if user overrides resolution then use it and disable

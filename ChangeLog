@@ -1,3 +1,14 @@
+2005-05-02  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/progress_gui.py (InstallProgressWindow_NEW.setPackage):
+	Slightly shorter strings.
+
+	* anaconda: If the monitor doesn't support 800x600, try 1024x768;
+	helps with G3 iMac.  Use the same xconfig for post-install as
+	during install.  Allow booting with "usefbx" to go back to old
+	fbdev X behavior on ppc. (#149188)
+	* loader2/loader.c (parseCmdLineFlags): Add usefbx
+
 2005-05-02  Chris Lumens  <clumens@redhat.com>
 
 	* image.py  (NfsIsoInstallMethod.__init__):  Fix parameter passing so
@@ -6,6 +17,10 @@
 	package for install-time language.
 
 2005-04-29  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (InstallCallback.cb): Switch these back.  Otherwise,
+	things are wrong in GUI.  Text mode is just not going to be quite
+	right with the text.
 
 	* image.py (CdromInstallMethod.getRPMFilename): Beep when asking
 	to insert the CD, not after... 

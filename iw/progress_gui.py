@@ -231,7 +231,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 	if (summary == None):
             summary = "(none)"
         else:
-            summary = "%.75s" %(summary,)
+            summary = "%.70s" %(summary,)
         self.curPackage["summary"].set_text (summary)
 
     def setSizes (self, total, totalSize, totalFiles):
