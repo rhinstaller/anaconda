@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.57
+Version: 10.2.0.58
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.58-1
+- Beep on CD insertion, not after
+- Fix language support selection (clumens)
+- Fix nfsiso (clumens)
+- Misc X config fixes for ppc.  Boot with "usefbx" to use fbdev 
+  instead again (#149188)
+
 * Thu Apr 28 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.57-1
 - Fix bind mounts (clumens, #151458)
 - Fix hard drive installs (clumens)
