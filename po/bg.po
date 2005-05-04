@@ -1,4 +1,4 @@
-# translation of bg.po to 
+# translation of bg.po to
 # translation of bg.po to
 # translation of bg.po to Български
 # translation of bg.po to
@@ -29,18 +29,19 @@
 # Николай Сърмаджиев,преносим <nikolayds@msn.com>, 2004.
 # Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>, 2004.
 # Nikolay Sarmadzhiev <nikolay@localhost.localdomain>, 2005.
+# Николай Сърмаджиев <nikolay@sarmadzhiev.com>, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-01-25 11:15-0800\n"
-"Last-Translator: Nikolay Sarmadzhiev <nikolay@localhost.localdomain>\n"
-"Language-Team:  <bg@li.org>\n"
+"PO-Revision-Date: 2005-05-04 15:24-0700\n"
+"Last-Translator: Николай Сърмаджиев <nikolay@sarmadzhiev.com>\n"
+"Language-Team: Български <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.10\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -96,8 +97,7 @@ msgstr "Прекратяване след 50 неуспешни опита!\n"
 #: ../anaconda:206
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
+msgstr "Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
 
 #: ../anaconda:208
 msgid "Please manually connect your vnc client to begin the install."
@@ -169,8 +169,7 @@ msgstr "Неизвестна грешка"
 #: ../anaconda:629
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
-"Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
+msgstr "Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
 
 #: ../anaconda:744
 msgid ""
@@ -237,14 +236,14 @@ msgid "Could not allocate partitions"
 msgstr "Невъзможно е заделянето на дялове"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
 "Дялът %s не е от BSD тип. SRM не може да се зареди от този дял. Използвайте "
-"друг дял, който е от BSD тип или променете типа на устройство в BSD."
+"друг дял, който е от BSD тип или променете типа на устройство в BSD такъв."
 
 #: ../autopart.py:1034
 #, python-format
@@ -277,8 +276,7 @@ msgstr ""
 
 #: ../autopart.py:1045
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Дялът за първоначално зареждане %s може би не отговаря на изискванията на "
 "архитектурата."
@@ -572,29 +570,23 @@ msgid "Installing %s-%s-%s... "
 msgstr "Инсталиране на %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
-msgstr ""
-"Възникна непознато съобщение. Най-вероятно това е недокументирана грешка в "
-"програмата.  Моля копирайте пълния текст на това съобщение или запазете "
-"частта от паметта съдържаща грешката на дискета. Непременно информирайте "
-"подробно екипа на анаконда за проблема чрез http://bugzilla.redhat.com/"
-"bugzilla/"
+msgstr "Възникна не обработвано изключение. Най-вероятно това е грешка в програмата.  Моля копирайте пълния текст на това съобщение или запазете частта от паметта съдържаща грешката на дискета. Непременно информирайте подробно екипа на анаконда за проблема на %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
-"Възникна непознато съобщение. Най-вероятно това е недокументирана грешка в "
+"Възникна необработено изключение. Най-вероятно това е недокументирана грешка в "
 "програмата.  Моля копирайте пълния текст на това съобщение и непременно "
-"информирайте подробно екипа на анаконда за проблема чрез http://bugzilla."
-"redhat.com/bugzilla/"
+"информирайте подробно екипа на анаконда за проблема на %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -756,7 +748,7 @@ msgstr "RAID устройство"
 
 #: ../fsset.py:1239 ../fsset.py:1245
 msgid "Apple Bootstrap"
-msgstr "Apple Bootstrap"
+msgstr "Апъл Bootstrap"
 
 #: ../fsset.py:1250 ../partitions.py:854
 msgid "PPC PReP Boot"
@@ -778,8 +770,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Възникна грешка при опита за инициализиране на слуап дял върху устройство %"
-"s.  Проблема е сериозен и инсталацията не може да продължи.\n"
+"Възникна грешка при опита за инициализиране на слуап дял върху устройство "
+"%s.  Проблема е сериозен и инсталацията не може да продължи.\n"
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
@@ -1041,7 +1033,6 @@ msgid "Cancel"
 msgstr "Отказ"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Възникна изключение"
 
@@ -1051,7 +1042,7 @@ msgstr "_Дебъг"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Запази на дискета"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1255,20 +1246,18 @@ msgstr "Инсталира на машината"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Провал на скриплетът"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Получи се грешка при инсталирането на %s.  Това може да е поради повреда в "
-"медията, недостатъчно място на диска и/или хардуерен проблем. Грешката е "
-"фатална и инсталацията ще бъде прекратена.  Моля проверете медията си и "
-"пробвайте отново.\n"
+"Получи се грешка при изпълнението на скриплетът.  Може да проверите изхода в %s. "
+" Това е фатална грешка и инсталацията ще бъде прекратена.\n"
 "\n"
 "Натиснете 'Добре' за рестартиране на системата."
 
@@ -1505,8 +1494,7 @@ msgstr "Стартиране на инсталацията"
 
 #: ../packages.py:995
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
-"Стартиране на инсталационния процес, това може да отнеме няколко минути..."
+msgstr "Стартиране на инсталационния процес, това може да отнеме няколко минути..."
 
 #: ../packages.py:1035
 msgid ""
@@ -1581,7 +1569,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Внимание! Това е пред-пусков софтуер!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1595,15 +1583,15 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Благодарим Ви за свалянето на този пред-пуск на %s\n"
+"Благодарим ви за свалянето на този пред-пуск на %s\n"
 "\n"
-"Това не е финален пуск и не е направен за използване на протекционни "
-"системи.  Целта на този пуск е да се съберат отзиви от тестърите, така че "
+"Това не е финална версия и не е направна за използване на продуктови "
+"системи.  Целта на този пуск е да се съберат отзиви от тестърите и "
 "той не е подходящ за всекидневна употреба.\n"
 "\n"
 "За да дадете оценка или препоръка, моля посетете:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "И опишете Вашите впечатления за '%s'.\n"
 
@@ -1892,8 +1880,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
+msgstr "Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
@@ -2029,8 +2016,7 @@ msgid "Confirm Reset"
 msgstr "Потвърдете"
 
 #: ../partIntfHelpers.py:529
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното "
 "състояние?"
@@ -2082,14 +2068,12 @@ msgstr ""
 "за да се инсталира %s."
 
 #: ../partitions.py:801
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Трябва да създадете /boot/efi FAT дял с размер от 50 МБ."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Трябва да създадете PPC PReP Boot дял."
+msgstr "Трябва да създадете Апъл Bootstrap дял."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
@@ -2106,8 +2090,7 @@ msgstr ""
 
 #: ../partitions.py:891 ../partRequests.py:666
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
-"Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
+msgstr "Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
 
 #: ../partitions.py:898
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2154,8 +2137,7 @@ msgstr "дял, който е член на LVM Група от Томове."
 
 #: ../partRequests.py:243
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Тази точка на монтиране е невалидна. Директорията %s трябва да е на / "
 "файловата система."
@@ -2185,16 +2167,14 @@ msgstr "Точката на монтиране \"%s\" е заета, моля и
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
+msgstr "Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
 
 #: ../partRequests.py:483
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
+msgstr "Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
 
 #: ../partRequests.py:488
 #, python-format
@@ -2402,10 +2382,8 @@ msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
 #: ../text.py:358
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
 
 #: ../text.py:360
 msgid ""
@@ -3127,15 +3105,12 @@ msgid "Congratulations"
 msgstr "Честито"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Махнете всякаква инсталационна медия (дискета или CDROM), която сте "
-"използвали за инсталацията и натиснете \"Рестартиране\" за да презаредите "
-"системата.\n"
+"Махнете всякаква инсталационна медия, която сте използвали за инсталацията и натиснете \"Рестартиране\" за да презаредите системата.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -4260,14 +4235,12 @@ msgid "Partitioning"
 msgstr "Разделяне"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Следните критични грешки са намерени в зададената схема за разделяне."
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Грешките трябва да се отстранят преди да продължи инсталацията на %s."
 
 #: ../iw/partition_gui.py:640
@@ -4422,8 +4395,7 @@ msgstr "Не може да се създаде клонинг устройств
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Клон-редактор за устройство не може да бъде създаден по някаква причина."
+msgstr "Клон-редактор за устройство не може да бъде създаден по някаква причина."
 
 #: ../iw/partition_gui.py:1354
 msgid "Ne_w"
@@ -4671,8 +4643,7 @@ msgstr "Моля изберете target устройства за клонир�
 #: ../iw/raid_dialog_gui.py:532
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"Устройството източник /dev/%s не може да се избира като желано устройство."
+msgstr "Устройството източник /dev/%s не може да се избира като желано устройство."
 
 #: ../iw/raid_dialog_gui.py:545
 #, python-format
@@ -4725,8 +4696,7 @@ msgstr "Клониране на Устройствата"
 
 #: ../iw/raid_dialog_gui.py:645
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../iw/raid_dialog_gui.py:679
 msgid ""
@@ -4810,8 +4780,7 @@ msgstr "Ще се обнови конфигурацията на текущия 
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Инсталатора намери %s начален зареждач, инсталиран на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4822,8 +4791,7 @@ msgstr "Опцията е препоръчителна."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"Инсталатора не може да намери начален зареждач, инсталиран на системата."
+msgstr "Инсталатора не може да намери начален зареждач, инсталиран на системата."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4950,8 +4918,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Слуап файла трябва да е между 1 и 2000 МБ."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Няма достатъчно място на устройството което сте избрали за слуап дял."
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
@@ -5067,13 +5034,13 @@ msgid "Unknown video card"
 msgstr "Непозната видео карта"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "Получи се грешка при избирането на видеокартата %s. Моля докладвайте я на "
-"bugzilla.redhat.com."
+"%s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5316,8 +5283,7 @@ msgstr ""
 "поставят за всеки от тях."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> избира бутон | <F2> избира подразбиращ се дял за начално зареждане "
 "| <F12> следващ екран>"
@@ -5369,13 +5335,12 @@ msgid "<Enter> to exit"
 msgstr "<Enter> за изход"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Извадете всякаква инсталационна медия (дискети или CD-та) използвана през "
+"Извадете всякаква инсталационна медия използвана през "
 "инсталационния процес и натиснете <Enter> за да презаредите системата.\n"
 "\n"
 
@@ -5596,8 +5561,7 @@ msgstr "Анулиране"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Изберете допълнителни езици които желаете да се използват на системата:"
+msgstr "Изберете допълнителни езици които желаете да се използват на системата:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
@@ -5753,10 +5717,8 @@ msgid "Select individual packages"
 msgstr "Изберете индивидуални пакети"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
 
 #: ../textw/packages_text.py:119
 msgid "Package Group Details"
@@ -5780,10 +5742,8 @@ msgid "Total size"
 msgstr "Общо"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> избор   |   <F1> помощ   |   <F2> описание на пакета"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> избор   |   <F1> помощ   |   <F2> описание на пакета"
 
 #: ../textw/packages_text.py:376
 msgid "Package Dependencies"
@@ -5927,8 +5887,7 @@ msgstr "Файлова Система Опции"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Моля изберете как желаете да се приготви файловата система на този дял."
+msgstr "Моля изберете как желаете да се приготви файловата система на този дял."
 
 #: ../textw/partition_text.py:606
 msgid "Check for bad blocks"
@@ -6053,8 +6012,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Анулирай    "
 "F12-Добре     "
@@ -6129,9 +6087,8 @@ msgid "What time zone are you located in?"
 msgstr "В кой часови пояс се намирате?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Системния часовник използва _UTC"
+msgstr "Системния часовник използва UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6286,14 +6243,11 @@ msgid "User Exists"
 msgstr "Потребителя съществува"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Руут потребителя вече е настроен. Не е нужно да добавяте потребителя тук."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Руут потребителя вече е настроен. Не е нужно да добавяте потребителя тук."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Този системен потребител е вече настроен. Не трябва да добавяте потребителя "
 "тук."
@@ -6904,8 +6858,7 @@ msgstr "Провали се зареждането на диска с драйв
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
+msgstr "Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -7129,10 +7082,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Добре дошли в %s -- Спасителен режим"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -7644,8 +7595,7 @@ msgstr "Ако не използвате анонимно ftp, въведете 
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
+msgstr "Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
 
 #: ../loader2/urls.c:434
 msgid "Account name:"
@@ -7732,14 +7682,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантическо Време - И Лабрадор"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "Атлантическо Време - Нова Скотия, NB, З Лабрадор, И Квебек и PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Атлантическо Време - Нова Скотия - места, които не виждали DST 1966-1971"
+msgstr "Атлантическо Време - Нова Скотия - места, които не виждали DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7922,8 +7870,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Източно време - Онтарио - повечето територии"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Източно време - Онтарио и Квебел - места не попадащи под DST 1967-1973"
 
 #. generated from zone.tab
@@ -8104,18 +8051,15 @@ msgstr "повечето местоположения"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
-"повечето местоположения (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "повечето местоположения (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Планинско Стандартно Време - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Планинско Стандартно Време - Даунсон Крик и Форт Св. Джон, Британска Колумбия"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Планинско Стандартно Време - Даунсон Крик и Форт Св. Джон, Британска Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8363,12 +8307,11 @@ msgstr "Запорожие"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Африкан"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Арабски"
+msgstr "Амхарик (етиопски)"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8451,9 +8394,8 @@ msgid "Icelandic"
 msgstr "Исландски"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Македонски"
+msgstr "Индонезийски"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8480,9 +8422,8 @@ msgid "Norwegian"
 msgstr "Норвежки"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Северни територии"
+msgstr "Северно Сото"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8509,9 +8450,8 @@ msgid "Russian"
 msgstr "Руски"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Словенски"
+msgstr "Словашки"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8530,9 +8470,8 @@ msgid "Tamil"
 msgstr "Тамилски"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Тамилски"
+msgstr "Тай"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8554,100 +8493,3 @@ msgstr "Уелски"
 msgid "Zulu"
 msgstr "Зулу"
 
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "За информация относно Errata (обновления и кръпки), посетете:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "За информация относно автоматичното обновление чрез Red Hat Network, "
-#~ "посетете:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "За информация относно използването и конфигурирането на системата, "
-#~ "посетете:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "За да регистрирате продукта за поддръжка, посетете:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Настройка на Silo"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Инсталиране на Silo зареждащ запис на:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Създаване на PROM псевдоним"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Установяване подразбиращо се PROM зареждащо устройство за Линукс"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Параметри на ядрото"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Създаване на зареждаща дискета"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Не инсталирай SILO"
-
-#~ msgid "Partition type"
-#~ msgstr "Тип на дела"
-
-#~ msgid "Default boot image"
-#~ msgstr "Подразбиращ се образ за зареждане"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO Конфигуриране"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Създаване на PROM псевдоним 'linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Установяване на подразбиращо се PROM зареждащо устройство"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Къде искате да се инсталира началния зареждач?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Зареждащия мениджър Red Hat може да зарежда и други операционни системи, "
-#~ "Вие трябва да ми кажете кои дялове желаете да се зареждат и какви етикети "
-#~ "да поставя са всеки от тях."
-
-#~ msgid "no suggestion"
-#~ msgstr "няма предложения"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Използване LILO като начален зареждач"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Не може да промени реда на устройствата за LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr ""
-#~ "Ние не поддържаме промяна в реда на устройствата за използване с LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "използвай LILO"
