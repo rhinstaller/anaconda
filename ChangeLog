@@ -1,3 +1,8 @@
+2005-05-04  Chris Lumens  <clumens@redhat.com>
+
+	* packages.py (selectLanguageSupportGroups):  Unselect the language
+	support group if no languages besides en_US are supported.
+
 2005-05-03  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

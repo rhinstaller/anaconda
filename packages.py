@@ -1569,6 +1569,7 @@ def betaNagScreen(intf, dir):
 
 # FIXME: this is a kind of poor way to do this, but it will work for now
 def selectLanguageSupportGroups(grpset, instLanguage):
+    anySelected = False
     if not grpset.groups.has_key("language-support"):
         return
 
@@ -1598,5 +1599,10 @@ def selectLanguageSupportGroups(grpset, instLanguage):
                 grpset.hdrlist[req].addDeps([package], main = 0)
                 if grpset.hdrlist[req].isSelected():
                     grpset.hdrlist[package].select()
+                    anySelected = True
                     grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
                     group.selectDeps([package], uses = grpset.hdrlist[req].usecount)
+
+    # If no language support packages are selected, unselect the group too.
+    if not anySelected:
+        grpset.groups["language-support"].unselect()
