@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.58
+Version: 10.2.0.59
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May  3 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.59-1
+- Try to use the fb res on pmac
+- Always reset terminal attrs on ppc (notting, #156411)
+- Remove bogus preexisting LVM info when doing kickstart 
+  installs (clumens, #156283)
+
 * Mon May  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.58-1
 - Beep on CD insertion, not after
 - Fix language support selection (clumens)
