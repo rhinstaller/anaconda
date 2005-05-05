@@ -1,3 +1,8 @@
+2005-05-05  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot (KEEPFILE): Pull in more selinux policy
+	files for dwalsh
+
 2005-05-04  Jeremy Katz  <katzj@redhat.com>
 	
 	* fsset.py (HfsPlusFileSystem.__init__): Add hfs+ support.
@@ -8,7 +13,7 @@
 
 	* hdrlist.py (EverythingExclude): Add the gfs kernel module
 	packages to the everything exclude list too... we need to do this
-	better :-/
+	better :-/ (#156849)
 
 2005-05-04  Chris Lumens  <clumens@redhat.com>
 
