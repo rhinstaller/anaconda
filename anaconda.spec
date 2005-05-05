@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.59
+Version: 10.2.0.60
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -11,6 +11,8 @@ Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: anaconda-help, system-logos
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
+# temporary due to buildsys horkage
+ExcludeArch: s390 s390x
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
 
@@ -69,6 +71,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.60-1
+- Better handling of the langsupport group (clumens)
+- Don't install the gfs stuff for all kernel variants, that brings in kernel-smp on an everything install (#156849)
+- Don't grow a partition beyond the largest freespace on a drive
+- HFS+ support
+- Pull in more selinux policy files to try to get /home labeled right
+- Fix typo causing segfault (pnasrat)
+
 * Tue May  3 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.59-1
 - Try to use the fb res on pmac
 - Always reset terminal attrs on ppc (notting, #156411)
