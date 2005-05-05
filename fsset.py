@@ -823,6 +823,16 @@ class hfsFileSystem(FileSystemType):
 
 fileSystemTypeRegister(hfsFileSystem())
 
+class HfsPlusFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("hfs+")
+        self.formattable = 0
+        self.checked = 0
+        self.name = "hfs+"
+
+fileSystemTypeRegister(HfsPlusFileSystem())
+
 class applebootstrapFileSystem(hfsFileSystem):
     def __init__(self):
         hfsFileSystem.__init__(self)

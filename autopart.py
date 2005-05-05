@@ -327,14 +327,14 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 
             largestPart = (0, None)
             drives = getDriveList(request, diskset)
-#            log("Trying drives to find best free space out of", free)
+#            log("Trying drives to find best free space out of %s" %(free,))
             for drive in drives:
                 # this request is bootable and we've found a large enough
                 # partition already, so we don't need to keep trying other
                 # drives.  this keeps us on the first possible drive
                 if isBoot and largestPart[1]:
                     break
-##                 print "Trying drive", drive
+##               print "Trying drive", drive
                 disk = diskset.disks[drive]
                 numPrimary = len(partedUtils.get_primary_partitions(disk))
                 numLogical = len(partedUtils.get_logical_partitions(disk))
@@ -613,6 +613,7 @@ def growParts(diskset, requests, newParts):
     def getFreeSpace(diskset):
         free = findFreespace(diskset)
         freeSize = {}
+        largestFree = {}
 
         # find out the amount of free space on each drive
         for key in free.keys():
@@ -620,10 +621,14 @@ def growParts(diskset, requests, newParts):
                 del free[key]
                 continue
             freeSize[key] = 0
+            largestFree[key] = 0
             for part in free[key]:
-                freeSize[key] = freeSize[key] + partedUtils.getPartSize(part)
+                sz = partedUtils.getPartSize(part)
+                freeSize[key] += sz
+                if sz > largestFree[key]:
+                    largestFree[key] = sz
 
-        return (free, freeSize)
+        return (free, freeSize, largestFree)
 
     ####
     # start of growParts
@@ -636,7 +641,7 @@ def growParts(diskset, requests, newParts):
 ##     printNewRequestsCyl(diskset, newRequest)
 ##     print "\n\n\n"
     
-    (free, freeSize) = getFreeSpace(diskset)
+    (free, freeSize, largestFree) = getFreeSpace(diskset)
 
     # find growable partitions
     growable = {}
@@ -773,8 +778,7 @@ def growParts(diskset, requests, newParts):
 			    imposedMax = 1
 			    log("Enforced max swap size of %s based on suggested max swap", maxsect)
 
-		    
-		    
+
                 # round max fs limit down a cylinder, helps when growing
                 # so we don't end up with a free cylinder at end if
                 # maxlimit fell between cylinder boundaries
@@ -785,8 +789,14 @@ def growParts(diskset, requests, newParts):
                     maxsect = long(maxFSSize)
                     imposedMax = 1
 
-##                 print "freesize, max = ",freeSize[drive],maxsect
-##                 print "startsize = ",startSize
+                maxfree = largestFree[drive]
+                if maxsect > largestFree[drive]:
+                    maxsect = long(maxfree)
+                    imposedMax = 1
+
+#                print "freesize, max, maxfree = ",freeSize[drive],maxsect, maxfree
+#                print "freeSizeMB, maxMB = ", freeSize[drive] * sector_size/(1024.0 * 1024.0), maxsect * sector_size/(1024.0*1024.0), largestFree[drive]
+#                print "startsize = ",startSize
 
                 min = startSize
                 max = maxsect
@@ -843,7 +853,7 @@ def growParts(diskset, requests, newParts):
 #                print "end min, max, cur, diffs = ",min,max,cur,diff,lastDiff
 #                print "%s took %s loops" % (request.mountpoint, inner_iter)
                 lastFreeSize = freeSize[drive]
-                (free, freeSize) = getFreeSpace(diskset)
+                (free, freeSize, largestFree) = getFreeSpace(diskset)
 #                printFreespace(free)
 
                 if ret == PARTITION_FAIL or (max == maxsect and imposedMax):
