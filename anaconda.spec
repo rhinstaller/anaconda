@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.60
+Version: 10.2.0.61
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -71,9 +71,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.61-1
+- and fix pkgorder for the gfs stuff
+
 * Thu May  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.60-1
 - Better handling of the langsupport group (clumens)
-- Don't install the gfs stuff for all kernel variants, that brings in kernel-smp on an everything install (#156849)
+- Don't install the gfs stuff for all kernel variants, that brings in 
+  kernel-smp on an everything install (#156849)
 - Don't grow a partition beyond the largest freespace on a drive
 - HFS+ support
 - Pull in more selinux policy files to try to get /home labeled right

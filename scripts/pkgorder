@@ -197,7 +197,7 @@ pkgHash = {}
 for p in hdlist.values():
     package = p['name']
     if (package.startswith("kernel") and
-        package in hdrlist.EverythingExclude.keys() and
+        package in hdrlist.EverythingExclude and
         not package.endswith("-unsupported")):
         try:
             # FIXME: since we do unselect all at the end of the loop, these
