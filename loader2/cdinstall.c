@@ -326,7 +326,7 @@ char * setupCdrom(char * location,
 		    /* if in rescue mode lets copy stage 2 into RAM so we can */
 		    /* free up the CD drive and user can have it avaiable to  */
 		    /* aid system recovery.                                   */
-		    if (FL_RESCUE(flags) && totalMemory() > 128000) {
+		    if (FL_RESCUE(flags) && !FL_TEXT(flags) && totalMemory() > 128000) {
 		        snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
 			rc = copyFile(path, "/tmp/ramfs/stage2.img");
 			stage2img = "/tmp/ramfs/stage2.img";
