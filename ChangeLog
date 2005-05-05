@@ -1,4 +1,10 @@
 2005-05-04  Jeremy Katz  <katzj@redhat.com>
+	
+	* fsset.py (HfsPlusFileSystem.__init__): Add hfs+ support.
+
+	* autopart.py (growParts): Don't try to grow a partition beyond 
+	the size of the largest free space.  Fixes pathological problem 
+	hit when installing a dual boot with MacOS X. 
 
 	* hdrlist.py (EverythingExclude): Add the gfs kernel module
 	packages to the everything exclude list too... we need to do this
