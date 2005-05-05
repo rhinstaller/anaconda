@@ -47,18 +47,21 @@ EVERYTHING_DESCRIPTION = _("This group includes all the packages available.  "
                            "than just the ones in all the other package "
                            "groups on this page.")
 
-EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
-                     'kernel-smp' : None,	'kernel-bigmem' : None,
-                     'kernel-summit' : None,    'kernel-enterprise' : None,
-                     'kernel-tape' : None,      'kernel-BOOTtape' : None,
-                     'kernel-pseries': None,    'kernel-iseries': None,
-                     'kernel-unsupported': None,'kernel-smp-unsupported': None,
-                     'kernel-xen0': None, 'kernel-xenU': None,
-                     'kernel-xen0-devel': None, 'kernel-xenU-devel': None,
-                     'kernel-smp-devel': None, 'kernel-hugemem-devel': None,
-                     'kernel-bigmem-unsupported': None,
-                     'kernel-hugemem': None,
-                     'kernel-hugemem-unsupported': None }
+EverythingExclude = ("kernel", "kernel-BOOT", "kernel-smp", "kernel-bigmem",
+                     "kernel-summit", "kernel-enterprise", "kernel-tape",
+                     "kernel-BOOTtape", "kernel-pseries", "kernel-iseries",
+                     "kernel-unsupported", "kernel-smp-unsupported",
+                     "kernel-xen0", "kernel-xenU", "kernel-xen0-devel",
+                     "kernel-xenU-devel", "kernel-smp-devel",
+                     "kernel-hugemem-devel", "kernel-bigmem-unsupported",
+                     "kernel-hugemem", "kernel-hugemem-unsupported",
+                     "cman-kernel-smp", "dlm-kernel-smp",
+                     "GFS-kernel-smp", "gnbd-kernel-smp",
+                     "cman-kernel-xen0", "dlm-kernel-xen0",
+                     "GFS-kernel-xen0", "gnbd-kernel-xen0",
+                     "cman-kernel-xenU", "dlm-kernel-xenU",
+                     "GFS-kernel-xenU", "gnbd-kernel-xenU")
+                     
 
 def showMem():
     f = open("/proc/self/status", "r")
@@ -789,7 +792,7 @@ class GroupSet:
         if multiarch is not None:
             (comp, best, biarch) = multiarch
         for pkgname in hdrlist.pkgnames.keys():
-            if EverythingExclude.has_key(pkgname):
+            if pkgname in EverythingExclude:
                 continue
             
             mainnevra = hdrlist.getBestNevra(pkgname, prefArch = None)

@@ -1,3 +1,9 @@
+2005-05-04  Jeremy Katz  <katzj@redhat.com>
+
+	* hdrlist.py (EverythingExclude): Add the gfs kernel module
+	packages to the everything exclude list too... we need to do this
+	better :-/
+
 2005-05-04  Chris Lumens  <clumens@redhat.com>
 
 	* packages.py (selectLanguageSupportGroups):  Unselect the language
