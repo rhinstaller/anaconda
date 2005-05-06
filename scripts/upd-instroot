@@ -940,9 +940,11 @@ rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
 
 # fixup joe links
 ln -fs jpicorc $DESTGR/etc/joe/picorc
+ln -fs jpicorc $DESTGR/etc/joe/jnanorc
 ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
 ln -fs jmacs $DESTGR/usr/bin/emacs
 ln -fs jpico $DESTGR/usr/bin/pico
+ln -fs jpico $DESTGR/usr/bin/jnano
 
 echo "Creating nsswitch.conf"
 cat > $DEST/etc/nsswitch.conf <<EOF
