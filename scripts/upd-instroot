@@ -944,7 +944,7 @@ ln -fs jpicorc $DESTGR/etc/joe/jnanorc
 ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
 ln -fs jmacs $DESTGR/usr/bin/emacs
 ln -fs jpico $DESTGR/usr/bin/pico
-ln -fs jpico $DESTGR/usr/bin/jnano
+ln -fs jpico $DESTGR/usr/bin/nano
 
 echo "Creating nsswitch.conf"
 cat > $DEST/etc/nsswitch.conf <<EOF
