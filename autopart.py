@@ -1435,9 +1435,17 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 
     # Remove all preexisting VG requests that reference nonexistant PV
     # requests.  These VGs should only be present on installs where we're
-    # using preexisting partitions that already have LVM information.
-    for req in filter (lambda r: isinstance(r, partRequests.VolumeGroupRequestSpec), partitions.requests):
-        if len(filter (lambda id: partitions.getRequestByID(id) != None, req.physicalVolumes)) == 0:
+    # using preexisting partitions that already have LVM information.  We
+    # need to do the same thing for preexisting RAID requests, as well.
+    for req in partitions.requests:
+        if isinstance(req, partRequests.VolumeGroupRequestSpec):
+            lst = req.physicalVolumes
+        elif isinstance(req, partRequests.RaidRequestSpec):
+            lst = req.raidmembers
+        else:
+            continue
+
+        if len(filter (lambda id: partitions.getRequestByID(id) != None, lst)) == 0:
             partitions.removeRequest (req)
 
     # Now that we've removed bad VGs, remove all LVs that would have

@@ -1,3 +1,8 @@
+2005-05-06  Chris Lumens  <clumens@redhat.com>
+
+	* autopart.py (doAutoPartition):  Also remove bogus preexisting RAID
+	information when doing kickstart installs.
+
 2005-05-06  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Pretend we have nano too.
