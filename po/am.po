@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-30 11:35-0500\n"
+"POT-Creation-Date: 2005-05-08 14:11-0500\n"
 "PO-Revision-Date: 2004-12-23 17:37+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
@@ -38,7 +38,6 @@ msgid "Make sure your password is at least 6 characters in length."
 msgstr "ምስጢራዊ ቃሎች በትንሹ 6 ፊደሎችን የያዙ እንደሆኑ ያረጋግጡ።"
 
 #: ../anaconda:183
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -47,6 +46,8 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
 "ማስጠንቀቂያ!!! የቪኤንሲ ሰርቨር ያለ ምስጢራዊ ቃል እየሰራ ነው!\n"
 "የቪኤንሲን ምስጢራዊ ቃል ማስጀመሪያ ምርጫን ሰርቨሩ እንዲጠበቅ ከፈለጉ መጠቀም ይችላሉ።\n"
 "\n"
@@ -164,13 +165,12 @@ msgid "Graphical installation not available...  Starting text mode."
 msgstr "ንድፉን ለማስገባት አልተገኘም... የጽሑፍ አሠራሩ ዘዴ ተጀምሯል።"
 
 #: ../anaconda:874
-#, fuzzy
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
-"የፕሮግራም መክፈቻውና መዝጊያው ተፈልጎ አልተገኘም። ለግራፊካል የማስገባት ሥራ የፕሮግራም መክፈቻና መዝጊያ "
-"ያስፈልጋል።የጽሑፉ አሠራር ዘዴ ተጀምሯል።"
+"የፕሮግራም መክፈቻውና መዝጊያው ተፈልጎ አልተገኘም። ለንድፉ የማስገባት ሥራ የፕሮግራም መክፈቻና መዝጊያ "
+"ያስፈልጋል። የጽሑፉ አሠራር ዘዴ ተጀምሯል።"
 
 #: ../anaconda:884
 #, c-format
@@ -183,9 +183,8 @@ msgid "Using mouse type: %s"
 msgstr "የኮምፒውተር ፕሮግራም መክፈቻና መፈለጊያው ዓይነት በመጠቀም ላይ፦ %s"
 
 #: ../anaconda:970
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "%sን ለማስገባት ፍለጋ ላይ...."
+msgstr "ግራፍ የማስገባት ሥራን በመጀመር ላይ...."
 
 #: ../autopart.py:961
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -238,12 +237,11 @@ msgid ""
 msgstr "ፕሮግራም መጫናው በጊዜው ዲስኩ ላይ አልታየም። ኦፕንፈርምዌር ይህንን ፕሮግራም ማስገባት አይችልም።"
 
 #: ../autopart.py:1045
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"የማስጀመሪያ መከፋፈያው %s የማስጀመሪያ ገደብ ከንድፍዎት ጋር ላይገናኝ ይችላል።  የፕሮግራም መጫኛውን ዲስክ መስራት/"
-"መፍጠር በጣም የሚበረታታ ነው።"
+"ለግራፍዎት የማስጀመሪያ መከፋፈያው %s ከማስጀመሪያውን ግዴታዎች ጋር ላይገናኝ ይችላል።"
 
 #: ../autopart.py:1071
 #, python-format
@@ -258,56 +256,58 @@ msgid "Requested Partition Does Not Exist"
 msgstr "የተጠየቀው መከፋፈያ የለም"
 
 #: ../autopart.py:1240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"ለ%s ለመጠቀም የ%s መከፋፈያው ያለበትን ቦታ ማግኘት አልተቻለም።\n"
-"ሲስተምዎትን እንደገና ለመጫን ‹እሺ›ን ተጫኑ።"
+"ለ%s ለመጠቀም የመከፋፈያውን %sን ለመጠቆም አልተቻለም።\n"
+"\n"
+"ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
 #: ../autopart.py:1265
 msgid "Requested Raid Device Does Not Exist"
 msgstr "የተጠየቀው የመፈለጊያ መሣሪያ የለም"
 
 #: ../autopart.py:1266
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"የድንገተኛ መሥሪያው %s %sን ለመጠቀም ያለበትን ቦታ ለማግኘት አልተቻለም።\n"
-"ሲስተምዎትን እንደገና ለመጫን ‹እሺ›ን ይጫኑ።"
+"የሬይድ መሥሪያው %sን ለ%s ለመጠቀም ያለበትን ቦታ መጠቆም አልተቻለም።\n"
+"\n"
+"ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
 #: ../autopart.py:1295
 msgid "Requested Volume Group Does Not Exist"
 msgstr "የተጠየቀው የቮሊውም ቡድን የለም"
 
 #: ../autopart.py:1296
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"ለ%s ለመጠቀም ቮሊውም ቡድን %s ያለበትን ቦታ ለማግኘት አልተቻለም።\n"
-"እንደገና ሲስተሙን ለመጫን ‹እሺ›ን ይጫኑ።"
+"ለ%s ለመጠቀም ቮሊውም ቡድን %sን ያለበትን ቦታ ለመጠቆም አልተቻለም።\n"
+"እንደገና ሲስተሙን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
 #: ../autopart.py:1331
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "የተጠየቀው ተገቢው ድምጽ የለም"
 
 #: ../autopart.py:1332
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"ተገቢውን ድምጽ %sን ለ%s ለመጠቀም አልተቻለም።\n"
-"እንደገና ሲስተሙን ለመጫን ‹እሺ›ን ይጫኑ።"
+"ተገቢውን ድምጽ %sን ለ%s ለመጠቀም መጠቆም አልተቻለም።\n"
+"እንደገና ሲስተሙን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
 #: ../autopart.py:1424 ../autopart.py:1472
 msgid "Automatic Partitioning Errors"
@@ -358,17 +358,16 @@ msgid "Error Partitioning"
 msgstr "የክፍፍል ስሕተት"
 
 #: ../autopart.py:1451
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
 "%s.%s"
-msgstr ""
-"የተጠየቀውን መከፋፈያዎች ማመላከት አልተቻለም፦ \n"
+msgstr "የተጠየቁትን መከፋፈያዎች ማመላከት አልተቻለም፦ \n"
+"\n"
 "%s.%s"
 
 #: ../autopart.py:1468
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -377,12 +376,15 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"የተለያየ አውቶማቲክ የክፍፍል አማራጭ መምረጥ ይችላሉ ወይንም በእጅ የሚሰራውን ክፍፍል ለመምረጥ ‹ወደኋላ› የሚለው ላይ "
-"ያቃጭሉ።\n"
+"\n"
+"\n"
+"የተለያዩ አውቶማቲክ የመከፋፈያ ምርጫ መምረጥ ይችላሉ ወይንም በእጅ የሚሰራውን መከፋፈያ ለመምረጥ ‹ወደኋላ› "
+"የሚለውን ያቃጭሉ።\n"
+"\n"
 "ለመቀጠል ‹እሺ› የሚለውን ይጫኑ።"
 
 #: ../autopart.py:1473
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -391,10 +393,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
-"የሚከተሉት ስሕተቶች የተከሰቱት ከመከፋፈያዎት ጋር ነው፦\n"
+"የሚከተሉት ስሕተቶች የተከሰቱት ከርስዎ መከፋፈያ ጋር ነው። \n"
+"\n"
 "%s\n"
 "\n"
-"ሀርድ ዲስክዎት ላይ %sን ለመጫን በቂ የሆነ ቦታ ከሌለ ይህ ሊሆን ይችላል።"
+"እንደገና ሲስተሙን ለማስጀመር «እሺ»ን ይጫኑ።"
 
 #: ../autopart.py:1484
 msgid "Unrecoverable Error"
@@ -419,7 +422,6 @@ msgid "Warning"
 msgstr "ማስጠንቀቂያ"
 
 #: ../autopart.py:1637
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -428,10 +430,11 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"አውቶማቲክ መከፋፈያው በተመረጡት የመጫኛ ዓይነት ላይ የተመሠረተ መከፋፈያዎች ያስቀምጣል። በተጨማሪም አንዴ መከፋፈያዎቹ "
-"ከተፈጠሩ በፈለጉት ሁኔታ ማድረግ ይችላሉ።\n"
+"አውቶማቲክ መከፋፈያው በተመረጡት የማስገቢያ ዓይነት ላይ የተመሠረተ መከፋፈያዎች ያስቀምጣል። በተጨማሪም አንዴ "
+"መከፋፈያዎቹ ከተፈጠሩ በፈለጉት ሁኔታ ማድረግ ይችላሉ።\n"
+"\n"
 "የማኑዋሉ ዲስክ መከፋፈያ መሣሪያ፣ ዲስክ ድሩይድ፣ መስተጋብራዊ በሆነ አካቢቢ መከፋፈያዎችን እንዲፈጥሩ ያስችላል። የፋይል "
-"አሠራሮችን፤ ዓይነቶችን፤ የማከማቻ ነጥቦችን፤ የመከፋፈያ መጠኖችን እና ብዙ የተለያዩ ነገሮችን መስራት ይችላሉ።"
+"አሠራሮችን፤ ዓይነቶችን፤ የማከማቻ ነጥቦችን፤ የመከፋፈያ መጠኖችን እና ብዙ የተለያዩ ነገሮችን ማድረግ ይችላሉ።"
 
 #: ../autopart.py:1648
 msgid ""
@@ -556,7 +559,7 @@ msgstr "የተለየ አገባብ(SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "የመረብ ሰርቨር (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -959,7 +962,7 @@ msgstr "ከተለመደው ውጪ የሆነ ነገር ተከስቷውል"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
-msgstr "አስተካክል"
+msgstr "አስተካክል (_D)"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
@@ -1011,20 +1014,21 @@ msgid ""
 "className = %s"
 msgstr ""
 "የማስገቢያውን የመጨረሻ አካል ለመጫን በሚሞከርበት ጊዜ ስሕተት ተከስቷል።\n"
+"\n"
 "የክፍል ስም = %s"
 
 #: ../gui.py:1173 ../gui.py:1178 ../packages.py:190 ../packages.py:201
 #: ../packages.py:635 ../packages.py:1557 ../packages.py:1562
 msgid "_Exit"
-msgstr "ውጣ"
+msgstr "ውጣ (_E)"
 
 #: ../gui.py:1174 ../packages.py:444
 msgid "_Retry"
-msgstr "እንደገና ሞክር"
+msgstr "እንደገና ሞክር (_R)"
 
 #: ../gui.py:1177 ../packages.py:1561
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "ማስገቢያው አሁን ይወጣል..."
 
 #: ../gui.py:1180 ../packages.py:1564
 msgid "Your system will now be rebooted..."
@@ -1266,6 +1270,7 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"በማስገቢያው ሥራ ዛፍ ውስጥ የኮምፒውተሩ ፋይል አስፈላጊ ቡድኖችን እያጣ ነው። "
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
@@ -1314,7 +1319,7 @@ msgstr "እንደገና አስጀምር"
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "እንደገና ካስጀመሩ፤ ሲስተምዎት ዝብርቅርቅ ባለ ሁኔታ ይቀርና እንደገና የማስገባት ሥራ ሊያስፈልገው ይችላል።"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -2125,6 +2130,12 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"የማዳኛው አካባቢ የሊኑክስዎትን የማስገባት ሥራ ለማግኘት ይሞክር እና በ%s ዳይሬክትር ሥር ያከማቸዋል። ከዛ "
+"ለሲስተምዎት አስፈላጊ የሆነ ምንም ዓይነት ለውጥ ማድረግ ይችላሉ። በዚህ ደረጃ መቀጠል ከፈለጉ `ቀጥል`ን ይምረጡ። የፋይልዎትን "
+"ሲስተምም `አንብብ-ፃፍ` ከማድረግ ፋንታ `አንብብ-ብቻ` ለማድረግ `አንብብ-ብቻ`ን በመምረጥ መምረጥ ይችላሉ። \n"
+"\n"
+"በሆነ ምክንያት ይህ አሠራር ውድቅ ከሆነ `ዝለል` የሚለውን ይምረጡ እና ይህ ደረጃ ይዘለል እና ቀጥታ ወደ ትእዛዙ ሼል ይሄዳሉ።\n"
+"\n"
 
 #: ../rescue.py:273 ../iw/partition_gui.py:565 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:477
@@ -2147,7 +2158,7 @@ msgstr "ሲስተም ለማዳን"
 
 #: ../rescue.py:306
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "የማስገቢያዎትን ዋን መከፋፈያ የያዘው የትኛው መከፋፈያ ነው?"
 
 #: ../rescue.py:308 ../rescue.py:312
 msgid "Exit"
@@ -2494,6 +2505,9 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
+"በፋይበር ቻነል (FCP) በኩል ተከታታይ ማሽኖች የኢንዱስትሪ ቋሚ SCSI መሥሪያዎችን መረጃ ሊያገኙ ይችላሉ። ለእያንዳንዱ "
+"መሥሪያ 5 መለያ ባሕሪ ማቅረብ ያስፈልግዎታል፦ ባለ 16 ቢት መሥሪያ ቁጥር፣ ባለ 16 ቢት SCSI መለያ፣ ባለ 64" 
+"ቢት አለም አቀፍ ወደብ ስም (WWPN)፣ ባለ 16 ቢት SCSI LUN እና ባለ 64 ቢት FCP LUN።"
 
 #: ../zfcp.py:29
 #, fuzzy
@@ -2507,7 +2521,7 @@ msgstr "የሆስት ስም ለይተው አልጠቀሱም።"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "የSCSI መለያ"
 
 #: ../zfcp.py:33
 #, fuzzy
@@ -2516,7 +2530,7 @@ msgstr "የሆስት ስም ለይተው አልጠቀሱም።"
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 #, fuzzy
@@ -2525,7 +2539,7 @@ msgstr "የሆስት ስም ለይተው አልጠቀሱም።"
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 #, fuzzy
@@ -2534,7 +2548,7 @@ msgstr "የሆስት ስም ለይተው አልጠቀሱም።"
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
 #, fuzzy
@@ -2998,7 +3012,8 @@ msgid ""
 "The default installation environment includes our recommended package "
 "selection, including:\n"
 "\n"
-msgstr ""
+msgstr "የነባሩ የማስገባት ሥራው አካባቢ እኛ የመሰከርንለትን የጥቅል ምርጫ ያጠቃልላል፣ እንዲሁም፦\n"
+"\n"
 
 #: ../iw/desktop_choice_gui.py:58
 #, fuzzy, python-format
@@ -3137,12 +3152,12 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:45
 msgid "_Configure Firewall"
-msgstr "የእሳት ግርግዳን አስተካክል"
+msgstr "የእሳት ግርግዳን አስተካክል (_C)"
 
 #: ../iw/firewall_gui.py:45 ../iw/xconfig_gui.py:445
 #: ../textw/firewall_text.py:120
 msgid "_Proceed"
-msgstr "ቀጥል"
+msgstr "ቀጥል (_P)"
 
 #: ../iw/firewall_gui.py:79 ../textw/firewall_text.py:31
 msgid ""
@@ -3154,11 +3169,11 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:90
 msgid "N_o firewall"
-msgstr "ምንም የእሳት ግርግዳ የለም"
+msgstr "ምንም የእሳት ግርግዳ የለም (_o)"
 
 #: ../iw/firewall_gui.py:92
 msgid "_Enable firewall"
-msgstr "የእሳት ግርግዳ አስችል"
+msgstr "የእሳት ግርግዳ አስችል (_E)"
 
 #: ../iw/firewall_gui.py:109
 msgid ""
@@ -3166,6 +3181,8 @@ msgid ""
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
+"ከሌሎች ኮምፒውተሮች ላይ ለተወሰኑ አገልግሎቶች መረጃ ማግኘት እንዲችል የእሳት ግርግዳን መጠቀም ይችላሉ። ካለ፤ "
+"ከየትኛውን አገልግሎት ነው መረጃ ማግኘት የሚፈልጉት? "
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -3174,6 +3191,8 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"ከባሕላዊ ሊኑክስ ሲስተም ውስጥ ከሚገኙት ይልቅ ለሊኑክስ (SELinux) በጥሩ ሁኔታ የጥበቃው ቁጥጥር ጥበቃውን "
+"አሻሽሎ ያቀርባል። በተበላሸ ሁኔታ፤ ሊካዱ የሚችሉ ነገሮችን ብቻ በማስጠንቀቅ፤ ወይንም በሚሰራ ሁኔታ ሊቀርብ ይችላል።"
 
 #: ../iw/firewall_gui.py:158
 #, fuzzy
@@ -3262,7 +3281,7 @@ msgstr "ለውጡ ወዲያውን ተጽእኖ ያሳድራል።"
 #: ../iw/lvm_dialog_gui.py:133 ../iw/lvm_dialog_gui.py:193
 #: ../iw/network_gui.py:166 ../iw/network_gui.py:170 ../iw/network_gui.py:193
 msgid "C_ontinue"
-msgstr "ቀጥል"
+msgstr "ቀጥል (_o)"
 
 #: ../iw/lvm_dialog_gui.py:161
 #, python-format
@@ -3271,6 +3290,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"የተመረጠው ዋጋ (%10.2f ሜጋባይት) ከአነስተኛው አካላዊ ድምፅ (%10.2ፍ ሜጋባይት) በድምጽ ቡድኑ ውስጥ "
+"የበለጠ በመሆኑ ምክንያት የአካላዊ ስፋት መጠኑ ሊለወጥ አይችልም።"
 
 #: ../iw/lvm_dialog_gui.py:172
 #, python-format
@@ -3279,6 +3300,8 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
+"የተመረጠው ዋጋ (%10.2f ሜጋባይት) በድምጽ ቡድኑ ውስጥ ካለው ከአነስተኛው የአካላዊ ድምፅ (%10.2f ሜጋባይት) "
+"ጋር ሲነፃፀር በጣም ትልቅ በመሆኑ ምክንያት የአካላዊ ስፋቱ መጠን ሊለወጥ አይችልም።"
 
 #: ../iw/lvm_dialog_gui.py:186
 msgid "Too small"
@@ -3289,6 +3312,8 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
+"በአካላዊ ስፋቱ ዋጋ ውስጥ ያለው ለውጥ በድምጽ ቡድኑ ውስጥ በአንድ ወይንም በበለጠ የአካላዊ ድምጾች ላይ ትልቅ "
+"ቦታን ያባክናል።"
 
 #: ../iw/lvm_dialog_gui.py:212
 #, python-format
@@ -3297,12 +3322,16 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
+"የከፍተኛው ተገቢው ድምጽ መጠን ውጤት (%10.2f ሜጋባይት) ከአንድ ወይንም በበለጠ አሁን ከሚገኘው ግልጽ ከሆነው "
+"ተገቢው ድምጾች ይልቅ አነስተኛ በመሆኑ ምክንያት የአካላዊ ስፋቱ መጠን ሊለወጥ አይችልም።"
 
 #: ../iw/lvm_dialog_gui.py:288
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
+"አሁን የሚገኘው ግልጽ ተገቢ ድምጾችን ለማቀፍ የድምጽ ቡድኑ በጣም ትንሽ በመሆኑ ምክንያት ይህንን አካላዊ ድምጽ "
+"ማስወገድ አይችሉም።"
 
 #: ../iw/lvm_dialog_gui.py:359 ../textw/partition_text.py:1135
 msgid "Make Logical Volume"
@@ -4231,7 +4260,7 @@ msgstr "የተፈጠሩትን መከፋፈያዎች እንደገና ይመልከ
 #: ../textw/partition_text.py:251 ../textw/partition_text.py:253
 #: ../textw/partition_text.py:278
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<ሊተገበር የማይችል>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
@@ -4764,7 +4793,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:446
 msgid "_Choose monitor type"
-msgstr "የማሳያውን ዓይነት ይምረጡ"
+msgstr "የማሳያውን ዓይነት ይምረጡ (_C)"
 
 #: ../iw/xconfig_gui.py:626
 msgid ""
@@ -4780,19 +4809,19 @@ msgstr "መደበኛውን ዋጋዎች እንደነበረ መልስ"
 
 #: ../iw/xconfig_gui.py:749
 msgid "Hori_zontal Sync:"
-msgstr "አግድም አስተካክል፦"
+msgstr "አግድም አስተካክል፦ (_z)"
 
 #: ../iw/xconfig_gui.py:752
 msgid "_Vertical Sync:"
-msgstr "ቁልቁል አስተካክል፦"
+msgstr "ቁልቁል አስተካክል፦ (_V)"
 
 #: ../iw/xconfig_gui.py:759
 msgid "kHz"
-msgstr "ኬኤችዘድ"
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:762
 msgid "Hz"
-msgstr "ኤችዘድ"
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:782
 msgid "Graphical Interface (X) Configuration"
@@ -4850,11 +4879,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:1079
 msgid "_Video card RAM: "
-msgstr "ቪዲዮ ካርድ RAM፦ "
+msgstr "ቪዲዮ ካርድ RAM፦ (_V)"
 
 #: ../iw/xconfig_gui.py:1108
 msgid "_Skip X configuration"
-msgstr "የXን ማስተካከያ ዝለል"
+msgstr "የXን ማስተካከያ ዝለል (_S)"
 
 #: ../iw/zfcp_gui.py:24
 #, fuzzy
@@ -4863,7 +4892,7 @@ msgstr "የቪኤንሲ አቀማመጥ"
 
 #: ../iw/zfcp_gui.py:104
 msgid "_Remove"
-msgstr ""
+msgstr "አስወግድ (_R)"
 
 #: ../iw/zfcp_gui.py:111 ../textw/zfcp_text.py:116
 #, fuzzy
@@ -4885,6 +4914,7 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"ከዝግጅዎት ላይ የFCPን መረጃ ማከማቻ ሊያስወግዱት ነው። ለመቀጠል እርግጠኛ ነዎት?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5282,6 +5312,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"ከግርግዳ እሳት ጋር ከሌሎች ኮምፒውተሮች ወደ እርስዎ ኮምፒውተር የተወሰኑ አገልግሎቶችን መረጃ ለማግኘት  ሊያስችሉ "
+"ይፈልጉ ይሆናል። ለየትኞቹ አገልግሎቶች መረጃን ለማግኘት ይፈቅዳሉ?"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5385,7 +5417,7 @@ msgstr "መግለጫ፦ %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "የሀርድዌር አድራሻ፦ %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -5827,7 +5859,7 @@ msgstr "የ%s ባይቶች"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
-msgstr ""
+msgstr "        ጊዜ"
 
 #: ../textw/progress_text.py:151
 #, fuzzy
@@ -6339,7 +6371,7 @@ msgstr "መሥሪያ"
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
-msgstr ""
+msgstr "አስወግድ"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6360,7 +6392,7 @@ msgstr "የChandev መሥመር "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "የተለየ"
+msgstr "የተለየ (_C)"
 
 #: ../installclasses/custom.py:13
 msgid ""
@@ -6371,7 +6403,7 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "የግል ኮምፒውተር"
+msgstr "የግል ኮምፒውተር (_P)"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -6404,7 +6436,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "የተባበሩት የሬድ ሃት ሊኑክስ ድርጅት"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6414,18 +6446,23 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tዴስክቶፕ ሼል (ግኖም)\n"
+"\tየአስተዳደር መሣሪያዎች\n"
+"\tየሰርቨር አቀማመጥ መሣሪያዎች\n"
+"\tየድር ሰርቨር\n"
+"\tየመስኮቶች ፋይል ሰርቨር (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "የሬድ ሀት ድርጅት ሊኑክስ ኮምፒውተር"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "የሬድ ሀት ድርጅት ሊኑክስ ኢኤስ"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "ሬድ ሀት ድርጅት ሊኑክስ ደብሊውኤስ"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
 #, fuzzy
@@ -6451,7 +6488,7 @@ msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr "ሰርቨር"
+msgstr "ሰርቨር (_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -6506,8 +6543,8 @@ msgid ""
 "\"."
 msgstr ""
 "ተጨማሪ ማሰራጫውን መሞከር ከፈለጉ፣ የሚቀጥለውን ሲዲ ያስገቡና «%s»ን ይጫኑ። ምንም እንኳን አንዴ እንኳን እንዲያደርጉ "
-"ቢመከሩም ሁሉንም ሲዲዎች መሞከር የለብዎትም።የማስገባቱን ሥራ ለመጀመር ሲዲ ቁጥር 1ን በድራይቩ ውስጥ ያስገቡ እና «%"
-"s»ን ይጫኑ።"
+"ቢመከሩም ሁሉንም ሲዲዎች መሞከር የለብዎትም።የማስገባቱን ሥራ ለመጀመር ሲዲ ቁጥር 1ን በድራይቩ ውስጥ ያስገቡ እና «%s»ን "
+"ይጫኑ።"
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:375
 #, c-format
@@ -6767,7 +6804,7 @@ msgstr "የኪክስታርትን ፋይ ሀርድ ድራይቩ ላይ አልተ�
 #: ../loader2/hdinstall.c:582
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "ለBIOS መረጃ ማከማቻ %s ሀርድ ድራይቭ ማግኘት አልተቻለም"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -6902,13 +6939,12 @@ msgid "Use a driver disk"
 msgstr "የድራይቨር መረጃ ማከማቻ ተጠቀም"
 
 #: ../loader2/loader.c:891
-#, fuzzy
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"ለዚህ የማስገቢያ ዓይነት የሚፈለጉትን ዓይነት መሥሪያዎች ሊገኙ አልቻሉም። በእጅዎት ድራይቨርዎትን ወይንም የድራይቨር "
-"መረጃ ማከማቻ መምረት ይፈልጋሉ?"
+"ለዚህ የማስገቢያ ዓይነት የሚፈለጉትን ዓይነት መሥሪያዎች ሊገኙ አልቻሉም። በእጅዎት ድራይቨርዎትን ወይንም "
+"የድራይቨር መረጃ ማከማቻ መምረጥ ይፈልጋሉ?"
 
 #: ../loader2/loader.c:1051
 msgid "The following devices have been found on your system."
@@ -7016,9 +7052,9 @@ msgstr ""
 "\n"
 
 #: ../loader2/mediacheck.c:349
-#, fuzzy, c-format
-msgid "The media check %sis complete, and the result is: %s\n"
-msgstr "ማሰራጫውን ማጣሪያ %s ተጠናቋል፣ እና ውጤቱ፦ %s\n"
+#, c-format
+msgid "The media check %s is complete, and the result is: %s\n"
+msgstr "ማሰራጫውን ማጣሪያ %s ተጠናቋል፣ እና ውጤቱ፦ %s ነው\n"
 
 #: ../loader2/method.c:156 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -7026,13 +7062,12 @@ msgid "Failed to read directory %s: %s"
 msgstr "የ%sን ማውጫ ለማንበብ ውድቅ ሆኗል፦ %s"
 
 #: ../loader2/method.c:416
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
 "\n"
 "   %s?"
-msgstr ""
-"የISO ገጽታን ቼክሳም ሙከራ ማድረግ ይፈልጋሉ?\n"
+msgstr "የISO ገጽታን ቼክሳም ሙከራ ማድረግ ይፈልጋሉ?\n"
 "\n"
 " %s?"
 
@@ -7113,7 +7148,8 @@ msgstr "ለአይፒ መረጃ ለ%s የተጠየቀውን በመላክ ላይ..
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
+msgstr "ለዚህ ማሽን የIP አቀማመጥ ያስገቡለት። እያንዳንዱ ነገር እንደ IP አድራሻ የነጥብ ቁጥር ማስታወሻ መግባት "
+"አለበት (ለምሳሌ፦ 1.2.3.4)።"
 
 #: ../loader2/net.c:487
 msgid "IP address:"
@@ -7162,7 +7198,6 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "በመረቡ ትእዛዝ ውስጥ መጥፎ የማስጀመሪያ ፕሮቶ %s ተጠቅሷል"
 
 #: ../loader2/net.c:1066
-#, fuzzy
 msgid "Networking Device"
 msgstr "የመረብ መሥሪያዎች"
 
@@ -7310,12 +7345,10 @@ msgid "Account name:"
 msgstr "መለያ ስም።"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
 msgstr "የFTP አቀማመጥ"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
 msgstr "የHTTP አቀማመጥ"
 
@@ -7418,7 +7451,7 @@ msgstr "ባያን-ኦልጊይ፣ ጂኦቪ-አልታይ፣ ሆቭድ፣ ኡቪ�
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "የቡኤኖስ አየር (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7498,7 +7531,7 @@ msgstr "የቻትሀም ደሴቶች"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "ቹቡት (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7655,7 +7688,7 @@ msgstr "ክዋጃሊን"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "ላ ሪኦጃ"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -7762,9 +7795,8 @@ msgid "most locations"
 msgstr "አብዛኛዎቹ አቅጣጫዎች"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "አብዛኛዎቹ አቅጣጫዎች (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "አብዛኛዎቹ አቅጣጫዎች (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7905,11 +7937,11 @@ msgstr "ሳባ እና ሳራዋክ"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "ሳን ጁአን (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "ሳንታ ክሩዝ (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -7957,7 +7989,7 @@ msgstr "ቲቤት እና አብዛኛው የዚንኢአንግ ኡይግሁር"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "ቲየራ ደል ፊውጐ"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -7969,7 +8001,7 @@ msgstr "ቱርክ (ቹክ)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "ቱኩማን"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8021,27 +8053,25 @@ msgstr "ዛፖሮዝህ የ ኢ ሉጋንስክ"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "አፍሪካንኛ"
 
 #. generated from lang-table
 msgid "Amharic"
-msgstr ""
+msgstr "አማርኛ"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "ዐርቢኛ"
 
 #. generated from lang-table
 msgid "Bengali"
 msgstr "ቤንጋሊኛ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "ቤንጋሊኛ"
+msgstr "ቤንጋሊኛ (ሕንድ)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
 msgstr "ሀንጋሪኛ"
 
@@ -8095,12 +8125,11 @@ msgstr "ጀርመንኛ"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "ጉጃራቲ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "ፍለጋ ላይ"
+msgstr "ሒንዲ"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8112,7 +8141,7 @@ msgstr "አይስላንድኛ"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "እንዶኒሲኛ"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8128,7 +8157,7 @@ msgstr "ኮሪያኛ"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "ማክዶኒያዊ"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8139,18 +8168,16 @@ msgid "Norwegian"
 msgstr "ኖርዌጂያንኛ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "ሰሜናዊ ግዛት"
+msgstr "የሰሜናዊ ሶቶኛ"
 
 #. generated from lang-table
 msgid "Persian"
 msgstr "ፐርሺያኛ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "እንግሊዘኛ"
+msgstr "ፖሊሽ"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8162,16 +8189,15 @@ msgstr "ፖርቱጋልኛ (የብራዚሎች)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "ፑንጃቢ"
 
 #. generated from lang-table
 msgid "Russian"
 msgstr "ራሽኛ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "ስሎቪኛ"
+msgstr "ስሎቫክኛ"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8186,14 +8212,12 @@ msgid "Swedish"
 msgstr "ስዊድንኛ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "ታስማኒያኛ"
+msgstr "ታሚል"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "ታስማኒያኛ"
+msgstr "ታይኛ"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8205,7 +8229,7 @@ msgstr "ዩክረኒኛ"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "ቬትናማዊ"
 
 #. generated from lang-table
 msgid "Welsh"
