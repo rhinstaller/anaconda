@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-08 11:35-0500\n"
+"POT-Creation-Date: 2005-05-09 18:59-0500\n"
 "PO-Revision-Date: 2004-12-23 17:37+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
@@ -518,7 +518,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s በማስገባት ላይ... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -526,18 +526,17 @@ msgid ""
 msgstr ""
 "ሊቆጣጠሩት የማይቻል ከተለመደው ውጪ የሆነ ነገር ተከስቷል። ብልሽት ሊሆን ይችላል። እባክዎን የዚህን ከተለመደው ውጪ "
 "የሆነውን ሙሉ ጽሑፍ ይቅዱ ወይንም በዲስኬት ካራሽ ዳምፑን ካስቀመጡ በኋላ የብልሽቱን ዝርዝር ዘገባ ከአናኮዳ ላይ "
-"በhttp://bugzilla.redhat.com/bugzilla ላይ መረጃ ያድርጉ።"
+"በ%s ላይ መረጃ ያድርጉ።"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
 "ሊቆጣጠሩት የማይቻል ከተለመደው ውጪ የሆነ ነገር ተከስቷውል። ብልሽት ሊሆን ይችላል። እባክዎን የዚህን ከተለመደው ውጪ "
-"የሆነውን ሙሉ ጽሑፍ ይቅዱ እና የብልሽቱን ዝርዝር ዘገባ ከአናኮዳ ላይ በhttp://bugzilla.redhat.com//"
-"bugzilla ላይ መረጃ ያድርጉ።"
+"የሆነውን ሙሉ ጽሑፍ ይቅዱ እና የብልሽቱን ዝርዝር ዘገባ ከአናኮዳ ላይ በ%s ላይ መረጃ ያድርጉ።"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -963,7 +962,6 @@ msgid "Cancel"
 msgstr "ተወው"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "ከተለመደው ውጪ የሆነ ነገር ተከስቷውል"
 
@@ -988,7 +986,7 @@ msgstr ""
 
 #: ../gui.py:723 ../text.py:277
 msgid "Error Parsing Kickstart Config"
-msgstr "ስሕተት? ?"
+msgstr "ስሕተት፦ Parsing Kickstart Config"
 
 #: ../gui.py:731 ../text.py:287
 msgid ""
@@ -998,7 +996,7 @@ msgstr "አሁን ፍሎፒ ይክተቱ። ሁሉም ዲስኩ ላይ ያሉት
 
 #: ../gui.py:845
 msgid "default:LTR"
-msgstr "ነባሩ፦ LTR"
+msgstr "ነባሩ፥LTR"
 
 #: ../gui.py:913 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1967,9 +1965,8 @@ msgid ""
 msgstr "የ/boot/efi መከፋፈያ ዓይነቱ የፋት እና የ50 ሜጋባይት መጠን መፍጠር አለብዎት።"
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "የ PPC PReP Boot መከፋፈያ መፍጠር አለብዎት።"
+msgstr "የአፐል 'Bootstrap' መከፋፈያ መፍጠር አለብዎት።"
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
@@ -2949,13 +2946,12 @@ msgid "Congratulations"
 msgstr "እንኳን ደስ ያልዎት"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"ምንም ዓይነት የማስገማባት ሥራ ማሰራጫ (መረጃ ማከማቻ ወይንም ሲዲ-ሮሞች) በማስገባት ሂደት የሚጠቀሙበት ያስወግዱ እና "
+"ምንም ዓይነት የማስገማባት ሥራ ማሰራጫ በማስገባት ሂደት የሚጠቀሙበት ያስወግዱ እና "
 "«ኢንደገና አስጀምር» የሚለውን ቁልፍ ሲስተምዎትን እንደገና ለማስጀመር ይጫኑ። \n"
 "\n"
 
@@ -7932,7 +7928,7 @@ msgstr "ደቡብ ምዕራብ ዚንጂአንግ ኡኢግሁር"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "ደቡብ እና ደቡብ ምስራቅ ብራዚ (ጂኦ፣ ዲኤፍ፣ ኤምጂ፣ ኢኤስ፣ አርጄ፣ ኤስፒ፣ ኤስፒ፣ ፒአር፣ ኤስሲ፣ አረስ)"
+msgstr "ደቡብ እና ደቡብ ምስራቅ ብራዚ (GO፣ DF፣ MG፣ ES፣ RJ፣ SP፣ PR፣ SC፣ RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -7956,7 +7952,7 @@ msgstr "ቲቤት እና አብዛኛው የዚንኢአንግ ኡይግሁር"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr "ቲየራ ደል ፊውጐ"
+msgstr "ቲየራ ደል ፊውጐ (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -7968,7 +7964,7 @@ msgstr "ቱርክ (ቹክ)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr "ቱኩማን"
+msgstr "ቱኩማን (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
