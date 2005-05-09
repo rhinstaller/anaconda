@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-05-08 11:35-0500\n"
-"PO-Revision-Date: 2004-12-23 22:29+EDT\n"
+"PO-Revision-Date: 2004-12-23 17:37+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -203,7 +203,7 @@ msgid "Could not allocate partitions"
 msgstr "መከፋፈያዎቹን መደልደል አልተቻለም"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -4245,9 +4245,8 @@ msgid "Select the drive(s) to use for this installation:"
 msgstr "ለእዚህ የማስገባት ስራ ድራይች(ቮች) ይምረጡ፦"
 
 #: ../iw/partition_gui.py:1540
-#, fuzzy
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr "የተፈጠሩትን መከፋፈያዎች እንደገና ይመልከቱአቸው (እና አስፈላጊ ከሆነ ያሻሽሉዋቸው)"
+msgstr "የተፈጠሩትን መከፋፈያዎች እንደገና ይመልከቱአቸው (እና አስፈላጊ ከሆነ ያሻሽሉዋቸው) (_v)"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:249
@@ -4269,9 +4268,8 @@ msgid "_Format partition as:"
 msgstr "መከፋፈያውን በ ስም ፎርማት አድርግ፦"
 
 #: ../iw/partition_ui_helpers_gui.py:282
-#, fuzzy
 msgid "Mi_grate partition to:"
-msgstr "መከፋፈያዎቹን ወደ ስደድ፦"
+msgstr "መከፋፈያዎቹን ወደ አጓጉዝ፦ (_g)"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
@@ -4554,7 +4552,7 @@ msgstr "የጊዜ ክልል ምርጫ"
 
 #: ../iw/timezone_gui.py:68
 msgid "System clock uses _UTC"
-msgstr "የሲስተሙ ሰዓት UTCን ይጠቀማል"
+msgstr "የሲስተሙ ሰዓት _UTCን ይጠቀማል"
 
 #: ../iw/timezone_gui.py:76
 msgid "Please select the nearest city in your timezone:"
@@ -4828,13 +4826,12 @@ msgid "Unknown video card"
 msgstr "ያልታወቀ የቪዲዮ ካርድ"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
-"የ%sን ቪዲዮ ካርድ በሚመርጥበት ጊዘ ስሕተት ተከስቷል። እባክዎን ይህንን ስሕተት ለbugzilla.redhat.com "
-"ያመልክቱ።"
+"የ%sን ቪዲዮ ካርድ በሚመርጥበት ጊዘ ስሕተት ተከስቷል። እባክዎን ይህንን ስሕተት ለ%s ያመልክቱ።"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5111,14 +5108,13 @@ msgid "<Enter> to exit"
 msgstr "<አስገባ>ን ለመውጣት ይጫኑ"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"ምንም ዓይነት የማስገቢያ ሚዲያ (የመረጃ መጫኛ ወይንም ሲዲ ሮሞች) በማስገባቱ ሥራ ጊዘ የተጠቀመበትን ያስወግዱ እና "
-"ሲስተምዎትን እንደገና ለማስጀመር ?ን ተጫኑ\n"
+"ምንም ዓይነት የማስገቢያ ሚዲያበማስገባቱ ሥራ ጊዜ የተጠቀመበትን ያስወግዱ "
+"እና ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -5855,7 +5851,6 @@ msgid "What time zone are you located in?"
 msgstr "በየትኛው የሰዓት ክልል ውስጥነው የሚገኙት?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
 msgstr "የሲስተሙ ሰዓት UTCን ይጠቀማል"
 
