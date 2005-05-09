@@ -1,7 +1,7 @@
 2005-05-06  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (doAutoPartition):  Also remove bogus preexisting RAID
-	information when doing kickstart installs.
+	information when doing kickstart installs (#88359).
 
 2005-05-06  Jeremy Katz  <katzj@redhat.com>
 
