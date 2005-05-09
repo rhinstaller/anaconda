@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-05-09 19:27+0100\n"
+"PO-Revision-Date: 2005-05-09 20:43+0100\n"
 "Last-Translator: Philippe Villiers <philippe.villiers@wanadoo.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1261,13 +1261,13 @@ msgid "Scriptlet Failure"
 msgstr ""
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Une erreur s'est produite lors de l'installation de %s. Ceci peut indiquer une erreur de support, un manque d'espace disque et/ou des problèmes de matériel. Il s'agit d'une erreur fatale. L'installation sera interrompue. Vérifiez votre support et réessayez l'installation.\n"
+"Une erreur s'est produite lors du lancement du scriptlet. Vous pouvez examiner la sortie dans %s. Il s'agit d'une erreur fatale et 'installation sera interrompue.\n"
 "\n"
 "Appuyez sur OK pour redémarrer votre système."
 
@@ -1967,9 +1967,8 @@ msgid "You must create a /boot/efi partition of type FAT and a size of 50 megaby
 msgstr "Vous devez créer une partition /boot/efi de type FAT et de 50 méga-octets."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Vous devez créer une partition PPC PReP Boot."
+msgstr "Vous devez créer une partition Bootstrap Apple."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
