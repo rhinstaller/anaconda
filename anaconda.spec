@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.18
+Version: 10.1.1.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 10 05 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.19-1
+- Quieten package downloads in cmdline mode (#155250)
+- name.arch logic error 
+- Ensure kernel written to PReP on iSeries upgrades (#146915)
+
 * Tue Apr 12 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.18-1
 - Don't free needed string (clumens, #149871, #150844, #153072)
 - Correct name.arch (#133396, #154407)
