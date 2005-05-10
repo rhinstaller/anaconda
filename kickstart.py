@@ -110,7 +110,7 @@ class Script:
 
 	os.unlink(path)
 
-class KickstartBase(BaseInstallClass):
+class Kickstart(BaseInstallClass):
     name = "kickstart"
     
     def postAction(self, rootPath, serial, intf = None):
@@ -1578,44 +1578,6 @@ class KickstartBase(BaseInstallClass):
         self.handleMissing = KS_MISSING_PROMPT
         
         BaseInstallClass.__init__(self, 0)
-
-def Kickstart(file, serial):
-
-    f = open(file, "r")
-    lines = f.readlines()
-    f.close()
-
-    passedLines = []
-    while lines:
-	l = lines[0]
-	lines = lines[1:]
-	if l == "%installclass\n":
-	    break
-	passedLines.append(l)
-
-    if lines:
-	newKsFile = file + ".new"
-	f = open(newKsFile, "w")
-	f.writelines(passedLines)
-	f.close()
-
-	f = open('/tmp/ksclass.py', "w")
-	f.writelines(lines)
-	f.close()
-
-	oldPath = sys.path
-	sys.path.append('/tmp')
-
-	from ksclass import CustomKickstart
-	os.unlink("/tmp/ksclass.py")
-
-	ksClass = CustomKickstart(newKsFile, serial)
-	os.unlink(newKsFile)
-    else:
-	ksClass = KickstartBase(file, serial)
-
-    return ksClass
-
 
 # see if any vnc parameters are specified in the kickstart file
 def parseKickstartVNC(ksfile):

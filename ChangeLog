@@ -1,3 +1,9 @@
+2005-05-10  Jeremy Katz  <katzj@redhat.com>
+
+	* kickstart.py: Remove %installclass support.  It's
+	been in the code for five years.  And it's been broken the entire
+	time. (#149690)
+
 2005-05-10  Paul Nasrat <pnasrat@redhat.com>
 
 	* kickstart.py: fix thinko
