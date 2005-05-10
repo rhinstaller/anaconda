@@ -1482,7 +1482,7 @@ class KickstartBase(BaseInstallClass):
                     for (nevra, parch) in pkgs:
                         if parch == arch:
                             hdlist.pkgs[nevra].select()
-                            found = 0 
+                            found = 1 
                             continue
                     if found:
                         continue
