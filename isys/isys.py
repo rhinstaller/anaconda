@@ -542,10 +542,19 @@ def compareDrives(first, second):
 	return -1
     elif (type1 > type2):
 	return 1
-    elif first < second:
-	return -1
-    elif first > second:
-	return 1
+    else:
+	len1 = len(first)
+	len2 = len(second)
+
+	if (len1 < len2):
+	    return -1
+	elif (len1 > len2):
+	    return 1
+	else:
+	    if (first < second):
+		return -1
+	    elif (first > second):
+		return 1
 
     return 0
 
