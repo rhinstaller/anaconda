@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-09 18:59-0500\n"
-"PO-Revision-Date: 2004-12-23 17:37+EDT\n"
+"POT-Creation-Date: 2005-03-30 11:35-0500\n"
+"PO-Revision-Date: 2005-05-12 07:03+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -971,7 +971,7 @@ msgstr "አስተካክል (_D)"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "ፍሎፒው ላይ አስቀምጥ (_S)"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1170,20 +1170,20 @@ msgstr "ሲስተሙ ላይ ያስገቡ"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "የጽሑፍ ውድቀት"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"%sን በሚያስገባበት ጊዜ ስሕተት ነበረ። ይህ የሚዲያውን ድክመት፤ የዲስክ ቦታ እጥረት እና/ወይንም የሀርድዌር ችግሮች "
-"ሊያመለክት ይችላል። ይህ በጣም አደገኛ ስሕተት ስለሆነ የማስገባት ስራው ይቋረጣል። \n"
+"ጽሑፉ እየሄደ እያለ ስሕተት ነበር። ውጤቱን በ%s ውስጥ መመርመር ይችላሉ። ይህ በጣም አደገኛ ስሕተት ስለሆነ "
+"የማስገባት ስራው ይቋረጣል።\n"
 "\n"
-"እባክዎ ሚዲያዎትን ያረጋግጡና ለማስገባት እንደገና ይሞክሩ።"
+"እባክዎ ሲስተምዎትን እንደገና ለማስጀመር “እሺ” የሚለውን ቁልፍ ይጫኑ።"
 
 #: ../kickstart.py:1489
 msgid "Missing Package"
@@ -2951,9 +2951,10 @@ msgid ""
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"ምንም ዓይነት የማስገማባት ሥራ ማሰራጫ በማስገባት ሂደት የሚጠቀሙበት ያስወግዱ እና "
-"«ኢንደገና አስጀምር» የሚለውን ቁልፍ ሲስተምዎትን እንደገና ለማስጀመር ይጫኑ። \n"
+"ምንም ዓይነት የማስገማባት ሥራ ማሰራጫ በማስገባት ሂደት የተጠቀሙበትን ያስወግዱ እና "
+"«እንደገና አስጀምር» የሚለውን ቁልፍ ሲስተምዎትን እንደገና ለማስጀመር ይጫኑ። \n"
 "\n"
+
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -5741,7 +5742,7 @@ msgstr ""
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "አሁን የተጠየቀው መጠን (%10.2f ሜጋባይት) በመጠኑ ቡድን ውስጥ ከሚገኘው መጠን ትልቅ ነው።"
 
 #: ../textw/partition_text.py:1363
 msgid "New Partition or Logical Volume?"
