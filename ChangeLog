@@ -1,3 +1,8 @@
+2005-05-12  Paul Nasrat <pnasrat@redhat.com>
+
+	* upgrade.py: (name, arch) tuples for blacklist
+	Add x86_64 perl.i386 to blacklist (#156658)
+
 2005-05-11  Chris Lumens  <clumens@redhat.com>
 
 	* isys/isys.py (compareDrives):  Make drive sorting smarter.
