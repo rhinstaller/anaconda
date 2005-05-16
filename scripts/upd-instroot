@@ -1119,7 +1119,7 @@ for p in $DEST $DESTGR; do
 	done
 
 	# nuke some python stuff we don't need
-        for d in idle distutils email bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
+        for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
 	    rm -rf $p/$d
 	done
 
