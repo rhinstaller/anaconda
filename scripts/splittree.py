@@ -103,14 +103,14 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         self.logfile = []
 
 
-    def getSize(seld, path, blocksize=None):
+    def getSize(self, path, blocksize=None):
         """Gets the size as reported by du -s"""
 
         if blocksize:
             p = os.popen("du -s --block-size=1 %s" % path, 'r')
             thesize = p.read()
             p.close()
-            thesize = int(string.split(thesize)[0])
+            thesize = long(string.split(thesize)[0])
             return thesize
         else:
             p = os.popen("du -sh %s" % path, 'r')
@@ -199,12 +199,12 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
 
         for i in range(self.bin_list[0], self.bin_list[-1] + 1):
             if i == 1:
-                p = os.popen('find %s -type f -not -name .discinfo' % self.dist_dir, 'r')
+                p = os.popen('find %s/ -type f -not -name .discinfo' % self.dist_dir, 'r')
                 filelist = p.read()
                 p.close()
                 filelist = string.split(filelist)
                 
-                p = os.popen('find %s -type d -not -name RPMS -not -name SRPMS' % self.dist_dir, 'r')
+                p = os.popen('find %s/ -type d -not -name RPMS -not -name SRPMS' % self.dist_dir, 'r')
                 dirlist = p.read()
                 p.close()
                 dirlist = string.split(dirlist)
@@ -392,7 +392,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
 
 def usage(theerror):
     print theerror
-    print """Usage: %s --arch=i386 --total-discs=6 --bin-discs=3 --src-discs=3 --release-string="distro name" --pkgorderfile=/tmp/pkgorder.12345 --distdir=/usr/src/someunifiedtree --srcdir=/usr/src/someunifiedtree/SRPMS --productpath=product""" % sys.argv[0]
+    print """Usage: %s --arch=i386 --total-discs=8 --bin-discs=4 --src-discs=4 --release-string="distro name" --pkgorderfile=/tmp/pkgorder.12345 --distdir=/usr/src/someunifiedtree --srcdir=/usr/src/someunifiedtree/SRPMS --productpath=product""" % sys.argv[0]
     sys.exit(1)
 
         

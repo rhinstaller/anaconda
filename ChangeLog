@@ -1,3 +1,12 @@
+2005-05-16  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/splittree.py (Timber.createSplitDirs):  Handle traversing
+	directories on a symlink (David Kuestler, #157722).
+	* scripts/splittree.py (Timber.getSize):  Fix typo, integer overflow
+	(David Kuestler, #157721).
+	* scripts/splittree.py (usage):  Change example arguments to match
+	current number of discs (David Kuestler, #157723).
+
 2005-05-12  Paul Nasrat <pnasrat@redhat.com>
 
 	* upgrade.py: (name, arch) tuples for blacklist
