@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.61
+Version: 10.2.0.62
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -71,6 +71,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 17 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.62-1
+- Fix execcon used for anaconda (pjones)
+- Fix traceback on tui netstg2.img install (#157709)
+- Fix various splittree bugs (clumens, #157722, #157721, #157723)
+- Blacklist perl.i386 on x86_64 to be removed on upgrade (pnasrat, #156658)
+- Fix drive sorting (clumens)
+- Remove %%installclass support for kickstart since it's never worked (#149690)
+- Fix name.arch in packages (pnasrat)
+- Remove bogus pre-existing RAID info on kickstart installs (clumens, #88359)
+- Pretend to have nano in the rescue environment
+* Don't load stage2.img into RAM for rescue mode if booted 
+  with 'linux text' (#155398)
+
 * Thu May  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.61-1
 - and fix pkgorder for the gfs stuff
 
