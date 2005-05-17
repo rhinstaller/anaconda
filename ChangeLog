@@ -1,3 +1,8 @@
+2005-05-17  Peter Jones  <pjones@redhat.com>
+
+	* loader2/selinux.h: switch from system_u:object_r:anaconda_t to
+	system_u:system_r:anaconda_t .
+
 2005-05-16  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Keep email python stuff (#157709)
