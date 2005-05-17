@@ -4,6 +4,6 @@
 int setexeccon(char * context);
 int loadpolicy();
 
-#define ANACONDA_CONTEXT "system_u:object_r:anaconda_t"
+#define ANACONDA_CONTEXT "system_u:system_r:anaconda_t"
 
 #endif
