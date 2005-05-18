@@ -92,7 +92,7 @@ class NetworkWindow(InstallWindow):
 	    self.network.primaryNS = tmpvals[1]
 	    self.network.secondaryNS = tmpvals[2]
 	    self.network.ternaryNS = tmpvals[3]
-	elif not isinstance (self.id.instClass, kickstart.KickstartBase):
+	elif self.id.instClass.name != "kickstart":
 	    self.network.gateway = None
 	    self.network.primaryNS = None
 	    self.network.secondaryNS = None
