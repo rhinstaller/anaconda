@@ -1,9 +1,16 @@
 # translation of mr.po to 
 # translation of mr.po to
+# translation of mr.po to
+# translation of mr.po to
 # Marathi translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2004.
+# , 2005.
+# , 2005.
+# , 2005.
+# , 2005.
+# , 2005.
 # , 2005.
 # , 2005.
 #
@@ -12,7 +19,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-05-17 19:56+0530\n"
+"PO-Revision-Date: 2005-05-18 19:54+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -163,47 +170,47 @@ msgstr "व्हिडिओ हार्डवेअर सापडले न
 
 #: ../anaconda:835 ../anaconda:1090
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "X हार्डवेयर स्थिती वस्तु सुरु करु शकत नाही."
 
 #: ../anaconda:859
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "आलेखात्मक  स्थापना उपलब्ध नाही... पाठ्य स्थिती सुरु करत आहे."
 
 #: ../anaconda:874
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr ""
+msgstr "माउस शोधलेला नव्हता. आलेखात्मक  स्थापनेसाठी माउस आवश्यक आहे. पाठ्य स्थिती सुरु करत आहे."
 
 #: ../anaconda:884
 #, c-format
 msgid "Detected mouse type: %s"
-msgstr ""
+msgstr "माउसचा प्रकार शोधत आहे :%s "
 
 #: ../anaconda:888
 #, c-format
 msgid "Using mouse type: %s"
-msgstr ""
+msgstr "माउसचा प्रकार वापरत आहे :%s "
 
 #: ../anaconda:970
 msgid "Starting graphical installation..."
-msgstr ""
+msgstr "आलेखात्मक  स्थापना सुरु होत आहे..."
 
 #: ../autopart.py:961
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
+msgstr "सिलेण्डर-आधारित विभागण्याची प्रार्थमिक विभागण्याप्रमाणे वाटणी करु शकत नाही "
 
 #: ../autopart.py:964
 msgid "Could not allocate partitions as primary partitions"
-msgstr ""
+msgstr "विभागण्याची प्रार्थमिक विभागण्याप्रमाणे वाटणी करु शकत नाही "
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions"
-msgstr ""
+msgstr "सिलेण्डर-आधारित विभागण्याची वाटणी करु शकत नाही "
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions"
-msgstr ""
+msgstr "विभागण्याची वाटणी करु शकत नाही "
 
 #: ../autopart.py:1032
 #, python-format
@@ -211,7 +218,7 @@ msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
+msgstr "%s बूट विभागणी BSD डिस्क लेबलशी संबधीत नाही. SRM या विभागणी पासून बूट कर शकणार नाही  BSD डिस्क लेबलशी संबधीत असलेली विभागणी वापरा किंवा डिव्हाइस डिस्क लेबलला BSD मध्ये बदला."
 
 #: ../autopart.py:1034
 #, python-format
@@ -219,36 +226,36 @@ msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
-msgstr ""
+msgstr "%s बूट विभागणी अश्या डिस्कशी संबधीत नाही जिच्या आरंभी बूट लोडर चालू रहाण्यासाठी पूरेशी मोकळी जागा आहे. /boot समाविष्ट असलेल्या डिस्कच्या सुरुवातीस कमीत कमी ५MB मोकळी जागा आहे का याची काळजी घ्या.ही"
 
 #: ../autopart.py:1036
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
+msgstr "%s बूट विभागणी हि  VFAT  विभागणी नाही आहे. EFI या विभागणीपासून बूट होऊ शकत नाही."
 
 #: ../autopart.py:1038
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
+msgstr "बूट विभागणी पहिल्यापासून डिस्कवर अस्तित्वात नाही आहे. हि स्थापना OpenFirmware बूट करु शकणार नाही."
 
 #: ../autopart.py:1045
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
+msgstr "तूमच्या बांधणीसाठी असलेल्या बूटिंग निर्धारकाशी %s बूट विभागणीची जुळणी होऊ शकत नाही."
 
 #: ../autopart.py:1071
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
+msgstr "विभागणी समाविष्ट केल्यास आआधीपासूनच वाटणी केलेल्या या ्%s मधील तार्किक व्हॉल्यूमसाठी पूरेशी जागा मिळू शकणार .नाही"
 
 #: ../autopart.py:1239
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "आवश्यक असलेली विभागणी अस्तित्वात नाही"
 
 #: ../autopart.py:1240
 #, python-format
