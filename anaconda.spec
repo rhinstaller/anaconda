@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.62
+Version: 10.2.0.63
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -71,6 +71,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 17 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.63-1
+- add arch to buildstamp (notting, #151927)
+- Fix am.po format strings
+
 * Tue May 17 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.62-1
 - Fix execcon used for anaconda (pjones)
 - Fix traceback on tui netstg2.img install (#157709)
