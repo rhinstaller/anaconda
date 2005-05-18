@@ -81,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 - Fix name.arch in packages (pnasrat)
 - Remove bogus pre-existing RAID info on kickstart installs (clumens, #88359)
 - Pretend to have nano in the rescue environment
-* Don't load stage2.img into RAM for rescue mode if booted 
+- Don't load stage2.img into RAM for rescue mode if booted 
   with 'linux text' (#155398)
 
 * Thu May  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.61-1
