@@ -385,7 +385,7 @@ msgstr ""
 "ለመቀጠል ‹እሺ› የሚለውን ይጫኑ።"
 
 #: ../autopart.py:1473
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -1572,7 +1572,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "እባክዎን ድራይቭ %sን እስኪያተካክል ድረስ ጠብቁ...\n"
 
 #: ../partedUtils.py:848
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -2425,7 +2425,7 @@ msgstr ""
 "ከጥቅም ውጪ ሊያደርገው ይችላል። የማሻሻሉን ሥራ መቀጠል ይፈልጋሉ?"
 
 #: ../upgrade.py:546
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
@@ -3280,7 +3280,7 @@ msgid "C_ontinue"
 msgstr "ቀጥል (_o)"
 
 #: ../iw/lvm_dialog_gui.py:161
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
@@ -5738,7 +5738,7 @@ msgstr ""
 "አሁን የተጠየቀው መጠን (%10.2f ሜጋባይት) ከከፍተኛው የድምፅ መጠን (%10.2f ሜጋባይት) ትልቅ ነው።"
 
 #: ../textw/partition_text.py:1309
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
