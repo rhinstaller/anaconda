@@ -2,7 +2,7 @@
 LANG=C
 
 PATH=$PATH:/sbin:/usr/sbin
-IMAGEUUID=$(date +%Y%m%d%H%M)
+IMAGEUUID=$(date +%Y%m%d%H%M).$(uname -i)
 
 usage () {
 	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"

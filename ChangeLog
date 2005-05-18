@@ -1,3 +1,9 @@
+2005-05-17  Bill Nottingham  <notting@redhat.com>
+
+	* scripts/mk-images: Add arch to buildstamp...
+	
+	* loader2/method.c: ... and check it. (#151927)
+
 2005-05-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
