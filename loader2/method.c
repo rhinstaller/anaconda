@@ -541,15 +541,15 @@ int verifyStamp(char * path) {
     int fail = 0;
     char * p, *q;
 
-    stamp1 = alloca(32);
-    stamp2 = alloca(32);
+    stamp1 = alloca(80);
+    stamp2 = alloca(80);
 
     /* grab the one from the initrd */
     f = fopen("/.buildstamp", "r");
     if (!f) {
         fail = 1;
     } else {
-        q = fgets(stamp1, 32, f);
+        q = fgets(stamp1, 80, f);
 	fclose(f);
 
         /* and the runtime */
@@ -559,7 +559,7 @@ int verifyStamp(char * path) {
         if (!f) {
             fail = 1;
         } else {
-            q = fgets(stamp2, 32, f);
+            q = fgets(stamp2, 80, f);
 	    fclose(f);
 
             if (strcmp(stamp1, stamp2) != 0) {

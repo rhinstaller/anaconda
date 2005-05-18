@@ -1,3 +1,9 @@
+
+2005-05-17  Bill Nottingham <notting@redhat.com>
+
+	* loader2/method.c: The arch could be up to 65 character;
+	a little more storage won't hurt.
+
 2005-05-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
