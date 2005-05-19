@@ -40,8 +40,10 @@
 #include <libintl.h>
 #include <selinux/selinux.h>
 #include <libgen.h>
+#include <linux/major.h>
+#include <linux/raid/md_u.h>
+#include <linux/raid/md_p.h>
 
-#include "md-int.h"
 #include "imount.h"
 #include "isys.h"
 #include "net.h"
@@ -785,7 +787,7 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {
     int fd;
     unsigned long size;
-    struct md_superblock_s * sb;
+    struct mdp_super_t * sb;
 
     if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
 
@@ -802,8 +804,8 @@ static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {
 	return NULL;
     } 
 
-    sb = malloc(sizeof(struct md_superblock_s));
-    sb = memset(sb, '\0', sizeof(struct md_superblock_s));
+    sb = malloc(sizeof(mdp_super_t));
+    sb = memset(sb, '\0', sizeof(mdp_super_t));
 
     if (write(fd, sb, sizeof(sb)) != sizeof(sb)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
@@ -816,7 +818,8 @@ static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     int fd;
     unsigned long size;
-    struct md_superblock_s sb;
+    mdp_super_t sb;
+    char uuid[36];
 
     if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
 
@@ -843,15 +846,18 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    return Py_BuildValue("(iiiiiii)", sb.major_version, sb.minor_version,
-			 sb.set_magic, sb.level, sb.nr_disks,
-			 sb.raid_disks, sb.md_minor);
+    sprintf(uuid, "%x:%x:%x:%x", sb.set_uuid0, sb.set_uuid1, sb.set_uuid2,
+	    sb.set_uuid3);
+
+    return Py_BuildValue("(iisiiii)", sb.major_version, sb.minor_version,
+		         uuid, sb.level, sb.nr_disks, sb.raid_disks,
+			 sb.md_minor);
 }
 
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args) {
     int fd;
     unsigned long size;
-    struct md_superblock_s sb;
+    mdp_super_t sb;
 
     if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
 

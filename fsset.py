@@ -1932,8 +1932,26 @@ class RAIDDevice(Device):
         return []
 
     def mdadmLine (self, devPrefix="/dev"):
+        levels = ["multipath", "hsm", "translucent", "linear", "raid0",
+                  "raid1", "", "", "raid5", "raid5"]
+
+        (dev, devices, level, numActive) = raid.lookup_raid_device (self.device)
+
+        # First loop over all the devices that make up the RAID trying to read
+        # the superblock off each.  If we read a superblock, return a line that
+        # can go into the mdadm.conf.  If we fail, fall back to the old method
+        # of using the super-minor.
+        for d in devices:
+            try:
+                (major, minor, uuid, level, nrDisks, totalDisks, mdMinor) = \
+                    isys.raidsb(d)
+                return "ARRAY %s/%s level=%s num-devices=%d uuid=%s\n" \
+                    %(devPrefix, self.device, levels[level+4], nrDisks, uuid)
+            except ValueError:
+               pass
+
         return "ARRAY %s/%s super-minor=%s\n" %(devPrefix, self.device,
-                                               self.minor)
+                                                self.minor)
 
     def raidTab (self, devPrefix='/dev'):
         entry = ""

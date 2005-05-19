@@ -1,3 +1,11 @@
+2005-05-19  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (RAIDDevice.mdadmLine):  Use the UUID instead of the
+	super-minor, unless the UUID is somehow not available.
+	* isys/isys.c:  Converted to using kernel MD headers instead of our
+	own internal copies.  Return the RAID's UUID from the superblock as
+	well.
+
 2005-05-19  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/urlinstall.c (loadUrlImages): Use the constant, bumped
