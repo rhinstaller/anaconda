@@ -1,6 +1,16 @@
 2005-05-19  Jeremy Katz  <katzj@redhat.com>
 
-	* exception.py (handleException): Just exit on the bdbQuit exception
+	* fsset.py (prepbootFileSystem.__init__): PReP partitions should
+	be marked bootable, from Dustin Kirkland.
+
+	* raid.py (availRaidLevels): Allow ppc to have a RAID /boot, from
+	Dustin Kirkland.
+
+	* partitions.py (Partitions.getBootableRequest): Split
+	PMac/pSeries handling to be different.  pSeries can do bootable
+	PReP.  Patch from Dustin Kirkland <dustin.kirkland@us.ibm.com>
+
+	* exception.py (handleException): Just exit on the bdbQuit exception.
 
 	* textw/bootloader_text.py (BootloaderImagesWindow.__call__):
 	Support deletion of images in text mode (#125358).  After FC4 goes

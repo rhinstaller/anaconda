@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 2002-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -619,8 +619,7 @@ class Partitions:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                     return [ req ]
             return None
-        elif (iutil.getPPCMachine() == "pSeries" or
-              iutil.getPPCMachine() == "PMac"):
+        elif (iutil.getPPCMachine() == "pSeries"):
             # pSeries and Mac bootable requests are odd.
             # have to consider both the PReP or Bootstrap partition (with
             # potentially > 1 existing) as well as /boot,/
@@ -629,12 +628,28 @@ class Partitions:
                 boottype = "PPC PReP Boot"
             else:
                 boottype = "Apple Bootstrap"
-            
-            # for the prep partition, we want either the first or the
+
+            ret = []
+            for req in self.requests:
+                if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                    ret.append(req)
+
+            # now add the /boot
+            bootreq = self.getRequestByMountPoint("/boot")
+            if not bootreq:
+                bootreq = self.getRequestByMountPoint("/")
+            if bootreq:
+                ret.append(bootreq)
+
+            if len(ret) >= 1:
+                return ret
+            return None
+        elif (iutil.getPPCMachine() == "PMac"):
+            # for the bootstrap partition, we want either the first or the
             # first non-preexisting one
             bestprep = None
             for req in self.requests:
-                if req.fstype == fsset.fileSystemTypeGet(boottype):
+                if req.fstype == fsset.fileSystemTypeGet("Apple Bootstrap"):
                     if ((bestprep is None) or
                         (bestprep.getPreExisting() and
                          not req.getPreExisting())):
