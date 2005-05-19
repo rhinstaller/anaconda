@@ -120,7 +120,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     }
 
     /* require 128MB for use of graphical stage 2 due to size of image */
-    if (FL_TEXT(flags) || totalMemory() < 128000) {
+    if (FL_TEXT(flags) || totalMemory() < GUI_STAGE2_RAM) {
 	stage2img = "netstg2.img";
 	if (totalMemory() < 128000)
 	    logMessage("URLINSTALL falling back to non-GUI stage2 due to "

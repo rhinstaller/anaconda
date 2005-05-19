@@ -6,6 +6,7 @@
 #define LOADER_NOOP 2
 #define LOADER_ERROR -1
 
+#define GUI_STAGE2_RAM 196608
 
 #define LOADER_FLAGS_TESTING		(1 << 0)
 #define LOADER_FLAGS_EXPERT		(1 << 1)

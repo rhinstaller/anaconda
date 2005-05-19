@@ -1,3 +1,11 @@
+2005-05-19  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/urlinstall.c (loadUrlImages): Use the constant, bumped
+	to 192M to try to avoid OOM situations (#157274)
+
+	* loader2/loader.h (GUI_STAGE2_RAM): Add constant for when to do a
+	graphical install with stage2.img loaded into RAM.
+
 2005-05-19  Paul Nasrat <pnasrat@redhat.com>
 
 	* scripts/mk-images.ppc, bootdisk/ppc/ofboot.b.auto:
