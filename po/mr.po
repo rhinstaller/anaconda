@@ -2,10 +2,13 @@
 # translation of mr.po to
 # translation of mr.po to
 # translation of mr.po to
+# translation of mr.po to
 # Marathi translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2004.
+# , 2005.
+# , 2005.
 # , 2005.
 # , 2005.
 # , 2005.
@@ -19,7 +22,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-05-18 19:54+0530\n"
+"PO-Revision-Date: 2005-05-19 20:01+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -233,7 +236,7 @@ msgstr "%s बूट विभागणी अश्या डिस्कशी
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr "%s बूट विभागणी हि  VFAT  विभागणी नाही आहे. EFI या विभागणीपासून बूट होऊ शकत नाही."
+msgstr "%s बूट विभागणी हि  VFAT  विभागणी नाही. EFI या विभागणीपासून बूट होऊ शकत नाही."
 
 #: ../autopart.py:1038
 msgid ""
@@ -244,14 +247,14 @@ msgstr "बूट विभागणी पहिल्यापासून ड
 #: ../autopart.py:1045
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "तूमच्या बांधणीसाठी असलेल्या बूटिंग निर्धारकाशी %s बूट विभागणीची जुळणी होऊ शकत नाही."
+msgstr "तुमच्या बांधणीसाठी असलेल्या बूटिंग निर्धारकाशी %s बूट विभागणीची जुळणी होऊ शकत नाही."
 
 #: ../autopart.py:1071
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr "विभागणी समाविष्ट केल्यास आआधीपासूनच वाटणी केलेल्या या ्%s मधील तार्किक व्हॉल्यूमसाठी पूरेशी जागा मिळू शकणार .नाही"
+msgstr "विभागणी समाविष्ट केल्यास आधीपासूनच वाटणी केलेल्या या %s मधील तार्किक व्हॉल्यूमसाठी पूरेशी जागा मिळू शकणार नाही."
 
 #: ../autopart.py:1239
 msgid "Requested Partition Does Not Exist"
@@ -264,10 +267,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s विभागणी  %s वापरण्यासाठी शोधू शकत नाही.\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1265
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "विनंती केलेले रेड उपकरण अस्तित्वात नाही"
 
 #: ../autopart.py:1266
 #, python-format
@@ -276,10 +282,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s रेड उपकरण %s वापरण्यासाठी शोधू शकत नाही.\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1295
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "विनंती केलेल्या व्हॉल्यूमचा संघ अस्तित्वात नाही"
 
 #: ../autopart.py:1296
 #, python-format
@@ -288,10 +297,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s व्हॉल्यूमचा संघ %s वापरण्यासाठी शोधू शकत नाही.\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1331
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "विनंती केलेला तार्किक व्हॉल्यूम अस्तित्वात नाही"
 
 #: ../autopart.py:1332
 #, python-format
@@ -300,10 +312,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s तार्किक व्हॉल्यूम %s वापरण्यासाठी शोधू शकत नाही.\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1424 ../autopart.py:1472
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "स्वयंचलित विभागणी चूका"
 
 #: ../autopart.py:1425
 #, python-format
@@ -314,10 +329,15 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"विभागणी करतेवेळी तूमच्या खालील चूका झालेल्या आहेत\n"
+"\n"
+"%s\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1435
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "स्वयंचलित विभागणी करते वेळील चूका"
 
 #: ../autopart.py:1436
 #, python-format
@@ -326,6 +346,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"खालील चूका स्वयंचलित विभागणी करतेवेळी झालेल्या आहेत:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1449 ../autopart.py:1466
 msgid ""
@@ -333,11 +356,14 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1450 ../iw/partition_gui.py:995
 #: ../textw/partition_text.py:225
 msgid "Error Partitioning"
-msgstr ""
+msgstr "चूकीची विभागणी"
 
 #: ../autopart.py:1451
 #, python-format
@@ -346,6 +372,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"विनंती केलेल्या विभागण्यांची वाटणी करु शकत नाही: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1468
 msgid ""
@@ -356,6 +385,11 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
+"\n"
+"\n"
+"तुम्ही दुसरा स्वयंचलित विभागणीचा पर्याय निवडू शकता, किंवा स्वहस्ते विभागणी करण्यासाठी 'मागे' हा पर्याय निवडा.\n"
+"\n"
+"प्रणाली रिबूट करण्यासाठी 'अनुमति' हा पर्याय निवडा."
 
 #: ../autopart.py:1473
 #, python-format
@@ -367,14 +401,19 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"विभागणी करतेवेळी खालील चूका झालेल्या आहेत:\n"
+"\n"
+"%s\n"
+"\n"
+"विभागणीसाठी जर तुमच्या हार्ड  ड्राईव्हवर पूरेशी जागा नसेल तर असे घडू शकते. %s तर असे "
 
 #: ../autopart.py:1484
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "दुरुस्त होऊ न शकणारी चूक"
 
 #: ../autopart.py:1485
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "तुमची प्रणाली आता रिबूट केली जाईल."
 
 #: ../autopart.py:1631 ../bootloader.py:153 ../gui.py:1068 ../image.py:473
 #: ../packages.py:446 ../partedUtils.py:289 ../partedUtils.py:319
@@ -388,7 +427,7 @@ msgstr ""
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:229
 #: ../textw/upgrade_text.py:177 ../loader2/loader.c:363
 msgid "Warning"
-msgstr ""
+msgstr "सूचना"
 
 #: ../autopart.py:1637
 msgid ""
@@ -408,15 +447,15 @@ msgstr ""
 
 #: ../autopart.py:1653
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "या प्रणालीवरिल सर्व विभागण्या नष्ट करा"
 
 #: ../autopart.py:1654
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "या प्रणालीवरिल सर्व Linux विभागण्या नष्ट करा"
 
 #: ../autopart.py:1655
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "सर्व विभागण्या तशाच ठेवा आणि सध्या अस्तित्वात असलेली मोकळी जागा वापरा"
 
 #: ../autopart.py:1657
 #, python-format
@@ -436,11 +475,11 @@ msgstr ""
 
 #: ../bootloader.py:96
 msgid "Bootloader"
-msgstr ""
+msgstr "बूटलोडर"
 
 #: ../bootloader.py:96
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "बूटलोडरची स्थापना होत आहे..."
 
 #: ../bootloader.py:154
 msgid ""
