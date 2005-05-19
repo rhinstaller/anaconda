@@ -1,5 +1,7 @@
 2005-05-19  Jeremy Katz  <katzj@redhat.com>
 
+	* exception.py (handleException): Just exit on the bdbQuit exception
+
 	* textw/bootloader_text.py (BootloaderImagesWindow.__call__):
 	Support deletion of images in text mode (#125358).  After FC4 goes
 	out, we'll want to uncomment the new help line.

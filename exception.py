@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2000-2003 Red Hat, Inc.
+# Copyright 2000-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -22,6 +22,7 @@ import traceback
 import iutil
 import types
 import rpm
+import bdb
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
@@ -198,6 +199,9 @@ def dumpException(out, text, tb, dispatch):
             traceback.print_exc(None, out)
 
 def handleException(dispatch, intf, (type, value, tb)):
+    if isinstance(value, bdb.BdbQuit):
+        sys.exit(1)
+        
     # restore original exception handler
     sys.excepthook = sys.__excepthook__
 
