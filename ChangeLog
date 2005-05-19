@@ -5,6 +5,7 @@
 	* isys/isys.c:  Converted to using kernel MD headers instead of our
 	own internal copies.  Return the RAID's UUID from the superblock as
 	well.
+	* isys/md-int.h:  Don't need this anymore.
 
 2005-05-19  Jeremy Katz  <katzj@redhat.com>
 
