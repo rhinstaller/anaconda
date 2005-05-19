@@ -97,9 +97,9 @@ int beTelnet(int flags) {
     printf("got term type %s\n", termType);
 #endif
 
-    masterFd = open("/dev/ptyp0", O_RDWR);
+    masterFd = open("/dev/ptmx", O_RDWR);
     if (masterFd < 0) {
-	logMessage("cannot open /dev/ttyp0");
+	logMessage("cannot open /dev/ptmx");
 	close(conn);
 	return -1;
     }
@@ -201,13 +201,15 @@ int beTelnet(int flags) {
 	exit(0);
     }
 
+    unlockpt(masterFd);
+    grantpt(masterFd);
+    ttyFd = open(ptsname(masterFd), O_RDWR);
     close(masterFd);
     setsid();
     close(0);
     close(1);
     close(2);
 
-    ttyFd = open("/dev/ttyp0", O_RDWR);
     if (ttyFd != 0) {
 	dup2(ttyFd, 0);
 	close(ttyFd);
