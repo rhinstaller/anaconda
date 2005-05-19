@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.63
+Version: 10.2.0.64
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 19 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.64-1
+- Handle longer arch strings (notting)
+- Fix traceback in network screen (#158134)
+- Include synaptics for X config (pnasrat)
+- Magic boot for mac vs mac64 on disc1/dvd (pnasrat)
+- Bump point at which we use graphical stage2 for http/ftp (#157274)
+- Use uuid in mdadm.conf, stop using copy of md.h (#136051)
+- Support deletion of bootloader entries in text mode (#125358)
+- Support RAID /boot on pSeries along with handling of multiple PReP 
+  partitions (Dustin Kirkland)
+
 * Tue May 17 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.63-1
 - add arch to buildstamp (notting, #151927)
 - Fix am.po format strings
