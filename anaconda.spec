@@ -11,8 +11,6 @@ Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: anaconda-help, system-logos
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
-# temporary due to buildsys horkage
-ExcludeArch: s390 s390x
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
 
