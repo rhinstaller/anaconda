@@ -133,7 +133,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils synaptics"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -594,6 +594,7 @@ usr/X11R6/$LIBDIR/libXrender*
 usr/X11R6/$LIBDIR/libXt*
 usr/X11R6/$LIBDIR/libXxf86misc*
 usr/X11R6/$LIBDIR/modules/*
+usr/X11R6/$LIBDIR/modules/input/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
 usr/bin/fc-cache
