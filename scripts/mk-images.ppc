@@ -112,6 +112,7 @@ EOF
         mkdir -p $TOPDESTPATH/ppc/mac
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinuz
         cp $BOOTDISKDIR/yaboot.conf.mac $TOPDESTPATH/ppc/mac/yaboot.conf
+        cp $BOOTDISKDIR/ofboot.b.auto $TOPDESTPATH/ppc/ofboot.b
         cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
         cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac/
 
