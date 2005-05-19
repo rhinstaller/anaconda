@@ -1,3 +1,9 @@
+2005-05-19  Jeremy Katz  <katzj@redhat.com>
+
+	* textw/bootloader_text.py (BootloaderImagesWindow.__call__):
+	Support deletion of images in text mode (#125358).  After FC4 goes
+	out, we'll want to uncomment the new help line.
+
 2005-05-19  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (RAIDDevice.mdadmLine):  Use the UUID instead of the

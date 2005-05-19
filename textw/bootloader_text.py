@@ -293,8 +293,11 @@ class BootloaderImagesWindow:
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
 	g.add(buttons, 0, 3, growx = 1)
         g.addHotKey("F2")
+        g.addHotKey("F4")
 #        g.addHotKey(" ")
         screen.pushHelpLine(_(" <Space> selects button | <F2> select default boot entry | <F12> next screen>"))
+        # FIXME: uncomment this after FC4
+#        screen.pushHelpLine(_(" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"))        
 
         
 	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
@@ -338,6 +341,23 @@ class BootloaderImagesWindow:
 		    listbox.replace(self.formatDevice(label, item, default), 
 				    item)
 		    listbox.setCurrent(item)
+            elif result == "F4":
+                item = listbox.current()
+                
+                (label, longlabel, isRoot) = images[item]
+                if rootdev != item:
+                    del images[item]
+                    listbox.delete(item)
+                    if default == item:
+                        default = ""
+                else:
+                    dispatch.intf.messageWindow(_("Cannot Delete"),
+                                       _("This boot target cannot be "
+                                         "deleted because it is for "
+                                         "the %s system you are about "
+                                         "to install.")
+                                       %(productName,))
+                    
 
         screen.popHelpLine()
 	screen.popWindow()
@@ -345,11 +365,13 @@ class BootloaderImagesWindow:
 	if (result == TEXT_BACK_CHECK):
 	    return INSTALL_BACK
 
+        if not default:
+            default = rootdev
+
+        # copy our version over
+        bl.images.images = {}
 	for (dev, (label, longlabel, isRoot)) in images.items():
-            if not bl.useGrub():
-                bl.images.setImageLabel(dev, label, setLong = 0)
-            else:
-                bl.images.setImageLabel(dev, longlabel, setLong = 1)
+            bl.images.images[dev] = (label, longlabel, isRoot)
 	bl.images.setDefault(default)
 
 	return INSTALL_OK
