@@ -133,7 +133,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils synaptics"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -190,7 +190,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
            ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel
            fonts-japanese fonts-chinese fonts-korean fonts-indic 
-           fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil"
+           fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics"
 
 #
 # stuff ONLY included for rescue mode
