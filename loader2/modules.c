@@ -254,7 +254,8 @@ static int loadModule(const char * modName, struct extractedModule * path,
     int deviceCount = -1;
     int popWindow = 0;
     int rc, child, i, status;
-
+    static int usbWasLoaded = 0;
+ 
     /* don't need to load a module that's already loaded */
     if (mlModuleInList(modName, modLoaded))
         return 0;
@@ -332,6 +333,19 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = ethCount("tr") - 1;
                 } else if (mi->major == DRIVER_SCSI) {
+                    /* FIXME: this is a hack, but usb-storage seems to
+                     * like to take forever to enumerate.  try to 
+                     * give it some time */
+                    if (!strcmp(modName, "usb-storage") && usbWasLoaded == 0) {
+                        int slp;
+                        usbWasLoaded++;
+                        logMessage("sleeping for usb-storage stabilize...");
+                        for (slp = 0; slp < 10; slp++) {
+                            if (scsiDiskCount() > 0) break;
+                            sleep(2);
+                        }
+                        logMessage("slept %d seconds", slp * 2);
+                    }
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = scsiDiskCount();
                 }
