@@ -1,5 +1,10 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* autopart.py (partlist.getFreeSpace): Fix problem Chris and Paul
+	saw on Friday where manual partition growing would stop at the
+	size of the partition.  When imposing a max size based on the free
+	sectors available, it should remember how big the part originally was.
+
 	* kickstart.py (Kickstart.setGroupSelection): Allow excluding
 	packages based on arch (Dave Lehman, #158370)
 

@@ -791,11 +791,11 @@ def growParts(diskset, requests, newParts):
 
                 maxfree = largestFree[drive]
                 if maxsect > largestFree[drive]:
-                    maxsect = long(maxfree)
+                    maxsect = long(maxfree) + startSize
                     imposedMax = 1
 
 #                print "freesize, max, maxfree = ",freeSize[drive],maxsect, maxfree
-#                print "freeSizeMB, maxMB = ", freeSize[drive] * sector_size/(1024.0 * 1024.0), maxsect * sector_size/(1024.0*1024.0), largestFree[drive]
+#                print "freeSizeMB, maxMB = ", freeSize[drive] * sector_size/(1024.0 * 1024.0), maxsect * sector_size/(1024.0*1024.0), largestFree[drive] * sector_size/(1024.0*1024.0)
 #                print "startsize = ",startSize
 
                 min = startSize
