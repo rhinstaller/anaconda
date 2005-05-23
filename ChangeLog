@@ -1,5 +1,8 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (Kickstart.setGroupSelection): Allow excluding
+	packages based on arch (Dave Lehman, #158370)
+
 	* loader2/net.c: Don't spew an error if you don't set the wepkey
 	or essid (#158223)
 

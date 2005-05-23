@@ -1483,7 +1483,7 @@ class Kickstart(BaseInstallClass):
                         if parch == arch:
                             hdlist.pkgs[nevra].select()
                             found = 1 
-                            continue
+                            break
                     if found:
                         continue
             
@@ -1546,13 +1546,19 @@ class Kickstart(BaseInstallClass):
                 arch = fields[-1]
                 if grpset.hdrlist.pkgnames.has_key(name):
                     pkgs = grpset.hdrlist.pkgnames[name]
+                    found = 0
                     for (nevra, parch) in pkgs:
                         if parch == arch:
                             grpset.hdrlist.pkgs[nevra].unselect(isManual = 1)
-                            continue
+                            found = 1
+                            break
+                    if found:
+                        continue
             
             if grpset.hdrlist.has_key(n):
-                grpset.hdrlist[n].unselect(isManual = 1)
+                pkgs = grpset.hdrlist.pkgnames[name]
+                for (nevra, parch) in pkgs:
+                    grpset.hdrlist.pkgs[nevra].unselect(isManual = 1)
             else:
                 log("%s does not exist, can't exclude" %(n,))
 
