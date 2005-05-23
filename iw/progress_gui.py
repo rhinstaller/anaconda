@@ -220,12 +220,12 @@ class InstallProgressWindow_NEW (InstallWindow):
                 self.pixtimer.reset()
                 
         size = size_string(header[rpm.RPMTAG_SIZE])
-        self.curPackage["package"].set_text (_("Installing %s-%s-%s.%s (%s)")
-                                             % (header[rpm.RPMTAG_NAME],
-                                                header[rpm.RPMTAG_VERSION],
-                                                header[rpm.RPMTAG_RELEASE],
-                                                header[rpm.RPMTAG_ARCH],
-                                                size))
+        pkgstr = _("Installing %s-%s-%s.%s (%s)") %(header[rpm.RPMTAG_NAME],
+                                                    header[rpm.RPMTAG_VERSION],
+                                                    header[rpm.RPMTAG_RELEASE],
+                                                    header[rpm.RPMTAG_ARCH],
+                                                    size)
+        self.curPackage["package"].set_text ("%.70s" %(pkgstr,))
 
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):

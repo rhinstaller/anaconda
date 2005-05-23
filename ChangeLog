@@ -1,5 +1,9 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/progress_gui.py (InstallProgressWindow_NEW.setPackage): Limit
+	the length of the package installing string to try to avoid
+	jumping (#157583)
+
 	* autopart.py (partlist.getFreeSpace): Fix problem Chris and Paul
 	saw on Friday where manual partition growing would stop at the
 	size of the partition.  When imposing a max size based on the free
