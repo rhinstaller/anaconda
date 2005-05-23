@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.64
+Version: 10.2.1.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,23 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 23 2005 Jeremy Katz <katzj@redhat.com> - 10.2.1.0-1
+- Branch for FC4, betanag is off
+- Hack around usb-storage slowness at finding devices that leads to the 
+  reload not occurring
+- Handle FC3 swap label format and convert to right format (#158195)
+- Only set things up to change the default kernel if we're booting us (#158195)
+- Fix deps on upgrades (#157754)
+- Try to keep install screen from moving with length of strings
+- Fix autopart problem leaving some freespace the size of where you 
+  started your partition growing
+- Allow excluding name.arch in kickstart (Dave Lehman, #158370)
+- Don't spew an error if essid or wepkey isn't set (#158223)
+- Add megaraid and other new drivers (#157420) 
+- Left pad RAID uuid (clumens, #136051)
+- synaptics tweak (pnasrat)
+- Fix telnetd to use devpts instead of legacy ptys (#124248)
+
 * Thu May 19 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.64-1
 - Handle longer arch strings (notting)
 - Fix traceback in network screen (#158134)
