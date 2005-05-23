@@ -1,5 +1,11 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* hdrlist.py (DependencyChecker.callback): Make the comments a
+	little clearer
+
+	* upgrade.py (upgradeFindPackages): Ensure we don't leave deps
+	stranded that we could have solved (#157754)
+
 	* iw/progress_gui.py (InstallProgressWindow_NEW.setPackage): Limit
 	the length of the package installing string to try to avoid
 	jumping (#157583)

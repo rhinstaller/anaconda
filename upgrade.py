@@ -761,8 +761,25 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     for p in id.grpset.hdrlist.pkgs.values():
         if p.isSelected():
             ts.addInstall(p.hdr, p.hdr, "u")
-    deps = ts.check(depcheck.callback)
-    for pkgnevra in deps:
+
+    # now we need to do a depcheck.  but adding a package could require
+    # rerunning the dep check due to things getting replaced (cf, #157754)
+    # we want to make sure we don't loop forever, though, so let's just
+    # put an arbitrary limit
+    runs = 5
+    while runs > 0:
+        rerun = 0
+        deps = ts.check(depcheck.callback)
+        for ((name, version, release),
+             (reqname, reqversion),
+             flg, suggest, sense) in deps:
+            if depcheck.callback(ts, sense, reqname, reqversion, flg) == -1:
+                rerun = 1
+        runs -= 1
+        if rerun == 0:
+            break
+            
+    for pkgnevra in depcheck.added:
         text = ("Upgrade Dependency: Needs %s, "
                 "automatically added." % (pkgnevra,))
         #            log(text)

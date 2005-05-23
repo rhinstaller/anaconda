@@ -207,9 +207,10 @@ class DependencyChecker:
         self.how = how
 
     # FIXME: this is the simple stupid version.  it doesn't actually handle
-    # paying attention to EVR.  
-    def callback(self, ts, tag, name, evr, flags):
-        if tag == rpm.RPMTAG_REQUIRENAME:
+    # paying attention to EVR or conflicts
+    def callback(self, ts, sense, name, evr, flags):
+        # XXX just so we don't break if I'm wrong about what this passes
+        if sense in (rpm.RPMDEP_SENSE_REQUIRES, rpm.RPMTAG_REQUIRES):
             pkgnevra = depMatch(name, self.grpset.hdrlist)
             if pkgnevra and self.grpset.hdrlist.has_key(pkgnevra):
                 hdr = self.grpset.hdrlist[pkgnevra]
