@@ -156,7 +156,11 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     f = open(instRoot + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
-    f.write("UPDATEDEFAULT=yes\n")
+    # only update the default if we're setting the default to linux (#156678)
+    if rootDev == defaultDev:
+        f.write("UPDATEDEFAULT=yes\n")
+    else:
+        f.write("UPDATEDEFAULT=no\n")        
     f.write("\n")
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
     f.write("DEFAULTKERNEL=%s\n" %(defkern,))

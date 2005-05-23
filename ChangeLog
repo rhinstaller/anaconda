@@ -1,5 +1,8 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* bootloader.py (writeBootloader): Only update the default if
+	we're setting the default to linux (#156678)
+
 	* hdrlist.py (DependencyChecker.callback): Make the comments a
 	little clearer
 
