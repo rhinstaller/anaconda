@@ -1,5 +1,8 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (DiskSet.getLabels): Look for labels on all
+	fstypes.  
+
 	* loader2/modules.c (loadModule): usb-storage has reached new
 	levels of awful and now doesn't enumerate the devices with
 	anything approaching a reasonable speed.  Add a sleep to wait for
