@@ -83,13 +83,6 @@ Version 0
 #	eth
 #	"Amiga Linux/68k A2065"
 
-ac3200
-	eth
-	"Ansel Communications Model 3200"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-	mem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
-
 acenic
 	eth
 	"Alteon AceNIC Gigabit"
@@ -151,11 +144,6 @@ cs89x0
 	eth
 	"Crystal SemiconductorCS89[02]0"
 
-de4x5
-	eth
-	"DE4x5, DE434, DE450, and DE500 DEC EtherWORKS"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-
 de600
 	eth
 	"D-Link DE-600 Ethernet pocket adapter"
@@ -163,21 +151,6 @@ de600
 de620
 	eth
 	"D-Link DE-620 Ethernet pocket adapter"
-
-depca
-	eth
-	"DEC DEPCA and EtherWORKS DE1xx, DE2xx, DE422"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-
-dgrs
-	eth
-	"Digi RightSwitch SE-4, SE-6"
-	dma "Toggle DMA use" "[01]"
-	spantree "Toggle Spantree" "[01]"
-	hashexpire "Hash Expiration"
-	ipaddr "List of four IP addresses"
-	ipxnet "IPX network number"
 
 dl2k
 	eth
@@ -203,14 +176,6 @@ e100
 e1000
 	eth
 	"Intel EtherExpress/1000 gigabit"
-
-e2100
-	eth
-	"Cabletron E2100"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-	mem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
-	xcvr "Transceiver (0 = internal; 1 = external)" "[01]"
 
 eepro
 	eth
@@ -339,14 +304,6 @@ ni5010
 	eth
 	"MiCom-Interlan NI5010"
 
-ni52
-	eth
-	"NI5210 Ethernet"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-	memstart "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
-	memend "Address of end of shared memory" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
-
 ni65
 	eth
 	"NI6510 Ethernet"
@@ -397,6 +354,10 @@ sk98lin
 	eth
 	"SysKonnect SK-98xx Gigabit"
 
+skfp
+	eth
+	"SysKonnect SK-55xx/SK-58xx FDDI"
+
 sdla
 	sdla
 	"Sangoma S502/S508"
@@ -421,23 +382,6 @@ sktr
 #	sl
 #	"Serial Link Internet Protocol"
 
-smc-ultra
-	eth
-	"SMC Ultra, SMC EtherEZ ISA"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-
-smc-ultra32
-	eth
-	"SMC Ultra32 EISA"
-
-smc9194
-	eth
-	"SMC 9000 series Ethernet"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-	ifport "Interface: 0 auto, 1 TP, 2 AUI/BNC" "[012]"
-
 strip
 	strip_proto
 	"Starmode Radio IP"
@@ -449,6 +393,10 @@ sunlance
 sunbmac
 	eth
 	"Sun BigMac Ethernet"
+
+starfire
+	eth
+	"Adaptec Starfire"
 
 sundance
 	eth
@@ -509,14 +457,6 @@ wavelan
 	"AT&T GIS WaveLAN transceiver"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
-
-wd
-	eth
-	"WD8003 and WD8013 `compatible' ethercards."
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-	mem "Base shared memory address" "0x[0-9a-fA-F]+"
-	mem_end "Address of end of shared memory (if non-standard size)" "0x[0-9a-fA-F]+"
 
 wic
 	wic
@@ -614,6 +554,10 @@ BusLogic
 	scsi_hostadapter
 	"BusLogic MultiMaster SCSI"
 
+a100u2w
+	scsi_hostadapter
+	"Initio A100U2W SCSI"
+
 aacraid
         scsi_hostadapter
         "Adaptec AACRAID"
@@ -698,6 +642,10 @@ lpfc
 	scsi_hostadapter
 	"Emulex FC Controller"
 
+megaraid
+	scsi_hostadapter
+	"LSI MegaRAID Controllers"
+
 megaraid_mbox
 	scsi_hostadapter
 	"LSI MegaRAID Controllers"
@@ -766,6 +714,10 @@ sata_promise
         scsi_hostadapter
         "Promise SATA controllers"
 
+sata_qstor
+        scsi_hostadapter
+        "QStor SATA controllers"
+
 sata_sil
         scsi_hostadapter
         "Silicon Image SATA controllers"
@@ -781,6 +733,10 @@ sata_svw
 sata_sx4
 	scsi_hostadapter
 	"Promise SX4 SATA controllers"
+
+sata_uli
+        scsi_hostadapter
+        "ULi SATA controllers"
 
 sata_via
         scsi_hostadapter
@@ -978,6 +934,10 @@ atmel_pci
 	eth
 	"Atmel at76c50x 802.11 wireless ethernet"
 
+netwave_cs
+	eth
+	"Netwave AirSurfer Wireless"
+
 orinoco_cs
 	eth
 	"Orinoco, Prism II and similar PCMCIA wireless ethernet"
@@ -993,6 +953,10 @@ orinoco_plx
 orinoco_tmd
 	eth
 	"Orinoco, Prism II and similar wireless ethernet"
+
+prism54
+	eth
+	"Intersil Prism54"
 
 wavelan_cs
 	eth
