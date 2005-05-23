@@ -1,5 +1,10 @@
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (oldSwapLabelMunge): Munge old swap label format to
+	the new version.  Elliot's first pass wasn't accepted upstream so
+	we need to try to do some conversion.  We should probably nuke
+	this code for FC5 or FC6.
+
 	* bootloader.py (writeBootloader): Only update the default if
 	we're setting the default to linux (#156678)
 
