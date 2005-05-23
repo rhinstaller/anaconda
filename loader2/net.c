@@ -237,7 +237,7 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
     if (cfg->wepkey != NULL) 
         free(cfg->wepkey);
 
-    if (wepkey)
+    if (wepkey && (strlen(wepkey) > 0))
         cfg->wepkey = strdup(wepkey);
     else
         cfg->wepkey = NULL;
@@ -245,7 +245,7 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
     if (cfg->essid != NULL)
         free(cfg->essid);
 
-    if (essid)
+    if (essid && (strlen(essid) > 0))
         cfg->essid = strdup(essid);
     else
         cfg->essid = NULL;
