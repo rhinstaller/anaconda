@@ -846,8 +846,8 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    sprintf(uuid, "%x:%x:%x:%x", sb.set_uuid0, sb.set_uuid1, sb.set_uuid2,
-	    sb.set_uuid3);
+    sprintf(uuid, "%08x:%08x:%08x:%08x", sb.set_uuid0, sb.set_uuid1,
+            sb.set_uuid2, sb.set_uuid3);
 
     return Py_BuildValue("(iisiiii)", sb.major_version, sb.minor_version,
 		         uuid, sb.level, sb.nr_disks, sb.raid_disks,
