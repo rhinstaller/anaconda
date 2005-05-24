@@ -42,6 +42,7 @@ class InstallClass(BaseInstallClass):
                     "findpackages",
                     "upgbootloader",
                     "handlemiscpkgs",
+                    "fixupconditionals",
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",

@@ -1568,8 +1568,31 @@ def betaNagScreen(intf, dir):
 	    break
 
 # FIXME: this is a kind of poor way to do this, but it will work for now
+def selectPackageConditionals(grpset, grp):
+    xmlgrp = grpset.compsxml.groups[grp.basename]
+
+    for package in xmlgrp.pkgConditionals.keys():
+        req = xmlgrp.pkgConditionals[package]
+        if not grpset.hdrlist.has_key(package):
+            log ("Missing %s which is in a conditional" %(package,))
+            continue
+        # add to the deps in the dependencies structure for the
+        # package.  this should take care of whenever we're
+        # selected
+        grpset.hdrlist[req].addDeps([package], main = 0)
+        if grpset.hdrlist[req].isSelected():
+            grpset.hdrlist[package].select()
+            grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
+            grp.selectDeps([package], uses = grpset.hdrlist[req].usecount)
+
+# Loop over all the selected groups and make sure all the conditionals are
+# met.
+def fixupConditionals(grpset):
+    for grp in grpset.groups:
+        if grpset.groups[grp].isSelected():
+            selectPackageConditionals(grpset, grpset.groups[grp])
+
 def selectLanguageSupportGroups(grpset, instLanguage):
-    anySelected = False
     if not grpset.groups.has_key("language-support"):
         return
 
@@ -1584,25 +1607,11 @@ def selectLanguageSupportGroups(grpset, instLanguage):
         if not grpset.groups.has_key(pid):
             continue
         group = grpset.groups[pid]
-        xmlgrp = grpset.compsxml.groups[group.basename]
 
         if group.langonly is not None and group.langonly in langs:
             grp.selectPackage(pid)
-            for package in xmlgrp.pkgConditionals.keys():
-                req = xmlgrp.pkgConditionals[package]
-                if not grpset.hdrlist.has_key(package):
-                    log("Missing %s which is in a langsupport conditional" %(package,))
-                    continue
-                # add to the deps in the dependencies structure for the
-                # package.  this should take care of whenever we're
-                # selected
-                grpset.hdrlist[req].addDeps([package], main = 0)
-                if grpset.hdrlist[req].isSelected():
-                    grpset.hdrlist[package].select()
-                    anySelected = True
-                    grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
-                    group.selectDeps([package], uses = grpset.hdrlist[req].usecount)
+            grp.usecount = grp.usecount + 1
+            selectPackageConditionals(grpset, group)
 
-    # If no language support packages are selected, unselect the group too.
-    if not anySelected:
-        grpset.groups["language-support"].unselect()
+    if grp.usecount > 0:
+        grpset.groups["language-support"].select()
