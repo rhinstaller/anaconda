@@ -1238,7 +1238,28 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     doClearPartAction(partitions, diskset)
 
     # XXX clearpartdrives is overloaded as drives we want to use for linux
-    drives = partitions.autoClearPartDrives
+    drives = []
+    initial_free = findFreespace(diskset)
+    for drive in partitions.autoClearPartDrives:
+        disk = diskset.disks[drive]
+
+        free = 0
+        for f in initial_free[drive]:
+            size = f.geom.end - f.geom.start
+            # don't count any partition smaller than 1M
+            if (size > 2048):
+                free += size
+        for req in partitions.deletes:
+            if isinstance(req, partRequests.DeleteSpec) and req.drive == drive:
+                size = req.end - req.start
+                # don't count any partition smaller than 1M
+                if (size > 2048):
+                    free += size
+
+        # If there's less than 10M free, forget it.
+        if free > 20480:
+            drives.append(drive)
+    del initial_free
 
     for request in partitions.autoPartitionRequests:
         if (isinstance(request, partRequests.PartitionSpec) and

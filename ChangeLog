@@ -1,3 +1,8 @@
+2005-05-24  Peter Jones  <pjones@redhat.com>
+
+	* autopart.py (doAutoPartition):  Don't consider drives without
+	free space as candidates on which to put partitions.
+
 2005-05-24  Chris Lumens  <clumens@redhat.com>
 
 	* packages.py:  Automatically select any conditional packages that
