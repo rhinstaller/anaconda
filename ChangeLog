@@ -1,3 +1,13 @@
+2005-05-24  Chris Lumens  <clumens@redhat.com>
+
+	* packages.py:  Automatically select any conditional packages that
+	are required by currently selected groups.  This step used to be only
+	needed for parts of language support, but is now needed more widely
+	(#154572, #158389).
+	* dispatch.py (installSteps):  Likewise.
+	* installclass.py (BaseInstallClass.setSteps):  Likewise.
+	* upgradeclass.py (BaseInstallClass.setSteps):  Likewise.
+
 2005-05-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

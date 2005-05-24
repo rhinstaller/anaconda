@@ -30,6 +30,7 @@ from packages import betaNagScreen
 from packages import selectLanguageSupportGroups
 from packages import setupTimezone
 from packages import setFileCons
+from packages import fixupConditionals
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
@@ -115,6 +116,7 @@ installSteps = [
     ("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
                                           "id", "instPath")),
     ("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
+    ("fixupconditionals", fixupConditionals, ("id.grpset",)),
     ("checkdeps", checkDependencies, ("dir", "intf", "dispatch",
                                       "id", "instPath")),
     ("dependencies", ("id.grpset", "id.dependencies")),

@@ -143,6 +143,7 @@ class BaseInstallClass:
 		 "package-selection",
                  "handleX11pkgs",
                  "handlemiscpkgs",
+                 "fixupconditionals",
 		 "checkdeps",
 		 "dependencies",
 		 "confirminstall",
