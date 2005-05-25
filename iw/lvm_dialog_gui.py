@@ -308,12 +308,17 @@ class VolumeGroupEditor:
 	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
 
-	for uid, size, used in alllvmparts:
+	for part in alllvmparts:
+	    uid = part[0]
 	    request = partitions.getRequestByID(uid)
+
 	    if request.type != REQUEST_RAID:
 		partname = "%s" % (request.device,)
 	    else:
 		partname = "md%d" % (request.raidminor,)
+
+	    size = request.getActualSize (partitions, self.diskset)
+	    used = part[2]
 
 	    # clip size to current PE
 	    pesize = int(self.peCombo.get_active_value())
@@ -338,7 +343,11 @@ class VolumeGroupEditor:
 	"""
 
 	row = 0
-	for uid, size, used in alllvmparts:
+	for part in alllvmparts:
+	    uid = part[0]
+	    request = partitions.getRequestByID(uid)
+	    size = request.getActualSize(partitions, self.diskset)
+
 	    # clip size to current PE
 	    pesize = int(self.peCombo.get_active_value())
 	    size = lvm.clampPVSize(size, pesize)
