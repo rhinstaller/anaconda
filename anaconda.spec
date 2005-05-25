@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.1.0
+Version: 10.2.1.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 25 2005 Jeremy Katz <katzj@redhat.com> - 10.2.1.1-1
+- Blacklist rpmdb-fedora on upgrade (pnasrat, #158666)
+- Langsupport fixes (clumens, #154572, #158389)
+
 * Mon May 23 2005 Jeremy Katz <katzj@redhat.com> - 10.2.1.0-1
 - Branch for FC4, betanag is off
 - Hack around usb-storage slowness at finding devices that leads to the 
