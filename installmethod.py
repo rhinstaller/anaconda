@@ -170,4 +170,10 @@ class InstallMethod:
 # (ie immediately before the congratulations screen).  main use right now
 # is ejecting the cdrom
 def doMethodComplete(method):
+    # FIXME: remove the /var/lib/rpm symlink that keeps us from having
+    # db->close error messages shown.  I don't really like this though :(
+    try:
+        os.unlink("/var/lib/rpm")
+    except Exception, e:
+        log("failed to unlink /var/lib/rpm: %s" %(e,))
     method.ejectCD()

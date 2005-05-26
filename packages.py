@@ -942,13 +942,6 @@ def doInstall(method, id, intf, instPath):
             os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
         except Exception, e:
             log("failed to unlink /var/lib/rpm/%s: %s" %(file,e))
-    # FIXME: remove the /var/lib/rpm symlink that keeps us from having
-    # db->close error messages shown.  I don't really like this though :(
-    try:
-        os.unlink("/var/lib/rpm")
-    except Exception, e:
-        log("failed to unlink /var/lib/rpm: %s" %(e,))
-            
 
     if upgrade:
         instLog.write(_("\n\nThe following packages were available in "
