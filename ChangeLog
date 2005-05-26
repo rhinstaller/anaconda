@@ -1,3 +1,8 @@
+2005-05-26  Paul Nasrat <pnasrat@redhat.com>
+
+	* packages.py, installmethod.py: Remove /var/lib/rpm late to 
+	suppress errors #138884
+
 2005-05-09  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.
