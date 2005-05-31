@@ -1936,7 +1936,11 @@ class RAIDDevice(Device):
         levels = ["multipath", "hsm", "translucent", "linear", "raid0",
                   "raid1", "", "", "raid5", "raid5"]
 
-        (dev, devices, level, numActive) = raid.lookup_raid_device (self.device)
+        # If we can't find the device for some reason, revert to old behavior.
+        try:
+            (dev, devices, level, numActive) = raid.lookup_raid_device (self.device)
+        except KeyError:
+            devices = []
 
         # First loop over all the devices that make up the RAID trying to read
         # the superblock off each.  If we read a superblock, return a line that

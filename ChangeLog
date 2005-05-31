@@ -1,3 +1,8 @@
+2005-05-31  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (RAIDDevice.mdadmLine):  Revert to super-major behavior for
+	volumes that aren't activated either (#159079, #159182).
+
 2005-05-25  Chris Lumens  <clumens@redhat.com>
 
 	* iw/lvm_dialog_gui.py:  Use sizes of PV requests instead of
