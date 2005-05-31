@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.1.3
+Version: 10.2.1.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 31 2005 Chris Lumens <clumens@redhat.com> 10.2.1.4-1
+- Fix to not traceback on certain preexisting RAID setups (#159079, #159182).
+
 * Wed May 25 2005 Paul Nasrat <pnasrat@redhat.com> - 10.2.1.3-1
 - Fix to not write boot flag to first part on pmac with 2 disks
 
