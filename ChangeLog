@@ -1,3 +1,11 @@
+2005-06-01  Chris Lumens  <clumens@redhat.com>
+
+	* packages.py (doInstall):  Fixed grammar problem (#159044).
+	* iw/congrats_gui.py (CongratulationWindow.getScreen):  Simplify text
+	(#156408).
+	* textw/complete_text.py (FinishedWindow.__call__):  Likewise.
+	* po/:  update-po.
+
 2005-05-31  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (RAIDDevice.mdadmLine):  Revert to super-major behavior for

@@ -987,7 +987,7 @@ def doInstall(method, id, intf, instPath):
                         "\n\n") % (id.upgradeDeps,))
 
     cb.initWindow = intf.waitWindow(_("Install Starting"),
-				    _("Starting install process, this may take several minutes..."))
+				    _("Starting install process.  This may take several minutes..."))
 
     ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
     problems = ts.run(cb.cb, 0)
