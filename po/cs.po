@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-03-31 10:35+0200\n"
+"PO-Revision-Date: 2005-06-02 12:30+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1464,9 +1464,8 @@ msgid "Install Starting"
 msgstr "Start instalace"
 
 #: ../packages.py:990
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Start instalace může chvíli trvat..."
+msgstr "Spouštím proces instalace. To může chvíli trvat..."
 
 #: ../packages.py:1030
 msgid ""
@@ -3071,14 +3070,11 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Vyjměte všechna instalační média používaná při instalaci a restartujte svůj "
-"systém stisknutím tlačítka \"Restartovat\".\n"
+msgstr "Vyjměte všechna média používaná při instalaci a restartujte svůj systém stisknutím tlačítka \"Restartovat\".\n"
 
 #: ../iw/congrats_gui.py:64
 #, python-format
@@ -5268,14 +5264,11 @@ msgid "<Enter> to exit"
 msgstr "<Enter> pro ukončení"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
 "\n"
-msgstr ""
-"Vyjměte všechna instalační média používaná při instalaci a restartujte svůj "
-"systém stisknutím <Enter>.\n"
+msgstr "Vyjměte všechna média používaná při instalaci a restartujte svůj systém stisknutím <Enter>.\n\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
