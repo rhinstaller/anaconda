@@ -1,23 +1,25 @@
+# translation of de.po to
 # Copyright (C) 2001 Red Hat, Inc.
+# Ronny Buchmann <ronny-vlug@vlugnet.org> 2004,2005
 # Claudia Krug <fhonig@redhat.it>, 2001.
 # Bernd Groh <bgroh@redhat.com>, 2002,2003,2004.
 # Andreas Müller <redhat@andreas-mueller.com>, 2003, 2004.
 # Stefan Hoelldampf <stfn@gmx.net>, 2003.
 # Verena <vfuehrer@redhat.com>, 2004.
-# Ronny Buchmann <ronny-vlug@vlugnet.org> 2004,2005
+# Thomas Ritter <nethad@gmx.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-04-02 13:00+0200\n"
-"Last-Translator: Ronny Buchmann <ronny-vlug@vlugnet.org>\n"
+"PO-Revision-Date: 2005-06-05 14:27+0200\n"
+"Last-Translator: Thomas Ritter <nethad@gmx.net>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: GNU Emacs 21.3.1\n"
+"X-Generator: KBabel 1.10.1\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -260,8 +262,7 @@ msgstr ""
 
 #: ../autopart.py:1055
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Möglicherweise erfüllt die Bootpartition %s nicht die Voraussetzungen zum "
 "Booten Ihrer Architektur."
@@ -1309,13 +1310,11 @@ msgstr "Der Rechnername darf aus maximal 64 Zeichen bestehen."
 
 #: ../network.py:45
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Der Rechnername muss mit einem Zeichen im Bereich 'a-z' oder 'A-Z' beginnen."
+msgstr "Der Rechnername muss mit einem Zeichen im Bereich 'a-z' oder 'A-Z' beginnen."
 
 #: ../network.py:50
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Rechnernamen können nur die Zeichen 'a-z', 'A-Z', '-' oder '.' enthalten."
+msgstr "Rechnernamen können nur die Zeichen 'a-z', 'A-Z', '-' oder '.' enthalten."
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1515,9 +1514,8 @@ msgid "Install Starting"
 msgstr "Installation startet"
 
 #: ../packages.py:990
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Das Starten des Installationsprozesses kann einige Minuten dauern..."
+msgstr "Installationsprozess wird gestartet.  Dies kann einige Minuten dauern."
 
 #: ../packages.py:1030
 msgid ""
@@ -1647,8 +1645,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr ""
-"Geben Sie einen Namen für den logischen Datenträger (Logical Volume) ein."
+msgstr "Geben Sie einen Namen für den logischen Datenträger (Logical Volume) ein."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
@@ -1698,13 +1695,11 @@ msgstr "Diese Partition ist Teil eines RAID-Geräts."
 #: ../partIntfHelpers.py:124
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
-"Diese Partition ist Teil des LVM Datenträgerverbundes (Volume Group) '%s'."
+msgstr "Diese Partition ist Teil des LVM Datenträgerverbundes (Volume Group) '%s'."
 
 #: ../partIntfHelpers.py:127
 msgid "This partition is part of a LVM volume group."
-msgstr ""
-"Diese Partition ist Teil eines LVM Datenträgerverbundes (Volume Group)."
+msgstr "Diese Partition ist Teil eines LVM Datenträgerverbundes (Volume Group)."
 
 #: ../partIntfHelpers.py:142 ../partIntfHelpers.py:150
 #: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
@@ -1819,8 +1814,7 @@ msgstr ""
 #: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
+msgstr "Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
 
 #: ../partIntfHelpers.py:407
 msgid ""
@@ -1923,8 +1917,7 @@ msgstr ""
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
-"Sie sind dabei, den logischen Datenträger (Logical Volume) \"%s\" zu löschen."
+msgstr "Sie sind dabei, den logischen Datenträger (Logical Volume) \"%s\" zu löschen."
 
 #: ../partIntfHelpers.py:517
 msgid "You are about to delete a RAID device."
@@ -1944,16 +1937,14 @@ msgid "Confirm Reset"
 msgstr "Zurücksetzen bestätigen"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Partitionstabelle in den Originalzustand "
 "zurücksetzen möchten?"
 
 #: ../partRequests.py:247
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dieser Einhängepunkt ist ungültig. Das Verzeichnis %s muss sich im / "
 "Dateisystem befinden."
@@ -2014,8 +2005,7 @@ msgstr "Partitionen können nicht an einem negativen Zylinder enden."
 
 #: ../partRequests.py:663
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"Keine Partitionen in ihrem RAID Request oder kein RAID-Level festgelegt."
+msgstr "Keine Partitionen in ihrem RAID Request oder kein RAID-Level festgelegt."
 
 #: ../partRequests.py:671 ../partitions.py:906
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2194,8 +2184,7 @@ msgstr ""
 "von %s gewöhnlich zu wenig ist."
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Sie müssen eine /boot/efi Partition des Typs FAT und einer Größe von 50 "
 "Megabyte erstellen."
@@ -2348,8 +2337,7 @@ msgstr "Zu rettendes System"
 
 #: ../rescue.py:306
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
-"Auf welcher Partition befindet sich die Root-Partition der Installation?"
+msgstr "Auf welcher Partition befindet sich die Root-Partition der Installation?"
 
 #: ../rescue.py:308 ../rescue.py:312
 msgid "Exit"
@@ -2446,17 +2434,14 @@ msgid "Welcome to %s"
 msgstr "Willkommen bei %s"
 
 #: ../text.py:356
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> Hilfe | <Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> Hilfe | <Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
 
 #: ../text.py:358
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"     <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter "
+msgstr "     <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter "
 
 #: ../upgrade.py:75
 msgid "Searching"
@@ -2733,8 +2718,7 @@ msgstr "Gerätenummer"
 
 #: ../zfcp.py:30
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Sie haben keine Gerätenummer oder eine ungültige Gerätenummer angegeben"
+msgstr "Sie haben keine Gerätenummer oder eine ungültige Gerätenummer angegeben"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
@@ -3182,7 +3166,6 @@ msgid "Congratulations"
 msgstr "Herzlichen Glückwunsch!"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
@@ -3469,8 +3452,7 @@ msgstr "Sprache auswählen"
 
 #: ../iw/language_gui.py:66 ../textw/language_text.py:39 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Welche Sprache möchten Sie während des Installationsvorgangs verwenden?"
+msgstr "Welche Sprache möchten Sie während des Installationsvorgangs verwenden?"
 
 #: ../iw/lvm_dialog_gui.py:113 ../iw/lvm_dialog_gui.py:160
 #: ../iw/lvm_dialog_gui.py:171 ../iw/lvm_dialog_gui.py:211
@@ -3633,8 +3615,7 @@ msgstr "Ungültige Größe"
 
 #: ../iw/lvm_dialog_gui.py:512
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
+msgstr "Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
 
 #: ../iw/lvm_dialog_gui.py:545
 msgid "Mount point in use"
@@ -4318,16 +4299,14 @@ msgid "Partitioning"
 msgstr "Partitionieren"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Die folgenden kritischen Fehler bestehen mit dem geforderten "
 "Partitionsschema."
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Diese Fehler müssen korrigiert werden, bevor Sie mit der Installation von %s "
 "fortfahren."
@@ -4738,8 +4717,7 @@ msgstr "Wählen Sie die Ziel-Festplatten für das Klonen."
 #: ../iw/raid_dialog_gui.py:532
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"Die Quell-Festplatte /dev/%s kann nicht als Ziel-Festplatte gewählt werden."
+msgstr "Die Quell-Festplatte /dev/%s kann nicht als Ziel-Festplatte gewählt werden."
 
 #: ../iw/raid_dialog_gui.py:545
 #, python-format
@@ -4879,8 +4857,7 @@ msgstr "Dadurch wird Ihr derzeitiger Bootloader aktualisiert."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Das Installationsprogramm  hat den %s Bootloader, der zur Zeit auf %s "
 "installiert ist, erkannt."
@@ -5023,8 +5000,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Die Swap-Datei muss eine Größe zwischen 1 und 2000 MB besitzen."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Auf dem Gerät, das Sie für die Swap-Partition gewählt haben, steht nicht "
 "genügend Platz zur Verfügung."
@@ -5396,10 +5372,8 @@ msgstr ""
 "Kennungen Sie diesen zuweisen möchten."
 
 #: ../textw/bootloader_text.py:298
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Leertaste> Button | <F2> Standard-Booteintrag | <F12> nächster Bildschirm>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Leertaste> Button | <F2> Standard-Booteintrag | <F12> nächster Bildschirm>"
 
 #: ../textw/bootloader_text.py:398
 msgid ""
@@ -5449,7 +5423,6 @@ msgid "<Enter> to exit"
 msgstr "<Eingabetaste> zum Beenden"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
@@ -5639,8 +5612,7 @@ msgstr "Ungültige Wahl"
 
 #: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
-msgstr ""
-"Eine deaktivierte Firewall kann nicht benutzerdefiniert konfiguriert werden."
+msgstr "Eine deaktivierte Firewall kann nicht benutzerdefiniert konfiguriert werden."
 
 #: ../textw/firewall_text.py:92
 msgid "Customize Firewall Configuration"
@@ -5808,10 +5780,8 @@ msgid "Select individual packages"
 msgstr "Einzelne Pakete auswählen"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Leertaste>,<+>,<-> Auswahl |   <F2> Gruppendetails  |   <F12> nächste Seite"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Leertaste>,<+>,<-> Auswahl |   <F2> Gruppendetails  |   <F12> nächste Seite"
 
 #: ../textw/packages_text.py:119
 msgid "Package Group Details"
@@ -5835,10 +5805,8 @@ msgid "Total size"
 msgstr "Gesamtgröße"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Leer>,<+>,<-> Auswahl      |   <F1> Hilfe  |   <F2> Paketbeschreibung"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Leer>,<+>,<-> Auswahl      |   <F1> Hilfe  |   <F2> Paketbeschreibung"
 
 #: ../textw/packages_text.py:376
 msgid "Package Dependencies"
@@ -5982,8 +5950,7 @@ msgstr "Dateisystem-Optionen"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
+msgstr "Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
 
 #: ../textw/partition_text.py:606
 msgid "Check for bad blocks"
@@ -6114,10 +6081,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-" F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr " F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
 
 #: ../textw/partition_text.py:1475
 msgid "No Root Partition"
@@ -6346,15 +6311,13 @@ msgid "User Exists"
 msgstr "Benutzer existiert bereits"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Der Root-Benutzer wurde bereits konfiguriert. Sie müssen diesen Benutzer "
 "hier nicht hinzufügen."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Der Systembenutzer wurde bereits konfiguriert. Sie müssen diesen Benutzer "
 "hier nicht hinzufügen."
@@ -7196,8 +7159,7 @@ msgstr "ks.cfg konnte nicht auf der Bootdiskette gefunden werden."
 #: ../loader2/kickstart.c:409
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls %s: %s"
+msgstr "Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls %s: %s"
 
 #: ../loader2/lang.c:53
 #, c-format
@@ -7205,8 +7167,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Willkommen bei %s - Rettungsmodus"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "    <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
 
 #: ../loader2/lang.c:377
@@ -7291,8 +7252,7 @@ msgstr "Auf welchem Datenträgertyp ist die Rettungsdiskette enthalten?"
 
 #: ../loader2/loader.c:866
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
-"Auf welchem Datenträgertyp sind die zu installierenden Pakete enthalten?"
+msgstr "Auf welchem Datenträgertyp sind die zu installierenden Pakete enthalten?"
 
 #: ../loader2/loader.c:890
 msgid "No driver found"
@@ -7570,8 +7530,7 @@ msgstr "Fehlende Informationen"
 
 #: ../loader2/net.c:588
 msgid "You must enter both a valid IP address and a netmask."
-msgstr ""
-"Sie müssen sowohl eine gültige IP-Adresse als auch eine Netzmaske eingeben."
+msgstr "Sie müssen sowohl eine gültige IP-Adresse als auch eine Netzmaske eingeben."
 
 #: ../loader2/net.c:811
 msgid "Determining host name and domain..."
@@ -7817,8 +7776,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantische Zeit - Ost-Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlantische Zeit  - Nova Scotia (die meisten Orte), NB, West-Labrador, Ost-"
 "Quebec & PEI"
@@ -7990,8 +7948,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Eastern Time - Michigan - die meisten Orte"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Eastern Time - Ontario & Quebec - Orte die die Sommerzeit 1967-1973 nicht "
 "anwenden"
@@ -8165,10 +8122,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8642,240 +8597,3 @@ msgstr "Walisisch"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Exception Occured"
-#~ msgstr "Ein außergewöhnlicher Fehler ist aufgetreten"
-
-# ../comps/comps-master:499
-#~ msgid "Additional Language Support"
-#~ msgstr "Zusätzliche Sprachunterstützung"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Stan_dardsprache für das System auswählen:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr ""
-#~ "Weitere Sprachen _auswählen, die im System installiert werden sollen:"
-
-#~ msgid "_Select All"
-#~ msgstr "Alle au_swählen"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "N_ur Standard auswählen"
-
-#~ msgid "Rese_t"
-#~ msgstr "Rese_t"
-
-#~ msgid "Select All"
-#~ msgstr "Alle auswählen"
-
-#~ msgid "Reset"
-#~ msgstr "Rücksetzen"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr ""
-#~ "Wählen Sie eine Sprache aus, die Sie zusätzlich in diesem System "
-#~ "verwenden möchten:"
-
-# ../comps/comps-master:499
-#~ msgid "Language Support"
-#~ msgstr "Sprach-Unterstützung"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Wählen Sie mindestens eine zu installierende Sprache aus."
-
-#~ msgid "Default Language"
-#~ msgstr "Standardsprache"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Wählen Sie die Standardsprache für dieses System aus:"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Informationen über Errata (Updates und Fehlerlösungen) finden Sie unter:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Informationen über die automatische Aktualisierung über das Red Hat "
-#~ "Network finden Sie unter:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Informationen über den Gebrauch und die Konfiguration des Systems finden "
-#~ "Sie unter:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Wenn Sie sich für den Produktsupport registrieren lassen möchten, "
-#~ "besuchen Sie:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "SILO konfigurieren"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "SILO Boot Record installieren auf:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "PROM-Alias erstellen"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Linux als standardmäßiges PROM-Bootdevice festlegen"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Kernel-Parameter"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Bootdiskette erstellen"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "SILO nicht installieren"
-
-#~ msgid "Partition type"
-#~ msgstr "Partitionstyp"
-
-#~ msgid "Default boot image"
-#~ msgstr "Standard-Bootimage"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO Konfiguration"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "PROM-Alias 'linux' erstellen"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Standardmäßiges PROM-Bootdevice festlegen"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Wo soll der Bootloader installiert werden?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Der von Red Hat verwendete Boot-Manager kann auch andere Betriebssysteme "
-#~ "starten. Geben Sie an, von welchen Partitionen Sie booten möchten und "
-#~ "welche Kennungen Sie diesen zuweisen möchten."
-
-#~ msgid "no suggestion"
-#~ msgstr "keine Vorschläge"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "_LILO als Bootloader verwenden"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Festplattenreihenfolge für LILO konnte nicht geändert werden."
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr ""
-#~ "Das Ändern der Festplattenreihenfolge für die Verwendung mit LILO wird "
-#~ "nicht unterstützt."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Bootloader LILO verwenden"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s Installation auf %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Sie möchten keinen Bootloader in Ihrem System installieren. In diesem "
-#~ "Fall müssen Sie eine Bootdiskette anlegen, um Ihr System zu booten.\n"
-#~ "\n"
-#~ "Möchten Sie fortfahren und den Bootloader nicht installieren?"
-
-#~ msgid "Total"
-#~ msgstr "Gesamt"
-
-#~ msgid "Remaining"
-#~ msgstr "Verbleibend"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Installiere %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Paketfortschritt: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Gesamtfortschritt:   "
-
-#~ msgid "Status"
-#~ msgstr "Status"
-
-#~ msgid "Packages"
-#~ msgstr "Pakete"
-
-#~ msgid "Time"
-#~ msgstr "Zeit"
-
-#~ msgid "Saving Bildschirmfoto"
-#~ msgstr "Bildschirmfoto speichern"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Upgrades für diese Version von %s werden nur von Red Hat Linux 6.2 oder "
-#~ "höher unterstützt. Sie haben jedoch wahrscheinlich ein älteres System. "
-#~ "Möchten Sie mit der Aktualisierung fortfahren?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tDesktop-Oberfläche (GNOME)\n"
-#~ "\tBüroanwendungen (OpenOffice)\n"
-#~ "\tWebbrowser (Mozilla) \n"
-#~ "\tE-Mail (Evolution)\n"
-#~ "\tSofortnachrichten\n"
-#~ "\tAudio- und Video-Anwendungen\n"
-#~ "\tSpiele\n"
-#~ "\tAdministrationswerkzeuge\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tDesktop-Oberfläche (GNOME)\n"
-#~ "\tBüroanwendungen (OpenOffice)\n"
-#~ "\tWebbrowser (Mozilla) \n"
-#~ "\tE-Mail (Evolution)\n"
-#~ "\tSofortnachrichten\n"
-#~ "\tAudio- und Video-Anwendungen\n"
-#~ "\tSpiele\n"
-#~ "\tSoftware-Entwicklungswerkzeuge\n"
-#~ "\tAdministrationswerkzeuge\n"
