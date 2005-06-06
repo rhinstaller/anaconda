@@ -876,6 +876,11 @@ def doInstall(method, id, intf, instPath):
         for pkg in id.upgradeRemove:
             ts.addErase(pkg)
 
+        # set the rpm log file to /dev/null to start with so we don't segfault
+        f = open("/dev/null", "w+")
+        rpm.setLogFile(f)
+        ts.scriptFd = f.fileno()
+
         # if we hit problems, it's not like there's anything we can
         # do about it
         ts.run(install_callback, 0)

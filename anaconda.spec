@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 10.2.1.4
-Release: 2
+Version: 10.2.1.5
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun  6 2005 Jeremy Katz <katzj@redhat.com> - 10.2.1.3-1
+- fix segfault on upgrades
+
 * Tue May 31 2005 Chris Lumens <clumens@redhat.com> 10.2.1.4-2
 - Bump release for FC4 build.
 

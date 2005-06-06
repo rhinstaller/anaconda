@@ -1,3 +1,10 @@
+2005-06-06  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* packages.py (rpmErrorClass.install_callback): Don't segfault
+	before removes, should fix upgrades.
+
 2005-05-31  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (RAIDDevice.mdadmLine):  Revert to super-major behavior for
