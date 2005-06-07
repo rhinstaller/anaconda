@@ -1,3 +1,8 @@
+2005-06-07  Jeremy Katz  <katzj@redhat.com>
+
+	* partitions.py (Partitions.writeKS): Ensure we write out fstypes
+	quoted properly (#159193)
+
 2005-05-26  Paul Nasrat <pnasrat@redhat.com>
 
 	* packages.py, installmethod.py: Remove /var/lib/rpm late to 

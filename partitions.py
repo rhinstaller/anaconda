@@ -1084,7 +1084,10 @@ class Partitions:
                 args.append("--noformat")
             if request.fstype:
                 args.append("--fstype")
-                args.append(request.fstype.getName())
+                fstype = request.fstype.getName()
+                if fstype.find(" "):
+                    fstype = "\"%s\"" %(fstype,)
+                args.append(fstype)
             if request.badblocks:
                 args.append("--badblocks")
 
