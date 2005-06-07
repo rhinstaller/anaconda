@@ -990,7 +990,7 @@ class Partitions:
                 args.extend(["prepboot", "--fstype", "\"PPC PReP Boot\""])
             elif request.mountpoint:
                 fstype = request.fstype.getName()
-                if fstype.find(" "):
+                if fstype.find(" ") != -1:
                     fstype = "\"%s\"" %(fstype,)
                 args.append(request.mountpoint)
                 args.append("--fstype")
@@ -1062,7 +1062,7 @@ class Partitions:
             if request.fstype:
                 args.append("--fstype")
                 fstype = request.fstype.getName()
-                if fstype.find(" "):
+                if fstype.find(" ") != -1:
                     fstype = "\"%s\"" %(fstype,)
                 args.append(fstype)
             if request.badblocks:
