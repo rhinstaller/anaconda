@@ -199,10 +199,10 @@ int isysStartBterm(void) {
     if (major(sb.st_rdev) == 3 || major(sb.st_rdev) == 136)
 	return 0;
 
-    if (!access("/etc/font.bgf.gz", R_OK))
-	btermargs[3] = "/etc/font.bgf.gz";
-    else if (!access("/usr/lib/bogl/font.bgf.gz", R_OK))
+    if (!access("/usr/lib/bogl/font.bgf.gz", R_OK))
 	btermargs[3] = "/usr/lib/bogl/font.bgf.gz";
+    else if (!access("/etc/font.bgf.gz", R_OK))
+	btermargs[3] = "/etc/font.bgf.gz";
     else if (!access("font.bgf.gz", R_OK))
 	btermargs[3] = "font.bgf.gz";
     else

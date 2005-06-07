@@ -1,5 +1,12 @@
 2005-06-07  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/lang.c (bterm_main): Use the full font first (#159505)
+
+	* partitions.py (Partitions.writeKS): And use the quoted format so
+	we get it everywhere (#159193)
+
+	* fsset.py (FileSystemType.getName): Pass back quoted fsname if needed.
+
 	* packages.py (rpmErrorClass.install_callback): Don't segfault
 	before removes, should fix upgrades.
 
