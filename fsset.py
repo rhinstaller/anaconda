@@ -168,7 +168,12 @@ class FileSystemType:
     def umount(self, device, path):
         isys.umount(path, removeDir = 0)
 
-    def getName(self):
+    def getName(self, quoted = 0):
+        """Return the name of the filesystem.  Set quoted to 1 if this
+        should be quoted (ie, it's not for display)."""
+        if quoted:
+            if self.name.find(" ") != -1:
+                return "\"%s\"" %(self.name,)
         return self.name
 
     def getNeededPackages(self):

@@ -1035,12 +1035,8 @@ class Partitions:
             elif request.fstype.getName() == "Apple Bootstrap":
                 args.extend(["appleboot", "--fstype", "\"Apple Bootstrap\""])
             elif request.mountpoint:
-                fstype = request.fstype.getName()
-                if fstype.find(" ") > 0:
-                    fstype = "\"%s\"" %(fstype,)
-                args.append(request.mountpoint)
-                args.append("--fstype")
-                args.append(fstype)
+                args.extend([request.mountpoint, "--fstype",
+                             request.fstype.getName(quoted = 1)])
             else:
                 continue
 
@@ -1106,11 +1102,7 @@ class Partitions:
             if not request.format:
                 args.append("--noformat")
             if request.fstype:
-                fstype = request.fstype.getName()
-                if fstype.find(" ") > 0:
-                    fstype = "\"%s\"" %(fstype,)
-                args.append("--fstype")
-                args.append(fstype)
+                args.extend(["--fstype", request.fstype.getName(quoted = 1)])
             if request.badblocks:
                 args.append("--badblocks")
 
@@ -1176,8 +1168,7 @@ class Partitions:
             if not request.format:
                 args.append("--noformat")
             if request.fstype:
-                args.append("--fstype")
-                args.append(request.fstype.getName())
+                args.extend(["--fstype", request.fstype.getName(quoted = 1)])
 
             vg = self.getRequestByID(request.volumeGroup)
             if vg is None:
