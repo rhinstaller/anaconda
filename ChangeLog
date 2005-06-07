@@ -1,3 +1,8 @@
+2005-06-07  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (rpmErrorClass.install_callback): Don't segfault
+	before removes, should fix upgrades.
+
 2005-06-01  Chris Lumens  <clumens@redhat.com>
 
 	* packages.py (doInstall):  Fixed grammar problem (#159044).
