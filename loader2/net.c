@@ -850,21 +850,21 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
-        { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
-        { "device", '\0', POPT_ARG_STRING, &device, 0 },
-        { "dhcpclass", '\0', POPT_ARG_STRING, &class, 0 },
-        { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
-        { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
-        { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
-        { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
-        { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
-        { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
-        { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0 },
-        { "essid", '\0', POPT_ARG_STRING, &essid, 0 },
-        { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0 },
-        { "onboot", '\0', POPT_ARG_STRING, &onboot, 0 },
-        { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0 },
-        { 0, 0, 0, 0, 0 }
+        { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0, NULL, NULL },
+        { "device", '\0', POPT_ARG_STRING, &device, 0, NULL, NULL },
+        { "dhcpclass", '\0', POPT_ARG_STRING, &class, 0, NULL, NULL },
+        { "gateway", '\0', POPT_ARG_STRING, NULL, 'g', NULL, NULL },
+        { "ip", '\0', POPT_ARG_STRING, NULL, 'i', NULL, NULL },
+        { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n', NULL, NULL },
+        { "netmask", '\0', POPT_ARG_STRING, NULL, 'm', NULL, NULL },
+        { "nodns", '\0', POPT_ARG_NONE, &noDns, 0, NULL, NULL },
+        { "hostname", '\0', POPT_ARG_STRING, NULL, 'h', NULL, NULL},
+        { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0, NULL, NULL },
+        { "essid", '\0', POPT_ARG_STRING, &essid, 0, NULL, NULL },
+        { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0, NULL, NULL },
+        { "onboot", '\0', POPT_ARG_STRING, &onboot, 0, NULL, NULL },
+        { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
     
     optCon = poptGetContext(NULL, argc, (const char **) argv, 
@@ -964,7 +964,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 /* NOTE - uses kickstart data available in loaderData */
 int chooseNetworkInterface(struct loaderData_s * loaderData,
                            int flags) {
-    int i, rc, max = 40;
+    int i, rc;
+    unsigned int max = 40;
     int deviceNums = 0;
     int deviceNum;
     char ** devices;

@@ -19,7 +19,7 @@ int main(void) {
     unsigned short map[E_TABSZ];
     struct unipair descs[2048];
     struct unimapdesc d;
-    int fd;
+    int fd, i;
 
     if ((fd = open("/dev/tty0", O_RDONLY)) < 0)
 	die("open");
@@ -41,10 +41,10 @@ int main(void) {
     if (ioctl(fd, GIO_UNIMAP, &d))
     	die("GIO_UNIMAP");
 
-    write(1, &cfo, sizeof(cfo));
-    write(1, buf, sizeof(buf));
-    write(1, map, sizeof(map));
-    write(1, &d.entry_ct, sizeof(d.entry_ct));
-    write(1, descs, d.entry_ct * sizeof(descs[0]));
+    i = write(1, &cfo, sizeof(cfo));
+    i = write(1, buf, sizeof(buf));
+    i = write(1, map, sizeof(map));
+    i = write(1, &d.entry_ct, sizeof(d.entry_ct));
+    i = write(1, descs, d.entry_ct * sizeof(descs[0]));
     return 0;
 }

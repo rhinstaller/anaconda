@@ -79,7 +79,7 @@ struct cpioHeader {
     gid_t gid;
     int nlink;
     time_t mtime;
-    long size;
+    unsigned long size;
     dev_t dev, rdev;
     char * path;
 };
@@ -304,7 +304,7 @@ static int expandRegular(struct ourfd * fd, struct cpioHeader * hdr,
     int out;
     char buf[8192];
     int bytesRead;
-    int left = hdr->size;
+    unsigned long left = hdr->size;
     int rc = 0;
     struct cpioCallbackInfo cbInfo;
     struct stat sb;
@@ -449,9 +449,9 @@ static int createLinks(struct hardLink * li, const char ** failedFile) {
     return 0;
 }
 
-static int eatBytes(struct ourfd * fd, int amount) {
+static int eatBytes(struct ourfd * fd, unsigned long amount) {
     char buf[4096];
-    int bite;
+    unsigned long bite;
    
     while (amount) {
 	bite = (amount > sizeof(buf)) ? sizeof(buf) : amount;

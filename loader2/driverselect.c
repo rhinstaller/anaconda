@@ -162,7 +162,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
              (class == CLASS_CDROM) || (class == CLASS_IDE))
         type = DRIVER_SCSI;
     else if (class == CLASS_UNSPEC)
-        type = -1;
+        type = DRIVER_ANY;
     else {
         logMessage("unknown device class %d specified; aborting manual "
                    "selection", class);
@@ -176,7 +176,8 @@ int chooseManualDriver(int class, moduleList modLoaded,
         for (i = 0; i < modInfo->numModules; i++) {
             if (mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded) ||
                 !modInfo->moduleList[i].description ||
-                ((type != -1) && (type != modInfo->moduleList[i].major)))
+                ((type != DRIVER_ANY) && 
+                 (type != modInfo->moduleList[i].major)))
                 continue;
             sortedOrder[numSorted].index = i;
             sortedOrder[numSorted++].modInfo = modInfo;

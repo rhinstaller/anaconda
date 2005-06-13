@@ -767,7 +767,7 @@ int main(int argc, char **argv) {
     signal(SIGINT, sigintHandler);
     if ((fd = open("/proc/sys/kernel/cad_pid", O_WRONLY)) != -1) {
 	char buf[7];
-	int count;
+	size_t count;
 	sprintf(buf, "%d", getpid());
 	count = write(fd, buf, strlen(buf));
 	close(fd);

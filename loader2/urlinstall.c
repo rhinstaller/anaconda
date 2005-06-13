@@ -372,7 +372,8 @@ int getFileFromUrl(char * url, char * dest,
     ehdrs = NULL;
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
 	/* find all ethernet devices and make a header entry for each one */
-	int i, hdrlen;
+	int i;
+        unsigned int hdrlen;
 	char *dev, *mac, tmpstr[128];
         struct device ** devices;
 
@@ -431,8 +432,8 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     poptContext optCon;
     int rc;
     struct poptOption ksUrlOptions[] = {
-        { "url", '\0', POPT_ARG_STRING, &url, 0 },
-        { 0, 0, 0, 0, 0 }
+        { "url", '\0', POPT_ARG_STRING, &url, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
 
     logMessage("kickstartFromUrl");

@@ -456,10 +456,10 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     int rc;
 
     struct poptOption ksHDOptions[] = {
-        { "biospart", '\0', POPT_ARG_STRING, &biospart, 0 },
-        { "partition", '\0', POPT_ARG_STRING, &partition, 0 },
-        { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
-        { 0, 0, 0, 0, 0 }
+        { "biospart", '\0', POPT_ARG_STRING, &biospart, 0, NULL, NULL },
+        { "partition", '\0', POPT_ARG_STRING, &partition, 0, NULL, NULL },
+        { "dir", '\0', POPT_ARG_STRING, &dir, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
   
 

@@ -170,7 +170,7 @@ int onePrePass(const char * dirName) {
 	return 1;
     }
 
-    chdir(subdir);
+    if (chdir(subdir) == -1) abort();
 
     errno = 0;
     ent = readdir(dir);
@@ -227,7 +227,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
     struct dirent * ent;
     char * subdir = strdup(dirName);
     int errno;
-    Header h, nh, h2;
+    Header h, nh, h2 = NULL;
     int rc;
     int_32 size;
     DIR * dir;
@@ -237,7 +237,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
     int order = -1;
     char ** newFileList, ** fileNames;
     uint_32 * newFileFlags, * fileFlags;
-    int newFileListCount;
+    int newFileListCount = 0;
     int marker = time(NULL);	/* good enough counter; we'll increment it */
     rpmts ts = rpmtsCreate();
     rpmtsSetRootDir(ts, "/");
@@ -251,7 +251,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
 	return 1;
     }
 
-    chdir(subdir);
+    if (chdir(subdir) == -1) abort();
 
     errno = 0;
     ent = readdir(dir);
@@ -376,7 +376,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
 		if (headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
 				    (void **) &fileNames, &fileCount)) {
 		    headerGetEntry(h, RPMTAG_FILEFLAGS, NULL,
-					(void **) &fileFlags, NULL);
+                                   (void **) &fileFlags, NULL);
 
 		    newFileList = malloc(sizeof(*newFileList) * fileCount);
 		    newFileFlags = malloc(sizeof(*newFileList) * fileCount);

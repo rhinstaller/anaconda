@@ -175,7 +175,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
-    { NULL }
+    { NULL, NULL, 0, NULL }
 } ;
 
 static PyObject * pyMakeDev(PyObject * s, PyObject * args) {

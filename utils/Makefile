@@ -7,7 +7,7 @@ ISYSLIB=isys
 
 LOADERDIR = ../loader2
 LOADLIBES =  -lpopt
-CFLAGS = -Wall -g -I.. -I$(LOADERDIR) -Werror -D_FORTIFY_SOURCE=2
+CFLAGS += -I.. -I$(LOADERDIR) -fno-strict-aliasing
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 LDFLAGS = -g
 

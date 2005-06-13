@@ -610,10 +610,10 @@ void useKickstartDD(struct loaderData_s * loaderData,
     int rc;
     int flags = *flagsPtr;
     struct poptOption ksDDOptions[] = {
-        { "type", '\0', POPT_ARG_STRING, &fstype, 0 },
-        { "source", '\0', POPT_ARG_STRING, &src, 0 },
-        { "biospart", '\0', POPT_ARG_NONE, &usebiosdev, 0 },
-        { 0, 0, 0, 0, 0 }
+        { "type", '\0', POPT_ARG_STRING, &fstype, 0, NULL, NULL },
+        { "source", '\0', POPT_ARG_STRING, &src, 0, NULL, NULL },
+        { "biospart", '\0', POPT_ARG_NONE, &usebiosdev, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
     
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksDDOptions, 0);

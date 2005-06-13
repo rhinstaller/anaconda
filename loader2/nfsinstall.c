@@ -236,9 +236,9 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     poptContext optCon;
     int rc;
     struct poptOption ksNfsOptions[] = {
-        { "server", '\0', POPT_ARG_STRING, &host, 0 },
-        { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
-        { 0, 0, 0, 0, 0 }
+        { "server", '\0', POPT_ARG_STRING, &host, 0, NULL, NULL },
+        { "dir", '\0', POPT_ARG_STRING, &dir, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
 
     logMessage("kickstartFromNfs");

@@ -23,3 +23,9 @@ USEDIET=0
 ifeq (nosucharch, $(ARCH))
 USEDIET=1
 endif
+
+ifndef RPM_OPT_FLAGS
+RPM_OPT_FLAGS = -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions
+endif
+
+CFLAGS = $(RPM_OPT_FLAGS) -Wall -Werror -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1

@@ -80,7 +80,7 @@ int loadKeymap(gzFile stream) {
     struct kbentry entry;
     int keymaps[MAX_NR_KEYMAPS];
     int count = 0;
-    int magic;
+    unsigned int magic;
     short keymap[NR_KEYS];
     struct stat sb;
 

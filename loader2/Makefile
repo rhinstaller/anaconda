@@ -35,9 +35,7 @@ else
 HWLIBS += -lpci
 endif
 
-DEBUG = -ggdb
-COPTS = $(DEBUG) -Os -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -Werror -D_FORTIFY_SOURCE=2
-CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H
+CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
 REALCC=gcc
 
@@ -94,22 +92,22 @@ linuxrc.s390:
 	@echo "Nothing to do for $@"
 
 init: init.o undomounts.o shutdown.o
-	$(CC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ $^
+	$(CC) $(STATIC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 shutdown: shutdown.o undomounts.o
-	$(CC) $(STATIC) $(COPTS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
+	$(CC) $(STATIC) $(CFLAGS) $(SHUTDOWNOPTS) $(LDFLAGS) -o $@ $^
 
 init.o: init.c
-	$(CC) $(COPTS) -c -o init.o init.c
+	$(CC) $(CFLAGS) -c -o init.o init.c
 
 undomounts.o: undomounts.c
-	$(CC) $(COPTS) -c -o undomounts.o undomounts.c
+	$(CC) $(CFLAGS) -c -o undomounts.o undomounts.c
 
 shutdown.o: shutdown.c
-	$(CC) $(COPTS) $(SHUTDOWNOPTS) -c -o shutdown.o shutdown.c
+	$(CC) $(CFLAGS) $(SHUTDOWNOPTS) -c -o shutdown.o shutdown.c
 
 mkctype: mkctype.c
-	$(REALCC) $(COPTS) -o mkctype mkctype.c
+	$(REALCC) $(CFLAGS) -o mkctype mkctype.c
 
 ctype.c: mkctype
 	./mkctype > ctype.c

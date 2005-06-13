@@ -371,7 +371,7 @@ apic_probe( vm_offset_t* paddr, int* where )
      * c rewrite of apic_probe() by Jack F. Vogel
      */
 
-    int         x;
+    unsigned int         x;
     uint16_t     segment;
     vm_offset_t target;
     uint32_t       buffer[ BIOS_SIZE / sizeof( int32_t ) ];

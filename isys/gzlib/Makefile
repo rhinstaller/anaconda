@@ -1,6 +1,6 @@
 include ../../Makefile.inc
 
-CFLAGS += -I . -Os -fPIC -g -Wall -Werror -D_FORTIFY_SOURCE=2
+CFLAGS += -I . -fPIC
 SOURCES = bits.c gzip.c inflate.c lzw.c trees.c unzip.c util.c zip.c binding.c \
 	  deflate.c zip.c
 OBJS = $(patsubst %.c,%.o,$(SOURCES))

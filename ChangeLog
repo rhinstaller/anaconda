@@ -1,3 +1,18 @@
+2005-06-13  Jeremy Katz  <katzj@redhat.com>
+
+	* Makefile Makefile.inc mini-wm.c xmouse.c xutils.c isys/Makefile
+	isys/isys.c isys/lang.c isys/smp.c isys/uncpio.c
+	isys/gzlib/Makefile isys/gzlib/inflate.c loader2/Makefile
+	loader2/driverdisk.c loader2/driverselect.c loader2/hdinstall.c
+	loader2/init.c loader2/kickstart.c loader2/loader.c
+	loader2/loadermisc.c loader2/moduleinfo.h loader2/modules.c
+	loader2/net.c loader2/nfsinstall.c loader2/telnet.c
+	loader2/undomounts.c loader2/urlinstall.c utils/Makefile
+	utils/genhdlist.c utils/mapshdr.c utils/snarffont.c: Define cflags
+	in one place (Makefile.inc) and use a consistent set
+	everywhere. Fix up some of the compile warnings this uncovered.
+	Also fix a few more things that -Wextra turned up. 
+
 2005-06-07  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/lang.c (bterm_main): Use the full font first (#159505)

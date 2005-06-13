@@ -189,7 +189,7 @@ char * sdupprintf(const char *format, ...) {
     char *buf = NULL;
     char c;
     va_list args;
-    size_t size = 0;
+    int size = 0;
 
     va_start(args, format);
     

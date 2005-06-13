@@ -1024,7 +1024,7 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
     char ** devices;
     int i, j, rc, num = 0;
     struct moduleInfo * mi;
-    int width = 40;
+    unsigned int width = 40;
     char * buf;
 
     do {
@@ -1140,12 +1140,12 @@ int main(int argc, char ** argv) {
     char * virtpcon = NULL;
     poptContext optCon;
     struct poptOption optionTable[] = {
-	{ "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
-        { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
-        { "test", '\0', POPT_ARG_NONE, &testing, 0 },
-        { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
-        { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0 },
-        { 0, 0, 0, 0, 0 }
+	{ "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0, NULL, NULL },
+        { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0, NULL, NULL },
+        { "test", '\0', POPT_ARG_NONE, &testing, 0, NULL, NULL },
+        { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0, NULL, NULL},
+        { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
 
     /* Make sure sort order is right. */

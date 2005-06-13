@@ -971,8 +971,8 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     int rc;
     int flags = *flagsPtr;
     struct poptOption ksDeviceOptions[] = {
-        { "opts", '\0', POPT_ARG_STRING, &opts, 0 },
-        { 0, 0, 0, 0, 0 }
+        { "opts", '\0', POPT_ARG_STRING, &opts, 0, NULL, NULL },
+        { 0, 0, 0, 0, 0, 0, 0 }
     };
     
     optCon = poptGetContext(NULL, argc, (const char **) argv, 

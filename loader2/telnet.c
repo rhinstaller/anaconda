@@ -119,7 +119,7 @@ telnet_negotiate(int socket, char ** term_type_ptr, int * heightPtr,
 
 		termType[termLength++] = tolower(ch);
 	    } else if (state == ST_WINDOWSIZE) {
-		if ((sizePtr - sizeBuf) < sizeof(sizeBuf))
+		if ((sizePtr - sizeBuf) < (int)sizeof(sizeBuf))
 		    *sizePtr++ = ch;
 	    }
 

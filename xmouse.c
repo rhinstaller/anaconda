@@ -40,10 +40,10 @@ static PyObject * mouse_reopen (PyObject * s, PyObject * args);
 static PyObject * mouse_set (PyObject * s, PyObject * args);
 
 static PyMethodDef xmouseMethods[] = {
-    { "get", mouse_get, 1 },
-    { "reopen", mouse_reopen, 1 },
-    { "set", mouse_set, 1 },
-    { NULL, NULL }
+    { "get", mouse_get, 1, NULL },
+    { "reopen", mouse_reopen, 1, NULL },
+    { "set", mouse_set, 1, NULL },
+    { NULL, NULL, 0, NULL }
 };
 
 static int miscError(Display *disp, XErrorEvent *err)

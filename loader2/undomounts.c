@@ -48,7 +48,7 @@ static void printstr(char * string) {
 }
 
 void undoMount(struct unmountInfo * fs, int numFs, int this) {
-    int len = strlen(fs[this].name);
+    size_t len = strlen(fs[this].name);
     int i;
 
     if (!fs[this].mounted) return;

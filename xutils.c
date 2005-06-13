@@ -25,11 +25,11 @@ static PyObject * screenHeight (PyObject * s, PyObject * args);
 static PyObject * screenWidth (PyObject * s, PyObject * args);
 
 static PyMethodDef xutilsMethods[] = {
-    { "getRootResources", getRootResources, 1 },
-    { "setRootResource", setRootResource, 1 },
-    { "screenHeight", screenHeight, 1 },
-    { "screenWidth", screenWidth, 1 },
-    { NULL, NULL }
+    { "getRootResources", getRootResources, 1, NULL },
+    { "setRootResource", setRootResource, 1, NULL },
+    { "screenHeight", screenHeight, 1, NULL },
+    { "screenWidth", screenWidth, 1, NULL },
+    { NULL, NULL, 0, NULL }
 };
 
 typedef struct _Resource {
