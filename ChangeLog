@@ -1,3 +1,9 @@
+2005-06-15  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Kickstart.setPackageSelection,
+	Kickstart.setGroupSelection):  Allow ignoring packages without having
+	to specify architecture (#160209).
+	
 2005-06-13  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda: Start the warnings for mixed tabs/spaces.
