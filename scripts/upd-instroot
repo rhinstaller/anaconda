@@ -203,7 +203,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump
                 openssh openssh-clients pciutils rsh traceroute tar"
 
 if [ $ARCH = i386 ]; then
-    PACKAGESRESCUE="$PACKAGESRESCUE"
+    PACKAGESRESCUE="$PACKAGESRESCUE gpart"
 fi
 
 # turn off options we dont want, ie. set package list to something harmless
@@ -828,6 +828,12 @@ usr/kerberos/$LIBDIR/libcom_err*
 usr/sbin/mtr
 usr/sbin/traceroute
 EOF
+
+if [ $ARCH = i386 ]; then
+    cat >> $KEEPFILERESCUE <<-EOF
+usr/bin/gpart
+EOF
+fi
 
 echo "Assembling package list..."
 RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")

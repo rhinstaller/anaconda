@@ -3,6 +3,8 @@
 	* kickstart.py (Kickstart.setPackageSelection,
 	Kickstart.setGroupSelection):  Allow ignoring packages without having
 	to specify architecture (#160209).
+
+	* scripts/upd-instroot:  Add gpart to the i386 rescue image (#55532).
 	
 2005-06-13  Jeremy Katz  <katzj@redhat.com>
 
