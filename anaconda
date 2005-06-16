@@ -406,7 +406,7 @@ try:
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
-	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx'
+	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx',
             'virtpconsole='])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
