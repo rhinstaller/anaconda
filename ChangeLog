@@ -1,3 +1,8 @@
+2005-05-16  Chris Lumens  <clumens@redhat.com>
+
+	* isys/eddsupport.c (readDiskSig):  Close file descriptor leak
+	relating to reading the partition table (Jon Burgess, #160720).
+
 2005-05-10  pnasrat  <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version
