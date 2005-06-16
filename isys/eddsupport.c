@@ -182,6 +182,7 @@ static int readDiskSig(char *device, uint32_t *disksig) {
         return -1;
     }
 
+    close(fd);
     unlink("/tmp/biosdev");
     return 0;
 }

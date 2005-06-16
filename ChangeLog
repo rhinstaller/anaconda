@@ -1,3 +1,8 @@
+2005-06-16  Chris Lumens  <clumens@redhat.com>
+
+	* isys/eddsupport.c (readDiskSig):  Close file descriptor leak
+	relating to reading the partition table (Jon Burgess, #160693).
+
 2005-06-16  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda: Fix typo breaking pseries console support
