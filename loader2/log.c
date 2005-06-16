@@ -24,12 +24,9 @@
 
 #include "log.h"
 
-static FILE * logfile = NULL;
-static int logfd;
+static FILE * logfile;
+static FILE * logfile2;
 static int loglevel = 10;
-
-static FILE * logfile2 = NULL;
-static int logfd2 = 0;
 
 void logMessage(const char * s, ...) {
     /* JKFIXME: need to make this debugMessage and handle a level param */
@@ -38,58 +35,59 @@ void logMessage(const char * s, ...) {
 
     va_list args;
 
-    if (!logfile) return;
+    if (logfile) {
+        va_start(args, s);
 
-    va_start(args, s);
+        fprintf(logfile, "* ");
+        vfprintf(logfile, s, args);
+        fprintf(logfile, "\n");
+        fflush(logfile);
 
-    fprintf(logfile, "* ");
-    vfprintf(logfile, s, args);
-    fprintf(logfile, "\n");
-    fflush(logfile);
+        va_end(args);
+    }
 
-    va_end(args);
+    if (logfile2) {
+        va_start(args, s);
 
-    if (!logfile2) return;
+        fprintf(logfile, "* ");
+        vfprintf(logfile, s, args);
+        fprintf(logfile, "\n");
+        fflush(logfile);
 
-    va_start(args, s);
-
-    fprintf(logfile2, "* ");
-    vfprintf(logfile2, s, args);
-    fprintf(logfile2, "\n");
-    fflush(logfile2);
-
-    va_end(args);
-
+        va_end(args);
+    }
     return;
 }
 
 void openLog(int useLocal) {
+    int flags, fd;
+
     if (!useLocal) {
 	logfile = fopen("/dev/tty3", "w");
-	if (logfile) {
-	    logfd = open("/dev/tty3", O_WRONLY);
-	    logfile2 = fopen("/tmp/anaconda.log", "w");
-	    if (logfile2)
-		logfd2 = open("/tmp/anaconda.log", O_WRONLY | O_APPEND);
-	} else {
-	    logfile = fopen("/tmp/anaconda.log", "w");
-	    logfd = open("/tmp/anaconda.log", O_WRONLY| O_APPEND);
-	}
+        logfile2 = fopen("/tmp/anaconda.log", "w");
     } else {
 	logfile = fopen("debug.log", "w");
-	logfd = open("debug.log", O_WRONLY);
+    }
+
+    if (logfile) {
+        fd = fileno(logfile);
+        flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
+        fcntl(fd, F_SETFD, flags);
+    }
+
+    if (logfile2) {
+        fd = fileno(logfile2);
+        flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
+        fcntl(fd, F_SETFD, flags);
     }
 }
 
 void closeLog(void) {
-    if (logfile) {
+    if (logfile)
 	fclose(logfile);
-	close(logfd);
-    }
-    if (logfile2) {
+
+    if (logfile2)
 	fclose(logfile2);
-	close(logfd2);
-    }
 }
 
 /* set the level.  higher means you see more verbosity */
