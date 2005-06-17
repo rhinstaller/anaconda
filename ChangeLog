@@ -1,3 +1,9 @@
+2005-06-17  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py (InstallControlWindow.loadReleaseNotes):  Some FTP servers
+	cause urllib to give us back an empty file for files that don't exist,
+	rather than an exception  (#160262).
+
 2005-06-16  Chris Lumens  <clumens@redhat.com>
 
 	* isys/eddsupport.c (readDiskSig):  Close file descriptor leak

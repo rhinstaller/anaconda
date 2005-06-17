@@ -898,6 +898,13 @@ class InstallControlWindow:
 		if tmpfile is None:
 		    continue
 
+		# Just because we got a filename back doesn't mean it's a
+		# valid file.  Check that it's not zero length too.
+		st = os.stat (tmpfile)
+		if st.st_size == 0L:
+		    os.remove (tmpfile)	
+		    continue
+
 		file = open(tmpfile, "r")
 		self.releaseNotesContents = file.read()
 		file.close()
