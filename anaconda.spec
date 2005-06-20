@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.1
+Version: 10.3.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 20 2005 Bill Nottingham <notting@redhat.com> - 10.3.0.2-1
+- fix genhdlist
+
 * Fri Jun 17 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.1-1
 - Fix release notes for ftp installs (#160262)
 - Fix fd leak in edd support (Jon Burgess, #160693)
