@@ -544,8 +544,7 @@ int main(int argc, const char ** argv) {
     requireTable = htNewTable(1000);
     
     if (!hdListFile) {
-	strcpy(buf, args[0]);
-        sprintf(buf, "%s/%s/base/hdlist", buf, prodDir);
+        sprintf(buf, "%s/%s/base/hdlist", args[0], prodDir);
 	hdListFile = buf;
     }
 
