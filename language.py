@@ -183,7 +183,7 @@ class Language:
 
     def setDefault(self, nick):
 	self.default = nick
-	self.info['LANG'] = nick
+	self.info['LANG'] = self.canonLangNick(nick)
 	self.info['SYSFONT'] = self.localeInfo[self.canonLangNick(nick)][2]
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312

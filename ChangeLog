@@ -1,3 +1,8 @@
+2005-06-21  Chris Lumens  <clumens@redhat.com>
+
+	* language.py (Language.setDefault):  Canonicalize default language
+	(#160923).
+
 2005-06-20  Bill Nottingham  <notting@redhat.com>
 
 	* anaconda.spec: Bump version
