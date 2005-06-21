@@ -1,7 +1,11 @@
 2005-06-21  Chris Lumens  <clumens@redhat.com>
 
+	* fsset.py (AutoFileSystem):  Add mount and umount methods so entries
+	in /etc/fstab marked as "auto" can still be mounted on upgrade
+	(#160986).
 	* language.py (Language.setDefault):  Canonicalize default language
 	(#160923).
+	* upgrade.py:  Remove the comment that's no longer correct.
 
 2005-06-20  Bill Nottingham  <notting@redhat.com>
 

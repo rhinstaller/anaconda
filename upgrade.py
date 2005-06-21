@@ -145,7 +145,6 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     if flags.setupFilesystems:
         oldfsset.mountFilesystems(instPath, readOnly = readOnly)
 
-    # XXX we should properly support 'auto' at some point
     if (not oldfsset.getEntryByMountPoint("/") or
         not oldfsset.getEntryByMountPoint("/").fsystem or
         not oldfsset.getEntryByMountPoint("/").fsystem.isMountable()):

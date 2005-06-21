@@ -309,7 +309,7 @@ class FileSystemType:
         if not FileSystemType.kernelFilesystems:
             self.readProcFilesystems()
 
-        return FileSystemType.kernelFilesystems.has_key(self.getName())
+        return FileSystemType.kernelFilesystems.has_key(self.getName()) or self.getName() == "auto"
 
     def isSupported(self):
         if self.supported == -1:
@@ -991,9 +991,28 @@ class AutoFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "auto")
 
+    def mount(self, device, mountpoint, readOnly=0, bindMount=0):
+        if not self.isMountable():
+            return
+        iutil.mkdirChain(mountpoint)
+        for fs in getFStoTry (device):
+            try:
+                isys.mount (device, mountpoint, fstype = fs, readOnly =
+                            readOnly, bindMount = bindMount)
+                return
+            except SystemError, (num, msg):
+                errNum = num
+                errMsg = msg
+                continue
+
+        raise SystemError (errNum, errMsg)
+
+    def umount(self, device, path):
+        isys.umount(path, removeDir = 0)
+
 fileSystemTypeRegister(AutoFileSystem())
 
-class BindFileSystem(AutoFileSystem):
+class BindFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "bind")
 
