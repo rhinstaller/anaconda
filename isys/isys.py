@@ -694,17 +694,9 @@ def oldSwapLabelMunge(device):
 def readSwapLabel(device, makeDevNode = 1):
     if makeDevNode:
         makeDevInode(device, "/tmp/disk")
-        try:
-            oldSwapLabelMunge("/tmp/disk")
-        except Exception, e:
-            log("error munging swap label: %s" %(e,))
         label = readSwapLabel_int("/tmp/disk")
         os.unlink("/tmp/disk")
     else:
-        try:
-            oldSwapLabelMunge(device)
-        except Exception, e:
-            log("error munging swap label: %s" %(e,))
         label = readSwapLabel_int(device)
     return label
 
