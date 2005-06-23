@@ -663,34 +663,6 @@ def readSwapLabel_int(device):
         label = string.rstrip(buf[1052:1068], "\0x00")
     return label
 
-# FIXME: we should probably remove this after a release just to avoid
-# breaking things
-def oldSwapLabelMunge(device):
-    label = None
-    try:
-        fd = os.open(device, os.O_RDWR)
-    except:
-        return label
-
-    pagesize = getpagesize()
-    try:
-        buf = os.read(fd, pagesize)
-    except OSError, e:
-        log("error reading swap label on %s: %s" %(device, e))
-        try:
-            os.close(fd)
-        except:
-            pass
-        return label
-
-    if ((len(buf) == pagesize) and (buf[pagesize - 10:] == "SWAPSPACE2")):
-        label = string.rstrip(buf[16:31], "\0x00")
-    os.lseek(fd, 1052, 0)
-    if len(label) > 0:
-        os.write(fd, label)
-    os.close(fd)
-    return label
-
 def readSwapLabel(device, makeDevNode = 1):
     if makeDevNode:
         makeDevInode(device, "/tmp/disk")
