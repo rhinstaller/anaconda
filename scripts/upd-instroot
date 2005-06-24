@@ -168,7 +168,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            popt specspo util-linux rpm rpm-libs tzdata
            procps bash cpio gpm pygtk2-libglade
            XFree86 Xconfigurator pygtk2 gdk-pixbuf 
-           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
+           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam libpixman
            reiserfs-utils atk pango freetype gnome-python2-canvas cairo
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help XFree86-base-fonts
@@ -630,6 +630,7 @@ usr/$LIBDIR/libXft*
 usr/$LIBDIR/libart*
 usr/$LIBDIR/libatk*
 usr/$LIBDIR/libaudio*
+usr/$LIBDIR/libpixman*
 usr/$LIBDIR/libcairo*
 usr/$LIBDIR/libesd*
 usr/$LIBDIR/libfontconfig*
