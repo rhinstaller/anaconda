@@ -691,6 +691,9 @@ def readFSLabel(device, makeDevNode = 1):
         label = readJFSLabel(device, makeDevNode)
     return label
 
+def ext2Clobber(device, makeDevNode = 1):
+    _isys.e2fsclobber(device)
+
 def ext2IsDirty(device):
     makeDevInode(device, "/tmp/disk")
     label = _isys.e2dirty("/tmp/disk");

@@ -89,6 +89,7 @@ static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadFont(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
+static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
@@ -122,6 +123,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
     { "e2hasjournal", (PyCFunction) doExt2HasJournal, METH_VARARGS, NULL },
     { "e2fslabel", (PyCFunction) doReadE2fsLabel, METH_VARARGS, NULL },
+    { "e2fsclobber", (PyCFunction) doClobberExt2, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
     { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
@@ -1004,6 +1006,34 @@ static PyObject * doSetResolvRetry(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "i", &count)) return NULL;
 
     _res.retry = count;
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doClobberExt2 (PyObject * s, PyObject * args) {
+    char * device;
+    ext2_filsys fsys;
+    struct ext2_super_block sb;
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
+
+    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager, &fsys);
+
+    if (rc) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    memset(&sb, 0, sizeof(struct ext2_super_block));
+    rc = ext2fs_initialize (device, 0, &sb, unix_io_manager, &fsys);
+    if (rc) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    ext2fs_close(fsys);
 
     Py_INCREF(Py_None);
     return Py_None;

@@ -285,6 +285,9 @@ class FileSystemType:
 
     def labelDevice(self, entry, chroot):
         pass
+
+    def clobberDevice(self, entry, chroot):
+        pass
             
     def isFormattable(self):
         return self.formattable
@@ -557,6 +560,10 @@ class extFileSystem(FileSystemType):
         if rc:
             raise SystemError
 
+    def clobberDevice(self, entry, chroot):
+        device = entry.device.setupDevice(chroot)
+        isys.ext2Clobber(device)
+
     # this is only for ext3 filesystems, but migration is a method
     # of the ext2 fstype, so it needs to be here.  FIXME should be moved
     def setExt3Options(self, entry, message, chroot='/'):
@@ -765,6 +772,17 @@ class swapFileSystem(FileSystemType):
         if rc:
             raise SystemError
         entry.setLabel(label)
+
+    def clobberDevice(self, entry, chroot):
+        pagesize = isys.getpagesize()
+        dev = entry.device.setupDevice(chroot)
+        try:
+            fd = os.open(dev, os.O_RDWR)
+            buf = "\0x00" * pagesize
+            os.write(fd, buf)
+            os.close(fd)
+        except:
+            pass
 
 fileSystemTypeRegister(swapFileSystem())
 
@@ -1439,6 +1457,7 @@ MAILADDR root
     
     def formatEntry(self, entry, chroot):
         log("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
+        entry.fsystem.clobberDevice(entry, chroot)
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
     def badblocksEntry(self, entry, chroot):
