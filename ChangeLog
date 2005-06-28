@@ -13,6 +13,9 @@
 	* docs/kickstart-docs.txt:  Mark langsupport as deprecated and explain
 	what to do instead.  Also clarify the purpose of the lang keyword.
 
+	* Makefile:  Remove locale-list.
+	* scripts/upd-instroot (KEEPFILE):  Likewise.
+
 2005-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py:  Add a clobberDevice method used for obliterating

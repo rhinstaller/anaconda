@@ -18,13 +18,10 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all:  subdirs mini-wm xmouse.so xutils.so $(CATALOGS) lang-table lang-names locale-list
+all:  subdirs mini-wm xmouse.so xutils.so $(CATALOGS) lang-table lang-names
 
-lang-names: lang-table locale-list
+lang-names: lang-table
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
-
-locale-list:
-	PYTHONPATH="." $(PYTHON) scripts/genlocalelist.py > locale-list
 
 mini-wm: mini-wm.c
 	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs`$(CFLAGS)
@@ -42,7 +39,7 @@ depend:
 	for d in $(SUBDIRS); do make -C $$d depend; done
 
 clean:
-	rm -f *.o *.so *.pyc lang-names locale-list
+	rm -f *.o *.so *.pyc lang-names
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
@@ -75,7 +72,6 @@ install:
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-names $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a locale-list $(DESTDIR)/$(ANACONDADATADIR)/locale-list
 	cp -a lang-table-kon $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
