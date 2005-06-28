@@ -576,23 +576,7 @@ class Kickstart(BaseInstallClass):
 	self.skipSteps.append("language")
 
     def doLangSupport (self, id, args):
-        (args, extra) = isys.getopt(args, '', [ 'default=' ])
-	deflang = "en_US.UTF-8"
-        if args:
-	    deflang = args[0][1]
-	else:
-	    # if they specified no default we default to en_US if
-	    # they installed support for more than one lang, otherwise
-	    # we default to the one language they specified support for
-	    if extra is None:
-		deflang = "en_US.UTF-8"
-	    elif len(extra) >= 1:
-		deflang = extra[0]
-	    else:
-		deflang = "en_US.UTF-8"
-		
-	self.setLanguageDefault (id, deflang)
-        self.setLanguageSupport(id, extra)
+	raise KickstartError, "The langsupport keyword has been removed.  Instead, please alter your kickstart file to include the support package groups for the languages you want instead of using langsupport.  For instance, include the french-support group instead of specifying 'langsupport fr'."
 
     def doKeyboard(self, id, args):
         self.setKeyboard(id, args[0])

@@ -35,7 +35,6 @@ class LanguageWindow (InstallWindow):
 
 	self.instLang.setRuntimeLanguage(self.lang)
 	self.instLang.setDefault(self.lang)
-	self.instLang.setSupported([self.lang])
 	self.ics.getICW().setLanguage()
 
         return None

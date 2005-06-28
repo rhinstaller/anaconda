@@ -83,7 +83,6 @@ class LanguageWindow:
 
 	instLanguage.setRuntimeLanguage(choice)
 	instLanguage.setDefault(choice)
-	instLanguage.setSupported([choice])
                 
 	textInterface.drawFrame()
 	    

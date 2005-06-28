@@ -42,12 +42,7 @@ def expandLangs(astring):
 class Language:
     def __init__ (self):
         self.info = {}
-        self.info["SUPPORTED"] = None
-        self.supported = []
         self.default = None
-
-        self.allSupportedLangs = []
-        self.langInfoByName = {}
         self.nativeLangNames = {}
         self.localeInfo = {}
 
@@ -99,26 +94,6 @@ class Language:
         # Hard code this to prevent errors in the build environment.
         self.localeInfo['C'] = self.localeInfo['en_US.UTF-8']
 
-        # long name -> (nick, map, font) mapping
-        search = ('locale-list', '/usr/share/anaconda/locale-list')
-        for path in search:
-            if os.access(path, os.R_OK):
-                f = open(path, 'r')
-
-                for line in f.readlines():
-                    line = string.strip(line)
-                    (nick, map, font, name) = string.split(line, '\t')
-                    self.langInfoByName[name] = (nick, map, font)
-
-                f.close()
-                break
-
-        # If we weren't able to find a locale-list, set a reasonable default.
-        if not self.allSupportedLangs:
-            self.langInfoByName['English (USA)'] = ('en_US.UTF-8', 'iso01', 'default8x16')
-
-        self.allSupportedLangs = self.langInfoByName.keys()
-
         # Set the language for anaconda to be using based on current $LANG.
         self.setRuntimeLanguage(self.current)
         self.setDefault(self.current)
@@ -159,12 +134,6 @@ class Language:
     def available (self):
         return self.nativeLangNames.keys()
 
-    def getSupported (self):
-	return self.supported
-
-    def getAllSupported (self):
-        return self.allSupportedLangs
-
     def getCurrentLangSearchList(self):
 	return expandLangs(self.getCurrent()) + ['C']
 
@@ -189,32 +158,6 @@ class Language:
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
 	if nick == "zh_CN.GB18030":
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
-
-    def setSupported (self, nickList):
-	if len(nickList) == len(self.allSupportedLangs):
-            self.info["SUPPORTED"] = None
-	    self.supported = self.getAllSupported()
-        elif nickList:
-	    rpmNickList = []
-
-	    for nick in nickList:
-                for sub in expandLangs(nick):
-                    if not sub in rpmNickList:
-                        rpmNickList.append(sub)
-
-            linguas = string.join (rpmNickList, ':')
-            self.info["SUPPORTED"] = linguas
-            self.supported = rpmNickList
-
-            shortLinguas = string.join (rpmNickList, ':')
-        else:
-            self.info["SUPPORTED"] = None
-            self.supported = None
-	
-	if self.info["SUPPORTED"]:
-            os.environ ["LINGUAS"] = self.info["SUPPORTED"]
-	else:
-            os.environ ["LINGUAS"] = ""
 
     def setRuntimeDefaults(self, nick):
         canonNick = self.canonLangNick(nick)
@@ -242,11 +185,4 @@ class Language:
 	f.close()
 
     def writeKS(self, f):
-        sup = ""
-
-        if self.info["SUPPORTED"] != None:
-            for n in self.getSupported():
-                sup = sup + " " + n
-
 	f.write("lang %s\n" % self.info['LANG'])
-        f.write("langsupport --default=%s%s\n" % (self.getDefault(), sup))

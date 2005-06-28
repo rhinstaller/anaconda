@@ -1601,7 +1601,7 @@ def selectLanguageSupportGroups(grpset, instLanguage):
     if not grpset.groups.has_key("language-support"):
         return
 
-    langs = instLanguage.getSupported()
+    langs = []
     for l in language.expandLangs (instLanguage.getDefault()):
         langs.append(l)
 

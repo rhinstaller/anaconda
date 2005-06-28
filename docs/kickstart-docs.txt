@@ -606,7 +606,8 @@ Creating the Kickstart File
 
    lang (required)
 
-       Sets the language to use during installation. For example, to set
+       Sets the language to use during installation and the default
+       language to use on the installed system. For example, to set
        the language to English, the kickstart file should contain the
        following line:
 
@@ -616,28 +617,16 @@ Creating the Kickstart File
        list the valid language codes in the first column of each line and
        is part of the redhat-config-languages package.
 
-   langsupport (required)
+   langsupport
 
-       Sets the language(s) to install on the system. The same language
-       codes used with lang can be used with langsupport.
+       The langsupport keyword is deprecated and its use will cause an
+       error message to be printed to the screen and installation to halt.
+       Instead of using the langsupport keyword, you should now list the
+       support package groups for all languages you want supported in the
+       %packages section of your kickstart file.  Fr instance, adding
+       support for French means you should add the following to %packages:
 
-       To install one language, specify it. For example, to install and
-       use the French language fr_FR:
-
-       langsupport fr_FR                                           
-
-       --default=
-
-           If language support for more than one language is specified, a
-           default must be identified.
-
-       For example, to install English and French and use English as the
-       default language:
-
-       langsupport --default=en_US fr_FR                           
-
-       If you use --default with only one language, all languages will be
-       installed with the specified language set to the default.
+           @french-support
 
    logvol (optional)
 

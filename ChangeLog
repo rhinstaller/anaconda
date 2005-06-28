@@ -1,3 +1,18 @@
+2005-06-28  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py (dumpClass.keySkipList):  Remove references to
+	langsupport.
+	* packages.py (selectLanguageSupportGroups):  Likewise.
+	* iw/language_gui.py (LanguageWindow.getNext):  Likewise.
+	* textw/language_text.py (LanguageWindow.__call__):  Likewise.
+	* installclass.py (BaseInstallClass.setLanguageSupport):  Removed.
+	* kickstart.py (Kickstart.doLangSupport):  Removed langsupport keyword.
+	* language.py (Language):  Remove langsupport and langInfoByName
+	lists; and getSupported, getAllSupported, and setSupported methods.
+
+	* docs/kickstart-docs.txt:  Mark langsupport as deprecated and explain
+	what to do instead.  Also clarify the purpose of the lang keyword.
+
 2005-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py:  Add a clobberDevice method used for obliterating

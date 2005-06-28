@@ -51,10 +51,8 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "id.instLanguage.font",
 		    "id.instLanguage.kbd",
 		    "id.instLanguage.tz",
-		    "id.instLanguage.langInfoByName",
 		    "id.instLanguage.langNicks",
 		    "id.instLanguage.langList",
-		    "id.instLanguage.allSupportedLangs",
 		    "id.rootPassword",
 		    "id.tmpData",
 		    "id.xsetup.xhwstate.monitor.monlist",
@@ -169,7 +167,6 @@ def dumpException(out, text, tb, dispatch):
 #            dispatch.id.xsetup.xhwstate.monitor.monids = None
 #        dispatch.id.instLanguage.langNicks = None
 #        dispatch.id.instLanguage.langList = None
-#        dispatch.id.instLanguage.allSupportedLangs = None
 #        dispatch.intf.icw.buff = None
 #    except:
 #        pass
