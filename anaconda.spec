@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.2
+Version: 10.3.0.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 29 2005 Chris Lumens <clumens@redhat.com> 10.3.0.3-1
+- Mount "auto" filesystems on upgrade (#160986).
+- Add cairo for new pango/gtk (katzj).
+- Delete labels on swap and ext3 partitions before formatting.
+- Remove langsupport keyword from kickstart.
+
 * Mon Jun 20 2005 Bill Nottingham <notting@redhat.com> - 10.3.0.2-1
 - fix genhdlist
 
