@@ -130,7 +130,8 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
-	 libstdc++ expat libgcc readline ncurses"
+	 libstdc++ expat libgcc readline ncurses yum python-sqlite
+	 python-elementtree"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -390,8 +391,11 @@ usr/$LIBDIR/python?.?/site-packages/partedmodule.so
 usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
 usr/$LIBDIR/python?.?/site-packages/xf86config.py
 usr/$LIBDIR/python?.?/site-packages/rhpl
+usr/$LIBDIR/python?.?/site-packages/cElementTree.so
+usr/$LIBDIR/python?.?/site-packages/elementtree
 usr/lib/locale/*
 usr/lib/python?.?/site-packages/urlgrabber/*
+usr/lib/python?.?/site-packages/yum
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
