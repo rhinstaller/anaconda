@@ -10,19 +10,20 @@
 # Muhammad Alkarouri <malkarouri@yahoo.co.uk>, 2004.
 # Hicham Amaoui <amaoui@altern.ort>, 2004.
 # Munzir Taha <munzirtaha@newhorizons.com.sa>, 2004.
+# Mohammad Ghoniem <Mohammad.Ghoniem@gmail.com>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2004-10-04 21:31+0200\n"
-"Last-Translator: Hicham Amaoui <amaoui@altern.org>\n"
+"PO-Revision-Date: 2005-06-29 10:09+0200\n"
+"Last-Translator: Mohammad Ghoniem <Mohammad.Ghoniem@gmail.com>\n"
 "Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -218,9 +219,8 @@ msgid ""
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"تجزيء الإقلاع %s لا ينتمي إلى علامة قرص BSD. لن يستطيع SRM الإقلاع من هذا "
-"التجزيء. استخدم تجزيء ينتمي إلى علامة قرص BSD أو غيّر علامة هذا الجهاز القرص "
-"إلى BSD."
+"جزء الإقلاع %s لا ينتمي إلى علامة قرص BSD. لن يستطيع SRM الإقلاع من هذا "
+"الجزء. استخدم جزء ينتمي إلى علامة قرص BSD أو غيّر علامة هذا القرص إلى BSD."
 
 #: ../autopart.py:1044
 #, python-format
@@ -535,7 +535,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "جاري تثبيت %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -543,18 +543,17 @@ msgid ""
 msgstr ""
 "حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً انسخ النّصّ الكامل "
 "لهذا الاستثناء أو احفظ مخرجات الخلل في قرص مرن ثمّ أرسل تقرير عَيْب برمجيّ مفصّل "
-"ضدّ anaconda على http://bugzilla.redhat.com/bugzilla/"
+"بخصوص anaconda على %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
 "حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً انسخ النّصّ الكامل "
-"لهذا الاستثناء أو أرسل تقرير عَيْب برمجيّ مفصّل ضدّ anaconda على http://bugzilla."
-"redhat.com/bugzilla/"
+"لهذا الاستثناء أو أرسل تقرير عَيْب برمجيّ مفصّل بخصوص  anaconda على %s"
 
 #: ../exception.py:232 ../gui.py:546 ../text.py:226
 msgid "Exception Occurred"
@@ -741,7 +740,7 @@ msgstr ""
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
 #: ../fsset.py:1388
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -750,11 +749,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"خطأ في تمكين جهاز الذّاكرة البديلة %s: %s\n"
+"وقع خطأ في تمكين جهاز الذّاكرة البديلة %s: %s\n"
 "\n"
-"يبدو أنّ هذا يعني أنّ تجزيء الذّاكرة البديلة لم يُبتدأ.\n"
+"ملف /etc/fstab لا يشير إلى جزء ذّاكرة بديلة صحيح.\n"
 "\n"
-"اضغط موافق لتعيد تشغيل نظامك."
+"اضغط موافق لإعادة تشغيل نظامك."
 
 #: ../fsset.py:1399
 #, python-format
@@ -864,7 +863,6 @@ msgstr ""
 "اضغط موافق لتعيد تشغيل نظامك."
 
 #: ../fsset.py:1608
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -872,11 +870,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"خطأ خلال تجهيز الجهاز %s على شكل %s: %s\n"
+"وقع خطأ في أثناء البحث عن المدخل.\n"
 "\n"
-"يبدو أنّ هذا يعني أنّ هذا التّجزيء لم يتمّ تنسيقه.\n"
+"هذا يعني في الغالب أنّ ملف fstab غير صحيح.\n"
 "\n"
-"اضغط موافق لتعيد تشغيل نظامك."
+"اضغط موافق لإعادة تشغيل نظامك."
 
 #: ../fsset.py:2272
 msgid "Duplicate Labels"
@@ -999,7 +997,7 @@ msgstr "ا_صلح العيب"
 
 #: ../gui.py:549
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_حفظ على قرص مرن"
 
 #: ../gui.py:722 ../text.py:269
 #, python-format
@@ -1206,19 +1204,18 @@ msgstr "ثبّت على النّظام"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "فشلت المخطوطة"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"كان هناك خطأ في تثبيت %s.  يمكن أن يشير هذا إلى فشل في الوسط، قلّة مساحة "
-"القرص، و/أو مشاكل عتاد.  هذا خطأ حرج و سوف يتم إجهاض التثبيت.  رجاءً تحقّق من "
-"الوسط وحاول التثبيت مجدّداً.\n"
+"وفع خطأ في تشغيل المخطوطة. يمكنك الاطلاع على المخرجات من خلال %s.    هذا خطأ "
+"حرج و سوف يتم العدول عن التثبيت.  .\n"
 "\n"
 "اضغط زرّ موافق لإعادة تشغيل جهازك."
 
@@ -1311,6 +1308,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"ملف comps المرفق بشجرة التثبيت الخاصة بكم ينقصه فئات حرجة. رجاء التأكد من "
+"صحة إنشاء شجرة التثبيت."
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
@@ -1351,7 +1350,6 @@ msgstr ""
 "اضغط <return> لتحاول مرّة أخرى."
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
 msgstr "أعد التّشغيل"
 
@@ -1360,6 +1358,8 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"إذا قمت بإعادة التشغيل سيظل نظامك في حالة مضطربة قد تتطلب إعادة تثبيته. هل "
+"تريد الاستمرار فعلا ؟"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -1522,7 +1522,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "تحذير! هذا برنامج ما قبل الإصدار!"
 
 #: ../packages.py:1539
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1536,16 +1536,16 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"شكراً لك على تنزيل الإصدار المسبق من %s.\n"
+"شكراً لك على تنزيل الإصدار التجريبي من %s.\n"
 "\n"
-"هذا ليست الإصدارة النهائيّة ولا يقصد استخدامها في أنظمة الإنتاج.  الغرض من "
-"هذا الإصدارة جمع آراء المختبرين، وليست مناسبة للاستخدام اليومي.\n"
+"هذا الإصدار غير نهائيّ ولا يقصد استخدامه في أنظمة الإنتاج.  الغرض من هذا "
+"الإصدار جمع آراء المختبرين، ولا يصلح للاستخدام اليومي.\n"
 "\n"
-"لتزويدنا بتقرير أو ابداء آرائك، الرجاء زيارة:\n"
+"لتزويدنا بتقرير أو ابداء آرائك، الرجاء مراجعة :\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
-"وضع تقريراً مقابل '%s'.\n"
+"وإضافة تقريراً مقابل '%s'.\n"
 
 #: ../packages.py:1552
 msgid "_Install anyway"
@@ -2083,9 +2083,8 @@ msgid ""
 msgstr "يجب عليك إنشاء تجزيء /boot/efi من نوع FAT وبحجم 50 ميجابايت"
 
 #: ../partitions.py:836
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "يجب عليك إنشاء تجزيء إقلاع PPC PReP."
+msgstr "يجب عليك إنشاء جزء إقلاع من طراز Apple Bootstrap."
 
 #: ../partitions.py:858
 msgid "You must create a PPC PReP Boot partition."
@@ -2840,16 +2839,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "تهيئة محمّل الإقلاع المتقدّمة"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"إجبار استخدام LBA32 لمحمّل إقلاعك عندما لا يكون ذلك مدعوماً من قبل الـBIOS "
-"يمكن أن يتسبّب بعدم قدرة نظام على الإقلاع.  نستحسن بشدّة أن تقوم بإنشاء قرص "
-"إقلاع عندما تسأل عن ذلك لاحقاً خلال عمليّة التّثبيت.\n"
+"إجبار استخدام LBA32 عن طريق محمّل الإقلاع عند غياب هذا الدعم بواسطة الـBIOS "
+"قد يمنع الجهاز من الإقلاع.  \n"
 "\n"
 "هل تريد الاستمرار وإجبار وضع LBA32؟"
 
@@ -2884,7 +2881,6 @@ msgid "Change Boot Loader"
 msgstr "غيّر محمّل الإقلاع"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2893,9 +2889,9 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"لقد اخترت عدم تثبيت أيّ مُحمّل إقلاع. إنّه من المستحسن جدّاً أن تقوم بتثبيت واحد "
-"إلا إن كان لديك حاجة خاصّة. مُحمّل الإقلاع مطلوب تقريباً دائماً حتّى تستطيع إقلاع "
-"نظامك إلى لينكس مباشرة من القرص الصّلب.\n"
+"لقد اخترت عدم تثبيت أيّ مُحمّل إقلاع. يستحسن جدّاً أن تقوم بتثبيت مُحمّل إقلاع إلا "
+"إذا كان لديك حاجة خاصّة. مُحمّل الإقلاع مطلوب في أغلب الحالات حتّى تستطيع إقلاع "
+"نظامك بواسطة لينكس مباشرة من القرص الصّلب.\n"
 "\n"
 "هل أنت متأكّد أنّك تريد تخطّي تثبيت مُحمّل الإقلاع؟"
 
@@ -3026,8 +3022,8 @@ msgid ""
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"أزل أيّ وسط تثبيت (قرص مرن أو مدمج) استخدم خلال عمليّة التثبيت واضغط زرّ \"أعد "
-"التّشغيل\" كي تعيد تشغيل نظامك.\n"
+"أزل أيّ وسائط تثبيت استخدمت خلال عمليّة التثبيت واضغط زرّ \"أعد التّشغيل\" كي "
+"تعيد تشغيل نظامك.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:64
@@ -3797,7 +3793,7 @@ msgstr "مفتاح _التّرميز"
 #: ../iw/network_gui.py:261
 #, fuzzy
 msgid "Hardware address:"
-msgstr "عنوان IP:"
+msgstr "عنوان MAC:"
 
 #: ../iw/network_gui.py:300
 #, python-format
@@ -4898,13 +4894,11 @@ msgid "Unknown video card"
 msgstr "بطاقة فيديويّة غير معروفة"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"حدث خطأ في اختيار بطاقة الفيديو %s. رجاء أخبر هذا الخطأ لـbugzilla.redhat."
-"com."
+msgstr "حدث خطأ في اختيار بطاقة الفيديو %s. رجاء يلغ عن هذا الخطأ عن طريق %s.."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5194,8 +5188,8 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
-"أزل أيّ وسط تثبيت (قرص أو أقراص مدمجة) استخدمت خلال عمليّة التّثبيت واضغط "
-"<إدخال> كي تعيد تشغيل نظامك.\n"
+"أزل أيّ واسطة تثبيت استخدمت خلال عمليّة التّثبيت واضغط <إدخال> كي تعيد تشغيل "
+"نظامك.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -5459,9 +5453,9 @@ msgid "Description: %s"
 msgstr "الوصف: %s"
 
 #: ../textw/network_text.py:98
-#, python-format
+#, fuzzy, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "عنوان MAC : %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -5915,9 +5909,8 @@ msgid "What time zone are you located in?"
 msgstr "ما هي المنطقة الزّمنيّة التي أنت فيها؟"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "ساعة النّظام _تستخدم توقيت UTC"
+msgstr "ساعة النّظام موافقة لتوقيت UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6890,7 +6883,7 @@ msgstr "مُعطى الأمر  لطريقة القرص الصّلب kickstart ل
 #: ../loader2/lang.c:53
 #, fuzzy, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "أهلاً بكم إلى %s"
+msgstr "أهلاً بكم إلى %s - نظام النجدة"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
 msgid ""
@@ -7405,14 +7398,12 @@ msgid "Account name:"
 msgstr "اسم الحساب:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "إعداد FTP"
+msgstr "إعداد تفصيلي ل FTP"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "إعداد HTTP"
+msgstr "إعداد تفصيلي ل HTTP"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -8117,12 +8108,11 @@ msgstr "غرب أوزباكستان"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "الأفريكانز"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "العربية"
+msgstr "الأمهرية"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8205,9 +8195,8 @@ msgid "Icelandic"
 msgstr "الآيسلانديّة"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "المكدونية"
+msgstr "الأندونيسية"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8234,9 +8223,8 @@ msgid "Norwegian"
 msgstr "النرويجيّة"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "المقاطعة الشّماليّة"
+msgstr "سوثو الشمالية"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8263,9 +8251,8 @@ msgid "Russian"
 msgstr "الرّوسيّة"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "السلوفينيّة"
+msgstr "السلوفاكية"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8284,9 +8271,8 @@ msgid "Tamil"
 msgstr "التاميلية"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "التاميلية"
+msgstr "التاي"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8308,227 +8294,249 @@ msgstr "وِلْش"
 msgid "Zulu"
 msgstr "الزولو"
 
+msgid "Exception Occured"
+msgstr "حدث استثناء"
+
+msgid "Additional Language Support"
+msgstr "دعم لغة إضافيّة"
+
+msgid "Select the _default language for the system:   "
+msgstr "اختر اللّغة الا_فتراضيّة للنّظام:   "
+
+msgid "Select _additional languages to install on the system:"
+msgstr "اختر لغات إ_ضافيّة لتثبيتها على النّظام:"
+
+msgid "_Select All"
+msgstr "تحديد ال_كلّ"
+
+msgid "Select Default _Only"
+msgstr "اختر الا_فتراضيّة فقط"
+
+msgid "Rese_t"
+msgstr "إ_عادة للأصل"
+
+msgid "Select All"
+msgstr "حدّد الكلّ"
+
+msgid "Reset"
+msgstr "أعد للأصل"
+
+msgid "Choose additional languages that you would like to use on this system:"
+msgstr "اختر لغات إضافيّة تودّ أن تستخدمها على هذا النّظام:"
+
+msgid "Language Support"
+msgstr "دعم اللّغة"
+
+msgid "You must select at least one language to install."
+msgstr "عليك أن تختار لغة واحدة على الأقل كي تُثبّتها."
+
+msgid "Default Language"
+msgstr "اللّغة الافتراضيّة"
+
+msgid "Choose the default language for this system: "
+msgstr "اختر اللّغة الافتراضيّة لهذا النّظام:"
+
+msgid "%s (C) 2004 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
+
+msgid ""
+"For information on Errata (updates and bug fixes), visit:\n"
+"\thttp://www.redhat.com/errata/\n"
+"\n"
+"For information on automatic updates through Red Hat Network, visit:\n"
+"\thttp://rhn.redhat.com/\n"
+"\n"
+"For information on using and configuring the system, visit:\n"
+"\thttp://www.redhat.com/docs/\n"
+"\thttp://www.redhat.com/apps/support/\n"
+"\n"
+"To register the product for support, visit:\n"
+"\thttp://www.redhat.com/apps/activate/\n"
+"\n"
+msgstr ""
+"لمعلومات عن لائحة الإصلاحات (التّحديثات وإصلاحات العلل)، زُر:\n"
+"\thttp://www.redhat.com/errata/\n"
+"\n"
+"لمعلومات عن التّحديثات الآليّة من خلال شبكة ردهات، زُر:\n"
+"\thttp://rhn.redhat.com/\n"
+"\n"
+"لمعلومات عن استخدام وتهيئة النّظام، زُر:\n"
+"\thttp://www.redhat.com/docs/\n"
+"\thttp://www.redhat.com/apps/support/\n"
+"\n"
+"لتقوم بتسجيل المنتج لتحصل على الدّعم، زُر:\n"
+"\thttp://www.redhat.com/apps/activate/\n"
+"\n"
+
 #, fuzzy
-#~ msgid "Exception Occured"
-#~ msgstr "حدث استثناء"
+msgid "Silo Configuration"
+msgstr "تخطّ تهيئة X"
 
-#~ msgid "Additional Language Support"
-#~ msgstr "دعم لغة إضافيّة"
+#, fuzzy
+msgid "Install SILO boot record on:"
+msgstr "ثبّت سجلّ محمّل الإقلاع على:"
 
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "اختر اللّغة الا_فتراضيّة للنّظام:   "
+msgid "Create PROM alias"
+msgstr "أنشئ اسم PROM بديل"
 
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "اختر لغات إ_ضافيّة لتثبيتها على النّظام:"
+msgid "Set default PROM boot device to linux"
+msgstr "حدّد جهاز إقلاع PROM الافتراضي بلينكس"
 
-#~ msgid "_Select All"
-#~ msgstr "تحديد ال_كلّ"
+#, fuzzy
+msgid "Kernel parameters"
+msgstr "مُعطيات النّواة"
 
-#~ msgid "Select Default _Only"
-#~ msgstr "اختر الا_فتراضيّة فقط"
+#, fuzzy
+msgid "Create boot disk"
+msgstr "جاري إنشاء قرص إقلاع"
 
-#~ msgid "Rese_t"
-#~ msgstr "إ_عادة للأصل"
+#, fuzzy
+msgid "Do not install SILO"
+msgstr "_لا تُثبّت محمّل إقلاع"
 
-#~ msgid "Select All"
-#~ msgstr "حدّد الكلّ"
+#, fuzzy
+msgid "Partition type"
+msgstr "تجزيء"
 
-#~ msgid "Reset"
-#~ msgstr "أعد للأصل"
+#, fuzzy
+msgid "Default boot image"
+msgstr "_خيار الإقلاع الافتراضيّ"
 
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "اختر لغات إضافيّة تودّ أن تستخدمها على هذا النّظام:"
+#, fuzzy
+msgid "SILO Configuration"
+msgstr "تهيئة z/IPL"
 
-#~ msgid "Language Support"
-#~ msgstr "دعم اللّغة"
+msgid "Create PROM alias `linux'"
+msgstr "أنشئ PROM بديل `linux'"
 
-#~ msgid "You must select at least one language to install."
-#~ msgstr "عليك أن تختار لغة واحدة على الأقل كي تُثبّتها."
+msgid "Set default PROM boot device"
+msgstr "تحديد جهاز إقلاع PROM الافتراضي"
 
-#~ msgid "Default Language"
-#~ msgstr "اللّغة الافتراضيّة"
+#, fuzzy
+msgid "Where do you want to install the bootloader?"
+msgstr "أين تريد أن تقوم بتثبيت محمّل الإقلاع؟"
 
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "اختر اللّغة الافتراضيّة لهذا النّظام:"
+#, fuzzy
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"مُدير الإقلاع الذي يستخدمه %s يمكنه إقلاع أنظمة تشغيل أخرى أيضاً. تحتاج لأن "
+"تُخبرني ما هي التّجزيءات التي تودّ أن تكون قادراً على إقلاعها وما هو العنوان "
+"الذي تريد استخدامه لكلّ منها."
 
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
+msgid "no suggestion"
+msgstr "لا اقتراح"
 
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "لمعلومات عن لائحة الإصلاحات (التّحديثات وإصلاحات العلل)، زُر:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "لمعلومات عن التّحديثات الآليّة من خلال شبكة ردهات، زُر:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "لمعلومات عن استخدام وتهيئة النّظام، زُر:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "لتقوم بتسجيل المنتج لتحصل على الدّعم، زُر:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
+#, fuzzy
+msgid "Use _LILO as the boot loader"
+msgstr "استخدم GRUB _كمحمّل الإقلاع"
 
-#~ msgid "Silo Configuration"
-#~ msgstr "تهيئة silo"
+#, fuzzy
+msgid "Unable to Change Drive Order for LILO"
+msgstr "_غيّر ترتيب الأقراص"
 
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "ثبّت سجلّ إقلاع SILO على:"
+msgid "We do not support changing the drive order for use with LILO."
+msgstr "نحن لا ندعم تغيير ترتيب الأقراص للاستخدام مع LILO."
 
-#~ msgid "Create PROM alias"
-#~ msgstr "أنشئ اسم PROM بديل"
+#, fuzzy
+msgid "Use LILO Boot Loader"
+msgstr "استخدم محمّل الإقلاع GRUB"
 
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "حدّد جهاز إقلاع PROM الافتراضي بلينكس"
+#, fuzzy
+msgid "%s Installer on %s"
+msgstr "مُثبّت %s"
 
-#~ msgid "Kernel parameters"
-#~ msgstr "مُعطيات النّواة"
+#, fuzzy
+msgid ""
+"You have selected not to install a boot loader on your system.  You will "
+"have to create a boot disk to boot your system with this option.\n"
+"\n"
+"Would you like to continue and not install a boot loader?"
+msgstr ""
+"لقد اخترت عدم تثبيت أيّ مُحمّل إقلاع. يستحسن جدّاً أن تقوم بتثبيت مُحمّل إقلاع إلا "
+"إذا كان لديك حاجة خاصّة. مُحمّل الإقلاع مطلوب في أغلب الحالات حتّى تستطيع إقلاع "
+"نظامك بواسطة لينكس مباشرة من القرص الصّلب.\n"
+"\n"
+"هل أنت متأكّد أنّك تريد تخطّي تثبيت مُحمّل الإقلاع؟"
 
-#~ msgid "Create boot disk"
-#~ msgstr "أنشئ قرص إقلاع"
+#, fuzzy
+msgid "Total"
+msgstr "الحجم الكلّي"
 
-#~ msgid "Do not install SILO"
-#~ msgstr "لا تقم بتثبيت SILO"
+#, fuzzy
+msgid "Remaining"
+msgstr "متبقّي:  "
 
-#~ msgid "Partition type"
-#~ msgstr "نوع التّجزيء"
+#, fuzzy
+msgid "Installing %s-%s-%s.%s"
+msgstr "جاري تثبيت %s-%s-%s.%s.\n"
 
-#~ msgid "Default boot image"
-#~ msgstr "صورة الإقلاع الافتراضيّة"
+#, fuzzy
+msgid "Package Progress: "
+msgstr "حزمة:"
 
-#~ msgid "SILO Configuration"
-#~ msgstr "تهيئة SILO"
+#, fuzzy
+msgid "Total Progress:   "
+msgstr "المجموع    :"
 
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "أنشئ PROM بديل `linux'"
+#, fuzzy
+msgid "Status"
+msgstr "الوضع: "
 
-#~ msgid "Set default PROM boot device"
-#~ msgstr "تحديد جهاز إقلاع PROM الافتراضي"
+#, fuzzy
+msgid "Packages"
+msgstr "حزمة"
 
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "أين تريد تثبيت مُحمّل الإقلاع؟"
+msgid "Time"
+msgstr "الوقت"
 
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "مدير الإقلاع الذي يستخدمه ردهات يمكنه إقلاع أنظمة تشغيل أخرى أيضاً. يجب أن "
-#~ "تخبرني ما هي التّجزيءات التي تودّ أن تكون قادراً على إقلاعها وما هو العنوان "
-#~ "الذي تريد استخدامه لكلّ منها."
+msgid ""
+"Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
+"higher.  This appears to be an older system.  Do you wish to continue the "
+"upgrade process?"
+msgstr ""
+"التحديثات لهذه النّسخة من %s مدعومة فقط من ردهات لينكس 6.2 أو ما بعده.  يبدو "
+"أن هذا نظام أقدم.  هل تريد إكمال عمليّة التّطوير؟"
 
-#~ msgid "no suggestion"
-#~ msgstr "لا اقتراح"
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tصدفة سطح المكتب (جينوم)\n"
+"\tالباقة المكتبيّة (OpenOffice.org)\n"
+"\tمتصفّح الوب\n"
+"\tالبريد الالكتروني (إيفوليوشن)\n"
+"\tالتّراسل الفوري\n"
+"\tتطبيقات الصّوت والفيديو\n"
+"\tالألعاب\n"
 
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "استخدم LILO ك_محمّل الإقلاع"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "لم يمكن تغيير ترتيب الأقراص من أجل LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "نحن لا ندعم تغيير ترتيب الأقراص للاستخدام مع LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "استخدم محمّل الإقلاع LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "مُثبّت %s على %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "لقد اخترت عدم تثبيت محمّل إقلاع على نظامك.  سوف تضطرّ إلى إنشاء قرص إقلاع "
-#~ "لإقلاع نظام مع هذا الخيار.\n"
-#~ "\n"
-#~ "هل تريد الاستمرار وعدم تثبيت محمّل إقلاع؟"
-
-#~ msgid "Total"
-#~ msgstr "المجموع"
-
-#~ msgid "Remaining"
-#~ msgstr "المتبقّي"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "جاري تثبيت %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "تقدّم الحزمة: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "التّقدّم الكلّي:   "
-
-#~ msgid "Status"
-#~ msgstr "الوضع"
-
-#~ msgid "Packages"
-#~ msgstr "الحزم"
-
-#~ msgid "Time"
-#~ msgstr "الوقت"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "التحديثات لهذه النّسخة من %s مدعومة فقط من ردهات لينكس 6.2 أو ما بعده.  "
-#~ "يبدو أن هذا نظام أقدم.  هل تريد إكمال عمليّة التّطوير؟"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tسطر أوامر سطح المكتب (GNOME)\n"
-#~ "\tالباقة المكتبيّة (OpenOffice)\n"
-#~ "\tمتصفّح الوب (موزيلا) \n"
-#~ "\tالبريد إلكتروني (Evolution)\n"
-#~ "\tالتّراسل الفوري\n"
-#~ "\tتطبيقات الصّوت والفيديو\n"
-#~ "\tالألعاب\n"
-#~ "\tأدوات الإدارة\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tسطر أوامر سطح المكتب (GNOME)\n"
-#~ "\tالباقة المكتبيّة (OpenOffice)\n"
-#~ "\tمتصفّح الوب (موزيلا) \n"
-#~ "\tالبريد الالكتروني (Evolution)\n"
-#~ "\tالتّراسل الفوري\n"
-#~ "\tتطبيقات الصّوت والفيديو\n"
-#~ "\tالألعاب\n"
-#~ "\tأدوات تطوير البرامج\n"
-#~ "\tأدوات الإدارة\n"
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tصدفة سطح المكتب (جينوم)\n"
+"\tالباقة المكتبيّة (OpenOffice.org)\n"
+"\tمتصفّح الوب \n"
+"\tالبريد الالكتروني (إيفوليوشن)\n"
+"\tالتّراسل الفوري\n"
+"\tتطبيقات الصّوت والفيديو\n"
+"\tالألعاب\n"
+"\tأدوات تطوير البرامج\n"
+"\tأدوات الإدارة\n"
