@@ -762,6 +762,7 @@ makebootdisk() {
     mkdir -p $MBD_BOOTTREE
 
     # provided by the mk-image.$ARCH file
+    mkdir -p `dirname $MBD_FILENAME`
     prepareBootImage
 
     left=$(df $MBD_BOOTTREE | tail +2)
@@ -774,10 +775,7 @@ makebootdisk() {
 	cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
     fi
 
-    mkdir -p `dirname $MBD_FILENAME`
-    rm -f $MBD_FILENAME
-    mv -f $MBD_TMPIMAGE $MBD_FILENAME
-    rm -rf $MBD_TMPIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+    rm -rf $MBD_MNTPOINT $MBD_BOOTTREE
     if [ -z "$INITRDFILE" ]; then
 	rm -f $MBD_FSIMAGE
     fi

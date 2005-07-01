@@ -14,9 +14,9 @@ SCSIMODULES="sd_mod sg sr_mod st scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd sgiioc4"
 
 prepareBootImage() {
-	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
-	mkdosfs -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
-	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
+	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_FILENAME 2>/dev/null
+	mkdosfs -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
+	mount -o loop -t vfat $MBD_FILENAME $MBD_BOOTTREE
 	mkdir -p $MBD_BOOTTREE/EFI/boot
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/EFI/boot/initrd.img
 
