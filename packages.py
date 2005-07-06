@@ -662,8 +662,10 @@ def doPreInstall(method, id, intf, instPath, dir):
         if foundkernel == 0:
             # we *always* need to have some sort of kernel installed
             select(id.grpset.hdrlist, 'kernel')
-            if selected(id.grpset.hdrlist, "gcc"):
-                select(id.grpset.hdrlist, "kernel-devel")
+            
+        if (selected(id.grpset.hdrlist, "gcc") and
+            selected(id.grpset.hdrlist, "kernel")):
+            select(id.grpset.hdrlist, "kernel-devel")
 
 	# if NIS is configured, install ypbind and dependencies:
 	if id.auth.useNIS:
