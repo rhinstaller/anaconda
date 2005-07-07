@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.3
+Version: 10.3.0.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 07 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.4-1
+- Select kernel-devel (katzj #160533)
+- Fixups for ia64 images from prarit (katzj #162072)
+- Include yum libraries in stage2
+- Remove gzread.py (clumens)
+
 * Wed Jun 29 2005 Chris Lumens <clumens@redhat.com> 10.3.0.3-1
 - Mount "auto" filesystems on upgrade (#160986).
 - Add cairo for new pango/gtk (katzj).
