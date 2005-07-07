@@ -1,3 +1,8 @@
+2005-07-07  Chris Lumens  <clumens@redhat.com>
+
+	* iw/progress_gui.py (InstallProgressWindow_NEW.getScreen):  Work
+	around pygtk progress table bug.
+
 2005-07-07  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec:  Bump version.

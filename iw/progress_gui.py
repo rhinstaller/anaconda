@@ -332,7 +332,7 @@ class InstallProgressWindow_NEW (InstallWindow):
         self.totalProgress = gtk.ProgressBar ()
 
 	progressTable = gtk.Table (2, 2, False)
-	progressTable.attach (self.totalProgress, 1, 2, 0, 1, ypadding=2)
+	progressTable.attach (self.totalProgress, 1, 2, 0, 1, xpadding=0, ypadding=2)
 
 #	label = gtk.Label (_("Package Progress: "))
 #	label.set_alignment (1.0, 0.5)
