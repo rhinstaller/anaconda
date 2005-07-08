@@ -1,5 +1,7 @@
 2005-07-08  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.s390 (makeBootImages): Bump initrd size (#149029)
+
 	* loader2/loader.c: Support for MTU setting on the command 
 	line (#155414)
 

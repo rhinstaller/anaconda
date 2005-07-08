@@ -447,7 +447,7 @@ NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6 lcs qdio qeth"
 
 makeBootImages() {
 	makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
-	    --initrdsize 15000 \
+	    --initrdsize 17000 \
 	    --loaderbin loader \
 	    --modules "$NETWORKMODULES"
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
