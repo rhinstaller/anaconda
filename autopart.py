@@ -1240,7 +1240,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     # XXX clearpartdrives is overloaded as drives we want to use for linux
     drives = []
     initial_free = findFreespace(diskset)
-    for drive in partitions.autoClearPartDrives:
+    if partitions.autoClearPartDrives is not None:
+      for drive in partitions.autoClearPartDrives:
         disk = diskset.disks[drive]
 
         free = 0

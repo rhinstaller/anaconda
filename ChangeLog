@@ -1,5 +1,8 @@
 2005-07-08  Jeremy Katz  <katzj@redhat.com>
 
+	* autopart.py (doAutoPartition): Fix from lxo for 
+	clearpart --none (#162445)
+
 	* scripts/upd-instroot (KEEPFILERESCUE): Add rsync (#162292)
 
 2005-07-07  Chris Lumens  <clumens@redhat.com>
