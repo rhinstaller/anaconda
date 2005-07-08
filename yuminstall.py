@@ -199,7 +199,7 @@ class AnacondaYum(yum.YumBase):
             if po:
                 totalSize += int(po.getSimple("installedsize"))
                 for filetype in po.returnFileTypes():
-                    totalFiles += len(po.returnFileEntries(ftype=filetype)
+                    totalFiles += len(po.returnFileEntries(ftype=filetype))
                 downloadpkgs.append(po)
 
         return (downloadpkgs, totalSize, totalFiles)
