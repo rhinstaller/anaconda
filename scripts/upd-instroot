@@ -201,7 +201,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
 PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open 
-                openssh openssh-clients pciutils rsh traceroute tar"
+                openssh openssh-clients pciutils rsh traceroute tar rsync"
 
 if [ $ARCH = i386 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart"
@@ -821,6 +821,7 @@ usr/bin/open
 usr/bin/rcp
 usr/bin/rlogin
 usr/bin/rsh
+usr/bin/rsync
 usr/bin/scp
 usr/bin/sftp
 usr/bin/shred
