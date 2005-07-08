@@ -197,7 +197,7 @@ class AnacondaYum(yum.YumBase):
             if txmbr.ts_state in ['i', 'u']:
                 po = txmbr.po
             if po:
-                totalSize += int(po.getSimple("installedsize"))
+                totalSize += int(po.returnSimple("installedsize"))
                 for filetype in po.returnFileTypes():
                     totalFiles += len(po.returnFileEntries(ftype=filetype))
                 downloadpkgs.append(po)
