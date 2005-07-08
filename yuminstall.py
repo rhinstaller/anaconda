@@ -21,6 +21,7 @@ import urlgrabber.progress
 import yum
 import yum.repos
 import yum.packages
+from syslogd import syslog
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -87,7 +88,7 @@ class simpleCallback:
                                                 hdr[rpm.RPMTAG_ARCH]))
 
             self.instLog.flush()
-            self.size = h[rpm.RPMTAG_SIZE]
+            self.size = hdr[rpm.RPMTAG_SIZE]
 
             fd = os.open(path, os.O_RDONLY)
             nvr = '%s-%s-%s' % ( hdr['name'], hdr['version'], hdr['release'] )
@@ -123,20 +124,20 @@ class AnacondaYumConf:
 cachedir=/var/cache/yum
 reposdir=/tmp/repos.d
 debuglevel=2
-logfile=/var/log/yum.log
+logfile=/tmp/yum.log
 pkgpolicy=newest
 distroverpkg=redhat-release
 tolerant=1
 exactarch=1
 retries=5
 obsoletes=1
-gpgcheck=1
+gpgcheck=0
 installroot=/mnt/sysimage
 
 [anaconda]
 baseurl=file:///mnt/source
 enabled=1
-gpgcheck=1
+gpgcheck=0
 gpgkey=file:///mnt/source/RPM-GPG-KEY-fedora
 """
 
@@ -188,6 +189,40 @@ class AnacondaYum(yum.YumBase):
     def log(self, value, msg):
         pass
 
+    def getDownloadPkgs(self):
+        downloadpkgs = []
+        totalSize = 0
+        totalFiles = 0
+        for txmbr in self.tsInfo.getMembers():
+            if txmbr.ts_state in ['i', 'u']:
+                po = txmbr.po
+            if po:
+                totalSize += int(po.getSimple("installedsize"))
+                for filetype in po.returnFileTypes():
+                    totalFiles += len(po.returnFileEntries(ftype=filetype)
+                downloadpkgs.append(po)
+
+        return (downloadpkgs, totalSize, totalFiles)
+
+    def run(self, cb):
+        self.initActionTs()
+        self.populateTs(keepold=0)
+        self.ts.check()
+        self.runTransaction(cb=cb)
+        
+    def setup(self, fn="/etc/yum.conf", root="/"):
+        self.doConfigSetup(fn, root)
+        self.doTsSetup()
+        self.doRpmDBSetup()
+        # XXX: handle RepoError
+        self.doRepoSetup()
+        for x in self.repos.repos.values():
+            x.dirSetup()
+        self.repos
+        self.doGroupSetup()
+        self.doSackSetup()
+        self.repos.populateSack(with='filelists')
+
 def doYumInstall(method, id, intf, instPath):
     if flags.test:
         return
@@ -224,6 +259,17 @@ def doYumInstall(method, id, intf, instPath):
 
     instLog = open(instLogName, "w+")
 
+   # dont start syslogd if we arent creating filesystems
+    if flags.setupFilesystems:
+        syslogname = "%s%s.syslog" % (instPath, logname)
+        try:
+            iutil.rmrf (syslogname)
+        except OSError:
+            pass
+        syslog.start (instPath, syslogname)
+    else:
+        syslogname = None
+
     if upgrade:
         modeText = _("Upgrading %s-%s-%s.%s.\n")
     else:
@@ -231,38 +277,30 @@ def doYumInstall(method, id, intf, instPath):
 
     ac = AnacondaYumConf(configfile="/tmp/yum.conf", root=instPath)
     ayum = AnacondaYum(method, id, intf, instPath)
-    ayum.doConfigSetup(fn="/tmp/yum.conf", root=instPath)
-    ayum.doTsSetup()
-    # XXX: handle RepoError
-    ayum.doRepoSetup()
-    for x in ayum.repos.repos.values():
-        x.dirSetup()
-    ayum.doGroupSetup()
-    ayum.doSackSetup()
-    ayum.doRpmDBSetup()
+    ayum.setup(fn="/tmp/yum.conf", root=instPath)
+    
     ayum.setGroupSelection(["Core"], intf)
-
-    downloadpkgs = []
-    for txmbr in ayum.tsInfo.getMembers():
-        if txmbr.ts_state in ['i', 'u']:
-            po = txmbr.po
-        if po:
-            downloadpkgs.append(po)
-
-    ayum.downloadPkgs(downloadpkgs, callback=None)
-
-    ayum.initActionTs()
-    ayum.populateTs()
 
     pkgTimer = timer.Timer(start = 0)
 
+    (dlpkgs, totalSize, totalFiles)  = ayum.getDownloadPkgs()
+
+    id.instProgress.setSizes(len(dlpkgs), totalSize, totalFiles)
+    id.instProgress.processEvents()
 
     cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, method, intf.progressWindow, instLog, modeText, ayum.ts)
 
     cb.initWindow = intf.waitWindow(_("Install Starting"),
                                     _("Starting install process.  This may take several minutes..."))
 
-    ayum.ts.check()
-    ayum.ts.order()
-    ayum.runTransaction(cb=cb)
+    ayum.run(cb)
+
+    if not cb.beenCalled:
+        cb.initWindow.pop()
+
+    method.filesDone()
+    instLog.close ()
+
+    id.instProgress = None
+
 
