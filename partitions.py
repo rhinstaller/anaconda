@@ -624,11 +624,6 @@ class Partitions:
             # have to consider both the PReP or Bootstrap partition (with
             # potentially > 1 existing) as well as /boot,/
 
-            if iutil.getPPCMachine() == "pSeries":
-                boottype = "PPC PReP Boot"
-            else:
-                boottype = "Apple Bootstrap"
-
             ret = []
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):

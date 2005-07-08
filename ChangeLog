@@ -1,5 +1,7 @@
 2005-07-08  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.getBootableRequest): Nuke some dead code.
+
 	* scripts/mk-images.ia64 (image): Bump ia64 boot.img size (#162801)
 
 	* autopart.py (doAutoPartition): Fix from lxo for 
