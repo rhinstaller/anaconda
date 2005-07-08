@@ -195,7 +195,7 @@ class NetworkDeviceWindow:
         return INSTALL_OK
 
 
-    def __call__(self, screen, network, dir, intf, showonboot=1):
+    def __call__(self, screen, network, dir, intf, id, showonboot=1):
 
         self.devices = network.available()
         if not self.devices:

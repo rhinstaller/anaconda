@@ -40,6 +40,8 @@ class NetworkWindow(InstallWindow):
 
     def getNext(self):
 
+	import kickstart
+
 	if self.getNumberActiveDevices() == 0:
 	    rc = self.handleNoActiveDevices()
 	    if not rc:
@@ -64,6 +66,10 @@ class NetworkWindow(InstallWindow):
 	    newHostname = "localhost.localdomain"
 	    override = 0
 
+	# If we're not using DHCP, skip setting up the network config
+	# boxes.  Otherwise, don't clear the values out if we are doing
+	# kickstart since we could be in interactive mode.  Don't want to
+	# write out a broken resolv.conf later on, after all.
 	if not self.anyUsingDHCP():
 	    tmpvals = {}
 	    for t in range(len(global_options)):
@@ -86,7 +92,7 @@ class NetworkWindow(InstallWindow):
 	    self.network.primaryNS = tmpvals[1]
 	    self.network.secondaryNS = tmpvals[2]
 	    self.network.ternaryNS = tmpvals[3]
-	else:
+	elif not isinstance (self.id.instClass, kickstart.KickstartBase):
 	    self.network.gateway = None
 	    self.network.primaryNS = None
 	    self.network.secondaryNS = None
@@ -486,8 +492,9 @@ class NetworkWindow(InstallWindow):
 	    self.hostnameEntry.grab_focus()
 
     # NetworkWindow tag="netconf"
-    def getScreen(self, network, dir, intf):
+    def getScreen(self, network, dir, intf, id):
 	self.intf = intf
+	self.id = id
         box = gtk.VBox(gtk.FALSE)
         box.set_border_width(6)
 	self.network = network
@@ -591,11 +598,7 @@ class NetworkWindow(InstallWindow):
 	# bring over the value from the loader
 	self.hostnameEntry.set_text(self.network.hostname)
 
-#
-# for now always put info in the entries, even if we're using DHCP
-#
-#	if not self.anyUsingDHCP() or 1:
-        if 1:
+	if not self.anyUsingDHCP():
 	    if self.network.gateway:
 		self.globals[_("Gateway")].hydrate(self.network.gateway)
 	    if self.network.primaryNS:

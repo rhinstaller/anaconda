@@ -203,7 +203,7 @@ def runRescue(instPath, mountroot, id):
 		    win = nextWindow()
 
 		    if classNames[step] == "NetworkDeviceWindow":
-			args = (id.network, dir, intf, 0)
+			args = (id.network, dir, intf, None, 0)
 		    else:
 			args = (id.network, dir, intf)
 		    rc = apply(win, (screen, ) + args)

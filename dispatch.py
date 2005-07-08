@@ -99,7 +99,7 @@ installSteps = [
     ("bootloaderadvanced", ("dispatch", "id.bootloader", "id.fsset",
                             "id.diskset")),
     ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
-    ("network", ("id.network", "dir", "intf")),
+    ("network", ("id.network", "dir", "intf", "id")),
     ("firewall", ("intf", "id.network", "id.firewall", "id.security")),
     ("languagesupport", ("id.langSupport",)),
     ("timezone", ("id.instLanguage", "id.timezone")),
