@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 2002-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -620,20 +620,10 @@ class Partitions:
             # have to consider both the PReP partition (with potentially > 1
             # existing) as well as /boot,/
 
-            # for the prep partition, we want either the first or the
-            # first non-preexisting one
-            bestprep = None
+            ret = []
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
-                    if ((bestprep is None) or
-                        (bestprep.getPreExisting() and
-                         not req.getPreExisting())):
-                        bestprep = req
-
-            if bestprep:
-                ret = [ bestprep ]
-            else:
-                ret = []
+                    ret.append(req)
 
             # now add the /boot
             bootreq = self.getRequestByMountPoint("/boot")

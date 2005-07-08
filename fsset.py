@@ -825,6 +825,7 @@ class prepbootFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = None
+        self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
         self.checked = 0
         self.name = "PPC PReP Boot"
         self.maxSizeMB = 10
@@ -1180,7 +1181,7 @@ MAILADDR root
 
         f.close()
         
-    # return the "boot" devicce
+    # return the "boot" device
     def getBootDev(self):
 	mntDict = {}
         bootDev = None

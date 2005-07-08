@@ -1,5 +1,10 @@
 2005-07-08  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.getBootableRequest): Support bootable
+	SW RAID on ppc (#159902)
+	* raid.py (raidBootArches): Make ppc allow bootable RAID
+	* fsset.py (prepbootFileSystem.__init__): Set PReP as bootable
+
 	* loader2/loader.c: Support for setting mtu on the command 
 	line (#155414)
 
