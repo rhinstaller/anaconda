@@ -90,7 +90,8 @@ class simpleCallback:
             self.instLog.flush()
             self.size = hdr[rpm.RPMTAG_SIZE]
 
-            fd = os.open(path, os.O_RDONLY)
+            fn = os.path.basename(path)
+            fd = os.open('/mnt/source/Fedora/RPMS/' + fn, os.O_RDONLY)
             nvr = '%s-%s-%s' % ( hdr['name'], hdr['version'], hdr['release'] )
             self.fdnos[nvr] = fd
             return fd
@@ -197,7 +198,7 @@ class AnacondaYum(yum.YumBase):
             if txmbr.ts_state in ['i', 'u']:
                 po = txmbr.po
             if po:
-                totalSize += int(po.returnSimple("installedsize"))
+                totalSize += int(po.returnSimple("installedsize")) / 1024
                 for filetype in po.returnFileTypes():
                     totalFiles += len(po.returnFileEntries(ftype=filetype))
                 downloadpkgs.append(po)
@@ -208,6 +209,7 @@ class AnacondaYum(yum.YumBase):
         self.initActionTs()
         self.populateTs(keepold=0)
         self.ts.check()
+        self.ts.order()
         self.runTransaction(cb=cb)
         
     def setup(self, fn="/etc/yum.conf", root="/"):
@@ -280,10 +282,18 @@ def doYumInstall(method, id, intf, instPath):
     ayum.setup(fn="/tmp/yum.conf", root=instPath)
     
     ayum.setGroupSelection(["Core"], intf)
+    ayum.setGroupSelection(["Base"], intf)
+    ayum.setGroupSelection(["Text-based Internet"], intf)
 
     pkgTimer = timer.Timer(start = 0)
-
+# Resolve deps
+#
+    win = intf.waitWindow(_("Dependency Check"),
+    _("Checking dependencies in packages selected for installation..."))
+       
+    (code, msgs) = ayum.buildTransaction()
     (dlpkgs, totalSize, totalFiles)  = ayum.getDownloadPkgs()
+    win.pop()
 
     id.instProgress.setSizes(len(dlpkgs), totalSize, totalFiles)
     id.instProgress.processEvents()
