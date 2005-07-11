@@ -1544,7 +1544,7 @@ class Kickstart(BaseInstallClass):
                         continue
             
             if grpset.hdrlist.has_key(n):
-                pkgs = grpset.hdrlist.pkgnames[name]
+                pkgs = grpset.hdrlist.pkgnames[n]
                 for (nevra, parch) in pkgs:
                     grpset.hdrlist.pkgs[nevra].unselect(isManual = 1)
             else:
