@@ -568,7 +568,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         } else if (!strncasecmp(argv[i], "netmask=", 8)) 
             loaderData->netmask = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "mtu=", 4)) 
-            loaderData->mtu = strdup(argv[i] + 4);
+            loaderData->mtu = atoi(argv[i] + 4);
         else if (!strncasecmp(argv[i], "gateway=", 8))
             loaderData->gateway = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "dns=", 4))
