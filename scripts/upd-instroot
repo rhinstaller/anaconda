@@ -162,7 +162,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           system-config-keyboard Xft fontconfig redhat-artwork
+           system-config-keyboard Xft fontconfig redhat-artwork audit-libs
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts fonts-arabic
            comps-extras XFree86-libs-data convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
@@ -270,6 +270,7 @@ $LIBDIR/libss*
 $LIBDIR/libtermcap*
 $LIBDIR/libhandle*
 $LIBDIR/libattr*
+$LIBDIR/libaudit*.so*
 $LIBDIR/libdm*
 $LIBDIR/libutil*
 $LIBDIR/libuuid*
