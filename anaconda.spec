@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.0
+Version: 9.1.6.1
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 12 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.1-1.RHEL
+- U6 Fix autopartiioning on i5 (#137920)
+- U6 fix braces for MTU fix
+
 * Tue Jul 12 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.0-1.RHEL
 - U6 restore syslinux splash (#143237)
 - U6 s390 initrd size (katzj, #149029)
