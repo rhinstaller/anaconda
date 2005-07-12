@@ -1,3 +1,9 @@
+2005-07-12  Paul Nasrat <pnasrat@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* scripts/mk-images.i386 (prepareBootImage): Add syslinux splash (#143237)
+
 2005-07-08  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.s390 (makeBootImages): Bump initrd size (#149029)

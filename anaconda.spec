@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.5.8
+Version: 9.1.6.0
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 12 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.0-1.RHEL
+- U6 restore syslinux splash (#143237)
+- U6 s390 initrd size (katzj, #149029)
+- U6 support for MTU in loader (katzj, #155414)
+- Partition ks.cfg section - correctly quote fstypes (katzj, #159193)
+- Remove /var/lib/rpm late (#138884)
+
 * Mon May 09 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.8-1.RHEL
 - U5 backport n.arch logic error
 
