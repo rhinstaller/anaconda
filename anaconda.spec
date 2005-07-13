@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 - Fix for clearpart --none (katzj, #162445).
 - yum dependancy fixes (pnasrat).
 - name.arch fix for kickstart (pnasrat).
-- Fix multiple NICs in kickstart config files (#158566).
+- Fix multiple NICs in kickstart config files (#158556).
 
 * Thu Jul 07 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.4-1
 - Select kernel-devel (katzj #160533)
