@@ -175,6 +175,7 @@ class Network:
                 if len(netinf) >= 2:
                     info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
+	    self.firstnetdevice = info["DEVICE"]
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
                         "NETTYPE", "SUBCHANNELS", "PORTNAME", "CTCPROT",
                         "PEERID", "ESSID", "KEY"):

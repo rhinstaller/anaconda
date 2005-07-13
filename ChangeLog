@@ -1,3 +1,11 @@
+2005-07-13  Chris Lumens  <clumens@redhat.com>
+
+	* installclass.py (BaseInstallClass.setNetwork):  Use list of all
+	network devices so the firstdev is properly excluded and
+	multiple NICs works in kickstart (#158566).
+	* network.py (Network.__init__):  Set firstnetdevice from
+	/tmp/netinfo as part of above.
+
 2005-07-12  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c: Fix silly syntax error (pnasrat)
