@@ -2,7 +2,7 @@
 
 	* installclass.py (BaseInstallClass.setNetwork):  Use list of all
 	network devices so the firstdev is properly excluded and
-	multiple NICs works in kickstart (#158566).
+	multiple NICs works in kickstart (#158556).
 	* network.py (Network.__init__):  Set firstnetdevice from
 	/tmp/netinfo as part of above.
 
