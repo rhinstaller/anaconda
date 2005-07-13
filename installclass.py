@@ -292,7 +292,7 @@ class BaseInstallClass:
 
     def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None):
 	if bootProto:
-	    devices = id.network.available ()
+            devices = id.network.netdevices
             firstdev = id.network.getFirstDeviceName()
 	    if (devices and bootProto):
 		if not device:

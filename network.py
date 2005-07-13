@@ -170,6 +170,7 @@ class Network:
                 netinf = string.splitfields(line, '=')
                 info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
+            self.firstnetdevice = info["DEVICE"]
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
                         "REMIP"):
                 if info.has_key(key):
