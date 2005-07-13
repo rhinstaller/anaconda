@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.4
+Version: 10.3.0.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 13 2005 Chris Lumens <clumens@redhat.com> 10.3.0.5-1
+- Fix pygtk bug on progress bars.
+- Bump ia64 boot.img size (katzj, #162801).
+- Fix for clearpart --none (katzj, #162445).
+- yum dependancy fixes (pnasrat).
+- name.arch fix for kickstart (pnasrat).
+- Fix multiple NICs in kickstart config files (#158566).
+
 * Thu Jul 07 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.4-1
 - Select kernel-devel (katzj #160533)
 - Fixups for ia64 images from prarit (katzj #162072)
