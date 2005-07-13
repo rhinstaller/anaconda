@@ -1,3 +1,12 @@
+2005-07-13  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+	* installclass.py (BaseInstallClass.setNetwork):  Use list of all
+	network devices so the firstdev is properly excluded and multiple NICs
+	works in kickstart (#158566).
+	* network.py (Network.__init__):  Set firstnetdevice from
+	/tmp/netinfo as part of above.
+
 2005-07-11  Paul Nasrat <pnasrat@redhat.com>
 
 	* kickstart.py: name.arch fix from Florian
