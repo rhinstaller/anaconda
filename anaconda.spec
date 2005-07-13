@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.19
+Version: 10.1.1.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,7 +74,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue May 10 05 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.19-1
+* Wed Jul 13 2005 Peter Jones <pjones@redhat.com> - 10.1.1.20-1 - NOTBUILTYET
+- Fix file descriptor leak (#160720)
+- Prefer kernel-devel over kernel-smp devel (#160533, #162581)
+- Support for setting MTU on command line (#155414)
+- Support booting off of software raid on ppc (#159902)
+- Write resolv.conf correctly when using kickstart and dhcp (#151472)
+- Include audit libraries (#162821)
+
+* Tue May 10 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.19-1
 - Quieten package downloads in cmdline mode (#155250)
 - name.arch logic error 
 - Ensure kernel written to PReP on iSeries upgrades (#146915)
