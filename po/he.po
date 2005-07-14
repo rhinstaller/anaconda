@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: anconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-07-13 14:57+0200\n"
-"Last-Translator: david <just_cause@walla.co.il>\n"
+"PO-Revision-Date: 2005-07-13 20:06+0200\n"
+"Last-Translator: David R <ddady1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -18,25 +18,25 @@ msgstr ""
 
 #: ../anaconda:102
 msgid "Starting VNC..."
-msgstr ""
+msgstr "...VNC מפעיל"
 
 #: ../anaconda:137
 #, c-format
 msgid "%s %s installation on host %s"
-msgstr ""
+msgstr "%s %s התקנה על המארח %s"
 
 #: ../anaconda:139
 #, c-format
 msgid "%s %s installation"
-msgstr ""
+msgstr "%s %s התקנה"
 
 #: ../anaconda:159
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "!מפעיל ללא סיסמה  -  VNC לא התאפשרה הגדרת סיסמה ל "
 
 #: ../anaconda:160
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "וודא שסיסמתך היא לפחות 6 תווים"
+msgstr "וודא שסיסמתך היא לפחות באורך 6 תווים"
 
 #: ../anaconda:183
 msgid ""
@@ -47,6 +47,12 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"אם תרצה לאבטח את השרת.\n"
+"<password>=VNC תוכל להשתמש בסיסמת האיתחול של ה\n"
+"!פועל ללא סיסמה VNC אזהרה!!! שרת ה\n"
+"\n"
 
 #: ../anaconda:187
 msgid "The VNC server is now running."
@@ -72,11 +78,11 @@ msgstr ""
 
 #: ../anaconda:212
 msgid "Will try to connect again in 15 seconds..."
-msgstr ".נסיון התחברות נוסף תוך 15 שניות"
+msgstr "...נסיון התחברות נוסף תוך 15 שניות"
 
 #: ../anaconda:216
 msgid "Connected!"
-msgstr "מחובר"
+msgstr "!מחובר"
 
 #: ../anaconda:220
 #, c-format
@@ -203,7 +209,7 @@ msgstr ""
 
 #: ../anaconda:830
 msgid "No video hardware found, assuming headless"
-msgstr ".התקנה בתצורה גרפית לא זמינה כעת... מתחיל תצורת טקסט"
+msgstr ""
 
 #: ../anaconda:841
 #: ../anaconda:1092
@@ -471,11 +477,11 @@ msgstr ""
 
 #: ../bootloader.py:118
 msgid "Bootloader"
-msgstr ""
+msgstr "Bootloader"
 
 #: ../bootloader.py:118
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "...Bootloader מתקין"
 
 #: ../bootloader.py:180
 msgid "No kernel packages were installed on your system.  Your boot loader configuration will not be changed."
@@ -483,11 +489,11 @@ msgstr ""
 
 #: ../cmdline.py:42
 msgid "Completed"
-msgstr ""
+msgstr "הושלם"
 
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr ""
+msgstr "...בתהליך"
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
@@ -557,7 +563,7 @@ msgstr ""
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
-msgstr ""
+msgstr "A הכנס דיסקט לכונן"
 
 #: ../floppy.py:114
 msgid ""
@@ -569,11 +575,11 @@ msgstr ""
 #: ../floppy.py:118
 #: ../packages.py:456
 msgid "_Cancel"
-msgstr "_בטל"
+msgstr "בטל_"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr ""
+msgstr "הכן דיסק איתחול_"
 
 #: ../floppy.py:129
 #: ../floppy.py:154
@@ -656,11 +662,11 @@ msgstr ""
 
 #: ../floppy.py:141
 msgid "Creating"
-msgstr ""
+msgstr "יוצר"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
-msgstr ""
+msgstr "...יוצר דיסק איתחול"
 
 #: ../floppy.py:170
 msgid "An error occurred while attempting to verify the boot disk.  Please make sure that you have a good floppy in the first floppy drive."
@@ -833,16 +839,16 @@ msgstr ""
 #: ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "איתחול_"
 
 #: ../fsset.py:2534
 msgid "Formatting"
-msgstr ""
+msgstr "מפרמט"
 
 #: ../fsset.py:2535
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "%s מפרמט למערכת קבצים"
 
 #: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
@@ -952,7 +958,7 @@ msgstr ""
 
 #: ../gui.py:549
 msgid "_Save to floppy"
-msgstr "_שמור לדיסקט"
+msgstr "שמור לדיסקט_"
 
 #: ../gui.py:722
 #: ../text.py:269
@@ -1006,12 +1012,12 @@ msgstr ""
 #: ../packages.py:1552
 #: ../packages.py:1557
 msgid "_Exit"
-msgstr "_יציאה"
+msgstr "יציאה_"
 
 #: ../gui.py:1176
 #: ../packages.py:444
 msgid "_Retry"
-msgstr "_נסה שנית"
+msgstr "נסה שנית_"
 
 #: ../gui.py:1179
 #: ../packages.py:1556
@@ -1070,7 +1076,7 @@ msgstr "שונות"
 
 #: ../image.py:87
 msgid "Required Install Media"
-msgstr "_חזרה"
+msgstr ""
 
 #: ../image.py:88
 #, python-format
@@ -1098,7 +1104,7 @@ msgstr ""
 #: ../kickstart.py:1535
 #: ../iw/partition_gui.py:1009
 msgid "_Continue"
-msgstr "_המשך"
+msgstr "המשך_"
 
 #: ../image.py:155
 #, python-format
@@ -1119,7 +1125,7 @@ msgstr ""
 
 #: ../image.py:286
 msgid "Change CDROM"
-msgstr ""
+msgstr "CDROM שנה"
 
 #: ../image.py:287
 #, python-format
@@ -1128,7 +1134,7 @@ msgstr ""
 
 #: ../image.py:322
 msgid "Wrong CDROM"
-msgstr ""
+msgstr "שגוי CDROM"
 
 #: ../image.py:323
 #, python-format
@@ -1248,7 +1254,7 @@ msgstr ""
 
 #: ../packages.py:374
 msgid "Preparing to install..."
-msgstr ""
+msgstr "...מתוכנן להתקנה"
 
 #: ../packages.py:433
 #, python-format
@@ -1260,7 +1266,7 @@ msgstr ""
 
 #: ../packages.py:443
 msgid "Re_boot"
-msgstr ""
+msgstr "אי_תחול"
 
 #: ../packages.py:447
 msgid "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.  Are you sure you wish to continue?"
@@ -1272,7 +1278,7 @@ msgstr "...מתקין"
 
 #: ../packages.py:482
 msgid "Error Installing Package"
-msgstr "_מחק"
+msgstr ""
 
 #: ../packages.py:483
 #, python-format
@@ -1484,7 +1490,7 @@ msgstr ""
 #: ../partIntfHelpers.py:167
 #: ../partIntfHelpers.py:184
 msgid "Unable To Delete"
-msgstr ""
+msgstr "אין אפשרות למחוק"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
@@ -1546,7 +1552,7 @@ msgstr ""
 #: ../partIntfHelpers.py:347
 #: ../partIntfHelpers.py:358
 msgid "Unable To Edit"
-msgstr ""
+msgstr "אין אפשרות לערוך"
 
 #: ../partIntfHelpers.py:309
 msgid "You must select a partition to edit"
@@ -1587,7 +1593,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
-msgstr ""
+msgstr "?לפרמט"
 
 #: ../partIntfHelpers.py:415
 #: ../iw/partition_gui.py:1007
@@ -1596,7 +1602,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:415
 msgid "Do _Not Format"
-msgstr ""
+msgstr "לא _לפרמט"
 
 #: ../partIntfHelpers.py:423
 msgid "Error with Partitioning"
@@ -1947,7 +1953,7 @@ msgstr "קריאה בלבד"
 #: ../loader2/cdinstall.c:259
 #: ../loader2/method.c:420
 msgid "Skip"
-msgstr ""
+msgstr "דלג"
 
 #: ../rescue.py:305
 msgid "System to Rescue"
@@ -2014,13 +2020,13 @@ msgstr ""
 #: ../text.py:301
 #: ../text.py:309
 msgid "Save"
-msgstr "שמירה"
+msgstr "שמור"
 
 #: ../text.py:301
 #: ../text.py:304
 #: ../text.py:307
 msgid "Debug"
-msgstr "VNC התחל"
+msgstr ""
 
 #: ../text.py:349
 #: ../loader2/lang.c:52
@@ -2148,11 +2154,11 @@ msgstr ""
 
 #: ../upgradeclass.py:23
 msgid "Upgrade"
-msgstr ""
+msgstr "שידרוג"
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
-msgstr ""
+msgstr "...מתחבר"
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -2169,7 +2175,7 @@ msgstr ""
 
 #: ../vnc.py:63
 msgid "Start VNC"
-msgstr ""
+msgstr "VNC התחל"
 
 #: ../vnc.py:73
 msgid "VNC Configuration"
@@ -2270,7 +2276,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr ""
+msgstr "Root הגדר סיסמת"
 
 #: ../iw/account_gui.py:41
 #: ../iw/account_gui.py:49
@@ -2278,7 +2284,7 @@ msgstr ""
 #: ../iw/account_gui.py:65
 #: ../textw/userauth_text.py:71
 msgid "Error with Password"
-msgstr ""
+msgstr "סיסמה לא נכונה"
 
 #: ../iw/account_gui.py:42
 msgid "You must enter your root password and confirm it by typing it a second time to continue."
@@ -2312,7 +2318,7 @@ msgstr ":אשר_"
 #: ../iw/auth_gui.py:22
 #: ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr ""
+msgstr "הגדרת אימות"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
@@ -2408,11 +2414,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr ""
+msgstr "שנה _סיסמה"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
-msgstr ""
+msgstr "Boot Loader הכנס סיסמת"
 
 #: ../iw/blpasswidget.py:102
 msgid "Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"
@@ -2441,11 +2447,11 @@ msgid ""
 "Your boot loader password is less than six characters.  We recommend a longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "?לאתחל"
+msgstr ""
 
 #: ../iw/bootdisk_gui.py:24
 msgid "Boot Diskette Creation"
-msgstr ""
+msgstr "יצירת דיסקט איתחול"
 
 #: ../iw/bootdisk_gui.py:55
 #, python-format
@@ -2457,11 +2463,11 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:71
 msgid "_Yes, I would like to create a boot diskette"
-msgstr ""
+msgstr "כן, אני מעוניין ליצור דיסקט איתחול_"
 
 #: ../iw/bootdisk_gui.py:74
 msgid "No, I _do not want to create a boot diskette"
-msgstr ""
+msgstr "לא, אני _לא מעוניין ליצור דיסקט איתחול"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2703,11 +2709,11 @@ msgstr ""
 #: ../iw/driveorderwidget.py:44
 #: ../textw/partition_text.py:1436
 msgid "Size"
-msgstr ""
+msgstr "גודל"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
-msgstr ""
+msgstr "מודל"
 
 #: ../iw/examine_gui.py:33
 msgid "Upgrade Examine"
@@ -2773,17 +2779,17 @@ msgstr ""
 #: ../iw/firewall_gui.py:23
 #: ../textw/firewall_text.py:177
 msgid "Active"
-msgstr ""
+msgstr "פעיל"
 
 #: ../iw/firewall_gui.py:27
 #: ../textw/firewall_text.py:29
 msgid "Firewall"
-msgstr ""
+msgstr "חומת אש"
 
 #: ../iw/firewall_gui.py:37
 #: ../textw/firewall_text.py:112
 msgid "Warning - No Firewall"
-msgstr ""
+msgstr "אזהרה - אין חומת אש"
 
 #: ../iw/firewall_gui.py:38
 #: ../textw/firewall_text.py:113
@@ -2833,7 +2839,7 @@ msgstr ""
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
-msgstr ""
+msgstr "IP חסרה כתובת"
 
 #: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
