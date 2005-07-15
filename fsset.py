@@ -1332,7 +1332,7 @@ MAILADDR root
         # on ia64, *only* /boot/efi should be marked bootable
         # similarly, on pseries, we really only want the PReP partition active
         if (iutil.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries"
-            or iutil.getPPCMachine() == "iSeries"):
+            or iutil.getPPCMachine() == "iSeries") or iutil.getPPCMachine() == "PMac":
             part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
             if part and part.is_flag_available(parted.PARTITION_BOOT):
                 part.set_flag(parted.PARTITION_BOOT, 1)
