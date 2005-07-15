@@ -1,6 +1,10 @@
-2005-07-13  Paul Nasrat <pnasrat@redhat.com>
+2005-07-15  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.
+
+	* scripts/mk-images.i386 (prepareBootImage): isolinux splash (#143237)
+
+	* scripts/mk-images: don't overflow drvblock (#163080)
 
 2005-07-13  Chris Lumens  <clumens@redhat.com>
 

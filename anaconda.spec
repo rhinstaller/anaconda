@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.3
+Version: 9.1.6.4
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 15 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.4-1.RHEL
+- Don't overflow drvblock (#163080)
+- Splash on isolinux as bootdisk too small (#143237)
+
 * Wed Jul 13 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.3-1.RHEL
 - multiple NICs fixes for kickstart (clumens, #158556)
 
