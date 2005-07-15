@@ -74,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Wed Jul 13 2005 Peter Jones <pjones@redhat.com> - 10.1.1.20-1 - NOTBUILTYET
+* Wed Jul 13 2005 Peter Jones <pjones@redhat.com> - 10.1.1.20-1
 - Fix file descriptor leak (#160720)
 - Prefer kernel-devel over kernel-smp devel (#160533, #162581)
 - Support for setting MTU on command line (#155414)
