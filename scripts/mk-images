@@ -826,6 +826,11 @@ makedriverdisk () {
     modlist=$(expandModuleSet "$3")
     diskpath=/tmp/makedriverdisk.$$
 
+    #XXX: Hack for large driver
+    if [ "$diskname" -eq "blockdrv" ]; then
+        modlist=$(echo $modlist | sed 's/3w-9xxx//g')
+    fi
+
     rm -rf $diskpath
     mkdir -p $diskpath
 
