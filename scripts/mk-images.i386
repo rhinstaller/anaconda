@@ -17,6 +17,7 @@ prepareBootImage() {
 # prepare a directory with the kernel, initrd, and various message files
 # used to populate a boot image
 prepareBootTree() {
+        NOSPLASH=
         if [ "$1" = "--nosplash" ]; then
 	    NOSPLASH=1
 	fi
