@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-07-15 17:53+0200\n"
+"PO-Revision-Date: 2005-07-17 23:17+0200\n"
 "Last-Translator: David R <ddady1@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "...%s במארח VNC מנסה להתחבר עם לקוח ה"
 
 #: ../anaconda:204
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "!מפסיק את נסיונות ההתקשרות אחרי 50 נסיונות\n"
 
 #: ../anaconda:206
 #, c-format
@@ -218,7 +218,7 @@ msgstr ""
 
 #: ../anaconda:865
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "התקנה בתצורה גרפית אינה זמינה... מאתחל התקנה בתצורה טקסט"
 
 #: ../anaconda:880
 msgid "No mouse was detected.  A mouse is required for graphical installation.  Starting text mode."
@@ -285,7 +285,7 @@ msgstr ""
 
 #: ../autopart.py:1270
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "המחיצה הדרושה אינה קיימת"
 
 #: ../autopart.py:1271
 #, python-format
@@ -297,7 +297,7 @@ msgstr ""
 
 #: ../autopart.py:1298
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "הדרוש אינו נמצא Raid התקן ה  "
 
 #: ../autopart.py:1299
 #, python-format
@@ -334,7 +334,7 @@ msgstr ""
 #: ../autopart.py:1483
 #: ../autopart.py:1531
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "שגיאות בחלוקה למחיצות אוטומטית"
 
 #: ../autopart.py:1484
 #, python-format
@@ -370,7 +370,7 @@ msgstr ""
 #: ../iw/partition_gui.py:995
 #: ../textw/partition_text.py:225
 msgid "Error Partitioning"
-msgstr ""
+msgstr "שגיאה בחלוקה למחיצות"
 
 #: ../autopart.py:1510
 #, python-format
@@ -451,11 +451,11 @@ msgstr ""
 
 #: ../autopart.py:1712
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "הסר את כל המחיצות במחשב"
 
 #: ../autopart.py:1713
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "הסר את כל מחיצות הלינוקס על המחשב"
 
 #: ../autopart.py:1714
 msgid "Keep all partitions and use existing free space"
@@ -506,12 +506,12 @@ msgstr ""
 #: ../cmdline.py:133
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "[%d/%d] בוצע"
 
 #: ../cmdline.py:139
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr ""
+msgstr "...%s-%s-%s מתקין"
 
 #: ../constants.py:73
 #, python-format
@@ -539,19 +539,19 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Remote Login (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Web Server (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "File Transfer (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
-msgstr ""
+msgstr "Mail Server (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -678,12 +678,12 @@ msgstr ""
 
 #: ../fsset.py:182
 msgid "Checking for Bad Blocks"
-msgstr ""
+msgstr "בודק למקטעים פגומים"
 
 #: ../fsset.py:183
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr ""
+msgstr "...%s/dev/ בודק מקטעים פגומים ב"
 
 #: ../fsset.py:608
 #, python-format
@@ -713,7 +713,7 @@ msgstr ""
 
 #: ../fsset.py:1276
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "Master Boot Record (MBR)"
 
 #: ../fsset.py:1350
 #, python-format
@@ -1032,7 +1032,7 @@ msgstr ""
 #: ../gui.py:1185
 #: ../packages.py:1561
 msgid "Rebooting System"
-msgstr ""
+msgstr "מאתחל את הממחשב"
 
 #: ../gui.py:1266
 #, python-format
@@ -1064,7 +1064,7 @@ msgstr ""
 
 #: ../hdrlist.py:788
 msgid "Everything"
-msgstr ""
+msgstr "הכל"
 
 #: ../hdrlist.py:952
 msgid "Choose this group to get the minimal possible set of packages.  Useful for creating small router/firewall boxes, for example."
@@ -1076,7 +1076,7 @@ msgstr "שונות"
 
 #: ../image.py:87
 msgid "Required Install Media"
-msgstr ""
+msgstr "דרושה מדיית התקנה"
 
 #: ../image.py:88
 #, python-format
@@ -1096,7 +1096,7 @@ msgstr ""
 #: ../textw/confirm_text.py:66
 #: ../textw/firewall_text.py:120
 msgid "_Back"
-msgstr ""
+msgstr "_אחורה"
 
 #: ../image.py:96
 #: ../image.py:486
@@ -1117,7 +1117,7 @@ msgstr "מעתיק קבצים"
 
 #: ../image.py:189
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "... לדיסק הקשיח Image מעביר התקנת"
 
 #: ../image.py:193
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
@@ -1139,15 +1139,15 @@ msgstr "שגוי CDROM"
 #: ../image.py:323
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr " %s CDROM  אינו נכון ה"
 
 #: ../image.py:329
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "CDROM לא התאפשרה גישה ל "
 
 #: ../installclass.py:61
 msgid "Install on System"
-msgstr ""
+msgstr "התקן על המחשב"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
@@ -1173,7 +1173,7 @@ msgstr ""
 #: ../kickstart.py:1506
 #: ../kickstart.py:1534
 msgid "_Abort"
-msgstr ""
+msgstr "_בטל"
 
 #: ../kickstart.py:1526
 msgid "Missing Group"
@@ -1215,11 +1215,11 @@ msgstr ""
 
 #: ../packages.py:156
 msgid "Reading"
-msgstr ""
+msgstr "קריאה"
 
 #: ../packages.py:156
 msgid "Reading package information..."
-msgstr ""
+msgstr "קורא חבילת מידע"
 
 #: ../packages.py:163
 msgid "Unable to read header list.  This may be due to a missing file or bad media.  Press <return> to try again."
@@ -1519,7 +1519,7 @@ msgstr ""
 #: ../partIntfHelpers.py:525
 #: ../iw/lvm_dialog_gui.py:743
 msgid "Confirm Delete"
-msgstr ""
+msgstr "אשר מחיקה"
 
 #: ../partIntfHelpers.py:230
 #, python-format
@@ -1533,7 +1533,7 @@ msgstr ""
 #: ../iw/osbootwidget.py:104
 #: ../iw/partition_gui.py:1356
 msgid "_Delete"
-msgstr ""
+msgstr "מחק_"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
@@ -1564,6 +1564,8 @@ msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
+"אינך יכול לערוך את המחיצה:\n"
+"\n"
 
 #: ../partIntfHelpers.py:348
 #, python-format
@@ -2183,7 +2185,7 @@ msgstr "VNC הגדרת"
 
 #: ../vnc.py:77
 msgid "No password"
-msgstr ""
+msgstr "אין סיסמה"
 
 #: ../vnc.py:80
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
@@ -2216,7 +2218,7 @@ msgstr ""
 #: ../textw/userauth_text.py:61
 #: ../textw/userauth_text.py:138
 msgid "Password Length"
-msgstr ""
+msgstr "אורך סיסמה"
 
 #: ../vnc.py:118
 msgid "The password must be at least six characters long."
@@ -2242,7 +2244,7 @@ msgstr ""
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
 msgid "You have not specified a SCSI ID or the ID is invalid."
@@ -2251,7 +2253,7 @@ msgstr ""
 #: ../zfcp.py:35
 #: ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -2259,7 +2261,7 @@ msgstr ""
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 msgid "You have not specified a SCSI LUN or the number is invalid."
@@ -2268,7 +2270,7 @@ msgstr ""
 #: ../zfcp.py:41
 #: ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -2390,11 +2392,11 @@ msgstr ""
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:251
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:252
 msgid "Kerberos 5"
@@ -2508,7 +2510,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
-msgstr ""
+msgstr "Boot Loader שנה"
 
 #: ../iw/bootloader_main_gui.py:93
 msgid ""
@@ -2519,7 +2521,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
-msgstr ""
+msgstr " Boot Loader ה_משך ללא "
 
 #: ../iw/bootloader_main_gui.py:120
 msgid "Please select the boot loader that the computer will use.  GRUB is the default boot loader. However, if you do not wish to overwrite your current boot loader, select \"Do not install a boot loader.\"  "
@@ -2531,7 +2533,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:130
 msgid "_Do not install a boot loader"
-msgstr ""
+msgstr "Boot Loader אל תתקין_"
 
 #: ../iw/bootloader_main_gui.py:149
 #, python-format
@@ -2540,11 +2542,11 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:154
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "Boot Loader  לא יותקן"
 
 #: ../iw/bootloader_main_gui.py:205
 msgid "_Change boot loader"
-msgstr ""
+msgstr "Boot Loader שנה_"
 
 #: ../iw/bootloader_main_gui.py:229
 msgid "Configure advanced boot loader _options"
@@ -2571,14 +2573,14 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
-msgstr ""
+msgstr "מתכונן להתקנה"
 
 #: ../iw/confirm_gui.py:64
 #: ../iw/confirm_gui.py:98
 #: ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
 msgid "Reboot?"
-msgstr ""
+msgstr "?לאתחל"
 
 #: ../iw/confirm_gui.py:65
 #: ../iw/confirm_gui.py:99
@@ -2590,7 +2592,7 @@ msgstr ".המערכת תאתחל עכשיו"
 #: ../iw/confirm_gui.py:82
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "%s לחץ על הבא בכדי להתחיל התקנה של"
 
 #: ../iw/confirm_gui.py:83
 #, python-format
@@ -2602,21 +2604,21 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:90
 msgid "About to Upgrade"
-msgstr ""
+msgstr "מתכונן לשדרג"
 
 #: ../iw/confirm_gui.py:115
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
+msgstr "%s לחץ על הבא בכדי להתחיל שידרוג של"
 
 #: ../iw/confirm_gui.py:116
 #, python-format
 msgid "A complete log of the upgrade can be found in the file '%s' after rebooting your system."
-msgstr ""
+msgstr ".'%s' לאחר איתחול המערכת תוכל למצוא לוג מלא של השידרוג בקובץ"
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
-msgstr ""
+msgstr "מזל טוב"
 
 #: ../iw/congrats_gui.py:59
 msgid ""
@@ -2650,12 +2652,12 @@ msgstr ""
 #: ../iw/progress_gui.py:353
 #: ../textw/packages_text.py:384
 msgid "Package"
-msgstr ""
+msgstr "חבילה"
 
 #: ../iw/dependencies_gui.py:76
 #: ../textw/packages_text.py:384
 msgid "Requirement"
-msgstr ""
+msgstr "דרישות"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
@@ -2744,7 +2746,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:144
 msgid "Unknown Linux system"
-msgstr ""
+msgstr "מערכת לינוקס לא מוכרת"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -2769,7 +2771,7 @@ msgstr ""
 #: ../iw/firewall_gui.py:23
 #: ../textw/firewall_text.py:173
 msgid "Disabled"
-msgstr ""
+msgstr "מנוטרל"
 
 #: ../iw/firewall_gui.py:23
 #: ../textw/firewall_text.py:175
@@ -2798,7 +2800,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:45
 msgid "_Configure Firewall"
-msgstr ""
+msgstr "הגדר חומת אש_"
 
 #: ../iw/firewall_gui.py:45
 #: ../iw/xconfig_gui.py:445
@@ -2813,11 +2815,11 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:90
 msgid "N_o firewall"
-msgstr ""
+msgstr "א_ין חומת אש"
 
 #: ../iw/firewall_gui.py:92
 msgid "_Enable firewall"
-msgstr ""
+msgstr "הפעל חומת אש_"
 
 #: ../iw/firewall_gui.py:109
 msgid "You can use a firewall to allow access to specific services on your computer from other computers. Which services, if any, do you wish to allow access to ?"
@@ -2853,13 +2855,13 @@ msgstr ""
 #: ../iw/language_gui.py:24
 #: ../textw/language_text.py:38
 msgid "Language Selection"
-msgstr ""
+msgstr "בחירת שפה"
 
 #: ../iw/language_gui.py:66
 #: ../textw/language_text.py:39
 #: ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
-msgstr ""
+msgstr "?באיזה שפה תרצה להשתמש בתהליך ההתקנה"
 
 #: ../iw/lvm_dialog_gui.py:113
 #: ../iw/lvm_dialog_gui.py:160
@@ -2958,7 +2960,7 @@ msgstr ""
 #: ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:305
 msgid "Unknown"
-msgstr ""
+msgstr "לא ידוע"
 
 #: ../iw/lvm_dialog_gui.py:413
 msgid "_Logical Volume Name:"
@@ -3047,7 +3049,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:708
 msgid "No free slots"
-msgstr ""
+msgstr "אין חריצים פנויים"
 
 #: ../iw/lvm_dialog_gui.py:709
 #, python-format
@@ -3073,7 +3075,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:893
 msgid "Name in use"
-msgstr ""
+msgstr "שם בשימוש"
 
 #: ../iw/lvm_dialog_gui.py:894
 #, python-format
@@ -3122,15 +3124,15 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1008
 msgid "Used Space:"
-msgstr ""
+msgstr ":נשטח דיסק בשימוש"
 
 #: ../iw/lvm_dialog_gui.py:1025
 msgid "Free Space:"
-msgstr ""
+msgstr ":שטח דיסק פנוי"
 
 #: ../iw/lvm_dialog_gui.py:1043
 msgid "Total Space:"
-msgstr ""
+msgstr ":סה\"כ שטח דיסק"
 
 #: ../iw/lvm_dialog_gui.py:1072
 msgid "Logical Volume Name"
@@ -3145,7 +3147,7 @@ msgstr ""
 #: ../iw/osbootwidget.py:96
 #: ../iw/zfcp_gui.py:98
 msgid "_Add"
-msgstr ""
+msgstr "הוספה_"
 
 #: ../iw/lvm_dialog_gui.py:1095
 #: ../iw/network_gui.py:535
@@ -3153,7 +3155,7 @@ msgstr ""
 #: ../iw/partition_gui.py:1355
 #: ../iw/zfcp_gui.py:101
 msgid "_Edit"
-msgstr ""
+msgstr "עריכה_"
 
 #: ../iw/lvm_dialog_gui.py:1110
 msgid "Logical Volumes"
@@ -3161,7 +3163,7 @@ msgstr ""
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr ""
+msgstr "הגדרת עכבר"
 
 #: ../iw/mouse_gui.py:78
 #: ../textw/mouse_text.py:20
@@ -3404,7 +3406,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 #: ../iw/osbootwidget.py:137
 msgid "Enter a label to be displayed in the boot loader menu. The device (or hard drive and partition number) is the device from which it boots."
@@ -3528,7 +3530,7 @@ msgstr ""
 
 #: ../iw/package_gui.py:1019
 msgid "Details"
-msgstr ""
+msgstr "פרטים"
 
 #: ../iw/package_gui.py:1113
 msgid "_Select individual packages"
@@ -3557,7 +3559,7 @@ msgstr ""
 #: ../iw/partition_dialog_gui.py:269
 #: ../textw/partition_text.py:709
 msgid "Add Partition"
-msgstr ""
+msgstr "הוסף מחיצה"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
@@ -3566,7 +3568,7 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr ""
+msgstr "ערוך מחיצה"
 
 #: ../iw/partition_dialog_gui.py:301
 #: ../iw/raid_dialog_gui.py:292
@@ -3609,12 +3611,12 @@ msgstr ""
 #: ../iw/partition_gui.py:367
 #: ../textw/partition_text.py:1436
 msgid "Start"
-msgstr ""
+msgstr "התחלה"
 
 #: ../iw/partition_gui.py:368
 #: ../textw/partition_text.py:1436
 msgid "End"
-msgstr ""
+msgstr "סוף"
 
 #: ../iw/partition_gui.py:405
 msgid ""
@@ -3704,7 +3706,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:906
 msgid "Free"
-msgstr ""
+msgstr "ח_דש"
 
 #: ../iw/partition_gui.py:996
 #: ../textw/partition_text.py:226
@@ -3914,7 +3916,7 @@ msgstr ""
 #: ../iw/progress_gui.py:381
 #: ../textw/progress_text.py:130
 msgid "Status: "
-msgstr ""
+msgstr ":מצב"
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4189,7 +4191,7 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
 msgid "Partition"
-msgstr ""
+msgstr "מחיצה"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
@@ -4656,7 +4658,7 @@ msgstr ""
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr ""
+msgstr "הבא"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
