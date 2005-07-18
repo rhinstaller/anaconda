@@ -11,7 +11,7 @@ prepareBootImage() {
 	$SYSLINUX $MBD_TMPIMAGE
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
 
-	prepareBootTree
+	prepareBootTree --nosplash
 }
 
 # prepare a directory with the kernel, initrd, and various message files
