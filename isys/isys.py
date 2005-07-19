@@ -18,6 +18,7 @@ import _isys
 import string
 import os
 import os.path
+import iutil
 
 from rhpl.log import log
 
