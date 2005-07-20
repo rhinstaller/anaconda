@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.5
+Version: 10.3.0.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 20 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.6-1
+- Ensure boot flag only on correct partition on pmac (#157245)
+- Plug in yum for nfs:/ by default
+- Include sungem_phy for pmac
+
 * Wed Jul 13 2005 Chris Lumens <clumens@redhat.com> 10.3.0.5-1
 - Fix pygtk bug on progress bars.
 - Bump ia64 boot.img size (katzj, #162801).
