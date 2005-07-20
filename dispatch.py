@@ -23,6 +23,7 @@ from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
 from packages import doPreInstall, doPostInstall, doPostAction
+from yuminstall import *
 from packages import handleMiscPackages, copyAnacondaLogs
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
@@ -65,7 +66,7 @@ installSteps = [
     ("monitor", ("id.xsetup", "id.monitor", "intf")),
     ("setsanex", setSaneXSettings, ("id.xsetup",)),
     ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
-    ("findinstall", ("dispatch", "intf", "id", "instPath")),
+    #("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("installtype", ("dispatch", "id", "method", "intf")),
     ("zfcpconfig", ("id.zfcp", "id.diskset", "intf")),
     ("partitionmethod", ("id.partitions", "id.instClass")),
@@ -107,19 +108,17 @@ installSteps = [
     ("accounts", ("intf", "id.rootPassword")),
     ("authentication", ("id.auth",)),
     ("readcomps", readPackages, ("intf", "method", "id")),
-    ("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
-    ("findpackages", upgradeFindPackages, ("intf", "method", "id",
-                                           "instPath", "dir")),
-    ("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
-    ("package-selection", ("id.grpset", "id.instLanguage", "id.instClass", "dispatch")),
-    ("indivpackage", ("id.grpset",)),
+    #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
+    #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
+    #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
+    #("package-selection", ("id.grpset", "id.instLanguage", "id.instClass", "dispatch")),
+    #("indivpackage", ("id.grpset",)),
     ("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
                                           "id", "instPath")),
     ("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
     ("fixupconditionals", fixupConditionals, ("id.grpset",)),
-    ("checkdeps", checkDependencies, ("dir", "intf", "dispatch",
-                                      "id", "instPath")),
-    ("dependencies", ("id.grpset", "id.dependencies")),
+    #("checkdeps", checkDependencies, ("dir", "intf", "dispatch", "id", "instPath")),
+    #("dependencies", ("id.grpset", "id.dependencies")),
     ("confirminstall", ("intf", "id",)),
     ("confirmupgrade", ("intf", "id",)),
     ("install", ("dir", "intf", "id")),
@@ -133,7 +132,8 @@ installSteps = [
                                   "dir")),
     ("preinstallconfig", doPreInstall, ("method", "id", "intf", "instPath",
                                         "dir")),
-    ("installpackages", doInstall, ("method", "id", "intf", "instPath")),
+    #("installpackages", doInstall, ("method", "id", "intf", "instPath")),
+    ("installpackages", doYumInstall, ("method", "id", "intf", "instPath")),
     ("postinstallconfig", doPostInstall, ("method", "id", "intf", "instPath")),
     ("writeconfig", writeConfiguration, ("id", "instPath")),
     ("firstboot", firstbootConfiguration, ("id", "instPath")),
@@ -199,7 +199,9 @@ class Dispatcher:
 
 	for name in steps:
 	    if not stepExists.has_key(name):
-		raise KeyError, ("step %s does not exist" % name)
+                #XXX: hack for yum support
+		#raise KeyError, ("step %s does not exist" % name)
+                log("warning: step %s does not exist", name)
 
     def stepInSkipList(self, step):
 	return self.skipSteps.has_key(step)
@@ -219,7 +221,8 @@ class Dispatcher:
 			del self.skipSteps[name]
 		return
 
-	raise KeyError, ("unknown step %s" % stepToSkip)
+	#raise KeyError, ("unknown step %s" % stepToSkip)
+        log("warning: step %s does not exist", name)
 
     def moveStep(self):
 	if self.step == None:

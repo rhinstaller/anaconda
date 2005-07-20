@@ -144,8 +144,9 @@ class BaseInstallClass:
                  "handleX11pkgs",
                  "handlemiscpkgs",
                  "fixupconditionals",
-		 "checkdeps",
-		 "dependencies",
+                 # XXX: yum hacks
+		 #"checkdeps",
+		 #"dependencies",
 		 "confirminstall",
 		 "install",
 		 "enablefilesystems",
