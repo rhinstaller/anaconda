@@ -1452,7 +1452,7 @@ class KickstartBase(BaseInstallClass):
 	for n in self.packageList:
 
             # allow arch:name syntax
-            if n.find("."):
+            if n.find(".") != -1:
                 fields = n.split(".")
                 name = string.join(fields[:-1], ".")
                 arch = fields[-1]
@@ -1520,7 +1520,7 @@ class KickstartBase(BaseInstallClass):
 
         for n in self.excludedList:
             # allow arch:name syntax
-            if n.find("."):
+            if n.find(".") != -1:
                 fields = n.split(".")
                 name = string.join(fields[:-1], ".")
                 arch = fields[-1]

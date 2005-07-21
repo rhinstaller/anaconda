@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.20
+Version: 10.1.1.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 21 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.21-1
+- Include audit libraries in stage1 (#162821)
+
 * Wed Jul 13 2005 Peter Jones <pjones@redhat.com> - 10.1.1.20-1
 - Fix file descriptor leak (#160720)
 - Prefer kernel-devel over kernel-smp devel (#160533, #162581)
