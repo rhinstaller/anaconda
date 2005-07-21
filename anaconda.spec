@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.6
+Version: 10.3.0.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 21 2005 Chris Lumens <clumens@redhat.com> 10.3.0.7-1
+- Remove firewall configuration screen.  Open SSH by default and set
+  SELinux to enforced.
+
 * Wed Jul 20 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.6-1
 - Ensure boot flag only on correct partition on pmac (#157245)
 - Plug in yum for nfs:/ by default
