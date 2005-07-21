@@ -62,7 +62,6 @@ stepToClass = {
     "bootloaderadvanced": ("bootloader_advanced_gui", "AdvancedBootloaderWindow"),
     "upgbootloader": ("upgrade_bootloader_gui", "UpgradeBootloaderWindow"),
     "network" : ("network_gui", "NetworkWindow"),
-    "firewall" : ("firewall_gui", "FirewallWindow"),
     "timezone" : ("timezone_gui", "TimezoneWindow"),
     "accounts" : ("account_gui", "AccountWindow"),
     "authentication" : ("auth_gui", "AuthWindow"),

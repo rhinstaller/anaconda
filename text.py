@@ -59,8 +59,6 @@ stepToClasses = {
                                                 "BootloaderLocationWindow")),
     "network" : ("network_text", ("NetworkDeviceWindow", "NetworkGlobalWindow",
                                   "HostnameWindow")),
-    "firewall" : ("firewall_text", ("FirewallWindow",
-                                    "SELinuxWindow")),
     "timezone" : ("timezone_text", "TimezoneWindow"),
     "accounts" : ("userauth_text", "RootPasswordWindow"),
     "authentication" : ("userauth_text", ("AuthConfigWindow")),

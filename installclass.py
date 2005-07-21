@@ -135,7 +135,6 @@ class BaseInstallClass:
 		 "bootloader",
                  "networkdevicecheck",
 		 "network",
-		 "firewall",
 		 "timezone",
 		 "accounts",
 		 "readcomps",
@@ -365,24 +364,9 @@ class BaseInstallClass:
     def setFirewall(self, id, enable = 1, trusts = [], ports = []):
 	id.firewall.enabled = enable
 	id.firewall.trustdevs = trusts
-        # this is a little ugly, but we want to let setting a service
-        # like --ssh enable the service in case they're doing an interactive
-        # kickstart install
-        for port in ports:
-            found = 0
-            for s in id.firewall.services:
-                p = s.get_ports()
-                # don't worry about the ones that are more than one,
-                # this is really for legacy use only
-                if len(p) > 1:
-                    continue
-                if p[0] == port:
-                    s.set_enabled(1)
-                    found = 1
-                    break
 
-            if not found:
-                id.firewall.portlist.append(port)
+	for port in ports:
+	    id.firewall.portlist.append (port)
         
     def setMiscXSettings(self, id, depth = None, resolution = None,
                          desktop = None, runlevel = None):

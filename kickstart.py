@@ -1404,9 +1404,6 @@ class Kickstart(BaseInstallClass):
         dispatch.skipStep("network")
         dispatch.skipStep("installtype")
 
-        # skipping firewall by default, disabled by default
-	dispatch.skipStep("firewall")
-
 	for n in self.skipSteps:
 	    dispatch.skipStep(n)
         for n in self.showSteps:

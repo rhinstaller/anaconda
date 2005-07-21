@@ -322,6 +322,14 @@ class NetworkGlobalWindow:
             network.ternaryNS = val
             break
 
+        # Initialize firewall and SELinux settings to our strict defaults
+        # but only if we're not doing a kickstart install.  This is as
+        # good a place as any for this stuff.
+        if id.instClass.name != "kickstart":
+            import security
+            id.instClass.setFirwall (id, ports = ["22:tcp"])
+            id.instClass.setSELinux (id, security.SEL_ENFORCING)
+
         screen.popWindow()        
         return INSTALL_OK
         

@@ -1,3 +1,19 @@
+2005-07-21  Chris Lumens  <clumens@redhat.com>
+
+	* dispatch.py (installSteps):  Remove firewall step.
+	* gui.py (stepToClass):  Likewise.
+	* kickstart.py (Kickstart.setSteps):  Likewise.
+	* text.py (stepToClasses):  Likewise.
+	* firewall.py:  Remove Service class.
+	* installclass.py (BaseInstallClass.setFirewall):  Interactive
+	kickstart installs can no longer see a firewall config screen, so
+	simplify this method.
+	* iw/network_gui.py (NetworkWindow.getNext):  Initialize firewall and
+	SELinux.
+	* textw/network_text.py (NetworkGlobalWindow.__call__):  Likewise.
+	* iw/firewall_gui.py:  Removed.
+	* textw/firewall_text.py:  Likewise.
+
 2005-07-21  Bill Nottingham <notting@redhat.com>
 
 	* network.py: Use the right enum. Not that it makes

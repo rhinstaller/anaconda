@@ -22,40 +22,11 @@ from flags import flags
 from rhpl.log import log
 from rhpl.translate import _, N_
 
-class Service:
-    def __init__ (self, key, name, ports):
-        self.key = key
-        self.name = name
-        self.allowed = 0
-
-        if type(ports) == type(""):
-            self.ports = [ ports ]
-        else:
-            self.ports = ports
-
-
-    def set_enabled(self, val):
-        self.allowed = val
-
-    def get_enabled(self):
-        return self.allowed
-
-    def get_name(self):
-        return self.name
-
-    def get_ports(self):
-        return self.ports
-
 class Firewall:
     def __init__ (self):
 	self.enabled = 1
         self.trustdevs = []
 	self.portlist = []
-        self.services = [ Service("ssh", N_("Remote Login (SSH)"), "22:tcp"),
-                          Service("http", N_("Web Server (HTTP, HTTPS)"), "80:tcp"),
-                          Service("ftp", N_("File Transfer (FTP)"), "21:tcp"),
-
-                          Service("smtp", N_("Mail Server (SMTP)"), "25:tcp") ]
 
     def writeKS(self, f):
 	f.write("firewall")
@@ -72,16 +43,11 @@ class Firewall:
 	args = []
 
         if self.enabled:
-            args.append ("--enabled")
+            args.append("--enabled")
         else:
             args.append("--disabled")
             return args
         
-        for service in self.services:
-            if service.get_enabled():
-                for p in service.get_ports():
-                    args = args + [ "--port=%s" %(p,) ]
-
         for dev in self.trustdevs:
             args = args + [ "--trust=%s" %(dev,) ]
 
@@ -92,7 +58,6 @@ class Firewall:
 
     def write (self, instPath):
 	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart", "-f" ]
-
 
         args = args + self.getArgList()
 
