@@ -241,7 +241,7 @@ class NetworkGlobalWindow:
             return isys.inet_calcGateway(bcast)
         return ""
             
-    def __call__(self, screen, network, dir, intf):
+    def __call__(self, screen, network, dir, intf, id):
         devices = network.available()
         if not devices:
             return INSTALL_NOOP
@@ -331,7 +331,7 @@ class HostnameWindow:
 
         hostEntry.setFlags(FLAG_DISABLED, sense)
             
-    def __call__(self, screen, network, dir, intf):
+    def __call__(self, screen, network, dir, intf, id):
         devices = network.available ()
         if not devices:
             return INSTALL_NOOP

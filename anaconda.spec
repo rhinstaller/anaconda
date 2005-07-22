@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.21
+Version: 10.1.1.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 22 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.22-1
+- Fix text installation traceback (#163722)
+
 * Thu Jul 21 2005 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.21-1
 - Include audit libraries in stage1 (#162821)
 
