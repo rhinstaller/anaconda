@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-04-11 15:20+0530\n"
+"PO-Revision-Date: 2005-07-25 15:29+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -243,8 +244,7 @@ msgstr ""
 
 #: ../autopart.py:1055
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके आर्किटेक्चर के लिए %s बूट विभाजन बूटिंग निर्धारक से मिल नहीं सकती."
 
 #: ../autopart.py:1081
@@ -1259,8 +1259,7 @@ msgstr "मेजबाननाम को 64 या इससे कम सं�
 
 #: ../network.py:45
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
+msgstr "मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
 
 #: ../network.py:50
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1454,9 +1453,8 @@ msgid "Install Starting"
 msgstr "अधिष्ठापन प्रारंभ हो रहा है "
 
 #: ../packages.py:990
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr "अधिष्ठापन प्रक्रिया प्रारंभ हो रही है, यह कुछ मिनट लेगा....."
+msgstr "अधिष्ठापन प्रक्रिया प्रारंभ हो रही है, यह कई मिनट ले सकता है....."
 
 #: ../packages.py:1030
 msgid ""
@@ -1657,8 +1655,7 @@ msgstr "एक LDL संरुपित DASD के एक विभाजन �
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
+msgstr "आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1814,8 +1811,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
+msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -1863,14 +1859,12 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partRequests.py:247
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह बिंदु अमान्य है. / फाइल सिस्टम पर %s निर्देशिका को अवश्य होना है."
 
 #: ../partRequests.py:250
@@ -2095,8 +2089,7 @@ msgstr ""
 "कि अधिष्ठापन नहीं हो सकता."
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "आपको FAT प्रकार और 50 मेगाबाइट आकार का एक /boot/efi विभाजन अवश्य बनाना है."
 
 #: ../partitions.py:836
@@ -2329,8 +2322,7 @@ msgid "Welcome to %s"
 msgstr "%s में स्वागत है"
 
 #: ../text.py:356
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> आगे स्क्रीन"
 
 #: ../text.py:358
@@ -3041,13 +3033,12 @@ msgid "Congratulations"
 msgstr "बधाई"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"अधिष्ठापन प्रक्रिया के समय उपयोग में आए किसी अधिष्ठापन माध्यम (डिस्केट या सीडी-रोम) को "
+"अधिष्ठापन प्रक्रिया के समय उपयोग में आए किसी माध्यम को "
 "हटाएँ और अपने सिस्टम को रिबूट करने के लिये \"रिबूट\" बटन दबायें.\n"
 "\n"
 
@@ -4136,14 +4127,12 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "निम्नांकित गंभीर त्रुटि आपके निवेदित विभाजन योजना के साथ उपस्थित हैं."
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "आपके %s के अधिष्ठापन से जारी होने से पहले यह त्रुटि को सही किया जाना जरूरी है."
 
 #: ../iw/partition_gui.py:640
@@ -4672,8 +4661,7 @@ msgstr "यह आपके वर्तमान बूट अधिभार�
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट अधिभारक को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4808,8 +4796,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वेप फाइल का आकार 1 और 2000 MB के बीच जरूर होना चाहिए."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वेप विभाजन के लिए स्थान पर्याप्त नहीं हैं."
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
@@ -4929,8 +4916,7 @@ msgstr "अज्ञात वीडियो कार्ड"
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"%s वीडियो कार्ड चयन करने में एक त्रुटि घटित हुआ. कृपया इस त्रुटि की सूचना %s को दें."
+msgstr "%s वीडियो कार्ड चयन करने में एक त्रुटि घटित हुआ. कृपया इस त्रुटि की सूचना %s को दें."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5167,8 +5153,7 @@ msgstr ""
 "के साथ करना चाहते हैं."
 
 #: ../textw/bootloader_text.py:298
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> बटन चुनते हैं  | <F2> मूलभूत बूट प्रवेशिका चुनें | <F12> आगे स्क्रीन>"
 
 #: ../textw/bootloader_text.py:398
@@ -5218,14 +5203,13 @@ msgid "<Enter> to exit"
 msgstr "बाहर निकलने के लिए <Enter> "
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
 "\n"
 msgstr ""
-"अधिष्ठापन प्रक्रिया के समय प्रयुक्त किसी अधिष्ठापन माध्यम को (डिस्केट या CD-ROM) हटाएँ "
-"और <Enter> दबाकर अपने सिस्टम को रीबूट करें.\n"
+"अधिष्ठापन प्रक्रिया के समय प्रयुक्त किसी माध्यम को हटाएँ "
+"और अपने सिस्टम को रीबूट करने के लिये <Enter> दबायें.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -5569,8 +5553,7 @@ msgid "Select individual packages"
 msgstr "व्यक्तिगत संकुल चुनें"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
 
 #: ../textw/packages_text.py:119
@@ -5595,8 +5578,7 @@ msgid "Total size"
 msgstr "कुल आकार "
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> चुनाव   |   <F1> सहायता  |   <F2> संकुल वर्णन"
 
 #: ../textw/packages_text.py:376
@@ -5823,16 +5805,14 @@ msgstr "तार्किक आयतन बनाने के लिए क�
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1309
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1363
 msgid "New Partition or Logical Volume?"
@@ -5863,8 +5843,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "ठीक        "
@@ -6093,15 +6072,12 @@ msgid "User Exists"
 msgstr "उपयोक्ता उपस्थित है"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "रुट उपयोक्ता पहले से विन्यस्त है. आपको यहां इस उपयोक्ता को जोड़ने की जरुरत नहीं है."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"यह सिस्टम उपयोक्ता पहले से विन्यस्त है. आपको यहां इस उपयोक्ता को जोड़ने की जरुरत नहीं है."
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "यह सिस्टम उपयोक्ता पहले से विन्यस्त है. आपको यहां इस उपयोक्ता को जोड़ने की जरुरत नहीं है."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6243,8 +6219,7 @@ msgstr "X पसंदीदा"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
-"रंग गहराई और वीडियो प्रकार को चुने जो आपके सिस्टम के लिए आप प्रयोग करना चाहते हैं."
+msgstr "रंग गहराई और वीडियो प्रकार को चुने जो आपके सिस्टम के लिए आप प्रयोग करना चाहते हैं."
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6356,8 +6331,7 @@ msgstr "उर्ध्वाधर-तुल्यकालिक दरः "
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr ""
-"अपने सिस्टम के लिए मॉनीटर चुनें. '%s' बटन का प्रयोग कर खोजे गए मानों को पुनःजमाएँ."
+msgstr "अपने सिस्टम के लिए मॉनीटर चुनें. '%s' बटन का प्रयोग कर खोजे गए मानों को पुनःजमाएँ."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6832,8 +6806,7 @@ msgstr "%s चालक भारित कर रहा है..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है."
+msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है."
 
 #: ../loader2/hdinstall.c:218
 msgid ""
@@ -6927,10 +6900,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s में स्वागत है - बचाव मोड"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -7522,10 +7493,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "अटलांटिक समय - ई लेब्राडोर"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7692,8 +7661,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "पूर्वी समय - मिशिगन - अधिकतम जगह"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "पूर्वी समय - ओंटारियो एवं क्यूबेक - जगह जो  DST 1९6७-1९७३ को नहीं देखते"
 
 #. generated from zone.tab
@@ -7865,8 +7833,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय मानक समय - एरिजोना"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय मानक समय - डासन क्रीक & सेंट जाऩ किला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -8341,45 +8308,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "जुलु"
 
-#~ msgid "Exception Occured"
-#~ msgstr "अपवाद घटित हुआ"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "अतिरिक्त भाषा सहायता"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "सिस्टम के लिए मूलभूत भाषा चुनें (_d).   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "सिस्टम पर अधिष्ठपन करने के लिए अतिरिक्त भाषाएँ चुनें (_a):"
-
-#~ msgid "_Select All"
-#~ msgstr "सभी चुनें (_S)"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "केवल मूलभूत चुनें (_O)"
-
-#~ msgid "Rese_t"
-#~ msgstr "पुनःजमाएँ (_t)"
-
-#~ msgid "Select All"
-#~ msgstr "सभी चुनें"
-
-#~ msgid "Reset"
-#~ msgstr "पुनःजमाएँ"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "अतिरिक्त भाषा चुनें जो आप इस सिस्टम पर प्रयोग करना पसंद करेंगेः"
-
-#~ msgid "Language Support"
-#~ msgstr "भाषा सहायता "
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "अधिष्ठापन के लिए आपको कम से कम एक भाषा अवश्य चुनना है."
-
-#~ msgid "Default Language"
-#~ msgstr "मूलभूत भाषा"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "इस सिस्टम के लिए मूलभूत भाषा चुनें:"
