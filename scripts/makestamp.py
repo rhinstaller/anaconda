@@ -51,6 +51,8 @@ for (str, arg) in args:
 if data["timestamp"] is None:
     print >> sys.stderr, "timestamp not specified; using the current time"
     data["timestamp"] = time.time()
+else:
+    data["timestamp"] = float(data["timestamp"])
 
 if data["releasestr"] is None:
     print "What should be the release name associated with this disc?"
