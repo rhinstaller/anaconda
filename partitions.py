@@ -192,9 +192,7 @@ class Partitions:
         lvm.vgactivate()
 
         pvs = lvm.pvlist()
-        for (vg, size) in lvm.vglist():
-            # FIXME: need to find the pe size of the vg
-            pesize = 4096
+        for (vg, size, pesize) in lvm.vglist():
             try:
                 preexist_size = float(size) / (1024.0 * 1024.0)
             except:

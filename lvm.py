@@ -213,17 +213,20 @@ def vglist():
         return []
 
     vgs = []
-    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b",
+            "--nosuffix", "--separator", ":", "--options",
+            "vg_name,vg_size,vg_extent_size"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
-            (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
+            (vg, size, pesize) = line.strip().split(':')
+            pesize = long(pesize)/1024
         except:
             continue
         size = size[:-1]
-        log("vg %s, size is %s" %(vg, size))
-        vgs.append( (vg, size) )
+        log("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
+        vgs.append( (vg, size, pesize) )
 
     return vgs
 

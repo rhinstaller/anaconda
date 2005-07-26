@@ -1,3 +1,10 @@
+2005-07-26  Jeremy Katz  <katzj@redhat.com>
+
+	* partitions.py (Partitions.setFromDisk): Get pesize (#162408)
+
+	* lvm.py (vglist): Be more explicit in what we ask for and return
+	pesize as well
+
 2005-07-22  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: New version
