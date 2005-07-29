@@ -310,11 +310,6 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             part = strdup(part_list[num]);
             stage = DEV_CHOOSEFILE;
 
-            /* FIXME: this is where I am.  add code to mount the partition
-             * and then load the dir browser pointing there.  then do
-             * a mount of the image, load DD from there, and go to DEV_PROBE.
-             * set found before loading.
-             */
         }
 
         case DEV_CHOOSEFILE: {
@@ -380,6 +375,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 break;
             }
             stage = DEV_LOAD;
+            break;
         }
 
         case DEV_INSERT: {
