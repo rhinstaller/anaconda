@@ -654,9 +654,13 @@ mptbase
 	scsi_hostadapter
 	"LSI Logic Fusion MPT Base Driver"
 
-mptscsih
+mptfc
 	scsi_hostadapter
-	"LSI Logic Fusion MPT SCSI Driver"
+	"LSI Logic Fusion MPT FC Host Driver"
+
+mptspi
+	scsi_hostadapter
+	"LSI Logic Fusion MPT SPI Host Driver"
 
 ncr53c8xx
 	scsi_hostadapter
