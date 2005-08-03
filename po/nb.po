@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install FC4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-04-03 02:21+0200\n"
+"PO-Revision-Date: 2005-08-03 15:53+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr "Starter VNC..."
 #: ../anaconda:137
 #, c-format
 msgid "%s %s installation on host %s"
-msgstr "%s %s installering på vert %s"
+msgstr "%s %s installasjon på vert %s"
 
 #: ../anaconda:139
 #, c-format
@@ -1456,18 +1456,17 @@ msgstr ""
 "\n"
 "\n"
 "Følgende pakker ble automatisk valgt for\n"
-"installering:\n"
+"installasjon:\n"
 "%s\n"
 "\n"
 
 #: ../packages.py:989
 msgid "Install Starting"
-msgstr "Starter installering"
+msgstr "Starter installasjon"
 
 #: ../packages.py:990
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Starter installeringsprosessen. Dette kan ta noen minutter..."
+msgstr "Starter installasjon. Dette kan ta flere minutter..."
 
 #: ../packages.py:1030
 msgid ""
@@ -3082,7 +3081,6 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
@@ -5287,14 +5285,11 @@ msgid "<Enter> to exit"
 msgstr "<Linjeskift> for å avslutte"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
 "\n"
-msgstr ""
-"Fjern installasjonsmediet som ble brukt under installasjonen og trykk "
-"<Linjeskift> for å starte systemet på nytt.\n"
+msgstr "Fjern medier som ble brukt under installasjonen og trykk <Linjeskift> for å starte systemet på nytt.\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
@@ -8440,46 +8435,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Exception Occured"
-#~ msgstr "Unntak oppstod"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Støtte for flere språk"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Sett forvalgt språk for dette systemet:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "_Velg tilleggsspråk du ønsker å bruke på dette systemet:"
-
-#~ msgid "_Select All"
-#~ msgstr "_Velg alle"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Velg kun _forvalg"
-
-#~ msgid "Rese_t"
-#~ msgstr "Nulls_till"
-
-#~ msgid "Select All"
-#~ msgstr "Velg alle"
-
-#~ msgid "Reset"
-#~ msgstr "Nullstill"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "Velg tilleggsspråk du ønsker å bruke på dette systemet:"
-
-#~ msgid "Language Support"
-#~ msgstr "Språkstøtte"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Du må velge minst ett språk for installasjon."
-
-#~ msgid "Default Language"
-#~ msgstr "Forvalgt språk"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Velg forvalgt språk for dette systemet: "
