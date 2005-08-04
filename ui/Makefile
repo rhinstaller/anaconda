@@ -10,4 +10,4 @@ install:
 depend:
 
 clean:
-	rm *~
+	rm -f *~
