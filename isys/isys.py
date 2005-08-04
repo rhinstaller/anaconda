@@ -309,7 +309,7 @@ def hardDriveDict():
         else:
             log("%s has a %s raid signature but no windows parts" %(dev, ret))
         
-    return driveDict("disk")
+    return dict
 
 def floppyDriveDict():
     return driveDict("floppy")

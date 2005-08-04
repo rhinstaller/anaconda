@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.7
+Version: 9.1.6.8
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 04 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.8-1.RHEL
+- Fix for DASD partitioning (#137920)
+
 * Tue Jul 19 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.7-1.RHEL
 - Fix missing import (#163616)
 
