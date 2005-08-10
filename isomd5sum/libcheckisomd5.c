@@ -70,7 +70,7 @@ static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isos
 	if (!strncmp(buf2 + loc, "ISO MD5SUM = ", 13)) {
 
 	    /* make sure we dont walk off end */
-	    if ((loc + 32) > 511)
+	    if ((loc + 32 + 13) > 511)
 		return -1;
 
 	    memcpy(mediasum, buf2 + loc + 13, 32);
