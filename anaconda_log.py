@@ -1,10 +1,12 @@
 #
-# log.py - persistent debugging log service
+# anaconda_log.py: Support for logging to multiple destinations with log
+# levels.
 #
+# Chris Lumens <clumens@redhat.com>
 # Matt Wilson <msw@redhat.com>
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2002,2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,65 +17,59 @@
 #
 
 import sys
-import iutil
+import logging
+from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 
-class Anaconda_LogFile:
-    def __init__ (self):
-        self.logFile = None
-        self.logFile2 = None
-        self.failcount = 0
+DEFAULT_LEVEL = logging.INFO
 
-    def close (self):
-        try:
-            self.logFile.close ()
-            self.logFile2.close()
-        except:
-            pass
-    
-    def open (self, file):
-	if type(file) == type("hello"):
-            try:
-                self.logFile = open(file, "w")
-            except:
-                self.logFile = sys.stderr
-	elif file:
-	    self.logFile = file
-	else:
-            if iutil.getArch() != "s390":
-                self.logFile = open("/dev/tty3", "w")
-            else:
-                # we don't really want to have to write this stuff to two
-                # files.  
-                self.logFile = None
-            try:
-                self.logFile2 = open("/tmp/anaconda.log", "a")
-            except:
-                self.logFile2 = None
+logFile = "/tmp/anaconda.log"
 
-    def __call__ (self, format, *args):
-        if not self.logFile and not self.logFile2:
-            raise RuntimeError, "log file not open yet"
+class AnacondaLog:
+    def __init__ (self, minLevel=DEFAULT_LEVEL):
+        # Create the base of the logger hierarchy.
+        self.logger = logging.getLogger("anaconda")
+        self.logger.setLevel(minLevel)
 
-        for file in [self.logFile, self.logFile2]:
-            if file is None:
-                continue
-            if args:
-                file.write ("* %s\n" % (format % args))
-            else:
-                file.write ("* %s\n" % format)
+        # Create a second logger for just the stuff we want to dup on stdout.
+        # Anything written here will also get passed up to the parent
+        # loggers for processing and possibly be written to the log.
+        self.stdoutLogger = logging.getLogger("anaconda.stdout")
+        self.stdoutLogger.setLevel(DEFAULT_LEVEL)
 
-            try:
-                file.flush()
-            except IOError:
-                # if we can't write here, there's not much we can do.
-                # keep a counter of the number of times it's failed
-                # if we fail more than 10 times, just abort writing to
-                # the logfile
-                self.failcount = self.failcount + 1
-                if self.failcount > 10:
-                    file = None
+        # Add a handler for the duped stuff.  No fancy formatting, thanks.
+        self.addFileHandler (sys.stdout, self.stdoutLogger,
+                             fmtStr="%(message)s")
 
-    def getFile (self):
-        return self.logFile.fileno ()
-            
-anaconda_log = Anaconda_LogFile()
+    # Add a simple handler - file or stream, depending on what we're given.
+    def addFileHandler (self, file, logger, minLevel=DEFAULT_LEVEL,
+                        fmtStr="%(asctime)s %(levelname)-8s: %(message)s"):
+        timeFmtStr = "%H:%M:%S"
+
+        if type (file) == type ("string"):
+            logfileHandler = logging.FileHandler(file)
+        else:
+            logfileHandler = logging.StreamHandler(file)
+
+        logfileHandler.setLevel(minLevel)
+        logfileHandler.setFormatter (logging.Formatter (fmtStr, timeFmtStr))
+        logger.addHandler(logfileHandler)
+
+    # Add another logger to the hierarchy.  For best results, make sure
+    # name falls under anaconda in the tree.
+    def addLogger (self, name, minLevel=DEFAULT_LEVEL):
+        newLogger = logging.getLogger(name)
+        newLogger.setLevel(minLevel)
+
+    # Add a handler for remote syslogs.
+    def addSysLogHandler (self, host, port=SYSLOG_UDP_PORT,
+                          minLevel=DEFAULT_LEVEL):
+        fmt = logging.Formatter("%(levelname)-8s %(message)s")
+        syslogHandler = SysLogHandler((host, port))
+        syslogHandler.setLevel(minLevel)
+        syslogHandler.setFormatter(fmt)
+        self.logger.addHandler(syslogHandler)
+
+logger = AnacondaLog()
+logger.addFileHandler (logFile, logging.getLogger("anaconda"))
+logger.addFileHandler (sys.stdout, logging.getLogger("anaconda"),
+                       logging.CRITICAL)

@@ -26,17 +26,11 @@
 # This toplevel file is a little messy at the moment...
 
 import sys, os
+import logging
 
 # keep up with process ID of miniwm if we start it
 
 miniwm_pid = None
-# helper function to duplicate diagnostic output
-def dup_log(format, *args):
-    if args:
-	sys.stdout.write ("%s\n" % (format % args))
-    else:
-	sys.stdout.write ("%s\n" % format)
-    apply(log, (format,) +  args)
 
 # start miniWM
 def startMiniWM(root='/'):
@@ -98,8 +92,7 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 
 	return status
 
-
-    dup_log(_("Starting VNC..."))
+    stdoutLog.info(_("Starting VNC..."))
 
     # figure out host info
     connxinfo = None
@@ -116,10 +109,10 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	    for dev in netinfo.netdevices.keys():
 		try:
                     ip = isys.getIPAddress(dev)
-                    log("ip of %s is %s" %(dev, ip))
+                    log.info("ip of %s is %s" %(dev, ip))
 		except Exception, e:
-                    log("Got an exception trying to get the ip addr of %s: "
-                        "%s" %(dev, e))
+                    log.error("Got an exception trying to get the ip addr "
+                              "of %s: %s" %(dev, e))
 		    continue
 		if ip == '127.0.0.1' or ip is None:
 		    continue
@@ -130,7 +123,7 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	    connxinfo = "%s:1" % (srvname,)
 
     except:
-	log("Unable to determine VNC server network info")
+	log.error("Unable to determine VNC server network info")
 	
     # figure out product info
     if srvname is not None:
@@ -151,13 +144,13 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	    try:
 		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
 	    except Exception, e:
-		dup_log("Unknown exception setting vnc password.")
-                log("Exception was: %s" %(e,))
+		stdoutLog.error("Unknown exception setting vnc password.")
+                log.error("Exception was: %s" %(e,))
 		rc = 1
 
 	    if rc:
-		dup_log(_("Unable to set vnc password - using no password!"))
-		dup_log(_("Make sure your password is at least 6 characters in length."))
+		stdoutLog.warning(_("Unable to set vnc password - using no password!"))
+		stdoutLog.warning(_("Make sure your password is at least 6 characters in length."))
 	    else:
 		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
 	else:
@@ -180,14 +173,14 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	sys.exit (1)
 
     if vncpassword is None:
-	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
-                  "You can use the vncpassword=<password> boot option\n"
-                  "if you would like to secure the server.\n\n"))
+	stdoutLog.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
+                         "You can use the vncpassword=<password> boot option\n"
+                         "if you would like to secure the server.\n\n"))
 	
-    dup_log(_("The VNC server is now running."))
+    stdoutLog.info(_("The VNC server is now running."))
 
     if vncconnecthost is not None:
-	dup_log(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
+	stdoutLog.info(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
 	
 	hostarg = vncconnecthost
 	if vncconnectport is not None:
@@ -201,25 +194,25 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	    if outfields[0] == "connecting" and outfields[-1] == "failed":
 		ntries += 1
 		if ntries > 50:
-		    dup_log(_("Giving up attempting to connect after 50 tries!\n"))
+		    stdoutLog.error(_("Giving up attempting to connect after 50 tries!\n"))
 		    if connxinfo is not None:
-			dup_log(_("Please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
+			stdoutLog.info(_("Please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
 		    else:	    
-			dup_log(_("Please manually connect your vnc client to begin the install."))
+			stdoutLog.info(_("Please manually connect your vnc client to begin the install."))
 		    break
 		    
-		dup_log(output)
-		dup_log(_("Will try to connect again in 15 seconds..."))
+		stdoutLog.info(output)
+		stdoutLog.info(_("Will try to connect again in 15 seconds..."))
 		time.sleep(15)
 		continue
 	    else:
-		dup_log(_("Connected!"))
+		stdoutLog.info(_("Connected!"))
 		break
     else:
 	if connxinfo is not None:
-	    dup_log(_("Please connect to %s to begin the install...") % (connxinfo,))
+	    stdoutLog.info(_("Please connect to %s to begin the install...") % (connxinfo,))
 	else:
-	    dup_log(_("Please connect to begin the install..."))
+	    stdoutLog.info(_("Please connect to begin the install..."))
 
     os.environ["DISPLAY"]=":1"
     doStartupX11Actions()
@@ -231,10 +224,10 @@ def doStartupX11Actions():
     # now start up mini-wm
     try:
 	miniwm_pid = startMiniWM()
-	log("Started mini-wm")
+	log.info("Started mini-wm")
     except:
 	miniwm_pid = None
-	log("Unable to start mini-wm")
+	log.error("Unable to start mini-wm")
 
     # test to setup dpi
     # cant do this if miniwm didnt run because otherwise when
@@ -356,18 +349,19 @@ if (os.access("/mnt/source/RHupdates/rhpl", os.X_OK) or
 import signal, traceback, string, isys, iutil, time
 
 from exception import handleException
-import dispatch
+import dispatch, logging
 from flags import flags
-from anaconda_log import anaconda_log
 
-from rhpl.log import log
+log = logging.getLogger("anaconda")
+stdoutLog = logging.getLogger("anaconda.stdout")
+
 from rhpl.translate import _, textdomain, addPoPath
 
 if os.path.isdir("/mnt/source/RHupdates/po"):
-    log("adding RHupdates/po")
+    log.info("adding RHupdates/po")
     addPoPath("/mnt/source/RHupdates/po")
 if os.path.isdir("/tmp/updates/po"):
-    log("adding /tmp/updates/po")    
+    log.info("adding /tmp/updates/po")    
     addPoPath("/tmp/updates/po")
 textdomain("anaconda")
 
@@ -439,7 +433,6 @@ skipddc = 0			# if true skip ddcprobe (locks some machines)
 instClass = None		# the install class to use
 progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
-logFile = None			# may be a file object or a file name
 display_mode = None
 graphical_failed = 0
 
@@ -538,7 +531,6 @@ for n in args:
 	rootPath = arg
 	flags.setupFilesystems = 0
         flags.rootpath = 1
-	logFile = sys.stderr
     elif (str == '--traceonly'):
 	traceOnly = 1
     elif (str == '--serial'):
@@ -546,7 +538,6 @@ for n in args:
     elif (str == '-t' or str == '--test'):
 	flags.test = 1
 	flags.setupFilesystems = 0
-	logFile = "/tmp/anaconda-debug.log"
     elif (str == '-T' or str == '--text'):
         display_mode = 't'
     elif (str == "-C" or str == "--cmdline"):
@@ -590,10 +581,6 @@ for n in args:
 	    if len(cargs[1]) > 0:
 		vncconnectport = cargs[1]
 
-# set up anaconda logging
-anaconda_log.open (logFile)
-log.handler=anaconda_log
-    
 #
 # must specify install, rescue mode
 #
@@ -631,7 +618,7 @@ if ksfile is not None:
 	rc = _("Unknown Error")
 
     if rc is not None:
-	dup_log(_("Error pulling second part of kickstart config: %s!") % (rc,))
+	stdoutLog.critical(_("Error pulling second part of kickstart config: %s!") % (rc,))
 	sys.exit(1)
 
     # now see if they enabled vnc via the kickstart file. Note that command
@@ -739,16 +726,16 @@ if traceOnly:
         
     sys.exit(0)
 
-log("Display mode = %s", display_mode)
-log("Method = %s", method)
+log.info("Display mode = %s", display_mode)
+log.info("Method = %s", method)
 
 #
 # override display mode if machine cannot nicely run X
 #
 if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
-	dup_log(_("You do not have enough RAM to use the graphical "
-		  "installer.  Starting text mode."))
+	stdoutLog.warning(_("You do not have enough RAM to use the graphical "
+			    "installer.  Starting text mode."))
 	display_mode = 't'
         time.sleep(2)
 
@@ -794,13 +781,13 @@ if not instClass:
 
     if len(availableClasses(showHidden = 1)) < 2:
         (cname, cobject, clogo) = availableClasses(showHidden = 1)[0]
-        log("%s is only installclass, using it" %(cname,))
+        log.info("%s is only installclass, using it" %(cname,))
         instClass = cobject(flags.expert)
         
 
 # this lets install classes force text mode instlls
 if instClass.forceTextMode:
-    dup_log(_("Install class forcing text mode installation"))
+    stdoutLog.info(_("Install class forcing text mode installation"))
     display_mode = 't'
 
 #
@@ -827,7 +814,7 @@ if not isHeadless:
                                                     skipMouseProbe = skipmouseprobe)
     # if the len(videocards) is zero, then let's assume we're isHeadless
     if len(videohw.videocards) == 0:
-        print _("No video hardware found, assuming headless")
+        stdoutLog.info (_("No video hardware found, assuming headless"))
         videohw = None
         monitorhw = None
         mousehw = None
@@ -838,7 +825,7 @@ if not isHeadless:
             xcfg = xhwstate.XF86HardwareState(defcard=videohw,
                                               defmon=monitorhw)
         except Exception, e:
-            print _("Unable to instantiate a X hardware state object.")
+            stdoutLog.error (_("Unable to instantiate a X hardware state object."))
             xcfg = None
 else:
     videohw = None
@@ -862,8 +849,8 @@ time.sleep(3)
 #
 # if no X server, we have to use text mode
 if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.access("/mnt/runtime/usr/X11R6/bin/Xorg", os.X_OK)):
-     dup_log(_("Graphical installation not available...  "
-              "Starting text mode."))
+     stdoutLog.warning(_("Graphical installation not available...  "
+                         "Starting text mode."))
      time.sleep(2)
      display_mode = 't'
 
@@ -877,8 +864,9 @@ if not isHeadless:
 	while 1:
 	    mouserc = mouse.mouseWindow(mousehw)
 	    if mouserc == 0:
-		dup_log(_("No mouse was detected.  A mouse is required for "
-			  "graphical installation.  Starting text mode."))
+		stdoutLog.warning(_("No mouse was detected.  A mouse is "
+				    "required for graphical installation.  "
+				    "Starting text mode."))
 		display_mode = 't'
 		time.sleep(2)
 		break
@@ -887,18 +875,18 @@ if not isHeadless:
 		mousehw.probe()
 		mousedev = mousehw.get()
 		if mousedev[0] != "No - mouse":
-		    dup_log(_("Detected mouse type: %s"), mousehw.shortDescription())
+		    stdoutLog.info(_("Detected mouse type: %s"), mousehw.shortDescription())
 		    time.sleep(5)
 		    break
 	    else:
-		dup_log(_("Using mouse type: %s"), mousehw.shortDescription())
+		stdoutLog.info(_("Using mouse type: %s"), mousehw.shortDescription())
 		break
 
 	    
 else: # s390/iSeries checks
     if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
                                     flags.usevnc):
-	dup_log("DISPLAY variable not set. Starting text mode!")
+	stdoutLog.warning(_("DISPLAY variable not set. Starting text mode!"))
         display_mode = 't'
         graphical_failed = 1
         time.sleep(2)
@@ -960,7 +948,7 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
         xsetup_failed = True
 
     if xsetup_failed:
-	dup_log(" X startup failed, falling back to text mode")
+	stdoutLog.warning(" X startup failed, falling back to text mode")
 	display_mode = 't'
         graphical_failed = 1
 	time.sleep(2)
@@ -995,7 +983,7 @@ for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
 # setup links required by graphical mode if installing and verify display mode
 #
 if (display_mode == 'g'):
-    print _("Starting graphical installation...")
+    stdoutLog.info (_("Starting graphical installation..."))
     if not flags.test and flags.setupFilesystems:
         for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
                    "fb.modes"):
@@ -1019,14 +1007,14 @@ if (display_mode == 'g'):
 	    
             from gui import InstallInterface
         except Exception, e:
-            dup_log("Exception starting GUI installer: %s" %(e,))
+            stdoutLog.error("Exception starting GUI installer: %s" %(e,))
             if flags.test:
                 sys.exit(1)
             # if we're not going to really go into GUI mode, we need to get
             # back to vc1 where the text install is going to pop up.
 	    if not x_already_set:
                 isys.vtActivate (1)
-            dup_log("GUI installer startup failed, falling back to text mode.")
+            stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
             display_mode = 't'
 	    if 'DISPLAY' in os.environ.keys():
 		del os.environ['DISPLAY']
@@ -1060,7 +1048,7 @@ if method:
         from harddrive import HardDriveInstallMethod
         methodobj = HardDriveInstallMethod(method[5:], rootPath, intf)
     else:
-        print "unknown install method:", method
+        log.critical (_("unknown install method: %s"), method)
         sys.exit(1)
 
 floppyDevice = floppy.probeFloppyDevice()
@@ -1089,7 +1077,7 @@ if xcfg is None and not isHeadless:
     try:
 	xcfg = xhwstate.XF86HardwareState()
     except Exception, e:
-	print _("Unable to instantiate a X hardware state object.")
+	stdoutLog.error (_("Unable to instantiate a X hardware state object."))
 	xcfg = None
 
 if xcfg is not None:
