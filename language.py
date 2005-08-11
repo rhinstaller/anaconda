@@ -20,7 +20,6 @@ import rpm
 
 from rhpl.translate import cat
 from rhpl.simpleconfig import SimpleConfigFile
-from rhpl.log import log
 
 # Converts a single language into a "language search path". For example,
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
