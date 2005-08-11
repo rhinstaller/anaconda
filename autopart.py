@@ -19,6 +19,8 @@ import copy
 import string, sys
 import fsset
 import lvm
+import logging
+from anaconda_log import logger, logFile
 from partitioning import *
 import partedUtils
 import partRequests
@@ -26,7 +28,8 @@ from constants import *
 from partErrors import *
 
 from rhpl.translate import _, N_
-from rhpl.log import log
+
+log = logging.getLogger("anaconda")
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0
@@ -38,6 +41,18 @@ BOOTALPHA_NO_RESERVED_SPACE = -4
 BOOTIPSERIES_TOO_HIGH = -5
 
 DEBUG_LVM_GROW = 0
+
+# Add another logger for the LVM debugging, since there's a lot of that.
+# Set DEBUG_LVM_GROW if you want to spew all this information to the log
+# file.  Otherwise it'll get ignored.
+logger.addLogger ("anaconda.lvm", logging.DEBUG)
+lvmLog = logging.getLogger("anaconda.lvm")
+
+if DEBUG_LVM_GROW:
+    logger.addFileHandler (logFile, lvmLog, logging.DEBUG)
+else:
+    lvmLog.setLevel (logging.CRITICAL)
+    logger.addFileHandler (logFile, lvmLog, logging.CRITICAL)
 
 # check that our "boot" partition meets necessary constraints unless
 # the request has its ignore flag set
@@ -327,7 +342,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 
             largestPart = (0, None)
             drives = getDriveList(request, diskset)
-#            log("Trying drives to find best free space out of %s" %(free,))
+            log.debug("Trying drives to find best free space out of %s" %(free,))
             for drive in drives:
                 # this request is bootable and we've found a large enough
                 # partition already, so we don't need to keep trying other
@@ -356,13 +371,13 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                         if numLogical == maxLogical:
                             continue
 		    
-#                    log( "Trying partition %s" % (printFreespaceitem(part),))
+                    log.debug( "Trying partition %s" % (printFreespaceitem(part),))
                     partSize = partedUtils.getPartSizeMB(part)
                     # figure out what the request size will be given the
                     # geometry (#130885)
                     requestSectors = long((request.requestSize * 1024L * 1024L) / part.disk.dev.sector_size) - 1
                     requestSizeMB = long((requestSectors * part.disk.dev.sector_size) / 1024L / 1024L)
-#		    log("partSize %s  request %s" % (partSize, request.requestSize))
+		    log.debug("partSize %s  request %s" % (partSize, request.requestSize))
                     if partSize >= requestSizeMB and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
@@ -380,7 +395,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     continue
 #                raise PartitioningError, "Can't fulfill request for partition: \n%s" %(request)
 
-#            log( "largestPart is %s" % (largestPart,))
+            log.debug("largestPart is %s" % (largestPart,))
             freespace = largestPart[1]
             freeStartSec = freespace.geom.start
             freeEndSec = freespace.geom.end
@@ -443,7 +458,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     raise PartitioningError, "Impossible partition to create"
 
             fsType = request.fstype.getPartedFileSystemType()
-#            log("creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec))
+            log.debug("creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec))
             newp = disk.partition_new (partType, fsType, startSec, endSec)
             constraint = dev.constraint_any ()
 
@@ -483,13 +498,11 @@ def growLogicalVolumes(diskset, requests):
 	if vgreq.type != REQUEST_VG:
 	    continue
 
-#	print "In growLogicalVolumes, considering VG ", vgreq
-	log("In growLogicalVolumes, considering VG %s", vgreq)
+	log.info("In growLogicalVolumes, considering VG %s", vgreq)
 	lvreqs = requests.getLVMLVForVG(vgreq)
 
 	if lvreqs is None or len(lvreqs) < 1:
-#	    print "Apparently it had no logical volume requests, skipping..."
-	    log("Apparently it had no logical volume requests, skipping...")
+	    log.info("Apparently it had no logical volume requests, skipping.")
 	    continue
 
 	# come up with list of logvol that are growable
@@ -500,17 +513,15 @@ def growLogicalVolumes(diskset, requests):
 
 	# bail if none defined
         if len(growreqs) < 1:
-	    log("No growable logical volumes defined in VG %s.", vgreq)
+	    log.info("No growable logical volumes defined in VG %s.", vgreq)
 	    continue
 
-	log("VG %s has these growable logical volumes: %s",  vgreq.volumeGroupName, reduce(lambda x,y: x + [y.uniqueID], growreqs, []))
-
-#	print "VG %s has these growable logical volumes: %s" % (vgreq.volumeGroupName, growreqs)
+	log.info("VG %s has these growable logical volumes: %s",  vgreq.volumeGroupName, reduce(lambda x,y: x + [y.uniqueID], growreqs, []))
 
 	# get remaining free space
         if DEBUG_LVM_GROW:
 	    vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset)
-	    log("Free space in VG after initial partition formation = %s", (vgfree,))
+	    lvmLog.debug("Free space in VG after initial partition formation = %s", (vgfree,))
 
 	# store size we are starting at
 	initsize = {}
@@ -522,9 +533,7 @@ def growLogicalVolumes(diskset, requests):
 	    cursize[req.logicalVolumeName] = size
             if req.maxSizeMB:
                 req.maxSizeMB = lvm.clampPVSize(req.maxSizeMB, vgreq.pesize)
-#	    print "init sizes",req.logicalVolumeName, size
-            if DEBUG_LVM_GROW:
-		log("init sizes for %s: %s",req.logicalVolumeName, size)
+	    lvmLog.debug("init sizes for %s: %s",req.logicalVolumeName, size)
 	    
 	# now dolly out free space to all growing LVs
 	bailcount = 0
@@ -532,16 +541,12 @@ def growLogicalVolumes(diskset, requests):
 	    nochange = 1
 	    completed = []
 	    for req in growreqs:
-#		print "considering ",req.logicalVolumeName, req.getStartSize()
-                if DEBUG_LVM_GROW:
-		    log("considering %s, start size = %s",req.logicalVolumeName, req.getStartSize())
+		lvmLog.debug("considering %s, start size = %s",req.logicalVolumeName, req.getStartSize())
 		    
 		# get remaining free space
 		vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset)
 
-#		print "vgfree = ", vgfree
-                if DEBUG_LVM_GROW:
-		    log("Free space in VG = %s",vgfree)
+		lvmLog.debug("Free space in VG = %s",vgfree)
 		    
 		# compute fraction of remaining requests this
 		# particular request represents
@@ -550,24 +555,18 @@ def growLogicalVolumes(diskset, requests):
 		    if otherreq in completed:
 			continue
 
-		    if DEBUG_LVM_GROW:
-			log("adding in %s %s %s", otherreq.logicalVolumeName, otherreq.getStartSize(), otherreq.maxSizeMB)
+		    lvmLog.debug("adding in %s %s %s", otherreq.logicalVolumeName, otherreq.getStartSize(), otherreq.maxSizeMB)
 		    
-#		    print "adding in ", otherreq.logicalVolumeName, otherreq.getStartSize(), otherreq.maxSizeMB
 		    size = otherreq.getActualSize(requests, diskset)
 		    if otherreq.maxSizeMB:
 			if size < otherreq.maxSizeMB:
 			    totsize = totsize + otherreq.getStartSize()
 			else:
-			    if DEBUG_LVM_GROW:
-				log("%s is now at %s, and passed maxsize of %s", otherreq.logicalVolumeName, size, otherreq.maxSizeMB)
+			    lvmLog.debug("%s is now at %s, and passed maxsize of %s", otherreq.logicalVolumeName, size, otherreq.maxSizeMB)
 		    else:
 			totsize = totsize + otherreq.getStartSize()
 
-		if DEBUG_LVM_GROW:
-		    log("totsize -> %s",totsize)
-
-#		print "totsize ->", totsize
+		lvmLog.debug("totsize -> %s",totsize)
 
                 # if totsize is zero we have no growable reqs left
 		if totsize == 0:
@@ -586,21 +585,18 @@ def growLogicalVolumes(diskset, requests):
 		    nochange = 0
 
 		cursize[req.logicalVolumeName] = req.size
-		
-#		print req.logicalVolumeName, req.size, vgfree, fraction
 
-                if DEBUG_LVM_GROW:
-		    log("Name, size, cursize, vgfree, fraction = %s %s %s %s %s", req.logicalVolumeName, req.size, cursize[req.logicalVolumeName], vgfree, fraction)
+		lvmLog.debug("Name, size, cursize, vgfree, fraction = %s %s %s %s %s", req.logicalVolumeName, req.size, cursize[req.logicalVolumeName], vgfree, fraction)
 		    
 		completed.append(req)
 
 	    if nochange:
-		log("In growLogicalVolumes, no changes in size so breaking")
+		log.info("In growLogicalVolumes, no changes in size so breaking")
 		break
 		
 	    bailcount = bailcount + 1
 	    if bailcount > 10:
-		log("In growLogicalVolumes, bailing after 10 interations.")
+		log.info("In growLogicalVolumes, bailing after 10 interations.")
 		break
 		
 
@@ -776,7 +772,7 @@ def growParts(diskset, requests, newParts):
 			if maxsugswap >= userstartsize:
 			    maxsect = maxsugswap
 			    imposedMax = 1
-			    log("Enforced max swap size of %s based on suggested max swap", maxsect)
+			    log.warning("Enforced max swap size of %s based on suggested max swap", maxsect)
 
 
                 # round max fs limit down a cylinder, helps when growing
@@ -872,7 +868,7 @@ def setPreexistParts(diskset, requests, newParts):
         if request.type != REQUEST_PREEXIST:
             continue
         if not diskset.disks.has_key(request.drive):
-            log("pre-existing partition on non-native disk %s, ignoring" %(request.drive,))
+            log.info("pre-existing partition on non-native disk %s, ignoring" %(request.drive,))
             continue
         disk = diskset.disks[request.drive]
         part = disk.next_partition()
@@ -1076,7 +1072,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 	    
     for vg in vgused.keys():
         request = requests.getRequestByID(vg)
-	log("Used size vs. available for vg %s:  %s %s", request.volumeGroupName, vgused[vg], request.getActualSize(requests, diskset))
+	log.info("Used size vs. available for vg %s:  %s %s", request.volumeGroupName, vgused[vg], request.getActualSize(requests, diskset))
         if vgused[vg] > request.getActualSize(requests, diskset):
             raise PartitioningError, _("Adding this partition would not "
                                        "leave enough disk space for already "
@@ -1497,7 +1493,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                            "partitioning:\n\n%s") % (msg.value,),
 			       custom_icon='warning')
         else:
-            log("WARNING: %s" % (msg.value))
+            log.warning(msg.value)
     except PartitioningError, msg:
         # restore drives to original state
         diskset.refreshDevices()
@@ -1519,7 +1515,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     (errors, warnings) = partitions.sanityCheckAllRequests(diskset)
     if warnings:
         for warning in warnings:
-            log("WARNING: %s" % (warning))
+            log.warning(warning)
     if errors:
         errortxt = string.join(errors, '\n')
         if isKickstart:
