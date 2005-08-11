@@ -20,7 +20,6 @@
 import rpm
 import os,sys,time
 
-from rhpl.log import log
 from rhpl.translate import _, N_
 import rhpl.comps
 import rhpl.arch
@@ -28,6 +27,9 @@ import rhpl.arch
 from constants import *
 
 import language
+
+import logging
+log = logging.getLogger("anaconda")
 
 ON = 1
 MANUAL_ON = 2
@@ -222,7 +224,7 @@ class DependencyChecker:
                     nevr = "%s-%s" %(name, evr)
                 else:
                     nevr = name
-                log("using %s to satisfy %s" %(nevra(hdr), nevr))
+                log.info("using %s to satisfy %s" %(nevra(hdr), nevr))
                 ts.addInstall(hdr.hdr, hdr.hdr, self.how)
                 hdr.select(isDep = 1)
                 self.added.append(nevra(hdr.hdr))
@@ -277,7 +279,7 @@ class Package:
 
         # DEBUG
         if self.usecount < 0:
-            log("WARNING: usecount for %s dropped below 0 (%d)" %(nevra(self.hdr),self.usecount))
+            log.warning("usecount for %s dropped below 0 (%d)" %(nevra(self.hdr),self.usecount))
 
     # if we've been manually turned on or off, follow that
     # otherwise, if the usecount is > 0, then we're selected
@@ -317,7 +319,7 @@ class HeaderList:
             name = h['name']
 
             if self.pkgs.has_key(nevra):
-                log("Have more than one copy of %s, skipping" %(nevrastr,))
+                log.info("Have more than one copy of %s, skipping" %(nevrastr,))
                 continue
 
             self.pkgs[nevrastr] = Package(h)
@@ -504,7 +506,7 @@ class Group:
                 pkgnevra = hdrlist.getBestNevra(pkg, prefArch = pref)
                 
             if pkgnevra is None:
-                log("%s references package %s which doesn't exist"
+                log.info("%s references package %s which doesn't exist"
                     %(self.id, pkg))
                 continue
 
@@ -527,7 +529,7 @@ class Group:
     def addMetaPkg(self, metapkginfo):
         (type, id) = metapkginfo
         if id in self.packages.keys():
-            log("already have %s in %s" %(id, self.id))
+            log.info("already have %s in %s" %(id, self.id))
             return
         self.packages[id] = self.makePackageDict(id, type, isMeta = 1)
 
@@ -541,8 +543,8 @@ class Group:
         elif type == u'optional':
             pkgtype = PKGTYPE_OPTIONAL
         else:
-            log("Invalid package type of %s for %s in %s; defaulting to "
-                "optional" % (type, pkgnevra, self.id))
+            log.warning("Invalid package type of %s for %s in %s; defaulting "
+                        "to optional" % (type, pkgnevra, self.id))
             pkgtype = PKGTYPE_OPTIONAL
         
         return { "nevra": pkgnevra, "type": pkgtype, "state": installed,
@@ -605,8 +607,8 @@ class Group:
                       # hmm, not in the header list.  we can't do much but
                       # hope for the best
                       if not self.grpset.hdrlist.has_key(dep):
-                          log("Package %s requires %s which we don't have"
-                              %(tocheck, dep))
+                          log.warning("Package %s requires %s which we don't "
+                                      "have" %(tocheck, dep))
                           continue
                       self.grpset.hdrlist[dep].select()
                       # FIXME: this is a hack so we can make sure the usecount
@@ -633,8 +635,8 @@ class Group:
                     # hmm, not in the header list.  we can't do much but
                     # hope for the best
                     if not self.grpset.hdrlist.has_key(dep):
-                        log("Package %s requires %s which we don't have"
-                            %(tocheck, dep))
+                        log.warning("Package %s requires %s which we don't have"
+                                    %(tocheck, dep))
                         continue
                     self.grpset.hdrlist[dep].unselect()
                     pkgs.append(dep)
@@ -701,7 +703,8 @@ class Group:
         self.usecount = self.usecount - 1
         if not forInclude:
             self.manual_state = MANUAL_OFF
-        if self.usecount < 0: log("WARNING: usecount for %s < 0 (%d)" %(self.id, self.usecount))
+        if self.usecount < 0:
+            log.warning("usecount for %s < 0 (%d)" %(self.id, self.usecount))
 
         for grpid in self.groupreqs:
             self.grpset.groups[grpid].unselect(forInclude = 1)
@@ -817,15 +820,15 @@ class GroupSet:
             group = self.groups[xmlgrp.id]
             for id in xmlgrp.groups.keys():
                 if not self.groups.has_key(id):
-                    log("%s references component %s which doesn't exist"
-                        %(xmlgrp.id, id))
+                    log.info("%s references component %s which doesn't exist"
+                             %(xmlgrp.id, id))
                     continue
                 group.addGroupRequires(id)
 
             for id in xmlgrp.metapkgs.keys():
                 if not self.groups.has_key(id):
-                    log("%s references component %s which doesn't exist"
-                        %(xmlgrp.id, id))
+                    log.info("%s references component %s which doesn't exist"
+                             %(xmlgrp.id, id))
                     continue
                 group.addMetaPkg(xmlgrp.metapkgs[id])
                 if xmlgrp.user_visible and group.hidden:
@@ -922,7 +925,7 @@ def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
     try:
         file = grabber.urlopen (filename, retry = 5)
     except grabber.URLGrabError, e:
-        log ("URLGrabError: %s occurred getting %s", e.strerror, filename)
+        log.critical ("URLGrabError: %s occurred getting %s", e.strerror, filename)
         raise SystemError, "Could not get comps file"
 
     compsxml = rhpl.comps.Comps(file)

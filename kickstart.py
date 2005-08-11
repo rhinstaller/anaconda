@@ -28,7 +28,9 @@ import urlgrabber.grabber as grabber
 import lvm
 
 from rhpl.translate import _
-from rhpl.log import log
+
+import logging
+log = logging.getLogger("anaconda")
 
 KS_MISSING_PROMPT = 0
 KS_MISSING_IGNORE = 1
@@ -95,7 +97,7 @@ class Script:
         # Always log an error.  Only fail if we have a handle on the
 	# windowing system and the kickstart file included --erroronfail.
 	if rc != 0:
-            log("WARNING - Error code %s encountered running a kickstart %%pre/%%post script", rc)
+            log.error("Error code %s encountered running a kickstart %%pre/%%post script", rc)
 
             if self.errorOnFail:
 	        if intf != None:
@@ -114,10 +116,10 @@ class Kickstart(BaseInstallClass):
     name = "kickstart"
     
     def postAction(self, rootPath, serial, intf = None):
-	log("Running kickstart %%post script(s)")
+	log.info("Running kickstart %%post script(s)")
 	for script in self.postScripts:
 	    script.run(rootPath, serial, intf)
-	log("All kickstart %%post script(s) have been run")
+	log.info("All kickstart %%post script(s) have been run")
 
     def doRootPw(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'iscrypted' ])
@@ -157,7 +159,7 @@ class Kickstart(BaseInstallClass):
 	    elif str == '--ftp':
                 ports.append("21:tcp")
 	    elif str == '--high' or str == '--medium':
-                log("used deprecated firewall option: %s" %(str[2:],))
+                log.warning("used deprecated firewall option: %s" %(str[2:],))
 		enable = 1
 	    elif str == '--enabled' or str == "--enable":
 		enable = 1
@@ -1231,7 +1233,7 @@ class Kickstart(BaseInstallClass):
                 end = int(arg)
             elif str == "--badblocks":
                 # no longer support badblocks checking
-		log("WARNING: --badblocks specified but is no longer supported")
+		log.warning("--badblocks specified but is no longer supported")
             elif str == "--recommended":
                 recommended = 1
             elif str == "--fsoptions":
@@ -1427,23 +1429,23 @@ class Kickstart(BaseInstallClass):
         except KickstartError, e:
             raise KickstartError, e
 
-	log("Running kickstart %%pre script(s)")
+	log.info("Running kickstart %%pre script(s)")
 	for script in self.preScripts:
 	    script.run("/", self.serial, intf)
-	log("All kickstart %%pre script(s) have been run")
+	log.info("All kickstart %%pre script(s) have been run")
 
         # now read the kickstart file for real
         try:
             self.readKickstart(id, self.file)
         except KickstartError, e:
-            log("Exception parsing ks.cfg: %s" %(e,))
+            log.critical("Exception parsing ks.cfg: %s" %(e,))
             if intf is None:
                 raise KickstartError, e
             else:
                 intf.kickstartErrorWindow(e.__str__())
 
     def runTracebackScripts(self):
-	log("Running kickstart %%traceback script(s)")
+	log.info("Running kickstart %%traceback script(s)")
 	for script in self.tracebackScripts:
 	    script.run("/", self.serial)
 
@@ -1475,7 +1477,7 @@ class Kickstart(BaseInstallClass):
                 continue
 
             if self.handleMissing == KS_MISSING_IGNORE:
-                log("package %s doesn't exist, ignoring" %(n,))
+                log.warning("package %s doesn't exist, ignoring" %(n,))
                 continue
 
             
@@ -1504,7 +1506,7 @@ class Kickstart(BaseInstallClass):
                 grpset.selectGroup(n)
             except KeyError:
                 if self.handleMissing == KS_MISSING_IGNORE:
-                    log("group %s doesn't exist, ignoring" %(n,))
+                    log.warning("group %s doesn't exist, ignoring" %(n,))
                 else:
                     rc = intf.messageWindow(_("Missing Group"),
                                             _("You have specified that the "
@@ -1545,7 +1547,7 @@ class Kickstart(BaseInstallClass):
                 for (nevra, parch) in pkgs:
                     grpset.hdrlist.pkgs[nevra].unselect(isManual = 1)
             else:
-                log("%s does not exist, can't exclude" %(n,))
+                log.error("%s does not exist, can't exclude" %(n,))
 
 
     def __init__(self, file, serial):
@@ -1656,7 +1658,7 @@ def pullRemainingKickstartConfig(ksfile):
 	except:
 	    raise KSAppendException("Illegal url for %%ksappend - %s" % (ll,))
 
-	log("Attempting to pull second part of ks.cfg from url %s" % (ksurl,))
+	log.info("Attempting to pull second part of ks.cfg from url %s" % (ksurl,))
 
 	try:
 	    url = grabber.urlopen (ksurl)

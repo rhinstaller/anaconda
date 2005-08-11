@@ -35,9 +35,11 @@ from syslogd import syslog
 from hdrlist import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, DependencyChecker
 from installmethod import FileCopyException
 
-from rhpl.log import log
 from rhpl.translate import _
 import rhpl.arch
+
+import logging
+log = logging.getLogger("anaconda")
 
 def queryUpgradeContinue(intf, dir):
     if dir == DISPATCH_FORWARD:
@@ -70,12 +72,12 @@ def firstbootConfiguration(id, instPath):
         
 
 def writeConfiguration(id, instPath):
-    log("Writing main configuration")
+    log.info("Writing main configuration")
     if not flags.test:
         id.write(instPath)
 
 def writeKSConfiguration(id, instPath):
-    log("Writing autokickstart file")
+    log.info("Writing autokickstart file")
     if not flags.test:
 	fn = instPath + "/root/anaconda-ks.cfg"
     else:
@@ -84,7 +86,7 @@ def writeKSConfiguration(id, instPath):
     id.writeKS(fn)
 
 def copyAnacondaLogs(instPath):
-    log("Copying anaconda logs")
+    log.info("Copying anaconda logs")
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
                        ("/tmp/ramfs/X.log", "anaconda.xlog")):
@@ -121,7 +123,7 @@ def writeXConfiguration(id, instPath):
     if not xserver:
 	return
 
-    log("Writing X configuration")
+    log.info("Writing X configuration")
     if not testmode:
         fn = instPath
 
@@ -335,7 +337,7 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     if depcheck.added and id.handleDeps == CHECK_DEPS:
 	disp.skipStep("dependencies", skip = 0)
-        log("had unresolved dependencies, resolved.")
+        log.info("had unresolved dependencies, resolved.")
 	disp.skipStep("dependencies")
     else:
 	disp.skipStep("dependencies")
@@ -424,9 +426,8 @@ class InstallCallback:
 			self.rpmFD = -1
 			raise FileCopyException
 		except Exception, e:
-                    log("exception was %s for %s-%s-%s" %(e, h['name'],
-                                                          h['version'],
-                                                          h['release']))
+                    log.critical("exception was %s for %s-%s-%s"
+                                 %(e, h['name'], h['version'], h['release']))
                                                           
                     self.method.unmountCD()
 		    rc = self.messageWindow(_("Error"),
@@ -567,7 +568,7 @@ def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
 
 def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
     if dir == DISPATCH_BACK:
-        log("unmounting filesystems")
+        log.info("unmounting filesystems")
 	thefsset.umountFilesystems(instPath)
 	return
 
@@ -597,12 +598,12 @@ def setupTimezone(timezone, upgrade, instPath, dir):
     os.environ["TZ"] = timezone.tz
     tzfile = "/usr/share/zoneinfo/" + timezone.tz
     if not os.access(tzfile, os.R_OK):
-        log("unable to set timezone")
+        log.error("unable to set timezone")
     else:
         try:
             iutil.copyFile(tzfile, "/etc/localtime")
         except OSError, (errno, msg):
-            log("Error copying timezone (from %s): %s" %(tzfile, msg))
+            log.error("Error copying timezone (from %s): %s" %(tzfile, msg))
 
     if iutil.getArch() == "s390":
         return
@@ -616,7 +617,7 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         iutil.execWithRedirect(args[0], args, stdin = None,
                                stdout = "/dev/tty5", stderr = "/dev/tty5")
     except RuntimeError:
-        log("Failed to set clock")
+        log.error("Failed to set clock")
 
 # do miscellaneous package selections based on other installation selections
 def handleMiscPackages(intf, id, dir):
@@ -703,7 +704,7 @@ def handleMiscPackages(intf, id, dir):
         for entry in id.fsset.entries:
             for pkg in entry.fsystem.getNeededPackages():
                 if select(id.grpset.hdrlist, pkg):
-                    log("Needed %s for %s" %(pkg, entry.getMountPoint()))
+                    log.info("Needed %s for %s" %(pkg, entry.getMountPoint()))
 
 def doPreInstall(method, id, intf, instPath, dir):
     if dir == DISPATCH_BACK:
@@ -711,7 +712,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             try:
                 isys.umount(instPath + d, removeDir = 0)
             except Exception, e:
-                log("unable to unmount %s: %s" %(d, e))
+                log.error("unable to unmount %s: %s" %(d, e))
         return
 
     if flags.test:
@@ -748,7 +749,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         if (os.path.exists(instPath + "/etc/modules.conf") and
             os.path.exists(instPath + "/etc/modprobe.conf") and
             not os.path.exists(instPath + "/etc/modprobe.conf.anacbak")):
-            log("renaming old modprobe.conf -> modprobe.conf.anacbak")
+            log.info("renaming old modprobe.conf -> modprobe.conf.anacbak")
             os.rename(instPath + "/etc/modprobe.conf",
                       instPath + "/etc/modprobe.conf.anacbak")
             
@@ -764,7 +765,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
             pass
-#            log("Error making directory %s: %s" % (i, msg))
+#            log.error("Error making directory %s: %s" % (i, msg))
 
 
     if flags.setupFilesystems:
@@ -781,11 +782,11 @@ def doPreInstall(method, id, intf, instPath, dir):
                 if not os.path.islink(path):
                     os.symlink("/mnt/sysimage/%s" %(path,), "%s" %(path,))
                 else:
-                    log("%s already exists as a symlink to %s" %(path, os.readlink(path),))
+                    log.warning("%s already exists as a symlink to %s" %(path, os.readlink(path),))
 	except Exception, e:
 	    # how this could happen isn't entirely clear; log it in case
 	    # it does and causes problems later
-	    log("error creating symlink, continuing anyway: %s" %(e,))
+	    log.error("error creating symlink, continuing anyway: %s" %(e,))
 
         # SELinux hackery (#121369)
         if flags.selinux:
@@ -796,20 +797,20 @@ def doPreInstall(method, id, intf, instPath, dir):
             try:
                 isys.mount("/selinux", instPath + "/selinux", "selinuxfs")
             except Exception, e:
-                log("error mounting selinuxfs: %s" %(e,))
+                log.error("error mounting selinuxfs: %s" %(e,))
 
         # we need to have a /dev during install and now that udev is
         # handling /dev, it gets to be more fun.  so just bind mount the
         # installer /dev
         if not id.grpset.hdrlist.has_key("dev"):
-            log("no dev package, going to bind mount /dev")
+            log.warning("no dev package, going to bind mount /dev")
             isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
         id.compspkg = method.copyFileToTemp("%s/base/comps.rpm" % (productPath,))
     except:
-        log("Unable to copy comps package")
+        log.error("Unable to copy comps package")
         id.compspkg = None
 
     # write out the fstab
@@ -920,7 +921,7 @@ def doInstall(method, id, intf, instPath):
 
     depcheck = DependencyChecker(id.grpset)
     if not id.grpset.hdrlist.preordered():
-	log ("WARNING: not all packages in hdlist had order tag")
+	log.warning ("not all packages in hdlist had order tag")
         # have to call ts.check before ts.order() to set up the alIndex
         ts.check(depcheck.callback)
         ts.order()
@@ -1009,7 +1010,7 @@ def doInstall(method, id, intf, instPath):
 	size = 12
 
 	for (descr, (type, mount, need)) in problems:
-            log("(%s, (%s, %s, %s))" %(descr, type, mount, need))
+            log.warning("(%s, (%s, %s, %s))" %(descr, type, mount, need))
             if mount and mount.startswith(instPath):
 		mount = mount[len(instPath):]
             if not mount:
@@ -1028,7 +1029,7 @@ def doInstall(method, id, intf, instPath):
 	    else:
                 if descr is None:
                     descr = "no description"
-		log ("WARNING: unhandled problem returned from "
+		log.warning ("unhandled problem returned from "
                      "transaction set type %d (%s)",
 		     type, descr)
 
@@ -1042,7 +1043,7 @@ def doInstall(method, id, intf, instPath):
                                               _("Space Needed"))
 
 	    for (mount, need) in spaceneeded.items ():
-                log("(%s, %s)" %(mount, need))
+                log.warning("(%s, %s)" %(mount, need))
 		if need > (1024*1024):
 		    need = (need + 1024 * 1024 - 1) / (1024 * 1024)
 		    suffix = "M"
@@ -1100,13 +1101,13 @@ def doInstall(method, id, intf, instPath):
         try:
             os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
         except Exception, e:
-            log("failed to unlink /var/lib/rpm/%s: %s" %(file,e))
+            log.error("failed to unlink /var/lib/rpm/%s: %s" %(file,e))
     # FIXME: remove the /var/lib/rpm symlink that keeps us from having
     # db->close error messages shown.  I don't really like this though :(
     try:
         os.unlink("/var/lib/rpm")
     except Exception, e:
-        log("failed to unlink /var/lib/rpm: %s" %(e,))
+        log.error("failed to unlink /var/lib/rpm: %s" %(e,))
 
     instLog.close ()
 
@@ -1192,7 +1193,7 @@ def doPostInstall(method, id, intf, instPath):
                     isys.mount('/usbfs', instPath+'/proc/bus/usb', 'usbfs')
                     unmountUSB = 1
                 except:
-                    log("Mount of /proc/bus/usb in chroot failed")
+                    log.error("Mount of /proc/bus/usb in chroot failed")
                     pass
 
                 argv = [ "/usr/sbin/kudzu", "-q" ]
@@ -1245,7 +1246,7 @@ def doPostInstall(method, id, intf, instPath):
             migrateMouseConfig(instPath, instLogName)
 
         if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
-            log("rhgb installed, adding to boot loader config")
+            log.info("rhgb installed, adding to boot loader config")
             id.bootloader.args.append("rhgb quiet")
 
         w.set(5)
@@ -1253,7 +1254,7 @@ def doPostInstall(method, id, intf, instPath):
         # FIXME: hack to install the comps package
         if (id.compspkg is not None and
             os.access(id.compspkg, os.R_OK)):
-            log("found the comps package")
+            log.info("found the comps package")
             try:
                 # ugly hack
                 path = id.compspkg.split("/mnt/sysimage")[1]
@@ -1280,13 +1281,13 @@ def doPostInstall(method, id, intf, instPath):
                 del ts
 
             except Exception, e:
-                log("comps.rpm failed to install: %s" %(e,))
+                log.error("comps.rpm failed to install: %s" %(e,))
                 try:
                     os.unlink(id.compspkg)
                 except:
                     pass
         else:
-            log("no comps package found")
+            log.error("no comps package found")
                 
         w.set(6)
 
@@ -1346,9 +1347,9 @@ def doPostInstall(method, id, intf, instPath):
 		pass
 	    f.close()
 	else:
-	    log("methodstr not set for some reason")
+	    log.warning("methodstr not set for some reason")
     except:
-	log("Failed to write out installinfo")
+	log.error("Failed to write out installinfo")
         
     w.pop ()
 
@@ -1363,7 +1364,7 @@ def setFileCons(instPath, partitions):
     import partRequests
     
     if flags.selinux:
-        log("setting SELinux contexts for anaconda created files")
+        log.info("setting SELinux contexts for anaconda created files")
 
         files = ["/etc/rpm/platform", "/etc/rpm/macros",
                  "/etc/lilo.conf.anaconda",
@@ -1395,10 +1396,10 @@ def setFileCons(instPath, partitions):
             os.chroot(instPath)
             for f in files:
                 if not os.access("%s" %(f,), os.R_OK):
-                    log("%s doesn't exist" %(f,))
+                    log.warning("%s doesn't exist" %(f,))
                     continue
                 ret = isys.resetFileContext(f)
-                log("set fc of %s to %s" %(f, ret))
+                log.info("set fc of %s to %s" %(f, ret))
             os._exit(0)
 
         try:
@@ -1467,7 +1468,7 @@ def copyExtraModules(instPath, grpset, extraModules):
 	command = ("cd %s/lib/modules; gunzip < %s | "
                    "%s/bin/cpio --quiet -iumd %s" % 
                    (instPath, path, instPath, pattern))
-	log("running: '%s'" % (command, ))
+	log.info("running: '%s'" % (command, ))
 	os.system(command)
 
 	for (n, tag) in kernelVersions:
@@ -1491,13 +1492,13 @@ def copyExtraModules(instPath, grpset, extraModules):
                 fromFile = "%s/lib/modules/%s/%s" % (instPath, n, p)
 
                 if (os.access(fromFile, os.R_OK)):
-                    log("moving %s to %s" % (fromFile, to))
+                    log.info("moving %s to %s" % (fromFile, to))
                     os.rename(fromFile, to)
                     # the file might not have been owned by root in the cgz
                     os.chown(to, 0, 0)
                     foundModule = 1
                 else:
-                    log("missing DD module %s (this may be okay)" % 
+                    log.warning("missing DD module %s (this may be okay)" % 
                         fromFile)
 
     if foundModule == 1:
@@ -1507,7 +1508,7 @@ def copyExtraModules(instPath, grpset, extraModules):
 
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
-    log("recreating initrd for %s" % (kernelTag,))
+    log.info("recreating initrd for %s" % (kernelTag,))
     iutil.execWithRedirect("/sbin/new-kernel-pkg",
                            [ "/sbin/new-kernel-pkg", "--mkinitrd",
                              "--depmod", "--install", kernelTag ],
@@ -1581,7 +1582,7 @@ def selectPackageConditionals(grpset, grp):
     for package in xmlgrp.pkgConditionals.keys():
         req = xmlgrp.pkgConditionals[package]
         if not grpset.hdrlist.has_key(package):
-            log ("Missing %s which is in a conditional" %(package,))
+            log.warning ("Missing %s which is in a conditional" %(package,))
             continue
         # add to the deps in the dependencies structure for the
         # package.  this should take care of whenever we're

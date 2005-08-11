@@ -29,8 +29,10 @@ from flags import flags
 from constants_text import *
 from constants import *
 
-from rhpl.log import log
 from rhpl.translate import _, cat, N_
+
+import logging
+log = logging.getLogger("anaconda")
 
 stepToClasses = {
     "language" : ("language_text", "LanguageWindow"),
@@ -313,7 +315,7 @@ class InstallInterface:
         # in our code and avoid popping up the exception window here.
         if exc.options == parted.EXCEPTION_CANCEL:
             return parted.EXCEPTION_UNHANDLED
-        log("parted exception: %s: %s" %(exc.type_string,exc.message))
+        log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
         buttons = []
         buttonToAction = {}
         flags = ((parted.EXCEPTION_FIX, N_("Fix")),
@@ -379,23 +381,23 @@ class InstallInterface:
             (id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "bterm")
             and not flags.serial and not flags.virtpconsole
             and not isys.isPsudoTTY(0) and not isys.isVioConsole()):
-            log("starting bterm")
+            log.info("starting bterm")
             rc = 1
             try:
                 rc = isys.startBterm()
                 time.sleep(1)
             except Exception, e:
-                log("got an exception starting bterm: %s" %(e,))
+                log.critical("got an exception starting bterm: %s" %(e,))
 
             if rc == 1:
-                log("unable to start bterm, falling back to english")
+                log.warning("unable to start bterm, falling back to english")
                 oldlang = id.instLanguage.getCurrent()
-                log("old language was %s" %(oldlang,))
+                log.warning("old language was %s" %(oldlang,))
                 id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
                 id.instLanguage.setRuntimeDefaults(oldlang)
 
         if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
-            log("run:  setting default runtime language")
+            log.info("run:  setting default runtime language")
             oldlang = id.instLanguage.getCurrent()
             id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
             id.instLanguage.setRuntimeDefaults(oldlang)

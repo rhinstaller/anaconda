@@ -35,8 +35,10 @@ from splashscreen import splashScreenPop
 from flags import flags
 from constants import *
 
-from rhpl.log import log
 from rhpl.translate import _, N_
+
+import logging
+log = logging.getLogger("anaconda")
 
 rpm.addMacro("_i18ndomains", "redhat-dist")
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
@@ -154,7 +156,7 @@ def takeScreenShot():
 
 		screenshotIndex = screenshotIndex + 1
 		if screenshotIndex > 9999:
-		    log("Too many screenshots!")
+		    log.error("Too many screenshots!")
 		    return
 
 	    screenshot.save (screenshotDir + '/' + sname, "png")
@@ -222,7 +224,7 @@ def partedExceptionWindow(exc):
     # in our code and avoid popping up the exception window here.
     if exc.options == parted.EXCEPTION_CANCEL:
         return parted.EXCEPTION_UNHANDLED
-    log("parted exception: %s: %s" %(exc.type_string,exc.message))
+    log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
     print exc.type_string
     print exc.message
     print exc.options
@@ -420,13 +422,13 @@ def findPixmap(file):
 def getPixbuf(file):
     fn = findPixmap(file)
     if not fn:
-        log("unable to load %s" %(file,))
+        log.error("unable to load %s" %(file,))
         return None
     
     try:
         pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
     except RuntimeError, msg:
-        log("unable to read %s: %s" %(file, msg))
+        log.error("unable to read %s: %s" %(file, msg))
         return None
     
     return pixbuf
@@ -710,7 +712,7 @@ class InstallInterface:
         return rc
 
     def exceptionWindow(self, title, text):
-        print text
+        log.critical(text)
         win = ExceptionWindow (text)
         return win.getrc ()
 
@@ -849,7 +851,7 @@ class InstallControlWindow:
         elif ltrrtl == "default:LTR":
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)
         else:
-            log("someone didn't translate the ltr bits right: %s" %(ltrrtl,))
+            log.error("someone didn't translate the ltr bits right: %s" %(ltrrtl,))
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
         
     def prevClicked (self, *args):
@@ -929,7 +931,7 @@ class InstallControlWindow:
     def releaseNotesViewerPollExitCB(self, data):
 	# dont wait if we arent running a viewer
 	if self.releaseNotesViewerPid is None:
-	    log("Calling releaseNotesViewerPollExitCB but no release viewer running!")
+	    log.error("Calling releaseNotesViewerPollExitCB but no release viewer running!")
 	    return True
 
 	# see if release notes viewer has exitted
@@ -943,9 +945,9 @@ class InstallControlWindow:
 	    if eno == errno.ECHILD:
 		still_running = 0
 	    else:
-		log("In releaseNotesViewerPollExitCB got error %s: %s", eno, msg)
+		log.error("In releaseNotesViewerPollExitCB got error %s: %s", eno, msg)
 	except:
-	    log("In releaseNotesViewerPollExitCB got unknown exception waiting %s: %s")
+	    log.error("In releaseNotesViewerPollExitCB got unknown exception waiting %s: %s")
 	    
     
 	if not still_running:
@@ -982,7 +984,7 @@ class InstallControlWindow:
 		self.releaseNotesModalDummy.destroy()
 		self.releaseNotesStartViewerAttempts += 1
 		if self.releaseNotesStartViewerAttempts > 15:
-		    log("Giving up trying to run viewer!")
+		    log.error("Giving up trying to run viewer!")
 		    gobject.source_remove(self.releaseNotesStartViewerIdleID)
 		    self.releaseNotesStartViewer = 0
 		    self.releaseNotesStartViewerAttempts = 0
@@ -1009,11 +1011,11 @@ class InstallControlWindow:
     def releaseNotesButtonClicked (self, widget):
 	# see if release notes are running
 	if self.releaseNotesViewerPid is not None:
-	    log("Viewer already present, pid = %s",self.releaseNotesViewerPid)
+	    log.warning("Viewer already present, pid = %s",self.releaseNotesViewerPid)
 	    return
 
 	if self.releaseNotesStartViewer:
-	    log("Already queued request to start a viewer")
+	    log.warning("Already queued request to start a viewer")
 	    return
 	
 	self.releaseNotesStartViewerAttempts = 0
@@ -1041,7 +1043,7 @@ class InstallControlWindow:
 
 	    # if no viewer present then just ignore click
 	    if not os.access(path[0], os.X_OK):
-		log("Viewer missing at %s - ignoring", path[0])
+		log.warning("Viewer missing at %s - ignoring", path[0])
 		return 1
 	    
 	    args =(fn,)

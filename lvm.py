@@ -18,7 +18,9 @@ import math
 import isys
 
 from flags import flags
-from rhpl.log import log
+
+import logging
+log = logging.getLogger("anaconda")
 
 from constants import *
 
@@ -65,7 +67,7 @@ def vgscan():
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgscan failed: %s" %(rc,))
+        log.error("running vgscan failed: %s" %(rc,))
 #        lvmDevicePresent = 0
 
 def vgactivate(volgroup = None):
@@ -85,7 +87,7 @@ def vgactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgchange failed: %s" %(rc,))
+        log.error("running vgchange failed: %s" %(rc,))
 #        lvmDevicePresent = 0
 
     # now make the device nodes
@@ -97,7 +99,7 @@ def vgactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgmknodes failed: %s" %(rc,))
+        log.error("running vgmknodes failed: %s" %(rc,))
 #        lvmDevicePresent = 0
 
 def vgdeactivate(volgroup = None):
@@ -117,7 +119,7 @@ def vgdeactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgchange failed: %s" %(rc,))
+        log.error("running vgchange failed: %s" %(rc,))
 #        lvmDevicePresent = 0
     
     
@@ -168,7 +170,7 @@ def vgremove(vgname):
 
     args = ["lvm", "vgremove", vgname]
 
-    log(string.join(args, ' '))
+    log.info(string.join(args, ' '))
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
                                 stderr = output,
@@ -181,7 +183,7 @@ def vgremove(vgname):
     for pvname in pvs:
         args = ["lvm", "pvremove", pvname]
 
-        log(string.join(args, ' '))
+        log.info(string.join(args, ' '))
         rc = iutil.execWithRedirect(args[0], args,
                                     stdout = output,
                                     stderr = output,
@@ -192,7 +194,7 @@ def vgremove(vgname):
 
         args = ["lvm", "pvcreate", "-ff", "-y", "-v", pvname]
 
-        log(string.join(args, ' '))
+        log.info(string.join(args, ' '))
         rc = iutil.execWithRedirect(args[0], args,
                                     stdout = output,
                                     stderr = output,
@@ -226,7 +228,7 @@ def lvlist():
         logmsg = "lv is %s/%s, size of %s" % (vg, lv, size)
         if origin:
             logmsg += ", snapshot from %s" % (origin,)
-        log(logmsg)
+        log.info(logmsg)
         lvs.append( (vg, lv, size, origin) )
 
     return lvs
@@ -249,7 +251,7 @@ def pvlist():
             size = long(math.floor(long(size) / (1024 * 1024)))
         except:
             continue
-        log("pv is %s in vg %s, size is %s" %(dev, vg, size))
+        log.info("pv is %s in vg %s, size is %s" %(dev, vg, size))
         pvs.append( (dev, vg, size) )
 
     return pvs
@@ -273,7 +275,7 @@ def vglist():
             pesize = long(pesize)/1024
         except:
             continue
-        log("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
+        log.info("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
         vgs.append( (vg, size, pesize) )
 
     return vgs
@@ -293,7 +295,7 @@ def partialvgs():
         except:
             continue
         if attr.find("p") != -1:
-            log("vg %s, attr is %s" %(vg, attr))
+            log.info("vg %s, attr is %s" %(vg, attr))
             vgs.append(vg)
 
     return vgs
@@ -328,7 +330,7 @@ def wipeOtherMetadataFromPV(node):
     try:
         isys.wipeRaidSB(node)
     except Exception, e:
-        log("error wiping raidsb from %s: %s", node, e)
+        log.critical("error wiping raidsb from %s: %s", node, e)
         
     
 
@@ -433,8 +435,8 @@ def getVGUsedSpace(vgreq, requests, diskset):
 
 def getVGFreeSpace(vgreq, requests, diskset):
     used = getVGUsedSpace(vgreq, requests, diskset)
-    log("used space is %s" % (used,))
+    log.info("used space is %s" % (used,))
     
     total = vgreq.getActualSize(requests, diskset)
-    log("actual space is %s" % (total,))
+    log.info("actual space is %s" % (total,))
     return total - used

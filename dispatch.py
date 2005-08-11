@@ -43,7 +43,8 @@ from upgrade import findRootParts
 from network import networkDeviceCheck
 from installmethod import doMethodComplete
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -200,7 +201,7 @@ class Dispatcher:
 	    if not stepExists.has_key(name):
                 #XXX: hack for yum support
 		#raise KeyError, ("step %s does not exist" % name)
-                log("warning: step %s does not exist", name)
+                log.warning("step %s does not exist", name)
 
     def stepInSkipList(self, step):
 	return self.skipSteps.has_key(step)
@@ -221,7 +222,7 @@ class Dispatcher:
 		return
 
 	#raise KeyError, ("unknown step %s" % stepToSkip)
-        log("warning: step %s does not exist", name)
+        log.warning("step %s does not exist", name)
 
     def moveStep(self):
 	if self.step == None:
@@ -239,7 +240,7 @@ class Dispatcher:
 	    info = installSteps[self.step]
 	    if ((type(info[1]) == FunctionType)
                 and (not self.skipSteps.has_key(info[0]))):
-                log("moving (%d) to step %s" %(self.dir, info[0]))
+                log.info("moving (%d) to step %s" %(self.dir, info[0]))
 		(func, args) = info[1:]
 		rc = apply(func, self.bindArgs(args))
 		if rc == DISPATCH_BACK:
@@ -261,7 +262,7 @@ class Dispatcher:
 	    self.step = len(installSteps) - 1
 	    while self.skipSteps.has_key(installSteps[self.step][0]):
 		self.step = self.step - 1
-        log("moving (%d) to step %s" %(self.dir, installSteps[self.step][0]))
+        log.info("moving (%d) to step %s" %(self.dir, installSteps[self.step][0]))
 
     def bindArgs(self, args):
 	newArgs = ()
