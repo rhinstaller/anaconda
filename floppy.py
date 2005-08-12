@@ -23,8 +23,10 @@ import kudzu
 from constants import *
 from flags import flags
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 def hasFloppyDevice():
     try:
@@ -49,16 +51,16 @@ def probeFloppyDevice():
                           kudzu.PROBE_ALL)
 
     if not devices:
-        log("no floppy devices found but we'll try fd0 anyway")
+        log.warning("no floppy devices found but we'll try fd0 anyway")
         return fdDevice
 
     for device in devices:
         if device.detached:
             continue
-        log("anaconda floppy device %s" % (device.device))
+        log.info("anaconda floppy device %s" % (device.device))
         return device.device
     
-    log("anaconda floppy device is %s", fdDevice)
+    log.info("anaconda floppy device is %s", fdDevice)
     return fdDevice
 
 def makeBootdisk (intf, dir, floppyDevice, grpset, instPath, bootloader):
@@ -80,7 +82,7 @@ def makeBootdisk (intf, dir, floppyDevice, grpset, instPath, bootloader):
     if os.access(kernel, os.R_OK):
         try:
             kernelsize = os.stat(kernel)[stat.ST_SIZE]
-            log("kernelsize is %s" %(kernelsize,))
+            log.info("kernelsize is %s" %(kernelsize,))
         except:
             kernelsize = 0
         size = size + kernelsize
@@ -89,12 +91,12 @@ def makeBootdisk (intf, dir, floppyDevice, grpset, instPath, bootloader):
     if os.access(initrd, os.R_OK):
         try:
             initrdsize = os.stat(initrd)[stat.ST_SIZE]
-            log("initrdsize is %s" %(initrdsize,)            )
+            log.info("initrdsize is %s" %(initrdsize,))
         except:
             initrdsize = 0
         size = size + initrdsize
 
-    log("boot floppy size is %s" %(size,))
+    log.info("boot floppy size is %s" %(size,))
 
     # go within 10 K of the size of the boot disk to have a tad
     # bit of safety.  if this fails, we're no worse off than we used
@@ -179,7 +181,7 @@ def makeBootdisk (intf, dir, floppyDevice, grpset, instPath, bootloader):
             if size != kernelsize:
                 problem = 1
         else:
-            log("unable to verify kernel size.  hope it fit!")
+            log.warning("unable to verify kernel size.  hope it fit!")
     else:
         problem = 1
 

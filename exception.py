@@ -26,8 +26,10 @@ import bdb
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
-from rhpl.log import log
 from flags import flags
+
+import logging
+log = logging.getLogger("anaconda")
 
 dumpHash = {}
 
@@ -216,7 +218,7 @@ def handleException(dispatch, intf, (type, value, tb)):
         try:
             iutil.copyFile("/tmp/anacdump.txt", "/mnt/sysimage/root/anacdump.txt")
         except:
-	    log("Failed to copy anacdump.txt to /mnt/sysimage/root")
+	    log.error("Failed to copy anacdump.txt to /mnt/sysimage/root")
             pass
 	
     # run kickstart traceback scripts (if necessary)
@@ -242,7 +244,7 @@ def handleException(dispatch, intf, (type, value, tb)):
         try:
             iutil.copyFile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
         except:
-	    log("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
+	    log.error("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
             pass
 
         intf.__del__ ()
@@ -289,7 +291,7 @@ def handleException(dispatch, intf, (type, value, tb)):
         try:
             iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
         except:
-	    log("Failed to copy anacdump.txt to floppy")
+	    log.error("Failed to copy anacdump.txt to floppy")
             pass
 
 	isys.umount("/tmp/crash")

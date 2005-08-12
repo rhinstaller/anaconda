@@ -1,3 +1,19 @@
+2005-08-12  Chris Lumens  <clumens@redhat.com>
+
+	* bootloader.py, desktop.py, exception.py, firewall.py, floppy.py,
+	fsset.py, harddrive.py, hdrlist.py, image.py, installclass.py,
+	installmethod.py, iutil.py, network.py, partRequests.py,
+	partedUtils.py, partitioning.py, partitions.py, pcmcia.py, raid.py,
+	rescue.py, security.py, syslogd.py, text.py, timezone.py, upgrade.py,
+	urlinstall.py, users.py, vnc.py, whiteout.py, yuminstall.py, zfcp.py,
+	iw/lvm_dialog_gui.py, iw/package_gui.py, iw/partition_gui.py,
+	iw/progress_gui.py, iw/upgrade_migratefs_gui.py,
+	iw/upgrade_swap_gui.py, iw/xconfig_gui.py, textw/bootloader_text.py,
+	textw/keyboard_text.py, textw/language_text.py, textw/network_text.py,
+	textw/packages_text.py, textw/partition_text.py,
+	textw/progress_text.py, textw/upgrade_text.py, textw/zfcp_text.py:
+	Use new logging system.
+
 2005-08-11  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Use new logging system.

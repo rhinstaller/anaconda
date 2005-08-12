@@ -18,7 +18,6 @@ from constants import *
 from constants_text import *
 from rhpl.translate import _
 from flags import flags
-from rhpl.log import log
 import copy
 
 class ZFCPWindow:

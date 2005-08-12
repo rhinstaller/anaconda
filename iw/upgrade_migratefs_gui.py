@@ -24,8 +24,6 @@ from fsset import *
 import gui
 import gtk
 
-from rhpl.log import log
-
 class UpgradeMigrateFSWindow (InstallWindow):		
     windowTitle = N_("Migrate File Systems")
     htmlTag = "upmigfs"

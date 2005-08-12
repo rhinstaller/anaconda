@@ -43,7 +43,8 @@ import os
 import partitioning
 import partedUtils
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 # these arches can have their /boot on RAID and not have their
 # boot loader blow up
@@ -79,7 +80,7 @@ def scanForRaid(drives):
                         isys.raidsb(dev)
             except ValueError:
                 # bad magic, this can't be part of our raid set
-                log("reading raid sb failed for %s",dev)
+                log.error("reading raid sb failed for %s",dev)
                 continue
 
 	    if raidSets.has_key(raidSet):
@@ -88,10 +89,10 @@ def scanForRaid(drives):
 		if knownLevel != level or knownDisks != totalDisks or \
 		   knownMinor != mdMinor:
                     # Raise hell
-		    log("raid set inconsistency for md%d: "
-                        "all drives in this raid set do not "
-                        "agree on raid parameters.  Skipping raid device",
-                        mdMinor)
+		    log.error("raid set inconsistency for md%d: "
+                              "all drives in this raid set do not "
+                              "agree on raid parameters.  Skipping raid device",
+                              mdMinor)
                     continue
 		knownDevices.append(dev)
 		raidSets[raidSet] = (knownLevel, knownDisks, knownMinor,
@@ -101,10 +102,10 @@ def scanForRaid(drives):
 
 	    if raidDevices.has_key(mdMinor):
 	    	if (raidDevices[mdMinor] != raidSet):
-		    log("raid set inconsistency for md%d: "
-                        "found members of multiple raid sets "
-                        "that claim to be md%d.  Using only the first "
-                        "array found.", mdMinor, mdMinor)
+		    log.error("raid set inconsistency for md%d: "
+                              "found members of multiple raid sets "
+                              "that claim to be md%d.  Using only the first "
+                              "array found.", mdMinor, mdMinor)
                     continue
 	    else:
 	    	raidDevices[mdMinor] = raidSet
@@ -113,10 +114,10 @@ def scanForRaid(drives):
     for key in raidSets.keys():
 	(level, totalDisks, mdMinor, devices) = raidSets[key]
 	if len(devices) < totalDisks:
-            log("missing components of raid device md%d.  The "
-                "raid device needs %d drive(s) and only %d (was/were) found. "
-                "This raid device will not be started.", mdMinor,
-                totalDisks, len(devices))
+            log.warning("missing components of raid device md%d.  The "
+                        "raid device needs %d drive(s) and only %d (was/were) "
+                        "found. This raid device will not be started.", mdMinor,
+                        totalDisks, len(devices))
 	    continue
 	raidList.append((mdMinor, devices, level, totalDisks))
 

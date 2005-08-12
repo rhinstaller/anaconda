@@ -13,7 +13,9 @@
 
 import iutil
 from flags import flags
-from rhpl.log import log
+
+import logging
+log = logging.getLogger("anaconda")
 
 def bool(val):
     if val: return "true"
@@ -37,7 +39,7 @@ class Timezone:
 	try:
 	    iutil.copyFile(fromFile, instPath + "/etc/localtime")
 	except OSError, (errno, msg):
-	    log ("Error copying timezone (from %s): %s" % (fromFile, msg))
+	    log.error("Error copying timezone (from %s): %s" % (fromFile, msg))
 
 	f = open(instPath + "/etc/sysconfig/clock", "w")
 

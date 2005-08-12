@@ -15,9 +15,10 @@
 
 import string
 
-
-from rhpl.log import log
 from rhpl.simpleconfig import SimpleConfigFile
+
+import logging
+log = logging.getLogger("anaconda")
 
 class Desktop (SimpleConfigFile):
 #
@@ -46,7 +47,7 @@ class Desktop (SimpleConfigFile):
         try:
             inittab = open (instPath + '/etc/inittab', 'r')
         except IOError:
-            log ("WARNING, there is no inittab, bad things will happen!")
+            log.warning ("there is no inittab, bad things will happen!")
             return
         lines = inittab.readlines ()
         inittab.close ()

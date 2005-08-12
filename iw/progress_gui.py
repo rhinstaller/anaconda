@@ -28,8 +28,10 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from packages import doInstall
 from constants import *
-from rhpl.log import log
 from gui import processEvents, takeScreenShot
+
+import logging
+log = logging.getLogger("anaconda")
 
 # FIXME: from redhat-config-packages.  perhaps move to common location
 def size_string (size):
@@ -156,9 +158,9 @@ class InstallProgressWindow_NEW (InstallWindow):
         if self.numComplete > 100:
 	    if self.initialTimeEstimate is None:
 		self.initialTimeEstimate = timeest
-		log("Initial install time estimate = %s", timeest)
+		log.info("Initial install time estimate = %s", timeest)
 
-#	    log ("elapsed time, time est, remaining time =  %s %s", int(elapsedTime/60), timeest)		
+#	    log.info("elapsed time, time est, remaining time =  %s %s", int(elapsedTime/60), timeest)		
 
             if timeest < 10:
 	        timefactor = 2
@@ -168,7 +170,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 	    self.remainingTimeLabel.set_text(str)
 
 	if (fractionComplete >= 1):
-	    log("Actual install time = %s", elapsedTime/60.0)
+	    log.info("Actual install time = %s", elapsedTime/60.0)
 	    self.remainingTimeLabel.set_text("")
 	    
         self.totalProgress.set_fraction(fractionComplete)
@@ -206,7 +208,7 @@ class InstallProgressWindow_NEW (InstallWindow):
                     self.adbox.add (pix)
                     self.adpix = pix
                 else:
-                    log("couldn't get a pix")
+                    log.warning("couldn't get a pix")
                 self.adbox.show_all()
                 self.pixcurnum = num + 1
 

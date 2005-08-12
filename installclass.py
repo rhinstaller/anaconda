@@ -22,8 +22,10 @@ from instdata import InstallData
 from partitioning import *
 from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
-from rhpl.log import log
 from rhpl.translate import _, N_
+
+import logging
+log = logging.getLogger("anaconda")
 
 from constants import BETANAG
 
@@ -88,8 +90,8 @@ class BaseInstallClass:
                 if drive in id.bootloader.drivelist:
                     new.append(drive)
                 else:
-                    log("requested drive %s in boot drive order doesn't "
-                        "exist" %(drive,))
+                    log.warning("requested drive %s in boot drive order "
+                                "doesn't exist" %(drive,))
             id.bootloader.drivelist = new
 
     def setIgnoredDisks(self, id, drives):
@@ -374,25 +376,25 @@ class BaseInstallClass:
         if depth:
             availableDepths = id.xsetup.xhwstate.available_color_depths()
             if depth not in availableDepths:
-                log("Requested depth %s not available, falling back to %s"
-                    %(depth, availableDepths[-1]))
+                log.warning("Requested depth %s not available, falling back "
+                            "to %s" %(depth, availableDepths[-1]))
                 depth = availableDepths[-1]
             id.xsetup.xhwstate.set_colordepth(depth)
 
         if resolution:
             availableRes = id.xsetup.xhwstate.available_resolutions()
             if resolution not in availableRes:
-                 log("Requested resolution %s is not supported, falling "
-                     "back to %s. To avoid this you may need to specify the "
-                     "videocard and monitor specs on the xconfig ks "
-                     "directive if they were not probed correctly."
-                     %(resolution, availableRes[-1]))
+                 log.warning("Requested resolution %s is not supported, "
+                             "falling back to %s. To avoid this you may need "
+                             "to specify the videocard and monitor specs on "
+                             "the xconfig ks directive if they were not probed "
+                             "correctly." %(resolution, availableRes[-1]))
 		 resolution = availableRes[-1]
             id.xsetup.xhwstate.set_resolution(resolution)
 
         if not resolution and not depth:
             # choose a sane default
-            log("resolution and depth not specified, trying to be sane")
+            log.warning("resolution and depth not specified, trying to be sane")
             id.xsetup.xhwstate.choose_sane_default()
             
         if desktop is not None:
@@ -426,7 +428,7 @@ class BaseInstallClass:
                 id.monitor.setSpecs(hsync, vsync, id=useid, name=model)
                 setmonitor = 1
             except:
-                log("Couldnt lookup monitor type %s." % usemon)
+                log.warning("Couldnt lookup monitor type %s." % usemon)
                 pass
         else:
             monname = "Unprobed Monitor"
@@ -437,8 +439,8 @@ class BaseInstallClass:
 
         if not setmonitor:
              # fall back to standard VGA
-             log("Could not probe monitor, and no fallback specified.")
-             log("Falling back to Generic VGA monitor")
+             log.warning("Could not probe monitor, and no fallback specified.")
+             log.warning("Falling back to Generic VGA monitor")
 
              try:
                  hsync = "31.5-37.9"
@@ -482,7 +484,7 @@ class BaseInstallClass:
             id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
 
         if server is not None:
-            log("unable to really do anything with server right now")
+            log.error("unable to really do anything with server right now")
             
 
     def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):

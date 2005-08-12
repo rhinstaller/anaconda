@@ -28,8 +28,10 @@ import raid
 import lvm
 import types
 
-from rhpl.log import log
 from rhpl.translate import _, N_
+
+import logging
+log = logging.getLogger("anaconda")
 
 class BadBlocksError(Exception):
     pass
@@ -204,7 +206,7 @@ class FileSystemType:
             os.close(p[1])
             os.close(fd)
             os.execv(args[0], args)
-            log("failed to exec %s", args)
+            log.critical("failed to exec %s", args)
             os._exit(1)
 
         os.close(p[1])
@@ -257,7 +259,8 @@ class FileSystemType:
         try:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError, (num, msg):
-            log("exception from waitpid in badblocks: %s %s" % (num, msg))
+            log.critical("exception from waitpid in badblocks: %s %s"
+                         % (num, msg))
             status = None
         os.close(fd)
 
@@ -552,7 +555,7 @@ class extFileSystem(FileSystemType):
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
 
-	log("Format command:  %s\n" % str(args))
+	log.info("Format command:  %s\n" % str(args))
 
         rc = ext2FormatFilesystem(args, "/dev/tty5",
                                   progress,
@@ -598,7 +601,7 @@ class ext2FileSystem(extFileSystem):
 
         # if journal already exists skip
         if isys.ext2HasJournal(devicePath, makeDevNode = 0):
-            log("Skipping migration of %s, has a journal already.\n" % devicePath)
+            log.info("Skipping migration of %s, has a journal already.\n" % devicePath)
             return
 
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
@@ -613,8 +616,8 @@ class ext2FileSystem(extFileSystem):
         # so several times based on reports in bugzilla.
         # At least we can avoid leaving them with a system which won't boot
         if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
-            log("Migration of %s attempted but no journal exists after "
-                "running tune2fs.\n" % (devicePath))
+            log.warning("Migration of %s attempted but no journal exists after "
+                        "running tune2fs.\n" % (devicePath))
             if message:
                 rc = message(_("Error"),
                         _("An error occurred migrating %s to ext3.  It is "
@@ -741,7 +744,7 @@ class swapFileSystem(FileSystemType):
         # are of format 0 (#122101)
         if buf is not None and len(buf) == pagesize:
             if buf[pagesize - 10:] == "SWAP-SPACE":
-                log("SWAP is of format 0, skipping it")
+                log.warning("SWAP is of format 0, skipping it")
                 return
         
         isys.swapon (device)
@@ -932,15 +935,15 @@ class prepbootFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
         (disk, part) = getDiskPart(devicePath)
         if disk is None or part is None:
-            log("oops, somehow got a bogus device for the PReP partition "
-                "(%s)" %(devicePath,))
+            log.error("oops, somehow got a bogus device for the PReP partition "
+                      "(%s)" %(devicePath,))
             return
 
         args = [ "sfdisk", "--change-id", disk, "%d" %(part,), "41" ]
         if disk.startswith("/tmp/") and not os.access(disk, os.R_OK):
             isys.makeDevInode(disk[5:], disk)
         
-        log("going to run %s" %(args,))
+        log.info("going to run %s" %(args,))
         rc = iutil.execWithRedirect("/usr/sbin/sfdisk", args,
                                     stdout = "/dev/tty5", stderr = "/dev/tty5")
         if rc:
@@ -1088,11 +1091,11 @@ class FileSystemSet:
                 and existing.mountpoint == entry.mountpoint):
                 self.remove(existing)
         # XXX debuggin'
-##         log ("fsset at %s\n"
-##              "adding entry for %s\n"
-##              "entry object %s, class __dict__ is %s",
-##              self, entry.mountpoint, entry,
-##              isys.printObject(entry.__dict__))
+##         log.info ("fsset at %s\n"
+##                   "adding entry for %s\n"
+##                   "entry object %s, class __dict__ is %s",
+##                   self, entry.mountpoint, entry,
+##                   isys.printObject(entry.__dict__))
         self.entries.append(entry)
         self.entries.sort (mountCompare)
 
@@ -1292,7 +1295,7 @@ MAILADDR root
         bootDev = self.getBootDev()
 
         if bootDev is None:
-            log("no boot device set")
+            log.warning("no boot device set")
             return ret
 
 	if bootDev.getName() == "RAIDDevice":
@@ -1456,7 +1459,7 @@ MAILADDR root
             entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):
-        log("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
+        log.info("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
         entry.fsystem.clobberDevice(entry, chroot)
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
@@ -1486,7 +1489,7 @@ MAILADDR root
             try:
                 self.badblocksEntry(entry, chroot)
 	    except BadBlocksError:
-		    log("Bad blocks detected on device %s",entry.device.getDevice())
+		    log.error("Bad blocks detected on device %s",entry.device.getDevice())
 		    if self.messageWindow:
 			self.messageWindow(_("Error"),
 					   _("Bad blocks have been detected on "
@@ -1600,7 +1603,7 @@ MAILADDR root
             if not entry.fsystem.isMountable():
 		continue
             try:
-                log("trying to mount %s on %s" %(entry.device.getDevice(), entry.mountpoint))
+                log.info("trying to mount %s on %s" %(entry.device.getDevice(), entry.mountpoint))
                 entry.mount(instPath, readOnly = readOnly)
                 self.mountcount = self.mountcount + 1
             except OSError, (num, msg):
@@ -1700,7 +1703,7 @@ MAILADDR root
             try:
                 space.append((entry.mountpoint, isys.fsSpaceAvailable(path)))
             except SystemError:
-                log("failed to get space available in filesystemSpace() for %s" %(entry.mountpoint,))
+                log.error("failed to get space available in filesystemSpace() for %s" %(entry.mountpoint,))
 
         def spaceSort(a, b):
             (m1, s1) = a
@@ -1727,10 +1730,10 @@ MAILADDR root
 
             try:
                 if isys.ext2IsDirty(entry.device.getDevice()):
-                    log("%s is a dirty ext2 partition" % entry.device.getDevice())
+                    log.info("%s is a dirty ext2 partition" % entry.device.getDevice())
                     ret.append(entry.device.getDevice())
             except Exception, e:
-                log("got an exception checking %s for being dirty, hoping it's not" %(entry.device.getDevice(),))
+                log.error("got an exception checking %s for being dirty, hoping it's not" %(entry.device.getDevice(),))
 
 	return ret
 
@@ -1738,9 +1741,9 @@ MAILADDR root
         # XXX remove special case
         try:
             isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
-            log("Umount USB OK")
+            log.info("Umount USB OK")
         except:
-#           log("Umount USB Fail")
+#           log.error("Umount USB Fail")
             pass
 
         # take a slice so we don't modify self.entries
@@ -2045,7 +2048,7 @@ class RAIDDevice(Device):
                 args.append("--spare-devices=%s" %(self.spares,),)
             
             args.extend(map(devify, self.members))
-            log("going to run: %s" %(args,))
+            log.info("going to run: %s" %(args,))
             iutil.execWithRedirect (args[0], args,
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],
@@ -2323,9 +2326,8 @@ def readFstab (path, intf = None):
                                custom_buttons=[_("_Reboot")])
             sys.exit(0)
         else:
-            log("WARNING!!! Duplicate labels for %s, but no intf so trying "
-                "to continue" %(label,))
-                                 
+            log.warning("Duplicate labels for %s, but no intf so trying "
+                        "to continue" %(label,))
 
     # mark these labels found on the system as used so the factory
     # doesn't give them to another device
@@ -2389,8 +2391,8 @@ def readFstab (path, intf = None):
             if labelToDevice.has_key(label):
                 device = makeDevice(labelToDevice[label])
             else:
-                log ("Warning: fstab file has LABEL=%s, but this label "
-                     "could not be found on any file system", label)
+                log.warning ("fstab file has LABEL=%s, but this label "
+                             "could not be found on any file system", label)
                 # bad luck, skip this entry.
                 continue
 	elif fields[2] == "swap" and not fields[0].startswith('/dev/'):
@@ -2589,7 +2591,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.close(p[1])
         os.close(fd)
         os.execv(argList[0], argList)
-        log("failed to exec %s", argList)
+        log.critical("failed to exec %s", argList)
         os._exit(1)
 			    
     os.close(p[1])
@@ -2642,7 +2644,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     try:
         (pid, status) = os.waitpid(childpid, 0)
     except OSError, (num, msg):
-        log("exception from waitpid while formatting: %s %s" %(num, msg))
+        log.critical("exception from waitpid while formatting: %s %s" %(num, msg))
         status = None
     os.close(fd)
 
@@ -2658,8 +2660,6 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     return 1
 
 if __name__ == "__main__":
-    log.open("foo")
-    
     fsset = readFstab("fstab")
 
     print fsset.fstab()

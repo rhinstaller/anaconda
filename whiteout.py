@@ -7,8 +7,10 @@
 import os
 import rpm
 import rhpl.arch
-from rhpl.log import log
 from flags import flags
+
+import logging
+log = logging.getLogger("anaconda")
 
 # set DB_PRIVATE to make rpm happy...  do it in here since we include
 # this with all of the useful rpm bits
@@ -24,9 +26,9 @@ if flags.selinux:
         if os.access(fn, os.R_OK):
             break
     rpm.addMacro("__file_context_path", fn)
-    log("setting file_context_path to %s" %(fn,))    
+    log.info("setting file_context_path to %s" %(fn,))    
 else:
-    log("setting file_context_path to nil")
+    log.info("setting file_context_path to nil")
     rpm.addMacro("__file_context_path", "%{nil}")
 
 whiteout="""

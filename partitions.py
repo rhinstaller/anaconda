@@ -32,7 +32,9 @@ import partedUtils
 import partRequests
 
 from rhpl.translate import _
-from rhpl.log import log
+
+import logging
+log = logging.getLogger("anaconda")
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""
@@ -144,14 +146,14 @@ class Partitions:
             level = "RAID%s" %(level,)
 
             if level not in raid.availRaidLevels:
-                log("raid level %s not supported, skipping %s" %(level,
+                log.warning("raid level %s not supported, skipping %s" %(level,
                                                                   theDev))
                 continue
 
             try:
                 chunk = isys.getRaidChunkFromDevice("/dev/%s" %(theDev,))
             except Exception, e:
-                log("couldn't get chunksize of %s: %s" %(theDev, e))
+                log.error("couldn't get chunksize of %s: %s" %(theDev, e))
                 chunk = None
             
             # is minor always mdN ?
@@ -160,8 +162,8 @@ class Partitions:
             for dev in devices:
                 req = self.getRequestByDeviceName(dev)
                 if not req:
-                    log("RAID device %s using non-existent partition %s"
-                        %(theDev, dev))
+                    log.error("RAID device %s using non-existent partition %s"
+                              %(theDev, dev))
                     continue
                 raidvols.append(req.uniqueID)
                 
@@ -196,7 +198,7 @@ class Partitions:
             try:
                 preexist_size = float(size)
             except:
-                log("preexisting size for %s not a valid integer, ignoring" %(vg,))
+                log.error("preexisting size for %s not a valid integer, ignoring" %(vg,))
                 preexist_size = None
 
             pvids = []
@@ -205,8 +207,8 @@ class Partitions:
                     continue
                 req = self.getRequestByDeviceName(dev[5:])
                 if not req:
-                    log("Volume group %s using non-existent partition %s"
-                        %(vg, dev))
+                    log.error("Volume group %s using non-existent partition %s"
+                              %(vg, dev))
                     continue
                 pvids.append(req.uniqueID)
             spec = partRequests.VolumeGroupRequestSpec(format = 0,
@@ -951,12 +953,12 @@ class Partitions:
         protected = dispatch.method.protectedPartitions()
         if protected:
             for device in protected:
-                log("%s is a protected partition" % (device))
+                log.info("%s is a protected partition" % (device))
                 request = self.getRequestByDeviceName(device)
                 if request is not None:
                     request.setProtected(1)
                 else:
-                    log("no request, probably a removable drive")
+                    log.info("no request, probably a removable drive")
 
     def copy (self):
         """Deep copy the object."""
@@ -1267,7 +1269,7 @@ class Partitions:
                     delete.setDeleted(1)
 
         for name,vg in lvm_parent_deletes:
-            log("removing lv %s" % (name,))
+            log.info("removing lv %s" % (name,))
             lvm.lvremove(name, vg)
 
         # now, go through and delete volume groups
@@ -1309,8 +1311,8 @@ class Partitions:
                     toRemove.append(req)
                     tmp = self.getRequestByID(req.volumeGroup)
                     if not tmp:
-                        log("Unable to find the vg for %s"
-                            % (req.logicalVolumeName,))
+                        log.error("Unable to find the vg for %s"
+                                  % (req.logicalVolumeName,))
                         vgname = req.volumeGroup
                     else:
                         vgname = tmp.volumeGroupName

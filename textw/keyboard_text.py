@@ -17,8 +17,10 @@ from snack import *
 from constants_text import *
 from flags import flags
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 class KeyboardWindow:
     def __call__(self, screen, defaultByLang, kbd):
@@ -50,6 +52,6 @@ class KeyboardWindow:
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):
-	    log("Could not install keymap %s: %s" % (keyboards[choice], msg))
+	    log.error("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
 

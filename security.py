@@ -17,7 +17,8 @@ import os, string
 import iutil
 from flags import flags
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 SEL_DISABLED = 0
 SEL_PERMISSIVE = 1
@@ -36,7 +37,7 @@ class Security:
 
     def setSELinux(self, val):
         if not selinux_states.has_key(val):
-            log("Tried to set to invalid SELinux state: %s" %(val,))
+            log.error("Tried to set to invalid SELinux state: %s" %(val,))
             val = SEL_DISABLED
 
         self.selinux = val
@@ -46,7 +47,7 @@ class Security:
 
     def writeKS(self, f):
         if not selinux_states.has_key(self.selinux):
-            log("ERROR: unknown selinux state: %s" %(self.selinux,))
+            log.error("unknown selinux state: %s" %(self.selinux,))
             return
 
 	f.write("selinux --%s\n" %(selinux_states[self.selinux],))
@@ -55,7 +56,7 @@ class Security:
         args = [ "/usr/sbin/lokkit", "--quiet", "--nostart" ]
 
         if not selinux_states.has_key(self.selinux):
-            log("ERROR: unknown selinux state: %s" %(self.selinux,))
+            log.error("unknown selinux state: %s" %(self.selinux,))
             return
 
         args = args + [ "--selinux=%s" %(selinux_states[self.selinux],) ]
@@ -65,10 +66,10 @@ class Security:
                 iutil.execWithRedirect(args[0], args, root = instPath,
                                        stdout = None, stderr = None)
             else:
-                log("would have run %s", args)
+                log.error("would have run %s", args)
         except RuntimeError, msg:
-            log ("lokkit run failed: %s", msg)
+            log.error ("lokkit run failed: %s", msg)
         except OSError, (errno, msg):
-            log ("lokkit run failed: %s", msg)
+            log.error ("lokkit run failed: %s", msg)
         
         

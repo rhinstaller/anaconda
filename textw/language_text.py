@@ -19,8 +19,10 @@ from snack import *
 from constants_text import *
 from flags import flags
 
-from rhpl.log import *
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 class LanguageWindow:
     def __call__(self, screen, textInterface, instLanguage):
@@ -59,13 +61,13 @@ class LanguageWindow:
             and not isys.isVioConsole()):
             # bterm to the rescue...  have to shut down the screen and
             # create a new one, though (and do a sleep)
-            log("starting bterm")
+            log.info("starting bterm")
             try:
                 screen.finish()
                 rc = isys.startBterm()
                 time.sleep(1)
             except Exception, e:
-                log("got an exception starting bterm: %s" %(e,))
+                log.error("got an exception starting bterm: %s" %(e,))
                 rc = 1
             newscreen = SnackScreen()
             textInterface.setScreen(newscreen)

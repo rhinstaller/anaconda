@@ -47,6 +47,9 @@ from partRequests import *
 from constants import *
 from partition_ui_helpers_gui import *
 
+import logging
+log = logging.getLogger("anaconda")
+
 STRIPE_HEIGHT = 35.0
 LOGICAL_INSET = 3.0
 CANVAS_WIDTH_800 = 490
@@ -990,7 +993,7 @@ class PartitionWindow(InstallWindow):
 		    if request.uniqueID in origInfoDict.keys():
 			(request.requestSize, request.currentDrive) = origInfoDict[request.uniqueID]
 	    except:
-		log("Failed to restore original info")
+		log.error("Failed to restore original info")
 
             self.intf.messageWindow(_("Error Partitioning"),
                    _("Could not allocate requested partitions: %s.") % (msg),

@@ -23,8 +23,10 @@ import yum.repos
 import yum.packages
 from syslogd import syslog
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 import iutil
 

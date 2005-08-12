@@ -32,8 +32,10 @@ from constants import *
 from installmethod import FileCopyException
 from product import productName
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 # blacklist made up of (name, arch) or 
 # (name, ) to erase all matches
@@ -111,7 +113,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     lvm.vgscan()
     lvm.vgactivate()
 
-    log("going to mount %s on %s as %s" %(root, instPath, rootFs))
+    log.info("going to mount %s on %s as %s" %(root, instPath, rootFs))
     isys.mount(root, instPath, rootFs)
 
     oldfsset.reset()
@@ -363,7 +365,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # if we've been through here once for this root, then short-circuit
     if ((id.upgradeInfoFound is not None) and 
         (id.upgradeInfoFound == id.upgradeRoot)):
-        log("already found packages to upgrade for %s" %(id.upgradeRoot,))
+        log.info("already found packages to upgrade for %s" %(id.upgradeRoot,))
         return
     else:
         id.upgradeInfoFound = id.upgradeRoot
@@ -399,7 +401,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
             except:
-                log("failed to unlink /var/lib/rpm/%s" %(file,))
+                log.error("failed to unlink /var/lib/rpm/%s" %(file,))
 
 	packages = findpackageset.findpackageset(id.grpset.hdrlist.hdlist,
                                                  instPath)
@@ -448,12 +450,12 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 try:
                     resetRpmdb(id.dbpath, instPath)
                 except Exception, e:
-                    log("error returning rpmdb to old state: %s" %(e,))
+                    log.critical("error returning rpmdb to old state: %s" %(e,))
                     pass
                 sys.exit(0)
             else:
-                log("WARNING: upgrade between possibly incompatible "
-                    "arches %s -> %s" %(h[rpm.RPMTAG_ARCH], myarch))
+                log.warning("upgrade between possibly incompatible "
+                            "arches %s -> %s" %(h[rpm.RPMTAG_ARCH], myarch))
                 
     mi = ts.dbMatch()
     found = 0
@@ -472,10 +474,10 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         if (string.find(release, "helix") > -1
             or string.find(release, "ximian") > -1
             or string.find(release, "eazel") > -1):
-            log("Third party package %s-%s-%s could cause problems." %
-                (h[rpm.RPMTAG_NAME],
-                 h[rpm.RPMTAG_VERSION],
-                 h[rpm.RPMTAG_RELEASE]))
+            log.warning("Third party package %s-%s-%s could cause problems." %
+                       (h[rpm.RPMTAG_NAME],
+                        h[rpm.RPMTAG_VERSION],
+                        h[rpm.RPMTAG_RELEASE]))
             found = 1
         if h[rpm.RPMTAG_NAME] == "XFree86" or h[rpm.RPMTAG_NAME] == "xorg-x11":
             hasX = 1
@@ -505,7 +507,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 resetRpmdb(id.dbpath, instPath)
             except Exception, e:
-                log("error returning rpmdb to old state: %s" %(e,))
+                log.critical("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -522,7 +524,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 resetRpmdb(id.dbpath, instPath)
             except Exception, e:
-                log("error returning rpmdb to old state: %s" %(e,))
+                log.critical("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -561,7 +563,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             try:
                 resetRpmdb(id.dbpath, instPath)
             except Exception, e:
-                log("error returning rpmdb to old state: %s" %(e,))
+                log.critical("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -601,9 +603,9 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # make sure the boot loader being used is being installed.
     # FIXME: generalize so that specific bits aren't needed
     if iutil.getArch() == "i386" and id.bootloader.useGrub():
-        log("Upgrade: User selected to use GRUB for bootloader")
+        log.info("Upgrade: User selected to use GRUB for bootloader")
         if id.grpset.hdrlist.has_key("grub") and not id.grpset.hdrlist["grub"].isSelected():
-            log("Upgrade: grub is not currently selected to be upgraded")
+            log.info("Upgrade: grub is not currently selected to be upgraded")
             h = None
             try:
                 h = ts.dbMatch('name', 'grub').next()
@@ -613,7 +615,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 text = ("Upgrade: GRUB is not already installed on the "
                         "system, selecting GRUB")
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
-                log(text)
+                log.info(text)
                 id.grpset.hdrlist["grub"].select()
 
     h = None
@@ -622,7 +624,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     except StopIteration:
         pass
     if h is not None:
-        log("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
+        log.info("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
         upgraded = []
         for pkg in ("gnome-terminal", "gnome-desktop", "gnome-session",
                     "gnome-panel", "metacity", "file-roller", "yelp",
@@ -639,7 +641,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # since it works in both gnome and kde
     if (id.grpset.hdrlist.has_key("rhn-applet")
         and not id.grpset.hdrlist["rhn-applet"].isSelected()):
-        log("Upgrade: rhn-applet is not currently selected to be upgraded")
+        log.info("Upgrade: rhn-applet is not currently selected to be upgraded")
         h = None
         try:
             h = ts.dbMatch('name', 'up2date-gnome').next()
@@ -657,7 +659,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                         "system, but rhn-applet isn't.  Selecting "
                         "rhn-applet to be installed")
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
-                log(text)
+                log.info(text)
                 id.grpset.hdrlist["rhn-applet"].select()
 
     # and since xterm is now split out from XFree86 (#98254)
@@ -672,7 +674,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             text = ("Upgrade: XFree86 was on the system.  Pulling in xterm "
                     "for upgrade.")
             id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
-            log(text)
+            log.info(text)
             id.grpset.hdrlist["xterm"].select()
 
     # input methods all changed.  hooray!
@@ -687,7 +689,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             not id.grpset.hdrlist[new].isSelected()):
             text = "Upgrade: %s was on the system.  Pulling in %s" %(old, new)
             id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
-            log(text)
+            log.info(text)
             id.grpset.hdrlist[new].select()
             iiimf = 1
     if iiimf:
@@ -707,7 +709,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.grpset.hdrlist[old].isSelected()):
                 text = "Upgrade: Need iiimf base package %s" %(new,)
                 id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
-                log(text)
+                log.info(text)
                 id.grpset.hdrlist[new].select()
 
     # firefox replaces mozilla/netscape (#137244)
@@ -720,7 +722,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         if found > 0:
             text = "Upgrade: Found a graphical browser.  Pulling in firefox"
             id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
-            log(text)
+            log.info(text)
             id.grpset.hdrlist["firefox"].select()
 
     # now some upgrade removal black list checking... there are things that
@@ -742,7 +744,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 if pkgarch is None:
                     text = ("Upgrade: %s is on the system but will cause "
                     "problems with the upgrade transaction.  Removing." %(pkg,))
-                    log(text)
+                    log.warning(text)
                     id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
                     id.upgradeRemove.append(pkgname)
                     break
@@ -751,7 +753,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                         text = ("Upgrade: %s.%s is on the system but will "
                         "cause problems with the upgrade transaction.  "
                         "Removing." %(pkgname,pkgarch))
-                        log(text)
+                        log.warning(text)
                         id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
                         id.upgradeRemove.append(mi.instance())
 
@@ -781,7 +783,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     for pkgnevra in depcheck.added:
         text = ("Upgrade Dependency: Needs %s, "
                 "automatically added." % (pkgnevra,))
-        #            log(text)
+        #            log.info(text)
         id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
 
     win.pop()

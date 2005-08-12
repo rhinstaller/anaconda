@@ -25,8 +25,10 @@ import iutil
 import fsset
 import shutil
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 class RescueInterface:
     def waitWindow(self, title, text):
@@ -113,7 +115,7 @@ def startNetworking(network, intf):
     try:
 	os.system("/usr/bin/ifconfig lo 127.0.0.1")
     except:
-	log("Error trying to start lo in rescue.py::startNetworking()")
+	log.error("Error trying to start lo in rescue.py::startNetworking()")
 
     # start up dhcp interfaces first
     dhcpGotNS = 0
@@ -123,7 +125,7 @@ def startNetworking(network, intf):
 	dev = network.netdevices[devname]
 	waitwin = intf.waitWindow(_("Starting Interface"),
 				  _("Attempting to start %s") % (dev.get('device'),))
-	log("Attempting to start %s", dev.get('device'))
+	log.info("Attempting to start %s", dev.get('device'))
 	if dev.get('bootproto') == "dhcp":
 	    try:
 		ns = isys.pumpNetDevice(dev.get('device'))
@@ -135,7 +137,7 @@ def startNetworking(network, intf):
 			f.write("nameserver %s\n" % ns)
 			f.close()
 	    except:
-		log("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+		log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
 	elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
 	    try:
 		isys.configNetDevice(dev.get('device'),
@@ -143,7 +145,7 @@ def startNetworking(network, intf):
 				     dev.get('netmask'),
 				     network.gateway)
 	    except:
-		log("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+		log.error("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
 
 	waitwin.pop()
 	
@@ -351,7 +353,7 @@ def runRescue(instPath, mountroot, id):
 		    try:
 			fs.turnOnSwap("/")
 		    except:
-			log("Error enabling swap")
+			log.error("Error enabling swap")
 
                 # now that dev is udev, bind mount the installer dev there
                 isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
@@ -431,7 +433,7 @@ def runRescue(instPath, mountroot, id):
         try:
             makeResolvConf(instPath)
         except Exception, e:
-            log("error making a resolv.conf: %s" %(e,))
+            log.error("error making a resolv.conf: %s" %(e,))
         print _("Your system is mounted under the %s directory.") % (instPath,)
         print
 

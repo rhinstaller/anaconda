@@ -26,8 +26,10 @@ import product
 
 from constants import *
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 # this sucks, but we want to consider s390x as s390x in here but generally
 # don't.  *sigh*
@@ -66,13 +68,13 @@ def presentRequiredMediaMessage(intf, grpset):
             discNums = getDiscNums(f.readline().strip())
             f.close()
         except Exception, e:
-            log("Exception reading discinfo: %s" %(e,))
+            log.critical("Exception reading discinfo: %s" %(e,))
 
-        log("discNums is %s" %(discNums,))
+        log.info("discNums is %s" %(discNums,))
         haveall = 1
         for cd in reqcds:
             if cd not in discNums:
-                log("don't have %s" %(cd,))
+                log.error("don't have %s" %(cd,))
                 haveall = 0
                 break
 
@@ -110,7 +112,7 @@ class ImageInstallMethod(InstallMethod):
 
     def getRPMFilename(self, h, timer, callback=None):
         if self.currentIso is not None and self.currentIso != h[1000002]:
-            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
+            log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
 	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]), callback=callback)
     def readHeaders(self):
@@ -150,7 +152,7 @@ class CdromInstallMethod(ImageInstallMethod):
                 self.currentDisc = []
                 break
             except Exception, e:
-                log("exception in unmountCD: %s" %(e,))
+                log.error("exception in unmountCD: %s" %(e,))
                 self.messageWindow(_("Error"),
                                    _("An error occurred unmounting the CD.  "
                                      "Please make sure you're not accessing "
@@ -159,7 +161,7 @@ class CdromInstallMethod(ImageInstallMethod):
                                    % ("/mnt/source",))
 
     def ejectCD(self):
-	log("ejecting CD")
+	log.info("ejecting CD")
 
 	# make /tmp/cdrom again so cd gets ejected
 	isys.makeDevInode(self.device, "/tmp/cdrom")
@@ -167,7 +169,7 @@ class CdromInstallMethod(ImageInstallMethod):
         try:
             isys.ejectCdrom("/tmp/cdrom", makeDevice = 0)
         except Exception, e:
-	    log("eject failed %s" % (e,))
+	    log.error("eject failed %s" % (e,))
             pass
 
     def systemUnmounted(self):
@@ -188,7 +190,7 @@ class CdromInstallMethod(ImageInstallMethod):
 			    (self.progressWindow, _("Copying File"),
 			    _("Transferring install image to hard drive...")))
 	except Exception, e:
-            log("error transferring stage2.img: %s" %(e,))
+            log.critical("error transferring stage2.img: %s" %(e,))
 	    self.messageWindow(_("Error"),
 		    _("An error occurred transferring the install image "
 		      "to your hard drive. You are probably out of disk "
@@ -204,11 +206,11 @@ class CdromInstallMethod(ImageInstallMethod):
 
     def getRPMFilename(self, h, timer, callback=None):
         if h[1000002] == None or 1000002 not in h.keys():
-            log ("header for %s has no disc location tag, assuming it's"
-                 "on the current CD" %(h[1000000],))
+            log.warning("header for %s has no disc location tag, assuming it's"
+                        "on the current CD" %(h[1000000],))
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
-            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
+            log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 
             if os.access("/mnt/source/.discinfo", os.R_OK):
                 f = open("/mnt/source/.discinfo")
@@ -349,8 +351,8 @@ class CdromInstallMethod(ImageInstallMethod):
                                                h[1000000]),
                             tmppath + h[1000000])
             except IOError, (errnum, msg):
-                log("IOError %s occurred copying %s: %s",
-                    errnum, h[1000000], str(msg))
+                log.critical("IOError %s occurred copying %s: %s",
+                             errnum, h[1000000], str(msg))
                 time.sleep(5)
             else:
                 break
@@ -370,7 +372,7 @@ class CdromInstallMethod(ImageInstallMethod):
         try:
             isys.umount("/mnt/source")
         except Exception, e:
-            log("unable to unmount source in filesDone: %s" %(e,))
+            log.error("unable to unmount source in filesDone: %s" %(e,))
         
         if not self.loopbackFile: return
 
@@ -461,13 +463,13 @@ def findIsoImages(path, messageWindow):
                     if (num == 1 and not
                         os.access("/mnt/cdimage/%s/base/stage2.img" % (productPath,),
                                   os.R_OK)):
-                        log("%s doesn't have a stage2.img, skipping" %(what,))
+                        log.warning("%s doesn't have a stage2.img, skipping" %(what,))
                         continue
                     # we only install binary packages and they have to be
                     # in the product/RPMS/ dir.  make sure it exists to
                     # avoid overwriting discs[2] with disc2 of the src.rpm set
                     if not os.path.isdir("/mnt/cdimage/%s/RPMS" %(productPath,)):
-                        log("%s doesn't have binary RPMS, skipping" %(what,))
+                        log.warning("%s doesn't have binary RPMS, skipping" %(what,))
                         continue
                     
 		    # warn user if images appears to be wrong size
@@ -504,7 +506,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     
     def getRPMFilename(self, h, timer, callback=None):
 	if self.imageMounted != h[1000002]:
-            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.imageMounted, h[1000002], h['name'], h['version'], h['release'], h['arch']))
+            log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.imageMounted, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
@@ -566,7 +568,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
         try:
             self.umountImage()
         except Exception, e:
-            log("unable to unmount image in filesDone: %s" %(e,))
+            log.error("unable to unmount image in filesDone: %s" %(e,))
             pass
 
     def __init__(self, tree, rootPath, intf):

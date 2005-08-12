@@ -29,9 +29,10 @@ from autopart import *
 from snack import *
 from constants_text import *
 
-from rhpl.log import log
 from rhpl.translate import _
 
+import logging
+log = logging.getLogger("anaconda")
 
 # sanity checking for various numeric input boxes
 def invalidInteger(str):
@@ -220,7 +221,7 @@ class PartitionWindow:
 		    if request.uniqueID in origInfoDict.keys():
 			(request.requestSize, request.currentDrive) = origInfoDict[request.uniqueID]
 	    except:
-		log("Failed to restore original info")
+		log.error("Failed to restore original info")
 
             self.intf.messageWindow(_("Error Partitioning"),
                    _("Could not allocate requested partitions: %s.") % (msg))

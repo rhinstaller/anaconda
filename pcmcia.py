@@ -14,22 +14,24 @@
 #
 
 import iutil, string, os, kudzu
-from rhpl.log import log
+
+import logging
+log = logging.getLogger("anaconda")
 
 def pcicType(test = 0):
     devs = kudzu.probe(kudzu.CLASS_SOCKET, kudzu.BUS_PCI, 0)
     if devs:
-	log("Found a pcic controller of type: yenta_socket")
+	log.info("Found a pcic controller of type: yenta_socket")
 	return "yenta_socket"
 
     # lets look for non-PCI socket controllers now
     devs = kudzu.probe(kudzu.CLASS_SOCKET, kudzu.BUS_MISC, 0)
 
     if devs and devs[0].driver not in ["ignore", "unknown", "disabled"]:
-	log("Found a pcic controller of type: %s", devs[0].driver)
+	log.info("Found a pcic controller of type: %s", devs[0].driver)
 	return devs[0].driver
 
-    log("No pcic controller detected")
+    log.info("No pcic controller detected")
     return None
 
 def createPcmciaConfig(path, test = 0):

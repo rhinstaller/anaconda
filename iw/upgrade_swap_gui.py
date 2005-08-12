@@ -24,7 +24,6 @@ from iw_gui import *
 from package_gui import queryUpgradeContinue
 from flags import flags
 
-from rhpl.log import log
 from rhpl.translate import _, N_
 
 class UpgradeSwapWindow (InstallWindow):		

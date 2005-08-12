@@ -33,9 +33,10 @@ from hdrlist import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
 from hdrlist import ON, MANUAL_ON, OFF, MANUAL_OFF, MANUAL_NONE
 from hdrlist import ON_STATES, OFF_STATES
 from hdrlist import Package, Group
-from rhpl.log import log
 import packages
 
+import logging
+log = logging.getLogger("anaconda")
 
 def queryUpgradeContinue(intf):
     rc = intf.messageWindow(_("Proceed with upgrade?"),
@@ -615,12 +616,12 @@ class PackageSelectionWindow (InstallWindow):
             if sel not in ON_STATES:
                 comp.selectPackage(pkg)
 	    else:
-		log("%s already selected, not selecting!" %(pkg,))
+		log.warning("%s already selected, not selecting!" %(pkg,))
 	else:
             if sel in ON_STATES:
                 comp.unselectPackage(pkg)
 	    else:
-		log("%s already unselected, not unselecting!" %(pkg,))
+		log.warning("%s already unselected, not unselecting!" %(pkg,))
 
 	if sizeLabel:
 	    self.setDetailSizeLabel(comp, sizeLabel)

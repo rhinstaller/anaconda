@@ -21,7 +21,8 @@ import os
 import string
 from flags import flags
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 class Accounts:
     def __repr__(self):
@@ -262,7 +263,7 @@ class Authentication:
                                        searchPath = 1,
                                        root = instPath)
             else:
-                log("Would have run %s", args)
+                log.error("Would have run %s", args)
         except RuntimeError, msg:
-            log ("Error running %s: %s", args, msg)
+            log.error("Error running %s: %s", args, msg)
 

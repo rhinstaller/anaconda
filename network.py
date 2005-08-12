@@ -24,9 +24,11 @@ import os
 import re
 import kudzu
 
-from rhpl.log import log
 from rhpl.translate import _, N_
 from rhpl.simpleconfig import SimpleConfigFile
+
+import logging
+log = logging.getLogger("anaconda")
 
 def inStrRange(v, s):
     if string.find(s, v) == -1:
@@ -272,7 +274,7 @@ class Network:
                     hwaddr and hwaddr != "00:00:00:00:00:00"):
                     self.netdevices[dev].set(("hwaddr", hwaddr))
             except Exception, e:
-                log("exception getting mac addr: %s" %(e,))
+                log.error("exception getting mac addr: %s" %(e,))
 
         if ksdevice and self.netdevices.has_key(ksdevice):
             self.firstnetdevice = ksdevice
@@ -321,11 +323,11 @@ class Network:
                         self.isConfigured = 1
                         break
                     except SystemError:
-                        log("failed to configure network device %s when "
-                             "looking up host name", dev.get('device'))
+                        log.error("failed to configure network device %s when "
+                                  "looking up host name", dev.get('device'))
 
 	if not self.isConfigured:
-            log("no network devices were available to look up host name")
+            log.warning("no network devices were available to look up host name")
             return None
 
 	f = open("/etc/resolv.conf", "w")
@@ -446,7 +448,7 @@ class Network:
         f = open(instPath + "/etc/hosts", "w")
         localline = "127.0.0.1\t\t"
 
-        log("self.hostname = %s", self.hostname)
+        log.info("self.hostname = %s", self.hostname)
 
 	ip = self.lookupHostname()
 

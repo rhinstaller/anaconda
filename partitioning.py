@@ -36,8 +36,6 @@ from partErrors import *
 import partRequests
 
 from rhpl.translate import _
-from rhpl.log import log
-
 
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
     if dir == DISPATCH_BACK:

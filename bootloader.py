@@ -25,8 +25,10 @@ import string
 from flags import flags
 from constants import *
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 from booty import *
 from bootloaderInfo import *
@@ -71,7 +73,7 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
         # mbr and boot.  boot is ALWAYS present.  so if the dev isn't
         # listed, it was mbr and we should nicely fall back to boot
         if bl.defaultDevice not in keys:
-            log("MBR not suitable as boot device; installing to partition")
+            log.warning("MBR not suitable as boot device; installing to partition")
             bl.defaultDevice = "boot"
         bl.setDevice(choices[bl.defaultDevice][0])
     elif choices and choices.has_key("mbr"):
@@ -135,7 +137,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    otherList.append((label, longlabel, dev))
 
     if kernelLabel is None:
-        log("unable to find default image, bailing")
+        log.error("unable to find default image, bailing")
 	if not justConfigFile:
 	    w.pop()
         return

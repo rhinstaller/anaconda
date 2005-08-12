@@ -23,8 +23,10 @@ import iutil
 import rpm
 import string
 from rhpl.translate import _, cat, N_
-from rhpl.log import log
 from constants import *
+
+import logging
+log = logging.getLogger("anaconda")
 
 FILENAME = 1000000
 
@@ -134,8 +136,8 @@ class HardDriveInstallMethod(InstallMethod):
     # will mount the appropriate ISO image as required by CD # in header
     def getRPMFilename(self, h, timer, callback=None):
 	if self.mediaIsMounted != h[1000002]:
-            log("switching from iso %s to %s" %(self.mediaIsMounted,
-                                                h[1000002]))
+            log.info("switching from iso %s to %s" %(self.mediaIsMounted,
+                                                     h[1000002]))
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
 
@@ -188,7 +190,7 @@ class HardDriveInstallMethod(InstallMethod):
         try:
             self.umountMedia()
         except:
-            log("unable to unmount media")
+            log.error("unable to unmount media")
 
     # we cannot remove the partition we are hosting hard drive install from
     def protectedPartitions(self):

@@ -16,7 +16,8 @@ import string
 from hdrlist import groupSetFromCompsFile
 from constants import *
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 class FileCopyException(Exception):
     def __init__(self, s = ""):
@@ -37,10 +38,10 @@ class InstallMethod:
 	for pre in tryloc:
 	    tmpname = pre + "/" + file
 	    if os.access(tmpname, os.R_OK):
-		log("Using file://%s", tmpname)
+		log.info("Using file://%s", tmpname)
 		return "file://%s" %(tmpname,)
 
-	log("Unable to find %s", file)
+	log.error("Unable to find %s", file)
 	return None
 	
     def protectedPartitions(self):
@@ -76,7 +77,7 @@ class InstallMethod:
 		break
 
         if tmppath is None:
-            log("Unable to find temp path, going to use ramfs path")
+            log.warning("Unable to find temp path, going to use ramfs path")
             return "/tmp/"
 
         return tmppath

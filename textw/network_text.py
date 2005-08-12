@@ -23,8 +23,6 @@ from network import sanityCheckHostname
 from snack import *
 from constants_text import *
 from rhpl.translate import _
-from rhpl.log import log
-
 
 def badIPDisplay(screen, the_ip):
     ButtonChoiceWindow(screen, _("Invalid IP string"),

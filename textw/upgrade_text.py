@@ -23,7 +23,6 @@ from constants import *
 import upgradeclass
 UpgradeClass = upgradeclass.InstallClass
 
-from rhpl.log import log
 from rhpl.translate import _
 
 class UpgradeMigrateFSWindow:

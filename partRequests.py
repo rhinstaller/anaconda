@@ -24,13 +24,15 @@ import os, sys, math
 
 from constants import *
 from rhpl.translate import _
-from rhpl.log import log
 
 import fsset
 import raid
 import lvm
 import partedUtils
 import partIntfHelpers
+
+import logging
+log = logging.getLogger("anaconda")
 
 class DeleteSpec:
     """Defines a preexisting partition which is intended to be removed."""
@@ -750,7 +752,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         """Return a device which can be solidified."""
         if self.dev:
             # FIXME: this warning can probably be removed post-beta            
-            log("WARNING: getting self.dev more than once for %s" %(self,))
+            log.warning("getting self.dev more than once for %s" %(self,))
             return self.dev
         
         pvs = []
@@ -776,9 +778,9 @@ class VolumeGroupRequestSpec(RequestSpec):
             for pvid in self.physicalVolumes:
                 pvreq = partitions.getRequestByID(pvid)
                 size = pvreq.getActualSize(partitions, diskset)
-                #log("size for pv %s is %s" % (pvid, size))
+                #log.info("size for pv %s is %s" % (pvid, size))
                 size = lvm.clampPVSize(size, self.pesize) - (self.pesize/1024)
-                #log("  clamped size is %s" % (size,))
+                #log.info("  clamped size is %s" % (size,))
                 totalspace = totalspace + size
 
         return totalspace

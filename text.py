@@ -467,8 +467,8 @@ class InstallInterface:
 
 		win = nextWindow()
 
-		#log("TUI running step %s (class %s, file %s)" % 
-			    #(step, file, classNames))
+		#log.info("TUI running step %s (class %s, file %s)" % 
+			 #(step, file, classNames))
 
 		rc = apply(win, (self.screen, ) + args)
 

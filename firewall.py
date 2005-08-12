@@ -19,8 +19,10 @@ import iutil
 import string
 from flags import flags
 
-from rhpl.log import log
 from rhpl.translate import _, N_
+
+import logging
+log = logging.getLogger("anaconda")
 
 class Firewall:
     def __init__ (self):
@@ -66,11 +68,11 @@ class Firewall:
                 iutil.execWithRedirect(args[0], args, root = instPath,
                                        stdout = None, stderr = None)
             else:
-                log("would have run %s", args)
+                log.error("would have run %s", args)
         except RuntimeError, msg:
-            log ("lokkit run failed: %s", msg)
+            log.error ("lokkit run failed: %s", msg)
         except OSError, (errno, msg):
-            log ("lokkit run failed: %s", msg)
+            log.error ("lokkit run failed: %s", msg)
         else:
             f = open(instPath +
                      '/etc/sysconfig/system-config-securitylevel', 'w')

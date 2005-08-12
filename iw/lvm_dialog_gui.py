@@ -28,6 +28,8 @@ from partition_ui_helpers_gui import *
 from constants import *
 import lvm
 
+import logging
+log = logging.getLogger("anaconda")
 
 class VolumeGroupEditor:
 
@@ -788,7 +790,7 @@ class VolumeGroupEditor:
 	    # have to clamp pvsize to multiple of PE
 	    availSpaceMB = availSpaceMB + pvsize
 
-        log("computeVGSize: vgsize is %s" % (availSpaceMB,))
+        log.info("computeVGSize: vgsize is %s" % (availSpaceMB,))
 	return availSpaceMB
 
     def computeLVSpaceNeeded(self, logreqs):

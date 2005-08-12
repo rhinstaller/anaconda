@@ -18,6 +18,9 @@ from rhpl.translate import _
 from hdrlist import orderPackageGroups
 from hdrlist import ON_STATES, OFF_STATES
 
+import logging
+log = logging.getLogger("anaconda")
+
 class PackageGroupWindow:
 
     # Unfortunately, the checkboxtree is callback-happy
@@ -110,7 +113,7 @@ class PackageGroupWindow:
                 elif grpset.groups.has_key(pkg):
                     name = grpset.groups[pkg].name
                 else:
-                    log("unknown package %s" %(pkg,))
+                    log.warning("unknown package %s" %(pkg,))
                     continue
 		gct.append(name, pkg, pkgselection[pkg][1])
 

@@ -19,8 +19,9 @@ import iutil
 import isys
 
 from rhpl.translate import _, N_
-from rhpl.log import log
 
+import logging
+log = logging.getLogger("anaconda")
 
 class ZFCP:
     def __init__(self):
@@ -133,17 +134,17 @@ class ZFCP:
             fnu = ur % (fcpdevices[i][0],fcpdevices[i][2],)
             try:
                 fo = open(fno, "w")
-                log("echo %s > %s" % (0, fno))
+                log.info("echo %s > %s" % (0, fno))
                 fo.write("0")
                 fo.close()
                 try:
                     fu = open(fnu, "w")
-                    log("echo %s > %s" % (fcpdevices[i][4], fnu))
+                    log.info("echo %s > %s" % (fcpdevices[i][4], fnu))
                     fu.write("%s\n" % (fcpdevices[i][4],))
                     fu.close()
                     try:
                         fp = open(fnp, "w")
-                        log("echo %s > %s" % (fcpdevices[i][2], fnp))
+                        log.info("echo %s > %s" % (fcpdevices[i][2], fnp))
                         fp.write("%s\n" % (fcpdevices[i][2],))
                         fp.close()
                     except:
@@ -166,27 +167,27 @@ class ZFCP:
             fnu = ua % (fcpdevices[i][0],fcpdevices[i][2],)
             try:
                fp = open(fnp, "w")
-               log("echo %s > %s" % (fcpdevices[i][2], fnp))
+               log.info("echo %s > %s" % (fcpdevices[i][2], fnp))
                fp.write("%s\n" % (fcpdevices[i][2],))
                fp.close()
                try:
                   fu = open(fnu, "w")
-                  log("echo %s > %s" % (fcpdevices[i][4], fnu))
+                  log.info("echo %s > %s" % (fcpdevices[i][4], fnu))
                   fu.write("%s\n" % (fcpdevices[i][4],))
                   fu.close()
                   try:
                      fo = open(fno, "w")
-                     log("echo %s > %s" % (1, fno))
+                     log.info("echo %s > %s" % (1, fno))
                      fo.write("1")
                      fo.close()
                   except:
-                     log("opening %s failed" %(fno,))
+                     log.warning("opening %s failed" %(fno,))
                      continue
                except:
-                  log("opening %s failed" %(fnu,))
+                  log.warning("opening %s failed" %(fnu,))
                   continue
             except:
-               log("opening %s failed" %(fnp,))
+               log.warning("opening %s failed" %(fnp,))
                continue
 
     def writeModprobeConf(self, fcpdevices):

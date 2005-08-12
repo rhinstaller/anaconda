@@ -16,11 +16,10 @@ from constants import *
 from constants_text import *
 from rhpl.translate import _
 from flags import flags
-from rhpl.log import log
 import string
 import iutil
 import bootloader
-    
+
 class BootloaderChoiceWindow:
 
     def __call__(self, screen, dispatch, bl, fsset, diskSet):

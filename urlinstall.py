@@ -34,7 +34,8 @@ import ftplib
 import httplib
 import StringIO
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 FILENAME = 1000000
 DISCNUM  = 1000002
@@ -84,7 +85,7 @@ class UrlInstallMethod(InstallMethod):
 	# if not local then assume its on host
 	if fname is None:
 	    fname = '%s/%s/base/comps.xml' % (self.baseUrl, productPath)
-	    log("Comps not in update dirs, using %s",fname)
+	    log.warning("Comps not in update dirs, using %s",fname)
         return groupSetFromCompsFile(fname, hdlist)
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1,
@@ -109,8 +110,8 @@ class UrlInstallMethod(InstallMethod):
             try:
                 rc=urlretrieve(fullPath, file, callback=callback)
             except IOError, (errnum, msg):
-		log("IOError %s occurred getting %s: %s"
-                    %(errnum, fullPath.replace("%", "%%"), str(msg)))
+		log.critical("IOError %s occurred getting %s: %s"
+                             %(errnum, fullPath.replace("%", "%%"), str(msg)))
 
 		if not retry:
 		    raise FileCopyException
@@ -149,8 +150,8 @@ class UrlInstallMethod(InstallMethod):
             try:
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
-		log("IOError %s occurred getting %s: %s",
-			errnum, fullPath.replace("%", "%%"), str(msg))
+		log.critical("IOError %s occurred getting %s: %s",
+			     errnum, fullPath.replace("%", "%%"), str(msg))
                 time.sleep(5)
             else:
                 break
@@ -169,7 +170,8 @@ class UrlInstallMethod(InstallMethod):
 	try:
 	    url = grabber.urlopen (hdurl, retry = 5)
 	except grabber.URLGrabError, e:
-	    log ("URLGrabError: %s occurred getting %s", e.strerror, hdurl)
+	    log.critical ("URLGrabError: %s occurred getting %s", e.strerror,
+			    hdurl)
 	    raise FileCopyException
 
 	raw = url.read(16)

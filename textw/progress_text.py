@@ -16,7 +16,8 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 
-from rhpl.log import log
+import logging
+log = logging.getLogger("anaconda")
 
 class InstallProgressWindow:
     def completePackage(self, header, timer):
@@ -210,7 +211,7 @@ class setupForInstall:
 		    flag = 1
 		    break
 
-	    log("id.methodstr = %s %s", id.methodstr, flag)
+	    log.info("id.methodstr = %s %s", id.methodstr, flag)
 	    id.setInstallProgressClass(InstallProgressWindow(screen, showdownload=flag))
 
 	return INSTALL_OK

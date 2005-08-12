@@ -15,8 +15,10 @@
 
 import types, os, sys, isys, select, string, stat, signal
 import os.path
-from rhpl.log import log
 from flags import flags
+
+import logging
+log = logging.getLogger("anaconda")
 
 def getArch ():
     arch = os.uname ()[4]
@@ -249,7 +251,7 @@ def swapSuggestion(quiet=0):
     mem = memInstalled()/1024
     mem = ((mem/16)+1)*16
     if not quiet:
-	log("Detected %sM of memory", mem)
+	log.info("Detected %sM of memory", mem)
 	
     if mem < 128:
         minswap = 96
@@ -263,7 +265,7 @@ def swapSuggestion(quiet=0):
             maxswap = 2*mem
 
     if not quiet:
-	log("Swap attempt of %sM to %sM", minswap, maxswap)
+	log.info("Swap attempt of %sM to %sM", minswap, maxswap)
 
     return (minswap, maxswap)
 
@@ -393,7 +395,7 @@ esac
                          stdout = None, stderr = None,
                          root = root)
     except RuntimeError:
-        log("Failed to set clock properly.  Going to try to continue anyway.")
+        log.error("Failed to set clock properly.  Going to try to continue anyway.")
 
 def swapAmount():
     f = open("/proc/meminfo", "r")
@@ -518,7 +520,7 @@ def isUSBDevFSMounted():
 	    if string.find(l, "usbdevfs") != -1:
 		return 1
     except:
-	log("In isUSBMounted, failed to open /proc/mounts")
+	log.error("In isUSBMounted, failed to open /proc/mounts")
 	return 0
 
     return 0
@@ -570,14 +572,14 @@ def getPPCMachine():
             break
 
     if machine is None:
-        log("Unable to find PowerPC machine type")
+        log.warning("Unable to find PowerPC machine type")
         return
 
     for type in ppcType.items():
         if machine.find(type[0]) != -1:
             return type[1]
 
-    log("Unknown PowerPC machine type: %s" %(machine,))
+    log.warning("Unknown PowerPC machine type: %s" %(machine,))
     return 0
 
 # return the pmac machine id
@@ -598,7 +600,7 @@ def getPPCMacID():
         machine = machine.strip()
         return machine
 
-    log("WARNING: No Power Mac machine id")
+    log.warning("No Power Mac machine id")
     return 0
 
 # return the pmac generation
@@ -621,13 +623,13 @@ def getPPCMacGen():
         break
 
     if gen is None:
-        log("Unable to find pmac-generation")
+        log.warning("Unable to find pmac-generation")
 
     for type in pmacGen:
       if gen.find(type) != -1:
           return type
 
-    log("Unknown Power Mac generation: %s" %(gen,))
+    log.warning("Unknown Power Mac generation: %s" %(gen,))
     return 0
 
 # return if pmac machine is it an iBook/PowerBook

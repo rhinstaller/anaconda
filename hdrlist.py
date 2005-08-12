@@ -586,7 +586,7 @@ class Group:
                       if p in checked or p in tocheck or p in pkgs:
                           continue
                       if p is None:
-#                          log("ERROR: unable to resolve dep %s" %(dep,))
+#                          log.error("unable to resolve dep %s" %(dep,))
                           continue
 
                       self.grpset.hdrlist[p].select()

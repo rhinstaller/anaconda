@@ -24,9 +24,11 @@ import gtk
 from iw_gui import *
 from constants import *
 
-from rhpl.log import log
 from rhpl.translate import _, N_
 from rhpl.monitor import isValidSyncRange
+
+import logging
+log = logging.getLogger("anaconda")
 
 from desktop import ENABLE_DESKTOP_CHOICE
 
@@ -83,7 +85,7 @@ class XCustomWindow (InstallWindow):
 
 
     def testPressed (self, widget, *args):
-	log("Somehow X test was attempted")
+	log.warning("Somehow X test was attempted")
 	return
     
     def numCompare (self, first, second):
@@ -183,7 +185,7 @@ class XCustomWindow (InstallWindow):
 	try:
 	    self.load_monitor_preview_pixmap(self.monitor_pixmaps[num])
 	except:
-	    log("Unable to load monitor preview #%s", num)
+	    log.warning("Unable to load monitor preview #%s", num)
 
     def display_desktop_pixmap(self, desktop):
         self.vbox4.destroy ()
@@ -863,7 +865,7 @@ class XConfigWindow (InstallWindow):
 	    self.xsetup.xhwstate.set_videocard_name(cardname)
 	    self.xsetup.xhwstate.set_videocard_card(cardname)
 	except:
-	    log("videocard-getNext: could not determine cardname for primary card %s", self.videocard.primaryCard())
+	    log.error("videocard-getNext: could not determine cardname for primary card %s", self.videocard.primaryCard())
         return None
 
     def skipToggled (self, widget, *args):

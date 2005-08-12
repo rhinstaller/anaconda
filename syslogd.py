@@ -17,7 +17,9 @@ import sys, os
 import string
 from socket import *
 from select import select
-from rhpl.log import log
+
+import logging
+log = logging.getLogger("anaconda")
 
 class Syslogd:
     def goSyslog(self, output, sockName):
@@ -88,12 +90,12 @@ class InstSyslog:
         try:
             os.kill (self.pid, 15)
         except OSError, (num, msg):
-            log("killing syslogd failed: %s %s" %(num, msg))
+            log.error("killing syslogd failed: %s %s" %(num, msg))
 	
         try:
 	    os.waitpid (self.pid, 0)
         except OSError, (num, msg):
-            log("exception from waitpid in syslogd::stop: %s %s" % (num, msg))
+            log.error("exception from waitpid in syslogd::stop: %s %s" % (num, msg))
 
         self.pid = -1
 

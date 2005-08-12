@@ -20,6 +20,9 @@ from rhpl.translate import _, N_
 import network
 import isys
 
+import logging
+log = logging.getLogger("anaconda")
+
 def hasActiveNetDev():
     # try to load /tmp/netinfo and see if we can sniff out network info
     netinfo = network.Network()
@@ -27,8 +30,8 @@ def hasActiveNetDev():
         try:
             ip = isys.getIPAddress(dev)
         except Exception, e:
-            log("Got an exception trying to get the ip addr of %s: "
-                "%s" %(dev, e))
+            log.error("Got an exception trying to get the ip addr of %s: "
+                      "%s" %(dev, e))
             continue
         if ip == '127.0.0.1' or ip is None:
             continue

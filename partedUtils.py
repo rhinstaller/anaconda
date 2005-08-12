@@ -29,8 +29,10 @@ import lvm
 from flags import flags
 from partErrors import *
 
-from rhpl.log import log
 from rhpl.translate import _
+
+import logging
+log = logging.getLogger("anaconda")
 
 fsTypes = {}
 
@@ -283,7 +285,7 @@ def checkDasdFmt(disk, intf):
             devs = isys.getDasdDevPort()
             dev = "/dev/%s (%s)" %(disk.dev.path[5:], devs[device])
         except Exception, e:
-            log("exception getting dasd dev ports: %s" %(e,))
+            log.critical("exception getting dasd dev ports: %s" %(e,))
             dev = "/dev/%s" %(disk.dev.path[5:],)
         
         rc = intf.messageWindow(_("Warning"),
@@ -409,7 +411,7 @@ def sniffFilesystemType(device):
 
     if len(buf) < pagesize:
 	try:
-	    log("Tried to read pagesize for %s in sniffFilesystemType and only read %s", dev, len(buf))
+	    log.error("Tried to read pagesize for %s in sniffFilesystemType and only read %s", dev, len(buf))
 	except:
 	    pass
 	return None
@@ -774,7 +776,7 @@ class DiskSet:
             os.close(p[1])
             os.close(fd)
             os.execv(argList[0], argList)
-            log("failed to exec %s", argList)
+            log.critical("failed to exec %s", argList)
             os._exit(1)
 			    
         os.close(p[1])
@@ -886,8 +888,8 @@ class DiskSet:
             except parted.error, msg:
                 recreate = 0
                 if zeroMbr:
-                    log("zeroMBR was set and invalid partition table found "
-                        "on %s" % (dev.path[5:]))
+                    log.error("zeroMBR was set and invalid partition table "
+                              "found on %s" % (dev.path[5:]))
                     recreate = 1
                 elif not intf:
                     DiskSet.skippedDisks.append(drive)
