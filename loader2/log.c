@@ -24,8 +24,8 @@
 
 #include "log.h"
 
-static FILE * logfile;
-static FILE * logfile2;
+static FILE * logfile = NULL;
+static FILE * logfile2 = NULL;
 static int loglevel = 10;
 
 void logMessage(const char * s, ...) {
@@ -49,10 +49,10 @@ void logMessage(const char * s, ...) {
     if (logfile2) {
         va_start(args, s);
 
-        fprintf(logfile, "* ");
-        vfprintf(logfile, s, args);
-        fprintf(logfile, "\n");
-        fflush(logfile);
+        fprintf(logfile2, "* ");
+        vfprintf(logfile2, s, args);
+        fprintf(logfile2, "\n");
+        fflush(logfile2);
 
         va_end(args);
     }

@@ -13,6 +13,7 @@
 	textw/packages_text.py, textw/partition_text.py,
 	textw/progress_text.py, textw/upgrade_text.py, textw/zfcp_text.py:
 	Use new logging system.
+	* loader2/log.c (logMessage):  Don't write to the same file twice.
 
 2005-08-11  Chris Lumens  <clumens@redhat.com>
 
