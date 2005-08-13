@@ -92,7 +92,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	    mediasum[32] = '\0';
 	    md5fnd = 1;
 
-	    logMessage("MD5SUM -> %s", mediasum);
+	    logMessage(INFO, "MD5SUM -> %s", mediasum);
 
 	    loc += 45;
 	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
@@ -109,14 +109,14 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 
 	    *p = '\0';
 
-	    /*	    logMessage("SKIPSECTORS -> |%s|", tmpbuf); */
+	    /*	    logMessage(DEBUGLVL, "SKIPSECTORS -> |%s|", tmpbuf); */
 
 	    *skipsectors = strtol(tmpbuf, &errptr, 10);
 	    if (errptr && *errptr) {
-		logMessage("Could not parse |%s|", errptr);
+		logMessage(ERROR, "Could not parse |%s|", errptr);
  	        return -1;
 	    } else {
-		logMessage("skipsectors = %d", *skipsectors);
+		logMessage(INFO, "skipsectors = %d", *skipsectors);
  	        skipfnd = 1;
 	    }
 
@@ -124,12 +124,12 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	} else if (!strncmp(buf2 + loc, "RHLISOSTATUS=1", 14)) {
 	    *supported = 1;
 	    supportedfnd = 1;
-	    logMessage("supported = 1");
+	    logMessage(INFO, "supported = 1");
 	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
 	} else if (!strncmp(buf2 + loc, "RHLISOSTATUS=0", 14)) {
 	    *supported = 0;
 	    supportedfnd = 1;
-	    logMessage("supported = 0");
+	    logMessage(INFO, "supported = 0");
 	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
 	} else if (!strncmp(buf2 + loc, "FRAGMENT SUMS = ", 16)) {
             /* make sure we dont walk off end */
@@ -401,15 +401,15 @@ int mediaCheckFile(char *file, char *descr) {
 		   "and try again.  If this test continues to fail you "
 		   "should not continue the install.");
 
-	logMessage("mediacheck: %s (%s) FAILED", file, descr);
-	logMessage("value of supported iso flag is %d", supported);
+	logMessage(ERROR, "mediacheck: %s (%s) FAILED", file, descr);
+	logMessage(ERROR, "value of supported iso flag is %d", supported);
     } else if (rc > 0) {
 	result = _("PASS.\n\nIt is OK to install from this media.");
-	logMessage("mediacheck: %s (%s) PASSED", file, descr);
-	logMessage("value of supported iso flag is %d", supported);
+	logMessage(INFO, "mediacheck: %s (%s) PASSED", file, descr);
+	logMessage(INFO, "value of supported iso flag is %d", supported);
     } else {
 	result = _("NA.\n\nNo checksum information available, unable to verify media.");
-	logMessage("mediacheck: %s (%s) has no checksum info", file, descr);
+	logMessage(WARNING, "mediacheck: %s (%s) has no checksum info", file, descr);
     }
 
     newtCenteredWindow(60, 20, _("Media Check Result"));

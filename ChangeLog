@@ -15,6 +15,19 @@
 	Use new logging system.
 	* loader2/log.c (logMessage):  Don't write to the same file twice.
 
+	* loader2/log.c (logMessage), loader2/log.h:  Support the same sort of
+	logging levels and output style as we do in the python portion of the
+	installer.
+	* loader2/cdinstall.c, loader2/driverdisk.c, loader2/driverselect.c,
+	loader2/firewire.c, loader2/getparts.c, loader2/hardware.c,
+	loader2/hdinstall.c, loader2/kbd.c, loader2/kickstart.c,
+	loader2/lang.c, loader2/loader.c, loader2/loadermisc.c,
+	loader2/mediacheck.c, loader2/method.c, loader2/modstubs.c,
+	loader2/modules.c, loader2/net.c, loader2/nfsinstall.c,
+	loader2/pcmcia.c, loader2/selinux.c, loader2/telnet.c,
+	loader2/telnetd.c, loader2/urlinstall.c, loader2/urls.c,
+	loader2/usb.c:  Use new logging level support.
+
 2005-08-11  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Use new logging system.

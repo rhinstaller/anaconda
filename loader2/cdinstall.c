@@ -48,13 +48,13 @@ static int getISOStatusFromFD(int isofd, char *mediasum);
 void ejectCdrom(void) {
   int ejectfd;
 
-  logMessage("ejecting /tmp/cdrom...");
+  logMessage(INFO, "ejecting /tmp/cdrom...");
   if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
       if (ioctl(ejectfd, CDROMEJECT, 0))
-        logMessage("eject failed %d ", errno);
+        logMessage(ERROR, "eject failed %d ", errno);
       close(ejectfd);
   } else {
-      logMessage("eject failed %d ", errno);
+      logMessage(ERROR, "eject failed %d ", errno);
   }
 }
 
@@ -182,7 +182,7 @@ static int getISOStatusFromCDROM(char *cddriver, char *mediasum) {
     devMakeInode(cddriver, "/tmp/cdrom");
     isofd = open("/tmp/cdrom", O_RDONLY);
     if (isofd < 0) {
-	logMessage("Could not check iso status: %s", strerror(errno));
+	logMessage(WARNING, "Could not check iso status: %s", strerror(errno));
 	unlink("/tmp/cdrom");
 	return 0;
     }
@@ -209,7 +209,7 @@ static int getISOStatusFromFD(int isofd, char *mediasum) {
     fragmentsums[0] = '\0';
 
     if ((pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus, fragmentsums, &fragmentcount)) < 0) {
-	logMessage("Could not parse pvd");
+	logMessage(ERROR, "Could not parse pvd");
 	return 0;
     }
 
@@ -304,7 +304,7 @@ char * setupCdrom(char * location,
 
     devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
     if (!devices) {
-        logMessage("got to setupCdrom without a CD device");
+        logMessage(ERROR, "got to setupCdrom without a CD device");
         return NULL;
     }
 
@@ -312,7 +312,7 @@ char * setupCdrom(char * location,
     do {
         for (i = 0; devices[i]; i++) {
 	    if (!devices[i]->device) continue;
-            logMessage("trying to mount CD device %s", devices[i]->device);
+            logMessage(INFO, "trying to mount CD device %s", devices[i]->device);
             devMakeInode(devices[i]->device, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL, 0, 0)) {
@@ -418,8 +418,7 @@ char * mountCdromImage(struct installMethod * method,
 void setKickstartCD(struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
-    logMessage("kickstartFromCD");
-
+    logMessage(INFO, "kickstartFromCD");
     loaderData->method = strdup("cdrom");
 }
 
@@ -428,11 +427,11 @@ int kickstartFromCD(char *kssrc, int flags) {
     char *p, *kspath;
     struct device ** devices;
 
-    logMessage("getting kickstart file from first CDROM");
+    logMessage(INFO, "getting kickstart file from first CDROM");
 
     devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
     if (!devices) {
-	logMessage("No CDROM devices found!");
+	logMessage(ERROR, "No CDROM devices found!");
 	return 1;
     }
 

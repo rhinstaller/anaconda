@@ -59,7 +59,7 @@ int beTelnet(int flags) {
     struct winsize ws;
 
     if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
-	logMessage("socket: %s", strerror(errno));
+	logMessage(ERROR, "socket: %s", strerror(errno));
 	return -1;
     }
 
@@ -99,7 +99,7 @@ int beTelnet(int flags) {
 
     masterFd = open("/dev/ptmx", O_RDWR);
     if (masterFd < 0) {
-	logMessage("cannot open /dev/ptmx");
+	logMessage(CRITICAL, "cannot open /dev/ptmx");
 	close(conn);
 	return -1;
     }
@@ -188,7 +188,7 @@ int beTelnet(int flags) {
 
 
 	if (i < 0) {
-	    logMessage("poll: %s", strerror(errno));
+	    logMessage(ERROR, "poll: %s", strerror(errno));
 	} 
 
 #ifndef DEBUG_TELNET
@@ -231,11 +231,11 @@ void startTelnetd(struct loaderData_s * loaderData,
     struct networkDeviceConfig netCfg;
 
     if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
-        logMessage("unable to bring up network");
+        logMessage(ERROR, "unable to bring up network");
         return;
     }
 
-    logMessage("going to beTelnet for %s", inet_ntoa(netCfg.dev.ip));
+    logMessage(INFO, "going to beTelnet for %s", inet_ntoa(netCfg.dev.ip));
     if (!beTelnet(flags))
         flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
 

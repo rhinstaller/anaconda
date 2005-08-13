@@ -41,7 +41,7 @@ static void sleepUntilUsbIsStable(void) {
     int i, count = 0;
 
     /* sleep for a maximum of 20 seconds, minimum of 2 seconds */
-    logMessage("waiting for usb to become stable...");
+    logMessage(INFO, "waiting for usb to become stable...");
     for (i = 0; i < 20; i++) {
 	stat("/proc/bus/usb/devices", &sb);
 	if (last == sb.st_mtime) {
@@ -57,7 +57,7 @@ static void sleepUntilUsbIsStable(void) {
 	last = sb.st_mtime;
 	sleep(1);
     }
-    logMessage("%d seconds.", i);
+    logMessage(INFO, "%d seconds.", i);
 }
 
 int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
@@ -69,19 +69,19 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_NOUSB(flags)) return 0;
 
-    logMessage("looking for usb controllers");
+    logMessage(INFO, "looking for usb controllers");
 
     devices = probeDevices(CLASS_USB, BUS_PCI, 0);
 
     if (!devices) {
-	logMessage("no usb controller found");
+	logMessage(WARNING, "no usb controller found");
 	return 0;
     }
 
     /* JKFIXME: if we looked for all of them, we could batch this up and it
      * would be faster */
     for (i=0; devices[i]; i++) {
-        logMessage("found USB controller %s", devices[i]->driver);
+        logMessage(INFO, "found USB controller %s", devices[i]->driver);
 
         if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps,
                             modInfo, flags)) {
@@ -98,7 +98,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbfs", 0, 0, 
 		  NULL, NULL, 0, 0))
-	logMessage("failed to mount device usbfs: %s", strerror(errno));
+	logMessage(ERROR, "failed to mount device usbfs: %s", strerror(errno));
 
     /* sleep so we make sure usb devices get properly enumerated.
        that way we should block when initializing each usb driver until
@@ -136,11 +136,11 @@ void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 
     if (access("/proc/bus/usb/devices", R_OK)) return;
     
-    logMessage("looking for USB mouse...");
+    logMessage(INFO, "looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
-        logMessage("USB mouse found, loading mousedev module");
+        logMessage(INFO, "USB mouse found, loading mousedev module");
         if (mlLoadModuleSetLocation("mousedev", modLoaded, modDeps, modInfo, flags, secondStageModuleLocation)) {
-            logMessage ("failed to loading mousedev module");
+            logMessage (ERROR, "failed to loading mousedev module");
             return;
         }
     }

@@ -3,9 +3,16 @@
 
 #include <stdio.h>
 
-void logMessage(const char * s, ...) __attribute__ ((format (printf, 1, 2)));;
+#define DEBUGLVL 10
+#define INFO     20
+#define WARNING  30
+#define ERROR    40
+#define CRITICAL 50
+
+void logMessage(int level, const char * s, ...)
+	__attribute__ ((format (printf, 2, 3)));
 void openLog(int useLocal);
 void closeLog(void);
-void setLogLevel(int level);
+void setLogLevel(int minLevel);
 
 #endif /* _LOG_H_ */

@@ -90,17 +90,17 @@ char * mountNfsImage(struct installMethod * method,
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
         case NFS_STAGE_NFS:
-            logMessage("going to do nfsGetSetup");
+            logMessage(INFO, "going to do nfsGetSetup");
             if (loaderData->method && *loaderData->method &&
                 !strncmp(loaderData->method, "nfs", 3) &&
                 loaderData->methodData) {
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;
                 directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
 
-                logMessage("host is %s, dir is %s", host, directory);
+                logMessage(INFO, "host is %s, dir is %s", host, directory);
 
                 if (!host || !directory) {
-                    logMessage("missing host or directory specification");
+                    logMessage(ERROR, "missing host or directory specification");
                     free(loaderData->method);
                     loaderData->method = NULL;
                     break;
@@ -123,7 +123,7 @@ char * mountNfsImage(struct installMethod * method,
             fullPath = alloca(strlen(host) + strlen(directory) + 2);
             sprintf(fullPath, "%s:%s", host, directory);
 
-            logMessage("mounting nfs path %s", fullPath);
+            logMessage(INFO, "mounting nfs path %s", fullPath);
 
             if (FL_TESTING(flags)) {
                 stage = NFS_STAGE_DONE;
@@ -136,16 +136,16 @@ char * mountNfsImage(struct installMethod * method,
             if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0, 0)) {
 		char mntPath[1024];
 
-                logMessage("mounted %s on /mnt/source", fullPath);
+                logMessage(INFO, "mounted %s on /mnt/source", fullPath);
 		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
                 if (!access(mntPath, R_OK)) {
-                    logMessage("can access %s", mntPath);
+                    logMessage(INFO, "can access %s", mntPath);
                     rc = mountStage2(mntPath);
-                    logMessage("after mountStage2, rc is %d", rc);
+                    logMessage(INFO, "after mountStage2, rc is %d", rc);
                     if (rc) {
                         if (rc == -1) { 
                             foundinvalid = 1; 
-                            logMessage("not the right one"); 
+                            logMessage(WARNING, "not the right one"); 
                         }
                     } else {
                         stage = NFS_STAGE_DONE;
@@ -153,16 +153,16 @@ char * mountNfsImage(struct installMethod * method,
                         break;
                     }
                 } else {
-                    logMessage("unable to access %s", mntPath);
+                    logMessage(WARNING, "unable to access %s", mntPath);
                 }
 
                 if ((path = validIsoImages("/mnt/source", &foundinvalid))) {
 		    foundinvalid = 0;
-		    logMessage("Path to valid iso is %s", path);
+		    logMessage(INFO, "Path to valid iso is %s", path);
                     copyUpdatesImg("/mnt/source/updates.img");
 
                     if (mountLoopback(path, "/mnt/source2", "loop1")) 
-                        logMessage("failed to mount iso %s loopback", path);
+                        logMessage(ERROR, "failed to mount iso %s loopback", path);
                     else {
 			snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/stage2.img", getProductPath());
                         rc = mountStage2(mntPath);
@@ -241,7 +241,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
         { 0, 0, 0, 0, 0, 0, 0 }
     };
 
-    logMessage("kickstartFromNfs");
+    logMessage(INFO, "kickstartFromNfs");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksNfsOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         startNewt(*flagsPtr);
@@ -254,7 +254,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     }
 
     if (!host || !dir) {
-        logMessage("host and directory for nfs kickstart not specified");
+        logMessage(ERROR, "host and directory for nfs kickstart not specified");
         return;
     }
 
@@ -265,7 +265,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     if (dir)
         ((struct nfsInstallData *)loaderData->methodData)->directory = dir;
 
-    logMessage("results of nfs, host is %s, dir is %s", host, dir);
+    logMessage(INFO, "results of nfs, host is %s, dir is %s", host, dir);
 }
 
 
@@ -276,7 +276,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
     struct networkDeviceConfig netCfg;
 
     if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
-        logMessage("unable to bring up network");
+        logMessage(ERROR, "unable to bring up network");
         return 1;
     }
 
@@ -285,21 +285,21 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
      */
     if (url == NULL) {
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_NEXTSERVER)) {
-            logMessage("no bootserver was found");
+            logMessage(ERROR, "no bootserver was found");
             return 1;
         }
          
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
             url = sdupprintf("%s:%s", inet_ntoa(netCfg.dev.nextServer),
                              "/kickstart/");
-            logMessage("bootp: no bootfile received");
+            logMessage(ERROR, "bootp: no bootfile received");
         } else {
             url = sdupprintf("%s:%s", inet_ntoa(netCfg.dev.nextServer),
                              netCfg.dev.bootFile);
         }
     } 
       
-    logMessage("url is %s", url);
+    logMessage(INFO, "url is %s", url);
 
     getHostandPath(url, &host, &path, inet_ntoa(netCfg.dev.ip));
 
@@ -313,7 +313,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
         host = sdupprintf("%s/%s", host, path);
     }
 
-    logMessage("file location: nfs://%s/%s", host, file);
+    logMessage(INFO, "file location: nfs://%s/%s", host, file);
 
     if (!doPwMount(host, "/tmp/mnt", "nfs", 1, 0, NULL, NULL, 0, 0)) {
         char * buf;
@@ -321,12 +321,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
         buf = alloca(strlen(file) + 10);
         sprintf(buf, "/tmp/mnt/%s", file);
         if (copyFile(buf, dest)) {
-            logMessage("failed to copy file to %s", dest);
+            logMessage(ERROR, "failed to copy file to %s", dest);
             failed = 1;
         }
         
     } else {
-        logMessage("failed to mount nfs source");
+        logMessage(ERROR, "failed to mount nfs source");
         failed = 1;
     }
 

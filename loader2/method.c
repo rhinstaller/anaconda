@@ -52,14 +52,14 @@ int umountLoopback(char * mntpoint, char * device) {
 
     umount(mntpoint);
 
-    logMessage("umounting loopback %s %s", mntpoint, device);
+    logMessage(INFO, "umounting loopback %s %s", mntpoint, device);
 
     devMakeInode(device, "/tmp/loop");
     loopfd = open("/tmp/loop", O_RDONLY);
 
     if (ioctl(loopfd, LOOP_CLR_FD, 0) == -1)
-        logMessage("LOOP_CLR_FD failed for %s %s (%s)", mntpoint, device, 
-		   strerror(errno));
+        logMessage(ERROR, "LOOP_CLR_FD failed for %s %s (%s)", mntpoint,
+                   device, strerror(errno));
 
     close(loopfd);
 
@@ -84,7 +84,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 #endif
 	targfd = open(fsystem, O_RDONLY);
 	if (targfd == -1) {
-	    logMessage("open file to loop mount %s failed", fsystem);
+	    logMessage(ERROR, "open file to loop mount %s failed", fsystem);
 	    return LOADER_ERROR;
 	}
 #ifdef O_DIRECT
@@ -94,14 +94,14 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     devMakeInode(device, filename);
     loopfd = open(filename, O_RDONLY);
     if (loopfd == -1) {
-	logMessage("unable to open loop device %s", filename);
+	logMessage(ERROR, "unable to open loop device %s", filename);
 	return LOADER_ERROR;
     }
-    logMessage("mntloop %s on %s as %s fd is %d", 
+    logMessage(INFO, "mntloop %s on %s as %s fd is %d", 
                device, mntpoint, fsystem, loopfd);
 
     if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
-        logMessage("LOOP_SET_FD failed: %s", strerror(errno));
+        logMessage(ERROR, "LOOP_SET_FD failed: %s", strerror(errno));
         ioctl(loopfd, LOOP_CLR_FD, 0);
         close(targfd);
         close(loopfd);
@@ -114,7 +114,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     strncpy(loopInfo.lo_name, basename(fsystem), 63);
 
     if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
-        logMessage("LOOP_SET_STATUS failed: %s", strerror(errno));
+        logMessage(ERROR, "LOOP_SET_STATUS failed: %s", strerror(errno));
         close(loopfd);
         return LOADER_ERROR;
     }
@@ -131,8 +131,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
                           0, NULL, NULL, 0, 0)) {
               if (doPwMount(filename, mntpoint, "vfat", 1,
                             0, NULL, NULL, 0, 0)) {
-                logMessage("failed to mount loop: %s", 
-                           strerror(errno));
+                logMessage(ERROR, "failed to mount loop: %s", strerror(errno));
                 loopfd = open(filename, O_RDONLY);
                 ioctl(loopfd, LOOP_CLR_FD, 0);
                 close(loopfd);
@@ -170,7 +169,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
         }
         
         if (mountLoopback(isoImage, "/tmp/loopimage", "loop7")) {
-            logMessage("failed to mount %s", isoImage);
+            logMessage(ERROR, "failed to mount %s", isoImage);
             errno = 0;
             continue;
         }
@@ -184,7 +183,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
 		umountLoopback("/tmp/loopimage", "loop7");
 		break;
 	    }
-	    logMessage("disc %s is not the right image", isoImage);
+	    logMessage(ERROR, "disc %s is not the right image", isoImage);
 	    umountLoopback("/mnt/runtime", "loop0");
 	    if (foundinvalid) *foundinvalid = 1;
 	}
@@ -219,17 +218,20 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 	filetype = 1;
 	if (doPwMount(file, "/tmp/testmnt",
 		      "iso9660", 1, 0, NULL, NULL, 0, 0)) {
-	    logMessage("Failed to mount device %s to get description", file);
+	    logMessage(ERROR, "Failed to mount device %s to get description",
+                       file);
 	    return -1;
 	}
     } else if (S_ISREG(sb.st_mode)) {
 	filetype = 2;
 	if (mountLoopback(file, "/tmp/testmnt", "loop6")) {
-	    logMessage("Failed to mount iso %s to get description", file);
+	    logMessage(ERROR, "Failed to mount iso %s to get description",
+                       file);
 	    return -1;
 	}
     } else {
-	    logMessage("Unknown type of file %s to get description", file);
+	    logMessage(ERROR, "Unknown type of file %s to get description",
+                       file);
 	    return -1;
     }
 
@@ -365,9 +367,9 @@ void queryIsoMediaCheck(char *isoFile, int flags) {
     isoDir = strdup(dirname(tmpstr));
     free(tmpstr);
 
-    logMessage("isoFile = %s", isoFile);
-    logMessage("isoDir  = %s", isoDir);
-    logMessage("Master Timestemp = %s", master_timestamp);
+    logMessage(INFO, "isoFile = %s", isoFile);
+    logMessage(INFO, "isoDir  = %s", isoDir);
+    logMessage(INFO, "Master Timestemp = %s", master_timestamp);
 
     if (!(dir = opendir(isoDir))) {
 	newtWinMessage(_("Error"), _("OK"), 
@@ -421,7 +423,7 @@ void queryIsoMediaCheck(char *isoFile, int flags) {
 			   tmpmessage);
 
 	if (rc == 2) {
-	    logMessage("mediacheck: skipped checking of %s", isoImage);
+	    logMessage(INFO, "mediacheck: skipped checking of %s", isoImage);
 	    if (tdescr)
 		free(tdescr);
 	    continue;
@@ -472,25 +474,25 @@ int copyDirectory(char * from, char * to) {
         lstat(filespec, &sb);
 
         if (S_ISDIR(sb.st_mode)) {
-            logMessage("recursively copying %s", filespec);
+            logMessage(INFO, "recursively copying %s", filespec);
             if (copyDirectory(filespec, filespec2)) return 1;
         } else if (S_ISLNK(sb.st_mode)) {
             i = readlink(filespec, link, sizeof(link) - 1);
             link[i] = '\0';
             if (symlink(link, filespec2)) {
-                logMessage("failed to symlink %s to %s: %s",
+                logMessage(ERROR, "failed to symlink %s to %s: %s",
                     filespec2, link, strerror(errno));
             }
         } else {
             fd = open(filespec, O_RDONLY);
             if (fd == -1) {
-                logMessage("failed to open %s: %s", filespec,
+                logMessage(ERROR, "failed to open %s: %s", filespec,
                            strerror(errno));
                 return 1;
             } 
             outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
             if (outfd == -1) {
-                logMessage("failed to create %s: %s", filespec2,
+                logMessage(ERROR, "failed to create %s: %s", filespec2,
                            strerror(errno));
             } else {
                 fchmod(outfd, sb.st_mode & 07777);
@@ -621,7 +623,7 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
+    logMessage(INFO, "copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));
     
     if (rc) {
@@ -632,8 +634,8 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     if (mountLoopback(dest, mntpoint, device)) {
         /* JKFIXME: this used to be fatal, but that seems unfriendly */
-        logMessage("Error mounting /dev/%s on %s (%s)", device, mntpoint, 
-                   strerror(errno));
+        logMessage(ERROR, "Error mounting /dev/%s on %s (%s)", device,
+                   mntpoint, strerror(errno));
         unlink(dest);
         return 1;
     }
@@ -651,7 +653,7 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
     int rc;
     char file[4096];
 
-    logMessage("getFileFromBlockDevice(%s, %s)", device, path);
+    logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
     if (devMakeInode(device, "/tmp/srcdev"))
         return 1;
@@ -659,19 +661,20 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
     if ((doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", 1, 0, NULL, NULL, 0, 0)) && 
         doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", 1, 0, NULL, NULL, 0, 0) && 
         doPwMount("/tmp/srcdev", "/tmp/mnt", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
-        logMessage("failed to mount /dev/%s: %s", device, strerror(errno));
+        logMessage(ERROR, "failed to mount /dev/%s: %s", device,
+                   strerror(errno));
         return 2;
     }
 
     snprintf(file, sizeof(file), "/tmp/mnt/%s", path);
-    logMessage("Searching for file on path %s", file);
+    logMessage(INFO, "Searching for file on path %s", file);
     
     if (access(file, R_OK)) {
 	rc = 3;
     } else {
 	copyFile(file, dest);
 	rc = 0;
-	logMessage("file copied to %s", dest);
+	logMessage(INFO, "file copied to %s", dest);
     }    
 
     umount("/tmp/mnt");

@@ -284,7 +284,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
     }
 
     if (FL_TESTING(flags)) {
-        logMessage("would have insmod %s (%s)", path->path, fileName);
+        logMessage(INFO, "would have insmod %s (%s)", path->path, fileName);
         rc = 0;
     } else {
         if (!(child = fork())) {
@@ -339,12 +339,12 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     if (!strcmp(modName, "usb-storage") && usbWasLoaded == 0) {
                         int slp;
                         usbWasLoaded++;
-                        logMessage("sleeping for usb-storage stabilize...");
+                        logMessage(INFO, "sleeping for usb-storage stabilize...");
                         for (slp = 0; slp < 10; slp++) {
                             if (scsiDiskCount() > 0) break;
                             sleep(2);
                         }
-                        logMessage("slept %d seconds", slp * 2);
+                        logMessage(INFO, "slept %d seconds", slp * 2);
                     }
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = scsiDiskCount();
@@ -480,7 +480,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 
     list = tsortModules(modLoaded, modDeps, initialList, 0, NULL, NULL);
     if (!list) {
-        logMessage("ERROR: loop in module dependencies; not inserting");
+        logMessage(ERROR, "loop in module dependencies; not inserting");
         return 1;
     }
     list = lateModuleSort(list, i);
@@ -490,7 +490,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         strcat(items, list[i]);
     }
 
-    logMessage("modules to insert%s", items);
+    logMessage(INFO, "modules to insert%s", items);
 
     paths = NULL;
     reloadUsbStorage = 0;
@@ -518,7 +518,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 
     i = 0;
     if (!paths) {
-        logMessage("no modules found -- aborting insertion");
+        logMessage(ERROR, "no modules found -- aborting insertion");
         return i;
     }
 
@@ -531,7 +531,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
     }
 
-    if (*items) logMessage("module(s) %s not found", items);
+    if (*items) logMessage(WARNING, "module(s) %s not found", items);
 
     if (reloadUsbStorage) {
         mod = getLoadedModuleInfo(modLoaded, "usb-storage");
@@ -542,7 +542,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
 
         if (mod->lastDevNum != scsiDiskCount()) {
-            logMessage("usb-storage isn't claiming the last scsi dev (%d vs %d)", modLoaded->mods[i].lastDevNum, scsiDiskCount());
+            logMessage(WARNING, "usb-storage isn't claiming the last scsi dev (%d vs %d)", modLoaded->mods[i].lastDevNum, scsiDiskCount());
             /* JKFIXME: return? or not, because of firewire */
         }
 
@@ -567,9 +567,9 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         if (loadModule(*l, p, modLoaded,
                        (argModule && !strcmp(argModule, *l)) ? args : NULL,
                        modInfo, flags)) {
-            logMessage("failed to insert %s", p->path);
+            logMessage(ERROR, "failed to insert %s", p->path);
         } else {
-            logMessage("inserted %s", p->path);
+            logMessage(INFO, "inserted %s", p->path);
         }
     }
 
@@ -585,7 +585,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 
         fd = open("/tmp/modprobe.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
         if (fd == -1) {
-            logMessage("error appending to /tmp/modprobe.conf: %s\n",
+            logMessage(ERROR, "error appending to /tmp/modprobe.conf: %s\n",
                        strerror(errno));
         } else {
 	    writeModulesConf(modLoaded, fd);
@@ -602,7 +602,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     free(paths);
     free(list);
 
-    logMessage("load module set done");
+    logMessage(INFO, "load module set done");
 
     return i;
 }
@@ -684,7 +684,7 @@ static int writeModulesConf(moduleList list, int fd) {
                     tmp = "tr";
                     break;
                 default:
-                    logMessage("WARNING: got net driver that's not ethernet or tr");
+                    logMessage(WARNING, "got net driver that's not ethernet or tr");
                     tmp = "";
                 }
 
@@ -740,7 +740,7 @@ void writeScsiDisks(moduleList list) {
     if (!list) return;
 
     if ((fd = open("/tmp/scsidisks", O_WRONLY | O_CREAT, 0666)) == -1) {
-        logMessage("error opening /tmp/scsidisks: %s", strerror(errno));
+        logMessage(ERROR, "error opening /tmp/scsidisks: %s", strerror(errno));
         return;
     }
 
@@ -790,8 +790,8 @@ char * getModuleLocation(int version) {
         arch[sb.st_size] = '\0';
         close(fd);
     } else if (!arch) {
-        logMessage("can't find arch file %s, defaulting to %s", archfile, 
-                   u.machine);
+        logMessage(WARNING, "can't find arch file %s, defaulting to %s",
+                   archfile, u.machine);
         arch = strdup(u.machine);
     }
 
@@ -832,7 +832,7 @@ static struct extractedModule * extractModules (char * const * modNames,
 
     fd = gunzip_open(ballPath);
     if (!fd) {
-        logMessage("failed to open %s", ballPath);
+        logMessage(ERROR, "failed to open %s", ballPath);
         free(ballPath);
         return NULL;
     }
@@ -881,12 +881,12 @@ static struct extractedModule * extractModules (char * const * modNames,
                 if (location && location->path) {
                     oldPaths[i].location = strdup(location->path);
                     if (location->title) 
-                        logMessage("module %s found on driver disk %s", 
+                        logMessage(INFO, "module %s found on driver disk %s", 
                                    modNames[i], location->title);
-                    logMessage("loaded %s from %s", modNames[i], 
+                    logMessage(INFO, "loaded %s from %s", modNames[i], 
 			       location->path);
                 } else
-                    logMessage("loaded %s from /modules/modules.cgz", modNames[i]);
+                    logMessage(INFO, "loaded %s from /modules/modules.cgz", modNames[i]);
             }
             numMaps++;
         }
@@ -918,10 +918,10 @@ int removeLoadedModule(const char * modName, moduleList modLoaded,
     mod->lastDevNum = 0;
     
     if (FL_TESTING(flags)) {
-	logMessage("would have rmmod %s", modName);
+	logMessage(INFO, "would have rmmod %s", modName);
 	rc = 0;
     } else {
-	logMessage("going to rmmod %s", modName);
+	logMessage(INFO, "going to rmmod %s", modName);
 	if (!(child = fork())) {
 	    int fd = open("/dev/tty3", O_RDWR);
 
@@ -991,8 +991,8 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     module = (char *) poptGetArg(optCon);
 
     if (!type || !module) {
-        logMessage("type and module should be specified for kickstart device "
-                   "command");
+        logMessage(WARNING, "type and module should be specified for kickstart "
+                   "device command");
     }
 
     if (opts) {

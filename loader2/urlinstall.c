@@ -123,8 +123,8 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     if (FL_TEXT(flags) || totalMemory() < GUI_STAGE2_RAM) {
 	stage2img = "netstg2.img";
 	if (totalMemory() < 128000)
-	    logMessage("URLINSTALL falling back to non-GUI stage2 due to "
-		       "insufficient RAM");
+	    logMessage(WARNING, "URLINSTALL falling back to non-GUI stage2 "
+                       "due to insufficient RAM");
     } else {
 	stage2img = "stage2.img";
     }
@@ -222,10 +222,10 @@ char * mountUrlImage(struct installMethod * method,
 		
                 url = ((struct urlInstallData *)loaderData->methodData)->url;
 
-                logMessage("URL_STAGE_MAIN - url is %s", url);
+                logMessage(INFO, "URL_STAGE_MAIN - url is %s", url);
 
                 if (!url) {
-                    logMessage("missing url specification");
+                    logMessage(ERROR, "missing url specification");
                     free(loaderData->method);
                     loaderData->method = NULL;
                     break;
@@ -273,7 +273,7 @@ char * mountUrlImage(struct installMethod * method,
 	    if (cdurl && 
                 (loadSingleUrlImage(&ui, "base/hdlist", flags, NULL, 
                                     NULL, NULL, 0) == 0)) {
-		logMessage("Detected stage 2 image on CD");
+		logMessage(INFO, "Detected stage 2 image on CD");
 		winStatus(50, 3, _("Media Detected"), 
 			  _("Local installation media detected..."), 0);
 		sleep(3);
@@ -344,7 +344,7 @@ int getFileFromUrl(char * url, char * dest,
     char * ehdrs;
 
     if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
-        logMessage("unable to bring up network");
+        logMessage(ERROR, "unable to bring up network");
         return 1;
     }
 
@@ -354,7 +354,7 @@ int getFileFromUrl(char * url, char * dest,
     getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
                    &host, &file, inet_ntoa(netCfg.dev.ip));
 
-    logMessage("ks location: %s://%s/%s", 
+    logMessage(INFO, "ks location: %s://%s/%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
 
     chptr = strchr(host, '/');
@@ -403,14 +403,14 @@ int getFileFromUrl(char * url, char * dest,
 	
     fd = urlinstStartTransfer(&ui, file, ehdrs, 0, flags);
     if (fd < 0) {
-        logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
+        logMessage(ERROR, "failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
     }
            
     rc = copyFileFd(fd, dest);
     if (rc) {
         unlink (dest);
-        logMessage("failed to copy file to %s", dest);
+        logMessage(ERROR, "failed to copy file to %s", dest);
         return 1;
     }
 
@@ -436,7 +436,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
         { 0, 0, 0, 0, 0, 0, 0 }
     };
 
-    logMessage("kickstartFromUrl");
+    logMessage(INFO, "kickstartFromUrl");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksUrlOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         startNewt(*flagsPtr);
@@ -468,6 +468,6 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     loaderData->methodData = calloc(sizeof(struct urlInstallData *), 1);
     ((struct urlInstallData *)loaderData->methodData)->url = url;
 
-    logMessage("results of url ks, url %s", url);
+    logMessage(INFO, "results of url ks, url %s", url);
 }
 

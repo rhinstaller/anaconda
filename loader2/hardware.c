@@ -66,14 +66,14 @@ static int detectHardware(moduleInfoSet modInfo,
     int numMods;
     char *driver;
     
-    logMessage("probing buses");
+    logMessage(INFO, "probing buses");
     
     devices = probeDevices(CLASS_UNSPEC,
                            BUS_PCI | BUS_SBUS | BUS_VIO | BUS_MACIO |
                            ((has_pcmcia() >= 0) ? BUS_PCMCIA : 0),
                            PROBE_ALL);
 
-    logMessage("finished bus probing");
+    logMessage(INFO, "finished bus probing");
     
     if (devices == NULL) {
         *modules = NULL;
@@ -96,23 +96,23 @@ static int detectHardware(moduleInfoSet modInfo,
         /* this is kind of icky and verbose.  there are better and more 
          * general ways to do it but this is simple and obvious */
         if (FL_NOPCMCIA(flags) && ((*device)->type == CLASS_SOCKET)) {
-            logMessage("ignoring pcmcia device %s (%s)", (*device)->desc,
-                       (*device)->driver);
+            logMessage(WARNING, "ignoring pcmcia device %s (%s)",
+                       (*device)->desc, (*device)->driver);
         } else if (FL_NOIEEE1394(flags) && ((*device)->type == CLASS_FIREWIRE)) {
-            logMessage("ignoring firewire device %s (%s)", (*device)->desc,
-                       (*device)->driver);
+            logMessage(WARNING, "ignoring firewire device %s (%s)",
+                       (*device)->desc, (*device)->driver);
         } else if (FL_NOUSB(flags) && ((*device)->type == CLASS_USB)) {
-            logMessage("ignoring usb device %s (%s)", (*device)->desc,
+            logMessage(WARNING, "ignoring usb device %s (%s)", (*device)->desc,
                        (*device)->driver);
         } else if (FL_NOSTORAGE(flags) && 
                    (((*device)->type == CLASS_SCSI) || 
                     ((*device)->type == CLASS_IDE) ||
                     ((*device)->type == CLASS_RAID))) {
-            logMessage("ignoring storage device %s (%s)", (*device)->desc,
-                       (*device)->driver);
+            logMessage(WARNING, "ignoring storage device %s (%s)",
+                       (*device)->desc, (*device)->driver);
         } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
-            logMessage("ignoring network device %s (%s)", (*device)->desc,
-                       (*device)->driver);
+            logMessage(WARNING, "ignoring network device %s (%s)",
+                       (*device)->desc, (*device)->driver);
         } else if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
             && strcmp (driver, "disabled")) {
             modList[numMods++] = strdup(driver);
@@ -136,31 +136,31 @@ int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_TESTING(flags)) return 0;
 
-    logMessage("looking for video cards requiring agpgart module");
+    logMessage(INFO, "looking for video cards requiring agpgart module");
     
     devices = probeDevices(CLASS_VIDEO, BUS_UNSPEC, 0);
     
     if (!devices) {
-        logMessage("no video cards found");
+        logMessage(WARNING, "no video cards found");
         return 0;
     }
 
     /* loop thru cards, see if we need agpgart */
     for (i=0; devices[i]; i++) {
         p = devices[i];
-        logMessage("found video card controller %s", p->driver);
+        logMessage(INFO, "found video card controller %s", p->driver);
         
         /* HACK - need to have list of cards which match!! */
         /* JKFIXME: verify this is really still needed */
         if (!strcmp(p->driver, "Card:Intel 810") ||
             !strcmp(p->driver, "Card:Intel 815")) {
-            logMessage("found %s card requiring agpgart, loading module",
+            logMessage(INFO, "found %s card requiring agpgart, loading module",
                        p->driver+5);
             
             if (mlLoadModuleSetLocation("agpgart", modLoaded, modDeps, 
 					modInfo, flags, 
 					secondStageModuleLocation)) {
-                logMessage("failed to insert agpgart module");
+                logMessage(ERROR, "failed to insert agpgart module");
                 return 1;
             } else {
                 /* only load it once! */
@@ -178,21 +178,21 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_TESTING(flags)) return 0;
 
-    logMessage("looking for scsi tape devices");
+    logMessage(INFO, "looking for scsi tape devices");
     
     devices = probeDevices(CLASS_TAPE, BUS_SCSI, 0);
     
     if (!devices) {
-        logMessage("no scsi tape devices found");
+        logMessage(WARNING, "no scsi tape devices found");
         return 0;
     }
 
-    logMessage("scsi tape device(s) found, loading st.ko");
+    logMessage(INFO, "scsi tape device(s) found, loading st.ko");
 
     if (mlLoadModuleSetLocation("st", modLoaded, modDeps, 
 				modInfo, flags, 
 				secondStageModuleLocation)) {
-	logMessage("failed to insert st module");
+	logMessage(ERROR, "failed to insert st module");
 	return 1;
     }
     
@@ -210,11 +210,11 @@ void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
 #endif
     if (FL_NOPARPORT(flags)) return;
     
-    logMessage("loading parallel port drivers...");
+    logMessage(INFO, "loading parallel port drivers...");
     if (mlLoadModuleSetLocation("parport_pc", modLoaded, modDeps, 
 				modInfo, flags,
 				secondStageModuleLocation)) {
-        logMessage("failed to load parport_pc module");
+        logMessage(ERROR, "failed to load parport_pc module");
         return;
     }
 }
@@ -260,7 +260,7 @@ int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded,
     
     for (i=0; i < argc; i++) {
         if (!strncasecmp(argv[i], "driverload=", 11)) {
-            logMessage("loading %s early", argv[i] + 11);
+            logMessage(INFO, "loading %s early", argv[i] + 11);
             mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo, flags);
         }
     }
@@ -283,7 +283,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     if (canProbeDevices()) {
         /* autodetect whatever we can */
         if (detectHardware(modInfo, &modList, flags)) {
-            logMessage("failed to scan pci bus!");
+            logMessage(ERROR, "failed to scan pci bus!");
             return 0;
         } else if (modList && justProbe) {
             for (i = 0; modList[i]; i++)
@@ -300,7 +300,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
             startPcmciaDevices(modLoaded, flags);
         } else 
-            logMessage("found nothing");
+            logMessage(INFO, "found nothing");
     }
     
     return 0;
@@ -343,15 +343,16 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
         devMakeInode(devices[i]->device, "/tmp/cdrom");
         fd = open("/tmp/cdrom", O_RDONLY|O_NONBLOCK);
         if (fd == -1) {
-            logMessage("failed to open /tmp/cdrom: %s", strerror(errno));
+            logMessage(ERROR, "failed to open /tmp/cdrom: %s", strerror(errno));
             unlink("/tmp/cdrom");
             continue;
         }
         if (ioctl(fd, HDIO_SET_DMA, 0) == -1)
-            logMessage("failed to disable dma for %s: %s", devices[i]->device,
-                       strerror(errno));
+            logMessage(ERROR, "failed to disable dma for %s: %s",
+                       devices[i]->device, strerror(errno));
         else
-            logMessage("disabled DMA for CD devices %s", devices[i]->device);
+            logMessage(WARNING, "disabled DMA for CD devices %s",
+                       devices[i]->device);
         close(fd);
         unlink("/tmp/cdrom");
     }

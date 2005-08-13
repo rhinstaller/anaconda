@@ -114,19 +114,19 @@ int ourInsmodCommand(int argc, char ** argv) {
     free(ballPath);
 
     if (stat(file, &sb) == -1) {
-        logMessage("unable to stat file %s: %s", file, strerror(errno));
+        logMessage(ERROR, "unable to stat file %s: %s", file, strerror(errno));
         return 1;
     }
 
     fd = open(file, O_RDONLY);
     if (fd < 0) {
-        logMessage("unable to open file %s: %s", file, strerror(errno));
+        logMessage(ERROR, "unable to open file %s: %s", file, strerror(errno));
         return 1;
     }
 
     modbuf = mmap(0, sb.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
     if (modbuf == NULL) {
-        logMessage("error reading file %s: %s", file, strerror(errno));
+        logMessage(ERROR, "error reading file %s: %s", file, strerror(errno));
         return 1;
     }
 
@@ -137,7 +137,7 @@ int ourInsmodCommand(int argc, char ** argv) {
         rc = init_module(modbuf, sb.st_size, "");
     }
     if (rc != 0)
-        logMessage("failed to insert module (%d)", errno);
+        logMessage(ERROR, "failed to insert module (%d)", errno);
     return rc;
 }
 

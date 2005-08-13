@@ -97,7 +97,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	return LOADER_ERROR;
     }
 
-    logMessage("%d keymaps are available", hdr.numEntries);
+    logMessage(INFO, "%d keymaps are available", hdr.numEntries);
 
     i = hdr.numEntries * sizeof(*infoTable);
     infoTable = alloca(i);
@@ -135,8 +135,8 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 
     for (i = 0; i < num; i++) {
 	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
-	    logMessage("error reading %d bytes from file: %s", 
-			    infoTable[i].size, strerror(errno));
+	    logMessage(ERROR, "error reading %d bytes from file: %s", 
+		       infoTable[i].size, strerror(errno));
 	    gunzip_close(f);
 	    rc = LOADER_ERROR;
 	}
@@ -165,7 +165,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
                           char ** argv, int * flagsPtr) {
     if (argc < 2) {
-        logMessage("no argument passed to keyboard kickstart command");
+        logMessage(ERROR, "no argument passed to keyboard kickstart command");
         return;
     }
 

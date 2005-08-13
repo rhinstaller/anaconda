@@ -128,14 +128,14 @@ static int waitForLink(char * dev) {
     /* try to wait for a valid link -- if the status is unknown or
      * up continue, else sleep for 1 second and try again for up
      * to five times */
-    logMessage("waiting for link...");
+    logMessage(INFO, "waiting for link...");
     while (tries < num_link_checks) {
       if (get_link_status(dev) != 0)
             break;
         sleep(1);
         tries++;
     }
-    logMessage("%d seconds.", tries);
+    logMessage(INFO, "%d seconds.", tries);
     if (tries < num_link_checks)
         return 0;
     return 1;
@@ -159,7 +159,7 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
             else if (!strncmp(option + 7, "half", 4))
                 duplex = ETHTOOL_DUPLEX_HALF;
             else
-                logMessage("Unknown duplex setting: %s", option + 7);
+                logMessage(WARNING, "Unknown duplex setting: %s", option + 7);
             option = strtok(NULL, " ");
         } else if (!strncmp("speed", option, 5)) {
             if (!strncmp(option + 6, "1000", 4))
@@ -169,10 +169,10 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
             else if (!strncmp(option + 6, "10", 2))
                 speed = ETHTOOL_SPEED_10;
             else
-                logMessage("Unknown speed setting: %s", option + 6);
+                logMessage(WARNING, "Unknown speed setting: %s", option + 6);
             option = strtok(NULL, " ");
         } else {
-            logMessage("Unknown ethtool setting: %s", option);
+            logMessage(WARNING, "Unknown ethtool setting: %s", option);
         }
         option = strtok(NULL, " ");
     }
@@ -285,17 +285,17 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 }
 
 void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
-    logMessage("loaderData->ipinfo_set = %d", loaderData->ipinfo_set);
-    logMessage("loaderData->ip         = %s", loaderData->ip);
-    logMessage("loaderData->netmask    = %s", loaderData->netmask);
-    logMessage("loaderData->gateway    = %s", loaderData->gateway);
-    logMessage("loaderData->dns        = %s", loaderData->dns);
-    logMessage("loaderData->hostname   = %s", loaderData->hostname);
-    logMessage("loaderData->noDns      = %d", loaderData->noDns);
-    logMessage("loaderData->netDev_set = %d", loaderData->netDev_set);
-    logMessage("loaderData->netDev     = %s", loaderData->netDev);
-    logMessage("loaderData->netCls_set = %d", loaderData->netCls_set);
-    logMessage("loaderData->netCls     = %s", loaderData->netCls);
+    logMessage(DEBUGLVL, "loaderData->ipinfo_set = %d", loaderData->ipinfo_set);
+    logMessage(DEBUGLVL, "loaderData->ip         = %s", loaderData->ip);
+    logMessage(DEBUGLVL, "loaderData->netmask    = %s", loaderData->netmask);
+    logMessage(DEBUGLVL, "loaderData->gateway    = %s", loaderData->gateway);
+    logMessage(DEBUGLVL, "loaderData->dns        = %s", loaderData->dns);
+    logMessage(DEBUGLVL, "loaderData->hostname   = %s", loaderData->hostname);
+    logMessage(DEBUGLVL, "loaderData->noDns      = %d", loaderData->noDns);
+    logMessage(DEBUGLVL, "loaderData->netDev_set = %d", loaderData->netDev_set);
+    logMessage(DEBUGLVL, "loaderData->netDev     = %s", loaderData->netDev);
+    logMessage(DEBUGLVL, "loaderData->netCls_set = %d", loaderData->netCls_set);
+    logMessage(DEBUGLVL, "loaderData->netCls     = %s", loaderData->netCls);
 }
 
 /* given loader data from kickstart, populate network configuration struct */
@@ -317,11 +317,12 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     if (loaderData->ip) {
         if (is_wireless_interface(loaderData->netDev)) {
             if (loaderData->essid) {
-                logMessage("setting specified essid of %s", loaderData->essid);
+                logMessage(INFO, "setting specified essid of %s",
+                           loaderData->essid);
                 cfg->essid = strdup(loaderData->essid);
             }
             if (loaderData->wepkey) {
-                logMessage("setting specified wepkey");
+                logMessage(INFO, "setting specified wepkey");
                 cfg->wepkey = strdup(loaderData->wepkey);
             }
             /* go ahead and set up the wireless interface in case 
@@ -335,7 +336,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
              * be broken out into a function too */
-            logMessage("sending dhcp request through device %s", loaderData->netDev);
+            logMessage(INFO, "sending dhcp request through device %s",
+                       loaderData->netDev);
 
             if (!FL_CMDLINE(flags)) {
                 startNewt(flags);
@@ -358,7 +360,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 newtPopWindow();
 
             if (chptr) {
-                logMessage("pump told us: %s", chptr);
+                logMessage(INFO, "pump told us: %s", chptr);
                 return;
             }
             
@@ -395,16 +397,17 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 (inet_aton(c,&addr))) {
              cfg->dev.dnsServers[cfg->dev.numDns] = addr;
              cfg->dev.numDns++;
-             logMessage("adding %s", inet_ntoa(addr));
+             logMessage(INFO, "adding %s", inet_ntoa(addr));
              c = strtok(NULL, ",");
          }
-         logMessage("dnsservers is %s", loaderData->dns);
+         logMessage(INFO, "dnsservers is %s", loaderData->dns);
          if (cfg->dev.numDns)
              cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
     }
 
     if (loaderData->hostname) {
-        logMessage("setting specified hostname of %s", loaderData->hostname);
+        logMessage(INFO, "setting specified hostname of %s",
+                   loaderData->hostname);
         cfg->dev.hostname = strdup(loaderData->hostname);
         cfg->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
     }
@@ -456,7 +459,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
     if (!FL_TESTING(flags) && cfg->preset) {
-        logMessage("doing kickstart... setting it up");
+        logMessage(INFO, "doing kickstart... setting it up");
         configureNetwork(cfg);
         findHostAndDomain(cfg, flags);
 
@@ -466,7 +469,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }        
 
     if (is_wireless_interface(device)) {
-        logMessage("%s is a wireless adaptor", device);
+        logMessage(INFO, "%s is a wireless adaptor", device);
         if (getWirelessConfig(cfg, device) == LOADER_BACK)
             return LOADER_BACK;
         /* FIXME: this is a bit of a hack */
@@ -474,7 +477,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         newCfg.essid = cfg->essid;
         newCfg.wepkey = cfg->wepkey;
     }
-    else         logMessage("%s isn't a wireless adaptor", device);
+    else
+        logMessage(INFO, "%s isn't a wireless adaptor", device);
 
     text = newtTextboxReflowed(-1, -1, 
                 _("Please enter the IP configuration for this machine. Each "
@@ -606,14 +610,14 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             if (!chptr) {
                 newCfg.isDynamic = 1;
                 if (!(newCfg.dev.set & PUMP_NETINFO_HAS_DNS)) {
-                    logMessage("pump worked, but didn't return a DNS server");
+                    logMessage(WARNING, "pump worked, but didn't return a DNS server");
                     i = getDnsServers(&newCfg);
                     i = i ? 0 : 2;
                 } else {
                     i = 2; 
                 }
             } else {
-                logMessage("pump told us: %s", chptr);
+                logMessage(INFO, "pump told us: %s", chptr);
                 i = 0;
             }
         }
@@ -657,14 +661,15 @@ static int setupWireless(struct networkDeviceConfig *dev) {
         return 0;
 
     if (dev->essid) {
-        logMessage("setting essid for %s to %s", dev->dev.device, dev->essid);
+        logMessage(INFO, "setting essid for %s to %s", dev->dev.device,
+                   dev->essid);
         if (set_essid(dev->dev.device, dev->essid) < 0) {
-            logMessage("failed to set essid: %s", strerror(errno));
+            logMessage(ERROR, "failed to set essid: %s", strerror(errno));
         }
         if (dev->wepkey) {
-            logMessage("setting encryption key for %s", dev->dev.device);
+            logMessage(INFO, "setting encryption key for %s", dev->dev.device);
             if (set_wep_key(dev->dev.device, dev->wepkey) < 0) {
-                logMessage("failed to set wep key: %s", strerror(errno));
+                logMessage(ERROR, "failed to set wep key: %s", strerror(errno));
         }
 
         }
@@ -681,7 +686,7 @@ char * setupInterface(struct networkDeviceConfig *dev) {
 char * doDhcp(char * ifname, 
               struct networkDeviceConfig *dev, char * dhcpclass) {
     setupWireless(dev);
-    logMessage("running dhcp for %s", ifname);
+    logMessage(INFO, "running dhcp for %s", ifname);
     return pumpDhcpClassRun(ifname, 0, 0, NULL, 
                             dhcpclass ? dhcpclass : "anaconda", 
                             &dev->dev, NULL);
@@ -694,7 +699,7 @@ int configureNetwork(struct networkDeviceConfig * dev) {
 
     rc = setupInterface(dev);
     if (rc)
-	logMessage("result of pumpSetupInterface is %s", rc);
+	logMessage(INFO, "result of pumpSetupInterface is %s", rc);
 
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
@@ -776,7 +781,7 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 
     f = fopen(filename, "w");
     if (!f) {
-        logMessage("Cannot create %s: %s\n", filename, strerror(errno));
+        logMessage(ERROR, "Cannot create %s: %s\n", filename, strerror(errno));
         return LOADER_ERROR;
     }
 
@@ -801,7 +806,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     }
 
     if (dev->dev.numDns == 0) {
-        logMessage("no DNS servers, can't look up hostname");
+        logMessage(ERROR, "no DNS servers, can't look up hostname");
         return 1;
     }
 
@@ -818,11 +823,11 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
             newtPopWindow();
 
         if (!name) {
-            logMessage("reverse name lookup failed");
+            logMessage(ERROR, "reverse name lookup failed");
             return 1;
         }
 
-        logMessage("reverse name lookup worked");
+        logMessage(INFO, "reverse name lookup worked");
 
         dev->dev.hostname = strdup(name);
         dev->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
@@ -975,7 +980,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
 
     devs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
     if (!devs) {
-        logMessage("no network devices in choose network device!");
+        logMessage(ERROR, "no network devices in choose network device!");
         return LOADER_ERROR;
     }
 
@@ -1028,32 +1033,32 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
 
     /* ASSERT: we should *ALWAYS* have a network device when we get here */
     if (!deviceNums) {
-        logMessage("ASSERT: no network device in chooseNetworkInterface");
+        logMessage(CRITICAL, "no network device in chooseNetworkInterface");
         return LOADER_ERROR;
     }
 
     /* JKFIXME: if we only have one interface and it doesn't have link,
      * do we go ahead? */
     if (deviceNums == 1) {
-        logMessage("only have one network device: %s", devices[0]);
+        logMessage(INFO, "only have one network device: %s", devices[0]);
         loaderData->netDev = devices[0];
         return LOADER_NOOP;
     }
 
     if ((loaderData->netDev && (loaderData->netDev_set) == 1) &&
         !strcmp(loaderData->netDev, "link")) {
-        logMessage("looking for first netDev with link");
+        logMessage(INFO, "looking for first netDev with link");
         for (rc = 0; rc < 5; rc++) {
             for (i = 0; i < deviceNums; i++) {
                 if (get_link_status(devices[i]) == 1) {
                     loaderData->netDev = devices[i];
-                    logMessage("%s has link, using it", devices[i]);
+                    logMessage(INFO, "%s has link, using it", devices[i]);
                     return LOADER_NOOP;
                 }
             }
             sleep(1);
         }
-        logMessage("wanted netdev with link, but none present.  prompting");
+        logMessage(WARNING, "wanted netdev with link, but none present.  prompting");
     }
 
     startNewt(flags);
@@ -1105,7 +1110,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         
         if (rc == LOADER_ERROR) {
             /* JKFIXME: ask for a driver disk? */
-            logMessage("no network drivers for doing kickstart");
+            logMessage(ERROR, "no network drivers for doing kickstart");
             return -1;
         } else if (rc == LOADER_BACK) {
             return -1;
@@ -1134,7 +1139,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls, 
                        flags);
     if ((rc == LOADER_BACK) || (rc == LOADER_ERROR)) {
-        logMessage("unable to setup networking");
+        logMessage(ERROR, "unable to setup networking");
         return -1;
     }
 

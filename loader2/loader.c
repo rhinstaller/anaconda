@@ -228,7 +228,7 @@ static void initializeTtys(void) {
 		ioctl(fd, VT_WAITACTIVE, n);
 	    close(fd);
 	} else
-	    logMessage("failed to initialize %s", dev);
+	    logMessage(ERROR, "failed to initialize %s", dev);
     }
 }
 
@@ -236,10 +236,10 @@ static void spawnShell(int flags) {
     pid_t pid;
 
     if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
-        logMessage("not spawning a shell");
+        logMessage(ERROR, "not spawning a shell");
         return;
     } else if (access("/bin/sh",  X_OK))  {
-        logMessage("cannot open shell - /bin/sh doesn't exist");
+        logMessage(ERROR, "cannot open shell - /bin/sh doesn't exist");
         return;
     }
 
@@ -248,7 +248,7 @@ static void spawnShell(int flags) {
 
     	fd = open("/dev/tty2", O_RDWR|O_NOCTTY);
     	if (fd < 0) {
-            logMessage("cannot open /dev/tty2 -- no shell will be provided");
+            logMessage(ERROR, "cannot open /dev/tty2 -- no shell will be provided");
 	    return;
 	}
 
@@ -265,7 +265,7 @@ static void spawnShell(int flags) {
 	isysLoadFont();
 	
         if (ioctl(0, TIOCSCTTY, NULL)) {
-            logMessage("could not set new controlling tty");
+            logMessage(ERROR, "could not set new controlling tty");
         }
         
         signal(SIGINT, SIG_DFL);
@@ -275,7 +275,7 @@ static void spawnShell(int flags) {
 	setenv("LANG", "C", 1);
         
         execl("/bin/sh", "-/bin/sh", NULL);
-        logMessage("exec of /bin/sh failed: %s", strerror(errno));
+        logMessage(CRITICAL, "exec of /bin/sh failed: %s", strerror(errno));
         exit(1);
     }
 
@@ -322,7 +322,7 @@ void loadUpdates(int flags) {
         if (rc == 2)
             return;
 
-        logMessage("UPDATES device is %s", device);
+        logMessage(INFO, "UPDATES device is %s", device);
 
         devMakeInode(device, "/tmp/upd.disk");
         if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 1, 0, 
@@ -355,7 +355,7 @@ static void checkForHardDrives(int * flagsPtr) {
     /* If they're using kickstart, assume they might know what they're doing.
      * Worst case is we fail later */
     if (FL_KICKSTART(flags)) {
-        logMessage("no hard drives found, but in kickstart so continuing anyway");
+        logMessage(WARNING, "no hard drives found, but in kickstart so continuing anyway");
         return;
     }
     
@@ -518,7 +518,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
     for (i=0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert")) {
             flags |= LOADER_FLAGS_EXPERT;
-            logMessage("expert got used, ignoring");
+            logMessage(INFO, "expert got used, ignoring");
             /*            flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
                           LOADER_FLAGS_ASKMETHOD);*/
         } else if (!strcasecmp(argv[i], "askmethod"))
@@ -645,8 +645,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 numExtraArgs = numExtraArgs + 1;
         
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
-                    logMessage("Too many command line arguments (max allowed is %d), "
-                               "rest will be dropped.", MAX_EXTRA_ARGS);
+                    logMessage(WARNING, "Too many command line arguments (max "
+                               "allowed is %d), rest will be dropped.",
+                               MAX_EXTRA_ARGS);
                 }
 	    }
 	}
@@ -800,7 +801,7 @@ static char *doLoaderMain(char * location,
                 /* JKFIXME: this is broken -- we should tell of the 
                  * failure; best by pulling code out in kbd.c to use */
                 if (isysLoadKeymap(loaderData->kbd)) {
-                    logMessage("requested keymap %s is not valid, asking", loaderData->kbd);
+                    logMessage(WARNING, "requested keymap %s is not valid, asking", loaderData->kbd);
                     loaderData->kbd = NULL;
                     loaderData->kbd_set = 0;
                     break;
@@ -944,7 +945,7 @@ static char *doLoaderMain(char * location,
                 step = STEP_DRIVER;
                 break;
             }
-            logMessage("need to set up networking");
+            logMessage(INFO, "need to set up networking");
 
             initLoopback();
             memset(&netDev, 0, sizeof(netDev));
@@ -952,7 +953,7 @@ static char *doLoaderMain(char * location,
             
             /* fall through to interface selection */
         case STEP_IFACE:
-            logMessage("going to pick interface");
+            logMessage(INFO, "going to pick interface");
             rc = chooseNetworkInterface(loaderData, flags);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
@@ -971,7 +972,7 @@ static char *doLoaderMain(char * location,
                 break;
             }
 
-            logMessage("going to do getNetConfig");
+            logMessage(INFO, "going to do getNetConfig");
 	    /* populate netDev based on any kickstart data */
 	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
@@ -988,7 +989,7 @@ static char *doLoaderMain(char * location,
             dir = 1;
             
         case STEP_URL:
-            logMessage("starting to STEP_URL");
+            logMessage(INFO, "starting to STEP_URL");
 	    /* if we found a CD already short circuit out */
 	    /* we get this case when we're doing a VNC install from CD */
 	    /* and we didnt short circuit earlier because we had to */
@@ -1004,7 +1005,7 @@ static char *doLoaderMain(char * location,
                 step = STEP_IP ;
                 dir = -1;
             } else {
-                logMessage("got url %s", url);
+                logMessage(INFO, "got url %s", url);
                 step = STEP_DONE;
                 dir = 1;
             }
@@ -1279,7 +1280,7 @@ int main(int argc, char ** argv) {
     }
 
     if (!access("/dd.img", R_OK)) {
-        logMessage("found /dd.img, loading drivers");
+        logMessage(INFO, "found /dd.img, loading drivers");
         getDDFromSource(&loaderData, "path:/dd.img", flags);
     }
     
@@ -1311,7 +1312,7 @@ int main(int argc, char ** argv) {
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
      * kind of weird. */
     if (loaderData.ksFile || ksFile) {
-        logMessage("getting kickstart file");
+        logMessage(INFO, "getting kickstart file");
 
         if (!ksFile)
             getKickstartFile(&loaderData, &flags);
@@ -1342,7 +1343,7 @@ int main(int argc, char ** argv) {
      * (if we're using SELinux) */
     if (FL_SELINUX(flags)) {
         if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
-            logMessage("failed to mount /selinux: %s", strerror(errno));
+            logMessage(ERROR, "failed to mount /selinux: %s", strerror(errno));
         } else {
             /* FIXME: this is a bad hack for libselinux assuming things
              * about paths */
@@ -1351,13 +1352,13 @@ int main(int argc, char ** argv) {
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
             } else {
-                logMessage("failed to load policy, disabling SELinux");
+                logMessage(ERROR, "failed to load policy, disabling SELinux");
                 flags &= ~LOADER_FLAGS_SELINUX;
             }
         }
     }
 
-    logMessage("getting ready to spawn shell now");
+    logMessage(INFO, "getting ready to spawn shell now");
     
     spawnShell(flags);  /* we can attach gdb now :-) */
 
@@ -1412,7 +1413,7 @@ int main(int argc, char ** argv) {
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
     if (!strncmp(url, "nfs:", 4)) {
-        logMessage("NFS install method detected, will use RHupdates/");
+        logMessage(INFO, "NFS install method detected, will use RHupdates/");
         useRHupdates = 1;
     } else {
         useRHupdates = 0;
@@ -1449,7 +1450,7 @@ int main(int argc, char ** argv) {
     if (access("/tmp/updates", F_OK))
 	mkdirChain("/tmp/updates");
 
-    logMessage("Running anaconda script %s", *(argptr-1));
+    logMessage(INFO, "Running anaconda script %s", *(argptr-1));
     
     *argptr++ = "-m";
     if (strncmp(url, "ftp:", 4)) {
@@ -1469,7 +1470,7 @@ int main(int argc, char ** argv) {
     while (*tmparg) {
         char *idx;
         
-        logMessage("adding extraArg %s", *tmparg);
+        logMessage(INFO, "adding extraArg %s", *tmparg);
         idx = strchr(*tmparg, '=');
         if (idx &&  ((idx-*tmparg) < strlen(*tmparg))) {
             *idx = '\0';
@@ -1584,7 +1585,7 @@ int main(int argc, char ** argv) {
         FILE * f;
         f = fopen("/var/run/init.pid", "r");
         if (!f) {
-            logMessage("can't find init.pid, guessing that init is pid 1");
+            logMessage(WARNING, "can't find init.pid, guessing that init is pid 1");
             pid = 1;
         } else {
             char * buf = malloc(256);

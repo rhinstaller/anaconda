@@ -89,7 +89,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
         if (es.reason  == NEWT_EXIT_COMPONENT && es.u.co == back) {
             done = -1;
         } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F1) {
-            logMessage("need to pop up 'help' with module options here");
+            logMessage(WARNING, "need to pop up 'help' with module options here");
             /* JKFIXME: ^^^ */
         } else {
             done = 1;
@@ -104,7 +104,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
 
         return LOADER_BACK;
     }
-    logMessage("specified args of %s for %s", argsEntry, mod->moduleName);
+    logMessage(INFO, "specified args of %s for %s", argsEntry, mod->moduleName);
 
     if (strlen(argsEntry) > 0) {
         int numAlloced = 5;
@@ -164,7 +164,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
     else if (class == CLASS_UNSPEC)
         type = DRIVER_ANY;
     else {
-        logMessage("unknown device class %d specified; aborting manual "
+        logMessage(ERROR, "unknown device class %d specified; aborting manual "
                    "selection", class);
         return LOADER_ERROR;
     }

@@ -41,20 +41,20 @@ char * getPcicController() {
  
         devices = probeDevices(CLASS_SOCKET, BUS_PCI, 0);
         if (devices) {
-            logMessage("found cardbus pci adapter");
+            logMessage(INFO, "found cardbus pci adapter");
             pcic = "yenta_socket";
         } else {
             devices = probeDevices(CLASS_SOCKET, BUS_MISC, 0);
             if (devices && strcmp (devices[0]->driver, "ignore") &&
                 strcmp(devices[0]->driver, "unknown") && 
                 strcmp(devices[0]->driver, "disabled")) {
-                logMessage("found pcmcia adapter");
+                logMessage(INFO, "found pcmcia adapter");
                 pcic = strdup(devices[0]->driver);
             }
         }
 
         if (!pcic) {
-            logMessage("no pcic controller found");
+            logMessage(WARNING, "no pcic controller found");
         }
         return pcic;
     } else {
@@ -149,13 +149,13 @@ int activate_pcmcia_device(struct pcmciaDevice *pdev) {
     int j, ret;
 
     if (has_pcmcia() <= 0) {
-        logMessage("pcmcia not loaded, can't activate module");  
+        logMessage(ERROR, "pcmcia not loaded, can't activate module");  
         return -1;
     }
 
     fd = open_sock(pdev->slot);
     if (fd < 0) {
-        logMessage("unable to open slot");
+        logMessage(ERROR, "unable to open slot");
         return -1;
     }
 
@@ -163,7 +163,7 @@ int activate_pcmcia_device(struct pcmciaDevice *pdev) {
     strcpy(bind->dev_info,pdev->driver);
     bind->function = pdev->function;
     if (ioctl(fd, DS_BIND_REQUEST, bind) == -1) {
-        logMessage("failed to activate pcmcia device");
+        logMessage(ERROR, "failed to activate pcmcia device");
         return LOADER_ERROR;
     }
 
@@ -175,7 +175,7 @@ int activate_pcmcia_device(struct pcmciaDevice *pdev) {
     }
 
     if (j >= 10) {
-        logMessage("activated, but unable to get device info");
+        logMessage(ERROR, "activated, but unable to get device info");
         return LOADER_ERROR;
     }
     
@@ -192,7 +192,7 @@ void startPcmciaDevices(moduleList modLoaded, int flags) {
 
     devices = probeDevices(CLASS_UNSPEC, BUS_PCMCIA, PROBE_LOADED);
     if (!devices) {
-        logMessage("no devices to activate");
+        logMessage(WARNING, "no devices to activate");
         return;
     }
 
@@ -206,7 +206,7 @@ void startPcmciaDevices(moduleList modLoaded, int flags) {
         if (!mlModuleInList(devices[i]->driver, modLoaded))
             continue;
         
-        logMessage("going to activate device using %s", devices[i]->driver);
+        logMessage(INFO, "going to activate device using %s", devices[i]->driver);
         activate_pcmcia_device((struct pcmciaDevice *)devices[i]);
     }
 }

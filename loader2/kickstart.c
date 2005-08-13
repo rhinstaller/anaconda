@@ -239,22 +239,22 @@ int kickstartFromFloppy(char *kssrc, int flags) {
     char *p, *kspath;
     int i, rc;
 
-    logMessage("doing kickstart from floppy");
+    logMessage(INFO, "doing kickstart from floppy");
     devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, PROBE_LOADED);
     if (!devices) {
-        logMessage("no floppy devices");
+        logMessage(ERROR, "no floppy devices");
         return 1;
     }
 
     for (i = 0; devices[i]; i++) {
         if (devices[i]->detached == 0) {
-            logMessage("first non-detached floppy is %s", devices[i]->device);
+            logMessage(INFO, "first non-detached floppy is %s", devices[i]->device);
             break;
         }
     }
 
     if (!devices[i] || (devices[i]->detached != 0)) {
-        logMessage("no floppy devices");
+        logMessage(ERROR, "no floppy devices");
         return 1;
     }
 
@@ -434,7 +434,7 @@ void runKickstart(struct loaderData_s * loaderData,
     int argc;
     char ** argv;
 
-    logMessage("setting up kickstart");
+    logMessage(INFO, "setting up kickstart");
     for (cmd = ksTable; cmd->name; cmd++) {
         if ((!ksGetCommand(cmd->code, NULL, &argc, &argv)) && cmd->setupData) {
             cmd->setupData(loaderData, argc, argv, flagsPtr);

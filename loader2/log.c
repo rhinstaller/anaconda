@@ -20,25 +20,57 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "log.h"
 
 static FILE * logfile = NULL;
 static FILE * logfile2 = NULL;
-static int loglevel = 10;
+static int minLevel = 10;
 
-void logMessage(const char * s, ...) {
-    /* JKFIXME: need to make this debugMessage and handle a level param */
-    /*    if (level > loglevel) 
-	  return;*/
+static void printLogHeader(int level, FILE *outfile) {
+    time_t current_time = time(NULL);
+    struct tm *t = gmtime (&current_time);
 
+    switch (level) {
+        case DEBUGLVL:
+            fprintf (outfile, "%02d:%02d:%02d DEBUG   : ", t->tm_hour,
+                     t->tm_min, t->tm_sec);
+            break;
+
+        case INFO:
+            fprintf (outfile, "%02d:%02d:%02d INFO    : ", t->tm_hour,
+                     t->tm_min, t->tm_sec);
+            break;
+
+        case WARNING:
+            fprintf (outfile, "%02d:%02d:%02d WARNING : ", t->tm_hour,
+                     t->tm_min, t->tm_sec);
+            break;
+
+        case ERROR:
+            fprintf (outfile, "%02d:%02d:%02d ERROR   : ", t->tm_hour,
+                     t->tm_min, t->tm_sec);
+            break;
+
+        case CRITICAL:
+            fprintf (outfile, "%02d:%02d:%02d CRITICAL: ", t->tm_hour,
+                     t->tm_min, t->tm_sec);
+            break;
+    }
+}
+
+void logMessage(int level, const char * s, ...) {
     va_list args;
+
+    if (level < minLevel) 
+        return;
 
     if (logfile) {
         va_start(args, s);
 
-        fprintf(logfile, "* ");
+        printLogHeader(level, logfile);
         vfprintf(logfile, s, args);
         fprintf(logfile, "\n");
         fflush(logfile);
@@ -49,7 +81,7 @@ void logMessage(const char * s, ...) {
     if (logfile2) {
         va_start(args, s);
 
-        fprintf(logfile2, "* ");
+        printLogHeader(level, logfile2);
         vfprintf(logfile2, s, args);
         fprintf(logfile2, "\n");
         fflush(logfile2);
@@ -58,6 +90,7 @@ void logMessage(const char * s, ...) {
     }
     return;
 }
+
 
 void openLog(int useLocal) {
     int flags, fd;
@@ -92,5 +125,5 @@ void closeLog(void) {
 
 /* set the level.  higher means you see more verbosity */
 void setLogLevel(int level) {
-    loglevel = level;
+    minLevel = level;
 }

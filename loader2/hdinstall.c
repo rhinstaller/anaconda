@@ -62,23 +62,23 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 	target = stg2list[idx];
 	sprintf(path, "%s/%s/%s/base/%s", prefix, dir ? dir : "", getProductPath(), target);
 
-	logMessage("Looking for hd stage2 image %s", path);
+	logMessage(INFO, "Looking for hd stage2 image %s", path);
 	if (!access(path, F_OK))
 	    break;
-	logMessage("%s does not exist: %s, trying next target", path, strerror(errno));
+	logMessage(WARNING, "%s does not exist: %s, trying next target", path, strerror(errno));
     }
 
     if (!(*target)) {
-	logMessage("failed to find hd stage 2 image%s: %s", path, strerror(errno));
+	logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
 	return 1;
     } 
 
-    logMessage("Found hd stage2");
+    logMessage(INFO, "Found hd stage2");
 
-    logMessage("Copying %s in RAM as stage 2", path);
+    logMessage(INFO, "Copying %s in RAM as stage 2", path);
 
     if ((fd = open(path, O_RDONLY)) < 0) {
-	logMessage("failed to open %s: %s", path, strerror(errno));
+	logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
 	return 1;
     } 
 
@@ -127,24 +127,24 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 	target = stg2list[idx];
 	sprintf(path, "%s/%s/%s/base/%s", prefix, dir ? dir : "", getProductPath(), target);
 
-	logMessage("Looking for hd stage2 image %s", path);
+	logMessage(INFO, "Looking for hd stage2 image %s", path);
 	if (!access(path, F_OK))
 	    break;
-	logMessage("%s does not exist: %s, trying next target", path, strerror(errno));
+	logMessage(WARNING, "%s does not exist: %s, trying next target", path, strerror(errno));
     }
 
     if (!(*target)) {
-	logMessage("failed to find hd stage 2 image%s: %s", path, strerror(errno));
+	logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
 	return 1;
     } 
 
-    logMessage("Found hd stage2");
+    logMessage(INFO, "Found hd stage2");
 
-    logMessage("Mounting %s on loop %s as mntpoint %s", path, device, mntpoint);
+    logMessage(INFO, "Mounting %s on loop %s as mntpoint %s", path, device, mntpoint);
     rc = mountLoopback(path, mntpoint, device);
 
     if (rc) {
-	logMessage("Unable to mount hdstage2 loopback");
+	logMessage(ERROR, "Unable to mount hdstage2 loopback");
 	return rc;
     }
 
@@ -181,11 +181,11 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
     char *typetry[] = {"ext2", "vfat", NULL};
     char **type;
 
-    logMessage("mounting device %s for hard drive install", device);
+    logMessage(INFO, "mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
 	if (devMakeInode(device, "/tmp/hddev"))
-	    logMessage("devMakeInode failed!");
+	    logMessage(WARNING, "devMakeInode failed!");
 
 	/* XXX try to mount as ext2 and then vfat */
 	for (type=typetry; *type; type++) {
@@ -201,10 +201,10 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	if ((path = validIsoImages(filespec, 0))) {
 	    char updpath[4096];
 
-	    logMessage("Path to valid iso is %s", path);
+	    logMessage(INFO, "Path to valid iso is %s", path);
 
 	    snprintf(updpath, sizeof(updpath), "%s/updates.img", filespec);
-	    logMessage("Looking for updates for HD in %s", updpath);
+	    logMessage(INFO, "Looking for updates for HD in %s", updpath);
 	    copyUpdatesImg(updpath);
 	    
 	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
@@ -278,7 +278,7 @@ char * mountHardDrive(struct installMethod * method,
 	
 	kspartition = ((struct hdInstallData *)loaderData->methodData)->partition;
 	ksdirectory = ((struct hdInstallData *)loaderData->methodData)->directory;
-	logMessage("partition  is %s, dir is %s", kspartition, ksdirectory);
+	logMessage(INFO, "partition  is %s, dir is %s", kspartition, ksdirectory);
 
 	/* if exist, duplicate */
 	if (kspartition)
@@ -287,7 +287,7 @@ char * mountHardDrive(struct installMethod * method,
 	    ksdirectory = strdup(ksdirectory);
 
 	if (!kspartition || !ksdirectory) {
-	    logMessage("missing partition or directory specification");
+	    logMessage(ERROR, "missing partition or directory specification");
 	    free(loaderData->method);
 	    loaderData->method = NULL;
 	} else {
@@ -298,7 +298,7 @@ char * mountHardDrive(struct installMethod * method,
 
 	    url = setupIsoImages(kspart, ksdirectory, flags);
 	    if (!url) {
-		logMessage("unable to find %s installation images on hd",getProductName());
+		logMessage(ERROR, "unable to find %s installation images on hd",getProductName());
 		free(loaderData->method);
 		loaderData->method = NULL;
 	    } else {
@@ -428,7 +428,7 @@ char * mountHardDrive(struct installMethod * method,
 	    continue;
 	}
 
-	logMessage("partition %s selected", selpart);
+	logMessage(INFO, "partition %s selected", selpart);
 	
 	url = setupIsoImages(selpart + 5, dir, flags);
 	if (!url) {
@@ -463,7 +463,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     };
   
 
-    logMessage("kickstartFromHD");
+    logMessage(INFO, "kickstartFromHD");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         startNewt(*flagsPtr);
@@ -480,13 +480,13 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
 
         p = strchr(biospart,'p');
         if(!p){
-            logMessage("Bad argument for --biospart");
+            logMessage(ERROR, "Bad argument for --biospart");
             return;
         }
         *p = '\0';
         dev = getBiosDisk(biospart);
         if (dev == NULL) {
-            logMessage("Unable to location BIOS partition %s", biospart);
+            logMessage(ERROR, "Unable to location BIOS partition %s", biospart);
             return;
         }
         partition = malloc(strlen(dev) + strlen(p + 1) + 2);
@@ -500,14 +500,15 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     if (dir)
         ((struct hdInstallData *)loaderData->methodData)->directory = dir;
 
-    logMessage("results of hd ks, partition is %s, dir is %s", partition, dir);
+    logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
+               dir);
 }
 
 int kickstartFromHD(char *kssrc, int flags) {
     int rc;
     char *p, *q = NULL, *tmpstr, *ksdev, *kspath;
 
-    logMessage("getting kickstart file from harddrive");
+    logMessage(INFO, "getting kickstart file from harddrive");
 
     /* format is ks=hd:[device]:/path/to/ks.cfg */
     /* split of pieces */
@@ -522,7 +523,7 @@ int kickstartFromHD(char *kssrc, int flags) {
 	q = strchr(p+1, '/');
 
     if (!p || !q) {
-	logMessage("Format of command line is ks=hd:[device]:/path/to/ks.cfg");
+	logMessage(WARNING, "Format of command line is ks=hd:[device]:/path/to/ks.cfg");
 	free(tmpstr);
 	return 1;
     }
@@ -531,7 +532,7 @@ int kickstartFromHD(char *kssrc, int flags) {
     ksdev = p+1;
     kspath = q+1;
 
-    logMessage("Loading ks from device %s on path %s", ksdev, kspath);
+    logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
 	if (rc == 3) {
 	    startNewt(flags);
@@ -549,7 +550,7 @@ int kickstartFromBD(char *kssrc, int flags) {
     int rc;
     char *p, *q = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
 
-    logMessage("getting kickstart file from biosdrive");
+    logMessage(INFO, "getting kickstart file from biosdrive");
 
     /* format is ks=bd:[device]:/path/to/ks.cfg */
     /* split of pieces */
@@ -559,7 +560,7 @@ int kickstartFromBD(char *kssrc, int flags) {
 	q = strchr(p+1, ':');
     
     if (!p || !q) {
-	logMessage("Format of command line is ks=bd:device:/path/to/ks.cfg");
+	logMessage(WARNING, "Format of command line is ks=bd:device:/path/to/ks.cfg");
 	free(tmpstr);
 	return 1;
     }
@@ -569,7 +570,7 @@ int kickstartFromBD(char *kssrc, int flags) {
 
     r = strchr(p+1,'p');
     if(!r){
-        logMessage("Format of biosdisk is 80p1");
+        logMessage(INFO, "Format of biosdisk is 80p1");
         free(tmpstr);
         return 1;
     }                                                          
@@ -587,7 +588,7 @@ int kickstartFromBD(char *kssrc, int flags) {
 
     ksdev = malloc(strlen(biosksdev) + 3);
     sprintf(ksdev, "%s%s", biosksdev, r + 1);
-    logMessage("Loading ks from device %s on path %s", ksdev, kspath);
+    logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
 	if (rc == 3) {
 	    startNewt(flags);

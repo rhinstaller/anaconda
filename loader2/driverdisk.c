@@ -59,7 +59,7 @@ static int verifyDriverDisk(char *mntpt, int flags) {
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
         sprintf(file, "%s/%s", mntpt, *fnPtr);
         if (access(file, R_OK)) {
-            logMessage("cannot find %s, bad driver disk", file);
+            logMessage(ERROR, "cannot find %s, bad driver disk", file);
             return LOADER_BACK;
         }
     }
@@ -67,10 +67,10 @@ static int verifyDriverDisk(char *mntpt, int flags) {
     /* check for both versions */
     sprintf(file, "%s/rhdd", mntpt);
     if (access(file, R_OK)) {
-        logMessage("not a new format driver disk, checking for old");
+        logMessage(WARNING, "not a new format driver disk, checking for old");
         sprintf(file, "%s/rhdd-6.1", mntpt);
         if (access(file, R_OK)) {
-            logMessage("can't find either driver disk identifier, bad "
+            logMessage(ERROR, "can't find either driver disk identifier, bad "
                        "driver disk");
         }
     }
@@ -184,7 +184,7 @@ int getRemovableDevices(char *** devNames) {
 
     /* JKFIXME: better error handling */
     if (!numDevices) {
-        logMessage("no devices found to load drivers from");
+        logMessage(ERROR, "no devices found to load drivers from");
         return numDevices;
     }
 
@@ -208,7 +208,7 @@ int getRemovableDevices(char *** devNames) {
     numDevices = i;
 
     for (i = 0; devices[i]; i++) {
-        logMessage("devices[%d] is %s", i, devices[i]->device);
+        logMessage(INFO, "devices[%d] is %s", i, devices[i]->device);
     }
 
     *devNames = malloc((numDevices + 1) * sizeof(*devNames));
@@ -218,7 +218,7 @@ int getRemovableDevices(char *** devNames) {
     (*devNames)[i] = NULL;
 
     if (i != numDevices)
-        logMessage("somehow numDevices != len(devices)");
+        logMessage(WARNING, "somehow numDevices != len(devices)");
 
     return numDevices;
 }
@@ -314,19 +314,19 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
         case DEV_CHOOSEFILE: {
             if (part == NULL) {
-                logMessage("somehow got to choosing file with a NULL part, going back");
+                logMessage(ERROR, "somehow got to choosing file with a NULL part, going back");
                 stage = DEV_PART;
                 break;
             }
             /* make sure nothing is mounted when we get here */
             num = umount("/tmp/dpart");
             if (num == -1) { 
-                logMessage("error unmounting: %s", strerror(errno));
+                logMessage(ERROR, "error unmounting: %s", strerror(errno));
                 if ((errno != EINVAL) && (errno != ENOENT))
                     exit(1);
             }
 
-            logMessage("trying to mount %s as partition", part);
+            logMessage(INFO, "trying to mount %s as partition", part);
             devMakeInode(part + 5, "/tmp/ddpart");
             if (doPwMount("/tmp/ddpart", "/tmp/dpart", "vfat", 1, 0, NULL, NULL, 0, 0)) {
                 if (doPwMount("/tmp/ddpart", "/tmp/dpart", "ext2", 1, 0, NULL, NULL, 0, 0)) {
@@ -357,7 +357,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
         case DEV_LOADFILE: {
             if(ddfile == NULL) {
-                logMessage("trying to load dd from NULL");
+                logMessage(INFO, "trying to load dd from NULL");
                 stage = DEV_CHOOSEFILE;
                 break;
             }
@@ -393,7 +393,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             dir = 1;
 
             devMakeInode(device, "/tmp/dddev");
-            logMessage("trying to mount %s", device);
+            logMessage(INFO, "trying to mount %s", device);
             if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0, 0)) {
               if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0, 0)) {
                 if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
@@ -537,7 +537,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
 static void loadFromLocation(struct loaderData_s * loaderData, 
                              char * dir, int flags) {
     if (verifyDriverDisk(dir, flags) == LOADER_BACK) {
-        logMessage("not a valid driver disk");
+        logMessage(ERROR, "not a valid driver disk");
         return;
     }
 
@@ -556,13 +556,13 @@ void getDDFromSource(struct loaderData_s * loaderData,
         unlinkf = 1;
         if (getFileFromNfs(src + 4, "/tmp/dd.img", loaderData, 
                            flags)) {
-            logMessage("unable to retrieve driver disk: %s", src);
+            logMessage(ERROR, "unable to retrieve driver disk: %s", src);
             return;
         }
     } else if (!strncmp(src, "ftp://", 6) || !strncmp(src, "http://", 7)) {
         unlinkf = 1;
         if (getFileFromUrl(src, "/tmp/dd.img", loaderData, flags)) {
-            logMessage("unable to retrieve driver disk: %s", src);
+            logMessage(ERROR, "unable to retrieve driver disk: %s", src);
             return;
         }
     /* FIXME: this is a hack so that you can load a driver disk from, eg, 
@@ -625,21 +625,21 @@ void useKickstartDD(struct loaderData_s * loaderData,
     dev = (char *) poptGetArg(optCon);
 
     if (!dev && !src) {
-        logMessage("bad arguments to kickstart driver disk command");
+        logMessage(ERROR, "bad arguments to kickstart driver disk command");
         return;
     }
 
     if (usebiosdev != 0) {
         p = strchr(dev,'p');
         if (!p){
-            logMessage("Bad argument for biospart");
+            logMessage(ERROR, "Bad argument for biospart");
             return;
         }
         *p = '\0';
         
         biospart = getBiosDisk(dev);
         if (biospart == NULL) {
-            logMessage("Unable to locate BIOS dev %s",dev);
+            logMessage(ERROR, "Unable to locate BIOS dev %s",dev);
             return;
         }
         dev = malloc(strlen(biospart) + strlen(p + 1) + 2);
@@ -659,13 +659,13 @@ static void getDDFromDev(struct loaderData_s * loaderData, char * dev,
     if (fstype) {
         if (doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 1, 0, 
                        NULL, NULL, 0, 0)) {
-            logMessage("unable to mount %s as %s", dev, fstype);
+            logMessage(ERROR, "unable to mount %s as %s", dev, fstype);
             return;
         }
     } else if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0, 0)) {
         if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0, 0)) {
             if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
-                logMessage("unable to mount driver disk %s", dev);
+                logMessage(ERROR, "unable to mount driver disk %s", dev);
                 return;
             }
         }

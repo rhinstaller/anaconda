@@ -53,7 +53,7 @@ char **getPartitionsList(char * disk) {
 
     f = fopen("/proc/partitions", "r");
     if (!f) {
-	logMessage("getPartitionsList: could not open /proc/partitions");
+	logMessage(ERROR, "getPartitionsList: could not open /proc/partitions");
 	return NULL;
     }
 

@@ -218,7 +218,8 @@ telnet_process_input(telnet_state * ts, char *data, int len) {
 	    break;
 
 	default:
-	    logMessage("unknown telnet state %d for data element %c", *ts, *s);
+	    logMessage(WARNING, "unknown telnet state %d for data element %c",
+                       *ts, *s);
 	    *ts = TS_DATA;
 	    break;
 	}

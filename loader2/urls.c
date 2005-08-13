@@ -69,7 +69,7 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
 	ui->protocol = URL_METHOD_HTTP;
 	url +=7;
     } else {
-	logMessage("unknown url protocol '%s'", url);
+	logMessage(ERROR, "unknown url protocol '%s'", url);
 	return -1;
     }
     
@@ -81,8 +81,8 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
     *url = '/';
     ui->prefix = strdup(url);
     
-    logMessage("url address %s", ui->address);
-    logMessage("url prefix %s", ui->prefix);
+    logMessage(INFO, "url address %s", ui->address);
+    logMessage(INFO, "url prefix %s", ui->prefix);
 
     return 0;
 }
@@ -155,7 +155,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     else
         finalPrefix = ui->prefix;
     
-    logMessage("transferring %s://%s/%s/%s to a fd",
+    logMessage(INFO, "transferring %s://%s/%s/%s to a fd",
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
                ui->address, finalPrefix, filename);
 

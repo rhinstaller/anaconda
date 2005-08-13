@@ -36,7 +36,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     devices = probeDevices(CLASS_FIREWIRE, BUS_PCI, 0);
 
     if (!devices) {
-	logMessage("no firewire controller found");
+	logMessage(WARNING, "no firewire controller found");
 	return 0;
     }
 
@@ -45,16 +45,16 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     /* JKFIXME: if we looked for all of them, we could batch this up and it
      * would be faster */
     for (i=0; devices[i]; i++) {
-        logMessage("found firewire controller %s", devices[i]->driver);
+        logMessage(INFO, "found firewire controller %s", devices[i]->driver);
 
         winStatus(40, 3, _("Loading"), _("Loading %s driver..."), 
                   devices[0]->driver);
 
         if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps,
                             modInfo, flags)) {
-            logMessage("failed to insert firewire module");
+            logMessage(ERROR, "failed to insert firewire module");
         } else {
-            found++;
+           found++;
         }
     }
 
@@ -65,18 +65,19 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     sleep(3);
 
-    logMessage("probing for firewire scsi devices");
+    logMessage(INFO, "probing for firewire scsi devices");
     devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, 0);
 
     if (!devices) {
-	logMessage("no firewire scsi devices found");
+	logMessage(WARNING, "no firewire scsi devices found");
         newtPopWindow();
 	return 0;
     }
 
     for (i=0;devices[i];i++) {
 	if ((devices[i]->detached == 0) && (devices[i]->driver != NULL)) {
- 	    logMessage("found firewire device using %s", devices[i]->device);
+ 	    logMessage(INFO, "found firewire device using %s",
+		       devices[i]->device);
 	    mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, 
 			    modInfo, flags);
 	}

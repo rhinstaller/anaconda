@@ -111,7 +111,7 @@ static void loadLanguageList(int flags) {
         if (sscanf(line, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\n",
                    name, key, font, code, keyboard, timezone) != 6) {
             printf("bad line %d in lang-table", lineNum);
-            logMessage("bad line %d in lang-table", lineNum);
+            logMessage(WARNING, "bad line %d in lang-table", lineNum);
         } else {
             languages[numLanguages].lang = strdup(name);
             languages[numLanguages].key = strdup(key);
@@ -213,7 +213,7 @@ static void setLangEnv (int i, int flags) {
 
     if (!strcmp(languages[i].font, "none"))
         return;
-    logMessage("setting language to %s", languages[i].lc_all);
+    logMessage(INFO, "setting language to %s", languages[i].lc_all);
 
     setenv("LANG", languages[i].lc_all, 1);
     setenv("LANGKEY", languages[i].key, 1);
@@ -226,7 +226,7 @@ static int setupLanguage(int choice, int flags) {
     char * buf;
     int i;
 
-    logMessage("going to set language to %s", languages[choice].lc_all);
+    logMessage(INFO, "going to set language to %s", languages[choice].lc_all);
     /* load the language only if it is displayable.  if they're using
      * a serial console or iSeries vioconsole, we hope it's smart enough */
     if ((!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
@@ -326,7 +326,7 @@ int setLanguage (char * key, int flags) {
         }
     }
 
-    logMessage("unable to set to requested language %s", key);
+    logMessage(ERROR, "unable to set to requested language %s", key);
     return -1;
 }
 
@@ -397,7 +397,7 @@ int chooseLanguage(char ** lang, int flags) {
 void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
                           char ** argv, int * flagsPtr) {
     if (argc < 2) {
-        logMessage("no argument passed to lang kickstart command");
+        logMessage(ERROR, "no argument passed to lang kickstart command");
         return;
     }
 

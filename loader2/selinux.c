@@ -40,7 +40,7 @@ static char * getpolicyver() {
     buf = malloc(32);
     buf = memset(buf, 0, 32);
     if ((read(fd, buf, 32)) == -1) {
-        logMessage("error getting policy version: %s", strerror(errno));
+        logMessage(ERROR, "error getting policy version: %s", strerror(errno));
         free(buf);
         close(fd);
         return NULL;
@@ -88,16 +88,16 @@ int loadpolicy() {
     }
 
     if (access(fn, R_OK) || access(bfn, R_OK)) {
-        logMessage("Unable to load suitable SELinux policy");
+        logMessage(ERROR, "Unable to load suitable SELinux policy");
         return -1;
     }
 
-    logMessage("Loading SELinux policy from %s", fn);
+    logMessage(INFO, "Loading SELinux policy from %s", fn);
     if (!(pid = fork())) {
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         execl("/usr/sbin/load_policy", 
               "/usr/sbin/load_policy", "-q", "-b", fn, bfn, NULL);
-        logMessage("exec of load_policy failed: %s", strerror(errno));
+        logMessage(ERROR, "exec of load_policy failed: %s", strerror(errno));
         exit(1);
     }
 

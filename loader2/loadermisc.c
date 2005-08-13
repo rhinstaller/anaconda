@@ -37,7 +37,7 @@ int copyFileFd(int infd, char * dest) {
     outfd = open(dest, O_CREAT | O_RDWR, 0666);
 
     if (outfd < 0) {
-	logMessage("failed to open %s: %s", dest, strerror(errno));
+	logMessage(ERROR, "failed to open %s: %s", dest, strerror(errno));
 	return 1;
     }
 
@@ -60,7 +60,7 @@ int copyFile(char * source, char * dest) {
     infd = open(source, O_RDONLY);
 
     if (infd < 0) {
-	logMessage("failed to open %s: %s", source, strerror(errno));
+	logMessage(ERROR, "failed to open %s: %s", source, strerror(errno));
 	return 1;
     }
 
@@ -224,13 +224,13 @@ int totalMemory(void) {
     
     fd = open("/proc/meminfo", O_RDONLY);
     if (fd < 0) {
-        logMessage("failed to open /proc/meminfo: %s", strerror(errno));
+        logMessage(ERROR, "failed to open /proc/meminfo: %s", strerror(errno));
         return 0;
     }
     
     bytesRead = read(fd, buf, sizeof(buf) - 1);
     if (bytesRead < 0) {
-        logMessage("failed to read from /proc/meminfo: %s", strerror(errno));
+        logMessage(ERROR, "failed to read from /proc/meminfo: %s", strerror(errno));
         close(fd);
         return 0;
     }
@@ -252,7 +252,7 @@ int totalMemory(void) {
     
         while (!isdigit(*start) && *start) start++;
         if (!*start) {
-            logMessage("no number appears after MemTotal tag");
+            logMessage(WARNING, "no number appears after MemTotal tag");
             return 0;
         }
 
@@ -263,7 +263,7 @@ int totalMemory(void) {
         }
     }
 
-    logMessage("%d kB are available", total);
+    logMessage(INFO, "%d kB are available", total);
     
     return total;
 }
