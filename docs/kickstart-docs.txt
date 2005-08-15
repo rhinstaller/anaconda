@@ -1217,22 +1217,6 @@ Creating the Kickstart File
 
    The following options are available for the %packages option:
 
-   --resolvedeps
-
-       Install the listed packages and automatically resolve package
-       dependencies. If this option is not specified and there are package
-       dependencies, the automated installation will pause and prompt the
-       user. For example:
-
-       %packages --resolvedeps                                     
-
-   --ignoredeps
-
-       Ignore the unresolved dependencies and install the listed packages
-       without the dependencies. For example:
-
-       %packages --ignoredeps                                      
-
    --ignoremissing
 
        Ignore the missing packages and groups instead of halting the
