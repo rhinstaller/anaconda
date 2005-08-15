@@ -325,7 +325,7 @@ class NetworkGlobalWindow:
         # good a place as any for this stuff.
         if id.instClass.name != "kickstart":
             import security
-            id.instClass.setFirwall (id, ports = ["22:tcp"])
+            id.instClass.setFirewall (id, ports = ["22:tcp"])
             id.instClass.setSELinux (id, security.SEL_ENFORCING)
 
         screen.popWindow()        
