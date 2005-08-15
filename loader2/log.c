@@ -27,7 +27,7 @@
 
 static FILE * logfile = NULL;
 static FILE * logfile2 = NULL;
-static int minLevel = 10;
+static int minLevel = INFO;
 
 static void printLogHeader(int level, FILE *outfile) {
     time_t current_time = time(NULL);

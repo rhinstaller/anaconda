@@ -17,6 +17,7 @@
 #
 
 import sys
+import iutil
 import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 
@@ -29,6 +30,9 @@ class AnacondaLog:
         # Create the base of the logger hierarchy.
         self.logger = logging.getLogger("anaconda")
         self.logger.setLevel(minLevel)
+
+        if iutil.getArch() != "s390":
+            self.addFileHandler ("/dev/tty3", self.logger)
 
         # Create a second logger for just the stuff we want to dup on stdout.
         # Anything written here will also get passed up to the parent

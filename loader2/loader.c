@@ -571,8 +571,28 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOFB;
         else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
-        else if (!strncasecmp(argv[i], "debug=", 6))
-                  setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
+        else if (!strncasecmp(argv[i], "loglevel=", 9)) {
+            if (!strcasecmp(argv[i]+9, "debug")) {
+                loaderData->logLevel = strdup(argv[i]+9);
+                setLogLevel(DEBUGLVL);
+            }
+            else if (!strcasecmp(argv[i]+9, "info")) {
+                loaderData->logLevel = strdup(argv[i]+9);
+                setLogLevel(INFO);
+            }
+            else if (!strcasecmp(argv[i]+9, "warning")) {
+                loaderData->logLevel = strdup(argv[i]+9);
+                setLogLevel(WARNING);
+            }
+            else if (!strcasecmp(argv[i]+9, "error")) {
+                loaderData->logLevel = strdup(argv[i]+9);
+                setLogLevel(ERROR);
+            }
+            else if (!strcasecmp(argv[i]+9, "critical")) {
+                loaderData->logLevel = strdup(argv[i]+9);
+                setLogLevel(CRITICAL);
+            }
+        }
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
@@ -1521,6 +1541,11 @@ int main(int argc, char ** argv) {
         if ((loaderData.kbd) && !FL_NOPASS(flags)) {
             *argptr++ = "--keymap";
             *argptr++ = loaderData.kbd;
+        }
+
+        if ((loaderData.logLevel) && !FL_NOPASS(flags)) {
+            *argptr++ = "--loglevel";
+            *argptr++ = loaderData.logLevel;
         }
         
         for (i = 0; i < modLoaded->numModules; i++) {

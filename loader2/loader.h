@@ -100,6 +100,7 @@ struct loaderData_s {
     char * method;
     char * ddsrc;
     void * methodData;
+    char * logLevel;
 
     moduleList modLoaded;
     moduleDeps * modDepsPtr;

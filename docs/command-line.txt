@@ -1,4 +1,4 @@
-7-07-2003
+8-15-2005
 ---------
 
 Boot time command args:
@@ -149,3 +149,7 @@ vncconnect=<host>[:<port>]   Once installation is up and running, connect to
                 the vnc client named <host>, and optionally, on port <port>.
 
                 Requires 'vnc' option to be specified as well.
+
+loglevel=<level>	Set the minimum level required for messages to be
+		logged.  Values for <level> are debug, info, warning,
+		error, and critical.  The default value is info.
