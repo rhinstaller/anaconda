@@ -334,27 +334,11 @@ def checkDependencies(dir, intf, disp, id, instPath):
     id.dependencies = ts.check(depcheck.callback)
 
     win.pop()
-
-    if depcheck.added and id.handleDeps == CHECK_DEPS:
-	disp.skipStep("dependencies", skip = 0)
-        log.info("had unresolved dependencies, resolved.")
-	disp.skipStep("dependencies")
-    else:
-	disp.skipStep("dependencies")
+    disp.skipStep("dependencies")
 
     f.close()
 
     return
-    # FIXME: I BROKE IT
-    # this is kind of hackish, but makes kickstart happy
-    if id.handleDeps == CHECK_DEPS:
-        pass
-    elif id.handleDeps == IGNORE_DEPS:
-        id.comps.selectDepCause(id.dependencies)
-        id.comps.unselectDeps(id.dependencies)
-    elif id.handleDeps == RESOLVE_DEPS:
-        id.comps.selectDepCause(id.dependencies)        
-        id.comps.selectDeps(id.dependencies)
 
 class InstallCallback:
     def packageDownloadCB(self, state,  amount):

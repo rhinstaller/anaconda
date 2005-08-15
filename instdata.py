@@ -64,7 +64,6 @@ class InstallData:
         self.partitions = partitions.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
-        self.handleDeps = CHECK_DEPS
         self.dbpath = None
         self.upgradeRoot = None
         self.rootParts = None
@@ -183,13 +182,7 @@ class InstallData:
         os.chmod(filename, 0600)
 
     def writePackagesKS(self, f):
-	f.write("\n%packages")
-        if self.handleDeps == IGNORE_DEPS:
-            f.write(" --ignoredeps\n")
-        elif self.handleDeps == RESOLVE_DEPS:
-            f.write(" --resolvedeps\n")
-        else:
-            f.write("\n")
+	f.write("\n%packages\n")
 	packages = {}
         forcedoff = {}
         forcedon = {}

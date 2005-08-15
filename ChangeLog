@@ -1,3 +1,10 @@
+2005-08-15  Jeremy Katz  <katzj@redhat.com>
+
+	* kickstart.py (Kickstart.readKickstart): Remove obsolete and dead
+	--ignoredeps stuff (#165224).
+	* instdata.py (InstallData.writePackagesKS): Likewise.
+	* packages.py (checkDependencies): Likewise.
+
 2005-08-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda_log.py (AnacondaLog.__init__):  Keep a log on tty3.

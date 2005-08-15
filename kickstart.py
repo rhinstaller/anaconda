@@ -777,10 +777,6 @@ class Kickstart(BaseInstallClass):
 
                 if len(args) > 1:
                     for arg in args[1:]:
-                        if arg == "--resolvedeps":
-                            id.handleDeps = RESOLVE_DEPS
-                        elif arg == "--ignoredeps":
-                            id.handleDeps = IGNORE_DEPS
                         elif arg == "--excludedocs":
                             id.excludeDocs = 1
                         elif arg == "--ignoremissing":
