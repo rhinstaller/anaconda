@@ -8,7 +8,15 @@
 
 2005-08-15  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Accept loglevel= and syslog= command line options.
+	Establish connection to remote syslog process if needed.
 	* anaconda_log.py (AnacondaLog.__init__):  Keep a log on tty3.
+	* anaconda_log.py (AnacondaLog.addSysLogHandler):  Use argument for
+	which logger to add handler to.
+	* docs/command-line.txt:  Explain new options.
+	* loader2/loader.c:  Accept loglevel= and syslog= command line options.
+	* loader2/loader.h:  Add logLevel to loaderData.
+	* loader2/log.c:  Use macro for level.
 
 2005-08-15  Paul Nasrat <pnasrat@redhat.com>
 

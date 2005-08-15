@@ -401,7 +401,7 @@ try:
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
 	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx',
-            'virtpconsole=', 'loglevel='])
+            'virtpconsole=', 'loglevel=', 'syslog='])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -495,6 +495,14 @@ for n in args:
         instClass = Kickstart(ksfile, flags.serial)
     elif (str == '--lang'):
         lang = arg
+    elif (str == '--syslog'):
+        from anaconda_log import logger
+        if arg.find(":") != -1:
+            (host, port) = arg.split(':')
+            logger.addSysLogHandler(logging.getLogger("anaconda"), host,
+                                    port=int(port))
+        else:
+            logger.addSysLogHandler(logging.getLogger("anaconda"), arg)
     elif (str == '--loglevel'):
         if arg == "debug":
             log.setLevel(logging.DEBUG)

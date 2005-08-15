@@ -153,3 +153,8 @@ vncconnect=<host>[:<port>]   Once installation is up and running, connect to
 loglevel=<level>	Set the minimum level required for messages to be
 		logged.  Values for <level> are debug, info, warning,
 		error, and critical.  The default value is info.
+
+syslog=<host>[:<port>]	Once installation is up and running, send log
+		messages to the syslog process on <host>, and optionally, on
+		port <port>.  Requires the remote syslog process to accept
+		connections (the -r option).
