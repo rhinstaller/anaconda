@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.7
+Version: 10.3.0.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 15 2005 Chris Lumens <clumens@redhat.com> 10.3.0.8-1
+- Remove dead --ignoredeps code (katzj, #165224).
+- New logging system with log levels and remote logging capabilities.
+- Fix typo in network code (pnasrat, #165934).
+- Fix buffer overrun in md5sum code (Dustin Kirkland).
+- Add mptspi and mptfc drivers (katzj).
+- Timestamp fixes (dgregor, #163875).
+
 * Thu Jul 21 2005 Chris Lumens <clumens@redhat.com> 10.3.0.7-1
 - Remove firewall configuration screen.  Open SSH by default and set
   SELinux to enforced.
