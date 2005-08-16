@@ -1,3 +1,19 @@
+2005-08-16  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Init tty3 logger in the right place to fix scripts.
+	* anaconda_log.py (AnacondaLog.__init__):  Likewise.
+
+	* iutil.py (getPPCMachine):  Add support for Pegasos machine
+	(dwmw2, #166013).
+	* partedUtils.py (getDefaultDiskType):  Likewise.
+
+	* tree.py:  Remove unused code.
+
+	* loader2/kickstart.c (ksReadCommands):  Correctly detect when we're
+	in a ks file section (dlehman, #165865).
+
+	* scripts/upd-instroot:  Switch to Sazanami Japanese font (#166045).
+
 2005-08-16  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/installpath_gui.py: Remove unused vars (msw@rpath.com)
