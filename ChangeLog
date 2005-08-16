@@ -1,3 +1,10 @@
+2005-08-16  Peter Jones  <pjones@redhat.com>
+
+	* lvm.py (vglist): fix the lvm call so it doesn't truncate a character
+	from the vg size. (#165141)
+
+	* anaconda.spec: Bump version.
+	
 2005-08-01  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
