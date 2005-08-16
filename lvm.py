@@ -214,8 +214,7 @@ def vglist():
 
     vgs = []
     args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b",
-            "--nosuffix", "--separator", ":", "--options",
-            "vg_name,vg_size,vg_extent_size"]
+            "--separator", ":", "--options", "vg_name,vg_size,vg_extent_size"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
