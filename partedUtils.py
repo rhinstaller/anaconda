@@ -251,8 +251,12 @@ def getDefaultDiskType():
     elif iutil.getArch() == "sparc":
         return parted.disk_type_get("sun")
     elif iutil.getArch() == "ppc":
-        if iutil.getPPCMachine() == "PMac":
+        ppcMachine = iutil.getPPCMachine()
+
+        if ppcMachine == "PMac":
             return parted.disk_type_get("mac")
+        elif ppcMachine == "Pegasos":
+            return parted.disk_type_get("amiga")
         else:
             return parted.disk_type_get("msdos")
     else:
@@ -263,7 +267,7 @@ archLabels = {'i386': ['msdos'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
               'ia64': ['msdos', 'gpt'],
-              'ppc': ['msdos', 'mac'],
+              'ppc': ['msdos', 'mac', 'amiga'],
               'x86_64': ['msdos']}
 
 # this is kind of crappy, but we don't really want to allow LDL formatted

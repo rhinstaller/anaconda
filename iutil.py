@@ -549,6 +549,7 @@ def getPPCMachine():
     ppcType = { 'Mac'      : 'PMac',
                 'Book'     : 'PMac',
                 'CHRP IBM' : 'pSeries',
+                'Pegasos'  : 'Pegasos',
                 'iSeries'  : 'iSeries',
                 'PReP'     : 'PReP',
                 'CHRP'     : 'pSeries',
