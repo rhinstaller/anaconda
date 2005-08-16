@@ -162,8 +162,8 @@ int ksReadCommands(char * cmdFile, int flags) {
 
         if (!*start || *start == '#') {
             /* do nothing */
-        } else if (!strcmp(start, "%packages") || !strcmp(start, "%post") 
-                   || !strcmp(start, "%pre")) {
+        } else if (!strncmp(start, "%packages", 9) || !strncmp(start, "%post", 5)
+                   || !strncmp(start, "%pre", 4)) {
             inSection = 1;
         } else if  (*chptr == '\\') {
             /* JKFIXME: this should be handled better, but at least we 
