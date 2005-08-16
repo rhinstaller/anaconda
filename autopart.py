@@ -1546,17 +1546,18 @@ def autoCreatePartitionRequests(autoreq):
     """Return a list of requests created with a shorthand notation.
 
     Mainly used by installclasses; make a list of tuples of the form
-    (mntpt, fstype, minsize, maxsize, grow, format)
+    (mntpt, fstype, minsize, maxsize, grow, format, asvol)
     mntpt = None for non-mountable, otherwise is mount point
     fstype = None to use default, otherwise a string
     minsize = smallest size
     maxsize = max size, or None means no max
     grow = 0 or 1, should partition be grown
     format = 0 or 1, whether to format
+    asvol = 0 or 1, whether or not it should be a logical volume (ignored)
     """
     
     requests = []
-    for (mntpt, fstype, minsize, maxsize, grow, format) in autoreq:
+    for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
         if fstype:
             ptype = fsset.fileSystemTypeGet(fstype)
         else:

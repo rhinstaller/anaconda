@@ -1,3 +1,8 @@
+2005-08-16  Jeremy Katz  <katzj@redhat.com>
+
+	* autopart.py (autoCreatePartitionRequests): Fix for autopart with
+	not lvm (msw@rpath.com)
+
 2005-08-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
