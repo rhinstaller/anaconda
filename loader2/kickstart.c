@@ -160,10 +160,10 @@ int ksReadCommands(char * cmdFile, int flags) {
         else
             *(chptr + 1) = '\0';
 
-        if (!*start || *start == '#') {
-            /* do nothing */
-        } else if (!strncmp(start, "%packages", 9) || !strncmp(start, "%post", 5)
-                   || !strncmp(start, "%pre", 4)) {
+        if (!*start || *start == '#' || !strncmp(start, "%include", 8)) {
+            /* keep parsing the file */
+        } else if (*start == '%') {
+            /* assumed - anything starting with %something is a section */
             inSection = 1;
         } else if  (*chptr == '\\') {
             /* JKFIXME: this should be handled better, but at least we 
