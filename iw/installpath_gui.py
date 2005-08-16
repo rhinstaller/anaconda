@@ -19,15 +19,7 @@ from iw_gui import InstallWindow
 from flags import flags
 from rhpl.translate import _, N_
 
-UPGRADE = 0
-INSTALL = 1
-
-CUSTOM = 2
-WORKSTATION_GNOME = 3
-WORKSTATION_KDE = 4
-SERVER = 5
-
-class InstallPathWindow (InstallWindow):		
+class InstallPathWindow (InstallWindow):
 
     installTypes = installclass.availableClasses()
     htmlTag = "instpath"
@@ -66,13 +58,13 @@ class InstallPathWindow (InstallWindow):
 
 
     # InstallPathWindow tag="instpath"
-    def getScreen(self, dispatch, id, method, intf): 
+    def getScreen(self, dispatch, id, method, intf):
         self.id = id
         self.intf = intf
 	self.flags = flags
 	self.method = method
 	self.dispatch = dispatch
-	
+
         vbox = gtk.VBox (False, 10)
 	vbox.set_border_width (8)
 
@@ -104,7 +96,7 @@ class InstallPathWindow (InstallWindow):
 	    self.currentClassName = currentClass.name
 
 	self.r.setCurrent(self.currentClassName)
-	
+
 	box = gtk.VBox (False)
         box.pack_start(b, False)
 
