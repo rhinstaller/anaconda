@@ -26,7 +26,6 @@
 # This toplevel file is a little messy at the moment...
 
 import sys, os
-import logging
 
 # keep up with process ID of miniwm if we start it
 
@@ -349,11 +348,16 @@ if (os.access("/mnt/source/RHupdates/rhpl", os.X_OK) or
 import signal, traceback, string, isys, iutil, time
 
 from exception import handleException
-import dispatch, logging
+import dispatch
+import logging
+from anaconda_log import logger
 from flags import flags
 
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
+
+if iutil.getArch() != "s390":
+    logger.addFileHandler ("/dev/tty3", log)
 
 from rhpl.translate import _, textdomain, addPoPath
 
@@ -496,7 +500,6 @@ for n in args:
     elif (str == '--lang'):
         lang = arg
     elif (str == '--syslog'):
-        from anaconda_log import logger
         if arg.find(":") != -1:
             (host, port) = arg.split(':')
             logger.addSysLogHandler(logging.getLogger("anaconda"), host,
