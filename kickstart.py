@@ -777,7 +777,7 @@ class Kickstart(BaseInstallClass):
 
                 if len(args) > 1:
                     for arg in args[1:]:
-                        elif arg == "--excludedocs":
+                        if arg == "--excludedocs":
                             id.excludeDocs = 1
                         elif arg == "--ignoremissing":
                             self.handleMissing = KS_MISSING_IGNORE
