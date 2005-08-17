@@ -1,3 +1,8 @@
+2005-08-16  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot (KEEPFILE): Fix paths to some python stuff
+	for lib64 systems
+
 2005-08-16  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Init tty3 logger in the right place to fix scripts.
