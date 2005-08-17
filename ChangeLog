@@ -1,3 +1,13 @@
+2005-08-17  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/net.c: Add support for ksdevice=bootif with patch from
+	Alex Kiernan (alex.kiernan@gmail.com).  This plus "IPAPPEND 2" in
+	your pxelinux config will set your install device to the one you
+	pxebooted from.  (#166135)
+	* loader2/loader.h: Likewise.
+	* loader2/loader.c: Likewise.
+	* docs/command-line.txt: Document it!
+
 2005-08-17  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Kickstart.doMouse):  Don't silently fail anymore.
