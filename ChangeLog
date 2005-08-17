@@ -1,3 +1,8 @@
+2005-08-17  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Kickstart.doMouse):  Don't silently fail anymore.
+	* docs/kickstart-docs.txt:  Document change.
+
 2005-08-16  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILE): Fix paths to some python stuff

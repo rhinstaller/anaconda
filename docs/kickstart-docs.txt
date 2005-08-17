@@ -623,7 +623,7 @@ Creating the Kickstart File
        error message to be printed to the screen and installation to halt.
        Instead of using the langsupport keyword, you should now list the
        support package groups for all languages you want supported in the
-       %packages section of your kickstart file.  Fr instance, adding
+       %packages section of your kickstart file.  For instance, adding
        support for French means you should add the following to %packages:
 
            @french-support
@@ -692,8 +692,10 @@ Creating the Kickstart File
 
    mouse
 
-       The mouse configuration option is deprecated. It is still
-       recognized for backwards compatibility, but has no effects.
+       The mouse keywork is deprecated and its use will cause an error
+       message to be printed to the screen and installation to halt.  This
+       keyword has been deprecated for some time now but has been silently
+       ignored.
 
    network (optional)
 

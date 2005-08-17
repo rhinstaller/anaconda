@@ -589,28 +589,7 @@ class Kickstart(BaseInstallClass):
         self.setZeroMbr(id, 1)
 
     def doMouse(self, id, args):
-        #Don't do anything with mice anymore
-        return
-
-## 	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree' ])
-##         mouseType = "none"
-## 	device = None
-## 	emulThree = 0
-
-## 	for n in args:
-## 	    (str, arg) = n
-## 	    if str == "--device":
-## 		device = arg
-## 	    elif str == "--emulthree":
-## 		emulThree = 1
-
-## 	if extra:
-## 	    mouseType = extra[0]
-
-##  	if mouseType != "none":
-##             self.setMouse(id, mouseType, device, emulThree)
-
-##         self.skipSteps.append("mouse")
+        raise KickstartError, "The mouse keyword has not been functional for several releases and has now been removed.  Please modify your kickstart file by removing this keyword."
 
     def doReboot(self, id, args):
         self.skipSteps.append("complete")
@@ -1370,7 +1349,6 @@ class Kickstart(BaseInstallClass):
             dispatch.skipStep("findinstall", permanent = 1)
             dispatch.skipStep("language")
             dispatch.skipStep("keyboard")
-#            dispatch.skipStep("mouse")
             dispatch.skipStep("welcome")
             dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
