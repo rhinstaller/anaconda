@@ -90,6 +90,8 @@ struct loaderData_s {
     int kbd_set;
     char * netDev;
     int netDev_set;
+    char * bootIf;
+    int bootIf_set;
     char * netCls;
     int netCls_set;
     char * ip, *netmask, *gateway, *dns, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot;

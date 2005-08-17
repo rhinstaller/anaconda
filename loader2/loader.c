@@ -596,6 +596,10 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
+	} else if (!strncmp(argv[i], "BOOTIF=", 7)) {
+	    /* +10 so that we skip over the leading 01- */
+            loaderData->bootIf = strdup(argv[i] + 10);
+            loaderData->bootIf_set = 1;
         } else if (!strncasecmp(argv[i], "dhcpclass=", 10)) {
             loaderData->netCls = strdup(argv[i] + 10);
             loaderData->netCls_set = 1;

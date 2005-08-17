@@ -81,8 +81,19 @@ nopass          Don't pass keyboard/mouse info to stage 2 installer, good for
 
 serial          Turns on serial console support.
 
-ksdevice        Takes an argument like 'eth0', tells install what network
-                device to use for kickstart from network.
+ksdevice        Takes one of 4 types of argument which tells install
+                what network device to use for kickstart from network:
+
+		- An argument like 'eth0' naming a specific interface
+		- An argument like 00:12:34:56:78:9a indicating the
+		  MAC address of a specific interface
+		- The keyword `link' indicating that the first
+		  interface with link up
+		- The keyword `bootif' indicating that the MAC address
+		  indicated by the BOOTIF command line option will be
+		  used to locate the boot interface. BOOTIF is
+		  automagically supplied by pxelinux when you include
+		  the option `IPAPPEND 2' in your pxelinux.cfg file
 
 ks              Kickstart over NFS.
 
