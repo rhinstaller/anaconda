@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.8
+Version: 10.3.0.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Aug 18 2005 Chris Lumens <clumens@redhat.com> 10.3.0.9-1
+- Rebuild for new cairo.
+- Add support for ksdevice=bootif (Alex Kiernan, #166135).
+- Fix /dev/tty3 logging problems.
+- Add support for Pegasos machines (dwmw2, #166103).
+- Switch to Sazanami font (#166045).
+- Fix for autopart not in lvm (msw).
+
 * Mon Aug 15 2005 Chris Lumens <clumens@redhat.com> 10.3.0.8-1
 - Remove dead --ignoredeps code (katzj, #165224).
 - New logging system with log levels and remote logging capabilities.
