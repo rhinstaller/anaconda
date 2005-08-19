@@ -1074,12 +1074,19 @@ if method:
         sys.exit(1)
 
 if not method.startswith('nfs:/'):
-        intf.messageWindow(_("Install Method Unavailable"),
-                           _("Anaconda is undergoing major backend work "
-                             "currently only nfs tree installs are supported. "
-                             "We apologise for any inconvenience. "
-                             "Normal service will be resumed ASAP.")
-	sys.exit(42)
+    intf.messageWindow(_("Install Method Unavailable"),
+                       _("Anaconda is undergoing major backend work "
+                       "currently only nfs tree installs are supported. "
+                       "We apologise for any inconvenience. "
+                       "Normal service will be resumed ASAP."))
+    sys.exit(42)
+else:    
+    intf.messageWindow(_("Install Method Under Construction")
+                       _("Anaconda is undergoing major backend work "
+                       "currently only nfs tree installs are supported "
+                       "and package selection is turned off. "
+                       "We are aware of this and and normal service, "
+                       "will be resumed ASAP."))
 
 floppyDevice = floppy.probeFloppyDevice()
 
