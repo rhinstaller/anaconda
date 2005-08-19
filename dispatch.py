@@ -16,7 +16,7 @@
 import string
 from types import *
 from constants import *
-from packages import readPackages, checkDependencies, doInstall
+from packages import checkDependencies, doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import checkMonitorOK, setSaneXSettings
 from packages import writeKSConfiguration, turnOnFilesystems
@@ -107,7 +107,8 @@ installSteps = [
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
     ("authentication", ("id.auth",)),
-    ("readcomps", readPackages, ("intf", "method", "id")),
+#XXX: factor to backend
+    #("readcomps", readPackages, ("intf", "method", "id")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
@@ -117,6 +118,7 @@ installSteps = [
                                           "id", "instPath")),
     ("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
     ("fixupconditionals", fixupConditionals, ("id.grpset",)),
+#XXX: factor to backend
     #("checkdeps", checkDependencies, ("dir", "intf", "dispatch", "id", "instPath")),
     #("dependencies", ("id.grpset", "id.dependencies")),
     ("confirminstall", ("intf", "id",)),
@@ -132,6 +134,7 @@ installSteps = [
                                   "dir")),
     ("preinstallconfig", doPreInstall, ("method", "id", "intf", "instPath",
                                         "dir")),
+#XXX: factor to backend
     #("installpackages", doInstall, ("method", "id", "intf", "instPath")),
     ("installpackages", doYumInstall, ("method", "id", "intf", "instPath")),
     ("postinstallconfig", doPostInstall, ("method", "id", "intf", "instPath")),
