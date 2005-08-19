@@ -1073,6 +1073,14 @@ if method:
         log.critical (_("unknown install method: %s"), method)
         sys.exit(1)
 
+if not method.startswith('nfs:/'):
+        intf.messageWindow(_("Install Method Unavailable"),
+                           _("Anaconda is undergoing major backend work "
+                             "currently only nfs tree installs are supported. "
+                             "We apologise for any inconvenience. "
+                             "Normal service will be resumed ASAP.")
+	sys.exit(42)
+
 floppyDevice = floppy.probeFloppyDevice()
 
 # create device nodes for detected devices if we're not running in test mode

@@ -231,11 +231,6 @@ def doYumInstall(method, id, intf, instPath):
     if flags.test:
         return
 
-# XXX: Only operate on nfs trees for now
-    if not id.methodstr.startswith('nfs:/'):
-        from packages import doInstall
-        return doInstall(method, id, intf, instPath)
-
     upgrade = id.getUpgrade()
 
     if upgrade:
