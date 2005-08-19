@@ -81,7 +81,7 @@ def urlretrieve(location, file, callback=None):
 
 class UrlInstallMethod(InstallMethod):
     def readComps(self, hdlist):
-	fname = self.findBestFileMatch(None, 'comps.xml')
+	fname = self.findBestFileMatch('comps.xml')
 	# if not local then assume its on host
 	if fname is None:
 	    fname = '%s/%s/base/comps.xml' % (self.baseUrl, productPath)

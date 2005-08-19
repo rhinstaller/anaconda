@@ -101,7 +101,7 @@ class HardDriveInstallMethod(InstallMethod):
 	
     def readComps(self, hdlist):
 	self.mountMedia(1)
-	fname = self.findBestFileMatch(self.tree, 'comps.xml')
+	fname = self.findBestFileMatch('comps.xml')
         cs = groupSetFromCompsFile(fname, hdlist)
 	self.umountMedia()
 	return cs

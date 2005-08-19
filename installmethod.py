@@ -27,13 +27,13 @@ class FileCopyException(Exception):
 class InstallMethod:
 
     # find best match from several locations for a file
-    def findBestFileMatch(self, treebase, file):
+    def findBestFileMatch(self, file):
 	# look in /tmp/updates first
 	rc = None
 	tryloc = ["/tmp/updates"]
-	if treebase is not None:
-	    tryloc.append("%s/RHupdates" %(treebase,))
-	    tryloc.append("%s/%s/base" % (treebase, productPath))
+	if self.tree is not None:
+	    tryloc.append("%s/RHupdates" %(self.tree,))
+	    tryloc.append("%s/%s/base" % (self.tree, productPath))
 	    
 	for pre in tryloc:
 	    tmpname = pre + "/" + file
@@ -90,6 +90,7 @@ class InstallMethod:
     def __init__(self, method, rootpath, intf):
         self.rootPath = rootpath
         self.intf = intf
+        self.tree = None
 
     def getSourcePath(self):
         pass
