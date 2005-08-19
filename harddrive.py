@@ -99,7 +99,7 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.tree = None
 	    self.isoDirIsMounted = 0
 	
-    def readCompsViaMethod(self, hdlist):
+    def readComps(self, hdlist):
 	self.mountMedia(1)
 	fname = self.findBestFileMatch(self.tree, 'comps.xml')
         cs = groupSetFromCompsFile(fname, hdlist)

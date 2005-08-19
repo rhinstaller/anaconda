@@ -80,7 +80,7 @@ def urlretrieve(location, file, callback=None):
     url.close()
 
 class UrlInstallMethod(InstallMethod):
-    def readCompsViaMethod(self, hdlist):
+    def readComps(self, hdlist):
 	fname = self.findBestFileMatch(None, 'comps.xml')
 	# if not local then assume its on host
 	if fname is None:
