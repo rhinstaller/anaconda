@@ -1,5 +1,21 @@
 2005-08-19  Paul Nasrat <pnasrat@redhat.com>
 
+	* packages.py: remove rpmErrorClass
+
+	* packages.py: remove sortPackages
+
+	* packages.py: Extract InstallCallback
+
+	* packages.py: remove now uncalled anacondaTS
+
+	* anaconda: fixup temporary warnings
+
+	* anaconda: warn for nfs installs
+
+	* anaconda, dispatch.py, packages.py: break all but nfs installs
+
+	* dispatch.py, packages.py: Extract checkDependencies
+
 	* dispatch.py, packages.py: Extract readPackages
 
 	* packages.py: remove unused function
