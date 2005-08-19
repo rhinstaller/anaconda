@@ -226,14 +226,6 @@ def setSaneXSettings(xsetup):
 		xsetup.xhwstate.choose_sane_default()
 		xsetup.imposed_sane_default = 1
 	    
-class rpmErrorClass:
-
-    def cb(self):
-	self.f.write (rpm.errorString () + "\n")
-
-    def __init__(self, f):
-	self.f = f
-
 def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
     if dir == DISPATCH_BACK:
         return DISPATCH_NOOP
