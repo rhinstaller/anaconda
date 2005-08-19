@@ -1499,17 +1499,6 @@ def recreateInitrd (kernelTag, instRoot):
                            stdout = None, stderr = None,
                            searchPath = 1, root = instRoot)
 
-# XXX Deprecated.  Is this ever called anymore?
-def depmodModules(comps, instPath):
-    kernelVersions = comps.kernelVersionList()
-
-    for (version, tag) in kernelVersions:
-	iutil.execWithRedirect ("/sbin/depmod",
-				[ "/sbin/depmod", "-a", version,
-                                  "-F", "/boot/System.map-" + version ],
-				root = instPath, stderr = '/dev/null')
-
-
 def betaNagScreen(intf, dir):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",
                     "Red Hat Enterprise Linux": "Red Hat Enterprise Linux Public Beta",
