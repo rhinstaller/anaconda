@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.9
+Version: 10.3.0.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 19 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.10-1
+- Working towards new backend architecture
+
 * Thu Aug 18 2005 Chris Lumens <clumens@redhat.com> 10.3.0.9-1
 - Rebuild for new cairo.
 - Add support for ksdevice=bootif (Alex Kiernan, #166135).
