@@ -226,21 +226,6 @@ def setSaneXSettings(xsetup):
 		xsetup.xhwstate.choose_sane_default()
 		xsetup.imposed_sane_default = 1
 	    
-def getAnacondaTS(instPath = None):
-    if instPath:
-        ts = rpm.TransactionSet(instPath)
-    else:
-        ts = rpm.TransactionSet()
-    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
-
-    # set color if needed.  FIXME: why isn't this the default :/
-    if (rhpl.arch.canonArch.startswith("ppc64") or
-        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
-        ts.setColor(3)
-
-    return ts
-
 class InstallCallback:
     def packageDownloadCB(self, state,  amount):
 	self.progress.setPackageStatus(state, amount)
