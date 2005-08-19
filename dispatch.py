@@ -16,7 +16,7 @@
 import string
 from types import *
 from constants import *
-from packages import checkDependencies, doInstall
+from packages import doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import checkMonitorOK, setSaneXSettings
 from packages import writeKSConfiguration, turnOnFilesystems

@@ -241,40 +241,6 @@ def getAnacondaTS(instPath = None):
 
     return ts
 
-def checkDependencies(dir, intf, disp, id, instPath):
-    if dir == DISPATCH_BACK:
-	return
-
-    win = intf.waitWindow(_("Dependency Check"),
-      _("Checking dependencies in packages selected for installation..."))
-
-    # FIXME: we really don't need to build up a ts more than once
-    # granted, this is better than before still
-    if id.getUpgrade():
-        ts = getAnacondaTS(instPath)
-        how = "u"
-    else:
-        ts = getAnacondaTS()        
-        how = "i"
-
-    # set the rpm log file to /dev/null so that we don't segfault
-    f = open("/dev/null", "w+")
-    rpm.setLogFile(f)
-    ts.scriptFd = f.fileno()
-    
-    for p in id.grpset.hdrlist.pkgs.values():
-        if p.isSelected():
-            ts.addInstall(p.hdr, p.hdr, how)
-    depcheck = DependencyChecker(id.grpset, how)
-    id.dependencies = ts.check(depcheck.callback)
-
-    win.pop()
-    disp.skipStep("dependencies")
-
-    f.close()
-
-    return
-
 class InstallCallback:
     def packageDownloadCB(self, state,  amount):
 	self.progress.setPackageStatus(state, amount)
