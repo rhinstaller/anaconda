@@ -226,39 +226,6 @@ def setSaneXSettings(xsetup):
 		xsetup.xhwstate.choose_sane_default()
 		xsetup.imposed_sane_default = 1
 	    
-def sortPackages(first, second):
-    # install packages in cd order (cd tag is 1000002)
-    one = None
-    two = None
-
-    if first[1000003] != None:
-	one = first[1000003]
-
-    if second[1000003] != None:
-	two = second[1000003]
-
-    if one == None or two == None:
-	one = 0
-	two = 0
-	if first[1000002] != None:
-	    one = first[1000002]
-
-	if second[1000002] != None:
-	    two = second[1000002]
-
-    if one < two:
-	return -1
-    elif one > two:
-	return 1
-    elif (string.lower(first[rpm.RPMTAG_NAME])
-          < string.lower(second[rpm.RPMTAG_NAME])):
-	return -1
-    elif (string.lower(first[rpm.RPMTAG_NAME])
-          > string.lower(second[rpm.RPMTAG_NAME])):
-	return 1
-
-    return 0
-
 class rpmErrorClass:
 
     def cb(self):
