@@ -1243,7 +1243,7 @@ static PyObject * doisPsudoTTY(PyObject * s, PyObject * args) {
     fstat(fd, &sb);
 
     /* XXX close enough for now */
-    return Py_BuildValue("i", (major(sb.st_rdev) == 3));
+    return Py_BuildValue("i", ((major(sb.st_rdev) >= 136) && (major(sb.st_rdev) <= 143)));
 }
 
 static PyObject * doisVioConsole(PyObject * s) {

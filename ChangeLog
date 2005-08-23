@@ -1,3 +1,9 @@
+2005-08-23  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.c: We don't use /dev/ptyp* anymore, so our pty major
+	is different.  Check for the range to fix getting a shell with
+	telnet installs (#165437)
+
 2005-08-19  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version
