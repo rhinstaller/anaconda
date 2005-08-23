@@ -15,13 +15,13 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-07-02 09:25+0200\n"
+"PO-Revision-Date: 2005-08-23 23:38+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.1\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -765,7 +765,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "Er is een fout opgetreden bij het initialiseren van het wisselgeheugen op "
-"device %s. Dit is een ernstig probleem en de installatie kan niet worden "
+"apparaat %s. Dit is een ernstig probleem en de installatie kan niet worden "
 "voortgezet.\n"
 "\n"
 "Geef <Enter> om uw systeem te herstarten."
@@ -811,8 +811,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"Er zijn schijffouten gevonden op device /dev/%s. We raden u af om deze "
-"device te gebruiken.\n"
+"Er zijn schijffouten gevonden op apparaat /dev/%s. We raden u af om dit "
+"apparaat te gebruiken.\n"
 "\n"
 "Geef <Enter> om uw systeem te herstarten"
 
@@ -895,7 +895,7 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Er is een fout opgetreden bij het aankoppelen van device %s als %s: %s\n"
+"Er is een fout opgetreden bij het aankoppelen van apparaat %s als %s: %s\n"
 "\n"
 "Dit is waarschijnlijk veroorzaakt doordat deze partitie niet geformatteerd "
 "is.\n"
@@ -1745,7 +1745,7 @@ msgstr "Verwijderen bevestigen"
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr ""
-"U staat op het punt alle partities op het device '/dev/%s' te verwijderen."
+"U staat op het punt alle partities op het apparaat '/dev/%s' te verwijderen."
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:746 ../iw/lvm_dialog_gui.py:1098
@@ -1936,7 +1936,7 @@ msgstr "De geselecteerde partitie zal worden verwijderd."
 
 #: ../partIntfHelpers.py:533
 msgid "Confirm Reset"
-msgstr "Resetten bevestigen"
+msgstr "Herstellen bevestigen"
 
 #: ../partIntfHelpers.py:534
 msgid ""
@@ -2043,8 +2043,8 @@ msgstr ""
 "Het apparaat %s is geformatteerd met LDL in plaats van CDL.  LDL "
 "geformatteerde DASDs zijn niet ondersteund voor gebruik gedurende een "
 "installatie van %s.  Als u deze disk voor installatie wilt gebruiken dient "
-"deze opnieuw geïnitialiseerd te worden wat inhoud dat ALLE DATA op deze "
-"drive verloren zal gaan.\n"
+"deze opnieuw geïnitialiseerd te worden wat inhoud dat ALLE DATA op dit "
+"station verloren zal gaan.\n"
 "\n"
 "Wilt u deze DASD opnieuw formatteren met het CDL formaat?"
 
@@ -2057,7 +2057,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"De partitietabel op device /dev/%s is van een type %s.  Om deze schijf te "
+"De partitietabel op apparaat /dev/%s is van een type %s.  Om deze schijf te "
 "gebruiken voor de installatie van %s, moet deze opnieuw geïnitialiseerd "
 "worden. Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
@@ -2098,12 +2098,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"De partitietabel op device %s (%s) was onleesbaar. Om nieuwe partities te "
+"De partitietabel op apparaat %s (%s) was onleesbaar. Om nieuwe partities te "
 "maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS "
 "op dit station verloren gaan.\n"
 "\n"
 "Deze actie zal alle voorgaande installatie keuzes met betrekking tot welke "
-"drives worden genegeerd teniet doen.\n"
+"stations worden genegeerd teniet doen.\n"
 "\n"
 "Wilt u dit station initialiseren?"
 
@@ -2119,12 +2119,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"De partitietabel op device %s was onleesbaar. Om nieuwe partities te maken "
+"De partitietabel op apparaat %s was onleesbaar. Om nieuwe partities te maken "
 "moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS op "
 "dit station verloren gaan.\n"
 "\n"
 "Deze actie zal alle voorgaande installatie keuzes met betrekking tot welke "
-"drives worden genegeerd teniet doen.\n"
+"stations worden genegeerd teniet doen.\n"
 "\n"
 "Wilt u dit station initialiseren?"
 
@@ -2137,9 +2137,9 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Er is een fout opgetreden; Er zijn geen geldige devices gevonden waar nieuwe "
-"bestandssystemen op konden worden gemaakt. Controleer uw hardware om de "
-"oorzaak van dit probleem te vinden."
+"Er is een fout opgetreden; Er zijn geen geldige apparaten gevonden waar "
+"nieuwe bestandssystemen op konden worden gemaakt. Controleer uw hardware om "
+"de oorzaak van dit probleem te vinden."
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -3465,7 +3465,7 @@ msgstr "Taalkeuze"
 
 #: ../iw/language_gui.py:66 ../textw/language_text.py:39 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
-msgstr "Welke taal wilt u gebruiken tijdens de installatie?"
+msgstr "Welke taal wilt u gebruiken tijdens het installatieproces?"
 
 #: ../iw/lvm_dialog_gui.py:113 ../iw/lvm_dialog_gui.py:160
 #: ../iw/lvm_dialog_gui.py:171 ../iw/lvm_dialog_gui.py:211
@@ -4066,8 +4066,9 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"Voer een label in dat in het bootloader-menu zal verschijnen. Het device (of "
-"harde schijf en partitienummer) is de partitie waarvan het wordt opgestart."
+"Voer een label in dat in het bootloader-menu zal verschijnen. Het apparaat "
+"(of harde schijf en partitienummer) is de partitie waarvan het wordt "
+"opgestart."
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -4100,7 +4101,7 @@ msgstr "Duplicaat apparaat"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
-msgstr "Dit device is reeds in gebruik bij een ander opstart-item."
+msgstr "Dit apparaat is reeds in gebruik bij een ander opstart-item."
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:354
 msgid "Cannot Delete"
@@ -4395,7 +4396,7 @@ msgstr "Softwarematig RAID wordt NIET door dit platform ondersteund."
 
 #: ../iw/partition_gui.py:1211
 msgid "No RAID minor device numbers available"
-msgstr "Geen RAID minor device nummers beschikbaar"
+msgstr "Geen RAID minor device-nummers beschikbaar"
 
 #: ../iw/partition_gui.py:1212
 msgid ""
@@ -4403,7 +4404,7 @@ msgid ""
 "minor device numbers have been used."
 msgstr ""
 "Een softwarematige RAID-opstelling kon niet worden gemaakt omdat alle "
-"beschikbare RAID minor device nummers opgebruikt zijn."
+"beschikbare RAID minor device-nummers opgebruikt zijn."
 
 #: ../iw/partition_gui.py:1226
 msgid "RAID Options"
@@ -4424,7 +4425,7 @@ msgstr ""
 "combineren tot een grotere RAID-opstelling. Een RAID-opstelling kan zo "
 "worden geconfigureerd dat het extra snelheid of betrouwbaarheid levert ten "
 "opzichte van een enkele harde schijf. Voor meer informatie over het gebruik "
-"van RAID-devices, zie de %s documentatie.\n"
+"van RAID-opstelling, zie de %s documentatie.\n"
 "\n"
 "U heeft momenteel %s softwarematige RAID-partitie(s) vrij voor gebruik.\n"
 "\n"
@@ -5010,7 +5011,7 @@ msgstr "De grootte van het wisselbestand moet liggen tussen 1 en 2000 MB."
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
-"Er is niet voldoende ruimte vrij op het device dat u selecteerde voor de "
+"Er is niet voldoende ruimte vrij op het apparaat dat u selecteerde voor de "
 "wissel-partitie."
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
@@ -5589,7 +5590,7 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
-"Er is een fout opgetreden - geen geldige devices gevonden waar nieuwe "
+"Er is een fout opgetreden - geen geldige apparaten gevonden waar nieuwe "
 "bestandssystemen op kunnen worden gemaakt. Controleer uw hardware om de "
 "oorzaak van dit probleem op te sporen of gebruik dasdfmt.\n"
 "\n"
@@ -6096,8 +6097,7 @@ msgstr "RAID"
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"    F1-Hulp    F2-Nieuw    F3-Bewerken    F4-Verwijderen    F5-Resetten    "
-"F12-OK  "
+" F1-Hulp   F2-Nieuw   F3-Bewerken   F4-Verwijderen   F5-Herstellen   F12-OK "
 
 #: ../textw/partition_text.py:1475
 msgid "No Root Partition"
@@ -6596,7 +6596,7 @@ msgid ""
 "probed values."
 msgstr ""
 "Selecteer uw beeldscherm.  Gebruik de '%s'-knop om de gevonden waarden te "
-"resetten."
+"herstellen."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6629,8 +6629,8 @@ msgid ""
 "the selection to the card the installer detected in your system."
 msgstr ""
 "Selecteer welke videokaart in uw systeem zit.  Kies '%s' om de selectie te "
-"resetten naar de kaart die het installatieprogramma heeft gedetecteerd in uw "
-"systeem."
+"herstellen naar de kaart die het installatieprogramma heeft gedetecteerd in "
+"uw systeem."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
@@ -6643,7 +6643,7 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Selecteer de hoeveelheid video-RAM op uw videokaart. Kies '%s' om de "
-"selectie te resetten naar de hoeveelheid RAM die het installatieprogramma "
+"selectie te herstellen naar de hoeveelheid RAM die het installatieprogramma "
 "heeft gedetecteerd op uw kaart."
 
 #: ../textw/xconfig_text.py:629
@@ -7040,7 +7040,7 @@ msgstr ""
 "De module %s kan parameters (gescheiden door spaties) meekrijgen die de "
 "werking beïnvloeden. Als u niet weet welke parameters u moet opgeven, kunt u "
 "dit scherm gewoon overslaan door nu op \"OK\" te klikken. Een lijst met "
-"beschikbare parameters kan verkregen worden via de F1 funktie toets."
+"beschikbare parameters kan verkregen worden via de F1 functie toets."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
@@ -7119,7 +7119,7 @@ msgid ""
 msgstr ""
 "Welke partitie en map op die partitie bevat de CD (iso9660) images voor %s? "
 "Als u de disk drive die u gebruikt hier niet ziet, druk dan op F2 om andere "
-"devices te configureren."
+"apparaten te configureren."
 
 #: ../loader2/hdinstall.c:369
 msgid "Directory holding images:"
@@ -7132,7 +7132,7 @@ msgstr "Partitie selecteren"
 #: ../loader2/hdinstall.c:436
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Device %s bevat blijkbaar geen %s CDROM images."
+msgstr "Apparaat %s bevat blijkbaar geen %s CDROM images."
 
 #: ../loader2/hdinstall.c:471
 #, c-format
@@ -7206,7 +7206,7 @@ msgstr "Harde schijf"
 
 #: ../loader2/loader.c:111
 msgid "NFS image"
-msgstr "NFS image"
+msgstr "NFS-image"
 
 #: ../loader2/loader.c:303
 msgid "Update Disk Source"
@@ -7283,7 +7283,7 @@ msgstr "Stuurprogramma selecteren"
 
 #: ../loader2/loader.c:891
 msgid "Use a driver disk"
-msgstr "Een stuurprogramma-diskette gebruiken"
+msgstr "Stuurprogramma-diskette gebruiken"
 
 #: ../loader2/loader.c:892
 msgid ""
@@ -7455,8 +7455,8 @@ msgstr ""
 "Geef de volgende informatie:\n"
 "\n"
 "    o de naam of het IP-nummer van uw %s-server\n"
-"    o de map op die server die %s bevat voor uw\n"
-"      architectuur\n"
+"    o de map op die server die %s bevat\n"
+"      voor uw architectuur\n"
 
 #: ../loader2/net.c:220
 #, c-format
@@ -7508,7 +7508,7 @@ msgstr "Dynamisch IP"
 #: ../loader2/net.c:343 ../loader2/net.c:597
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Verzoek om IP-informatie voor %s wordt verzonden..."
+msgstr "Versturen IP-informatie verzoek voor %s..."
 
 #: ../loader2/net.c:480
 msgid ""
@@ -7579,7 +7579,7 @@ msgstr ""
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
-msgstr "NFS server-naam:"
+msgstr "NFS-server naam:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:288
 #, c-format
