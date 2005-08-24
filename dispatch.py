@@ -36,7 +36,7 @@ from partitioning import partitioningComplete
 from floppy import makeBootdisk
 from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
-from upgrade import upgradeFindPackages, upgradeMountFilesystems
+from upgrade import upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts
 from network import networkDeviceCheck
