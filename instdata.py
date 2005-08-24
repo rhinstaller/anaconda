@@ -264,8 +264,5 @@ class InstallData:
         except:
             pass
 
-        # FIXME: this is a major hack to get the comps package installed
-        self.compspkg = None
-
         self.methodstr = methodstr
 	self.reset()
