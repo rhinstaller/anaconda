@@ -26,7 +26,6 @@ import math
 from flags import flags
 from iw_gui import *
 from rhpl.translate import _, N_
-from packages import doInstall
 from constants import *
 from gui import processEvents, takeScreenShot
 
