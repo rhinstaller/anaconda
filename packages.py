@@ -395,21 +395,6 @@ def doPreInstall(method, id, intf, instPath, dir):
     # shorthand
     upgrade = id.getUpgrade()
 
-    # make sure that all comps that include other comps are
-    # selected (i.e. - recurse down the selected comps and turn
-    # on the children
-    while 1:
-        try:
-            method.mergeFullHeaders(id.grpset.hdrlist)
-        except FileCopyException:
-            method.unmountCD()
-            intf.messageWindow(_("Error"),
-                               _("Unable to merge header list.  This may be "
-                                 "due to a missing file or bad media.  "
-                                 "Press <return> to try again."))
-        else:
-            break
-
     if upgrade:
 	# An old mtab can cause confusion (esp if loop devices are
 	# in it)
@@ -476,16 +461,9 @@ def doPreInstall(method, id, intf, instPath, dir):
         # we need to have a /dev during install and now that udev is
         # handling /dev, it gets to be more fun.  so just bind mount the
         # installer /dev
-        if not id.grpset.hdrlist.has_key("dev"):
+        if 1:
             log.warning("no dev package, going to bind mount /dev")
             isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
-
-    # try to copy the comps package.  if it doesn't work, don't worry about it
-    try:
-        id.compspkg = method.copyFileToTemp("%s/base/comps.rpm" % (productPath,))
-    except:
-        log.error("Unable to copy comps package")
-        id.compspkg = None
 
     # write out the fstab
     if not upgrade:
@@ -640,50 +618,12 @@ def doPostInstall(method, id, intf, instPath):
             # of working afterwards. FIXME: this is a hack
             migrateMouseConfig(instPath, instLogName)
 
-        if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
-            log.info("rhgb installed, adding to boot loader config")
-            id.bootloader.args.append("rhgb quiet")
+        #if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
+        #    log.info("rhgb installed, adding to boot loader config")
+        #   id.bootloader.args.append("rhgb quiet")
 
         w.set(5)
 
-        # FIXME: hack to install the comps package
-        if (id.compspkg is not None and
-            os.access(id.compspkg, os.R_OK)):
-            log.info("found the comps package")
-            try:
-                # ugly hack
-                path = id.compspkg.split("/mnt/sysimage")[1]
-                args = ["/bin/rpm", "-Uvh", path]
-                rc = iutil.execWithRedirect(args[0], args,
-                                            stdout = "/dev/tty5",
-                                            stderr = "/dev/tty5",
-                                            root = instPath)
-                ts = rpm.TransactionSet()
-                ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-                ts.closeDB()
-                fd = os.open(id.compspkg, os.O_RDONLY)
-                h = ts.hdrFromFdno(fd)
-                os.close(fd)
-                if upgrade:
-                    text = _("Upgrading %s-%s-%s.%s.\n")
-                else:
-                    text = _("Installing %s-%s-%s.%s.\n")
-                instLog.write(text % (h['name'],
-                                      h['version'],
-                                      h['release'],
-                                      h['arch']))
-                os.unlink(id.compspkg)
-                del ts
-
-            except Exception, e:
-                log.error("comps.rpm failed to install: %s" %(e,))
-                try:
-                    os.unlink(id.compspkg)
-                except:
-                    pass
-        else:
-            log.error("no comps package found")
-                
         w.set(6)
 
 
@@ -697,19 +637,6 @@ def doPostInstall(method, id, intf, instPath):
         instLog.write(_("\n\nThe following packages were available in "
                         "this version but NOT installed:\n"))
         
-    lines = []
-    for p in id.grpset.hdrlist.values():
-        if not p.isSelected():
-            lines.append("%s-%s-%s.%s.rpm\n" %
-                         (p.hdr[rpm.RPMTAG_NAME],
-                          p.hdr[rpm.RPMTAG_VERSION],
-                          p.hdr[rpm.RPMTAG_RELEASE],
-                          p.hdr[rpm.RPMTAG_ARCH]))
-    lines.sort()
-    for line in lines:
-        instLog.write(line)
-    
-
     # XXX hack - we should really write a proper lvm "config".  but for now
     # just vgscan if they have /sbin/lvm and some appearance of volumes
     if (os.access(instPath + "/sbin/lvm", os.X_OK) and
