@@ -174,7 +174,7 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
-        self.writePackagesKS(f)
+        #self.writePackagesKS(f)
 
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, self.auth)
