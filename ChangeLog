@@ -1,3 +1,8 @@
+2005-08-25  Jeremy Katz  <katzj@redhat.com>
+
+	* network.py (NetworkDevice.__init__): Don't set some types that
+	aren't really relevant (#136188, #157193)
+
 2005-08-24  Matt Wilson  <msw@rpath.com>
 
 	* loader2/loader.c: Disable selinux if mounting /selinux fails.
