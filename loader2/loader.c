@@ -1368,7 +1368,8 @@ int main(int argc, char ** argv) {
      * (if we're using SELinux) */
     if (FL_SELINUX(flags)) {
         if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
-            logMessage(ERROR, "failed to mount /selinux: %s", strerror(errno));
+            logMessage(ERROR, "failed to mount /selinux: %s, disabling SELinux", strerror(errno));
+            flags &= ~LOADER_FLAGS_SELINUX;
         } else {
             /* FIXME: this is a bad hack for libselinux assuming things
              * about paths */

@@ -1,3 +1,7 @@
+2005-08-24  Matt Wilson  <msw@rpath.com>
+
+	* loader2/loader.c: Disable selinux if mounting /selinux fails.
+
 2005-08-23  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.c: We don't use /dev/ptyp* anymore, so our pty major
