@@ -13,7 +13,6 @@
 
 import os
 import string
-from hdrlist import groupSetFromCompsFile
 from constants import *
 
 import logging
