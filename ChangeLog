@@ -1,3 +1,17 @@
+2005-08-26  Jeremy Katz  <katzj@redhat.com>
+
+	* dispatch.py (installSteps): Add new autopart type step, remove
+	some obsolete stuff (fdisk, fdasd)
+	* gui.py (stepToClass): Add new step.
+	(getGladeWidget): Add helper function for glade screens.
+	* text.py (stepToClasses): Add new step.
+	* installclass.py (BaseInstallClass.setSteps): Add new step.
+	* iw/autopart_type.py: Add first pass at new autopartitioning
+	screen.  Still want to make the shown options more dynamic based
+	on what your system initially looks like.
+	* textw/partition_text.py: Add new autopartitioning screen.
+	* ui/autopart.glade: Add glade file for new autopartitioning screen.
+
 2005-08-25  Jeremy Katz  <katzj@redhat.com>
 
 	* network.py (NetworkDevice.__init__): Don't set some types that

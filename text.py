@@ -41,6 +41,7 @@ stepToClasses = {
     "welcome" : ("welcome_text", "WelcomeWindow"),
     "installtype" : ("installpath_text", "InstallPathWindow"),
     "autopartition" : ("partition_text", "AutoPartitionWindow"),
+    "parttype" : ("partition_text", "PartitionTypeWindow"),    
     "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow"),
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),

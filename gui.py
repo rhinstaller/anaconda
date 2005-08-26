@@ -56,6 +56,7 @@ stepToClass = {
     "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),
     "autopartition" : ("partition_gui", "AutoPartitionWindow"),
+    "parttype" : ("autopart_type", "PartitionTypeWindow"),
     "findinstall" : ("examine_gui", "UpgradeExamineWindow"),
     "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
@@ -405,6 +406,14 @@ def findGladeFile(file):
         if os.access(fn, os.R_OK):
             return fn
     raise RuntimeError, "Unable to find glade file %s"  %(fn,)
+
+def getGladeWidget(file, rootwidget, i18ndomain="anaconda"):
+    f = findGladeFile(file)
+    xml = gtk.glade.XML(f, root = rootwidget, domain = i18ndomain)
+    w = xml.get_widget(rootwidget)
+    if w is None:
+        raise RuntimeError, "Unable to find root widget %s in %s" %(rootwidget, file)
+    return (xml, w)
 
 def findPixmap(file):
     for dir in ("/mnt/source/RHupdates/pixmaps/",

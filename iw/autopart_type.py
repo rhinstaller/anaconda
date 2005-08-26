@@ -1,0 +1,112 @@
+#
+# autopart_type.py: Allows the user to choose how they want to partition
+#
+# Jeremy Katz <katzj@redhat.com>
+#
+# Copyright 2005 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# general public license.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+
+import gtk
+import gobject
+
+import autopart
+import constants
+import gui
+from partition_ui_helpers_gui import *
+
+from iw_gui import *
+from flags import flags
+
+class PartitionTypeWindow(InstallWindow):
+    def __init__(self, ics):
+        InstallWindow.__init__(self, ics)
+        ics.setTitle("Automatic Partitioning")
+        ics.setNextEnabled(True)
+        ics.readHTML("autopart")
+
+    def getNext(self):
+        active = self.combo.get_active_iter()
+        val = self.combo.get_model().get_value(active, 1)
+
+        if val == -1:
+            self.dispatch.skipStep("autopartitionexecute", skip = 1)
+        else:
+            self.dispatch.skipStep("autopartitionexecute", skip = 0)
+            
+            self.partitions.useAutopartitioning = 1
+            self.partitions.autoClearPartType = val
+
+            allowdrives = []
+            model = self.drivelist.get_model()
+            for row in model:
+                if row[0]:
+                    allowdrives.append(row[1])
+
+            if len(allowdrives) < 1:
+                mustHaveSelectedDrive(self.intf)
+                raise gui.StayOnScreen
+
+            self.partitions.autoClearPartDrives = allowdrives
+
+            if not autopart.queryAutoPartitionOK(self.intf, self.diskset,
+                                                 self.partitions):
+                raise gui.StayOnScreen
+
+            if self.xml.get_widget("reviewButton").get_active():
+                self.dispatch.skipStep("partition", skip = 0)
+            else:
+                self.dispatch.skipStep("partition")
+
+        return None
+            
+
+    def getScreen(self, diskset, partitions, intf, dispatch):
+        self.diskset = diskset
+        self.partitions = partitions
+        self.intf = intf
+        self.dispatch = dispatch
+
+        (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeBox")
+
+        self.combo = self.xml.get_widget("partitionTypeCombo")
+        cell = gtk.CellRendererText()
+        self.combo.pack_start(cell, True)
+        self.combo.set_attributes(cell, text = 0)
+        cell.set_property("wrap-width", 475)        
+        self.combo.set_size_request(450, -1)
+
+        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
+        self.combo.set_model(store)
+        opts = (("Remove all partitions on selected drives and create default layout.", CLEARPART_TYPE_ALL),
+                ("Remove linux partitions on selected drives and create default layout.", CLEARPART_TYPE_LINUX),
+                ("Use free space on selected drives and create default layout.", CLEARPART_TYPE_NONE),
+                ("Create custom layout.", -1))
+        for (txt, val) in opts:
+            iter = store.append(None)
+            store[iter] = (txt, val)
+            if val == partitions.autoClearPartType:
+                self.combo.set_active_iter(iter)
+
+        if ((self.combo.get_active() == -1) or
+            dispatch.stepInSkipList("autopartitionexecute")):
+            self.combo.set_active(n-1)
+
+        self.drivelist = createAllowedDrivesList(diskset.disks,
+                                                 partitions.autoClearPartDrives)
+        self.drivelist.set_size_request(375, 80)
+
+        self.xml.get_widget("driveScroll").add(self.drivelist)
+
+        self.xml.get_widget("reviewButton").set_active(not dispatch.stepInSkipList("partition"))
+
+        return vbox
+
+

@@ -1595,8 +1595,110 @@ class AutoPartitionWindow:
                 
                 return INSTALL_OK
 
-class DasdPreparation:
-    def __call__(self, screen, todo):
-	todo.skipFdisk = 1
-	return INSTALL_NOOP
+
+class PartitionTypeWindow:
+    def typeboxChange(self, (typebox, drivelist)):
+        flag = FLAGS_RESET
+        if typebox.current() == CLEARPART_TYPE_NONE:
+            flag = FLAGS_SET
+        # XXX need a way to disable the checkbox tree
+
+    def shutdownUI(self):
+        # XXX remove parted object refs
+        #     need to put in clear() method for checkboxtree in snack
+        self.drivelist.key2item = {}
+        self.drivelist.item2key = {}
+    
+    def __call__(self, screen, diskset, partitions, intf, dispatch):
+        g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
+
+        txt = TextboxReflowed(65, _("Installation requires partitioning "
+                                    "of your hard drive.  By default, "
+                                    "a partitioning layout is chosen "
+                                    "which is reasonable for most "
+                                    "users.  You can either choose "
+                                    "to use this or create your own."))
+        g.add(txt, 0, 0, (0, 0, 0, 0))
+
+        opts = (("Remove all partitions on selected drives and create default layout.", CLEARPART_TYPE_ALL),
+                ("Remove linux partitions on selected drives and create default layout.", CLEARPART_TYPE_LINUX),
+                ("Use free space on selected drives and create default layout.", CLEARPART_TYPE_NONE),
+                ("Create custom layout.", -1))
+        typebox = Listbox(height = len(opts), scroll = 0)
+        for (txt, val) in opts:
+            typebox.append(txt, val)
+
+        if dispatch.stepInSkipList("autopartitionexecute"):
+            typebox.setCurrent(-1)
+        else:
+            typebox.setCurrent(partitions.autoClearPartType)        
+
+        g.add(typebox, 0, 1, (0, 1, 0, 0))
+
+        # list of drives to select which to clear
+        subgrid = Grid(1, 2)
+        subgrid.setField(TextboxReflowed(55, _("Which drive(s) do you want to "
+                                               "use for this installation?")),
+                         0, 0)
+        cleardrives = partitions.autoClearPartDrives
+        disks = diskset.disks.keys()
+        disks.sort()
+        drivelist = CheckboxTree(height=2, scroll=1)
+        if not cleardrives or len(cleardrives) < 1:
+            for disk in disks:
+                drivelist.append(disk, selected = 1)
+        else:
+            for disk in disks:
+                if disk in cleardrives:
+                    selected = 1
+                else:
+                    selected = 0
+                drivelist.append(disk, selected = selected)
+        subgrid.setField(drivelist, 0, 1)
+        g.add(subgrid, 0, 2, (0, 1, 0, 0))
+
+        
+        
+        bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
+        g.add(bb, 0, 5, (0,1,0,0))
+
+
+        typebox.setCallback(self.typeboxChange, (typebox, drivelist))        
+        self.drivelist = drivelist
+        
+
+        while 1:
+            rc = g.run()
+            res = bb.buttonPressed(rc)
+
+            if res == TEXT_BACK_CHECK:
+                self.shutdownUI()
+                screen.popWindow()
+                
+                return INSTALL_BACK
+
+            if len(self.drivelist.getSelection()) < 1:
+                mustHaveSelectedDrive(intf)
+                continue
+
+            cur = typebox.current()
+            if cur == -1:
+                dispatch.skipStep("autopartitionexecute", skip = 1)
+            else:
+                dispatch.skipStep("autopartitionexecute", skip = 0)
+
+                partitions.autoClearPartType = cur
+                partitions.autoClearPartDrives = self.drivelist.getSelection()
+                
+                if queryAutoPartitionOK(intf, diskset, partitions):
+                    self.shutdownUI()
+                    screen.popWindow()
+
+                    # XXX we always unskip disk druid in tui right now since
+                    # we don't ask if you want to review amd if you're using
+                    # text mode, we hope you're smart enough to deal (#82474)
+                    dispatch.skipStep("partition", skip = 0)
+                
+                    return INSTALL_OK
+                
 

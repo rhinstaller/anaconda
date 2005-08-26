@@ -128,6 +128,7 @@ class BaseInstallClass:
                  "partitionmethod",
                  "partitionobjinit",
                  "partitionmethodsetup",
+                 "parttype",
                  "autopartition",
                  "autopartitionexecute",
                  "fdisk",
