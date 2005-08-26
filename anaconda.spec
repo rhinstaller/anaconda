@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 26 2005 Jeremy Katz <katzj@redhat.com>
+- More work from pnasrat on getting the yum backend working
+- Don't set some irrelevant network TYPE= (#136188, #157193)
+- New and improved autopartitioning screen
+
 * Fri Aug 19 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.10-1
 - Working towards new backend architecture
 
