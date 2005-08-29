@@ -20,6 +20,9 @@
 
 2005-08-29  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda: Don't translate temporary text.  Also, don't warn me
+	in test mode, I get it.
+
 	* iw/autopart_type.py (PartitionTypeWindow.getScreen): Fix a
 	traceback from clumens
 

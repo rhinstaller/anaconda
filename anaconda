@@ -8,8 +8,8 @@
 # Mike Fulbright <msf@redhat.com>
 # Jakub Jelinek <jakub@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
-# Erik Troan <ewt@redhat.com>
-# Matt Wilson <msw@specifixinc.com>
+# Erik Troan <ewt@rpath.com>
+# Matt Wilson <msw@rpath.com>
 #
 # ... And many others
 #
@@ -1055,19 +1055,19 @@ intf = InstallInterface ()
 # imports after setting up the path
 if method:
         if not method.startswith('nfs:/'):
-            intf.messageWindow(_("Install Method Unavailable"),
-                               _("Anaconda is undergoing major backend work "
+            intf.messageWindow("Install Method Unavailable",
+                               "Anaconda is undergoing major backend work "
                                "currently only nfs tree installs are supported. "
                                "We apologise for any inconvenience. "
-                               "Normal service will be resumed ASAP."))
+                               "Normal service will be resumed ASAP.")
             sys.exit(42)
         else:    
-            intf.messageWindow(_("Install Method Under Construction"),
-                               _("Anaconda is undergoing major backend work "
-                               "currently only nfs tree installs are supported "
-                               "and package selection is turned off. "
-                               "We are aware of this and and normal service, "
-                               "will be resumed ASAP."))
+            flags.test or intf.messageWindow("Install Method Under Construction",
+                                "Anaconda is undergoing major backend work "
+                                "currently only nfs tree installs are supported "
+                                "and package selection is turned off. "
+                                "We are aware of this and and normal service, "
+                                "will be resumed ASAP.")
             from image import NfsInstallMethod
             methodobj = NfsInstallMethod(method[5:], rootPath, intf)
 #    elif method.startswith('nfsiso:/'):
