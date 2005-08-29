@@ -277,45 +277,8 @@ class BaseInstallClass:
     def setRootPassword(self, id, pw, isCrypted = 0):
 	id.rootPassword.set(pw, isCrypted)
 
-    def setAuthentication(self, id, useShadow, useMd5,
-                          useNIS = 0, nisDomain = "",  nisBroadcast = 0,
-                          nisServer = "",
-                          useLdap = 0, useLdapauth = 0, ldapServer = "",
-                          ldapBasedn = "", useldapTls = 0,
-                          useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
-                          krb5Admin = "",
-                          useHesiod = 0, hesiodLhs = "", hesiodRhs = "",
-                          useSamba = 0, sambaServer= "", sambaWorkgroup = "",
-                          enableCache = 0):
-
-        id.auth.useShadow = useShadow
-        id.auth.useMD5 = useMd5
-
-        id.auth.useNIS = useNIS
-        id.auth.nisDomain = nisDomain
-        id.auth.nisuseBroadcast = nisBroadcast
-        id.auth.nisServer = nisServer
-
-        id.auth.useLdap = useLdap
-        id.auth.useLdapauth = useLdapauth
-        id.auth.ldapServer = ldapServer
-        id.auth.ldapBasedn = ldapBasedn
-        id.auth.ldapTLS = useldapTls
-
-        id.auth.useKrb5 = useKrb5
-        id.auth.krb5Realm = krb5Realm
-        id.auth.krb5Kdc = krb5Kdc
-        id.auth.krb5Admin = krb5Admin
-
-        id.auth.useHesiod = useHesiod
-        id.auth.hesiodLhs = hesiodLhs
-        id.auth.hesiodRhs = hesiodRhs
-
-        id.auth.useSamba = useSamba
-        id.auth.sambaServer = sambaServer
-        id.auth.sambaWorkgroup = sambaWorkgroup
-
-        id.auth.enableCache = enableCache
+    def setAuthentication(self, id, authStr):
+        id.auth = authStr
 
     def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None, essid = None, wepkey = None):
 	if bootProto:
@@ -522,7 +485,7 @@ class BaseInstallClass:
             partitions.autoClearPartType = clear
             partitions.autoClearPartDrives = []
         partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
-        
+
 
     def setInstallData(self, id, intf = None):
 	id.reset()

@@ -1,3 +1,23 @@
+2005-08-29  Chris Lumens  <clumens@redhat.com>
+
+	* installclass.py (BaseInstallClass.setAuthentication):  Simplified to
+	store authconfig data as a string to be passed to authconfig without
+	mangling.
+	* kickstart.py (Kickstart.doAuthconfig):  Likewise.
+	* instdata.py (InstallData.write, InstallData.writeKS):  Likewise.
+
+	* dispatch.py (installSteps):  Removed authentication step.
+	* gui.py (stepToClass):  Likewise.
+	* text.py (stepToClasses):  Likewise.
+	* installclasses/personal_desktop.py:  Likewise.
+	* installclasses/server.py:  Likewise.
+
+	* packages.py (handleMiscPackages):  Check string instead of instdata
+	values.
+	* users.py (Authentication):  Removed.
+	* iw/auth_gui.py:  Removed.
+	* textw/userauth_text.py (UsersWindow, AuthConfigWindow):  Removed.
+
 2005-08-29  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.getScreen): Fix a

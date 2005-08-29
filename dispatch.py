@@ -100,7 +100,6 @@ installSteps = [
     ("network", ("id.network", "dir", "intf", "id")),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
-    ("authentication", ("id.auth",)),
 #XXX: factor to backend
     #("readcomps", readPackages, ("intf", "method", "id")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),

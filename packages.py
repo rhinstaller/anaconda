@@ -344,23 +344,23 @@ def handleMiscPackages(intf, id, dir):
             select(id.grpset.hdrlist, "kernel-devel")
 
 	# if NIS is configured, install ypbind and dependencies:
-	if id.auth.useNIS:
+	if id.auth.find("--enablenis") != -1:
             select(id.grpset.hdrlist, 'ypbind')
             select(id.grpset.hdrlist, 'yp-tools')
             select(id.grpset.hdrlist, 'portmap')
 
-	if id.auth.useLdap:
+	if id.auth.find("--enableldap") != -1:
             select(id.grpset.hdrlist, 'nss_ldap')
             select(id.grpset.hdrlist, 'openldap')
             select(id.grpset.hdrlist, 'perl')
 
-	if id.auth.useKrb5:
+	if id.auth.find("--enablekrb5") != -1:
             select(id.grpset.hdrlist, 'pam_krb5')
             select(id.grpset.hdrlist, 'krb5-workstation')
             select(id.grpset.hdrlist, 'krbafs')
             select(id.grpset.hdrlist, 'krb5-libs')
 
-        if id.auth.useSamba:
+	if id.auth.find("--enablesmbauth") != -1:
             select(id.grpset.hdrlist, 'pam_smb')
 
         if iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:

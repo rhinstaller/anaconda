@@ -64,7 +64,6 @@ stepToClasses = {
                                   "HostnameWindow")),
     "timezone" : ("timezone_text", "TimezoneWindow"),
     "accounts" : ("userauth_text", "RootPasswordWindow"),
-    "authentication" : ("userauth_text", ("AuthConfigWindow")),
     "desktopchoice": ("desktop_choice_text", "DesktopChoiceWindow"),
     "package-selection"  : ("packages_text", "PackageGroupWindow"),
     "indivpackage" : ("packages_text", ("IndividualPackageWindow")),
