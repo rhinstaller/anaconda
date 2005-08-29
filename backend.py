@@ -16,8 +16,13 @@ import logging
 log = logging.getLogger("anaconda")
 
 class AnacondaBackend:
-    def __init__(self):
-        pass
+    def __init__(self, method):
+        self.method = method
+
+    def readPackages(self, intf, id):
+        """Set id.grpset and id.pkglist"""
+        id.grpset = []
+        id.pkglist = []
 
     def doPreSelection(self):
         pass

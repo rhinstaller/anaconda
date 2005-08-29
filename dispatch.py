@@ -286,7 +286,7 @@ class Dispatcher:
 
 	return (step, args)
 
-    def __init__(self, intf, id, method, instPath):
+    def __init__(self, intf, id, method, instPath, backend):
 	self.dir = DISPATCH_FORWARD
 	self.step = None
 	self.skipSteps = {}
@@ -298,3 +298,4 @@ class Dispatcher:
 	self.dispatch = self
 	self.instPath = instPath
 	self.firstStep = 0
+        self.backend = backend
