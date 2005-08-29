@@ -97,7 +97,7 @@ class PartitionTypeWindow(InstallWindow):
 
         if ((self.combo.get_active() == -1) or
             dispatch.stepInSkipList("autopartitionexecute")):
-            self.combo.set_active(n-1)
+            self.combo.set_active(len(opts) - 1) # yeah, it's a hack
 
         self.drivelist = createAllowedDrivesList(diskset.disks,
                                                  partitions.autoClearPartDrives)
