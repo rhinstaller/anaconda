@@ -23,12 +23,14 @@ import yum.repos
 import yum.packages
 from syslogd import syslog
 from backend import AnacondaBackend
+from constants import *
 from rhpl.translate import _
 
 import logging
 log = logging.getLogger("anaconda")
 
 import iutil
+import isys
 
 class simpleCallback:
 
@@ -245,7 +247,7 @@ class YumBackend(AnacondaBackend):
         _("Checking dependencies in packages selected for installation..."))
            
         (code, msgs) = self.ayum.buildTransaction()
-        (dlpkgs, totalSize, totalFiles)  = self.ayum.getDownloadPkgs()
+        (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
         win.pop()
 
     def doPreInstall(self, intf, id, instPath, dir):
@@ -281,7 +283,7 @@ class YumBackend(AnacondaBackend):
                           instPath + "/etc/modprobe.conf.anacbak")
                 
 
-        if method.systemMounted (id.fsset, instPath):
+        if self.method.systemMounted (id.fsset, instPath):
             id.fsset.umountFilesystems(instPath)
             return DISPATCH_BACK
 
@@ -355,7 +357,7 @@ class YumBackend(AnacondaBackend):
 
         pkgTimer = timer.Timer(start = 0)
 
-        id.instProgress.setSizes(len(dlpkgs), totalSize, totalFiles)
+        id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
         id.instProgress.processEvents()
 
         cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.method, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)

@@ -44,8 +44,9 @@ from installmethod import doMethodComplete
 import logging
 log = logging.getLogger("anaconda")
 
-from backend import ProxyBackend
-backend = ProxyBackend()
+from backend import doPreSelection, doPostSelection
+from backend import doPreInstall, doPostInstall, doInstall 
+
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
 # installs skip upgrade steps.
@@ -102,7 +103,7 @@ installSteps = [
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
 #XXX: factor to backend
-    ("preselection", backend.doPreSelection, ("intf", "id", "instPath")),
+    ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
@@ -112,7 +113,7 @@ installSteps = [
     #                                      "id", "instPath")),
     #("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
     #("fixupconditionals", fixupConditionals, ("id.grpset",)),
-    ("postselection", backend.doPostSelection, ("intf", "id", "instPath")),
+    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
 #XXX: factor to backend
     #("checkdeps", checkDependencies, ("dir", "intf", "dispatch", "id", "instPath")),
     #("dependencies", ("id.grpset", "id.dependencies")),
@@ -127,8 +128,8 @@ installSteps = [
                                               "instPath")),
     ("setuptime", setupTimezone, ("id.timezone", "id.upgrade", "instPath",
                                   "dir")),
-    ("preinstallconfig", backend.doPreInstall, ("intf", "id", "instPath", "dir")),
-    ("installpackages", backend.doInstall, ("method", "id", "intf", "instPath")),
+    ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
+    ("installpackages", doInstall, ("backend", "intf", "id", "instPath")),
     #("postinstallconfig", backend.doPostInstall, ("method", "id", "intf", "instPath")),
     ("writeconfig", writeConfiguration, ("id", "instPath")),
     ("firstboot", firstbootConfiguration, ("id", "instPath")),
@@ -153,7 +154,7 @@ installSteps = [
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("setfilecon", setFileCons, ("instPath","id.partitions")),
     ("copylogs", copyAnacondaLogs, ("instPath",)),
-    ("dopostaction", doPostAction, ("id", "instPath", "intf")),
+    ("dopostaction", doPostInstall, ("backend", "intf", "id", "instPath")),
     ("methodcomplete", doMethodComplete, ("method", "id.fsset")),
     ("complete", ()),
     ]
@@ -284,9 +285,7 @@ class Dispatcher:
 
 	return (step, args)
 
-    def __init__(self, intf, id, method, instPath, mybackend):
-        global backend
-        backend.object = mybackend
+    def __init__(self, intf, id, method, instPath, backend):
 	self.dir = DISPATCH_FORWARD
 	self.step = None
 	self.skipSteps = {}
@@ -297,4 +296,5 @@ class Dispatcher:
 	self.method = method
 	self.dispatch = self
 	self.instPath = instPath
+        self.backend = backend
 	self.firstStep = 0

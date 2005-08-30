@@ -15,14 +15,6 @@
 import logging
 log = logging.getLogger("anaconda")
 
-class ProxyBackend:
-    def __init__(self, object=None):
-        self.object = object
-
-    def __getattr__(self, attr):
-        if self.object:
-            return getattr(self.object, attr)
-
 class AnacondaBackend:
     def __init__(self, method):
         self.method = method
@@ -87,4 +79,20 @@ class AnacondaBackend:
             self.modeText = _("Upgrading %s-%s-%s.%s.\n")
         else:
             self.modeText = _("Installing %s-%s-%s.%s.\n")
+
+
+def doPreSelection(backend, intf, id, instPath):
+    backend.doPreSelection(intf, id, instPath)
+
+def doPostSelection(backend, intf, id, instPath):
+    backend.doPostSelection(intf, id, instPath)
+
+def doPreInstall(backend, intf, id, instPath, dir):
+    backend.doPreInstall(intf, id, instPath, dir)
+
+def doPostInstall(backend, intf, id, instPath):
+    backend.doPostInstall(intf, id, instPath)
+
+def doInstall(backend, intf, id, instPath):
+    backend.doInstall(intf, id, instPath)
 

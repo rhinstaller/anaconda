@@ -1093,7 +1093,7 @@ if method:
 
 from yuminstall import YumBackend 
 
-backend = YumBackend(method)
+backend = YumBackend(methodobj)
 
 floppyDevice = floppy.probeFloppyDevice()
 
