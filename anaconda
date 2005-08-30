@@ -1091,9 +1091,9 @@ if method:
 #        log.critical (_("unknown install method: %s"), method)
 #        sys.exit(1)
 
-from backend import AnacondaBackend
+from yuminstall import YumBackend 
 
-backend = AnacondaBackend(method)
+backend = YumBackend(method)
 
 floppyDevice = floppy.probeFloppyDevice()
 

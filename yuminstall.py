@@ -22,7 +22,7 @@ import yum
 import yum.repos
 import yum.packages
 from syslogd import syslog
-
+from backend import AnacondaBackend
 from rhpl.translate import _
 
 import logging
@@ -227,87 +227,148 @@ class AnacondaYum(yum.YumBase):
         self.doSackSetup()
         self.repos.populateSack(with='filelists')
 
-def doYumInstall(method, id, intf, instPath):
-    if flags.test:
-        return
+class YumBackend(AnacondaBackend):
 
-    upgrade = id.getUpgrade()
+    def doPreSelection(self, intf, id, instPath):
+        self.ac = AnacondaYumConf(configfile="/tmp/yum.conf", root=instPath)
+        self.ayum = AnacondaYum(self.method, id, intf, instPath)
+        self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
 
-    if upgrade:
-        logname = '/root/upgrade.log'
-    else:
-        logname = '/root/install.log'
-
-    instLogName = instPath + logname
-    try:
-        iutil.rmrf (instLogName)
-    except OSError:
-        pass
-
-    instLog = open(instLogName, "w+")
-    if upgrade:
-        logname = '/root/upgrade.log'
-    else:
-        logname = '/root/install.log'
-
-    instLogName = instPath + logname
-    try:
-        iutil.rmrf (instLogName)
-    except OSError:
-        pass
-
-    instLog = open(instLogName, "w+")
-
-   # dont start syslogd if we arent creating filesystems
-    if flags.setupFilesystems:
-        syslogname = "%s%s.syslog" % (instPath, logname)
-        try:
-            iutil.rmrf (syslogname)
-        except OSError:
-            pass
-        syslog.start (instPath, syslogname)
-    else:
-        syslogname = None
-
-    if upgrade:
-        modeText = _("Upgrading %s-%s-%s.%s.\n")
-    else:
-        modeText = _("Installing %s-%s-%s.%s.\n")
-
-    ac = AnacondaYumConf(configfile="/tmp/yum.conf", root=instPath)
-    ayum = AnacondaYum(method, id, intf, instPath)
-    ayum.setup(fn="/tmp/yum.conf", root=instPath)
-    
-    ayum.setGroupSelection(["Core"], intf)
-    ayum.setGroupSelection(["Base"], intf)
-    ayum.setGroupSelection(["Text-based Internet"], intf)
-
-    pkgTimer = timer.Timer(start = 0)
-# Resolve deps
-#
-    win = intf.waitWindow(_("Dependency Check"),
-    _("Checking dependencies in packages selected for installation..."))
-       
-    (code, msgs) = ayum.buildTransaction()
-    (dlpkgs, totalSize, totalFiles)  = ayum.getDownloadPkgs()
-    win.pop()
-
-    id.instProgress.setSizes(len(dlpkgs), totalSize, totalFiles)
-    id.instProgress.processEvents()
-
-    cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, method, intf.progressWindow, instLog, modeText, ayum.ts)
-
-    cb.initWindow = intf.waitWindow(_("Install Starting"),
-                                    _("Starting install process.  This may take several minutes..."))
-
-    ayum.run(cb)
-
-    if not cb.beenCalled:
-        cb.initWindow.pop()
-
-    method.filesDone()
-    instLog.close ()
-
-    id.instProgress = None
+        self.ayum.setGroupSelection(["Core"], intf)
+        self.ayum.setGroupSelection(["Base"], intf)
+        self.ayum.setGroupSelection(["Text-based Internet"], intf)
 
 
+    def doPostSelection(self, intf, id, instPath):
+        self.initLog(id, instPath)
+        win = intf.waitWindow(_("Dependency Check"),
+        _("Checking dependencies in packages selected for installation..."))
+           
+        (code, msgs) = self.ayum.buildTransaction()
+        (dlpkgs, totalSize, totalFiles)  = self.ayum.getDownloadPkgs()
+        win.pop()
+
+    def doPreInstall(self, intf, id, instPath, dir):
+        if dir == DISPATCH_BACK:
+            for d in ("/selinux", "/dev"):
+                try:
+                    isys.umount(instPath + d, removeDir = 0)
+                except Exception, e:
+                    log.error("unable to unmount %s: %s" %(d, e))
+            return
+
+            if flags.test:
+                return
+
+        # shorthand
+        upgrade = id.getUpgrade()
+
+        if upgrade:
+            # An old mtab can cause confusion (esp if loop devices are
+            # in it)
+            f = open(instPath + "/etc/mtab", "w+")
+            f.close()
+
+            # we really started writing modprobe.conf out before things were
+            # all completely ready.  so now we need to nuke old modprobe.conf's
+            # if you're upgrading from a 2.4 dist so that we can get the
+            # transition right
+            if (os.path.exists(instPath + "/etc/modules.conf") and
+                os.path.exists(instPath + "/etc/modprobe.conf") and
+                not os.path.exists(instPath + "/etc/modprobe.conf.anacbak")):
+                log.info("renaming old modprobe.conf -> modprobe.conf.anacbak")
+                os.rename(instPath + "/etc/modprobe.conf",
+                          instPath + "/etc/modprobe.conf.anacbak")
+                
+
+        if method.systemMounted (id.fsset, instPath):
+            id.fsset.umountFilesystems(instPath)
+            return DISPATCH_BACK
+
+        for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
+                   '/etc/sysconfig', '/etc/sysconfig/network-scripts',
+                   '/etc/X11', '/root', '/var/tmp', '/etc/rpm' ):
+            try:
+                os.mkdir(instPath + i)
+            except os.error, (errno, msg):
+                pass
+#            log.error("Error making directory %s: %s" % (i, msg))
+
+
+        if flags.setupFilesystems:
+            # setup /etc/rpm/platform for the post-install environment
+            iutil.writeRpmPlatform(instPath)
+            
+            try:
+                # FIXME: making the /var/lib/rpm symlink here is a hack to
+                # workaround db->close() errors from rpm
+                iutil.mkdirChain("/var/lib")
+                for path in ("/var/tmp", "/var/lib/rpm"):
+                    if os.path.exists(path) and not os.path.islink(path):
+                        iutil.rmrf(path)
+                    if not os.path.islink(path):
+                        os.symlink("/mnt/sysimage/%s" %(path,), "%s" %(path,))
+                    else:
+                        log.warning("%s already exists as a symlink to %s" %(path, os.readlink(path),))
+            except Exception, e:
+                # how this could happen isn't entirely clear; log it in case
+                # it does and causes problems later
+                log.error("error creating symlink, continuing anyway: %s" %(e,))
+
+            # SELinux hackery (#121369)
+            if flags.selinux:
+                try:
+                    os.mkdir(instPath + "/selinux")
+                except Exception, e:
+                    pass
+                try:
+                    isys.mount("/selinux", instPath + "/selinux", "selinuxfs")
+                except Exception, e:
+                    log.error("error mounting selinuxfs: %s" %(e,))
+
+            # we need to have a /dev during install and now that udev is
+            # handling /dev, it gets to be more fun.  so just bind mount the
+            # installer /dev
+            if 1:
+                log.warning("no dev package, going to bind mount /dev")
+                isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
+
+        # write out the fstab
+        if not upgrade:
+            id.fsset.write(instPath)
+            # rootpath mode doesn't have this file around
+            if os.access("/tmp/modprobe.conf", os.R_OK):
+                iutil.copyFile("/tmp/modprobe.conf", 
+                               instPath + "/etc/modprobe.conf")
+            if os.access("/tmp/zfcp.conf", os.R_OK):
+                iutil.copyFile("/tmp/zfcp.conf", 
+                               instPath + "/etc/zfcp.conf")
+
+        # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
+        f = open(instPath + "/etc/mtab", "w+")
+        f.write(id.fsset.mtab())
+        f.close()
+
+    def doInstall(self, intf, id, instPath):
+        if flags.test:
+            return
+
+        pkgTimer = timer.Timer(start = 0)
+
+        id.instProgress.setSizes(len(dlpkgs), totalSize, totalFiles)
+        id.instProgress.processEvents()
+
+        cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.method, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+
+        cb.initWindow = intf.waitWindow(_("Install Starting"),
+                                        _("Starting install process.  This may take several minutes..."))
+
+        self.ayum.run(cb)
+
+        if not cb.beenCalled:
+            cb.initWindow.pop()
+
+        self.method.filesDone()
+        instLog.close ()
+
+        id.instProgress = None
