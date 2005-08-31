@@ -12,8 +12,15 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import iutil
 import logging
+from syslogd import syslog
+
+from rhpl.translate import _
+
+from flags import flags
 log = logging.getLogger("anaconda")
+
 
 class AnacondaBackend:
     def __init__(self, method):

@@ -21,7 +21,6 @@ import urlgrabber.progress
 import yum
 import yum.repos
 import yum.packages
-from syslogd import syslog
 from backend import AnacondaBackend
 from constants import *
 from rhpl.translate import _
@@ -242,7 +241,6 @@ class YumBackend(AnacondaBackend):
 
 
     def doPostSelection(self, intf, id, instPath):
-        self.initLog(id, instPath)
         win = intf.waitWindow(_("Dependency Check"),
         _("Checking dependencies in packages selected for installation..."))
            
@@ -296,6 +294,7 @@ class YumBackend(AnacondaBackend):
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
+        self.initLog(id, instPath)
 
         if flags.setupFilesystems:
             # setup /etc/rpm/platform for the post-install environment

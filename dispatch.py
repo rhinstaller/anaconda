@@ -103,7 +103,7 @@ installSteps = [
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
 #XXX: factor to backend
-    ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
+    #("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
@@ -113,7 +113,7 @@ installSteps = [
     #                                      "id", "instPath")),
     #("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
     #("fixupconditionals", fixupConditionals, ("id.grpset",)),
-    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
+    #("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
 #XXX: factor to backend
     #("checkdeps", checkDependencies, ("dir", "intf", "dispatch", "id", "instPath")),
     #("dependencies", ("id.grpset", "id.dependencies")),
@@ -128,7 +128,9 @@ installSteps = [
                                               "instPath")),
     ("setuptime", setupTimezone, ("id.timezone", "id.upgrade", "instPath",
                                   "dir")),
+    ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
     ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
+    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
     ("installpackages", doInstall, ("backend", "intf", "id", "instPath")),
     #("postinstallconfig", backend.doPostInstall, ("method", "id", "intf", "instPath")),
     ("writeconfig", writeConfiguration, ("id", "instPath")),
