@@ -26,7 +26,7 @@ static int readFD (int fd, char **buf)
 
     *buf = malloc (size);
     if (*buf == 0)
-      return -1;
+	return -1;
 
     filesize = 0;
     do {
@@ -35,14 +35,14 @@ static int readFD (int fd, char **buf)
 	if (s < 0)
 	    break;
 	filesize += s;
-	if (s != 4096)
+	if (s == 0)
 	    break;
 	size += 4096;
 	*buf = realloc (*buf, size);
     } while (1);
 
     if (filesize == 0 && s < 0) {
-	free (*buf);     
+	free (*buf);
 	*buf = NULL;
 	return -1;
     }
