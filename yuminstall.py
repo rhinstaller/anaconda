@@ -13,6 +13,7 @@ from flags import flags
 
 import sys
 import os
+import shutil
 import timer
 
 import rpm
@@ -246,6 +247,8 @@ class YumBackend(AnacondaBackend):
            
         (code, msgs) = self.ayum.buildTransaction()
         (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
+        shutil.copytree(instPath + '/var/cache/yum/anaconda', '/tmp/cache')
+        iutil.rmrf(instPath + '/var/cache/yum/')
         win.pop()
 
     def doPreInstall(self, intf, id, instPath, dir):
@@ -287,13 +290,14 @@ class YumBackend(AnacondaBackend):
 
         for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-                   '/etc/X11', '/root', '/var/tmp', '/etc/rpm' ):
+                   '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache', '/var/cache/yum' ):
             try:
                 os.mkdir(instPath + i)
             except os.error, (errno, msg):
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
+        shutil.copytree('/tmp/cache', instPath + '/var/cache/yum/anaconda')
         self.initLog(id, instPath)
 
         if flags.setupFilesystems:
@@ -370,6 +374,6 @@ class YumBackend(AnacondaBackend):
             cb.initWindow.pop()
 
         self.method.filesDone()
-        instLog.close ()
+        self.instLog.close ()
 
         id.instProgress = None
