@@ -14,14 +14,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import shlex
 import sys
-import iutil
 import string
 from optparse import OptionParser, Option
 from rhpl.translate import _, N_
-
-import logging
-log = logging.getLogger("anaconda")
 
 STATE_COMMANDS = 1
 STATE_PACKAGES = 2
@@ -71,11 +68,20 @@ class KSOptionParser(OptionParser):
     def error(self, msg):
         raise KickstartParserError, msg
 
+    def keys(self):
+        retval = []
+
+        for opt in self.option_list:
+            if opt not in retval:
+                retval.append(opt.dest)
+
+        return retval
+
     def __init__(self, map={}):
         self.map = map
-        OptionParser.__init__(self, option_class=MappableOption)
+        OptionParser.__init__(self, option_class=MappableOption,
+                              add_help_option=False)
 
-# do i belong somewhere else?
 class MappableOption(Option):
     ACTIONS = Option.ACTIONS + ("map", "map_extend",)
     STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
@@ -89,8 +95,7 @@ class MappableOption(Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
-# move run into anaconda specific stuff, subclass, etc.
-class Script:
+class KSScript:
     def __repr__(self):
         str = ("(s: '%s' i: %s c: %d)") %  \
               (self.script, self.interp, self.inChroot)
@@ -104,116 +109,122 @@ class Script:
         self.logfile = logfile
         self.errorOnFail = errorOnFail
 
-    def run(self, chroot, serial, intf = None):
-        scriptRoot = "/"
-        if self.inChroot:
-            scriptRoot = chroot
-
-        path = scriptRoot + "/tmp/ks-script"
-
-        f = open(path, "w")
-        f.write(self.script)
-        f.close()
-        os.chmod(path, 0700)
-
-        if self.logfile is not None:
-            messages = self.logfile
-        elif serial:
-            messages = "/tmp/ks-script.log"
-        else:
-            messages = "/dev/tty3"
-
-        rc = iutil.execWithRedirect(self.interp,
-                                    [self.interp,"/tmp/ks-script"],
-                                    stdout = messages, stderr = messages,
-                                    root = scriptRoot)
-
-        # Always log an error.  Only fail if we have a handle on the
-        # windowing system and the kickstart file included --erroronfail.
-        if rc != 0:
-            log.error("Error code %s encountered running a kickstart %%pre/%%post script", rc)
-
-            if self.errorOnFail:
-                if intf != None:
-                    intf.messageWindow(_("Scriptlet Failure"),
-                                       _("There was an error running the "
-                                         "scriptlet.  You may examine the "
-                                         "output in %s.  This is a fatal error "
-                                         "and your install will be aborted.\n\n"
-                                         "Press the OK button to reboot your "
-                                         "system.") % (messages,))
-                sys.exit(0)
-
-        os.unlink(path)
-
 class KickstartHandlers:
-    handlers = { "auth"	        : self.doAuthconfig,
-                 "authconfig"   : self.doAuthconfig,
-                 "autopart"     : self.doAutoPart,
-                 "autostep"     : self.doAutoStep,
-                 "bootloader"   : self.doBootloader,
-                 "cdrom"        : None,
-                 "clearpart"    : self.doClearPart,
-                 "cmdline"      : None,
-                 "device"       : None,
-                 "deviceprobe"  : None,
-                 "driverdisk"   : None,
-                 "firewall"     : self.doFirewall,
-                 "firstboot"    : self.doFirstboot,
-                 "graphical"    : None,
-                 "halt"         : self.doReboot,
-                 "harddrive"    : None,
-                 "ignoredisk"   : self.doIgnoreDisk,
-                 "install"      : None,
-                 "interactive"  : self.doInteractive,
-                 "keyboard"     : self.doKeyboard,
-                 "lang"         : self.doLang,
-                 "langsupport"  : self.doLangSupport,
-                 "logvol"       : self.defineLogicalVolume,
-                 "mediacheck"   : None,
-                 "monitor"      : self.doMonitor,
-                 "mouse"        : self.doMouse,
-                 "network"      : self.doNetwork,
-                 "nfs"          : None,
-                 "part"         : self.definePartition,
-                 "partition"    : self.definePartition,
-                 "poweroff"     : self.doReboot,
-                 "raid"         : self.defineRaid,
-                 "reboot"       : self.doReboot,
-                 "rootpw"       : self.doRootPw,
-                 "selinux"      : self.doSELinux,
-                 "shutdown"     : self.doReboot,
-                 "skipx"        : self.doSkipX,
-                 "text"         : None,
-                 "timezone"     : self.doTimezone,
-                 "url"          : None,
-                 "upgrade"      : self.doUpgrade,
-                 "vnc"          : None,
-                 "volgroup"     : self.defineVolumeGroup,
-                 "xconfig"      : self.doXconfig,
-                 "xdisplay"     : None,
-                 "zerombr"      : self.doZeroMbr,
-               }
-
     def __init__ (self, ksdata):
         self.ksdata = ksdata
 
-    def doAuthconfig(self, id, args):
+        self.handlers = { "auth"    : self.doAuthconfig,
+                     "authconfig"   : self.doAuthconfig,
+                     "autopart"     : self.doAutoPart,
+                     "autostep"     : self.doAutoStep,
+                     "bootloader"   : self.doBootloader,
+                     "cdrom"        : None,
+                     "clearpart"    : self.doClearPart,
+                     "cmdline"      : None,
+                     "device"       : None,
+                     "deviceprobe"  : None,
+                     "driverdisk"   : None,
+                     "firewall"     : self.doFirewall,
+                     "firstboot"    : self.doFirstboot,
+                     "graphical"    : None,
+                     "halt"         : self.doReboot,
+                     "harddrive"    : None,
+                     "ignoredisk"   : self.doIgnoreDisk,
+                     "install"      : None,
+                     "interactive"  : self.doInteractive,
+                     "keyboard"     : self.doKeyboard,
+                     "lang"         : self.doLang,
+                     "langsupport"  : self.doLangSupport,
+                     "logvol"       : self.defineLogicalVolume,
+                     "mediacheck"   : None,
+                     "monitor"      : self.doMonitor,
+                     "mouse"        : self.doMouse,
+                     "network"      : self.doNetwork,
+                     "nfs"          : None,
+                     "part"         : self.definePartition,
+                     "partition"    : self.definePartition,
+                     "poweroff"     : self.doReboot,
+                     "raid"         : self.defineRaid,
+                     "reboot"       : self.doReboot,
+                     "rootpw"       : self.doRootPw,
+                     "selinux"      : self.doSELinux,
+                     "shutdown"     : self.doReboot,
+                     "skipx"        : self.doSkipX,
+                     "text"         : None,
+                     "timezone"     : self.doTimezone,
+                     "url"          : None,
+                     "upgrade"      : self.doUpgrade,
+                     "vnc"          : None,
+                     "volgroup"     : self.defineVolumeGroup,
+                     "xconfig"      : self.doXConfig,
+                     "xdisplay"     : None,
+                     "zerombr"      : self.doZeroMbr,
+                   }
+
+    def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
 
-    def doAutoPart(self, id, args):
-        pass
+    def doAutoPart(self, args):
+        self.ksdata.autopart = True
 
-    def doAutoStep(self, id, args):
-        pass
+    def doAutoStep(self, args):
+        op = KSOptionParser()
+        op.add_option("--autoscreenshot", dest="autoscreenshot",
+                      action="store_true", default=False)
 
-    def doBootloader(self, id, args):
-        pass
+        (opts, extra) = op.parse_args(args=args)
+        self.ksdata.autostep["autoscreenshot"] = opts.autoscreenshot
 
-    def doClearPart(self, id, args):
-        pass
+    def doBootloader(self, args):
+        def driveorder_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+            
+        op = KSOptionParser()
+        op.add_option("--append", dest="appendLine", action="store", type="str",
+                      nargs=1)
+        op.add_option("--location", dest="location", action="store",
+                      type="choice", nargs=1, default="mbr",
+                      choices=["mbr", "partition", "none", "boot"])
+        op.add_option("--lba32", dest="forceLBA", action="store_true",
+                      default=False)
+        op.add_option("--password", dest="password", action="store",
+                      type="str", nargs=1, default="")
+        op.add_option("--md5pass", dest="md5pass", action="store", type="str",
+                      nargs=1, default="")
+        op.add_option("--upgrade", dest="upgrade", action="store_true",
+                      default=False)
+        op.add_option("--driveorder", dest="driveorder", action="callback",
+                      callback=driveorder_cb, nargs=1, type="str")
 
-    def doFirewall(self, id, args):
+        (opts, extra) = op.parse_args(args=args)
+
+        for key in op.keys():
+            self.ksdata.bootloader[key] = getattr(opts, key)
+
+    def doClearPart(self, args):
+        def drive_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+            
+        op = KSOptionParser()
+        op.add_option("--all", dest="type", action="store_const",
+                      const=CLEARPART_TYPE_ALL)
+        op.add_option("--drives", dest="drives", action=callback,
+                      callback=drive_cb, nargs=1, type="str")
+        op.add_option("--initlabel", dest="initAll", action="store_true",
+                      default=False)
+        op.add_option("--linux", dest="type", action="store_const",
+                      const=CLEARPART_TYPE_LINUX)
+        op.add_option("--none", dest="type", action="store_const",
+                      const=CLEARPART_TYPE_NONE)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        for key in op.keys():
+            self.ksdata.clearpart[key] = getattr(opts, key)
+
+    def doFirewall(self, args):
         def firewall_port_cb (option, opt_str, value, parser):
             for p in value.split(","):
                 p = p.strip()
@@ -229,92 +240,187 @@ class KickstartHandlers:
                       action="store_false")
         op.add_option("--enable", "--enabled", dest="enabled",
                       action="store_true", default=True)
-        op.add_option("--ssh", "--telnet", "--smtp", "--http", "--ftp",
+        op.add_option("--ftp", "--http", "--smtp", "--ssh", "--telnet",
                       dest="ports", action="map_extend")
-        op.add_option("--trust", dest="trusts", action="append")
         op.add_option("--port", dest="ports", action="callback",
                       callback=firewall_port_cb, nargs=1, type="str")
+        op.add_option("--trust", dest="trusts", action="append")
 
         (opts, extra) = op.parse_args(args=args)
 
-        # FIXME
-        for key in opts.keys():
-            self.ksdata.firewall{key} = opts{key}
+        for key in op.keys():
+            self.ksdata.firewall[key] = getattr(opts, key)
 
-    def doIgnoreDisk(self, id, args):
+    def doFirstboot(self, args):
+        op = KSOptionParser()
+        op.add_option("--disable", "--disabled", dest="firstboot",
+                      action="store_const", const=FIRSTBOOT_SKIP)
+        op.add_option("--enable", "--enabled", dest="firstboot",
+                      action="store_const", const=FIRSTBOOT_DEFAULT)
+        op.add_option("--reconfig", dest="firstboot", action="store_const",
+                      const=FIRSTBOOT_RECONFIG)
+
+        (opts, extra) = op.parse_args(args=args)
+        self.ksdata.firstboot = opts.firstboot
+
+    def doIgnoreDisk(self, args):
         pass
 
-    def doInteractive(self, id, args):
+    def doInteractive(self, args):
         self.ksdata.interactive = True
 
-    def doKeyboard(self, id, args):
-        pass
+    def doKeyboard(self, args):
+        self.ksdata.keyboard = args[0]
 
-    def doLang(self, id, args):
-        pass
+    def doLang(self, args):
+        self.ksdata.lang = args[0]
 
-    def doLangSupport(self, id, args):
+    def doLangSupport(self, args):
         raise KickstartError, "The langsupport keyword has been removed.  Instead, please alter your kickstart file to include the support package groups for the languages you want instead of using langsupport.  For instance, include the french-support group instead of specifying 'langsupport fr'."
 
-    def defineLogicalVolume(self, id, args):
+    def defineLogicalVolume(self, args):
         pass
 
-    def doMonitor(self, id, args):
-        pass
+    def doMonitor(self, args):
+        op = KSOptionParser()
+        op.add_option("--hsync", dest="hsync", action="store", type="str",
+                      nargs=1)
+        op.add_option("--monitor", dest="monitor", action="store", type="str",
+                      nargs=1)
+        op.add_option("--vsync", dest="vsync", action="store", type="str",
+                      nargs=1)
 
-    def doMouse(self, id, args):
+        (opts, extra) = op.parse_args(args=args)
+
+        if extra:
+            raise KickstartValueError, "Unexpected arguments to monitor"
+
+        for key in op.keys():
+            self.ksdata.monitor[key] = getattr(opts, key)
+
+    def doMouse(self, args):
         raise KickstartError, "The mouse keyword has not been functional for several releases and has now been removed.  Please modify your kickstart file by removing this keyword."
 
-    def doNetwork(self, id, args):
+    def doNetwork(self, args):
+        op = KSOptionParser({"no": 0, "yes": 1})
+        op.add_option("--bootproto", dest="bootProto", action="store",
+                      type="str", nargs=1, default="dhcp")
+        op.add_option("--class", dest="dhcpclass", action="store", type="str",
+                      nargs=1)
+        op.add_option("--device", dest="device", action="store", type="str",
+                      nargs=1)
+        op.add_option("--essid", dest="essid", action="store", type="str",
+                      nargs=1)
+        op.add_option("--ethtool", dest="ethtool", action="store", type="str",
+                      nargs=1)
+        op.add_option("--gateway", dest="gateway", action="store", type="str",
+                      nargs=1)
+        op.add_option("--hostname", dest="hostname", action="store", type="str",
+                      nargs=1)
+        op.add_option("--ip", dest="ip", action="store", type="str", nargs=1)
+        op.add_option("--nameserver", dest="nameserver", action="store",
+                      type="str", nargs=1)
+        op.add_option("--netmask", dest="netmask", action="store", type="str",
+                      nargs=1)
+        op.add_option("--nodns", dest="nodns", action="store_true",
+                      default=False)
+        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
+                      default=False)
+        op.add_option("--onboot", dest="onboot", action="map")
+        op.add_option("--wepkey", dest="wepkey", action="store", type="str",
+                      nargs=1)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        for key in op.keys():
+            self.ksdata.network[key] = getattr(opts, key)
+
+    def definePartition(self, args):
         pass
 
-    def definePartition(self, id, args):
+    def doReboot(self, args):
+        self.ksdata.reboot = True
+
+    def defineRaid(self, args):
         pass
 
-    def doReboot(self, id, args):
-        pass
+    def doRootPw(self, args):
+        op = KSOptionParser()
+        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
+                      default=False)
 
-    def defineRaid(self, id, args):
-        pass
-
-    def doRootPw(self, id, args):
-        (args, extra) = isys.getopt(args, '', ["iscrypted"])
-
-        self.ksdata.rootpw{"isCrypted"} = False
-        for n in args:
-            (str, arg) = n
-            if str == "--iscrypted":
-                self.ksdata.rootpw{"isCrypted"} = True
+        (opts, extra) = op.parse_args(args=args)
+        self.ksdata.rootpw["isCrypted"] = opts.isCrypted
 
         if len(extra) != 1:
             raise KickstartValueError, "A single argument is expected for rootPw"
 
-    def doSELinux(self, id, args):
-        (args, extra) = isys.getopt(args, '', ["disabled", "enforcing",
-                                               "permissive"])
+        self.ksdata.rootpw["password"] = extra[0]
 
-        for n in args:
-            (str, arg) = n
-            if str == "--disabled":
-                
+    def doSELinux(self, args):
+        op = KSOptionParser()
+        op.add_option("--disabled", dest="sel", action="store_const", const=0)
+        op.add_option("--enforcing", dest="sel", action="store_const", const=1)
+        op.add_option("--permissive", dest="sel", action="store_const", const=2)
 
-    def doSkipX(self, id, args):
+        (opts, extra) = op.parse_args(args=args)
+        self.ksdata.selinux = opts.sel
+
+    def doSkipX(self, args):
+        self.ksdata.skipx = True
+
+    def doTimezone(self, args):
+        op = KSOptionParser()
+        op.add_option("--utc", dest="isUtc", action="store_true", default=False)
+
+        (opts, extra) = op.parse_args(args=args)
+        self.ksdata.timezone["isUtc"] = opts.isUtc
+
+        if len(extra) != 1:
+            raise KickstartValueError, "A single argument is expected for timezone"
+
+        self.ksdata.timezone["timezone"] = extra[0]
+
+    def doUpgrade(self, args):
+        self.ksdata.upgrade = True
+
+    def defineVolumeGroup(self, args):
         pass
 
-    def doTimezone(self, id, args):
-        pass
+    def doXConfig(self, args):
+        op = KSOptionParser()
+        op.add_option("--card", dest="card", action="store", type="str",
+                      nargs=1)
+        op.add_option("--defaultdesktop", dest="defaultdesktop", action="store",
+                      type="str", nargs=1)
+        op.add_option("--depth", dest="depth", action="store", type="int",
+                      nargs=1)
+        op.add_option("--hsync", dest="hsync", action="store", type="str",
+                      nargs=1)
+        op.add_option("--monitor", dest="monitor", action="store", type="str",
+                      nargs=1)
+        op.add_option("--noprobe", dest="probe", action="store_false",
+                      default=True)
+        op.add_option("--resolution", dest="resolution", action="store",
+                      type="str", nargs=1)
+        op.add_option("--server", dest="server", action="store", type="str",
+                      nargs=1)
+        op.add_option("--startxonboot", dest="startX", action="store_true",
+                      default=False)
+        op.add_option("--videoram", dest="videoRam", action="store", type="str",
+                      nargs=1)
+        op.add_option("--vsync", dest="vsync", action="store", type="str",
+                      nargs=1)
 
-    def doUpgrade(self, id, args):
-        pass
+        (opts, extra) = op.parse_args(args=args)
+        if extra:
+            raise KickstartValueError, "Unexpected arguments to xconfig"
 
-    def defineVolumeGroup(self, id, args):
-        pass
+        for key in op.keys():
+            self.ksdata.xconfig[key] = getattr(opts, key)
 
-    def doXConfig(self, id, args):
-        pass
-
-    def doZeroMbr(self, id, args):
-        pass
+    def doZeroMbr(self, args):
+        self.ksdata.zerombr = True
 
 class KickstartParser:
     def __init__ (self, ksdata):
@@ -326,8 +432,11 @@ class KickstartParser:
     # kickstart file parsing.  Override these if you need special
     # behavior.
     def addScript (self, state, script):
-        s = Script (script["body"], script["interp"], script["chroot"],
-                    script["log"], script["errorOnFail"])
+        if script["body"].strip() == "":
+            return
+
+        s = KSScript (script["body"], script["interp"], script["chroot"],
+                      script["log"], script["errorOnFail"])
 
         if state == STATE_PRE:
             self.ksdata.preScripts.append(s)
@@ -339,12 +448,12 @@ class KickstartParser:
     def addPackages (self, line):
         if line[0] == '@':
             line = line[1:]
-            self.ksdata.groupList.append(line)
+            self.ksdata.groupList.append(line.lstrip())
         elif line[0] == '-':
             line = line[1:]
-            self.ksdata.excludedList.append(line)
+            self.ksdata.excludedList.append(line.lstrip())
         else:
-            self.ksdata.packageList.append(line)
+            self.ksdata.packageList.append(line.lstrip())
 
     def handleCommand (self, cmd, args):
         try:
@@ -353,41 +462,47 @@ class KickstartParser:
         except KeyError:
             raise KickstartError, "Unrecognized kickstart command: %s" % cmd
 
-    def handlePackageHdr (self, line):
-        argLst = ["excludedocs", "ignoremissing", "nobase"]
-        (args, extra) = isys.getopt(line, '', argLst)
+    def handlePackageHdr (self, args):
+        op = KSOptionParser()
+        op.add_option("--excludedocs", dest="excludedocs", action="store_true",
+                      default=False)
+        op.add_option("--ignoremissing", dest="ignoremissing",
+                      action="store_true", default=False)
+        op.add_option("--nobase", dest="nobase", action="store_true",
+                      default=False)
 
-#        self.skipSteps.append("package-selection")
+        (opts, extra) = op.parse_args(args=args[1:])
 
-        for n in args:
-            (str, arg) = n
-            if str == "--excludedocs":
-                self.excludeDocs = 1
-            elif str == "--ignoremissing":
-                self.handleMissing = KS_MISSING_IGNORE
-            elif str == "--nobase":
-                self.addBase = 0
+        self.excludeDocs = opts.excludedocs
+        self.addBase = not opts.nobase
+        if opts.ignoremissing:
+            self.handleMissing = KS_MISSING_IGNORE
+        else:
+            self.handleMissing = KS_MISSING_PROMPT
 
     def handleScriptHdr (self, args, script):
-        argLst = ["interpreter=", "log=", "logfile=", "erroronfail"]
+        op = KSOptionParser()
+        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
+                      default=False)
+        op.add_option("--interpreter", dest="interpreter", action="store",
+                      nargs=1, type="str", default="/bin/sh")
+        op.add_option("--log", "--logfile", dest="log", action="store",
+                      nargs=1, type="str")
 
         if args[0] == "%pre" or args[0] == "%traceback":
             script["chroot"] = 0
         elif args[0] == "%post":
             script["chroot"] = 1
-            argLst.append("nochroot")
+            op.add_option("--nochroot", dest="nochroot", action="store_true",
+                          default=False)
 
-        (args, extra) = isys.getopt(args, '', argLst)
-        for n in args:
-            (str, arg) = n
-            if str == "--nochroot":
-                script["chroot"] = 0
-            elif str == "--interpreter":
-                script["interp"] = arg
-            elif str == "log" or str == "--logfile":
-                script["log"] = arg
-            elif str == "--erroronfail":
-                script["errorOnFail"] = True
+        (opts, extra) = op.parse_args(args=args[1:])
+
+        script["interp"] = opts.interpreter
+        script["log"] = opts.log
+        script["errorOnFail"] = opts.errorOnFail
+        if opts.nochroot:
+            script["chroot"] = opts.nochroot
 
     # Kickstart file parser.  Only does moving between states and calling
     # functions to do the heavy lifting.
@@ -418,7 +533,7 @@ class KickstartParser:
                 continue
 
             line = line.strip()
-            args = isys.parseArgv(line)
+            args = shlex.split(line)
 
             if args[0] == "%include" and self.followIncludes:
                 if not args[1]:
@@ -484,8 +599,8 @@ class KickstartPreParser(KickstartParser):
 
     def addScript (self, state, script):
         if state == STATE_PRE:
-            s = Script (script["body"], script["interp"], script["chroot"],
-                        script["log"], script["errorOnFail"])
+            s = KSScript (script["body"], script["interp"], script["chroot"],
+                          script["log"], script["errorOnFail"])
             self.ksdata.preScripts.append(s)
 
     def addPackages (self, line):
@@ -501,17 +616,17 @@ class KickstartPreParser(KickstartParser):
         if not args[0] == "%pre":
             return
 
-        argLst = ["interpreter=", "log=", "logfile=", "erroronfail"]
-        script["chroot"] = 0
+        op = KSOptionParser()
+        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
+                      default=False)
+        op.add_option("--interpreter", dest="interpreter", action="store",
+                      nargs=1, type="str", default="/bin/sh")
+        op.add_option("--log", "--logfile", dest="log", action="store",
+                      nargs=1, type="str")
 
-        (args, extra) = isys.getopt(args, '', argLst)
-        for n in args:
-            (str, arg) = n
-            if str == "--nochroot":
-                script["chroot"] = 0
-            elif str == "--interpreter":
-                script["interp"] = arg
-            elif str == "log" or str == "--logfile":
-                script["log"] = arg
-            elif str == "--erroronfail":
-                script["errorOnFail"] = True
+        (opts, extra) = op.parse_args(args=args[1:])
+
+        script["interp"] = opts.interpreter
+        script["log"] = opts.log
+        script["errorOnFail"] = opts.errorOnFail
+        script["chroot"] = 0

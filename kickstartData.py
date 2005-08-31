@@ -13,27 +13,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+from constants import *
+
 class KickstartData:
     def __init__(self):
         # Set by command handlers.
         self.authconfig = ""
-        self.autostep = {}
-        self.bootloader = {}
-        self.clearpart = {}
-	self.firewall = {"enabled": True, "ports": [], "trusts": []}
-        self.firstboot = {}
+        self.autopart = False
+        self.autostep = {"autoscreenshot": False}
+        self.bootloader = {"appendLine": "", "driveorder": [],
+                           "forceLBA": False, "location": "mbr", "md5pass": "",
+                           "password": "", "upgrade": False}
+        self.clearpart = {"drives": [], "initAll": False,
+                          "type": CLEARPART_TYPE_NONE}
+        self.firewall = {"enabled": True, "ports": [], "trusts": []}
+        self.firstboot = FIRSTBOOT_SKIP
         self.ignoredisk = {}
         self.interactive = False
         self.keyboard = ""
         self.lang = ""
-        self.monitor = {}
+        self.monitor = {"hsync": "", "monitor": "", "vsync": ""}
         self.network = {}
         self.partitions = []
-	self.rootpw = {"isCrypted": False}
+        self.reboot = True
+        self.rootpw = {"isCrypted": False, "password": ""}
         self.selinux = 2
-        self.timezone = {}
+        self.skipx = False
+        self.timezone = {"isUtc": False, "timezone": ""}
         self.upgrade = False
-        self.xconfig = {}
+        self.xconfig = {"card": "", "defaultdesktop": "", "depth": 0,
+                        "hsync": "", "monitor": "", "probe": True,
+                        "resolution": "", "server": "", "startX": False,
+                        "videoRam": "", "vsync": ""}
         self.zerombr = False
 
         # Set by sections.
