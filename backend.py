@@ -87,6 +87,9 @@ class AnacondaBackend:
         else:
             self.modeText = _("Installing %s-%s-%s.%s.\n")
 
+    def kernelVersionList():
+        pass
+
 
 def doPreSelection(backend, intf, id, instPath):
     backend.doPreSelection(intf, id, instPath)

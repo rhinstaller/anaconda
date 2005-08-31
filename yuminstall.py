@@ -248,7 +248,6 @@ class YumBackend(AnacondaBackend):
         (code, msgs) = self.ayum.buildTransaction()
         (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
         shutil.copytree(instPath + '/var/cache/yum/anaconda', '/tmp/cache')
-        iutil.rmrf(instPath + '/var/cache/yum/')
         win.pop()
 
     def doPreInstall(self, intf, id, instPath, dir):
@@ -297,7 +296,10 @@ class YumBackend(AnacondaBackend):
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
-        shutil.copytree('/tmp/cache', instPath + '/var/cache/yum/anaconda')
+        try:
+            shutil.copytree('/tmp/cache', instPath + '/var/cache/yum/anaconda')
+        except:
+            pass
         self.initLog(id, instPath)
 
         if flags.setupFilesystems:
@@ -377,3 +379,25 @@ class YumBackend(AnacondaBackend):
         self.instLog.close ()
 
         id.instProgress = None
+
+    def kernelVersionList(self):
+        kernelVersions = []
+
+        # nick is used to generate the lilo name
+        for (ktag, nick) in [ ('kernel-summit', 'summit'),
+                              ('kernel-bigmem', 'bigmem'),
+                              ('kernel-hugemem', 'hugemem'),
+                              ('kernel-smp', 'smp'),
+                              ('kernel-tape', 'tape'),
+                              ('kernel-pseries', ''),
+                              ('kernel-iseries', '') ]:
+            tag = ktag.split('-')[1]
+            for tsmbr in self.ayum.tsInfo.matchNaevr(name=nick):
+                version = ( tsmbr.version + '-' + tsmbr.release + tag)
+                kernelVersions.append((version, nick))
+
+        for tsmbr in self.ayum.tsInfo.matchNaevr(name='kernel'):
+            version = ( tsmbr.version + '-' + tsmbr.release)
+            kernelVersions.append((version, 'up'))
+
+        return kernelVersions

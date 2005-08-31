@@ -92,7 +92,7 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
         bl.above1024 = 1
     
 
-def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
+def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
     def dosync():
         isys.sync()
         isys.sync()
@@ -144,7 +144,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 
     plainLabelUsed = 0
     defkern = "kernel"
-    for (version, nick) in comps.kernelVersionList():
+    for (version, nick) in backend.kernelVersionList():
 	if plainLabelUsed:
             kernelList.append(("%s-%s" %(kernelLabel, nick),
                                "%s-%s" %(kernelLongLabel, nick),

@@ -137,7 +137,7 @@ installSteps = [
     ("firstboot", firstbootConfiguration, ("id", "instPath")),
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                          "id.bootloader", "id.instLanguage",
-                                         "id.grpset")),
+                                         "backend")),
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "dir", "id.floppyDevice",
                                     "id.grpset", "instPath", "id.bootloader")),
