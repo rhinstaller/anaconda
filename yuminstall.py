@@ -32,6 +32,8 @@ log = logging.getLogger("anaconda")
 import iutil
 import isys
 
+from whiteout import whiteout
+
 class simpleCallback:
 
     def __init__(self, messageWindow, progress, pkgTimer, method,
@@ -157,6 +159,21 @@ gpgkey=file:///mnt/source/RPM-GPG-KEY-fedora
     
 class AnacondaYum(yum.YumBase):
     def __init__(self, method, id, intf, instPath):
+        self.macros = {}
+        if flags.selinux:
+            for dir in ("/tmp/updates", "/mnt/source/RHupdates",
+                        "/etc/selinux/targeted/contexts/files",
+                        "/etc/security/selinux/src/policy/file_contexts",
+                        "/etc/security/selinux"):
+                fn = "%s/file_contexts" %(dir,)
+                if os.access(fn, os.R_OK):
+                    break
+                self.macros["__file_context_path"] = fn
+        else:
+            self.macros["__file_context_path"]  = "%{nil}"
+
+        self.macros["_dependency_whiteout"] = whiteout
+
         self.method = method
         self.id = id
         self.intf = intf
@@ -210,7 +227,7 @@ class AnacondaYum(yum.YumBase):
         return (downloadpkgs, totalSize, totalFiles)
 
     def run(self, cb):
-        self.initActionTs()
+        self.initActionTs(macros=self.macros)
         self.populateTs(keepold=0)
         self.ts.check()
         self.ts.order()
@@ -218,7 +235,7 @@ class AnacondaYum(yum.YumBase):
         
     def setup(self, fn="/etc/yum.conf", root="/"):
         self.doConfigSetup(fn, root)
-        self.doTsSetup()
+        self.doTsSetup(macros=self.macros)
         self.doRpmDBSetup()
         # XXX: handle RepoError
         self.doRepoSetup()
