@@ -61,6 +61,8 @@ class KSAppendException(KickstartError):
     def __str__(self):
 	return self.str
 
+# Specialized OptionParser, mainly to handle the MappableOption and to turn
+# off help.
 class KSOptionParser(OptionParser):
     def exit(self, status=0, msg=None):
         pass
@@ -77,12 +79,46 @@ class KSOptionParser(OptionParser):
 
         return retval
 
+    def _init_parsing_state (self):
+        OptionParser._init_parsing_state(self)
+        self.option_seen = {}
+
+    def check_values (self, values, args):
+        for option in self.option_list:
+            if (isinstance(option, Option) and option.required and
+                not self.option_seen.has_key(option)):
+                raise KickstartError, "Option %s is required" % option
+
+        return (values, args)
+
     def __init__(self, map={}):
         self.map = map
         OptionParser.__init__(self, option_class=MappableOption,
                               add_help_option=False)
 
-class MappableOption(Option):
+# Creates a new Option type that supports a "required" option attribute.  Any
+# option with this attribute must be supplied or an exception is thrown.
+class RequiredOption (Option):
+    ATTRS = Option.ATTRS + ['required']
+
+    def _check_required (self):
+        if self.required and not self.takes_value():
+            raise OptionError(
+                "required flag set for option that doesn't take a value",
+                 self)
+
+    # Make sure _check_required() is called from the constructor!
+    CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
+
+    def process (self, opt, value, values, parser):
+        Option.process(self, opt, value, values, parser)
+        parser.option_seen[self] = 1
+
+# Additional OptionParser actions.  "map" allows you to define a opt -> val
+# mapping such that dest gets val when opt is seen.  "map_extend" allows you
+# to define an opt -> [val1, ... valn] mapping such that dest gets a list of
+# vals build up when opt is seen.
+class MappableOption(RequiredOption):
     ACTIONS = Option.ACTIONS + ("map", "map_extend",)
     STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
     TYPED_ACTIONS = Option.TYPED_ACTIONS + ("map", "map_extend",)
@@ -95,7 +131,10 @@ class MappableOption(Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
-class KSScript:
+# You may make a subclass of Script if you need additional script handling
+# besides just a data representation.  For instance, anaconda may subclass
+# this to add a run method.
+class Script:
     def __repr__(self):
         str = ("(s: '%s' i: %s c: %d)") %  \
               (self.script, self.interp, self.inChroot)
@@ -109,6 +148,13 @@ class KSScript:
         self.logfile = logfile
         self.errorOnFail = errorOnFail
 
+# You may make a subclass of KickstartHandlers if you need to do something
+# besides just build up the data store.  If you need to do additional processing
+# just make a subclass, define handlers for each command in your subclass, and
+# make sure to call the same handler in the super class before whatever you
+# want to do.  Also if you need to make a new parser that only takes action
+# for a subset of commands, make a subclass and define all the handlers to
+# None except the ones you care about.
 class KickstartHandlers:
     def __init__ (self, ksdata):
         self.ksdata = ksdata
@@ -135,16 +181,16 @@ class KickstartHandlers:
                      "keyboard"     : self.doKeyboard,
                      "lang"         : self.doLang,
                      "langsupport"  : self.doLangSupport,
-                     "logvol"       : self.defineLogicalVolume,
+                     "logvol"       : self.doLogicalVolume,
                      "mediacheck"   : None,
                      "monitor"      : self.doMonitor,
                      "mouse"        : self.doMouse,
                      "network"      : self.doNetwork,
                      "nfs"          : None,
-                     "part"         : self.definePartition,
-                     "partition"    : self.definePartition,
+                     "part"         : self.doPartition,
+                     "partition"    : self.doPartition,
                      "poweroff"     : self.doReboot,
-                     "raid"         : self.defineRaid,
+                     "raid"         : self.doRaid,
                      "reboot"       : self.doReboot,
                      "rootpw"       : self.doRootPw,
                      "selinux"      : self.doSELinux,
@@ -154,12 +200,17 @@ class KickstartHandlers:
                      "timezone"     : self.doTimezone,
                      "url"          : None,
                      "upgrade"      : self.doUpgrade,
-                     "vnc"          : None,
-                     "volgroup"     : self.defineVolumeGroup,
+                     "vnc"          : self.doVnc,
+                     "volgroup"     : self.doVolumeGroup,
                      "xconfig"      : self.doXConfig,
                      "xdisplay"     : None,
                      "zerombr"      : self.doZeroMbr,
+                     "zfcp"         : self.doZFCP,
                    }
+
+    def resetHandlers (self):
+        for key in self.handlers.keys():
+            self.handlers[key] = None
 
     def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
@@ -181,21 +232,18 @@ class KickstartHandlers:
                 parser.values.ensure_value(option.dest, []).append(d)
             
         op = KSOptionParser()
-        op.add_option("--append", dest="appendLine", action="store", type="str",
-                      nargs=1)
-        op.add_option("--location", dest="location", action="store",
-                      type="choice", nargs=1, default="mbr",
+        op.add_option("--append", dest="appendLine")
+        op.add_option("--location", dest="location", type="choice",
+                      default="mbr",
                       choices=["mbr", "partition", "none", "boot"])
         op.add_option("--lba32", dest="forceLBA", action="store_true",
                       default=False)
-        op.add_option("--password", dest="password", action="store",
-                      type="str", nargs=1, default="")
-        op.add_option("--md5pass", dest="md5pass", action="store", type="str",
-                      nargs=1, default="")
+        op.add_option("--password", dest="password", default="")
+        op.add_option("--md5pass", dest="md5pass", default="")
         op.add_option("--upgrade", dest="upgrade", action="store_true",
                       default=False)
         op.add_option("--driveorder", dest="driveorder", action="callback",
-                      callback=driveorder_cb, nargs=1, type="str")
+                      callback=driveorder_cb, nargs=1, type="string")
 
         (opts, extra) = op.parse_args(args=args)
 
@@ -211,7 +259,7 @@ class KickstartHandlers:
         op.add_option("--all", dest="type", action="store_const",
                       const=CLEARPART_TYPE_ALL)
         op.add_option("--drives", dest="drives", action=callback,
-                      callback=drive_cb, nargs=1, type="str")
+                      callback=drive_cb, nargs=1, type="string")
         op.add_option("--initlabel", dest="initAll", action="store_true",
                       default=False)
         op.add_option("--linux", dest="type", action="store_const",
@@ -243,7 +291,7 @@ class KickstartHandlers:
         op.add_option("--ftp", "--http", "--smtp", "--ssh", "--telnet",
                       dest="ports", action="map_extend")
         op.add_option("--port", dest="ports", action="callback",
-                      callback=firewall_port_cb, nargs=1, type="str")
+                      callback=firewall_port_cb, nargs=1, type="string")
         op.add_option("--trust", dest="trusts", action="append")
 
         (opts, extra) = op.parse_args(args=args)
@@ -264,7 +312,17 @@ class KickstartHandlers:
         self.ksdata.firstboot = opts.firstboot
 
     def doIgnoreDisk(self, args):
-        pass
+        def drive_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+            
+        op = KSOptionParser()
+        op.add_option("--drives", dest="drives", action=callback,
+                      callback=drive_cb, nargs=1, type="string")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        self.ksdata.ignoredisk = opt.ignoredisk
 
     def doInteractive(self, args):
         self.ksdata.interactive = True
@@ -278,17 +336,50 @@ class KickstartHandlers:
     def doLangSupport(self, args):
         raise KickstartError, "The langsupport keyword has been removed.  Instead, please alter your kickstart file to include the support package groups for the languages you want instead of using langsupport.  For instance, include the french-support group instead of specifying 'langsupport fr'."
 
-    def defineLogicalVolume(self, args):
-        pass
+    def doLogicalVolume(self, args):
+        def lv_cb (option, opt_str, value, parser):
+            parser.values.ensure_value(option.dest, False)
+            parser.values.ensure_value("preexist", True)
+
+        op = KSOptionParser()
+        op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
+                      type="int", nargs=1)
+        op.add_option("--fsoptions", dest="fsopts")
+        op.add_option("--fstype", dest="fstype")
+        op.add_option("--grow", dest="grow", action="store_true",
+                      default=False)
+        op.add_option("--maxsize", dest="maxSizeMB", action="store", type="int",
+                      nargs=1, default=0)
+        op.add_option("--name", dest="name", required=1)
+        op.add_option("--noformat", action="callback", callback=lv_cb,
+                      dest="format", default=True, nargs=0)
+        op.add_option("--percent", dest="percent", action="store", type="int",
+                      nargs=1)
+        op.add_option("--recommended", dest="recommended", action="store_true",
+                      default=False)
+        op.add_option("--size", dest="size", action="store", type="int",
+                      nargs=1)
+        op.add_option("--useexisting", dest="preexist", action="store_true",
+                      default=False)
+        op.add_option("--vgname", dest="vgname", required=1)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        if len(extra) == 0:
+            raise KickstartValueError, "logvol requires a mount point"
+
+        tmpdict = {}
+        for key in op.keys():
+            tmpdict[key] = getattr(opts, key)
+
+        tmpdict["mountpoint"] = extra[0]
+        self.ksdata.lvList.append(tmpdict)
 
     def doMonitor(self, args):
         op = KSOptionParser()
-        op.add_option("--hsync", dest="hsync", action="store", type="str",
-                      nargs=1)
-        op.add_option("--monitor", dest="monitor", action="store", type="str",
-                      nargs=1)
-        op.add_option("--vsync", dest="vsync", action="store", type="str",
-                      nargs=1)
+        op.add_option("--hsync", dest="hsync")
+        op.add_option("--monitor", dest="monitor")
+        op.add_option("--vsync", dest="vsync")
 
         (opts, extra) = op.parse_args(args=args)
 
@@ -303,46 +394,122 @@ class KickstartHandlers:
 
     def doNetwork(self, args):
         op = KSOptionParser({"no": 0, "yes": 1})
-        op.add_option("--bootproto", dest="bootProto", action="store",
-                      type="str", nargs=1, default="dhcp")
-        op.add_option("--class", dest="dhcpclass", action="store", type="str",
-                      nargs=1)
-        op.add_option("--device", dest="device", action="store", type="str",
-                      nargs=1)
-        op.add_option("--essid", dest="essid", action="store", type="str",
-                      nargs=1)
-        op.add_option("--ethtool", dest="ethtool", action="store", type="str",
-                      nargs=1)
-        op.add_option("--gateway", dest="gateway", action="store", type="str",
-                      nargs=1)
-        op.add_option("--hostname", dest="hostname", action="store", type="str",
-                      nargs=1)
-        op.add_option("--ip", dest="ip", action="store", type="str", nargs=1)
-        op.add_option("--nameserver", dest="nameserver", action="store",
-                      type="str", nargs=1)
-        op.add_option("--netmask", dest="netmask", action="store", type="str",
-                      nargs=1)
+        op.add_option("--bootproto", dest="bootProto", default="dhcp")
+        op.add_option("--class", dest="dhcpclass")
+        op.add_option("--device", dest="device")
+        op.add_option("--essid", dest="essid")
+        op.add_option("--ethtool", dest="ethtool")
+        op.add_option("--gateway", dest="gateway")
+        op.add_option("--hostname", dest="hostname")
+        op.add_option("--ip", dest="ip")
+        op.add_option("--nameserver", dest="nameserver")
+        op.add_option("--netmask", dest="netmask")
         op.add_option("--nodns", dest="nodns", action="store_true",
                       default=False)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
         op.add_option("--onboot", dest="onboot", action="map")
-        op.add_option("--wepkey", dest="wepkey", action="store", type="str",
+        op.add_option("--wepkey", dest="wepkey")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        tmpdict = {}
+        for key in op.keys():
+            tmpdict[key] = getattr(opts, key)
+
+        self.ksdata.network.append(tmpdict)
+
+    def doPartition(self, args):
+        def part_cb (option, opt_str, value, parser):
+            if value.startswith("/dev/"):
+                parser.values.ensure_value(option.dest, value[5:])
+            else:
+                parser.values.ensure_value(option.dest, value)
+
+        op = KSOptionParser()
+        op.add_option("--active", dest="active", action="store_true",
+                      default=False)
+        op.add_option("--asprimary", dest="primOnly", action="store_true",
+                      default=False)
+        op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
+                      type="int", nargs=1)
+        op.add_option("--end", dest="end", action="store", type="int",
+                      nargs=1)
+        op.add_option("--fsoptions", dest="fsopts")
+        op.add_option("--fstype", dest="fstype")
+        op.add_option("--grow", dest="grow", action="store_true", default=False)
+        op.add_option("--label", dest="label")
+        op.add_option("--maxsize", dest="maxSize", action="store", type="int",
+                      nargs=1)
+        op.add_option("--noformat", dest="format", action="store_false",
+                      default=True)
+        op.add_option("--onbiosdisk", dest="onbiosdisk", default="")
+        op.add_option("--ondisk", "--ondrive", dest="onPart")
+        op.add_option("--onpart", "--usepart", dest="disk", action="callback",
+                      callback=part_cb, nargs=1, type="string")
+        op.add_option("--recommended", dest="recommended", action="store_true",
+                      default=False)
+        op.add_option("--size", dest="size", action="store", type="int",
+                      nargs=1)
+        op.add_option("--start", dest="start", action="store", type="int",
+                      nargs=1)
+        op.add_option("--type", dest="type", action="store", type="int",
                       nargs=1)
 
         (opts, extra) = op.parse_args(args=args)
 
-        for key in op.keys():
-            self.ksdata.network[key] = getattr(opts, key)
+        if len(extra) != 1:
+            raise KickstartValueError, "partition requires a mount point"
 
-    def definePartition(self, args):
-        pass
+        tmpdict = {}
+        for key in op.keys():
+            tmpdict[key] = getattr(opts, key)
+
+        tmpdict["mountpoint"] = extra[0]
+        self.ksdata.partitions.append(tmpdict)
 
     def doReboot(self, args):
         self.ksdata.reboot = True
 
-    def defineRaid(self, args):
-        pass
+    def doRaid(self, args):
+        def raid_cb (option, opt_str, value, parser):
+            parser.values.ensure_value(option.dest, False)
+            parser.values.ensure_value("preexist", True)
+
+        def device_cb (option, opt_str, value, parser):
+            if value[0:2] == "md":
+                parser.values.ensure_value(option.dest, int(value[2:]))
+            else:
+                parser.values.ensure_value(option.dest, int(value))
+
+        op = KSOptionParser({"RAID0": "RAID0", "0": "RAID0",
+                             "RAID1": "RAID1", "1": "RAID1",
+                             "RAID5": "RAID5", "5": "RAID5",
+                             "RAID6": "RAID6", "6": "RAID6"})
+        op.add_option("--device", action="callback", callback=device_cb,
+                      dest="device", type="int", nargs=1)
+        op.add_option("--fsoptions", dest="fsopts")
+        op.add_option("--fstype", dest="fstype")
+        op.add_option("--level", dest="level", action="map")
+        op.add_option("--noformat", action="callback", callback=raid_cb,
+                      dest="format", default=True, nargs=0)
+        op.add_option("--spares", dest="spares", action="store", type="int",
+                      nargs=1, default=0)
+        op.add_option("--useexisting", dest="preexist", action="store",
+                        type="store_true", default=False)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        if len(extra) == 0:
+            raise KickstartValueError, "raid requires a mount point"
+
+        tmpdict = {}
+        for key in op.keys():
+            tmpdict[key] = getattr(opts, key)
+
+        tmpdict["mountpoint"] = extra[0]
+        tmpdict["members"] = extra[1:]
+        self.ksdata.raidList.append(tmpdict)
 
     def doRootPw(self, args):
         op = KSOptionParser()
@@ -384,33 +551,66 @@ class KickstartHandlers:
     def doUpgrade(self, args):
         self.ksdata.upgrade = True
 
-    def defineVolumeGroup(self, args):
-        pass
+    def doVnc(self, args):
+        def connect_cb (option, opt_str, value, parser):
+            cargs = opt_str.split(":")
+            parser.values.ensure_value("host", cargs[0])
+
+            if len(cargs) > 1:
+                parser.values.ensure_value("port", cargs[1])
+
+        op = KSOptionParser()
+        op.add_option("--connect", action="callback", callback=connect_cb,
+                      nargs=1, type="string", required=1)
+        op.add_option("--password", dest="password")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        self.ksdata.vnc["enabled"] = True
+
+        for key in op.keys():
+            self.ksdata.vnc[key] = getattr(opts, key)
+
+    def doVolumeGroup(self, args):
+        # Have to be a little more complicated to set two values.
+        def vg_cb (option, opt_str, value, parser):
+            parser.values.ensure_value(option.dest, False)
+            parser.values.ensure_value("preexist", True)
+
+        op = KSOptionParser()
+        op.add_option("--noformat", action="callback", callback=vg_cb,
+                      dest="format", default=True, nargs=0)
+        op.add_option("--pesize", dest="pesize", type="int", nargs=1,
+                      default=32768)
+        op.add_option("--useexisting", dest="preexist", action="store_true",
+                      default=False)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        tmpdict = {}
+        for key in op.keys():
+            tmpdict[key] = getattr(opts, key)
+
+        tmpdict["vgname"] = extra[0]
+        tmpdict["physvols"] = extra[1:]
+        self.ksdata.vgList.append(tmpdict)
 
     def doXConfig(self, args):
         op = KSOptionParser()
-        op.add_option("--card", dest="card", action="store", type="str",
-                      nargs=1)
-        op.add_option("--defaultdesktop", dest="defaultdesktop", action="store",
-                      type="str", nargs=1)
+        op.add_option("--card", dest="card")
+        op.add_option("--defaultdesktop", dest="defaultdesktop")
         op.add_option("--depth", dest="depth", action="store", type="int",
                       nargs=1)
-        op.add_option("--hsync", dest="hsync", action="store", type="str",
-                      nargs=1)
-        op.add_option("--monitor", dest="monitor", action="store", type="str",
-                      nargs=1)
+        op.add_option("--hsync", dest="hsync")
+        op.add_option("--monitor", dest="monitor")
         op.add_option("--noprobe", dest="probe", action="store_false",
                       default=True)
-        op.add_option("--resolution", dest="resolution", action="store",
-                      type="str", nargs=1)
-        op.add_option("--server", dest="server", action="store", type="str",
-                      nargs=1)
+        op.add_option("--resolution", dest="resolution")
+        op.add_option("--server", dest="server")
         op.add_option("--startxonboot", dest="startX", action="store_true",
                       default=False)
-        op.add_option("--videoram", dest="videoRam", action="store", type="str",
-                      nargs=1)
-        op.add_option("--vsync", dest="vsync", action="store", type="str",
-                      nargs=1)
+        op.add_option("--videoram", dest="videoRam")
+        op.add_option("--vsync", dest="vsync")
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
@@ -422,9 +622,31 @@ class KickstartHandlers:
     def doZeroMbr(self, args):
         self.ksdata.zerombr = True
 
+    def doZFCP(self, args):
+        op = KSOptionParser()
+        op.add_option("--devnum", dest="devnum", required=1)
+        op.add_option("--fcplun", dest="fcplun", required=1)
+        op.add_option("--scsiid", dest="scsiid", required=1)
+        op.add_option("--scsilun", dest="scsilun", required=1)
+        op.add_option("--wwpn", dest="wwpn", required=1)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        for key in op.keys():
+            self.ksdata.xfcp[key] = getattr(opts, key)
+
+# The kickstart file parser.  This only transitions between states and calls
+# handlers at certain points.  To create a specialized parser, make a subclass
+# of this and override the methods you care about.  Methods that don't need to
+# do anything may just pass.  See KickstartPreParser below for an example of
+# a parser that only cares about the %pre scripts.
 class KickstartParser:
-    def __init__ (self, ksdata):
-        self.handler = KickstartHandlers(ksdata)
+    def __init__ (self, ksdata, kshandlers=None):
+        if not kshandlers:
+            self.handler = KickstartHandlers(ksdata)
+        else:
+            self.handler = kshandlers
+
         self.ksdata = ksdata
         self.followIncludes = True
 
@@ -435,8 +657,8 @@ class KickstartParser:
         if script["body"].strip() == "":
             return
 
-        s = KSScript (script["body"], script["interp"], script["chroot"],
-                      script["log"], script["errorOnFail"])
+        s = Script (script["body"], script["interp"], script["chroot"],
+                    script["log"], script["errorOnFail"])
 
         if state == STATE_PRE:
             self.ksdata.preScripts.append(s)
@@ -484,10 +706,8 @@ class KickstartParser:
         op = KSOptionParser()
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
-        op.add_option("--interpreter", dest="interpreter", action="store",
-                      nargs=1, type="str", default="/bin/sh")
-        op.add_option("--log", "--logfile", dest="log", action="store",
-                      nargs=1, type="str")
+        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
+        op.add_option("--log", "--logfile", dest="log")
 
         if args[0] == "%pre" or args[0] == "%traceback":
             script["chroot"] = 0
@@ -504,8 +724,6 @@ class KickstartParser:
         if opts.nochroot:
             script["chroot"] = opts.nochroot
 
-    # Kickstart file parser.  Only does moving between states and calling
-    # functions to do the heavy lifting.
     def readKickstart (self, file, state=STATE_COMMANDS):
         packages = []
         groups = []
@@ -593,14 +811,19 @@ class KickstartParser:
                     state = STATE_COMMANDS
 
 class KickstartPreParser(KickstartParser):
-    def __init__ (self, ksdata):
-        KickstartParser.__init__(self, ksdata)
+    def __init__ (self, ksdata, kshandlers=None):
+        if not kshandlers:
+            self.handler = KickstartHandlers(ksdata)
+        else:
+            self.handler = kshandlers
+
+        KickstartParser.__init__(self, ksdata, kshandlers)
         self.followIncludes = False
 
     def addScript (self, state, script):
         if state == STATE_PRE:
-            s = KSScript (script["body"], script["interp"], script["chroot"],
-                          script["log"], script["errorOnFail"])
+            s = Script (script["body"], script["interp"], script["chroot"],
+                        script["log"], script["errorOnFail"])
             self.ksdata.preScripts.append(s)
 
     def addPackages (self, line):
@@ -619,10 +842,8 @@ class KickstartPreParser(KickstartParser):
         op = KSOptionParser()
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
-        op.add_option("--interpreter", dest="interpreter", action="store",
-                      nargs=1, type="str", default="/bin/sh")
-        op.add_option("--log", "--logfile", dest="log", action="store",
-                      nargs=1, type="str")
+        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
+        op.add_option("--log", "--logfile", dest="log")
 
         (opts, extra) = op.parse_args(args=args[1:])
 
