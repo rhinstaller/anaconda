@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.10
+Version: 10.3.0.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 01 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.11-1
+- Yum backend work (macro support, whitelist)
+- qla2100 (katzj, #167065)
+- Kickstart Parser (clumens)
+- authconfig handling changes (clumens)
+- Autopartitiong Traceback fix (katzj)
+
 * Fri Aug 26 2005 Jeremy Katz <katzj@redhat.com>
 - More work from pnasrat on getting the yum backend working
 - Don't set some irrelevant network TYPE= (#136188, #157193)
