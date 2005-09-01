@@ -61,3 +61,43 @@ class KickstartData:
         self.preScripts = []
         self.postScripts = []
         self.tracebackScripts = []
+
+    def __str__ (self):
+        str = "authconfig = \"%s\"\n" % self.authconfig
+        str = str + "autopart = %s\n" % self.autopart
+        str = str + "autostep = %s\n" % self.autostep
+        str = str + "bootloader = %s\n" % self.bootloader
+        str = str + "clearpart = %s\n" % self.clearpart
+        str = str + "firewall = %s\n" % self.firewall
+        str = str + "firstboot = %s\n" % self.firstboot
+        str = str + "ignoredisk = %s\n" % self.ignoredisk
+        str = str + "interactive = %s\n" % self.interactive
+        str = str + "keyboard = \"%s\"\n" % self.keyboard
+        str = str + "lang = \"%s\"\n" % self.lang
+        str = str + "monitor = %s\n" % self.monitor
+        str = str + "network = %s\n" % self.network
+        str = str + "reboot = %s\n" % self.reboot
+        str = str + "rootpw = %s\n" % self.rootpw
+        str = str + "selinux = %s\n" % self.selinux
+        str = str + "skipx = %s\n" % self.skipx
+        str = str + "timezone = %s\n" % self.timezone
+        str = str + "upgrade = %s\n" % self.upgrade
+        str = str + "vnc = %s\n" % self.vnc
+        str = str + "xconfig = %s\n" % self.xconfig
+        str = str + "zerombr = %s\n" % self.zerombr
+        str = str + "zfcp = %s\n" % self.zfcp
+
+        str = str + "lvList = %s\n" % self.lvList
+        str = str + "partitions = %s\n" % self.partitions
+        str = str + "raidList = %s\n" % self.raidList
+        str = str + "vgList = %s\n" % self.vgList
+
+        str = str + "groupList = %s\n" % self.groupList
+        str = str + "packageList = %s\n" % self.packageList
+        str = str + "excludedList = %s\n" % self.excludedList
+
+        str = str + "preScripts = %s\n" % self.preScripts
+        str = str + "postScripts = %s\n" % self.postScripts
+        str = str + "tracebackScripts = %s\n" % self.tracebackScripts
+
+        return str
