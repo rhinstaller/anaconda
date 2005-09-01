@@ -28,24 +28,31 @@ class KickstartData:
                           "type": CLEARPART_TYPE_NONE}
         self.firewall = {"enabled": True, "ports": [], "trusts": []}
         self.firstboot = FIRSTBOOT_SKIP
-        self.ignoredisk = {}
+        self.ignoredisk = []
         self.interactive = False
         self.keyboard = ""
         self.lang = ""
         self.monitor = {"hsync": "", "monitor": "", "vsync": ""}
-        self.network = {}
-        self.partitions = []
+        self.network = []
         self.reboot = True
         self.rootpw = {"isCrypted": False, "password": ""}
         self.selinux = 2
         self.skipx = False
         self.timezone = {"isUtc": False, "timezone": ""}
         self.upgrade = False
+        self.vnc = {"enabled": False, "password": "", "host": "", "port": ""}
         self.xconfig = {"card": "", "defaultdesktop": "", "depth": 0,
                         "hsync": "", "monitor": "", "probe": True,
                         "resolution": "", "server": "", "startX": False,
                         "videoRam": "", "vsync": ""}
         self.zerombr = False
+        self.zfcp = {"devnum": "", "fcplun": "", "scsiid": "", "scsilun": "",
+                     "wwpn": ""}
+
+        self.lvList = []
+        self.partitions = []
+        self.raidList = []
+        self.vgList = []
 
         # Set by sections.
         self.groupList = []
