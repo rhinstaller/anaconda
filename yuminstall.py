@@ -255,7 +255,8 @@ class YumBackend(AnacondaBackend):
 
         self.ayum.setGroupSelection(["Core"], intf)
         self.ayum.setGroupSelection(["Base"], intf)
-        self.ayum.setGroupSelection(["Text-based Internet"], intf)
+        self.ayum.setGroupSelection(["Workstation Common"], intf)
+        self.ayum.setGroupSelection(["GNOME Desktop Environment"], intf)
 
 
     def doPostSelection(self, intf, id, instPath):
