@@ -630,35 +630,45 @@ else:
 #
 if ksfile is not None:
     from kickstart import pullRemainingKickstartConfig, KSAppendException
-    from kickstart import parseKickstartVNC
+    from kickstart import VNCHandlers
+    from kickstartData import KickstartData
+    from kickstartParser import KickstartParser
 
     try:
-	rc=pullRemainingKickstartConfig(ksfile)
+        rc = pullRemainingKickstartConfig(ksfile)
     except KSAppendException, msg:
-	rc = msg
+        rc = msg
     except:
-	rc = _("Unknown Error")
+        rc = _("Unknown Error")
 
     if rc is not None:
-	stdoutLog.critical(_("Error pulling second part of kickstart config: %s!") % (rc,))
-	sys.exit(1)
+        stdoutLog.critical(_("Error pulling second part of kickstart config: %s!") % rc)
+        sys.exit(1)
 
     # now see if they enabled vnc via the kickstart file. Note that command
     # line options for password, connect host and port override values in
     # kickstart file
-    (ksusevnc, ksvncpasswd, ksvnchost, ksvncport) = parseKickstartVNC(ksfile)
+    ksdata = KickstartData()
+    parser = KickstartParser(ksdata, VNCHandlers(ksdata))
+    parser.readKickstart(ksfile)
+
+    ksusevnc = ksdata.vnc["enabled"]
 
     if ksusevnc:
-	flags.usevnc = 1
+        flags.usevnc = 1
 
-	if vncpassword == None:
-	    vncpassword = ksvncpasswd
+        ksvncpasswd = ksdata.vnc["password"]
+        ksvnchost = ksdata.vnc["host"]
+        ksvncport = ksdata.vnc["port"]
 
-	if vncconnecthost == None:
-	    vncconnecthost = ksvnchost
+        if vncpassword == None:
+            vncpassword = ksvncpasswd
 
-	if vncconnectport == None:
-	    vncconnectport = ksvncport
+        if vncconnecthost == None:
+            vncconnecthost = ksvnchost
+
+        if vncconnectport == None:
+            vncconnectport = ksvncport
 
 #
 # Determine install method - GUI or TUI
@@ -1062,7 +1072,7 @@ if method:
                                "Normal service will be resumed ASAP.")
             sys.exit(42)
         else:    
-            flags.test or intf.messageWindow("Install Method Under Construction",
+            ksfile or flags.test or intf.messageWindow("Install Method Under Construction",
                                 "Anaconda is undergoing major backend work "
                                 "currently only nfs tree installs are supported "
                                 "and package selection is turned off. "
