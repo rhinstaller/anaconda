@@ -168,7 +168,7 @@ class AnacondaYum(yum.YumBase):
                 fn = "%s/file_contexts" %(dir,)
                 if os.access(fn, os.R_OK):
                     break
-                self.macros["__file_context_path"] = fn
+            self.macros["__file_context_path"] = fn
         else:
             self.macros["__file_context_path"]  = "%{nil}"
 
