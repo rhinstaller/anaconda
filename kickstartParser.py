@@ -30,6 +30,14 @@ STATE_TRACEBACK = 6
 KS_MISSING_PROMPT = 0
 KS_MISSING_IGNORE = 1
 
+CLEARPART_TYPE_LINUX = 1
+CLEARPART_TYPE_ALL   = 2
+CLEARPART_TYPE_NONE  = 3
+
+FIRSTBOOT_DEFAULT = 0
+FIRSTBOOT_SKIP = 1
+FIRSTBOOT_RECONFIG = 2
+
 class KickstartError(Exception):
     def __init__(self, val = ""):
         self.value = val
@@ -258,7 +266,7 @@ class KickstartHandlers:
         op = KSOptionParser()
         op.add_option("--all", dest="type", action="store_const",
                       const=CLEARPART_TYPE_ALL)
-        op.add_option("--drives", dest="drives", action=callback,
+        op.add_option("--drives", dest="drives", action="callback",
                       callback=drive_cb, nargs=1, type="string")
         op.add_option("--initlabel", dest="initAll", action="store_true",
                       default=False)
@@ -444,8 +452,8 @@ class KickstartHandlers:
         op.add_option("--noformat", dest="format", action="store_false",
                       default=True)
         op.add_option("--onbiosdisk", dest="onbiosdisk", default="")
-        op.add_option("--ondisk", "--ondrive", dest="onPart")
-        op.add_option("--onpart", "--usepart", dest="disk", action="callback",
+        op.add_option("--ondisk", "--ondrive", dest="disk")
+        op.add_option("--onpart", "--usepart", dest="onPart", action="callback",
                       callback=part_cb, nargs=1, type="string")
         op.add_option("--recommended", dest="recommended", action="store_true",
                       default=False)
@@ -640,13 +648,12 @@ class KickstartHandlers:
 # of this and override the methods you care about.  Methods that don't need to
 # do anything may just pass.  See KickstartPreParser below for an example of
 # a parser that only cares about the %pre scripts.
+#
+# Passing None for kshandlers is valid just in case you don't care about
+# handling any commands.
 class KickstartParser:
-    def __init__ (self, ksdata, kshandlers=None):
-        if not kshandlers:
-            self.handler = KickstartHandlers(ksdata)
-        else:
-            self.handler = kshandlers
-
+    def __init__ (self, ksdata, kshandlers):
+        self.handler = kshandlers
         self.ksdata = ksdata
         self.followIncludes = True
 
@@ -678,11 +685,14 @@ class KickstartParser:
             self.ksdata.packageList.append(line.lstrip())
 
     def handleCommand (self, cmd, args):
-        try:
+        if not self.handler:
+            return
+
+        if not self.handler.handlers.has_key(cmd):
+            raise KickstartError, "Unrecognized kickstart command: %s" % cmd
+        else:
             if self.handler.handlers[cmd] != None:
                 self.handler.handlers[cmd](args)
-        except KeyError:
-            raise KickstartError, "Unrecognized kickstart command: %s" % cmd
 
     def handlePackageHdr (self, args):
         op = KSOptionParser()
@@ -811,12 +821,8 @@ class KickstartParser:
                     state = STATE_COMMANDS
 
 class KickstartPreParser(KickstartParser):
-    def __init__ (self, ksdata, kshandlers=None):
-        if not kshandlers:
-            self.handler = KickstartHandlers(ksdata)
-        else:
-            self.handler = kshandlers
-
+    def __init__ (self, ksdata, kshandlers):
+        self.handler = kshandlers
         KickstartParser.__init__(self, ksdata, kshandlers)
         self.followIncludes = False
 
