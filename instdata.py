@@ -197,73 +197,14 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
-        #self.writePackagesKS(f)
+# FIXME: write package selection using backend
+        #self.backend.writePackagesKS(f)
 
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, useMD5)
         # make it so only root can read, could have password
         os.chmod(filename, 0600)
 
-    def writePackagesKS(self, f):
-	f.write("\n%packages\n")
-	packages = {}
-        forcedoff = {}
-        forcedon = {}
-	for group in self.grpset.groups.values():
-	    if group.isSelected():
-		if (group.isSelected(justManual = 1) and group.id != "base"
-                    and group.id != "core"):
-		    f.write("@ %s\n" % group.id)
-
-                # handle metapkgs.  this is a little weird 
-                for (pkgnevra, pkg) in group.packages.items():
-                    if pkg["meta"] == 0:
-                        continue
-                    metapkg = self.grpset.groups[pkgnevra]
-                    # if it's optional and turned on, put it in the ks.cfg
-                    if (metapkg.isSelected() and
-                        pkg["type"] == hdrlist.PKGTYPE_OPTIONAL):
-                        f.write("@ %s\n" %(metapkg.id,))
-                    # if it's default and turned off, then turn off the
-                    # component packages (we dont' have a -@grp syntax)
-                    elif (not metapkg.isSelected() and
-                          pkg["type"] == hdrlist.PKGTYPE_DEFAULT):
-                        for (pkgnevra, pkg) in metapkg.packages.items():
-                            name = self.grpset.hdrlist[pkgnevra].name
-                            forcedoff[name] = 1
-
-                # handle packages
-                for (pkgnevra, pkg) in group.packages.items():
-                    if pkg["meta"] != 0:
-                        continue
-                    name = self.grpset.hdrlist[pkgnevra].name
-                    # if it's in base or core, it really should be installed
-                    if group.id == "base" or group.id == "core":
-                        packages[name] = 1
-                    else:
-                        if pkg["type"] == hdrlist.PKGTYPE_MANDATORY:
-                            packages[name] = 1
-                        else:
-                            if ((pkg["type"] == hdrlist.PKGTYPE_DEFAULT) and
-                                (pkg["state"] in hdrlist.ON_STATES)):
-                                packages[name] = 1
-                            elif ((pkg["type"] == hdrlist.PKGTYPE_DEFAULT) and
-                                  (pkg["state"] in hdrlist.OFF_STATES)):
-                                forcedoff[name] = 1
-                            elif ((pkg["type"] == hdrlist.PKGTYPE_OPTIONAL) and
-                                  (pkg["state"] in hdrlist.ON_STATES)):
-                                forcedon[name] = 1
-                            elif ((pkg["type"] == hdrlist.PKGTYPE_OPTIONAL) and
-                                  (pkg["state"] not in hdrlist.ON_STATES)):
-                                pass
-
-	for pkg in self.grpset.hdrlist.values():
-            if ((pkg.isSelected() and pkg.manual_state == 2) or
-                (forcedon.has_key(pkg.name))):
-		f.write("%s\n" % pkg.name)
-            if ((not pkg.isSelected() and pkg.manual_state == -2) or
-                forcedoff.has_key(pkg.name)):
-                f.write("-%s\n" %(pkg.name))
 
     def __init__(self, extraModules, floppyDevice, methodstr):
 	self.instLanguage = language.Language()
