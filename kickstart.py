@@ -98,10 +98,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         id.instClass.setDefaultPartitioning(id, doClear = 0)
 
         id.partitions.isKickstart = 1
-        self.skipSteps.extend(["partition", "partitionmethod",
-                               "partitionmethodsetup", "fdisk", "autopartition",
-                               "zfcpconfig", "parttype",
-                               "autopartitionexecute"])
+        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     def doAutoStep(self, id, args):
         KickstartHandlers.doAutoStep(self, args)
@@ -268,7 +265,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         elif dict["mountpoint"] == "None":
             dict["mountpoint"] = None
             if dict["fstype"]:
-                filesystem = fileSystemTypeGet(fstype)
+                filesystem = fileSystemTypeGet(dict["fstype"])
             else:
                 filesystem = fileSystemTypeGetDefault()
         elif dict["mountpoint"] == 'appleboot':
@@ -287,6 +284,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             uniqueID = self.ksID
             self.ksRaidMapping[dict["mountpoint"]] = uniqueID
             self.ksID = self.ksID + 1
+            dict["mountpoint"] = None
         elif dict["mountpoint"].startswith("pv."):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
@@ -297,6 +295,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             uniqueID = self.ksID
             self.ksPVMapping[dict["mountpoint"]] = uniqueID
             self.ksID = self.ksID + 1
+            dict["mountpoint"] = None
         # XXX should we let people not do this for some reason?
         elif dict["mountpoint"] == "/boot/efi":
             filesystem = fileSystemTypeGet("vfat")
@@ -349,10 +348,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         id.instClass.addPartRequest(id.partitions, request)
         id.partitions.isKickstart = 1
-        self.skipSteps.extend(["partition", "partitionmethod",
-                               "partitionmethodsetup", "fdisk", "autopartition",
-                               "zfcpconfig", "parttype",
-                               "autopartitionexecute"])
+        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     def doReboot(self, id, args):
         KickstartHandlers.doReboot(self, args)
@@ -367,15 +363,15 @@ class AnacondaKSHandlers(KickstartHandlers):
             dict["mountpoint"] = None
         elif dict["mountpoint"].startswith("pv."):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
-            dict["mountpoint"] = None
 
             if self.ksPVMapping.has_key(dict["mountpoint"]):
                 raise KickstartError, "Defined PV partition %s multiple times" % dict["mountpoint"]
 
             # get a sort of hackish id
             uniqueID = self.ksID
-            self.ksPVMapping[extra[0]] = uniqueID
+            self.ksPVMapping[dict["mountpoint"]] = uniqueID
             self.ksID = self.ksID + 1
+            dict["mountpoint"] = None
         else:
             if dict["fstype"]:
                 filesystem = fileSystemTypeGet(fstype)
@@ -545,7 +541,6 @@ class AnacondaKSParser(KickstartParser):
             raise KickstartError, "Unrecognized kickstart command: %s" % cmd
         else:
             if self.handler.handlers[cmd] != None:
-                log.critical("handler = %s" % cmd)
                 self.handler.handlers[cmd](self.id, args)
 
 # The anaconda kickstart processor.
@@ -629,10 +624,6 @@ class Kickstart(BaseInstallClass):
 
         if self.ksdata.interactive or flags.autostep:
             dispatch.skipStep("installtype")
-            dispatch.skipStep("partitionmethod")
-            dispatch.skipStep("partitionmethodsetup")
-            dispatch.skipStep("fdisk")
-            dispatch.skipStep("autopartition")
             dispatch.skipStep("bootdisk")
 
         # because these steps depend on the monitor being probed
