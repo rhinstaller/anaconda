@@ -92,9 +92,9 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting, format):
 		passed = 0
                 
         if not passed:
-            return _("The mount point is invalid.  Mount points must start "
+            return _("The mount point %s is invalid.  Mount points must start "
                      "with '/' and cannot end with '/', and must contain "
-                     "printable characters and no spaces.")
+                     "printable characters and no spaces." % mntpt)
         else:
             return None
     else:
