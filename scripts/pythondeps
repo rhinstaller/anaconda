@@ -17,6 +17,7 @@ else
 fi
 
 mkdir -p $DIR/proc
+mkdir -p $DIR/tmp
 mount -t proc /proc $DIR/proc
 if [ $ARCH = "sparc" -o $ARCH = "sparc64" ]; then
     mkdir $DIR/dev
@@ -30,4 +31,5 @@ sort | uniq -u | sed s,^,./, | while read fn; do
 done
 umount $DIR/proc
 rmdir $DIR/proc
+rm -rf $DIR/tmp
 rm -rf $DIR/dev
