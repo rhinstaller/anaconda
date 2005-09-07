@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.11
+Version: 10.3.0.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 07 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.12-1
+- yum backend selinux file_context 
+- Start using new kickstart code (clumens)
+- Error handling and messages for kickstart (clumens)
+- Partitioning kickstart fixups (clumens)
+
 * Thu Sep 01 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.11-1
 - Yum backend work (macro support, whitelist)
 - qla2100 (katzj, #167065)
