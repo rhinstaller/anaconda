@@ -27,6 +27,7 @@ STATE_PRE = 4
 STATE_POST = 5
 STATE_TRACEBACK = 6
 
+# FIXME:  these three sets of constants need to be removed.
 KS_MISSING_PROMPT = 0
 KS_MISSING_IGNORE = 1
 
@@ -76,7 +77,7 @@ class KSOptionParser(OptionParser):
         pass
 
     def error(self, msg):
-        raise KickstartParserError, msg
+        raise KickstartParseError, msg
 
     def keys(self):
         retval = []
