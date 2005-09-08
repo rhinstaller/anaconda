@@ -257,6 +257,7 @@ class YumBackend(AnacondaBackend):
         self.ayum.setGroupSelection(["Base"], intf)
         self.ayum.setGroupSelection(["Workstation Common"], intf)
         self.ayum.setGroupSelection(["GNOME Desktop Environment"], intf)
+        id.desktop.setDefaultDesktop("GNOME")
 
 
     def doPostSelection(self, intf, id, instPath):
