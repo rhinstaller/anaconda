@@ -1,3 +1,14 @@
+2005-09-08  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Catch all kickstart exceptions.  Pass the interface to
+	the install class.
+	* kickstart.py:  Straighten up exception throwing.  Add graphical
+	exception dialog back.  Move KickstartPreParser here from
+	kickstartParser.py since it's anaconda specific.
+	* kickstartParser.py:  Don't copy certain attrs into the ksdata if
+	they are None, as these will override our defaults.  Clean up
+	exception handling.  Remove KickstartPreParser.
+
 2005-09-07  Chris Lumens <clumens@redhat.com>
 
 	* scripts/pythondeps:  Make sure there's a /tmp for logging.

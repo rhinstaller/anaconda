@@ -184,12 +184,12 @@ class AnacondaKSHandlers(KickstartHandlers):
 
 	# sanity check mountpoint
 	if dict["mountpoint"] is not None and dict["mountpoint"][0] != '/':
-	    raise KickstartError, "The mount point \"%s\" is not valid." % (dict["mountpoint"],)
+	    raise KickstartValueError, "The mount point \"%s\" is not valid." % (dict["mountpoint"],)
 
         if not (dict["size"] or dict["percent"] or dict["preexist"]):
-            raise KickstartError, "Must specify the size of a logical volume"
+            raise KickstartValueError, "Size required for logical volume %s" % dict["name"]
         if dict["percent"] and dict["percent"] <= 0 or dict["percent"] > 100:
-            raise KickstartValueError, "Logical Volume percentage must be between 0 and 100 percent"
+            raise KickstartValueError, "Percentage must be between 0 and 100 for logical volume %s" % dict["name"]
 
         vgid = self.ksVGMapping[dict["vgname"]]
 	for areq in id.partitions.autoPartitionRequests:
@@ -198,7 +198,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 		    raise KickstartValueError, "Logical volume name %(name)s already used in volume group %(vgname)s" % dict
 
         if not self.ksVGMapping.has_key(dict["vgname"]):
-            raise KickstartValueError, "Logical volume specifies a non-existent volume group"
+            raise KickstartValueError, "Logical volume %s specifies a non-existent volume group" % dict["name"]
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
                                       format = dict["format"],
@@ -278,7 +278,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("software RAID")
             
             if self.ksRaidMapping.has_key(dict["mountpoint"]):
-                raise KickstartError, "Defined RAID partition %s multiple times" % (dict["mountpoint"],)
+                raise KickstartValueError, "Defined RAID partition %s multiple times" % dict["mountpoint"]
             
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -289,7 +289,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
             if self.ksPVMapping.has_key(dict["mountpoint"]):
-                raise KickstartError, "Defined PV partition %s multiple times" % (dict["mountpoint"],)
+                raise KickstartValueError, "Defined PV partition %s multiple times" % dict["mountpoint"]
 
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -307,7 +307,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         if (dict["size"] is None) and (not dict["start"] and not dict["end"]) \
             and (not dict["onPart"]):
-            raise KickstartValueError, "partition command requires a size specification"
+            raise KickstartValueError, "partition requires a size specification"
         if dict["start"] and not dict["disk"]:
             raise KickstartValueError, "partition command with start cylinder requires a drive specification"
         if dict["disk"] and dict["disk"] not in isys.hardDriveDict().keys():
@@ -365,7 +365,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
             if self.ksPVMapping.has_key(dict["mountpoint"]):
-                raise KickstartError, "Defined PV partition %s multiple times" % dict["mountpoint"]
+                raise KickstartValueError, "Defined PV partition %s multiple times" % dict["mountpoint"]
 
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -380,16 +380,16 @@ class AnacondaKSHandlers(KickstartHandlers):
 
 	# sanity check mountpoint
 	if dict["mountpoint"] is not None and dict["mountpoint"][0] != '/':
-	    raise KickstartError, "The mount point \"%s\" is not valid." % dict["mountpoint"]
+	    raise KickstartValueError, "The mount point %s is not valid." % dict["mountpoint"]
 
         raidmems = []
 
         # get the unique ids of each of the raid members
         for member in dict["members"]:
             if member not in self.ksRaidMapping.keys():
-                raise KickstartError, "Tried to use an undefined partition in RAID specification"
+                raise KickstartValueError, "Tried to use undefined partition %s in RAID specification" % member
 	    if member in self.ksUsedMembers:
-                raise KickstartError, "Tried to use the RAID member %s in two or more RAID specifications" % (member,)
+                raise KickstartValueError, "Tried to use RAID member %s in two or more RAID specifications" % member
 		
             raidmems.append(self.ksRaidMapping[member])
 	    self.ksUsedMembers.append(member)
@@ -457,14 +457,14 @@ class AnacondaKSHandlers(KickstartHandlers):
         # get the unique ids of each of the physical volumes
         for pv in dict["physvols"]:
             if pv not in self.ksPVMapping.keys():
-                raise KickstartError,"Tried to use an undefined partition in Volume Group specification"
+                raise KickstartValueError, "Tried to use undefined partition %s in Volume Group specification" % pv
             pvs.append(self.ksPVMapping[pv])
 
         if len(pvs) == 0 and not dict["preexist"]:
-            raise KickstartError, "Volume group defined without any physical volumes"
+            raise KickstartValueError, "Volume group defined without any physical volumes"
 
         if dict["pesize"] not in lvm.getPossiblePhysicalExtents(floor=1024):
-            raise KickstartError, "Volume group specified invalid pesize: %d" %(dict["pesize"],)
+            raise KickstartValueError, "Volume group specified invalid pesize: %d" %(dict["pesize"],)
 
         # get a sort of hackish id
         uniqueID = self.ksID
@@ -528,6 +528,44 @@ class VNCHandlers(KickstartHandlers):
         self.resetHandlers()
         self.handlers["vnc"] = self.doVnc
 
+class KickstartPreParser(KickstartParser):
+    def __init__ (self, ksdata, kshandlers):
+        self.handler = kshandlers
+        KickstartParser.__init__(self, ksdata, kshandlers)
+        self.followIncludes = False
+
+    def addScript (self, state, script):
+        if state == STATE_PRE:
+            s = Script (script["body"], script["interp"], script["chroot"],
+                        script["log"], script["errorOnFail"])
+            self.ksdata.preScripts.append(s)
+
+    def addPackages (self, line):
+        pass
+
+    def handleCommand (self, cmd, args):
+        pass
+
+    def handlePackageHdr (self, line):
+        pass
+
+    def handleScriptHdr (self, args, script):
+        if not args[0] == "%pre":
+            return
+
+        op = KSOptionParser()
+        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
+                      default=False)
+        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
+        op.add_option("--log", "--logfile", dest="log")
+
+        (opts, extra) = op.parse_args(args=args[1:])
+
+        script["interp"] = opts.interpreter
+        script["log"] = opts.log
+        script["errorOnFail"] = opts.errorOnFail
+        script["chroot"] = 0
+
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers, id):
         self.id = id
@@ -538,7 +576,7 @@ class AnacondaKSParser(KickstartParser):
             return
 
         if not self.handler.handlers.has_key(cmd):
-            raise KickstartError, "Unrecognized kickstart command: %s" % cmd
+            raise KickstartParseError, (cmd + " " + string.join (args))
         else:
             if self.handler.handlers[cmd] != None:
                 self.handler.handlers[cmd](self.id, args)
@@ -594,13 +632,29 @@ class Kickstart(BaseInstallClass):
         # parse the %pre
         self.ksdata = KickstartData()
         parser = KickstartPreParser(self.ksdata, None)
-        parser.readKickstart(self.file)
+
+        try:
+            parser.readKickstart(self.file)
+        except KickstartError, e:
+           if intf:
+               intf.kickstartErrorWindow(e.__str__())
+               sys.exit(0)
+           else:
+               raise KickstartError, e
 
         # now read the kickstart file for real
         self.ksdata = KickstartData()
         self.handlers = AnacondaKSHandlers(self.ksdata)
         parser = AnacondaKSParser(self.ksdata, self.handlers, self.id)
-        parser.readKickstart(self.file)
+
+        try:
+            parser.readKickstart(self.file)
+        except KickstartError, e:
+           if intf:
+               intf.kickstartErrorWindow(e.__str__())
+               sys.exit(0)
+           else:
+               raise KickstartError, e
 
     def setSteps(self, dispatch):
         if self.ksdata.upgrade:
@@ -663,7 +717,7 @@ def pullRemainingKickstartConfig(ksfile):
     try:
 	f = open(ksfile, "r")
     except:
-	raise KSAppendException("Unable to open ks file %s" % (ksfile,))
+	raise KickstartError ("Unable to open ks file %s for append" % ksfile)
 
     lines = f.readlines()
     f.close()
@@ -677,14 +731,14 @@ def pullRemainingKickstartConfig(ksfile):
 	try:
 	    (xxx, ksurl) = string.split(ll, ' ')
 	except:
-	    raise KSAppendException("Illegal url for %%ksappend - %s" % (ll,))
+	    raise KickstartError ("Illegal url for %%ksappend - %s" % ll)
 
-	log.info("Attempting to pull second part of ks.cfg from url %s" % (ksurl,))
+	log.info("Attempting to pull second part of ks.cfg from url %s" % ksurl)
 
 	try:
 	    url = grabber.urlopen (ksurl)
 	except grabber.URLGrabError, e:
-	    raise KSAppendException ("IOError: %s" % e.strerror)
+	    raise KickstartError ("IOError: %s" % e.strerror)
 	else:
 	    # sanity check result - sometimes FTP doesnt
 	    # catch a file is missing
@@ -694,7 +748,7 @@ def pullRemainingKickstartConfig(ksfile):
 		clen = 0
 
 	    if clen < 1:
-		raise KSAppendException("IOError: -1:File not found")
+		raise KickstartError ("IOError: -1:File not found")
 
         break
 

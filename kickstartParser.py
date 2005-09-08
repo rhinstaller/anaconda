@@ -19,6 +19,10 @@ import sys
 import string
 from optparse import OptionParser, Option
 from rhpl.translate import _, N_
+from constants import *
+
+KS_MISSING_PROMPT = 0
+KS_MISSING_IGNORE = 1
 
 STATE_COMMANDS = 1
 STATE_PACKAGES = 2
@@ -26,18 +30,6 @@ STATE_SCRIPT_HDR = 3
 STATE_PRE = 4
 STATE_POST = 5
 STATE_TRACEBACK = 6
-
-# FIXME:  these three sets of constants need to be removed.
-KS_MISSING_PROMPT = 0
-KS_MISSING_IGNORE = 1
-
-CLEARPART_TYPE_LINUX = 1
-CLEARPART_TYPE_ALL   = 2
-CLEARPART_TYPE_NONE  = 3
-
-FIRSTBOOT_DEFAULT = 0
-FIRSTBOOT_SKIP = 1
-FIRSTBOOT_RECONFIG = 2
 
 class KickstartError(Exception):
     def __init__(self, val = ""):
@@ -62,13 +54,6 @@ class KickstartValueError(KickstartError):
 
     def __str__ (self):
         return self.value
-
-class KSAppendException(KickstartError):
-    def __init__(self, s=""):
-	self.str = s
-
-    def __str__(self):
-	return self.str
 
 # Specialized OptionParser, mainly to handle the MappableOption and to turn
 # off help.
@@ -256,7 +241,7 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
 
-        for key in op.keys():
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.bootloader[key] = getattr(opts, key)
 
     def doClearPart(self, args):
@@ -278,7 +263,7 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
 
-        for key in op.keys():
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.clearpart[key] = getattr(opts, key)
 
     def doFirewall(self, args):
@@ -305,7 +290,7 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
 
-        for key in op.keys():
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.firewall[key] = getattr(opts, key)
 
     def doFirstboot(self, args):
@@ -375,7 +360,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
-            raise KickstartValueError, "logvol requires a mount point"
+            raise KickstartValueError, "Mount point required on line:\n\nlogvol %s" % string.join (args)
 
         tmpdict = {}
         for key in op.keys():
@@ -393,9 +378,9 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if extra:
-            raise KickstartValueError, "Unexpected arguments to monitor"
+            raise KickstartValueError, "Unexpected arguments to monitor: %s" % string.join(args)
 
-        for key in op.keys():
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.monitor[key] = getattr(opts, key)
 
     def doMouse(self, args):
@@ -468,7 +453,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:
-            raise KickstartValueError, "partition requires a mount point"
+            raise KickstartValueError, "Mount point required on line:\n\npartition %s" % string.join (args)
 
         tmpdict = {}
         for key in op.keys():
@@ -510,7 +495,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
-            raise KickstartValueError, "raid requires a mount point"
+            raise KickstartValueError, "Mount point required on line:\n\nraid %s" % string.join (args)
 
         tmpdict = {}
         for key in op.keys():
@@ -529,7 +514,7 @@ class KickstartHandlers:
         self.ksdata.rootpw["isCrypted"] = opts.isCrypted
 
         if len(extra) != 1:
-            raise KickstartValueError, "A single argument is expected for rootPw"
+            raise KickstartValueError, "A single argument is expected for rootpw"
 
         self.ksdata.rootpw["password"] = extra[0]
 
@@ -577,7 +562,7 @@ class KickstartHandlers:
 
         self.ksdata.vnc["enabled"] = True
 
-        for key in op.keys():
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.vnc[key] = getattr(opts, key)
 
     def doVolumeGroup(self, args):
@@ -623,9 +608,9 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
-            raise KickstartValueError, "Unexpected arguments to xconfig"
+            raise KickstartValueError, "Unexpected arguments to xconfig: %s" % string.join (args)
 
-        for key in op.keys():
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.xconfig[key] = getattr(opts, key)
 
     def doZeroMbr(self, args):
@@ -641,14 +626,13 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
 
-        for key in op.keys():
-            self.ksdata.xfcp[key] = getattr(opts, key)
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            self.ksdata.zfcp[key] = getattr(opts, key)
 
 # The kickstart file parser.  This only transitions between states and calls
 # handlers at certain points.  To create a specialized parser, make a subclass
 # of this and override the methods you care about.  Methods that don't need to
-# do anything may just pass.  See KickstartPreParser below for an example of
-# a parser that only cares about the %pre scripts.
+# do anything may just pass.
 #
 # Passing None for kshandlers is valid just in case you don't care about
 # handling any commands.
@@ -690,7 +674,7 @@ class KickstartParser:
             return
 
         if not self.handler.handlers.has_key(cmd):
-            raise KickstartError, "Unrecognized kickstart command: %s" % cmd
+            raise KickstartParseError, (cmd + " " + string.join (args))
         else:
             if self.handler.handlers[cmd] != None:
                 self.handler.handlers[cmd](args)
@@ -820,41 +804,3 @@ class KickstartParser:
                     # the initial state.
                     self.addScript(state, script)
                     state = STATE_COMMANDS
-
-class KickstartPreParser(KickstartParser):
-    def __init__ (self, ksdata, kshandlers):
-        self.handler = kshandlers
-        KickstartParser.__init__(self, ksdata, kshandlers)
-        self.followIncludes = False
-
-    def addScript (self, state, script):
-        if state == STATE_PRE:
-            s = Script (script["body"], script["interp"], script["chroot"],
-                        script["log"], script["errorOnFail"])
-            self.ksdata.preScripts.append(s)
-
-    def addPackages (self, line):
-        pass
-
-    def handleCommand (self, cmd, args):
-        pass
-
-    def handlePackageHdr (self, line):
-        pass
-
-    def handleScriptHdr (self, args, script):
-        if not args[0] == "%pre":
-            return
-
-        op = KSOptionParser()
-        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
-                      default=False)
-        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
-        op.add_option("--log", "--logfile", dest="log")
-
-        (opts, extra) = op.parse_args(args=args[1:])
-
-        script["interp"] = opts.interpreter
-        script["log"] = opts.log
-        script["errorOnFail"] = opts.errorOnFail
-        script["chroot"] = 0

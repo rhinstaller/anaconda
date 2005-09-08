@@ -629,14 +629,14 @@ else:
 # if desired.
 #
 if ksfile is not None:
-    from kickstart import pullRemainingKickstartConfig, KSAppendException
+    from kickstart import pullRemainingKickstartConfig, KickstartError
     from kickstart import VNCHandlers
     from kickstartData import KickstartData
     from kickstartParser import KickstartParser
 
     try:
         rc = pullRemainingKickstartConfig(ksfile)
-    except KSAppendException, msg:
+    except KickstartError, msg:
         rc = msg
     except:
         rc = _("Unknown Error")
@@ -1147,7 +1147,7 @@ if xcfg is not None:
 if kbd:
     id.setKeyboard(kbd)
 
-instClass.setInstallData(id)
+instClass.setInstallData(id, intf)
 
 dispatch = dispatch.Dispatcher(intf, id, methodobj, rootPath, backend)
 
