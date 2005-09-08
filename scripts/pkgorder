@@ -1,293 +1,33 @@
 #!/usr/bin/python
+# 
+# Paul Nasrat <pnasrat@redhat.com>
+# Copyright 2005 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+#XXX: Package order is dying
 
 import sys
-import os
-import os.path
-import rpm
-import string
-import logging
+from optparse import OptionParser
 
-log = logging.getLogger("anaconda")
-
-# set up rpm dependency whiteouts
-import whiteout
-
-rpmFD = None
-
-import hdrlist
-import rhpl.arch
-
-def cmpHeaderByName(h1, h2):
-    n1 = string.lower(h1.nevra())
-    n2 = string.lower(h2.nevra())
-
-    if n1 < n2:
-	return -1
-    elif n1 == n2:
-	return 0;
-
-    return 1
-
-def addIfNeeded(pkg):
-    global pkgOrder, pkgHash
-    multi = rhpl.arch.getMultiArchInfo()
-    if multi is not None:
-        prim = multi[1]
-        second = multi[2]
-        
-    diff = rhpl.arch.archDifference
-    if not pkgHash.has_key (pkg.name):
-        pkgHash[pkg.name] = [ pkg ]
-        pkgOrder.append(pkg.nevra())
-    elif multi is None:
-        # this isn't a biarch arch, so we don't need to worry about
-        # multiple glibcs
-        return
-    else:
-        # this is a biarch arch.  we want to just have a primary package
-        # for each here
-        add = -1
-        for p in pkgHash[pkg.name]:
-            arch1 = p['arch']
-            arch2 = pkg['arch']
-            # same arch, don't worry about it
-            if arch1 == arch2:
-                add = 0
-                break
-            # if one of them doesn't work for the canon arch and the other
-            # does, then one of them is for the secondary arch and we want
-            # to add it.  
-            if ((((diff(prim, arch1) == 0) and (diff(second, arch2) != 0)) or
-                 ((diff(prim, arch2) == 0) and (diff(second, arch1) != 0))) and
-                add == -1):
-                add = 1
-                
-        if add == 1:
-            pkgHash[pkg.name].append(pkg)
-            pkgOrder.append(pkg.nevra())
-
-
-outputted = []
-# Now set up rpm to run the transaction deporder
-testpath = '/tmp/pkgorder-' + str (os.getpid ())
-os.system ("mkdir -p " + testpath + "/var/lib/rpm")
-
-def runTsAndOutput(pkglist):
-    global outputted
-
-    # no sense trying with no packages
-    if len(pkglist) == 0:
-        return
-    
-    ts = rpm.TransactionSet(testpath)
-    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
-
-    done = []
-    for item in pkglist:
-        # make sure we don't double add package names
-        if item.hdr['name'] in done:
-            continue
-        done.append(item.hdr['name'])
-#        print >> sys.stderr, "adding %s" %(item.name,)
-        ts.addInstall(item.hdr, item.hdr, "i")
-
-    ts.check()
-    ts.order()
-
-    theorder = ts.getKeys()
-    if theorder is None: theorder = []
-    # print the results.
-    for p in theorder:
-        def archSort(hdr1, hdr2):
-            h1 = hdlist[hdr1[0]]
-            h2 = hdlist[hdr2[0]]
-            
-            if rhpl.arch.score(h1['arch']) > rhpl.arch.score(h2['arch']):
-                return -1
-            elif rhpl.arch.score(h1['arch']) < rhpl.arch.score(h2['arch']):
-                return 1
-            return 0
-    
-        if p['name'] in outputted:
-            continue
-        outputted.append(p['name'])
-        pkgs = hdlist.pkgnames[p['name']]
-        pkgs.sort(archSort)
-        for pnevra in pkgs:
-            pkg = hdlist.pkgs[pnevra[0]]
-            line = "%s-%s-%s.%s.rpm\n" % (pkg['name'], pkg['version'],
-                                          pkg['release'], pkg['arch'])
-            ofile.write(line)
-    
-
-
-# set PKGORDER_DEBUG to get rpm debugging
-if os.environ.has_key("PKGORDER_DEBUG"):
-    rpm.setVerbosity(rpm.RPMLOG_DEBUG)
-
-productPath = None
-ofile = sys.stdout
-
-#parse optional arguments
-args = [sys.argv[0]]
-n = 1
-while n < len(sys.argv):
-    arg = sys.argv[n]
-    n += 1
-    if arg == "--debug":
-        rpm.setVerbosity(rpm.RPMLOG_DEBUG)
-    elif arg == "--file":
-        ofile = open(sys.argv[n],'w')
-        n += 1
-    elif arg == "--product":
-        productPath = sys.argv[n]
-        n += 1
-    else:
-        args.append(arg)
-
-if len(args) < 3:
+def usage():
     print "pkgorder <toppath> <arch> <productpath>"
-    sys.exit(1)
 
-distDir = os.path.normpath(args[1])
-arch = args[2]
+if __name__ == "__main__":
+    parser = OptionParser()
+    parser.add_option("--debug", action="store_true", dest="debug", default=False)
+    parser.add_option("--file", action="store", dest="file")
+    parser.add_option("--product", action="store", dest="productPath", )
 
-# in previous versions, argument 3 was overloaded as both an optional
-# productPath specification and the start of the optional complist
-# specification. For script compatibility, we still have this overloading
-# (as long as --product is not used).
-if productPath is None:
-    if len(args) > 3:
-        productPath = args[3]
-    else:
-        raise RuntimeError, "no product path specified"
+    (options, args) = parser.parse_args()
+     
+    if len(args) != 3:
+	usage()
+        sys.exit(1)
 
-if not os.path.isdir(distDir):
-    print "error: %s is not a directory" % distDir
-    sys.exit(1)
-
-disc1Dir = distDir + "-disc1"
-disc1SrcDir = distDir + "-srpms"
-disc2Dir = distDir + "-disc2"
-
-# pull in the hdlist
-f = distDir + "/%s/base/hdlist" % (productPath,)
-try:
-    hdlist = hdrlist.HeaderListFromFile(f)
-    hdlist.mergeFullHeaders(distDir + "/%s/base/hdlist2" % (productPath,))    
-except rpm.error:
-    print "Failed to read header list", f
-    sys.exit(1)
-# and read the comps file
-grpset = hdrlist.groupSetFromCompsFile("file://%s/%s/base/comps.xml"
-                                       %(distDir,productPath), hdlist, doSelect = 0)
-grpset.unselectAll()
-#grpset.groups["everything"].select()
-
-# work out the order we'd like to install everything in
-pkgOrder = []
-pkgHash = {}
-
-# We always want all the kernels-.* in our package list, except for a few
-for p in hdlist.values():
-    package = p['name']
-    if (package.startswith("kernel") and
-        package in hdrlist.EverythingExclude and
-        not package.endswith("-unsupported")):
-        try:
-            # FIXME: since we do unselect all at the end of the loop, these
-            # stay selected for the first time through
-            hdlist[package].select()
-        except:
-            print package
-            print type(package)
-        pkgOrder.append(hdlist[package].nevra())
-        pkgHash[hdlist[package].name] = [ hdlist[package] ]
-
-# Tier 1 language packages get priority.
-tier1langs = ("en:en_US:de:de_DE:es:es_ES:fr:fr_FR:it:it_IT:ja:ja_JP:"
-              "ko:ko_KR:zh:zh_CN:zh_TW:pt:pt_BR:en_GB:en_CA")
-
-
-grpids = grpset.groups.keys()
-grpids.sort()
-
-# allow passing in an initial group list on the command line
-if len(args) > 3:
-    complist = args[3:]
-else:
-    complist = []
-# then we add the things we have hard-coded.  this is kind of ugly and in
-# a perfect world, we could figure it out automagically, but oh well
-for g in ("core", "base", "text-internet", "web-server",
-          "smb-server", "printing", "dialup", "server-cfg",
-          "admin-tools"):
-    if g not in complist: complist.append(g)
-# now let's pull in all of workstation common
-if grpset.groups.has_key("workstation-common"):
-    comp = grpset.groups["workstation-common"]
-    complist.append("workstation-common")
-    for name in comp.groupreqs:
-        if name not in complist:
-            complist.append(name)
-# a couple more that make sense to have early
-for g in ("gnome-desktop", "emacs", "development-tools", "development-libs",
-          "x-software-development", "gnome-software-development",
-          "kde-desktop", "kde-software-development"):
-    if g not in complist: complist.append(g)
-        
-latelangs = []
-for id in grpids:
-    if id in complist:
-        continue
-    if id == "everything": #this would be silly
-        continue
-    if ((grpset.groups[id].langonly is not None) and
-        (tier1langs.find(grpset.groups[id].langonly) == -1)):
-        latelangs.append(id)
-    else:
-        complist.append(id)
-complist.extend(latelangs)
-
-# for each comp, staring with base, list the packages
-# in alphabetical order.
-for id in complist:
-    if not grpset.groups.has_key(id):
-        continue
-    group = grpset.groups[id]
-    list = []
-
-    group.select(selectOptional = 1)
-
-    # append what got turned on to our order.
-    for p in hdlist.pkgs.values():
-        if p.isSelected():
-            list.append(p)
-    list.sort(cmpHeaderByName)
-
-#    print >> sys.stderr, id
-    for item in list:
-        addIfNeeded(item)
-
-    runTsAndOutput(list)
-    grpset.unselectAll()
-    
-    
-# add all of the packages that haven't been added yet.
-list = []
-for p in hdlist.pkgs.values():
-    if not pkgHash.has_key (p.name):
-        list.append(p)
-list.sort(cmpHeaderByName)
-for item in list:
-    if item.nevra() not in pkgOrder:
-        pkgOrder.append(item.nevra())
-
-list = []
-for p in pkgOrder:
-    list.append(hdlist[p])
-
-runTsAndOutput(list)
-
-ofile.close()
+    sys.exit(0)
