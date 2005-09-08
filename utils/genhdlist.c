@@ -507,6 +507,9 @@ int main(int argc, const char ** argv) {
     if (!args || !args[0] || !args[0][0])
 	usage();
 
+/* FIXME:  Don't actually do anything */
+    return 0;
+
     if (split && !noSplit) doSplit = 1;
 
     if (depOrderFile) {
