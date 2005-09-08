@@ -1133,9 +1133,9 @@ class InstallControlWindow:
             self.mainxml.get_widget("mainTable").set_homogeneous(True)
         else:
             if ics.getHelpButtonEnabled():
-                self.mainxml.get_widget("showHelpButton").show()
+#                self.mainxml.get_widget("showHelpButton").show()
                 self.mainxml.get_widget("hideHelpButton").hide()
-                self.mainxml.get_widget("showHelpButton").grab_focus()
+#                self.mainxml.get_widget("showHelpButton").grab_focus()
 
             self.mainxml.get_widget("help").hide_all()
             self.mainxml.get_widget("mainTable").set_homogeneous(False)
@@ -1252,11 +1252,12 @@ class InstallControlWindow:
 
     def __init__ (self, ii, dispatch, id):
         self.reloadRcQueued = 0
+        self.currentWindow = None
         self.ii = ii
         self.id = id
         self.dispatch = dispatch
         self.handle = None
-        self.displayHelp = True
+        self.displayHelp = False
 
 	self.releaseNotesContents = None
 	self.releaseNotesType = None
