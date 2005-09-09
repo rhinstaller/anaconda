@@ -423,24 +423,16 @@ class BaseInstallClass:
         id.xsetup.xhwstate.set_vsync(vsync)
         id.xsetup.xhwstate.recalc_mode()
 
-    def setVideoCard(self, id, server = None, card = None, videoRam = None):
-        # oh suck.  if on ppc, bail because nothing other than fbdev is
-        # going to work all that well
-        if iutil.getArch() == "ppc":
-            return
+    def setVideoCard(self, id, driver = None, videoRam = None):
         
         primary = id.videocard.primaryCard()
 
-        if card:
-            db = id.videocard.cardsDB()
-            if db.has_key(card):
-                vcdata = db[card]
-                primary.setCardData(vcdata)
-                primary.setDevID(vcdata["NAME"])
-                primary.setDescription(vcdata["NAME"])
-
-                id.xsetup.xhwstate.set_videocard_name(vcdata["NAME"])
-                id.xsetup.xhwstate.set_videocard_card(vcdata["NAME"])
+	if driver:
+	    db = rhpl.videocard.drivers
+	    if db.has_key(driver):
+		primary.setDriver(driver)
+                id.xsetup.xhwstate.set_videocard_name(primary.getDescription())
+                id.xsetup.xhwstate.set_videocard_driver(driver)
             else:
                 raise RuntimeError, "Unknown videocard specified: %s" %(card,)
 
@@ -449,12 +441,9 @@ class BaseInstallClass:
             id.videocard.primaryCard().setVideoRam(str(videoRam))
             id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
 
-        if server is not None:
-            log.error("unable to really do anything with server right now")
-            
 
-    def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
-        self.setVideoCard(id, server, card, videoRam)
+    def configureX(self, id, driver = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
+        self.setVideoCard(id, driver, videoRam)
         self.setMonitor(id, hsync, vsync, monitorName)
 
         if startX:

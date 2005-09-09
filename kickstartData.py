@@ -41,9 +41,9 @@ class KickstartData:
         self.timezone = {"isUtc": False, "timezone": ""}
         self.upgrade = False
         self.vnc = {"enabled": False, "password": "", "host": "", "port": ""}
-        self.xconfig = {"card": "", "defaultdesktop": "", "depth": 0,
+        self.xconfig = {"driver": "", "defaultdesktop": "", "depth": 0,
                         "hsync": "", "monitor": "", "probe": True,
-                        "resolution": "", "server": "", "startX": False,
+                        "resolution": "", "startX": False,
                         "videoRam": "", "vsync": ""}
         self.zerombr = False
         self.zfcp = {"devnum": "", "fcplun": "", "scsiid": "", "scsilun": "",

@@ -1,0 +1,23 @@
+#!/usr/bin/python
+
+import os
+import sys
+import string
+
+modules = []
+
+args = sys.argv[1:]
+
+for arg in args:
+    arg = os.path.basename(arg)
+    arg = arg.replace('.ko','')
+    modules.append(arg)
+
+f = sys.stdin.readline()
+
+while f:
+    f = f.strip()
+    for mod in modules:
+	if f.endswith(' %s' % (mod,)):
+	    print f
+    f = sys.stdin.readline()

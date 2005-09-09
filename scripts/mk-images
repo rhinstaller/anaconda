@@ -42,8 +42,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     IMGPATH=$4
     KERNELBASE=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELBASE/moddeps
-    MODMAPS=$KERNELBASE/modules.pcimap
-    USBMAPS=$KERNELBASE/modules.usbmap
+    MODALIAS=$KERNELBASE/modules.alias
     BUILDARCH=$5
 
     KERNELNAME=vmlinuz
@@ -93,10 +92,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
     mkdir -p $INSTIMGPATH
 
 # Stuff that we need
-    TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
-    TRIMMODMAP=$IMGPATH/usr/lib/anaconda-runtime/trimmodmap
+    TRIMMODALIAS=$IMGPATH/usr/lib/anaconda-runtime/trimmodalias
     TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
-    TRIMUSBMAP=$IMGPATH/usr/lib/anaconda-runtime/trimusbmap
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
@@ -107,15 +104,15 @@ TOPDIR=$(cd $TOPDIR; pwd)
     LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
     LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
-    PCITABLE=$IMGPATH/usr/share/hwdata/pcitable
     PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
+    XDRIVERS=$IMGPATH=/usr/share/hwdata/videoaliases
     CACHE=$KERNELBASE/.cache
     MODULESUSED=$KERNELBASE/modules-used
 
     touch $MODULESUSED
 
-    REQUIREMENTS="$TRIMPCITABLE $TRIMMODMAP $TRIMPCIIDS $PCITABLE $PCIIDS $GETMODDEPS $MODINFO
-		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS $TRIMUSBMAP"
+    REQUIREMENTS="$TRIMMODALIAS $TRIMPCIIDS $PCIIDS $XDRIVERS $GETMODDEPS $MODINFO
+		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
 
     dieLater=
     for n in $REQUIREMENTS; do
@@ -181,8 +178,7 @@ rundepmod () {
 
     $FAKEARCH /sbin/depmod -a -F $KERNELROOT/boot/System.map-$version \
             -b $KERNELROOT $version
-    mv $KERNELROOT/lib/modules/$version/modules.pcimap $MODMAPS
-    mv $KERNELROOT/lib/modules/$version/modules.usbmap $USBMAPS
+    mv $KERNELROOT/lib/modules/$version/modules.alias $MODALIAS
 
     cat $KERNELROOT/lib/modules/$version/modules.dep | $FILTERMODDEPS > $final 
 }
@@ -300,7 +296,7 @@ makemoduleball() {
     MMB_DIR=$1
     MMB_MODULESET=$(resdeps $2)
 
-    rm -rf $MMB_DIR/modules $MMB_DIR/$MMB_NAME $MMB_DIR/modules.dep \
+    rm -rf $MMB_DIR/modules $MMB_DIR/$MMB_NAME $MMB_DIR/modules.dep $MMB_DIR/modules.alias \
 	   $MMB_DIR/modules.pcimap $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO \
 	   $MMB_DIR/pci.ids
     mkdir -p $MMB_DIR/modules
@@ -314,21 +310,12 @@ makemoduleball() {
 
     getmoddeps "$(find . -name *.ko)" ../modules.dep
 
-    # create the pcitable
-    $TRIMPCITABLE ignore $(find . -name *.ko -exec basename {} \;) < $PCITABLE > ../pcitable
+    # create the modules.alias file
+    $TRIMMODALIAS $(find . -name *.ko -exec basename {} \;) < $MODALAIS > ../modules.alias
     
-    # create the modules.pcimap
-    $TRIMMODMAP $PCITABLE $(find . -name *.ko -exec basename {} \;) < $MODMAPS > ../modules.pcimap
-
-    # create the modules.usbmap
-    $TRIMUSBMAP $(find . -name *.ko -exec basename {} \;) < $USBMAPS > ../modules.usbmap
-    # remove a zero-byte modules.usbmap
-    if [ "$(ls -s ../modules.usbmap |cut -f 1 -d ' ')" = "0" ]; then
-	rm -f ../modules.usbmap
-    fi
-    # create the pci.ids
+    # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
-      $TRIMPCIIDS ../pcitable ../modules.pcimap > ../pci.ids
+      $TRIMPCIIDS ../modules.alias $XDRIVERS > ../pci.ids
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd

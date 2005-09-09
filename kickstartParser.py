@@ -591,7 +591,7 @@ class KickstartHandlers:
 
     def doXConfig(self, args):
         op = KSOptionParser()
-        op.add_option("--card", dest="card")
+        op.add_option("--driver", dest="driver")
         op.add_option("--defaultdesktop", dest="defaultdesktop")
         op.add_option("--depth", dest="depth", action="store", type="int",
                       nargs=1)
@@ -600,7 +600,6 @@ class KickstartHandlers:
         op.add_option("--noprobe", dest="probe", action="store_false",
                       default=True)
         op.add_option("--resolution", dest="resolution")
-        op.add_option("--server", dest="server")
         op.add_option("--startxonboot", dest="startX", action="store_true",
                       default=False)
         op.add_option("--videoram", dest="videoRam")

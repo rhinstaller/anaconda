@@ -119,8 +119,8 @@ def writeXConfiguration(id, instPath):
     if id.xsetup.skipx:
         return
 
-    xserver = id.videocard.primaryCard().getXServer()
-    if not xserver:
+    card = id.videocard.primaryCard()
+    if not card:
 	return
 
     log.info("Writing X configuration")

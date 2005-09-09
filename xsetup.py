@@ -93,7 +93,7 @@ class XSetup:
         monitor = self.xhwstate.monitor
 	vc = self.xhwstate.videocard
 
-        args = args + [ "--card", '"' + vc.primaryCard().shortDescription() + '"' ]
+	args = args + [ "--driver", '"' + vc.primaryCard().getDriver() + '"' ]
 	vram = vc.primaryCard().getVideoRam()
 	if vram is not None:
 	    args = args + [ "--videoram", vram]

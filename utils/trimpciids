@@ -12,27 +12,28 @@ if f:
 	pcitable = f.readlines()
 	f.close()
 	for line in pcitable:
-	    if not line.startswith("0x"):
+	    if not line.startswith("alias pci:"):
 		continue
-	    fields = line.split('\t')
-	    if fields[0] not in vendors:
-		vendors.append(fields[0])
-	    if (fields[0], fields[1]) not in devices:
-		devices.append( (fields[0],fields[1]))
-f = open(sys.argv[2])
-if f:
-    	pcimap = f.readlines()
-	f.close()
-	for line in pcimap:
-	    if line.startswith("#"):
-		continue
-	    ( trash, vend, dev, trash, trash, trash , trash, trash ) = line.split()
-	    vend = vend.replace("0x0000","0x",1)
-	    dev = dev.replace("0x0000","0x",1)
+	    vend = "0x%s" % (line[15:19],)
+	    dev = "0x%s" % (line[24:28],)
 	    if vend not in vendors:
 		vendors.append(vend)
-	    if (vend,dev) not in devices:
-		devices.append( (vend, dev))
+	    if (vend, dev) not in devices:
+		devices.append( (vend, dev) )
+
+f = open(sys.argv[2])
+if f:
+	pcitable = f.readlines()
+	f.close()
+	for line in pcitable:
+	    if not line.startswith("alias pcivideo:"):
+		continue
+	    vend = "0x%s" % (line[20:24],)
+	    dev = "0x%s" % (line[29:33],)
+	    if vend not in vendors:
+		vendors.append(vend)
+	    if (vend, dev) not in devices:
+		devices.append( (vend, dev) )
 
 pciids = sys.stdin.readlines()
 current_vend = 0

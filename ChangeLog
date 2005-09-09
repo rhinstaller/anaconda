@@ -1,3 +1,28 @@
+2005-09-09  Bill Nottingham  <notting@redhat.com>
+
+	* anaconda.spec: Bump version, tweak requirements
+	* installclass.py (setVideoCard, configureX): Adapt to new rhpl
+	  X setup code
+	* kickstart.py (doXConfig): Likewise
+	* kickstartData.py (__init__): Likewise
+	* kickstartParser.py (doXConfig): Likewise
+	* packages.py (writeXConfiguration): Likewise
+	* xsetup.py (getArgList): Likewise
+	* scripts/mk-images: Remove modules.pcimap, modules.usbmap,
+	  pcitable, from images, and associated trimmer scripts from
+	  files used. Add modules.alias, videoaliases. Trim modules.alias
+	  using trimmodalias.
+	* scripts/upd-instroot: Don't keep Cards, but keep videoaliases.
+	  Don't run checkcards.py
+	* utils/trimmodalias:  New script, trim modules.alias file to
+	  match modules in the first/second stage
+	* utils/trimpciids:  Trim pci.ids based on modules.alias and
+	  videoaliases, not pcitable and modules.pcimap
+	* utils/checkcards.py:  Remove now obsolete script
+	* utils/trimmodmap:  Likewise
+	* utils/trimpcitable:  Likewise
+	* utils/trimusbmap:  Likewise
+
 2005-09-08  Paul Nasrat <pnasrat@redhat.com>
 
 	* scripts/pkgorder: Neuter pkgorder

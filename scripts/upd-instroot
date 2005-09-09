@@ -420,9 +420,8 @@ usr/share/terminfo/b/bterm
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
-usr/share/hwdata/pcitable
 usr/share/hwdata/pci.ids
-usr/share/hwdata/Cards
+usr/share/hwdata/videoaliases
 usr/share/hwdata/MonitorsDB
 usr/share/rhpl/extramodes
 usr/share/rhpl/vesamodes
@@ -1256,10 +1255,5 @@ if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
        # Xserver needs a place to put the compiled xkb maps.
        rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
        ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-   fi
-
-   if [ -n "$NEEDGR" ]; then
-    cd $ORIGDIR
-    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/hwdata/pcitable $DESTGR/usr/share/hwdata/Cards
    fi
 fi

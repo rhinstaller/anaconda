@@ -483,7 +483,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doXConfig(self, args)
         dict = self.ksdata.xconfig
 
-	id.instClass.configureX(id, dict["server"], dict["card"],
+	id.instClass.configureX(id, dict["driver"],
                                 dict["videoRam"], dict["monitor"],
                                 dict["hsync"], dict["vsync"],
                                 dict["resolution"], dict["depth"],
