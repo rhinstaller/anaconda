@@ -1,4 +1,4 @@
-#!/bin/bash
+	#!/bin/bash
 LANG=C
 
 PATH=$PATH:/sbin:/usr/sbin
@@ -311,7 +311,7 @@ makemoduleball() {
     getmoddeps "$(find . -name *.ko)" ../modules.dep
 
     # create the modules.alias file
-    $TRIMMODALIAS $(find . -name *.ko -exec basename {} \;) < $MODALAIS > ../modules.alias
+    $TRIMMODALIAS $(find . -name *.ko -exec basename {} \;) < $MODALIAS > ../modules.alias
     
     # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
