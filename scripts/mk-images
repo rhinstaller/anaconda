@@ -105,7 +105,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
     LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
     PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
-    XDRIVERS=$IMGPATH=/usr/share/hwdata/videoaliases
+    XDRIVERS=$IMGPATH/usr/share/hwdata/videoaliases
     CACHE=$KERNELBASE/.cache
     MODULESUSED=$KERNELBASE/modules-used
 
