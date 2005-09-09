@@ -1,3 +1,7 @@
+2005-09-09  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Make sure we have /dev/tty3 before trying to write to it.
+
 2005-09-09  Bill Nottingham  <notting@redhat.com>
 
 	* anaconda.spec: Bump version, tweak requirements

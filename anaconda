@@ -356,7 +356,7 @@ from flags import flags
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
 
-if iutil.getArch() != "s390":
+if iutil.getArch() != "s390" and os.access("/dev/tty3", os.W_OK):
     logger.addFileHandler ("/dev/tty3", log)
 
 from rhpl.translate import _, textdomain, addPoPath
