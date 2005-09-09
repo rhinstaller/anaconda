@@ -399,6 +399,25 @@ class YumBackend(AnacondaBackend):
 
         id.instProgress = None
 
+    def doPostInstall(self, intf, id, instPath):
+        if flags.test:
+            return
+
+        w = intf.progressWindow(_("Post Install"),
+                                _("Performing post install configuration..."), 6)
+
+        id.network.write(instPath)
+
+        for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
+            id.bootloader.args.apend("rhgb quiet")
+            break
+
+
+# XXX: write proper lvm config
+
+        w.pop()
+        AnacondaBackend.doPostInstall(self, intf, id, instPath) 
+
     def kernelVersionList(self):
         kernelVersions = []
 

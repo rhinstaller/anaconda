@@ -38,7 +38,9 @@ class AnacondaBackend:
         pass
 
     def doPostInstall(self, intf, id, instPath):
-        pass
+        sys.stdout.flush()
+        if flags.setupFilesystems:
+            syslog.stop()
 
     def doInstall(self, intf, id, instPath):
         pass
