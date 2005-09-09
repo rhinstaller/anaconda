@@ -57,14 +57,11 @@ install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 genhdlist $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 trimpcitable $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 trimmodmap $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 trimmodalias $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpciids $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 trimusbmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 moddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 modlist $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 checkcards.py $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
 
