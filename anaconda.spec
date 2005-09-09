@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.13
+Version: 10.3.0.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 09 2005 Chris Lumens <clumens@redhat.com> 10.3.0.14-1
+- logging fix when running in test mode
+
 * Fri Sep 09 2005 Bill Nottingham <notting@redhat.com> 10.3.0.13-1
 - adapt to new X driver model in kudzu and associated rhpl changes
 - pcitable/modules.pcimap/modules.usbmap are no longer used in probing;
