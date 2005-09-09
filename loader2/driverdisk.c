@@ -146,7 +146,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(file, "%s/modules.dep", mntpt);
     mlLoadDeps(modDepsPtr, file);
 
-    sprintf(file, "%s/pcitable", mntpt);
+    sprintf(file, "%s/modules.alias", mntpt);
     pciReadDrivers(file);
 
     if (!FL_CMDLINE(flags))

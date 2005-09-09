@@ -1291,7 +1291,7 @@ int main(int argc, char ** argv) {
 
     /* explicitly read this to let libkudzu know we want to merge
      * in future tables rather than replace the initial one */
-    pciReadDrivers("/modules/pcitable");
+    pciReadDrivers("/modules/modules.alias");
     
     if (loaderData.lang && (loaderData.lang_set == 1)) {
         setLanguage(loaderData.lang, flags);
@@ -1393,7 +1393,7 @@ int main(int argc, char ** argv) {
      */
     {
         mlLoadDeps(&modDeps, "/mnt/runtime/modules/modules.dep");
-        pciReadDrivers("/mnt/runtime/modules/pcitable");
+        pciReadDrivers("/mnt/runtime/modules/modules.alias");
         readModuleInfo("/mnt/runtime/modules/module-info", modInfo,
                        secondStageModuleLocation, 0);
     }
