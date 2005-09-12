@@ -13,6 +13,7 @@
 #
 
 import iutil
+import os, sys
 import logging
 from syslogd import syslog
 
