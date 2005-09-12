@@ -165,6 +165,9 @@ class AnacondaKSHandlers(KickstartHandlers):
         id.instClass.setLanguage(id, self.ksdata.lang)
 	self.skipSteps.append("language")
 
+    def doLangSupport(self, id, args):
+        KickstartHandlers.doLangSupport(self, args)
+
     def doLogicalVolume(self, id, args):
         KickstartHandlers.doLogicalVolume(self, args)
         dict = self.ksdata.lvList[-1]
