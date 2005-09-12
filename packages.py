@@ -372,9 +372,6 @@ def handleMiscPackages(intf, id, dir):
         elif iutil.getArch() == "ia64":
             select(id.grpset.hdrlist, 'elilo')
 
-        if pcmcia.pcicType():
-            select(id.grpset.hdrlist, 'pcmcia-cs')
-
         for entry in id.fsset.entries:
             for pkg in entry.fsystem.getNeededPackages():
                 if select(id.grpset.hdrlist, pkg):
@@ -405,11 +402,6 @@ def doPostInstall(method, id, intf, instPath):
 	    copyExtraModules(instPath, id.grpset, id.extraModules)
 
 	    w.set(2)
-
-	    # pcmcia is supported only on i386 at the moment
-	    if arch == "i386":
-		pcmcia.createPcmciaConfig(
-			instPath + "/etc/sysconfig/pcmcia")
 
             # we need to write out the network bits before kudzu runs
             # to avoid getting devices in the wrong order (#102276)

@@ -1,5 +1,9 @@
 2005-09-12  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py: Remove obsolete pcmcia code.  This is irrelevant in
+	today's world.
+	* pcmcia.py: Remove dead file.
+
 	* iw/fdisk_gui.py: Remove dead code.
 	* iw/fdasd_gui.py: Likewise.
 	* textw/fdisk_text.py: Likewise.
