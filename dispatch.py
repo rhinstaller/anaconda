@@ -17,7 +17,6 @@ import string
 from types import *
 from constants import *
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
-from packages import checkMonitorOK, setSaneXSettings
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
@@ -64,9 +63,6 @@ installSteps = [
     ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),
-    ("checkmonitorok", checkMonitorOK, ("id.monitor", "dispatch")),
-    ("monitor", ("id.xsetup", "id.monitor", "intf")),
-    ("setsanex", setSaneXSettings, ("id.xsetup",)),
     ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("installtype", ("dispatch", "id", "method", "intf")),
@@ -138,20 +134,6 @@ installSteps = [
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                          "id.bootloader", "id.instLanguage",
                                          "backend")),
-    ("bootdisk", ("dir", "dispatch", "id.fsset")),
-    ("makebootdisk", makeBootdisk, ("intf", "dir", "id.floppyDevice",
-                                    "id.grpset", "instPath", "id.bootloader")),
-#
-# we dont use videocard and xcustom currently, they are still listed as
-# steps but are not listed in the list of install steps in installclass.py
-#    
-    ("videocard", ("dispatch", "id.xsetup", "id.videocard", "intf")),
-#    
-# this got moved up to just after mouse config, only runs if monitor probe
-# failed. Needs to be here if we enable videocard and xcustom again.
-#    ("monitor", ("id.xsetup", "id.monitor", "intf")),
-    ("xcustom", ("id.xsetup", "id.monitor", "id.videocard",
-                 "id.desktop", "id.grpset", "id.instClass", "instPath")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("setfilecon", setFileCons, ("instPath","id.partitions")),

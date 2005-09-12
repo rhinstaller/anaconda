@@ -71,14 +71,9 @@ stepToClass = {
     "package-selection" : ("package_gui", "PackageSelectionWindow"),
     "indivpackage" : ("package_gui", "IndividualPackageSelectionWindow"),
     "dependencies" : ("dependencies_gui", "UnresolvedDependenciesWindow"),
-    "videocard" : ("xconfig_gui", "XConfigWindow"),
-    "monitor" : ("xconfig_gui", "MonitorWindow"),
-    "xcustom" : ("xconfig_gui", "XCustomWindow"),
     "confirminstall" : ("confirm_gui", "InstallConfirmWindow"),
     "confirmupgrade" : ("confirm_gui", "UpgradeConfirmWindow"),
-    "finishxconfig" : None,
     "install" : ("progress_gui", "InstallProgressWindow_NEW"),
-    "bootdisk" : ("bootdisk_gui", "BootdiskWindow"),
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }
 

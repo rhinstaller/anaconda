@@ -117,9 +117,6 @@ class BaseInstallClass:
 	dispatch.setStepList(
 		 "language",
 		 "keyboard",
-#		 "checkmonitorok",
-#		 "monitor",
-#		 "setsanex",
 		 "welcome",
                  "findrootparts",
 		 "betanag",
@@ -165,7 +162,6 @@ class BaseInstallClass:
                  "dopostaction",
 		 "writexconfig",
 		 "writeksconfig",
-		 "bootdisk",
                  "methodcomplete",
                  "copylogs",
                  "setfilecon",
@@ -178,15 +174,6 @@ class BaseInstallClass:
 	if iutil.getArch() != "s390":
             dispatch.skipStep("zfcpconfig")
 
-        if iutil.getArch() != "i386" or 1:
-            dispatch.skipStep("bootdisk")
-
-	# see if we need to write out a rescue boot floppy
-	if iutil.getArch() == "i386":
-	    import floppy
-            if not floppy.hasFloppyDevice():
-		dispatch.skipStep("bootdisk")
-            
         if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
 
@@ -220,9 +207,6 @@ class BaseInstallClass:
 	    dispatch.skipStep("keyboard", permanent = 1)
 #	    dispatch.skipStep("mouse", permanent = 1)
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
-	    dispatch.skipStep("videocard", permanent = 1)
-	    dispatch.skipStep("monitor", permanent = 1)
-	    dispatch.skipStep("xcustom", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 
     # This is called after the hdlist is read in.
@@ -237,12 +221,6 @@ class BaseInstallClass:
 
     def setZFCP(self, id, devnum, scsiid, wwpn, scsilun, fcplun):
         id.zfcp.fcpdevices.append( (devnum, scsiid, wwpn, scsilun, fcplun) )
-
-    def getMakeBootdisk(self):
-	return self.makeBootdisk
-
-    def setMakeBootdisk(self, state):
-	self.makeBootdisk = state 
 
     def setZeroMbr(self, id, zeroMbr):
         id.partitions.zeroMbr = zeroMbr

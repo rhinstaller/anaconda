@@ -68,13 +68,9 @@ stepToClasses = {
     "package-selection"  : ("packages_text", "PackageGroupWindow"),
     "indivpackage" : ("packages_text", ("IndividualPackageWindow")),
     "dependencies" : ("packages_text", "PackageDepWindow"),
-    "videocard" : ("xconfig_text", "XConfigWindowCard"),
-    "monitor" : ("xconfig_text", "MonitorWindow"),
-    "xcustom" : ("xconfig_text", "XCustomWindow"),
     "confirminstall" : ("confirm_text", "BeginInstallWindow"),
     "confirmupgrade" : ("confirm_text", "BeginUpgradeWindow"),
     "install" : ("progress_text", "setupForInstall"),
-    "bootdisk" : ("bootdisk_text", ("BootDiskWindow")),
     "complete" : ("complete_text", "FinishedWindow"),
 }
 

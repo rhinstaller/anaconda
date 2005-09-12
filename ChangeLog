@@ -12,6 +12,11 @@
 
 2005-09-12  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (BaseInstallClass.setSteps): Nuke some dead steps.
+	* dispatch.py (installSteps): Likewise.
+	* gui.py (stepToClass): Likewise.
+	* text.py (stepToClass): Likewise.
+
 	* backend.py: Some imports...
 
 	* packages.py (writeXConfiguration): Fix writeout of X server for
