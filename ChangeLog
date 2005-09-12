@@ -1,5 +1,10 @@
 2005-09-12  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/fdisk_gui.py: Remove dead code.
+	* iw/fdasd_gui.py: Likewise.
+	* textw/fdisk_text.py: Likewise.
+	* textw/fdasd_text.py: Likewise.
+
 	* partitioning.py (partitionMethodSetup): Remove dead step code.
 	(partitionObjectsInitialize): Set protected parts here.
 	* dispatch.py (installSteps): Likewise.
