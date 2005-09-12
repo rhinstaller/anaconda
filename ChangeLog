@@ -1,3 +1,13 @@
+2005-09-12  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (writeXConfiguration): Fix writeout of X server for
+	new X backend code.
+
+	* yuminstall.py (YumBackend.doPostInstall): Fix typo
+
+	* dispatch.py (installSteps): Don't comment out findinstall.
+	* installclass.py (showUpgrade): really disable upgrades for now
+
 2005-09-12  Paul Nasrat <pnasrat@redhat.com>
 
 	* utils/genhdlist.c: un-neuter for multilib composes
