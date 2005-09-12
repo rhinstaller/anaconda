@@ -226,11 +226,16 @@ class AnacondaYum(yum.YumBase):
 
         return (downloadpkgs, totalSize, totalFiles)
 
-    def run(self, cb):
+    def run(self, instLog, cb):
         self.initActionTs(macros=self.macros)
         self.populateTs(keepold=0)
         self.ts.check()
         self.ts.order()
+
+        # set log fd
+        self.ts.scriptFd = instLog.fileno()
+        rpm.setLogFile(instLog)
+
         self.runTransaction(cb=cb)
         
     def setup(self, fn="/etc/yum.conf", root="/"):
@@ -255,10 +260,12 @@ class YumBackend(AnacondaBackend):
 
         self.ayum.setGroupSelection(["Core"], intf)
         self.ayum.setGroupSelection(["Base"], intf)
-        self.ayum.setGroupSelection(["Workstation Common"], intf)
-        self.ayum.setGroupSelection(["GNOME Desktop Environment"], intf)
-        id.desktop.setDefaultDesktop("GNOME")
 
+        buf = open("/proc/cmdline", "r").read()
+        if buf.find("minimal") == -1:
+            self.ayum.setGroupSelection(["Workstation Common"], intf)
+            self.ayum.setGroupSelection(["GNOME Desktop Environment"], intf)
+            id.desktop.setDefaultDesktop("GNOME")
 
     def doPostSelection(self, intf, id, instPath):
         win = intf.waitWindow(_("Dependency Check"),
@@ -389,7 +396,7 @@ class YumBackend(AnacondaBackend):
         cb.initWindow = intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
 
-        self.ayum.run(cb)
+        self.ayum.run(self.instLog, cb)
 
         if not cb.beenCalled:
             cb.initWindow.pop()
