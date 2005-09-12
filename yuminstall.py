@@ -409,7 +409,7 @@ class YumBackend(AnacondaBackend):
         id.network.write(instPath)
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
-            id.bootloader.args.apend("rhgb quiet")
+            id.bootloader.args.append("rhgb quiet")
             break
 
 
