@@ -68,7 +68,7 @@ installSteps = [
     ("monitor", ("id.xsetup", "id.monitor", "intf")),
     ("setsanex", setSaneXSettings, ("id.xsetup",)),
     ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
-    #("findinstall", ("dispatch", "intf", "id", "instPath")),
+    ("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("installtype", ("dispatch", "id", "method", "intf")),
     ("zfcpconfig", ("id.zfcp", "id.diskset", "intf")),
     ("partitionobjinit", partitionObjectsInitialize, ("id.diskset",

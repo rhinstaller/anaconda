@@ -39,7 +39,7 @@ class BaseInstallClass:
     name = "base"
     pkgstext = ""
     # default to showing the upgrade option
-    showUpgrade = 1
+    showUpgrade = 0 # FIXME: no upgrade for now while doing yum work
 
 #     pkgstext = _("\tDesktop shell (GNOME)\n"
 #                  "\tOffice suite (OpenOffice)\n"
