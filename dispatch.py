@@ -29,7 +29,7 @@ from packages import selectLanguageSupportGroups
 from packages import setupTimezone
 from packages import setFileCons
 from packages import fixupConditionals
-from partitioning import partitionMethodSetup, partitionObjectsInitialize
+from partitioning import partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
 from bootloader import writeBootloader, bootloaderSetupChoices
@@ -69,7 +69,8 @@ installSteps = [
     ("zfcpconfig", ("id.zfcp", "id.diskset", "intf")),
     ("partitionobjinit", partitionObjectsInitialize, ("id.diskset",
                                                       "id.partitions",
-                                                      "dir", "intf")),
+                                                      "dir", "intf",
+                                                      "dispatch")),
     ("parttype", ("id.diskset", "id.partitions", "intf", "dispatch")),    
     ("autopartitionexecute", doAutoPartition, ("dir", "id.diskset",
                                                "id.partitions", "intf",

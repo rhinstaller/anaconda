@@ -37,7 +37,7 @@ import partRequests
 
 from rhpl.translate import _
 
-def partitionObjectsInitialize(diskset, partitions, dir, intf):
+def partitionObjectsInitialize(diskset, partitions, dir, intf, dispatch):
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
         isys.flushDriveDict()
@@ -50,26 +50,8 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
     diskset.checkNoDisks(intf)
 
     partitions.setFromDisk(diskset)
-
-def partitionMethodSetup(partitions, dispatch):
-
-    # turn on/off step based on 3 paths:
-    #  - use fdisk, then set mount points
-    #  - use autopartitioning, then set mount points
-    #  - use interactive partitioning tool, continue
-
-    dispatch.skipStep("autopartition",
-                      skip = not partitions.useAutopartitioning)
-    dispatch.skipStep("autopartitionexecute",
-                      skip = not partitions.useAutopartitioning)
-    if dispatch.stepInSkipList("partition") and not partitions.useAutopartitioning:
-	dispatch.skipStep("partition", skip = 0)
-    
-    dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
-
     partitions.setProtected(dispatch)
 
-    
 def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
     if dir == DISPATCH_BACK and fsset.isActive():
         rc = intf.messageWindow(_("Installation cannot continue."),

@@ -128,7 +128,6 @@ class BaseInstallClass:
                  "parttype",
                  "autopartition",
                  "autopartitionexecute",
-                 "fdisk",
                  "partition",
 		 "partitiondone",
 		 "bootloadersetup",                 

@@ -1,3 +1,16 @@
+2005-09-12  Jeremy Katz  <katzj@redhat.com>
+
+	* partitioning.py (partitionMethodSetup): Remove dead step code.
+	(partitionObjectsInitialize): Set protected parts here.
+	* dispatch.py (installSteps): Likewise.
+
+	* installclass.py (BaseInstallClass.setSteps): More dead step nuking.
+
+	* iw/xconfig_gui.py: Remove dead code.
+	* textw/xconfig_text.py: Likewise.
+	* iw/bootdisk_gui.py: Likewise.
+	* iw/bootdisk_text.py: Likewise.
+
 2005-09-12  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Move special PPC display stuff into rhpl functions.
