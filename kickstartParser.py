@@ -166,7 +166,7 @@ class KickstartHandlers:
                      "driverdisk"   : None,
                      "firewall"     : self.doFirewall,
                      "firstboot"    : self.doFirstboot,
-                     "graphical"    : None,
+                     "graphical"    : self.doGraphical,
                      "halt"         : self.doReboot,
                      "harddrive"    : None,
                      "ignoredisk"   : self.doIgnoreDisk,
@@ -190,7 +190,7 @@ class KickstartHandlers:
                      "selinux"      : self.doSELinux,
                      "shutdown"     : self.doReboot,
                      "skipx"        : self.doSkipX,
-                     "text"         : None,
+                     "text"         : self.doText,
                      "timezone"     : self.doTimezone,
                      "url"          : None,
                      "upgrade"      : self.doUpgrade,
@@ -304,6 +304,9 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         self.ksdata.firstboot = opts.firstboot
+
+    def doGraphical(self, args):
+        self.ksdata.graphical = True
 
     def doIgnoreDisk(self, args):
         def drive_cb (option, opt_str, value, parser):
@@ -529,6 +532,9 @@ class KickstartHandlers:
 
     def doSkipX(self, args):
         self.ksdata.skipx = True
+
+    def doText(self, args):
+        self.ksdata.graphical = False
 
     def doTimezone(self, args):
         op = KSOptionParser()

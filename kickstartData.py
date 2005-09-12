@@ -28,6 +28,7 @@ class KickstartData:
                           "type": CLEARPART_TYPE_NONE}
         self.firewall = {"enabled": True, "ports": [], "trusts": []}
         self.firstboot = FIRSTBOOT_SKIP
+        self.graphical = True
         self.ignoredisk = []
         self.interactive = False
         self.keyboard = ""
