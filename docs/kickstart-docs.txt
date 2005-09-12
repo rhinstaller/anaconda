@@ -1067,20 +1067,13 @@ Creating the Kickstart File
        X was installed; this option should not be used if X is not
        installed on the final system.
 
+       --driver=
+
+           Specify the X driver to use for the video hardware.
+
        --noprobe
 
            Do not probe the monitor.
-
-       --card=
-
-           Use specified card; this card name should be from the list of
-           cards in /usr/share/hwdata/Cards from the hwdata package. The
-           list of cards can also be found on the X Configuration screen
-           of the Kickstart Configurator. If this argument is not
-           provided, the installation program will probe the PCI bus for
-           the card. Since AGP is part of the PCI bus, AGP cards will be
-           detected if supported. The probe order is determined by the PCI
-           scan order of the motherboard.
 
        --videoram=
 
