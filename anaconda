@@ -926,56 +926,25 @@ else: # s390/iSeries checks
 # if DISPLAY not set either vnc server failed to start or we're not
 # running on a redirected X display, so start local X server
 if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
-    import rhpl.monitor as monitor
-    
-    # if no monitor probed lets guess based on runres
-    hsync = monitorhw.getMonitorHorizSync()
-    vsync = monitorhw.getMonitorVertSync()
+    if iutil.getPPCMachine() == "PMac":
+        runres = xhwstate.get_valid_resolution(videohw, monitorhw, runres,
+                                               runres_override, onPMac=True)
+    else:
+        runres = xhwstate.get_valid_resolution(videohw, monitorhw, runres,
+                                               runres_override)
 
-    # if we're on a pmac, try to use the fb resolution
-    if not runres_override and iutil.getPPCMachine() == "PMac":
-        fbinfo = isys.fbinfo()
-        fbres = "%sx%s" %(fbinfo[0], fbinfo[1])
-        if monitor.monitor_supports_mode(hsync, vsync, fbres):
-            runres = fbres
-    
-    res_supported = monitor.monitor_supports_mode(hsync, vsync,  runres)
-
-    # XXX: this is a bit of a hack, but there are a reasonable number of
-    # monitors that will work in 1024x768 and not 800x600... check if this
-    # is one of them
-    if not res_supported and runres == "800x600":
-        runres = "1024x768"
-        res_supported = monitor.monitor_supports_mode(hsync, vsync,  runres)
-        if not res_supported:
-            runres = "800x600"
-    
-    if not res_supported:
-	import rhpl.guesslcd as guesslcd
-
-	# pick a monitor spec that is adequate for requested runres
-	(hsync, vsync) = guesslcd.getSyncForRes(runres)
-	monitorhw.setSpecs(hsync, vsync)
-
-	# recreate X config object
-	xcfg = xhwstate.XF86HardwareState(defcard=videohw,
-					  defmon=monitorhw)
-	xcfg.set_resolution(runres)
-	
     # make sure we can write log to ramfs
     if os.access("/tmp/ramfs", os.W_OK):
 	xlogfile = "/tmp/ramfs/X.log"
     else:
 	xlogfile = None
 
-
     xsetup_failed = False
     try:
         xcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd,
                               logfile = xlogfile,
                               xStartedCB = doStartupX11Actions,
-                              xQuitCB = doShutdownX11Actions,
-                              useFB = useFBX)
+                              xQuitCB = doShutdownX11Actions, useFB = useFBX)
     except RuntimeError:
         xsetup_failed = True
 

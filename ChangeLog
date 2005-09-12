@@ -1,3 +1,15 @@
+2005-09-12  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Move special PPC display stuff into rhpl functions.
+
+	* kickstart.py  (AnacondaKSParser.doLangSupport):  Added to fix
+	traceback.
+
+	* kickstartData.py  (KickstartData.__init__):  Add more settings.
+	* kickstartParser.py  (KickstartHandlers):  Likewise.
+
+	* docs/kickstart-docs.txt:  Describe xconfig changes.
+
 2005-09-12  Jeremy Katz  <katzj@redhat.com>
 
 	* backend.py: Some imports...
