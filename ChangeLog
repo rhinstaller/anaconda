@@ -1,3 +1,12 @@
+
+2005-09-13  Bill Nottingham  <notting@redhat.com>
+
+	* loader2/hardware.c: Remove agpgartInitialize - agpgart is
+	  built statically in 2.6 (and the probe code here won't work
+	  now in any case...)
+	* loader2/hardware.h: Likewise.
+	* loader2/loader.c: Adjust accordingly.
+	
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: latest doesn't exist anymore, nuke.

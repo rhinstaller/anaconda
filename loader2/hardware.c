@@ -129,49 +129,6 @@ static int detectHardware(moduleInfoSet modInfo,
     return LOADER_OK;
 }
 
-int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
-                      moduleInfoSet modInfo, int flags) {
-    struct device ** devices, *p;
-    int i;
-
-    if (FL_TESTING(flags)) return 0;
-
-    logMessage(INFO, "looking for video cards requiring agpgart module");
-    
-    devices = probeDevices(CLASS_VIDEO, BUS_UNSPEC, 0);
-    
-    if (!devices) {
-        logMessage(WARNING, "no video cards found");
-        return 0;
-    }
-
-    /* loop thru cards, see if we need agpgart */
-    for (i=0; devices[i]; i++) {
-        p = devices[i];
-        logMessage(INFO, "found video card controller %s", p->driver);
-        
-        /* HACK - need to have list of cards which match!! */
-        /* JKFIXME: verify this is really still needed */
-        if (!strcmp(p->driver, "Card:Intel 810") ||
-            !strcmp(p->driver, "Card:Intel 815")) {
-            logMessage(INFO, "found %s card requiring agpgart, loading module",
-                       p->driver+5);
-            
-            if (mlLoadModuleSetLocation("agpgart", modLoaded, modDeps, 
-					modInfo, flags, 
-					secondStageModuleLocation)) {
-                logMessage(ERROR, "failed to insert agpgart module");
-                return 1;
-            } else {
-                /* only load it once! */
-                return 0;
-            }
-        }
-    }
-    
-    return 0;
-}
-
 int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
                       moduleInfoSet modInfo, int flags) {
     struct device ** devices;
