@@ -24,7 +24,6 @@ import timer
 import time
 import sys
 import string
-import pcmcia
 import language
 import fsset
 import kudzu
