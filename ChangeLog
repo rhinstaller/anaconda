@@ -1,5 +1,7 @@
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* yuminstall.py (AnacondaYum.run): Fix install.log writing out
 	some more.  We probably want to just have yum be passed a file
 	which it then sets for the log file and the scriptFd eventually.
@@ -13,6 +15,19 @@
 	  now in any case...)
 	* loader2/hardware.h: Likewise.
 	* loader2/loader.c: Adjust accordingly.
+
+        * loader2/pcmcia.c (getPcicController): Handle multiple
+          PCIC types in one box.
+        * loader2/pcmcia.c (startupPcmciaControllers): Add code to
+          set resources for PCMCIA controllers, and enable them.
+          (initializePcmciaController): Call it.
+          (has_pcmcia, startPcmciaDevices, activate_device): Remove
+          obsolete and ugly cruft.
+        * loader2/pcmciatest.c: Remove obsolete file
+        * loader2/hardware.c: Adjust for changes.
+        * scripts/mk-images: Remove obsolete PCMCIA options
+        * scripts/upd-instroot: Ship pcmciautils socket startup program.
+          (mainly for debugging. It's tiny.)	
 	
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 

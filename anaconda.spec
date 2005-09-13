@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.18
+Version: 10.3.0.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 13 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.19-1
+- Fix pcmcia import traceback
+- Some more kickstart fixing (clumens)
+- Make SELinux/firewall defaults be done by the objects, not in the UI
+  - This fixes booting with selinux=0, policy load failure, etc
+- Allow sparse updates.img with yum, urlgrabber and rpmUtils too
+- Some dead code removal
+- PCMCIA for the loader again (notting)
+- install.log tweaking
+
 * Mon Sep 12 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.18-1
 - Add back genhdlist to try to fix multiarch composes (pnasrat)
 - Really fix disabling of upgrades
