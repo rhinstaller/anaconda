@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.17
+Version: 10.3.0.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 12 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.18-1
+- Add back genhdlist to try to fix multiarch composes (pnasrat)
+- Really fix disabling of upgrades
+- Some typo fixes for X configuration and post-install config
+- Remove some dead code related to boot disks, using fdisk/fdasd, X 
+  configuration, pcmcia
+- Move ppc X stuff to rhpl (clumens)
+- Fix some kickstart stuff (clumens)
+- Fix RPM logging output -> the log file
+- Use gtkhtml2 for release notes
+
 * Fri Sep  9 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.17-1
 - more X fixage
 - build against new kudzu that doesn't segfault :)
@@ -88,6 +99,8 @@ rm -rf $RPM_BUILD_ROOT
 - adapt to new X driver model in kudzu and associated rhpl changes
 - pcitable/modules.pcimap/modules.usbmap are no longer used in probing;
   remove support for them and add modules.alias usage
+- Turn off help (katzj)
+- Kickstart fixes (clumens)
 
 * Wed Sep 07 2005 Paul Nasrat <pnasrat@redhat.com> 10.3.0.12-1
 - yum backend selinux file_context 
