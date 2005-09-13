@@ -1,5 +1,9 @@
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda (setupPythonUpdates): Generalize setupRhplUpdates to
+	work with things other than just rhpl.  For now, use for rhpl,
+	yum, urlgrabber and rpmUtils
+
 	* security.py (Security.write): log formatting fixes.
 
 	* instdata.py (InstallData.write): authconfig's flags changed.  *sigh*
