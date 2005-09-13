@@ -295,7 +295,7 @@ def setupPythonUpdates():
                 pass
 
             # symlink the existing ones
-            for f in os.listdir("/mnt/source/RHupdates/rhpl"):
+            for f in os.listdir("/mnt/source/RHupdates/%s" %(pypkg,)):
                 os.symlink("/mnt/source/RHupdates/%s/%s" %(pypkg, f),
                            "/tmp/updates/%s/%s" %(pypkg, f))
 
