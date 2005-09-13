@@ -23,27 +23,36 @@ from rhpl.translate import _, N_
 sys.path.append('/usr/lib/anaconda')
 
 from gui import TextViewBrowser, addFrame
-import htmlbuffer
+import gtkhtml2
 
 screenshot = None
 
+htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
+htmlfooter = "</pre></body></html>"
+
 def loadReleaseNotes(fn):
+    doc = gtkhtml2.Document()
+    doc.clear()
+    doc.open_stream("text/html")
+    
     if os.access(fn, os.R_OK):
 	file = open(fn, "r")
 	if fn.endswith('.html'):
-	    buffer = htmlbuffer.HTMLBuffer()
-	    buffer.feed(file.read())
-	    return buffer.get_buffer()
+            doc.write_stream(file.read())            
 	else:
-	    buffer = gtk.TextBuffer(None)
-	    buffer.set_text(file.read())
-	file.close()
-	return buffer
-
-    buffer = gtk.TextBuffer(None)
-    buffer.set_text(_("Release notes are missing.\n"))
-
-    return buffer
+            doc.write_stream(htmlheader)
+            doc.write_stream(file.read())
+            doc.write_stream(htmlfooter)
+        doc.close_stream()
+        file.close()
+    else:
+        doc.write_stream(htmlheader)        
+        doc.write_stream(_("Release notes are missing.\n"))
+        doc.write_stream(htmlfooter)
+        
+    view = gtkhtml2.View()
+    view.set_document(doc)
+    return view
 
 def relnotes_closed(widget, data):
     os._exit(0)
@@ -118,13 +127,10 @@ if __name__ == "__main__":
     relnotes = loadReleaseNotes(sys.argv[1])
 
     if relnotes is not None:
-	text = TextViewBrowser()
-	text.set_buffer(relnotes)
-
 	sw = gtk.ScrolledWindow()
 	sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
 	sw.set_shadow_type(gtk.SHADOW_IN)
-	sw.add(text)
+	sw.add(relnotes)
 	vbox1.pack_start(sw)
 
 	a = gtk.Alignment (0, 0, 1.0, 1.0)

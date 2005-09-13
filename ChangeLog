@@ -1,5 +1,10 @@
 2005-09-12  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/release_notes_viewer_gui.py (exposeCB): Switch to using
+	gtkhtml2 instead of htmlbuffer for more complete HTML support.
+
+	* scripts/upd-instroot: Add gnome-python2-gtkhtml2 stuff
+
 	* yuminstall.py (YumBackend.doPreSelection): Do a minimal install
 	if we ask for it until we get real package selection going.
 	(AnacondaYum.run): Get RPM logging going to the install log.

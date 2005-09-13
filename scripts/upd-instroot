@@ -175,6 +175,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            system-config-keyboard Xft fontconfig gtk2-engines gnome-themes
+           gtkhtml2 gnome-python2-gtkhtml2 gail
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts fonts-arabic
            comps-extras XFree86-libs-data convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
@@ -639,6 +640,7 @@ usr/$LIBDIR/libcairo*
 usr/$LIBDIR/libesd*
 usr/$LIBDIR/libfontconfig*
 usr/$LIBDIR/libfreetype*
+usr/$LIBDIR/libgailutil*
 usr/$LIBDIR/libgdk*
 usr/$LIBDIR/libglade*
 usr/$LIBDIR/libgnomecanvas*
@@ -653,6 +655,7 @@ usr/$LIBDIR/libstdc++.so.*
 usr/$LIBDIR/libwrap*
 usr/$LIBDIR/pango/*
 usr/$LIBDIR/python?.?/site-packages/gtk*/gtk/*
+usr/$LIBDIR/python?.?/site-packages/gtk*/*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
 usr/lib/yaboot/*
