@@ -1,5 +1,8 @@
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: latest doesn't exist anymore, nuke.
+	* scripts/mk-images: Likewise.
+
 	* anaconda (setupPythonUpdates): Generalize setupRhplUpdates to
 	work with things other than just rhpl.  For now, use for rhpl,
 	yum, urlgrabber and rpmUtils

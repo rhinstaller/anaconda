@@ -69,12 +69,6 @@ TOPDIR=$(cd $TOPDIR; pwd)
 	CRAMBS=""
     fi
 
-    if [ ! -d "$1" ]; then
-	LATEST="rsh porkchop latest --arch $BUILDARCH"
-    else
-	LATEST=findPackage
-    fi
-
     if [ $BUILDARCH = x86_64 -o $BUILDARCH = s390x ]; then
 	LIBDIR=lib64
     else
@@ -938,17 +932,17 @@ fi
 foundakernel=""
 for KERNELARCH in $arches; do
   for kernelvers in $vertag; do
-    kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
+    kpackage=$(findPackage $KERNELPATH kernel-$kernelvers)
     if [ ! -f "$kpackage" ]; then
 	echo "kernel-$kernelvers does not exist for $KERNELARCH -- using kernel package"
-	kpackage=$($LATEST $KERNELPATH kernel)
+	kpackage=$(findPackage $KERNELPATH kernel)
 	kernelvers=""
     fi
 
     if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
 	echo "No i586 kernel, trying i686..."
 	KERNELARCH="i686"
-	kpackage=$($LATEST $KERNELPATH kernel)
+	kpackage=$(findPackage $KERNELPATH kernel)
     fi
 
     if [ ! -f "$kpackage" ]; then
@@ -961,7 +955,7 @@ for KERNELARCH in $arches; do
 
     foundakernel="yes"
 
-    ppackage=$($LATEST $KERNELPATH hwdata)
+    ppackage=$(findPackage $KERNELPATH hwdata)
     if [ ! -f "$ppackage" ]; then
 	ppackage=""
     fi
