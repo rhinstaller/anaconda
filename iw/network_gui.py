@@ -122,13 +122,6 @@ class NetworkWindow(InstallWindow):
 	self.network.hostname = newHostname
 	self.network.overrideDHCPhostname = override
 
-	# Initialize firewall and SELinux settings to our strict defaults
-	# but only if we're not doing a kickstart install.
-	if self.id.instClass.name != "kickstart":
-	    import security
-	    self.id.instClass.setFirewall (self.id, ports = ["22:tcp"])
-	    self.id.instClass.setSELinux (self.id, security.SEL_ENFORCING)
-
         return None
         
     def DHCPtoggled(self, widget, (dev, table)):

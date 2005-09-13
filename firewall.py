@@ -28,7 +28,7 @@ class Firewall:
     def __init__ (self):
 	self.enabled = 1
         self.trustdevs = []
-	self.portlist = []
+	self.portlist = ["22:tcp"]
 
     def writeKS(self, f):
 	f.write("firewall")

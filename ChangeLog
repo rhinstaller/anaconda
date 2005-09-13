@@ -1,3 +1,11 @@
+2005-09-13  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow.getNext): Don't enforce
+	selinux/firewall here.  Use the object defaults.
+	* textw/network_text.py (NetworkGlobalWindow.__call__): Likewise.
+
+	* firewall.py (Firewall.__init__): Default firewall to allow ssh.
+
 2005-09-13  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py:  Fill in the blanks on kickstart commands without
