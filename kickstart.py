@@ -140,6 +140,18 @@ class AnacondaKSHandlers(KickstartHandlers):
         id.instClass.setClearParts(id, dict["type"], dict["drives"],
                                    dict["initAll"])
 
+    def doDevice(self, id, args):
+        KickstartHandlers.doDevice(self, args)
+
+    def doDeviceProbe(self, id, args):
+        KickstartHandlers.doDeviceProbe(self, args)
+
+    def doDisplayMode(self, id, args):
+        KickstartHandlers.doDisplayMode(self, args)
+
+    def doDriverDisk(self, id, args):
+        KickstartHandlers.doDriverDisk(self, args)
+
     def doFirewall(self, id, args):
         KickstartHandlers.doFirewall(self, args)
         dict = self.ksdata.firewall
@@ -153,6 +165,9 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doIgnoreDisk(self, id, args):
 	KickstartHandlers.doIgnoreDisk(self, args)
         id.instClass.setIgnoredDisks(id, self.ksdata.ignoredisk)
+
+    def doInteractive(self, id, args):
+        KickstartHandlers.doInteractive(self, args)
 
     def doKeyboard(self, id, args):
         KickstartHandlers.doKeyboard(self, args)
@@ -220,12 +235,21 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         id.instClass.addPartRequest(id.partitions, request)
 
+    def doMediaCheck(self, id, args):
+        KickstartHandlers.doMediaCheck(self, args)
+
+    def doMethod(self, id, args):
+	KickstartHandlers.doMethod(self, args)
+
     def doMonitor(self, id, args):
         KickstartHandlers.doMonitor(self, args)
         dict = self.ksdata.monitor
         self.skipSteps.extend(["monitor", "checkmonitorok"])
         id.instClass.setMonitor(id, dict["hsync"], dict["vsync"],
                                 dict["monitor"])
+
+    def doMouse(self, id, args):
+        KickstartHandlers.doMouse(self, args)
 
     def doNetwork(self, id, args):
         KickstartHandlers.doNetwork(self, args)
@@ -451,6 +475,9 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doUpgrade(self, args)
         id.setUpgrade(True)
 
+    def doVnc(self, id, args):
+        KickstartHandlers.doVnc(self, args)
+
     def doVolumeGroup(self, id, args):
 	KickstartHandlers.doVolumeGroup(self, args)
         dict = self.ksdata.vgList[-1]
@@ -582,6 +609,7 @@ class AnacondaKSParser(KickstartParser):
             raise KickstartParseError, (cmd + " " + string.join (args))
         else:
             if self.handler.handlers[cmd] != None:
+                self.handler.setattr("currentCmd", cmd)
                 self.handler.handlers[cmd](self.id, args)
 
 # The anaconda kickstart processor.

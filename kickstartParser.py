@@ -158,29 +158,30 @@ class KickstartHandlers:
                      "autopart"     : self.doAutoPart,
                      "autostep"     : self.doAutoStep,
                      "bootloader"   : self.doBootloader,
-                     "cdrom"        : None,
+                     "cdrom"        : self.doMethod,
                      "clearpart"    : self.doClearPart,
-                     "cmdline"      : None,
-                     "device"       : None,
-                     "deviceprobe"  : None,
-                     "driverdisk"   : None,
+                     "cmdline"      : self.doDisplayMode,
+                     "device"       : self.doDevice,
+                     "deviceprobe"  : self.doDeviceProbe,
+                     "driverdisk"   : self.doDriverDisk,
                      "firewall"     : self.doFirewall,
                      "firstboot"    : self.doFirstboot,
-                     "graphical"    : self.doGraphical,
+                     "graphical"    : self.doDisplayMode,
                      "halt"         : self.doReboot,
-                     "harddrive"    : None,
+                     "harddrive"    : self.doMethod,
                      "ignoredisk"   : self.doIgnoreDisk,
+                     # implied by lack of "upgrade" command
                      "install"      : None,
                      "interactive"  : self.doInteractive,
                      "keyboard"     : self.doKeyboard,
                      "lang"         : self.doLang,
                      "langsupport"  : self.doLangSupport,
                      "logvol"       : self.doLogicalVolume,
-                     "mediacheck"   : None,
+                     "mediacheck"   : self.doMediaCheck,
                      "monitor"      : self.doMonitor,
                      "mouse"        : self.doMouse,
                      "network"      : self.doNetwork,
-                     "nfs"          : None,
+                     "nfs"          : self.doMethod,
                      "part"         : self.doPartition,
                      "partition"    : self.doPartition,
                      "poweroff"     : self.doReboot,
@@ -190,14 +191,13 @@ class KickstartHandlers:
                      "selinux"      : self.doSELinux,
                      "shutdown"     : self.doReboot,
                      "skipx"        : self.doSkipX,
-                     "text"         : self.doText,
+                     "text"         : self.doDisplayMode,
                      "timezone"     : self.doTimezone,
-                     "url"          : None,
+                     "url"          : self.doMethod,
                      "upgrade"      : self.doUpgrade,
                      "vnc"          : self.doVnc,
                      "volgroup"     : self.doVolumeGroup,
                      "xconfig"      : self.doXConfig,
-                     "xdisplay"     : None,
                      "zerombr"      : self.doZeroMbr,
                      "zfcp"         : self.doZFCP,
                    }
@@ -266,6 +266,23 @@ class KickstartHandlers:
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.clearpart[key] = getattr(opts, key)
 
+    def doDevice(self, args):
+        self.ksdata.device = string.join(args)
+
+    def doDeviceProbe(self, args):
+        self.ksdata.deviceprobe = string.join(args)
+
+    def doDisplayMode(self, args):
+        if self.currentCmd == "cmdline":
+            self.ksdata.displayMode = DISPLAY_MODE_CMDLINE
+        elif self.currentCmd == "graphical":
+            self.ksdata.displayMode = DISPLAY_MODE_GRAPHICAL
+        elif self.currentCmd == "text":
+            self.ksdata.displayMode = DISPLAY_MODE_TEXT
+
+    def doDriverDisk(self, args):
+        self.ksdata.driverdisk = string.join(args)
+
     def doFirewall(self, args):
         def firewall_port_cb (option, opt_str, value, parser):
             for p in value.split(","):
@@ -304,9 +321,6 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         self.ksdata.firstboot = opts.firstboot
-
-    def doGraphical(self, args):
-        self.ksdata.graphical = True
 
     def doIgnoreDisk(self, args):
         def drive_cb (option, opt_str, value, parser):
@@ -371,6 +385,36 @@ class KickstartHandlers:
 
         tmpdict["mountpoint"] = extra[0]
         self.ksdata.lvList.append(tmpdict)
+
+    def doMediaCheck(self, args):
+        self.ksdata.mediacheck = True
+
+    def doMethod(self, args):
+        op = KSOptionParser()
+
+        self.ksdata.method["method"] = self.currentCmd
+
+        if self.currentCmd == "cdrom":
+            pass
+        elif self.currentCmd == "harddrive":
+            op.add_option("--partition", dest="partition", required=1)
+            op.add_option("--dir", dest="dir", required=1)
+
+            (opts, extra) = op.parse_args(args=args)
+            self.ksdata.method["partition"] = opts.partition
+            self.ksdata.method["dir"] = opts.dir
+        elif self.currentCmd == "nfs":
+            op.add_option("--server", dest="server", required=1)
+            op.add_option("--dir", dest="dir", required=1)
+
+            (opts, extra) = op.parse_args(args=args)
+            self.ksdata.method["server"] = opts.server
+            self.ksdata.method["dir"] = opts.dir
+        elif self.currentCmd == "url":
+            op.add_option("--url", dest="url", required=1)
+
+            (opts, extra) = op.parse_args(args=args)
+            self.ksdata.method["url"] = opts.url
 
     def doMonitor(self, args):
         op = KSOptionParser()
@@ -533,9 +577,6 @@ class KickstartHandlers:
     def doSkipX(self, args):
         self.ksdata.skipx = True
 
-    def doText(self, args):
-        self.ksdata.graphical = False
-
     def doTimezone(self, args):
         op = KSOptionParser()
         op.add_option("--utc", dest="isUtc", action="store_true", default=False)
@@ -682,6 +723,7 @@ class KickstartParser:
             raise KickstartParseError, (cmd + " " + string.join (args))
         else:
             if self.handler.handlers[cmd] != None:
+                self.handler.setattr("currentCmd", cmd)
                 self.handler.handlers[cmd](args)
 
     def handlePackageHdr (self, args):

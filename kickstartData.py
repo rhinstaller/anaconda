@@ -15,6 +15,10 @@
 #
 from constants import *
 
+DISPLAY_MODE_CMDLINE = 0
+DISPLAY_MODE_GRAPHICAL = 1
+DISPLAY_MODE_TEXT = 2
+
 class KickstartData:
     def __init__(self):
         # Set by command handlers.
@@ -26,13 +30,19 @@ class KickstartData:
                            "password": "", "upgrade": False}
         self.clearpart = {"drives": [], "initAll": False,
                           "type": CLEARPART_TYPE_NONE}
+        self.displayMode = DISPLAY_MODE_GRAPHICAL
         self.firewall = {"enabled": True, "ports": [], "trusts": []}
         self.firstboot = FIRSTBOOT_SKIP
-        self.graphical = True
+        self.device = ""
+        self.deviceprobe = ""
+        self.displayMode = True
+        self.driverdisk = ""
         self.ignoredisk = []
         self.interactive = False
         self.keyboard = ""
         self.lang = ""
+        self.mediacheck = False
+        self.method = {"method": ""}
         self.monitor = {"hsync": "", "monitor": "", "vsync": ""}
         self.network = []
         self.reboot = True
