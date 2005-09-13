@@ -70,7 +70,7 @@ static int detectHardware(moduleInfoSet modInfo,
     
     devices = probeDevices(CLASS_UNSPEC,
                            BUS_PCI | BUS_SBUS | BUS_VIO | BUS_MACIO |
-                           ((has_pcmcia() >= 0) ? BUS_PCMCIA : 0),
+                           BUS_PCMCIA,
                            PROBE_ALL);
 
     logMessage(INFO, "finished bus probing");
@@ -254,8 +254,6 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
             }
             
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
-
-            startPcmciaDevices(modLoaded, flags);
         } else 
             logMessage(INFO, "found nothing");
     }

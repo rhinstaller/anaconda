@@ -5,10 +5,9 @@
  * Matt Wilson <msw@redhat.com>
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
+ * Bill Nottingham <notting@redhat.com>
  *
- * Copyright 1999 - 2003 Red Hat, Inc.
- * Portions of this code from pcmcia-cs, copyright David A. Hinds
- * <dahinds@users.sourceforge.net>
+ * Copyright 1999 - 2005 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -39,18 +38,26 @@ char * getPcicController() {
     if (!probed) {
         probed = 1;
  
-        devices = probeDevices(CLASS_SOCKET, BUS_PCI, 0);
-        if (devices) {
-            logMessage(INFO, "found cardbus pci adapter");
-            pcic = "yenta_socket";
-        } else {
-            devices = probeDevices(CLASS_SOCKET, BUS_MISC, 0);
-            if (devices && strcmp (devices[0]->driver, "ignore") &&
-                strcmp(devices[0]->driver, "unknown") && 
-                strcmp(devices[0]->driver, "disabled")) {
-                logMessage(INFO, "found pcmcia adapter");
-                pcic = strdup(devices[0]->driver);
-            }
+        devices = probeDevices(CLASS_SOCKET, BUS_UNSPEC, 0);
+	if (devices) {    
+	    int x;
+		
+	    for (x = 0; devices[x]; x++) {
+		    if (strcmp(devices[x]->driver, "ignore") &&
+			strcmp(devices[x]->driver, "unknown") &&
+			strcmp(devices[x]->driver, "disabled")) {
+			    char *tmp;
+			    
+			    logMessage(INFO, "found pcmcia adapter %s", devices[x]->driver);
+			    if (!pcic)
+				    tmp = strdup(devices[x]->driver);
+			    else {
+				    tmp = sdupprintf("%s:%s",pcic,devices[x]->driver);
+				    free(pcic);
+			    }
+			    pcic = tmp;
+		    }
+	    }
         }
 
         if (!pcic) {
@@ -60,6 +67,59 @@ char * getPcicController() {
     } else {
         return pcic;
     }
+}
+
+int startupPcmciaControllers() {
+	char *adj_io[] = {
+		"0x00000100 - 0x000003af",
+		"0x000003bb - 0x000004cf",
+		"0x000004d8 - 0x000004ff",
+		"0x00000a00 - 0x00000aff",
+		"0x00000c00 - 0x00000cff",
+		"0x00004000 - 0x00008fff",
+		NULL
+	};
+	char *adj_mem[] = {
+		"0x000c0000 - 0x000fffff",
+		"0x60000000 - 0x60ffffff",
+		"0xa0000000 - 0xa0ffffff",
+		"0xc0200000 - 0xcfffffff",
+		"0xe8000000 - 0xefffffff",
+		NULL
+	};
+	char path[128];
+	int x;
+	
+	for (x = 0; ; x++) {
+		int y;
+		FILE *f;
+		
+		sprintf(path,"/sys/class/pcmcia_socket/pcmcia_socket%d/available_resources_io", x);
+		f = fopen(path, "w");
+		if (!f)
+			break;
+		for (y = 0; adj_io[y]; y++) {
+			fprintf(f, "%s\n", adj_io[y]);
+		}
+		fclose(f);
+		
+		sprintf(path,"/sys/class/pcmcia_socket/pcmcia_socket%d/available_resources_mem", x);
+		f = fopen(path, "w");
+		if (!f)
+			break;
+		for (y = 0; adj_mem[y]; y++) {
+			fprintf(f, "%s\n", adj_mem[y]);
+		}
+		fclose(f);
+		
+		sprintf(path,"/sys/class/pcmcia_socket/pcmcia_socket%d/available_resources_setup_done", x);
+		f = fopen(path,"w");
+		if (!f)
+			break;
+		fprintf(f,"1\n");
+		fclose(f);
+	}
+	return 0;
 }
 
 int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
@@ -76,138 +136,7 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
 
     mods = sdupprintf("pcmcia_core:%s:pcmcia", pcic);
     mlLoadModuleSet(mods, modLoaded, modDeps, modInfo, flags);
-
+	
+    startupPcmciaControllers();
     return 0;
 }
-
-
-
-/* code from notting to activate pcmcia devices.  all kinds of wackiness */
-static int pcmcia_major = 0;
-
-static int lookup_dev(char *name) {
-    FILE *f;
-    int n;
-    char s[32], t[32];
-             
-    f = fopen("/proc/devices", "r");
-    if (f == NULL)
-        return -errno;
-    while (fgets(s, 32, f) != NULL) {
-        if (sscanf(s, "%d %s", &n, t) == 2)
-            if (strcmp(name, t) == 0)
-                break;
-    }
-    fclose(f);
-    if (strcmp(name, t) == 0)
-        return n;
-    else
-        return -ENODEV;
-}
-
-static int open_sock(int sock) {
-    int fd;
-    char fn[64];
-    dev_t dev = (pcmcia_major<<8) + sock;
-        
-    snprintf(fn, 64, "/tmp/pcmciadev-%d", getpid());
-    if (mknod(fn, (S_IFCHR|0600), dev) == 0) {
-        fd = open(fn, O_RDONLY);
-        unlink(fn);
-        if (fd >= 0)
-            return fd;
-    }
-    return -1;
-}
-
-/* return whether or not we have pcmcia loaded */
-int has_pcmcia(void) {
-    if (pcmcia_major > 0)
-        return pcmcia_major;
-    pcmcia_major = lookup_dev("pcmcia");
-    return pcmcia_major;
-}
-
-struct bind_info_t {
-    char dev_info[32];
-    unsigned char function;
-    /* Not really a void *. Some convuluted structure that appears
-     * to be NULL in cardmgr. */
-    void *instance;
-    char name[32];
-    unsigned short major;
-    unsigned short minor;
-    void *next;
-};
-
-
-#define DS_BIND_REQUEST _IOWR('d', 60, struct bind_info_t)
-#define DS_GET_DEVICE_INFO _IOWR('d', 61, struct bind_info_t)
-int activate_pcmcia_device(struct pcmciaDevice *pdev) {
-    int fd;
-    struct bind_info_t * bind;
-    int j, ret;
-
-    if (has_pcmcia() <= 0) {
-        logMessage(ERROR, "pcmcia not loaded, can't activate module");  
-        return -1;
-    }
-
-    fd = open_sock(pdev->slot);
-    if (fd < 0) {
-        logMessage(ERROR, "unable to open slot");
-        return -1;
-    }
-
-    bind = calloc(1, sizeof(struct bind_info_t));
-    strcpy(bind->dev_info,pdev->driver);
-    bind->function = pdev->function;
-    if (ioctl(fd, DS_BIND_REQUEST, bind) == -1) {
-        logMessage(ERROR, "failed to activate pcmcia device");
-        return LOADER_ERROR;
-    }
-
-    for (ret = j = 0; j < 10; j++) {
-        ret = ioctl(fd, DS_GET_DEVICE_INFO, bind);
-        if ((ret == 0) || (errno != EAGAIN))
-            break;
-        usleep(100000);
-    }
-
-    if (j >= 10) {
-        logMessage(ERROR, "activated, but unable to get device info");
-        return LOADER_ERROR;
-    }
-    
-    return LOADER_OK;
-}
-
-void startPcmciaDevices(moduleList modLoaded, int flags) {
-    struct device ** devices;
-    int i;
-
-    /* no pcmcia, don't try to start the devices */
-    if (has_pcmcia() <= 0)
-        return;
-
-    devices = probeDevices(CLASS_UNSPEC, BUS_PCMCIA, PROBE_LOADED);
-    if (!devices) {
-        logMessage(WARNING, "no devices to activate");
-        return;
-    }
-
-    for (i = 0; devices[i]; i++) {
-        if (devices[i]->bus != BUS_PCMCIA)
-            continue;
-        if (!(strcmp (devices[i]->driver, "ignore") && 
-              strcmp (devices[i]->driver, "unknown") &&
-              strcmp (devices[i]->driver, "disabled"))) 
-            continue;
-        if (!mlModuleInList(devices[i]->driver, modLoaded))
-            continue;
-        
-        logMessage(INFO, "going to activate device using %s", devices[i]->driver);
-        activate_pcmcia_device((struct pcmciaDevice *)devices[i]);
-    }
-}
-

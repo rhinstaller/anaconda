@@ -123,7 +123,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 python-elementtree"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
+    PACKAGES="$PACKAGES pcmciautils kernel-utils"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -139,7 +139,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs pdisk yaboot hfsutils"
+    PACKAGES="$PACKAGES pcmciautils pdisk yaboot hfsutils"
 fi
 
 # xpm is missing
@@ -245,6 +245,7 @@ bin/mkfs*
 bin/sed
 etc/group
 etc/passwd
+etc/pcmcia/*
 etc/protocols
 etc/services
 etc/selinux/targeted/booleans
@@ -309,6 +310,7 @@ sbin/mkreiserfs
 sbin/mkraid
 sbin/mkswap
 sbin/parted
+sbin/pcmcia-socket-startup
 sbin/pdisk
 sbin/probe
 sbin/resize2fs

@@ -524,7 +524,6 @@ EOF
 
 makeinitrd() {
     EXTRAINITRDPATH=""
-    PCMCIA=""
     INITRDSIZE=""
     KEEP=""
     PADSIZE=""
@@ -538,10 +537,6 @@ makeinitrd() {
 	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
 	    shift; shift
-	    continue
-	elif [ $1 = "--pcmcia" ]; then
-	    PCMCIA=yes
-	    shift
 	    continue
 	elif [ $1 = "--keep" ]; then
 	    KEEP=yes
@@ -655,11 +650,6 @@ EOF
 
     if [ -n "$BOGL" ]; then
 	install -m 644 $LOADERBINDIR/font.bgf.gz $MBD_DIR/etc
-    fi
-
-    if [ -n "$PCMCIA" ]; then
-	mkdir -p $MBD_BOOTTREE/etc
-	cp -a $KERNELROOT/etc/pcmcia $MBD_DIR/etc
     fi
 
     for n in insmod rmmod modprobe; do
@@ -977,12 +967,6 @@ for KERNELARCH in $arches; do
     if [ ! -f "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version" ]; then
 	echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
 	exit 1
-    fi
-
-    if [ -f $KERNELROOT/etc/pcmcia/config ]; then
-	# This gets everything mentioned in /etc/pcmcia/config.  We probably
-	# want to do some module-info stuff here too
-	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*(network|scsi|ide).*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.ko//g') | sort -u)
     fi
 
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
