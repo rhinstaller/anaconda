@@ -232,8 +232,8 @@ class AnacondaYum(yum.YumBase):
         self.ts.check()
         self.ts.order()
 
-        # set log fd
-        self.ts.scriptFd = instLog.fileno()
+        # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
+        self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
 
         self.runTransaction(cb=cb)

@@ -1,5 +1,9 @@
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYum.run): Fix install.log writing out
+	some more.  We probably want to just have yum be passed a file
+	which it then sets for the log file and the scriptFd eventually.
+
 	* anaconda (setupPythonUpdates): Fix a thinko.
 
 2005-09-13  Bill Nottingham  <notting@redhat.com>
