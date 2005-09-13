@@ -122,7 +122,7 @@ class InstallData:
 
         try:
             if flags.setupFilesystems:
-                args = ["--kickstart", "--nostart", self.auth]
+                args = ["--update", "--nostart", self.auth]
                 iutil.execWithRedirect("/usr/sbin/authconfig", args,
                                        stdout = None, stderr = None,
                                        searchPath = 1, root = instPath)

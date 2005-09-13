@@ -1,5 +1,7 @@
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
+	* instdata.py (InstallData.write): authconfig's flags changed.  *sigh*
+
 	* iw/network_gui.py (NetworkWindow.getNext): Don't enforce
 	selinux/firewall here.  Use the object defaults.
 	* textw/network_text.py (NetworkGlobalWindow.__call__): Likewise.
