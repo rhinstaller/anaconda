@@ -66,10 +66,10 @@ class Security:
                 iutil.execWithRedirect(args[0], args, root = instPath,
                                        stdout = None, stderr = None)
             else:
-                log.error("would have run %s", args)
+                log.info("would have run %s" %(args,))
         except RuntimeError, msg:
-            log.error ("lokkit run failed: %s", msg)
+            log.error ("lokkit run failed: %s" %(msg,))
         except OSError, (errno, msg):
-            log.error ("lokkit run failed: %s", msg)
+            log.error ("lokkit run failed: %s" %(msg,))
         
         
