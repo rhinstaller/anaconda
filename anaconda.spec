@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.19
+Version: 10.3.0.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 14 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.20-1
+- Fix runlevel setting (pnasrat)
+- More dead stuff fixing.
+
 * Tue Sep 13 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.19-1
 - Fix pcmcia import traceback
 - Some more kickstart fixing (clumens)
