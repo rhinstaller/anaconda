@@ -419,6 +419,9 @@ class YumBackend(AnacondaBackend):
             id.bootloader.args.append("rhgb quiet")
             break
 
+        for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm'):
+            id.desktop.setDefaultRunLevel(5)
+            break
 
 # XXX: write proper lvm config
 
