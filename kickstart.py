@@ -673,6 +673,9 @@ class Kickstart(BaseInstallClass):
            else:
                raise KickstartError, e
 
+        # run %pre scripts
+        self.runPreScripts(intf)
+
         # now read the kickstart file for real
         self.ksdata = KickstartData()
         self.handlers = AnacondaKSHandlers(self.ksdata)
@@ -681,11 +684,11 @@ class Kickstart(BaseInstallClass):
         try:
             parser.readKickstart(self.file)
         except KickstartError, e:
-           if intf:
-               intf.kickstartErrorWindow(e.__str__())
-               sys.exit(0)
-           else:
-               raise KickstartError, e
+            if intf:
+                intf.kickstartErrorWindow(e.__str__())
+                sys.exit(0)
+            else:
+                raise KickstartError, e
 
     def setSteps(self, dispatch):
         if self.ksdata.upgrade:
