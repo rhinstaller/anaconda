@@ -117,7 +117,7 @@ makeBootImages() {
  if [ "$KERNELARCH" = "i386" ]; then
     echo "Building $KERNELARCH $TOPDESTPATH/images/pxeboot/initrd.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	--pcmcia --nobogl \
+	--nobogl \
 	--initrdsize 4750 \
 	--loaderbin loader \
 	--modules "$COMMONMODULES"
@@ -139,7 +139,6 @@ makeBootImages() {
   if [ "$KERNELARCH" = "i686" -o "$KERNELARCH" = "i586" -o "$KERNELARCH" = "athlon" ]; then
     echo "Building $KERNELARCH initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
-	--pcmcia \
 	--initrdsize 7000 \
 	--loaderbin loader \
 	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $BOOTPCMCIAMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"

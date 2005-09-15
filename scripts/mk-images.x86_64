@@ -113,7 +113,6 @@ mkdir -p $TOPDESTPATH/images/pxeboot
 makeBootImages() {
     echo "Building initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	--pcmcia \
 	--initrdsize 8192 \
 	--loaderbin loader \
 	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
