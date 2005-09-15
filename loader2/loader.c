@@ -119,7 +119,7 @@ struct moduleBallLocation * secondStageModuleLocation;
 
 void setupRamfs(void) {
     mkdirChain("/tmp/ramfs");
-    doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL, 0, 0);
+    doPwMount("none", "/tmp/ramfs", "ramfs", 0, NULL);
 }
 
 
@@ -325,10 +325,10 @@ void loadUpdates(int flags) {
         logMessage(INFO, "UPDATES device is %s", device);
 
         devMakeInode(device, "/tmp/upd.disk");
-        if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 1, 0, 
-                      NULL, NULL, 0, 0) && 
-            doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 1, 0,
-                      NULL, NULL, 0, 0)) {
+        if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 
+                      IMOUNT_RDONLY, NULL) &&
+            doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 
+                      IMOUNT_RDONLY, NULL)) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Failed to mount updates disk"));
         } else {

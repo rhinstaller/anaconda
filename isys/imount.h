@@ -6,8 +6,11 @@
 
 #include <sys/mount.h>		/* for umount() */
 
-int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
-              char * acct, char * pw, int bindmnt, int remount);
+#define IMOUNT_RDONLY  1
+#define IMOUNT_BIND    2
+#define IMOUNT_REMOUNT 4
+
+int doPwMount(char * dev, char * where, char * fs, int options, void * data);
 int mkdirChain(char * origChain);
 
 #endif

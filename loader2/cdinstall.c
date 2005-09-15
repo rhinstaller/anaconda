@@ -152,7 +152,7 @@ static void mountCdromStage2(char *cddev) {
     do {
 	do {
 	    if (doPwMount("/tmp/cdrom", "/mnt/source", 
-			  "iso9660", 1, 0, NULL, NULL, 0, 0)) {
+			  "iso9660", IMOUNT_RDONLY, NULL)) {
 		ejectCdrom();
 		wrongCDMessage();
 	    } else {
@@ -314,8 +314,8 @@ char * setupCdrom(char * location,
 	    if (!devices[i]->device) continue;
             logMessage(INFO, "trying to mount CD device %s", devices[i]->device);
             devMakeInode(devices[i]->device, "/tmp/cdrom");
-            if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
-                           NULL, NULL, 0, 0)) {
+            if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 
+                           IMOUNT_RDONLY, NULL)) {
 		char path[1024];
 
 		snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath()); 

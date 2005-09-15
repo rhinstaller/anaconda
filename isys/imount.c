@@ -14,8 +14,7 @@
 
 static int mkdirIfNone(char * directory);
 
-int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
-              char * acct, char * pw, int bindmnt, int remount) { 
+int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
     char * buf = NULL;
     int isnfs = 0;
     char * mount_opt = NULL;
@@ -26,81 +25,52 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 
     /*logMessage("mounting %s on %s as type %s", dev, where, fs);*/
 
-    if (!strcmp(fs, "smb")) {
-#if 0 /* disabled for now */
-	mkdirChain(where);
+    if (mkdirChain(where))
+        return IMOUNT_ERR_ERRNO;
 
-	if (!acct) acct = "guest";
-	if (!pw) pw = "";
+    flag = MS_MGC_VAL;
+    if (options & IMOUNT_RDONLY)
+        flag |= MS_RDONLY;
+    if (options & IMOUNT_BIND)
+        flag |= MS_BIND;
+    if (options & IMOUNT_REMOUNT)
+        flag |= MS_REMOUNT;
 
-	buf = alloca(strlen(dev) + 1);
-	strcpy(buf, dev);
-	chptr = buf;
-	while (*chptr && *chptr != ':') chptr++;
-	if (!*chptr) {
-	    /*logMessage("bad smb mount point %s", where);*/
-	    return IMOUNT_ERR_OTHER;
-	} 
-	
-	*chptr = '\0';
-	chptr++;
-
-#ifdef __i386__
-	/*logMessage("mounting smb filesystem from %s path %s on %s",
-			buf, chptr, where);*/
-	return smbmount(buf, chptr, acct, pw, "localhost", where);
-#else 
-	errorWindow("smbfs only works on Intel machines");
-#endif
-#endif /* disabled */
+    if (!isnfs && (*dev == '/' || !strcmp(dev, "none"))) {
+        buf = dev;
+    } else if (!isnfs) {
+        buf = alloca(200);
+        strcpy(buf, "/tmp/");
+        strcat(buf, dev);
     } else {
-	if (mkdirChain(where))
-	    return IMOUNT_ERR_ERRNO;
-
-  	if (!isnfs && (*dev == '/' || !strcmp(dev, "none"))) {
-	    buf = dev;
-	} else if (!isnfs) {
-	    buf = alloca(200);
-	    strcpy(buf, "/tmp/");
-	    strcat(buf, dev);
-	} else {
 #ifndef DISABLE_NETWORK
-	    char * extra_opts = NULL;
-	    int flags = 0;
+        char * extra_opts = strdup(data);
+        int flags = 0;
 
-	    buf = dev;
-	    /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
+        buf = dev;
+        /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
 			buf, where);*/
 
-	    if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
+        if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
 		/*logMessage("\tnfsmount returned non-zero");*/
 		/*fprintf(stderr, "nfs mount failed: %s\n",
 			nfs_error());*/
 		return IMOUNT_ERR_OTHER;
-	    }
+        }
 #endif
 	}
-	flag = MS_MGC_VAL;
-	if (rdonly)
-	    flag |= MS_RDONLY;
-        if (bindmnt)
-            flag |= MS_BIND;
-	if (remount)
-	    flag |= MS_REMOUNT;
+    if (!strncmp(fs, "vfat", 4))
+        mount_opt="check=relaxed";
+#ifdef __sparc__
+    if (!strncmp(fs, "ufs", 3))
+        mount_opt="ufstype=sun";
+#endif
 
-	if (!strncmp(fs, "vfat", 4))
-	    mount_opt="check=relaxed";
-	#ifdef __sparc__
-	if (!strncmp(fs, "ufs", 3))
-	    mount_opt="ufstype=sun";
-	#endif
-
-	/*logMessage("calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
-			flag, mount_opt);*/
-
-	if (mount(buf, where, fs, flag, mount_opt)) {
- 	    return IMOUNT_ERR_ERRNO;
-	}
+    /*logMessage("calling mount(%s, %s, %s, %ld, %p)", buf, where, fs, 
+      flag, mount_opt);*/
+    
+    if (mount(buf, where, fs, flag, mount_opt)) {
+        return IMOUNT_ERR_ERRNO;
     }
 
     return 0;

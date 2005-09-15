@@ -133,7 +133,8 @@ char * mountNfsImage(struct installMethod * method,
 
             stage = NFS_STAGE_NFS;
 
-            if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0, 0)) {
+            if (!doPwMount(fullPath, "/mnt/source", "nfs", 
+                           IMOUNT_RDONLY, NULL)) {
 		char mntPath[1024];
 
                 logMessage(INFO, "mounted %s on /mnt/source", fullPath);
@@ -315,7 +316,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
 
     logMessage(INFO, "file location: nfs://%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/mnt", "nfs", 1, 0, NULL, NULL, 0, 0)) {
+    if (!doPwMount(host, "/tmp/mnt", "nfs", IMOUNT_RDONLY, NULL)) {
         char * buf;
 
         buf = alloca(strlen(file) + 10);

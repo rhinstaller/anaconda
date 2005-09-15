@@ -1,3 +1,18 @@
+2005-09-15  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/imount.c (doPwMount): Make arguments for doPwMount
+	simpler.  Use a bitmask of flags and pass extra data like
+	mount(2). Use flags for nfs and pass arguments onto nfsmount().
+	Kill some dead code.
+	* isys/imount.c (doPwMount): Update prototype, add constants.
+	* isys/isys.c (doMount): Update for new API.
+	* loader2/cdinstall.c: Likewise.
+	* loader2/driverdisk.c: Likewise.
+	* loader2/hdinstall.c: Likewise.
+	* loader2/loader.c: Likewise.
+	* loader2/method.c: Likewise.
+	* loader2/nfsinstall.c: Likewise.
+	* loader2/usb.c: Likewise.
 
 2005-09-15  Bill Nottingham  <notting@redhat.com>
 
