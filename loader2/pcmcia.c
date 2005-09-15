@@ -43,9 +43,7 @@ char * getPcicController() {
 	    int x;
 		
 	    for (x = 0; devices[x]; x++) {
-		    if (strcmp(devices[x]->driver, "ignore") &&
-			strcmp(devices[x]->driver, "unknown") &&
-			strcmp(devices[x]->driver, "disabled")) {
+		    if (devices[x]->driver) {
 			    char *tmp;
 			    
 			    logMessage(INFO, "found pcmcia adapter %s", devices[x]->driver);

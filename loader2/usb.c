@@ -81,6 +81,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     /* JKFIXME: if we looked for all of them, we could batch this up and it
      * would be faster */
     for (i=0; devices[i]; i++) {
+        if (!devices[i]->driver) continue;
         logMessage(INFO, "found USB controller %s", devices[i]->driver);
 
         if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps,
@@ -111,7 +112,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
         devices = probeDevices(CLASS_UNSPEC, BUS_USB, PROBE_ALL);
         if (devices) {
             for (i = 0; devices[i]; i++) {
-                if (!strcmp(devices[i]->driver, "usb-storage")) {
+                if (devices[i]->driver && !strcmp(devices[i]->driver, "usb-storage")) {
                     loadUsbStorage = 1;
                     break;
                 }

@@ -1,3 +1,11 @@
+
+2005-09-15  Bill Nottingham  <notting@redhat.com>
+
+	* loader2/firewire.c: Handle 'NULL' in device->driver.
+	* loader2/hardware.c: Likewise.
+	* loader2/pcmcia.c: Likewise.
+	* loader2/usb.c: Likewise.
+
 2005-09-15  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.i386: No more --pcmcia.

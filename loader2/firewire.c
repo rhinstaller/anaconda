@@ -45,7 +45,9 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     /* JKFIXME: if we looked for all of them, we could batch this up and it
      * would be faster */
     for (i=0; devices[i]; i++) {
-        logMessage(INFO, "found firewire controller %s", devices[i]->driver);
+	if (!devices[i]->driver)
+	    continue;
+	logMessage(INFO, "found firewire controller %s", devices[i]->driver);
 
         winStatus(40, 3, _("Loading"), _("Loading %s driver..."), 
                   devices[0]->driver);

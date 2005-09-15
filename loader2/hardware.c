@@ -95,26 +95,27 @@ static int detectHardware(moduleInfoSet modInfo,
         driver = (*device)->driver;
         /* this is kind of icky and verbose.  there are better and more 
          * general ways to do it but this is simple and obvious */
-        if (FL_NOPCMCIA(flags) && ((*device)->type == CLASS_SOCKET)) {
+	if (!driver) {
+	    logMessage(WARNING, "ignoring driverless device %s", (*device)->desc);
+        } else if (FL_NOPCMCIA(flags) && ((*device)->type == CLASS_SOCKET)) {
             logMessage(WARNING, "ignoring pcmcia device %s (%s)",
-                       (*device)->desc, (*device)->driver);
+                       (*device)->desc, driver);
         } else if (FL_NOIEEE1394(flags) && ((*device)->type == CLASS_FIREWIRE)) {
             logMessage(WARNING, "ignoring firewire device %s (%s)",
-                       (*device)->desc, (*device)->driver);
+                       (*device)->desc, driver);
         } else if (FL_NOUSB(flags) && ((*device)->type == CLASS_USB)) {
             logMessage(WARNING, "ignoring usb device %s (%s)", (*device)->desc,
-                       (*device)->driver);
+                       driver);
         } else if (FL_NOSTORAGE(flags) && 
                    (((*device)->type == CLASS_SCSI) || 
                     ((*device)->type == CLASS_IDE) ||
                     ((*device)->type == CLASS_RAID))) {
             logMessage(WARNING, "ignoring storage device %s (%s)",
-                       (*device)->desc, (*device)->driver);
+                       (*device)->desc, driver);
         } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
             logMessage(WARNING, "ignoring network device %s (%s)",
-                       (*device)->desc, (*device)->driver);
-        } else if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
-            && strcmp (driver, "disabled")) {
+                       (*device)->desc, driver);
+        } else {
             modList[numMods++] = strdup(driver);
         }
         
