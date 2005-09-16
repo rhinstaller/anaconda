@@ -1049,18 +1049,18 @@ if method:
 #        from image import CdromInstallMethod
 #        methodobj = CdromInstallMethod(method[8:], rootPath, intf)
     if method.startswith('nfs:/'):
+        from image import NfsInstallMethod
+        methodobj = NfsInstallMethod(method[5:], rootPath, intf)
         from yuminstall import YumBackend 
-        backend = YumBackend("file:////mnt/source")
-#        from image import NfsInstallMethod
-#        methodobj = NfsInstallMethod(method[5:], rootPath, intf)
+        backend = YumBackend("file:////mnt/source", methodobj)
 #    elif method.startswith('nfsiso:/'):
 #        from image import NfsIsoInstallMethod
 #        methodobj = NfsIsoInstallMethod(method[8:], rootPath, intf)
     elif method.startswith('ftp://') or method.startswith('http://'):
+        from urlinstall import UrlInstallMethod
+        methodobj = UrlInstallMethod(method, rootPath, intf)
         from yuminstall import YumBackend 
-        backend = YumBackend(method)
-#        from urlinstall import UrlInstallMethod
-#        methodobj = UrlInstallMethod(method, rootPath, intf)
+        backend = YumBackend(method, methodobj)
 #    elif method.startswith('hd://'):
 #        from harddrive import HardDriveInstallMethod
 #        methodobj = HardDriveInstallMethod(method[5:], rootPath, intf)

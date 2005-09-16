@@ -24,11 +24,13 @@ log = logging.getLogger("anaconda")
 
 
 class AnacondaBackend:
-    def __init__(self, method):
+    def __init__(self, methodstr, method):
         """Abstract backend class all backends should inherit from this
-           @param method: method uri string eg nfs://"""
+           @param methodstr: method uri string eg nfs://
+           @param method: install method object"""
 
         self.method = method
+        self.methodstr = methodstr
         self.instLog = None
         self.modeText = ""
 
