@@ -449,7 +449,7 @@ class KickstartHandlers:
                       default=False)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
-        op.add_option("--onboot", dest="onboot", action="map")
+        op.add_option("--onboot", dest="onboot", action="map", default=True)
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)

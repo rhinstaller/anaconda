@@ -1,5 +1,8 @@
 2005-09-16  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstartParser.py (KickstartHandlers.doNetwork): By default, we
+	want onboot for network devices.
+
 	* yuminstall.py (AnacondaYum.setup): Do macro setup ourselves.
 	(YumBackend.doInstall): Add macro magic to speed up installs.
 
