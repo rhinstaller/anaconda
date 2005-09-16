@@ -44,8 +44,11 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
         strcat(buf, dev);
     } else {
 #ifndef DISABLE_NETWORK
-        char * extra_opts = strdup(data);
+        char * extra_opts = NULL;
         int flags = 0;
+
+        if (data)
+            strdup(data);
 
         buf = dev;
         /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
