@@ -125,8 +125,8 @@ class simpleCallback:
 class AnacondaYumConf:
     """Dynamic yum configuration"""
 
-    def __init__( self, method, configfile = None, root=/)
-        self.method = method
+    def __init__( self, methodstr, configfile = None, root="/"):
+        self.method = methodstr
 
         self.configfile = configfile
         self.root = root
@@ -259,7 +259,7 @@ class AnacondaYum(yum.YumBase):
 class YumBackend(AnacondaBackend):
 
     def doPreSelection(self, intf, id, instPath):
-        self.ac = AnacondaYumConf(self.method, configfile="/tmp/yum.conf", root=instPath)
+        self.ac = AnacondaYumConf(self.methodstr, configfile="/tmp/yum.conf", root=instPath)
         self.ac.write()
         self.ayum = AnacondaYum(self.method, id, intf, instPath)
         self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
