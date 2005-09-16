@@ -1044,46 +1044,34 @@ intf = InstallInterface ()
 
 # imports after setting up the path
 if method:
-        if not method.startswith('nfs:/'):
-            intf.messageWindow("Install Method Unavailable",
-                               "Anaconda is undergoing major backend work "
-                               "currently only nfs tree installs are supported. "
-                               "We apologise for any inconvenience. "
-                               "Normal service will be resumed ASAP.")
-            sys.exit(42)
-        else:    
-            ksfile or flags.test or intf.messageWindow("Install Method Under Construction",
-                                "Anaconda is undergoing major backend work "
-                                "currently only nfs tree installs are supported "
-                                "and package selection is turned off. "
-                                "We are aware of this and and normal service, "
-                                "will be resumed ASAP.")
-            from image import NfsInstallMethod
-            methodobj = NfsInstallMethod(method[5:], rootPath, intf)
-#    elif method.startswith('nfsiso:/'):
-#
+            #methodobj = NfsInstallMethod(method[5:], rootPath, intf)
 #    if method.startswith('cdrom://'):
 #        from image import CdromInstallMethod
 #        methodobj = CdromInstallMethod(method[8:], rootPath, intf)
-#    elif method.startswith('nfs:/'):
+     if method.startswith('nfs:/'):
+            from yuminstall import YumBackend 
+            backend = YumBackend("file:////mnt/source")
 #        from image import NfsInstallMethod
 #        methodobj = NfsInstallMethod(method[5:], rootPath, intf)
 #    elif method.startswith('nfsiso:/'):
 #        from image import NfsIsoInstallMethod
 #        methodobj = NfsIsoInstallMethod(method[8:], rootPath, intf)
-#    elif method.startswith('ftp://') or method.startswith('http://'):
+    elif method.startswith('ftp://') or method.startswith('http://'):
+            from yuminstall import YumBackend 
+            backend = YumBackend(method)
 #        from urlinstall import UrlInstallMethod
 #        methodobj = UrlInstallMethod(method, rootPath, intf)
 #    elif method.startswith('hd://'):
 #        from harddrive import HardDriveInstallMethod
 #        methodobj = HardDriveInstallMethod(method[5:], rootPath, intf)
-#    else:
-#        log.critical (_("unknown install method: %s"), method)
-#        sys.exit(1)
-
-from yuminstall import YumBackend 
-
-backend = YumBackend(methodobj)
+    else:
+    	intf.messageWindow("Install Method Unknown/Unavailable",
+                           "Anaconda is undergoing major backend work "
+                           "currently only some install methods are supported. "
+                           "We apologise for any inconvenience. "
+                           "Normal service will be resumed ASAP.")
+        log.critical (_("unknown install method: %s"), method)
+        sys.exit(1)
 
 floppyDevice = floppy.probeFloppyDevice()
 

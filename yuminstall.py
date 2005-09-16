@@ -125,8 +125,13 @@ class simpleCallback:
 class AnacondaYumConf:
     """Dynamic yum configuration"""
 
-    def __init__( self, configfile = None, root = '/'):
-        yumconfstr = """
+    def __init__( self, method, configfile = None, root=/)
+        self.method = method
+
+        self.configfile = configfile
+        self.root = root
+
+        self.yumconfstr = """
 [main]
 cachedir=/var/cache/yum
 reposdir=/tmp/repos.d
@@ -139,23 +144,23 @@ exactarch=1
 retries=5
 obsoletes=1
 gpgcheck=0
-installroot=/mnt/sysimage
+installroot=%s
 
 [anaconda]
-baseurl=file:///mnt/source
+baseurl=%s
 enabled=1
 gpgcheck=0
-gpgkey=file:///mnt/source/RPM-GPG-KEY-fedora
-"""
+gpgkey=%s/RPM-GPG-KEY-fedora
+""" % (self.root, self.baseurl, self.baseurl)
 
-        if configfile is None:
-            configfile = "/tmp/yum.conf"
 
-        self.file = configfile
-        f = open(configfile, 'w')
-        f.write(yumconfstr)
+def write(self):
+        if self.configfile is None:
+            self.configfile = "/tmp/yum.conf"
+
+        f = open(self.configfile, 'w')
+        f.write(self.yumconfstr)
         f.close()
-
     
 class AnacondaYum(yum.YumBase):
     def __init__(self, method, id, intf, instPath):
@@ -254,7 +259,8 @@ class AnacondaYum(yum.YumBase):
 class YumBackend(AnacondaBackend):
 
     def doPreSelection(self, intf, id, instPath):
-        self.ac = AnacondaYumConf(configfile="/tmp/yum.conf", root=instPath)
+        self.ac = AnacondaYumConf(self.method, configfile="/tmp/yum.conf", root=instPath)
+        self.ac.write()
         self.ayum = AnacondaYum(self.method, id, intf, instPath)
         self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
 
