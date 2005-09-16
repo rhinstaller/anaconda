@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.21
+Version: 10.3.0.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 16 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.22-1
+- Fix segfaults with nfs mounting
+- Start of url install methods (pnasrat)
+- Basic package/group selection is back in kickstart
+- Macro magic fixups
+- Use onboot by default for network devices in kickstart
+
 * Thu Sep 15 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.21-1
 - Run pre scripts for kickstart (clumens)
 - Another tree fix
