@@ -1,13 +1,15 @@
 #
 # backend.py: Interface for installation backends
 #
-# Paul Nasrat <pnasrat@redhat.com> 
+# Paul Nasrat <pnasrat@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
+#
 # Copyright (c) 2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -24,13 +26,15 @@ log = logging.getLogger("anaconda")
 
 
 class AnacondaBackend:
-    def __init__(self, methodstr, method):
+    def __init__(self, methodstr, method, instPath):
         """Abstract backend class all backends should inherit from this
+           @param method: method uri string eg nfs://
            @param methodstr: method uri string eg nfs://
-           @param method: install method object"""
+           @param instPath: root path for the installation to occur"""
 
         self.method = method
         self.methodstr = methodstr
+        self.instPath = instPath
         self.instLog = None
         self.modeText = ""
 
@@ -96,6 +100,30 @@ class AnacondaBackend:
             self.modeText = _("Installing %s-%s-%s.%s.\n")
 
     def kernelVersionList():
+        pass
+
+    def groupExists(self, group):
+        log.warning("groupExists not implemented for backend!")
+        pass
+
+    def selectGroup(self, group, *args):
+        log.warning("selectGroup not implemented for backend!")
+        pass
+
+    def deselectGroup(self, group, *args):
+        log.warning("deselectGroup not implemented for backend!")
+        pass
+
+    def packageExists(self, pkg):
+        log.warning("packageExists not implemented for backend!")
+        pass
+    
+    def selectPackage(self, pkg, *args):
+        log.warning("selectPackage not implemented for backend!")
+        pass
+
+    def deselectPackage(self, pkg, *args):
+        log.warning("deselectPackage not implemented for backend!")
         pass
 
 

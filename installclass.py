@@ -208,14 +208,10 @@ class BaseInstallClass:
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 
-    # This is called after the hdlist is read in.
-    def setPackageSelection(self, hdlist, intf):
+    def setPackageSelection(self, backend):
 	pass
 
-    # This is called after the comps is read in (after setPackageSelection()).
-    # It can both select groups, change the default selection for groups, and
-    # change which groups are hidden.
-    def setGroupSelection(self, grpset, intf):
+    def setGroupSelection(self, backend):
 	pass
 
     def setZFCP(self, id, devnum, scsiid, wwpn, scsilun, fcplun):

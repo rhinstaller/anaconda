@@ -609,7 +609,7 @@ class AnacondaKSParser(KickstartParser):
             raise KickstartParseError, (cmd + " " + string.join (args))
         else:
             if self.handler.handlers[cmd] != None:
-                self.handler.setattr("currentCmd", cmd)
+                self.handler.currentCmd = cmd
                 self.handler.handlers[cmd](self.id, args)
 
 # The anaconda kickstart processor.
@@ -734,6 +734,19 @@ class Kickstart(BaseInstallClass):
             dispatch.skipStep(n)
         for n in self.handlers.showSteps:
             dispatch.skipStep(n, skip = 0)
+
+    def setPackageSelection(self, backend, *args):
+        # FIXME: handling of missing packages...
+        map(backend.selectPackage, self.ksdata.packageList)
+
+    def setGroupSelection(self, backend, *args):
+        if 1: # FIXME should be based on addBase, but that's not in ksdata
+            backend.selectGroup("Base")
+        # FIXME: handling of missing groups
+        map(backend.selectGroup, self.ksdata.groupList)
+
+        # FIXME: need to handle package exclusions here.
+        map(backend.deselectPackage, self.ksdata.excludedList)
 
 #
 # look through ksfile and if it contains a line:

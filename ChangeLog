@@ -1,3 +1,28 @@
+2005-09-16  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYum.__init__): Little bit of clean-up,
+	remove some unused code.
+	(YumBackend.__init__): Create config file sooner. 
+	(YumBackend.doPreSelection): Get base install class package
+	selection working in the short-term.
+	(YumBackend): Implement groupExists, selectGroup, selectPackage
+	and deselectPackage.
+
+	* kickstart.py (AnacondaKSParser.handleCommand): Fix traceback.
+	(Kickstart.setPackageSelection): Implement basic package selection.
+	(Kickstart.setGroupSelection): ... and group selection.
+
+	* installclass.py (BaseInstallClass.setPackageSelection): Use backend.
+	(BaseInstallClass.setGroupSelection): Likewise.
+
+	* dispatch.py (installSteps): Some comments to move stuff around,
+	re-instate post action step.
+
+	* backend.py (AnacondaBackend): Take instpath argument.  Stub in
+	functions for basic package/group selection.
+
+	* anaconda: Pass rootPath into backend.
+
 2005-09-16  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda: Start to enable other install methods

@@ -2,9 +2,9 @@
 # Copyright (c) 2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -22,6 +22,7 @@ import urlgrabber.progress
 import yum
 import yum.repos
 import yum.packages
+import repomd.mdErrors
 from backend import AnacondaBackend
 from constants import *
 from rhpl.translate import _
@@ -125,9 +126,8 @@ class simpleCallback:
 class AnacondaYumConf:
     """Dynamic yum configuration"""
 
-    def __init__( self, methodstr, configfile = None, root="/"):
-        self.method = methodstr
-
+    def __init__( self, methodstr, configfile = "/tmp/yum.conf", root = '/'):
+        self.methodstr = methodstr
         self.configfile = configfile
         self.root = root
 
@@ -151,19 +151,16 @@ baseurl=%s
 enabled=1
 gpgcheck=0
 gpgkey=%s/RPM-GPG-KEY-fedora
-""" % (self.root, self.baseurl, self.baseurl)
+""" % (self.root, self.methodstr, self.methodstr)
 
-
-def write(self):
-        if self.configfile is None:
-            self.configfile = "/tmp/yum.conf"
-
+    def write(self):
         f = open(self.configfile, 'w')
         f.write(self.yumconfstr)
         f.close()
     
 class AnacondaYum(yum.YumBase):
-    def __init__(self, method, id, intf, instPath):
+    def __init__(self):
+        yum.YumBase.__init__(self)
         self.macros = {}
         if flags.selinux:
             for dir in ("/tmp/updates", "/mnt/source/RHupdates",
@@ -179,40 +176,13 @@ class AnacondaYum(yum.YumBase):
 
         self.macros["_dependency_whiteout"] = whiteout
 
-        self.method = method
-        self.id = id
-        self.intf = intf
         self.updates = []
         self.localPackages = []
-        yum.YumBase.__init__(self)
-
-
-    def setGroupSelection(self, grpset, intf):
-        if grpset is None:
-            return 0
-
-        pkgs = []
-
-        availpackages = {}
-        d = yum.packages.buildPkgRefDict(self.pkgSack.returnPackages())
-        for po in self.pkgSack.returnPackages():
-            availpackages[po.name] = po
-        
-        for group in grpset:
-            if not self.groupInfo.groupExists(group):
-                continue
-            pkglist = self.groupInfo.pkgTree(group)
-            for pkg in pkglist:
-                if availpackages.has_key(pkg):
-                    pkgs.append(pkg)
-                    self.tsInfo.addInstall(availpackages[pkg])
 
     def errorlog(self, value, msg):
         pass
-
     def filelog(self, value, msg):
         pass
-
     def log(self, value, msg):
         pass
 
@@ -257,21 +227,23 @@ class AnacondaYum(yum.YumBase):
         self.repos.populateSack(with='filelists')
 
 class YumBackend(AnacondaBackend):
-
-    def doPreSelection(self, intf, id, instPath):
-        self.ac = AnacondaYumConf(self.methodstr, configfile="/tmp/yum.conf", root=instPath)
+    def __init__(self, methodstr, method, instPath):
+        AnacondaBackend.__init__(self, methodstr, method, instPath)
+        self.ac = AnacondaYumConf(self.methodstr, configfile="/tmp/yum.conf",
+                                  root=instPath)
         self.ac.write()
-        self.ayum = AnacondaYum(self.method, id, intf, instPath)
+
+    # FIXME: this step is actually probably not broken out properly
+    def doPreSelection(self, intf, id, instPath):
+        # should probably be done in __init__ instead...
+        self.ayum = AnacondaYum()
+
+        # this should be in some sort of backend setup step
         self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
 
-        self.ayum.setGroupSelection(["Core"], intf)
-        self.ayum.setGroupSelection(["Base"], intf)
-
-        buf = open("/proc/cmdline", "r").read()
-        if buf.find("minimal") == -1:
-            self.ayum.setGroupSelection(["Workstation Common"], intf)
-            self.ayum.setGroupSelection(["GNOME Desktop Environment"], intf)
-            id.desktop.setDefaultDesktop("GNOME")
+        # then a base package selection step
+        id.instClass.setPackageSelection(self)        
+        id.instClass.setGroupSelection(self)
 
     def doPostSelection(self, intf, id, instPath):
         win = intf.waitWindow(_("Dependency Check"),
@@ -455,3 +427,58 @@ class YumBackend(AnacondaBackend):
             kernelVersions.append((version, 'up'))
 
         return kernelVersions
+
+    def groupExists(self, group):
+        return self.ayum.groupInfo.groupExists(group)
+
+    def selectGroup(self, group, *args):
+        if not self.groupExists(group):
+            log.debug("no such group %s" %(group,))
+            return
+
+        pkgs = self.ayum.groupInfo.pkgTree(group)
+        for pkg in pkgs:
+            try:
+                p = self.ayum.pkgSack.returnNewestByName(pkg)
+            except repomd.mdErrors.PackageSackError:
+                log.debug("no such package %s in %s" %(pkg, group))
+                continue
+            self.ayum.tsInfo.addInstall(p)
+
+    def selectPackage(self, pkg, *args):
+        sp = pkg.rsplit(".", 2)
+        p = None
+        if len(sp) == 2:
+            try:
+                p = self.ayum.pkgSack.returnNewestByNameArch((sp[0], sp[1]))
+            except repomd.mdErrors.PackageSackError:
+                # maybe the package has a . in the name
+                pass
+
+        if p is None:
+            try:
+                p = self.ayum.pkgSack.returnNewestByName(pkg)
+            except repomd.mdErrors.PackageSackError:
+                log.debug("no such package %s" %(pkg,))
+                return
+            
+        self.ayum.tsInfo.addInstall(p)
+        
+    def deselectPackage(self, pkg, *args):
+        sp = pkg.rsplit(".", 2)
+        p = None
+        if len(sp) == 2:
+            try:
+                p = self.ayum.pkgSack.returnNewestByNameArch((sp[0], sp[1]))
+            except repomd.mdErrors.PackageSackError:
+                # maybe the package has a . in the name
+                pass
+
+        if p is None:
+            try:
+                p = self.ayum.pkgSack.returnNewestByName(pkg)
+            except repomd.mdErrors.PackageSackError:
+                log.debug("no such package %s" %(pkg,))
+                return
+            
+        self.ayum.tsInfo.remove(p.pkgtup)

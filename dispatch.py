@@ -40,11 +40,11 @@ from upgrade import findRootParts
 from network import networkDeviceCheck
 from installmethod import doMethodComplete
 
-import logging
-log = logging.getLogger("anaconda")
-
 from backend import doPreSelection, doPostSelection
 from backend import doPreInstall, doPostInstall, doInstall 
+
+import logging
+log = logging.getLogger("anaconda")
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -125,11 +125,14 @@ installSteps = [
                                               "instPath")),
     ("setuptime", setupTimezone, ("id.timezone", "id.upgrade", "instPath",
                                   "dir")),
+
+    # FIXME: package selection should be done before we create filesystems
     ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
-    ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
+    
+    ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
     ("installpackages", doInstall, ("backend", "intf", "id", "instPath")),
-    #("postinstallconfig", backend.doPostInstall, ("method", "id", "intf", "instPath")),
+    ("postinstallconfig", doPostInstall, ("backend", "intf", "id", "instPath")),    
     ("writeconfig", writeConfiguration, ("id", "instPath")),
     ("firstboot", firstbootConfiguration, ("id", "instPath")),
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
@@ -139,7 +142,7 @@ installSteps = [
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("setfilecon", setFileCons, ("instPath","id.partitions")),
     ("copylogs", copyAnacondaLogs, ("instPath",)),
-    ("dopostaction", doPostInstall, ("backend", "intf", "id", "instPath")),
+    ("dopostaction", doPostAction, ("id", "instPath")),
     ("methodcomplete", doMethodComplete, ("method", "id.fsset")),
     ("complete", ()),
     ]

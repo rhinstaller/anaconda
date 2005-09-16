@@ -1052,7 +1052,7 @@ if method:
         from image import NfsInstallMethod
         methodobj = NfsInstallMethod(method[5:], rootPath, intf)
         from yuminstall import YumBackend 
-        backend = YumBackend("file:////mnt/source", methodobj)
+        backend = YumBackend("file:///mnt/source", methodobj, rootPath)
 #    elif method.startswith('nfsiso:/'):
 #        from image import NfsIsoInstallMethod
 #        methodobj = NfsIsoInstallMethod(method[8:], rootPath, intf)
@@ -1060,7 +1060,7 @@ if method:
         from urlinstall import UrlInstallMethod
         methodobj = UrlInstallMethod(method, rootPath, intf)
         from yuminstall import YumBackend 
-        backend = YumBackend(method, methodobj)
+        backend = YumBackend(method, methodobj, rootPath)
 #    elif method.startswith('hd://'):
 #        from harddrive import HardDriveInstallMethod
 #        methodobj = HardDriveInstallMethod(method[5:], rootPath, intf)
