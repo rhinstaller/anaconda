@@ -202,7 +202,7 @@ class AnacondaYum(yum.YumBase):
         return (downloadpkgs, totalSize, totalFiles)
 
     def run(self, instLog, cb):
-        self.initActionTs(macros=self.macros)
+        self.initActionTs()
         self.populateTs(keepold=0)
         self.ts.check()
         self.ts.order()
@@ -215,7 +215,10 @@ class AnacondaYum(yum.YumBase):
         
     def setup(self, fn="/etc/yum.conf", root="/"):
         self.doConfigSetup(fn, root)
-        self.doTsSetup(macros=self.macros)
+        for (key, val) in self.macros.items():
+            rpm.addMacro(key, val)
+        
+        self.doTsSetup()
         self.doRpmDBSetup()
         # XXX: handle RepoError
         self.doRepoSetup()
@@ -363,6 +366,10 @@ class YumBackend(AnacondaBackend):
     def doInstall(self, intf, id, instPath):
         if flags.test:
             return
+
+        if not id.upgrade():
+            rpm.addMacro("__dbi_htconfig",
+                         "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
         pkgTimer = timer.Timer(start = 0)
 

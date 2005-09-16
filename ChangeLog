@@ -1,5 +1,8 @@
 2005-09-16  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYum.setup): Do macro setup ourselves.
+	(YumBackend.doInstall): Add macro magic to speed up installs.
+
 	* anaconda (setupPythonUpdates): repomd too.
 
 	* anaconda (instClass): If there's only one visible installclass,
