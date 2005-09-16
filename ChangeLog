@@ -1,5 +1,8 @@
 2005-09-16  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-initrd: Make a little bit easier to use by
+	auto-canonicalizing the paths.  
+
 	* isys/imount.c (doPwMount): Fix segfault when NFS mounting with
 	no options.
 

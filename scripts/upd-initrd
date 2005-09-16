@@ -2,8 +2,6 @@
 # Updates an installer initrd with a new loader binary 
 # Usage: upd-initrd <initrd> <binary> <outfile>
 #
-# CAVEATS: Must use absolute paths to files, not relative
-#
 # Jeremy Katz <katzj@redhat.com>
 # Copyright 2005   Red Hat, Inc.
 
@@ -12,9 +10,13 @@ if [ $# -ne 3 ]; then
     exit 1
 fi
 
-INITRD=$1
-BIN=$2
-OUT=$3
+INITRD=`readlink -f $1`
+BIN=`readlink -f $2`
+if [ -f $3 ]; then
+    OUT=`readlink -f $3`
+else
+    OUT=`readlink -f .`/$3
+fi
 
 tmpdir=$(mktemp -d)
 pushd $tmpdir
