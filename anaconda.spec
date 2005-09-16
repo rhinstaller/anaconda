@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.20
+Version: 10.3.0.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 15 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.21-1
+- Run pre scripts for kickstart (clumens)
+- Another tree fix
+- Handle NULL for device->driver from kudzu (notting)
+- Clean up internal mount stuff to be more extend-able 
+
 * Wed Sep 14 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.20-1
 - Fix runlevel setting (pnasrat)
 - More dead stuff fixing.

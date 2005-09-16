@@ -1,5 +1,7 @@
 2005-09-15  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* isys/imount.c (doPwMount): Make arguments for doPwMount
 	simpler.  Use a bitmask of flags and pass extra data like
 	mount(2). Use flags for nfs and pass arguments onto nfsmount().
