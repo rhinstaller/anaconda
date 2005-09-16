@@ -822,11 +822,16 @@ if not instClass:
     from installclass import DefaultInstall, availableClasses
     instClass = DefaultInstall(flags.expert)
 
-    if len(availableClasses(showHidden = 1)) < 2:
-        (cname, cobject, clogo) = availableClasses(showHidden = 1)[0]
+    allavail = availableClasses(showHidden = 1)
+    avail = availableClasses(showHidden = 0)
+    if len(avail) == 1:
+        (cname, cobject, clogo) = avail[0]
         log.info("%s is only installclass, using it" %(cname,))
         instClass = cobject(flags.expert)
-        
+    elif len(allavail) == 1:
+        (cname, cobject, clogo) = allavail[0]
+        log.info("%s is only installclass, using it" %(cname,))
+        instClass = cobject(flags.expert)        
 
 # this lets install classes force text mode instlls
 if instClass.forceTextMode:

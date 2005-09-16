@@ -1,5 +1,14 @@
 2005-09-16  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda (instClass): If there's only one visible installclass,
+	don't ask about them either
+
+	* installclasses/custom.py: Hide old install class.
+	* installclasses/personal_desktop.py: Likewise.
+	* installclasses/server.py: Likewise.
+	* installclasses/workstation.py: Likewise.
+	* installclasses/fedora.py: Add new Fedora install class.
+
 	* yuminstall.py (AnacondaYum.__init__): Little bit of clean-up,
 	remove some unused code.
 	(YumBackend.__init__): Create config file sooner. 

@@ -8,7 +8,7 @@ import iutil
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "custom"
-    name = N_("_Custom")
+    name = N_("_Fedora")
     pixmap = "custom.png"
     description = N_("Select this installation type to gain complete "
 		     "control over the installation process, including "
@@ -16,12 +16,19 @@ class InstallClass(BaseInstallClass):
     sortPriority = 10000
     showLoginChoice = 1
     showMinimal = 1
-    hidden = 1
 
-    def setInstallData(self, id):
+    def setInstallData(self, id, intf = None):
 	BaseInstallClass.setInstallData(self, id)
         BaseInstallClass.setDefaultPartitioning(self, id.partitions,
                                                 CLEARPART_TYPE_LINUX)
+
+    def setGroupSelection(self, backend):
+        backend.selectGroup("workstation-common")
+        backend.selectGroup("gnome-desktop")
+
+    def setSteps(self, dispatch):
+	BaseInstallClass.setSteps(self, dispatch);
+	dispatch.skipStep("partition")
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

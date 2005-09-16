@@ -26,6 +26,7 @@ class InstallClass(BaseInstallClass):
 
     showLoginChoice = 0
     sortPriority = 1
+    hidden = 1
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);

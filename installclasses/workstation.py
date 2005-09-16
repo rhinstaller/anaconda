@@ -24,6 +24,7 @@ class InstallClass(personal_desktop.InstallClass):
 
     sortPriority = 2
     showLoginChoice = 0
+    hidden = 1
 
     def setGroupSelection(self, grpset, intf):
         personal_desktop.InstallClass.setGroupSelection(self, grpset, intf)
