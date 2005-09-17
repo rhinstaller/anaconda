@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-09-11 15:26+0200\n"
+"PO-Revision-Date: 2005-09-15 17:24+0200\n"
 "Last-Translator: Tom Berner <tom@lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -495,7 +495,7 @@ msgid ""
 msgstr ""
 "Wybrano usunięcie wszystkich partycji (WSZYSTKICH DANYCH) na następujących "
 "dyskach:%s\n"
-"Czy jesteś pewien, że tego chcesz?"
+"Czy jesteś pewny, że tego chcesz?"
 
 #: ../autopart.py:1720
 #, python-format
@@ -506,7 +506,7 @@ msgid ""
 msgstr ""
 "Wybrano usunięcie wszystkich partycji linuksowych (oraz WSZYSTKICH DANYCH) na "
 "następujących dyskach:%s\n"
-"Czy jesteś pewien, że tego chcesz?"
+"Czy jesteś pewny, że tego chcesz?"
 
 #: ../bootloader.py:118
 msgid "Bootloader"
@@ -853,7 +853,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Podczas tworzenia %s wystąpił błąd. Pewien element ścieżki nie jest "
+"Podczas tworzenia %s wystąpił błąd. Pewny element ścieżki nie jest "
 "folderem. Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter> w celu ponownego uruchomienia komputera."
@@ -1395,7 +1395,7 @@ msgid ""
 msgstr ""
 "Jeśli teraz ponownie uruchomisz system, będzie on w stanie niepełnej "
 "konfiguracji, co najprawdopodobniej będzie wymagało ponownej instalacji. Czy "
-"jesteś pewien, że chcesz kontynuować?"
+"jesteś pewny, że chcesz kontynuować?"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -1906,7 +1906,7 @@ msgstr "Potwierdź przywrócenie"
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
-"Czy jesteś pewien, że chcesz przywrócić tablicę partycji do pierwotnego stanu?"
+"Czy jesteś pewny, że chcesz przywrócić tablicę partycji do pierwotnego stanu?"
 
 #: ../partRequests.py:247
 #, python-format
@@ -2526,7 +2526,7 @@ msgid ""
 msgstr ""
 "Architektura wydania %s, które aktualizujesz wydaje się być architekturą %s, "
 "która nie odpowiada poprzednio zainstalowanej architekturze %s. "
-"Prawdopodobnie aktualizacja nie powiedzie się. Jesteś pewien, że chcesz "
+"Prawdopodobnie aktualizacja nie powiedzie się. Jesteś pewny, że chcesz "
 "kontynuować proces aktualizacji?"
 
 #: ../upgrade.py:492
@@ -2566,7 +2566,7 @@ msgid ""
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "Zdaje się, że chcesz aktualizować system, który jest za stary, aby można "
-"było go zaktualizować do tej wersji systemu %s. Czy jesteś pewien, że chcesz "
+"było go zaktualizować do tej wersji systemu %s. Czy jesteś pewny, że chcesz "
 "kontynuować aktualizację?"
 
 #: ../upgradeclass.py:19
@@ -2985,7 +2985,7 @@ msgstr ""
 "specjalne wymagania. Program startowy jest niemal zawsze konieczny do "
 "uruchomienia systemu Linux bezpośrednio z dysku twardego.\n"
 "\n"
-"Czy jesteś pewien, że chcesz pominąć instalację programu startowego?"
+"Czy jesteś pewny, że chcesz pominąć instalację programu startowego?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3631,7 +3631,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:744
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Czy jesteś pewien, że chcesz usunąć wolumin logiczny \"%s\"?"
+msgstr "Czy jesteś pewny, że chcesz usunąć wolumin logiczny \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:880
 msgid "Invalid Volume Group Name"
@@ -4894,7 +4894,7 @@ msgid ""
 "to continue?"
 msgstr ""
 "Zdecydowanie zalecane jest utworzenie obszaru wymiany. Bez niego program "
-"instalacyjny może przerwać działanie. Czy jesteś pewien, że chcesz "
+"instalacyjny może przerwać działanie. Czy jesteś pewny, że chcesz "
 "kontynuować?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
@@ -5103,7 +5103,7 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
-"Masz zamiar usunąć dysk typu FCP ze swojej konfiguracji. Czy jesteś pewien, "
+"Masz zamiar usunąć dysk typu FCP ze swojej konfiguracji. Czy jesteś pewny, "
 "że chcesz kontynuować?"
 
 #: ../iw/zipl_gui.py:32
@@ -5202,7 +5202,7 @@ msgstr ""
 "specjalne wymagania. Program startowy jest niemal zawsze konieczny do "
 "uruchomienia systemu Linux bezpośrednio z dysku twardego.\n"
 "\n"
-"Czy jesteś pewien, że chcesz pominąć instalację programu startowego?"
+"Czy jesteś pewny, że chcesz pominąć instalację programu startowego?"
 
 #: ../textw/bootloader_text.py:94
 msgid ""
@@ -5213,7 +5213,7 @@ msgid ""
 msgstr ""
 "Niektóre systemy wymagają przekazania jądru specjalnych opcji podczas "
 "uruchamiania. Jeśli potrzebujesz przekazać te parametry, wprowadź je teraz. W "
-"przeciwnym wypadku, lub jeśli nie jesteś pewien, zostaw puste miejsce."
+"przeciwnym wypadku, lub jeśli nie jesteś pewny, zostaw puste miejsce."
 
 #: ../textw/bootloader_text.py:103
 msgid "Force use of LBA32 (not normally required)"
