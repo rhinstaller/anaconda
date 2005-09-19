@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.22
+Version: 10.3.0.23
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 19 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.23-1
+- fix a silly typo that would cause tracebacks
+- Look for help in /tmp/updates too (#168155)
+- Add skge driver (#168590)
+- Some fixes to hopefully get x86_64 trees working
+
 * Fri Sep 16 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.22-1
 - Fix segfaults with nfs mounting
 - Start of url install methods (pnasrat)

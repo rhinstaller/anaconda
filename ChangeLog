@@ -1,8 +1,10 @@
 2005-09-19  Jeremy Katz  <katzj@redhat.com>
 
-	* scripts/upd-instroot (KEEPFILE): Fix some globs for x86_64
+	* anaconda.spec: Bump version.
 
-	* loader2/module-info: Add skge (#168590)
+	* scripts/upd-instroot (KEEPFILE): Fix some globs for x86_64.
+
+	* loader2/module-info: Add skge. (#168590)
 
 	* gui.py (InstallControlState.__init__): Look in /tmp/updates for
 	help (... if we bring it back) (#168155)
