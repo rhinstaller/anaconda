@@ -1338,7 +1338,7 @@ class InstallControlWindow:
             
 class InstallControlState:
     def __init__ (self, cw):
-        self.searchPath = ("/mnt/source/RHupdates",
+        self.searchPath = ("/mnt/source/RHupdates", "/tmp/updates",
                            "./", "/usr/share/anaconda/")
         self.cw = cw
         self.prevEnabled = True

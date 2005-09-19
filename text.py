@@ -154,7 +154,7 @@ class InstallInterface:
 	    # HelpWindow can't get to the langauge
 
             found = 0
-            for path in ("./text-", "/mnt/source/RHupdates/",
+            for path in ("./text-", "/mnt/source/RHupdates/", "/tmp/updates/",
                          "/usr/share/anaconda/"):
                 if found:
                     break
