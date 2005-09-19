@@ -367,7 +367,7 @@ class YumBackend(AnacondaBackend):
         if flags.test:
             return
 
-        if not id.upgrade():
+        if not id.upgrade:
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
