@@ -14,6 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 from constants import *
+from kickstartParser import KS_MISSING_PROMPT, KS_MISSING_IGNORE
 
 DISPLAY_MODE_CMDLINE = 0
 DISPLAY_MODE_GRAPHICAL = 1
@@ -64,6 +65,11 @@ class KickstartData:
         self.partitions = []
         self.raidList = []
         self.vgList = []
+
+        # Set by %package header.
+        self.excludeDocs = False
+        self.addBase = True
+        self.handleMissing = KS_MISSING_PROMPT
 
         # Set by sections.
         self.groupList = []

@@ -737,12 +737,12 @@ class KickstartParser:
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        self.excludeDocs = opts.excludedocs
-        self.addBase = not opts.nobase
+        ksdata.excludeDocs = opts.excludedocs
+        ksdata.addBase = not opts.nobase
         if opts.ignoremissing:
-            self.handleMissing = KS_MISSING_IGNORE
+            ksdata.handleMissing = KS_MISSING_IGNORE
         else:
-            self.handleMissing = KS_MISSING_PROMPT
+            ksdata.handleMissing = KS_MISSING_PROMPT
 
     def handleScriptHdr (self, args, script):
         op = KSOptionParser()
