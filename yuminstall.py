@@ -19,6 +19,7 @@ import timer
 import rpm
 import rpmUtils
 import urlgrabber.progress
+import urlgrabber.grabber
 import yum
 import yum.repos
 import yum.packages
@@ -97,10 +98,13 @@ class simpleCallback:
             self.instLog.flush()
             self.size = hdr[rpm.RPMTAG_SIZE]
 
-            fn = os.path.basename(path)
-            fd = os.open('/mnt/source/Fedora/RPMS/' + fn, os.O_RDONLY)
-            nvr = '%s-%s-%s' % ( hdr['name'], hdr['version'], hdr['release'] )
-            self.fdnos[nvr] = fd
+            fn = '%s/%s/RPMS/%s' % (self.method, productPath, os.path.basename(path))
+            url = urlgrabber.grabber.urlopen(fn)
+            f = open(path, 'w+')
+            f.write(url.read()) 
+            fd = os.open(path, os.O_RDONLY)
+            nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
+            self.fdnos[nvra] = fd
             return fd
 
         elif what == rpm.RPMCALLBACK_INST_PROGRESS:
@@ -112,8 +116,8 @@ class simpleCallback:
 
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
             hdr, path =h
-            nvr = '%s-%s-%s' % ( hdr['name'], hdr['version'], hdr['release'] )
-            os.close(self.fdnos[nvr])
+            nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
+            os.close(self.fdnos[nvra])
             self.progress.completePackage(hdr, self.pkgTimer)
             self.progress.processEvents()
 
@@ -376,7 +380,7 @@ class YumBackend(AnacondaBackend):
         id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
         id.instProgress.processEvents()
 
-        cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.method, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.methodstr, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
 
         cb.initWindow = intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
