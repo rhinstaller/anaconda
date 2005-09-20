@@ -536,7 +536,7 @@ class ProgressWindow:
         rootPopBusyCursor()
 
 class ExceptionWindow:
-    def __init__ (self, text):
+    def __init__ (self, shortTraceback, longTracebackFile=None):
         try:
             floppyDevices = 0
             for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
@@ -546,35 +546,51 @@ class ExceptionWindow:
         except:
             floppyDevices = 0
 
-        win = gtk.Dialog(_("Exception Occurred"), mainWindow, gtk.DIALOG_MODAL)
-        win.add_button(_("_Debug"), 0)
-        if floppyDevices > 0 or DEBUG:
-            win.add_button(_("_Save to floppy"), 1)
-        win.add_button('gtk-ok', 2)
-        buffer = gtk.TextBuffer(None)
-        buffer.set_text(text)
-        textbox = gtk.TextView()
-        textbox.set_buffer(buffer)
-        textbox.set_property("editable", False)
-        textbox.set_property("cursor_visible", False)
-        sw = gtk.ScrolledWindow ()
-        sw.add (textbox)
-        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        # Get a bunch of widgets from the XML file.
+        exnxml = gtk.glade.XML(findGladeFile("exn.glade"), domain="anaconda")
+        win = exnxml.get_widget("exnDialog")
+        vbox = exnxml.get_widget("mainVBox")
+        shortExnView = exnxml.get_widget("shortExnView")
+        longExnView = exnxml.get_widget("longExnView")
+        expander = exnxml.get_widget("longViewExpander")
+        info = exnxml.get_widget("info")
 
-        hbox = gtk.HBox (False)
+        info.set_text(exceptionText)
 
-        if floppyDevices > 0:
-            info = WrappingLabel(exceptionText)
+        # Add the brief traceback message to the upper text view.
+        textbuf = gtk.TextBuffer()
+        textbuf.set_text(shortTraceback)
+        shortExnView.set_buffer(textbuf)
+
+        # Remove the debug button if we don't need it.
+        if floppyDevices == 0 and not DEBUG:
+            buttonBox = exnxml.get_widget("buttonBox")
+            floppyButton = exnxml.get_widget("floppyButton")
+            buttonBox.remove(floppyButton)
+
+        # If there's an anacdump.txt file, add it to the lower view in the
+        # expander.  If not, remove the expander.
+        if longTracebackFile:
+            try:
+                f = open(longTracebackFile)
+                lines = f.readlines()
+                f.close()
+
+                # Add text one line at a time to work around limits in
+                # set_text.
+                textbuf = gtk.TextBuffer()
+                iter = textbuf.get_start_iter()
+
+                for line in lines:
+                    textbuf.insert(iter, line)
+
+                longExnView.set_buffer(textbuf)
+            except IOError:
+                log.error("Could not read %s, skipping" % longTraceback)
+                vbox.remove(expander)
         else:
-            info = WrappingLabel(exceptionTextNoFloppy)
-            
-        info.set_size_request (400, -1)
+            vbox.remove(expander)
 
-        hbox.pack_start (sw, True)
-        win.vbox.pack_start (info, False)            
-        win.vbox.pack_start (hbox, True)
-        win.set_size_request (500, 300)
-        win.set_position (gtk.WIN_POS_CENTER)
         addFrame(win)
         win.show_all ()
         self.window = win
@@ -713,9 +729,9 @@ class InstallInterface:
 			    custom_buttons, custom_icon).getrc()
         return rc
 
-    def exceptionWindow(self, title, text):
-        log.critical(text)
-        win = ExceptionWindow (text)
+    def exceptionWindow(self, shortText, longTextFile):
+        log.critical(shortText)
+        win = ExceptionWindow (shortText, longTextFile)
         return win.getrc ()
 
     def beep(self):

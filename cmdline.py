@@ -76,8 +76,8 @@ class InstallInterface:
             while 1:
                 time.sleep(5)
 
-    def exceptionWindow(self, title, text):
-        print text
+    def exceptionWindow(self, shortText, longTextFile):
+        print shortText
 
     def partedExceptionWindow(self, exc):
         # if our only option is to cancel, let us handle the exception

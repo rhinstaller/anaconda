@@ -9,6 +9,16 @@
 	* loader2/init.c (doklog):  Don't copy null characters into the log
 	file.
 
+	* ui/exn.glade:  Added a glade file for exception dialogs.
+	* cmdline.py (InstallInterface.exceptionWindow):  Rename params to
+	match other interfaces.
+	* constants.py:  Remove exceptionTextNoFloppy, reword exceptionText.
+	* exception.py (handleException):  Provide name of traceback file.
+	* gui.py (ExceptionWindow):  Use glade for the UI and add the full
+	exception dump to the bottom of the dialog.
+	* text.py (InstallInterface.exceptionWindow):  Rename params to match
+	other interfaces.  Don't use exceptionTextNoFloppy.
+
 2005-09-19  Chris Lumens  <clumens@redhat.com>
 
 	* kickstartData.py:  Add package header data.

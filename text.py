@@ -218,7 +218,7 @@ class InstallInterface:
 	    from string import joinfields
 	    list = traceback.format_exception(type, value, tb)
 	    text = joinfields(list, "")
-	    rc = self.exceptionWindow(_("Exception Occurred"), text)
+	    rc = self.exceptionWindow(text)
 	    if rc:
 		import pdb
 		pdb.post_mortem(tb)
@@ -282,7 +282,7 @@ class InstallInterface:
 
 	return 0
     
-    def exceptionWindow(self, title, text):
+    def exceptionWindow(self, shortText, longTextFile):
         try:
             floppyDevices = 0
             for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
@@ -291,14 +291,15 @@ class InstallInterface:
                     floppyDevices = floppyDevices + 1
         except:
             floppyDevices = 0
+
+        ugh = "%s\n\n" % (exceptionText,)
         if floppyDevices > 0 or DEBUG:
-            ugh = "%s\n\n" % (exceptionText,)
             buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")]
         else:
-            ugh = "%s\n\n" % (exceptionTextNoFloppy,)
             buttons=[TEXT_OK_BUTTON, _("Debug")]
 
-	rc = ButtonChoiceWindow(self.screen, title, ugh + text, buttons)
+	rc = ButtonChoiceWindow(self.screen, _("Exception Occurred"),
+                                ugh + shortText, buttons)
         if rc == string.lower(_("Debug")):
             return 1
 	elif rc == string.lower(_("Save")):

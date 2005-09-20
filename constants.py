@@ -71,14 +71,6 @@ productPath = product.productPath
 bugzillaUrl = product.bugUrl
 
 exceptionText = _("An unhandled exception has occurred.  This "
-                  "is most likely a bug.  Please copy the "
-                  "full text of this exception or save the crash "
-                  "dump to a floppy then file a detailed bug "
-                  "report against anaconda at "
-                  "%s") %(bugzillaUrl,)
-
-exceptionTextNoFloppy = _("An unhandled exception has occurred.  This "
-                          "is most likely a bug.  Please copy the "
-                          "full text of this exception and file a detailed "
-                          "bug report against anaconda at "
-                          "%s") %(bugzillaUrl,)
+                  "is most likely a bug.  Please save a copy of "
+                  "the detailed exception and file a bug report "
+                  "against anaconda at %s" %(bugzillaUrl,))

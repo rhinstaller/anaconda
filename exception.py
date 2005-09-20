@@ -229,7 +229,7 @@ def handleException(dispatch, intf, (type, value, tb)):
     except:
 	pass
 
-    rc = intf.exceptionWindow (_("Exception Occurred"), text)
+    rc = intf.exceptionWindow (text, "/tmp/anacdump.txt")
     if rc == 1:
 	intf.__del__ ()
         print text
