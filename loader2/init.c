@@ -158,7 +158,7 @@ static void doklog(char * fn) {
     socklen_t s;
     int sock = -1;
     struct sockaddr_un sockaddr;
-    char buf[1024];
+    char inbuf[1024], outbuf[1024];
     int readfd;
     int ret;
 
@@ -234,24 +234,44 @@ static void doklog(char * fn) {
 	if (i <= 0) continue;
 
 	if (FD_ISSET(in, &readset)) {
-	    i = read(in, buf, sizeof(buf));
+	    i = read(in, inbuf, sizeof(inbuf));
 	    if (i > 0) {
+		int inctr, outctr;
+
+		/* Remove null chars from input buffer. */
+		for (inctr = 0, outctr = 0; inctr < i; inctr++) {
+		    if (inbuf[inctr] != '\0') {
+			outbuf[outctr] = inbuf[inctr];
+			outctr++;
+		    }
+		}
+
 		if (out >= 0)
-		    ret = write(out, buf, i);
-		ret = write(log, buf, i);
+		    ret = write(out, outbuf, outctr);
+		ret = write(log, outbuf, outctr);
 	    }
 	} 
 
 	for (readfd = 0; readfd < 20; ++readfd) {
 	    if (FD_ISSET(readfd, &readset) && FD_ISSET(readfd, &unixs)) {
-		i = read(readfd, buf, sizeof(buf));
+		i = read(readfd, inbuf, sizeof(inbuf));
 		if (i > 0) {
+		    int inctr, outctr;
+
+		    /* Remove null chars from input buffer. */
+		    for (inctr = 0, outctr = 0; inctr < i; inctr++) {
+			if (inbuf[inctr] != '\0') {
+			    outbuf[outctr] = inbuf[inctr];
+			    outctr++;
+			}
+		    }
+
 		    if (out >= 0) {
-			ret = write(out, buf, i);
+			ret = write(out, outbuf, outctr);
 			ret = write(out, "\n", 1);
 		    }
 
-		    ret = write(log, buf, i);
+		    ret = write(log, outbuf, outctr);
 		    ret = write(log, "\n", 1);
 		} else if (i == 0) {
 		    /* socket closed */
