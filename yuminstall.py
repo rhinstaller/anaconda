@@ -23,6 +23,7 @@ import urlgrabber.grabber
 import yum
 import yum.repos
 import yum.packages
+import yum.groups
 import repomd.mdErrors
 from backend import AnacondaBackend
 from constants import *
@@ -240,6 +241,9 @@ class YumBackend(AnacondaBackend):
                                   root=instPath)
         self.ac.write()
 
+        # FIXME: this is a bad hack until we can get something better into yum
+        self.anaconda_grouplist = []
+
     # FIXME: this step is actually probably not broken out properly
     def doPreSelection(self, intf, id, instPath):
         # should probably be done in __init__ instead...
@@ -249,8 +253,9 @@ class YumBackend(AnacondaBackend):
         self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
 
         # then a base package selection step
-        id.instClass.setPackageSelection(self)        
-        id.instClass.setGroupSelection(self)
+        if id: # hack for my test script :)
+            id.instClass.setPackageSelection(self)        
+            id.instClass.setGroupSelection(self)
 
     def doPostSelection(self, intf, id, instPath):
         win = intf.waitWindow(_("Dependency Check"),
@@ -455,6 +460,28 @@ class YumBackend(AnacondaBackend):
                 log.debug("no such package %s in %s" %(pkg, group))
                 continue
             self.ayum.tsInfo.addInstall(p)
+
+        for grp in self.ayum.groupInfo.groupTree(group):
+            if grp not in self.anaconda_grouplist:
+                self.anaconda_grouplist.append(grp)
+
+    def deselectGroup(self, group, *args):
+        if not self.groupExists(group):
+            log.debug("no such group %s" %(group,))
+            return
+
+        pkgs = self.ayum.groupInfo.pkgTree(group)
+        for pkg in pkgs:
+            try:
+                p = self.ayum.pkgSack.returnNewestByName(pkg)
+            except repomd.mdErrors.PackageSackError:
+                log.debug("no such package %s in %s" %(pkg, group))
+                continue
+            self.ayum.tsInfo.remove(p.pkgtup)            
+
+        for grp in self.ayum.groupInfo.groupTree(group):
+            if grp in self.anaconda_grouplist:
+                self.anaconda_grouplist.remove(grp)
 
     def selectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)

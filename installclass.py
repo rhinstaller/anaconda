@@ -140,6 +140,7 @@ class BaseInstallClass:
                  "selectlangpackages",
 		 "preselection",
 		 "package-selection",
+		 "group-selection",                 
 		 "postselection",
                  "handleX11pkgs",
                  "handlemiscpkgs",

@@ -128,6 +128,7 @@ installSteps = [
 
     # FIXME: package selection should be done before we create filesystems
     ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
+    ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
     
     ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
