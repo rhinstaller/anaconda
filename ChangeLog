@@ -1,3 +1,18 @@
+2005-09-20  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* iw/simple_pkgselect.py: Simple group selection UI...
+	* textw/simple_pkgselect_text.py: And the same for text mode
+
+	* yuminstall.py (YumBackend): Some hacks for simple group
+	selection UI.
+
+	* dispatch.py (installSteps): Add simple group selection step.
+	* gui.py (stepToClass): Likewise.
+	* text.py (stepToClasses): Likewise.
+	* installclass.py (BaseInstallClass.setSteps): Likewise.
+
 2005-09-20  Paul Nasrat  <pnasrat@redhat.com>
 
 	* yuminstall.py: ftp/http installation support

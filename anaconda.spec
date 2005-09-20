@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.23
+Version: 10.3.0.24
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 20 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.24-1
+- Some kickstart %packages fixes (clumens)
+- Don't copy null bytes into syslog (clumens)
+- New exception dialog (clumens)
+- Fix a traceback (pnasrat)
+- FTP/HTTP installation might now work (pnasrat)
+- Very basic group selection in the UI
+
 * Mon Sep 19 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.23-1
 - fix a silly typo that would cause tracebacks
 - Look for help in /tmp/updates too (#168155)
