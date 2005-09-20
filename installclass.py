@@ -397,7 +397,7 @@ class BaseInstallClass:
         id.xsetup.xhwstate.recalc_mode()
 
     def setVideoCard(self, id, driver = None, videoRam = None):
-        
+        import rhpl.videocard
         primary = id.videocard.primaryCard()
 
 	if driver:
