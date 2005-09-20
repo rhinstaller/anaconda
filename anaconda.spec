@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 20 2005 Peter Jones <pjones@redhat.com> - 9.1.6.8-2.RHEL
+- Rebuild for newer kudzu (#168498)
+
 * Thu Aug 04 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.8-1.RHEL
 - Fix for DASD partitioning (#137920)
 
