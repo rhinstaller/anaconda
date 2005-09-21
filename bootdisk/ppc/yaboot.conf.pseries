@@ -1,8 +1,0 @@
-init-message = "\nWelcome!\nHit <TAB> for boot options.\n\n"
-timeout=6000
-default=linux
-
-image=ppc/chrp/vmlinuz
-	label=linux
-	initrd=ppc/chrp/ramdisk.image.gz
-	read-only

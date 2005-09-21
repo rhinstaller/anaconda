@@ -10,7 +10,14 @@ Boot Chooser
 <BOOT-SCRIPT>
 " screen" output
 load-base release-load-area
-boot cd:,\\yaboot
+" /cpus/@0" find-package if
+ " 64-bit" rot get-package-property 0= if
+  2drop
+  " boot cd:,\ppc\mac\yaboot conf=cd:,\ppc\ppc64\yaboot.conf" eval
+ else
+  " boot cd:,\ppc\mac\yaboot conf=cd:,\ppc\ppc32\yaboot.conf" eval
+ then
+then
 </BOOT-SCRIPT>
 
 <OS-BADGE-ICONS>
