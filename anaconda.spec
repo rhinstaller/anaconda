@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.24
+Version: 10.1.1.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Sep 22 2005 Peter Jones <pjones@redhat.com> - 10.1.1.25-1
+- Fix all the lvm calls similar to vg size fix, including pe size
+  in vglist. (#165141)
+
 * Tue Aug 16 2005 Peter Jones <pjones@redhat.com> - 10.1.1.24-1
 - Fix the lvm call for vglist so it doesn't truncate a character
   from the vg size. (#165141)
