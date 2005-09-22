@@ -174,12 +174,14 @@ def lvlist():
         return []
 
     lvs = []
-    args = ["lvm", "lvdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "lvdisplay", "-C", "--noheadings", "--units", "b",
+            "--separator", ":", "--nosuffix", "--options",
+            "lv_name,vg_name,lv_attr,lv_size"]
     lvscanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                       stderr = "/dev/tty6")
     for line in lvscanout.split("\n"):
         try:
-            (lv, vg, attr, size) = line.strip()[:-1].split()
+            (lv, vg, attr, size) = line.strip().split(':')
         except:
             continue
         log("lv is %s/%s, size of %s" %(vg, lv, size))
@@ -193,15 +195,16 @@ def pvlist():
         return []
 
     pvs = []
-    args = ["lvm", "pvdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "pvdisplay", "-C", "--noheadings", "--units", "b",
+            "--separator", ":", "--nosuffix", "--options",
+            "pv_name,vg_name,pv_size"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
-            (dev, vg, format, attr, size, free) = line.strip()[:-1].split()
+            (dev, vg, size) = line.strip().split(':')
         except:
             continue
-        size = size[:-1]
         log("pv is %s in vg %s, size is %s" %(dev, vg, size))
         pvs.append( (dev, vg, size) )
 
@@ -214,7 +217,8 @@ def vglist():
 
     vgs = []
     args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b",
-            "--separator", ":", "--options", "vg_name,vg_size,vg_extent_size"]
+            "--separator", ":", "--nosuffix", "--options",
+            "vg_name,vg_size,vg_extent_size"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
@@ -223,7 +227,6 @@ def vglist():
             pesize = long(pesize)/1024
         except:
             continue
-        size = size[:-1]
         log("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
         vgs.append( (vg, size, pesize) )
 
@@ -235,12 +238,13 @@ def partialvgs():
         return []
     
     vgs = []
-    args = ["lvm", "vgdisplay", "-C", "-P", "--noheadings", "--units", "b"]
+    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b", "-P",
+            "--separator", ":", "--nosuffix", "--options", "vg_name,vg_attr"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
-            (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
+            (vg,attr) = line.strip().split(':')
         except:
             continue
         if attr.find("p") != -1:
