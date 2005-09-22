@@ -1,3 +1,10 @@
+2005-09-22  Peter Jones  <pjones@redhat.com>
+
+	* lvm.py (vglist,pvlist,lvlist,partialvgs): more fixing of lvm calls;
+	make them all use "--nosuffix --separator : --units b"
+
+	* anaconda.spec: Bump version.
+
 2005-08-16  Peter Jones  <pjones@redhat.com>
 
 	* lvm.py (vglist): fix the lvm call so it doesn't truncate a character
