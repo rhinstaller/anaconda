@@ -9,8 +9,6 @@
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">center</property>
   <property name="modal">True</property>
-  <property name="default_width">500</property>
-  <property name="default_height">350</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="decorated">True</property>
@@ -20,6 +18,8 @@
   <property name="gravity">center</property>
   <property name="focus_on_map">True</property>
   <property name="has_separator">True</property>
+  <property name="default_width">400</property>
+  <property name="default_height">300</property>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="exnDialog-vbox">
@@ -31,6 +31,18 @@
 	<widget class="GtkHButtonBox" id="buttonBox">
 	  <property name="visible">True</property>
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
+
+	  <child>
+	    <widget class="GtkButton" id="remoteButton">
+	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">Save to _Remote</property>
+	      <property name="use_underline">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">3</property>
+	    </widget>
+	  </child>
 
 	  <child>
 	    <widget class="GtkButton" id="floppyButton">
@@ -84,8 +96,6 @@
 
 	  <child>
 	    <widget class="GtkLabel" id="info">
-	      <property name="width_request">400</property>
-	      <property name="height_request">0</property>
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes"></property>
 	      <property name="use_underline">False</property>
@@ -110,67 +120,31 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkScrolledWindow" id="scrolledwindow1">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-	      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-	      <property name="shadow_type">in</property>
-	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
-
-	      <child>
-		<widget class="GtkTextView" id="shortExnView">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="editable">False</property>
-		  <property name="overwrite">False</property>
-		  <property name="accepts_tab">True</property>
-		  <property name="justification">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap_mode">GTK_WRAP_NONE</property>
-		  <property name="cursor_visible">False</property>
-		  <property name="pixels_above_lines">0</property>
-		  <property name="pixels_below_lines">0</property>
-		  <property name="pixels_inside_wrap">0</property>
-		  <property name="left_margin">0</property>
-		  <property name="right_margin">0</property>
-		  <property name="indent">0</property>
-		  <property name="text" translatable="yes"></property>
-		</widget>
-	      </child>
-	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkExpander" id="longViewExpander">
+	    <widget class="GtkExpander" id="exnExpander">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="expanded">False</property>
 	      <property name="spacing">0</property>
-	      <property name="label">Detailed exception</property>
+	      <property name="label">Exception text</property>
 
 	      <child>
 		<widget class="GtkScrolledWindow" id="scrolledwindow2">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+		  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
 		  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		  <property name="shadow_type">in</property>
 		  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		  <child>
-		    <widget class="GtkTextView" id="longExnView">
+		    <widget class="GtkTextView" id="exnView">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="editable">False</property>
 		      <property name="overwrite">False</property>
 		      <property name="accepts_tab">True</property>
 		      <property name="justification">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap_mode">GTK_WRAP_NONE</property>
+		      <property name="wrap_mode">GTK_WRAP_WORD</property>
 		      <property name="cursor_visible">False</property>
 		      <property name="pixels_above_lines">0</property>
 		      <property name="pixels_below_lines">0</property>

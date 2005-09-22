@@ -536,6 +536,34 @@ class ProgressWindow:
         self.window.destroy ()
         rootPopBusyCursor()
 
+class ScpWindow:
+    def __init__(self):
+        self.scpxml = gtk.glade.XML(findGladeFile("scp.glade"),
+                                    domain="anaconda")
+        self.win = self.scpxml.get_widget("saveRemoteDlg")
+
+        addFrame(self.win)
+        self.win.show_all()
+        self.window = self.win
+
+    def getrc(self):
+        if self.rc == 0:
+            return None
+        else:
+            host = self.scpxml.get_widget("hostEntry")
+            remotePath = self.scpxml.get_widget("remotePathEntry")
+            userName = self.scpxml.get_widget("userNameEntry")
+            password = self.scpxml.get_widget("passwordEntry")
+            return (host.get_text(), remotePath.get_text(), userName.get_text(),
+                    password.get_text())
+
+    def run(self):
+        self.rc = self.window.run()
+    
+    def pop(self):
+        self.window.destroy ()
+        rootPopBusyCursor()
+
 class ExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None):
         try:
@@ -549,11 +577,10 @@ class ExceptionWindow:
 
         # Get a bunch of widgets from the XML file.
         exnxml = gtk.glade.XML(findGladeFile("exn.glade"), domain="anaconda")
-        win = exnxml.get_widget("exnDialog")
+        self.win = exnxml.get_widget("exnDialog")
         vbox = exnxml.get_widget("mainVBox")
-        shortExnView = exnxml.get_widget("shortExnView")
-        longExnView = exnxml.get_widget("longExnView")
-        expander = exnxml.get_widget("longViewExpander")
+        exnView = exnxml.get_widget("exnView")
+        expander = exnxml.get_widget("exnExpander")
         info = exnxml.get_widget("info")
 
         info.set_text(exceptionText)
@@ -561,7 +588,6 @@ class ExceptionWindow:
         # Add the brief traceback message to the upper text view.
         textbuf = gtk.TextBuffer()
         textbuf.set_text(shortTraceback)
-        shortExnView.set_buffer(textbuf)
 
         # Remove the debug button if we don't need it.
         if floppyDevices == 0 and not DEBUG:
@@ -585,16 +611,16 @@ class ExceptionWindow:
                 for line in lines:
                     textbuf.insert(iter, line)
 
-                longExnView.set_buffer(textbuf)
+                exnView.set_buffer(textbuf)
             except IOError:
                 log.error("Could not read %s, skipping" % longTraceback)
                 vbox.remove(expander)
         else:
             vbox.remove(expander)
 
-        addFrame(win)
-        win.show_all ()
-        self.window = win
+        addFrame(self.win)
+        self.win.show_all ()
+        self.window = self.win
         self.rc = self.window.run ()
         
     def getrc (self):
@@ -607,12 +633,15 @@ class ExceptionWindow:
             except SystemError:
                 pass
             return 1
-        # 1 is save
+        # 1 is save to floppy
         if self.rc == 1:
             return 2
         # 2 is OK
         elif self.rc == 2:
             return 0
+        # 3 is save to remote host
+        elif self.rc == 3:
+            return 3
 
 class MessageWindow:
     def getrc (self):
@@ -734,6 +763,9 @@ class InstallInterface:
         log.critical(shortText)
         win = ExceptionWindow (shortText, longTextFile)
         return win.getrc ()
+
+    def scpWindow(self):
+        return ScpWindow()
 
     def beep(self):
         gtk.gdk.beep()
@@ -1028,6 +1060,7 @@ class InstallControlWindow:
     # Yes this is icky.
     #
     def releaseNotesButtonClicked (self, widget):
+        raise SystemError
 	# see if release notes are running
 	if self.releaseNotesViewerPid is not None:
 	    log.warning("Viewer already present, pid = %s",self.releaseNotesViewerPid)
