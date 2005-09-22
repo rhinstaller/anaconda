@@ -459,7 +459,7 @@ class YumBackend(AnacondaBackend):
             except repomd.mdErrors.PackageSackError:
                 log.debug("no such package %s in %s" %(pkg, group))
                 continue
-            self.ayum.tsInfo.addInstall(p)
+            self.ayum.tsInfo.addInstall(p[0])
 
         for grp in self.ayum.groupInfo.groupTree(group):
             if grp not in self.anaconda_grouplist:
@@ -477,7 +477,7 @@ class YumBackend(AnacondaBackend):
             except repomd.mdErrors.PackageSackError:
                 log.debug("no such package %s in %s" %(pkg, group))
                 continue
-            self.ayum.tsInfo.remove(p.pkgtup)            
+            self.ayum.tsInfo.remove(p[0].pkgtup)            
 
         for grp in self.ayum.groupInfo.groupTree(group):
             if grp in self.anaconda_grouplist:
@@ -500,7 +500,7 @@ class YumBackend(AnacondaBackend):
                 log.debug("no such package %s" %(pkg,))
                 return
             
-        self.ayum.tsInfo.addInstall(p)
+        self.ayum.tsInfo.addInstall(p[0])
         
     def deselectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
@@ -519,4 +519,4 @@ class YumBackend(AnacondaBackend):
                 log.debug("no such package %s" %(pkg,))
                 return
             
-        self.ayum.tsInfo.remove(p.pkgtup)
+        self.ayum.tsInfo.remove(p[0].pkgtup)

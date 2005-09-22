@@ -1,3 +1,8 @@
+2005-09-22  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py: Adjust for yum api changes (returnNewestBy*
+	always returns a list)
+
 2005-09-21  Paul Nasrat <pnasrat@redhat.com>
 	
 	* scripts/mk-images.ppc: Single ppc boot image (#166625)
