@@ -1,5 +1,8 @@
 2005-09-23  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.deselectGroup): Fix group deselection
+	to not remove everything
+
 	* loader2/urlinstall.c: Silly fix for constant.
 
 	* loader2/loader.c: Don't load parallel port module. (#169135)

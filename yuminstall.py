@@ -470,8 +470,8 @@ class YumBackend(AnacondaBackend):
             log.debug("no such group %s" %(group,))
             return
 
-        pkgs = self.ayum.groupInfo.pkgTree(group)
-        for pkg in pkgs:
+        gid = self.ayum.groupInfo.matchGroup(group)
+        for pkg in self.ayum.groupInfo.default_pkgs[gid] + self.ayum.groupInfo.mandatory_pkgs[gid]:
             try:
                 p = self.ayum.pkgSack.returnNewestByName(pkg)
             except repomd.mdErrors.PackageSackError:
