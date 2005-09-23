@@ -99,8 +99,9 @@ installSteps = [
     ("network", ("id.network", "dir", "intf", "id")),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
-#XXX: factor to backend
-    #("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
+    ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
+    ("group-selection", ("backend", "intf")),
+    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
@@ -125,12 +126,6 @@ installSteps = [
                                               "instPath")),
     ("setuptime", setupTimezone, ("id.timezone", "id.upgrade", "instPath",
                                   "dir")),
-
-    # FIXME: package selection should be done before we create filesystems
-    ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
-    ("group-selection", ("backend", "intf")),
-    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
-    
     ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
     ("installpackages", doInstall, ("backend", "intf", "id", "instPath")),
     ("postinstallconfig", doPostInstall, ("backend", "intf", "id", "instPath")),    
