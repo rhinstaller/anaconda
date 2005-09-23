@@ -3,6 +3,7 @@
 	* loader2/loader.c: Don't load parallel port module. (#169135)
 	* loader2/loader.h (LOADER_FLAGS_NOPARPORT): Remove unused flag.
 	* loader2/hardware.c (initializeParallelPort): Remove unused code.
+	* loader2/hardware.h (initializeParallelPort): Remove declaration.	
 
 2005-09-22  Chris Lumens  <clumens@redhat.com>
 

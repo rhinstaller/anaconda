@@ -7,8 +7,6 @@ int canProbeDevices(void);
 
 int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
                       moduleInfoSet modInfo, int flags);
-void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
-                            moduleInfoSet modInfo, int flags);
 
 int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
                     moduleDeps modDeps, int justProbe, int flags);
