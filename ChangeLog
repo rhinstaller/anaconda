@@ -1,5 +1,7 @@
 2005-09-23  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/urlinstall.c: Silly fix for constant.
+
 	* loader2/loader.c: Don't load parallel port module. (#169135)
 	* loader2/loader.h (LOADER_FLAGS_NOPARPORT): Remove unused flag.
 	* loader2/hardware.c (initializeParallelPort): Remove unused code.
