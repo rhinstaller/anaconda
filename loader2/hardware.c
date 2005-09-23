@@ -158,25 +158,6 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 }
 
 
-/* This loads the necessary parallel port drivers for printers so that
-   kudzu can autodetect and setup printers in post install*/
-void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
-                            moduleInfoSet modInfo, int flags) {
-    /* JKFIXME: this could be useful on other arches too... */
-#if !defined (__i386__)
-    return;
-#endif
-    if (FL_NOPARPORT(flags)) return;
-    
-    logMessage(INFO, "loading parallel port drivers...");
-    if (mlLoadModuleSetLocation("parport_pc", modLoaded, modDeps, 
-				modInfo, flags,
-				secondStageModuleLocation)) {
-        logMessage(ERROR, "failed to load parport_pc module");
-        return;
-    }
-}
-
 int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded, 
 		 moduleDeps modDeps, int flags) {
     /* this is a hack since we can't really probe on iSeries */

@@ -1421,8 +1421,6 @@ int main(int argc, char ** argv) {
 			    modLoaded, modDeps, modInfo, flags, 
 			    secondStageModuleLocation);
 
-    initializeParallelPort(modLoaded, modDeps, modInfo, flags);
-
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
     /* we've loaded all the modules we're going to.  write out a file
