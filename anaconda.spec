@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.24
+Version: 10.3.0.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Sep 24 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.25-1
+- single ppc boot images stuff from dwmw2 (pnasrat, #166625)
+- ppc netboot stuff from dwmw2 (pnasrat, #165239)
+- fix some of the yum backend for yum changes
+- Add a button to the traceback dialog to allow saving via scp (clumens)
+- Don't load the parallel port module (#169135)
+- Fix group deselection to not remove everything
+- Move repo setup and group selection earlier (pnasrat)
+
 * Tue Sep 20 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.24-1
 - Some kickstart %packages fixes (clumens)
 - Don't copy null bytes into syslog (clumens)
