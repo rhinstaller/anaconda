@@ -1,5 +1,7 @@
 2005-09-27  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec:  Bump version.
+
 	* kickstart.py:  Use AnacondaKSScript instead of Script class.
 	Override KickstartParser.addScript so we have the run method.
 	* kickstartData.py:  Reorganize.  Remove duplicate information.
