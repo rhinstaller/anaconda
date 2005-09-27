@@ -31,13 +31,12 @@ class KickstartData:
                            "password": "", "upgrade": False}
         self.clearpart = {"drives": [], "initAll": False,
                           "type": CLEARPART_TYPE_NONE}
-        self.displayMode = DISPLAY_MODE_GRAPHICAL
-        self.firewall = {"enabled": True, "ports": [], "trusts": []}
-        self.firstboot = FIRSTBOOT_SKIP
         self.device = ""
         self.deviceprobe = ""
-        self.displayMode = True
+        self.displayMode = DISPLAY_MODE_GRAPHICAL
         self.driverdisk = ""
+        self.firewall = {"enabled": True, "ports": [], "trusts": []}
+        self.firstboot = FIRSTBOOT_SKIP
         self.ignoredisk = []
         self.interactive = False
         self.keyboard = ""

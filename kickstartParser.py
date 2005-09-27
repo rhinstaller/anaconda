@@ -142,6 +142,22 @@ class Script:
         self.logfile = logfile
         self.errorOnFail = errorOnFail
 
+    # Produce a string representation of the script suitable for writing
+    # to a kickstart file.  Add this to the end of the %whatever header.
+    def write(self):
+        str = ""
+        if self.interp != "/bin/sh":
+            str = str + " --interp %s" % self.interp
+        if not self.inChroot:
+            str = str + " --nochroot"
+        if self.logfile != None:
+            str = str + " --logfile %s" % self.logfile
+        if self.errorOnFail:
+            str = str + " --erroronfail"
+        
+        str = str + "\n%s" % self.script
+        return str
+
 # You may make a subclass of KickstartHandlers if you need to do something
 # besides just build up the data store.  If you need to do additional processing
 # just make a subclass, define handlers for each command in your subclass, and
@@ -723,7 +739,7 @@ class KickstartParser:
             raise KickstartParseError, (cmd + " " + string.join (args))
         else:
             if self.handler.handlers[cmd] != None:
-                self.handler.setattr("currentCmd", cmd)
+                setattr(self.handler, "currentCmd", cmd)
                 self.handler.handlers[cmd](args)
 
     def handlePackageHdr (self, args):
@@ -737,12 +753,12 @@ class KickstartParser:
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        ksdata.excludeDocs = opts.excludedocs
-        ksdata.addBase = not opts.nobase
+        self.ksdata.excludeDocs = opts.excludedocs
+        self.ksdata.addBase = not opts.nobase
         if opts.ignoremissing:
-            ksdata.handleMissing = KS_MISSING_IGNORE
+            self.ksdata.handleMissing = KS_MISSING_IGNORE
         else:
-            ksdata.handleMissing = KS_MISSING_PROMPT
+            self.ksdata.handleMissing = KS_MISSING_PROMPT
 
     def handleScriptHdr (self, args, script):
         op = KSOptionParser()
@@ -752,9 +768,9 @@ class KickstartParser:
         op.add_option("--log", "--logfile", dest="log")
 
         if args[0] == "%pre" or args[0] == "%traceback":
-            script["chroot"] = 0
+            script["chroot"] = False
         elif args[0] == "%post":
-            script["chroot"] = 1
+            script["chroot"] = True
             op.add_option("--nochroot", dest="nochroot", action="store_true",
                           default=False)
 
@@ -763,7 +779,7 @@ class KickstartParser:
         script["interp"] = opts.interpreter
         script["log"] = opts.log
         script["errorOnFail"] = opts.errorOnFail
-        if opts.nochroot:
+	if hasattr(opts, "nochroot"):
             script["chroot"] = opts.nochroot
 
     def readKickstart (self, file, state=STATE_COMMANDS):

@@ -566,8 +566,9 @@ class KickstartPreParser(KickstartParser):
 
     def addScript (self, state, script):
         if state == STATE_PRE:
-            s = Script (script["body"], script["interp"], script["chroot"],
-                        script["log"], script["errorOnFail"])
+            s = AnacondaKSScript (script["body"], script["interp"],
+			          script["chroot"], script["log"],
+				  script["errorOnFail"])
             self.ksdata.preScripts.append(s)
 
     def addPackages (self, line):
@@ -600,6 +601,22 @@ class AnacondaKSParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers, id):
         self.id = id
         KickstartParser.__init__(self, ksdata, kshandlers)
+
+    def addScript (self, state, script):
+        if script["body"].strip() == "":
+            return
+
+        s = AnacondaKSScript (script["body"], script["interp"],
+                              script["chroot"], script["log"],
+                              script["errorOnFail"])
+        log.info("adding script: %s" % s)
+
+        if state == STATE_PRE:
+            self.ksdata.preScripts.append(s)
+        elif state == STATE_POST:
+            self.ksdata.postScripts.append(s)
+        elif state == STATE_TRACEBACK:
+            self.ksdata.tracebackScripts.append(s)
 
     def handleCommand (self, cmd, args):
         if not self.handler:

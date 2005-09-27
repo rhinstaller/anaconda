@@ -1,3 +1,13 @@
+2005-09-27  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py:  Use AnacondaKSScript instead of Script class.
+	Override KickstartParser.addScript so we have the run method.
+	* kickstartData.py:  Reorganize.  Remove duplicate information.
+	* kickstartParser.py:  Added a method to Script to print out the
+	script in a form suitable for printing to a kickstart file.  Fix
+	setattr on current ks command.  Prefix "ksdata" with "self." where it
+	was missing.  Fix check for chroot script option.
+	
 2005-09-24  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
