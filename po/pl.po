@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-09-15 17:24+0200\n"
+"PO-Revision-Date: 2005-09-28 18:40+0200\n"
 "Last-Translator: Tom Berner <tom@lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -459,7 +459,7 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 "Automatyczny podział na partycje dzieli dysk na partycje na podstawie "
-"wybranego typu instalacji. Po utworzeniu partycji można dostosować je do "
+"wybranego rodzaju instalacji. Po utworzeniu partycji można dostosować je do "
 "swoich wymagań.\n"
 "\n"
 "Narzędzie do ręcznego partycjonowania dysku, Disk druid, umożliwia tworzenie "
@@ -599,7 +599,7 @@ msgstr "Serwer WWW (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr "Transfer plików (FTP)"
+msgstr "Przesyłanie plików (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
@@ -1303,7 +1303,7 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"Systemy plików z Linuksem, które mają zostać uaktualnione zostały już "
+"Systemy plików z Linuksem, które mają zostać zaktualizowane zostały już "
 "zamontowane. Od tego momentu nie będzie możliwości wycofania się z podjętych "
 "decyzji.\n"
 "\n"
@@ -2509,9 +2509,10 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
-"Program instalacyjny nie może uaktualnić systemu z bazą danych RPM w wersji "
-"starszej niż 4.x. Zainstaluj pakiety z poprawkami do tej wersji systemu, tak "
-"jak opisano w informacjach o wydaniu, a potem uruchom aktualizację."
+"Program instalacyjny nie może zaktualizować systemu z bazą danych RPM w "
+"wersji starszej niż 4.x. Zainstaluj pakiety z poprawkami do tej wersji "
+"systemu, tak jak opisano w informacjach o wydaniu, a potem uruchom "
+"aktualizację."
 
 #: ../upgrade.py:412
 msgid "An error occurred when finding the packages to upgrade."
@@ -3228,7 +3229,7 @@ msgstr "Model"
 
 #: ../iw/examine_gui.py:33
 msgid "Upgrade Examine"
-msgstr "Uaktualnienie"
+msgstr "Aktualizowanie"
 
 #: ../iw/examine_gui.py:60
 #, python-format
@@ -3246,7 +3247,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:66
 msgid "_Upgrade an existing installation"
-msgstr "_Uaktualnij istniejącą instalację"
+msgstr "Zakt_ualizuj istniejącą instalację"
 
 #: ../iw/examine_gui.py:68
 #, python-format
@@ -3254,7 +3255,7 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"Zaznacz tę opcję, jeśli chcesz uaktualnić istniejący system %s. Dane na "
+"Zaznacz tę opcję, jeśli chcesz zaktualizować istniejący system %s. Dane na "
 "dyskach zostaną zachowane."
 
 #: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -3661,8 +3662,8 @@ msgstr ""
 "Do utworzenia grupy woluminów LVM potrzebna jest co najmniej jedna "
 "niewykorzystana partycja woluminu fizycznego.\n"
 "\n"
-"Utwórz partycję lub macierz RAID typu \"wolumin fizyczny (LVM)\", a "
-"następnie ponownie wybierz opcję \"LVM\"."
+"Utwórz partycję lub macierz RAID typu \"wolumin fizyczny (LVM)\", a następnie "
+"ponownie wybierz opcję \"LVM\"."
 
 #: ../iw/lvm_dialog_gui.py:950
 msgid "Make LVM Volume Group"
@@ -6400,7 +6401,7 @@ msgstr "Monitor"
 
 #: ../textw/xconfig_text.py:229
 msgid "Please select the monitor attached to your system."
-msgstr "Wybierz typ monitora podłączonego do systemu."
+msgstr "Wybierz monitor podłączonego do systemu."
 
 #: ../textw/xconfig_text.py:254
 msgid "horizontal"
@@ -6578,8 +6579,9 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"Wybierz ten typ instalacji, aby mieć pełną kontrolę nad procesem instalacji, "
-"w tym nad wyborem pakietów z oprogramowaniem i podziałem dysków na partycje."
+"Wybierz ten rodzaj instalacji, aby mieć pełną kontrolę nad procesem "
+"instalacji, w tym nad wyborem pakietów z oprogramowaniem i podziałem dysków "
+"na partycje."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6591,8 +6593,8 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Idealny dla komputerów osobistych i laptopów. Ten typ instaluje środowisko "
-"graficzne i tworzy system doskonale nadający się do domu i biura."
+"Idealny dla komputerów osobistych i laptopów. Ten rodzaj zainstaluje "
+"środowisko graficzne i tworzy system doskonale nadający się do domu i biura."
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
@@ -6675,7 +6677,7 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
-"Wybierz ten typ instalacji, jeśli chcesz skonfigurować współdzielenie "
+"Wybierz ten rodzaj instalacji, jeśli chcesz skonfigurować współdzielenie "
 "plików, współdzielenie drukarek i usług WWW. Można włączyć również inne "
 "usługi i wybrać, czy ma zostać zainstalowane środowisko graficzne."
 
@@ -7148,8 +7150,8 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"Nie można znaleźć żadnych urządzeń potrzebnych do tego typu instalacji. Czy "
-"chcesz ręcznie wybrać sterownik lub użyć dyskietki ze sterownikami?"
+"Nie można znaleźć żadnych urządzeń potrzebnych do tego rodzaju instalacji. "
+"Czy chcesz ręcznie wybrać sterownik lub użyć dyskietki ze sterownikami?"
 
 #: ../loader2/loader.c:1052
 msgid "The following devices have been found on your system."
