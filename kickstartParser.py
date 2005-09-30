@@ -19,11 +19,10 @@ import sys
 import string
 from optparse import OptionParser, Option
 from rhpl.translate import _, N_
+from kickstartData import *
 from constants import *
 
-KS_MISSING_PROMPT = 0
-KS_MISSING_IGNORE = 1
-
+STATE_END = 0
 STATE_COMMANDS = 1
 STATE_PACKAGES = 2
 STATE_SCRIPT_HDR = 3
@@ -134,9 +133,9 @@ class Script:
               (self.script, self.interp, self.inChroot)
         return string.replace(str, "\n", "|")
 
-    def __init__(self, script, interp, inChroot, logfile = None,
-                 errorOnFail = False):
-        self.script = script
+    def __init__(self, script, interp = "/bin/sh", inChroot = False,
+                 logfile = None, errorOnFail = False):
+        self.script = string.join(script, "")
         self.interp = interp
         self.inChroot = inChroot
         self.logfile = logfile
@@ -703,22 +702,26 @@ class KickstartParser:
         self.handler = kshandlers
         self.ksdata = ksdata
         self.followIncludes = True
+        self.state = STATE_COMMANDS
+        self.script = None
+        self.includeDepth = 0
 
     # Functions to be called when we are at certain points in the
     # kickstart file parsing.  Override these if you need special
     # behavior.
-    def addScript (self, state, script):
-        if script["body"].strip() == "":
+    def addScript (self):
+        if string.join(self.script["body"]).strip() == "":
             return
 
-        s = Script (script["body"], script["interp"], script["chroot"],
-                    script["log"], script["errorOnFail"])
+        s = Script (self.script["body"], self.script["interp"],
+                    self.script["chroot"], self.script["log"],
+                    self.script["errorOnFail"])
 
-        if state == STATE_PRE:
+        if self.state == STATE_PRE:
             self.ksdata.preScripts.append(s)
-        elif state == STATE_POST:
+        elif self.state == STATE_POST:
             self.ksdata.postScripts.append(s)
-        elif state == STATE_TRACEBACK:
+        elif self.state == STATE_TRACEBACK:
             self.ksdata.tracebackScripts.append(s)
 
     def addPackages (self, line):
@@ -760,7 +763,7 @@ class KickstartParser:
         else:
             self.ksdata.handleMissing = KS_MISSING_PROMPT
 
-    def handleScriptHdr (self, args, script):
+    def handleScriptHdr (self, args):
         op = KSOptionParser()
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
@@ -768,21 +771,21 @@ class KickstartParser:
         op.add_option("--log", "--logfile", dest="log")
 
         if args[0] == "%pre" or args[0] == "%traceback":
-            script["chroot"] = False
+            self.script["chroot"] = False
         elif args[0] == "%post":
-            script["chroot"] = True
+            self.script["chroot"] = True
             op.add_option("--nochroot", dest="nochroot", action="store_true",
                           default=False)
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        script["interp"] = opts.interpreter
-        script["log"] = opts.log
-        script["errorOnFail"] = opts.errorOnFail
+        self.script["interp"] = opts.interpreter
+        self.script["log"] = opts.log
+        self.script["errorOnFail"] = opts.errorOnFail
 	if hasattr(opts, "nochroot"):
-            script["chroot"] = opts.nochroot
+            self.script["chroot"] = not opts.nochroot
 
-    def readKickstart (self, file, state=STATE_COMMANDS):
+    def readKickstart (self, file):
         packages = []
         groups = []
         excludedPackages = []
@@ -793,77 +796,95 @@ class KickstartParser:
         while True:
             if needLine:
                 line = fh.readline()
-                if line == "":
-                    if state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                        self.addScript (state, script)
-                    break
-
                 needLine = False
 
+            if line == "" and self.includeDepth > 0:
+                fh.close()
+                break
+
             # Don't eliminate whitespace or comments from scripts.
-            if line.isspace() or line[0] == '#':
-                if state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                    script["body"] = script["body"] + line
+            if line.isspace() or (line != "" and line[0] == '#'):
+                # Save the platform for s-c-kickstart, though.
+                if line[:10] == "#platform=" and self.state == STATE_COMMANDS:
+                    self.ksdata.platform = line[11:]
+
+                if self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
+                    self.script["body"].append(line)
 
                 needLine = True
                 continue
 
-            line = line.strip()
             args = shlex.split(line)
 
-            if args[0] == "%include" and self.followIncludes:
+            if args and args[0] == "%include" and self.followIncludes:
                 if not args[1]:
-                    raise KickstartParseError, line
+                    raise SystemError
                 else:
-                    self.readKickstart (args[1], state=state)
+                    self.includeDepth += 1
+                    self.readKickstart (args[1])
+                    self.includeDepth -= 1
+                    needLine = True
+                    continue
 
-            if state == STATE_COMMANDS:
-                if args[0] in ["%pre", "%post", "%traceback"]:
-                    state = STATE_SCRIPT_HDR
+            if self.state == STATE_COMMANDS:
+                if not args and self.includeDepth == 0:
+                    self.state = STATE_END
+                elif args[0] in ["%pre", "%post", "%traceback"]:
+                    self.state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
-                    state = STATE_PACKAGES
+                    self.state = STATE_PACKAGES
                 elif args[0][0] == '%':
-                    raise KickstartParseError, line
+                    raise SystemError
                 else:
                     needLine = True
                     self.handleCommand(args[0], args[1:])
 
-            elif state == STATE_PACKAGES:
-                if args[0] in ["%pre", "%post", "%traceback"]:
-                    state = STATE_SCRIPT_HDR
+            elif self.state == STATE_PACKAGES:
+                if not args and self.includeDepth == 0:
+                    self.state = STATE_END
+                elif args[0] in ["%pre", "%post", "%traceback"]:
+                    self.state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
                     needLine = True
                     self.handlePackageHdr (args)
                 elif args[0][0] == '%':
-                    raise KickstartParseError, line
+                    raise SystemError
                 else:
                     needLine = True
-                    self.addPackages (line)
+                    self.addPackages (string.rstrip(line))
 
-            elif state == STATE_SCRIPT_HDR:
+            elif self.state == STATE_SCRIPT_HDR:
                 needLine = True
-                script = {"body": "", "interp": "/bin/sh", "log": None,
-                          "errorOnFail": False}
+                self.script = {"body": [], "interp": "/bin/sh", "log": None,
+                               "errorOnFail": False}
 
-                if args[0] == "%pre":
-                    state = STATE_PRE
+                if not args and self.includeDepth == 0:
+                    self.state = STATE_END
+                elif args[0] == "%pre":
+                    self.state = STATE_PRE
                 elif args[0] == "%post":
-                    state = STATE_POST
+                    self.state = STATE_POST
                 elif args[0] == "%traceback":
-                    state = STATE_TRACEBACK
+                    self.state = STATE_TRACEBACK
                 elif args[0][0] == '%':
-                    raise KickstartParseError, line
+                    raise SystemError
 
-                self.handleScriptHdr (args, script)
+                self.handleScriptHdr (args)
 
-            elif state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
+            elif self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
                 # If this is part of a script, append to it.
-                if args[0] not in ["%pre", "%post", "%traceback", "%packages"]:
-                    script["body"] = script["body"] + line
-                    needLine = True
-                else:
+                if not args and self.includeDepth == 0:
+                    self.addScript()
+                    self.state = STATE_END
+                elif args[0] in ["%pre", "%post", "%traceback", "%packages"]:
                     # Otherwise, figure out what kind of a script we just
                     # finished reading, add it to the list, and switch to
                     # the initial state.
-                    self.addScript(state, script)
-                    state = STATE_COMMANDS
+                    self.addScript()
+                    self.state = STATE_COMMANDS
+                else:
+                    self.script["body"].append(line)
+                    needLine = True
+
+            elif self.state == STATE_END:
+                break

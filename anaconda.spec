@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.26
+Version: 10.3.0.27
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 30 2005 Chris Lumens <clumens@redhat.com> 10.3.0.27-1
+- More kickstart script fixes.
+
 * Tue Sep 27 2005 Chris Lumens <clumens@redhat.com> 10.3.0.26-1
 - kickstart script fixes
 

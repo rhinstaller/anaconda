@@ -1,3 +1,16 @@
+2005-09-30  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+	* kickstart.py:  Fix location and name of ks script in run method.
+	Make state and script attributed of the AnacondaKSParser object in
+	line with kickstartParser changes.  Skip group-selection.
+	* kickstartData.py:  Move constants here from kickstartParser, kill
+	__str__ method since we'll have kickstartWriter soon instead.
+	* kickstartParser.py:  Make state and script attributes of
+	KickstartParser.  Fix %post scripts to run correctly.  Fix includes of
+	scripts.
+
 2005-09-27  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

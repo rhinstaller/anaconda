@@ -34,15 +34,18 @@ log = logging.getLogger("anaconda")
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
-        scriptRoot = "/"
-        if self.inChroot:
+        import tempfile
+        import os.path
+
+	if self.inChroot == True:
             scriptRoot = chroot
+        else:
+            scriptRoot = "/"
 
-        path = scriptRoot + "/tmp/ks-script"
+        (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
 
-        f = open(path, "w")
-        f.write(self.script)
-        f.close()
+        os.write(fd, self.script)
+        os.close(fd)
         os.chmod(path, 0700)
 
         if self.logfile is not None:
@@ -52,8 +55,8 @@ class AnacondaKSScript(Script):
         else:
             messages = "/dev/tty3"
 
-        rc = iutil.execWithRedirect(self.interp,
-                                    [self.interp,"/tmp/ks-script"],
+        rc = iutil.execWithRedirect(self.interp, [self.interp,
+                                    "/tmp/%s" % os.path.basename(path)],
                                     stdout = messages, stderr = messages,
                                     root = scriptRoot)
 
@@ -561,14 +564,14 @@ class VNCHandlers(KickstartHandlers):
 class KickstartPreParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers):
         self.handler = kshandlers
-        KickstartParser.__init__(self, ksdata, kshandlers)
         self.followIncludes = False
+        KickstartParser.__init__(self, ksdata, kshandlers)
 
-    def addScript (self, state, script):
-        if state == STATE_PRE:
-            s = AnacondaKSScript (script["body"], script["interp"],
-			          script["chroot"], script["log"],
-				  script["errorOnFail"])
+    def addScript (self):
+        if self.state == STATE_PRE:
+            s = AnacondaKSScript (self.script["body"], self.script["interp"],
+			          self.script["chroot"], self.script["log"],
+				  self.script["errorOnFail"])
             self.ksdata.preScripts.append(s)
 
     def addPackages (self, line):
@@ -580,7 +583,7 @@ class KickstartPreParser(KickstartParser):
     def handlePackageHdr (self, line):
         pass
 
-    def handleScriptHdr (self, args, script):
+    def handleScriptHdr (self, args):
         if not args[0] == "%pre":
             return
 
@@ -592,30 +595,29 @@ class KickstartPreParser(KickstartParser):
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        script["interp"] = opts.interpreter
-        script["log"] = opts.log
-        script["errorOnFail"] = opts.errorOnFail
-        script["chroot"] = 0
+        self.script["interp"] = opts.interpreter
+        self.script["log"] = opts.log
+        self.script["errorOnFail"] = opts.errorOnFail
+        self.script["chroot"] = False
 
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers, id):
         self.id = id
         KickstartParser.__init__(self, ksdata, kshandlers)
 
-    def addScript (self, state, script):
-        if script["body"].strip() == "":
+    def addScript (self):
+        if string.join(self.script["body"]).strip() == "":
             return
 
-        s = AnacondaKSScript (script["body"], script["interp"],
-                              script["chroot"], script["log"],
-                              script["errorOnFail"])
-        log.info("adding script: %s" % s)
+        s = AnacondaKSScript (self.script["body"], self.script["interp"],
+                              self.script["chroot"], self.script["log"],
+                              self.script["errorOnFail"])
 
-        if state == STATE_PRE:
+        if self.state == STATE_PRE:
             self.ksdata.preScripts.append(s)
-        elif state == STATE_POST:
+        elif self.state == STATE_POST:
             self.ksdata.postScripts.append(s)
-        elif state == STATE_TRACEBACK:
+        elif self.state == STATE_TRACEBACK:
             self.ksdata.tracebackScripts.append(s)
 
     def handleCommand (self, cmd, args):
@@ -747,6 +749,9 @@ class Kickstart(BaseInstallClass):
         dispatch.skipStep("network")
         dispatch.skipStep("installtype")
 
+	if len(self.ksdata.groupList) > 0:
+            dispatch.skipStep("group-selection")
+
         for n in self.handlers.skipSteps:
             dispatch.skipStep(n)
         for n in self.handlers.showSteps:
@@ -757,8 +762,9 @@ class Kickstart(BaseInstallClass):
         map(backend.selectPackage, self.ksdata.packageList)
 
     def setGroupSelection(self, backend, *args):
-        if 1: # FIXME should be based on addBase, but that's not in ksdata
+        if self.ksdata.addBase == True:
             backend.selectGroup("Base")
+
         # FIXME: handling of missing groups
         map(backend.selectGroup, self.ksdata.groupList)
 
