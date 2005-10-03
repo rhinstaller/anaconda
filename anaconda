@@ -751,6 +751,7 @@ if traceOnly:
     import cmdline
     import encodings.utf_8
     import encodings.idna
+    import yuminstall
 
     installclass.availableClasses()
 
