@@ -1,18 +1,20 @@
+# translation of ru.po to 
 # translation of ru.po to Russian
 #
 # translation of anaconda to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
+# Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-06-06 23:29+0400\n"
-"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
-"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
+"PO-Revision-Date: 2005-10-03 10:07+1000\n"
+"Last-Translator: Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>\n"
+"Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -252,8 +254,7 @@ msgstr ""
 
 #: ../autopart.py:1055
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Загрузочный раздел %s не соответствует требованиям загрузки для вашей "
 "архитектуры."
@@ -1883,15 +1884,12 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partRequests.py:247
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Точка монтирования неверна. Каталог %s должен быть на корневой файловой "
 "системе."
@@ -2128,8 +2126,7 @@ msgstr ""
 "мало для установки %s."
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Вы должны создать раздел /boot/efi типа FAT размером 50 мегабайт."
 
 #: ../partitions.py:836
@@ -2366,17 +2363,14 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../text.py:356
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:358
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../upgrade.py:75
 msgid "Searching"
@@ -2662,8 +2656,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Вы не задали worldwide port name устройства или имя указано не правильно."
+msgstr "Вы не задали worldwide port name устройства или имя указано не правильно."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
@@ -3170,13 +3163,10 @@ msgid ""
 "installation."
 msgstr ""
 "\n"
-"\n"
 "После установки отдельные пакеты могут быть добавлены или удалены при помощи "
 "утилиты 'system-config-packages'.\n"
 "\n"
-"Если вы знакомы с %s, вы можете указать отдельные пакеты, которые вы хотите "
-"установить или которые не должны устанавливаться. Для этого нужно установить "
-"флажок, расположенный ниже."
+"Если вы знакомы с %s, вы можете указать отдельные пакеты для установки или те пакеты, которые не должны устанавливаться. Для этого выберите одну из опций, приведённых ниже."
 
 #: ../iw/desktop_choice_gui.py:70
 msgid ""
@@ -4204,14 +4194,12 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Эти ошибки должны быть исправлены перед продолжением установки %s."
 
 #: ../iw/partition_gui.py:640
@@ -4366,8 +4354,7 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1354
 msgid "Ne_w"
@@ -4745,8 +4732,7 @@ msgstr "Ваш текущий загрузчик будет обновлен"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4885,10 +4871,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла свопинга должен быть между 1 и 2000 Мбайт."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
@@ -5248,10 +5232,8 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:298
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:398
 msgid ""
@@ -5654,10 +5636,8 @@ msgid "Select individual packages"
 msgstr "Индивидуальный выбор пакетов"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Пробел>,<+>,<-> выбор   |   <F2> Описане группы   |  <F12> след. экран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Пробел>,<+>,<-> выбор   |   <F2> Описане группы   |  <F12> след. экран"
 
 #: ../textw/packages_text.py:119
 msgid "Package Group Details"
@@ -5681,10 +5661,8 @@ msgid "Total size"
 msgstr "Всего"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
 
 #: ../textw/packages_text.py:376
 msgid "Package Dependencies"
@@ -5953,8 +5931,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-Ok    "
 
 #: ../textw/partition_text.py:1475
@@ -6183,14 +6160,11 @@ msgid "User Exists"
 msgstr "Пользователь существует"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Пользователь root уже существует. Нет необходимости добавлять его здесь."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Пользователь root уже существует. Нет необходимости добавлять его здесь."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Этот системный пользователь уже настроен. Нет необходимости добавлять его "
 "здесь."
@@ -6900,8 +6874,7 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -7026,10 +6999,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Добро пожаловать в %s - Режим восстановления"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -7139,8 +7110,7 @@ msgstr "В вашей системе были найдены следующие 
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
 #: ../loader2/loader.c:1058
 msgid "Devices"
@@ -7162,14 +7132,12 @@ msgstr "Загрузчик уже выполнялся.  Запускается 
 #: ../loader2/loader.c:1551
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1553
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -7625,8 +7593,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантическое время - Западный Лабрадор"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Атлантическое время - Новая Шотландия (большая часть), NB, Восточный "
 "Лабрадор, Западный Квебек & PEI"
@@ -7798,8 +7765,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Время вост. побережья - Мичиган - большая часть"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Время вост. побережья - Онтарио - местность, где не происходила смена "
 "летнего/зимнего времени в 1967-1973"
@@ -7973,10 +7939,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7988,8 +7952,7 @@ msgstr "Горное время"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
+msgstr "Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -8451,264 +8414,3 @@ msgstr "Валлийский"
 msgid "Zulu"
 msgstr "Зулусский"
 
-#~ msgid "Exception Occured"
-#~ msgstr "Произошло Исключение"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Поддержка дополнительных языков"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Выберите основной язык для этой системы:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr ""
-#~ "Выберите дополнительные языки, которые будут использоваться в этой "
-#~ "системе:"
-
-#~ msgid "_Select All"
-#~ msgstr "Выбрать все"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Сделать основным"
-
-#~ msgid "Rese_t"
-#~ msgstr "Сбросить изменения"
-
-#~ msgid "Select All"
-#~ msgstr "Выбрать все"
-
-#~ msgid "Reset"
-#~ msgstr "Сбросить изменения"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr ""
-#~ "Выберите дополнительные языки, которые будут использоваться в этой "
-#~ "системе:"
-
-#~ msgid "Language Support"
-#~ msgstr "Поддержка языков"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Вы должны выбрать поддержку хотя бы одного языка."
-
-#~ msgid "Default Language"
-#~ msgstr "Основной язык"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Выберите основной язык для этой системы:"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Информацию об исправлениях к данному выпуску Red Hat Linux, можно найти в "
-#~ "разделе Errata на http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Для информации об автоматическом обновлении системы посетите:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Для информации об использовании и настройке системы посетите:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Для регистрации поддержки продукта посетите:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Настройка SILO"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Установить загрузчик SILO на:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Создать псевдоним PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Сделать linux основным загрузочным устройством PROM"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Параметры модуля"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Создать загрузочный диск"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Не устанавливать SILO"
-
-#~ msgid "Partition type"
-#~ msgstr "Тип раздела"
-
-#~ msgid "Default boot image"
-#~ msgstr "Образ загрузки по умолчанию"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "Настройка SILO"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Создать PROM алиас `linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Установить основное загрузочное устройство PROM"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Куда вы хотите установить начальный загрузчик?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Менеджер загрузки Red Hat может загружать также другие операционные "
-#~ "системы. Укажите загрузочные разделы и метки, которые вы будете "
-#~ "использовать при обращении к ним."
-
-#~ msgid "no suggestion"
-#~ msgstr "нет вариантов"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Использовать в качестве загрузчика _LILO"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Невозможно сменить порядок дисков для LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Мы не поддерживаем изменение порядка дисков для LILO"
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Использовать LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "Программа установки %s на %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Вы решили не устанавливать загрузчик в вашей системе.  В этом случае "
-#~ "необходимо создать загрузочный диск, чтобы можно было загрузить систему.\n"
-#~ "\n"
-#~ "Продолжить без установки загрузчика?"
-
-#~ msgid "Total"
-#~ msgstr "Всего"
-
-#~ msgid "Remaining"
-#~ msgstr "Осталось"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Установка %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Текущий пакет: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Все пакеты:   "
-
-#~ msgid "Status"
-#~ msgstr "Состояние"
-
-#~ msgid "Packages"
-#~ msgstr "Пакетов"
-
-#~ msgid "Time"
-#~ msgstr "Время"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Эта версия %s поддерживает обновления Red Hat Linux 6.2 и более поздних "
-#~ "версий. Похоже, что эта система является более ранней. Вы действительно "
-#~ "хотите продолжить установку?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tРабочая среда (GNOME)\n"
-#~ "\tОфисный пакет (OpenOffice)\n"
-#~ "\tВеб-браузер (Mozilla) \n"
-#~ "\tЭлектронная почта (Evolution)\n"
-#~ "\tМгновенные сообщения\n"
-#~ "\tЗвук и видео\n"
-#~ "\tИгры\n"
-#~ "\tСредства администрирования\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tРабочая среда (GNOME)\n"
-#~ "\tОфисный пакет (OpenOffice)\n"
-#~ "\tВеб-браузер (Mozilla) \n"
-#~ "\tЭлектронная почта (Evolution)\n"
-#~ "\tМгновенные сообщения\n"
-#~ "\tЗвук и видео\n"
-#~ "\tИгры\n"
-#~ "\tСредства разработки ПО\n"
-#~ "\tСредства администрирования\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Физический экстент:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Linux c Улучшенной Безопасностью (SELinux) обеспечивает возможность "
-#~ "установки более строгих прав доступа для повышения безопасности Вашей "
-#~ "системы.В каком варианте Вы бы хотели установить эту поддержку?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Отключить SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Предупреждение о нарушениях"
-
-#~ msgid "Device number:"
-#~ msgstr "Номер устройства:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP LUN:"
