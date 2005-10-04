@@ -1,5 +1,8 @@
 2005-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (BaseInstallClass.setSteps): Make non-existent
+	arch-specific step skipping permanent
+
 	* iw/autopart_type.py (PartitionTypeWindow.getNext): Don't skip
 	manual partitioning if we're doing custom partitions (#169001)
 	(PartitionTypeWindow.comboChanged): Also make it obvious what's

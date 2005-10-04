@@ -172,10 +172,10 @@ class BaseInstallClass:
 	    dispatch.skipStep("betanag", permanent=1)
 
 	if iutil.getArch() != "s390":
-            dispatch.skipStep("zfcpconfig")
+            dispatch.skipStep("zfcpconfig", permanent=1)
 
         if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
-            dispatch.skipStep("bootloader")
+            dispatch.skipStep("bootloader", permanent=1)
 
         # allow install classes to turn off the upgrade 
         if self.showUpgrade == 0:
@@ -205,7 +205,6 @@ class BaseInstallClass:
             pass
         else:
 	    dispatch.skipStep("keyboard", permanent = 1)
-#	    dispatch.skipStep("mouse", permanent = 1)
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 
