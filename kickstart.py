@@ -188,53 +188,53 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doLogicalVolume(self, id, args):
         KickstartHandlers.doLogicalVolume(self, args)
-        dict = self.ksdata.lvList[-1]
+        lvd = self.ksdata.lvList[-1]
 
-        if dict["mountpoint"] == "swap":
+        if lvd.mountpoint == "swap":
             filesystem = fileSystemTypeGet("swap")
-            dict["mountpoint"] = None
+            lvd.mountpoint = None
 
-            if dict["recommended"]:
-                (dict["size"], dict["maxSizeMB"]) = iutil.swapSuggestion()
-                dict["grow"] = True
+            if lvd.recommended == True:
+                (lvd.size, lvd.maxSizeMB) = iutil.swapSuggestion()
+                lvd.grow = True
         else:
-            if dict["fstype"]:
-                filesystem = fileSystemTypeGet(dict["fstype"])
+            if lvd.fstype != "":
+                fiesystem = fileSystemTypeGet(lvd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
 	# sanity check mountpoint
-	if dict["mountpoint"] is not None and dict["mountpoint"][0] != '/':
-	    raise KickstartValueError, "The mount point \"%s\" is not valid." % (dict["mountpoint"],)
+	if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
+	    raise KickstartValueError, "The mount point \"%s\" is not valid." % (lvd.mountpoint,)
 
-        if not (dict["size"] or dict["percent"] or dict["preexist"]):
-            raise KickstartValueError, "Size required for logical volume %s" % dict["name"]
-        if dict["percent"] and dict["percent"] <= 0 or dict["percent"] > 100:
-            raise KickstartValueError, "Percentage must be between 0 and 100 for logical volume %s" % dict["name"]
+        if lvd.size == 0 and lvd.percent == 0 and lvd.preexist == False:
+            raise KickstartValueError, "Size required for logical volume %s" % lvd.name
+        elif lvd.percent <= 0 or lvd.percent > 100:
+            raise KickstartValueError, "Percentage must be between 0 and 100 for logical volume %s" % lvd.name
 
-        vgid = self.ksVGMapping[dict["vgname"]]
+        vgid = self.ksVGMapping[lvd.vgname]
 	for areq in id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
-		if areq.volumeGroup == vgid and areq.logicalVolumeName == dict["name"]:
-		    raise KickstartValueError, "Logical volume name %(name)s already used in volume group %(vgname)s" % dict
+		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.nam:
+		    raise KickstartValueError, "Logical volume name %s already used in volume group %s" % (lvd.name, lvd.vgname)
 
-        if not self.ksVGMapping.has_key(dict["vgname"]):
-            raise KickstartValueError, "Logical volume %s specifies a non-existent volume group" % dict["name"]
+        if not self.ksVGMapping.has_key(lvd.vgname):
+            raise KickstartValueError, "Logical volume %s specifies a non-existent volume group" % lvd.name
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
-                                      format = dict["format"],
-                                      mountpoint = dict["mountpoint"],
-                                      size = dict["size"],
-                                      percent = dict["percent"],
+                                      format = lvd.format,
+                                      mountpoint = lvd.mountpoint,
+                                      size = lvd.size,
+                                      percent = lvd.percent,
                                       volgroup = vgid,
-                                      lvname = dict["name"],
-				      grow = dict["grow"],
-				      maxSizeMB = dict["maxSizeMB"],
-                                      preexist = dict["preexist"],
-                                      bytesPerInode = dict["bytesPerInode"])
+                                      lvname = lvd.name,
+				      grow = lvd.grow,
+				      maxSizeMB = lvd.maxSizeMB,
+                                      preexist = lvd.preexist,
+                                      bytesPerInode = lvd.bytesPerInode)
 
-	if dict["fsopts"]:
-            request.fsopts = dict["fsopts"]
+	if lvd.fsopts != "":
+            request.fsopts = lvd.fsopts
 
         id.instClass.addPartRequest(id.partitions, request)
 
@@ -256,125 +256,122 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doNetwork(self, id, args):
         KickstartHandlers.doNetwork(self, args)
-        dict = self.ksdata.network[-1]
+        nd = self.ksdata.network[-1]
 
-        id.instClass.setNetwork(id, dict["bootProto"], dict["ip"],
-                                dict["netmask"], dict["ethtool"],
-                                dict["device"], dict["onboot"],
-                                dict["dhcpclass"], dict["essid"],
-                                dict["wepkey"])
+        id.instClass.setNetwork(id, nd.bootProto, nd.ip, nd.netmask,
+                                nd.ethtool, nd.device, nd.onboot,
+                                nd.dhcpclass, nd.essid, nd.wepkey)
 
-        if dict["hostname"] is not None:
-            id.instClass.setHostname(id, dict["hostname"], override=1)
+        if nd.hostname != "":
+            id.instClass.setHostname(id, nd.hostname, override=1)
 
-        if dict["nameserver"] is not None:
-            id.instClass.setNameserver(id, dict["nameserver"])
+        if nd.nameserver != "":
+            id.instClass.setNameserver(id, nd.nameserver)
 
-        if dict["gateway"] is not None:
-            id.instClass.setGateway(id, dict["gateway"])
+        if nd.gateway != "":
+            id.instClass.setGateway(id, nd.gateway)
 
     def doPartition(self, id, args):
         KickstartHandlers.doPartition(self, args)
-        dict = self.ksdata.partitions[-1]
+        pd = self.ksdata.partitions[-1]
         uniqueID = None
 
-        if dict["onbiosdisk"] is not None:
-            dict["disk"] = isys.doGetBiosDisk(dict["onbiosdisk"])
+        if pd.onbiosdisk != "":
+            pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
 
-            if dict["disk"] is not None:
-                raise KickstartValueError, "Specified BIOS disk %s cannot be determined" % dict["disk"]
+            if pd.disk != "":
+                raise KickstartValueError, "Specified BIOS disk %s cannot be determined" % pd.disk
 
-        if dict["mountpoint"] == "swap":
+        if pd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')
-            dict["mountpoint"] = None
-            if dict["recommended"]:
-                (dict["size"], dict["maxSize"]) = iutil.swapSuggestion()
-                dict["grow"] = True
+            pd.mountpoint = ""
+            if pd.recommended == True:
+                (pd.size, pd.maxSizeMB) = iutil.swapSuggestion()
+                pd.grow = True
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
-        elif dict["mountpoint"] == "None":
-            dict["mountpoint"] = None
-            if dict["fstype"]:
-                filesystem = fileSystemTypeGet(dict["fstype"])
+        elif pd.mountpoint == "None":
+            pd.mountpoint = ""
+            if pd.fstype:
+                filesystem = fileSystemTypeGet(pd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
-        elif dict["mountpoint"] == 'appleboot':
+        elif pd.mountpoint == 'appleboot':
             filesystem = fileSystemTypeGet("Apple Bootstrap")
-            dict["mountpoint"] = None
-        elif dict["mountpoint"] == 'prepboot':
+            pd.mountpoint = ""
+        elif pd.mountpoint == 'prepboot':
             filesystem = fileSystemTypeGet("PPC PReP Boot")
-            dict["mountpoint"] = None
-        elif dict["mountpoint"].startswith("raid."):
+            pd.mountpoint = ""
+        elif pd.mountpoint.startswith("raid."):
             filesystem = fileSystemTypeGet("software RAID")
             
-            if self.ksRaidMapping.has_key(dict["mountpoint"]):
-                raise KickstartValueError, "Defined RAID partition %s multiple times" % dict["mountpoint"]
+            if self.ksRaidMapping.has_key(pd.mountpoint):
+                raise KickstartValueError, "Defined RAID partition %s multiple times" % pd.mountpoint
             
             # get a sort of hackish id
             uniqueID = self.ksID
-            self.ksRaidMapping[dict["mountpoint"]] = uniqueID
+            self.ksRaidMapping[pd.mountpoint] = uniqueID
             self.ksID = self.ksID + 1
-            dict["mountpoint"] = None
-        elif dict["mountpoint"].startswith("pv."):
+            pd.mountpoint = ""
+        elif pd.mountpoint.startswith("pv."):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
-            if self.ksPVMapping.has_key(dict["mountpoint"]):
-                raise KickstartValueError, "Defined PV partition %s multiple times" % dict["mountpoint"]
+            if self.ksPVMapping.has_key(pd.mountpoint):
+                raise KickstartValueError, "Defined PV partition %s multiple times" % pd.mountpoint
 
             # get a sort of hackish id
             uniqueID = self.ksID
-            self.ksPVMapping[dict["mountpoint"]] = uniqueID
+            self.ksPVMapping[pd.mountpoint] = uniqueID
             self.ksID = self.ksID + 1
-            dict["mountpoint"] = None
+            pd.mountpoint = ""
         # XXX should we let people not do this for some reason?
-        elif dict["mountpoint"] == "/boot/efi":
+        elif pd.mountpoint == "/boot/efi":
             filesystem = fileSystemTypeGet("vfat")
         else:
-            if dict["fstype"]:
-                filesystem = fileSystemTypeGet(dict["fstype"])
+            if pd.fstype != "":
+                filesystem = fileSystemTypeGet(pd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
-        if (dict["size"] is None) and (not dict["start"] and not dict["end"]) \
-            and (not dict["onPart"]):
+        if pd.size == 0 and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
             raise KickstartValueError, "partition requires a size specification"
-        if dict["start"] and not dict["disk"]:
+        if pd.start != 0 and pd.disk == "":
             raise KickstartValueError, "partition command with start cylinder requires a drive specification"
-        if dict["disk"] and dict["disk"] not in isys.hardDriveDict().keys():
-            raise KickstartValueError, "specified disk %s in partition command which does not exist" % dict["disk"]
+        if pd.disk != "" and pd.disk not in isys.hardDriveDict().keys():
+            raise KickstartValueError, "specified disk %s in partition command which does not exist" % pd.disk
 
         request = partRequests.PartitionSpec(filesystem,
-                                        mountpoint = dict["mountpoint"],
-                                        format = 1,
-                                        fslabel = dict["label"],
-                                        bytesPerInode = dict["bytesPerInode"])
+                                             mountpoint = pd.mountpoint,
+                                             format = 1,
+                                             fslabel = pd.label,
+                                             bytesPerInode = pd.bytesPerInode)
         
-        if dict["size"] is not None:
-            request.size = dict["size"]
-        if dict["start"]:
-            request.start = dict["start"]
-        if dict["end"]:
-            request.end = dict["end"]
-        if dict["grow"]:
-            request.grow = dict["grow"]
-        if dict["maxSize"]:
-            request.maxSizeMB = dict["maxSize"]
-        if dict["disk"]:
-            request.drive = [ dict["disk"] ]
-        if dict["primOnly"]:
-            request.primary = dict["primOnly"]
-        if dict["format"]:
-            request.format = dict["format"]
+        if pd.size != 0:
+            request.size = pd.size
+        if pd.start != 0:
+            request.start = pd.start
+        if pd.end != 0:
+            request.end = pd.end
+        if pd.grow == True:
+            request.grow = pd.grow
+        if pd.maxSizeMB != 0:
+            request.maxSizeMB = pd.maxSizeMB
+        if pd.disk != "":
+            request.drive = [ pd.disk ]
+        if pd.primOnly == True:
+            request.primary = pd.primOnly
+        if pd.format == True:
+            request.format = pd.format
         if uniqueID:
             request.uniqueID = uniqueID
-        if dict["onPart"]:
-            request.device = dict["onPart"]
+        if pd.onPart != "":
+            request.device = pd.onPart
             for areq in id.partitions.autoPartitionRequests:
-                if areq.device is not None and areq.device == dict["onPart"]:
-		    raise KickstartValueError, "Partition %s already used" % dict["onPart"]
+                if areq.device is not None and areq.device == pd.onPart:
+		    raise KickstartValueError, "Partition %s already used" % pd.onPart
 
-        if dict["fsopts"]:
-            request.fsopts = dict["fsopts"]
+        if pd.fsopts != "":
+            request.fsopts = pd.fsopts
 
         id.instClass.addPartRequest(id.partitions, request)
         id.partitions.isKickstart = 1
@@ -386,36 +383,36 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doRaid(self, id, args):
         KickstartHandlers.doRaid(self, args)
-        dict = self.ksdata.raidList[-1]
+        rd = self.ksdata.raidList[-1]
 
-        if dict["mountpoint"] == "swap":
+        if rd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')
-            dict["mountpoint"] = None
-        elif dict["mountpoint"].startswith("pv."):
+            rd.mountpoint = None
+        elif rd.mountpoint.startswith("pv."):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
-            if self.ksPVMapping.has_key(dict["mountpoint"]):
-                raise KickstartValueError, "Defined PV partition %s multiple times" % dict["mountpoint"]
+            if self.ksPVMapping.has_key(rd.mountpoint):
+                raise KickstartValueError, "Defined PV partition %s multiple times" % rd.mountpoint
 
             # get a sort of hackish id
             uniqueID = self.ksID
-            self.ksPVMapping[dict["mountpoint"]] = uniqueID
+            self.ksPVMapping[rd.mountpoint] = uniqueID
             self.ksID = self.ksID + 1
-            dict["mountpoint"] = None
+            rd.mountpoint = ""
         else:
-            if dict["fstype"]:
+            if rd.fstype != "":
                 filesystem = fileSystemTypeGet(fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
 	# sanity check mountpoint
-	if dict["mountpoint"] is not None and dict["mountpoint"][0] != '/':
-	    raise KickstartValueError, "The mount point %s is not valid." % dict["mountpoint"]
+	if rd.mountpoint != "" and rd.mountpoint[0] != '/':
+	    raise KickstartValueError, "The mount point %s is not valid." % rd.mountpoint
 
         raidmems = []
 
         # get the unique ids of each of the raid members
-        for member in dict["members"]:
+        for member in rd.members:
             if member not in self.ksRaidMapping.keys():
                 raise KickstartValueError, "Tried to use undefined partition %s in RAID specification" % member
 	    if member in self.ksUsedMembers:
@@ -424,26 +421,26 @@ class AnacondaKSHandlers(KickstartHandlers):
             raidmems.append(self.ksRaidMapping[member])
 	    self.ksUsedMembers.append(member)
 
-        if not dict["level"] and dict["preexist"] == 0:
+        if rd.level == "" and rd.preexist == False:
             raise KickstartValueError, "RAID Partition defined without RAID level"
-        if len(raidmems) == 0 and dict["preexist"] == 0:
+        if len(raidmems) == 0 and rd.preexist == False:
             raise KickstartValueError, "RAID Partition defined without any RAID members"
 
         request = partRequests.RaidRequestSpec(filesystem,
-                                   mountpoint = dict["mountpoint"],
-                                   raidmembers = raidmems,
-                                   raidlevel = dict["level"],
-                                   raidspares = dict["spares"],
-                                   format = dict["format"],
-                                   raidminor = dict["device"],
-                                   preexist = dict["preexist"])
+                                               mountpoint = rd.mountpoint,
+                                               raidmembers = raidmems,
+                                               raidlevel = rd.level,
+                                               raidspares = rd.spares,
+                                               format = rd.format,
+                                               raidminor = rd.device,
+                                               preexist = rd.preexist)
 
         if uniqueID:
             request.uniqueID = uniqueID
-        if dict["preexist"] and dict["device"] is not None:
-            request.device = "md%s" % dict["device"]
-        if dict["fsopts"]:
-            request.fsopts = dict["fsopts"]
+        if rd.preexist == True and rd.device != "":
+            request.device = "md%s" % rd.device
+        if rd.fsopts != "":
+            request.fsopts = rd.fsopts
 
         id.instClass.addPartRequest(id.partitions, request)
 
@@ -483,32 +480,32 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doVolumeGroup(self, id, args):
 	KickstartHandlers.doVolumeGroup(self, args)
-        dict = self.ksdata.vgList[-1]
+        vgd = self.ksdata.vgList[-1]
 
         pvs = []
 
         # get the unique ids of each of the physical volumes
-        for pv in dict["physvols"]:
+        for pv in vgd.physvols:
             if pv not in self.ksPVMapping.keys():
                 raise KickstartValueError, "Tried to use undefined partition %s in Volume Group specification" % pv
             pvs.append(self.ksPVMapping[pv])
 
-        if len(pvs) == 0 and not dict["preexist"]:
+        if len(pvs) == 0 and vgd.preexist == False:
             raise KickstartValueError, "Volume group defined without any physical volumes"
 
-        if dict["pesize"] not in lvm.getPossiblePhysicalExtents(floor=1024):
-            raise KickstartValueError, "Volume group specified invalid pesize: %d" %(dict["pesize"],)
+        if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
+            raise KickstartValueError, "Volume group specified invalid pesize: %d" %(vgd.pesize,)
 
         # get a sort of hackish id
         uniqueID = self.ksID
-        self.ksVGMapping[dict["vgname"]] = uniqueID
+        self.ksVGMapping[vgd.vgname] = uniqueID
         self.ksID = self.ksID + 1
             
-        request = partRequests.VolumeGroupRequestSpec(vgname = dict["vgname"],
-                                          physvols = pvs,
-                                          preexist = dict["preexist"],
-                                          format = dict["format"],
-                                          pesize = dict["pesize"])
+        request = partRequests.VolumeGroupRequestSpec(vgname = vgd.vgname,
+                                                      physvols = pvs,
+                                                      preexist = vgd.preexist,
+                                                      format = vgd.format,
+                                                      pesize = vgd.pesize)
         request.uniqueID = uniqueID
         id.instClass.addPartRequest(id.partitions, request)
 

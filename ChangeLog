@@ -1,3 +1,12 @@
+2005-10-04  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py:  Switch to using new ksdata objects instead of lists
+	of dictionaries which might contain certain keys, if we're lucky.
+	* kickstartData.py:  Add objects for partition and network data.
+	* kickstartParser.py:  Fix broken use of map action with callbacks
+	instead.  Don't overwrite empty values in the ksdata with None at the
+	end of each action.
+
 2005-10-04  Jeremy Katz  <katzj@redhat.com>
 
 	* kickstartParser.py (KickstartHandlers.doXConfig): Fix some defaults

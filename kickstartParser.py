@@ -114,7 +114,6 @@ class RequiredOption (Option):
 class MappableOption(RequiredOption):
     ACTIONS = Option.ACTIONS + ("map", "map_extend",)
     STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
-    TYPED_ACTIONS = Option.TYPED_ACTIONS + ("map", "map_extend",)
 
     def take_action(self, action, dest, opt, value, values, parser):
         if action == "map":
@@ -122,7 +121,7 @@ class MappableOption(RequiredOption):
         elif action == "map_extend":
             values.ensure_value(dest, []).extend(parser.map[opt.lstrip('-')])
         else:
-            Option.take_action(self, action, dest, opt, value, values, parser)
+            RequiredOption.take_action(self, action, dest, opt, value, values, parser)
 
 # You may make a subclass of Script if you need additional script handling
 # besides just a data representation.  For instance, anaconda may subclass
@@ -375,7 +374,7 @@ class KickstartHandlers:
         op.add_option("--grow", dest="grow", action="store_true",
                       default=False)
         op.add_option("--maxsize", dest="maxSizeMB", action="store", type="int",
-                      nargs=1, default=0)
+                      nargs=1)
         op.add_option("--name", dest="name", required=1)
         op.add_option("--noformat", action="callback", callback=lv_cb,
                       dest="format", default=True, nargs=0)
@@ -394,12 +393,12 @@ class KickstartHandlers:
         if len(extra) == 0:
             raise KickstartValueError, "Mount point required on line:\n\nlogvol %s" % string.join (args)
 
-        tmpdict = {}
-        for key in op.keys():
-            tmpdict[key] = getattr(opts, key)
+        lvd = KickstartLogVolData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(lvd, key, getattr(opts, key))
 
-        tmpdict["mountpoint"] = extra[0]
-        self.ksdata.lvList.append(tmpdict)
+        lvd.mountpoint = extra[0]
+        self.ksdata.lvList.append(lvd)
 
     def doMediaCheck(self, args):
         self.ksdata.mediacheck = True
@@ -449,7 +448,13 @@ class KickstartHandlers:
         raise KickstartError, "The mouse keyword has not been functional for several releases and has now been removed.  Please modify your kickstart file by removing this keyword."
 
     def doNetwork(self, args):
-        op = KSOptionParser({"no": 0, "yes": 1})
+        def onboot_cb (option, opt_str, value, parser):
+            if value == "no":
+                parser.values.ensure_value(option.dest, False)
+            else:
+                parser.values.ensure_value(option.dest, True)
+
+        op = KSOptionParser()
         op.add_option("--bootproto", dest="bootProto", default="dhcp")
         op.add_option("--class", dest="dhcpclass")
         op.add_option("--device", dest="device")
@@ -464,16 +469,17 @@ class KickstartHandlers:
                       default=False)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
-        op.add_option("--onboot", dest="onboot", action="map", default=True)
+        op.add_option("--onboot", dest="onboot", action="callback",
+                      callback=onboot_cb, nargs=1, type="string")
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)
 
-        tmpdict = {}
-        for key in op.keys():
-            tmpdict[key] = getattr(opts, key)
+        nd = KickstartNetworkData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(nd, key, getattr(opts, key))
 
-        self.ksdata.network.append(tmpdict)
+        self.ksdata.network.append(nd)
 
     def doPartition(self, args):
         def part_cb (option, opt_str, value, parser):
@@ -492,14 +498,14 @@ class KickstartHandlers:
         op.add_option("--end", dest="end", action="store", type="int",
                       nargs=1)
         op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--fstype", dest="fstype")
+        op.add_option("--fstype", "--type", dest="fstype")
         op.add_option("--grow", dest="grow", action="store_true", default=False)
         op.add_option("--label", dest="label")
-        op.add_option("--maxsize", dest="maxSize", action="store", type="int",
+        op.add_option("--maxsize", dest="maxSizeMB", action="store", type="int",
                       nargs=1)
         op.add_option("--noformat", dest="format", action="store_false",
                       default=True)
-        op.add_option("--onbiosdisk", dest="onbiosdisk", default="")
+        op.add_option("--onbiosdisk", dest="onbiosdisk")
         op.add_option("--ondisk", "--ondrive", dest="disk")
         op.add_option("--onpart", "--usepart", dest="onPart", action="callback",
                       callback=part_cb, nargs=1, type="string")
@@ -509,20 +515,18 @@ class KickstartHandlers:
                       nargs=1)
         op.add_option("--start", dest="start", action="store", type="int",
                       nargs=1)
-        op.add_option("--type", dest="type", action="store", type="int",
-                      nargs=1)
 
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:
             raise KickstartValueError, "Mount point required on line:\n\npartition %s" % string.join (args)
 
-        tmpdict = {}
-        for key in op.keys():
-            tmpdict[key] = getattr(opts, key)
+        pd = KickstartPartData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(pd, key, getattr(opts, key))
 
-        tmpdict["mountpoint"] = extra[0]
-        self.ksdata.partitions.append(tmpdict)
+        pd.mountpoint = extra[0]
+        self.ksdata.partitions.append(pd)
 
     def doReboot(self, args):
         self.ksdata.reboot = True
@@ -534,38 +538,46 @@ class KickstartHandlers:
 
         def device_cb (option, opt_str, value, parser):
             if value[0:2] == "md":
-                parser.values.ensure_value(option.dest, int(value[2:]))
+                parser.values.ensure_value(option.dest, value[2:])
             else:
-                parser.values.ensure_value(option.dest, int(value))
+                parser.values.ensure_value(option.dest, value)
 
-        op = KSOptionParser({"RAID0": "RAID0", "0": "RAID0",
-                             "RAID1": "RAID1", "1": "RAID1",
-                             "RAID5": "RAID5", "5": "RAID5",
-                             "RAID6": "RAID6", "6": "RAID6"})
+        def level_cb (option, opt_str, value, parser):
+            if value == "RAID0" or value == "0":
+                parser.values.ensure_value(option.dest, "RAID0")
+            elif value == "RAID1" or value == "1":
+                parser.values.ensure_value(option.dest, "RAID1")
+            elif value == "RAID5" or value == "5":
+                parser.values.ensure_value(option.dest, "RAID5")
+            elif value == "RAID6" or value == "6":
+                parser.values.ensure_value(option.dest, "RAID6")
+
+        op = KSOptionParser()
         op.add_option("--device", action="callback", callback=device_cb,
-                      dest="device", type="int", nargs=1)
+                      dest="device", type="string", nargs=1, required=1)
         op.add_option("--fsoptions", dest="fsopts")
         op.add_option("--fstype", dest="fstype")
-        op.add_option("--level", dest="level", action="map")
+        op.add_option("--level", dest="level", action="callback",
+                      callback=level_cb, type="string", nargs=1, required=1)
         op.add_option("--noformat", action="callback", callback=raid_cb,
                       dest="format", default=True, nargs=0)
         op.add_option("--spares", dest="spares", action="store", type="int",
                       nargs=1, default=0)
-        op.add_option("--useexisting", dest="preexist", action="store",
-                        type="store_true", default=False)
+        op.add_option("--useexisting", dest="preexist", action="store_true",
+                      default=False)
 
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
             raise KickstartValueError, "Mount point required on line:\n\nraid %s" % string.join (args)
 
-        tmpdict = {}
-        for key in op.keys():
-            tmpdict[key] = getattr(opts, key)
+        rd = KickstartRaidData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(rd, key, getattr(opts, key))
 
-        tmpdict["mountpoint"] = extra[0]
-        tmpdict["members"] = extra[1:]
-        self.ksdata.raidList.append(tmpdict)
+        rd.mountpoint = extra[0]
+        rd.members = extra[1:]
+        self.ksdata.raidList.append(rd)
 
     def doRootPw(self, args):
         op = KSOptionParser()
@@ -643,13 +655,13 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
 
-        tmpdict = {}
-        for key in op.keys():
-            tmpdict[key] = getattr(opts, key)
+        vgd = KickstartVolGroupData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(vgd, key, getattr(opts, key))
 
-        tmpdict["vgname"] = extra[0]
-        tmpdict["physvols"] = extra[1:]
-        self.ksdata.vgList.append(tmpdict)
+        vgd.vgname = extra[0]
+        vgd.physvols = extra[1:]
+        self.ksdata.vgList.append(vgd)
 
     def doXConfig(self, args):
         op = KSOptionParser()
@@ -818,7 +830,7 @@ class KickstartParser:
 
             if args and args[0] == "%include" and self.followIncludes:
                 if not args[1]:
-                    raise SystemError
+                    raise KickstartParseError, line
                 else:
                     self.includeDepth += 1
                     self.readKickstart (args[1])
@@ -834,7 +846,7 @@ class KickstartParser:
                 elif args[0] == "%packages":
                     self.state = STATE_PACKAGES
                 elif args[0][0] == '%':
-                    raise SystemError
+                    raise KickstartParseError, line
                 else:
                     needLine = True
                     self.handleCommand(args[0], args[1:])
@@ -848,7 +860,7 @@ class KickstartParser:
                     needLine = True
                     self.handlePackageHdr (args)
                 elif args[0][0] == '%':
-                    raise SystemError
+                    raise KickstartParseError, line
                 else:
                     needLine = True
                     self.addPackages (string.rstrip(line))
@@ -867,7 +879,7 @@ class KickstartParser:
                 elif args[0] == "%traceback":
                     self.state = STATE_TRACEBACK
                 elif args[0][0] == '%':
-                    raise SystemError
+                    raise KickstartParseError, line
 
                 self.handleScriptHdr (args)
 

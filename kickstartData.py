@@ -1,6 +1,6 @@
 #
-# kickstartParser.py:  Unified kickstart data store for anaconda and
-# s-c-kickstart.
+# kickstartParser.py:  Unified kickstart file parser for anaconda and
+# s-c-kickstart, among others.
 #
 # Chris Lumens <clumens@redhat.com>
 #
@@ -80,3 +80,76 @@ class KickstartData:
         self.preScripts = []
         self.postScripts = []
         self.tracebackScripts = []
+
+class KickstartLogVolData:
+    def __init__(self):
+        self.bytesPerInode = 0
+        self.fsopts = ""
+        self.fstype = ""
+        self.grow = False
+        self.maxSizeMB = 0
+        self.name = ""
+        self.format = True
+        self.percent = 0
+        self.recommended = False
+        self.size = 0
+        self.preexist = False
+        self.vgname = ""
+        self.mountpoint = ""
+
+class KickstartNetworkData:
+    def __init__(self):
+        self.bootProto = "dhcp"
+        self.dhcpclass = ""
+        self.device = ""
+        self.essid = ""
+        self.ethtool = ""
+        self.gateway = ""
+        self.hostname = ""
+        self.ip = ""
+        self.nameserver = ""
+        self.netmask = ""
+        self.nodns = False
+        self.notksdevice = False
+        self.onboot = True
+        self.wepkey = ""
+
+class KickstartPartData:
+    def __init__ (self):
+        self.active = False
+        self.primOnly = False
+        self.bytesPerInode = 0
+        self.end = 0
+        self.fsopts = ""
+        self.fstype = ""
+        self.grow = False
+        self.label = ""
+        self.maxSizeMB = 0
+        self.format = True
+        self.onbiosdisk = ""
+        self.disk = ""
+        self.onPart = ""
+        self.recommended = False
+        self.size = 0
+        self.start = 0
+        self.mountpoint = ""
+
+class KickstartRaidData:
+    def __init__ (self):
+        self.device = ""
+        self.fsopts = ""
+        self.fstype = ""
+        self.level = ""
+        self.format = True
+        self.spares = 0
+        self.preexist = False
+        self.mountpoint = ""
+        self.members = ""
+
+class KickstartVolGroupData:
+    def __init__(self):
+        self.format = True
+        self.pesize = 32768
+        self.preexist = False
+        self.vgname = ""
+        self.physvols = ""
