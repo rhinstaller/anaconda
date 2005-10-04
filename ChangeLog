@@ -1,5 +1,9 @@
 2005-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow.getNext): Skip
+	bootloader screen if we're not reviewing/modifying 
+	partitioning (#169817)
+
 	* installclass.py (BaseInstallClass.setSteps): Make non-existent
 	arch-specific step skipping permanent
 

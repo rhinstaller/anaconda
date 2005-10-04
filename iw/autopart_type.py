@@ -38,7 +38,8 @@ class PartitionTypeWindow(InstallWindow):
 
         if val == -1:
             self.dispatch.skipStep("autopartitionexecute", skip = 1)
-            self.dispatch.skipStep("partition", skip = 0)            
+            self.dispatch.skipStep("partition", skip = 0)
+            self.dispatch.skipStep("bootloader", skip = 0)
         else:
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
             
@@ -63,8 +64,11 @@ class PartitionTypeWindow(InstallWindow):
 
             if self.xml.get_widget("reviewButton").get_active():
                 self.dispatch.skipStep("partition", skip = 0)
+                self.dispatch.skipStep("bootloader", skip = 0)
             else:
                 self.dispatch.skipStep("partition")
+                self.dispatch.skipStep("bootloader")
+                self.dispatch.skipStep("bootloaderadvanced")
 
         return None
 
