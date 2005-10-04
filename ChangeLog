@@ -1,5 +1,7 @@
 2005-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstartParser.py (KickstartHandlers.doXConfig): Fix some defaults
+
 	* iw/autopart_type.py (PartitionTypeWindow.getNext): Skip
 	bootloader screen if we're not reviewing/modifying 
 	partitioning (#169817)
