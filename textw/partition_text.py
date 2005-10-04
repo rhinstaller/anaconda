@@ -1684,6 +1684,7 @@ class PartitionTypeWindow:
             cur = typebox.current()
             if cur == -1:
                 dispatch.skipStep("autopartitionexecute", skip = 1)
+                break
             else:
                 dispatch.skipStep("autopartitionexecute", skip = 0)
 
@@ -1691,14 +1692,15 @@ class PartitionTypeWindow:
                 partitions.autoClearPartDrives = self.drivelist.getSelection()
                 
                 if queryAutoPartitionOK(intf, diskset, partitions):
-                    self.shutdownUI()
-                    screen.popWindow()
+                    break
 
-                    # XXX we always unskip disk druid in tui right now since
-                    # we don't ask if you want to review amd if you're using
-                    # text mode, we hope you're smart enough to deal (#82474)
-                    dispatch.skipStep("partition", skip = 0)
-                
-                    return INSTALL_OK
+        self.shutdownUI()
+        screen.popWindow()
+
+        # XXX we always unskip disk druid in tui right now since
+        # we don't ask if you want to review amd if you're using
+        # text mode, we hope you're smart enough to deal (#82474)
+        dispatch.skipStep("partition", skip = 0)
+        return INSTALL_OK
                 
 

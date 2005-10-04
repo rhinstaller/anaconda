@@ -18,6 +18,7 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
 
   <child>
     <widget class="GtkVBox" id="parttypeBox">
@@ -65,6 +66,7 @@
 	    <widget class="GtkComboBox" id="partitionTypeCombo">
 	      <property name="add_tearoffs">False</property>
 	      <property name="focus_on_click">True</property>
+	      <signal name="changed" handler="on_partitionTypeCombo_changed" last_modification_time="Tue, 04 Oct 2005 15:46:17 GMT"/>
 	    </widget>
 	  </child>
 	</widget>

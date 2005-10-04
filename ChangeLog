@@ -1,3 +1,14 @@
+2005-10-04  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/autopart_type.py (PartitionTypeWindow.getNext): Don't skip
+	manual partitioning if we're doing custom partitions (#169001)
+	(PartitionTypeWindow.comboChanged): Also make it obvious what's
+	going on with custom partitioning + review checkbox 
+	* ui/autopart.glade: Add callback.
+
+	* textw/partition_text.py (PartitionTypeWindow.__call__): Properly
+	shut down UI if custom partitioning selected.
+
 2005-10-03  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda (traceOnly): Add yuminstall to what we suck in (#169228)
