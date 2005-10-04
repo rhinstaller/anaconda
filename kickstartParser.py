@@ -660,10 +660,10 @@ class KickstartHandlers:
         op.add_option("--hsync", dest="hsync")
         op.add_option("--monitor", dest="monitor")
         op.add_option("--noprobe", dest="probe", action="store_false",
-                      default=False)
+                      default=True)
         op.add_option("--resolution", dest="resolution")
         op.add_option("--startxonboot", dest="startX", action="store_true",
-                      default=True)
+                      default=False)
         op.add_option("--videoram", dest="videoRam")
         op.add_option("--vsync", dest="vsync")
 
