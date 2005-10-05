@@ -1060,7 +1060,6 @@ class InstallControlWindow:
     # Yes this is icky.
     #
     def releaseNotesButtonClicked (self, widget):
-        raise SystemError
 	# see if release notes are running
 	if self.releaseNotesViewerPid is not None:
 	    log.warning("Viewer already present, pid = %s",self.releaseNotesViewerPid)
