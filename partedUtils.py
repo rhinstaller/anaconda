@@ -139,11 +139,11 @@ def get_partition_file_system_type(part):
     """
     if part.fs_type is None and part.native_type == 0x41:
         ptype = fsset.fileSystemTypeGet("PPC PReP Boot")
+    elif part.fs_type == None:
+        return None
     elif (part.get_flag(parted.PARTITION_BOOT) == 1 and
           getPartSizeMB(part) <= 1 and part.fs_type.name == "hfs"):
         ptype = fsset.fileSystemTypeGet("Apple Bootstrap")
-    elif part.fs_type == None:
-        return None
     elif part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
     elif (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"

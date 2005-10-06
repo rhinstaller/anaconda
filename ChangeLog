@@ -1,3 +1,8 @@
+2005-10-06  Chris Lumens  <clumens@redhat.com>
+
+	* partedUtils.py (get_partition_file_system_type):  Reorder cases so
+	we don't run into a surprise None (#170003).
+
 2005-10-05  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
