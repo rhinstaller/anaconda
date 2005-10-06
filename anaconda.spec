@@ -1,14 +1,14 @@
 Name: anaconda
-Version: 10.3.0.27
+Version: 10.3.0.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.2.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel, intltool >= 0.31.2-3, python-urlgrabber
+BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.2.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel, intltool >= 0.31.2-3, python-urlgrabber, pykickstart
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu > 1.2.0
 Requires: pyparted, libxml2-python, python-urlgrabber
-Requires: anaconda-help, system-logos
+Requires: anaconda-help, system-logos, pykickstart
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
 
@@ -69,6 +69,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 05 2005 Chris Lumens <clumens@redhat.com> 10.3.0.28-1
+- Add yuminstall (katzj, #169228)
+- Skip bootloader screen unless modifying partitions (katzj, #169817)
+- Don't skip manual partitioning on custom (katzj, #169001)
+- Partitioning UI fixes (katzj)
+- Don't overwrite empty strings in ksdata with None.
+- Move kickstart file handling into pykickstart package.
+- Kickstart LVM and RAID partitioning fixes.
+
 * Fri Sep 30 2005 Chris Lumens <clumens@redhat.com> 10.3.0.27-1
 - More kickstart script fixes.
 

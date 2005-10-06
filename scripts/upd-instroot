@@ -120,7 +120,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
-	 python-elementtree"
+	 python-elementtree pykickstart"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils kernel-utils"
@@ -181,7 +181,8 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
            ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel
            fonts-japanese fonts-chinese fonts-korean fonts-indic 
-           fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics"
+           fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
+           firstboot"
 
 #
 # stuff ONLY included for rescue mode
@@ -390,6 +391,7 @@ usr/lib/python?.?/site-packages/rpmUtils/*
 usr/lib/python?.?/site-packages/urlgrabber/*
 usr/lib/python?.?/site-packages/yum/*
 usr/lib/python?.?/site-packages/repomd/*
+usr/lib/python?.?/site-packages/pykickstart/*
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -657,6 +659,7 @@ usr/sbin/fbset
 usr/sbin/prelink
 usr/sbin/smartctl
 usr/share/anaconda/*
+usr/share/firstboot/firstboot_module_window*
 usr/share/icons/default/*
 usr/share/icons/gnome/cursors/*
 usr/share/icons/gnome/*/stock/*
