@@ -18,7 +18,7 @@ import gtk
 import gobject
 
 import autopart
-import constants
+from constants import *
 import gui
 from partition_ui_helpers_gui import *
 

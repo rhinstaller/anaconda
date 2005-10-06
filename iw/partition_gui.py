@@ -28,7 +28,7 @@ import string
 import copy
 import types
 import raid
-import constants
+from constants import *
 import lvm
 
 from iw_gui import *

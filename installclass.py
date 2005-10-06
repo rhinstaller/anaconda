@@ -27,7 +27,7 @@ from rhpl.translate import _, N_
 import logging
 log = logging.getLogger("anaconda")
 
-from constants import BETANAG
+from constants import *
 
 class BaseInstallClass:
     # default to not being hidden

@@ -28,6 +28,7 @@ from raid import availRaidLevels
 from autopart import *
 from snack import *
 from constants_text import *
+from constants import *
 
 from rhpl.translate import _
 

@@ -40,8 +40,6 @@ class NetworkWindow(InstallWindow):
 
     def getNext(self):
 
-	import kickstart
-
 	if self.getNumberActiveDevices() == 0:
 	    rc = self.handleNoActiveDevices()
 	    if not rc:
