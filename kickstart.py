@@ -26,8 +26,8 @@ import string
 import partRequests
 import urlgrabber.grabber as grabber
 import lvm
-from kickstartParser import *
-from kickstartData import KickstartData
+from pykickstart.parser import *
+from pykickstart.data import *
 
 import logging
 log = logging.getLogger("anaconda")
@@ -192,14 +192,14 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         if lvd.mountpoint == "swap":
             filesystem = fileSystemTypeGet("swap")
-            lvd.mountpoint = None
+            lvd.mountpoint = ""
 
             if lvd.recommended == True:
                 (lvd.size, lvd.maxSizeMB) = iutil.swapSuggestion()
                 lvd.grow = True
         else:
             if lvd.fstype != "":
-                fiesystem = fileSystemTypeGet(lvd.fstype)
+                filesystem = fileSystemTypeGet(lvd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
@@ -207,15 +207,16 @@ class AnacondaKSHandlers(KickstartHandlers):
 	if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
 	    raise KickstartValueError, "The mount point \"%s\" is not valid." % (lvd.mountpoint,)
 
-        if lvd.size == 0 and lvd.percent == 0 and lvd.preexist == False:
-            raise KickstartValueError, "Size required for logical volume %s" % lvd.name
+        if lvd.percent == 0:
+            if lvd.size == 0 and lvd.preexist == False:
+                raise KickstartValueError, "Size required for logical volume %s" % lvd.name
         elif lvd.percent <= 0 or lvd.percent > 100:
             raise KickstartValueError, "Percentage must be between 0 and 100 for logical volume %s" % lvd.name
 
         vgid = self.ksVGMapping[lvd.vgname]
 	for areq in id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
-		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.nam:
+		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
 		    raise KickstartValueError, "Logical volume name %s already used in volume group %s" % (lvd.name, lvd.vgname)
 
         if not self.ksVGMapping.has_key(lvd.vgname):
@@ -342,7 +343,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = pd.mountpoint,
-                                             format = 1,
+                                             format = pd.format,
                                              fslabel = pd.label,
                                              bytesPerInode = pd.bytesPerInode)
         
@@ -360,8 +361,6 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.drive = [ pd.disk ]
         if pd.primOnly == True:
             request.primary = pd.primOnly
-        if pd.format == True:
-            request.format = pd.format
         if uniqueID:
             request.uniqueID = uniqueID
         if pd.onPart != "":
@@ -385,6 +384,8 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doRaid(self, args)
         rd = self.ksdata.raidList[-1]
 
+	uniqueID = None
+
         if rd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')
             rd.mountpoint = None
@@ -401,7 +402,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             rd.mountpoint = ""
         else:
             if rd.fstype != "":
-                filesystem = fileSystemTypeGet(fstype)
+                filesystem = fileSystemTypeGet(rd.fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
 
@@ -435,7 +436,7 @@ class AnacondaKSHandlers(KickstartHandlers):
                                                raidminor = rd.device,
                                                preexist = rd.preexist)
 
-        if uniqueID:
+        if uniqueID is not None:
             request.uniqueID = uniqueID
         if rd.preexist == True and rd.device != "":
             request.device = "md%s" % rd.device
@@ -678,10 +679,10 @@ class Kickstart(BaseInstallClass):
 
         # parse the %pre
         self.ksdata = KickstartData()
-        parser = KickstartPreParser(self.ksdata, None)
+        self.ksparser = KickstartPreParser(self.ksdata, None)
 
         try:
-            parser.readKickstart(self.file)
+            self.ksparser.readKickstart(self.file)
         except KickstartError, e:
            if intf:
                intf.kickstartErrorWindow(e.__str__())
@@ -695,10 +696,10 @@ class Kickstart(BaseInstallClass):
         # now read the kickstart file for real
         self.ksdata = KickstartData()
         self.handlers = AnacondaKSHandlers(self.ksdata)
-        parser = AnacondaKSParser(self.ksdata, self.handlers, self.id)
+        self.ksparser = AnacondaKSParser(self.ksdata, self.handlers, self.id)
 
         try:
-            parser.readKickstart(self.file)
+            self.ksparser.readKickstart(self.file)
         except KickstartError, e:
             if intf:
                 intf.kickstartErrorWindow(e.__str__())

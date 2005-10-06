@@ -642,8 +642,8 @@ else:
 if ksfile is not None:
     from kickstart import pullRemainingKickstartConfig, KickstartError
     from kickstart import VNCHandlers
-    from kickstartData import KickstartData
-    from kickstartParser import KickstartParser
+    from pykickstart.data import KickstartData
+    from pykickstart.parser import KickstartParser
 
     try:
         rc = pullRemainingKickstartConfig(ksfile)
@@ -660,8 +660,8 @@ if ksfile is not None:
     # line options for password, connect host and port override values in
     # kickstart file
     ksdata = KickstartData()
-    parser = KickstartParser(ksdata, VNCHandlers(ksdata))
-    parser.readKickstart(ksfile)
+    ksparser = KickstartParser(ksdata, VNCHandlers(ksdata))
+    ksparser.readKickstart(ksfile)
 
     ksusevnc = ksdata.vnc["enabled"]
 

@@ -44,11 +44,6 @@ REQUEST_PROTECTED = 8
 REQUEST_VG = 16 # volume group
 REQUEST_LV = 32 # logical volume
 
-# when clearing partitions, what do we clear
-CLEARPART_TYPE_LINUX = 1
-CLEARPART_TYPE_ALL   = 2
-CLEARPART_TYPE_NONE  = 3
-
 # XXX this is made up and used by the size spinner; should just be set with
 # a callback
 MAX_PART_SIZE = 1024*1024*1024
@@ -58,10 +53,8 @@ CHECK_DEPS = 0
 IGNORE_DEPS = 1
 RESOLVE_DEPS = 2
 
-# firstboot settings
-FIRSTBOOT_DEFAULT = 0
-FIRSTBOOT_SKIP = 1
-FIRSTBOOT_RECONFIG = 2
+# pull in kickstart constants as well
+from pykickstart.constants import *
 
 # common string needs to be easy to change
 import product

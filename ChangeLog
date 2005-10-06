@@ -1,3 +1,23 @@
+2005-10-05  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
+2005-10-05  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Reference pykickstart package.
+	* kickstart.py:  Likewise.  Fixed up LVM and RAID partitioning typos.
+	* kickstartData.py, kickstartParser.py:  Removed.
+	* iw/network_gui.py (NetworkWindow.getNext):  Remove kickstart import.
+	
+	* anaconda.spec:  Pull in pykickstart package.
+	* scripts/upd-instroot:  Likewise.  Pull in firstboot_module_window
+	from the right place.
+
+	* constants.py:  Pull in kickstart constants.
+
+	* gui.py (InstallControlWindow.releaseNotesButtonClicked):  Display
+	release notes instead of raising an exception.
+
 2005-10-04  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py:  Switch to using new ksdata objects instead of lists
