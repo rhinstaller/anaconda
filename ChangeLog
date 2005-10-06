@@ -1,5 +1,8 @@
 2005-10-06  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py (KSshowwarnings):  Override warnings.showwarning to
+	ensure kickstart DeprecationWarnings get logged.
+
 	* partedUtils.py (get_partition_file_system_type):  Reorder cases so
 	we don't run into a surprise None (#170003).
 
