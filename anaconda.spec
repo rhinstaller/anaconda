@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.28
+Version: 10.3.0.29
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 07 2005 Chris Lumens <clumens@redhat.com> 10.3.0.29-1
+- Deal with new load_policy. (katzj)
+- Create an SELinux config. (katzj)
+- Use rhpxl instead of rhpl for X configuration.
+- Use pykickstart.
+
 * Wed Oct 05 2005 Chris Lumens <clumens@redhat.com> 10.3.0.28-1
 - Add yuminstall (katzj, #169228)
 - Skip bootloader screen unless modifying partitions (katzj, #169817)
