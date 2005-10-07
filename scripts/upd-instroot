@@ -959,6 +959,14 @@ ln -fs jmacs $DESTGR/usr/bin/emacs
 ln -fs jpico $DESTGR/usr/bin/pico
 ln -fs jpico $DESTGR/usr/bin/nano
 
+# create selinux config
+if [ -e $DEST/etc/selinux/targeted ]; then
+  cat > $DEST/etc/selinux/config <<EOF
+SELINUX=permissive
+SELINUXTYPE=targeted
+EOF
+cp $DEST/etc/selinux/config $DESTGR/etc/selinux/config
+
 echo "Creating nsswitch.conf"
 cat > $DEST/etc/nsswitch.conf <<EOF
 # munged nsswitch.conf with just what anaconda needs

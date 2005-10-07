@@ -28,81 +28,26 @@
 #include "loadermisc.h"
 #include "log.h"
 
-static char * getpolicyver() {
-    int fd;
-    char * buf;
-
-    fd = open("/selinux/policyvers", O_RDONLY);
-    if (fd == -1) {
-        return NULL;
-    }
-
-    buf = malloc(32);
-    buf = memset(buf, 0, 32);
-    if ((read(fd, buf, 32)) == -1) {
-        logMessage(ERROR, "error getting policy version: %s", strerror(errno));
-        free(buf);
-        close(fd);
-        return NULL;
-    }
-
-    close(fd);
-    return buf;
-}
-
 int loadpolicy() {
-    char * ver, * fn, * bfn;
-    char *paths[] = { "/tmp/updates", 
-                      "/mnt/source/RHupdates",
-                      "/mnt/runtime/etc/selinux/targeted/policy",
-                      "/mnt/runtime/etc/security/selinux",
-                      NULL };
-    char *bpaths[] = { "/tmp/updates", 
-                      "/mnt/source/RHupdates",
-                      "/mnt/runtime/etc/selinux/targeted",
-                      "/mnt/runtime/etc/security/selinux",
-                      NULL };
-    int i, pid, status;
+    int pid, status;
 
-    ver = getpolicyver();
-    if (ver == NULL) {
-        return -1;
+    logMessage(INFO, "Loading SELinux policy");
+
+    if (symlink("/mnt/runtime/etc/selinux", "/etc/selinux") == -1) {
+        logMessage(ERROR, "unable to create /etc/selinux symlink: %s", 
+                   strerror(errno));
+        return 1;
     }
 
-    fn = malloc(128);
-    fn = memset(fn, 0, 128);
-    for (i = 0; paths[i]; i++) {
-        snprintf(fn, 128, "%s/policy.%s", (char *) paths[i], ver);
-        if (!access(fn, R_OK)) {
-            break;
-        }
-    }
-
-    bfn = malloc(128);
-    bfn = memset(bfn, 0, 128);
-    for (i = 0; paths[i]; i++) {
-        snprintf(bfn, 128, "%s/booleans", (char *) bpaths[i]);
-        if (!access(bfn, R_OK)) {
-            break;
-        }
-    }
-
-    if (access(fn, R_OK) || access(bfn, R_OK)) {
-        logMessage(ERROR, "Unable to load suitable SELinux policy");
-        return -1;
-    }
-
-    logMessage(INFO, "Loading SELinux policy from %s", fn);
     if (!(pid = fork())) {
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         execl("/usr/sbin/load_policy", 
-              "/usr/sbin/load_policy", "-q", "-b", fn, bfn, NULL);
+              "/usr/sbin/load_policy", "-q", "-b", NULL);
         logMessage(ERROR, "exec of load_policy failed: %s", strerror(errno));
         exit(1);
     }
 
     waitpid(pid, &status, 0);
-    free(fn);
     if (WIFEXITED(status) && (WEXITSTATUS(status) != 0))
         return 1;
 

@@ -1,3 +1,11 @@
+2005-10-07  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/selinux.c (loadpolicy): load_policy changed how it
+	works, let's try to keep it happy if we can instead of having to
+	implement it ourselves.
+
+	* scripts/upd-instroot (SELINUX): Create an selinux config.
+
 2005-10-07  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Use rhpxl instead of rhpl for X configuration.
