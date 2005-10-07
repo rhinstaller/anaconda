@@ -577,7 +577,7 @@ class KickstartPreParser(KickstartParser):
             s = AnacondaKSScript (self.script["body"], self.script["interp"],
 			          self.script["chroot"], self.script["log"],
 				  self.script["errorOnFail"])
-            self.ksdata.preScripts.append(s)
+            self.ksdata.scripts.append(s)
 
     def addPackages (self, line):
         pass
@@ -616,14 +616,9 @@ class AnacondaKSParser(KickstartParser):
 
         s = AnacondaKSScript (self.script["body"], self.script["interp"],
                               self.script["chroot"], self.script["log"],
-                              self.script["errorOnFail"])
+                              self.script["errorOnFail"], self.script["type"])
 
-        if self.state == STATE_PRE:
-            self.ksdata.preScripts.append(s)
-        elif self.state == STATE_POST:
-            self.ksdata.postScripts.append(s)
-        elif self.state == STATE_TRACEBACK:
-            self.ksdata.tracebackScripts.append(s)
+        self.ksdata.scripts.append(s)
 
     def handleCommand (self, cmd, args):
         if not self.handler:
@@ -663,20 +658,24 @@ class Kickstart(BaseInstallClass):
 
     def runPreScripts(self, intf = None):
 	log.info("Running kickstart %%pre script(s)")
-	for script in self.ksdata.preScripts:
+	for script in filter (lambda s: s.type == KS_SCRIPT_PRE,
+                              self.ksdata.scripts):
 	    script.run("/", self.serial, intf)
 	log.info("All kickstart %%pre script(s) have been run")
 
     def postAction(self, rootPath, serial, intf = None):
 	log.info("Running kickstart %%post script(s)")
-	for script in self.ksdata.postScripts:
+	for script in filter (lambda s: s.type == KS_SCRIPT_POST,
+                              self.ksdata.scripts):
 	    script.run(rootPath, serial, intf)
 	log.info("All kickstart %%post script(s) have been run")
 
     def runTracebackScripts(self):
 	log.info("Running kickstart %%traceback script(s)")
-	for script in self.ksdata.tracebackScripts:
+	for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBAC,
+                              self.ksdata.scripts):
 	    script.run("/", self.serial)
+        log.info("All kickstart %%traceback script(s) have been run")
 
     def setInstallData (self, id, intf = None):
         BaseInstallClass.setInstallData(self, id)
