@@ -1184,6 +1184,7 @@ fi
 echo "Creating debug dir"
 for p in $DEST $DESTGR ; do
     mkdir -p $p/usr/lib/debug
+    mkdir -p $p/usr/src/debug
 done
 
 if [ $ARCH = "alpha" ]; then
