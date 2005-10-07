@@ -1,3 +1,13 @@
+2005-10-07  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Use rhpxl instead of rhpl for X configuration.
+	* installclass.py:  Likewise.
+	* xsetup.py:  Likewise.
+	* command-stubs/rescue-startx-stub:  Likewise.
+
+	* anaconda.spec:  Add rhpxl dependancy.
+	* scripts/upd-instroot:  Likewise.
+
 2005-10-06  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda (setupPythonUpdates):  Add pykickstart.

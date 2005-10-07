@@ -17,7 +17,7 @@
 # should probably go in rhpl
 #
 import iutil
-import rhpl.xserver as xserver
+import rhpxl.xserver as xserver
 from rhpl.translate import _
 
 

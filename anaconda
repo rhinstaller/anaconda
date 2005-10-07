@@ -719,7 +719,7 @@ import vnc
 if not isHeadless:
     try:
         import xsetup
-        import rhpl.xhwstate as xhwstate
+        import rhpxl.xhwstate as xhwstate
     except ImportError:
         isHeadless = 1
 import rhpl.keyboard as keyboard
@@ -856,7 +856,7 @@ if not isHeadless:
     # Probe what is available for X and setup a hardware state
     #
     # try to probe interesting hw
-    import rhpl.xserver as xserver
+    import rhpxl.xserver as xserver
     skipddcprobe = (skipddc or (x_already_set and flags.test))
     skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
 
@@ -909,7 +909,7 @@ if not isHeadless:
     mousedev = mousehw.get()
     if ksfile is None and not flags.usevnc and not os.environ.has_key("DISPLAY") and display_mode == 'g' and mousedev[0] == "No - mouse":
         # ask for the mouse type
-	import rhpl.mouse as mouse
+	import rhpxl.mouse as mouse
 
 	while 1:
 	    mouserc = mouse.mouseWindow(mousehw)

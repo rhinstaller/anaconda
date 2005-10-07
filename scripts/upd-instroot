@@ -182,7 +182,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel
            fonts-japanese fonts-chinese fonts-korean fonts-indic 
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot"
+           firstboot rhpxl"
 
 #
 # stuff ONLY included for rescue mode
@@ -653,6 +653,7 @@ usr/$LIBDIR/python?.?/site-packages/gtk*/*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
 usr/lib/yaboot/*
+usr/lib/python?.?/site-packages/rhpxl/*
 usr/sbin/chroot
 usr/sbin/ddcprobe
 usr/sbin/fbset

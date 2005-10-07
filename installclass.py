@@ -397,11 +397,11 @@ class BaseInstallClass:
         id.xsetup.xhwstate.recalc_mode()
 
     def setVideoCard(self, id, driver = None, videoRam = None):
-        import rhpl.videocard
+        import rhpxl.videocard
         primary = id.videocard.primaryCard()
 
 	if driver:
-	    db = rhpl.videocard.drivers
+	    db = rhpxl.videocard.drivers
 	    if db.has_key(driver):
 		primary.setDriver(driver)
                 id.xsetup.xhwstate.set_videocard_name(primary.getDescription())
@@ -426,7 +426,7 @@ class BaseInstallClass:
         self.setMiscXSettings(id, depth, resolution, runlevel = rl)
 
     def setMouse(self, id, mouseType, device = None, emulThree = -1):
-        import rhpl.mouse as mouse
+        import rhpxl.mouse as mouse
 
         # blindly trust what we're told
         mouse = mouse.Mouse(skipProbe = 1)
