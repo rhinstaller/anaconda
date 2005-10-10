@@ -24,6 +24,7 @@ import yum
 import yum.repos
 import yum.packages
 import yum.groups
+from yum.errors import RepoError
 import repomd.mdErrors
 from backend import AnacondaBackend
 from constants import *
@@ -225,7 +226,6 @@ class AnacondaYum(yum.YumBase):
         
         self.doTsSetup()
         self.doRpmDBSetup()
-        # XXX: handle RepoError
         self.doRepoSetup()
         for x in self.repos.repos.values():
             x.dirSetup()
@@ -250,7 +250,18 @@ class YumBackend(AnacondaBackend):
         self.ayum = AnacondaYum()
 
         # this should be in some sort of backend setup step
-        self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
+        try:
+            self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
+        except RepoError, e:
+            intf.messagewindow(_("Error"),
+                               _("Unable to read package metadata. This may be "
+                                 "due to a missing repodata directory.  Please "
+                                 "ensure that your install tree has been "
+                                 "correctly generated."),
+                                 type="custom", custom_icon="error",
+                                 custom_buttons=[_("_Exit")])
+            sys.exit(0)
+            
 
         # then a base package selection step
         if id: # hack for my test script :)
