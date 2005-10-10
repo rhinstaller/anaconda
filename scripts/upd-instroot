@@ -965,7 +965,8 @@ if [ -e $DEST/etc/selinux/targeted ]; then
 SELINUX=permissive
 SELINUXTYPE=targeted
 EOF
-cp $DEST/etc/selinux/config $DESTGR/etc/selinux/config
+  cp $DEST/etc/selinux/config $DESTGR/etc/selinux/config
+fi
 
 echo "Creating nsswitch.conf"
 cat > $DEST/etc/nsswitch.conf <<EOF
