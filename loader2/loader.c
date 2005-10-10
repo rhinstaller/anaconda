@@ -1582,7 +1582,7 @@ int main(int argc, char ** argv) {
 
         if (!(pid = fork())) {
             execv(anacondaArgs[0], anacondaArgs);
-            fprintf(stderr, "exec of anaconda failed: %s", strerror(errno));
+            fprintf(stderr, "exec of anaconda failed: %s\n", strerror(errno));
             exit(1);
         }
 
