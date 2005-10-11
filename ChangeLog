@@ -1,3 +1,8 @@
+2005-10-11  Jeremy Katz  <katzj@redhat.com>
+
+	* kickstart.py (Kickstart.postAction, Kickstart.preAction): Give
+	visual indication of scriptlets running (#170017)
+
 2005-10-10  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/imount.c: Actually assign the nfs mount opts to the right 
