@@ -1,5 +1,8 @@
 2005-10-11  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/partition_gui.py (PartitionWindow.makeraidCB): Fix 
+	traceback (#170189)
+
 	* kickstart.py (Kickstart.postAction, Kickstart.preAction): Give
 	visual indication of scriptlets running (#170017)
 

@@ -1245,7 +1245,7 @@ class PartitionWindow(InstallWindow):
 		   "For more information on using RAID devices "
 		   "please consult the %s documentation.\n\n"
 		   "You currently have %s software RAID "
-		   "partition(s) free to use.\n\n") % (constants.productName, len(availraidparts))
+		   "partition(s) free to use.\n\n") % (productName, len(availraidparts))
 
         if len(availraidparts) < 2:
 	    lbltxt = lbltxt + _("To use RAID you must first "
