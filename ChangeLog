@@ -1,9 +1,15 @@
+2005-10-11  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/devnodes.c: Make the ide drive device node creation cleaner.
+
 2005-10-11  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Move warnings redirection here from kickstart.py.
 	* kickstart.py:  Likewise.
 
 2005-10-11  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Just remove test stuff (#170428)
 
 	* iw/partition_gui.py (PartitionWindow.makeraidCB): Fix 
 	traceback (#170189)

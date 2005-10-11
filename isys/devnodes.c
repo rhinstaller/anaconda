@@ -61,6 +61,8 @@ static struct devnum devices[] = {
     { "ttyS3",		4,	67,	1 },
 };
 
+int idemajors[] = { 3, 22, 33, 34, 56, 57, 88, 89, 90, 91 };
+
 int numDevices = sizeof(devices) / sizeof(struct devnum);
 
 #include <linux/major.h>
@@ -130,49 +132,15 @@ int devMakeInode(char * devName, char * path) {
 	major = 11;
 	minor = atoi(devName + 3);
     } else if (devName[0] == 'h' && devName[1] == 'd') {
+        int drive = 0;
 	type = S_IFBLK;
-	if (devName[2] == 'a')
-	    major = 3, minor = 0;
-	else if (devName[2] == 'b')
-	    major = 3, minor = 64;
-	else if (devName[2] == 'c')
-	    major = 22, minor = 0;
-	else if (devName[2] == 'd')
-	    major = 22, minor = 64;
-	else if (devName[2] == 'e')
-	    major = 33, minor = 0;
-	else if (devName[2] == 'f')
-	    major = 33, minor = 64;
-	else if (devName[2] == 'g')
-	    major = 34, minor = 0;
-	else if (devName[2] == 'h')
-	    major = 34, minor = 64;
-	else if (devName[2] == 'i')
-            major = 56, minor = 0;
-        else if (devName[2] == 'j')
-            major = 56, minor = 64;
-        else if (devName[2] == 'k')
-            major = 57, minor = 0;
-        else if (devName[2] == 'l')
-            major = 57, minor = 64;
-        else if (devName[2] == 'm')
-            major = 88, minor = 0;
-        else if (devName[2] == 'n')
-            major = 88, minor = 64;
-        else if (devName[2] == 'o')
-            major = 89, minor = 0;
-        else if (devName[2] == 'p')
-            major = 89, minor = 64;
-        else if (devName[2] == 'q')
-            major = 90, minor = 0;
-        else if (devName[2] == 'r')
-            major = 90, minor = 64;
-        else if (devName[2] == 's')
-            major = 91, minor = 0;
-        else if (devName[2] == 't')
-            major = 91, minor = 64;
-	else
-	    return -1;
+
+        drive = devName[2] - 'a';
+        if (drive > 19)
+            return -1;
+
+        major = idemajors[drive/2];
+        minor = (drive % 2) * 64;
 
 	if (devName[3] && devName[4])
 	   minor += (devName[3] - '0') * 10 + (devName[4] - '0');
