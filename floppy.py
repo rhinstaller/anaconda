@@ -36,6 +36,7 @@ def hasFloppyDevice():
                 return True
     except:
         return False
+    return False
 
 def probeFloppyDevice():
     fdDevice = "fd0"
