@@ -48,7 +48,7 @@ int doPwMount(char * dev, char * where, char * fs, int options, void *data) {
         int flags = 0;
 
         if (data)
-            strdup(data);
+            extra_opts = strdup(data);
 
         buf = dev;
         /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
