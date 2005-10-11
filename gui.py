@@ -34,6 +34,7 @@ from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
 from constants import *
+import floppy
 
 from rhpl.translate import _, N_
 
@@ -566,15 +567,6 @@ class ScpWindow:
 
 class ExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None):
-        try:
-            floppyDevices = 0
-            for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
-                                   kudzu.PROBE_ALL):
-                if not dev.detached:
-                    floppyDevices = floppyDevices + 1
-        except:
-            floppyDevices = 0
-
         # Get a bunch of widgets from the XML file.
         exnxml = gtk.glade.XML(findGladeFile("exn.glade"), domain="anaconda")
         self.win = exnxml.get_widget("exnDialog")
@@ -590,7 +582,7 @@ class ExceptionWindow:
         textbuf.set_text(shortTraceback)
 
         # Remove the debug button if we don't need it.
-        if floppyDevices == 0 and not DEBUG:
+        if not floppy.hasFloppyDevice() and not DEBUG:
             buttonBox = exnxml.get_widget("buttonBox")
             floppyButton = exnxml.get_widget("floppyButton")
             buttonBox.remove(floppyButton)

@@ -7,6 +7,11 @@
 	* anaconda:  Move warnings redirection here from kickstart.py.
 	* kickstart.py:  Likewise.
 
+	* floppy.py (hasFloppyDevice):  Return a boolean instead of an int.
+	* floppy.py (makeBootdisk):  Removed.
+	* gui.py (ExceptionWindow.__init__):  Use hasFloppyDevice.
+	* text.py (InstallInterface.exceptionWindow):  Likewise.
+
 2005-10-11  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Just remove test stuff (#170428)

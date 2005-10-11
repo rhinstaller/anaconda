@@ -28,6 +28,7 @@ from language import expandLangs
 from flags import flags
 from constants_text import *
 from constants import *
+import floppy
 
 from rhpl.translate import _, cat, N_
 
@@ -284,17 +285,8 @@ class InstallInterface:
 	return 0
     
     def exceptionWindow(self, shortText, longTextFile):
-        try:
-            floppyDevices = 0
-            for dev in kudzu.probe(kudzu.CLASS_FLOPPY, kudzu.BUS_UNSPEC,
-                                   kudzu.PROBE_ALL):
-                if not dev.detached:
-                    floppyDevices = floppyDevices + 1
-        except:
-            floppyDevices = 0
-
         ugh = "%s\n\n" % (exceptionText,)
-        if floppyDevices > 0 or DEBUG:
+        if floppy.hasFloppyDevice() == True or DEBUG:
             buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")]
         else:
             buttons=[TEXT_OK_BUTTON, _("Debug")]
