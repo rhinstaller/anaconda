@@ -31,6 +31,10 @@ import sys, os
 
 miniwm_pid = None
 
+# Make sure messages sent through python's warnings module get logged.
+def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr):
+    log.warning("%s" % warnings.formatwarning(message, category, filename, lineno))
+
 # start miniWM
 def startMiniWM(root='/'):
     (rd, wr) = os.pipe()
@@ -281,7 +285,7 @@ def setupPythonUpdates():
         pass
 
     for pypkg in ("rhpl", "yum", "rpmUtils", "urlgrabber", "repomd",
-		  "pykickstart"):
+		  "pykickstart", "rhpxl"):
         # get the libdir.  *sigh*
         if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
                      os.X_OK):
@@ -358,12 +362,13 @@ if len(sys.argv) > 1:
 setupPythonUpdates()
 
 import signal, traceback, string, isys, iutil, time
-
 from exception import handleException
 import dispatch
+import warnings
 import logging
 from anaconda_log import logger
 from flags import flags
+from rhpl.translate import _, textdomain, addPoPath
 
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
@@ -371,7 +376,7 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 if iutil.getArch() != "s390" and os.access("/dev/tty3", os.W_OK):
     logger.addFileHandler ("/dev/tty3", log)
 
-from rhpl.translate import _, textdomain, addPoPath
+warnings.showwarning = AnacondaShowWarning
 
 if os.path.isdir("/mnt/source/RHupdates/po"):
     log.info("adding RHupdates/po")

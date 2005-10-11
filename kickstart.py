@@ -26,18 +26,11 @@ import string
 import partRequests
 import urlgrabber.grabber as grabber
 import lvm
-import warnings
 from pykickstart.parser import *
 from pykickstart.data import *
 
 import logging
 log = logging.getLogger("anaconda")
-
-# Send kickstart warnings to the anaconda log.
-def KSshowwarning(message, category, filename, lineno, file=sys.stderr):
-    log.warning("%s: %s" % (category, message))
-
-warnings.showwarning = KSshowwarning
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
