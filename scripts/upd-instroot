@@ -419,8 +419,8 @@ usr/share/hwdata/pci.ids
 usr/share/hwdata/videoaliases
 usr/share/hwdata/videodrivers
 usr/share/hwdata/MonitorsDB
-usr/share/rhpl/extramodes
-usr/share/rhpl/vesamodes
+usr/share/rhpxl/extramodes
+usr/share/rhpxl/vesamodes
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
