@@ -31,7 +31,6 @@ from packages import setFileCons
 from packages import fixupConditionals
 from partitioning import partitionObjectsInitialize
 from partitioning import partitioningComplete
-from floppy import makeBootdisk
 from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeMountFilesystems
@@ -138,7 +137,7 @@ installSteps = [
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("setfilecon", setFileCons, ("instPath","id.partitions")),
     ("copylogs", copyAnacondaLogs, ("instPath",)),
-    ("dopostaction", doPostAction, ("id", "instPath")),
+    ("dopostaction", doPostAction, ("id", "instPath", "intf")),
     ("methodcomplete", doMethodComplete, ("method", "id.fsset")),
     ("complete", ()),
     ]
