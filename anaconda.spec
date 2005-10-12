@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.30
+Version: 10.3.0.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 12 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.31-1
+- Handle missing metadata (pnasrat)
+- Give indication of kickstarts scriptlets running (#170017)
+- Fix a traceback with RAID (#170189)
+- Fix an FTP install traceback (#170428)
+- Clean up floppy stuff (clumens)
+- Clean up some warnings (clumens)
+- Make IDE device node creation cleaner
+- Change location of modes data files
+
 * Mon Oct 10 2005 Chris Lumens <clumens@redhat.com> 10.3.0.30-1
 - Fix requirements for s390, s390x, ppc64.
 - Fix typo in scripts/upd-instroot.
