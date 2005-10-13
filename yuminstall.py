@@ -24,7 +24,7 @@ import yum
 import yum.repos
 import yum.packages
 import yum.groups
-from yum.errors import RepoError
+from yum.Errors import RepoError
 import repomd.mdErrors
 from backend import AnacondaBackend
 from constants import *
