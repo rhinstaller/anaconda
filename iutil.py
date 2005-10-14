@@ -450,6 +450,10 @@ def makeDMNode(root="/"):
     isys.mknod(root + "/dev/mapper/control", stat.S_IFCHR | 0600,
                isys.makedev(major, minor))
 
+# make some miscellaneous character device nodes 
+def makeCharDeviceNodes():
+    for dev in ["input/event0", "input/event1", "input/event2", "input/event3"]:
+        isys.makeDevInode(dev, "/dev/%s" % (dev,))
 
 # make the device nodes for all of the drives on the system
 def makeDriveDeviceNodes():

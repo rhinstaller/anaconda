@@ -250,6 +250,7 @@ def runRescue(instPath, mountroot, id):
 
     # lets create some devices
     iutil.makeDriveDeviceNodes()
+    iutil.makeCharDeviceNodes()
 
     # need loopback devices too
     for lpminor in range(8):

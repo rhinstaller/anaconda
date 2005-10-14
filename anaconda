@@ -1091,6 +1091,10 @@ floppyDevice = floppy.probeFloppyDevice()
 if not flags.test and flags.setupFilesystems:
     iutil.makeDriveDeviceNodes()
 
+# create character device nodes if we're not running in test mode
+if not flags.test:
+    iutil.makeCharDeviceNodes()
+
 id = instClass.installDataClass(extraModules, floppyDevice, method)
 
 id.x_already_set = x_already_set
