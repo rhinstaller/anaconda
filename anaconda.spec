@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.31
+Version: 10.3.0.32
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 14 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.32-1
+- fix typo causing traceback (pnasrat)
+- Create character device nodes to fix synaptics (clumens)
+
 * Wed Oct 12 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.31-1
 - Handle missing metadata (pnasrat)
 - Give indication of kickstarts scriptlets running (#170017)
