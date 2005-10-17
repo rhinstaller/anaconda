@@ -28,6 +28,7 @@ import urlgrabber.grabber as grabber
 import lvm
 from pykickstart.parser import *
 from pykickstart.data import *
+from rhpl.translate import _
 
 import logging
 log = logging.getLogger("anaconda")
