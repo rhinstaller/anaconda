@@ -33,12 +33,6 @@ int loadpolicy() {
 
     logMessage(INFO, "Loading SELinux policy");
 
-    if (symlink("/mnt/runtime/etc/selinux", "/etc/selinux") == -1) {
-        logMessage(ERROR, "unable to create /etc/selinux symlink: %s", 
-                   strerror(errno));
-        return 1;
-    }
-
     if (!(pid = fork())) {
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         execl("/usr/sbin/load_policy", 

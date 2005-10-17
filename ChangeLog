@@ -1,6 +1,8 @@
 2005-10-17  Chris Lumens  <clumens@redhat.com>
 
-	* kickstarty.py:  Import translation.
+	* kickstart.py:  Import translation.
+
+	* loader/selinux.c (loadpolicy):  Don't try to symlink again.
 
 2005-10-14  Jeremy Katz  <katzj@redhat.com>
 
