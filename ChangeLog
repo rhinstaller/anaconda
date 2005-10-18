@@ -1,3 +1,13 @@
+2005-10-18  Paul Nasrat <pnasrat@redhat.com>
+
+	* upgrade.py:  blacklist system-config-mouse
+
+	* anaconda.spec: add yum dependencies
+
+	* scripts/Makefile: install yumcache
+
+	* scripts/yumcache: Create yum cache
+
 2005-10-17  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py:  Import translation.
