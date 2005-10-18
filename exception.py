@@ -220,6 +220,109 @@ def scpAuthenticate(master, childpid, password):
     (pid, childstatus) = os.waitpid (childpid, 0)
     return childstatus
 
+# Returns 0 on success, 1 on cancel, 2 on error.
+def copyExceptionToRemote(intf):
+    import pty
+
+    scpWin = intf.scpWindow()
+    while 1:
+        # Bail if they hit the cancel button.
+        scpWin.run()
+        scpInfo = scpWin.getrc()
+
+        if scpInfo == None:
+            intf.__del__()
+            scpWin.pop()
+            return 1
+
+        (host, path, user, password) = scpInfo
+
+        # Thanks to Will Woods <wwoods@redhat.com> for the scp control
+        # here and in scpAuthenticate.
+
+        # Fork ssh into its own pty
+        (childpid, master) = pty.fork()
+        if childpid < 0:
+            log.critical("Could not fork process to run scp")
+            return 2
+        elif childpid == 0:
+            # child process - run scp
+            args = ["scp", "-oNumberOfPasswordPrompts=1",
+                    "-oStrictHostKeyChecking=no", "/tmp/anacdump.txt",
+                    "%s@%s:%s/anacdump.txt" % (user, host, path)]
+            os.execvp("scp", args)
+
+        # parent process
+        try:
+            childstatus = scpAuthenticate(master, childpid, password)
+        except OSError:
+            return 2
+
+        os.close(master)
+
+        if os.WIFEXITED(childstatus) and os.WEXITSTATUS(childstatus) == 0:
+            return 0
+        else:
+            return 2
+
+def copyExceptionToFloppy (intf):
+    # in test mode have save to floppy option just copy to new name
+    if not flags.setupFilesystems:
+        try:
+            iutil.copyFile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
+        except:
+            log.error("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
+            pass
+
+        intf.__del__ ()
+        return 2
+
+    while 1:
+        # Bail if they hit the cancel button.
+        rc = intf.dumpWindow()
+        if rc:
+            intf.__del__ ()
+            return 1
+
+        device = dispatch.id.floppyDevice
+        file = "/tmp/floppy"
+        try:
+            isys.makeDevInode(device, file)
+        except SystemError:
+            pass
+        
+        try:
+            fd = os.open(file, os.O_RDONLY)
+        except:
+            continue
+
+        os.close(fd)
+
+        if iutil.getArch() != "ia64":
+            args = [ 'mkdosfs', '/tmp/floppy' ]
+            cmd = "/usr/sbin/mkdosfs"
+
+            if os.access("/sbin/mkdosfs", os.X_OK):
+                cmd = "/sbin/mkdosfs"
+
+            iutil.execWithRedirect (cmd, args, stdout = '/dev/tty5',
+                                    stderr = '/dev/tty5')
+
+        try:
+            isys.mount(device, "/tmp/crash", fstype = "vfat")
+        except SystemError:
+            continue
+
+        # copy trace dump we wrote to local storage to floppy
+        try:
+            iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
+        except:
+            log.error("Failed to copy anacdump.txt to floppy")
+            return 2
+
+        isys.umount("/tmp/crash")
+        return 0
+
 def handleException(dispatch, intf, (type, value, tb)):
     if isinstance(value, bdb.BdbQuit):
         sys.exit(1)
@@ -241,138 +344,58 @@ def handleException(dispatch, intf, (type, value, tb)):
         try:
             iutil.copyFile("/tmp/anacdump.txt", "/mnt/sysimage/root/anacdump.txt")
         except:
-	    log.error("Failed to copy anacdump.txt to /mnt/sysimage/root")
+            log.error("Failed to copy anacdump.txt to /mnt/sysimage/root")
             pass
-	
+
     # run kickstart traceback scripts (if necessary)
     try:
-	if dispatch.id.instClass.name and dispatch.id.instClass.name == "kickstart":
-	    dispatch.id.instClass.runTracebackScripts()
+        if dispatch.id.instClass.name and dispatch.id.instClass.name == "kickstart":
+            dispatch.id.instClass.runTracebackScripts()
     except:
-	pass
+        pass
 
-    rc = intf.exceptionWindow (text, "/tmp/anacdump.txt")
-    if rc == 0:
-        intf.__del__ ()
-        os.kill(os.getpid(), signal.SIGKILL)
-    elif rc == 1:
-	intf.__del__ ()
-        print text
-        import pdb
-        pdb.post_mortem (tb)
-        os.kill(os.getpid(), signal.SIGKILL)
-    elif rc == 2:
-        # in test mode have save to floppy option just copy to new name
-        if not flags.setupFilesystems:
-            try:
-                iutil.copyFile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
-            except:
-                log.error("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
-                pass
+    win = intf.exceptionWindow(text, "/tmp/anacdump.txt")
 
+    while 1:
+        win.run()
+        rc = win.getrc()
+
+        if rc == 0:
             intf.__del__ ()
             os.kill(os.getpid(), signal.SIGKILL)
-
-        while 1:
-            rc = intf.dumpWindow()
-            if rc:
-                intf.__del__ ()
-                os.kill(os.getpid(), signal.SIGKILL)
-
-            device = dispatch.id.floppyDevice
-            file = "/tmp/floppy"
-            try:
-                isys.makeDevInode(device, file)
-            except SystemError:
-                pass
-            
-            try:
-                fd = os.open(file, os.O_RDONLY)
-            except:
-                continue
-
-            os.close(fd)
-
-            if iutil.getArch() != "ia64":
-                args = [ 'mkdosfs', '/tmp/floppy' ]
-                cmd = "/usr/sbin/mkdosfs"
-
-                if os.access("/sbin/mkdosfs", os.X_OK):
-                    cmd = "/sbin/mkdosfs"
-
-                iutil.execWithRedirect (cmd, args, stdout = '/dev/tty5',
-                                        stderr = '/dev/tty5')
-
-            try:
-                isys.mount(device, "/tmp/crash", fstype = "vfat")
-            except SystemError:
-                continue
-
-            # copy trace dump we wrote to local storage to floppy
-            try:
-                iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
-            except:
-                log.error("Failed to copy anacdump.txt to floppy")
-                pass
-
-            isys.umount("/tmp/crash")
-
-            intf.messageWindow(_("Dump Written"),
-                _("Your system's state has been successfully written to the "
-                  "floppy. Your system will now be reset."))
-
+        elif rc == 1:
             intf.__del__ ()
+            print text
+            import pdb
+            pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)
-    elif rc == 3:
-        import pty
+        elif rc == 2:
+            floppyRc = copyExceptionToFloppy(intf)
 
-        scpWin = intf.scpWindow()
-
-        while 1:
-            # Bail if they hit the cancel button.
-            scpWin.run()
-            scpInfo = scpWin.getrc()
-            intf.__del__()
-
-            if scpInfo == None:
+            if floppyRc == 0:
+                intf.messageWindow(_("Dump Written"),
+                    _("Your system's state has been successfully written to "
+                      "the floppy. Your system will now be reset."))
                 os.kill(os.getpid(), signal.SIGKILL)
-
-            (host, path, user, password) = scpInfo
-
-            # Thanks to Will Woods <wwoods@redhat.com> for the scp control
-            # here and in scpAuthenticate.
-
-            # Fork ssh into its own pty
-            (childpid, master) = pty.fork()
-            if childpid < 0:
-                log.critical("Could not fork process to run scp")
-                os.kill(os.getpid(), signal.SIGKILL)
-            elif childpid == 0:
-                # child process - run scp
-                args = ["scp", "-oNumberOfPasswordPrompts=1",
-                        "-oStrictHostKeyChecking=no", "/tmp/anacdump.txt",
-                        "%s@%s:%s/anacdump.txt" % (user, host, path)]
-                os.execvp("scp", args)
-
-            # parent process
-            try:
-                childstatus = scpAuthenticate(master, childpid, password)
-            except OSError:
+            elif floppyRc == 1:
+                continue
+            elif floppyRc == 2:
                 intf.messageWindow(_("Dump Not Written"),
-                    _("There was a problem writing the system state to "
-                      "the remote host."))
-                continue
+                    _("There was a problem writing the system state to the "
+                      "floppy."))
+                os.kill(os.getpid(), signal.SIGKILL)
+        elif rc == 3:
+            scpRc = copyExceptionToRemote(intf)
 
-            os.close(master)
-
-            if os.WIFEXITED(childstatus) and os.WEXITSTATUS(childstatus) == 0:
+            if scpRc == 0:
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
                       "the remote host.\nYour system will now be reset."))
-                break
-            else:
+                os.kill(os.getpid(), signal.SIGKILL)
+            elif scpRc == 1:
+                continue
+            elif scpRc == 2:
                 intf.messageWindow(_("Dump Not Written"),
-                    _("There was a problem writing the system state to "
-                      "the remote host."))
-
-        os.kill(os.getpid(), signal.SIGKILL)
+                    _("There was a problem writing the system state to the "
+                      "remote host."))
+                os.kill(os.getpid(), signal.SIGKILL)

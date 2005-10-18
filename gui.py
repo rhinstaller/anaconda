@@ -562,8 +562,7 @@ class ScpWindow:
         self.rc = self.window.run()
     
     def pop(self):
-        self.window.destroy ()
-        rootPopBusyCursor()
+        self.window.destroy()
 
 class ExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None):
@@ -613,8 +612,10 @@ class ExceptionWindow:
         addFrame(self.win)
         self.win.show_all ()
         self.window = self.win
+
+    def run(self):
         self.rc = self.window.run ()
-        
+
     def getrc (self):
         # I did it this way for future expantion
         # 0 is debug
@@ -634,6 +635,9 @@ class ExceptionWindow:
         # 3 is save to remote host
         elif self.rc == 3:
             return 3
+    
+    def pop(self):
+        self.window.destroy()
 
 class MessageWindow:
     def getrc (self):
@@ -754,7 +758,7 @@ class InstallInterface:
     def exceptionWindow(self, shortText, longTextFile):
         log.critical(shortText)
         win = ExceptionWindow (shortText, longTextFile)
-        return win.getrc ()
+        return win
 
     def scpWindow(self):
         return ScpWindow()

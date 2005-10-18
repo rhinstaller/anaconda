@@ -1,3 +1,14 @@
+2005-10-18  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py (copyExceptionToRemote, copyExceptionToFloppy,
+	handleException):  Break exception copying stuff out into its own
+	functions so it's easier for handleException to run in a loop,
+	therefore making the Cancel buttons do something other than reboot.
+	* gui.py (ScpWindow):  Don't pop the busy cursor.
+	(ExceptionWindow.run):  Add run method.
+	(InstallInterface.exceptionWindow):  Return the ExceptionWindow
+	instance.
+
 2005-10-18  Paul Nasrat <pnasrat@redhat.com>
 
 	* upgrade.py:  blacklist system-config-mouse
