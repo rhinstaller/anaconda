@@ -1,0 +1,80 @@
+#!/usr/bin/python
+
+from optparse import OptionParser
+
+import os
+import glob
+import shutil
+import sys
+import tempfile
+import yum
+
+class CacheConf:
+    """Dynamic yum configuration"""
+
+    def __init__( self, repopath):
+        self.fd, self.name = tempfile.mkstemp(".conf", "yum-", "/tmp")
+	self.cachedir = tempfile.mkdtemp("", "yum-cache-", "/tmp")
+        self.repopath = repopath
+
+        self.yumconfstr = """
+[main]
+distroverpkg=redhat-release
+cachedir=%s
+gpgcheck=0
+
+[cache]
+baseurl=file://%s
+enabled=1
+""" % (self.cachedir, self.repopath)
+
+        os.write(self.fd, self.yumconfstr)
+        os.close(self.fd)
+
+class YumCacheGenerator(yum.YumBase):
+    def __init__(self, repopath):
+        yum.YumBase.__init__(self)
+        self.repopath = repopath
+        self.config = CacheConf(repopath)
+        self.doConfigSetup(self.config.name)
+        os.unlink(self.config.name)
+
+    def log(self, level, msg):
+	pass
+
+    def errorlog(self, level, msg):
+        pass
+
+    def filelog(self, level, msg):
+        pass
+
+    def write(self):
+	self.repos.disableRepo('*')
+	self.repos.enableRepo('cache')
+        self.doRepoSetup()
+        self.repos.populateSack(with='metadata', pickleonly=1)
+        self.repos.populateSack(with='filelists', pickleonly=1)
+ 	for cache in glob.glob("%s/cache/*.sqlite" %( self.config.cachedir,)):
+            shutil.move(cache, "%s/repodata" % (self.config.repopath))
+        
+        shutil.rmtree(self.config.cachedir)
+
+    
+def usage():
+	print "yumcache <toppath>"
+
+if __name__ == "__main__":
+    parser = OptionParser()
+    (options, args) = parser.parse_args()
+
+    if len(args) != 1:
+	usage()
+        sys.exit(1)
+    repopath = args[0] 
+
+    if not os.path.exists("%s/repodata/repomd.xml" % (repopath)):
+        sys.stderr.write("No metadata found in %s" % (repopath,))
+        sys.exit(2)
+
+    y = YumCacheGenerator(repopath)
+    y.write()
