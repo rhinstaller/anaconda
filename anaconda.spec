@@ -6,7 +6,7 @@ Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
 BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.2.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel, intltool >= 0.31.2-3, python-urlgrabber, pykickstart
-Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu > 1.2.0
+Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu > 1.2.0, yum >= 2.4.0
 Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: anaconda-help, system-logos, pykickstart
 %ifnarch s390 s390x ppc64
@@ -25,7 +25,7 @@ system.  These files are of little use on an already installed system.
 Summary: Graphical system installer portions needed only for fresh installs.
 Group: Applications/System
 AutoReqProv: false
-Requires: libxml2-python, python, rpm-python >= 4.2-0.61
+Requires: libxml2-python, python, rpm-python >= 4.2-0.61, yum >= 2.4.0
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
