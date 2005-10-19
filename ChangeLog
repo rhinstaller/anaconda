@@ -1,3 +1,14 @@
+2005-10-19  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py (copyExceptionToRemote, copyExceptionToFloppy,
+	handleException):  Delete the interface in the proper place.
+	* gui.py (ExceptionWindow, ScpWindow):  Add screen parameter to class
+	so it matches text interface.
+	* text.py (ExceptionWindow):  Move the exception handling screen into
+	a class.
+	(ScpWindow):  Add support for copying backtraces to a remote host in
+	the text interface.
+
 2005-10-18  Chris Lumens  <clumens@redhat.com>
 
 	* exception.py (copyExceptionToRemote, copyExceptionToFloppy,

@@ -138,6 +138,78 @@ class ProgressWindow:
 	g.draw()
 	self.screen.refresh()
 
+class ExceptionWindow:
+    def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
+        self.text = "%s\n\n" % shortTraceback
+        self.screen = screen
+
+        if floppy.hasFloppyDevice() == True or DEBUG:
+            self.buttons=[TEXT_OK_BUTTON, _("Save"), _("Remote"), _("Debug")]
+        else:
+            self.buttons=[TEXT_OK_BUTTON, _("Remote"), _("Debug")]
+
+    def run(self):
+        log.info ("in run, screen = %s" % self.screen)
+	self.rc = ButtonChoiceWindow(self.screen, _("Exception Occurred"),
+                                     self.text, self.buttons)
+
+    def getrc(self):
+        if self.rc == string.lower(_("Debug")):
+            return 1
+	elif self.rc == string.lower(_("Save")):
+            return 2
+        elif self.rc == string.lower(_("Remote")):
+            return 3
+        else:
+            return 0
+
+    def pop(self):
+        self.screen.popWindow()
+	self.screen.refresh()
+
+class ScpWindow:
+    def __init__(self, screen=None):
+        self.screen = screen
+        pass
+
+    def run(self):
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        self.hostEntry = Entry(24)
+        self.pathEntry = Entry(24)
+        self.usernameEntry = Entry(24)
+        self.passwordEntry = Entry(24, password=1)
+
+        win = GridForm(self.screen, _("Save to Remote Host"), 1, 2)
+
+        subgrid = Grid(2, 4)
+        subgrid.setField(Label(_("Host")), 0, 0, anchorLeft=1)
+        subgrid.setField(self.hostEntry, 1, 0)
+        subgrid.setField(Label(_("Remote path")), 0, 1, anchorLeft=1)
+        subgrid.setField(self.pathEntry, 1, 1)
+        subgrid.setField(Label(_("User name")), 0, 2, anchorLeft=1)
+        subgrid.setField(self.usernameEntry, 1, 2)
+        subgrid.setField(Label(_("Password")), 0, 3, anchorLeft=1)
+        subgrid.setField(self.passwordEntry, 1, 3)
+
+        win.add(subgrid, 0, 0, (0, 0, 0, 1))
+        win.add(buttons, 0, 1)
+
+        result = win.run()
+        self.rc = buttons.buttonPressed(result)
+
+    def getrc(self):
+        if self.rc == TEXT_CANCEL_CHECK:
+            return None
+        elif self.rc == TEXT_OK_CHECK:
+            retval = (self.hostEntry.value(), self.pathEntry.value(),
+                      self.usernameEntry.value(), self.passwordEntry.value())
+            return retval
+
+    def pop(self):
+        self.screen.popWindow()
+	self.screen.refresh()
+        pass
+
 class InstallInterface:
     def helpWindow(self, screen, key):
         if key == "helponhelp":
@@ -220,8 +292,10 @@ class InstallInterface:
 	    from string import joinfields
 	    list = traceback.format_exception(type, value, tb)
 	    text = joinfields(list, "")
-	    rc = self.exceptionWindow(text)
-	    if rc:
+	    win = self.exceptionWindow(text)
+            win.run()
+            rc = win.getrc()
+	    if rc == 1:
 		import pdb
 		pdb.post_mortem(tb)
 	    os._exit(1)
@@ -283,21 +357,14 @@ class InstallInterface:
 	    return 1
 
 	return 0
-    
-    def exceptionWindow(self, shortText, longTextFile):
-        ugh = "%s\n\n" % (exceptionText,)
-        if floppy.hasFloppyDevice() == True or DEBUG:
-            buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")]
-        else:
-            buttons=[TEXT_OK_BUTTON, _("Debug")]
 
-	rc = ButtonChoiceWindow(self.screen, _("Exception Occurred"),
-                                ugh + shortText, buttons)
-        if rc == string.lower(_("Debug")):
-            return 1
-	elif rc == string.lower(_("Save")):
-            return 2
-        return None
+    def scpWindow(self):
+        return ScpWindow(self.screen)
+
+    def exceptionWindow(self, shortText, longTextFile):
+        log.critical(shortText)
+        exnWin = ExceptionWindow(shortText, longTextFile, self.screen)
+        return exnWin
 
     def partedExceptionWindow(self, exc):
         # if our only option is to cancel, let us handle the exception

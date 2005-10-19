@@ -538,7 +538,7 @@ class ProgressWindow:
         rootPopBusyCursor()
 
 class ScpWindow:
-    def __init__(self):
+    def __init__(self, screen=None):
         self.scpxml = gtk.glade.XML(findGladeFile("scp.glade"),
                                     domain="anaconda")
         self.win = self.scpxml.get_widget("saveRemoteDlg")
@@ -565,7 +565,7 @@ class ScpWindow:
         self.window.destroy()
 
 class ExceptionWindow:
-    def __init__ (self, shortTraceback, longTracebackFile=None):
+    def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
         # Get a bunch of widgets from the XML file.
         exnxml = gtk.glade.XML(findGladeFile("exn.glade"), domain="anaconda")
         self.win = exnxml.get_widget("exnDialog")

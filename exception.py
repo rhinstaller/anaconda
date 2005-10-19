@@ -231,7 +231,6 @@ def copyExceptionToRemote(intf):
         scpInfo = scpWin.getrc()
 
         if scpInfo == None:
-            intf.__del__()
             scpWin.pop()
             return 1
 
@@ -281,7 +280,6 @@ def copyExceptionToFloppy (intf):
         # Bail if they hit the cancel button.
         rc = intf.dumpWindow()
         if rc:
-            intf.__del__ ()
             return 1
 
         device = dispatch.id.floppyDevice
@@ -376,6 +374,7 @@ def handleException(dispatch, intf, (type, value, tb)):
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
                       "the floppy. Your system will now be reset."))
+                intf.__del__ ()
                 os.kill(os.getpid(), signal.SIGKILL)
             elif floppyRc == 1:
                 continue
@@ -383,6 +382,7 @@ def handleException(dispatch, intf, (type, value, tb)):
                 intf.messageWindow(_("Dump Not Written"),
                     _("There was a problem writing the system state to the "
                       "floppy."))
+                intf.__del__ ()
                 os.kill(os.getpid(), signal.SIGKILL)
         elif rc == 3:
             scpRc = copyExceptionToRemote(intf)
@@ -391,6 +391,7 @@ def handleException(dispatch, intf, (type, value, tb)):
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
                       "the remote host.\nYour system will now be reset."))
+                intf.__del__ ()
                 os.kill(os.getpid(), signal.SIGKILL)
             elif scpRc == 1:
                 continue
@@ -398,4 +399,5 @@ def handleException(dispatch, intf, (type, value, tb)):
                 intf.messageWindow(_("Dump Not Written"),
                     _("There was a problem writing the system state to the "
                       "remote host."))
+                intf.__del__ ()
                 os.kill(os.getpid(), signal.SIGKILL)
