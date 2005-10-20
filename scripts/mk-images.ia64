@@ -31,18 +31,13 @@ makeBootImages() {
 	--modules "$INITRDMODS sgiioc4"
     [ $? = 0 ] || exit 1
 
-    makebootdisk \
-	--imagename boot.img \
-	--bootdisksize 25600 \
-	--initrd $TOPDESTPATH/images/pxeboot/initrd.img
-
-    # now make a boot iso
+    # make a boot iso
     mkdir -p $TOPDESTPATH/images/isopath
     cp -l $TOPDESTPATH/images/boot.img $TOPDESTPATH/images/isopath
     mkisofs -quiet -o $TOPDESTPATH/images/boot.iso -b boot.img -no-emul-boot -R -J -V "$PRODUCT" -T $TOPDESTPATH/images/isopath
     rm -rf $TOPDESTPATH/images/isopath
 
-    # now make a pxe dir with kernel + initrd
+    # make a pxe dir with kernel + initrd
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
 

@@ -1,5 +1,12 @@
 2005-10-20  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images (padfile): Remove dead function.
+	(makemainmodules): Likewise.
+	(makebootdisk): Likewise.
+	(findloopdevice): Likewise.
+	(makedriverdisk): Likewise.
+	* scripts/mk-images.ia64: Don't really need/want an ls120 image anymore
+
 	* scripts/mk-images (INITRDMODS): Define modules used in common
 	across all arches here. 
 	(makeinstimage): Don't pass in modules for use here, they should

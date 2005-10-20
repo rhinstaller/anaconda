@@ -202,15 +202,6 @@ getmoddeps () {
     mv $final.foo $final
 }
 
-padfile () {
-    PS_FILE=$1
-    PS_SIZE=$2
-
-    size=`cat $PS_FILE | wc -c`
-    filler=`expr $PS_SIZE "*" 1024 - $size`
-    dd if=/dev/zero bs=$filler count=1 >> $PS_FILE 2> /dev/null
-}
-
 intcopymodules () {
     dir=$2
 
@@ -334,21 +325,6 @@ makemoduleball() {
     rm -rf modules
     chmod 644 *
     popd  > /dev/null
-}
-
-makemainmodules() {
-    modlist=`expandModuleSet "$1"`
-
-    if [ -n "$2" ]; then
-	extraargs="--name $2"
-    fi
-
-    rm -rf $FULLMODPATH
-    rm -rf $FINALFULLMODPATH
-
-    makemoduleball $extraargs $FULLMODPATH "$modlist"
-    cp -ar $FULLMODPATH $FINALFULLMODPATH
-    rm -rf $FULLMODPATH
 }
 
 makeproductfile() {
@@ -696,73 +672,6 @@ EOF
     fi
 }
 
-makebootdisk() {
-    BOOTDISKSIZE=""
-    EXTRAKERNELPATH=""
-    INITRDFLAGS=""
-    MBD_FILENAME=""
-    INITRDFILE=""
-    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-	if [ $1 = "--bootdisksize" ]; then
-	     BOOTDISKSIZE=$2
-	     shift; shift
-	     continue
-	elif [ $1 = "--kernelto" ]; then
-	    EXTRAKERNELPATH=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--initrdflags" ]; then
-	    INITRDFLAGS=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--initrd" ]; then
-	    INITRDFILE=$2
-	    shift; shift
-	    continue
-	elif [ $1 = "--imagename" ]; then
-	    MBD_FILENAME=$IMAGEPATH/$2
-	    shift; shift
-	    continue
-	fi
-	echo "Unknown option passed to makebootdisk"
-	exit 1
-    done
-
-    if [ -z "$MBD_FILENAME" ]; then
-	echo "No imagename passed"
-	exit 1
-    fi
-
-    if [ -n "$INITRDFILE" ]; then
-	MBD_FSIMAGE="$INITRDFILE"
-    elif [ -n "$INITRDFLAGS" ]; then
-	eval makeinitrd --keep $INITRDFLAGS
-    fi
-
-    mkdir -p $MBD_BOOTTREE
-
-    # provided by the mk-image.$ARCH file
-    mkdir -p `dirname $MBD_FILENAME`
-    prepareBootImage
-
-    left=$(df $MBD_BOOTTREE | tail +2)
-    left=$(echo $left | awk '{print $4'})
-
-    umount $MBD_BOOTTREE
-
-    if [ -n "$EXTRAKERNELPATH" ]; then
-	mkdir -p `dirname $EXTRAKERNELPATH`
-	cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
-    fi
-
-    rm -rf $MBD_MNTPOINT $MBD_BOOTTREE
-    if [ -z "$INITRDFILE" ]; then
-	rm -f $MBD_FSIMAGE
-    fi
-
-    echo "Wrote $MBD_FILENAME (${left}k free)"
-}
-
 makeinstimage () {
     imagename=$1
     tmpdir=/tmp/instimage.dir.$$
@@ -781,18 +690,6 @@ makeinstimage () {
     size=$(expr $size / 1024)
     echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
     rm -rf $tmpdir
-}
-
-findloopdevice () {
-    if [ -z "$1" ]; then
-	echo "usage: findloopdevice image"
-	exit 1
-    fi
-
-    for devnum in 0 1 2 3 4 5 6 7 8; do
-        if losetup /dev/loop$devnum $1 2>/dev/null ; then break; fi
-    done
-    echo /dev/loop$devnum
 }
 
 makemainimage () {
@@ -846,73 +743,6 @@ makeSecondStage() {
 
 doPostImages() {
    /bin/true
-}
-
-makedriverdisk () {
-    PADSIZE=""
-
-    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-	if [ $1 = "--padsize" ]; then
-	    PADSIZE=$2
-	    shift; shift
-	    continue
-	fi
-
-	echo "Unknown option passed to makedriverdisk"
-	exit 1
-    done
-
-    modlabel=$1
-    diskname=$2
-    modlist=$(expandModuleSet "$3")
-    diskpath=/tmp/makedriverdisk.$$
-
-    rm -rf $diskpath
-    mkdir -p $diskpath
-
-    makemoduleball --dd "$modlabel" $diskpath "$modlist"
-
-    size=$(expr 60 + $(du -sk $diskpath | awk '{print $1}'))
-    if [ $size -lt 57 ]; then
-	size=64
-    fi
-
-    dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
-    /sbin/mke2fs -q -F -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
-    /sbin/tune2fs -c0 -i0 /tmp/$diskname.img >/dev/null
-    mkdir -p /tmp/mkdd.$$
-    mount -t ext2 -o loop /tmp/$diskname.img /tmp/mkdd.$$
-    rmdir /tmp/mkdd.$$/lost+found
-    (cd $diskpath; tar cSpf - .) | (cd /tmp/mkdd.$$; tar xSpf -)
-    DIE=""
-    diff -upr $diskpath /tmp/mkdd.$$ > /dev/null 2>&1
-    if [ $? != 0 ]; then
-	echo copy to disk image failed
-	ls -l /tmp/mkdd.$$
-	echo "disk size: $size"
-	ls -l $diskpath
-	DIE=1
-    fi
-    umount /tmp/mkdd.$$
-    rm -rf /tmp/mkdd.$$
-
-    if [ -n "$DIE" ]; then
-	kill -9 $$
-    fi
-
-    cp /tmp/${diskname}.img $IMAGEPATH/${diskname}.img
-    rm /tmp/${diskname}.img
-    rm -rf $diskpath
-
-    size=$(ls -l $IMAGEPATH/${diskname}.img | awk '{ print $5 }')
-    size=$(expr $size / 1024)
-
-    echo "Wrote $IMAGEPATH/${diskname}.img (${size}k)"
-    echo "${diskname}.img - ${modlabel}" >> $IMAGEPATH/README
-
-    if [ -n "$PADSIZE" ]; then
-	padfile $IMAGEPATH/${diskname}.img $PADSIZE
-    fi
 }
 
 # source the architecture specific mk-images file so we can call functions
