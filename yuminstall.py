@@ -120,6 +120,7 @@ class simpleCallback:
             hdr, path =h
             nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
             os.close(self.fdnos[nvra])
+            os.unlink(path)
             self.progress.completePackage(hdr, self.pkgTimer)
             self.progress.processEvents()
 
@@ -165,8 +166,9 @@ gpgkey=%s/RPM-GPG-KEY-fedora
         f.close()
     
 class AnacondaYum(yum.YumBase):
-    def __init__(self):
+    def __init__(self, fn="/etc/yum.conf", root="/"):
         yum.YumBase.__init__(self)
+        self.doConfigSetup(fn, root)
         self.macros = {}
         if flags.selinux:
             for dir in ("/tmp/updates", "/mnt/source/RHupdates",
@@ -187,10 +189,12 @@ class AnacondaYum(yum.YumBase):
 
     def errorlog(self, value, msg):
         pass
+
     def filelog(self, value, msg):
         pass
+
     def log(self, value, msg):
-        pass
+        log.info(msg)
 
     def getDownloadPkgs(self):
         downloadpkgs = []
@@ -211,27 +215,25 @@ class AnacondaYum(yum.YumBase):
         self.initActionTs()
         self.populateTs(keepold=0)
         self.ts.check()
-        self.ts.order()
 
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
         self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
 
         self.runTransaction(cb=cb)
-        
-    def setup(self, fn="/etc/yum.conf", root="/"):
-        self.doConfigSetup(fn, root)
+
+    def doCacheSetup(self):
+        for repo in self.repos.repos.values():
+            repo.set('cachedir', '/tmp/cache/')
+            repo.set('pkgdir', '/mnt/sysimage/')
+            repo.set('hdrdir', '/tmp/cache/headers')
+
+    def doMacros(self):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
-        
-        self.doTsSetup()
-        self.doRpmDBSetup()
-        self.doRepoSetup()
-        for x in self.repos.repos.values():
-            x.dirSetup()
-        self.repos
-        self.doGroupSetup()
-        self.doSackSetup()
+
+    def doSackSetup(self):
+        yum.YumBase.doSackSetup(self)
         self.repos.populateSack(with='filelists')
 
 class YumBackend(AnacondaBackend):
@@ -241,19 +243,35 @@ class YumBackend(AnacondaBackend):
                                   root=instPath)
         self.ac.write()
 
+        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath)
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
     # FIXME: this step is actually probably not broken out properly
     def doPreSelection(self, intf, id, instPath):
-        # should probably be done in __init__ instead...
-        self.ayum = AnacondaYum()
-
+        if not os.path.exists("/tmp/cache"):
+            iutil.mkdirChain("/tmp/cache/headers")
         # this should be in some sort of backend setup step
+        tasks = (self.ayum.doMacros,
+                 self.ayum.doTsSetup,
+                 self.ayum.doRpmDBSetup,
+                 self.ayum.doRepoSetup,
+                 self.ayum.doCacheSetup,
+                 self.ayum.doGroupSetup,
+                 self.ayum.doSackSetup )
+
+
+	waitwin = YumProgress(intf, "Getting installation information", len(tasks))
+        self.ayum.repos.callback = waitwin
+
         try:
-            self.ayum.setup(fn="/tmp/yum.conf", root=instPath)
+            for task in tasks:
+                task()
+                waitwin.next_task()
+	    waitwin.pop()
         except RepoError, e:
-            intf.messagewindow(_("Error"),
+	    waitwin.pop()
+            intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
                                  "ensure that your install tree has been "
@@ -274,7 +292,6 @@ class YumBackend(AnacondaBackend):
            
         (code, msgs) = self.ayum.buildTransaction()
         (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
-        shutil.copytree(instPath + '/var/cache/yum/anaconda', '/tmp/cache')
         win.pop()
 
     def doPreInstall(self, intf, id, instPath, dir):
@@ -323,10 +340,6 @@ class YumBackend(AnacondaBackend):
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
-        try:
-            shutil.copytree('/tmp/cache', instPath + '/var/cache/yum/anaconda')
-        except:
-            pass
         self.initLog(id, instPath)
 
         if flags.setupFilesystems:
@@ -384,7 +397,9 @@ class YumBackend(AnacondaBackend):
         f.close()
 
     def doInstall(self, intf, id, instPath):
+	log.info("Preparing to install packages")
         if flags.test:
+	    log.info("Test mode - not performing install")
             return
 
         if not id.upgrade:
@@ -531,3 +546,31 @@ class YumBackend(AnacondaBackend):
                 return
             
         self.ayum.tsInfo.remove(p[0].pkgtup)
+
+class YumProgress:
+    def __init__(self, intf, text, total):
+        window = intf.progressWindow("Installation Progress", text ,total)
+        self.window = window
+        self.total = float(total)
+        self.num = 0
+
+    def progressbar(self, current, total, name=None):
+        self.window.set(current)
+
+    def pop(self):
+        self.window.pop()
+
+    def next_task(self):
+        self.num += 1
+        self.window.set(self.num/self.total)
+
+    def errorlog(self, value, msg):
+        log.error(msg)
+
+    def filelog(self, value, msg):
+        pass
+
+    def log(self, value, msg):
+        log.info(msg)
+
+
