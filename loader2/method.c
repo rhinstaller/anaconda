@@ -170,7 +170,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
             continue;
         }
         
-	snprintf(path, sizeof(path), "/tmp/loopimage/%s/base/hdstg2.img", getProductPath());
+	snprintf(path, sizeof(path), "/tmp/loopimage/%s/base/stage2.img", getProductPath());
 	if (mountLoopback(path, "/mnt/runtime", "loop0")) {
 	    umountLoopback("/mnt/runtime", "loop0");
 	} else {

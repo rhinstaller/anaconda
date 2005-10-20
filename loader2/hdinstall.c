@@ -48,7 +48,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 			   char * device, char * mntpoint) {
     int fd, rc, idx;
     char *path, *target, *dest;
-    char *stg2list[] = {"stage2.img", "hdstg2.img", NULL};
+    char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
@@ -118,7 +118,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 			 int checkstamp) {
     int idx, rc;
     char * path, *target;
-    char *stg2list[] = {"stage2.img", "hdstg2.img", NULL};
+    char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 

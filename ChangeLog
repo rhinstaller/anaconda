@@ -2,6 +2,19 @@
 
 	* anaconda.spec: Bump version.
 
+	* loader2/urlinstall.c (loadUrlImages): minstg2.img instead of
+	netstg2.img 
+	* loader2/hdinstall.c (mountHDImages): minstg2.img instead of
+	hdstg2.img
+	* loader2/method.c (validIsoImages): Look for stage2.img instead
+	of hdstg2.img
+
+	* scripts/mk-images: mkcramfs is now mkfs.cramfs
+
+2005-10-20  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
 	* scripts/mk-images (padfile): Remove dead function.
 	(makemainmodules): Likewise.
 	(makebootdisk): Likewise.

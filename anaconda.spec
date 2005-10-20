@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.0
+Version: 10.89.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 20 2005 Jeremy Katz <katzj@redhat.com> - 10.89.1-1
+- fix for mkcramfs -> mkfs.cramfs
+- Use minstg2.img instead of netstg2.img/hdstg2.img in the loader
+
 * Thu Oct 20 2005 Jeremy Katz <katzj@redhat.com> - 10.89.0-1
 - Fix SELinux policy loading (clumens)
 - Fix translation import for kickstart (laroche)
