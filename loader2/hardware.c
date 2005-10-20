@@ -37,9 +37,6 @@
 #include "../isys/isys.h"
 
 
-/* JKFIXME: this is the same hack as in loader.c for second stage modules */
-extern struct moduleBallLocation * secondStageModuleLocation;
-
 /* returns whether or not we can probe devices automatically or have to 
  * ask for them manually. */
 int canProbeDevices(void) {
@@ -147,9 +144,7 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     logMessage(INFO, "scsi tape device(s) found, loading st.ko");
 
-    if (mlLoadModuleSetLocation("st", modLoaded, modDeps, 
-				modInfo, flags, 
-				secondStageModuleLocation)) {
+    if (mlLoadModuleSet("st", modLoaded, modDeps, modInfo, flags)) {
 	logMessage(ERROR, "failed to insert st module");
 	return 1;
     }

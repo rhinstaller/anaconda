@@ -130,8 +130,6 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
 void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
                         moduleInfoSet modInfo, int flags) {
-    extern struct moduleBallLocation * secondStageModuleLocation;
-
     if (FL_NOUSB(flags)) return;
 
     if (access("/proc/bus/usb/devices", R_OK)) return;
@@ -139,7 +137,7 @@ void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
     logMessage(INFO, "looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
         logMessage(INFO, "USB mouse found, loading mousedev module");
-        if (mlLoadModuleSetLocation("mousedev", modLoaded, modDeps, modInfo, flags, secondStageModuleLocation)) {
+        if (mlLoadModuleSet("mousedev", modLoaded, modDeps, modInfo, flags)) {
             logMessage (ERROR, "failed to loading mousedev module");
             return;
         }

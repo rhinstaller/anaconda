@@ -623,16 +623,6 @@ int mlLoadModuleSet(const char * modNames,
                          flags, NULL, NULL, NULL);
 }
 
-/* like mlLoadModuleSet but from an explicit location */
-/* JKFIXME: this is a hack */
-int mlLoadModuleSetLocation(const char * modNames,
-			    moduleList modLoaded, moduleDeps modDeps,
-			    moduleInfoSet modInfo, int flags,
-			    struct moduleBallLocation * location) {
-    return doLoadModules(modNames, modLoaded, modDeps, modInfo, 
-                         flags, NULL, NULL, location);
-}
-
 static int writeModulesConf(moduleList list, int fd) {
     int i, ret;
     struct loadedModuleInfo * lm;

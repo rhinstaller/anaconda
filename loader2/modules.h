@@ -34,12 +34,6 @@ int mlLoadModule(const char * module, moduleList modLoaded,
 int mlLoadModuleSet(const char * modNames, 
 		    moduleList modLoaded, moduleDeps modDeps, 
 		    moduleInfoSet modInfo, int flags);
-/* like mlLoadModuleSet but from an explicit location */
-/* JKFIXME: this is a hack */
-int mlLoadModuleSetLocation(const char * modNames,
-			    moduleList modLoaded, moduleDeps modDeps,
-			    moduleInfoSet modInfo, int flags,
-			    struct moduleBallLocation * location);
 
 int mlModuleInList(const char * modName, moduleList list);
 void writeScsiDisks(moduleList list);

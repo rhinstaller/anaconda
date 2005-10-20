@@ -2,6 +2,17 @@
 
 	* anaconda.spec: Bump version.
 
+	* loader2/loader.c: Second stage module location no longer exists,
+	stop trying to use it.
+	* loader2/usb.c (usbInitializeMouse): Likewise.
+	* loader2/hardware.c (scsiTapeInitialize): Likewise.
+	* loader2/modules.c (mlLoadModuleSetLocation): Remove.
+	* loader2/modules.h (mlLoadModuleSetLocation): Likewise.	
+
+2005-10-20  Jeremy Katz  <katzj@redhat.com>	
+
+	* anaconda.spec: Bump version.
+
 	* loader2/urlinstall.c (loadUrlImages): minstg2.img instead of
 	netstg2.img 
 	* loader2/hdinstall.c (mountHDImages): minstg2.img instead of

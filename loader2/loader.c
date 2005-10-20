@@ -114,9 +114,6 @@ static struct installMethod installMethods[] = {
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
-/* JKFIXME: bad hack for second stage modules without module-info */
-struct moduleBallLocation * secondStageModuleLocation;
-
 void setupRamfs(void) {
     mkdirChain("/tmp/ramfs");
     doPwMount("none", "/tmp/ramfs", "ramfs", 0, NULL);
@@ -1177,11 +1174,6 @@ int main(int argc, char ** argv) {
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
 
-    /* JKFIXME: very very bad hack */
-    secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
-    secondStageModuleLocation->path = strdup("/mnt/runtime/modules/modules.cgz");
-    secondStageModuleLocation->version = CURRENT_MODBALLVER;
-    
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
         return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe"))
@@ -1388,16 +1380,6 @@ int main(int argc, char ** argv) {
     
     spawnShell(flags);  /* we can attach gdb now :-) */
 
-    /* setup the second stage modules; don't over-ride any already existing
-     * modules because that would be rude 
-     */
-    {
-        mlLoadDeps(&modDeps, "/mnt/runtime/modules/modules.dep");
-        pciReadDrivers("/mnt/runtime/modules/modules.alias");
-        readModuleInfo("/mnt/runtime/modules/module-info", modInfo,
-                       secondStageModuleLocation, 0);
-    }
-
     /* JKFIXME: kickstart devices crap... probably kind of bogus now though */
 
 
@@ -1417,9 +1399,7 @@ int main(int argc, char ** argv) {
     if (FL_UPDATES(flags)) 
         loadUpdates(flags);
 
-    mlLoadModuleSetLocation("md:raid0:raid1:raid5:raid6:fat:msdos:jbd:ext3:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot",
-			    modLoaded, modDeps, modInfo, flags, 
-			    secondStageModuleLocation);
+    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:fat:msdos:jbd:ext3:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot", modLoaded, modDeps, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
