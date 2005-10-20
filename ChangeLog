@@ -1,3 +1,11 @@
+2005-10-20  Paul Nasrat <pnasrat@redhat.com>
+
+	* gui.py, text.py, yuminstall.py: Initial progress for depsolving
+
+	* yuminstall.py: order transaction, transaction coloring
+
+	* yuminstall.py: Speed improvements, progress bar
+
 2005-10-20  Jeremy Katz  <katzj@redhat.com>
 
 	* partitions.py (Partitions.sanityCheckAllRequests): Don't allow
