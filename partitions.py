@@ -917,6 +917,13 @@ class Partitions:
                     errors.append("Bootable partitions cannot be on a RAID "
                                   "device.")
 
+                # XFS causes all kinds of disasters for being /boot.
+                # disallow it. #138673 and others.
+                if (bootreq and bootreq.fstype and
+                    bootreq.fstype.getName() == "xfs"):
+                    errors.append("Bootable partitions cannot be on an XFS "
+                                  "filesystem.")
+
         if foundSwap == 0:
             warnings.append(_("You have not specified a swap partition.  "
                               "Although not strictly required in all cases, "

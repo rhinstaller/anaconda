@@ -1,3 +1,8 @@
+2005-10-20  Jeremy Katz  <katzj@redhat.com>
+
+	* partitions.py (Partitions.sanityCheckAllRequests): Don't allow
+	bootable partitions on xfs
+
 2005-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* exception.py (copyExceptionToRemote, copyExceptionToFloppy,
