@@ -889,9 +889,11 @@ class prepbootFileSystem(FileSystemType):
         # supported for use on the pseries
         if (iutil.getPPCMachine() == "pSeries" or
             iutil.getPPCMachine() == "iSeries"):
+            self.linuxnativefs = 1
             self.supported = 1
             self.formattable = 1
         else:
+            self.linuxnativefs = 0
             self.supported = 0
             self.formattable = 0
 
