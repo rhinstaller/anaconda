@@ -8,33 +8,18 @@ prepareBootImage() {
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 }
 
-IDEMODS=""
-SCSIMODS="scsi_mod sd_mod sg sr_mod st zfcp"
-
-FSMODS="vfat msdos ext3 reiserfs jfs xfs"
-LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
-RAIDMODS="md raid0 raid1 raid5 raid6"
-SECSTAGE="$IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS"
-DASDMODS=" dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod"
-COMMONMODULES="loop cramfs tape390 isofs $DASDMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs ctc netiucv smsgiucv lcs qdio qeth ccwgroup ipv6"
+S390SCSIMODS="zfcp tape390"
+S390DASDMODS=" dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod"
+S390NETMODS="ctc netiucv smsgiucv lcs qdio qeth ccwgroup"
+S390MODS="$S390SCSIMODS $S390DASDMODS $S390NETMODS"
 
 makeBootImages() {
 	makeinitrd --nobogl --initrdto $TOPDESTPATH/images/initrd.img \
 	    --initrdsize 20000 \
 	    --loaderbin loader \
-	    --modules "$NETWORKMODULES"
+	    --modules "$INITRDMODS $S390MODS"
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
 	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
-}
-
-makeSecondStage() {
-    makemainmodules "=scsi =net $SECSTAGE"
-
-    makeinstimage "netstg" "=scsi $SECSTAGE"
-
-    makeinstimage "hdstg" "=net $SECSTAGE"
-    makemainimage "stage2" "cramfs"
 }

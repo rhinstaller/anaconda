@@ -36,7 +36,7 @@ prepareBootTree() {
 	fi
 }
 
-mkdir -p $TOPDESTPATH/images
+mkdir -p $TOPDESTPATH/images/pxeboot
 cat > $TOPDESTPATH/images/README <<EOF
 This directory contains image files that can be used to create media
 capable of starting the $PRODUCT installation process.
@@ -54,68 +54,12 @@ booting via USB is dependent on your BIOS supporting this.  It should
 be written to the device using dd.
 EOF
 
-# LATEUSBMODS go in the second stage.  
-# FIXME: bleah, have to include sd_mod for usb-storage
-USBMODS="ohci-hcd uhci-hcd ehci-hcd hid usb-storage sd_mod sr_mod"
-# usb-storage goes on both so we can reload it.  *sigh*
-LATEUSBMODS="usb-storage"
-IDEMODS="ide-cd"
-SCSIMODS="sd_mod sg sr_mod st"
-
-FSMODS="msdos vfat ext3 reiserfs jfs xfs"
-LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
-RAIDMODS="md raid0 raid1 raid5 raid6"
-SECSTAGE="agpgart $RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
-
-BTERMMODULES="vga16fb"
-COMMONMODULES="vfat loop cramfs floppy edd pcspkr $USBMODS $BTERMMODULES"
-LOCALMODULES="$COMMONMODULES aic7xxx megaraid_mbox sym53c8xx $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs 3c59x 
-	       e100 tulip pcnet32 8139too"
-#	       sis900 e100 hp100 natsemi"
-
-PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
-
-# images we only want on the CD (usually for space reasons)
-ISOLINUXMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
-
-mkdir -p $TOPDESTPATH/images/pxeboot
-
-# XXX hack hack
-PCMCIAMODULES_EXCLUDED="
-	apa1480_cb
-	iflash2+_mtd
-	iflash2_mtd
-	memory_cb
-	memory_cs
-	parport_cs
-	parport_pc
-	parport
-	serial_cs
-	serial_cb
-	sram_mtd
-        aironet4500_cs
-        orinoco_cs
-        orinoco
-        orinoco_old_cs
-        wavelan_cs
-        wvlan_cs
-"
-PCMCIAMODULES_EXCLUDED_SED="sed"
-for m in $PCMCIAMODULES_EXCLUDED
-do
-   PCMCIAMODULES_EXCLUDED_SED="$PCMCIAMODULES_EXCLUDED_SED -e 's/$m//g'"
-done
-PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
-
-mkdir -p $TOPDESTPATH/images/pxeboot
-
 makeBootImages() {
     echo "Building initrd-everything.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--initrdsize 8192 \
 	--loaderbin loader \
-	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
+	--modules "$INITRDMODS"
     [ $? = 0 ] || exit 1
 
     if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
@@ -168,20 +112,4 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
-}
-
-makeSecondStage() {
-    echo "Building main moduleball"
-    makemainmodules "=scsi =net $SECSTAGE"
-    [ $? = 0 ] || exit 1
-
-    echo "Building netstg.img"
-    makeinstimage "netstg" "=scsi $SECSTAGE"
-    [ $? = 0 ] || exit 1
-    echo "Building hdstg.img"
-    makeinstimage "hdstg" "=net $SECSTAGE"
-    [ $? = 0 ] || exit 1
-    echo "Building stage2.img"
-    makemainimage "stage2" "cramfs"
-    [ $? = 0 ] || exit 1
 }

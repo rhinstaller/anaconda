@@ -1,21 +1,3 @@
-COMMONMODULES="nfs fat vfat cramfs loop floppy"
-FSMODS="msdos vfat ext3 reiserfs jfs xfs"
-IDEMODS="ide-cd"
-SCSIMODS="sd_mod sg sr_mod st"
-USBMODS="ohci-hcd uhci-hcd hid usb-storage sd_mod sr_mod"
-LATEUSBMODS="mousedev usb-storage"
-LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
-RAIDMODS="md raid0 raid1 raid5 raid6"
-SECSTAGE="$RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
-NETMODULES="sungem sungem_phy tg3 ne2k-pci 3c59x 8139too olympic
-	   de4x5 acenic pcnet32 tulip natsemi e100 e1000 airport"
-
-SCSIMODULES="$SCSIMODS advansys aic7xxx initio sym53c8xx ipr"
-ISERIESMODULES="iseries_veth veth viodasd viocd ipr"
-
-# images we only want on the CD (usually for space reasons)
-ISOMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
-
 prepareBootImage() {
     mkdir -p $TOPDESTPATH/images
     mkdir -p $TOPDESTPATH/isopath
@@ -31,7 +13,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODS =scsi =net"
+	    --modules "$INITRDMODS"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc64/vmlinuz
         sed -e "s/%BITS%/64/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \
@@ -56,7 +38,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES =scsi =net"
+	    --modules "$INITRDMODS viocd"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
@@ -73,7 +55,7 @@ makeBootImages() {
         makeinitrd --initrdto $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz \
             --initrdsize 8192 \
             --loaderbin loader \
-            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODS =scsi =net"
+            --modules "$INITRDMODS"
 
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc32/vmlinuz
         sed -e "s/%BITS%/32/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \
@@ -94,7 +76,7 @@ makeBootImages() {
     fi
 }
 
-makeSecondStage() {
+doPostImages() {
     # Create boot.iso here instead of above, so we can include it all
 
     mkdir -p $TOPDESTPATH/ppc/chrp
@@ -142,9 +124,4 @@ makeSecondStage() {
 	-map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic \
 	-no-desktop -allow-multidot $TOPDESTPATH/isopath
     rm -rf $TOPDESTPATH/isopath
-
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODS =scsi"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODS =net"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS =scsi =net"
-    makemainimage "stage2" "cramfs"
 }

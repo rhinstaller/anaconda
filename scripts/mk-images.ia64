@@ -1,18 +1,3 @@
-# LATEUSBMODS go in the second stage
-# FIXME: bleah, have to include sd_mod for usb-storage
-USBMODS="uhci-hcd ohci-hcd ehci-hcd hid keybdev usb-storage sd_mod"
-LATEUSBMODS="mousedev"
-
-BTERMMODULES="vga16fb"
-COMMONMODULES="nfs fat vfat cramfs loop floppy $BTERMMODULES"
-FSMODS="msdos vfat ext3 reiserfs jfs xfs"
-LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
-RAIDMODS="md raid0 raid1 raid5 raid6"
-SECSTAGE="nfs fat vfat $RAIDMODS $LVMMODS $FSMODS $LATEUSBMODS"
-NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3"
-SCSIMODULES="sd_mod sg sr_mod st scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid_mbox qla1280 qla2200 qla2300 sym53c8xx mptscsih mptbase ips"
-IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd sgiioc4"
-
 prepareBootImage() {
 	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_FILENAME 2>/dev/null
 	mkdosfs -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
@@ -39,13 +24,17 @@ EOF
 }
 
 makeBootImages() {
-    makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
+    mkdir -p $TOPDESTPATH/images/pxeboot
+    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+	--initrdsie 12288 \
+	--loaderbin loader \
+	--modules "$INITRDMODS sgiioc4"
+    [ $? = 0 ] || exit 1
+
+    makebootdisk \
 	--imagename boot.img \
 	--bootdisksize 25600 \
-	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
-		     	    --initrdsize 12288 \
-			    --loaderbin loader \
-			    --modules "$COMMONMODULES $USBMODS $NETMODULES $SCSIMODULES $IDEMODULES =scsi =net"' 
+	--initrd $TOPDESTPATH/images/pxeboot/initrd.img
 
     # now make a boot iso
     mkdir -p $TOPDESTPATH/images/isopath
@@ -54,9 +43,6 @@ makeBootImages() {
     rm -rf $TOPDESTPATH/images/isopath
 
     # now make a pxe dir with kernel + initrd
-    mkdir -p $TOPDESTPATH/images/pxeboot
-    ln $TOPDESTPATH/images/ramdisk.img $TOPDESTPATH/images/pxeboot/initrd.img
-    ln $TOPDESTPATH/kernels/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
 
@@ -65,15 +51,4 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
-
-    # clean up
-    rm -f $TOPDESTPATH/images/ramdisk.img
-    rm -rf $TOPDESTPATH/kernels
-}
-
-makeSecondStage() {
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES =scsi"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES =net"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES =scsi =net"
-    makemainimage "stage2" "cramfs"
 }

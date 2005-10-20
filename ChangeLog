@@ -1,3 +1,22 @@
+2005-10-20  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-images (INITRDMODS): Define modules used in common
+	across all arches here. 
+	(makeinstimage): Don't pass in modules for use here, they should
+	all be in the initrd now.
+	(makeSecondStage): Common makeSecondStage
+	(doPostImages): Add a step to get called after boot images are
+	created
+	* scripts/mk-images.i386: Use common INITRDMODS and
+	makeSecondStage, minor other cleanups.
+	* scripts/mk-images.ia64: Likewise.
+	* scripts/mk-images.s390: Likewise.
+	* scripts/mk-images.x86_64: Likewise.
+	* scripts/mk-images.ppc: Likewise.  Also, use doPostImages stuff.
+	* scripts/mk-images.sparc64: Remove old file that's not correct
+	for current stuff.
+	* scripts/mk-images.alpha: Likewise.
+
 2005-10-20  Chris Lumens  <clumens@redhat.com>
 
 	* exception.py (dumpClass.keySkipList):  Don't dump language dicts.

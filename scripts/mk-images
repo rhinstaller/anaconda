@@ -28,8 +28,21 @@ TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
     $TOPDIR="."
 fi
-
 TOPDIR=$(cd $TOPDIR; pwd)
+
+# modules that are needed.  this is the generic "needed for every arch" stuff
+COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr"
+USBMODS="ohci-hcd uhci-hcd ehci-hcd hid mousedev usb-storage sd_mod sr_mod"
+FIREWIREMODS="ieee1394 ohci1394 sbp2"
+IDEMODS="ide-cd"
+SCSIMODS="sr_mod sg st sd_mod scsi_mod"
+FSMODS="fat msdos vfat ext3 reiserfs jfs xfs"
+LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
+RAIDMODS="md raid0 raid1 raid5 raid6"
+SECSTAGE="$RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS"
+BTERMMODS="vga16fb"
+PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $BTERMMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
 
 # Set, verify, and create paths
     KERNELPATH=$1
@@ -333,11 +346,6 @@ makemainmodules() {
     rm -rf $FULLMODPATH
     rm -rf $FINALFULLMODPATH
 
-    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-       mkdir -p $KERNELROOT/lib/modules/misc
-       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.ko" \
-          -exec cp -f {} $KERNELROOT/lib/modules/misc \;
-    fi
     makemoduleball $extraargs $FULLMODPATH "$modlist"
     cp -ar $FULLMODPATH $FINALFULLMODPATH
     rm -rf $FULLMODPATH
@@ -757,7 +765,6 @@ makebootdisk() {
 
 makeinstimage () {
     imagename=$1
-    modlist=$(expandModuleSet "$2")
     tmpdir=/tmp/instimage.dir.$$
 
     rm -rf $tmpimage $tmpdir
@@ -765,12 +772,6 @@ makeinstimage () {
 
     mkdir -p $tmpdir
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
-    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-       mkdir -p $KERNELROOT/lib/modules/misc
-       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.ko" \
-         -exec cp -f {} $KERNELROOT/lib/modules/misc \;
-    fi
-    makemoduleball $tmpdir/modules "$modlist"
     makeproductfile $tmpdir
 
     echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
@@ -832,6 +833,19 @@ makemainimage () {
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
     
     rm $mmi_tmpimage
+}
+
+makeSecondStage() {
+    echo "Building minstg.img"
+    makeinstimage "minstg"
+    [ $? = 0 ] || exit 1
+    echo "Building stage2.img"
+    makemainimage "stage2" "cramfs"
+    [ $? = 0 ] || exit 1
+}
+
+doPostImages() {
+   /bin/true
 }
 
 makedriverdisk () {
@@ -978,6 +992,8 @@ for KERNELARCH in $arches; do
     makeBootImages
   done
 done
+
+doPostImages
 
 # do some clean up before making the cramfs of the second stage
 rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/lib/syslinux $IMGPATH/usr/lib/syslinux
