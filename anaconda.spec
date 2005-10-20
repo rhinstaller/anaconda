@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.3.0.32
+Version: 10.89.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 20 2005 Jeremy Katz <katzj@redhat.com> - 10.89.0-1
+- Fix SELinux policy loading (clumens)
+- Fix translation import for kickstart (laroche)
+- Add yumcache (pnasrat)
+- Upgrade blacklisting (pnasrat)
+- Clean up exception copying (clumens)
+- Improve text mode exception dialog too (clumens)
+- Don't allow bootable partitions on XFS
+- Some speed improvements, progress bars, etc for package stuff (pnasrat)
+- Clean up image creation, move all modules to initrd.img.  
+
 * Fri Oct 14 2005 Jeremy Katz <katzj@redhat.com> - 10.3.0.32-1
 - fix typo causing traceback (pnasrat)
 - Create character device nodes to fix synaptics (clumens)
