@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.1
+Version: 10.89.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 20 2005 Jeremy Katz <katzj@redhat.com> - 10.89.2-1
+- fix references to second stage module stuff that caused breakage
+
 * Thu Oct 20 2005 Jeremy Katz <katzj@redhat.com> - 10.89.1-1
 - fix for mkcramfs -> mkfs.cramfs
 - Use minstg2.img instead of netstg2.img/hdstg2.img in the loader
