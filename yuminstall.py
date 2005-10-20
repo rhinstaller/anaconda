@@ -211,10 +211,17 @@ class AnacondaYum(yum.YumBase):
 
         return (downloadpkgs, totalSize, totalFiles)
 
+    def setColor(self):
+        if (rpmUtils.arch.canonArch.startswith("ppc64") or
+        rpmUtils.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
+            self.ts.ts.setColor(3)
+
     def run(self, instLog, cb):
         self.initActionTs()
+        self.setColor()
         self.populateTs(keepold=0)
         self.ts.check()
+        self.ts.order()
 
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
         self.ts.ts.scriptFd = instLog.fileno()
