@@ -1,5 +1,11 @@
 2005-10-20  Jeremy Katz  <katzj@redhat.com>
 
+	* splashscreen.py (splashScreenShow): Don't do xsetroot anymore.
+	It makes things odd in some environments and doesn't buy us much
+	with X starting with a solid black background.
+
+2005-10-20  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* loader2/loader.c: Second stage module location no longer exists,

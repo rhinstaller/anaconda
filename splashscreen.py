@@ -19,29 +19,12 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 import gtk
 from flags import flags
-from rhpl.translate import cat
-
-# for GTK+ 2.0
-cat.setunicode(1)
 
 splashwindow = None
 
 def splashScreenShow():
     from gui import readImageFromFile
     
-    #set the background to a dark gray
-    if flags.setupFilesystems:
-        path = ("/usr/X11R6/bin/xsetroot",)
-        args = ("-solid", "gray45")
-
-        child = os.fork()
-        if (child == 0):
-            os.execv(path[0], path + args)
-        try:
-            pid, status = os.waitpid(child, 0)
-        except OSError, (errno, msg):
-            print __name__, "waitpid:", msg
-
     root = gtk.gdk.get_default_root_window()
     cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
     root.set_cursor(cursor)
