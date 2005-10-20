@@ -523,6 +523,9 @@ class ProgressWindow:
 	self.window.show_all ()
         rootPushBusyCursor()
 
+    def refresh(self):
+        processEvents()
+
     def set (self, amount):
 	# only update widget if we've changed by 5%
 	curval = self.progress.get_fraction()

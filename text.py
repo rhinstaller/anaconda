@@ -122,6 +122,9 @@ class ProgressWindow:
         self.scale.set(amount)
 	self.screen.refresh()
 
+    def refresh(self):
+        pass
+
     def __init__(self, screen, title, text, total):
 	self.screen = screen
 	width = 55

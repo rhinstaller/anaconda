@@ -268,7 +268,7 @@ class YumBackend(AnacondaBackend):
                  self.ayum.doSackSetup )
 
 
-	waitwin = YumProgress(intf, "Getting installation information", len(tasks))
+	waitwin = YumProgress(intf, _("Getting installation information"), len(tasks))
         self.ayum.repos.callback = waitwin
 
         try:
@@ -294,12 +294,15 @@ class YumBackend(AnacondaBackend):
             id.instClass.setGroupSelection(self)
 
     def doPostSelection(self, intf, id, instPath):
-        win = intf.waitWindow(_("Dependency Check"),
-        _("Checking dependencies in packages selected for installation..."))
            
-        (code, msgs) = self.ayum.buildTransaction()
-        (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
-        win.pop()
+        dscb = YumDepSolveProgress(intf)
+        self.ayum.dsCallback = dscb
+        try:
+            (code, msgs) = self.ayum.buildTransaction()
+            (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
+        finally:
+            dscb.pop()
+            
 
     def doPreInstall(self, intf, id, instPath, dir):
         if dir == DISPATCH_BACK:
@@ -556,7 +559,7 @@ class YumBackend(AnacondaBackend):
 
 class YumProgress:
     def __init__(self, intf, text, total):
-        window = intf.progressWindow("Installation Progress", text ,total)
+        window = intf.progressWindow(_("Installation Progress"), text ,total)
         self.window = window
         self.total = float(total)
         self.num = 0
@@ -580,4 +583,43 @@ class YumProgress:
     def log(self, value, msg):
         log.info(msg)
 
+class YumDepSolveProgress:
+    def __init__(self, intf):
+        window = intf.progressWindow(_("Dependency Check"),
+        _("Checking dependencies in packages selected for installation..."), 1.0)
+        self.window = window
+        self.total = 1.0
 
+        self.pkgAdded = self.procReq = self.transactionPopulation = self.downloadHeader = self.tscheck = self.unresolved = self.procConflict = self.refresh
+
+    def refresh(self, *args):
+        self.window.refresh()
+
+    def set(self, value):
+        self.current = value
+        self.window.set(self.current)
+
+    def start(self):
+        self.set(0.1)
+        self.refresh()
+
+    def restartLoop(self):
+        new = ((1.0 - self.current) / 2) + self.current
+        self.set(new)
+        self.refresh()
+    
+    def end(self):
+        self.window.set(1.0)
+        self.window.refresh()
+
+    def pop(self):
+        self.window.pop()
+
+    def errorlog(self, value, msg):
+        log.error(msg)
+
+    def filelog(self, value, msg):
+        pass
+
+    def log(self, value, msg):
+        log.info(msg)
