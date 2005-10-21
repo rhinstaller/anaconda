@@ -60,6 +60,10 @@ vncconnect=<host>[:<port>]   Once installation is up and running, connect to
 
 updates         Prompt for floppy containing updates (bug fixes).
 
+updates=ftp://<path> Image containing updates over FTP.
+
+updates=http://<path> Image containing updates over HTTP.
+
 isa             Prompt user for ISA devices configuration.
 
 dd              Use a driver disk.

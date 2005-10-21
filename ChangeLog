@@ -1,3 +1,14 @@
+2005-10-21  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/upd-instroot:  Add email.* modules.  Remove directories we
+	don't care about.
+
+	* docs/command-line.txt:  Document new updates= behavior.
+	* loader2/loader.h:  Add updatessrc to the loaderData.
+	* loader2/loader.c (loadUpdatesFromRemote):  Retrieve updates.img from
+	a remote machine.
+	(parseCmdLineFlags):  Handle new updates= behavior.
+
 2005-10-20  Jeremy Katz  <katzj@redhat.com>
 
 	* splashscreen.py (splashScreenShow): Don't do xsetroot anymore.

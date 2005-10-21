@@ -340,6 +340,18 @@ void loadUpdates(int flags) {
     return;
 }
 
+static int loadUpdatesFromRemote(char * url, struct loaderData_s * loaderData,
+                                 int flags) {
+    int rc = getFileFromUrl(url, "/tmp/updates.img", loaderData, flags);
+
+    if (rc != 0)
+        return rc;
+
+    copyUpdatesImg("/tmp/updates.img");
+    unlink("/tmp/updates.img");
+    return 0;
+}
+
 static void checkForHardDrives(int * flagsPtr) {
     int flags = (*flagsPtr);
     int i;
@@ -547,7 +559,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_GRAPHICAL;
         else if (!strcasecmp(argv[i], "cmdline"))
             flags |= LOADER_FLAGS_CMDLINE;
-        else if (!strcasecmp(argv[i], "updates"))
+        else if (!strncasecmp(argv[i], "updates=", 8))
+            loaderData->updatessrc = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "updates", 7))
             flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
             flags |= LOADER_FLAGS_ISA;
@@ -1395,8 +1409,10 @@ int main(int argc, char ** argv) {
         startNewt(flags);
         manualDeviceCheck(modInfo, modLoaded, &modDeps, flags);
     }
-    
-    if (FL_UPDATES(flags)) 
+
+    if (loaderData.updatessrc)
+        loadUpdatesFromRemote(loaderData.updatessrc, &loaderData, flags);
+    else if (FL_UPDATES(flags))
         loadUpdates(flags);
 
     mlLoadModuleSet("md:raid0:raid1:raid5:raid6:fat:msdos:jbd:ext3:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot", modLoaded, modDeps, modInfo, flags);
