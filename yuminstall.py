@@ -239,10 +239,6 @@ class AnacondaYum(yum.YumBase):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
 
-    def doSackSetup(self):
-        yum.YumBase.doSackSetup(self)
-        self.repos.populateSack(with='filelists')
-
 class YumBackend(AnacondaBackend):
     def __init__(self, methodstr, method, instPath):
         AnacondaBackend.__init__(self, methodstr, method, instPath)
