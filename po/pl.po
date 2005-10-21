@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-09-28 18:40+0200\n"
+"PO-Revision-Date: 2005-10-08 13:10+0200\n"
 "Last-Translator: Tom Berner <tom@lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -963,7 +963,7 @@ msgstr "Zapisywanie zrzutu ekranu"
 #: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Zrzut ekranu nazwany \"%s\" został zapisany."
+msgstr "Zrzut ekranu o nazwie \"%s\" został zapisany."
 
 #: ../gui.py:168
 msgid "Error Saving Screenshot"
@@ -1234,7 +1234,7 @@ msgstr "Zainstaluj w systemie"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr "Porażka skryptu"
+msgstr "Skrypt nie powiódł się"
 
 #: ../kickstart.py:103
 #, python-format
@@ -1439,7 +1439,7 @@ msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
-"Aktualizacja %s pakietów\n"
+"Aktualizowanie %s pakietów\n"
 "\n"
 
 #: ../packages.py:957
@@ -1519,7 +1519,7 @@ msgstr ""
 
 #: ../packages.py:1056
 msgid "Nodes Needed"
-msgstr "Potrzebne węzły"
+msgstr "Wymagane węzły"
 
 #: ../packages.py:1067
 msgid "Disk Space"
@@ -1588,7 +1588,7 @@ msgstr ""
 
 #: ../packages.py:1552
 msgid "_Install anyway"
-msgstr "_Instaluj pomimo to"
+msgstr "Za_instaluj pomimo to"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1815,7 +1815,7 @@ msgstr "_Nie formatuj"
 
 #: ../partIntfHelpers.py:423
 msgid "Error with Partitioning"
-msgstr "Błąd podczas partycjonowania"
+msgstr "Błąd podczas dzielenia na partycje"
 
 #: ../partIntfHelpers.py:424
 #, python-format
@@ -1832,7 +1832,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:438
 msgid "Partitioning Warning"
-msgstr "Ostrzeżenia partycjonowania"
+msgstr "Ostrzeżenie dzielenia na partycje"
 
 #: ../partIntfHelpers.py:439
 #, python-format
@@ -1973,8 +1973,7 @@ msgstr "Brak składników w wybranym RAID lub poziom RAID nie został określony
 #: ../partRequests.py:671 ../partitions.py:906
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr ""
-"Partycje z możliwością rozruchu można tworzyć tylko na urządzeniach "
-"RAID-1."
+"Partycje z możliwością rozruchu można tworzyć tylko na urządzeniach RAID-1."
 
 #: ../partRequests.py:675
 #, python-format
@@ -2289,8 +2288,7 @@ msgstr "System do ratowania"
 
 #: ../rescue.py:306
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
-"Która partycja zawiera główną partycję (punkt montowania \"/\") instalacji?"
+msgstr "Która partycja zawiera partycję root instalacji?"
 
 #: ../rescue.py:308 ../rescue.py:312
 msgid "Exit"
@@ -2572,11 +2570,11 @@ msgstr ""
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
-msgstr "Aktualizacja istniejącego systemu"
+msgstr "Zaktualizuj istniejący system"
 
 #: ../upgradeclass.py:23
 msgid "Upgrade"
-msgstr "Aktualizacja"
+msgstr "Zaktualizuj"
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
@@ -2761,7 +2759,7 @@ msgstr "Włącz hasła _MD5"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr "Włącz hasła w pliku shado_w"
+msgstr "Włącz hasła shado_w"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
@@ -2797,7 +2795,7 @@ msgstr "_Podstawowy DN LDAP:"
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
-msgstr "Włącz _Kerberos"
+msgstr "Włącz _Kerberosa"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
@@ -3025,7 +3023,7 @@ msgstr "_Zmień program startowy"
 
 #: ../iw/bootloader_main_gui.py:229
 msgid "Configure advanced boot loader _options"
-msgstr "Konfiguracja zaawansowanych _opcji programu startowego"
+msgstr "Skonfiguruj zaawansowane _opcje programu startowego"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -3088,7 +3086,6 @@ msgstr ""
 "\n"
 "Po ponownym uruchomieniu systemu konfiguracja kickstart z wybranymi opcjami "
 "będzie znajdowała się w pliku w \"%s\"."
-
 
 #: ../iw/confirm_gui.py:90
 msgid "About to Upgrade"
@@ -3155,7 +3152,7 @@ msgstr "Wymagane"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
-msgstr "_Instaluj pakiety, aby spełnić zależności"
+msgstr "Za_instaluj pakiety, aby spełnić zależności"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
@@ -3164,7 +3161,7 @@ msgstr ""
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
-msgstr "I_gnoruj zależności między pakietami"
+msgstr "Z_ignoruj zależności między pakietami"
 
 #: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
 msgid "Package Defaults"
@@ -3234,7 +3231,7 @@ msgstr "Aktualizowanie"
 #: ../iw/examine_gui.py:60
 #, python-format
 msgid "_Install %s"
-msgstr "_Instaluj %s"
+msgstr "Za_instaluj %s"
 
 #: ../iw/examine_gui.py:62
 msgid ""
@@ -3324,7 +3321,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:45
 msgid "_Configure Firewall"
-msgstr "_Konfiguracja zapory sieciowej"
+msgstr "S_konfiguruj zaporę sieciową"
 
 #: ../iw/firewall_gui.py:45 ../iw/xconfig_gui.py:445
 #: ../textw/firewall_text.py:120
@@ -3874,7 +3871,7 @@ msgstr "Edytuj interfejs %s"
 
 #: ../iw/network_gui.py:224
 msgid "Configure using _DHCP"
-msgstr "Konfiguruj przez _DHCP"
+msgstr "Skonfiguruj przez _DHCP"
 
 #: ../iw/network_gui.py:230
 msgid "_Activate on boot"
@@ -3907,7 +3904,7 @@ msgstr "Adres sprzętu:"
 #: ../iw/network_gui.py:300
 #, python-format
 msgid "Configure %s"
-msgstr "Konfiguracja %s"
+msgstr "Skonfiguruj %s"
 
 #: ../iw/network_gui.py:474
 msgid "Active on Boot"
@@ -4053,11 +4050,11 @@ msgstr ""
 
 #: ../iw/package_gui.py:357
 msgid "_Tree View"
-msgstr "_Drzewo"
+msgstr "Widok _drzewa"
 
 #: ../iw/package_gui.py:359
 msgid "_Flat View"
-msgstr "_Lista"
+msgstr "Widok _listy"
 
 #: ../iw/package_gui.py:374
 msgid "_Package"
@@ -4187,7 +4184,7 @@ msgstr "Typ"
 
 #: ../iw/partition_gui.py:365
 msgid "Format"
-msgstr "Sformatuj"
+msgstr "Format"
 
 #: ../iw/partition_gui.py:367 ../textw/partition_text.py:1436
 msgid "Start"
@@ -4507,7 +4504,7 @@ msgstr "Instalowanie %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:354
 msgid "Summary"
-msgstr "Opis"
+msgstr "Podsumowanie"
 
 #: ../iw/progress_gui.py:381 ../textw/progress_text.py:130
 msgid "Status: "
@@ -4530,7 +4527,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:965
 msgid "Make RAID Device"
-msgstr "Tworzenie urządzenia RAID"
+msgstr "Utwórz urządzenie RAID"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
@@ -4751,11 +4748,11 @@ msgstr "Opis"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Aktualizacja konfiguracji programu startowego"
+msgstr "Zaktualizuj konfiguracji programu startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr "Akt_ualizuj konfigurację programu startowego"
+msgstr "Zakt_ualizuj konfigurację programu startowego"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
@@ -4808,7 +4805,7 @@ msgstr "Co chcesz zrobić?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:34
 msgid "Migrate File Systems"
-msgstr "Migracja systemów plików"
+msgstr "Migruj systemy plików"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:36
 #, python-format
@@ -4829,7 +4826,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
-msgstr "Aktualizuj partycję wymiany"
+msgstr "Zaktualizuj partycję wymiany"
 
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
@@ -5505,7 +5502,7 @@ msgstr "Nieprawidłowy wybór"
 
 #: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
-msgstr "Nie można dostosowywać wyłączonej zapory."
+msgstr "Nie można dostosować wyłączonej zapory."
 
 #: ../textw/firewall_text.py:92
 msgid "Customize Firewall Configuration"
@@ -5597,7 +5594,7 @@ msgstr "Adres sprzętu: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
-msgstr "Konfiguruj używając DHCP"
+msgstr "Skonfiguruj używając DHCP"
 
 #: ../textw/network_text.py:116
 msgid "Activate on boot"
@@ -5634,7 +5631,7 @@ msgstr "Trzeci serwer DNS:"
 
 #: ../textw/network_text.py:287
 msgid "Miscellaneous Network Settings"
-msgstr "Inne ustawienia sieci"
+msgstr "Różne ustawienia sieci"
 
 #: ../textw/network_text.py:355
 msgid "automatically via DHCP"
@@ -5693,7 +5690,7 @@ msgstr "Rozmiar    :"
 #: ../textw/packages_text.py:180
 #, python-format
 msgid "%.1f KBytes"
-msgstr "%.1f KBajtów"
+msgstr "%.1f kilobajtów"
 
 #: ../textw/packages_text.py:199
 msgid "Total size"
@@ -6016,7 +6013,7 @@ msgstr " Rozmiar   : "
 
 #: ../textw/progress_text.py:102
 msgid " Summary: "
-msgstr " Opis: "
+msgstr " Podsumowanie: "
 
 #: ../textw/progress_text.py:147
 msgid "    Packages"
@@ -6053,7 +6050,7 @@ msgstr "Zegar systemowy używa UTC"
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr "Aktualizuj konfigurację programu startowego"
+msgstr "Zaktualizuj konfigurację programu startowego"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -6106,7 +6103,7 @@ msgstr "Ponownie zainstaluj system"
 
 #: ../textw/upgrade_text.py:208
 msgid "System to Upgrade"
-msgstr "System do aktualizacji"
+msgstr "System do zaktualizowania"
 
 #: ../textw/upgrade_text.py:209
 msgid ""
@@ -6205,13 +6202,14 @@ msgstr "Użytkownik istnieje"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
-"Użytkownik root został już dodany. Nie musisz go tutaj dodawać."
+"Użytkownik root został już skonfigurowany. Nie musisz go tutaj dodawać."
 
 #: ../textw/userauth_text.py:163
 msgid ""
 "This system user is already configured. You don't need to add this user here."
 msgstr ""
-"Ten użytkownik systemowy został już dodany. Nie musisz go tutaj dodawać."
+"Ten użytkownik systemowy został już skonfigurowany. Nie musisz go tutaj "
+"dodawać."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6303,7 +6301,7 @@ msgstr "Użyj połączeń TLS"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
-msgstr "Włącz Kerberos"
+msgstr "Włącz Kerberosa"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
@@ -6337,7 +6335,7 @@ msgstr "Głębia kolorów"
 
 #: ../textw/xconfig_text.py:36
 msgid "Please select the color depth you would like to use:"
-msgstr "Wybierz głębię kolorów, której chcesz używać:"
+msgstr "Wybierz głębię kolorów, której chcesz użyć:"
 
 #: ../textw/xconfig_text.py:59
 msgid "Resolution"
@@ -6345,7 +6343,7 @@ msgstr "Rozdzielczość"
 
 #: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
-msgstr "Wybierz rozdzielczość, której chcesz używać:"
+msgstr "Wybierz rozdzielczość, której chcesz użyć:"
 
 #: ../textw/xconfig_text.py:131
 msgid "X Customization"
@@ -6353,7 +6351,7 @@ msgstr "Konfiguracja X Window"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "Wybierz głębię kolorów i tryb graficzny, których chcesz używać. "
+msgstr "Wybierz głębię kolorów i tryb graficzny, których chcesz użyć. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6385,7 +6383,7 @@ msgstr "KDE"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
-msgstr "Domyślny ekran logowania:"
+msgstr "Domyślne logowanie:"
 
 #: ../textw/xconfig_text.py:178
 msgid "Graphical"
@@ -6413,7 +6411,7 @@ msgstr "pionowe"
 
 #: ../textw/xconfig_text.py:261
 msgid "Invalid Sync Rates"
-msgstr "Błędna częstotliwość synchronizacji"
+msgstr "Nieprawidłowa częstotliwość synchronizacji"
 
 #: ../textw/xconfig_text.py:262
 #, python-format
@@ -6838,7 +6836,7 @@ msgstr "Wybór ręczny"
 
 #: ../loader2/driverdisk.c:477
 msgid "Load another disk"
-msgstr "Wgraj inną dyskietkę"
+msgstr "Wczytaj inną dyskietkę"
 
 #: ../loader2/driverdisk.c:478
 msgid ""
@@ -6864,7 +6862,7 @@ msgstr "Więcej dyskietek ze sterownikami?"
 
 #: ../loader2/driverdisk.c:531
 msgid "Do you wish to load any more driver disks?"
-msgstr "Czy chcesz wgrać więcej dyskietek ze sterownikami?"
+msgstr "Czy chcesz wczytać więcej dyskietek ze sterownikami?"
 
 #: ../loader2/driverdisk.c:583 ../loader2/driverdisk.c:621
 #: ../loader2/hdinstall.c:470 ../loader2/kickstart.c:121
@@ -6913,14 +6911,14 @@ msgstr "Nie znaleziono sterowników"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
-msgstr "Wgraj dyskietkę ze sterownikami"
+msgstr "Wczytaj dyskietkę ze sterownikami"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Nie znaleziono sterowników, które można załadować ręcznie. Czy chcesz użyć "
+"Nie znaleziono sterowników, które można wczytać ręcznie. Czy chcesz użyć "
 "dyskietki ze sterownikami?"
 
 #: ../loader2/driverselect.c:206
@@ -7096,7 +7094,7 @@ msgstr "Nie udało się zamontować dyskietki aktualizującej"
 
 #: ../loader2/loader.c:336
 msgid "Updates"
-msgstr "Aktualizacja"
+msgstr "Aktualizacje"
 
 #: ../loader2/loader.c:336
 msgid "Reading anaconda updates..."
@@ -7383,7 +7381,7 @@ msgstr "Maska sieci:"
 
 #: ../loader2/net.c:492
 msgid "Default gateway (IP):"
-msgstr "Domyślna brama:"
+msgstr "Domyślna brama (IP):"
 
 #: ../loader2/net.c:495
 msgid "Primary nameserver:"
@@ -7395,11 +7393,11 @@ msgstr "Użyj dynamicznej konfiguracji IP (BOOTP/DHCP)"
 
 #: ../loader2/net.c:550
 msgid "Configure TCP/IP"
-msgstr "Konfiguracja TCP/IP"
+msgstr "Skonfiguruj TCP/IP"
 
 #: ../loader2/net.c:587
 msgid "Missing Information"
-msgstr "Brakująca informacja"
+msgstr "Brak informacji"
 
 #: ../loader2/net.c:588
 msgid "You must enter both a valid IP address and a netmask."
@@ -7472,11 +7470,11 @@ msgstr "Uruchamianie anacondy przez telnet..."
 #: ../loader2/urlinstall.c:68
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Nie można odzyskać %s://%s/%s/%s."
+msgstr "Nie można pobrać %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:140
 msgid "Unable to retrieve the install image."
-msgstr "Nie można odzyskać obrazu instalacyjnego."
+msgstr "Nie można pobrać obrazu instalacyjnego."
 
 #: ../loader2/urlinstall.c:277
 msgid "Media Detected"
@@ -7508,11 +7506,11 @@ msgstr "Nie udało się zalogować do %s: %s"
 #: ../loader2/urls.c:183 ../loader2/urls.c:192
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Nie można odzyskać %s: %s"
+msgstr "Nie można pobrać %s: %s"
 
 #: ../loader2/urls.c:199
 msgid "Retrieving"
-msgstr "Odzyskiwanie"
+msgstr "Pobieranie"
 
 #: ../loader2/urls.c:283
 msgid "FTP site name:"
