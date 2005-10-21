@@ -377,6 +377,7 @@ usr/$LIBDIR/libz.*
 usr/$LIBDIR/libbogl.so*
 usr/$LIBDIR/libreadline*
 usr/$LIBDIR/python?.?/*
+usr/$LIBDIR/python?.?/email/*
 usr/$LIBDIR/python?.?/site-packages/libxml2*
 usr/$LIBDIR/python?.?/site-packages/*kudzu*
 usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
@@ -1245,13 +1246,13 @@ else
 fi
 
 # some python stuff we don't need for stage2
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/encodings/
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/test/
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
-rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/encodings/
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/test/
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
+rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
 
 # clean up tzdata
 rm -rf $TZDIR
