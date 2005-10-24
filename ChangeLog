@@ -1,9 +1,13 @@
 2005-10-24  Jeremy Katz  <katzj@redhat.com>
 
+	* ui/anaconda.glade: Make help not visible by default.  This fixes
+	screwiness where the pane was still there with kickstart installs.
+
 	* dispatch.py (installSteps): Break out reposetup and base package
 	selection into separate steps.
 	* installclass.py (BaseInstallClass.setSteps): Likewise.
 	* yuminstall.py (YumBackend.doRepoSetup): Add backend repo setup.
+	* backend.py (doBasePackageSelect): Implement generically for now
 
 	* scripts/mk-images.ia64 (image): Fix typo
 

@@ -22,6 +22,7 @@
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_CENTER</property>
   <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
   <signal name="key_release_event" handler="on_mainWindow_key_release_event" last_modification_time="Wed, 12 Jan 2005 20:53:20 GMT"/>
   <signal name="delete_event" handler="on_mainWindow_delete_event" last_modification_time="Wed, 12 Jan 2005 21:03:14 GMT"/>
 
@@ -90,7 +91,6 @@
 
 	  <child>
 	    <widget class="GtkScrolledWindow" id="help">
-	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 	      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
