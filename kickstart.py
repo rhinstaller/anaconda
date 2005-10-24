@@ -121,7 +121,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             location = dict["location"]
 
         if dict["upgrade"] and not id.getUpgrade():
-            raise KickstartError, "Selected upgrade mode for bootloader but not doing an upgrade"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
         if dict["upgrade"]:
             id.bootloader.kickstart = 1
@@ -206,22 +206,23 @@ class AnacondaKSHandlers(KickstartHandlers):
 
 	# sanity check mountpoint
 	if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
-	    raise KickstartValueError, "The mount point \"%s\" is not valid." % (lvd.mountpoint,)
+	    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (lvd.mountpoint,))
 
         if lvd.percent == 0:
             if lvd.size == 0 and lvd.preexist == False:
-                raise KickstartValueError, "Size required for logical volume %s" % lvd.name
+                raise KickstartValueError, formatErrorMsg(self.lineno,
+                msg="Size required")
         elif lvd.percent <= 0 or lvd.percent > 100:
-            raise KickstartValueError, "Percentage must be between 0 and 100 for logical volume %s" % lvd.name
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
 
         vgid = self.ksVGMapping[lvd.vgname]
 	for areq in id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
 		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
-		    raise KickstartValueError, "Logical volume name %s already used in volume group %s" % (lvd.name, lvd.vgname)
+		    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
 
         if not self.ksVGMapping.has_key(lvd.vgname):
-            raise KickstartValueError, "Logical volume %s specifies a non-existent volume group" % lvd.name
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume specifies a non-existent volume group" % lvd.name)
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
                                       format = lvd.format,
@@ -282,7 +283,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             pd.disk = isys.doGetBiosDisk(pd.onbiosdisk)
 
             if pd.disk != "":
-                raise KickstartValueError, "Specified BIOS disk %s cannot be determined" % pd.disk
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % pd.disk)
 
         if pd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')
@@ -308,7 +309,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("software RAID")
             
             if self.ksRaidMapping.has_key(pd.mountpoint):
-                raise KickstartValueError, "Defined RAID partition %s multiple times" % pd.mountpoint
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined RAID partition multiple times")
             
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -319,7 +320,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
             if self.ksPVMapping.has_key(pd.mountpoint):
-                raise KickstartValueError, "Defined PV partition %s multiple times" % pd.mountpoint
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
 
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -336,11 +337,11 @@ class AnacondaKSHandlers(KickstartHandlers):
                 filesystem = fileSystemTypeGetDefault()
 
         if pd.size == 0 and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
-            raise KickstartValueError, "partition requires a size specification"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
         if pd.start != 0 and pd.disk == "":
-            raise KickstartValueError, "partition command with start cylinder requires a drive specification"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
         if pd.disk != "" and pd.disk not in isys.hardDriveDict().keys():
-            raise KickstartValueError, "specified disk %s in partition command which does not exist" % pd.disk
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified disk in partition command which does not exist")
 
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = pd.mountpoint,
@@ -368,7 +369,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.device = pd.onPart
             for areq in id.partitions.autoPartitionRequests:
                 if areq.device is not None and areq.device == pd.onPart:
-		    raise KickstartValueError, "Partition %s already used" % pd.onPart
+		    raise KickstartValueError, formatErrorMsg(self.lineno, "Partition already used")
 
         if pd.fsopts != "":
             request.fsopts = pd.fsopts
@@ -394,7 +395,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
             if self.ksPVMapping.has_key(rd.mountpoint):
-                raise KickstartValueError, "Defined PV partition %s multiple times" % rd.mountpoint
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Defined PV partition multiple times")
 
             # get a sort of hackish id
             uniqueID = self.ksID
@@ -409,24 +410,24 @@ class AnacondaKSHandlers(KickstartHandlers):
 
 	# sanity check mountpoint
 	if rd.mountpoint != "" and rd.mountpoint[0] != '/':
-	    raise KickstartValueError, "The mount point %s is not valid." % rd.mountpoint
+	    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point is not valid.")
 
         raidmems = []
 
         # get the unique ids of each of the raid members
         for member in rd.members:
             if member not in self.ksRaidMapping.keys():
-                raise KickstartValueError, "Tried to use undefined partition %s in RAID specification" % member
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
 	    if member in self.ksUsedMembers:
-                raise KickstartValueError, "Tried to use RAID member %s in two or more RAID specifications" % member
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use RAID member %s in two or more RAID specifications" % member)
 		
             raidmems.append(self.ksRaidMapping[member])
 	    self.ksUsedMembers.append(member)
 
         if rd.level == "" and rd.preexist == False:
-            raise KickstartValueError, "RAID Partition defined without RAID level"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
         if len(raidmems) == 0 and rd.preexist == False:
-            raise KickstartValueError, "RAID Partition defined without any RAID members"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
 
         request = partRequests.RaidRequestSpec(filesystem,
                                                mountpoint = rd.mountpoint,
@@ -489,14 +490,14 @@ class AnacondaKSHandlers(KickstartHandlers):
         # get the unique ids of each of the physical volumes
         for pv in vgd.physvols:
             if pv not in self.ksPVMapping.keys():
-                raise KickstartValueError, "Tried to use undefined partition %s in Volume Group specification" % pv
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
             pvs.append(self.ksPVMapping[pv])
 
         if len(pvs) == 0 and vgd.preexist == False:
-            raise KickstartValueError, "Volume group defined without any physical volumes"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes")
 
         if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
-            raise KickstartValueError, "Volume group specified invalid pesize: %d" %(vgd.pesize,)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize")
 
         # get a sort of hackish id
         uniqueID = self.ksID
@@ -576,7 +577,7 @@ class KickstartPreParser(KickstartParser):
     def addPackages (self, line):
         pass
 
-    def handleCommand (self, cmd, args):
+    def handleCommand (self, lineno, args):
         pass
 
     def handlePackageHdr (self, line):
@@ -614,16 +615,20 @@ class AnacondaKSParser(KickstartParser):
 
         self.ksdata.scripts.append(s)
 
-    def handleCommand (self, cmd, args):
+    def handleCommand (self, lineno, args):
         if not self.handler:
             return
 
+        cmd = args[0]
+        cmdArgs = args[1:]
+
         if not self.handler.handlers.has_key(cmd):
-            raise KickstartParseError, (cmd + " " + string.join (args))
+            raise KickstartParseError, formatErrorMsg(lineno)
         else:
             if self.handler.handlers[cmd] != None:
-                self.handler.currentCmd = cmd
-                self.handler.handlers[cmd](self.id, args)
+                setattr(self.handler, "currentCmd", cmd)
+                setattr(self.handler, "lineno", lineno)
+                self.handler.handlers[cmd](self.id, cmdArgs)
 
 # The anaconda kickstart processor.
 class Kickstart(BaseInstallClass):

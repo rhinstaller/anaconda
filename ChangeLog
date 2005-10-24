@@ -12,6 +12,7 @@
 
 	* instdata.py (InstallData.writeKS):  Don't write empty authconfig
 	line (#171558).
+	* kickstart.py:  Make error reporting more useful with line numbers.
 
 2005-10-21  Paul Nasrat <pnasrat@redhat.com>
 
