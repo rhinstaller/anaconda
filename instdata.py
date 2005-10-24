@@ -192,7 +192,8 @@ class InstallData:
 	self.zfcp.writeKS(f)
 	self.rootPassword.writeKS(f, useMD5)
 	self.firewall.writeKS(f)
-	f.write("authconfig %s" % self.auth)
+	if self.auth.strip() != "":
+	    f.write("authconfig %s\n" % self.auth)
         self.security.writeKS(f)
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)

@@ -1,3 +1,8 @@
+2005-10-24  Chris Lumens  <clumens@redhat.com>
+
+	* instdata.py (InstallData.writeKS):  Don't write empty authconfig
+	line (#171558).
+
 2005-10-21  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Only get filelists when needed
