@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.2
+Version: 10.89.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,24 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 24 2005 Jeremy Katz <katzj@redhat.com> - 10.89.3-1
+- don't do xsetroot anymore
+- allow retrieving updates.img with 
+  updates=(http|ftp)://host/path/to.img (clumens)
+- some upd-instroot fixes (clumens)
+- only get yum filelists when needed (pnasrat)
+- clean up exception scp'ing (clumens)
+- don't write empty authconfig line (clumens, #171558)
+- make kickstart errors report line number of error (clumens)
+- select most appropriate kernel (kernel-smp, etc)
+- ensure we get a boot loader package installed
+- minor fix for ia64 image creation
+- tweaks to backend setup 
+- don't have help as visible in the glade file so we don't have the pane 
+  appear when doing a kickstart install
+- use pl2 keymap for Polish (3171583)
+- allow passing product information with env vars to help live cd
+
 * Thu Oct 20 2005 Jeremy Katz <katzj@redhat.com> - 10.89.2-1
 - fix references to second stage module stuff that caused breakage
 
