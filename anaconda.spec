@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.3
+Version: 10.89.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct 24 2005 Jeremy Katz <katzj@redhat.com> - 10.89.4-1
+- changed the wrong field in lang-table
+
 * Mon Oct 24 2005 Jeremy Katz <katzj@redhat.com> - 10.89.3-1
 - don't do xsetroot anymore
 - allow retrieving updates.img with 
