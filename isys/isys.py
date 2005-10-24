@@ -84,7 +84,7 @@ def wipeRaidSB(device):
     try:
         fd = os.open(device, os.O_WRONLY)
     except OSError, e:
-        log.critical("error wiping raid device superblock for %s: %s", device, e)
+        log.warning("error wiping raid device superblock for %s: %s", device, e)
         return
 
     try:
@@ -189,7 +189,7 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remoun
 	mountCount[location] = mountCount[location] + 1
 	return
 
-    log.info("isys.py:mount()- going to mount %s on %s" %(device, location))
+    log.debug("isys.py:mount()- going to mount %s on %s" %(device, location))
     rc = _isys.mount(fstype, device, location, readOnly, bindMount, remount)
 
     if not rc:
@@ -302,12 +302,12 @@ def hardDriveDict():
                 makeDevInode(dev, devName)
                 peddev = parted.PedDevice.get(devName)
                 if peddev.model.find("IBM *STMF KERNEL") != -1:
-                    log.warning("%s looks like STMF, ignoring" %(dev,))
+                    log.info("%s looks like STMF, ignoring" %(dev,))
                     del dict[dev]
                 del peddev
                 os.unlink(devName)
             except Exception, e:
-                log.critical("exception looking for STMF on %s: %s" %(dev, e))
+                log.debug("exception looking for STMF on %s: %s" %(dev, e))
         
         # the only raid devs like this are ide, so only worry about them
         if not dev.startswith("hd"):
@@ -346,7 +346,7 @@ def hardDriveDict():
             log.info("%s has a %s raid signature and windows parts" %(dev, ret))
             del dict[dev]
         else:
-            log.info("%s has a %s raid signature but no windows parts" %(dev, ret))
+            log.debug("%s has a %s raid signature but no windows parts" %(dev, ret))
         
     return driveDict("disk")
 
@@ -391,7 +391,7 @@ def getDasdDevPort():
 def getDasdState(dev):
     devs = getDasdDevPort()
     if not devs.has_key(dev):
-        log.error("don't have %s in /dev/dasd/devices!" %(dev,))
+        log.warning("don't have %s in /dev/dasd/devices!" %(dev,))
         return 0
     
     f = open("/proc/dasd/devices", "r")
@@ -586,7 +586,7 @@ def readXFSLabel_int(device):
         buf = os.read(fd, 128)
         os.close(fd)
     except OSError, e:
-        log.error("error reading xfs label on %s: %s" %(device, e))
+        log.debug("error reading xfs label on %s: %s" %(device, e))
         try:
             os.close(fd)
         except:
@@ -620,7 +620,7 @@ def readJFSLabel_int(device):
         buf = os.read(fd, 180)
         os.close(fd)
     except OSError, e:
-        log.error("error reading jfs label on %s: %s" %(device, e))
+        log.debug("error reading jfs label on %s: %s" %(device, e))
         try:
             os.close(fd)
         except:
@@ -653,7 +653,7 @@ def readSwapLabel_int(device):
         buf = os.read(fd, pagesize)
         os.close(fd)
     except OSError, e:
-        log.error("error reading swap label on %s: %s" %(device, e))
+        log.debug("error reading swap label on %s: %s" %(device, e))
         try:
             os.close(fd)
         except:
@@ -721,7 +721,7 @@ def ejectCdrom(device, makeDevice = 1):
     try:
 	_isys.ejectcdrom(fd)
     except SystemError, e:
-        log.error("error ejecting cdrom (%s): %s" %(device, e))
+        log.warning("error ejecting cdrom (%s): %s" %(device, e))
 	pass
 
     os.close(fd)
