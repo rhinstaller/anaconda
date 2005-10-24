@@ -26,7 +26,7 @@ EOF
 makeBootImages() {
     mkdir -p $TOPDESTPATH/images/pxeboot
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	--initrdsie 12288 \
+	--initrdsize 12288 \
 	--loaderbin loader \
 	--modules "$INITRDMODS sgiioc4"
     [ $? = 0 ] || exit 1
