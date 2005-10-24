@@ -514,7 +514,7 @@ class YumBackend(AnacondaBackend):
                               ('kernel-pseries', ''),
                               ('kernel-iseries', '') ]:
             tag = ktag.split('-')[1]
-            for tsmbr in self.ayum.tsInfo.matchNaevr(name=nick):
+            for tsmbr in self.ayum.tsInfo.matchNaevr(name=ktag):
                 version = ( tsmbr.version + '-' + tsmbr.release + tag)
                 kernelVersions.append((version, nick))
 
