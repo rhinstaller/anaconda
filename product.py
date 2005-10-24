@@ -16,6 +16,9 @@ if os.access("/tmp/product/.buildstamp", os.R_OK):
     path = "/tmp/product/.buildstamp"
 elif os.access("/.buildstamp", os.R_OK):
     path = "/.buildstamp"
+elif os.environ.has_key("PRODBUILDPATH") and \
+         os.access(os.environ["PRODBUILDPATH"], os.R_OK):
+    path = os.environ[PRODBUILDPATH]
 else:
     path = None
     
@@ -23,7 +26,7 @@ else:
 productName = "anaconda"
 productVersion = "bluesky"
 productPath = "anaconda"
-bugUrl = "your distribution provided bug reporting tool."    
+bugUrl = "your distribution provided bug reporting tool."
 
 if path is not None:
     f = open(path, "r")
@@ -36,6 +39,11 @@ if path is not None:
     if len(lines) >= 5:
         bugUrl = lines[4][:-1]
 
-
-        
-
+if os.environ.has_key("ANACONDA_PRODUCTNAME"):
+    productName = os.environ["ANACONDA_PRODUCTNAME"]
+if os.environ.has_key("ANACONDA_PRODUCTVERSION"):
+    productVersion = os.environ["ANACONDA_PRODUCTVERSION"]
+if os.environ.has_key("ANACONDA_PRODUCTPATH"):
+    productPath = os.environ["ANACONDA_PRODUCTPATH"]
+if os.environ.has_key("ANACONDA_BUGURL"):
+    bugUrl = os.environ["ANACONDA_BUGURL"]

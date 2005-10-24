@@ -1,5 +1,8 @@
 2005-10-24  Jeremy Katz  <katzj@redhat.com>
 
+	* product.py: Allow passing the path to a buildstamp with an
+	environment variable. Also, allow setting all values with env vars.
+
 	* lang-table: Use pl2 keymap (#171583)
 
 	* ui/anaconda.glade: Make help not visible by default.  This fixes
