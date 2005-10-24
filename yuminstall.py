@@ -25,7 +25,7 @@ import yum.repos
 import yum.packages
 import yum.groups
 from yum.Errors import RepoError
-import repomd.mdErrors
+from repomd.mdErrors import PackageSackError
 from backend import AnacondaBackend
 from constants import *
 from rhpl.translate import _
@@ -239,6 +239,21 @@ class AnacondaYum(yum.YumBase):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
 
+    def getBestPackage(self, pkgname, pkgarch = None):
+        if pkgarch:
+            pkgs = self.pkgSack.returnNewestByName(pkgname, pkgarch)
+        else:
+            pkgs = self.pkgSack.returnNewestByName(pkgname)
+        if len(pkgs) == 0:
+            return None
+        
+        archs = {}
+        for pkg in pkgs:
+            (n, a, e, v, r) = pkg.pkgtup
+            archs[a] = pkg
+        a = rpmUtils.arch.getBestArchFromList(archs.keys())
+        return archs[a]
+
 class YumBackend(AnacondaBackend):
     def __init__(self, methodstr, method, instPath):
         AnacondaBackend.__init__(self, methodstr, method, instPath)
@@ -289,7 +304,48 @@ class YumBackend(AnacondaBackend):
             id.instClass.setPackageSelection(self)        
             id.instClass.setGroupSelection(self)
 
+    def selectBestKernel(self):
+        """Find the best kernel package which is available and select it."""
+        foundkernel = False
+
+        kpkg = self.ayum.getBestPackage("kernel")
+
+        if isys.smpAvailable() or isys.htavailable():
+            try:
+                ksmp = self.ayum.getBestPackage("kernel-smp")
+                log.info("selected kernel-smp package for kernel")
+                foundkernel = True
+            except PackageSackError:
+                ksmp = None
+                log.debug("no kernel-smp package")
+
+            if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
+                self.ayum.tsInfo.addInstall(ksmp)
+                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
+                    log.debug("selecting kernel-smp-devel ")
+                    self.selectPackage("kernel-smp-devel")
+            
+        if not foundkernel:
+            log.info("selected kernel package for kernel")
+            self.ayum.tsInfo.addInstall(kpkg)
+            if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
+                log.debug("selecting kernel-devel")
+                self.selectPackage("kernel-devel")
+
+    def selectBootloader(self):
+        if iutil.getArch() in ("i386", "x86_64"):
+            self.selectPackage("grub")
+        elif iutil.getArch() == "s390":
+            self.selectPackage("s390utils")
+        elif iutil.getArch() == "ppc":
+            self.selectPackage("yaboot")
+        elif iutil.getArch() == "ia64":
+            self.selectPackage("elilo")
+
     def doPostSelection(self, intf, id, instPath):
+        # do some sanity checks for kernel and bootloader
+        self.selectBestKernel()
+        self.selectBootloader()
            
         dscb = YumDepSolveProgress(intf)
         self.ayum.dsCallback = dscb
@@ -488,7 +544,7 @@ class YumBackend(AnacondaBackend):
         for pkg in pkgs:
             try:
                 p = self.ayum.pkgSack.returnNewestByName(pkg)
-            except repomd.mdErrors.PackageSackError:
+            except PackageSackError:
                 log.debug("no such package %s in %s" %(pkg, group))
                 continue
             self.ayum.tsInfo.addInstall(p[0])
@@ -506,7 +562,7 @@ class YumBackend(AnacondaBackend):
         for pkg in self.ayum.groupInfo.default_pkgs[gid] + self.ayum.groupInfo.mandatory_pkgs[gid]:
             try:
                 p = self.ayum.pkgSack.returnNewestByName(pkg)
-            except repomd.mdErrors.PackageSackError:
+            except PackageSackError:
                 log.debug("no such package %s in %s" %(pkg, group))
                 continue
             self.ayum.tsInfo.remove(p[0].pkgtup)            
@@ -515,20 +571,21 @@ class YumBackend(AnacondaBackend):
             if grp in self.anaconda_grouplist:
                 self.anaconda_grouplist.remove(grp)
 
+    # FIXME: these don't properly handle arch.  *sigh*
     def selectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
         p = None
         if len(sp) == 2:
             try:
                 p = self.ayum.pkgSack.returnNewestByNameArch((sp[0], sp[1]))
-            except repomd.mdErrors.PackageSackError:
+            except PackageSackError:
                 # maybe the package has a . in the name
                 pass
 
         if p is None:
             try:
                 p = self.ayum.pkgSack.returnNewestByName(pkg)
-            except repomd.mdErrors.PackageSackError:
+            except PackageSackError:
                 log.debug("no such package %s" %(pkg,))
                 return
             
@@ -540,14 +597,14 @@ class YumBackend(AnacondaBackend):
         if len(sp) == 2:
             try:
                 p = self.ayum.pkgSack.returnNewestByNameArch((sp[0], sp[1]))
-            except repomd.mdErrors.PackageSackError:
+            except PackageSackError:
                 # maybe the package has a . in the name
                 pass
 
         if p is None:
             try:
                 p = self.ayum.pkgSack.returnNewestByName(pkg)
-            except repomd.mdErrors.PackageSackError:
+            except PackageSackError:
                 log.debug("no such package %s" %(pkg,))
                 return
             
