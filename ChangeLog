@@ -12,6 +12,11 @@
 
 2005-10-24  Chris Lumens  <clumens@redhat.com>
 
+	* exception.py (copyExceptionToRemote):  Destroy scp dialog.
+	(copyExceptionToFloppy):  Pass in dispatch so the floppy part works.
+	(handleException):  Don't make scp/floppy errors fatal so the user has
+	another chance to get it right.
+
 	* instdata.py (InstallData.writeKS):  Don't write empty authconfig
 	line (#171558).
 	* kickstart.py:  Make error reporting more useful with line numbers.

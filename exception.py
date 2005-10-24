@@ -240,6 +240,7 @@ def copyExceptionToRemote(intf):
         (childpid, master) = pty.fork()
         if childpid < 0:
             log.critical("Could not fork process to run scp")
+            scpWin.pop()
             return 2
         elif childpid == 0:
             # child process - run scp
@@ -252,6 +253,7 @@ def copyExceptionToRemote(intf):
         try:
             childstatus = scpAuthenticate(master, childpid, password)
         except OSError:
+            scpWin.pop()
             return 2
 
         os.close(master)
@@ -259,9 +261,10 @@ def copyExceptionToRemote(intf):
         if os.WIFEXITED(childstatus) and os.WEXITSTATUS(childstatus) == 0:
             return 0
         else:
+            scpWin.pop()
             return 2
 
-def copyExceptionToFloppy (intf):
+def copyExceptionToFloppy (intf, dispatch):
     # in test mode have save to floppy option just copy to new name
     if not flags.setupFilesystems:
         try:
@@ -365,7 +368,7 @@ def handleException(dispatch, intf, (type, value, tb)):
             pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)
         elif rc == 2:
-            floppyRc = copyExceptionToFloppy(intf)
+            floppyRc = copyExceptionToFloppy(intf, dispatch)
 
             if floppyRc == 0:
                 intf.messageWindow(_("Dump Written"),
@@ -379,8 +382,7 @@ def handleException(dispatch, intf, (type, value, tb)):
                 intf.messageWindow(_("Dump Not Written"),
                     _("There was a problem writing the system state to the "
                       "floppy."))
-                intf.__del__ ()
-                os.kill(os.getpid(), signal.SIGKILL)
+                continue
         elif rc == 3:
             scpRc = copyExceptionToRemote(intf)
 
@@ -396,5 +398,4 @@ def handleException(dispatch, intf, (type, value, tb)):
                 intf.messageWindow(_("Dump Not Written"),
                     _("There was a problem writing the system state to the "
                       "remote host."))
-                intf.__del__ ()
-                os.kill(os.getpid(), signal.SIGKILL)
+                continue
