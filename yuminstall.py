@@ -265,11 +265,9 @@ class YumBackend(AnacondaBackend):
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
-    # FIXME: this step is actually probably not broken out properly
-    def doPreSelection(self, intf, id, instPath):
+    def doRepoSetup(self, intf, instPath):
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
-        # this should be in some sort of backend setup step
         tasks = (self.ayum.doMacros,
                  self.ayum.doTsSetup,
                  self.ayum.doRpmDBSetup,
@@ -278,8 +276,8 @@ class YumBackend(AnacondaBackend):
                  self.ayum.doGroupSetup,
                  self.ayum.doSackSetup )
 
-
-	waitwin = YumProgress(intf, _("Getting installation information"), len(tasks))
+	waitwin = YumProgress(intf, _("Retrieving installation information"),
+                              len(tasks))
         self.ayum.repos.callback = waitwin
 
         try:
@@ -297,12 +295,6 @@ class YumBackend(AnacondaBackend):
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
             sys.exit(0)
-            
-
-        # then a base package selection step
-        if id: # hack for my test script :)
-            id.instClass.setPackageSelection(self)        
-            id.instClass.setGroupSelection(self)
 
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""

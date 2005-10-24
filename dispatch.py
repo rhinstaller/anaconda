@@ -39,7 +39,7 @@ from upgrade import findRootParts
 from network import networkDeviceCheck
 from installmethod import doMethodComplete
 
-from backend import doPreSelection, doPostSelection
+from backend import doPostSelection, doRepoSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall 
 
 import logging
@@ -98,22 +98,14 @@ installSteps = [
     ("network", ("id.network", "dir", "intf", "id")),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
-    ("preselection", doPreSelection, ("backend","intf", "id", "instPath")),
+    ("reposetup", doRepoSetup, ("backend","intf", "instPath")),
+    ("basepkgsel", doBasePackageSelect, ("backend","id.instClass")),
     ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
-    #("package-selection", ("id.grpset", "id.instLanguage", "id.instClass", "dispatch")),
-    #("indivpackage", ("id.grpset",)),
-    #("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
-    #                                      "id", "instPath")),
-    #("handlemiscpkgs", handleMiscPackages, ("intf", "id", "dir")),
     #("fixupconditionals", fixupConditionals, ("id.grpset",)),
-    #("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
-#XXX: factor to backend
-    #("checkdeps", checkDependencies, ("dir", "intf", "dispatch", "id", "instPath")),
-    #("dependencies", ("id.grpset", "id.dependencies")),
     ("confirminstall", ("intf", "id",)),
     ("confirmupgrade", ("intf", "id",)),
     ("install", ("dir", "intf", "id")),

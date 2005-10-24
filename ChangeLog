@@ -1,5 +1,10 @@
 2005-10-24  Jeremy Katz  <katzj@redhat.com>
 
+	* dispatch.py (installSteps): Break out reposetup and base package
+	selection into separate steps.
+	* installclass.py (BaseInstallClass.setSteps): Likewise.
+	* yuminstall.py (YumBackend.doRepoSetup): Add backend repo setup.
+
 	* scripts/mk-images.ia64 (image): Fix typo
 
 	* isys/isys.py: Change some log levels

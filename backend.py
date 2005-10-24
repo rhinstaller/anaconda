@@ -102,6 +102,10 @@ class AnacondaBackend:
     def kernelVersionList():
         pass
 
+    def doRepoSetup(self, intf, instPath):
+        log.warning("doRepoSetup not implemented for backend!")
+        pass
+
     def groupExists(self, group):
         log.warning("groupExists not implemented for backend!")
         pass
@@ -127,8 +131,8 @@ class AnacondaBackend:
         pass
 
 
-def doPreSelection(backend, intf, id, instPath):
-    backend.doPreSelection(intf, id, instPath)
+def doRepoSetup(backend, intf, instPath):
+    backend.doRepoSetup(intf, instPath)
 
 def doPostSelection(backend, intf, id, instPath):
     backend.doPostSelection(intf, id, instPath)
@@ -142,3 +146,8 @@ def doPostInstall(backend, intf, id, instPath):
 def doInstall(backend, intf, id, instPath):
     backend.doInstall(intf, id, instPath)
 
+# does this need to be per-backend?  we'll just leave here until it does :)
+def doBasePackageSelect(backend, instClass):
+    instClass.setPackageSelection(backend)
+    instClass.setGroupSelection(backend)
+    
