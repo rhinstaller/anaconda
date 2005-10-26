@@ -413,6 +413,11 @@ if os.environ.has_key("LD_PRELOAD"):
 # is imported
 iutil.writeRpmPlatform()
 
+# create character device nodes if we're not running in test mode - have
+# to do this early sine it's used for Synaptics, etc.
+if not flags.test:
+    iutil.makeCharDeviceNodes()
+
 try:
     (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
           [ 'graphical', 'text', 'test', 'debug', 'nofallback',
@@ -1090,10 +1095,6 @@ floppyDevice = floppy.probeFloppyDevice()
 # create device nodes for detected devices if we're not running in test mode
 if not flags.test and flags.setupFilesystems:
     iutil.makeDriveDeviceNodes()
-
-# create character device nodes if we're not running in test mode
-if not flags.test:
-    iutil.makeCharDeviceNodes()
 
 id = instClass.installDataClass(extraModules, floppyDevice, method)
 
