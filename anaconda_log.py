@@ -21,7 +21,7 @@ import iutil
 import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 
-DEFAULT_LEVEL = logging.INFO
+DEFAULT_LEVEL = logging.WARNING
 
 logFile = "/tmp/anaconda.log"
 

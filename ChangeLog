@@ -4,6 +4,9 @@
 	where appropriate.
 	(doklog):  Break the logging out into its own function.
 
+	* anaconda_log.py (DEFAULT_LEVEL):  Set minimum log level to WARNING.
+	* loader2/log.c (minLevel):  Likewise.
+
 2005-10-26  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c (main): Use nofb by default
