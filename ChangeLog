@@ -1,3 +1,13 @@
+2005-10-27  Jeremy Katz  <katzj@redhat.com>
+
+	* bootloader.py (writeBootloader): Handle inconsistently named
+	kernel-xen-{guest,hypervisor} kernels
+
+	* yuminstall.py (YumBackend.doRepoSetup): Give full error on tty3.
+	(YumBackend.selectBestKernel): Temporarily allow installation of
+	xen-hypervisor kernel package by passing 'xen0' on kernel command line
+	(YumBackend.kernelVersionList): Remove obsolete cruft, add xen stuff
+
 2005-10-27  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/init.c (logChunk):  Try to put newlines into the syslog

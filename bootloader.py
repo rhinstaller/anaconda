@@ -151,7 +151,9 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
                                version))
 	else:
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
-            if nick != "up":
+            if nick in ("hypervisor", "guest"): # XXX: *sigh* inconsistent
+                defkern = "kernel-xen-%s" %(nick,)
+            elif nick != "up":
                 defkern = "kernel-%s" %(nick,)
 	    plainLabelUsed = 1
 

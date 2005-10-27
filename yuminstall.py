@@ -286,6 +286,7 @@ class YumBackend(AnacondaBackend):
                 waitwin.next_task()
 	    waitwin.pop()
         except RepoError, e:
+            log.error("reading package metadata: %s" %(e,))
 	    waitwin.pop()
             intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
@@ -302,7 +303,22 @@ class YumBackend(AnacondaBackend):
 
         kpkg = self.ayum.getBestPackage("kernel")
 
-        if isys.smpAvailable() or isys.htavailable():
+        if not foundkernel and \
+               (open("/proc/cmdline").read().find("xen0") != -1):
+            try:
+                kxen = self.ayum.getBestPackage("kernel-xen-hypervisor")
+                log.info("selecting kernel-xen-hypervisor package for kernel")
+                foundkernel = True
+            except PackageSackError:
+                kxen = None
+                log.debug("no kernel-xen-hypervisor package")
+                
+            self.ayum.tsInfo.addInstall(kxen)
+            if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
+                log.debug("selecting kernel-xen-hypervisor-devel")
+                self.selectPackage("kernel-xen-hypervisor-devel")
+
+        if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
                 ksmp = self.ayum.getBestPackage("kernel-smp")
                 log.info("selected kernel-smp package for kernel")
@@ -314,7 +330,7 @@ class YumBackend(AnacondaBackend):
             if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
                 self.ayum.tsInfo.addInstall(ksmp)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-smp-devel ")
+                    log.debug("selecting kernel-smp-devel")
                     self.selectPackage("kernel-smp-devel")
             
         if not foundkernel:
@@ -506,14 +522,10 @@ class YumBackend(AnacondaBackend):
         kernelVersions = []
 
         # nick is used to generate the lilo name
-        for (ktag, nick) in [ ('kernel-summit', 'summit'),
-                              ('kernel-bigmem', 'bigmem'),
-                              ('kernel-hugemem', 'hugemem'),
-                              ('kernel-smp', 'smp'),
-                              ('kernel-tape', 'tape'),
-                              ('kernel-pseries', ''),
-                              ('kernel-iseries', '') ]:
-            tag = ktag.split('-')[1]
+        for (ktag, nick) in [ ('kernel-smp', 'smp'),
+                              ('kernel-xen-hypervisor', 'hypervisor'),
+                              ('kernel-xen-guest', 'guest') ]:
+            tag = ktag.rsplit('-', 1)[1]
             for tsmbr in self.ayum.tsInfo.matchNaevr(name=ktag):
                 version = ( tsmbr.version + '-' + tsmbr.release + tag)
                 kernelVersions.append((version, nick))
