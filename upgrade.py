@@ -42,7 +42,7 @@ log = logging.getLogger("anaconda")
 upgrade_remove_blacklist = [("system-config-mouse",)] 
 
 if iutil.getArch() == "x86_64":
-    upgrade_remove_blacklist.append("perl","i386")
+    upgrade_remove_blacklist.append( ("perl","i386") )
 
 def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:

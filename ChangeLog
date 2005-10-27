@@ -1,5 +1,7 @@
 2005-10-27  Jeremy Katz  <katzj@redhat.com>
 
+	* upgrade.py (upgrade_remove_blacklist): Fix x86_64 traceback
+
 	* bootloader.py (writeBootloader): Handle inconsistently named
 	kernel-xen-{guest,hypervisor} kernels
 
