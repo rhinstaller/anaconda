@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.4
+Version: 10.89.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 27 2005 Jeremy Katz <katzj@redhat.com> - 10.89.5-1
+- Another fix for kickstart + help hiding
+- Fix finding of kernel type
+- Make synaptics device nodes before X starts (clumens)
+- Use nofb by default
+- Add pycairo stuff (clumens)
+- Set minimum displayed log level to WARNING, everything is still in 
+  the logfiles (clumens)
+- Try to clean up syslog (clumens)
+- Allow installation of hypervisor + xen host kernel by booing with 'xen0' on 
+  the installer command line
+- Fix x86_64 traceback
+
 * Mon Oct 24 2005 Jeremy Katz <katzj@redhat.com> - 10.89.4-1
 - changed the wrong field in lang-table
 
