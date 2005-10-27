@@ -1,3 +1,9 @@
+2005-10-27  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/init.c (logChunk):  Try to put newlines into the syslog
+	where appropriate.
+	(doklog):  Break the logging out into its own function.
+
 2005-10-26  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c (main): Use nofb by default

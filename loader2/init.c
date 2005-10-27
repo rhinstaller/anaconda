@@ -151,6 +151,35 @@ static void fatal_error(int usePerror) {
 #endif
 }
 
+static int logChunk(int len, char *inbuf, char *outbuf) {
+    int inctr, outctr;
+
+    for (inctr = 0, outctr = 0; inctr < len; inctr++) {
+	/* If the character is a NULL that's immediately followed by a open
+	 * bracket, we've found the beginning of a new kernel message.  Put in
+	 * a line separator.
+	 */
+	if (inbuf[inctr] == '\0' && inctr+1 < len && inbuf[inctr+1] == '<') {
+	    outbuf[outctr] = '\n';
+	    outctr++;
+	}
+	/* Or, if we see a NULL right before the end of the chunk, that's also
+	 * a good place to add a separator.
+	 */
+	else if (inbuf[inctr] == '\0' && inctr+1 == len) {
+	    outbuf[outctr] = '\n';
+	    outctr++;
+	}
+	/* Otherwise, simply output the character as long as it's not NULL. */
+	else if (inbuf[inctr] != '\0') {
+	    outbuf[outctr] = inbuf[inctr];
+	    outctr++;
+	}
+    }
+
+    return outctr;
+}
+
 static void doklog(char * fn) {
     fd_set readset, unixs;
     int in, out, i;
@@ -236,19 +265,11 @@ static void doklog(char * fn) {
 	if (FD_ISSET(in, &readset)) {
 	    i = read(in, inbuf, sizeof(inbuf));
 	    if (i > 0) {
-		int inctr, outctr;
-
-		/* Remove null chars from input buffer. */
-		for (inctr = 0, outctr = 0; inctr < i; inctr++) {
-		    if (inbuf[inctr] != '\0') {
-			outbuf[outctr] = inbuf[inctr];
-			outctr++;
-		    }
-		}
+		int loggedLen = logChunk(i, inbuf, outbuf);
 
 		if (out >= 0)
-		    ret = write(out, outbuf, outctr);
-		ret = write(log, outbuf, outctr);
+		    ret = write(out, outbuf, loggedLen);
+		ret = write(log, outbuf, loggedLen);
 	    }
 	} 
 
@@ -256,23 +277,12 @@ static void doklog(char * fn) {
 	    if (FD_ISSET(readfd, &readset) && FD_ISSET(readfd, &unixs)) {
 		i = read(readfd, inbuf, sizeof(inbuf));
 		if (i > 0) {
-		    int inctr, outctr;
+		    int loggedLen = logChunk(i, inbuf, outbuf);
 
-		    /* Remove null chars from input buffer. */
-		    for (inctr = 0, outctr = 0; inctr < i; inctr++) {
-			if (inbuf[inctr] != '\0') {
-			    outbuf[outctr] = inbuf[inctr];
-			    outctr++;
-			}
-		    }
+		    if (out >= 0)
+			ret = write(out, outbuf, loggedLen);
 
-		    if (out >= 0) {
-			ret = write(out, outbuf, outctr);
-			ret = write(out, "\n", 1);
-		    }
-
-		    ret = write(log, outbuf, outctr);
-		    ret = write(log, "\n", 1);
+		    ret = write(log, outbuf, loggedLen);
 		} else if (i == 0) {
 		    /* socket closed */
 		    close(readfd);
