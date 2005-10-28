@@ -1,5 +1,15 @@
 2005-10-28  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYum.getBestPackages): Return the best
+	package_s_ for a package name/arch.  Need more than one for
+	multilib.  Should fix (#171026)
+	(YumBackend.getBestKernelByArch): Do this inside of
+	selectBestKernel since that's the only place it's really wanted
+	(YumBackend.selectGroup): Get packages using getBestPackages.
+	(YumBackend.deselectGroup): Likewise.
+	(YumBackend.selectPackage): Likewise.
+	(YumBackend.deselectPackage): Likewise.
+
 	* yuminstall.py (YumBackend.selectBestKernel): Select
 	kernel-xen-guest if installing in a guest 
 

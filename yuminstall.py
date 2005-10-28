@@ -25,6 +25,7 @@ import yum.repos
 import yum.packages
 import yum.groups
 from yum.Errors import RepoError
+from yum.packages import returnBestPackages
 from repomd.mdErrors import PackageSackError
 from backend import AnacondaBackend
 from constants import *
@@ -239,20 +240,22 @@ class AnacondaYum(yum.YumBase):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
 
-    def getBestPackage(self, pkgname, pkgarch = None):
+    def getBestPackages(self, pkgname, pkgarch = None):
+        """Return a list of the packages which should be installed.
+        Note that it's a list because of multilib!"""
         if pkgarch:
             pkgs = self.pkgSack.returnNewestByName(pkgname, pkgarch)
         else:
             pkgs = self.pkgSack.returnNewestByName(pkgname)
-        if len(pkgs) == 0:
-            return None
-        
-        archs = {}
+        if len(pkgs) <= 1: # 0 or 1, just return it
+            return pkgs
+
+        t = {}
         for pkg in pkgs:
-            (n, a, e, v, r) = pkg.pkgtup
-            archs[a] = pkg
-        a = rpmUtils.arch.getBestArchFromList(archs.keys())
-        return archs[a]
+            if not t.has_key(pkg.name): t[pkg.name] = []
+            t[pkg.name].append(pkg.pkgtup)
+        pkgs = returnBestPackages(t)
+        return map(lambda x: self.getPackageObject(x), pkgs)
 
 class YumBackend(AnacondaBackend):
     def __init__(self, methodstr, method, instPath):
@@ -299,13 +302,27 @@ class YumBackend(AnacondaBackend):
 
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""
+        
+        def getBestKernelByArch(pkgname, ayum):
+            """Convenience func to find the best arch of a kernel by name"""
+            pkgs = ayum.pkgSack.returnNewestByName(pkgname)
+            if len(pkgs) == 0:
+                return None
+        
+            archs = {}
+            for pkg in pkgs:
+                (n, a, e, v, r) = pkg.pkgtup
+                archs[a] = pkg
+            a = rpmUtils.arch.getBestArchFromList(archs.keys())
+            return archs[a]
+
         foundkernel = False
 
-        kpkg = self.ayum.getBestPackage("kernel")
+        kpkg = getBestKernelByArch("kernel", self.ayum)
 
         if not foundkernel and os.path.exists("/proc/xen"):
             try:
-                kxen = self.ayum.getBestPackage("kernel-xen-guest")
+                kxen = getBestKernelByArch("kernel-xen-guest", self.ayum)
                 log.info("selecting kernel-xen-guest package for kernel")
                 foundkernel = True
             except PackageSackError:
@@ -320,7 +337,7 @@ class YumBackend(AnacondaBackend):
         if not foundkernel and \
                (open("/proc/cmdline").read().find("xen0") != -1):
             try:
-                kxen = self.ayum.getBestPackage("kernel-xen-hypervisor")
+                kxen = getBestKernelByArch("kernel-xen-hypervisor", self.ayum)
                 log.info("selecting kernel-xen-hypervisor package for kernel")
                 foundkernel = True
             except PackageSackError:
@@ -334,7 +351,7 @@ class YumBackend(AnacondaBackend):
 
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
-                ksmp = self.ayum.getBestPackage("kernel-smp")
+                ksmp = getBestKernelByArch("kernel-smp", self.ayum)
                 log.info("selected kernel-smp package for kernel")
                 foundkernel = True
             except PackageSackError:
@@ -561,11 +578,10 @@ class YumBackend(AnacondaBackend):
         pkgs = self.ayum.groupInfo.pkgTree(group)
         for pkg in pkgs:
             try:
-                p = self.ayum.pkgSack.returnNewestByName(pkg)
+                map(lambda x: self.ayum.tsInfo.addInstall(x),
+                    self.ayum.getBestPackages(pkg))
             except PackageSackError:
-                log.debug("no such package %s in %s" %(pkg, group))
-                continue
-            self.ayum.tsInfo.addInstall(p[0])
+                log.debug("no such package %s" %(pkg,))
 
         for grp in self.ayum.groupInfo.groupTree(group):
             if grp not in self.anaconda_grouplist:
@@ -577,13 +593,13 @@ class YumBackend(AnacondaBackend):
             return
 
         gid = self.ayum.groupInfo.matchGroup(group)
-        for pkg in self.ayum.groupInfo.default_pkgs[gid] + self.ayum.groupInfo.mandatory_pkgs[gid]:
+        for pkg in self.ayum.groupInfo.default_pkgs[gid] + \
+                self.ayum.groupInfo.mandatory_pkgs[gid]:
             try:
-                p = self.ayum.pkgSack.returnNewestByName(pkg)
+                map(lambda x: self.ayum.tsInfo.remove(x),
+                    self.ayum.getBestPackages(pkg))
             except PackageSackError:
-                log.debug("no such package %s in %s" %(pkg, group))
-                continue
-            self.ayum.tsInfo.remove(p[0].pkgtup)            
+                log.debug("no such package %s" %(pkg,))
 
         for grp in self.ayum.groupInfo.groupTree(group):
             if grp in self.anaconda_grouplist:
@@ -595,38 +611,40 @@ class YumBackend(AnacondaBackend):
         p = None
         if len(sp) == 2:
             try:
-                p = self.ayum.pkgSack.returnNewestByNameArch((sp[0], sp[1]))
+                map(lambda x: self.ayum.tsInfo.addInstall(x),
+                    self.ayum.getBestPackages(sp[0], sp[1]))
+                return
             except PackageSackError:
                 # maybe the package has a . in the name
                 pass
 
         if p is None:
             try:
-                p = self.ayum.pkgSack.returnNewestByName(pkg)
+                map(lambda x: self.ayum.tsInfo.addInstall(x),
+                    self.ayum.getBestPackages(pkg))
             except PackageSackError:
                 log.debug("no such package %s" %(pkg,))
                 return
-            
-        self.ayum.tsInfo.addInstall(p[0])
         
     def deselectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
         p = None
         if len(sp) == 2:
             try:
-                p = self.ayum.pkgSack.returnNewestByNameArch((sp[0], sp[1]))
+                map(lambda x: self.ayum.tsInfo.remove(x),
+                    self.ayum.getBestPackages(sp[0], sp[1]))
+                return
             except PackageSackError:
                 # maybe the package has a . in the name
                 pass
 
         if p is None:
             try:
-                p = self.ayum.pkgSack.returnNewestByName(pkg)
+                map(lambda x: self.ayum.tsInfo.remove(x),
+                    self.ayum.getBestPackages(pkg))
             except PackageSackError:
                 log.debug("no such package %s" %(pkg,))
                 return
-            
-        self.ayum.tsInfo.remove(p[0].pkgtup)
 
 class YumProgress:
     def __init__(self, intf, text, total):
