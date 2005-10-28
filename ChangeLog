@@ -1,5 +1,8 @@
 2005-10-28  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.selectBestKernel): Select
+	kernel-xen-guest if installing in a guest 
+
 	* isys/devnodes.c: Add support for Xen xvd block devs
 	* partedUtils.py (max_logical_partition_count): Likewise.
 

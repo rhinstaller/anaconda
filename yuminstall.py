@@ -303,6 +303,20 @@ class YumBackend(AnacondaBackend):
 
         kpkg = self.ayum.getBestPackage("kernel")
 
+        if not foundkernel and os.path.exists("/proc/xen"):
+            try:
+                kxen = self.ayum.getBestPackage("kernel-xen-guest")
+                log.info("selecting kernel-xen-guest package for kernel")
+                foundkernel = True
+            except PackageSackError:
+                kxen = None
+                log.debug("no kernel-xen-guest package")
+            else:
+                self.ayum.tsInfo.addInstall(kxen)
+                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
+                    log.debug("selecting kernel-xen-guest-devel")
+                    self.selectPackage("kernel-xen-guest-devel")
+
         if not foundkernel and \
                (open("/proc/cmdline").read().find("xen0") != -1):
             try:
@@ -312,11 +326,11 @@ class YumBackend(AnacondaBackend):
             except PackageSackError:
                 kxen = None
                 log.debug("no kernel-xen-hypervisor package")
-                
-            self.ayum.tsInfo.addInstall(kxen)
-            if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                log.debug("selecting kernel-xen-hypervisor-devel")
-                self.selectPackage("kernel-xen-hypervisor-devel")
+            else:
+                self.ayum.tsInfo.addInstall(kxen)
+                if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
+                    log.debug("selecting kernel-xen-hypervisor-devel")
+                    self.selectPackage("kernel-xen-hypervisor-devel")
 
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
