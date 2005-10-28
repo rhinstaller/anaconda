@@ -580,14 +580,14 @@ class KickstartPreParser(KickstartParser):
     def handleCommand (self, lineno, args):
         pass
 
-    def handlePackageHdr (self, line):
+    def handlePackageHdr (self, lineno, args):
         pass
 
-    def handleScriptHdr (self, args):
+    def handleScriptHdr (self, lineno, args):
         if not args[0] == "%pre":
             return
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=lineno)
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
         op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
