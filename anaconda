@@ -413,11 +413,6 @@ if os.environ.has_key("LD_PRELOAD"):
 # is imported
 iutil.writeRpmPlatform()
 
-# create character device nodes if we're not running in test mode - have
-# to do this early sine it's used for Synaptics, etc.
-if not flags.test:
-    iutil.makeCharDeviceNodes()
-
 try:
     (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
           [ 'graphical', 'text', 'test', 'debug', 'nofallback',
@@ -808,6 +803,11 @@ if iutil.memInstalled() < isys.MIN_RAM:
                        buttons = (_("OK"),))
     screen.finish()
     sys.exit(0)
+
+# create character device nodes if we're not running in test mode - have
+# to do this early sine it's used for Synaptics, etc.
+if not flags.test:
+    iutil.makeCharDeviceNodes()
 
 #
 # handle class passed from loader
