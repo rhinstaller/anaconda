@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.5
+Version: 10.89.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct 28 2005 Jeremy Katz <katzj@redhat.com> - 10.89.6-1
+- Make char devices slightly later to avoid tracebacks during tree compose
+- Extract kernel-xen-guest for vmlinuz and initrd in images/xen
+- Kickstart fix (clumens)
+- Add some support for xen xvd blockdevs
+- Select kernel-xen-guest as appropriate
+- Ensure proper arch of glibc is selected (#171997)
+- Select all proper multilib parts of a package (#171026) 
+
 * Thu Oct 27 2005 Jeremy Katz <katzj@redhat.com> - 10.89.5-1
 - Another fix for kickstart + help hiding
 - Fix finding of kernel type
