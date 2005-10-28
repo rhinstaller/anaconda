@@ -65,10 +65,7 @@ be written to the device using dd.
 EOF
 
 makeBootImages() {
-  # FIXME: this is so that we can switch back and forth.  if we want both
-  # on the CD, then more needs to be done, esp for things like isolinux.cfg
-  # Right now, last one wins
-  if [ "$KERNELARCH" = "i686" -o "$KERNELARCH" = "i586" -o "$KERNELARCH" = "athlon" ]; then
+  if [ "$kerneltag" != "guest" ]; then
     echo "Building $KERNELARCH initrd.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--initrdsize 7000 \
@@ -140,5 +137,15 @@ vmlinuz - the BOOT kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
+
+  else # set up the boot stuff for the xen guest kernel
+    echo "Building $KERNELARCH guest initrd.img"
+    mkdir -p $TOPDESTPATH/images/xen
+    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
+	--initrdsize 7000 \
+	--loaderbin loader \
+	--modules "$INITRDMODS"
+    [ $? = 0 ] || exit 1
+    cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/images/xen/vmlinuz
   fi
 }

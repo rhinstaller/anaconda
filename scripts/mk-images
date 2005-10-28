@@ -755,32 +755,31 @@ else
 fi
 
 # Find the kernel, unpack it, and verify it
-vertag="BOOT"
+kerneltags="kernel"
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
     arches="ppc64pseries ppc64 ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
+    kerneltags="kernel kernel-xen-guest"
+#elif [ "$BUILDARCH" = "x86_64"]; then
+#    arches="x86_64"
+#    kerneltags="kernel kernel-xen-guest"
 else
     arches="$BUILDARCH"
 fi
+
 foundakernel=""
 for KERNELARCH in $arches; do
-  for kernelvers in $vertag; do
-    kpackage=$(findPackage $KERNELPATH kernel-$kernelvers)
-    if [ ! -f "$kpackage" ]; then
-	echo "kernel-$kernelvers does not exist for $KERNELARCH -- using kernel package"
-	kpackage=$(findPackage $KERNELPATH kernel)
-	kernelvers=""
-    fi
-
+  for kernelvers in $kerneltags; do
+    kpackage=$(findPackage $KERNELPATH $kernelvers)
     if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
 	echo "No i586 kernel, trying i686..."
 	KERNELARCH="i686"
-	kpackage=$(findPackage $KERNELPATH kernel)
+	kpackage=$(findPackage $KERNELPATH $kernelvers)
     fi
 
     if [ ! -f "$kpackage" ]; then
-	echo "kernel doesn't exist for $KERNELARCH.  skipping arch"
+	echo "kernel ($kernelvers) doesn't exist for $KERNELARCH.  skipping"
 	continue
     fi
 
@@ -789,19 +788,13 @@ for KERNELARCH in $arches; do
 
     foundakernel="yes"
 
-    ppackage=$(findPackage $KERNELPATH hwdata)
-    if [ ! -f "$ppackage" ]; then
-	ppackage=""
-    fi
+    if [ "${kernelvers}" = "kernel-xen-guest" ]; then kerneltag="guest" ; fi
 
-    version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
+    version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kerneltag}
     arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
     echo "unpacking $kpackage.$arch"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
-    if [ ! -z $ppackage ]; then 
-	rpm2cpio $ppackage | (cd $KERNELROOT; cpio --quiet -iumd etc/pcmcia/* ./etc/pcmcia/*)
-    fi
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1

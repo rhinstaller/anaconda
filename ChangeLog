@@ -5,6 +5,11 @@
 
 2005-10-28  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images: Extract kernel-xen-guest on i386 in addition
+	to kernel.  And we don't have pcmcia stuff in hwdata anymore
+	* scripts/mk-images.i386: Just make an initrd and copy the kernel
+	for xen-guest
+
 	* anaconda: Don't make character device nodes quite that early
 
 2005-10-27  Jeremy Katz  <katzj@redhat.com>
