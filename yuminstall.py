@@ -605,7 +605,6 @@ class YumBackend(AnacondaBackend):
             if grp in self.anaconda_grouplist:
                 self.anaconda_grouplist.remove(grp)
 
-    # FIXME: these don't properly handle arch.  *sigh*
     def selectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
         p = None
