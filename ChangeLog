@@ -6,6 +6,7 @@
 	* installclass.py (BaseInstallClass.setClearParts):  Fix types.
 	* kickstart.py (AnacondaKSHandlers.doClearPart):  use named parameters
 	correctly.
+	(AnacondaKSHandlers.doPartition):  Check for None in sizes.
 
 	* security.py:  Use pykickstart SELinux constants for consistency
 	(#172356).

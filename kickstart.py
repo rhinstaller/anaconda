@@ -336,7 +336,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             else:
                 filesystem = fileSystemTypeGetDefault()
 
-        if pd.size == 0 and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
+        if pd.size is None and (pd.start == 0 and pd.end == 0) and pd.onPart == "":
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
         if pd.start != 0 and pd.disk == "":
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
@@ -349,7 +349,7 @@ class AnacondaKSHandlers(KickstartHandlers):
                                              fslabel = pd.label,
                                              bytesPerInode = pd.bytesPerInode)
         
-        if pd.size != 0:
+        if pd.size is not None:
             request.size = pd.size
         if pd.start != 0:
             request.start = pd.start
