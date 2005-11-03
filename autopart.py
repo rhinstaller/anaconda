@@ -1236,7 +1236,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     # XXX clearpartdrives is overloaded as drives we want to use for linux
     drives = []
     initial_free = findFreespace(diskset)
-    if partitions.autoClearPartDrives is not None:
+    if not partitions.autoClearPartDrives:
       for drive in partitions.autoClearPartDrives:
         disk = diskset.disks[drive]
 
@@ -1393,7 +1393,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.drive = drives
             # if this is a multidrive request, we need to create one per drive
             if req.type == REQUEST_NEW and req.multidrive:
-                if req.drive is None:
+                if not req.drive:
                     req.drive = diskset.disks.keys()
                     
                 for drive in req.drive:
@@ -1406,13 +1406,13 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 # if the number of physical volumes requested is zero, then
                 # add _all_ physical volumes we can find
                 if ((len(req.physicalVolumes) == 0)
-                    or (req.physicalVolumes is None)):
+                    or (not req.physicalVolumes)):
                     req.physicalVolumes = []
                     for r in partitions.requests:
                         if isinstance(r.fstype,
                                       fsset.lvmPhysicalVolumeDummyFileSystem):
                             valid = 0
-                            if ((partitions.autoClearPartDrives is None) or
+                            if ((not partitions.autoClearPartDrives) or
                                 len(partitions.autoClearPartDrives) == 0):
                                 valid = 1
                             else:

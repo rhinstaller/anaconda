@@ -1,5 +1,8 @@
 2005-11-03  Chris Lumens  <clumens@redhat.com>
 
+	* autopart.py (doAutoPartition):  Use "not X" instead of "X is not
+	None".
+
 	* installclass.py (BaseInstallClass.setClearParts):  Fix types.
 	* kickstart.py (AnacondaKSHandlers.doClearPart):  use named parameters
 	correctly.
