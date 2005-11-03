@@ -101,7 +101,7 @@ class BaseInstallClass:
                 diskset.skippedDisks.append(drive)
         
     def setClearParts(self, id, clear, drives = None, warningText = None,
-                      initAll = 0):
+                      initAll = False):
 	id.partitions.autoClearPartType = clear
         id.partitions.autoClearPartDrives = drives
         if initAll:

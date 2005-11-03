@@ -141,8 +141,8 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doClearPart(self, id, args):
         KickstartHandlers.doClearPart(self, args)
         dict = self.ksdata.clearpart
-        id.instClass.setClearParts(id, dict["type"], dict["drives"],
-                                   dict["initAll"])
+        id.instClass.setClearParts(id, dict["type"], drives=dict["drives"],
+                                   initAll=dict["initAll"])
 
     def doDevice(self, id, args):
         KickstartHandlers.doDevice(self, args)
