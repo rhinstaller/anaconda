@@ -16,29 +16,26 @@
 import os, string
 import iutil
 from flags import flags
+from pykickstart.constants import *
 
 import logging
 log = logging.getLogger("anaconda")
 
-SEL_DISABLED = 0
-SEL_PERMISSIVE = 1
-SEL_ENFORCING = 2
-
-selinux_states = { SEL_DISABLED: "disabled",
-                   SEL_ENFORCING: "enforcing",
-                   SEL_PERMISSIVE: "permissive" }
+selinux_states = { SELINUX_DISABLED: "disabled",
+                   SELINUX_ENFORCING: "enforcing",
+                   SELINUX_PERMISSIVE: "permissive" }
 
 class Security:
     def __init__(self):
         if flags.selinux == 1:
-            self.selinux = SEL_ENFORCING
+            self.selinux = SELINUX_ENFORCING
         else:
-            self.selinux = SEL_DISABLED
+            self.selinux = SELINUX_DISABLED
 
     def setSELinux(self, val):
         if not selinux_states.has_key(val):
             log.error("Tried to set to invalid SELinux state: %s" %(val,))
-            val = SEL_DISABLED
+            val = SELINUX_DISABLED
 
         self.selinux = val
 
