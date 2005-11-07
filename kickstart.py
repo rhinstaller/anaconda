@@ -93,6 +93,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doAuthconfig(self, id, args):
         KickstartHandlers.doAuthconfig(self, args)
+        id.auth = self.ksdata.auth
 
     def doAutoPart(self, id, args):
         KickstartHandlers.doAutoPart(self, args)
