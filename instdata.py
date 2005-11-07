@@ -36,6 +36,9 @@ from constants import *
 from rhpl.simpleconfig import SimpleConfigFile
 import rhpl.keyboard as keyboard
 
+import logging
+log = logging.getLogger("anaconda")
+
 # Collector class for all data related to an install/upgrade.
 
 class InstallData:
@@ -55,7 +58,7 @@ class InstallData:
 	self.timezone = timezone.Timezone()
 	self.accounts = users.Accounts()
         self.rootPassword = users.RootPassword ()
-	self.auth = ""
+	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
         self.grpset = None
 	self.upgrade = False
@@ -122,14 +125,14 @@ class InstallData:
 
         try:
             if flags.setupFilesystems:
-                args = ["--update", "--nostart", self.auth]
-                iutil.execWithRedirect("/usr/sbin/authconfig", args,
+                args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
+                iutil.execWithRedirect("/usr/bin/authconfig", args,
                                        stdout = None, stderr = None,
                                        searchPath = 1, root = instPath)
             else:
-                log.error("Would have run: /usr/sbin/authconfig %s", args)
+                log.error("Would have run: /usr/bin/authconfig %s", args)
         except RuntimeError, msg:
-                log.error("Error running /usr/sbin/authconfig %s: %s",
+                log.error("Error running /usr/bin/authconfig %s: %s",
                           args, msg)
 	
 	self.firewall.write (instPath)
