@@ -205,7 +205,7 @@ def runRescue(instPath, mountroot, id):
 		    if classNames[step] == "NetworkDeviceWindow":
 			args = (id.network, dir, intf, None, 0)
 		    else:
-			args = (id.network, dir, intf)
+			args = (id.network, dir, intf, None)
 		    rc = apply(win, (screen, ) + args)
 
 		    if rc == INSTALL_NOOP:
