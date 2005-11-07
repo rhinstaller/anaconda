@@ -295,8 +295,7 @@ class YumBackend(AnacondaBackend):
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
                                  "ensure that your install tree has been "
-                                 "correctly generated.
-                                 %s" % e),
+                                 "correctly generated.  %s" % e),
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
             sys.exit(0)
