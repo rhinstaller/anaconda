@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.6
+Version: 10.89.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov  7 2005 Jeremy Katz <katzj@redhat.com> - 10.89.7-1
+- More detailed error logging (pnasrat)
+- Add bnx2 driver (pjones)
+- Various kickstart fixes (clumens, #172356)
+- Fix shadow password convert (clumens)
+
 * Fri Oct 28 2005 Jeremy Katz <katzj@redhat.com> - 10.89.6-1
 - Make char devices slightly later to avoid tracebacks during tree compose
 - Extract kernel-xen-guest for vmlinuz and initrd in images/xen
