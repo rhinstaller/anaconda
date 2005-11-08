@@ -153,6 +153,7 @@ retries=5
 obsoletes=1
 gpgcheck=0
 installroot=%s
+exclude=*debuginfo*
 
 [anaconda]
 baseurl=%s
