@@ -651,16 +651,20 @@ class YumProgress:
         self.window = window
         self.total = float(total)
         self.num = 0
+        self.popped = False
 
     def progressbar(self, current, total, name=None):
-        self.window.set(current)
+        if not self.popped:
+            self.window.set(current)
 
     def pop(self):
         self.window.pop()
+        self.popped = True
 
     def next_task(self):
         self.num += 1
-        self.window.set(self.num/self.total)
+        if not self.popped:
+            self.window.set(self.num/self.total)
 
     def errorlog(self, value, msg):
         log.error(msg)
