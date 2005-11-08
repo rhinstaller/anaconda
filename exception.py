@@ -50,6 +50,8 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "intf.icw.stockButtons",
                     "intf.icw.id.instLanguage.langInfoByName",
 		    "intf.icw.id.instLanguage.nativeLangNames",
+                    "intf.instLanguage.nativeLangNames",
+                    "intf.instLanguage.langInfo",
 		    "id.instLanguage.font",
 		    "id.instLanguage.kbd",
 		    "id.instLanguage.tz",

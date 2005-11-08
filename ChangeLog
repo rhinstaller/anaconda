@@ -1,5 +1,6 @@
 2005-11-08  Chris Lumens  <clumens@redhat.com>
 
+	* exception.py (dumpClass):  Seriously skip instLanguage stuff.
 	* yuminstall.py (YumProgress):  Don't try to update a progress window
 	that's been popped (#172232).
 
