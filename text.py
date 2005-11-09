@@ -475,16 +475,12 @@ class InstallInterface:
         
 	self.screen.helpCallback(self.helpWindow)
 
-# uncomment this line to make the installer quit on <Ctrl+Z>
-# handy for quick debugging.
-#	self.screen.suspendCallback(killSelf, self.screen)
-# uncomment this line to drop into the python debugger on <Ctrl+Z>
-# --VERY handy--
-        if DEBUG or flags.test:
-            self.screen.suspendCallback(debugSelf, self.screen)
-
 	if not self.isRealConsole():
 	    self.screen.suspendCallback(spawnShell, self.screen)
+
+        # drop into the python debugger on ctrl-z if we're running in test mode
+        if DEBUG or flags.test:
+            self.screen.suspendCallback(debugSelf, self.screen)
 
 	# clear out the old root text by writing spaces in the blank
 	# area on the right side of the screen
