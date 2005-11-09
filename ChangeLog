@@ -1,3 +1,14 @@
+2005-11-09  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Set up logging earlier.  Set level on handlers instead of
+	on logger instance.
+	* anaconda_log.py:  Remove logging of errors to stdout.
+	(AnacondaLog):  Log everything to /tmp/anaconda.log.
+	(LoggerClass):  Add new default Logger class.
+	* autopart.py:  Use lvmLog instead of log.
+	* lvm.py (getVGFreeSpace):  Lower log level on messages.
+	* loader2/log.c:  Log everything to /tmp/anaconda.log.
+
 2005-11-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
