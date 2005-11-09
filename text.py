@@ -426,7 +426,7 @@ class InstallInterface:
     def __init__(self):
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
-	self.screen = None
+	self.screen = SnackScreen()
         self.showingHelpOnHelp = 0
 
     def __del__(self):
@@ -473,7 +473,6 @@ class InstallInterface:
             id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
             id.instLanguage.setRuntimeDefaults(oldlang)
         
-        self.screen = SnackScreen()
 	self.screen.helpCallback(self.helpWindow)
 
 # uncomment this line to make the installer quit on <Ctrl+Z>
@@ -493,9 +492,6 @@ class InstallInterface:
 		  #(self.screen.width - len(_(self.welcomeText))) * " ")
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
         self.instLanguage = id.instLanguage
-
-        # draw the frame after setting up the fallback
-        self.drawFrame()
 
         # draw the frame after setting up the fallback
         self.drawFrame()

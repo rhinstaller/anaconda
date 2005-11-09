@@ -9,6 +9,9 @@
 	* lvm.py (getVGFreeSpace):  Lower log level on messages.
 	* loader2/log.c:  Log everything to /tmp/anaconda.log.
 
+	* text.py (InstallInterface.__init__):  Create the SnackScreen earlier
+	to prevent a traceback in kickstart.
+
 2005-11-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
