@@ -60,14 +60,11 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
     buf = sdupprintf(_("Please enter any parameters which you wish to pass "
                        "to the %s module separated by spaces.  If you don't "
                        "know what parameters to supply, skip this screen "
-                       "by pressing the \"OK\" button.  A list of available "
-                       "options can be obtained by pressing the F1 key."), 
-                     mod->moduleName);
+                       "by pressing the \"OK\" button."), mod->moduleName);
     text = newtTextboxReflowed(-1, -1, buf, 60, 0, 10, 0);
     entry = newtEntry(-1, -1, argsEntry, 50, (const char **) &argsEntry, 
                       NEWT_ENTRY_SCROLL);
     
-    newtFormAddHotKey(f, NEWT_KEY_F1);
     newtFormAddHotKey(f, NEWT_KEY_F12);
     
     buttons = newtButtonBar(_("OK"), &ok, _("Back"), &back, NULL);
@@ -88,9 +85,6 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
 
         if (es.reason  == NEWT_EXIT_COMPONENT && es.u.co == back) {
             done = -1;
-        } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F1) {
-            logMessage(WARNING, "need to pop up 'help' with module options here");
-            /* JKFIXME: ^^^ */
         } else {
             done = 1;
         }

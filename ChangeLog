@@ -1,5 +1,8 @@
 2005-11-09  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/driverselect.c (getManualModuleArgs): We don't have help
+	about the args, don't pretend that we do.
+
 	* text.py (InstallInterface.run): debug on suspend should have priority
 
 2005-11-09  Chris Lumens  <clumens@redhat.com>
