@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.7
+Version: 10.89.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov  8 2005 Jeremy Katz <katzj@redhat.com> - 10.89.8-1
+- Fix backwards message on upgrade (#172030)
+- New chinese fonts (#172163)
+- Don't try to update a progress window that's already popped (clumens, #172232)
+- Fix snack deprecation warnings (clumens, #172232)
+- Get rid of some cruft in traceback dumps (clumens)
+- Add a method to check for "real" consoles, add xen console to the list 
+  of weird stuff
+- Basic support for transaction errors other than tracebacks...
+- Fix a kickstart traceback for authconfig
+- Add xenblk and xennet to module-info
+
 * Mon Nov  7 2005 Jeremy Katz <katzj@redhat.com> - 10.89.7-1
 - More detailed error logging (pnasrat)
 - Add bnx2 driver (pjones)
