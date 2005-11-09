@@ -137,7 +137,7 @@ int ourInsmodCommand(int argc, char ** argv) {
         rc = init_module(modbuf, sb.st_size, "");
     }
     if (rc != 0)
-        logMessage(ERROR, "failed to insert module (%d)", errno);
+        logMessage(WARNING, "failed to insert module (%d)", errno);
     return rc;
 }
 

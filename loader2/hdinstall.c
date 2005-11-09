@@ -65,7 +65,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 	logMessage(INFO, "Looking for hd stage2 image %s", path);
 	if (!access(path, F_OK))
 	    break;
-	logMessage(WARNING, "%s does not exist: %s, trying next target", path, strerror(errno));
+	logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
     }
 
     if (!(*target)) {
@@ -73,9 +73,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 	return 1;
     } 
 
-    logMessage(INFO, "Found hd stage2");
-
-    logMessage(INFO, "Copying %s in RAM as stage 2", path);
+    logMessage(INFO, "Found hd stage2, copying %s in RAM as stage2", path);
 
     if ((fd = open(path, O_RDONLY)) < 0) {
 	logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
@@ -130,7 +128,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 	logMessage(INFO, "Looking for hd stage2 image %s", path);
 	if (!access(path, F_OK))
 	    break;
-	logMessage(WARNING, "%s does not exist: %s, trying next target", path, strerror(errno));
+	logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
     }
 
     if (!(*target)) {
@@ -138,9 +136,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 	return 1;
     } 
 
-    logMessage(INFO, "Found hd stage2");
-
-    logMessage(INFO, "Mounting %s on loop %s as mntpoint %s", path, device, mntpoint);
+    logMessage(INFO, "Found hd stage2, mounting %s on loop %s as mntpoint %s", path, device, mntpoint);
     rc = mountLoopback(path, mntpoint, device);
 
     if (rc) {

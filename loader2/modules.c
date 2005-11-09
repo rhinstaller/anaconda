@@ -339,12 +339,12 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     if (!strcmp(modName, "usb-storage") && usbWasLoaded == 0) {
                         int slp;
                         usbWasLoaded++;
-                        logMessage(INFO, "sleeping for usb-storage stabilize...");
+                        logMessage(DEBUGLVL, "sleeping for usb-storage stabilize...");
                         for (slp = 0; slp < 10; slp++) {
                             if (scsiDiskCount() > 0) break;
                             sleep(2);
                         }
-                        logMessage(INFO, "slept %d seconds", slp * 2);
+                        logMessage(DEBUGLVL, "slept %d seconds", slp * 2);
                     }
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = scsiDiskCount();

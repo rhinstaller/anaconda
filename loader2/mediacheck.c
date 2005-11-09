@@ -92,7 +92,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 	    mediasum[32] = '\0';
 	    md5fnd = 1;
 
-	    logMessage(INFO, "MD5SUM -> %s", mediasum);
+	    logMessage(DEBUGLVL, "MD5SUM -> %s", mediasum);
 
 	    loc += 45;
 	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
@@ -116,7 +116,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 		logMessage(ERROR, "Could not parse |%s|", errptr);
  	        return -1;
 	    } else {
-		logMessage(INFO, "skipsectors = %d", *skipsectors);
+		logMessage(DEBUGLVL, "skipsectors = %d", *skipsectors);
  	        skipfnd = 1;
 	    }
 

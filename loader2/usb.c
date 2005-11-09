@@ -41,7 +41,7 @@ static void sleepUntilUsbIsStable(void) {
     int i, count = 0;
 
     /* sleep for a maximum of 20 seconds, minimum of 2 seconds */
-    logMessage(INFO, "waiting for usb to become stable...");
+    logMessage(DEBUGLVL, "waiting for usb to become stable...");
     for (i = 0; i < 20; i++) {
 	stat("/proc/bus/usb/devices", &sb);
 	if (last == sb.st_mtime) {
@@ -57,7 +57,7 @@ static void sleepUntilUsbIsStable(void) {
 	last = sb.st_mtime;
 	sleep(1);
     }
-    logMessage(INFO, "%d seconds.", i);
+    logMessage(DEBUGLVL, "%d seconds.", i);
 }
 
 int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
@@ -74,7 +74,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     devices = probeDevices(CLASS_USB, BUS_PCI, 0);
 
     if (!devices) {
-	logMessage(WARNING, "no usb controller found");
+	logMessage(DEBUGLVL, "no usb controller found");
 	return 0;
     }
 

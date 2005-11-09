@@ -46,7 +46,7 @@ char * getPcicController() {
 		    if (devices[x]->driver) {
 			    char *tmp;
 			    
-			    logMessage(INFO, "found pcmcia adapter %s", devices[x]->driver);
+			    logMessage(DEBUGLVL, "found pcmcia adapter %s", devices[x]->driver);
 			    if (!pcic)
 				    tmp = strdup(devices[x]->driver);
 			    else {
@@ -59,7 +59,7 @@ char * getPcicController() {
         }
 
         if (!pcic) {
-            logMessage(WARNING, "no pcic controller found");
+            logMessage(DEBUGLVL, "no pcic controller found");
         }
         return pcic;
     } else {

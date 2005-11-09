@@ -137,12 +137,11 @@ char * mountNfsImage(struct installMethod * method,
                            IMOUNT_RDONLY, NULL)) {
 		char mntPath[1024];
 
-                logMessage(INFO, "mounted %s on /mnt/source", fullPath);
 		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
                 if (!access(mntPath, R_OK)) {
                     logMessage(INFO, "can access %s", mntPath);
                     rc = mountStage2(mntPath);
-                    logMessage(INFO, "after mountStage2, rc is %d", rc);
+                    logMessage(DEBUGLVL, "after mountStage2, rc is %d", rc);
                     if (rc) {
                         if (rc == -1) { 
                             foundinvalid = 1; 
@@ -163,7 +162,7 @@ char * mountNfsImage(struct installMethod * method,
                     copyUpdatesImg("/mnt/source/updates.img");
 
                     if (mountLoopback(path, "/mnt/source2", "loop1")) 
-                        logMessage(ERROR, "failed to mount iso %s loopback", path);
+                        logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
 			snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/stage2.img", getProductPath());
                         rc = mountStage2(mntPath);

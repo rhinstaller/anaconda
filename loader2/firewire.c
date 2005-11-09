@@ -36,7 +36,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     devices = probeDevices(CLASS_FIREWIRE, BUS_PCI, 0);
 
     if (!devices) {
-	logMessage(WARNING, "no firewire controller found");
+	logMessage(INFO, "no firewire controller found");
 	return 0;
     }
 

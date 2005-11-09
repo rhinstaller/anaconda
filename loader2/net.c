@@ -128,14 +128,14 @@ static int waitForLink(char * dev) {
     /* try to wait for a valid link -- if the status is unknown or
      * up continue, else sleep for 1 second and try again for up
      * to five times */
-    logMessage(INFO, "waiting for link...");
+    logMessage(DEBUGLVL, "waiting for link...");
     while (tries < num_link_checks) {
       if (get_link_status(dev) != 0)
             break;
         sleep(1);
         tries++;
     }
-    logMessage(INFO, "%d seconds.", tries);
+    logMessage(DEBUGLVL, "%d seconds.", tries);
     if (tries < num_link_checks)
         return 0;
     return 1;
@@ -360,7 +360,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 newtPopWindow();
 
             if (chptr) {
-                logMessage(INFO, "pump told us: %s", chptr);
+                logMessage(DEBUGLVL, "pump told us: %s", chptr);
                 return;
             }
             
@@ -397,7 +397,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 (inet_aton(c,&addr))) {
              cfg->dev.dnsServers[cfg->dev.numDns] = addr;
              cfg->dev.numDns++;
-             logMessage(INFO, "adding %s", inet_ntoa(addr));
+             logMessage(DEBUGLVL, "adding %s", inet_ntoa(addr));
              c = strtok(NULL, ",");
          }
          logMessage(INFO, "dnsservers is %s", loaderData->dns);
@@ -617,7 +617,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                     i = 2; 
                 }
             } else {
-                logMessage(INFO, "pump told us: %s", chptr);
+                logMessage(DEBUGLVL, "pump told us: %s", chptr);
                 i = 0;
             }
         }

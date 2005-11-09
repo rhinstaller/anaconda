@@ -1,5 +1,22 @@
 2005-11-09  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/driverdisk.c: Clean up log levels.
+	* loader2/firewire.c: Likewise.
+	* loader2/hardware.c: Likewise.
+	* loader2/hdinstall.c: Likewise.
+	* loader2/lang.c: Likewise.
+	* loader2/loader.c: Likewise.
+	* loader2/log.h: Likewise.
+	* loader2/mediacheck.c: Likewise.
+	* loader2/method.c: Likewise.
+	* loader2/modstubs.c: Likewise.
+	* loader2/modules.c: Likewise.
+	* loader2/net.c: Likewise.
+	* loader2/nfsinstall.c: Likewise.
+	* loader2/pcmcia.c: Likewise.
+	* loader2/urls.c: Likewise.
+	* loader2/usb.c: Likewise.
+
 	* loader2/driverselect.c (getManualModuleArgs): We don't have help
 	about the args, don't pretend that we do.
 

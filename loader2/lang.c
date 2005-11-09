@@ -226,7 +226,7 @@ static int setupLanguage(int choice, int flags) {
     char * buf;
     int i;
 
-    logMessage(INFO, "going to set language to %s", languages[choice].lc_all);
+    logMessage(DEBUGLVL, "going to set language to %s", languages[choice].lc_all);
     /* load the language only if it is displayable.  if they're using
      * a serial console or iSeries vioconsole, we hope it's smart enough */
     if ((!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 

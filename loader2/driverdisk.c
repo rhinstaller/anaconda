@@ -67,7 +67,7 @@ static int verifyDriverDisk(char *mntpt, int flags) {
     /* check for both versions */
     sprintf(file, "%s/rhdd", mntpt);
     if (access(file, R_OK)) {
-        logMessage(WARNING, "not a new format driver disk, checking for old");
+        logMessage(DEBUGLVL, "not a new format driver disk, checking for old");
         sprintf(file, "%s/rhdd-6.1", mntpt);
         if (access(file, R_OK)) {
             logMessage(ERROR, "can't find either driver disk identifier, bad "
@@ -208,7 +208,7 @@ int getRemovableDevices(char *** devNames) {
     numDevices = i;
 
     for (i = 0; devices[i]; i++) {
-        logMessage(INFO, "devices[%d] is %s", i, devices[i]->device);
+        logMessage(DEBUGLVL, "devices[%d] is %s", i, devices[i]->device);
     }
 
     *devNames = malloc((numDevices + 1) * sizeof(*devNames));
@@ -357,7 +357,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
         case DEV_LOADFILE: {
             if(ddfile == NULL) {
-                logMessage(INFO, "trying to load dd from NULL");
+                logMessage(DEBUGLVL, "trying to load dd from NULL");
                 stage = DEV_CHOOSEFILE;
                 break;
             }

@@ -63,14 +63,14 @@ static int detectHardware(moduleInfoSet modInfo,
     int numMods;
     char *driver;
     
-    logMessage(INFO, "probing buses");
+    logMessage(DEBUGLVL, "probing buses");
     
     devices = probeDevices(CLASS_UNSPEC,
                            BUS_PCI | BUS_SBUS | BUS_VIO | BUS_MACIO |
                            BUS_PCMCIA,
                            PROBE_ALL);
 
-    logMessage(INFO, "finished bus probing");
+    logMessage(DEBUGLVL, "finished bus probing");
     
     if (devices == NULL) {
         *modules = NULL;
@@ -93,24 +93,24 @@ static int detectHardware(moduleInfoSet modInfo,
         /* this is kind of icky and verbose.  there are better and more 
          * general ways to do it but this is simple and obvious */
 	if (!driver) {
-	    logMessage(WARNING, "ignoring driverless device %s", (*device)->desc);
+	    logMessage(DEBUGLVL, "ignoring driverless device %s", (*device)->desc);
         } else if (FL_NOPCMCIA(flags) && ((*device)->type == CLASS_SOCKET)) {
-            logMessage(WARNING, "ignoring pcmcia device %s (%s)",
+            logMessage(DEBUGLVL, "ignoring pcmcia device %s (%s)",
                        (*device)->desc, driver);
         } else if (FL_NOIEEE1394(flags) && ((*device)->type == CLASS_FIREWIRE)) {
-            logMessage(WARNING, "ignoring firewire device %s (%s)",
+            logMessage(DEBUGLVL, "ignoring firewire device %s (%s)",
                        (*device)->desc, driver);
         } else if (FL_NOUSB(flags) && ((*device)->type == CLASS_USB)) {
-            logMessage(WARNING, "ignoring usb device %s (%s)", (*device)->desc,
+            logMessage(DEBUGLVL, "ignoring usb device %s (%s)", (*device)->desc,
                        driver);
         } else if (FL_NOSTORAGE(flags) && 
                    (((*device)->type == CLASS_SCSI) || 
                     ((*device)->type == CLASS_IDE) ||
                     ((*device)->type == CLASS_RAID))) {
-            logMessage(WARNING, "ignoring storage device %s (%s)",
+            logMessage(DEBUGLVL, "ignoring storage device %s (%s)",
                        (*device)->desc, driver);
         } else if (FL_NONET(flags) && ((*device)->type == CLASS_NETWORK)) {
-            logMessage(WARNING, "ignoring network device %s (%s)",
+            logMessage(DEBUGLVL, "ignoring network device %s (%s)",
                        (*device)->desc, driver);
         } else {
             modList[numMods++] = strdup(driver);
@@ -138,7 +138,7 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
     devices = probeDevices(CLASS_TAPE, BUS_SCSI, 0);
     
     if (!devices) {
-        logMessage(WARNING, "no scsi tape devices found");
+        logMessage(INFO, "no scsi tape devices found");
         return 0;
     }
 

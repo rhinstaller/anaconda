@@ -165,7 +165,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
         }
         
         if (mountLoopback(isoImage, "/tmp/loopimage", "loop7")) {
-            logMessage(ERROR, "failed to mount %s", isoImage);
+            logMessage(WARNING, "failed to mount %s", isoImage);
             errno = 0;
             continue;
         }
@@ -362,9 +362,9 @@ void queryIsoMediaCheck(char *isoFile, int flags) {
     isoDir = strdup(dirname(tmpstr));
     free(tmpstr);
 
-    logMessage(INFO, "isoFile = %s", isoFile);
-    logMessage(INFO, "isoDir  = %s", isoDir);
-    logMessage(INFO, "Master Timestemp = %s", master_timestamp);
+    logMessage(DEBUGLVL, "isoFile = %s", isoFile);
+    logMessage(DEBUGLVL, "isoDir  = %s", isoDir);
+    logMessage(DEBUGLVL, "Master Timestemp = %s", master_timestamp);
 
     if (!(dir = opendir(isoDir))) {
 	newtWinMessage(_("Error"), _("OK"), 
@@ -475,7 +475,7 @@ int copyDirectory(char * from, char * to) {
             i = readlink(filespec, link, sizeof(link) - 1);
             link[i] = '\0';
             if (symlink(link, filespec2)) {
-                logMessage(ERROR, "failed to symlink %s to %s: %s",
+                logMessage(WARNING, "failed to symlink %s to %s: %s",
                     filespec2, link, strerror(errno));
             }
         } else {
@@ -487,7 +487,7 @@ int copyDirectory(char * from, char * to) {
             } 
             outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
             if (outfd == -1) {
-                logMessage(ERROR, "failed to create %s: %s", filespec2,
+                logMessage(WARNING, "failed to create %s: %s", filespec2,
                            strerror(errno));
             } else {
                 fchmod(outfd, sb.st_mode & 07777);
@@ -618,7 +618,7 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage(INFO, "copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
+    logMessage(DEBUGLVL, "copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));
     
     if (rc) {

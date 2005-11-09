@@ -233,7 +233,7 @@ static void spawnShell(int flags) {
     pid_t pid;
 
     if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
-        logMessage(ERROR, "not spawning a shell");
+        logMessage(INFO, "not spawning a shell");
         return;
     } else if (access("/bin/sh",  X_OK))  {
         logMessage(ERROR, "cannot open shell - /bin/sh doesn't exist");
@@ -738,21 +738,6 @@ static int haveDeviceOfType(int type, moduleList modLoaded) {
     devices = probeDevices(type, BUS_UNSPEC, PROBE_LOADED);
     if (devices) {
         return 1;
-#if 0
-        int i;
-        for (i = 0; devices[i]; i++) {
-            if (devices[i]->driver && mlModuleInList(devices[i]->driver,
-                                                     modLoaded)) {
-                logMessage("devices[%d] is %s - %s using %s (loaded)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
-                return 1;
-            } else if (!devices[i]->driver) {
-                logMessage("devices[%d] is %s - %s using %s (no driver)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
-                return 1;
-            } else {
-                logMessage("devices[%d] is %s - %s using %s (not loaded)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
-            }
-        }
-#endif
     }
     return 0;
 }
@@ -1487,7 +1472,7 @@ int main(int argc, char ** argv) {
     while (*tmparg) {
         char *idx;
         
-        logMessage(INFO, "adding extraArg %s", *tmparg);
+        logMessage(DEBUGLVL, "adding extraArg %s", *tmparg);
         idx = strchr(*tmparg, '=');
         if (idx &&  ((idx-*tmparg) < strlen(*tmparg))) {
             *idx = '\0';

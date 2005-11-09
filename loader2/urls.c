@@ -81,8 +81,8 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
     *url = '/';
     ui->prefix = strdup(url);
     
-    logMessage(INFO, "url address %s", ui->address);
-    logMessage(INFO, "url prefix %s", ui->prefix);
+    logMessage(DEBUGLVL, "url address %s", ui->address);
+    logMessage(DEBUGLVL, "url prefix %s", ui->prefix);
 
     return 0;
 }
