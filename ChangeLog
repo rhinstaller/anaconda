@@ -1,3 +1,13 @@
+2005-11-08  Jeremy Katz  <katzj@redhat.com>
+
+	* text.py (InstallInterface.isRealConsole): Add method to check if
+	we're on a "real" console instead of duplicating the code
+	everywhere.  Add a check for /proc/xen to imply xen guest (not
+	real console)
+	(InstallInterface.run): Use new method.
+	(InstallInterface.run): Use new method.
+	* textw/language_text.py (LanguageWindow.__call__): Use new method.
+
 2005-11-08  Peter Jones  <pjones@redht.com>
 
 	* dmraid.py: First parts of this, needs pyblock and dm libs.

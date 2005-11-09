@@ -56,9 +56,7 @@ class LanguageWindow:
 
         if (flags.setupFilesystems and
             instLanguage.getFontFile(choice) == "bterm"
-            and not flags.serial and not flags.virtpconsole
-            and not isys.isPsudoTTY(0)
-            and not isys.isVioConsole()):
+            and textInterface.isRealConsole()):
             # bterm to the rescue...  have to shut down the screen and
             # create a new one, though (and do a sleep)
             log.info("starting bterm")
