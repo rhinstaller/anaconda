@@ -1,5 +1,12 @@
 2005-11-08  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (AnacondaKSHandlers.doAuthconfig): Fix kickstart 
+	traceback
+
+	* yuminstall.py (AnacondaYum.run): Basic (bad) support for
+	handling transaction errors.  Need to improve this, but at least
+	it won't just traceback now.
+
 	* text.py (InstallInterface.isRealConsole): Add method to check if
 	we're on a "real" console instead of duplicating the code
 	everywhere.  Add a check for /proc/xen to imply xen guest (not
