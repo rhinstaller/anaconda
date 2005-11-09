@@ -435,8 +435,8 @@ def getVGUsedSpace(vgreq, requests, diskset):
 
 def getVGFreeSpace(vgreq, requests, diskset):
     used = getVGUsedSpace(vgreq, requests, diskset)
-    log.info("used space is %s" % (used,))
+    log.debug("used space is %s" % (used,))
     
     total = vgreq.getActualSize(requests, diskset)
-    log.info("actual space is %s" % (total,))
+    log.debug("actual space is %s" % (total,))
     return total - used
