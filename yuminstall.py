@@ -24,7 +24,7 @@ import yum
 import yum.repos
 import yum.packages
 import yum.groups
-from yum.Errors import RepoError
+from yum.Errors import RepoError, YumBaseError
 from yum.packages import returnBestPackages
 from repomd.mdErrors import PackageSackError
 from backend import AnacondaBackend
@@ -218,7 +218,7 @@ class AnacondaYum(yum.YumBase):
         rpmUtils.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
             self.ts.ts.setColor(3)
 
-    def run(self, instLog, cb):
+    def run(self, instLog, cb, intf):
         self.initActionTs()
         self.setColor()
         self.populateTs(keepold=0)
@@ -229,7 +229,17 @@ class AnacondaYum(yum.YumBase):
         self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
 
-        self.runTransaction(cb=cb)
+        try:
+            self.runTransaction(cb=cb)
+        except YumBaseError, probs:
+            # FIXME: we need to actually look at these problems...
+            log.error("error running transaction: %s" %(probs,))
+            intf.messageWindow(_("Error running transaction"),
+                               ("There was an error running your transaction, "
+                                "probably a disk space problem.  For now, "
+                                "exiting on this although we should diagnose "
+                                "and then let you go back."))
+            sys.exit(1)
 
     def doCacheSetup(self):
         for repo in self.repos.repos.values():
@@ -518,7 +528,7 @@ class YumBackend(AnacondaBackend):
         cb.initWindow = intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
 
-        self.ayum.run(self.instLog, cb)
+        self.ayum.run(self.instLog, cb, intf)
 
         if not cb.beenCalled:
             cb.initWindow.pop()
