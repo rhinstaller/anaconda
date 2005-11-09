@@ -25,8 +25,8 @@
 
 #include "log.h"
 
-static FILE * logfile = NULL;
-static FILE * logfile2 = NULL;
+static FILE * tty_logfile = NULL;
+static FILE * file_logfile = NULL;
 static int minLevel = WARNING;
 
 static void printLogHeader(int level, FILE *outfile) {
@@ -64,27 +64,26 @@ static void printLogHeader(int level, FILE *outfile) {
 void logMessage(int level, const char * s, ...) {
     va_list args;
 
-    if (level < minLevel) 
-        return;
-
-    if (logfile) {
+    /* Only log to the screen things that are above the minimum level. */
+    if (tty_logfile && level >= minLevel) {
         va_start(args, s);
 
-        printLogHeader(level, logfile);
-        vfprintf(logfile, s, args);
-        fprintf(logfile, "\n");
-        fflush(logfile);
+        printLogHeader(level, tty_logfile);
+        vfprintf(tty_logfile, s, args);
+        fprintf(tty_logfile, "\n");
+        fflush(tty_logfile);
 
         va_end(args);
     }
 
-    if (logfile2) {
+    /* But log everything to the file. */
+    if (file_logfile) {
         va_start(args, s);
 
-        printLogHeader(level, logfile2);
-        vfprintf(logfile2, s, args);
-        fprintf(logfile2, "\n");
-        fflush(logfile2);
+        printLogHeader(level, file_logfile);
+        vfprintf(file_logfile, s, args);
+        fprintf(file_logfile, "\n");
+        fflush(file_logfile);
 
         va_end(args);
     }
@@ -96,31 +95,32 @@ void openLog(int useLocal) {
     int flags, fd;
 
     if (!useLocal) {
-	logfile = fopen("/dev/tty3", "w");
-        logfile2 = fopen("/tmp/anaconda.log", "w");
+	tty_logfile = fopen("/dev/tty3", "w");
+        file_logfile = fopen("/tmp/anaconda.log", "w");
     } else {
-	logfile = fopen("debug.log", "w");
+	tty_logfile = NULL;
+	file_logfile = fopen("debug.log", "w");
     }
 
-    if (logfile) {
-        fd = fileno(logfile);
+    if (tty_logfile) {
+        fd = fileno(tty_logfile);
         flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
         fcntl(fd, F_SETFD, flags);
     }
 
-    if (logfile2) {
-        fd = fileno(logfile2);
+    if (file_logfile) {
+        fd = fileno(file_logfile);
         flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
         fcntl(fd, F_SETFD, flags);
     }
 }
 
 void closeLog(void) {
-    if (logfile)
-	fclose(logfile);
+    if (tty_logfile)
+	fclose(tty_logfile);
 
-    if (logfile2)
-	fclose(logfile2);
+    if (file_logfile)
+	fclose(file_logfile);
 }
 
 /* set the level.  higher means you see more verbosity */
