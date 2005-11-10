@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.8
+Version: 10.89.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov  9 2005 Jeremy Katz <katzj@redhat.com> - 10.89.9-1
+- Create interface earlier to prevent kickstart traceback (clumens)
+- Logging fixes, everything should be in the logfile (clumens)
+- Get rid of help which is irrelevant
+- Clean up loader log levels
+
 * Tue Nov  8 2005 Jeremy Katz <katzj@redhat.com> - 10.89.8-1
 - Fix backwards message on upgrade (#172030)
 - New chinese fonts (#172163)
