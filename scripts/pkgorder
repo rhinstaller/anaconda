@@ -9,16 +9,186 @@
 # You should have received a copy of the GNU Library Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-#XXX: Package order is dying
-
+import os.path
+import rpm
+import rpmUtils
+import string
 import sys
+import yum
+
+sys.path.append("/usr/lib/anaconda")
+
 from optparse import OptionParser
+from repomd.packageSack import PackageSack
+from repomd.packageObject import PackageObject
+from yum.transactioninfo import TransactionData, TransactionMember
+from sortedtransaction import *
+from whiteout import whiteout
+
+class YumSorter(yum.YumBase):
+
+    def __init__(self, arch=None):
+        yum.YumBase.__init__(self)
+        self.arch = arch
+        self.deps = {}
+        self.dsCallback = None
+        self.path = []
+        self.loops = []
+        self.whiteout = whiteout.split()
+        self._installed = PackageSack()
+
+    def doTsSetup(self):
+        if hasattr(self, 'read_ts'):
+            return
+
+        if not self.conf.installroot:
+            raise Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
+
+        installroot = self.conf.installroot
+        self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
+        self.tsInfo = SortableTransactionData()
+        self.rpmdb = rpmUtils.RpmDBHolder()
+        self.initActionTs()
+
+    def errorlog(self, value, msg):
+        #print "Error %s: %s" % (value, msg)
+        pass
+
+    def filelog(self, value, msg):
+        pass
+
+    def log(self, value, msg):
+        pass
+        #if value <= 3:
+        #    sys.stderr.write("Log: %s\n" % (msg,))
+
+    def getDownloadPkgs(self):
+        pass
+
+    def addGroup(self, group):
+        pkgs = []
+        availpackages =  {}
+
+        for po in self.pkgSack.returnPackages():
+            availpackages[po.name] = po
+
+        if self.groupInfo.groupExists(group):
+            pkglist = self.groupInfo.pkgTree(group)
+            for pkg in pkglist:
+                if availpackages.has_key(pkg):
+                    pkgs.append(pkg)
+                    member = self.tsInfo.addInstall(availpackages[pkg])
+                    member.sortColour = WHITE
+
+    def _provideToPkg(self, req):
+        best = None
+        (r, f, v) = req
+
+        satisfiers = []
+        for po in self.whatProvides(r, f, v):
+            if po.name not in satisfiers:
+                satisfiers.append(po)
+
+        if satisfiers:
+            best = self.bestPackageFromList(satisfiers) 
+            self.deps[req] = best
+
+        # raise resolution error
+
+    def resolveDeps(self):
+    
+        CheckDeps = 1
+
+        if self.dsCallback: self.dsCallback.start()
+
+        while CheckDeps > 0:
+            if self.dsCallback: self.dsCallback.tscheck()
+            unresolved = self.tsCheck()
+            CheckDeps = len(unresolved)
+
+
+    def tsCheck(self):
+        unresolved = []
+        for txmbr in self.tsInfo.getMembers():
+            reqs = txmbr.po.returnPrco('requires')
+            provs = txmbr.po.returnPrco('provides')
+            reqs.sort()
+
+            for req in reqs:
+                if req[0].startswith('rpmlib(') or req[0].startswith('config('):
+                    continue
+#XXX: handle unresolvable dep
+                if req in provs:
+                    continue
+                if req not in self.deps.keys():
+                    self._provideToPkg(req)
+                dep = self.deps[req]
+
+                # Skip filebased requires on self, etc
+                if txmbr.name == dep.name:
+                    continue
+
+                if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
+                    continue
+#XXX: handle in rpmdb too
+                pkgs = self._installed.packagesByTuple(dep.pkgtup)
+
+                if pkgs:
+                    member = self.bestPackageFromList(pkgs)
+                else:
+                    if self.tsInfo.exists(dep.pkgtup):
+                        pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
+                        member = self.bestPackageFromList(pkgs)
+                    else:
+                        member = self.tsInfo.addInstall(dep)
+                        unresolved.append(dep)
+#Add relationship
+                firstelts = map(lambda tup: tup[0], txmbr.relatedto)
+                if member.po.pkgtup not in firstelts:
+                    txmbr.setAsDep(member.po.pkgtup)
+
+        return unresolved
+    
+    def setup(self, fn="/etc/yum.conf", root="/"):
+        self.doConfigSetup(fn, root)
+        cachedir = yum.misc.getCacheDir()
+        self.repos.setCacheDir(cachedir) 
+        self.doRepoSetup()
+
+        self.doSackSetup(rpmUtils.arch.getArchList(self.arch))
+        self.doTsSetup()
+        self.doGroupSetup()
+        self.repos.populateSack(with='filelists')
+
+
+def createConfig(toppath):
+    yumconfstr = """
+[main]
+distroverpkg=redhat-release
+gpgcheck=0
+reposdir=/dev/null
+exclude=*debuginfo*
+
+[anaconda]
+baseurl=file://%s
+enabled=1
+""" % (toppath)
+    
+    try:
+        (fd, path) = tempfile.mkstemp("", "yum-conf-", toppath)
+    except IOError, e:
+        print >> sys.stderr, "Error writing to %s" % (toppath,)
+        sys.exit(1)
+    os.write(fd, yumconfstr)
+    os.close(fd)
+    return path
 
 def usage():
-    print "pkgorder <toppath> <arch> <productpath>"
+    print >> sys.stderr, "pkgorder <toppath> <arch> <productpath>"
+    print >> sys.stderr, "<arch>: use rpm architecture for tree, eg i686"
 
 if __name__ == "__main__":
+    import tempfile
     parser = OptionParser()
     parser.add_option("--debug", action="store_true", dest="debug", default=False)
     parser.add_option("--file", action="store", dest="file")
@@ -30,4 +200,87 @@ if __name__ == "__main__":
 	usage()
         sys.exit(1)
 
-    sys.exit(0)
+    (toppath, arch, product) = args
+    config = createConfig(toppath)
+#XXX: Ugly factor into method with groups as *args
+    ds = YumSorter(arch=arch)
+    ds.setup(fn=config)
+    ds.addGroup("Base")
+    ds.addGroup("Core")
+    ds.addGroup("Text-based Internet")
+    ds.resolveDeps()
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    ds.initActionTs()
+    ds.addGroup("Workstation Common")
+    ds.addGroup("Graphical Internet")
+    ds.addGroup("Editors")
+    ds.addGroup("Graphics")
+    ds.addGroup("GNOME Desktop Environment")
+    ds.addGroup("Sound and Video")
+    ds.addGroup("Printing Support")
+    ds.addGroup("Dialup Networking Support")
+    ds.changed = True
+    ds.resolveDeps()
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    ds.initActionTs()
+    ds.addGroup("Office/Productivity")
+    ds.addGroup("Engineering and Scientific")
+    ds.addGroup("Authoring and Publishing")
+    ds.resolveDeps()
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    ds.initActionTs()
+    ds.addGroup("Web Server")
+    ds.addGroup("FTP Server")
+    ds.addGroup("MySQL Database")
+    ds.addGroup("Server Configuration Tools")
+    ds.addGroup("DNS Name Server")
+    ds.addGroup("Windows File Server")
+    ds.addGroup("Administration Tools")
+    ds.resolveDeps()
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    ds.initActionTs()
+    ds.addGroup("KDE (K Desktop Environment)")
+    ds.addGroup("Development Tools")
+    ds.addGroup("GNOME Software Development")
+    ds.addGroup("Eclipse")
+    ds.addGroup("Java Development")
+    ds.addGroup("KDE Software Development")
+    ds.addGroup("PostgreSQL Database")
+    ds.addGroup("Mail Server")
+    ds.addGroup("Legacy Network Server")
+    ds.resolveDeps()
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    ds.initActionTs()
+    ds.addGroup("News Server")
+    ds.addGroup("Language Support")
+    ds.addGroup("Legacy Software Development")
+    ds.resolveDeps()
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    #Everthing else but kernels - don't depsolve
+
+    for po in ds.pkgSack.returnPackages():
+        if po.pkgtup not in ds._installed.returnPackages():
+            if po.name.find("kernel") == -1:
+                member = ds.tsInfo.addInstall(po)
+                member.sortColour = WHITE
+
+    for pkgtup in ds.tsInfo.sort():
+        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
