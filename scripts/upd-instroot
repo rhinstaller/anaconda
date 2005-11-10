@@ -120,7 +120,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
-	 python-elementtree pykickstart"
+	 python-elementtree pykickstart e2fsprogs-libs"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils kernel-utils"
