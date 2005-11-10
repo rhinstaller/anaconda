@@ -26,6 +26,7 @@ Summary: Graphical system installer portions needed only for fresh installs.
 Group: Applications/System
 AutoReqProv: false
 Requires: libxml2-python, python, rpm-python >= 4.2-0.61, yum >= 2.4.0
+Requires: anaconda = %{version}-%{release}
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
