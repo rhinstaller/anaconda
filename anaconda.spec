@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.9
+Version: 10.89.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 10 2005 Chris Lumens <clumens@redhat.com> 10.89.10-1
+- Add e2fsprogs-libs to the install images.
+
 * Wed Nov  9 2005 Jeremy Katz <katzj@redhat.com> - 10.89.9-1
 - Create interface earlier to prevent kickstart traceback (clumens)
 - Logging fixes, everything should be in the logfile (clumens)
