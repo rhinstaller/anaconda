@@ -1,5 +1,7 @@
 2005-11-10  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/hardware.c: Look for xen devices.
+
 	* loader2/modules.c: Who cares about missing modules, they're
 	probably built-in...
 
