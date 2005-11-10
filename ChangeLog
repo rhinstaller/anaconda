@@ -1,5 +1,10 @@
 2005-11-10  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda_log.py (AnacondaLog.__init__):  Change level on stdout
+	logging so we actually see what's being printed.
+
+2005-11-10  Chris Lumens  <clumens@redhat.com>
+
 	* anaconda.spec:  Bump version.
 
 	* scripts/upd-instroot (PACKAGES):  Add e2fsprogs-libs.

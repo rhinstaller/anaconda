@@ -54,11 +54,11 @@ class AnacondaLog:
         # parent loggers for processing and possibly be written to the
         # log.
         self.stdoutLogger = logging.getLogger("anaconda.stdout")
-        self.stdoutLogger.setLevel(minLevel)
+        self.stdoutLogger.setLevel(logging.INFO)
 
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
         self.addFileHandler (sys.stdout, self.stdoutLogger,
-                             fmtStr="%(message)s")
+                             fmtStr="%(message)s", minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_LEVEL,
