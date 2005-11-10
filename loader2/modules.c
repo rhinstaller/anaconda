@@ -531,7 +531,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
     }
 
-    if (*items) logMessage(WARNING, "module(s) %s not found", items);
+    if (*items) logMessage(DEBUGLVL, "module(s) %s not found", items);
 
     if (reloadUsbStorage) {
         mod = getLoadedModuleInfo(modLoaded, "usb-storage");
