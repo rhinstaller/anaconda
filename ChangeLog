@@ -1,3 +1,8 @@
+2005-11-10  Paul Nasrat	  <pnasrat@redhat.com>
+	
+	* scripts/pkgorder:  Resurrect pkgorder based on yum
+	* sortedtransaction.py: Only operate on dependencies (not obsoletes)
+
 2005-11-10  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda_log.py (AnacondaLog.__init__):  Change level on stdout
