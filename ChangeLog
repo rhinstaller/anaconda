@@ -1,5 +1,8 @@
 2005-11-10  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: Add some stuff to try to get the framework
+	present for dogtail to work (#172891) 
+
 	* loader2/hardware.c: Look for xen devices.
 
 	* loader2/modules.c: Who cares about missing modules, they're

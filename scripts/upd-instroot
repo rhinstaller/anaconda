@@ -227,6 +227,9 @@ if [ $ARCH = ppc ]; then
     PACKAGESGR="$PACKAGESGR fbset yaboot ppc64-utils"
 fi
 
+# dogtail stuff...
+PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
+
 #
 # KEEPFILE is all files to keep from the packages in PACKAGES
 #
@@ -750,6 +753,19 @@ usr/share/fonts/ISO8859-2/100dpi/tim*
 usr/share/fonts/ISO8859-2/100dpi/fonts*
 EOF
 fi
+
+# more dogtail stuff...
+cat >> $KEEPFILEGR <<EOF
+usr/$LIBDIR/gtk-2.0/modules/libatk-bridge.so
+usr/$LIBDIR/gtk-2.0/modules/libgail.so
+usr/libexec/bonobo-activation-server
+usr/$LIBDIR/libORBit*
+usr/$LIBDIR/libbonobo*
+usr/$LIBDIR/libspi*
+usr/$LIBDIR/libcspi*
+EOF
+
+
 
 #
 # KEEPFILERESCUE is all files to keep from the packages in PACKAGESRESCUE
