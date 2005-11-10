@@ -284,3 +284,5 @@ if __name__ == "__main__":
 
     for pkgtup in ds.tsInfo.sort():
         print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+
+    os.unlink(path)
