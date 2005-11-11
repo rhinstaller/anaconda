@@ -71,7 +71,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, 0);
 
     if (!devices) {
-	logMessage(WARNING, "no firewire scsi devices found");
+	logMessage(DEBUGLVL, "no firewire scsi devices found");
         newtPopWindow();
 	return 0;
     }
