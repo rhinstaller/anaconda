@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-10-07 14:55-0000\n"
+"PO-Revision-Date: 2005-11-10 19:46-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -195,7 +195,7 @@ msgid "Unknown Error"
 msgstr "Непозната грешка"
 
 #: ../anaconda:634
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Грешка при увлачењу другог дела kickstart подешавања: %s!"
 
@@ -748,7 +748,6 @@ msgstr "RAID уређај"
 
 #: ../fsset.py:1261
 #: ../fsset.py:1267
-#, fuzzy
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
@@ -1061,7 +1060,7 @@ msgstr "Сачу_вај на дискету"
 
 #: ../gui.py:722
 #: ../text.py:269
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
@@ -1073,7 +1072,6 @@ msgstr ""
 
 #: ../gui.py:724
 #: ../text.py:271
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "Грешка при тумачењу kickstart подешавања"
 
@@ -2032,7 +2030,6 @@ msgid "You must create a /boot/efi partition of type FAT and a size of 50 megaby
 msgstr "Морате да направите /boot/efi партицију FAT врсте и величине од 50 мегабајта."
 
 #: ../partitions.py:836
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
 msgstr "Морате направити Apple Bootstrap партицију."
 
@@ -2073,7 +2070,6 @@ msgid "a partition which is a member of a RAID array."
 msgstr "партиција која је члан RAID низа."
 
 #: ../partitions.py:1246
-#, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "партиција која је члан LVM диск групе."
 
@@ -2826,7 +2822,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Притисните „Следећи“ да започнете %s инсталацију."
 
 #: ../iw/confirm_gui.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after rebooting your system.\n"
 "\n"
@@ -4745,7 +4741,6 @@ msgstr "Параметри језгра"
 
 #: ../iw/zipl_gui.py:107
 #: ../iw/zipl_gui.py:110
-#, fuzzy
 msgid "Chandev Parameters"
 msgstr "Chandev параметри"
 
@@ -5966,12 +5961,10 @@ msgstr ""
 "БЕЛЕШКА - обично није потребно ручно изменити учестаности синхронизације, и мора се применити опрез како би осигурали да су унете вредности прецизне."
 
 #: ../textw/xconfig_text.py:286
-#, fuzzy
 msgid "HSync Rate: "
 msgstr "HSync учестаност: "
 
 #: ../textw/xconfig_text.py:291
-#, fuzzy
 msgid "VSync Rate: "
 msgstr "VSync учестаност: "
 
@@ -5985,12 +5978,10 @@ msgid "Monitor:"
 msgstr "Монитор"
 
 #: ../textw/xconfig_text.py:430
-#, fuzzy
 msgid "HSync Rate:"
 msgstr "HSync учестаност:"
 
 #: ../textw/xconfig_text.py:440
-#, fuzzy
 msgid "VSync Rate:"
 msgstr "VSync учестаност:"
 
@@ -6066,7 +6057,6 @@ msgstr "z/IPL подешавање"
 
 #: ../textw/zipl_text.py:64
 #: ../textw/zipl_text.py:68
-#, fuzzy
 msgid "Chandev line "
 msgstr "Chandev ред  "
 
@@ -6245,7 +6235,6 @@ msgid "CD Not Found"
 msgstr "CD није пронађен"
 
 #: ../loader2/cdinstall.c:452
-#, fuzzy
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Не могу да пронађем kickstart датотеку на CD-ROM-у."
 
@@ -6342,17 +6331,16 @@ msgstr "Желите ли да учитате још неке управљачк
 #: ../loader2/urlinstall.c:442
 #: ../loader2/urlinstall.c:451
 #: ../loader2/urlinstall.c:462
-#, fuzzy
 msgid "Kickstart Error"
 msgstr "Kickstart грешка"
 
 #: ../loader2/driverdisk.c:584
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Непозната управљачка дискета kickstart извора: %s"
 
 #: ../loader2/driverdisk.c:622
-#, fuzzy, c-format
+#, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s:%s"
 msgstr "Следећи неисправан аргумент је наведен за команду kickstart управљачке дискете: %s:%s"
 
@@ -6430,7 +6418,7 @@ msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Изгледа да уређај %s не садржи CD-ROM одразе %s-а."
 
 #: ../loader2/hdinstall.c:471
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Лош аргумент команде HD kickstart методе %s: %s"
 
@@ -6472,7 +6460,7 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Не могу да нађем ks.cfg на покретачкој дискети."
 
 #: ../loader2/kickstart.c:409
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Лош аргумент команде за гашење kickstart методе %s: %s"
 
@@ -6701,7 +6689,7 @@ msgid "Checksum Test"
 msgstr "Провера контролне суме"
 
 #: ../loader2/modules.c:983
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Лош аргумент за команду уређајске kickstart методе %s: %s"
 
@@ -6801,7 +6789,7 @@ msgid "Determining host name and domain..."
 msgstr "Одређујем име домаћина и домен..."
 
 #: ../loader2/net.c:898
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Лош аргумент за мрежну kickstart команду %s: %s"
 
@@ -6842,7 +6830,7 @@ msgid "That directory could not be mounted from the server."
 msgstr "Нисам могао да монтирам тај директоријум са сервера."
 
 #: ../loader2/nfsinstall.c:249
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Лош аргумент за команду NFS kickstart методе %s: %s"
 
@@ -6877,17 +6865,16 @@ msgid "Local installation media detected..."
 msgstr "Пронађен локални медијум за инсталацију..."
 
 #: ../loader2/urlinstall.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Лош аргумент за команду Урл kickstart методе %s: %s"
 
 #: ../loader2/urlinstall.c:452
-#, fuzzy
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Морате навести --url аргумент за Урл kickstart методу."
 
 #: ../loader2/urlinstall.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
 msgstr "Непознат Урл метод %s"
 
@@ -7241,7 +7228,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Иријан Џаја и Молуци"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -7273,7 +7260,7 @@ msgstr "Ла Риоха (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Линијска острва"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
@@ -7285,15 +7272,15 @@ msgstr "Острва Мадеира"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Острва Маркезас"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Мато Гросо"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Мато Гросо до Сул"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -7481,7 +7468,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Рораима"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
@@ -7489,7 +7476,7 @@ msgstr "Ротера станица, Острво Аделејд"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Рутенија"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -7513,7 +7500,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Друштвена острва"
 
 #. generated from zone.tab
 msgid "South Australia"
