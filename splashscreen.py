@@ -17,6 +17,11 @@ import os
 os.environ["PYGTK_DISABLE_THREADS"] = "1"
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
+# we only want to enable the accessibility stuff if requested for now...
+buf = open("/proc/cmdline").read()
+if buf.find("dogtail") != -1:
+    os.environ["GTK_MODULES"] = "gail:atk-bridge"
+
 import gtk
 from flags import flags
 
