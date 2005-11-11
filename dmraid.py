@@ -23,8 +23,7 @@ import block
 import parted
 
 import logging
-#log = logging.getLogger("anaconda")
-log = logging
+log = logging.getLogger("anaconda.dmraid")
 import isys
 
 # these arches can have their /boot on DMRAID and not have their
@@ -32,6 +31,12 @@ import isys
 # XXX This needs to be functional so it can test if drives sit on particular
 # controlers. -pj
 dmraidBootArches = [ "i386", "x86_64" ]
+
+class DegradedRaidWarning(Warning):
+    def __init__(self, *args):
+        self.args = args
+    def __str__(self):
+        return self.args and ('%s' % self.args[0]) or repr(self)
 
 def getRaidSetDisks(rs, descend=False):
     """Builds a list of disks used by a dmraid set
@@ -140,15 +145,48 @@ def scanForRaid(drives):
         isys.makeDevInode(d, dp)
         probeDrives.append(dp)
     
-    dmsets = block.get_raidsets(probeDrives)
+    dmsets = block.RaidSets(probeDrives)
+    rets = []
     for dmset in dmsets:
         infos = getRaidSetInfo(dmset)
 
         for info in infos:
-            (rs, parent, devices, level, nrDisks, totalDisks) = info
+            rets.append(info)
+            #(rs, parent, devices, level, nrDisks, totalDisks) = info
+    return rets
 
+def startRaidDev(rs, degradedOk=False):
+    if rs.total_devs > rs.found_devs and not degradedOk:
+        raise DegradedRaidWarning, rs
+    name = str(rs)
+    table = rs.dmTable
+
+    block.dm.map(name=name, table=table)
 
 def startAllRaid(driveList):
     """Do a raid start on raid devices and return a list like scanForRaid."""
     rc = []
-    
+    dmList = scanForRaid(driveList)
+    for dmset in dmList:
+        rs, parent, devices, level, nrDisks, totalDisks = dmset
+        startRaidDev(rs, False)
+        rc.append(dmset)
+
+    return rc
+
+def stopAllRaid(dmList):
+    """Do a raid stop on each of the raid device tuples given."""
+
+    maplist = block.dm.list()
+    maps = {}
+    for m in maplist:
+        maps[m.name] = m
+    del maplist
+        
+    for dmset in dmList:
+        name = str(dmset[0])
+        map = maps[name]
+        try:
+            map.remove()
+        except:
+            pass
