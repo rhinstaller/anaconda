@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.11
+Version: 10.89.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -73,6 +73,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Nov 11 2005 Chris Lumens <clumens@redhat.com> 10.89.12-1
+- Add buildreq for yum (katzj)
+- Fix loader log levels (katzj)
+- Add more libraries for dogtail (katzj)
+
 * Thu Nov 10 2005 Jeremy Katz <katzj@redhat.com> - 10.89.11-1
 - Fix stdout logging to print stuff (clumens)
 - Start of some sorting/splitting stuff for CDs (pnasrat) 
