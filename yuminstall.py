@@ -196,7 +196,12 @@ class AnacondaYum(yum.YumBase):
         pass
 
     def log(self, value, msg):
-        log.info(msg)
+        if value >= 2:
+            log.debug(msg)
+        elif value == 1:
+            log.info(msg)
+        else:
+            log.warning(msg)
 
     def getDownloadPkgs(self):
         downloadpkgs = []
