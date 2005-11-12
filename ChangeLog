@@ -1,3 +1,8 @@
+2005-11-12  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/net.c (findHostAndDomain): Not succeeding at reverse
+	lookup should only be a warning
+
 2005-11-11  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

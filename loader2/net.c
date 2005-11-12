@@ -823,7 +823,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
             newtPopWindow();
 
         if (!name) {
-            logMessage(ERROR, "reverse name lookup failed");
+            logMessage(WARNING, "reverse name lookup failed");
             return 1;
         }
 
