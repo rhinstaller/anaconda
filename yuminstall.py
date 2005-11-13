@@ -401,7 +401,7 @@ class YumBackend(AnacondaBackend):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
-           
+
         dscb = YumDepSolveProgress(intf)
         self.ayum.dsCallback = dscb
         try:
@@ -612,7 +612,7 @@ class YumBackend(AnacondaBackend):
         for pkg in self.ayum.groupInfo.default_pkgs[gid] + \
                 self.ayum.groupInfo.mandatory_pkgs[gid]:
             try:
-                map(lambda x: self.ayum.tsInfo.remove(x),
+                map(lambda x: self.ayum.tsInfo.remove(x.pkgtup),
                     self.ayum.getBestPackages(pkg))
             except PackageSackError:
                 log.debug("no such package %s" %(pkg,))
@@ -697,7 +697,7 @@ class YumDepSolveProgress:
         _("Checking dependencies in packages selected for installation..."), 1.0)
         self.window = window
         self.total = 1.0
-
+        
         self.pkgAdded = self.procReq = self.transactionPopulation = self.downloadHeader = self.tscheck = self.unresolved = self.procConflict = self.refresh
 
     def refresh(self, *args):

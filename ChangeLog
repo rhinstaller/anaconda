@@ -1,3 +1,8 @@
+2005-11-13  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumBackend.deselectGroup): Fix group deselection
+	to pass pkgtup instead of po.  hooray for api inconsistency
+
 2005-11-12  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/net.c (findHostAndDomain): Not succeeding at reverse
