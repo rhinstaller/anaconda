@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-10-08 13:10+0200\n"
+"PO-Revision-Date: 2005-11-10 18:50+0200\n"
 "Last-Translator: Tom Berner <tom@lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -459,7 +459,7 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 "Automatyczny podział na partycje dzieli dysk na partycje na podstawie "
-"wybranego rodzaju instalacji. Po utworzeniu partycji można dostosować je do "
+"wybranego typu instalacji. Po utworzeniu partycji można dostosować je do "
 "swoich wymagań.\n"
 "\n"
 "Narzędzie do ręcznego partycjonowania dysku, Disk druid, umożliwia tworzenie "
@@ -543,7 +543,7 @@ msgstr "Wyjątki programu parted nie są obsługiwane w trybie wiersza poleceń!
 #: ../cmdline.py:133
 #, python-format
 msgid "Done [%d/%d]"
-msgstr "Zakończono [%d/%d]"
+msgstr "Zrobione [%d/%d]"
 
 #: ../cmdline.py:139
 #, python-format
@@ -2228,7 +2228,7 @@ msgstr "Czy chcesz uruchomić interfejsy sieciowe w tym systemie?"
 
 #: ../rescue.py:224 ../text.py:489
 msgid "Cancelled"
-msgstr "Anulowanie"
+msgstr "Anulowano"
 
 #: ../rescue.py:225 ../text.py:490
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -2617,7 +2617,7 @@ msgid ""
 "installation"
 msgstr ""
 "Hasło zabezpieczy przed nieupoważnionymi podłączeniami i monitoringiem "
-"postępów instalacji. Wprowadź hasło, które będzie wykorzystane do "
+"postępów instalacji. Podaj hasło, które będzie wykorzystane do "
 "instalacji"
 
 #: ../vnc.py:88 ../textw/userauth_text.py:44 ../loader2/urls.c:437
@@ -2634,7 +2634,7 @@ msgstr "Niezgodne hasła"
 
 #: ../vnc.py:112 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
-msgstr "Hasła, które podałeś, różnią się. Wprowadź je ponownie."
+msgstr "Hasła, które podałeś, różnią się. Spróbuj ponownie."
 
 #: ../vnc.py:117 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
@@ -2702,7 +2702,7 @@ msgstr "Nie podano FCP LUN lub podany numer jest nieprawidłowy."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Wpisz hasło roota"
+msgstr "Ustaw hasło roota"
 
 #: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
@@ -2714,12 +2714,12 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-"Musisz wprowadzić hasło roota i potwierdzić je wprowadzając ponownie, aby "
+"Musisz podać hasło roota i potwierdzić je wprowadzając ponownie, aby "
 "kontynuować."
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
-msgstr "Hasła, które podałeś, różnią się. Wprowadź je ponownie."
+msgstr "Hasła, które podałeś, różnią się. Spróbuj ponownie."
 
 #: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
@@ -2738,7 +2738,7 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"Konto roota jest wykorzystywane do administracji systemem. Wprowadź hasło dla "
+"Konto roota jest wykorzystywane do administracji systemem. Podaj hasło dla "
 "użytkownika root."
 
 #: ../iw/account_gui.py:110
@@ -2767,7 +2767,7 @@ msgstr "Włącz N_IS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "Wyszukuj serwer NIS przez _rozgłaszanie"
+msgstr "Użyj _rozgłaszania do wyszukiwania serwera NFS"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
@@ -3368,11 +3368,11 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
-msgstr "Włączyć _SELinux?:"
+msgstr "Włączyć _SELinuksa?:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
-msgstr "Rodzaj instalacji"
+msgstr "Typ instalacji"
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
@@ -3549,7 +3549,7 @@ msgstr "Niedozwolony rozmiar"
 
 #: ../iw/lvm_dialog_gui.py:512
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "Wprowadzony rozmiar musi być prawidłowo zapisaną liczbą większą od 0."
+msgstr "Podany rozmiar musi być prawidłowo zapisaną liczbą większą od 0."
 
 #: ../iw/lvm_dialog_gui.py:545
 msgid "Mount point in use"
@@ -5210,7 +5210,7 @@ msgid ""
 "blank."
 msgstr ""
 "Niektóre systemy wymagają przekazania jądru specjalnych opcji podczas "
-"uruchamiania. Jeśli potrzebujesz przekazać te parametry, wprowadź je teraz. W "
+"uruchamiania. Jeśli potrzebujesz przekazać te parametry, podaj je teraz. W "
 "przeciwnym wypadku, lub jeśli nie jesteś pewny, zostaw puste miejsce."
 
 #: ../textw/bootloader_text.py:103
@@ -5522,7 +5522,7 @@ msgstr "Security Enhanced Linux"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
-msgstr "Jaki rodzaj systemu chcesz zainstalować?"
+msgstr "Jaki typ systemu chcesz zainstalować?"
 
 #: ../textw/keyboard_text.py:36
 msgid "Keyboard Selection"
@@ -5654,8 +5654,8 @@ msgid ""
 msgstr ""
 "Jeśli system jest częścią dużej sieci, gdzie nazwy komputerów przydzielane "
 "są przez DHCP, wybierz \"automatycznie przez DHCP\". W innym przypadku "
-"wybierz \"ręcznie\" i wprowadź nazwę komputera. Jeśli jej nie wprowadzisz, "
-"system otrzyma nazwę \"localhost\"."
+"wybierz \"ręcznie\" i podaj nazwę komputera. Jeśli tego nie zrobisz, system "
+"otrzyma nazwę \"localhost\"."
 
 #: ../textw/network_text.py:407 ../textw/network_text.py:413
 msgid "Invalid Hostname"
@@ -6141,9 +6141,9 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Wybierz hasło roota (administratora). Musisz wprowadzić je dwa razy, aby "
-"upewnić się, że nie popełniono błędu podczas pisania. Pamiętaj, że hasło "
-"roota jest ważnym elementem bezpieczeństwa systemu!"
+"Wybierz hasło roota. Musisz podać je dwa razy, aby upewnić się, że nie "
+"popełniono błędu podczas pisania. Pamiętaj, że hasło roota jest ważnym "
+"elementem bezpieczeństwa systemu!"
 
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
@@ -6222,8 +6222,8 @@ msgid ""
 "your system's configuration."
 msgstr ""
 "Do większości prac przy systemie powinieneś używać zwykłego konta "
-"użytkownika. Nie używając do wszystkiego konta roota (administratora) "
-"zmniejszasz niebezpieczeństwo przypadkowego zepsucia konfiguracji systemu."
+"użytkownika. Nie używając do wszystkiego konta roota zmniejszasz "
+"niebezpieczeństwo przypadkowego zepsucia konfiguracji systemu."
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
@@ -6236,8 +6236,8 @@ msgid ""
 "can have any number of accounts set up."
 msgstr ""
 "Jakie konta użytkowników chcesz mieć w systemie? Do zwykłej pracy potrzebne "
-"jest co najmniej jedno konto inne niż konto roota (administratora). Można "
-"założyć dowolną ilość kont, jeśli system ma wielu użytkowników."
+"jest co najmniej jedno konto inne niż konto roota. Można założyć dowolną "
+"ilość kont, jeśli system ma wielu użytkowników."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -6557,7 +6557,7 @@ msgid ""
 "which your machine or your setup may require."
 msgstr ""
 "Program startowy z/IPL zostanie zainstalowany po zakończeniu instalacji. "
-"Można teraz wprowadzić dodatkowe parametry jądra i chandev wymagane przez "
+"Można teraz podać dodatkowe parametry jądra i chandev wymagane przez "
 "komputer."
 
 #: ../textw/zipl_text.py:56
@@ -6577,9 +6577,8 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"Wybierz ten rodzaj instalacji, aby mieć pełną kontrolę nad procesem "
-"instalacji, w tym nad wyborem pakietów z oprogramowaniem i podziałem dysków "
-"na partycje."
+"Wybierz ten typ instalacji, aby mieć pełną kontrolę nad procesem instalacji, "
+"w tym nad wyborem pakietów z oprogramowaniem i podziałem dysków na partycje."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6591,8 +6590,8 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Idealny dla komputerów osobistych i laptopów. Ten rodzaj zainstaluje "
-"środowisko graficzne i tworzy system doskonale nadający się do domu i biura."
+"Idealny dla komputerów osobistych i laptopów. Ten typ zainstaluje środowisko "
+"graficzne i tworzy system doskonale nadający się do domu i biura."
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
@@ -6675,9 +6674,9 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
-"Wybierz ten rodzaj instalacji, jeśli chcesz skonfigurować współdzielenie "
-"plików, współdzielenie drukarek i usług WWW. Można włączyć również inne "
-"usługi i wybrać, czy ma zostać zainstalowane środowisko graficzne."
+"Wybierz ten typ instalacji, jeśli chcesz skonfigurować współdzielenie plików, "
+"współdzielenie drukarek i usług WWW. Można włączyć również inne usługi i "
+"wybrać, czy ma zostać zainstalowane środowisko graficzne."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -7117,7 +7116,7 @@ msgstr "Masz za mało pamięci operacyjnej, aby zainstalować %s."
 
 #: ../loader2/loader.c:861
 msgid "Rescue Method"
-msgstr "Metoda ratunkowa"
+msgstr "Metoda ratunku"
 
 #: ../loader2/loader.c:862
 msgid "Installation Method"
@@ -7148,8 +7147,8 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"Nie można znaleźć żadnych urządzeń potrzebnych do tego rodzaju instalacji. "
-"Czy chcesz ręcznie wybrać sterownik lub użyć dyskietki ze sterownikami?"
+"Nie można znaleźć żadnych urządzeń potrzebnych do tego typu instalacji. Czy "
+"chcesz ręcznie wybrać sterownik lub użyć dyskietki ze sterownikami?"
 
 #: ../loader2/loader.c:1052
 msgid "The following devices have been found on your system."
@@ -7169,7 +7168,7 @@ msgstr "Urządzenia"
 
 #: ../loader2/loader.c:1059
 msgid "Done"
-msgstr "Zakończono"
+msgstr "Zrobione"
 
 #: ../loader2/loader.c:1060
 msgid "Add Device"
@@ -7183,13 +7182,13 @@ msgstr "loader został już uruchomiony. Uruchamianie powłoki.\n"
 #: ../loader2/loader.c:1551
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Uruchamianie anacondy, programu instalacyjnego systemu %s - proszę czekać...\n"
+msgstr "Uruchamianie anacondy, trybu ratunkowego %s - proszę czekać...\n"
 
 #: ../loader2/loader.c:1553
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Uruchamianie anacondy, instalatora systemu %s - proszę czekać...\n"
+msgstr ""
+"Uruchamianie anacondy, programu instalacyjnego systemu %s - proszę czekać...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -7305,7 +7304,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
-"Wprowadź następujące informacje:\n"
+"Podaj następujące informacje:\n"
 "\n"
 "    o nazwę lub adres IP serwera %s\n"
 "    o folder na tym serwerze zawierający\n"
@@ -7352,7 +7351,7 @@ msgstr "Nieprawidłowa informacja IP"
 
 #: ../loader2/net.c:275
 msgid "You entered an invalid IP address."
-msgstr "Musisz wprowadzić prawidłowy adres IP."
+msgstr "Musisz podać prawidłowy adres IP."
 
 #: ../loader2/net.c:342 ../loader2/net.c:596
 msgid "Dynamic IP"
@@ -7369,7 +7368,7 @@ msgid ""
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
 "Podaj konfigurację IP dla tego komputera. Każdy element powinien być "
-"wprowadzony jako adres IP w notacji liczbowej z kropkami (np. 1.2.3.4)."
+"podany jako adres IP w notacji liczbowej z kropkami (np. 1.2.3.4)."
 
 #: ../loader2/net.c:486
 msgid "IP address:"
@@ -7401,7 +7400,7 @@ msgstr "Brak informacji"
 
 #: ../loader2/net.c:588
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Musisz wprowadzić prawidłowy adres IP i maskę sieci."
+msgstr "Musisz podać prawidłowy adres IP i maskę sieci."
 
 #: ../loader2/net.c:811
 msgid "Determining host name and domain..."
@@ -8468,4 +8467,4 @@ msgstr "walijski"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr "zulu"
+msgstr "zuluski"
