@@ -34,6 +34,10 @@ from rhpl.translate import _
 import logging
 log = logging.getLogger("anaconda")
 
+import urlparse
+urlparse.uses_fragment.append('media')
+
+
 import iutil
 import isys
 
@@ -272,6 +276,36 @@ class AnacondaYum(yum.YumBase):
             t[pkg.name].append(pkg.pkgtup)
         pkgs = returnBestPackages(t)
         return map(lambda x: self.getPackageObject(x), pkgs)
+
+class AnacondaYumMedia(AnacondaYum):
+    def __init__(self, fn="/etc/yum.conf", root="/"):
+        AnacondaYum.__init__(self, fn=fn, root=root)
+
+    def _getcd(self, po):
+        try: 
+            uri = po.returnSimple('basepath'):
+            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(url)
+            if scheme != "media" or not fragid:
+                return 0
+            else:
+                return fragid
+        except KeyError:
+            return 0
+
+    def downloadHeader(self, po):
+        h = YumHeader(po)
+        hdrpath = po.localHdr()
+        cd = self._getcd(po)
+#XXX: Hack, make yum pass around po in callback so we don't have to do this
+        if cd > 0:
+            pkgpath = po.returnSimple('relativepath')
+            pkgname = os.path.basename(pkgpath)
+            h.addTag(1000000, RPM_STRING, pkgname)
+            h.addTag(1000002, RPM_INT32, cd)
+        f = open(hdrpath, 'w')
+        f.write(h.str())
+        f.close()
+        del(h)
 
 class YumBackend(AnacondaBackend):
     def __init__(self, methodstr, method, instPath):
