@@ -138,6 +138,7 @@ static int waitForLink(char * dev) {
     logMessage(DEBUGLVL, "%d seconds.", tries);
     if (tries < num_link_checks)
         return 0;
+    logMessage(WARNING, "no network link detected on %s", dev);
     return 1;
 }
 
