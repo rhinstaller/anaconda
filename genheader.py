@@ -104,7 +104,10 @@ class YumHeader:
     def convertTag(self, tag):
         if self.tagtbl.has_key(tag):
             (rpmtag, tagtype) = self.tagtbl[tag]
-            (count, data) = self.__format(rpmtag, tagtype, self.po.returnSimple(tag))
+            self.addTag(rpmtag, tagtype, self.po.returnSimple(tag))
+
+    def addTag(self, rpmtag, tagtype, value):
+            (count, data) = self.__format(rpmtag, tagtype, value)
             pad = self.__alignTag(tagtype)
             self.offset += len(pad)
             self.indexes.append((rpmtag, tagtype,self.offset, count))
