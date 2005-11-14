@@ -10,6 +10,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import os.path
+import glob
 import rpm
 import rpmUtils
 import string
@@ -42,7 +43,7 @@ class YumSorter(yum.YumBase):
             return
 
         if not self.conf.installroot:
-            raise Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
+            raise yum.Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
 
         installroot = self.conf.installroot
         self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
@@ -122,7 +123,10 @@ class YumSorter(yum.YumBase):
                     continue
                 if req not in self.deps.keys():
                     self._provideToPkg(req)
-                dep = self.deps[req]
+                try:
+                    dep = self.deps[req]
+                except KeyError, e:
+                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
 
                 # Skip filebased requires on self, etc
                 if txmbr.name == dep.name:
@@ -160,6 +164,19 @@ class YumSorter(yum.YumBase):
         self.doGroupSetup()
         self.repos.populateSack(with='filelists')
 
+def printMatchingPkgs(ds):
+    for pkgtup in ds.tsInfo.sort():
+        fname = ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath')
+        fpattern = "%s/%s*" % (toppath, fname.rsplit('.', 2)[0])
+        matches = glob.glob(fpattern)
+        for match in matches:
+            print os.path.basename(match)
+
+def addGroups(ds, groupLst):
+    ds.initActionTs()
+    map(ds.addGroup, groupLst)
+    ds.resolveDeps()
+    printMatchingPkgs(ds)
 
 def createConfig(toppath):
     yumconfstr = """
@@ -202,77 +219,31 @@ if __name__ == "__main__":
 
     (toppath, arch, product) = args
     config = createConfig(toppath)
-#XXX: Ugly factor into method with groups as *args
+
     ds = YumSorter(arch=arch)
     ds.setup(fn=config)
-    ds.addGroup("Base")
-    ds.addGroup("Core")
-    ds.addGroup("Text-based Internet")
-    ds.resolveDeps()
 
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+    addGroups(ds, ["Base", "Core", "Text-based Internet"])
 
-    ds.initActionTs()
-    ds.addGroup("Workstation Common")
-    ds.addGroup("Graphical Internet")
-    ds.addGroup("Editors")
-    ds.addGroup("Graphics")
-    ds.addGroup("GNOME Desktop Environment")
-    ds.addGroup("Sound and Video")
-    ds.addGroup("Printing Support")
-    ds.addGroup("Dialup Networking Support")
-    ds.changed = True
-    ds.resolveDeps()
+    addGroups(ds, ["Workstation Common", "Graphical Internet", "Editors",
+                   "Graphics", "GNOME Desktop Environment", "Sound and Video",
+                   "Printing Support", "Dialup Networking Support"])
 
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+    addGroups(ds, ["Office/Productivity", "Engineering and Scientific",
+                   "Authoring and Publishing"])
 
-    ds.initActionTs()
-    ds.addGroup("Office/Productivity")
-    ds.addGroup("Engineering and Scientific")
-    ds.addGroup("Authoring and Publishing")
-    ds.resolveDeps()
+    addGroups(ds, ["Web Server", "FTP Server", "MySQL Database",
+                   "Server Configuration Tools", "DNS Name Server",
+                   "Windows File Server", "Administration Tools"])
 
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+    addGroups(ds, ["KDE (K Desktop Environment)", "Development Tools",
+                   "GNOME Software Development", "Eclipse",
+                   "Java Development", "KDE Software Development",
+                   "PostgreSQL Database", "Mail Server",
+                   "Legacy Network Server"])
 
-    ds.initActionTs()
-    ds.addGroup("Web Server")
-    ds.addGroup("FTP Server")
-    ds.addGroup("MySQL Database")
-    ds.addGroup("Server Configuration Tools")
-    ds.addGroup("DNS Name Server")
-    ds.addGroup("Windows File Server")
-    ds.addGroup("Administration Tools")
-    ds.resolveDeps()
-
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
-
-    ds.initActionTs()
-    ds.addGroup("KDE (K Desktop Environment)")
-    ds.addGroup("Development Tools")
-    ds.addGroup("GNOME Software Development")
-    ds.addGroup("Eclipse")
-    ds.addGroup("Java Development")
-    ds.addGroup("KDE Software Development")
-    ds.addGroup("PostgreSQL Database")
-    ds.addGroup("Mail Server")
-    ds.addGroup("Legacy Network Server")
-    ds.resolveDeps()
-
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
-
-    ds.initActionTs()
-    ds.addGroup("News Server")
-    ds.addGroup("Language Support")
-    ds.addGroup("Legacy Software Development")
-    ds.resolveDeps()
-
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
+    addGroups(ds, ["News Server", "Language Support",
+                   "Legacy Software Development"])
 
     #Everthing else but kernels - don't depsolve
 
@@ -282,7 +253,5 @@ if __name__ == "__main__":
                 member = ds.tsInfo.addInstall(po)
                 member.sortColour = WHITE
 
-    for pkgtup in ds.tsInfo.sort():
-        print os.path.basename(ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath'))
-
-    os.unlink(path)
+    printMatchingPkgs(ds)
+    os.unlink(config)

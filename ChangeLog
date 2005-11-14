@@ -1,3 +1,8 @@
+2005-11-14  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/pkgorder:  Clean up error handling a little bit.  Select all
+	matching packages in i386/i686 case.  Refactor group adding code.
+
 2005-11-13  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.deselectGroup): Fix group deselection
