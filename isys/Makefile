@@ -8,7 +8,7 @@ OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o getmacaddr.o \
 	  ethtool.o getipaddr.o wireless.o eddsupport.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
-LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -lz -lbterm -lbogl -lwlite -lkudzu -lpci -lselinux
+LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -lz -lbterm -lbogl -lwlite -lkudzu -lpci -lselinux -ldevmapper
 PYMODULES = _isys.so
 SUBDIRS = gzlib
 DIET = diet

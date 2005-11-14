@@ -3,8 +3,9 @@
  * 
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
+ * Peter Jones <pjones@redhat.com>
  *
- * Copyright 1998-2001 Red Hat, Inc.
+ * Copyright 1998-2005 Red Hat, Inc.
  * Copyright 1996-1998 Red Hat Software, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
@@ -25,6 +26,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <string.h>
+#include <libdevmapper.h>
 
 struct devnum {
     char * name;
@@ -92,11 +94,38 @@ int devMakeInode(char * devName, char * path) {
     char *ptr;
     char *dir;
 
-    /* scsi devices sda - sdp: major 8, minor 0 - 255 */
-    /* scsi devices sdq - sdaf: major 65, minor 0 - 255 */
-    /* scsi devices sdqg - sdav: major 66, minor 0 - 255 */
-    /* etc... */
-    if (devName[0] == 's' && devName[1] == 'd') {
+    if (!strncmp(devName, "mapper/", 7)) {
+        struct dm_task *task;
+        struct dm_info *info = alloca(sizeof *info);
+        char *realName = devName + 7;
+        
+        if (!info || !*realName)
+            return -3;
+        memset(info, '\0', sizeof (*info));
+        task = dm_task_create(DM_DEVICE_INFO);
+        if (!task)
+            return -3;
+        
+        dm_task_set_name(task, realName);
+        i = dm_task_run(task);
+        if (i < 0) {
+            dm_task_destroy(task);
+            return -3;
+        }
+        i = dm_task_get_info(task, info);
+        dm_task_destroy(task);
+        if (i < 0) {
+            return -3;
+        }
+
+	type = S_IFBLK;
+        major = info->major;
+        minor = info->minor;
+    } else if (devName[0] == 's' && devName[1] == 'd') {
+        /* scsi devices sda - sdp: major 8, minor 0 - 255 */
+        /* scsi devices sdq - sdaf: major 65, minor 0 - 255 */
+        /* scsi devices sdqg - sdav: major 66, minor 0 - 255 */
+        /* etc... */
 	int drive = 0;
 	char *num = NULL;
 	type = S_IFBLK;
