@@ -164,13 +164,19 @@ class YumSorter(yum.YumBase):
         self.doGroupSetup()
         self.repos.populateSack(with='filelists')
 
+#XXX: sigh
+processed = {}
 def printMatchingPkgs(ds):
+    global processed
     for pkgtup in ds.tsInfo.sort():
         fname = ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath')
         fpattern = "%s/%s*" % (toppath, fname.rsplit('.', 2)[0])
         matches = glob.glob(fpattern)
         for match in matches:
-            print os.path.basename(match)
+            mname = os.path.basename(match)
+            if processed.has_key(mname): continue
+            processed[mname] = True
+            print mname
 
 def addGroups(ds, groupLst):
     ds.initActionTs()
