@@ -3,6 +3,7 @@
 import os
 from struct import *
 import rpm
+import copy
 
 # Types
 RPM_NULL = 0
@@ -43,7 +44,8 @@ class YumHeader:
         """Partial and dumbed down header generation for cd installation
            @param po
            @type po: PackageObject"""
-        self.po = po
+        # Copy for epoch munging
+        self.po = copy.deepcopy(po)
         self.store = ""
         self.offset = 0
         self.indexes = []
