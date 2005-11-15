@@ -22,10 +22,7 @@ sys.path.append("/usr/lib/anaconda")
 from optparse import OptionParser
 from repomd.packageSack import PackageSack
 from repomd.packageObject import PackageObject
-from yum.transactioninfo import TransactionData, TransactionMember
-from sortedtransaction import *
 from yuminstall import YumSorter
-from whiteout import whiteout
 
 class PackageOrderer(YumSorter):
 
