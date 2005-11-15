@@ -665,7 +665,7 @@ class YumBackend(AnacondaBackend):
         id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
         id.instProgress.processEvents()
 
-        cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.methodstr, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.method, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
 
         cb.initWindow = intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
