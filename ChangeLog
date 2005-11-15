@@ -1,5 +1,8 @@
 2005-11-14  Paul Nasrat   <pnasrat@redhat.com>
 
+	* installmethod.py harddrive.py image.py 
+	urlinstall.py yuminstall.py: Change getRPMFileName signature, use in
+	callback, generate headers on split media methods
 	* anaconda installmethod.py harddrive.py 
 	  urlinstall.py image.py: Method handling in classes
 	* backend.py: Method not methodobject
