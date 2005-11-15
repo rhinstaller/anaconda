@@ -330,7 +330,7 @@ class CdromInstallMethod(ImageInstallMethod):
             try:
                 shutil.copy("%s/%s/RPMS/%s" % (self.tree, productPath,
                                                filename),
-                            tmppath + filename)
+                            tmppath + filename))
             except IOError, (errnum, msg):
                 log.critical("IOError %s occurred copying %s: %s",
                              errnum, h[1000000], str(msg))
