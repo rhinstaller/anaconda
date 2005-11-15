@@ -397,6 +397,7 @@ class NfsInstallMethod(ImageInstallMethod):
         """@param method: nfs:/mnt/source"""
         tree = method[5:]
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
+        self.splitmethod = False
 
 
 def getDiscNums(line):
