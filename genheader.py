@@ -44,8 +44,7 @@ class YumHeader:
         """Partial and dumbed down header generation for cd installation
            @param po
            @type po: PackageObject"""
-        # Copy for epoch munging
-        self.po = copy.deepcopy(po)
+        self.po = po
         self.store = ""
         self.offset = 0
         self.indexes = []
@@ -114,6 +113,12 @@ class YumHeader:
             self.store += pad + data 
             self.offset += len(data)
 
+    def mungEpoch(self):
+        epoch = self.po.returnSimple('epoch')
+        (rpmtag, tagtype) = self.tagtbl['epoch']
+        if epoch is not None:
+            self.addTag(rpmtag, tagtype, int(epoch))
+
     def generateProvides(self):
         self.po.simple['provideversion'] = [ "%s-%s" % (self.po.returnSimple('version'), self.po.returnSimple('release')) ]
         self.po.simple['providename'] = [self.po.returnSimple['name']]
@@ -127,9 +132,10 @@ class YumHeader:
     def str(self):
         self.po.simple['os'] = 'linux'
         self.convertTag('os')
-        for tag in ['name','version', 'release', 'arch', 'epoch']:
+        for tag in ['name','version', 'release', 'arch']:
             if tag in self.po.simpleItems():
                 self.convertTag(tag)
+        self.mungEpoch()
         
         magic = '\x8e\xad\xe8'
         hdr_start_fmt= '!3sB4xii'

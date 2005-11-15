@@ -9,6 +9,7 @@
 
 2005-11-15  Chris Lumens  <clumens@redhat.com>
 
+	* genheader.py:  Add epoch manually instead of relying on deepcopy.
 	* image.py (CdromInstallMethod.getRPMFilename):  Fix typo.
 
 	* scripts/pkgorder (createConfig):  Catch OSError as well.
