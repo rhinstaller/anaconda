@@ -43,8 +43,7 @@ class PackageOrderer(YumSorter):
             for pkg in pkglist:
                 if availpackages.has_key(pkg):
                     pkgs.append(pkg)
-                    member = self.tsInfo.addInstall(availpackages[pkg])
-                    member.sortColour = WHITE
+                    self.tsInfo.addInstall(availpackages[pkg])
 
     def setup(self, fn="/etc/yum.conf", root="/"):
         self.doConfigSetup(fn, root)
@@ -162,7 +161,6 @@ if __name__ == "__main__":
         if po.pkgtup not in ds._installed.returnPackages():
             if po.name.find("kernel") == -1:
                 member = ds.tsInfo.addInstall(po)
-                member.sortColour = WHITE
 
     printMatchingPkgs(ds)
     os.unlink(config)
