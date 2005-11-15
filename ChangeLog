@@ -3,6 +3,7 @@
 	* yuminstall.py (YumBackend.getBestKernelByArch): Install smp
 	kernel if NX is present (#172345)
 	(YumBackend.doInstall): method monkeying
+	(simpleCallback.callback): And fix the method name
 
 	* iutil.py (hasNX): Add a method to find out if we have NX
 

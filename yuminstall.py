@@ -106,7 +106,7 @@ class simpleCallback:
             self.instLog.flush()
             self.size = hdr[rpm.RPMTAG_SIZE]
 
-            fn = self.method.getRPMFileName(self, os.path.basename(path), hdr, None) 
+            fn = self.method.getRPMFilename(self, os.path.basename(path), hdr, None) 
             fd = os.open(fn, os.O_RDONLY)
             nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
             self.fdnos[nvra] = fd
