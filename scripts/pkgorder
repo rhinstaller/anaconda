@@ -24,47 +24,15 @@ from repomd.packageSack import PackageSack
 from repomd.packageObject import PackageObject
 from yum.transactioninfo import TransactionData, TransactionMember
 from sortedtransaction import *
+from yuminstall import YumSorter
 from whiteout import whiteout
 
-class YumSorter(yum.YumBase):
+class PkgOrderer(YumSorter):
 
     def __init__(self, arch=None):
-        yum.YumBase.__init__(self)
-        self.arch = arch
-        self.deps = {}
-        self.dsCallback = None
-        self.path = []
-        self.loops = []
-        self.whiteout = whiteout.split()
+        YumSorter.__init__(self)
+	self.arch = arch
         self._installed = PackageSack()
-
-    def doTsSetup(self):
-        if hasattr(self, 'read_ts'):
-            return
-
-        if not self.conf.installroot:
-            raise yum.Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
-
-        installroot = self.conf.installroot
-        self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
-        self.tsInfo = SortableTransactionData()
-        self.rpmdb = rpmUtils.RpmDBHolder()
-        self.initActionTs()
-
-    def errorlog(self, value, msg):
-        #print "Error %s: %s" % (value, msg)
-        pass
-
-    def filelog(self, value, msg):
-        pass
-
-    def log(self, value, msg):
-        pass
-        #if value <= 3:
-        #    sys.stderr.write("Log: %s\n" % (msg,))
-
-    def getDownloadPkgs(self):
-        pass
 
     def addGroup(self, group):
         pkgs = []
@@ -81,78 +49,6 @@ class YumSorter(yum.YumBase):
                     member = self.tsInfo.addInstall(availpackages[pkg])
                     member.sortColour = WHITE
 
-    def _provideToPkg(self, req):
-        best = None
-        (r, f, v) = req
-
-        satisfiers = []
-        for po in self.whatProvides(r, f, v):
-            if po.name not in satisfiers:
-                satisfiers.append(po)
-
-        if satisfiers:
-            best = self.bestPackageFromList(satisfiers) 
-            self.deps[req] = best
-
-        # raise resolution error
-
-    def resolveDeps(self):
-    
-        CheckDeps = 1
-
-        if self.dsCallback: self.dsCallback.start()
-
-        while CheckDeps > 0:
-            if self.dsCallback: self.dsCallback.tscheck()
-            unresolved = self.tsCheck()
-            CheckDeps = len(unresolved)
-
-
-    def tsCheck(self):
-        unresolved = []
-        for txmbr in self.tsInfo.getMembers():
-            reqs = txmbr.po.returnPrco('requires')
-            provs = txmbr.po.returnPrco('provides')
-            reqs.sort()
-
-            for req in reqs:
-                if req[0].startswith('rpmlib(') or req[0].startswith('config('):
-                    continue
-#XXX: handle unresolvable dep
-                if req in provs:
-                    continue
-                if req not in self.deps.keys():
-                    self._provideToPkg(req)
-                try:
-                    dep = self.deps[req]
-                except KeyError, e:
-                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
-
-                # Skip filebased requires on self, etc
-                if txmbr.name == dep.name:
-                    continue
-
-                if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
-                    continue
-#XXX: handle in rpmdb too
-                pkgs = self._installed.packagesByTuple(dep.pkgtup)
-
-                if pkgs:
-                    member = self.bestPackageFromList(pkgs)
-                else:
-                    if self.tsInfo.exists(dep.pkgtup):
-                        pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
-                        member = self.bestPackageFromList(pkgs)
-                    else:
-                        member = self.tsInfo.addInstall(dep)
-                        unresolved.append(dep)
-#Add relationship
-                firstelts = map(lambda tup: tup[0], txmbr.relatedto)
-                if member.po.pkgtup not in firstelts:
-                    txmbr.setAsDep(member.po.pkgtup)
-
-        return unresolved
-    
     def setup(self, fn="/etc/yum.conf", root="/"):
         self.doConfigSetup(fn, root)
         cachedir = yum.misc.getCacheDir()
@@ -163,6 +59,18 @@ class YumSorter(yum.YumBase):
         self.doTsSetup()
         self.doGroupSetup()
         self.repos.populateSack(with='filelists')
+
+    def errorlog(self, value, msg):
+        pass
+
+    def filelog(self, value, msg):
+        pass
+
+    def log(self, value, msg):
+        pass
+
+    def getDownloadPkgs(self):
+        pass
 
 #XXX: sigh
 processed = {}
@@ -226,7 +134,7 @@ if __name__ == "__main__":
     (toppath, arch, product) = args
     config = createConfig(toppath)
 
-    ds = YumSorter(arch=arch)
+    ds = PackageOrderer(arch=arch)
     ds.setup(fn=config)
 
     addGroups(ds, ["Base", "Core", "Text-based Internet"])

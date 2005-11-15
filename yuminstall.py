@@ -230,7 +230,9 @@ class AnacondaYum(yum.YumBase):
         self.populateTs(keepold=0)
         self.ts.check()
         self.ts.order()
+        self._run(instLog, cb intf)
 
+    def _run(self, instLog, cb, intf)
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
         self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
@@ -274,9 +276,108 @@ class AnacondaYum(yum.YumBase):
         pkgs = returnBestPackages(t)
         return map(lambda x: self.getPackageObject(x), pkgs)
 
-class AnacondaYumMedia(AnacondaYum):
+class YumSorter(yum.YumBase):
+
+    def __init__(self):
+        yum.YumBase.__init__(self)
+        self.deps = {}
+        self.path = []
+        self.loops = []
+        self.whiteout = whiteout.split()
+
+    def run(self, instLog, cb, intf):
+        self.initActionTs()
+        self.setColor()
+        self.populateTs(keepold=0)
+
+    def _provideToPkg(self, req):
+        best = None
+        (r, f, v) = req
+
+        satisfiers = []
+        for po in self.whatProvides(r, f, v):
+            if po.name not in satisfiers:
+                satisfiers.append(po)
+
+        if satisfiers:
+            best = self.bestPackageFromList(satisfiers) 
+            self.deps[req] = best
+        # raise resolution error
+
+    def resolveDeps(self):
+        CheckDeps = 1
+
+        if self.dsCallback: self.dsCallback.start()
+
+        while CheckDeps > 0:
+            if self.dsCallback: self.dsCallback.tscheck()
+            unresolved = self.tsCheck()
+            CheckDeps = len(unresolved)
+
+        return (2, ['Success - deps resolved'])
+
+    def tsCheck(self):
+        unresolved = []
+        for txmbr in self.tsInfo.getMembers():
+            reqs = txmbr.po.returnPrco('requires')
+            provs = txmbr.po.returnPrco('provides')
+            reqs.sort()
+
+            for req in reqs:
+                if req[0].startswith('rpmlib(') or req[0].startswith('config('):
+                    continue
+#XXX: handle unresolvable dep
+                if req in provs:
+                    continue
+                if req not in self.deps.keys():
+                    self._provideToPkg(req)
+                try:
+                    dep = self.deps[req]
+                except KeyError, e:
+                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
+
+                # Skip filebased requires on self, etc
+                if txmbr.name == dep.name:
+                    continue
+
+                if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
+                    continue
+#XXX: handle in rpmdb too for upgrades
+                if pkgs:
+                    member = self.bestPackageFromList(pkgs)
+                else:
+                    if self.tsInfo.exists(dep.pkgtup):
+                        pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
+                        member = self.bestPackageFromList(pkgs)
+                    else:
+                        member = self.tsInfo.addInstall(dep)
+                        unresolved.append(dep)
+#Add relationship
+                firstelts = map(lambda tup: tup[0], txmbr.relatedto)
+                if member.po.pkgtup not in firstelts:
+                    txmbr.setAsDep(member.po.pkgtup)
+
+        return unresolved
+
+    def doTsSetup(self):
+        if hasattr(self, 'read_ts'):
+            return
+
+        if not self.conf.installroot:
+            raise yum.Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
+
+        installroot = self.conf.installroot
+        self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
+        self.tsInfo = SortableTransactionData()
+        self.rpmdb = rpmUtils.RpmDBHolder()
+        self.initActionTs()
+
+
+class AnacondaYumMedia(AnacondaYum, YumSorter):
+    #XXX: depsolve/sort based on metadata
     def __init__(self, fn="/etc/yum.conf", root="/"):
         AnacondaYum.__init__(self, fn=fn, root=root)
+        YumSorter.__init__(self)
 
     def _getcd(self, po):
         try: 
