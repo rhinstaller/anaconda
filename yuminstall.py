@@ -377,8 +377,8 @@ class YumSorter(yum.YumBase):
 class AnacondaYumMedia(AnacondaYum, YumSorter):
     #XXX: depsolve/sort based on metadata
     def __init__(self, fn="/etc/yum.conf", root="/"):
-        AnacondaYum.__init__(self, fn=fn, root=root)
         YumSorter.__init__(self)
+        AnacondaYum.__init__(self, fn=fn, root=root)
 
     def _getcd(self, po):
         try: 
