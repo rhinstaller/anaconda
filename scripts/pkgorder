@@ -103,7 +103,7 @@ enabled=1
     
     try:
         (fd, path) = tempfile.mkstemp("", "yum-conf-", toppath)
-    except IOError, e:
+    except (OSError, IOError), e:
         print >> sys.stderr, "Error writing to %s" % (toppath,)
         sys.exit(1)
     os.write(fd, yumconfstr)

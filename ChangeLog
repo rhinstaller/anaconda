@@ -11,6 +11,8 @@
 
 	* image.py (CdromInstallMethod.getRPMFilename):  Fix typo.
 
+	* scripts/pkgorder (createConfig):  Catch OSError as well.
+
 2005-11-15  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
