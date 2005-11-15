@@ -124,10 +124,7 @@ class simpleCallback:
             fn = self.method.getRPMFilename(os.path.basename(path), hdr, None)
             nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
             os.close(self.fdnos[nvra])
-            try:
-                os.unlink(fn)
-            except:
-                pass
+            self.method.unlinkFilename(fn)
             self.progress.completePackage(hdr, self.pkgTimer)
             self.progress.processEvents()
 

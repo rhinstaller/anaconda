@@ -2,6 +2,7 @@
 
 	* yuminstall.py (simpleCallback.callback): Get the right filename,
 	don't blow up if we can't unlink the file
+	(simpleCallback.callback): Use method to unlink
 
 	* image.py: Fix rpm filenames to be rooted at self.tree
 
