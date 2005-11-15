@@ -44,14 +44,9 @@ else:
 #
 # dialog returns a value of 0 if user selected to abort install
 def presentRequiredMediaMessage(intf, grpset):
+#XXX: disable for now - possibly make part of confirminstall 
+    return
     reqcds = []
-    for hdr in grpset.hdrlist.values():
-        if not hdr.isSelected():
-	    continue
-	elif hdr[1000002] not in reqcds:
-	    reqcds.append(hdr[1000002])
-	else:
-	    continue
 
     # if only one CD required no need to pop up a message
     if len(reqcds) < 2:
