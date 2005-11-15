@@ -160,6 +160,14 @@ int devMakeInode(char * devName, char * path) {
         if (devName[4] && isdigit(devName[4])) {
             minor += devName[4] - '0';
 	}
+    } else if (devName[0] == 'u' && devName[1] == 'b') {
+        /* usb block (ub) devices */
+        type = S_IFBLK;
+        major = 180;
+	minor = ( devName[2] - 'a' ) * 8;
+        if (devName[3] && isdigit(devName[3])) {
+            minor += devName[3] - '0';
+	}
     } else if (devName[0] == 's' && devName[1] == 'g') {
 	type = S_IFBLK;
 	major = 21;
