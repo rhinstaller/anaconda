@@ -106,7 +106,7 @@ class simpleCallback:
             self.instLog.flush()
             self.size = hdr[rpm.RPMTAG_SIZE]
 
-            fn = self.method.getRPMFilename(self, os.path.basename(path), hdr, None) 
+            fn = self.method.getRPMFilename(os.path.basename(path), hdr, None) 
             fd = os.open(fn, os.O_RDONLY)
             nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
             self.fdnos[nvra] = fd
@@ -121,9 +121,13 @@ class simpleCallback:
 
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
             hdr, path =h
+            fn = self.method.getRPMFilename(os.path.basename(path), hdr, None)
             nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
             os.close(self.fdnos[nvra])
-            os.unlink(path)
+            try:
+                os.unlink(fn)
+            except:
+                pass
             self.progress.completePackage(hdr, self.pkgTimer)
             self.progress.processEvents()
 

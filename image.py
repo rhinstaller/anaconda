@@ -102,7 +102,7 @@ class ImageInstallMethod(InstallMethod):
         if self.currentIso is not None and self.currentIso != h[1000002]:
             log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
-	return self.getFilename("/%s/RPMS/%s" % (productPath,filename), callback=callback)
+	return self.getFilename("%s/%s/RPMS/%s" % (self.tree,productPath,filename), callback=callback)
         
     def getSourcePath(self):
         return self.tree
@@ -400,7 +400,7 @@ class NfsInstallMethod(ImageInstallMethod):
         self.splitmethod = False
 
     def getRPMFilename(self, filename, h, timer, callback=None):
-	return "/%s/RPMS/%s" % (self.tree, productPath, filename)
+	return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
 
 def getDiscNums(line):
     # get the disc numbers for this disc
@@ -499,7 +499,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-	return self.getFilename("/%s/RPMS/%s" % (productPath, filename))
+	return self.getFilename("%s/%s/RPMS/%s" % (self.tree, productPath, filename))
 
     def umountImage(self):
 	if self.imageMounted:

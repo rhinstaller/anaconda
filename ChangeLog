@@ -1,5 +1,10 @@
 2005-11-15  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (simpleCallback.callback): Get the right filename,
+	don't blow up if we can't unlink the file
+
+	* image.py: Fix rpm filenames to be rooted at self.tree
+
 	* yuminstall.py (YumBackend.getBestKernelByArch): Install smp
 	kernel if NX is present (#172345)
 	(YumBackend.doInstall): method monkeying
