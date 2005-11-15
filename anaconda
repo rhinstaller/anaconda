@@ -1074,9 +1074,9 @@ if method:
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
         methodobj = UrlInstallMethod(method, rootPath, intf)
-    elif method.startswith('hd://'):
-        from harddrive import HardDriveInstallMethod
-        methodobj = HardDriveInstallMethod(method, rootPath, intf)
+    #elif method.startswith('hd://'):
+    #    from harddrive import HardDriveInstallMethod
+    #    methodobj = HardDriveInstallMethod(method, rootPath, intf)
     else:
     	intf.messageWindow("Install Method Unknown/Unavailable",
                            "Anaconda is undergoing major backend work "
