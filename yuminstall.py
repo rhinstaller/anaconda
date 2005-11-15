@@ -308,8 +308,8 @@ class AnacondaYumMedia(AnacondaYum):
         del(h)
 
 class YumBackend(AnacondaBackend):
-    def __init__(self, methodstr, method, instPath):
-        AnacondaBackend.__init__(self, methodstr, method, instPath)
+    def __init__(self, method, instPath):
+        AnacondaBackend.__init__(self, method, instPath)
         self.ac = AnacondaYumConf(self.methodstr, configfile="/tmp/yum.conf",
                                   root=instPath)
         self.ac.write()

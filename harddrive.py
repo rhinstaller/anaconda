@@ -155,7 +155,9 @@ class HardDriveInstallMethod(InstallMethod):
 	return [self.device]
     
     def __init__(self, method, rootPath, intf):
+        """@param method hd://device:fstype:/path"""
 	InstallMethod.__init__(self, method, rootPath, intf)
+        method = method[5:]
 
         device = method[0:method.index(":")]
         tmpmethod = method[method.index(":") + 1:]

@@ -363,7 +363,9 @@ class CdromInstallMethod(ImageInstallMethod):
     def getMethodUri(self):
         return "media://%s/" % (self.timestamp)
 
-    def __init__(self, url, rootPath, intf):
+    def __init__(self, method, rootPath, intf):
+        """@param method cdrom://device:/path"""
+        url = method[8:]
 	(self.device, tree) = string.split(url, ":", 1)
         if not tree.startswith("/"):
             tree = "/%s" %(tree,)
@@ -391,7 +393,9 @@ class CdromInstallMethod(ImageInstallMethod):
 
 class NfsInstallMethod(ImageInstallMethod):
 
-    def __init__(self, tree, rootPath, intf):
+    def __init__(self, method, rootPath, intf):
+        """@param method: nfs:/mnt/source"""
+        tree = method[5:]
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
 
     def getMethodUri(self):
@@ -528,7 +532,9 @@ class NfsIsoInstallMethod(NfsInstallMethod):
             log.error("unable to unmount image in filesDone: %s" %(e,))
             pass
 
-    def __init__(self, tree, rootPath, intf):
+    def __init__(self, method, rootPath, intf):
+        """@param method: nfsiso:/mnt/source"""
+        tree = method[8:]
 	self.messageWindow = intf.messageWindow
 	self.imageMounted = None
 	self.isoPath = tree

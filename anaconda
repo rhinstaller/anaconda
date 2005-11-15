@@ -1062,26 +1062,21 @@ intf = InstallInterface ()
 
 # imports after setting up the path
 if method:
-            #methodobj = NfsInstallMethod(method[5:], rootPath, intf)
-#    if method.startswith('cdrom://'):
-#        from image import CdromInstallMethod
-#        methodobj = CdromInstallMethod(method[8:], rootPath, intf)
+    if method.startswith('cdrom://'):
+        from image import CdromInstallMethod
+        methodobj = CdromInstallMethod(method, rootPath, intf)
     if method.startswith('nfs:/'):
         from image import NfsInstallMethod
-        methodobj = NfsInstallMethod(method[5:], rootPath, intf)
-        from yuminstall import YumBackend 
-        backend = YumBackend("file:///mnt/source", methodobj, rootPath)
-#    elif method.startswith('nfsiso:/'):
-#        from image import NfsIsoInstallMethod
-#        methodobj = NfsIsoInstallMethod(method[8:], rootPath, intf)
+        methodobj = NfsInstallMethod(method, rootPath, intf)
+    elif method.startswith('nfsiso:/'):
+        from image import NfsIsoInstallMethod
+        methodobj = NfsIsoInstallMethod(method, rootPath, intf)
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
         methodobj = UrlInstallMethod(method, rootPath, intf)
-        from yuminstall import YumBackend 
-        backend = YumBackend(method, methodobj, rootPath)
-#    elif method.startswith('hd://'):
-#        from harddrive import HardDriveInstallMethod
-#        methodobj = HardDriveInstallMethod(method[5:], rootPath, intf)
+    elif method.startswith('hd://'):
+        from harddrive import HardDriveInstallMethod
+        methodobj = HardDriveInstallMethod(method, rootPath, intf)
     else:
     	intf.messageWindow("Install Method Unknown/Unavailable",
                            "Anaconda is undergoing major backend work "
@@ -1091,6 +1086,8 @@ if method:
         log.critical (_("unknown install method: %s"), method)
         sys.exit(1)
 
+from yuminstall import YumBackend 
+backend = YumBackend(methodobj, rootPath)
 floppyDevice = floppy.probeFloppyDevice()
 
 # create device nodes for detected devices if we're not running in test mode
