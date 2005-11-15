@@ -232,7 +232,7 @@ class AnacondaYum(yum.YumBase):
         self.ts.order()
         self._run(instLog, cb intf)
 
-    def _run(self, instLog, cb, intf)
+    def _run(self, instLog, cb, intf):
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
         self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
