@@ -344,15 +344,15 @@ class YumSorter(yum.YumBase):
                 if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
                     continue
 #XXX: handle in rpmdb too for upgrades
-                if pkgs:
+                #if pkgs:
+                #    member = self.bestPackageFromList(pkgs)
+                #else:
+                if self.tsInfo.exists(dep.pkgtup):
+                    pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
                     member = self.bestPackageFromList(pkgs)
                 else:
-                    if self.tsInfo.exists(dep.pkgtup):
-                        pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
-                        member = self.bestPackageFromList(pkgs)
-                    else:
-                        member = self.tsInfo.addInstall(dep)
-                        unresolved.append(dep)
+                    member = self.tsInfo.addInstall(dep)
+                    unresolved.append(dep)
 #Add relationship
                 firstelts = map(lambda tup: tup[0], txmbr.relatedto)
                 if member.po.pkgtup not in firstelts:
