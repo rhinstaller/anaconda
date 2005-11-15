@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.12
+Version: 10.89.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 14 2005 Paul Nasrat <pnasrat@redhat.com> 10.89.13-1
+- Reinstate image based install methods (excluding hd for now)
+- Clean up install method classes
+- device-mapper support (pjones)
+- Log warning on no network link (katzj)
+- Clean up error handling for pkgorder (clumens)
+
 * Fri Nov 11 2005 Chris Lumens <clumens@redhat.com> 10.89.12-1
 - Add buildreq for yum (katzj)
 - Fix loader log levels (katzj)
