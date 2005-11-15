@@ -29,6 +29,7 @@ from yum.packages import returnBestPackages
 from repomd.mdErrors import PackageSackError
 from backend import AnacondaBackend
 from sortedtransaction import *
+from genheader import *
 from constants import *
 from rhpl.translate import _
 
@@ -384,7 +385,7 @@ class AnacondaYumMedia(AnacondaYum, YumSorter):
     def _getcd(self, po):
         try: 
             uri = po.returnSimple('basepath')
-            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(url)
+            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
             if scheme != "media" or not fragid:
                 return 0
             else:
@@ -401,7 +402,9 @@ class AnacondaYumMedia(AnacondaYum, YumSorter):
             pkgpath = po.returnSimple('relativepath')
             pkgname = os.path.basename(pkgpath)
             h.addTag(1000000, RPM_STRING, pkgname)
-            h.addTag(1000002, RPM_INT32, cd)
+            h.addTag(1000002, RPM_INT32, int(cd))
+            size = po.returnSimple('installedsize')
+            h.addTag(rpm.RPMTAG_SIZE, RPM_INT32, int(size))
         f = open(hdrpath, 'w')
         f.write(h.str())
         f.close()
