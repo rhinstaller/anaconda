@@ -36,6 +36,7 @@
 	(YumHeader.str):  Add summary and description to header.
 
 	* image.py (CdromInstallMethod.getRPMFilename):  Fix typo.
+	(NfsIsoInstallMethod.getRPMFilename):  Don't prepend the tree twice.
 
 	* yuminstall.py (AnacondaYumMedia._getcd):  Fix typo.
 	(AnacondaYumMedia.downloadHeader):  Set size and disc number.

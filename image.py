@@ -499,7 +499,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-	return self.getFilename("%s/%s/RPMS/%s" % (self.tree, productPath, filename))
+	return self.getFilename("%s/RPMS/%s" % (productPath, filename))
 
     def umountImage(self):
 	if self.imageMounted:
