@@ -120,6 +120,7 @@ class ImageInstallMethod(InstallMethod):
     def __init__(self, tree, rootPath, intf):
 	InstallMethod.__init__(self, tree, rootPath, intf)
 	self.tree = tree
+        self.splitmethod = True
         self.currentIso = None
 
 class CdromInstallMethod(ImageInstallMethod):

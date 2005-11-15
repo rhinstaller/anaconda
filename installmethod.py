@@ -84,6 +84,7 @@ class InstallMethod:
         self.rootPath = rootpath
         self.intf = intf
         self.tree = None
+        self.splitmethod = False
 
     def getMethodUri(self):
         pass

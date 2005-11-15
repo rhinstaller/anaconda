@@ -311,8 +311,10 @@ class YumBackend(AnacondaBackend):
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
                                  configfile="/tmp/yum.conf", root=instPath)
         self.ac.write()
-
-        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath)
+        if self.method.splitmethod:
+            self.ayum = AnacondaYumMedia(fn="/tmp/yum.conf", root=instPath)
+        else:
+            self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath)
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
