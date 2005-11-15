@@ -13,7 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from hdrlist import groupSetFromCompsFile, HeaderList
 from installmethod import InstallMethod, FileCopyException
 import os
 import rpm
@@ -159,6 +158,9 @@ class UrlInstallMethod(InstallMethod):
 
     def setIntf(self, intf):
 	self.intf = intf
+
+    def getMethodUri(self):
+        return self.baseUrl
 
     def __init__(self, url, rootPath, intf):
 	InstallMethod.__init__(self, url, rootPath, intf)

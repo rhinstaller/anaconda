@@ -12,7 +12,6 @@
 #
 
 
-from hdrlist import groupSetFromCompsFile, HeaderListFromFile
 from installmethod import InstallMethod, FileCopyException
 from image import findIsoImages
 import shutil

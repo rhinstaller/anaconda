@@ -11,7 +11,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from hdrlist import groupSetFromCompsFile, HeaderListFromFile
 from installmethod import InstallMethod, FileCopyException
 import iutil
 import os
@@ -363,9 +362,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	except SystemError:
 	    pass
 
-    def getMethodUri(self):
-        return "media://%s/" % (self.timestamp)
-
     def __init__(self, method, rootPath, intf):
         """@param method cdrom://device:/path"""
         url = method[8:]
@@ -490,8 +486,6 @@ def findIsoImages(path, messageWindow):
 
 class NfsIsoInstallMethod(NfsInstallMethod):
 
-    def getMethodUri(self):
-        pass
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.mntPoint + "/" + filename
     
