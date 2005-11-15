@@ -108,6 +108,9 @@ class ImageInstallMethod(InstallMethod):
     def getSourcePath(self):
         return self.tree
 
+    def getMethodUri(self):
+        return "file://%s" % (self.tree,)
+
     def copyFileToTemp(self, filename):
         tmppath = self.getTempPath()
         path = tmppath + os.path.basename(filename)
@@ -398,8 +401,6 @@ class NfsInstallMethod(ImageInstallMethod):
         tree = method[5:]
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
 
-    def getMethodUri(self):
-        return "file://%s" % (self.tree,)
 
 def getDiscNums(line):
     # get the disc numbers for this disc
