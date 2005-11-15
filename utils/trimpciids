@@ -21,8 +21,9 @@ if f:
 	    if (vend, dev) not in devices:
 		devices.append( (vend, dev) )
 
-f = open(sys.argv[2])
-if f:
+for file in sys.argv[2:]
+   f = open(file)
+   if f:
 	pcitable = f.readlines()
 	f.close()
 	for line in pcitable:
