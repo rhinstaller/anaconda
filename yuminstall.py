@@ -501,7 +501,8 @@ class YumBackend(AnacondaBackend):
                     log.debug("selecting kernel-xen-hypervisor-devel")
                     self.selectPackage("kernel-xen-hypervisor-devel")
 
-        if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
+        if not foundkernel and (isys.smpAvailable() or isys.htavailable()
+                                or iutil.hasNX()):
             try:
                 ksmp = getBestKernelByArch("kernel-smp", self.ayum)
                 log.info("selected kernel-smp package for kernel")

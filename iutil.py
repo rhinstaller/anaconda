@@ -653,6 +653,27 @@ def getPPCMacBook():
         return 1
     return 0
 
+def hasNX():
+    """Convenience function to see if a machine supports the nx bit. We want
+    to install an smp kernel if NX is present since NX requires PAE (#173245)"""
+    if getArch() not in ("i386", "x86_64"):
+        return False
+    f = open("/proc/cpuinfo", "r")
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        if not line.startswith("flags"):
+            continue
+        # get the actual flags
+        flags = line[:-1].split(":", 1)[1]
+        # and split them
+        flst = flags.split(" ")
+        if "nx" in flst:
+            return True
+    return False
+    
+
 def writeRpmPlatform(root="/"):
     import rhpl.arch
 
