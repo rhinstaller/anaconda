@@ -1,3 +1,11 @@
+2005-11-15  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumBackend.getBestKernelByArch): Install smp
+	kernel if NX is present (#172345)
+	(YumBackend.doInstall): method monkeying
+
+	* iutil.py (hasNX): Add a method to find out if we have NX
+
 2005-11-15  Chris Lumens  <clumens@redhat.com>
 
 	* image.py (CdromInstallMethod.getRPMFilename):  Fix typo.
