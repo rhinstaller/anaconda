@@ -13,6 +13,7 @@ BTERMLIB = -lbterm -lbogl
 WLITELIB = -lwlite
 ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
+DMLIB = -ldevmapper -lselinux -lsepol
 
 BINS = loader
 
@@ -124,7 +125,7 @@ loader-net.o: loader.c
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) $(GUNZIP) \
-	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB)
+	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB) $(DMLIB)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
