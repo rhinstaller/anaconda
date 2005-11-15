@@ -272,6 +272,7 @@ etc/protocols
 etc/services
 etc/selinux/targeted/booleans
 etc/selinux/targeted/policy/policy.*
+etc/selinux/targeted/contexts/files/*
 etc/selinux/targeted/contexts/*
 etc/selinux/targeted/*
 usr/share/selinux/targeted/*
@@ -976,6 +977,10 @@ rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libxtrap.a
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
 
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
+
+# FIXME: hack for Xvnc's wrong font path
+mkdir -p $DESTGR/usr/X11R6/$LIBDIR/X11
+ln -s ../../../share/X11/fonts $DESTGR/usr/X11R6/$LIBDIR/X11/fonts
 
 # fixup joe links
 ln -fs jpicorc $DESTGR/etc/joe/picorc

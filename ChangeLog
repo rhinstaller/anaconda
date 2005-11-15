@@ -1,5 +1,16 @@
 2005-11-15  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec (BuildPreReq): Change for modular X package names
+
+	* scripts/upd-instroot: Modular X changes, including --
+	  Add new package names for modular X.  For now, list drivers by hand.
+	  New paths to files everywhere
+  	  Add a hack for Xvnc using the wrong font path
+
+	* anaconda: New xorg path.  Allow getting a shell on the console
+	if you're using vnc to help with the case where you don't have
+	physical ttys.
+
 	* yuminstall.py (simpleCallback.callback): Get the right filename,
 	don't blow up if we can't unlink the file
 	(simpleCallback.callback): Use method to unlink

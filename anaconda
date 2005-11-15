@@ -909,7 +909,7 @@ time.sleep(3)
 # now determine if we're going to run in GUI or TUI mode
 #
 # if no X server, we have to use text mode
-if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.access("/mnt/runtime/usr/X11R6/bin/Xorg", os.X_OK)):
+if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.access("/mnt/runtime/usr/bin/Xorg", os.X_OK)):
      stdoutLog.warning(_("Graphical installation not available...  "
                          "Starting text mode."))
      time.sleep(2)
@@ -1000,6 +1000,12 @@ if display_mode == 'g' and flags.usevnc:
     startVNCServer(vncpassword=vncpassword,
 		   vncconnecthost=vncconnecthost,
 		   vncconnectport=vncconnectport)
+    child = os.fork()
+    if (child):
+        while 1:
+            print _("Press <enter> for a shell")
+            sys.stdin.readline()
+            iutil.execWithRedirect("/bin/sh", ["/bin/sh"])
 
 
 # setup links required for all install types
