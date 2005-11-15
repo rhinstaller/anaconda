@@ -46,9 +46,6 @@ class InstallMethod:
     def protectedPartitions(self):
         return None
 
-    def readComps(self, hdlist):
-        pass
-
     def getTempPath(self):
 	root = self.rootPath
 	pathlist = [ "/var/tmp", "/tmp",
@@ -71,9 +68,6 @@ class InstallMethod:
     def getRPMFilename(self, h, timer, callback=None):
 	pass
 
-    def readHeaders(self):
-	pass
-
     def systemUnmounted(self):
 	pass
 
@@ -90,6 +84,9 @@ class InstallMethod:
         self.rootPath = rootpath
         self.intf = intf
         self.tree = None
+
+    def getMethodUri(self):
+        pass
 
     def getSourcePath(self):
         pass
