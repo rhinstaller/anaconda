@@ -164,43 +164,6 @@ class UrlInstallMethod(InstallMethod):
     def unlinkFilename(self, fullName):
 	os.remove(fullName)
 
-    def readHeaders(self):
-	hdurl = "%s/%s/base/hdlist" % (self.baseUrl, productPath)
-
-	try:
-	    url = grabber.urlopen (hdurl, retry = 5)
-	except grabber.URLGrabError, e:
-	    log.critical ("URLGrabError: %s occurred getting %s", e.strerror,
-			    hdurl)
-	    raise FileCopyException
-
-	raw = url.read(16)
-	if raw is None or len(raw) < 1:
-	    raise TypeError, "header list is empty!"
-	
-	hl = []
-	while (raw and len(raw)>0):
-	    info = struct.unpack("iiii", raw)
-	    magic1 = socket.ntohl(info[0]) & 0xffffffffL
-	    if (magic1 != 0x8eade801L or info[1]):
-		raise TypeError, "bad magic in header"
-
-	    il = socket.ntohl(info[2])
-	    dl = socket.ntohl(info[3])
-	    totalSize = il * 16 + dl;
-	    hdrString = raw[8:] + url.read(totalSize)
-	    hdr = rpm.headerLoad(hdrString)
-	    hl.append(hdr)
-
-	    raw = url.read(16)
-
-	return HeaderList(hl)
-
-    def mergeFullHeaders(self, hdlist):
-	fn = self.getFilename("%s/base/hdlist2" % (productPath,), callback=None)
-	hdlist.mergeFullHeaders(fn)
-	os.unlink(fn)
-
     def setIntf(self, intf):
 	self.intf = intf
 

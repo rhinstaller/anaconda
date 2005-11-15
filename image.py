@@ -110,18 +110,7 @@ class ImageInstallMethod(InstallMethod):
             log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
 	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]), callback=callback)
-    def readHeaders(self):
-        if not os.access("%s/%s/base/hdlist" % (self.tree, productPath), os.R_OK):
-            raise FileCopyException
-	hl = HeaderListFromFile("%s/%s/base/hdlist" % (self.tree, productPath))
-
-	return hl
-    
-    def mergeFullHeaders(self, hdlist):
-        if not os.access("%s/%s/base/hdlist2" % (self.tree, productPath), os.R_OK):
-            raise FileCopyException
-	hdlist.mergeFullHeaders("%s/%s/base/hdlist2" % (self.tree, productPath))
-
+        
     def getSourcePath(self):
         return self.tree
 
@@ -376,7 +365,9 @@ class CdromInstallMethod(ImageInstallMethod):
 	    os.unlink(self.loopbackFile)
 	except SystemError:
 	    pass
-        
+
+    def getMethodUri(self):
+        return "media://%s/" % (self.timestamp)
 
     def __init__(self, url, rootPath, intf):
 	(self.device, tree) = string.split(url, ":", 1)
@@ -408,6 +399,9 @@ class NfsInstallMethod(ImageInstallMethod):
 
     def __init__(self, tree, rootPath, intf):
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
+
+    def getMethodUri(self):
+        return "file://%s" % (self.tree,)
 
 def getDiscNums(line):
     # get the disc numbers for this disc
@@ -496,6 +490,9 @@ def findIsoImages(path, messageWindow):
     return discImages
 
 class NfsIsoInstallMethod(NfsInstallMethod):
+
+    def getMethodUri(self):
+        pass
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.mntPoint + "/" + filename
     
@@ -506,35 +503,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.mountImage(h[1000002])
 
 	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]))
-
-    def readHeaders(self):
-	hl = NfsInstallMethod.readHeaders(self)
-
-	# Make sure all of the correct CD images are available
-	missing_images = []
-	for h in hl.values():
-	    if h[1000002] is None or 1000002 not in h.keys():
-		continue
-	    
-	    if not self.discImages.has_key(h[1000002]):
-		if h[1000002] not in missing_images:
-		    missing_images.append(h[1000002])
-
-	if len(missing_images) > 0:
-	    missing_images.sort()
-	    missing_string = ""
-	    for missing in missing_images:
-		missing_string += "\t\t\tCD #%d\n" % (missing,)
-
-	    self.messageWindow(_("Error"),
-			       _("The following ISO images are missing which "
-                                 "are required for the install:\n\n%s\n"
-                                 "The system will now reboot.") %
-                               (missing_string,))
-	    sys.exit(0)
-
-	return hl
-
 
     def umountImage(self):
 	if self.imageMounted:
