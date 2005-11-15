@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.14
+Version: 10.89.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 15 2005 Jeremy Katz <katzj@redhat.com> - 10.89.15-1
+- fix up for new selinux policy
+
 * Mon Nov 14 2005 Paul Nasrat <pnasrat@redhat.com> 10.89.14-1
 - Move sorter for CD/pkgorder into yuminstall
 - Add support for ub devices (katzj)
