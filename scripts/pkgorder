@@ -27,7 +27,7 @@ from sortedtransaction import *
 from yuminstall import YumSorter
 from whiteout import whiteout
 
-class PkgOrderer(YumSorter):
+class PackageOrderer(YumSorter):
 
     def __init__(self, arch=None):
         YumSorter.__init__(self)

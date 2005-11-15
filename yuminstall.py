@@ -28,6 +28,7 @@ from yum.Errors import RepoError, YumBaseError
 from yum.packages import returnBestPackages
 from repomd.mdErrors import PackageSackError
 from backend import AnacondaBackend
+from sortedtransaction import *
 from constants import *
 from rhpl.translate import _
 
@@ -381,7 +382,7 @@ class AnacondaYumMedia(AnacondaYum, YumSorter):
 
     def _getcd(self, po):
         try: 
-            uri = po.returnSimple('basepath'):
+            uri = po.returnSimple('basepath')
             (scheme, netloc, path, query, fragid) = urlparse.urlsplit(url)
             if scheme != "media" or not fragid:
                 return 0
