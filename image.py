@@ -399,6 +399,8 @@ class NfsInstallMethod(ImageInstallMethod):
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
         self.splitmethod = False
 
+    def getRPMFilename(self, filename, h, timer, callback=None):
+	return "/%s/RPMS/%s" % (self.tree, productPath, filename)
 
 def getDiscNums(line):
     # get the disc numbers for this disc
