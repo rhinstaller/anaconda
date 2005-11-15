@@ -31,8 +31,14 @@
 
 2005-11-15  Chris Lumens  <clumens@redhat.com>
 
-	* genheader.py:  Add epoch manually instead of relying on deepcopy.
+	* genheader.py (mungEpoch):  Add epoch manually instead of relying on
+	deepcopy.
+	(YumHeader.str):  Add summary and description to header.
+
 	* image.py (CdromInstallMethod.getRPMFilename):  Fix typo.
+
+	* yuminstall.py (AnacondaYumMedia._getcd):  Fix typo.
+	(AnacondaYumMedia.downloadHeader):  Set size and disc number.
 
 	* scripts/pkgorder (createConfig):  Catch OSError as well.
 

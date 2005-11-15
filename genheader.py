@@ -55,6 +55,8 @@ class YumHeader:
             'version': (rpm.RPMTAG_VERSION, RPM_STRING),
             'release': (rpm.RPMTAG_RELEASE, RPM_STRING),
             'arch': (rpm.RPMTAG_ARCH, RPM_STRING),
+            'summary': (1004, RPM_STRING),
+            'description': (1005, RPM_STRING),
             'providename': (rpm.RPMTAG_PROVIDENAME, RPM_STRING_ARRAY),
             'provideversion': (rpm.RPMTAG_PROVIDEVERSION, RPM_STRING_ARRAY),
             'provideflags': (rpm.RPMTAG_PROVIDEFLAGS, RPM_STRING_ARRAY)
@@ -132,7 +134,7 @@ class YumHeader:
     def str(self):
         self.po.simple['os'] = 'linux'
         self.convertTag('os')
-        for tag in ['name','version', 'release', 'arch']:
+        for tag in ['name','version', 'release', 'arch', 'summary', 'description']:
             if tag in self.po.simpleItems():
                 self.convertTag(tag)
         self.mungEpoch()
