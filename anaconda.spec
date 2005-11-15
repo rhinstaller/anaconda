@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.13
+Version: 10.89.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 14 2005 Paul Nasrat <pnasrat@redhat.com> 10.89.14-1
+- Move sorter for CD/pkgorder into yuminstall
+- Add support for ub devices (katzj)
+
 * Mon Nov 14 2005 Paul Nasrat <pnasrat@redhat.com> 10.89.13-1
 - Reinstate image based install methods (excluding hd for now)
 - Clean up install method classes
