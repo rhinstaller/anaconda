@@ -99,13 +99,6 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.tree = None
 	    self.isoDirIsMounted = 0
 	
-    def readComps(self, hdlist):
-	self.mountMedia(1)
-	fname = self.findBestFileMatch('comps.xml')
-        cs = groupSetFromCompsFile(fname, hdlist)
-	self.umountMedia()
-	return cs
-
     # return reference to file specified on ISO #1
     #
     # mounts ISO #1, copies file to destdir, umounts ISO #1
@@ -142,41 +135,6 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.mountMedia(h[1000002])
 
 	return "%s/%s/RPMS/%s" % (self.tree, productPath, h[1000000])
-
-    def readHeaders(self):
-	self.mountMedia(1)
-        if not os.access("%s/%s/base/hdlist" % (self.tree, productPath), os.R_OK):
-            self.umountMedia()
-            raise FileCopyException
-	hl = HeaderListFromFile("%s/%s/base/hdlist" % (self.tree, productPath))
-	self.umountMedia()
-
-	# Make sure all of the correct CD images are available
-	missing_images = []
-	for h in hl.values():
-	    if not self.discImages.has_key(h[1000002]):
-		if h[1000002] not in missing_images:
-		    missing_images.append(h[1000002])
-
-	if len(missing_images) > 0:
-	    missing_images.sort()
-	    missing_string = ""
-	    for missing in missing_images:
-		missing_string += "\t\t\tCD #%d\n" % (missing,)
-		
-	    self.messageWindow(_("Error"),
-			       _("The following ISO images are missing which are required for the install:\n\n%s\nThe system will now reboot.") % missing_string)
-	    sys.exit(0)
-		
-	return hl
-
-    def mergeFullHeaders(self, hdlist):
-	self.mountMedia(1)
-        if not os.access("%s/%s/base/hdlist" % (self.tree, productPath), os.R_OK):
-            self.umountMedia()
-            raise FileCopyException
-	hdlist.mergeFullHeaders("%s/%s/base/hdlist2" % (self.tree, productPath))
-	self.umountMedia()
 
     def systemMounted(self, fsset, mntPoint):
 	self.mountMedia(1)

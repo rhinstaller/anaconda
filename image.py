@@ -96,12 +96,6 @@ def presentRequiredMediaMessage(intf, grpset):
 
 class ImageInstallMethod(InstallMethod):
 
-    def readComps(self, hdlist):
-	fname = self.findBestFileMatch('comps.xml')
-        if fname is None:
-            raise FileCopyException
-	return groupSetFromCompsFile(fname, hdlist)
-
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 

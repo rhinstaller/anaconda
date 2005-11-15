@@ -80,13 +80,6 @@ def urlretrieve(location, file, callback=None):
     url.close()
 
 class UrlInstallMethod(InstallMethod):
-    def readComps(self, hdlist):
-	fname = self.findBestFileMatch('comps.xml')
-	# if not local then assume its on host
-	if fname is None:
-	    fname = '%s/%s/base/comps.xml' % (self.baseUrl, productPath)
-	    log.warning("Comps not in update dirs, using %s",fname)
-        return groupSetFromCompsFile(fname, hdlist)
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1,
                     disc = 1):
