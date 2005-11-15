@@ -119,9 +119,9 @@ class UrlInstallMethod(InstallMethod):
 
 	return file
 
-    def getRPMFilename(self, h, timer, callback=None):
+    def getRPMFilename(self, filename, h, timer, callback=None):
 
-	fullPath = "/%s/RPMS/%s" % (productPath, h[FILENAME])
+	fullPath = "/%s/RPMS/%s" % (productPath, filename)
 
 	return self.getFilename(fullPath, callback=callback, disc = h[DISCNUM])
 

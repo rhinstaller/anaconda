@@ -65,7 +65,7 @@ class InstallMethod:
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	pass
 
-    def getRPMFilename(self, h, timer, callback=None):
+    def getRPMFilename(self, filename, h, timer, callback=None):
 	pass
 
     def systemUnmounted(self):

@@ -98,11 +98,11 @@ class ImageInstallMethod(InstallMethod):
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 
-    def getRPMFilename(self, h, timer, callback=None):
+    def getRPMFilename(self, filename, h, timer, callback=None):
         if self.currentIso is not None and self.currentIso != h[1000002]:
             log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
-	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]), callback=callback)
+	return self.getFilename("/%s/RPMS/%s" % (productPath,filename), callback=callback)
         
     def getSourcePath(self):
         return self.tree
@@ -184,10 +184,10 @@ class CdromInstallMethod(ImageInstallMethod):
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 
-    def getRPMFilename(self, h, timer, callback=None):
+    def getRPMFilename(self, filename, h, timer, callback=None):
         if h[1000002] == None or 1000002 not in h.keys():
             log.warning("header for %s has no disc location tag, assuming it's"
-                        "on the current CD" %(h[1000000],))
+                        "on the current CD" %(filename,))
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
             log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
@@ -328,8 +328,8 @@ class CdromInstallMethod(ImageInstallMethod):
         while tries < 5:
             try:
                 shutil.copy("%s/%s/RPMS/%s" % (self.tree, productPath,
-                                               h[1000000]),
-                            tmppath + h[1000000])
+                                               filename),
+                            tmppath + filename
             except IOError, (errnum, msg):
                 log.critical("IOError %s occurred copying %s: %s",
                              errnum, h[1000000], str(msg))
@@ -341,7 +341,7 @@ class CdromInstallMethod(ImageInstallMethod):
         if tries >= 5:
             raise FileCopyException
                         
-	return tmppath + h[1000000]
+	return tmppath + filename
 
     def unlinkFilename(self, fullName):
         os.remove(fullName)
@@ -489,13 +489,13 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.mntPoint + "/" + filename
     
-    def getRPMFilename(self, h, timer, callback=None):
+    def getRPMFilename(self, filename, h, timer, callback=None):
 	if self.imageMounted != h[1000002]:
             log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.imageMounted, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-	return self.getFilename("/%s/RPMS/%s" % (productPath, h[1000000]))
+	return self.getFilename("/%s/RPMS/%s" % (productPath, filename))
 
     def umountImage(self):
 	if self.imageMounted:

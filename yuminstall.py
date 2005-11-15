@@ -105,11 +105,8 @@ class simpleCallback:
             self.instLog.flush()
             self.size = hdr[rpm.RPMTAG_SIZE]
 
-            fn = '%s/%s/RPMS/%s' % (self.method, productPath, os.path.basename(path))
-            url = urlgrabber.grabber.urlopen(fn)
-            f = open(path, 'w+')
-            f.write(url.read()) 
-            fd = os.open(path, os.O_RDONLY)
+            fn = self.method.getRPMFileName(self, os.path.basename(path), hdr, None) 
+            fd = os.open(fn, os.O_RDONLY)
             nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
             self.fdnos[nvra] = fd
             return fd

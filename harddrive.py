@@ -126,14 +126,14 @@ class HardDriveInstallMethod(InstallMethod):
 
     # return reference to the RPM file specified by the header
     # will mount the appropriate ISO image as required by CD # in header
-    def getRPMFilename(self, h, timer, callback=None):
+    def getRPMFilename(self, filename, h, timer, callback=None):
 	if self.mediaIsMounted != h[1000002]:
             log.info("switching from iso %s to %s" %(self.mediaIsMounted,
                                                      h[1000002]))
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
 
-	return "%s/%s/RPMS/%s" % (self.tree, productPath, h[1000000])
+	return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
 
     def systemMounted(self, fsset, mntPoint):
 	self.mountMedia(1)
