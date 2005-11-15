@@ -230,6 +230,15 @@ fi
 # dogtail stuff...
 PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
 
+# modular xorg...
+XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfile libXmu libXpm libXrandr libXrender libXt libXxf86misc libXaw liblbxutil libXfont libfontenc libXau libXdmcp libXfont"
+XORGDRIVERS="xorg-x11-drv-acecad xorg-x11-drv-aiptek xorg-x11-drv-apm xorg-x11-drv-ark xorg-x11-drv-ati xorg-x11-drv-calcomp xorg-x11-drv-chips xorg-x11-drv-cirrus xorg-x11-drv-citron xorg-x11-drv-cyrix xorg-x11-drv-digitaledge xorg-x11-drv-dmc xorg-x11-drv-dummy xorg-x11-drv-dynapro xorg-x11-drv-elo2300 xorg-x11-drv-elographics xorg-x11-drv-evdev xorg-x11-drv-fbdev xorg-x11-drv-fpit xorg-x11-drv-glint xorg-x11-drv-hyperpen xorg-x11-drv-i128 xorg-x11-drv-i740 xorg-x11-drv-i810 xorg-x11-drv-jamstudio xorg-x11-drv-joystick xorg-x11-drv-keyboard xorg-x11-drv-magellan xorg-x11-drv-magictouch xorg-x11-drv-mga xorg-x11-drv-microtouch xorg-x11-drv-mouse xorg-x11-drv-mutouch xorg-x11-drv-neomagic xorg-x11-drv-nsc xorg-x11-drv-nv xorg-x11-drv-palmax xorg-x11-drv-penmount xorg-x11-drv-rendition xorg-x11-drv-s3 xorg-x11-drv-s3virge xorg-x11-drv-savage xorg-x11-drv-siliconmotion xorg-x11-drv-sis xorg-x11-drv-sisusb xorg-x11-drv-spaceorb xorg-x11-drv-summa xorg-x11-drv-tdfx xorg-x11-drv-tek4957 xorg-x11-drv-trident xorg-x11-drv-tseng xorg-x11-drv-v4l xorg-x11-drv-vesa xorg-x11-drv-vga xorg-x11-drv-via xorg-x11-drv-vmware xorg-x11-drv-void xorg-x11-drv-voodoo"
+XORGFONTS="xorg-x11-fonts-75dpi xorg-x11-fonts-base xorg-x11-fonts-cyrillic xorg-x11-fonts-ISO8859-15-75dpi xorg-x11-fonts-ISO8859-1-75dpi xorg-x11-fonts-ISO8859-2-75dpi xorg-x11-fonts-ISO8859-9-75dpi xorg-x11-fonts-misc"
+XORG="$XORGLIBS $XORGDRIVERS $XORGFONTS xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-font-utils xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-server-utils"
+
+PACKAGESGR="$PACKAGESGR $XORG"
+
+
 #
 # KEEPFILE is all files to keep from the packages in PACKAGES
 #
@@ -326,7 +335,6 @@ sbin/xfs_repair
 usr/sbin/xfs_db
 usr/sbin/xfs_check
 usr/sbin/xfs_copy
-usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
 usr/bin/python?.?
 usr/bin/hmount
@@ -493,11 +501,11 @@ etc/security/pam_env.conf
 lib/security
 $LIBDIR/security/pam_*
 usr/$LIBDIR/libwrap.so*
-usr/X11R6/$LIBDIR/libXmuu.so*
-usr/X11R6/$LIBDIR/libX11.so*
-usr/X11R6/$LIBDIR/libXext.so*
-usr/X11R6/$LIBDIR/libXxf86misc.so*
-usr/X11R6/bin/xauth
+usr/$LIBDIR/libXmuu.so*
+usr/$LIBDIR/libX11.so*
+usr/$LIBDIR/libXext.so*
+usr/$LIBDIR/libXxf86misc.so*
+usr/bin/xauth
 EOF
 fi
       
@@ -565,40 +573,42 @@ sbin/fsck.reiserfs
 sbin/parted
 sbin/silo
 sbin/tune2fs
-usr/X11R6/bin/XFree86
-usr/X11R6/bin/Xorg
-usr/X11R6/bin/setxkbmap
-usr/X11R6/bin/xsetroot
-usr/X11R6/lib/X11/XKeysymDB
-usr/X11R6/lib/X11/fonts/misc/6x13*
-usr/X11R6/lib/X11/fonts/misc/fonts*
-usr/X11R6/lib/X11/fonts/misc/cursor*
-usr/X11R6/lib/X11/fonts/misc/olcursor*
-usr/X11R6/lib/X11/fonts/Type1/l047013t*
-usr/X11R6/lib/X11/fonts/Type1/*
-usr/X11R6/lib/X11/locale/*
-usr/X11R6/lib/X11/rgb*
-usr/X11R6/lib/X11/xkb/*
-usr/X11R6/lib/X11/xserver/SecurityPolicy
-usr/X11R6/$LIBDIR/libICE*
-usr/X11R6/$LIBDIR/libSM*
-usr/X11R6/$LIBDIR/libXaw.so*
-usr/X11R6/$LIBDIR/libX11*
-usr/X11R6/$LIBDIR/libXcursor*
-usr/X11R6/$LIBDIR/libXext*
-usr/X11R6/$LIBDIR/libXfixes*
-usr/X11R6/$LIBDIR/libXft*
-usr/X11R6/$LIBDIR/libXi*
-usr/X11R6/$LIBDIR/libxkbfile*
-usr/X11R6/$LIBDIR/libXmu*
-usr/X11R6/$LIBDIR/libXpm*
-usr/X11R6/$LIBDIR/libXrandr*
-usr/X11R6/$LIBDIR/libXrender*
-usr/X11R6/$LIBDIR/libXt*
-usr/X11R6/$LIBDIR/libXxf86misc*
-usr/X11R6/$LIBDIR/modules/*
-usr/X11R6/$LIBDIR/modules/input/*
-usr/X11R6/share/Xconfigurator/pixmaps/*
+usr/bin/Xorg
+usr/bin/setxkbmap
+usr/share/X11/XKeysymDB
+usr/share/X11/fonts/misc/6x13*
+usr/share/X11/fonts/misc/fonts*
+usr/share/X11/fonts/misc/cursor*
+usr/share/X11/fonts/misc/olcursor*
+usr/share/X11/fonts/Type1/l047013t*
+usr/share/X11/fonts/Type1/*
+usr/$LIBDIR/X11/locale/*
+usr/$LIBDIR/X11/rgb*
+usr/share/X11/xkb/*
+usr/$LIBDIR/xserver/SecurityPolicy
+usr/$LIBDIR/libICE*
+usr/$LIBDIR/libSM*
+usr/$LIBDIR/libXaw.so*
+usr/$LIBDIR/libX11*
+usr/$LIBDIR/libXcursor*
+usr/$LIBDIR/libXext*
+usr/$LIBDIR/libXfixes*
+usr/$LIBDIR/libXft*
+usr/$LIBDIR/libXi*
+usr/$LIBDIR/libxkbfile*
+usr/$LIBDIR/libXmu*
+usr/$LIBDIR/libXpm*
+usr/$LIBDIR/libXrandr*
+usr/$LIBDIR/libXrender*
+usr/$LIBDIR/libXt*
+usr/$LIBDIR/libXxf86misc*
+usr/$LIBDIR/liblbxutil*
+usr/$LIBDIR/libXfont*
+usr/$LIBDIR/libfontenc*
+usr/$LIBDIR/libXau*
+usr/$LIBDIR/libXdmcp*
+usr/$LIBDIR/xorg/modules/*
+usr/$LIBDIR/xorg/modules/input/*
 usr/bin/chattr*
 usr/bin/fc-cache
 usr/bin/gtk-query*
@@ -738,22 +748,6 @@ usr/share/zoneinfo/Pacific
 usr/share/zoneinfo/US
 "
 
-# sparc needs 100dpi fonts as well, otherwise
-# things look ugly
-
-if [ $ARCH = sparc ]; then
-    cat >> $KEEPFILEGR <<-EOF
-usr/X11R6/lib/X11/fonts/100dpi/cour*
-usr/X11R6/lib/X11/fonts/100dpi/helv*
-usr/X11R6/lib/X11/fonts/100dpi/tim*
-usr/X11R6/lib/X11/fonts/100dpi/fonts*
-usr/share/fonts/ISO8859-2/100dpi/cour*
-usr/share/fonts/ISO8859-2/100dpi/helv*
-usr/share/fonts/ISO8859-2/100dpi/tim*
-usr/share/fonts/ISO8859-2/100dpi/fonts*
-EOF
-fi
-
 # more dogtail stuff...
 cat >> $KEEPFILEGR <<EOF
 usr/$LIBDIR/gtk-2.0/modules/libatk-bridge.so
@@ -765,7 +759,7 @@ usr/$LIBDIR/libbonobo*
 usr/$LIBDIR/libspi*
 usr/$LIBDIR/libcspi*
 usr/$LIBDIR/bonobo/servers/*
-usr/X11R6/$LIBDIR/libXevie*
+usr/$LIBDIR/libXevie*
 EOF
 
 
@@ -1030,8 +1024,7 @@ export LANG=$OLDLANG
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
-    /usr/X11R6/bin/mkfontdir $DESTGR/usr/X11R6/lib/X11/fonts/* 
-    rm -f $DESTGR/usr/X11R6/bin/mkfontdir
+    mkfontdir $DESTGR/usr/share/X11/fonts/*
 fi
 
 echo "Getting pango modules"
