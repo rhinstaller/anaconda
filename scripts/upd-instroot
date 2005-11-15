@@ -138,6 +138,10 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               XFree86-libs strace xorg-x11-xauth xorg-x11-libs"
 fi
 
+if [ $ARCH != s390 -a $ARCH != s390x ]; then
+    PACKAGES="$PACKAGES python-pyblock"
+fi
+
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
     PACKAGES="$PACKAGES pcmciautils pdisk yaboot hfsutils"
 fi
@@ -229,6 +233,11 @@ fi
 
 # dogtail stuff...
 PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
+
+# dmraid stuff
+if [ $ARCH != s390 -a $ARCH != s390x ]; then
+    PACKAGESGR="$PACKAGESGR python-pyblock"
+fi
 
 # modular xorg...
 XORGLIBS="libICE libSM libX11 libXcursor libXext libXfixes libXft libXi libxkbfile libXmu libXpm libXrandr libXrender libXt libXxf86misc libXaw liblbxutil libXfont libfontenc libXau libXdmcp libXfont"
@@ -397,6 +406,7 @@ usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
 usr/$LIBDIR/python?.?/site-packages/xf86config.py
 usr/$LIBDIR/python?.?/site-packages/rhpl
 usr/$LIBDIR/python?.?/site-packages/cElementTree.so
+usr/$LIBDIR/python?.?/site-packages/block
 usr/lib/locale/*
 usr/lib/python?.?/site-packages/elementtree/*
 usr/lib/python?.?/site-packages/rpmUtils/*
