@@ -956,8 +956,10 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 for p in $DEST $DESTGR; do
     echo "Building locale archive"
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
+	echo "not building for now... it's too big for cramfs"
+#    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
     else
+	echo "not building for now... it's too big for cramfs"
 	/usr/sbin/chroot $p /usr/sbin/build-locale-archive
     fi
 #    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive

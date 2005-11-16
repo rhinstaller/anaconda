@@ -1,3 +1,8 @@
+2005-11-16  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Don't build locale-archive for now.  The
+	file is too big for cramfs :-/
+
 2005-11-16  Bill Nottingham  <notting@redhat.com>
 
 	* utils/trimpciids: Fix tyop
