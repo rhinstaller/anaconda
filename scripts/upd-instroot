@@ -589,6 +589,7 @@ sbin/silo
 sbin/tune2fs
 usr/bin/Xorg
 usr/bin/setxkbmap
+usr/bin/xkbcomp
 usr/share/X11/XKeysymDB
 usr/share/X11/fonts/misc/6x13*
 usr/share/X11/fonts/misc/fonts*
@@ -1291,11 +1292,3 @@ rm -rf $TZDIR
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
 rm -rf $DEST/usr/lib/anaconda-runtime
-
-if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
-   if [ $NEEDGR ]; then
-       # Xserver needs a place to put the compiled xkb maps.
-       rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-       ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-   fi
-fi

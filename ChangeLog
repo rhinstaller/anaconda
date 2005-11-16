@@ -1,5 +1,10 @@
 2005-11-16  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images: Add /var/lib/xkb as a symlink to /tmp so we
+	have setxkbmap work.  
+	* scripts/upd-instroot: Add xkbcomp.Remove old version of xkb 
+	tmp symlinking
+
 	* anaconda.spec: Bump version.
 
 	* scripts/upd-instroot: Don't build locale-archive for now.  The

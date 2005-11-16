@@ -644,6 +644,8 @@ EOF
     ln -s /sbin/init $MBD_DIR/init
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
+    mkdir -p $MBD_DIR/var/lib
+    ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
     # s390/s390x need sshd/telnet setup
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
