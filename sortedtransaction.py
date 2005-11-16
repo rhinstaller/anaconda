@@ -10,9 +10,9 @@ WHITE = 0
 GREY = 1
 BLACK = 2
 
-class SplitMediaTransactionData(TransactionData):
+class SplitMediaTransactionData(SortableTransactionData):
     def __init__(self):
-        TransactionData.__init__(self)
+        SortableTransactionData.__init__(self)
         self.reqmedia = {}
         self.curmedia = 0 
 
@@ -46,15 +46,15 @@ class SplitMediaTransactionData(TransactionData):
         id = self.__getMedia(txmember.po)
         if id and id not in self.reqmedia.keys():
             self.reqmedia[id].append(txmember.pkgtup)
-        TransactionData.add(self, txmember)
+        SortableTransactionData.add(self, txmember)
 
     def remove(self, pkgtup):
         txmember = self.pkgdict[pkgtup]
         id = self.__getMedia(txmember.po)
         if id:
            self.reqmedia[id].remove(pktup)
-        del self.pkgdict[pkgtup]
         del txmember
+        SortableTransactionData.remove(self, pkgtup)
 
 
 class SortableTransactionData(TransactionData):
