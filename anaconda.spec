@@ -10,6 +10,9 @@ Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu
 Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: anaconda-help, system-logos, pykickstart
 Requires: device-mapper >= 1.01.05-3
+%ifnarch s390 s390x
+Requires: python-pyblock >= 0.5-2
+%endif
 %ifnarch s390 s390x ppc64
 Requires: rhpxl
 %endif
