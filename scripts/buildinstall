@@ -151,6 +151,13 @@ else
     $UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage
 fi
 
+echo "Creating repository metadata..."
+if [ -x /usr/bin/runroot ]; then
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "createrepo $p"
+else
+   createrepo $p
+fi
+
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then

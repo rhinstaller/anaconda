@@ -9,6 +9,7 @@
 	* yuminstall.py (YumSorter.doTsSetup):  Use SplitMediaTransactionData
 	instead.
 
+	* scripts/buildinstall:  Run createrepo before pkgorder.
 	* scripts/pkgorder:  Force kernels to be on the first image.  Add
 	--exclude as an option.
 
