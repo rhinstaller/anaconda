@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.16
+Version: 10.89.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 15 2005 Jeremy Katz <katzj@redhat.com> - 10.89.17-1
+- missed an x lib somehow
+
 * Tue Nov 15 2005 Jeremy Katz <katzj@redhat.com> - 10.89.16-1
 - lots of updates for modular X
 - allow a shell on tty1 if using vnc
