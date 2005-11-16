@@ -1,5 +1,8 @@
 2005-11-16  Chris Lumens  <clumens@redhat.com>
 
+	* sortedtransaction.py (SplitMediaTransactionData):  Move after its
+	superclass.  Fix indentation.
+
 	* scripts/pkgorder:  Force kernels to be on the first image.  Add
 	--exclude as an option.
 

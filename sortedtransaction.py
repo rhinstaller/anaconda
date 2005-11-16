@@ -10,53 +10,6 @@ WHITE = 0
 GREY = 1
 BLACK = 2
 
-class SplitMediaTransactionData(SortableTransactionData):
-    def __init__(self):
-        SortableTransactionData.__init__(self)
-        self.reqmedia = {}
-        self.curmedia = 0 
-
-    def __getMedia(self, po):
-        try:
-            uri = po.returnSimple('basepath')
-            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
-            if scheme != "media" or not fragid:
-                return 0
-            else:
-                return fragid
-        except KeyError:
-            return 0
-
-     def getMembers(self, pkgtup=None):
-        if not self.curmedia:
-            return TransactionData.getMembers(self, pkgtup)
-        if pkgtup is None:
-            returnlist = []
-            for key in self.reqmedia[self.curmedia].values():
-                returnlist.extend(self.pkgdict[key])
-
-            return returnlist
-
-        if self.reqmedia[self.curmedia].has_key(pkgtup):
-            return self.pkgdict[pkgtup]
-        else:
-            return []
-
-    def add(self, txmember):
-        id = self.__getMedia(txmember.po)
-        if id and id not in self.reqmedia.keys():
-            self.reqmedia[id].append(txmember.pkgtup)
-        SortableTransactionData.add(self, txmember)
-
-    def remove(self, pkgtup):
-        txmember = self.pkgdict[pkgtup]
-        id = self.__getMedia(txmember.po)
-        if id:
-           self.reqmedia[id].remove(pktup)
-        del txmember
-        SortableTransactionData.remove(self, pkgtup)
-
-
 class SortableTransactionData(TransactionData):
     def __init__(self):
         self._sorted = []
@@ -106,6 +59,52 @@ class SortableTransactionData(TransactionData):
                 self._visit(txmbr)
         self._sorted.reverse()
         return self._sorted
+
+class SplitMediaTransactionData(SortableTransactionData):
+    def __init__(self):
+        SortableTransactionData.__init__(self)
+        self.reqmedia = {}
+        self.curmedia = 0 
+
+    def __getMedia(self, po):
+        try:
+            uri = po.returnSimple('basepath')
+            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
+            if scheme != "media" or not fragid:
+                return 0
+            else:
+                return fragid
+        except KeyError:
+            return 0
+
+    def getMembers(self, pkgtup=None):
+        if not self.curmedia:
+            return TransactionData.getMembers(self, pkgtup)
+        if pkgtup is None:
+            returnlist = []
+            for key in self.reqmedia[self.curmedia].values():
+                returnlist.extend(self.pkgdict[key])
+
+            return returnlist
+
+        if self.reqmedia[self.curmedia].has_key(pkgtup):
+            return self.pkgdict[pkgtup]
+        else:
+            return []
+
+    def add(self, txmember):
+        id = self.__getMedia(txmember.po)
+        if id and id not in self.reqmedia.keys():
+            self.reqmedia[id].append(txmember.pkgtup)
+        SortableTransactionData.add(self, txmember)
+
+    def remove(self, pkgtup):
+        txmember = self.pkgdict[pkgtup]
+        id = self.__getMedia(txmember.po)
+        if id:
+           self.reqmedia[id].remove(pktup)
+        del txmember
+        SortableTransactionData.remove(self, pkgtup)
 
 class TransactionConstraintMetError(YumBaseError):
     def __init__(self, args=None):
