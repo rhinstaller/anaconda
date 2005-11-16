@@ -45,8 +45,11 @@ class PackageOrderer(YumSorter):
                     pkgs.append(pkg)
                     self.tsInfo.addInstall(availpackages[pkg])
 
-    def setup(self, fn="/etc/yum.conf", root="/"):
+    def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
         self.doConfigSetup(fn, root)
+        exclude = self.conf.getConfigOption('exclude')
+        exclude.extend(excludes)
+        self.conf.setConfigOption('exclude', exclude)
         cachedir = yum.misc.getCacheDir()
         self.repos.setCacheDir(cachedir) 
         self.doRepoSetup()
@@ -70,23 +73,28 @@ class PackageOrderer(YumSorter):
 
 #XXX: sigh
 processed = {}
-def printMatchingPkgs(ds):
-    global processed
+def processTransaction(ds):
     for pkgtup in ds.tsInfo.sort():
         fname = ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath')
         fpattern = "%s/%s*" % (toppath, fname.rsplit('.', 2)[0])
-        matches = glob.glob(fpattern)
-        for match in matches:
-            mname = os.path.basename(match)
-            if processed.has_key(mname): continue
-            processed[mname] = True
-            print mname
+        printMatchingPkgs(fpattern)
+
+def printMatchingPkgs(fpattern):
+    global processed
+
+    matches = glob.glob(fpattern)
+
+    for match in matches:
+        mname = os.path.basename(match)
+        if processed.has_key(mname): continue
+        processed[mname] = True
+        print mname
 
 def addGroups(ds, groupLst):
     ds.initActionTs()
     map(ds.addGroup, groupLst)
     ds.resolveDeps()
-    printMatchingPkgs(ds)
+    processTransaction(ds)
 
 def createConfig(toppath):
     yumconfstr = """
@@ -120,6 +128,7 @@ if __name__ == "__main__":
     parser.add_option("--debug", action="store_true", dest="debug", default=False)
     parser.add_option("--file", action="store", dest="file")
     parser.add_option("--product", action="store", dest="productPath", )
+    parser.add_option("--exclude", action="append", dest="excludeList")
 
     (options, args) = parser.parse_args()
      
@@ -130,8 +139,11 @@ if __name__ == "__main__":
     (toppath, arch, product) = args
     config = createConfig(toppath)
 
+    for pattern in ["kernel-[0-9]*", "kernel-smp-[0-9]*"]:
+        printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, pattern))
+
     ds = PackageOrderer(arch=arch)
-    ds.setup(fn=config)
+    ds.setup(fn=config, excludes=options.excludeList)
 
     addGroups(ds, ["Base", "Core", "Text-based Internet"])
 
@@ -162,5 +174,5 @@ if __name__ == "__main__":
             if po.name.find("kernel") == -1:
                 member = ds.tsInfo.addInstall(po)
 
-    printMatchingPkgs(ds)
+    processTransaction(ds)
     os.unlink(config)
