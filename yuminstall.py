@@ -371,7 +371,7 @@ class YumSorter(yum.YumBase):
 
         installroot = self.conf.installroot
         self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
-        self.tsInfo = SortableTransactionData()
+        self.tsInfo = SplitMediaTransactionData()
         self.rpmdb = rpmUtils.RpmDBHolder()
         self.initActionTs()
 
