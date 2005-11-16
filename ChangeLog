@@ -1,5 +1,9 @@
 2005-11-16  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py (Kickstart.runPreScripts):  Don't give a progress bar
+	if there aren't any scripts to run.
+	(Kickstart.postAction):  Likewise.
+
 	* sortedtransaction.py (SplitMediaTransactionData):  Move after its
 	superclass.  Fix indentation.
 	* yuminstall.py (YumSorter.doTsSetup):  Use SplitMediaTransactionData

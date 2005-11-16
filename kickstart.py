@@ -657,28 +657,36 @@ class Kickstart(BaseInstallClass):
         partitions.autoPartitionRequests.append(request)            
 
     def runPreScripts(self, intf = None):
+        preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE,
+                             self.ksdata.scripts)
+
+        if len(preScripts) == 0:
+            return
+
 	log.info("Running kickstart %%pre script(s)")
         if intf is not None:
             w = intf.waitWindow(_("Running..."),
                                 _("Running pre-install scripts"))
         
-	for script in filter (lambda s: s.type == KS_SCRIPT_PRE,
-                              self.ksdata.scripts):
-	    script.run("/", self.serial, intf)
+        map (lambda s: s.run("/", self.serial, intf), preScripts)
 
 	log.info("All kickstart %%pre script(s) have been run")
         if intf is not None:
             w.pop()
 
     def postAction(self, rootPath, serial, intf = None):
+        postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
+                              self.ksdata.scripts)
+
+        if len(postScripts) == 0:
+            return
+
 	log.info("Running kickstart %%post script(s)")
         if intf is not None:
             w = intf.waitWindow(_("Running..."),
                                 _("Running post-install scripts"))
             
-	for script in filter (lambda s: s.type == KS_SCRIPT_POST,
-                              self.ksdata.scripts):
-	    script.run(rootPath, serial, intf)
+        map (lambda s: s.run(rootPath, serial, intf), postScripts)
 
 	log.info("All kickstart %%post script(s) have been run")
         if intf is not None:
