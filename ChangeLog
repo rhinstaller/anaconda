@@ -1,3 +1,12 @@
+2005-11-16  Chris Lumens  <clumens@redhat.com>
+
+	* image.py, installmethod.py:  getRPMFilename takes a media number
+	instead of a header obj.  Use currentMedia everywhere.  Add
+	switchMedia method for images.
+	* sortedtransaction.py:  Handle AttributeError.  Logic fixes.
+	* yuminstall.py:  Move _getcd to top level.  Use package objs instead
+	of headers.  Handle transactions per-media image.
+
 2005-11-16  Jeremy Katz  <katzj@redhat.com>
 
 	* exception.py (dumpClass): Don't include backend.ayum because

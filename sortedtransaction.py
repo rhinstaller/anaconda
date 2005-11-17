@@ -73,8 +73,8 @@ class SplitMediaTransactionData(SortableTransactionData):
             if scheme != "media" or not fragid:
                 return 0
             else:
-                return fragid
-        except KeyError:
+                return int(fragid)
+        except (KeyError, AttributeError):
             return 0
 
     def getMembers(self, pkgtup=None):
@@ -82,7 +82,7 @@ class SplitMediaTransactionData(SortableTransactionData):
             return TransactionData.getMembers(self, pkgtup)
         if pkgtup is None:
             returnlist = []
-            for key in self.reqmedia[self.curmedia].values():
+            for key in self.reqmedia[self.curmedia]:
                 returnlist.extend(self.pkgdict[key])
 
             return returnlist
@@ -94,8 +94,11 @@ class SplitMediaTransactionData(SortableTransactionData):
 
     def add(self, txmember):
         id = self.__getMedia(txmember.po)
-        if id and id not in self.reqmedia.keys():
-            self.reqmedia[id].append(txmember.pkgtup)
+        if id:
+            if id not in self.reqmedia.keys():
+                self.reqmedia[id] = [ txmember.pkgtup ]
+            else:
+                self.reqmedia[id].append(txmember.pkgtup)
         SortableTransactionData.add(self, txmember)
 
     def remove(self, pkgtup):

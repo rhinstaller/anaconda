@@ -95,15 +95,12 @@ def presentRequiredMediaMessage(intf, grpset):
 
 class ImageInstallMethod(InstallMethod):
 
+    def switchMedia(self, mediano, filename=""):
+        pass
+
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 
-    def getRPMFilename(self, filename, h, timer, callback=None):
-        if self.currentIso is not None and self.currentIso != h[1000002]:
-            log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
-        self.currentIso = h[1000002]
-	return self.getFilename("%s/%s/RPMS/%s" % (self.tree,productPath,filename), callback=callback)
-        
     def getSourcePath(self):
         return self.tree
 
@@ -121,7 +118,6 @@ class ImageInstallMethod(InstallMethod):
 	InstallMethod.__init__(self, tree, rootPath, intf)
 	self.tree = tree
         self.splitmethod = True
-        self.currentIso = None
 
 class CdromInstallMethod(ImageInstallMethod):
 
@@ -130,7 +126,7 @@ class CdromInstallMethod(ImageInstallMethod):
         while done == 0:
             try:
                 isys.umount("/mnt/source")
-                self.currentDisc = []
+                self.currentMedia = []
                 break
             except Exception, e:
                 log.error("exception in unmountCD: %s" %(e,))
@@ -185,13 +181,13 @@ class CdromInstallMethod(ImageInstallMethod):
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 
-    def getRPMFilename(self, filename, h, timer, callback=None):
-        if h[1000002] == None or 1000002 not in h.keys():
+    def getRPMFilename(self, filename, mediano, timer, callback=None):
+        if mediano == 0:
             log.warning("header for %s has no disc location tag, assuming it's"
                         "on the current CD" %(filename,))
-        elif h[1000002] not in self.currentDisc:
+        elif mediano not in self.currentMedia:
 	    timer.stop()
-            log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
+            log.info("switching from iso %s to %s for %s" %(self.currentMedia, mediano, filename))
 
             if os.access("/mnt/source/.discinfo", os.R_OK):
                 f = open("/mnt/source/.discinfo")
@@ -203,14 +199,14 @@ class CdromInstallMethod(ImageInstallMethod):
             if self.timestamp is None:
                 self.timestamp = timestamp
 
-	    needed = h[1000002]
+	    needed = mediano
 
-            # if self.currentDisc is empty, then we shouldn't have anything
+            # if self.currentMedia is empty, then we shouldn't have anything
             # mounted.  double-check by trying to unmount, but we don't want
             # to get into a loop of trying to unmount forever.  if
-            # self.currentDisc is set, then it should still be mounted and
+            # self.currentMedia is set, then it should still be mounted and
             # we want to loop until it unmounts successfully
-            if not self.currentDisc:
+            if not self.currentMedia:
                 try:
                     isys.umount("/mnt/source")
                 except:
@@ -249,7 +245,7 @@ class CdromInstallMethod(ImageInstallMethod):
                                 arch == _arch and
                                 needed in discNum):
 				done = 1
-                                self.currentDisc = discNum
+                                self.currentMedia = discNum
 
 			if not done:
 			    isys.umount("/mnt/source")
@@ -297,7 +293,7 @@ class CdromInstallMethod(ImageInstallMethod):
                             arch == _arch and
                             needed in discNum):
 			    done = 1
-                            self.currentDisc = discNum
+                            self.currentMedia = discNum
                             # make /tmp/cdrom again so cd gets ejected
                             isys.makeDevInode(self.device, "/tmp/cdrom")
 
@@ -381,13 +377,13 @@ class CdromInstallMethod(ImageInstallMethod):
                 self.timestamp = f.readline().strip()
                 f.readline() # descr
                 f.readline() # arch
-                self.currentDisc = getDiscNums(f.readline().strip())
+                self.currentMedia = getDiscNums(f.readline().strip())
                 f.close()
             except:
-                self.currentDisc = [ 1 ]
+                self.currentMedia = [ 1 ]
                 self.timestamp = None
         else:                
-            self.currentDisc = [ 1 ]
+            self.currentMedia = [ 1 ]
         
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
 
@@ -398,8 +394,9 @@ class NfsInstallMethod(ImageInstallMethod):
         tree = method[5:]
 	ImageInstallMethod.__init__(self, tree, rootPath, intf)
         self.splitmethod = False
+        self.currentMedia = []
 
-    def getRPMFilename(self, filename, h, timer, callback=None):
+    def getRPMFilename(self, filename, mediano, timer, callback=None):
 	return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
 
 def getDiscNums(line):
@@ -492,25 +489,27 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.mntPoint + "/" + filename
-    
-    def getRPMFilename(self, filename, h, timer, callback=None):
-	if self.imageMounted != h[1000002]:
-            log.info("switching from iso %s to %s for %s-%s-%s.%s" %(self.imageMounted, h[1000002], h['name'], h['version'], h['release'], h['arch']))
-	    self.umountImage()
-	    self.mountImage(h[1000002])
 
+    def switchMedia(self, mediano, filename=""):
+	if mediano not in self.currentMedia:
+            log.info("switching from iso %s to %s for %s" %(self.currentMedia, mediano, filename))
+	    self.umountImage()
+	    self.mountImage(mediano)
+    
+    def getRPMFilename(self, filename, mediano, timer, callback=None):
+        self.switchMedia(mediano, filename=filename)
 	return self.getFilename("%s/RPMS/%s" % (productPath, filename))
 
     def umountImage(self):
-	if self.imageMounted:
+	if self.currentMedia:
 	    isys.umount(self.mntPoint)
 	    isys.makeDevInode("loop3", "/tmp/loop3")
 	    isys.unlosetup("/tmp/loop3")
 	    self.mntPoint = None
-	    self.imageMounted = 0
+	    self.currentMedia = []
 
     def mountImage(self, cdNum):
-	if (self.imageMounted):
+	if (self.currentMedia):
 	    raise SystemError, "trying to mount already-mounted iso image!"
 
 	isoImage = self.isoPath + '/' + self.discImages[cdNum]
@@ -520,7 +519,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	
 	isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
 	self.mntPoint = "/tmp/isomedia/"
-	self.imageMounted = cdNum
+	self.currentMedia = [ cdNum ]
 
     def filesDone(self):
         # if we can't unmount the cd image, we really don't care much
@@ -535,16 +534,16 @@ class NfsIsoInstallMethod(NfsInstallMethod):
         """@param method: nfsiso:/mnt/source"""
         tree = method[8:]
 	self.messageWindow = intf.messageWindow
-	self.imageMounted = None
 	self.isoPath = tree
 
 	# the tree points to the directory that holds the iso images
 	# even though we already have the main one mounted once, it's
 	# easiest to just mount it again so that we can treat all of the
 	# images the same way -- we use loop3 for everything
+        self.currentMedia = []
 
 	self.discImages = findIsoImages(tree, self.messageWindow)
 	self.mountImage(1)
-
 	ImageInstallMethod.__init__(self, self.mntPoint, rootPath, intf)
+
 

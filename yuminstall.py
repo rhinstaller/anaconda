@@ -24,6 +24,7 @@ import yum
 import yum.repos
 import yum.packages
 import yum.groups
+from yum.constants import *
 from yum.Errors import RepoError, YumBaseError
 from yum.packages import returnBestPackages
 from repomd.mdErrors import PackageSackError
@@ -44,6 +45,19 @@ import iutil
 import isys
 
 from whiteout import whiteout
+
+#XXX: this needs to be somewhere better - probably method
+def getcd(po):
+    try: 
+        uri = po.returnSimple('basepath')
+        (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
+        if scheme != "media" or not fragid:
+            return 0
+        else:
+            return int(fragid)
+    except KeyError:
+        return 0
+
 
 class simpleCallback:
 
@@ -94,22 +108,24 @@ class simpleCallback:
         if what == rpm.RPMCALLBACK_INST_OPEN_FILE:
             self.pkgTimer.start()
 
-            hdr, path = h
+            po = h
+            hdr = po.returnLocalHeader()
+            path = po.returnSimple('relativepath')
 
             self.progress.setPackage(hdr)
             self.progress.setPackageScale(0, 1)
 
-            self.instLog.write(self.modeText % (hdr[rpm.RPMTAG_NAME],
-                                                hdr[rpm.RPMTAG_VERSION],
-                                                hdr[rpm.RPMTAG_RELEASE],
-                                                hdr[rpm.RPMTAG_ARCH]))
+            self.instLog.write(self.modeText % (po.returnSimple('name'),
+                                                po.returnSimple('version'),
+                                                po.returnSimple('release'),
+                                                po.returnSimple('arch')))
 
             self.instLog.flush()
-            self.size = hdr[rpm.RPMTAG_SIZE]
+            self.size = po.returnSimple('installedsize')
 
-            fn = self.method.getRPMFilename(os.path.basename(path), hdr, None) 
+            fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None) 
             fd = os.open(fn, os.O_RDONLY)
-            nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
+            nvra = po.returnNevraPrintable()
             self.fdnos[nvra] = fd
             return fd
 
@@ -121,9 +137,13 @@ class simpleCallback:
             self.progress.setPackageScale(amount, total)
 
         elif what == rpm.RPMCALLBACK_INST_CLOSE_FILE:
-            hdr, path =h
-            fn = self.method.getRPMFilename(os.path.basename(path), hdr, None)
-            nvra = '%s-%s-%s.%s' % ( hdr['name'], hdr['version'], hdr['release'], hdr['arch'] )
+            po = h
+            hdr = po.returnLocalHeader()
+            path = po.returnSimple('relativepath')
+
+            fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None)
+            nvra = po.returnNevraPrintable()
+
             os.close(self.fdnos[nvra])
             self.method.unlinkFilename(fn)
             self.progress.completePackage(hdr, self.pkgTimer)
@@ -279,10 +299,63 @@ class AnacondaYum(yum.YumBase):
         pkgs = returnBestPackages(t)
         return map(lambda x: self.getPackageObject(x), pkgs)
 
-class YumSorter(yum.YumBase):
+#From yum depsolve.py
+    def populateTs(self, test=0, keepold=1):
+        """take transactionData class and populate transaction set"""
 
-    def __init__(self):
-        yum.YumBase.__init__(self)
+        if self.dsCallback: self.dsCallback.transactionPopulation()
+        ts_elem = {}
+        if keepold:
+            for te in self.ts:
+                epoch = te.E()
+                if epoch is None:
+                    epoch = '0'
+                pkginfo = (te.N(), te.A(), epoch, te.V(), te.R())
+                if te.Type() == 1:
+                    mode = 'i'
+                elif te.Type() == 2:
+                    mode = 'e'
+                
+                ts_elem[(pkginfo, mode)] = 1
+                
+        for txmbr in self.tsInfo.getMembers():
+            self.log(6, 'Member: %s' % txmbr)
+            if txmbr.ts_state in ['u', 'i']:
+                if ts_elem.has_key((txmbr.pkgtup, 'i')):
+                    continue
+                self.downloadHeader(txmbr.po)
+                hdr = txmbr.po.returnLocalHeader()
+                rpmfile = txmbr.po.localPkg()
+                
+                if txmbr.ts_state == 'u':
+                    if txmbr.po.name.startswith("kernel-module-"):
+                        self.handleKernelModule(txmbr)
+                    if self.allowedMultipleInstalls(txmbr.po):
+                        self.log(5, '%s converted to install' % (txmbr.po))
+                        txmbr.ts_state = 'i'
+                        txmbr.output_state = TS_INSTALL
+
+#XXX: Changed callback api to take a package object
+                self.ts.addInstall(hdr, txmbr.po, txmbr.ts_state)
+                self.log(4, 'Adding Package %s in mode %s' % (txmbr.po, txmbr.ts_state))
+                if self.dsCallback: 
+                    self.dsCallback.pkgAdded(txmbr.pkgtup, txmbr.ts_state)
+            
+            elif txmbr.ts_state in ['e']:
+                if ts_elem.has_key((txmbr.pkgtup, txmbr.ts_state)):
+                    continue
+                indexes = self.rpmdb.returnIndexByTuple(txmbr.pkgtup)
+                for idx in indexes:
+                    self.ts.addErase(idx)
+                    if self.dsCallback: self.dsCallback.pkgAdded(txmbr.pkgtup, 'e')
+                    self.log(4, 'Removing Package %s' % txmbr.po)
+
+
+class AnacondaYumMedia(AnacondaYum):
+
+    def __init__(self, fn="/etc/yum.conf", root="/", method=None):
+        AnacondaYum.__init__(self, fn, root)
+        self.method = method
         self.deps = {}
         self.path = []
         self.loops = []
@@ -291,7 +364,19 @@ class YumSorter(yum.YumBase):
     def run(self, instLog, cb, intf):
         self.initActionTs()
         self.setColor()
-        self.populateTs(keepold=0)
+        if len(self.tsInfo.reqmedia.keys()) == 0:
+            self.populateTs(keepold=0)
+            self.ts.check()
+            self.ts.order()
+            self._run(instLog, cb, intf)
+        else:
+            for i in self.tsInfo.reqmedia.keys():
+                self.tsInfo.curmedia = i
+                self.method.switchMedia(i)
+                self.populateTs(keepold=0)
+                self.ts.check()
+                self.ts.order()
+                self._run(instLog, cb, intf)
 
     def _provideToPkg(self, req):
         best = None
@@ -376,40 +461,6 @@ class YumSorter(yum.YumBase):
         self.initActionTs()
 
 
-class AnacondaYumMedia(AnacondaYum, YumSorter):
-    #XXX: depsolve/sort based on metadata
-    def __init__(self, fn="/etc/yum.conf", root="/"):
-        YumSorter.__init__(self)
-        AnacondaYum.__init__(self, fn=fn, root=root)
-
-    def _getcd(self, po):
-        try: 
-            uri = po.returnSimple('basepath')
-            (scheme, netloc, path, query, fragid) = urlparse.urlsplit(uri)
-            if scheme != "media" or not fragid:
-                return 0
-            else:
-                return fragid
-        except KeyError:
-            return 0
-
-    def downloadHeader(self, po):
-        h = YumHeader(po)
-        hdrpath = po.localHdr()
-        cd = self._getcd(po)
-#XXX: Hack, make yum pass around po in callback so we don't have to do this
-        if cd > 0:
-            pkgpath = po.returnSimple('relativepath')
-            pkgname = os.path.basename(pkgpath)
-            h.addTag(1000000, RPM_STRING, pkgname)
-            h.addTag(1000002, RPM_INT32, int(cd))
-            size = po.returnSimple('installedsize')
-            h.addTag(rpm.RPMTAG_SIZE, RPM_INT32, int(size))
-        f = open(hdrpath, 'w')
-        f.write(h.str())
-        f.close()
-        del(h)
-
 class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
@@ -417,10 +468,8 @@ class YumBackend(AnacondaBackend):
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
                                  configfile="/tmp/yum.conf", root=instPath)
         self.ac.write()
-        if self.method.splitmethod:
-            self.ayum = AnacondaYumMedia(fn="/tmp/yum.conf", root=instPath)
-        else:
-            self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath)
+        self.ayum = AnacondaYumMedia(fn="/tmp/yum.conf", root=instPath,
+                                     method=method)
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
