@@ -136,6 +136,10 @@ if __name__ == "__main__":
 	usage()
         sys.exit(1)
 
+    # Boo.
+    if arch == "i386":
+        arch = "i686"
+
     (toppath, arch, product) = args
     config = createConfig(toppath)
 
