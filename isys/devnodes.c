@@ -97,16 +97,17 @@ int devMakeInode(char * devName, char * path) {
     if (!strncmp(devName, "mapper/", 7)) {
         struct dm_task *task;
         struct dm_info *info = alloca(sizeof *info);
-        char *realName = devName + 7;
-        
-        if (!info || !*realName)
+
+        devName += 7;
+        if (!info || !*devName)
             return -3;
+
         memset(info, '\0', sizeof (*info));
         task = dm_task_create(DM_DEVICE_INFO);
         if (!task)
             return -3;
         
-        dm_task_set_name(task, realName);
+        dm_task_set_name(task, devName);
         i = dm_task_run(task);
         if (i < 0) {
             dm_task_destroy(task);
@@ -326,9 +327,8 @@ int devMakeInode(char * devName, char * path) {
     }
     
     unlink(path);
-    if (mknod(path, type | 0600, makedev(major, minor))) {
+    if (mknod(path, type | 0600, makedev(major, minor)) < 0)
 	return -2;
-    }
 
     return 0;
 }
