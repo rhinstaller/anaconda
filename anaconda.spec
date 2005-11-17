@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.20.1
+Version: 10.89.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.89.21-1
+- more tree build fixes
+- fix group removal 
+- non iso install fixes (clumens)
+- pkgorder fixing (clumens)
+- dmraid support (pjones)
+- crude language support group hack
+
 * Wed Nov 16 2005 Chris Lumens <clumens@redhat.com> 10.89.20.1-1
 - Fix indentation.
 
