@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.20
+Version: 10.89.20.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 16 2005 Chris Lumens <clumens@redhat.com> 10.89.20.1-1
+- Fix indentation.
+
 * Wed Nov 16 2005 Paul Nasrat <pnasrat@redhat.com> - 10.89.20-1
 - Restore YumSorter for pkgorder
 - Single anaconda installer yum class
