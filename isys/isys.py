@@ -312,6 +312,8 @@ def hardDriveDict():
         # the only raid devs like this are ide, so only worry about them
         if not dev.startswith("hd"):
             continue
+        # PJFIX right now, just don't do raid magic here at all
+        continue
         ret = _isys.hasIdeRaidMagic(dev)
         if ret is None:
             continue
