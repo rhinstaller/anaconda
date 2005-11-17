@@ -576,10 +576,38 @@ class YumBackend(AnacondaBackend):
         elif iutil.getArch() == "ia64":
             self.selectPackage("elilo")
 
+    def selectLanguageGroups(self):
+        import language
+        langToGroup = { "de": "german-support",
+                        "es": "spanish-support",
+                        "fr": "french-support",
+                        "it": "italian-support",
+                        "pt_BR": "brazilian-support",
+                        "ru": "russian-support",
+                        "ja": "japanese-support",
+                        "ko": "korean-support",
+                        "zh": "chinese-support",
+                        "cz": "czech-support",
+                        "hi": "hindi-suppot",
+                        "gu": "gujarati-support",
+                        "pa": "punjabi-support",
+                        "ta": "tamil-support",
+                        "bn": "bengali-support",
+                        "ar": "arabic-support",
+                        "ca": "catalan-support",
+                        "uk": "ukranian-support",
+                        "sv": "swedish-support" }
+        lang = os.environ["LANG"]
+        langs = language.expandLangs(lang)
+        for l in langs:
+            if langToGroup.has_key(l):
+                self.selectGroup(langToGroup[l])
+
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
+        self.selectLanguageGroups()
 
         dscb = YumDepSolveProgress(intf)
         self.ayum.dsCallback = dscb
