@@ -55,7 +55,7 @@ def getcd(po):
             return 0
         else:
             return int(fragid)
-    except KeyError:
+    except (AttributeError, KeyError):
         return 0
 
 

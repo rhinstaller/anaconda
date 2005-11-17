@@ -1,3 +1,9 @@
+2005-11-16  Chris Lumens  <clumens@redhat.com>
+
+	* urlinstall.py (UrlInstallMethod.getRPMFilename):  Fix to match
+	parameters in other classes.
+	* yuminstall.py (getcd):  Catch AttributeError for URL methods.
+
 2005-11-16  Jeremy Katz  <katzj@redhat.com>
 
 	* utils/trimpciids (f): Make a little bit more failure resistent
