@@ -1,5 +1,8 @@
 2005-11-17  Jeremy Katz  <katzj@redhat.com>
 
+	* sortedtransaction.py (SplitMediaTransactionData.remove): Don't
+	get confused if we've already removed the package from the ts.
+
 	* loader2/loader.c: dmraid flag handling
 
 2005-11-17  Jeremy Katz  <katzj@redhat.com>	

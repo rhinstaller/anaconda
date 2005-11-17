@@ -102,6 +102,8 @@ class SplitMediaTransactionData(SortableTransactionData):
         SortableTransactionData.add(self, txmember)
 
     def remove(self, pkgtup):
+        if not self.pkgdict.has_key(pkgtup):
+            return
         txmembers = self.pkgdict[pkgtup]
         if len(txmembers) > 0:
             for txmbr in txmembers:
