@@ -28,7 +28,7 @@ class PackageOrderer(YumSorter):
 
     def __init__(self, arch=None):
         YumSorter.__init__(self)
-	self.arch = arch
+        self.arch = arch
         self._installed = PackageSack()
 
     def addGroup(self, group):
