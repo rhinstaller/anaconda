@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.18
+Version: 10.89.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 16 2005 Jeremy Katz <katzj@redhat.com> - 10.89.19-1
+- Fix vt switching with modular X
+- Lots of CD install fixes (clumens, pnasrat)
+- Clean up exception dump stuff
+- Some more steps towards dm-raid support (pjones)
+- Log info messages
+
 * Wed Nov 16 2005 Jeremy Katz <katzj@redhat.com> - 10.89.18-1
 - remove new chinese font since its too big for cramfs (#172163)
 - Fix typo in trimpciids (notting)
