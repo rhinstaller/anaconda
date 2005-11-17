@@ -22,6 +22,9 @@ if f:
 		devices.append( (vend, dev) )
 
 for file in sys.argv[2:]:
+   if not os.path.exists(file):
+       sys.stderr.write("WARNING: non-existent file %s for trimpciids\n" %(file,))
+       continue
    f = open(file)
    if f:
 	pcitable = f.readlines()

@@ -1,3 +1,11 @@
+2005-11-16  Jeremy Katz  <katzj@redhat.com>
+
+	* utils/trimpciids (f): Make a little bit more failure resistent
+
+	* scripts/mk-images (INITRDMODS): More videoaliases fixage.
+
+	* scripts/buildinstall (BUILDINSTALL): Okay, don't do group info.
+
 2005-11-16  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.
@@ -7,6 +15,9 @@
 	* image.py:  CD Method switchMedia
 
 2005-11-16  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/buildinstall (BUILDINSTALL): Run createrepo quietly and
+	with the group info.
 
 	* scripts/mk-images (INITRDMODS): videoaliases changed.  no cookie
 	for notting.
