@@ -128,7 +128,8 @@ if __name__ == "__main__":
     parser.add_option("--debug", action="store_true", dest="debug", default=False)
     parser.add_option("--file", action="store", dest="file")
     parser.add_option("--product", action="store", dest="productPath", )
-    parser.add_option("--exclude", action="append", dest="excludeList")
+    parser.add_option("--exclude", action="append", dest="excludeList",
+                      default=[])
 
     (options, args) = parser.parse_args()
      
