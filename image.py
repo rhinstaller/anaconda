@@ -187,126 +187,7 @@ class CdromInstallMethod(ImageInstallMethod):
                         "on the current CD" %(filename,))
         elif mediano not in self.currentMedia:
 	    timer.stop()
-            log.info("switching from iso %s to %s for %s" %(self.currentMedia, mediano, filename))
-
-            if os.access("/mnt/source/.discinfo", os.R_OK):
-                f = open("/mnt/source/.discinfo")
-                timestamp = f.readline().strip()
-                f.close()
-            else:
-                timestamp = self.timestamp
-
-            if self.timestamp is None:
-                self.timestamp = timestamp
-
-	    needed = mediano
-
-            # if self.currentMedia is empty, then we shouldn't have anything
-            # mounted.  double-check by trying to unmount, but we don't want
-            # to get into a loop of trying to unmount forever.  if
-            # self.currentMedia is set, then it should still be mounted and
-            # we want to loop until it unmounts successfully
-            if not self.currentMedia:
-                try:
-                    isys.umount("/mnt/source")
-                except:
-                    pass
-            else:
-                self.unmountCD()
-
-	    done = 0
-
-	    cdlist = []
-	    for (dev, something, descript) in \
-		    kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
-                cdlist.append(dev)
-
-	    for dev in cdlist:
-		try:
-		    if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
-			       readOnly = 1):
-			if os.access("/mnt/source/.discinfo", os.R_OK):
-			    f = open("/mnt/source/.discinfo")
-			    newStamp = f.readline().strip()
-                            try:
-                                descr = f.readline().strip()
-                            except:
-                                descr = None
-                            try:
-                                arch = f.readline().strip()
-                            except:
-                                arch = None
-                            try:
-                                discNum = getDiscNums(f.readline().strip())
-                            except:
-                                discNum = [ 0 ]
-			    f.close()
-			    if (newStamp == timestamp and
-                                arch == _arch and
-                                needed in discNum):
-				done = 1
-                                self.currentMedia = discNum
-
-			if not done:
-			    isys.umount("/mnt/source")
-		except:
-		    pass
-
-		if done:
-		    break
-
-	    if not done:
-		isys.ejectCdrom(self.device)
-
-	    while not done:
-                if self.intf is not None:
-                    self.intf.beep()
-
-		self.messageWindow(_("Change CDROM"), 
-		    _("Please insert %s disc %d to continue.") % (productName,
-                                                                  needed))
-		try:
-		    if isys.mount(self.device, "/mnt/source", 
-				  fstype = "iso9660", readOnly = 1):
-			time.sleep(3)
-			isys.mount(self.device, "/mnt/source", 
-				   fstype = "iso9660", readOnly = 1)
-		    
-
-                    if os.access("/mnt/source/.discinfo", os.R_OK):
-                        f = open("/mnt/source/.discinfo")
-			newStamp = f.readline().strip()
-                        try:
-                            descr = f.readline().strip()
-                        except:
-                            descr = None
-                        try:
-                            arch = f.readline().strip()
-                        except:
-                            arch = None
-                        try:
-                            discNum = getDiscNums(f.readline().strip())
-                        except:
-                            discNum = [ 0 ]
-			f.close()
-                        if (newStamp == timestamp and
-                            arch == _arch and
-                            needed in discNum):
-			    done = 1
-                            self.currentMedia = discNum
-                            # make /tmp/cdrom again so cd gets ejected
-                            isys.makeDevInode(self.device, "/tmp/cdrom")
-
-		    if not done:
-			self.messageWindow(_("Wrong CDROM"),
-				_("That's not the correct %s CDROM.")
-                                           % (productName,))
-			isys.umount("/mnt/source")
-			isys.ejectCdrom(self.device)
-		except:
-		    self.messageWindow(_("Error"), 
-			    _("Unable to access the CDROM."))
-
+            self.switchMedia(mediano, filename)
 	    timer.start()
 
         # if we haven't read a timestamp yet, let's try to get one
@@ -339,6 +220,127 @@ class CdromInstallMethod(ImageInstallMethod):
             raise FileCopyException
                         
 	return tmppath + filename
+
+
+    def switchMedia(self, mediano, filename=""):
+         log.info("switching from CD %s to %s for %s" %(self.currentMedia, mediano, filename))
+        if os.access("/mnt/source/.discinfo", os.R_OK):
+            f = open("/mnt/source/.discinfo")
+            timestamp = f.readline().strip()
+            f.close()
+        else:
+            timestamp = self.timestamp
+
+        if self.timestamp is None:
+            self.timestamp = timestamp
+
+        needed = mediano
+
+        # if self.currentMedia is empty, then we shouldn't have anything
+        # mounted.  double-check by trying to unmount, but we don't want
+        # to get into a loop of trying to unmount forever.  if
+        # self.currentMedia is set, then it should still be mounted and
+        # we want to loop until it unmounts successfully
+        if not self.currentMedia:
+            try:
+                isys.umount("/mnt/source")
+            except:
+                pass
+        else:
+            self.unmountCD()
+
+        done = 0
+
+        cdlist = []
+        for (dev, something, descript) in \
+                kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
+            cdlist.append(dev)
+
+        for dev in cdlist:
+            try:
+                if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
+                           readOnly = 1):
+                    if os.access("/mnt/source/.discinfo", os.R_OK):
+                        f = open("/mnt/source/.discinfo")
+                        newStamp = f.readline().strip()
+                        try:
+                            descr = f.readline().strip()
+                        except:
+                            descr = None
+                        try:
+                            arch = f.readline().strip()
+                        except:
+                            arch = None
+                        try:
+                            discNum = getDiscNums(f.readline().strip())
+                        except:
+                            discNum = [ 0 ]
+                        f.close()
+                        if (newStamp == timestamp and
+                            arch == _arch and
+                            needed in discNum):
+                            done = 1
+                            self.currentMedia = discNum
+
+                    if not done:
+                        isys.umount("/mnt/source")
+            except:
+                pass
+
+            if done:
+                break
+
+        if not done:
+            isys.ejectCdrom(self.device)
+
+        while not done:
+            if self.intf is not None:
+                self.intf.beep()
+
+            self.messageWindow(_("Change CDROM"), 
+                _("Please insert %s disc %d to continue.") % (productName,
+                                                              needed))
+            try:
+                if isys.mount(self.device, "/mnt/source", 
+                              fstype = "iso9660", readOnly = 1):
+                    time.sleep(3)
+                    isys.mount(self.device, "/mnt/source", 
+                               fstype = "iso9660", readOnly = 1)
+                
+
+                if os.access("/mnt/source/.discinfo", os.R_OK):
+                    f = open("/mnt/source/.discinfo")
+                    newStamp = f.readline().strip()
+                    try:
+                        descr = f.readline().strip()
+                    except:
+                        descr = None
+                    try:
+                        arch = f.readline().strip()
+                    except:
+                        arch = None
+                    try:
+                        discNum = getDiscNums(f.readline().strip())
+                    except:
+                        discNum = [ 0 ]
+                    f.close()
+                    if (newStamp == timestamp and
+                        arch == _arch and
+                        needed in discNum):
+                        done = 1
+                        self.currentMedia = discNum
+                        # make /tmp/cdrom again so cd gets ejected
+                        isys.makeDevInode(self.device, "/tmp/cdrom")
+
+                if not done:
+                    self.messageWindow(_("Wrong CDROM"),
+                            _("That's not the correct %s CDROM.")
+                                       % (productName,))
+                    isys.umount("/mnt/source")
+                    isys.ejectCdrom(self.device)
+            except:
+                self.messageWindow(_("Error"), 
+                        _("Unable to access the CDROM."))
 
     def unlinkFilename(self, fullName):
         os.remove(fullName)
