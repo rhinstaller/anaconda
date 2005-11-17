@@ -21,6 +21,7 @@
 import sys
 import block
 import parted
+import raid
 
 import logging
 log = logging.getLogger("anaconda.dmraid")
@@ -32,57 +33,13 @@ import isys
 # controlers. -pj
 dmraidBootArches = [ "i386", "x86_64" ]
 
+cachedDrives = {}
+
 class DegradedRaidWarning(Warning):
     def __init__(self, *args):
         self.args = args
     def __str__(self):
         return self.args and ('%s' % self.args[0]) or repr(self)
-
-def getRaidSetDisks(rs, descend=False):
-    """Builds a list of disks used by a dmraid set
-
-    rs is a block.dmraid.raidset instance
-    Returns a list of parted.PedDevice instances.
-    """
-
-    if not isinstance(rs, block.dmraid.raidset):
-        raise TypeError, "getRaidSetInfo needs raidset, got %s" % (rs.__type__,)
-
-    devs = []
-    for c in rs.children:
-        if isinstance(c, block.dmraid.raiddev):
-            dev = parted.PedDevice.get(c.device.path)
-            devs.append(dev)
-        elif descend and isinstance(c, block.dmraid.raidset): 
-            devs += getRaidSetDisks(c)
-    return devs
-
-# This is a placeholder, because "spares" isn't implemented in
-# block.dmraid.raidset yet; once dmraid has support for SNIA DDF or
-# fake raid 5, I'll add it. -pj
-def getRaidSetSpareDisks(rs, descend=False):
-    """Builds a list of disks used as spares by a dmraid set
-
-    rs is a block.dmraid.raidset instance
-    Returns a list of parted.PedDevice instances.
-    """
-
-    if not isinstance(rs, block.dmraid.raidset):
-        raise TypeError, "getRaidSetInfo needs raidset, got %s" % (rs.__type__,)
-
-    devs = []
-    if hasattr(rs, 'spares'):
-        for c in rs.spares:
-            if isinstance(c, block.dmraid.raiddev):
-                dev = parted.PedDevice.get(c.device.path)
-                devs.append(dev)
-            elif descend and isinstance(c, block.dmraid.raidset): 
-                devs += getRaidSetSpareDisks(c, descend)
-    # children might have spares, too.
-    for c in rs.children:
-        if descend and isinstance(c, block.dmraid.raidset):
-            devs += getRaidSetSpareDisks(c, descend)
-    return devs
 
 def getRaidSetInfo(rs):
     """Builds information about a dmraid set
@@ -93,42 +50,37 @@ def getRaidSetInfo(rs):
       (raidSet, parentRaidSet, devices, level, nrDisks, totalDisks)
     """
 
-    if not isinstance(rs, block.dmraid.raidset):
-        raise TypeError, "getRaidSetInfo needs raidset, got %s" % (rs.__type__,)
+    if not isinstance(rs, block.RaidSet):
+        raise TypeError, "getRaidSetInfo needs raidset, got %s" % (rs.__class__,)
 
-    sets = []
-    for c in rs.children:
-        if isinstance(c, block.dmraid.raidset):
-            infos = getRaidSetInfo(c)
+    for m in rs.members:
+        if isinstance(m, block.RaidSet):
+            infos = getRaidSetInfo(m)
             for info in infos:
                 if info[1] is None:
                     info[1] = rs
-            sets += infos
+                yield info
 
     try:
         parent = None
 
-        devs = getRaidSetDisks(rs)
-        sparedevs = getRaidSetSpareDisks(rs)
+        devs = list(rs.members)
+        sparedevs = list(rs.spares)
 
         totalDisks = len(devs) + len(sparedevs)
         nrDisks = len(devs)
         devices = devs + sparedevs
 
-        # XXX missing some types here -pj
-        dmtype2level = { 'stripe': 0, 'mirror': 1, }
-        level = dmtype2level[rs.dmtype]
+        level = rs.level
 
-        sets.append((rs, parent, devices, level, nrDisks, totalDisks))
+        yield (rs, parent, devices, level, nrDisks, totalDisks)
     except:
         # something went haywire
         log.error("Exception occurred reading info for %s: %s" % \
             (repr(rs), (sys.exc_type, ))) # XXX PJFIX sys.exc_info)))
         raise
 
-    return sets
-
-def scanForRaid(drives):
+def scanForRaid(drives, degradedOk=False):
     """Scans for dmraid devices on drives.
 
     drives is a list of device names.
@@ -136,6 +88,7 @@ def scanForRaid(drives):
       tuples.
     """
 
+    log.debug("scanning for dmraid on drives %s" % (drives,))
     Sets = {}
     Devices = {}
 
@@ -145,48 +98,99 @@ def scanForRaid(drives):
         isys.makeDevInode(d, dp)
         probeDrives.append(dp)
     
-    dmsets = block.RaidSets(probeDrives)
-    rets = []
+    dmsets = block.getRaidSets(probeDrives)
     for dmset in dmsets:
         infos = getRaidSetInfo(dmset)
-
         for info in infos:
-            rets.append(info)
+            rs = info[0]
+            log.debug("got raidset %s" % (rs,))
+
+            # XXX not the way to do this; also, need to inform the user
+            if rs.rs.total_devs > rs.rs.found_devs \
+                    and not degradedOk:
+                #raise DegradedRaidWarning, rs
+                continue
             #(rs, parent, devices, level, nrDisks, totalDisks) = info
-    return rets
+            # XXX ewwwww, what a hack.
+            isys.cachedDrives["mapper/" + rs.name] = rs
+            drives = []
+            for m in rs.members:
+                if isinstance(m, block.RaidDev):
+                    disk = m.rd.device.path.split('/')[-1]
+                    if isys.cachedDrives.has_key(disk):
+                        drives.append({disk:isys.cachedDrives[disk]})
+                        del isys.cachedDrives[disk]
+            cachedDrives[rs] = drives
+            yield info
 
-def startRaidDev(rs, degradedOk=False):
-    if rs.total_devs > rs.found_devs and not degradedOk:
-        raise DegradedRaidWarning, rs
-    name = str(rs)
-    table = rs.dmTable
-
-    block.dm.map(name=name, table=table)
+def startRaidDev(rs):
+    rs.prefix = '/tmp/mapper/'
+    log.debug("starting raid %s with mknod=True" % (rs,))
+    rs.activate(mknod=True)
 
 def startAllRaid(driveList):
     """Do a raid start on raid devices and return a list like scanForRaid."""
-    rc = []
+    log.debug("starting all dmraids on drives %s" % (driveList,))
     dmList = scanForRaid(driveList)
     for dmset in dmList:
-        rs, parent, devices, level, nrDisks, totalDisks = dmset
-        startRaidDev(rs, False)
-        rc.append(dmset)
+        rs = dmset[0]
+        startRaidDev(rs)
+        yield dmset
 
-    return rc
+def stopRaidSet(rs):
+    log.debug("stopping raid %s" % (rs,))
+    if isys.cachedDrives.has_key("mapper/" + rs.name):
+        del isys.cachedDrives["mapper/" + rs.name]
+    if cachedDrives.has_key(rs):
+        for item in cachedDrives[rs]:
+            isys.cachedDrives[item.keys()[0]] = item.values()[0]
+
+    rs.deactivate()
+    #block.removeDeviceMap(map)
 
 def stopAllRaid(dmList):
     """Do a raid stop on each of the raid device tuples given."""
 
-    maplist = block.dm.list()
-    maps = {}
-    for m in maplist:
-        maps[m.name] = m
-    del maplist
-        
-    for dmset in dmList:
-        name = str(dmset[0])
-        map = maps[name]
-        try:
-            map.remove()
-        except:
-            pass
+    import traceback as _traceback
+    stack = _traceback.format_stack()
+    for frame in stack:
+        log.debug(frame)
+    log.debug("stopping all dmraids")
+    for rs in dmList:
+        stopRaidSet(rs[0])
+
+def isRaid6(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID6."""
+    return False
+
+def isRaid5(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID5."""
+    return False
+
+def isRaid1(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID1."""
+    return raid.isRaid1(raidlevel)
+
+def isRaid0(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID1."""
+    return raid.isRaid0(raidlevel)
+
+def get_raid_min_members(raidlevel):
+    """Return the minimum number of raid members required for raid level"""
+    return raid.get_raid_min_members(raidlevel)
+
+def get_raid_max_spares(raidlevel, nummembers):
+    """Return the maximum number of raid spares for raidlevel."""
+    return raid.get_raid_max_spares(raidlevel, nummembers)
+
+def register_raid_device(dmname, newdevices, newlevel, newnumActive):
+    """Register a new RAID device in the dmlist."""
+    raise NotImplementedError
+
+def lookup_raid_device(dmname):
+    """Return the requested RAID device information."""
+    for rs, parent, devices, level, nrDisks, totalDisks in \
+            partedUtils.DiskSet.dmList:
+        if dmname == rs.name:
+            return (rs.name, devices, level, totalDisks)
+    raise KeyError, "dm device not found"
