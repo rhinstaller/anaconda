@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.2
+Version: 10.90.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -31,6 +31,7 @@ Group: Applications/System
 AutoReqProv: false
 Requires: libxml2-python, python, rpm-python >= 4.2-0.61, yum >= 2.4.0
 Requires: anaconda = %{version}-%{release}
+Requires: createrepo >= 0.4.3-3.1
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
@@ -77,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 17 2005 Paul Nasrat <pnasrat@redhat.com> - 10.90.3-1
+- Add group processing to buildinstall
+- Add createrepo requires
+
 * Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.90.2-1
 - more pkgorder fixing (clumens)
 - fix cd installs to not fall into the "not a real install method" case :)
