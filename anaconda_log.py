@@ -20,7 +20,7 @@ import sys
 import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 
-DEFAULT_LEVEL = logging.WARNING
+DEFAULT_LEVEL = logging.INFO
 
 logFile = "/tmp/anaconda.log"
 
