@@ -102,12 +102,14 @@ class SplitMediaTransactionData(SortableTransactionData):
         SortableTransactionData.add(self, txmember)
 
     def remove(self, pkgtup):
-        txmember = self.pkgdict[pkgtup]
-        id = self.__getMedia(txmember.po)
-        if id:
-           self.reqmedia[id].remove(pktup)
-        del txmember
-        SortableTransactionData.remove(self, pkgtup)
+        txmembers = self.pkgdict[pkgtup]
+        if len(txmembers) > 0:
+            for txmbr in txmembers:
+                id = self.__getMedia(txmbr.po)
+                if id:
+                    self.reqmedia[id].remove(pktup)
+                del txmbr
+                SortableTransactionData.remove(self, pkgtup)
 
 class TransactionConstraintMetError(YumBaseError):
     def __init__(self, args=None):
