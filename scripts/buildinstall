@@ -153,9 +153,9 @@ fi
 
 echo "Creating repository metadata..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "createrepo $p"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "createrepo -q -g $PRODUCTPATH/base/comps.xml $p"
 else
-   createrepo $p
+   createrepo -q -g $PRODUCTPATH/base/comps.xml $p
 fi
 
 if [ -n "$PKGORDER" ]; then
