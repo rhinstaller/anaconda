@@ -22,6 +22,7 @@ import sys
 import block
 import parted
 import raid
+from flags import flags
 
 import logging
 log = logging.getLogger("anaconda.dmraid")
@@ -124,12 +125,17 @@ def scanForRaid(drives, degradedOk=False):
             yield info
 
 def startRaidDev(rs):
+    if flags.dmraid == 0:
+        return
     rs.prefix = '/tmp/mapper/'
     log.debug("starting raid %s with mknod=True" % (rs,))
     rs.activate(mknod=True)
 
 def startAllRaid(driveList):
     """Do a raid start on raid devices and return a list like scanForRaid."""
+
+    if flags.dmraid == 0:
+        return
     log.debug("starting all dmraids on drives %s" % (driveList,))
     dmList = scanForRaid(driveList)
     for dmset in dmList:
@@ -138,6 +144,8 @@ def startAllRaid(driveList):
         yield dmset
 
 def stopRaidSet(rs):
+    if flags.dmraid == 0:
+        return
     log.debug("stopping raid %s" % (rs,))
     if isys.cachedDrives.has_key("mapper/" + rs.name):
         del isys.cachedDrives["mapper/" + rs.name]
@@ -151,6 +159,8 @@ def stopRaidSet(rs):
 def stopAllRaid(dmList):
     """Do a raid stop on each of the raid device tuples given."""
 
+    if flags.dmraid == 0:
+        return
     import traceback as _traceback
     stack = _traceback.format_stack()
     for frame in stack:
