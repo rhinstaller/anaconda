@@ -244,7 +244,8 @@ class YumSorter(yum.YumBase):
                 try:
                     dep = self.deps[req]
                 except KeyError, e:
-                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
+                    log.warning("Unresolvable dependancy %s in %s" %(req[0], txmbr.name))
+#                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
 
                 # Skip filebased requires on self, etc
                 if txmbr.name == dep.name:
@@ -387,7 +388,7 @@ class AnacondaYum(YumSorter):
         """Return a list of the packages which should be installed.
         Note that it's a list because of multilib!"""
         if pkgarch:
-            pkgs = self.pkgSack.returnNewestByName(pkgname, pkgarch)
+            pkgs = self.pkgSack.returnNewestByNameArch((pkgname, pkgarch))
         else:
             pkgs = self.pkgSack.returnNewestByName(pkgname)
         if len(pkgs) <= 1: # 0 or 1, just return it
