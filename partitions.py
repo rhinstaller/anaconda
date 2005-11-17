@@ -85,6 +85,7 @@ class Partitions:
         """Clear the delete list and set self.requests to reflect disk."""
         self.deletes = []
         self.requests = []
+        diskset.startDmRaid()
         diskset.refreshDevices()
         labels = diskset.getLabels()
         drives = diskset.disks.keys()
@@ -1287,7 +1288,7 @@ class Partitions:
                     delete.setDeleted(1)
 
         lvm.vgdeactivate()
-        diskset.stopAllRaid()
+        diskset.stopAllRaid(stopDmRaid=False)
 
 
     def deleteDependentRequests(self, request):
