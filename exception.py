@@ -58,7 +58,8 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "id.rootPassword",
 		    "id.tmpData",
 		    "id.xsetup.xhwstate.monitor.monlist",
-		    "id.xsetup.xhwstate.monitor.monids"
+		    "id.xsetup.xhwstate.monitor.monids",
+                    "backend.ayum"
 		   ]
 
     # protect from loops

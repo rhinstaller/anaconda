@@ -1,5 +1,8 @@
 2005-11-16  Jeremy Katz  <katzj@redhat.com>
 
+	* exception.py (dumpClass): Don't include backend.ayum because
+	it's a ton of (not overly useful) stuff.
+
 	* anaconda_log.py (DEFAULT_LEVEL): Back to info for default.
 	* loader2/log.c: Likewise.
 
