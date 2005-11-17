@@ -314,7 +314,7 @@ makemoduleball() {
     
     # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
-      $TRIMPCIIDS ../modules.alias $XDRIVERS $XDRIVERS/* > ../pci.ids
+      $TRIMPCIIDS ../modules.alias $XDRIVERS/* > ../pci.ids
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd
