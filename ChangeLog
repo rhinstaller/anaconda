@@ -1,3 +1,15 @@
+2005-11-16  Peter Jones  <pjones@redhat.com>
+
+	* isys/devnodes.c: clean code up some
+	* dmraid.py: rework disk/spare listing to use class methods.
+	play 3-card-monte with isys.cachedDrives so you can partition dmraids.
+	use flags.dmraid.
+	* isys/isys.py: don't do special pdc raid magic
+	* partitions.py: don't down dmraid devices before partitioning
+	* raid.py: make isRaidX() functions return true/false
+	* anaconda: cleanup line beginnings (spaces vs tabs vs waaaa)
+	add dmraid flags
+	* flags.py: add dmraid flags
 2005-11-16  Chris Lumens  <clumens@redhat.com>
 
 	* urlinstall.py (UrlInstallMethod.getRPMFilename):  Fix to match
