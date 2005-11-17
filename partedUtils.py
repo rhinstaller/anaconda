@@ -25,6 +25,8 @@ from product import *
 import fsset
 import iutil, isys
 import raid
+if not iutil.getArch() in ('s390','s390x'):
+    import dmraid
 import lvm
 from flags import flags
 from partErrors import *
@@ -533,6 +535,8 @@ class DiskSet:
 
     skippedDisks = []
     mdList = []
+    dmList = None
+
     def __init__ (self):
         self.disks = {}
         self.onlyPrimary = None
@@ -544,21 +548,70 @@ class DiskSet:
 
         return 1
         
-
-    def startAllRaid(self):
-        """Start all of the raid devices associated with the DiskSet."""
+    def startDmRaid(self):
+        """Start all of the dmraid devices associated with the DiskSet."""
         driveList = []
         origDriveList = self.driveList()
         for drive in origDriveList:
             if not drive in DiskSet.skippedDisks:
                 driveList.append(drive)
+        dmList = dmraid.startAllRaid(driveList) or []
+        if DiskSet.dmList is None:
+            DiskSet.dmList = []
+
+            DiskSet.dmList.extend(dmList)
+            for dmset in dmList:
+                DiskSet.skippedDisks.extend(dmset[3])
+                rs = dmset[0]
+
+            dmDriveList = []
+            for dms in dmList:
+                dmDriveList.extend(dms[0].members)
+            for drive in origDriveList:
+                if not drive in dmDriveList:
+                    driveList.append(drive)
+
+    def startAllRaid(self):
+        """Start all of the raid devices associated with the DiskSet."""
+        if not iutil.getArch() in ('s390','s390x'):
+            self.startDmRaid()
+        driveList = []
+        origDriveList = self.driveList()
+        for drive in origDriveList:
+            # XXX PJFIX this is horrible.
+            if not iutil.getArch() in ('s390','s390x'):
+                if not drive in DiskSet.skippedDisks:
+                    if not isinstance(DiskSet.dmList, [].__class__) or \
+                            not drive in DiskSet.dmList:
+                        driveList.append(drive)
+            else:
+                if drive in DiskSet.skippedDisks:
+                    driveList.append(drive)
+                
         DiskSet.mdList.extend(raid.startAllRaid(driveList))
 
-    def stopAllRaid(self):
+    def stopDmRaid(self):
+        """Stop all of the dmraid devices associated with the DiskSet."""
+        members = []
+        raids = DiskSet.dmList
+        if not isinstance(raids, [].__class__):
+            return
+        #for rs in raids:
+        #    members.extend(list(rs[0].members))
+        origDriveList = self.driveList()
+            
+        dmraid.stopAllRaid(DiskSet.dmList)
+        while DiskSet.dmList:
+            DiskSet.dmList.pop()
+        DiskSet.dmList = None
+
+    def stopAllRaid(self, stopDmRaid=True):
         """Stop all of the raid devices associated with the DiskSet."""
         raid.stopAllRaid(DiskSet.mdList)
         while DiskSet.mdList:
             DiskSet.mdList.pop()
+        if not iutil.getArch() in ('s390','s390x') and stopDmRaid:
+            self.stopDmRaid()
 
     def getLabels(self):
         """Return a list of all of the labels used on partitions."""
@@ -578,6 +631,16 @@ class DiskSet:
                 label = isys.readFSLabel(node)
                 if label:
                     labels[node] = label
+
+        # not doing this right now, because we should _always_ have a
+        # partition table of some kind.
+        if False and not iutil.getArch() in ('s390','s390x') and \
+                isinstance(DiskSet.dmList, [].__class__):
+            for info in DiskSet.dmList:
+                rs = info[0]
+                label = isys.readFSLabel(rs.name)
+                if label:
+                    labels[rs.name] = label
 
         for dev, devices, level, numActive in DiskSet.mdList:
             label = isys.readFSLabel(dev)
@@ -834,7 +897,14 @@ class DiskSet:
         """Open the disks on the system and skip unopenable devices."""
         if self.disks:
             return
-        for drive in self.driveList ():
+        if not iutil.getArch() in ("s390", "s390x"):
+            if not isinstance(DiskSet.dmList, [].__class__):
+                print "starting raids"
+                self.startDmRaid()
+                print "done starting raids.  Drivelist: "
+                for drive in self.driveList():
+                    print "  %s" % (drive,)
+        for drive in self.driveList():
             if drive in DiskSet.skippedDisks and not initAll:
                 continue
             deviceFile = isys.makeDevInode(drive)
