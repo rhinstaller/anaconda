@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.21
+Version: 10.90.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,7 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.89.21-1
+* Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.90.0
 - more tree build fixes
 - fix group removal 
 - non iso install fixes (clumens)
