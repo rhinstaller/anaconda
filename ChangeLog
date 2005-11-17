@@ -1,5 +1,7 @@
 2005-11-17  Jeremy Katz  <katzj@redhat.com>
 
+	* flags.py (Flags.__init__): dmraid is off by default.
+
 	* sortedtransaction.py (SplitMediaTransactionData.remove): Don't
 	get confused if we've already removed the package from the ts.
 
