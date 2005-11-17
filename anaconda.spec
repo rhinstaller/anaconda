@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.0
+Version: 10.90.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.90.1-1
+- add handling for dmraid/nodmraid
+- fix removals of packages which have already been removed
+- turn off dmraid by default
+- fix pkgorder (clumens)
+
 * Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.90.0
 - more tree build fixes
 - fix group removal 
