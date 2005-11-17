@@ -1075,7 +1075,7 @@ if method:
     if method.startswith('cdrom://'):
 	from image import CdromInstallMethod
 	methodobj = CdromInstallMethod(method, rootPath, intf)
-    if method.startswith('nfs:/'):
+    elif method.startswith('nfs:/'):
 	from image import NfsInstallMethod
 	methodobj = NfsInstallMethod(method, rootPath, intf)
     elif method.startswith('nfsiso:/'):
