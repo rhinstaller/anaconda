@@ -982,8 +982,9 @@ rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
 
 # FIXME: hack for Xvnc's wrong font path
-mkdir -p $DESTGR/usr/X11R6/$LIBDIR/X11
+mkdir -p $DESTGR/usr/X11R6/$LIBDIR/X11 $DESTGR/usr/X11R7/$LIBDIR/X11
 ln -s ../../../share/X11/fonts $DESTGR/usr/X11R6/$LIBDIR/X11/fonts
+ln -s ../../../share/X11/fonts $DESTGR/usr/X11R7/$LIBDIR/X11/fonts
 
 # fixup joe links
 ln -fs jpicorc $DESTGR/etc/joe/picorc

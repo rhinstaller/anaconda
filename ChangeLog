@@ -1,10 +1,18 @@
+2005-11-17  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: vnc hack me harder...
+
+	* yuminstall.py (YumSorter.tsCheck): Don't traceback on
+	unresolvable deps.
+	(AnacondaYum.getBestPackages): Fix pkg.arch for %packages
+
 2005-11-17  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.
 
 	* scripts/buildinstall: Groups for createrepo
 
-2005-11-17  Jeremy Katz  <katzj@redhat.com>
+2005-11-17  Jeremy Katz  <katzj@redhat.com>	
 
 	* anaconda.spec: Bump version.
 
