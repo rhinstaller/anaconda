@@ -136,12 +136,12 @@ if __name__ == "__main__":
 	usage()
         sys.exit(1)
 
+    (toppath, arch, product) = args
+    config = createConfig(toppath)
+
     # Boo.
     if arch == "i386":
         arch = "i686"
-
-    (toppath, arch, product) = args
-    config = createConfig(toppath)
 
     for pattern in ["kernel-[0-9]*", "kernel-smp-[0-9]*"]:
         printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, pattern))
