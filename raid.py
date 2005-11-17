@@ -140,43 +140,27 @@ def stopAllRaid(mdList):
 
 def isRaid6(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID6."""
-    if raidlevel == "RAID6":
-        return 1
-    elif raidlevel == 6:
-        return 1
-    elif raidlevel == "6":
-        return 1
-    return 0
+    if raidlevel in ("RAID6", "6", 6):
+        return True
+    return False
 
 def isRaid5(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID5."""
-    if raidlevel == "RAID5":
-        return 1
-    elif raidlevel == 5:
-        return 1
-    elif raidlevel == "5":
-        return 1
-    return 0
+    if raidlevel in ("RAID5", "5", 5):
+        return True
+    return False
 
 def isRaid1(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID1."""
-    if raidlevel == "RAID1":
-        return 1
-    elif raidlevel == 1:
-        return 1
-    elif raidlevel == "1":
-        return 1
-    return 0
+    if raidlevel in ("mirror", "RAID1", "1", 1):
+        return True
+    return False
 
 def isRaid0(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID0."""
-    if raidlevel == "RAID0":
-        return 1
-    elif raidlevel == 0:
-        return 1
-    elif raidlevel == "0":
-        return 1
-    return 0
+    if raidlevel in ("stripe", "RAID0", "0", 0):
+        return True
+    return False
 
 def get_raid_min_members(raidlevel):
     """Return the minimum number of raid members required for raid level"""
