@@ -190,11 +190,103 @@ gpgkey=%s/RPM-GPG-KEY-fedora
         f = open(self.configfile, 'w')
         f.write(self.yumconfstr)
         f.close()
+
+class YumSorter(yum.YumBase):
     
-class AnacondaYum(yum.YumBase):
-    def __init__(self, fn="/etc/yum.conf", root="/"):
+    def __init__(self):
         yum.YumBase.__init__(self)
+        self.deps = {}
+        self.path = []
+        self.loops = []
+        self.whiteout = whiteout.split()
+
+    def _provideToPkg(self, req):
+        best = None
+        (r, f, v) = req
+
+        satisfiers = []
+        for po in self.whatProvides(r, f, v):
+            if po.name not in satisfiers:
+                satisfiers.append(po)
+
+        if satisfiers:
+            best = self.bestPackageFromList(satisfiers) 
+            self.deps[req] = best
+        # raise resolution error
+
+    def resolveDeps(self):
+        CheckDeps = 1
+
+        if self.dsCallback: self.dsCallback.start()
+
+        while CheckDeps > 0:
+            if self.dsCallback: self.dsCallback.tscheck()
+            unresolved = self.tsCheck()
+            CheckDeps = len(unresolved)
+
+        return (2, ['Success - deps resolved'])
+
+    def tsCheck(self):
+        unresolved = []
+        for txmbr in self.tsInfo.getMembers():
+            reqs = txmbr.po.returnPrco('requires')
+            provs = txmbr.po.returnPrco('provides')
+            reqs.sort()
+
+            for req in reqs:
+                if req[0].startswith('rpmlib(') or req[0].startswith('config('):
+                    continue
+#XXX: handle unresolvable dep
+                if req in provs:
+                    continue
+                if req not in self.deps.keys():
+                    self._provideToPkg(req)
+                try:
+                    dep = self.deps[req]
+                except KeyError, e:
+                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
+
+                # Skip filebased requires on self, etc
+                if txmbr.name == dep.name:
+                    continue
+
+                if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
+                    continue
+#XXX: handle in rpmdb too for upgrades
+                #if pkgs:
+                #    member = self.bestPackageFromList(pkgs)
+                #else:
+                if self.tsInfo.exists(dep.pkgtup):
+                    pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
+                    member = self.bestPackageFromList(pkgs)
+                else:
+                    member = self.tsInfo.addInstall(dep)
+                    unresolved.append(dep)
+#Add relationship
+                firstelts = map(lambda tup: tup[0], txmbr.relatedto)
+                if member.po.pkgtup not in firstelts:
+                    txmbr.setAsDep(member.po.pkgtup)
+
+        return unresolved
+
+    def doTsSetup(self):
+        if hasattr(self, 'read_ts'):
+            return
+
+        if not self.conf.installroot:
+            raise yum.Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
+
+        installroot = self.conf.installroot
+        self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
+        self.tsInfo = SplitMediaTransactionData()
+        self.rpmdb = rpmUtils.RpmDBHolder()
+        self.initActionTs()
+   
+class AnacondaYum(YumSorter):
+    def __init__(self, fn="/etc/yum.conf", root="/", method=None):
+        YumSorter.__init__(self)
         self.doConfigSetup(fn, root)
+        self.method = method
         self.macros = {}
         if flags.selinux:
             for dir in ("/tmp/updates", "/mnt/source/RHupdates",
@@ -250,10 +342,19 @@ class AnacondaYum(yum.YumBase):
     def run(self, instLog, cb, intf):
         self.initActionTs()
         self.setColor()
-        self.populateTs(keepold=0)
-        self.ts.check()
-        self.ts.order()
-        self._run(instLog, cb, intf)
+        if len(self.tsInfo.reqmedia.keys()) == 0:
+            self.populateTs(keepold=0)
+            self.ts.check()
+            self.ts.order()
+            self._run(instLog, cb, intf)
+        else:
+            for i in self.tsInfo.reqmedia.keys():
+                self.tsInfo.curmedia = i
+                self.method.switchMedia(i)
+                self.populateTs(keepold=0)
+                self.ts.check()
+                self.ts.order()
+                self._run(instLog, cb, intf)
 
     def _run(self, instLog, cb, intf):
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
@@ -350,117 +451,6 @@ class AnacondaYum(yum.YumBase):
                     if self.dsCallback: self.dsCallback.pkgAdded(txmbr.pkgtup, 'e')
                     self.log(4, 'Removing Package %s' % txmbr.po)
 
-
-class AnacondaYumMedia(AnacondaYum):
-
-    def __init__(self, fn="/etc/yum.conf", root="/", method=None):
-        AnacondaYum.__init__(self, fn, root)
-        self.method = method
-        self.deps = {}
-        self.path = []
-        self.loops = []
-        self.whiteout = whiteout.split()
-
-    def run(self, instLog, cb, intf):
-        self.initActionTs()
-        self.setColor()
-        if len(self.tsInfo.reqmedia.keys()) == 0:
-            self.populateTs(keepold=0)
-            self.ts.check()
-            self.ts.order()
-            self._run(instLog, cb, intf)
-        else:
-            for i in self.tsInfo.reqmedia.keys():
-                self.tsInfo.curmedia = i
-                self.method.switchMedia(i)
-                self.populateTs(keepold=0)
-                self.ts.check()
-                self.ts.order()
-                self._run(instLog, cb, intf)
-
-    def _provideToPkg(self, req):
-        best = None
-        (r, f, v) = req
-
-        satisfiers = []
-        for po in self.whatProvides(r, f, v):
-            if po.name not in satisfiers:
-                satisfiers.append(po)
-
-        if satisfiers:
-            best = self.bestPackageFromList(satisfiers) 
-            self.deps[req] = best
-        # raise resolution error
-
-    def resolveDeps(self):
-        CheckDeps = 1
-
-        if self.dsCallback: self.dsCallback.start()
-
-        while CheckDeps > 0:
-            if self.dsCallback: self.dsCallback.tscheck()
-            unresolved = self.tsCheck()
-            CheckDeps = len(unresolved)
-
-        return (2, ['Success - deps resolved'])
-
-    def tsCheck(self):
-        unresolved = []
-        for txmbr in self.tsInfo.getMembers():
-            reqs = txmbr.po.returnPrco('requires')
-            provs = txmbr.po.returnPrco('provides')
-            reqs.sort()
-
-            for req in reqs:
-                if req[0].startswith('rpmlib(') or req[0].startswith('config('):
-                    continue
-#XXX: handle unresolvable dep
-                if req in provs:
-                    continue
-                if req not in self.deps.keys():
-                    self._provideToPkg(req)
-                try:
-                    dep = self.deps[req]
-                except KeyError, e:
-                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
-
-                # Skip filebased requires on self, etc
-                if txmbr.name == dep.name:
-                    continue
-
-                if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
-                    continue
-#XXX: handle in rpmdb too for upgrades
-                #if pkgs:
-                #    member = self.bestPackageFromList(pkgs)
-                #else:
-                if self.tsInfo.exists(dep.pkgtup):
-                    pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
-                    member = self.bestPackageFromList(pkgs)
-                else:
-                    member = self.tsInfo.addInstall(dep)
-                    unresolved.append(dep)
-#Add relationship
-                firstelts = map(lambda tup: tup[0], txmbr.relatedto)
-                if member.po.pkgtup not in firstelts:
-                    txmbr.setAsDep(member.po.pkgtup)
-
-        return unresolved
-
-    def doTsSetup(self):
-        if hasattr(self, 'read_ts'):
-            return
-
-        if not self.conf.installroot:
-            raise yum.Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
-
-        installroot = self.conf.installroot
-        self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
-        self.tsInfo = SplitMediaTransactionData()
-        self.rpmdb = rpmUtils.RpmDBHolder()
-        self.initActionTs()
-
-
 class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
@@ -468,8 +458,7 @@ class YumBackend(AnacondaBackend):
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
                                  configfile="/tmp/yum.conf", root=instPath)
         self.ac.write()
-        self.ayum = AnacondaYumMedia(fn="/tmp/yum.conf", root=instPath,
-                                     method=method)
+        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath, method=method)
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
