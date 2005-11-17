@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.89.19.1
+Version: 10.89.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 16 2005 Paul Nasrat <pnasrat@redhat.com> - 10.89.20-1
+- Restore YumSorter for pkgorder
+- Single anaconda installer yum class
+- Switching CD method 
+
 * Wed Nov 16 2005 Jeremy Katz <katzj@redhat.com> - 10.89.19.1-1
 - be explict about pango-devel being needed
 
