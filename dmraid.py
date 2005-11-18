@@ -25,7 +25,12 @@ import raid
 from flags import flags
 
 import logging
+from anaconda_log import logger, logFile
+
+logger.addLogger ("anaconda.dmraid", minLevel=logging.DEBUG)
 log = logging.getLogger("anaconda.dmraid")
+logger.addFileHandler (logFile, log)
+
 import isys
 
 # these arches can have their /boot on DMRAID and not have their
