@@ -1,3 +1,8 @@
+2005-11-18  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/selinux.h (ANACONDA_CONTEXT): Fix for new context types
+	since the kernel no longer can do the mapping itself.
+
 2005-11-18  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda: Sync vnc parameter handling with pykickstart.
