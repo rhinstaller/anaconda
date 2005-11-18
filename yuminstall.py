@@ -474,7 +474,7 @@ class YumBackend(AnacondaBackend):
                  self.ayum.doGroupSetup,
                  self.ayum.doSackSetup )
 
-	waitwin = YumProgress(intf, _("Retrieving installation information"),
+	waitwin = YumProgress(intf, _("Retrieving installation information..."),
                               len(tasks))
         self.ayum.repos.callback = waitwin
 
