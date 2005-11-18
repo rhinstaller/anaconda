@@ -47,6 +47,9 @@ class PackageOrderer(YumSorter):
 
     def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
         self.doConfigSetup(fn, root)
+        if hasattr(self.repos, 'sqlite'):
+            self.repos.sqlite = False
+            self.repos._selectSackType()
         exclude = self.conf.getConfigOption('exclude')
         exclude.extend(excludes)
         self.conf.setConfigOption('exclude', exclude)
