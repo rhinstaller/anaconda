@@ -1,5 +1,8 @@
 2005-11-17  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (DiskSet.openDevices): debug prints -> 
+	log.debug (#173533)
+
 	* scripts/upd-instroot: vnc hack me harder...
 
 	* yuminstall.py (YumSorter.tsCheck): Don't traceback on

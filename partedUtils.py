@@ -899,11 +899,11 @@ class DiskSet:
             return
         if not iutil.getArch() in ("s390", "s390x"):
             if not isinstance(DiskSet.dmList, [].__class__):
-                print "starting raids"
+                log.debug("starting raids")
                 self.startDmRaid()
-                print "done starting raids.  Drivelist: "
+                log.debug("done starting raids.  Drivelist: ")
                 for drive in self.driveList():
-                    print "  %s" % (drive,)
+                    log.debug("  %s" % (drive,))
         for drive in self.driveList():
             if drive in DiskSet.skippedDisks and not initAll:
                 continue
