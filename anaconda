@@ -61,8 +61,8 @@ def startMiniWM(root='/'):
     return childpid
 
 # startup vnc X server
-def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
-		   vncconnectport=None):
+def startVNCServer(vncpassword="", root='/', vncconnecthost="",
+		   vncconnectport=""):
     
     def set_vnc_password(root, passwd, passwd_file):
 	(pid, fd) = os.forkpty()
@@ -143,7 +143,7 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
 
 	# set passwd if necessary
-	if vncpassword is not None:
+        if vncpassword != "":
 	    try:
 		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
 	    except Exception, e:
@@ -175,18 +175,18 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	os.execv(args[0], args)
 	sys.exit (1)
 
-    if vncpassword is None:
+    if vncpassword == "":
 	stdoutLog.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
 			 "You can use the vncpassword=<password> boot option\n"
 			 "if you would like to secure the server.\n\n"))
 	
     stdoutLog.info(_("The VNC server is now running."))
 
-    if vncconnecthost is not None:
+    if vncconnecthost != "":
 	stdoutLog.info(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
 	
 	hostarg = vncconnecthost
-	if vncconnectport is not None:
+        if vncconnectport != "":
 	    hostarg = hostarg + ":" + vncconnectport
 	    
 	argv = ["/usr/bin/vncconfig", "-display", ":1", "-connect", hostarg]
@@ -492,9 +492,9 @@ progmode = None
 customClass = None
 kbd = None
 ksfile = None
-vncpassword = None
-vncconnecthost = None
-vncconnectport = None
+vncpassword = ""
+vncconnecthost = ""
+vncconnectport = ""
 
 #
 # parse off command line arguments
@@ -604,11 +604,11 @@ for n in args:
 	    pfile.close()
 	    os.unlink("/tmp/vncpassword.dat")
 	except:
-	    vncpassword=None
+	    vncpassword=""
 	    pass
 
 	# check length of vnc password	
-	if vncpassword is not None and len(vncpassword) < 6:
+	if vncpassword != "" and len(vncpassword) < 6:
 	    from snack import *
 	    
 	    screen = SnackScreen()
@@ -683,13 +683,13 @@ if ksfile is not None:
 	ksvnchost = ksdata.vnc["host"]
 	ksvncport = ksdata.vnc["port"]
 
-	if vncpassword == None:
+	if vncpassword == "":
 	    vncpassword = ksvncpasswd
 
-	if vncconnecthost == None:
+	if vncconnecthost == "":
 	    vncconnecthost = ksvnchost
 
-	if vncconnectport == None:
+	if vncconnectport == "":
 	    vncconnectport = ksvncport
 
 #
