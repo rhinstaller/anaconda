@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.3
+Version: 10.90.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Nov 17 2005 Jeremy Katz <katzj@redhat.com> - 10.90.4-1
+- don't traceback on unresolvable deps (#173508)
+- fix pkg.arch for %%packages
+- another hack for vnc
+- debug prints to log.debug (#173533)
+
 * Thu Nov 17 2005 Paul Nasrat <pnasrat@redhat.com> - 10.90.3-1
 - Add group processing to buildinstall
 - Add createrepo requires

@@ -1,12 +1,14 @@
 2005-11-17  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version
+
 	* partedUtils.py (DiskSet.openDevices): debug prints -> 
 	log.debug (#173533)
 
 	* scripts/upd-instroot: vnc hack me harder...
 
 	* yuminstall.py (YumSorter.tsCheck): Don't traceback on
-	unresolvable deps.
+	unresolvable deps. (#173508)
 	(AnacondaYum.getBestPackages): Fix pkg.arch for %packages
 
 2005-11-17  Paul Nasrat <pnasrat@redhat.com>
