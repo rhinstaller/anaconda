@@ -109,7 +109,7 @@ class SplitMediaTransactionData(SortableTransactionData):
             for txmbr in txmembers:
                 id = self.__getMedia(txmbr.po)
                 if id:
-                    self.reqmedia[id].remove(pktup)
+                    self.reqmedia[id].remove(pkgtup)
                 del txmbr
                 SortableTransactionData.remove(self, pkgtup)
 
