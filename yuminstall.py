@@ -252,6 +252,7 @@ class YumSorter(yum.YumBase):
                     continue
 
                 if "%s>%s" % (dep.name, txmbr.name) in self.whiteout:
+                    log.debug("ignoring %s>%s in whiteout" %(dep.name, txmbr.name))
                     continue
 #XXX: handle in rpmdb too for upgrades
                 #if pkgs:
