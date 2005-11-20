@@ -251,7 +251,7 @@ class YumSorter(yum.YumBase):
                 if txmbr.name == dep.name:
                     continue
 
-                if "%s>%s" % (txmbr.name, dep.name) in self.whiteout:
+                if "%s>%s" % (dep.name, txmbr.name) in self.whiteout:
                     continue
 #XXX: handle in rpmdb too for upgrades
                 #if pkgs:
