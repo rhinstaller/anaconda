@@ -206,6 +206,13 @@ class YumSorter(yum.YumBase):
 
         satisfiers = []
         for po in self.whatProvides(r, f, v):
+            # if we already have something installed which does the provide
+            # then that's obviously the one we want to use.  this takes
+            # care of the case that we select, eg, kernel-smp and then
+            # have something which requires kernel
+            if self.tsInfo.getMembers(po.pkgtup):
+                self.deps[req] = po
+                return
             if po.name not in satisfiers:
                 satisfiers.append(po)
 

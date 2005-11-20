@@ -2,6 +2,11 @@
 
 	* yuminstall.py (YumSorter.tsCheck): Fix backwards whiteout
 	handling (#173738)
+	(YumSorter.tsCheck): Log when whiteout is used
+	(YumSorter._provideToPkg): If we already have a package installed
+	which provides something, then we should just use that.  This
+	makes it so we don't get the UP kernel pulled in when kernel-smp
+	is already selected for installation.
 
 2005-11-19  Jeremy Katz  <katzj@redhat.com>
 
