@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install FC4\n"
+"Project-Id-Version: install FC5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-23 11:22+0200\n"
-"PO-Revision-Date: 2005-10-23 11:30+0200\n"
+"PO-Revision-Date: 2005-11-20 16:26+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -554,7 +554,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Installerer %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -585,17 +585,14 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Det oppsto et problem under skriving av systemets tilstand til disketten."
 
 #: ../exception.py:389
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
-msgstr ""
-"Systemets tilstand ble skrevet til disketten. Systemet vil nå bli startet på "
-"nytt."
+msgstr "Systemets tilstand ble skrevet til ekstern vert. Systemet vil nå bli startet på nytt."
 
 #: ../exception.py:397
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Det oppsto et problem med skriving av tilstand for systemet til ekstern vert."
 
 #: ../fsset.py:189
 msgid "Checking for Bad Blocks"
@@ -1423,13 +1420,11 @@ msgstr ""
 "Gyldige tegn er bokstaver, tall, «.» eller «_»."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
-msgstr ""
-"Monteringspunktet er ugyldig. Monteringspunkter må begynne med '/', kan ikke "
-"slutte med '/', og må bare inneholde utskrivbare tegn."
+msgstr "Monteringspunktet %s er ugyldig. Monteringspunkter må begynne med «/», kan ikke slutte med «/», og må bare inneholde gyldige tegn uten mellomrom."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2372,14 +2367,11 @@ msgid "Getting installation information"
 msgstr "Henter informasjon om installasjonen"
 
 #: ../yuminstall.py:278
-#, fuzzy
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated."
-msgstr ""
-"comps-filen i ditt installasjonstre mangler viktige grupper. Vennligst sjekk "
-"at installasjonstreet er generert på en korrekt måte."
+msgstr "Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en korrekt måte."
 
 #: ../yuminstall.py:422
 msgid "Install Starting"
@@ -5233,7 +5225,7 @@ msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "Installasjonen krever partisjonering av harddisken. Forvalgt utforming av partisjoner er ok for de fleste brukere. Du kan velge å bruke denne eller å lage din egen."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -6486,14 +6478,12 @@ msgid "_Release Notes"
 msgstr "_Kommentarer til denne utgaven"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Se o_ver (og endre om nødvendig) partisjonene som opprettes"
+msgstr "Se o_ver og endre utforming av partisjoner"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Velg stasjonen(e) vil du bruke for denne installasjonen:"
+msgstr "_Velg stasjonen(e) vil du bruke for denne installasjonen."
 
 #. generated from zone.tab
 msgid "Acre"
