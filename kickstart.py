@@ -262,9 +262,12 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doNetwork(self, args)
         nd = self.ksdata.network[-1]
 
-        id.instClass.setNetwork(id, nd.bootProto, nd.ip, nd.netmask,
-                                nd.ethtool, nd.device, nd.onboot,
-                                nd.dhcpclass, nd.essid, nd.wepkey)
+        try:
+            id.instClass.setNetwork(id, nd.bootProto, nd.ip, nd.netmask,
+                                    nd.ethtool, nd.device, nd.onboot,
+                                    nd.dhcpclass, nd.essid, nd.wepkey)
+        except KeyError:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
 
         if nd.hostname != "":
             id.instClass.setHostname(id, nd.hostname, override=1)
