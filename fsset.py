@@ -2613,7 +2613,6 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.write(fd, s)
 
     num = ''
-    sync = 0
     while s:
         try:
             s = os.read(p[0], 1)
@@ -2633,10 +2632,6 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
                         pass
                     else:
                         w and w.set(val)
-                        # sync every 10%
-                        if sync + 10 < val:
-                            isys.sync()
-                            sync = val
                 num = ''
         except OSError, args:
             (errno, str) = args
