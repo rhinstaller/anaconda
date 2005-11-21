@@ -1,7 +1,7 @@
 2005-11-21  Peter Jones  <pjones@redhat.com>
 
 	* fsset.py (ext2FormatFilesystem): remove isys.sync() from the
-	progress bar update.
+	progress bar update to speed up installs.
 
 2005-11-21  Chris Lumens  <clumens@redhat.com>
 
