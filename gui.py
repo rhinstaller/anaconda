@@ -529,7 +529,7 @@ class ProgressWindow:
     def set (self, amount):
 	# only update widget if we've changed by 5%
 	curval = self.progress.get_fraction()
-	newval = float (amount) / self.total
+	newval = (float (amount) / self.total) / 100
 	if newval < 0.998:
 	    if (newval - curval) < 0.05 and newval > curval:
 		return

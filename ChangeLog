@@ -1,3 +1,8 @@
+2005-11-21  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py (ProgressWindow.set):  Make sure the float sent to set_fraction()
+	for the progress bar percentage falls between 0 and 1.
+
 2005-11-21  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doNetwork):  More helpful message.
