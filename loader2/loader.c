@@ -1266,9 +1266,14 @@ int main(int argc, char ** argv) {
        partition, so use a terminal type that is appripriate */
     if (isVioConsole())
 	setenv("TERM", "vt100", 1);
-    
+
+#if defined(__powerpc__)  /* hack for pcspkr breaking ppc right now */
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd", 
+                    modLoaded, modDeps, modInfo, flags);
+#else
     mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr", 
                     modLoaded, modDeps, modInfo, flags);
+#endif
 
     /* now let's do some initial hardware-type setup */
     ideSetup(modLoaded, modDeps, modInfo, flags);

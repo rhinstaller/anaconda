@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.7
+Version: 10.90.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 21 2005 Jeremy Katz <katzj@redhat.com> - 10.90.8-1
+- don't load pcspkr on ppc to avoid crashes on the g5
+
 * Sun Nov 20 2005 Jeremy Katz <katzj@redhat.com> - 10.90.7-1
 - fix backwards whiteout handling (#173738)
 - fix bug in depsolver which would bring in a package for an already 
