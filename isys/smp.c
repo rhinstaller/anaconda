@@ -592,7 +592,7 @@ int detectHT(void)
     cpuid(1, &eax, &ebx, &ecx, &edx);
     smp_num_siblings = (ebx & 0xff0000) >> 16;
     
-    if (smp_num_siblings == 2)
+    if (smp_num_siblings >= 2)
 	return 1;
     return 0;
 }
