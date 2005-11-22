@@ -1393,7 +1393,9 @@ int main(int argc, char ** argv) {
     scsiSetup(modLoaded, modDeps, modInfo, flags);
     busProbe(modInfo, modLoaded, modDeps, 0, flags);
 
+#if !defined(__s390__) && !defined(__s390x__)
     checkForHardDrives(&flags);
+#endif
 
     if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
         && !loaderData.ksFile) {
