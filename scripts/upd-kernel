@@ -1,0 +1,65 @@
+#!/bin/sh
+# take a boot directory with kernel + initrd and create a new one
+# with a new kernel + initrd
+# Usage: ./upd-kernel <olddir> <newdir> <newkernelrpm>
+
+OLDDIR=`readlink -f $1`
+NEWDIR=$2
+KRPM=`readlink -f $3`
+ARCH=$(rpm -qp --qf "%{ARCH}" $KRPM)
+NEWVER=$(rpm -qp --qf "%{VERSION}" $KRPM)
+
+if [ -z "$OLDDIR" -o -z "$NEWDIR" -o -z "$KRPM" ]; then
+  echo "Usage: $0 <olddir> <newdir> <newkernelrpm>"
+  exit 1
+fi
+
+if [ ! -d $OLDDIR ]; then
+  echo "Directory $OLDDIR doesn't exist"
+  exit 1
+fi
+
+if [ -f $NEWDIR ]; then
+    NEWDIR=`readlink -f $NEWDIR`
+else
+    NEWDIR=`readlink -f .`/$NEWDIR
+    mkdir $NEWDIR
+fi
+
+WORKDIR=$(/bin/mktemp -d /tmp/kernrpm.XXXXXX)
+
+pushd $WORKDIR
+
+# explode the rpm
+mkdir rpm
+pushd rpm
+rpm2cpio $KRPM |cpio -id
+popd
+
+# explode the rpm
+mkdir initrd
+pushd initrd
+zcat $OLDDIR/initrd.img |cpio -id
+popd
+
+mkdir initrd/modules/mods
+# explode the moduleball
+pushd initrd/modules/mods
+zcat ../modules.cgz |cpio -id
+popd
+
+mkdir -p newmods/$NEWVER/$ARCH
+for i in $(find initrd/modules/mods -type f -name '*.ko' -exec basename {} \;); do find $WORKDIR/rpm/lib/modules/*/ -name $i -exec cp -v {} $WORKDIR/newmods/$NEWVER/$ARCH \; ; done
+rm -rf initrd/modules/mods
+
+pushd newmods
+find . |cpio --quiet -H crc -o |gzip -9 > $WORKDIR/initrd/modules/modules.cgz
+popd
+
+pushd initrd
+find . |cpio -c -o |gzip -9 > $NEWDIR/initrd.img
+popd
+
+cp -v $WORKDIR/rpm/boot/vmlinuz-* $NEWDIR/vmlinuz
+popd
+rm -rf $WORKDIR
