@@ -433,8 +433,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                       "installed arch of %s.  This is likely "
                                       "to not succeed.  Are you sure you "
                                       "wish to continue the upgrade process?")
-                                    %(productName, h[rpm.RPMTAG_ARCH],
-                                      myarch),
+                                    %(productName, myarch, 
+                                      h[rpm.RPMTAG_ARCH]),
                                     type="yesno")
             if rc == 0:
                 try:
