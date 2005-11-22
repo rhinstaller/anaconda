@@ -1302,6 +1302,11 @@ int main(int argc, char ** argv) {
                         modInfo, flags);
     }
 
+    /* FIXME: this is a bit of a hack */
+    loaderData.modLoaded = modLoaded;
+    loaderData.modDepsPtr = &modDeps;
+    loaderData.modInfo = modInfo;
+
     if (!access("/dd.img", R_OK)) {
         logMessage(INFO, "found /dd.img, loading drivers");
         getDDFromSource(&loaderData, "path:/dd.img", flags);
@@ -1317,11 +1322,6 @@ int main(int argc, char ** argv) {
     
 
     busProbe(modInfo, modLoaded, modDeps, 0, flags);
-
-    /* JKFIXME: should probably not be doing this, but ... */
-    loaderData.modLoaded = modLoaded;
-    loaderData.modDepsPtr = &modDeps;
-    loaderData.modInfo = modInfo;
 
     /* JKFIXME: we'd really like to do this before the busprobe, but then
      * we won't have network devices available (and that's the only thing

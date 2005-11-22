@@ -1,5 +1,8 @@
 2005-11-22  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c: Fix /dd.img in initrd (from Dan Carpenter
+	<dcarpenter AT penguincomputing.com> on anaconda-devel-list)
+
 	* scripts/upd-kernel: Add a script to create a new initrd for a
 	new kernel version. 
 
