@@ -59,7 +59,7 @@ class PartitionWindow:
 		size = vgrequest.getActualSize(self.partitions, self.diskset)
 		device = "VG %s" % (vgname,)
                 self.lb.append(["%s" % (device,),
-                                "", "", "%dM" %(size),
+                                "", "", "%d" %(size),
                                 "VolGroup", ""], str(vgrequest.uniqueID),
                                [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
 		
@@ -72,7 +72,7 @@ class PartitionWindow:
 		    lvsize = lvrequest.getActualSize(self.partitions, self.diskset)
                     ptype = lvrequest.fstype.getName()
 		    self.lb.append(["%s" %(lvdevice),
-				    "", "", "%dM" %(lvsize),
+				    "", "", "%d" %(lvsize),
 				    "%s" %(ptype), "%s" %(mntpt)], str(lvrequest.uniqueID),
 				   [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
 
@@ -99,7 +99,7 @@ class PartitionWindow:
 		    
                 size = request.size
                 self.lb.append(["%s" %(device),
-                                "", "", "%dM" %(size),
+                                "", "", "%d" %(size),
                                 "%s" %(ptype), "%s" %(mount)], str(request.uniqueID),
                                [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
                 raidcounter = raidcounter + 1
@@ -177,7 +177,7 @@ class PartitionWindow:
                     self.lb.append(["%s%s" %(indent, _("Free space")),
                                     "%d" %(start),
                                     "%d" %(end),
-                                    "%dM" %(size),
+                                    "%d" %(size),
                                     "%s" %(ptype),
                                     ""], part,
                                    [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
@@ -192,7 +192,7 @@ class PartitionWindow:
                     self.lb.append(["%s%s" %(indent, dev),
                                     "%d" %(start),
                                     "%d" %(end),
-                                    "%dM" %(size),
+                                    "%d" %(size),
                                     "%s" %(ptype),
                                     "%s" %(mount)], part,
                                    [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
@@ -1432,7 +1432,7 @@ class PartitionWindow:
                            col_widths=[17,5,5,7,10,12],
                            scroll=1, returnExit = 1,
                            width=70, col_pad=2,
-                           col_labels=[_('Device'), _('Start'), _('End'), _('Size'), _('Type'), _('Mount Point')],
+                           col_labels=[_('Device'), _('Start'), _('End'), _('Size') + ' (MB)', _('Type'), _('Mount Point')],
                            col_label_align=[CENTER, CENTER,CENTER,CENTER,CENTER,CENTER])
         self.g.add(self.lb, 0, 1)
 
