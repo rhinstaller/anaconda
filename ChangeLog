@@ -1,4 +1,7 @@
 2005-11-22  Paul Nasrat <pnasrat@redhat.com>
+	
+	* loader2/loader.c loader2/loader.h loader2/net.c: Backport support for bootif (#170713)
+	* docs/command-line.txt: Document bootif support
 
 	* loader2/kickstart.c: Fix kickstart parsing in sections (#170331)
 

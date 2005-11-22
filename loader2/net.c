@@ -971,6 +971,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
     char ** deviceNames;
     int foundDev = 0;
     struct device ** devs;
+    char * ksMacAddr = NULL;
 
     devs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
     if (!devs) {
@@ -982,6 +983,14 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
 
     devices = alloca((i + 1) * sizeof(*devices));
     deviceNames = alloca((i + 1) * sizeof(*devices));
+    if (loaderData->netDev && (loaderData->netDev_set) == 1) {
+      if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) &&
+	  !strcasecmp(loaderData->netDev, "bootif"))
+	    ksMacAddr = sanitizeMacAddr(loaderData->bootIf);
+	else
+	    ksMacAddr = sanitizeMacAddr(loaderData->netDev);
+    }
+
     for (i = 0; devs[i]; i++) {
         if (!devs[i]->device)
 	    continue;
@@ -1005,11 +1014,10 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
                 foundDev = 1;
             } else {
                 /* maybe it's a mac address */
-                char * mac1, * mac2;
-                mac1 = sanitizeMacAddr(loaderData->netDev);
-                mac2 = sanitizeMacAddr(getMacAddr(devs[i]->device));
-                if ((mac1 != NULL) && (mac2 != NULL) &&
-                    !strcmp(mac1, mac2)) {
+                char * devmacaddr;
+                devmacaddr = sanitizeMacAddr(getMacAddr(devs[i]->device));
+                if ((ksMacAddr != NULL) && (devmacaddr != NULL) &&
+                    !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);
                     loaderData->netDev = devs[i]->device;
