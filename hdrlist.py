@@ -347,6 +347,8 @@ class HeaderList:
         for h in self.pkgs.values():
             if h.isSelected() and h[1000003] == None:
                 preordered = 0
+            if h.isSelected() and not 1000003 in h.hdr.keys():
+                preordered = 0
         return preordered
 
     # get the best nevra for the package name.
