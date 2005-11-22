@@ -181,7 +181,7 @@ def vgremove(vgname):
     # now iterate all the PVs we've just freed up, so we reclaim the metadata
     # space.  This is an LVM bug, AFAICS.
     for pvname in pvs:
-        args = ["lvm", "pvremove", pvname]
+        args = ["lvm", "pvremove", "-ff", pvname]
 
         log.info(string.join(args, ' '))
         rc = iutil.execWithRedirect(args[0], args,
@@ -305,11 +305,17 @@ def unlinkConf():
     lvmroot = "/etc/lvm"
     if os.path.exists("%s/lvm.conf" %(lvmroot,)):
         os.unlink("%s/lvm.conf" %(lvmroot,))
+
+physicalDeviceCache = {}
         
 def writeForceConf():
     """Write out an /etc/lvm/lvm.conf that doesn't do much (any?) filtering"""
 
     lvmroot = "/etc/lvm"
+    try:
+        os.unlink("/etc/lvm/.cache")
+    except:
+        pass
     if not os.path.isdir(lvmroot):
         os.mkdir(lvmroot)
 
@@ -321,6 +327,21 @@ def writeForceConf():
 devices {
   sysfs_scan = 0
   md_component_detection = 1
+  types = [ "device-mapper", 1 ]
+""")
+    for pv in physicalDeviceCache:
+        print pv
+    if isys.cachedDrives:
+        def makerule(x,y):
+            return list(x) + ['"a|/dev/%s|"' % (y,)]
+        allow = isys.cachedDrives.keys()
+        filters = reduce(makerule, allow, [])
+        filters.append('"r|.*|"')
+
+        rules = string.join(filters, ", ")
+        
+        f.write("  filter = [ %s ]\n" % (rules,));
+    f.write("""
 }
 """)
 
