@@ -498,6 +498,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         if (!strcasecmp(argv[i], "expert"))
             flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
                       LOADER_FLAGS_ASKMETHOD);
+        else if (!strcasecmp(argv[i], "noparport"))
+            flags |= LOADER_FLAGS_NOPARPORT;
         else if (!strcasecmp(argv[i], "askmethod"))
             flags |= LOADER_FLAGS_ASKMETHOD;
         else if (!strcasecmp(argv[i], "noshell"))
