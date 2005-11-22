@@ -345,7 +345,7 @@ class HeaderList:
     def preordered(self):
         preordered = 1
         for h in self.pkgs.values():
-            if h.isSelected() and h[1000003] == None:
+            if h.isSelected() and not h[1000003]:
                 preordered = 0
             if h.isSelected() and not 1000003 in h.hdr.keys():
                 preordered = 0
