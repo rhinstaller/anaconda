@@ -119,6 +119,17 @@ char * mountNfsImage(struct installMethod * method,
         case NFS_STAGE_MOUNT: {
             int foundinvalid = 0;
             char * buf;
+            struct in_addr ip;
+
+            if (loaderData->noDns && !(inet_aton(host, &ip))) {
+                newtWinMessage(_("Error"), _("OK"),
+                               _("Hostname specified with no DNS configured"));
+                if (loaderData->method) {
+                    free(loaderData->method);
+                    loaderData->method = NULL;
+                }
+                break;
+            }
 
             fullPath = alloca(strlen(host) + strlen(directory) + 2);
             sprintf(fullPath, "%s:%s", host, directory);
