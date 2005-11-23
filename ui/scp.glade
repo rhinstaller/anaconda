@@ -18,7 +18,7 @@
                 <child>
                     <widget class="GtkLabel" id="label1">
                         <property name="wrap">True</property>
-                        <property name="label" context="True" translatable="True">The following information is required to copy the detailed exception to a remote host.  You must have an account on the remote host to be able to copy to it.  Your password will not be stored.</property>
+                        <property name="label" context="True" translatable="True">The following information is required to scp the detailed exception to a remote host.  None of this information will be stored.</property>
                         <property name="events"></property>
                         <property name="visible">True</property>
                     </widget>
