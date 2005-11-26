@@ -1,3 +1,8 @@
+2005-11-26  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/urlinstall.c (mountUrlImage): Fix booting with CD1 and
+	using FTP/HTTP to not look for hdlist.  This still isn't ideal
+
 2005-11-25  Jeremy Katz  <katzj@redhat.com>
 
 	* bootdisk/ppc/yaboot.conf.3264: Fix ppc32 from CD (#174135)
