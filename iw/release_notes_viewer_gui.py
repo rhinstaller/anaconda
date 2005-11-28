@@ -136,8 +136,18 @@ if __name__ == "__main__":
 	a = gtk.Alignment (0, 0, 1.0, 1.0)
 	a.add (frame)
 
-	textWin.set_default_size (635, 393)
-	textWin.set_size_request (635, 393)
+	#textWin.set_default_size (635, 393)
+	#textWin.set_size_request (635, 393)
+
+	if gtk.gdk.screen_width() >= 800:
+		rn_w = 800
+		rn_h = 600
+	else:
+		rn_w = 640
+		rn_h = 480
+
+	textWin.set_default_size (rn_w, rn_h)
+	textWin.set_size_request (rn_w, rn_h)
 	textWin.set_position (gtk.WIN_POS_CENTER)
 
 	table.attach (a, 1, 2, 1, 2,
