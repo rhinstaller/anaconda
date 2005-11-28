@@ -17,6 +17,7 @@
 import sys
 import os
 import gtk
+import re
 
 from rhpl.translate import _, N_
 
@@ -27,8 +28,8 @@ import gtkhtml2
 
 screenshot = None
 
-htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
-htmlfooter = "</pre></body></html>"
+htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\">"
+htmlfooter = "</body></html>"
 
 def loadReleaseNotes(fn):
     doc = gtkhtml2.Document()
@@ -40,8 +41,48 @@ def loadReleaseNotes(fn):
 	if fn.endswith('.html'):
             doc.write_stream(file.read())            
 	else:
+            # this is a minimal attempt to clean up a UTF-8 text file for displayment
+            # in the gtkhtml2 widget.  it isn't perfect, nor should anyone care that
+            # much.  as long as it displays the release notes reasonably well.
+
+            # the next X number of lines of code can crank out the HTML to a temp
+            # file if you set this variable to 1
+            drn = 1
+            #drn = 0
+
+            if drn == 1:
+                debugfile = open("/tmp/relnotes-debug.html", "w")
+                debugfile.write(htmlheader)
+
             doc.write_stream(htmlheader)
-            doc.write_stream(file.read())
+
+            tok = file.readline()
+            doc.write_stream("<p>")
+
+            if drn == 1:
+                debugfile.write("<p>")
+
+            while tok:
+                if tok == "\n":
+                   if drn == 1:
+                       debugfile.write("</p>")
+                   doc.write_stream("</p>")
+
+                if drn == 1:
+                    debugfile.write(tok)
+                doc.write_stream(tok)
+
+                if tok == "\n":
+                   if drn == 1:
+                       debugfile.write("<p>")
+                   doc.write_stream("<p>")
+
+                tok = file.readline()
+
+            if drn == 1:
+                debugfile.write(htmlfooter)
+                debugfile.close()
+
             doc.write_stream(htmlfooter)
         doc.close_stream()
         file.close()
