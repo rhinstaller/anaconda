@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.8
+Version: 10.90.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 29 2005 Chris Lumens <clumens@redhat.com> 10.90.9-1
+- Another stab at including email.Utils everywhere (#173169).
+- Remove unneeded isys.sync calls (pjones).
+- Fix /dd.ig in initrd (Dan Carpenter).
+- Report no DNS servers if a hostname used (pnasrat, #168957).
+- Fix ppc32 from CD (katzj, #174135).
+- Don't look for hdlist when booting CD1 and using FTP/HTTP (katzj).
+- Fullscreen release notes viewer (dcantrell).
+
 * Mon Nov 21 2005 Jeremy Katz <katzj@redhat.com> - 10.90.8-1
 - don't load pcspkr on ppc to avoid crashes on the g5
 
