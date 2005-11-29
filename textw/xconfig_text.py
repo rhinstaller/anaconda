@@ -721,6 +721,9 @@ class XConfigWindowCard:
         # store selected ram
         vidram = self.videocard.possible_ram_sizes()[self.selectedRam]
         self.videocard.primaryCard().setVideoRam(str(vidram))
-        self.xsetup.xhwstate.set_videocard_card(self.videocard.primaryCard())
+
+        cardname = self.videocard.primaryCard().cardData["NAME"]
+        self.xsetup.xhwstate.set_videocard_name(cardname)
+        self.xsetup.xhwstate.set_videocard_card(cardname)
 
         return INSTALL_OK

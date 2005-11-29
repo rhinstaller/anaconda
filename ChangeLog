@@ -2,6 +2,9 @@
 
 	* network.py:  Set HWADDR in ifcfg-eth* files (#159972).
 
+	* textw/xconfig_text.py:  Fix video card selection in the text
+	interface (#168807).
+
 2005-11-22  Paul Nasrat <pnasrat@redhat.com>
 
 	* isys/smp.c: Fix smp detection for dual-core (#169266)
