@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.8
+Version: 9.1.6.9
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 29 2005 Chris Lumens <clumens@redhat.com> 9.1.6.9-1.RHEL
+- Set HWADDR in ifcfg-eth* files (#159972).
+- Fix video card selection in text installs (#168807).
+- Fix smp detection for dual-core (pnasrat, #169266).
+- Fix noparport option (pnasrat, #169135).
+- Fix kickstart parsing in sections (pnasrat, #165865).
+- Fix for no pkgorder run (pnasrat, #170721).
+- Add bnx2 (pjones).
+
 * Tue Sep 20 2005 Peter Jones <pjones@redhat.com> - 9.1.6.8-2.RHEL
 - Rebuild for newer kudzu (#168498)
 
