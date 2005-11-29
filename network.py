@@ -18,6 +18,7 @@
 
 import string
 import isys
+import iutil
 import socket
 import os
 import re
@@ -227,6 +228,9 @@ class Network:
 		    if desc is not None and len(desc) > 0:
 			self.netdevices[device].set(("desc", desc))
 
+                    # hwaddr for qeth doesn't make sense
+                    if netdev.driver == "qeth":
+                        continue
                     # add hwaddr
                     hwaddr = isys.getMacAddress(device)
                     if hwaddr and hwaddr != "00:00:00:00:00:00":
@@ -257,6 +261,13 @@ class Network:
 		if self.firstnetdevice is None:
 		    self.firstnetdevice = dev
                 self.netdevices[dev] = NetworkDevice(dev)
+            try:
+                hwaddr = isys.getMacAddress(dev)
+                if (iutil.getArch() != "s390" and
+                    hwaddr and hwaddr != "00:00:00:00:00:00"):
+                    self.netdevices[dev].set(("hwaddr", hwaddr))
+            except Exception, e:
+                log("exception getting mac addr: %s" %(e,))
 
         if ksdevice and self.netdevices.has_key(ksdevice):
             self.firstnetdevice = ksdevice
