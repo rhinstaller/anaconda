@@ -236,7 +236,7 @@ class Network:
                         continue
                     # add hwaddr
                     hwaddr = isys.getMacAddress(device)
-                    if hwaddr and hwaddr != "00:00:00:00:00:00":
+                    if hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
                         self.netdevices[device].set(("hwaddr", hwaddr))
 
     def getDevice(self, device):
@@ -266,8 +266,7 @@ class Network:
                 self.netdevices[dev] = NetworkDevice(dev)
             try:
                 hwaddr = isys.getMacAddress(dev)
-                if (iutil.getArch() != "s390" and
-                    hwaddr and hwaddr != "00:00:00:00:00:00"):
+                if iutil.getArch() != "s390" and hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
                     self.netdevices[dev].set(("hwaddr", hwaddr))
             except Exception, e:
                 log.error("exception getting mac addr: %s" %(e,))

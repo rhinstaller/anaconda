@@ -1,3 +1,8 @@
+2005-11-29  Chris Lumens  <clumens@redhat.com>
+
+	* network.py (Network.available):  Check for ff:ff:ff:ff:ff:ff as
+	well.
+
 2005-11-28  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/release_notes_viewer_gui.py: Make the release notes viewer
