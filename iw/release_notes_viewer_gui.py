@@ -123,7 +123,8 @@ if __name__ == "__main__":
     frame.set_label_align (0.5, 0.5)
     frame.set_shadow_type (gtk.SHADOW_NONE)
 
-    textWin.set_position (gtk.WIN_POS_CENTER)
+    textWin.set_position (gtk.WIN_POS_NONE)
+    textWin.set_gravity (gtk.gdk.GRAVITY_NORTH_WEST)
 
     relnotes = loadReleaseNotes(sys.argv[1])
 
@@ -137,16 +138,41 @@ if __name__ == "__main__":
 	a = gtk.Alignment (0, 0, 1.0, 1.0)
 	a.add (frame)
 
-	if gtk.gdk.screen_width() >= 800:
-		rn_w = 800
-		rn_h = 600
+	if len(sys.argv) <= 3:
+		# no window size passed in (or part of the window size,
+		# figure it out
+		if gtk.gdk.screen_width() >= 800:
+			rn_w = 800
+			rn_h = 600
+		else:
+			rn_w = 640
+			rn_h = 480
 	else:
-		rn_w = 640
-		rn_h = 480
+		# window size given to us, use that
+		rn_w = int(sys.argv[2])
+		rn_h = int(sys.argv[3])
 
 	textWin.set_default_size (rn_w, rn_h)
 	textWin.set_size_request (rn_w, rn_h)
-	textWin.set_position (gtk.WIN_POS_CENTER)
+
+	# we want the release notes dialog to be the same size as the main
+	# installer window so it covers it up completely.  this isn't always
+	# the same size as the root window, so figure out our northwest
+	# origin point and then move the window
+	if gtk.gdk.screen_width() == rn_w:
+		textWin.move (0, 0)
+	else:
+		# the width will always be fixed, but our height changes
+		# depending on the installation stage, so do the origin
+		# point calculations using what would be the full height
+		if rn_w == 800:
+			fullheight = 600
+		elif rn_w == 640:
+			fullheight = 480
+
+		leftedge = (gtk.gdk.screen_width() - rn_w) / 2
+		topedge = (gtk.gdk.screen_height() - fullheight) / 2
+		textWin.move (leftedge, topedge)
 
 	table.attach (a, 1, 2, 1, 2,
 		      gtk.FILL | gtk.EXPAND,

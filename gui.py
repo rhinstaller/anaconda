@@ -1086,18 +1086,35 @@ class InstallControlWindow:
 		ofile.close()
 
 	    # HACK to make release notes to work in test mode
-	    if os.access("iw/release_notes_viewer_gui.py", os.X_OK):
-		path = ("iw/release_notes_viewer_gui.py",)
-	    else:
-		path = ("/usr/lib/anaconda/iw/release_notes_viewer_gui.py",)
+	    # also HACK to make it work from RHupdates
+	    for dir in ("iw/", "/mnt/source/RHupdates/",
+                        "/usr/lib/anaconda/iw/"):
+		path = dir + "release_notes_viewer_gui.py"
+		if os.access(path, os.X_OK):
+			break
 
 	    # if no viewer present then just ignore click
-	    if not os.access(path[0], os.X_OK):
-		log.warning("Viewer missing at %s - ignoring", path[0])
+	    if not os.access(path, os.X_OK):
+		log.warning("Viewer not executable at %s - ignoring", path)
 		return 1
 	    
-	    args =(fn,)
-	    
+	    # if we are at the installation progress bar step, make the
+	    # release notes window smaller so the progress bar is still
+	    # visible...otherwise, consume the entire screen
+	    (step, args) = self.dispatch.currentStep()
+	    print "runReleaseNotesViewer is at step %s" %(step)
+
+	    if gtk.gdk.screen_width() >= 800:
+		res = ("800", "600",) 
+	    else:
+		res = ("640", "480",)
+
+	    if step == "install":
+		if res[0] == "800":
+		    res[1] = "400"
+		else:
+		    res[1] = "300"
+
 	    child = os.fork()
 	    if (child == 0):
 		# close unneeded fd's
@@ -1107,7 +1124,7 @@ class InstallControlWindow:
 		    except:
 			pass
 		    
-		os.execv(path[0], path + args)
+		os.execl(path, path, fn, res[0], res[1])
 
 	    # we are going to check several times a second to see if
 	    # release notes viewer has exited so we can restore button

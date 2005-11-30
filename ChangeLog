@@ -1,3 +1,14 @@
+2005-11-30  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py (runReleaseNotesViewer):  Pass in appropriate window
+	dimensions for the release notes viewer from this function.  Also
+	modified it so it execs a release notes viewer from RHupdates if
+	one is present.
+
+	* iw/release_notes_viewer_gui.py:  Use the window dimensions given
+	to us from gui.py.  Do not center the window on the screen, but
+	anchor it to the upper left corner of the main install dialog.
+
 2005-11-30  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  None vs. "" for vncpasswd in test mode (from Patrick
