@@ -351,7 +351,7 @@ class AnacondaYum(YumSorter):
     def run(self, instLog, cb, intf):
         self.initActionTs()
         self.setColor()
-        if len(self.tsInfo.reqmedia.keys()) == 0:
+        if not self.method.splitmethod:
             self.populateTs(keepold=0)
             self.ts.check()
             self.ts.order()

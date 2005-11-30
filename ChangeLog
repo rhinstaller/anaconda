@@ -1,3 +1,8 @@
+2005-11-30  Paul Nasrat <pnasrat@redhat.com>
+
+	* yuminstall.py:  Don't try split transactions on non split
+	installation methods (#174033)
+
 2005-11-29  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
