@@ -1000,7 +1000,7 @@ if display_mode == 't' and graphical_failed:
 if display_mode == 'g' and flags.usevnc:
     # dont run vncpassword if in test mode
     if flags.test:
-	vncpassword = None
+	vncpassword = ""
 	
     startVNCServer(vncpassword=vncpassword,
 		   vncconnecthost=vncconnecthost,
