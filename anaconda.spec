@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.10
+Version: 10.90.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec  1 2005 Jeremy Katz <katzj@redhat.com> - 10.90.11-1
+- reworded media check prompt (dcantrell, #174472)
+- let's try squashfs... 
+
 * Wed Nov 30 2005 Jeremy Katz <katzj@redhat.com> - 10.90.10-1
 - Don't split transactions on not split install types (pnasrat, #174033)
 - Fix None vs "" for vncpasswd in test mode (Patrick Mansfield)
