@@ -1,4 +1,9 @@
-2005-12-01  David Cantrell  <dcantrell@redhat.com>
+2007-12-01  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (KickstartPreParser.__init__):  Allow %pre scripts to
+	be in an included file.
+
+2007-12-01  David Cantrell  <dcantrell@redhat.com>
 
 	* gui.py:  In 800x600 mode, set the window size of the release
 	notes viewer to be 800x420 when the installpackages stage is

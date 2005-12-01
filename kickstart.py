@@ -568,7 +568,6 @@ class VNCHandlers(KickstartHandlers):
 class KickstartPreParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers):
         self.handler = kshandlers
-        self.followIncludes = False
         KickstartParser.__init__(self, ksdata, kshandlers)
 
     def addScript (self):
