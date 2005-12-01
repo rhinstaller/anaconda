@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.11
+Version: 10.90.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec  1 2005 Jeremy Katz <katzj@redhat.com> - 10.90.12-1
+- some release notes viewer fixing (dcantrell)
+- allow %%pre scripts in an %%include (clumens, #166100)
+- fix the squashfs stuff to actually work
+- hack around slang not initializing utf8 mode so that we have line 
+  drawing chars (#174761) 
+
 * Thu Dec  1 2005 Jeremy Katz <katzj@redhat.com> - 10.90.11-1
 - reworded media check prompt (dcantrell, #174472)
 - let's try squashfs... 
