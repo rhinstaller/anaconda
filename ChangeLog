@@ -1,3 +1,9 @@
+2005-12-01  David Cantrell  <dcantrell@redhat.com>
+
+	* dispatch.py (Dispatch.bindArgs):  Make sure args is a tuple or
+	list type before running the for loop.  If called while in the
+	installpackages state, args is a function.
+
 2005-12-01  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c (main): Load squashfs.

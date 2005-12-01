@@ -237,14 +237,16 @@ class Dispatcher:
 
     def bindArgs(self, args):
 	newArgs = ()
-	for arg in args:
-	    obj = self
-	    for item in string.split(arg, '.'):
-		if not obj.__dict__.has_key(item):
-                    exec "obj = self.%s" %(arg,)
-                    break
-		obj = obj.__dict__[item]
-	    newArgs = newArgs + (obj,)
+
+	if type(args) == TupleType or type(args) == ListType:
+	    for arg in args:
+	        obj = self
+	        for item in string.split(arg, '.'):
+		    if not obj.__dict__.has_key(item):
+                        exec "obj = self.%s" %(arg,)
+                        break
+		    obj = obj.__dict__[item]
+	        newArgs = newArgs + (obj,)
 
 	return newArgs
 
