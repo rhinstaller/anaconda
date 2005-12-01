@@ -1052,7 +1052,7 @@ if [ -n "$NEEDGR" ]; then
 fi
 
 echo "Creating SELinux policy..."
-if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+if [ -x $DESTGR/usr/sbin/semodule -a -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted"
 else
     /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted
