@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.9
+Version: 10.90.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Nov 30 2005 Jeremy Katz <katzj@redhat.com> - 10.90.10-1
+- Don't split transactions on not split install types (pnasrat, #174033)
+- Fix None vs "" for vncpasswd in test mode (Patrick Mansfield)
+- Make release notes viewer as large as the screen (dcantrell)
+- Allow system-logos instead of fedora-logos for the package name
+- Try to build SELinux policy so that things work with selinux 
+  2.x policy (#174563)
+
 * Tue Nov 29 2005 Chris Lumens <clumens@redhat.com> 10.90.9-1
 - Another stab at including email.Utils everywhere (#173169).
 - Remove unneeded isys.sync calls (pjones).
