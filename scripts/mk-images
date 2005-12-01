@@ -690,8 +690,9 @@ makeinstimage () {
         echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
         mkfs.cramfs $CRAMBS $tmpdir /tmp/${imagename}2.img.$$
     elif [ "$type" = "squashfs" ]; then
-        echo "Running mksquashfs -all-root $tmpdir /tmp/${imagename}2.img"
-        mksquashfs -all-root $tmpdir /tmp/${imagename}2.img.$$
+        echo "Running mksquashfs $tmpdir /tmp/${imagename}2.img -all-root"
+        mksquashfs $tmpdir /tmp/${imagename}2.img.$$ -all-root
+        chmod 0644 /tmp/${imagename}2.img.$$
     fi
     cp /tmp/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
@@ -727,8 +728,9 @@ makemainimage () {
         rmdir $mmi_mntpoint
     elif [ $type = "squashfs" ]; then
         makeproductfile $IMGPATH
-        echo "Running mksquashfs -all-root $IMGPATH $mmi_tmpimage"
-        mksquashfs -all-root $IMGPATH $mmi_tmpimage
+        echo "Running mksquashfs $IMGPATH $mmi_tmpimage -all-root"
+        mksquashfs $IMGPATH $mmi_tmpimage -all-root
+        chmod 0644 $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     elif [ $type = "cramfs" ]; then
         makeproductfile $IMGPATH
@@ -747,7 +749,7 @@ makemainimage () {
 
 makeSecondStage() {
     echo "Building minstg.img"
-    makeinstimage "minstg"
+    makeinstimage "minstg" "squashfs"
     [ $? = 0 ] || exit 1
     echo "Building stage2.img"
     makemainimage "stage2" "squashfs"
