@@ -110,7 +110,7 @@ mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
-	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm
+	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm libsemanage
 	 procps rpm rpm-libs XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
@@ -297,6 +297,7 @@ $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
 $LIBDIR/libresolv*
 $LIBDIR/libselinux*
+$LIBDIR/libsemanage*
 $LIBDIR/libsepol*
 $LIBDIR/libss*
 $LIBDIR/libtermcap*
@@ -433,9 +434,11 @@ usr/sbin/mkofboot
 usr/sbin/ofpath
 usr/sbin/ybin
 usr/sbin/load_policy
+usr/sbin/semodule
 usr/sbin/lvm
 usr/sbin/build-locale-archive
 usr/share/anaconda/anaconda.conf
+usr/share/selinux/targeted/base.pp
 usr/share/terminfo/b/bterm
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
@@ -1047,6 +1050,16 @@ echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
     mkfontdir $DESTGR/usr/share/X11/fonts/*
 fi
+
+echo "Creating SELinux policy..."
+if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted"
+else
+    /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted
+fi
+rm -rf $DEST/etc/selinux
+mkdir $DEST/etc/selinux
+cp -r $DESTGR/etc/selinux/* $DEST/etc/selinux/
 
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
