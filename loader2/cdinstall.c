@@ -109,11 +109,11 @@ static char * mediaCheckCdrom(char *cddriver) {
 	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
 			   _("If you would like to test additional media, "
 			     "insert the next CD and press \"%s\". "
-			     "You do not have to test all CDs, although "
-			     "it is recommended you do so at least once.\n\n"
-			     "To begin the installation process "
-			     "insert CD #1 into the drive "
-			     "and press \"%s\"."),
+			     "Testing each CD is not strictly required, however "
+			     "it is highly recommended.  Minimally, the CDs should "
+			     "be tested prior to using them for the first time. "
+			     "After they have been successfully tested, it is not "
+			     "required to retest each CD prior to using it again."),
 			   _("Test"), _("Continue"));
 
 	if (rc == 2) {
