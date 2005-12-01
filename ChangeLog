@@ -1,3 +1,9 @@
+2005-12-01  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c (main): Load squashfs.
+
+	* loader2/method.c (mountLoopback): Try to mount squashfs too.
+
 2005-12-01  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/cdinstall.c:  Reworded the media check prompt dialog as

@@ -125,6 +125,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
      * filesystems for the specific type of image being mounted */
     if (doPwMount(filename, mntpoint, "iso9660", IMOUNT_RDONLY, NULL)) {
         if (doPwMount(filename, mntpoint, "ext2", IMOUNT_RDONLY, NULL)) {
+          if (doPwMount(filename, mntpoint, "squashfs", IMOUNT_RDONLY, NULL)) {
             if (doPwMount(filename, mntpoint, "cramfs", IMOUNT_RDONLY, NULL)) {
               if (doPwMount(filename, mntpoint, "vfat", IMOUNT_RDONLY, NULL)) {
                 logMessage(ERROR, "failed to mount loop: %s", strerror(errno));
@@ -134,6 +135,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
                 return LOADER_ERROR;
               }
             }
+          }
         }
     }
 

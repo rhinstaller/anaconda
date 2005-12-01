@@ -1268,10 +1268,10 @@ int main(int argc, char ** argv) {
 	setenv("TERM", "vt100", 1);
 
 #if defined(__powerpc__)  /* hack for pcspkr breaking ppc right now */
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd", 
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:squashfs", 
                     modLoaded, modDeps, modInfo, flags);
 #else
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr", 
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr:squashfs", 
                     modLoaded, modDeps, modInfo, flags);
 #endif
 
