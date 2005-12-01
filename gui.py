@@ -1102,18 +1102,22 @@ class InstallControlWindow:
 	    # release notes window smaller so the progress bar is still
 	    # visible...otherwise, consume the entire screen
 	    (step, args) = self.dispatch.currentStep()
-	    print "runReleaseNotesViewer is at step %s" %(step)
 
 	    if gtk.gdk.screen_width() >= 800:
-		res = ("800", "600",) 
-	    else:
-		res = ("640", "480",)
-
-	    if step == "install":
-		if res[0] == "800":
-		    res[1] = "400"
+		if step == "installpackages":
+			# these dimensions are as wide as the installer window and covers up
+			# just down to the progress bar line.  the idea being the user can
+			# read the detailed release notes while watching the installation
+			# progress bar.  there is a similar setting a few lines down for the
+			# lowres install mode.
+			res = ("800", "420",)
 		else:
-		    res[1] = "300"
+			res = ("800", "600",) 
+	    else:
+		if step == "installpackages":
+			res = ("640", "300",)
+		else:
+			res = ("640", "480",)
 
 	    child = os.fork()
 	    if (child == 0):

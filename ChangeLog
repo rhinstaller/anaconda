@@ -1,3 +1,10 @@
+2005-12-01  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py:  In 800x600 mode, set the window size of the release
+	notes viewer to be 800x420 when the installpackages stage is
+	running.  Release notes are readable and the progress bar is
+	still visible.
+
 2005-12-01  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
