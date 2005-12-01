@@ -31,7 +31,7 @@ fi
 TOPDIR=$(cd $TOPDIR; pwd)
 
 # modules that are needed.  this is the generic "needed for every arch" stuff
-COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr"
+COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr squashfs"
 USBMODS="ohci-hcd uhci-hcd ehci-hcd hid mousedev usb-storage sd_mod sr_mod"
 FIREWIREMODS="ieee1394 ohci1394 sbp2"
 IDEMODS="ide-cd"
@@ -676,6 +676,7 @@ EOF
 
 makeinstimage () {
     imagename=$1
+    type=$2
     tmpdir=/tmp/instimage.dir.$$
 
     rm -rf $tmpimage $tmpdir
@@ -685,8 +686,13 @@ makeinstimage () {
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     makeproductfile $tmpdir
 
-    echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
-    mkfs.cramfs $CRAMBS $tmpdir /tmp/${imagename}2.img.$$
+    if [ -z "$type" -o "$type" = "cramfs" ]; then 
+        echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
+        mkfs.cramfs $CRAMBS $tmpdir /tmp/${imagename}2.img.$$
+    elif [ "$type" = "squashfs" ]; then
+        echo "Running mksquashfs -all-root $tmpdir /tmp/${imagename}2.img"
+        mksquashfs -all-root $tmpdir /tmp/${imagename}2.img.$$
+    fi
     cp /tmp/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
@@ -719,6 +725,11 @@ makemainimage () {
         makeproductfile $mmi_mntpoint
         umount $mmi_mntpoint
         rmdir $mmi_mntpoint
+    elif [ $type = "squashfs" ]; then
+        makeproductfile $IMGPATH
+        echo "Running mksquashfs -all-root $IMGPATH $mmi_tmpimage"
+        mksquashfs -all-root $IMGPATH $mmi_tmpimage
+        SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     elif [ $type = "cramfs" ]; then
         makeproductfile $IMGPATH
         echo "Running mkcramfs $CRAMBS $IMGPATH $mmi_tmpimage"
@@ -739,7 +750,7 @@ makeSecondStage() {
     makeinstimage "minstg"
     [ $? = 0 ] || exit 1
     echo "Building stage2.img"
-    makemainimage "stage2" "cramfs"
+    makemainimage "stage2" "squashfs"
     [ $? = 0 ] || exit 1
 }
 

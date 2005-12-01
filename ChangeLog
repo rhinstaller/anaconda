@@ -6,6 +6,9 @@
 
 2005-12-01  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images: Add squashfs to module list.  Build images as
+	squashfs.
+
 	* loader2/loader.c (main): Load squashfs.
 
 	* loader2/method.c (mountLoopback): Try to mount squashfs too.
