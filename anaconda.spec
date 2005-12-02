@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.25
+Version: 10.1.1.26
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec  2 2005 Peter Jones <pjones@redhat.com> - 10.1.1.26-1
+- Fix verious problems with LVM support (#145183, #161652)
+- Add modules for storage devices (#167065)
+- Fix NFS mounting when DNS is not in use (#168957)
+- Fix s390x installation with no DASD devices (#165098)
+- Fix various dialog boxes and installer text (#172030, #172588)
+- Add support for ksdevice=bootif (#170713)
+- Fix argument handling for kickstart sections (#170331)
+- Fix handling of "noparport" option (#170333)
+
 * Thu Sep 22 2005 Peter Jones <pjones@redhat.com> - 10.1.1.25-1
 - Fix all the lvm calls similar to vg size fix, including pe size
   in vglist. (#165141)
