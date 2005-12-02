@@ -125,7 +125,7 @@ int powerpcDetectSMP(void)
                     if (!strncmp (buff, "cpu", 3))
                         {
                             issmp++;
-                            break;
+                            //break;
                         }
                 }
                 fclose(f);
@@ -353,7 +353,7 @@ static int groupForSMP(int mode)
 	    }
 	}
 	if (ncpus > 1)
-	    rc = 1;
+	    rc = ncpus;
     }
 
     close (pfd);
@@ -596,22 +596,19 @@ int detectHT(void)
 		    /* buff includes \n, so back up 4 bytes from the end
 		       and check there too to catch the end case */
 		    !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
-		    htflag = 1;
+		    htflag += 1;
+                    ebx = cpuid_ebx(1);
+                    smp_num_siblings += (ebx & 0xff0000) >> 16;
 		}
-		break;
 	    }
 	}
 	fclose(f);
     }
-    if (!htflag)
+    if (!htflag || !smp_num_siblings)
 	return 0;
 
-    ebx = cpuid_ebx(1);
-    smp_num_siblings = (ebx & 0xff0000) >> 16;
-    
-    if (smp_num_siblings >= 2)
-	return 1;
-    return 0;
+    /* XXX this is totally bogus */
+    return (int)((float)(smp_num_siblings / htflag));
 }
 
 int detectSummit(void)
