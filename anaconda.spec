@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.26
+Version: 10.1.1.27
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec  2 2005 Peter Jones <pjones@redhat.com> - 10.1.1.27-1
+- Fix largesmp detection on x86_64 and powerpc
+
 * Fri Dec  2 2005 Peter Jones <pjones@redhat.com> - 10.1.1.26-1
 - Fix verious problems with LVM support (#145183, #161652)
 - Add modules for storage devices (#167065)
