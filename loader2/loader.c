@@ -361,6 +361,7 @@ void loadUpdates(int flags) {
     return;
 }
 
+#if !defined(__s390__) && !defined(__s390x__)
 static void checkForHardDrives(int * flagsPtr) {
     int flags = (*flagsPtr);
     int i;
@@ -387,6 +388,7 @@ static void checkForHardDrives(int * flagsPtr) {
 
     return;
 }
+#endif
 
 static void writeVNCPasswordFile(char *pfile, char *password) {
     FILE *f;
