@@ -645,7 +645,31 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     if not upgrade:
         foundkernel = 0
-	if isys.smpAvailable() or isys.htavailable():
+        ncpus = isys.smpAvailable()
+        nhts = isys.htavailable()
+        if rhpl.arch.canonArch() == "x86_64":
+            if nhts > 64 or ncpus > 64:
+                if select(id.grpset.hdrlist, 'kernel-largesmp'):
+                    foundkernel = 1
+                    if selected(id.grpset.hdrlist, "gcc"):
+                        select(id.grpset.hdrlist, "kernel-largesmp-devel")
+            elif nhts or ncpus:
+                if select(id.grpset.hdrlist, 'kernel-smp'):
+                    foundkernel = 1
+                    if selected(id.grpset.hdrlist, "gcc"):
+                        select(id.grpset.hdrlist, "kernel-smp-devel")
+        elif iutil.getArch() == "ppc":
+            if ncpus > 128 or nhts > 128:
+                if select(id.grpset.hdrlist, 'kernel-largesmp'):
+                    foundkernel = 1
+                    if selected(id.grpset.hdrlist, "gcc"):
+                        select(id.grpset.hdrlist, "kernel-largesmp-devel")
+            elif nhts or ncpus:
+                if select(id.grpset.hdrlist, 'kernel-smp'):
+                    foundkernel = 1
+                    if selected(id.grpset.hdrlist, "gcc"):
+                        select(id.grpset.hdrlist, "kernel-smp-devel")
+        elif nhts or ncpus:
             if select(id.grpset.hdrlist, 'kernel-smp'):
                 foundkernel = 1
                 if selected(id.grpset.hdrlist, "gcc"):
