@@ -129,10 +129,17 @@ loader: loader.o $(OBJS) $(NETOBJS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
-	loader
+	loader checkisomd5
 
 depend: $(CTYPEDEP)
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
+
+checkisomd5: depend mediacheck.c log.c md5.c
+	$(CC) -DTESTING $(CFLAGS) -o mediacheck.o -c mediacheck.c
+	$(CC) -DTESTING $(CFLAGS) -o log.o -c log.c
+	$(CC) -DTESTING $(CFLAGS) -o md5.o -c md5.c
+	$(CC) -g $(STATIC) -o checkisomd5 mediacheck.o log.o md5.o \
+		$(NEWTLIB) $(SLANGLIB)
 
 install: all
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
