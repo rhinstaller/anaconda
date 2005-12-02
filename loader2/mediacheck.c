@@ -374,6 +374,7 @@ int mediaCheckFile(char *file, char *descr) {
     int rc;
     int supported;
     char *result;
+    char *resultdescr;
     char mediasum[33], computedsum[33];
     char tmpstr[512];
     char descrstr[256];
@@ -393,39 +394,42 @@ int mediaCheckFile(char *file, char *descr) {
     close(isofd);
 
     if (rc == 0) {
-	result = _("FAIL.\n\n"
-		   "The image which was just tested has errors. "
-		   "This could be due to a "
-		   "corrupt download or a bad disc.  "
-		   "If applicable, please clean the disc "
-		   "and try again.  If this test continues to fail you "
-		   "should not continue the install.");
+	result = _("FAILED");
+	resultdescr = _("The image which was just tested has errors. "
+		        "This could be due to a "
+		        "corrupt download or a bad disc.  "
+		        "If applicable, please clean the disc "
+		        "and try again.  If this test continues to fail you "
+		        "should not continue the install.");
 
 	logMessage(ERROR, "mediacheck: %s (%s) FAILED", file, descr);
 	logMessage(ERROR, "value of supported iso flag is %d", supported);
     } else if (rc > 0) {
-	result = _("PASS.\n\nIt is OK to install from this media.");
+	result = _("PASSED");
+	resultdescr = _("It is OK to install from this media.");
+
 	logMessage(INFO, "mediacheck: %s (%s) PASSED", file, descr);
 	logMessage(INFO, "value of supported iso flag is %d", supported);
     } else {
-	result = _("NA.\n\nNo checksum information available, unable to verify media.");
+	result = _("FAILED");
+	resultdescr = _("No checksum information available, unable to verify media.");
+
 	logMessage(WARNING, "mediacheck: %s (%s) has no checksum info", file, descr);
     }
 
-    newtCenteredWindow(60, 20, _("Media Check Result"));
-    t = newtTextbox(4, 1, 56, 18, NEWT_TEXTBOX_WRAP);
+    newtCenteredWindow(60, 17, _("Media Check Result"));
+    t = newtTextbox(4, 1, 56, 14, NEWT_TEXTBOX_WRAP);
     if (descr)
 	snprintf(descrstr, sizeof(descrstr),
-		 _("of the image:\n\n%s\n\n"), descr);
+		 _("%s for the image:\n\n   %s"), result, descr);
     else
 	descrstr[0] = '\0';
 
-    snprintf(tmpstr, sizeof(tmpstr), _("The media check %sis complete, and "
-				       "the result is: %s\n"), descrstr, result);
+    snprintf(tmpstr, sizeof(tmpstr), _("The media check %s\n\n%s"), descrstr, resultdescr);
     newtTextboxSetText(t, tmpstr);
     f = newtForm(NULL, NULL, 0);
     newtFormAddComponent(f, t);
-    newtFormAddComponent(f, newtButton(26, 15, _("OK")));
+    newtFormAddComponent(f, newtButton(26, 12, _("OK")));
 
     newtRunForm(f);
     newtFormDestroy(f);
@@ -445,7 +449,7 @@ int main(int argc, char **argv) {
 
     newtInit();
     newtCls();
-    rc = mediaCheckFile(argv[1], "TESTING");
+    rc = mediaCheckFile(argv[1], "Super Secret Volume Name");
     newtFinished();
     exit (0);
 }
