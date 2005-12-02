@@ -584,31 +584,33 @@ int detectHT(void)
     FILE *f;
     int htflag = 0;
     uint32_t ebx = 0;
-    int smp_num_siblings = 0;
     
     f = fopen("/proc/cpuinfo", "r");
     if (f) {
 	char buff[1024];
+        int ignore = 0;
 	
 	while (fgets (buff, 1024, f) != NULL) {
 	    if (!strncmp (buff, "flags\t\t:", 8)) {
+                if (ignore) {
+                    ignore--;
+                    continue;
+                }
 		if (strstr(buff, " ht ") ||
-		    /* buff includes \n, so back up 4 bytes from the end
-		       and check there too to catch the end case */
-		    !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
-		    htflag += 1;
+		        /* buff includes \n, so back up 4 bytes from the end
+		           and check there too to catch the end case */
+		        !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
+                    int smp_num_siblings = 0;
                     ebx = cpuid_ebx(1);
-                    smp_num_siblings += (ebx & 0xff0000) >> 16;
+                    smp_num_siblings = (ebx & 0xff0000) >> 16;
+                    htflag += smp_num_siblings;
+                    ignore += smp_num_siblings - 1;
 		}
 	    }
 	}
 	fclose(f);
     }
-    if (!htflag || !smp_num_siblings)
-	return 0;
-
-    /* XXX this is totally bogus */
-    return (int)((float)(smp_num_siblings / htflag));
+    return htflag;
 }
 
 int detectSummit(void)
