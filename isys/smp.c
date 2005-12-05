@@ -590,6 +590,34 @@ int detectSummit(void)
     return groupForSMP(MODE_SUMMIT_CHECK);
 }
 
+#elif defined (__ia64__)
+
+int detectHT(void)
+{
+    /* the only place we care about this on ia64, we're multiplying by 
+     * max(ncpus,1) */
+    return 1;
+}
+
+int ia64DetectSMP(void)
+{
+    DIR *dir;
+    struct dirent *entry;
+    int ncpus = 0;
+
+    dir = opendir("/proc/pal");
+    if (!dir)
+        return 0;
+    
+    while((entry = readdir(dir))) {
+            if (strncmp(entry->d_name, "cpu", 3))
+                ncpus++;
+    }
+    closedir(dir);
+
+    return ncpus;
+}
+
 #else /* ndef __i386__ */
 
 int detectHT(void)
@@ -619,8 +647,8 @@ int detectSMP(void)
     return isSMP = alphaDetectSMP();
 #elif defined (__s390__) || defined (__s390x__)
     return isSMP = s390DetectSMP();
-#elif defined (__ia64__) || defined (__x86_64__)
-    return isSMP = 1;
+#elif defined (__ia64__)
+    return isSMP = ia64DetectSMP();
 #elif defined (__powerpc__)
     return isSMP = powerpcDetectSMP();
 #else

@@ -645,6 +645,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     if not upgrade:
         foundkernel = 0
+        # XXX this should probably be table driven or something...
         if rhpl.arch.canonArch == "x86_64":
             ncpus = isys.smpAvailable() or 1
             nthreads = ncpus * isys.htavailable()
@@ -670,6 +671,17 @@ def doPreInstall(method, id, intf, instPath, dir):
                     foundkernel = 1
                     if selected(id.grpset.hdrlist, "gcc"):
                         select(id.grpset.hdrlist, "kernel-smp-devel")
+        elif iutil.getArch() == "ia64":
+            ncpus = isys.smpAvailable() or 1
+            if ncpus > 256:
+                if select(id.grpset.hdrlist, 'kernel-largesmp'):
+                    foundkernel = 1
+                    if selected(id.grpset.hdrlist, "gcc"):
+                        select(id.grpset.hdrlist, "kernel-largesmp-devel")
+            if select(id.grpset.hdrlist, 'kernel-smp'):
+                foundkernel = 1
+                if selected(id.grpset.hdrlist, "gcc"):
+                    select(id.grpset.hdrlist, "kernel-smp-devel")
         elif isys.smpAvailable() or isys.htavailable():
             if select(id.grpset.hdrlist, 'kernel-smp'):
                 foundkernel = 1
@@ -927,7 +939,9 @@ def doInstall(method, id, intf, instPath):
 	log ("WARNING: not all packages in hdlist had order tag")
         # have to call ts.check before ts.order() to set up the alIndex
         ts.check(depcheck.callback)
+        log ("did ts.check, doing ts.order")
         ts.order()
+        log ("ts.order is done")
     else:
         ts.check(depcheck.callback)
 
@@ -966,6 +980,7 @@ def doInstall(method, id, intf, instPath):
         instLog.write(_("Installing %s packages\n\n") % (num,))
 
     ts.scriptFd = instLog.fileno ()
+    log ("setting rpm logfile")
     rpm.setLogFile(instLog)
     # the transaction set dup()s the file descriptor and will close the
     # dup'd when we go out of scope
@@ -975,6 +990,7 @@ def doInstall(method, id, intf, instPath):
     else:
 	modeText = _("Installing %s-%s-%s.%s.\n")
 
+    log ("getting rpm error class")
     errors = rpmErrorClass(instLog)
     pkgTimer = timer.Timer(start = 0)
 
@@ -998,6 +1014,7 @@ def doInstall(method, id, intf, instPath):
     cb.initWindow = intf.waitWindow(_("Install Starting"),
 				    _("Starting install process, this may take several minutes..."))
 
+    log ("setting problem filter")
     ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
     problems = ts.run(cb.cb, 0)
 
