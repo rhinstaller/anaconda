@@ -1,3 +1,8 @@
+2005-12-05  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/upd-instroot:  Add some additional SELinux-related programs
+	and an /etc/shells to get semodule working again.
+
 2005-12-05  Peter Jones <pjones@redhat.com>
 
 	* isys/nfsmount_xdr.c (xdr_mountres3_ok): reformat weird tabbing,

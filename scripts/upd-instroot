@@ -435,6 +435,8 @@ usr/sbin/ofpath
 usr/sbin/ybin
 usr/sbin/load_policy
 usr/sbin/semodule
+usr/sbin/genhomedircon
+usr/sbin/setfiles
 usr/sbin/lvm
 usr/sbin/build-locale-archive
 usr/share/anaconda/anaconda.conf
@@ -1006,6 +1008,10 @@ EOF
   cp $DEST/etc/selinux/config $DESTGR/etc/selinux/config
 fi
 
+cat > $DEST/etc/shells <<EOF
+/bin/sh
+EOF
+
 echo "Creating nsswitch.conf"
 cat > $DEST/etc/nsswitch.conf <<EOF
 # munged nsswitch.conf with just what anaconda needs
@@ -1026,6 +1032,7 @@ automount:  files
 aliases:    files
 EOF
 
+cp $DEST/etc/shells $DESTGR/etc/shells
 cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 
 # fixup man.config to point into /mnt/sysimage for rescue
