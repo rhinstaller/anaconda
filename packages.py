@@ -659,7 +659,7 @@ def doPreInstall(method, id, intf, instPath, dir):
                     foundkernel = 1
                     if selected(id.grpset.hdrlist, "gcc"):
                         select(id.grpset.hdrlist, "kernel-smp-devel")
-        elif iutil.getArch() == "ppc":
+        elif iutil.getArch() == "ppc" and iutil.getPPCMachine() != "iSeries":
             ncpus = isys.smpAvailable() or 1
             if ncpus > 128:
                 if select(id.grpset.hdrlist, 'kernel-largesmp'):
