@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.12
+Version: 10.90.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 05 2005 Chris Lumens <clumens@redhat.com> 10.90.13-1
+- Reword media check dialog (dcentrell, #174530).
+- gcc41 compile fixes (pjones).
+- Add genhomedircon, setfiles, and /etc/shells for selinux.
+
 * Thu Dec  1 2005 Jeremy Katz <katzj@redhat.com> - 10.90.12-1
 - some release notes viewer fixing (dcantrell)
 - allow %%pre scripts in an %%include (clumens, #166100)
