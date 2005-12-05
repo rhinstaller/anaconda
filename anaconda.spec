@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Dec 05 2005 Chris Lumens <clumens@redhat.com> 10.90.13-1
-- Reword media check dialog (dcentrell, #174530).
+- Reword media check dialog (dcantrell, #174530).
 - gcc41 compile fixes (pjones).
 - Add genhomedircon, setfiles, and /etc/shells for selinux.
 
