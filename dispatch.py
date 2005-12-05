@@ -58,7 +58,6 @@ log = logging.getLogger("anaconda")
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
-    ("timezone", ("id.instLanguage", "id.timezone")),
     ("welcome", ()),
     ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
@@ -97,6 +96,7 @@ installSteps = [
                             "id.diskset")),
     ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
     ("network", ("id.network", "dir", "intf", "id")),
+    ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
     ("reposetup", doRepoSetup, ("backend","intf", "instPath")),
     ("basepkgsel", doBasePackageSelect, ("backend","id.instClass")),
