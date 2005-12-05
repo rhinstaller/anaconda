@@ -591,6 +591,8 @@ int detectSummit(void)
 
 #elif defined (__ia64__)
 
+#include <dirent.h>
+
 int detectHT(void)
 {
     /* the only place we care about this on ia64, we're multiplying by 
