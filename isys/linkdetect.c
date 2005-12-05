@@ -42,7 +42,8 @@ static struct ifreq ifr;
 
 static int mdio_read(int skfd, int location)
 {
-    struct mii_data *mii = (struct mii_data *)&ifr.ifr_data;
+    void *data = &ifr.ifr_data;
+    struct mii_data *mii = data;
     mii->reg_num = location;
     if (ioctl(skfd, SIOCGMIIREG, &ifr) < 0) {
 #ifdef STANDALONE

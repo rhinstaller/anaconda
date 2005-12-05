@@ -1,3 +1,11 @@
+2005-12-05  Peter Jones <pjones@redhat.com>
+
+	* isys/nfsmount_xdr.c (xdr_mountres3_ok): reformat weird tabbing,
+	and don't type-pun any more.
+	* isys/linkdetect.c (mdio_read): no type-punning.
+	* loader/moduleinfo.c (readModuleInfo): fix typo (+ instead of +=) that
+	gcc41 complains about.
+
 2005-12-02  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/mediacheck.c:  Reworded the media check result dialog to

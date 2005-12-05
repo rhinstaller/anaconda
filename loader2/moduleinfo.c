@@ -116,7 +116,7 @@ int readModuleInfo(const char * filename, moduleInfoSet mis,
             /* slice and dice */
             next = chptr + 1;
         } else {
-            chptr + strlen(start) - 1;
+            chptr += strlen(start) - 1;
         }
 
         chptr--;
