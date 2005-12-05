@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.27
+Version: 10.1.1.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec  5 2005 Peter Jones <pjones@redhat.com> - 10.1.1.28-1
+- fix a typo that prevents smp installs
+- revamp x86 HT detection to be much simpler
+
 * Fri Dec  2 2005 Peter Jones <pjones@redhat.com> - 10.1.1.27-1
 - Fix largesmp detection on x86_64 and powerpc
 
