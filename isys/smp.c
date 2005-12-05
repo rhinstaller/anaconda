@@ -296,7 +296,6 @@ static int groupForSMP(int mode)
     vm_offset_t paddr;
     int         where;
     mpfps_t     mpfps;
-    int		rc = 0;
     int		ncpus = 0;
         
     /* open physical memory for access to MP structures */
@@ -315,7 +314,7 @@ static int groupForSMP(int mode)
 
     if (mpfps.mpfb1)
 	/* old style */
-	rc = 1;
+	ncpus = 2;
     else {
 	/* go to the config table */
 	mpcth_t     cth;
@@ -352,12 +351,10 @@ static int groupForSMP(int mode)
 		    ncpus++;
 	    }
 	}
-	if (ncpus > 1)
-	    rc = ncpus;
     }
 
     close (pfd);
-    return rc;
+    return ncpus;
 }
 
 /*
@@ -577,40 +574,15 @@ static inline unsigned int cpuid_ebx(int op)
 #endif
 
 #if defined(__i386__) || defined(__x86_64__)
-/* XXX: rewrite using /proc/cpuinfo info if it there.  Only fall
-   back to inline asm if it is not */
 int detectHT(void)
 {
-    FILE *f;
-    int htflag = 0;
     uint32_t ebx = 0;
+    int logical_procs = 0;
+
+    ebx = cpuid_ebx(1);
+    logical_procs = (ebx & 0xff0000) >> 16;
     
-    f = fopen("/proc/cpuinfo", "r");
-    if (f) {
-	char buff[1024];
-        int ignore = 0;
-	
-	while (fgets (buff, 1024, f) != NULL) {
-	    if (!strncmp (buff, "flags\t\t:", 8)) {
-                if (ignore) {
-                    ignore--;
-                    continue;
-                }
-		if (strstr(buff, " ht ") ||
-		        /* buff includes \n, so back up 4 bytes from the end
-		           and check there too to catch the end case */
-		        !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
-                    int smp_num_siblings = 0;
-                    ebx = cpuid_ebx(1);
-                    smp_num_siblings = (ebx & 0xff0000) >> 16;
-                    htflag += smp_num_siblings;
-                    ignore += smp_num_siblings - 1;
-		}
-	    }
-	}
-	fclose(f);
-    }
-    return htflag;
+    return logical_procs;
 }
 
 int detectSummit(void)
