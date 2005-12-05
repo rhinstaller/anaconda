@@ -105,7 +105,7 @@ int sparcDetectSMP(void)
 /* FIXME: this won't work on iSeries */
 int powerpcDetectSMP(void)
 {
-    int issmp = -1;
+    int ncpus = 0;
     FILE *f;
     struct findNode *list = (struct findNode *) malloc(sizeof(struct findNode));
     struct pathNode *n;
@@ -124,15 +124,14 @@ int powerpcDetectSMP(void)
                 while (fgets (buff, 1024, f) !=  NULL) {
                     if (!strncmp (buff, "cpu", 3))
                         {
-                            issmp++;
-                            //break;
+                            ncpus++;
                         }
                 }
                 fclose(f);
             }
         }
 
-    return issmp;
+    return ncpus;
 }
 #endif /* __powerpc__ */
 
