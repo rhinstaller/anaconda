@@ -755,7 +755,7 @@ int ia64DetectSMP(void)
     }
     fclose(efi_systab);
     if (fp == 0)
-        return 0
+        return 0;
 
     buf = mem_chunk(fp, 0x20, "/dev/mem");
     if (!buf)
