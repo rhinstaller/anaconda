@@ -76,6 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Tue Dec  6 2005 Peter Jones <pjones@redhat.com> - 10.1.1.29-1
 - add smp/ht detection for ia64
+- fix boot.img creation for ia64
 
 * Mon Dec  5 2005 Peter Jones <pjones@redhat.com> - 10.1.1.28-1
 - fix a typo that prevents smp installs
