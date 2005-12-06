@@ -646,44 +646,24 @@ def doPreInstall(method, id, intf, instPath, dir):
     if not upgrade:
         foundkernel = 0
         # XXX this should probably be table driven or something...
+        ncpus = isys.smpAvailable()
+        nhts = isys.htavailable()
+        nthreads = (ncpus or 1) * (nhts or 1)
+        largesmp_min = -1
         if rhpl.arch.canonArch == "x86_64":
-            ncpus = isys.smpAvailable() or 1
-            nthreads = ncpus * isys.htavailable()
-            if nthreads > 64:
-                if select(id.grpset.hdrlist, 'kernel-largesmp'):
-                    foundkernel = 1
-                    if selected(id.grpset.hdrlist, "gcc"):
-                        select(id.grpset.hdrlist, "kernel-largesmp-devel")
-            elif nhts or ncpus:
-                if select(id.grpset.hdrlist, 'kernel-smp'):
-                    foundkernel = 1
-                    if selected(id.grpset.hdrlist, "gcc"):
-                        select(id.grpset.hdrlist, "kernel-smp-devel")
+            largesmp_min = 64
         elif iutil.getArch() == "ppc" and iutil.getPPCMachine() != "iSeries":
-            ncpus = isys.smpAvailable() or 1
-            if ncpus > 128:
-                if select(id.grpset.hdrlist, 'kernel-largesmp'):
-                    foundkernel = 1
-                    if selected(id.grpset.hdrlist, "gcc"):
-                        select(id.grpset.hdrlist, "kernel-largesmp-devel")
-            elif nhts or ncpus:
-                if select(id.grpset.hdrlist, 'kernel-smp'):
-                    foundkernel = 1
-                    if selected(id.grpset.hdrlist, "gcc"):
-                        select(id.grpset.hdrlist, "kernel-smp-devel")
+            largesmp_min = 128
         elif iutil.getArch() == "ia64":
-            ncpus = isys.smpAvailable() or 1
-            if ncpus > 256:
-                if select(id.grpset.hdrlist, 'kernel-largesmp'):
-                    foundkernel = 1
-                    if selected(id.grpset.hdrlist, "gcc"):
-                        select(id.grpset.hdrlist, "kernel-largesmp-devel")
-            if select(id.grpset.hdrlist, 'kernel-smp'):
-                foundkernel = 1
-                if selected(id.grpset.hdrlist, "gcc"):
-                    select(id.grpset.hdrlist, "kernel-smp-devel")
-        elif isys.smpAvailable() or isys.htavailable():
-            if select(id.grpset.hdrlist, 'kernel-smp'):
+            largesmp_min = 256
+
+        if largesmp_min > 0 and nthreads > largesmp_min and \
+                select(id.grpset.hdrlist, "kernel-largesmp"):
+            foundKernel = 1
+            if selected(id.grpset.hdrlist("gcc"):
+                select(id.grpset.hdrlist, "kernel-largesmp-devel")
+        elif nthreads > 1:
+            if select(id.grpset.hdrlist, "kernel-smp"):
                 foundkernel = 1
                 if selected(id.grpset.hdrlist, "gcc"):
                     select(id.grpset.hdrlist, "kernel-smp-devel")

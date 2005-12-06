@@ -5,7 +5,6 @@
    or similar single cpu in it
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,11 +14,16 @@
 #include <errno.h>
 #include <stdint.h>
 #include <sys/types.h>
+#include <limits.h>
 
 #ifdef DIET
 typedef unsigned short u_short;
 typedef unsigned long u_long;
 typedef unsigned int u_int;
+typedef unsigned char u_int8_t;
+typedef unsigned short u_int16_t;
+typedef unsigned int u_int32_t;
+typedef unsigned long long u_int64_t;
 #endif
 
 
@@ -591,32 +595,181 @@ int detectSummit(void)
 
 #elif defined (__ia64__)
 
-#include <dirent.h>
-
 int detectHT(void)
 {
-    /* the only place we care about this on ia64, we're multiplying by 
-     * max(ncpus,1) */
-    return 1;
+    long nthreads = 0;
+    FILE *f;
+    
+    f = fopen("/proc/cpuinfo", "r");
+    if (f) {     
+	char buf[1024];
+	
+	while (fgets (buf, 1024, f) != NULL) {
+	    if (!strncmp (buf, "siblings   : ", 13)) {
+                errno = 0;
+                nthreads = strtol(buf+13, NULL, 0);
+                if (nthreads == LONG_MAX || nthreads == LONG_MIN || errno)
+                    nthreads = 1;
+		break;
+	    }
+	}
+	fclose(f);
+    } else
+	return 1;
+    return nthreads ? nthreads : 1;
+}
+
+struct dmi_header {
+    u_int8_t type;
+    u_int8_t length;
+    u_int16_t handle;
+};
+
+static int checksum(const u_int8_t *buf, size_t len)
+{
+	u_int8_t sum=0;
+	size_t a;
+	
+	for(a=0; a<len; a++)
+		sum+=buf[a];
+	return (sum==0);
+}
+
+static void *mem_chunk(size_t base, size_t len, const char *devmem)
+{
+	void *p;
+	int fd;
+	size_t mmoffset;
+	void *mmp;
+	
+	if((fd=open(devmem, O_RDONLY))==-1)
+	{
+		perror(devmem);
+		return NULL;
+	}
+	
+	if((p=malloc(len))==NULL)
+	{
+		perror("malloc");
+		return NULL;
+	}
+	
+#ifdef _SC_PAGESIZE
+	mmoffset=base%sysconf(_SC_PAGESIZE);
+#else
+	mmoffset=base%getpagesize();
+#endif /* _SC_PAGESIZE */
+	/*
+	 * Please note that we don't use mmap() for performance reasons here,
+	 * but to workaround problems many people encountered when trying
+	 * to read from /dev/mem using regular read() calls.
+	 */
+	mmp=mmap(0, mmoffset+len, PROT_READ, MAP_SHARED, fd, base-mmoffset);
+	if(mmp==MAP_FAILED)
+	{
+		free(p);
+		return NULL;
+	}
+	
+	memcpy(p, (u_int8_t *)mmp+mmoffset, len);
+
+	munmap(mmp, mmoffset+len);
+
+	close(fd);
+
+	return p;
+}
+
+static int dmi_table(u_int32_t base, u_int16_t len, u_int16_t num,
+        u_int16_t ver, const char *devmem)
+{
+    u_int8_t *buf;
+    u_int8_t *data;
+    int i = 0;
+    int ncpus=0;
+
+    if ((buf=mem_chunk(base, len, devmem))==NULL)
+        return 0;
+
+    data = buf;
+    while (i<num && data+sizeof (struct dmi_header) <= buf+len) {
+        u_int8_t *next;
+        struct dmi_header *h = (struct dmi_header *)data;
+
+        next = data + h->length;
+        while(next-buf+1 < len && (next[0]!=0 || next[1]!=0))
+            next++;
+	next += 2;
+
+        /* type "socket" && populated */
+        if (h->type == 4 && (data[0x18] & (1<<6))) {
+            u_int8_t code = data[0x18] & 0x07;
+
+            /* not disabled */
+            if (code != 0x02 && code != 0x03)
+                ncpus++;
+        }
+
+        data = next;
+        i++;
+    }
+    free(buf);
+    return ncpus;
+}
+
+#define WORD(x) (u_int16_t)(*(const u_int16_t *)(x))
+#define DWORD(x) (u_int32_t)(*(const u_int32_t *)(x))
+
+#include <inttypes.h>
+
+static int smbios_decode(u_int8_t *buf, const char *devmem)
+{
+    if (checksum(buf, buf[0x05]) && memcmp(buf+0x10, "_DMI_", 5) == 0 \
+            && checksum(buf+0x10, 0x0f)) {
+        return dmi_table(DWORD(buf+0x18), WORD(buf+0x16), WORD(buf+0x1c),
+                (buf[0x06]<<4) + buf[0x07], devmem);
+    }
+    return 0;
 }
 
 int ia64DetectSMP(void)
 {
-    DIR *dir;
-    struct dirent *entry;
-    int ncpus = 0;
+    FILE *efi_systab;
+    const char *filename;
+    char linebuf[64];
+    size_t fp;
+    u_int8_t *buf;
+    int ncpus=0;
 
-    dir = opendir("/proc/pal");
-    if (!dir)
+    if ((efi_systab=fopen(filename="/proc/efi/systab", "r"))==NULL &&
+            (efi_systab=fopen(filename="/sys/firmware/efi/systab", "r"))==NULL)
         return 0;
-    
-    while((entry = readdir(dir))) {
-            if (strncmp(entry->d_name, "cpu", 3))
-                ncpus++;
+
+    fp = 0;
+    while((fgets(linebuf, sizeof(linebuf)-1, efi_systab))!=NULL) {
+        char *addr = memchr(linebuf, '=', strlen(linebuf));
+        *(addr++)='\0';
+        
+        if (strcmp(linebuf, "SMBIOS")==0)
+            fp = strtoul(addr, NULL, 0);
     }
-    closedir(dir);
+    fclose(efi_systab);
+    if (fp == 0)
+        return 0
+
+    buf = mem_chunk(fp, 0x20, "/dev/mem");
+    if (!buf)
+        return 0;
+
+    ncpus = smbios_decode(buf, "/dev/mem");
+    free(buf);
 
     return ncpus;
+}
+
+int detectSummit(void)
+{
+    return 0;
 }
 
 #else /* ndef __i386__ */
