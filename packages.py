@@ -660,7 +660,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         if largesmp_min > 0 and nthreads > largesmp_min and \
                 select(id.grpset.hdrlist, "kernel-largesmp"):
             foundKernel = 1
-            if selected(id.grpset.hdrlist("gcc"):
+            if selected(id.grpset.hdrlist, "gcc"):
                 select(id.grpset.hdrlist, "kernel-largesmp-devel")
         elif nthreads > 1:
             if select(id.grpset.hdrlist, "kernel-smp"):
