@@ -602,8 +602,8 @@ usr/share/X11/fonts/misc/cursor*
 usr/share/X11/fonts/misc/olcursor*
 usr/share/X11/fonts/Type1/l047013t*
 usr/share/X11/fonts/Type1/*
-usr/$LIBDIR/X11/locale/*
-usr/$LIBDIR/X11/rgb*
+usr/share/X11/locale/*
+usr/share/X11/rgb*
 usr/share/X11/xkb/*
 usr/$LIBDIR/xserver/SecurityPolicy
 usr/$LIBDIR/libICE*
@@ -985,11 +985,6 @@ rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libxtrap.a
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
 
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
-
-# FIXME: hack for Xvnc's wrong font path
-mkdir -p $DESTGR/usr/X11R6/$LIBDIR/X11 $DESTGR/usr/X11R7/$LIBDIR/X11
-ln -s ../../../share/X11/fonts $DESTGR/usr/X11R6/$LIBDIR/X11/fonts
-ln -s ../../../share/X11/fonts $DESTGR/usr/X11R7/$LIBDIR/X11/fonts
 
 # fixup joe links
 ln -fs jpicorc $DESTGR/etc/joe/picorc
