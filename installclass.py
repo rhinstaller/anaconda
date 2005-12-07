@@ -140,7 +140,6 @@ class BaseInstallClass:
                  "selectlangpackages",
                  "reposetup",
                  "basepkgsel",
-		 "package-selection",
 		 "group-selection",                 
 		 "postselection",
                  "handleX11pkgs",
