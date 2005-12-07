@@ -651,11 +651,11 @@ def doPreInstall(method, id, intf, instPath, dir):
         nthreads = (ncpus or 1) * (nhts or 1)
         largesmp_min = -1
         if rhpl.arch.canonArch == "x86_64":
-            largesmp_min = 64
+            largesmp_min = 8
         elif iutil.getArch() == "ppc" and iutil.getPPCMachine() != "iSeries":
-            largesmp_min = 128
+            largesmp_min = 8
         elif iutil.getArch() == "ia64":
-            largesmp_min = 256
+            largesmp_min = 64
 
         if largesmp_min > 0 and nthreads > largesmp_min and \
                 select(id.grpset.hdrlist, "kernel-largesmp"):

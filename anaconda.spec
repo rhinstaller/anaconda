@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.29
+Version: 10.1.1.30
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec  7 2005 Peter Jones <pjones@redhat.com> - 10.1.1.30-1
+- use the right numbers to test for largesmp
+- Avoid the rpmlib segfault with ts.order (workaround for #174621)
+
 * Tue Dec  6 2005 Peter Jones <pjones@redhat.com> - 10.1.1.29-1
 - add smp/ht detection for ia64
 - fix boot.img creation for ia64
