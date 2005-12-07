@@ -1,3 +1,8 @@
+2005-12-07  Bill Nottingham  <notting@redhat.com>
+
+	* anaconda: We don't care about the results of the mouse probe
+	for starting X. If you want text, pass 'text'.
+
 2005-12-07  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: X data has moved.  Also, remove the vnc hack

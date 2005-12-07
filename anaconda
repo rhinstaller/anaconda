@@ -920,36 +920,7 @@ if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.
      time.sleep(2)
      display_mode = 't'
 
-if not isHeadless:
-    # if no mouse we force text mode
-    mousedev = mousehw.get()
-    if ksfile is None and not flags.usevnc and not os.environ.has_key("DISPLAY") and display_mode == 'g' and mousedev[0] == "No - mouse":
-	# ask for the mouse type
-	import rhpxl.mouse as mouse
-
-	while 1:
-	    mouserc = mouse.mouseWindow(mousehw)
-	    if mouserc == 0:
-		stdoutLog.warning(_("No mouse was detected.  A mouse is "
-				    "required for graphical installation.  "
-				    "Starting text mode."))
-		display_mode = 't'
-		time.sleep(2)
-		break
-	    elif mouserc == -1:
-		# rescan
-		mousehw.probe()
-		mousedev = mousehw.get()
-		if mousedev[0] != "No - mouse":
-		    stdoutLog.info(_("Detected mouse type: %s"), mousehw.shortDescription())
-		    time.sleep(5)
-		    break
-	    else:
-		stdoutLog.info(_("Using mouse type: %s"), mousehw.shortDescription())
-		break
-
-	    
-else: # s390/iSeries checks
+if isHeadless: # s390/iSeries checks
     if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
 				    flags.usevnc):
 	stdoutLog.warning(_("DISPLAY variable not set. Starting text mode!"))
