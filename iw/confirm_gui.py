@@ -15,7 +15,7 @@ import gtk
 from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
-from package_gui import queryUpgradeContinue
+from packages import queryUpgradeContinue
 from image import presentRequiredMediaMessage
 import gui
 import sys

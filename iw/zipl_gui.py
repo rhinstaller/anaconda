@@ -19,7 +19,7 @@ import iutil
 import string
 from iw_gui import *
 from rhpl.translate import _, N_
-from package_gui import queryUpgradeContinue
+from packages import queryUpgradeContinue
 
 class ZiplWindow (InstallWindow):
     checkMark = None

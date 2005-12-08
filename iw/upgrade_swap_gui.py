@@ -21,7 +21,7 @@ import gui
 import gobject
 import gtk
 from iw_gui import *
-from package_gui import queryUpgradeContinue
+from packages import queryUpgradeContinue
 from flags import flags
 
 from rhpl.translate import _, N_
