@@ -1,3 +1,9 @@
+2005-12-08  Paul Nasrat <pnasrat@redhat.com>
+
+	* backend.py dispatch.py installclass.py upgrade.py
+	upgradeclass.py yuminstall.py: Make install more robust to file read
+	failures.  Initial support for upgrades again.
+
 2005-12-08  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c: remove slang hack
