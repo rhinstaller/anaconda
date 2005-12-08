@@ -1,3 +1,10 @@
+2005-12-08  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c: remove slang hack
+
+	* loader2/wcstubs.c (nl_langinfo): We can't do this in a
+	statically linked binary, so lie to slang some more.
+
 2005-12-08  Chris Lumens  <clumens@redhat.com>
 
 	* partRequests.py:  Support bytesPerInode on RAID

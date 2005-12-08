@@ -35,9 +35,6 @@
 #include <syslog.h>
 #include <unistd.h>
 
-/* I hate slang */
-#include <slang/slang.h>
-
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -206,9 +203,6 @@ void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
     /* enable UTF-8 console */
     printf("\033%%G");
     fflush(stdout);
-
-    /* hack around the fact that slang doesn't auto-set UTF-8 mode #174761 */
-    SLutf8_enable(1);
 
     isysLoadFont();
     if (!FL_TESTING(flags))

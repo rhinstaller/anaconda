@@ -61,6 +61,11 @@ char * setlocale (int category, const char *locale) {
     return 0;
 }
 
+/* lie to slang some more */
+char * nl_langinfo(int item) {
+    return NULL;
+}
+
 #  define __libc_freeres_fn_section \
   __attribute__ ((section ("__libc_freeres_fn")))
 
