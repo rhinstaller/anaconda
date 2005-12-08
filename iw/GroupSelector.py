@@ -288,7 +288,7 @@ class GroupSelector:
         i = b.get_end_iter()
         inst = 0
         cnt = 0
-        pkgs = grp.packages # FIXME: or do we want just optional + default?
+        pkgs = grp.default_packages.keys() + grp.optional_pkgs.keys()
         for p in pkgs:
             if self.ayum.isPackageInstalled(p):
                 cnt += 1
@@ -297,17 +297,14 @@ class GroupSelector:
                 cnt += 1
             else:
                 self.ayum.log(2, "no such package %s for %s" %(p, grp.groupid))
-        b.insert_with_tags_by_name(i, _("[%d/%d installed]") %(inst, cnt),
-                                   "right-just")
 
-        # details makes little sense if there aren't any optional packages
-        for p in grp.mandatory_packages.keys(): 
-            if self.ayum.pkgSack.searchNevra(name=p):
-                cnt -= 1
-        if cnt == 0:
+        if cnt == 0 or group.selected == False:
             self.xml.get_widget("detailsButton").set_sensitive(False)
         else:
             self.xml.get_widget("detailsButton").set_sensitive(True)
+            b.insert_with_tags_by_name(i,
+                              _("[%d of %d optional packages installed]")
+                                       %(inst, cnt), "right-just")
 
     def _groupToggled(self, widget, path):
         i = self.groupstore.get_iter_from_string(path)
