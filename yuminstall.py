@@ -21,12 +21,8 @@ import rpmUtils
 import urlgrabber.progress
 import urlgrabber.grabber
 import yum
-import yum.repos
-import yum.packages
-import yum.groups
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError
-from yum.packages import returnBestPackages
 from repomd.mdErrors import PackageSackError
 from backend import AnacondaBackend
 from sortedtransaction import *
@@ -200,6 +196,23 @@ class YumSorter(yum.YumBase):
         self.loops = []
         self.whiteout = whiteout.split()
 
+    def isPackageInstalled(self, pkgname):
+        # FIXME: this sucks.  we should probably suck it into yum proper
+        # but it'll need a bit of cleanup first.  
+        installed = False
+        if self.rpmdb.installed(name = pkgname):
+            installed = True
+            
+        lst = self.tsInfo.matchNaevr(name = pkgname)
+        for txmbr in lst:
+            if txmbr.po.state in TS_INSTALL_STATES:
+                return True
+        if installed and len(lst) > 0:
+            # if we get here, then it was installed, but it's in the tsInfo
+            # for an erase or obsoleted --> not going to be installed at end
+            return False
+        return installed
+
     def _provideToPkg(self, req):
         best = None
         (r, f, v) = req
@@ -217,7 +230,7 @@ class YumSorter(yum.YumBase):
                 satisfiers.append(po)
 
         if satisfiers:
-            best = self.bestPackageFromList(satisfiers) 
+            best = self.bestPackagesFromList(satisfiers)[0]
             self.deps[req] = best
         # raise resolution error
 
@@ -267,7 +280,7 @@ class YumSorter(yum.YumBase):
                 #else:
                 if self.tsInfo.exists(dep.pkgtup):
                     pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
-                    member = self.bestPackageFromList(pkgs)
+                    member = self.bestPackagesFromList(pkgs)[0]
                 else:
                     member = self.tsInfo.addInstall(dep)
                     unresolved.append(dep)
@@ -392,23 +405,6 @@ class AnacondaYum(YumSorter):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
 
-    def getBestPackages(self, pkgname, pkgarch = None):
-        """Return a list of the packages which should be installed.
-        Note that it's a list because of multilib!"""
-        if pkgarch:
-            pkgs = self.pkgSack.returnNewestByNameArch((pkgname, pkgarch))
-        else:
-            pkgs = self.pkgSack.returnNewestByName(pkgname)
-        if len(pkgs) <= 1: # 0 or 1, just return it
-            return pkgs
-
-        t = {}
-        for pkg in pkgs:
-            if not t.has_key(pkg.name): t[pkg.name] = []
-            t[pkg.name].append(pkg.pkgtup)
-        pkgs = returnBestPackages(t)
-        return map(lambda x: self.getPackageObject(x), pkgs)
-
 #From yum depsolve.py
     def populateTs(self, test=0, keepold=1):
         """take transactionData class and populate transaction set"""
@@ -502,6 +498,34 @@ class YumBackend(AnacondaBackend):
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
             sys.exit(0)
+        self._catchallCategory()
+
+    def _catchallCategory(self):
+        # FIXME: this is a bad hack, but catch groups which aren't in
+        # a category yet are supposed to be user-visible somehow.
+        # conceivably should be handled by yum
+        grps = {}
+        for g in self.ayum.comps.groups.values():
+            if g.user_visible:
+                grps[g.groupid] = g
+
+        for cat in self.ayum.comps.categories.values():
+            for g in cat.groups:
+                if grps.has_key(g):
+                    del grps[g]
+
+        if len(grps.keys()) == 0:
+            return
+        c = yum.comps.Category()
+        c.name = _("Uncategorized")
+        c._groups = grps
+        c.categoryid = "uncategorized"
+        self.ayum.comps.categories[c.categoryid] = c
+
+    def getDefaultGroups(self):
+        return map(lambda x: x.groupid,
+                   filter(lambda x: x.default,
+                          self.ayum.comps.groups.values()))
 
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""
@@ -511,13 +535,10 @@ class YumBackend(AnacondaBackend):
             pkgs = ayum.pkgSack.returnNewestByName(pkgname)
             if len(pkgs) == 0:
                 return None
-        
-            archs = {}
-            for pkg in pkgs:
-                (n, a, e, v, r) = pkg.pkgtup
-                archs[a] = pkg
-            a = rpmUtils.arch.getBestArchFromList(archs.keys())
-            return archs[a]
+            pkgs = self.ayum.bestPackagesFromList(pkgs)
+            if len(pkgs) == 0:
+                return None
+            return pkgs[0]
 
         foundkernel = False
 
@@ -532,7 +553,7 @@ class YumBackend(AnacondaBackend):
                 kxen = None
                 log.debug("no kernel-xen-guest package")
             else:
-                self.ayum.tsInfo.addInstall(kxen)
+                self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xen-guest-devel")
                     self.selectPackage("kernel-xen-guest-devel")
@@ -547,7 +568,7 @@ class YumBackend(AnacondaBackend):
                 kxen = None
                 log.debug("no kernel-xen-hypervisor package")
             else:
-                self.ayum.tsInfo.addInstall(kxen)
+                self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xen-hypervisor-devel")
                     self.selectPackage("kernel-xen-hypervisor-devel")
@@ -563,14 +584,14 @@ class YumBackend(AnacondaBackend):
                 log.debug("no kernel-smp package")
 
             if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
-                self.ayum.tsInfo.addInstall(ksmp)
+                self.ayum.install(po=ksmp)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
                     self.selectPackage("kernel-smp-devel")
             
         if not foundkernel:
             log.info("selected kernel package for kernel")
-            self.ayum.tsInfo.addInstall(kpkg)
+            self.ayum.install(po=kpkg)
             if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                 log.debug("selecting kernel-devel")
                 self.selectPackage("kernel-devel")
@@ -799,83 +820,67 @@ class YumBackend(AnacondaBackend):
 
         return kernelVersions
 
-    def groupExists(self, group):
-        return self.ayum.groupInfo.groupExists(group)
+    def __getGroupId(self, group):
+        """Get the groupid for the given name (english or translated)."""
+        for g in self.ayum.comps.groups.values():
+            if group == g.name:
+                return g.groupid
+            for trans in g.translated_name.values():
+                if group == trans:
+                    return g.groupid
 
     def selectGroup(self, group, *args):
-        if not self.groupExists(group):
-            log.debug("no such group %s" %(group,))
-            return
-
-        pkgs = self.ayum.groupInfo.pkgTree(group)
-        for pkg in pkgs:
-            try:
-                map(lambda x: self.ayum.tsInfo.addInstall(x),
-                    self.ayum.getBestPackages(pkg))
-            except PackageSackError:
-                log.debug("no such package %s" %(pkg,))
-
-        for grp in self.ayum.groupInfo.groupTree(group):
-            if grp not in self.anaconda_grouplist:
-                self.anaconda_grouplist.append(grp)
+        try:
+            self.ayum.selectGroup(group)
+        except yum.Errors.GroupsError, e:
+            # try to find out if it's the name or translated name
+            gid = self.__getGroupId(group)
+            if gid is not None:
+                self.ayum.selectGroup(gid)
+            else:
+                log.debug("no such group %s" %(group,))
 
     def deselectGroup(self, group, *args):
-        if not self.groupExists(group):
-            log.debug("no such group %s" %(group,))
-            return
-
-        gid = self.ayum.groupInfo.matchGroup(group)
-        for pkg in self.ayum.groupInfo.default_pkgs[gid] + \
-                self.ayum.groupInfo.mandatory_pkgs[gid]:
-            try:
-                map(lambda x: self.ayum.tsInfo.remove(x.pkgtup),
-                    self.ayum.getBestPackages(pkg))
-            except PackageSackError:
-                log.debug("no such package %s" %(pkg,))
-
-        for grp in self.ayum.groupInfo.groupTree(group):
-            if grp in self.anaconda_grouplist:
-                self.anaconda_grouplist.remove(grp)
+        try:
+            self.ayum.deselectGroup(group)
+        except yum.Errors.GroupsError, e:
+            # try to find out if it's the name or translated name
+            gid = self.__getGroupId(group)
+            if gid is not None:
+                self.ayum.deselectGroup(gid)
+            else:
+                log.debug("no such group %s" %(group,))
 
     def selectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
-        p = None
         if len(sp) == 2:
             try:
-                map(lambda x: self.ayum.tsInfo.addInstall(x),
-                    self.ayum.getBestPackages(sp[0], sp[1]))
+                self.ayum.install(name = sp[0], arch = sp[1])
                 return
-            except PackageSackError:
+            except yum.Errors.InstallError:
                 # maybe the package has a . in the name
                 pass
 
-        if p is None:
-            try:
-                map(lambda x: self.ayum.tsInfo.addInstall(x),
-                    self.ayum.getBestPackages(pkg))
-            except PackageSackError:
-                log.debug("no such package %s" %(pkg,))
-                return
+        try:
+            self.ayum.install(name=pkg)
+            return
+        except yum.Errors.InstallError:
+            log.debug("no such package %s" %(pkg,))
+            return
         
     def deselectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
-        p = None
+        txmbrs = []
         if len(sp) == 2:
-            try:
-                map(lambda x: self.ayum.tsInfo.remove(x),
-                    self.ayum.getBestPackages(sp[0], sp[1]))
-                return
-            except PackageSackError:
-                # maybe the package has a . in the name
-                pass
+            txmbrs = self.ayum.tsInfo.matchNaevr(name=sp[0], arch=sp[1])
 
-        if p is None:
-            try:
-                map(lambda x: self.ayum.tsInfo.remove(x),
-                    self.ayum.getBestPackages(pkg))
-            except PackageSackError:
-                log.debug("no such package %s" %(pkg,))
-                return
+        if len(txmbrs) == 0:
+            txmbrs = self.ayum.tsInfo.matchNaevr(name=pkg)
+
+        if len(txmbrs) > 0:
+            map(lambda x: self.ayum.tsInfo.remove(x), txmbrs)
+        else:
+            log.debug("no such package %s" %(pkg,))
 
 class YumProgress:
     def __init__(self, intf, text, total):

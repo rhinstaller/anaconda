@@ -1,3 +1,28 @@
+2005-12-08  Jeremy Katz  <katzj@redhat.com>
+
+	* installclasses/fedora.py (InstallClass.setGroupSelection): Get
+	default groups from the backend
+
+	* backend.py (AnacondaBackend.getDefaultGroups): Support for
+	getting default groups
+
+	* iw/GroupSelector.py: Guts of new group/package selection code.
+	Eventually will live in son of s-c-packages.
+	* ui/GroupSelector.glade: glade file for new group selection code
+
+	* iw/package_gui.py: Basic shell for GroupSelector use in anaconda
+
+	* yuminstall.py: Update for yum 2.5 API changes.  Note that we now
+	*require* yum-2.5.0-0.20051207 or newer
+	(isPackageInstalled): Add method to see if package is installed
+	for group selection.  
+	(_catchallCategory): Add method to take uncategorized groups and
+	stick them somewhere
+	(getDefaultGroups): Backend method for finding the default
+	selected groups based on what comps says
+
+	* gui.py (stepToClass): Move to new group selection code.
+
 2005-12-07  Bill Nottingham  <notting@redhat.com>
 
 	* anaconda: We don't care about the results of the mouse probe

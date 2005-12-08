@@ -128,6 +128,9 @@ class AnacondaBackend:
         log.warning("deselectPackage not implemented for backend!")
         pass
 
+    def getDefaultGroups(self):
+        log.warning("getDefaultGroups not implemented for backend!")
+        pass
 
 def doRepoSetup(backend, intf, instPath):
     backend.doRepoSetup(intf, instPath)

@@ -23,8 +23,8 @@ class InstallClass(BaseInstallClass):
                                                 CLEARPART_TYPE_LINUX)
 
     def setGroupSelection(self, backend):
-        backend.selectGroup("workstation-common")
-        backend.selectGroup("gnome-desktop")
+        grps = backend.getDefaultGroups()
+        map(lambda x: backend.selectGroup(x), grps)
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
