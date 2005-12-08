@@ -1,3 +1,10 @@
+2005-12-08  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/welcome_gui.py (WelcomeWindow.getScreen): Dither the image,
+	look for it in the right path.
+
+	* ui/anaconda.glade: Minor padding fixes.
+
 2005-12-08  Paul Nasrat <pnasrat@redhat.com>
 
 	* backend.py dispatch.py installclass.py upgrade.py

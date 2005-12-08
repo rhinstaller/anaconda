@@ -4,7 +4,6 @@
 <glade-interface>
 
 <widget class="GtkWindow" id="mainWindow">
-  <property name="border_width">12</property>
   <property name="width_request">800</property>
   <property name="height_request">600</property>
   <property name="visible">True</property>
@@ -49,6 +48,7 @@
 
       <child>
 	<widget class="GtkTable" id="mainTable">
+	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="n_rows">1</property>
 	  <property name="n_columns">3</property>
@@ -126,6 +126,7 @@
 
       <child>
 	<widget class="GtkHBox" id="buttonBar">
+	  <property name="border_width">12</property>
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
 	  <property name="spacing">6</property>
