@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.13
+Version: 10.90.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec  8 2005 Jeremy Katz <katzj@redhat.com> - 10.90.14-1
+- Fix up for moved x locale data
+- Remove vnc hack now that VNC knows where to look for fonts
+- Don't go to text mode for no mouse (notting)
+- Update to work with yum 2.5.0 cvs snap
+- New package selection code
+- Add new chinese font back now that we're using squashfs (#172163)
+- The return of locale-archive usage
+
 * Mon Dec 05 2005 Chris Lumens <clumens@redhat.com> 10.90.13-1
 - Reword media check dialog (dcantrell, #174530).
 - gcc41 compile fixes (pjones).

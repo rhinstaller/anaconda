@@ -1,7 +1,9 @@
 2005-12-08  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* scripts/upd-instroot: Add back chinese font now that we use
-	squashfs.  Also, enable locale-archive with the non-archive
+	squashfs. (#172163) Also, enable locale-archive with the non-archive
 	removal code.
 
 	* iw/GroupSelector.py (GroupSelector.__setGroupDescription): Don't
