@@ -40,7 +40,7 @@ from network import networkDeviceCheck
 from installmethod import doMethodComplete
 
 from backend import doPostSelection, doRepoSetup, doBasePackageSelect
-from backend import doPreInstall, doPostInstall, doInstall 
+from backend import doPreInstall, doPostInstall, doInstall
 
 import logging
 log = logging.getLogger("anaconda")
@@ -103,7 +103,6 @@ installSteps = [
     ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
     #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
-    #("findpackages", upgradeFindPackages, ("intf", "method", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
     #("fixupconditionals", fixupConditionals, ("id.grpset",)),
     ("confirminstall", ("intf", "id",)),

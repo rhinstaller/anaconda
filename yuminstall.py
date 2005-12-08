@@ -24,6 +24,7 @@ import yum
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError
 from repomd.mdErrors import PackageSackError
+from installmethod import FileCopyException
 from backend import AnacondaBackend
 from sortedtransaction import *
 from genheader import *
@@ -117,13 +118,51 @@ class simpleCallback:
                                                 po.returnSimple('arch')))
 
             self.instLog.flush()
+            nvra = po.returnNevraPrintable()
+            self.fdnos[nvra] = -1
+
             self.size = po.returnSimple('installedsize')
 
-            fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None) 
-            fd = os.open(fn, os.O_RDONLY)
-            nvra = po.returnNevraPrintable()
-            self.fdnos[nvra] = fd
-            return fd
+            while self.fdnos[nvra] < 0:
+                try:
+                    fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None) 
+                except FileCopyException, e:
+                    log.info("Failed %s in %s" %(req[0], txmbr.name))
+                    self.method.unmountCD()
+                    rc = self.messageWindow(_("Error"),
+                        _("The package %s-%s-%s.%s cannot be opened. This is due "
+                          "to a missing file or perhaps a corrupt package.  "
+                          "If you are installing from CD media this usually "
+                          "means the CD media is corrupt, or the CD drive is "
+                          "unable to read the media.\n\n"
+                          "Press <return> to try again.") % (po.returnSimple('name'),
+                                                po.returnSimple('version'),
+                                                po.returnSimple('release'),
+                                                po.returnSimple('arch')),
+                                            type="custom",
+                                            custom_icon="error",
+                                            custom_buttons = [ _("Re_boot"),
+                                                               _("_Retry") ])
+                    if rc == 0:
+                        rc = self.messageWindow(_("Warning"),
+                                                _("If you reboot, your system "
+                                                  "will be left in an "
+                                                  "inconsistent state that "
+                                                  "will likely require "
+                                                  "reinstallation.  Are you "
+                                                  "sure you wish to "
+                                                  "continue?"),
+                                                type = "custom",
+                                                custom_icon="warning",
+                                                custom_buttons = [_("_Cancel"),
+                                                                  _("_Reboot")])
+                        if rc == 1:
+                            sys.exit(0)
+                    
+                fd = os.open(fn, os.O_RDONLY)
+                self.fdnos[nvra] = fd
+
+            return self.fdnos[nvra]
 
         elif what == rpm.RPMCALLBACK_INST_PROGRESS:
             if amount > total:
@@ -460,10 +499,11 @@ class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
 
+    def doStuff(self):
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
-                                 configfile="/tmp/yum.conf", root=instPath)
+                                 configfile="/tmp/yum.conf", root=self.instPath)
         self.ac.write()
-        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath, method=method)
+        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=self.instPath, method=self.method)
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
@@ -756,9 +796,12 @@ class YumBackend(AnacondaBackend):
 	    log.info("Test mode - not performing install")
             return
 
+
         if not id.upgrade:
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
+        else:
+            updates = self.ayum.update()
 
         pkgTimer = timer.Timer(start = 0)
 

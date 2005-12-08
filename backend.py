@@ -133,6 +133,7 @@ class AnacondaBackend:
         pass
 
 def doRepoSetup(backend, intf, instPath):
+    backend.doStuff()
     backend.doRepoSetup(intf, instPath)
 
 def doPostSelection(backend, intf, id, instPath):

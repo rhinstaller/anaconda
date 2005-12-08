@@ -24,7 +24,6 @@ import partedUtils
 import string
 import shutil
 import lvm
-import hdrlist
 from flags import flags
 from fsset import *
 from partitioning import *
@@ -350,18 +349,7 @@ rebuildTime = None
 def upgradeFindPackages(intf, method, id, instPath, dir):
     if dir == DISPATCH_BACK:
         return
-    global rebuildTime
-    if not rebuildTime:
-	rebuildTime = str(int(time.time()))
-    try:
-        method.mergeFullHeaders(id.grpset.hdrlist)
-    except FileCopyException:
-        method.unmountCD()
-        intf.messageWindow(_("Error"),
-                           _("Unable to merge header list.  This may be "
-                             "due to a missing file or bad media.  "
-                             "Press <return> to try again."))
-
+    return
     # if we've been through here once for this root, then short-circuit
     if ((id.upgradeInfoFound is not None) and 
         (id.upgradeInfoFound == id.upgradeRoot)):
@@ -414,56 +402,36 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                              "upgrade."))
 	sys.exit(0)
 	    
-    # Turn off all comps
-    id.grpset.unselectAll()
-
     # unselect all packages
-    for package in id.grpset.hdrlist.pkgs.values():
-	package.usecount = 0
-        package.manual_state = 0
-
     # turn on the packages in the upgrade set
-    for package in packages:
-	id.grpset.hdrlist[hdrlist.nevra(package)].select()
-
     # open up the database to check dependencies and currently
     # installed packages
-    ts = rpm.TransactionSet(instPath)
-    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-
     # make sure we have an arch match. (#87655)
     # FIXME: bash wasn't good enough (#129677).  let's try initscripts
-    mi = ts.dbMatch('name', 'initscripts')
-    myarch = id.grpset.hdrlist["initscripts"][rpm.RPMTAG_ARCH]
-    for h in mi:
-        if h[rpm.RPMTAG_ARCH] != myarch:
-            rc = intf.messageWindow(_("Warning"),
-                                    _("The arch of the release of %s you "
-                                      "are upgrading to appears to be %s "
-                                      "which does not match your previously "
-                                      "installed arch of %s.  This is likely "
-                                      "to not succeed.  Are you sure you "
-                                      "wish to continue the upgrade process?")
-                                    %(productName, h[rpm.RPMTAG_ARCH], myarch),
-                                    type="yesno")
-            if rc == 0:
-                try:
-                    resetRpmdb(id.dbpath, instPath)
-                except Exception, e:
-                    log.critical("error returning rpmdb to old state: %s" %(e,))
-                    pass
-                sys.exit(0)
-            else:
-                log.warning("upgrade between possibly incompatible "
-                            "arches %s -> %s" %(h[rpm.RPMTAG_ARCH], myarch))
-                
-    mi = ts.dbMatch()
-    found = 0
-    hasX = 0
-    hasFileManager = 0
-
-    for h in mi:
-        release = h[rpm.RPMTAG_RELEASE]
+#    mi = ts.dbMatch('name', 'initscripts')
+#    myarch = id.grpset.hdrlist["initscripts"][rpm.RPMTAG_ARCH]
+#    for h in mi:
+#        if h[rpm.RPMTAG_ARCH] != myarch:
+#            rc = intf.messageWindow(_("Warning"),
+#                                    _("The arch of the release of %s you "
+#                                      "are upgrading to appears to be %s "
+#                                      "which does not match your previously "
+#                                      "installed arch of %s.  This is likely "
+#                                      "to not succeed.  Are you sure you "
+#                                      "wish to continue the upgrade process?")
+#                                    %(productName, h[rpm.RPMTAG_ARCH], myarch),
+#                                    type="yesno")
+#            if rc == 0:
+#                try:
+#                    resetRpmdb(id.dbpath, instPath)
+#                except Exception, e:
+#                    log.critical("error returning rpmdb to old state: %s" %(e,))
+#                    pass
+#                sys.exit(0)
+#            else:
+#                log.warning("upgrade between possibly incompatible "
+#                            "arches %s -> %s" %(h[rpm.RPMTAG_ARCH], myarch))
+#                
         # I'm going to try to keep this message as politically correct
         # as possible.  I think the Ximian GNOME is a very pretty desktop
         # and the hackers there do an extraordinary amount of work on
@@ -471,62 +439,15 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         # just want to warn our users that there are packages on the system
         # that might get messed up during the upgrade process.  Nothing
         # personal, guys.  - msw
-        if (string.find(release, "helix") > -1
-            or string.find(release, "ximian") > -1
-            or string.find(release, "eazel") > -1):
-            log.warning("Third party package %s-%s-%s could cause problems." %
-                       (h[rpm.RPMTAG_NAME],
-                        h[rpm.RPMTAG_VERSION],
-                        h[rpm.RPMTAG_RELEASE]))
-            found = 1
-        if h[rpm.RPMTAG_NAME] == "XFree86" or h[rpm.RPMTAG_NAME] == "xorg-x11":
-            hasX = 1
-	if h[rpm.RPMTAG_NAME] == "nautilus":
-	    hasFileManager = 1
-	if h[rpm.RPMTAG_NAME] == "kdebase":
-	    hasFileManager = 1
-	if h[rpm.RPMTAG_NAME] == "gmc":
-	    hasFileManager = 1
-
-    if found:
-        rc = intf.messageWindow(_("Warning"),
-                                _("This system appears to have third "
-                                  "party packages installed that "
-                                  "overlap with packages included in "
-                                  "%s. Because these packages "
-                                  "overlap, continuing the upgrade "
-                                  "process may cause them to stop "
-                                  "functioning properly or may cause "
-                                  "other system instability.  Please see "
-                                  "the release notes for more information."
-                                  "\n\n"
-                                  "Do you wish to continue the upgrade "
-                                  "process?") % (productName,),
-                                type="yesno")
-        if rc == 0:
-            try:
-                resetRpmdb(id.dbpath, instPath)
-            except Exception, e:
-                log.critical("error returning rpmdb to old state: %s" %(e,))
-                pass
-            sys.exit(0)
-
-    if not os.access(instPath + "/etc/redhat-release", os.R_OK):
-        rc = intf.messageWindow(_("Warning"),
-                                _("This system does not have an "
-                                  "/etc/redhat-release file.  It is possible "
-                                  "that this is not a %s system. "
-                                  "Continuing with the upgrade process may "
-                                  "leave the system in an unusable state.  Do "
-                                  "you wish to continue the upgrade process?") % (productName,),
-                                  type="yesno")
-        if rc == 0:
-            try:
-                resetRpmdb(id.dbpath, instPath)
-            except Exception, e:
-                log.critical("error returning rpmdb to old state: %s" %(e,))
-                pass
-            sys.exit(0)
+#        if h[rpm.RPMTAG_NAME] == "XFree86" or h[rpm.RPMTAG_NAME] == "xorg-x11":
+#            hasX = 1
+#	if h[rpm.RPMTAG_NAME] == "nautilus":
+#	    hasFileManager = 1
+#	if h[rpm.RPMTAG_NAME] == "kdebase":
+#	    hasFileManager = 1
+#	if h[rpm.RPMTAG_NAME] == "gmc":
+#	    hasFileManager = 1
+#
 
     # Figure out current version for upgrade nag and for determining weird
     # upgrade cases
