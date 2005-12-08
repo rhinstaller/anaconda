@@ -288,7 +288,7 @@ class GroupSelector:
         i = b.get_end_iter()
         inst = 0
         cnt = 0
-        pkgs = grp.default_packages.keys() + grp.optional_pkgs.keys()
+        pkgs = grp.default_packages.keys() + grp.optional_packages.keys()
         for p in pkgs:
             if self.ayum.isPackageInstalled(p):
                 cnt += 1
@@ -298,7 +298,7 @@ class GroupSelector:
             else:
                 self.ayum.log(2, "no such package %s for %s" %(p, grp.groupid))
 
-        if cnt == 0 or group.selected == False:
+        if cnt == 0 or grp.selected == False:
             self.xml.get_widget("detailsButton").set_sensitive(False)
         else:
             self.xml.get_widget("detailsButton").set_sensitive(True)
