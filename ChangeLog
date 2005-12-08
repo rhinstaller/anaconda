@@ -1,3 +1,8 @@
+2005-12-08  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda (startVNCServer):  Removed the '-once' switch for vncserver
+	since that option is invalid [now].
+
 2005-12-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
