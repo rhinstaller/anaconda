@@ -562,7 +562,7 @@ class RaidRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
                  raidspares = None, raidminor = None,
-		 preexist = 0, chunksize = None):
+                 preexist = 0, chunksize = None, bytesPerInode=4096):
         """Create a new RaidRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -573,6 +573,7 @@ class RaidRequestSpec(RequestSpec):
         raidmembers is list of ids corresponding to the members of the RAID.
         raidspares is the number of spares to setup.
         raidminor is the minor of the device which should be used.
+        bytesPerInode is the size of the inodes on the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -583,7 +584,7 @@ class RaidRequestSpec(RequestSpec):
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
                              mountpoint = mountpoint, preexist = preexist,
-                             origfstype = origfs)
+                             origfstype = origfs, bytesPerInode=bytesPerInode)
         self.type = REQUEST_RAID
         
 
@@ -606,11 +607,12 @@ class RaidRequestSpec(RequestSpec):
         str = ("RAID Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
                "  raidlevel: %(level)s  raidspares: %(spares)s\n"
-               "  raidmembers: %(members)s" % 
+               "  raidmembers: %(members)s  bytesPerInode: %(bytesPerInode)s" % 
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "level": self.raidlevel, "spares": self.raidspares,
-                "members": self.raidmembers})
+                "members": self.raidmembers,
+                "bytesPerInode": self.bytesPerInode})
         return str
     
     def getDevice(self, partitions):

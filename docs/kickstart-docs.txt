@@ -969,6 +969,12 @@ Creating the Kickstart File
            Name of the RAID device to use (such as md0 or md1).  RAID
            devices range from md0 to md7, and each may only be used once.
 
+       --bytes-per-inode=
+
+           Specifies the size of inodes on the filesystem to be made on
+           the RAID device. Not all filesystems support this option, so it
+           is silently ignored for those cases.
+
        --spares=
 
            Specifies the number of spare drives allocated for the RAID
