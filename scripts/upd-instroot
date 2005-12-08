@@ -713,6 +713,7 @@ usr/share/fonts/default/Type1/n021023l*
 usr/share/fonts/default/Type1/n021024l*
 usr/share/fonts/korean/TrueType/dotum.ttf
 usr/share/fonts/japanese/TrueType/sazanami-gothic.ttf
+usr/share/fonts/chinese/TrueType/uming*.ttf
 usr/share/fonts/bengali/MuktiNarrow.ttf
 usr/share/fonts/arabic/KacstFarsi.ttf
 usr/share/fonts/arabic/KacstQura.ttf
@@ -962,16 +963,14 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 for p in $DEST $DESTGR; do
     echo "Building locale archive"
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	echo "not building for now... it's too big for cramfs"
-#    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
+    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
     else
-	echo "not building for now... it's too big for cramfs"
 	/usr/sbin/chroot $p /usr/sbin/build-locale-archive
     fi
-#    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
-#    rm -rf $p/usr/lib/locale/*
-#    rm -f $p/usr/sbin/build-locale-archive
-#    mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
+    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
+    rm -rf $p/usr/lib/locale/*
+    rm -f $p/usr/sbin/build-locale-archive
+    mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
 done
 
 # Remove unneeded XFree86 modules
