@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.14
+Version: 10.90.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec  8 2005 Jeremy Katz <katzj@redhat.com> - 10.90.15-1
+- Fix various typos in the new group selection code (clumens)
+- Support bytesPerInode on RAID (Curtis Doty, #175288)
+- Stub some more for the loader to fix line-drawing chars again
+- Handle file read failures better (pnasrat)
+- Initial support for upgrades again (pnasrat)
+- Minor padding tweaks to the UI
+
 * Thu Dec  8 2005 Jeremy Katz <katzj@redhat.com> - 10.90.14-1
 - Fix up for moved x locale data
 - Remove vnc hack now that VNC knows where to look for fonts
