@@ -1,3 +1,7 @@
+2005-12-10  Paul Nasrat <pnasrat@redhat.com>
+
+	* backend.py dispatch.py yuminstall.py: Ensure upgrades depsolved. Ensure rpm lock/cache removed.
+
 2005-12-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

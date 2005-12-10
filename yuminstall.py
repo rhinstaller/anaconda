@@ -288,6 +288,8 @@ class YumSorter(yum.YumBase):
     def tsCheck(self):
         unresolved = []
         for txmbr in self.tsInfo.getMembers():
+            if txmbr.output_state not in [ TS_UPDATE, TS_INSTALL, TS_TRUEINSTALL]:
+                continue
             reqs = txmbr.po.returnPrco('requires')
             provs = txmbr.po.returnPrco('provides')
             reqs.sort()
@@ -499,11 +501,19 @@ class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
 
-    def doStuff(self):
+    def doInitialSetup(self, id, instPath):
+        if id.getUpgrade():
+           # FIXME: make sure that the rpmdb doesn't have stale locks :/
+            for file in ["__db.000", "__db.001", "__db.002", "__db.003"]:
+                try:
+                    os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
+                except:
+                    log.error("failed to unlink /var/lib/rpm/%s" %(file,))
+
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
-                                 configfile="/tmp/yum.conf", root=self.instPath)
+                                 configfile="/tmp/yum.conf", root=instPath)
         self.ac.write()
-        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=self.instPath, method=self.method)
+        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath, method=self.method)
         # FIXME: this is a bad hack until we can get something better into yum
         self.anaconda_grouplist = []
 
@@ -678,6 +688,9 @@ class YumBackend(AnacondaBackend):
         self.selectBestKernel()
         self.selectBootloader()
         self.selectLanguageGroups()
+        
+        if id.getUpgrade():
+            self.ayum.update()
 
         dscb = YumDepSolveProgress(intf)
         self.ayum.dsCallback = dscb
@@ -800,8 +813,6 @@ class YumBackend(AnacondaBackend):
         if not id.upgrade:
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
-        else:
-            updates = self.ayum.update()
 
         pkgTimer = timer.Timer(start = 0)
 

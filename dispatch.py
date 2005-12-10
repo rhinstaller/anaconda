@@ -98,7 +98,7 @@ installSteps = [
     ("network", ("id.network", "dir", "intf", "id")),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
-    ("reposetup", doRepoSetup, ("backend","intf", "instPath")),
+    ("reposetup", doRepoSetup, ("backend","intf", "id", "instPath")),
     ("basepkgsel", doBasePackageSelect, ("backend","id.instClass")),
     ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),

@@ -100,6 +100,9 @@ class AnacondaBackend:
     def kernelVersionList():
         pass
 
+    def doInitialSetup(self, id, instPath):
+        pass
+
     def doRepoSetup(self, intf, instPath):
         log.warning("doRepoSetup not implemented for backend!")
         pass
@@ -132,8 +135,8 @@ class AnacondaBackend:
         log.warning("getDefaultGroups not implemented for backend!")
         pass
 
-def doRepoSetup(backend, intf, instPath):
-    backend.doStuff()
+def doRepoSetup(backend, intf, id, instPath):
+    backend.doInitialSetup(id, instPath)
     backend.doRepoSetup(intf, instPath)
 
 def doPostSelection(backend, intf, id, instPath):
