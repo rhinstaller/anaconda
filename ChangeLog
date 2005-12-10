@@ -1,6 +1,11 @@
+2005-12-10  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py: Use TS_INSTALL_STATES instead of enumerating
+
 2005-12-10  Paul Nasrat <pnasrat@redhat.com>
 
-	* backend.py dispatch.py yuminstall.py: Ensure upgrades depsolved. Ensure rpm lock/cache removed.
+	* backend.py dispatch.py yuminstall.py: Ensure upgrades
+	depsolved. Ensure rpm lock/cache removed.
 
 2005-12-08  Jeremy Katz  <katzj@redhat.com>
 

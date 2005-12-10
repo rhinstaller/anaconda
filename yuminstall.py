@@ -288,7 +288,7 @@ class YumSorter(yum.YumBase):
     def tsCheck(self):
         unresolved = []
         for txmbr in self.tsInfo.getMembers():
-            if txmbr.output_state not in [ TS_UPDATE, TS_INSTALL, TS_TRUEINSTALL]:
+            if txmbr.output_state not in TS_INSTALL_STATES:
                 continue
             reqs = txmbr.po.returnPrco('requires')
             provs = txmbr.po.returnPrco('provides')
