@@ -1174,6 +1174,8 @@ class InstallControlWindow:
             pass
         
     def refreshHelp(self):
+        return
+    
         # make sure we're refreshing the help for an actual screen
         if self.currentWindow is None:
             return
@@ -1498,7 +1500,7 @@ class InstallControlState:
                 text = text.replace("@RHLVER@", productVersion)
                 return text
 
-            print "Unable to read %s help text" % (file,)
+            log.debug("Unable to read %s help text" % (file,))
 
         return self.html
     

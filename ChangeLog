@@ -1,4 +1,12 @@
+2005-12-11  Jeremy Katz  <katzj@redhat.com>
+
+	* gui.py: Stop looking for help.
+
+	* anaconda.spec: anaconda-help is no more.
+
 2005-12-10  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
 
 	* textw/simple_pkgselect_text.py Basic fixup for new API so that
 	we at least don't just die (#175443)
