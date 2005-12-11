@@ -306,8 +306,6 @@ def unlinkConf():
     if os.path.exists("%s/lvm.conf" %(lvmroot,)):
         os.unlink("%s/lvm.conf" %(lvmroot,))
 
-physicalDeviceCache = {}
-        
 def writeForceConf():
     """Write out an /etc/lvm/lvm.conf that doesn't do much (any?) filtering"""
 
@@ -327,21 +325,6 @@ def writeForceConf():
 devices {
   sysfs_scan = 0
   md_component_detection = 1
-  types = [ "device-mapper", 1 ]
-""")
-    for pv in physicalDeviceCache:
-        print pv
-    if isys.cachedDrives:
-        def makerule(x,y):
-            return list(x) + ['"a|/dev/%s|"' % (y,)]
-        allow = isys.cachedDrives.keys()
-        filters = reduce(makerule, allow, [])
-        filters.append('"r|.*|"')
-
-        rules = string.join(filters, ", ")
-        
-        f.write("  filter = [ %s ]\n" % (rules,));
-    f.write("""
 }
 """)
 
