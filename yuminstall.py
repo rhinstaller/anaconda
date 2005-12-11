@@ -328,7 +328,7 @@ class YumSorter(yum.YumBase):
 #Add relationship
                 firstelts = map(lambda tup: tup[0], txmbr.relatedto)
                 if member.po.pkgtup not in firstelts:
-                    txmbr.setAsDep(member.po.pkgtup)
+                    txmbr.setAsDep(member.po)
 
         return unresolved
 
@@ -514,8 +514,6 @@ class YumBackend(AnacondaBackend):
                                  configfile="/tmp/yum.conf", root=instPath)
         self.ac.write()
         self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath, method=self.method)
-        # FIXME: this is a bad hack until we can get something better into yum
-        self.anaconda_grouplist = []
 
     def doRepoSetup(self, intf, instPath):
         if not os.path.exists("/tmp/cache"):
@@ -555,11 +553,11 @@ class YumBackend(AnacondaBackend):
         # a category yet are supposed to be user-visible somehow.
         # conceivably should be handled by yum
         grps = {}
-        for g in self.ayum.comps.groups.values():
+        for g in self.ayum.comps.groups:
             if g.user_visible:
                 grps[g.groupid] = g
 
-        for cat in self.ayum.comps.categories.values():
+        for cat in self.ayum.comps.categories:
             for g in cat.groups:
                 if grps.has_key(g):
                     del grps[g]
@@ -570,12 +568,12 @@ class YumBackend(AnacondaBackend):
         c.name = _("Uncategorized")
         c._groups = grps
         c.categoryid = "uncategorized"
-        self.ayum.comps.categories[c.categoryid] = c
+        self.ayum.comps.categories.append(c)
 
     def getDefaultGroups(self):
         return map(lambda x: x.groupid,
                    filter(lambda x: x.default,
-                          self.ayum.comps.groups.values()))
+                          self.ayum.comps.groups))
 
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""

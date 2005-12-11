@@ -18,16 +18,40 @@
 
 from snack import *
 from constants_text import *
-from rhpl.translate import _, N_
+from rhpl.translate import _, N_, getDefaultLangs
 
-import copy
+# kind of lame caching of translations so we don't always have
+# to do all the looping
+strs = {}
+def _xmltrans(base, thedict):
+    if strs.has_key(base):
+        return strs[base]
+    
+    langs = getDefaultLangs()
+    for l in langs:
+        if thedict.has_key(l):
+            strs[base] = thedict[l]
+            return strs[base]
+    strs[base] = base
+    return base
+
+def _ui_comps_sort(one, two):
+    if one.display_order > two.display_order:
+        return 1
+    elif one.display_order < two.display_order:
+        return -1
+    elif _xmltrans(one.name, one.translated_name) > \
+         _xmltrans(two.name, two.translated_name):
+        return 1
+    elif _xmltrans(one.name, one.translated_name) < \
+         _xmltrans(two.name, two.translated_name):
+        return -1
+    return 0
 
 class GroupSelectionWindow:
     def __call__(self, screen, backend, intf):
-        self.instgrps = copy.copy(backend.anaconda_grouplist)
-
         g = GridFormHelp(screen, "Package Group Selection",
-                     "packagetree", 1, 5)
+                         "packagetree", 1, 5)
 
         t = TextboxReflowed(50, "Please select the package groups you "
                                 "would like to have installed.\n\n"
@@ -37,11 +61,13 @@ class GroupSelectionWindow:
         g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
 
         # FIXME: this is very yum backend specific...
-        groups = backend.ayum.groupInfo.visible_groups
-        groups.sort()
+        groups = filter(lambda x: x.user_visible,
+                        backend.ayum.comps.groups)
+        groups.sort(_ui_comps_sort)
         ct = CheckboxTree(height = 6, scroll = (len(groups) > 6))
         for grp in groups:
-            ct.append(grp, grp, grp in backend.anaconda_grouplist)
+            ct.append(_xmltrans(grp.name, grp.translated_name),
+                      grp, grp.selected)
         g.add(ct, 0, 2, (0, 0, 0, 1))
 
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
@@ -59,9 +85,9 @@ class GroupSelectionWindow:
         screen.popWindow()
         sel = ct.getSelection()
         for g in groups:
-            if g in sel and g not in self.instgrps:
-                backend.selectGroup(g)
-            elif g not in sel and g in self.instgrps:
-                backend.deselectGroup(g)
+            if g in sel and not g.selected:
+                backend.selectGroup(g.groupid)
+            elif g not in sel and g.selected:
+                backend.deselectGroup(g.groupid)
 
         return INSTALL_OK

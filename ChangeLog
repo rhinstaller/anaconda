@@ -1,5 +1,12 @@
 2005-12-10  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/simple_pkgselect_text.py Basic fixup for new API so that
+	we at least don't just die (#175443)
+
+	* yuminstall.py: Remove anaconda_grouplist hack.
+	(tsCheck): Fix for API change 
+	(_catchallCategory): Fix for changes to groups API
+
 	* iw/GroupSelector.py (GroupSelector._categorySelected): Update
 	for new group code and sort based on display_order.
 	(GroupSelector.populateCategories): Likewise.  
