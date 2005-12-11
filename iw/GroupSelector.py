@@ -48,6 +48,19 @@ def _xmltrans(base, thedict):
     strs[base] = base
     return base
 
+def _ui_comps_sort(one, two):
+    if one.display_order > two.display_order:
+        return 1
+    elif one.display_order < two.display_order:
+        return -1
+    elif _xmltrans(one.name, one.translated_name) > \
+         _xmltrans(two.name, two.translated_name):
+        return 1
+    elif _xmltrans(one.name, one.translated_name) < \
+         _xmltrans(two.name, two.translated_name):
+        return -1
+    return 0
+
 class OptionalPackageSelector:
     def __init__(self, yumobj, group, parent = None, getgladefunc = None):
         self.ayum = yumobj
@@ -238,7 +251,6 @@ class GroupSelector:
         tree.append_column(column)
         tree.columns_autosize()
 
-        self.groupstore.set_sort_column_id(1, gtk.SORT_ASCENDING)
         selection = tree.get_selection()
         selection.connect("changed", self._groupSelected)
 
@@ -248,8 +260,10 @@ class GroupSelector:
         if not i:
             return
         cat = model.get_value(i, 1)
-        for g in cat.groups:
-            grp = self.ayum.comps.groups[g]
+        grps = map(lambda x: self.ayum.comps.return_group(x),
+                   filter(lambda x: self.ayum.comps.has_group(x), cat.groups))
+        grps.sort(_ui_comps_sort)
+        for grp in grps:
             s = "<span size=\"large\" weight=\"bold\">%s</span>" % _xmltrans(grp.name, grp.translated_name)
 
             fn = "/usr/share/pixmaps/comps/%s.png" % grp.groupid
@@ -321,7 +335,9 @@ class GroupSelector:
 
     def populateCategories(self):
         self.catstore.clear()
-        for cat in self.ayum.comps.categories.values():
+        cats = self.ayum.comps.categories
+        cats.sort(_ui_comps_sort)
+        for cat in self.ayum.comps.categories:
             s = "<span size=\"large\" weight=\"bold\">%s</span>" % _xmltrans(cat.name, cat.translated_name)
             self.catstore.append(None, [s, cat])
 

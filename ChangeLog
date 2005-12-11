@@ -1,5 +1,11 @@
 2005-12-10  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/GroupSelector.py (GroupSelector._categorySelected): Update
+	for new group code and sort based on display_order.
+	(GroupSelector.populateCategories): Likewise.  
+	(_ui_comps_sort): Add sorter.
+	* ui/GroupSelector.glade: Minor tweak
+
 	* yuminstall.py: Use TS_INSTALL_STATES instead of enumerating
 
 2005-12-10  Paul Nasrat <pnasrat@redhat.com>
