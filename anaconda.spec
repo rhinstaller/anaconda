@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.16
+Version: 10.90.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -11,7 +11,7 @@ Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart
 Requires: device-mapper >= 1.01.05-3
 %ifnarch s390 s390x
-Requires: python-pyblock >= 0.5-2
+Requires: python-pyblock >= 0.7-1
 %endif
 %ifnarch s390 s390x ppc64
 Requires: rhpxl
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Dec 11 2005 Peter Jones <pjones@redhat.com> - 10.90.17-1
+- Full dmraid support.  (still disabled by default)
+
 * Sat Dec 10 2005 Jeremy Katz <katzj@redhat.com> - 10.90.16-1
 - Ensure upgrades to depsolve and remove db locks (pnasrat)
 - Tweak for improved and sortable groups/categories
