@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.15
+Version: 10.90.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Dec 10 2005 Jeremy Katz <katzj@redhat.com> - 10.90.16-1
+- Ensure upgrades to depsolve and remove db locks (pnasrat)
+- Tweak for improved and sortable groups/categories
+- Put back basic text-mode package selection (#175443)
+
 * Thu Dec  8 2005 Jeremy Katz <katzj@redhat.com> - 10.90.15-1
 - Fix various typos in the new group selection code (clumens)
 - Support bytesPerInode on RAID (Curtis Doty, #175288)
