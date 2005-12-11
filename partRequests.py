@@ -886,6 +886,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
         vgname = vg.volumeGroupName
         self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
                                              self.logicalVolumeName,
+                                             vg = vg,
                                              existing = self.preexist)
         return self.dev
 

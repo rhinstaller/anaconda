@@ -1,3 +1,37 @@
+2005-12-11  Peter Jones  <pjones@redhat.com>
+
+	* dmraid.py (dmDriveCache): add dmDriveCache class, to to manage
+	our three-drive-monte with isys's hard drive list.
+	(getRaidSetInfo): remove completely
+	(scanForRaid): don't use getRaidSetInfo, just test the RaidSet object
+	directly.  Also log a warning when we encounter a degraded raidset.
+	(startAllRaid): don't use a generator, since we need to provide
+	a non-None empty result set.
+	(stopRaidSet): simplify the code a bit.
+	(stopAllRaids): remove traceback stuff, and remove artifacts of
+	getRaidSetInfo
+
+	* fsset.py: don't disable dmraids when rescanning partitions
+	(LogicalVolumeDevice): rename the volume group name argument
+	to "vgname" instead of "lvname", and add an argument for the object
+	so we can find its physical volumes.
+
+	* lvm.py (writeForceConf): take device list as an argument, and use
+	that to write the filter rules.
+
+	* partRequests.py (LogicalVolumeRequestSpec.getDevice): pass vg object
+	in to fsset.LogicalVolumeDevice
+
+	* partedUtils.py (DiskSet.startDmRaid): rewrite it to remove some
+	unneeded code, and make it a lot simpler.
+	(.startAllRaid): cut out a lot of crap, make the s390 handling simpler
+	(.stopDmRaid): remove some useless stuff
+	(.stopAllRaid): remove the s390 handling
+	(.openDevices): check for None to see if dmraid is initialized.
+	
+	* partitions.py (Partitions.setFromDisk): call lvm.writeForceConf
+	before we probe for PV/VG/LV info.
+
 2005-12-11  Jeremy Katz  <katzj@redhat.com>
 
 	* gui.py: Stop looking for help.

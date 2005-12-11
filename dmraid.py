@@ -39,52 +39,48 @@ import isys
 # controlers. -pj
 dmraidBootArches = [ "i386", "x86_64" ]
 
-cachedDrives = {}
+class DmDriveCache:
+    def __init__(self):
+        self.cache = {}
+
+    def add(self, rs):
+        isys.cachedDrives["mapper/" + rs.name] = rs
+        log.debug("adding %s to isys cache" % ("mapper/" + rs.name,))
+        for m in rs.members:
+            if isinstance(m, block.RaidDev):
+                disk = m.rd.device.path.split('/')[-1]
+                if isys.cachedDrives.has_key(disk):
+                    self.cache.setdefault(rs, {})
+                    log.debug("adding %s to dmraid cache" % (disk,))
+                    self.cache[rs][disk] = isys.cachedDrives[disk]
+                    log.debug("removing %s from isys cache" % (disk,))
+                    del isys.cachedDrives[disk]
+
+    def remove(self, name):
+        if isys.cachedDrives.has_key(name):
+            rs = isys.cachedDrives[name]
+            log.debug("removing %s from isys cache" % (name,))
+            del isys.cachedDrives[name]
+            if self.cache.has_key(rs):
+                for k,v in self.cache[rs].items():
+                    log.debug("adding %s from to isys cache" % (name,))
+                    isys.cachedDrives[k] = v
+                log.debug("removing %s from dmraid cache" % (rs,))
+                del self.cache[rs]
+
+    def __contains__(self, name):
+        for k in self.cache.keys():
+            if k.name == name:
+                return True
+        return False
+
+cacheDrives = DmDriveCache()
 
 class DegradedRaidWarning(Warning):
     def __init__(self, *args):
         self.args = args
     def __str__(self):
         return self.args and ('%s' % self.args[0]) or repr(self)
-
-def getRaidSetInfo(rs):
-    """Builds information about a dmraid set
-    
-    rs is a block.dmraid.raidset instance
-    Returns a list of tuples for this raidset and its
-      dependencies, in sorted order, of the form
-      (raidSet, parentRaidSet, devices, level, nrDisks, totalDisks)
-    """
-
-    if not isinstance(rs, block.RaidSet):
-        raise TypeError, "getRaidSetInfo needs raidset, got %s" % (rs.__class__,)
-
-    for m in rs.members:
-        if isinstance(m, block.RaidSet):
-            infos = getRaidSetInfo(m)
-            for info in infos:
-                if info[1] is None:
-                    info[1] = rs
-                yield info
-
-    try:
-        parent = None
-
-        devs = list(rs.members)
-        sparedevs = list(rs.spares)
-
-        totalDisks = len(devs) + len(sparedevs)
-        nrDisks = len(devs)
-        devices = devs + sparedevs
-
-        level = rs.level
-
-        yield (rs, parent, devices, level, nrDisks, totalDisks)
-    except:
-        # something went haywire
-        log.error("Exception occurred reading info for %s: %s" % \
-            (repr(rs), (sys.exc_type, ))) # XXX PJFIX sys.exc_info)))
-        raise
 
 def scanForRaid(drives, degradedOk=False):
     """Scans for dmraid devices on drives.
@@ -104,31 +100,20 @@ def scanForRaid(drives, degradedOk=False):
         isys.makeDevInode(d, dp)
         probeDrives.append(dp)
     
-    dmsets = block.getRaidSets(probeDrives)
-    for dmset in dmsets:
-        infos = getRaidSetInfo(dmset)
-        for info in infos:
-            rs = info[0]
-            log.debug("got raidset %s" % (rs,))
+    dmsets = []
+    def nonDegraded(rs):
+        log.debug("got raidset %s" % (rs,))
+        # XXX not a good way to determine this
+        if rs.rs.total_devs > rs.rs.found_devs and not degradedOk:
+            log.warning("raid %s (%s) is degraded" % (rs, rs.name))
+            #raise DegradedRaidWarning, rs
+            return False
 
-            # XXX not the way to do this; also, need to inform the user
-            if rs.rs.total_devs > rs.rs.found_devs \
-                    and not degradedOk:
-                #raise DegradedRaidWarning, rs
-                continue
-            #(rs, parent, devices, level, nrDisks, totalDisks) = info
-            # XXX ewwwww, what a hack.
-            isys.cachedDrives["mapper/" + rs.name] = rs
-            drives = []
-            for m in rs.members:
-                if isinstance(m, block.RaidDev):
-                    disk = m.rd.device.path.split('/')[-1]
-                    if isys.cachedDrives.has_key(disk):
-                        drives.append({disk:isys.cachedDrives[disk]})
-                        del isys.cachedDrives[disk]
-            cachedDrives[rs] = drives
-            yield info
+        cacheDrives.add(rs)
+        return True
 
+    return filter(nonDegraded, block.getRaidSets(probeDrives) or [])
+            
 def startRaidDev(rs):
     if flags.dmraid == 0:
         return
@@ -137,42 +122,36 @@ def startRaidDev(rs):
     rs.activate(mknod=True)
 
 def startAllRaid(driveList):
-    """Do a raid start on raid devices and return a list like scanForRaid."""
+    """Do a raid start on raid devices."""
 
-    if flags.dmraid == 0:
-        return
+    if not flags.dmraid:
+        return []
     log.debug("starting all dmraids on drives %s" % (driveList,))
+
     dmList = scanForRaid(driveList)
-    for dmset in dmList:
-        rs = dmset[0]
+    for rs in dmList:
         startRaidDev(rs)
-        yield dmset
+    return dmList
 
 def stopRaidSet(rs):
     if flags.dmraid == 0:
         return
     log.debug("stopping raid %s" % (rs,))
-    if isys.cachedDrives.has_key("mapper/" + rs.name):
-        del isys.cachedDrives["mapper/" + rs.name]
-    if cachedDrives.has_key(rs):
-        for item in cachedDrives[rs]:
-            isys.cachedDrives[item.keys()[0]] = item.values()[0]
+    name = "mapper/" + rs.name
+    if name in cacheDrives:
+        cacheDrives.remove(name)
 
-    rs.deactivate()
-    #block.removeDeviceMap(map)
+        rs.deactivate()
+        #block.removeDeviceMap(map)
 
 def stopAllRaid(dmList):
     """Do a raid stop on each of the raid device tuples given."""
 
-    if flags.dmraid == 0:
+    if not flags.dmraid:
         return
-    import traceback as _traceback
-    stack = _traceback.format_stack()
-    for frame in stack:
-        log.debug(frame)
     log.debug("stopping all dmraids")
     for rs in dmList:
-        stopRaidSet(rs[0])
+        stopRaidSet(rs)
 
 def isRaid6(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID6."""

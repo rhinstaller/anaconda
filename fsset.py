@@ -106,7 +106,7 @@ class LabelFactory:
             self.labels = {}
             diskset = partedUtils.DiskSet()            
             diskset.openDevices()
-            diskset.stopAllRaid()
+            diskset.stopAllRaid(stopDmRaid=False)
             diskset.startAllRaid()
             labels = diskset.getLabels()
             del diskset
@@ -2120,7 +2120,7 @@ class VolumeGroupDevice(Device):
 
         if not self.isSetup:
             # rescan now that we've recreated pvs.  ugh.
-            lvm.writeForceConf()            
+            lvm.writeForceConf()
             lvm.vgscan()
 
             args = [ "lvm", "vgcreate", "-v", "-An",
@@ -2148,14 +2148,15 @@ class VolumeGroupDevice(Device):
 
 class LogicalVolumeDevice(Device):
     # note that size is in megabytes!
-    def __init__(self, volumegroup, size, vgname, existing = 0):
+    def __init__(self, vgname, size, lvname, vg, existing = 0):
         Device.__init__(self)
-        self.volumeGroup = volumegroup
+        self.vgname = vgname
         self.size = size
-        self.name = vgname
+        self.name = lvname
         self.isSetup = 0
         self.isSetup = existing
         self.doLabel = None
+        self.vg = vg
 
         # these are attributes we might want to expose.  or maybe not.
         # self.chunksize
@@ -2171,7 +2172,7 @@ class LogicalVolumeDevice(Device):
                                         ["lvm", "lvcreate", "-L",
                                          "%dM" % (self.size,),
                                          "-n", self.name, "-An",
-                                         self.volumeGroup],
+                                         self.vgname],
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
@@ -2183,7 +2184,7 @@ class LogicalVolumeDevice(Device):
         return "/dev/%s" % (self.getDevice(),)
 
     def getDevice(self, asBoot = 0):
-        return "%s/%s" % (self.volumeGroup, self.name)
+        return "%s/%s" % (self.vgname, self.name)
 
     def solidify(self):
         return

@@ -190,6 +190,7 @@ class Partitions:
             spec.size = spec.getActualSize(self, diskset)
             self.addRequest(spec)
 
+        lvm.writeForceConf()
         # now to read in pre-existing LVM stuff
         lvm.vgscan()
         lvm.vgactivate()
@@ -250,7 +251,7 @@ class Partitions:
             
         lvm.vgdeactivate()
 
-        diskset.stopAllRaid()
+        diskset.stopAllRaid(stopDmRaid=False)
             
         
 
