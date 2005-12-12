@@ -1,5 +1,11 @@
 2005-12-12  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c: Temporary handling of 'ub' command line flag
+	to say to try ub instead of usb-storage.
+	* loader2/loader.h: Add ub flag definition.
+	* loader2/usb.c (usbInitialize): Load usb-storage/ub if there is
+	something which looks relevant
+
 	* gui.py (InstallControlWindow.refreshHelp): Revert a little bit.
 
 	* anaconda: Allow hard drive installs again

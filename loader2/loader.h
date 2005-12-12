@@ -36,6 +36,7 @@
 #define LOADER_FLAGS_HALT       	(1 << 13)
 #define LOADER_FLAGS_SELINUX            (1 << 14)
 #define LOADER_FLAGS_VIRTPCONSOLE       (1 << 15)
+#define LOADER_FLAGS_UB                 (1 << 16)
 #define LOADER_FLAGS_NOSTORAGE	        (1 << 30)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
@@ -71,6 +72,7 @@
 #define FL_VIRTPCONSOLE(a)  ((a) & LOADER_FLAGS_VIRTPCONSOLE)
 #define FL_NOSTORAGE(a)     ((a) & LOADER_FLAGS_NOSTORAGE)
 #define FL_NOPROBE(a)       (FL_NOSTORAGE(a) | FL_NONET(a))
+#define FL_UB(a)            ((a) && LOADER_FLAGS_UB)
 
 void startNewt(int flags);
 void stopNewt();
