@@ -1174,8 +1174,6 @@ class InstallControlWindow:
             pass
         
     def refreshHelp(self):
-        return
-    
         # make sure we're refreshing the help for an actual screen
         if self.currentWindow is None:
             return
