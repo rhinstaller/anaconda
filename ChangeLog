@@ -1,3 +1,7 @@
+2005-12-12  Peter Jones  <pjones@redhat.com>
+
+	* packages.py (doPreInstall): handle "ia32e" as well as "x86_64".
+
 2005-12-12  Jeremy Katz  <katzj@redhat.com>
 
 	* hdrlist.py (GroupSet.kernelVersionList): Add -largesmp to grub

@@ -650,7 +650,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         nhts = isys.htavailable()
         nthreads = (ncpus or 1) * (nhts or 1)
         largesmp_min = -1
-        if rhpl.arch.canonArch == "x86_64":
+        if rhpl.arch.canonArch in ("x86_64", "ia32e"):
             largesmp_min = 8
         elif iutil.getArch() == "ppc" and iutil.getPPCMachine() != "iSeries":
             largesmp_min = 8

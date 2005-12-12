@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.30
+Version: 10.1.1.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 12 2005 Peter Jones <pjones@redhat.com> - 10.1.1.31-1
+- add -largesmp to grub config and "everything" install exclude list
+  (katzj, #175548)
+- handle ia32e as an arch, not just x86_64 (pjones, #175548)
+
 * Wed Dec  7 2005 Peter Jones <pjones@redhat.com> - 10.1.1.30-1
 - use the right numbers to test for largesmp
 - Avoid the rpmlib segfault with ts.order (workaround for #174621)
