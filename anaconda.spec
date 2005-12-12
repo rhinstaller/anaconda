@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.17
+Version: 10.90.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 12 2005 Jeremy Katz <katzj@redhat.com> - 10.90.18-1
+- Handle monitor configuration in kickstart via "monitor" keyword instead of 
+  "xconfig" consistently (clumens)
+- Fix joe as nano (#175479)
+- Try to get hard drive installs working again
+- First steps towards using ub
+- Fix depcheck progress bar to actually give progress.  
+
 * Sun Dec 11 2005 Peter Jones <pjones@redhat.com> - 10.90.17-1
 - Full dmraid support.  (still disabled by default)
 
