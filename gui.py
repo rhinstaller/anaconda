@@ -493,7 +493,7 @@ class WaitWindow:
         rootPopBusyCursor()
 
 class ProgressWindow:
-    def __init__(self, title, text, total):
+    def __init__(self, title, text, total, updpct = 0.05):
         if flags.rootpath:
             self.window = gtk.Window()
             self.window.set_decorated(False)
@@ -514,6 +514,7 @@ class ProgressWindow:
         box.pack_start (label, False)
         
         self.total = total
+        self.updpct = updpct
 	self.progress = gtk.ProgressBar ()
         box.pack_start (self.progress, True)
         self.window.add(box)
@@ -530,7 +531,7 @@ class ProgressWindow:
 	curval = self.progress.get_fraction()
 	newval = float (amount) / self.total
 	if newval < 0.998:
-	    if (newval - curval) < 0.05 and newval > curval:
+	    if (newval - curval) < self.updpct and newval > curval:
 		return
 	self.progress.set_fraction (newval)
         processEvents ()        
@@ -744,8 +745,8 @@ class InstallInterface:
     def waitWindow (self, title, text):
 	return WaitWindow (title, text)
 
-    def progressWindow (self, title, text, total):
-	return ProgressWindow (title, text, total)
+    def progressWindow (self, title, text, total, updpct = 0.05):
+	return ProgressWindow (title, text, total, updpct)
 
     def packageProgressWindow (self, total, totalSize):
         self.ppw.setSizes (total, totalSize)

@@ -1,5 +1,16 @@
 2005-12-12  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumDepSolveProgress.tscheck): Enhance to allow
+	knowing how many things are going to be added.  Put the smarts
+	about the "nice" update here instead of restartLoop
+	(YumSorter.tsCheck): Feedback on packages being checked so the
+	progress bar moves :-)
+
+	* gui.py (ProgressWindow.__init__): Allow specifying the
+	percentage to do updates at so that we can update more often on known
+	"slow" progress bars
+	* text.py (ProgressWindow): Matching prototype
+
 	* scripts/mk-images: Add ub to the module list
 	* loader2/loader.c: Temporary handling of 'ub' command line flag
 	to say to try ub instead of usb-storage.

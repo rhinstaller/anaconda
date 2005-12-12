@@ -279,15 +279,18 @@ class YumSorter(yum.YumBase):
         if self.dsCallback: self.dsCallback.start()
 
         while CheckDeps > 0:
-            if self.dsCallback: self.dsCallback.tscheck()
+            if self.dsCallback:
+                self.dsCallback.tscheck(len(self.tsInfo.getMembers()))
             unresolved = self.tsCheck()
             CheckDeps = len(unresolved)
+            if self.dsCallback: self.dsCallback.restartLoop()
 
         return (2, ['Success - deps resolved'])
 
     def tsCheck(self):
         unresolved = []
         for txmbr in self.tsInfo.getMembers():
+            if self.dsCallback: self.dsCallback.pkgAdded()
             if txmbr.output_state not in TS_INSTALL_STATES:
                 continue
             reqs = txmbr.po.returnPrco('requires')
@@ -697,7 +700,6 @@ class YumBackend(AnacondaBackend):
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
         finally:
             dscb.pop()
-            
 
     def doPreInstall(self, intf, id, instPath, dir):
         if dir == DISPATCH_BACK:
@@ -967,11 +969,30 @@ class YumProgress:
 class YumDepSolveProgress:
     def __init__(self, intf):
         window = intf.progressWindow(_("Dependency Check"),
-        _("Checking dependencies in packages selected for installation..."), 1.0)
+        _("Checking dependencies in packages selected for installation..."),
+                                     1.0, 0.01)
         self.window = window
-        self.total = 1.0
+
+        self.numpkgs = None
+        self.loopstart = None
+        self.incr = None
         
-        self.pkgAdded = self.procReq = self.transactionPopulation = self.downloadHeader = self.tscheck = self.unresolved = self.procConflict = self.refresh
+        self.restartLoop = self.downloadHeader = self.transactionPopulation = self.refresh
+        self.procReq = self.procConflict = self.unresolved = self.noop()
+
+    def tscheck(self, num = None):
+        self.refresh()
+        if num is not None:
+            self.numpkgs = num
+            self.loopstart = self.current
+            self.incr = (1.0 / num) * ((1.0 - self.loopstart) / 2)
+
+    def pkgAdded(self, *args):
+        if self.numpkgs:
+            self.set(self.current + self.incr)
+
+    def noop(self):
+        pass
 
     def refresh(self, *args):
         self.window.refresh()
@@ -981,14 +1002,9 @@ class YumDepSolveProgress:
         self.window.set(self.current)
 
     def start(self):
-        self.set(0.1)
+        self.set(0.0)
         self.refresh()
 
-    def restartLoop(self):
-        new = ((1.0 - self.current) / 2) + self.current
-        self.set(new)
-        self.refresh()
-    
     def end(self):
         self.window.set(1.0)
         self.window.refresh()

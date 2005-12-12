@@ -125,7 +125,7 @@ class ProgressWindow:
     def refresh(self):
         pass
 
-    def __init__(self, screen, title, text, total):
+    def __init__(self, screen, title, text, total, updpct):
 	self.screen = screen
 	width = 55
 	if (len(text) > width): width = len(text)
@@ -303,8 +303,8 @@ class InstallInterface:
 		pdb.post_mortem(tb)
 	    os._exit(1)
 
-    def progressWindow(self, title, text, total):
-        return ProgressWindow(self.screen, title, text, total)
+    def progressWindow(self, title, text, total, updpct = 0.05):
+        return ProgressWindow(self.screen, title, text, total, updpct)
 
     def messageWindow(self, title, text, type="ok", default = None,
 		      custom_icon=None, custom_buttons=[]):
