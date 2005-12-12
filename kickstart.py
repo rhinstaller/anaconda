@@ -522,7 +522,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         id.instClass.configureX(id, dict["driver"], dict["videoRam"],
                                 dict["resolution"], dict["depth"],
-                                dict["probe"], dict["startX"])
+                                dict["startX"])
         id.instClass.setDesktop(id, dict["defaultdesktop"])
         self.skipSteps.extend(["videocard", "monitor", "xcustom",
                                "handleX11pkgs", "checkmonitorok", "setsanex"])

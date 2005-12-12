@@ -412,7 +412,7 @@ class BaseInstallClass:
             id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
 
 
-    def configureX(self, id, driver = None, videoRam = None, resolution = None, depth = None, noProbe = 0, startX = 0):
+    def configureX(self, id, driver = None, videoRam = None, resolution = None, depth = None, startX = 0):
         self.setVideoCard(id, driver, videoRam)
 
         if startX:
