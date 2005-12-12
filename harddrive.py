@@ -13,7 +13,7 @@
 
 
 from installmethod import InstallMethod, FileCopyException
-from image import findIsoImages
+from image import findIsoImages, ImageInstallMethod
 import shutil
 import os
 import sys
@@ -27,22 +27,17 @@ from constants import *
 import logging
 log = logging.getLogger("anaconda")
 
-FILENAME = 1000000
-
 # Install from one or more iso images
-class HardDriveInstallMethod(InstallMethod):
+class HardDriveInstallMethod(ImageInstallMethod):
     def copyFileToTemp(self, filename):
         wasmounted = self.mediaIsMounted
-
         if not wasmounted:
             self.mountMedia(1)
-        tmppath = self.getTempPath()
-        path = tmppath + os.path.basename(filename)
-        shutil.copy(self.tree + "/" + filename, path)
+            
+        path = ImageInstallMethod.copyFileToTemp(self, filename)
 
         if not wasmounted:
             self.umountMedia()
-        
         return path
 
     # mounts disc image cdNum under self.tree
@@ -99,39 +94,33 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.isoDirIsMounted = 0
 	
     # return reference to file specified on ISO #1
-    #
     # mounts ISO #1, copies file to destdir, umounts ISO #1
-    #
     # will probably do bad things if called during package installation
-    #
     # returns None if file doesn't exist
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	if destdir is None:
-	    tmppath = self.getTempPath()
-	else:
-	    tmppath = destdir
-	    
-        fn = tmppath + '/' + os.path.basename(filename)
+	    destdir = self.getTempPath()
+        fn = destdir + '/' + os.path.basename(filename)
 
 	self.mountMedia(1)
 	try:
 	    shutil.copy(self.tree + '/' + filename, fn)
 	except:
 	    fn = None
-	    
         self.umountMedia()
-
 	return fn
-
 
     # return reference to the RPM file specified by the header
     # will mount the appropriate ISO image as required by CD # in header
-    def getRPMFilename(self, filename, h, timer, callback=None):
-	if self.mediaIsMounted != h[1000002]:
+    def getRPMFilename(self, filename, mediano, timer, callback=None):
+        if mediano == 0:
+            log.warning("header for %s has no disc location tag, assuming "
+                        "it's on the currnt disc" %(filename,))
+        elif mediano != self.mediaIsMounted:
             log.info("switching from iso %s to %s" %(self.mediaIsMounted,
-                                                     h[1000002]))
+                                                     mediano))
 	    self.umountMedia()
-	    self.mountMedia(h[1000002])
+	    self.mountMedia(mediano)
 
 	return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
 
@@ -147,7 +136,7 @@ class HardDriveInstallMethod(InstallMethod):
         try:
             self.umountMedia()
         except:
-            log.error("unable to unmount media")
+            log.warning("unable to unmount media")
 
     # we cannot remove the partition we are hosting hard drive install from
     def protectedPartitions(self):
@@ -155,19 +144,18 @@ class HardDriveInstallMethod(InstallMethod):
     
     def __init__(self, method, rootPath, intf):
         """@param method hd://device:fstype:/path"""
-	InstallMethod.__init__(self, method, rootPath, intf)
-        self.splitmethod = True
         method = method[5:]
-
         device = method[0:method.index(":")]
         tmpmethod = method[method.index(":") + 1:]
         fstype = tmpmethod[0:tmpmethod.index("/")]
         path = tmpmethod[tmpmethod.index("/") + 1:]
 
+	ImageInstallMethod.__init__(self, method, rootPath, intf)
+        self.tree = None
+        
 	self.device = device
 	self.path = path
 	self.fstype = fstype
-	self.fnames = {}
         self.isoDirIsMounted = 0
         self.mediaIsMounted = 0
 	self.messageWindow = intf.messageWindow
@@ -177,3 +165,5 @@ class HardDriveInstallMethod(InstallMethod):
 	self.mountDirectory()
 	self.discImages = findIsoImages(self.isoDir + '/' + self.path, self.messageWindow)
 	self.umountDirectory()
+
+
