@@ -3,6 +3,8 @@
 	* installclass.py (BaseInstallClass.configureX):  Remove monitor
 	configuration.
 	* kickstart.py (AnacondaKSHandlers.doXConfig):  Likewise.
+	* xsetup.py  (XSetup.writeKS):  Write out a monitor keyword to the
+	generated kickstart file.
 
 2005-12-11  Peter Jones  <pjones@redhat.com>
 

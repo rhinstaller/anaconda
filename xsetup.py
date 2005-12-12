@@ -88,17 +88,28 @@ class XSetup:
 	    f.write(" " + arg)
 	f.write("\n")
 
-    def getArgList(self, res, depth):
+        f.write("monitor")
+        for arg in self.getMonitorArgList():
+            f.write(" " + arg)
+        f.write("\n")
+
+    def getMonitorArgList(self):
         args = []
         monitor = self.xhwstate.monitor
+        
+        args = args + [ "--hsync", monitor.getMonitorHorizSync() ]
+        args = args + [ "--vsync", monitor.getMonitorVertSync() ]
+
+        return args
+
+    def getArgList(self, res, depth):
+        args = []
 	vc = self.xhwstate.videocard
 
 	args = args + [ "--driver", '"' + vc.primaryCard().getDriver() + '"' ]
 	vram = vc.primaryCard().getVideoRam()
 	if vram is not None:
 	    args = args + [ "--videoram", vram]
-        args = args + [ "--hsync", monitor.getMonitorHorizSync() ]
-        args = args + [ "--vsync", monitor.getMonitorVertSync() ]
 
         # XXX this isn't really quite right, but it works for the way
         # things are now
@@ -106,6 +117,3 @@ class XSetup:
         args = args + [ "--depth", str(depth) ]
 
         return args
-
-    
-
