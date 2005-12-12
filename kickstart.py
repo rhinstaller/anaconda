@@ -520,9 +520,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doXConfig(self, args)
         dict = self.ksdata.xconfig
 
-	id.instClass.configureX(id, dict["driver"],
-                                dict["videoRam"], dict["monitor"],
-                                dict["hsync"], dict["vsync"],
+        id.instClass.configureX(id, dict["driver"], dict["videoRam"],
                                 dict["resolution"], dict["depth"],
                                 dict["probe"], dict["startX"])
         id.instClass.setDesktop(id, dict["defaultdesktop"])

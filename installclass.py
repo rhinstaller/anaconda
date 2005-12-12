@@ -412,9 +412,8 @@ class BaseInstallClass:
             id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
 
 
-    def configureX(self, id, driver = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
+    def configureX(self, id, driver = None, videoRam = None, resolution = None, depth = None, noProbe = 0, startX = 0):
         self.setVideoCard(id, driver, videoRam)
-        self.setMonitor(id, hsync, vsync, monitorName)
 
         if startX:
             rl = 5
