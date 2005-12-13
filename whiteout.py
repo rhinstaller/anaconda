@@ -87,6 +87,8 @@ whiteout="""
         nautilus>nautilus-cd-burner
 """
 
+whitetup = map(lambda x: (x.split(">")[0], x.split(">")[1]), whiteout.split())
+
 #rpm.addMacro("_dependency_whiteout", whiteout)
 
 # ts coloring, more hacks to workaround #92285

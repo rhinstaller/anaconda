@@ -1,5 +1,9 @@
 2005-12-13  Jeremy Katz  <katzj@redhat.com>
 
+	* whiteout.py (whitetup): Break the whiteout into tuples
+	* yuminstall.py (tsCheck): Use whiteout tuple instead of string
+	for a minor speed improvement.
+
 	* yuminstall.py: Scale progress properly.  Also, give a warning if
 	we update a popped progress bar so that we can try to find and fix
 	such cases.

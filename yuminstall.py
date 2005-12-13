@@ -41,7 +41,7 @@ urlparse.uses_fragment.append('media')
 import iutil
 import isys
 
-from whiteout import whiteout
+import whiteout
 
 #XXX: this needs to be somewhere better - probably method
 def getcd(po):
@@ -233,7 +233,6 @@ class YumSorter(yum.YumBase):
         self.deps = {}
         self.path = []
         self.loops = []
-        self.whiteout = whiteout.split()
 
     def isPackageInstalled(self, pkgname):
         # FIXME: this sucks.  we should probably suck it into yum proper
@@ -311,7 +310,7 @@ class YumSorter(yum.YumBase):
                 if txmbr.name == dep.name:
                     continue
 
-                if "%s>%s" % (dep.name, txmbr.name) in self.whiteout:
+                if (dep.name, txmbr.name) in whiteout.whitetup:
                     log.debug("ignoring %s>%s in whiteout" %(dep.name, txmbr.name))
                     continue
                 if self.tsInfo.exists(dep.pkgtup):
