@@ -1,5 +1,9 @@
 2005-12-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py: Scale progress properly.  Also, give a warning if
+	we update a popped progress bar so that we can try to find and fix
+	such cases.
+
 	* cmdline.py (ProgressWindow.__init__): Adjust for new API
 
 2005-12-13  David Cantrell  <dcantrell@redhat.com>

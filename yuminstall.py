@@ -275,8 +275,6 @@ class YumSorter(yum.YumBase):
         return None
 
     def resolveDeps(self):
-        CheckDeps = 1
-
         if self.dsCallback: self.dsCallback.start()
 
         unresolved = self.tsInfo.getMembers()
@@ -940,13 +938,15 @@ class YumProgress:
     def __init__(self, intf, text, total):
         window = intf.progressWindow(_("Installation Progress"), text ,total)
         self.window = window
-        self.total = float(total)
         self.num = 0
         self.popped = False
 
     def progressbar(self, current, total, name=None):
         if not self.popped:
             self.window.set(current)
+        else:
+            warnings.warn("YumProgress.progressbar called when popped",
+                          RuntimeWarning, stacklevel=2) 
 
     def pop(self):
         self.window.pop()
@@ -955,7 +955,10 @@ class YumProgress:
     def next_task(self):
         self.num += 1
         if not self.popped:
-            self.window.set(self.num/self.total)
+            self.window.set(self.num)
+        else:
+            warnings.warn("YumProgress.set called when popped",
+                          RuntimeWarning, stacklevel=2)             
 
     def errorlog(self, value, msg):
         log.error(msg)
