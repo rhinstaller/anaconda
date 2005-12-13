@@ -1,5 +1,7 @@
 2005-12-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (__getGroupId): Fix groupid finding
+
 	* whiteout.py (whitetup): Break the whiteout into tuples
 	* yuminstall.py (tsCheck): Use whiteout tuple instead of string
 	for a minor speed improvement.

@@ -873,7 +873,7 @@ class YumBackend(AnacondaBackend):
 
     def __getGroupId(self, group):
         """Get the groupid for the given name (english or translated)."""
-        for g in self.ayum.comps.groups.values():
+        for g in self.ayum.comps.groups:
             if group == g.name:
                 return g.groupid
             for trans in g.translated_name.values():
