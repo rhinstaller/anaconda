@@ -976,12 +976,20 @@ if display_mode == 'g' and flags.usevnc:
     startVNCServer(vncpassword=vncpassword,
 		   vncconnecthost=vncconnecthost,
 		   vncconnectport=vncconnectport)
+
     child = os.fork()
-    if (child):
+    if child == 0:
+	# wait a couple seconds so the last line displays the press enter for shell...
+	time.sleep(2)
+	print "\n"
 	while 1:
 	    print _("Press <enter> for a shell")
 	    sys.stdin.readline()
 	    iutil.execWithRedirect("/bin/sh", ["/bin/sh"])
+    else:
+	pf = open("/tmp/vncshell.pid", "w")
+	pf.write("%s\n" %(child))
+	pf.close()
 
 
 # setup links required for all install types

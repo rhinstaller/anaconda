@@ -367,6 +367,30 @@ def handleException(dispatch, intf, (type, value, tb)):
         elif rc == 1:
             intf.__del__ ()
             print text
+
+            pidfl = "/tmp/vncshell.pid"
+            if os.path.exists(pidfl) and os.path.isfile(pidfl):
+                pf = open(pidfl, "r")
+                for pid in pf.readlines():
+                    if not int(pid) == os.getpid():
+                        os.kill(int(pid), signal.SIGKILL)
+                pf.close()
+
+            os.open("/dev/console", os.O_RDWR)   # reclaim stdin
+            os.dup2(0, 1)                        # reclaim stdout
+            os.dup2(0, 2)                        # reclaim stderr
+            #   ^
+            #   |
+            #   +------ dup2 is magic, I tells ya!
+
+            # bring back the echo
+            import termios
+            si = sys.stdin.fileno()
+            attr = termios.tcgetattr(si)
+            attr[3] = attr[3] & termios.ECHO
+            termios.tcsetattr(si, termios.TCSADRAIN, attr)
+
+            print "\nEntering debugger..."
             import pdb
             pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)

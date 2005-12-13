@@ -1,3 +1,18 @@
+2005-12-13  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda:  Record the PID of the forked process that handles
+	spawning the shell when you are using the VNC mode.
+	* iutil.py (execWithRedirect):  If we see /tmp/vncshell.pid,
+	record the PID of whatever we just spawned.
+	* exception.py (handleException):  If we see /tmp/vncshell.pid,
+	open it and kill everything listed.  Attempt to reclaim std IO.
+	Drop to pdb after we have made sure the shell and spawning loop
+	are dead.
+
+	Generic comment:  Statements like "if not child:" are misleading
+	because that test would be true if it actually was the child.  I
+	have changed a few to "if child == 0:" to make it more readable.
+
 2005-12-13  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py: Profiling with hotshot for fun, profit and 
