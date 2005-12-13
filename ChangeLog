@@ -1,3 +1,17 @@
+2005-12-13  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py: Profiling with hotshot for fun, profit and 
+	going from 22 to 8 seconds on depsolving of a default install 
+	with a test case on my laptop.
+	(_provideToPkg): Return what we find for the dep
+	instead of requiring an additional dictionary lookup
+	(resolveDeps): Only run dep check on packages we haven't looped
+	across before.  Otherwise, we waste time looking things up that
+	we've done before.
+	(tsCheck): Look for only the specified.  Speed up relationship
+	adding with a short-circuit so that we don't always loop over the
+	full list.
+
 2005-12-13  Chris Lumens  <clumens@redhat.com>
 
 	* keymaps/updkmaps:  Typo.

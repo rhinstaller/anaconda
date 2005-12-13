@@ -264,52 +264,50 @@ class YumSorter(yum.YumBase):
             # have something which requires kernel
             if self.tsInfo.getMembers(po.pkgtup):
                 self.deps[req] = po
-                return
+                return po
             if po.name not in satisfiers:
                 satisfiers.append(po)
 
         if satisfiers:
             best = self.bestPackagesFromList(satisfiers)[0]
             self.deps[req] = best
-        # raise resolution error
+            return best
+        return None
 
     def resolveDeps(self):
         CheckDeps = 1
 
         if self.dsCallback: self.dsCallback.start()
 
-        while CheckDeps > 0:
-            if self.dsCallback:
-                self.dsCallback.tscheck(len(self.tsInfo.getMembers()))
-            unresolved = self.tsCheck()
-            CheckDeps = len(unresolved)
+        unresolved = self.tsInfo.getMembers()
+        while len(unresolved) > 0:
+            if self.dsCallback: self.dsCallback.tscheck(len(unresolved))
+            unresolved = self.tsCheck(unresolved)
             if self.dsCallback: self.dsCallback.restartLoop()
 
         return (2, ['Success - deps resolved'])
 
-    def tsCheck(self):
+    def tsCheck(self, tocheck):
         unresolved = []
-        for txmbr in self.tsInfo.getMembers():
+        for txmbr in tocheck:
             if self.dsCallback: self.dsCallback.pkgAdded()
             if txmbr.output_state not in TS_INSTALL_STATES:
                 continue
             reqs = txmbr.po.returnPrco('requires')
             provs = txmbr.po.returnPrco('provides')
-            reqs.sort()
 
             for req in reqs:
                 if req[0].startswith('rpmlib(') or req[0].startswith('config('):
                     continue
-#XXX: handle unresolvable dep
                 if req in provs:
                     continue
-                if req not in self.deps.keys():
-                    self._provideToPkg(req)
-                try:
-                    dep = self.deps[req]
-                except KeyError, e:
-                    log.warning("Unresolvable dependancy %s in %s" %(req[0], txmbr.name))
-#                    raise yum.Errors.DepError, "Unresolvable dependancy %s in %s" % (req[0], txmbr.name)
+                dep = self.deps.get(req, None)
+                if dep is None:
+                    dep = self._provideToPkg(req)
+                    if dep is None:
+                        log.warning("Unresolvable dependancy %s in %s"
+                                    %(req[0], txmbr.name))
+                        continue
 
                 # Skip filebased requires on self, etc
                 if txmbr.name == dep.name:
@@ -318,21 +316,23 @@ class YumSorter(yum.YumBase):
                 if "%s>%s" % (dep.name, txmbr.name) in self.whiteout:
                     log.debug("ignoring %s>%s in whiteout" %(dep.name, txmbr.name))
                     continue
-#XXX: handle in rpmdb too for upgrades
-                #if pkgs:
-                #    member = self.bestPackageFromList(pkgs)
-                #else:
                 if self.tsInfo.exists(dep.pkgtup):
                     pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
                     member = self.bestPackagesFromList(pkgs)[0]
                 else:
                     member = self.tsInfo.addInstall(dep)
-                    unresolved.append(dep)
-#Add relationship
-                firstelts = map(lambda tup: tup[0], txmbr.relatedto)
-                if member.po.pkgtup not in firstelts:
+                    unresolved.append(member)
+
+                #Add relationship
+                found = False
+                for (tup, rel) in txmbr.relatedto:
+                    if member.po.pkgtup == tup:
+                        found = True
+                        break
+                if not found:
                     txmbr.setAsDep(member.po)
 
+        print "number of cached is: %s, unresolved: %s" %(len(self.deps.keys()),len(unresolved))
         return unresolved
 
     def doTsSetup(self):
