@@ -15,6 +15,7 @@ import sys
 import os
 import shutil
 import timer
+import warnings
 
 import rpm
 import rpmUtils
@@ -273,20 +274,33 @@ class YumSorter(yum.YumBase):
             return best
         return None
 
+    def prof_resolveDeps(self):
+        fn = "anaconda.prof.0"
+        import hotshot, hotshot.stats
+        prof = hotshot.Profile(fn)
+        rc = prof.runcall(self._resolveDeps)
+        prof.close()
+        print "done running depcheck"
+        stats = hotshot.stats.load(fn)
+        stats.strip_dirs()
+        stats.sort_stats('time', 'calls')
+        stats.print_stats(20)
+        return rc
+
     def resolveDeps(self):
         if self.dsCallback: self.dsCallback.start()
-
         unresolved = self.tsInfo.getMembers()
         while len(unresolved) > 0:
             if self.dsCallback: self.dsCallback.tscheck(len(unresolved))
             unresolved = self.tsCheck(unresolved)
             if self.dsCallback: self.dsCallback.restartLoop()
-
         return (2, ['Success - deps resolved'])
 
     def tsCheck(self, tocheck):
         unresolved = []
         for txmbr in tocheck:
+            if txmbr.name == "redhat-lsb": # FIXME: this speeds things up a lot
+                continue
             if self.dsCallback: self.dsCallback.pkgAdded()
             if txmbr.output_state not in TS_INSTALL_STATES:
                 continue
@@ -329,7 +343,6 @@ class YumSorter(yum.YumBase):
                 if not found:
                     txmbr.setAsDep(member.po)
 
-        print "number of cached is: %s, unresolved: %s" %(len(self.deps.keys()),len(unresolved))
         return unresolved
 
     def doTsSetup(self):
@@ -518,21 +531,29 @@ class YumBackend(AnacondaBackend):
     def doRepoSetup(self, intf, instPath):
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
-        tasks = (self.ayum.doMacros,
-                 self.ayum.doTsSetup,
-                 self.ayum.doRpmDBSetup,
-                 self.ayum.doRepoSetup,
-                 self.ayum.doCacheSetup,
-                 self.ayum.doGroupSetup,
-                 self.ayum.doSackSetup )
 
+        tasks = ( (self.ayum.doMacros, 1),
+                  (self.ayum.doTsSetup, 1),
+                  (self.ayum.doRpmDBSetup, 5),
+                  (self.ayum.doRepoSetup, 15),
+                  (self.ayum.doCacheSetup, 1),
+                  (self.ayum.doGroupSetup, 1),
+                  (self.ayum.doSackSetup, 50),
+                  (self._catchallCategory, 1))
+
+        tot = 0
+        for t in tasks:
+            tot += t[1]
 	waitwin = YumProgress(intf, _("Retrieving installation information..."),
-                              len(tasks))
+                              tot)
         self.ayum.repos.callback = waitwin
 
         try:
-            for task in tasks:
+            at = 0
+            for (task, amt) in tasks:
+                waitwin.set_incr(amt)
                 task()
+                at += amt
                 waitwin.next_task()
 	    waitwin.pop()
         except RepoError, e:
@@ -546,7 +567,8 @@ class YumBackend(AnacondaBackend):
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
             sys.exit(0)
-        self._catchallCategory()
+
+        self.ayum.repos.callback = None
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in
@@ -935,14 +957,20 @@ class YumBackend(AnacondaBackend):
 
 class YumProgress:
     def __init__(self, intf, text, total):
-        window = intf.progressWindow(_("Installation Progress"), text ,total)
+        window = intf.progressWindow(_("Installation Progress"), text,
+                                     total, 0.01)
         self.window = window
-        self.num = 0
+        self.current = 0
+        self.incr = 1
+        self.total = total
         self.popped = False
+
+    def set_incr(self, incr):
+        self.incr = incr
 
     def progressbar(self, current, total, name=None):
         if not self.popped:
-            self.window.set(current)
+            self.window.set(float(current)/total * self.incr + self.current)
         else:
             warnings.warn("YumProgress.progressbar called when popped",
                           RuntimeWarning, stacklevel=2) 
@@ -951,10 +979,13 @@ class YumProgress:
         self.window.pop()
         self.popped = True
 
-    def next_task(self):
-        self.num += 1
+    def next_task(self, current = None):
+        if current:
+            self.current = current
+        else:
+            self.current += self.incr
         if not self.popped:
-            self.window.set(self.num)
+            self.window.set(self.current)
         else:
             warnings.warn("YumProgress.set called when popped",
                           RuntimeWarning, stacklevel=2)             

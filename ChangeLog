@@ -1,5 +1,11 @@
 2005-12-13  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (doRepoSetup): Make progress bars go a little bit
+	more reasonably, taking into account that some steps take longer
+	than others.  Nuke the progress bar after we're done.
+	(YumProgress): Handle changes for the above.  Warn if we update
+	the progress bar after using it.
+
 	* yuminstall.py (__getGroupId): Fix groupid finding
 
 	* whiteout.py (whitetup): Break the whiteout into tuples
