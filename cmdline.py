@@ -43,7 +43,10 @@ class ProgressWindow:
         if amount == self.total:
             print _("Completed"),
 
-    def __init__(self, title, text, total):
+    def refresh(self):
+        pass
+
+    def __init__(self, title, text, total, updpct = 0.05):
         self.total = total
         print text
         print _("In progress...   "),
@@ -59,8 +62,8 @@ class InstallInterface:
     def shutdown(self):
         pass
 
-    def progressWindow(self, title, text, total):
-        return ProgressWindow(title, text, total)
+    def progressWindow(self, title, text, total, updpct = 0.05):
+        return ProgressWindow(title, text, total, updpct)
 
     def messageWindow(self, title, text, type="ok", default = None,
                       custom_icon = None, custom_buttons = []):
