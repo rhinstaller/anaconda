@@ -1,5 +1,11 @@
 2005-12-14  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda:  Made the 'press enter for a shell' spawning loop
+	more complex.  This gets the snippet of code out of iutil that
+	I had put in there yesterday.
+
+2005-12-14  David Cantrell  <dcantrell@redhat.com>
+
 	* iutil.py (execWithRedirect):  Not the right place to write out
 	the vnc shell pid.
 

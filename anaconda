@@ -969,6 +969,24 @@ if display_mode == 't' and graphical_failed:
 
 # if they want us to use VNC do that now
 if display_mode == 'g' and flags.usevnc:
+    pidfile = "/tmp/vncshell.pid"
+
+    def addpid(pidnum):
+	pf = open(pidfile, "a")
+	pf.write("%s\n" %(pidnum))
+	pf.close()
+
+    def removepid(pidnum):
+	pf = open(pidfile, "r")
+	pidlist = pf.readlines()
+	pf.close()
+
+	pf = open(pidfile, "w")
+	for pid in pidlist:
+	    if not int(pid) == pidnum:
+	        pf.write("%s" %(pid))
+	pf.close()
+
     # dont run vncpassword if in test mode
     if flags.test:
 	vncpassword = ""
@@ -979,17 +997,28 @@ if display_mode == 'g' and flags.usevnc:
 
     child = os.fork()
     if child == 0:
-	# wait a couple seconds so the last line displays the press enter for shell...
-	time.sleep(2)
-	print "\n"
+	def conthandler(signum, frame):
+	    print "\n"
+
+	signal.signal(signal.SIGCONT, conthandler)
+
+	# wait for parent to write pid (parent will send SIGCONT)
+	signal.pause()
+
 	while 1:
 	    print _("Press <enter> for a shell")
 	    sys.stdin.readline()
-	    iutil.execWithRedirect("/bin/sh", ["/bin/sh"])
+
+	    shpid = os.fork()
+	    if shpid == 0:
+	        os.execv("/bin/sh", ["/bin/sh"])
+	    else:
+	        addpid(shpid)
+	        os.waitpid(shpid, 0)
+	        removepid(shpid)
     else:
-	pf = open("/tmp/vncshell.pid", "w")
-	pf.write("%s\n" %(child))
-	pf.close()
+	addpid(child)
+	os.kill(child, signal.SIGCONT)
 
 
 # setup links required for all install types
