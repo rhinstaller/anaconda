@@ -1,3 +1,8 @@
+2005-12-14  David Cantrell  <dcantrell@redhat.com>
+
+	* iutil.py (execWithRedirect):  Not the right place to write out
+	the vnc shell pid.
+
 2005-12-14  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py (AnacondaYum.__init__): whiteout is now a module

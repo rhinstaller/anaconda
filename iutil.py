@@ -93,12 +93,6 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
             pass
 
 	os._exit(1)
-    else:
-	vncpidfl = "/tmp/vncshell.pid"
-	if os.path.exists(vncpidfl) and os.path.isfile(vncpidfl):
-	    pf = open(vncpidfl, "a")
-	    pf.write("%s\n" %(childpid))
-	    pf.close()
 
     if newPgrp:
 	os.setpgid(childpid, childpid)
