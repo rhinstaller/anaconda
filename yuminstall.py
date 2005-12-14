@@ -376,7 +376,7 @@ class AnacondaYum(YumSorter):
         else:
             self.macros["__file_context_path"]  = "%{nil}"
 
-        self.macros["_dependency_whiteout"] = whiteout
+        self.macros["_dependency_whiteout"] = whiteout.whiteout
 
         self.updates = []
         self.localPackages = []
