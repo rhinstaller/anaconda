@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.18
+Version: 10.90.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 14 2005 Chris Lumens <clumens@redhat.com> 10.90.19-1
+- Use system-config-date for timezone selection UI (#155271).
+- Work on vnc+shell spawning (dcantrell).
+- Whiteout fixes (pnasrat, katzj).
+- Progress bar fixes (katzj).
+- Depsolving speedups (katzj).
+
 * Mon Dec 12 2005 Jeremy Katz <katzj@redhat.com> - 10.90.18-1
 - Handle monitor configuration in kickstart via "monitor" keyword instead of 
   "xconfig" consistently (clumens)
