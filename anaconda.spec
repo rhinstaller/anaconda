@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.32
+Version: 10.1.1.33
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 14 2005 Peter Jones <pjones@redhat.com> - 10.1.1.33-1
+- put sk98lin back, and change description for sky2
+
 * Wed Dec 14 2005 Peter Jones <pjones@redhat.com> - 10.1.1.32-1
 - add sky2 driver to the list
 
