@@ -1,3 +1,10 @@
+2005-12-14  Chris Lumens  <clumens@redhat.com>
+
+	* iw/timezone_gui.py:  Change to use system-config-date.  Subclass
+	TimezoneMap from that package to get the behavior we want.
+	* iw/timezone_map_gui.py:  Removed.
+	* scripts/upd-instroot:  Add system-config-date and rhpxl .mo files.
+
 2005-12-14  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda:  Made the 'press enter for a shell' spawning loop
