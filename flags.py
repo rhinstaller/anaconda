@@ -39,7 +39,7 @@ class Flags:
 	self.__dict__['flags']['autostep'] = 0
 	self.__dict__['flags']['autoscreenshot'] = 0
 	self.__dict__['flags']['usevnc'] = 0
-	self.__dict__['flags']['dmraid'] = 0
+	self.__dict__['flags']['dmraid'] = 1
 	self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
