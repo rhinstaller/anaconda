@@ -1,5 +1,8 @@
 2005-12-15  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.h (FL_UB): Don't reuse a define (oops) and use &
+	instead of &&. 
+
 	* scripts/pkgorder: Fix for new group code.
 
 2005-12-15  Chris Lumens  <clumens@redhat.com>
