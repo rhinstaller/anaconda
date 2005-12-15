@@ -338,6 +338,7 @@ else:
     sys.path.append('/usr/lib/booty')
 
 sys.path.append('/usr/share/system-config-keyboard')
+sys.path.append('/usr/share/system-config-date')
 
 try:
     import updates_disk_hook
