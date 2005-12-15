@@ -48,7 +48,7 @@ class TimezoneWindow(InstallWindow):
         self.zonetab = zonetab.ZoneTab()
 
         # Pull in a bunch of widgets.
-        self.xml = gtk.glade.XML("/usr/share/system-config-date/system-config-date.glade"), domain="system-config-date")
+        self.xml = gtk.glade.XML("/usr/share/system-config-date/system-config-date.glade", domain="system-config-date")
         self.vbox = self.xml.get_widget("tz_vbox")
         self.utcCheckbox = self.xml.get_widget("utc_check")
         self.notebook = self.xml.get_widget("notebook")
