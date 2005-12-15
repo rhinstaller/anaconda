@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-11-10 18:50+0200\n"
+"PO-Revision-Date: 2005-12-10 18:21+0200\n"
 "Last-Translator: Tom Berner <tom@lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgstr "Kolejna próba połączenia nastąpi za 15 sekund..."
 
 #: ../anaconda:216
 msgid "Connected!"
-msgstr "Nawiązano połączenie!"
+msgstr "Połączono!"
 
 #: ../anaconda:220
 #, c-format
@@ -330,7 +330,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Nie można ustalić położenia woluminu logiczego %s dla %s.\n"
+"Nie można ustalić położenia woluminu logicznego %s dla %s.\n"
 "\n"
 "Naciśnij \"OK\" w celu ponownego uruchomienia komputera."
 
@@ -1032,13 +1032,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Znaleziono następujące błędy analizując plik konfiguracyjny kickstart:\n"
+"Znaleziono następujące błędy podczas analizowania plik konfiguracyjny "
+"kickstart:\n"
 "\n"
 "%s"
 
 #: ../gui.py:724 ../text.py:271
 msgid "Error Parsing Kickstart Config"
-msgstr "Błąd interpretacji pliku konfiguracyjnego kickstart"
+msgstr "Błąd podczas analizowania pliku konfiguracyjnego kickstart"
 
 #: ../gui.py:732 ../text.py:281
 msgid ""
@@ -1380,7 +1381,7 @@ msgid ""
 msgstr ""
 "Nie można otworzyć pakietu %s-%s-%s. Powodem może być brak pliku lub "
 "uszkodzenie pakietu. Jeśli instalacja prowadzona jest z płyt CD, zwykle "
-"oznacza to, że płyta jest uszkodzona lub napęd CD nie może jej odczytać.\n"
+"oznacza to, że nośnik jest uszkodzony lub napęd CD nie może jej odczytać.\n"
 "\n"
 "Naciśnij <Enter>, aby spróbować ponownie."
 
@@ -1588,7 +1589,7 @@ msgstr ""
 
 #: ../packages.py:1552
 msgid "_Install anyway"
-msgstr "Za_instaluj pomimo to"
+msgstr "Za_instaluj pomimo tego"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1854,8 +1855,8 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Następujące partycje już istniały, a teraz zostały wybrane do sformatowania, "
-"co usunie wszystkie istniejące na nich dane."
+"Następujące wcześniej istniejące partycje zostały wybrane do sformatowania, "
+"co usunie wszystkie dane."
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -2066,7 +2067,7 @@ msgstr ""
 "Operacja ta zmienia wszystkie wcześniejsze decyzje dotyczące tego, które "
 "dyski mają zostać pominięte.\n"
 "\n"
-"Czy chcesz zainicjalizować ten dysk, usuwając WSZYSTKIE DANE?"
+"Czy chcesz zainicjować ten dysk, usuwając WSZYSTKIE DANE?"
 
 #: ../partedUtils.py:902
 #, python-format
@@ -2085,7 +2086,7 @@ msgstr ""
 "Operacja ta zmienia wszystkie wcześniejsze decyzje dotyczące tego, które "
 "dyski mają zostać pominięte.\n"
 "\n"
-"Czy chcesz zainicjalizować ten dysk, usuwając WSZYSTKIE DANE?"
+"Czy chcesz zainicjować ten dysk, usuwając WSZYSTKIE DANE?"
 
 #: ../partedUtils.py:1020 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -2564,7 +2565,7 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Zdaje się, że chcesz aktualizować system, który jest za stary, aby można "
+"Zdaje się, że chcesz zaktualizować system, który jest za stary, aby można "
 "było go zaktualizować do tej wersji systemu %s. Czy jesteś pewny, że chcesz "
 "kontynuować aktualizację?"
 
@@ -2980,9 +2981,9 @@ msgid ""
 "Would you like to continue and not install a boot loader?"
 msgstr ""
 "Zdecydowałeś, aby nie instalować żadnego programu startowego. Zainstalowanie "
-"programu startowego jest zdecydowanie zalecane, chyba, że masz jakieś "
-"specjalne wymagania. Program startowy jest niemal zawsze konieczny do "
-"uruchomienia systemu Linux bezpośrednio z dysku twardego.\n"
+"go jest zdecydowanie zalecane, chyba, że masz jakieś specjalne wymagania. "
+"Jest on niemal zawsze konieczny do uruchomienia systemu Linux bezpośrednio z "
+"dysku twardego.\n"
 "\n"
 "Czy jesteś pewny, że chcesz pominąć instalację programu startowego?"
 
@@ -2996,9 +2997,9 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
-"Wybierz program startowy, który będzie używany na tym komputerze. "
-"Standardowy program startowy to GRUB. Jeśli nie chcesz zastąpić swojego "
-"obecnego programu startowego, wybierz \"Nie instaluj programu startowego\". "
+"Wybierz program startowy, który będzie używany na tym komputerze. Domyślnie "
+"jest to GRUB. Jeśli nie chcesz zastąpić swojego obecnego programu startowego, "
+"wybierz \"Nie instaluj programu startowego\". "
 
 #: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
@@ -3766,15 +3767,15 @@ msgstr "Brama"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:614
 msgid "Primary DNS"
-msgstr "Pierwszy serwer DNS"
+msgstr "Pierwszy DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:616
 msgid "Secondary DNS"
-msgstr "Drugi serwer DNS"
+msgstr "Drugi DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:618
 msgid "Tertiary DNS"
-msgstr "Trzeci serwer DNS"
+msgstr "Trzeci DNS"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
@@ -3782,15 +3783,15 @@ msgstr "_Brama"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "_Pierwszy serwer DNS"
+msgstr "_Pierwszy DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "Drugi _serwer DNS"
+msgstr "_Drugi DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "_Trzeci serwer DNS"
+msgstr "_Trzeci DNS"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
@@ -4300,7 +4301,7 @@ msgstr "Nie obsługiwany"
 
 #: ../iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
-msgstr "LVM NIE jest ogsługiwany na tej platformie."
+msgstr "LVM NIE jest obsługiwany na tej platformie."
 
 #: ../iw/partition_gui.py:1204
 msgid "Software RAID is NOT supported on this platform."
@@ -4316,7 +4317,7 @@ msgid ""
 "minor device numbers have been used."
 msgstr ""
 "Nie można utworzyć urządzenia dla programowego RAID, ponieważ wszystkie "
-"dostępne pomniejsze numery urządzeń RAID są już uzywane."
+"dostępne pomniejsze numery urządzeń RAID są już używane."
 
 #: ../iw/partition_gui.py:1226
 msgid "RAID Options"
@@ -4666,7 +4667,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:634
 msgid "Final Warning"
-msgstr "Ostateczne ostrzeżenie"
+msgstr "Ostatnie ostrzeżenie"
 
 #: ../iw/raid_dialog_gui.py:636
 msgid "Clone Drives"
@@ -4897,7 +4898,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Obszar wymiany musi mieć rozmiar pomiędzy 1 a 2000 MB."
+msgstr "Obszar wymiany musi mieć rozmiar między 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid ""
@@ -5326,7 +5327,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr "Naciśnij <Enter>, aby ponownie uruchomić system"
+msgstr "Naciśnij <Enter>, aby uruchomić ponownie"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -5439,7 +5440,7 @@ msgstr "Edytuj partycje"
 
 #: ../textw/fdasd_text.py:33
 msgid "Format DASD"
-msgstr "Formatuj DASD"
+msgstr "Sformatuj DASD"
 
 #: ../textw/fdasd_text.py:50 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
@@ -5611,7 +5612,7 @@ msgstr "Nieprawidłowa informacja"
 
 #: ../textw/network_text.py:176
 msgid "You must enter valid IP information to continue"
-msgstr "Musisz podać prawidłowy adres IP i maskę, aby kontynuować"
+msgstr "Musisz podać prawidłowy adres IP, aby kontynuować"
 
 #: ../textw/network_text.py:260
 msgid "Gateway:"
@@ -5619,15 +5620,15 @@ msgstr "Brama:"
 
 #: ../textw/network_text.py:270
 msgid "Primary DNS:"
-msgstr "Pierwszy serwer DNS:"
+msgstr "Pierwszy DNS:"
 
 #: ../textw/network_text.py:275
 msgid "Secondary DNS:"
-msgstr "Drugi serwer DNS:"
+msgstr "Drugi DNS:"
 
 #: ../textw/network_text.py:280
 msgid "Tertiary DNS:"
-msgstr "Trzeci serwer DNS:"
+msgstr "Trzeci DNS:"
 
 #: ../textw/network_text.py:287
 msgid "Miscellaneous Network Settings"
@@ -5725,7 +5726,7 @@ msgstr "Nie instaluj pakietów, które wymagają innych"
 
 #: ../textw/packages_text.py:401
 msgid "Ignore package dependencies"
-msgstr "Ignoruj zależności między pakietami"
+msgstr "Zignoruj zależności między pakietami"
 
 #: ../textw/partition_text.py:40
 msgid "Must specify a value"
@@ -5783,11 +5784,11 @@ msgstr "Zajmij całe dostępne miejsce:"
 
 #: ../textw/partition_text.py:439
 msgid "Start Cylinder:"
-msgstr "Początkowy cylinder:"
+msgstr "Cylinder początkowy:"
 
 #: ../textw/partition_text.py:452
 msgid "End Cylinder:"
-msgstr "Końcowy cylinder:"
+msgstr "Cylinder końcowy:"
 
 #: ../textw/partition_text.py:475
 msgid "Volume Group:"
@@ -5927,7 +5928,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
-"Wybrany rozmiar (%10.2f MB) jest większy niż maksymalny rozmiarwoluminu "
+"Wybrany rozmiar (%10.2f MB) jest większy niż maksymalny rozmiar woluminu "
 "logicznego (%10.2f MB). "
 
 #: ../textw/partition_text.py:1309
@@ -6119,7 +6120,7 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:246
 msgid "Customize Packages to Upgrade"
-msgstr "Wybierz pakiety do aktualizacji"
+msgstr "Wybierz pakiety do zaktualizowania"
 
 #: ../textw/upgrade_text.py:247
 msgid ""
@@ -6703,7 +6704,7 @@ msgstr "Testuj"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
-msgstr "Wysuń płytę"
+msgstr "Wysuń CD"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -6711,8 +6712,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Wybierz \"%s\", aby przetestować nośnik znajdujący się aktualnie w napędzie, "
-"lub \"%s\", aby wysunąć płytę i włożyć inną do testowania."
+"Wybierz \"%s\", aby przetestować CD znajdujący się aktualnie w napędzie, "
+"lub \"%s\", aby wysunąć CD i włożyć inny do testowania."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -6724,11 +6725,11 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
-"Jeśli chcesz przetestować inne nośniki, włóż następną płytę i naciśnij \"%s"
-"\". Nie musisz testować wszystkich płyt, chociaż zalecane jest zrobienie "
+"Jeśli chcesz przetestować inne nośniki, włóż następny CD i naciśnij \"%s"
+"\". Nie musisz testować wszystkich CD, chociaż zalecane jest zrobienie "
 "tego co najmniej raz.\n"
 "\n"
-"Aby rozpocząć instalację, włóż płytę numer 1 do napędu i naciśnij \"%s\"."
+"Aby rozpocząć instalację, włóż CD numer 1 do napędu i naciśnij \"%s\"."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -6736,12 +6737,12 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Nie można znaleźć płyty systemu %s w żadnym napędzie CD-ROM. Włóż płytę "
-"systemu %s i naciśnij %s, aby ponowić próbę."
+"Nie można znaleźć płyty systemu %s w żadnym napędzie CD-ROM. Włóż CD systemu "
+"%s i naciśnij %s, aby ponowić próbę."
 
 #: ../loader2/cdinstall.c:256
 msgid "CD Found"
-msgstr "Znaleziono płytę"
+msgstr "Znaleziono CD"
 
 #: ../loader2/cdinstall.c:258
 #, c-format
@@ -6750,7 +6751,7 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Aby rozpocząć testowanie nośnika przed instalacją, naciśnij %s.\n"
+"Aby rozpocząć testowanie nośnika CD przed instalacją, naciśnij %s.\n"
 "\n"
 "Wybierz %s, aby pominąć test nośnika i rozpocząć instalację."
 
@@ -6760,16 +6761,15 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Nie można znaleźć płyty systemu %s. Włóż płytę systemu %s i naciśnij %s, aby "
-"ponowić próbę."
+"Nie można znaleźć CD %s. Włóż CD systemu %s i naciśnij %s, aby ponowić próbę."
 
 #: ../loader2/cdinstall.c:385
 msgid "CD Not Found"
-msgstr "Nie znaleziono płyty"
+msgstr "Nie znaleziono CD"
 
 #: ../loader2/cdinstall.c:452
 msgid "Cannot find kickstart file on CDROM."
-msgstr "Nie można znaleźć pliku konfiguracji kickstart na płycie."
+msgstr "Nie można znaleźć pliku konfiguracji kickstart na CD-ROM-ie."
 
 #: ../loader2/driverdisk.c:124 ../loader2/firewire.c:50
 msgid "Loading"
@@ -6989,7 +6989,7 @@ msgstr "Wybierz partycję"
 #: ../loader2/hdinstall.c:436
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Urządzenie %s nie zawiera obrazów CD-ROM systemu %s."
+msgstr "Urządzenie %s nie zawiera obrazów CD-ROM %s."
 
 #: ../loader2/hdinstall.c:471
 #, c-format
@@ -7054,7 +7054,7 @@ msgstr "Wybierz język"
 
 #: ../loader2/loader.c:108
 msgid "Local CDROM"
-msgstr "Lokalny napęd CD-ROM"
+msgstr "Lokalny CD-ROM"
 
 #: ../loader2/loader.c:110
 msgid "Hard drive"
