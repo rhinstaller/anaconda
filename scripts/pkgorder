@@ -31,20 +31,6 @@ class PackageOrderer(YumSorter):
         self.arch = arch
         self._installed = PackageSack()
 
-    def addGroup(self, group):
-        pkgs = []
-        availpackages =  {}
-
-        for po in self.pkgSack.returnPackages():
-            availpackages[po.name] = po
-
-        if self.groupInfo.groupExists(group):
-            pkglist = self.groupInfo.pkgTree(group)
-            for pkg in pkglist:
-                if availpackages.has_key(pkg):
-                    pkgs.append(pkg)
-                    self.tsInfo.addInstall(availpackages[pkg])
-
     def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
         self.doConfigSetup(fn, root)
         if hasattr(self.repos, 'sqlite'):
@@ -95,7 +81,7 @@ def printMatchingPkgs(fpattern):
 
 def addGroups(ds, groupLst):
     ds.initActionTs()
-    map(ds.addGroup, groupLst)
+    map(ds.selectGroup, groupLst)
     ds.resolveDeps()
     processTransaction(ds)
 
