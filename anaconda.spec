@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.20
+Version: 10.90.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 15 2005 Jeremy Katz <katzj@redhat.com> - 10.90.21-1
+- fix pkgorder for new group code
+- fix ub vs usb-storage
+- remove some redundant code (clumens)
+
 * Thu Dec 15 2005 Jeremy Katz <katzj@redhat.com> - 10.90.20-1
 - Fixes for new timezone stuff (pnasrat)
 - Fix transaction sorting (pnasrat)
