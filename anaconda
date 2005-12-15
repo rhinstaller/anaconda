@@ -761,8 +761,7 @@ if traceOnly:
     import findpackageset
     import libxml2
     import cmdline
-    import encodings.utf_8
-    import encodings.idna
+    from encodings import utf_8, idna, ascii, punycode
     import email.Utils
     import yuminstall
 
