@@ -15,38 +15,17 @@
 
 import types, os, sys, isys, select, string, stat, signal
 import os.path
+import rhpl, rhpl.executil
 from flags import flags
 
 import logging
 log = logging.getLogger("anaconda")
 
 def getArch ():
-    arch = os.uname ()[4]
-    if (len (arch) == 4 and arch[0] == 'i' and
-        arch[2:4] == "86"):
-        arch = "i386"
-
-    if arch == "sparc64":
-        arch = "sparc"
-
-    if arch == "ppc64":
-        arch = "ppc"
-
-    if arch == "s390x":
-        arch = "s390"
-
-    return arch
+    return rhpl.getArch()
 
 def getfd(filespec, readOnly = 0):
-    if type(filespec) == types.IntType:
-	return filespec
-    if filespec == None:
-	filespec = "/dev/null"
-
-    flags = os.O_RDWR | os.O_CREAT
-    if (readOnly):
-	flags = os.O_RDONLY
-    return os.open(filespec, flags)
+    return rhpl.executil.getfd(filespec, readOnly)
 
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
 		     searchPath = 0, root = '/', newPgrp = 0,
@@ -548,44 +527,13 @@ def hasiSeriesNativeStorage():
 
 # return the ppc machine variety type
 def getPPCMachine():
-    machine = None
-    # ppc machine hash
-    ppcType = { 'Mac'      : 'PMac',
-                'Book'     : 'PMac',
-                'CHRP IBM' : 'pSeries',
-                'Pegasos'  : 'Pegasos',
-                'iSeries'  : 'iSeries',
-                'PReP'     : 'PReP',
-                'CHRP'     : 'pSeries',
-                'Amiga'    : 'APUS',
-                'Gemini'   : 'Gemini',
-                'Shiner'   : 'ANS',
-                'BRIQ'     : 'BRIQ',
-                'Teron'    : 'Teron',
-                'AmigaOne' : 'Teron'
-                }
-
-    if getArch() != "ppc":
-        return 0
-
-    f = open('/proc/cpuinfo', 'r')
-    lines = f.readlines()
-    f.close()
-    for line in lines:
-        if line.find('machine') != -1:
-            machine = line.split(':')[1]
-            break
-
+    machine = rhpl.getPPCMachine()
     if machine is None:
         log.warning("Unable to find PowerPC machine type")
-        return
+    elif machine == 0:
+        log.warning("Unknown PowerPC machine type: %s" %(machine,))
 
-    for type in ppcType.items():
-        if machine.find(type[0]) != -1:
-            return type[1]
-
-    log.warning("Unknown PowerPC machine type: %s" %(machine,))
-    return 0
+    return machine
 
 # return the pmac machine id
 def getPPCMacID():
