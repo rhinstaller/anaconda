@@ -21,8 +21,6 @@ import zonetab
 import pango
 import sys
 
-sys.path.append("/usr/share/system-config-date")
-
 from timezone_map_gui import TimezoneMap
 from rhpl.translate import _, textdomain
 from iw_gui import *
@@ -173,7 +171,7 @@ class AnacondaTZMap(TimezoneMap):
         self.setCurrent(entry)
 
     def overviewPressEvent(self):
-        TimezoneMap.overviewPressEvent()
+        TimezoneMap.overviewPressEvent(self)
         self.tzFilter.refilter()
 
     def zoomMoveEvent(self, event):
@@ -193,7 +191,7 @@ class AnacondaTZMap(TimezoneMap):
             self.arrow.hide ()
 
     def zoomPressEvent(self, event):
-        TimezoneMap.zoomPressEvent(event)
+        TimezoneMap.zoomPressEvent(self, event)
 
         if event.button == 1:
             self.tzFilter.refilter()

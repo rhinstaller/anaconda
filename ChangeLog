@@ -1,3 +1,8 @@
+2005-12-15 Paul Nasrat <pnasrat@redhat.com>
+
+	* anaconda: Add system-config-date to path to prevent Import Error
+	* iw/timezone_gui.py:  Pass self to parent class calls, Fix typo
+
 2005-12-14  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
