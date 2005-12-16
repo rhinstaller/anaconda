@@ -119,9 +119,8 @@ class ProgressWindow:
         self.scale = None
 
     def set(self, amount):
-        if self.scale:
-            self.scale.set(int(amount))
-            self.screen.refresh()
+        self.scale.set(int(amount))
+        self.screen.refresh()
 
     def refresh(self):
         pass

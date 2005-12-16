@@ -719,6 +719,7 @@ class YumBackend(AnacondaBackend):
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
         finally:
             dscb.pop()
+            self.ayum.dsCallback = None 
 
     def doPreInstall(self, intf, id, instPath, dir):
         if dir == DISPATCH_BACK:
