@@ -21,7 +21,8 @@ class SortableTransactionData(TransactionData):
     def _visit(self, txmbr):
         self.path.append(txmbr.name)
         txmbr.sortColour = GREY
-        for vertex in txmbr.depends_on:
+        for po in txmbr.depends_on:
+            vertex = self.getMembers(pkgtup=po.pkgtup)[0]
             if vertex.sortColour == GREY:
                 self._doLoop(vertex.name)
             if vertex.sortColour == WHITE:
