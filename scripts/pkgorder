@@ -17,6 +17,12 @@ import string
 import sys
 import yum
 
+import logging
+logger = logging.getLogger("anaconda")
+handler = logging.StreamHandler()
+handler.setLevel(logging.ERROR)
+logger.addHandler(handler)
+
 sys.path.append("/usr/lib/anaconda")
 
 from optparse import OptionParser
@@ -141,12 +147,13 @@ if __name__ == "__main__":
 
     addGroups(ds, ["Base", "Core", "Text-based Internet"])
 
-    addGroups(ds, ["Workstation Common", "Graphical Internet", "Editors",
+    addGroups(ds, ["X Window System", "Dialup Networking Support", 
+                   "Graphical Internet", "Editors", 
                    "Graphics", "GNOME Desktop Environment", "Sound and Video",
                    "Printing Support", "Dialup Networking Support"])
 
     addGroups(ds, ["Office/Productivity", "Engineering and Scientific",
-                   "Authoring and Publishing"])
+                   "Authoring and Publishing", "Games and Entertainment"])
 
     addGroups(ds, ["Web Server", "FTP Server", "MySQL Database",
                    "Server Configuration Tools", "DNS Name Server",
@@ -158,8 +165,7 @@ if __name__ == "__main__":
                    "PostgreSQL Database", "Mail Server",
                    "Legacy Network Server"])
 
-    addGroups(ds, ["News Server", "Language Support",
-                   "Legacy Software Development"])
+    addGroups(ds, ["News Server", "Legacy Software Development"])
 
     #Everthing else but kernels - don't depsolve
 
