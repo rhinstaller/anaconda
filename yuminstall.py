@@ -643,8 +643,7 @@ class YumBackend(AnacondaBackend):
                     log.debug("selecting kernel-xen-hypervisor-devel")
                     self.selectPackage("kernel-xen-hypervisor-devel")
 
-        if not foundkernel and (isys.smpAvailable() or isys.htavailable()
-                                or iutil.hasNX()):
+        if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
                 ksmp = getBestKernelByArch("kernel-smp", self.ayum)
                 log.info("selected kernel-smp package for kernel")
@@ -719,7 +718,7 @@ class YumBackend(AnacondaBackend):
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
         finally:
             dscb.pop()
-            self.ayum.dsCallback = None 
+            self.ayum.dsCallback = None
 
     def doPreInstall(self, intf, id, instPath, dir):
         if dir == DISPATCH_BACK:

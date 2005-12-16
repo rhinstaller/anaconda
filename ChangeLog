@@ -1,3 +1,8 @@
+2005-12-16  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumBackend.getBestKernelByArch): No more smp
+	kernel if NX is available
+
 2005-12-16 Paul Nasrat <pnasrat@redhat.com>
 
 	* scripts/pkgorder: New groups format, need to setup a logger
@@ -9,6 +14,8 @@
 	* anaconda:  Add more encoding modules to traceonly (#175853).
 
 2005-12-15  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version
 
 	* loader2/loader.h (FL_UB): Don't reuse a define (oops) and use &
 	instead of &&. 
