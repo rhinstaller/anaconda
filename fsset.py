@@ -92,9 +92,16 @@ def mountCompare(a, b):
     return 0
 
 def devify(device):
-    if device != "none" and device[0] != '/':
+    if device == "proc" or device == "devpts":
+        return device
+    elif device == "sys":
+        return "sysfs"
+    elif device == "shm":
+        return "tmpfs"
+    elif device != "none" and device[0] != '/':
         return "/dev/" + device
-    return device
+    else:
+        return device
 
 class LabelFactory:
     def __init__(self):
