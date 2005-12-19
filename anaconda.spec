@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.21
+Version: 10.90.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 19 2005 Jeremy Katz <katzj@redhat.com> - 10.90.22-1
+- add more encoding modules to traceonly (clumens, #175853)
+- Fix text installs (pnasrat, #175773)
+- Fix for yum API changes (pnasrat)
+- Don't install the smp kernel even if NX is available
+- Adjust to be more dynamic about colors with syslinux-splash's
+- Use the selected language for default keyboard layout (clumens, #172266)
+- Better naming for psuedo-filesystems in /etc/fstab (dcantrel, #176149)
+- Clean up image handling for new graphics
+- Don't do the splashscreen stuff anymore.  If the window is too slow to 
+  appear, we should fix that instead
+
 * Thu Dec 15 2005 Jeremy Katz <katzj@redhat.com> - 10.90.21-1
 - fix pkgorder for new group code
 - fix ub vs usb-storage
