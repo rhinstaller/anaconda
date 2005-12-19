@@ -1,3 +1,10 @@
+2005-12-19  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-images.x86_64 (SYSLINUX): Generate syslinux splash
+	using script in -logos package instead of hard-coding knowledge of
+	colors here.
+	* scripts/mk-images.i386 (SYSLINUX): Likewise.
+
 2005-12-16  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.getBestKernelByArch): No more smp

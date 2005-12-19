@@ -26,7 +26,7 @@ prepareBootTree() {
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 
-	pngtopnm $BOOTDISKDIR/syslinux-splash.png | ppmtolss16 \#000000=0 \#cdcfd5=7 \#c90000=2 \#ffffff=15 \#5b6c93=9 > $BOOTDISKDIR/splash.lss
+	$IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
 	if [ $? != 0 ]; then
 	   echo $0: Failed to create splash.lss
 	   exit 1
