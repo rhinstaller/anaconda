@@ -413,7 +413,7 @@ def findPixmap(file):
                  "/mnt/source/RHupdates/",
                  "/tmp/updates/pixmaps/", "/tmp/updates/",
                  "/tmp/product/pixmaps/", "/tmp/product/", "pixmaps/",
-                 "/usr/share/anaconda/pixmaps/"
+                 "/usr/share/anaconda/pixmaps/",
                  "/usr/share/pixmaps/",
                  "/usr/share/anaconda/", ""):
         fn = dir + file
@@ -439,6 +439,7 @@ def readImageFromFile(file, height = None, width = None, dither = None,
                       image = None):
     pixbuf = getPixbuf(file)
     if pixbuf is None:
+        log.warning("can't find pixmap %s" %(file,))
         return None
 
     if (height is not None and width is not None
