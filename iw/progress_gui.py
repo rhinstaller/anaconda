@@ -293,7 +293,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 
         #--Need to merge with if statement above...don't show ads in lowres
         if intf.runres != '800x600':
-            files = ["progress_first-375.png"]
+            files = ["progress_first-lowres.png"]
 
         # sort the list of filenames
         files.sort()
