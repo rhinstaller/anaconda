@@ -418,7 +418,7 @@ iutil.writeRpmPlatform()
 
 try:
     (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
-	  [ 'graphical', 'text', 'test', 'debug', 'nofallback',
+	  [ 'graphical', 'text', 'test', 'debug',
 	    'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
 	    'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
@@ -448,7 +448,6 @@ rootPath = '/mnt/sysimage'	# where to instal packages
 extraModules = []		# kernel modules to use
 debug = 0			# start up pdb immediately
 traceOnly = 0			# don't run, just list modules we use
-nofallback = 0			# if GUI mode fails, exit
 rescue = 0			# run in rescue mode
 rescue_nomount = 0		# don't automatically mount device in rescue
 runres = '800x600'		# resolution to run the GUI install in
@@ -550,8 +549,6 @@ for n in args:
     elif (str == '--module'):
 	(path, name) = string.split(arg, ":")
 	extraModules.append((path, name))
-    elif (str == '--nofallback'):
-	nofallback = 1
     elif (str == "--nomount"):
 	rescue_nomount = 1
     elif (str == '--rescue'):
@@ -1042,32 +1039,21 @@ if (display_mode == 'g'):
 	    except:
 		pass
 
-    # display splash screen
-
-    if nofallback:
-	from splashscreen import splashScreenShow
-	splashScreenShow()
-	
-	from gui import InstallInterface
-    else:
-	try:
-	    from splashscreen import splashScreenShow
-	    splashScreenShow()
-	    
-	    from gui import InstallInterface
-	except Exception, e:
-	    stdoutLog.error("Exception starting GUI installer: %s" %(e,))
-	    if flags.test:
-		sys.exit(1)
-	    # if we're not going to really go into GUI mode, we need to get
-	    # back to vc1 where the text install is going to pop up.
-	    if not x_already_set:
-		isys.vtActivate (1)
-	    stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-	    display_mode = 't'
-	    if 'DISPLAY' in os.environ.keys():
-		del os.environ['DISPLAY']
-	    time.sleep(2)
+    try:
+        from gui import InstallInterface
+    except Exception, e:
+        stdoutLog.error("Exception starting GUI installer: %s" %(e,))
+        if flags.test:
+            sys.exit(1)
+        # if we're not going to really go into GUI mode, we need to get
+        # back to vc1 where the text install is going to pop up.
+        if not x_already_set:
+            isys.vtActivate (1)
+        stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
+        display_mode = 't'
+        if 'DISPLAY' in os.environ.keys():
+            del os.environ['DISPLAY']
+        time.sleep(2)
 
 if (display_mode == 't'):
     from text import InstallInterface

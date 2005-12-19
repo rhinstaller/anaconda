@@ -31,7 +31,6 @@ import kudzu
 import gettext
 import warnings
 from language import expandLangs
-from splashscreen import splashScreenPop
 from flags import flags
 from constants import *
 import floppy
@@ -736,6 +735,9 @@ class InstallInterface:
             self.runres = "800x600"
         else:
             self.runres = "640x480"
+        root = gtk.gdk.get_default_root_window()
+        cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
+        root.set_cursor(cursor)
 
     def __del__ (self):
         pass
@@ -1395,7 +1397,6 @@ class InstallControlWindow:
 
         self.setScreen()
         self.window.show()
-        splashScreenPop()
             
     def busyCursorPush(self):
         rootPushBusyCursor()

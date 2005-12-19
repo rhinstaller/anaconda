@@ -1,3 +1,15 @@
+2005-12-19  Jeremy Katz  <katzj@redhat.com>
+
+	* splashscreen.py: Remove unused file.
+
+	* gui.py (InstallInterface.__init__): Set cursor here instead of 
+	splashscreen.
+	(InstallControlWindow.setup_window): Don't pop splashscreen.
+
+	* anaconda: Don't use the splashscreen.  --nofallback isn't used
+	and now that we trap and log the exception, it shouldn't be needed
+	for debugging.
+
 2005-12-19  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py (devify):  Make sure /etc/fstab has accepted standards
