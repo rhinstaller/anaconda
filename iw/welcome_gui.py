@@ -27,7 +27,7 @@ class WelcomeWindow (InstallWindow):
 
     # WelcomeWindow tag="wel"
     def getScreen (self):
-        pix = gui.readImageFromFile("splash.png", dither=True)
+        pix = gui.readImageFromFile("splash.png", dither=False)
         box = gtk.EventBox ()
         box.add (pix)
         return box

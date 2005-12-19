@@ -413,8 +413,8 @@ def findPixmap(file):
     for dir in ("/mnt/source/RHupdates/pixmaps/",
                  "/mnt/source/RHupdates/",
                  "/tmp/updates/pixmaps/", "/tmp/updates/",
-                 "/tmp/product/pixmaps/", "/tmp/product/",
-                 "/usr/share/anaconda/pixmaps/", "pixmaps/",
+                 "/tmp/product/pixmaps/", "/tmp/product/", "pixmaps/",
+                 "/usr/share/anaconda/pixmaps/"
                  "/usr/share/pixmaps/",
                  "/usr/share/anaconda/", ""):
         fn = dir + file
@@ -436,7 +436,8 @@ def getPixbuf(file):
     
     return pixbuf
 
-def readImageFromFile(file, height = None, width = None, dither = None):
+def readImageFromFile(file, height = None, width = None, dither = None,
+                      image = None):
     pixbuf = getPixbuf(file)
     if pixbuf is None:
         return None
@@ -447,7 +448,10 @@ def readImageFromFile(file, height = None, width = None, dither = None):
         pixbuf = pixbuf.scale_simple(height, width,
                                      gtk.gdk.INTERP_BILINEAR)
 
-    p = gtk.Image()
+    if image is None:
+        p = gtk.Image()
+    else:
+        p = image
     if dither:
         (pixmap, mask) = pixbuf.render_pixmap_and_mask()
         pixmap.draw_pixbuf(gtk.gdk.GC(pixmap), pixbuf, 0, 0, 0, 0,
@@ -1346,11 +1350,9 @@ class InstallControlWindow:
         self.window.set_title(_("%s Installer") %(productName,))
         
         # FIXME: doesn't handle the lowres case
-        p = readImageFromFile("anaconda_header.png", dither = 1)        
-        if p is not None:
-            i = self.mainxml.get_widget("headerImage")
-            apply(i.set_from_pixmap, p.get_pixmap())
-        else:
+        i = self.mainxml.get_widget("headerImage")        
+        p = readImageFromFile("anaconda_header.png", dither = False, image = i)
+        if p is None:
             print _("Unable to load title bar")
 
         if DEBUG:
