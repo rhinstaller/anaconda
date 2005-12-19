@@ -836,7 +836,7 @@ static char *doLoaderMain(char * location,
             } else {
                 /* JKFIXME: should handle kbdtype, too probably... but it 
                  * just matters for sparc */
-                rc = chooseKeyboard(&loaderData->kbd, &kbdtype, flags);
+                rc = chooseKeyboard(loaderData, &kbdtype, flags);
             }
             if (rc == LOADER_NOOP) {
                 if (dir == -1)

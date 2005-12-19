@@ -1,3 +1,11 @@
+2005-12-19  Chris Lumens  <clumens@redhat.com>
+
+	* kbd.c (chooseKeyboard):  Use the selected language in loaderData
+	instead of in $LANG to determine default keyboard layout (#172266).
+	Change chooseKeyboard to take in loaderData instead.
+	* kbd.h:  Likewise.
+	* loader.c (doLoaderMain):  Likewise.
+
 2005-12-19  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.x86_64 (SYSLINUX): Generate syslinux splash

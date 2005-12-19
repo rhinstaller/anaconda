@@ -31,7 +31,7 @@
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
 
-int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
+int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep, int flags) {
     int num = -1;
     int rc;
     gzFile f;
@@ -42,7 +42,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     char ** kbds;
     char buf[16384]; 			/* I hope this is big enough */
     int i;
-    char * defkbd = keymap ? *keymap : NULL;
+    char * defkbd = loaderData->kbd ? loaderData->kbd : NULL;
     char *lang;
 
 #if defined(__s390__) || defined(__s390x__)
@@ -68,6 +68,9 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     numLanguages = getLangInfo(&languages, flags);
 
     lang = getenv("LANG");
+    if (!lang)
+       lang = loaderData->lang;
+
     if (!defkbd && lang) {
 	for (i = 0; i < numLanguages; i++) {
 	    if (!strncmp(languages[i].lc_all, lang, 2)) {
@@ -153,7 +156,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     
     gunzip_close(f);
 
-    if (keymap) *keymap = strdup(infoTable[num].name);
+    loaderData->kbd = strdup(infoTable[num].name);
 
 #ifdef __sparc__
     if (kbdtypep) *kbdtypep = (kbdtype == KBDTYPE_SUN) ? "sun" : "pc";
