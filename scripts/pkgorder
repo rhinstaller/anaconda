@@ -39,6 +39,7 @@ class PackageOrderer(YumSorter):
 
     def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
         self.doConfigSetup(fn, root)
+        self.conf.cache = 0
         if hasattr(self.repos, 'sqlite'):
             self.repos.sqlite = False
             self.repos._selectSackType()
@@ -47,6 +48,7 @@ class PackageOrderer(YumSorter):
         self.conf.setConfigOption('exclude', exclude)
         cachedir = yum.misc.getCacheDir()
         self.repos.setCacheDir(cachedir) 
+        self.repos.setCache(0) 
         self.doRepoSetup()
 
         self.doSackSetup(rpmUtils.arch.getArchList(self.arch))
