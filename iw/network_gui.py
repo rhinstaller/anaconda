@@ -502,7 +502,7 @@ class NetworkWindow(InstallWindow):
 	self.intf = intf
 	self.id = id
         box = gtk.VBox(False)
-        box.set_border_width(6)
+        box.set_spacing(6)
 	self.network = network
         
         self.devices = self.network.available()
@@ -515,12 +515,11 @@ class NetworkWindow(InstallWindow):
 	self.hostname = self.network.hostname
 
 	devhbox = gtk.HBox(False)
-	devhbox.set_spacing(10)
+	devhbox.set_spacing(12)
 
 	self.devlist = self.setupDevices()
 
 	devlistSW = gtk.ScrolledWindow()
-        devlistSW.set_border_width(6)
         devlistSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
@@ -529,13 +528,12 @@ class NetworkWindow(InstallWindow):
 
         buttonbar = gtk.VButtonBox()
         buttonbar.set_layout(gtk.BUTTONBOX_START)
-        buttonbar.set_border_width(6)
 	edit = gtk.Button(_("_Edit"))
         edit.connect("clicked", self.editDevice)
 	buttonbar.pack_start(edit, False)
 	devhbox.pack_start(buttonbar, False)
+        devhbox.set_border_width(6)
 
-	devhbox.set_border_width(12)
         l = gtk.Label()
         l.set_markup("<b>%s</b>" %(_("Network Devices"),))
 	frame=gtk.Frame()
@@ -546,7 +544,7 @@ class NetworkWindow(InstallWindow):
 	
 	# show hostname and dns/misc network info and offer chance to modify
 	hostbox=gtk.VBox()
-	hostbox.set_spacing(5)
+	hostbox.set_spacing(6)
 
 	label=gtk.Label(_("Set the hostname:"))
 	label.set_alignment(0.0, 0.0)
@@ -559,7 +557,7 @@ class NetworkWindow(InstallWindow):
 	hostbox.pack_start(tmphbox, False, False)
 
 	tmphbox=gtk.HBox()
-	tmphbox.set_spacing(5)
+	tmphbox.set_spacing(6)
 	self.hostnameManual = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
 	tmphbox.pack_start(self.hostnameManual, False, False)
 	self.hostnameEntry = gtk.Entry()
@@ -568,7 +566,7 @@ class NetworkWindow(InstallWindow):
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
 	hostbox.pack_start(tmphbox, False, False)
 
-	hostbox.set_border_width(12)
+	hostbox.set_border_width(6)
         l = gtk.Label()
         l.set_markup("<b>%s</b>" %(_("Hostname"),))
 	frame=gtk.Frame()
@@ -615,7 +613,7 @@ class NetworkWindow(InstallWindow):
 	    if self.network.ternaryNS:
 		self.globals[_("Tertiary DNS")].hydrate(self.network.ternaryNS)
 
-	self.ipTable.set_border_width(12)
+	self.ipTable.set_border_width(6)
 
         l = gtk.Label()
         l.set_markup("<b>%s</b>" %(_("Miscellaneous Settings"),))
@@ -623,7 +621,7 @@ class NetworkWindow(InstallWindow):
         frame.set_label_widget(l)
 	frame.add(self.ipTable)
         frame.set_shadow_type(gtk.SHADOW_NONE)
-	box.pack_start(frame, False, False, 5)
+	box.pack_start(frame, False, False)
 	box.set_border_width(6)
 
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
