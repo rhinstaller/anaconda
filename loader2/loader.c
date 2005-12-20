@@ -24,6 +24,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <execinfo.h>
 #include <fcntl.h>
 #include <newt.h>
 #include <popt.h>
@@ -1138,6 +1139,26 @@ static int hasGraphicalOverride() {
     return 0;
 }
 
+static void loaderSegvHandler(int signum) {
+    void *array[10];
+    size_t size;
+    char **strings;
+    size_t i;
+
+    signal(SIGSEGV, SIG_DFL); /* back to default */
+    
+    newtFinished();
+    size = backtrace (array, 10);
+    strings = backtrace_symbols (array, size);
+    
+    printf ("loader received SIGSEGV!.  Backtrace:\n");
+    for (i = 0; i < size; i++)
+        printf ("%s\n", strings[i]);
+     
+    free (strings);
+    exit(1);
+}
+
 int main(int argc, char ** argv) {
     int flags = LOADER_FLAGS_SELINUX | LOADER_FLAGS_NOFB;
     struct stat sb;
@@ -1174,6 +1195,9 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
+
+    /* set up signal handler */
+    signal(SIGSEGV, loaderSegvHandler);
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	

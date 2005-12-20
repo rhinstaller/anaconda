@@ -1,3 +1,8 @@
+2005-12-20  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c: Give a stacktrace on SIGSEGV to make things
+	easier to debug. 
+
 2005-12-20  Bill Nottingham  <notting@redhat.com>
 
 	* iutil.py (getPPCMachine): Be silent on non-ppc arches.
