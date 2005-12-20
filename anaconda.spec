@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.22
+Version: 10.90.23
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 20 2005 Jeremy Katz <katzj@redhat.com> - 10.90.23-1
+- more pkgorder fixes (pnasrat)
+- fix some debug spew (notting)
+- segfaults in the loader should at least give us a stacktrace to work from
+- fix some padding on the network screen
+
 * Mon Dec 19 2005 Jeremy Katz <katzj@redhat.com> - 10.90.22-1
 - add more encoding modules to traceonly (clumens, #175853)
 - Fix text installs (pnasrat, #175773)
