@@ -527,6 +527,10 @@ def hasiSeriesNativeStorage():
 
 # return the ppc machine variety type
 def getPPCMachine():
+    
+    if getArch() != "ppc":
+        return 0
+    
     machine = rhpl.getPPCMachine()
     if machine is None:
         log.warning("Unable to find PowerPC machine type")
