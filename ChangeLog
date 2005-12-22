@@ -1,3 +1,7 @@
+2005-12-22  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (hardDriveDict): Only look for STMF on iSeries (#176024)
+
 2005-12-22  Paul Nasrat <pnasrat@redhat.com>
 
 	* text.py: Make the progress bar work for depsolving  (#176367)

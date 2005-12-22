@@ -296,7 +296,7 @@ def hardDriveDict():
     # this is kind of ugly, but it's much easier to do this from python
     for (dev, descr) in dict.items():
         # blacklist *STMF on power5 iSeries boxes
-        if iutil.getArch() == "ppc" and dev.startswith("sd"):
+        if iutil.getPPCMachine() == "iSeries" and dev.startswith("sd"):
             try:
                 devName = "/tmp/%s" % dev
                 makeDevInode(dev, devName)
