@@ -119,13 +119,16 @@ class ProgressWindow:
         self.scale = None
 
     def set(self, amount):
-        self.scale.set(int(amount))
+        self.scale.set(float(amount) * self.multiplier)
         self.screen.refresh()
 
     def refresh(self):
         pass
 
     def __init__(self, screen, title, text, total, updpct):
+        self.multiplier = 1
+        if total == 1.0:
+            self.multiplier = 100
 	self.screen = screen
 	width = 55
 	if (len(text) > width): width = len(text)
@@ -135,7 +138,7 @@ class ProgressWindow:
 	g = GridForm(self.screen, title, 1, 2)
 	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft=1)
 
-        self.scale = Scale(int(width), int(total))
+        self.scale = Scale(int(width), float(total) * self.multiplier)
         g.add(self.scale, 0, 1)
                 
 	g.draw()
