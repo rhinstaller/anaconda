@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-05-12 07:03+EDT\n"
+"PO-Revision-Date: 2005-12-29 11:25+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -385,7 +385,7 @@ msgstr ""
 "ለመቀጠል ‹እሺ› የሚለውን ይጫኑ።"
 
 #: ../autopart.py:1532
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -393,12 +393,11 @@ msgid ""
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
-msgstr ""
-"የሚከተሉት ስሕተቶች የተከሰቱት ከርስዎ መከፋፈያ ጋር ነው። \n"
+msgstr "የሚከተሉት ስሕተቶች የተከሰቱት ከርስዎ መከፋፈያ ጋር ነው። \n"
 "\n"
 "%s\n"
 "\n"
-"እንደገና ሲስተሙን ለማስጀመር «እሺ»ን ይጫኑ።"
+"በቂ የሆነ ቦታ ለማስገባት ሥራው በሀርድ ድራይቭዎት ላይ ከሌለ ይህ ሊከሰት ይችላል።"
 
 #: ../autopart.py:1543
 msgid "Unrecoverable Error"
@@ -1947,7 +1946,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "እባክዎን ድራይቭ %sን እስኪያተካክል ድረስ ጠብቁ...\n"
 
 #: ../partedUtils.py:845
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1957,9 +1956,7 @@ msgid ""
 "drives to ignore.\n"
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
-"መሥሪያው %s (%s) ላይ ያለው የመከፋፈያው ሠርንጠረዥ አይነበብም። አዲስ መከፋፈያዎች ለመፍጠር በዚህ ድራይቭ ላይ "
-"ሁሉንም ዳታዎችን የሚያጠፋበትን ምክንያት መጀመሪያ መደረግ አለበት። %s\n"
+msgstr "መሥሪያው %s (%s) ላይ ያለው የመከፋፈያው ሠርንጠረዥ አይነበብም። አዲስ መከፋፈያዎች ለመፍጠር በዚህ ድራይቭ ላይ ሁሉንም ዳታዎችን የሚያጠፋበትን ምክንያት መጀመሪያ መደረግ አለበት። %s\n"
 "\n"
 "ይህ አሠራር ቀድሞ የነበረውን ማንኛውንም የማስገባት ምርጫዎች ድራይቮቹ ሊተዋቸው ያሉትን ይሰርዛቸዋል።\n"
 "\n"
@@ -2419,13 +2416,13 @@ msgstr ""
 "ከጥቅም ውጪ ሊያደርገው ይችላል። የማሻሻሉን ሥራ መቀጠል ይፈልጋሉ?"
 
 #: ../upgrade.py:555
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"እያሻሻሉ ያሉት የ%s ዋናው መልቀቂያው ቀደም ብለው ካስገቡት %sን የሚመስለው ከ%s ዋናው ጋር አመሳሰልም። ይህ "
-"ምናልባት ጥሩ ውጠት አይደለም። የማሻሻሉን ሂደት መቀጠል እንደሚፈልጉ እርግጠኛ ነዎት?"
+"ለዚህ የ%s ቅጂ እያሻሻሉ ያሉት በጣም አሮጌ ከሆነ ሲስተም ሆኖ ተገኝቷል። የማሻሻሉን ሂደት መቀጠል እንደሚፈልጉ "
+"እርግጠኛ ነዎት?"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -3259,13 +3256,13 @@ msgid "C_ontinue"
 msgstr "ቀጥል (_o)"
 
 #: ../iw/lvm_dialog_gui.py:161
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"የተመረጠው ዋጋ (%10.2f ሜጋባይት) ከአነስተኛው አካላዊ ድምፅ (%10.2ፍ ሜጋባይት) በድምጽ ቡድኑ ውስጥ የበለጠ "
+"የተመረጠው ዋጋ (%10.2f ሜጋባይት) ከአነስተኛው አካላዊ ድምፅ (%10.2ፍ ሜጋባይት) ከመጠኑ ቡድን ውስጥ የበለጠ "
 "በመሆኑ ምክንያት የአካላዊ ስፋት መጠኑ ሊለወጥ አይችልም።"
 
 #: ../iw/lvm_dialog_gui.py:172
@@ -5679,7 +5676,7 @@ msgid ""
 msgstr "አሁን የተጠየቀው መጠን (%10.2f ሜጋባይት) ከከፍተኛው የድምፅ መጠን (%10.2f ሜጋባይት) ትልቅ ነው።"
 
 #: ../textw/partition_text.py:1309
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
