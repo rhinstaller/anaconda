@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2005-12-28 15:07+0700\n"
+"PO-Revision-Date: 2005-12-31 18:44+0700\n"
 "Last-Translator: Vorasilp Kijchavengkul <vorasilp@gmail.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
 "MIME-Version: 1.0\n"
@@ -1270,7 +1270,7 @@ msgstr "ติดตั้งบนระบบ"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Scriptlet ผิดพลาด"
 
 #: ../kickstart.py:103
 #, fuzzy, python-format
@@ -2472,14 +2472,13 @@ msgid "SCSI Id"
 msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
+msgstr "คุณไม่ได้กำหนด SCSI ID หรือ ID ไม่ถูกต้อง"
 
 #: ../zfcp.py:35
 #: ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 #, fuzzy
@@ -2491,19 +2490,17 @@ msgid "SCSI LUN"
 msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
+msgstr "คุณไม่ได้กำหนด SCSI LUN หรือค่าไม่ถูกต้อง"
 
 #: ../zfcp.py:41
 #: ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
+msgstr "คุณไม่ได้กำหนด FCP LUN หรือค่าไม่ถูกต้อง"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3611,9 +3608,8 @@ msgid "Encryption _Key"
 msgstr "_กุญแจเข้ารหัส"
 
 #: ../iw/network_gui.py:261
-#, fuzzy
 msgid "Hardware address:"
-msgstr "หมายเลข IP:"
+msgstr "ตำแหน่งฮาร์ดแวร์:"
 
 #: ../iw/network_gui.py:300
 #, python-format
@@ -4713,7 +4709,7 @@ msgstr "การกำหนดค่าสำหรับ VNC"
 
 #: ../iw/zfcp_gui.py:104
 msgid "_Remove"
-msgstr ""
+msgstr "_เอาออก"
 
 #: ../iw/zfcp_gui.py:111
 #: ../textw/zfcp_text.py:116
@@ -5186,7 +5182,7 @@ msgstr "รายละเอียด: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "ตำแหน่งฮาร์ดแวร์: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -6035,7 +6031,7 @@ msgstr "เลือกชนิดของจอแสดงผล: "
 
 #: ../textw/xconfig_text.py:473
 msgid "Proceed"
-msgstr ""
+msgstr "ดำเนินการต่อ"
 
 #: ../textw/xconfig_text.py:543
 msgid "Video Card"
@@ -6137,7 +6133,7 @@ msgstr ""
 #: ../installclasses/rhel_as.py:9
 #: ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16
 #: ../installclasses/rhel_es.py:16
@@ -6359,7 +6355,7 @@ msgstr "คุณต้องการที่จะโหลดแผ่นไ
 #: ../loader2/urlinstall.c:451
 #: ../loader2/urlinstall.c:462
 msgid "Kickstart Error"
-msgstr ""
+msgstr "Kickstart ผิดพลาด"
 
 #: ../loader2/driverdisk.c:584
 #, c-format
