@@ -1,3 +1,13 @@
+2006-01-04  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/autopart_type.py (comboChanged): If you select the custom
+	layout option, the review checkbox is forced on.  When you leave the
+	custom layout selection, the previous state of the checkbox is
+	restored.
+
+	* gui.py (runReleaseNotesViewer): Run at 800x445 instead of 800x420
+	when the installpackages step is running.
+
 2006-01-14  Chris Lumens  <clumens@redhat.com>
 
 	* network.py (NetworkDevice.__str__):  Put quotes around ethtool

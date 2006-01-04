@@ -1120,12 +1120,13 @@ class InstallControlWindow:
 
 	    if gtk.gdk.screen_width() >= 800:
 		if step == "installpackages":
-			# these dimensions are as wide as the installer window and covers up
-			# just down to the progress bar line.  the idea being the user can
-			# read the detailed release notes while watching the installation
-			# progress bar.  there is a similar setting a few lines down for the
-			# lowres install mode.
-			res = ("800", "420",)
+			# these dimensions are as wide as the installer window
+			# and covers up just down to the progress bar line.
+			# the idea being the user can read the detailed
+			# release notes while watching the installation
+			# progress bar.  there is a similar setting a few
+			# lines down for the lowres install mode.
+			res = ("800", "445",)
 		else:
 			res = ("800", "600",) 
 	    else:

@@ -75,14 +75,22 @@ class PartitionTypeWindow(InstallWindow):
     def comboChanged(self, *args):
         active = self.combo.get_active_iter()
         val = self.combo.get_model().get_value(active, 1)
+        self.review = self.xml.get_widget("reviewButton").get_active()
 
         # -1 is the combo box choice for 'create custom layout'
         if val == -1:
+            if self.prevrev == None:
+               self.prevrev = self.xml.get_widget("reviewButton").get_active()
+
             self.xml.get_widget("reviewButton").set_active(True)
             self.xml.get_widget("reviewButton").set_sensitive(False)
         else:
-            self.review = self.xml.get_widget("reviewButton").get_active()
-            self.xml.get_widget("reviewButton").set_active(self.review)
+            if self.prevrev == None:
+               self.xml.get_widget("reviewButton").set_active(self.review)
+            else:
+               self.xml.get_widget("reviewButton").set_active(self.prevrev)
+               self.prevrev = None
+
             self.xml.get_widget("reviewButton").set_sensitive(True)
 
     def getScreen(self, diskset, partitions, intf, dispatch):
@@ -122,6 +130,7 @@ class PartitionTypeWindow(InstallWindow):
 
         self.xml.get_widget("driveScroll").add(self.drivelist)
 
+        self.prevrev = None
         self.review = not dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
