@@ -76,11 +76,12 @@ class PartitionTypeWindow(InstallWindow):
         active = self.combo.get_active_iter()
         val = self.combo.get_model().get_value(active, 1)
 
+        # -1 is the combo box choice for 'create custom layout'
         if val == -1:
-            self.review = self.xml.get_widget("reviewButton").get_active()
             self.xml.get_widget("reviewButton").set_active(True)
             self.xml.get_widget("reviewButton").set_sensitive(False)
         else:
+            self.review = self.xml.get_widget("reviewButton").get_active()
             self.xml.get_widget("reviewButton").set_active(self.review)
             self.xml.get_widget("reviewButton").set_sensitive(True)
 
