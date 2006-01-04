@@ -341,7 +341,7 @@ class GroupSelector:
         self.catstore.clear()
         cats = self.ayum.comps.categories
         cats.sort(_ui_comps_sort)
-        for cat in self.ayum.comps.categories:
+        for cat in cats:
             s = "<span size=\"large\" weight=\"bold\">%s</span>" % _xmltrans(cat.name, cat.translated_name)
             self.catstore.append(None, [s, cat])
 

@@ -1,5 +1,10 @@
 2006-01-04  David Cantrell  <dcantrell@redhat.com>
 
+	* iw/GroupSelector.py (GroupSelector.populateCategories):  Display
+	the sorted category list.
+
+2006-01-04  David Cantrell  <dcantrell@redhat.com>
+
 	* iw/GroupSelector.py (OptionalPackageSelector.__init__):  Position
 	dialog centered over parent.  Increase window size to display more
 	than a few packages.
