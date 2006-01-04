@@ -79,6 +79,8 @@ class OptionalPackageSelector:
             self.window.set_transient_for(parent)
         self.window.set_title(_("Packages in %s") %
                                _xmltrans(group.name, group.translated_name))
+        self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        self.window.set_default_size(700, 520)
         self._createStore()
         self._populate()
 
@@ -191,6 +193,8 @@ class GroupSelector:
         self.xml = gtk.glade.XML(xmlfn, "groupSelectionBox",
                                  domain=I18N_DOMAIN)
         self.vbox = self.xml.get_widget("groupSelectionBox")
+        self.xml.get_widget("detailsButton").set_sensitive(False)
+
         self._connectSignals()
         self._createStores()
         self.vbox.show()
