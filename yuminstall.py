@@ -390,7 +390,7 @@ class AnacondaYum(YumSorter):
 
     def log(self, value, msg):
         if value >= 2:
-            log.debug(msg)
+            pass
         elif value == 1:
             log.info(msg)
         else:
