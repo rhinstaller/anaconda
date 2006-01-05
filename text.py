@@ -125,7 +125,7 @@ class ProgressWindow:
     def refresh(self):
         pass
 
-    def __init__(self, screen, title, text, total, updpct):
+    def __init__(self, screen, title, text, total, updpct = 0.05):
         self.multiplier = 1
         if total == 1.0:
             self.multiplier = 100
