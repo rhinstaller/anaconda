@@ -73,9 +73,13 @@ class TimezoneWindow(InstallWindow):
         mappath = "/usr/share/system-config-date/pixmaps/map1440.png"
         regionspath = "/usr/share/system-config-date/regions"
 
+        if gtk.gdk.screen_width() < 1024:
+            viewportWidth = 480
+        else:
+            viewportWidth = 600
+
         self.tz = AnacondaTZMap(self.zonetab, self.default, map=mappath,
-                                regions=regionspath,
-                                viewportWidth=gtk.gdk.screen_height())
+                                regions=regionspath, viewportWidth=viewportWidth)
         self.tz.show_all()
         return self.tz
 
