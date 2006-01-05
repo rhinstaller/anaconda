@@ -337,20 +337,17 @@ class InstallProgressWindow_NEW (InstallWindow):
         vbox.pack_start (progressTable, False)
 
 	# create a table to display time remaining and package info
-	infoTable = gtk.Table (1, 2, False)
+	infoTable = gtk.Table (3, 2, False)
 
 	# remaining time
 	self.remainingTimeLabel = gtk.Label ("")
 	self.remainingTimeLabel.set_alignment (1.0, 0.5)
-	infoTable.attach (self.remainingTimeLabel, 1, 2, 0, 1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+	infoTable.attach (self.remainingTimeLabel, 1, 2, 0, 1)
 
-	# create table for current package info
-	table = gtk.Table (3, 1)
-
+	# current package info
         self.curPackage = { "package" : _("Package"),
                             "summary" : _("Summary") }
         i = 0
-#        for key in ("package", "size", "summary"):
         for key in ("package", "summary"):
             label = gtk.Label ("")
             label.set_alignment (0, 0)
@@ -363,10 +360,8 @@ class InstallProgressWindow_NEW (InstallWindow):
                 fillopts = gtk.FILL
                 
             self.curPackage[key] = label
-            table.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
+            infoTable.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
             i = i + 1
-
-	infoTable.attach (table, 0, 1, 0, 1, xpadding=0, ypadding=0)
 
 	vbox.pack_start (infoTable, False)
 
