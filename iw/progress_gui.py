@@ -334,22 +334,18 @@ class InstallProgressWindow_NEW (InstallWindow):
 
 	progressTable = gtk.Table (2, 2, False)
 	progressTable.attach (self.totalProgress, 1, 2, 0, 1, xpadding=0, ypadding=2)
-
-#	label = gtk.Label (_("Package Progress: "))
-#	label.set_alignment (1.0, 0.5)
-#	progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
-#	progressTable.attach (self.progress, 1, 2, 1, 2, ypadding=2)
-
         vbox.pack_start (progressTable, False)
 
-	# total time remaining
-	self.remainingTimeLabel = gtk.Label("")
-	self.remainingTimeLabel.set_alignment(0.5, 0.5)
-	vbox.pack_start(self.remainingTimeLabel, False, False)
+	# create a table to display time remaining and package info
+	infoTable = gtk.Table (1, 2, False)
 
-	# Create table for current package info
+	# remaining time
+	self.remainingTimeLabel = gtk.Label ("")
+	self.remainingTimeLabel.set_alignment (1.0, 0.5)
+	infoTable.attach (self.remainingTimeLabel, 1, 2, 0, 1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+
+	# create table for current package info
 	table = gtk.Table (3, 1)
-        vbox.pack_start (table, False, False)
 
         self.curPackage = { "package" : _("Package"),
                             "summary" : _("Summary") }
@@ -370,6 +366,11 @@ class InstallProgressWindow_NEW (InstallWindow):
             table.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
             i = i + 1
 
+	infoTable.attach (table, 0, 1, 0, 1, xpadding=0, ypadding=0)
+
+	vbox.pack_start (infoTable, False)
+
+	# some sort of table for status
 	statusflag = 0
 	for m in ['http://', 'ftp://']:
 	    if id.methodstr.startswith(m):
