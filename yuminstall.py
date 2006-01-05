@@ -136,7 +136,8 @@ class simpleCallback:
                           "If you are installing from CD media this usually "
                           "means the CD media is corrupt, or the CD drive is "
                           "unable to read the media.\n\n"
-                          "Press <return> to try again.") % (po.returnSimple('name'),
+                          "Press 'Retry' to try again.") %
+                                               (po.returnSimple('name'),
                                                 po.returnSimple('version'),
                                                 po.returnSimple('release'),
                                                 po.returnSimple('arch')),
