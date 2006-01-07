@@ -83,11 +83,12 @@ loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o |gzip -9) > $@
 
 tr/%.tr: ../po/%.po loader.po
-	msgmerge $< loader.po | msgconv -t utf-8 | ./simplemot > $@
+	msgmerge -q $< loader.po | msgconv -t utf-8 | ./simplemot > $@
 
 loader.po: $(wildcard *.c)
 	xgettext --default-domain=loader --add-comments \
 		--keyword=_ --keyword=N_ *.c
+	sed -i 's/charset=CHARSET/charset=UTF-8/' $@
 
 linuxrc.s390:
 	@echo "Nothing to do for $@"

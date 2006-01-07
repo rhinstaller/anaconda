@@ -2,6 +2,15 @@
 
 	* anaconda.spec: Bump version.
 
+	* lang-table: Remove sr@Latn until po files exist
+
+	* loader2/Makefile: Make msgmerge quiet.  Fix noisiness from
+	charset in the generated loader.po
+
+2006-01-06  Jeremy Katz  <katzj@redhat.com>	
+
+	* anaconda.spec: Bump version.
+
 	* yuminstall.py (YumSorter.isPackageInstalled): Fix a latent bug I
 	noticed when working on s-c-packages.  Won't really affect
 	anaconda, though.

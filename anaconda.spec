@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.24
+Version: 10.90.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan  6 2006 Jeremy Katz <katzj@redhat.com> - 10.90.25-1
+- no sr@Latn yet since the po files haven't been added
+
 * Fri Jan  6 2006 Jeremy Katz <katzj@redhat.com> - 10.90.24-1
 - move a11y stuff earlier
 - fix the text mode progress bar (pnasrat, #176367)
