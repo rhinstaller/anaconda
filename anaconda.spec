@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.23
+Version: 10.90.24
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan  6 2006 Jeremy Katz <katzj@redhat.com> - 10.90.24-1
+- move a11y stuff earlier
+- fix the text mode progress bar (pnasrat, #176367)
+- fix ppc drive unreadable warnings (#176024)
+- add serbian locales (#175611)
+- preserve review checkbox between combo box selections (dcantrell, #176212)
+- quote ethtool args (#176918)
+- various spacing cleanups (dcantrell)
+- a few fixes to the group selector (dcantrell)
+- don't try to make the timezone widget bigger than screen (clumens, #176025)
+- fix rescue mode traceback (clumens)
+- fix message wording on package retry (clumens, #155884)
+- quiet debug spew in anaconda.log (clumens, #171663)
+- add ppc rescue script from jkeating (#177003)
+
 * Tue Dec 20 2005 Jeremy Katz <katzj@redhat.com> - 10.90.23-1
 - more pkgorder fixes (pnasrat)
 - fix some debug spew (notting)
