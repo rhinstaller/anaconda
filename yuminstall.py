@@ -245,7 +245,7 @@ class YumSorter(yum.YumBase):
             
         lst = self.tsInfo.matchNaevr(name = pkgname)
         for txmbr in lst:
-            if txmbr.po.state in TS_INSTALL_STATES:
+            if txmbr.output_state in TS_INSTALL_STATES:
                 return True
         if installed and len(lst) > 0:
             # if we get here, then it was installed, but it's in the tsInfo
