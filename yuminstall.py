@@ -511,6 +511,14 @@ class AnacondaYum(YumSorter):
                     if self.dsCallback: self.dsCallback.pkgAdded(txmbr.pkgtup, 'e')
                     self.log(4, 'Removing Package %s' % txmbr.po)
 
+    def isGroupInstalled(self, grp):
+        # FIXME: move down to yum itself.
+        # note that this is the simple installer only version that doesn't
+        # worry with installed and toremove...
+        if grp.selected:
+            return True
+        return False
+
 class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)

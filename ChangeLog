@@ -1,3 +1,16 @@
+2006-01-08  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/GroupSelector.py (OptionalPackageSelector.__init__): Tweak
+	default size a little.
+	(OptionalPackageSelector._pkgToggled): Handle installed package
+	cases here as well
+	(GroupSelector._categorySelected): Add handling of selected vs
+	installed semantics for groups
+	(GroupSelector.__setGroupDescription): Likewise.
+
+	* yuminstall.py (AnacondaYum.isGroupInstalled): Add the simple
+	version here that we need for GroupSelector in anaconda
+
 2006-01-06  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

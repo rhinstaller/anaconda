@@ -27,6 +27,7 @@ import gobject
 import yum
 import yum.Errors
 import repomd.mdErrors as mdErrors
+from yum.constants import *
 
 from rhpl.translate import _, N_, getDefaultLangs
 
@@ -80,7 +81,7 @@ class OptionalPackageSelector:
         self.window.set_title(_("Packages in %s") %
                                _xmltrans(group.name, group.translated_name))
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-        self.window.set_default_size(700, 520)
+        self.window.set_default_size(600, 400)
         self._createStore()
         self._populate()
 
@@ -104,7 +105,6 @@ class OptionalPackageSelector:
         self.pkgstore.set_sort_column_id(1, gtk.SORT_ASCENDING)
 
     def __deselectPackage(self, pkg):
-        # FIXME: this doesn't handle removing an installed package...
         grpid = self.group.groupid
         try:
             pkgs = self.ayum.pkgSack.returnNewestByName(pkg)
@@ -137,8 +137,15 @@ class OptionalPackageSelector:
         i = self.pkgstore.get_iter_from_string(path)
         sel = self.pkgstore.get_value(i, 0)
         pkg = self.pkgstore.get_value(i, 2)
-        if sel:
+        if sel and not self.ayum.rpmdb.installed(name = pkg):
             self.__deselectPackage(pkg)
+        elif sel:
+            self.ayum.remove(name = pkg)
+        elif self.ayum.rpmdb.installed(name = pkg):
+            txmbrs = self.ayum.tsInfo.matchNaevr(name = pkg)
+            for tx in txmbrs:
+                if tx.output_state == TS_ERASE:
+                    self.ayum.tsInfo.remove(tx.pkgtup)
         else:
             self.__selectPackage(pkg)
         self.pkgstore.set_value(i, 0, not sel)
@@ -179,6 +186,10 @@ class OptionalPackageSelector:
     def destroy(self):
         return self.window.destroy()
 
+# the GroupSelector requires a YumBase object which also implements the
+# following additional methods:
+# * isPackageInstalled(p): is there a package named p installed or selected
+# * isGroupInstalled(grp): is there a group grp installed or selected
 class GroupSelector:
     def __init__(self, yumobj, getgladefunc = None, framefunc = None):
         self.ayum = yumobj
@@ -279,8 +290,8 @@ class GroupSelector:
                                            gtk.gdk.INTERP_BILINEAR)
             else:
                 pix = None
-            # FIXME: this needs to handle selected vs installed..
-            self.groupstore.append(None, [grp.selected, s, grp, pix])
+            self.groupstore.append(None,
+                                   [self.ayum.isGroupInstalled(grp),s,grp,pix])
 
     def _groupSelected(self, selection):
         (model, i) = selection.get_selected()
@@ -316,7 +327,7 @@ class GroupSelector:
             else:
                 self.ayum.log(2, "no such package %s for %s" %(p, grp.groupid))
 
-        if cnt == 0 or grp.selected == False:
+        if cnt == 0 or not self.ayum.isGroupInstalled(grp):
             self.xml.get_widget("detailsButton").set_sensitive(False)
         else:
             self.xml.get_widget("detailsButton").set_sensitive(True)
