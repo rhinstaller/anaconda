@@ -38,6 +38,9 @@ if len(sys.argv) > 4:
 os.system("rm -rf %s" % (destdir,))
 os.system("mkdir %s" % (destdir,))
 
+# cp boot_image
+os.system("cp -a %s/boot_image %s/" % (srcdir, destdir))
+
 # copy documentation
 for pat in ["*eula*", "*EULA*", "README*", "RELEASE*", "GPL", "RPM-*"]:
     os.system("cp -p %s/%s       %s/ 2>/dev/null" % (srcdir, pat, destdir))
