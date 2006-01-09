@@ -1,19 +1,22 @@
+# translation of ka.po to Georgian
 # Georgian translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2004.
 #
+# Automatically generated, 2004.
+# George Machitidze <giomac@gmail.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: package\n"
+"Project-Id-Version: ka\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-01 15:14-0400\n"
-"PO-Revision-Date: 2004-06-30 16:31-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2006-01-09 21:48+0300\n"
+"Last-Translator: George Machitidze <giomac@gmail.com>\n"
+"Language-Team: Georgian <guiasher@mes.gov.ge>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -126,11 +129,11 @@ msgstr ""
 #: ../loader2/urls.c:257 ../loader2/urls.c:322 ../loader2/urls.c:327
 #: ../loader2/urls.c:333 ../loader2/urls.c:447
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../anaconda:631
 msgid "Unknown Error"
-msgstr ""
+msgstr "უცნობი შეცდომა"
 
 #: ../anaconda:634
 #, c-format
@@ -226,8 +229,7 @@ msgstr ""
 
 #: ../autopart.py:1055
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
 #: ../autopart.py:1081
@@ -372,7 +374,7 @@ msgstr ""
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:229
 #: ../textw/upgrade_text.py:177 ../loader2/loader.c:363
 msgid "Warning"
-msgstr ""
+msgstr "გაფრთხილება"
 
 #: ../autopart.py:1696
 msgid ""
@@ -420,7 +422,7 @@ msgstr ""
 
 #: ../bootloader.py:118
 msgid "Bootloader"
-msgstr ""
+msgstr "ჩამტვირთველი"
 
 #: ../bootloader.py:118
 msgid "Installing bootloader..."
@@ -528,7 +530,7 @@ msgstr ""
 
 #: ../floppy.py:118 ../packages.py:456
 msgid "_Cancel"
-msgstr ""
+msgstr "_შეწყვეტა"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
@@ -561,7 +563,7 @@ msgstr ""
 #: ../loader2/urlinstall.c:152 ../loader2/urls.c:172 ../loader2/urls.c:182
 #: ../loader2/urls.c:191 ../loader2/urls.c:322 ../loader2/urls.c:327
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #: ../floppy.py:130 ../floppy.py:155
 msgid ""
@@ -570,8 +572,9 @@ msgid ""
 msgstr ""
 
 #: ../floppy.py:141
+#, fuzzy
 msgid "Creating"
-msgstr ""
+msgstr "შექმნა"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
@@ -753,11 +756,11 @@ msgstr ""
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "_გადატვირთვა"
 
 #: ../fsset.py:2534
 msgid "Formatting"
-msgstr ""
+msgstr "მიმდინარეობს ფორმატირება"
 
 #: ../fsset.py:2535
 #, python-format
@@ -810,7 +813,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:530 ../loader2/hdinstall.c:330
 #: ../loader2/loader.c:363
 msgid "Yes"
-msgstr ""
+msgstr "კი"
 
 #: ../gui.py:240 ../rescue.py:180 ../rescue.py:182 ../text.py:323
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
@@ -819,11 +822,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:519 ../loader2/driverdisk.c:530
 #: ../loader2/loader.c:363
 msgid "No"
-msgstr ""
+msgstr "არა"
 
 #: ../gui.py:242 ../text.py:325 ../loader2/net.c:274 ../loader2/net.c:587
 msgid "Retry"
-msgstr ""
+msgstr "გამეორება"
 
 #: ../gui.py:243 ../text.py:326
 msgid "Ignore"
@@ -837,7 +840,7 @@ msgstr ""
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
 #: ../loader2/loader.c:321
 msgid "Cancel"
-msgstr ""
+msgstr "შეწყვეტა"
 
 #: ../gui.py:547 tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -879,7 +882,7 @@ msgstr ""
 
 #: ../gui.py:1170
 msgid "Error!"
-msgstr ""
+msgstr "შეცდომა!"
 
 #: ../gui.py:1171
 #, python-format
@@ -972,12 +975,12 @@ msgstr ""
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 #: ../textw/firewall_text.py:120
 msgid "_Back"
-msgstr ""
+msgstr "_უკან"
 
 #: ../image.py:96 ../image.py:486 ../kickstart.py:1507 ../kickstart.py:1535
 #: ../iw/partition_gui.py:1009
 msgid "_Continue"
-msgstr ""
+msgstr "_გაგრძელება"
 
 #: ../image.py:155
 #, python-format
@@ -1094,7 +1097,7 @@ msgstr ""
 
 #: ../packages.py:156
 msgid "Reading"
-msgstr ""
+msgstr "წაკითხვა"
 
 #: ../packages.py:156
 msgid "Reading package information..."
@@ -1576,14 +1579,12 @@ msgid "Confirm Reset"
 msgstr ""
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
 #: ../partRequests.py:247
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:250
@@ -1770,8 +1771,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
 #: ../partitions.py:836
@@ -1885,7 +1885,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:259
 #: ../loader2/method.c:420
 msgid "Skip"
-msgstr ""
+msgstr "გამოტოვება"
 
 #: ../rescue.py:305
 msgid "System to Rescue"
@@ -1897,7 +1897,7 @@ msgstr ""
 
 #: ../rescue.py:308 ../rescue.py:312
 msgid "Exit"
-msgstr ""
+msgstr "გასვლა"
 
 #: ../rescue.py:332
 msgid ""
@@ -1958,7 +1958,7 @@ msgstr ""
 
 #: ../text.py:301 ../text.py:309
 msgid "Save"
-msgstr ""
+msgstr "შენახვა"
 
 #: ../text.py:301 ../text.py:304 ../text.py:307
 msgid "Debug"
@@ -1970,8 +1970,7 @@ msgid "Welcome to %s"
 msgstr ""
 
 #: ../text.py:356
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:358
@@ -2120,7 +2119,7 @@ msgstr ""
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
-msgstr ""
+msgstr "დაკავშირება..."
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -2158,7 +2157,7 @@ msgstr ""
 
 #: ../vnc.py:88 ../textw/userauth_text.py:44 ../loader2/urls.c:437
 msgid "Password:"
-msgstr ""
+msgstr "პაროლი:"
 
 #: ../vnc.py:89 ../textw/userauth_text.py:45
 msgid "Password (confirm):"
@@ -2349,7 +2348,7 @@ msgstr ""
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:251
 msgid "LDAP"
@@ -2390,7 +2389,7 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
-msgstr ""
+msgstr "_პაროლი:"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
@@ -2621,7 +2620,7 @@ msgstr ""
 #: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:353
 #: ../textw/packages_text.py:384
 msgid "Package"
-msgstr ""
+msgstr "პაკეტი"
 
 #: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:384
 msgid "Requirement"
@@ -2683,11 +2682,11 @@ msgstr ""
 
 #: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1436
 msgid "Size"
-msgstr ""
+msgstr "ზომა"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
-msgstr ""
+msgstr "მოდელი"
 
 #: ../iw/examine_gui.py:33
 msgid "Upgrade Examine"
@@ -2747,19 +2746,19 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:173
 msgid "Disabled"
-msgstr ""
+msgstr "გათიშულია"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:175
 msgid "Warn"
-msgstr ""
+msgstr "გაფრთხილება"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:177
 msgid "Active"
-msgstr ""
+msgstr "აქტიური"
 
 #: ../iw/firewall_gui.py:27 ../textw/firewall_text.py:29
 msgid "Firewall"
-msgstr ""
+msgstr "ქსელური ფარი"
 
 #: ../iw/firewall_gui.py:37 ../textw/firewall_text.py:112
 msgid "Warning - No Firewall"
@@ -2833,7 +2832,7 @@ msgstr ""
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:38
 msgid "Language Selection"
-msgstr ""
+msgstr "ენის არჩევა"
 
 #: ../iw/language_gui.py:66 ../textw/language_text.py:39 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
@@ -2941,7 +2940,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:407 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:305
 msgid "Unknown"
-msgstr ""
+msgstr "უცნობი"
 
 #: ../iw/lvm_dialog_gui.py:413
 msgid "_Logical Volume Name:"
@@ -3123,12 +3122,12 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1092 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
 msgid "_Add"
-msgstr ""
+msgstr "დ_ამატება"
 
 #: ../iw/lvm_dialog_gui.py:1095 ../iw/network_gui.py:535
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1355 ../iw/zfcp_gui.py:101
 msgid "_Edit"
-msgstr ""
+msgstr "რ_ედაქტირება"
 
 #: ../iw/lvm_dialog_gui.py:1110
 msgid "Logical Volumes"
@@ -3136,27 +3135,27 @@ msgstr ""
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr ""
+msgstr "თაგუნას კონფიგურაცია"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (DOS-ში COM1)"
 
 #: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (DOS-ში COM2)"
 
 #: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS2 (DOS-ში COM3)"
 
 #: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS3 (DOS-ში COM4)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:157
 msgid "_Device"
-msgstr ""
+msgstr "_მოწყობილობა"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
@@ -3168,7 +3167,7 @@ msgstr ""
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "აირჩიეთ თქვენი სისტემის შესაბამისი თაგუნა."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:612
 msgid "Gateway"
@@ -3311,7 +3310,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:265 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1436
 msgid "Device"
-msgstr ""
+msgstr "მოწყობილობა"
 
 #: ../iw/network_gui.py:478
 msgid "IP/Netmask"
@@ -3339,11 +3338,11 @@ msgstr ""
 
 #: ../iw/network_gui.py:575 ../loader2/net.c:810
 msgid "Hostname"
-msgstr ""
+msgstr "ჰოსტის სახელი"
 
 #: ../iw/network_gui.py:623
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "სხვადასხვა პარამეტრები"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3359,7 +3358,7 @@ msgstr ""
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
 msgid "Default"
-msgstr ""
+msgstr "ნაგულისხმევი"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
@@ -3367,7 +3366,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:130
 msgid "Image"
-msgstr ""
+msgstr "გამოსახულება"
 
 #: ../iw/osbootwidget.py:137
 msgid ""
@@ -3443,7 +3442,7 @@ msgstr ""
 
 #: ../iw/package_gui.py:374
 msgid "_Package"
-msgstr ""
+msgstr "_პაკეტი"
 
 #: ../iw/package_gui.py:376
 msgid "_Size (MB)"
@@ -3561,15 +3560,15 @@ msgstr ""
 
 #: ../iw/partition_gui.py:362 ../textw/partition_text.py:1436
 msgid "Type"
-msgstr ""
+msgstr "ტიპი"
 
 #: ../iw/partition_gui.py:365
 msgid "Format"
-msgstr ""
+msgstr "ფორმატი"
 
 #: ../iw/partition_gui.py:367 ../textw/partition_text.py:1436
 msgid "Start"
-msgstr ""
+msgstr "გაშვება"
 
 #: ../iw/partition_gui.py:368 ../textw/partition_text.py:1436
 msgid "End"
@@ -3592,14 +3591,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:640
@@ -3637,7 +3634,7 @@ msgstr ""
 #: ../iw/partition_gui.py:778 ../iw/partition_gui.py:904
 #: ../textw/partition_text.py:94 ../textw/partition_text.py:157
 msgid "None"
-msgstr ""
+msgstr "არა"
 
 #: ../iw/partition_gui.py:796 ../loader2/hdinstall.c:330
 msgid "Hard Drives"
@@ -3658,7 +3655,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:906
 msgid "Free"
-msgstr ""
+msgstr "თავისუფალი"
 
 #: ../iw/partition_gui.py:996 ../textw/partition_text.py:226
 #, python-format
@@ -3869,7 +3866,7 @@ msgstr ""
 
 #: ../iw/progress_gui.py:381 ../textw/progress_text.py:130
 msgid "Status: "
-msgstr ""
+msgstr "მდგომარეობა:"
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -4060,7 +4057,7 @@ msgstr ""
 
 #: ../iw/timezone_map_gui.py:131
 msgid "Description"
-msgstr ""
+msgstr "აღწერა"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
@@ -4076,8 +4073,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4193,8 +4189,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
@@ -4295,7 +4290,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:762
 msgid "Hz"
-msgstr ""
+msgstr "ჰც"
 
 #: ../iw/xconfig_gui.py:782
 msgid "Graphical Interface (X) Configuration"
@@ -4357,7 +4352,7 @@ msgstr ""
 
 #: ../iw/zfcp_gui.py:104
 msgid "_Remove"
-msgstr ""
+msgstr "ამო_ღება"
 
 #: ../iw/zfcp_gui.py:111 ../textw/zfcp_text.py:116
 msgid "FCP Devices"
@@ -4475,7 +4470,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:199
 msgid "Clear"
-msgstr ""
+msgstr "გაწმენდა"
 
 #: ../textw/bootloader_text.py:207
 msgid "Edit Boot Label"
@@ -4497,7 +4492,7 @@ msgstr ""
 #: ../textw/partition_text.py:1441 ../textw/userauth_text.py:237
 #: ../textw/zfcp_text.py:109
 msgid "Edit"
-msgstr ""
+msgstr "რედაქტირება"
 
 #: ../textw/bootloader_text.py:284
 #, python-format
@@ -4508,8 +4503,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:298
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:398
@@ -4529,7 +4523,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:421
 msgid "Confirm:"
-msgstr ""
+msgstr "დადასტურება:"
 
 #: ../textw/bootloader_text.py:450
 msgid "Passwords Do Not Match"
@@ -4588,7 +4582,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:47
 msgid "Reboot"
-msgstr ""
+msgstr "გადატვირთვა"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -4613,7 +4607,7 @@ msgstr ""
 #: ../loader2/net.c:269 ../loader2/net.c:536 ../loader2/net.c:1069
 #: ../loader2/nfsinstall.c:54 ../loader2/urls.c:257 ../loader2/urls.c:447
 msgid "Back"
-msgstr ""
+msgstr "უკან"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
@@ -4647,7 +4641,7 @@ msgstr ""
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr ""
+msgstr "შემდეგი"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -4710,7 +4704,7 @@ msgstr ""
 
 #: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "თქვენ არ შეგიძლიათ გათიშული ქსელური ფარის გამართვა."
 
 #: ../textw/firewall_text.py:92
 msgid "Customize Firewall Configuration"
@@ -4732,7 +4726,7 @@ msgstr ""
 
 #: ../textw/keyboard_text.py:36
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "კლავიატურის არჩევა"
 
 #: ../textw/keyboard_text.py:37
 msgid "Which model keyboard is attached to this computer?"
@@ -4740,7 +4734,7 @@ msgstr ""
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr ""
+msgstr "რომელ მოწყობილობაზეა მიერთებული თქვენი თაგუნა?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
@@ -4748,11 +4742,11 @@ msgstr ""
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "გსურთ 3 ღილაკის ემულირება?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr ""
+msgstr "თაგუნას არჩევა"
 
 #: ../textw/network_text.py:30
 msgid "Invalid IP string"
@@ -4765,7 +4759,7 @@ msgstr ""
 
 #: ../textw/network_text.py:68
 msgid "IP Address"
-msgstr ""
+msgstr "IP მისამართი"
 
 #: ../textw/network_text.py:69
 msgid "Netmask"
@@ -4872,8 +4866,7 @@ msgid "Select individual packages"
 msgstr ""
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/packages_text.py:119
@@ -4895,11 +4888,10 @@ msgstr ""
 
 #: ../textw/packages_text.py:199
 msgid "Total size"
-msgstr ""
+msgstr "ჯამური ზომა"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
 
 #: ../textw/packages_text.py:376
@@ -5151,19 +5143,18 @@ msgstr ""
 
 #: ../textw/partition_text.py:1440
 msgid "New"
-msgstr ""
+msgstr "ახალი"
 
 #: ../textw/partition_text.py:1442 ../textw/userauth_text.py:236
 msgid "Delete"
-msgstr ""
+msgstr "წაშლა"
 
 #: ../textw/partition_text.py:1443
 msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1475
@@ -5314,7 +5305,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
-msgstr ""
+msgstr "Root-ის პაროლი"
 
 #: ../textw/userauth_text.py:31
 msgid ""
@@ -5337,11 +5328,11 @@ msgstr ""
 
 #: ../textw/userauth_text.py:110
 msgid "User Name"
-msgstr ""
+msgstr "მომხმარებლის სახელი"
 
 #: ../textw/userauth_text.py:111
 msgid "Password"
-msgstr ""
+msgstr "პაროლი"
 
 #: ../textw/userauth_text.py:112
 msgid "Password (confirm)"
@@ -5349,7 +5340,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:113 ../textw/userauth_text.py:222
 msgid "Full Name"
-msgstr ""
+msgstr "სრული სახელი"
 
 #: ../textw/userauth_text.py:125
 msgid "Bad User Name"
@@ -5377,13 +5368,11 @@ msgid "User Exists"
 msgstr ""
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 
 #: ../textw/userauth_text.py:171
@@ -5414,7 +5403,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:236 ../textw/zfcp_text.py:108
 msgid "Add"
-msgstr ""
+msgstr "დამატება"
 
 #: ../textw/userauth_text.py:249
 msgid "Enter the information for the user."
@@ -5487,7 +5476,7 @@ msgstr ""
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -5506,7 +5495,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:59
 msgid "Resolution"
-msgstr ""
+msgstr "გარჩევადობა"
 
 #: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
@@ -5532,7 +5521,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:145
 msgid "Resolution:"
-msgstr ""
+msgstr "გარჩევადობა:"
 
 #: ../textw/xconfig_text.py:155
 msgid "Default Desktop:"
@@ -5540,11 +5529,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
@@ -5556,7 +5545,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:180
 msgid "Text"
-msgstr ""
+msgstr "ტექსტი"
 
 #: ../textw/xconfig_text.py:228
 msgid "Monitor"
@@ -5695,7 +5684,7 @@ msgstr ""
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
-msgstr ""
+msgstr "ამოღება"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -5714,7 +5703,7 @@ msgstr ""
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr ""
+msgstr "ს_ხვა"
 
 #: ../installclasses/custom.py:13
 msgid ""
@@ -5813,7 +5802,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
 #: ../loader2/method.c:420
 msgid "Test"
-msgstr ""
+msgstr "ტესტი"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
@@ -6116,8 +6105,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr ""
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:377
@@ -6225,11 +6213,11 @@ msgstr ""
 
 #: ../loader2/loader.c:1058
 msgid "Devices"
-msgstr ""
+msgstr "მოწყობილობები"
 
 #: ../loader2/loader.c:1059
 msgid "Done"
-msgstr ""
+msgstr "დასრულებულია"
 
 #: ../loader2/loader.c:1060
 msgid "Add Device"
@@ -6397,7 +6385,7 @@ msgstr ""
 
 #: ../loader2/net.c:486
 msgid "IP address:"
-msgstr ""
+msgstr "IP მისამართი:"
 
 #: ../loader2/net.c:489
 msgid "Netmask:"
@@ -6480,7 +6468,7 @@ msgstr ""
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
-msgstr ""
+msgstr "Telnet"
 
 #: ../loader2/telnetd.c:80
 msgid "Waiting for telnet connection..."
@@ -6614,7 +6602,7 @@ msgstr ""
 
 #: tmp/anaconda.glade.h:5
 msgid "_Next"
-msgstr ""
+msgstr "_წინ"
 
 #: tmp/anaconda.glade.h:6
 msgid "_Release Notes"
@@ -6665,8 +6653,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 
 #. generated from zone.tab
@@ -6834,8 +6821,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -7007,8 +6993,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -7321,7 +7306,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "კატალანური"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -7337,11 +7322,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "ჩეხური"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "დანიური"
 
 #. generated from lang-table
 msgid "Dutch"
@@ -7349,23 +7334,23 @@ msgstr ""
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "ინგლისური"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "ესტონური"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr ""
+msgstr "ფინური"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "ფრანგული"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "გერმანული"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7373,11 +7358,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr ""
+msgstr "ჰინდი"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "უნგრული"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -7389,19 +7374,19 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "იტალიური"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "იაპონური"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "კორეული"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "მაკედინიური"
 
 #. generated from lang-table
 msgid "Malay"
@@ -7409,7 +7394,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "ნორვეგიული"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -7421,11 +7406,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "პოლონური"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "პორტუგალიური"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
@@ -7433,27 +7418,27 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "პანჯაბი"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "რუსული"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "სლოვაკური"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "სლოვენური"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "ესპანური"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "შვედური"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -7465,15 +7450,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "თურქული"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "უკრაინული"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "ვიეტნამური"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -7481,4 +7466,5 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "ზულუ"
+
