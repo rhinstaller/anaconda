@@ -1,3 +1,12 @@
+2006-01-09  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py (ExceptionWindow): Tweak display of the exception
+	window.
+	* ui/exn.glade: Change default size, add an hbox with an icon
+	next to the label.
+	* pixmaps/exception.png: Friendly icon indicating bad things
+	have happened.
+
 2006-01-08  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/GroupSelector.py (OptionalPackageSelector.__init__): Tweak

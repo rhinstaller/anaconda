@@ -588,8 +588,17 @@ class ExceptionWindow:
         exnView = exnxml.get_widget("exnView")
         expander = exnxml.get_widget("exnExpander")
         info = exnxml.get_widget("info")
+        infoImage = exnxml.get_widget("infoImage")
 
         info.set_text(exceptionText)
+
+        # IKEA is fun
+        infoImage.clear()
+        for imgdir in ("/usr/share/anaconda/pixmaps", "/mnt/source/RHupdates"):
+            img = imgdir + "/exception.png"
+            if os.path.exists(img):
+                infoImage.set_from_file(img)
+                break
 
         # Add the brief traceback message to the upper text view.
         textbuf = gtk.TextBuffer()
