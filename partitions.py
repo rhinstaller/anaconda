@@ -1185,23 +1185,23 @@ class Partitions:
                          "--vgname=%s" %(vg.volumeGroupName,)])
 
 	    if request.grow:
-		if request.startSize is not None:
+		if request.startSize:
 		    args.append("--size=%s" % (int(request.startSize),))
 		else:
 		    # shouldnt happen
 		    continue
 		
 		args.append("--grow")
-		if request.maxSizeMB is not None and int(request.maxSizeMB) > 0:
+		if request.maxSizeMB and int(request.maxSizeMB) > 0:
 		    args.append("--maxsize=%s" % (request.maxSizeMB,))
 	    else:
-		if request.percent is not None:
+		if request.percent:
 		    args.append("--percent=%s" %(request.percent,))
-		elif request.size is not None:
+		elif request.size:
 		    args.append("--size=%s" %(int(request.size),))
 		else:
 		    continue
-            
+
             f.write("#logvol %s\n" % (string.join(args)))            
 
     def deleteAllLogicalPartitions(self, part):

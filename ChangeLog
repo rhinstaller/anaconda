@@ -1,7 +1,7 @@
 2006-01-09  Chris Lumens  <clumens@redhat.com>
 
 	* partitions.py (Partitions.writeKS):  Always write out a device
-	name for RAID devices.
+	name for RAID devices.  None vs. 0 vs. "" fixes.
 
 2006-01-09  David Cantrell  <dcantrell@redhat.com>
 
