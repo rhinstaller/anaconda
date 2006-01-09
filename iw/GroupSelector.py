@@ -292,6 +292,8 @@ class GroupSelector:
                 pix = None
             self.groupstore.append(None,
                                    [self.ayum.isGroupInstalled(grp),s,grp,pix])
+        tree = self.xml.get_widget("groupList")
+        tree.scroll_to_point(0, 0)
 
     def _groupSelected(self, selection):
         (model, i) = selection.get_selected()
