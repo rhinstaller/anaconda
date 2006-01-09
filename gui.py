@@ -592,13 +592,10 @@ class ExceptionWindow:
 
         info.set_text(exceptionText)
 
-        # IKEA is fun
         infoImage.clear()
-        for imgdir in ("/usr/share/anaconda/pixmaps", "/mnt/source/RHupdates"):
-            img = imgdir + "/exception.png"
-            if os.path.exists(img):
-                infoImage.set_from_file(img)
-                break
+        img = findPixmap("exception.png")
+        if os.path.exists(img):
+            infoImage.set_from_file(img)
 
         # Add the brief traceback message to the upper text view.
         textbuf = gtk.TextBuffer()

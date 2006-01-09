@@ -1,3 +1,12 @@
+2006-01-09  Jeremy Katz  <katzj@redhat.com>
+
+	* ui/exn.glade: Various little tweaks
+
+	* pixmaps/exception.png: More accurate icon
+
+	* gui.py (ExceptionWindow.__init__): Use our method for finding
+	images so this works everywhere.
+
 2006-01-09  Jesse Keating  <jkeating@redhat.com>
 
 	* scripts/mk-rescueimage.ppc:  Copy boot_image from ppc
