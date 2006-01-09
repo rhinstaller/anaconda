@@ -1113,6 +1113,7 @@ class Partitions:
                 args.append("--badblocks")
 
             args.append("--level=%s" % (request.raidlevel))
+            args.append("--device=md%s" % (request.raidminor))
 
             if request.raidspares:
                 args.append("--spares=%s" % (request.raidspares))
