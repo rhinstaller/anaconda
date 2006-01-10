@@ -19,6 +19,7 @@
 #     for device-mapper. -pj
 
 import sys
+import string
 import block
 import parted
 import raid
@@ -102,9 +103,9 @@ def scanForRaid(drives, degradedOk=False):
     
     dmsets = []
     def nonDegraded(rs):
-        log.debug("got raidset %s" % (rs,))
-        # XXX not a good way to determine this
-        if rs.rs.total_devs > rs.rs.found_devs and not degradedOk:
+        log.debug("got raidset %s (%s)" % (rs, string.join(rs.member_devpaths)))
+        log.debug("  valid: %s found_devs: %s total_devs: %s" % (rs.valid, rs.rs.found_devs, rs.rs.total_devs))
+        if not rs.valid and not degradedOk:
             log.warning("raid %s (%s) is degraded" % (rs, rs.name))
             #raise DegradedRaidWarning, rs
             return False
