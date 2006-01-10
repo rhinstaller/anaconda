@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.90.25
+Version: 10.91.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan  9 2006 Jeremy Katz <katzj@redhat.com> - 10.91.0-1
+- tweaked selection stuff a little to be the same code as pirut
+- tweak exception window to have an image and be better sized (dcantrell)
+- write out RAID device name (clumens)
+- scroll group list properly (dcantrell)
+- fix ppc rescue image (jkeating)
+- dmraid detection fix (pjones)
+
 * Fri Jan  6 2006 Jeremy Katz <katzj@redhat.com> - 10.90.25-1
 - no sr@Latn yet since the po files haven't been added
 
