@@ -1,6 +1,14 @@
+2006-01-10  Peter Jones  <pjones@redhat.com>
+
+	* harddrive.py: add switchMount() and use it where appropriate
+
 2006-01-10  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec (Version): Bump version.
+
+2006-01-10  Peter Jones  <pjones@redhat.com>
+
+	* dmraid.py: Fix detection of degraded raids
 
 2006-01-10  Jesse Keating  <jkeating@redhat.com>
 

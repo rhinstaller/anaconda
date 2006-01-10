@@ -1,12 +1,12 @@
 #
 # harddrive.py - Install method for hard drive installs
 #
-# Copyright 1999-2003 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# General Public License.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -31,30 +31,28 @@ log = logging.getLogger("anaconda")
 class HardDriveInstallMethod(ImageInstallMethod):
     def copyFileToTemp(self, filename):
         wasmounted = self.mediaIsMounted
-        if not wasmounted:
-            self.mountMedia(1)
+        self.switchMedia(1, filename)
             
         path = ImageInstallMethod.copyFileToTemp(self, filename)
 
-        if not wasmounted:
-            self.umountMedia()
+        self.switchMedia(wasmounted)
         return path
 
     # mounts disc image cdNum under self.tree
     def mountMedia(self, cdNum):
-	if (self.mediaIsMounted):
-	    raise SystemError, "trying to mount already-mounted iso image!"
+        if self.mediaIsMounted:
+            raise SystemError, "trying to mount already-mounted iso image!"
 
-	self.mountDirectory()
+        self.mountDirectory()
 
-	isoImage = self.isoDir + '/' + self.path + '/' + self.discImages[cdNum]
+        isoImage = self.isoDir + '/' + self.path + '/' + self.discImages[cdNum]
 
-	isys.makeDevInode("loop3", "/tmp/loop3")
-	isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
-	
-	isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
-	self.tree = "/tmp/isomedia/"
-	self.mediaIsMounted = cdNum
+        isys.makeDevInode("loop3", "/tmp/loop3")
+        isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
+        
+        isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
+        self.tree = "/tmp/isomedia/"
+        self.mediaIsMounted = cdNum
 
     def umountMedia(self):
 	if self.mediaIsMounted:
@@ -67,7 +65,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
 
     # This mounts the directory containing the iso images, and places the
     # mount point in self.isoDir. It's only used directly by __init__;
-    # everything else goes through mountMedia
+    # everything else goes through switchMedia
     def mountDirectory(self):
 	if (self.isoDirIsMounted):
 	    raise SystemError, "trying to mount already-mounted image!"
@@ -98,17 +96,22 @@ class HardDriveInstallMethod(ImageInstallMethod):
     # will probably do bad things if called during package installation
     # returns None if file doesn't exist
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
-	if destdir is None:
-	    destdir = self.getTempPath()
+        if destdir is None:
+            destdir = self.getTempPath()
         fn = destdir + '/' + os.path.basename(filename)
 
-	self.mountMedia(1)
-	try:
-	    shutil.copy(self.tree + '/' + filename, fn)
-	except:
-	    fn = None
-        self.umountMedia()
-	return fn
+        self.switchMedia(1, filename)
+        try:
+            shutil.copy(self.tree + '/' + filename, fn)
+        except:
+            fn = None
+        return fn
+
+    def switchMedia(self, mediano, filename=""):
+        if mediano != self.mediaIsMounted:
+            log.info("switching from iso %s to %s for %s" % (self.mediaIsMounted, mediano, filename))
+            self.umountMedia()
+            self.mountMedia(mediano)
 
     # return reference to the RPM file specified by the header
     # will mount the appropriate ISO image as required by CD # in header
@@ -116,17 +119,14 @@ class HardDriveInstallMethod(ImageInstallMethod):
         if mediano == 0:
             log.warning("header for %s has no disc location tag, assuming "
                         "it's on the currnt disc" %(filename,))
-        elif mediano != self.mediaIsMounted:
-            log.info("switching from iso %s to %s" %(self.mediaIsMounted,
-                                                     mediano))
-	    self.umountMedia()
-	    self.mountMedia(mediano)
+        else:
+            self.switchMedia(mediano, filename=filename)
 
-	return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
+        return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
 
     def systemMounted(self, fsset, mntPoint):
-	self.mountMedia(1)
-	    
+        self.switchMedia(1)
+
     def systemUnmounted(self):
 	self.umountMedia()
 
