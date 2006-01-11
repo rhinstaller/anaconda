@@ -114,5 +114,5 @@ class UpgradeConfirmWindow (ConfirmWindow):
 	return ConfirmWindow.getScreen(self,
             _("Click next to begin upgrade of %s.") % (productName,),
             _("A complete log of the upgrade can be found in "
-	      "the file '%s' after rebooting your system.") % (u'\uFEFF/\uFEFFroot\uFEFF/\uFEFFupgrade\uFEFF.\uFEFFlog',))
+	      "the file '%s' after rebooting your system.") % (u'/root/upgrade.log',))
 
