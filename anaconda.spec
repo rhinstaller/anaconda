@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.1
+Version: 10.91.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 10 2006 Jeremy Katz <katzj@redhat.com> - 10.91.2-1
+- fix hard drive installs (pjones)
+
 * Tue Jan 10 2006 Jeremy Katz <katzj@redhat.com> - 10.91.1-1
 - more ppc rescue image (jkeating)
 - actually commit the dmraid fix (pjones)
