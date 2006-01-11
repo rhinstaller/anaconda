@@ -1,3 +1,10 @@
+2006-01-11  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec (Version): Bump version.
+
+	* scripts/mk-images.ppc: Remove some unneeded bits from the ppc 
+	boot.iso
+
 2006-01-11  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Kickstart.runTracebackScripts):  Typo fix.

@@ -110,11 +110,14 @@ doPostImages() {
     if [ -d $TOPDESTPATH/images/netboot ]; then
 	mkdir -p $TOPDESTPATH/isopath/images
 	cp -r $TOPDESTPATH/images/netboot $TOPDESTPATH/isopath/images
+	rm -f $TOPDESTPATH/isopath/images/ppc64.img
     fi
 
     if [ -r $TOPDESTPATH/isopath/images/netboot/ppc32.img ]; then
 	PREPBOOT="-prep-boot images/netboot/ppc32.img"
     fi
+
+    rm -rf $TOPDESTPATH/isopath/ppc/iSeries
 
     # Create the boot.iso
     mkisofs -o $TOPDESTPATH/images/boot.iso -chrp-boot -U $PREPBOOT \
