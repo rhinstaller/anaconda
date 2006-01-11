@@ -23,8 +23,8 @@ if len(sys.argv) < 5:
     usage()
     sys.exit(1)
     
-if not os.access("%s/x86_64" % (sys.argv[2],), os.F_OK):
-    print "ERROR - Destination directory %s does not contain an x86_64 directory!" % (sys.argv[2],)
+if not os.access("%s" % (sys.argv[2],), os.F_OK):
+    print "ERROR - Destination directory %s does not exist!" % (sys.argv[2],)
     sys.exit(1)
 
 srcdir  = sys.argv[1]
