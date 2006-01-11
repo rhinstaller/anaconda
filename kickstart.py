@@ -129,9 +129,9 @@ class AnacondaKSHandlers(KickstartHandlers):
             id.bootloader.doUpgradeOnly = 1
 
         if location is None:
-            self.skipSteps.extend(["bootloadersetup", "instbootloader"])
-        else:
             self.showSteps.append("bootloadersetup")
+        else:
+            self.skipSteps.extend(["bootloadersetup", "instbootloader"])
             id.instClass.setBootloader(id, location, dict["forceLBA"],
                                        dict["password"], dict["md5pass"],
                                        dict["appendLine"], dict["driveorder"])
@@ -694,7 +694,7 @@ class Kickstart(BaseInstallClass):
 
     def runTracebackScripts(self):
 	log.info("Running kickstart %%traceback script(s)")
-	for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBAC,
+	for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK,
                               self.ksdata.scripts):
 	    script.run("/", self.serial)
         log.info("All kickstart %%traceback script(s) have been run")
@@ -775,7 +775,8 @@ class Kickstart(BaseInstallClass):
         dispatch.skipStep("network")
         dispatch.skipStep("installtype")
 
-	if len(self.ksdata.groupList) > 0:
+	if len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
+           len(self.ksdata.excludedList) > 0:
             dispatch.skipStep("group-selection")
 
         for n in self.handlers.skipSteps:
@@ -788,8 +789,12 @@ class Kickstart(BaseInstallClass):
         map(backend.selectPackage, self.ksdata.packageList)
 
     def setGroupSelection(self, backend, *args):
+        backend.selectGroup("Core")
+
         if self.ksdata.addBase == True:
             backend.selectGroup("Base")
+        else:
+            log.warning("not adding Base group")
 
         # FIXME: handling of missing groups
         map(backend.selectGroup, self.ksdata.groupList)
