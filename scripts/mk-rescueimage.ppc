@@ -23,8 +23,8 @@ if len(sys.argv) < 5:
     usage()
     sys.exit(1)
     
-if not os.access("%s/ppc" % (sys.argv[2],), os.F_OK):
-    print "ERROR - Destination directory %s does not contain a ppc directory!" % (sys.argv[2],)
+if not os.access("%s/ppc" % (sys.argv[1],), os.F_OK):
+    print "ERROR - Source directory %s does not contain a ppc directory!" % (sys.argv[2],)
     sys.exit(1)
 
 srcdir  = sys.argv[1]
