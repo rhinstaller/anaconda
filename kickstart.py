@@ -129,9 +129,9 @@ class AnacondaKSHandlers(KickstartHandlers):
             id.bootloader.doUpgradeOnly = 1
 
         if location is None:
-            self.showSteps.append("bootloadersetup")
-        else:
             self.skipSteps.extend(["bootloadersetup", "instbootloader"])
+        else:
+            self.showSteps.append("bootloadersetup")
             id.instClass.setBootloader(id, location, dict["forceLBA"],
                                        dict["password"], dict["md5pass"],
                                        dict["appendLine"], dict["driveorder"])
