@@ -1,3 +1,11 @@
+2006-01-11  Jesse Keating  <jkeating@redhat.com>
+
+	* scripts/mk-rescueimage.i386: don't check for arch/arch, just check
+	for destdir
+
+	* scripts/mk-rescueimage.x86_64: don't check for arch/arch, just check
+	for destdir
+
 2006-01-11  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
