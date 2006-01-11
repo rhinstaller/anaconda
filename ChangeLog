@@ -1,3 +1,15 @@
+
+2006-01-11  Bill Nottingham  <notting@redhat.com>
+
+	* iw/confirm_gui.py: propagate:
+	
+	revision 1.19
+	date: 2004/05/07 01:22:44;  author: katzj;  state: Exp; lines: +1 -1
+        the unbreakable stuff isn't working anyway now and it causes ppc gui
+        installs to die.  so remove it for now
+
+	to the other place where it happens. (#177537)
+
 2006-01-10  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec (Requires): Bump version.
