@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.3
+Version: 10.91.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 11 2006 Jeremy Katz <katzj@redhat.com> - 10.91.4-1
+- Add xen kernels
+
 * Wed Jan 11 2006 Jeremy Katz <katzj@redhat.com> - 10.91.3-1
 - remove some unneeded bits from the ppc boot.iso to make it smaller
 - fix some text display (notting, #177537)
