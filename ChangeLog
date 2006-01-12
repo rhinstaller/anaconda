@@ -1,3 +1,8 @@
+2006-01-12  Jesse Keating  <jkeating@redhat.com>
+
+	* scripts/mk-rescueimage.ppc:  Remove map generation,
+	anaconda does this elsewhere.
+
 2006-01-12  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.deseletPackage):  Pass the tuple in
@@ -57,7 +62,7 @@
 
 2006-01-10  Jesse Keating  <jkeating@redhat.com>
 
-	* util/mk-rescueimage.ppc: Create mapping file for hfs stuff
+	* scripts/mk-rescueimage.ppc: Create mapping file for hfs stuff
 
 2006-01-09  Jeremy Katz  <katzj@redhat.com>
 

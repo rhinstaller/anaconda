@@ -142,20 +142,3 @@ for l in cfglines:
 
 cfgfile.write('\n' + rescuelines)
 
-## Create a mapping file for HFS stuff
-#
-
-mapcontents = """#e      x       c       t       cM
-.gz     Raw     'ddsk'  'DDim'  "Floppy or ramdisk image"
-.b      Raw     'UNIX'  'tbxi'  "Bootstrap"
-yaboot  Raw     'UNIX'  'boot'  "Bootstrap"
-vmlinux Raw     'UNIX'  'boot'  "Bootstrap"
-.conf   Raw     'UNIX'  'boot'  "Bootstrap"
-.msg    Raw     'UNIX'  'boot'  "Bootstrap"
-.txt    Raw     'ttxt'  'TEXT'  "Text file"
-.sit    Raw     'SITx'  'SIT!'  "StuffIt Expander archive"
-*       Raw     '????'  '????'  "Unknown"""""
-
-mapfile = open("%s/mapping" % (destdir,), "w")
-mapfile.write(mapcontents)
-mapfile.close()
