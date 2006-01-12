@@ -390,7 +390,7 @@ class AnacondaYum(YumSorter):
 
     def log(self, value, msg):
         if value >= 2:
-            pass
+            log.debug(msg)
         elif value == 1:
             log.info(msg)
         else:
@@ -960,7 +960,7 @@ class YumBackend(AnacondaBackend):
             txmbrs = self.ayum.tsInfo.matchNaevr(name=pkg)
 
         if len(txmbrs) > 0:
-            map(lambda x: self.ayum.tsInfo.remove(x), txmbrs)
+            map(lambda x: self.ayum.tsInfo.remove(x.pkgtup), txmbrs)
         else:
             log.debug("no such package %s" %(pkg,))
 
