@@ -208,6 +208,11 @@ if [ -z "$NEEDGR" ]; then
     PACKAGESRESCUE="bash"
 fi
 
+# dmraid stuff
+if [ $ARCH != s390 -a $ARCH != s390x ]; then
+    PACKAGESRESCUE="$PACKAGESRESCUE device-mapper dmraid"
+fi
+
 #
 # add bootloader for particular arch
 #
@@ -871,6 +876,14 @@ usr/sbin/mtr
 usr/sbin/traceroute
 EOF
 
+# dmraid stuff
+if [ $ARCH != s390 -a $ARCH != s390x ]; then
+    cat >> $KEEPFILERESCUE <<-EOF        
+sbin/dmraid.static
+sbin/dmsetup.static
+EOF
+fi
+
 if [ $ARCH = i386 ]; then
     cat >> $KEEPFILERESCUE <<-EOF
 usr/bin/gpart
@@ -922,6 +935,14 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
     for i in $DEST $DESTGR; do
 	mv $i/bin/sed $i/bin/sed_save
 	mv $i/bin/sort $i/bin/sort_save
+    done
+else
+    for i in $DEST $DESTGR; do
+	# there's never a case with only one of these...
+	if [ -f $i/sbin/dmraid.static ]; then
+	    mv $i/sbin/dmraid.static $i/sbin/dmraid
+	    mv $i/sbin/dmsetup.static $i/sbin/dmsetup
+	fi
     done
 fi
 
