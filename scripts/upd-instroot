@@ -110,9 +110,9 @@ mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
-	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm libsemanage
+	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 procps rpm rpm-libs XFree86 Xconfigurator anaconda tzdata
-	 anaconda-runtime kudzu hwdata bzip2 beecrypt
+	 anaconda-runtime kudzu hwdata bzip2 beecrypt mdadm libsemanage
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite neon
