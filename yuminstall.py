@@ -484,7 +484,27 @@ class AnacondaYum(YumSorter):
             if txmbr.ts_state in ['u', 'i']:
                 if ts_elem.has_key((txmbr.pkgtup, 'i')):
                     continue
-                self.downloadHeader(txmbr.po)
+                try:
+                    self.downloadHeader(txmbr.po)
+                except FileCopyException:
+                    log.info("Failed loading header for %s" %(txmbr.name))
+                    self.method.unmountCD()
+                    rc = self.method.intf.messageWindow(_("Error"),
+                        _("The package %s-%s-%s.%s cannot be opened. This is due "
+                          "to a missing file or perhaps a corrupt package.  "
+                          "If you are installing from CD media this usually "
+                          "means the CD media is corrupt, or the CD drive is "
+                          "unable to read the media.\n\n") %
+                                               (txmbr.po.returnSimple('name'),
+                                                txmbr.po.returnSimple('version'),
+                                                txmbr.po.returnSimple('release'),
+                                                txmbr.po.returnSimple('arch')),
+                                            type="custom",
+                                            custom_icon="error",
+                                            custom_buttons = [ _("Re_boot")])
+                    if rc == 0:
+                        sys.exit(0)
+
                 hdr = txmbr.po.returnLocalHeader()
                 rpmfile = txmbr.po.localPkg()
                 
@@ -518,6 +538,21 @@ class AnacondaYum(YumSorter):
         if grp.selected:
             return True
         return False
+
+    def downloadHeader(self, po):
+        tries = 0
+        while tries < 5:
+            try:
+                yum.YumBase.downloadHeader(self, po)
+            except yum.Errors.RepoError, e:
+                log.critical("Error occured downloading header %s: %s" 
+                             %(po, e))
+            else:
+                break
+
+            tries = tries + 1
+        if tries >= 5:
+            raise FileCopyException
 
 class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
