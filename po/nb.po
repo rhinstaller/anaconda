@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install FC5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-11-20 16:26+0100\n"
+"PO-Revision-Date: 2006-01-13 10:16+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -170,23 +170,19 @@ msgstr "DISPLAY-variabelen er ikke satt. Starter tekstmodus!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Trykk <linjeskift> for et skall"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "Starter grafisk installasjon..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "ukjent installasjonsmetode: %s"
+msgstr "ukjent installasjonsmetode"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Du prøver å installere på en maskin som ikke er støttet av denne versjonen "
-"av %s."
+msgstr "Du har oppgitt en installasjonsmetode som ikke er støttet av anaconda."
 
 #: ../anaconda:1089
 #, c-format
@@ -2337,29 +2333,24 @@ msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Forbereder RPM-transaksjon..."
+msgstr "Feil under kjøring av transaksjon"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Henter informasjon om installasjonen"
+msgstr "Henter informasjon om installasjonen..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
-"Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende "
-"repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en "
-"korrekt måte."
+msgstr "Kan ikke lese metadata for pakken. Dette kan være forårsaket av en menglende repodata-katalog. Vennligst sjekk at installasjonstreet er generert på en korrekt måte.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Ikke kategorisert"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2893,21 +2884,21 @@ msgid "Unknown Linux system"
 msgstr "Ukjent Linux-system"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Pakke   :"
+msgstr "Pakker i %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
 msgid ""
 "No description available for %s.\n"
 "\n"
-msgstr ""
+msgstr "Ingen beskrivelse tilgjengelig for %s.\n\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Hvilken type media inneholder pakkene som skal installeres?"
+msgstr "[%d av %d tilleggspakker installert]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5992,7 +5983,7 @@ msgstr "Fant ikke installasjonsbilde %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "FEILET"
 
 #: ../loader2/mediacheck.c:398
 #, fuzzy
@@ -6009,39 +6000,30 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "OK"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"OK.\n"
-"\n"
-"Det er greit å installere fra dette mediet."
+msgstr "Det er ok å installere fra dette mediet."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"N/A.\n"
-"\n"
-"Ingen sjekksum tilgjengelig, kunne ikke kontrollere medium."
+msgstr "Ingen sjekksum tilgjengelig, kunne ikke kontrollere medie."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Resultat av mediasjekk"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"av filen:\n"
+"%s for avtrykket::\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6050,6 +6032,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Mediesjekk %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6225,7 +6210,7 @@ msgstr "NFS-oppsett"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Vertsnavn oppgitt men DNS er ikke konfigurert"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6401,14 +6386,12 @@ msgid "_Select the drive(s) to use for this installation."
 msgstr "_Velg stasjonen(e) vil du bruke for denne installasjonen."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Uventet hendelse oppstod"
+msgstr "Informasjon om unntak"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Uventet hendelse oppstod"
+msgstr "D_etaljer om unntak"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6418,13 +6401,12 @@ msgid ""
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Tilleggspakker"
+msgstr "Tilleggs_pakker"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7236,9 +7218,8 @@ msgid "Russian"
 msgstr "Russisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persisk"
+msgstr "Serbisk"
 
 #. generated from lang-table
 msgid "Slovak"
