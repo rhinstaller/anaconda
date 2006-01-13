@@ -57,6 +57,7 @@ def dumpClass(instance, fd, level=0, parentkey=""):
                     "intf.ppw.ics.cw.id.keyboard._mods._modelDict",
                     "intf.ppw.ics.cw.id.rootPassword",
 		    "intf.icw.stockButtons",
+                    "intf.icw.id.bootloader.password",
                     "intf.icw.id.instLanguage.langInfoByName",
 		    "intf.icw.id.instLanguage.nativeLangNames",
                     "intf.instLanguage.nativeLangNames",
@@ -258,7 +259,7 @@ def copyExceptionToRemote(intf):
             # child process - run scp
             args = ["scp", "-oNumberOfPasswordPrompts=1",
                     "-oStrictHostKeyChecking=no", "/tmp/anacdump.txt",
-                    "%s@%s:%s/anacdump.txt" % (user, host, path)]
+                    "%s@%s:%s" % (user, host, path)]
             os.execvp("scp", args)
 
         # parent process

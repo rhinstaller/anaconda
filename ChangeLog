@@ -2,6 +2,9 @@
 
 	* exception.py (dumpClass.keySkipList):  Remove a bunch more passwords
 	and language-related stuff from the exception dumps.
+	(copyExceptionToRemote):  Take a filename from the user instead of
+	assuming what we got was just a directory (#177738).
+	* ui/scp.glade:  Reword field label (#177738).
 
 2006-01-13  Paul Nasrat <pnasrat@redhat.com>
 
