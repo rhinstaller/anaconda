@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-13 11:49+1000\n"
+"PO-Revision-Date: 2006-01-13 15:38+1000\n"
 "Last-Translator: x <x@gmail.com>\n"
 "Language-Team: Chinese, Simplified <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2191,15 +2191,15 @@ msgid "Preparing to install..."
 msgstr "正在进行安装筹备..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or perhaps a corrupt package.  If you are installing from CD media this usually means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"无法打开 %s-%s-%s 软件包。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
+"无法打开 %s-%s-%s,%s 软件包。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
 "\n"
-"请按 <return> 键重试。"
+"请按 <重试> 键重试。"
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2241,9 +2241,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "正在开启安装进程，可能会花几分钟时间..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "安装类型"
+msgstr "安装过程"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -6050,9 +6049,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "凯西站，贝利半岛"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "卡塔马卡 (CT)"
+msgstr "卡塔马卡 (CT)，丘布特(CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
