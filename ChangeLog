@@ -6,6 +6,8 @@
 	assuming what we got was just a directory (#177738).
 	* ui/scp.glade:  Reword field label (#177738).
 
+	* image.py (CdromInstallMethod.ejectCD):  Don't duplicate isys.
+
 2006-01-13  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py:  Don't traceback on header download issues (#177596)
