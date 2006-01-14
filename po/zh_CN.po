@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-13 15:38+1000\n"
+"PO-Revision-Date: 2006-01-15 00:33+1000\n"
 "Last-Translator: x <x@gmail.com>\n"
 "Language-Team: Chinese, Simplified <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -577,9 +577,9 @@ msgid "Installing %s-%s-%s... "
 msgstr "正在安装 %s-%s-%s..."
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report against anaconda at %s"
-msgstr "出现了一个未解决的例外。这极可能是一个程序错误。请将此例外的完整原文复制下来，然后向 %s 提交一份详细的 anaconda 错误报告。"
+msgstr "出现了一无法处理的例外。这极可能是一个程序错误。请将此例外的完整原文复制下来，然后向 %s 提交一份详细的安装程序 错误报告。"
 
 #: ../exception.py:401
 #: ../exception.py:417
@@ -592,9 +592,8 @@ msgstr "您的系统状态已被成功地写入软盘，系统将被重设。"
 
 #: ../exception.py:409
 #: ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "已写完转储信息"
+msgstr "未写入dump"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
@@ -1199,9 +1198,8 @@ msgstr ""
 
 #: ../kickstart.py:668
 #: ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "正在连接 ..."
+msgstr "正在运行 ..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
@@ -1427,9 +1425,9 @@ msgid "Error - the logical volume name contains illegal characters or spaces.  A
 msgstr "错误 - 逻辑卷组名包含不合法字符或空格。可被接受的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr "挂载点无效。挂载点必须以“/”开始，但不能以“/”终止，并且仅可使用可印字符，不能包含空格。"
+msgstr "挂载点%s无效。挂载点必须以'/'开始，但不能以'/'终止，并且必须使用可打印字符，不能包含空格。"
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1950,9 +1948,8 @@ msgstr "保存"
 #: ../text.py:153
 #: ../text.py:155
 #: ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "删除"
+msgstr "远程"
 
 #: ../text.py:153
 #: ../text.py:155
@@ -1969,9 +1966,8 @@ msgid "Save to Remote Host"
 msgstr "存入远程主机"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "主机名"
+msgstr "主机"
 
 #: ../text.py:193
 msgid "Remote path"
@@ -2214,19 +2210,17 @@ msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "正在筹备 RPM 传输..."
+msgstr "错误运行记录"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "正在读取软件包信息..."
+msgstr "恢复安装信息..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.  %s"
-msgstr "您的安装树中 comps 文件缺少关键组。请确定您的安装树是被正确生成的。"
+msgstr "无法读取元数据。这可能是因为缺少repodata目录。请确定您已经正确建立了安装树。%s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
@@ -2707,9 +2701,9 @@ msgid "Unknown Linux system"
 msgstr "未知 Linux 系统"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "软件包："
+msgstr "%s中的软件包"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2721,9 +2715,9 @@ msgstr ""
 "\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "哪一类介质包含要安装的软件包？"
+msgstr "[安装了%d的%d的可选择的软件包]"
 
 #: ../iw/installpath_gui.py:26
 #: ../textw/installpath_text.py:48
@@ -4807,9 +4801,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "本次安装，您想使用哪些驱动器？"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "分区"
+msgstr "分区类型"
 
 #: ../textw/partition_text.py:1616
 #: tmp/autopart.glade.h:1
@@ -5010,9 +5003,8 @@ msgid "Select this installation type to gain complete control over the installat
 msgstr "选择该安装类型来获得对安装进程的完全控制，包括软件包的选择和如何分区。"
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "格式化(_F)"
+msgstr "Fedora(_F)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5285,9 +5277,9 @@ msgid "The following invalid argument was specified for the kickstart driver dis
 msgstr "以下为 kickstart 驱动程序盘命令 %s 指定的参数无效：%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button."
-msgstr "请输入您想传递给 %s 模块的任何参数，用空格间隔。如果不知道要提供哪些参数，按“确定”按钮即可跳过这个屏幕。按 F1 键可获得一个可用选项的列表。"
+msgstr "请输入您想传递给 %s 模块的任何参数，用空格间隔。如果不知道要提供哪些参数，按\"确定\"按钮即可跳过。"
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5560,48 +5552,35 @@ msgid "FAILED"
 msgstr "失败"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
-msgstr ""
-"失败。\n"
-"\n"
-"刚刚测试过的映像上有错误。这可能是由于损坏的下载或光盘介质。如果情况如此，请将光盘抹净后再重试。如果测试仍旧失败，您就不应该继续安装。"
+msgstr "刚测试过的映像上有错误。这可能是由于下载文件或光盘介质被损坏。如果情况如此，请清洁光盘后再试一次。如果测试仍旧失败，您就不应该继续安装。"
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
 msgstr "通过"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"通过。\n"
-"\n"
-"可以从这个介质中安装。"
+msgstr "可以从这个介质中安装。"
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"不适用。\n"
-"\n"
-"没有可用的校验和，无法校验介质。"
+msgstr "没有可用的校验和，无法校验介质。"
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "介质检查结果"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"映像：\n"
+"%s的映像：\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -5931,33 +5910,28 @@ msgid "_Release Notes"
 msgstr "发行注记(_R)"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "评审（并按需要修改）创建的分区(_V)"
+msgstr "检验和修改分区方案(_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "选择本次安装中使用的驱动器："
+msgstr "选择本次安装中使用的驱动程序(_S)。"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "出现例外"
+msgstr "Exception信息"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "出现例外"
+msgstr "Exception详情(_E)"
 
 #: tmp/GroupSelector.glade.h:1
 msgid "Some packages associated with this group are not required to be installed but may provide additional functionality.  Please choose the packages which you would like to have installed."
 msgstr "无需安装与此组程序相关的软件包，但此软件包可提供额外的功能，请选择您想安装的软件包。"
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "可选的软件包"
+msgstr "可选的软件包(_O)"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
@@ -6077,9 +6051,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "中央时间 - 卡姆皮契，尤卡坦"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "中央时间 - 西努纳武特"
+msgstr "中央时间 - 纽纳瓦特中心"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6170,18 +6143,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "东部标准时间 - 印第安那 - 瑞士县"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "东部标准时间 - 努纳武特东部"
+msgstr "东部标准时间 - 南安普敦岛"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "东部时间"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "东部标准时间 - 努纳武特东部"
+msgstr "东部标准时间 - 纽纳瓦特东部"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6204,9 +6175,8 @@ msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-19
 msgstr "东部时间 - 安大略 & 魁北克 - 不使用 DST 1967-1973 的地区"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "东部标准时间 - 潘尼尔顿，努纳武特"
+msgstr "东部标准时间 - 冰河湾，纽纳瓦特"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -6557,9 +6527,8 @@ msgid "Tasmania - King Island"
 msgstr "塔斯马尼亚岛 － 国王岛"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "昆士兰 - 多数地区"
+msgstr "塔斯马尼亚 - 多数地区"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -6579,9 +6548,8 @@ msgid "Tocantins"
 msgstr "托坎廷斯"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "特拉克 (楚克岛)"
+msgstr "特鲁克 (楚克岛)和雅浦岛"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6779,9 +6747,8 @@ msgid "Russian"
 msgstr "俄语"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "波斯语"
+msgstr "塞尔维亚语"
 
 #. generated from lang-table
 msgid "Slovak"
