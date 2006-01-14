@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-12 22:21+0100\n"
+"PO-Revision-Date: 2006-01-14 22:26+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team: Italiano <Fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -616,7 +616,7 @@ msgstr ""
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "C'é stato un problema scrivendo lo stato del sistema sull'host remoto."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1176,17 +1176,16 @@ msgstr ""
 "Premere il pulsante OK per riavviare il sistema."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "Collegamento..."
+msgstr "Esecuzione..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Esecuzione pre-install scripts"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Esecuzione post-install scripts"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1448,12 +1447,12 @@ msgstr ""
 "accettano solo lettere, cifre, '.' oppure '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Il mount point non è corretto. Un mount point deve cominciare con '/' , ma "
+"Il mount point %s non è corretto.  Un mount point deve cominciare con '/' , ma "
 "non può terminare con '/'. Inoltre deve contenere caratteri stampabili e "
 "nessuno spazio."
 
@@ -2065,9 +2064,8 @@ msgid "Save"
 msgstr "Salva"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Rimuovi"
+msgstr "Remoto"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2079,16 +2077,15 @@ msgstr "Errore"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Salva sull'host remoto"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "Hostname"
+msgstr "Host"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Percorso remoto"
 
 #: ../text.py:195
 msgid "User name"
@@ -2345,7 +2342,7 @@ msgid "Preparing to install..."
 msgstr "Preparazione dell'installazione..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2353,12 +2350,12 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Il pacchetto %s-%s-%s non puó essere aperto. Ció é dovuto alla mancanza di "
-"un file o alla corruzione di un pacchetto. Se state installando da un CD "
+"Il pacchetto %s-%s-%s.%s non puó essere aperto. Ció é dovuto alla mancanza di "
+"un file o alla corruzione di un pacchetto.  Se state installando da un CD "
 "media, questo puó significare che lo stesso CD é corrotto, oppure che il "
-"drive del CD non é in grado di effettuare una lettura.\n"
+"drive del CD non é in grado di effettuare la lettura.\n"
 "\n"
-"Cliccare su <return>per provare ancora."
+"Cliccare su 'Riprova' per provare ancora."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2378,29 +2375,27 @@ msgid "_Cancel"
 msgstr "_Annulla"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Preparazione per l'operazione RPM"
+msgstr "Errore nell'esecuzione della transazione"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Lettura delle informazioni sui pacchetti..."
+msgstr "Raccolta delle informazioni d'installazione..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Al file comps del vostro albero di installazione mancano alcuni gruppi "
-"fondamentali. Controllate che il vostro albero di installazione sia stato "
-"generato correttamente."
+"Non è stato possibile leggere i metadati dei pacchetti. Potrebbe essere dovuto ad "
+"una directory repodata mancante.  Controllate che il vostro albero di installazione sia stato "
+"generato correttamente.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Non categorizzato"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2411,9 +2406,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Inizio del processo di installazione, potrebbero occorrere alcuni minuti..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Tipo di installazione"
+msgstr "Progresso installazione"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2943,9 +2937,9 @@ msgid "Unknown Linux system"
 msgstr "Sistema Linux sconosciuto"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Pacchetto:"
+msgstr "Pacchetti in %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2953,11 +2947,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"Nessuna descrizione disponibile per %s.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Selezionare il dispositivo che contiene i pacchetti da installare:"
+msgstr "[%d di %d pacchetti opzionali installati]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5190,9 +5186,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Disco da utilizzare per l'installazione:"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Partizionamento in corso"
+msgstr "Tipo di partizionamento"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5200,6 +5195,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"L'installazione richiede il partizionamento del disco rigido.  Per impostazione predefinita, "
+"viene scelto uno schema di partizionamento ragionevole per la maggior parte degli utenti.  Puoi "
+"sia scegliere di usarlo che crearne uno tuo."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5429,9 +5427,8 @@ msgstr ""
 "partizionamento."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formattare"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5577,6 +5574,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Se vuoi controllare ulteriori media, inserisci il prossimo CD e premi \"%s"
+"\". Il controllo di ogni CD non é strettamente necessario, comunque é altamente "
+"raccomandato.  Come minimo, i CD dovrebbero essere controllati prima di usarli per "
+"la prima volta. Dopo averli controllati con successo, non é necessario "
+"ricontrollare nuovamente ogni CD prima di usarlo di nuovo."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5733,16 +5735,15 @@ msgid ""
 msgstr "Argomento non corretto per il comando kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "Si prega di inserire i parametri che desiderate passare al modulo %s "
-"separati da spazi. In caso di dubbi sui parametri da indicare, passare "
-"direttamente alla schermata successiva premendo il pulsante \"OK\". Una "
-"lista delle opzioni disponibili può essere ottenuta premendo il tasto F1."
+"separati da spazi.  In caso di dubbi sui parametri da indicare, passare "
+"direttamente alla schermata successiva premendo il pulsante \"OK\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6057,40 +6058,30 @@ msgstr "Impossibile trovare l'immagine di installazione %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "FALLITO"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"FALLIMENTO.\n"
-"\n"
 "L'immagine che è stata appena controllata contiene errori. Ciò potrebbe "
 "essere causato da un scaricamento corrotto oppure un disco danneggiato.  Se "
-"possibile, pulite il disco e riprovate. Se questo controllo continua a "
+"possibile, pulite il disco e riprovate.  Se questo controllo continua a "
 "fallire non continuate l'installazione."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "ESEGUITO"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"ESEGUITO.\n"
-" \n"
-"L'installazione può essere effettuata da questo supporto."
+msgstr "L'installazione può essere effettuata da questo supporto."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
 msgstr ""
-"N/D.\n"
-"\n"
 "Informazioni sul checksum non disponibili. Impossibile verificare il "
 "supporto."
 
@@ -6099,16 +6090,15 @@ msgid "Media Check Result"
 msgstr "Risultato della verifica del supporto"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"dell'immagine:\n"
+"%s per l'immagine:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6117,6 +6107,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Il controllo del supporto %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6291,7 +6284,7 @@ msgstr "Configurazione di NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Hostname specificato senza DNS configurato"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6456,24 +6449,20 @@ msgid "_Release Notes"
 msgstr "_Release Note"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Ri_vedere (e modificare se necessario) le partizioni create"
+msgstr "Ri_vedere e modificare lo schema di partizionamento"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Selezionare il disco da utilizzare per l'installazione:"
+msgstr "_Selezionare il disco(hi) da utilizzare per l'installazione."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Errore"
+msgstr "Info eccezione"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Errore"
+msgstr "Dettagli _eccezione"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
