@@ -1,7 +1,7 @@
 # translation of es.po to
 # translation of es.po to Spanish
 # translation of es.po to Español
-# Copyright (C) 2000,2003,2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2000,2003,2004, 2005, 2006 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
 # Núria Soriano <nsoriano@redhat.es>,2001.
 # Fernando Ruiz-Tapiador Gutiérrez <frtapiador@redhat.es>, 2001.
@@ -9,20 +9,20 @@
 # Luis Mayoral <mayoral@linuxadicto.org>, 2003.
 # Daniel Guerrero <daniel@danguer.com>, 2003.
 #  <ccheng@brisbane.redhat.com>, 2004.
-# Manuel Ospina <mospina@redhat.com>, 2005.
+# Manuel Ospina <mospina@redhat.com>, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-06-14 09:41-0300\n"
-"Last-Translator: Mauricio Wyler <mauricio.wyler@puertocity.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2006-01-16 11:45+1000\n"
+"Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
+"Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -84,13 +84,11 @@ msgstr "¡Finalizando los intentos de conectarse después de 50 intentos!\n"
 #: ../anaconda:202
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Por favor conecte manualmente su cliente vnc a %s para iniciar la instalación"
+msgstr "Por favor conecte manualmente su cliente vnc a %s para iniciar la instalación"
 
 #: ../anaconda:204
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Por favor conecte manualmente su cliente vnc para iniciar la instalación"
+msgstr "Por favor conecte manualmente su cliente vnc para iniciar la instalación"
 
 #: ../anaconda:208
 msgid "Will try to connect again in 15 seconds..."
@@ -251,11 +249,11 @@ msgstr "La instalación gráfica no está disponible...Inicio en modo texto."
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "La variable DISPLAY no está establecida. ¡Iniciando modo texto!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Presione <intro> para entrar a la shell"
 
 # ../upgrade.py:44
 # ../upgrade.py:44
@@ -268,24 +266,20 @@ msgstr "Iniciando la instalación gráfica..."
 # ../textw/xconfig_text.py:576
 # ../textw/xconfig_text.py:576
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Método %s Url desconocido "
+msgstr "Método de instalación desconocido "
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Está intentando instalar sobre un equipo que no es soportado por esta "
-"versión de%s."
+msgstr "Ha especificado un método de instalación que no es soportado por anaconda."
 
 # ../textw/xconfig_text.py:564
 # ../textw/xconfig_text.py:576
 # ../textw/xconfig_text.py:576
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Método %s Url desconocido "
+msgstr "Método de instalación desconocido: %s "
 
 # ../autopart.py:675
 # ../autopart.py:682
@@ -362,8 +356,7 @@ msgstr ""
 # ../autopart.py:739
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partición  de arranque %s podría no reunir las restricciones de arranque  "
 "para su arquitectura. "
@@ -763,8 +756,7 @@ msgstr "No puede colocar una pregunta en el modo de línea de comandos!"
 
 #: ../cmdline.py:92
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"No se pueden manejar excepciones de Parted en modo de línea de comandos!"
+msgstr "No se pueden manejar excepciones de Parted en modo de línea de comandos!"
 
 #: ../cmdline.py:138
 #, python-format
@@ -783,14 +775,14 @@ msgstr "Instalación de %s-%s-%s..."
 # ../gui.py:196 ../text.py:257
 # ../gui.py:196 ../text.py:258
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "Se ha producido una situación excepcional. Se trata probablemente de un "
-"error. Por favor copie el texto completo de esta excepción, a continuación "
+"error. Por favor copie el texto completo de esta excepción y "
 "registre un informe detallado del error de anaconda en %s"
 
 # ../comps/comps-master:477
@@ -817,29 +809,27 @@ msgstr ""
 # ../exception.py:150
 # ../exception.py:150
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Escrito vacío"
+msgstr "Vaciado no escrito"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Hubo un problema al escribir el estado del sistema al disquete."
 
 # ../exception.py:151
 # ../exception.py:151
 # ../exception.py:151
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"El estado de su sistema se ha grabado con éxito en el disco. Se reiniciará "
-"su sistema ahora. "
+"El estado de su sistema se ha grabado con éxito al host remoto.\n "
+"Su sistema será reiniciado en estos momentos. "
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Hubo un problema al escribir el estado del sistema en el host remoto."
 
 # ../fsset.py:141
 # ../fsset.py:144
@@ -1650,8 +1640,7 @@ msgstr "Copia del Fichero"
 # ../image.py:63
 #: ../image.py:168
 msgid "Transferring install image to hard drive..."
-msgstr ""
-"Transferencia de la imagen del programa de instalación al disco duro..."
+msgstr "Transferencia de la imagen del programa de instalación al disco duro..."
 
 # ../image.py:66
 # ../image.py:66
@@ -1724,17 +1713,16 @@ msgstr ""
 "Pulse el botón OK para reiniciar su sistema."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "Conectando.."
+msgstr "Ejecutando..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Ejecutando los scripts de pre-instalación"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Ejecutando los scripts de post-instalación"
 
 # ../textw/userauth_text.py:54
 # ../textw/userauth_text.py:55
@@ -1745,8 +1733,7 @@ msgstr "El nombre de host debe ser de 64 o menos caracteres de largo."
 
 #: ../network.py:47
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"el nombre del host empieza con un carácter válido en el rango 'a-z' o 'A-Z'"
+msgstr "el nombre del host empieza con un carácter válido en el rango 'a-z' o 'A-Z'"
 
 #: ../network.py:52
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -2075,12 +2062,12 @@ msgstr ""
 # ../partitioning.py:353
 # ../partitioning.py:353
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"El punto de montaje no es válido. Los puntos de montaje deben empezar por "
+"El punto de montaje %s no es válido. Los puntos de montaje deben empezar por "
 "'/', no pueden acabar en '/', deben contener caracteres imprimibles sin "
 "ningún espacio."
 
@@ -2096,8 +2083,7 @@ msgstr "Especifique el punto de montaje para esta partición."
 # ../partitioning.py:1647
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Esta partición cuenta con los datos para la instalación de la disquetera."
+msgstr "Esta partición cuenta con los datos para la instalación de la disquetera."
 
 # ../partitioning.py:1699
 # ../partitioning.py:1719
@@ -2199,8 +2185,7 @@ msgstr "Confirmar la eliminización"
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
+msgstr "Está a punto de borrar todas las particiones en el dispositivo '/dev/%s."
 
 # ../iw/partition_gui.py:1515
 # ../iw/partition_gui.py:1517
@@ -2466,10 +2451,8 @@ msgstr "Confirmar el reinicio"
 # ../partitioning.py:1582
 # ../partitioning.py:1585
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
 
 # ../partitioning.py:1711
 # ../partitioning.py:1731
@@ -2539,10 +2522,8 @@ msgstr ""
 # ../partitioning.py:571
 # ../partitioning.py:574
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
 
 #: ../partitions.py:835
 msgid "You must create an Apple Bootstrap partition."
@@ -2639,8 +2620,7 @@ msgstr "una partición que es un miembro de un grupo de volumen LVM."
 # ../partitioning.py:436
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Este punto de montaje no es válido.  El directorio %s debe estar en el "
 "sistema de ficheros /."
@@ -2974,9 +2954,8 @@ msgid "Save"
 msgstr "Guardar"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Eliminar"
+msgstr "Remoto"
 
 # ../text.py:265 ../text.py:266
 # ../text.py:265 ../text.py:266
@@ -2994,7 +2973,7 @@ msgstr "Ha ocurrido una excepción"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Guardar en el host remoto"
 
 # ../iw/network_gui.py:251 ../loader/net.c:610 ../loader/net.c:808
 # ../textw/network_text.py:177
@@ -3003,13 +2982,12 @@ msgstr ""
 # ../iw/network_gui.py:251 ../loader/net.c:610 ../loader/net.c:808
 # ../textw/network_text.py:177
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "Nombre del Host"
+msgstr "Host"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Ruta remota"
 
 # ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:204
@@ -3058,8 +3036,7 @@ msgstr "Bienvenido a %s"
 # ../text.py:303
 # ../text.py:304
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> ayuda|<Tab> cambiar entre elementos|<Espacio> seleccionar|<F12> "
 "siguiente"
@@ -3071,8 +3048,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
+msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
 # ../installclasses/upgradeclass.py:8
 # ../installclasses/upgradeclass.py:8
@@ -3389,7 +3365,7 @@ msgid "Preparing to install..."
 msgstr "Preparación para la instalación..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -3397,12 +3373,12 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"No se puede abrir el paquete %s-%s-%s. Esto puede deberse a un archivo que "
+"No se puede abrir el paquete %s-%s-%s. %s. Se debe a un archivo que "
 "falta o quizás un paquete dañado. Si está instalando desde un CD esto "
 "usualmente significa que el CD está dañado, o que la unidad de CD no puede "
 "leer el CD.\n"
 "\n"
-"Presiones <Intro> para reintentar."
+"Presiones 'Reintentar' para reintentar."
 
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
@@ -3451,32 +3427,27 @@ msgstr "_Cancelar"
 # ../packages.py:474
 # ../packages.py:475
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Preparando la transacción RPM..."
+msgstr "Error al ejecutar la transacción"
 
 # ../packages.py:96
 # ../packages.py:96
 # ../packages.py:97
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Lectura de la información del paquete..."
+msgstr "Obteniendo la información de la instalación..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
-"El archivo comps en su árbol de instalación está olvidando grupos críticos. "
-"Por favor asegúrese que el árbol de instalación haya sido generado "
-"correctamente. "
+msgstr "No fue posible leer los metadatos del paquete. Puede ser causa de un directorio de datos del repositorio faltante. Por favor asegúrese de que el árbol de instalación ha sido generado correctamente. %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "No categorizado"
 
 # ../gui.py:791
 # ../gui.py:791
@@ -3487,16 +3458,14 @@ msgstr "Inicio de la instalación"
 
 #: ../yuminstall.py:853
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Iniciando el proceso de instalación. Esto puede tardar varios minutos..."
+msgstr "Iniciando el proceso de instalación. Esto puede tardar varios minutos..."
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Tipo de Instalación"
+msgstr "Progreso de la instalación"
 
 # ../packages.py:153
 # ../packages.py:153
@@ -3564,8 +3533,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:37
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"No ha especificado un nombre de puerto universal o el nombre es inválido."
+msgstr "No ha especificado un nombre de puerto universal o el nombre es inválido."
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
@@ -4249,9 +4217,9 @@ msgstr "Sistema Linux desconocido"
 # ../textw/packages_text.py:91
 # ../textw/packages_text.py:91
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Paquete :"
+msgstr "Paquetes en %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -4259,14 +4227,16 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"No hay descripción disponible para %s.\n"
+"\n"
 
 # ../loader/loader.c:1487
 # ../loader/loader.c:1487
 # ../loader/loader.c:1487
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "¿Qué tipo de dispositivo contiene los paquetes para ser instalados?"
+msgstr "[%d de %d paquetes opcionales instalados]"
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
@@ -4501,8 +4471,7 @@ msgstr "Tamaño ilegal"
 # ../textw/upgrade_text.py:161
 #: ../iw/lvm_dialog_gui.py:514
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"El tamaño necesario como se ha introducido no es un número válido mayor de 0."
+msgstr "El tamaño necesario como se ha introducido no es un número válido mayor de 0."
 
 # ../iw/partition_gui.py:1533 ../iw/upgrade_swap_gui.py:121
 # ../packages.py:565 ../packages.py:585 ../textw/upgrade_text.py:106
@@ -5409,18 +5378,15 @@ msgstr "Particionamiento"
 # ../iw/partition_gui.py:543
 # ../iw/partition_gui.py:543
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Existen los siguientes errores graves con su esquema de particionamiento."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "Existen los siguientes errores graves con su esquema de particionamiento."
 
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Estos errores deben ser corregidos antes de continuar con la instalación de %"
 "s."
@@ -5633,8 +5599,7 @@ msgstr "Crear un _dispositivo RAID [default=/dev/md%s]."
 #: ../iw/partition_gui.py:1273
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"Clonar un _dispositivo para crear un dispositivo RAID [default=/dev/md%s]."
+msgstr "Clonar un _dispositivo para crear un dispositivo RAID [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1312
 msgid "Couldn't Create Drive Clone Editor"
@@ -5645,8 +5610,7 @@ msgstr "No se ha podido crear el editor de clonización del dispositivo"
 # ../loader/loader.c:1146
 #: ../iw/partition_gui.py:1313
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Por algún motivo no se ha podido crear el editor de clonización de la unidad."
+msgstr "Por algún motivo no se ha podido crear el editor de clonización de la unidad."
 
 # ../textw/partition_text.py:976
 # ../textw/partition_text.py:976
@@ -5975,8 +5939,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:532
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
+msgstr "La unidad fuente /dev/%s no puede ser seleccionada como unidad en cuestión."
 
 #: ../iw/raid_dialog_gui.py:545
 #, python-format
@@ -6143,8 +6106,7 @@ msgstr "Esto actualizará su gestor de arranque actual."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "El instalador ha detectado que el gestor de arranque %s está instalado en la "
 "actualidad en %s."
@@ -6352,8 +6314,7 @@ msgstr "El archivo swap debe estar entre 1 y 2000 MB de tamaño."
 # ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:168
 # ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "No existe espacio suficiente en el dispositivo que ha seleccionado para la "
 "partición swap."
@@ -6628,8 +6589,7 @@ msgstr ""
 "qué etiquetas quiere utilizar para cada una de ellas."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 "<Espacio> seleccionar botón| <F2> seleccionar entrada de arranque por "
 "defecto| <F12> próxima pantalla>"
@@ -7130,8 +7090,7 @@ msgstr "Selección de grupos de paquetes"
 # ../textw/packages_text.py:245
 # ../textw/packages_text.py:245
 #: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Espacio>,<+>,<-> selección | <F2> Detalles del grupo | <F12> siguiente "
 "pantalla"
@@ -7183,10 +7142,8 @@ msgstr "Selección individual de paquetes"
 # ../textw/packages_text.py:245
 # ../textw/packages_text.py:245
 #: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-" <Espacio>,<+>,<-> selección | <F1> ayuda | <F2> descripción del paquete "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr " <Espacio>,<+>,<-> selección | <F1> ayuda | <F2> descripción del paquete "
 
 # ../textw/packages_text.py:293
 # ../textw/packages_text.py:293
@@ -7475,8 +7432,7 @@ msgstr "No está soportado"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"Los grupos de volumen LVM pueden ser modificados en el instalador gráfico."
+msgstr "Los grupos de volumen LVM pueden ser modificados en el instalador gráfico."
 
 # ../textw/partition_text.py:690 ../textw/partition_text.py:739
 # ../textw/partition_text.py:690 ../textw/partition_text.py:739
@@ -7633,10 +7589,8 @@ msgstr "RAID"
 # ../textw/partition_text.py:979
 # ../textw/partition_text.py:990
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Ayuda   F2-Nuevo   F3-Modificar   F4-Eliminar   F5-Reiniciar   F12-OK  "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Ayuda   F2-Nuevo   F3-Modificar   F4-Eliminar   F5-Reiniciar   F12-OK  "
 
 # ../textw/partition_text.py:1006
 # ../textw/partition_text.py:1006
@@ -7663,16 +7617,15 @@ msgstr "¿Qué unidades desea utilizar para esta instalación?"
 # ../textw/partition_text.py:966
 # ../textw/partition_text.py:977
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Particionamiento"
+msgstr "Tipo de particionamiento"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "La instalación requiere la partición de su disco duro. Por defecto, una capa de partición razonable es escogida, ésta es suficiente en la mayoría de los casos. Usted puede escoger esta partición predeterminada o crearla usted mismo."
 
 # ../textw/partmethod_text.py:26
 # ../textw/partmethod_text.py:26
@@ -8052,9 +8005,8 @@ msgstr ""
 # ../iw/partition_gui.py:1535
 # ../iw/partition_gui.py:1543
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formateo"
+msgstr "_Fedora"
 
 # ../textw/xconfig_text.py:184
 # ../textw/xconfig_text.py:188
@@ -8213,6 +8165,8 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Si desea probar CDs adicionales, inserte el siguiente CD y presione \"%s"
+"\". No se requiere probar cada CD, pero es altamente recomendado hacerlo. Al menos, los CD deben ser probados antes de usarlos por primera vez. Después de que la prueba ha sido pasada con éxito, no es necesario probar cada CD antes de usarlos de nuevo."
 
 # ../loader/loader.c:968
 # ../loader/loader.c:968
@@ -8443,16 +8397,15 @@ msgstr ""
 # ../loader/devices.c:86
 # ../loader/devices.c:86
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "Por favor introduzca cualquier parámetro que desee pasar al módulo  %s "
-"separado con espacios. Si no sabe qué parámetros darle, sáltese esta "
-"pantalla pulsando el botón \"OK\". Se puede obtener una lista de las "
-"opciones disponibles presionando la tecla F1. "
+"separado con espacios. Si no sabe qué parámetros dar, sáltese esta "
+"pantalla pulsando el botón \"OK\"."
 
 # ../loader/devices.c:91
 # ../loader/devices.c:91
@@ -8667,10 +8620,8 @@ msgstr "Bienvenido a %s - Modo de rescate"
 # ../loader/lang.c:41 ../loader/loader.c:188
 # ../loader/lang.c:41 ../loader/loader.c:188
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
 # ../loader/lang.c:298
 # ../loader/lang.c:297
@@ -8924,17 +8875,14 @@ msgstr "Incapaz de encontrar la imagen de instalación %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "FALLA"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"FALLA.\n"
-"\n"
 "La imagen que acaba de probar tiene errores. Esto puede ser debido a un "
 "archivo descargado dañado o a un disco con errores. Si aplica, por favor "
 "limpie el disco en inténtelo nuevamente. Si esta prueba continúa fallando, "
@@ -8942,40 +8890,30 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "CORRECTO"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"CORRECTO.\n"
-"\n"
-"Es correcto que instale de este medio."
+msgstr "Es correcto que instale de este medio."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"La información de total de control no está disponible, imposible verificar "
-"el medio."
+msgstr "La información checksum no está disponible, imposible verificar el medio."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Resultado de control del medio"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"de la imagen:\n"
+"%s de la imagen:\n"
 "\n"
-"%s\n"
-"\n"
+"...%s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -8984,6 +8922,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"El medio prueba %s\n"
+"\n"
+"%s"
 
 # ../loader/loader.c:536 ../loader/loader.c:2238
 # ../loader/loader.c:536 ../loader/loader.c:2238
@@ -9017,8 +8958,7 @@ msgstr "Control de integridad"
 #: ../loader2/modules.c:973
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Mal argumento para el dispositivo del comando del método kickstart %s: %s"
+msgstr "Mal argumento para el dispositivo del comando del método kickstart %s: %s"
 
 # ../loader/net.c:180
 # ../loader/net.c:180
@@ -9247,7 +9187,7 @@ msgstr "Configuración NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Nombre de host especificado sin DNS configurado"
 
 # ../loader/loader.c:1141
 # ../loader/loader.c:1141
@@ -9516,52 +9456,47 @@ msgid "_Release Notes"
 msgstr "_Notas de última hora"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Re_vise (y modifique si lo necesita) las particiones que ha creado"
+msgstr "Re_vise y modifique la capa de particiones"
 
 # ../iw/partition_gui.py:1667 ../textw/partition_text.py:1075
 # ../iw/partition_gui.py:1669 ../textw/partition_text.py:1075
 # ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Seleccione la(s) unidad(es) a usar para esta instalación:"
+msgstr "_Seleccione la(s) unidad(es) a usar para esta instalación."
 
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:219
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Ha ocurrido una excepción"
+msgstr "Información de la excepción"
 
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:219
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Ha ocurrido una excepción"
+msgstr "Información de la _excepción"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Algunos paquetes asociados con este grupo no son requeridos en la instalación pero pueden proporcionar funciones adicionales. Por favor escoja los paquetes que desea instalar."
 
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Paquetes opcionales"
+msgstr "Paquetes _opcionales"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -9612,16 +9547,14 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Hora del Atlántico- E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Hora del Atlántico -Nueva Escocia (la mayoría de lugares), NB, W Labrador, E "
 "Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Hora del Atlántico- Nueva Escocia- lugares que no observaron DST 1966-1971"
+msgstr "Hora del Atlántico- Nueva Escocia- lugares que no observaron DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -9652,9 +9585,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Estación Casey, Península Bailey"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -9681,7 +9613,6 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Central Time - Campeche, Yucatán"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
 msgstr "Central Time - Nunavut del Este "
 
@@ -9774,7 +9705,6 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Condado de Suiza"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
 msgstr "Eastern Standard Time - Nunavut del Este"
 
@@ -9783,7 +9713,6 @@ msgid "Eastern Time"
 msgstr "Hora del Este"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "Eastern Standard Time - Nunavut del Este"
 
@@ -9804,15 +9733,12 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Hora del Este - Ontario - la mayoría de localidades"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Hora del este - Ontario & Quebec - lugares que no observaban DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Hora del este - Ontario & Quebec - lugares que no observaban DST 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr "Eastern Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -9824,8 +9750,7 @@ msgstr "Hora del Este - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
+msgstr "Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -10001,8 +9926,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Hora de las montañas Rocayosas - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Hora de las montañas Rocayosas - Dawson Creek & Fort Saint John, British "
 "Columbia"
@@ -10017,8 +9941,7 @@ msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Mountain Time - Alberta, British Columbia del Este & Skatchewan del Oeste"
+msgstr "Mountain Time - Alberta, British Columbia del Este & Skatchewan del Oeste"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -10166,12 +10089,11 @@ msgstr "Base Syowa, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmania - Isla King"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - gran parte de las localidades"
+msgstr "Tasmania - mayoría de lugares"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -10190,9 +10112,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) y Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -10399,9 +10320,8 @@ msgid "Russian"
 msgstr "Ruso"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persa"
+msgstr "Serbia"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -10447,1754 +10367,3 @@ msgstr "Galés"
 msgid "Zulu"
 msgstr "Zulu"
 
-# ../anaconda:420
-# ../anaconda:420
-# ../anaconda:420
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "No se ha detectado ningún ratón. Se requiere un ratón para la instalación "
-#~ "gráfica. Inicio en modo texto."
-
-# ../anaconda:425
-# ../anaconda:425
-# ../anaconda:425
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Detectado ratón tipo: %s"
-
-# ../anaconda:425
-# ../anaconda:425
-# ../anaconda:425
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Usando ratón tipo: %s"
-
-# ../gui.py:196 ../text.py:257
-# ../gui.py:196 ../text.py:257
-# ../gui.py:196 ../text.py:258
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Se ha producido una situación excepcional. Se trata probablemente de un "
-#~ "error. Por favor copie el texto completo de esta excepción o guarde un "
-#~ "borrador en un disquete, a continuación registre un informe detallado del "
-#~ "error de anaconda en %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Conexión remota (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Servidor Web (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Transferencia de archivos (FTP)"
-
-# ../textw/firewall_text.py:103
-# ../textw/firewall_text.py:103
-# ../textw/firewall_text.py:103
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Servidor de Correo (SMTP)"
-
-# ../loader/loader.c:2316
-# ../loader/loader.c:2316
-# ../loader/loader.c:2316
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Incapaz de crear un disco de arranque"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "El tamaño de los módulos del kernel necesarios para la máquina permiten "
-#~ "la creación de un disco de arranque que quepa en un disco."
-
-# ../loader/loader.c:2316
-# ../loader/loader.c:2316
-# ../loader/loader.c:2316
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Introduzca un disco"
-
-# ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:74
-# ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:74
-# ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Borre cualquier disquete desde la unidad de disco e inserte el disco que "
-#~ "contendrá el disco de arranque.\n"
-#~ "\n"
-#~ "Todos los datos serán borrados durante la creación del disco de arranque."
-
-# ../iw/silo_gui.py:234
-# ../iw/silo_gui.py:234
-# ../iw/silo_gui.py:234
-#~ msgid "_Make boot disk"
-#~ msgstr "_Crear disco de arranque"
-
-# ../floppy.py:63 ../floppy.py:86
-# ../floppy.py:63 ../floppy.py:86
-# ../floppy.py:63 ../floppy.py:86
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Se ha producido un error durante la preparación del disco de arranque. "
-#~ "Asegúrese de que hay un disco en la disquetera."
-
-# ../floppy.py:73
-# ../floppy.py:73
-# ../floppy.py:73
-#~ msgid "Creating"
-#~ msgstr "Creación en curso"
-
-# ../floppy.py:73
-# ../floppy.py:73
-# ../floppy.py:73
-#~ msgid "Creating boot disk..."
-#~ msgstr "Creación de un disco de arranque..."
-
-# ../floppy.py:63 ../floppy.py:86
-# ../floppy.py:63 ../floppy.py:86
-# ../floppy.py:63 ../floppy.py:86
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Se ha producido un error durante la preparación del disco de arranque. "
-#~ "Asegúrese de que tiene un disco en buenas condiciones en la unidad de "
-#~ "disquete."
-
-# ../floppy.py:63 ../floppy.py:86
-# ../floppy.py:63 ../floppy.py:86
-# ../floppy.py:63 ../floppy.py:86
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Se ha producido un error durante la preparación del disco de arranque. "
-#~ "Esto puede ser debido a un disco dañado. Por favor, asegúrese de tener un "
-#~ "disco en buenas condiciones en la unidad de disquete."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "Guardar en disquete (_S)"
-
-# ../harddrive.py:172
-# ../harddrive.py:172
-# ../harddrive.py:172
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Faltan las siguientes imagenes ISO, las cuales se necesitan para la "
-#~ "instalación:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "El sistema se reiniciará."
-
-# ../iw/progress_gui.py:28
-# ../iw/progress_gui.py:28
-# ../iw/progress_gui.py:28
-#~ msgid "Missing Package"
-#~ msgstr "Paquete ausente"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "Ha especificado que el paquete  '%s' debería estar instalado. Este "
-#~ "paquete no existe. ¿Desea continuar o cancelar la instalación?"
-
-# ../iw/partition_gui.py:1516
-# ../iw/partition_gui.py:1518
-# ../iw/partition_gui.py:1526
-#~ msgid "_Abort"
-#~ msgstr "_Abortar"
-
-# ../loader/net.c:404
-# ../loader/net.c:404
-# ../loader/net.c:404
-#~ msgid "Missing Group"
-#~ msgstr "Grupo ausente"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "Ha especificado que el grupo  '%s' debería ser instalado. Este grupo no "
-#~ "existe. Le gustaría continuar o prefiere abortar la instalación?"
-
-# ../packages.py:96
-# ../packages.py:96
-# ../packages.py:97
-#~ msgid "Reading"
-#~ msgstr "Lectura"
-
-# ../packages.py:238
-# ../packages.py:237
-# ../packages.py:238
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "No se puede leer la cabecera de la lista. Ésto puede deberse a la falta "
-#~ "de un archivo, un paquete dañado o un soporte defectuoso. Pulse <Intro> "
-#~ "para reintentarlo."
-
-# ../packages.py:238
-# ../packages.py:237
-# ../packages.py:238
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "No puede leer el archivo comps. Ésto puede deberse a la falta de un "
-#~ "archivo, un paquete dañado o un soporte defectuoso. Pulse <Intro> para "
-#~ "reintentarlo."
-
-# ../bootloader.py:656
-# ../bootloader.py:682
-# ../bootloader.py:710
-#~ msgid "Installing..."
-#~ msgstr "Instalando..."
-
-# ../iw/progress_gui.py:28
-# ../iw/progress_gui.py:28
-# ../iw/progress_gui.py:28
-#~ msgid "Error Installing Package"
-#~ msgstr "Error en la instalación de paquetes"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Se ha producido un error al hacer la instalación %s.  Puede deberse a un "
-#~ "fallo de los medios, falta de espacio en disco y/o problemas con el "
-#~ "hardware. Dicho error es fatal y se abortará la instalación. Verifique "
-#~ "sus medios e intente instalaralos de nuevo.\n"
-#~ "\n"
-#~ "Pulse el botón OK para rearrancar su sistema."
-
-# ../packages.py:238
-# ../packages.py:237
-# ../packages.py:238
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "No puede mezclar la cabecera del archivo. Ésto puede deberse a la falta "
-#~ "de un archivo o a un soporte defectuoso. Pulse <Intro> para reintentarlo."
-
-# ../packages.py:508
-# ../packages.py:515
-# ../packages.py:516
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr "Actualización de paquetes %s.\n"
-
-# ../iw/progress_gui.py:28
-# ../iw/progress_gui.py:28
-# ../iw/progress_gui.py:28
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Instalación de paquetes %s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Los siguientes paquetes se han seleccionado directamente para ser "
-#~ "instalados:\n"
-#~ "%s\n"
-#~ "\n"
-
-# ../packages.py:561
-# ../packages.py:577
-# ../packages.py:578
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "No tiene suficiente espacio en el disco para instalar los paquetes "
-#~ "seleccionados. Necesita más espacio en los siguientes sistemas de "
-#~ "ficheros:\n"
-#~ "\n"
-
-# ../packages.py:566
-# ../packages.py:582
-# ../packages.py:583
-#~ msgid "Space Needed"
-#~ msgstr "Espacio necesario"
-
-# ../packages.py:581
-# ../packages.py:597
-# ../packages.py:598
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "No tiene suficiente nodos de ficheros en el disco para instalar los "
-#~ "paquetes seleccionados. Necesita más nodos de ficheros en los siguientes "
-#~ "sistemas de ficheros:\n"
-#~ "\n"
-
-# ../packages.py:586
-# ../packages.py:602
-# ../packages.py:603
-#~ msgid "Nodes Needed"
-#~ msgstr "Nodos necesarios"
-
-# ../packages.py:592
-# ../packages.py:608
-# ../packages.py:609
-#~ msgid "Disk Space"
-#~ msgstr "Espacio en el disco"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "La arquitectura de la versión de %s que ests actualizando parece ser %s "
-#~ "que no concuerda con tu arquitectura previamente instalada de %s. Esto no "
-#~ "deberáa suceder. ¿Estas seguro de que deseas continuar con el proceso de "
-#~ "actualización?"
-
-# ../upgrade.py:329
-# ../upgrade.py:343
-# ../upgrade.py:350
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Este sistema parece tener paquetes de un tercero instalados que solapan "
-#~ "paquetes incluidos en  %s. Debido a que estos paquetes se solapan, "
-#~ "continuar el proceso de actualización puede causar que no funcione "
-#~ "apropiadamente el sistema o causar alguna otra inestabilidad. Por favor, "
-#~ "lea las notas de última hora para más información.\n"
-#~ "\n"
-#~ "¿Desea continuar con la actualización?."
-
-# ../upgrade.py:346
-# ../upgrade.py:360
-# ../upgrade.py:367
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Este sistema no tiene un archivo /etc/redhat-release.  Es posible que "
-#~ "este no sea un sistema  %s.  Continuar con el proceso de actualización "
-#~ "puede dejar el sistema inutilizable.  ¿Desea continuar con la "
-#~ "actualización?."
-
-# ../iw/auth_gui.py:21 ../textw/userauth_text.py:311
-# ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
-# ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
-#~ msgid "Authentication Configuration"
-#~ msgstr "Configuración de la autenticación"
-
-# ../iw/auth_gui.py:97
-# ../iw/auth_gui.py:97
-# ../iw/auth_gui.py:97
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Habilitar contraseñas _MD5"
-
-# ../iw/auth_gui.py:98
-# ../iw/auth_gui.py:98
-# ../iw/auth_gui.py:98
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Habilitar contraseñas shado_w"
-
-# ../iw/auth_gui.py:101 ../textw/userauth_text.py:320
-# ../iw/auth_gui.py:101 ../textw/userauth_text.py:328
-# ../iw/auth_gui.py:101 ../textw/userauth_text.py:328
-#~ msgid "Enable N_IS"
-#~ msgstr "Habilitar N_IS"
-
-# ../iw/auth_gui.py:102
-# ../iw/auth_gui.py:102
-# ../iw/auth_gui.py:102
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Usar _broadcast para encontrar el servidor NIS"
-
-# ../iw/auth_gui.py:114
-# ../iw/auth_gui.py:114
-# ../iw/auth_gui.py:114
-#~ msgid "NIS _Domain: "
-#~ msgstr "_Dominio NIS: "
-
-# ../iw/auth_gui.py:116
-# ../iw/auth_gui.py:116
-# ../iw/auth_gui.py:116
-#~ msgid "NIS _Server: "
-#~ msgstr "_Servidor NIS: "
-
-# ../iw/auth_gui.py:139 ../textw/userauth_text.py:354
-# ../iw/auth_gui.py:139 ../textw/userauth_text.py:362
-# ../iw/auth_gui.py:139 ../textw/userauth_text.py:362
-#~ msgid "Enable _LDAP"
-#~ msgstr "Habilitar _LDAP"
-
-# ../iw/auth_gui.py:142
-# ../iw/auth_gui.py:142
-# ../iw/auth_gui.py:142
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Utilizar consultas _TLS"
-
-# ../iw/auth_gui.py:143 ../textw/userauth_text.py:360
-# ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
-# ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
-#~ msgid "LDAP _Server:"
-#~ msgstr "_Servidor LDAP:"
-
-# ../iw/auth_gui.py:145 ../textw/userauth_text.py:362
-# ../iw/auth_gui.py:145 ../textw/userauth_text.py:370
-# ../iw/auth_gui.py:145 ../textw/userauth_text.py:370
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "_Base DN de LDAP:"
-
-# ../iw/auth_gui.py:172 ../textw/userauth_text.py:383
-# ../iw/auth_gui.py:172 ../textw/userauth_text.py:391
-# ../iw/auth_gui.py:172 ../textw/userauth_text.py:391
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Habilitar _Kerberos"
-
-# ../iw/auth_gui.py:176 ../textw/userauth_text.py:390
-# ../iw/auth_gui.py:176 ../textw/userauth_text.py:398
-# ../iw/auth_gui.py:176 ../textw/userauth_text.py:398
-#~ msgid "R_ealm:"
-#~ msgstr "D_ominio:"
-
-# ../iw/auth_gui.py:178 ../textw/userauth_text.py:392
-# ../iw/auth_gui.py:178 ../textw/userauth_text.py:400
-# ../iw/auth_gui.py:178 ../textw/userauth_text.py:400
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-# ../iw/auth_gui.py:180 ../textw/userauth_text.py:394
-# ../iw/auth_gui.py:180 ../textw/userauth_text.py:402
-# ../iw/auth_gui.py:180 ../textw/userauth_text.py:402
-#~ msgid "_Admin Server:"
-#~ msgstr "_Servidor Admin:"
-
-# ../iw/auth_gui.py:208
-# ../iw/auth_gui.py:208
-# ../iw/auth_gui.py:208
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Habilitar _autenticación SMB"
-
-# ../iw/auth_gui.py:211
-# ../iw/auth_gui.py:211
-# ../iw/auth_gui.py:211
-#~ msgid "SMB _Server:"
-#~ msgstr "_Servidor SMB:"
-
-# ../iw/auth_gui.py:213
-# ../iw/auth_gui.py:213
-# ../iw/auth_gui.py:213
-#~ msgid "SMB Work_group:"
-#~ msgstr "Grupo _de trabajo SMB:"
-
-# ../iw/auth_gui.py:240
-# ../iw/auth_gui.py:240
-# ../iw/auth_gui.py:240
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-# ../iw/auth_gui.py:241
-# ../iw/auth_gui.py:241
-# ../iw/auth_gui.py:241
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-# ../iw/auth_gui.py:242
-# ../iw/auth_gui.py:242
-# ../iw/auth_gui.py:242
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-# ../iw/auth_gui.py:243
-# ../iw/auth_gui.py:243
-# ../iw/auth_gui.py:243
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-# ../iw/bootdisk_gui.py:23
-# ../iw/bootdisk_gui.py:23
-# ../iw/bootdisk_gui.py:23
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Creación del disco de arranque "
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "El disco de arranque le permite arrancar su sistema %s desde un disquete. "
-#~ "Un disco de arranque le permite arrancar su sistema en el caso de que la "
-#~ "configuración de su gestor de arranque deje de funcionar, o si escoge no "
-#~ "instalar un gestor de arranque o si el gestor de arranque de terceros no "
-#~ "soporta Linux.\n"
-#~ "\n"
-#~ "Se le recomienda que cree un disco de arranque.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Sí, deseo crear un disco de arranque "
-
-# ../iw/upgrade_swap_gui.py:160
-# ../iw/upgrade_swap_gui.py:160
-# ../iw/upgrade_swap_gui.py:162
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "No, no _deseo crear un disco de arranque"
-
-# ../iw/fdisk_gui.py:26 ../textw/partmethod_text.py:28
-# ../iw/fdisk_gui.py:26 ../textw/partmethod_text.py:28
-# ../iw/fdisk_gui.py:26 ../textw/partmethod_text.py:28
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-# ../iw/fdisk_gui.py:93
-# ../iw/fdisk_gui.py:93
-# ../iw/fdisk_gui.py:93
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Seleccione el disco para ejecutar fdasd en él"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "El formateo del dispositivo DASD destruirá todos los contenidos del "
-#~ "dispositivo. ¿Está seguro de que desea formatear el dispositivo DASD "
-#~ "seleccionado?"
-
-# ../textw/partition_text.py:966
-# ../textw/partition_text.py:966
-# ../textw/partition_text.py:977
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Particionamiento con fdisk"
-
-# ../iw/fdisk_gui.py:93
-# ../iw/fdisk_gui.py:93
-# ../iw/fdisk_gui.py:93
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Seleccione una unidad para particionar con fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Inhabilitado"
-
-# ../autopart.py:938 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-# ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1273
-# ../iw/partition_gui.py:1596 ../iw/upgrade_swap_gui.py:169
-# ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
-# ../partitioning.py:675 ../partitioning.py:1378
-# ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
-# ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-# ../upgrade.py:235 ../upgrade.py:328 ../upgrade.py:345
-# ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-# ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
-# ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:169
-# ../iw/upgrade_swap_gui.py:177 ../iw/upgrade_swap_gui.py:184
-# ../partitioning.py:691 ../partitioning.py:1398
-# ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
-# ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-# ../upgrade.py:240 ../upgrade.py:342 ../upgrade.py:359
-# ../autopart.py:945 ../harddrive.py:233 ../iw/bootloader_gui.py:58
-# ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-# ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
-# ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
-# ../partitioning.py:694 ../partitioning.py:1401
-# ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
-# ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-# ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
-#~ msgid "Warn"
-#~ msgstr "Advertencia"
-
-#~ msgid "Active"
-#~ msgstr "Activo"
-
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#~ msgid "Firewall"
-#~ msgstr "Cortafuegos"
-
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Advertencia - Ningún cortafuegos"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Si este sistema está conectado directamente a Internet o está en una red "
-#~ "pública amplia, es recomendado que sea configurado un cortafuegos para "
-#~ "ayudar a prevenir accesos no autorizados. Sin embargo, usted ha "
-#~ "seleccionado no configurar un cortafuego o firewall. Por favor seleccione "
-#~ "\"Proceder\" para continuar sin un cortafuegos."
-
-# ../loader/net.c:373
-# ../loader/net.c:373
-# ../loader/net.c:373
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Configurar cortafuegos"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Proceder"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Un cortafuegos puede ayudarle a prevenir accesos no autorizados a su "
-#~ "computadora del mundo exterior. ¿Quiere habilitar un cortafuegos?"
-
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#~ msgid "N_o firewall"
-#~ msgstr "N_ingún cortafuegos"
-
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#~ msgid "_Enable firewall"
-#~ msgstr "_Habilitar cortafuegos"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Puede utilizar un cortafuegos para permitir el acceso a servicios "
-#~ "específicos en su computador. ¿A qué servicios le gustaría otorgar el "
-#~ "acceso?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) proporciona controles de seguridad más "
-#~ "refinados que los que están disponibles en un sistema Linux tradicional. "
-#~ "Se puede configurar en un estado inhabilitado, en un estado que solamente "
-#~ "le advierte sobre lo que se debería rechazar o a un estado completamente "
-#~ "activo."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Habilitar _SELinux"
-
-# ../iw/progress_gui.py:245
-# ../iw/progress_gui.py:245
-# ../iw/progress_gui.py:245
-#~ msgid "All Packages"
-#~ msgstr "Todos los paquetes"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Paquete: %s\n"
-#~ "Versión: %s\n"
-
-# ../iw/package_gui.py:408
-# ../iw/package_gui.py:409
-# ../iw/package_gui.py:409
-#~ msgid "_Tree View"
-#~ msgstr "Visión en _árbol"
-
-# ../iw/package_gui.py:410
-# ../iw/package_gui.py:411
-# ../iw/package_gui.py:411
-#~ msgid "_Flat View"
-#~ msgstr "Visión _plana"
-
-# ../iw/dependencies_gui.py:64 ../iw/package_gui.py:422
-# ../iw/progress_gui.py:191 ../textw/packages_text.py:301
-# ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
-# ../iw/progress_gui.py:191 ../textw/packages_text.py:301
-# ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
-# ../iw/progress_gui.py:191 ../textw/packages_text.py:301
-#~ msgid "_Package"
-#~ msgstr "_Paquete"
-
-# ../iw/package_gui.py:424 ../iw/partition_gui.py:1533
-# ../iw/package_gui.py:425 ../iw/partition_gui.py:1535
-# ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
-#~ msgid "_Size (MB)"
-#~ msgstr "_Tamaño (MB)"
-
-# ../iw/package_gui.py:455
-# ../iw/package_gui.py:456
-# ../iw/package_gui.py:456
-#~ msgid "Total size: "
-#~ msgstr "Tamaño total: "
-
-# ../iw/package_gui.py:458
-# ../iw/package_gui.py:459
-# ../iw/package_gui.py:459
-#~ msgid "Select _all in group"
-#~ msgstr "Seleccionar _todo en el grupo"
-
-# ../iw/package_gui.py:462
-# ../iw/package_gui.py:463
-# ../iw/package_gui.py:463
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Anular la selección de todo en grupo"
-
-#~ msgid "Minimal"
-#~ msgstr "Mínimo"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Detalles para '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Un grupo de paquetes puede tener miembros de paquetes base y opcionales. "
-#~ "Los paquetes base serán seleccionados siempre cuando el grupo del paquete "
-#~ "sea seleccionado.\n"
-#~ "\n"
-#~ "Seleccione los paquetes opcionales a instalar."
-
-# ../iw/progress_gui.py:245
-# ../iw/progress_gui.py:245
-# ../iw/progress_gui.py:245
-#~ msgid "Base Packages"
-#~ msgstr "Paquetes base"
-
-#~ msgid "Details"
-#~ msgstr "Detalles"
-
-# ../iw/package_gui.py:579 ../textw/packages_text.py:50
-# ../iw/package_gui.py:580 ../textw/packages_text.py:50
-# ../iw/package_gui.py:580 ../textw/packages_text.py:50
-#~ msgid "_Select individual packages"
-#~ msgstr "_Selección de paquetes individuales"
-
-# ../iw/timezone_gui.py:181 ../iw/timezone_gui.py:182
-# ../iw/timezone_gui.py:181 ../iw/timezone_gui.py:182
-# ../iw/timezone_gui.py:181 ../iw/timezone_gui.py:182
-#~ msgid "System clock uses _UTC"
-#~ msgstr "El sistema horario usará _UTC"
-
-# ../textw/xconfig_text.py:42
-# ../textw/xconfig_text.py:43
-# ../textw/xconfig_text.py:43
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Por favor, seleccione la ciudad más cercana a su zona horaria:"
-
-# ../iw/timezone_gui.py:242
-# ../iw/timezone_gui.py:242
-# ../iw/timezone_gui.py:242
-#~ msgid "_Location"
-#~ msgstr "_Localización"
-
-# ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
-# ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:121
-# ../textw/upgrade_text.py:107
-# ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
-# ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:121
-# ../textw/upgrade_text.py:107
-# ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
-# ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
-# ../textw/upgrade_text.py:107
-#~ msgid "Description"
-#~ msgstr "Descripción"
-
-# ../iw/xconfig_gui.py:575
-# ../iw/xconfig_gui.py:583
-# ../iw/xconfig_gui.py:583
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Monitor no probado"
-
-# ../iw/xconfig_gui.py:30
-# ../iw/xconfig_gui.py:32
-# ../iw/xconfig_gui.py:32
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Personalizar la configuración gráfica "
-
-# ../iw/xconfig_gui.py:188 ../textw/xconfig_text.py:167
-# ../iw/xconfig_gui.py:190 ../textw/xconfig_text.py:171
-# ../iw/xconfig_gui.py:190 ../textw/xconfig_text.py:171
-#~ msgid "_Color Depth:"
-#~ msgstr "_Profundidad de color:"
-
-# ../iw/xconfig_gui.py:193 ../textw/xconfig_text.py:98
-# ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
-# ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 colores (8 Bit)"
-
-# ../iw/xconfig_gui.py:193 ../textw/xconfig_text.py:98
-# ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
-# ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "65.536 colores (16 Bit)"
-
-# ../iw/xconfig_gui.py:193 ../textw/xconfig_text.py:98
-# ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
-# ../iw/xconfig_gui.py:195 ../textw/xconfig_text.py:99
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "16 millones de colores (24 Bit)"
-
-# ../iw/xconfig_gui.py:202
-# ../iw/xconfig_gui.py:204
-# ../iw/xconfig_gui.py:204
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Resolución de la pantalla:"
-
-# ../iw/xconfig_gui.py:306
-# ../iw/xconfig_gui.py:311
-# ../iw/xconfig_gui.py:311
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Por favor, escoja su entorno de escritorio predeterminado:"
-
-# ../iw/xconfig_gui.py:308
-# ../iw/xconfig_gui.py:313
-# ../iw/xconfig_gui.py:313
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Su entorno de escritorio es:"
-
-# ../comps/comps-master:262
-# ../iw/xconfig_gui.py:323 ../textw/xconfig_text.py:188
-# ../textw/xconfig_text.py:197
-# ../iw/xconfig_gui.py:328 ../textw/xconfig_text.py:192
-# ../textw/xconfig_text.py:201
-# ../iw/xconfig_gui.py:328 ../textw/xconfig_text.py:192
-# ../textw/xconfig_text.py:201
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-# ../comps/comps-master:318
-# ../iw/xconfig_gui.py:325 ../textw/xconfig_text.py:190
-# ../textw/xconfig_text.py:199
-# ../iw/xconfig_gui.py:330 ../textw/xconfig_text.py:194
-# ../textw/xconfig_text.py:203
-# ../iw/xconfig_gui.py:330 ../textw/xconfig_text.py:194
-# ../textw/xconfig_text.py:203
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-# ../iw/xconfig_gui.py:354
-# ../iw/xconfig_gui.py:359
-# ../iw/xconfig_gui.py:359
-#~ msgid "Please choose your login type:"
-#~ msgstr "Por favor, escoja el tipo de inicio:"
-
-# ../iw/xconfig_gui.py:361 ../textw/xconfig_text.py:208
-# ../iw/xconfig_gui.py:366 ../textw/xconfig_text.py:212
-# ../iw/xconfig_gui.py:366 ../textw/xconfig_text.py:212
-#~ msgid "_Text"
-#~ msgstr "_Texto"
-
-# ../iw/xconfig_gui.py:362 ../textw/xconfig_text.py:206
-# ../iw/xconfig_gui.py:367 ../textw/xconfig_text.py:210
-# ../iw/xconfig_gui.py:367 ../textw/xconfig_text.py:210
-#~ msgid "_Graphical"
-#~ msgstr "_Gráfico"
-
-# ../iw/xconfig_gui.py:379 ../textw/xconfig_text.py:376
-# ../iw/xconfig_gui.py:384 ../textw/xconfig_text.py:380
-# ../iw/xconfig_gui.py:384 ../textw/xconfig_text.py:380
-#~ msgid "Monitor Configuration"
-#~ msgstr "Configuración del monitor"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Monitor no especificado"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "No ha seleccionado un tipo de monitor. Se le recomienda que seleccione el "
-#~ "modelo más cercano que coincida para tener la mejor calidad de "
-#~ "visualización posible."
-
-# ../anaconda:385
-# ../anaconda:385
-# ../anaconda:385
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Seleccione el tipo de monitor"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "En la mayoría de casos, el monitor puede ser detectado de forma "
-#~ "automática. Si la configuración que ha detectado no es correcta para el "
-#~ "monitor, seleccione la configuración correcta."
-
-# ../iw/xconfig_gui.py:622 ../iw/xconfig_gui.py:960
-# ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
-# ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
-#~ msgid "Restore _original values"
-#~ msgstr "Restablecer los valores _originales"
-
-# ../iw/xconfig_gui.py:630
-# ../iw/xconfig_gui.py:638
-# ../iw/xconfig_gui.py:638
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Sincronización hori_zontal:"
-
-# ../iw/xconfig_gui.py:632
-# ../iw/xconfig_gui.py:640
-# ../iw/xconfig_gui.py:640
-#~ msgid "_Vertical Sync:"
-#~ msgstr "Sincronización _vertical:"
-
-# ../iw/xconfig_gui.py:638
-# ../iw/xconfig_gui.py:646
-# ../iw/xconfig_gui.py:646
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-# ../iw/xconfig_gui.py:641
-# ../iw/xconfig_gui.py:649
-# ../iw/xconfig_gui.py:649
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-# ../comps/comps-master:374
-# ../iw/xconfig_gui.py:659
-# ../iw/xconfig_gui.py:667
-# ../iw/xconfig_gui.py:667
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Configuración de interfaz gráfica (X)"
-
-# ../textw/xconfig_text.py:564
-# ../textw/xconfig_text.py:576
-# ../textw/xconfig_text.py:576
-#~ msgid "Unknown video card"
-#~ msgstr "Tarjeta de vídeo desconocida"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Se ha producido un error al seleccionar la tarjeta de vídeo %s. Por "
-#~ "favor, reporte este error a %s"
-
-# ../textw/xconfig_text.py:592
-# ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
-# ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
-#~ msgid "Unspecified video card"
-#~ msgstr "Tarjeta vídeo sin especificar"
-
-# ../textw/xconfig_text.py:593
-# ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:605
-# ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:605
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Es necesario que escoja una tarjeta de vídeo antes de que la "
-#~ "configuración pueda continuar. Si desea saltarse la configuración de X "
-#~ "completamente escoja el botón 'Saltar la configuración de X' "
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Su sistema será configurado para utilizar el controlador del marco del "
-#~ "buffer para el Sistema X Window. Si no desea configurar el sistema X "
-#~ "Window, seleccione 'Saltar la configuración de X' más abajo."
-
-# ../iw/xconfig_gui.py:811
-# ../iw/xconfig_gui.py:835
-# ../iw/xconfig_gui.py:835
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "El tamaño de la ram del vídeo no se puede detectar.  Elija su tamaño de "
-#~ "ram vídeo entre las posibilidades que siguen a continuación:"
-
-# ../iw/xconfig_gui.py:819
-# ../iw/xconfig_gui.py:843
-# ../iw/xconfig_gui.py:843
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "En la mayoría de los casos su hardware vídeo puede ser detectado "
-#~ "automáticamente. Si la configuración detectada no es correcta para el "
-#~ "hardware, seleccione la configuración actual."
-
-# ../iw/xconfig_gui.py:938
-# ../iw/xconfig_gui.py:967
-# ../iw/xconfig_gui.py:967
-#~ msgid "_Video card RAM: "
-#~ msgstr "_Tarjeta de Vídeo RAM: "
-
-# ../iw/xconfig_gui.py:964 ../textw/xconfig_text.py:550
-# ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
-# ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Saltar la configuración de X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "El disco de arranque le permite arrancar su sistema %s desde un disquete. "
-#~ "Un disco de arranque le permite arrancar su sistema si la configuración "
-#~ "de su gestor de arranque cesa de funcionar.\n"
-#~ "\n"
-#~ "Se le recomienda que cree un disco de arranque.\n"
-#~ "\n"
-#~ "¿Desea crear un disco de arranque?"
-
-# ../textw/bootdisk_text.py:50 ../textw/bootdisk_text.py:86
-# ../textw/bootdisk_text.py:50 ../textw/bootdisk_text.py:86
-# ../textw/bootdisk_text.py:51 ../textw/bootdisk_text.py:87
-#~ msgid "Boot Diskette"
-#~ msgstr "Disco de arranque "
-
-# ../textw/fdisk_text.py:40
-# ../textw/fdisk_text.py:40
-# ../textw/fdisk_text.py:40
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Seleccione un disco en el que ejecutar fdasd o dasdfmt"
-
-# ../gui.py:605
-# ../gui.py:605
-# ../gui.py:605
-#~ msgid "Next"
-#~ msgstr "_Siguiente "
-
-# ../iw/partition_gui.py:843 ../textw/partition_text.py:540
-# ../iw/partition_gui.py:845 ../textw/partition_text.py:540
-# ../iw/partition_gui.py:846 ../textw/partition_text.py:541
-#~ msgid "Edit Partitions"
-#~ msgstr "Modificar particiones"
-
-# ../iw/partition_gui.py:1533
-# ../iw/partition_gui.py:1535
-# ../iw/partition_gui.py:1543
-#~ msgid "Format DASD"
-#~ msgstr "Formatear DASD"
-
-# ../iw/partition_gui.py:483 ../textw/fdisk_text.py:39
-# ../iw/partition_gui.py:483 ../textw/fdisk_text.py:39
-# ../iw/partition_gui.py:483 ../textw/fdisk_text.py:39
-#~ msgid "Disk Setup"
-#~ msgstr "Configuración del disco"
-
-# ../upgrade.py:292
-# ../upgrade.py:306
-# ../upgrade.py:306
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Se ha producido un error al ejecutar %s en la unidad %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Ejecutar dasdfmt significa la pérdida de\n"
-#~ " TODOS LOS DATOS en la unidad %s.\n"
-#~ "\n"
-#~ "¿Está seguro?"
-
-# ../partitioning.py:1466
-# ../partitioning.py:1486
-# ../partitioning.py:1489
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Se ha producido un error - se han encontrado dispositivos no válidos en "
-#~ "los que crear nuevos sistemas de ficheros. Chequee su hardware para "
-#~ "averiguar la causa del problema o use dasdfmt.\n"
-#~ "\n"
-#~ "¿Desea volver a la pantalla fdasd ?"
-
-# ../textw/fdisk_text.py:40
-# ../textw/fdisk_text.py:40
-# ../textw/fdisk_text.py:40
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Seleccione un disco en el que ejecutar fdisk"
-
-# ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
-# ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
-# ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
-#~ msgid "Customize"
-#~ msgstr "Personalizar"
-
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#~ msgid "Enable firewall"
-#~ msgstr "Habilitar cortafuegos"
-
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-# ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#~ msgid "No firewall"
-#~ msgstr "Ningún cortafuegos"
-
-# ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-# ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-# ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-#~ msgid "Allow incoming:"
-#~ msgstr "Permitir la entrada:"
-
-# ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
-# ../textw/language_text.py:152
-# ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
-# ../textw/language_text.py:157
-# ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
-# ../textw/language_text.py:157
-#~ msgid "Invalid Choice"
-#~ msgstr "Elección incorrecta"
-
-# ../textw/firewall_text.py:136
-# ../textw/firewall_text.py:136
-# ../textw/firewall_text.py:136
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "No puede personalizar un cortafuegos inhabilitado."
-
-# ../iw/xconfig_gui.py:30
-# ../iw/xconfig_gui.py:32
-# ../iw/xconfig_gui.py:32
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Personalizar la configuración del cortafuegos"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Con un cortafuegos, puede desear permitir el acceso a otros a servicios "
-#~ "específicos en su computador. ¿A qué servicios le gustaría otorgar el "
-#~ "acceso?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Linux con Seguridad Mejorada"
-
-# ../iw/account_gui.py:158 ../textw/userauth_text.py:84
-# ../iw/account_gui.py:158 ../textw/userauth_text.py:92
-# ../iw/account_gui.py:158 ../textw/userauth_text.py:92
-#~ msgid "Edit User"
-#~ msgstr "Modificar el usuario"
-
-# ../textw/userauth_text.py:87
-# ../textw/userauth_text.py:95
-# ../textw/userauth_text.py:95
-#~ msgid "Add User"
-#~ msgstr "Añadir Usuario"
-
-# ../iw/account_gui.py:183
-# ../iw/account_gui.py:183
-# ../iw/account_gui.py:183
-#~ msgid "User Name"
-#~ msgstr "Nombre de usuario"
-
-# ../textw/userauth_text.py:94
-# ../textw/userauth_text.py:102
-# ../textw/userauth_text.py:102
-#~ msgid "Password (confirm)"
-#~ msgstr "Contraseña (confirmar)"
-
-# ../iw/account_gui.py:323 ../textw/userauth_text.py:95
-# ../textw/userauth_text.py:196
-# ../iw/account_gui.py:323 ../textw/userauth_text.py:103
-# ../textw/userauth_text.py:204
-# ../iw/account_gui.py:323 ../textw/userauth_text.py:103
-# ../textw/userauth_text.py:204
-#~ msgid "Full Name"
-#~ msgstr "Nombre completo"
-
-# ../iw/account_gui.py:183
-# ../iw/account_gui.py:183
-# ../iw/account_gui.py:183
-#~ msgid "Bad User Name"
-#~ msgstr "Nombre de usuario incorrecto"
-
-# ../textw/userauth_text.py:108
-# ../textw/userauth_text.py:116
-# ../textw/userauth_text.py:116
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr ""
-#~ "Los nombres de usuario deben constar tan sólo de caracteres de de menos "
-#~ "de la A-Z, a-z y del 0-9."
-
-# ../textw/userauth_text.py:115
-# ../textw/userauth_text.py:123
-# ../textw/userauth_text.py:123
-#~ msgid "Missing User Name"
-#~ msgstr "Falta el nombre de usuario"
-
-# ../textw/userauth_text.py:116
-# ../textw/userauth_text.py:124
-# ../textw/userauth_text.py:124
-#~ msgid "You must provide a user name"
-#~ msgstr "Debe proporcionar un nombre de usuario"
-
-# ../textw/userauth_text.py:121
-# ../textw/userauth_text.py:129
-# ../textw/userauth_text.py:129
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "La contraseña debe ser de al menos 6 caracteres."
-
-# ../textw/userauth_text.py:137 ../textw/userauth_text.py:145
-# ../textw/userauth_text.py:145 ../textw/userauth_text.py:153
-# ../textw/userauth_text.py:145 ../textw/userauth_text.py:153
-#~ msgid "User Exists"
-#~ msgstr "El usuario existe"
-
-# ../textw/userauth_text.py:138
-# ../textw/userauth_text.py:146
-# ../textw/userauth_text.py:146
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "El usuario de root ya ha sido configurado. No necesita añadir este "
-#~ "usuario aquí."
-
-# ../textw/userauth_text.py:138
-# ../textw/userauth_text.py:146
-# ../textw/userauth_text.py:146
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "El usuario del sistema ya ha sido configurado. No necesita añadir este "
-#~ "usuario aquí."
-
-# ../textw/userauth_text.py:146
-# ../textw/userauth_text.py:154
-# ../textw/userauth_text.py:154
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Este usuario ya existe.  Seleccione otro."
-
-# ../textw/userauth_text.py:173
-# ../textw/userauth_text.py:181
-# ../textw/userauth_text.py:181
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Debería usar una cuenta de usuario normal para la mayoría de las "
-#~ "actividades en su sistema. No utilice la cuenta de root sin motivo, "
-#~ "reducirá la probabilidad de alterar la configuración de su sistema."
-
-# ../textw/userauth_text.py:184
-# ../textw/userauth_text.py:192
-# ../textw/userauth_text.py:192
-#~ msgid "User Account Setup"
-#~ msgstr "Configuración de cuentas de usuario"
-
-# ../textw/userauth_text.py:186
-# ../textw/userauth_text.py:194
-# ../textw/userauth_text.py:194
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "¿Qué cuenta usuario le gustaría tener en el sistema? Debería tener al "
-#~ "menos una cuenta que no sea root para trabajo normal, pero en sistemas "
-#~ "multiusuario puede haber cualquier número de cuentas."
-
-# ../textw/userauth_text.py:223
-# ../textw/userauth_text.py:231
-# ../textw/userauth_text.py:231
-#~ msgid "Enter the information for the user."
-#~ msgstr "Introduzca la información del usuario."
-
-# ../textw/userauth_text.py:241
-# ../textw/userauth_text.py:249
-# ../textw/userauth_text.py:249
-#~ msgid "Change the information for this user."
-#~ msgstr "Cambiar la información para este usuario."
-
-# ../textw/userauth_text.py:313
-# ../textw/userauth_text.py:321
-# ../textw/userauth_text.py:321
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Usar contraseñas Shadow"
-
-# ../textw/userauth_text.py:315
-# ../textw/userauth_text.py:323
-# ../textw/userauth_text.py:323
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Activar contraseñas MD5"
-
-# ../iw/auth_gui.py:101 ../textw/userauth_text.py:320
-# ../iw/auth_gui.py:101 ../textw/userauth_text.py:328
-# ../iw/auth_gui.py:101 ../textw/userauth_text.py:328
-#~ msgid "Enable NIS"
-#~ msgstr "Activar NIS"
-
-# ../textw/userauth_text.py:326
-# ../textw/userauth_text.py:334
-# ../textw/userauth_text.py:334
-#~ msgid "NIS Domain:"
-#~ msgstr "Dominio NIS:"
-
-# ../textw/userauth_text.py:328
-# ../textw/userauth_text.py:336
-# ../textw/userauth_text.py:336
-#~ msgid "NIS Server:"
-#~ msgstr "Servidor NIS:"
-
-# ../textw/userauth_text.py:330
-# ../textw/userauth_text.py:338
-# ../textw/userauth_text.py:338
-#~ msgid "or use:"
-#~ msgstr "o usar:"
-
-# ../textw/userauth_text.py:333
-# ../textw/userauth_text.py:341
-# ../textw/userauth_text.py:341
-#~ msgid "Request server via broadcast"
-#~ msgstr "Petición de servidor vía broadcast"
-
-# ../iw/auth_gui.py:139 ../textw/userauth_text.py:354
-# ../iw/auth_gui.py:139 ../textw/userauth_text.py:362
-# ../iw/auth_gui.py:139 ../textw/userauth_text.py:362
-#~ msgid "Enable LDAP"
-#~ msgstr "Habilitar LDAP"
-
-# ../iw/auth_gui.py:143 ../textw/userauth_text.py:360
-# ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
-# ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
-#~ msgid "LDAP Server:"
-#~ msgstr "Servidor LDAP:"
-
-# ../iw/auth_gui.py:145 ../textw/userauth_text.py:362
-# ../iw/auth_gui.py:145 ../textw/userauth_text.py:370
-# ../iw/auth_gui.py:145 ../textw/userauth_text.py:370
-#~ msgid "LDAP Base DN:"
-#~ msgstr "Base DN de LDAP:"
-
-# ../textw/userauth_text.py:372
-# ../textw/userauth_text.py:380
-# ../textw/userauth_text.py:380
-#~ msgid "Use TLS connections"
-#~ msgstr "Usar conexiones TLS"
-
-# ../iw/auth_gui.py:172 ../textw/userauth_text.py:383
-# ../iw/auth_gui.py:172 ../textw/userauth_text.py:391
-# ../iw/auth_gui.py:172 ../textw/userauth_text.py:391
-#~ msgid "Enable Kerberos"
-#~ msgstr "Activar Kerberos"
-
-# ../iw/auth_gui.py:176 ../textw/userauth_text.py:390
-# ../iw/auth_gui.py:176 ../textw/userauth_text.py:398
-# ../iw/auth_gui.py:176 ../textw/userauth_text.py:398
-#~ msgid "Realm:"
-#~ msgstr "Dominio:"
-
-# ../iw/auth_gui.py:178 ../textw/userauth_text.py:392
-# ../iw/auth_gui.py:178 ../textw/userauth_text.py:400
-# ../iw/auth_gui.py:178 ../textw/userauth_text.py:400
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-# ../iw/auth_gui.py:180 ../textw/userauth_text.py:394
-# ../iw/auth_gui.py:180 ../textw/userauth_text.py:402
-# ../iw/auth_gui.py:180 ../textw/userauth_text.py:402
-#~ msgid "Admin Server:"
-#~ msgstr "Servidor Admin:"
-
-# ../textw/xconfig_text.py:22
-# ../textw/xconfig_text.py:23
-# ../textw/xconfig_text.py:23
-#~ msgid "Color Depth"
-#~ msgstr "Profundidad de color"
-
-# ../textw/xconfig_text.py:23
-# ../textw/xconfig_text.py:24
-# ../textw/xconfig_text.py:24
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Seleccione la profundidad de color que le gustaría utilizar:"
-
-# ../textw/xconfig_text.py:41
-# ../textw/xconfig_text.py:42
-# ../textw/xconfig_text.py:42
-#~ msgid "Resolution"
-#~ msgstr "Resolución"
-
-# ../textw/xconfig_text.py:42
-# ../textw/xconfig_text.py:43
-# ../textw/xconfig_text.py:43
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "Seleccione la resolución que le gustaría utilizar:"
-
-# ../textw/xconfig_text.py:158
-# ../textw/xconfig_text.py:162
-# ../textw/xconfig_text.py:162
-#~ msgid "X Customization"
-#~ msgstr "Personalización de las X"
-
-# ../textw/xconfig_text.py:161
-# ../textw/xconfig_text.py:165
-# ../textw/xconfig_text.py:165
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Seleccione la profundidad de color y el modo de vídeo que desea utilizar "
-#~ "para su sistema. "
-
-# ../iw/xconfig_gui.py:188 ../textw/xconfig_text.py:167
-# ../iw/xconfig_gui.py:190 ../textw/xconfig_text.py:171
-# ../iw/xconfig_gui.py:190 ../textw/xconfig_text.py:171
-#~ msgid "Color Depth:"
-#~ msgstr "Profundidad de color:"
-
-# ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:178
-# ../textw/xconfig_text.py:387 ../textw/xconfig_text.py:398
-# ../textw/xconfig_text.py:569 ../textw/xconfig_text.py:576
-# ../textw/xconfig_text.py:175 ../textw/xconfig_text.py:182
-# ../textw/xconfig_text.py:391 ../textw/xconfig_text.py:402
-# ../textw/xconfig_text.py:581 ../textw/xconfig_text.py:588
-# ../textw/xconfig_text.py:175 ../textw/xconfig_text.py:182
-# ../textw/xconfig_text.py:391 ../textw/xconfig_text.py:402
-# ../textw/xconfig_text.py:581 ../textw/xconfig_text.py:588
-#~ msgid "Change"
-#~ msgstr "Cambiar"
-
-# ../textw/xconfig_text.py:174
-# ../textw/xconfig_text.py:178
-# ../textw/xconfig_text.py:178
-#~ msgid "Resolution:"
-#~ msgstr "Resolución:"
-
-# ../textw/xconfig_text.py:184
-# ../textw/xconfig_text.py:188
-# ../textw/xconfig_text.py:188
-#~ msgid "Default Desktop:"
-#~ msgstr "Escritorio predeterminado:"
-
-# ../comps/comps-master:262
-# ../iw/xconfig_gui.py:323 ../textw/xconfig_text.py:188
-# ../textw/xconfig_text.py:197
-# ../iw/xconfig_gui.py:328 ../textw/xconfig_text.py:192
-# ../textw/xconfig_text.py:201
-# ../iw/xconfig_gui.py:328 ../textw/xconfig_text.py:192
-# ../textw/xconfig_text.py:201
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-# ../comps/comps-master:318
-# ../iw/xconfig_gui.py:325 ../textw/xconfig_text.py:190
-# ../textw/xconfig_text.py:199
-# ../iw/xconfig_gui.py:330 ../textw/xconfig_text.py:194
-# ../textw/xconfig_text.py:203
-# ../iw/xconfig_gui.py:330 ../textw/xconfig_text.py:194
-# ../textw/xconfig_text.py:203
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-# ../textw/xconfig_text.py:204
-# ../textw/xconfig_text.py:208
-# ../textw/xconfig_text.py:208
-#~ msgid "Default Login:"
-#~ msgstr "Login predeterminado:"
-
-# ../iw/xconfig_gui.py:362 ../textw/xconfig_text.py:206
-# ../iw/xconfig_gui.py:367 ../textw/xconfig_text.py:210
-# ../iw/xconfig_gui.py:367 ../textw/xconfig_text.py:210
-#~ msgid "Graphical"
-#~ msgstr "Gráfico"
-
-# ../iw/xconfig_gui.py:361 ../textw/xconfig_text.py:208
-# ../iw/xconfig_gui.py:366 ../textw/xconfig_text.py:212
-# ../iw/xconfig_gui.py:366 ../textw/xconfig_text.py:212
-#~ msgid "Text"
-#~ msgstr "Texto"
-
-# ../textw/xconfig_text.py:255
-# ../textw/xconfig_text.py:259
-# ../textw/xconfig_text.py:259
-#~ msgid "Monitor"
-#~ msgstr "Monitor"
-
-# ../textw/xconfig_text.py:256
-# ../textw/xconfig_text.py:260
-# ../textw/xconfig_text.py:260
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Por favor seleccione el monitor conectado a su sistema."
-
-# ../textw/xconfig_text.py:312
-# ../textw/xconfig_text.py:316
-# ../textw/xconfig_text.py:316
-#~ msgid "horizontal"
-#~ msgstr "horizontal"
-
-# ../textw/xconfig_text.py:315
-# ../textw/xconfig_text.py:319
-# ../textw/xconfig_text.py:319
-#~ msgid "vertical"
-#~ msgstr "vertical"
-
-# ../textw/xconfig_text.py:324
-# ../textw/xconfig_text.py:328
-# ../textw/xconfig_text.py:328
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Ratios de sincronización incorrectos"
-
-# ../textw/xconfig_text.py:325
-# ../textw/xconfig_text.py:329
-# ../textw/xconfig_text.py:329
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "El ratio de sincronización %s no es válido:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Un ratio válido sería de la siguiente manera:\n"
-#~ "\n"
-#~ "      31.5                un número único\n"
-#~ "    50.1-90.2             un rango de números\n"
-#~ "31.5,35.0,39.3-40.0       una lista de números/rangos\n"
-
-# ../textw/xconfig_text.py:273
-# ../textw/xconfig_text.py:277
-# ../textw/xconfig_text.py:277
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Ratios de sincronización del monitor"
-
-# ../textw/xconfig_text.py:278
-# ../textw/xconfig_text.py:282
-# ../textw/xconfig_text.py:282
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Introduzca los ratios de sincronización para su monitor. \n"
-#~ "\n"
-#~ "NOTA - Habitualmente no es necesario modificar el ratio de "
-#~ "sincronización, por lo que debe asegurarse de que los valores "
-#~ "introducidos son apropiados."
-
-# ../textw/xconfig_text.py:283
-# ../textw/xconfig_text.py:287
-# ../textw/xconfig_text.py:287
-#~ msgid "HSync Rate: "
-#~ msgstr "Ratio de sincronización horizontal:"
-
-# ../textw/xconfig_text.py:288
-# ../textw/xconfig_text.py:292
-# ../textw/xconfig_text.py:292
-#~ msgid "VSync Rate: "
-#~ msgstr "Ratio de sincronización vertical:"
-
-# ../textw/xconfig_text.py:379
-# ../textw/xconfig_text.py:383
-# ../textw/xconfig_text.py:383
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Seleccione el monitor para su sistema.  Utilice el botón '%s' para "
-#~ "reiniciar con los valores probados."
-
-# ../textw/xconfig_text.py:383
-# ../textw/xconfig_text.py:387
-# ../textw/xconfig_text.py:387
-#~ msgid "Monitor:"
-#~ msgstr "Monitor:"
-
-# ../textw/xconfig_text.py:390
-# ../textw/xconfig_text.py:394
-# ../textw/xconfig_text.py:394
-#~ msgid "HSync Rate:"
-#~ msgstr "Ratio de sincronización horizontal:"
-
-# ../textw/xconfig_text.py:400
-# ../textw/xconfig_text.py:404
-# ../textw/xconfig_text.py:404
-#~ msgid "VSync Rate:"
-#~ msgstr "Ratio de sincronización vertical:"
-
-# ../anaconda:385
-# ../anaconda:385
-# ../anaconda:385
-#~ msgid "Choose monitor type"
-#~ msgstr "Seleccione el tipo de monitor"
-
-#~ msgid "Proceed"
-#~ msgstr "Proceder"
-
-# ../textw/xconfig_text.py:469 ../xf86config.py:850
-# ../textw/xconfig_text.py:476 ../xf86config.py:850
-# ../textw/xconfig_text.py:476 ../xf86config.py:850
-#~ msgid "Video Card"
-#~ msgstr "Tarjeta de vídeo"
-
-# ../textw/xconfig_text.py:470
-# ../textw/xconfig_text.py:477
-# ../textw/xconfig_text.py:477
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Seleccione la tarjeta de vídeo presente en su sistema.  Escoja '%s' para "
-#~ "reiniciar la selección de la tarjeta que el instalador ha detectado en su "
-#~ "sistema."
-
-# ../textw/xconfig_text.py:488
-# ../textw/xconfig_text.py:495
-# ../textw/xconfig_text.py:495
-#~ msgid "Video RAM"
-#~ msgstr "RAM de vídeo"
-
-# ../textw/xconfig_text.py:489
-# ../textw/xconfig_text.py:496
-# ../textw/xconfig_text.py:496
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Seleccione la cantidad de RAM de vídeo presente en su tarjeta de vídeo. "
-#~ "Escoja '%s' para reiniciar la selección hasta la cantidad que el "
-#~ "instalador ha detectado en su tarjeta."
-
-# ../iw/xconfig_gui.py:964 ../textw/xconfig_text.py:550
-# ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
-# ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
-#~ msgid "Skip X Configuration"
-#~ msgstr "Saltar la Configuración de X"
-
-# ../textw/xconfig_text.py:553
-# ../textw/xconfig_text.py:565
-# ../textw/xconfig_text.py:565
-#~ msgid "Video Card Configuration"
-#~ msgstr "Configuración de la tarjeta de vídeo"
-
-# ../textw/xconfig_text.py:556
-# ../textw/xconfig_text.py:568
-# ../textw/xconfig_text.py:568
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Seleccione la tarjeta de vídeo y la RAM de vídeo para su sistema."
-
-# ../textw/xconfig_text.py:559
-# ../textw/xconfig_text.py:571
-# ../textw/xconfig_text.py:571
-#~ msgid "Video Card:"
-#~ msgstr "Tarjeta de vídeo:"
-
-# ../textw/xconfig_text.py:564
-# ../textw/xconfig_text.py:576
-# ../textw/xconfig_text.py:576
-#~ msgid "Unknown card"
-#~ msgstr "Tarjeta desconocida"
-
-# ../textw/xconfig_text.py:572
-# ../textw/xconfig_text.py:584
-# ../textw/xconfig_text.py:584
-#~ msgid "Video RAM:"
-#~ msgstr "RAM de vídeo:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Si quiere probar otros medios, introduzca el CD y pulse \"%s\". No debe "
-#~ "comprobar todos los CDs, aunque se le recomienda de lo haga al menos una "
-#~ "vez.\n"
-#~ "\n"
-#~ "Para iniciar el proceso de instalación introduzca el CD #1 en la unidad y "
-#~ "pulse \"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "El control de los medios %s se ha completado, el resultado es: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Eastern Standard Time - Nunavut central"
-
-#~ msgid "Great Britain"
-#~ msgstr "Gran Bretaña"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Irlanda del Norte"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmania"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "Noreste de Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "suroeste de Mali"
