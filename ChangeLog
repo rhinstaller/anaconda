@@ -1,3 +1,8 @@
+2006-01-17  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/moduleinfo.c (readModuleInfo):  Correct parsing problem
+	for module info files on driver disks (#164549).
+
 2005-12-12  Peter Jones  <pjones@redhat.com>
 
 	* packages.py (doPreInstall): handle "ia32e" as well as "x86_64".
