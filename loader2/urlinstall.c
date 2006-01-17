@@ -40,14 +40,19 @@
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
                               char * dest, char * mntpoint, char * device,
-                              int silentErrors) {
+                              int silentErrors, int addProduct) {
     int fd;
     int rc = 0;
     char * newFile = NULL;
     char filepath[1024];
 
-    /* BNFIXME: hack - all callers want product/<foo>, so add prefix here */
-    snprintf(filepath, sizeof(filepath), "%s/%s", getProductPath(), file);
+    /* Not all callers want product/<foo>, most notably getting the repomd.xml
+     * file (see comment below about hardcoding backend knowledge).
+     */
+    if (addProduct == 1)
+        snprintf(filepath, sizeof(filepath), "%s/%s", getProductPath(), file);
+    else
+        snprintf(filepath, sizeof(filepath), "%s", file);
 
     fd = urlinstStartTransfer(ui, filepath, NULL, silentErrors, flags);
 
@@ -101,7 +106,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
      * ramdisk usage */
     if (!loadSingleUrlImage(ui, "base/updates.img", flags,
                             "/tmp/ramfs/updates-disk.img", "/tmp/update-disk",
-                            "loop7", 1)) {
+                            "loop7", 1, 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates");
         umountLoopback("/tmp/update-disk", "loop7");
         unlink("/tmp/ramfs/updates-disk.img");
@@ -112,7 +117,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
      * ramdisk usage */
     if (!loadSingleUrlImage(ui, "base/product.img", flags,
                             "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
-                            "loop7", 1)) {
+                            "loop7", 1, 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product");
         umountLoopback("/tmp/product-disk", "loop7");
         unlink("/tmp/ramfs/product-disk.img");
@@ -133,7 +138,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
 
     rc = loadSingleUrlImage(ui, tmpstr1, flags, tmpstr2,
-                            "/mnt/runtime", "loop0", 0);
+                            "/mnt/runtime", "loop0", 0, 1);
     if (rc) {
         if (rc != 2) 
             newtWinMessage(_("Error"), _("OK"),
@@ -274,7 +279,7 @@ char * mountUrlImage(struct installMethod * method,
                which sucks */
 	    if (cdurl && 
                 (loadSingleUrlImage(&ui, "repodata/repomd.xml", flags, NULL, 
-                                    NULL, NULL, 0) == 0)) {
+                                    NULL, NULL, 0, 0) == 0)) {
 		logMessage(INFO, "Detected stage 2 image on CD");
 		winStatus(50, 3, _("Media Detected"), 
 			  _("Local installation media detected..."), 0);

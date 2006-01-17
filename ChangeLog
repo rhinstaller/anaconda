@@ -1,3 +1,8 @@
+2006-01-17  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/urlinstall.c (loadSingleUrlImage):  Not every caller wants
+	to put the product on the front of the URL (#178001).
+
 2006-01-13  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: put dmraid and dmsetup in the rescue image
