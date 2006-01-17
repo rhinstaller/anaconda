@@ -79,6 +79,9 @@ class AnacondaKSScript(Script):
 
         os.unlink(path)
 
+        if serial or self.logfile is not None:
+            os.chmod("%s/%s" % (scriptRoot, messages), 0600)
+
 class AnacondaKSHandlers(KickstartHandlers):
     def __init__ (self, ksdata):
         KickstartHandlers.__init__(self, ksdata)

@@ -3,6 +3,9 @@
 	* instdata.py (InstallData.write):  Don't traceback on printing out an
 	authconfig-related error message (#178041).
 
+	* kickstart.py (AnacondaKSScript.run):  Set permissions on log files
+	to 0600 (#177519).
+
 	* loader2/urlinstall.c (loadSingleUrlImage):  Not every caller wants
 	to put the product on the front of the URL (#178001).
 
