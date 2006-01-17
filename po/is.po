@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-07-18 01:31+0000\n"
+"PO-Revision-Date: 2006-01-17 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -168,39 +168,36 @@ msgstr "Myndrænu notendaskilin eru ekki tiltæk. Fer í textaham."
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY breytan er ekki sett. Ræsi í textaham!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Sláðu á <enter> til að fá skél"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "Ræsi myndræna uppsetningu..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Óþekkt Url skipun %s"
+msgstr "Óþekkt uppsetningaraðferð"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Þú ert að reyna að setja upp á vél sem er ekki studd af þessari útgáfu af %s."
+msgstr "Þú gafst upp uppsetningaraðferð sem anaconda styður ekki."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Óþekkt Url skipun %s"
+msgstr "Óþekkt uppsetningaraðferð: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Gat ekki búið til disksneiðina sem \"primary\" disksneið"
+msgstr "Gat ekki búið til disksneiðina sem aðal disksneið"
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Gat ekki búið til umbeðnar disksneiðar sem \"primary\" disksneiðar"
+msgstr "Gat ekki búið til umbeðnar disksneiðar sem aðal disksneiðar"
 
 #: ../autopart.py:973
 msgid "Could not allocate cylinder-based partitions"
@@ -551,7 +548,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Set inn %s-%s-%s..."
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -573,26 +570,24 @@ msgstr ""
 "endurræsa."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Dump ritað"
+msgstr "Dump ekki ritað"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Það kom upp villa við að skrifa stöðu kerfisins á disklinginn."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
-"endurræsa."
+"Staða vélarinnar þinnar hefur verið vistuð á fjartengdu vélina. Vélin \n"
+"þín mun nú endurræsa."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Það kom upp villa við að skrifa stöðu kerfisins á fjartengdu vélina."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1142,17 +1137,16 @@ msgstr ""
 "Veldu Í lagi hnappinn til að endurræsa."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "Tengist..."
+msgstr "Keyri..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Keyri skeljaforrit fyrir uppsetningu"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Keyri skeljaforrit eftir uppsetningu"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1406,12 +1400,12 @@ msgstr ""
 "heitunum eru stafir, tölustafir, '.' eða '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Tengipunkturinn er óleyfilegur. Heiti tengipunkta verða að byrja á '/' en "
+"Tengipunkturinn %s er óleyfilegur. Heiti tengipunkta verða að byrja á '/' en "
 "mega ekki enda á '/' og verða að innihalda aðeins prentanlega stafi og engin "
 "orðabil."
 
@@ -2022,9 +2016,8 @@ msgid "Save"
 msgstr "Vista"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Fjarlægja"
+msgstr "Fjarlægann"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2036,16 +2029,15 @@ msgstr "Óeðlilegt ástand"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Vista á fjartengda vél"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
 msgstr "Vélarheiti"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Fjarlæg slóð"
 
 #: ../text.py:195
 msgid "User name"
@@ -2302,7 +2294,7 @@ msgid "Preparing to install..."
 msgstr "Undirbý uppsetningu..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2314,7 +2306,7 @@ msgstr ""
 "eða skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast "
 "að hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
 "\n"
-"Sláðu á <return> til að reyna aftur."
+"Sláðu á 'Reyna aftur' til að reyna aftur."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2333,28 +2325,27 @@ msgid "_Cancel"
 msgstr "_Hætta við"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Set upp RPM færslugrunn..."
+msgstr "Villa við að keyra færsluna"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Les upplýsingar um pakkana..."
+msgstr "Sæki upplýsingar um uppsetninguna..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Það vantar mikilvæga hópa í comps skrána í uppsetningartréinu þínu. "
-"Vinsamlegast gaktu úr skugga um að það hafi verið búið til á réttann hátt."
+"Get ekki lesið pakkaupplýsingarnar. Orsök þess gæti verið að 'repodata' "
+"möppuna vantar.  Vinsamlega gakktu úr skugga um að uppsetningartréið "
+"þitt hafi verið sett upp rétt.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Óflokkað"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2365,9 +2356,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Ræsi uppsetningarferlið. Þetta gæti tekið nokkrar mínútur..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Tegund uppsetningar"
+msgstr "Framvinda uppsetningar"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2886,9 +2876,9 @@ msgid "Unknown Linux system"
 msgstr "Óþekkt Linuxkerfi"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Pakki   :"
+msgstr "Pakkar í %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2896,11 +2886,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"Engin lýsing tiltæk fyrir %s.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Á hvernig miðli eru pakkarnir sem setja á upp?"
+msgstr "[%d af %d aukapökkum uppsettir]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5117,9 +5109,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvaða harða diska viltu nota fyrir Linux?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Disksneiðing"
+msgstr "Disksneiðingaraðferð"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5127,6 +5118,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Til þess að setja upp stýrikerfið þarftu að sneiða harða diskinn. Sjálfgefið "
+"er disknum hlutað niður þannig að það henti sem flestum.  Þú átt þann kost að "
+"nota sjálfgefnu sneiðarnar eða búa til þínar eigin."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5353,9 +5347,8 @@ msgstr ""
 "verða sneiddir."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Forsníða"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5500,6 +5493,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Ef þú vilt yfirfara fleiri diska skaltu setja þann næsta í drifið og velja \"%s"
+"\". Það er ekki nauðsynlegt að prófa alla diskana en við mælum eindregið með "
+"að það sé gert.  Þú ættir að minnsta kosti að yfirfara diskana áður en þeir "
+"eru notaðir í fyrsta skipti. Eftir það þarftu ekki að yfirfara þá þegar þeir "
+"eru notaðir aftur."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5658,7 +5656,7 @@ msgstr ""
 "s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -5666,8 +5664,7 @@ msgid ""
 msgstr ""
 "Vinsamlegast sláðu inn hér þau viðföng sem þú vilt hafa með %s reklinum "
 "aðskilin með orðabilum. Ef þú veist ekki hvaða viðföng á að nota getur þú "
-"sleppt þessum skjá með því að velja \"Í lagi\" hnappinn. Þú getur fengið "
-"lista yfir þekkt viðföng með því að slá á F1 hnappinn."
+"sleppt þessum skjá með því að velja \"Í lagi\" hnappinn."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5980,17 +5977,14 @@ msgstr "Get ekki sótt uppsetningardiskmyndina %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "BRÁST"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"VILLA.\n"
-"\n"
 "Diskurinn sem var verið að prófa stóðst ekki prófið. Þetta gæti orsakast af "
 "misheppnuðum skráaflutningi eða skemmdum diski.  Ef það á við getur þú reynt "
 "að hreinsa diskinn og reyna aftur.  Ef þetta próf heldur áfram að takast "
@@ -5998,39 +5992,30 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "Í LAGI"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"Í LAGI.\n"
-"\n"
-"Það er í lagi að setja upp frá þessu."
+msgstr "Það er í lagi að setja upp frá þessum miðli."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"VILLA.\n"
-"\n"
-"Engin gátsumma til staðar. Get ekki yfirfarið diskmyndina."
+msgstr "Engin gátsumma til staðar. Get ekki yfirfarið diskmyndina."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Niðurstöður yfirferðar á diskmynd"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"af diskmynd:\n"
+"%s af diskmyndinni:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6039,6 +6024,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Yfirferðin af %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6213,7 +6201,7 @@ msgstr "NFS Stillingar"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Vélarheiti gefið upp án réttra DNS stillinga"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6379,24 +6367,20 @@ msgid "_Release Notes"
 msgstr "Ú_tgáfuupplýsingar"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
 msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu:"
+msgstr "_Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Óeðlilegt ástand"
+msgstr "Óeðlilegt ástand, upplýsingar"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Óeðlilegt ástand"
+msgstr "_Upplýsingar um óeðlilega ástandið"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6404,15 +6388,16 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Sumir pakkanna í þessum hóp þarf ekki að setja inn en geta veitt aukna virkni. "
+"Vilnsamlega veldu þá pakka sem þú vilt setja inn."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Aukapakkar"
+msgstr "_Aukapakkar"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6501,9 +6486,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6530,9 +6514,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Central Time - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Central Time - west Nunavut"
+msgstr "Central Time - central Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6623,18 +6606,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Eastern Standard Time - east Nunavut"
+msgstr "Eastern Standard Time - Southampton Island"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Eastern Time"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Eastern Standard Time - east Nunavut"
+msgstr "Eastern Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6659,9 +6640,8 @@ msgstr ""
 "Eastern Time - Ontario & Quebec - staðir sem fóru ekki eftir DST 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr "Eastern Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7007,12 +6987,11 @@ msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmanía - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - flestir staðir"
+msgstr "Tasmanía - flestir staðir"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7031,9 +7010,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) og Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7228,9 +7206,8 @@ msgid "Russian"
 msgstr "Rússneska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persneska"
+msgstr "Serbneska"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7275,1074 +7252,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Engin mús fannst. Mús er nauðsynleg fyrir myndræna uppsetningu. Fer í "
-#~ "textaham."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Músargerðin sem fannst: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Músartegund: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
-#~ "uppsetningarforritinu. Vinsamlegast afritaðu allan textann hérna eða "
-#~ "vistaðu hann á diskling og sendu inn villutilkynningu um anaconda á %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Fjarvinnsla (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Vefþjónn (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Skráaflutningur (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Póstþjónn (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Gat ekki búið til ræsidisklinginn"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Stærð kjarnareklanna sem vélin þarf gerir það ómögulegt að búa til "
-#~ "ræsidiskling sem rúmast á diskettu."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Settu inn diskling"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Vinsamlegast taktu burt disklinga úr drifunum og settu inn tóman diskling "
-#~ "sem á að verða ræsidisklingur.\n"
-#~ "\n"
-#~ "Öllum gögnum á disklingnum verður EYTT þegar ræsidisklingurinn er búinn "
-#~ "til."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Búa til ræsidiskling"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Villa kom upp þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
-#~ "gakktu úr skugga um að disklingur sé í fyrsta disklingadrifinu."
-
-#~ msgid "Creating"
-#~ msgstr "Bý til"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Bý til ræsidiskling..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Villa kom upp þegar reynt var að yfirfara ræsidisklinginn. Vinsamlegast "
-#~ "gakktu úr skugga um að disklingur sem er í lagi sé í fyrsta "
-#~ "disklingadrifinu."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Ræsidisklingurinn þinn virðist vera ógildur. Þetta er líklega útaf "
-#~ "gölluðum disklingi. Vinsamlegast gakktu úr skugga um að góður disklingur "
-#~ "sé í fyrsta disklingadrifinu."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Vista á diskling"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Eftirfarandi geisladiskar vantar sem eru nauðsynlegir til uppsetningar:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Vélin mun nú endurræsa."
-
-#~ msgid "Missing Package"
-#~ msgstr "Vantar pakka"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "Þú hefur tekið fram að setja skuli upp pakkann '%s'. Þessi pakki er ekki "
-#~ "til. Viltu halda áfram eða hætta uppsetningu?"
-
-#~ msgid "_Abort"
-#~ msgstr "Hætta _við"
-
-#~ msgid "Missing Group"
-#~ msgstr "Pakkahóp vantar"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "Þú hefur tekið fram að setja skuli upp pakkahópinn '%s'. Þessi pakkahópur "
-#~ "er ekki til. Viltu halda áfram eða hætta uppsetningu?"
-
-#~ msgid "Reading"
-#~ msgstr "Les"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Get ekki lesið hausalistann. þetta orsakast af skrá sem vantar, skemmdum "
-#~ "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Get ekki lesið comps skrána. Þetta orsakast af skrá sem vantar, skemmdum "
-#~ "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
-
-#~ msgid "Installing..."
-#~ msgstr "Set upp hugbúnað..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Villa við að setja inn pakka"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Það kom upp villa við uppsetningu %s. Þetta gæti orsakast af skemmdum "
-#~ "disk, ekki nógu diskplássi og/eða vélbúnaðarbilun. Þetta er banvæn villa "
-#~ "og því mun uppsetningin ekki halda áfram.  Vinsamlegast láttu yfirfara "
-#~ "diskinn og reyndu aftur.\n"
-#~ "\n"
-#~ "Veldu Í lagi hnappinn til að endurræsa."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Get ekki flutt inn hausalistann. Þetta orsakast af skrá sem vantar, "
-#~ "skemmdum pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Uppfæri %s pakkana\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Set inn %s pakkana\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Eftirfarandi pakkar voru valdir sjálfvirkt\n"
-#~ "til uppsetningar:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Þú virðist ekki hafa nægjanlegt diskrými til að setja upp þá pakka sem þú "
-#~ "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Þarfnast diskrýmis"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Þú virðist ekki hafa nóg af lausum skrám til að setja upp þá pakka sem þú "
-#~ "valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum "
-#~ "skráarkerfum:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Vantar inóður"
-
-#~ msgid "Disk Space"
-#~ msgstr "Diskpláss"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Örgjörfaútgáfa %s sem þú ert að uppfæra virðist vera %s sem passar ekki "
-#~ "við útgáfuna %s sem nú er uppsett.  Þetta mun líklega ekki takast.  Ertu "
-#~ "viss um að þú viljir halda uppfærsluni áfram?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Þessi vél virðist hafa pakka frá þriðja aðila uppsetta sem skarast á við "
-#~ "pakkana sem fylgja %s.  Þar sem pakkarnir skarast getur uppfærslan valdið "
-#~ "því að þeir hætti að virka eða valdið öðrum vandræðum. Vinsamlegast lestu "
-#~ "útgáfuupplýsingarnar til að fá frekari upplýsingar.\n"
-#~ "\n"
-#~ "Viltu halda áfram með uppfærsluna ?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Þessi vél hefur ekki skrána /etc/redhat-release. Það er mögulegt að þetta "
-#~ "sé því ekki %s vél. Ef þú heldur áfram með uppfærsluna getur það valdið "
-#~ "því að vélin verður ónothæf. Viltu halda áfram með uppfærsluna ?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Stillingar auðkenningar"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Nota _MD5 lykilorð"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Nota _falin lykilorð"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Nota N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "_Kalla eftir NIS þjóni"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS _lén: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "NIS þ_jónn: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Nota _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Nota _TLS uppflettingar"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP þ_jónn:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _grunn DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Nota _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "Lé_n:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Stjórnþjónn:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Nota SMB _auðkenningu"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB þ_jónn:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB _vinnuhópur:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Búa til ræsidiskling"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Ræsidisklingur gerir þér kleift að ræsa %s vélina þína af disklingi ef "
-#~ "stillingar ræsistjórans hætta að virka, þú kýst að setja ekki upp "
-#~ "ræsistjóra eða ef þú notar ræsistjóra frá þriðja aðila sem styður ekki "
-#~ "Linux.\n"
-#~ "\n"
-#~ "Við mælum eindregið með að þú búir til ræsidisk.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Já, ég vil búa til ræsidiskling"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "_Nei, ég vil ekki búa til ræsidiskling"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Veldu disk til að keyra fdasd á"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Ef þú forsníður DASD tækið sem er valið mun það eyða öllum gögnum á því. "
-#~ "Viltu virkilega forsníða þetta DASD tæki?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Disksneiðing með fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Veldu disk til að keyra fdisk á:"
-
-#~ msgid "Disabled"
-#~ msgstr "Óvirkt"
-
-#~ msgid "Warn"
-#~ msgstr "Aðvara"
-
-#~ msgid "Active"
-#~ msgstr "Virkt"
-
-#~ msgid "Firewall"
-#~ msgstr "Eldveggur"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Aðvörun - Enginn eldveggur"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Ef þessi vél er tengd við Internetið eða annað stórt almennt net mælum "
-#~ "við með því að þú stillir eldvegginn til að fyrirbyggja að óprúttnir "
-#~ "aðilar geti notað vélina. Þú hefur hinsvegar kosið að nota ekki "
-#~ "eldvegginn. Veldu \"Halda áfram\" til að halda áfram uppsetningunni án "
-#~ "eldveggs."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Stillingar eldveggs"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Halda áfram"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Eldveggur getur komið í veg fyrir að óprúttnir aðilar geti tengst "
-#~ "tölvunni þinni af Internetinu.  Viltu virkja eldvegginn?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "En_ginn eldveggur"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Virkja eldvegginn"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Með eldvegg er mögulegt að leyfa öðrum tölvum að tengjast þjónustum á "
-#~ "vélinni þinni. Hvaða þjónustur viltu leyfa aðgang í?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) býður uppá ítarlegri öryggisstillingar "
-#~ "en eru til staðar í hefðbundnum Linux kerfum. Það er hægt að setja "
-#~ "SELinux upp í óvirkum ham svo það vari eingöngu við aðgerðum sem væru "
-#~ "óheimilar eða í fullkomlega virkri stöðu."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Virkja _SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Allir pakkar"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Pakki:  %s\n"
-#~ "Útgáfa: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "_Trjáhamur"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Flatur hamur"
-
-#~ msgid "_Package"
-#~ msgstr "_Pakki"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Stærð (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Heildarstærð: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Velja _allt í hópnum"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Afvelja allt í hópnum"
-
-#~ msgid "Minimal"
-#~ msgstr "Lágmarks"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Upplýsingar um '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Pakkahópur getur haft bæði grunnpakka og aukapakka. Grunnpakkarnir eru "
-#~ "alltaf uppsettir ef pakkahópurinn er valinn.\n"
-#~ "\n"
-#~ "Veldu þá aukapakka sem þú vilt setja inn:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Grunnpakkar"
-
-#~ msgid "Details"
-#~ msgstr "Nánar"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Velja hvern pakka fyrir sig"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Klukkan í vélinni er á _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Vinsamlegast veldu þá borg sem er nálægust þér í tímabeltinu:"
-
-#~ msgid "_Location"
-#~ msgstr "_Staðsetning"
-
-#~ msgid "Description"
-#~ msgstr "Lýsing"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Unprobed skjár"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Sérsníða grafískar stillingar"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Litadýpt:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 litir (8 bita)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Mjög margir litir (16 bita)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Allir litirnir (24 bita)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Upplausn skjás:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Vinsamlegast veldu sjálfgefið skjáborðsumhverfi:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Sjálfgefið skjáborðsumhverfi er:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Vinsamlega veldu tegund kveðju:"
-
-#~ msgid "_Text"
-#~ msgstr "_Texti"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Myndræn"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Stillingar skjás"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Ótilgreindur skjár"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Þú hefur ekki valið skjáargerð.  Við mælum með að þú veljir þann sem "
-#~ "líkist þínum hvað mest til að fá meiri gæði á skjáborðinu."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Velja tegund skjás"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "Í flestum tilfellum er hægt að leita sjálfvirkt eftir bestu stillingunum "
-#~ "fyrir skjáinn þinn. Takist það ekki veldu þá réttar stillingar hér."
-
-#~ msgid "Restore _original values"
-#~ msgstr "_Endurheimta fyrri gildi"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Lá_rétt samhæfing:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "_Lóðrétt samhæfing:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Myndræn (X) stilling"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Óþekkt skjákort"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Villa kom upp við val skjákorts %s. Vinsamlegast tilkynntu þetta á %s."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Ótilgreint skjákort"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Þú þarft að velja skjákort áður en hægt er að stilla X gluggakerfið. Ef "
-#~ "þú vilt sleppa því að stilla X getur þú valið 'Sleppa að stilla X' "
-#~ "hnappinn."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Vélin þín verður stillt þannig að hún ræsir 'frame buffer' rekilinn fyrir "
-#~ "X gluggakerfið. Ef þú vilt ekki setja upp X gluggakerfið skaltu velja "
-#~ "'Sleppa að stilla X' hnappinn að neðan."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Ekki var hægt að finna magn skjáminnis sjálfvirkt. Veldu magn skjáminnis "
-#~ "úr listanum að neðan:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "Í flestum tilfellum er hægt að leita sjálfvirkt eftir bestu stillingunum "
-#~ "fyrir skjákortið þitt. Takist það ekki veldu þá réttar stillingar hér."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "_Vinnsluminni skjákorts: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Sleppa að stilla X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Ræsidisklingur gerir þér kleift að ræsa %s kerfinu þínu af disklingi. "
-#~ "Ræsidisklingur mun alltaf koma vélinni þinni á lappirnar ef stillingar "
-#~ "ræsistjóra verða óvirkar.\n"
-#~ "\n"
-#~ "Við mælum eindregið með að þú búir til ræsidiskling.\n"
-#~ "\n"
-#~ "Viltu búa til ræsidiskling?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Ræsidisklingur"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Veldu disk til að keyra fdasd eða dasdfmt á"
-
-#~ msgid "Next"
-#~ msgstr "Áfram"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Breyta disksneiðum"
-
-#~ msgid "Format DASD"
-#~ msgstr "Forsníða DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Stillingar diska"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Það kom upp villa við keyrslu %s á drifi %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Að keyra dasdfmt innifelur að \n"
-#~ "ÖLL GÖGN á drifi %s tapast.\n"
-#~ "\n"
-#~ "Viltu virkilega gera þetta?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Það kom upp villa. Engin tæki fundust sem unnt er að búa til ný "
-#~ "skráakerfi á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir "
-#~ "eða notaðu dasdfmt.\n"
-#~ "\n"
-#~ "Fara aftur í fdasd skjámyndina?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Veldu disk til að keyra fdisk á"
-
-#~ msgid "Customize"
-#~ msgstr "Sérsníða"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Virkja eldvegginn"
-
-#~ msgid "No firewall"
-#~ msgstr "Enginn eldveggur"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Leyfa tengingar inn:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Ógilt val"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Þú getur ekki sérsniðið eldvegg sem er ekki virkur."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Sérsníða stillingar eldveggs"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Með eldvegg er þér kleyft að leyfa aðgang í tilteknar þjónustur á vélinni "
-#~ "þinni frá öðrum vélum. Leyfa aðgang í hvaða þjónustur?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Öryggisendurbætur"
-
-#~ msgid "Edit User"
-#~ msgstr "Breyta notanda"
-
-#~ msgid "Add User"
-#~ msgstr "Bæta við notanda"
-
-#~ msgid "User Name"
-#~ msgstr "Notandanafn"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Lykilorð (staðfesta)"
-
-#~ msgid "Full Name"
-#~ msgstr "Fullt nafn"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Ógilt notandanafn"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "Notandanöfn mega einungis innihalda stafina A-Z, a-z og 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Notandanafn vantar"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "Þú verður að gefa upp notandanafn"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Lykilorðið verður að vera a.m.k. 6 stafir að lengd."
-
-#~ msgid "User Exists"
-#~ msgstr "Notandinn er þegar til"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "Þegar er búið að skilgreina rótarnotandann. Þú þarft ekki að bæta honum "
-#~ "við hér."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Þegar er búið að skilgreina þennan kerfisnotanda. Þú þarft ekki að bæta "
-#~ "honum við hér."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Þessi notandi er þegar til. Veldu annað notandanafn."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Þú ættir alltaf að nota aðgang venjulegs notanda þegar þú ert að vinna á "
-#~ "vélinni. Með því að nota rótaraðganginn sem minnst minnkar þú hættuna á "
-#~ "að valda skemmdum á grunnstillingum vélarinnar."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Búa til notanda"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Hvaða aðra notendur viltu hafa á þessari vél? Þú ættir að hafa að minnsta "
-#~ "kosti einn notandaaðgang, sem er ekki rót fyrir dagleg störf. "
-#~ "Fjölnotandavélar geta haft ótakmarkaðan fjölda notenda."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Sláðu inn upplýsingar um þennan notanda."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Breyta upplýsingum þessa notanda."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Nota falin lykilorð"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Nota MD5 lykilorð"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Nota NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS lén:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS þjónn:"
-
-#~ msgid "or use:"
-#~ msgstr "eða nota:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Kalla eftir þjóni"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Nota LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP þjónn:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP grunn DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Nota TLS tengingar"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Nota Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Lén:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Stjórnþjónn:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Litadýpt"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Vinsamlegast veldu þá litadýpt sem þú vilt nota:"
-
-#~ msgid "Resolution"
-#~ msgstr "Upplausn"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "Vinsamlegast veldu þá upplausn sem þú villt nota:"
-
-#~ msgid "X Customization"
-#~ msgstr "Stillingar X"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr "Veldu litadýptina og upplausnina sem þú villt nota á vélinni þinni."
-
-#~ msgid "Color Depth:"
-#~ msgstr "Litadýpt:"
-
-#~ msgid "Change"
-#~ msgstr "Breyta"
-
-#~ msgid "Resolution:"
-#~ msgstr "Upplausn:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Sjálfgefið skjáborð:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Sjálfgefin kveðja:"
-
-#~ msgid "Graphical"
-#~ msgstr "Myndræn"
-
-#~ msgid "Text"
-#~ msgstr "Texti"
-
-#~ msgid "Monitor"
-#~ msgstr "Skjár"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Vinsamlegast veldu skjáinn sem er tengdur vélinni þinni."
-
-#~ msgid "horizontal"
-#~ msgstr "Lárétt"
-
-#~ msgid "vertical"
-#~ msgstr "Lóðrétt"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Ógild tíðnisvið"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "Tíðnisviðið %s er ógilt:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Gilt tíðnisvið er á forminu:\n"
-#~ "\n"
-#~ "      31.5                   stök tala\n"
-#~ "    50.1-90.2                svið talna\n"
-#~ "31.5,35.0,39.3-40.0          listi af tölum/sviðum\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Tíðnisvið skjás"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Vinsamlegast sláðu inn tíðnisvið skjásins þíns. \n"
-#~ "\n"
-#~ "ATH - Það er venjulega ekki nauðsynlegt að breyta tíðnisviðunum handvirkt "
-#~ "og gætt skal að því að hafa þau rétt fyrir skjáinn þinn."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "HSync tíðni: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "VSync tíðni: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Veldu skjáinn sem er á vélinni þinni.  Notaðu '%s' hnappinn til að "
-#~ "endurstilla gildin sem sjálfvirka leitin fann."
-
-#~ msgid "Monitor:"
-#~ msgstr "Skjár:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "HSync tíðni:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "VSync tíðni:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Veldu tegund skjás"
-
-#~ msgid "Proceed"
-#~ msgstr "Halda áfram"
-
-#~ msgid "Video Card"
-#~ msgstr "Skjákort"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Vinsamlegast veldu skjákortið sem er í vélinni þinni. Notaðu '%s' "
-#~ "hnappinn til að endurstilla gildin sem sjálfvirka leitin fann."
-
-#~ msgid "Video RAM"
-#~ msgstr "Skjáminni"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Vinsamlegast veldu það magn skjáminnis sem er til staðar á skjákortinu "
-#~ "þínu. Notaðu '%s' hnappinn til að endurstilla gildin sem sjálfvirka "
-#~ "leitin fann."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Sleppa að stilla X"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Stillingar skjákorts"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Veldu skjákortið og skjáminnið sem það hefur."
-
-#~ msgid "Video Card:"
-#~ msgstr "Skjákort:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Óþekkt kort"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Vinnsluminni skjákorts:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Ef þú vilt yfirfara fleiri diska, settu næsta disk í núna og veldu \"%s"
-#~ "\". Þú þarft ekki að yfirfara þá alla alltaf en við mælum þó með að þú "
-#~ "gerir það amk. einusinni.\n"
-#~ "\n"
-#~ "Til að hefja uppsetninguna, settu disk #1 í drifið og veldu \"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Yfirferð diskmyndar %s er lokið og niðurstaðan er: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Eastern Standard Time - central Nunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Great Britain"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Northern Ireland"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmania"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "northeast Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "southwest Mali"
