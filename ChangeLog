@@ -1,5 +1,8 @@
 2006-01-17  Chris Lumens  <clumens@redhat.com>
 
+	* instdata.py (InstallData.write):  Don't traceback on printing out an
+	authconfig-related error message (#178041).
+
 	* loader2/urlinstall.c (loadSingleUrlImage):  Not every caller wants
 	to put the product on the front of the URL (#178001).
 

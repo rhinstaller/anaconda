@@ -123,24 +123,24 @@ class InstallData:
             
         self.timezone.write (instPath)
 
+        args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
+
         try:
             if flags.setupFilesystems:
-                args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
                 iutil.execWithRedirect("/usr/bin/authconfig", args,
                                        stdout = None, stderr = None,
                                        searchPath = 1, root = instPath)
             else:
-                log.error("Would have run: /usr/bin/authconfig %s", args)
+                log.error("Would have run: %s", args)
         except RuntimeError, msg:
-                log.error("Error running /usr/bin/authconfig %s: %s",
-                          args, msg)
+                log.error("Error running %s: %s", args, msg)
 	
 	self.firewall.write (instPath)
         self.security.write (instPath)
         self.rootPassword.write (instPath, useMD5)
         self.accounts.write (instPath, useMD5)
 
-    def writeKS(self, filename):
+    def writeKS(self, filename, backend):
         if self.auth.find("--enablemd5"):
             useMD5 = True
         else:
@@ -201,8 +201,7 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
-# FIXME: write package selection using backend
-        #self.backend.writePackagesKS(f)
+        backend.writePackagesKS(f)
 
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, useMD5)
