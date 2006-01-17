@@ -1,21 +1,21 @@
 # translation of hi.po to Hindi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005.
+# Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-07-25 15:29+0530\n"
+"PO-Revision-Date: 2006-01-17 16:35+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 
 #: ../anaconda:98
@@ -170,32 +170,28 @@ msgstr "आलेखी अधिष्ठापन उपलब्ध नही
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "प्रदर्शक मोड चर सेट नहीं है. पाठ मोड शुरू कर रहा है!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "एक शैल के लिये <enter> दबायें"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "आलेखी अधिष्ठापन आरंभ कर रहा है..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "अज्ञात Url विधि %s"
+msgstr "अज्ञात अधिष्ठापन विधि"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"जिस मशीन पर आप अधिष्ठापन करने का प्रयास कर रहें हैं वो %s के इस रिलीज द्वारा समर्थित "
-"नहीं है."
+msgstr "जिस अधिष्ठापन विधि को आपने निर्दिष्ट किया है, वो एनाकोंडा के द्वारा समर्थित नहीं है."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "अज्ञात Url विधि %s"
+msgstr "अनजान अधिष्ठापन विधि: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -251,8 +247,7 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "आपके आर्किटेक्चर के लिए %s बूट विभाजन बूटिंग निर्धारक से मिल नहीं सकती."
 
 #: ../autopart.py:1077
@@ -548,7 +543,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s का अधिष्ठापन हो रहा है... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -570,26 +565,24 @@ msgstr ""
 "होने जा रहा है."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "संनिक्षेप लिखा गया"
+msgstr "संनिक्षेप नहीं लिखा गया"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "फ्लॉपी में सिस्टम स्थिति को लिखने में समस्या थी."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"आपके सिस्टम की स्थिति सफलता पूर्वक फ्लॉपी पर लिखी जा चुकी है. आपका सिस्टम अब पुनःआरंभ "
-"होने जा रहा है."
+"आपके सिस्टम की स्थिति सफलता पूर्वक दूरस्थ मेजबान पर लिखी जा चुकी है.\n"
+"आपका सिस्टम अब पुनः सेट किया जायेगा."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "दूरस्थ मेजबान में सिस्टम स्थिति लिखने में समस्या थी."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1136,17 +1129,16 @@ msgstr ""
 "अपने सिस्टम को रिबूट करने के लिये ठीक बटन दबायें."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "जोड़ रहा है..."
+msgstr "चल रहा है..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "पूर्व अधिष्ठापित स्क्रिप्ट चला रहा है"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "उत्तर अधिष्ठापित स्क्रिप्ट चला रहा है"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1154,8 +1146,7 @@ msgstr "मेजबाननाम को 64 या इससे कम सं�
 
 #: ../network.py:47
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
+msgstr "मेजबाननाम को 'a-z' या 'A-Z' सीमा में एक उचित संप्रतीक से अवश्य प्रारंभ होना चाहिए"
 
 #: ../network.py:52
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1400,13 +1391,13 @@ msgstr ""
 "अंक, '.' या '_' है."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"आरोह बिंदु अमान्य है. आरोह बिंदु को '/' से शुरु होना ज़रूरी है और '/' से अंत नहीं हो सकता "
-"और मुद्रण योग्य संप्रतीक समाहित होना ज़रूरी है और अतिरिक्त स्थान नहीं होना चाहिए."
+"आरोह बिंदु %s अमान्य है. आरोह बिंदु को '/' से शुरु होना ज़रूरी है और '/' से अंत नहीं हो सकता "
+"और मुद्रण योग्य संप्रतीक समाहित होना ज़रूरी है और खाली स्थान नहीं होना चाहिए."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1457,8 +1448,7 @@ msgstr "एक LDL संरुपित DASD के एक विभाजन �
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
+msgstr "आप यह विभाजन विलोपित नहीं कर सकते, यह एक विस्तारित विभाजन है जिसमें %s समाहित है"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1614,8 +1604,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
+msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके संरूपित करने के लिए चुना गया है."
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -1663,8 +1652,7 @@ msgid "Confirm Reset"
 msgstr "पुनःजमावट निश्चित करें"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "क्या आप निश्चित हैं कि आप विभाजन तालिका को असली स्थिति में पुनःजमाना चाहते हैं ?"
 
 #: ../partitioning.py:57
@@ -1713,8 +1701,7 @@ msgstr ""
 "कि अधिष्ठापन नहीं हो सकता."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "आपको FAT प्रकार और 50 मेगाबाइट आकार का एक /boot/efi विभाजन अवश्य बनाना है."
 
 #: ../partitions.py:835
@@ -1782,8 +1769,7 @@ msgstr "एक विभाजन जो LVM आयतन समूह का �
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "यह आरोह बिंदु अमान्य है. / फाइल सिस्टम पर %s निर्देशिका को अवश्य होना है."
 
 #: ../partRequests.py:252
@@ -2001,9 +1987,8 @@ msgid "Save"
 msgstr "सहेजें"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "हटाएं"
+msgstr "दूरस्थ"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2015,16 +2000,15 @@ msgstr "अपवाद घटित हुआ"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "दूरस्थ मेजबान सहेजें"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "मेजबाननाम"
+msgstr "मेजबान"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "दूरस्थ पथ"
 
 #: ../text.py:195
 msgid "User name"
@@ -2052,8 +2036,7 @@ msgid "Welcome to %s"
 msgstr "%s में स्वागत है"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> सहायता के लिए | <Tab> तत्वों के बीच | <Space> चुनते हैं | <F12> आगे स्क्रीन"
 
 #: ../text.py:420
@@ -2275,7 +2258,7 @@ msgid "Preparing to install..."
 msgstr "अधिष्ठापन के लिए तैयार हो रहा है..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2283,11 +2266,11 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"%s-%s-%s संकुल खोला नहीं जा सकता. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो "
+"%s-%s-%s.%s संकुल खोला नहीं जा सकता. यह फाइल नहीं होने या शायद भ्रष्ट संकुल के कारण हो "
 "सकता है. यदि आप CD माध्यम से अधिष्ठापन कर रहे हैं इसका सामान्यतः अर्थ यह है कि CD "
 "माध्यम भ्रष्ट है या CD चालन माध्यम को पढ़ने में असमर्थ है.\n"
 "\n"
-"पुनःप्रयास करने के लिए <return> दबाएं."
+"पुनःप्रयास करने के लिए 'फिर कोशिश करें' दबाएं."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2306,28 +2289,24 @@ msgid "_Cancel"
 msgstr "रद्द करें (_C)"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "RPM लेनदेन के तैयार कर रहा है..."
+msgstr "लेनदेन के दौरान त्रुटि..."
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "संकुल जानकारी पढ़ रहा है..."
+msgstr "अधिष्ठापन जानकारी पा रहा है..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
-"आपके अधिष्ठापन तरू में comps फाइल एक छूटा हुआ गंभीर समूह है.  कृपया निश्चित करें कि आपका "
-"अधिष्ठापन तरू सही ढंग से उत्पन्न किया गया है."
+msgstr "संकुल मेडाडाटा पढ़ने में असमर्थ. यह गुम रिपोडाटा निर्देशिका के कारण हो सकता है.  कृपया निश्चित करें कि आप अधिष्ठापन तरू सही से उत्पन्न किया गया है.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "अवर्गीकृत"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2338,9 +2317,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "अधिष्ठापन प्रक्रिया प्रारंभ हो रही है, यह कई मिनट ले सकता है....."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "अधिष्ठापन प्रकार"
+msgstr "अधिष्ठापन प्रगति"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2859,9 +2837,9 @@ msgid "Unknown Linux system"
 msgstr "अज्ञात Linux सिस्टम"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "संकुलः"
+msgstr "%s में संकुल"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2869,11 +2847,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"%s के लिये कोई विवरण उपलब्ध नहीं.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "किस प्रकार के माध्यम में अधिष्ठापन के लिए संकुल समाहित है? "
+msgstr "[%d %d वैकल्पिक संकुल का अधिष्ठापित है]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3630,14 +3610,12 @@ msgid "Partitioning"
 msgstr "विभाजन कर रहा है"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "निम्नांकित गंभीर त्रुटि आपके निवेदित विभाजन योजना के साथ उपस्थित हैं."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "आपके %s के अधिष्ठापन से जारी होने से पहले यह त्रुटि को सही किया जाना जरूरी है."
 
 #: ../iw/partition_gui.py:643
@@ -4134,8 +4112,7 @@ msgstr "यह आपके वर्तमान बूट अधिभार�
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "अधिष्ठापक ने %s बूट अधिभारक को वर्तमान में %s पर अधिष्ठापित हुआ खोजा है."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4270,8 +4247,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वेप फाइल का आकार 1 और 2000 MB के बीच जरूर होना चाहिए."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "आपके द्वारा चयनित युक्ति पर स्वेप विभाजन के लिए स्थान पर्याप्त नहीं हैं."
 
 #: ../iw/zfcp_gui.py:24
@@ -4438,8 +4414,7 @@ msgstr ""
 "के साथ करना चाहते हैं."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> बटन चुनते हैं  | <F2> मूलभूत बूट प्रवेशिका चुनें | <F12> आगे स्क्रीन>"
 
 #: ../textw/bootloader_text.py:397
@@ -4748,8 +4723,7 @@ msgid "Package Group Selection"
 msgstr "संकुल समूह चुनाव"
 
 #: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> चुनाव   |   <F2> समूह विवरण   |   <F12> अगला स्क्रीन"
 
 #: ../textw/packages_text.py:122
@@ -4778,8 +4752,7 @@ msgid "Individual Package Selection"
 msgstr "व्यक्तिगत संकुल चुनाव"
 
 #: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> चुनाव   |   <F1> सहायता  |   <F2> संकुल वर्णन"
 
 #: ../textw/packages_text.py:379
@@ -5006,16 +4979,14 @@ msgstr "तार्किक आयतन बनाने के लिए क�
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम तार्किक आयतन आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1311
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
+msgstr "वर्तमान में निवेदित आकार (%10.2f MB) आयतन समूह में उपलब्ध आकार (%10.2f MB) से बड़ा है."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5046,8 +5017,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "   F1-सहायता     F2-नया   F3-संपादन करें F4-विलोपित करें    F5-पुनःजमाएँ    F12-"
 "ठीक        "
@@ -5065,16 +5035,15 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "इस अधिष्ठापन के लिए किन चालन(ओं) का आप प्रयोग करना चाहते हैं?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "विभाजन कर रहा है"
+msgstr "विभाजन प्रकार"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "अधिष्ठापन के लिये आपके हार्ड ड्राइव के विभाजन की जरूरत है. मूलभूत रूप से, एक विभाजनकारी लेआउट चुना गया है जो कि ज्यादातर उपयोक्ता के लिये तार्किक है. या तो आप इसे प्रयोग के लिये चुन सकते हैं या अपना स्वयं का बना सकते हैं."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5299,9 +5268,8 @@ msgstr ""
 "यह अधिष्ठापन प्रकार चुनें."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "संरुपित करें (_F)"
+msgstr "फेडोका (_F)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5446,6 +5414,8 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"अगर आप अतिरिक्त मीडिया जांच करना चाहते हैं, अगला CD डालें और \"%s"
+"\" दबायें. हर CD को जांचना कड़ाई से जरूरी है, हालांकि यह काफी अनुशंसित है.  न्यूनतम रूप से, CDs को उन्हें प्रयोग करने से पहले जांचा जाना चाहिये पहली बार. उन्हें सफलतापूर्वक जांचे जाना के बाद, हर CD को इसे पहले प्रयोग करने के लिये फिर जांचना जरूरी है."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5601,15 +5571,14 @@ msgid ""
 msgstr "निम्नांकित अमान्य तर्क किकस्टार्ट डिस्क समादेश के लिए निर्दिष्ट था: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "कृपया कोई पैरामीटर दाखिल करें जो स्थानों के द्वारा पृथक %s मॉडयूल को भेजना चाहते हैं. यदि "
-"आप नहीं जानते हैं कि कौन-सा पैरामीटर भेजें \"ठीक\" बटन दबाकर इस स्क्रीन को छोडें . F1 "
-"कुंजी दबाने से उपलब्ध विकल्पों की एक सूची मिल सकती हैं."
+"आप नहीं जानते हैं कि कौन-सा पैरामीटर भेजें \"ठीक\" बटन दबाकर इस स्क्रीन को छोडें ."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5658,8 +5627,7 @@ msgstr "%s चालक भारित कर रहा है..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है."
+msgstr "ऐसा नहीं लगता है कि उस निर्देशिका में %s अधिष्ठापन वृक्ष आपके बूट माध्यम से मिलान करता है."
 
 #: ../loader2/hdinstall.c:215
 msgid ""
@@ -5753,10 +5721,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s में स्वागत है - बचाव मोड"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> तत्वों के बीच          | <स्थान> चुनें        | <F12> आगे स्क्रीन"
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5921,56 +5887,44 @@ msgstr "%s अधिष्ठापन बिंव ढ़ूढ़नें म
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "विफल"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"असफल. \n"
-"\n"
 "अभी जाँचे गए बिंव में त्रुटि हैं. यह भ्रष्ट भारित या एक बुरी डिस्क के कारण हो सकता है. यदि "
 "लागू हो, कृपया डिस्क साफ करें और पुनः प्रयास करें. यदि यह जाँच लगातार असफल है, आप "
-"अधिष्ठापन जारी न करें."
+"अधिष्ठापन जारी न रखें."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "सफल"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"सफल.\n"
-"\n"
-"इस माध्यम से अधिष्ठापन करने में कोई त्रुटि नहीं है."
+msgstr "इस मीडिया से अधिष्ठापित करना ठीक है."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"कोई checksum जानकारी उपलब्ध नहीं, माध्यम जाँचने में असमर्थ."
+msgstr "कोई checksum जानकारी उपलब्ध नहीं, माध्यम जाँचने में असमर्थ."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
-msgstr "माध्यम जांच परिणाम "
+msgstr "माध्यम जांच परिणाम"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"बिंव का:\n"
+"चित्र के लिये %s:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -5979,6 +5933,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"मीडिया जांच %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6150,7 +6107,7 @@ msgstr "NFS व्यवस्था"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "बिना DNS विन्यस्त किये मेजबाननाम निर्दिष्ट"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6317,40 +6274,35 @@ msgid "_Release Notes"
 msgstr "रिलीज नोट्स (_R)"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "बनाए गए विभाजनों को पुनःदेखें(और यदि आवश्यक हो, रूपांतरित करें)"
+msgstr "विभाजनकारी लेआउट की समीक्षा व रूपांतरण करें (_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "इस अधिष्ठापन का प्रयोग करने के लिए चालन(ओं) का चयन करें:"
+msgstr "इस अधिष्ठापन का प्रयोग करने के लिए चालन(ओं) का चयन करें (_S)"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "अपवाद घटित हुआ"
+msgstr "अपवाद सूचना"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "अपवाद घटित हुआ"
+msgstr "अपवाद विवरण (_E)"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "इस समूह के साथ जुड़ा कुछ संकुल को अधिष्ठापित किये जाने की जरूरत नहीं है लेकिन अतिरिक्त प्रकार्यात्मकता दे सकते हैं.  कृपया संकुल चुनें जो आप अदिष्ठापित करना चाहेंगे."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "वैकल्पिक संकुल"
+msgstr "वैकल्पिक संकुल (_O)"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "संवाद1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6401,10 +6353,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "अटलांटिक समय - ई लेब्राडोर"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "अटलांटिक समय - नोवा स्कोटिया (अधिकतम स्थान) NB, W  लाब्राडोर, E क्यूबेक और PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6439,9 +6389,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "केसे स्टेशन,बेलै पेनेनसूला"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "केटामारका(CT)"
+msgstr "केटामारका(CT), चाबुट (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6468,9 +6417,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "केन्द्रीय समय -केमपैज़, यूकाटन"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "केन्द्रीय समय - पश्चिम नूनावट"
+msgstr "केन्द्रीय समय - केंद्रीय नूनावट"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6561,18 +6509,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "पूर्वी मानक समय - इंडियाना - स्विज़रलेण्ड काउंटी"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "पूर्वी मानक समय - पूर्व नूनावट"
+msgstr "पूर्वी मानक समय - साउथंपटन द्वीप"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "पूर्वी समय"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "पूर्वी मानक समय - पूर्व नूनावट"
+msgstr "पूर्वी समय - पूर्व नूनावट"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6591,18 +6537,16 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "पूर्वी समय - ओंटारियो - अधिकतर जगह"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "पूर्वी समय - ओंटारियो एवं क्यूबेक - जगह जो  DST 1९6७-1९७३ को नहीं देखते"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "पूर्वी मानक समय - पैंगनिर्टंग, नूनावट"
+msgstr "पूर्वी समय - पैंगनिर्टंग, नूनावट"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "पूर्वी समय - क्यूबेक - अधिकतर जगह "
+msgstr "पूर्वी समय - क्यूबेक - ज्यादातर जगह "
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -6781,8 +6725,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "पर्वतीय मानक समय - एरिजोना"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "पर्वतीय मानक समय - डासन क्रीक & सेंट जाऩ किला, ब्रिटिश कोलंबिया"
 
 #. generated from zone.tab
@@ -6943,12 +6886,11 @@ msgstr "स्योवा स्टेशन, E ओन्गुल I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "तस्मानिया - किंग द्वीप"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "क्वींसलैंड - अधिकतम जगह"
+msgstr "तस्मानिया - अधिकतम स्थान"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -6967,9 +6909,8 @@ msgid "Tocantins"
 msgstr "टोकानटिन्स"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "ट्रुक (चूक)"
+msgstr "त्रुक (चूक) और याप"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7164,9 +7105,8 @@ msgid "Russian"
 msgstr "रूसी"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "परसियन"
+msgstr "सर्वियन"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7212,1063 +7152,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "जुलु"
 
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "कोई माउस नहीं खोजा गया था. आलेखी अधिष्ठापन के लिए एक माउस की आवश्यकता है. पाठ "
-#~ "प्रकार प्रारंभ कर रहा है."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "माउस के इस प्रकार को खोजा: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "माउस के इस प्रकार का उपयोग हो रहा है: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "एक अनियंत्रित अपवाद घटित हुआ है. ज्यादा संभावना यह एक दोष (बग) है. कृपया एक फ्लॉपी "
-#~ "में इस अपवाद के पूरे पाठ को प्रतिलिपि करने या संनिक्षेप को सुरक्षित करने के बाद एनाकोंडा "
-#~ "के लिये एक विस्तारित दोष सूचना %s को भेजें."
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "दूरस्थ लॉगिन (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "वेब सर्वर (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "फाइल स्थानांतरण (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "मेल सर्वर (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "बूट फ्लापी बनाने में असमर्थ"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "आपकी मशीन के लिए आवश्यक कर्नल माडुअलों का आकार, एक फ्लापी में आनेवाला एक बूट डिस्क "
-#~ "नहीं बना सकता."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "एक फ्लापी डिस्क डालें"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "कृपया फ्लापी चालन से किसी डिस्कटों को हटाएँ और उस फ्लापी डिस्कट को डालें, जिसमें बूट "
-#~ "डिस्क समाहित हो. \n"
-#~ "\n"
-#~ "बूट डिस्क को बनाते समय सभी आंकड़े मिट जाएँगे."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "बूट डिस्क बनाएं (_M)"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "बूट डिस्क बनाते समय एक त्रुटि घटित हुई. कृपया यह निश्चित करें कि प्रथम फ्लापी चालन में "
-#~ "एक फ्लापी है. "
-
-#~ msgid "Creating"
-#~ msgstr "बना रहा है"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "बूट डिस्क बना रहा है..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "बूट डिस्क का सत्यापन करते समय एक त्रुटि घटित हुआ. कृपया यह निश्चित करें कि आपके प्रथम "
-#~ "फ्लापी चालन में अच्छी फ्लापी है."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "आपकी बूट फ्लापी अमान्य मालूम होती है. यह एक बुरी फ्लापी के कारण हो सकता है. कृपया "
-#~ "निश्चित करें कि आपके प्रथम फ्लापी चालन में अच्छी फ्लापी है. "
-
-#~ msgid "_Save to floppy"
-#~ msgstr "फ्लॉपी में सहेजें (_S)"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "निम्नांकित ISO बिंव गुम गए हैं जो कि अधिष्ठापन के लिए जरूरी है:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "सिस्टम अब रीबूट होगा."
-
-#~ msgid "Missing Package"
-#~ msgstr "खोया हुआ संकुल"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "आपने यह निर्दिष्ट किया हैं कि '%s' संकुल अधिष्ठापित होना है. यह संकुल उपस्थित नहीं है. "
-#~ "क्या आप अपने अधिष्ठापन को जारी या विफल करना चाहेंगे?"
-
-#~ msgid "_Abort"
-#~ msgstr "विफल करें (_A)"
-
-#~ msgid "Missing Group"
-#~ msgstr "खोया हुआ समूह"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "आपने यह निर्दिष्ट किया हैं कि '%s' समूह अधिष्ठापित होना है. यह समूह उपस्थित नहीं है. "
-#~ "क्या आप अपने अधिष्ठापन को जारी या विफल करना चाहेंगें?"
-
-#~ msgid "Reading"
-#~ msgstr "पढ़ रहा है"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "प्रवेशिका सूची को पढ़ने में असफल. यह हो सकता है कि फाइल छूट गई है या बुरा माध्यम है. "
-#~ "पुनःप्रयास के लिए <return> दबाएँ."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "comps फाइल पढ़ने में असमर्थ. यह फाइल गुमने या बुरे माध्यम के कारण हो सकता है. कृपया "
-#~ "फिर प्रयत्न के लिए <return> दबाएँ."
-
-#~ msgid "Installing..."
-#~ msgstr "अधिष्ठापन कर रहा है..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "संकुल अधिष्ठापन करने में त्रुटि"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "%s अधिष्ठापन में एक त्रुटि था. इससे माध्यम असफल, डिस्क स्थान की कमी और/या हार्डवेयर "
-#~ "समस्याएं रख सकती है. यह एक घातक त्रुटि है और आपका अधिष्ठापन विफल कर दिया जाएगा. "
-#~ "कृपया अपने माध्यम का सत्यापन करें और अधिष्ठापन के लिए पुनःप्रयास करें.\n"
-#~ "\n"
-#~ "अपने सिस्टम को रीबूट करने के लिए 'ठीक' बटन दबाएँ."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "प्रवेशिका सूची को मिलाने में असमर्थ. यह हो सकता है कि फाइल गुम गई या माध्यम बुरा हो. "
-#~ "पुनःप्रयास के लिए <return> दबाएँ."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s संकुलों का उन्नयन हो रहा है\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s संकुलों का अधिष्ठापन हो रहा है\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "निम्नांकित संकुलों को अधिष्ठापित करने के लिए\n"
-#~ "स्वतः चुना गया थाः\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "जिन संकुलों को अधिष्ठापन करने के लिए आपने चुना था उसके लिए आपके पास पर्याप्त डिस्क "
-#~ "स्थान नहीं है . निम्नांकित फाइल सिस्टमों पर अधिक स्थान की जरुरत है:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "स्थान जरूरी"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "जिन संकुलों को अधिष्ठापन करने के लिए आपने चुना था उसके लिए आपके पास पर्याप्त फाइल नोड "
-#~ "नहीं हैं . निम्नांकित फाइल सिस्टमों पर अधिक फाइल नोडों की जरुरत है:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "आवश्यक नोड"
-
-#~ msgid "Disk Space"
-#~ msgstr "डिस्क स्थान"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "ऐसा लग रहा है कि जिस %s का आप उन्नयन कर रहे हैं, उस रिलीज का आर्किटेक्चर %s है "
-#~ "जिसका आपके पिछले अधिष्ठापित %s आर्किटेक्चर से मिलान नहीं हो रहा है. इसके जारी नहीं "
-#~ "रहने की संभावना है. क्या आप निश्चित हैं कि आप उन्नयन प्रक्रिया जारी रखना चाहते हैं?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "ऐसा लगता है कि यह सिस्टम तीसरे सहायक संकुलों से अधिष्ठापित है जो %s में संलग्न संकुलों से "
-#~ "अध्यारोपित हो रहा है. ये संकुल अध्यारोपित होने के कारण उन्नयन प्रक्रिया जारी रखने से "
-#~ "सुचारू रूप से कार्य करने से रोक सकता है या किसी दूसरे सिस्टम को अस्थिर कर सकता है. "
-#~ "कृपया अधिक जानकारी के लिए रिलीज (विज्ञप्ति) नोट्स को देखें. \n"
-#~ "\n"
-#~ "क्या आप उन्नयन प्रक्रिया को जारी रखना चाहते हैं?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "इस सिस्टम के पास एक /etc/redhat-release फाइल नहीं है. यह संभावित है कि यह एक %s "
-#~ "सिस्टम नहीं है. उन्नयन प्रक्रिया के जारी रहने से हो सकता है कि सिस्टम एक अनुपयोगी "
-#~ "अवस्था में पहुंच जाए. क्या आप उन्नयन प्रक्रिया जारी रखना चाहते हैं?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "सत्यापन विन्यास"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "_MD5 शब्दकूट समर्थ करें"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "छाया शब्दकूट समर्थ करें (_w)"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "N_IS समर्थ करें"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "NIS सर्वर को खोजने के लिए प्रसारण का प्रयोग करें (_b)"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS क्षेत्र (_D): "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "NIS सर्वर (_S): "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "_LDAP समर्थ करें"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "TLS लुकअप्स का प्रयोग करें"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP सर्वर (_S):"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP आधार DN (_B):"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "करबरोस समर्थ करें (_K)"
-
-#~ msgid "R_ealm:"
-#~ msgstr "रियल्म (_e)"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "प्रशासक सर्वर (_A):"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "SMB सत्यापन समर्थ करें (_A)"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB सर्वर (_S):"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB कार्यसमूह (_g):"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "करबरोस 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "बूट डिस्केट निर्माण"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "एक फ्लॉपी डिस्केट से आपके %s सिस्टम पर बूट करने की अनुमति बूट डिस्केट देता है. "
-#~ "बूटअधिभारक विन्यास के कार्य करना रुक जाते समय, यदि आप बूटअधिभारक का अधिष्ठापन नहीं "
-#~ "चुनते हैं, या यदि आपके तीसरे-सहायक बूट अधिभारक Linux का समर्थन नहीं करते हैं तो बूट "
-#~ "डिस्केट आपके सिस्टम को बूट की अनुमति देता है.\n"
-#~ "\n"
-#~ "इसकी अनुशंसा की जाती है कि आप एक बूट डिस्कट जरूर बनाएं.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "हां, मैं एक बूट डिस्केट बनाना चाहूंगा (_Y)"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "नहीं, मैं एक बूट डिस्केट नहीं बनाना चाहता हूँ (_d)"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "fdasd चलाने के लिए चालन चुनें"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "चयनित DASD युक्ति को संरुपित करने से युक्ति की सारी अंतर्वस्तु नष्ट हो जाएगी. क्या आप "
-#~ "वास्तव में चयनित DASD युक्ति को संरुपित करना चाहते हैं ?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "fdisk से विभाजन कर रहा है"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "fdisk से विभाजन करने के लिए चालन चुनें: "
-
-#~ msgid "Disabled"
-#~ msgstr "निष्क्रिय"
-
-#~ msgid "Warn"
-#~ msgstr "सचेत करें"
-
-#~ msgid "Active"
-#~ msgstr "सक्रिय"
-
-#~ msgid "Firewall"
-#~ msgstr "फायरवाल"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "चेतावनी - कोई फायरवाल नहीं है."
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "अगर आपका सिस्टम सीधे इंटरनेट से जुड़ा है या बड़े जन संजाल पर स्थित है, तो अनधिकृत अभिगम "
-#~ "को रोकने के लिए सुझाव है कि फायरवाल को विन्यस्त करना चाहिए.  हालांकि आपने फायरवाल "
-#~ "विन्यस्त नहीं करने के लिए चुना है.  फायरवाल के बिना आगे बढ़ने के लिए \"आगे बढ़ें\" का चयन "
-#~ "करें."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "फायरवाल विन्यस्त करें (_C)"
-
-#~ msgid "_Proceed"
-#~ msgstr "आगे बढ़ें (_P)"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "एक फायरवाल, बाहरी दुनिया से आपके कंप्यूटर में अनाधिकृत अभिगम को रोकने में मदद करती हैं. "
-#~ "क्या आप फायरवाल को समर्थ करना चाहते हैं?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "कोई फायरवाल नहीं"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "फायरवाल को समर्थ करें"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "फायरवाल के साथ आप दूसरे से अपने कंप्यूटर में विशेष सेवाओं को आने देने की इच्छा कर सकते हैं.  "
-#~ "किन सेवाओं के अभिगम की अनुमति है, अगर कोई है?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "सुरक्षा प्रवर्द्धित Linux (SELinux) पारंपरिक Linux सिस्टम की तुलना में उच्चतर कोटि "
-#~ "की व्यवस्थित सुरक्षा उपलब्ध कराता है  यह निष्क्रिय स्थिति में स्थापित किया जा सकता है, "
-#~ "जिस स्थिति में यह सिर्फ उन चीजों के बारे में सचेत करता है जिसकी मनाही की गई है या पूरी "
-#~ "तरह से सक्रिय स्थिति में है."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "SELinux को सक्रिय करें (_S)?:"
-
-#~ msgid "All Packages"
-#~ msgstr "सभी संकुल"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "संकुल  : %s\n"
-#~ "संस्करण : %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "तरू दृश्य (_T)"
-
-#~ msgid "_Flat View"
-#~ msgstr "समतल दृश्य (_F)"
-
-#~ msgid "_Package"
-#~ msgstr "संकुल (_P)"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "आकार (MB) (_S)"
-
-#~ msgid "Total size: "
-#~ msgstr "कुल आकार :"
-
-#~ msgid "Select _all in group"
-#~ msgstr "समूह में सभी को चयनित करें (_a)"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "समूह में सभी को अचयनित करें (_U)"
-
-#~ msgid "Minimal"
-#~ msgstr "न्यूनतम"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "'%s' के लिए विवरण"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "संकुल समूह के पास आधार और वैकल्पिक संकुल सदस्य दोनोx हो सकते हैं. आधार संकुल हमेशा चयनित "
-#~ "हैं जब तक संकुल समूह चयनित हैं\n"
-#~ "\n"
-#~ "अधिष्ठापन के लिए वैकल्पिक संकुलों को चुनें:"
-
-#~ msgid "Base Packages"
-#~ msgstr "आधार संकुल"
-
-#~ msgid "Details"
-#~ msgstr "विवरण"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "व्यक्तिगत संकुल चुनें"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "सिस्टम घड़ी _UTC का प्रयोग करता है"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "कृपया आपके समयक्षेत्र में समीपवर्ती शहर चुनें:"
-
-#~ msgid "_Location"
-#~ msgstr "स्थान (_L)"
-
-#~ msgid "Description"
-#~ msgstr "वर्णन"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "परीक्षण नहीं किया हुआ मॉनीटर"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "आलेखी विन्यास पसंदीदा करें"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "रंग गहराई (_C):"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 रंग (8 बिट)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr " उच्च रंग (16 बिट)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "सत्य रंग (24 बिट)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "स्क्रीन रिजोल्यूशन (_S):"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "कृपया आप मूलभूत डेस्कटाप वातावरण चुनें:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "आपका डेस्कटाप वातावरण हैः"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "आपके लागिन प्रकार को कृपया चुनेः"
-
-#~ msgid "_Text"
-#~ msgstr "पाठ (_T)"
-
-#~ msgid "_Graphical"
-#~ msgstr "आलेखी (_G)"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "मॉनीटर विन्यास"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "मॉनीटर अनिर्दिष्ट"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "आपने एक मॉनीटर प्रकार नहीं चुना है. यह अनुशंसित है कि आप उच्चतम संभावित प्रदर्श "
-#~ "गुणवत्ता पाने के लिए निकटतम मिलान माडल चुनें."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "मॉनीटर प्रकार चुनें (_C)"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "अधिकांश परिस्थितियों में मॉनीटर स्वतःही खोजा जा सकता है. यदि खोजी गई जमावटें, "
-#~ "माँनीटर के लिए सही नहीं है, सही जमावट चुनें."
-
-#~ msgid "Restore _original values"
-#~ msgstr "असली मानों का पुनःसंग्रह करें"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "क्षैतिज तुल्यकालिक (_z)"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "उर्ध्वाधर तुल्यकालिक (_V):"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "आलेखी अंतरफलक (X) विन्यास"
-
-#~ msgid "Unknown video card"
-#~ msgstr "अज्ञात वीडियो कार्ड"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "%s वीडियो कार्ड चयन करने में एक त्रुटि घटित हुआ. कृपया इस त्रुटि की सूचना %s को दें."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "अनिर्दिष्ट वीडियो कार्ड"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "X विन्यास से जारी होने से पहले आप एक वीडियो कार्ड अवश्य चुनें. यदि आप पूरा X विन्यास "
-#~ "छोड़ना चाहते हैं तो 'X विन्यास छोड़ें' बटन चुनें."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "आपका सिस्टम X विंडो सिस्टम के लिए फ्रेम बफर चालन के उपयोग करने के लिए व्यवस्थित हो "
-#~ "जाएगा. यदि आप X विंडो सिस्टम को व्यवस्थित करना नहीं चाहते, नीचे से 'X विन्यास छोड़ें' "
-#~ "चुनें."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "आपकी वीडियो रेम आकार की स्वतःखोज नहीं की जा सकती .निम्नांकित पसंदों में से आपकी "
-#~ "वीडियो रेम चुनें:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "अधिकांश परिस्थितियों में, वीडियो हार्डवेयर स्वतः खोजें जा सकते हैं. यदि खोजी गई जमावट "
-#~ "हार्डवेयर के लिए सही नहीं है, सही जमावट चुनें."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "वीडियो कार्ड RAM: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "X विन्यास छोड़ें (_S)"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "बूट डिस्केट एक फ्लापी डिस्केट से आपके %s सिस्टम को बूट करने की अनुमति देता है. बूट डिस्केट "
-#~ "आपको, आपके बूट अधिभारक विन्यास का कार्य रुकने पर आपके सिस्टम को बूट करने की अनुमति "
-#~ "देते हैं.\n"
-#~ "\n"
-#~ "यह उच्च अनुशंसित है कि आप एक बूट डिस्केट बनाएं.\n"
-#~ "\n"
-#~ "क्या आप एक बूट डिस्केट बनाना चाहते हैं?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "बूट डिस्केट"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "fdasd या dasdfmt चलाने के लिए एक डिस्क चुनें"
-
-#~ msgid "Next"
-#~ msgstr "आगे"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "विभाजनों का संपादन करें"
-
-#~ msgid "Format DASD"
-#~ msgstr "DASD संरुप"
-
-#~ msgid "Disk Setup"
-#~ msgstr "डिस्क व्यवस्था"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "%s चालन पर %s चलाते समय एक त्रुटि घटित हुआ."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "dasdfmt चलाने का अर्थ है कि %s चालन \n"
-#~ "पर 'सभी' आंकड़े का नुकसान होगा.\n"
-#~ "\n"
-#~ "क्या आप सचमुच यह चाहते हैं?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "एक त्रुटि घटित हुआ - नए फाइल सिस्टमों को बनाने के लिए उचित युक्तियां नहीं मिली थी. "
-#~ "कृपया इस समस्या के कारण के लिए आपकी हार्डवेयर को जांचें या dasdfmt प्रयोग करें.\n"
-#~ "\n"
-#~ "fdasd स्क्रीन पर वापस जाएँ?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "fdisk चलाने के लिए एक डिस्क चुनें"
-
-#~ msgid "Customize"
-#~ msgstr "पसंदीदा"
-
-#~ msgid "Enable firewall"
-#~ msgstr "फायरवाल समर्थ करें"
-
-#~ msgid "No firewall"
-#~ msgstr "फायरवाल नहीं"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "आते हुए को अनुमति दें:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "अमान्य पसंद"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "एक असमर्थ फायरवाल को आप पसंदीदा नहीं बना सकते हैं."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "पसंदीदा फायरवाल विन्यास"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "फायरवाल के साथ आप दूसरे से अपने कंप्यूटर में विशेष सेवाओं को आने देने की इच्छा कर सकते हैं.  "
-#~ "किन सेवाओं के अभिगम की अनुमति है?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "सुरक्षा प्रवर्द्धित Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "उपयोक्ता संपादन करें"
-
-#~ msgid "Add User"
-#~ msgstr "उपयोक्ता जोड़ें"
-
-#~ msgid "User Name"
-#~ msgstr "उपयोक्ता नाम"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "शब्दकूट (निश्चित करें)"
-
-#~ msgid "Full Name"
-#~ msgstr "पूरा नाम"
-
-#~ msgid "Bad User Name"
-#~ msgstr "बुरा उपयोक्ता नाम"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "उपयोक्ता नामों में केवल A-Z, a-z, और 0-9 संप्रतीक समाहित होना चाहिए."
-
-#~ msgid "Missing User Name"
-#~ msgstr "उपयोक्ता नाम छूट गया है"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "आपको एक उपयोक्ता नाम अवश्य देना है"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "शब्दकूट कम से कम 6 संप्रतीक का होना चाहिए."
-
-#~ msgid "User Exists"
-#~ msgstr "उपयोक्ता उपस्थित है"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "रुट उपयोक्ता पहले से विन्यस्त है. आपको यहां इस उपयोक्ता को जोड़ने की जरुरत नहीं है."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "यह सिस्टम उपयोक्ता पहले से विन्यस्त है. आपको यहां इस उपयोक्ता को जोड़ने की जरुरत नहीं "
-#~ "है."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "यह उपयोक्ता id पहले से उपस्थित है. कोई अन्य चुनें."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "आपके सिस्टम पर ज्यादातर क्रियाओं के लिए आपको एक सामान्य उपयोक्ता खाता का प्रयोग "
-#~ "करना चाहिए. सामान्य रूप से रूट खाता का उपयोग नहीं करके, अपने सिस्टम विन्यास को नष्ट "
-#~ "करने का मौका आप कम करेंगे."
-
-#~ msgid "User Account Setup"
-#~ msgstr "उपयोक्ता खाता व्यवस्था "
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "सिस्टम पर अन्य कौन-सा उपयोक्ता खाता आप लगाना चाहते हैं? आपके पास कम से कम एक गैर-"
-#~ "रूट खाता सामान्य कार्य के लिए होना चाहिए, परंतु बहु-उपयोक्ता सिस्टमों के पास बहुत सी "
-#~ "खाता व्यवस्था हो सकती हैं."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "उपयोक्ता के लिए जानकारी दाखिल करें."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "इस उपयोक्ता के लिए जानकारी बदलें."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "छाया शब्दकूटों का प्रयोग करें"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "MD5 शब्दकूट समर्थ करें"
-
-#~ msgid "Enable NIS"
-#~ msgstr "NIS समर्थ करें"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS क्षेत्रः"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS सर्वरः"
-
-#~ msgid "or use:"
-#~ msgstr "या प्रयोगः"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "प्रसारण द्वारा सर्वर निवेदित करें"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "LDAP समर्थ करें"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP सर्वरः"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP आधार DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "TLS संबंधनों का प्रयोग करें "
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "करबरोस समर्थ करें "
-
-#~ msgid "Realm:"
-#~ msgstr "रियल्म"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "प्रशासक सर्वरः"
-
-#~ msgid "Color Depth"
-#~ msgstr "रंग गहराई"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "कृपया रंग गहराई को चुनें जो आप प्रयोग करना पसंद करेंगेः"
-
-#~ msgid "Resolution"
-#~ msgstr "रिजोल्यूशन"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "कृपया रिजोल्यूशन को चुनें जो आप प्रयोग करना पसंद करेंगेः"
-
-#~ msgid "X Customization"
-#~ msgstr "X पसंदीदा"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "रंग गहराई और वीडियो प्रकार को चुने जो आपके सिस्टम के लिए आप प्रयोग करना चाहते हैं."
-
-#~ msgid "Color Depth:"
-#~ msgstr "रंग गहराईः"
-
-#~ msgid "Change"
-#~ msgstr "बदलाव"
-
-#~ msgid "Resolution:"
-#~ msgstr "रिजोल्यूशनः"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "मूलभूत डेस्कटापः"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "मूलभूत लागिनः"
-
-#~ msgid "Graphical"
-#~ msgstr "आलेखीय"
-
-#~ msgid "Text"
-#~ msgstr "पाठ "
-
-#~ msgid "Monitor"
-#~ msgstr "मॉनीटर "
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "अपने सिस्टम से संलग्न मॉनीटर को कृपया चुनें."
-
-#~ msgid "horizontal"
-#~ msgstr "क्षैतिज"
-
-#~ msgid "vertical"
-#~ msgstr "उर्ध्वाधर "
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "अमान्य तुल्यकालिक दर"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "%s तुल्यकालिक दर अमान्य है:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "एक उचित तुल्यकालिक दर इस रूप में हो सकती हैः\n"
-#~ "\n"
-#~ "      31.5                 एक एकल क्रमांक\n"
-#~ "    50.1-90.2            एक क्रमांक की सीमा\n"
-#~ "31.5,35.0,39.3-40.0        क्रमांक की एक सूची/सीमाएँ\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "मॉनीटर तुल्यकालिक दर"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "आपके मॉनीटर के लिए कृपया तुल्यकालिक दर दाखिल करें.\n"
-#~ "\n"
-#~ "नोट - यह ज़रूरत नहीं है कि तुल्यकालिक दरों का संपादन करें, और निश्चित करें कि दाखिल "
-#~ "मान शुद्ध हैं."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "क्षैतिज तुल्यकालिक दरः"
-
-#~ msgid "VSync Rate: "
-#~ msgstr "उर्ध्वाधर-तुल्यकालिक दरः "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "अपने सिस्टम के लिए मॉनीटर चुनें. '%s' बटन का प्रयोग कर खोजे गए मानों को पुनःजमाएँ."
-
-#~ msgid "Monitor:"
-#~ msgstr "मॉनीटरः"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "क्षैतिज तुल्यकालिक दरः"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "उर्ध्वाधर तुल्यकालिक दरः"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "मॉनीटर प्रकार चुनें"
-
-#~ msgid "Proceed"
-#~ msgstr "आगे बढ़ें"
-
-#~ msgid "Video Card"
-#~ msgstr "वीडियो कार्ड"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "कृपया अपने सिस्टम में उपस्थित वीडियो कार्ड को चुनें. '%s' चुनकर, उस कार्ड के चयन को "
-#~ "पुनः जमाएँ जिसे आपके सिस्टम में अधिष्ठापक ने खोजा था."
-
-#~ msgid "Video RAM"
-#~ msgstr "वीडियो RAM"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "कृपया अपने वीडियो कार्ड पर उपस्थित वीडियो RAM का मूल्य छांटें.  '%s' चुनकर, उस संख्या "
-#~ "के चयन को पुनः जमाएँ जिसे आपके सिस्टम में अधिष्ठापक ने खोजा था."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "X विन्यास छोड़ें"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "वीडियो कार्ड विन्यास"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "आपके सिस्टम के लिए वीडियो कार्ड और वीडियो RAM चुनें."
-
-#~ msgid "Video Card:"
-#~ msgstr "वीडियो कार्डः"
-
-#~ msgid "Unknown card"
-#~ msgstr "अज्ञात कार्ड"
-
-#~ msgid "Video RAM:"
-#~ msgstr "वीडियो RAM:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "यदि आप अतिरिक्त माध्यम की जाँच करना चाहते हैं, अगली CD डालें और \"%s\" दबाएँ. आपको "
-#~ "सभी CDs जाँचने की आवश्यकता नहीं हैं, यद्यपि यह अनुशंसित हैं कि आप कम से कम एक बार "
-#~ "जाँचें.\n"
-#~ "\n"
-#~ "अधिष्ठापन प्रक्रम प्रारंभ करने के लिए चालन में CD #1 डालें और \"%s\" दबाएँ."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "%s माध्यम जांच पूर्ण है, और परिणाम है: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "चुबुट (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "पूर्वी मानक समय - केन्द्रीय नूनावट"
-
-#~ msgid "Great Britain"
-#~ msgstr "ग्रेट ब्रिटेन"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "उत्तरी आयरलेण्ड"
-
-#~ msgid "Tasmania"
-#~ msgstr "तस्मानिया"
-
-#~ msgid "Yap"
-#~ msgstr "याप"
-
-#~ msgid "northeast Mali"
-#~ msgstr "उत्तरपूर्वी माली"
-
-#~ msgid "southwest Mali"
-#~ msgstr "दक्षिणपश्चिम माली"
