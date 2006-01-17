@@ -4,6 +4,9 @@
 
 2006-01-17  Chris Lumens  <clumens@redhat.com>
 
+	* exception.py (dumpClass):  Add yum package selections and excludes
+	to keySkipList.  Fix an exception in exception dumping code.
+
 	* instdata.py (InstallData.write):  Don't traceback on printing out an
 	authconfig-related error message (#178041).
 

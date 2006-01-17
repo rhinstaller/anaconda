@@ -48,6 +48,7 @@ def dumpClass(instance, fd, level=0, parentkey=""):
                     "intf.icw.id.keyboard._mods._modelDict",
                     "intf.ppw.ics.cw.releaseNotesContents",                    
                     "intf.ppw.ics.cw.id.bootloader.password",
+                    "intf.ppw.ics.cw.id.instClass.handlers.handlers",
                     "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.bootloader",
                     "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.rootpw",
                     "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.vnc",
@@ -69,15 +70,22 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "id.tmpData",
 		    "id.xsetup.xhwstate.monitor.monlist",
 		    "id.xsetup.xhwstate.monitor.monids",
-                    "backend.ayum"
+                    "backend.ayum",
+                    "backend.dlpkgs",
+                    "sack.excludes"
 		   ]
 
     # protect from loops
-    if not dumpHash.has_key(instance):
-        dumpHash[instance] = None
-    else:
-        fd.write("Already dumped\n")
+    try:
+        if not dumpHash.has_key(instance):
+            dumpHash[instance] = None
+        else:
+            fd.write("Already dumped\n")
+            return
+    except TypeError:
+        fd.write("Cannot dump object\n")
         return
+
     if (instance.__class__.__dict__.has_key("__str__") or
         instance.__class__.__dict__.has_key("__repr__")):
         fd.write("%s\n" % (instance,))
