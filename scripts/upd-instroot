@@ -198,8 +198,8 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump
                 modutils mtools mt-st mtr net-tools open 
                 openssh openssh-clients pciutils rsh traceroute tar rsync"
 
-if [ $ARCH = i386 ]; then
-    PACKAGESRESCUE="$PACKAGESRESCUE gpart"
+if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+    PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
 fi
 
 # turn off options we dont want, ie. set package list to something harmless
@@ -886,9 +886,16 @@ sbin/dmsetup.static
 EOF
 fi
 
-if [ $ARCH = i386 ]; then
+if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     cat >> $KEEPFILERESCUE <<-EOF
+boot/grub
+sbin/grub
+sbin/grub-install
+sbin/grub-md5-crypt
+sbin/grub-set-default
 usr/bin/gpart
+usr/bin/mbchk
+usr/share/grub/*
 EOF
 fi
 
