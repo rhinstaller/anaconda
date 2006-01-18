@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-06-15 15:56+0100\n"
+"PO-Revision-Date: 2006-01-18 17:24+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -232,32 +232,28 @@ msgstr "Instalação gráfica não disponível...  A iniciar o modo texto."
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "A variável DISPLAY não está definida. A iniciar o modo de texto!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Carregue em <Enter> para obter uma consola"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "A iniciar a instalação gráfica..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Método da Url desconhecido %s"
+msgstr "Método de instalação desconhecido"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Esta a tentar efectuar a instalação numa máquina que não é suportada por "
-"esta versão do %s."
+msgstr "Você indicou um método de instalação que não é suportado pelo Anaconda."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Método da Url desconhecido %s"
+msgstr "Método de instalação desconhecido: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -622,15 +618,12 @@ msgid "Installing %s-%s-%s... "
 msgstr "A instalar %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
-msgstr ""
-"Ocorreu um erro não recuperável.  Provavelmente isto é um 'bug'.  Por favor "
-"copie o texto da excepção ocorrida e comunique um erro no componente "
-"'anaconda' em %s"
+msgstr "Ocorreu um erro não recuperável.  Provavelmente isto é um erro do programa.  Por favor copie o texto da excepção ocorrida e comunique um erro no componente 'anaconda' em %s"
 
 #: ../exception.py:401 ../exception.py:417
 msgid "Dump Written"
@@ -645,26 +638,22 @@ msgstr ""
 "agora reiniciado."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Mensagem de erro escrita"
+msgstr "O Resultado Não Foi Escrito"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Ocorreu um problema ao gravar o estado do sistema na disquete."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
-msgstr ""
-"O estado do seu sistema foi escrito para a disquete. O seu computador será "
-"agora reiniciado."
+msgstr "O estado do seu sistema foi escrito com sucesso na máquina remota. O seu computador será agora reiniciado."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Ocorreu um erro ao gravar o estado do sistema na máquina remota."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1216,17 +1205,16 @@ msgstr ""
 "Carregue no botão OK para reiniciar o seu computador."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "A efectuar a ligação..."
+msgstr "A executar..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "A correr os programas de pré-instalação"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "A correr os programas de pós-instalação"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1490,14 +1478,11 @@ msgstr ""
 "caracteres aceites são letras, dígitos, '.' ou '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
-msgstr ""
-"O ponto de montagem é inválido. Os pontos de montagem devem começar por '/', "
-"não podem terminar com '/' e só podem conter caracteres imprimíveis, sem "
-"espaços."
+msgstr "O ponto de montagem %S é inválido. Os pontos de montagem devem começar por '/', não podem terminar com '/' e só podem conter caracteres imprimíveis, sem espaços."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2121,9 +2106,8 @@ msgid "Save"
 msgstr "Gravar"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Remover"
+msgstr "Remota"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2135,16 +2119,15 @@ msgstr "Ocorreu uma Excepção"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Gravar numa Máquina Remota"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "Nome da Máquina"
+msgstr "Máquina"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Local remoto"
 
 #: ../text.py:195
 msgid "User name"
@@ -2403,7 +2386,7 @@ msgid "Preparing to install..."
 msgstr "Prestes a instalar..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2411,12 +2394,9 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Não foi possível abrir o pacote %s-%s-%s. Isto deve-se a um ficheiro em "
-"falta ou talvez um pacote estragado.  Se está a efectuar a instalação a "
-"partir de um CD isto normalmente deve-se a um erro no CD ou a uma falha de "
-"leitura no leitor de CDs.\n"
+"Não foi possível abrir o pacote %s-%s-%s.%s. Isto deve-se a um ficheiro em falta ou talvez um pacote estragado.  Se está a efectuar a instalação a partir de um CD isto normalmente deve-se a um erro no CD ou a uma falha de leitura no leitor de CDs.\n"
 "\n"
-"Carregue em <return> para tentar novamente."
+"Carregue em 'Repetir' para tentar novamente."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2435,29 +2415,24 @@ msgid "_Cancel"
 msgstr "_Cancelar"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "A preparar a transacção RPM..."
+msgstr "Erro ao executar a transacção"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "A ler informações sobre pacotes..."
+msgstr "A ler a informação de instalação..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
-"O ficheiro 'comps' na sua árvore de instalação não contém certos grupos "
-"críticos.  Por favor verifique que a sua árvore de instalação foi gerada "
-"correctamente."
+msgstr "Não foi possível ler os meta-dados do pacote. Isto poderá ser devido a uma pasta 'repodata' em falta. Por favor verifique que a sua árvore de instalação foi gerada correctamente.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Sem categoria"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2469,9 +2444,8 @@ msgstr ""
 "A iniciar o processo de instalação. Isto pode demorar vários minutos..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Tipo de Instalação"
+msgstr "Progresso da Instalação"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -3000,21 +2974,21 @@ msgid "Unknown Linux system"
 msgstr "Sistema Linux desconhecido"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Pacote  :"
+msgstr "Pacotes em %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
 msgid ""
 "No description available for %s.\n"
 "\n"
-msgstr ""
+msgstr "Não existe nenhuma descrição para o %s.\n\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Em que tipo de formato estão os pacotes que vão ser instalados?"
+msgstr "[%d de %d pacotes opcionais instalados]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5255,16 +5229,15 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Que disco(s) deve(m) ser utilizado(s) para esta instalação?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Particionamento"
+msgstr "Tipo de Particionamento"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "A instalação necessita de particionar o seu disco rígido. Por omissão, é escolhida uma disposição de partições razoável para a maioria dos utilizadores. Poderá então optar por usar esta ou criar a sua."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5491,9 +5464,8 @@ msgstr ""
 "particionamento."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formatar"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5639,7 +5611,7 @@ msgid ""
 "recommended.  Minimally, the CDs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
-msgstr ""
+msgstr "Se quiser testar discos adicionais, insira o próximo CD e carregue em \"%s\". O teste de cada CD não é de todo obrigatório, mas recomenda-se de qualquer forma. No mínimo, os CDs deverão ser testados antes da primeira utilização dos mesmos. Após terem sido testados com sucesso, não é obrigatório testá-los de novo antes de os usar outra vez."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5799,15 +5771,12 @@ msgid ""
 msgstr "Argumento inválido para o comando 'driver disk' do 'kickstart': %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
-msgstr ""
-"Indique os parâmetros que quer passar ao módulo %s separados por espaços.  "
-"Se não sabe que parâmetros deve passar ignore este ecrã, carregando no botão "
-"\"OK\".  Pode obter uma lista das opções disponíveis carregando na tecla F1."
+msgstr "Indique os parâmetros que quer passar ao módulo %s, separados por espaços. Se não sabe que parâmetros deve passar, ignore este ecrã, carregando no botão \"OK\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6128,58 +6097,41 @@ msgstr "Não foi possível obter a imagem de instalação %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "FALHOU"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
-msgstr ""
-"ERRO.\n"
-"\n"
-"A imagem que testou tem erros. Isto pode dever-se a uma transferência de "
-"rede corrompida ou a um disco com erros.  Se aplicável, limpe o disco e "
-"tente novamente.  Se este teste continuar a falhar não deve continuar com a "
-"instalação."
+msgstr "A imagem que testou tem erros. Isto pode dever-se a uma transferência de rede corrompida ou a um disco com erros.  Se aplicável, limpe o disco e tente novamente.  Se este teste continuar a falhar não deve continuar com a instalação."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "PASSOU"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"SUCESSO.\n"
-"\n"
-"Pode utilizar este suporte físico para efectuar a instalação."
+msgstr "Pode usar este suporte físico para efectuar a instalação."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NÃO VERIFICADO.\n"
-"\n"
-"As informações necessárias para o teste não foram encontradas, impossível "
-"verificar."
+msgstr "A informação necessária para o teste não foi encontrada, por isso é impossível verificar."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Resultado da Verificação do Suporte Físico"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"da imagem:\n"
+"%s da imagem:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6188,6 +6140,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"A verificação do disco %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6362,7 +6317,7 @@ msgstr "Configuração de NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Foi indicado um nome de máquina sem o DNS configurado"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6528,41 +6483,35 @@ msgid "_Release Notes"
 msgstr "Notas da _Versão"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Re_ver (e modificar se necessário) as partições criadas"
+msgstr "Re_ver e modificar a disposição das partições"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr ""
-"Seleccione o(s) disco(s) que deve(m) ser utilizado(s) para esta instalação:"
+msgstr "_Seleccione o(s) disco(s) a usar nesta instalação."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Ocorreu uma Excepção"
+msgstr "Informação da Excepção"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Ocorreu uma Excepção"
+msgstr "Detalhes da _excepção"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Alguns pacotes associados a este grupo não precisam de ser instalados mas poderão oferecer funcionalidades adicionais. Por favor escolha os pacotes que deseja instalar."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Pacotes Opcionais"
+msgstr "Pacotes _opcionais"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6653,9 +6602,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Estação Casey, Península Bailey"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6682,7 +6630,6 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Central Time - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
 msgstr "Central Time - Nunavut ocidental"
 
@@ -6775,18 +6722,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Eastern Standard Time - Nunavut oriental"
+msgstr "Eastern Standard Time - Ilha de Southampton"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Eastern Time"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Eastern Standard Time - Nunavut oriental"
+msgstr "Eastern Time - Nunavut oriental"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6811,9 +6756,8 @@ msgstr ""
 "Eastern Time - Ontario & Quebec - locais que não se regem pelo DST 1966-1971"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr "Eastern Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7161,12 +7105,11 @@ msgstr "Estação Syowa, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmânia - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - maior parte dos locais"
+msgstr "Tasmânia - maior parte dos locais"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7185,9 +7128,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) e Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7382,9 +7324,8 @@ msgid "Russian"
 msgstr "Russo"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persa"
+msgstr "Sérvio"
 
 #. generated from lang-table
 msgid "Slovak"
