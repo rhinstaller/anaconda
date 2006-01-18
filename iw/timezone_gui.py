@@ -129,7 +129,7 @@ class AnacondaTZMap(TimezoneMap):
     def status_bar_init(self):
         self.status = None
 
-    def timezone_list_init (self):
+    def timezone_list_init (self, default):
         self.hbox = gtk.HBox()
         self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT, gobject.TYPE_INT)
         self.tzSorted = gtk.TreeModelSort(self.tzStore)
