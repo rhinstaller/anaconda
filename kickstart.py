@@ -708,6 +708,11 @@ class Kickstart(BaseInstallClass):
         self.id = id
         self.id.firstboot = FIRSTBOOT_SKIP
 
+        # make sure our disks are alive
+        from partedUtils import DiskSet
+        ds = DiskSet()
+        ds.startDmRaid()
+
         # parse the %pre
         self.ksdata = KickstartData()
         self.ksparser = KickstartPreParser(self.ksdata, None)
