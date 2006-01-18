@@ -16,7 +16,8 @@
 2006-01-18  Chris Lumens  <clumens@redhat.com>
 
 	* iw/timezone_map.py (AnacondaTZMap.timezone_list_init):  Add a
-	parameter to match what superclass expects (#178140).
+	parameter to match what superclass expects (#178140).  Don't display
+	Etc timezones.
 
 2006-01-17  David Cantrell  <dcantrell@redhat.com>
 

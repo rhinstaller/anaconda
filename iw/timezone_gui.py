@@ -144,6 +144,9 @@ class AnacondaTZMap(TimezoneMap):
         root = self.canvas.root()
         
         for entry in self.zonetab.getEntries():
+            if entry.lat is None or entry.long is None:
+                continue
+
             x, y = self.map2canvas(entry.lat, entry.long)
             marker = root.add(gnomecanvas.CanvasText, x=x, y=y,
                               text=u'\u00B7', fill_color='yellow',
