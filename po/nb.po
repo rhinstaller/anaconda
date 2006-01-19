@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install FC5\n"
+"Project-Id-Version: anaconda FC5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-13 10:16+0100\n"
+"PO-Revision-Date: 2006-01-19 12:43+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -2301,7 +2301,7 @@ msgid "Preparing to install..."
 msgstr "Forbereder installasjon..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2309,11 +2309,9 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Pakken %s-%s-%s kan ikke åpnes. Det kan være pga at filen mangler eller at "
-"pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at "
-"CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
+"Pakken %s-%s-%s.%s kan ikke åpnes. Det kan være pga at filen mangler eller at pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
 "\n"
-"Trykk <linjeskift> for å prøve igjen."
+"Trykk «Prøv igjen» hvis du vil forsøke på nytt."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -5503,7 +5501,7 @@ msgid ""
 "recommended.  Minimally, the CDs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
-msgstr ""
+msgstr "Hvis du ønsker å teste flere plater kan du sette inn neste CD og trykke på «%s». Det er ikke absolutt nødvendig å teste alle CD'ene, men det anbefales. I det minste bør CD'ene testes før de brukes første gang."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5661,16 +5659,12 @@ msgstr ""
 "kickstart: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
-msgstr ""
-"Vennligst oppgi eventuelle parametere som du ønsker å gi til modulen %s, "
-"separert med mellomrom. Hvis du ikke vet hvilke parametere du skal oppgi, "
-"kan du hoppe over denne skjermen ved å trykke \"OK\"-knappen nå. Liste over "
-"tilgjengelige alternativer kan fås ved å trykke på F1."
+msgstr "Vennligst oppgi eventuelle parametere du ønsker å gi til modulen %s skilt med mellomrom. Hvis du ikke vet hvilke parametere du skal oppgi, kan du hoppe over denne skjermen ved å trykke «OK»-knappen."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5986,17 +5980,11 @@ msgid "FAILED"
 msgstr "FEILET"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
-msgstr ""
-"FEIL.\n"
-"\n"
-"Bildet som ble testet inneholder feil. Dette kan være pga. en korrupt "
-"nedlasting eller en dårlig CD. Hvis mulig, rens CDen og prøv igjen. Hvis "
-"denne testen fortsatt feiler bør du ikke fortsette installasjonen."
+msgstr "Bildet som ble testet inneholder feil. Dette kan være pga. en korrupt nedlasting eller en dårlig plate. Hvis mulig, rens CD'en og prøv igjen. Hvis denne testen fortsatt feiler bør du ikke fortsette installasjonen."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -6398,7 +6386,7 @@ msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Noen pakker assosiert med denne gruppen er ikke nødvendige, men tilbyr tileggsfunksjonalitet. Vennligst velg pakkene du ønsker å installere."
 
 #: tmp/GroupSelector.glade.h:2
 msgid "_Optional packages"
