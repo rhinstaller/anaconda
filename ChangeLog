@@ -12,6 +12,8 @@
 	* iw/examine_ui.py (UpgradeExamineWindow.getScreen):  Read
 	self.id.upgrade to determine screen layout rather than checking
 	to see if installtype is in the skip list (#178095).
+	Always populate upgrade combo box, even if upgrade type is not
+	selected.
 
 2006-01-19  Chris Lumens  <clumens@redhat.com>
 

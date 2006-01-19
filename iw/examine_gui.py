@@ -174,13 +174,12 @@ class UpgradeExamineWindow (InstallWindow):
 	r.packWidgetInEntry(UPGRADE_STR, upbox)
 
 	# set default
-	if self.doupgrade:
-	    idx = 0
-	    for p in self.parts:
-		if self.id.upgradeRoot[0][0] == p[0]:
-		    self.upgradecombo.set_active(idx)
-		    break
-		idx = idx + 1
+	idx = 0
+	for p in self.parts:
+	    if self.id.upgradeRoot[0][0] == p[0]:
+	        self.upgradecombo.set_active(idx)
+	        break
+	    idx = idx + 1
 
 	self.upgradeOptionsSetSensitivity(self.doupgrade)
 
