@@ -1135,6 +1135,10 @@ if kbd:
 
 instClass.setInstallData(id, intf)
 
+# We need to copy the VNC-related kickstart stuff into the new ksdata
+if ksfile is not None:
+    instClass.ksdata.vnc = ksdata.vnc
+
 dispatch = dispatch.Dispatcher(intf, id, methodobj, rootPath, backend)
 
 if lang:
@@ -1190,5 +1194,11 @@ except SystemExit, code:
     intf.shutdown()
 except:
     handleException(dispatch, intf, sys.exc_info())
+
+if ksfile is not None and instClass.ksdata.reboot["eject"] == True:
+    isys.flushDriveDict()
+    for drive in isys.cdromList():
+        log.info("attempting to eject %s" % drive)
+        isys.ejectCdrom(drive)
 
 del intf

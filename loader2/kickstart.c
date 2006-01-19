@@ -396,6 +396,7 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
     int rc;
 
     struct poptOption ksOptions[] = {
+        { "eject", 'e', POPT_ARG_NONE, NULL, 0, NULL, NULL },
         { "reboot", 'r', POPT_ARG_NONE, &reboot, 0, NULL, NULL },
         { "halt", 'h', POPT_ARG_NONE, &halt, 0, NULL, NULL },
         { "poweroff", 'p', POPT_ARG_NONE, &poweroff, 0, NULL, NULL },

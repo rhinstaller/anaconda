@@ -17,6 +17,10 @@
 
 2006-01-19  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Attempt to eject the CD drive if we're in kickstart and
+	given the --eject parameter to halt or shutdown (#177554).
+	* loader2/kickstart.c (setShutdown):  Recognize --eject option.
+
 	* iw/timezone_gui.py:  Translate combo box and comments (#178250).
 
 	* instdata.py (InstallData.write):  Disabled backend arg used for
