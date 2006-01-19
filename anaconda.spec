@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.5
+Version: 10.91.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 18 2006 David Cantrell <dcantrell@redhat.com> - 10.91.6-1
+- i18n fixes (katzj)
+
 * Wed Jan 18 2006 David Cantrell <dcantrell@redhat.com> - 10.91.5-1
 - i386 and ppc rescue image script fixes (jkeating)
 - fix kickstart package deselection (clumens, #177530)
