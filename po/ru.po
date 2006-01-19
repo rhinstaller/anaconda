@@ -6,22 +6,22 @@
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
 # Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
+# wedge <wedge@xwing>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-10-12 12:32+0400\n"
-"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
-"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
+"PO-Revision-Date: 2006-01-19 16:18+0000\n"
+"Last-Translator: wedge <wedge@xwing>\n"
+"Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.10\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -176,20 +176,19 @@ msgstr "Графическая установка невозможна...  За�
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Переменная DISPLAY не установлена. Запускается текстовый режим!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Нажмите <enter> для перехода в шелл"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "Запуск графической установки..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Неизвестный метод URL %s"
+msgstr "Неизвестный метод установки%s"
 
 #: ../anaconda:1087
 #, fuzzy
@@ -199,9 +198,9 @@ msgstr ""
 "выпуском %s."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Неизвестный метод URL %s"
+msgstr "Неизвестный метод установки %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -260,8 +259,7 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Загрузочный раздел %s не соответствует требованиям загрузки для вашей "
 "архитектуры."
@@ -560,7 +558,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Установка %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -582,26 +580,25 @@ msgstr ""
 "перезагружена."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Дамп сохранен"
+msgstr "Дамп не сохранен"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Невозможно записать состояние системы на флоппи-диск"
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Состояние вашей системы было успешно сохранено на дискету. Система будет "
+"Состояние вашей системы было успешно сохранено на удаленый хост. Система будет "
 "перезагружена."
 
 #: ../exception.py:426
+#, fuzzy
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Невозможно записать состояние системы на удаленную систему."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1158,11 +1155,11 @@ msgstr "Подключение..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Работают предустановчные скрипты"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Работают постуставновочные скрипты"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1686,10 +1683,8 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
@@ -1737,8 +1732,7 @@ msgstr ""
 "мало для установки %s."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Вы должны создать раздел /boot/efi типа FAT размером 50 мегабайт."
 
 #: ../partitions.py:835
@@ -1806,8 +1800,7 @@ msgstr "раздел, который является членом группы 
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Точка монтирования неверна. Каталог %s должен быть на корневой файловой "
 "системе."
@@ -2053,7 +2046,7 @@ msgstr "Произошло исключение"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Сохранить на удаленную систему"
 
 #: ../text.py:191
 #, fuzzy
@@ -2062,7 +2055,7 @@ msgstr "Имя компьютера"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Путь на удаленной машине"
 
 #: ../text.py:195
 msgid "User name"
@@ -2090,17 +2083,14 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:420
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2351,9 +2341,8 @@ msgid "_Cancel"
 msgstr "_Отмена"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Подготовка транзакции RPM..."
+msgstr "Ошибка RPM-транзакции"
 
 #: ../yuminstall.py:556
 #, fuzzy
@@ -2372,7 +2361,7 @@ msgstr ""
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Вне категорий"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2383,9 +2372,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Запуск процесса установки.  Это может занять несколько минут..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Тип установки"
+msgstr "Процесс установки"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2429,8 +2417,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:37
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Вы не задали worldwide port name устройства или имя указано не правильно."
+msgstr "Вы не задали worldwide port name устройства или имя указано не правильно."
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
@@ -3695,14 +3682,12 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Эти ошибки должны быть исправлены перед продолжением установки %s."
 
 #: ../iw/partition_gui.py:643
@@ -3857,8 +3842,7 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1313
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
@@ -4204,8 +4188,7 @@ msgstr "Ваш текущий загрузчик будет обновлен"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4344,10 +4327,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла свопинга должен быть между 1 и 2000 Мбайт."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
@@ -4515,10 +4496,8 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:397
 msgid ""
@@ -4829,10 +4808,8 @@ msgid "Package Group Selection"
 msgstr "Выбор групп пакетов"
 
 #: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Пробел>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Пробел>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
 
 #: ../textw/packages_text.py:122
 msgid "Package Group Details"
@@ -4860,10 +4837,8 @@ msgid "Individual Package Selection"
 msgstr "Индивидуальный выбор пакетов"
 
 #: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
 
 #: ../textw/packages_text.py:379
 msgid "Package Dependencies"
@@ -5132,8 +5107,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-Ok    "
 
 #: ../textw/partition_text.py:1477
@@ -5149,16 +5123,15 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Какие устройства вы хотите использовать для этой установки?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Разбиение"
+msgstr "Тип разбиения"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "Установка требует создания разделов на вашем жестком диске. По умолчанию, выбрано разбиение, оптимальное для большинства пользователей. Однако, вы можете создать разделы вручную"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5525,6 +5498,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:110
 #, c-format
+#, fuzzy
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
 "\". Testing each CD is not strictly required, however it is highly "
@@ -5532,6 +5506,8 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Если у вас есть дополнительные носители, вставте следующий диск и нажмите  \"%s"
+"\". Тестирование каждого диска не требуется, однако настоятельно рекомендуется. Желательно протестировать каждый CD перед первым использованием. После успешного тестирования, не требуется тестировать их перед аждым использованием."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5690,7 +5666,7 @@ msgstr ""
 "s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -5717,8 +5693,7 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:201
 msgid ""
@@ -5843,10 +5818,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Добро пожаловать в %s - Режим восстановления"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5956,8 +5929,7 @@ msgstr "В вашей системе были найдены следующие 
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
 #: ../loader2/loader.c:1086
 msgid "Devices"
@@ -5979,14 +5951,12 @@ msgstr "Загрузчик уже выполнялся.  Запускается 
 #: ../loader2/loader.c:1592
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1594
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6014,7 +5984,7 @@ msgstr "Не удается найти установочный образ %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "ОШИБКА"
 
 #: ../loader2/mediacheck.c:398
 #, fuzzy
@@ -6031,18 +6001,16 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "УСПЕШНО"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
 msgstr ""
 "OK.\n"
 "\n"
-"Проверка этого носителя успешно завершена."
+"С данного диска можно устанавливать ОС."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
 msgstr ""
 "Нет контрольных сумм.\n"
@@ -6072,6 +6040,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Проверка носителя %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6246,7 +6217,7 @@ msgstr "Настройка NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Указано имя компьютера без настройки DNS"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6421,9 +6392,8 @@ msgid "_Select the drive(s) to use for this installation."
 msgstr "Укажите устройства для этой установки:"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Произошло исключение"
+msgstr "Информация об исключении"
 
 #: tmp/exn.glade.h:2
 #, fuzzy
@@ -6435,7 +6405,7 @@ msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr ""
+msgstr "Некоторые пакеты, входящие в эту группу не обязательны к установке, но могут обеспечить дополнительную фунциональность. Пожалуйста, выберите желаемые пакеты."
 
 #: tmp/GroupSelector.glade.h:2
 #, fuzzy
@@ -6495,8 +6465,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантическое время - Западный Лабрадор"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Атлантическое время - Новая Шотландия (большая часть), NB, Восточный "
 "Лабрадор, Западный Квебек & PEI"
@@ -6688,8 +6657,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Время вост. побережья - Онтарио - большая часть"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Время вост. побережья - Онтарио - местность, где не происходила смена "
 "летнего/зимнего времени в 1967-1973"
@@ -6880,10 +6848,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Стандартное горное время - Досон-Крик & Форт-Сент-Джон, Британская Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -6895,8 +6861,7 @@ msgstr "Горное время"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
+msgstr "Горное время - Альберта, запад Британской Колумбии & западный Саскачеван"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -7044,12 +7009,11 @@ msgstr "Станция Сёва, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Тасмания - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Квинсленд - большая часть"
+msgstr "Тасмания - бОльшая часть"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7313,1076 +7277,3 @@ msgstr "Валлийский"
 msgid "Zulu"
 msgstr "Зулусский"
 
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Мышь не найдена.  Мышь необходима для графической установки.  Запускается "
-#~ "текстовый режим."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Обнаружена мышь: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Используется тип мыши: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Произошла исключительная ситуация. Возможно, что это ошибка. Пожалуйста "
-#~ "скопируйте полный текст исключения или сохраните отладочную информацию на "
-#~ "дискету и заполните отчет об ошибке в anaconda на %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Удаленный вход (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Веб-сервер (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Передача файлов (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Почтовый сервер (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Не удается создать загрузочный диск"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Размер модулей ядра, необходимых для вашей машины, слишком велик для "
-#~ "создания загрузочного диска."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Вставьте гибкий диск"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Вставьте в дисковод чистую дискету, которая должна быть использована для "
-#~ "создания загрузочного диска.\n"
-#~ "При создании загрузочного диска все данные на ней будут СТЕРТЫ."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Создать загрузочный диск"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "При создании загрузочного диска произошла ошибка. Проверьте, вставлена ли "
-#~ "отформатированная дискета в первый дисковод."
-
-#~ msgid "Creating"
-#~ msgstr "Создание"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Создание загрузочного диска..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "При создании загрузочного диска произошла ошибка. Проверьте, вставлена ли "
-#~ "исправная дискета в первый дисковод."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Похоже, что дискета сбойная. Убедитесь, что в первый дисковод вставлена "
-#~ "исправная дискета."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Сохранить на дискету"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Отсутствуют следующие ISO-образы, которые необходимы для установки:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Система будет перезагружена."
-
-#~ msgid "Missing Package"
-#~ msgstr "Пакет отсутствует"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "Вы указали, что необходимо установить пакет '%s', но такой пакет не "
-#~ "существует.  Продолжить установку или прервать ее?"
-
-#~ msgid "_Abort"
-#~ msgstr "_Прервать"
-
-#~ msgid "Missing Group"
-#~ msgstr "Группа отсутствует"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "Вы указали, что должна быть установлена группа пакетов '%s', но такая "
-#~ "группа не существует. Продолжить установку или прервать ее?"
-
-#~ msgid "Reading"
-#~ msgstr "Чтение"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Не удается открыть список заголовков. Возможная причина - пропущенный "
-#~ "файл или сбойный носитель. Нажмите <Enter> для повторной попытки."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Не удается открыть файл comps.  Возможная причина - пропущенный файл или "
-#~ "сбойный носитель. Нажмите <Enter> для повторной попытки."
-
-#~ msgid "Installing..."
-#~ msgstr "Установка..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Ошибка установки пакета"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Произошла ошибка при установке %s. Она означает либо ошибку носителя, "
-#~ "либо недостаток места на диске, либо проблемы оборудования. Это фатальная "
-#~ "ошибка, поэтому работа программы установки будет прервана. Проверьте "
-#~ "носитель и повторите установку снова.\n"
-#~ "\n"
-#~ "Нажмите OK для перезагрузки вашей системы."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Не удается объединить список заголовков. Возможная причина - пропущенный "
-#~ "файл или сбойный носитель. Нажмите <Enter> для повторной попытки."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Обновление %s пакетов\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Установка %s пакетов\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Следующие пакеты были автоматически\n"
-#~ "выбраны для установки:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Похоже, у вас недостаточно места для установки всех выбранных вами "
-#~ "пакетов. Вам необходимо больше места на следующих файловых системах:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Мало места"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Похоже, у вас недостаточно дескрипторов файлов для установки всех "
-#~ "выбранных вами пакетов. Вам необходимо больше места на следующих файловых "
-#~ "системах:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Недостаточно дескрипторов файлов"
-
-#~ msgid "Disk Space"
-#~ msgstr "Дисковое пространство"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Архитектура выпуска %s, который вы устанавливаете - %s, что не "
-#~ "соответствует ранее установленной архитектуре %s. Вероятность успешного "
-#~ "обновления невысока. Вы действительно хотите продолжить обновление?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Похоже, что в системе установлены пакеты, конфликтующие с пакетами, "
-#~ "входящими в %s. Поскольку эти пакеты конфликтуют, продолжение обновления "
-#~ "может привести к тому, что эти пакеты либо перестанут работать, либо "
-#~ "появятся другие проблемы со стабильностью системы. Ознакомьтесь с "
-#~ "примечаниями о выпуске для более подробной информации.\n"
-#~ "\n"
-#~ "Вы действительно хотите продолжить обновление? "
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Эта система не имеет файла /etc/redhat-release. Возможно, что она не "
-#~ "является системой %s. Продолжение обновления может привести систему в "
-#~ "нерабочее состояние. Продолжить обновление? "
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Настройка аутентификации"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Разрешить пароли _MD5"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Разрешить скрытые пароли"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Разрешить N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Использовать бродкаст для поиска сервера NIS"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "_Домен NIS"
-
-#~ msgid "NIS _Server: "
-#~ msgstr "_Сервер NIS:"
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Разрешить _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Разрешить _TLS"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "_Сервер LDAP:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _Base DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Разрешить _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "R_ealm:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Админ. сервер:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Разрешить _аутентификацию SMB"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "_Сервер SMB:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "Рабочая _группа SMB:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Создание загрузочной дискеты"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Загрузочная дискета позволяет вам загрузить вашу систему %s при помощи "
-#~ "флоппи-диска в случае сбоя загрузчика, установленного на жестком диске, "
-#~ "если загрузчик не был установлен или если ваш загрузчик производства "
-#~ "третьей фирмы не поддерживает Linux.\n"
-#~ "\n"
-#~ "Настоятельно рекомендуется создать загрузочную дискету.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Да, я хочу создать загрузочную дискету"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "_Нет, я не хочу создавать загрузочную дискету"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Выберите устройство для работы fdasd"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Форматирование выбранного устройства DASD уничтожит все данные на "
-#~ "устройстве. Вы действительно хотите форматировать выбранное устройство "
-#~ "DASD?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Разбиение при помощи fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Выберите устройство для работы fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Выключено"
-
-#~ msgid "Warn"
-#~ msgstr "Предупреждения"
-
-#~ msgid "Active"
-#~ msgstr "Включено"
-
-#~ msgid "Firewall"
-#~ msgstr "Брандмауэр"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Внимание - не настроен брандмауэр"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Если эта система подключена непосредственно к Интернету или большой "
-#~ "публичной сети, рекомендуется настроить брандмауэр для предотвращения "
-#~ "несанкционированного доступа.  В то же время вы решили пропустить "
-#~ "настройку брандмауэра. Нажмите \"Продолжить\", чтобы продолжить установку "
-#~ "без брандмауэра."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Настроить брандмауэр"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Продолжить"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Брандмауэр может помочь предотвратить неавторизованный доступ к вашему "
-#~ "компьютеру из внешнего мира. Включить брандмауэр?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_Без брандмауэра"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Включить брандмауэр"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Вы можете использовать брандмауэр для разрешения доступа к некоторым "
-#~ "сервисам вашего компьютера со стороны других компьютеров. К каким "
-#~ "сервисам нужно разрешить доступ? "
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Linux c Улучшенной Безопасностью (SELinux) позволяет точнее управлять "
-#~ "безопасностью, чем традиционные Linux системы. Вы можете настроить его в "
-#~ "выключенном состоянии, в котором только формируются сообщения о том, что "
-#~ "должно быть запрещено, или в полностью включенном состоянии."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Включить _SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Все пакеты"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Пакет: %s\n"
-#~ "Версия: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "Просмотр дерева"
-
-#~ msgid "_Flat View"
-#~ msgstr "Простой просмотр"
-
-#~ msgid "_Package"
-#~ msgstr "Пакет"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "Размер (Мбайт)"
-
-#~ msgid "Total size: "
-#~ msgstr "Всего  : "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Выбрать группу"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "Пропустить группу"
-
-#~ msgid "Minimal"
-#~ msgstr "Минимальный"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Описание '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Группы пакетов могут включать как обязательные, так и необязательные "
-#~ "компоненты.  Обязательные компоненты всегда выбраны, если выбрана группа "
-#~ "пакетов. \n"
-#~ "Выберите необязательные компоненты для установки:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Базовые пакеты"
-
-#~ msgid "Details"
-#~ msgstr "Дополнительно"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "Индивидуальный выбор пакетов"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Системные часы используют _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Выберите ближайший город в вашем часовом поясе:"
-
-#~ msgid "_Location"
-#~ msgstr "Расположение"
-
-#~ msgid "Description"
-#~ msgstr "Описание"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Неопределенный монитор"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Подстройка графического интерфейса"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Глубина цвета:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 цветов (8 Bit)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Многоцветный (16 Bit)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Реальный цвет (24 Bit)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Разрешение экрана:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Выберите основное окружение рабочего стола:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Окружение рабочего стола:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Выберите способ входа в систему:"
-
-#~ msgid "_Text"
-#~ msgstr "_Текстовый"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Графический"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Настройка монитора"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Монитор не указан"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Вы не указали тип монитора.  Рекомендуется выбрать ближайшую подходящую "
-#~ "модель, чтобы получить наилучшее качество изображения."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Выберите тип монитора"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "В большинстве случаев монитор может быть определен автоматически. Если "
-#~ "определенные автоматически параметры неверны, укажите правильные "
-#~ "параметры."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Восстановить первоначальные параметры"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Частота строк:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "Частота кадров:"
-
-#~ msgid "kHz"
-#~ msgstr "кГц"
-
-#~ msgid "Hz"
-#~ msgstr "Гц"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Настройка графического интерфейса (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Неизвестная видеокарта"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Произошла ошибка выбора видеокарты %s. Сообщите об этой ошибке на %s"
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Неуказанная видеокарта"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Вам необходимо указать видеокарту для продолжения настройки X.  Если вы "
-#~ "хотите полностью пропустить настройку X, нажмите кнопку 'Пропустить "
-#~ "настройку X'."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Ваша система будет настроена для использования буфера кадров для системы "
-#~ "X Window.  Если вы не хотите настраивать систему X Window сейчас, нажмите "
-#~ "\"Пропустить настройку X\" ниже."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Объем видеопамяти не может быть определен автоматически. Выберите объем "
-#~ "видеопамяти из списка:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "В большинстве случаев видео оборудование может быть определено "
-#~ "автоматически. Если оборудование определено неверно, укажите правильные "
-#~ "параметры вручную."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "ОЗУ видеокарты:"
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "Пропустить настройку Х"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Загрузочный диск позволяет загрузить вашу систему %s при помощи гибкого "
-#~ "диска даже в случае сбоя загрузчика, установленного на жестком диске.\n"
-#~ "\n"
-#~ "Настоятельно рекомендуется создать загрузочный диск.\n"
-#~ "\n"
-#~ "Создать загрузочный диск?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Загрузочный диск"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Выберите устройство для работы fdasd или dasdfmt"
-
-#~ msgid "Next"
-#~ msgstr "Далее"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Изменить разделы"
-
-#~ msgid "Format DASD"
-#~ msgstr "Формат DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Разбиение диска"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Произошла ошибка выполнения %s на устройстве %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Выполнение dasdfmt приведет к потере\n"
-#~ "ВСЕХ ДАННЫХ на устройстве %s.\n"
-#~ "\n"
-#~ "Вы действительно хотите удалить данные?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Произошла ошибка: устройства для создания новых файловых систем не "
-#~ "найдены. Проверьте оборудование для обнаружения вероятной причины или "
-#~ "используйте dasdfmt.\n"
-#~ "\n"
-#~ "Вернуться к экрану fdasd?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Выберите устройство для работы fdisk"
-
-#~ msgid "Customize"
-#~ msgstr "Уточнить"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Включить брандмауэр"
-
-#~ msgid "No firewall"
-#~ msgstr "Без брандмауэра"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Разрешить входящие:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Неверный выбор"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Невозможно улучшить брандмауэр, если он запрещен"
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Уточнение настройки брандмауэра"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Используя брандмауэр, вы возможно захотите разрешить доступ к некоторым "
-#~ "сервисам вашего компьютера извне. К каким сервисам нужно разрешить "
-#~ "доступ? "
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Linux с Улучшенной Безопасностью (SELinux)"
-
-#~ msgid "Edit User"
-#~ msgstr "Изменить"
-
-#~ msgid "Add User"
-#~ msgstr "Добавить"
-
-#~ msgid "User Name"
-#~ msgstr "Имя пользователя"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Подтвердите пароль"
-
-#~ msgid "Full Name"
-#~ msgstr "Полное имя"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Неверное имя пользователя"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr ""
-#~ "Имя пользователя должно иметь не более 8 символов и содержать только "
-#~ "символы A-Z, a-z и 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Пропущено имя пользователя"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "Вы должны указать имя пользователя"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Пароль пользователя должен содержать не менее 6 символов."
-
-#~ msgid "User Exists"
-#~ msgstr "Пользователь существует"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "Пользователь root уже существует. Нет необходимости добавлять его здесь."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Этот системный пользователь уже настроен. Нет необходимости добавлять его "
-#~ "здесь."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Пользователь с таким ID существует. Выберите другой ID"
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Для постоянной работы в системе вы должны создать учетную запись "
-#~ "пользователя, отличного от root. Не работая под именем root постоянно, вы "
-#~ "снизите риск случайного разрушения конфигурации системы."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Создание учетной записи пользователя"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Какую учетную запись вы хотите иметь в системе? Для нормальной работы "
-#~ "достаточно одной учетной записи, отличной от root, но "
-#~ "многопользовательская система может иметь любое количество учетных "
-#~ "записей."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Введите информацию о пользователе."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Изменить информацию о пользователе"
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Использовать скрытые пароли"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Использовать пароли MD5"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Разрешить NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "Домен NIS:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "Сервер NIS:"
-
-#~ msgid "or use:"
-#~ msgstr "или использовать:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Запрос сервера через бродкаст"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Разрешить LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "Сервер LDAP:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP Base DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Использовать связи TLS"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Разрешить Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Realm:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Админ. сервер:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Глубина цвета"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Укажите желаемую глубину цвета:"
-
-#~ msgid "Resolution"
-#~ msgstr "Разрешение экрана"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "Укажите желаемое разрешение экрана"
-
-#~ msgid "X Customization"
-#~ msgstr "Доп. настройка Х"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr "Укажите желаемые глубину цвета и разрешение монитора."
-
-#~ msgid "Color Depth:"
-#~ msgstr "Глубина цвета:"
-
-#~ msgid "Change"
-#~ msgstr "Изменить"
-
-#~ msgid "Resolution:"
-#~ msgstr "Разрешение:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Рабочий стол:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Вход в систему:"
-
-#~ msgid "Graphical"
-#~ msgstr "Графический"
-
-#~ msgid "Text"
-#~ msgstr "Текстовый"
-
-#~ msgid "Monitor"
-#~ msgstr "Монитор"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Укажите монитор, подключенный к вашей системе."
-
-#~ msgid "horizontal"
-#~ msgstr "Строки"
-
-#~ msgid "vertical"
-#~ msgstr "Кадры"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Неверные развертки"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "Диапазон разверток %s неверный:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Правильный диапазон разверток должен быть указан в форме:\n"
-#~ "\n"
-#~ "      31.5                   одна величина\n"
-#~ "    50.1-90.2                диапазон величин\n"
-#~ "31.5,35.0,39.3-40.0          список величин и диапазонов\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Развертки монитора"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Укажите диапазон разверток вашего монитора.\n"
-#~ "\n"
-#~ "Примечание - как правило, ручной ввод разверток не требуется. При вводе "
-#~ "разверток необходима особая аккуратность."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Строчная развертка:"
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Кадровая развертка:"
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Выберите монитор. Нажмите кнопку '%s' для возврата результатов "
-#~ "автоопределения."
-
-#~ msgid "Monitor:"
-#~ msgstr "Монитор:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Строчная развертка:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "Кадровая развертка:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Выберите тип монитора"
-
-#~ msgid "Proceed"
-#~ msgstr "Продолжить"
-
-#~ msgid "Video Card"
-#~ msgstr "Видеокарта"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Укажите свою видеокарту. Нажмите '%s', чтобы вернуть видеокарту, "
-#~ "обнаруженную установщиком."
-
-#~ msgid "Video RAM"
-#~ msgstr "Видео ОЗУ"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Укажите объем видео ОЗУ, установленного на видеокарте. Нажмите '%s' для "
-#~ "возврата величины, обнаруженной установщиком."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Пропустить настройку Х"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Настройка видеокарты"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Укажите видеокарту и объем видео ОЗУ в вашей системе."
-
-#~ msgid "Video Card:"
-#~ msgstr "Видеокарта:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Неизвестная карта"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Видео ОЗУ:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Если вы хотите проверить дополнительный носитель, вставьте следующий CD и "
-#~ "нажмите \"%s\". Нет необходимости проверять все CD, но желательно сделать "
-#~ "это хотя бы один раз. \n"
-#~ "\n"
-#~ "Для начала процесса установки вставьте CD N1 в устройство и нажмите \"%s"
-#~ "\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Проверка носителя %s завершена, результат: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Чубут (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Восточное стандартное время - центральный Нунавут"
-
-#~ msgid "Great Britain"
-#~ msgstr "Великобритания"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Северная Ирландия"
-
-#~ msgid "Tasmania"
-#~ msgstr "Тасмания"
-
-#~ msgid "Yap"
-#~ msgstr "о. Яп"
-
-#~ msgid "northeast Mali"
-#~ msgstr "север Мали"
-
-#~ msgid "southwest Mali"
-#~ msgstr "юг Мали"
