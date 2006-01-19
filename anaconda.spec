@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.4
+Version: 10.91.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 18 2006 David Cantrell <dcantrell@redhat.com> - 10.91.5-1
+- i386 and ppc rescue image script fixes (jkeating)
+- fix kickstart package deselection (clumens, #177530)
+- fix header download issues (pnasrat, #177596)
+- interface improvements on scp exception dialog (clumens, #177738)
+- rescue image additions (pjones, dcantrell, #155399)
+- misc kickstart fixes (clumens, #178041, #177519)
+- fix fetching repo data on http installs (clumens, #178001)
+- add gdk-pixbuf handler for XPM images (#177994)
+- timezone screen fixes (clumens, #178140)
+- add LSI mptsas driver to module-info (#178130)
+- dmraid fixes for kickstart installs (pjones)
+- add sr@Latn to lang-table (katzj, #175611)
+
 * Wed Jan 11 2006 Jeremy Katz <katzj@redhat.com> - 10.91.4-1
 - Add xen kernels
 
