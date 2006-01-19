@@ -110,17 +110,17 @@ class TimezoneWindow(InstallWindow):
 # currently selected.
 def tzFilterFunc (model, iter, user_data):
     (longmin, latmin, longmax, latmax) = user_data.get_shown_region_long_lat()
-    curlat = model.get_value(iter, 1)
-    curlong = model.get_value(iter, 2)
+    curlat = model.get_value(iter, 2)
+    curlong = model.get_value(iter, 3)
 
     if curlat >= latmin and curlat <= latmax and curlong >= longmin and curlong <= longmax:
         return True
     elif user_data.currentEntry == None:
-        if model.get_value(iter, 0) == "America/New_York":
+        if model.get_value(iter, 1) == "America/New_York":
             return True
         else:
             return False
-    elif model.get_value(iter, 0) == user_data.currentEntry.tz:
+    elif model.get_value(iter, 1) == user_data.currentEntry.tz:
         return True
     else:
         return False
@@ -131,7 +131,8 @@ class AnacondaTZMap(TimezoneMap):
 
     def timezone_list_init (self, default):
         self.hbox = gtk.HBox()
-        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_INT, gobject.TYPE_INT)
+        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
+                                     gobject.TYPE_INT, gobject.TYPE_INT)
         self.tzSorted = gtk.TreeModelSort(self.tzStore)
         self.tzSorted.set_sort_column_id(0, gtk.SORT_ASCENDING)
         self.tzFilter = self.tzSorted.filter_new()
@@ -159,9 +160,10 @@ class AnacondaTZMap(TimezoneMap):
                 self.fallbackEntry = entry
 
             iter = self.tzStore.append()
-            self.tzStore.set_value(iter, 0, entry.tz)
-            self.tzStore.set_value(iter, 1, entry.lat)
-            self.tzStore.set_value(iter, 2, entry.long)
+            self.tzStore.set_value(iter, 0, _(entry.tz))
+            self.tzStore.set_value(iter, 1, entry.tz)
+            self.tzStore.set_value(iter, 2, entry.lat)
+            self.tzStore.set_value(iter, 3, entry.long)
 
         self.tzCombo.connect("changed", self.selectionChanged)
         self.hbox.pack_start(self.tzCombo, False, False)
@@ -174,7 +176,7 @@ class AnacondaTZMap(TimezoneMap):
 
     def selectionChanged(self, widget, *args):
         iter = widget.get_active_iter()
-        entry = self.zonetab.findEntryByTZ(widget.get_model().get_value(iter, 0))
+        entry = self.zonetab.findEntryByTZ(widget.get_model().get_value(iter, 1))
         self.setCurrent(entry)
 
     def overviewPressEvent(self):
@@ -208,7 +210,7 @@ class AnacondaTZMap(TimezoneMap):
         # the combo and the comment label.
         iter = self.tzCombo.get_model().get_iter_first()
         while iter:
-            if self.tzCombo.get_model().get_value(iter, 0) == self.currentEntry.tz:
+            if self.tzCombo.get_model().get_value(iter, 1) == self.currentEntry.tz:
                 self.tzCombo.set_active_iter(iter)
 
                 if self.currentEntry.comments != None:
