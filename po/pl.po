@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-14 18:57+0200\n"
+"PO-Revision-Date: 2006-01-19 18:50+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1428,14 +1428,14 @@ msgstr ""
 "Dozwolone znaki to litery, cyfry, \".\" lub \"_\"."
 
 #: ../partIntfHelpers.py:95
-#,fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Punkt montowania %S jest nieprawidłowy. Punkty montowania muszą zaczynać się "
-"od \"/\", nie mogą kończyć się \"/\" i muszą zawierać tylko z drukowalnych "
-"znaków i bez spacji."
+"Punkt montowania %s jest nieprawidłowy. Punkty montowania muszą zaczynać się "
+"od \"/\", nie mogą kończyć się \"/\" i muszą zawierać tylko drukowalne "
+"znaki, bez spacji."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
