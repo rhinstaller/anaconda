@@ -61,7 +61,7 @@ class InstallData:
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
         self.grpset = None
-	self.upgrade = False
+	self.upgrade = None
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
         self.diskset = partedUtils.DiskSet()
@@ -104,8 +104,14 @@ class InstallData:
     def setHeadless(self, isHeadless):
         self.isHeadless = isHeadless
 
+    # if upgrade is None, it really means False.  we use None to help the
+    # installer ui figure out if it's the first time the user has entered
+    # the examine_gui screen.   --dcantrell
     def getUpgrade (self):
-        return self.upgrade
+        if self.upgrade == None:
+            return False
+        else:
+            return self.upgrade
 
     def setUpgrade (self, bool):
         self.upgrade = bool
@@ -140,7 +146,7 @@ class InstallData:
         self.rootPassword.write (instPath, useMD5)
         self.accounts.write (instPath, useMD5)
 
-    def writeKS(self, filename, backend):
+    def writeKS(self, filename):
         if self.auth.find("--enablemd5"):
             useMD5 = True
         else:
@@ -201,7 +207,7 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
-        backend.writePackagesKS(f)
+#        backend.writePackagesKS(f)
 
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, useMD5)

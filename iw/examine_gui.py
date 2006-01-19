@@ -49,9 +49,11 @@ class UpgradeExamineWindow (InstallWindow):
             else:
                 self.dispatch.skipStep("indivpackage")
             self.dispatch.skipStep("installtype", skip = 1)
+            self.id.upgrade = True
         else:
             self.dispatch.skipStep("installtype", skip = 0)
-
+            self.id.upgrade = False
+	
         return None
 
     def createUpgradeOption(self):
@@ -81,7 +83,6 @@ class UpgradeExamineWindow (InstallWindow):
     def optionToggled(self, widget, name):
 	if name == UPGRADE_STR:
 	    self.upgradeOptionsSetSensitivity(widget.get_active())
-
 	    self.doupgrade = widget.get_active()
 
     #UpgradeExamineWindow tag = "upgrade"
@@ -91,7 +92,12 @@ class UpgradeExamineWindow (InstallWindow):
         self.id = id
         self.chroot = chroot
 
-	self.doupgrade = dispatch.stepInSkipList("installtype")
+	if self.id.upgrade == None:
+	    # this is the first time we've entered this screen
+	    self.doupgrade = dispatch.stepInSkipList("installtype")
+	else:
+	    self.doupgrade = self.id.upgrade
+
         self.parts = self.id.rootParts 
 
         vbox = gtk.VBox (False, 10)

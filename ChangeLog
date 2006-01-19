@@ -1,6 +1,24 @@
+2006-01-19  David Cantrell  <dcantrell@redhat.com>
+
+	* instdata.py (InstallData.reset):  Set self.upgrade to None for
+	initial setting (#178095).
+
+	* instdata.py (InstallData.getUpgrade):  Return False if upgrade
+	is set to None (#178095).
+
+	* iw/examine_ui.py (UpgradeExamineWindow.getNext):  Set
+	self.id.upgrade to True or False (#178095).
+
+	* iw/examine_ui.py (UpgradeExamineWindow.getScreen):  Read
+	self.id.upgrade to determine screen layout rather than checking
+	to see if installtype is in the skip list (#178095).
+
 2006-01-19  Chris Lumens  <clumens@redhat.com>
 
 	* iw/timezone_gui.py:  Translate combo box and comments (#178250).
+
+	* instdata.py (InstallData.write):  Disabled backend arg used for
+	debugging.
 
 2006-01-18  David Cantrell  <dcantrell@redhat.com>
 
