@@ -16,5 +16,6 @@ install:
 	install -m 755 makestamp.py $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 fixmtime.py $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 yumcache $(DESTDIR)/$(RUNTIMEDIR)
+	install -m 755 pyrc.py $(DESTDIR)/$(RUNTIMEDIR)
 
 depend:

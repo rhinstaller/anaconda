@@ -1,3 +1,13 @@
+2006-01-20  Peter Jones  <pjones@redhat.com>
+
+	* loader2/loader.c (spawnShell): set PYTHONSTARTUP before spawning bash
+
+	* anaconda: set PYTHONSTARTUP before spawning bash
+
+	* scripts/Makefile: install pyrc.py in anaconda-runtime
+
+	* scripts/pyrc.py: a pyrc that adds readline and whatnot automagically
+
 2006-01-19  David Cantrell  <dcantrell@redhat.com>
 
 	* instdata.py (InstallData.reset):  Set self.upgrade to None for

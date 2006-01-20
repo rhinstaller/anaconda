@@ -11,7 +11,7 @@
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 1997 - 2004 Red Hat, Inc.
+ * Copyright 1997 - 2006 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
@@ -270,8 +270,14 @@ static void spawnShell(int flags) {
         signal(SIGINT, SIG_DFL);
         signal(SIGTSTP, SIG_DFL);
 
+        if (!access("/mnt/source/RHupdates/pyrc.py", R_OK|X_OK))
+            setenv("PYTHONSTARTUP", "/mnt/source/RHupdates/pyrc.py", 1);
+        else if (!access("/tmp/updates/pyrc.py", R_OK|X_OK))
+            setenv("PYTHONSTARTUP", "/tmp/updates/pyrc.py", 1);
+        else if (!access("/usr/lib/anaconda-runtime/pyrc.py", R_OK|X_OK))
+            setenv("PYTHONSTARTUP", "/usr/lib/anaconda-runtime/pyrc.py", 1);
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
-	setenv("LANG", "C", 1);
+        setenv("LANG", "C", 1);
         
         execl("/bin/sh", "-/bin/sh", NULL);
         logMessage(CRITICAL, "exec of /bin/sh failed: %s", strerror(errno));
