@@ -207,7 +207,7 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
-#        backend.writePackagesKS(f)
+        self.backend.writePackagesKS(f)
 
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, useMD5)
@@ -215,9 +215,10 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, extraModules, floppyDevice, methodstr):
+    def __init__(self, extraModules, floppyDevice, methodstr, backend):
 	self.instLanguage = language.Language()
 	self.keyboard = keyboard.Keyboard()
+        self.backend = backend
 
         self.mouse = None
         self.monitor = None

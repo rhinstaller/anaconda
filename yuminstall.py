@@ -999,6 +999,22 @@ class YumBackend(AnacondaBackend):
         else:
             log.debug("no such package %s" %(pkg,))
 
+    def writePackagesKS(self, f):
+        groups = []
+        packages = []
+
+        for txmbr in self.ayum.tsInfo.getMembers():
+            if txmbr.groups:
+                for g in txmbr.groups: 
+                    if g not in groups: 
+                        groups.append(g)
+            else:
+                packages.append(txmbr.name)
+
+        f.write("\n%packages\n")
+        map(lambda grp: f.write("@%s\n" % grp), groups)
+        map(lambda pkg: f.write("%s\n" % pkg), packages)
+
 class YumProgress:
     def __init__(self, intf, text, total):
         window = intf.progressWindow(_("Installation Progress"), text,

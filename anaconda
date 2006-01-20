@@ -1103,7 +1103,7 @@ floppyDevice = floppy.probeFloppyDevice()
 if not flags.test and flags.setupFilesystems:
     iutil.makeDriveDeviceNodes()
 
-id = instClass.installDataClass(extraModules, floppyDevice, method)
+id = instClass.installDataClass(extraModules, floppyDevice, method, backend)
 
 id.x_already_set = x_already_set
 

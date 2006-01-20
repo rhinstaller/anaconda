@@ -135,6 +135,10 @@ class AnacondaBackend:
         log.warning("getDefaultGroups not implemented for backend!")
         pass
 
+    def writePackagesKS(self, f):
+        log.warning("writePackagesKS not implemented for backend!")
+        pass
+
 def doRepoSetup(backend, intf, id, instPath):
     backend.doInitialSetup(id, instPath)
     backend.doRepoSetup(intf, instPath)
