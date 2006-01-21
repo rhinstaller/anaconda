@@ -1,5 +1,5 @@
 # Swedish messages for the Red Hat/Fedora Anaconda installation framework.
-# Copyright 2000, 2001, 2002, 2003, 2004, 2005 Christian Rose <menthos@menthos.com>.
+# Copyright 2000, 2001, 2002, 2003, 2004, 2005, 2006 Christian Rose <menthos@menthos.com>.
 #
 # $Id$
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-10-19 08:54+0200\n"
+"PO-Revision-Date: 2006-01-22 00:22+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -172,27 +172,27 @@ msgstr "DISPLAY-variabeln är inte satt. Startar textläge!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Tryck <retur> för ett skal"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "Startar grafisk installation..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Url-metoden %s är okänd"
+msgstr "Okänd installationsmetod"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Du försöker installera på en maskin som inte stöds av denna version av %s."
+msgstr "Du har angivit en installationsmetod som inte stöds av anaconda."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Url-metoden %s är okänd"
+msgstr "okänd installationsmetod: %s"
+
+msgid "Unknown install method: %s"
+msgstr "Okänd installationsmetod: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -552,15 +552,15 @@ msgid "Installing %s-%s-%s... "
 msgstr "Installerar %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "En undantagshändelse som inte hanteras har inträffat. Detta är med största "
-"sannolikhet ett fel. Var vänlig och kopiera hela texten från detta "
-"undantagsfel och skapa en detaljerad felrapport för anaconda på %s"
+"sannolikhet ett fel. Var vänlig och spara en kopia av detaljerna från detta "
+"undantagsfel och skapa en felrapport för anaconda på %s"
 
 #: ../exception.py:401 ../exception.py:417
 msgid "Dump Written"
@@ -575,26 +575,39 @@ msgstr ""
 "startas om."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
+msgstr "Minnesdump inte skriven"
+
+msgid "Dump not written"
+msgstr "Minnesdump inte skriven"
+
+msgid "Dump written"
 msgstr "Minnesdump skriven"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
+"Det uppstod ett problem vid skrivning av systemtillståndet till en diskett."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Systemets tillstånd har skrivits till disketten. Ditt system kommer nu att "
-"startas om."
+"Ditt systemtillstånd har skrivits till fjärrvärden utan problem.\n"
+"Ditt system kommer nu att nollställas."
+
+msgid ""
+"Your system's state has been successfully written to the remote host.\n"
+"Your system will now be rebooted."
+msgstr ""
+"Ditt systemtillstånd har skrivits till fjärrvärden utan problem.\n"
+"Ditt system kommer nu att startas om."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
+"Det uppstod ett problem med att skriva systemtillståndet till en fjärrvärd."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1148,17 +1161,22 @@ msgstr ""
 "Tryck OK-knappen för att starta om ditt system."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "Ansluter..."
+msgstr "Kör..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Kör förinstallationsskript"
+
+msgid "Running pre install scripts"
+msgstr "Kör förinstallationsskript"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Kör efterinstallationsskript"
+
+msgid "Running post install scripts"
+msgstr "Kör efterinstallationsskript"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1422,12 +1440,12 @@ msgstr ""
 "Tillåtna tecken är bokstäver, siffror, \".\" eller \"_\"."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Monteringspunkten är ogiltig. Monteringspunkter måste börja med \"/\" och "
+"Monteringspunkten %s är ogiltig. Monteringspunkter måste börja med \"/\" och "
 "kan inte sluta med \"/\", och måste innehålla skrivbara tecken och inga "
 "blanksteg."
 
@@ -2044,9 +2062,8 @@ msgid "Save"
 msgstr "Spara"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Ta bort"
+msgstr "Fjärr"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2058,17 +2075,18 @@ msgstr "Undantagsfel inträffade"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Spara till fjärrvärd"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
+msgstr "Värd"
+
+msgid "Host name"
 msgstr "Värdnamn"
 
 #: ../text.py:193
-#, fuzzy
 msgid "Remote path"
-msgstr "Fjärrinloggning"
+msgstr "Fjärrsökväg"
 
 #: ../text.py:195
 msgid "User name"
@@ -2330,7 +2348,7 @@ msgid "Preparing to install..."
 msgstr "Förbereder installation..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2338,11 +2356,24 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Paketet %s-%s-%s kan inte öppnas. Detta beror på en saknad fil eller kanske "
-"ett trasigt paket. Om du installerar från cd-medium kan detta bero på att cd-"
-"mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"Paketet %s-%s-%s.%s kan inte öppnas. Detta beror på en saknad fil eller "
+"kanske ett trasigt paket. Om du installerar från cd-medium kan detta bero på "
+"att cd-mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
 "\n"
-"Tryck <Retur> för att försöka igen."
+"Tryck \"Försök igen\" för att försöka igen."
+
+msgid ""
+"The package %s-%s-%s cannot be opened. This is due to a missing file or "
+"perhaps a corrupt package.  If you are installing from CD media this usually "
+"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"\n"
+"Press 'Retry' to try again."
+msgstr ""
+"Paketet %s-%s-%s kan inte öppnas. Detta beror på en saknad fil eller "
+"kanske ett trasigt paket. Om du installerar från cd-medium kan detta bero på "
+"att cd-mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"\n"
+"Tryck \"Försök igen\" för att försöka igen."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2362,28 +2393,34 @@ msgid "_Cancel"
 msgstr "Av_bryt"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Förbereder RPM-transaktion..."
+msgstr "Fel vid körning av transaktion"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Läser paketinformation..."
+msgstr "Hämtar installationsinformation..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"comps-filen i ditt installationsträd saknar viktiga grupper. Försäkra dig om "
-"att ditt installationsträd genererats korrekt."
+"Kan inte läsa paketmetadata. Detta kan bero på att repodata-katalogen "
+"saknas. Försäkra dig om att ditt installationsträd genererats korrekt. %s"
+
+msgid ""
+"Unable to read package metadata. This may be due to a missing repodata "
+"directory.  Please ensure that your install tree has been correctly "
+"generated."
+msgstr ""
+"Kan inte läsa paketmetadata. Detta kan bero på att repodata-katalogen "
+"saknas. Försäkra dig om att ditt installationsträd genererats korrekt."
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Okategoriserat"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2394,8 +2431,10 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Startar installationen. Detta kan ta flera minuter..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
+msgstr "Installationsförlopp"
+
+msgid "Installation type"
 msgstr "Installationstyp"
 
 #: ../yuminstall.py:1013
@@ -2925,8 +2964,11 @@ msgid "Unknown Linux system"
 msgstr "Okänt Linux-system"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
+msgstr "Paket i %s"
+
+msgid "Packages"
 msgstr "Paket"
 
 #: ../iw/GroupSelector.py:315
@@ -2935,11 +2977,16 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"Ingen beskrivning tillgänglig för %s.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Vilket medium innehåller paketen som ska installeras?"
+msgstr "[%d av %d valfria paket installerade]"
+
+msgid "%d of %d optional packages installed"
+msgstr "%d av %d valfria paket installerade"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5167,9 +5214,11 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Vilken eller vilka enheter vill du använda för denna installation?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Partitionstyp:"
+msgstr "Partitioneringstyp"
+
+msgid "Partition Type"
+msgstr "Partitionstyp"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5177,6 +5226,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Installationen kräver partitionering av din hårddisk. Som standard väljs en "
+"partitioneringslayout som är vettig för de flesta användare. Du kan välja "
+"att antingen använda denna eller att skapa din egen."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5402,9 +5454,11 @@ msgstr ""
 "installationen, inklusive val av programvarupaket och partitionering."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formatera"
+msgstr "_Fedora"
+
+msgid "Fedora"
+msgstr "Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5550,6 +5604,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Om du vill testa ytterligare media stoppar du in nästa cd-skiva och trycker "
+"på \"%s\". Det är egentligen inte nödvändigt att testa varje cd-skiva, men "
+"det rekommenderas. Cd-skivorna bör åtminstone testas innan de används för "
+"första gången. När de har testats utan problem är det inte nödvändigt att "
+"testa varje cd-skiva igen innan den används."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5710,16 +5769,15 @@ msgstr ""
 "drivrutinsdiskett: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Ange alla modulparametrar som du vill skicka till modulen %s, åtskilda med "
+"Ange alla parametrar som du vill skicka till modulen %s, åtskilda med "
 "blanksteg. Om du inte vet vilka parametrar du bör ange hoppar du bara över "
-"denna skärm genom att trycka på knappen \"OK\". En lista med de tillgängliga "
-"alternativen kan fås genom att trycka på F1-tangenten."
+"denna skärm genom att trycka på knappen \"OK\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6038,17 +6096,14 @@ msgstr "Kunde inte hitta installationsavbilden %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "MISSLYCKADES"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"MISSLYCKADES.\n"
-"\n"
 "Avbilden som testades nyss innehåller fel. Detta kan bero på en felaktig "
 "hämtning eller en trasig skiva. Prova att göra rent skivan om tillämpligt "
 "och försök igen. Om detta test fortsätter att misslyckas bör du inte "
@@ -6056,40 +6111,36 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "GODKÄND"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"LYCKADES.\n"
-"\n"
-"Det är OK att installera från detta medium."
+msgstr "Det är OK att installera från detta medium."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
 msgstr ""
-"Ingen uppgift.\n"
-"\n"
 "Ingen kontrollsummeinformation är tillgänglig, kan inte verifiera medium."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Resultat från mediekontroll"
 
+# Detta borde nog buggrapporteras...
+#
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"av avbilden:\n"
+"%s för avbilden:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
+# Detta borde nog buggrapporteras...
+#
 #: ../loader2/mediacheck.c:428
 #, c-format
 msgid ""
@@ -6097,6 +6148,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Mediekontrollen %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6270,7 +6324,7 @@ msgstr "NFS-konfiguration"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Värdnamn angivet utan att DNS är konfigurerat"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6437,24 +6491,29 @@ msgid "_Release Notes"
 msgstr "_Utgåvenoteringar"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "_Visa (och ändra om det behövs) de partitioner som skapas"
+msgstr "_Granska och ändra partitioneringslayouten"
+
+msgid "Review and modify partitioning layout"
+msgstr "Granska och ändra partitioneringslayouten"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Välj den eller de hårddiskar som ska användas för denna installation:"
+msgstr "_Välj den eller de hårddiskar som ska användas för denna installation."
+
+msgid "Select the drive(s) to use for this installation."
+msgstr "Välj den eller de hårddiskar som ska användas för denna installation."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Undantagsfel inträffade"
+msgstr "Information om undantagsfel"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Undantagsfel inträffade"
+msgstr "_Detaljer om undantagsfel"
+
+msgid "Exception details"
+msgstr "Detaljer om undantagsfel"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6462,15 +6521,20 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"En del paket som är associerade med denna grupp måste inte vara installerade "
+"men kan tillhandahålla ytterligare funktionalitet. Välj de paket som du vill "
+"ha installerade."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
+msgstr "_Valfria paket"
+
+msgid "Optional packages"
 msgstr "Valfria paket"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6559,8 +6623,10 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey-stationen, Bailey-halvön"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
+msgstr "Catamarca (CT), Chubut (CH)"
+
+msgid "Catamarca (CT)"
 msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
@@ -6588,8 +6654,10 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Centraltid - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
+msgstr "Centraltid - centrala Nunavut"
+
+msgid "Central Time - western Nunavut"
 msgstr "Centraltid - västra Nunavut"
 
 #. generated from zone.tab
@@ -6681,18 +6749,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Östlig normaltid - Indiana - Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Östlig standardtid - östra Nunavut"
+msgstr "Östlig standardtid - Southamptonön"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Östlig tid"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Östlig standardtid - östra Nunavut"
+msgstr "Östlig tid - östra Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6717,9 +6783,8 @@ msgstr ""
 "Östlig tid - Ontario och Quebec - orter som inte hade sommartid 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Östlig normaltid - Pangnirtung, Nunavut"
+msgstr "Östlig tid - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7064,12 +7129,11 @@ msgstr "Syowa-stationen, Ö Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmanien - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - större delen"
+msgstr "Tasmanien - större delen"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7088,8 +7152,10 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
+msgstr "Truk (Chuuk) och Yap"
+
+msgid "Truk (Chuuk)"
 msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
@@ -7285,9 +7351,8 @@ msgid "Russian"
 msgstr "Ryska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persiska"
+msgstr "Serbiska"
 
 #. generated from lang-table
 msgid "Slovak"
