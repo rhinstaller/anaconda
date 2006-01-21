@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.6
+Version: 10.91.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 20 2006 David Cantrell <dcantrell@redhat.com> - 10.91.7-1
+- Save state when moving back to "upgrade or install" window (#178095).
+- Eject CD when in kickstart and given --eject parameter (clumens, #177554).
+- Translate combo box and comments (clumens, #178250).
+- Disable backend debugging mode for writeKS().
+- Added a PYTHONSTARTUP file to autoload readline, etc. (pjones).
+- Write %packages section in template kickstart file (clumens, pnasrat).
+
 * Wed Jan 18 2006 David Cantrell <dcantrell@redhat.com> - 10.91.6-1
 - i18n fixes (katzj)
 
