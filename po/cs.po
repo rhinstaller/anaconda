@@ -168,31 +168,27 @@ msgstr "Grafická instalace není k dispozici... Spouštím textový režim."
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Proměnná prostředí DISPLAY není nastavena. Spouštím textový režim!."
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Stiskněte <enter> pro shell"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "Spouštím grafickou instalaci..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Neznámá metoda Url %s"
+msgstr "Neznámý způsob instalace"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Pokoušíte se instalovat na stroj, který není podporovaný touto verzí %s."
+msgstr "Byl zvolen způsob instalace, který anaconda nepodporuje."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
 msgid "unknown install method: %s"
-msgstr "Neznámá metoda Url %s"
+msgstr "Neznámý způsob instalace: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -278,7 +274,7 @@ msgid ""
 msgstr ""
 "Nemohu nalézt oddíl %s pro %s.\n"
 "\n"
-"Stiskněte OK pro restart systému."
+"Stiskněte 'OK' pro restart systému."
 
 #: ../autopart.py:1295
 msgid "Requested Raid Device Does Not Exist"
@@ -550,7 +546,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Instaluji %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -572,25 +568,24 @@ msgstr ""
 "Stav systému byl úspěšně zapsán na disketu. Systém bude nyní restartován."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Výpis zapsán"
+msgstr "Výpis nebyl zapsán"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Při zápisu stavu systému na disketu se vyskytl problém."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Stav systému byl úspěšně zapsán na disketu. Systém bude nyní restartován."
+"Stav systému byl úspěšně zapsán na vzdálený počítač.\n" 
+"Systém bude nyní restartován."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "V průběhu zápisu stavu systému na vzdálený počítač se vyskytl problém."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1138,17 +1133,16 @@ msgstr ""
 "Stiskněte tlačítko OK pro restart systému."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "Připojuji se..."
+msgstr "Spouštím..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Spouštím předinstalační skripty"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Spouštím poinstalační skripty"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1406,13 +1400,13 @@ msgstr ""
 "Povolené znaky jsou písmena, číslice, '.' a '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Místo připojení je neplatné. Musí začínat znakem '/' a nesmí tímto znakem "
-"končit. Může obsahovat tisknutelné znaky a žádné mezery."
+"Místo připojení %s je neplatné. Musí začínat znakem '/' a nesmí tímto znakem "
+"končit. Může obsahovat pouze tisknutelné znaky a žádné mezery."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2022,9 +2016,8 @@ msgid "Save"
 msgstr "Uložit"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Odstranit"
+msgstr "Vzdálený"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2036,16 +2029,15 @@ msgstr "Nastala výjimka"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Uložit na vzdálený počítač"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "Jméno počítače"
+msgstr "Počítač"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Vzdálená cesta"
 
 #: ../text.py:195
 msgid "User name"
@@ -2300,7 +2292,7 @@ msgid "Preparing to install..."
 msgstr "Připravuji instalaci..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2308,11 +2300,11 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Nemohu otevřít balíček %s-%s-%s. To je kvůli chybějícímu souboru nebo možná "
-"kvůli poškozenému balíčku. Pokud instalujete z CD, obvykle to znamená, že CD "
-"je poškozené nebo jednotka CD nemůže přečíst médium.\n"
+"Nelze otevřít balíček %s-%s-%s.%s. Důvodem je chybějící soubor nebo "
+"možná poškození balíčku. Pokud instalujete z CD, obvykle to znamená, "
+"že je CD poškozené nebo jednotka CD nedokáže přečíst médium.\n"
 "\n"
-"Stiskněte Enter pro nový pokus."
+"Stiskněte 'Znovu' pro nový pokus."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2331,28 +2323,26 @@ msgid "_Cancel"
 msgstr "_Zrušit"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Připravuji RPM transakci..."
+msgstr "Chyba v průběhu transakce"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Čtu informace o balíčcích..."
+msgstr "Načítám informace o instalaci..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"V souboru comps ve vašem instalačním stromě chybí kritické skupiny. "
-"Zajistěte prosím, aby váš instalační strom byl správně vygenerován."
+"Nelze načíst metadata balíčku. Důvodem může být chybějící adresář repodata."
+" Zkontrolujte prosím, že byl Váš instalační strom správně vygenerován. %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Nezařazeno"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2363,9 +2353,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Spouštím proces instalace. To může chvíli trvat..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Typ instalace"
+msgstr "Postup instalace"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2883,9 +2872,9 @@ msgid "Unknown Linux system"
 msgstr "Neznámý systém Linux"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Balíčky"
+msgstr "Balíčky v %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2893,11 +2882,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"Popis pro %s není k dispozici.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Kde jsou umístěny balíčky, které chcete instalovat?"
+msgstr "[%d of %d volitelných balíčků nainstalováno]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5114,9 +5105,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Který disk(y) chcete použít pro tuto instalaci?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Typ oddílu"
+msgstr "Způsob rozdělení oddílů"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5124,6 +5114,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Instalace vyžaduje rozdělení Vašeho pevného disku na oddíly. Standardně je "
+"vybrán takový způsob rozložení oddílů, který vyhovuje většině uživatelů."
+"Můžete buď zvolit toto rozložení, nebo definovat vlastní." 
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5351,9 +5344,8 @@ msgstr ""
 "instalace, včetně výběru balíčků a vytváření oddílů."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formátovat"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5499,6 +5491,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Chcete-li testovat doplňková média, vložte další CD a stiskněte \"%s\"."
+"Testování každého CD není bezpodmínečně vyžadováno, je ale velmi "
+"doporučováno. Určitě by měla být CD testována před prvním použitím. Po "
+"úspěšném otestování již není vyžadováno dalsí testování před každým použitím."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5657,7 +5653,7 @@ msgstr ""
 "Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -5665,7 +5661,7 @@ msgid ""
 msgstr ""
 "Zadejte prosím parametry, které chcete předat modulu %s, oddělené mezerami. "
 "Pokud nevíte, jaké parametry zadat, přeskočte tuto obrazovku stisknutím "
-"tlačítka \"OK\". Seznam dostupných voleb můžete získat stisknutím klávesy F1."
+"tlačítka \"OK\"."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5977,57 +5973,45 @@ msgstr "Nemohu najít instalační obraz %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "NEÚSPĚCH"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"SELHÁNÍ.\n"
-"\n"
-"Obraz, který byl právě testován, má chyby. To může být kvůli poškozenému "
-"stahování nebo špatnému médiu. Je-li to třeba, očistěte prosím médium a "
-"zkuste to znovu. Jestliže tento test bude přesto selhávat, neměli byste "
+"Obraz, který byl právě testován, má chyby. To může být kvůli chybnému "
+"stažení nebo špatnému médiu. Je-li to třeba, očistěte prosím médium a "
+"zkuste to znovu. Bude-li tento test nadále selhávat, neměl byste "
 "pokračovat v instalaci."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "ÚSPĚCH"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"OK.\n"
-"\n"
-"Toto médium lze použít pro instalaci."
+msgstr "Toto médium lze použít pro instalaci."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"Kontrolní součty nejsou k dispozici, médium nelze prověřit."
+msgstr "Kontrolní součty nejsou k dispozici, médium nelze prověřit."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Výsledek kontroly média"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"obrazu:\n"
+"%s pro obraz:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6036,6 +6020,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Kontrola média %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6208,7 +6195,7 @@ msgstr "NFS instalace"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Zadáno jméno počítače s nekonfigurovaným DNS"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6373,24 +6360,20 @@ msgid "_Release Notes"
 msgstr "_Poznámky k vydání"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Pro_hlédnout (a popřípadě upravit) vytvořené oddíly"
+msgstr "Pro_hlédnout a upravit rozložení oddílů"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Vyberte disk(y), které chcete použít pro tuto instalaci:"
+msgstr "_Vybrat disk(y), které budou použity pro tuto instalaci:"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Došlo k výjimce"
+msgstr "Informace o výjimce"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Došlo k výjimce"
+msgstr "_Podrobnosti o výjimce"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6398,15 +6381,17 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Některé balíčky související s touto skupinou nejsou vyžadovány, mohou ale "
+"poskytovat rozšiřující funkcionalitu. Vyberte prosím ty balíčky, které byste "
+"chtěl nainstalovat."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Volitelné balíčky"
+msgstr "_Volitelné balíčky"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6495,9 +6480,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6524,9 +6508,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Centrální čas - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Centrální čas - west Nunavut"
+msgstr "Centrální čas - centrální Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6617,18 +6600,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Východní standardní čas - Indiana - Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Východní standardní čas - east Nunavut"
+msgstr "Východní standardní čas - Southampton Island"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Východní čas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Východní standardní čas - east Nunavut"
+msgstr "Východní čas - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6653,9 +6634,8 @@ msgstr ""
 "Východní čas - Ontario & Quebec - místa bez letního času v letech 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Východní standardní čas - Pangnirtung, Nunavut"
+msgstr "Východní čas - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7001,12 +6981,11 @@ msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmánie - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - většina míst"
+msgstr "Tasmánie - většina míst"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7025,9 +7004,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) a Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7222,9 +7200,8 @@ msgid "Russian"
 msgstr "Ruština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Perština"
+msgstr "Srbština"
 
 #. generated from lang-table
 msgid "Slovak"
