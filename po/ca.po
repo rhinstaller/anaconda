@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-20 21:45+0100\n"
+"PO-Revision-Date: 2006-01-21 15:39+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -579,14 +579,14 @@ msgid "Installing %s-%s-%s... "
 msgstr "S'està instal·lant %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
-"S'ha produït una excepció no gestionada. Això és molt probablement un error "
-"de programació. Feu una còpia completa del text d'aquesta excepció i "
+"S'ha produït una excepció no gestionada. Molt probablement això deu ser un "
+"error de programació. Feu una còpia completa del text d'aquesta excepció i "
 "informeu de l'error produït a l'anaconda a %s"
 
 #: ../exception.py:401 ../exception.py:417
@@ -602,26 +602,27 @@ msgstr ""
 "el sistema."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
 msgstr "S'ha escrit el bolcat"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
+"Hi ha hagut un problema quan s'escrivia l'estat del sistema al disquet."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"L'estat del sistema s'ha escrit correctament al disquet. S'arrencarà de nou "
-"el sistema."
+"L'estat del sistema s'ha escrit correctament a l'ordinador remot.\n"
+"Es reiniciarà el sistema."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
+"Hi ha hagut un problema quan s'escrivia l'estat del sistema a l'ordinador "
+"remot."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1180,17 +1181,16 @@ msgstr ""
 "Premeu D'acord per arrencar de nou el sistema."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "S'està connectant..."
+msgstr "S'està executant..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "S'estan executant les seqüències prèvies a la instal·lació"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "S'estan executant les seqüències posteriors a la instal·lació"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
