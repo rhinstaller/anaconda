@@ -4,7 +4,7 @@
 # translation of anaconda to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
-# Andrew Martynov <andrewm@inventa.ru>, 2004, 2005.
+# Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006.
 # Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
 #
@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-19 16:18+0000\n"
-"Last-Translator: wedge <wedge@xwing>\n"
-"Language-Team:  <ru@li.org>\n"
+"PO-Revision-Date: 2006-01-23 01:50+0300\n"
+"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
+"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:98
@@ -180,7 +180,7 @@ msgstr "Переменная DISPLAY не установлена. Запуска
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr "Нажмите <enter> для перехода в шелл"
+msgstr "Нажмите <enter> для перехода в командную оболочку"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
@@ -188,19 +188,16 @@ msgstr "Запуск графической установки..."
 
 #: ../anaconda:1086
 msgid "Unknown install method"
-msgstr "Неизвестный метод установки%s"
+msgstr "Неизвестный метод установки"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Вы пытаетесь выполнить установку на машине, которая не поддерживается этим "
-"выпуском %s."
+msgstr "Вы указали метод установки, который не поддерживается anaconda."
 
 #: ../anaconda:1089
 #, c-format
 msgid "unknown install method: %s"
-msgstr "Неизвестный метод установки %s"
+msgstr "неизвестный метод установки: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -565,7 +562,7 @@ msgid ""
 "at %s"
 msgstr ""
 "Произошла исключительная ситуация. Скорее всего это ошибка. Пожалуйста, "
-"скопируйте полный текст исключения и заполните отчет об ошибке anaconda на %s"
+"сохрание полный текст исключения и заполните отчет об ошибке anaconda на %s"
 
 #: ../exception.py:401 ../exception.py:417
 msgid "Dump Written"
@@ -585,20 +582,19 @@ msgstr "Дамп не сохранен"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr "Невозможно записать состояние системы на флоппи-диск"
+msgstr "Невозможно записать состояние системы на флоппи-диск."
 
 #: ../exception.py:418
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Состояние вашей системы было успешно сохранено на удаленый хост. Система будет "
-"перезагружена."
+"Состояние вашей системы было успешно сохранено на удаленую систему.\n"
+"Система будет перезагружена."
 
 #: ../exception.py:426
-#, fuzzy
 msgid "There was a problem writing the system state to the remote host."
-msgstr "Невозможно записать состояние системы на удаленную систему."
+msgstr "Возникла проблема при записи состояния системы на удаленную систему."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1149,17 +1145,16 @@ msgstr ""
 "Нажмите OK для перезагрузки вашей системы."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "Подключение..."
+msgstr "Выполнение..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr "Работают предустановчные скрипты"
+msgstr "Выполняются пред-установочные сценарии"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr "Работают постуставновочные скрипты"
+msgstr "Выполняются пост-установочные сценарии"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1417,12 +1412,12 @@ msgstr ""
 "Допустимы буквы, цифры, '.' или '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Недопустимая точка монтирования  Точки монтирования должны начинаться с '/' "
+"Недопустимая точка монтирования %s.  Точки монтирования должны начинаться с '/' "
 "и не могут заканчиваться на '/', и могут содержать только печатные символы, "
 "без пробелов."
 
@@ -2032,9 +2027,8 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Удалить"
+msgstr "Переслать"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2049,9 +2043,8 @@ msgid "Save to Remote Host"
 msgstr "Сохранить на удаленную систему"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "Имя компьютера"
+msgstr "Компьютер"
 
 #: ../text.py:193
 msgid "Remote path"
@@ -2310,7 +2303,7 @@ msgid "Preparing to install..."
 msgstr "Подготовка к установке..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2318,10 +2311,11 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Не удается открыть пакет %s-%s-%s. Возможная причина - отсутствие файла или "
+"Не удается открыть пакет %s-%s-%s.%s Возможная причина - отсутствие файла или "
 "сбойный пакет. Если вы устанавливаете с CD, это может означать, что диск "
 "поврежден или привод не может прочитать носитель. \n"
-"Нажмите <Enter> для повторной попытки."
+"\n"
+"Нажмите 'Повторить' для повторной попытки."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2342,22 +2336,22 @@ msgstr "_Отмена"
 
 #: ../yuminstall.py:446
 msgid "Error running transaction"
-msgstr "Ошибка RPM-транзакции"
+msgstr "Ошибка подготовки транзакции"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Чтение информации о пакетах..."
+msgstr "Получение установочной информации..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"В файле comps в вашем дереве установки отсутствуют необходимые группы.  "
-"Пожалуйста убедитесь, что ваше дерево установки сформировано правильно."
+"Невозможно прочитать метаданные пакета. Возможная причина - отсутствие "
+"каталога repodata.  Пожалуйста убедитесь, что ваше дерево установки "
+"сформировано правильно.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
@@ -2897,9 +2891,9 @@ msgid "Unknown Linux system"
 msgstr "Неизвестная система Linux"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Пакет   :"
+msgstr "Пакеты в %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2907,11 +2901,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"Описание для %s недоступно.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Носитель какого типа содержит пакеты для установки?"
+msgstr "[%d из %d дополнительных пакетов установлено]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5356,9 +5352,8 @@ msgstr ""
 "установки, включая состав пакетов и разбиение."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Форматировать"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5498,7 +5493,6 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:110
 #, c-format
-#, fuzzy
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
 "\". Testing each CD is not strictly required, however it is highly "
@@ -5506,8 +5500,8 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
-"Если у вас есть дополнительные носители, вставте следующий диск и нажмите  \"%s"
-"\". Тестирование каждого диска не требуется, однако настоятельно рекомендуется. Желательно протестировать каждый CD перед первым использованием. После успешного тестирования, не требуется тестировать их перед аждым использованием."
+"Если у вас есть для проверки дополнительные носители, вставте следующий диск и нажмите  \"%s"
+"\". Тестирование каждого диска не требуется, однако настоятельно рекомендуется. Желательно протестировать каждый CD перед первым использованием. После успешного тестирования, не требуется тестировать их перед каждым использованием."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5987,17 +5981,14 @@ msgid "FAILED"
 msgstr "ОШИБКА"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"ОШИБКА.\n"
 "Образ, который только что был проверен, содержит ошибки. Возможная причина - "
-"сбой при загрузке или поврежденный диск. Если это возможно, протрите диск и "
-"попробуйте еще раз. Если ошибка повторяется, вы не должны продолжать "
-"установку."
+"сбой при загрузке или поврежденный диск.  Если это возможно, протрите диск и "
+"попробуйте еще раз. Если ошибка повторяется, не следует продолжать установку."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -6005,33 +5996,26 @@ msgstr "УСПЕШНО"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
-msgstr ""
-"OK.\n"
-"\n"
-"С данного диска можно устанавливать ОС."
+msgstr "С данного диска можно устанавливать ОС."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Нет контрольных сумм.\n"
-"\n"
-"Контрольные суммы недоступны, проверка невозможна."
+msgstr "Контрольные суммы недоступны, проверка невозможна."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Результат проверки носителя"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"образа:\n"
+"%s для образа:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6382,39 +6366,38 @@ msgid "_Release Notes"
 msgstr "_Что нового"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Просмотр (и модификация) созданных автоматически разделов"
+msgstr "Просмотр и модификация разбиения разделов"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Укажите устройства для этой установки:"
+msgstr "_Укажите устройства для этой установки:"
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
 msgstr "Информация об исключении"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Произошло исключение"
+msgstr "_Подробнее об исключении"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
-msgstr "Некоторые пакеты, входящие в эту группу не обязательны к установке, но могут обеспечить дополнительную фунциональность. Пожалуйста, выберите желаемые пакеты."
+msgstr ""
+"Некоторые из пакетов, связанных с этой групой, не требуются для установки, "
+"но могут предоставить дополнительную функциональность.  Укажите пакеты, которые "
+"вы хотели бы установить."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Необязательные пакеты"
+msgstr "_Необязательные пакеты"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6505,9 +6488,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Станция Кейси, Bailey Peninsula"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Катамарка (CT)"
+msgstr "Катамарка (CT), Чубут (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6534,9 +6516,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Центральное время - зал. Кампече, п-ов Юкатан"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Центральное время - западный Нунавут"
+msgstr "Центральное время - центральный Нунавут"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6627,18 +6608,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Восточное стандартное время - Индиана - Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Восточное стандартное время - западный Нунавут"
+msgstr "Восточное стандартное время - о. Саутгемптон"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Время вост. побережья"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Восточное стандартное время - западный Нунавут"
+msgstr "Время вост. побережья - западный Нунавут"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6663,9 +6642,8 @@ msgstr ""
 "летнего/зимнего времени в 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Восточное стандартное время - Пангниртанг, Нунавут"
+msgstr "Время вост. побережья - Пангниртанг, Нунавут"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7013,7 +6991,7 @@ msgstr "Тасмания - King Island"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr "Тасмания - бОльшая часть"
+msgstr "Тасмания - большая часть"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7032,9 +7010,8 @@ msgid "Tocantins"
 msgstr "Токантинс"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "о-ва Трук (Chuuk)"
+msgstr "о-ва Трук (Chuuk) и Яп"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7229,9 +7206,8 @@ msgid "Russian"
 msgstr "Русский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Персидский"
+msgstr "Сербский"
 
 #. generated from lang-table
 msgid "Slovak"
