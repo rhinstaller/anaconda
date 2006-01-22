@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-21 15:39+0100\n"
+"PO-Revision-Date: 2006-01-22 23:34+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -206,11 +206,8 @@ msgid "Unknown install method"
 msgstr "Mètode d'instal·lació desconegut"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Esteu intentant instal·lar en una màquina que no està implementada en "
-"aquesta versió de %s."
+msgstr "Esteu escollit un mètode d'instal·lació que l'anaconda no implementa."
 
 #: ../anaconda:1089
 #, c-format
@@ -952,7 +949,7 @@ msgstr "No"
 
 #: ../gui.py:245 ../text.py:387 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
-msgstr "Intenta-ho de nou"
+msgstr "Reintenta"
 
 #: ../gui.py:246 ../text.py:388
 msgid "Ignore"
@@ -1454,13 +1451,14 @@ msgstr ""
 "espais. Lletres, dígits, '.' o '_' són caràcters acceptables."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"El punt de muntatge no és vàlid. Els punts de muntatge comencen amb '/', no "
-"poden acabar amb '/', i han de contenir caràcters imprimibles sense espais."
+"El punt de muntatge %s no és vàlid. Els punts de muntatge comencen amb '/', "
+"no poden acabar amb '/', i han de contenir caràcters imprimibles sense "
+"espais."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2074,9 +2072,8 @@ msgid "Save"
 msgstr "Desa"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Suprimeix"
+msgstr "Remot"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2091,13 +2088,12 @@ msgid "Save to Remote Host"
 msgstr ""
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "Nom de l'ordinador"
+msgstr "Ordinador"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Camí remot"
 
 #: ../text.py:195
 msgid "User name"
@@ -2353,7 +2349,7 @@ msgid "Preparing to install..."
 msgstr "S'està preparant per instal·lar..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2361,12 +2357,9 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"No s'ha pogut obrir el paquet %s-%s-%s. Això pot ser degut a l'absència "
-"d'algun fitxer, o a un paquet corrumput. Si esteu instal·lant des d'un CD "
-"això normalment vol dir que el CD està corromput, o que el dispositiu de CD "
-"no pot llegir el medi.\n"
+"No es pot obrir el paquet %s-%s-%s.%s.  Això pot ser degut a l'absència d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD això normalment vol dir que el CD està corromput, o que el dispositiu de CD no pot llegir el medi.\n"
 "\n"
-"Premeu <retorn> i torneu-ho a intentar."
+"Premeu 'Reintenta' per provar-ho altra vegada."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2385,14 +2378,12 @@ msgid "_Cancel"
 msgstr "_Cancel·la"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "S'està preparant la transacció d'RPM..."
+msgstr "S'està produït un error en executar la transacció"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "S'està llegint la informació del paquet..."
+msgstr "S'està recuperant la informació de la instal·lació..."
 
 #: ../yuminstall.py:572
 #, fuzzy, python-format
@@ -2406,7 +2397,7 @@ msgstr ""
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Sense categoritzar"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2418,9 +2409,8 @@ msgstr ""
 "S'està iniciant el procés d'instal·lació. Això pot trigar uns minuts..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Tipus d'instal·lació"
+msgstr "Progés de la instal·lació"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2951,9 +2941,9 @@ msgid "Unknown Linux system"
 msgstr "Sistema Linux desconegut"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Paquets"
+msgstr "Paquets a %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2963,9 +2953,9 @@ msgid ""
 msgstr ""
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Quin tipus de medi conté els paquets per instal·lar?"
+msgstr "[%d de %d paquets opcionals instal·lats]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5201,9 +5191,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Quines unitats voleu utilitzar per a aquesta instal·lació?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Tipus de partició"
+msgstr "Tipus de particionat"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5438,9 +5427,8 @@ msgstr ""
 "particionat."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formata"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6075,17 +6063,14 @@ msgstr "No s'ha pogut trobar la imatge d'instal·lació %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "HA FALLAT"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"S'ha produït un error.\n"
-"\n"
 "La imatge que s'ha comprovat conté errors. Això pot ser degut a una "
 "descàrrega amb errors o a un disc malmès. Proveu de netejar el disc i "
 "intenteu-ho de nou. Si aquest test torna a fallar no hauríeu de continuar la "
@@ -6093,22 +6078,15 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "PASSAT"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"Correcte.\n"
-"\n"
-"Es pot instal·lar des d'aquest medi."
+msgstr "Es pot instal·lar des d'aquest medi."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
 msgstr ""
-"No està disponible.\n"
-"\n"
 "No hi ha informació sobre sumes de verificació. No es pot verificar el medi."
 
 #: ../loader2/mediacheck.c:420
@@ -6116,16 +6094,15 @@ msgid "Media Check Result"
 msgstr "Resultat de la comprovació del medi"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"de la imatge:\n"
+"%s de la imatge:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6134,6 +6111,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"La comprovació del medi %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6478,9 +6458,8 @@ msgid "_Release Notes"
 msgstr "Info_rmació de la versió"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Re_viseu i modifiqueu, si cal, les particions creades"
+msgstr "Re_visa i modifica les particions creades"
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
@@ -6488,14 +6467,12 @@ msgid "_Select the drive(s) to use for this installation."
 msgstr "Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació:"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "S'ha produït una excepció"
+msgstr "Informació de l'excepció"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "S'ha produït una excepció"
+msgstr "Detalls de l'excepció"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6505,13 +6482,12 @@ msgid ""
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Paquets opcionals"
+msgstr "Paquets _opcionals"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "diàlig1"
 
 #. generated from zone.tab
 msgid "Acre"
