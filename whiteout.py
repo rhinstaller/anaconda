@@ -78,7 +78,6 @@ whiteout="""
         lvm2>kernel \
         initscripts>kernel \
         initscripts>kernel-smp \
-        rpm-libs>rpm \
         httpd>httpd-suexec \
         php>php-pear \
         gnome-python2>gnome-python2-bonobo \
