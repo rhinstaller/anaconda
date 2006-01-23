@@ -1003,7 +1003,8 @@ class YumBackend(AnacondaBackend):
         groups = []
         packages = []
 
-        for txmbr in self.ayum.tsInfo.getMembers():
+        self.ayum.tsInfo.makelists()
+        for txmbr in self.ayum.tsInfo.installed:
             if txmbr.groups:
                 for g in txmbr.groups: 
                     if g not in groups: 
