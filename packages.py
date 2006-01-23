@@ -49,8 +49,9 @@ def queryUpgradeContinue(intf, dir):
                          "you have chosen to upgrade have already been "
                          "mounted. You cannot go back past this point. "
                          "\n\n") + 
-                     _( "Would you like to continue with the upgrade?"),
-                                      type = "yesno")
+                       _("Would you like to continue with the upgrade?"),
+                         type="custom", custom_icon=["error","error"],
+                         custom_buttons=[_("Reboot"), _("Yes")])
     if rc == 0:
         sys.exit(0)
     return DISPATCH_FORWARD

@@ -1,3 +1,8 @@
+2006-01-23  David Cantrell  <dcantrell@redhat.com>
+
+	* packages.py (queryUpgradeContinue):  Change No button text to
+	Reboot since clicking it causes the system to reboot (#178096).
+
 2006-01-23  Chris Lumens  <clumens@redhat.com>
 
 	* whiteout.py:  Remove rpm-libs>rpm (#178540).
