@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-14 18:09-0000\n"
+"PO-Revision-Date: 2006-01-23 20:57-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -1500,7 +1500,7 @@ msgstr "Спремате се да обришете све партиције н
 #: ../iw/osbootwidget.py:104
 #: ../iw/partition_gui.py:1359
 msgid "_Delete"
-msgstr "_Обриши"
+msgstr "О_бриши"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
@@ -1996,11 +1996,11 @@ msgstr "Добродошли у %s"
 
 #: ../text.py:418
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr "  <F1> за помоћ  |  <Tab> кретање  |  <Space> избор  |  <F12> следећи екран"
+msgstr "  <F1> за помоћ  |  <Tab> кретање  |  <Space> избор  |  <F12> следећи екран  "
 
 #: ../text.py:420
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr "   <Tab>/<Alt-Tab> кретање   |  <Space> избор   |   <F12> следећи екран"
+msgstr "  <Tab>/<Alt-Tab> између елемената   |  <Space> избор   |  <F12> следећи екран"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2562,7 +2562,7 @@ msgid ""
 "Remove any media used during the installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Уклоните ма које медијуме коришћене током процеса инсталације и притисните дугме „Покрени поново“ за поновно покретање Вашег система.\n"
+"Уклоните ма које медијуме коришћене током процеса инсталације и притисните дугме „Поново покрени“ за поновно покретање Вашег система.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:64
@@ -2836,7 +2836,7 @@ msgstr "Врста система да_тотека:"
 #: ../iw/lvm_dialog_gui.py:404
 #: ../iw/partition_dialog_gui.py:311
 msgid "Original File System Type:"
-msgstr "Врста почетног система датотека:"
+msgstr "Почетна врста система датотека:"
 
 #: ../iw/lvm_dialog_gui.py:409
 #: ../iw/partition_dialog_gui.py:322
@@ -3040,7 +3040,7 @@ msgstr "Величина (МБ)"
 #: ../iw/osbootwidget.py:96
 #: ../iw/zfcp_gui.py:98
 msgid "_Add"
-msgstr "Д_одај"
+msgstr "Дод_ај"
 
 #: ../iw/lvm_dialog_gui.py:1097
 #: ../iw/network_gui.py:531
@@ -3048,7 +3048,7 @@ msgstr "Д_одај"
 #: ../iw/partition_gui.py:1358
 #: ../iw/zfcp_gui.py:101
 msgid "_Edit"
-msgstr "У_реди"
+msgstr "_Уреди"
 
 #: ../iw/lvm_dialog_gui.py:1112
 msgid "Logical Volumes"
@@ -3425,7 +3425,7 @@ msgstr "Форматирај"
 #: ../iw/partition_gui.py:370
 #: ../textw/partition_text.py:1438
 msgid "Start"
-msgstr "Покрени"
+msgstr "Почетак"
 
 #: ../iw/partition_gui.py:371
 #: ../textw/partition_text.py:1438
@@ -4193,7 +4193,7 @@ msgstr "Покретачки програм који користи %s може 
 
 #: ../textw/bootloader_text.py:297
 msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr " <Space> избор | <F2> подразумевана покретачка ставка | <F12> следећи екран"
+msgstr " <Space> избор |  <F2> подразумевана покретачка ставка  | <F12> следећи екран"
 
 #: ../textw/bootloader_text.py:397
 msgid "A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."
@@ -4488,7 +4488,7 @@ msgstr "Избор групе пакета"
 
 #: ../textw/packages_text.py:76
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr " <Space>,<+>,<-> избор   |   <F2> детаљи групе   |   <F12> следећи екран"
+msgstr " <Space>,<+>,<-> избор    |   <F2> детаљи групе   |    <F12> следећи екран"
 
 #: ../textw/packages_text.py:122
 msgid "Package Group Details"
@@ -4517,7 +4517,7 @@ msgstr "Избор појединачних пакета"
 
 #: ../textw/packages_text.py:331
 msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr "    <Space>,<+>,<-> избор    |   <F1> помоћ    |   <F2> опис пакета  "
+msgstr "     <Space>,<+>,<-> избор    |    <F1> помоћ     |     <F2> опис пакета   "
 
 #: ../textw/packages_text.py:379
 msgid "Package Dependencies"
@@ -5400,7 +5400,7 @@ msgstr "Добродошли у %s - режим спашавања"
 #: ../loader2/lang.c:54
 #: ../loader2/loader.c:137
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "   <Tab>/<Alt-Tab> кретање   |  <Space> избор  |   <F12> следећи екран  "
+msgstr " <Tab>/<Alt-Tab> између елемената |  <Space> избор  |  <F12> следећи екран"
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5521,7 +5521,7 @@ msgstr "Покрећем anaconda-у, режим спашавања %s-а - мо
 #: ../loader2/loader.c:1594
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Покрећем anaconda-у, инсталатор система %s - молим сачекајте...\n"
+msgstr "Покрећем anaconda-у, инсталатор %s система - молим сачекајте...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
