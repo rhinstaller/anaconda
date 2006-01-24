@@ -1,3 +1,11 @@
+2006-01-24  Chris Lumens  <clumens@redhat.com>
+
+	* Makefile:  Build stubs before loader.
+	* loader2/Makefile:  Use libunicode instead of wcstubs.c (#178386).
+	* loader2/wcstubs.c:  Removed.
+	* stubs/Makefile:  Build a static library for the loader.
+	* stubs/unicode-lite.c:  Sync with old wcstubs.c.
+
 2006-01-23  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py (writePackagesKS):  Make %packages spew smaller

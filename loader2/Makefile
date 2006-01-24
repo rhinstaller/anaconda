@@ -53,7 +53,7 @@ OBJS += dietstubs.o ctype.o
 ISYSLIB += -lrpc
 CTYPEDEP = ctype.c
 else
-OBJS += wcstubs.o
+UNICODELIB = ../stubs/libunicode-lite.a
 endif
 
 # linuxrc + shutdown on s390, init everywhere else
@@ -125,7 +125,7 @@ loader-net.o: loader.c
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	$(HWLIBS) $(ISYSLIB) $(GUNZIP) \
+	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
 	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB) $(DMLIB)
 
 clean:

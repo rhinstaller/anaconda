@@ -2,15 +2,19 @@ include ../Makefile.inc
 
 LIBUTF8 = libunicode-lite.so.1
 
+OBJECTS = unicode-lite.o
+
 TARGETS= $(LIBUTF8)
 
-all:	$(TARGETS)
+all:	$(TARGETS) libunicode-lite.a
 
 $(LIBUTF8): unicode-lite.c
 	gcc -fPIC -shared -o $@ $< -lwlite -D_FORTIFY_SOURCE=2
 
+libunicode-lite.a: libunicode-lite.a($(OBJECTS))
+
 clean:
-	rm -f *.so.* *.o
+	rm -f *.so.* *.o *.a
 
 install:
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
