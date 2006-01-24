@@ -7,15 +7,15 @@
 # Chester Cheng <ccheng@redhat.com>, 2004, 2005, 2006.
 # Chester CHENG <ccheng@redhat.com>, 2004.
 # Waika Liu <wliu@redhat.com>, 2005.
-# Walter Cheuk <wwycheuk@netvigator.com>, 2005.
+# Walter Cheuk <wwycheuk@netvigator.com>, 2005-2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-17 14:00+1000\n"
-"Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
+"PO-Revision-Date: 2006-01-25 01:00+1000\n"
+"Last-Translator: Walter Cheuk <wwycheuk@netvigator.com>\n"
 "Language-Team: Chinese Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1934,9 +1934,8 @@ msgid "Save"
 msgstr "儲存"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "移除"
+msgstr "遠端"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2197,7 +2196,7 @@ msgid "Preparing to install..."
 msgstr "正在準備安裝..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2205,10 +2204,10 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"無法開啟 %s-%s-%s 套件，這個因為檔案遺失或者是套件已毀損。 假如您是從 CD 媒體"
+"無法開啟 %s-%s-%s.%s 套件，這個因為檔案遺失或者是套件已毀損。 假如您是從 CD 媒體"
 "安裝，通常這表示該 CD 媒體已毀損，或者光碟機無法讀取該媒體。\n"
 "\n"
-"請按 <return> 再試一次。"
+"請按『重試』再試一次。"
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2225,24 +2224,21 @@ msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "正在設定 RPM 處理程序..."
+msgstr "執行異動程序時發生錯誤"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "正在讀取套件資訊..."
+msgstr "正在取得安裝資訊..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"在您安裝樹中的 comps 檔案裡，找不到必要的群組。請確定您的安裝樹已經被正確產生"
-"了。"
+"無法讀取有關套件的資料。可能是因為缺少了有關軟體庫的資料。請確定您的安裝樹已經正確產生。  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
@@ -2257,9 +2253,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "開始安裝程序，這要花上幾分鐘..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "安裝類型"
+msgstr "安裝進度"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2761,9 +2756,9 @@ msgid "Unknown Linux system"
 msgstr "未知的 Linux 系統"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "套件:"
+msgstr "%s 中的套件"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2775,9 +2770,9 @@ msgstr ""
 "\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "您想安裝的套件是放在那一種儲存媒體上呢？"
+msgstr "[已安裝 %d / %d 個選用套件]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4921,9 +4916,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "您想安裝程序使用哪些磁碟機？"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "設定分割區"
+msgstr "分割類型"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5148,9 +5142,8 @@ msgid ""
 msgstr "藉由這個安裝類型，您可以完全控制整個安裝過程，包括選擇軟體套件與分割硬碟。"
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "格式化(_F)"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5439,15 +5432,14 @@ msgid ""
 msgstr "下列 kickstart 驅動程式磁片之指令的引數無效: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "請輸入您想要傳送到 %s 模組的任何參數（請以空白分隔）。 如果您不知道該加什麼參"
-"數， 請按 \"OK\" 鈕跳過這個畫面。 您可以按下 F1 按鍵以取得一系列可使用的選"
-"項。"
+"數， 請按 \"OK\" 鈕跳過這個畫面。"
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5746,16 +5738,13 @@ msgid "FAILED"
 msgstr "失敗"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"測試失敗。\n"
-"\n"
-"剛剛測試的映像檔的有錯誤，這有可能是下載檔毀損或損壞的磁碟片。 如果是的話，請"
-"清潔您的磁片，然後再試一次。 假如這個測試再次失敗，您不應該繼續安裝。"
+"剛剛測試的影像檔的有錯誤，可能是下載檔或碟片已損壞。 如果可能的話，請"
+"清潔您的碟片，然後再試一次。 假如這個測試再次失敗，您不應該繼續安裝。"
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -5766,28 +5755,23 @@ msgid "It is OK to install from this media."
 msgstr "可以使用這個媒體來安裝。"
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"無效。\n"
-"\n"
-"找不到任何檢測資訊，無法驗證媒體。"
+msgstr "找不到任何檢測資訊，無法驗證媒體。"
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "媒體檢查結果"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"映像檔:\n"
+"映像檔的 %s:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6138,17 +6122,15 @@ msgstr "檢視（並於有需要時修改）建立了的分割區(_V)"
 #: tmp/autopart.glade.h:3
 #, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "選擇您想要用於安裝的磁碟機:"
+msgstr "選擇您想要用於安裝的磁碟機(_S)。"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "發生例外狀況"
+msgstr "例外狀況資訊"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "發生例外狀況"
+msgstr "例外狀況細節(_E)"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6160,7 +6142,7 @@ msgstr "與這群組相關的部份套件不需要安裝，但可以提供額外
 #: tmp/GroupSelector.glade.h:2
 #, fuzzy
 msgid "_Optional packages"
-msgstr "可選的套件"
+msgstr "可選的套件(_O)"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
@@ -6976,9 +6958,8 @@ msgid "Russian"
 msgstr "俄語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "波斯語"
+msgstr "塞爾維亞語"
 
 #. generated from lang-table
 msgid "Slovak"
