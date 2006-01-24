@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-22 23:34+0100\n"
+"PO-Revision-Date: 2006-01-24 07:53+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -2085,7 +2085,7 @@ msgstr "S'ha produït una excepció"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Desa a l'ordinador remot"
 
 #: ../text.py:191
 msgid "Host"
@@ -2357,7 +2357,10 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"No es pot obrir el paquet %s-%s-%s.%s.  Això pot ser degut a l'absència d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD això normalment vol dir que el CD està corromput, o que el dispositiu de CD no pot llegir el medi.\n"
+"No es pot obrir el paquet %s-%s-%s.%s.  Això pot ser degut a l'absència "
+"d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD "
+"això normalment vol dir que el CD està corromput, o que el dispositiu de CD "
+"no pot llegir el medi.\n"
 "\n"
 "Premeu 'Reintenta' per provar-ho altra vegada."
 
@@ -2386,14 +2389,15 @@ msgid "Retrieving installation information..."
 msgstr "S'està recuperant la informació de la instal·lació..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Falten grups crítics en el fitxer comps d'aquesta instal·lació. Comproveu "
-"que l'arbre d'instal·lació estigui generat correctament."
+"No s'han pogut llegir les metadades del paquet. Pot ser que manquin dades "
+"del dipòsit al directori. Comproveu que l'arbre d'instal·lació estigui "
+"generat correctament. %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
@@ -2951,6 +2955,8 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"No hi ha cap descripció disponible per a %s.\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
 #, python-format
@@ -6462,9 +6468,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Re_visa i modifica les particions creades"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació:"
+msgstr "_Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6577,9 +6582,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6606,9 +6610,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Temps central - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Temps central - Nunavut oest"
+msgstr "Temps central - Nunavut central"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6699,18 +6702,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Eastern Standard Time - east Nunavut"
+msgstr "Eastern Standard Time - Illa de Southampton"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Eastern Time"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Eastern Standard Time - east Nunavut"
+msgstr "Eastern Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6735,9 +6736,8 @@ msgstr ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr "Eastern Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -7084,12 +7084,11 @@ msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmània - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - la majoria d'ubicacions"
+msgstr "Tasmània - la majoria d'ubicacions"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7108,9 +7107,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) i Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7305,9 +7303,8 @@ msgid "Russian"
 msgstr "Rus"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persa"
+msgstr "Serbi"
 
 #. generated from lang-table
 msgid "Slovak"
