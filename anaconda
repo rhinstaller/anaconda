@@ -956,7 +956,7 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
 	graphical_failed = 1
 	time.sleep(2)
 
-if display_mode == 't' and graphical_failed:
+if display_mode == 't' and graphical_failed and not ksfile:
     ret = vnc.askVncWindow()
     if ret != -1:
 	display_mode = 'g'
