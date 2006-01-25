@@ -2,6 +2,11 @@
 
 	* exception.py (handleException):  Changed 'be reset' to say
 	'be rebooted' (#178566).
+	* gui.py (InstallControlWindow.releaseNotesViewerPollExitCB):
+	Call present() method on main window when release notes viewer
+	closes.  Sets toplevel focus to the main window.
+	* gui.py (InstallControlWindow.runReleaseNotesViewer):  Lower
+	releaseNotesViewerPollExitCB() execution interval to 10 ms.
 
 2006-01-24  Chris Lumens  <clumens@redhat.com>
 

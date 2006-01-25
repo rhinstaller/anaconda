@@ -1024,8 +1024,9 @@ class InstallControlWindow:
 	if not still_running:
 	    self.releaseNotesViewerPid = None
 	    gobject.source_remove(self.releaseNotesViewerIdleID)
-            self.mainxml.get_widget("buttonBar").set_sensitive(True)
+	    self.mainxml.get_widget("buttonBar").set_sensitive(True)
 	    self.releaseNotesModalDummy.destroy()
+	    self.window.present()
 	    
 	    return False
 	else:
@@ -1160,7 +1161,7 @@ class InstallControlWindow:
 	    # python interpretter cannot act on signals reliably while inside
 	    # the gtk main loop.
 	    #
-            self.releaseNotesViewerIdleID =  gobject.timeout_add(50, self.releaseNotesViewerPollExitCB, None)
+            self.releaseNotesViewerIdleID =  gobject.timeout_add(10, self.releaseNotesViewerPollExitCB, None)
 	    self.releaseNotesViewerPid = child
 	    
 	    #desensitize button bar at bottom of screen
