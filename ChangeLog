@@ -7,6 +7,10 @@
 
 2006-01-25  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart.py:  Add a permanentSkipList for steps we always want to
+	skip, no matter what else happens in the ksdata.  Add bootloader to
+	that list in doBootloader (#178815).
+
 	* scripts/mk-images.ia64: Create images for ia64 (#175632) 
 
 2006-01-25  David Cantrell  <dcantrell@redhat.com>

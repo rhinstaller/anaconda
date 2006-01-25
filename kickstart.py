@@ -85,6 +85,7 @@ class AnacondaKSScript(Script):
 class AnacondaKSHandlers(KickstartHandlers):
     def __init__ (self, ksdata):
         KickstartHandlers.__init__(self, ksdata)
+        self.permanentSkipSteps = []
         self.skipSteps = []
         self.showSteps = []
         self.ksRaidMapping = {}
@@ -111,11 +112,11 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doAutoStep(self, id, args):
         KickstartHandlers.doAutoStep(self, args)
         flags.autostep = 1
-	flags.autoscreenshot = self.ksdata.autostep["autoscreenshot"]
+        flags.autoscreenshot = self.ksdata.autostep["autoscreenshot"]
 
     def doBootloader (self, id, args):
         KickstartHandlers.doBootloader(self, args)
-	dict = self.ksdata.bootloader
+        dict = self.ksdata.bootloader
 
         if dict["location"] == "none":
             location = None
@@ -132,15 +133,15 @@ class AnacondaKSHandlers(KickstartHandlers):
             id.bootloader.doUpgradeOnly = 1
 
         if location is None:
-            self.skipSteps.extend(["bootloadersetup", "instbootloader"])
+            self.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
             self.showSteps.append("bootloadersetup")
             id.instClass.setBootloader(id, location, dict["forceLBA"],
                                        dict["password"], dict["md5pass"],
                                        dict["appendLine"], dict["driveorder"])
 
-        self.skipSteps.extend(["upgbootloader", "bootloader",
-                               "bootloaderadvanced"])
+        self.permanentSkipSteps.extend(["upgbootloader", "bootloader",
+                                        "bootloaderadvanced"])
 
     def doClearPart(self, id, args):
         KickstartHandlers.doClearPart(self, args)
@@ -791,6 +792,8 @@ class Kickstart(BaseInstallClass):
             dispatch.skipStep(n)
         for n in self.handlers.showSteps:
             dispatch.skipStep(n, skip = 0)
+        for n in self.handlers.permanentSkipSteps:
+            dispatch.skipStep(n, permanent=1)
 
     def setPackageSelection(self, backend, *args):
         # FIXME: handling of missing packages...
