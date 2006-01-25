@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-24 07:53+0100\n"
+"PO-Revision-Date: 2006-01-25 11:40+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -5206,6 +5206,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"La instal·lació requereix que es parteixi el disc. Per defecte, es fa un "
+"esquema de particions que funciona per a la majoria d'usuaris. Podeu "
+"utilitzar aquest esquema o crear-ne un de nou."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -6297,7 +6300,7 @@ msgstr "Configuració de l'NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "S'ha especificat un nom d'ordinador sense tenir el DNS configurat"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6485,6 +6488,9 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Alguns dels paquets associats amb aquest grup no són requerits, però poden "
+"aportar funcionalitat addicional. Escolliu aquells paquets que vulgueu "
+"instal·lar."
 
 #: tmp/GroupSelector.glade.h:2
 msgid "_Optional packages"
