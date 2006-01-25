@@ -418,7 +418,7 @@ def handleException(dispatch, intf, (type, value, tb)):
             if floppyRc == 0:
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
-                      "the floppy. Your system will now be reset."))
+                      "the floppy. Your system will now be rebooted."))
                 intf.__del__ ()
                 os.kill(os.getpid(), signal.SIGKILL)
             elif floppyRc == 1:
