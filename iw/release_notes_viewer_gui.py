@@ -56,6 +56,11 @@ def loadReleaseNotes(fn):
     return view
 
 def relnotes_closed(widget, data):
+    # set mouse pointer to busy until callback func in gui.py realizes
+    # we've closed the release notes viewer (sure would like signals...)
+    root = gtk.gdk.get_default_root_window()
+    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+    root.set_cursor(cursor)
     os._exit(0)
 
 

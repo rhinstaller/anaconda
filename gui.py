@@ -1026,6 +1026,14 @@ class InstallControlWindow:
 	    gobject.source_remove(self.releaseNotesViewerIdleID)
 	    self.mainxml.get_widget("buttonBar").set_sensitive(True)
 	    self.releaseNotesModalDummy.destroy()
+
+	    # release notes viewer should set cursor to busy on exit, so
+	    # we need to bring it back to a left arrow here
+	    root = gtk.gdk.get_default_root_window()
+	    cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
+	    root.set_cursor(cursor)
+
+	    # set focus to main window
 	    self.window.present()
 	    
 	    return False
