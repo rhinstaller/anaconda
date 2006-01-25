@@ -1,5 +1,8 @@
 2006-01-25  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/lang.c (loadKeymap): Can't load keymaps under Xen, so don't
+	fail in a loud fashion.
+
 	* anaconda: Don't ask about VNC in kickstart
 
 2006-01-25  Chris Lumens  <clumens@redhat.com>
