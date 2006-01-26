@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.33
+Version: 10.1.1.34
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 26 2006 Peter Jones <pjones@redhat.com> - 10.1.1.34-1
+- Change minimum cpu count for largesmp kernel selection on ppc 
+  to 64.  (pjones, #179027)
+
 * Wed Dec 14 2005 Peter Jones <pjones@redhat.com> - 10.1.1.33-1
 - put sk98lin back, and change description for sky2
 

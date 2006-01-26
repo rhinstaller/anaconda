@@ -1,3 +1,8 @@
+2005-01-26  Peter Jones  <pjones@redhat.com>
+
+	* packages.py (doPreInstall): Change minimum cpu count for largesmp
+	kernel selection on ppc to 64.  (#179027)
+
 2006-01-17  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/moduleinfo.c (readModuleInfo):  Correct parsing problem

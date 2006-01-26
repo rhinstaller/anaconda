@@ -653,7 +653,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         if iutil.getArch() == "x86_64":
             largesmp_min = 8
         elif iutil.getArch() == "ppc" and iutil.getPPCMachine() != "iSeries":
-            largesmp_min = 8
+            largesmp_min = 64
         elif iutil.getArch() == "ia64":
             largesmp_min = 64
 
