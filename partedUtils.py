@@ -891,7 +891,7 @@ class DiskSet:
         for drive in self.driveList():
             if drive in DiskSet.skippedDisks and not initAll:
                 continue
-            deviceFile = isys.makeDevInode(drive)
+            deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
             if isys.driveIsRemovable(drive) and not flags.expert:
                 DiskSet.skippedDisks.append(drive)
                 continue

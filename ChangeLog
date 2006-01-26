@@ -1,3 +1,9 @@
+2006-01-26  Jeremy Katz  <katzj@redhat.com>
+
+	* partedUtils.py (DiskSet.openDevices): Patch from Patrick
+	Mansfield <patmans AT us.ibm.com> so that device nodes don't 
+	disappear out from under us.
+
 2006-01-26  David Cantrell  <dcantrell@redhat.com>
 
 	* instdata.py (InstallData):  Set backend to None by default, only
@@ -8,6 +14,14 @@
 	* anaconda.spec:  Add squashfs-tools as a requirement.
 
 2006-01-25  Jeremy Katz  <katzj@redhat.com>
+
+	* textw/packages_text.py: Remove obsolete file.
+	* iw/package_gui.py: Likewise.
+	* iw/dependencies_gui.py: Likewise.
+	* gui.py: Remove obsolete steps.
+	* text.py: Likewise.
+	* iw/partition_gui.py (AutoPartitionWindow): Remove obsolete code.
+	* textw/partition_text.py (AutoPartitionWindow): Likewise.
 
 	* textw/grpselect_text.py: Moved simple_pkgselect_text and added
 	functionality for package selection within groups
