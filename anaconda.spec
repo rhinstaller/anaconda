@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 - Change minimum cpu count for largesmp kernel selection on ppc 
   to 64.  (pjones, #179027)
 
+* Wed Dec 21 2005 Peter Jones <pjones@redhat.com> - 10.1.1.33-2
+- rebuild for fixed gcc
+
 * Wed Dec 14 2005 Peter Jones <pjones@redhat.com> - 10.1.1.33-1
 - put sk98lin back, and change description for sky2
 
