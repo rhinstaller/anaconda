@@ -207,7 +207,8 @@ class InstallData:
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
-        self.backend.writePackagesKS(f)
+        if self.backend is not None:
+            self.backend.writePackagesKS(f)
 
 	f.write("\n%post\n")
 	self.accounts.writeKScommands(f, useMD5)
@@ -218,9 +219,7 @@ class InstallData:
     def __init__(self, extraModules, floppyDevice, methodstr, backend = None):
 	self.instLanguage = language.Language()
 	self.keyboard = keyboard.Keyboard()
-
-	if backend is not None:
-            self.backend = backend
+        self.backend = backend
 
         self.mouse = None
         self.monitor = None
