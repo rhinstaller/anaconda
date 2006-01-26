@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-25 11:40+0100\n"
+"PO-Revision-Date: 2006-01-26 22:57+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -1094,7 +1094,7 @@ msgstr ""
 "\n"
 "%s\n"
 "Tingueu-los a punt abans de continuar amb la instal·lació. Si heu de "
-"cancel·lar la instal·lació i arrencar de nou, seleccioneu \"Arrenca de nou\"."
+"cancel·lar la instal·lació i arrencar de nou, seleccioneu «Arrenca de nou»."
 
 #: ../image.py:92 ../packages.py:761 ../packages.py:764
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
@@ -1691,14 +1691,14 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"Ara s'eliminarà el grup de volum \"%s\".\n"
+"Ara s'eliminarà el grup de volum «%s».\n"
 "\n"
 "Tots els volums lògics d'aquest grup de volum es perdran."
 
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "S'eliminarà el volum lògic \"%s\"."
+msgstr "S'eliminarà el volum lògic «%s»."
 
 #: ../partIntfHelpers.py:517
 msgid "You are about to delete a RAID device."
@@ -1865,8 +1865,7 @@ msgstr "Aquest punt de muntatge ha d'estar en un sistema de fitxers Linux."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"El punt de muntatge \"%s\" ja s'està fent servir, escolliu-ne un altre."
+msgstr "El punt de muntatge «%s» ja s'està fent servir, escolliu-ne un altre."
 
 #: ../partRequests.py:294
 #, python-format
@@ -2678,8 +2677,8 @@ msgid ""
 msgstr ""
 "Seleccioneu el carregador de l'arrencada que l'ordinador farà servir. El "
 "GRUB és el carregador predeterminat. De tota manera, si no voleu "
-"sobreescriure l'actual carregador, seleccioneu \"No instal·lis cap "
-"carregador de l'arrencada.\""
+"sobreescriure l'actual carregador, seleccioneu «No instal·lis cap carregador "
+"de l'arrencada»."
 
 #: ../iw/bootloader_main_gui.py:128
 msgid "Use _GRUB as the boot loader"
@@ -2797,7 +2796,7 @@ msgid ""
 "\n"
 msgstr ""
 "Extraieu qualsevol medi que hagueu utilitzat durant el procés "
-"d'instal·lació, i premeu el botó \"Arrenca de nou\" per arrencar de nou el "
+"d'instal·lació, i premeu el botó «Arrenca de nou» per arrencar de nou el "
 "sistema.\n"
 "\n"
 
@@ -3151,7 +3150,7 @@ msgstr "El punt de muntatge ja està en ús"
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "El punt de muntatge \"%s\" ja s'utilitza. Escolliu-ne un altre."
+msgstr "El punt de muntatge «%s» ja s'utilitza. Escolliu-ne un altre."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -3164,7 +3163,7 @@ msgstr "El nom del volum lògic és il·legal"
 #: ../iw/lvm_dialog_gui.py:579 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "El nom del volum lògic \"%s\" ja s'utilitza. Escolliu-ne un altre."
+msgstr "El nom del volum lògic «%s» ja s'utilitza. Escolliu-ne un altre."
 
 #: ../iw/lvm_dialog_gui.py:593
 #, python-format
@@ -3222,7 +3221,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:746
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Esteu segur que voleu suprimir el volum lògic \"%s\"?"
+msgstr "Esteu segur que voleu suprimir el volum lògic «%s»?"
 
 #: ../iw/lvm_dialog_gui.py:882
 msgid "Invalid Volume Group Name"
@@ -3235,7 +3234,7 @@ msgstr "El nom ja s'utilitza."
 #: ../iw/lvm_dialog_gui.py:896
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "El nom del grup de volum \"%s\" ja s'utilitza. Escolliu-ne un altre."
+msgstr "El nom del grup de volum «%s» ja s'utilitza. Escolliu-ne un altre."
 
 #: ../iw/lvm_dialog_gui.py:940
 msgid "Not enough physical volumes"
@@ -3252,8 +3251,8 @@ msgstr ""
 "Cal almenys una partició de volum física que no s'utilitzi per crear un grup "
 "de volum LVM.\n"
 "\n"
-"Creeu una partició o una matriu RAID del tipus \"volum físic (LVM)\" i "
-"després seleccioneu l'opció \"LVM\" de nou."
+"Creeu una partició o una matriu RAID del tipus «volum físic (LVM)» i després "
+"seleccioneu l'opció «LVM» de nou."
 
 #: ../iw/lvm_dialog_gui.py:952
 msgid "Make LVM Volume Group"
@@ -3416,7 +3415,7 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"No heu indicat el camp \"%s\". Depenent de l'entorn de xarxa, això podria "
+"No heu indicat el camp «%s». Depenent de l'entorn de xarxa, això podria "
 "causar problemes més endavant."
 
 #: ../iw/network_gui.py:173 ../textw/network_text.py:412
@@ -3426,7 +3425,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"El nom d'ordinador \"%s\" no és vàlid pels següents motius:\n"
+"El nom d'ordinador «%s» no és vàlid pels següents motius:\n"
 "\n"
 "%s"
 
@@ -3436,13 +3435,13 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"S'ha produït un error en convertir el valor entrat per a \"%s\":\n"
+"S'ha produït un error en convertir el valor entrat per a «%s»:\n"
 "%s"
 
 #: ../iw/network_gui.py:184
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr "Es requereix un valor en el camp \"%s\"."
+msgstr "Es requereix un valor en el camp «%s»."
 
 #: ../iw/network_gui.py:188
 msgid "The IP information you have entered is invalid."
@@ -3539,7 +3538,7 @@ msgstr "_manualment"
 
 #: ../iw/network_gui.py:565
 msgid "(ex. \"host.domain.com\")"
-msgstr "(p.ex. \"ordinador.domini.com\")"
+msgstr "(p.ex. «ordinador.domini.com»)"
 
 #: ../iw/network_gui.py:571 ../loader2/net.c:817
 msgid "Hostname"
@@ -4021,8 +4020,8 @@ msgid ""
 msgstr ""
 "Es necessiten almenys dues particions RAID de programari per crear un "
 "dispositiu RAID.\n"
-"Creeu almenys dues particions de tipus \"RAID de programari\", i escolliu "
-"l'opció \"RAID\" una altra vegada."
+"Creeu almenys dues particions de tipus «RAID de programari», i escolliu "
+"l'opció «RAID» una altra vegada."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
@@ -5571,8 +5570,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Escolliu \"%s\" per comprovar el CD que hi ha a la unitat, o \"%s\" per "
-"expulsar el CD i inserir-ne un altre per comprovar."
+"Escolliu «%s» per comprovar el CD que hi ha a la unitat, o «%s» per expulsar "
+"el CD i inserir-ne un altre per comprovar."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -5583,6 +5582,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Si voleu provar altres medis, inseriu el CD i premeu «%s». No cal que proveu "
+"cada un dels CD, tot i que és recomanable. Els CD, com a mínim s'haurien de "
+"comprovar abans d'utilitzar-los per primera vegada. Un cop comprovats, ja no "
+"cal que es tornin a comprovar abans d'utilitzar-los."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5673,7 +5676,7 @@ msgstr "No s'ha pogut carregar el disc de controladors des del fitxer."
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Inseriu el disc de controladors a /dev/%s i premeu \"D'acord\" per continuar."
+"Inseriu el disc de controladors a /dev/%s i premeu «D'acord» per continuar."
 
 #: ../loader2/driverdisk.c:386
 msgid "Insert Driver Disk"
@@ -5742,7 +5745,7 @@ msgstr ""
 "controladors de l'arrencada ràpida: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -5750,8 +5753,7 @@ msgid ""
 msgstr ""
 "Indiqueu els paràmetres que vulgueu passar al mòdul %s separats per espais. "
 "Si no sabeu quins paràmetres proporcionar, deixeu-ho en blanc i premeu el "
-"botó \"D'acord\". Es pot obtenir una llista d'opcions disponibles prement la "
-"tecla F1."
+"botó «D'acord»."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6058,7 +6060,7 @@ msgstr ""
 #: ../loader2/mediacheck.c:338
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "S'està comprovant \"%s\"..."
+msgstr "S'està comprovant «%s»..."
 
 #: ../loader2/mediacheck.c:340
 #, c-format
@@ -6444,7 +6446,7 @@ msgstr "S'està carregant el controlador SCSI"
 
 #: tmp/anaconda.glade.h:1
 msgid "Hide _Help"
-msgstr "Oculta l'_ajuda"
+msgstr "Oculta l'a_juda"
 
 #: tmp/anaconda.glade.h:2
 msgid "Reboo_t"
@@ -6452,7 +6454,7 @@ msgstr "_Arrenca de nou"
 
 #: tmp/anaconda.glade.h:3
 msgid "Show _Help"
-msgstr "Mostra l'_ajuda"
+msgstr "Mostra l'a_juda"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -6498,7 +6500,7 @@ msgstr "Paquets _opcionals"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr "diàlig1"
+msgstr "diàleg1"
 
 #. generated from zone.tab
 msgid "Acre"
