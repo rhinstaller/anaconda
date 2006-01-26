@@ -215,10 +215,12 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, extraModules, floppyDevice, methodstr, backend):
+    def __init__(self, extraModules, floppyDevice, methodstr, backend = None):
 	self.instLanguage = language.Language()
 	self.keyboard = keyboard.Keyboard()
-        self.backend = backend
+
+	if backend is not None:
+            self.backend = backend
 
         self.mouse = None
         self.monitor = None
