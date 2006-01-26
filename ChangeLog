@@ -1,5 +1,10 @@
 2006-01-25  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/grpselect_text.py: Moved simple_pkgselect_text and added
+	functionality for package selection within groups
+	* text.py (stepToClasses): Text mode package selection is back to
+	something reasonable.
+
 	* kickstart.py (Kickstart.setSteps): Don't show tasksel if
 	packages are selected.
 

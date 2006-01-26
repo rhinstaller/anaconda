@@ -66,7 +66,7 @@ stepToClasses = {
     "accounts" : ("userauth_text", "RootPasswordWindow"),
     "tasksel": ("task_text", "TaskWindow"),
     "package-selection"  : ("packages_text", "PackageGroupWindow"),
-    "group-selection": ("simple_pkgselect_text", "GroupSelectionWindow"),    
+    "group-selection": ("grpselect_text", "GroupSelectionWindow"),    
     "indivpackage" : ("packages_text", ("IndividualPackageWindow")),
     "dependencies" : ("packages_text", "PackageDepWindow"),
     "confirminstall" : ("confirm_text", "BeginInstallWindow"),
