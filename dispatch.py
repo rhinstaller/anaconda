@@ -3,12 +3,12 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -100,9 +100,9 @@ installSteps = [
     ("accounts", ("intf", "id.rootPassword")),
     ("reposetup", doRepoSetup, ("backend","intf", "id", "instPath")),
     ("basepkgsel", doBasePackageSelect, ("backend","id.instClass")),
+    ("tasksel", ("intf", "backend", "dispatch")),    
     ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
-    #("desktopchoice", ("intf", "id.instClass", "dispatch", "id.grpset")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
     #("fixupconditionals", fixupConditionals, ("id.grpset",)),
     ("confirminstall", ("intf", "id",)),

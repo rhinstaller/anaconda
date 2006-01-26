@@ -1,5 +1,18 @@
 2006-01-25  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (Kickstart.setSteps): Don't show tasksel if
+	packages are selected.
+
+	* iw/task_gui.py: Simple task selection UI so we don't just drop
+	people into the complicated group selection screen.
+	* ui/tasksel.glade: Add glade file for task selection UI
+	* textw/task_text.py: Text version
+
+	* dispatch.py (installSteps): Add tasksel step
+	* installclass.py (BaseInstallClass.setSteps): Likewise.
+	* gui.py (stepToClass): Likewise.
+	* text.py (stepToClasses): Likewise.
+
 	* isys/lang.c (loadKeymap): Can't load keymaps under Xen, so don't
 	fail in a loud fashion.
 

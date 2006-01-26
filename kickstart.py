@@ -1,12 +1,12 @@
 #
 # kickstart.py: kickstart install support
 #
-# Copyright 1999-2004 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -787,6 +787,7 @@ class Kickstart(BaseInstallClass):
 	if len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
            len(self.ksdata.excludedList) > 0:
             dispatch.skipStep("group-selection")
+            dispatch.skipStep("tasksel")            
 
         for n in self.handlers.skipSteps:
             dispatch.skipStep(n)

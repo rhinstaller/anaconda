@@ -4,7 +4,7 @@
 # The interface to BaseInstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 #
-# Copyright 1999-2004 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -140,7 +140,7 @@ class BaseInstallClass:
                  "selectlangpackages",
                  "reposetup",
                  "basepkgsel",
-		 "group-selection",                 
+		 "tasksel",                                  
 		 "postselection",
                  "handleX11pkgs",
                  "handlemiscpkgs",

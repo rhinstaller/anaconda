@@ -4,12 +4,12 @@
 # Matt Wilson <msw@redhat.com>
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 1999-2005 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -75,6 +75,7 @@ stepToClass = {
     "timezone" : ("timezone_gui", "TimezoneWindow"),
     "accounts" : ("account_gui", "AccountWindow"),
     "desktopchoice": ("desktop_choice_gui", "DesktopChoiceWindow"),
+    "tasksel": ("task_gui", "TaskWindow"),    
     "group-selection": ("package_gui", "GroupSelectionWindow"),
     "indivpackage" : ("package_gui", "IndividualPackageSelectionWindow"),
     "dependencies" : ("dependencies_gui", "UnresolvedDependenciesWindow"),

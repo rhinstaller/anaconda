@@ -4,12 +4,12 @@
 # Erik Troan <ewt@redhat.com>
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 1999-2004 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -64,7 +64,7 @@ stepToClasses = {
                                   "HostnameWindow")),
     "timezone" : ("timezone_text", "TimezoneWindow"),
     "accounts" : ("userauth_text", "RootPasswordWindow"),
-    "desktopchoice": ("desktop_choice_text", "DesktopChoiceWindow"),
+    "tasksel": ("task_text", "TaskWindow"),
     "package-selection"  : ("packages_text", "PackageGroupWindow"),
     "group-selection": ("simple_pkgselect_text", "GroupSelectionWindow"),    
     "indivpackage" : ("packages_text", ("IndividualPackageWindow")),
