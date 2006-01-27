@@ -1,3 +1,9 @@
+2006-01-27  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/partition_text.py (PartitionTypeWindow):  Skip partition
+	and bootloader screens if user doesn't want to review partition
+	layout (#178739).
+
 2006-01-26  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version

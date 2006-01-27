@@ -1598,13 +1598,21 @@ class PartitionTypeWindow:
                 if queryAutoPartitionOK(intf, diskset, partitions):
                     break
 
+        # ask to review autopartition layout
+        reviewLayout = dispatch.intf.messageWindow(_("Review Partition Layout"),
+                           _("Review and modify partitioning layout?"),
+                           type = "yesno")
+
+        if reviewLayout == 1:
+            dispatch.skipStep("partition", skip = 0)
+            dispatch.skipStep("bootloader", skip = 0)
+        else:
+            dispatch.skipStep("partition", skip = 1)
+            dispatch.skipStep("bootloader", skip = 1)
+
         self.shutdownUI()
         screen.popWindow()
 
-        # XXX we always unskip disk druid in tui right now since
-        # we don't ask if you want to review amd if you're using
-        # text mode, we hope you're smart enough to deal (#82474)
-        dispatch.skipStep("partition", skip = 0)
         return INSTALL_OK
                 
 
