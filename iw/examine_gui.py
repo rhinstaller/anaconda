@@ -15,7 +15,6 @@
 import gtk
 import gui
 from iw_gui import *
-from package_gui import *
 from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
 from rhpl.translate import _, N_
 from constants import *
