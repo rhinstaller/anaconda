@@ -105,6 +105,11 @@ def scanForRaid(drives, degradedOk=False):
     def nonDegraded(rs):
         log.debug("got raidset %s (%s)" % (rs, string.join(rs.member_devpaths)))
         log.debug("  valid: %s found_devs: %s total_devs: %s" % (rs.valid, rs.rs.found_devs, rs.rs.total_devs))
+
+        if rs.rs.found_devs < rs.rs.total_devs:
+            log.debug("  found_devs less than total_devs, weird")
+            return False
+
         if not rs.valid and not degradedOk:
             log.warning("raid %s (%s) is degraded" % (rs, rs.name))
             #raise DegradedRaidWarning, rs

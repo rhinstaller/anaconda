@@ -24,6 +24,10 @@
 	* packages.py (writeXConfiguration):  Do not create /etc/X11/X
 	symlink (#179321).
 
+	* dmraid.py (scanForRaid.nonDegraded):  If found_devs is less than
+	total_devs, return False and let it filter the drive from the list
+	of found dmraid things.
+
 2006-01-27  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/partition_text.py (PartitionTypeWindow):  Skip partition
