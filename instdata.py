@@ -26,7 +26,6 @@ import fsset
 import bootloader
 import partitions
 import partedUtils
-import hdrlist
 import zfcp
 import urllib
 import iutil

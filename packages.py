@@ -31,7 +31,6 @@ from flags import flags
 from product import *
 from constants import *
 from syslogd import syslog
-from hdrlist import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT
 from installmethod import FileCopyException
 
 from rhpl.translate import _
