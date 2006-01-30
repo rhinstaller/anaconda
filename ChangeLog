@@ -1,3 +1,9 @@
+2006-01-30  Paul Nasrat <pnasrat@redhat.com>
+
+	* utils/Makefile: Remove genhdlist
+	* utils/genhdlist.c: Remove genhdlist
+	* yuminstall.py:  Free up depsolving only storage
+
 2006-01-30  Chris Lumens  <clumens@redhat.com>
 
 	* gui.py (stepToClass):  GroupSelectionWindow has moved.
