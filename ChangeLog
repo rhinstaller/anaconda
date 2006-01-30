@@ -1,6 +1,7 @@
 2006-01-30  David Cantrell  <dcantrell@redhat.com>
 
-	* packages.py:  /etc/X11/X -> /usr/bin/Xorg (#179321).
+	* packages.py (writeXConfiguration):  Do not create /etc/X11/X
+	symlink (#179321).
 
 2006-01-27  David Cantrell  <dcantrell@redhat.com>
 

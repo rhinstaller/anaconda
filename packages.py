@@ -126,18 +126,6 @@ def writeXConfiguration(id, instPath):
     log.info("Writing X configuration")
     if not testmode:
         fn = instPath
-
-        if os.access (instPath + "/etc/X11/X", os.R_OK):
-            os.rename (instPath + "/etc/X11/X",
-                       instPath + "/etc/X11/X.rpmsave")
-
-        try:
-            os.unlink (instPath + "/etc/X11/X")
-        except OSError:
-            pass
-            
-        os.symlink ("../../usr/bin/Xorg",
-                    instPath + "/etc/X11/X")
     else:
         fn = "/tmp/"
 
