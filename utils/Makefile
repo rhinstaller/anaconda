@@ -19,7 +19,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist moddeps snarffont mapshdr readmap genhdlist
+all:	modlist moddeps snarffont mapshdr readmap
 
 modlist: modlist.o moduleinfo.o
 	$(CC) $(LDFLAGS) -o modlist modlist.o moduleinfo.o $(LOADLIBES)
@@ -42,21 +42,11 @@ md5.o: md5.c md5.h
 hash.o : hash.c
 	$(CC) $(RPMCFLAGS) -c -o $@ $<
 
-# XXX rpm needs to be fixed not to have const functions.  Until then,
-# -Wno-return-type
-genhdlist.o : genhdlist.c
-	$(CC) $(RPMCFLAGS) -Wno-return-type -c -o $@ $<
-
-genhdlist: genhdlist.o hash.o
-	$(CC) $(LDFLAGS) -o genhdlist $^ \
-	-lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt -lelf -lpthread -lbeecrypt
-
 depends:
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 genhdlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimmodalias $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpciids $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 moddeps $(DESTDIR)/$(RUNTIMEDIR)
@@ -66,7 +56,7 @@ install: all
 	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:	
-	rm -f modlist moddeps snarffont genhdlist mapshdr readmap \
+	rm -f modlist moddeps snarffont mapshdr readmap \
 	moduledeps.c moduleinfo.c .depend *.o
 
 depend:
