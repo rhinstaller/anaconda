@@ -295,6 +295,9 @@ class YumSorter(yum.YumBase):
             if self.dsCallback: self.dsCallback.tscheck(len(unresolved))
             unresolved = self.tsCheck(unresolved)
             if self.dsCallback: self.dsCallback.restartLoop()
+        self.deps = {}
+        self.loops = []
+        self.path = []
         return (2, ['Success - deps resolved'])
 
     def tsCheck(self, tocheck):
