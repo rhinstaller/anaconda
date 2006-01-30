@@ -136,7 +136,7 @@ def writeXConfiguration(id, instPath):
         except OSError:
             pass
             
-        os.symlink ("../../usr/X11R6/bin/Xorg",
+        os.symlink ("../../usr/bin/Xorg",
                     instPath + "/etc/X11/X")
     else:
         fn = "/tmp/"
