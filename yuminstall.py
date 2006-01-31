@@ -88,7 +88,7 @@ class simpleCallback:
             if amount == 6:
                 self.progressWindow = \
                     self.progressWindowClass (_("Processing"), 
-                                              _("Preparing to install..."),
+                                              _("Preparing transaction from installation source..."),
                                               total)
                 try:
                     self.incr = total / 10
