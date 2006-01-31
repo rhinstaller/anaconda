@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.9
+Version: 10.91.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 31 2006 Peter Jones <pjones@redhat.com> - 10.91.10-1
+- add dmraid device renaming support for kickstart (pjones)
+- fix paths for expat (clumens)
+- remove unused functions (clumens)
+
 * Mon Jan 30 2006 Jeremy Katz <katzj@redhat.com> - 10.91.9-1
 - Skip partition and bootloader screens if requested for textmode 
   (dcantrel, #178739)
