@@ -366,6 +366,7 @@ class AnacondaYum(YumSorter):
     def __init__(self, fn="/etc/yum.conf", root="/", method=None):
         YumSorter.__init__(self)
         self.doConfigSetup(fn, root)
+        self.conf.installonlypkgs = []
         self.method = method
         self.macros = {}
         if flags.selinux:
