@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.8
+Version: 10.91.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jan 30 2006 Jeremy Katz <katzj@redhat.com> - 10.91.9-1
+- Skip partition and bootloader screens if requested for textmode 
+  (dcantrel, #178739)
+- Don't create /etc/X11/X symlink (dcantrel, #179321)
+- Add ethiopic fonts
+- Fix traceback in upgrade examine (clumens)
+- Free up depsolving storage (pnasrat)
+- Fix group selection screen that I mistakenly removed (oops)
+- Remove some dead pieces (pnasrat, katzj)
+
 * Thu Jan 26 2006 Jeremy Katz <katzj@redhat.com> - 10.91.8-1
 - Remove rpm whiteout (clumens, #178540)
 - Fix text in upgrade continue button (dcantrel, #178096)

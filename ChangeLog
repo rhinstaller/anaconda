@@ -1,5 +1,17 @@
 2006-01-30  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+	* hdrlist.py: Remove dead file.
+
+	* packages.py: Remove reference to hdrlist.py at least..
+	* instdata.py: Remove hdrlist import
+	* test/testHdrlist.py: Remove.
+
+	* gui.py: Remove desktop_choice
+	* iw/desktop_choice_gui.py: Remove
+	* textw/desktop_choice_text.py: Likewise.
+
 	* iw/package_gui.py: Back from the dead, this wasn't meant to go.
 	* iw/simple_pkgselect.py: This was
 	* gui.py: Adjust.
