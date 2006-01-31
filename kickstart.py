@@ -282,6 +282,33 @@ class AnacondaKSHandlers(KickstartHandlers):
         if nd.gateway != "":
             id.instClass.setGateway(id, nd.gateway)
 
+    def doDmRaid(self, id, args):
+        KickstartHandlers.doDmRaid(self, args)
+
+        from partedUtils import DiskSet
+        ds = DiskSet()
+        ds.startDmRaid()
+
+        raid = self.ksdata.dmraids[-1]
+        log.debug("Searching for dmraid '%s'" % (raid.name,))
+        for rs in DiskSet.dmList or []:
+            it = True
+            for dev in raid.devices:
+                dev = dev.split('/')[-1]
+                log.debug("dmraid '%s' has members %s" % (rs.name, list(rs.members)))
+                if not dev in rs.members:
+                    log.debug("dmraid '%s' does not have device %s, skipping" \
+                        % (rs.name, dev))
+                    it = False
+            if it:
+                log.debug("found dmraid '%s', changing name to %s" \
+                    % (rs.name, raid.name))
+                # why doesn't rs.name go through the setter here?
+                newname = raid.name
+                ds.renameDmRaid(rs, newname)
+                return
+        ds.startDmRaid()
+
     def doPartition(self, id, args):
         KickstartHandlers.doPartition(self, args)
         pd = self.ksdata.partitions[-1]
@@ -348,7 +375,10 @@ class AnacondaKSHandlers(KickstartHandlers):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
         if pd.start != 0 and pd.disk == "":
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition command with start cylinder requires a drive specification")
-        if pd.disk != "" and pd.disk not in isys.hardDriveDict().keys():
+        hds = isys.hardDriveDict()
+        if not hds.has_key(pd.disk) and hds.has_key('mapper/'+pd.disk):
+            pd.disk = 'mapper/' + pd.disk
+        if pd.disk != "" and pd.disk not in hds.keys():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified disk in partition command which does not exist")
 
         request = partRequests.PartitionSpec(filesystem,

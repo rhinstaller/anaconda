@@ -38,6 +38,8 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     if dir == DISPATCH_BACK:
         return
 
+    bl.updateDriveList()
+
 # iSeries bootloader on upgrades
     if iutil.getPPCMachine() == "iSeries" and not bl.device:        
         drives = diskSet.disks.keys()

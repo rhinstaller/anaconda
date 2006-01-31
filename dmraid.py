@@ -40,6 +40,8 @@ import isys
 # controlers. -pj
 dmraidBootArches = [ "i386", "x86_64" ]
 
+dmNameUpdates = {}
+
 class DmDriveCache:
     def __init__(self):
         self.cache = {}
@@ -69,6 +71,15 @@ class DmDriveCache:
                 log.debug("removing %s from dmraid cache" % (rs,))
                 del self.cache[rs]
 
+    def rename(self, rs, newname):
+        oldname = 'mapper/' + rs.name
+        if isys.cachedDrives.has_key(oldname):
+            dmNameUpdates[rs.name] = newname
+            self.remove(oldname)
+            # XXX why doesn't setting the property work?
+            rs.set_name(newname)
+            self.add(rs)
+
     def __contains__(self, name):
         for k in self.cache.keys():
             if k.name == name:
@@ -97,9 +108,10 @@ def scanForRaid(drives, degradedOk=False):
 
     probeDrives = []
     for d in drives:
-        dp = "/tmp/" + d
-        isys.makeDevInode(d, dp)
-        probeDrives.append(dp)
+        for prefix in ['/tmp/','/dev/']:
+            dp = prefix + d
+            isys.makeDevInode(d, dp)
+            probeDrives.append(dp)
     
     dmsets = []
     def nonDegraded(rs):
@@ -110,16 +122,24 @@ def scanForRaid(drives, degradedOk=False):
             log.warning("raid %s (%s) is degraded" % (rs, rs.name))
             #raise DegradedRaidWarning, rs
             return False
-
-        cacheDrives.add(rs)
         return True
 
-    return filter(nonDegraded, block.getRaidSets(probeDrives) or [])
+    raidsets = filter(nonDegraded, block.getRaidSets(probeDrives) or [])
+    def updateName(rs):
+        if dmNameUpdates.has_key(rs.name):
+            rs.set_name(dmNameUpdates[rs.name])
+        cacheDrives.add(rs)
+        return rs
+        
+    return reduce(lambda x,y: x + [updateName(y),], raidsets, [])
+
+def renameRaidSet(rs, name):
+    cacheDrives.rename(rs, name)
             
 def startRaidDev(rs):
     if flags.dmraid == 0:
         return
-    rs.prefix = '/tmp/mapper/'
+    rs.prefix = '/dev/mapper/'
     log.debug("starting raid %s with mknod=True" % (rs,))
     rs.activate(mknod=True)
 

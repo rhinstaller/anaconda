@@ -560,9 +560,10 @@ class DiskSet:
 
         if DiskSet.dmList is None:
             dmList = dmraid.startAllRaid(driveList)
-            names = reduce(lambda x, y: x + ["mapper/" + y.name], dmList, [])
-            #DiskSet.skippedDisks.extend(names)
             DiskSet.dmList = dmList
+
+    def renameDmRaid(self, rs, name):
+        dmraid.renameRaidSet(rs, name)
 
     def startAllRaid(self):
         """Start all of the raid devices associated with the DiskSet."""

@@ -1,3 +1,13 @@
+2006-01-31  Peter Jones  <pjones@redhat.com>
+
+	* bootloader.py (bootloaderSetupChoices(): update bl.drivelist before
+	examining it for default bootloader selection.
+	* dmraid.py: add support for renaming devices, and fix degraded raidset
+	detection
+	* kickstart.py: add dmraid device renaming support
+	* partedUtils.py: add dmraid renaming support, fix dmList creation
+	to have correct paths
+
 2006-01-31  Chris Lumens  <clumens@redhat.com>
 
 	* packages.py:  Removed unused functions.
