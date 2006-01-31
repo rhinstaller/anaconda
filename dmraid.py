@@ -53,9 +53,10 @@ class DmDriveCache:
             if isinstance(m, block.RaidDev):
                 disk = m.rd.device.path.split('/')[-1]
                 if isys.cachedDrives.has_key(disk):
-                    self.cache.setdefault(rs, {})
+                    self.cache.setdefault(rs.name, {})
+                    self.cache[rs.name][rs.name] = rs
                     log.debug("adding %s to dmraid cache" % (disk,))
-                    self.cache[rs][disk] = isys.cachedDrives[disk]
+                    self.cache[rs.name][disk] = isys.cachedDrives[disk]
                     log.debug("removing %s from isys cache" % (disk,))
                     del isys.cachedDrives[disk]
 
@@ -64,12 +65,13 @@ class DmDriveCache:
             rs = isys.cachedDrives[name]
             log.debug("removing %s from isys cache" % (name,))
             del isys.cachedDrives[name]
-            if self.cache.has_key(rs):
-                for k,v in self.cache[rs].items():
+            if self.cache.has_key(rs.name):
+                del self.cache[rs.name][rs.name]
+                for k,v in self.cache[rs.name].items():
                     log.debug("adding %s from to isys cache" % (name,))
                     isys.cachedDrives[k] = v
                 log.debug("removing %s from dmraid cache" % (rs,))
-                del self.cache[rs]
+                del self.cache[rs.name]
 
     def rename(self, rs, newname):
         oldname = 'mapper/' + rs.name
@@ -108,10 +110,11 @@ def scanForRaid(drives, degradedOk=False):
 
     probeDrives = []
     for d in drives:
-        for prefix in ['/tmp/','/dev/']:
-            dp = prefix + d
-            isys.makeDevInode(d, dp)
-            probeDrives.append(dp)
+        dp = "/dev/" + d
+        isys.makeDevInode(d, dp)
+        probeDrives.append(dp)
+        dp = "/tmp/" + d
+        isys.makeDevInode(d, dp)
     
     dmsets = []
     def nonDegraded(rs):
