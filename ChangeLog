@@ -1,5 +1,8 @@
 2006-01-31  Chris Lumens  <clumens@redhat.com>
 
+	* packages.py:  Removed unused functions.
+	* dispatch.py:  Remove imports of unused functions from packages.py.
+
 	* scripts/upd-instroot (KEEPFILE):  libexpat has moved to /lib.
 
 2006-01-30  Jeremy Katz  <katzj@redhat.com>

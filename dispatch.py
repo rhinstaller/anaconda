@@ -16,12 +16,12 @@
 import string
 from types import *
 from constants import *
-from packages import handleX11Packages, writeConfiguration, writeXConfiguration
+from packages import writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
 from packages import doPostAction
-from packages import handleMiscPackages, copyAnacondaLogs
+from packages import copyAnacondaLogs
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
