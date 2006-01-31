@@ -1,62 +1,10 @@
 #!/usr/bin/python
 
-from yum.transactioninfo import TransactionData, TransactionMember
+from yum.transactioninfo import TransactionData, TransactionMember, SortableTransactionData
 from yum.Errors import YumBaseError
 
 import urlparse
 urlparse.uses_fragment.append('media')
-
-WHITE = 0
-GREY = 1
-BLACK = 2
-
-class SortableTransactionData(TransactionData):
-    def __init__(self):
-        self._sorted = []
-        self.path = []
-        self.loops = []
-        self.changed = True
-        TransactionData.__init__(self)
-
-    def _visit(self, txmbr):
-        self.path.append(txmbr.name)
-        txmbr.sortColour = GREY
-        for po in txmbr.depends_on:
-            vertex = self.getMembers(pkgtup=po.pkgtup)[0]
-            if vertex.sortColour == GREY:
-                self._doLoop(vertex.name)
-            if vertex.sortColour == WHITE:
-                self._visit(vertex)
-        txmbr.sortColour = BLACK
-        self._sorted.insert(0, txmbr.pkgtup)
-
-    def _doLoop(self, name):
-        self.path.append(name)
-        loop = self.path[self.path.index(self.path[-1]):]
-        if len(loop) > 2:
-            self.loops.append(loop)
-
-    def add(self, txmember):
-        txmember.sortColour = WHITE
-        TransactionData.add(self, txmember)
-        self.changed = True
-
-    def remove(self, pkgtup):
-        TransactionData.remove(self, pkgtup)
-        self.changed = True
-
-    def sort(self):
-        if self._sorted and not self.changed:
-            return self._sorted
-        self._sorted = []
-        self.changed = False
-        # loop over all members
-        for txmbr in self.getMembers():
-            if txmbr.sortColour == WHITE:
-                self.path = [ ]
-                self._visit(txmbr)
-        self._sorted.reverse()
-        return self._sorted
 
 class SplitMediaTransactionData(SortableTransactionData):
     def __init__(self):
@@ -110,30 +58,3 @@ class SplitMediaTransactionData(SortableTransactionData):
                     self.reqmedia[id].remove(pkgtup)
                 del txmbr
                 SortableTransactionData.remove(self, pkgtup)
-
-class TransactionConstraintMetError(YumBaseError):
-    def __init__(self, args=None):
-        YumBaseError.__init__(self)
-        self.args = args
-        
-class ConstrainedTransactionData(SortableTransactionData):
-    def __init__(self, constraint=lambda txmbr: False):
-        """Arbitrary constraint on transaction member
-           @param constraint form:
-              function(self, TransactionMember)
-              constraint function returns True/False.
-           @type constraint function"""
-        self.constraint = constraint
-        SortableTransactionData.__init__(self)
-
-    def add(self, txmbr):
-        """@param txmbr: TransactionMember
-           @raise TransactionConstraintMetError: if 
-               constraint returns True when adding"""
-        if self.constraint and not self.constraint(txmbr):
-            SortableTransactionData.add(self, txmbr)
-        else:
-            raise TransactionConstraintMetError("Constraint met")
-
-
-
