@@ -3,26 +3,27 @@
 # Copyright (C) 2002 Simos Xenitellis.
 # Simos Xenitellis <simos@hellug.gr>, 2002.
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2002, 2005.
-# ############################
 # Simos initial translation
 # Nikos start updating
-#
+# Dimitris Michelinakis <dimitris@michelinakis.gr>, 2006.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-04-04 16:32+0300\n"
-"Last-Translator: Greek Gnome Team <team@gnome.gr>\n"
-"Language-Team:  <team@gnome.gr>\n"
+"PO-Revision-Date: 2006-02-01 01:37+0200\n"
+"Last-Translator: Dimitris Michelinakis <dimitris@michelinakis.gr>\n"
+"Language-Team: Greek\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
-msgstr ""
+msgstr "Έναρξη VNC"
 
 #: ../anaconda:133
 #, fuzzy, c-format
@@ -54,7 +55,7 @@ msgstr ""
 
 #: ../anaconda:183
 msgid "The VNC server is now running."
-msgstr ""
+msgstr "Ο διακομιστής VNC είναι ενεργός."
 
 #: ../anaconda:186
 #, c-format
@@ -79,9 +80,8 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr ""
 
 #: ../anaconda:212
-#, fuzzy
 msgid "Connected!"
-msgstr "Ολοκληρώθηκε"
+msgstr "Ολοκλήρωση Σύνδεσης"
 
 #: ../anaconda:216
 #, c-format
@@ -777,9 +777,8 @@ msgid ""
 msgstr ""
 
 #: ../gui.py:241 ../text.py:383
-#, fuzzy
 msgid "Fix"
-msgstr "έξι"
+msgstr "Διόρθωση"
 
 #: ../gui.py:242 ../rescue.py:182 ../text.py:384
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
@@ -1102,9 +1101,8 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:756
-#, fuzzy
 msgid "_Install anyway"
-msgstr "Εγκατάσταση"
+msgstr "_Αναγκαστική εγκατάσταση"
 
 #
 #: ../partedUtils.py:199 ../textw/partition_text.py:558
@@ -1841,7 +1839,7 @@ msgstr " Αποθήκευση ως"
 #: ../text.py:411 ../loader2/lang.c:52 ../loader2/loader.c:131
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr "Καλώς ήρθατε στο %s"
+msgstr "Καλώς ήλθατε στο %s"
 
 #: ../text.py:418
 #, fuzzy
@@ -2002,9 +2000,8 @@ msgid "VNC Configuration"
 msgstr "Ρύθμιση VNC"
 
 #: ../vnc.py:80
-#, fuzzy
 msgid "No password"
-msgstr "Συνθηματικό Διαχειριστή Συστήματος"
+msgstr "Χωρίς συνθηματικό"
 
 #: ../vnc.py:83
 msgid ""
@@ -2505,9 +2502,8 @@ msgid "Package"
 msgstr "Πακέτο"
 
 #: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:387
-#, fuzzy
 msgid "Requirement"
-msgstr "Απαιτείται"
+msgstr "Προϋπόθεση"
 
 #: ../iw/dependencies_gui.py:90
 #, fuzzy
@@ -2932,9 +2928,8 @@ msgid "Physical Volumes to _Use:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1010
-#, fuzzy
 msgid "Used Space:"
-msgstr "Χρήση Δίσκου"
+msgstr "Χρήση Χώρου:"
 
 #: ../iw/lvm_dialog_gui.py:1027
 msgid "Free Space:"
@@ -3029,14 +3024,12 @@ msgid "_Gateway"
 msgstr "_Πύλη δικτύου"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Primary DNS"
-msgstr "Πρωτεύον"
+msgstr "_Πρωτεύον DNS"
 
 #: ../iw/network_gui.py:31
-#, fuzzy
 msgid "_Secondary DNS"
-msgstr "Δευτερεύων"
+msgstr "_Δευτερεύων DNS"
 
 #: ../iw/network_gui.py:31
 #, fuzzy
@@ -5052,9 +5045,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Μορφοποίηση"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5473,9 +5465,9 @@ msgstr ""
 
 #
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Καλώς ήρθατε στο %s"
+msgstr "Καλώς ήλθατε στο %s - Μέθοδος Διάσωσης"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
 msgid ""
@@ -6770,7 +6762,7 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr "Afrikaans"
+msgstr "Αφρικανική"
 
 #. generated from lang-table
 msgid "Amharic"
@@ -6782,11 +6774,11 @@ msgstr "Αραβική"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr "Bengali"
+msgstr "Μπενγκάλι"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Μπενγκάλι(Ινδία)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -6908,7 +6900,7 @@ msgstr "Πορτογαλλικά"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Παντζαμπινά"
 
 #. generated from lang-table
 msgid "Russian"
