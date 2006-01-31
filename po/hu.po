@@ -1,19 +1,21 @@
+# translation of hu.po to hungarian
 # translation of hu.po to Hungarian
 # Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005.
 # Széll Tamás <tomi@digiflex.hu>, 2004.
 # Gabor SUVEG <gabor@suveg.hu>, 2004.
+# Szentiványi Gábor <szentivanyi.gabor@ulx.hu>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-06-17 09:09+0100\n"
-"Last-Translator: Zoltan Kota <z.kota@gmx.net>\n"
-"Language-Team: Hungarian\n"
+"PO-Revision-Date: 2006-01-31 23:11+0100\n"
+"Last-Translator: Szentiványi Gábor <szentivanyi.gabor@ulx.hu>\n"
+"Language-Team: hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -168,35 +170,32 @@ msgstr "Grafikus telepítés nem választható... Indulás karakteres módban."
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "A DISPLAY változó nincs beállítva. Szöveges módot indítok!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Nyomja meg az <enter> billentyűt, hogy burkot kapjon"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "Elindul a grafikus módú telepítő..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Ismeretlen Url-eljárás: %s"
+msgstr "Ismeretlen telepítési eljárás: %s"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Olyan gépre próbál telepíteni, amelyet ez a(z) %s-kiadás nem támogat."
+msgstr "Olyan módon próbál telepíteni, amelyet az anaconda nem támogat."
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Ismeretlen Url-eljárás: %s"
+msgstr "Ismeretlen telepítési eljárás: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
+msgstr "Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions as primary partitions"
@@ -251,8 +250,7 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Lehet, hogy a %s rendszerindítási partíció nem tesz eleget az architektúra "
 "rendszerindítási követelményeinek."
@@ -553,15 +551,15 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s telepítése folyik..."
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "Nem kezelt kivétel történt, valószínűleg programhiba miatt. Kérjük, másolja "
-"ki a kivétel teljes szövegét és jelentse be a hibát az Anaconda kategóriáját "
-"használva a(z) %s címen."
+"ki a kivétel teljes szövegét és jelentse be a hibát az Anaconda kategóriában "
+"a(z) %s címen."
 
 #: ../exception.py:401 ../exception.py:417
 msgid "Dump Written"
@@ -576,26 +574,24 @@ msgstr ""
 "lesz hozva."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "A dump-fájl kiírva"
+msgstr "A dump-fájl nem lett kiírva"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Hiba történt a rendszerállapot floppy-ra írása közben."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"A rendszer állapotát sikerült floppyra menteni. A rendszer alapállapotba "
-"lesz hozva."
+"A rendszer állapotát sikerült a távoli gépre menteni.\n"
+"A rendszer most újraindul."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Hiba történt a rendszer állapotának távoli gépre történő írása közben."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1145,17 +1141,16 @@ msgstr ""
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
 msgstr "Kapcsolódás..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Telepítés előtt szkriptek futtatása"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Telepítés utáni szkriptek futtatása"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1414,12 +1409,12 @@ msgstr ""
 "aláhúzás ('_') használható."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"A csatlakoztatási pont érvénytelen. A névnek '/' karakterrel kell kezdődnie, "
+"A(z) %s csatolási pont érvénytelen. A névnek '/' karakterrel kell kezdődnie, "
 "nem végződhet '/' karakterrel, és csak nyomtatható karaktereket "
 "tartalmazhat, szóközt nem."
 
@@ -1429,8 +1424,7 @@ msgstr "Adjon meg egy csatlakoztatási (mount) pontot a partíciónak."
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr "Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:116
 #, python-format
@@ -1683,8 +1677,7 @@ msgid "Confirm Reset"
 msgstr "Az alapállapotba hozás megerősítése"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan alapállapotba szeretné hozni a partíciós táblát?"
 
 #: ../partitioning.py:57
@@ -1719,8 +1712,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
+msgstr "Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
 
 #: ../partitions.py:808
 #, python-format
@@ -1732,8 +1724,7 @@ msgstr ""
 "telepítéséhez."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Létre kell hozni egy FAT típusú, kb. 50 MB-os /boot/efi partíciót."
 
 #: ../partitions.py:835
@@ -1801,8 +1792,7 @@ msgstr "egy olyan partíció, mely egy LVM-kötetcsoport része."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ez a csatlakoztatási pont érvénytelen. A(z) %s könyvtárnak a gyökér-"
 "fájlrendszeren (/) kell lennie."
@@ -1902,8 +1892,7 @@ msgstr "Leállítva"
 
 #: ../rescue.py:227 ../text.py:556
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
+msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:245 ../rescue.py:281 ../rescue.py:441
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2036,13 +2025,12 @@ msgid "Save"
 msgstr "Mentés"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "Eltávolítás"
+msgstr "Távoli"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
-msgstr "Nyomkövetés"
+msgstr "Hibakeresés"
 
 #: ../text.py:159
 msgid "Exception Occurred"
@@ -2050,16 +2038,15 @@ msgstr "Kivétel történt"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Mentés távoli gépre"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
 msgstr "Gépnév"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "Távoli elérési út"
 
 #: ../text.py:195
 msgid "User name"
@@ -2087,17 +2074,14 @@ msgid "Welcome to %s"
 msgstr "Üdvözöljük - %s"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../text.py:420
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgstr " <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2315,7 +2299,7 @@ msgid "Preparing to install..."
 msgstr "Felkészülés telepítésre..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2323,11 +2307,11 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"A(z) %s-%s-%s csomagot nem sikerült megnyitni. Valószínűleg hiányzik egy "
-"fájl vagy megsérült egy csomag. Ha CD-ről telepít, akkor a lemez "
-"valószínűleg hibás, vagy a meghajtó nem tudja beolvasni a lemezt.\n"
+"A(z) %s-%s-%s.%s csomagot nem sikerült megnyitni. Valószínűleg hiányzik egy "
+"fájl vagy megsérült a csomag. Ha CD-ről telepít, akkor a CD "
+"valószínűleg hibás, vagy a meghajtó nem tudja olvasni a CD-t.\n"
 "\n"
-"Újrapróbáláshoz nyomja meg az <Enter>-t."
+"Újrapróbáláshoz nyomja meg az 'Újra' gombot."
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2347,28 +2331,26 @@ msgid "_Cancel"
 msgstr "_Mégsem"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "RPM-tranzakció előkészítése..."
+msgstr "Hiba a tranzakció futtatása közben"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "A csomagjellemzők beolvasása..."
+msgstr "Telepítési információk beolvasása..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"A telepítési fában levő comps fájlból hiányoznak kritikus csoportok. "
-"Ellenőrizze, hogy helyesen lett-e létrehozva a telepítési fa."
+"Hiba a csomag metaadatok olvasása közben. Ennek egy hiányzó repodata könyvtár lehet az oka."
+"Ellenőrizze, hogy helyesen lett-e létrehozva a telepítési fa.  %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "Katagórián kívüli"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2379,9 +2361,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Kezdődik a telepítési folyamat. Ez néhány percig eltarthat..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "A telepítendő rendszer típusa"
+msgstr "A telepítés előrehaladása"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2740,8 +2721,7 @@ msgstr "A frissítés megkezdése"
 #: ../iw/confirm_gui.py:115
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
-"Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
+msgstr "Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
 
 #: ../iw/confirm_gui.py:116
 #, python-format
@@ -2910,9 +2890,9 @@ msgid "Unknown Linux system"
 msgstr "Ismeretlen Linux rendszer"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Csomagok"
+msgstr "Csomagok az alábbiban: %s"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2920,11 +2900,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"Nincs leírás az alábbihoz: %s\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Milyen típusú médián vannak a telepítendő csomagok?"
+msgstr "[%d darab csomag lett telepítve %d darab opcionális csomagból]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3114,8 +3096,7 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -3690,14 +3671,12 @@ msgid "Partitioning"
 msgstr "Partícionálás"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "A következő kritikus hibák találhatók a partícionálási sémában."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Ezeket a hibákat ki kell javítani, mielőtt folytatná a(z) %s rendszer "
 "telepítését."
@@ -3857,8 +3836,7 @@ msgstr "Nem sikerült meghajtóklónozási szerkesztőt létrehozni"
 
 #: ../iw/partition_gui.py:1313
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
+msgstr "Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
@@ -4209,8 +4187,7 @@ msgstr "Ez felfrissíti az aktuális rendszerbetöltőt."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "A telepítő %s rendszerbetöltőt talált a(z) %s rendszeren."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4347,8 +4324,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához."
 
 #: ../iw/zfcp_gui.py:24
@@ -4514,8 +4490,7 @@ msgstr ""
 "néven szeretné azokat megjeleníteni."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Szóköz>: választás | <F2>: az alapértelmezett bejegyzés kiválasztása | "
 "<F12>: következő képernyő>"
@@ -4829,10 +4804,8 @@ msgid "Package Group Selection"
 msgstr "Csomagcsoport-kiválasztás"
 
 #: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/packages_text.py:122
 msgid "Package Group Details"
@@ -4860,10 +4833,8 @@ msgid "Individual Package Selection"
 msgstr "Egyéni csomagválasztás"
 
 #: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"      <Szóköz>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "      <Szóköz>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
 
 #: ../textw/packages_text.py:379
 msgid "Package Dependencies"
@@ -5134,10 +5105,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5152,9 +5121,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Mely partíciókat szeretné használni a telepítéshez?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Partíciótípus"
+msgstr "Partícionálás típusa"
 
 #: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
 msgid ""
@@ -5162,6 +5130,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"A telepítés a merevlemez partícionálását igényli. Alapértelmezett esetben "
+"olyan partícionálási séma jelenik meg, ami alkalmas a legtöbb felhasználó számára. "
+"Választhat, hogy ezt használja, vagy elkészíti a sajátját."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5386,9 +5357,8 @@ msgstr ""
 "a telepítés folyamán, beleértve a csomagok kiválasztását és a partícionálást."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formázás"
+msgstr "_Fedora"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5534,6 +5504,9 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Amennyiben további adathordozót is akar még tesztelni, helyezze be a következő CD-t és nyomja meg a \"%s\" gombot. "
+"Minden egyes CD tesztelése nem feltétlenül szükséges, azonban ajánlatos. Legalább az első használat előtt"
+"érdemes a CD-ket tesztelni. Amennyiben más sikeresen tesztelve lettek, nem szükséges az újbóli tesztelés."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5555,7 +5528,7 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"A CD-lemez tesztelésének megkezdéséhez nyomja meg a(z) %s gombot.\n"
+"A CD hordozó tesztelésének megkezdéséhez nyomja meg a(z) %s gombot.\n"
 "\n"
 "\"%s\" választása esetén a lemez tesztelése kimarad, elkezdődik a telepítés."
 
@@ -5694,7 +5667,7 @@ msgstr ""
 "egyik parancsában: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -5702,8 +5675,7 @@ msgid ""
 msgstr ""
 "Itt lehet megadni a(z) %s modulnak átadni kívánt paramétereket, szóközzel "
 "elválasztva. Ha nem tudja, milyen paraméterekre van szükség, lépjen tovább a "
-"következő képernyőre az \"OK\" gombbal. Az F1 lenyomásával kiíratható a "
-"megadható paraméterek listája."
+"következő képernyőre az \"OK\" gombbal."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5721,8 +5693,7 @@ msgstr "Meghajtólemez használata"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
+msgstr "Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
 
 #: ../loader2/driverselect.c:201
 msgid ""
@@ -5847,10 +5818,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Üdvözöljük - %s (helyreállítási mód)"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5983,8 +5952,7 @@ msgstr "A betöltő már lefutott. Elindul a parancsértelmező.\n"
 #: ../loader2/loader.c:1592
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
+msgstr "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
 #: ../loader2/loader.c:1594
 #, c-format
@@ -6010,65 +5978,53 @@ msgstr "\"%s\" ellenőrzése..."
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr "Az adathordozó ellenőrzése..."
+msgstr "Az adathordozó ellenőrzése folyik..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "Nem található ez az adathordozó: %s"
+msgstr "Nem található ez a telepítési képmás: %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "HIBA"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"HIBÁS.\n"
-"\n"
 "A tesztelt képmás hibákat tartalmaz. Ezt okozhatta például letöltési hiba "
 "vagy lemezhiba. Ha mód van rá, tisztítsa meg a lemezt és próbálkozzon újra. "
-"Ne folytassa a telepítést, ha a teszt továbbra sem sikerül."
+"Ne folytassa a telepítést, ha a teszt továbbra sem sikeres."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "RENDBEN"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"RENDBEN.\n"
-"\n"
-"Lehet telepíteni az adathordozóról."
+msgstr "Az adathordozó alkalmas a telepítésre."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"N/A.\n"
-"\n"
-"Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adatokat."
+msgstr "Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
-msgstr "A lemezellenőrzés eredménye"
+msgstr "Az adathordozó ellenőrzésének eredménye"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"a képmásból:\n"
+"%s a képmásból:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6077,6 +6033,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Az adathordozó ellenőrzése %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6251,7 +6210,7 @@ msgstr "NFS-beállítás"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Gépnév lett megadva beállított DNS nélkül"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6416,24 +6375,20 @@ msgid "_Release Notes"
 msgstr "Kibocsátási m_egjegyzések"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "A _létrejött partíciók áttekintése (és szükség esetén módosítása)"
+msgstr "A _létrejött partíciók áttekintése módosítási lehetősége"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Válassza ki, mely lemez(ek)re történjen a telepítés:"
+msgstr "_Válassza ki, mely meghajtó(k)ra történjen a telepítés."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Kivétel történt"
+msgstr "Kivétel információ"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Kivétel történt"
+msgstr "_Kivétel részletek"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6441,15 +6396,17 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Van néhánycsomag ebben a csoportban, amiket nem kötelező telepíteni, "
+"de további funkcionalitást biztosíthatnak. Kérem válassza ki azokat a csomagokat, "
+"amiket telepíteni szeretne."
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Választható csomagok"
+msgstr "Választható _csomagok"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6500,10 +6457,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlanti idő - K-Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlanti idő - Nova Scotia (nagy része), NB, Ny-Labrador, K-Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlanti idő - Nova Scotia (nagy része), NB, Ny-Labrador, K-Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6531,16 +6486,15 @@ msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "Kanári-szigetek"
+msgstr "Kanári szigetek"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Casey-állomás, Bailey-félsziget"
+msgstr "Casey állomás, Bailey félsziget"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6556,7 +6510,7 @@ msgstr "Közép-idő - Saskatchewan, közép-nyugati rész"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr "Közép-idő - Saskatchewan (a nagy része)"
+msgstr "Közép-idő - Saskatchewan (nagy része)"
 
 #. generated from zone.tab
 msgid "Central Time"
@@ -6567,9 +6521,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Közép-idő - Campeche, Yucatán"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Közép-idő - Nyugat-Nunavut"
+msgstr "Közép-idő - Közép-Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6660,18 +6613,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Standard keleti idő - Indiana, Switzerland County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Standard keleti idő - Kelet-Nunavut"
+msgstr "Standard keleti idő - Southampton sziget"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Keleti idő"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Standard keleti idő - Kelet-Nunavut"
+msgstr "Keleti idő - Kelet-Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6690,15 +6641,12 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Keleti idő - Ontario (a legtöbb hely)"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Standard keleti idő - Pangnirtung, Nunavut"
+msgstr "Keleti idő - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -6881,8 +6829,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Sziklás-hegységi idő (MST) - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Sziklás-hegységi idő - Dawson Creek, Fort Saint John, Brit-Kolumbia"
 
 #. generated from zone.tab
@@ -7045,12 +6992,11 @@ msgstr "Syowa állomás, Kelet-Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmánia - King sziget"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland (a legtöbb hely)"
+msgstr "Tasmánia - a legtöbb hely"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7069,9 +7015,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) és Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7266,9 +7211,8 @@ msgid "Russian"
 msgstr "orosz"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "perzsa"
+msgstr "szerb"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7314,1246 +7258,3 @@ msgstr "velszi"
 msgid "Zulu"
 msgstr "zulu"
 
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Nem található egér. Grafikus telepítés csak egérrel lehetséges. Indulás "
-#~ "karakteres módban."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "A detektált egértípus: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "A használt egértípus: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Nem kezelt kivétel történt, valószínűleg programhiba miatt. Kérjük, "
-#~ "másolja ki a kivétel teljes szövegét vagy mentse el a kapott dump-fájlt "
-#~ "egy floppyra és jelentse be a hibát az Anaconda kategóriáját használva a"
-#~ "(z) %s címen."
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Távoli bejelentkezés (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Webkiszolgáló (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Fájlkiszolgáló (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "E-mail-kiszolgáló (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Nem sikerült rendszerindító floppyt készíteni"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "A rendszer kezeléséhez szükséges rendszermodulok összmérete olyan nagy, "
-#~ "hogy nem lehet egy floppyra felférő rendszerindító lemezt készíteni."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Helyezzen egy floppyt a meghajtóba"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Ha van lemez a floppymeghajtóban, távolítsa el, és helyezze be a "
-#~ "rendszerindító lemeznek szánt floppyt.\n"
-#~ "\n"
-#~ "A floppyn található adatok ELVESZNEK!"
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Rendszerindító lemez készítése"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Hiba történt a rendszerindító floppy elkészítése közben. Ellenőrizze, "
-#~ "hogy az első floppymeghajtóban van-e lemez."
-
-#~ msgid "Creating"
-#~ msgstr "Létrehozás"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Rendszerindító lemez létrehozása..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Hiba történt a rendszerindító lemez ellenőrzése közben. Ellenőrizze, hogy "
-#~ "az első floppymeghajtóban van-e lemez, és az megfelelő-e."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "A rendszerindító floppy-lemez hibásnak tűnik. Lehet, hogy a lemez "
-#~ "megsérült. Ellenőrizze, hogy az első floppy-meghajtóban van-e lemez, és "
-#~ "az megfelelő-e."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "M_entés floppylemezre"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "A következő, a telepítéshez szükséges ISO-képmások hiányoznak:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "A rendszer most újraindul."
-
-#~ msgid "Missing Package"
-#~ msgstr "Hiányzó csomag"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "A(z) '%s' csomagot kijelölte telepítésre. Ilyen csomag nem létezik. "
-#~ "Folytatni szeretné a műveletet vagy félbeszakítja a telepítést?"
-
-#~ msgid "_Abort"
-#~ msgstr "_Félbeszakítás"
-
-#~ msgid "Missing Group"
-#~ msgstr "Hiányzó csoport"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "A(z) '%s' csoportot kijelölte telepítésre. Ilyen csoport nem létezik. "
-#~ "Folytatni szeretné a műveletet vagy félbeszakítja a telepítést?"
-
-#~ msgid "Reading"
-#~ msgstr "Olvasás"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Nem sikerült beolvasni a fejléclistát. A hibát egy hiányzó fájl vagy egy "
-#~ "hibás lemez okozhatta. Újrapróbáláshoz nyomja meg az <Enter>-t."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Nem sikerült beolvasni a comps fájlt. Valószínűleg hiányzik egy fájl vagy "
-#~ "hibás a lemez. Újrapróbáláshoz nyomja meg az <Enter>-t."
-
-#~ msgid "Installing..."
-#~ msgstr "Telepítés..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Csomagtelepítési hiba"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Hiba történt %s telepítése közben. Ezt okozhatta lemezhiba, a nem "
-#~ "elegendő lemezterület vagy más hasonló hardverprobléma. A hiba nem "
-#~ "hárítható el, ezért a telepítés nem folytatható. Ellenőrizze a lemezeket "
-#~ "és próbálja újból elvégezni a telepítést.\n"
-#~ "\n"
-#~ "Nyomja meg az OK gombot a számítógép újraindításához."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Nem sikerült összeolvasztani a fejléclistát. Valószínűleg hiányzik egy "
-#~ "fájl vagy hibás a lemez. Újrapróbáláshoz nyomja meg az <Enter>-t."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s csomag frissítése\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s csomag telepítése\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "A következő csomagok automatikusan ki\n"
-#~ "lettek jelölve telepítésre:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Úgy tűnik, nincs elegendő szabad lemezterület a kiválasztott csomagok "
-#~ "telepítéséhez. A következő fájlrendszerekben van szükség több helyre:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Szükséges hely"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Úgy tűnik, nincs elegendő lemezterülete (fájl-csomópontja) a kiválasztott "
-#~ "csomagok telepítéséhez. A következő fájlrendszereken van szükség több "
-#~ "helyre (szabad fájl-csomópontra):\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Több fájlcsomópont szükséges"
-
-#~ msgid "Disk Space"
-#~ msgstr "Lemezterület"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "A frissítéshez használt %s rendszerarchitektúra, %s, nem egyezik meg a "
-#~ "korábbi architektúrával (%s). A frissítés ezért valószínűleg nem fog "
-#~ "sikerülni. Biztosan folytatni szeretné a frissítést?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "A rendszerben olyan más forrásból származó csomagok vannak telepítve, "
-#~ "melyek átfedik a(z) %s csomagjait. Ezért a frissítés folytatása esetén "
-#~ "előfordulhat, hogy a szoftverek nem fognak megfelelően működni vagy "
-#~ "instabillá válnak. További információ található a kibocsátási "
-#~ "megjegyzésekben.\n"
-#~ "\n"
-#~ "Folytatni szeretné a frissítési folyamatot?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "A rendszerben nem található /etc/redhat-release nevű fájl. Elképzelhető, "
-#~ "hogy ez nem %s rendszer. Ha folytatja a frissítést, akkor a rendszer "
-#~ "használhatatlanná válhat. Folytatni szeretné a frissítést?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Felhasználóazonosítási beállítások"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "MD5-ös _jelszók engedélyezése"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Árnyékjelszavak _engedélyezése"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "NIS e_ngedélyezése"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "_Broadcast használata a NIS-kiszolgáló megkereséséhez"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS-_tartomány: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "NIS-k_iszolgáló: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Az _LDAP engedélyezése"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "TLS-l_ekérdezés engedélyezése"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP-kisz_olgáló:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _alap-DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "A Ker_beros engedélyezése"
-
-#~ msgid "R_ealm:"
-#~ msgstr "R_ealm:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "A_dminisztrációs kiszolgáló:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "SMB-s fel_használóazonosítás engedélyezése"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB-k_iszolgáló:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB m_unkacsoport:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Rendszerindító lemez létrehozása"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Rendszerindító floppy segítségével a(z) %s rendszer floppyról is "
-#~ "elindítható, még akkor is, ha a merevlemezes rendszerindító "
-#~ "meghibásodott, ha egyáltalán nincs merevlemezes rendszerindító vagy ha a "
-#~ "rendszerindító nem támogatja a Linuxot.\n"
-#~ "\n"
-#~ "Ezért erősen ajánljuk, hogy készítsen rendszerindító floppyt.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Igen, szeretnék rendszerindító lemezt készíteni"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "_Nem szeretnék rendszerindító lemezt készíteni"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Válassza ki, melyik meghajtón szeretné futtatni az fdasd-t"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "A kiválasztott DASD-eszköz leformázásakor a meghajtón található adatok "
-#~ "elvesznek. Biztosan le szeretné formázni a kijelölt DASD-eszközt?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Partícionálás az Fdiskkel"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Válassza ki, melyik meghajtót szeretné partícionálni az Fdiskkel:"
-
-#~ msgid "Disabled"
-#~ msgstr "Kikapcsolva"
-
-#~ msgid "Warn"
-#~ msgstr "Csak figyelmeztetések"
-
-#~ msgid "Active"
-#~ msgstr "Bekapcsolva"
-
-#~ msgid "Firewall"
-#~ msgstr "Tűzfal"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Figyelem - nincs beállítva tűzfal"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Ha a rendszer közvetlenül az internetre vagy egy nagy belső hálózatra "
-#~ "csatlakozik, erősen ajánljuk, hogy az adatforgalom szabályozása érdekében "
-#~ "kapcsolja be a tűzfalat. Azonban a jelek szerint Ön nem kérte tűzfal "
-#~ "telepítését. Válassza a \"Tovább\" opciót a tűzfal nélküli telepítés "
-#~ "folytatásához."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "A tű_zfal beállítása"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Tovább"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Tűzfal segítségével megakadályozhatók az illetéktelen hozzáférések a "
-#~ "hálózatról. Be szeretné kapcsolni a tűzfalat?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "Ne legyen tűzfa_l"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "A tűz_fal bekapcsolása"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Tűzfal használatakor engedélyezheti, hogy hozzáférjenek bizonyos "
-#~ "szolgáltatásokhoz az Ön gépén. Mely szolgáltatásokat szeretné, ha van "
-#~ "ilyen, elérhetővé tenni?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Az SELinux (Security Enhanced Linux) a hagyományos linuxos rendszerben "
-#~ "megszokottnál finomabb biztonsági előírásokat tesz lehetővé. A komponens "
-#~ "figyelmeztetési módban is működhet, ilyenkor csak figyelmeztetéseket ad a "
-#~ "hozzáférés megtagadása helyett."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Az _SELinux bekapcsolása:"
-
-#~ msgid "All Packages"
-#~ msgstr "Minden csomag"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Csomag: %s\n"
-#~ "Verzió: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "_Fastruktúra-nézet"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Egyszerű nézet"
-
-#~ msgid "_Package"
-#~ msgstr "_Csomag"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Méret (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Teljes méret: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "M_inden kiválasztása a csomagban"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "A kijelölések megs_züntetése a csomagban"
-
-#~ msgid "Minimal"
-#~ msgstr "Minimális"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "\"%s\" részletei"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Egy csomagcsoport alap- és opcionális csomagokat tartalmazhat. Az "
-#~ "alapcsomagok mindig feltelepülnek a csomagcsoport telepítésekor.\n"
-#~ "\n"
-#~ "Válassza ki, melyik opcionális csomagokat szeretné még telepíteni:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Alapcsomagok"
-
-#~ msgid "Details"
-#~ msgstr "Részletek"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "E_gyéni csomagválasztás"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "A rendszeróra _UTC-alapú"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Válassza ki az időzónán belül Önhöz legközelebbi várost:"
-
-#~ msgid "_Location"
-#~ msgstr "_Hely"
-
-#~ msgid "Description"
-#~ msgstr "Leírás"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Ismeretlen monitor"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Egyéni grafikai beállítás használata"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Színmélység:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 szín (8 bites)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "High Color (16 bites)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "True Color (24 bites)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Képernyőfelbontás:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Válassza ki az alapértelmezett munkaasztali környezetet:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "A grafikus környezet:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Válassza ki a bejelentkezési módot:"
-
-#~ msgid "_Text"
-#~ msgstr "_Konzolos"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Grafikus"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Monitorbeállítás"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Ismeretlen monitor"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Nem választotta ki a monitor típusát. A lehető legjobb képminőség "
-#~ "érdekében válassza ki olyan pontosan a típust, amennyire csak lehet."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "A monitortípus ki_választása"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "A legtöbb esetben a monitor automatikusan felismerhető. Ha a detektált "
-#~ "beállítások nem pontosak, javítsa ki az értékeket."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Az eredeti értékek v_isszaállítása"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Vízszi_ntes frissítés:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "Fü_ggőleges frissítés:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "A grafikus alaprendszer (X) beállítása"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Ismeretlen videokártya"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Hiba történt a(z) %s videokártya kiválasztásakor. Kérjük, jelentse be a "
-#~ "hibát a(z) %s címen."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Ismeretlen videokártya"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "A X beállításának folytatása előtt ki kell választania egy videokártyát. "
-#~ "Ha ki szeretné hagyni az X beállítását, nyomja meg 'Az X beállításának "
-#~ "kihagyása' gombot."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "A rendszerben aktiválva lesz az X Window rendszer közvetlen elérésű "
-#~ "('frame buffer') meghajtója. Ha nem szeretné most beállítani az X Window "
-#~ "rendszert, válassza alább 'Az X beállításának kihagyása' opciót."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "A videomemória méretét nem sikerült automatikusan meghatározni. Válasszon "
-#~ "az alábbi listából:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "A legtöbb esetben a videokártya automatikusan felismerhető. Ha a "
-#~ "felismert beállítások nem megfelelőek, válassza ki kézzel a megfelelő "
-#~ "beállítást."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "_Videokártya-memória: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "Az X beállításának k_ihagyása"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "A rendszerindító floppy segítségével a(z) %s rendszer elindítható egy "
-#~ "floppyról. Erre például akkor lehet szükség, ha a merevlemezen található "
-#~ "rendszerindító megsérül.\n"
-#~ "\n"
-#~ "Mindenképpen azt ajánljuk, hogy hozzon létre rendszerindító floppyt.\n"
-#~ "\n"
-#~ "Létre szeretne hozni egy rendszerindító floppyt?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Rendszerindító floppy-lemez"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr ""
-#~ "Válassza ki, melyik meghajtón kell futtatni az fdasd-t vagy a dasdfmt-t"
-
-#~ msgid "Next"
-#~ msgstr "Tovább"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "A partíciók módosítása"
-
-#~ msgid "Format DASD"
-#~ msgstr "Formázás (DASD)"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Lemezbeállítás"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Hiba történt %s futtatásakor a(z) %s meghajtón."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "A dasdfmt futtatásakor a(z) %s meghajtóról\n"
-#~ "MINDEN ADAT ELVÉSZ.\n"
-#~ "\n"
-#~ "Biztosan ezt szeretné?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Hiba történt - nincs olyan érvényes eszköz, amelyen létre lehetne hozni "
-#~ "új fájlrendszereket. Ellenőrizze a hardvert a probléma okának "
-#~ "kiderítéséhez, vagy használja a dasdfmt-t."
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Válassza ki, melyik meghajtón szeretné futtatni az fdisk-et"
-
-#~ msgid "Customize"
-#~ msgstr "Testreszabás"
-
-#~ msgid "Enable firewall"
-#~ msgstr "A tűzfal bekapcsolása"
-
-#~ msgid "No firewall"
-#~ msgstr "Nincs tűzfal"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Engedélyezett bejövő forgalom:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Érvénytelen választás"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Kikapcsolt tűzfalat nem lehet testreszabni."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "A tűzfal egyéni beállítása"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Tűzfal használatakor meg kell mondani, hogy mely hálózati szolgáltatások "
-#~ "legyenek elérhetők más gépekről. Mely szolgáltatásokat szeretné "
-#~ "elérhetővé tenni?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "SELinux"
-
-#~ msgid "Edit User"
-#~ msgstr "Felhasználó módosítása"
-
-#~ msgid "Add User"
-#~ msgstr "Felhasználó felvétele"
-
-#~ msgid "User Name"
-#~ msgstr "Felhasználónév"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Jelszó (újra)"
-
-#~ msgid "Full Name"
-#~ msgstr "Teljes név"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Hibás felhasználónév"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "A felhasználónév az A-Z, a-z és 0-9 karakterekből állhat."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Hiányzó felhasználónév"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "Meg kell adni egy felhasználónevet."
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "A jelszónak legalább 6 karakter hosszúnak kell lennie."
-
-#~ msgid "User Exists"
-#~ msgstr "A felhasználó már létezik"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "A \"root\" felhasználónév már be van állítva, nem kell itt felvenni."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Ez a rendszerfelhasználói név már be van állítva, nem kell itt felvenni."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Ez a felhasználónév már létezik. Válasszon egy másikat."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "A rendszeren a legtöbb feladatot normál felhasználóként elvégezheti. Ha "
-#~ "nem használja rendszeresen a rendszergazdai felhasználóazonosítót, akkor "
-#~ "kisebb a valószínűsége a rendszerbeállítások megsérülésének."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Felhasználóazonosító beállítása"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Milyen egyéb felhasználóazonosítókat szeretne még létrehozni? Érdemes "
-#~ "legalább egy normál, nem rendszergazdai felhasználóazonosítót létrehozni, "
-#~ "azonban többfelhasználós rendszerben tetszőleges számú azonosító "
-#~ "létrehozható."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "A felhasználó adatainak megadása."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "A felhasználó adatainak módosítása."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Árnyékjelszavak használata"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "MD5-ös jelszókódolás használata"
-
-#~ msgid "Enable NIS"
-#~ msgstr "A NIS engedélyezése"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS-tartomány:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS-kiszolgáló:"
-
-#~ msgid "or use:"
-#~ msgstr "vagy:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Kiszolgálókeresés broadcasttal"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Az LDAP engedélyezése"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP-kiszolgáló:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP-alap-DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "A TLS használata"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "A Kerberos engedélyezése"
-
-#~ msgid "Realm:"
-#~ msgstr "Realm:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Adminisztrációs kiszolgáló:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Színmélység"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Válassza ki a használni kívánt színmélységet:"
-
-#~ msgid "Resolution"
-#~ msgstr "Felbontás"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "Válassza ki a kívánt képernyőfelbontást:"
-
-#~ msgid "X Customization"
-#~ msgstr "Az X beállításai"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Válassza ki, milyen színmélységet és felbontást szeretne használni. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Színmélység:"
-
-#~ msgid "Change"
-#~ msgstr "Módosítás"
-
-#~ msgid "Resolution:"
-#~ msgstr "Felbontás:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Alapértelmezett felület:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Bejelentkezési mód:"
-
-#~ msgid "Graphical"
-#~ msgstr "grafikus"
-
-#~ msgid "Text"
-#~ msgstr "karakteres"
-
-#~ msgid "Monitor"
-#~ msgstr "Monitor"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Válassza ki a monitor típusát."
-
-#~ msgid "horizontal"
-#~ msgstr "vízszintes"
-
-#~ msgid "vertical"
-#~ msgstr "függőleges"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Érvénytelen frissítési frekvenciák"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "A(z) %s frissítési frekvencia érvénytelen:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A frissítési frekvencia formája:\n"
-#~ "\n"
-#~ "      31.5                   egyetlen érték\n"
-#~ "    50.1-90.2                értéktartomány\n"
-#~ "31.5,35.0,39.3-40.0          felsorolás/értéktartományok\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Monitorfrissítési frekvenciák"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Adja meg a monitor frissítési frekvenciáit. \n"
-#~ "\n"
-#~ "Megjegyzés: ezeket az értékeket általában nem kell kézzel megadni, de "
-#~ "ellenőrizze, hogy az adatok megfelelnek-e a valóságnak."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Vízszintes frek.: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Függőleges frek.: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Válassza ki, milyen monitor van csatlakoztatva a géphez. Az "
-#~ "alapértelmezett beállításokhoz a(z) '%s' gombbal lehet visszatérni."
-
-#~ msgid "Monitor:"
-#~ msgstr "Monitor:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Vízszintes frek.:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "Függőleges frek.:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Válassza ki a monitor típusát"
-
-#~ msgid "Proceed"
-#~ msgstr "Tovább"
-
-#~ msgid "Video Card"
-#~ msgstr "Videokártya"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Válassza ki, milyen videokártya található a rendszerben. A(z) '%s' "
-#~ "gombbal lehet visszaállítani a telepítő által detektált típust."
-
-#~ msgid "Video RAM"
-#~ msgstr "Videomemória"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Adja meg, mennyi videomemória található a videokártyán. A(z) '%s' gombbal "
-#~ "lehet visszaállítani a telepítő által detektált értéket."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Az X beállításának kihagyása"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Videokártya-beállítás"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Válassza ki a videokártya típusát és a videomemória mennyiségét."
-
-#~ msgid "Video Card:"
-#~ msgstr "Videokártya:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Ismeretlen kártya"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Videomemória:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Ha további lemezeket szeretne tesztelni, helyezze be a következő CD-t és "
-#~ "nyomja meg a(z) \"%s\" gombot. Nem szükséges az összes lemezt "
-#~ "letesztelni, de a biztonság érdekében nem árt.\n"
-#~ "\n"
-#~ "A telepítés megkezdéséhez helyezze be az 1. lemezt és nyomja meg a(z) \"%s"
-#~ "\" gombot."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "A lemezellenőrzés (%s) befejeződött, az eredmény: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Standard keleti idő - Közép-Nunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Nagy-Britannia"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Észak-Írország"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmánia"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "északnyugati Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "Délnyugat-Mali"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "További nyelvek támogatása"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Válassza ki a rendszer ala_pértelmezett nyelvét:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "T_ovábbi nyelvek telepítése:"
-
-#~ msgid "_Select All"
-#~ msgstr "Min_den kijelölése"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "_Csak az alapértelmezett kiválasztása"
-
-#~ msgid "Rese_t"
-#~ msgstr "_Alapállapot"
-
-#~ msgid "Select All"
-#~ msgstr "Minden kijelölése"
-
-#~ msgid "Reset"
-#~ msgstr "Alapállapot"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr ""
-#~ "Válassza ki, mely további nyelveket szeretné használni a rendszerben:"
-
-#~ msgid "Language Support"
-#~ msgstr "Nyelvi támogatás"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Legalább egy nyelvet ki kell választani."
-
-#~ msgid "Default Language"
-#~ msgstr "Alapértelmezett nyelv"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Válassza ki, mi legyen az alapértelmezett nyelv: "
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) Red Hat, Inc., 2004."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "A frissítések, hibajavítások információi itt találhatók:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "A Red Hat Networkön keresztüli automatikus frissítés információi itt "
-#~ "találhatók:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "A rendszer beállításával és használatával kapcsolatos információk itt "
-#~ "találhatók:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "A termék regisztrálása itt végezhető el:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "SILO-beállítás"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "SILO rendszerindítási rekord telepítése:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "PROM alias létrehozása"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Alapértelmezett PROM indítási eszköz linux-ra állítása"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Rendszermag-paraméterek"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Rendszerindító lemez létrehozása"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Ne telepítse a SILO-t"
-
-#~ msgid "Default boot image"
-#~ msgstr "Alapértelmezett rendszerindítási képfájl"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO beállítása"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "`linux' PROM-alias létrehozása"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Alapértelmezett PROM indítási eszköz beállítása"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Hová kívánja telepíteni a rendszerindítót?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "A Red Hat által használt rendszerindító más operációs rendszerek "
-#~ "indítására is képes. Adja meg, melyik partíciókról kíván indítani, és "
-#~ "milyen címkét szeretne használni hozzájuk."
-
-#~ msgid "no suggestion"
-#~ msgstr "nincs ajánlás"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "A _LILO legyen a rendszerindító"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Nem sikerült megváltoztatni a meghajtók sorrendjét a LILO-ban"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr ""
-#~ "Nem támogatjuk a meghajtók sorrendjének megváltoztatását a LILO-ban."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s telepítő: %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Nem kérte rendszerindító telepítését a merevlemezre. A rendszer "
-#~ "elindításához ezért szüksége lesz egy rendszerindító floppyra.\n"
-#~ "\n"
-#~ "Tovább szeretne lépni merevlemezes rendszerindító telepítése nélkül?"
-
-#~ msgid "Total"
-#~ msgstr "Összes"
-
-#~ msgid "Remaining"
-#~ msgstr "Hátralévő"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "%s-%s-%s.%s telepítése"
-
-#~ msgid "Package Progress: "
-#~ msgstr "A csomag állása: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Teljes elkészültség:   "
-
-#~ msgid "Status"
-#~ msgstr "Állapot"
-
-#~ msgid "Time"
-#~ msgstr "Idő"
