@@ -1,4 +1,9 @@
-2005-01-26  Peter Jones  <pjones@redhat.com>
+2006-02-01  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py (swapFileSystem.labelDevice):  Make swap labels starting
+	with SW- on /dev/cciss/* devices (#170500).
+
+2006-01-26  Peter Jones  <pjones@redhat.com>
 
 	* packages.py (doPreInstall): Change minimum cpu count for largesmp
 	kernel selection on ppc to 64.  (#179027)

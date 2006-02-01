@@ -735,8 +735,14 @@ class swapFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         file = entry.device.setupDevice(chroot)
-	label = labelFactory.createLabel("SWAP-%s" %entry.device.getDevice(),
-                                         self.maxLabelChars)
+        devName = entry.device.getDevice()
+        # we'll keep the SWAP-* naming for all devs but Compaq SMART2
+        # nodes (#170500)
+        if devName[0:6] == "cciss/":
+            swapLabel = "SW-%s" % (devName)
+        else:
+            swapLabel = "SWAP-%s" % (devName)
+        label = labelFactory.createLabel("%s" %swapLabel, self.maxLabelChars)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                      [ "mkswap", '-v1', "-L", label, file ],
                                      stdout = "/dev/tty5",
