@@ -1,12 +1,12 @@
 Name: anaconda
-Version: 10.91.10
+Version: 10.91.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
 BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.2.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, libX11-devel, libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber, pykickstart, yum, device-mapper >= 1.01.05-3, libsepol-devel, pango-devel
-Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu > 1.2.0, yum >= 2.4.0
+Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu > 1.2.0, yum >= 2.5.1-3
 Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart
 Requires: device-mapper >= 1.01.05-3
@@ -78,6 +78,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 31 2006 Paul Nasrat <pnasrat@redhat.com> - 10.91.11-1
+- Factor some yum stuff into yum
+- Text Clarification (#178105)
+- Don't use install only pkgs (#179381)
+- Various dmraid and bootloader fixes (pjones)
+
 * Tue Jan 31 2006 Peter Jones <pjones@redhat.com> - 10.91.10-1
 - add dmraid device renaming support for kickstart (pjones)
 - fix paths for expat (clumens)
