@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,6 +18,7 @@ import isys
 import iutil
 import os
 import posix
+import stat
 import errno
 import parted
 import sys
@@ -1270,7 +1271,16 @@ MAILADDR root
                 f.write(newline)
 
         f.close()
-        
+
+    def mkDevRoot(self, instPath):
+        import pdb
+        pdb.set_trace()
+        root = self.getEntryByMountPoint("/")
+        dev = "%s/dev/%s" % (instPath, root.device.getDevice())
+        rdev = os.stat(dev).st_rdev
+
+        os.mknod("%s/dev/root" % (instPath,), stat.S_IFBLK | 0600, rdev)
+
     # return the "boot" device
     def getBootDev(self):
 	mntDict = {}

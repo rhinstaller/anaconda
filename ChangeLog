@@ -1,3 +1,12 @@
+2006-02-01  Peter Jones  <pjones@redhat.com>
+
+	* fsset.py (FileSystemSet): add a method to make /dev/root as it
+	would be outside of the install environment (#171662)
+
+	* upgrade.py (upgradeMountFilesystems): make /dev/root
+
+	* yuminstall.py (doPreInstall): make /dev/root
+
 2006-02-01  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py (swapFileSystem.labelDevice):  Make swap labels starting

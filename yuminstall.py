@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005 Red Hat, Inc.
+# Copyright (c) 2005-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -843,6 +843,7 @@ class YumBackend(AnacondaBackend):
             if 1:
                 log.warning("no dev package, going to bind mount /dev")
                 isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
+                id.fsset.mkDevRoot("/mnt/sysimage/")
 
         # write out the fstab
         if not upgrade:

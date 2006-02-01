@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001-2003 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -337,6 +337,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
         
     if flags.setupFilesystems:
         oldfsset.turnOnSwap(instPath, upgrading=True)
+        oldfsset.mkDevRoot(instPath)
 
 # move the old pre-convert db back in case of problems
 def resetRpmdb(olddb, instPath):
