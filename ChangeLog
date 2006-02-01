@@ -1,5 +1,7 @@
 2006-01-31  Paul Nasrat  <pnasrat@redhat.com>
 
+	* yuminstall.py: Use factory in newer yum
+	* sortedtransaction.py: Move SortableTransactionData to yum
 	* yuminstall.py: Text Clarification (#178105)
 	* yuminstall.py: Anaconda should not use installonlypkgs (#179381)
 

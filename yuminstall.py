@@ -349,19 +349,9 @@ class YumSorter(yum.YumBase):
 
         return unresolved
 
-    def doTsSetup(self):
-        if hasattr(self, 'read_ts'):
-            return
-
-        if not self.conf.installroot:
-            raise yum.Errors.YumBaseError, 'Setting up TransactionSets before config class is up'
-
-        installroot = self.conf.installroot
-        self.read_ts = rpmUtils.transaction.initReadOnlyTransaction(root=installroot)
-        self.tsInfo = SplitMediaTransactionData()
-        self.rpmdb = rpmUtils.RpmDBHolder()
-        self.initActionTs()
-   
+    def _transactionDataFactory(self):
+        return SplitMediaTransaction()
+  
 class AnacondaYum(YumSorter):
     def __init__(self, fn="/etc/yum.conf", root="/", method=None):
         YumSorter.__init__(self)
