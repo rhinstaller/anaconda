@@ -20,6 +20,9 @@
 	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Provide an
 	error dialog if there's a problem in the way LVM commands are given.
 
+	* yuminstall.py (YumBackend.writePackagesKS):  Use yum's builtin group
+	lists now.
+
 2006-01-31  Paul Nasrat  <pnasrat@redhat.com>
 
 	* ananconda.spec: Bump version
