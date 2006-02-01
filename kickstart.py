@@ -220,7 +220,11 @@ class AnacondaKSHandlers(KickstartHandlers):
         elif lvd.percent <= 0 or lvd.percent > 100:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
 
-        vgid = self.ksVGMapping[lvd.vgname]
+        try:
+            vgid = self.ksVGMapping[lvd.vgname]
+        except KeyError:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name '%s'.  Specify volume groups before logical volumes." % lvd.vgname)
+
 	for areq in id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
 		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
