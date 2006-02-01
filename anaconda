@@ -192,9 +192,12 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 	argv = ["/usr/bin/vncconfig", "-display", ":1", "-connect", hostarg]
 	ntries = 0
 	while 1:
-	    output=iutil.execWithCapture(argv[0], argv, catchfd=2)
-	    outfields = string.split(string.strip(output), ' ')
-	    if outfields[0] == "connecting" and outfields[-1] == "failed":
+            output = iutil.execWithCapture(argv[0], argv, catchfd=2)
+
+            if output == "":
+                stdoutLog.info(_("Connected!"))
+                break
+            elif output.startswith("connecting") and output.endswith("failed"):
 		ntries += 1
 		if ntries > 50:
 		    stdoutLog.error(_("Giving up attempting to connect after 50 tries!\n"))
@@ -209,8 +212,8 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 		time.sleep(15)
 		continue
 	    else:
-		stdoutLog.info(_("Connected!"))
-		break
+                stdoutLog.critical(output)
+	        sys.exit(1)
     else:
 	if connxinfo is not None:
 	    stdoutLog.info(_("Please connect to %s to begin the install...") % (connxinfo,))

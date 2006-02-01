@@ -5,6 +5,9 @@
 
 2006-02-01  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  If we get an error message from vncconnect, display it
+	instead of assuming everything's fine.
+
 	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Provide an
 	error dialog if there's a problem in the way LVM commands are given.
 
