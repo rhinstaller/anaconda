@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2006-01-31 20:15-0200\n"
+"PO-Revision-Date: 2006-01-31 22:18-0200\n"
 "Last-Translator: Rodrigo Padula de Oliveira <rodrigopadula@gmail.com>\n"
 "Language-Team: Brazilian Portuguese\n"
 "MIME-Version: 1.0\n"
@@ -224,7 +224,7 @@ msgstr "Instalação gráfica não disponível...  Iniciando em modo texto."
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Variável de DISPLAY não foi especificada. Iniciando no modo texto!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
@@ -239,11 +239,8 @@ msgid "Unknown install method"
 msgstr "Método de instalação desconhecido "
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Você está tentando instalar em uma máquina que não é suportada por esta "
-"versão do %s."
+msgstr "Você especificou um método de instalação que não é suportado pelo anaconda."
 
 #: ../anaconda:1089
 #, c-format
@@ -608,14 +605,14 @@ msgid "Installing %s-%s-%s... "
 msgstr "Instalando %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "Ocorreu uma exceção irreparável.  Isto provavelmente é um erro. Por favor "
-"copie o texto completo da exceção ocorrida e reporte-o em anaconda em %s"
+"salve uma cópia detalhada da exceção e registre o bug ocorrido no anaconda em %s "
 
 #: ../exception.py:401 ../exception.py:417
 msgid "Dump Written"
@@ -630,26 +627,24 @@ msgstr ""
 "agora."
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Relatório foi salvo"
+msgstr "Dump não escrito"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Houve um problema escrevendo o estado do sistema no disco flexível."
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"O estado de seu sistema foi gravado no disquete. O sistema será reiniciado "
-"agora."
+"O estado de seu sistema foi gravado com sucesso na máquina remota.\n"
+"O seu sistema será reiniciado agora."
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Houve um problema escrevendo o estado do sistema na máquina remota."
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -2975,9 +2970,9 @@ msgstr ""
 "\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "Que tipo de mídia contém os pacotes a serem instalados?"
+msgstr "[%d de %d pacotes opcionais instalados]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -6096,12 +6091,8 @@ msgid "It is OK to install from this media."
 msgstr "Está OK para ser instalado a partir desta mídia."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NÃO DISPONÍVEL.\n"
-"\n"
-"Não há informações de assinatura disponíveis. Impossível verificar a mídia."
+msgstr "Nenhum informação de checksum disponível, incapaz de verificar mídia."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6302,7 +6293,7 @@ msgstr "Configuração do NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Nome da máquina especificado sem DNS configurado"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6471,9 +6462,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Re_ver e modificar o layout do particionamento"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Selecione o(s) disco(s) a ser(em) utilizado(s) para esta instalação:"
+msgstr "_Selecione o(s) drive(s) a ser(em) utilizado(s) para esta instalação."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
@@ -6585,9 +6575,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Estação Casey, Península Bailey"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6614,9 +6603,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Hora Central - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Hora Central - Nunavut ocidental"
+msgstr "Hora Central - Nunavut central"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6707,18 +6695,16 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Hora Oriental Padrão - Indiana - Condado de Switzerland"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Hora Oriental Padrão - Nunavut oriental"
+msgstr "Hora Oriental Padrão - Ilha de Southampton "
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Hora Oriental"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Hora Oriental Padrão - Nunavut oriental"
+msgstr "Hora Oriental - Leste de Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6741,9 +6727,8 @@ msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-19
 msgstr "Hora Oriental - Ontario & Quebec - locais regidos pelo DST 1966-1971"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Hora Oriental Padrão - Pangnirtung, Nunavut"
+msgstr "Hora Oriental - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
