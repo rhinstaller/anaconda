@@ -1273,8 +1273,6 @@ MAILADDR root
         f.close()
 
     def mkDevRoot(self, instPath):
-        import pdb
-        pdb.set_trace()
         root = self.getEntryByMountPoint("/")
         dev = "%s/dev/%s" % (instPath, root.device.getDevice())
         rdev = os.stat(dev).st_rdev
