@@ -27,7 +27,7 @@ from yum.Errors import RepoError, YumBaseError
 from repomd.mdErrors import PackageSackError
 from installmethod import FileCopyException
 from backend import AnacondaBackend
-from sortedtransaction import *
+from sortedtransaction import SplitMediaTransactionData
 from genheader import *
 from constants import *
 from rhpl.translate import _
@@ -350,7 +350,7 @@ class YumSorter(yum.YumBase):
         return unresolved
 
     def _transactionDataFactory(self):
-        return SplitMediaTransaction()
+        return SplitMediaTransactionData()
   
 class AnacondaYum(YumSorter):
     def __init__(self, fn="/etc/yum.conf", root="/", method=None):
