@@ -186,7 +186,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel
            fonts-japanese fonts-chinese fonts-korean fonts-indic 
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
-           firstboot rhpxl pycairo"
+           firstboot rhpxl pycairo pirut"
 
 #
 # stuff ONLY included for rescue mode
@@ -422,6 +422,7 @@ usr/lib/python?.?/site-packages/rpmUtils/*
 usr/lib/python?.?/site-packages/urlgrabber/*
 usr/lib/python?.?/site-packages/yum/*
 usr/lib/python?.?/site-packages/repomd/*
+usr/lib/python?.?/site-packages/pirut/*
 usr/lib/python?.?/site-packages/pykickstart/*
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
@@ -740,6 +741,8 @@ usr/share/locale/*/LC_MESSAGES/libc.mo
 usr/share/locale/*/LC_MESSAGES/rhpl.mo
 usr/share/locale/*/LC_MESSAGES/rhpxl.mo
 usr/share/locale/*/LC_MESSAGES/parted.mo
+usr/share/locale/*/LC_MESSAGES/pirut.mo
+usr/share/pirut/*
 usr/share/pixmaps/comps/*.png
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png

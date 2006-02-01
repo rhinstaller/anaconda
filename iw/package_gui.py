@@ -14,7 +14,7 @@
 #
 
 # FIXME: group selection isn't currently backend independent
-from GroupSelector import GroupSelector
+from pirut.GroupSelector import GroupSelector
 
 import gui
 from iw_gui import *
