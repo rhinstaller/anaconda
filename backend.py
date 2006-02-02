@@ -167,5 +167,5 @@ def doBasePackageSelect(backend, instClass):
 def writeConfiguration(backend):
     log.info("Writing main configuration")
     if not flags.test:
-        backend.writeConfiguration)
+        backend.writeConfiguration()
    

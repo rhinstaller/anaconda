@@ -631,9 +631,14 @@ class YumBackend(AnacondaBackend):
         self.ayum.comps.categories.append(c)
 
     def getDefaultGroups(self):
-        return map(lambda x: x.groupid,
-                   filter(lambda x: x.default,
-                          self.ayum.comps.groups))
+        import language
+        rc = map(lambda x: x.groupid,
+                 filter(lambda x: x.default, self.ayum.comps.groups))
+        langs = language.expandLangs(os.environ["LANG"])
+        for g in self.ayum.comps.groups:
+            if g.langonly in langs:
+                rc.append(g.groupid)
+        return rc
 
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""
@@ -713,38 +718,10 @@ class YumBackend(AnacondaBackend):
         elif iutil.getArch() == "ia64":
             self.selectPackage("elilo")
 
-    def selectLanguageGroups(self):
-        import language
-        langToGroup = { "de": "german-support",
-                        "es": "spanish-support",
-                        "fr": "french-support",
-                        "it": "italian-support",
-                        "pt_BR": "brazilian-support",
-                        "ru": "russian-support",
-                        "ja": "japanese-support",
-                        "ko": "korean-support",
-                        "zh": "chinese-support",
-                        "cz": "czech-support",
-                        "hi": "hindi-suppot",
-                        "gu": "gujarati-support",
-                        "pa": "punjabi-support",
-                        "ta": "tamil-support",
-                        "bn": "bengali-support",
-                        "ar": "arabic-support",
-                        "ca": "catalan-support",
-                        "uk": "ukranian-support",
-                        "sv": "swedish-support" }
-        lang = os.environ["LANG"]
-        langs = language.expandLangs(lang)
-        for l in langs:
-            if langToGroup.has_key(l):
-                self.selectGroup(langToGroup[l])
-
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
-        self.selectLanguageGroups()
         
         if id.getUpgrade():
             self.ayum.update()
@@ -1006,7 +983,7 @@ class YumBackend(AnacondaBackend):
         map(lambda grp: f.write("@%s\n" % grp), self.ayum.tsInfo.instgroups)
         map(lambda pkg: f.write("%s\n" % pkg), packages)
 
-    def writeConfiguration(self)
+    def writeConfiguration(self):
         for repo in self.repos.listEnabled():
             repo.disable()
             fn = "%s/etc/yum.repos.d/%s.repo" % ( self.instPath, repo.id)

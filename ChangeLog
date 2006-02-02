@@ -1,5 +1,9 @@
 2006-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.getDefaultGroups): Select lang groups
+	by default too (#178673).  Fix a typo.
+	* backend.py (writeConfiguration): And another typo.
+
 	* bootdisk/i386/boot.msg: Update to fix colors (#178033) and to be
 	more accurate.
 	* bootdisk/i386/general.msg: Likewise
