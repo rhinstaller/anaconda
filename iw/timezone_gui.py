@@ -129,21 +129,9 @@ class AnacondaTZMap(TimezoneMap):
     def status_bar_init(self):
         self.status = None
 
-    def timezone_list_init (self, default):
-        self.hbox = gtk.HBox()
-        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
-                                     gobject.TYPE_INT, gobject.TYPE_INT)
-        self.tzSorted = gtk.TreeModelSort(self.tzStore)
-        self.tzSorted.set_sort_column_id(0, gtk.SORT_ASCENDING)
-        self.tzFilter = self.tzSorted.filter_new()
-        self.tzCombo = gtk.ComboBox(model=self.tzFilter)
-        cell = gtk.CellRendererText()
-        self.tzCombo.pack_start(cell, True)
-        self.tzCombo.add_attribute(cell, 'text', 0)
-        self.tzFilter.set_visible_func(tzFilterFunc, self)
+    def load_entries (self, root):
+        iter = self.tzStore.get_iter_first()
 
-        root = self.canvas.root()
-        
         for entry in self.zonetab.getEntries():
             if entry.lat is None or entry.long is None:
                 continue
@@ -159,12 +147,28 @@ class AnacondaTZMap(TimezoneMap):
                 #In case the /etc/sysconfig/clock is messed up, use New York as default
                 self.fallbackEntry = entry
 
-            iter = self.tzStore.append()
-            self.tzStore.set_value(iter, 0, _(entry.tz))
-            self.tzStore.set_value(iter, 1, entry.tz)
-            self.tzStore.set_value(iter, 2, entry.lat)
-            self.tzStore.set_value(iter, 3, entry.long)
+            iter = self.tzStore.insert_after(iter, [_(entry.tz), entry.tz,
+                                                    entry.lat, entry.long])
 
+    def timezone_list_init (self, default):
+        self.hbox = gtk.HBox()
+        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
+                                     gobject.TYPE_INT, gobject.TYPE_INT)
+
+        root = self.canvas.root()
+
+        self.load_entries(root)
+
+        # Add the ListStore to the sorted model after the list has been
+        # populated, since otherwise we end up resorting on every addition.
+        self.tzSorted = gtk.TreeModelSort(self.tzStore)
+        self.tzSorted.set_sort_column_id(0, gtk.SORT_ASCENDING)
+        self.tzFilter = self.tzSorted.filter_new()
+        self.tzCombo = gtk.ComboBox(model=self.tzFilter)
+        cell = gtk.CellRendererText()
+        self.tzCombo.pack_start(cell, True)
+        self.tzCombo.add_attribute(cell, 'text', 0)
+        self.tzFilter.set_visible_func(tzFilterFunc, self)
         self.tzCombo.connect("changed", self.selectionChanged)
         self.hbox.pack_start(self.tzCombo, False, False)
 
