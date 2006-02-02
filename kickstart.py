@@ -286,6 +286,8 @@ class AnacondaKSHandlers(KickstartHandlers):
         if nd.gateway != "":
             id.instClass.setGateway(id, nd.gateway)
 
+        self.skipSteps.append("network")
+
     def doDmRaid(self, id, args):
         KickstartHandlers.doDmRaid(self, args)
 
@@ -806,7 +808,6 @@ class Kickstart(BaseInstallClass):
         # properly, and will stop you if you have an unprobed monitor,
         # we should skip them for autostep
         if flags.autostep:
-            dispatch.skipStep("checkmonitorok")
             dispatch.skipStep("monitor")
             return
 
@@ -815,20 +816,23 @@ class Kickstart(BaseInstallClass):
         dispatch.skipStep("betanag")
         dispatch.skipStep("confirminstall")
         dispatch.skipStep("confirmupgrade")
-        dispatch.skipStep("network")
         dispatch.skipStep("installtype")
+        dispatch.skipStep("tasksel")            
 
 	if len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
            len(self.ksdata.excludedList) > 0:
-            dispatch.skipStep("group-selection")
-            dispatch.skipStep("tasksel")            
+            if self.ksdata.interactive:
+                self.handlers.showSteps.append("group-selection")
+            else:
+                self.handlers.skipSteps.append("group-selection")
 
-        for n in self.handlers.skipSteps:
-            dispatch.skipStep(n)
+        if not self.ksdata.interactive:
+            for n in self.handlers.skipSteps:
+                dispatch.skipStep(n)
+            for n in self.handlers.permanentSkipSteps:
+                dispatch.skipStep(n, permanent=1)
         for n in self.handlers.showSteps:
             dispatch.skipStep(n, skip = 0)
-        for n in self.handlers.permanentSkipSteps:
-            dispatch.skipStep(n, permanent=1)
 
     def setPackageSelection(self, backend, *args):
         # FIXME: handling of missing packages...
