@@ -1,5 +1,9 @@
 2006-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/bootloader_main_gui.py (MainBootloaderWindow.getScreen):
+	Clean up to not reference "changing" boot loaders while not
+	changing strings (#159658)
+
 	* yuminstall.py (YumBackend.getDefaultGroups): Select lang groups
 	by default too (#178673).  Fix a typo.
 	* backend.py (writeConfiguration): And another typo.
