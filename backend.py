@@ -139,6 +139,10 @@ class AnacondaBackend:
         log.warning("writePackagesKS not implemented for backend!")
         pass
 
+    def writeConfiguration(self):
+        log.warning("writeConfig not implemented for backend!")
+        pass
+
 def doRepoSetup(backend, intf, id, instPath):
     backend.doInitialSetup(id, instPath)
     backend.doRepoSetup(intf, instPath)
@@ -159,4 +163,9 @@ def doInstall(backend, intf, id, instPath):
 def doBasePackageSelect(backend, instClass):
     instClass.setPackageSelection(backend)
     instClass.setGroupSelection(backend)
-    
+
+def writeConfiguration(backend):
+    log.info("Writing main configuration")
+    if not flags.test:
+        backend.writeConfiguration)
+   

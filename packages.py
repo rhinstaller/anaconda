@@ -70,11 +70,6 @@ def firstbootConfiguration(id, instPath):
     return
         
 
-def writeConfiguration(id, instPath):
-    log.info("Writing main configuration")
-    if not flags.test:
-        id.write(instPath)
-
 def writeKSConfiguration(id, instPath):
     log.info("Writing autokickstart file")
     if not flags.test:

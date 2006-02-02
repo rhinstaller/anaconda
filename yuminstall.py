@@ -1006,6 +1006,15 @@ class YumBackend(AnacondaBackend):
         map(lambda grp: f.write("@%s\n" % grp), self.ayum.tsInfo.instgroups)
         map(lambda pkg: f.write("%s\n" % pkg), packages)
 
+    def writeConfiguration(self)
+        for repo in self.repos.listEnabled():
+            repo.disable()
+            fn = "%s/etc/yum.repos.d/%s.repo" % ( self.instPath, repo.id)
+            f = open(fn , 'w')
+            f.write(repo.dump())
+            repo.enable()
+            f.close()
+
 class YumProgress:
     def __init__(self, intf, text, total):
         window = intf.progressWindow(_("Installation Progress"), text,

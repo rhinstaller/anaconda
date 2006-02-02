@@ -16,7 +16,7 @@
 import string
 from types import *
 from constants import *
-from packages import writeConfiguration, writeXConfiguration
+from packages import writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
@@ -41,6 +41,7 @@ from installmethod import doMethodComplete
 
 from backend import doPostSelection, doRepoSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall
+from backend import writeConfiguration
 
 import logging
 log = logging.getLogger("anaconda")

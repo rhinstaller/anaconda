@@ -1,3 +1,8 @@
+2006-02-02  Paul Nasrat   <pnasrat@redhat.com>
+
+	* yuminstall.py: Implement writeConfiguration
+	* backend.py dispatch.py packages.py: Move writeConfiguration
+
 2006-02-02  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Add sqlite to traceonly.
