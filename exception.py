@@ -47,6 +47,7 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "intf.icw.releaseNotesContents",
                     "intf.icw.id.keyboard._mods._modelDict",
                     "intf.ppw.ics.cw.releaseNotesContents",                    
+                    "intf.ppw.ics.cw.id.backend.dlpkgs",
                     "intf.ppw.ics.cw.id.bootloader.password",
                     "intf.ppw.ics.cw.id.instClass.handlers.handlers",
                     "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.bootloader",
