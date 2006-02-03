@@ -1,5 +1,8 @@
 2006-02-03  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.doGroupSetup): Add a hack to remove
+	the Xen group if we're running on xen (#179387)
+
 	* iw/task_gui.py: Adjust for dynamic set of tasks
 	* ui/tasksel.glade: Don't list tasks in the glade file, they're
 	now auto-generated.
@@ -16,7 +19,7 @@
 	* fsset.py (swapFileSystem): Fix format strings in call to
 	labelDevice.  Add correct swapFileSystem.maxLabelChars .
 
-        * yuminstall.py (YumBackend.writeConfiguration): self.ayum.repos,
+	* yuminstall.py (YumBackend.writeConfiguration): self.ayum.repos,
         not self.repos .
 
 2006-02-03  Chris Lumens  <clumens@redhat.com>

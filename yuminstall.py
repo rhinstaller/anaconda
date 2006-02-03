@@ -566,6 +566,13 @@ class YumBackend(AnacondaBackend):
         self.ac.write()
         self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath, method=self.method)
 
+    def doGroupSetup(self):
+        self.ayum.doGroupSetup()
+        # FIXME: this is a bad hack to remove support for xen on xen (#179387)
+        if os.path.exists("/proc/xen") or True:
+            if self.ayum.comps._groups.has_key("xen"):
+                del self.ayum.comps._groups["xen"]
+
     def doRepoSetup(self, intf, instPath):
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
@@ -575,7 +582,7 @@ class YumBackend(AnacondaBackend):
                   (self.ayum.doRpmDBSetup, 5),
                   (self.ayum.doRepoSetup, 15),
                   (self.ayum.doCacheSetup, 1),
-                  (self.ayum.doGroupSetup, 1),
+                  (self.doGroupSetup, 1),
                   (self.ayum.doSackSetup, 50),
                   (self._catchallCategory, 1))
 
