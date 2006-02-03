@@ -1,3 +1,8 @@
+2006-02-03  Peter Jones  <pjones@redhat.com>
+
+	* fsset.py (swapFileSystem): Fix format strings in call to
+	labelDevice.  Add correct swapFileSystem.maxLabelChars .
+
 2006-02-03  Chris Lumens  <clumens@redhat.com>
 
 	* dispatch.py (installSteps):  Fix arguments to writeConfiguration

@@ -732,6 +732,7 @@ class swapFileSystem(FileSystemType):
         self.maxSizeMB = 8 * 1024 * 1024
         self.linuxnativefs = 1
         self.supported = 1
+        self.maxLabelChars = 15
         
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
@@ -782,8 +783,7 @@ class swapFileSystem(FileSystemType):
             swapLabel = "SWAP-%s" % (devName[7:],)
         else:
             swapLabel = "SWAP-%s" % (devName)
-        swapLabel = swapLabel[0:
-        label = labelFactory.createLabel("%s" %swapLabel, self.maxLabelChars)
+        label = labelFactory.createLabel(swapLabel, self.maxLabelChars)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                      [ "mkswap", '-v1', "-L", label, file ],
                                      stdout = "/dev/tty5",
