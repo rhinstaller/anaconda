@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.12
+Version: 10.91.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb  2 2006 Jeremy Katz <katzj@redhat.com> - 10.91.13-1
+- Speed up timezone screen (clumens)
+- Make kickstart interactive mode work (clumens)
+- Fix package selection screen (clumens)
+- Add sqlite to traceonly to help http/ftp memory usage
+- Write out repo config (pnasrat)
+- Fix colors on boot splashes (#178033)
+- Select lang groups before going to the screen (#178673)
+- Clean up handling of grub vs no boot loader (#159658)
+
 * Thu Feb  2 2006 Jeremy Katz <katzj@redhat.com> - 10.91.12-1
 - improves %%packages section some more (clumens)
 - give a better error on kickstart lvm syntax errors (clumens)
