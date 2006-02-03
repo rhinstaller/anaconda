@@ -984,7 +984,7 @@ class YumBackend(AnacondaBackend):
         map(lambda pkg: f.write("%s\n" % pkg), packages)
 
     def writeConfiguration(self):
-        for repo in self.repos.listEnabled():
+        for repo in self.ayum.repos.listEnabled():
             repo.disable()
             fn = "%s/etc/yum.repos.d/%s.repo" % ( self.instPath, repo.id)
             f = open(fn , 'w')
