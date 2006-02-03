@@ -120,7 +120,7 @@ installSteps = [
     ("preinstallconfig", doPreInstall, ("backend", "intf", "id", "instPath", "dir")),
     ("installpackages", doInstall, ("backend", "intf", "id", "instPath")),
     ("postinstallconfig", doPostInstall, ("backend", "intf", "id", "instPath")),    
-    ("writeconfig", writeConfiguration, ("backend")),
+    ("writeconfig", writeConfiguration, ("backend",)),
     ("firstboot", firstbootConfiguration, ("id", "instPath")),
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                          "id.bootloader", "id.instLanguage",
