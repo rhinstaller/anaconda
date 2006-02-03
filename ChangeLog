@@ -1,5 +1,10 @@
 2006-02-02  David Cantrell  <dcantrell@redhat.com>
 
+	* isys/isys.py (readReiserFSLabel):  Support all valid reiserfs
+	block sizes.
+
+2006-02-02  David Cantrell  <dcantrell@redhat.com>
+
 	* scripts/upd-instroot:  Add reiserfstune.
 
 	* isys/isys.py:  Added readReiserFSLabel() and related functions

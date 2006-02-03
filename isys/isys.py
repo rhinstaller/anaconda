@@ -693,22 +693,24 @@ def readReiserFSLabel_int(device):
         log.debug("error opening device %s: %s" % (device, e))
         return label
 
+    # valid block sizes in reiserfs are 512 - 8192, powers of 2
+    # we put 4096 first, since it's the default
     # reiserfs superblock occupies either the 2nd or 16th block
-    # blocks are apparently always 4096 bytes
-    for start in (4096, (4096*16)):
-        try:
-            os.lseek(fd, start, 0)
-            # read 120 bytes to get s_magic and s_label
-            buf = os.read(fd, 120)
-        except OSError, e:
-            log.debug("error reading reiserfs label on %s: %s" %(device, e))
-
+    for blksize in (4096, 512, 1024, 2048, 8192):
+        for start in (blksize, (blksize*16)):
             try:
-                os.close(fd)
-            except:
-                pass
-
-            return label
+                os.lseek(fd, start, 0)
+                # read 120 bytes to get s_magic and s_label
+                buf = os.read(fd, 120)
+            except OSError, e:
+                log.debug("error reading reiserfs label on %s: %s" %(device, e))
+    
+                try:
+                    os.close(fd)
+                except:
+                    pass
+    
+                return label
 
     # see if this block is the superblock
     # this reads reiserfs_super_block_v1.s_magic as defined
