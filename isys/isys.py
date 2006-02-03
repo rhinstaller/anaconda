@@ -684,6 +684,53 @@ def readExt2Label(device, makeDevNode = 1):
         label = _isys.e2fslabel(device)
     return label
 
+def readReiserFSLabel_int(device):
+    label = None
+
+    try:
+        fd = os.open(device, os.O_RDONLY)
+    except OSError, e:
+        log.debug("error opening device %s: %s" % (device, e))
+        return label
+
+    # reiserfs superblock occupies either the 2nd or 16th block
+    # blocks are apparently always 4096 bytes
+    for start in (4096, (4096*16)):
+        try:
+            os.lseek(fd, start, 0)
+            # read 120 bytes to get s_magic and s_label
+            buf = os.read(fd, 120)
+        except OSError, e:
+            log.debug("error reading reiserfs label on %s: %s" %(device, e))
+
+            try:
+                os.close(fd)
+            except:
+                pass
+
+            return label
+
+    # see if this block is the superblock
+    # this reads reiserfs_super_block_v1.s_magic as defined
+    # in include/reiserfs_fs.h in the reiserfsprogs source
+    magic = string.rstrip(buf[52:61], "\0x00")
+    if magic == "ReIsErFs" or magic == "ReIsEr2Fs" or magic == "ReIsEr3Fs":
+        # this reads reiserfs_super_block.s_label as
+        # defined in include/reiserfs_fs.h
+        label = string.rstrip(buf[100:116], "\0x00")
+
+    os.close(fd)
+    return label
+
+def readReiserFSLabel(device, makeDevNode = 1):
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+	label = readReiserFSLabel_int("/tmp/disk")
+        os.unlink("/tmp/disk")
+    else:
+        label = readReiserFSLabel_int(device)
+    return label
+
 def readFSLabel(device, makeDevNode = 1):
     label = readExt2Label(device, makeDevNode)
     if label is None:
@@ -692,6 +739,8 @@ def readFSLabel(device, makeDevNode = 1):
         label = readXFSLabel(device, makeDevNode)
     if label is None:
         label = readJFSLabel(device, makeDevNode)
+    if label is None:
+        label = readReiserFSLabel(device, makeDevNode)
     return label
 
 def ext2Clobber(device, makeDevNode = 1):

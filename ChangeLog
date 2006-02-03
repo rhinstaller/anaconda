@@ -1,3 +1,10 @@
+2006-02-02  David Cantrell  <dcantrell@redhat.com>
+
+	* scripts/upd-instroot:  Add reiserfstune.
+
+	* isys/isys.py:  Added readReiserFSLabel() and related functions
+	so we can skip over any existing reiserfs labels (#125939).
+
 2006-02-02  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
