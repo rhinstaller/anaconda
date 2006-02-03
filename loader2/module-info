@@ -148,6 +148,10 @@ cs89x0
 	eth
 	"Crystal SemiconductorCS89[02]0"
 
+cxgb
+	eth
+	"Chelsio 10Gb Ethernet adapter"
+
 de600
 	eth
 	"D-Link DE-600 Ethernet pocket adapter"
@@ -365,6 +369,10 @@ skfp
 skge
 	eth
 	"SysKonnect Gigabit Ethernet"
+
+sky2
+	eth
+	"Marvell Yukon 2 Gigabit Ethernet"
 
 sdla
 	sdla
@@ -600,14 +608,6 @@ aic7xxx
 	scsi_hostadapter
 	"Adaptec AHA-2740, 28xx, 29xx, 39xx"
 
-aic7xxx_mod
-	scsi_hostadapter
-	"New (experimental) Adaptec 28xx, 29xx, 39xx"
-
-aic7xxx_old
-	scsi_hostadapter
-	"Old Adaptec 28xx, 29xx, 39xx"
-
 aic79xx
 	scsi_hostadapter
 	"Adaptec Aic79xx SCSI Host Bus Adapter driver"
@@ -747,6 +747,10 @@ qlogicpti
 	scsi_hostadapter
 	"QLogic ISP1020 SCSI SBUS"
 
+sata_mv
+	scsi_hostadapter
+	"Marvell SATA controllers"
+
 sata_nv
 	scsi_hostadapter
 	"nVidia nForce SATA controllers"
@@ -758,6 +762,10 @@ sata_promise
 sata_qstor
         scsi_hostadapter
         "QStor SATA controllers"
+
+sata_sil24
+        scsi_hostadapter
+        "Silicon Image 3124/3132 SATA controllers"
 
 sata_sil
         scsi_hostadapter
@@ -975,6 +983,18 @@ atmel_pci
 	eth
 	"Atmel at76c50x 802.11 wireless ethernet"
 
+hostap_cs
+	eth
+	"Orinoco, Prism II and similar PCMCIA wireless ethernet"
+
+hostap_pci
+	eth
+	"Orinoco, Prism II and similar wireless ethernet"
+
+hostap_plx
+	eth
+	"Orinoco, Prism II and similar wireless ethernet"
+
 netwave_cs
 	eth
 	"Netwave AirSurfer Wireless"
@@ -982,6 +1002,10 @@ netwave_cs
 orinoco_cs
 	eth
 	"Orinoco, Prism II and similar PCMCIA wireless ethernet"
+
+orinoco_nortel
+	eth
+	"Orinoco wireless ethernet using Nortel PCI bridge"
 
 orinoco_pci
 	eth
