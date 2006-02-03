@@ -778,8 +778,11 @@ class swapFileSystem(FileSystemType):
         # nodes (#176074)
         if devName[0:6] == "cciss/":
             swapLabel = "SW-%s" % (devName)
+        elif devName.startswith("mapper/"):
+            swapLabel = "SWAP-%s" % (devName[7:],)
         else:
             swapLabel = "SWAP-%s" % (devName)
+        swapLabel = swapLabel[0:
         label = labelFactory.createLabel("%s" %swapLabel, self.maxLabelChars)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                      [ "mkswap", '-v1', "-L", label, file ],
