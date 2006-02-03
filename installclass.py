@@ -41,16 +41,8 @@ class BaseInstallClass:
     # default to showing the upgrade option
     showUpgrade = 1 # FIXME: no upgrade for now while doing yum work
 
-#     pkgstext = _("\tDesktop shell (GNOME)\n"
-#                  "\tOffice suite (OpenOffice)\n"
-#                  "\tWeb browser (Mozilla) \n"
-#                  "\tEmail (Evolution)\n"
-#                  "\tInstant messaging\n"
-#                  "\tSound and video applications\n"
-#                  "\tGames\n"
-#                  "\tSoftware Development Tools\n"
-#                  "\tAdministration Tools\n")
-    
+    # list of of (txt, grplist) tuples for task selection screen
+    tasks = []
     
     # don't select this class by default
     default = 0

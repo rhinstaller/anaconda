@@ -1,3 +1,16 @@
+2006-02-03  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/task_gui.py: Adjust for dynamic set of tasks
+	* ui/tasksel.glade: Don't list tasks in the glade file, they're
+	now auto-generated.
+	* textw/task_text.py (TaskWindow.__call__): Likewise.
+
+	* dispatch.py (installSteps): Pass new arg to tasksel step
+
+	* installclasses/fedora.py (tasks): Define set of tasks to show on 
+	task selection screen here.
+	* installclass.py (tasks): Parent placeholder.
+
 2006-02-03  Peter Jones  <pjones@redhat.com>
 
 	* fsset.py (swapFileSystem): Fix format strings in call to

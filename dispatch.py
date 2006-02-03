@@ -101,7 +101,7 @@ installSteps = [
     ("accounts", ("intf", "id.rootPassword")),
     ("reposetup", doRepoSetup, ("backend","intf", "id", "instPath")),
     ("basepkgsel", doBasePackageSelect, ("backend","id.instClass")),
-    ("tasksel", ("intf", "backend", "dispatch")),    
+    ("tasksel", ("intf", "backend", "dispatch", "id.instClass")),   
     ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    

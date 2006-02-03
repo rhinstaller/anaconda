@@ -16,27 +16,19 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from constants import productName
 
-grpTaskMap = {"officeCheckbox": ["graphics", "office",
-                                 "games", "sound-and-video"],
-              "develCheckbox": ["development-libs", "development-tools",
-                                "gnome-software-development",
-                                "x-software-development"],
-              "webCheckbox": ["web-server"],
-              "xenCheckbox": ["xen"] }
-
 class TaskWindow(InstallWindow):
     def getNext(self):
-        def selgroups(lst):
-            map(self.backend.selectGroup, lst)
-            
         if self.xml.get_widget("customRadio").get_active():
             self.dispatch.skipStep("group-selection", skip = 0)
         else:
             self.dispatch.skipStep("group-selection", skip = 1)
 
-        for (cb, grps) in grpTaskMap.items():
-            if self.xml.get_widget(cb).get_active():
-                map(self.backend.selectGroup, grps)                
+        for (txt, grps) in self.tasks:
+            if not self.taskcbs.has_key(txt):
+                continue
+            cb = self.taskcbs[txt]
+            if cb.get_active():
+                map(self.backend.selectGroup, grps)
             else:
                 map(self.backend.deselectGroup, grps)
 
@@ -51,10 +43,21 @@ class TaskWindow(InstallWindow):
                 rc = True
         return rc
 
-    def getScreen (self, intf, backend, dispatch):
+    def groupsExist(self, lst):
+        # FIXME: yum specific
+        for gid in lst:
+            g = self.backend.ayum.comps.return_group(gid)
+            if not g:
+                return False
+        return True
+
+    def getScreen (self, intf, backend, dispatch, instClass):
         self.intf = intf
         self.dispatch = dispatch
         self.backend = backend
+
+        self.tasks = instClass.tasks
+        self.taskcbs = {}
 
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")
 
@@ -68,10 +71,19 @@ class TaskWindow(InstallWindow):
         else:
             self.xml.get_widget("customRadio").set_active(False)
 
-        for (cb, grps) in grpTaskMap.items():
+        found = False
+        for (txt, grps) in self.tasks:
+            if not self.groupsExist(grps):
+                continue
+            found = True
+            cb = gtk.CheckButton(_(txt))
+            self.xml.get_widget("cbVBox").pack_start(cb)
             if self.groupsInstalled(grps):
-                self.xml.get_widget(cb).set_active(True)
-            else:
-                self.xml.get_widget(cb).set_active(False)        
+                cb.set_active(True)
+            self.taskcbs[txt] = cb
+
+        if not found:
+            self.xml.get_widget("mainLabel").hide()
+            self.xml.get_widget("cbVBox").hide()
 
         return vbox

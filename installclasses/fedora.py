@@ -17,6 +17,11 @@ class InstallClass(BaseInstallClass):
     showLoginChoice = 1
     showMinimal = 1
 
+    tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
+             (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
+             (N_("Web server"), ["web-server"]),
+             (N_("Virtualization (Xen)"), ["xen"])]
+
     def setInstallData(self, id, intf = None):
 	BaseInstallClass.setInstallData(self, id)
         BaseInstallClass.setDefaultPartitioning(self, id.partitions,

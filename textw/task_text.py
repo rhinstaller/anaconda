@@ -13,14 +13,6 @@ from constants_text import *
 from rhpl.translate import _, N_
 from constants import productName
 
-grpTaskMap = {N_("Office and Productivity"): ["graphics", "office",
-                                              "games", "sound-and-video"],
-              N_("Software Development"): ["development-libs", "development-tools",
-                                           "gnome-software-development",
-                                           "x-software-development"],
-              N_("Web Server"): ["web-server"],
-              N_("Virtualization (Xen)"): ["xen"] }
-
 class TaskWindow:
     def groupsInstalled(self, lst):
         # FIXME: yum specific
@@ -32,9 +24,18 @@ class TaskWindow:
             elif g:
                 rc = True
         return rc
+
+    def groupsExist(self, lst):
+        # FIXME: yum specific
+        for gid in lst:
+            g = self.backend.ayum.comps.return_group(gid)
+            if not g:
+                return False
+        return True
     
-    def __call__(self, screen, intf, backend, dispatch):
+    def __call__(self, screen, intf, backend, dispatch, instClass):
         self.backend = backend
+        tasks = instClass.tasks
         
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 	
@@ -44,12 +45,15 @@ class TaskWindow:
 	labeltxt = _("The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to include  support for?") %(productName,)
 	toplevel.add (TextboxReflowed(55, labeltxt), 0, 0, (0, 0, 0, 1))
 
-        ct = CheckboxTree(height = 4, scroll = (len(grpTaskMap.keys()) > 4))
-        for (cb, grps) in grpTaskMap.items():
+        ct = CheckboxTree(height = 4, scroll = (len(tasks) > 4))
+        for (txt, grps) in tasks:
+            if not self.groupsExist(grps):
+                continue
+            
             if self.groupsInstalled(grps):
-                ct.append(_(cb), cb, True)
+                ct.append(_(txt), txt, True)
             else:
-                ct.append(_(cb), cb, False)
+                ct.append(_(txt), txt, False)
         toplevel.add (ct, 0, 2, (0,0,0,1))
                       
 	custom = not dispatch.stepInSkipList("group-selection")
@@ -69,8 +73,8 @@ class TaskWindow:
 	    dispatch.skipStep("group-selection")
 
         sel = ct.getSelection()
-        for (cb, grps) in grpTaskMap.items():
-            if cb in sel:
+        for (txt, grps) in tasks:
+            if txt in sel:
                 map(backend.selectGroup, grps)
             else:
                 map(backend.deselectGroup, grps)
