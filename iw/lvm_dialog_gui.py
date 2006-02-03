@@ -413,7 +413,7 @@ class VolumeGroupEditor:
 
         if not logrequest or not logrequest.getPreExisting():
             lbl = createAlignedLabel(_("_Logical Volume Name:"))
-            lvnameEntry = gtk.Entry(16)
+            lvnameEntry = gtk.Entry(32)
             lbl.set_mnemonic_widget(lvnameEntry)
             if logrequest and logrequest.logicalVolumeName:
                 lvnameEntry.set_text(logrequest.logicalVolumeName)
@@ -594,9 +594,10 @@ class VolumeGroupEditor:
 					  "(%10.2f MB) is larger than maximum "
 					  "logical volume size (%10.2f MB). "
 					  "To increase this limit you can "
-					  "increase the Physical Extent size "
-					  "for this Volume Group.") %(size,
-                                                                      maxlv),
+					  "create more Physical Volumes from "
+                                          "unpartitioned disk space and "
+                                          "add them to this Volume Group.")
+					  %(size, maxlv),
                                         custom_icon="error")
 		continue
 
