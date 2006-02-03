@@ -8,6 +8,10 @@
 
 2006-02-03  Peter Jones  <pjones@redhat.com>
 
+	* packages.py (setFileCons): set contexts on blkid.tab{,.old}
+
+2006-02-03  Peter Jones  <pjones@redhat.com>
+
 	* fsset.py (swapFileSystem.labelDevice): don't put "mapper/" in the
 	swap label
 
