@@ -7,14 +7,14 @@
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2004, 2005.
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
-# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004, 2005.
+# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-11 12:45-0500\n"
-"PO-Revision-Date: 2005-06-26 22:04+0900\n"
+"PO-Revision-Date: 2006-02-04 01:34+0900\n"
 "Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
 "Language-Team: Japanese<fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -178,32 +178,28 @@ msgstr ""
 
 #: ../anaconda:923
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "変数 DISPLAY がセットされていません。テキストモードで起動します!"
 
 #: ../anaconda:1006
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "<enter> を押すと shell"
 
 #: ../anaconda:1032
 msgid "Starting graphical installation..."
 msgstr "グラフィカルインストールを開始中..."
 
 #: ../anaconda:1086
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Url 方法 %s が不明です。"
+msgstr "インストール方法が不明です"
 
 #: ../anaconda:1087
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"%s の今回のリリースでサポートしていないマシン上に、インストールしようとしてい"
-"ます。"
+msgstr "anaconda がサポートしていないインストール方法が指定されています。"
 
 #: ../anaconda:1089
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Url 方法 %s が不明です。"
+msgstr "インストール方法が不明です: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -561,7 +557,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s のインストール中... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -581,24 +577,24 @@ msgid ""
 msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します。"
 
 #: ../exception.py:409 ../exception.py:425
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "dump が書き込まれました。"
+msgstr "dump が書き込まれていません"
 
 #: ../exception.py:410
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "フロッピーにシステム状態を書き込んでいる際に問題が発生しました。"
 
 #: ../exception.py:418
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
-msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します。"
+msgstr ""
+"システムの状態をリモートホストに書き込むのに成功しました。\n"
+"システムはリセットされます。"
 
 #: ../exception.py:426
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "リモートホストにシステム状態を書き込んでいる際に問題が発生しました。"
 
 #: ../fsset.py:196
 msgid "Checking for Bad Blocks"
@@ -1148,17 +1144,16 @@ msgstr ""
 "OK ボタンを押すとシステムを再起動します。"
 
 #: ../kickstart.py:668 ../kickstart.py:686
-#, fuzzy
 msgid "Running..."
-msgstr "接続中..."
+msgstr "実行中..."
 
 #: ../kickstart.py:669
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "pre-install スクリプトを実行中"
 
 #: ../kickstart.py:687
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "post-install スクリプトを実行中"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1419,13 +1414,14 @@ msgstr ""
 "号は文字、数字、'.'、'_'です。"
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"マウントポイントが不適切です。マウントポイントは '/' ではじまり '/' では閉じ"
-"ません。スペースのない表示可能な文字で構成されていなければなりません。"
+"マウントポイント %s が不適切です。マウントポイントは '/' ではじまりますが "
+"'/' では閉じることはできませんし、スペースのない表示可能な文字で構成されて"
+"いなければなりません。"
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2027,9 +2023,8 @@ msgid "Save"
 msgstr "保存"
 
 #: ../text.py:153 ../text.py:155 ../text.py:167
-#, fuzzy
 msgid "Remote"
-msgstr "削除"
+msgstr "リモート"
 
 #: ../text.py:153 ../text.py:155 ../text.py:163
 msgid "Debug"
@@ -2041,16 +2036,15 @@ msgstr "例外が発生しました"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "リモートホストに保存"
 
 #: ../text.py:191
-#, fuzzy
 msgid "Host"
-msgstr "ホスト名"
+msgstr "ホスト"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "リモートパス"
 
 #: ../text.py:195
 msgid "User name"
@@ -2304,7 +2298,7 @@ msgid "Preparing to install..."
 msgstr "インストール準備中..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2312,11 +2306,11 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"パッケージ%s-%s-%sを開けません。原因は多分、ファイルの欠落、又はパッケージの"
-"破損です。CDメディアからインストールしている場合、これは、通常 CD メディアの"
-"破損か、又はCDドライブがメディアを読み込めないことを意味します。\n"
+"パッケージ %s-%s-%s.%s を開けません。原因は多分、ファイルの欠落、またはパッケ"
+"ージの破損です。CDメディアからインストールしている場合、これは、通常 CD メデ"
+"ィアの破損か、または CD ドライブがメディアを読み込めないことを意味します。\n"
 " \n"
-"<return>を押してやり直してください。"
+"'Retry' を押してやり直してください。"
 
 #: ../yuminstall.py:146
 msgid "Re_boot"
@@ -2335,28 +2329,27 @@ msgid "_Cancel"
 msgstr "取り消し(_C)"
 
 #: ../yuminstall.py:446
-#, fuzzy
 msgid "Error running transaction"
-msgstr "RPM トランザクションを準備中..."
+msgstr "トランザクション実行中にえらーが発生しました"
 
 #: ../yuminstall.py:556
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "パッケージ情報読み込み中..."
+msgstr "インストール情報を検索中..."
 
 #: ../yuminstall.py:572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"インストールツリーのコンプファイルには重大なグループがありません。インストー"
-"ルツリーが正しく作成されているか確認してください。"
+"パッケージのメタデータを読むことができません。リポジトリデータのディレク"
+"トリがないのかもしれません。インストールツリーが正しく生成されているか"
+"確認してください。 %s"
 
 #: ../yuminstall.py:599
 msgid "Uncategorized"
-msgstr ""
+msgstr "カテゴリーなし"
 
 #: ../yuminstall.py:852
 msgid "Install Starting"
@@ -2367,9 +2360,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "インストールプロセスを開始しています。数分かかることがあります..."
 
 #: ../yuminstall.py:969
-#, fuzzy
 msgid "Installation Progress"
-msgstr "インストールの種類"
+msgstr "インストールの進捗"
 
 #: ../yuminstall.py:1013
 msgid "Dependency Check"
@@ -2893,9 +2885,9 @@ msgid "Unknown Linux system"
 msgstr "不明な Linux システム"
 
 #: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "パッケージ"
+msgstr "%s の中のパッケージ"
 
 #: ../iw/GroupSelector.py:315
 #, python-format
@@ -2903,11 +2895,13 @@ msgid ""
 "No description available for %s.\n"
 "\n"
 msgstr ""
+"%s の詳細が取得できません。\n"
+"\n"
 
 #: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
+#, python-format
 msgid "[%d of %d optional packages installed]"
-msgstr "インストール対象のパッケージを含むメディアを指定してください。"
+msgstr "[%d / %d のオプションパッケージがインストールされました]"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5133,7 +5127,6 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "このインストール方法をどのドライブに使用しますか?"
 
 #: ../textw/partition_text.py:1614
-#, fuzzy
 msgid "Partitioning Type"
 msgstr "パーティションタイプ"
 
@@ -5143,6 +5136,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"ハードドライブのパーティションがインストールには必要です。デフォルトでは、"
+"パーティションレイアウトはほとんどのユーザーに適しているものが選択されます"
+"。選択することもできますし、自分で作成することもできます。"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5368,9 +5364,8 @@ msgstr ""
 "さい。"
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "フォーマット(_F)"
+msgstr "Fedora(_F)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5516,6 +5511,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"もし追加のメディアをテストするのであれば、次の CD を入れて \"%s\" を押してくだ"
+"さい。それそれの CD をテストすることは厳密には必要とされていませんが、強く推奨"
+"します。最低限、CD は最初に使う際にテストすることは重要です。テストが成功した"
+"ら、それぞれの CD を再度使用する際に再テストする必要はありません。"
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5674,15 +5673,15 @@ msgstr ""
 "キックスタートドライバディスクのコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"%sモジュールに渡すパラメータをスペースで区切って入力してください。どのパラ"
-"メータを使用するのか分からない場合、「OK」ボタンを押してこの画面をスキップし"
-"てください。使用できるオプションは、F1 キーを押して表示することが出来ます。"
+"%s モジュールに渡すパラメータをスペースで区切って入力してください。どのパラ"
+"メータを使用するのか分からない場合、\"OK\" ボタンを押してこの画面をスキッ"
+"プしてください。"
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5993,56 +5992,44 @@ msgstr "インストールイメージ%sを検出できません。"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "失敗"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"失敗。\n"
-"\n"
-"今テストしたイメージはエラーを含んでいます。これは欠陥のあるダウンロード又は"
-"ディスク不良が原因です。可能ならディスクを清掃して再度試してください。このテ"
-"ストが失敗を繰り返す場合、インストールは中止すべきです。"
+"今テストしたイメージはエラーを含んでいます。これは欠陥のあるダウンロードま"
+"たはディスク不良が原因です。可能ならディスクを清掃して再度試してください。"
+"このテストが失敗を繰り返す場合、インストールは中止すべきです。"
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "パス"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"合格\n"
-"\n"
-"このメディアからインストールすることができます。"
+msgstr "このメディアからインストールすることができます。"
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"対応外\n"
-"\n"
-"チェックサムの情報なし、メディアの確認ができません。"
+msgstr "チェックサムの情報がなく、メディアの確認ができません。"
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "メディアチェック結果"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"イメージの\n"
+"イメージの %s\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6051,6 +6038,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"%s のメディアチェック\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6225,7 +6215,7 @@ msgstr "NFS 設定"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "ホスト名は DNS 設定しないと指定できません"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6394,24 +6384,20 @@ msgid "_Release Notes"
 msgstr "リリースノート(_R)"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "作成された(そして変更された)パーティションを確認(_V)"
+msgstr "パーティションレイアウトの再確認と変更(_V)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "このインストールに使用するドライブを選択"
+msgstr "このインストールに使用するドライブを選択。(_S)"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "例外が発生しました"
+msgstr "例外の情報"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "例外が発生しました"
+msgstr "例外の詳細(_E)"
 
 #: tmp/GroupSelector.glade.h:1
 msgid ""
@@ -6419,15 +6405,17 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"このグループに関連付けられたいくつかのパッケージはインストールには必要とさ"
+"れていませんが、追加機能として提供されます。インストールしておきたいパッケー"
+"ジを選択してください。"
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Optional packages"
-msgstr "オプションパッケージ"
+msgstr "オプションパッケージ(_O)"
 
 #: tmp/GroupSelector.glade.h:3
 msgid "dialog1"
-msgstr ""
+msgstr "ダイアログ 1"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6517,9 +6505,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "ケイシー基地、ベイリー半島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "カタマルカ (CT)"
+msgstr "カタマルカ (CT)、チュブト (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6547,7 +6534,6 @@ msgstr "中央時間 - カンペチェ、ユカタン"
 
 # イヌイット自治州
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
 msgstr "中央時間 - 西ヌナブット"
 
@@ -6646,16 +6632,14 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "東部時間 - インディアナ、スイス郡"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "東部時間 - 東ヌナブット"
+msgstr "東部標準時間 - サウサンプトン島"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "東部時間"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "東部時間 - 東ヌナブット"
 
@@ -6681,7 +6665,6 @@ msgid ""
 msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
 msgstr "東部時間 - パングニルチュング、ヌナブット"
 
@@ -7034,12 +7017,11 @@ msgstr "昭和基地、東オングル島"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "タスマニア - キング島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "クィーンズランド - ほとんどの地域"
+msgstr "タスマニア - ほとんどの地域"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7058,9 +7040,8 @@ msgid "Tocantins"
 msgstr "トカンチン"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "トラック(チューク環礁)"
+msgstr "トラック (チューク環礁) とヤップ島"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7255,9 +7236,8 @@ msgid "Russian"
 msgstr "露語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "ペルシア語"
+msgstr "セルビア語"
 
 #. generated from lang-table
 msgid "Slovak"
