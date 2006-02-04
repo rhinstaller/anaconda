@@ -569,7 +569,7 @@ class YumBackend(AnacondaBackend):
     def doGroupSetup(self):
         self.ayum.doGroupSetup()
         # FIXME: this is a bad hack to remove support for xen on xen (#179387)
-        if os.path.exists("/proc/xen") or True:
+        if os.path.exists("/proc/xen"):
             if self.ayum.comps._groups.has_key("xen"):
                 del self.ayum.comps._groups["xen"]
 
