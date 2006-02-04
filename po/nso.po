@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 12:45-0500\n"
+"POT-Creation-Date: 2006-02-03 19:02-0500\n"
 "PO-Revision-Date: 2005-01-24 13:30+0200\n"
 "Last-Translator: Translate.org.za <info@translate.org.za>\n"
 "Language-Team: Northern Sotho <translate-discuss-nso@lists.sourceforge.net>\n"
@@ -65,41 +65,41 @@ msgstr "Seabi sa VNC bjale se a šoma."
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "E leka go ikgokaganya le modirelwa wa vnc go moswari wa %s..."
 
-#: ../anaconda:200
+#: ../anaconda:198
+msgid "Connected!"
+msgstr "Kgokagantšwe!"
+
+#: ../anaconda:203
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "E tlogela go leka go ikgokaganya ka morago ga go leka ka makga a 50!\n"
 
-#: ../anaconda:202
+#: ../anaconda:205
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 "Hle ikgokaganyele modirelwa wa gago wa vnc go %s gore o thome go tsenya."
 
-#: ../anaconda:204
+#: ../anaconda:207
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Hle ikgokaganyele modirelwa wa gago wa vnc gore o thome go tsenya."
 
-#: ../anaconda:208
+#: ../anaconda:211
 msgid "Will try to connect again in 15 seconds..."
 msgstr "E tla leka go ikgokaganya gape ka morago ga metsotswana e 15..."
 
-#: ../anaconda:212
-msgid "Connected!"
-msgstr "Kgokagantšwe!"
-
-#: ../anaconda:216
+#: ../anaconda:219
 #, c-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Hle kgokaganya le %s gore o thome go tsenya..."
 
-#: ../anaconda:218
+#: ../anaconda:221
 msgid "Please connect to begin the install..."
 msgstr "Hle kgokaganya gore o thome go tsenya..."
 
-#: ../anaconda:616 ../anaconda:806 ../gui.py:244 ../gui.py:1174
+#: ../anaconda:619 ../anaconda:810 ../gui.py:241 ../gui.py:1181
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
-#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:386
-#: ../text.py:559 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
+#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:379
+#: ../text.py:552 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:176 ../textw/network_text.py:407
 #: ../textw/network_text.py:415 ../loader2/cdinstall.c:136
@@ -118,9 +118,9 @@ msgstr "Hle kgokaganya gore o thome go tsenya..."
 #: ../loader2/hdinstall.c:536 ../loader2/hdinstall.c:579
 #: ../loader2/hdinstall.c:592 ../loader2/kbd.c:128 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:408 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:307 ../loader2/loader.c:320
-#: ../loader2/loader.c:331 ../loader2/loader.c:734 ../loader2/loader.c:897
+#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:409 ../loader2/lang.c:103
+#: ../loader2/lang.c:380 ../loader2/loader.c:313 ../loader2/loader.c:326
+#: ../loader2/loader.c:337 ../loader2/loader.c:740 ../loader2/loader.c:903
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/modules.c:972 ../loader2/net.c:233
@@ -128,26 +128,26 @@ msgstr "Hle kgokaganya gore o thome go tsenya..."
 #: ../loader2/net.c:927 ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:212
 #: ../loader2/nfsinstall.c:221 ../loader2/nfsinstall.c:259
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:67
-#: ../loader2/urlinstall.c:139 ../loader2/urlinstall.c:152
-#: ../loader2/urlinstall.c:445 ../loader2/urlinstall.c:454
-#: ../loader2/urlinstall.c:465 ../loader2/urls.c:172 ../loader2/urls.c:182
+#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
+#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
+#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
+#: ../loader2/urlinstall.c:470 ../loader2/urls.c:172 ../loader2/urls.c:182
 #: ../loader2/urls.c:191 ../loader2/urls.c:257 ../loader2/urls.c:322
 #: ../loader2/urls.c:327 ../loader2/urls.c:333 ../loader2/urls.c:447
 msgid "OK"
 msgstr "Go Lokile"
 
-#: ../anaconda:662
+#: ../anaconda:665
 msgid "Unknown Error"
 msgstr "Phošo e sa Tsebjwego"
 
-#: ../anaconda:665
+#: ../anaconda:668
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
 "Phošo ya go ntšha karolo ya bobedi ya go thomiša go fetola sebopego: %s!"
 
-#: ../anaconda:790
+#: ../anaconda:794
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -155,49 +155,49 @@ msgstr ""
 "Ga o na RAM (Kgopolo ya Neng le Neng) e lekanego gore o ka diriša setsenyi "
 "sa ditswantšho. Go thoma mokgwa wa sengwalwa."
 
-#: ../anaconda:853
+#: ../anaconda:857
 msgid "Install class forcing text mode installation"
 msgstr "Tsenya tsenyo ya mokgwa wa sengwalwa se gapeletšago mokgwa"
 
-#: ../anaconda:880
+#: ../anaconda:884
 msgid "No video hardware found, assuming headless"
 msgstr ""
 "Ga go na lenaneo le thata la khomphuthara la bidio le hweditšwego, go "
 "naganelwa go se be le sehlogo"
 
-#: ../anaconda:891 ../anaconda:1120 ../bar.py:23
+#: ../anaconda:895 ../anaconda:1130
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 "Ga e kgone go emela sedirišwa sa boemo bja lenaneo le thata la khomphuthara "
 "la X."
 
-#: ../anaconda:915
+#: ../anaconda:919
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Tsenyo ya diswantšho ga e gona... E thoma mokgwa wa sengwalwa."
 
-#: ../anaconda:923
+#: ../anaconda:927
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:1006
+#: ../anaconda:1010
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:1032
+#: ../anaconda:1042
 msgid "Starting graphical installation..."
 msgstr "E thoma tsenyo ya diswantšho..."
 
-#: ../anaconda:1086
+#: ../anaconda:1096
 #, fuzzy
 msgid "Unknown install method"
 msgstr "Mokgwa o sa tsebjwego wa Url ya %s"
 
-#: ../anaconda:1087
+#: ../anaconda:1097
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "O leka go tsenya motšheneng wo o sa thekgwego ke tokollo ye ya %s."
 
-#: ../anaconda:1089
+#: ../anaconda:1099
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "Mokgwa o sa tsebjwego wa Url ya %s"
@@ -438,16 +438,15 @@ msgstr "Phošo e sa Bonwego"
 msgid "Your system will now be rebooted."
 msgstr "Tshepedišo ya gago bjale e tla thomološwa."
 
-#: ../autopart.py:1688 ../bootloader.py:183 ../gui.py:1171 ../image.py:464
-#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:904
-#: ../partedUtils.py:961 ../upgrade.py:328 ../upgrade.py:476
+#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1178 ../image.py:455
+#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:905
+#: ../partedUtils.py:962 ../upgrade.py:328 ../upgrade.py:477
 #: ../yuminstall.py:149 ../iw/blpasswidget.py:145
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:92
-#: ../iw/upgrade_swap_gui.py:199 ../iw/upgrade_swap_gui.py:207
-#: ../iw/upgrade_swap_gui.py:214 ../iw/zfcp_gui.py:248
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:459
-#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:176
-#: ../loader2/loader.c:374
+#: ../iw/bootloader_advanced_gui.py:42 ../iw/upgrade_swap_gui.py:199
+#: ../iw/upgrade_swap_gui.py:207 ../iw/upgrade_swap_gui.py:214
+#: ../iw/zfcp_gui.py:248 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:176 ../loader2/loader.c:380
 msgid "Warning"
 msgstr "Temošo"
 
@@ -523,15 +522,15 @@ msgstr "Go kaonafatša %s-%s-%s.%s.\n"
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Go tsenya %s-%s-%s.%s.\n"
 
-#: ../bootloader.py:120
+#: ../bootloader.py:122
 msgid "Bootloader"
 msgstr "Selaiši sa go thoma"
 
-#: ../bootloader.py:120
+#: ../bootloader.py:122
 msgid "Installing bootloader..."
 msgstr "Go tsenya selaiši sa go thoma..."
 
-#: ../bootloader.py:184
+#: ../bootloader.py:186
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -577,28 +576,29 @@ msgstr ""
 "e nago le dintlha tša twatši kgahlanong le anaconda go http://bugzilla."
 "redhat.com/bugzilla/"
 
-#: ../exception.py:401 ../exception.py:417
+#: ../exception.py:420 ../exception.py:436
 msgid "Dump Written"
 msgstr "Kopi e Ngwadilwe"
 
-#: ../exception.py:402
+#: ../exception.py:421
+#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
-"will now be reset."
+"will now be rebooted."
 msgstr ""
 "Boemo bja tshepedišo ya gago bo ngwadilwe ka katlego floping. Tshepedišo ya "
 "gago e tla beakanywa gape."
 
-#: ../exception.py:409 ../exception.py:425
+#: ../exception.py:428 ../exception.py:444
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Kopi e Ngwadilwe"
 
-#: ../exception.py:410
+#: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:418
+#: ../exception.py:437
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
@@ -607,25 +607,25 @@ msgstr ""
 "Boemo bja tshepedišo ya gago bo ngwadilwe ka katlego floping. Tshepedišo ya "
 "gago e tla beakanywa gape."
 
-#: ../exception.py:426
+#: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:196
+#: ../fsset.py:197
 msgid "Checking for Bad Blocks"
 msgstr "Go Lekola Mapheko a Mabe"
 
-#: ../fsset.py:197
+#: ../fsset.py:198
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Go lekola mapheko a mabe go /dev/%s..."
 
-#: ../fsset.py:629 ../fsset.py:1403 ../fsset.py:1441 ../fsset.py:1452
-#: ../fsset.py:1503 ../fsset.py:1514 ../fsset.py:1549 ../fsset.py:1599
-#: ../fsset.py:1643 ../fsset.py:1662 ../image.py:133 ../image.py:171
-#: ../image.py:342 ../packages.py:304 ../partedUtils.py:714
-#: ../partIntfHelpers.py:403 ../upgrade.py:373 ../upgrade.py:400
-#: ../yuminstall.py:133 ../yuminstall.py:571 ../iw/osbootwidget.py:216
+#: ../fsset.py:630 ../fsset.py:1420 ../fsset.py:1458 ../fsset.py:1469
+#: ../fsset.py:1520 ../fsset.py:1531 ../fsset.py:1566 ../fsset.py:1616
+#: ../fsset.py:1660 ../fsset.py:1679 ../image.py:133 ../image.py:162
+#: ../image.py:333 ../partedUtils.py:715 ../partIntfHelpers.py:403
+#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:133
+#: ../yuminstall.py:486 ../yuminstall.py:607 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
 #: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:164
 #: ../textw/upgrade_text.py:171 ../loader2/cdinstall.c:137
@@ -635,19 +635,19 @@ msgstr "Go lekola mapheko a mabe go /dev/%s..."
 #: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
 #: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:331
-#: ../loader2/loader.c:734 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:337
+#: ../loader2/loader.c:740 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:212 ../loader2/nfsinstall.c:221
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:67
-#: ../loader2/urlinstall.c:139 ../loader2/urlinstall.c:152
+#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
+#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
 #: ../loader2/urls.c:172 ../loader2/urls.c:182 ../loader2/urls.c:191
 #: ../loader2/urls.c:322 ../loader2/urls.c:327
 msgid "Error"
 msgstr "Phošo"
 
-#: ../fsset.py:630
+#: ../fsset.py:631
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -660,27 +660,27 @@ msgstr ""
 "\n"
 "Na o ka rata go tšwela pele ka ntle le go huduša %s?"
 
-#: ../fsset.py:1311
+#: ../fsset.py:1328
 msgid "RAID Device"
 msgstr "Sedirišwa sa RAID"
 
-#: ../fsset.py:1315 ../fsset.py:1321
+#: ../fsset.py:1332 ../fsset.py:1338
 msgid "Apple Bootstrap"
 msgstr "Mmofo wa go thoma wa Apole"
 
-#: ../fsset.py:1326 ../partitions.py:868
+#: ../fsset.py:1343 ../partitions.py:868
 msgid "PPC PReP Boot"
 msgstr "Go thoma ga PPC PReP"
 
-#: ../fsset.py:1329
+#: ../fsset.py:1346
 msgid "First sector of boot partition"
 msgstr "Seripa sa mathomo sa karolo ya go thoma"
 
-#: ../fsset.py:1330
+#: ../fsset.py:1347
 msgid "Master Boot Record (MBR)"
 msgstr "Rekhoto ya go Thoma e Kgolo (MBR)"
 
-#: ../fsset.py:1404
+#: ../fsset.py:1421
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -693,7 +693,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1442
+#: ../fsset.py:1459
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -710,7 +710,7 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1453
+#: ../fsset.py:1470
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -725,7 +725,7 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1504
+#: ../fsset.py:1521
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -738,7 +738,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1532
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -751,7 +751,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1550
+#: ../fsset.py:1567
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -764,7 +764,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1600
+#: ../fsset.py:1617
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -777,11 +777,11 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1621 ../fsset.py:1630
+#: ../fsset.py:1638 ../fsset.py:1647
 msgid "Invalid mount point"
 msgstr "Ntlha ya go kgobelana yeo e sego ya kgonthe"
 
-#: ../fsset.py:1622
+#: ../fsset.py:1639
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -795,7 +795,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1631
+#: ../fsset.py:1648
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -808,7 +808,7 @@ msgstr ""
 "\n"
 "Kgotla <Tsena> gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1644
+#: ../fsset.py:1661
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -823,7 +823,7 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:1663
+#: ../fsset.py:1680
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -837,11 +837,11 @@ msgstr ""
 "\n"
 "Kgotla GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../fsset.py:2328
+#: ../fsset.py:2345
 msgid "Duplicate Labels"
 msgstr "Swantšha Maswao"
 
-#: ../fsset.py:2329
+#: ../fsset.py:2346
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -855,31 +855,31 @@ msgstr ""
 "\n"
 "Hle lokiša bothata bjo gomme o thome ka leswa mosepelo wa go tsenya."
 
-#: ../fsset.py:2336 ../gui.py:799 ../gui.py:1284 ../image.py:92
-#: ../image.py:474 ../packages.py:764 ../yuminstall.py:160
+#: ../fsset.py:2353 ../gui.py:797 ../gui.py:1291 ../image.py:92
+#: ../image.py:465 ../packages.py:582 ../yuminstall.py:160
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Thomološa"
 
-#: ../fsset.py:2589
+#: ../fsset.py:2606
 msgid "Formatting"
 msgstr "Go Dira Sebopego"
 
-#: ../fsset.py:2590
+#: ../fsset.py:2607
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Go dira sebopego sa %s sa tshepedišo ya faele..."
 
-#: ../gui.py:110
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "Go tšweletše phošo ge go be go kopišwa tšeo di tšerwego sekirining."
 
-#: ../gui.py:122
+#: ../gui.py:119
 msgid "Screenshots Copied"
 msgstr "Tšeo di Tšerwego Sekirining tše Kopišitšwego"
 
-#: ../gui.py:123
+#: ../gui.py:120
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -893,20 +893,20 @@ msgstr ""
 "\n"
 "O ka tsena mo go tše ge o thomološa le go tsena bjalo ka modu."
 
-#: ../gui.py:167
+#: ../gui.py:164
 msgid "Saving Screenshot"
 msgstr "Go Boloka tše Tšerwego Sekirining"
 
-#: ../gui.py:168
+#: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "Seo se tšerwego sekirining se bitšwago '%s' se bolokilwe."
 
-#: ../gui.py:171
+#: ../gui.py:168
 msgid "Error Saving Screenshot"
 msgstr "Phošo ya go Boloka se Tšerwego Sekirining"
 
-#: ../gui.py:172
+#: ../gui.py:169
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -915,44 +915,44 @@ msgstr ""
 "tšweletše nakong ya go tsenya sephuthelwana, go ka nyakega gore o leke ka "
 "makga a mmalwa gore go atlege."
 
-#: ../gui.py:241 ../text.py:383
+#: ../gui.py:238 ../text.py:376
 msgid "Fix"
 msgstr "Lokiša"
 
-#: ../gui.py:242 ../rescue.py:182 ../text.py:384
+#: ../gui.py:239 ../packages.py:53 ../rescue.py:182 ../text.py:377
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:515
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
-#: ../loader2/loader.c:374
+#: ../loader2/loader.c:380
 msgid "Yes"
 msgstr "Ee"
 
-#: ../gui.py:243 ../rescue.py:182 ../rescue.py:184 ../text.py:385
+#: ../gui.py:240 ../rescue.py:182 ../rescue.py:184 ../text.py:378
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:374
+#: ../loader2/loader.c:380
 msgid "No"
 msgstr "Aowa"
 
-#: ../gui.py:245 ../text.py:387 ../loader2/net.c:276 ../loader2/net.c:593
+#: ../gui.py:242 ../text.py:380 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
 msgstr "Leka gape"
 
-#: ../gui.py:246 ../text.py:388
+#: ../gui.py:243 ../text.py:381
 msgid "Ignore"
 msgstr "Hlokomologa"
 
-#: ../gui.py:247 ../gui.py:704 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:108 ../text.py:109 ../text.py:360
-#: ../text.py:362 ../text.py:389 ../iw/bootloader_advanced_gui.py:48
-#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:199
-#: ../textw/constants_text.py:40 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:270 ../loader2/loader.c:320
+#: ../gui.py:244 ../gui.py:702 ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:526 ../text.py:101 ../text.py:102 ../text.py:353
+#: ../text.py:355 ../text.py:382 ../iw/bootloader_advanced_gui.py:48
+#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
+#: ../loader2/loader.c:326
 msgid "Cancel"
 msgstr "Khansela"
 
-#: ../gui.py:794 ../text.py:346
+#: ../gui.py:792 ../text.py:339
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -964,11 +964,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:796 ../text.py:348
+#: ../gui.py:794 ../text.py:341
 msgid "Error Parsing Kickstart Config"
 msgstr "Phošo ya go Arola go Fetola Sebopego sa go Thomiša"
 
-#: ../gui.py:804 ../text.py:358
+#: ../gui.py:802 ../text.py:351
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -976,23 +976,23 @@ msgstr ""
 "Hle tsenya flopi gona bjale. Dikagare tša tisiki ka moka di tla phumolwa, ka "
 "gona hle kgetha tisiki ya gago ka kelohloko."
 
-#: ../gui.py:919
+#: ../gui.py:917
 msgid "default:LTR"
 msgstr "tlhaelelo:LTR"
 
-#: ../gui.py:994 ../iw/release_notes_viewer_gui.py:51
+#: ../gui.py:992 ../iw/release_notes_viewer_gui.py:51
 msgid "Release notes are missing.\n"
 msgstr "Dintlha tša tokollo ga di hwetšagale.\n"
 
-#: ../gui.py:1172
+#: ../gui.py:1179
 msgid "The release notes are missing."
 msgstr "Dintlha tša tokollo ga di hwetšagale."
 
-#: ../gui.py:1271
+#: ../gui.py:1278
 msgid "Error!"
 msgstr "Phošo!"
 
-#: ../gui.py:1272
+#: ../gui.py:1279
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1004,66 +1004,39 @@ msgstr ""
 "\n"
 "leinalaLegoro = %s"
 
-#: ../gui.py:1276 ../gui.py:1281 ../packages.py:309 ../packages.py:756
-#: ../packages.py:761 ../yuminstall.py:577
+#: ../gui.py:1283 ../gui.py:1288 ../packages.py:574 ../packages.py:579
+#: ../yuminstall.py:613
 msgid "_Exit"
 msgstr "_Etšwa"
 
-#: ../gui.py:1277 ../yuminstall.py:147
+#: ../gui.py:1284 ../yuminstall.py:147
 msgid "_Retry"
 msgstr "_Leka gape"
 
-#: ../gui.py:1280 ../packages.py:760
+#: ../gui.py:1287 ../packages.py:578
 msgid "The installer will now exit..."
 msgstr "Setsenyi bjale se tla tšwa..."
 
-#: ../gui.py:1283 ../packages.py:763
+#: ../gui.py:1290 ../packages.py:581
 msgid "Your system will now be rebooted..."
 msgstr "Tshepedišo ya gago bjale e tla thomološwa..."
 
-#: ../gui.py:1286 ../packages.py:765
+#: ../gui.py:1293 ../packages.py:583
 msgid "Rebooting System"
 msgstr "Go Thomološa Tshepedišo"
 
-#: ../gui.py:1368
+#: ../gui.py:1375
 #, python-format
 msgid "%s Installer"
 msgstr "Setsenyi sa %s"
 
-#: ../gui.py:1374
+#: ../gui.py:1381
 msgid "Unable to load title bar"
 msgstr "Ga e kgone go laiša bara ya sehlogo"
 
-#: ../gui.py:1434
+#: ../gui.py:1441
 msgid "Install Window"
 msgstr "Tsenya Lefesetere"
-
-#: ../hdrlist.py:47 ../hdrlist.py:877
-msgid ""
-"This group includes all the packages available.  Note that there are "
-"substantially more packages than just the ones in all the other package "
-"groups on this page."
-msgstr ""
-"Sehlopha se se akaretša diphuthelwana ka moka tšeo di lego gona. Ela hloko "
-"gore go na le diphuthelwana tše oketšegilego tša kgonthe go feta feela tšeo "
-"di lego dihlopheng ka moka tša diphuthelwana tšeo di lego letlakaleng le."
-
-#: ../hdrlist.py:717
-msgid "Everything"
-msgstr "Dilo ka moka"
-
-#: ../hdrlist.py:881
-msgid ""
-"Choose this group to get the minimal possible set of packages.  Useful for "
-"creating small router/firewall boxes, for example."
-msgstr ""
-"Kgetha sehlopha se gore o hwetše sehlopha se senyenyane se kgonegago sa "
-"diphuthelwana. Di na le mohola bakeng sa go dira mapokisi a manyenyane a "
-"sekopanyi/sešireletši sa tsebišo, ka mohlala."
-
-#: ../hdrlist.py:930
-msgid "Miscellaneous"
-msgstr "Fapa-fapanego"
 
 #: ../image.py:83
 msgid "Required Install Media"
@@ -1086,13 +1059,13 @@ msgstr ""
 "tsenya. Ge e ba o nyaka go fediša go tsenya le go thomološa hle kgetha "
 "\"Thomološa\"."
 
-#: ../image.py:92 ../packages.py:761 ../packages.py:764
+#: ../image.py:92 ../packages.py:579 ../packages.py:582
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Morago"
 
-#: ../image.py:92 ../image.py:475 ../iw/partition_gui.py:1012
+#: ../image.py:92 ../image.py:466 ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Tšwela pele"
 
@@ -1106,15 +1079,15 @@ msgstr ""
 "gore ga o tsene go %s go tšwa legaping la tty2 ke moka o kgotle GO LOKILE "
 "gore o leke gape."
 
-#: ../image.py:167
+#: ../image.py:158
 msgid "Copying File"
 msgstr "Go Kopiša Faele"
 
-#: ../image.py:168
+#: ../image.py:159
 msgid "Transferring install image to hard drive..."
 msgstr "Go fetišetša seswantšho sa go tsenya draeveng..."
 
-#: ../image.py:172
+#: ../image.py:163
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1122,29 +1095,29 @@ msgstr ""
 "Go tšweletše phošo ge go be go fetišetšwa seswantšho sa go tsenya draeveng "
 "ya gago. Mohlomongwe sekgoba sa tisiki se fedile."
 
-#: ../image.py:300
+#: ../image.py:291
 msgid "Change CDROM"
 msgstr "Fetola CDROM"
 
-#: ../image.py:301
+#: ../image.py:292
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Hle tsenya tisiki ya %s ya %d gore o tšwele pele."
 
-#: ../image.py:336
+#: ../image.py:327
 msgid "Wrong CDROM"
 msgstr "CDROM e Fošagetšego"
 
-#: ../image.py:337
+#: ../image.py:328
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Yeo ga se CDROM ya %s e nepagetšego."
 
-#: ../image.py:343
+#: ../image.py:334
 msgid "Unable to access the CDROM."
 msgstr "Ga e kgone go tsena go CDROM."
 
-#: ../installclass.py:63
+#: ../installclass.py:55
 msgid "Install on System"
 msgstr "Tsenya Tshepedišong"
 
@@ -1167,16 +1140,16 @@ msgstr ""
 "\n"
 "Kgotla konope ya GO LOKILE gore o thomološe tshepedišo ya gago."
 
-#: ../kickstart.py:668 ../kickstart.py:686
+#: ../kickstart.py:708 ../kickstart.py:726
 #, fuzzy
 msgid "Running..."
 msgstr "Go kgokaganya..."
 
-#: ../kickstart.py:669
+#: ../kickstart.py:709
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:687
+#: ../kickstart.py:727
 msgid "Running post-install scripts"
 msgstr ""
 
@@ -1196,11 +1169,11 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 "Maina a baswari a ka ba le ditlhaka tša 'a-z', 'A-Z', '-', goba '.' feela"
 
-#: ../packages.py:47
+#: ../packages.py:46
 msgid "Proceed with upgrade?"
 msgstr "Tšwela pele le kaonafatšo?"
 
-#: ../packages.py:48
+#: ../packages.py:47
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1211,26 +1184,23 @@ msgstr ""
 "morago ge o šetše o fetile sekhutlong se. \n"
 "\n"
 
-#: ../packages.py:52
+#: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
 msgstr "Na o ka rata go tšwela pele ka kaonafatšo?"
 
-#: ../packages.py:305
-#, python-format
-msgid ""
-"You are trying to install on a machine which isn't supported by this release "
-"of %s."
-msgstr "O leka go tsenya motšheneng wo o sa thekgwego ke tokollo ye ya %s."
+#: ../packages.py:53 ../textw/complete_text.py:47
+msgid "Reboot"
+msgstr "Thomološa"
 
-#: ../packages.py:383 ../yuminstall.py:869
+#: ../packages.py:200 ../yuminstall.py:883
 msgid "Post Install"
 msgstr "Go Tsenya Poso"
 
-#: ../packages.py:384 ../yuminstall.py:870
+#: ../packages.py:201 ../yuminstall.py:884
 msgid "Performing post install configuration..."
 msgstr "Go dira go fetola sebopego sa go tsenya poso..."
 
-#: ../packages.py:519
+#: ../packages.py:336
 msgid ""
 "\n"
 "\n"
@@ -1241,7 +1211,7 @@ msgstr ""
 "Diphuthelwana tše latelago di be di le gona tokollong ye eupša DI SA "
 "kaonafatšwa:\n"
 
-#: ../packages.py:522
+#: ../packages.py:339
 msgid ""
 "\n"
 "\n"
@@ -1252,11 +1222,11 @@ msgstr ""
 "Diphuthelana tše latelago di be di le gona tokollong ye eupša DI SA "
 "tsenywa:\n"
 
-#: ../packages.py:742
+#: ../packages.py:560
 msgid "Warning! This is pre-release software!"
 msgstr "Temošo! Le ke lenaneo la khomphuthara le lokolotšwego pele!"
 
-#: ../packages.py:743
+#: ../packages.py:561
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1284,7 +1254,7 @@ msgstr ""
 "\n"
 "gomme o ngwale pego kgahlanong le '%s'.\n"
 
-#: ../packages.py:756
+#: ../packages.py:574
 msgid "_Install anyway"
 msgstr "_Lega go le bjalo tsenya"
 
@@ -1333,21 +1303,21 @@ msgstr "_Hlokomologa draeve"
 msgid "_Format drive"
 msgstr "_Dira sebopego sa draeve"
 
-#: ../partedUtils.py:715
+#: ../partedUtils.py:716
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Phošo ya go kgobela tshepedišo ya faele go %s: %s"
 
-#: ../partedUtils.py:803
+#: ../partedUtils.py:804
 msgid "Initializing"
 msgstr "Go thomiša"
 
-#: ../partedUtils.py:804
+#: ../partedUtils.py:805
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Hle ema ge go dutše go dirwa sebopego sa draeve ya %s...\n"
 
-#: ../partedUtils.py:905
+#: ../partedUtils.py:906
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1369,7 +1339,7 @@ msgstr ""
 "\n"
 "Na o tla rata go thomiša draeve ye, o phumole TSEBIŠO KA MOKA?"
 
-#: ../partedUtils.py:962
+#: ../partedUtils.py:963
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1390,11 +1360,11 @@ msgstr ""
 "\n"
 "Na o tla rata go thomiša draeve ye, o phumole TSEBIŠO KA MOKA?"
 
-#: ../partedUtils.py:1080
+#: ../partedUtils.py:1081
 msgid "No Drives Found"
 msgstr "Ga go na Di-draeve tše Hweditšwego"
 
-#: ../partedUtils.py:1081
+#: ../partedUtils.py:1082
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1519,7 +1489,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
-#: ../iw/lvm_dialog_gui.py:745
+#: ../iw/lvm_dialog_gui.py:746
 msgid "Confirm Delete"
 msgstr "Tiišetša go Phumola"
 
@@ -1529,7 +1499,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "O kgauswi le go phumola dikarolo ka moka sedirišweng sa '/dev/%s'."
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
-#: ../iw/lvm_dialog_gui.py:748 ../iw/lvm_dialog_gui.py:1100
+#: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1359
 msgid "_Delete"
 msgstr "_Phumola"
@@ -1592,7 +1562,7 @@ msgstr ""
 "\n"
 "Na o ka rata go bopa karolo ye bjalo ka karolo ya go ananya?"
 
-#: ../partIntfHelpers.py:401 ../iw/autopartition_gui.py:62
+#: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "O swanetše go kgetha bonyenyane draeve e tee gore o tsenye %s go yona."
@@ -1940,11 +1910,11 @@ msgstr "Beakanya go dira Neteweke"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Na o nyaka go thoma dipoledišano tša neteweke tshepedišong ye?"
 
-#: ../rescue.py:226 ../text.py:555
+#: ../rescue.py:226 ../text.py:548
 msgid "Cancelled"
 msgstr "Khansetšwe"
 
-#: ../rescue.py:227 ../text.py:556
+#: ../rescue.py:227 ../text.py:549
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Nka se boele mogatong o fetilego go tloga mo. O tla swanela go leka gape."
@@ -2075,69 +2045,69 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Tshepedišo ya gago e kgobelantšwe ka tlase ga tšhupetšo ya %s."
 
-#: ../text.py:153 ../text.py:165
+#: ../text.py:146 ../text.py:158
 msgid "Save"
 msgstr "Boloka"
 
-#: ../text.py:153 ../text.py:155 ../text.py:167
+#: ../text.py:146 ../text.py:148 ../text.py:160
 #, fuzzy
 msgid "Remote"
 msgstr "Tloša"
 
-#: ../text.py:153 ../text.py:155 ../text.py:163
+#: ../text.py:146 ../text.py:148 ../text.py:156
 msgid "Debug"
 msgstr "Fokotša diphošo"
 
-#: ../text.py:159
+#: ../text.py:152
 msgid "Exception Occurred"
 msgstr "Leagori le Tšweletše"
 
-#: ../text.py:188
+#: ../text.py:181
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:191
+#: ../text.py:184
 #, fuzzy
 msgid "Host"
 msgstr "Leina la moswari"
 
-#: ../text.py:193
+#: ../text.py:186
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:195
+#: ../text.py:188
 msgid "User name"
 msgstr "Leina la Modiriši"
 
-#: ../text.py:197
+#: ../text.py:190
 msgid "Password"
 msgstr "Lentšu-phetišo"
 
-#: ../text.py:254
+#: ../text.py:247
 msgid "Help not available"
 msgstr "Thušo ga e gona"
 
-#: ../text.py:255
+#: ../text.py:248
 msgid "No help is available for this step of the install."
 msgstr "Ga go na thušo yeo e lego gona bakeng sa mogato wo wa go tsentšha."
 
-#: ../text.py:357
+#: ../text.py:350
 msgid "Save Crash Dump"
 msgstr "Boloka Tsebišo e Senyegilego"
 
-#: ../text.py:411 ../loader2/lang.c:52 ../loader2/loader.c:131
+#: ../text.py:404 ../loader2/lang.c:52 ../loader2/loader.c:131
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "O a amogelwa go %s"
 
-#: ../text.py:418
+#: ../text.py:411
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> bakeng sa thušo | <Tab> magareng ga dikarolwana | <Space> e a kgetha | "
 "<F12> sekirini se latelago"
 
-#: ../text.py:420
+#: ../text.py:413
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2253,15 +2223,15 @@ msgstr "Ditšhupetšo tšeo e sego tša Kgonthe"
 msgid "%s not found"
 msgstr "%s ga se ya hwetšwa"
 
-#: ../upgrade.py:361
+#: ../upgrade.py:362
 msgid "Finding"
 msgstr "Go hwetša"
 
-#: ../upgrade.py:362
+#: ../upgrade.py:363
 msgid "Finding packages to upgrade..."
 msgstr "Go hwetša diphuthelwana tšeo di swanetšego go kaonafatšwa..."
 
-#: ../upgrade.py:374
+#: ../upgrade.py:375
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
@@ -2272,13 +2242,13 @@ msgstr ""
 "ya gago go ya kamoo go hlalositšwego ka gona dintlheng tša tokollo ke moka o "
 "dire mosepelo wa go kaonafatša."
 
-#: ../upgrade.py:401
+#: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
 msgstr ""
 "Go tšweletše phošo ge go be go hwetšwa diphuthelwana tšeo di swanetšego go "
 "kaonafatšwa."
 
-#: ../upgrade.py:477
+#: ../upgrade.py:478
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2368,7 +2338,8 @@ msgid "Processing"
 msgstr "Go Phethagatša"
 
 #: ../yuminstall.py:91
-msgid "Preparing to install..."
+#, fuzzy
+msgid "Preparing transaction from installation source..."
 msgstr "Itokišeletša go tsenya..."
 
 #: ../yuminstall.py:134
@@ -2387,7 +2358,7 @@ msgstr ""
 "\n"
 "Kgotla <boela> gore o leke gape."
 
-#: ../yuminstall.py:146
+#: ../yuminstall.py:146 ../yuminstall.py:498
 msgid "Re_boot"
 msgstr "Thomo_loša"
 
@@ -2404,17 +2375,32 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_Khansela"
 
-#: ../yuminstall.py:446
+#: ../yuminstall.py:440
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Go itokišeletša go šoma ga RPM..."
 
-#: ../yuminstall.py:556
+#: ../yuminstall.py:487
+#, fuzzy, python-format
+msgid ""
+"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
+"perhaps a corrupt package.  If you are installing from CD media this usually "
+"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"\n"
+msgstr ""
+"Sephuthelwana sa %s-%s-%s se ka se bulwe. Se ke ka baka la faele e sa "
+"hwetšagalego goba mohlomongwe sephuthelwana se senyegilego. Ge eba o tsenya "
+"go tšwa methopong ya ditaba ya CD se gantši se bolela gore methopo ya ditaba "
+"ya CD e senyegile, goba draeve ya CD ga e kgone go bala methopo ya ditaba.\n"
+"\n"
+"Kgotla <boela> gore o leke gape."
+
+#: ../yuminstall.py:592
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Go bala tshedimošo ya sephuthelwana..."
 
-#: ../yuminstall.py:572
+#: ../yuminstall.py:608
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2425,29 +2411,29 @@ msgstr ""
 "bohlokwa. Hle kgonthišetša gore mohlare wa gago wa go tsenya o hlagišitšwe "
 "ka tshwanelo."
 
-#: ../yuminstall.py:599
+#: ../yuminstall.py:635
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:852
+#: ../yuminstall.py:866
 msgid "Install Starting"
 msgstr "Go Tsenya go a Thoma"
 
-#: ../yuminstall.py:853
+#: ../yuminstall.py:867
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Go thoma mosepelo wa go tsenya, se se ka tšea metsotso e mmalwa..."
 
-#: ../yuminstall.py:969
+#: ../yuminstall.py:1004
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Mohuta wa go Tsenya"
 
-#: ../yuminstall.py:1013
+#: ../yuminstall.py:1048
 msgid "Dependency Check"
 msgstr "Tekolo ya go Ithekga"
 
-#: ../yuminstall.py:1014
+#: ../yuminstall.py:1049
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "Go lekola tšeo di ithekgilego diphuthelwaneng tšeo di kgethilwego bakeng sa "
@@ -2559,23 +2545,6 @@ msgstr "Lentšu-phetišo _la Modu: "
 msgid "_Confirm: "
 msgstr "_Tiišetša: "
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1418
-#: ../textw/partition_text.py:1522
-msgid "Automatic Partitioning"
-msgstr "Karolo e Itiragalelago"
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1480
-msgid "I want to have automatic partitioning:"
-msgstr "Ke nyaka go dira karolo e itiragalelago:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1511
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Kgetha (di)draeve tšeo o tla di dirišago bakeng sa go tsenya mo:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1535
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -2678,64 +2647,16 @@ msgstr "_Dikarolo tša kerenele tša kakaretšo"
 msgid "Boot Loader Configuration"
 msgstr "Go Fetola Sebopego sa Selaiši sa go Thoma"
 
-#: ../iw/bootloader_main_gui.py:75
-msgid "Change Boot Loader"
-msgstr "Fetola Selaiši sa go Thoma"
-
-#: ../iw/bootloader_main_gui.py:93
-msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
-"\n"
-"Would you like to continue and not install a boot loader?"
-msgstr ""
-"O kgethile go se tsenye selaiši le ge ele sefe sa go thoma. Go eletšwa ka mo "
-"go tiilego gore o tsenye selaiši sa go thoma ka ntle le ge o na le tlhokego "
-"e tšwetšego pele.  Selaiši sa go thoma ka mehla se nyakile se nyakega gore "
-"go thomološwe tshepedišo ya gago go ya go Linux ka go lebanya go tšwa "
-"draeveng.\n"
-"\n"
-"Na o ka rata go tšwela pele gomme o sa tsenye selaiši sa go thoma?"
-
-#: ../iw/bootloader_main_gui.py:97
-msgid "C_ontinue with no boot loader"
-msgstr "Tš_wela pele o se na selaiši sa go thoma"
-
-#: ../iw/bootloader_main_gui.py:120
-msgid ""
-"Please select the boot loader that the computer will use.  GRUB is the "
-"default boot loader. However, if you do not wish to overwrite your current "
-"boot loader, select \"Do not install a boot loader.\"  "
-msgstr ""
-"Hle kgetha selaiši sa go thoma seo khomphuthara e tla se dirišago.  GRUB ke "
-"selaiši sa go thoma sa tlhaelelo. Lega go le bjalo, ge eba o sa rate go "
-"ngwalwa godimo ga selaiši sa go thoma sa gona bjale, kgetha \"O seke wa "
-"tsenya selaiši sa go thoma.\"  "
-
-#: ../iw/bootloader_main_gui.py:128
-msgid "Use _GRUB as the boot loader"
-msgstr "Diriša _GRUB bjalo ka selaiši sa go thoma"
-
-#: ../iw/bootloader_main_gui.py:130
-msgid "_Do not install a boot loader"
-msgstr "_O seke wa tsenya selaiši sa go thoma"
-
-#: ../iw/bootloader_main_gui.py:149
+#: ../iw/bootloader_main_gui.py:118
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "Selaiši sa go thoma sa %s se tla tsenywa go /dev/%s."
 
-#: ../iw/bootloader_main_gui.py:154
+#: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
 msgstr "Ga go na selaiši sa go thoma seo se tla tsenywago."
 
-#: ../iw/bootloader_main_gui.py:205
-msgid "_Change boot loader"
-msgstr "_Fetola selaiši sa go thoma"
-
-#: ../iw/bootloader_main_gui.py:229
+#: ../iw/bootloader_main_gui.py:153
 msgid "Configure advanced boot loader _options"
 msgstr ""
 "Fetola sebopego sa dikgetho tša selaiši sa go thoma tšeo di tšwetšego _pele"
@@ -2848,91 +2769,6 @@ msgstr ""
 "\n"
 "%s%s"
 
-#: ../iw/dependencies_gui.py:21
-msgid "Unresolved Dependencies"
-msgstr "Tše Ithekgilego tšeo di sa Rarollwago"
-
-#: ../iw/dependencies_gui.py:34 ../textw/packages_text.py:29
-#: ../textw/packages_text.py:356
-#, python-format
-msgid "Total install size: %s"
-msgstr "Palomoka ya bogolo bja go tsenya: %s"
-
-#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:348
-#: ../textw/packages_text.py:387
-msgid "Package"
-msgstr "Sephuthelwana"
-
-#: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:387
-msgid "Requirement"
-msgstr "Senyakwa"
-
-#: ../iw/dependencies_gui.py:90
-msgid "_Install packages to satisfy dependencies"
-msgstr "_Tsenya diphuthelwana gore o kgotsofatše tšeo di ithekgilego"
-
-#: ../iw/dependencies_gui.py:93
-msgid "_Do not install packages that have dependencies"
-msgstr "_O seke wa tsenya diphuthelwana tšeo di nago le tšeo di ithekgilego"
-
-#: ../iw/dependencies_gui.py:97
-msgid "I_gnore package dependencies"
-msgstr "H_lokomologa tšeo di ithekgilego tša sephuthelwana"
-
-#: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
-msgid "Package Defaults"
-msgstr "Ditlhaelelo tša Sephuthelwana"
-
-#: ../iw/desktop_choice_gui.py:56
-msgid ""
-"The default installation environment includes our recommended package "
-"selection, including:\n"
-"\n"
-msgstr ""
-"Tikologo ya go tsenya ya tlhaelelo e akaretša kgetho ya sephuthelwana se "
-"eletšwago, go akaretšwa:\n"
-"\n"
-
-#: ../iw/desktop_choice_gui.py:58
-#, python-format
-msgid ""
-"\n"
-"\n"
-"After installation, additional software can be added or removed using the "
-"'system-config-packages' tool.\n"
-"\n"
-"If you are familiar with %s, you may have specific packages you would like "
-"to install or avoid installing. Check the box below to customize your "
-"installation."
-msgstr ""
-"\n"
-"\n"
-"Ka morago ga go tsenya, go ka oketšwa lenaneo la khomphuthara le "
-"oketšegilego goba la tlošwa go dirišwa sedirišwa sa 'diphuthelwana tša go "
-"fetola sebopego sa tshepedišo'.\n"
-"\n"
-"Ge eba o tlwaelane le %s, o ka ba le diphuthelwana tše kgethegilego tšeo o "
-"ka ratago go di tsenya goba o ka phemago go di tsenya. Lekola lepokisi leo "
-"le lego ka mo tlase gore o tlwaelanye tsenyo ya gago."
-
-#: ../iw/desktop_choice_gui.py:70
-msgid ""
-"If you would like to change the default package set to be installed you can "
-"choose to customize this below."
-msgstr ""
-"Ge eba o ka rata go fetola sehlopha sa sephuthelwana sa tlhaelelo seo se "
-"swanetšego go tsenywa o ka kgetha go tlwaelanya se ka mo tlase."
-
-#: ../iw/desktop_choice_gui.py:78
-msgid "_Install default software packages"
-msgstr "_Tsenya diphuthelwana tša lenaneo la khomphuthara tša tlhaelelo"
-
-#: ../iw/desktop_choice_gui.py:79
-msgid "_Customize software packages to be installed"
-msgstr ""
-"_Tlwaelanya diphuthelwana tša lenaneo la khomphuthara tšeo di swanetšego go "
-"tsenywa"
-
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
 msgstr "Draeve"
@@ -2945,16 +2781,16 @@ msgstr "Bogolo"
 msgid "Model"
 msgstr "Mohuta"
 
-#: ../iw/examine_gui.py:33
+#: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
 msgstr "Kaonafatša Tlhahlobo"
 
-#: ../iw/examine_gui.py:60
+#: ../iw/examine_gui.py:61
 #, python-format
 msgid "_Install %s"
 msgstr "_Tsenya %s"
 
-#: ../iw/examine_gui.py:62
+#: ../iw/examine_gui.py:63
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -2963,11 +2799,11 @@ msgstr ""
 "khomphuthara leo le šetšego le le gona le tsebišo go ka ngwalwa godimo ga "
 "tšona go ithekgilwe ka dikgetho tša gago tša go fetola sebopego."
 
-#: ../iw/examine_gui.py:66
+#: ../iw/examine_gui.py:67
 msgid "_Upgrade an existing installation"
 msgstr "_Kaonafatša tsenyo yeo e šetšego e le gona"
 
-#: ../iw/examine_gui.py:68
+#: ../iw/examine_gui.py:69
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -2977,32 +2813,13 @@ msgstr ""
 "yeo e šetšego e le gona. Kgetho ye e tla boloka tsebišo yeo e šetšego e le "
 "gona di-draeveng tša gago."
 
-#: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:136 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "Tshepedišo e latelago e tsentšhitšwego e tla kaonafatšwa:"
 
-#: ../iw/examine_gui.py:144
+#: ../iw/examine_gui.py:149
 msgid "Unknown Linux system"
 msgstr "Tshepedišo e sa Tsebjwego ya Linux"
-
-#: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
-msgid "Packages in %s"
-msgstr "Sephuthelwana :"
-
-#: ../iw/GroupSelector.py:315
-#, python-format
-msgid ""
-"No description available for %s.\n"
-"\n"
-msgstr ""
-
-#: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
-msgid "[%d of %d optional packages installed]"
-msgstr ""
-"Ke methopo ya mohuta ofe ya ditaba yeo e nago le diphuthelwana tšeo di "
-"swanetšego go tsenywa?"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3035,7 +2852,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
 #: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:592
-#: ../iw/lvm_dialog_gui.py:659 ../iw/lvm_dialog_gui.py:870
+#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
 msgstr "Ga go na sekgoba se lekanego"
@@ -3217,17 +3034,17 @@ msgstr ""
 "lengwe."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can increase the Physical "
-"Extent size for this Volume Group."
+"size (%10.2f MB). To increase this limit you can create more Physical "
+"Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Bogolo bjo bo kgopetšwego gona bjale (%10.2f MB) ke bjo bogolo go feta "
 "bogolo bjo bogolo bja bolumo e kwagalago (%10.2f MB). Gore o oketše tekanyo "
 "ye o ka oketša bogolo bja Koketšo bja Kgonthe bja Sehlopha se sa Bolumo."
 
-#: ../iw/lvm_dialog_gui.py:636 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
@@ -3235,7 +3052,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "Phošo Mabapi le Kgopelo"
 
-#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
+#: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3246,21 +3063,21 @@ msgstr ""
 "sehlopha sa bolumo se na le %g MB feela.  Hle dira gore sehlopha sa bolumo e "
 "be se senyenyane goba o dire gore (di)bolumo tše kwagalago e be tše nyenyane."
 
-#: ../iw/lvm_dialog_gui.py:710
+#: ../iw/lvm_dialog_gui.py:711
 msgid "No free slots"
 msgstr "Ga go na dikgoba tše se nago selo"
 
-#: ../iw/lvm_dialog_gui.py:711
+#: ../iw/lvm_dialog_gui.py:712
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 "O ka se hlame dibolumo tše kwagalago tše fetago %s ka sehlopha sa bolumo."
 
-#: ../iw/lvm_dialog_gui.py:717
+#: ../iw/lvm_dialog_gui.py:718
 msgid "No free space"
 msgstr "Ga go na sekgoba se se nago selo"
 
-#: ../iw/lvm_dialog_gui.py:718
+#: ../iw/lvm_dialog_gui.py:719
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3271,31 +3088,31 @@ msgstr ""
 "hlokega gore o theoše bogolo bja e tee goba tše dintši tša dibolumo tše "
 "kwagalago tšeo di šetšego di le gona"
 
-#: ../iw/lvm_dialog_gui.py:746
+#: ../iw/lvm_dialog_gui.py:747
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Na o kgonthišegile gore o nyaka go Phumola bolumo ya kgonthe \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:882
+#: ../iw/lvm_dialog_gui.py:883
 msgid "Invalid Volume Group Name"
 msgstr "Leina la Sehlopha la Bolumo leo e sego la Kgonthe"
 
-#: ../iw/lvm_dialog_gui.py:895
+#: ../iw/lvm_dialog_gui.py:896
 msgid "Name in use"
 msgstr "Leina le dirišwago"
 
-#: ../iw/lvm_dialog_gui.py:896
+#: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Leina la sehlopha sa bolumo la \"%s\" le šetše le dirišwa. Hle kgetha le "
 "lengwe."
 
-#: ../iw/lvm_dialog_gui.py:940
+#: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
 msgstr "Ga go na dibolumo tša kgonthe tše lekanego"
 
-#: ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:942
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3309,71 +3126,71 @@ msgstr ""
 "Hlama karolo goba peakanyo ya RAID ya mohuta wa \"bolumo ya kgonthe (LVM)\" "
 "ke moka o kgethe kgetho ya \"LVM\" gape."
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:953
 msgid "Make LVM Volume Group"
 msgstr "Dira Sehlopha sa Bolumo sa LVM"
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:956
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Lokiša Sehlopha sa Bolumo sa LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:957
+#: ../iw/lvm_dialog_gui.py:958
 msgid "Edit LVM Volume Group"
 msgstr "Lokiša Sehlopha sa Bolumo sa LVM"
 
-#: ../iw/lvm_dialog_gui.py:973
+#: ../iw/lvm_dialog_gui.py:974
 msgid "_Volume Group Name:"
 msgstr "_Leina la Sehlopha sa Bolumo:"
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:982
 msgid "Volume Group Name:"
 msgstr "Leina la Sehlopha sa Bolumo:"
 
-#: ../iw/lvm_dialog_gui.py:989
+#: ../iw/lvm_dialog_gui.py:990
 msgid "_Physical Extent:"
 msgstr "_Koketšo ya Kgonthe:"
 
-#: ../iw/lvm_dialog_gui.py:1004
+#: ../iw/lvm_dialog_gui.py:1005
 msgid "Physical Volumes to _Use:"
 msgstr "Dibolumo tša Kgonthe Tšeo di Swanetšego go _Dirišwa:"
 
-#: ../iw/lvm_dialog_gui.py:1010
+#: ../iw/lvm_dialog_gui.py:1011
 msgid "Used Space:"
 msgstr "Sekgoba se Dirišitšwego:"
 
-#: ../iw/lvm_dialog_gui.py:1027
+#: ../iw/lvm_dialog_gui.py:1028
 msgid "Free Space:"
 msgstr "Sekgoba se se Nago Selo:"
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1046
 msgid "Total Space:"
 msgstr "Palomoka ya Sekgoba:"
 
-#: ../iw/lvm_dialog_gui.py:1074
+#: ../iw/lvm_dialog_gui.py:1075
 msgid "Logical Volume Name"
 msgstr "Leina la Bolumo e Kwagalago"
 
-#: ../iw/lvm_dialog_gui.py:1077 ../iw/partition_gui.py:364
+#: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:147 ../textw/partition_text.py:1438
 #: ../textw/upgrade_text.py:110
 msgid "Mount Point"
 msgstr "Ntlha ya go Kgobelana"
 
-#: ../iw/lvm_dialog_gui.py:1080 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Bogolo (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1094 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
+#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
 msgid "_Add"
 msgstr "_Oketša"
 
-#: ../iw/lvm_dialog_gui.py:1097 ../iw/network_gui.py:531
+#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:531
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1358 ../iw/zfcp_gui.py:101
 msgid "_Edit"
 msgstr "_Lokiša"
 
-#: ../iw/lvm_dialog_gui.py:1112
+#: ../iw/lvm_dialog_gui.py:1113
 msgid "Logical Volumes"
 msgstr "Dibolumo tše Kwagalago"
 
@@ -4066,6 +3883,10 @@ msgstr "Go laolla %s"
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "Go tsenya %s-%s-%s.%s (%s)"
 
+#: ../iw/progress_gui.py:348
+msgid "Package"
+msgstr "Sephuthelwana"
+
 #: ../iw/progress_gui.py:349
 msgid "Summary"
 msgstr "Kakaretšo"
@@ -4289,11 +4110,11 @@ msgstr "(Di)draeve tše Lebantšwego:"
 msgid "Drives"
 msgstr "Di-draeve"
 
-#: ../iw/release_notes_viewer_gui.py:182
+#: ../iw/release_notes_viewer_gui.py:187
 msgid "Release Notes"
 msgstr "Dintlha tša Tokollo"
 
-#: ../iw/release_notes_viewer_gui.py:186
+#: ../iw/release_notes_viewer_gui.py:191
 msgid "Unable to load file!"
 msgstr "Ga e kgone go laiša faele!"
 
@@ -4735,10 +4556,6 @@ msgstr ""
 msgid "Complete"
 msgstr "Phethilwe"
 
-#: ../textw/complete_text.py:47
-msgid "Reboot"
-msgstr "Thomološa"
-
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
 msgstr "Go tsenya go tlile go thoma"
@@ -4760,7 +4577,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
 #: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:307 ../loader2/loader.c:897 ../loader2/loader.c:919
+#: ../loader2/loader.c:313 ../loader2/loader.c:903 ../loader2/loader.c:925
 #: ../loader2/net.c:233 ../loader2/net.c:271 ../loader2/net.c:542
 #: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
@@ -4781,27 +4598,21 @@ msgstr ""
 "go thomološa tshepedišo ya gago. O ka rata go boloka faele ye bakeng sa "
 "tšhupetšo ya ka morago."
 
-#: ../textw/desktop_choice_text.py:27
-#, python-format
-msgid ""
-"The default installation environment includes our recommended package "
-"selection.  After installation, additional software can be added or removed "
-"using the 'system-config-packages' tool.\n"
-"\n"
-"However %s ships with many more applications, and you may customize the "
-"selection of software installed if you want."
-msgstr ""
-"Tikologo ya go tsenya ya tlhaelelo e akaretša kgetho ya sephuthelwana yeo re "
-"e eletšago. Ka morago ga go tsenya, lenaneo la khomphuthara le oketšegilego "
-"le ka oketšwa goba go ntšhwa go dirišwa sedirišwa sa 'diphuthelwana tša go "
-"fetola sebopego tša tshepedišo'.\n"
-"\n"
-"Lega go le bjalo %s e amogela ka ditirišo tše dintši, e bile o ka tlwaelanya "
-"kgetho ya lenaneo la khomphuthara le tsentšhitšwego ge eba o rata."
+#: ../textw/grpselect_text.py:83
+#, fuzzy
+msgid "Please select the package groups you would like to have installed."
+msgstr "Hle kgetha maikemišetšo ao o tla ratago go a diriša:"
 
-#: ../textw/desktop_choice_text.py:37
-msgid "Customize software selection"
-msgstr "Tlwaelanya kgetho ya lenaneo la khomphuthara"
+#: ../textw/grpselect_text.py:101
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> kgetho   |   <F2> Dintlha tša Sehlopha   |   <F12> sekirini "
+"se latelago"
+
+#: ../textw/grpselect_text.py:129
+msgid "Package Group Details"
+msgstr "Dintlha tša Sehlopha sa Sephuthelwana"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -4949,79 +4760,6 @@ msgstr "Leina la Moswari leo e sego la Kgonthe"
 #: ../textw/network_text.py:406
 msgid "You have not specified a hostname."
 msgstr "Ga o a laetša leina la moswari."
-
-#: ../textw/packages_text.py:59
-msgid "Select individual packages"
-msgstr "Kgetha diphuthelwana ka e tee ka e tee"
-
-#: ../textw/packages_text.py:66
-msgid "Package Group Selection"
-msgstr "Kgetho ya Sehlopha ya Sephuthelwana"
-
-#: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> kgetho   |   <F2> Dintlha tša Sehlopha   |   <F12> sekirini "
-"se latelago"
-
-#: ../textw/packages_text.py:122
-msgid "Package Group Details"
-msgstr "Dintlha tša Sehlopha sa Sephuthelwana"
-
-#: ../textw/packages_text.py:177
-msgid "Package :"
-msgstr "Sephuthelwana :"
-
-#: ../textw/packages_text.py:182
-msgid "Size    :"
-msgstr "Bogolo    :"
-
-#: ../textw/packages_text.py:183
-#, python-format
-msgid "%.1f KBytes"
-msgstr "%.1f Kpaete"
-
-#: ../textw/packages_text.py:202
-msgid "Total size"
-msgstr "Palomoka ya bogolo"
-
-#: ../textw/packages_text.py:323
-msgid "Individual Package Selection"
-msgstr "Kgetho ya Sephuthelwana ka e Tee ka e Tee"
-
-#: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> kgetho   |   <F1> thušo   |   <F2> tlhaloso ya "
-"sephuthelwana"
-
-#: ../textw/packages_text.py:379
-msgid "Package Dependencies"
-msgstr "Tšeo di Ithekgilego tša Sephuthelwana"
-
-#: ../textw/packages_text.py:381
-msgid ""
-"Some of the packages you have selected to install require packages you have "
-"not selected. If you just select OK all of those required packages will be "
-"installed."
-msgstr ""
-"Tše dingwe tša diphuthelwana tšeo o kgethilego go di tsenya di nyaka "
-"diphuthelwana tšeo o sa di kgethago. Ge o ka kgetha feela GO LOKILE "
-"diphuthelwana ka moka tšeo di nyakegago di tla tsentšhwa."
-
-#: ../textw/packages_text.py:402
-msgid "Install packages to satisfy dependencies"
-msgstr "Tsenya diphuthelwana go kgotsofatša tšeo di ithekgilego"
-
-#: ../textw/packages_text.py:403
-msgid "Do not install packages that have dependencies"
-msgstr "O seke wa tsenya diphuthelwana tšeo di nago le tšeo di ithekgilego"
-
-#: ../textw/packages_text.py:404
-msgid "Ignore package dependencies"
-msgstr "Hlokomologa tšeo di ithekgilego tša sephuthelwana"
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
@@ -5283,21 +5021,31 @@ msgstr "Ga go na Karolo ya Modu"
 msgid "Must have a / partition to install on."
 msgstr "O swanetše go ba le karolo ya / yeo o swanetšego go tsenya go yona."
 
-#: ../textw/partition_text.py:1545 ../textw/partition_text.py:1641
-msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Ke (di) draeve dife tšeo o nyakago go di dirišetša go tsenya mo?"
-
-#: ../textw/partition_text.py:1614
+#: ../textw/partition_text.py:1517
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "Mohuta wa karolo"
 
-#: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+
+#: ../textw/partition_text.py:1544
+msgid "Which drive(s) do you want to use for this installation?"
+msgstr "Ke (di) draeve dife tšeo o nyakago go di dirišetša go tsenya mo?"
+
+#: ../textw/partition_text.py:1602
+#, fuzzy
+msgid "Review Partition Layout"
+msgstr "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
+
+#: ../textw/partition_text.py:1603
+#, fuzzy
+msgid "Review and modify partitioning layout?"
+msgstr "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5351,6 +5099,23 @@ msgstr "Phethilwego:   "
 #: ../textw/progress_text.py:169
 msgid "Remaining:  "
 msgstr "Šetšego:  "
+
+#: ../textw/task_text.py:42
+#, fuzzy
+msgid "Package selection"
+msgstr "Kgetho ya Sehlopha ya Sephuthelwana"
+
+#: ../textw/task_text.py:45
+#, python-format
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include  support for?"
+msgstr ""
+
+#: ../textw/task_text.py:60
+msgid "Customize software selection"
+msgstr "Tlwaelanya kgetho ya lenaneo la khomphuthara"
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
@@ -5535,6 +5300,23 @@ msgstr ""
 #, fuzzy
 msgid "_Fedora"
 msgstr "_Sebopego"
+
+#: ../installclasses/fedora.py:20
+msgid "Office and Productivity"
+msgstr ""
+
+#: ../installclasses/fedora.py:21
+msgid "Software Development"
+msgstr ""
+
+#: ../installclasses/fedora.py:22
+#, fuzzy
+msgid "Web server"
+msgstr "Seabi sa leina"
+
+#: ../installclasses/fedora.py:23
+msgid "Virtualization (Xen)"
+msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5822,10 +5604,10 @@ msgstr ""
 #: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
 #: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:408 ../loader2/modules.c:972 ../loader2/net.c:904
+#: ../loader2/kickstart.c:409 ../loader2/modules.c:972 ../loader2/net.c:904
 #: ../loader2/net.c:927 ../loader2/nfsinstall.c:259
-#: ../loader2/urlinstall.c:445 ../loader2/urlinstall.c:454
-#: ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
+#: ../loader2/urlinstall.c:470
 msgid "Kickstart Error"
 msgstr "Phošo ya go Thomiša"
 
@@ -5898,7 +5680,7 @@ msgid "Loading %s driver..."
 msgstr "Go laiša mootledi wa %sr..."
 
 #: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
-#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:148
+#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:153
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5989,7 +5771,7 @@ msgstr "Phošo ya %s mothalading wa %d wa faele ya go thomiša ya %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "E ka se kgone go hwetša ks.cfg floping ya go thoma."
 
-#: ../loader2/kickstart.c:409
+#: ../loader2/kickstart.c:410
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Ngangišano e mpe ya go tima mokgwa wa taelo ya go thomiša %s: %s"
@@ -6022,11 +5804,11 @@ msgstr "Draeve e thata"
 msgid "NFS image"
 msgstr "Seswantšho sa NFS"
 
-#: ../loader2/loader.c:302
+#: ../loader2/loader.c:308
 msgid "Update Disk Source"
 msgstr "Kaonafatša Mothopo wa Tisiki"
 
-#: ../loader2/loader.c:303
+#: ../loader2/loader.c:309
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6034,30 +5816,30 @@ msgstr ""
 "O nale didirišwa tše dintši tšeo di ka šomago bjalo ka methopo bakeng sa "
 "tisiki ya go kaonafatša. Ke dife tšeo o tla ratago go di diriša?"
 
-#: ../loader2/loader.c:318
+#: ../loader2/loader.c:324
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Tsenya tisiki ya gago ya go kaonafatša go /dev/%s ke moka o kgotle \"Go "
 "Lokile\" gore o tšwele pele."
 
-#: ../loader2/loader.c:320
+#: ../loader2/loader.c:326
 msgid "Updates Disk"
 msgstr "Tisiki ya Dikaonafatšo"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:338
 msgid "Failed to mount updates disk"
 msgstr "E paletšwe go kgobelanya tisiki ya dikaonafatšo"
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:341
 msgid "Updates"
 msgstr "Dikaonafatšo"
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:341
 msgid "Reading anaconda updates..."
 msgstr "Go bala dikaonafatšo tša anaconda..."
 
-#: ../loader2/loader.c:375
+#: ../loader2/loader.c:381
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6067,43 +5849,43 @@ msgstr ""
 "ikgethele baotledi ba sedirišwa gore go tsenya go atlege. Na o ka rata go "
 "kgetha baotledi gona bjale?"
 
-#: ../loader2/loader.c:731
+#: ../loader2/loader.c:737
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Ga o na RAM e lekanego gore o ka tsenya %s motšheneng wo."
 
-#: ../loader2/loader.c:889
+#: ../loader2/loader.c:895
 msgid "Rescue Method"
 msgstr "Mokgwa wa go Phološa"
 
-#: ../loader2/loader.c:890
+#: ../loader2/loader.c:896
 msgid "Installation Method"
 msgstr "Mokgwa wa go Tsenya"
 
-#: ../loader2/loader.c:892
+#: ../loader2/loader.c:898
 msgid "What type of media contains the rescue image?"
 msgstr ""
 "Ke methopo ya mohuta ofe ya ditaba yeo e nago le seswantšho sa go phološa?"
 
-#: ../loader2/loader.c:894
+#: ../loader2/loader.c:900
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 "Ke methopo ya mohuta ofe ya ditaba yeo e nago le diphuthelwana tšeo di "
 "swanetšego go tsenywa?"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:924
 msgid "No driver found"
 msgstr "Ga go na mootledi yo a hweditšwego"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:924
 msgid "Select driver"
 msgstr "Kgetha mootledi"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:925
 msgid "Use a driver disk"
 msgstr "Diriša tisiki ya mootledi"
 
-#: ../loader2/loader.c:920
+#: ../loader2/loader.c:926
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6112,11 +5894,11 @@ msgstr ""
 "bakeng sa mohuta wo wa go tsenya. Na o ka rata go ikgethela mootledi wa gago "
 "goba o diriše tisiki ya mootledi?"
 
-#: ../loader2/loader.c:1080
+#: ../loader2/loader.c:1086
 msgid "The following devices have been found on your system."
 msgstr "Didirišwa tše latelago di hweditšwe tshepedišong ya gago."
 
-#: ../loader2/loader.c:1082
+#: ../loader2/loader.c:1088
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6124,29 +5906,29 @@ msgstr ""
 "Ga go na baotledi ba sedirišwa bao ba laišitšwego bakeng sa tshepedišo ya "
 "gago. Na go na le bao o tla ratago go ba tsenya gona bjale?"
 
-#: ../loader2/loader.c:1086
+#: ../loader2/loader.c:1092
 msgid "Devices"
 msgstr "Didirišwa"
 
-#: ../loader2/loader.c:1087
+#: ../loader2/loader.c:1093
 msgid "Done"
 msgstr "Dirilwe"
 
-#: ../loader2/loader.c:1088
+#: ../loader2/loader.c:1094
 msgid "Add Device"
 msgstr "Oketša Sedirišwa"
 
-#: ../loader2/loader.c:1228
+#: ../loader2/loader.c:1234
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "selaiši se šetše se dirišitšwe.  Go thoma legapi.\n"
 
-#: ../loader2/loader.c:1592
+#: ../loader2/loader.c:1598
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Go diriša anaconda, mokgwa wa go phološa wa %s - hle ema...\n"
 
-#: ../loader2/loader.c:1594
+#: ../loader2/loader.c:1600
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Go diriša anaconda, setsenyi sa tshepedišo sa %s - hle ema...\n"
@@ -6443,33 +6225,33 @@ msgstr "Go emetšwe kgokagano ya telnet..."
 msgid "Running anaconda via telnet..."
 msgstr "Go šomiša anaconda ka telnet..."
 
-#: ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:73
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Ga e kgone go buša %s://%s/%s/%s."
 
-#: ../loader2/urlinstall.c:140
+#: ../loader2/urlinstall.c:145
 msgid "Unable to retrieve the install image."
 msgstr "Ga e kgone go buša seswantšho sa go tsenya."
 
-#: ../loader2/urlinstall.c:279
+#: ../loader2/urlinstall.c:284
 msgid "Media Detected"
 msgstr "Mothopo wa Ditaba o Utolotšwego"
 
-#: ../loader2/urlinstall.c:280
+#: ../loader2/urlinstall.c:285
 msgid "Local installation media detected..."
 msgstr "Mothopo wa ditaba wa mo gae wa go tsenya o utolotšwego..."
 
-#: ../loader2/urlinstall.c:446
+#: ../loader2/urlinstall.c:451
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Ngangišano e mpe go thomiša Url ya taelo ya mokgwa wa %s: %s"
 
-#: ../loader2/urlinstall.c:455
+#: ../loader2/urlinstall.c:460
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "O swanetše go aba ngangišano ya --url gore o thomiše mokgwa wa Url."
 
-#: ../loader2/urlinstall.c:466
+#: ../loader2/urlinstall.c:471
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Mokgwa o sa tsebjwego wa Url ya %s"
@@ -6581,6 +6363,27 @@ msgstr "_Latelago"
 msgid "_Release Notes"
 msgstr "_Dintlha tša Tokollo"
 
+#: tmp/autopart2.glade.h:1
+#, fuzzy
+msgid "How would you like to get space to partition?"
+msgstr "O ka rata go lokišetša bjang tshepedišo ya faele karolong ye?"
+
+#: tmp/autopart2.glade.h:2
+msgid ""
+"Installing <product> requires partitioning of your hard drive.  You can "
+"either use the default partitioning layout or create your own."
+msgstr ""
+
+#: tmp/autopart2.glade.h:3
+#, fuzzy
+msgid "Select the drive(s) to use for this installation."
+msgstr "Kgetha (di)draeve tšeo o tla di dirišago bakeng sa go tsenya mo:"
+
+#: tmp/autopart2.glade.h:4
+#, fuzzy
+msgid "_Review and modify partitioning layout"
+msgstr "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
+
 #: tmp/autopart.glade.h:2
 #, fuzzy
 msgid "Re_view and modify partitioning layout"
@@ -6601,21 +6404,29 @@ msgstr "Leagori le Tšweletše"
 msgid "_Exception details"
 msgstr "Leagori le Tšweletše"
 
-#: tmp/GroupSelector.glade.h:1
-msgid ""
-"Some packages associated with this group are not required to be installed "
-"but may provide additional functionality.  Please choose the packages which "
-"you would like to have installed."
-msgstr ""
-
-#: tmp/GroupSelector.glade.h:2
+#: tmp/tasksel.glade.h:1
 #, fuzzy
-msgid "_Optional packages"
-msgstr "Diphuthelwana tša Boikgethelo"
+msgid "Customize _later"
+msgstr "Tlwaelanya"
 
-#: tmp/GroupSelector.glade.h:3
-msgid "dialog1"
+#: tmp/tasksel.glade.h:2
+msgid ""
+"Further customization of the software selection can be completed now or "
+"after install via the software management application."
 msgstr ""
+
+#: tmp/tasksel.glade.h:4
+#, no-c-format
+msgid ""
+"The default installation of %s includes a set of  software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include  support for?"
+msgstr ""
+
+#: tmp/tasksel.glade.h:5
+#, fuzzy
+msgid "_Customize now"
+msgstr "Tlwaelanya"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6666,8 +6477,13 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Nako ya Atlantic - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+#, fuzzy
+msgid "Atlantic Time - New Brunswick"
+msgstr "Nako ya Atlantic - E Labrador"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
 "Nako ya Atlantic - Nova Scotia (mafelo a mantši), NB, W Labrador, E Quebec & "
 "PEI"
@@ -6743,11 +6559,21 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Nako ya Bogareng - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
+msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Central Time - Indiana - Pike County"
+msgstr "Nako ya Motheo ya Bohlabela - Indiana - Naga ya Starke"
+
+#. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Nako ya Bogareng - Manitoba & bohlabela bja Ontario"
 
 #. generated from zone.tab
-msgid "Central Time - Michigan - Wisconsin border"
+#, fuzzy
+msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 msgstr "Nako ya Bogareng - Michigan - mollwaneng wa Wisconsin"
 
 #. generated from zone.tab
@@ -6811,22 +6637,6 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Dihlaka-hlaka tša Bohlabela & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr "Nako ya Motheo ya Bohlabela - Indiana - Karolo ya Crawford"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Nako ya Motheo ya Bohlabela - Indiana - mafelo a mantši"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr "Nako ya Motheo ya Bohlabela - Indiana - Naga ya Starke"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr "Nako ya Motheo ya Bohlabela - Indiana - Karolo ya Switzerland"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
 msgstr "Nako ya Motheo ya Bohlabela - bohlabela bja Nunavut"
@@ -6839,6 +6649,26 @@ msgstr "Nako ya Bohlabela"
 #, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "Nako ya Motheo ya Bohlabela - bohlabela bja Nunavut"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Crawford County"
+msgstr "Nako ya Motheo ya Bohlabela - Indiana - Karolo ya Crawford"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - most locations"
+msgstr "Nako ya Motheo ya Bohlabela - Indiana - mafelo a mantši"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Starke County"
+msgstr "Nako ya Motheo ya Bohlabela - Indiana - Naga ya Starke"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Switzerland County"
+msgstr "Nako ya Motheo ya Bohlabela - Indiana - Karolo ya Switzerland"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7445,6 +7275,11 @@ msgstr "se-Persia"
 
 #. generated from lang-table
 #, fuzzy
+msgid "Serbian(Latin)"
+msgstr "se-Persia"
+
+#. generated from lang-table
+#, fuzzy
 msgid "Slovak"
 msgstr "se-Slovenia"
 
@@ -7488,6 +7323,231 @@ msgstr "se-Welsh"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "se-Zulu"
+
+#~ msgid ""
+#~ "This group includes all the packages available.  Note that there are "
+#~ "substantially more packages than just the ones in all the other package "
+#~ "groups on this page."
+#~ msgstr ""
+#~ "Sehlopha se se akaretša diphuthelwana ka moka tšeo di lego gona. Ela "
+#~ "hloko gore go na le diphuthelwana tše oketšegilego tša kgonthe go feta "
+#~ "feela tšeo di lego dihlopheng ka moka tša diphuthelwana tšeo di lego "
+#~ "letlakaleng le."
+
+#~ msgid "Everything"
+#~ msgstr "Dilo ka moka"
+
+#~ msgid ""
+#~ "Choose this group to get the minimal possible set of packages.  Useful "
+#~ "for creating small router/firewall boxes, for example."
+#~ msgstr ""
+#~ "Kgetha sehlopha se gore o hwetše sehlopha se senyenyane se kgonegago sa "
+#~ "diphuthelwana. Di na le mohola bakeng sa go dira mapokisi a manyenyane a "
+#~ "sekopanyi/sešireletši sa tsebišo, ka mohlala."
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Fapa-fapanego"
+
+#~ msgid ""
+#~ "You are trying to install on a machine which isn't supported by this "
+#~ "release of %s."
+#~ msgstr "O leka go tsenya motšheneng wo o sa thekgwego ke tokollo ye ya %s."
+
+#~ msgid "Automatic Partitioning"
+#~ msgstr "Karolo e Itiragalelago"
+
+#~ msgid "I want to have automatic partitioning:"
+#~ msgstr "Ke nyaka go dira karolo e itiragalelago:"
+
+#~ msgid "Select the drive(s) to use for this installation:"
+#~ msgstr "Kgetha (di)draeve tšeo o tla di dirišago bakeng sa go tsenya mo:"
+
+#~ msgid "Re_view (and modify if needed) the partitions created"
+#~ msgstr ""
+#~ "Boe_letša (le go mpshafatša ge eba go hlokega) dikarolo tše hlamilwego"
+
+#~ msgid "Change Boot Loader"
+#~ msgstr "Fetola Selaiši sa go Thoma"
+
+#~ msgid ""
+#~ "You have elected to not install any boot loader. It is strongly "
+#~ "recommended that you install a boot loader unless you have an advanced "
+#~ "need.  A boot loader is almost always required in order to reboot your "
+#~ "system into Linux directly from the hard drive.\n"
+#~ "\n"
+#~ "Would you like to continue and not install a boot loader?"
+#~ msgstr ""
+#~ "O kgethile go se tsenye selaiši le ge ele sefe sa go thoma. Go eletšwa ka "
+#~ "mo go tiilego gore o tsenye selaiši sa go thoma ka ntle le ge o na le "
+#~ "tlhokego e tšwetšego pele.  Selaiši sa go thoma ka mehla se nyakile se "
+#~ "nyakega gore go thomološwe tshepedišo ya gago go ya go Linux ka go "
+#~ "lebanya go tšwa draeveng.\n"
+#~ "\n"
+#~ "Na o ka rata go tšwela pele gomme o sa tsenye selaiši sa go thoma?"
+
+#~ msgid "C_ontinue with no boot loader"
+#~ msgstr "Tš_wela pele o se na selaiši sa go thoma"
+
+#~ msgid ""
+#~ "Please select the boot loader that the computer will use.  GRUB is the "
+#~ "default boot loader. However, if you do not wish to overwrite your "
+#~ "current boot loader, select \"Do not install a boot loader.\"  "
+#~ msgstr ""
+#~ "Hle kgetha selaiši sa go thoma seo khomphuthara e tla se dirišago.  GRUB "
+#~ "ke selaiši sa go thoma sa tlhaelelo. Lega go le bjalo, ge eba o sa rate "
+#~ "go ngwalwa godimo ga selaiši sa go thoma sa gona bjale, kgetha \"O seke "
+#~ "wa tsenya selaiši sa go thoma.\"  "
+
+#~ msgid "Use _GRUB as the boot loader"
+#~ msgstr "Diriša _GRUB bjalo ka selaiši sa go thoma"
+
+#~ msgid "_Do not install a boot loader"
+#~ msgstr "_O seke wa tsenya selaiši sa go thoma"
+
+#~ msgid "_Change boot loader"
+#~ msgstr "_Fetola selaiši sa go thoma"
+
+#~ msgid "Unresolved Dependencies"
+#~ msgstr "Tše Ithekgilego tšeo di sa Rarollwago"
+
+#~ msgid "Total install size: %s"
+#~ msgstr "Palomoka ya bogolo bja go tsenya: %s"
+
+#~ msgid "Requirement"
+#~ msgstr "Senyakwa"
+
+#~ msgid "_Install packages to satisfy dependencies"
+#~ msgstr "_Tsenya diphuthelwana gore o kgotsofatše tšeo di ithekgilego"
+
+#~ msgid "_Do not install packages that have dependencies"
+#~ msgstr "_O seke wa tsenya diphuthelwana tšeo di nago le tšeo di ithekgilego"
+
+#~ msgid "I_gnore package dependencies"
+#~ msgstr "H_lokomologa tšeo di ithekgilego tša sephuthelwana"
+
+#~ msgid "Package Defaults"
+#~ msgstr "Ditlhaelelo tša Sephuthelwana"
+
+#~ msgid ""
+#~ "The default installation environment includes our recommended package "
+#~ "selection, including:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Tikologo ya go tsenya ya tlhaelelo e akaretša kgetho ya sephuthelwana se "
+#~ "eletšwago, go akaretšwa:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "After installation, additional software can be added or removed using the "
+#~ "'system-config-packages' tool.\n"
+#~ "\n"
+#~ "If you are familiar with %s, you may have specific packages you would "
+#~ "like to install or avoid installing. Check the box below to customize "
+#~ "your installation."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Ka morago ga go tsenya, go ka oketšwa lenaneo la khomphuthara le "
+#~ "oketšegilego goba la tlošwa go dirišwa sedirišwa sa 'diphuthelwana tša go "
+#~ "fetola sebopego sa tshepedišo'.\n"
+#~ "\n"
+#~ "Ge eba o tlwaelane le %s, o ka ba le diphuthelwana tše kgethegilego tšeo "
+#~ "o ka ratago go di tsenya goba o ka phemago go di tsenya. Lekola lepokisi "
+#~ "leo le lego ka mo tlase gore o tlwaelanye tsenyo ya gago."
+
+#~ msgid ""
+#~ "If you would like to change the default package set to be installed you "
+#~ "can choose to customize this below."
+#~ msgstr ""
+#~ "Ge eba o ka rata go fetola sehlopha sa sephuthelwana sa tlhaelelo seo se "
+#~ "swanetšego go tsenywa o ka kgetha go tlwaelanya se ka mo tlase."
+
+#~ msgid "_Install default software packages"
+#~ msgstr "_Tsenya diphuthelwana tša lenaneo la khomphuthara tša tlhaelelo"
+
+#~ msgid "_Customize software packages to be installed"
+#~ msgstr ""
+#~ "_Tlwaelanya diphuthelwana tša lenaneo la khomphuthara tšeo di swanetšego "
+#~ "go tsenywa"
+
+#, fuzzy
+#~ msgid "Packages in %s"
+#~ msgstr "Sephuthelwana :"
+
+#, fuzzy
+#~ msgid "[%d of %d optional packages installed]"
+#~ msgstr ""
+#~ "Ke methopo ya mohuta ofe ya ditaba yeo e nago le diphuthelwana tšeo di "
+#~ "swanetšego go tsenywa?"
+
+#~ msgid ""
+#~ "The default installation environment includes our recommended package "
+#~ "selection.  After installation, additional software can be added or "
+#~ "removed using the 'system-config-packages' tool.\n"
+#~ "\n"
+#~ "However %s ships with many more applications, and you may customize the "
+#~ "selection of software installed if you want."
+#~ msgstr ""
+#~ "Tikologo ya go tsenya ya tlhaelelo e akaretša kgetho ya sephuthelwana yeo "
+#~ "re e eletšago. Ka morago ga go tsenya, lenaneo la khomphuthara le "
+#~ "oketšegilego le ka oketšwa goba go ntšhwa go dirišwa sedirišwa sa "
+#~ "'diphuthelwana tša go fetola sebopego tša tshepedišo'.\n"
+#~ "\n"
+#~ "Lega go le bjalo %s e amogela ka ditirišo tše dintši, e bile o ka "
+#~ "tlwaelanya kgetho ya lenaneo la khomphuthara le tsentšhitšwego ge eba o "
+#~ "rata."
+
+#~ msgid "Select individual packages"
+#~ msgstr "Kgetha diphuthelwana ka e tee ka e tee"
+
+#~ msgid "Package :"
+#~ msgstr "Sephuthelwana :"
+
+#~ msgid "Size    :"
+#~ msgstr "Bogolo    :"
+
+#~ msgid "%.1f KBytes"
+#~ msgstr "%.1f Kpaete"
+
+#~ msgid "Total size"
+#~ msgstr "Palomoka ya bogolo"
+
+#~ msgid "Individual Package Selection"
+#~ msgstr "Kgetho ya Sephuthelwana ka e Tee ka e Tee"
+
+#~ msgid ""
+#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
+#~ "description"
+#~ msgstr ""
+#~ "   <Space>,<+>,<-> kgetho   |   <F1> thušo   |   <F2> tlhaloso ya "
+#~ "sephuthelwana"
+
+#~ msgid "Package Dependencies"
+#~ msgstr "Tšeo di Ithekgilego tša Sephuthelwana"
+
+#~ msgid ""
+#~ "Some of the packages you have selected to install require packages you "
+#~ "have not selected. If you just select OK all of those required packages "
+#~ "will be installed."
+#~ msgstr ""
+#~ "Tše dingwe tša diphuthelwana tšeo o kgethilego go di tsenya di nyaka "
+#~ "diphuthelwana tšeo o sa di kgethago. Ge o ka kgetha feela GO LOKILE "
+#~ "diphuthelwana ka moka tšeo di nyakegago di tla tsentšhwa."
+
+#~ msgid "Install packages to satisfy dependencies"
+#~ msgstr "Tsenya diphuthelwana go kgotsofatša tšeo di ithekgilego"
+
+#~ msgid "Do not install packages that have dependencies"
+#~ msgstr "O seke wa tsenya diphuthelwana tšeo di nago le tšeo di ithekgilego"
+
+#~ msgid "Ignore package dependencies"
+#~ msgstr "Hlokomologa tšeo di ithekgilego tša sephuthelwana"
+
+#, fuzzy
+#~ msgid "_Optional packages"
+#~ msgstr "Diphuthelwana tša Boikgethelo"
 
 #~ msgid ""
 #~ "No mouse was detected.  A mouse is required for graphical installation.  "
@@ -8228,9 +8288,6 @@ msgstr "se-Zulu"
 #~ msgid "Choose a disk to run fdisk on"
 #~ msgstr "Kgetha tisiki yeo o tla šomišago tisiki ya f go yona"
 
-#~ msgid "Customize"
-#~ msgstr "Tlwaelanya"
-
 #~ msgid "Enable firewall"
 #~ msgstr "Kgontšha sešireletši sa tsebišo"
 
@@ -8395,9 +8452,6 @@ msgstr "se-Zulu"
 
 #~ msgid "Resolution"
 #~ msgstr "Maikemišetšo"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "Hle kgetha maikemišetšo ao o tla ratago go a diriša:"
 
 #~ msgid "X Customization"
 #~ msgstr "Tlwaelanyo ya X"

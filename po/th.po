@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 12:45-0500\n"
+"POT-Creation-Date: 2006-02-03 19:02-0500\n"
 "PO-Revision-Date: 2005-12-31 18:44+0700\n"
 "Last-Translator: Vorasilp Kijchavengkul <vorasilp@gmail.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
@@ -69,40 +69,40 @@ msgstr "ตอนนี้เซิร์ฟเวอร์ VNC ทำงาน�
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "กำลังพยายามเชื่อมต่อไคลเอ็นต์ VNC ที่โฮสต์ %s..."
 
-#: ../anaconda:200
+#: ../anaconda:198
+msgid "Connected!"
+msgstr "เชื่อมต่อได้แล้ว!"
+
+#: ../anaconda:203
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "กำลังยกเลิกความพยายามที่จะเชื่อมต่อ หลังจากพยายามมาแล้ว 50 ครั้ง!\n"
 
-#: ../anaconda:202
+#: ../anaconda:205
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "กรุณาเชื่อมต่อไคลเอ็นต์ VNC ที่ %s ด้วยคุณตัวเอง เพื่อเริ่มติดตั้ง"
 
-#: ../anaconda:204
+#: ../anaconda:207
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "กรุณาเชื่อมต่อไคลเอ็นต์ VNC ด้วยคุณตัวเอง เพื่อเริ่มการติดตั้ง"
 
-#: ../anaconda:208
+#: ../anaconda:211
 msgid "Will try to connect again in 15 seconds..."
 msgstr "จะพยายามเชื่อมต่ออีกครั้งภายในเวลา 15 วินาที..."
 
-#: ../anaconda:212
-msgid "Connected!"
-msgstr "เชื่อมต่อได้แล้ว!"
-
-#: ../anaconda:216
+#: ../anaconda:219
 #, c-format
 msgid "Please connect to %s to begin the install..."
 msgstr "กรุณาเชื่อมต่อไปที่ง %s เพื่อเริ่มติดตั้ง..."
 
-#: ../anaconda:218
+#: ../anaconda:221
 msgid "Please connect to begin the install..."
 msgstr "กรุณาเชื่อมต่อก่อน เพื่อเริ่มการติดตั้ง..."
 
-#: ../anaconda:616 ../anaconda:806 ../gui.py:244 ../gui.py:1174
+#: ../anaconda:619 ../anaconda:810 ../gui.py:241 ../gui.py:1181
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
-#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:386
-#: ../text.py:559 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
+#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:379
+#: ../text.py:552 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:176 ../textw/network_text.py:407
 #: ../textw/network_text.py:415 ../loader2/cdinstall.c:136
@@ -121,9 +121,9 @@ msgstr "กรุณาเชื่อมต่อก่อน เพื่อ�
 #: ../loader2/hdinstall.c:536 ../loader2/hdinstall.c:579
 #: ../loader2/hdinstall.c:592 ../loader2/kbd.c:128 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:408 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:307 ../loader2/loader.c:320
-#: ../loader2/loader.c:331 ../loader2/loader.c:734 ../loader2/loader.c:897
+#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:409 ../loader2/lang.c:103
+#: ../loader2/lang.c:380 ../loader2/loader.c:313 ../loader2/loader.c:326
+#: ../loader2/loader.c:337 ../loader2/loader.c:740 ../loader2/loader.c:903
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/modules.c:972 ../loader2/net.c:233
@@ -131,69 +131,69 @@ msgstr "กรุณาเชื่อมต่อก่อน เพื่อ�
 #: ../loader2/net.c:927 ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:212
 #: ../loader2/nfsinstall.c:221 ../loader2/nfsinstall.c:259
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:67
-#: ../loader2/urlinstall.c:139 ../loader2/urlinstall.c:152
-#: ../loader2/urlinstall.c:445 ../loader2/urlinstall.c:454
-#: ../loader2/urlinstall.c:465 ../loader2/urls.c:172 ../loader2/urls.c:182
+#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
+#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
+#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
+#: ../loader2/urlinstall.c:470 ../loader2/urls.c:172 ../loader2/urls.c:182
 #: ../loader2/urls.c:191 ../loader2/urls.c:257 ../loader2/urls.c:322
 #: ../loader2/urls.c:327 ../loader2/urls.c:333 ../loader2/urls.c:447
 msgid "OK"
 msgstr "ตกลง"
 
-#: ../anaconda:662
+#: ../anaconda:665
 msgid "Unknown Error"
 msgstr "ข้อผิดพลาดที่ไม่รู้จัก"
 
-#: ../anaconda:665
+#: ../anaconda:668
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "เกิดข้อผิดพลาดขณะกำลังดึงส่วนที่สองของการตั้งค่า kickstart: %s!"
 
-#: ../anaconda:790
+#: ../anaconda:794
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "คุณมีแรมไม่พอที่จะใช้ตัวติดตั้งแบบกราฟิก กำลังเริ่มติดตั้งบนโหมดตัวอักษร"
 
-#: ../anaconda:853
+#: ../anaconda:857
 msgid "Install class forcing text mode installation"
 msgstr "บังคับการติดตั้งเป็นแบบโหมดตัวอักษร"
 
-#: ../anaconda:880
+#: ../anaconda:884
 msgid "No video hardware found, assuming headless"
 msgstr "ไม่พบวิดีโอฮาร์ดแวร์ คิดว่าเป็นระบบไม่มีจอภาพ"
 
-#: ../anaconda:891 ../anaconda:1120 ../bar.py:23
+#: ../anaconda:895 ../anaconda:1130
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Unable to instantiate a X hardware state object."
 
-#: ../anaconda:915
+#: ../anaconda:919
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "การติดตั้งแบบกราฟิกไม่สามารถทำได้... กำลังเริ่มการติดตั้งบนโหมดตัวอักษร"
 
-#: ../anaconda:923
+#: ../anaconda:927
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:1006
+#: ../anaconda:1010
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:1032
+#: ../anaconda:1042
 msgid "Starting graphical installation..."
 msgstr "เริ่มต้นการติดตั้งแบบกราฟิก"
 
-#: ../anaconda:1086
+#: ../anaconda:1096
 #, fuzzy
 msgid "Unknown install method"
 msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
 
-#: ../anaconda:1087
+#: ../anaconda:1097
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "คุณกำลังพยายามติดตั้งบนเครื่องซึ่ง %s รีลีสนี้ไม่สนับสนุน"
 
-#: ../anaconda:1089
+#: ../anaconda:1099
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
@@ -422,16 +422,15 @@ msgstr "เกิดข้อผิดพลาดที่ไม่สามา
 msgid "Your system will now be rebooted."
 msgstr "ระบบของคุณจะถูกรีบูตโดยทันที"
 
-#: ../autopart.py:1688 ../bootloader.py:183 ../gui.py:1171 ../image.py:464
-#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:904
-#: ../partedUtils.py:961 ../upgrade.py:328 ../upgrade.py:476
+#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1178 ../image.py:455
+#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:905
+#: ../partedUtils.py:962 ../upgrade.py:328 ../upgrade.py:477
 #: ../yuminstall.py:149 ../iw/blpasswidget.py:145
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:92
-#: ../iw/upgrade_swap_gui.py:199 ../iw/upgrade_swap_gui.py:207
-#: ../iw/upgrade_swap_gui.py:214 ../iw/zfcp_gui.py:248
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:459
-#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:176
-#: ../loader2/loader.c:374
+#: ../iw/bootloader_advanced_gui.py:42 ../iw/upgrade_swap_gui.py:199
+#: ../iw/upgrade_swap_gui.py:207 ../iw/upgrade_swap_gui.py:214
+#: ../iw/zfcp_gui.py:248 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:176 ../loader2/loader.c:380
 msgid "Warning"
 msgstr "ข้อความเตือน"
 
@@ -501,15 +500,15 @@ msgstr "กำลังอัพเกรด %s-%s-%s %s\n"
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "กำลังติดตั้ง %s-%s-%s %s\n"
 
-#: ../bootloader.py:120
+#: ../bootloader.py:122
 msgid "Bootloader"
 msgstr "บูตโหลดเดอร์"
 
-#: ../bootloader.py:120
+#: ../bootloader.py:122
 msgid "Installing bootloader..."
 msgstr "การติดตั้งบูตโหลดเดอร์..."
 
-#: ../bootloader.py:184
+#: ../bootloader.py:186
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -553,27 +552,28 @@ msgstr ""
 "และส่งรายงานบั๊กพร้อมรายละเอียดที่เกี่ยวข้องกับอนาคอนดาไปที่ http://bugzilla.redhat.com/"
 "bugzilla/"
 
-#: ../exception.py:401 ../exception.py:417
+#: ../exception.py:420 ../exception.py:436
 msgid "Dump Written"
 msgstr "เขียนถ่ายข้อมูล"
 
-#: ../exception.py:402
+#: ../exception.py:421
+#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
-"will now be reset."
+"will now be rebooted."
 msgstr ""
 "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
-#: ../exception.py:409 ../exception.py:425
+#: ../exception.py:428 ../exception.py:444
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "เขียนถ่ายข้อมูล"
 
-#: ../exception.py:410
+#: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:418
+#: ../exception.py:437
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
@@ -581,25 +581,25 @@ msgid ""
 msgstr ""
 "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
-#: ../exception.py:426
+#: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:196
+#: ../fsset.py:197
 msgid "Checking for Bad Blocks"
 msgstr "กำลังตรวจสอบหาพื้นที่เสีย"
 
-#: ../fsset.py:197
+#: ../fsset.py:198
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "กำลังตรวจสอบหาพื้นที่เสียใน /dev/%s..."
 
-#: ../fsset.py:629 ../fsset.py:1403 ../fsset.py:1441 ../fsset.py:1452
-#: ../fsset.py:1503 ../fsset.py:1514 ../fsset.py:1549 ../fsset.py:1599
-#: ../fsset.py:1643 ../fsset.py:1662 ../image.py:133 ../image.py:171
-#: ../image.py:342 ../packages.py:304 ../partedUtils.py:714
-#: ../partIntfHelpers.py:403 ../upgrade.py:373 ../upgrade.py:400
-#: ../yuminstall.py:133 ../yuminstall.py:571 ../iw/osbootwidget.py:216
+#: ../fsset.py:630 ../fsset.py:1420 ../fsset.py:1458 ../fsset.py:1469
+#: ../fsset.py:1520 ../fsset.py:1531 ../fsset.py:1566 ../fsset.py:1616
+#: ../fsset.py:1660 ../fsset.py:1679 ../image.py:133 ../image.py:162
+#: ../image.py:333 ../partedUtils.py:715 ../partIntfHelpers.py:403
+#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:133
+#: ../yuminstall.py:486 ../yuminstall.py:607 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
 #: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:164
 #: ../textw/upgrade_text.py:171 ../loader2/cdinstall.c:137
@@ -609,19 +609,19 @@ msgstr "กำลังตรวจสอบหาพื้นที่เสี
 #: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
 #: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:331
-#: ../loader2/loader.c:734 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:337
+#: ../loader2/loader.c:740 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:212 ../loader2/nfsinstall.c:221
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:67
-#: ../loader2/urlinstall.c:139 ../loader2/urlinstall.c:152
+#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
+#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
 #: ../loader2/urls.c:172 ../loader2/urls.c:182 ../loader2/urls.c:191
 #: ../loader2/urls.c:322 ../loader2/urls.c:327
 msgid "Error"
 msgstr "เกิดข้อผิดพลาด"
 
-#: ../fsset.py:630
+#: ../fsset.py:631
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -634,27 +634,27 @@ msgstr ""
 "\n"
 "คุณต้องการดำเนินการต่อโดยไม่เปลี่ยนระบบไฟล์ของ %s เป็น ext3 หรือไม่?"
 
-#: ../fsset.py:1311
+#: ../fsset.py:1328
 msgid "RAID Device"
 msgstr "อุปกรณ์ RAID"
 
-#: ../fsset.py:1315 ../fsset.py:1321
+#: ../fsset.py:1332 ../fsset.py:1338
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1326 ../partitions.py:868
+#: ../fsset.py:1343 ../partitions.py:868
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1329
+#: ../fsset.py:1346
 msgid "First sector of boot partition"
 msgstr "เซกเตอร์แรกของบูตพาร์ทิชัน"
 
-#: ../fsset.py:1330
+#: ../fsset.py:1347
 msgid "Master Boot Record (MBR)"
 msgstr "บูตเรคอร์ดหลัก (MBR)"
 
-#: ../fsset.py:1404
+#: ../fsset.py:1421
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -667,7 +667,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1442
+#: ../fsset.py:1459
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -683,7 +683,7 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1453
+#: ../fsset.py:1470
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -698,7 +698,7 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1504
+#: ../fsset.py:1521
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -710,7 +710,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณ"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1532
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -723,7 +723,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1550
+#: ../fsset.py:1567
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -735,7 +735,7 @@ msgstr ""
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1600
+#: ../fsset.py:1617
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -748,11 +748,11 @@ msgstr ""
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1621 ../fsset.py:1630
+#: ../fsset.py:1638 ../fsset.py:1647
 msgid "Invalid mount point"
 msgstr "ตำแหน่งเมานท์ไม่ถูกต้อง"
 
-#: ../fsset.py:1622
+#: ../fsset.py:1639
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -765,7 +765,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1631
+#: ../fsset.py:1648
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -778,7 +778,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1644
+#: ../fsset.py:1661
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -793,7 +793,7 @@ msgstr ""
 "\n"
 "กดปุ่มตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1663
+#: ../fsset.py:1680
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -808,11 +808,11 @@ msgstr ""
 "\n"
 "กดปุ่มตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:2328
+#: ../fsset.py:2345
 msgid "Duplicate Labels"
 msgstr "ชื่อซ้ำซ้อน"
 
-#: ../fsset.py:2329
+#: ../fsset.py:2346
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -825,31 +825,31 @@ msgstr ""
 "\n"
 "ให้ทำการแก้ไข แล้วเริ่มการติดตั้งใหม่ทั้งหมด "
 
-#: ../fsset.py:2336 ../gui.py:799 ../gui.py:1284 ../image.py:92
-#: ../image.py:474 ../packages.py:764 ../yuminstall.py:160
+#: ../fsset.py:2353 ../gui.py:797 ../gui.py:1291 ../image.py:92
+#: ../image.py:465 ../packages.py:582 ../yuminstall.py:160
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_รีบูต"
 
-#: ../fsset.py:2589
+#: ../fsset.py:2606
 msgid "Formatting"
 msgstr "กำลังฟอร์แมต"
 
-#: ../fsset.py:2590
+#: ../fsset.py:2607
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "กำลังฟอร์แมตระบบไฟล์ %s ..."
 
-#: ../gui.py:110
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "เกิดข้อผิดพลาดระหว่างสำเนาภาพหน้าจอ"
 
-#: ../gui.py:122
+#: ../gui.py:119
 msgid "Screenshots Copied"
 msgstr "ภาพหน้าจอถูกคัดลอกแล้ว"
 
-#: ../gui.py:123
+#: ../gui.py:120
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -863,20 +863,20 @@ msgstr ""
 "\n"
 "คุณสามารถเข้าไปใช้งานได้เมื่อรีบูตและเข้าระบบเป็น root"
 
-#: ../gui.py:167
+#: ../gui.py:164
 msgid "Saving Screenshot"
 msgstr "กำลังบันทึกภาพหน้าจอ"
 
-#: ../gui.py:168
+#: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "ภาพหน้าจอชื่อ %s ถูกบันทึกแล้ว"
 
-#: ../gui.py:171
+#: ../gui.py:168
 msgid "Error Saving Screenshot"
 msgstr "เกิดข้อผิดพลาดขณะบันทึกภาพหน้าจอ"
 
-#: ../gui.py:172
+#: ../gui.py:169
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -884,44 +884,44 @@ msgstr ""
 "เกิดข้อผิดพลาดขณะบันทึกภาพหน้าจอ หากข้อผิดพลาดเกิดขึ้นระหว่างการติดตั้งแพ็กเกจ คุณอาจต้องลองอีก "
 "2-3 ครั้งจึงจะสำเร็จ"
 
-#: ../gui.py:241 ../text.py:383
+#: ../gui.py:238 ../text.py:376
 msgid "Fix"
 msgstr "ซ่อม"
 
-#: ../gui.py:242 ../rescue.py:182 ../text.py:384
+#: ../gui.py:239 ../packages.py:53 ../rescue.py:182 ../text.py:377
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:515
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
-#: ../loader2/loader.c:374
+#: ../loader2/loader.c:380
 msgid "Yes"
 msgstr "ใช่"
 
-#: ../gui.py:243 ../rescue.py:182 ../rescue.py:184 ../text.py:385
+#: ../gui.py:240 ../rescue.py:182 ../rescue.py:184 ../text.py:378
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:374
+#: ../loader2/loader.c:380
 msgid "No"
 msgstr "ไม่"
 
-#: ../gui.py:245 ../text.py:387 ../loader2/net.c:276 ../loader2/net.c:593
+#: ../gui.py:242 ../text.py:380 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
 msgstr "ลองใหม่"
 
-#: ../gui.py:246 ../text.py:388
+#: ../gui.py:243 ../text.py:381
 msgid "Ignore"
 msgstr "ไม่ต้องสนใจ"
 
-#: ../gui.py:247 ../gui.py:704 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:108 ../text.py:109 ../text.py:360
-#: ../text.py:362 ../text.py:389 ../iw/bootloader_advanced_gui.py:48
-#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:199
-#: ../textw/constants_text.py:40 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:270 ../loader2/loader.c:320
+#: ../gui.py:244 ../gui.py:702 ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:526 ../text.py:101 ../text.py:102 ../text.py:353
+#: ../text.py:355 ../text.py:382 ../iw/bootloader_advanced_gui.py:48
+#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
+#: ../loader2/loader.c:326
 msgid "Cancel"
 msgstr "ยกเลิก"
 
-#: ../gui.py:794 ../text.py:346
+#: ../gui.py:792 ../text.py:339
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -932,33 +932,33 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:796 ../text.py:348
+#: ../gui.py:794 ../text.py:341
 msgid "Error Parsing Kickstart Config"
 msgstr "เกิดข้อผิดพลาดในการวิเคราะห์ค่าที่กำหนดของ Kickstart"
 
-#: ../gui.py:804 ../text.py:358
+#: ../gui.py:802 ../text.py:351
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr "กรุณาใส่แผ่นฟลอปปี้ ข้อมูลทั้งหมดในแผ่นจะถูกลบ ดังนั้นกรุณาเลือกแผ่นดิสก์อย่างระมัดระวัง"
 
-#: ../gui.py:919
+#: ../gui.py:917
 msgid "default:LTR"
 msgstr "ค่าปริยาย:LTR"
 
-#: ../gui.py:994 ../iw/release_notes_viewer_gui.py:51
+#: ../gui.py:992 ../iw/release_notes_viewer_gui.py:51
 msgid "Release notes are missing.\n"
 msgstr "ไม่พบบันทึกการออกรุ่น\n"
 
-#: ../gui.py:1172
+#: ../gui.py:1179
 msgid "The release notes are missing."
 msgstr "ไม่พบบันทึกการออกรุ่น"
 
-#: ../gui.py:1271
+#: ../gui.py:1278
 msgid "Error!"
 msgstr "เกิดข้อผิดพลาด!"
 
-#: ../gui.py:1272
+#: ../gui.py:1279
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -969,64 +969,39 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1276 ../gui.py:1281 ../packages.py:309 ../packages.py:756
-#: ../packages.py:761 ../yuminstall.py:577
+#: ../gui.py:1283 ../gui.py:1288 ../packages.py:574 ../packages.py:579
+#: ../yuminstall.py:613
 msgid "_Exit"
 msgstr "_ออกจากโปรแกรม"
 
-#: ../gui.py:1277 ../yuminstall.py:147
+#: ../gui.py:1284 ../yuminstall.py:147
 msgid "_Retry"
 msgstr "_ลองใหม่"
 
-#: ../gui.py:1280 ../packages.py:760
+#: ../gui.py:1287 ../packages.py:578
 msgid "The installer will now exit..."
 msgstr "กำลังออกจากโปรแกรมติดตั้ง..."
 
-#: ../gui.py:1283 ../packages.py:763
+#: ../gui.py:1290 ../packages.py:581
 msgid "Your system will now be rebooted..."
 msgstr "ระบบของคุณกำลังจะถูกรีบูต..."
 
-#: ../gui.py:1286 ../packages.py:765
+#: ../gui.py:1293 ../packages.py:583
 msgid "Rebooting System"
 msgstr "กำลังรีบูตระบบ"
 
-#: ../gui.py:1368
+#: ../gui.py:1375
 #, python-format
 msgid "%s Installer"
 msgstr "ตัวติดตั้ง %s"
 
-#: ../gui.py:1374
+#: ../gui.py:1381
 msgid "Unable to load title bar"
 msgstr "ไม่สามารถโหลดแถบหัวเรื่องได้"
 
-#: ../gui.py:1434
+#: ../gui.py:1441
 msgid "Install Window"
 msgstr "วินโดว์ติดตั้ง"
-
-#: ../hdrlist.py:47 ../hdrlist.py:877
-msgid ""
-"This group includes all the packages available.  Note that there are "
-"substantially more packages than just the ones in all the other package "
-"groups on this page."
-msgstr ""
-"แพ็กเกจกลุ่มนี้จะประกอบด้วยแพ็กเกจทั้งหมดที่มี โปรดทราบว่า "
-"มันจะมีจำนวนแพ็กเกจมากกว่าที่มีในกลุ่มแพ็กเกจอื่นทั้งหมดในหน้านี้รวมกัน"
-
-#: ../hdrlist.py:717
-msgid "Everything"
-msgstr "ทั้งหมด"
-
-#: ../hdrlist.py:881
-msgid ""
-"Choose this group to get the minimal possible set of packages.  Useful for "
-"creating small router/firewall boxes, for example."
-msgstr ""
-"เลือกกลุ่มแพ็กเกจนี้เพื่อจะได้ชุดของแพ็กเกจแบบกะทัดรัด ซึ่งจะเป็นประโยชน์สำหรับการสร้าง router/"
-"firewall ขนาดเล็ก เป็นต้น"
-
-#: ../hdrlist.py:930
-msgid "Miscellaneous"
-msgstr "เบ็ดเตล็ด"
 
 #: ../image.py:83
 msgid "Required Install Media"
@@ -1046,13 +1021,13 @@ msgstr ""
 "%s\n"
 "กรุณาเตรียมไว้ให้พร้อมก่อนทำการติดตั้ง ถ้าคุณต้องการยกเลิกและจะรีบูต ให้เลือก \"รีบูต\""
 
-#: ../image.py:92 ../packages.py:761 ../packages.py:764
+#: ../image.py:92 ../packages.py:579 ../packages.py:582
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_ย้อนกลับ"
 
-#: ../image.py:92 ../image.py:475 ../iw/partition_gui.py:1012
+#: ../image.py:92 ../image.py:466 ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_ต่อไป"
 
@@ -1065,15 +1040,15 @@ msgstr ""
 "เกิดข้อผิดพลาดระหว่างยกเลิกการเมานท์ซีดี ให้ตรวจดูว่าคุณไม่ได้กำลังเข้าใช้งาน %s จากเชลล์บน "
 "tty2 แล้วให้คลิ้ก ตกลง เพื่อลองใหม่อีกครั้ง"
 
-#: ../image.py:167
+#: ../image.py:158
 msgid "Copying File"
 msgstr "กำลังคัดลอกไฟล์"
 
-#: ../image.py:168
+#: ../image.py:159
 msgid "Transferring install image to hard drive..."
 msgstr "กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปที่ฮาร์ดไดรฟ์..."
 
-#: ../image.py:172
+#: ../image.py:163
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1081,29 +1056,29 @@ msgstr ""
 "เกิดข้อผิดพลาดขณะที่กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปยังฮาร์ดไดรฟ์ของคุณ "
 "เป็นไปได้ว่าคุณไม่มีที่ว่างบนดิสก์"
 
-#: ../image.py:300
+#: ../image.py:291
 msgid "Change CDROM"
 msgstr "เปลี่ยนแผ่นซีดี"
 
-#: ../image.py:301
+#: ../image.py:292
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "โปรดใส่โปรแกรม %s แผ่น %d เพื่อดำเนินการติดตั้งต่อ"
 
-#: ../image.py:336
+#: ../image.py:327
 msgid "Wrong CDROM"
 msgstr "ใส่ซีดีรอมผิด"
 
-#: ../image.py:337
+#: ../image.py:328
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "นี่ไม่ใช่ซีดีรอมของ %s"
 
-#: ../image.py:343
+#: ../image.py:334
 msgid "Unable to access the CDROM."
 msgstr "ไม่สามารถเข้าถึงแผ่นซีดีได้"
 
-#: ../installclass.py:63
+#: ../installclass.py:55
 msgid "Install on System"
 msgstr "ติดตั้งบนระบบ"
 
@@ -1125,16 +1100,16 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบใหม่"
 
-#: ../kickstart.py:668 ../kickstart.py:686
+#: ../kickstart.py:708 ../kickstart.py:726
 #, fuzzy
 msgid "Running..."
 msgstr "กำลังตรวจสอบ \"%s\"..."
 
-#: ../kickstart.py:669
+#: ../kickstart.py:709
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:687
+#: ../kickstart.py:727
 msgid "Running post-install scripts"
 msgstr ""
 
@@ -1150,11 +1125,11 @@ msgstr "ชื่อโฮสต์จะต้องเริ่มต้นด
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "ชื่อโฮสต์ต้องประกอบด้วยตัวอักษร 'a-z', 'A-Z', '-', หรือ '.' เท่านั้น"
 
-#: ../packages.py:47
+#: ../packages.py:46
 msgid "Proceed with upgrade?"
 msgstr "ดำเนินการอัพเกรดหรือไม่?"
 
-#: ../packages.py:48
+#: ../packages.py:47
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1164,26 +1139,23 @@ msgstr ""
 "คุณไม่สามารถย้อนกลับไปจากจุดนี้ได้อีกแล้ว \n"
 "\n"
 
-#: ../packages.py:52
+#: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
 msgstr "คุณต้องการดำเนินการอัพเกรดต่อไปหรือไม่?"
 
-#: ../packages.py:305
-#, python-format
-msgid ""
-"You are trying to install on a machine which isn't supported by this release "
-"of %s."
-msgstr "คุณกำลังพยายามติดตั้งบนเครื่องซึ่ง %s รีลีสนี้ไม่สนับสนุน"
+#: ../packages.py:53 ../textw/complete_text.py:47
+msgid "Reboot"
+msgstr "รีบูต"
 
-#: ../packages.py:383 ../yuminstall.py:869
+#: ../packages.py:200 ../yuminstall.py:883
 msgid "Post Install"
 msgstr "ช่วงหลังติดตั้ง"
 
-#: ../packages.py:384 ../yuminstall.py:870
+#: ../packages.py:201 ../yuminstall.py:884
 msgid "Performing post install configuration..."
 msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
 
-#: ../packages.py:519
+#: ../packages.py:336
 msgid ""
 "\n"
 "\n"
@@ -1193,7 +1165,7 @@ msgstr ""
 "\n"
 "แพ็กเกจต่อไปนี้ปรากฏมีอยู่ในรุ่นปัจจุบัน แต่จะไม่ถูกอัพเกรด:\n"
 
-#: ../packages.py:522
+#: ../packages.py:339
 msgid ""
 "\n"
 "\n"
@@ -1203,11 +1175,11 @@ msgstr ""
 "\n"
 "แพ็กเกจต่อไปนี้ปรากฏมีอยู่ในรุ่นปัจจุบัน แต่จะไม่ถูกติดตั้ง:\n"
 
-#: ../packages.py:742
+#: ../packages.py:560
 msgid "Warning! This is pre-release software!"
 msgstr "คำเตือน! นี้เป็นซอฟต์แวร์รุ่นทดสอบเท่านั้น! "
 
-#: ../packages.py:743
+#: ../packages.py:561
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1232,7 +1204,7 @@ msgstr ""
 "\n"
 "และส่งรายงานที่เกี่ยวข้องกับ %s.\n"
 
-#: ../packages.py:756
+#: ../packages.py:574
 msgid "_Install anyway"
 msgstr "ดำเนินการติดตั้งต่อ"
 
@@ -1278,21 +1250,21 @@ msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
 msgid "_Format drive"
 msgstr "_ฟอร์แมตไดรฟ์"
 
-#: ../partedUtils.py:715
+#: ../partedUtils.py:716
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "เกิดข้อผิดพลาดขณะกำลังเมานท์ระบบไฟล์บน %s: %s"
 
-#: ../partedUtils.py:803
+#: ../partedUtils.py:804
 msgid "Initializing"
 msgstr "กำลังเตรียมความพร้อม..."
 
-#: ../partedUtils.py:804
+#: ../partedUtils.py:805
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "กรุณารอสักครู่ กำลังฟอร์แมตไดรฟ์ %s...\n"
 
-#: ../partedUtils.py:905
+#: ../partedUtils.py:906
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1312,7 +1284,7 @@ msgstr ""
 "\n"
 "คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
-#: ../partedUtils.py:962
+#: ../partedUtils.py:963
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1331,11 +1303,11 @@ msgstr ""
 "\n"
 "คุณต้องการให้มีการตระเตรียมไดรฟ์ขึ้นใหม่ ซึ่งจะลบข้อมูลทั้งหมดหรือไม่?"
 
-#: ../partedUtils.py:1080
+#: ../partedUtils.py:1081
 msgid "No Drives Found"
 msgstr "ไม่พบไดรฟ์ในเครื่อง"
 
-#: ../partedUtils.py:1081
+#: ../partedUtils.py:1082
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1454,7 +1426,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
-#: ../iw/lvm_dialog_gui.py:745
+#: ../iw/lvm_dialog_gui.py:746
 msgid "Confirm Delete"
 msgstr "ยืนยันการลบ"
 
@@ -1464,7 +1436,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "คุณกำลังจะลบพาร์ทิชันทั้งหมดบนดีไวซ์ '/dev/%s'"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
-#: ../iw/lvm_dialog_gui.py:748 ../iw/lvm_dialog_gui.py:1100
+#: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1359
 msgid "_Delete"
 msgstr "_ลบ"
@@ -1525,7 +1497,7 @@ msgstr ""
 "\n"
 "คุณต้องการฟอร์แมตพาร์ทิชันนี้เป็นพาร์ทิชัน swap หรือไม่?"
 
-#: ../partIntfHelpers.py:401 ../iw/autopartition_gui.py:62
+#: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "คุณต้องเลือกอย่างน้อยหนึ่งฮาร์ดไดรฟ์ เพื่อใช้ในการติดตั้ง %s"
@@ -1847,11 +1819,11 @@ msgstr "ติดตั้งระบบเน็ตเวิร์ก"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "คุณต้องการให้เริ่มการทำงานของเน็ตเวิร์คอินเทอร์เฟซของระบบหรือไม่"
 
-#: ../rescue.py:226 ../text.py:555
+#: ../rescue.py:226 ../text.py:548
 msgid "Cancelled"
 msgstr "ถูกยกเลิกแล้ว"
 
-#: ../rescue.py:227 ../text.py:556
+#: ../rescue.py:227 ../text.py:549
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "ระบบไม่สามารถย้อนกลับไปขั้นตอนก่อนหน้านี้ได้ คุณอาจจะต้องลองใหม่"
 
@@ -1971,67 +1943,67 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "ระบบของคุณถูกเมานท์ภายใต้ไดเรกทอรี %s"
 
-#: ../text.py:153 ../text.py:165
+#: ../text.py:146 ../text.py:158
 msgid "Save"
 msgstr "บันทึก"
 
-#: ../text.py:153 ../text.py:155 ../text.py:167
+#: ../text.py:146 ../text.py:148 ../text.py:160
 #, fuzzy
 msgid "Remote"
 msgstr "ลบ"
 
-#: ../text.py:153 ../text.py:155 ../text.py:163
+#: ../text.py:146 ../text.py:148 ../text.py:156
 msgid "Debug"
 msgstr "ดีบั๊ก"
 
-#: ../text.py:159
+#: ../text.py:152
 msgid "Exception Occurred"
 msgstr "มีความผิดปกติเกิดขึ้น"
 
-#: ../text.py:188
+#: ../text.py:181
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:191
+#: ../text.py:184
 #, fuzzy
 msgid "Host"
 msgstr "ชื่อโฮสต์"
 
-#: ../text.py:193
+#: ../text.py:186
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:195
+#: ../text.py:188
 msgid "User name"
 msgstr "ชื่อผู้ใช้"
 
-#: ../text.py:197
+#: ../text.py:190
 msgid "Password"
 msgstr "รหัสผ่าน"
 
-#: ../text.py:254
+#: ../text.py:247
 msgid "Help not available"
 msgstr "ไม่มีคำแนะนำ"
 
-#: ../text.py:255
+#: ../text.py:248
 msgid "No help is available for this step of the install."
 msgstr "ไม่มีคำแนะนำสำหรับขั้นตอนการติดตั้งนี้"
 
-#: ../text.py:357
+#: ../text.py:350
 msgid "Save Crash Dump"
 msgstr "บันทึก crash dump"
 
-#: ../text.py:411 ../loader2/lang.c:52 ../loader2/loader.c:131
+#: ../text.py:404 ../loader2/lang.c:52 ../loader2/loader.c:131
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "ยินดีต้อนรับสู่ %s"
 
-#: ../text.py:418
+#: ../text.py:411
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> คำแนะนำ | <Tab> ระหว่าง elements | <Space> เลือก | <F12> หน้าจอถัดไป"
 
-#: ../text.py:420
+#: ../text.py:413
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2138,15 +2110,15 @@ msgstr "ไดเรกทอรีที่ไม่ถูกต้อง"
 msgid "%s not found"
 msgstr "ไม่พบ %s"
 
-#: ../upgrade.py:361
+#: ../upgrade.py:362
 msgid "Finding"
 msgstr "กำลังค้นหา"
 
-#: ../upgrade.py:362
+#: ../upgrade.py:363
 msgid "Finding packages to upgrade..."
 msgstr "กำลังค้นหาแพ็กเกจที่จะใช้ในการอัพเกรด..."
 
-#: ../upgrade.py:374
+#: ../upgrade.py:375
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
@@ -2156,11 +2128,11 @@ msgstr ""
 "RPM สำหรับรีลีสของคุณแก้ปัญหานี้ ซึ่งอธิบายโดยละเอียดในรีลีสโน๊ต "
 "จากนั้นให้รันขั้นตอนการอัพเกรดอีกครั้ง"
 
-#: ../upgrade.py:401
+#: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "เกิดข้อผิดพลาดขณะค้นหาแพ็กเกจที่จะใช้ในการอัพเกรด"
 
-#: ../upgrade.py:477
+#: ../upgrade.py:478
 #, fuzzy, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2247,7 +2219,8 @@ msgid "Processing"
 msgstr "กำลังประมวลผล"
 
 #: ../yuminstall.py:91
-msgid "Preparing to install..."
+#, fuzzy
+msgid "Preparing transaction from installation source..."
 msgstr "กำลังเตรียมที่จะติดตั้ง..."
 
 #: ../yuminstall.py:134
@@ -2264,7 +2237,7 @@ msgstr ""
 "\n"
 "กดปุ่ม <return> เพื่อลองใหม่"
 
-#: ../yuminstall.py:146
+#: ../yuminstall.py:146 ../yuminstall.py:498
 #, fuzzy
 msgid "Re_boot"
 msgstr "รีบูต"
@@ -2279,17 +2252,30 @@ msgstr "ถ้าคุณรีบูต ระบบอาจจะอยู�
 msgid "_Cancel"
 msgstr "_ยกเลิก"
 
-#: ../yuminstall.py:446
+#: ../yuminstall.py:440
 #, fuzzy
 msgid "Error running transaction"
 msgstr "กำลังเตรียมตั้งชุดคำสั่งสำหรับติดตั้ง RPM..."
 
-#: ../yuminstall.py:556
+#: ../yuminstall.py:487
+#, fuzzy, python-format
+msgid ""
+"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
+"perhaps a corrupt package.  If you are installing from CD media this usually "
+"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"\n"
+msgstr ""
+"แพ็กเกจ %s-%s-%s ไม่สามารถเปิดใช้งานได้ อาจเพราะว่าไม่มีอยู่ หรือเกิดความเสียหายกับข้อมูล "
+"ถ้าคุณติดตั้งด้วยแผ่นซีดี ก็อาจเป็นไปได้ว่าแผ่นไม่สมบูรณ์ หรือตัวอ่านชำรุด\n"
+"\n"
+"กดปุ่ม <return> เพื่อลองใหม่"
+
+#: ../yuminstall.py:592
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
 
-#: ../yuminstall.py:572
+#: ../yuminstall.py:608
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2299,29 +2285,29 @@ msgstr ""
 "ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย "
 "กดปุ่ม <return> เพื่อลองดูอีกครั้ง"
 
-#: ../yuminstall.py:599
+#: ../yuminstall.py:635
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:852
+#: ../yuminstall.py:866
 msgid "Install Starting"
 msgstr "เริ่มการติดตั้ง"
 
-#: ../yuminstall.py:853
+#: ../yuminstall.py:867
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
 
-#: ../yuminstall.py:969
+#: ../yuminstall.py:1004
 #, fuzzy
 msgid "Installation Progress"
 msgstr "ประเภทของการติดตั้ง"
 
-#: ../yuminstall.py:1013
+#: ../yuminstall.py:1048
 msgid "Dependency Check"
 msgstr "การตรวจสอบการขึ้นต่อกัน"
 
-#: ../yuminstall.py:1014
+#: ../yuminstall.py:1049
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "กำลังตรวจสอบการขึ้นต่อกันของแพ็กเกจที่เลือกเพื่อใช้สำหรับการติดตั้ง..."
 
@@ -2419,23 +2405,6 @@ msgstr "_รหัสผ่านของ root: "
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
 msgstr "_ยืนยันรหัสผ่าน: "
-
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1418
-#: ../textw/partition_text.py:1522
-msgid "Automatic Partitioning"
-msgstr "การแบ่งพาร์ทิชันแบบอัตโนมัติ"
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1480
-msgid "I want to have automatic partitioning:"
-msgstr "ต้องการแบ่งพาร์ทิชันแบบอัตโนมัติ:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1511
-msgid "Select the drive(s) to use for this installation:"
-msgstr "เลือกไดรฟ์หนึ่งหรือหลายๆ ตัว ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1535
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2537,62 +2506,16 @@ msgstr "พารามิเตอร์ทั่วไปของเคอร
 msgid "Boot Loader Configuration"
 msgstr "การตั้งค่าบูตโหลดเดอร์"
 
-#: ../iw/bootloader_main_gui.py:75
-msgid "Change Boot Loader"
-msgstr "เปลี่ยนตัวบูตโหลดเดอร์"
-
-#: ../iw/bootloader_main_gui.py:93
-#, fuzzy
-msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
-"\n"
-"Would you like to continue and not install a boot loader?"
-msgstr ""
-"คุณได้เลือกที่จะไม่ติดตั้งบูตโหลดเดอร์ใดๆ เราขอแนะนำอย่างยิ่ง\n"
-"ว่าให้คุณติดตั้งบูตโหลดเดอร์สักตัวหนึ่ง เว้นแต่ว่าคุณมีวิธีอื่นที่ดีกว่า\n"
-"บูตโหลดเดอร์เป็นสิ่งที่จะต้องใช้แทบทุกครั้งที่มีการรีบูตระบบเพื่อ\n"
-"เข้าลินุกซ์โดยตรงจากฮาร์ดไดรฟ์\n"
-"\n"
-"คุณแน่ใจแล้วหรือไม่ ที่จะไม่ติดตั้งบูตโหลดเดอร์?"
-
-#: ../iw/bootloader_main_gui.py:97
-msgid "C_ontinue with no boot loader"
-msgstr "ทำ_ต่อไปโดยไม่ต้องติดตั้งบูตโหลดเดอร์ "
-
-#: ../iw/bootloader_main_gui.py:120
-msgid ""
-"Please select the boot loader that the computer will use.  GRUB is the "
-"default boot loader. However, if you do not wish to overwrite your current "
-"boot loader, select \"Do not install a boot loader.\"  "
-msgstr ""
-"กรุณาเลือกบูตโหลดเดอร์ที่คอมพิวเตอร์เครื่องนี้จะใช้ โดย GRUB จะเป็นบูตโหลดเดอร์โดยปริยาย "
-"อย่างไรก็ตามถ้าคุณไม่ต้องการเขียนทับบูตโหลดเดอร์ตัวเดิมให้เลือก \"ไม่ติดตั้งบูตโหลดเดอร์\""
-
-#: ../iw/bootloader_main_gui.py:128
-msgid "Use _GRUB as the boot loader"
-msgstr "ใช้ GRUB เป็นบูตโหลดเดอร์ "
-
-#: ../iw/bootloader_main_gui.py:130
-msgid "_Do not install a boot loader"
-msgstr "ไม่ติดตั้งบูตโหลดเดอร์ "
-
-#: ../iw/bootloader_main_gui.py:149
+#: ../iw/bootloader_main_gui.py:118
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "บูตโหลดเดอร์ %s จะถูกติดตั้งบน /dev/%s"
 
-#: ../iw/bootloader_main_gui.py:154
+#: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
 msgstr "ไม่มีบูตโหลดเดอร์ที่จะติดตั้ง"
 
-#: ../iw/bootloader_main_gui.py:205
-msgid "_Change boot loader"
-msgstr "เ_ปลี่ยนบูตโหลดเดอร์ "
-
-#: ../iw/bootloader_main_gui.py:229
+#: ../iw/bootloader_main_gui.py:153
 msgid "Configure advanced boot loader _options"
 msgstr "_ตั้งค่าตัวเลือกบูตโหลดเดอร์ขั้นสูง"
 
@@ -2696,86 +2619,6 @@ msgstr ""
 "\n"
 "%s%s"
 
-#: ../iw/dependencies_gui.py:21
-msgid "Unresolved Dependencies"
-msgstr "การขึ้นต่อกันที่ไม่สามารถแก้ได้"
-
-#: ../iw/dependencies_gui.py:34 ../textw/packages_text.py:29
-#: ../textw/packages_text.py:356
-#, python-format
-msgid "Total install size: %s"
-msgstr "การติดตั้งใช้ขนาดทั้งหมด: %s"
-
-#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:348
-#: ../textw/packages_text.py:387
-msgid "Package"
-msgstr "แพ็กเกจ"
-
-#: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:387
-msgid "Requirement"
-msgstr "แพ็กเกจที่ต้องการ"
-
-#: ../iw/dependencies_gui.py:90
-msgid "_Install packages to satisfy dependencies"
-msgstr "_ติดตั้งแพ็กเกจทุกตัวในรายการเพื่อแก้เรื่องการขึ้นต่อกัน"
-
-#: ../iw/dependencies_gui.py:93
-msgid "_Do not install packages that have dependencies"
-msgstr "ไ_ม่ต้องติดตั้งแพ็กเกจที่ต้องการแพ็กเกจอื่น"
-
-#: ../iw/dependencies_gui.py:97
-msgid "I_gnore package dependencies"
-msgstr "ไม่ต้อง_สนใจการขึ้นต่อกันของแพ็กเกจ"
-
-#: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
-msgid "Package Defaults"
-msgstr "แพ็กเกจปริยาย"
-
-#: ../iw/desktop_choice_gui.py:56
-msgid ""
-"The default installation environment includes our recommended package "
-"selection, including:\n"
-"\n"
-msgstr ""
-"สภาพแวดล้อมของการติดตั้งปริยาย จะรวมถึงการเลือกแพ็กเกจที่แนะนำ ดังต่อไปนี้:\n"
-"\n"
-
-#: ../iw/desktop_choice_gui.py:58
-#, python-format
-msgid ""
-"\n"
-"\n"
-"After installation, additional software can be added or removed using the "
-"'system-config-packages' tool.\n"
-"\n"
-"If you are familiar with %s, you may have specific packages you would like "
-"to install or avoid installing. Check the box below to customize your "
-"installation."
-msgstr ""
-"\n"
-"\n"
-"หลังจากการติดตั้ง ซอฟต์แวร์เพิ่มเติมสามารถเพิ่มเข้าหรือเอาออกได้ โดยใช้เครื่องมือ 'system-"
-"config-packages'\n"
-"\n"
-"ถ้าคุณมีความคุ้นเคยกับ %s คุณอาจระบุแพ็กเกจที่คุณอยากติดตั้งหรือไม่ติดตั้งได้เอง "
-"กาช่องข้างล่างนี้เพื่อให้คุณสามารถกำหนดการติดตั้งของคุณเองได้"
-
-#: ../iw/desktop_choice_gui.py:70
-msgid ""
-"If you would like to change the default package set to be installed you can "
-"choose to customize this below."
-msgstr ""
-"ถ้าคุณต้องการที่จะเปลี่ยนชุดแพ็กเกจโดยปริยาย "
-"คุณสามารถเลือกว่าต้องการเลือกเองจากตัวเลือกข้างล่างนี้"
-
-#: ../iw/desktop_choice_gui.py:78
-msgid "_Install default software packages"
-msgstr "_ติดตั้งซอฟต์แวร์แพ็กเกจปริยาย"
-
-#: ../iw/desktop_choice_gui.py:79
-msgid "_Customize software packages to be installed"
-msgstr "เ_ลือกซอฟต์แวร์แพ็กเกจที่จะนำมาติดตั้งด้วยตัวเอง"
-
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
 msgstr "ไดรฟ์"
@@ -2788,16 +2631,16 @@ msgstr "ขนาด"
 msgid "Model"
 msgstr "รุ่น"
 
-#: ../iw/examine_gui.py:33
+#: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
 msgstr "ตรวจสอบความเป็นไปได้ในการอัพเกรด"
 
-#: ../iw/examine_gui.py:60
+#: ../iw/examine_gui.py:61
 #, python-format
 msgid "_Install %s"
 msgstr "_ติดตั้ง %s ใหม่ทั้งหมด"
 
-#: ../iw/examine_gui.py:62
+#: ../iw/examine_gui.py:63
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -2805,11 +2648,11 @@ msgstr ""
 "เลือกตัวเลือกนี้เพื่อติดตั้งระบบใหม่ทั้งหมด โดยซอฟต์แวร์และข้อมูลที่มีอยู่ อาจจะถูกเขียนทับ "
 "ซึ่งจะขึ้นอยู่กับการเลือกค่าปรับแต่งของคุณ"
 
-#: ../iw/examine_gui.py:66
+#: ../iw/examine_gui.py:67
 msgid "_Upgrade an existing installation"
 msgstr "_อัพเกรดระบบที่ติดตั้งไว้แล้ว"
 
-#: ../iw/examine_gui.py:68
+#: ../iw/examine_gui.py:69
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -2817,30 +2660,13 @@ msgid ""
 msgstr ""
 "เลือกตัวเลือกนี้หากคุณต้องการอัพเกรด %s ที่ติดตั้งอยู่แล้ว ซึ่งการติดตั้งจะยังรักษา ข้อมูลของคุณไว้"
 
-#: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:136 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "ระบบที่ติดตั้งไว้ดังต่อไปนี้ จะถูกอัพเกรด"
 
-#: ../iw/examine_gui.py:144
+#: ../iw/examine_gui.py:149
 msgid "Unknown Linux system"
 msgstr "ระบบลินุกซ์ที่ไม่รู้จัก"
-
-#: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
-msgid "Packages in %s"
-msgstr "แพ็กเกจ"
-
-#: ../iw/GroupSelector.py:315
-#, python-format
-msgid ""
-"No description available for %s.\n"
-"\n"
-msgstr ""
-
-#: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
-msgid "[%d of %d optional packages installed]"
-msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -2869,7 +2695,7 @@ msgstr "ภาษาอะไรที่คุณต้องการใช้
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
 #: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:592
-#: ../iw/lvm_dialog_gui.py:659 ../iw/lvm_dialog_gui.py:870
+#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
 msgstr "พื้นที่ไม่เพียงพอ"
@@ -3042,16 +2868,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "logical volume ชื่อ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น "
 
 #: ../iw/lvm_dialog_gui.py:593
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can increase the Physical "
-"Extent size for this Volume Group."
+"size (%10.2f MB). To increase this limit you can create more Physical "
+"Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) "
 "ถ้าต้องการเพิ่มอีก คุณต้องเพิ่มขนาดของส่วนยืดขยายทางกายภาพสำหรับ volume group นี้"
 
-#: ../iw/lvm_dialog_gui.py:636 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
@@ -3059,7 +2885,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "ความผิดพลาดเกี่ยวกับการร้องขอ"
 
-#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
+#: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3069,20 +2895,20 @@ msgstr ""
 "logical volume ที่คุณปรับแต่งไว้ต้องการ %g MB แต่ volume group มีแค่ %g MB  กรุณาขยาย "
 "volume group ให้ใหญ่ขึ้น หรือไม่ก็ลดขนาด logical volume"
 
-#: ../iw/lvm_dialog_gui.py:710
+#: ../iw/lvm_dialog_gui.py:711
 msgid "No free slots"
 msgstr "ไม่มีสล็อตว่าง"
 
-#: ../iw/lvm_dialog_gui.py:711
+#: ../iw/lvm_dialog_gui.py:712
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "คุณไม่สามารถสร้าง logical volume มากกว่า %s ตัวต่อ volume group ได้"
 
-#: ../iw/lvm_dialog_gui.py:717
+#: ../iw/lvm_dialog_gui.py:718
 msgid "No free space"
 msgstr "ไม่มีพื้นที่ว่าง"
 
-#: ../iw/lvm_dialog_gui.py:718
+#: ../iw/lvm_dialog_gui.py:719
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3091,29 +2917,29 @@ msgstr ""
 "ไม่มีพื้นที่ว่างเหลือใน volume group พอที่จะสร้าง logical volume ได้  เพื่อจะเพิ่ม logical "
 "volume คุณจำเป็นต้องลดขนาดของ logical volume อื่นๆ ที่มีอยู่แล้วลง"
 
-#: ../iw/lvm_dialog_gui.py:746
+#: ../iw/lvm_dialog_gui.py:747
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการลบ logical volume \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:882
+#: ../iw/lvm_dialog_gui.py:883
 msgid "Invalid Volume Group Name"
 msgstr "ชื่อของ Volume Group ไม่ถูกต้อง"
 
-#: ../iw/lvm_dialog_gui.py:895
+#: ../iw/lvm_dialog_gui.py:896
 msgid "Name in use"
 msgstr "ชื่อถูกใช้แล้ว"
 
-#: ../iw/lvm_dialog_gui.py:896
+#: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "ชื่อของ volume group  %s ได้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น"
 
-#: ../iw/lvm_dialog_gui.py:940
+#: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
 msgstr "โวลูมกายภาพไม่เพียงพอ"
 
-#: ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:942
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3126,71 +2952,71 @@ msgstr ""
 "สร้างพาร์ทิชันหรืออาเรย์ RAID เป็นชนิด \"โวลูมกายภาพ (LVM)\" แล้วเลือกตัวเลือก \"LVM\" "
 "อีกครั้ง"
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:953
 msgid "Make LVM Volume Group"
 msgstr "สร้าง LVM Volume Group "
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:956
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "แก้ไข LVM Volume Group: %s"
 
-#: ../iw/lvm_dialog_gui.py:957
+#: ../iw/lvm_dialog_gui.py:958
 msgid "Edit LVM Volume Group"
 msgstr "แก้ไข LVM Volume Group"
 
-#: ../iw/lvm_dialog_gui.py:973
+#: ../iw/lvm_dialog_gui.py:974
 msgid "_Volume Group Name:"
 msgstr "ชื่อ _Volume Group:"
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:982
 msgid "Volume Group Name:"
 msgstr "ชื่อ Volume Group:"
 
-#: ../iw/lvm_dialog_gui.py:989
+#: ../iw/lvm_dialog_gui.py:990
 msgid "_Physical Extent:"
 msgstr "_ส่วนยืดขยายกายภาพ:"
 
-#: ../iw/lvm_dialog_gui.py:1004
+#: ../iw/lvm_dialog_gui.py:1005
 msgid "Physical Volumes to _Use:"
 msgstr "โวลูมกายภาพที่ใ_ช้:"
 
-#: ../iw/lvm_dialog_gui.py:1010
+#: ../iw/lvm_dialog_gui.py:1011
 msgid "Used Space:"
 msgstr "พื้นที่ที่ใช้แล้ว:"
 
-#: ../iw/lvm_dialog_gui.py:1027
+#: ../iw/lvm_dialog_gui.py:1028
 msgid "Free Space:"
 msgstr "พื้นที่ว่าง:"
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1046
 msgid "Total Space:"
 msgstr "พื้นที่ทั้งหมด: "
 
-#: ../iw/lvm_dialog_gui.py:1074
+#: ../iw/lvm_dialog_gui.py:1075
 msgid "Logical Volume Name"
 msgstr "ชื่อ Logical Volume"
 
-#: ../iw/lvm_dialog_gui.py:1077 ../iw/partition_gui.py:364
+#: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:147 ../textw/partition_text.py:1438
 #: ../textw/upgrade_text.py:110
 msgid "Mount Point"
 msgstr "ตำแหน่งเมานท์"
 
-#: ../iw/lvm_dialog_gui.py:1080 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "ขนาด (เมกะไบต์)"
 
-#: ../iw/lvm_dialog_gui.py:1094 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
+#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
 msgid "_Add"
 msgstr "เ_พิ่ม"
 
-#: ../iw/lvm_dialog_gui.py:1097 ../iw/network_gui.py:531
+#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:531
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1358 ../iw/zfcp_gui.py:101
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
-#: ../iw/lvm_dialog_gui.py:1112
+#: ../iw/lvm_dialog_gui.py:1113
 msgid "Logical Volumes"
 msgstr "Logical Volumes"
 
@@ -3856,6 +3682,10 @@ msgstr "กำลังดาวน์โหลด %s"
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "กำลังติดตั้ง %s-%s-%s %s (%s)"
 
+#: ../iw/progress_gui.py:348
+msgid "Package"
+msgstr "แพ็กเกจ"
+
 #: ../iw/progress_gui.py:349
 msgid "Summary"
 msgstr "คำอธิบายสั้นๆ"
@@ -4064,11 +3894,11 @@ msgstr "ไดรฟ์เป้าหมาย:"
 msgid "Drives"
 msgstr "ไดรฟ์"
 
-#: ../iw/release_notes_viewer_gui.py:182
+#: ../iw/release_notes_viewer_gui.py:187
 msgid "Release Notes"
 msgstr "บันทึกการออกรุ่น"
 
-#: ../iw/release_notes_viewer_gui.py:186
+#: ../iw/release_notes_viewer_gui.py:191
 msgid "Unable to load file!"
 msgstr "ไม่สามารถโหลดไฟล์ได้!"
 
@@ -4486,10 +4316,6 @@ msgstr ""
 msgid "Complete"
 msgstr "เสร็จสมบูรณ์"
 
-#: ../textw/complete_text.py:47
-msgid "Reboot"
-msgstr "รีบูต"
-
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
 msgstr "เริ่มต้นการติดตั้ง"
@@ -4510,7 +4336,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
 #: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:307 ../loader2/loader.c:897 ../loader2/loader.c:919
+#: ../loader2/loader.c:313 ../loader2/loader.c:903 ../loader2/loader.c:925
 #: ../loader2/net.c:233 ../loader2/net.c:271 ../loader2/net.c:542
 #: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
@@ -4530,26 +4356,20 @@ msgstr ""
 "บันทึกการอัพเกรดอย่างสมบูรณ์จะอยู่ที่ %s หลังจากที่รีบูตระบบ  "
 "คุณอาจจะต้องการเก็บไฟล์นี้ไว้ใช้อ้างอิงในภายหลัง"
 
-#: ../textw/desktop_choice_text.py:27
-#, python-format
-msgid ""
-"The default installation environment includes our recommended package "
-"selection.  After installation, additional software can be added or removed "
-"using the 'system-config-packages' tool.\n"
-"\n"
-"However %s ships with many more applications, and you may customize the "
-"selection of software installed if you want."
-msgstr ""
-"สภาพแวดล้อมการติดตั้งโดยปริยายจะประกอบไปด้วยการเลือกแพกเกจที่เราแนะนำไว้ล่วงหน้า  "
-"หลังจากการติดตั้ง สามารถเพิ่มหรือถอดถอนแพกเกจเพิ่มเติมได้โดยใช้เครื่องมือชื่อ 'system-config-"
-"packages'\n"
-"\n"
-"อย่างไรก็ตาม %s มาพร้อมกับแอพลิเคชันมากมายกว่านั้นมาก "
-"โดยคุณอาจจะปรับแต่งการเลือกติดตั้งซอฟต์แวร์ได้ดังที่คุณต้องการ"
+#: ../textw/grpselect_text.py:83
+#, fuzzy
+msgid "Please select the package groups you would like to have installed."
+msgstr "กรุณาเลือกความละเอียดของการแสดงผลที่ต้องการ:"
 
-#: ../textw/desktop_choice_text.py:37
-msgid "Customize software selection"
-msgstr "การเลือกซอฟต์แวร์แบบละเอียด"
+#: ../textw/grpselect_text.py:101
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Space>,<+>,<-> การเลือก   |   <F2> รายละเอียดของกลุ่ม   |   <F12> หน้าจอถัดไป"
+
+#: ../textw/grpselect_text.py:129
+msgid "Package Group Details"
+msgstr "รายละเอียดของกลุ่มแพ็กเกจ"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -4694,76 +4514,6 @@ msgstr "ชื่อโฮสต์ไม่ถูกต้อง"
 #: ../textw/network_text.py:406
 msgid "You have not specified a hostname."
 msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
-
-#: ../textw/packages_text.py:59
-msgid "Select individual packages"
-msgstr "เลือกแพ็กเกจเป็นรายตัว"
-
-#: ../textw/packages_text.py:66
-msgid "Package Group Selection"
-msgstr "การเลือกกลุ่มของแพ็กเกจ"
-
-#: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> การเลือก   |   <F2> รายละเอียดของกลุ่ม   |   <F12> หน้าจอถัดไป"
-
-#: ../textw/packages_text.py:122
-msgid "Package Group Details"
-msgstr "รายละเอียดของกลุ่มแพ็กเกจ"
-
-#: ../textw/packages_text.py:177
-msgid "Package :"
-msgstr "แพ็กเกจ :"
-
-#: ../textw/packages_text.py:182
-msgid "Size    :"
-msgstr "ขนาด   :"
-
-#: ../textw/packages_text.py:183
-#, python-format
-msgid "%.1f KBytes"
-msgstr "%.1f กิโลไบต์"
-
-#: ../textw/packages_text.py:202
-msgid "Total size"
-msgstr "ขนาดทั้งหมด"
-
-#: ../textw/packages_text.py:323
-msgid "Individual Package Selection"
-msgstr "การเลือกแพ็กเกจเป็นรายตัว"
-
-#: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> การเลือก   |   <F1> คำแนะนำ   |   <F2> รายละเอียดแพ็กเกจ"
-
-#: ../textw/packages_text.py:379
-msgid "Package Dependencies"
-msgstr "การขึ้นต่อกันของแพ็กเกจ"
-
-#: ../textw/packages_text.py:381
-msgid ""
-"Some of the packages you have selected to install require packages you have "
-"not selected. If you just select OK all of those required packages will be "
-"installed."
-msgstr ""
-"แพ็กเกจบางตัวที่คุณเลือกเพื่อติดตั้งนั้นต้องการแพ็กเกจอื่นที่คุณไม่ได้เลือก\n"
-"เพียงแค่เลือก ตกลง แพ็กเกจที่ต้องการทั้งหมดจะถูกเลือกเพื่อติดตั้งทันที"
-
-#: ../textw/packages_text.py:402
-msgid "Install packages to satisfy dependencies"
-msgstr "ติดตั้งแพ็กเกจทุกตัวในรายการเพื่อแก้ไขเรื่องการขึ้นต่อกัน"
-
-#: ../textw/packages_text.py:403
-msgid "Do not install packages that have dependencies"
-msgstr "ไม่ต้องติดตั้งแพ็กเกจที่ต้องการแพ็กเกจอื่น"
-
-#: ../textw/packages_text.py:404
-msgid "Ignore package dependencies"
-msgstr "ไม่ต้องติดตั้งแพ็กเกจอื่นๆ ที่แพ็กเกจที่เลือกต้องการ"
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
@@ -5023,21 +4773,31 @@ msgstr "ไม่มีพาร์ทิชัน Root"
 msgid "Must have a / partition to install on."
 msgstr "ต้องมีพาร์ทิชัน / เพื่อใช้ติดตั้ง"
 
-#: ../textw/partition_text.py:1545 ../textw/partition_text.py:1641
-msgid "Which drive(s) do you want to use for this installation?"
-msgstr "ไดรฟ์ใดบ้างที่คุณต้องการใช้ในการติดตั้ง?"
-
-#: ../textw/partition_text.py:1614
+#: ../textw/partition_text.py:1517
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "ชนิดของพาร์ทิชัน"
 
-#: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+
+#: ../textw/partition_text.py:1544
+msgid "Which drive(s) do you want to use for this installation?"
+msgstr "ไดรฟ์ใดบ้างที่คุณต้องการใช้ในการติดตั้ง?"
+
+#: ../textw/partition_text.py:1602
+#, fuzzy
+msgid "Review Partition Layout"
+msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
+
+#: ../textw/partition_text.py:1603
+#, fuzzy
+msgid "Review and modify partitioning layout?"
+msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5091,6 +4851,23 @@ msgstr "เสร็จไปแล้ว:"
 #: ../textw/progress_text.py:169
 msgid "Remaining:  "
 msgstr "ยังเหลืออยู่:  "
+
+#: ../textw/task_text.py:42
+#, fuzzy
+msgid "Package selection"
+msgstr "การเลือกกลุ่มของแพ็กเกจ"
+
+#: ../textw/task_text.py:45
+#, python-format
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include  support for?"
+msgstr ""
+
+#: ../textw/task_text.py:60
+msgid "Customize software selection"
+msgstr "การเลือกซอฟต์แวร์แบบละเอียด"
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
@@ -5260,6 +5037,23 @@ msgstr "การติดตั้งแบบเลือกด้วยตั
 #, fuzzy
 msgid "_Fedora"
 msgstr "_ฟอร์แมต"
+
+#: ../installclasses/fedora.py:20
+msgid "Office and Productivity"
+msgstr ""
+
+#: ../installclasses/fedora.py:21
+msgid "Software Development"
+msgstr ""
+
+#: ../installclasses/fedora.py:22
+#, fuzzy
+msgid "Web server"
+msgstr "Nameserver"
+
+#: ../installclasses/fedora.py:23
+msgid "Virtualization (Xen)"
+msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5510,10 +5304,10 @@ msgstr "คุณต้องการที่จะโหลดแผ่นไ
 #: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
 #: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:408 ../loader2/modules.c:972 ../loader2/net.c:904
+#: ../loader2/kickstart.c:409 ../loader2/modules.c:972 ../loader2/net.c:904
 #: ../loader2/net.c:927 ../loader2/nfsinstall.c:259
-#: ../loader2/urlinstall.c:445 ../loader2/urlinstall.c:454
-#: ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
+#: ../loader2/urlinstall.c:470
 msgid "Kickstart Error"
 msgstr "Kickstart ผิดพลาด"
 
@@ -5580,7 +5374,7 @@ msgid "Loading %s driver..."
 msgstr "กำลังโหลดไดรเวอร์ %s..."
 
 #: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
-#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:148
+#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:153
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5664,7 +5458,7 @@ msgstr "เกิดข้อผิดพลาดใน %s ในบรรท�
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "บนแผ่นบูตไม่มีไฟล์ ks.cfg"
 
-#: ../loader2/kickstart.c:409
+#: ../loader2/kickstart.c:410
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr ""
@@ -5695,38 +5489,38 @@ msgstr "ฮาร์ดไดรฟ์"
 msgid "NFS image"
 msgstr "NFS image"
 
-#: ../loader2/loader.c:302
+#: ../loader2/loader.c:308
 msgid "Update Disk Source"
 msgstr "อัพเดทแผ่นดิสก์ต้นฉบับ"
 
-#: ../loader2/loader.c:303
+#: ../loader2/loader.c:309
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
 
-#: ../loader2/loader.c:318
+#: ../loader2/loader.c:324
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "ใส่แผ่นดิสก์อัพเดทใน /dev/%s และกด \"ตกลง\" เพื่อดำเนินการต่อไป"
 
-#: ../loader2/loader.c:320
+#: ../loader2/loader.c:326
 msgid "Updates Disk"
 msgstr "อัพเดทแผ่นดิสก์"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:338
 msgid "Failed to mount updates disk"
 msgstr "การเมานท์แผ่นดิสก์อัพเดทล้มเหลว"
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:341
 msgid "Updates"
 msgstr "อัพเดท"
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:341
 msgid "Reading anaconda updates..."
 msgstr "กำลังอ่านอนาคอนดาอัพเดต"
 
-#: ../loader2/loader.c:375
+#: ../loader2/loader.c:381
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5735,78 +5529,78 @@ msgstr ""
 "ไม่พบฮาร์ดไดรฟ์ คุณอาจจะต้องเลือกไดรเวอร์อุปกรณ์ด้วยตัวเองเพื่อให้การติดตั้งสำเร็จ "
 "คุณต้องการจะเลือกไดรเวอร์ตอนนี้หรือไม่?"
 
-#: ../loader2/loader.c:731
+#: ../loader2/loader.c:737
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "คุณไม่มีแรมมากพอที่จะติดตั้ง %s บนเครื่องนี้"
 
-#: ../loader2/loader.c:889
+#: ../loader2/loader.c:895
 msgid "Rescue Method"
 msgstr "วิธีการกู้ระบบ"
 
-#: ../loader2/loader.c:890
+#: ../loader2/loader.c:896
 msgid "Installation Method"
 msgstr "วิธีการติดตั้ง"
 
-#: ../loader2/loader.c:892
+#: ../loader2/loader.c:898
 msgid "What type of media contains the rescue image?"
 msgstr "อิมเมจสำหรับกู้ระบบถูกเก็บในสื่อประเภทใด?"
 
-#: ../loader2/loader.c:894
+#: ../loader2/loader.c:900
 msgid "What type of media contains the packages to be installed?"
 msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:924
 msgid "No driver found"
 msgstr "ไม่พบไดรฟ์เวอร์"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:924
 msgid "Select driver"
 msgstr "เลือกไดรฟ์เวอร์"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:925
 msgid "Use a driver disk"
 msgstr "ใช้แผ่นไดรเวอร์"
 
-#: ../loader2/loader.c:920
+#: ../loader2/loader.c:926
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:1080
+#: ../loader2/loader.c:1086
 msgid "The following devices have been found on your system."
 msgstr "พบอุปกรณ์ต่อไปนี้ในระบบของคุณ"
 
-#: ../loader2/loader.c:1082
+#: ../loader2/loader.c:1088
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "ไม่มีไดรเวอร์อุปกรณ์สำหรับโหลดใช้กับระบบของคุณ คุณต้องการจะโหลดตอนนี้หรือไม่?"
 
-#: ../loader2/loader.c:1086
+#: ../loader2/loader.c:1092
 msgid "Devices"
 msgstr "อุปกรณ์"
 
-#: ../loader2/loader.c:1087
+#: ../loader2/loader.c:1093
 msgid "Done"
 msgstr "เสร็จ"
 
-#: ../loader2/loader.c:1088
+#: ../loader2/loader.c:1094
 msgid "Add Device"
 msgstr "Add Device"
 
-#: ../loader2/loader.c:1228
+#: ../loader2/loader.c:1234
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader has already been run.  Starting shell.\n"
 
-#: ../loader2/loader.c:1592
+#: ../loader2/loader.c:1598
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Running anaconda, the %s rescue mode - please wait...\n"
 
-#: ../loader2/loader.c:1594
+#: ../loader2/loader.c:1600
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "กำลังรันโปรแกรมอนาคอนดา ตัวติดตั้งระบบ %s - กรุณารอสักครู่...\n"
@@ -6083,33 +5877,33 @@ msgstr "กำลังรอการเชื่อมต่อเทลเน
 msgid "Running anaconda via telnet..."
 msgstr "กำลังรันโปรแกรมอนาคอนดาผ่านเทลเน็ต..."
 
-#: ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:73
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "ไม่สามารถเรียกคืน  %s://%s/%s/%s"
 
-#: ../loader2/urlinstall.c:140
+#: ../loader2/urlinstall.c:145
 msgid "Unable to retrieve the install image."
 msgstr "ไม่สามารถเรียกอิมเมจสำหรับติดตั้งคืนมาได้"
 
-#: ../loader2/urlinstall.c:279
+#: ../loader2/urlinstall.c:284
 msgid "Media Detected"
 msgstr ""
 
-#: ../loader2/urlinstall.c:280
+#: ../loader2/urlinstall.c:285
 msgid "Local installation media detected..."
 msgstr ""
 
-#: ../loader2/urlinstall.c:446
+#: ../loader2/urlinstall.c:451
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "วิธี kickstart แบบ url มีอาร์กิวเมนต์ที่ไม่ถูกต้องสำหรับคำสั่ง %s: %s"
 
-#: ../loader2/urlinstall.c:455
+#: ../loader2/urlinstall.c:460
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "ต้องใส่อาร์กิวเมนต์ --url เพื่อใช้วิธี kickstart แบบ url"
 
-#: ../loader2/urlinstall.c:466
+#: ../loader2/urlinstall.c:471
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
@@ -6219,6 +6013,27 @@ msgstr "_ถัดไป "
 msgid "_Release Notes"
 msgstr "_รีลีสโน้ต"
 
+#: tmp/autopart2.glade.h:1
+#, fuzzy
+msgid "How would you like to get space to partition?"
+msgstr "คุณต้องการจัดการกับระบบไฟล์ของพาร์ทิชันนี้อย่างไร?"
+
+#: tmp/autopart2.glade.h:2
+msgid ""
+"Installing <product> requires partitioning of your hard drive.  You can "
+"either use the default partitioning layout or create your own."
+msgstr ""
+
+#: tmp/autopart2.glade.h:3
+#, fuzzy
+msgid "Select the drive(s) to use for this installation."
+msgstr "เลือกไดรฟ์หนึ่งหรือหลายๆ ตัว ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
+
+#: tmp/autopart2.glade.h:4
+#, fuzzy
+msgid "_Review and modify partitioning layout"
+msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
+
 #: tmp/autopart.glade.h:2
 #, fuzzy
 msgid "Re_view and modify partitioning layout"
@@ -6239,21 +6054,29 @@ msgstr "มีความผิดปกติเกิดขึ้น"
 msgid "_Exception details"
 msgstr "มีความผิดปกติเกิดขึ้น"
 
-#: tmp/GroupSelector.glade.h:1
-msgid ""
-"Some packages associated with this group are not required to be installed "
-"but may provide additional functionality.  Please choose the packages which "
-"you would like to have installed."
-msgstr ""
-
-#: tmp/GroupSelector.glade.h:2
+#: tmp/tasksel.glade.h:1
 #, fuzzy
-msgid "_Optional packages"
-msgstr "แพ็กเกจเสริม"
+msgid "Customize _later"
+msgstr "ปรับเลือกเอง"
 
-#: tmp/GroupSelector.glade.h:3
-msgid "dialog1"
+#: tmp/tasksel.glade.h:2
+msgid ""
+"Further customization of the software selection can be completed now or "
+"after install via the software management application."
 msgstr ""
+
+#: tmp/tasksel.glade.h:4
+#, no-c-format
+msgid ""
+"The default installation of %s includes a set of  software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include  support for?"
+msgstr ""
+
+#: tmp/tasksel.glade.h:5
+#, fuzzy
+msgid "_Customize now"
+msgstr "ปรับเลือกเอง"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6304,8 +6127,13 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+#, fuzzy
+msgid "Atlantic Time - New Brunswick"
+msgstr "Atlantic Time - E Labrador"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
@@ -6381,11 +6209,21 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
+msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Central Time - Indiana - Pike County"
+msgstr "Eastern Standard Time - Indiana - Starke County"
+
+#. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
-msgid "Central Time - Michigan - Wisconsin border"
+#, fuzzy
+msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
@@ -6449,22 +6287,6 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr "Eastern Standard Time - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - most locations"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr "Eastern Standard Time - Indiana - Switzerland County"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
 msgstr "Eastern Standard Time - east Nunavut"
@@ -6477,6 +6299,26 @@ msgstr "Eastern Time"
 #, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "Eastern Standard Time - east Nunavut"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Crawford County"
+msgstr "Eastern Standard Time - Indiana - Crawford County"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - most locations"
+msgstr "Eastern Standard Time - Indiana - most locations"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Starke County"
+msgstr "Eastern Standard Time - Indiana - Starke County"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Switzerland County"
+msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7078,6 +6920,11 @@ msgstr "ภาษาเปอร์เซีย"
 
 #. generated from lang-table
 #, fuzzy
+msgid "Serbian(Latin)"
+msgstr "ภาษาเปอร์เซีย"
+
+#. generated from lang-table
+#, fuzzy
 msgid "Slovak"
 msgstr "ภาษาสโลเวเนียน"
 
@@ -7121,6 +6968,214 @@ msgstr "ภาษาชาวเวลส์"
 #, fuzzy
 msgid "Zulu"
 msgstr "ภาษาซูลู"
+
+#~ msgid ""
+#~ "This group includes all the packages available.  Note that there are "
+#~ "substantially more packages than just the ones in all the other package "
+#~ "groups on this page."
+#~ msgstr ""
+#~ "แพ็กเกจกลุ่มนี้จะประกอบด้วยแพ็กเกจทั้งหมดที่มี โปรดทราบว่า "
+#~ "มันจะมีจำนวนแพ็กเกจมากกว่าที่มีในกลุ่มแพ็กเกจอื่นทั้งหมดในหน้านี้รวมกัน"
+
+#~ msgid "Everything"
+#~ msgstr "ทั้งหมด"
+
+#~ msgid ""
+#~ "Choose this group to get the minimal possible set of packages.  Useful "
+#~ "for creating small router/firewall boxes, for example."
+#~ msgstr ""
+#~ "เลือกกลุ่มแพ็กเกจนี้เพื่อจะได้ชุดของแพ็กเกจแบบกะทัดรัด ซึ่งจะเป็นประโยชน์สำหรับการสร้าง "
+#~ "router/firewall ขนาดเล็ก เป็นต้น"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "เบ็ดเตล็ด"
+
+#~ msgid ""
+#~ "You are trying to install on a machine which isn't supported by this "
+#~ "release of %s."
+#~ msgstr "คุณกำลังพยายามติดตั้งบนเครื่องซึ่ง %s รีลีสนี้ไม่สนับสนุน"
+
+#~ msgid "Automatic Partitioning"
+#~ msgstr "การแบ่งพาร์ทิชันแบบอัตโนมัติ"
+
+#~ msgid "I want to have automatic partitioning:"
+#~ msgstr "ต้องการแบ่งพาร์ทิชันแบบอัตโนมัติ:"
+
+#~ msgid "Select the drive(s) to use for this installation:"
+#~ msgstr "เลือกไดรฟ์หนึ่งหรือหลายๆ ตัว ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
+
+#~ msgid "Re_view (and modify if needed) the partitions created"
+#~ msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
+
+#~ msgid "Change Boot Loader"
+#~ msgstr "เปลี่ยนตัวบูตโหลดเดอร์"
+
+#, fuzzy
+#~ msgid ""
+#~ "You have elected to not install any boot loader. It is strongly "
+#~ "recommended that you install a boot loader unless you have an advanced "
+#~ "need.  A boot loader is almost always required in order to reboot your "
+#~ "system into Linux directly from the hard drive.\n"
+#~ "\n"
+#~ "Would you like to continue and not install a boot loader?"
+#~ msgstr ""
+#~ "คุณได้เลือกที่จะไม่ติดตั้งบูตโหลดเดอร์ใดๆ เราขอแนะนำอย่างยิ่ง\n"
+#~ "ว่าให้คุณติดตั้งบูตโหลดเดอร์สักตัวหนึ่ง เว้นแต่ว่าคุณมีวิธีอื่นที่ดีกว่า\n"
+#~ "บูตโหลดเดอร์เป็นสิ่งที่จะต้องใช้แทบทุกครั้งที่มีการรีบูตระบบเพื่อ\n"
+#~ "เข้าลินุกซ์โดยตรงจากฮาร์ดไดรฟ์\n"
+#~ "\n"
+#~ "คุณแน่ใจแล้วหรือไม่ ที่จะไม่ติดตั้งบูตโหลดเดอร์?"
+
+#~ msgid "C_ontinue with no boot loader"
+#~ msgstr "ทำ_ต่อไปโดยไม่ต้องติดตั้งบูตโหลดเดอร์ "
+
+#~ msgid ""
+#~ "Please select the boot loader that the computer will use.  GRUB is the "
+#~ "default boot loader. However, if you do not wish to overwrite your "
+#~ "current boot loader, select \"Do not install a boot loader.\"  "
+#~ msgstr ""
+#~ "กรุณาเลือกบูตโหลดเดอร์ที่คอมพิวเตอร์เครื่องนี้จะใช้ โดย GRUB จะเป็นบูตโหลดเดอร์โดยปริยาย "
+#~ "อย่างไรก็ตามถ้าคุณไม่ต้องการเขียนทับบูตโหลดเดอร์ตัวเดิมให้เลือก \"ไม่ติดตั้งบูตโหลดเดอร์\""
+
+#~ msgid "Use _GRUB as the boot loader"
+#~ msgstr "ใช้ GRUB เป็นบูตโหลดเดอร์ "
+
+#~ msgid "_Do not install a boot loader"
+#~ msgstr "ไม่ติดตั้งบูตโหลดเดอร์ "
+
+#~ msgid "_Change boot loader"
+#~ msgstr "เ_ปลี่ยนบูตโหลดเดอร์ "
+
+#~ msgid "Unresolved Dependencies"
+#~ msgstr "การขึ้นต่อกันที่ไม่สามารถแก้ได้"
+
+#~ msgid "Total install size: %s"
+#~ msgstr "การติดตั้งใช้ขนาดทั้งหมด: %s"
+
+#~ msgid "Requirement"
+#~ msgstr "แพ็กเกจที่ต้องการ"
+
+#~ msgid "_Install packages to satisfy dependencies"
+#~ msgstr "_ติดตั้งแพ็กเกจทุกตัวในรายการเพื่อแก้เรื่องการขึ้นต่อกัน"
+
+#~ msgid "_Do not install packages that have dependencies"
+#~ msgstr "ไ_ม่ต้องติดตั้งแพ็กเกจที่ต้องการแพ็กเกจอื่น"
+
+#~ msgid "I_gnore package dependencies"
+#~ msgstr "ไม่ต้อง_สนใจการขึ้นต่อกันของแพ็กเกจ"
+
+#~ msgid "Package Defaults"
+#~ msgstr "แพ็กเกจปริยาย"
+
+#~ msgid ""
+#~ "The default installation environment includes our recommended package "
+#~ "selection, including:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "สภาพแวดล้อมของการติดตั้งปริยาย จะรวมถึงการเลือกแพ็กเกจที่แนะนำ ดังต่อไปนี้:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "After installation, additional software can be added or removed using the "
+#~ "'system-config-packages' tool.\n"
+#~ "\n"
+#~ "If you are familiar with %s, you may have specific packages you would "
+#~ "like to install or avoid installing. Check the box below to customize "
+#~ "your installation."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "หลังจากการติดตั้ง ซอฟต์แวร์เพิ่มเติมสามารถเพิ่มเข้าหรือเอาออกได้ โดยใช้เครื่องมือ 'system-"
+#~ "config-packages'\n"
+#~ "\n"
+#~ "ถ้าคุณมีความคุ้นเคยกับ %s คุณอาจระบุแพ็กเกจที่คุณอยากติดตั้งหรือไม่ติดตั้งได้เอง "
+#~ "กาช่องข้างล่างนี้เพื่อให้คุณสามารถกำหนดการติดตั้งของคุณเองได้"
+
+#~ msgid ""
+#~ "If you would like to change the default package set to be installed you "
+#~ "can choose to customize this below."
+#~ msgstr ""
+#~ "ถ้าคุณต้องการที่จะเปลี่ยนชุดแพ็กเกจโดยปริยาย "
+#~ "คุณสามารถเลือกว่าต้องการเลือกเองจากตัวเลือกข้างล่างนี้"
+
+#~ msgid "_Install default software packages"
+#~ msgstr "_ติดตั้งซอฟต์แวร์แพ็กเกจปริยาย"
+
+#~ msgid "_Customize software packages to be installed"
+#~ msgstr "เ_ลือกซอฟต์แวร์แพ็กเกจที่จะนำมาติดตั้งด้วยตัวเอง"
+
+#, fuzzy
+#~ msgid "Packages in %s"
+#~ msgstr "แพ็กเกจ"
+
+#, fuzzy
+#~ msgid "[%d of %d optional packages installed]"
+#~ msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
+
+#~ msgid ""
+#~ "The default installation environment includes our recommended package "
+#~ "selection.  After installation, additional software can be added or "
+#~ "removed using the 'system-config-packages' tool.\n"
+#~ "\n"
+#~ "However %s ships with many more applications, and you may customize the "
+#~ "selection of software installed if you want."
+#~ msgstr ""
+#~ "สภาพแวดล้อมการติดตั้งโดยปริยายจะประกอบไปด้วยการเลือกแพกเกจที่เราแนะนำไว้ล่วงหน้า  "
+#~ "หลังจากการติดตั้ง สามารถเพิ่มหรือถอดถอนแพกเกจเพิ่มเติมได้โดยใช้เครื่องมือชื่อ 'system-"
+#~ "config-packages'\n"
+#~ "\n"
+#~ "อย่างไรก็ตาม %s มาพร้อมกับแอพลิเคชันมากมายกว่านั้นมาก "
+#~ "โดยคุณอาจจะปรับแต่งการเลือกติดตั้งซอฟต์แวร์ได้ดังที่คุณต้องการ"
+
+#~ msgid "Select individual packages"
+#~ msgstr "เลือกแพ็กเกจเป็นรายตัว"
+
+#~ msgid "Package :"
+#~ msgstr "แพ็กเกจ :"
+
+#~ msgid "Size    :"
+#~ msgstr "ขนาด   :"
+
+#~ msgid "%.1f KBytes"
+#~ msgstr "%.1f กิโลไบต์"
+
+#~ msgid "Total size"
+#~ msgstr "ขนาดทั้งหมด"
+
+#~ msgid "Individual Package Selection"
+#~ msgstr "การเลือกแพ็กเกจเป็นรายตัว"
+
+#~ msgid ""
+#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
+#~ "description"
+#~ msgstr ""
+#~ "   <Space>,<+>,<-> การเลือก   |   <F1> คำแนะนำ   |   <F2> รายละเอียดแพ็กเกจ"
+
+#~ msgid "Package Dependencies"
+#~ msgstr "การขึ้นต่อกันของแพ็กเกจ"
+
+#~ msgid ""
+#~ "Some of the packages you have selected to install require packages you "
+#~ "have not selected. If you just select OK all of those required packages "
+#~ "will be installed."
+#~ msgstr ""
+#~ "แพ็กเกจบางตัวที่คุณเลือกเพื่อติดตั้งนั้นต้องการแพ็กเกจอื่นที่คุณไม่ได้เลือก\n"
+#~ "เพียงแค่เลือก ตกลง แพ็กเกจที่ต้องการทั้งหมดจะถูกเลือกเพื่อติดตั้งทันที"
+
+#~ msgid "Install packages to satisfy dependencies"
+#~ msgstr "ติดตั้งแพ็กเกจทุกตัวในรายการเพื่อแก้ไขเรื่องการขึ้นต่อกัน"
+
+#~ msgid "Do not install packages that have dependencies"
+#~ msgstr "ไม่ต้องติดตั้งแพ็กเกจที่ต้องการแพ็กเกจอื่น"
+
+#~ msgid "Ignore package dependencies"
+#~ msgstr "ไม่ต้องติดตั้งแพ็กเกจอื่นๆ ที่แพ็กเกจที่เลือกต้องการ"
+
+#, fuzzy
+#~ msgid "_Optional packages"
+#~ msgstr "แพ็กเกจเสริม"
 
 #~ msgid ""
 #~ "No mouse was detected.  A mouse is required for graphical installation.  "
@@ -7816,9 +7871,6 @@ msgstr "ภาษาซูลู"
 #~ msgid "Choose a disk to run fdisk on"
 #~ msgstr "เลือกดิสก์ที่ต้องการรัน fdisk"
 
-#~ msgid "Customize"
-#~ msgstr "ปรับเลือกเอง"
-
 #~ msgid "Enable firewall"
 #~ msgstr "เปิดใช้ไฟร์วอลล์"
 
@@ -7971,9 +8023,6 @@ msgstr "ภาษาซูลู"
 
 #~ msgid "Resolution"
 #~ msgstr "ความละเอียด"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "กรุณาเลือกความละเอียดของการแสดงผลที่ต้องการ:"
 
 #~ msgid "X Customization"
 #~ msgstr "การปรับแต่ง X"

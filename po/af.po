@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-11 12:45-0500\n"
+"POT-Creation-Date: 2006-02-03 19:02-0500\n"
 "PO-Revision-Date: 2005-02-18 13:30+0200\n"
 "Last-Translator: Translate.org.za <info@translate.org.za>\n"
 "Language-Team: Afrikaans <translate-discuss-af@lists.sourceforge.net>\n"
@@ -62,40 +62,40 @@ msgstr "Die VNC-bediener loop tans."
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Probeer tans om aan vnc-kliënt op gasheer %s te koppel..."
 
-#: ../anaconda:200
+#: ../anaconda:198
+msgid "Connected!"
+msgstr "Gekoppel!"
+
+#: ../anaconda:203
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Gee maar op om te koppel, na 50 probeerslae!\n"
 
-#: ../anaconda:202
+#: ../anaconda:205
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "Koppel jou vnc-kliënt handmatig aan %s om die installering te begin."
 
-#: ../anaconda:204
+#: ../anaconda:207
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "Koppel jou vnc-kliënt handmatig om die installering te begin."
 
-#: ../anaconda:208
+#: ../anaconda:211
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Sal weer probeer koppel na 15 sekondes..."
 
-#: ../anaconda:212
-msgid "Connected!"
-msgstr "Gekoppel!"
-
-#: ../anaconda:216
+#: ../anaconda:219
 #, c-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Koppel aan %s om die installering te begin..."
 
-#: ../anaconda:218
+#: ../anaconda:221
 msgid "Please connect to begin the install..."
 msgstr "Koppel om die installering te begin..."
 
-#: ../anaconda:616 ../anaconda:806 ../gui.py:244 ../gui.py:1174
+#: ../anaconda:619 ../anaconda:810 ../gui.py:241 ../gui.py:1181
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
-#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:386
-#: ../text.py:559 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
+#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:379
+#: ../text.py:552 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/network_text.py:30
 #: ../textw/network_text.py:176 ../textw/network_text.py:407
 #: ../textw/network_text.py:415 ../loader2/cdinstall.c:136
@@ -114,9 +114,9 @@ msgstr "Koppel om die installering te begin..."
 #: ../loader2/hdinstall.c:536 ../loader2/hdinstall.c:579
 #: ../loader2/hdinstall.c:592 ../loader2/kbd.c:128 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:408 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:307 ../loader2/loader.c:320
-#: ../loader2/loader.c:331 ../loader2/loader.c:734 ../loader2/loader.c:897
+#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:409 ../loader2/lang.c:103
+#: ../loader2/lang.c:380 ../loader2/loader.c:313 ../loader2/loader.c:326
+#: ../loader2/loader.c:337 ../loader2/loader.c:740 ../loader2/loader.c:903
 #: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
 #: ../loader2/mediacheck.c:432 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/modules.c:972 ../loader2/net.c:233
@@ -124,25 +124,25 @@ msgstr "Koppel om die installering te begin..."
 #: ../loader2/net.c:927 ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:212
 #: ../loader2/nfsinstall.c:221 ../loader2/nfsinstall.c:259
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:67
-#: ../loader2/urlinstall.c:139 ../loader2/urlinstall.c:152
-#: ../loader2/urlinstall.c:445 ../loader2/urlinstall.c:454
-#: ../loader2/urlinstall.c:465 ../loader2/urls.c:172 ../loader2/urls.c:182
+#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
+#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
+#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
+#: ../loader2/urlinstall.c:470 ../loader2/urls.c:172 ../loader2/urls.c:182
 #: ../loader2/urls.c:191 ../loader2/urls.c:257 ../loader2/urls.c:322
 #: ../loader2/urls.c:327 ../loader2/urls.c:333 ../loader2/urls.c:447
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:662
+#: ../anaconda:665
 msgid "Unknown Error"
 msgstr "Onbekende fout"
 
-#: ../anaconda:665
+#: ../anaconda:668
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Kon nie tweede deel van aansit-instelling trek nie: %s!"
 
-#: ../anaconda:790
+#: ../anaconda:794
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -150,47 +150,47 @@ msgstr ""
 "Jy het nie genoeg geheue vir die grafiese installeerder nie. Begin tans in "
 "teksmodus."
 
-#: ../anaconda:853
+#: ../anaconda:857
 msgid "Install class forcing text mode installation"
 msgstr "Installeerklas dwing teksmodus-installering af"
 
-#: ../anaconda:880
+#: ../anaconda:884
 msgid "No video hardware found, assuming headless"
 msgstr "Geen videohardeware gevind nie, neem aan dat koploos is"
 
-#: ../anaconda:891 ../anaconda:1120 ../bar.py:23
+#: ../anaconda:895 ../anaconda:1130
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Kon nie 'n X-hardewarestaatobjek instansieer nie."
 
-#: ../anaconda:915
+#: ../anaconda:919
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafiese installering nie beskikbaar nie... Begin tans in teksmodus."
 
-#: ../anaconda:923
+#: ../anaconda:927
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:1006
+#: ../anaconda:1010
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:1032
+#: ../anaconda:1042
 msgid "Starting graphical installation..."
 msgstr "Begin tans grafiese installering..."
 
-#: ../anaconda:1086
+#: ../anaconda:1096
 #, fuzzy
 msgid "Unknown install method"
 msgstr "Onbekende URL-metode %s"
 
-#: ../anaconda:1087
+#: ../anaconda:1097
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
 "Jy probeer op 'n rekenaar installeer wat nie met hierdie uitgawe van %s sal "
 "werk nie."
 
-#: ../anaconda:1089
+#: ../anaconda:1099
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "Onbekende URL-metode %s"
@@ -428,16 +428,15 @@ msgstr "Onherwinbare fout"
 msgid "Your system will now be rebooted."
 msgstr "Jou rekenaar sal nou herselflaai word."
 
-#: ../autopart.py:1688 ../bootloader.py:183 ../gui.py:1171 ../image.py:464
-#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:904
-#: ../partedUtils.py:961 ../upgrade.py:328 ../upgrade.py:476
+#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1178 ../image.py:455
+#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:905
+#: ../partedUtils.py:962 ../upgrade.py:328 ../upgrade.py:477
 #: ../yuminstall.py:149 ../iw/blpasswidget.py:145
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:92
-#: ../iw/upgrade_swap_gui.py:199 ../iw/upgrade_swap_gui.py:207
-#: ../iw/upgrade_swap_gui.py:214 ../iw/zfcp_gui.py:248
-#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:459
-#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:176
-#: ../loader2/loader.c:374
+#: ../iw/bootloader_advanced_gui.py:42 ../iw/upgrade_swap_gui.py:199
+#: ../iw/upgrade_swap_gui.py:207 ../iw/upgrade_swap_gui.py:214
+#: ../iw/zfcp_gui.py:248 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:176 ../loader2/loader.c:380
 msgid "Warning"
 msgstr "Waarskuwings"
 
@@ -509,15 +508,15 @@ msgstr "Opgradeer %s-%s-%s.%s.\n"
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Installeer %s-%s-%s.%s.\n"
 
-#: ../bootloader.py:120
+#: ../bootloader.py:122
 msgid "Bootloader"
 msgstr "Selflaaier"
 
-#: ../bootloader.py:120
+#: ../bootloader.py:122
 msgid "Installing bootloader..."
 msgstr "Installeer tans selflaaier..."
 
-#: ../bootloader.py:184
+#: ../bootloader.py:186
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -563,28 +562,29 @@ msgstr ""
 "gedetailleerde verslag oor anaconda in by http://bugzilla.redhat.com/"
 "bugzilla/"
 
-#: ../exception.py:401 ../exception.py:417
+#: ../exception.py:420 ../exception.py:436
 msgid "Dump Written"
 msgstr "Storting geskryf"
 
-#: ../exception.py:402
+#: ../exception.py:421
+#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
-"will now be reset."
+"will now be rebooted."
 msgstr ""
 "Jou rekenaar se staat is suksesvol na die stiffie geskryf. Jou rekenaar sal "
 "jou teruggestel word."
 
-#: ../exception.py:409 ../exception.py:425
+#: ../exception.py:428 ../exception.py:444
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "Storting geskryf"
 
-#: ../exception.py:410
+#: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:418
+#: ../exception.py:437
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
@@ -593,25 +593,25 @@ msgstr ""
 "Jou rekenaar se staat is suksesvol na die stiffie geskryf. Jou rekenaar sal "
 "jou teruggestel word."
 
-#: ../exception.py:426
+#: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:196
+#: ../fsset.py:197
 msgid "Checking for Bad Blocks"
 msgstr "Kontroleer vir slegte blokke"
 
-#: ../fsset.py:197
+#: ../fsset.py:198
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Kontroleer tans vir slegte blokke op /dev/%s..."
 
-#: ../fsset.py:629 ../fsset.py:1403 ../fsset.py:1441 ../fsset.py:1452
-#: ../fsset.py:1503 ../fsset.py:1514 ../fsset.py:1549 ../fsset.py:1599
-#: ../fsset.py:1643 ../fsset.py:1662 ../image.py:133 ../image.py:171
-#: ../image.py:342 ../packages.py:304 ../partedUtils.py:714
-#: ../partIntfHelpers.py:403 ../upgrade.py:373 ../upgrade.py:400
-#: ../yuminstall.py:133 ../yuminstall.py:571 ../iw/osbootwidget.py:216
+#: ../fsset.py:630 ../fsset.py:1420 ../fsset.py:1458 ../fsset.py:1469
+#: ../fsset.py:1520 ../fsset.py:1531 ../fsset.py:1566 ../fsset.py:1616
+#: ../fsset.py:1660 ../fsset.py:1679 ../image.py:133 ../image.py:162
+#: ../image.py:333 ../partedUtils.py:715 ../partIntfHelpers.py:403
+#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:133
+#: ../yuminstall.py:486 ../yuminstall.py:607 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
 #: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:164
 #: ../textw/upgrade_text.py:171 ../loader2/cdinstall.c:137
@@ -621,19 +621,19 @@ msgstr "Kontroleer tans vir slegte blokke op /dev/%s..."
 #: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
 #: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:331
-#: ../loader2/loader.c:734 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:337
+#: ../loader2/loader.c:740 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:212 ../loader2/nfsinstall.c:221
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:67
-#: ../loader2/urlinstall.c:139 ../loader2/urlinstall.c:152
+#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
+#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
 #: ../loader2/urls.c:172 ../loader2/urls.c:182 ../loader2/urls.c:191
 #: ../loader2/urls.c:322 ../loader2/urls.c:327
 msgid "Error"
 msgstr "Fout"
 
-#: ../fsset.py:630
+#: ../fsset.py:631
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -646,27 +646,27 @@ msgstr ""
 "\n"
 "Wil jy voortgaan sonder dat %s gemigreer is?"
 
-#: ../fsset.py:1311
+#: ../fsset.py:1328
 msgid "RAID Device"
 msgstr "RAID-toestel"
 
-#: ../fsset.py:1315 ../fsset.py:1321
+#: ../fsset.py:1332 ../fsset.py:1338
 msgid "Apple Bootstrap"
 msgstr "Apple-selflaaier"
 
-#: ../fsset.py:1326 ../partitions.py:868
+#: ../fsset.py:1343 ../partitions.py:868
 msgid "PPC PReP Boot"
 msgstr "PPC PReP-selflaai"
 
-#: ../fsset.py:1329
+#: ../fsset.py:1346
 msgid "First sector of boot partition"
 msgstr "Eerste sektor van selflaaipartisie"
 
-#: ../fsset.py:1330
+#: ../fsset.py:1347
 msgid "Master Boot Record (MBR)"
 msgstr "Meesterselflaairekord (MBR)"
 
-#: ../fsset.py:1404
+#: ../fsset.py:1421
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -679,7 +679,7 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1442
+#: ../fsset.py:1459
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -696,7 +696,7 @@ msgstr ""
 "\n"
 "Druk OK om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1453
+#: ../fsset.py:1470
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -711,7 +711,7 @@ msgstr ""
 "\n"
 "Druk OK om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1504
+#: ../fsset.py:1521
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -724,7 +724,7 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai"
 
-#: ../fsset.py:1515
+#: ../fsset.py:1532
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -737,7 +737,7 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1550
+#: ../fsset.py:1567
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -750,7 +750,7 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1600
+#: ../fsset.py:1617
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -763,11 +763,11 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1621 ../fsset.py:1630
+#: ../fsset.py:1638 ../fsset.py:1647
 msgid "Invalid mount point"
 msgstr "Ongeldige hegpunt"
 
-#: ../fsset.py:1622
+#: ../fsset.py:1639
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -781,7 +781,7 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1631
+#: ../fsset.py:1648
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -794,7 +794,7 @@ msgstr ""
 "\n"
 "Druk <Enter> om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1644
+#: ../fsset.py:1661
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -809,7 +809,7 @@ msgstr ""
 "\n"
 "Druk OK om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:1663
+#: ../fsset.py:1680
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -823,11 +823,11 @@ msgstr ""
 "\n"
 "Druk OK om jou rekenaar te laat herselflaai."
 
-#: ../fsset.py:2328
+#: ../fsset.py:2345
 msgid "Duplicate Labels"
 msgstr "Duplikaatetikette"
 
-#: ../fsset.py:2329
+#: ../fsset.py:2346
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -840,31 +840,31 @@ msgstr ""
 "\n"
 "Stel hierdie probleem reg en begin die installeerproses van voor af."
 
-#: ../fsset.py:2336 ../gui.py:799 ../gui.py:1284 ../image.py:92
-#: ../image.py:474 ../packages.py:764 ../yuminstall.py:160
+#: ../fsset.py:2353 ../gui.py:797 ../gui.py:1291 ../image.py:92
+#: ../image.py:465 ../packages.py:582 ../yuminstall.py:160
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Herselflaai"
 
-#: ../fsset.py:2589
+#: ../fsset.py:2606
 msgid "Formatting"
 msgstr "Formatering"
 
-#: ../fsset.py:2590
+#: ../fsset.py:2607
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formateer tans %s-lêerstelsel..."
 
-#: ../gui.py:110
+#: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
 msgstr "Daar was fout met kopieer van skermkiekies."
 
-#: ../gui.py:122
+#: ../gui.py:119
 msgid "Screenshots Copied"
 msgstr "Skermkiekies gekopieer"
 
-#: ../gui.py:123
+#: ../gui.py:120
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -879,20 +879,20 @@ msgstr ""
 "Jy kan toegang daartoe verkry wanneer jy herselflaai en as wortelgebruiker "
 "aanmeld."
 
-#: ../gui.py:167
+#: ../gui.py:164
 msgid "Saving Screenshot"
 msgstr "Stoor van skermkiekie"
 
-#: ../gui.py:168
+#: ../gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "'n Skermkiekie genaamd '%s' is gestoor."
 
-#: ../gui.py:171
+#: ../gui.py:168
 msgid "Error Saving Screenshot"
 msgstr "Kon nie skermkiekie stoor nie"
 
-#: ../gui.py:172
+#: ../gui.py:169
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -900,44 +900,44 @@ msgstr ""
 "Daar was fout met die stoor van die skermkiekie. As dit plaasgevind het "
 "tydens pakket-installering, moet jy 'n paar keer probeer voor dit sal werk."
 
-#: ../gui.py:241 ../text.py:383
+#: ../gui.py:238 ../text.py:376
 msgid "Fix"
 msgstr "Herstel"
 
-#: ../gui.py:242 ../rescue.py:182 ../text.py:384
+#: ../gui.py:239 ../packages.py:53 ../rescue.py:182 ../text.py:377
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:515
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
-#: ../loader2/loader.c:374
+#: ../loader2/loader.c:380
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:243 ../rescue.py:182 ../rescue.py:184 ../text.py:385
+#: ../gui.py:240 ../rescue.py:182 ../rescue.py:184 ../text.py:378
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:374
+#: ../loader2/loader.c:380
 msgid "No"
 msgstr "Nee"
 
-#: ../gui.py:245 ../text.py:387 ../loader2/net.c:276 ../loader2/net.c:593
+#: ../gui.py:242 ../text.py:380 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
 msgstr "Weer probeer"
 
-#: ../gui.py:246 ../text.py:388
+#: ../gui.py:243 ../text.py:381
 msgid "Ignore"
 msgstr "Ignoreer"
 
-#: ../gui.py:247 ../gui.py:704 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:108 ../text.py:109 ../text.py:360
-#: ../text.py:362 ../text.py:389 ../iw/bootloader_advanced_gui.py:48
-#: ../iw/bootloader_main_gui.py:96 ../textw/bootloader_text.py:199
-#: ../textw/constants_text.py:40 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:270 ../loader2/loader.c:320
+#: ../gui.py:244 ../gui.py:702 ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:526 ../text.py:101 ../text.py:102 ../text.py:353
+#: ../text.py:355 ../text.py:382 ../iw/bootloader_advanced_gui.py:48
+#: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
+#: ../loader2/loader.c:326
 msgid "Cancel"
 msgstr "Kanselleer"
 
-#: ../gui.py:794 ../text.py:346
+#: ../gui.py:792 ../text.py:339
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -949,11 +949,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:796 ../text.py:348
+#: ../gui.py:794 ../text.py:341
 msgid "Error Parsing Kickstart Config"
 msgstr "Kon nie aansit-instelling ontleed nie"
 
-#: ../gui.py:804 ../text.py:358
+#: ../gui.py:802 ../text.py:351
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -961,23 +961,23 @@ msgstr ""
 "Steek 'n stiffie nou in. Al die inhoud op die stiffie sal uitgewis word; "
 "maak dus seker jy kies die regte stiffie."
 
-#: ../gui.py:919
+#: ../gui.py:917
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:994 ../iw/release_notes_viewer_gui.py:51
+#: ../gui.py:992 ../iw/release_notes_viewer_gui.py:51
 msgid "Release notes are missing.\n"
 msgstr "Vrystellingsaantekeninge is weg.\n"
 
-#: ../gui.py:1172
+#: ../gui.py:1179
 msgid "The release notes are missing."
 msgstr "Die vrystellingsaantekeninge is weg."
 
-#: ../gui.py:1271
+#: ../gui.py:1278
 msgid "Error!"
 msgstr "Fout!"
 
-#: ../gui.py:1272
+#: ../gui.py:1279
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -988,65 +988,39 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1276 ../gui.py:1281 ../packages.py:309 ../packages.py:756
-#: ../packages.py:761 ../yuminstall.py:577
+#: ../gui.py:1283 ../gui.py:1288 ../packages.py:574 ../packages.py:579
+#: ../yuminstall.py:613
 msgid "_Exit"
 msgstr "_Afsluit"
 
-#: ../gui.py:1277 ../yuminstall.py:147
+#: ../gui.py:1284 ../yuminstall.py:147
 msgid "_Retry"
 msgstr "_Weer probeer"
 
-#: ../gui.py:1280 ../packages.py:760
+#: ../gui.py:1287 ../packages.py:578
 msgid "The installer will now exit..."
 msgstr "Die installeerder sal nou afsluit..."
 
-#: ../gui.py:1283 ../packages.py:763
+#: ../gui.py:1290 ../packages.py:581
 msgid "Your system will now be rebooted..."
 msgstr "Jou rekenaar sal nou herselflaai word..."
 
-#: ../gui.py:1286 ../packages.py:765
+#: ../gui.py:1293 ../packages.py:583
 msgid "Rebooting System"
 msgstr "Herselflaai rekenaar"
 
-#: ../gui.py:1368
+#: ../gui.py:1375
 #, python-format
 msgid "%s Installer"
 msgstr "%s-installeerder"
 
-#: ../gui.py:1374
+#: ../gui.py:1381
 msgid "Unable to load title bar"
 msgstr "Kon nie die titelbalk laai nie"
 
-#: ../gui.py:1434
+#: ../gui.py:1441
 msgid "Install Window"
 msgstr "Installeervenster"
-
-#: ../hdrlist.py:47 ../hdrlist.py:877
-msgid ""
-"This group includes all the packages available.  Note that there are "
-"substantially more packages than just the ones in all the other package "
-"groups on this page."
-msgstr ""
-"Hierdie groep sluit al die beskikbare pakkette in. Let op dat daar heelwat "
-"meer pakkette is as net dié pakkette in al die ander pakketgroepe op hierdie "
-"bladsy."
-
-#: ../hdrlist.py:717
-msgid "Everything"
-msgstr "Alles"
-
-#: ../hdrlist.py:881
-msgid ""
-"Choose this group to get the minimal possible set of packages.  Useful for "
-"creating small router/firewall boxes, for example."
-msgstr ""
-"Kies hierdie groep om die kleinste moontlike stel pakkette te kry. Nuttig "
-"vir byvoorbeeld die skep van klein roeteerder- en brandmuurrekenaars."
-
-#: ../hdrlist.py:930
-msgid "Miscellaneous"
-msgstr "Diverse"
 
 #: ../image.py:83
 msgid "Required Install Media"
@@ -1067,13 +1041,13 @@ msgstr ""
 "Maak seker jy het dit gereed voor jy met die installering voortgaan. As jy "
 "die installering moet staak en herselflaai, kies \"Herselflaai\"."
 
-#: ../image.py:92 ../packages.py:761 ../packages.py:764
+#: ../image.py:92 ../packages.py:579 ../packages.py:582
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Terug"
 
-#: ../image.py:92 ../image.py:475 ../iw/partition_gui.py:1012
+#: ../image.py:92 ../image.py:466 ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Gaan voort"
 
@@ -1086,15 +1060,15 @@ msgstr ""
 "Daar was fout met ontheg van CD. Maak seker jy koppel nie tans uit die dop "
 "op tty2 aan %s nie, en kliek OK om weer te probeer."
 
-#: ../image.py:167
+#: ../image.py:158
 msgid "Copying File"
 msgstr "Kopieer van lêer"
 
-#: ../image.py:168
+#: ../image.py:159
 msgid "Transferring install image to hard drive..."
 msgstr "Dra tans installeerbeeld na hardeskyf oor..."
 
-#: ../image.py:172
+#: ../image.py:163
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1102,29 +1076,29 @@ msgstr ""
 "Daar was fout tydens oordra van installeerbeeld na jou hardeskyf. Jy het "
 "moontlik nie meer spasie nie."
 
-#: ../image.py:300
+#: ../image.py:291
 msgid "Change CDROM"
 msgstr "Verander CD-ROM"
 
-#: ../image.py:301
+#: ../image.py:292
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Steek %s-skyf %d in om voort te gaan."
 
-#: ../image.py:336
+#: ../image.py:327
 msgid "Wrong CDROM"
 msgstr "Verkeerde CD-ROM"
 
-#: ../image.py:337
+#: ../image.py:328
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Dis nie die regte %s-CD-ROM nie."
 
-#: ../image.py:343
+#: ../image.py:334
 msgid "Unable to access the CDROM."
 msgstr "Kon nie toegang tot CD-ROM kry nie."
 
-#: ../installclass.py:63
+#: ../installclass.py:55
 msgid "Install on System"
 msgstr "Installeer op rekenaar"
 
@@ -1147,16 +1121,16 @@ msgstr ""
 "\n"
 "Druk die OK-knoppie om jou rekenaar te laat herselflaai."
 
-#: ../kickstart.py:668 ../kickstart.py:686
+#: ../kickstart.py:708 ../kickstart.py:726
 #, fuzzy
 msgid "Running..."
 msgstr "Verbind..."
 
-#: ../kickstart.py:669
+#: ../kickstart.py:709
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:687
+#: ../kickstart.py:727
 msgid "Running post-install scripts"
 msgstr ""
 
@@ -1172,11 +1146,11 @@ msgstr "Gasheer moet begin met 'n geldige karakter in die reeks 'a-z' of 'A-Z'"
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Gasheernaam kan net die karakters 'a-z', 'A-Z', '-', of '.' bevat"
 
-#: ../packages.py:47
+#: ../packages.py:46
 msgid "Proceed with upgrade?"
 msgstr "Gaan voort met opgradeer?"
 
-#: ../packages.py:48
+#: ../packages.py:47
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1186,28 +1160,23 @@ msgstr ""
 "geheg. Jy kan na hierdie punt nie weer teruggaan nie. \n"
 "\n"
 
-#: ../packages.py:52
+#: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
 msgstr "Wil jy voortgaan met die opgradering?"
 
-#: ../packages.py:305
-#, python-format
-msgid ""
-"You are trying to install on a machine which isn't supported by this release "
-"of %s."
-msgstr ""
-"Jy probeer op 'n rekenaar installeer wat nie met hierdie uitgawe van %s sal "
-"werk nie."
+#: ../packages.py:53 ../textw/complete_text.py:47
+msgid "Reboot"
+msgstr "Herselflaai"
 
-#: ../packages.py:383 ../yuminstall.py:869
+#: ../packages.py:200 ../yuminstall.py:883
 msgid "Post Install"
 msgstr "Náinstallering"
 
-#: ../packages.py:384 ../yuminstall.py:870
+#: ../packages.py:201 ../yuminstall.py:884
 msgid "Performing post install configuration..."
 msgstr "Doen tans náinstalleer-instelling..."
 
-#: ../packages.py:519
+#: ../packages.py:336
 msgid ""
 "\n"
 "\n"
@@ -1218,7 +1187,7 @@ msgstr ""
 "Die volgende pakkette is in hierdie weergawe beskikbaar maar NIE opgegradeer "
 "nie:\n"
 
-#: ../packages.py:522
+#: ../packages.py:339
 msgid ""
 "\n"
 "\n"
@@ -1229,11 +1198,11 @@ msgstr ""
 "Die volgende pakkette is in hierdie weergawe beskikbaar maar NIE "
 "geïnstalleer nie:\n"
 
-#: ../packages.py:742
+#: ../packages.py:560
 msgid "Warning! This is pre-release software!"
 msgstr "Waarskuwing! Hierdie is voorvrystelling-sagteware!"
 
-#: ../packages.py:743
+#: ../packages.py:561
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1260,7 +1229,7 @@ msgstr ""
 "\n"
 "en dien 'n verslag oor '%s' in.\n"
 
-#: ../packages.py:756
+#: ../packages.py:574
 msgid "_Install anyway"
 msgstr "_Installeer in elk geval"
 
@@ -1308,21 +1277,21 @@ msgstr "_Ignoreer aandrywer"
 msgid "_Format drive"
 msgstr "_Formateer aandrywer"
 
-#: ../partedUtils.py:715
+#: ../partedUtils.py:716
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Kon nie aan lêerstelsel op %s heg nie: %s"
 
-#: ../partedUtils.py:803
+#: ../partedUtils.py:804
 msgid "Initializing"
 msgstr "Inisialisering"
 
-#: ../partedUtils.py:804
+#: ../partedUtils.py:805
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Wag terwyl aandrywer %s geformateer word...\n"
 
-#: ../partedUtils.py:905
+#: ../partedUtils.py:906
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1343,7 +1312,7 @@ msgstr ""
 "\n"
 "Wil jy hierdie aandrywer inisialiseer, en ALLE DATA uitwis?"
 
-#: ../partedUtils.py:962
+#: ../partedUtils.py:963
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1363,11 +1332,11 @@ msgstr ""
 "\n"
 "Wil jy hierdie aandrywer inisialiseer, en ALLE DATA uitwis?"
 
-#: ../partedUtils.py:1080
+#: ../partedUtils.py:1081
 msgid "No Drives Found"
 msgstr "Geen aandrywers gevind nie"
 
-#: ../partedUtils.py:1081
+#: ../partedUtils.py:1082
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1489,7 +1458,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
-#: ../iw/lvm_dialog_gui.py:745
+#: ../iw/lvm_dialog_gui.py:746
 msgid "Confirm Delete"
 msgstr "Bevestig skrap"
 
@@ -1499,7 +1468,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Jy is op die punt om alle partisies op die toestel '/dev/%s' te skrap."
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
-#: ../iw/lvm_dialog_gui.py:748 ../iw/lvm_dialog_gui.py:1100
+#: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1359
 msgid "_Delete"
 msgstr "_Skrap"
@@ -1562,7 +1531,7 @@ msgstr ""
 "\n"
 "Wil jy hierdie partisie as 'n ruilpartisie formateer?"
 
-#: ../partIntfHelpers.py:401 ../iw/autopartition_gui.py:62
+#: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
@@ -1904,11 +1873,11 @@ msgstr "Stel netwerking op"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Wil jy die netwerkkoppelvlak op hierdie rekenaar laat begin?"
 
-#: ../rescue.py:226 ../text.py:555
+#: ../rescue.py:226 ../text.py:548
 msgid "Cancelled"
 msgstr "Gekanselleer"
 
-#: ../rescue.py:227 ../text.py:556
+#: ../rescue.py:227 ../text.py:549
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Ek kan nie van hier af na die vorige stap gaan nie. Jy sal maar weer moet "
@@ -2036,68 +2005,68 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Jou rekenaar is onder die %s-gids geheg."
 
-#: ../text.py:153 ../text.py:165
+#: ../text.py:146 ../text.py:158
 msgid "Save"
 msgstr "Stoor"
 
-#: ../text.py:153 ../text.py:155 ../text.py:167
+#: ../text.py:146 ../text.py:148 ../text.py:160
 #, fuzzy
 msgid "Remote"
 msgstr "Verwyder"
 
-#: ../text.py:153 ../text.py:155 ../text.py:163
+#: ../text.py:146 ../text.py:148 ../text.py:156
 msgid "Debug"
 msgstr "Ontfout"
 
-#: ../text.py:159
+#: ../text.py:152
 msgid "Exception Occurred"
 msgstr "Uitsondering plaasgevind"
 
-#: ../text.py:188
+#: ../text.py:181
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:191
+#: ../text.py:184
 #, fuzzy
 msgid "Host"
 msgstr "Gasheernaam"
 
-#: ../text.py:193
+#: ../text.py:186
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:195
+#: ../text.py:188
 msgid "User name"
 msgstr "Gebruikernaam"
 
-#: ../text.py:197
+#: ../text.py:190
 msgid "Password"
 msgstr "Wagwoord"
 
-#: ../text.py:254
+#: ../text.py:247
 msgid "Help not available"
 msgstr "Hulp nie beskikbaar nie"
 
-#: ../text.py:255
+#: ../text.py:248
 msgid "No help is available for this step of the install."
 msgstr "Geen hulp is vir hierdie stap van die installering beskikbaar nie."
 
-#: ../text.py:357
+#: ../text.py:350
 msgid "Save Crash Dump"
 msgstr "Stoor omvalstorting"
 
-#: ../text.py:411 ../loader2/lang.c:52 ../loader2/loader.c:131
+#: ../text.py:404 ../loader2/lang.c:52 ../loader2/loader.c:131
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Welkom by %s"
 
-#: ../text.py:418
+#: ../text.py:411
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> vir hulp | <Tab> wissel elemente | <Spasie> kies | <F12> volgende skerm"
 
-#: ../text.py:420
+#: ../text.py:413
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2209,15 +2178,15 @@ msgstr "Ongeldige gidse"
 msgid "%s not found"
 msgstr "kon nie %s vind nie"
 
-#: ../upgrade.py:361
+#: ../upgrade.py:362
 msgid "Finding"
 msgstr "Find"
 
-#: ../upgrade.py:362
+#: ../upgrade.py:363
 msgid "Finding packages to upgrade..."
 msgstr "Find tans pakkette vir opgradeer..."
 
-#: ../upgrade.py:374
+#: ../upgrade.py:375
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
@@ -2228,11 +2197,11 @@ msgstr ""
 "die vrystellingsaantekeninge beskryf, en begin dan met die "
 "opgradeerprosedure."
 
-#: ../upgrade.py:401
+#: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Daar was fout met vind van pakkette vir opgradeer."
 
-#: ../upgrade.py:477
+#: ../upgrade.py:478
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2319,7 +2288,8 @@ msgid "Processing"
 msgstr "Verwerking"
 
 #: ../yuminstall.py:91
-msgid "Preparing to install..."
+#, fuzzy
+msgid "Preparing transaction from installation source..."
 msgstr "Maak gereed om te installeer..."
 
 #: ../yuminstall.py:134
@@ -2338,7 +2308,7 @@ msgstr ""
 "\n"
 "Druk <return> om weer te probeer."
 
-#: ../yuminstall.py:146
+#: ../yuminstall.py:146 ../yuminstall.py:498
 msgid "Re_boot"
 msgstr "Her_selflaai"
 
@@ -2355,17 +2325,32 @@ msgstr ""
 msgid "_Cancel"
 msgstr "_Kanselleer"
 
-#: ../yuminstall.py:446
+#: ../yuminstall.py:440
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Berei tans RPM-transaksie voor..."
 
-#: ../yuminstall.py:556
+#: ../yuminstall.py:487
+#, fuzzy, python-format
+msgid ""
+"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
+"perhaps a corrupt package.  If you are installing from CD media this usually "
+"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"\n"
+msgstr ""
+"Die pakket%s-%s-%s kan nie geopen word nie. Dis te wyte aan 'n vermiste lêer "
+"of dalk 'n korrupte pakket. As jy van CD-media af installeer, beteken dit "
+"gewoonlik dat die CD-media korrup is, of dat die CD-aandrywer nie die media "
+"kan lees nie.\n"
+"\n"
+"Druk <return> om weer te probeer."
+
+#: ../yuminstall.py:592
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Lees tans pakketinligting..."
 
-#: ../yuminstall.py:572
+#: ../yuminstall.py:608
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2375,29 +2360,29 @@ msgstr ""
 "Die comps-lêer in jou installeerboom kort kritieke groepe. Verseker dat jou "
 "installeerboom korrek gegenereer is."
 
-#: ../yuminstall.py:599
+#: ../yuminstall.py:635
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:852
+#: ../yuminstall.py:866
 msgid "Install Starting"
 msgstr "Installering begin"
 
-#: ../yuminstall.py:853
+#: ../yuminstall.py:867
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Begin installeerproses, dit mag 'n hele paar minute duur..."
 
-#: ../yuminstall.py:969
+#: ../yuminstall.py:1004
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Installeertipe"
 
-#: ../yuminstall.py:1013
+#: ../yuminstall.py:1048
 msgid "Dependency Check"
 msgstr "Afhanklikheidstoets"
 
-#: ../yuminstall.py:1014
+#: ../yuminstall.py:1049
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontroleer afhanklikes in pakkette gekies vir installering..."
 
@@ -2504,23 +2489,6 @@ msgstr "Wortel_wagwoord: "
 msgid "_Confirm: "
 msgstr "_Bevestig: "
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1418
-#: ../textw/partition_text.py:1522
-msgid "Automatic Partitioning"
-msgstr "Outomatiese partisiëring"
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1480
-msgid "I want to have automatic partitioning:"
-msgstr "Ek wil outomatiese partisiëring hê:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1511
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Kies die aandrywers(s) wat vir hierdie installering gebruik moet word:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1535
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Gaan _na (en wysig indien nodig) die geskepte partisies"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -2621,62 +2589,16 @@ msgstr "_Algemene kernparameters"
 msgid "Boot Loader Configuration"
 msgstr "Selflaaier-instelling"
 
-#: ../iw/bootloader_main_gui.py:75
-msgid "Change Boot Loader"
-msgstr "Wysig selflaaier"
-
-#: ../iw/bootloader_main_gui.py:93
-msgid ""
-"You have elected to not install any boot loader. It is strongly recommended "
-"that you install a boot loader unless you have an advanced need.  A boot "
-"loader is almost always required in order to reboot your system into Linux "
-"directly from the hard drive.\n"
-"\n"
-"Would you like to continue and not install a boot loader?"
-msgstr ""
-"Jy het gekies om nie 'n selflaaier te installeer nie. Ons beveel sterk aan "
-"dat jy 'n selflaaier installeer tensy jy een of ander gevorderde behoefte "
-"het. 'n Selflaaier is byna altyd nodig om jou rekenaar direk van jou "
-"hardeskyf af na Linux te laat herselflaai.\n"
-"\n"
-"Wil jy voortgaan en nie 'n selflaaier installeer nie?"
-
-#: ../iw/bootloader_main_gui.py:97
-msgid "C_ontinue with no boot loader"
-msgstr "G_aan voort sonder selflaaier"
-
-#: ../iw/bootloader_main_gui.py:120
-msgid ""
-"Please select the boot loader that the computer will use.  GRUB is the "
-"default boot loader. However, if you do not wish to overwrite your current "
-"boot loader, select \"Do not install a boot loader.\"  "
-msgstr ""
-"Kies die selflaaier wat die rekenaar gaan gebruik. GRUB is die "
-"verstekselflaaier. As jy egter nie jou huidige selflaaier wil oorheenskryf "
-"nie, kies \"Moenie 'n selflaaier installeer nie\".  "
-
-#: ../iw/bootloader_main_gui.py:128
-msgid "Use _GRUB as the boot loader"
-msgstr "Gebruik _GRUB as selflaaier"
-
-#: ../iw/bootloader_main_gui.py:130
-msgid "_Do not install a boot loader"
-msgstr "_Moenie 'n selflaaier installeer nie"
-
-#: ../iw/bootloader_main_gui.py:149
+#: ../iw/bootloader_main_gui.py:118
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "Die %s-selflaaier sal op /dev/%s geïnstalleer word."
 
-#: ../iw/bootloader_main_gui.py:154
+#: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
 msgstr "Geen selflaaier sal geïnstalleer word nie."
 
-#: ../iw/bootloader_main_gui.py:205
-msgid "_Change boot loader"
-msgstr "_Wysig selflaaier"
-
-#: ../iw/bootloader_main_gui.py:229
+#: ../iw/bootloader_main_gui.py:153
 msgid "Configure advanced boot loader _options"
 msgstr "Stel gevorderde selflaaier-_opsies in"
 
@@ -2788,87 +2710,6 @@ msgstr ""
 "\n"
 "%s%s"
 
-#: ../iw/dependencies_gui.py:21
-msgid "Unresolved Dependencies"
-msgstr "Onopgeloste afhanklikes"
-
-#: ../iw/dependencies_gui.py:34 ../textw/packages_text.py:29
-#: ../textw/packages_text.py:356
-#, python-format
-msgid "Total install size: %s"
-msgstr "Totale installeergrootte: %s"
-
-#: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:348
-#: ../textw/packages_text.py:387
-msgid "Package"
-msgstr "Pakket"
-
-#: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:387
-msgid "Requirement"
-msgstr "Vereiste"
-
-#: ../iw/dependencies_gui.py:90
-msgid "_Install packages to satisfy dependencies"
-msgstr "_Installeer pakkette om afhanklikes op te los"
-
-#: ../iw/dependencies_gui.py:93
-msgid "_Do not install packages that have dependencies"
-msgstr "_Moenie pakkette installeer wat afhanklikes het nie"
-
-#: ../iw/dependencies_gui.py:97
-msgid "I_gnore package dependencies"
-msgstr "I_gnoreer pakketafhanklikes"
-
-#: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
-msgid "Package Defaults"
-msgstr "Pakket-verstek"
-
-#: ../iw/desktop_choice_gui.py:56
-msgid ""
-"The default installation environment includes our recommended package "
-"selection, including:\n"
-"\n"
-msgstr ""
-"Die verstekinstalleeromgewing sluit ons aanbevole seleksie pakkette in, "
-"met:\n"
-"\n"
-
-#: ../iw/desktop_choice_gui.py:58
-#, python-format
-msgid ""
-"\n"
-"\n"
-"After installation, additional software can be added or removed using the "
-"'system-config-packages' tool.\n"
-"\n"
-"If you are familiar with %s, you may have specific packages you would like "
-"to install or avoid installing. Check the box below to customize your "
-"installation."
-msgstr ""
-"\n"
-"\n"
-"Na installering kan bykomende sagteware bygevoeg word of verwyder word met "
-"die 'system-config-packages'-nutsding.\n"
-"\n"
-"As jy met %s vertroud is, wil jy dalk spesifieke pakkette installeer of nie "
-"installeer nie. Merk die blokkie hieronder om jou installasie te doelmaak."
-
-#: ../iw/desktop_choice_gui.py:70
-msgid ""
-"If you would like to change the default package set to be installed you can "
-"choose to customize this below."
-msgstr ""
-"As jy die verstekstel pakkette wat geïnstalleer sal word, wil verander, kan "
-"jy dit hieronder doelmaak."
-
-#: ../iw/desktop_choice_gui.py:78
-msgid "_Install default software packages"
-msgstr "_Installeer verstekpakket sagteware"
-
-#: ../iw/desktop_choice_gui.py:79
-msgid "_Customize software packages to be installed"
-msgstr "_Doelmaak sagtewarepakkette wat geïnstalleer gaan word"
-
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
 msgstr "Skywe"
@@ -2881,16 +2722,16 @@ msgstr "Grootte"
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/examine_gui.py:33
+#: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
 msgstr "Opgradeerspeur"
 
-#: ../iw/examine_gui.py:60
+#: ../iw/examine_gui.py:61
 #, python-format
 msgid "_Install %s"
 msgstr "_Installeer %s"
 
-#: ../iw/examine_gui.py:62
+#: ../iw/examine_gui.py:63
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -2899,11 +2740,11 @@ msgstr ""
 "Afhangende van jou instelling-keuse sal bestaande sagteware en data dalk "
 "oorheengeskryf word."
 
-#: ../iw/examine_gui.py:66
+#: ../iw/examine_gui.py:67
 msgid "_Upgrade an existing installation"
 msgstr "_Opdateer 'n bestaande installasie"
 
-#: ../iw/examine_gui.py:68
+#: ../iw/examine_gui.py:69
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -2912,30 +2753,13 @@ msgstr ""
 "Kies hierdie opsie as jy jou bestaande %s-stelsel wil opgradeer. Hierdie "
 "opsie sal die bestaande data op jou aandrywers behou."
 
-#: ../iw/examine_gui.py:131 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:136 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "Die volgende geïnstalleerde stelsel sal opgegradeer word:"
 
-#: ../iw/examine_gui.py:144
+#: ../iw/examine_gui.py:149
 msgid "Unknown Linux system"
 msgstr "Onbekende Linux-stelsel"
-
-#: ../iw/GroupSelector.py:81
-#, fuzzy, python-format
-msgid "Packages in %s"
-msgstr "Pakket :"
-
-#: ../iw/GroupSelector.py:315
-#, python-format
-msgid ""
-"No description available for %s.\n"
-"\n"
-msgstr ""
-
-#: ../iw/GroupSelector.py:337
-#, fuzzy, python-format
-msgid "[%d of %d optional packages installed]"
-msgstr "Watter soort media bevat die pakkette wat geïnstalleer moet word?"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -2964,7 +2788,7 @@ msgstr "Watter taal wil jy graag tydens die installeerproses gebruik?"
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
 #: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:592
-#: ../iw/lvm_dialog_gui.py:659 ../iw/lvm_dialog_gui.py:870
+#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
 msgstr "Onvoldoende spasie"
@@ -3142,17 +2966,17 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Die logiesevolume-naam \"%s\" word reeds gebruik. Kies 'n ander een."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
-"size (%10.2f MB). To increase this limit you can increase the Physical "
-"Extent size for this Volume Group."
+"size (%10.2f MB). To increase this limit you can create more Physical "
+"Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Die huidig gekose grootte (%10.2f megagreep) is groter as die maksimum "
 "logiesevolume-grootte (%10.2f megagreep). Om hierdie limiet te vergroot, kan "
 "jy die fisiese grootte van hierdie volumegroep vergroot."
 
-#: ../iw/lvm_dialog_gui.py:636 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
@@ -3160,7 +2984,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "Fout met versoek"
 
-#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
+#: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3171,20 +2995,20 @@ msgstr ""
 "volumegroep bevat slegs %g megagreep. Maak eers die volumegroep groter of "
 "maak die logiese volume(s) kleiner."
 
-#: ../iw/lvm_dialog_gui.py:710
+#: ../iw/lvm_dialog_gui.py:711
 msgid "No free slots"
 msgstr "Geen vry gleuwe nie"
 
-#: ../iw/lvm_dialog_gui.py:711
+#: ../iw/lvm_dialog_gui.py:712
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "Jy kan nie meer as %s logiese volumes per volumegroep skep nie."
 
-#: ../iw/lvm_dialog_gui.py:717
+#: ../iw/lvm_dialog_gui.py:718
 msgid "No free space"
 msgstr "Geen oop spasie nie"
 
-#: ../iw/lvm_dialog_gui.py:718
+#: ../iw/lvm_dialog_gui.py:719
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3194,29 +3018,29 @@ msgstr ""
 "nie. Om 'n logiese volume by te voeg, moet jy die grootte van een of meer "
 "van die huidig bestaande logiese volumes verminder"
 
-#: ../iw/lvm_dialog_gui.py:746
+#: ../iw/lvm_dialog_gui.py:747
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Is jy seker jy wil die logiese volume \"%s\" skrap?"
 
-#: ../iw/lvm_dialog_gui.py:882
+#: ../iw/lvm_dialog_gui.py:883
 msgid "Invalid Volume Group Name"
 msgstr "Ongeldige volumegroep-naam"
 
-#: ../iw/lvm_dialog_gui.py:895
+#: ../iw/lvm_dialog_gui.py:896
 msgid "Name in use"
 msgstr "Naam in gebruik"
 
-#: ../iw/lvm_dialog_gui.py:896
+#: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Die volumegroep-naam \"%s\" word reeds gebruik. Kies 'n ander een."
 
-#: ../iw/lvm_dialog_gui.py:940
+#: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
 msgstr "Onvoldoende fisiese volumes"
 
-#: ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:942
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3230,71 +3054,71 @@ msgstr ""
 "Skep 'n partisie of RAID-reeks van die soort \"fisiese volume (LVM)\"en kies "
 "dan weer die \"LVM\"-opsie."
 
-#: ../iw/lvm_dialog_gui.py:952
+#: ../iw/lvm_dialog_gui.py:953
 msgid "Make LVM Volume Group"
 msgstr "Maak LVM-volumegroep"
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:956
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Redigeer LVM-volumegroep: %s"
 
-#: ../iw/lvm_dialog_gui.py:957
+#: ../iw/lvm_dialog_gui.py:958
 msgid "Edit LVM Volume Group"
 msgstr "Redigeer LVM-volumegroep"
 
-#: ../iw/lvm_dialog_gui.py:973
+#: ../iw/lvm_dialog_gui.py:974
 msgid "_Volume Group Name:"
 msgstr "_Volumegroep-naam:"
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:982
 msgid "Volume Group Name:"
 msgstr "Volumegroep-naam:"
 
-#: ../iw/lvm_dialog_gui.py:989
+#: ../iw/lvm_dialog_gui.py:990
 msgid "_Physical Extent:"
 msgstr "_Fisiese grootte:"
 
-#: ../iw/lvm_dialog_gui.py:1004
+#: ../iw/lvm_dialog_gui.py:1005
 msgid "Physical Volumes to _Use:"
 msgstr "Fisiese volumes om te _gebruik:"
 
-#: ../iw/lvm_dialog_gui.py:1010
+#: ../iw/lvm_dialog_gui.py:1011
 msgid "Used Space:"
 msgstr "Gebruikte spasie:"
 
-#: ../iw/lvm_dialog_gui.py:1027
+#: ../iw/lvm_dialog_gui.py:1028
 msgid "Free Space:"
 msgstr "Oop spasie:"
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1046
 msgid "Total Space:"
 msgstr "Totale spasie:"
 
-#: ../iw/lvm_dialog_gui.py:1074
+#: ../iw/lvm_dialog_gui.py:1075
 msgid "Logical Volume Name"
 msgstr "Logiesevolume-naam"
 
-#: ../iw/lvm_dialog_gui.py:1077 ../iw/partition_gui.py:364
+#: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:147 ../textw/partition_text.py:1438
 #: ../textw/upgrade_text.py:110
 msgid "Mount Point"
 msgstr "Hegpunt"
 
-#: ../iw/lvm_dialog_gui.py:1080 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "Grootte (megagreep)"
 
-#: ../iw/lvm_dialog_gui.py:1094 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
+#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
 msgid "_Add"
 msgstr "_Byvoeg"
 
-#: ../iw/lvm_dialog_gui.py:1097 ../iw/network_gui.py:531
+#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:531
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1358 ../iw/zfcp_gui.py:101
 msgid "_Edit"
 msgstr "_Redigeer"
 
-#: ../iw/lvm_dialog_gui.py:1112
+#: ../iw/lvm_dialog_gui.py:1113
 msgid "Logical Volumes"
 msgstr "Logiese volumes"
 
@@ -3978,6 +3802,10 @@ msgstr "Laai %s af"
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "Installeer %s-%s-%s.%s (%s)"
 
+#: ../iw/progress_gui.py:348
+msgid "Package"
+msgstr "Pakket"
+
 #: ../iw/progress_gui.py:349
 msgid "Summary"
 msgstr "Opsomming"
@@ -4200,11 +4028,11 @@ msgstr "Doelaandrywer(s):"
 msgid "Drives"
 msgstr "Skywe"
 
-#: ../iw/release_notes_viewer_gui.py:182
+#: ../iw/release_notes_viewer_gui.py:187
 msgid "Release Notes"
 msgstr "Vrystellingsaantekeninge"
 
-#: ../iw/release_notes_viewer_gui.py:186
+#: ../iw/release_notes_viewer_gui.py:191
 msgid "Unable to load file!"
 msgstr "Kon nie lêer laai nie!"
 
@@ -4638,10 +4466,6 @@ msgstr ""
 msgid "Complete"
 msgstr "Volledig"
 
-#: ../textw/complete_text.py:47
-msgid "Reboot"
-msgstr "Herselflaai"
-
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
 msgstr "Installasie gaan begin"
@@ -4663,7 +4487,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
 #: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:307 ../loader2/loader.c:897 ../loader2/loader.c:919
+#: ../loader2/loader.c:313 ../loader2/loader.c:903 ../loader2/loader.c:925
 #: ../loader2/net.c:233 ../loader2/net.c:271 ../loader2/net.c:542
 #: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
@@ -4683,26 +4507,20 @@ msgstr ""
 "'n Volledige staaflêer van jou opgradering sal in %s wees nadat jou rekenaar "
 "geherselflaai het. Jy moet dalk hierdie lêer behou vir verdere verwysing."
 
-#: ../textw/desktop_choice_text.py:27
-#, python-format
-msgid ""
-"The default installation environment includes our recommended package "
-"selection.  After installation, additional software can be added or removed "
-"using the 'system-config-packages' tool.\n"
-"\n"
-"However %s ships with many more applications, and you may customize the "
-"selection of software installed if you want."
-msgstr ""
-"Die verstekinstalleeromgewing sluit ons aanbevole seleksie pakkette in. Na "
-"installering kan bykomende sagteware bygevoeg word of verwyder word met die "
-"'system-config-packages'-nutsding.\n"
-"\n"
-"%s word egter met baie ander toepassings verskeep, en jy moet dalk die "
-"seleksie sagteware wat geïnstalleer word, doelmaak, as jy sou wou."
+#: ../textw/grpselect_text.py:83
+#, fuzzy
+msgid "Please select the package groups you would like to have installed."
+msgstr "Kies watter resolusie jy wil gebruik:"
 
-#: ../textw/desktop_choice_text.py:37
-msgid "Customize software selection"
-msgstr "Doelmaak seleksie sagteware"
+#: ../textw/grpselect_text.py:101
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Spasie>,<+>,<-> seleksie   |   <F2> Groepdetails   | <F12> volgende skerm"
+
+#: ../textw/grpselect_text.py:129
+msgid "Package Group Details"
+msgstr "Pakketgroep-details"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -4848,77 +4666,6 @@ msgstr "Ongeldige gasheernaam"
 #: ../textw/network_text.py:406
 msgid "You have not specified a hostname."
 msgstr "Jy het nie 'n gasheer gespesifiseer nie."
-
-#: ../textw/packages_text.py:59
-msgid "Select individual packages"
-msgstr "Kies individuele pakkette"
-
-#: ../textw/packages_text.py:66
-msgid "Package Group Selection"
-msgstr "Pakketgroep-seleksie"
-
-#: ../textw/packages_text.py:76
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Spasie>,<+>,<-> seleksie   |   <F2> Groepdetails   | <F12> volgende skerm"
-
-#: ../textw/packages_text.py:122
-msgid "Package Group Details"
-msgstr "Pakketgroep-details"
-
-#: ../textw/packages_text.py:177
-msgid "Package :"
-msgstr "Pakket :"
-
-#: ../textw/packages_text.py:182
-msgid "Size    :"
-msgstr "Grootte :"
-
-#: ../textw/packages_text.py:183
-#, python-format
-msgid "%.1f KBytes"
-msgstr "%.1f kilogreep"
-
-#: ../textw/packages_text.py:202
-msgid "Total size"
-msgstr "Totale grootte"
-
-#: ../textw/packages_text.py:323
-msgid "Individual Package Selection"
-msgstr "Individuele pakketseleksie"
-
-#: ../textw/packages_text.py:331
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Spasie>,<+>,<-> seleksie   |   <F1> hulp   |   <F2> pakket-beskrywing"
-
-#: ../textw/packages_text.py:379
-msgid "Package Dependencies"
-msgstr "Pakketafhanklikes"
-
-#: ../textw/packages_text.py:381
-msgid ""
-"Some of the packages you have selected to install require packages you have "
-"not selected. If you just select OK all of those required packages will be "
-"installed."
-msgstr ""
-"Sommige van die pakkette wat jy gekies het om te installeer, vereis pakkette "
-"wat jy nie gekies het nie. As jy net OK kies, sal al daardie vereiste "
-"pakkette ook geïnstalleer word."
-
-#: ../textw/packages_text.py:402
-msgid "Install packages to satisfy dependencies"
-msgstr "Installeer pakkette om afhanklikes op te los"
-
-#: ../textw/packages_text.py:403
-msgid "Do not install packages that have dependencies"
-msgstr "Moenie pakkette installeer wat afhanklikes het nie"
-
-#: ../textw/packages_text.py:404
-msgid "Ignore package dependencies"
-msgstr "Ignoreer pakketafhanklikes"
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
@@ -5175,21 +4922,31 @@ msgstr "Geen wortelpartisie nie"
 msgid "Must have a / partition to install on."
 msgstr "Moet 'n /-partisie hê om op te installeer."
 
-#: ../textw/partition_text.py:1545 ../textw/partition_text.py:1641
-msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Watter aandrywers(s) wil jy vir hierdie installering gebruik?"
-
-#: ../textw/partition_text.py:1614
+#: ../textw/partition_text.py:1517
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "Partisiesoort"
 
-#: ../textw/partition_text.py:1616 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+
+#: ../textw/partition_text.py:1544
+msgid "Which drive(s) do you want to use for this installation?"
+msgstr "Watter aandrywers(s) wil jy vir hierdie installering gebruik?"
+
+#: ../textw/partition_text.py:1602
+#, fuzzy
+msgid "Review Partition Layout"
+msgstr "Gaan _na (en wysig indien nodig) die geskepte partisies"
+
+#: ../textw/partition_text.py:1603
+#, fuzzy
+msgid "Review and modify partitioning layout?"
+msgstr "Gaan _na (en wysig indien nodig) die geskepte partisies"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5243,6 +5000,23 @@ msgstr "Afgehandel:  "
 #: ../textw/progress_text.py:169
 msgid "Remaining:  "
 msgstr "Oorblywend: "
+
+#: ../textw/task_text.py:42
+#, fuzzy
+msgid "Package selection"
+msgstr "Pakketgroep-seleksie"
+
+#: ../textw/task_text.py:45
+#, python-format
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include  support for?"
+msgstr ""
+
+#: ../textw/task_text.py:60
+msgid "Customize software selection"
+msgstr "Doelmaak seleksie sagteware"
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
@@ -5420,6 +5194,23 @@ msgstr ""
 #, fuzzy
 msgid "_Fedora"
 msgstr "_Formaat"
+
+#: ../installclasses/fedora.py:20
+msgid "Office and Productivity"
+msgstr ""
+
+#: ../installclasses/fedora.py:21
+msgid "Software Development"
+msgstr ""
+
+#: ../installclasses/fedora.py:22
+#, fuzzy
+msgid "Web server"
+msgstr "Naambediener"
+
+#: ../installclasses/fedora.py:23
+msgid "Virtualization (Xen)"
+msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5700,10 +5491,10 @@ msgstr "Wil jy enige ander drywerskywe laai?"
 #: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
 #: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:408 ../loader2/modules.c:972 ../loader2/net.c:904
+#: ../loader2/kickstart.c:409 ../loader2/modules.c:972 ../loader2/net.c:904
 #: ../loader2/net.c:927 ../loader2/nfsinstall.c:259
-#: ../loader2/urlinstall.c:445 ../loader2/urlinstall.c:454
-#: ../loader2/urlinstall.c:465
+#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
+#: ../loader2/urlinstall.c:470
 msgid "Kickstart Error"
 msgstr "Aansitfout"
 
@@ -5775,7 +5566,7 @@ msgid "Loading %s driver..."
 msgstr "Besig om drywer %s te laai..."
 
 #: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
-#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:148
+#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:153
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5865,7 +5656,7 @@ msgstr "Fout in %s op lyn %d van aansitlêer %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kan nie ks.cfg op selflaaistiffie find nie."
 
-#: ../loader2/kickstart.c:409
+#: ../loader2/kickstart.c:410
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Verkeerde argument vir afskakelaansitmetode-bevel %s: %s"
@@ -5897,11 +5688,11 @@ msgstr "Hardeskyf"
 msgid "NFS image"
 msgstr "NFS-prent"
 
-#: ../loader2/loader.c:302
+#: ../loader2/loader.c:308
 msgid "Update Disk Source"
 msgstr "Opdateer skyfbron"
 
-#: ../loader2/loader.c:303
+#: ../loader2/loader.c:309
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5909,28 +5700,28 @@ msgstr ""
 "Jy het verskeie toestelle wat as bron kan dien vir 'n opdateerskyf. Watter "
 "een wil jy gebruik?"
 
-#: ../loader2/loader.c:318
+#: ../loader2/loader.c:324
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Sit jou opdateerskyf in /dev/%s en druk \"OK\" om voort te gaan."
 
-#: ../loader2/loader.c:320
+#: ../loader2/loader.c:326
 msgid "Updates Disk"
 msgstr "Opdateer Skyf"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:338
 msgid "Failed to mount updates disk"
 msgstr "Kon nie aan opdateerskyf heg nie"
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:341
 msgid "Updates"
 msgstr "Opdaterings"
 
-#: ../loader2/loader.c:335
+#: ../loader2/loader.c:341
 msgid "Reading anaconda updates..."
 msgstr "Lees anaconda-opdaterings..."
 
-#: ../loader2/loader.c:375
+#: ../loader2/loader.c:381
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5940,41 +5731,41 @@ msgstr ""
 "moet jy waarskynlik toesteldrywers met die hand kies. Wil jy nou drywers "
 "kies?"
 
-#: ../loader2/loader.c:731
+#: ../loader2/loader.c:737
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Jy het nie genoeg rekenaargeheue om %s op hierdie rekenaar te installeer nie."
 
-#: ../loader2/loader.c:889
+#: ../loader2/loader.c:895
 msgid "Rescue Method"
 msgstr "Hulpmetode"
 
-#: ../loader2/loader.c:890
+#: ../loader2/loader.c:896
 msgid "Installation Method"
 msgstr "Installeermetode"
 
-#: ../loader2/loader.c:892
+#: ../loader2/loader.c:898
 msgid "What type of media contains the rescue image?"
 msgstr "Watter soort media bevat die hulpprent?"
 
-#: ../loader2/loader.c:894
+#: ../loader2/loader.c:900
 msgid "What type of media contains the packages to be installed?"
 msgstr "Watter soort media bevat die pakkette wat geïnstalleer moet word?"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:924
 msgid "No driver found"
 msgstr "Geen drywer gevind nie"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:924
 msgid "Select driver"
 msgstr "Kies drywer"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:925
 msgid "Use a driver disk"
 msgstr "Gebruik 'n drywerskyf"
 
-#: ../loader2/loader.c:920
+#: ../loader2/loader.c:926
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5983,11 +5774,11 @@ msgstr ""
 "installasie benodig word nie. Wil jy die drywer self kies of 'n drywerskyf "
 "gebruik?"
 
-#: ../loader2/loader.c:1080
+#: ../loader2/loader.c:1086
 msgid "The following devices have been found on your system."
 msgstr "Die volgende toestelle is op jou rekenaar gevind."
 
-#: ../loader2/loader.c:1082
+#: ../loader2/loader.c:1088
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -5995,29 +5786,29 @@ msgstr ""
 "Geen toesteldrywers is vir jou rekenaar gelaai nie. Wil jy nou enige drywers "
 "laai?"
 
-#: ../loader2/loader.c:1086
+#: ../loader2/loader.c:1092
 msgid "Devices"
 msgstr "Toestelle"
 
-#: ../loader2/loader.c:1087
+#: ../loader2/loader.c:1093
 msgid "Done"
 msgstr "Klaar"
 
-#: ../loader2/loader.c:1088
+#: ../loader2/loader.c:1094
 msgid "Add Device"
 msgstr "Voeg toestel by"
 
-#: ../loader2/loader.c:1228
+#: ../loader2/loader.c:1234
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Laaier het reeds geloop. Dop word begin.\n"
 
-#: ../loader2/loader.c:1592
+#: ../loader2/loader.c:1598
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Anaconda loop die %s hulpmodus - wag asseblief...\n"
 
-#: ../loader2/loader.c:1594
+#: ../loader2/loader.c:1600
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Anaconda loop die %s rekenaarinstalleerder - wag asseblief...\n"
@@ -6310,33 +6101,33 @@ msgstr "Wag vir telnetkonneksie..."
 msgid "Running anaconda via telnet..."
 msgstr "Anaconda loop via telnet..."
 
-#: ../loader2/urlinstall.c:68
+#: ../loader2/urlinstall.c:73
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Kon nie %s://%s/%s/%s lees nie."
 
-#: ../loader2/urlinstall.c:140
+#: ../loader2/urlinstall.c:145
 msgid "Unable to retrieve the install image."
 msgstr "Kon nie die installeerprent lees nie."
 
-#: ../loader2/urlinstall.c:279
+#: ../loader2/urlinstall.c:284
 msgid "Media Detected"
 msgstr "Media Bespeur"
 
-#: ../loader2/urlinstall.c:280
+#: ../loader2/urlinstall.c:285
 msgid "Local installation media detected..."
 msgstr "Plaaslike installeermedia bespeur..."
 
-#: ../loader2/urlinstall.c:446
+#: ../loader2/urlinstall.c:451
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Verkeerde argument vir URL-aansitmetode-bevel %s: %s"
 
-#: ../loader2/urlinstall.c:455
+#: ../loader2/urlinstall.c:460
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Jy moet 'n \"--url\"-argument verskaf vir 'n URL-aansitmetode."
 
-#: ../loader2/urlinstall.c:466
+#: ../loader2/urlinstall.c:471
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Onbekende URL-metode %s"
@@ -6447,6 +6238,27 @@ msgstr "_Volgende"
 msgid "_Release Notes"
 msgstr "_Vrystellingsaantekeninge"
 
+#: tmp/autopart2.glade.h:1
+#, fuzzy
+msgid "How would you like to get space to partition?"
+msgstr "Wil jy die lêerstelsel op hierdie partisie voorberei?"
+
+#: tmp/autopart2.glade.h:2
+msgid ""
+"Installing <product> requires partitioning of your hard drive.  You can "
+"either use the default partitioning layout or create your own."
+msgstr ""
+
+#: tmp/autopart2.glade.h:3
+#, fuzzy
+msgid "Select the drive(s) to use for this installation."
+msgstr "Kies die aandrywers(s) wat vir hierdie installering gebruik moet word:"
+
+#: tmp/autopart2.glade.h:4
+#, fuzzy
+msgid "_Review and modify partitioning layout"
+msgstr "Gaan _na (en wysig indien nodig) die geskepte partisies"
+
 #: tmp/autopart.glade.h:2
 #, fuzzy
 msgid "Re_view and modify partitioning layout"
@@ -6467,21 +6279,29 @@ msgstr "Uitsondering plaasgevind"
 msgid "_Exception details"
 msgstr "Uitsondering plaasgevind"
 
-#: tmp/GroupSelector.glade.h:1
-msgid ""
-"Some packages associated with this group are not required to be installed "
-"but may provide additional functionality.  Please choose the packages which "
-"you would like to have installed."
-msgstr ""
-
-#: tmp/GroupSelector.glade.h:2
+#: tmp/tasksel.glade.h:1
 #, fuzzy
-msgid "_Optional packages"
-msgstr "Opsionele pakkette"
+msgid "Customize _later"
+msgstr "Doelmaak"
 
-#: tmp/GroupSelector.glade.h:3
-msgid "dialog1"
+#: tmp/tasksel.glade.h:2
+msgid ""
+"Further customization of the software selection can be completed now or "
+"after install via the software management application."
 msgstr ""
+
+#: tmp/tasksel.glade.h:4
+#, no-c-format
+msgid ""
+"The default installation of %s includes a set of  software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include  support for?"
+msgstr ""
+
+#: tmp/tasksel.glade.h:5
+#, fuzzy
+msgid "_Customize now"
+msgstr "Doelmaak"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6532,8 +6352,13 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantiese Tyd - O-Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+#, fuzzy
+msgid "Atlantic Time - New Brunswick"
+msgstr "Atlantiese Tyd - O-Labrador"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlantiese Tyd - Nieu-Skotland (meeste plekke), Nieu-Brunswyk, W-Labrador, O-"
 "Quebeq en PEI"
@@ -6611,11 +6436,21 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Sentrale Tyd - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
+msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Central Time - Indiana - Pike County"
+msgstr "Oostelike standaardtyd - Indiana - Starke Distrik"
+
+#. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Sentrale Tyd - Manitoba & Wes-Ontario"
 
 #. generated from zone.tab
-msgid "Central Time - Michigan - Wisconsin border"
+#, fuzzy
+msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 msgstr "Sentrale Tyd - Michigan-Wisconsin-grens"
 
 #. generated from zone.tab
@@ -6679,22 +6514,6 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Paaseiland & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr "Oostelike standaardtyd - Indiana - Crawford Distrik"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Oostelike standaardtyd - Indiana - meeste plekke"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr "Oostelike standaardtyd - Indiana - Starke Distrik"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr "Oostelike standaardtyd - Indiana - Switserland Distrik"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
 msgstr "Oostelike Standaardtyd - Oos-Noenavoet"
@@ -6707,6 +6526,26 @@ msgstr "Oostelike Tyd"
 #, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "Oostelike Standaardtyd - Oos-Noenavoet"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Crawford County"
+msgstr "Oostelike standaardtyd - Indiana - Crawford Distrik"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - most locations"
+msgstr "Oostelike standaardtyd - Indiana - meeste plekke"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Starke County"
+msgstr "Oostelike standaardtyd - Indiana - Starke Distrik"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Eastern Time - Indiana - Switzerland County"
+msgstr "Oostelike standaardtyd - Indiana - Switserland Distrik"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7309,6 +7148,11 @@ msgstr "Persies"
 
 #. generated from lang-table
 #, fuzzy
+msgid "Serbian(Latin)"
+msgstr "Persies"
+
+#. generated from lang-table
+#, fuzzy
 msgid "Slovak"
 msgstr "Sloweens"
 
@@ -7352,6 +7196,221 @@ msgstr "Wallies"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid ""
+#~ "This group includes all the packages available.  Note that there are "
+#~ "substantially more packages than just the ones in all the other package "
+#~ "groups on this page."
+#~ msgstr ""
+#~ "Hierdie groep sluit al die beskikbare pakkette in. Let op dat daar "
+#~ "heelwat meer pakkette is as net dié pakkette in al die ander pakketgroepe "
+#~ "op hierdie bladsy."
+
+#~ msgid "Everything"
+#~ msgstr "Alles"
+
+#~ msgid ""
+#~ "Choose this group to get the minimal possible set of packages.  Useful "
+#~ "for creating small router/firewall boxes, for example."
+#~ msgstr ""
+#~ "Kies hierdie groep om die kleinste moontlike stel pakkette te kry. Nuttig "
+#~ "vir byvoorbeeld die skep van klein roeteerder- en brandmuurrekenaars."
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Diverse"
+
+#~ msgid ""
+#~ "You are trying to install on a machine which isn't supported by this "
+#~ "release of %s."
+#~ msgstr ""
+#~ "Jy probeer op 'n rekenaar installeer wat nie met hierdie uitgawe van %s "
+#~ "sal werk nie."
+
+#~ msgid "Automatic Partitioning"
+#~ msgstr "Outomatiese partisiëring"
+
+#~ msgid "I want to have automatic partitioning:"
+#~ msgstr "Ek wil outomatiese partisiëring hê:"
+
+#~ msgid "Select the drive(s) to use for this installation:"
+#~ msgstr ""
+#~ "Kies die aandrywers(s) wat vir hierdie installering gebruik moet word:"
+
+#~ msgid "Re_view (and modify if needed) the partitions created"
+#~ msgstr "Gaan _na (en wysig indien nodig) die geskepte partisies"
+
+#~ msgid "Change Boot Loader"
+#~ msgstr "Wysig selflaaier"
+
+#~ msgid ""
+#~ "You have elected to not install any boot loader. It is strongly "
+#~ "recommended that you install a boot loader unless you have an advanced "
+#~ "need.  A boot loader is almost always required in order to reboot your "
+#~ "system into Linux directly from the hard drive.\n"
+#~ "\n"
+#~ "Would you like to continue and not install a boot loader?"
+#~ msgstr ""
+#~ "Jy het gekies om nie 'n selflaaier te installeer nie. Ons beveel sterk "
+#~ "aan dat jy 'n selflaaier installeer tensy jy een of ander gevorderde "
+#~ "behoefte het. 'n Selflaaier is byna altyd nodig om jou rekenaar direk van "
+#~ "jou hardeskyf af na Linux te laat herselflaai.\n"
+#~ "\n"
+#~ "Wil jy voortgaan en nie 'n selflaaier installeer nie?"
+
+#~ msgid "C_ontinue with no boot loader"
+#~ msgstr "G_aan voort sonder selflaaier"
+
+#~ msgid ""
+#~ "Please select the boot loader that the computer will use.  GRUB is the "
+#~ "default boot loader. However, if you do not wish to overwrite your "
+#~ "current boot loader, select \"Do not install a boot loader.\"  "
+#~ msgstr ""
+#~ "Kies die selflaaier wat die rekenaar gaan gebruik. GRUB is die "
+#~ "verstekselflaaier. As jy egter nie jou huidige selflaaier wil "
+#~ "oorheenskryf nie, kies \"Moenie 'n selflaaier installeer nie\".  "
+
+#~ msgid "Use _GRUB as the boot loader"
+#~ msgstr "Gebruik _GRUB as selflaaier"
+
+#~ msgid "_Do not install a boot loader"
+#~ msgstr "_Moenie 'n selflaaier installeer nie"
+
+#~ msgid "_Change boot loader"
+#~ msgstr "_Wysig selflaaier"
+
+#~ msgid "Unresolved Dependencies"
+#~ msgstr "Onopgeloste afhanklikes"
+
+#~ msgid "Total install size: %s"
+#~ msgstr "Totale installeergrootte: %s"
+
+#~ msgid "Requirement"
+#~ msgstr "Vereiste"
+
+#~ msgid "_Install packages to satisfy dependencies"
+#~ msgstr "_Installeer pakkette om afhanklikes op te los"
+
+#~ msgid "_Do not install packages that have dependencies"
+#~ msgstr "_Moenie pakkette installeer wat afhanklikes het nie"
+
+#~ msgid "I_gnore package dependencies"
+#~ msgstr "I_gnoreer pakketafhanklikes"
+
+#~ msgid "Package Defaults"
+#~ msgstr "Pakket-verstek"
+
+#~ msgid ""
+#~ "The default installation environment includes our recommended package "
+#~ "selection, including:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Die verstekinstalleeromgewing sluit ons aanbevole seleksie pakkette in, "
+#~ "met:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "After installation, additional software can be added or removed using the "
+#~ "'system-config-packages' tool.\n"
+#~ "\n"
+#~ "If you are familiar with %s, you may have specific packages you would "
+#~ "like to install or avoid installing. Check the box below to customize "
+#~ "your installation."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Na installering kan bykomende sagteware bygevoeg word of verwyder word "
+#~ "met die 'system-config-packages'-nutsding.\n"
+#~ "\n"
+#~ "As jy met %s vertroud is, wil jy dalk spesifieke pakkette installeer of "
+#~ "nie installeer nie. Merk die blokkie hieronder om jou installasie te "
+#~ "doelmaak."
+
+#~ msgid ""
+#~ "If you would like to change the default package set to be installed you "
+#~ "can choose to customize this below."
+#~ msgstr ""
+#~ "As jy die verstekstel pakkette wat geïnstalleer sal word, wil verander, "
+#~ "kan jy dit hieronder doelmaak."
+
+#~ msgid "_Install default software packages"
+#~ msgstr "_Installeer verstekpakket sagteware"
+
+#~ msgid "_Customize software packages to be installed"
+#~ msgstr "_Doelmaak sagtewarepakkette wat geïnstalleer gaan word"
+
+#, fuzzy
+#~ msgid "Packages in %s"
+#~ msgstr "Pakket :"
+
+#, fuzzy
+#~ msgid "[%d of %d optional packages installed]"
+#~ msgstr "Watter soort media bevat die pakkette wat geïnstalleer moet word?"
+
+#~ msgid ""
+#~ "The default installation environment includes our recommended package "
+#~ "selection.  After installation, additional software can be added or "
+#~ "removed using the 'system-config-packages' tool.\n"
+#~ "\n"
+#~ "However %s ships with many more applications, and you may customize the "
+#~ "selection of software installed if you want."
+#~ msgstr ""
+#~ "Die verstekinstalleeromgewing sluit ons aanbevole seleksie pakkette in. "
+#~ "Na installering kan bykomende sagteware bygevoeg word of verwyder word "
+#~ "met die 'system-config-packages'-nutsding.\n"
+#~ "\n"
+#~ "%s word egter met baie ander toepassings verskeep, en jy moet dalk die "
+#~ "seleksie sagteware wat geïnstalleer word, doelmaak, as jy sou wou."
+
+#~ msgid "Select individual packages"
+#~ msgstr "Kies individuele pakkette"
+
+#~ msgid "Package :"
+#~ msgstr "Pakket :"
+
+#~ msgid "Size    :"
+#~ msgstr "Grootte :"
+
+#~ msgid "%.1f KBytes"
+#~ msgstr "%.1f kilogreep"
+
+#~ msgid "Total size"
+#~ msgstr "Totale grootte"
+
+#~ msgid "Individual Package Selection"
+#~ msgstr "Individuele pakketseleksie"
+
+#~ msgid ""
+#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
+#~ "description"
+#~ msgstr ""
+#~ "   <Spasie>,<+>,<-> seleksie   |   <F1> hulp   |   <F2> pakket-beskrywing"
+
+#~ msgid "Package Dependencies"
+#~ msgstr "Pakketafhanklikes"
+
+#~ msgid ""
+#~ "Some of the packages you have selected to install require packages you "
+#~ "have not selected. If you just select OK all of those required packages "
+#~ "will be installed."
+#~ msgstr ""
+#~ "Sommige van die pakkette wat jy gekies het om te installeer, vereis "
+#~ "pakkette wat jy nie gekies het nie. As jy net OK kies, sal al daardie "
+#~ "vereiste pakkette ook geïnstalleer word."
+
+#~ msgid "Install packages to satisfy dependencies"
+#~ msgstr "Installeer pakkette om afhanklikes op te los"
+
+#~ msgid "Do not install packages that have dependencies"
+#~ msgstr "Moenie pakkette installeer wat afhanklikes het nie"
+
+#~ msgid "Ignore package dependencies"
+#~ msgstr "Ignoreer pakketafhanklikes"
+
+#, fuzzy
+#~ msgid "_Optional packages"
+#~ msgstr "Opsionele pakkette"
 
 #~ msgid ""
 #~ "No mouse was detected.  A mouse is required for graphical installation.  "
@@ -8074,9 +8133,6 @@ msgstr "Zulu"
 #~ msgid "Choose a disk to run fdisk on"
 #~ msgstr "Kies op watter skyf fdisk moet loop"
 
-#~ msgid "Customize"
-#~ msgstr "Doelmaak"
-
 #~ msgid "Enable firewall"
 #~ msgstr "Aktiveer brandmuur"
 
@@ -8234,9 +8290,6 @@ msgstr "Zulu"
 
 #~ msgid "Resolution"
 #~ msgstr "Resolusie"
-
-#~ msgid "Please select the resolution you would like to use:"
-#~ msgstr "Kies watter resolusie jy wil gebruik:"
 
 #~ msgid "X Customization"
 #~ msgstr "X-doelmaking"
