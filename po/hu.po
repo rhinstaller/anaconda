@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-31 23:11+0100\n"
+"PO-Revision-Date: 2006-02-04 11:48+0100\n"
 "Last-Translator: Szentiványi Gábor <szentivanyi.gabor@ulx.hu>\n"
 "Language-Team: hungarian\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../anaconda:98
 msgid "Starting VNC..."
-msgstr "A VNC elindítása..."
+msgstr "VNC indítása..."
 
 #: ../anaconda:133
 #, c-format
@@ -195,8 +195,7 @@ msgstr "Ismeretlen telepítési eljárás: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
+msgstr "Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions as primary partitions"
@@ -251,8 +250,7 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Lehet, hogy a %s rendszerindítási partíció nem tesz eleget az architektúra "
 "rendszerindítási követelményeinek."
@@ -567,13 +565,10 @@ msgid "Dump Written"
 msgstr "A dump-fájl kiírva"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"A rendszer állapotát sikerült floppyra menteni. A rendszer alapállapotba "
-"lesz hozva."
+msgstr "A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
 
 #: ../exception.py:428 ../exception.py:444
 msgid "Dump Not Written"
@@ -1397,8 +1392,7 @@ msgstr "Adjon meg egy csatlakoztatási (mount) pontot a partíciónak."
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr "Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:116
 #, python-format
@@ -1651,8 +1645,7 @@ msgid "Confirm Reset"
 msgstr "Az alapállapotba hozás megerősítése"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan alapállapotba szeretné hozni a partíciós táblát?"
 
 #: ../partitioning.py:57
@@ -1687,8 +1680,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
+msgstr "Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
 
 #: ../partitions.py:808
 #, python-format
@@ -1700,8 +1692,7 @@ msgstr ""
 "telepítéséhez."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Létre kell hozni egy FAT típusú, kb. 50 MB-os /boot/efi partíciót."
 
 #: ../partitions.py:835
@@ -1769,8 +1760,7 @@ msgstr "egy olyan partíció, mely egy LVM-kötetcsoport része."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ez a csatlakoztatási pont érvénytelen. A(z) %s könyvtárnak a gyökér-"
 "fájlrendszeren (/) kell lennie."
@@ -1870,8 +1860,7 @@ msgstr "Leállítva"
 
 #: ../rescue.py:227 ../text.py:549
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
+msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:245 ../rescue.py:281 ../rescue.py:441
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2053,17 +2042,14 @@ msgid "Welcome to %s"
 msgstr "Üdvözöljük - %s"
 
 #: ../text.py:411
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../text.py:413
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgstr " <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2277,9 +2263,8 @@ msgid "Processing"
 msgstr "Feldolgozás"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Felkészülés telepítésre..."
+msgstr "Tranzakció előkészítése telepítési forrásból..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -2318,7 +2303,7 @@ msgid "Error running transaction"
 msgstr "Hiba a tranzakció futtatása közben"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2327,9 +2312,8 @@ msgid ""
 msgstr ""
 "A(z) %s-%s-%s.%s csomagot nem sikerült megnyitni. Valószínűleg hiányzik egy "
 "fájl vagy megsérült a csomag. Ha CD-ről telepít, akkor a CD valószínűleg "
-"hibás, vagy a meghajtó nem tudja olvasni a CD-t.\n"
+"hibás, vagy a meghajtó nem tudja olvasni.\n"
 "\n"
-"Újrapróbáláshoz nyomja meg az 'Újra' gombot."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2654,8 +2638,7 @@ msgstr "A frissítés megkezdése"
 #: ../iw/confirm_gui.py:115
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
-"Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
+msgstr "Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
 
 #: ../iw/confirm_gui.py:116
 #, python-format
@@ -2929,8 +2912,7 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -2946,15 +2928,15 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "A logikai kötetnév (\"%s\") már foglalt, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"A kért méret (%10.2f MB) nagyobb, mint a logikai kötetek maximális mérete (%"
-"10.2f MB). Ez utóbbi megnövelése érdekében növelje meg a kötetcsoport "
-"fizikai kiterjedésének (extent) méretét."
+"A kért méret (%10.2f MB) nagyobb, mint a maximális logikai kötet méret (%"
+"10.2f MB). Ez utóbbi megnövelése érdekében készítsen még fizikai kötete(ke)t a még nem partícionált "
+"lemezterületekből és adja az(oka)t hozzá a kötetcsoporthoz."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3505,14 +3487,12 @@ msgid "Partitioning"
 msgstr "Partícionálás"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "A következő kritikus hibák találhatók a partícionálási sémában."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Ezeket a hibákat ki kell javítani, mielőtt folytatná a(z) %s rendszer "
 "telepítését."
@@ -3672,8 +3652,7 @@ msgstr "Nem sikerült meghajtóklónozási szerkesztőt létrehozni"
 
 #: ../iw/partition_gui.py:1313
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
+msgstr "Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
@@ -4028,8 +4007,7 @@ msgstr "Ez felfrissíti az aktuális rendszerbetöltőt."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "A telepítő %s rendszerbetöltőt talált a(z) %s rendszeren."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4166,8 +4144,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához."
 
 #: ../iw/zfcp_gui.py:24
@@ -4333,8 +4310,7 @@ msgstr ""
 "néven szeretné azokat megjeleníteni."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Szóköz>: választás | <F2>: az alapértelmezett bejegyzés kiválasztása | "
 "<F12>: következő képernyő>"
@@ -4471,13 +4447,11 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "Kérem válassza ki azokat a csomagcsoportokat, amiket telepíteni szeretne."
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4871,10 +4845,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -4903,14 +4875,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Mely partíciókat szeretné használni a telepítéshez?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "A _létrejött partíciók áttekintése módosítási lehetősége"
+msgstr "Partíciók kiosztásának áttekintése"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "A _létrejött partíciók áttekintése módosítási lehetősége"
+msgstr "Áttekinti és módosítja a jelenlegi partíciókiosztást?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4966,9 +4936,8 @@ msgid "Remaining:  "
 msgstr "Hátralévő   :"
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Csomagcsoport-kiválasztás"
+msgstr "Csomagválaszték"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4977,6 +4946,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"A(z) %s alapértelmezett telepítése tartalmaz egy szoftvercsoportot ami "
+"általános internet használatot tesz lehetővé. Milyen egyéb feladatot támogasson még"
+"a számítógépe?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5157,20 +5129,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Irodai és hatékonyság"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Szoftverfejlesztés"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Névkiszolgáló"
+msgstr "Webkiszolgáló"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualizáció (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5507,8 +5478,7 @@ msgstr "Meghajtólemez használata"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
+msgstr "Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
 
 #: ../loader2/driverselect.c:201
 msgid ""
@@ -5633,10 +5603,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Üdvözöljük - %s (helyreállítási mód)"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5769,8 +5737,7 @@ msgstr "A betöltő már lefutott. Elindul a parancsértelmező.\n"
 #: ../loader2/loader.c:1598
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
+msgstr "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
 #: ../loader2/loader.c:1600
 #, c-format
@@ -5827,8 +5794,7 @@ msgstr "Az adathordozó alkalmas a telepítésre."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
+msgstr "Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6194,29 +6160,24 @@ msgid "_Release Notes"
 msgstr "Kibocsátási m_egjegyzések"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Hogyan szeretné előkészíteni a fájlrendszert ezen a partíción?"
+msgstr "Hogyan szeretne helyet csinálni a partícionáláshoz?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"A telepítés a merevlemez partícionálását igényli. Alapértelmezett esetben "
-"olyan partícionálási séma jelenik meg, ami alkalmas a legtöbb felhasználó "
-"számára. Választhat, hogy ezt használja, vagy elkészíti a sajátját."
+"A(z) <product> telepítése a merevlemez partícionálását igényli. Választhat, hogy "
+"az alapértelmezett partícionálást választja vagy elkészíti a sajátját."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Válassza ki, mely meghajtó(k)ra történjen a telepítés."
+msgstr "_Válasszon, hogy mely meghajtókat használja a telepítéshez."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "A _létrejött partíciók áttekintése módosítási lehetősége"
+msgstr "A _létrejött partíciók áttekintése és módosítási lehetősége"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6236,13 +6197,15 @@ msgstr "_Kivétel részletek"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "Testreszabás _később"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"A csomagválaszték további testreszabása megtörténhet most, vagy "
+"később, a telepítés után, a szoftverkezelő alkalmazással segítségével is."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6251,11 +6214,12 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"A(z) %s alapértelmezett telepítése tartalmaz néhány szoftvercsomagot általános "
+"internet használathoz. Milyen további feladatokra kívánja a számítógépet igénybevenni?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Egyé_ni"
+msgstr "_Testreszabás most"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6306,15 +6270,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlanti idő - K-Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlanti idő - K-Labrador"
+msgstr "Atlanti idő - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlanti idő - Nova Scotia (nagy része), NB, Ny-Labrador, K-Quebec & PEI"
+msgstr "Atlanti idő - Nova Scotia (nagy része), Ny-Labrador, K-Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6386,21 +6347,19 @@ msgstr "Közép-idő - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Közép-idő - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Standard keleti idő - Indiana, Starke County"
+msgstr "Közép-idő- Indiana, Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Közép-idő - Manitoba és Nyugat-Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Közép-idő - Michigan-Wisconsin határvidék"
+msgstr "Közép- idő - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6475,24 +6434,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Keleti idő - Kelet-Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Standard keleti idő - Indiana - Crawford County"
+msgstr "Keleti idő - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Standard keleti idő - Indiana nagy része"
+msgstr "Keleti idő - Indiana nagy része"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Standard keleti idő - Indiana, Starke County"
+msgstr "Keleti idő - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Standard keleti idő - Indiana, Switzerland County"
+msgstr "Keleti idő - Indiana, Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6511,10 +6466,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Keleti idő - Ontario (a legtöbb hely)"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -6701,8 +6654,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Sziklás-hegységi idő (MST) - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Sziklás-hegységi idő - Dawson Creek, Fort Saint John, Brit-Kolumbia"
 
 #. generated from zone.tab
@@ -7088,9 +7040,8 @@ msgid "Serbian"
 msgstr "szerb"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "szerb"
+msgstr "szerb (latin)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7136,235 +7087,3 @@ msgstr "velszi"
 msgid "Zulu"
 msgstr "zulu"
 
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Ebbe a csoportba tartozik az összes rendelkezésre álló csomag. Éppen "
-#~ "ezért itt sokkal több csomag található, mint a lapon látható többi "
-#~ "csoportban."
-
-#~ msgid "Everything"
-#~ msgstr "Minden"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Ezt a csoportot kell kiválasztani, ha a lehető legkevesebb csomagot "
-#~ "szeretné felrakni. Elsősorban kisebb routerek, tűzfalak telepítésénél "
-#~ "érdemes ezt választani."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Egyéb"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Olyan gépre próbál telepíteni, amelyet ez a(z) %s-kiadás nem támogat."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Automatikus Particionálás"
-
-# alatta a partícionálás módjára vonatkozó opciók jelennek meg,
-# például: "Remove all partitions on this system"
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Az automatikus partícionálás teendői:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Válassza ki, mely lemez(ek)re történjen a telepítés:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "A _létrejött partíciók áttekintése (és szükség esetén módosítása)"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "A rendszerindító megváltoztatása"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Nem kérte rendszerindító telepítését. Erősen ajánlott rendszerindítót "
-#~ "telepíteni, kivéve akkor, ha valamilyen speciális igény miatt nincs rá "
-#~ "szükség. Rendszerindító nélkül általában nem lehet elindítani a "
-#~ "merevlemezen található Linux rendszert.\n"
-#~ "\n"
-#~ "Biztosan ki szeretné hagyni a rendszerindító telepítését?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "Fol_ytatás rendszerindító nélkül"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Válassza ki a használni kívánt rendszerindítót. A GRUB az alapértelmezés. "
-#~ "Ha nem kívánja felülírni a mostani rendszerindítót, válassza a \"Nem kell "
-#~ "rendszerindítót telepíteni\" opciót."
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "A GR_UB legyen a rendszerindító"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Nem kell rendszerindítót telepíteni"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "A rendszer_indító megváltoztatása"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Feloldatlan függőségek"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Teljes telepítési méret: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Igény"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "A függőségek felol_dásához szükséges csomagok feltelepítése"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr ""
-#~ "A felolda_tlan függőséget tartalmazó csomagokat nem kell feltelepíteni"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "A csomagfüggőségeket figyelmen kívül kell _hagyni"
-
-#~ msgid "Package Defaults"
-#~ msgstr "Alapértelmezett csomagok"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Az alapértelmezett csomagok az ajánlott alaprendszer kialakításához "
-#~ "szükséges csomagokból állnak, például:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "A telepítés befejeződése után mód van új csomagok telepítésere vagy "
-#~ "meglevők eltávolítására a 'system-config-packages' nevű programmal.\n"
-#~ "\n"
-#~ "Ha ismeri a(z) %s használatát, esetleg vannak olyan csomagok, amelyeket "
-#~ "fel szeretne telepíteni ill. amelyek telepítését el szeretné kerülni. "
-#~ "Jelölje be az alábbi opciót, ha egyéni telepítést szeretne."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Ha egyéni módon elő szeretné írni, mi legyen az alapértelmezés szerint "
-#~ "telepített csomagkészlet, válassza alább a testreszabási lehetőséget."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "Az _alapértelmezett csomagok telepítése"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "A telepítendő csomagok _egyéni kiválasztása"
-
-#~ msgid "Packages in %s"
-#~ msgstr "Csomagok az alábbiban: %s"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nincs leírás az alábbihoz: %s\n"
-#~ "\n"
-
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "[%d darab csomag lett telepítve %d darab opcionális csomagból]"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Az alapértelmezett telepítési környezet az általunk javasolt csomagokat "
-#~ "tartalmazza. A telepítés után mód van új csomagok telepítésére, meglevők "
-#~ "eltávolítására a 'system-config-packages' alkalmazással.\n"
-#~ "\n"
-#~ "Azonban a(z) %s sok más alkalmazást is tartalmaz, ezek az egyéni igénytől "
-#~ "függően telepíthetők."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Csomagok egyéni kiválasztása"
-
-#~ msgid "Package :"
-#~ msgstr "Csomag  :"
-
-#~ msgid "Size    :"
-#~ msgstr "Méret   :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f kB"
-
-#~ msgid "Total size"
-#~ msgstr "Teljes méret"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Egyéni csomagválasztás"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "      <Szóköz>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Csomagfüggőségek"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "A kiválasztott csomagok közül néhánynak szüksége van olyan további "
-#~ "csomagokra, melyek nincsenek kiválasztva. Ha az OK-t választja, akkor "
-#~ "ezek a csomagok is fel lesznek telepítve."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Csomagok telepítése a függőségek szerint"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Ne telepítsen függőséggel rendelkező csomagokat"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Csomagfüggőségek figyelmen kívül hagyása"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "Van néhánycsomag ebben a csoportban, amiket nem kötelező telepíteni, de "
-#~ "további funkcionalitást biztosíthatnak. Kérem válassza ki azokat a "
-#~ "csomagokat, amiket telepíteni szeretne."
-
-#~ msgid "_Optional packages"
-#~ msgstr "Választható _csomagok"
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
