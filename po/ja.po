@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-02-04 01:34+0900\n"
+"PO-Revision-Date: 2006-02-04 20:08+0900\n"
 "Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
 "Language-Team: Japanese<fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -570,11 +570,12 @@ msgid "Dump Written"
 msgstr "dump が書き込まれました。"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します。"
+msgstr ""
+"システムの状態をフロッピーに書き込むことに成功しました。システムを再起動しま"
+"す。"
 
 #: ../exception.py:428 ../exception.py:444
 msgid "Dump Not Written"
@@ -2263,9 +2264,8 @@ msgid "Processing"
 msgstr "処理中"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "インストール準備中..."
+msgstr "インストールソースからのトランザクションを準備中..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -2304,7 +2304,7 @@ msgid "Error running transaction"
 msgstr "トランザクション実行中にえらーが発生しました"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2312,11 +2312,9 @@ msgid ""
 "\n"
 msgstr ""
 "パッケージ %s-%s-%s.%s を開けません。原因は多分、ファイルの欠落、またはパッ"
-"ケージの破損です。CDメディアからインストールしている場合、これは、通常 CD メ"
-"ディアの破損か、または CD ドライブがメディアを読み込めないことを意味しま"
-"す。\n"
-" \n"
-"'Retry' を押してやり直してください。"
+"ケージの破損です。CDメディアからインストールしている場合、これは、通常 CD "
+"メディアの破損か、または CD ドライブがメディアを読み込めないことを意味します。\n"
+"\n"
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2929,15 +2927,15 @@ msgstr ""
 "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"現在の要求サイズ(%10.2f MB)は、最大論理ボリュームサイズ(%10.2f MB)以上の 大き"
-"さです。この限界を上げる為に、このボリュームグループの物理範囲サイズを増加す"
-"ることができます。"
+"現在の要求サイズ (%10.2f MB) は、最大論理ボリュームサイズ (%10.2f MB) 以上の"
+"大きさです。この上限を増やすため、パーティションされていないディスクスペース"
+"からの物理ボリュームを作成して、このボリュームグループに加える必要があります。"
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4457,9 +4455,8 @@ msgstr ""
 "で参照できるようにこのファイルを保管しておくことをお勧めします。"
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "使用する解像度を選択してください:"
+msgstr "インストールしたいパッケージグループを選択してください。"
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4888,14 +4885,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "このインストール方法をどのドライブに使用しますか?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "パーティションレイアウトの再確認と変更(_V)"
+msgstr "パーティションレイアウトのレビュー"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "パーティションレイアウトの再確認と変更(_V)"
+msgstr "パーティションレイアウトをレビューして変更しますか?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4951,9 +4946,8 @@ msgid "Remaining:  "
 msgstr "残り:      "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "パッケージグループの選択"
+msgstr "パッケージの選択"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4962,6 +4956,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"%s のデフォルトインストールは一般的なインターネットの使用に適用できるソフト"
+"ウェアのセットを含んでいます。追加としてシステムにサポートするため含めますか?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5143,20 +5139,19 @@ msgstr "Fedora(_F)"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "オフィスとプロダクティビティ"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "ソフトウェア開発"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "ネームサーバー"
+msgstr "Web サーバー"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "ヴァーチャライゼーション (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6175,29 +6170,25 @@ msgid "_Release Notes"
 msgstr "リリースノート(_R)"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "このパーティションのファイルシステムをどの様に用意しますか?"
+msgstr "パーティションに開き領域をどうやって確保しますか?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"ハードドライブのパーティションがインストールには必要です。デフォルトでは、"
-"パーティションレイアウトはほとんどのユーザーに適しているものが選択されます。"
-"選択することもできますし、自分で作成することもできます。"
+"<product> をインストールするにはハードドライブのパーティションが必要で"
+"す。デフォルトのパーティションレイアウトを使うことも可能ですし、自分で"
+"作成することも可能です。"
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "このインストールに使用するドライブを選択。(_S)"
+msgstr "このインストール用に使うドライブを選択してください。"
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "パーティションレイアウトの再確認と変更(_V)"
+msgstr "パーティションレイアウトのレビューと変更(_R)"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6216,15 +6207,16 @@ msgid "_Exception details"
 msgstr "例外の詳細(_E)"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "カスタマイズ"
+msgstr "後でカスタマイズ(_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"ソフトウェアの選択のカスタマイズが終わったか、ソフトウェアマネージメント"
+"アプリケーションを使ってのインストールが終わりました。"
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6233,11 +6225,13 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"%s のデフォルトのインストールは一般的なインターネットの使用に適したソフト"
+"ウェアのセットが含まれています。追加としてシステムにサポートするものも含め"
+"ますか?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "カスタマイズ"
+msgstr "即時カスタマイズ(_C)"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6288,16 +6282,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "大西洋時間 -東ラブラドール "
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "大西洋時間 -東ラブラドール "
+msgstr "大西洋時間 - ニューブランズウィック"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"大西洋時間 - ノバスコシア (ほとんどの地域), NB, 西ラブラドール,東ケベック及"
-"び PEI"
+msgstr "大西洋時間 - ノバスコシア (ほとんどの地域), 西ラブラドール,東ケベックおよび PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6371,21 +6361,19 @@ msgstr "中央時間 - コアウィラ、デュランゴ、ヌエボ=レオン�
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン、ペリーおよびプラスキ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "東部時間 - インディアナ、スターク郡"
+msgstr "中央時間 - インディアナ - パイク郡"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "中央時間 - マニトバ、西オンタリオ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "中央時間 - ミシガン・ウィスコンシン境界"
+msgstr "中央時間 - ミシガン - ディックソン、ゴギービック、アイアンおよびメノミニー郡"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6465,24 +6453,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "東部時間 - 東ヌナブット"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "東部時間 - インディアナ、クロフォード郡"
+msgstr "東部時間 - インディアナ - クロフォード郡"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "東部時間 - インディアナ、--ほとんどの地域"
+msgstr "東部時間 - インディアナ - ほとんどの地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "東部時間 - インディアナ、スターク郡"
+msgstr "東部時間 - インディアナ - スターク郡"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "東部時間 - インディアナ、スイス郡"
+msgstr "東部時間 - インディアナ - スイス郡"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7081,9 +7065,8 @@ msgid "Serbian"
 msgstr "セルビア語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "セルビア語"
+msgstr "セルビア語(ラテン系)"
 
 #. generated from lang-table
 msgid "Slovak"
