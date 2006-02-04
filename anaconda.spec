@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.13
+Version: 10.91.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb  3 2006 Jeremy Katz <katzj@redhat.com> - 10.91.14-1
+- Handle reiserfs labels (dcantrel, #125939)
+- Skip more steps in root mode (Jasper Hartline)
+- Update driver list for current kernels
+- Don't put mapper/ in the swap label (pjones)
+- Set file contexts on blkid.tab* (pjones)
+- Increase logical volume label field to 32 chars (dcantrel, #174661)
+- More exception trimming (clumens)
+- Fix args to writeConfiguration (clumens, #179928)
+- Fix format strings in label device, proper max for swap labels (pjones)
+- Make task definition more dynamic
+- Add a hack to remove the xen group if we're running on xen (#179387)
+
 * Thu Feb  2 2006 Jeremy Katz <katzj@redhat.com> - 10.91.13-1
 - Speed up timezone screen (clumens)
 - Make kickstart interactive mode work (clumens)
