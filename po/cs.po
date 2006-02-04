@@ -1,19 +1,23 @@
+# translation of cs.po to Czech
 # $Id$
 # Copyright (C) 2004, 2005 anaconda's COPYRIGHT HOLDER
 # Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
 # Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005.
+# Nikola Štohanzl <niko@srnet.cz>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda VERSION\n"
+"Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2005-06-02 12:30+0200\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
-"Language-Team: Czech <cs@li.org>\n"
+"PO-Revision-Date: 2006-02-04 23:22+0100\n"
+"Last-Translator: Nikola Štohanzl <niko@srnet.cz>\n"
+"Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -248,10 +252,8 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"Zaváděcí oddíl %s možná nesplňuje omezení pro zavádění na vaší architektuře."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "Zaváděcí oddíl %s možná nesplňuje omezení pro zavádění na vaší architektuře."
 
 #: ../autopart.py:1077
 #, python-format
@@ -561,12 +563,10 @@ msgid "Dump Written"
 msgstr "Výpis zapsán"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"Stav systému byl úspěšně zapsán na disketu. Systém bude nyní restartován."
+msgstr "Stav Vašeho systému byl úspěšně zapsán na disketu. Váš systém bude nyní restartován."
 
 #: ../exception.py:428 ../exception.py:444
 msgid "Dump Not Written"
@@ -1638,8 +1638,7 @@ msgid "Confirm Reset"
 msgstr "Potvrzení obnovení"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Chcete opravdu obnovit tabulku oddílů do jejího původního stavu?"
 
 #: ../partitioning.py:57
@@ -1688,8 +1687,7 @@ msgstr ""
 "distribuci %s."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Musíte vytvořit oddíl /boot/efi, který bude typu FAT a jeho velikost bude 50 "
 "MB."
@@ -1760,8 +1758,7 @@ msgstr "oddíl, který je členem skupiny svazků LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Zadané místo připojení je neplatné. Adresář %s musí být v kořenovém systému "
 "souborů."
@@ -1793,16 +1790,14 @@ msgstr "Místo připojení \"%s\" je již používáno. Prosím zadejte jiné."
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
+msgstr "Velikost oddílu %s (%10.2f MB) překračuje maximální velikost %10.2f MB."
 
 #: ../partRequests.py:490
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Požadovaná velikost oddílu (%s MB) překračuje maximální velikost %s MB."
+msgstr "Požadovaná velikost oddílu (%s MB) překračuje maximální velikost %s MB."
 
 #: ../partRequests.py:495
 #, python-format
@@ -2037,17 +2032,14 @@ msgid "Welcome to %s"
 msgstr "Vítá vás %s"
 
 #: ../text.py:411
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"  <F1> nápověda | <Tab> mezi položkami | <Mezera> výběr | <F12> pokračovat"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "  <F1> nápověda | <Tab> mezi položkami | <Mezera> výběr | <F12> pokračovat"
 
 #: ../text.py:413
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> mezi položkami  |  <Mezera> výběr  |  <F12> pokračovat"
+msgstr "  <Tab>/<Alt-Tab> mezi položkami  |  <Mezera> výběr  |  <F12> pokračovat"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2260,9 +2252,8 @@ msgid "Processing"
 msgstr "Pracuji"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Připravuji instalaci..."
+msgstr "Připravuji transakci z instalačního zdroje..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -2300,7 +2291,7 @@ msgid "Error running transaction"
 msgstr "Chyba v průběhu transakce"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2311,7 +2302,6 @@ msgstr ""
 "poškození balíčku. Pokud instalujete z CD, obvykle to znamená, že je CD "
 "poškozené nebo jednotka CD nedokáže přečíst médium.\n"
 "\n"
-"Stiskněte 'Znovu' pro nový pokus."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2349,8 +2339,7 @@ msgstr "Kontrola závislostí"
 
 #: ../yuminstall.py:1049
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"Kontroluji závislosti mezi balíčky, které byly zvoleny pro instalaci..."
+msgstr "Kontroluji závislosti mezi balíčky, které byly zvoleny pro instalaci..."
 
 #: ../zfcp.py:28
 msgid ""
@@ -2441,8 +2430,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
+msgstr "Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2917,15 +2905,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Jméno logického svazku \"%s\" je již používáno. Prosím zadejte jiné."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Aktuálně požadovaná velikost (%10.2f MB) je větší, než maximální velikost "
-"logického svazku (%10.2f MB). Tento limit můžete zvýšit zvětšením velikosti "
-"fyzického oddílu pro tuto skupinu svazků."
+"logického svazku (%10.2f MB). Limit můžete zvýšit vytořením dalších "
+"fyzických svazků v dosud nerozděleném diskovém prostoru a jejich přidáním "
+"do této skupiny svazků."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3475,15 +3464,12 @@ msgid "Partitioning"
 msgstr "Vytváření oddílů"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"V požadovaném schématu oddílů byly nalezeny následující kritické chyby."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "V požadovaném schématu oddílů byly nalezeny následující kritické chyby."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Tyto chyby musí být opraveny před tím, než budete pokračovat v instalaci "
 "distribuce %s."
@@ -3990,8 +3976,7 @@ msgstr "Bude provedena aktualizace zavaděče systému."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Instalační program nalezl zavaděč %s nainstalovaný na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4131,8 +4116,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Na vybraném zařízení není dostatek volného místa pro odkládací oddíl."
 
 #: ../iw/zfcp_gui.py:24
@@ -4160,8 +4144,7 @@ msgstr "Upravit zařízení FCP %s"
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
-"Tímto odstraníte z vašeho nastavení disk FCP. Opravdu chcete pokračovat?"
+msgstr "Tímto odstraníte z vašeho nastavení disk FCP. Opravdu chcete pokračovat?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -4298,10 +4281,8 @@ msgstr ""
 "které bude použito pro jejich výběr při startu počítače."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"  <Mezera> výběr | <F2> implicitní zaváděcí položka | <F12> další obrazovka"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr "  <Mezera> výběr | <F2> implicitní zaváděcí položka | <F12> další obrazovka"
 
 #: ../textw/bootloader_text.py:397
 msgid ""
@@ -4434,15 +4415,12 @@ msgstr ""
 "může hodit pro pozdější referenci."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Zvolte rozlišení, které chcete používat:"
+msgstr "Zvolte prosím skupiny balíčků, které chcete nainstalovat"
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4737,8 +4715,7 @@ msgstr "Nepodporováno"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"Skupiny svazků LVM mohou být upraveny jen v grafickém instalačním programu."
+msgstr "Skupiny svazků LVM mohou být upraveny jen v grafickém instalačním programu."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -4835,10 +4812,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Nápověda  F2-Nový   F3-Upravit F4-Odstranit F5-Obnovit  F12-Ok        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Nápověda  F2-Nový   F3-Upravit F4-Odstranit F5-Obnovit  F12-Ok        "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -4867,14 +4842,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Který disk(y) chcete použít pro tuto instalaci?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Pro_hlédnout a upravit rozložení oddílů"
+msgstr "Prohlédnout rozložení oddílů"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Pro_hlédnout a upravit rozložení oddílů"
+msgstr "Prohlédnout a upravit rozložení oddílů?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4930,9 +4903,8 @@ msgid "Remaining:  "
 msgstr "Zbývá    :  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Výběr skupin balíčků"
+msgstr "Výběr balíčků"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4940,7 +4912,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "Standardní instalace %s obsahuje sadu programů pro běžné používání internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5124,20 +5096,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Kancelář a Produktivita"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Vývoj software"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "DNS server"
+msgstr "Web server"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualizace (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5376,8 +5347,7 @@ msgstr "Nemohu načíst disketu s ovladači ze souboru."
 #: ../loader2/driverdisk.c:384
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vložte médium s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr "Vložte médium s ovladači do zařízení /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/driverdisk.c:386
 msgid "Insert Driver Disk"
@@ -5441,8 +5411,7 @@ msgstr "Neznámy zdroj driver disk kickstartu: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
+msgstr "Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -5502,8 +5471,7 @@ msgstr "Zavádím ovladač %s ..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"Instalační strom %s v tomto adresáři zřejmě neodpovídá zavedenému systému."
+msgstr "Instalační strom %s v tomto adresáři zřejmě neodpovídá zavedenému systému."
 
 #: ../loader2/hdinstall.c:215
 msgid ""
@@ -5597,10 +5565,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Vítá vás %s - Záchranný režim"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> přepíná mezi položkami  | <Mezera> výběr | <F12> pokračovat"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> přepíná mezi položkami  | <Mezera> výběr | <F12> pokračovat"
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5633,8 +5599,7 @@ msgstr ""
 #: ../loader2/loader.c:324
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Vložte svou disketu s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
+msgstr "Vložte svou disketu s aktualizací do /dev/%s a pokračujte stisknutím \"OK\"."
 
 #: ../loader2/loader.c:326
 msgid "Updates Disk"
@@ -5710,8 +5675,7 @@ msgstr "Ve vašem systému byla nalezena následující zařízení."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
+msgstr "Pro váš systém nebyly zavedeny žádné ovladače zařízení. Chcete nějaké zavést?"
 
 #: ../loader2/loader.c:1092
 msgid "Devices"
@@ -6152,27 +6116,22 @@ msgid "_Release Notes"
 msgstr "_Poznámky k vydání"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Jak chcete připravit systém souborů na tomto oddílu?"
+msgstr "Jak chcete získat místo k rozdělení?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"Instalace vyžaduje rozdělení Vašeho pevného disku na oddíly. Standardně je "
-"vybrán takový způsob rozložení oddílů, který vyhovuje většině uživatelů."
-"Můžete buď zvolit toto rozložení, nebo definovat vlastní."
+"Instalace <product> vyžaduje rozdělení Vašeho pevného disku na oddíly. "
+"Můžete buď zvolit standardní rozložení, nebo definovat vlastní."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Vybrat disk(y), které budou použity pro tuto instalaci:"
+msgstr "Vybrat disk(y), které budou použity pro tuto instalaci."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
 msgstr "Pro_hlédnout a upravit rozložení oddílů"
 
@@ -6193,15 +6152,14 @@ msgid "_Exception details"
 msgstr "_Podrobnosti o výjimce"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Upravit"
+msgstr "Upravit po_zději"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "Další úpravy výběru softwaru mohou být provedeny teď nebo po instalaci pomocí aplikace pro správu softwaru."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6209,12 +6167,11 @@ msgid ""
 "The default installation of %s includes a set of  software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "Standardní instalace %s obsahuje sadu programů pro běžné používání internetu. Pro které další úkoly chcete, aby Váš systém obsahoval podporu?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Upravit"
+msgstr "_Upravit teď"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6262,22 +6219,19 @@ msgstr "Atlantské ostrovy"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr "Atlantský čas - E Labrador"
+msgstr "Atlantický čas - E Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantský čas - E Labrador"
+msgstr "Atlantický čas - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantský čas - Nové Skotsko (většina míst), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantický čas - Nové Skotsko (většina míst), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Atlantský čas - Nové Skotsko - místa, která nepřijala DST 1966-1971"
+msgstr "Atlantický čas - Nové Skotsko - místa, která nepřijala DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6345,21 +6299,19 @@ msgstr "Centrální čas - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Centrální čas - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Východní standardní čas - Indiana - Starke County"
+msgstr "Centrální čas - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Centrální čas - Manitoba & west Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Centrální čas - Michigan - Wisconsin border"
+msgstr "Centrální čas - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6434,24 +6386,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Východní čas - east Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Východní standardní čas - Indiana - Crawford County"
+msgstr "Východní čas - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Východní standardní čas - Indiana - většina míst"
+msgstr "Východní čas - Indiana - většina míst"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Východní standardní čas - Indiana - Starke County"
+msgstr "Východní čas - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Východní standardní čas - Indiana - Switzerland County"
+msgstr "Východní čas - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6470,10 +6418,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Východní čas - Ontario - většina míst"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Východní čas - Ontario & Quebec - místa bez letního času v letech 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Východní čas - Ontario & Quebec - místa bez letního času v letech 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -6660,10 +6606,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Horský standardní čas - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Horský standardní čas - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Horský standardní čas - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7046,9 +6990,8 @@ msgid "Serbian"
 msgstr "Srbština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Srbština"
+msgstr "Srbština(Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7094,1599 +7037,3 @@ msgstr "Velština"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Tato skupina obsahuje všechny dostupné balíčky. Jde o výrazně více "
-#~ "balíčků, než jen balíčky ve všech ostatních skupinách na této straně."
-
-#~ msgid "Everything"
-#~ msgstr "Všechno"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Zvolením této skupiny získáte nejmenší možnou sadu balíčků. To je "
-#~ "užitečné například pro vytvoření malého routeru/firewallu."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Různé volby"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Pokoušíte se instalovat na stroj, který není podporovaný touto verzí %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Automatické vytvoření oddílů"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Chci automaticky vytvořit oddíly:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Vyberte disk(y), které chcete použít pro tuto instalaci:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "Pro_hlédnout (a popřípadě upravit) vytvořené oddíly"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Změnit zavaděč systému"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Rozhodli jste se neinstalovat žádný zavaděč. Důrazně doporučujeme jeho "
-#~ "instalaci neprovádět jen v případě, že k tomu máte zvláštní důvody. "
-#~ "Zavaděč je vždy potřeba pro restart vašeho systému do Linuxu přímo z "
-#~ "pevného disku.\n"
-#~ "\n"
-#~ "Chcete pokračovat a neinstalovat zavaděč systému?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "_Pokračovat bez zavaděče systému"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Zvolte zavaděč systému, který chcete použít. Implicitně je zvolen GRUB. "
-#~ "Pokud nechcete přepsat váš stávající zavaděč systému, zaškrtněte volbu "
-#~ "\"Neinstalovat zavaděč systému.\""
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Použít zavaděč systému _GRUB"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Neinstalovat zavaděč systému"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "Z_měnit zavaděč"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Nevyřešené závislosti"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Celkem: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Požadavek"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_Instalovat balíčky k vyřešení závislostí"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "Neinstalovat _balíčky, které mají závislosti"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "Nebrat _ohled na závislosti balíčků"
-
-#~ msgid "Package Defaults"
-#~ msgstr "Implicitní balíčky"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Implicitní instalované prostředí obsahuje námi doporučovaný výběr "
-#~ "balíčků, zahrnující:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Po instalaci lze přidat nebo odebrat software pomocí nástroje 'system-"
-#~ "config-packages'.\n"
-#~ "\n"
-#~ "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
-#~ "konkrétních balíčků. Pro upravení své instalace zaškrtněte volbu níže."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Pokud chcete změnit implicitní sadu instalovaných balíčků, můžete zvolit "
-#~ "její úpravu níže."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "Nainstalovat _implicitní balíčky software"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Upravit sadu instalovaných balíčků software"
-
-#~ msgid "Packages in %s"
-#~ msgstr "Balíčky v %s"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Popis pro %s není k dispozici.\n"
-#~ "\n"
-
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "[%d of %d volitelných balíčků nainstalováno]"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Implicitní instalované prostředí obsahuje námi doporučovaný výběr balíků. "
-#~ "Po instalaci lze přidat nebo odebrat software pomocí nástroje 'system-"
-#~ "config-packages'.\n"
-#~ "\n"
-#~ "%s je ale dodáván s mnohem více aplikacemi a jestliže chcete, můžete "
-#~ "výběr instalovaného software upravit."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Výběr jednotlivých balíčků"
-
-#~ msgid "Package :"
-#~ msgstr "Balíček :"
-
-#~ msgid "Size    :"
-#~ msgstr "Velikost:"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f KB"
-
-#~ msgid "Total size"
-#~ msgstr "Celkem"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Výběr jednotlivých balíčků"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Mezera>,<+>,<->  výběr   |   <F1>  nápověda  |   <F2> popis balíčku"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Závislosti balíčků"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Některé z balíčků vybraných pro instalaci vyžadují balíčky, které nebyly "
-#~ "vybrány. Jestliže zvolíte OK, nainstalují se všechny balíčky, které jsou "
-#~ "potřeba."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Instalovat balíčky k vyřešení závislostí"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Neinstalovat balíčky, které mají závislosti"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Nebrat ohled na závislosti balíčků"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "Některé balíčky související s touto skupinou nejsou vyžadovány, mohou ale "
-#~ "poskytovat rozšiřující funkcionalitu. Vyberte prosím ty balíčky, které "
-#~ "byste chtěl nainstalovat."
-
-#~ msgid "_Optional packages"
-#~ msgstr "_Volitelné balíčky"
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Nebyla detekována myš. Myš je nezbytná pro grafickou instalaci, proto "
-#~ "bude spuštěna textová verze instalačního programu."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Detekovaný typ typ myši: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Používám typ myši: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Došlo k neobsloužené výjimce. To pravděpodobně znamená, že v programu je "
-#~ "chyba. Zkopírujte prosím plné znění této výjimky nebo uložte výpis na "
-#~ "disketu a podrobně vyplňte hlášení o chybě programu anaconda na %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Vzdálené přihlášení (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "WWW server (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Přenos souborů (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Poštovní server (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Nemohu vytvořit zaváděcí disketu."
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Na disketu se nemohou vejít všechny moduly jádra potřebné pro váš počítač."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Vložte disketu"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Vyjměte prosím z disketové jednotky disketu a vložte disketu, ze které "
-#~ "chcete udělat zaváděcí disketu.\n"
-#~ "\n"
-#~ "Všechna data budou během vytváření zaváděcí diskety VYMAZÁNA."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Vytvořit zaváděcí disketu"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Při vytváření zaváděcí diskety došlo k chybě. Zkontrolujte, zda v první "
-#~ "disketové jednotce je disketa."
-
-#~ msgid "Creating"
-#~ msgstr "Vytváření"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Vytvářím zaváděcí disketu..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Při pokusu zkontrolovat zaváděcí disketu došlo k chybě. Zkontrolujte "
-#~ "prosím, jestli je v první disketové jednotce dobrá disketa."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Vaše zaváděcí disketa je zřejmě neplatná. To je pravděpodobně kvůli "
-#~ "špatné disketě. Zkontrolujte prosím, jestli je v první disketové jednotce "
-#~ "dobrá disketa."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Uložit na disketu"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Následující obrazy ISO které jsou pro instalaci potřeba, chybí:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Nyní se systém restartuje."
-
-#~ msgid "Missing Package"
-#~ msgstr "Chybějící balíček"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "Určili jste, že má být nainstalován balíček '%s'. Tento balíček "
-#~ "neexistuje. Chcete pokračovat nebo přerušit instalaci?"
-
-#~ msgid "_Abort"
-#~ msgstr "Pře_rušit"
-
-#~ msgid "Missing Group"
-#~ msgstr "Chybějící skupina"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "Určili jste, že má být nainstalována skupina '%s'. Tato skupina "
-#~ "neexistuje. Chcete pokračovat nebo přerušit instalaci?"
-
-#~ msgid "Reading"
-#~ msgstr "Čtení"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Nemohu přečíst seznam hlaviček. To může být proto, že chybí soubor nebo "
-#~ "je vadné médium. Stiskněte Enter pro nový pokus."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Nemohu přečíst soubor comps. To může být proto, že chybí soubor nebo je "
-#~ "vadné médium. Stiskněte Enter pro nový pokus."
-
-#~ msgid "Installing..."
-#~ msgstr "Instaluji..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Chyba instalace balíčku"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Při instalaci %s došlo k chybě. Chyba mohla být způsobena chybou "
-#~ "instalačního média, nedostatkem místa na disku nebo problémem s hardware. "
-#~ "Chyba je fatální a instalace bude proto ukončena. Zkontrolujte prosím "
-#~ "instalační médium a zkuste instalovat znovu.\n"
-#~ "\n"
-#~ "Stiskněte tlačítko OK pro restart systému."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Nemohu sloučit seznam hlaviček. To může být proto, že chybí soubor nebo "
-#~ "je vadné médium. Stiskněte Enter pro nový pokus."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Aktualizace %s balíčků\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Instalace %s balíčků\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Pro instalaci byly automaticky\n"
-#~ "vybrány následující balíčky:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nemáte dostatek místa na disku pro balíčky, které jste si vybrali. "
-#~ "Potřebujete více místa na následujících systémech souborů:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Potřebné místo"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Nemáte dostatek volných inodů pro balíčky, které jste si vybrali. "
-#~ "Potřebujete více volných inodů na následujících systémech souborů:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Potřebné inody"
-
-#~ msgid "Disk Space"
-#~ msgstr "Diskový prostor"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Architektura verze %s, na kterou aktualizujete, je zřejmě %s, což "
-#~ "neodpovídá vaší dříve nainstalované architektuře %s. To se pravděpodobně "
-#~ "nepovede. Opravdu chcete pokračovat v procesu aktualizace?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "V tomto systému jsou zřejmě nainstalovány balíčky třetích stran, které se "
-#~ "překrývají s balíčky obsaženými v %s. Protože se tyto balíčky překrývají, "
-#~ "pokračování procesu aktualizace může způsobit, že přestanou správně "
-#~ "fungovat nebo mohou způsobit jinou nestabilitu systému. Pro více "
-#~ "informací si prosím přečtěte poznámky o vydání.\n"
-#~ "\n"
-#~ "Chcete pokračovat v procesu aktualizace?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Tento systém neobsahuje soubor /etc/redhat-release. Je možné, že to není "
-#~ "systém %s. Pokračování v aktualizaci může způsobit, že systém nebude "
-#~ "použitelný. Chcete pokračovat?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Nastavení autentizace"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Povolit _MD5 hesla"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Povolit stíno_vá hesla"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Povolit N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Použít vše_směrové vysílání pro nalezení NIS serveru"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS d_oména: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "NIS s_erver:"
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Povolit _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Použít _TLS lookup"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP _server:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _Base DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Povolit _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "R_ealm:"
-
-#~ msgid "K_DC:"
-#~ msgstr "KD_C:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Admin server:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Povolit SMB _autentizaci"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB _server:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB Work_group:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Vytvoření zaváděcí diskety"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Zaváděcí disketa vám umožňuje zavést váš systém %s z diskety. Zaváděcí "
-#~ "disketa vám umožňuje zavést váš systém, když nastavení zavaděče systému "
-#~ "přestane fungovat, pokud se rozhodnete nenainstalovat zavaděč systému, "
-#~ "nebo pokud váš zavaděč systému třetí strany nepodporuje Linux.\n"
-#~ "\n"
-#~ "Doporučuje se vytvořit zaváděcí disketu.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Ano, chci vytvořit zaváděcí disketu"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "N_e, nechci vytvořit zaváděcí disketu"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Vyberte jednotku, na kterou spustit fdasd"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Formátování vybraného zařízení DASD zničí všechen obsah tohoto zařízení. "
-#~ "Opravdu chcete naformátovat vybrané zařízení DASD?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Vytváření oddílů programem fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Vyberte jednotku, na kterou spustit fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "Zakázány"
-
-#~ msgid "Warn"
-#~ msgstr "Varovat"
-
-#~ msgid "Active"
-#~ msgstr "Aktivní"
-
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Varování - žádný firewall"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Pokud je tento systém připojen přímo k Internetu nebo je ve velké veřejné "
-#~ "síti, doporučuje se nastavit firewall, který pomůže zabránit "
-#~ "neautorizovanému přístupu. Vy jste se ale rozhodli nenastavovat firewall. "
-#~ "Pokračujte bez firewallu zvolením \"Pokračovat\"."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Nastavit firewall"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Pokračovat"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Firewall může pomoci zabránit neautorizovanému přístupu k vašemu počítači "
-#~ "zvnějšku. Chcete povolit firewall?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "Žádný _firewall"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "Po_volit firewall"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Na firewallu můtete povolit přístup ke konkrétním službám ve vašem "
-#~ "počítači z jiných počítačů. Ke kterým službám chete povolit přístup?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) poskytuje jemnější ovládání zabezpečení "
-#~ "než to, co je k dispozici v tradičním systému Linux. Dá se nastavit do "
-#~ "zakázaného stavu, stavu, který jen varuje o věcech, které by byly "
-#~ "zakázány, nebo do plně aktivního stavu."
-
-# FIXME: "?:" ???
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Povolit _SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Všechny balíčky"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Balíček: %s\n"
-#~ "Verze:   %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "S_trom"
-
-#~ msgid "_Flat View"
-#~ msgstr "Vše do_hromady"
-
-#~ msgid "_Package"
-#~ msgstr "_Balíček"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Velikost (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Celkem: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Vybrat všechny ze _skupiny"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "Žádné _ze skupiny"
-
-#~ msgid "Minimal"
-#~ msgstr "Minimální"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Detaily o '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Skupina balíčků může obsahovat základní a volitelné balíčky. Základní "
-#~ "balíčky jsou vybrány vždy, když je vybrána daná skupina balíčků.\n"
-#~ "\n"
-#~ "Vyberte volitelné balíčky, které chcete instalovat:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Základní balíčky"
-
-#~ msgid "Details"
-#~ msgstr "Detaily"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Výběr jednotlivých balíčků"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Hardwarové hodiny používají _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Vyberte prosím nejbližší město ve vaší časové zóně:"
-
-#~ msgid "_Location"
-#~ msgstr "U_místění"
-
-#~ msgid "Description"
-#~ msgstr "Popis"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Nedetekovaný monitor"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Upravit nastavení grafického systému"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Barevná hloubka:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 barev (8 bitů)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "65536 barev (16 bitů)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "16 mil. barev (24 bitů)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Rozlišení obrazovky:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Zvolte prosím preferované prostředí desktopu:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Vaše prostředí desktopu je:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "_GNOME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Zvolte prosím typ přihlašování:"
-
-#~ msgid "_Text"
-#~ msgstr "_Textové"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Grafické"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Nastavení monitoru"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Neurčen monitor"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Nevybrali jste typ monitoru. Doporučuje se, abyste zvolili nejlépe "
-#~ "odpovídající model pro dosažení nejlepší možné kvality zobrazování."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Vybrat typ monitoru"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "Většinou lze monitor detekovat automaticky. Pokud zjištěné nastavení není "
-#~ "správné, vyberte správné nastavení. "
-
-#~ msgid "Restore _original values"
-#~ msgstr "_Obnovit původní hodnoty"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "_Horizontální kmitočet:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "_Vertikální kmitočet:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Nastavení grafického prostředí (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Neznámá videokarta"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Při výběru videokarty %s došlo k chybě. Nahlaste prosím tuto chybu na %s."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Nespecifikovaná videokarta"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Před pokračováním konfigurace X Window musíte zvolit videokartu. Pokud "
-#~ "Chcete konfiguraci přeskočit, zaškrtněte volbu 'Přeskočit nastavování X'."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Váš systém bude nastaven pro použití ovladače framebuffer pro X Window "
-#~ "System. Pokud nechcete nastavit X Window System, zvolte 'Přeskočit "
-#~ "nastavování X' níže."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Velikost vaší video RAM nelze automaticky detekovat. Prosím vyberte "
-#~ "velikost z uvedených možností:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "Ve většině případů lze vaši videokartu automaticky detekovat. Pokud "
-#~ "zjištěné nastavení není správné, vyberte správné nastavení."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "Paměť _videokarty: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "Pře_skočit nastavování X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Zaváděcí disketa umožňuje zavést váš systém %s z diskety. Zaváděcí "
-#~ "disketa vám umožňuje zavést systém, když vaše konfigurace zavaděče "
-#~ "systému nebude fungovat.\n"
-#~ "\n"
-#~ "Doporučuje se vytvořit zaváděcí disketu.\n"
-#~ "\n"
-#~ "Chcete vytvořit zaváděcí disketu?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Zaváděcí disketa"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Vyberte jednotku, na kterou spustit fdasd nebo dasdfmt"
-
-#~ msgid "Next"
-#~ msgstr "Další"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Upravit oddíly"
-
-#~ msgid "Format DASD"
-#~ msgstr "Formátovat DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Rozdělení disků"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Při běhu %s na disku %s došlo k chybě."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Spuštění dasdfmt má za následek zničení\n"
-#~ "VŠECH DAT na jednotce %s.\n"
-#~ "\n"
-#~ "Chcete pokračovat?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Nastala chyba - nebyla nalezena žádná platná zařízení, na nichž by bylo "
-#~ "možné vytvořit nové systémy souborů. Zkontrolujte hardware nebo použijte "
-#~ "dasdfmt.\n"
-#~ "\n"
-#~ "Zpět na obrazovku fdasd?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Vyberte jednotku, na kterou spustit fdisk"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Povolit firewall"
-
-#~ msgid "No firewall"
-#~ msgstr "Žádný firewall"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Povolit příchozí:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Neplatná volba"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Nemůžete nastavovat zakázaný firewall."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Upravit nastavení firewallu"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Na firewallu možná budete chtít povolit ostatním přístup ke konkrétním "
-#~ "službám ve vašem počítači. Ke kterým službám povolit přístup?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Security Enhanced Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "Upravit uživatele"
-
-#~ msgid "Add User"
-#~ msgstr "Přidání uživatele"
-
-#~ msgid "User Name"
-#~ msgstr "Přihlašovací jméno"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Heslo (znovu)"
-
-#~ msgid "Full Name"
-#~ msgstr "Plné jméno"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Špatné přihlašovací jméno"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "Uživatelské jméno může obsahovat pouze znaky A-Z, a-z a 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Chybějící uživatelské jméno"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "Musíte zadat uživatelské jméno"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Heslo musí mít délku nejméně 6 znaků."
-
-#~ msgid "User Exists"
-#~ msgstr "Uživatel již existuje"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "Správce systému (root) je již vytvořen. Tento uživatel zde nemusí být "
-#~ "zakládán."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Tento systémový uživatel je již vytvořen. Tento uživatel zde nemusí být "
-#~ "zakládán."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Toto uživatelské jméno již existuje. Zvolte jiné."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Pro většinu činností byste měli používat normální uživatelský účet. "
-#~ "Nebudete-li zbytečně používat účet root, snížíte pravděpodobnost "
-#~ "poškození vašeho systému."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Vytvoření uživatelského účtu"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Jaké další uživatelské účty chcete mít na tomto počítači? Měli byste mít "
-#~ "alespoň jeden obyčejný účet (ne root) pro normální práci, ale můžete "
-#~ "vytvořit libovolný počet účtů."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Zadávání informací o uživateli."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Změna informací o uživateli."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Používat stínová hesla"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Povolit MD5 hesla"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Povolit NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS doména:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS server:"
-
-#~ msgid "or use:"
-#~ msgstr "nebo:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Dotazovat server všesměrovým vysíláním"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Povolit LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP server:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP Base DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Použít TLS spojení"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Povolit Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Realm:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Admin server:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Barevná hloubka"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Zvolte barevnou hloubku, kterou chcete používat:"
-
-#~ msgid "Resolution"
-#~ msgstr "Rozlišení"
-
-#~ msgid "X Customization"
-#~ msgstr "Vlastní nastavení X"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr "Zvolte barevnou hloubku a rozlišení, které chcete používat. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Barevná hloubka:"
-
-#~ msgid "Change"
-#~ msgstr "Změnit"
-
-#~ msgid "Resolution:"
-#~ msgstr "Rozlišení:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Implicitní desktop"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Implicitní přihlášení:"
-
-#~ msgid "Graphical"
-#~ msgstr "Grafické"
-
-#~ msgid "Text"
-#~ msgstr "Textové"
-
-#~ msgid "Monitor"
-#~ msgstr "Monitor"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Vyberte monitor, který máte k systému připojen."
-
-#~ msgid "horizontal"
-#~ msgstr "horizontální"
-
-#~ msgid "vertical"
-#~ msgstr "vertikální"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Neplatné hodnoty synchronizace"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "Vložená hodnota %s není platná:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Platné hodnoty mohou být zadány ve tvaru:\n"
-#~ "\n"
-#~ "      31.5                   jedno číslo\n"
-#~ "    50.1-90.2                rozsah hodnot\n"
-#~ "31.5,35.0,39.3-40.0          seznam hodnot nebo rozsahů\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Synchronizace monitoru"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Vložte frekvence synchronizace pro váš monitor.\n"
-#~ "\n"
-#~ "Obvykle není nutné měnit přednastavené hodnoty. Pokud je budete měnit, "
-#~ "dejte pozor, aby odpovídaly skutečnosti."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Horizontální: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Vertikální  :"
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Zvolte monitor, který je připojen k vašemu systému. Instalační program "
-#~ "detekoval '%s'"
-
-#~ msgid "Monitor:"
-#~ msgstr "Monitor:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Horizontální:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "Vertikální:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Vybrat typ monitoru"
-
-#~ msgid "Proceed"
-#~ msgstr "Pokračovat"
-
-#~ msgid "Video Card"
-#~ msgstr "Videokarta"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Zvolte videokartu, která je ve vašem systému. Instalační program "
-#~ "detekoval '%s'."
-
-#~ msgid "Video RAM"
-#~ msgstr "Video RAM"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Zvolte velikost video paměti na vaší grafické kartě. Instalační program "
-#~ "detekoval '%s'."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Přeskočit nastavování X"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Nastavení videokarty"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Zvolte typ grafické karty a velikost její paměti."
-
-#~ msgid "Video Card:"
-#~ msgstr "Videokarta:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Neznámá karta"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Paměť videokarty:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Pokud chcete zkontrolovat další médium, vložte jej a stiskněte \"%s\". "
-#~ "Obvykle není potřeba zkontrolovat všechna média, avšak doporučujeme plnou "
-#~ "kontrolu provést alespoň jednou.\n"
-#~ "\n"
-#~ "Chcete-li začít instalaci, vložte CD číslo 1 do mechaniky a stiskněte \"%s"
-#~ "\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Kontrola média %s je kompletní, výsledek je: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Východní standardní čas - central Nunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Velká Británie"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Severní Irsko"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmánie"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "Northeast Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "Jihozápadní Mali"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Podpora dalších jazyků"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Zvolte _implicitní jazyk pro tento systém:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "_Zvolte další jazyky, které chcete do systému nainstalovat:"
-
-#~ msgid "_Select All"
-#~ msgstr "_Vybrat vše"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Zvolit _jen implicitní"
-
-#~ msgid "Rese_t"
-#~ msgstr "_Obnovit původní"
-
-#~ msgid "Select All"
-#~ msgstr "Vybrat vše"
-
-#~ msgid "Reset"
-#~ msgstr "Obnovit"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "Zvolte další jazyky, které chcete v systému používat:"
-
-#~ msgid "Language Support"
-#~ msgstr "Podpora jazyků"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Musíte vybrat alespoň jeden jazyk, který se má nainstalovat."
-
-#~ msgid "Default Language"
-#~ msgstr "Implicitní jazyk"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Zvolte implicitní jazyk pro tento systém: "
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s © 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Pro informace o errata (aktualizacích a opravách chyb) navštivte:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Pro informace o automatických aktualizacích pomocí Red Hat Network "
-#~ "navštivte:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Pro informace o používání a konfiguraci systému navštivte:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Pro registraci produktu pro technickou podporu navštivte:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Nastavení SILO"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Instalovat zavaděč SILO na:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Vytvořit alias pro PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Nastavit implicitní zaváděcí zařízení PROM na Linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Parametry jádra"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Vytvořit zaváděcí disketu"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Neinstalovat SILO"
-
-#~ msgid "Default boot image"
-#~ msgstr "Implicitní obraz pro zavedení systému"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "Nastavení SILO"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Vytvořit PROM alias `linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Nastavit implicitní zaváděcí zařízení PROM"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Kam chcete nainstalovat zavaděč systému?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Zavaděč, který používá systém Red Hat, lze použít i pro zavádění jiných "
-#~ "operačních systémů. Je třeba zadat, ve kterých oddílech jsou tyto systémy "
-#~ "a jméno, které bude použito pro jejich výběr při startu počítače."
-
-#~ msgid "no suggestion"
-#~ msgstr "žádné doporučení"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Použít zavaděč systému _LILO"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Pro LILO nelze změnit pořadí disků"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Změna pořadí disků pro zavaděč LILO není podporována."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Použít LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s Instalační program na %s"
-
-#~ msgid "Total"
-#~ msgstr "Celkem"
-
-#~ msgid "Remaining"
-#~ msgstr "Zbývá"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Instaluji %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Průběh balíčku:   "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Celkový průběh:   "
-
-#~ msgid "Status"
-#~ msgstr "Stav instalace"
-
-#~ msgid "Time"
-#~ msgstr "Čas"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Fyzický oddíl:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) poskytuje přísnější ovládání přístupu "
-#~ "pro zlepšení zabezpečení vašeho systému. Jak chcete tuto podporu povolit?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Zakázat SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Varovat při porušeních"
-
-#~ msgid "Device number:"
-#~ msgstr "Číslo zařízení:"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Východní Argentina (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Zadán neplatný port %s. Správný formát je 'port:protokol', kde port je "
-#~ "mezi 1 a 65535 a protokol je buď 'tcp' nebo 'udp'.\n"
-#~ "\n"
-#~ "Například '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Varování: špatná položka"
-
-#~ msgid "Other _ports:"
-#~ msgstr "_Ostatní porty:"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Důvěryhodná zařízení:"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Pošta (SMTP)"
-
-#~ msgid "Other ports"
-#~ msgstr "Ostatní porty"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Vlastní nastavení firewallu"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Vlastní nastavení firewallu můžete provést dvěma způsoby. Z prvé můžete "
-#~ "povolit všechen provoz z daných síťových rozhraní. Za druhé můžete "
-#~ "nastavit průchod určitých protokolů firewallem. Doplňující porty se "
-#~ "oddělují čárkou a zadávají se ve formě 'služba:protokol', např. 'imap:tcp'"
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Varování: %s není platný port."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Vlastní firewall"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Pokud byste chtěli povolit všechen provoz z nějakého zařízení, vyberte je "
-#~ "níže."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Důvěry_hodná zařízení:"
-
-#~ msgid "Workstation Defaults"
-#~ msgstr "Implicitní pro pracovní stanici"
-
-#~ msgid "Online Help"
-#~ msgstr "Online nápověda"
-
-#~ msgid "Set hostname"
-#~ msgstr "Nastavit jméno počítače"
-
-#~ msgid "Welcome"
-#~ msgstr "Vítejte"
-
-#~ msgid "Personal Desktop Defaults"
-#~ msgstr "Implicitní pro osobní systém"
-
-#~ msgid "Firewall Configuration"
-#~ msgstr "Nastavení firewallu"
-
-#~ msgid "Use _default firewall rules"
-#~ msgstr "Použít _implicitní pravidla pro firewall"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Váš systém bude nastaven pro použití ovladače framebuffer pro X Window "
-#~ "System. Pokud nechcete nastavit X Window System, zvolte 'Přeskočit "
-#~ "nastavování X' níže."
-
-#~ msgid "Generic"
-#~ msgstr "Obecný"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Váš systém bude nastaven pro použití ovladače framebuffer pro X Window "
-#~ "System. Pokud nechcete nastavit X Window System, zvolte 'Přeskočit "
-#~ "nastavování X' níže."
-
-#~ msgid "DASD partitions can only be deleted with fdasd"
-#~ msgstr "Oddíly DASD mohou být odstraněny jen pomocí fdasd"
-
-#~ msgid "You must go back and use fdasd to inititalize this partition"
-#~ msgstr "Musíte se vrátit a pro inicializaci tohoto oddílu použít fdasd"
-
-#~ msgid "Root password is too short."
-#~ msgstr "Heslo správce systému je příliš krátké."
-
-#~ msgid "Root passwords do not match."
-#~ msgstr "Heslo správce systému nesouhlasí."
-
-#~ msgid "Check for _bad blocks"
-#~ msgstr "Při formátování zjišťovat _chybné bloky"
-
-#~ msgid "Location"
-#~ msgstr "Umístění"
-
-#~ msgid ""
-#~ "If you created a boot disk to use to boot your %s system, insert it "
-#~ "before you press <Enter> to reboot.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Pokud jste vytvořili disketu, pomocí které budete zavádět systém %s, "
-#~ "vložte ji do mechaniky před tím, než stisknete Enter pro restart "
-#~ "počítače.\n"
-#~ "\n"
-
-#~ msgid "You must go back and use fdasd to initialize this partition"
-#~ msgstr "Pro inicializaci tohoto oddílu se musíte vrátit a použít fdasd"
