@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-22 00:22+0100\n"
+"PO-Revision-Date: 2006-02-05 23:32+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -563,13 +563,12 @@ msgid "Dump Written"
 msgstr "Minnesdump skriven"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"Systemets tillstånd har skrivits till disketten. Ditt system kommer nu att "
-"startas om."
+"Ditt systemtillstånd har skrivits till disketten utan problem. Ditt system "
+"kommer nu att startas om."
 
 #: ../exception.py:428 ../exception.py:444
 msgid "Dump Not Written"
@@ -2290,8 +2289,13 @@ msgid "Processing"
 msgstr "Bearbetar"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
+msgstr "Förbereder transaktion från installationskälla..."
+
+msgid "Preparing transaction..."
+msgstr "Förbereder transaktion..."
+
+msgid "Preparing installation..."
 msgstr "Förbereder installation..."
 
 #: ../yuminstall.py:134
@@ -2331,7 +2335,7 @@ msgid "Error running transaction"
 msgstr "Fel vid körning av transaktion"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2342,7 +2346,15 @@ msgstr ""
 "kanske ett trasigt paket. Om du installerar från cd-medium kan detta bero på "
 "att cd-mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
 "\n"
-"Tryck \"Försök igen\" för att försöka igen."
+
+msgid ""
+"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
+"perhaps a corrupt package.  If you are installing from CD media this usually "
+"means the CD media is corrupt, or the CD drive is unable to read the media."
+msgstr ""
+"Paketet %s-%s-%s.%s kan inte öppnas. Detta beror på en saknad fil eller "
+"kanske ett trasigt paket. Om du installerar från cd-medium kan detta bero på "
+"att cd-mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2959,15 +2971,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Det logiska volymnamnet \"%s\" används redan. Välj ett annat."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
-"logiska volymstorleken (%10.2f MB). För att höja denna gräns kan du öka "
-"storleken på den fysiska ytan för denna volymgrupp."
+"logiska volymstorleken (%10.2f MB). För att höja denna gräns kan du skapa "
+"fler fysiska volymer från opartitionerad diskyta och lägga till dem i denna "
+"volymgrupp."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4486,9 +4499,8 @@ msgstr ""
 "systemet. Denna fil kan vara bra att spara och använda som referens senare."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Välj den upplösning som du vill använda:"
+msgstr "Välj de paketgrupper som du vill ska installeras."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4919,14 +4931,18 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Vilken eller vilka enheter vill du använda för denna installation?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
+msgstr "Granska partitioneringslayouten"
+
+msgid "Review and Modify Partition Layout"
+msgstr "Granska och ändra partitioneringslayouten"
+
+msgid "Review and modify Partition Layout"
 msgstr "Granska och ändra partitioneringslayouten"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Granska och ändra partitioneringslayouten"
+msgstr "Granska och ändra partitioneringslayouten?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4982,10 +4998,15 @@ msgid "Remaining:  "
 msgstr "Återstår :  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
+msgstr "Val av paket"
+
+msgid "Package group selection"
 msgstr "Val av paketgrupper"
 
+# Borde buggrapporteras...!
+# De extra mellanslagen verkar onödiga.
+#
 #: ../textw/task_text.py:45
 #, python-format
 msgid ""
@@ -4993,6 +5014,27 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Standardinstallationen av %s inkluderar en samling program som är lämpliga "
+"för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
+"systemet ska ha stöd för?"
+
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"include support for?"
+msgstr ""
+"Standardinstallationen av %s inkluderar en samling program som är lämpliga "
+"för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
+"systemet ska ha stöd för?"
+
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general Internet usage.  What additional tasks would you like your system to "
+"include support for?"
+msgstr ""
+"Standardinstallationen av %s inkluderar en samling program som är lämpliga "
+"för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
+"systemet ska ha stöd för?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5174,7 +5216,13 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Kontor och produktivitet"
+
+msgid "Office"
+msgstr "Kontor"
+
+msgid "Productivity"
+msgstr "Produktivitet"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
@@ -5186,7 +5234,10 @@ msgstr "Webbserver"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualisering (Xen)"
+
+msgid "Virtualization"
+msgstr "Virtualisering"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6219,27 +6270,35 @@ msgid "_Release Notes"
 msgstr "_Utgåvenoteringar"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Hur vill du förbereda filsystemet på denna partition?"
+msgstr "Hur vill du få utrymme att partitionera?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"Installationen kräver partitionering av din hårddisk. Som standard väljs en "
-"partitioneringslayout som är vettig för de flesta användare. Du kan välja "
-"att antingen använda denna eller att skapa din egen."
+"Installationen av <product> kräver partitionering av din hårddisk. Du kan "
+"välja att antingen använda standardlayouten för partitionering eller att "
+"skapa din egen."
+
+msgid ""
+"Installing %s requires partitioning of your hard drive.  You can "
+"either use the default partitioning layout or create your own."
+msgstr ""
+"Installationen av %s kräver partitionering av din hårddisk. Du kan "
+"välja att antingen använda standardlayouten för partitionering eller att "
+"skapa din egen."
 
 #: tmp/autopart2.glade.h:3
 msgid "Select the drive(s) to use for this installation."
 msgstr "Välj den eller de hårddiskar som ska användas för denna installation."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
+msgstr "_Granska och ändra partitioneringslayouten"
+
+msgid "Review and modify partitioning layout"
 msgstr "Granska och ändra partitioneringslayouten"
 
 #: tmp/autopart.glade.h:2
@@ -6259,16 +6318,23 @@ msgid "_Exception details"
 msgstr "_Detaljer om undantagsfel"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Anpassa uppgraderingen"
+msgstr "Anpassa _senare"
+
+msgid "Customize later"
+msgstr "Anpassa senare"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Ytterligare anpassningar av valet av programvara kan slutföras nu eller "
+"efter installationen via programmet för programvaruhantering."
 
+# Borde buggrapporteras...!
+# De extra mellanslagen verkar onödiga.
+#
 #: tmp/tasksel.glade.h:4
 #, no-c-format
 msgid ""
@@ -6276,10 +6342,18 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Standardinstallationen av %s inkluderar en samling program som är lämpliga "
+"för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
+"systemet ska ha stöd för?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
+msgstr "_Anpassa nu"
+
+msgid "Customize now"
+msgstr "Anpassa nu"
+
+msgid "_Customize"
 msgstr "_Anpassa"
 
 #. generated from zone.tab
@@ -6331,13 +6405,15 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlanttid - Ö Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlanttid - Ö Labrador"
+msgstr "Atlanttid - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
+msgstr "Atlanttid - Nova Scotia (större delen), V Labrador, Ö Quebec och PEI"
+
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlanttid - Nova Scotia (större delen), NB, V Labrador, Ö Quebec och PEI"
 
@@ -6412,20 +6488,22 @@ msgstr "Centraltid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 msgstr ""
+"Centraltid - Indiana - Daviess, Dubois, Knox, Martin, Perry och Pulaski"
+
+msgid "Central Time - Indiana - Davies, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr "Centraltid - Indiana - Davies, Dubois, Knox, Martin, Perry och Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Östlig standardtid - Indiana - Starke County"
+msgstr "Centraltid - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Centraltid - Manitoba och västra Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Centraltid - gränsen mellan Michigan och Wisconsin"
+msgstr "Centraltid - Michigan - Länen Dickinson, Gogebic, Iron och Menominee"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6500,24 +6578,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Östlig tid - östra Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Östlig standardtid - Indiana - Crawford County"
+msgstr "Östlig tid - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Östlig standardtid - Indiana - större delen"
+msgstr "Östlig tid - Indiana - större delen"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Östlig standardtid - Indiana - Starke County"
+msgstr "Östlig tid - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Östlig normaltid - Indiana - Switzerland County"
+msgstr "Östlig tid - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7111,9 +7185,11 @@ msgid "Serbian"
 msgstr "Serbiska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Serbiska"
+msgstr "Serbiska(latin)"
+
+msgid "Serbian (Latin)"
+msgstr "Serbiska (latin)"
 
 #. generated from lang-table
 msgid "Slovak"
