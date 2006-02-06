@@ -126,9 +126,15 @@ def get_partition_name(partition):
         partition.geom.dev.type == parted.DEVICE_SX8):
         return "%sp%d" % (partition.geom.dev.path[5:],
                           partition.num)
-                          
-    return "%s%d" % (partition.geom.dev.path[5:],
-                     partition.num)
+
+    drive = partition.geom.dev.path[5:]
+    if (drive.startswith("cciss") or drive.startswith("ida") or
+            drive.startswith("rd") or drive.startswith("sx8") or
+            drive.startswith("mapper")):
+        sep = "p"
+    else:
+        sep = ""
+    return "%s%s%d" % (partition.geom.dev.path[5:], sep, partition.num)
 
 
 def get_partition_file_system_type(part):

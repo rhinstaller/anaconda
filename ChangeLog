@@ -1,3 +1,11 @@
+2006-02-06  Peter Jones  <pjones@redhat.com>
+
+	* iutil.py (makeDriveDeviceNodes): don't try to make devices in
+	mapper/
+
+	* partedUtils.py (get_partition_name): use the same rules for
+	partition naming as parted and iutil.py
+
 2006-02-06  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec:  Build requires libXt-devel.

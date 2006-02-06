@@ -440,6 +440,8 @@ def makeDriveDeviceNodes():
     
     hardDrives = isys.hardDriveDict()
     for drive in hardDrives.keys():
+        if drive.startswith("mapper"):
+            continue
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
 
         if drive.startswith("hd"):
