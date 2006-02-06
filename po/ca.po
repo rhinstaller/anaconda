@@ -1,5 +1,5 @@
 # Catalan translations for anaconda package.
-# Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation
+# Copyright © 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anaconda package.
 # Jordi Jover <jordijn@softcatala.org>, 2003.
 # Mireia Farrús <mifarrus@softcatala.org>, 2003.
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-26 22:57+0100\n"
+"PO-Revision-Date: 2006-02-06 23:54+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -590,13 +590,12 @@ msgid "Dump Written"
 msgstr "S'ha escrit el bolcat"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"L'estat del sistema s'ha escrit correctament al disquet. S'arrencarà de nou "
-"el sistema."
+"L'estat del sistema s'ha escrit correctament al disquet. Ara s'arrencarà de "
+"nou el sistema."
 
 #: ../exception.py:428 ../exception.py:444
 msgid "Dump Not Written"
@@ -1296,7 +1295,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Actualment /dev/%s té un format de particions %s. Per utilitzar aquest disc "
+"Actualment /dev/%s té un esquema de particions %s. Per utilitzar aquest disc "
 "per a la instal·lació de %s, s'ha de reinicialitzar, causant-ne la pèrdua de "
 "totes les dades.\n"
 "\n"
@@ -2313,9 +2312,8 @@ msgid "Processing"
 msgstr "S'està processant"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "S'està preparant per instal·lar..."
+msgstr "S'està preparant la transacció de la font de la instal·lació..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -2354,7 +2352,7 @@ msgid "Error running transaction"
 msgstr "S'està produït un error en executar la transacció"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2365,8 +2363,6 @@ msgstr ""
 "d'algun fitxer, o a un paquet corromput. Si esteu instal·lant des d'un CD "
 "això normalment vol dir que el CD està corromput, o que el dispositiu de CD "
 "no pot llegir el medi.\n"
-"\n"
-"Premeu 'Reintenta' per provar-ho altra vegada."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2986,15 +2982,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "El nom del volum lògic «%s» ja s'utilitza. Escolliu-ne un altre."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "La mida sol·licitada (%10.2f MB) és més gran que la mida màxima del volum "
-"lògic (%10.2f MB). Per incrementar aquest límit heu d'incrementar l'extensió "
-"física per a aquest grup de volum."
+"lògic (%10.2f MB). Per incrementar aquest límit podeu crear més volums "
+"físics a partir d'espai de disc sense particionar, i afegir-los a aquest "
+"grup de volum."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4018,9 +4015,9 @@ msgstr ""
 "Eina per clonar unitats\n"
 "\n"
 "Amb aquesta eina reduireu l'esforç necessari per configurar grups RAID. Es "
-"tracta de seleccionar la unitat origen que s'ha preparat amb la disposició "
-"de particions apropiada i clonar la disposició en unitats de mides similars. "
-"Així podreu crear un dispositiu RAID.\n"
+"tracta de seleccionar la unitat origen que s'ha preparat amb l'esquema de "
+"particions apropiada i clonar l'esquema en unitats de mides similars. Així "
+"podreu crear un dispositiu RAID.\n"
 "\n"
 "Atenció: la unitat origen ha de tenir particions restringides a aquesta "
 "unitat només, i tan sols poden contenir particions RAID de programari sense "
@@ -4518,9 +4515,8 @@ msgstr ""
 "per si us cal més endavant."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Seleccioneu la resolució que vulgueu utilitzar:"
+msgstr "Seleccioneu els grups de paquets que vulgueu tenir instal·lats."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4953,14 +4949,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Quines unitats voleu utilitzar per a aquesta instal·lació?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Re_visa i modifica les particions creades"
+msgstr "Revisa l'esquema de particions "
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Re_visa i modifica les particions creades"
+msgstr "Voleu revisar i modificar l'esquema de particions?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5016,9 +5010,8 @@ msgid "Remaining:  "
 msgstr "Restants:   "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Selecció de grup de paquets"
+msgstr "Selecció de paquets"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5027,6 +5020,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"La instal·lació per defecte de %s inclou un conjunt de programari aplicable "
+"a l'ús general d'internet. Quines altres tasques addicionals voldríeu "
+"incloure en aquest sistema?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5210,20 +5206,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Oficina i productivitat"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Desenvolupament de programari"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
 msgstr "Servidor web"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualització (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6256,33 +6251,28 @@ msgid "_Release Notes"
 msgstr "Info_rmació de la versió"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Com voleu preparar el sistema de fitxers en aquesta partició?"
+msgstr "Com voleu obtenir espai per a partir?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"La instal·lació requereix que es parteixi el disc. Per defecte, es fa un "
-"esquema de particions que funciona per a la majoria d'usuaris. Podeu "
-"utilitzar aquest esquema o crear-ne un de nou."
+"La instal·lació de <product> requereix que es parteixi el disc. Podeu "
+"utilitzar l'esquema de particions per defecte, o crear-ne un de nou."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació."
+msgstr "Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "Re_visa i modifica les particions creades"
+msgstr "_Revisa i modifica l'esquema de particions"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "Re_visa i modifica les particions creades"
+msgstr "Re_visa i modifica l'esquema de particions"
 
 #: tmp/autopart.glade.h:3
 msgid "_Select the drive(s) to use for this installation."
@@ -6297,15 +6287,16 @@ msgid "_Exception details"
 msgstr "Detalls de l'excepció"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Personalitzat"
+msgstr "Persona_litza més tard"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"La personalització de la selecció del programari es pot completar ara, o "
+"també es pot fer més tard amb l'aplicació de gestió de programari."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6314,11 +6305,13 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"La instal·lació per defecte de %s inclou un conjunt de programari aplicable "
+"a l'ús general d'internet. Quines altres tasques addicionals voldríeu "
+"incloure en aquest sistema?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Personalitzat"
+msgstr "Personalitza _ara"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6369,15 +6362,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantic Time - E Labrador"
+msgstr "Atlantic Time - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6450,21 +6440,20 @@ msgstr "Temps central - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Temps central - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Temps central - Manitoba & Ontario oest"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Temps central - Michigan - Wisconsin border"
+msgstr ""
+"Temps central - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6539,24 +6528,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Eastern Time - east Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Eastern Standard Time - Indiana - Crawford County"
+msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - most locations"
+msgstr "Eastern Time - Indiana - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Eastern Time - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Eastern Standard Time - Indiana - Switzerland County"
+msgstr "Eastern Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7152,9 +7137,8 @@ msgid "Serbian"
 msgstr "Serbi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Serbi"
+msgstr "Serbi (Llatí)"
 
 #. generated from lang-table
 msgid "Slovak"
