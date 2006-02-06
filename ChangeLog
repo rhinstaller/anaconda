@@ -1,5 +1,8 @@
 2006-02-06  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (FileSystemSet.mkDevRoot): Ensure /dev/root exists
+	before stat'ing (Patrick Mansfield, <patmans AT us DOT ibm DOT com>
+
 	* yuminstall.py (AnacondaYum.isGroupInstalled): Add method that
 	pirut depends on now
 
