@@ -533,6 +533,12 @@ class AnacondaYum(YumSorter):
             return True
         return False
 
+    def simpleDBInstalled(self, name):
+        # FIXME: this is used in pirut because of slow stuff in yum
+        # given that we're on a new system, nothing is ever installed in the
+        # rpmdb
+        return False
+
     def downloadHeader(self, po):
         tries = 0
         while tries < 5:
