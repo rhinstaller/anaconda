@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-17 01:31+0000\n"
+"PO-Revision-Date: 2006-02-06 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -561,7 +561,6 @@ msgid "Dump Written"
 msgstr "Dump ritað"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -2261,12 +2260,11 @@ msgid "Processing"
 msgstr "Vinnsla"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Undirbý uppsetningu..."
+msgstr "Undirbý uppsetningu frá uppsetningarstaðsetningunni..."
 
 #: ../yuminstall.py:134
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2274,7 +2272,7 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Ekki var hægt að opna pakkann %s-%s-%s. Þetta orsakast af skrá sem vantar "
+"Ekki var hægt að opna pakkann %s-%s-%s.%s Þetta orsakast af skrá sem vantar "
 "eða skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast "
 "að hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
 "\n"
@@ -2301,18 +2299,17 @@ msgid "Error running transaction"
 msgstr "Villa við að keyra færsluna"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Ekki var hægt að opna pakkann %s-%s-%s. Þetta orsakast af skrá sem vantar "
+"Ekki var hægt að opna pakkann %s-%s-%s.%s Þetta orsakast af skrá sem vantar "
 "eða skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast "
 "að hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
 "\n"
-"Sláðu á 'Reyna aftur' til að reyna aftur."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2922,15 +2919,15 @@ msgstr ""
 "Heiti sýndardisksins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Umbeðin stærð (%10.2f MB) er stærri en hámarksstærð sýndardiska (%10.2f MB). "
-"Til þess að hækka þetta þak getur þú stækkað stærð raundiskabúta þessa "
-"sýndardiskahóps."
+"Til þess að hækka þetta þak getur þú búið til fleiri raundiska á öðrum diskum "
+"og bætt þeim við þennan sýndardiskhóp."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4440,7 +4437,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "Vinsamlega veldu þá pakkahópa sem þú vilt setja inn."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4871,14 +4868,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvaða harða diska viltu nota fyrir Linux?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
+msgstr "Endurskoða disksneiðar"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
+msgstr "Endurskoða og breyta ef þarf disksneiðunum?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4934,9 +4929,8 @@ msgid "Remaining:  "
 msgstr "Eftir    :  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Velja pakkahópa"
+msgstr "Velja pakka"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4945,6 +4939,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Sjálfgefin uppsetning %s inniheldur hugbúnað sem hentar vel til almennrar "
+"notkunar internetsins. Hvað fleira viltu að vélin þín geti gert en það?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5127,20 +5123,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Skrifstofu og framleiðnitól"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Hugnúnaðarþróun"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Nafnaþjónn"
+msgstr "Vefþjónn"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Sýndarþjónar (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6159,29 +6154,24 @@ msgid "_Release Notes"
 msgstr "Ú_tgáfuupplýsingar"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Hvernig viltu undirbúa skráarkerfið á þessari disksneið?"
+msgstr "Hvernig viltu nálgast pláss til að sneiða?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"Til þess að setja upp stýrikerfið þarftu að sneiða harða diskinn. Sjálfgefið "
-"er disknum hlutað niður þannig að það henti sem flestum.  Þú átt þann kost "
-"að nota sjálfgefnu sneiðarnar eða búa til þínar eigin."
+"Til þess að setja upp <product> þarftu að sneiða harða diskinn. Þú átt "
+"þann kost að nota sjálfgefnu sneiðarnar eða búa til þínar eigin."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu."
+msgstr "Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
+msgstr "_Endurskoða og breyta ef þarf disksneiðunum"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6201,13 +6191,15 @@ msgstr "_Upplýsingar um óeðlilega ástandið"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "Sérsníða síð_ar"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Það er hægt að sérsníða pakkavalið núna eða eftir að uppsetningu er lokið "
+"með pakkastjóranum."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6216,11 +6208,12 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Sjálfgefin uppsetning %s inniheldur hugbúnað sem hentar vel til almennrar "
+"notkunar internetsins. Hvað fleira viltu að vélin þín geti gert en það?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "_Sérsniðið"
+msgstr "_Sérsníða nú"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6271,15 +6264,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantic Time - E Labrador"
+msgstr "Atlantic Time - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6323,7 +6313,7 @@ msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr "Central Crimea"
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -6351,21 +6341,19 @@ msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Central Time - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Central Time - Michigan - Wisconsin border"
+msgstr "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6440,24 +6428,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Eastern Time - east Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Eastern Standard Time - Indiana - Crawford County"
+msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - flestir staðir"
+msgstr "Eastern Time - Indiana - flestir staðir"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Eastern Time - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Eastern Standard Time - Indiana - Switzerland County"
+msgstr "Eastern Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7052,9 +7036,8 @@ msgid "Serbian"
 msgstr "Serbneska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Serbneska"
+msgstr "Serbneska(Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7099,229 +7082,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Þessi hópur inniheldur alla pakkana sem koma með dreifingunni. Athugaðu "
-#~ "að þetta eru talsvert fleiri pakkar en eru í hinum pakkahópunum á þessari "
-#~ "síðu."
-
-#~ msgid "Everything"
-#~ msgstr "Allt"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Veldu þennan hóp til að setja upp lágmarks uppsetningu. Hún er gagnleg "
-#~ "til að setja upp litla eldveggi eða beina."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Ýmislegt"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Þú ert að reyna að setja upp á vél sem er ekki studd af þessari útgáfu af "
-#~ "%s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Sjálfvirk disksneiðing"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Ég vil sneiða diskinn sjálfvirkt:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Breyta ræsistjóra"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Þú hefur kosið að setja ekki upp ræsistjóra. Við mælum eindregið með að "
-#~ "ræsistjóri sé uppsettur nema þú hafir einhverjar sérþarfir. Ræsistjóri er "
-#~ "nauðsynlegur til þess að ræsa upp Linux beint af harða disknum þínum. \n"
-#~ "\n"
-#~ "Ertu viss um að þú viljir sleppa uppsetningu ræsistjóra?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "H_alda áfram án ræsistjóra"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Vinsamlegast veldu þann ræsistjóra sem þú vilt nota. GRUB er sjálfgefni "
-#~ "ræsistjórinn. Viljir þú ekki rita yfir núverandi ræsistjóra skaltu velja "
-#~ "hnappinn \"Ekki setja upp ræsistjóra\".  "
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Nota _GRUB ræsistjórann"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Ekki setja upp ræsistjóra"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_Breyta ræsistjóra"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Óuppfyllt pakkaskilyrði"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Samanlögð stærð uppsetningar: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Þarfnast"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_Setja inn pakka til að uppfylla þarfir annarra pakka"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "_Ekki setja inn pakka sem þarfnast annara pakka"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "_Hunsa pakkaskilyrði"
-
-#~ msgid "Package Defaults"
-#~ msgstr "Sjálfgefnir pakkar"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Sjálfgefna uppsetningin inniheldur alla þá pakka sem við mælum með fyrir "
-#~ "þessa gerð uppsetningar eins og:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka "
-#~ "með 'system-config-packages' tólinu.\n"
-#~ "\n"
-#~ "Ef þú ert vanur að nota %s getur þú valið pakka sem þú vilt setja inn eða "
-#~ "ekki setja inn með því að haka við í boxið hér að neðan."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Ef þú vilt breyta sjálfgefnum pökkunum sem verða uppsettir getur þú "
-#~ "sérsniðið þá hér fyrir neðan."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "S_etja inn sjálfgefnu pakkana"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Sérsníða pakka sem á að setja inn"
-
-#~ msgid "Packages in %s"
-#~ msgstr "Pakkar í %s"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Engin lýsing tiltæk fyrir %s.\n"
-#~ "\n"
-
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "[%d af %d aukapökkum uppsettir]"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Sjálfgefna uppsetningin inniheldur alla þá pakka sem við mælum með fyrir "
-#~ "þá gerð uppsetningar sem þú velur. Eftir að uppsetningu er lokið getur þú "
-#~ "bætt við eða hent út hugbúnaði með 'system-config-packages' tólinu.\n"
-#~ "\n"
-#~ "Með %s fylgir hinsvegar miklu meira af hugbúnaði og þó getur sérsniðið "
-#~ "hvaða hugbúnað þú vilt nota."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Velja hvern pakka fyrir sig"
-
-#~ msgid "Package :"
-#~ msgstr "Pakki   :"
-
-#~ msgid "Size    :"
-#~ msgstr "Stærð   :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f Kbæti"
-
-#~ msgid "Total size"
-#~ msgstr "Heildarstærð"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Val einstakra pakka"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "  <Bilslá>,<+>,<-> velur       |   <F1> hjálp  |   <F2> pakkalýsingar"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Pakkaskilyrði"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Sumir pakkanna sem þú valdir til uppsetningar þarfnast annarra pakka sem "
-#~ "þú valdir ekki. Ef þú velur 'Í lagi' mun öllum þessum pökkum sem uppá "
-#~ "vantar verða bætt við."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Setja inn pakka til að uppfylla þarfir annarra pakka"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Ekki setja inn pakka sem þarfnast annara pakka"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Hunsa pakkaskilyrði"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "Sumir pakkanna í þessum hóp þarf ekki að setja inn en geta veitt aukna "
-#~ "virkni. Vilnsamlega veldu þá pakka sem þú vilt setja inn."
-
-#~ msgid "_Optional packages"
-#~ msgstr "_Aukapakkar"
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
