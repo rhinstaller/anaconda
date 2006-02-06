@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.14
+Version: 10.91.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb  6 2006 Jeremy Katz <katzj@redhat.com> - 10.91.15-1
+- Remove debugging code that broke showing the Xen option on the task screen
+- More sqlite files (#171232)
+- Fix traceback for new method pirut depends on
+- Ensure /dev/root exists (Patrick Mansfield)
+- Force buttonbar on main screen active in congrats (dcantrel, #179924)
+- Always pass loglevel (dcantrel)
+- BR libXt-devel (dcantrel)
+- Don't try to make /dev/mapper devs (pjones)
+- More consistency in dev naming for dmraid (pjones)
+- Start of iscsi patches (Patrick Mansfield)
+- Fix pre-existing RAID chunksize reading (#178291)
+
 * Fri Feb  3 2006 Jeremy Katz <katzj@redhat.com> - 10.91.14-1
 - Handle reiserfs labels (dcantrel, #125939)
 - Skip more steps in root mode (Jasper Hartline)
