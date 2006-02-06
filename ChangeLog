@@ -1,5 +1,8 @@
 2006-02-06  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (FileSystemSet.mkDevRoot): Don't create it if it
+	already exists (eg, lvm)
+
 	* partitions.py (Partitions.setFromDisk): Fix reading of chunksize
 	from pre-existing RAID (#178291)
 

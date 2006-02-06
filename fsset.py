@@ -1278,7 +1278,8 @@ MAILADDR root
     def mkDevRoot(self, instPath):
         root = self.getEntryByMountPoint("/")
         dev = "%s/dev/%s" % (instPath, root.device.getDevice())
-        isys.makeDevInode(root.device.getDevice(), dev)        
+        if not os.path.exists(dev):
+            isys.makeDevInode(root.device.getDevice(), dev)        
         rdev = os.stat(dev).st_rdev
         
         os.mknod("%s/dev/root" % (instPath,), stat.S_IFBLK | 0600, rdev)
