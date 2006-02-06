@@ -366,7 +366,7 @@ static void checkForHardDrives(int * flagsPtr) {
     struct device ** devices;
 
     devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
-    if (devices)
+    if (devices || FL_ISCSI(flags))
         return;
 
     /* If they're using kickstart, assume they might know what they're doing.
@@ -677,6 +677,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 !strncasecmp(argv[i], "vnc", 3) ||
 		!strncasecmp(argv[i], "vncconnect=", 11) ||
                 !strncasecmp(argv[i], "headless", 8) ||
+                !strncasecmp(argv[i], "iscsi", 5) ||
                 !strncasecmp(argv[i], "usefbx", 6) ||
                 !strncasecmp(argv[i], "dmraid", 6) ||
                 !strncasecmp(argv[i], "nodmraid", 8) ||
@@ -686,6 +687,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
 		/* vnc implies graphical */
 		if (!strncasecmp(argv[i], "vnc", 3))
 		    flags |= LOADER_FLAGS_GRAPHICAL;
+		else if (!strncasecmp(argv[i], "iscsi", 5))
+		    flags |= LOADER_FLAGS_ISCSI;
 
                 arglen = strlen(argv[i])+3;
                 extraArgs[numExtraArgs] = (char *) malloc(arglen*sizeof(char));
@@ -963,7 +966,8 @@ static char *doLoaderMain(char * location,
 
         case STEP_NETWORK:
             if ( (installMethods[validMethods[methodNum]].deviceType != 
-                  CLASS_NETWORK) && (!hasGraphicalOverride())) {
+                  CLASS_NETWORK) && (!hasGraphicalOverride()) &&
+                 !FL_ISCSI(flags)) {
                 needsNetwork = 0;
                 if (dir == 1) 
                     step = STEP_URL;

@@ -245,6 +245,9 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 #if defined(__s390__) || defined(__s390x__)
     mlLoadModule("zfcp", modLoaded, modDeps, modInfo, NULL, flags);
 #endif
+    if (FL_ISCSI(flags))
+        mlLoadModule("iscsi_tcp", modLoaded, modDeps, modInfo, NULL, flags);
+
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,

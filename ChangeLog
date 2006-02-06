@@ -1,3 +1,10 @@
+2006-02-06  Patrick Mansfield <patmans@us.ibm.com>
+
+	* loader2/hardware.c: Load iscsi modules if requested.
+	* loader2/loader.c: Add iscsi flag parsing.  Ask for network if
+	iscsi is being used.
+	* loader2/loader.h: Add iscsi flag.
+
 2006-02-06  Peter Jones  <pjones@redhat.com>
 
 	* iutil.py (makeDriveDeviceNodes): don't try to make devices in
