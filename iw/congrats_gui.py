@@ -28,6 +28,10 @@ class CongratulationWindow (InstallWindow):
         ics.setPrevEnabled(False)
         ics.setHelpButtonEnabled(False)
         ics.setHelpEnabled(False)
+
+        # force buttonbar on in case release notes viewer is running
+        ics.cw.mainxml.get_widget("buttonBar").set_sensitive(True)
+
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
