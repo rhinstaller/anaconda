@@ -1564,7 +1564,7 @@ int main(int argc, char ** argv) {
             *argptr++ = loaderData.kbd;
         }
 
-        if ((loaderData.logLevel) && !FL_NOPASS(flags)) {
+        if (loaderData.logLevel) {
             *argptr++ = "--loglevel";
             *argptr++ = loaderData.logLevel;
         }

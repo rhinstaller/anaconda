@@ -2,6 +2,8 @@
 
 	* anaconda.spec:  Build requires libXt-devel.
 
+	* loader2/loader.c:  Pass --loglevel if nopass is set or not.
+
 2006-02-06  Jeremy Katz  <katzj@redhat.com>
 
 	* fsset.py (FileSystemSet.mkDevRoot): Ensure /dev/root exists
