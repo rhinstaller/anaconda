@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-15 23:57+0100\n"
+"PO-Revision-Date: 2006-02-07 22:34+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -585,7 +585,6 @@ msgid "Dump Written"
 msgstr "Dump geschreven"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -1295,7 +1294,7 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"De partitietabel op apparaat /dev/%s is van een type %s.  Om deze schijf te "
+"De partitieopmaak op apparaat /dev/%s is van een type %s. Om deze schijf te "
 "gebruiken voor de installatie van %s, moet deze opnieuw geïnitialiseerd "
 "worden. Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
@@ -2335,9 +2334,8 @@ msgid "Processing"
 msgstr "Verwerken"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "De installatie wordt nu voorbereid..."
+msgstr "De transactie vanaf de installatiebron wordt nu voorbereid..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -2377,7 +2375,7 @@ msgid "Error running transaction"
 msgstr "Fout bij het uitvoeren van transactie"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2389,7 +2387,6 @@ msgstr ""
 "installeert wordt dit meestal veroorzaakt door een defect op de CD of een CD-"
 "Rom speler die de CD niet goed kan lezen.\n"
 "\n"
-"Druk op 'Opnieuw' om het nogmaals te proberen."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -3017,15 +3014,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "De logisch volumenaam \"%s\" is reeds in gebruik. Kies een andere."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"De grootte (%10.2f MB) die momenteel verzocht wordt is groter dan de maximum "
-"logische volume-grootte (%10.2f MB). Om deze limiet te verhogen, kunt u de "
-"fysieke afmeting voor deze Volumegroep vergroten."
+"De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
+"maximum logische volume-grootte (%10.2f MB). Om deze limiet te verhogen kunt "
+"u meer fysieke volumes vanuit ongepartioneerde diskruimte creëren en deze toe "
+"voegen aan deze volumegroep."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4070,8 +4068,8 @@ msgstr ""
 "Station klonen hulp\n"
 "\n"
 "Deze hulp biedt u de mogelijkheid om zonder veel moeite een RAID-opstelling "
-"te maken. Het idee is om een bron-station te nemen die opgezet is met het "
-"gewenste partitie-schema en dit schema vervolgens te klonen naar andere "
+"te maken. Het idee is om een bron-station te nemen die opgezet is met de "
+"gewenste partitieopmaak en deze opmaak vervolgens te klonen naar andere "
 "stations van gelijke grootte.  Daarna kan eenvoudig een RAID-opstelling "
 "worden gemaakt.\n"
 "\n"
@@ -4576,9 +4574,8 @@ msgstr ""
 "in %s. Het is handig dit bestand te bewaren voor referentiedoeleinden."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Selecteer de gewenste resolutie:"
+msgstr "Selecteer de pakketgroepen die u geïnstalleerd wilt hebben."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4588,7 +4585,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
-msgstr "Pakket groep details"
+msgstr "Pakketgroep details"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -4939,8 +4936,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
-"De grootte (%10.2f MB) die momenteel verzocht wordt is groter dan de maximum "
-"logische volume-grootte (%10.2f MB). "
+"De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
+"maximum logische volume-grootte (%10.2f MB). "
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -4948,7 +4945,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
-"De grootte (%10.2f MB) die momenteel verzocht wordt is groter dan de "
+"De grootte (%10.2f MB), die momenteel verzocht wordt, is groter dan de "
 "beschikbare grootte in de volumegroep (%10.2f MB)."
 
 #: ../textw/partition_text.py:1365
@@ -5005,22 +5002,20 @@ msgid ""
 "either choose to use this or create your own."
 msgstr ""
 "Installatie vereist partitionering van uw harde schijf. Standaard wordt een "
-"partitionerings-layout gekozen die geschikt is voor de meeste gebruikers. U "
-"kunt ervoor kiezen om deze te gebruiken of om er zelf een aan te maken."
+"partitieopmaak gekozen die geschikt is voor de meeste gebruikers. U kunt "
+"ervoor kiezen om deze te gebruiken of om er zelf een aan te maken."
 
 #: ../textw/partition_text.py:1544
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Welke station(s) wilt u gebruiken voor de installatie?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "De partitie-layout herzien en _aanpassen"
+msgstr "Partitieopmaak herzien"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "De partitie-layout herzien en _aanpassen"
+msgstr "De partitieopmaak herzien en aanpassen?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5037,7 +5032,7 @@ msgstr "Downloaden - %s"
 
 #: ../textw/progress_text.py:99
 msgid "Package Installation"
-msgstr "Pakket installatie"
+msgstr "Pakketinstallatie"
 
 #: ../textw/progress_text.py:101
 msgid " Name   : "
@@ -5076,9 +5071,8 @@ msgid "Remaining:  "
 msgstr "Resterend:  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Pakketgroepen selecteren"
+msgstr "Pakketselectie"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5087,6 +5081,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"De standaardinstallatie van %s bevat een software-verzameling die gebruikt "
+"kan worden voor algemeen internet-gebruik. Voor welke additionele taken wilt "
+"u dat uw systeem ondersteuning biedt?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5271,20 +5268,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Kantoor en productiviteit"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Software-ontwikkeling"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Web Server"
+msgstr "Webserver"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualisatie (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5637,9 +5633,9 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Welk stuurprogramma zal ik proberen? Als het benodigde stuurprogramma niet "
-"in de lijst voorkomt en u hebt een aparte stuurprogramma-diskette, druk dan "
-"op F2."
+"Selecteer het stuurprogramma dat u wilt laden. Als het benodigde "
+"stuurprogramma niet in de lijst voorkomt, en u hebt een aparte "
+"stuurprogramma-diskette, druk dan op F2."
 
 #: ../loader2/driverselect.c:209
 msgid "Specify optional module arguments"
@@ -5647,7 +5643,7 @@ msgstr "Optionele module-parameters opgeven"
 
 #: ../loader2/driverselect.c:229
 msgid "Select Device Driver to Load"
-msgstr "Kies een stuurprogramma"
+msgstr "Selecteer een stuurprogramma"
 
 #: ../loader2/firewire.c:52 ../loader2/windows.c:65
 #, c-format
@@ -5849,7 +5845,7 @@ msgstr "Geen stuurprogramma gevonden"
 
 #: ../loader2/loader.c:924
 msgid "Select driver"
-msgstr "Kies stuurprogramma"
+msgstr "Stuurprogramma selecteren"
 
 #: ../loader2/loader.c:925
 msgid "Use a driver disk"
@@ -6323,33 +6319,29 @@ msgid "_Release Notes"
 msgstr "Versie-_informatie"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Wat wilt u met het bestandssysteem op deze partitie doen?"
+msgstr "Hoe wilt u aan ruimte komen om te partitioneren?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
 "Installatie vereist partitionering van uw harde schijf. Standaard wordt een "
-"partitionerings-layout gekozen die geschikt is voor de meeste gebruikers. U "
+"partitionerings-opmaak gekozen die geschikt is voor de meeste gebruikers. U "
 "kunt ervoor kiezen om deze te gebruiken of om er zelf een aan te maken."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Kies de station(s) die u voor deze installatie wilt gebruiken."
+msgstr "Kies de station(s) die u voor deze installatie wilt gebruiken."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "De partitie-layout herzien en _aanpassen"
+msgstr "De partitieopmaak herzien en _aanpassen"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "De partitie-layout herzien en _aanpassen"
+msgstr "De partitieopmaak herzien en _aanpassen"
 
 #: tmp/autopart.glade.h:3
 msgid "_Select the drive(s) to use for this installation."
@@ -6364,15 +6356,16 @@ msgid "_Exception details"
 msgstr "_Uitzondering details"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Aanpassen"
+msgstr "_Later aanpassen"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Verdere aanpassingen aan de software-selectie kunnen nu worden voltooid of "
+"na de installatie met behulp van de software-beheer applicatie."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6381,11 +6374,13 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"De standaardinstallatie van %s bevat een software-verzameling die gebruikt "
+"kan worden voor algemeen internet-gebruik. Voor welke additionele taken wilt "
+"u dat uw systeem ondersteuning biedt?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "_Aanpassen"
+msgstr "_Nu aanpassen"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6436,16 +6431,13 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantische Tijd - E Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantische Tijd - E Labrador"
+msgstr "Atlantische Tijd - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
-"Atlantische Tijd - Nova Scotia (meeste plaatsen), NB, W Labrador, E Quebec & "
-"PEI"
+"Atlantische Tijd - Nova Scotia (meeste plaatsen), W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6519,21 +6511,19 @@ msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Central Time - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Central Time - Michigan - Wisconsin grens"
+msgstr "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6608,24 +6598,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Eastern Time - oost Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Eastern Standard Time - Indiana - Crawford County"
+msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - meeste lokaties"
+msgstr "Eastern Time - Indiana - meeste lokaties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Eastern Standard Time - Indiana - Starke County"
+msgstr "Eastern Time - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Eastern Standard Time - Indiana - Switzerland County"
+msgstr "Eastern Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7225,9 +7211,8 @@ msgstr "Servisch"
 
 # arabisch?
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Servisch"
+msgstr "Servisch(Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
