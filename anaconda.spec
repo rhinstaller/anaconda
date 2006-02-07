@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.15
+Version: 10.91.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb  6 2006 Jeremy Katz <katzj@redhat.com> - 10.91.16-1
+- fix writing out instdata for root password, etc (#180310)
+
 * Mon Feb  6 2006 Jeremy Katz <katzj@redhat.com> - 10.91.15-1
 - Remove debugging code that broke showing the Xen option on the task screen
 - More sqlite files (#171232)
