@@ -1,3 +1,4 @@
+# translation of ko.po to 
 # translation of ko.po to Korean
 # Michelle J Kim <mkim@redhat.com>, 2003,2004.
 # David Sungmin Joo <djoo@redhat.com>, 2004.
@@ -8,9 +9,9 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-16 11:31+1000\n"
-"Last-Translator: Michelle Ji Yeen Kim <mkim@redhat.com>\n"
-"Language-Team: Korean\n"
+"PO-Revision-Date: 2006-02-07 11:37+1000\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -249,10 +250,8 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다."
 
 #: ../autopart.py:1077
 #, python-format
@@ -562,12 +561,11 @@ msgid "Dump Written"
 msgstr "덤프(dump)를 기록했습니다"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"현재 시스템의 상태를 플로피 디스켓에 기록을 성공했습니다. 여러분의 시스템을 "
+"현재 시스템의 상태는 플로피 디스켓에 성공적으로 기록되었습니다. 여러분의 시스템을 "
 "재부팅 합니다."
 
 #: ../exception.py:428 ../exception.py:444
@@ -1593,8 +1591,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
+msgstr "다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -1642,8 +1639,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "확실히 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:57
@@ -1692,8 +1688,7 @@ msgstr ""
 "설정된 용량이 너무 적습니다."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1764,8 +1759,7 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일시스템 "
 "상에 위치해야 합니다."
@@ -1788,8 +1782,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1820,14 +1813,12 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:667
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:679
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:688
 #, python-format
@@ -2037,17 +2028,14 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../text.py:411
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:413
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2260,9 +2248,8 @@ msgid "Processing"
 msgstr "진행 중"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "설치를 준비하고 있습니다..."
+msgstr "설치소스에서 전송을 준비하고 있습니다..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -2300,7 +2287,7 @@ msgid "Error running transaction"
 msgstr "트랜잭션 실행 오류"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2311,7 +2298,6 @@ msgstr ""
 "다.  CD 매체를 사용하여 설치하신다면, CD가 손상되었거나 CD 드라이브가 CD를 읽"
 "지 못하는 것 같습니다. \n"
 "\n"
-"다시 시도하시려면 '재시도' 키를 누르십시오."
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -2437,8 +2423,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
+msgstr "루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2886,8 +2871,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:514
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Mount point in use"
@@ -2896,8 +2880,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -2910,19 +2893,15 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:579 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr ""
-"현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
-"다. 이 최대 논리 볼륨 용량을 증가시키기 위해서는 이 볼륨 그룹에 해당하는 물리"
-"적 범위 용량을 증가하시면 됩니다."
+msgstr "현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니다. 이 제한을 늘리기위해서는 파티션 되지 않은 디스크 공간에서의 물리적 볼륨을 증가시키고 이것을 볼륨 그룹에 더하시면 됩니다."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -2980,8 +2959,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
@@ -3369,8 +3347,7 @@ msgstr "삭제할 수 없습니다."
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
+msgstr "이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3470,16 +3447,14 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
 "다."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -3490,8 +3465,7 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:649
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
+msgstr "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
 
 #: ../iw/partition_gui.py:651
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3985,10 +3959,8 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -3998,8 +3970,7 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4126,8 +4097,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/zfcp_gui.py:24
@@ -4292,8 +4262,7 @@ msgstr ""
 "시오."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
 "로 가기>"
@@ -4430,11 +4399,10 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "설치하시려는 패키지 그룹을 선택하세요."
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
 
 #: ../textw/grpselect_text.py:129
@@ -4827,10 +4795,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -4859,14 +4825,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "사용하실 드라이브를 지정해 주십시오"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "파티션 배치 재확인과 수정(_V)"
+msgstr "파티션 배치 재확인"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "파티션 배치 재확인과 수정(_V)"
+msgstr "파티션 배치 재확인과 수정?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4922,9 +4886,8 @@ msgid "Remaining:  "
 msgstr "남  음: "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "패키지 그룹 선택"
+msgstr "패키지 선택"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4932,7 +4895,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "%s의 초기 설치는 일반적인 인터넷 사용에 맞는 소프트웨어의 모음을 포함하고 있습니다. 어떤 추가적인 임무가 시스템상에 포함되기를 원하십니까?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5112,20 +5075,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "사무와 생산성"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "소프트웨어 개발"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "네임서버"
+msgstr "웹 서버"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "가상 (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5586,10 +5548,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s에 오신것을 환영합니다 - 복구 모드"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5729,8 +5689,7 @@ msgstr "%s 복구 모드로 anaconda를 실행 중 입니다 - 잠시만 기다�
 #: ../loader2/loader.c:1600
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid ""
@@ -6147,29 +6106,22 @@ msgid "_Release Notes"
 msgstr "출시에 앞서(_R)"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "이 파티션에 설정할 파일시스템을 지정해 주십시오"
+msgstr "어떻게 파티션의 공간을 만드시길 원하십니까?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
-msgstr ""
-"설치시 하드 드라이브를 파티션하셔야 합니다. 대부분 사용자에게 적절한 파티션 "
-"구조가 기본으로 선택됩니다. 이 기본 옵션을 사용하시거나 또는 스스로 원하는 방"
-"식으로 파티션하실 수 있습니다."
+msgstr "<product>설치시 하드 드라이브의 파티션이 요구됩니다.  기본 파티션 배치 방식을 사용하거나 스스로 당신만의 파티션을 만드실 수 있습니다."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "설치에 사용할 드라이브를 지정해 주십시오(_S)"
+msgstr "설치에 사용할 드라이브를 지정해 주십시오."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "파티션 배치 재확인과 수정(_V)"
+msgstr "파티션 배치 재확인과 수정(_R)"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6189,13 +6141,13 @@ msgstr "예외 상황 정보(_E)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "후의 사용자 설정 (_L)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "소프트웨어 선택의 심화된 사용자 설정은 소프트웨어 관리 응용프로그램을 거쳐 지금 혹은 설치이후에 완성될 수 있습니다."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6203,12 +6155,11 @@ msgid ""
 "The default installation of %s includes a set of  software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "%s의 초기 설치는 일반적인 인터넷 사용에 맞는 소프트웨어의 모음을 포함하고 있습니다. 어떤 추가적인 임무가 시스템상에 포함되기를 원하십니까?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "사용자 정의(_C)"
+msgstr "지금의 사용자 설정(_C)"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6259,15 +6210,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "대서양 시간 - E Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "대서양 시간 - E Labrador"
+msgstr "대서양 시간 - 뉴브런즈윅"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "대서양 시간 - 노바스코샤 (대부분의 장소), 래브라도 서부, 퀘벡 동부 & 프린스 에드워드 섬(PEI)"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6307,7 +6255,7 @@ msgstr "카타마르카 (CT), 추부트 (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr "중부 중국 - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr "중부 중국 - Gansu, Guizhou, Sichuan, Yunnan, 등."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -6315,7 +6263,7 @@ msgstr "중부 크리미아 (Crimea)"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr "중부 표준시 - Saskatchewan - midwest"
+msgstr "중부 표준시 - Saskatchewan - 중서부"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
@@ -6323,7 +6271,7 @@ msgstr "중부 표준시 - Saskatchewan - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr "중부시"
+msgstr "중부 시"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
@@ -6339,21 +6287,19 @@ msgstr "중부시 - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "중부 시 - 인디애나 - Daviess, Dubois, Knox, Martin, Perry 와 Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "동부 표준시 - Indiana - Starke County"
+msgstr "중부 시 - 인디애나 - Pike 군"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "중부시 - Manitoba & 서부 온타리오"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "중부시 - 미시건 - 위스콘신 경계"
+msgstr "중부시 - 미시건 - Dickinson, Gogebic, Iron & Menominee 군들"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6361,7 +6307,7 @@ msgstr "중부시 - 대부분 지역"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "중부시 - North Dakota - Oliver County"
+msgstr "중부시 - 노스 다코타 - Oliver 군"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -6428,24 +6374,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "동부시 - 동부 Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "동부 표준시 - Indiana - Crawford County"
+msgstr "동부 표준시 - 인디애나 - Crawford 군"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "동부 표준시 - Indiana - 대부분 지역"
+msgstr "동부 표준시 - 인디애나 - 대부분 지역"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "동부 표준시 - Indiana - Starke County"
+msgstr "동부 표준시 - 인디애나 - Starke 군"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "동부 표준시 - Indiana - Switzerland County"
+msgstr "동부 표준시 - 인디애나 - Switzerland 군"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6453,7 +6395,7 @@ msgstr "동부시 - Kentucky - Louisville area"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "동부시 - Kentucky - Wayne County"
+msgstr "동부시 - 캔터키 - Wayne 군"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
@@ -6464,8 +6406,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "동부시 - 온타리오 & 퀘벡 - 대부분 지역"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "동부시 - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
@@ -6653,10 +6594,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7039,9 +6978,8 @@ msgid "Serbian"
 msgstr "세르비아어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "세르비아어"
+msgstr "세르비아어(라틴)"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7087,227 +7025,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "이 그룹은 사용 가능한 모든 패키지를 포함합니다.  이 페이지 상의 패키지 그"
-#~ "룹 보다 훨씬 많은 패키지가 포함되어 있다는 사실에 유의해 주십시오."
-
-#~ msgid "Everything"
-#~ msgstr "전부 설치"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "이 그룹을 선택하시면 가능한 최소의 패키지 세트를 얻으실 수 있습니다.예를 "
-#~ "들어 소형 라우터/방화벽을 만드는데 유용합니다."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "그 외..."
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr "이번 %s 배포판에서 지원하지 않는 컴퓨터에 설치를 시도하고 계십니다."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "자동 파티션 설정"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "자동으로 파티션을 설정합니다:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "설치에 사용할 드라이브를 지정해 주십시오:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "생성된 파티션 재확인 (만일 필요하다면 수정)"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "부트로더를 변경"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "여러분은 어떤 부트로더도 설치하지 않기로 하셨습니다. 특별한 이유가 없다"
-#~ "면, 가능한 부트로더를 설치하시기 바랍니다.  부트로더는 여러분의 하드 드라"
-#~ "이브에 설치되어 있는 리눅스 시스템으로 부팅하는데 반드시 필요합니다.\n"
-#~ "\n"
-#~ "부트로더 설치를 생략하시겠습니까?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "부트로더 없이 계속 진행(_O)"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "시스템에서 사용될 부트로더를 선택해 주십시오. GRUB이 디폴트 부트로더 입니"
-#~ "다.현재 시스템에서 사용되고 있는 부트로더를 그대로 사용하시려면, \"부트로"
-#~ "더를 설치하지 않음\" 항목을 선택하십시오."
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "GRUB을 부트로더로 사용(_G)"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "부트로더를 설치하지 않음(_D)"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "부트로더 변경(_C)"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "패키지간의 의존성 문제"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "총 설치 용량: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "필요한 패키지"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "의존성 문제를 해결하기 위한 패키지 설치(_I)"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "의존 관계에 있는 패키지는 설치하지 않음(_D)"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "패키지가 갖는 의존성 무시(_G)"
-
-#~ msgid "Package Defaults"
-#~ msgstr "패키지 디폴트"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "디폴트 설치 환경에는 다음과 같이 추천되는 패키지 선택 목록이 포함되어 있습"
-#~ "니다:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "설치가 끝난 후, 'redhat-config-packages' 도구를 사용하여 부가적인 소프트웨"
-#~ "어를 추가하거나 삭제하실 수 있습니다.\n"
-#~ "\n"
-#~ "%s를 이미 사용해보신 분이라면 어떤 패키지를 설치하고 어떠한 패키지를 설치"
-#~ "하지 않을 것인지 이미 알고 계실 것입니다. 아래의 칸을 선택하여 설치를 사용"
-#~ "자 정의하실 수 있습니다."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "설치될 기본 패키지 설정을 변경하시려면 아래에서 사용자 설정하도록 선택하십"
-#~ "시오."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "기본 소프트웨어 패키지 설치(_I)"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "설치할 소프트웨어 패키지 사용자 설정하기(_C)"
-
-#~ msgid "Packages in %s"
-#~ msgstr "%s에 속한 패키지"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s에 대한 설명 정보가 없습니다.\n"
-#~ "\n"
-
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "[%d 개의 옵션 패키지 중 %d 개의 패키지가 설치되었습니다]"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "기본 설치 환경에는 설치가 권장되는 패키지들이 선택되어 있습니다.  설치를 "
-#~ "마친 후, 'system-config-packages' 도구를 사용하여 추가 소프트웨어를 추가하"
-#~ "거나 삭제하실 수 있습니다.\n"
-#~ "\n"
-#~ "%s에는 보다 많은 응용 프로그램이 포함되어 있으므로, 여러분이 원하시는 소프"
-#~ "트웨어를 사용자 정의 선택하여 설치하실 수도 있습니다."
-
-#~ msgid "Select individual packages"
-#~ msgstr "개별 패키지 선택"
-
-#~ msgid "Package :"
-#~ msgstr "패키지 :"
-
-#~ msgid "Size    :"
-#~ msgstr "용  량 :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f KB"
-
-#~ msgid "Total size"
-#~ msgstr "총 용량"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "개별 패키지 선택"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "        <Space>,<+>,<-> 선택   |   <F1> 도움말   |   <F2> 패키지 정보"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "패키지간의 의존성"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "여러분이 선택하신 패키지 중 일부는 선택되지 않은 다른 패키지를 필요로 합니"
-#~ "다. [확인] 버튼을 누르시면, 이러한 의존성에 있는 모든 패키지를 자동으로 설"
-#~ "치합니다."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "의존성 문제를 해결하기 위한 패키지 설치"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "의존 관계에 있는 패키지를 설치하지 않음"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "패키지가 갖는 의존성 무시"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "이 그룹과 관련된 일부 패키지는 설치에 요구되지는 않지만, 추가 기능을 제공"
-#~ "합니다.  설치하려는 패키지를 선택해주십시오."
-
-#~ msgid "_Optional packages"
-#~ msgstr "옵션 패키지(_O)"
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
