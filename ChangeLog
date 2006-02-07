@@ -2,6 +2,10 @@
 
 	* isomd5sum/.cvsignore:  Ignore .depend.
 
+	* gui.py (InstallerControlWindow.nextClicked):  Force focus to the
+	Next button on the keyboard screen.  Otherwise, pressing Enter will
+	load the release notes.
+
 2006-02-07  Chris Lumens  <clumens@redhat.com>
 
 	* dispatch.py (installSteps):  Remove extra network step.
