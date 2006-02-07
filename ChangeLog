@@ -1,5 +1,12 @@
 2006-02-06  Jeremy Katz  <katzj@redhat.com>
 
+	* backend.py (writeConfiguration): Include writing out instdata so
+	that things like root password, etc all work again (#180310)
+
+	* dispatch.py (installSteps): Pass id and instPath to writeconfig again
+	
+2006-02-06  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* fsset.py (FileSystemSet.mkDevRoot): Don't create it if it

@@ -164,8 +164,9 @@ def doBasePackageSelect(backend, instClass):
     instClass.setPackageSelection(backend)
     instClass.setGroupSelection(backend)
 
-def writeConfiguration(backend):
+def writeConfiguration(backend, id, instPath):
     log.info("Writing main configuration")
     if not flags.test:
         backend.writeConfiguration()
+        id.write(instPath)
    
