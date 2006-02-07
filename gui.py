@@ -940,14 +940,12 @@ class InstallControlWindow:
 	except StayOnScreen:
 	    return
 
+	ics = InstallControlState(self)
+	ics.setGrabNext(True)
+	self.update(ics)
+
 	self.dispatch.gotoNext()
 	self.dir = 1
-
-        # make sure Next button has focus on keyboard screen
-        # if you press Enter, it would load release notes
-        (step, args) = self.dispatch.currentStep()
-        if step == "keyboard":
-            self.mainxml.get_widget("nextButton").grab_focus()
 
         self.setScreen ()
 
