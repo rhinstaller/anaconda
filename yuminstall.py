@@ -128,7 +128,7 @@ class simpleCallback:
                 try:
                     fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None) 
                 except FileCopyException, e:
-                    log.info("Failed %s in %s" %(fn, po.returnSimple('name')))
+                    log.info("Failed %s in %s" %(path, po.returnSimple('name')))
                     self.method.unmountCD()
                     rc = self.messageWindow(_("Error"),
                         _("The package %s-%s-%s.%s cannot be opened. This is due "
@@ -360,11 +360,11 @@ class AnacondaYum(YumSorter):
         self.method = method
         self.macros = {}
         if flags.selinux:
-            for dir in ("/tmp/updates", "/mnt/source/RHupdates",
+            for directory in ("/tmp/updates", "/mnt/source/RHupdates",
                         "/etc/selinux/targeted/contexts/files",
                         "/etc/security/selinux/src/policy/file_contexts",
                         "/etc/security/selinux"):
-                fn = "%s/file_contexts" %(dir,)
+                fn = "%s/file_contexts" %(directory,)
                 if os.access(fn, os.R_OK):
                     break
             self.macros["__file_context_path"] = fn
@@ -561,11 +561,11 @@ class YumBackend(AnacondaBackend):
     def doInitialSetup(self, id, instPath):
         if id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
-            for file in ["__db.000", "__db.001", "__db.002", "__db.003"]:
+            for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
                 try:
-                    os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
+                    os.unlink("%s/var/lib/rpm/%s" %(instPath, rpmfile))
                 except:
-                    log.error("failed to unlink /var/lib/rpm/%s" %(file,))
+                    log.error("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
 
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
                                  configfile="/tmp/yum.conf", root=instPath)
