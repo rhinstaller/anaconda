@@ -5,6 +5,7 @@
 
 2006-02-08  Paul Nasrat   <pnasrat@redhat.com>
 
+	* yuminstall.py: disable repo conf, some pychecker fixes
 	* anaconda.spec: require strip
 	* scripts/mk-images: Strip loader here
 	* loader2/Makefile: Don't strip loader so we get debuginfo
