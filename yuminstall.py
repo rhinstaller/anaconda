@@ -257,7 +257,7 @@ class YumSorter(yum.YumBase):
         best = None
         (r, f, v) = req
 
-        satisfiers = []
+        satisfiers = {}
         for po in self.whatProvides(r, f, v):
             # if we already have something installed which does the provide
             # then that's obviously the one we want to use.  this takes
@@ -384,7 +384,7 @@ class AnacondaYum(YumSorter):
 
     def log(self, value, msg):
         if value >= 2:
-            pass
+            log.debug(msg)
         elif value == 1:
             log.info(msg)
         else:
@@ -997,6 +997,8 @@ class YumBackend(AnacondaBackend):
         map(lambda pkg: f.write("%s\n" % pkg), packages)
 
     def writeConfiguration(self):
+        #XXX: dump is not sufficient reenable when fixed
+        return
         for repo in self.ayum.repos.listEnabled():
             repo.disable()
             fn = "%s/etc/yum.repos.d/%s.repo" % ( self.instPath, repo.id)
