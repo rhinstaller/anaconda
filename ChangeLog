@@ -1,3 +1,8 @@
+2006-02-08  David Cantrell  <dcantrell@redhat.com>
+
+	* fssey.py (mountCompare):  Handle bind mounts correctly so that
+	filesystems are mounted in the correct order for upgrades (#160911)
+
 2006-02-08  Paul Nasrat   <pnasrat@redhat.com>
 
 	* anaconda.spec: require strip

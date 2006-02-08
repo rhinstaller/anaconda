@@ -86,9 +86,11 @@ def getUsableLinuxFs():
 def mountCompare(a, b):
     one = a.mountpoint
     two = b.mountpoint
-    if one < two:
+    adev = a.device.getDevice()
+    bdev = b.device.getDevice()
+    if one < two or one == bdev:
         return -1
-    elif two > one:
+    elif two > one or two == adev:
         return 1
     return 0
 
