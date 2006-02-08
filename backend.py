@@ -97,7 +97,7 @@ class AnacondaBackend:
         else:
             self.modeText = _("Installing %s-%s-%s.%s.\n")
 
-    def kernelVersionList():
+    def kernelVersionList(self):
         pass
 
     def doInitialSetup(self, id, instPath):
