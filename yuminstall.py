@@ -257,7 +257,7 @@ class YumSorter(yum.YumBase):
         best = None
         (r, f, v) = req
 
-        satisfiers = {}
+        satisfiers = []
         for po in self.whatProvides(r, f, v):
             # if we already have something installed which does the provide
             # then that's obviously the one we want to use.  this takes
@@ -384,7 +384,7 @@ class AnacondaYum(YumSorter):
 
     def log(self, value, msg):
         if value >= 2:
-            log.debug(msg)
+            pass
         elif value == 1:
             log.info(msg)
         else:
