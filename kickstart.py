@@ -538,7 +538,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             pvs.append(self.ksPVMapping[pv])
 
         if len(pvs) == 0 and vgd.preexist == False:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting.")
 
         if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize")
