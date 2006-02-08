@@ -128,7 +128,7 @@ class simpleCallback:
                 try:
                     fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None) 
                 except FileCopyException, e:
-                    log.info("Failed %s in %s" %(req[0], txmbr.name))
+                    log.info("Failed %s in %s" %(fn, po.returnSimple('name')))
                     self.method.unmountCD()
                     rc = self.messageWindow(_("Error"),
                         _("The package %s-%s-%s.%s cannot be opened. This is due "
