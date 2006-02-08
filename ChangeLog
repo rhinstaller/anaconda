@@ -1,3 +1,9 @@
+2006-02-08  Paul Nasrat   <pnasrat@redhat.com>
+
+	* anaconda.spec: require strip
+	* scripts/mk-images: Strip loader here
+	* loader2/Makefile: Don't strip loader so we get debuginfo
+
 2006-02-08  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (AnacondaKSHandlers.doVolumeGroup):  Suggest a fix in

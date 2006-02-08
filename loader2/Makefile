@@ -146,7 +146,6 @@ install: all
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
 	for n in $(BINS); do \
 	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
-	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n || :; \
 	done
 	if [ -f keymaps-$(ARCH) ]; then cp keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)/keymaps-override-$(ARCH) ; fi
 	install -m 644 unicode-linedraw-chars.txt $(DESTDIR)/$(RUNTIMEDIR)/loader
