@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.17
+Version: 10.91.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 09 2006 Chris Lumens <clumens@redhat.com> 10.91.18-1
+- Add iscsi support (Patrick Mansfield <patmans AT us.ibm.com>)
+- Allow retry if CD image isn't found on NFS server (#109051, dcantrel)
+- Fix location of video modes data files
+- Add x86_64 kernel-xen-guest (katzj)
+- Better loader debugging support (katzj)
+
 * Wed Feb 08 2006 Paul Nasrat <pnasrat@redhat.com> - 10.91.17-1
 - Handle bind mounts correctly (#160911, dcantrel)
 - Upgrade package black list and make upgrades work
