@@ -1,3 +1,10 @@
+2006-02-08  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c (doShell): Add support for exec'ing busybox in
+	msh mode if it's present on suspend.  We won't include it in
+	standard initrds, but for debugging, the ability to chain multiple
+	initrds is going to be beautiful.
+
 2006-02-08  Paul Nasrat   <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version

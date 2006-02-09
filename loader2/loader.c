@@ -126,6 +126,20 @@ void doSuspend(void) {
     exit(1);
 }
 
+void doShell(void) {
+    /* this lets us debug the loader just by having a second initramfs
+     * containing /sbin/busybox */
+    int child, status;
+
+    newtSuspend();
+    if (!(child = fork())) {
+	    execl("/sbin/busybox", "msh", NULL);
+	    _exit(1);
+    }
+    waitpid(child, &status, 0);
+    newtResume();
+}
+
 void startNewt(int flags) {
     if (!newtRunning) {
         char *buf = sdupprintf(_("Welcome to %s"), getProductName());
@@ -139,6 +153,8 @@ void startNewt(int flags) {
         newtRunning = 1;
         if (FL_TESTING(flags)) 
             newtSetSuspendCallback((void *) doSuspend, NULL);
+        else if (!access("/sbin/busybox",  X_OK))  {
+            newtSetSuspendCallback((void *) doShell, NULL);
     }
 }
 
