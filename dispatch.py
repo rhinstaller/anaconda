@@ -66,6 +66,7 @@ installSteps = [
     ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("installtype", ("dispatch", "id", "method", "intf")),
+    ("iscsi", ("id.iscsi", "intf")),
     ("zfcpconfig", ("id.zfcp", "id.diskset", "intf")),
     ("partitionobjinit", partitionObjectsInitialize, ("id.diskset",
                                                       "id.partitions",

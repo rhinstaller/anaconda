@@ -1,3 +1,19 @@
+2006-02-09  Patrick Mansfield <patmans@us.ibm.com>
+
+	* anaconda: Add handling of iscsi flag
+	* flags.py: Add iscsi flag
+	* installclass.py: Add iscsi step
+	* dispatch.py: Add iscsi step.
+	* gui.py: Add iscsi step.
+	* text.py: Add iscsi step
+	* instdata.py: Add iscsi object
+	* iscsi.py: Add main iscsi code
+	* iw/iscsi_gui.py: Add graphical iSCSI configuration
+	* ui/iscsi-config.glade: Glade-file for iSCSI config
+	* textw/iscsi_text.py: Add text mode iSCSI configuration
+	* scripts/mk-images (SCSIMODS): Add iscsi modules
+	* scripts/upd-instroot: Add iscsi tools
+	
 2006-02-09  David Cantrell  <dcantrell@redhat.com>
 
 	* image.py (NfsIsoInstallMethod.mountImage):  Present dialog and retry

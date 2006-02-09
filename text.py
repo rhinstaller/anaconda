@@ -41,6 +41,7 @@ stepToClasses = {
     "mouse" : ("mouse_text", ("MouseWindow", "MouseDeviceWindow")),
     "welcome" : ("welcome_text", "WelcomeWindow"),
     "installtype" : ("installpath_text", "InstallPathWindow"),
+    "iscsi" : ("iscsi_text", "iscsiWindow"),
     "parttype" : ("partition_text", "PartitionTypeWindow"),    
     "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow"),
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),

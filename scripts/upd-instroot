@@ -120,7 +120,8 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
-	 python-elementtree pykickstart e2fsprogs-libs"
+	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
+	 db4"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils kernel-utils"
@@ -272,6 +273,7 @@ bin/mkfs*
 bin/sed
 etc/group
 etc/passwd
+etc/iscsid.conf
 etc/pcmcia/*
 etc/protocols
 etc/services
@@ -291,6 +293,7 @@ $LIBDIR/ld*.so*
 $LIBDIR/libblkid*
 $LIBDIR/libcom_err*
 $LIBDIR/libcrypt*
+$LIBDIR/libdb-*
 $LIBDIR/libdevmapper*
 $LIBDIR/libdl*
 $LIBDIR/libe2p*
@@ -355,6 +358,8 @@ sbin/xfs_repair
 usr/sbin/xfs_db
 usr/sbin/xfs_check
 usr/sbin/xfs_copy
+sbin/iscsid
+sbin/iscsiadm
 usr/bin/python
 usr/bin/python?.?
 usr/bin/hmount

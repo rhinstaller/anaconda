@@ -26,6 +26,7 @@ import fsset
 import bootloader
 import partitions
 import partedUtils
+import iscsi
 import zfcp
 import urllib
 import iutil
@@ -51,6 +52,7 @@ class InstallData:
 
 	self.instClass = None
 	self.network = network.Network()
+	self.iscsi = iscsi.iscsi()
 	self.zfcp = zfcp.ZFCP()
 	self.firewall = firewall.Firewall()
         self.security = security.Security()

@@ -27,6 +27,7 @@ from rhpl.translate import _, N_
 import logging
 log = logging.getLogger("anaconda")
 
+from flags import flags
 from constants import *
 
 class BaseInstallClass:
@@ -113,6 +114,7 @@ class BaseInstallClass:
                  "findrootparts",
 		 "betanag",
 		 "installtype",
+		 "iscsi",
 		 "zfcpconfig",
                  "partitionmethod",
                  "partitionobjinit",
@@ -181,6 +183,10 @@ class BaseInstallClass:
         if "upgrade" in cmdline:
             dispatch.skipStep("findrootparts", skip = 0)
 
+        # Ask for iscsi configuration only when specifically requested
+        if not flags.iscsi:
+             dispatch.skipStep("iscsi", skip = 1)
+		
         # if there's only one install class, it doesn't make much sense
         # to show it
         if len(availableClasses()) < 2:

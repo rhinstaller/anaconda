@@ -428,7 +428,8 @@ try:
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
 	    'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
 	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx',
-	    'virtpconsole=', 'loglevel=', 'syslog=', 'nodmraid','dmraid'])
+	    'virtpconsole=', 'loglevel=', 'syslog=', 'nodmraid','dmraid',
+	    'iscsi'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -513,6 +514,8 @@ for n in args:
 	flags.expert = 1 
     elif (str == '--graphical'):
 	display_mode = 'g'
+    elif (str == '--iscsi'):
+	flags.iscsi = 1
     elif (str == '--keymap'):
 	keymap = arg
     elif (str == '--kickstart'):
