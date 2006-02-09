@@ -31,6 +31,7 @@ from sortedtransaction import SplitMediaTransactionData
 from genheader import *
 from constants import *
 from rhpl.translate import _
+from upgrade import upgrade_remove_blacklist
 
 import logging
 log = logging.getLogger("anaconda")
@@ -737,6 +738,16 @@ class YumBackend(AnacondaBackend):
         self.selectBootloader()
         
         if id.getUpgrade():
+            for pkg in upgrade_remove_blacklist:
+                pkgarch = None
+                pkgnames = None
+                if len(pkg) == 1:
+                    pkgname = pkg[0]
+                elif len(pkg) == 2:
+                    pkgname, pkgarch = pkg
+                if pkgname is None:
+                    continue
+                self.ayum.remove(name=pkgname, arch=pkgarch)
             self.ayum.update()
 
         dscb = YumDepSolveProgress(intf)
@@ -833,7 +844,8 @@ class YumBackend(AnacondaBackend):
             if 1:
                 log.warning("no dev package, going to bind mount /dev")
                 isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
-                id.fsset.mkDevRoot("/mnt/sysimage/")
+                if not upgrade:
+                    id.fsset.mkDevRoot("/mnt/sysimage/")
 
         # write out the fstab
         if not upgrade:
