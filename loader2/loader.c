@@ -153,7 +153,7 @@ void startNewt(int flags) {
         newtRunning = 1;
         if (FL_TESTING(flags)) 
             newtSetSuspendCallback((void *) doSuspend, NULL);
-        else if (!access("/sbin/busybox",  X_OK))  {
+        else if (!access("/sbin/busybox",  X_OK)) 
             newtSetSuspendCallback((void *) doShell, NULL);
     }
 }
