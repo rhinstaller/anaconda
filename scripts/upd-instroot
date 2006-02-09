@@ -458,8 +458,6 @@ usr/share/hwdata/videoaliases
 usr/share/hwdata/videoaliases/*
 usr/share/hwdata/videodrivers
 usr/share/hwdata/MonitorsDB
-usr/share/rhpxl/extramodes
-usr/share/rhpxl/vesamodes
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -764,6 +762,8 @@ usr/share/terminfo/v/vt100-nav
 usr/share/themes/Clearlooks/gtk-2.0/*
 usr/share/themes/Clearlooks/index.theme
 usr/share/vte/termcap/xterm
+usr/share/xorg/extramodes
+usr/share/xorg/vesamodes
 usr/share/zoneinfo/zone.tab
 EOF
 
