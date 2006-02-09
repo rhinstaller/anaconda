@@ -29,21 +29,17 @@
 #include <sys/types.h>
 #include <net/if.h>
 
-#ifdef DIET
-typedef void * caddr_t;
-#endif
-
 #include <linux/sockios.h>
+#include <linux/mii.h>
+#include <linux/ethtool.h>
 #include "net.h"
-#include "mii.h"
-#include "ethtool-copy.h"
 
 static struct ifreq ifr;
 
 static int mdio_read(int skfd, int location)
 {
     void *data = &ifr.ifr_data;
-    struct mii_data *mii = data;
+    struct mii_ioctl_data *mii = data;
     mii->reg_num = location;
     if (ioctl(skfd, SIOCGMIIREG, &ifr) < 0) {
 #ifdef STANDALONE
@@ -59,7 +55,7 @@ static int mdio_read(int skfd, int location)
 #if 0
 static void mdio_write(int skfd, int location, int value)
 {
-    struct mii_data *mii = (struct mii_data *)&ifr.ifr_data;
+    struct mii_ioctl_data *mii = (struct mii_ioctl_data *)&ifr.ifr_data;
     mii->reg_num = location;
     mii->val_in = value;
     if (ioctl(skfd, SIOCSMIIREG, &ifr) < 0) {
@@ -98,7 +94,7 @@ static int get_mii_link_status(int sock) {
 	return -1;
     }
 
-    if (mii_val[MII_BMSR] & MII_BMSR_LINK_VALID)
+    if (mii_val[MII_BMSR] & BMSR_LSTATUS)
         return 1;
     else
         return 0;
