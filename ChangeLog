@@ -1,3 +1,13 @@
+2006-02-09  David Cantrell  <dcantrell@redhat.com>
+
+	* image.py (NfsIsoInstallMethod.mountImage):  Present dialog and retry
+	button if the requested CD image is not on the NFS server.  User can
+	ask the BOFH to put the required image in place and click retry.
+	(#109051).
+
+	* image.py (findIsoImages):  stat the path before searching for ISOs,
+	which seems to flush the NFS cache and new images are picked up.
+
 2006-02-09  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILEGR):  Move modes data from rhpxl to

@@ -401,6 +401,7 @@ def getDiscNums(line):
     return discNums
 
 def findIsoImages(path, messageWindow):
+    flush = os.stat(path)
     files = os.listdir(path)
     arch = _arch
     discImages = {}
@@ -505,14 +506,36 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	if (self.currentMedia):
 	    raise SystemError, "trying to mount already-mounted iso image!"
 
-	isoImage = self.isoPath + '/' + self.discImages[cdNum]
+	retrymount = True
+	while retrymount:
+	    try:
+	        isoImage = self.isoPath + '/' + self.discImages[cdNum]
 
-	isys.makeDevInode("loop3", "/tmp/loop3")
-	isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
+	        isys.makeDevInode("loop3", "/tmp/loop3")
+	        isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
 	
-	isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
-	self.mntPoint = "/tmp/isomedia/"
-	self.currentMedia = [ cdNum ]
+	        isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
+	        self.mntPoint = "/tmp/isomedia/"
+	        self.currentMedia = [ cdNum ]
+
+	        retrymount = False
+	    except:
+	        ans = self.messageWindow( _("Missing ISO 9660 Image"),
+	                                  _("The installer has tried to mount "
+	                                    "image #%s, but cannot find it on "
+	                                    "the server.\n\n"
+	                                    "Please copy this image to the "
+	                                    "remote server's share path and "
+	                                    "click Retry. Click Reboot to "
+	                                    "abort the installation.")
+	                                    % (cdNum,), type="custom",
+	                                    custom_icon="warning",
+	                                    custom_buttons=[_("_Reboot"),
+	                                                    _("Re_try")])
+	        if ans == 0:
+	            sys.exit(0)
+	        elif ans == 1:
+	            self.discImages = findIsoImages(self.isoPath, self.messageWindow)
 
     def filesDone(self):
         # if we can't unmount the cd image, we really don't care much
