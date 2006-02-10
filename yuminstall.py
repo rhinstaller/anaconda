@@ -733,7 +733,7 @@ class YumBackend(AnacondaBackend):
             self.selectPackage("elilo")
 
     def selectConditionalPackages(self):
-        for g in self.ayum.comps.get_groups()
+        for g in self.ayum.comps.get_groups():
             if not g.selected:
                 continue
             for pkg, cond in g.conditional_packages.iteritems():
