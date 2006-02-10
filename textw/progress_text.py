@@ -76,7 +76,7 @@ class InstallProgressWindow:
 	                           header[rpm.RPMTAG_RELEASE],
 	                           header[rpm.RPMTAG_ARCH])
 	if len(pkgname) > 48:
-	    pkgname = "%s..." %(pkgname[1:45])
+	    pkgname = "%s..." %(pkgname[:45])
 
 	self.name.setText(pkgname)
 	self.size.setText("%dk" % (header[rpm.RPMTAG_SIZE] / 1024))
