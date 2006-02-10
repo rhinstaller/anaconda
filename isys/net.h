@@ -1,6 +1,8 @@
 #ifndef ISYSNET_H
 #define ISYSNET_H
 
+#include <linux/ethtool.h>
+
 /* type definitions so that the kernel-ish includes can be shared */
 #ifndef uint8_t
 #  define uint8_t       unsigned char
@@ -18,8 +20,6 @@ typedef uint64_t u64;
 typedef uint32_t u32;
 typedef uint16_t u16;
 typedef uint8_t u8;
-
-#include "ethtool-copy.h"
 
 /* returns 1 for link, 0 for no link, -1 for unknown */
 int get_link_status(char *ifname);
