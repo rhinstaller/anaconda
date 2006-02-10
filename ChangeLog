@@ -3,6 +3,8 @@
 	* isys/ethtool.c:  Remove reference to ethtool-copy.h.
 	* isys/net.h:  Use linux/ethtool.h instead.
 
+	* kickstart.py:  Fix some pychecker warnings.
+
 2006-02-10  David Cantrell  <dcantrell@redhat.com>
 
 	* textw/progress_text.py (InstallProgressWindow.setPackage):  If a

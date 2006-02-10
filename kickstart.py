@@ -38,7 +38,7 @@ class AnacondaKSScript(Script):
         import tempfile
         import os.path
 
-	if self.inChroot == True:
+        if self.inChroot:
             scriptRoot = chroot
         else:
             scriptRoot = "/"
@@ -94,6 +94,9 @@ class AnacondaKSHandlers(KickstartHandlers):
         self.ksVGMapping = {}
         # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
         self.ksID = 100000
+
+        self.lineno = 0
+        self.currentCmd = ""
 
     def doAuthconfig(self, id, args):
         KickstartHandlers.doAuthconfig(self, args)
@@ -200,7 +203,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             filesystem = fileSystemTypeGet("swap")
             lvd.mountpoint = ""
 
-            if lvd.recommended == True:
+            if lvd.recommended:
                 (lvd.size, lvd.maxSizeMB) = iutil.swapSuggestion()
                 lvd.grow = True
         else:
@@ -214,7 +217,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 	    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (lvd.mountpoint,))
 
         if lvd.percent == 0:
-            if lvd.size == 0 and lvd.preexist == False:
+            if lvd.size == 0 and not lvd.preexist:
                 raise KickstartValueError, formatErrorMsg(self.lineno,
                 msg="Size required")
         elif lvd.percent <= 0 or lvd.percent > 100:
@@ -329,7 +332,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         if pd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')
             pd.mountpoint = ""
-            if pd.recommended == True:
+            if pd.recommended:
                 (pd.size, pd.maxSizeMB) = iutil.swapSuggestion()
                 pd.grow = True
         # if people want to specify no mountpoint for some reason, let them
@@ -399,13 +402,13 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.start = pd.start
         if pd.end != 0:
             request.end = pd.end
-        if pd.grow == True:
+        if pd.grow:
             request.grow = pd.grow
         if pd.maxSizeMB != 0:
             request.maxSizeMB = pd.maxSizeMB
         if pd.disk != "":
             request.drive = [ pd.disk ]
-        if pd.primOnly == True:
+        if pd.primOnly:
             request.primary = pd.primOnly
         if uniqueID:
             request.uniqueID = uniqueID
@@ -468,9 +471,9 @@ class AnacondaKSHandlers(KickstartHandlers):
             raidmems.append(self.ksRaidMapping[member])
 	    self.ksUsedMembers.append(member)
 
-        if rd.level == "" and rd.preexist == False:
+        if rd.level == "" and not rd.preexist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
-        if len(raidmems) == 0 and rd.preexist == False:
+        if len(raidmems) == 0 and not rd.preexist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
 
         request = partRequests.RaidRequestSpec(filesystem,
@@ -484,7 +487,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         if uniqueID is not None:
             request.uniqueID = uniqueID
-        if rd.preexist == True and rd.device != "":
+        if rd.preexist and rd.device != "":
             request.device = "md%s" % rd.device
         if rd.fsopts != "":
             request.fsopts = rd.fsopts
@@ -526,7 +529,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doVnc(self, args)
 
     def doVolumeGroup(self, id, args):
-	KickstartHandlers.doVolumeGroup(self, args)
+        KickstartHandlers.doVolumeGroup(self, args)
         vgd = self.ksdata.vgList[-1]
 
         pvs = []
@@ -537,7 +540,7 @@ class AnacondaKSHandlers(KickstartHandlers):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
             pvs.append(self.ksPVMapping[pv])
 
-        if len(pvs) == 0 and vgd.preexist == False:
+        if len(pvs) == 0 and not vgd.preexist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting.")
 
         if vgd.pesize not in lvm.getPossiblePhysicalExtents(floor=1024):
@@ -667,8 +670,8 @@ class AnacondaKSParser(KickstartParser):
             raise KickstartParseError, formatErrorMsg(lineno)
         else:
             if self.handler.handlers[cmd] != None:
-                setattr(self.handler, "currentCmd", cmd)
-                setattr(self.handler, "lineno", lineno)
+                self.handler.currentCmd = cmd
+                self.handler.lineno = lineno
                 self.handler.handlers[cmd](self.id, cmdArgs)
 
 # The anaconda kickstart processor.
@@ -841,7 +844,7 @@ class Kickstart(BaseInstallClass):
     def setGroupSelection(self, backend, *args):
         backend.selectGroup("Core")
 
-        if self.ksdata.addBase == True:
+        if self.ksdata.addBase:
             backend.selectGroup("Base")
         else:
             log.warning("not adding Base group")
