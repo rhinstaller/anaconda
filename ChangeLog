@@ -1,3 +1,9 @@
+2006-02-10  David Cantrell  <dcantrell@redhat.com>
+
+	* textw/progress_text.py (InstallProgressWindow.setPackage):  If a
+	package name is longer than 48 chars, trim to 45 and add '...' on
+	the end (#180469).
+
 2006-02-09  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/linkdetect.c: Use linux/mii.h and linux/ethtool.h now
