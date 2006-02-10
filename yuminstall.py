@@ -732,10 +732,19 @@ class YumBackend(AnacondaBackend):
         elif iutil.getArch() == "ia64":
             self.selectPackage("elilo")
 
+    def selectConditionalPackages(self):
+        self.ayum.tsInfo.makelists()
+        for grp in self.ayum.tsInfo.instgroups:
+            g = self.ayum.comps.return_group(grp)
+            for pkg, cond in g.conditional_packages.iteritems():
+                if self.ayum.isPackageInstalled(cond):
+                    self.ayum.selectPackage(pkg)
+
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
+        self.selectConditionalPackages()
         
         if id.getUpgrade():
             for pkg in upgrade_remove_blacklist:
