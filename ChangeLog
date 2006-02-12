@@ -1,12 +1,14 @@
 2006-02-12  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* instdata.py (InstallData.writeKS): Don't traceback if nfs:/// is
 	being used like file:///.  Useful for live CD case.
 
 2006-02-10  Paul Nasrat   <pnasrat@redhat.com>
 
 	* yuminstall.py: use group.selected rather than lists
-	* yuminstall.py: support conditional packages for lang support
+	* yuminstall.py: support conditional packages for lang support (#178029)
 
 2006-02-10  Chris Lumens  <clumens@redhat.com>
 

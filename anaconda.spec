@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.91.19
+Version: 10.92.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Feb 12 2006 Jeremy Katz <katzj@redhat.com> - 10.92.0-1
+- Fix length of package name in text install (dcantrel, #180469)
+- Various minor cleanups
+- Support conditional packages for langsupport (pnasrat, #178029)
+
 * Thu Feb 09 2006 Chris Lumens <clumens@redhat.com> 10.91.19-1
 - Fix loader typo.
 
