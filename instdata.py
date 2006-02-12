@@ -188,9 +188,8 @@ class InstallData:
 
 	    for l in lines:
 		minfo = string.split(l)
-		if len(minfo) > 1 and minfo[1] == mntpt:
-		    nfsinfo = minfo[0]
-		    (srv, dir) = string.split(nfsinfo, ':')
+                if len(minfo) > 1 and minfo[1] == mntpt and minfo[0].find(":") != -1:
+		    (srv, dir) = minfo[0].split(':')
 		    f.write("nfs --server=%s --dir=%s\n" % (srv, dir))
 		    break
 
