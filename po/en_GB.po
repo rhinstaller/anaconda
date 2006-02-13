@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-03 19:02-0500\n"
+"POT-Creation-Date: 2006-02-13 13:24-0500\n"
 "PO-Revision-Date: 2004-09-30 17:13-0400\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -104,36 +104,37 @@ msgstr "Please connect to %s to begin the install..."
 msgid "Please connect to begin the install..."
 msgstr "Please connect to begin the install..."
 
-#: ../anaconda:619 ../anaconda:810 ../gui.py:241 ../gui.py:1181
+#: ../anaconda:622 ../anaconda:813 ../gui.py:242 ../gui.py:1186
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
-#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:379
-#: ../text.py:552 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:30
-#: ../textw/network_text.py:176 ../textw/network_text.py:407
-#: ../textw/network_text.py:415 ../loader2/cdinstall.c:136
-#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:256
-#: ../loader2/cdinstall.c:259 ../loader2/cdinstall.c:376
-#: ../loader2/cdinstall.c:381 ../loader2/cdinstall.c:386
-#: ../loader2/cdinstall.c:450 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:269 ../loader2/driverdisk.c:300
-#: ../loader2/driverdisk.c:334 ../loader2/driverdisk.c:372
-#: ../loader2/driverdisk.c:386 ../loader2/driverdisk.c:400
-#: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:208
-#: ../loader2/hdinstall.c:104 ../loader2/hdinstall.c:155
-#: ../loader2/hdinstall.c:214 ../loader2/hdinstall.c:381
-#: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:467
-#: ../loader2/hdinstall.c:536 ../loader2/hdinstall.c:579
-#: ../loader2/hdinstall.c:592 ../loader2/kbd.c:128 ../loader2/kickstart.c:121
-#: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:409 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:313 ../loader2/loader.c:326
-#: ../loader2/loader.c:337 ../loader2/loader.c:740 ../loader2/loader.c:903
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:153 ../loader2/method.c:372
-#: ../loader2/method.c:457 ../loader2/modules.c:972 ../loader2/net.c:233
-#: ../loader2/net.c:271 ../loader2/net.c:542 ../loader2/net.c:904
-#: ../loader2/net.c:927 ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
+#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:380
+#: ../text.py:553 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
+#: ../textw/constants_text.py:36 ../textw/iscsi_text.py:73
+#: ../textw/network_text.py:30 ../textw/network_text.py:176
+#: ../textw/network_text.py:407 ../textw/network_text.py:415
+#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
+#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:259
+#: ../loader2/cdinstall.c:376 ../loader2/cdinstall.c:381
+#: ../loader2/cdinstall.c:386 ../loader2/cdinstall.c:450
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
+#: ../loader2/driverdisk.c:300 ../loader2/driverdisk.c:334
+#: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:386
+#: ../loader2/driverdisk.c:400 ../loader2/driverdisk.c:579
+#: ../loader2/driverdisk.c:617 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:208 ../loader2/hdinstall.c:104
+#: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
+#: ../loader2/hdinstall.c:381 ../loader2/hdinstall.c:432
+#: ../loader2/hdinstall.c:467 ../loader2/hdinstall.c:536
+#: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592 ../loader2/kbd.c:128
+#: ../loader2/kickstart.c:121 ../loader2/kickstart.c:131
+#: ../loader2/kickstart.c:174 ../loader2/kickstart.c:273
+#: ../loader2/kickstart.c:409 ../loader2/lang.c:103 ../loader2/lang.c:380
+#: ../loader2/loader.c:329 ../loader2/loader.c:342 ../loader2/loader.c:353
+#: ../loader2/loader.c:759 ../loader2/loader.c:922 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:153 ../loader2/method.c:372 ../loader2/method.c:457
+#: ../loader2/modules.c:972 ../loader2/net.c:233 ../loader2/net.c:271
+#: ../loader2/net.c:542 ../loader2/net.c:904 ../loader2/net.c:927
+#: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:212
 #: ../loader2/nfsinstall.c:221 ../loader2/nfsinstall.c:259
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
@@ -146,17 +147,17 @@ msgstr "Please connect to begin the install..."
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:665
+#: ../anaconda:668
 #, fuzzy
 msgid "Unknown Error"
 msgstr "Unknown Error"
 
-#: ../anaconda:668
+#: ../anaconda:671
 #, fuzzy, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Error pulling second part of kickstart config: %s!"
 
-#: ../anaconda:794
+#: ../anaconda:797
 #, fuzzy
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
@@ -165,52 +166,52 @@ msgstr ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 
-#: ../anaconda:857
+#: ../anaconda:860
 #, fuzzy
 msgid "Install class forcing text mode installation"
 msgstr "Install class forcing text mode installation"
 
-#: ../anaconda:884
+#: ../anaconda:887
 #, fuzzy
 msgid "No video hardware found, assuming headless"
 msgstr "No video hardware found, assuming headless"
 
-#: ../anaconda:895 ../anaconda:1130
+#: ../anaconda:898 ../anaconda:1133
 #, fuzzy
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Unable to instantiate a X hardware state object."
 
-#: ../anaconda:919
+#: ../anaconda:922
 #, fuzzy
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Graphical installation not available...  Starting text mode."
 
-#: ../anaconda:927
+#: ../anaconda:930
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:1010
+#: ../anaconda:1013
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:1042
+#: ../anaconda:1045
 #, fuzzy
 msgid "Starting graphical installation..."
 msgstr "Starting graphical installation..."
 
-#: ../anaconda:1096
+#: ../anaconda:1099
 #, fuzzy
 msgid "Unknown install method"
 msgstr "Unknown Url method %s"
 
-#: ../anaconda:1097
+#: ../anaconda:1100
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 
-#: ../anaconda:1099
+#: ../anaconda:1102
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "Unknown Url method %s"
@@ -463,15 +464,15 @@ msgstr "Unrecoverable Error"
 msgid "Your system will now be rebooted."
 msgstr "Your system will now be rebooted."
 
-#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1178 ../image.py:455
-#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:905
-#: ../partedUtils.py:962 ../upgrade.py:328 ../upgrade.py:477
-#: ../yuminstall.py:149 ../iw/blpasswidget.py:145
+#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1183 ../image.py:456
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:911
+#: ../partedUtils.py:968 ../upgrade.py:328 ../upgrade.py:477
+#: ../yuminstall.py:150 ../iw/blpasswidget.py:145
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/upgrade_swap_gui.py:199
 #: ../iw/upgrade_swap_gui.py:207 ../iw/upgrade_swap_gui.py:214
 #: ../iw/zfcp_gui.py:248 ../textw/bootloader_text.py:124
 #: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:176 ../loader2/loader.c:380
+#: ../textw/upgrade_text.py:176 ../loader2/loader.c:396
 #, fuzzy
 msgid "Warning"
 msgstr "Warning"
@@ -645,22 +646,22 @@ msgstr ""
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:197
+#: ../fsset.py:199
 #, fuzzy
 msgid "Checking for Bad Blocks"
 msgstr "Checking for Bad Blocks"
 
-#: ../fsset.py:198
+#: ../fsset.py:200
 #, fuzzy, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Checking for bad blocks on /dev/%s..."
 
-#: ../fsset.py:630 ../fsset.py:1420 ../fsset.py:1458 ../fsset.py:1469
-#: ../fsset.py:1520 ../fsset.py:1531 ../fsset.py:1566 ../fsset.py:1616
-#: ../fsset.py:1660 ../fsset.py:1679 ../image.py:133 ../image.py:162
-#: ../image.py:333 ../partedUtils.py:715 ../partIntfHelpers.py:403
-#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:133
-#: ../yuminstall.py:486 ../yuminstall.py:607 ../iw/osbootwidget.py:216
+#: ../fsset.py:632 ../fsset.py:1424 ../fsset.py:1462 ../fsset.py:1473
+#: ../fsset.py:1524 ../fsset.py:1535 ../fsset.py:1570 ../fsset.py:1620
+#: ../fsset.py:1664 ../fsset.py:1683 ../image.py:133 ../image.py:162
+#: ../image.py:333 ../partedUtils.py:721 ../partIntfHelpers.py:403
+#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:134
+#: ../yuminstall.py:487 ../yuminstall.py:614 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
 #: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:164
 #: ../textw/upgrade_text.py:171 ../loader2/cdinstall.c:137
@@ -670,8 +671,8 @@ msgstr "Checking for bad blocks on /dev/%s..."
 #: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
 #: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:337
-#: ../loader2/loader.c:740 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:353
+#: ../loader2/loader.c:759 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:212 ../loader2/nfsinstall.c:221
@@ -683,7 +684,7 @@ msgstr "Checking for bad blocks on /dev/%s..."
 msgid "Error"
 msgstr "Error"
 
-#: ../fsset.py:631
+#: ../fsset.py:633
 #, fuzzy, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -696,32 +697,32 @@ msgstr ""
 "\n"
 "Would you like to continue without migrating %s?"
 
-#: ../fsset.py:1328
+#: ../fsset.py:1332
 #, fuzzy
 msgid "RAID Device"
 msgstr "RAID Device"
 
-#: ../fsset.py:1332 ../fsset.py:1338
+#: ../fsset.py:1336 ../fsset.py:1342
 #, fuzzy
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1343 ../partitions.py:868
+#: ../fsset.py:1347 ../partitions.py:868
 #, fuzzy
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1346
+#: ../fsset.py:1350
 #, fuzzy
 msgid "First sector of boot partition"
 msgstr "First sector of boot partition"
 
-#: ../fsset.py:1347
+#: ../fsset.py:1351
 #, fuzzy
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1421
+#: ../fsset.py:1425
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -734,7 +735,7 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system."
 
-#: ../fsset.py:1459
+#: ../fsset.py:1463
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -750,7 +751,7 @@ msgstr ""
 "\n"
 "Press OK to reboot your system."
 
-#: ../fsset.py:1470
+#: ../fsset.py:1474
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -765,7 +766,7 @@ msgstr ""
 "\n"
 "Press OK to reboot your system."
 
-#: ../fsset.py:1521
+#: ../fsset.py:1525
 #, fuzzy, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -778,7 +779,7 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system"
 
-#: ../fsset.py:1532
+#: ../fsset.py:1536
 #, fuzzy, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -791,7 +792,7 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system."
 
-#: ../fsset.py:1567
+#: ../fsset.py:1571
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -804,7 +805,7 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system."
 
-#: ../fsset.py:1617
+#: ../fsset.py:1621
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -817,12 +818,12 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system."
 
-#: ../fsset.py:1638 ../fsset.py:1647
+#: ../fsset.py:1642 ../fsset.py:1651
 #, fuzzy
 msgid "Invalid mount point"
 msgstr "Invalid mount point"
 
-#: ../fsset.py:1639
+#: ../fsset.py:1643
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -835,7 +836,7 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system."
 
-#: ../fsset.py:1648
+#: ../fsset.py:1652
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -848,7 +849,7 @@ msgstr ""
 "\n"
 "Press <Enter> to reboot your system."
 
-#: ../fsset.py:1661
+#: ../fsset.py:1665
 #, fuzzy, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -863,7 +864,7 @@ msgstr ""
 "\n"
 "Press OK to reboot your system."
 
-#: ../fsset.py:1680
+#: ../fsset.py:1684
 #, fuzzy
 msgid ""
 "Error finding / entry.\n"
@@ -878,12 +879,12 @@ msgstr ""
 "\n"
 "Press OK to reboot your system."
 
-#: ../fsset.py:2345
+#: ../fsset.py:2349
 #, fuzzy
 msgid "Duplicate Labels"
 msgstr "Duplicate Labels"
 
-#: ../fsset.py:2346
+#: ../fsset.py:2350
 #, fuzzy, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -896,35 +897,35 @@ msgstr ""
 "\n"
 "Please fix this problem and restart the installation process."
 
-#: ../fsset.py:2353 ../gui.py:797 ../gui.py:1291 ../image.py:92
-#: ../image.py:465 ../packages.py:582 ../yuminstall.py:160
+#: ../fsset.py:2357 ../gui.py:798 ../gui.py:1296 ../image.py:92
+#: ../image.py:466 ../image.py:533 ../packages.py:582 ../yuminstall.py:161
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Reboot"
 
-#: ../fsset.py:2606
+#: ../fsset.py:2610
 #, fuzzy
 msgid "Formatting"
 msgstr "Formatting"
 
-#: ../fsset.py:2607
+#: ../fsset.py:2611
 #, fuzzy, python-format
 msgid "Formatting %s file system..."
 msgstr "Formatting %s file system..."
 
-#: ../gui.py:107
+#: ../gui.py:108
 #, fuzzy
 msgid "An error occurred copying the screenshots over."
 msgstr "An error occurred copying the screenshots over."
 
-#: ../gui.py:119
+#: ../gui.py:120
 #, fuzzy
 msgid "Screenshots Copied"
 msgstr "Screenshots Copied"
 
-#: ../gui.py:120
+#: ../gui.py:121
 #, fuzzy
 msgid ""
 "The screenshots have been saved into the directory:\n"
@@ -939,22 +940,22 @@ msgstr ""
 "\n"
 "You can access these when you reboot and login as root."
 
-#: ../gui.py:164
+#: ../gui.py:165
 #, fuzzy
 msgid "Saving Screenshot"
 msgstr "Saving Screenshot"
 
-#: ../gui.py:165
+#: ../gui.py:166
 #, fuzzy, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "A screenshot named '%s' has been saved."
 
-#: ../gui.py:168
+#: ../gui.py:169
 #, fuzzy
 msgid "Error Saving Screenshot"
 msgstr "Error Saving Screenshot"
 
-#: ../gui.py:169
+#: ../gui.py:170
 #, fuzzy
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
@@ -963,50 +964,50 @@ msgstr ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 
-#: ../gui.py:238 ../text.py:376
+#: ../gui.py:239 ../text.py:377
 #, fuzzy
 msgid "Fix"
 msgstr "Fix"
 
-#: ../gui.py:239 ../packages.py:53 ../rescue.py:182 ../text.py:377
+#: ../gui.py:240 ../packages.py:53 ../rescue.py:182 ../text.py:378
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:515
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
-#: ../loader2/loader.c:380
+#: ../loader2/loader.c:396
 #, fuzzy
 msgid "Yes"
 msgstr "Yes"
 
-#: ../gui.py:240 ../rescue.py:182 ../rescue.py:184 ../text.py:378
+#: ../gui.py:241 ../rescue.py:182 ../rescue.py:184 ../text.py:379
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:380
+#: ../loader2/loader.c:396
 #, fuzzy
 msgid "No"
 msgstr "No"
 
-#: ../gui.py:242 ../text.py:380 ../loader2/net.c:276 ../loader2/net.c:593
+#: ../gui.py:243 ../text.py:381 ../loader2/net.c:276 ../loader2/net.c:593
 #, fuzzy
 msgid "Retry"
 msgstr "Retry"
 
-#: ../gui.py:243 ../text.py:381
+#: ../gui.py:244 ../text.py:382
 #, fuzzy
 msgid "Ignore"
 msgstr "Ignore"
 
-#: ../gui.py:244 ../gui.py:702 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:101 ../text.py:102 ../text.py:353
-#: ../text.py:355 ../text.py:382 ../iw/bootloader_advanced_gui.py:48
+#: ../gui.py:245 ../gui.py:703 ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:526 ../text.py:102 ../text.py:103 ../text.py:354
+#: ../text.py:356 ../text.py:383 ../iw/bootloader_advanced_gui.py:48
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
-#: ../loader2/loader.c:326
+#: ../loader2/loader.c:342
 #, fuzzy
 msgid "Cancel"
 msgstr "Cancel"
 
-#: ../gui.py:792 ../text.py:339
+#: ../gui.py:793 ../text.py:340
 #, fuzzy, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -1017,12 +1018,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:794 ../text.py:341
+#: ../gui.py:795 ../text.py:342
 #, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "Error Parsing Kickstart Config"
 
-#: ../gui.py:802 ../text.py:351
+#: ../gui.py:803 ../text.py:352
 #, fuzzy
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
@@ -1031,27 +1032,27 @@ msgstr ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 
-#: ../gui.py:917
+#: ../gui.py:918
 #, fuzzy
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: ../gui.py:992 ../iw/release_notes_viewer_gui.py:51
+#: ../gui.py:997 ../iw/release_notes_viewer_gui.py:51
 #, fuzzy
 msgid "Release notes are missing.\n"
 msgstr "Release notes are missing.\n"
 
-#: ../gui.py:1179
+#: ../gui.py:1184
 #, fuzzy
 msgid "The release notes are missing."
 msgstr "The release notes are missing."
 
-#: ../gui.py:1278
+#: ../gui.py:1283
 #, fuzzy
 msgid "Error!"
 msgstr "Error!"
 
-#: ../gui.py:1279
+#: ../gui.py:1284
 #, fuzzy, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1062,43 +1063,43 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1283 ../gui.py:1288 ../packages.py:574 ../packages.py:579
-#: ../yuminstall.py:613
+#: ../gui.py:1288 ../gui.py:1293 ../packages.py:574 ../packages.py:579
+#: ../yuminstall.py:620
 #, fuzzy
 msgid "_Exit"
 msgstr "_Exit"
 
-#: ../gui.py:1284 ../yuminstall.py:147
+#: ../gui.py:1289 ../yuminstall.py:148
 #, fuzzy
 msgid "_Retry"
 msgstr "_Retry"
 
-#: ../gui.py:1287 ../packages.py:578
+#: ../gui.py:1292 ../packages.py:578
 #, fuzzy
 msgid "The installer will now exit..."
 msgstr "The installer will now exit..."
 
-#: ../gui.py:1290 ../packages.py:581
+#: ../gui.py:1295 ../packages.py:581
 #, fuzzy
 msgid "Your system will now be rebooted..."
 msgstr "Your system will now be rebooted..."
 
-#: ../gui.py:1293 ../packages.py:583
+#: ../gui.py:1298 ../packages.py:583
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Rebooting System"
 
-#: ../gui.py:1375
+#: ../gui.py:1380
 #, fuzzy, python-format
 msgid "%s Installer"
 msgstr "%s Installer"
 
-#: ../gui.py:1381
+#: ../gui.py:1386
 #, fuzzy
 msgid "Unable to load title bar"
 msgstr "Unable to load title bar"
 
-#: ../gui.py:1441
+#: ../gui.py:1446
 #, fuzzy
 msgid "Install Window"
 msgstr "Install Window"
@@ -1130,7 +1131,7 @@ msgstr ""
 msgid "_Back"
 msgstr "_Back"
 
-#: ../image.py:92 ../image.py:466 ../iw/partition_gui.py:1012
+#: ../image.py:92 ../image.py:467 ../iw/partition_gui.py:1012
 #, fuzzy
 msgid "_Continue"
 msgstr "_Continue"
@@ -1188,7 +1189,26 @@ msgstr "That's not the correct %s CDROM."
 msgid "Unable to access the CDROM."
 msgstr "Unable to access the CDROM."
 
-#: ../installclass.py:55
+#: ../image.py:523
+msgid "Missing ISO 9660 Image"
+msgstr ""
+
+#: ../image.py:524
+#, python-format
+msgid ""
+"The installer has tried to mount image #%s, but cannot find it on the "
+"server.\n"
+"\n"
+"Please copy this image to the remote server's share path and click Retry. "
+"Click Reboot to abort the installation."
+msgstr ""
+
+#: ../image.py:534
+#, fuzzy
+msgid "Re_try"
+msgstr "Retry"
+
+#: ../installclass.py:56
 #, fuzzy
 msgid "Install on System"
 msgstr "Install on System"
@@ -1212,16 +1232,16 @@ msgstr ""
 "\n"
 "Press the OK button to reboot your system."
 
-#: ../kickstart.py:708 ../kickstart.py:726
+#: ../kickstart.py:711 ../kickstart.py:729
 #, fuzzy
 msgid "Running..."
 msgstr "Connecting..."
 
-#: ../kickstart.py:709
+#: ../kickstart.py:712
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:727
+#: ../kickstart.py:730
 msgid "Running post-install scripts"
 msgstr ""
 
@@ -1266,12 +1286,12 @@ msgstr "Would you like to continue with the upgrade?"
 msgid "Reboot"
 msgstr "Reboot"
 
-#: ../packages.py:200 ../yuminstall.py:883
+#: ../packages.py:200 ../yuminstall.py:910
 #, fuzzy
 msgid "Post Install"
 msgstr "Post Install"
 
-#: ../packages.py:201 ../yuminstall.py:884
+#: ../packages.py:201 ../yuminstall.py:911
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Performing post install configuration..."
@@ -1335,12 +1355,12 @@ msgstr ""
 msgid "_Install anyway"
 msgstr "_Install anyway"
 
-#: ../partedUtils.py:199 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:558
 #, fuzzy
 msgid "Foreign"
 msgstr "Foreign"
 
-#: ../partedUtils.py:299
+#: ../partedUtils.py:305
 #, fuzzy, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1357,7 +1377,7 @@ msgstr ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 
-#: ../partedUtils.py:329
+#: ../partedUtils.py:335
 #, fuzzy, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1372,32 +1392,32 @@ msgstr ""
 "\n"
 "Would you like to format this drive?"
 
-#: ../partedUtils.py:338
+#: ../partedUtils.py:344
 #, fuzzy
 msgid "_Ignore drive"
 msgstr "_Ignore drive"
 
-#: ../partedUtils.py:339
+#: ../partedUtils.py:345
 #, fuzzy
 msgid "_Format drive"
 msgstr "_Format drive"
 
-#: ../partedUtils.py:716
+#: ../partedUtils.py:722
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Error mounting file system on %s: %s"
 
-#: ../partedUtils.py:804
+#: ../partedUtils.py:810
 #, fuzzy
 msgid "Initializing"
 msgstr "Initializing"
 
-#: ../partedUtils.py:805
+#: ../partedUtils.py:811
 #, fuzzy, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Please wait while formatting drive %s...\n"
 
-#: ../partedUtils.py:906
+#: ../partedUtils.py:912
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1418,7 +1438,7 @@ msgstr ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 
-#: ../partedUtils.py:963
+#: ../partedUtils.py:969
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1437,12 +1457,12 @@ msgstr ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 
-#: ../partedUtils.py:1081
+#: ../partedUtils.py:1087
 #, fuzzy
 msgid "No Drives Found"
 msgstr "No Drives Found"
 
-#: ../partedUtils.py:1082
+#: ../partedUtils.py:1088
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -2030,12 +2050,12 @@ msgstr "Setup Networking"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Do you want to start the network interfaces on this system?"
 
-#: ../rescue.py:226 ../text.py:548
+#: ../rescue.py:226 ../text.py:549
 #, fuzzy
 msgid "Cancelled"
 msgstr "Cancelled"
 
-#: ../rescue.py:227 ../text.py:549
+#: ../rescue.py:227 ../text.py:550
 #, fuzzy
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "I can't go to the previous step from here. You will have to try again."
@@ -2172,77 +2192,77 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Your system is mounted under the %s directory."
 
-#: ../text.py:146 ../text.py:158
+#: ../text.py:147 ../text.py:159
 #, fuzzy
 msgid "Save"
 msgstr "Save"
 
-#: ../text.py:146 ../text.py:148 ../text.py:160
+#: ../text.py:147 ../text.py:149 ../text.py:161
 #, fuzzy
 msgid "Remote"
 msgstr "Remove"
 
-#: ../text.py:146 ../text.py:148 ../text.py:156
+#: ../text.py:147 ../text.py:149 ../text.py:157
 #, fuzzy
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:152
+#: ../text.py:153
 #, fuzzy
 msgid "Exception Occurred"
 msgstr "Exception Occurred"
 
-#: ../text.py:181
+#: ../text.py:182
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:184
+#: ../text.py:185
 #, fuzzy
 msgid "Host"
 msgstr "Hostname"
 
-#: ../text.py:186
+#: ../text.py:187
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:188
+#: ../text.py:189
 #, fuzzy
 msgid "User name"
 msgstr "User name"
 
-#: ../text.py:190
+#: ../text.py:191
 #, fuzzy
 msgid "Password"
 msgstr "Password"
 
-#: ../text.py:247
+#: ../text.py:248
 #, fuzzy
 msgid "Help not available"
 msgstr "Help not available"
 
-#: ../text.py:248
+#: ../text.py:249
 #, fuzzy
 msgid "No help is available for this step of the install."
 msgstr "No help is available for this step of the install."
 
-#: ../text.py:350
+#: ../text.py:351
 #, fuzzy
 msgid "Save Crash Dump"
 msgstr "Save Crash Dump"
 
-#: ../text.py:404 ../loader2/lang.c:52 ../loader2/loader.c:131
+#: ../text.py:405 ../loader2/lang.c:52 ../loader2/loader.c:145
 #, fuzzy, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Welcome to %s"
 
-#: ../text.py:411
+#: ../text.py:412
 #, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 
-#: ../text.py:413
+#: ../text.py:414
 #, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
@@ -2488,17 +2508,17 @@ msgstr "The password must be at least six characters long."
 msgid "DDC Probed Monitor"
 msgstr "DDC Probed Monitor"
 
-#: ../yuminstall.py:90
+#: ../yuminstall.py:91
 #, fuzzy
 msgid "Processing"
 msgstr "Processing"
 
-#: ../yuminstall.py:91
+#: ../yuminstall.py:92
 #, fuzzy
 msgid "Preparing transaction from installation source..."
 msgstr "Preparing to install..."
 
-#: ../yuminstall.py:134
+#: ../yuminstall.py:135
 #, fuzzy, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
@@ -2513,28 +2533,28 @@ msgstr ""
 "\n"
 "Press <return> to try again."
 
-#: ../yuminstall.py:146 ../yuminstall.py:498
+#: ../yuminstall.py:147 ../yuminstall.py:499
 #, fuzzy
 msgid "Re_boot"
 msgstr "Reboot"
 
-#: ../yuminstall.py:150
+#: ../yuminstall.py:151
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
 
-#: ../yuminstall.py:159
+#: ../yuminstall.py:160
 #, fuzzy
 msgid "_Cancel"
 msgstr "_Cancel"
 
-#: ../yuminstall.py:440
+#: ../yuminstall.py:441
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Preparing RPM transaction..."
 
-#: ../yuminstall.py:487
+#: ../yuminstall.py:488
 #, fuzzy, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
@@ -2548,12 +2568,12 @@ msgstr ""
 "\n"
 "Press <return> to try again."
 
-#: ../yuminstall.py:592
+#: ../yuminstall.py:599
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Reading package information..."
 
-#: ../yuminstall.py:608
+#: ../yuminstall.py:615
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2563,31 +2583,31 @@ msgstr ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 
-#: ../yuminstall.py:635
+#: ../yuminstall.py:642
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:866
+#: ../yuminstall.py:893
 #, fuzzy
 msgid "Install Starting"
 msgstr "Install Starting"
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:894
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Starting install process, this may take several minutes..."
 
-#: ../yuminstall.py:1004
+#: ../yuminstall.py:1033
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Installation Type"
 
-#: ../yuminstall.py:1048
+#: ../yuminstall.py:1077
 #, fuzzy
 msgid "Dependency Check"
 msgstr "Dependency Check"
 
-#: ../yuminstall.py:1049
+#: ../yuminstall.py:1078
 #, fuzzy
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Checking dependencies in packages selected for installation..."
@@ -2939,7 +2959,7 @@ msgstr ""
 msgid "Congratulations"
 msgstr "Congratulations"
 
-#: ../iw/congrats_gui.py:59
+#: ../iw/congrats_gui.py:63
 #, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
@@ -2950,7 +2970,7 @@ msgstr ""
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 
-#: ../iw/congrats_gui.py:64
+#: ../iw/congrats_gui.py:68
 #, fuzzy, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
@@ -3038,6 +3058,25 @@ msgstr "IP Addresses must contain numbers between 1 and 255"
 #, fuzzy
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP Addresses must contain numbers between 0 and 255"
+
+#: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
+#, fuzzy
+msgid "iSCSI Configuration"
+msgstr "SILO Configuration"
+
+#: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
+#, fuzzy
+msgid "Error with Data"
+msgstr "Error With Data"
+
+#: ../iw/iscsi_gui.py:34
+msgid "No IP address entered, skipping iSCSI setup"
+msgstr ""
+
+#: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
+#, fuzzy, python-format
+msgid "%s"
+msgstr "%s"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:40
 #, fuzzy
@@ -4232,7 +4271,7 @@ msgstr "Package"
 msgid "Summary"
 msgstr "Summary"
 
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:131
+#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
 #, fuzzy
 msgid "Status: "
 msgstr "Status: "
@@ -4985,7 +5024,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
 #: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:313 ../loader2/loader.c:903 ../loader2/loader.c:925
+#: ../loader2/loader.c:329 ../loader2/loader.c:922 ../loader2/loader.c:944
 #: ../loader2/net.c:233 ../loader2/net.c:271 ../loader2/net.c:542
 #: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
@@ -5029,6 +5068,30 @@ msgstr "Package Group Details"
 msgid "What type of system would you like to install?"
 msgstr "What type of system would you like to install?"
 
+#: ../textw/iscsi_text.py:35
+#, fuzzy
+msgid "Target IP address:"
+msgstr "IP address:"
+
+#: ../textw/iscsi_text.py:42
+#, fuzzy
+msgid "Port Number:"
+msgstr "or use:"
+
+#: ../textw/iscsi_text.py:49
+msgid "iSCSI Initiator Name:"
+msgstr ""
+
+#: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
+#, fuzzy
+msgid "Invalid IP string"
+msgstr "Invalid IP string"
+
+#: ../textw/iscsi_text.py:71 ../textw/network_text.py:29
+#, fuzzy, python-format
+msgid "The entered IP '%s' is not a valid IP."
+msgstr "The entered IP '%s' is not a valid IP."
+
 #: ../textw/keyboard_text.py:38
 #, fuzzy
 msgid "Keyboard Selection"
@@ -5058,16 +5121,6 @@ msgstr "Emulate 3 Buttons?"
 #, fuzzy
 msgid "Mouse Selection"
 msgstr "Mouse Selection"
-
-#: ../textw/network_text.py:28
-#, fuzzy
-msgid "Invalid IP string"
-msgstr "Invalid IP string"
-
-#: ../textw/network_text.py:29
-#, fuzzy, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "The entered IP '%s' is not a valid IP."
 
 #: ../textw/network_text.py:66
 #, fuzzy
@@ -5547,52 +5600,52 @@ msgstr "Disk Druid"
 msgid "Downloading - %s"
 msgstr "Downloading - %s"
 
-#: ../textw/progress_text.py:99
+#: ../textw/progress_text.py:103
 #, fuzzy
 msgid "Package Installation"
 msgstr "Package Installation"
 
-#: ../textw/progress_text.py:101
+#: ../textw/progress_text.py:105
 #, fuzzy
 msgid " Name   : "
 msgstr " Name   : "
 
-#: ../textw/progress_text.py:102
+#: ../textw/progress_text.py:106
 #, fuzzy
 msgid " Size   : "
 msgstr " Size   : "
 
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:107
 #, fuzzy
 msgid " Summary: "
 msgstr " Summary: "
 
-#: ../textw/progress_text.py:148
+#: ../textw/progress_text.py:152
 #, fuzzy
 msgid "    Packages"
 msgstr "    Packages"
 
-#: ../textw/progress_text.py:149
+#: ../textw/progress_text.py:153
 #, fuzzy
 msgid "      Bytes"
 msgstr "      Bytes"
 
-#: ../textw/progress_text.py:150
+#: ../textw/progress_text.py:154
 #, fuzzy
 msgid "        Time"
 msgstr "        Time"
 
-#: ../textw/progress_text.py:152
+#: ../textw/progress_text.py:156
 #, fuzzy
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../textw/progress_text.py:159
+#: ../textw/progress_text.py:163
 #, fuzzy
 msgid "Completed:   "
 msgstr "Completed:   "
 
-#: ../textw/progress_text.py:169
+#: ../textw/progress_text.py:173
 #, fuzzy
 msgid "Remaining:  "
 msgstr "Remaining:  "
@@ -5743,11 +5796,6 @@ msgstr ""
 #, fuzzy
 msgid "The root password must be at least 6 characters long."
 msgstr "The root password must be at least 6 characters long."
-
-#: ../textw/welcome_text.py:22
-#, fuzzy, python-format
-msgid "%s"
-msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, fuzzy, python-format
@@ -6343,7 +6391,7 @@ msgstr "Bad argument to shutdown kickstart method command %s: %s"
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Welcome to %s"
 
-#: ../loader2/lang.c:54 ../loader2/loader.c:137
+#: ../loader2/lang.c:54 ../loader2/loader.c:151
 #, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
@@ -6370,12 +6418,12 @@ msgstr "Hard drive"
 msgid "NFS image"
 msgstr "NFS image"
 
-#: ../loader2/loader.c:308
+#: ../loader2/loader.c:324
 #, fuzzy
 msgid "Update Disk Source"
 msgstr "Update Disk Source"
 
-#: ../loader2/loader.c:309
+#: ../loader2/loader.c:325
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
@@ -6384,32 +6432,32 @@ msgstr ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:340
 #, fuzzy, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 
-#: ../loader2/loader.c:326
+#: ../loader2/loader.c:342
 #, fuzzy
 msgid "Updates Disk"
 msgstr "Updates Disk"
 
-#: ../loader2/loader.c:338
+#: ../loader2/loader.c:354
 #, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Failed to mount updates disk"
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:357
 #, fuzzy
 msgid "Updates"
 msgstr "Updates"
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:357
 #, fuzzy
 msgid "Reading anaconda updates..."
 msgstr "Reading anaconda updates..."
 
-#: ../loader2/loader.c:381
+#: ../loader2/loader.c:397
 #, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
@@ -6420,47 +6468,47 @@ msgstr ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 
-#: ../loader2/loader.c:737
+#: ../loader2/loader.c:756
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "You do not have enough RAM to install %s on this machine."
 
-#: ../loader2/loader.c:895
+#: ../loader2/loader.c:914
 #, fuzzy
 msgid "Rescue Method"
 msgstr "Rescue Method"
 
-#: ../loader2/loader.c:896
+#: ../loader2/loader.c:915
 #, fuzzy
 msgid "Installation Method"
 msgstr "Installation Method"
 
-#: ../loader2/loader.c:898
+#: ../loader2/loader.c:917
 #, fuzzy
 msgid "What type of media contains the rescue image?"
 msgstr "What type of media contains the rescue image?"
 
-#: ../loader2/loader.c:900
+#: ../loader2/loader.c:919
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
 msgstr "What type of media contains the packages to be installed?"
 
-#: ../loader2/loader.c:924
+#: ../loader2/loader.c:943
 #, fuzzy
 msgid "No driver found"
 msgstr "No driver found"
 
-#: ../loader2/loader.c:924
+#: ../loader2/loader.c:943
 #, fuzzy
 msgid "Select driver"
 msgstr "Select driver"
 
-#: ../loader2/loader.c:925
+#: ../loader2/loader.c:944
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Use a driver disk"
 
-#: ../loader2/loader.c:926
+#: ../loader2/loader.c:945
 #, fuzzy
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
@@ -6469,12 +6517,12 @@ msgstr ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 
-#: ../loader2/loader.c:1086
+#: ../loader2/loader.c:1106
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "The following devices have been found on your system."
 
-#: ../loader2/loader.c:1088
+#: ../loader2/loader.c:1108
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6483,32 +6531,32 @@ msgstr ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 
-#: ../loader2/loader.c:1092
+#: ../loader2/loader.c:1112
 #, fuzzy
 msgid "Devices"
 msgstr "Devices"
 
-#: ../loader2/loader.c:1093
+#: ../loader2/loader.c:1113
 #, fuzzy
 msgid "Done"
 msgstr "Done"
 
-#: ../loader2/loader.c:1094
+#: ../loader2/loader.c:1114
 #, fuzzy
 msgid "Add Device"
 msgstr "Add Device"
 
-#: ../loader2/loader.c:1234
+#: ../loader2/loader.c:1254
 #, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader has already been run.  Starting shell.\n"
 
-#: ../loader2/loader.c:1598
+#: ../loader2/loader.c:1618
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Running anaconda, the %s rescue mode - please wait...\n"
 
-#: ../loader2/loader.c:1600
+#: ../loader2/loader.c:1620
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Running anaconda, the %s system installer - please wait...\n"
@@ -7029,6 +7077,23 @@ msgstr "Exception Occurred"
 #, fuzzy
 msgid "_Exception details"
 msgstr "Exception Occurred"
+
+#: tmp/iscsi-config.glade.h:1
+msgid "<b>_Port Number:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:2
+msgid "<b>_Target IP Address:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:3
+msgid "<b>iSCSI Initiator _Name:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:4
+#, fuzzy
+msgid "iSCSI configuration"
+msgstr "SILO Configuration"
 
 #: tmp/tasksel.glade.h:1
 #, fuzzy
@@ -9403,10 +9468,6 @@ msgstr "Zulu"
 #~ msgstr "NIS Server:"
 
 #, fuzzy
-#~ msgid "or use:"
-#~ msgstr "or use:"
-
-#, fuzzy
 #~ msgid "Request server via broadcast"
 #~ msgstr "Request server via broadcast"
 
@@ -9815,10 +9876,6 @@ msgstr "Zulu"
 #, fuzzy
 #~ msgid "Default boot image"
 #~ msgstr "Default boot image"
-
-#, fuzzy
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO Configuration"
 
 #, fuzzy
 #~ msgid "Create PROM alias `linux'"

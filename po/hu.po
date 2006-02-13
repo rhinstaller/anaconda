@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-03 19:02-0500\n"
+"POT-Creation-Date: 2006-02-13 13:24-0500\n"
 "PO-Revision-Date: 2006-02-04 11:48+0100\n"
 "Last-Translator: Szentiványi Gábor <szentivanyi.gabor@ulx.hu>\n"
 "Language-Team: hungarian\n"
@@ -94,36 +94,37 @@ msgstr "Csatlakozzon a(z) %s géphez a telepítés megkezdéséhez..."
 msgid "Please connect to begin the install..."
 msgstr "Csatlakozzon a telepítés megkezdéséhez..."
 
-#: ../anaconda:619 ../anaconda:810 ../gui.py:241 ../gui.py:1181
+#: ../anaconda:622 ../anaconda:813 ../gui.py:242 ../gui.py:1186
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
-#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:379
-#: ../text.py:552 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/network_text.py:30
-#: ../textw/network_text.py:176 ../textw/network_text.py:407
-#: ../textw/network_text.py:415 ../loader2/cdinstall.c:136
-#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:256
-#: ../loader2/cdinstall.c:259 ../loader2/cdinstall.c:376
-#: ../loader2/cdinstall.c:381 ../loader2/cdinstall.c:386
-#: ../loader2/cdinstall.c:450 ../loader2/dirbrowser.c:139
-#: ../loader2/driverdisk.c:269 ../loader2/driverdisk.c:300
-#: ../loader2/driverdisk.c:334 ../loader2/driverdisk.c:372
-#: ../loader2/driverdisk.c:386 ../loader2/driverdisk.c:400
-#: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
-#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:208
-#: ../loader2/hdinstall.c:104 ../loader2/hdinstall.c:155
-#: ../loader2/hdinstall.c:214 ../loader2/hdinstall.c:381
-#: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:467
-#: ../loader2/hdinstall.c:536 ../loader2/hdinstall.c:579
-#: ../loader2/hdinstall.c:592 ../loader2/kbd.c:128 ../loader2/kickstart.c:121
-#: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:273 ../loader2/kickstart.c:409 ../loader2/lang.c:103
-#: ../loader2/lang.c:380 ../loader2/loader.c:313 ../loader2/loader.c:326
-#: ../loader2/loader.c:337 ../loader2/loader.c:740 ../loader2/loader.c:903
-#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
-#: ../loader2/mediacheck.c:432 ../loader2/method.c:153 ../loader2/method.c:372
-#: ../loader2/method.c:457 ../loader2/modules.c:972 ../loader2/net.c:233
-#: ../loader2/net.c:271 ../loader2/net.c:542 ../loader2/net.c:904
-#: ../loader2/net.c:927 ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
+#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:380
+#: ../text.py:553 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
+#: ../textw/constants_text.py:36 ../textw/iscsi_text.py:73
+#: ../textw/network_text.py:30 ../textw/network_text.py:176
+#: ../textw/network_text.py:407 ../textw/network_text.py:415
+#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
+#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:259
+#: ../loader2/cdinstall.c:376 ../loader2/cdinstall.c:381
+#: ../loader2/cdinstall.c:386 ../loader2/cdinstall.c:450
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
+#: ../loader2/driverdisk.c:300 ../loader2/driverdisk.c:334
+#: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:386
+#: ../loader2/driverdisk.c:400 ../loader2/driverdisk.c:579
+#: ../loader2/driverdisk.c:617 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:208 ../loader2/hdinstall.c:104
+#: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
+#: ../loader2/hdinstall.c:381 ../loader2/hdinstall.c:432
+#: ../loader2/hdinstall.c:467 ../loader2/hdinstall.c:536
+#: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592 ../loader2/kbd.c:128
+#: ../loader2/kickstart.c:121 ../loader2/kickstart.c:131
+#: ../loader2/kickstart.c:174 ../loader2/kickstart.c:273
+#: ../loader2/kickstart.c:409 ../loader2/lang.c:103 ../loader2/lang.c:380
+#: ../loader2/loader.c:329 ../loader2/loader.c:342 ../loader2/loader.c:353
+#: ../loader2/loader.c:759 ../loader2/loader.c:922 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
+#: ../loader2/method.c:153 ../loader2/method.c:372 ../loader2/method.c:457
+#: ../loader2/modules.c:972 ../loader2/net.c:233 ../loader2/net.c:271
+#: ../loader2/net.c:542 ../loader2/net.c:904 ../loader2/net.c:927
+#: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:212
 #: ../loader2/nfsinstall.c:221 ../loader2/nfsinstall.c:259
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
@@ -135,16 +136,16 @@ msgstr "Csatlakozzon a telepítés megkezdéséhez..."
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:665
+#: ../anaconda:668
 msgid "Unknown Error"
 msgstr "Ismeretlen hiba"
 
-#: ../anaconda:668
+#: ../anaconda:671
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Hiba történt a kickstart-beállítások második felének olvasásakor: %s"
 
-#: ../anaconda:794
+#: ../anaconda:797
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -152,50 +153,51 @@ msgstr ""
 "Nincs elég memória a grafikus felületű telepítő használatához. Szöveges módú "
 "lesz a telepítés."
 
-#: ../anaconda:857
+#: ../anaconda:860
 msgid "Install class forcing text mode installation"
 msgstr "A telepítési osztály kikényszeríti a karakteres módú telepítést"
 
-#: ../anaconda:884
+#: ../anaconda:887
 msgid "No video hardware found, assuming headless"
 msgstr "Nem található videokártya, monitor nélküli üzemmódra váltás"
 
-#: ../anaconda:895 ../anaconda:1130
+#: ../anaconda:898 ../anaconda:1133
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nem sikerült inicializálni egy X hardverállapot-objektumot."
 
-#: ../anaconda:919
+#: ../anaconda:922
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafikus telepítés nem választható... Indulás karakteres módban."
 
-#: ../anaconda:927
+#: ../anaconda:930
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "A DISPLAY változó nincs beállítva. Szöveges módot indítok!"
 
-#: ../anaconda:1010
+#: ../anaconda:1013
 msgid "Press <enter> for a shell"
 msgstr "Nyomja meg az <enter> billentyűt, hogy burkot kapjon"
 
-#: ../anaconda:1042
+#: ../anaconda:1045
 msgid "Starting graphical installation..."
 msgstr "Elindul a grafikus módú telepítő..."
 
-#: ../anaconda:1096
+#: ../anaconda:1099
 msgid "Unknown install method"
 msgstr "Ismeretlen telepítési eljárás: %s"
 
-#: ../anaconda:1097
+#: ../anaconda:1100
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Olyan módon próbál telepíteni, amelyet az anaconda nem támogat."
 
-#: ../anaconda:1099
+#: ../anaconda:1102
 #, c-format
 msgid "unknown install method: %s"
 msgstr "Ismeretlen telepítési eljárás: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
+msgstr ""
+"Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions as primary partitions"
@@ -250,7 +252,8 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Lehet, hogy a %s rendszerindítási partíció nem tesz eleget az architektúra "
 "rendszerindítási követelményeinek."
@@ -426,15 +429,15 @@ msgstr "Helyrehozhatatlan hiba"
 msgid "Your system will now be rebooted."
 msgstr "A számítógép újra lesz indítva."
 
-#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1178 ../image.py:455
-#: ../partedUtils.py:298 ../partedUtils.py:328 ../partedUtils.py:905
-#: ../partedUtils.py:962 ../upgrade.py:328 ../upgrade.py:477
-#: ../yuminstall.py:149 ../iw/blpasswidget.py:145
+#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1183 ../image.py:456
+#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:911
+#: ../partedUtils.py:968 ../upgrade.py:328 ../upgrade.py:477
+#: ../yuminstall.py:150 ../iw/blpasswidget.py:145
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/upgrade_swap_gui.py:199
 #: ../iw/upgrade_swap_gui.py:207 ../iw/upgrade_swap_gui.py:214
 #: ../iw/zfcp_gui.py:248 ../textw/bootloader_text.py:124
 #: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:176 ../loader2/loader.c:380
+#: ../textw/upgrade_text.py:176 ../loader2/loader.c:396
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
@@ -568,7 +571,8 @@ msgstr "A dump-fájl kiírva"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr "A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
+msgstr ""
+"A rendszer állapotát sikerült floppyra menteni. A rendszer most újraindul."
 
 #: ../exception.py:428 ../exception.py:444
 msgid "Dump Not Written"
@@ -590,21 +594,21 @@ msgstr ""
 msgid "There was a problem writing the system state to the remote host."
 msgstr "Hiba történt a rendszer állapotának távoli gépre történő írása közben."
 
-#: ../fsset.py:197
+#: ../fsset.py:199
 msgid "Checking for Bad Blocks"
 msgstr "Hibás blokkok keresése"
 
-#: ../fsset.py:198
+#: ../fsset.py:200
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Hibás blokkok keresése: /dev/%s..."
 
-#: ../fsset.py:630 ../fsset.py:1420 ../fsset.py:1458 ../fsset.py:1469
-#: ../fsset.py:1520 ../fsset.py:1531 ../fsset.py:1566 ../fsset.py:1616
-#: ../fsset.py:1660 ../fsset.py:1679 ../image.py:133 ../image.py:162
-#: ../image.py:333 ../partedUtils.py:715 ../partIntfHelpers.py:403
-#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:133
-#: ../yuminstall.py:486 ../yuminstall.py:607 ../iw/osbootwidget.py:216
+#: ../fsset.py:632 ../fsset.py:1424 ../fsset.py:1462 ../fsset.py:1473
+#: ../fsset.py:1524 ../fsset.py:1535 ../fsset.py:1570 ../fsset.py:1620
+#: ../fsset.py:1664 ../fsset.py:1683 ../image.py:133 ../image.py:162
+#: ../image.py:333 ../partedUtils.py:721 ../partIntfHelpers.py:403
+#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:134
+#: ../yuminstall.py:487 ../yuminstall.py:614 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
 #: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:164
 #: ../textw/upgrade_text.py:171 ../loader2/cdinstall.c:137
@@ -614,8 +618,8 @@ msgstr "Hibás blokkok keresése: /dev/%s..."
 #: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
 #: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:337
-#: ../loader2/loader.c:740 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:353
+#: ../loader2/loader.c:759 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
 #: ../loader2/method.c:457 ../loader2/nfsinstall.c:125
 #: ../loader2/nfsinstall.c:212 ../loader2/nfsinstall.c:221
@@ -626,7 +630,7 @@ msgstr "Hibás blokkok keresése: /dev/%s..."
 msgid "Error"
 msgstr "Hiba"
 
-#: ../fsset.py:631
+#: ../fsset.py:633
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -639,27 +643,27 @@ msgstr ""
 "\n"
 "Tovább szeretne lépni %s migrálása nélkül?"
 
-#: ../fsset.py:1328
+#: ../fsset.py:1332
 msgid "RAID Device"
 msgstr "RAID-eszköz"
 
-#: ../fsset.py:1332 ../fsset.py:1338
+#: ../fsset.py:1336 ../fsset.py:1342
 msgid "Apple Bootstrap"
 msgstr "Apple-rendszerindító"
 
-#: ../fsset.py:1343 ../partitions.py:868
+#: ../fsset.py:1347 ../partitions.py:868
 msgid "PPC PReP Boot"
 msgstr "PPC PReP rendszerindító"
 
-#: ../fsset.py:1346
+#: ../fsset.py:1350
 msgid "First sector of boot partition"
 msgstr "A rendszerindítási partíció első szektora"
 
-#: ../fsset.py:1347
+#: ../fsset.py:1351
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1421
+#: ../fsset.py:1425
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -672,7 +676,7 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1459
+#: ../fsset.py:1463
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -689,7 +693,7 @@ msgstr ""
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
-#: ../fsset.py:1470
+#: ../fsset.py:1474
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -705,7 +709,7 @@ msgstr ""
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
-#: ../fsset.py:1521
+#: ../fsset.py:1525
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -718,7 +722,7 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1532
+#: ../fsset.py:1536
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -731,7 +735,7 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1567
+#: ../fsset.py:1571
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -744,7 +748,7 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1617
+#: ../fsset.py:1621
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -757,11 +761,11 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1638 ../fsset.py:1647
+#: ../fsset.py:1642 ../fsset.py:1651
 msgid "Invalid mount point"
 msgstr "Érvénytelen csatlakoztatási (mount-) pont"
 
-#: ../fsset.py:1639
+#: ../fsset.py:1643
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -774,7 +778,7 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1648
+#: ../fsset.py:1652
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -787,7 +791,7 @@ msgstr ""
 "\n"
 "Nyomja meg az <Enter>-t a számítógép újraindításához."
 
-#: ../fsset.py:1661
+#: ../fsset.py:1665
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -802,7 +806,7 @@ msgstr ""
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
-#: ../fsset.py:1680
+#: ../fsset.py:1684
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -816,11 +820,11 @@ msgstr ""
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
-#: ../fsset.py:2345
+#: ../fsset.py:2349
 msgid "Duplicate Labels"
 msgstr "Duplikált lemezcímke"
 
-#: ../fsset.py:2346
+#: ../fsset.py:2350
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -833,31 +837,31 @@ msgstr ""
 "\n"
 "Javítsa ki ezt a hibát és indítsa újra a telepítési folyamatot."
 
-#: ../fsset.py:2353 ../gui.py:797 ../gui.py:1291 ../image.py:92
-#: ../image.py:465 ../packages.py:582 ../yuminstall.py:160
+#: ../fsset.py:2357 ../gui.py:798 ../gui.py:1296 ../image.py:92
+#: ../image.py:466 ../image.py:533 ../packages.py:582 ../yuminstall.py:161
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "Ú_jraindítás"
 
-#: ../fsset.py:2606
+#: ../fsset.py:2610
 msgid "Formatting"
 msgstr "Formázás"
 
-#: ../fsset.py:2607
+#: ../fsset.py:2611
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s fájlrendszer formázása..."
 
-#: ../gui.py:107
+#: ../gui.py:108
 msgid "An error occurred copying the screenshots over."
 msgstr "Hiba történt a képernyőfelvételek felülírása közben."
 
-#: ../gui.py:119
+#: ../gui.py:120
 msgid "Screenshots Copied"
 msgstr "A képernyőfelvételek átmásolása megtörtént"
 
-#: ../gui.py:120
+#: ../gui.py:121
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -871,20 +875,20 @@ msgstr ""
 "\n"
 "Újraindítás után jelentkezzen be rendszergazdaként a képek eléréséhez."
 
-#: ../gui.py:164
+#: ../gui.py:165
 msgid "Saving Screenshot"
 msgstr "Képernyőfelvétel elmentése"
 
-#: ../gui.py:165
+#: ../gui.py:166
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "El lett mentve egy képernyőfelvétel '%s' néven."
 
-#: ../gui.py:168
+#: ../gui.py:169
 msgid "Error Saving Screenshot"
 msgstr "Hiba történt a képernyőfelvétel elmentésekor"
 
-#: ../gui.py:169
+#: ../gui.py:170
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -892,44 +896,44 @@ msgstr ""
 "Hiba történt a képernyőfelvétel elmentése közben. Ha éppen folyt egy csomag "
 "telepítése, akkor esetleg többször is meg kell próbálni a műveletet."
 
-#: ../gui.py:238 ../text.py:376
+#: ../gui.py:239 ../text.py:377
 msgid "Fix"
 msgstr "Javítás"
 
-#: ../gui.py:239 ../packages.py:53 ../rescue.py:182 ../text.py:377
+#: ../gui.py:240 ../packages.py:53 ../rescue.py:182 ../text.py:378
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:515
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
-#: ../loader2/loader.c:380
+#: ../loader2/loader.c:396
 msgid "Yes"
 msgstr "Igen"
 
-#: ../gui.py:240 ../rescue.py:182 ../rescue.py:184 ../text.py:378
+#: ../gui.py:241 ../rescue.py:182 ../rescue.py:184 ../text.py:379
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:380
+#: ../loader2/loader.c:396
 msgid "No"
 msgstr "Nem"
 
-#: ../gui.py:242 ../text.py:380 ../loader2/net.c:276 ../loader2/net.c:593
+#: ../gui.py:243 ../text.py:381 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
 msgstr "Újra"
 
-#: ../gui.py:243 ../text.py:381
+#: ../gui.py:244 ../text.py:382
 msgid "Ignore"
 msgstr "Figyelmen kívül hagyás"
 
-#: ../gui.py:244 ../gui.py:702 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:101 ../text.py:102 ../text.py:353
-#: ../text.py:355 ../text.py:382 ../iw/bootloader_advanced_gui.py:48
+#: ../gui.py:245 ../gui.py:703 ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:526 ../text.py:102 ../text.py:103 ../text.py:354
+#: ../text.py:356 ../text.py:383 ../iw/bootloader_advanced_gui.py:48
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
-#: ../loader2/loader.c:326
+#: ../loader2/loader.c:342
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ../gui.py:792 ../text.py:339
+#: ../gui.py:793 ../text.py:340
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -940,11 +944,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:794 ../text.py:341
+#: ../gui.py:795 ../text.py:342
 msgid "Error Parsing Kickstart Config"
 msgstr "Hiba történt a Kickstart-konfiguráció feldolgozásakor"
 
-#: ../gui.py:802 ../text.py:351
+#: ../gui.py:803 ../text.py:352
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -952,23 +956,23 @@ msgstr ""
 "Most helyezzen be egy floppyt. A lemez teljes tartalma törlésre kerül, "
 "óvatosan válasszon tehát lemezt."
 
-#: ../gui.py:917
+#: ../gui.py:918
 msgid "default:LTR"
 msgstr "alapértelmezés:LTR"
 
-#: ../gui.py:992 ../iw/release_notes_viewer_gui.py:51
+#: ../gui.py:997 ../iw/release_notes_viewer_gui.py:51
 msgid "Release notes are missing.\n"
 msgstr "A kibocsátási megjegyzések hiányoznak.\n"
 
-#: ../gui.py:1179
+#: ../gui.py:1184
 msgid "The release notes are missing."
 msgstr "Hiányoznak a kibocsátási megjegyzések"
 
-#: ../gui.py:1278
+#: ../gui.py:1283
 msgid "Error!"
 msgstr "Hiba!"
 
-#: ../gui.py:1279
+#: ../gui.py:1284
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -979,37 +983,37 @@ msgstr ""
 "\n"
 "Osztálynév = %s"
 
-#: ../gui.py:1283 ../gui.py:1288 ../packages.py:574 ../packages.py:579
-#: ../yuminstall.py:613
+#: ../gui.py:1288 ../gui.py:1293 ../packages.py:574 ../packages.py:579
+#: ../yuminstall.py:620
 msgid "_Exit"
 msgstr "_Kilépés"
 
-#: ../gui.py:1284 ../yuminstall.py:147
+#: ../gui.py:1289 ../yuminstall.py:148
 msgid "_Retry"
 msgstr "Újr_a"
 
-#: ../gui.py:1287 ../packages.py:578
+#: ../gui.py:1292 ../packages.py:578
 msgid "The installer will now exit..."
 msgstr "A telepítő most kilép..."
 
-#: ../gui.py:1290 ../packages.py:581
+#: ../gui.py:1295 ../packages.py:581
 msgid "Your system will now be rebooted..."
 msgstr "A rendszer újraindítása következik..."
 
-#: ../gui.py:1293 ../packages.py:583
+#: ../gui.py:1298 ../packages.py:583
 msgid "Rebooting System"
 msgstr "A rendszer újraindítása"
 
-#: ../gui.py:1375
+#: ../gui.py:1380
 #, python-format
 msgid "%s Installer"
 msgstr "%s telepítő"
 
-#: ../gui.py:1381
+#: ../gui.py:1386
 msgid "Unable to load title bar"
 msgstr "Nem sikerült betölteni a címsort"
 
-#: ../gui.py:1441
+#: ../gui.py:1446
 msgid "Install Window"
 msgstr "Telepítőablak"
 
@@ -1038,7 +1042,7 @@ msgstr ""
 msgid "_Back"
 msgstr "_Vissza"
 
-#: ../image.py:92 ../image.py:466 ../iw/partition_gui.py:1012
+#: ../image.py:92 ../image.py:467 ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Tovább"
 
@@ -1090,7 +1094,26 @@ msgstr "Ez nem a megfelelő %s CD-lemez."
 msgid "Unable to access the CDROM."
 msgstr "Nem sikerült elérni a CD-lemezt."
 
-#: ../installclass.py:55
+#: ../image.py:523
+msgid "Missing ISO 9660 Image"
+msgstr ""
+
+#: ../image.py:524
+#, python-format
+msgid ""
+"The installer has tried to mount image #%s, but cannot find it on the "
+"server.\n"
+"\n"
+"Please copy this image to the remote server's share path and click Retry. "
+"Click Reboot to abort the installation."
+msgstr ""
+
+#: ../image.py:534
+#, fuzzy
+msgid "Re_try"
+msgstr "Újra"
+
+#: ../installclass.py:56
 msgid "Install on System"
 msgstr "Telepítendő rendszer"
 
@@ -1111,15 +1134,15 @@ msgstr ""
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
-#: ../kickstart.py:708 ../kickstart.py:726
+#: ../kickstart.py:711 ../kickstart.py:729
 msgid "Running..."
 msgstr "Kapcsolódás..."
 
-#: ../kickstart.py:709
+#: ../kickstart.py:712
 msgid "Running pre-install scripts"
 msgstr "Telepítés előtt szkriptek futtatása"
 
-#: ../kickstart.py:727
+#: ../kickstart.py:730
 msgid "Running post-install scripts"
 msgstr "Telepítés utáni szkriptek futtatása"
 
@@ -1157,11 +1180,11 @@ msgstr "Folytatni szeretné a rendszer frissítését?"
 msgid "Reboot"
 msgstr "Újraindítás"
 
-#: ../packages.py:200 ../yuminstall.py:883
+#: ../packages.py:200 ../yuminstall.py:910
 msgid "Post Install"
 msgstr "Telepítés utáni szakasz"
 
-#: ../packages.py:201 ../yuminstall.py:884
+#: ../packages.py:201 ../yuminstall.py:911
 msgid "Performing post install configuration..."
 msgstr "Telepítés utáni konfigurálás..."
 
@@ -1222,11 +1245,11 @@ msgstr ""
 msgid "_Install anyway"
 msgstr "_Telepítés mindenképpen"
 
-#: ../partedUtils.py:199 ../textw/partition_text.py:558
+#: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
 msgstr "Idegen"
 
-#: ../partedUtils.py:299
+#: ../partedUtils.py:305
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1243,7 +1266,7 @@ msgstr ""
 "\n"
 "Újra szeretné formázni a DASD-t a CDL formátummal?"
 
-#: ../partedUtils.py:329
+#: ../partedUtils.py:335
 #, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1258,29 +1281,29 @@ msgstr ""
 "\n"
 "Le szeretné formázni a lemezt?"
 
-#: ../partedUtils.py:338
+#: ../partedUtils.py:344
 msgid "_Ignore drive"
 msgstr "Fi_gyelmen kívül hagyás"
 
-#: ../partedUtils.py:339
+#: ../partedUtils.py:345
 msgid "_Format drive"
 msgstr "_Formázás"
 
-#: ../partedUtils.py:716
+#: ../partedUtils.py:722
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Hiba történt a fájlrendszer csatlakoztatásakor (%s): %s"
 
-#: ../partedUtils.py:804
+#: ../partedUtils.py:810
 msgid "Initializing"
 msgstr "Inicializálás"
 
-#: ../partedUtils.py:805
+#: ../partedUtils.py:811
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Egy kis türelmet kérek, a(z) %s meghajtó formázása folyik...\n"
 
-#: ../partedUtils.py:906
+#: ../partedUtils.py:912
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1301,7 +1324,7 @@ msgstr ""
 "\n"
 "Le szeretné formázni a lemezt (MINDEN ADAT elvész róla)?"
 
-#: ../partedUtils.py:963
+#: ../partedUtils.py:969
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1321,11 +1344,11 @@ msgstr ""
 "\n"
 "Inicializálni szeretné a meghajtót (MINDEN ADAT elvész róla)?"
 
-#: ../partedUtils.py:1081
+#: ../partedUtils.py:1087
 msgid "No Drives Found"
 msgstr "Nem találtam meghajtókat"
 
-#: ../partedUtils.py:1082
+#: ../partedUtils.py:1088
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1392,7 +1415,8 @@ msgstr "Adjon meg egy csatlakoztatási (mount) pontot a partíciónak."
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr ""
+"Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:116
 #, python-format
@@ -1645,7 +1669,8 @@ msgid "Confirm Reset"
 msgstr "Az alapállapotba hozás megerősítése"
 
 #: ../partIntfHelpers.py:534
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan alapállapotba szeretné hozni a partíciós táblát?"
 
 #: ../partitioning.py:57
@@ -1680,7 +1705,8 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr "Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
+msgstr ""
+"Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
 
 #: ../partitions.py:808
 #, python-format
@@ -1692,7 +1718,8 @@ msgstr ""
 "telepítéséhez."
 
 #: ../partitions.py:815
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Létre kell hozni egy FAT típusú, kb. 50 MB-os /boot/efi partíciót."
 
 #: ../partitions.py:835
@@ -1760,7 +1787,8 @@ msgstr "egy olyan partíció, mely egy LVM-kötetcsoport része."
 
 #: ../partRequests.py:249
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ez a csatlakoztatási pont érvénytelen. A(z) %s könyvtárnak a gyökér-"
 "fájlrendszeren (/) kell lennie."
@@ -1854,13 +1882,14 @@ msgstr "A hálózat beállítása"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "El szeretné indítani a rendszer hálózati felületeit?"
 
-#: ../rescue.py:226 ../text.py:548
+#: ../rescue.py:226 ../text.py:549
 msgid "Cancelled"
 msgstr "Leállítva"
 
-#: ../rescue.py:227 ../text.py:549
+#: ../rescue.py:227 ../text.py:550
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
+msgstr ""
+"Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:245 ../rescue.py:281 ../rescue.py:441
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1988,68 +2017,71 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "A rendszer a(z) %s könyvtárba van csatlakoztatva."
 
-#: ../text.py:146 ../text.py:158
+#: ../text.py:147 ../text.py:159
 msgid "Save"
 msgstr "Mentés"
 
-#: ../text.py:146 ../text.py:148 ../text.py:160
+#: ../text.py:147 ../text.py:149 ../text.py:161
 msgid "Remote"
 msgstr "Távoli"
 
-#: ../text.py:146 ../text.py:148 ../text.py:156
+#: ../text.py:147 ../text.py:149 ../text.py:157
 msgid "Debug"
 msgstr "Hibakeresés"
 
-#: ../text.py:152
+#: ../text.py:153
 msgid "Exception Occurred"
 msgstr "Kivétel történt"
 
-#: ../text.py:181
+#: ../text.py:182
 msgid "Save to Remote Host"
 msgstr "Mentés távoli gépre"
 
-#: ../text.py:184
+#: ../text.py:185
 msgid "Host"
 msgstr "Gépnév"
 
-#: ../text.py:186
+#: ../text.py:187
 msgid "Remote path"
 msgstr "Távoli elérési út"
 
-#: ../text.py:188
+#: ../text.py:189
 msgid "User name"
 msgstr "Felhasználónév"
 
-#: ../text.py:190
+#: ../text.py:191
 msgid "Password"
 msgstr "Jelszó"
 
-#: ../text.py:247
+#: ../text.py:248
 msgid "Help not available"
 msgstr "Nem áll rendelkezésre segítség"
 
-#: ../text.py:248
+#: ../text.py:249
 msgid "No help is available for this step of the install."
 msgstr "Nincs tájékoztató szöveg ehhez a telepítési lépéshez."
 
-#: ../text.py:350
+#: ../text.py:351
 msgid "Save Crash Dump"
 msgstr "Crash Dump mentése"
 
-#: ../text.py:404 ../loader2/lang.c:52 ../loader2/loader.c:131
+#: ../text.py:405 ../loader2/lang.c:52 ../loader2/loader.c:145
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Üdvözöljük - %s"
 
-#: ../text.py:411
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+#: ../text.py:412
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
-#: ../text.py:413
+#: ../text.py:414
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr " <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
+msgstr ""
+" <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2258,15 +2290,15 @@ msgstr "A jelszónak legalább 6 karakter hosszúnak kell lennie."
 msgid "DDC Probed Monitor"
 msgstr "DDC-vel detektált monitor"
 
-#: ../yuminstall.py:90
+#: ../yuminstall.py:91
 msgid "Processing"
 msgstr "Feldolgozás"
 
-#: ../yuminstall.py:91
+#: ../yuminstall.py:92
 msgid "Preparing transaction from installation source..."
 msgstr "Tranzakció előkészítése telepítési forrásból..."
 
-#: ../yuminstall.py:134
+#: ../yuminstall.py:135
 #, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
@@ -2281,11 +2313,11 @@ msgstr ""
 "\n"
 "Újrapróbáláshoz nyomja meg az 'Újra' gombot."
 
-#: ../yuminstall.py:146 ../yuminstall.py:498
+#: ../yuminstall.py:147 ../yuminstall.py:499
 msgid "Re_boot"
 msgstr "Újra_indítás"
 
-#: ../yuminstall.py:150
+#: ../yuminstall.py:151
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
@@ -2294,15 +2326,15 @@ msgstr ""
 "valószínűleg újratelepítésre lesz szükség. Biztosan folytatni szeretné a "
 "műveletet?"
 
-#: ../yuminstall.py:159
+#: ../yuminstall.py:160
 msgid "_Cancel"
 msgstr "_Mégsem"
 
-#: ../yuminstall.py:440
+#: ../yuminstall.py:441
 msgid "Error running transaction"
 msgstr "Hiba a tranzakció futtatása közben"
 
-#: ../yuminstall.py:487
+#: ../yuminstall.py:488
 #, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
@@ -2315,11 +2347,11 @@ msgstr ""
 "hibás, vagy a meghajtó nem tudja olvasni.\n"
 "\n"
 
-#: ../yuminstall.py:592
+#: ../yuminstall.py:599
 msgid "Retrieving installation information..."
 msgstr "Telepítési információk beolvasása..."
 
-#: ../yuminstall.py:608
+#: ../yuminstall.py:615
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2330,27 +2362,27 @@ msgstr ""
 "könyvtár lehet az oka.Ellenőrizze, hogy helyesen lett-e létrehozva a "
 "telepítési fa.  %s"
 
-#: ../yuminstall.py:635
+#: ../yuminstall.py:642
 msgid "Uncategorized"
 msgstr "Katagórián kívüli"
 
-#: ../yuminstall.py:866
+#: ../yuminstall.py:893
 msgid "Install Starting"
 msgstr "Kezdődik a telepítés"
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:894
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Kezdődik a telepítési folyamat. Ez néhány percig eltarthat..."
 
-#: ../yuminstall.py:1004
+#: ../yuminstall.py:1033
 msgid "Installation Progress"
 msgstr "A telepítés előrehaladása"
 
-#: ../yuminstall.py:1048
+#: ../yuminstall.py:1077
 msgid "Dependency Check"
 msgstr "A függőségek ellenőrzése"
 
-#: ../yuminstall.py:1049
+#: ../yuminstall.py:1078
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "A telepítésre kiválasztott csomagok közötti függőségek ellenőrzése..."
 
@@ -2638,7 +2670,8 @@ msgstr "A frissítés megkezdése"
 #: ../iw/confirm_gui.py:115
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
+msgstr ""
+"Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
 
 #: ../iw/confirm_gui.py:116
 #, python-format
@@ -2653,7 +2686,7 @@ msgstr ""
 msgid "Congratulations"
 msgstr "Gratulálunk"
 
-#: ../iw/congrats_gui.py:59
+#: ../iw/congrats_gui.py:63
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
@@ -2663,7 +2696,7 @@ msgstr ""
 "nyomja meg az \"Újraindítás\" gombot a rendszer újraindításához.\n"
 "\n"
 
-#: ../iw/congrats_gui.py:64
+#: ../iw/congrats_gui.py:68
 #, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
@@ -2739,6 +2772,25 @@ msgstr "Az IP-címek 1 és 255 közé eső számokat tartalmazhatnak"
 #: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "Az IP-címek 0 és 255 közé eső számokat tartalmazhatnak"
+
+#: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
+#, fuzzy
+msgid "iSCSI Configuration"
+msgstr "A VNC beállításai"
+
+#: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
+#, fuzzy
+msgid "Error with Data"
+msgstr "Adathiba"
+
+#: ../iw/iscsi_gui.py:34
+msgid "No IP address entered, skipping iSCSI setup"
+msgstr ""
+
+#: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr "%s"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:40
 msgid "Language Selection"
@@ -2912,7 +2964,8 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr ""
+"A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -2935,8 +2988,9 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "A kért méret (%10.2f MB) nagyobb, mint a maximális logikai kötet méret (%"
-"10.2f MB). Ez utóbbi megnövelése érdekében készítsen még fizikai kötete(ke)t a még nem partícionált "
-"lemezterületekből és adja az(oka)t hozzá a kötetcsoporthoz."
+"10.2f MB). Ez utóbbi megnövelése érdekében készítsen még fizikai kötete(ke)t "
+"a még nem partícionált lemezterületekből és adja az(oka)t hozzá a "
+"kötetcsoporthoz."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3487,12 +3541,14 @@ msgid "Partitioning"
 msgstr "Partícionálás"
 
 #: ../iw/partition_gui.py:634
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "A következő kritikus hibák találhatók a partícionálási sémában."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Ezeket a hibákat ki kell javítani, mielőtt folytatná a(z) %s rendszer "
 "telepítését."
@@ -3652,7 +3708,8 @@ msgstr "Nem sikerült meghajtóklónozási szerkesztőt létrehozni"
 
 #: ../iw/partition_gui.py:1313
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
+msgstr ""
+"Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
@@ -3769,7 +3826,7 @@ msgstr "Csomag"
 msgid "Summary"
 msgstr "Leírás"
 
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:131
+#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
 msgid "Status: "
 msgstr "Állapot: "
 
@@ -4007,7 +4064,8 @@ msgstr "Ez felfrissíti az aktuális rendszerbetöltőt."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "A telepítő %s rendszerbetöltőt talált a(z) %s rendszeren."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4144,7 +4202,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához."
 
 #: ../iw/zfcp_gui.py:24
@@ -4310,7 +4369,8 @@ msgstr ""
 "néven szeretné azokat megjeleníteni."
 
 #: ../textw/bootloader_text.py:297
-msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid ""
+" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Szóköz>: választás | <F2>: az alapértelmezett bejegyzés kiválasztása | "
 "<F12>: következő képernyő>"
@@ -4425,7 +4485,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
 #: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:313 ../loader2/loader.c:903 ../loader2/loader.c:925
+#: ../loader2/loader.c:329 ../loader2/loader.c:922 ../loader2/loader.c:944
 #: ../loader2/net.c:233 ../loader2/net.c:271 ../loader2/net.c:542
 #: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
@@ -4447,11 +4507,14 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
-msgstr "Kérem válassza ki azokat a csomagcsoportokat, amiket telepíteni szeretne."
+msgstr ""
+"Kérem válassza ki azokat a csomagcsoportokat, amiket telepíteni szeretne."
 
 #: ../textw/grpselect_text.py:101
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4460,6 +4523,28 @@ msgstr "A csomagcsoport jellemzői"
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
 msgstr "Milyen típusú rendszert szeretne telepíteni?"
+
+#: ../textw/iscsi_text.py:35
+#, fuzzy
+msgid "Target IP address:"
+msgstr "IP-cím:"
+
+#: ../textw/iscsi_text.py:42
+msgid "Port Number:"
+msgstr ""
+
+#: ../textw/iscsi_text.py:49
+msgid "iSCSI Initiator Name:"
+msgstr ""
+
+#: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
+msgid "Invalid IP string"
+msgstr "Érvénytelen IP-sztring"
+
+#: ../textw/iscsi_text.py:71 ../textw/network_text.py:29
+#, python-format
+msgid "The entered IP '%s' is not a valid IP."
+msgstr "A megadott IP-cím ('%s') érvénytelen."
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
@@ -4484,15 +4569,6 @@ msgstr "3 gomb emulálása?"
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
 msgstr "Egérválasztás"
-
-#: ../textw/network_text.py:28
-msgid "Invalid IP string"
-msgstr "Érvénytelen IP-sztring"
-
-#: ../textw/network_text.py:29
-#, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "A megadott IP-cím ('%s') érvénytelen."
 
 #: ../textw/network_text.py:66
 msgid "IP Address"
@@ -4845,8 +4921,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -4895,43 +4973,43 @@ msgstr "Disk Druid"
 msgid "Downloading - %s"
 msgstr "Letöltés - %s"
 
-#: ../textw/progress_text.py:99
+#: ../textw/progress_text.py:103
 msgid "Package Installation"
 msgstr "Csomagok telepítése"
 
-#: ../textw/progress_text.py:101
+#: ../textw/progress_text.py:105
 msgid " Name   : "
 msgstr " Név    : "
 
-#: ../textw/progress_text.py:102
+#: ../textw/progress_text.py:106
 msgid " Size   : "
 msgstr " Méret  : "
 
-#: ../textw/progress_text.py:103
+#: ../textw/progress_text.py:107
 msgid " Summary: "
 msgstr " Leírás : "
 
-#: ../textw/progress_text.py:148
+#: ../textw/progress_text.py:152
 msgid "    Packages"
 msgstr "    Csomag"
 
-#: ../textw/progress_text.py:149
+#: ../textw/progress_text.py:153
 msgid "      Bytes"
 msgstr "      Bájt"
 
-#: ../textw/progress_text.py:150
+#: ../textw/progress_text.py:154
 msgid "        Time"
 msgstr "         Idő"
 
-#: ../textw/progress_text.py:152
+#: ../textw/progress_text.py:156
 msgid "Total    :"
 msgstr "Összesen    :"
 
-#: ../textw/progress_text.py:159
+#: ../textw/progress_text.py:163
 msgid "Completed:   "
 msgstr "Kész        :"
 
-#: ../textw/progress_text.py:169
+#: ../textw/progress_text.py:173
 msgid "Remaining:  "
 msgstr "Hátralévő   :"
 
@@ -4947,8 +5025,8 @@ msgid ""
 "include  support for?"
 msgstr ""
 "A(z) %s alapértelmezett telepítése tartalmaz egy szoftvercsoportot ami "
-"általános internet használatot tesz lehetővé. Milyen egyéb feladatot támogasson még"
-"a számítógépe?"
+"általános internet használatot tesz lehetővé. Milyen egyéb feladatot "
+"támogasson méga számítógépe?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5062,11 +5140,6 @@ msgstr ""
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
 msgstr "A rendszergazdai jelszónak legalább 6 karakter hosszúnak kell lenni."
-
-#: ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -5478,7 +5551,8 @@ msgstr "Meghajtólemez használata"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
+msgstr ""
+"Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
 
 #: ../loader2/driverselect.c:201
 msgid ""
@@ -5602,9 +5676,11 @@ msgstr "Hibás argumentum a(z) %s lezárási Kickstart-parancsnál: %s"
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Üdvözöljük - %s (helyreállítási mód)"
 
-#: ../loader2/lang.c:54 ../loader2/loader.c:137
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr " <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
+#: ../loader2/lang.c:54 ../loader2/loader.c:151
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+" <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5622,11 +5698,11 @@ msgstr "Merevlemez"
 msgid "NFS image"
 msgstr "NFS-megosztás"
 
-#: ../loader2/loader.c:308
+#: ../loader2/loader.c:324
 msgid "Update Disk Source"
 msgstr "A frissítőlemez forrása"
 
-#: ../loader2/loader.c:309
+#: ../loader2/loader.c:325
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5634,30 +5710,30 @@ msgstr ""
 "Több olyan eszköz van a rendszerben, mely tartalmazhatja a frissítőlemezt. "
 "Melyiket szeretné használni?"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:340
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Helyezze be a frissítőlemezt a /dev/%s eszközbe, majd a folytatáshoz nyomja "
 "meg az \"OK\" gombot."
 
-#: ../loader2/loader.c:326
+#: ../loader2/loader.c:342
 msgid "Updates Disk"
 msgstr "Frissítőlemez"
 
-#: ../loader2/loader.c:338
+#: ../loader2/loader.c:354
 msgid "Failed to mount updates disk"
 msgstr "Nem sikerült csatlakoztatni a frissítőlemezt."
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:357
 msgid "Updates"
 msgstr "Frissítések"
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:357
 msgid "Reading anaconda updates..."
 msgstr "Az Anaconda frissítéseinek olvasása..."
 
-#: ../loader2/loader.c:381
+#: ../loader2/loader.c:397
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5666,40 +5742,40 @@ msgstr ""
 "Nem található egy merevlemez sem. Valószínűleg be kell tölteni a szükséges "
 "eszközmeghajtót a telepítéshez. Ki szeretne most választani eszközmeghajtót?"
 
-#: ../loader2/loader.c:737
+#: ../loader2/loader.c:756
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nincs elég memória a gépben a(z) %s telepítéséhez."
 
-#: ../loader2/loader.c:895
+#: ../loader2/loader.c:914
 msgid "Rescue Method"
 msgstr "Helyreállítási módszer"
 
-#: ../loader2/loader.c:896
+#: ../loader2/loader.c:915
 msgid "Installation Method"
 msgstr "Telepítési módszer"
 
-#: ../loader2/loader.c:898
+#: ../loader2/loader.c:917
 msgid "What type of media contains the rescue image?"
 msgstr "Milyen típusú médián van a helyreállítási képmás?"
 
-#: ../loader2/loader.c:900
+#: ../loader2/loader.c:919
 msgid "What type of media contains the packages to be installed?"
 msgstr "Milyen típusú médián vannak a telepítendő csomagok?"
 
-#: ../loader2/loader.c:924
+#: ../loader2/loader.c:943
 msgid "No driver found"
 msgstr "Nem található meghajtó"
 
-#: ../loader2/loader.c:924
+#: ../loader2/loader.c:943
 msgid "Select driver"
 msgstr "Válassza ki a meghajtót"
 
-#: ../loader2/loader.c:925
+#: ../loader2/loader.c:944
 msgid "Use a driver disk"
 msgstr "Meghajtólemez használata"
 
-#: ../loader2/loader.c:926
+#: ../loader2/loader.c:945
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5707,39 +5783,40 @@ msgstr ""
 "Nem található a telepítési típusnak megfelelő eszköz a gépben. Ki szeretné "
 "választani a szükséges meghajtóprogramot vagy meghajtólemezt?"
 
-#: ../loader2/loader.c:1086
+#: ../loader2/loader.c:1106
 msgid "The following devices have been found on your system."
 msgstr "A következő eszközök találhatók a rendszerben."
 
-#: ../loader2/loader.c:1088
+#: ../loader2/loader.c:1108
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "Egy eszközmeghajtó sincs betöltve. Be szeretne most tölteni egyet?"
 
-#: ../loader2/loader.c:1092
+#: ../loader2/loader.c:1112
 msgid "Devices"
 msgstr "Eszközök"
 
-#: ../loader2/loader.c:1093
+#: ../loader2/loader.c:1113
 msgid "Done"
 msgstr "Kész"
 
-#: ../loader2/loader.c:1094
+#: ../loader2/loader.c:1114
 msgid "Add Device"
 msgstr "Eszköz hozzáadása"
 
-#: ../loader2/loader.c:1234
+#: ../loader2/loader.c:1254
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "A betöltő már lefutott. Elindul a parancsértelmező.\n"
 
-#: ../loader2/loader.c:1598
+#: ../loader2/loader.c:1618
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
+msgstr ""
+"Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
-#: ../loader2/loader.c:1600
+#: ../loader2/loader.c:1620
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -5794,7 +5871,8 @@ msgstr "Az adathordozó alkalmas a telepítésre."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr "Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
+msgstr ""
+"Nem érhető el ellenőrzőösszeg, ezért nem lehet ellenőrizni az adathordozót."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6168,8 +6246,8 @@ msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"A(z) <product> telepítése a merevlemez partícionálását igényli. Választhat, hogy "
-"az alapértelmezett partícionálást választja vagy elkészíti a sajátját."
+"A(z) <product> telepítése a merevlemez partícionálását igényli. Választhat, "
+"hogy az alapértelmezett partícionálást választja vagy elkészíti a sajátját."
 
 #: tmp/autopart2.glade.h:3
 msgid "Select the drive(s) to use for this installation."
@@ -6195,6 +6273,23 @@ msgstr "Kivétel információ"
 msgid "_Exception details"
 msgstr "_Kivétel részletek"
 
+#: tmp/iscsi-config.glade.h:1
+msgid "<b>_Port Number:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:2
+msgid "<b>_Target IP Address:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:3
+msgid "<b>iSCSI Initiator _Name:</b>"
+msgstr ""
+
+#: tmp/iscsi-config.glade.h:4
+#, fuzzy
+msgid "iSCSI configuration"
+msgstr "A VNC beállításai"
+
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
 msgstr "Testreszabás _később"
@@ -6204,8 +6299,8 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
-"A csomagválaszték további testreszabása megtörténhet most, vagy "
-"később, a telepítés után, a szoftverkezelő alkalmazással segítségével is."
+"A csomagválaszték további testreszabása megtörténhet most, vagy később, a "
+"telepítés után, a szoftverkezelő alkalmazással segítségével is."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6214,8 +6309,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
-"A(z) %s alapértelmezett telepítése tartalmaz néhány szoftvercsomagot általános "
-"internet használathoz. Milyen további feladatokra kívánja a számítógépet igénybevenni?"
+"A(z) %s alapértelmezett telepítése tartalmaz néhány szoftvercsomagot "
+"általános internet használathoz. Milyen további feladatokra kívánja a "
+"számítógépet igénybevenni?"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Customize now"
@@ -6466,8 +6562,10 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Keleti idő - Ontario (a legtöbb hely)"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr ""
+"Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
@@ -6654,7 +6752,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Sziklás-hegységi idő (MST) - Arizona"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Sziklás-hegységi idő - Dawson Creek, Fort Saint John, Brit-Kolumbia"
 
 #. generated from zone.tab
@@ -7086,4 +7185,3 @@ msgstr "velszi"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulu"
-
