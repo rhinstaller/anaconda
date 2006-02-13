@@ -1530,8 +1530,6 @@ class InstallControlState:
                 text = text.replace("@RHLVER@", productVersion)
                 return text
 
-            log.debug("Unable to read %s help text" % (file,))
-
         return self.html
     
     def setScreenPrev (self):
