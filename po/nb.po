@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-01-19 12:43+0100\n"
+"PO-Revision-Date: 2006-02-13 11:18+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -562,7 +562,6 @@ msgid "Dump Written"
 msgstr "Dump skrevet"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -2267,9 +2266,8 @@ msgid "Processing"
 msgstr "Arbeider"
 
 #: ../yuminstall.py:91
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Forbereder installasjon..."
+msgstr "Forbereder transaksjon fra installasjonskilden..."
 
 #: ../yuminstall.py:134
 #, python-format
@@ -4449,9 +4447,8 @@ msgstr ""
 "systemet. Du vil kanskje beholde denne filen som referansepunkt til senere."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Vennligst velg oppløsningen du ønsker å bruke:"
+msgstr "Vennligst velg pakkegruppene du ønsker å ha installert."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4883,14 +4880,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke stasjoner vil du bruke til denne installasjonen?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Se o_ver og endre utforming av partisjoner"
+msgstr "Se over utforming av partisjoner"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Se o_ver og endre utforming av partisjoner"
+msgstr "Se over og endre utforming av partisjoner?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4946,9 +4941,8 @@ msgid "Remaining:  "
 msgstr "Gjenstår :  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Valg av pakkegruppe"
+msgstr "Pakkevalg"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5139,20 +5133,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Kontor og produktivitet"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Programvareutvikling"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Navnetjener"
+msgstr "Webtjener"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualisering (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6186,14 +6179,12 @@ msgstr ""
 "lage din egen."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Velg stasjonen(e) vil du bruke for denne installasjonen."
+msgstr "Velg stasjonen(e) du vil bruke for denne installasjonen."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "Se o_ver og endre utforming av partisjoner"
+msgstr "Se ove_r og endre utforming av partisjoner"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6212,9 +6203,8 @@ msgid "_Exception details"
 msgstr "D_etaljer om unntak"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Tilpass"
+msgstr "Tilpass _senere"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6231,9 +6221,8 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Tilpass"
+msgstr "Tilpass _nå"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6284,16 +6273,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "\"Atlantic Time\" - østre Labrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "\"Atlantic Time\" - østre Labrador"
+msgstr "\"Atlantic Time\" - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"\"Atlantic Time\" - de fleste steder i Nova Scotia, NB, vest-Labrador, øst-"
-"Quebec og PEI"
+msgstr "\"Atlantic Time\" - de fleste steder i Nova Scotia, vest-Labrador, øst-Quebec og PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6369,18 +6354,16 @@ msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "\"Eastern Standard Time\" - Indiana - Starke County"
+msgstr "\"Central Time\" - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "\"Central Time\" - Manitoba og vest-Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "\"Central Time\" - Michigan - grensen mot Wisconsin"
+msgstr "\"Central Time\" - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6455,24 +6438,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "\"Eastern Standard Time\" - østre-Nunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "\"Eastern Standard Time\" - Indiana - Crawford County"
+msgstr "\"Eastern Time\" - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "\"Eastern Standard Time\" - de fleste steder i Indiana"
+msgstr "\"Eastern Time\" - de fleste steder i Indiana"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "\"Eastern Standard Time\" - Indiana - Starke County"
+msgstr "\"Eastern Time\" - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "\"Eastern Standard Time\" - Indiana - Switzerland County"
+msgstr "\"Eastern Time\" - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7068,9 +7047,8 @@ msgid "Serbian"
 msgstr "Serbisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Serbisk"
+msgstr "Serbisk (Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
