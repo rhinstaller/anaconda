@@ -778,7 +778,7 @@ if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
     kerneltags="kernel kernel-xen-guest"
-elif [ "$BUILDARCH" = "x86_64"]; then
+elif [ "$BUILDARCH" = "x86_64" ]; then
     arches="x86_64"
     kerneltags="kernel kernel-xen-guest"
 else

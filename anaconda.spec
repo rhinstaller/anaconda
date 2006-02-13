@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.0
+Version: 10.92.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 13 2006 Jeremy Katz <katzj@redhat.com> - 10.92.1-1
+- try to fix x86_64 xen guest
+
 * Sun Feb 12 2006 Jeremy Katz <katzj@redhat.com> - 10.92.0-1
 - Fix length of package name in text install (dcantrel, #180469)
 - Various minor cleanups

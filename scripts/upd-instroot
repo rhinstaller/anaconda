@@ -1239,7 +1239,7 @@ for p in $DEST $DESTGR; do
 	done
 
 	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
-	   (cd $p/lib && rm -f libnss_files.so.1 libnss_dns.so.1)
+	   (cd $p/lib* && rm -f libnss_files.so.1 libnss_dns.so.1)
 	fi
 
 	if [ -d $DEST/usr/share/zoneinfo ]; then
