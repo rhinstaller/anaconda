@@ -1,3 +1,10 @@
+2006-02-13  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec: Bump version.
+
+	* yuminstall.py (YumBackend.doPostSelection): Only import upgrade
+	as needed, so that we don't need the full chain of deps for pkgorder
+
 2006-02-13  Chris Lumens  <clumens@redhat.com>
 
 	* gui.py:  Don't care about missing help text.

@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.2
+Version: 10.92.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 13 2006 Jeremy Katz <katzj@redhat.com> - 10.92.3-1
+- Don't debug log about missing help text (clumens)
+- Reduce deps for pkgorder
+- Updated kickstart docs (clumens)
+
 * Mon Feb 13 2006 Jeremy Katz <katzj@redhat.com> - 10.92.2-1
 - more x86_64 xen guest fixing
 

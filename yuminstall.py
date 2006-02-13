@@ -31,7 +31,6 @@ from sortedtransaction import SplitMediaTransactionData
 from genheader import *
 from constants import *
 from rhpl.translate import _
-from upgrade import upgrade_remove_blacklist
 
 import logging
 log = logging.getLogger("anaconda")
@@ -747,6 +746,7 @@ class YumBackend(AnacondaBackend):
         self.selectConditionalPackages()
         
         if id.getUpgrade():
+            from upgrade import upgrade_remove_blacklist
             for pkg in upgrade_remove_blacklist:
                 pkgarch = None
                 pkgnames = None
