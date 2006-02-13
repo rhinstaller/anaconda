@@ -147,163 +147,12 @@ Creating the Kickstart File
 
    auth or authconfig (required)
 
-       Sets up the authentication options for the system. It's similar to
-       the authconfig command, which can be run after the install. By
-       default, passwords are normally encrypted and are not shadowed.
+       Sets up the authentication options for the system.  This is just a
+       wrapper around the authconfig program, so all options recognized
+       by that program are valid for this command.  See the manual page for
+       authconfig for a complete list.
 
-       --enablemd5
-
-           Use md5 encryption for user passwords.
-
-       --enablenis
-
-           Turns on NIS support. By default, --enablenis uses whatever
-           domain it finds on the network. A domain should almost always
-           be set by hand with the --nisdomain= option.
-
-       --nisdomain=
-
-            NIS domain name to use for NIS services.
-
-       --nisserver=
-
-            Server to use for NIS services (broadcasts by default).
-
-       --useshadow or --enableshadow
-
-            Use shadow passwords.
-
-       --enableldap
-
-            Turns on LDAP support in /etc/nsswitch.conf, allowing your
-            system to retrieve information about users (UIDs, home
-            directories, shells, etc.) from an LDAP directory.  To use
-            this option, you must install the nss_ldap package. You must
-            also specify a server and a base DN with --ldapserver= and
-            --ldapbasedn=.
-
-       --enableldapauth
-
-            Use LDAP as an authentication method. This enables the
-            pam_ldap module for authentication and changing passwords,
-            using an LDAP directory. To use this option, you must have the
-            nss_ldap package installed.  You must also specify a server
-            and a base DN with --ldapserver= and --ldapbasedn=.
-
-       --ldapserver=
-
-            If you specified either --enableldap or --enableldapauth, use
-            this option to specify the name of the LDAP server to use.
-            This option is set in the /etc/ldap.conf file.
-
-       --ldapbasedn=
-
-            If you specified either --enableldap or --enableldapauth, use
-            this option to specify the DN (distinguished name) in your
-            LDAP directory tree under which user information is stored.
-            This option is set in the /etc/ldap.conf file.
-
-       --enableldaptls
-
-            Use TLS (Transport Layer Security) lookups. This option allows
-            LDAP to send encrypted usernames and passwords to an LDAP
-            server before authentication.
-
-       --enablekrb5
-
-            Use Kerberos 5 for authenticating users. Kerberos itself does
-            not know about home directories, UIDs, or shells. So if you
-            enable Kerberos you will need to make users' accounts known to
-            this workstation by enabling LDAP, NIS, or Hesiod or by using
-            the /usr/sbin/useradd command to make their accounts known to
-            this workstation. If you use this option, you must have the
-            pam_krb5 package installed.
-
-       --krb5realm=
-
-            The Kerberos 5 realm to which your workstation belongs.
-
-       --krb5kdc=
-
-            The KDC (or KDCs) that serve requests for the realm.  If you
-            have multiple KDCs in your realm, separate their names with
-            commas (,).
-
-       --krb5adminserver=
-
-            The KDC in your realm that is also running kadmind.  This
-            server handles password changing and other administrative
-            requests. This server must be run on the master KDC if you
-            have more than one KDC.
-
-       --enablehesiod
-
-            Enable Hesiod support for looking up user home directories,
-            UIDs, and shells. More information on setting up and using
-            Hesiod on your network is in
-            /usr/share/doc/glibc-2.x.x/README.hesiod, which is included in
-            the glibc package. Hesiod is an extension of DNS that uses DNS
-            records to store information about users, groups, and various
-            other items.
-
-       --hesiodlhs
-
-            The Hesiod LHS ("left-hand side") option, set in
-            /etc/hesiod.conf. This option is used by the Hesiod library to
-            determine the name to search DNS for when looking up
-            information, similar to LDAP's use of a base DN.
-
-       --hesiodrhs
-
-            The Hesiod RHS ("right-hand side") option, set in
-            /etc/hesiod.conf. This option is used by the Hesiod library to
-            determine the name to search DNS for when looking up
-            information, similar to LDAP's use of a base DN.
-
-            Tip                                           
-
-            To look up user information for "jim", the Hesiod library
-            looks up jim.passwd<LHS><RHS>, which should resolve to a TXT
-            record that looks like what his passwd entry would look like
-            (jim:*:501:501:Jungle Jim:/home/jim:/bin/bash). For groups,
-            the situation is identical, except jim.group<LHS><RHS> would
-            be used.
-
-            Looking up users and groups by number is handled by making
-            "501.uid" a CNAME for "jim.passwd", and "501.gid" a CNAME for
-            "jim.group". Note that the LHS and RHS do not have periods [.]
-            put in front of them when the library determines the name for
-            which to search, so the LHS and RHS usually begin with
-            periods.
-
-       --enablesmbauth
-
-            Enables authentication of users against an SMB server
-            (typically a Samba or Windows server). SMB authentication
-            support does not know about home directories, UIDs, or shells.
-            So if you enable it you will need to make users' accounts
-            known to the workstation by enabling LDAP, NIS, or Hesiod or
-            by using the /usr/sbin/useradd command to make their accounts
-            known to the workstation. To use this option, you must have
-            the pam_smb package installed.
-
-       --smbservers=
-
-            The name of the server(s) to use for SMB authentication. To
-            specify more than one server, separate the names with commas
-            (,).
-
-       --smbworkgroup=
-
-            The name of the workgroup for the SMB servers.
-
-       --enablecache
-
-            Enables the nscd service. The nscd service caches information
-            about users, groups, and various other types of information.
-            Caching is especially helpful if you choose to distribute
-            information about users and groups over your network using
-            NIS, LDAP, or hesiod.
+       By default, passwords are normally encrypted and are not shadowed.
 
    bootloader (required)
 
@@ -613,9 +462,9 @@ Creating the Kickstart File
 
        lang en_US                                                  
 
-       The file /usr/share/redhat-config-language/locale-list provides a
+       The file /usr/share/system-config-language/locale-list provides a
        list the valid language codes in the first column of each line and
-       is part of the redhat-config-languages package.
+       is part of the system-config-languages package.
 
    langsupport
 
@@ -689,6 +538,30 @@ Creating the Kickstart File
        part pv.01 --size 3000                                      
        volgroup myvg pv.01                                         
        logvol / --vgname=myvg --size=2000 --name=rootvol           
+
+   monitor
+
+       --hsync=
+
+           Specifies the horizontal sync frequency of the monitor.
+
+       --monitor=
+
+           Use specified monitor; monitor name should be from the list of
+           monitors in /usr/share/hwdata/MonitorsDB from the hwdata
+           package. The list of monitors can also be found on the X
+           Configuration screen of the Kickstart Configurator. This is
+           ignored if --hsync or --vsync is provided. If no monitor
+           information is provided, the installation program tries to
+           probe for it automatically.
+
+       --noprobe
+
+           Do not probe the monitor.
+
+       --vsync=
+
+           Specifies the vertical sync frequency of the monitor.
 
    mouse
 
@@ -1038,6 +911,26 @@ Creating the Kickstart File
            If this is present, the password argument is assumed to already
            be encrypted.
 
+   selinux (optional)
+
+       Sets the state of SELinux on the installed system.  SELinux defaults
+       to enforcing in anaconda.
+
+       selinux [--disabled|--enforcing|--permissive]
+
+       --disabled
+
+           If this is present, SELinux is disabled.
+
+       --enforcing
+
+           If this is present, SELinux is set to enforcing mode.
+
+       --permissive
+
+           If this is present, SELinux is enabled, but only logs things that
+           would be denied in enforcing mode.
+
    skipx (optional)
 
        If present, X is not configured on the installed system.
@@ -1066,6 +959,32 @@ Creating the Kickstart File
        url (for ftp and http) as the location of the installation tree.
        Refer to install for details.
 
+   vnc (optional)
+
+       Allows the graphical installation to be viewed remotely via VNC.  This
+       method is usually preferred over text mode, as there are some size
+       and language limitations in text installs.  With no options, this
+       command will start a VNC server on the machine with no password and
+       will print out the command that needs to be run to connect a remote
+       machine.
+
+       vnc [--host=<hostname>] [--port=<port>] [--password=<password>]
+
+       --host=
+
+           Instead of starting a VNC server on the install machine, connect
+           to the VNC viewer process listening on the given hostname.
+
+       --port=
+
+           Provide a port that the remote VNC viewer process is listening on.
+           If not provided, anaconda will use the VNC default.
+
+       --password=
+
+           Set a password which must be provided to connect to the VNC
+           session.  This is optional, but recommended.
+
    xconfig (optional)
 
        Configures the X Window System. If this option is not given, the
@@ -1077,31 +996,9 @@ Creating the Kickstart File
 
            Specify the X driver to use for the video hardware.
 
-       --noprobe
-
-           Do not probe the monitor.
-
        --videoram=
 
            Specify the amount of video RAM the video card has.
-
-       --monitor=
-
-           Use specified monitor; monitor name should be from the list of
-           monitors in /usr/share/hwdata/MonitorsDB from the hwdata
-           package. The list of monitors can also be found on the X
-           Configuration screen of the Kickstart Configurator. This is
-           ignored if --hsync or --vsync is provided. If no monitor
-           information is provided, the installation program tries to
-           probe for it automatically.
-
-       --hsync=
-
-           Specifies the horizontal sync frequency of the monitor.
-
-       --vsync=
-
-           Specifies the vertical sync frequency of the monitor.
 
        --defaultdesktop=
 
