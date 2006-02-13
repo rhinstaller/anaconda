@@ -16,14 +16,13 @@ msgstr ""
 "Project-Id-Version: anaconda1new\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-12 10:46+0200\n"
+"PO-Revision-Date: 2006-02-13 23:42+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -670,9 +669,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1332
-#, fuzzy
 msgid "RAID Device"
-msgstr "Συσκευή RAID %s"
+msgstr "Συσκευή RAID"
 
 #: ../fsset.py:1336 ../fsset.py:1342
 msgid "Apple Bootstrap"
@@ -817,7 +815,6 @@ msgstr ""
 #: ../image.py:466 ../image.py:533 ../packages.py:582 ../yuminstall.py:161
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-#, fuzzy
 msgid "_Reboot"
 msgstr "Επανε_κκίνηση"
 
@@ -1006,9 +1003,8 @@ msgstr ""
 #: ../image.py:92 ../packages.py:579 ../packages.py:582
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-#, fuzzy
 msgid "_Back"
-msgstr "Πίσω"
+msgstr "_Πίσω"
 
 #: ../image.py:92 ../image.py:467 ../iw/partition_gui.py:1012
 msgid "_Continue"
@@ -1139,9 +1135,8 @@ msgid "Would you like to continue with the upgrade?"
 msgstr ""
 
 #: ../packages.py:53 ../textw/complete_text.py:47
-#, fuzzy
 msgid "Reboot"
-msgstr "Επανε_κκίνηση"
+msgstr "Επανεκκίνηση"
 
 #: ../packages.py:200 ../yuminstall.py:910
 msgid "Post Install"
@@ -1839,9 +1834,8 @@ msgstr ""
 
 #: ../rescue.py:276 ../iw/partition_gui.py:568 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
-#, fuzzy
 msgid "Continue"
-msgstr "Κροατική"
+msgstr "Συνέχεια"
 
 #: ../rescue.py:276 ../rescue.py:285
 #, fuzzy
@@ -1864,9 +1858,8 @@ msgid "What partition holds the root partition of your installation?"
 msgstr ""
 
 #: ../rescue.py:311 ../rescue.py:315
-#, fuzzy
 msgid "Exit"
-msgstr "Επεξεργασία"
+msgstr "Έξοδος"
 
 #: ../rescue.py:335
 #, fuzzy
@@ -1982,11 +1975,9 @@ msgstr ""
 
 #
 #: ../text.py:405 ../loader2/lang.c:52 ../loader2/loader.c:145
-#, fuzzy, c-format, python-format
+#, c-format, python-format
 msgid "Welcome to %s"
-msgstr ""
-"Καλώς ήλθατε στο %s!\n"
-"\n"
+msgstr "Καλώς ήλθατε στο %s"
 
 #: ../text.py:412
 #, fuzzy
@@ -2010,9 +2001,8 @@ msgid "Upgrade Existing System"
 msgstr "Εισαγωγή συστημάτων αρχείων"
 
 #: ../upgradeclass.py:23
-#, fuzzy
 msgid "Upgrade"
-msgstr "Αναβάθμιση για εκκίνηση"
+msgstr "Αναβάθμιση"
 
 #: ../upgrade.py:76
 #, fuzzy
@@ -2048,9 +2038,8 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:275 ../upgrade.py:281
-#, fuzzy
 msgid "Mount failed"
-msgstr "/περιέχουν αρχείο"
+msgstr "Αποτυχία προσάρτησης"
 
 #: ../upgrade.py:276
 msgid ""
@@ -2086,14 +2075,13 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:322
-#, fuzzy
 msgid "Invalid Directories"
-msgstr "Μη έγκυρες πληροφορίες"
+msgstr "Μη έγκυροι κατάλογοι"
 
 #: ../upgrade.py:329
-#, fuzzy, python-format
+#, python-format
 msgid "%s not found"
-msgstr "Δε βρέθηκε CD"
+msgstr "δε βρέθηκε %s"
 
 #: ../upgrade.py:362
 #, fuzzy
@@ -2145,14 +2133,12 @@ msgid "Use text mode"
 msgstr ""
 
 #: ../vnc.py:66
-#, fuzzy
 msgid "Start VNC"
-msgstr "Έναρξη VNC..."
+msgstr "Γίνεται εκκίνηση VNC"
 
 #: ../vnc.py:76
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Ρύθμιση ZFCP"
+msgstr "Ρύθμιση VNC"
 
 #: ../vnc.py:80
 #, fuzzy
@@ -2167,27 +2153,24 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:91 ../textw/userauth_text.py:42 ../loader2/urls.c:437
-#, fuzzy
 msgid "Password:"
-msgstr "Κωδικός Πρόσβασης"
+msgstr "Κωδικός:"
 
 #: ../vnc.py:92 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr ""
 
 #: ../vnc.py:114 ../textw/userauth_text.py:64
-#, fuzzy
 msgid "Password Mismatch"
-msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν"
+msgstr "Οι κωδικοί δεν ταιριάζουν"
 
 #: ../vnc.py:115 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
 #: ../vnc.py:120 ../textw/userauth_text.py:59
-#, fuzzy
 msgid "Password Length"
-msgstr "Κωδικός Πρόσβασης"
+msgstr "Μήκος κωδικού"
 
 #: ../vnc.py:121
 #, fuzzy
@@ -2218,7 +2201,6 @@ msgid ""
 msgstr ""
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
-#, fuzzy
 msgid "Re_boot"
 msgstr "Επανε_κκίνηση"
 
@@ -2229,9 +2211,8 @@ msgid ""
 msgstr ""
 
 #: ../yuminstall.py:160
-#, fuzzy
 msgid "_Cancel"
-msgstr "Ε_τικέτα"
+msgstr "_Ακύρωση"
 
 #: ../yuminstall.py:441
 msgid "Error running transaction"
@@ -2273,9 +2254,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr ""
 
 #: ../yuminstall.py:1033
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Εγκατάσταση για εκκίνηση"
+msgstr "Πρόοδος εγκατάστασης"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
@@ -2295,9 +2275,8 @@ msgstr ""
 
 #
 #: ../zfcp.py:30
-#, fuzzy
 msgid "Device number"
-msgstr "Συσκευή #"
+msgstr "Αριθμός συσκευής"
 
 #: ../zfcp.py:31
 #, fuzzy
@@ -2384,9 +2363,8 @@ msgid "Root _Password: "
 msgstr "Κωδικός Διαχειριστή Συστήματος"
 
 #: ../iw/account_gui.py:113
-#, fuzzy
 msgid "_Confirm: "
-msgstr "Επιβεβαίωση:"
+msgstr "Επι_βεβαίωση: "
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2417,24 +2395,20 @@ msgid ""
 msgstr ""
 
 #: ../iw/blpasswidget.py:109
-#, fuzzy
 msgid "_Password:"
-msgstr "Κωδικός Πρόσβασης"
+msgstr "_Κωδικός:"
 
 #: ../iw/blpasswidget.py:115
-#, fuzzy
 msgid "Con_firm:"
-msgstr "Επιβεβαίωση:"
+msgstr "Ε_πιβεβαίωση:"
 
 #: ../iw/blpasswidget.py:136
-#, fuzzy
 msgid "Passwords don't match"
-msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν"
+msgstr "Οι κωδικοί δεν ταιριάζουν"
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:450
-#, fuzzy
 msgid "Passwords do not match"
-msgstr "Οι κωδικοί πρόσβασης δεν ταιριάζουν"
+msgstr "Οι κωδικοί δεν ταιριάζουν"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:460
 msgid ""
@@ -2528,9 +2502,8 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:64 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
-#, fuzzy
 msgid "Reboot?"
-msgstr "Επανε_κκίνηση"
+msgstr "Επανε_κκίνηση;"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:99 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
@@ -2574,9 +2547,8 @@ msgstr ""
 "μελλοντική αναφορά."
 
 #: ../iw/congrats_gui.py:23
-#, fuzzy
 msgid "Congratulations"
-msgstr "οι περισσότερες τοποθεσίες"
+msgstr "Συγχαρτήρια"
 
 #: ../iw/congrats_gui.py:63
 msgid ""
@@ -2601,11 +2573,9 @@ msgstr ""
 msgid "Drive"
 msgstr "Δίσκοι"
 
-# 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
-#, fuzzy
+# #: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
 msgid "Size"
-msgstr "Μέγεθος   :"
+msgstr "Μέγεθος"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
@@ -2643,9 +2613,8 @@ msgid "The following installed system will be upgraded:"
 msgstr ""
 
 #: ../iw/examine_gui.py:149
-#, fuzzy
 msgid "Unknown Linux system"
-msgstr "Άγνωστος κόμβος"
+msgstr "Άγνωστο σύστημα Linux"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 #, fuzzy
@@ -2685,9 +2654,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:40
-#, fuzzy
 msgid "Language Selection"
-msgstr "Επιλογή πακέτων"
+msgstr "Επιλογή γλώσσας"
 
 #: ../iw/language_gui.py:65 ../textw/language_text.py:41 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
@@ -2799,9 +2767,8 @@ msgstr "Τύπος Συστήματος Αρχείων:"
 
 #: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:305
-#, fuzzy
 msgid "Unknown"
-msgstr "Άγνωστος κόμβος"
+msgstr "Άγνωστο"
 
 #: ../iw/lvm_dialog_gui.py:415
 #, fuzzy
@@ -2814,17 +2781,15 @@ msgid "Logical Volume Name:"
 msgstr "λογικός τόμος"
 
 #: ../iw/lvm_dialog_gui.py:431 ../iw/partition_dialog_gui.py:367
-#, fuzzy
 msgid "_Size (MB):"
-msgstr "_Μέγεθος (ΜΒ)"
+msgstr "_Μέγεθος (ΜΒ):"
 
 #: ../iw/lvm_dialog_gui.py:437 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
-#, fuzzy
 msgid "Size (MB):"
-msgstr "_Μέγεθος (ΜΒ)"
+msgstr "Μέγεθος (ΜΒ):"
 
 #: ../iw/lvm_dialog_gui.py:452
 #, python-format
@@ -2832,9 +2797,8 @@ msgid "(Max size is %s MB)"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:513
-#, fuzzy
 msgid "Illegal size"
-msgstr "Συνολικό μέγεθος"
+msgstr "μη έγκυρο μέγεθος"
 
 #
 #: ../iw/lvm_dialog_gui.py:514
@@ -2986,9 +2950,8 @@ msgid "Used Space:"
 msgstr "Χρήση Δίσκου"
 
 #: ../iw/lvm_dialog_gui.py:1028
-#, fuzzy
 msgid "Free Space:"
-msgstr "Ελεύθερος Χώρος"
+msgstr "Ελεύθερος Χώρος:"
 
 #: ../iw/lvm_dialog_gui.py:1046
 #, fuzzy
@@ -3003,25 +2966,21 @@ msgstr "λογικός τόμος"
 #: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:147 ../textw/partition_text.py:1438
 #: ../textw/upgrade_text.py:110
-#, fuzzy
 msgid "Mount Point"
-msgstr "Σημείο προσάρτησης:"
+msgstr "Σημείο Προσάρτησης"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
-#, fuzzy
 msgid "Size (MB)"
-msgstr "_Μέγεθος (ΜΒ)"
+msgstr "Μέγεθος (ΜΒ)"
 
 #: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
-#, fuzzy
 msgid "_Add"
-msgstr "Προσθήκη"
+msgstr "_Προσθήκη"
 
 #: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:531
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1358 ../iw/zfcp_gui.py:101
-#, fuzzy
 msgid "_Edit"
-msgstr "Επεξεργασία"
+msgstr "_Επεξεργασία"
 
 #: ../iw/lvm_dialog_gui.py:1113
 #, fuzzy
@@ -3050,9 +3009,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:157
-#, fuzzy
 msgid "_Device"
-msgstr "Συσκευή"
+msgstr "_Συσκευή"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
@@ -3069,19 +3027,16 @@ msgid "Select the appropriate mouse for the system."
 msgstr "Ποιά κατάτμηση θέλετε να χρησιμοποιήσετε για το Linux4Win;"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:608
-#, fuzzy
 msgid "Gateway"
-msgstr "Πύλη δικτύου:"
+msgstr "Πύλη δικτύου"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:610
-#, fuzzy
 msgid "Primary DNS"
-msgstr "Πρωτεύον DNS:"
+msgstr "Πρωτεύον DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:612
-#, fuzzy
 msgid "Secondary DNS"
-msgstr "Δευτερεύων DNS:"
+msgstr "Δευτερεύων DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:614
 #, fuzzy
@@ -3089,19 +3044,16 @@ msgid "Tertiary DNS"
 msgstr "Tertiary DNS:"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Gateway"
-msgstr "Πύλη δικτύου:"
+msgstr "_Πύλη δικτύου"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Primary DNS"
-msgstr "Πρωτεύον DNS:"
+msgstr "_Πρωτεύον DNS:"
 
 #: ../iw/network_gui.py:31
-#, fuzzy
 msgid "_Secondary DNS"
-msgstr "Δευτερεύων DNS:"
+msgstr "_Δευτερεύων DNS"
 
 #: ../iw/network_gui.py:31
 #, fuzzy
@@ -3109,9 +3061,8 @@ msgid "_Tertiary DNS"
 msgstr "Tertiary DNS:"
 
 #: ../iw/network_gui.py:35
-#, fuzzy
 msgid "Network Configuration"
-msgstr "Ρύθμιση Δικτύου για %s"
+msgstr "Ρύθμιση Δικτύου"
 
 #: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:172
 #: ../iw/network_gui.py:177 ../iw/network_gui.py:183 ../iw/network_gui.py:187
@@ -3188,9 +3139,8 @@ msgid "_Activate on boot"
 msgstr "Ενεργοποίηση κατά την εκκίνηση"
 
 #: ../iw/network_gui.py:237
-#, fuzzy
 msgid "_IP Address"
-msgstr "Διεύθυνση IP"
+msgstr "Διεύθυνση _IP"
 
 #: ../iw/network_gui.py:238
 #, fuzzy
@@ -3203,9 +3153,8 @@ msgid "_Point to Point (IP)"
 msgstr "Point to Point (IP)"
 
 #: ../iw/network_gui.py:247
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:248
 #, fuzzy
@@ -3223,7 +3172,6 @@ msgid "Configure %s"
 msgstr "Ρύθμιση TCP/IP"
 
 #: ../iw/network_gui.py:472
-#, fuzzy
 msgid "Active on Boot"
 msgstr "Ενεργοποίηση κατά την εκκίνηση"
 
@@ -3337,9 +3285,8 @@ msgid "This device is already being used for another boot entry."
 msgstr ""
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:353
-#, fuzzy
 msgid "Cannot Delete"
-msgstr "Επιβεβαίωση Διαγραφής"
+msgstr "Αδυναμία Διαγραφής"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:354
 #, python-format
@@ -3427,9 +3374,8 @@ msgid "Type"
 msgstr ""
 
 #: ../iw/partition_gui.py:368
-#, fuzzy
 msgid "Format"
-msgstr "Μορφοποίηση;"
+msgstr "Μορφοποίηση"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1438
 msgid "Start"
@@ -3528,9 +3474,8 @@ msgid "LVM Volume Groups"
 msgstr "Δεν υπάρχουν Volume Groups"
 
 #: ../iw/partition_gui.py:753
-#, fuzzy
 msgid "RAID Devices"
-msgstr "Συσκευή RAID %s"
+msgstr "Συσκευές RAID"
 
 #: ../iw/partition_gui.py:781 ../iw/partition_gui.py:907
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
@@ -3772,8 +3717,7 @@ msgstr "Μεταφόρτωση - %s"
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "Εγκατάσταση %s-%s-%s.%s.\n"
 
-# 
-#: ../iw/progress_gui.py:348
+# #: ../iw/progress_gui.py:348
 #, fuzzy
 msgid "Package"
 msgstr "_Πακέτο"
@@ -4440,8 +4384,7 @@ msgstr "Λεπτομέρειες ομάδας πακέτων"
 msgid "What type of system would you like to install?"
 msgstr "Τι σύστημα αρχείων θέλετε να εγκαταστήσετε;"
 
-# 
-#: ../textw/iscsi_text.py:35
+# #: ../textw/iscsi_text.py:35
 #, fuzzy
 msgid "Target IP address:"
 msgstr "Διεύθυνση IP:"
@@ -5864,8 +5807,7 @@ msgstr ""
 "Κάθε στοιχείο πρέπει να εισαχθεί ως IP διεύθυνση σε οκταδική\n"
 "μορφή (παράδειγμα: 1.2.3.4)."
 
-# 
-#: ../loader2/net.c:492
+# #: ../loader2/net.c:492
 msgid "IP address:"
 msgstr "Διεύθυνση IP:"
 
@@ -5970,8 +5912,7 @@ msgstr "Αναμονή σύνδεσης..."
 msgid "Running anaconda via telnet..."
 msgstr "Αποστολή δεδομένων μέσω διαδικτύου"
 
-# gconf/gconf-internals.c:2416
-#: ../loader2/urlinstall.c:73
+# gconf/gconf-internals.c:2416#: ../loader2/urlinstall.c:73
 #, fuzzy, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Αδύνατ η ανάκτηση του %s!"
@@ -6004,14 +5945,12 @@ msgstr ""
 msgid "Unknown Url method %s"
 msgstr "Άγνωστη κάρτα"
 
-# gconf/gconf-internals.c:2416
-#: ../loader2/urls.c:173
+# gconf/gconf-internals.c:2416#: ../loader2/urls.c:173
 #, fuzzy, c-format
 msgid "Failed to log into %s: %s"
 msgstr "Αδύνατο το κλείσιμο του αρχείου `%s': %s"
 
-# gconf/gconf-internals.c:2416
-#: ../loader2/urls.c:183 ../loader2/urls.c:192
+# gconf/gconf-internals.c:2416#: ../loader2/urls.c:183 ../loader2/urls.c:192
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "Αποτυχία ανάκτησης του %s: %s"
@@ -6020,14 +5959,12 @@ msgstr "Αποτυχία ανάκτησης του %s: %s"
 msgid "Retrieving"
 msgstr "Ανάκτηση"
 
-# 
-#: ../loader2/urls.c:283
+# #: ../loader2/urls.c:283
 #, fuzzy
 msgid "FTP site name:"
 msgstr "Όνομα φίλτρου:"
 
-# 
-#: ../loader2/urls.c:284
+# #: ../loader2/urls.c:284
 #, fuzzy
 msgid "Web site name:"
 msgstr "Όνομα φίλτρου:"
@@ -6104,11 +6041,7 @@ msgstr "Επανε_κκίνηση"
 msgid "Show _Help"
 msgstr "Εμφάνιση _Βοήθειας"
 
-# #-#-#-#-#  memory.el.po (abiword 1.0)  #-#-#-#-#
-# #-#-#-#-#  anjuta-el.po (anjuta 0.1.9)  #-#-#-#-#
-# #-#-#-#-#  balsa-el.po (balsa 0.9.3.1)  #-#-#-#-##
-# #-#-#-#-#  toutdoux-el.po (toutdoux 1.0)  #-#-#-#-##
-#: tmp/anaconda.glade.h:4
+# #-#-#-#-#  memory.el.po (abiword 1.0)  #-#-#-#-## #-#-#-#-#  anjuta-el.po (anjuta 0.1.9)  #-#-#-#-## #-#-#-#-#  balsa-el.po (balsa 0.9.3.1)  #-#-#-#-### #-#-#-#-#  toutdoux-el.po (toutdoux 1.0)  #-#-#-#-###: tmp/anaconda.glade.h:4
 msgid "_Debug"
 msgstr "Εκσ_φαλμάτωση"
 
@@ -6200,8 +6133,7 @@ msgstr ""
 msgid "_Customize now"
 msgstr "Προσαρμογή"
 
-# 
-#. generated from zone.tab
+# #. generated from zone.tab
 msgid "Acre"
 msgstr ""
 
@@ -6841,8 +6773,7 @@ msgstr ""
 msgid "Tierra del Fuego (TF)"
 msgstr ""
 
-# 
-#. generated from zone.tab
+# #. generated from zone.tab
 #, fuzzy
 msgid "Tocantins"
 msgstr "Τοποθεσία"
@@ -7097,337 +7028,8 @@ msgstr "Welsh"
 msgid "Zulu"
 msgstr "Ζουλού"
 
-#~ msgid "Miscellaneous"
-#~ msgstr "Διάφορα"
 
-#, fuzzy
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Ποιά κατάτμηση θέλετε να χρησιμοποιήσετε για το Linux4Win;"
 
-#, fuzzy
-#~ msgid "Change Boot Loader"
-#~ msgstr "Λειτουργία εκκίνησης"
 
-#, fuzzy
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "Εγκ. πρ. εκκίνησης"
 
-#, fuzzy
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Εγκ. πρ. εκκίνησης"
 
-#, fuzzy
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "Εγκ. πρ. εκκίνησης"
-
-#, fuzzy
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Αποτυχημένες Εξαρτήσεις"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Συνολικό μέγεθος εγκατάστασης: %s "
-
-#~ msgid "Requirement"
-#~ msgstr "Προϋπόθεση"
-
-#, fuzzy
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "Εγκατάσταση όλων των πακέτων του καταλόγου"
-
-#, fuzzy
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "Εγκατάσταση όλων των πακέτων του καταλόγου"
-
-#, fuzzy
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "Έλεγχος εξαρτήσεων"
-
-#, fuzzy
-#~ msgid "Package Defaults"
-#~ msgstr "Επιλογή Ομάδων Πακέτων"
-
-#, fuzzy
-#~ msgid "_Install default software packages"
-#~ msgstr "Εγκατάσταση πακέτων"
-
-#, fuzzy
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "Προσδιορισμός πακέτων προς αναβάθμιση"
-
-#, fuzzy
-#~ msgid "Packages in %s"
-#~ msgstr "Πακέτο :"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "Θα εγκατασταθούν τα παρακάτω πακέτα"
-
-#, fuzzy
-#~ msgid "Select individual packages"
-#~ msgstr "Απεπιλογή όλων των πακέτων"
-
-#~ msgid "Package :"
-#~ msgstr "Πακέτο :"
-
-#, fuzzy
-#~ msgid "Individual Package Selection"
-#~ msgstr "Επιλογή ξεχωριστών πακέτων"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Space>,<+>,<-> επιλογή   |   <F1> βοήθεια   |   <F2> περιγραφή πακέτου"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Εξαρτήσεις Πακέτων"
-
-#, fuzzy
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Εγκατάσταση όλων των πακέτων του καταλόγου"
-
-#, fuzzy
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Έλεγχος εξαρτήσεων"
-
-#, fuzzy
-#~ msgid "_Optional packages"
-#~ msgstr "Προαιρετικά Πακέτα"
-
-#, fuzzy
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Τύπος ποντικιού: %s\n"
-
-#, fuzzy
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Τύπος ποντικιού: %s\n"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Αδυναμία δημιουργίας δισκέτας εκκίνησης"
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Εισάγετε μια δισκέτα"
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Δημιουργία δισκέτας εκκίνησης"
-
-#, fuzzy
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Σφάλμα κατά την ανάγνωση του αρχείου εικόνας \"%s\".\n"
-#~ "Παρακαλώ βεβαιωθείτε ότι το Gnome-Stones έχει εγκατασταθεί σωστά!"
-
-#, fuzzy
-#~ msgid "Creating"
-#~ msgstr "Κροατικό"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Δημιουργήται δίσκος εκκίνησης..."
-
-#, fuzzy
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Σφάλμα κατά την ανάγνωση του αρχείου εικόνας \"%s\".\n"
-#~ "Παρακαλώ βεβαιωθείτε ότι το Gnome-Stones έχει εγκατασταθεί σωστά!"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Σφάλμα κατά την ανάγνωση του αρχείου εικόνας \"%s\".\n"
-#~ "Παρακαλώ βεβαιωθείτε ότι το Gnome-Stones έχει εγκατασταθεί σωστά!"
-
-#~ msgid "_Save to floppy"
-#~ msgstr "Απο_θήκευση σε δισκέτα"
-
-#, fuzzy
-#~ msgid "Missing Package"
-#~ msgstr "Εγκατάσταση πακέτων"
-
-#, fuzzy
-#~ msgid "_Abort"
-#~ msgstr "Reset"
-
-#, fuzzy
-#~ msgid "Missing Group"
-#~ msgstr "Πληροφορίες Συνάντησης"
-
-#, fuzzy
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr "αναβάθμιση πακέτων"
-
-#, fuzzy
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr "Εγκατάσταση πακέτων"
-
-#, fuzzy
-#~ msgid "Space Needed"
-#~ msgstr "χώρος %d"
-
-#, fuzzy
-#~ msgid "Nodes Needed"
-#~ msgstr "Τροφοδοσία Ειδήσεων"
-
-#, fuzzy
-#~ msgid "Authentication Configuration"
-#~ msgstr "Ρύθμιση Ειδοποίησης Συστήματος"
-
-#, fuzzy
-#~ msgid "Enable shado_w passwords"
-#~ msgstr " Άκυρος κωδικός "
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Ενεργοποίηση N_IS"
-
-#, fuzzy
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Διευθύνσης &ΙΡ για τους εξυπηρετητές NIS"
-
-#, fuzzy
-#~ msgid "NIS _Domain: "
-#~ msgstr "Περιοχή (domain) NIS"
-
-#~ msgid "NIS _Server: "
-#~ msgstr "_Εξυπηρετητής NIS:"
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Ενεργοποίηση _LDAP"
-
-# 
-#, fuzzy
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Κλείσιμο όλων των συνδέσεων"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "_Εξυπηρετητής LDAP:"
-
-#, fuzzy
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP Base dn"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Ενεργοποίηση _Kerberos"
-
-#, fuzzy
-#~ msgid "R_ealm:"
-#~ msgstr "Πραγματικό όνομα"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#, fuzzy
-#~ msgid "_Admin Server:"
-#~ msgstr "Εξυπηρετητής:"
-
-#, fuzzy
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Πιστοποίηση SMTP"
-
-# 
-#~ msgid "SMB _Server:"
-#~ msgstr "_Εξυπηρέτης SMB:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "_Ομάδα εργασίας SMB:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Δημιουργία Δισκέτας Εκκίνησης"
-
-# 
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Ναι, θα ήθελα να δημιουργηθεί δισκέτα εκκίνησης"
-
-# 
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "Όχι, _δεν θέλω να δημιουργηθεί δισκέτα εκκίνησης"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#, fuzzy
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Επιλέξτε πρώτα επιφάνεια εργασίας"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Κατάτμηση με fdisk"
-
-#, fuzzy
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Επιλέξτε πρώτα επιφάνεια εργασίας"
-
-#~ msgid "Disabled"
-#~ msgstr "Απενεργοποιημένο"
-
-# 
-#~ msgid "Warn"
-#~ msgstr "Προειδοποίηση"
-
-#~ msgid "Active"
-#~ msgstr "Ενεργή"
-
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
-
-#, fuzzy
-#~ msgid "Warning - No Firewall"
-#~ msgstr "firewall"
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Ρύθμιση Firewall"
-
-#, fuzzy
-#~ msgid "N_o firewall"
-#~ msgstr "firewall"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Ενεργοποίηση firewall"
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Ενεργοποίηση _SELinux;:"
-
-#~ msgid "All Packages"
-#~ msgstr "Όλα Τα Πακέτα"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Πακέτο: %s\n"
-#~ "Έκδοση: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "Προβολή  _Δένδρου"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Επίπεδη Προβολή"
-
-# 
-#, fuzzy
-#~ msgid "Select _all in group"
-#~ msgstr "Επιλογή όλων των γραμμών"
-
-#, fuzzy
-#~ msgid "_Unselect all in group"
-#~ msgstr "Αποεπιλογή όλων"
