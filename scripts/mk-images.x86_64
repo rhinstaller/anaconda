@@ -55,7 +55,8 @@ be written to the device using dd.
 EOF
 
 makeBootImages() {
-    echo "Building initrd-everything.img"
+  if [ "$kerneltag" != "guest" ]; then
+    echo "Building initrd.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--initrdsize 8192 \
 	--loaderbin loader \
@@ -112,4 +113,14 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
+  else # set up the boot stuff for the xen guest kernel
+    echo "Building $KERNELARCH guest initrd.img"
+    mkdir -p $TOPDESTPATH/images/xen
+    makeinitrd --initrdto $TOPDESTPATH/images/xen/initrd.img \
+	--initrdsize 8192 \
+	--loaderbin loader \
+	--modules "$INITRDMODS"
+    [ $? = 0 ] || exit 1
+    cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/images/xen/vmlinuz
+  fi
 }
