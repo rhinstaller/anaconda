@@ -55,35 +55,35 @@ StayOnScreen = "stayOnScreen"
 mainWindow = None
 
 stepToClass = {
-    "language" : ("language_gui", "LanguageWindow"),
-    "keyboard" : ("keyboard_gui", "KeyboardWindow"),
-    "mouse" : ("mouse_gui", "MouseWindow"),
-    "welcome" : ("welcome_gui", "WelcomeWindow"),
-    "installtype" : ("installpath_gui", "InstallPathWindow"),
-    "iscsi" : ("iscsi_gui", "iscsiWindow"),
-    "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
-    "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
-    "partition" : ("partition_gui", "PartitionWindow"),
-    "parttype" : ("autopart_type", "PartitionTypeWindow"),
-    "findinstall" : ("examine_gui", "UpgradeExamineWindow"),
-    "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
-    "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
-    "bootloader": ("bootloader_main_gui", "MainBootloaderWindow"),
-    "bootloaderadvanced": ("bootloader_advanced_gui", "AdvancedBootloaderWindow"),
-    "upgbootloader": ("upgrade_bootloader_gui", "UpgradeBootloaderWindow"),
-    "network" : ("network_gui", "NetworkWindow"),
-    "timezone" : ("timezone_gui", "TimezoneWindow"),
-    "accounts" : ("account_gui", "AccountWindow"),
-    "tasksel": ("task_gui", "TaskWindow"),    
-    "group-selection": ("package_gui", "GroupSelectionWindow"),
-    "confirminstall" : ("confirm_gui", "InstallConfirmWindow"),
-    "confirmupgrade" : ("confirm_gui", "UpgradeConfirmWindow"),
-    "install" : ("progress_gui", "InstallProgressWindow_NEW"),
-    "complete" : ("congrats_gui", "CongratulationWindow"),
+    "language" : ("language_gui", "LanguageWindow", True),
+    "keyboard" : ("keyboard_gui", "KeyboardWindow", True),
+    "mouse" : ("mouse_gui", "MouseWindow", True),
+    "welcome" : ("welcome_gui", "WelcomeWindow", True),
+    "installtype" : ("installpath_gui", "InstallPathWindow", True),
+    "iscsi" : ("iscsi_gui", "iscsiWindow", True),
+    "zfcpconfig" : ("zfcp_gui", "ZFCPWindow", True),
+    "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow", True),
+    "partition" : ("partition_gui", "PartitionWindow", True),
+    "parttype" : ("autopart_type", "PartitionTypeWindow", True),
+    "findinstall" : ("examine_gui", "UpgradeExamineWindow", True),
+    "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow", True),
+    "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow", True),
+    "bootloader": ("bootloader_main_gui", "MainBootloaderWindow", True),
+    "bootloaderadvanced": ("bootloader_advanced_gui", "AdvancedBootloaderWindow", True),
+    "upgbootloader": ("upgrade_bootloader_gui", "UpgradeBootloaderWindow", True),
+    "network" : ("network_gui", "NetworkWindow", True),
+    "timezone" : ("timezone_gui", "TimezoneWindow", True),
+    "accounts" : ("account_gui", "AccountWindow", True),
+    "tasksel": ("task_gui", "TaskWindow", True),    
+    "group-selection": ("package_gui", "GroupSelectionWindow", True),
+    "confirminstall" : ("confirm_gui", "InstallConfirmWindow", True),
+    "confirmupgrade" : ("confirm_gui", "UpgradeConfirmWindow", True),
+    "install" : ("progress_gui", "InstallProgressWindow_NEW", False),
+    "complete" : ("congrats_gui", "CongratulationWindow", True),
 }
 
 if iutil.getArch() == 's390':
-    stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
+    stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow", True)
 
 #
 # Stuff for screenshots
@@ -941,9 +941,16 @@ class InstallControlWindow:
 	except StayOnScreen:
 	    return
 
-	ics = InstallControlState(self)
-	ics.setGrabNext(True)
-	self.update(ics)
+	(step, args) = self.dispatch.currentStep()
+	if stepToClass[step]:
+	    (file, className, nextGrab) = stepToClass[step]
+	else:
+	    nextGrab = True
+
+	if nextGrab:
+	    ics = InstallControlState(self)
+	    ics.setGrabNext(True)
+	    self.update(ics)
 
 	self.dispatch.gotoNext()
 	self.dir = 1
@@ -1270,7 +1277,7 @@ class InstallControlWindow:
 	    else:
 		return self.prevClicked()
 		
-	(file, className) = stepToClass[step]
+	(file, className, nextGrab) = stepToClass[step]
         newScreenClass = None
 	s = "from %s import %s; newScreenClass = %s" % (file, className,
                                                         className)
