@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-05 20:51+0200\n"
+"PO-Revision-Date: 2006-02-13 23:34+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1110,7 +1110,7 @@ msgstr "Brak dostępu do CD-ROM-u."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Brak obrazu ISO 9660"
 
 #: ../image.py:524
 #, python-format
@@ -1121,11 +1121,15 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Instalator spróbował zamontować obraz #%s, ale nie mógł znaleźć go na "
+"serwerze.\n"
+"\n"
+"Skopiuj ten obraz na ścieżkę współdzielenia zdalnego serwera i naciśnij "
+"Ponów. Naciśnij Uruchom ponownie, aby przerwać instalację."
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Ponów"
+msgstr "_Ponów"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -2794,18 +2798,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "Adresy IP muszą zawierać liczby od 0 do 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "Konfiguracja VNC"
+msgstr "Konfiguracja iSCSI"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Błąd danych"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Nie podano adresu IP, pomijanie konfiguracji iSCSI"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -4539,17 +4541,16 @@ msgid "What type of system would you like to install?"
 msgstr "Jaki typ systemu chcesz zainstalować?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "Adres IP:"
+msgstr "Docelowy adres IP:"
 
 #: ../textw/iscsi_text.py:42
 msgid "Port Number:"
-msgstr ""
+msgstr "Numer portu:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Nazwa inicjatora iSCSI:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -6283,20 +6284,19 @@ msgstr "Szcz_egóły wyjątku"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>Numer _portu:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Docelowy adres IP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Nazwa inicjatora iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "Konfiguracja VNC"
+msgstr "Konfiguracja iSCSI"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
