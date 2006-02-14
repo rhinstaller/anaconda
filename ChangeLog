@@ -1,5 +1,10 @@
 2006-02-13  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.x86_64: Make guest kernel globbing more reliable.
+	* scripts/mk-images.i386: Likewise.
+
+2006-02-13  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* yuminstall.py (YumBackend.doPostSelection): Only import upgrade

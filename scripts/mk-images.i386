@@ -146,6 +146,6 @@ EOF
 	--loaderbin loader \
 	--modules "$INITRDMODS"
     [ $? = 0 ] || exit 1
-    cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/images/xen/vmlinuz
+    cp $KERNELROOT/boot/vmlinuz-*guest $TOPDESTPATH/images/xen/vmlinuz
   fi
 }
