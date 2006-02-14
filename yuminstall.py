@@ -667,8 +667,13 @@ class YumBackend(AnacondaBackend):
             return pkgs[0]
 
         foundkernel = False
-
         kpkg = getBestKernelByArch("kernel", self.ayum)
+
+        # FIXME: this is a bit of a hack.  we shouldn't hard-code and
+        # instead check by provides.  but alas.
+        for k in ("kernel", "kernel-smp", "kernel-xen-hypervisor"):
+            if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:            
+                foundkernel = True
 
         if not foundkernel and os.path.exists("/proc/xen"):
             try:
