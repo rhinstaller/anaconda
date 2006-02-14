@@ -767,6 +767,8 @@ if traceOnly:
     from encodings import utf_8, idna, ascii, punycode
     import email.Utils
     import yuminstall
+    import yum.sqlitesack
+    import yum.sqlitecache
     import sqlite
 
     installclass.availableClasses()
