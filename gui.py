@@ -41,6 +41,7 @@ import warnings
 from language import expandLangs
 from flags import flags
 from constants import *
+from vnc import hasActiveNetDev
 import floppy
 
 from rhpl.translate import _, N_
@@ -600,11 +601,17 @@ class ExceptionWindow:
         textbuf = gtk.TextBuffer()
         textbuf.set_text(shortTraceback)
 
-        # Remove the debug button if we don't need it.
+        # Remove the floppy button if we don't need it.
         if not floppy.hasFloppyDevice() and not DEBUG:
             buttonBox = exnxml.get_widget("buttonBox")
             floppyButton = exnxml.get_widget("floppyButton")
             buttonBox.remove(floppyButton)
+
+        # Remove the remote button if there's no network.
+        if not hasActiveNetDev() and not DEBUG:
+            buttonBox = exnxml.get_widget("buttonBox")
+            remoteButton = exnxml.get_widget("remoteButton")
+            buttonBox.remove(remoteButton)
 
         # If there's an anacdump.txt file, add it to the lower view in the
         # expander.  If not, remove the expander.

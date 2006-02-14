@@ -1,3 +1,9 @@
+2006-02-14  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py (ExceptionWindow.__init__):  Remove remote button if there's
+	no network.
+	* text.py (ExceptionWindow.__init__):  Likewise.
+
 2006-02-14  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.selectConditionalPackages): Right

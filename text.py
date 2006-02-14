@@ -28,6 +28,7 @@ from language import expandLangs
 from flags import flags
 from constants_text import *
 from constants import *
+from vnc import hasActiveNetDev
 import floppy
 
 from rhpl.translate import _, cat, N_
@@ -143,10 +144,15 @@ class ExceptionWindow:
         self.text = "%s\n\n" % shortTraceback
         self.screen = screen
 
+        self.buttons=[TEXT_OK_BUTTON]
+
         if floppy.hasFloppyDevice() == True or DEBUG:
-            self.buttons=[TEXT_OK_BUTTON, _("Save"), _("Remote"), _("Debug")]
-        else:
-            self.buttons=[TEXT_OK_BUTTON, _("Remote"), _("Debug")]
+            self.buttons.append(_("Save"))
+
+        if hasActiveNetDev() or DEBUG:
+            self.buttons.append(_("Remote"))
+
+        self.buttons.append(_("Debug"))
 
     def run(self):
         log.info ("in run, screen = %s" % self.screen)
