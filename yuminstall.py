@@ -742,7 +742,7 @@ class YumBackend(AnacondaBackend):
                 continue
             for pkg, cond in g.conditional_packages.iteritems():
                 if self.ayum.isPackageInstalled(cond):
-                    self.ayum.selectPackage(pkg)
+                    self.selectPackage(pkg)
 
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
