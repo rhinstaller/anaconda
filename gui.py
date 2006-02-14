@@ -948,10 +948,6 @@ class InstallControlWindow:
 	except StayOnScreen:
 	    return
 
-	ics = InstallControlState(self)
-	ics.setGrabNext(True)
-	self.update(ics)
-
 	self.dispatch.gotoNext()
 	self.dir = 1
 
@@ -1276,7 +1272,7 @@ class InstallControlWindow:
 		return self.nextClicked()
 	    else:
 		return self.prevClicked()
-		
+
 	(file, className) = stepToClass[step]
         newScreenClass = None
 	s = "from %s import %s; newScreenClass = %s" % (file, className,
@@ -1308,10 +1304,9 @@ class InstallControlWindow:
                                   custom_icon="warning",
                                   custom_buttons=buttons)
                     sys.exit(0)
-                
+
 	ics = InstallControlState (self)
-        ics.setPrevEnabled(self.dispatch.canGoBack())
-        
+	ics.setPrevEnabled(self.dispatch.canGoBack())
 	self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 
@@ -1454,8 +1449,8 @@ class InstallControlState:
         self.html = ""
         self.htmlFile = None
         self.helpEnabled = True
-	self.helpButtonEnabled = True
-        self.grabNext = False
+        self.helpButtonEnabled = True
+        self.grabNext = True
 
     def setTitle (self, title):
         self.title = title
@@ -1473,9 +1468,9 @@ class InstallControlState:
         return self.prevEnabled
     
     def setNextEnabled (self, value):
-        if value != self.nextEnabled:
-	    self.nextEnabled = value
-	    self.cw.update (self)
+        if value == self.nextEnabled: return
+        self.nextEnabled = value
+        self.cw.update (self)
 
     def getNextEnabled (self):
         return self.nextEnabled
