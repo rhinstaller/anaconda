@@ -41,7 +41,7 @@ import warnings
 from language import expandLangs
 from flags import flags
 from constants import *
-from vnc import hasActiveNetDev
+from network import hasActiveNetDev
 import floppy
 
 from rhpl.translate import _, N_

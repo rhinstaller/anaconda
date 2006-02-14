@@ -28,7 +28,7 @@ from language import expandLangs
 from flags import flags
 from constants_text import *
 from constants import *
-from vnc import hasActiveNetDev
+from network import hasActiveNetDev
 import floppy
 
 from rhpl.translate import _, cat, N_

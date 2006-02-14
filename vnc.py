@@ -23,25 +23,9 @@ import isys
 import logging
 log = logging.getLogger("anaconda")
 
-def hasActiveNetDev():
-    # try to load /tmp/netinfo and see if we can sniff out network info
-    netinfo = network.Network()
-    for dev in netinfo.netdevices.keys():
-        try:
-            ip = isys.getIPAddress(dev)
-        except Exception, e:
-            log.error("Got an exception trying to get the ip addr of %s: "
-                      "%s" %(dev, e))
-            continue
-        if ip == '127.0.0.1' or ip is None:
-            continue
-        return True
-    return False
-
-
 # return -1 to use text mode, None for no vncpass, or vncpass otherwise
 def askVncWindow():
-    if hasActiveNetDev() == False:
+    if network.hasActiveNetDev() == False:
         return -1
     
     screen = SnackScreen()
