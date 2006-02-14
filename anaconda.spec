@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.4
+Version: 10.92.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 14 2006 Jeremy Katz <katzj@redhat.com> - 10.92.5-1
+- Fix traceback in language group selection
+- No remote save traceback button if not network (clumens)
+- More fixes for minstg2.img (clumens)
+- Disable next/back while installing packages (dcantrel)
+- Bump minimum amounts for install, graphical and early swap
+- Enable Arabic for text mode (notting)
+
 * Tue Feb 14 2006 Jeremy Katz <katzj@redhat.com> - 10.92.4-1
 - improve globbing for xen guest kernels
 - Don't add a kernel if one is already selected.
