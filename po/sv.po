@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-05 23:32+0100\n"
+"PO-Revision-Date: 2006-02-15 23:16+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1100,7 +1100,7 @@ msgstr "Kan inte komma åt cd-romenheten."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ISO 9660-avbild saknas"
 
 #: ../image.py:524
 #, python-format
@@ -1111,11 +1111,16 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Installationsprogrammet har försökt montera avbilden #%s, men kan inte hitta "
+"den på servern.\n"
+"\n"
+"Kopiera denna avbild till fjärrserverns utdelningssökväg och klicka på "
+"Försök igen.\n"
+"Klicka på Starta om för att avbryta installationen."
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Försök igen"
+msgstr "_Försök igen"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -2789,18 +2794,19 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser får bara innehålla tal mellan 0 och 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "SILO-konfiguration"
+msgstr "iSCSI-konfiguration"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
+msgstr "Fel med data"
+
+msgid "Error with data"
 msgstr "Fel med data"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Ingen IP-adress angiven, hoppar över konfiguration av iSCSI"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -4541,18 +4547,16 @@ msgid "What type of system would you like to install?"
 msgstr "Vilken typ av system vill du installera?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "IP-adress:"
+msgstr "Mål-IP-adress:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "eller använd:"
+msgstr "Portnummer:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI-initierarnamn:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -6305,20 +6309,28 @@ msgstr "_Detaljer om undantagsfel"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>_Portnummer:</b>"
+
+msgid "_Port Number:"
+msgstr "_Portnummer:"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Mål-IP-adress:</b>"
+
+msgid "_Target IP Address:"
+msgstr "_Mål-IP-adress:"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI-initierar_namn:</b>"
+
+msgid "iSCSI Initiator _Name:"
+msgstr "iSCSI-initierar_namn:"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "SILO-konfiguration"
+msgstr "iSCSI-konfiguration"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
