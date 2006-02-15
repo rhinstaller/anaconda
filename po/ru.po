@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-01-23 01:50+0300\n"
+"PO-Revision-Date: 2006-02-16 01:09+0300\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -571,7 +571,6 @@ msgid "Dump Written"
 msgstr "Дамп сохранен"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -1101,7 +1100,7 @@ msgstr "Невозможно получить доступ к CDROM."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Отсутствует образ диска ISO 9660"
 
 #: ../image.py:524
 #, python-format
@@ -1112,11 +1111,15 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Программа установки попыталась смонтировать образ #%s, но он не найден на "
+"сервере.\n"
+"\n"
+"Скопируйте данный образ на удаленный сервер в используемый каталог и нажмите "
+"Повторить. Нажмите Перезагрузить чтобы прервать установку."
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Повторить"
+msgstr "_Повторить"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -2297,9 +2300,8 @@ msgid "Processing"
 msgstr "Обработка"
 
 #: ../yuminstall.py:92
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Подготовка к установке..."
+msgstr "Подготовка транзакции из источника установки..."
 
 #: ../yuminstall.py:135
 #, python-format
@@ -2310,7 +2312,7 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Не удается открыть пакет %s-%s-%s.%s Возможная причина - отсутствие файла "
+"Не удается открыть пакет %s-%s-%s.%s. Возможная причина - отсутствие файла "
 "или сбойный пакет. Если вы устанавливаете с CD, это может означать, что диск "
 "поврежден или привод не может прочитать носитель. \n"
 "\n"
@@ -2338,18 +2340,17 @@ msgid "Error running transaction"
 msgstr "Ошибка подготовки транзакции"
 
 #: ../yuminstall.py:488
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Не удается открыть пакет %s-%s-%s.%s Возможная причина - отсутствие файла "
-"или сбойный пакет. Если вы устанавливаете с CD, это может означать, что диск "
-"поврежден или привод не может прочитать носитель. \n"
+"Не удается открыть пакет %s-%s-%s.%s. Возможная причина - отсутствие файла "
+"или сбойный пакет.  Если вы устанавливаете с CD, это может означать, что "
+"диск поврежден или привод не может прочитать носитель.\n"
 "\n"
-"Нажмите 'Повторить' для повторной попытки."
 
 #: ../yuminstall.py:599
 msgid "Retrieving installation information..."
@@ -2777,18 +2778,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "Адрес IP должен содержать числа от 0 до 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "Настройка VNC"
+msgstr "Настройка iSCSI"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Ошибка данных"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Не указан IP адрес - настройка iSCSI пропущена"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -2986,15 +2985,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Имя логического тома \"%s\" уже используется. Выберите другое имя."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Запрошенный размер (%10.2f Мбайт) больше, чем максимальный размер "
-"логического тома (%10.2f Мбайт). Чтобы увеличить это ограничение, вам "
-"необходимо увеличить размер физического расширения для этой группы томов."
+"логического тома (%10.2f Мбайт). Чтобы увеличить это ограничение, вы можете "
+"создать дополнительные Физические тома (PV) в неиспользуемом пространстве "
+"диска и добавить их в Группу томов (VG)."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4509,7 +4509,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
-msgstr ""
+msgstr "Укажите группы пакетов, которые вы хотите установить"
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4526,17 +4526,16 @@ msgid "What type of system would you like to install?"
 msgstr "Система какого типа должна быть установлена?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "Адрес IP:"
+msgstr "Целевой IP адрес:"
 
 #: ../textw/iscsi_text.py:42
 msgid "Port Number:"
-msgstr ""
+msgstr "Номер порта:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Имя iSCSI Initiator:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -4951,14 +4950,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Какие устройства вы хотите использовать для этой установки?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Просмотр и модификация разбиения разделов"
+msgstr "Просмотр разбиения диска"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Просмотр и модификация разбиения разделов"
+msgstr "Просмотреть и изменить разбиение разделов?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5014,9 +5011,8 @@ msgid "Remaining:  "
 msgstr "Осталось:  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Выбор групп пакетов"
+msgstr "Выбор пакетов"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5025,6 +5021,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Установка по умолчанию %s включает набор программ, подходящих для решения "
+"обычных задач работы с Интернетом.  Поддержку каких дополнительных задач вы "
+"хотели бы включить?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5200,20 +5199,19 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Офисные приложения"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Разработка ПО"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Сервер имен"
+msgstr "Веб сервер"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Виртуализация (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6235,33 +6233,28 @@ msgid "_Release Notes"
 msgstr "_Что нового"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Как вы хотите подготовить файловую систему на этом разделе?"
+msgstr "Как вы хотите выполнить разбиение?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"Установка требует создания разделов на вашем жестком диске. По умолчанию, "
-"выбрано разбиение, оптимальное для большинства пользователей. Однако, вы "
-"можете создать разделы вручную"
+"Установка <product> требует создания разделов на вашем жестком диске. Вы "
+"можете воспользоваться разбиением по умолчанию или создать разделы вручную."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "_Укажите устройства для этой установки:"
+msgstr "Укажите устройства для этой установки."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "Просмотр и модификация разбиения разделов"
+msgstr "_Просмотр и модификация разбиения разделов"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "Просмотр и модификация разбиения разделов"
+msgstr "_Просмотр и модификация разбиения разделов"
 
 #: tmp/autopart.glade.h:3
 msgid "_Select the drive(s) to use for this installation."
@@ -6277,30 +6270,31 @@ msgstr "_Подробнее об исключении"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>_Номер порта:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Целевой IP адрес:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Имя iSCSI Initiator:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "Настройка VNC"
+msgstr "Настройка iSCSI"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "Настроить _позже"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Дальнейшая настройка списка програм может быть выполнена сейчас или после "
+"установки при помощи утилиты по управлению программным обеспечением."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6309,11 +6303,13 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Установка по умолчанию %s включает набор программ, подходящих для решения "
+"обычных задач работы с Интернетом.  Поддержку каких дополнительных задач вы "
+"хотели бы включить?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "_Выборочная"
+msgstr "Настроить _сейчас"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6364,16 +6360,14 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантическое время - Западный Лабрадор"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Атлантическое время - Западный Лабрадор"
+msgstr "Атлантическое время - Нью-Брансуик"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
-"Атлантическое время - Новая Шотландия (большая часть), NB, Восточный "
-"Лабрадор, Западный Квебек & PEI"
+"Атлантическое время - Новая Шотландия (большая часть), Восточный Лабрадор, "
+"Западный Квебек & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6448,20 +6442,20 @@ msgstr "Центральное время - Коауила, Durango, Нуэво-
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 msgstr ""
+"Центральное время - Индиана - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Восточное стандартное время - Индиана - Starke County"
+msgstr "Центральное время - Индиана - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Центральное время - Манитоба и запад Онтарио"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Центральное время - Мичиган - граница с Висконсин"
+msgstr ""
+"Центральное время - Мичиган - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6536,24 +6530,20 @@ msgid "Eastern Time - east Nunavut"
 msgstr "Время вост. побережья - западный Нунавут"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Восточное стандартное время - Индиана - Crawford County"
+msgstr "Время вост. побережья - Индиана - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Восточное стандартное время - Индиана - большая часть"
+msgstr "Время вост. побережья - Индиана - большая часть"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Восточное стандартное время - Индиана - Starke County"
+msgstr "Время вост. побережья - Индиана - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Восточное стандартное время - Индиана - Switzerland County"
+msgstr "Время вост. побережья - Индиана - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7150,9 +7140,8 @@ msgid "Serbian"
 msgstr "Сербский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Сербский"
+msgstr "Сербский (лат)"
 
 #. generated from lang-table
 msgid "Slovak"
