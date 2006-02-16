@@ -102,6 +102,7 @@ class TimezoneWindow(InstallWindow):
 
         # Now fix the default we set when we made the timezone map widget.
         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
+        self.utcCheckbox.set_active(asUTC)
 
         self.notebook.remove(self.vbox)
         return self.vbox
