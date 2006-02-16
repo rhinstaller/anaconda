@@ -964,9 +964,11 @@ class YumBackend(AnacondaBackend):
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:
-                self.ayum.selectGroup(gid)
+                mbrs = self.ayum.selectGroup(gid)
+                return len(mbrs)
             else:
                 log.debug("no such group %s" %(group,))
+                return 0
 
     def deselectGroup(self, group, *args):
         try:
@@ -983,18 +985,18 @@ class YumBackend(AnacondaBackend):
         sp = pkg.rsplit(".", 2)
         if len(sp) == 2:
             try:
-                self.ayum.install(name = sp[0], arch = sp[1])
-                return
+                mbrs = self.ayum.install(name = sp[0], arch = sp[1])
+                return len(mbrs)
             except yum.Errors.InstallError:
                 # maybe the package has a . in the name
                 pass
 
         try:
-            self.ayum.install(name=pkg)
-            return
+            mbrs = self.ayum.install(name=pkg)
+            return len(mbrs)
         except yum.Errors.InstallError:
             log.debug("no such package %s" %(pkg,))
-            return
+            return 0
         
     def deselectPackage(self, pkg, *args):
         sp = pkg.rsplit(".", 2)
