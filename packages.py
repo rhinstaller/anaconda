@@ -646,9 +646,43 @@ def doPreInstall(method, id, intf, instPath, dir):
     if not upgrade:
         foundkernel = 0
         # XXX this should probably be table driven or something...
-        ncpus = isys.smpAvailable()
-        nhts = isys.htavailable()
-        nthreads = (ncpus or 1) * (nhts or 1)
+        ncpus = isys.smpAvailable() or 1
+        nthreads = isys.htavailable() or 1
+        ncores = isys.coresavailable()
+
+        # some examples:
+        # 1x1 (nothing fancy UP): should get 1
+        #   ncpus = 1
+        #   nthreads = 1
+        #   ncores = 1
+        #   nthreads / ncores * ncpus = 1
+        #
+        # 2x1x2 (2 cpu -DC +HT): should get 4
+        #   ncpus = 2
+        #   nthreads = 2
+        #   ncores = 1
+        #   nthreads / ncores * ncpus = 4
+        #
+        # 1x2x1 (1 cpu +DC -HT): should get 2
+        #   ncpus = 2
+        #   nthreads = 2
+        #   ncores = 2
+        #   nthreads / ncores * ncpus = 2
+        #
+        # 1x2x2 (1 cpu +DC +HT): should get 4
+        #   ncpus = 2
+        #   nthreads = 4
+        #   ncores = 2
+        #   nthreads / ncores * ncpus = 4
+        # 
+        # 2x2x2 (2 cpus, +DC +HT): should get 8
+        #   ncpus = 4
+        #   nthreads = 4
+        #   ncores = 2
+        #   nthreads / ncores * ncpus = 8
+        #
+        nthreads = (nthreads / ncores) * ncpus
+
         largesmp_min = -1
         if iutil.getArch() == "x86_64":
             largesmp_min = 8
