@@ -1,8 +1,9 @@
 #ifndef SMP_H
 #define SMP_H
 
-int detectSMP(void);
-int detectHT(void);
-int detectSummit(void);
+extern int detectSMP(void);
+extern int detectHT(void);
+extern int detectCoresPerPackage(void);
+extern int detectSummit(void);
 
 #endif /* SMP_H */
