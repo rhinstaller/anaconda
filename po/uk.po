@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2005-03-30 09:49+0200\n"
+"PO-Revision-Date: 2006-02-15 09:49+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -168,32 +168,28 @@ msgstr "Графічне встановлення неможливе... Запу
 
 #: ../anaconda:930
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "Змінна DISPLAY не встановлена. Запускається текстове встановлення!"
 
 #: ../anaconda:1013
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Натисніть <enter> для переходу у командну оболонку"
 
 #: ../anaconda:1045
 msgid "Starting graphical installation..."
 msgstr "Запускається графічне встановлення..."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Невідомий метод URL: %s"
+msgstr "Невідомий метод встановлення"
 
 #: ../anaconda:1100
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Ви намагаєтесь виконати встановлення на комп'ютері, який не підтримується "
-"цим випуском %s."
+msgstr "Ви вкзали метод встановлення, який не підтримується anaconda."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Невідомий метод URL: %s"
+msgstr "невідомий метод встановлення: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -551,22 +547,21 @@ msgid "Installing %s-%s-%s... "
 msgstr "Встановлення %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "Виникла необроблена виключна ситуація.  Можливо, це помилка в програмі. Будь "
-"ласка, скопіюйте повний текст цього виключення та складіть докладний звіт "
-"про помилку в anaconda на http://bugzilla.redhat.com/bugzilla/"
+"ласка, збережіть повний текст цього виключення та складіть докладний звіт "
+"про помилку в anaconda на %s"
 
 #: ../exception.py:420 ../exception.py:436
 msgid "Dump Written"
 msgstr "Дамп записано"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -574,25 +569,24 @@ msgstr ""
 "Стан вашої системи було записано на дискету. Систему буде перезавантажено."
 
 #: ../exception.py:428 ../exception.py:444
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Дамп записано"
+msgstr "Дамп не записано"
 
 #: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Не вдається записати стан системи на дискету."
 
 #: ../exception.py:437
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Стан вашої системи було записано на дискету. Систему буде перезавантажено."
+"Стан вашої системи було записано на дискету.\n"
+"Систему буде перезавантажено."
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Помилка при записі стану системи на віддалений вузол."
 
 #: ../fsset.py:199
 msgid "Checking for Bad Blocks"
@@ -1096,7 +1090,7 @@ msgstr "Не вдається отримати доступ до CDROM."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Відсутній образ ISO 9660"
 
 #: ../image.py:524
 #, python-format
@@ -1107,11 +1101,14 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Програма встановлення намагалась підключити образ #%s, але не може знайти його на сервері.\n"
+"\n"
+"Скопіюйте цей образ у спільну теку віддаленого сервера  та натисніть Повторити. "
+"Щоб перервати встановлення, натисніть Перезавантажити."
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Повторити"
+msgstr "Повт_орити"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1135,17 +1132,16 @@ msgstr ""
 "Натисніть Гаразд для перевантаження системи."
 
 #: ../kickstart.py:711 ../kickstart.py:729
-#, fuzzy
 msgid "Running..."
-msgstr "З'єднання..."
+msgstr "Виконання..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Запуск пред-встановлювальних сценаріїв"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Запуск пост-встановлювальних сценаріїв"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1216,7 +1212,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Увага! Це попередній випуск!"
 
 #: ../packages.py:561
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1238,7 +1234,7 @@ msgstr ""
 "\n"
 "Щоб сповістити про виявлені проблеми, відвідайте:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"   %s \n"
 "\n"
 "та заповніть звіт відносно '%s'.\n"
 
@@ -1398,13 +1394,13 @@ msgstr ""
 "Дозволяються літери, цифри, '.' або '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Некоректна точка монтування. Точка монтування повинна починатися з '/' та не "
-"може закінчуватися на \"/\", та має містити лише друковані символи, без "
+"Некоректна точка монтування %s. Точка монтування повинна починатися з '/' та "
+"не може закінчуватися на \"/\", та має містити лише друковані символи, без "
 "пробілів."
 
 #: ../partIntfHelpers.py:102
@@ -2014,9 +2010,8 @@ msgid "Save"
 msgstr "Зберегти"
 
 #: ../text.py:147 ../text.py:149 ../text.py:161
-#, fuzzy
 msgid "Remote"
-msgstr "Видалити"
+msgstr "Переслати"
 
 #: ../text.py:147 ../text.py:149 ../text.py:157
 msgid "Debug"
@@ -2028,16 +2023,15 @@ msgstr "Виникла виключна ситуація"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Зберегти на віддалену систему"
 
 #: ../text.py:185
-#, fuzzy
 msgid "Host"
-msgstr "Назва комп'ютера"
+msgstr "Комп'ютер"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "Шлях до віддаленої машини"
 
 #: ../text.py:189
 msgid "User name"
@@ -2291,12 +2285,11 @@ msgid "Processing"
 msgstr "Обробка"
 
 #: ../yuminstall.py:92
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Підготовка до встановлення... "
+msgstr "Підготовка транзакції з джерела встановлення... "
 
 #: ../yuminstall.py:135
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2304,9 +2297,10 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Не вдається відкрити пакет %s-%s-%s. Можлива причина - відсутній файл або "
+"Не вдається відкрити пакет %s-%s-%s.%s Можлива причина - відсутній файл або "
 "пошкоджений пакет. Якщо ви встановлюєте систему з CD, це може означати, що "
 "диск пошкоджений або пристрій не може прочитати носій. \n"
+"\n"
 "Натисніть <Enter> для повторної спроби."
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
@@ -2327,55 +2321,52 @@ msgid "_Cancel"
 msgstr "_Скасувати"
 
 #: ../yuminstall.py:441
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Підготовка транзакції RPM..."
+msgstr "Помилка запуску транзакції"
 
 #: ../yuminstall.py:488
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Не вдається відкрити пакет %s-%s-%s. Можлива причина - відсутній файл або "
+"Не вдається відкрити пакет %s-%s-%s.%s Можлива причина - відсутній файл або "
 "пошкоджений пакет. Якщо ви встановлюєте систему з CD, це може означати, що "
 "диск пошкоджений або пристрій не може прочитати носій. \n"
-"Натисніть <Enter> для повторної спроби."
+"\n"
 
 #: ../yuminstall.py:599
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Читання інформації про пакети..."
+msgstr "Читання інформації встановлення..."
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"У файлі comps у вашому дереві встановлення відсутні необхідні групи.  "
-"Перевірте, що дерево встановлення сформовано правильно."
+"Не вдається прочитати метадані пакету. Можлива причина - відсутність "
+"каталогу repodata. Переконайтесь, що ваше дерево встановлення сформовано "
+"правильно.generated.  %s"
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "Поза категоріями"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
 msgstr "Запуск встановлення"
 
 #: ../yuminstall.py:894
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr "Запускається процес встановлення, це може зайняти декілька хвилин..."
+msgstr "Запускається процес встановлення. Це може зайняти декілька хвилин..."
 
 #: ../yuminstall.py:1033
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Тип встановлення"
+msgstr "Процес встановлення"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
@@ -2682,7 +2673,6 @@ msgid "Congratulations"
 msgstr "Вітаємо"
 
 #: ../iw/congrats_gui.py:63
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
@@ -2770,18 +2760,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "Адреса IP повинна містити числа від 0 до 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "Налаштовування SILO"
+msgstr "Конфігурація iSCSI"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Помилка у даних"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Не вказано IP-адресу, налаштовування iSCSI пропускається"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -2975,15 +2963,15 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Назва логічного тому \"%s\" вже використовується. Виберіть іншу назву."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Запитаний розмір (%10.2f MB) перевищує максимальний розмір логічного тому (%"
-"10.2f MB). Щоб збільшити це обмеження необхідно збільшити розмір фізичного "
-"екстенту цієї групи томів."
+"10.2f MB). Щоб збільшити це обмеження можна створити додаткові фізичні томи "
+"на вільному дисковому просторі та додати їх до групи томів."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4403,7 +4391,6 @@ msgid "<Enter> to exit"
 msgstr "<Enter> для виходу"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
@@ -4411,7 +4398,6 @@ msgid ""
 msgstr ""
 "Видаліть всі носії, які використовувались при встановленні, та натисніть "
 "<Enter> для перезавантаження системи.\n"
-"\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
@@ -4488,9 +4474,8 @@ msgstr ""
 "знаходились у %s. Можливо вам знадобиться до нього звернутись."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Виберіть бажану роздільну здатність:"
+msgstr "Виберіть групи пакетів які слід встановити."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4507,18 +4492,16 @@ msgid "What type of system would you like to install?"
 msgstr "Систему якого типу необхідно встановити?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "Адреса IP:"
+msgstr "Цільова адреса IP:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "або використовувати:"
+msgstr "Номер порту:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Назва ініціатора iSCSI:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -4916,9 +4899,8 @@ msgid "Must have a / partition to install on."
 msgstr "Необхідно призначити розділ \"/\" для продовження встановлення."
 
 #: ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Тип розділу"
+msgstr "Тип розподілу"
 
 #: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
 msgid ""
@@ -4926,20 +4908,21 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Для встановлення потрібні розділи на вашому жорсткому диску. Початково, "
+"вибрано розподіл, оптимальний для більшості користувачів. Проте, ви можете "
+"створити розділи вручну."
 
 #: ../textw/partition_text.py:1544
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Які пристрої ви хочете використати для цього встановлення?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
+msgstr "Перегляд розподілу диску"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
+msgstr "Переглянути та змінити розподіл дисків?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4995,9 +4978,8 @@ msgid "Remaining:  "
 msgstr "Залишилося: "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Вибір груп пакетів"
+msgstr "Вибір пакетів"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5006,6 +4988,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Типове встановлення %s включає набір програм, що використовуються для "
+"загальної роботи з Інтернет. Підтримку яких додаткових завдань повинна "
+"включати ваша система?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5016,9 +5001,8 @@ msgid "What time zone are you located in?"
 msgstr "У якому часовому поясі ви знаходитесь?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Системний годинник використовує _UTC"
+msgstr "Системний годинник використовує UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -5177,26 +5161,24 @@ msgstr ""
 "встановлення, включно над складом пакетів та розподілом диску."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Форматувати"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Офісні програми"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Розробка програм"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "DNS сервер"
+msgstr "Веб-сервер"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Віртуалізація (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5342,6 +5324,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Якщо у вас є для перевірки додаткові носії, вставте наступний диск та "
+"натисніть  \"%s\". Тестування кожного диска не вимагається, проте "
+"наполегливо рекомендується. Бажано перевірити кожен CD перед першим "
+"використанням. Після успішного тестування, не треба тестувати хз перед "
+"кожним використанням."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5500,14 +5487,14 @@ msgstr ""
 "Вказано неправильний аргумент для команди драйвера диску kickstart: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "Вкажіть перелік розділених пробілами параметрів, які ви хочете передати "
-"модулю %s.Якщо ви не знаєте які параметри передавати модулю, пропустіть цей "
+"модулю %s. Якщо ви не знаєте які параметри передавати модулю, пропустіть цей "
 "екран, натиснувши клавішу \"Гаразд\". Перелік доступних параметрів можна "
 "отримати натиснувши на клавішу F1."
 
@@ -5825,16 +5812,14 @@ msgstr "Не вдається знайти образ встановлення %
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "ПОМИЛКА"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"ПОМИЛКА.\n"
 "Щойно перевірений образ містить помилки. Можлива причина - збій при "
 "завантаженні або пошкоджений диск. Якщо це можливо, протріть диск та "
 "спробуйте ще раз. Якщо помилка повторюється, встановлення не слід "
@@ -5842,39 +5827,30 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "БЕЗ ПОМИЛОК"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"БЕЗ ПОМИЛОК.\n"
-"\n"
-"Перевірка цього носія успішно завершена."
+msgstr "Перевірка цього носія успішно завершена."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Немає контрольних сум.\n"
-"\n"
-"Контрольні суми недоступні, перевірка неможлива."
+msgstr "Контрольні суми недоступні, перевірка неможлива."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Результати перевірки носія"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"образу:\n"
+"%s для образу:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -5883,6 +5859,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Перевірка носія %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6057,7 +6036,7 @@ msgstr "Налаштовування NFS"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Вказано назву вузла без налаштовування DNS"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6224,73 +6203,68 @@ msgid "_Release Notes"
 msgstr "При_мітки до випуску"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Як ви бажаєте підготувати файлову систему на цьому розділі?"
+msgstr "Як ви бажаєте виділити простір розділу?"
 
 #: tmp/autopart2.glade.h:2
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
+"Для встановлення <product> потрібно створити розділи на жорсткому диску.  Ви "
+"можете або використати типовий розподіл розділів або створити власний."
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "Вкажіть пристрої для цього встановлення:"
+msgstr "Вкажіть пристрої для цього встановлення."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
+msgstr "Пере_гляд та зміна розподілу розділів"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
+msgstr "_Перегляд та зміна розподілу розділів"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Вкажіть пристрої для цього встановлення:"
+msgstr "_Вкажіть пристрої для цього встановлення."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Виникла виключна ситуація"
+msgstr "Інформація про виключну ситуацію"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Виникла виключна ситуація"
+msgstr "Д_окладніше про виключну ситуацію"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>Номер _порту:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Цільова адреса IP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Назва ініціатора iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "Налаштовування SILO"
+msgstr "Конфігурація iSCSI"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Доповнення"
+msgstr "Уточнити _пізніше"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Подальше уточнення вибраних програм можна зробити зараз, або після "
+"встановлення засобом встановлення програм."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6299,11 +6273,13 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Типове встановлення %s включає набір програм, що використовуються для "
+"загальної роботи з Інтернет. Підтримку яких додаткових завдань повинна "
+"включати ваша система?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Доповнення"
+msgstr "_Уточнити зараз"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6354,16 +6330,13 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантичний час - Сх Лабрадор"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Атлантичний час - Сх Лабрадор"
+msgstr "Атлантичний час - Новий Брунсвік"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
-"Атлантичний час - Нова Скотія (більшість місць), NB, З Лабрадор, С Квебек & "
-"PEI"
+"Атлантичний час - Нова Скотія (більшість місць), З Лабрадор, С Квебек & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6398,9 +6371,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Станція Казей, Бейлі Пенінсула"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Катамарка (CT)"
+msgstr "Катамарка (CT), Чубут (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6427,9 +6399,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Центральний час - Кампече, Юкатан"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Центральний Час - західний Нувавут"
+msgstr "Центральний Час - центральний Нувавут"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6438,20 +6409,20 @@ msgstr "Центральний час - Коагуліа, Дюранґо, Нео
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 msgstr ""
+"Центральний час - Індіана - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Східний Стандартний Час - Індіана - Країна Старка"
+msgstr "Центральний час - Індіана - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Центральний час - Манітоба і західне Онтаріо"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Центральний час - Мічіган - Вісконський кордон"
+msgstr ""
+"Центральний час - Мічіган -  Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6514,38 +6485,32 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Східний Стандартний Час - східний Наваут"
+msgstr "Східний Стандартний Час - острів Southampton"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Східний Час"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Східний Стандартний Час - східний Наваут"
+msgstr "Східний Час - східний Наваут"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Східний Стандартний Час - Індіана - Країна Крафорда"
+msgstr "Східний Час - Індіана - Країна Крафорда"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Східний Стандартний Час - Індіана - більшість місць"
+msgstr "Східний Час - Індіана - більшість місць"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Східний Стандартний Час - Індіана - Країна Старка"
+msgstr "Східний Час - Індіана - Країна Старка"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Східний Стандартний Час - Індіана - Країна швейцарців"
+msgstr "Східний Час - Індіана - Країна швейцарців"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6570,9 +6535,8 @@ msgstr ""
 "Східний Час - Онтаріо і Квебек - місця які не охоплюються DST 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Східний Стандартний Час - Пагніртунг, Нувавут"
+msgstr "Східний Час - Пагніртунг, Нувавут"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -6921,12 +6885,11 @@ msgstr "Станція Сйова, З Онгул I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Тасманія - Королівський острів"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Королівські острови - більшість місць"
+msgstr "Тасманія - більшість місць"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -6945,9 +6908,8 @@ msgid "Tocantins"
 msgstr "Tocantins"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) та Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -6999,12 +6961,11 @@ msgstr "Запоріжжя, Сх Луганськ"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Африканс"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Арабська"
+msgstr "Ахмарська"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -7087,9 +7048,8 @@ msgid "Icelandic"
 msgstr "Ісландська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Македонська"
+msgstr "Індонезійська"
 
 #. generated from lang-table
 msgid "Italian"
@@ -7116,9 +7076,8 @@ msgid "Norwegian"
 msgstr "Норвезька"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Північна Територія"
+msgstr "Північний Сото"
 
 #. generated from lang-table
 msgid "Persian"
@@ -7145,19 +7104,16 @@ msgid "Russian"
 msgstr "Російська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Персидська"
+msgstr "Сербська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Персидська"
+msgstr "Сербська(Латина)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Словенська"
+msgstr "Словацька"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -7176,9 +7132,8 @@ msgid "Tamil"
 msgstr "Тамільська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Тамільська"
+msgstr "Тайська"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7199,1525 +7154,3 @@ msgstr "Уельська"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулу"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Ця група включає всі наявні пакети.  Зауважте, це значно більша кількість "
-#~ "пакетів, ніж пакети, перелічені в усіх групах на цій сторінці."
-
-#~ msgid "Everything"
-#~ msgstr "Все"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Виберіть цю групу для отримання мінімального набору пакетів. "
-#~ "Використовується при встановленні невеликих маршрутизаторів, тощо."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Різне"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Ви намагаєтесь виконати встановлення на комп'ютері, який не підтримується "
-#~ "цим випуском %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Автоматичний розподіл"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Мені потрібний автоматичний розподіл:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Вкажіть пристрої для цього встановлення:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Змінити завантажувач"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Ви вирішили не встановлювати завантажувач. Наполегливо рекомендується "
-#~ "встановити завантажувач, хіба що у вас немає необхідності. Завантажувач "
-#~ "необхідний для завантаження Linux безпосередньо з диску.\n"
-#~ "\n"
-#~ "Ви дійсно хочете пропустити встановлення завантажувача?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "Продовжити _без встановлення завантажувач"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Виберіть завантажувач. GRUB є типовим завантажувачем. Якщо ви не бажаєте "
-#~ "перезаписувати поточний завантажувач, виберіть \"Не встановлювати "
-#~ "завантажувач.\""
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Використовувати _GRUB як завантажувач"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Не встановлювати завантажувач"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_Змінити завантажувач"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Нерозв'язані залежності"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Загальний розмір: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Потрібно"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_Встановити пакети для задоволення залежностей"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "_Не встановлювати пакети, що мають залежності"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "_Ігнорувати залежності пакетів"
-
-#~ msgid "Package Defaults"
-#~ msgstr "Типовий набір пакетів"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Типове встановлення включає наступний рекомендований набір пакетів:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Після встановлення можна додавати чи видаляти окремі пакети "
-#~ "використовуючи утиліту 'system-config-packages'.\n"
-#~ "\n"
-#~ "Якщо ви знайомі з %s, ви можете казати окремі пакети, які ви хочете "
-#~ "встановити чи які не повинні встановлюватись. Для цього необхідно "
-#~ "відмітити розташоване нижче поле."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Якщо ви хочете змінити перелік типовий список пакетів для встановлення, "
-#~ "відмітьте нижче відповідний параметр."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "_Встановити типовий набір пакетів"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Уточнити набори пакетів, що встановлюються"
-
-#, fuzzy
-#~ msgid "Packages in %s"
-#~ msgstr "Пакети"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "Носій якого типу містить пакети для встановлення?"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Типовий варіант встановлення включає рекомендований набір пакетів.  Після "
-#~ "встановлення додаткові програмні пакети можна додати або видалити за "
-#~ "допомогою утиліти \"system-config-packages\"\n"
-#~ "\n"
-#~ "Проте у склад %s входить багато інших програм. При потребі ви можете "
-#~ "змінити перелік встановлюваного ПЗ."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Індивідуальний вибір пакетів"
-
-#~ msgid "Package :"
-#~ msgstr "Пакет   :"
-
-#~ msgid "Size    :"
-#~ msgstr "Розмір  :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f КБайт"
-
-#~ msgid "Total size"
-#~ msgstr "Загальний розмір"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Індивідуальний вибір пакетів"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Пропуск>,<+>,<-> вибір     |   <F1> довідка   |   <F2> опис "
-#~ "пакету     "
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Залежності пакетів"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Для встановлення деяких вибраних вами пакетів потрібні інші пакети, які "
-#~ "не були обрані.Якщо ви натиснете \"Гаразд\", будуть встановлені всі "
-#~ "необхідні пакети."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Встановити пакети для задоволення залежностей"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Не встановлювати пакети, що мають залежності"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Ігнорувати залежності пакетів"
-
-#, fuzzy
-#~ msgid "_Optional packages"
-#~ msgstr "Необов'язкові пакети"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Не знайдено миші.  Миша необхідна для графічного встановлення.  "
-#~ "Запускається текстовий режим."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Знайдено мишу: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Використовується тип миші: %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Виникла необроблена виключна ситуація.  Можливо, це помилка в програмі. "
-#~ "Будь ласка, скопіюйте повний текст цього виключення або збережіть "
-#~ "налагоджувальну інформацію на дискету та складіть докладний звіт про "
-#~ "помилку в anaconda на http://bugzilla.redhat.com/bugzilla/"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Віддалений вхід (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Веб-сервер (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Передача файлів (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Поштовий сервер (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Не вдається створити завантажувальну дискету"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Розмір модулів ядра, необхідних для вашої машини, занадто великий для "
-#~ "створення завантажувальної дискети."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Вставте дискету"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Вставте в дисковод чисту дискету, яка буде використана для створення "
-#~ "завантажувального диску.\n"
-#~ "\n"
-#~ "При створенні завантажувального диску всі дані на ній будуть СТЕРТІ."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "С_творити системний диск"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "При створенні системного диску виникла помилка. Перевірте, чи вставлено "
-#~ "форматовану дискету у першому дисководі."
-
-#~ msgid "Creating"
-#~ msgstr "Створення"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Створення завантажувально диску..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "При створенні системного диску виникла помилка. Перевірте, чи вставлена "
-#~ "непошкоджена дискета у першому дисководі."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Схоже, що дискета пошкоджена. Переконайтесь, що в перший дисковод "
-#~ "вставлена непошкоджена дискета."
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "Відсутні наступні ISO-образи, які необхідні для встановлення:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Система буде перезавантажена."
-
-#~ msgid "Missing Package"
-#~ msgstr "Відсутній пакет"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "Ви вказали, що необхідно встановити пакет '%s', але такий пакет не існує. "
-#~ "Продовжити встановлення чи перервати його?"
-
-#~ msgid "_Abort"
-#~ msgstr "_Перервати"
-
-#~ msgid "Missing Group"
-#~ msgstr "Відсутня група"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "Ви вказали, що необхідно встановити групу пакетів '%s', але така група не "
-#~ "існує. Продовжити встановлення чи перервати його?"
-
-#~ msgid "Reading"
-#~ msgstr "Читання"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Не вдається відкрити список заголовків.  Можлива причина - відсутній файл "
-#~ "чи пошкоджений носій. Натисніть <Enter> для повторної спроби."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Не вдається відкрити файл comps.  Можлива причина - відсутній файл чи "
-#~ "пошкоджений носій. Натисніть <Enter> для повторної спроби."
-
-#~ msgid "Installing..."
-#~ msgstr "Встановлення..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Помилка встановлення пакету"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Помилка при встановленні %s. Вона означає або помилку носія, або брак "
-#~ "простору на диску, або проблеми з обладнанням. Це серйозна проблема, тому "
-#~ "продовження процесу встановлення неможливе. Перевірте носій та\n"
-#~ "повторіть встановлення знову.\n"
-#~ "\n"
-#~ "Натисніть Гаразд для перевантаження системи."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Не вдається об'єднати список заголовків.  Можлива причина - відсутній "
-#~ "файл чи пошкоджений носій. Натисніть <Enter> для повторної спроби."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Оновлення %s пакетів\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Встановлення %s пакетів\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Наступні пакети були автоматично\n"
-#~ "вибрані для встановлення:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Здається не вистачає вільного місця, щоб встановити всі обрані вами "
-#~ "пакети. Вам потрібно більше місця на наступних файлових системах:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Невистачає місця"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Здається не вистачає дескрипторів файлів, щоб установити всі обрані вами "
-#~ "пакети. Вам потрібно більше місця на наступних файлових системах:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Невистачає дескрипторів файлів"
-
-#~ msgid "Disk Space"
-#~ msgstr "Дисковий простір"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Архітектура випуску %s, який ви встановлюєте - %s, що не відповідає "
-#~ "архітектурі раніше встановленої системи %s. Ймовірність успішного "
-#~ "оновлення невелика. Ви дійсно бажаєте продовжити оновлення?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Схоже, що в системі встановлені пакети, які конфліктують с пакетами, зі "
-#~ "складу %s. Оскільки ці пакети конфліктують, продовження оновлення може "
-#~ "призвести до того, що ці пакети або перестануть робити, або з'являться "
-#~ "інші проблеми зі стабільністю системи. Докладнішу інформацію шукайте у "
-#~ "примітках до випуску.\n"
-#~ "\n"
-#~ "Ви дійсно бажаєте продовжити оновлення?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Ця система не має файлу /etc/redhat-release. Можливо вона не є системою %"
-#~ "s.Продовження процесу оновлення може привести систему до непрацездатного "
-#~ "стану. Продовжити процес поновлення?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Налаштовування автентифікації"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Дозволити паролі _MD5"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Дозволити _тіньові паролі"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Дозволити N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Використати _широкомовні запити для пошуку сервера NIS"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "_Домен NIS: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "_Сервер NIS: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Дозволити _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Дозволити _TLS"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "Сервер _LDAP:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "Основна _DN LDAP:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Дозволити _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "R_ealm:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Адмін. сервер:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Дозволити _автентифікацію SMB"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "_Сервер SMB:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "Робоча _група SMB:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Створення завантажувальної дискети"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Завантажувальна дискета дискета дозволяє завантажити систему %s за "
-#~ "допомогою дискети у випадку збою встановленого на жорсткому диску "
-#~ "завантажувача, якщо завантажувач не встановлювався чи встановлено "
-#~ "завантажувач іншого виробника, який не підтримує Linux.\n"
-#~ "\n"
-#~ "Наполегливо рекомендується створити завантажувальну дискету.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Так, я бажаю створити завантажувальну дискету"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "_Ні, я не бажаю створювати завантажувальну дискету"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Виберіть пристрій для роботи з fdasd"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Форматування вибраного пристрою DASD знищить всі дані на ньому.Ви дійсно "
-#~ "бажаєте форматувати вибраний пристрій DASD?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Розподіл програмою fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Виберіть пристрій для роботи з fdisk"
-
-#~ msgid "Disabled"
-#~ msgstr "Вимкнено"
-
-#~ msgid "Warn"
-#~ msgstr "Попереджувати"
-
-#~ msgid "Active"
-#~ msgstr "Активно"
-
-#~ msgid "Firewall"
-#~ msgstr "Брандмауер"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Увага - брандмауер не настроєний"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Якщо система з'єднана безпосередньо з Інтернетом або з великою публічною "
-#~ "мережею, рекомендується настроїти брандмауер для запобігання "
-#~ "несанкціонованого доступу. Але ви вирішили пропустить налаштовування "
-#~ "брандмауера. Натисніть \"Продовжити\", щоб продовжити установку без "
-#~ "брандмауера."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Налаштувати брандмауер"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Продовжити"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Брандмауер може запобігти несанкціонованому доступу до вашого комп'ютера "
-#~ "із зовнішнього світу. Увімкнути брандмауер?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_Без брандмауера"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Увімкнути брандмауер"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Використовуючи брандмауер, ви можете забажати дозволити доступ до певних "
-#~ "служб вашої системи. До яких служб, якщо такі є, треба дозволити доступ?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Linux с вдосконаленою безпекою (SELinux) дозволяє більш точно керувати "
-#~ "безпекою, ніж традиційні Linux системи. Ви можете встановити його у "
-#~ "вимкнений стан, у стан в якому лише формуються повідомлення про те, що "
-#~ "було б заборонено, та повністю увімкнений стан."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Увімкнути _SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Всі пакети"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Пакет: %s\n"
-#~ "Версія: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "Перегляд _дерева"
-
-#~ msgid "_Flat View"
-#~ msgstr "Пр_остий вигляд"
-
-#~ msgid "_Package"
-#~ msgstr "_Пакет"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Розмір (МБ)"
-
-#~ msgid "Total size: "
-#~ msgstr "Загальний розмір: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Вибрати _всі у групі"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Пропустити групу"
-
-#~ msgid "Minimal"
-#~ msgstr "Мінімальний"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Опис %s"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Групи пакетів можуть включати як обов'язкові, так і необов'язкові "
-#~ "компоненти.  Обов'язкові компоненти завжди вибрані, якщо вибрана група "
-#~ "пакетів. \n"
-#~ "Відмітьте необов'язкові компоненти для встановлення:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Базові пакети"
-
-#~ msgid "Details"
-#~ msgstr "Подробиці"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Індивідуальний вибір пакетів"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Системний годинник використовує _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Виберіть найближче місто у вашому часовому поясі:"
-
-#~ msgid "_Location"
-#~ msgstr "_Розташування"
-
-#~ msgid "Description"
-#~ msgstr "Опис"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Нерозпізнаний монітор"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Доповнення графічної конфігурації"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Якість передачі кольору:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 кольорів (8 біт)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Багатокольорова (16 біт)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Реальний колір (24 біти)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Роздільна здатність:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Виберіть типове робоче середовище:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Робоче середовище:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Виберіть тип входу в систему:"
-
-#~ msgid "_Text"
-#~ msgstr "_Текстовий"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Графічний"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Налаштовування монітора"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Монітор не вказаний"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Ви не вказали тип монітору. Рекомендується вибрати найближчу за "
-#~ "характеристиками модель, щоб отримати найкращу якість зображення."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Вибрати тип монітора"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "У більшості випадків монітор визначається автоматично. Якщо визначені "
-#~ "автоматично параметри неправильні, вкажіть правильні правильні параметри."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Відновити _початкові значення"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Частота _рядків:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "Частота _кадрів:"
-
-#~ msgid "kHz"
-#~ msgstr "кГц"
-
-#~ msgid "Hz"
-#~ msgstr "Гц"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Налаштовування графічного інтерфейсу"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Невідома відеокарта"
-
-#, fuzzy
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Помилка при виборі відеокарти %s. Сповістіть про цю помилку на bugzilla."
-#~ "redhat.com."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Невизначена відеокарта"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Необхідно вибрати відеокарту для продовження налаштовування X Window.  "
-#~ "Якщо ви бажаєте пропустити налаштовування повністю, тоді виберіть "
-#~ "\"Пропустити налаштовування X Window\"'."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Ваша система буде налаштована для використання кадрового буфера для "
-#~ "системи X Window.  Якщо ви не бажаєте настроювати систему X зараз, "
-#~ "натисніть нижче\"Пропустити налаштовування X\"."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Обсяг відеопам'яті не вдається визначити автоматично. Виберіть обсяг "
-#~ "відеопам'яті зі списку:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "В більшості випадків відеообладнання може бути розпізнане автоматично. "
-#~ "Якщо обладнання визначено неправильно, вкажіть правильні параметри вручну."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "_ОЗП на відеокарті: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Пропустити налаштовування Х"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Завантажувальний диск дозволяє завантажувати систему %s з дискети, навіть "
-#~ "при у роботі основного завантажувача, встановленого на жорсткому диску.\n"
-#~ "\n"
-#~ "Наполегливо рекомендується створити завантажувальний диск.\n"
-#~ "\n"
-#~ "Створити завантажувальний диск?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Завантажувальний диск"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Виберіть пристрій для роботи fdasd чи dasdfmt"
-
-#~ msgid "Next"
-#~ msgstr "Далі"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Правка розділів"
-
-#~ msgid "Format DASD"
-#~ msgstr "Форматувати DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Розподіл диску"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Помилка при виконанні %s на пристрої %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Виконання dasdfmt призведе до втрати\n"
-#~ "ВСІХ ДАНИХ на пристрої %s.\n"
-#~ "\n"
-#~ "Ви дійсно бажаєте видалити дані?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Помилка: не знайдено пристроїв для створення нових файлових систем. Щоб "
-#~ "встановити причину, перевірте обладнання або використовуйте dasdfmt.\n"
-#~ "\n"
-#~ "Повернутись до екрану fdasd?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Виберіть пристрій для роботи fdisk"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Увімкнути брандмауер"
-
-#~ msgid "No firewall"
-#~ msgstr "Немає брандмауера"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Дозволити вхідні:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Недопустимий вибір"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Не можна налаштовувати вимкнений брандмауер."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Уточнення параметрів брандмауера"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Використовуючи брандмауер, ви можете забажати дозволити доступ до певних "
-#~ "служб вашої системи. До яких служб треба дозволити доступ?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Linux с вдосконаленою безпекою"
-
-#~ msgid "Edit User"
-#~ msgstr "Правити"
-
-#~ msgid "Add User"
-#~ msgstr "Додати"
-
-#~ msgid "User Name"
-#~ msgstr "Ідентифікатор"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Пароль (для перевірки)"
-
-#~ msgid "Full Name"
-#~ msgstr "Повне ім'я"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Недопустимий ідентифікатор користувача"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr ""
-#~ "Ідентифікатор користувача має бути не довшим за 8 символів, та складатись "
-#~ "лише з символів A-Z, a-z та 0-9"
-
-#~ msgid "Missing User Name"
-#~ msgstr "Відсутній ідентифікатор користувача"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "Ви маєте ввести ідентифікатор користувача"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Пароль користувача root має складатися принаймні з 6 символів."
-
-#~ msgid "User Exists"
-#~ msgstr "Користувач існує"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr "Користувач root вже існує. Немає потреби додавати його ще раз."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Такий системний користувач вже існує. Немає потреби додавати його ще раз."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Користувач з таким ID вже існує. Виберіть інший ID."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Для постійної роботи в системі ви повинні створити обліковий рахунок "
-#~ "звичайного користувача. Не використовуючи обліковий рахунок root, ви "
-#~ "знижуєте ризик випадкового пошкодження вашої системи."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Створення облікового рахунку користувача"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Який обліковий рахунок користувача ви бажаєте мати в системі? Для "
-#~ "нормальної роботи вистачить одного облікового рахунку, але "
-#~ "багатокористувацька система може мати довільну кількість облікових "
-#~ "рахунків."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Введіть інформацію про користувача."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Зміна інформації про користувача."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Використовувати тіньові паролі"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Використовувати паролі MD5"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Дозволити NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "Домен NIS:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "Сервер NIS:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Широкомовний запит сервера"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Дозволити LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "Сервер LDAP:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "Основна DN LDAP:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Використовувати з'єднання TLS"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Дозволити Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "Realm:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Адмін. сервер:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Якість передачі кольору"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Виберіть бажану якість передачі кольору:"
-
-#~ msgid "Resolution"
-#~ msgstr "Роздільна здатність"
-
-#~ msgid "X Customization"
-#~ msgstr "Налаштовування Х Window"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Виберіть якість передачі кольору та відеорежим, які будуть "
-#~ "використовуватись. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Якість передачі кольору:"
-
-#~ msgid "Change"
-#~ msgstr "Змінити"
-
-#~ msgid "Resolution:"
-#~ msgstr "Роздільна здатність:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Типове середовище:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Вхід у систему:"
-
-#~ msgid "Graphical"
-#~ msgstr "Графічний"
-
-#~ msgid "Text"
-#~ msgstr "Текстовий"
-
-#~ msgid "Monitor"
-#~ msgstr "Монітор"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Виберіть підключений до вашої системи монітор."
-
-#~ msgid "horizontal"
-#~ msgstr "Рядки"
-
-#~ msgid "vertical"
-#~ msgstr "Кадри"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Недопустимі частоти розгортки"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "Недопустимий діапазон розгортки %s:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Правильний діапазон розгортки повинен бути в формі:\n"
-#~ "\n"
-#~ "      31.5                   одне число\n"
-#~ "    50.1-90.2                діапазон чисел\n"
-#~ "31.5,35.0,39.3-40.0          список чисел/діапазонів\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Частоти розгортки монітору"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Виберіть частоти розгорток вашого монітора. \n"
-#~ "\n"
-#~ "ПРИМІТКА: зазвичай не потрібно вручну змінювати параметри частот. При "
-#~ "введенні розгорток потрібна особлива обережність."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Рядкова розгортка: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Кадрова розгортки: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Виберіть монітор.  Використовуйте кнопку '%s' для повернення до "
-#~ "результатів автоматичного визначення."
-
-#~ msgid "Monitor:"
-#~ msgstr "Монітор:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Рядкова розгортка:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "Кадрова розгортка:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Вибір типу монітора"
-
-#~ msgid "Proceed"
-#~ msgstr "Продовжити"
-
-#~ msgid "Video Card"
-#~ msgstr "Відеокарта"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Виберіть відеокарту встановлену у вашій системі. Натисніть \"%s\", щоб "
-#~ "повернути відеокарту, визначену програмою встановлення."
-
-#~ msgid "Video RAM"
-#~ msgstr "Відеопам'ять"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Виберіть кількість відеопам'яті на вашій відеокарті. Натисніть \"%s\", "
-#~ "щоб повернути величину, визначену програмою встановлення."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Пропустити налаштовування Х Window"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Налаштовування відеокарти"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Вкажіть відеокарту та обсяг відеопам'яті у вашій системі."
-
-#~ msgid "Video Card:"
-#~ msgstr "Відеокарта:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Невідома карта"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Відеопам'ять:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Якщо ви хочете перевірити додатковий носій, вставте наступний CD та "
-#~ "натисніть \"%s\". Немає необхідності перевіряти усі CD, але "
-#~ "рекомендується зробити це хоча б один раз.\n"
-#~ "\n"
-#~ "Щоб розпочати процес встановлення вставте CD N1 у пристрій та натисніть "
-#~ "\"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Перевірка носія %s завершена, результат: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Східний Стандартний Час - центральний Наваут"
-
-#~ msgid "Great Britain"
-#~ msgstr "Великобританія"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Північні Острови"
-
-#~ msgid "Tasmania"
-#~ msgstr "Тасманія"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "північно-східне Малі"
-
-#~ msgid "southwest Mali"
-#~ msgstr "південно-західне Малі"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Інформацію про виправлення стосовно цього випуску Red Hat Linux, можна "
-#~ "знайти у розділі Errata на http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Інформацію про автоматичне обновлення системи дивіться на:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Інформацію про використання та налаштовування системи дивіться на:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Для реєстрації підтримки продукту відвідайте:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Підтримка додаткових мов"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Виберіть _типову мову цієї системи:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "Відмітьте д_одаткові мови, які використовуватимуться у цій системі:"
-
-#~ msgid "_Select All"
-#~ msgstr "Виділити _всі"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Відмітити _лише типову"
-
-#~ msgid "Rese_t"
-#~ msgstr "_Скинути зміни"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Налаштовування SILO"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Встановити завантажувач SILO на:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Створити псевдонім PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Встановити linux типовим завантажувачем PROM"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Параметри ядра"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Створити системний диск"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Не встановлювати SILO"
-
-#~ msgid "Default boot image"
-#~ msgstr "Типовий образ завантаження"
-
-#~ msgid "Select All"
-#~ msgstr "Вибрати всі"
-
-#~ msgid "Reset"
-#~ msgstr "Скинути зміни"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "Виберіть додаткові мови, які використовуватимуться у цій системі:"
-
-#~ msgid "Language Support"
-#~ msgstr "Підтримка мов"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Слід вибрати підтримку хоча б однієї мови."
-
-#~ msgid "Default Language"
-#~ msgstr "Типова мова"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Виберіть типову мову для цієї системи: "
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Створити PROM псевдонім \"linux\""
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Встановити стандартний завантажувальний пристрій PROM"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Куди ви бажаєте встановити завантажувач?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Менеджер завантаження Red Hat також може завантажувати інші операційні "
-#~ "системи. Вкажіть завантажувальні розділи та позначки, які "
-#~ "використовуватимуться при звертанні до них."
-
-#~ msgid "no suggestion"
-#~ msgstr "жодних варіантів"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Використовувати _LILO як завантажувач"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Неможливо змінити порядок дисків для LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Зміна параметрів дисків для LILO не підтримується."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Використовувати LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "Програма встановлення %s на %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Ви вирішили не встановлювати завантажувач у вашій системі.  У цьому "
-#~ "випадку необхідно створити завантажувальний диск, щоб мати змогу "
-#~ "завантажити систему.\n"
-#~ "\n"
-#~ "Продовжити без встановлення завантажувача?"
-
-#~ msgid "Total"
-#~ msgstr "Загалом"
-
-#~ msgid "Remaining"
-#~ msgstr "Залишилося"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Встановлення %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Поточний пакет: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Всі пакети: "
-
-#~ msgid "Status"
-#~ msgstr "Стан"
-
-#~ msgid "Time"
-#~ msgstr "Час"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Ця версія %s підтримує оновлення Red Hat Linux 6.2 та більш старших "
-#~ "версій. Схоже, що ця система є більш ранньою. Ви дійсно бажаєте "
-#~ "продовжити оновлення?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tРобоче середовище (GNOME)\n"
-#~ "\tОфісний пакет (OpenOffice)\n"
-#~ "\tВеб-браузер (Mozilla) \n"
-#~ "\tЕлектронна пошта (Evolution)\n"
-#~ "\tМиттєві повідомлення\n"
-#~ "\tЗвук та відео\n"
-#~ "\tІгри\n"
-#~ "\tЗасоби адміністрування системи\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tРобоче середовище (GNOME)\n"
-#~ "\tОфісний пакет (OpenOffice)\n"
-#~ "\tВеб-браузер (Mozilla) \n"
-#~ "\tЕлектронна пошта (Evolution)\n"
-#~ "\tМиттєві повідомлення\n"
-#~ "\tЗвук та відео\n"
-#~ "\tІгри\n"
-#~ "\tЗасоби розробки ПЗ\n"
-#~ "\tЗасоби адміністрування системи\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Фізичний екстент:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Linux с вдосконаленою безпекою (SELinux) забезпечує більш жорсткий "
-#~ "контроль доступу для підвищення безпеки вашої системи. У якому варіанту "
-#~ "ви бажаєте увімкнути цю підтримку?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Вимкнути SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Попереджати при порушеннях"
-
-#~ msgid "Device number:"
-#~ msgstr "Номер пристрою:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP LUN:"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Сх Аргентина (BA, DF, SC, TF)"
