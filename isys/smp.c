@@ -16,6 +16,8 @@
 #include <sys/types.h>
 #include <limits.h>
 
+#include "smp.h"
+
 #ifdef DIET
 typedef unsigned short u_short;
 typedef unsigned long u_long;
@@ -552,40 +554,146 @@ static int intelDetectSMP(void)
 /* ---- end mptable mess ---- */
 #endif /* __i386__ || __x86_64__ */
 
-#if defined(__i386__)
-static inline unsigned int cpuid_ebx(int op)
+#if defined(__i386__) || defined(__x86_64__)
+#if defined(__x86_64__)
+/* seems not to work */
+u_int32_t cpuid_eax(u_int32_t op)
 {
-    unsigned int eax, ebx;
-
-    __asm__("pushl %%ebx; cpuid; movl %%ebx,%1; popl %%ebx"
-            : "=a" (eax), "=g" (ebx)
+    u_int32_t eax=op, out;
+    __asm__("cpuid; movl %%eax,%[out]"
+            : [in] "=a" (eax), [out] "=g" (out)
             : "0" (op)
-            : "cx", "dx");
-    return ebx;
+            : "bx", "cx", "dx");
+    return eax;
 }
-#elif defined(__x86_64__)
-static inline unsigned int cpuid_ebx(int op)
+/* seems to work? */
+u_int32_t cpuid_ebx(u_int32_t op)
 {
-    unsigned int eax, ebx;
-
+    u_int32_t eax, ebx;
     __asm__("cpuid"
             : "=a" (eax), "=b" (ebx)
             : "0" (op)
             : "cx", "dx");
     return ebx;
 }
+/* seems not to work */
+u_int32_t cpuid_edx(u_int32_t op)
+{
+    u_int32_t eax, edx, out;
+    __asm__("cpuid; movl %%edx,%[out]"
+            : "=a" (eax), "=d" (edx), [out] "=g" (out)
+            : "0" (op)
+            : "bx", "cx");
+    printf("eax: %x\n", eax);
+    printf("edx: %x\n", edx);
+    printf("out: %x\n", out);
+    return edx;
+}
+#elif defined(__i386__)
+/* this one works */
+static inline u_int32_t cpuid_eax(u_int32_t fn)
+{
+    u_int32_t eax, ebx;
+    __asm__("pushl %%ebx; cpuid; movl %%eax,%[out]; popl %%ebx"
+            : [out] "=a" (eax), "=g" (ebx)
+            : "0" (fn)
+            : "cx", "dx");
+    return eax;
+}
+/* this one works */
+static inline u_int32_t cpuid_ebx(u_int32_t fn)
+{
+    u_int32_t eax, ebx;
+    __asm__("pushl %%ebx; cpuid; movl %%ebx,%[out]; popl %%ebx"
+            : "=a" (eax), [out] "=g" (ebx)
+            : "0" (fn)
+            : "cx", "dx");
+    return ebx;
+}
+/* no idea */
+static inline u_int32_t cpuid_edx(u_int32_t fn)
+{
+    u_int32_t eax, ebx, edx;
+    __asm__("pushl %%ebx; cpuid; movl %%edx,%[out]; popl %%ebx"
+            : "=a" (eax), "=g" (ebx), [out] "=g" (edx)
+            : "0" (fn)
+            : "cx");
+    return edx;
+}
 #endif
 
-#if defined(__i386__) || defined(__x86_64__)
+typedef enum {
+    VENDOR_UNKNOWN,
+    VENDOR_OTHER,
+    VENDOR_INTEL,
+    VENDOR_AMD,
+} vendor_t;
+
+vendor_t detectVendor(void)
+{
+    FILE *f;
+    static vendor_t vendor = VENDOR_UNKNOWN;
+
+    if (vendor != VENDOR_UNKNOWN)
+        return vendor;
+    vendor = VENDOR_OTHER;
+
+    f = fopen("/proc/cpuinfo", "r");
+    if (f) {
+        char buf[1024] = {'\0'};
+
+        while (fgets(buf, 1024, f) != NULL) {
+            if (!strncmp(buf, "vendor_id\t: ", 12)) {
+                if (!strncmp(buf+12, "GenuineIntel\n", 13))
+                    vendor = VENDOR_INTEL;
+                else if (!strncmp(buf+12, "AuthenticAMD\n", 13))
+                    vendor = VENDOR_AMD;
+            }
+        }
+        fclose(f);
+    }
+
+    return vendor;
+}
+
 int detectHT(void)
 {
-    uint32_t ebx = 0;
+    u_int32_t ebx = 0;
     int logical_procs = 0;
 
     ebx = cpuid_ebx(1);
     logical_procs = (ebx & 0xff0000) >> 16;
-    
+
     return logical_procs;
+}
+
+int detectCoresPerPackage(void)
+{
+    int cores_per_package = 1;
+    vendor_t vendor = detectVendor();
+
+    switch (vendor) {
+        case VENDOR_INTEL: {
+                /* <geoff> cpuid eax=04h returns cores per physical package
+                           in eax[31-26]+1 (i.e. 0 for 1, 1 for 2) */
+                u_int32_t eax = 0;
+
+                eax = cpuid_eax(4);
+                cores_per_package = ((eax & 0xfc000000) >> 26) + 1;
+                break;
+            }
+        case VENDOR_AMD: {
+                u_int32_t edx = 0;
+
+                edx = cpuid_edx(0x80000008);
+                cores_per_package = (edx & 0xff) + 1;
+                break;
+            }
+        case VENDOR_OTHER:
+        default:
+            break;
+    }
+    return cores_per_package;
 }
 
 int detectSummit(void)
@@ -602,20 +710,20 @@ int detectHT(void)
     
     f = fopen("/proc/cpuinfo", "r");
     if (f) {     
-	char buf[1024];
-	
-	while (fgets (buf, 1024, f) != NULL) {
-	    if (!strncmp (buf, "siblings   : ", 13)) {
+        char buf[1024];
+
+        while (fgets(buf, 1024, f) != NULL) {
+            if (!strncmp(buf, "siblings   : ", 13)) {
                 errno = 0;
                 nthreads = strtol(buf+13, NULL, 0);
                 if (nthreads == LONG_MAX || nthreads == LONG_MIN || errno)
                     nthreads = 1;
-		break;
-	    }
-	}
-	fclose(f);
+                break;
+            }
+        }
+        fclose(f);
     } else
-	return 1;
+        return 1;
     return nthreads ? nthreads : 1;
 }
 
@@ -785,6 +893,13 @@ int detectSummit(void)
 }
 
 #endif /* __i386__ */
+
+#if !defined(__i386__) && !defined(__x86_64__)
+int detectCoresPerPackage(void)
+{
+    return 1;
+}
+#endif
 
 int detectSMP(void)
 {
