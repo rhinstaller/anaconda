@@ -1,3 +1,17 @@
+2006-02-17  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Don't traceback if we find an included file that doesn't
+	exist while looking for vnc options early.
+
+	* kickstart.py (Kickstart.setSteps):  Show confirm in interactive
+	installs (#181741).
+	(Kickstart.setSteps):  Show package selection if none were listed.
+	(KickstartPreParser.__init__):  Don't traceback if we find an include
+	file that doesn't exist while looking for %pre scripts (#181760).
+	(KickstartHandlers.doLogicalVolume):  Skip partitioning if a logical
+	volume was specified (#181806).
+	(KickstartHandlers.doRaid):  Likewise for RAID.
+
 2006-02-16  Chris Lumens  <clumens@redhat.com>
 
 	* iw/timezone_gui.py (TimezoneWindow.getScreen):  Initialize UTC

@@ -675,7 +675,8 @@ if ksfile is not None:
     # line options for password, connect host and port override values in
     # kickstart file
     ksdata = KickstartData()
-    ksparser = KickstartParser(ksdata, VNCHandlers(ksdata))
+    ksparser = KickstartParser(ksdata, VNCHandlers(ksdata),
+                               missingIncludeIsFatal=False)
     ksparser.readKickstart(ksfile)
 
     ksusevnc = ksdata.vnc["enabled"]

@@ -252,6 +252,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.fsopts = lvd.fsopts
 
         id.instClass.addPartRequest(id.partitions, request)
+        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     def doMediaCheck(self, id, args):
         KickstartHandlers.doMediaCheck(self, args)
@@ -493,6 +494,7 @@ class AnacondaKSHandlers(KickstartHandlers):
             request.fsopts = rd.fsopts
 
         id.instClass.addPartRequest(id.partitions, request)
+        self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
     def doRootPw(self, id, args):
         KickstartHandlers.doRootPw(self, args)
@@ -609,7 +611,8 @@ class VNCHandlers(KickstartHandlers):
 class KickstartPreParser(KickstartParser):
     def __init__ (self, ksdata, kshandlers):
         self.handler = kshandlers
-        KickstartParser.__init__(self, ksdata, kshandlers)
+        KickstartParser.__init__(self, ksdata, kshandlers,
+                                 missingIncludeIsFatal=False)
 
     def addScript (self):
         if self.state == STATE_PRE:
@@ -817,10 +820,12 @@ class Kickstart(BaseInstallClass):
         dispatch.skipStep("bootdisk")
         dispatch.skipStep("welcome")
         dispatch.skipStep("betanag")
-        dispatch.skipStep("confirminstall")
-        dispatch.skipStep("confirmupgrade")
         dispatch.skipStep("installtype")
         dispatch.skipStep("tasksel")            
+
+        if not self.ksdata.interactive:
+            dispatch.skipStep("confirminstall")
+            dispatch.skipStep("confirmupgrade")
 
 	if len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
            len(self.ksdata.excludedList) > 0:
@@ -828,6 +833,8 @@ class Kickstart(BaseInstallClass):
                 self.handlers.showSteps.append("group-selection")
             else:
                 self.handlers.skipSteps.append("group-selection")
+        else:
+            self.handlers.showSteps.append("group-selection")
 
         if not self.ksdata.interactive:
             for n in self.handlers.skipSteps:
