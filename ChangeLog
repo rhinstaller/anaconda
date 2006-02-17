@@ -17,6 +17,8 @@
 	* kickstart.py (Kickstart.setSteps):  Show confirm in interactive
 	installs (#181741).
 	(Kickstart.setSteps):  Show package selection if none were listed.
+	(Kickstart.setSteps):  Reboot automatically in interactive mode if
+	told to do so (#181743).
 	(KickstartPreParser.__init__):  Don't traceback if we find an include
 	file that doesn't exist while looking for %pre scripts (#181760).
 	(KickstartHandlers.doLogicalVolume):  Skip partitioning if a logical

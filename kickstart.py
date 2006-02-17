@@ -26,6 +26,7 @@ import string
 import partRequests
 import urlgrabber.grabber as grabber
 import lvm
+from pykickstart.constants import *
 from pykickstart.parser import *
 from pykickstart.data import *
 from rhpl.translate import _
@@ -823,10 +824,17 @@ class Kickstart(BaseInstallClass):
         dispatch.skipStep("installtype")
         dispatch.skipStep("tasksel")            
 
+        # Don't show confirmation screens in interactive.
         if not self.ksdata.interactive:
             dispatch.skipStep("confirminstall")
             dispatch.skipStep("confirmupgrade")
 
+        # Make sure to automatically reboot even in interactive if told to.
+        if self.ksdata.interactive and self.ksdata.reboot["action"] != KS_WAIT:
+            dispatch.skipStep("complete")
+
+        # If the package section included anything, skip group selection unless
+        # they're in interactive.
 	if len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
            len(self.ksdata.excludedList) > 0:
             if self.ksdata.interactive:
