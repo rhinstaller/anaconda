@@ -160,6 +160,10 @@ class simpleCallback:
                                                                   _("_Reboot")])
                         if rc == 1:
                             sys.exit(0)
+                        else:
+                            continue
+                    else:
+                        continue
                     
                 fd = os.open(fn, os.O_RDONLY)
                 self.fdnos[nvra] = fd

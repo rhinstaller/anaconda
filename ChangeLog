@@ -1,5 +1,7 @@
 2006-02-17  Chris Lumens  <clumens@redhat.com>
 
+	* yuminstall.py (simpleCallback.callback):  Try again to get fn.
+
 	* anaconda:  Don't traceback if we find an included file that doesn't
 	exist while looking for vnc options early.
 
