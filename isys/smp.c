@@ -556,17 +556,29 @@ static int intelDetectSMP(void)
 
 #if defined(__i386__) || defined(__x86_64__)
 #if defined(__x86_64__)
-/* seems not to work */
-u_int32_t cpuid_eax(u_int32_t op)
+u_int32_t recursive_cpuid_eax(u_int32_t op, int cycle)
 {
-    u_int32_t eax=op, out;
-    __asm__("cpuid; movl %%eax,%[out]"
-            : [in] "=a" (eax), [out] "=g" (out)
+    u_int32_t saved_op=op, eax=op;
+    u_int32_t out0, out1;
+
+    /* just doing this once doesn't work on some SDP hardware.  doing it twice
+       with a function call that has the output as an argument and manipulates
+       the variable in some way seems to do it... -- pj
+    */
+    __asm__("cpuid"
+            : "=a" (eax)
             : "0" (op)
             : "bx", "cx", "dx");
-    return eax;
+    out0 = eax;
+    if (cycle != 0) {
+        out1 = recursive_cpuid_eax(saved_op, 0);
+        return out1 > out0 ? out1 : out0;
+    }
+    return out0;
 }
-/* seems to work? */
+
+#define cpuid_eax(x) recursive_cpuid_eax(x, 1)
+
 u_int32_t cpuid_ebx(u_int32_t op)
 {
     u_int32_t eax, ebx;
@@ -576,21 +588,16 @@ u_int32_t cpuid_ebx(u_int32_t op)
             : "cx", "dx");
     return ebx;
 }
-/* seems not to work */
 u_int32_t cpuid_edx(u_int32_t op)
 {
-    u_int32_t eax, edx, out;
-    __asm__("cpuid; movl %%edx,%[out]"
-            : "=a" (eax), "=d" (edx), [out] "=g" (out)
+    u_int32_t eax, edx;
+    __asm__("cpuid"
+            : "=a" (eax), "=d" (edx)
             : "0" (op)
             : "bx", "cx");
-    printf("eax: %x\n", eax);
-    printf("edx: %x\n", edx);
-    printf("out: %x\n", out);
     return edx;
 }
 #elif defined(__i386__)
-/* this one works */
 static inline u_int32_t cpuid_eax(u_int32_t fn)
 {
     u_int32_t eax, ebx;
@@ -600,7 +607,6 @@ static inline u_int32_t cpuid_eax(u_int32_t fn)
             : "cx", "dx");
     return eax;
 }
-/* this one works */
 static inline u_int32_t cpuid_ebx(u_int32_t fn)
 {
     u_int32_t eax, ebx;
@@ -610,7 +616,6 @@ static inline u_int32_t cpuid_ebx(u_int32_t fn)
             : "cx", "dx");
     return ebx;
 }
-/* no idea */
 static inline u_int32_t cpuid_edx(u_int32_t fn)
 {
     u_int32_t eax, ebx, edx;
