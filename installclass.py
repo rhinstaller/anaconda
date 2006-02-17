@@ -203,10 +203,10 @@ class BaseInstallClass:
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 
-    def setPackageSelection(self, backend):
+    def setPackageSelection(self, backend, intf=None):
 	pass
 
-    def setGroupSelection(self, backend):
+    def setGroupSelection(self, backend, intf=None):
 	pass
 
     def setZFCP(self, id, devnum, scsiid, wwpn, scsilun, fcplun):

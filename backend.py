@@ -160,9 +160,9 @@ def doInstall(backend, intf, id, instPath):
     backend.doInstall(intf, id, instPath)
 
 # does this need to be per-backend?  we'll just leave here until it does :)
-def doBasePackageSelect(backend, instClass):
-    instClass.setPackageSelection(backend)
-    instClass.setGroupSelection(backend)
+def doBasePackageSelect(backend, instClass, intf):
+    instClass.setPackageSelection(backend, intf)
+    instClass.setGroupSelection(backend, intf)
 
 def writeConfiguration(backend, id, instPath):
     log.info("Writing main configuration")

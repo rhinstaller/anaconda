@@ -844,11 +844,28 @@ class Kickstart(BaseInstallClass):
         for n in self.handlers.showSteps:
             dispatch.skipStep(n, skip = 0)
 
-    def setPackageSelection(self, backend, *args):
-        # FIXME: handling of missing packages...
-        map(backend.selectPackage, self.ksdata.packageList)
+    def setPackageSelection(self, backend, intf=None, *args):
+        for pkg in self.ksdata.packageList:
+            num = backend.selectPackage(pkg)
+            if self.ksdata.handleMissing == KS_MISSING_IGNORE:
+                continue
+            if num > 0:
+                continue
+            rc = intf.messageWindow(_("Missing Package"),
+                                    _("You have specified that the "
+                                      "package '%s' should be installed.  "
+                                      "This package does not exist. "
+                                      "Would you like to continue or "
+                                      "abort your installation?") %(pkg,),
+                                    type="custom",
+                                    custom_buttons=[_("_Abort"),
+                                                    _("_Continue")])
+            if rc == 0:
+                sys.exit(1)
+            else:
+                pass
 
-    def setGroupSelection(self, backend, *args):
+    def setGroupSelection(self, backend, intf=None, *args):
         backend.selectGroup("Core")
 
         if self.ksdata.addBase:
@@ -857,7 +874,28 @@ class Kickstart(BaseInstallClass):
             log.warning("not adding Base group")
 
         # FIXME: handling of missing groups
-        map(backend.selectGroup, self.ksdata.groupList)
+        for grp in self.ksdata.groupList:
+            num = backend.selectGroup(grp)
+            if self.ksdata.handleMissing == KS_MISSING_IGNORE:
+                continue
+            if num > 0:
+                continue
+            rc = intf.messageWindow(_("Missing Group"),
+                                    _("You have specified that the "
+                                      "group '%s' should be installed. "
+                                      "This group does not exist. "
+                                      "Would you like to continue or "
+                                      "abort your installation?")
+                                    %(grp,),
+                                    type="custom",
+                                    custom_buttons=[_("_Abort"),
+                                                    _("_Continue")])
+            if rc == 0:
+                sys.exit(1)
+            else:
+                pass
+
+
 
         # FIXME: need to handle package exclusions here.
         map(backend.deselectPackage, self.ksdata.excludedList)

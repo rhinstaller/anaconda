@@ -961,14 +961,27 @@ class YumBackend(AnacondaBackend):
                 if group == trans:
                     return g.groupid
 
+    def isGroupSelected(self, group):
+        try:
+            grp = self.ayum.comps.return_group(group)
+            if grp.selected: return True
+        except yum.Errors.GroupsError, e:
+            pass
+        return False
+
     def selectGroup(self, group, *args):
         try:
-            self.ayum.selectGroup(group)
+            mbrs = self.ayum.selectGroup(group)
+            if len(mbrs) == 0 and self.isGroupSelected(group):
+                return 1
+            return len(mbrs)
         except yum.Errors.GroupsError, e:
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:
                 mbrs = self.ayum.selectGroup(gid)
+                if len(mbrs) == 0 and self.isGroupSelected(gid):
+                    return 1
                 return len(mbrs)
             else:
                 log.debug("no such group %s" %(group,))
