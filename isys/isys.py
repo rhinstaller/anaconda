@@ -222,6 +222,7 @@ def smpAvailable():
 
 htavailable = _isys.htavailable
 coresavailable = _isys.coresavailable
+acpicpus = _isys.acpicpus
 
 def summitavailable():
     try:
