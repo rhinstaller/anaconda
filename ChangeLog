@@ -6,6 +6,9 @@
 
 2006-02-17  Chris Lumens  <clumens@redhat.com>
 
+	* exception.py (handleException):  Reboot after writing to floppy or
+	remote (#181745).
+
 	* yuminstall.py (simpleCallback.callback):  Try again to get fn.
 
 	* anaconda:  Don't traceback if we find an included file that doesn't

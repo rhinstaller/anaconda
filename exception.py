@@ -419,9 +419,10 @@ def handleException(dispatch, intf, (type, value, tb)):
             if floppyRc == 0:
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
-                      "the floppy. Your system will now be rebooted."))
-                intf.__del__ ()
-                os.kill(os.getpid(), signal.SIGKILL)
+                      "the floppy. Your system will now be rebooted."),
+                    type="custom", custom_icon="info",
+                    custom_buttons=[_("_Reboot")])
+                sys.exit(0)
             elif floppyRc == 1:
                 continue
             elif floppyRc == 2:
@@ -435,9 +436,10 @@ def handleException(dispatch, intf, (type, value, tb)):
             if scpRc == 0:
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
-                      "the remote host.\nYour system will now be reset."))
-                intf.__del__ ()
-                os.kill(os.getpid(), signal.SIGKILL)
+                      "the remote host.\nYour system will now be reset."),
+                    type="custom", custom_icon="info",
+                    custom_buttons=[_("_Reboot")])
+                sys.exit(0)
             elif scpRc == 1:
                 continue
             elif scpRc == 2:
