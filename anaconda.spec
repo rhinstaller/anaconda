@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.35
+Version: 10.1.1.36
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 17 2006 Peter Jones <pjones@redhat.com> - 10.1.1.36-1
+- Use ACPI for cpu probing where an MADT is available.
+
 * Thu Feb 16 2006 Peter Jones <pjones@redhat.com> - 10.1.1.35-1
 - probe threads per core and device threads per cpu by that to get a 
   real number

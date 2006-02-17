@@ -1,3 +1,11 @@
+2006-02-17  Peter Jones  <pjones@redhat.com>
+
+	* isys/acpi/*: add headers for acpi tables
+	* isys/acpi.c: add cpu probing via acpi
+	* isys/isys.c: python bindings for the above
+	* isys/isys.py: bring it out via isys.acpicpus()
+	* packages.py: use acpi for cpu probing
+
 2006-02-01  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py (swapFileSystem.labelDevice):  Make swap labels starting
