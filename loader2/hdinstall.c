@@ -174,7 +174,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
     char * url;
     char filespec[1024];
     char * path;
-    char *typetry[] = {"ext2", "vfat", NULL};
+    char *typetry[] = {"ext3", "ext2", "vfat", NULL};
     char **type;
 
     logMessage(INFO, "mounting device %s for hard drive install", device);
