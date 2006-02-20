@@ -1,4 +1,6 @@
 
+#undef ANACONDA_COUNT_MISSING_HOTPLUGGABLE_CPUS
+
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <stdlib.h>
@@ -1134,7 +1136,12 @@ static int ncpus=0;
 
 static void mp_register_lapic(u8 id, u8 enabled)
 {
+#ifdef ANACONDA_COUNT_MISSING_HOTPLUGGABLE_CPUS
     ncpus++;
+#else
+    if (enabled)
+        ncpus++;
+#endif
 }
 
 int detectAcpiCpusAvailable(void)
