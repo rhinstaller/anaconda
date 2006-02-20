@@ -32,7 +32,11 @@ typedef u_int8_t u8;
 
 #define __init
 #define __initdata
-#define printk(format, ...)
+#if 0
+#define printk(...) printf(__VA_ARGS__)
+#else
+#define printk(...)
+#endif
 #define KERN_WARNING ""
 #define KERN_ERR ""
 #define KERN_DEBUG ""
@@ -782,21 +786,20 @@ acpi_scan_rsdp(unsigned long start, unsigned long length)
 {
 	unsigned long offset = 0;
 	unsigned long sig_len = sizeof("RSD PTR ") - 1;
-        char *ptr;
-
+	char *ptr;
 
 	/*
 	 * Scan all 16-byte boundaries of the physical memory region for the
 	 * RSDP signature.
 	 */
-        ptr = mem_chunk(0, 4096 * 4096, "/dev/mem");
-        if (!ptr)
-            return 0;
+	ptr = mem_chunk(0, 0x100000, "/dev/mem");
+	if (!ptr)
+	    return 0;
 
 	for (offset = 0; offset < length; offset += 16) {
 		if (strncmp(ptr+start+offset, "RSD PTR ", sig_len))
 			continue;
-                free(ptr);
+		free(ptr);
 		return (void *)start + offset;
 	}
 
