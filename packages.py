@@ -647,8 +647,8 @@ def doPreInstall(method, id, intf, instPath, dir):
         foundkernel = 0
         nthreads = isys.acpicpus()
 
-        if acpicpus == 0:
-            # XXX this should probably be table driven or something...
+        if nthreads == 0:
+            # this should probably be table driven or something...
             ncpus = isys.smpAvailable() or 1
             nthreads = isys.htavailable() or 1
             ncores = isys.coresavailable()
