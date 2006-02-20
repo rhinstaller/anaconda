@@ -556,76 +556,58 @@ static int intelDetectSMP(void)
 
 #if defined(__i386__) || defined(__x86_64__)
 #if defined(__x86_64__)
-u_int32_t recursive_cpuid_eax(u_int32_t op, int cycle)
+static inline void
+cpuid_count(u_int32_t *eax, u_int32_t *ebx, u_int32_t *ecx, u_int32_t *edx)
 {
-    u_int32_t saved_op=op, eax=op;
-    u_int32_t out0, out1;
-
-    /* just doing this once doesn't work on some SDP hardware.  doing it twice
-       with a function call that has the output as an argument and manipulates
-       the variable in some way seems to do it... -- pj
-    */
     __asm__("cpuid"
-            : "=a" (eax)
-            : "0" (op)
-            : "bx", "cx", "dx");
-    out0 = eax;
-    if (cycle != 0) {
-        out1 = recursive_cpuid_eax(saved_op, 0);
-        return out1 > out0 ? out1 : out0;
-    }
-    return out0;
-}
-
-#define cpuid_eax(x) recursive_cpuid_eax(x, 1)
-
-u_int32_t cpuid_ebx(u_int32_t op)
-{
-    u_int32_t eax, ebx;
-    __asm__("cpuid"
-            : "=a" (eax), "=b" (ebx)
-            : "0" (op)
-            : "cx", "dx");
-    return ebx;
-}
-u_int32_t cpuid_edx(u_int32_t op)
-{
-    u_int32_t eax, edx;
-    __asm__("cpuid"
-            : "=a" (eax), "=d" (edx)
-            : "0" (op)
-            : "bx", "cx");
-    return edx;
+            : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
+            : "0" (*eax), "c" (*ecx));
 }
 #elif defined(__i386__)
-static inline u_int32_t cpuid_eax(u_int32_t fn)
+static inline void
+cpuid_count(u_int32_t *eax, u_int32_t *ebx, u_int32_t *ecx, u_int32_t *edx)
 {
-    u_int32_t eax, ebx;
-    __asm__("pushl %%ebx; cpuid; movl %%eax,%[out]; popl %%ebx"
-            : [out] "=a" (eax), "=g" (ebx)
-            : "0" (fn)
-            : "cx", "dx");
-    return eax;
-}
-static inline u_int32_t cpuid_ebx(u_int32_t fn)
-{
-    u_int32_t eax, ebx;
-    __asm__("pushl %%ebx; cpuid; movl %%ebx,%[out]; popl %%ebx"
-            : "=a" (eax), [out] "=g" (ebx)
-            : "0" (fn)
-            : "cx", "dx");
-    return ebx;
-}
-static inline u_int32_t cpuid_edx(u_int32_t fn)
-{
-    u_int32_t eax, ebx, edx;
-    __asm__("pushl %%ebx; cpuid; movl %%edx,%[out]; popl %%ebx"
-            : "=a" (eax), "=g" (ebx), [out] "=g" (edx)
-            : "0" (fn)
-            : "cx");
-    return edx;
+    __asm__("pushl %%ebx ; cpuid ;"
+            "movl %%eax,%[eax] ; movl %%ebx,%[ebx] ;"
+            "movl %%ecx,%[ecx] ; movl %%edx,%[edx] ;"
+            "popl %%ebx"
+            : [eax] "=a" (*eax), [ebx] "=g" (*ebx),
+              [ecx] "=g" (*ecx), [edx] "=g" (*edx)
+            : "0" (*eax), "c" (*ecx));
 }
 #endif
+
+static inline u_int32_t
+cpuid_eax(u_int32_t op)
+{
+    u_int32_t eax = op, ebx = 0, ecx = 0, edx = 0;
+    cpuid_count(&eax, &ebx, &ecx, &edx);
+    return eax;
+}
+
+static inline u_int32_t
+cpuid_ebx(u_int32_t op)
+{
+    u_int32_t eax = op, ebx = 0, ecx = 0, edx = 0;
+    cpuid_count(&eax, &ebx, &ecx, &edx);
+    return ebx;
+}
+
+static inline u_int32_t
+cpuid_ecx(u_int32_t op)
+{
+    u_int32_t eax = op, ebx = 0, ecx = 0, edx = 0;
+    cpuid_count(&eax, &ebx, &ecx, &edx);
+    return ecx;
+}
+
+static inline u_int32_t
+cpuid_edx(u_int32_t op)
+{
+    u_int32_t eax = op, ebx = 0, ecx = 0, edx = 0;
+    cpuid_count(&eax, &ebx, &ecx, &edx);
+    return edx;
+}
 
 typedef enum {
     VENDOR_UNKNOWN,
@@ -688,10 +670,10 @@ int detectCoresPerPackage(void)
                 break;
             }
         case VENDOR_AMD: {
-                u_int32_t edx = 0;
+                u_int32_t ecx = 0;
 
-                edx = cpuid_edx(0x80000008);
-                cores_per_package = (edx & 0xff) + 1;
+                ecx = cpuid_ecx(0x80000008);
+                cores_per_package = (ecx & 0xff) + 1;
                 break;
             }
         case VENDOR_OTHER:
