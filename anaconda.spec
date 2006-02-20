@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 - Fix cpuid fn 0x80000008 (cores-per-package) probe on amd64 (reported by katzj)
 - Fix return value reset across multiple isys.acpicpus() calls (#181612)
 - Fix variable name in smp acpi test (#181612)
+- Don't count disabled cpus (empty socket or disabled in bios) towards largesmp
+  detection (#181612)
 
 * Fri Feb 17 2006 Peter Jones <pjones@redhat.com> - 10.1.1.36-1
 - Use ACPI for cpu probing where an MADT is available.
