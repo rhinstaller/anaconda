@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-20 14:26+1000\n"
-"Last-Translator: \n"
-"Language-Team:  <ja@li.org>\n"
+"PO-Revision-Date: 2006-02-21 00:29+0900\n"
+"Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
+"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1097,7 +1097,7 @@ msgstr "CDROM にアクセスできません。"
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ISO 9660 イメージがありません"
 
 #: ../image.py:524
 #, python-format
@@ -1108,11 +1108,15 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"インストーラーはイメージ #%s をマウントしようと試みましたが、サーバー上に"
+"見つけられませんでした。\n"
+"\n"
+"このイメージをリモートサーバーの共有パスにコピーして再試行をクリックして"
+"ください。リブートをクリックするとインストールを中止します。"
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "再試行"
+msgstr "再試行(_t)"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -2748,18 +2752,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP アドレスは 0 から 255 までの数字を含む必要があります。"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "SILO の設定"
+msgstr "iSCSI の設定"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "データにエラーがあります"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "IP アドレス未入力のため、iSCSI の設定をスキップします"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -4487,18 +4489,16 @@ msgid "What type of system would you like to install?"
 msgstr "インストールの種類を選択してください。"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "IP アドレス:"
+msgstr "ターゲット IP アドレス:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "または次を使用する:"
+msgstr "ポート番号:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI イニシエーター名:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -6225,20 +6225,19 @@ msgstr "例外の詳細(_E)"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>ポート番号(_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>ターゲット IP アドレス(_T):</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI イニシエーター名(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "SILO の設定"
+msgstr "iSCSI の設定"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
