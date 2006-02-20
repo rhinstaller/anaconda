@@ -1137,6 +1137,7 @@ static void mp_register_lapic(u8 id, u8 enabled)
 int detectAcpiCpusAvailable(void)
 {
     int result;
+    ncpus = 0;
 
     result = acpi_table_init();
     if (result < 0) {
