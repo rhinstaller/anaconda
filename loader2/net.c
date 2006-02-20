@@ -416,6 +416,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
     if (loaderData->mtu) {
         cfg->mtu = loaderData->mtu;
+        cfg->dev.mtu = loaderData->mtu;
+        cfg->dev.set |= PUMP_INTFINFO_HAS_MTU;
     }
 
     if (loaderData->peerid) {
