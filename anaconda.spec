@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.5
+Version: 10.92.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 21 2006 Chris Lumens <clumens@redhat.com> 10.92.6-1
+- Set a default language on text mode CJK installs (dcantrel, #180417)
+- Fix case-sensitive matching of devices (notting, #182231)
+- Be smarter about required media (pnasrat)
+- Set MTU in the loader (katzj)
+- Add dev package to remove blacklist (katzj, #181593)
+- Try to mount device as ext3 in hard drive installs (katzj)
+- Sanity check unknown package & group names (pnasrat)
+- Reboot after writing exception dump (#181745)
+- Confirm in interactive kickstart installs (#181741)
+- Fix showing kickstart package selection again
+- Don't traceback if we find a %%include file that doesn't exist yet (#181760)
+- Skip partitioning if logvol or raid is given in ks (#181806)
+- Initialize UTC checkbox (#181737)
+
 * Tue Feb 14 2006 Jeremy Katz <katzj@redhat.com> - 10.92.5-1
 - Fix traceback in language group selection
 - No remote save traceback button if not network (clumens)
