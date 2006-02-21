@@ -1,3 +1,9 @@
+2006-02-21  Paul Nasrat   <pnasrat@redhat.com>
+
+	* yuminstall.py: Try to be smarter if no required media (assume 
+	single disc)
+	* scripts/makestamp.py: Use an integer for default discNum
+
 2006-02-21  Chris Lumens  <clumens@redhat.com>
 
 	* iw/autopart_type.py (PartitionTypeWindow.getScreen):  Mark for
