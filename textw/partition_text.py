@@ -1524,10 +1524,10 @@ class PartitionTypeWindow:
                                     "to use this or create your own."))
         g.add(txt, 0, 0, (0, 0, 0, 0))
 
-        opts = (("Remove all partitions on selected drives and create default layout.", CLEARPART_TYPE_ALL),
-                ("Remove linux partitions on selected drives and create default layout.", CLEARPART_TYPE_LINUX),
-                ("Use free space on selected drives and create default layout.", CLEARPART_TYPE_NONE),
-                ("Create custom layout.", -1))
+        opts = ((_("Remove all partitions on selected drives and create default layout."), CLEARPART_TYPE_ALL),
+                (_("Remove linux partitions on selected drives and create default layout."), CLEARPART_TYPE_LINUX),
+                (_("Use free space on selected drives and create default layout."), CLEARPART_TYPE_NONE),
+                (_("Create custom layout."), -1))
         typebox = Listbox(height = len(opts), scroll = 0)
         for (txt, val) in opts:
             typebox.append(txt, val)
