@@ -90,7 +90,7 @@ f.write("%s\n" % data["arch"])
 if allDiscs is None:
     f.write("%s\n" % data["discNum"])
 else:
-    f.write("ALL\n")
+    f.write("0\n")
 f.write("%s\n" % data["baseDir"])
 f.write("%s\n" % data["packagesDir"])
 f.write("%s\n" % data["pixmapsDir"])
