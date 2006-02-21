@@ -16,6 +16,8 @@ if f:
 		continue
 	    vend = "0x%s" % (line[15:19],)
 	    dev = "0x%s" % (line[24:28],)
+	    vend = vend.upper()
+	    dev = dev.upper()
 	    if vend not in vendors:
 		vendors.append(vend)
 	    if (vend, dev) not in devices:
@@ -34,6 +36,8 @@ for file in sys.argv[2:]:
 		continue
 	    vend = "0x%s" % (line[20:24],)
 	    dev = "0x%s" % (line[29:33],)
+	    vend = vend.upper()
+	    dev = dev.upper()
 	    if vend not in vendors:
 		vendors.append(vend)
 	    if (vend, dev) not in devices:
@@ -48,9 +52,11 @@ for line in pciids:
 	continue
     if not line.startswith("\t"):
 	current_vend = "0x%s" % line.split()[0]
+	current_vend = current_vend.upper()
 	if current_vend in vendors:
 	    print line,
 	continue
     dev = "0x%s" % line.split()[0]
+    dev = dev.upper()
     if (current_vend, dev) in devices:
 	print line,
