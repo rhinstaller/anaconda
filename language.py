@@ -54,7 +54,7 @@ def expandLangs(astring):
     return langs
 
 class Language:
-    def __init__ (self, display_mode):
+    def __init__ (self, display_mode = "g"):
         self.info = {}
         self.default = None
         self.nativeLangNames = {}
