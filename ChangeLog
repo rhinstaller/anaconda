@@ -1,6 +1,8 @@
 2006-02-21  David Cantrell  <dcantrell@redhat.com>
 
 	* language.py (Language.__init__): Set display_mode to "g" by default.
+	* language.py (Language.fixLang): Read localeInfo data to determine
+	which languages need to use en_US.UTF-8 in text mode.
 
 2006-02-21  Chris Lumens  <clumens@redhat.com>
 

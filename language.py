@@ -24,18 +24,6 @@ from rhpl.simpleconfig import SimpleConfigFile
 import logging
 log = logging.getLogger("anaconda")
 
-# Languages that we cannot currently display in the text mode installer.
-# Each entry in this list is a 2-tuple: the broken lang name and what to
-# display in its place while the installer runs.  This list is used for
-# reverse lookup later when we write out /etc/sysconfig/i18n
-#
-# NOTE:  All values in this list are used for the $LANG environ var.
-brokenLangs = [ ("zh_CN.UTF-8", "en_US.UTF-8"),
-                ("zh_TW.UTF-8", "en_US.UTF-8"),
-                ("ja_JP.UTF-8", "en_US.UTF-8"),
-                ("ko_KR.UTF-8", "en_US.UTF-8"),
-              ]
-
 # Converts a single language into a "language search path". For example,
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
 def expandLangs(astring):
@@ -97,13 +85,7 @@ class Language:
             if len(l) < 6:
                 continue
 
-            # "bterm" and "none" are only useful for loader.
-            if l[2] == "none" or l[2] == "bterm":
-                font = "latarcyrheb-sun16"
-            else:
-                font = l[2]
-
-            self.localeInfo[l[3]] = (l[0], l[1], font, l[4], string.strip(l[5]))
+            self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
 
         f.close()
 
@@ -137,10 +119,12 @@ class Language:
             return langToFix
 
         if self.displayMode == "t":
-            for (brokenLang, useableLang) in brokenLangs:
-                if langToFix == brokenLang:
-                    self.targetLang = brokenLang
-                    ret = useableLang
+            for lang in self.localeInfo.keys():
+                if lang == langToFix:
+                    (a, b, font, c, d) = self.localeInfo[lang]
+                    if font == "bterm" or font == "none":
+                        ret = "en_US.UTF-8"
+                        self.targetLang = lang
 
         if ret is None:
             ret = langToFix
@@ -156,7 +140,11 @@ class Language:
     def getFontFile (self, nick):
 	# Note: in /etc/fonts.cgz fonts are named by the map
 	# name as that's unique, font names are not
-        return self.localeInfo[self.canonLangNick(nick)][2]
+        font = self.localeInfo[self.canonLangNick(nick)][2]
+        if font == "bterm" or font == "none":
+            return "latarcyrheb-sun16"
+        else:
+            return font
 
     def getDefaultKeyboard(self):
         return self.localeInfo[self.canonLangNick(self.getCurrent())][3]
