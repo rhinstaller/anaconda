@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.6
+Version: 10.92.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 21 2006 Chris Lumens <clumens@redhat.com> 10.92.7-1
+- Give Language a default display_mode (dcantrel)
+- Get languages that need a default from localeInfo (dcantrel)
+
 * Tue Feb 21 2006 Chris Lumens <clumens@redhat.com> 10.92.6-1
 - Set a default language on text mode CJK installs (dcantrel, #180417)
 - Fix case-sensitive matching of devices (notting, #182231)
