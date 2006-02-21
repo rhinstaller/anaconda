@@ -1,5 +1,6 @@
 # translation of fr.po to 
 # translation of fr.po to
+# translation of fr.po to
 # translation of fr.po to French
 # Copyright (C) 2001 Red Hat, Inc.
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-20 15:56+1000\n"
+"PO-Revision-Date: 2006-02-21 10:28+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5290,7 +5291,7 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Suite bureautique et productivité"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
@@ -6345,14 +6346,12 @@ msgid "How would you like to get space to partition?"
 msgstr "Comment souhaitez-vous obtenir de l'espace pour le partitionnement ?"
 
 #: tmp/autopart2.glade.h:2
-#, fuzzy
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
 msgstr ""
-"L'installation requiert le partitionnement de votre disque dur. Par défaut, "
-"une structure de partitionnement est choisie qui est raisonnable pour la "
-"plupart des utilisateurs. Vous pouvez l'utiliser ou créer la votre."
+"L'installation requiert le partitionnement de votre disque dur. Vous pouvez "
+"utiliser la structure de partitionnement par défaut ou créer la votre."
 
 #: tmp/autopart2.glade.h:3
 msgid "Select the drive(s) to use for this installation."
@@ -6403,6 +6402,8 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Vous pouvez personnaliser davantage la sélection de logiciels maintenant ou "
+"après l'installation via l'application de gestion de logiciels."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6468,9 +6469,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Heure de l'Atlantique - Labrador de l'est"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Heure de l'Atlantique - Labrador de l'est"
+msgstr "Heure de l'Atlantique - Nouveau Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
