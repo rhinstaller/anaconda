@@ -640,7 +640,7 @@ if (progmode == 'rescue'):
 
     import rescue, instdata
     
-    id = instdata.InstallData([], "fd0", method)
+    id = instdata.InstallData([], "fd0", method, display_mode)
     rescue.runRescue(rootPath, not rescue_nomount, id)
 
     # shouldn't get back here
@@ -1113,7 +1113,7 @@ floppyDevice = floppy.probeFloppyDevice()
 if not flags.test and flags.setupFilesystems:
     iutil.makeDriveDeviceNodes()
 
-id = instClass.installDataClass(extraModules, floppyDevice, method, backend)
+id = instClass.installDataClass(extraModules, floppyDevice, method, display_mode, backend)
 
 id.x_already_set = x_already_set
 
@@ -1149,6 +1149,7 @@ if xcfg is not None:
 if kbd:
     id.setKeyboard(kbd)
 
+id.setDisplayMode(display_mode)
 instClass.setInstallData(id, intf)
 
 # We need to copy the VNC-related kickstart stuff into the new ksdata

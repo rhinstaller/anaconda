@@ -1,3 +1,11 @@
+2006-02-21  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda: Pass the display mode we're running in to InstallData.
+	* instdata.py: Store the the display mode the installer is using.
+	* language.py: For languages we can't display during installation
+	in text mode, default to en_US.UTF-8, but write out the correct
+	language for the final installation (#180417).
+
 2006-02-21  Bill Nottingham  <notting@redhat.com>
 
 	* utils/trimpciids: Force all strings to uppercase, for matching (#182231)

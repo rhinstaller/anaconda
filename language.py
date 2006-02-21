@@ -21,6 +21,21 @@ import rpm
 from rhpl.translate import cat
 from rhpl.simpleconfig import SimpleConfigFile
 
+import logging
+log = logging.getLogger("anaconda")
+
+# Languages that we cannot currently display in the text mode installer.
+# Each entry in this list is a 2-tuple: the broken lang name and what to
+# display in its place while the installer runs.  This list is used for
+# reverse lookup later when we write out /etc/sysconfig/i18n
+#
+# NOTE:  All values in this list are used for the $LANG environ var.
+brokenLangs = [ ("zh_CN.UTF-8", "en_US.UTF-8"),
+                ("zh_TW.UTF-8", "en_US.UTF-8"),
+                ("ja_JP.UTF-8", "en_US.UTF-8"),
+                ("ko_KR.UTF-8", "en_US.UTF-8"),
+              ]
+
 # Converts a single language into a "language search path". For example,
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
 def expandLangs(astring):
@@ -39,14 +54,16 @@ def expandLangs(astring):
     return langs
 
 class Language:
-    def __init__ (self):
+    def __init__ (self, display_mode):
         self.info = {}
         self.default = None
         self.nativeLangNames = {}
         self.localeInfo = {}
+        self.displayMode = display_mode
+        self.targetLang = None
 
         if os.environ.has_key("LANG"):
-            self.current = os.environ["LANG"]
+            self.current = self.fixLang(os.environ["LANG"])
         else:
             self.current = "en_US.UTF-8"
 
@@ -113,6 +130,23 @@ class Language:
             if row[0] == name:
                 return k
 
+    def fixLang(self, langToFix):
+        ret = None
+
+        if self.targetLang is not None:
+            return langToFix
+
+        if self.displayMode == "t":
+            for (brokenLang, useableLang) in brokenLangs:
+                if langToFix == brokenLang:
+                    self.targetLang = brokenLang
+                    ret = useableLang
+
+        if ret is None:
+            ret = langToFix
+
+        return ret
+
     def getNativeLangName(self, lang):
         return self.nativeLangNames[lang]
 
@@ -151,7 +185,8 @@ class Language:
 
     def setDefault(self, nick):
 	self.default = nick
-	self.info['LANG'] = self.canonLangNick(nick)
+
+	self.info['LANG'] = self.fixLang(self.canonLangNick(nick))
 	self.info['SYSFONT'] = self.localeInfo[self.canonLangNick(nick)][2]
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
@@ -166,7 +201,7 @@ class Language:
         canonNick = self.canonLangNick(nick)
         self.setRuntimeDefaults(nick)
 
-        os.environ["LANG"] = canonNick
+        os.environ["LANG"] = self.fixLang(canonNick)
         os.environ["LC_NUMERIC"] = 'C'
 
         try:
@@ -180,8 +215,14 @@ class Language:
 	f = open(instPath + "/etc/sysconfig/i18n", "w")
         for key in self.info.keys():
             if self.info[key] != None:
-                f.write("%s=\"%s\"\n" % (key, self.info[key]))
+                if key == "LANG" and self.targetLang is not None:
+                    f.write("%s=\"%s\"\n" % (key, self.targetLang))
+                else:
+                    f.write("%s=\"%s\"\n" % (key, self.info[key]))
 	f.close()
 
     def writeKS(self, f):
-	f.write("lang %s\n" % self.info['LANG'])
+        if self.targetLang is not None:
+	    f.write("lang %s\n" % self.targetLang)
+        else:
+	    f.write("lang %s\n" % self.info['LANG'])
