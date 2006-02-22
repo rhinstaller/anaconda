@@ -39,6 +39,9 @@
 	* iw/autopart_type.py: Import _ and N_ from rhpl.translate.
 	* installclasses/fedora.py (InstallClass.setGroupSelection): Take the
 	intf parameter.
+	* scripts/upd-instroot: Remove all bogl-related things.
+	* scripts/mk-images: Remove all bogl-related things.
+	* scripts/mk-images.s390: Remove all bogl-related things.
 
 2006-02-21  Chris Lumens  <clumens@redhat.com>
 

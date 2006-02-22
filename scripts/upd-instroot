@@ -116,7 +116,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite neon
-	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
+	 elfutils-libelf krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
@@ -182,9 +182,9 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-15-75dpi
            fonts-xorg-ISO8859-9-75dpi fonts-xorg-100dpi
            fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi fonts-xorg-base
-           xorg-x11-base xorg-x11-ISO8859-15-75dpi bogl-bterm system-logos
+           xorg-x11-base xorg-x11-ISO8859-15-75dpi system-logos
            xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
-           ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel
+           ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa
            fonts-japanese fonts-chinese fonts-korean fonts-indic 
            fonts-gujarati fonts-hindi fonts-punjabi fonts-tamil synaptics
            firstboot rhpxl pycairo pirut"
@@ -371,7 +371,6 @@ usr/lib/anaconda-runtime/*
 usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
 usr/lib/anaconda/textw/*
-usr/$LIBDIR/bogl/font.bgf.gz
 usr/lib/booty/*
 usr/kerberos/$LIBDIR/libkrb5.so*
 usr/kerberos/$LIBDIR/libkrb5support.so*
@@ -409,7 +408,6 @@ usr/$LIBDIR/libslang*
 usr/$LIBDIR/libstdc++.so.6*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
-usr/$LIBDIR/libbogl.so*
 usr/$LIBDIR/libreadline*
 usr/$LIBDIR/python?.?/*
 usr/$LIBDIR/python?.?/email/*
@@ -661,9 +659,7 @@ usr/bin/Xvnc
 usr/bin/vncconfig
 usr/bin/vncpasswd
 usr/bin/reduce-font
-usr/bin/bdftobogl
 usr/lib/anaconda/iw
-usr/lib/bogl/font.bdf.gz
 usr/$LIBDIR/gconv/*
 usr/$LIBDIR/gdk-pixbuf/loaders/*xpm*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
@@ -1081,16 +1077,6 @@ if [ -n "$NEEDGR" ]; then
     cat $DESTGR/etc/man.config-old | sed 's^/usr/bin^/mnt/sysimage/usr/bin^' | sed 's^/bin/cat^/mnt/sysimage/usr/bin/cat^'  > $DESTGR/etc/man.config
     rm -f $DESTGR/etc/man.config-old
 fi
-
-echo "Creating bogl font..."
-OLDLANG=$LANG
-export LANG=en_US.UTF-8
-zcat $DESTGR/usr/lib/bogl/font.bdf.gz > $DESTGR/usr/lib/bogl/font.bdf
-(cat $DESTGR/usr/lib/anaconda-runtime/loader/unicode-linedraw-chars.txt ; for i in $(find $DESTGR/usr/share/locale -name '*.mo'); do msgunfmt $i 2>/dev/null | msgconv -t utf-8 -o - - ; done) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
-$DESTGR/usr/bin/bdftobogl -b $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
-rm -f $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf $DESTGR/usr/lib/bogl/font.bdf $DESTGR/usr/bin/reduce-font $DESTGR/usr/bin/bdftobogl $DESTGR/usr/lib/bogl/font.bdf.gz
-gzip -9 -f $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
-export LANG=$OLDLANG
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then

@@ -14,7 +14,7 @@ S390NETMODS="ctc netiucv smsgiucv lcs qdio qeth ccwgroup"
 S390MODS="$S390SCSIMODS $S390DASDMODS $S390NETMODS"
 
 makeBootImages() {
-	makeinitrd --nobogl --initrdto $TOPDESTPATH/images/initrd.img \
+	makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
 	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$INITRDMODS $S390MODS"
