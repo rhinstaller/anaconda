@@ -27,6 +27,7 @@ from yum.Errors import RepoError, YumBaseError
 from repomd.mdErrors import PackageSackError
 from installmethod import FileCopyException
 from backend import AnacondaBackend
+from product import productName
 from sortedtransaction import SplitMediaTransactionData
 from genheader import *
 from constants import *
@@ -760,6 +761,7 @@ class YumBackend(AnacondaBackend):
         
         if id.getUpgrade():
             from upgrade import upgrade_remove_blacklist
+            self.upgradeFindPackages()
             for pkg in upgrade_remove_blacklist:
                 pkgarch = None
                 pkgnames = None
@@ -884,6 +886,41 @@ class YumBackend(AnacondaBackend):
         f = open(instPath + "/etc/mtab", "w+")
         f.write(id.fsset.mtab())
         f.close()
+
+    def checkSupportedUpgrade(self, intf, instPath):
+        # Figure out current version for upgrade nag and for determining weird
+        # upgrade cases
+        supportedUpgradeVersion = -1
+        for pkgtup in self.ayum.rpmdb.whatProvides('redhat-release', None, None):
+            n, a, e, v, r = pkgtup
+            if supportedUpgradeVersion <= 0:
+                val = rpmUtils.miscutils.compareEVR((None, '3', '1'),
+                                                    (e, v,r))
+                if val > 0:
+                    supportedUpgradeVersion = 0
+                else:
+                    supportedUpgradeVersion = 1
+                    break
+
+        if productName.find("Red Hat Enterprise Linux") == -1:
+            supportedUpgradeVersion = 1
+
+        if supportedUpgradeVersion == 0:
+            rc = intf.messageWindow(_("Warning"),
+                                    _("You appear to be upgrading from a system "
+                                      "which is too old to upgrade to this "
+                                      "version of %s.  Are you sure you wish to "
+                                      "continue the upgrade "
+                                      "process?") %(productName,),
+                                    type = "yesno")
+            if rc == 0:
+                for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
+                    try:
+                        os.unlink("%s/var/lib/rpm/%s" %(instPath, rpmfile))
+                    except:
+                        log.info("error %s removing file: /var/lib/rpm/%s" %(e,rpmfile))
+                        pass
+                sys.exit(0)
 
     def doInstall(self, intf, id, instPath):
 	log.info("Preparing to install packages")
@@ -1032,6 +1069,23 @@ class YumBackend(AnacondaBackend):
             map(lambda x: self.ayum.tsInfo.remove(x.pkgtup), txmbrs)
         else:
             log.debug("no such package %s" %(pkg,))
+
+    def upgradeFindPackages(self):
+        # check the installed system to see if the packages just
+        # are not newer in this release.
+        # Dictionary of newer package to tuple of old packages
+        packageMap = { "firefox": ("mozilla", "netscape-navigator", "netscape-communicator") }
+
+        for new, oldtup in packageMap.iteritems():
+            if self.ayum.isPackageInstalled(new):
+                continue
+            found = 0
+            for p in oldtup:
+                if self.ayum.rpmdb.installed(name=p):
+                    found = 1
+                    break
+            if found > 0:
+                self.selectPackage(new)
 
     def writePackagesKS(self, f):
         packages = []

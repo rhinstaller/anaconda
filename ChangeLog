@@ -1,3 +1,9 @@
+2006-02-22  Paul Nasrat  <pnasrat@redhat.com>
+
+	* backend.py: Call upgrade check
+	* yuminstall.py: Check version and packages to upgrade
+	* upgrade.py: Remove unused code.
+
 2006-02-22  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.py (hardDriveDict): Remove ide raid checking

@@ -146,6 +146,8 @@ class AnacondaBackend:
 def doRepoSetup(backend, intf, id, instPath):
     backend.doInitialSetup(id, instPath)
     backend.doRepoSetup(intf, instPath)
+    if id.upgrade:
+        backend.checkSupportedUpgrade(intf, instPath)
 
 def doPostSelection(backend, intf, id, instPath):
     backend.doPostSelection(intf, id, instPath)
