@@ -309,47 +309,6 @@ def hardDriveDict():
             except Exception, e:
                 log.debug("exception looking for STMF on %s: %s" %(dev, e))
         
-        # the only raid devs like this are ide, so only worry about them
-        if not dev.startswith("hd"):
-            continue
-        # PJFIX right now, just don't do raid magic here at all
-        continue
-        ret = _isys.hasIdeRaidMagic(dev)
-        if ret is None:
-            continue
-        found = 0
-        try:
-            devName = "/tmp/%s" % dev
-            makeDevInode(dev, devName)
-
-            # ugh, this is basically copy&paste of other anaconda code, but
-            # it kind of needs to be here and isys should stay isolated
-            peddev = parted.PedDevice.get(devName)
-            disk = parted.PedDisk.new(peddev)
-            part = disk.next_partition()
-            while part:
-                if (part.fs_type and
-                    part.fs_type.name in ("FAT", "fat16", "fat32",
-                                          "ntfs", "hpfs")):
-                    # this disk has a fat partition on it, we have to use
-                    # it as an ataraid device
-                    found = 1
-                part = disk.next_partition(part)
-            del disk
-            del peddev
-
-            os.unlink(devName)
-        except Exception, e:
-            print e
-            # what can I really do here?
-            pass
-
-        if found == 1:
-            log.info("%s has a %s raid signature and windows parts" %(dev, ret))
-            del dict[dev]
-        else:
-            log.debug("%s has a %s raid signature but no windows parts" %(dev, ret))
-        
     return driveDict("disk")
 
 def floppyDriveDict():

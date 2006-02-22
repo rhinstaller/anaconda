@@ -106,7 +106,6 @@ static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
-static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
@@ -165,7 +164,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
-    { "hasIdeRaidMagic", (PyCFunction) hasIdeRaidMagic, METH_VARARGS, NULL },
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
@@ -1413,63 +1411,6 @@ py_bind_textdomain_codeset(PyObject * o, PyObject * args) {
 
     PyErr_SetFromErrno(PyExc_SystemError);
     return NULL;
-}
-
-int pdc_dev_running_raid(int fd);
-int hpt_dev_running_raid(int fd);
-int silraid_dev_running_raid(int fd);
-
-static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args) {
-#ifndef __i386__
-    return Py_None;
-#else
-    char *dev;
-    char * path;
-    int ret, fd;
-
-    if (!PyArg_ParseTuple(args, "s", &dev))
-	return NULL;
-
-    path = malloc((strlen(dev) + 10) * sizeof(char *));
-    sprintf(path, "/tmp/%s", dev);
-    if (devMakeInode(dev, path)) return Py_None;
-
-    if ((fd = open(path, O_RDONLY)) == -1) return Py_None;
-
-    ret = pdc_dev_running_raid(fd);
-    if (ret == 1) {
-        close(fd);
-        unlink(path);
-        //	fprintf(stderr, "found promise magic\n");
-	return Py_BuildValue("s", "pdc");
-    }
-
-    /* we can't really sanely do these until we can do matchups between
-     * ataraid/dX and hdX devices so that things can be thrown out 
-     * appropriately.  the same would be true for pdcraid, except that
-     * we've been doing it for a while anyway (#82847)
-     */
-#if 0
-    ret = silraid_dev_running_raid(fd);
-    if (ret == 1) {
-        close(fd);
-        unlink(path);
-        //        fprintf(stderr, "found silicon image magic\n");
-	return Py_BuildValue("s", "sil");
-    }
-
-    ret = hpt_dev_running_raid(fd);
-    if (ret == 1) {
-        close(fd);
-        unlink(path);
-        //        fprintf(stderr, "found highpoint magic\n");
-	return Py_BuildValue("s", "hpt");
-    }
-#endif
-
-    close(fd);
-    return Py_None;
-#endif
 }
 
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args) {

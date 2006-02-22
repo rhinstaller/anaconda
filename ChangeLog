@@ -1,5 +1,12 @@
 2006-02-22  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (hardDriveDict): Remove ide raid checking
+	* isys/isys.c: Remove support code.
+	* isys/hpt.c: Remove.
+	* isys/pdc.c: Remove.
+	* isys/silraid.c: Remove.
+	* isys/Makefile: Don't link removed files.
+
 	* lang-table: Set all previously bterm using languages to "none"
 	for the fact that we can't handle them in text-mode anymore
 	* textw/language_text.py (LanguageWindow.__call__): Remove bterm
