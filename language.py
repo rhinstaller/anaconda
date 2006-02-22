@@ -122,7 +122,7 @@ class Language:
             for lang in self.localeInfo.keys():
                 if lang == langToFix:
                     (a, b, font, c, d) = self.localeInfo[lang]
-                    if font == "bterm" or font == "none":
+                    if font == "none":
                         ret = "en_US.UTF-8"
                         self.targetLang = lang
 
@@ -141,7 +141,7 @@ class Language:
 	# Note: in /etc/fonts.cgz fonts are named by the map
 	# name as that's unique, font names are not
         font = self.localeInfo[self.canonLangNick(nick)][2]
-        if font == "bterm" or font == "none":
+        if font == "none":
             return "latarcyrheb-sun16"
         else:
             return font

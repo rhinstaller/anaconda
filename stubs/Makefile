@@ -9,7 +9,7 @@ TARGETS= $(LIBUTF8)
 all:	$(TARGETS) libunicode-lite.a
 
 $(LIBUTF8): unicode-lite.c
-	gcc -fPIC -shared -o $@ $< -lwlite -D_FORTIFY_SOURCE=2
+	gcc -fPIC -shared -o $@ $< -D_FORTIFY_SOURCE=2
 
 libunicode-lite.a: libunicode-lite.a($(OBJECTS))
 

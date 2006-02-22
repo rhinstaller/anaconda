@@ -38,8 +38,6 @@
 #include "../isys/lang.h"
 #include "../isys/isys.h"
 
-static int startBterm(int flags);
-
 struct aString {
     unsigned int hash;
     short length;
@@ -229,9 +227,8 @@ static int setupLanguage(int choice, int flags) {
     logMessage(DEBUGLVL, "going to set language to %s", languages[choice].lc_all);
     /* load the language only if it is displayable.  if they're using
      * a serial console or iSeries vioconsole, we hope it's smart enough */
-    if ((!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
-         !FL_VIRTPCONSOLE(flags) && !isVioConsole() && startBterm(flags)) || 
-        !strcmp(languages[choice].font, "none")) {
+    if ((!strcmp(languages[choice].font, "none") && !FL_SERIAL(flags) && 
+         !FL_VIRTPCONSOLE(flags) && !isVioConsole())) {
         if (FL_KICKSTART(flags)) return 0;
 
 	newtWinMessage("Language Unavailable", "OK", 
@@ -328,19 +325,6 @@ int setLanguage (char * key, int flags) {
 
     logMessage(ERROR, "unable to set to requested language %s", key);
     return -1;
-}
-
-static int startBterm(int flags) {
-    int rc;
-
-    stopNewt();
-    rc = isysStartBterm();
- 
-    /* HACK: sleep to give the console time to adjust */
-    sleep(1);
- 
-    startNewt(flags);
-    return rc;
 }
 
 int chooseLanguage(char ** lang, int flags) {

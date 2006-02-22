@@ -183,39 +183,3 @@ int isysLoadKeymap(char * keymap) {
 
     return rc;
 }
-
-/* returns 0 on success, 1 on failure */
-extern int bterm_main(int argc, char **argv);
-
-int isysStartBterm(void) {
-    char * btermargs[4] = { "bterm", "-s", "-f", NULL };
-    int rc;
-    struct stat sb;
-
-    /* if we've already successfully started bterm, we don't need to again */
-    if (!access("/var/run/bterm.run", R_OK))
-        return 0;
-
-    /* assume that if we're already on a pty we can handle unicode */
-    fstat(0, &sb);
-    if (major(sb.st_rdev) == 3 || major(sb.st_rdev) == 136)
-	return 0;
-
-    if (!access("/usr/lib/bogl/font.bgf.gz", R_OK))
-	btermargs[3] = "/usr/lib/bogl/font.bgf.gz";
-    else if (!access("/etc/font.bgf.gz", R_OK))
-	btermargs[3] = "/etc/font.bgf.gz";
-    else if (!access("font.bgf.gz", R_OK))
-	btermargs[3] = "font.bgf.gz";
-    else
-        return 1;
-
-    rc = bterm_main(4, btermargs);
-
-    if (!rc) {
-        int fd = open("/var/run/bterm.run", O_CREAT | O_TRUNC | O_RDWR, 0600);
-        close(fd);
-    }
- 
-    return rc;
-}

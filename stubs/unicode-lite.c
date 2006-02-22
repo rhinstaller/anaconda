@@ -15,27 +15,8 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
-#define WLITE_REDEF_STDC 0
-#include <wlite_wchar.h>
-#include <wlite_wctype.h>
-#include <pthread.h>
-
-int wcwidth (wchar_t c) {
-    return wlite_wcwidth(c);
-}
-
-size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
-    return wlite_mbrtowc (pwc, s, n, ps);
-}
-
-int iswspace (wchar_t c) {
-    return wlite_iswctype((c), wlite_space_);
-}
-
-size_t wcrtomb(char *s, wchar_t wc, void *ps) {
-    return wlite_wcrtomb (s, wc, ps);
-}
+#include <stdlib.h>
+#include <locale.h>
 
 const char * __dgettext(const char * domainname, const char * msgid) {
     return msgid;

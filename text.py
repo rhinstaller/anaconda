@@ -450,26 +450,6 @@ class InstallInterface:
         return True
 
     def run(self, id, dispatch):
-        # set up for CJK text mode if needed
-        oldlang = None
-        if (flags.setupFilesystems and
-            (id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "bterm")
-            and self.isRealConsole()):
-            log.info("starting bterm")
-            rc = 1
-            try:
-                rc = isys.startBterm()
-                time.sleep(1)
-            except Exception, e:
-                log.critical("got an exception starting bterm: %s" %(e,))
-
-            if rc == 1:
-                log.warning("unable to start bterm, falling back to english")
-                oldlang = id.instLanguage.getCurrent()
-                log.warning("old language was %s" %(oldlang,))
-                id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
-                id.instLanguage.setRuntimeDefaults(oldlang)
-
         if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
             log.info("run:  setting default runtime language")
             oldlang = id.instLanguage.getCurrent()

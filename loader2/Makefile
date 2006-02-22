@@ -9,8 +9,6 @@ endif
 
 SLANGLIB = -lslang
 NEWTLIB = -lnewt
-BTERMLIB = -lbterm -lbogl 
-WLITELIB = -lwlite
 ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
 DMLIB = -ldevmapper -lselinux -lsepol
@@ -44,8 +42,6 @@ ifeq (1, $(USEDIET))
 CFLAGS += -DGZLIB=1 -DDIET=1
 DIET=diet
 CC=$(DIET) $(REALCC)
-BTERMLIB = -lbtermdiet -lbogldiet 
-WLITELIB = -lwlitediet
 ISYSLIB = ../isys/libisys-diet.a
 GUNZIP = ../isys/gzlib/libgunzip-diet.a
 
@@ -70,14 +66,7 @@ LANGS = $(shell cut -f 2 ../lang-table | egrep -v '(^en$$)')
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 TRFILES = $(patsubst %,%.tr,$(LANGS))
 
-all: $(BINS) loader.tr font.bgf.gz
-
-font.bgf.gz: /usr/lib/bogl/font.bdf.gz /usr/bin/reduce-font unicode-linedraw-chars.txt
-	zcat /usr/lib/bogl/font.bdf.gz > font.bdf
-	export LANG=en_US.UTF-8; (cat unicode-linedraw-chars.txt; for I in ../po/*.po ../po/timeconfig/*.po ; do msgconv -t utf-8 $$I; done) | reduce-font font.bdf > font-reduced.bdf
-	bdftobogl -b font-reduced.bdf > font.bgf
-	rm -f font.bdf font-reduced.bdf
-	gzip -9 -f font.bgf
+all: $(BINS) loader.tr
 
 loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o |gzip -9) > $@
@@ -126,7 +115,7 @@ loader-net.o: loader.c
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
-	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB) $(DMLIB)
+	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
@@ -151,7 +140,6 @@ install: all
 	install -m 644 unicode-linedraw-chars.txt $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
-	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 dirbrowser: dirbrowser.c
 	gcc -DSTANDALONE -D_FORTIFY_SOURCE=2 -Wall -Werror -ggdb -o dirbrowser dirbrowser.c -lnewt -lslang

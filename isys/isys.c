@@ -107,7 +107,6 @@ static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
 static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args);
-static PyObject * start_bterm(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
@@ -167,7 +166,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
     { "hasIdeRaidMagic", (PyCFunction) hasIdeRaidMagic, METH_VARARGS, NULL },
-    { "startBterm", (PyCFunction) start_bterm, METH_VARARGS, NULL },
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
@@ -1472,12 +1470,6 @@ static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args) {
     close(fd);
     return Py_None;
 #endif
-}
-
-static PyObject * start_bterm(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    return Py_BuildValue("i", isysStartBterm());
 }
 
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args) {

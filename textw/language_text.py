@@ -55,31 +55,15 @@ class LanguageWindow:
             return INSTALL_OK
 
         if (flags.setupFilesystems and
-            instLanguage.getFontFile(choice) == "bterm"
+            instLanguage.getFontFile(choice) == "none"
             and textInterface.isRealConsole()):
-            # bterm to the rescue...  have to shut down the screen and
-            # create a new one, though (and do a sleep)
-            log.info("starting bterm")
-            try:
-                screen.finish()
-                rc = isys.startBterm()
-                time.sleep(1)
-            except Exception, e:
-                log.error("got an exception starting bterm: %s" %(e,))
-                rc = 1
-            newscreen = SnackScreen()
-            textInterface.setScreen(newscreen)
-            screen = newscreen
-
-            if rc == 1:
-                ButtonChoiceWindow(screen, "Language Unavailable",
-                                   "%s display is unavailable in text mode.  "
-                                   "The installation will continue in "
-                                   "English." % (choice,),
-                                   buttons=[TEXT_OK_BUTTON])
-                instLanguage.setRuntimeDefaults(choice)
-                return INSTALL_OK
-                
+            ButtonChoiceWindow(screen, "Language Unavailable",
+                               "%s display is unavailable in text mode.  "
+                               "The installation will continue in "
+                               "English." % (choice,),
+                               buttons=[TEXT_OK_BUTTON])
+            instLanguage.setRuntimeDefaults(choice)
+            return INSTALL_OK
 
 	instLanguage.setRuntimeLanguage(choice)
 	instLanguage.setDefault(choice)

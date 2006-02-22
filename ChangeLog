@@ -1,3 +1,21 @@
+2006-02-22  Jeremy Katz  <katzj@redhat.com>
+
+	* lang-table: Set all previously bterm using languages to "none"
+	for the fact that we can't handle them in text-mode anymore
+	* textw/language_text.py (LanguageWindow.__call__): Remove bterm
+	special-casing. 
+	* text.py (InstallInterface.run): Likewise.
+	* loader2/lang.c (setupLanguage): Likewise.
+	* language.py (Language.fixLang): No more "bterm" font
+	* stubs/unicode-lite.c: Don't require wlite
+	* stubs/Makefile: Don't link against wlite
+	* loader2/Makefile: No more linking to bterm here either
+	* isys/lang.c: Remove bterm support code.
+	* isys/lang.h: And declaration.
+	* isys/Makefile (LOADLIBES): No more linking to bterm
+	* isys/isys.c (start_bterm): Remove this
+	* anaconda.spec (BuildPreReq): Bye-bye bogl
+
 2006-02-22  Peter Jones <pjones@redhat.com>
 
 	* iw/bootloader_main_gui.py (MainBootLoaderWindow): Don't use
