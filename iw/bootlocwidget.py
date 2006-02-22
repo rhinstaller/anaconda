@@ -62,6 +62,8 @@ class BootloaderLocationWidget:
                     radio.set_active(True)
                 else:
                     radio.set_active(False)
+            if not radio is None:
+                radio.set_use_underline(False)
 
         spacer = gtk.Label("")
         spacer.set_size_request(25, 1)
@@ -127,6 +129,7 @@ class BootloaderLocationWidget:
 
         (radio, olddev, desc) = self.bootDevices["mbr"]
         radio.set_label("/dev/%s %s" % (firstDrive, _(desc)))
+        radio.set_use_underline(False)
         self.bootDevices["mbr"] = (radio, firstDrive, desc)
 
     def getWidget(self):

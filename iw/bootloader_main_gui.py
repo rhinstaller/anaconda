@@ -118,6 +118,7 @@ class MainBootloaderWindow(InstallWindow):
         self.grub_radio = gtk.RadioButton(None, _("The %s boot loader will be "
                                                   "installed on /dev/%s.") %
                                           ("GRUB", self.bldev))
+        self.grub_radio.set_use_underline(False)
         vb.pack_start(self.grub_radio)
         self.none_radio = gtk.RadioButton(self.grub_radio,
                                       _("No boot loader will be installed."))

@@ -1,3 +1,9 @@
+2006-02-22  Peter Jones <pjones@redhat.com>
+
+	* iw/bootloader_main_gui.py (MainBootLoaderWindow): Don't use
+	underline in device names for hotkeys.
+	* iw/bootlocwidget.py (BootloaderLocationWidget): same
+
 2006-02-22  Jeremy Katz  <katzj@redhat.com>
 
 	* rescue.py (runRescue): Mount /selinux in the chroot
