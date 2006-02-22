@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-06 23:54+0100\n"
+"PO-Revision-Date: 2006-02-23 00:03+0100\n"
 "Last-Translator: Josep Puigdemont <josep.puigdemont@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -363,7 +363,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"S'han produït els següents errors amb el particionat:\n"
+"S'han produït els següents errors en partir:\n"
 "\n"
 "%s\n"
 "\n"
@@ -380,7 +380,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"S'han produït els següents avisos durant el particionat automàtic:\n"
+"S'han produït els següents avisos en fer particions automàticament:\n"
 "\n"
 "%s"
 
@@ -472,7 +472,7 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"El particionat automàtic defineix les particion basant-se en el tipus "
+"El particionat automàtic defineix les particions basant-se en el tipus "
 "d'instal·lació seleccionada. Es poden personalitzar les particions un cop "
 "creades.\n"
 "\n"
@@ -1130,7 +1130,7 @@ msgstr "No s'ha pogut accedir al CDROM."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Manca la imatge ISO 9600"
 
 #: ../image.py:524
 #, python-format
@@ -1141,11 +1141,15 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"L'instal·lador ha intentat muntar la imatge número %s, però no l'ha pogut "
+"trobar al servidor.\n"
+"\n"
+"Copieu aquesta imatge en el recurs compartit en el servidor, i feu clic a "
+"Reintenta. Feu clic a Arrenca de nou per avortar la instal·lació."
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Reintenta"
+msgstr "Rein_tenta"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1166,7 +1170,7 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 "S'ha produït un error en executar la seqüència. En podeu examinar la sortida "
-"a %s. Aquest és un error greu i s'abortarà la instal·lació.\n"
+"a %s. Aquest és un error greu i s'avortarà la instal·lació.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
@@ -1498,7 +1502,7 @@ msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"No podeu suprimir aquesta partició perquè és una partició extesa que conté %s"
+"No podeu suprimir aquesta partició perquè és una partició estesa que conté %s"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1597,7 +1601,7 @@ msgid ""
 msgstr ""
 "Heu escollit usar una partició existent per a la instal·lació sense formatar-"
 "la. Us recomanem que formateu aquesta partició per assegurar que fitxers "
-"d'anterors sistemes operatius instal·lats no causen problemes amb aquesta "
+"d'anteriors sistemes operatius instal·lats no causen problemes amb aquesta "
 "instal·lació Linux. De tota manera, si aquesta partició conté fitxers que "
 "voleu mantenir, com ara directoris personals dels usuaris, aleshores "
 "continueu sense formatar-la."
@@ -1776,7 +1780,7 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"La partició %s té menys de %s MB, menor que la recomenada per a una "
+"La partició %s té menys de %s MB, menor que la recomanada per a una "
 "instal·lació normal de %s."
 
 #: ../partitions.py:905 ../partRequests.py:675
@@ -2433,7 +2437,7 @@ msgid ""
 "LUN and a 64 bit FCP LUN."
 msgstr ""
 "Les màquines zSeries poden accedir a dispositius SCSI a través d'un canal de "
-"fibra òprica (FCP). Cal que proporcioneu 5 paràmetres per a cada dispositiu: "
+"fibra òptica (FCP). Cal que proporcioneu 5 paràmetres per a cada dispositiu: "
 "un número de dispositiu de 16 bits, l'ID de l'SCSCI de 16 bits, i el número "
 "de port global (WWPN) de 16 bits, el LUN de l'SCSI de 16 bits, i el LUN de "
 "l'FCP de 64 bits."
@@ -2815,18 +2819,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "Les adreces IP han de contenir números entre el 0 i el 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "Configuració del SILO"
+msgstr "Configuració de l'iSCSI"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Error amb les dades"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "NO s'ha entrat cap adreça IP, s'ometrà la configuració de l'iSCSI"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -3029,8 +3031,8 @@ msgid ""
 msgstr ""
 "La mida sol·licitada (%10.2f MB) és més gran que la mida màxima del volum "
 "lògic (%10.2f MB). Per incrementar aquest límit podeu crear més volums "
-"físics a partir d'espai de disc sense particionar, i afegir-los a aquest "
-"grup de volum."
+"físics a partir d'espai de disc sense partir, i afegir-los a aquest grup de "
+"volum."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3586,7 +3588,7 @@ msgstr "Particionat"
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
-"Atès l'esquema departicionat escollit, s'han produït els següents errors "
+"Atès l'esquema de particionat escollit, s'han produït els següents errors "
 "greus."
 
 #: ../iw/partition_gui.py:637
@@ -4572,18 +4574,16 @@ msgid "What type of system would you like to install?"
 msgstr "Quin tipus de sistema voleu instal·lar?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "Adreça IP:"
+msgstr "Adreça IP de destí:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "o utilitza:"
+msgstr "Número de port:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Nom de l'inicialitzador iSCSI:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -4715,7 +4715,7 @@ msgid ""
 "'localhost.'"
 msgstr ""
 "Si el sistema forma part d'una xarxa gran on els noms d'ordinador s'assignen "
-"a través de DHCP, selecioneu automàticament mitjançant DHCP. Altrament, "
+"a través de DHCP, seleccioneu automàticament mitjançant DHCP. Altrament, "
 "seleccioneu manualment i indiqueu el nom de l'ordinador d'aquest sistema. Si "
 "no ho feu, el sistema s'anomenarà 'localhost'."
 
@@ -5074,7 +5074,7 @@ msgid ""
 "include  support for?"
 msgstr ""
 "La instal·lació per defecte de %s inclou un conjunt de programari aplicable "
-"a l'ús general d'internet. Quines altres tasques addicionals voldríeu "
+"a l'ús general d'Internet. Quines altres tasques addicionals voldríeu "
 "incloure en aquest sistema?"
 
 #: ../textw/task_text.py:60
@@ -5483,8 +5483,8 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Hi ha diverses particions en aquest dispositiu que podrien cotenir la imatge "
-"del disquet de controladors. Quina voleu fer servir?"
+"Hi ha diverses particions en aquest dispositiu que podrien contenir la "
+"imatge del disquet de controladors. Quina voleu fer servir?"
 
 #: ../loader2/driverdisk.c:335
 msgid "Failed to mount partition."
@@ -5701,7 +5701,7 @@ msgstr "Quin tipus de teclat teniu?"
 #: ../loader2/kickstart.c:122
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "S'ha produït un error en obrir el fitxer d'arrencda ràpida %s: %s"
+msgstr "S'ha produït un error en obrir el fitxer d'arrencada ràpida %s: %s"
 
 #: ../loader2/kickstart.c:132
 #, c-format
@@ -5980,8 +5980,8 @@ msgstr "Comprovació de les sumes de verificació"
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
-"Argument erroni al dispositu de l'ordre del mètode de l'arrencada ràpida %s: "
-"%s"
+"Argument erroni al dispositiu de l'ordre del mètode de l'arrencada ràpida %"
+"s: %s"
 
 #: ../loader2/net.c:48
 #, c-format
@@ -6005,7 +6005,7 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
-"%s és un adaptador de xarxa sense fil. Indiquey l'ESSID i la clau de "
+"%s és un adaptador de xarxa sense fil. Indiqueu l'ESSID i la clau de "
 "xifratge que calgui per accedir a la xarxa sense fil. Si no cal cap clau, "
 "deixeu aquest camp en blanc i la instal·lació continuarà."
 
@@ -6028,7 +6028,7 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"La sol·licitut d'IP dinàmica ha retornat informació sobre la configuració "
+"La sol·licitud d'IP dinàmica ha retornat informació sobre la configuració "
 "IP, però no incloïa cap servidor de noms DNS. Si sabeu quin és el servidor "
 "de noms, indiqueu-lo ara. Si no disposeu d'aquesta informació, podeu deixar "
 "aquest camp en blanc i la instal·lació continuarà."
@@ -6225,7 +6225,7 @@ msgstr "Configuració d'FTP"
 
 #: ../loader2/urls.c:313
 msgid "HTTP Setup"
-msgstr "Configuracio d'HTTP"
+msgstr "Configuració d'HTTP"
 
 #: ../loader2/urls.c:323
 msgid "You must enter a server name."
@@ -6336,20 +6336,19 @@ msgstr "Detalls de l'excepció"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>Número de _port:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Adreça IP de destí:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Nom de l'inicialitzador iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "Configuració del SILO"
+msgstr "Configuració de l'iSCSI"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6371,7 +6370,7 @@ msgid ""
 "include  support for?"
 msgstr ""
 "La instal·lació per defecte de %s inclou un conjunt de programari aplicable "
-"a l'ús general d'internet. Quines altres tasques addicionals voldríeu "
+"a l'ús general d'Internet. Quines altres tasques addicionals voldríeu "
 "incloure en aquest sistema?"
 
 #: tmp/tasksel.glade.h:5
@@ -7247,7 +7246,7 @@ msgstr "Gal·lès"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr "Zulú"
+msgstr "Zulu"
 
 #~ msgid ""
 #~ "This group includes all the packages available.  Note that there are "
