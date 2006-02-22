@@ -424,7 +424,7 @@ class AnacondaYum(YumSorter):
             self._run(instLog, cb, intf)
         else:
             # If we don't have any required media assume single disc
-            if self.tsInfo.reqmedia = {}:
+            if self.tsInfo.reqmedia == {}:
                 self.tsInfo.reqmedia[0] = None
             for i in self.tsInfo.reqmedia.keys():
                 self.tsInfo.curmedia = i
