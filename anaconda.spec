@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.7
+Version: 10.92.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb 22 2006 David Cantrell <dcantrell@redhat.com> 10.92.8-1
+- Removed obsolete bogl code (katzj)
+- Removed unused code in upgrade.py (pnasrat)
+- Check version and packages to upgrade (pnasrat)
+- Removed old IDE RAID code from isys (katzj)
+- Various traceback fixes
+- Don't use underline in device names for hotkeys in bootloader gui (pjones)
+- Mount /selinux in rescue mode (katzj)
+
 * Tue Feb 21 2006 Chris Lumens <clumens@redhat.com> 10.92.7-1
 - Give Language a default display_mode (dcantrel)
 - Get languages that need a default from localeInfo (dcantrel)
