@@ -357,7 +357,15 @@ def runRescue(instPath, mountroot, id):
 			log.error("Error enabling swap")
 
                 # now that dev is udev, bind mount the installer dev there
-                isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
+                isys.mount("/dev", "%s/dev" %(instPath,), bindMount = 1)
+
+                # and /selinux too
+                if flags.selinux and os.path.isdir("%s/selinux" %(instPath,)):
+                    try:
+                        isys.mount("/selinux", "%s/selinux" %(instPath,),
+                                   "selinuxfs")
+                    except Exception, e:
+                        log.error("error mounting selinuxfs: %s" %(e,))
 
 		# set a library path to use mounted fs
 		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
