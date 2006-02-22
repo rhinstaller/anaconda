@@ -27,7 +27,7 @@ class InstallClass(BaseInstallClass):
         BaseInstallClass.setDefaultPartitioning(self, id.partitions,
                                                 CLEARPART_TYPE_LINUX)
 
-    def setGroupSelection(self, backend):
+    def setGroupSelection(self, backend, intf):
         grps = backend.getDefaultGroups()
         map(lambda x: backend.selectGroup(x), grps)
 
