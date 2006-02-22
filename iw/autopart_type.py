@@ -18,6 +18,7 @@ import gtk
 import gobject
 
 import autopart
+from rhpl.translate import _, N_
 from constants import *
 import gui
 from partition_ui_helpers_gui import *
