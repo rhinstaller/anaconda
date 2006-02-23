@@ -43,6 +43,9 @@
 #include <linux/major.h>
 #include <linux/raid/md_u.h>
 #include <linux/raid/md_p.h>
+#include <signal.h>
+#include <execinfo.h>
+
 
 #include "imount.h"
 #include "isys.h"
@@ -115,6 +118,7 @@ static PyObject * doResetFileContext(PyObject * s, PyObject * args);
 static PyObject * isWireless(PyObject * s, PyObject * args);
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
 static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
+static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -173,6 +177,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
+    { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -1429,4 +1434,23 @@ static PyObject * doGetBiosDisk(PyObject * s, PyObject * args) {
     diskname = getBiosDisk(mbr_sig);
     return Py_BuildValue("s", diskname);
 
+}
+
+static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
+    void *array[20];
+    size_t size;
+    char **strings;
+    size_t i;
+
+    signal(SIGSEGV, SIG_DFL); /* back to default */
+    
+    size = backtrace (array, 20);
+    strings = backtrace_symbols (array, size);
+    
+    printf ("Anaconda received SIGSEGV!.  Backtrace:\n");
+    for (i = 0; i < size; i++)
+        printf ("%s\n", strings[i]);
+     
+    free (strings);
+    exit(1);
 }
