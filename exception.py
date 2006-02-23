@@ -73,6 +73,8 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 		    "id.xsetup.xhwstate.monitor.monids",
                     "backend.ayum",
                     "backend.dlpkgs",
+                    "intf.icw.currentWindow.backend.dlpkgs",
+                    "intf.icw.currentWindow.backend.ayum",
                     "sack.excludes"
 		   ]
 
