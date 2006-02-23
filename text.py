@@ -450,12 +450,12 @@ class InstallInterface:
         return True
 
     def run(self, id, dispatch):
-        oldlang = None
         if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
-            log.info("run:  setting default runtime language")
-            oldlang = id.instLanguage.getCurrent()
-            id.instLanguage.setRuntimeLanguage("en_US.UTF-8")
-            id.instLanguage.setRuntimeDefaults(oldlang)
+            ButtonChoiceWindow(self.screen, "Language Unavailable",
+                               "%s display is unavailable in text mode.  "
+                               "The installation will continue in "
+                               "English." % (oldlang,),
+                               buttons=[TEXT_OK_BUTTON])
         
 	self.screen.helpCallback(self.helpWindow)
 
@@ -475,14 +475,6 @@ class InstallInterface:
 
         # draw the frame after setting up the fallback
         self.drawFrame()
-
-        if oldlang is not None:
-            ButtonChoiceWindow(self.screen, "Language Unavailable",
-                               "%s display is unavailable in text mode.  "
-                               "The installation will continue in "
-                               "English." % (oldlang,),
-                               buttons=[TEXT_OK_BUTTON])
-        
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)

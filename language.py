@@ -93,8 +93,8 @@ class Language:
         self.localeInfo['C'] = self.localeInfo['en_US.UTF-8']
 
         # Set the language for anaconda to be using based on current $LANG.
-        self.setRuntimeLanguage(self.current)
-        self.setDefault(self.current)
+        self.setRuntimeLanguage(self.fixLang(self.current))
+        self.setDefault(self.fixLang(self.current))
 
     # Convert what might be a shortened form of a language's nick (en or
     # en_US, for example) into the full version (en_US.UTF-8).  If we
@@ -141,10 +141,7 @@ class Language:
 	# Note: in /etc/fonts.cgz fonts are named by the map
 	# name as that's unique, font names are not
         font = self.localeInfo[self.canonLangNick(nick)][2]
-        if font == "none":
-            return "latarcyrheb-sun16"
-        else:
-            return font
+        return font
 
     def getDefaultKeyboard(self):
         return self.localeInfo[self.canonLangNick(self.getCurrent())][3]
@@ -159,7 +156,10 @@ class Language:
 	return expandLangs(self.getCurrent()) + ['C']
 
     def getCurrent(self):
-	return self.current
+	if self.targetLang is not None:
+	    return self.targetLang
+	else:
+	    return self.current
 
     def getDefault(self):
         if self.default:
@@ -174,15 +174,16 @@ class Language:
     def setDefault(self, nick):
 	self.default = nick
 
-	self.info['LANG'] = self.fixLang(self.canonLangNick(nick))
-	self.info['SYSFONT'] = self.localeInfo[self.canonLangNick(nick)][2]
+	dispLang = self.fixLang(self.canonLangNick(nick))
+	self.info['LANG'] = dispLang
+	self.info['SYSFONT'] = self.localeInfo[dispLang][2]
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
 	if nick == "zh_CN.GB18030":
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
 
     def setRuntimeDefaults(self, nick):
-        canonNick = self.canonLangNick(nick)
+        canonNick = self.fixLang(self.canonLangNick(nick))
         self.current = canonNick
 
     def setRuntimeLanguage(self, nick):

@@ -3,6 +3,17 @@
 	* yuminstall.py: Suppress 'repository is missing name in config'
 	warning.
 
+	* language.py: Use fixLang in a few more places.  Set SYSFONT to
+	selected lang's font in lang-table.  Modified getCurrent to return
+	selected lang.
+
+	* text.py (InstallInterface.run): The Language class handles the
+	non-working languages for text mode.  Only call getFontFile to see
+	if we should tell the user the selected lang won't work in text
+	mode.
+
+	* textw/language_text.py (LanguageWindow.__call__): None -> none
+
 2006-02-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
