@@ -29,6 +29,7 @@ from optparse import OptionParser
 from repomd.packageSack import PackageSack
 from repomd.packageObject import PackageObject
 from yuminstall import YumSorter
+import iutil
 
 class PackageOrderer(YumSorter):
 
@@ -40,9 +41,9 @@ class PackageOrderer(YumSorter):
     def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
         self.doConfigSetup(fn, root)
         self.conf.cache = 0
-        if hasattr(self.repos, 'sqlite'):
-            self.repos.sqlite = False
-            self.repos._selectSackType()
+#         if hasattr(self.repos, 'sqlite'):
+#             self.repos.sqlite = False
+#             self.repos._selectSackType()
         exclude = self.conf.getConfigOption('exclude')
         exclude.extend(excludes)
         self.conf.setConfigOption('exclude', exclude)
@@ -71,6 +72,9 @@ class PackageOrderer(YumSorter):
 #XXX: sigh
 processed = {}
 def processTransaction(ds):
+#    ds.tsInfo.makelists()
+#    print len(ds.tsInfo.installed)
+#    import pdb; pdb.set_trace()
     for pkgtup in ds.tsInfo.sort():
         fname = ds.tsInfo.pkgdict[pkgtup][0].po.returnSimple('relativepath')
         fpattern = "%s/%s*" % (toppath, fname.rsplit('.', 2)[0])
@@ -145,12 +149,15 @@ if __name__ == "__main__":
                     "kernel-xen*"]:
         printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, pattern))
 
+    testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
+    os.system("mkdir -p %s/var/lib/rpm" %(testpath,))
+    
     ds = PackageOrderer(arch=arch)
-    ds.setup(fn=config, excludes=options.excludeList)
+    ds.setup(fn=config, excludes=options.excludeList, root = testpath)
 
-    addGroups(ds, ["Base", "Core", "Text-based Internet"])
+    addGroups(ds, ["Core", "Base", "Text-based Internet"])
 
-    addGroups(ds, ["X Window System", "Dialup Networking Support", 
+    addGroups(ds, ["X Window System", "Dialup Networking Support",
                    "Graphical Internet", "Editors", 
                    "Graphics", "GNOME Desktop Environment", "Sound and Video",
                    "Printing Support", "Dialup Networking Support"])
@@ -171,7 +178,6 @@ if __name__ == "__main__":
     addGroups(ds, ["News Server", "Legacy Software Development"])
 
     #Everthing else but kernels - don't depsolve
-
     for po in ds.pkgSack.returnPackages():
         if po.pkgtup not in ds._installed.returnPackages():
             if po.name.find("kernel") == -1:
@@ -179,3 +185,4 @@ if __name__ == "__main__":
 
     processTransaction(ds)
     os.unlink(config)
+    iutil.rmrf(testpath)

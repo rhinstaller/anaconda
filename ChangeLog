@@ -1,5 +1,8 @@
 2006-02-23  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder: Use a chroot, enable sqlite.  This should
+	hopefully fix the ordering of packages across CDs.
+
 	* exception.py (dumpClass): More skipping
 
 2006-02-23  David Cantrell  <dcantrell@redhat.com>
