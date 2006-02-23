@@ -394,6 +394,7 @@ textdomain("anaconda")
 
 # reset python's default SIGINT handler
 signal.signal(signal.SIGINT, signal.SIG_DFL)
+signal.signal(signal.SIGSEGV, isys.handleSegv)
 
 # Silly GNOME stuff
 if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
