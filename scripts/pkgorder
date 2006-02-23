@@ -44,9 +44,9 @@ class PackageOrderer(YumSorter):
 #         if hasattr(self.repos, 'sqlite'):
 #             self.repos.sqlite = False
 #             self.repos._selectSackType()
-        exclude = self.conf.getConfigOption('exclude')
+        exclude = self.conf.exclude
         exclude.extend(excludes)
-        self.conf.setConfigOption('exclude', exclude)
+        self.conf.exclude = exclude
         cachedir = yum.misc.getCacheDir()
         self.repos.setCacheDir(cachedir) 
         self.repos.setCache(0) 
@@ -106,6 +106,7 @@ reposdir=/dev/null
 exclude=*debuginfo*
 
 [anaconda]
+name=Anaconda
 baseurl=file://%s
 enabled=1
 """ % (toppath)
