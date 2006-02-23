@@ -308,6 +308,7 @@ class YumSorter(yum.YumBase):
 
     def tsCheck(self, tocheck):
         unresolved = []
+
         for txmbr in tocheck:
             if txmbr.name == "redhat-lsb": # FIXME: this speeds things up a lot
                 continue
@@ -316,6 +317,8 @@ class YumSorter(yum.YumBase):
                 continue
             reqs = txmbr.po.returnPrco('requires')
             provs = txmbr.po.returnPrco('provides')
+            if self.conditionals.has_key(txmbr.name):
+                reqs.extend(self.conditionals[txmbr.name])
 
             for req in reqs:
                 if req[0].startswith('rpmlib(') or req[0].startswith('config('):
@@ -747,12 +750,16 @@ class YumBackend(AnacondaBackend):
             self.selectPackage("elilo")
 
     def selectConditionalPackages(self):
+        self.ayum.conditionals = {}
         for g in self.ayum.comps.get_groups():
             if not g.selected:
                 continue
             for pkg, cond in g.conditional_packages.iteritems():
-                if self.ayum.isPackageInstalled(cond):
-                    self.selectPackage(pkg)
+                req = (pkg, None, (None, None, None))
+                if self.ayum.conditionals.has_key(cond):
+                    self.ayum.conditionals[cond].append(req)
+                else:
+                    self.ayum.conditionals[cond] = [ req ]
 
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
