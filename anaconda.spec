@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.8
+Version: 10.92.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 23 2006 Jeremy Katz <katzj@redhat.com> - 10.92.9-1
+- Fix text mode traceback (dcantrel)
+- Skip a few more things in traceback dumps
+- Attempt to fix pkgorder so that we require less CDs for "normal" installs
+
 * Wed Feb 22 2006 David Cantrell <dcantrell@redhat.com> 10.92.8-1
 - Removed obsolete bogl code (katzj)
 - Removed unused code in upgrade.py (pnasrat)
