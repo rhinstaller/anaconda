@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.9
+Version: 10.92.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 23 2006 Jeremy Katz <katzj@redhat.com> - 10.92.10-1
+- more bogl removal (dcantrel)
+- make the exception dumping less braindead about things we don't 
+  want dumped (clumens)
+- add backtrace handler to anaconda (pjones)
+- fix warnings with new yum in pkgorder
+- make conditional packages on deps work (pnasrat)
+- suppress some warnings (dcantrel)
+- text mode language fixes (dcantrel)
+
 * Thu Feb 23 2006 Jeremy Katz <katzj@redhat.com> - 10.92.9-1
 - Fix text mode traceback (dcantrel)
 - Skip a few more things in traceback dumps
