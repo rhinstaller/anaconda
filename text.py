@@ -450,6 +450,7 @@ class InstallInterface:
         return True
 
     def run(self, id, dispatch):
+        oldlang = None
         if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
             log.info("run:  setting default runtime language")
             oldlang = id.instLanguage.getCurrent()
