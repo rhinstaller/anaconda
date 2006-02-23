@@ -34,50 +34,7 @@ log = logging.getLogger("anaconda")
 dumpHash = {}
 
 # XXX do length limits on obj dumps.
-def dumpClass(instance, fd, level=0, parentkey=""):
-
-    keySkipList = [ 
-		    "id.accounts",
-		    "id.bootloader.password",
-		    "id.comps",
-		    "id.dispatch",
-		    "id.hdList",		    
-		    "id.keyboard.modelDict",
-		    "intf.icw.buff",
-		    "intf.icw.releaseNotesContents",
-                    "intf.icw.id.keyboard._mods._modelDict",
-                    "intf.ppw.ics.cw.releaseNotesContents",                    
-                    "intf.ppw.ics.cw.id.backend.dlpkgs",
-                    "intf.ppw.ics.cw.id.bootloader.password",
-                    "intf.ppw.ics.cw.id.instClass.handlers.handlers",
-                    "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.bootloader",
-                    "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.rootpw",
-                    "intf.ppw.ics.cw.id.instClass.ksparser.handler.ksdata.vnc",
-                    "intf.ppw.ics.cw.id.instClass.ksparser.handler",
-                    "intf.ppw.ics.cw.id.instLanguage.localeInfo",
-                    "intf.ppw.ics.cw.id.instLanguage.nativeLangNames",
-                    "intf.ppw.ics.cw.id.keyboard._mods._modelDict",
-                    "intf.ppw.ics.cw.id.rootPassword",
-		    "intf.icw.stockButtons",
-                    "intf.icw.id.bootloader.password",
-                    "intf.icw.id.instLanguage.langInfoByName",
-		    "intf.icw.id.instLanguage.nativeLangNames",
-                    "intf.instLanguage.nativeLangNames",
-                    "intf.instLanguage.langInfo",
-		    "id.instLanguage.font",
-		    "id.instLanguage.kbd",
-		    "id.instLanguage.tz",
-		    "id.rootPassword",
-		    "id.tmpData",
-		    "id.xsetup.xhwstate.monitor.monlist",
-		    "id.xsetup.xhwstate.monitor.monids",
-                    "backend.ayum",
-                    "backend.dlpkgs",
-                    "intf.icw.currentWindow.backend.dlpkgs",
-                    "intf.icw.currentWindow.backend.ayum",
-                    "sack.excludes"
-		   ]
-
+def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
     # protect from loops
     try:
         if not dumpHash.has_key(instance):
@@ -103,8 +60,11 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 	else:
 	    curkey = key
 
-	if curkey in keySkipList:
-	    continue
+        # Don't dump objects that are in our skip list, though ones that are
+        # None are probably okay.
+	if eval("instance.%s is not None" % key) and \
+           eval("id(instance.%s)" % key) in skipList:
+            continue
 	    
         if type(value) == types.ListType:
             fd.write("%s%s: [" % (pad, curkey))
@@ -115,7 +75,7 @@ def dumpClass(instance, fd, level=0, parentkey=""):
                 else:
                     first = 0
                 if type(item) == types.InstanceType:
-                    dumpClass(item, fd, level + 1)
+                    dumpClass(item, fd, level + 1, skipList=skipList)
                 else:
                     fd.write("%s" % (item,))
             fd.write("]\n")
@@ -123,10 +83,6 @@ def dumpClass(instance, fd, level=0, parentkey=""):
             fd.write("%s%s: {" % (pad, curkey))
             first = 1
             for k, v in value.items():
-		newkey = curkey+"."+str(k)
-		if newkey in keySkipList:
-		    continue
-		
                 if not first:
                     fd.write(", ")
                 else:
@@ -136,17 +92,56 @@ def dumpClass(instance, fd, level=0, parentkey=""):
                 else:
                     fd.write("%s: " % (k,))
                 if type(v) == types.InstanceType:
-                    dumpClass(v, fd, level + 1, parentkey = curkey)
+                    dumpClass(v, fd, level + 1, parentkey = curkey, skipList=skipList)
                 else:
                     fd.write("%s" % (v,))
             fd.write("}\n")
         elif type(value) == types.InstanceType:
             fd.write("%s%s: " % (pad, curkey))
-            dumpClass(value, fd, level + 1, parentkey=curkey)
+            dumpClass(value, fd, level + 1, parentkey=curkey, skipList=skipList)
         else:
             fd.write("%s%s: %s\n" % (pad, curkey, value))
 
 def dumpException(out, text, tb, dispatch):
+    skipList = [ "dispatch.backend.ayum",
+                 "dispatch.backend.dlpkgs",
+                 "dispatch.id.accounts",
+                 "dispatch.id.bootloader.password",
+                 "dispatch.id.comps",
+                 "dispatch.id.dispatch",
+                 "dispatch.id.hdList",
+                 "dispatch.id.instClass.handlers.handlers",
+                 "dispatch.id.instClass.ksparser.handler",
+                 "dispatch.id.instClass.ksparser.handler.ksdata.bootloader",
+                 "dispatch.id.instClass.ksparser.handler.ksdata.rootpw",
+                 "dispatch.id.instClass.ksparser.handler.ksdata.vnc",
+                 "dispatch.id.instLanguage.font",
+                 "dispatch.id.instLanguage.kbd",
+                 "dispatch.id.instLanguage.info",
+                 "dispatch.id.instLanguage.localeInfo",
+                 "dispatch.id.instLanguage.nativeLangNames",
+                 "dispatch.id.instLanguage.tz",
+                 "dispatch.id.keyboard._mods._modelDict",
+                 "dispatch.id.keyboard.modelDict",
+                 "dispatch.id.rootPassword",
+                 "dispatch.id.tmpData",
+                 "dispatch.id.xsetup.xhwstate.monitor.monlist",
+                 "dispatch.id.xsetup.xhwstate.monitor.monids",
+                 "dispatch.intf.icw.buff",
+                 "dispatch.intf.icw.releaseNotesContents",
+                 "dispatch.intf.icw.stockButtons",
+                 "dispatch.sack.excludes",
+               ]
+    idSkipList = []
+
+    # Catch attributes that do not exist at the time we do the exception dump
+    # and ignore them.
+    for k in skipList:
+        try:
+            eval("idSkipList.append(id(%s))" % k)
+        except:
+            pass
+
     p = Pickler(out)
 
     out.write(text)
@@ -177,27 +172,10 @@ def dumpException(out, text, tb, dispatch):
             out.write("%s: %s, " % (p[rpm.RPMTAG_NAME],
                                     p.isSelected()))
         out.write("\n")
-    
-    # we don't need to know passwords
-#    dispatch.id.rootPassword = None
-#    dispatch.id.accounts = None
 
-#    dispatch.intf = None
-#    dispatch.dispatch = None
-
-#    try:
-#        if dispatch.id.xsetup and dispatch.id.xsetup.xhwstate and dispatch.id.xsetup.xhwstate.monitor:
-#            dispatch.id.xsetup.xhwstate.monitor.monlist = None
-#            dispatch.id.xsetup.xhwstate.monitor.monids = None
-#        dispatch.id.instLanguage.langNicks = None
-#        dispatch.id.instLanguage.langList = None
-#        dispatch.intf.icw.buff = None
-#    except:
-#        pass
-    
     try:
         out.write("\n\n")
-        dumpClass(dispatch, out)
+        dumpClass(dispatch, out, skipList=idSkipList)
     except:
         out.write("\nException occurred during state dump:\n")
         traceback.print_exc(None, out)

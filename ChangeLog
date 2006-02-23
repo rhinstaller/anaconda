@@ -1,3 +1,8 @@
+2006-02-23  Chris Lumens  <clumens@redhat.com>
+
+	* exception.py:  Make the exception dumping code smart enough to
+	ignore all references to things in our skip list.
+
 2006-02-23  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.c: add backtrace printing signal handler
