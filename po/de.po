@@ -1,6 +1,6 @@
 # translation of de.po to
 # Copyright (C) 2001 Red Hat, Inc.
-# Ronny Buchmann <ronny-vlug@vlugnet.org> 2004,2005
+# Ronny Buchmann <ronny-vlug@vlugnet.org> 2004,2005,2006
 # Claudia Krug <fhonig@redhat.it>, 2001.
 # Bernd Groh <bgroh@redhat.com>, 2002,2003,2004,2005,2006.
 # Andreas Müller <redhat@andreas-mueller.com>, 2003, 2004.
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2005-06-05 14:27+0200\n"
-"Last-Translator: Thomas Ritter <nethad@gmx.net>\n"
+"PO-Revision-Date: 2006-02-23 22:13+0100\n"
+"Last-Translator: Ronny Buchmann <ronny-vlug@vlugnet.org>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -192,21 +192,16 @@ msgid "Starting graphical installation..."
 msgstr "Grafische Installation wird gestartet..."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Unbekannte Url Methode %s"
+msgstr "Unbekannte Installationsart %s"
 
 #: ../anaconda:1100
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Sie versuchen auf einer Maschine zu installieren, welche von dieser Version "
-"von %s nicht unterstützt wird."
+msgstr "Sie habe eine Installationsart angegeben, die von Anaconda nicht unterstützt wird."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
 msgid "unknown install method: %s"
-msgstr "Unbekannte Url Methode %s"
+msgstr "Unbekannte Installationsart: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -572,7 +567,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s wird installiert..."
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -589,7 +584,6 @@ msgid "Dump Written"
 msgstr "Ein Dump wurde geschrieben"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -599,21 +593,19 @@ msgstr ""
 
 # ../comps/comps-master:483
 #: ../exception.py:428 ../exception.py:444
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Ein Dump wurde geschrieben"
+msgstr "Ein Dump wurde nicht geschrieben"
 
 #: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
 #: ../exception.py:437
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Der Zustand Ihres Systems ist erfolgreich auf die Diskette geschrieben "
+"Der Zustand Ihres Systems ist erfolgreich auf den entfernten Rechner geschrieben "
 "worden. Ihr System wird nun neu gestartet."
 
 #: ../exception.py:445
@@ -1146,9 +1138,8 @@ msgid ""
 msgstr ""
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Wiederholen"
+msgstr "Wie_derholen"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1173,9 +1164,8 @@ msgstr ""
 "Klicken Sie auf OK, um das System neu zu starten."
 
 #: ../kickstart.py:711 ../kickstart.py:729
-#, fuzzy
 msgid "Running..."
-msgstr "Verbinde..."
+msgstr "Läuft..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
@@ -1444,12 +1434,12 @@ msgstr ""
 "Zugelassen sind Buchstaben, Ziffern, '.' oder '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Der Einhängepunkt ist unzulässig. Einhängepunkte müssen mit '/' beginnen, "
+"Der Einhängepunkt %s ist unzulässig. Einhängepunkte müssen mit '/' beginnen, "
 "dürfen nicht mit '/' enden und dürfen nur druckbare Zeichen und keine "
 "Leerstellen enthalten."
 
@@ -2090,9 +2080,8 @@ msgid "Save"
 msgstr "Speichern"
 
 #: ../text.py:147 ../text.py:149 ../text.py:161
-#, fuzzy
 msgid "Remote"
-msgstr "Entfernen"
+msgstr "Entfernt"
 
 #: ../text.py:147 ../text.py:149 ../text.py:157
 msgid "Debug"
@@ -2107,9 +2096,8 @@ msgid "Save to Remote Host"
 msgstr ""
 
 #: ../text.py:185
-#, fuzzy
 msgid "Host"
-msgstr "Rechnername"
+msgstr "Rechner"
 
 #: ../text.py:187
 msgid "Remote path"
@@ -2374,12 +2362,11 @@ msgid "Processing"
 msgstr "Daten werden verarbeitet"
 
 #: ../yuminstall.py:92
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Installation wird vorbereitet..."
+msgstr "Transaktion von der Installationsquelle wird vorbereitet..."
 
 #: ../yuminstall.py:135
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2387,12 +2374,12 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Das Paket %s-%s-%s kann nicht geöffnet werden. Dies ist durch eine fehlende "
+"Das Paket %s-%s-%s.%s kann nicht geöffnet werden. Dies ist durch eine fehlende "
 "Datei oder eventuell durch ein fehlerhaftes Paket bedingt.  Wenn Sie von "
 "einer CD-ROM installieren, heißt das in der Regel, dass die CD fehlerhaft "
 "ist oder dass das CD-Laufwerk nicht von der CD-ROM lesen kann.\n"
 "\n"
-"Drücken Sie <Enter>, um es erneut zu versuchen."
+"Drücken Sie 'Wiederholen', um es erneut zu versuchen."
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
 msgid "Re_boot"
@@ -2412,43 +2399,41 @@ msgid "_Cancel"
 msgstr "_Abbrechen"
 
 #: ../yuminstall.py:441
-#, fuzzy
 msgid "Error running transaction"
-msgstr "RPM-Transaktion wird vorbereitet..."
+msgstr "Fehler beim Durchführen der Transaktion"
 
 #: ../yuminstall.py:488
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Das Paket %s-%s-%s kann nicht geöffnet werden. Dies ist durch eine fehlende "
+"Das Paket %s-%s-%s.%s kann nicht geöffnet werden. Dies ist durch eine fehlende "
 "Datei oder eventuell durch ein fehlerhaftes Paket bedingt.  Wenn Sie von "
 "einer CD-ROM installieren, heißt das in der Regel, dass die CD fehlerhaft "
 "ist oder dass das CD-Laufwerk nicht von der CD-ROM lesen kann.\n"
 "\n"
-"Drücken Sie <Enter>, um es erneut zu versuchen."
 
 #: ../yuminstall.py:599
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Paketinformationen werden gelesen..."
+msgstr "Installationsinformationen werden gelesen..."
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Der comps Datei in Ihrem Installationsbaum fehler wichtige Gruppen. Bitte "
-"stellen Sie sicher, dass Ihr Installationsbaum korrekt erzeugt wurde."
+"Paketmetadaten konnten nicht gelesen werden. Dies kann durch ein fehlendes "
+"repodata Verzeichnis verursacht sein. Bitte "
+"stellen Sie sicher, dass Ihr Installationsbaum korrekt erzeugt wurde.  %s"
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "Nicht kategorisiert"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
@@ -2459,9 +2444,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Installationsprozess wird gestartet.  Dies kann einige Minuten dauern."
 
 #: ../yuminstall.py:1033
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Installationstyp"
+msgstr "Installationsfortschritt"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
@@ -2866,18 +2850,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-Adressen müssen Zahlen zwischen 0 und 255 enthalten."
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "VNC Konfiguration"
+msgstr "iSCSI Konfiguration"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Fehler mit Daten"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Keine IP-Adresse eingegeben, iSCSI wird ausgelassen"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -3084,7 +3066,7 @@ msgstr ""
 "verwendet. Wählen Sie einen anderen Namen."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
@@ -3092,8 +3074,9 @@ msgid ""
 msgstr ""
 "Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
 "Größe des logischen Datenträgers (Logical Volume) (%10.2f MB). Um diesen "
-"Grenzwert zu erhöhen, können Sie die Größe der Einheiten (Extents) für "
-"diesen Datenträgerverbund (Volume Group) erhöhen."
+"Grenzwert zu erhöhen, können Sie mehr physische Datenträger (Physical Volumes) "
+"im unpartitionierten Bereich erzeugen und zu diesem Datenträgerverbund "
+"(Volume Group) hinzufügen."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4644,9 +4627,8 @@ msgstr ""
 "Referenzzwecke dauerhaft speichern."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Wählen Sie die Bildschirmauflösung, die Sie verwenden möchten:"
+msgstr "Bitte wählen Sie die Paketgruppen, die installiert werden sollen."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4663,18 +4645,16 @@ msgid "What type of system would you like to install?"
 msgstr "Welchen Systemtyp möchten Sie installieren?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "IP-Adresse:"
+msgstr "Target IP-Adresse:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "oder benutzen Sie:"
+msgstr "Portnummer:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI Initiator Name:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -5079,9 +5059,8 @@ msgid "Must have a / partition to install on."
 msgstr "Sie müssen eine / Partition haben, auf der Sie installieren können."
 
 #: ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Partitionieren"
+msgstr "Partitionierungstyp"
 
 #: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
 msgid ""
@@ -5095,14 +5074,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Welche Festplatte/n möchten Sie für diese Installation verwenden?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Angelegte Partitionen _prüfen (und wenn nötig ändern)"
+msgstr "Partitionsschema _prüfen"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "Angelegte Partitionen _prüfen (und wenn nötig ändern)"
+msgstr "Partitionsschema prüfen und ändern?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5158,9 +5135,8 @@ msgid "Remaining:  "
 msgstr "Verbleibend: "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Paketgruppen auswählen"
+msgstr "Paketauswahl"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5343,26 +5319,24 @@ msgstr ""
 "Partitionieren."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formatieren"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Office und Produktivität"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Softwareentwicklung"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Nameserver"
+msgstr "Web-Server"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualisierung (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5670,7 +5644,7 @@ msgstr ""
 "angegeben: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -5679,8 +5653,7 @@ msgstr ""
 "Bitte geben Sie alle Parameter ein, welche Sie dem %s Modul übergeben "
 "möchten, wobei Sie diese durch Leerstellen trennen. Wenn Sie nicht wissen, "
 "welche Parameter Sie angeben sollen, können Sie diesen Bildschirm einfach "
-"durch Klicken auf \"OK\" überspringen. Eine Liste der möglichen Optionen "
-"können Sie durch Drücken der F1 Taste erhalten."
+"durch Klicken auf \"OK\" überspringen."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -6008,14 +5981,11 @@ msgid "FAILED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"FEHLGESCHLAGEN.\n"
-"\n"
 "Das gerade getestete Image enthält Fehler. Die könnte durch ein fehlerhaftes "
 "Download oder eine beschädigte CD hervorgerufen werden. Falls möglich, "
 "reinigen Sie die CD und versuchen Sie es erneut. Sollte dieser Test auch "
@@ -6023,23 +5993,16 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "BESTANDEN"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"FEHLERFREI.\n"
-"\n"
-"Von diesem Medium kann installiert werden."
+msgstr "Von diesem Medium kann installiert werden."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
 msgstr ""
-"Nicht verfügbar.\n"
-"\n"
-"Keine Prüfsummen-Informationen verfügbar, Medium konnte nicht verifiziert "
+"Keine Prüfsummen-Informationen verfügbar, Medium kann nicht verifiziert "
 "werden."
 
 #: ../loader2/mediacheck.c:420
@@ -6047,16 +6010,15 @@ msgid "Media Check Result"
 msgstr "Ergebnis Medien-Funktionstest"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"des Images:\n"
+"%s des Images:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
