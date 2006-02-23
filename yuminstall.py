@@ -222,6 +222,7 @@ installroot=%s
 exclude=*debuginfo*
 
 [anaconda]
+name=Anaconda
 baseurl=%s
 enabled=1
 gpgcheck=0
