@@ -1,3 +1,10 @@
+2006-02-24  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda: If running text mode installer and missing $LANG, set
+	it to en_US.UTF-8 before firing off intf.
+
+	* language.py (Language.fixLang): Extra safety net for LANG=C.
+
 2006-02-24  Jeremy Katz  <katzj@redhat.com>
 
 	* bootdisk/i386/options.msg: Be clearer about askmethod (#182535)

@@ -115,7 +115,7 @@ class Language:
     def fixLang(self, langToFix):
         ret = None
 
-        if self.targetLang is not None:
+        if self.targetLang is not None or langToFix == "C":
             return langToFix
 
         if self.displayMode == "t":

@@ -1078,6 +1078,9 @@ if (display_mode == 't'):
 if (display_mode == 'c'):
     from cmdline import InstallInterface
 
+if display_mode == "t":
+    if not os.environ.has_key("LANG"):
+        os.environ["LANG"] = "en_US.UTF-8"
 
 # go ahead and set up the interface
 intf = InstallInterface ()
