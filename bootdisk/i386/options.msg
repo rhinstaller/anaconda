@@ -12,8 +12,8 @@
 
  -  If you have a driver disk, type: 01linux dd <ENTER>07.
 
- -  To prompt for the install method being used on a CD-ROM install, 
-    type 01linux askmethod <ENTER>07.
+ -  To prompt for the use of other install methods such as network
+    install when booting from a CD, type 01linux askmethod <ENTER>07.
 
  -  If you have an installer update disk, type: 01linux updates <ENTER>07.
 
