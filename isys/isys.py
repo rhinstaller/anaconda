@@ -467,8 +467,7 @@ def doProbeBiosDisks():
 def doGetBiosDisk(mbrSig):
     return _isys.getbiosdisk(mbrSig)
 
-def handleSegv():
-    return _isys.doSegvHandler()
+handleSegv = _isys.handleSegv
 
 biosdisks = {}
 for d in range(80, 80 + 15):
@@ -854,6 +853,8 @@ def resetFileContext(fn):
 
 def startBterm():
     return _isys.startBterm()
+
+handleSegv = _isys.handleSegv
 
 printObject = _isys.printObject
 bind_textdomain_codeset = _isys.bind_textdomain_codeset
