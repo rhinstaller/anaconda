@@ -467,6 +467,9 @@ def doProbeBiosDisks():
 def doGetBiosDisk(mbrSig):
     return _isys.getbiosdisk(mbrSig)
 
+def handleSegv():
+    return _isys.doSegvHandler()
+
 biosdisks = {}
 for d in range(80, 80 + 15):
     disk = doGetBiosDisk("%d" %(d,))
