@@ -5,6 +5,9 @@
 
 	* language.py (Language.fixLang): Extra safety net for LANG=C.
 
+	* scripts/upd-instroot: Added Vera.ttf, VeraBd.ttf, and VeraMono.ttf
+	to the stage2.img list.
+
 2006-02-24  Jeremy Katz  <katzj@redhat.com>
 
 	* bootdisk/i386/options.msg: Be clearer about askmethod (#182535)
