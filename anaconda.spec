@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.10
+Version: 10.92.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 24 2006 Jeremy Katz <katzj@redhat.com> - 10.92.11-1
+- fix traceback with segv handler (pjones)
+- various language fixes (dcantrel)
+- be clearer about askmethod (#182535)
+
 * Thu Feb 23 2006 Jeremy Katz <katzj@redhat.com> - 10.92.10-1
 - more bogl removal (dcantrel)
 - make the exception dumping less braindead about things we don't 
