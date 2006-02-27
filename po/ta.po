@@ -3,6 +3,7 @@
 # translation of ta.po to
 # translation of ta.po to
 # translation of ta.po to
+# translation of ta.po to
 # translation of ta.po to Tamil
 # Jayaradha N <jaya@pune.redhat.com>, 2004.
 # Jayaradha N <njaya@redhat.com>, 2004, 2005, 2006.
@@ -11,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-23 14:38+0530\n"
+"PO-Revision-Date: 2006-02-27 18:04+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <ta@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1364,12 +1365,12 @@ msgstr ""
 "எழுத்துக்கள் எழுத்துக்கள்,எண்கள் ,  '.'  அல்லது ' _'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"ஏற்றப்புள்ளி செல்லாது, பொதுவாக ஏற்றப்புள்ளி '/' துவக்க வேண்டும் ஆனால் '/' இல் "
+"%s ஏற்றப்புள்ளி செல்லாது, பொதுவாக ஏற்றப்புள்ளி '/' துவக்க வேண்டும் ஆனால் '/' இல் "
 "முடியக்கூடாது மேலும் இடைவெளியற்ற முதன்மை எழுத்துக்கள் இருக்க வேண்டும்."
 
 #: ../partIntfHelpers.py:102
@@ -2224,7 +2225,7 @@ msgid "Preparing transaction from installation source..."
 msgstr "நிறுவும் மூலத்திலிருந்து மாற்றாத்திற்கு தயாராகிறது..."
 
 #: ../yuminstall.py:135
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2232,8 +2233,7 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"%s-%s-%s என்ற பணித்தொகுப்பை திறக்க இயலவில்லை. கோப்பை காணவில்லை அல்லது பணித்தொகுப்பில் "
-"பிழை இருக்கலாம்.நிறுவப்பயன்படுத்தப்படும் குறுந்தகட்டில் பிழை இருக்கலாம் .\n"
+"%s-%s-%s %sஎன்ற பணித்தொகுப்பை திறக்க இயலவில்லை. கோப்பில் காணவில்லை அல்லது பணித்தொகுப்பில் பிழை இருக்கலாம்.நிறுவப்பயன்படுத்தப்படும் குறுவட்டில் பிழை இருக்கலாம் .\n"
 "\n"
 "மீண்டும் முயற்சிக்க <return> யை அழுத்தவும்."
 
@@ -2882,14 +2882,14 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" என்ற தொகுதி குழு பெயர் பயன்பாட்டில் உள்ளது.வேறு பெயரை தேர்ந்தெடு."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"தற்போது பதிந்துரைக்கப்பட்ட (%10.2f MB) அளவு தருக்க தொகுதி அளவை விட குறைவாக உள்ளது (%"
-"10.2f MB). இந்த வரம்பை உயர்த்த இந்த தொகுதி குழுவின் பரும நீட்டிப்பின் அளவை உயர்த்துக."
+"தற்போது பரிந்துரைக்கப்பட்ட (%10.2f MB) அளவு தருக்க தொகுதி அளவை விட குறைவாக உள்ளது (%"
+"10.2f MB). இந்த வரம்பினை உயர்த்த இந்த தொகுதி குழுவின் பரும நீட்டிப்பின் அளவை உயர்த்துக."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4286,13 +4286,12 @@ msgid "<Enter> to exit"
 msgstr "<Enter> ஐ அழுத்தி வெளியேறவும்"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
 "\n"
 msgstr ""
-"நிறுவல் ஊடகங்கள் ஏதேனும் இருந்தால் வெளியேற்றி,<Enter>கணிணியை மீண்டும் துவக்கவும்.\n"
+"நிறுவல் ஊடகங்கள் ஏதேனும் இருந்தால் வெளியேற்றி,<Enter>கணினியை மீண்டும் துவக்கவும்.\n"
 "\n"
 
 #: ../textw/complete_text.py:33
@@ -5661,53 +5660,38 @@ msgid "FAILED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
-msgstr ""
-"FAIL.\n"
-"\n"
-"சோதித்த இயக்க கோப்பில் பிழை. இதற்கு காரணம் வட்டில் பிழை இருக்கலாம் அல்லது இறக்கிய கோப்பில் "
-"பிழை இருக்கலாம், வட்டை சுத்தப்படுத்தி மீண்டும் முயற்சி செய்யவும். இந்த சோதனையில் பிழை "
-"இருந்தால் நிறுவலை தவிர்பது நல்லது."
+msgstr "சோதித்த இயக்க கோப்பில் பிழை. இதற்கு காரணம் வட்டில் பிழை இருக்கலாம் அல்லது இறக்கிய கோப்பில் பிழை இருக்கலாம், வட்டை சுத்தப்படுத்தி மீண்டும் முயற்சி செய்யவும். இந்த சோதனையில் பிழை இருந்தால் நிறுவலை தவிர்ப்பது நல்லது."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"PASS.\n"
-"\n"
-"இந்த ஊடகத்திலிருந்து நிறுவலாம்"
+msgstr "இந்த ஊடகத்திலிருந்து நிறுவலாம்."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"\n"
-"கூட்டல் சோதனை விவரம் இல்லை, ஊடகத்தை சரிபார்க்க முடியாது."
+msgstr "கூட்டல் சோதனை விவரம் இல்லை, ஊடகத்தை சரிபார்க்க முடியாது."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "ஊடக சோதனை முடிவு"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"பிம்பங்கள்:\n"
+"%s பிம்பத்திற்கு:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6051,7 +6035,6 @@ msgid "_Release Notes"
 msgstr "(_R)வெளியீட்டு அறிக்கை"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
 msgstr "இந்த கோப்பு முறைமையில் பகிர்வுகளை எவ்வாறு அமைக்க விரும்புகிறீர்?"
 
@@ -6062,56 +6045,48 @@ msgid ""
 msgstr ""
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்"
+msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "(_v)உருவாக்கப்பட்ட பகிர்வுகளை(மற்றும்தேவைப்பட்டால் மற்றுக) மறுபார்வையிடு"
+msgstr "பகிர்வு அமைப்பினை மறுபார்வை அல்லது மாற்றம் செய்யவும்(_v)"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "(_v)உருவாக்கப்பட்ட பகிர்வுகளை(மற்றும்தேவைப்பட்டால் மற்றுக) மறுபார்வையிடு"
+msgstr "பகிர்வு அமைப்பினை மறுபார்வை அல்லது மாற்றம் செய்யவும்(_v)"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்"
+msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்.(_S)"
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "பிழை நேர்ந்தது"
+msgstr "பிழை விவரம்"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "பிழை நேர்ந்தது"
+msgstr "பிழை விவரங்கள் (_E)"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>(_P)துறை எண்:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>(_T) சேருமிட ஐபி முகவரி:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI ஆரம்ப (_N)பெயர்:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "SILO அமைப்பு"
+msgstr "iSCSI கட்டமைப்பு"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "தனதாக்கு"
+msgstr "பின்னர் தனிபயனாக்கு (-l)"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6128,9 +6103,8 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "தனதாக்கு"
+msgstr "இப்போது தனிபயனாக்கு (-C)க்கு"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6181,20 +6155,18 @@ msgid "Atlantic Time - E Labrador"
 msgstr "அட்லான்டிக் நேரம்-கிழக்கு லப்ரடார்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "அட்லான்டிக் நேரம்-கிழக்கு லப்ரடார்"
+msgstr "அட்லான்டிக் நேரம் - நியு ப்ரூன்ஸ்விக்லப்ரடார்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
-"அட்லான்டிக் நேரம் - நொவா ஸ்காட்டிய (அனைது இடங்கள்) , என்பி, மேற்கு லாப்ரெடார்,  கிழக்கு "
-"குப்பிக் மற்றும் பிஇ"
+"அட்லான்டிக் நேரம் - நோவா ஸ்காட்டிய (அனைத்து இடங்கள்) , என்பி, மேற்கு லாப்ரெடார்,  கிழக்கு "
+"க்யுபிக் & பிஇ"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "அட்லான்டிக்  நேரம் - நோவா ஸ்காட்டியா-  DST 1966-1971வரை இந்த் ஐடம் கவனிக்கவில்லை"
+msgstr "அட்லான்டிக்  நேரம் - நோவா ஸ்காட்டியா-  DST 1966-1971வரை இந்த இடம் கவனிக்கவில்லை"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6225,9 +6197,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "காசெய் நிலையம்,பிய்லி பென்னின்சுலா"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "கடமார்கா (CT)"
+msgstr "கடமார்கா (CT), சுபட் (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6254,9 +6225,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "மைய நேரம்-காம்பகெ,யுகாடான்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "மைய நேரம்- மேற்கு நுனவட்"
+msgstr "மைய நேரம்- மைய நுனவட்"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6267,26 +6237,24 @@ msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "கிழக்கு தரநேரம்- இந்தியான -ஸ்டெரெக் கவுன்டி"
+msgstr "மைய நேரம் - இண்டியானா - பைக் கவுண்டின -ஸ்டெரெக் கவுன்டி"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr "மைய நேரம்-மனிடோபா மற்றும் ஒன்டாரியொ"
+msgstr "மைய நேரம்-மணிடோபா & மேற்கு ஒன்டாரியோ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "மைய நேரம்-மெக்கிங்கான்-விஸ்கான்சின் எல்லை"
+msgstr "மைய நேரம் - மிச்சிகன் - டிக்கன்சன், கோகிபிக், இரும்பு & மெனோமினி கவுண்டிஸ்"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr "மைய நேரம்-எல்லா இடங்கள்"
+msgstr "மைய நேரம் - அனைத்து இடங்கள்"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "மைய நேரம்-வடக்கு டகோட-ஆலிவர் கவுன்டி"
+msgstr "மைய நேரம் - வடக்கு டகோட - ஆலிவர் கவுண்டி"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -6341,9 +6309,8 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "இஸ்டர் தீவுகள் மற்றும் சல வை கொமெஸ்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "கிழக்கு தரநேரம்- கிழக்கு நுனவட்"
+msgstr "கிழக்கத்திய நேரம் - சவுத்ஆம்டன் தீவு"
 
 #. generated from zone.tab
 msgid "Eastern Time"
