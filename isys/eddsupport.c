@@ -130,6 +130,7 @@ static struct diskMapTable * uniqueSignatureExists(struct device **devices) {
         }
 
         for (devlist = devhead + 1; (*devlist) != NULL; devlist++) {
+            if (!(*devlist)->device) continue;
             if (readDiskSig((*devlist)->device, &current_sig) < 0)
                 return NULL;
 
