@@ -439,7 +439,7 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         if rd.mountpoint == "swap":
             filesystem = fileSystemTypeGet('swap')
-            rd.mountpoint = None
+            rd.mountpoint = ""
         elif rd.mountpoint.startswith("pv."):
             filesystem = fileSystemTypeGet("physical volume (LVM)")
 
