@@ -3,6 +3,8 @@
 	* kickstart.py (AnacondaKSHandlers.doRaid):  "" vs. None for making
 	swap on RAID work again (#176537).
 
+	* whiteout.py:  Break gtk <-> hicolor-icon-theme cycle (#183018).
+
 2006-02-24  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

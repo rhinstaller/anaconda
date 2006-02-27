@@ -83,7 +83,8 @@ whiteout="""
         gnome-python2>gnome-python2-bonobo \
         openoffice.org-libs>openoffice.org \
         gtk+>gdk-pixbuf \
-        nautilus>nautilus-cd-burner
+        nautilus>nautilus-cd-burner \
+        hicolor-icon-theme>gtk2
 """
 
 whitetup = map(lambda x: (x.split(">")[0], x.split(">")[1]), whiteout.split())
