@@ -241,6 +241,7 @@ class YumSorter(yum.YumBase):
         self.deps = {}
         self.path = []
         self.loops = []
+        self.conditionals = {}
 
     def isPackageInstalled(self, pkgname):
         # FIXME: this sucks.  we should probably suck it into yum proper
@@ -750,7 +751,6 @@ class YumBackend(AnacondaBackend):
             self.selectPackage("elilo")
 
     def selectConditionalPackages(self):
-        self.ayum.conditionals = {}
         for g in self.ayum.comps.get_groups():
             if not g.selected:
                 continue
