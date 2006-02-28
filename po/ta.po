@@ -4,6 +4,7 @@
 # translation of ta.po to
 # translation of ta.po to
 # translation of ta.po to
+# translation of ta.po to
 # translation of ta.po to Tamil
 # Jayaradha N <jaya@pune.redhat.com>, 2004.
 # Jayaradha N <njaya@redhat.com>, 2004, 2005, 2006.
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-27 18:04+0530\n"
+"PO-Revision-Date: 2006-02-28 16:05+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <ta@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -583,7 +584,7 @@ msgstr ""
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "கணினி நிலையை தூர புரவலனுக்கு எழுதுவதில் சிக்கல் ஏற்பட்டுள்ளது."
 
 #: ../fsset.py:199
 msgid "Checking for Bad Blocks"
@@ -1075,7 +1076,7 @@ msgstr "CDROM இயக்கியை அணுக முடியவில்�
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ISO 9660 படத்தை காணவில்லை"
 
 #: ../image.py:524
 #, python-format
@@ -1118,11 +1119,11 @@ msgstr "Running..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "முன் நிறுவல் உரைகள் இயக்கப்படுகிறது"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "பின் நிறுவல் உரைகள் இயக்கப்படுகிறது"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1966,7 +1967,7 @@ msgstr "பிழை நேர்ந்தது"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "தூரத்து புரவலனுக்கு சேமிக்கவும்"
 
 #: ../text.py:185
 msgid "Host"
@@ -1974,7 +1975,7 @@ msgstr "புரவலன்"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "தூரத்து பாதை"
 
 #: ../text.py:189
 msgid "User name"
@@ -2282,7 +2283,7 @@ msgstr "metadata தொகுப்பினை படிக்க இயலவ�
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "வகைப்படுத்தாதது"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
@@ -2692,7 +2693,7 @@ msgstr "பிழை தகவல் "
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "ஐபி முகவரி உள்ளிடப்படவில்லை iSCSI நிறுவலை விடுகிறது"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -4874,7 +4875,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "%s ன் முன்னிருப்பு நிறுவல் பொதுவான இணைய பயன்படுத்தலுக்கு மென்பொருள் செயல்படுத்துதலை உள்ளடக்குகிறது. உங்கள் கணினியில் என்ன கூடுதலான பணியை செய்ய வேணடும் என கருதுகிறீர்கள்?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5197,6 +5198,8 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"நீங்கள் கூடுதல் ஊடகத்தை சோதிக்க, அடுத்த குறுவட்டினை நுழைத்து \"%s"
+"\"ஐ அழுத்தவும். ஒவ்வொரு குறுவட்டையும் சோதிப்பது முக்கியமானது அல்ல. குறைந்தபட்சம் குறுவட்டு முதல் முறை பயன்படுத்துவதற்கு முன் சோதிக்க வேண்டும். அவை வெற்றிகரமாக சோதிக்கப்பட்ட பின் மீண்டும் அவற்றை சோதிக்க வேண்டிய அவசியம் இல்லை."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5657,7 +5660,7 @@ msgstr "%s நிறுவல் பிம்பத்தை கண்டுப�
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "தோல்வியடைந்தது"
 
 #: ../loader2/mediacheck.c:398
 msgid ""
@@ -5668,7 +5671,7 @@ msgstr "சோதித்த இயக்க கோப்பில் பிழ
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "தேர்ச்சியடைந்தது"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
@@ -5700,6 +5703,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ஊடக சோதனை %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -5870,7 +5876,7 @@ msgstr "NFS அமைப்புகள்"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "புரவலன் பெயர் DNS கட்டமைக்கப்படாமல் குறிப்பிடப்பட்டுள்ளது"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6042,7 +6048,7 @@ msgstr "இந்த கோப்பு முறைமையில் பகி
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
-msgstr ""
+msgstr "<product ஐ நிறுவ உங்கள் நிலைவட்டினை பகிர்வு செய்ய வேண்டும். நீங்கள் முன்னிருப்பு பகிர்வு அமைப்பினை பயன்படுத்தலாம் அல்லது சொந்தமாக உருவாக்கலாம்."
 
 #: tmp/autopart2.glade.h:3
 msgid "Select the drive(s) to use for this installation."
@@ -6092,7 +6098,7 @@ msgstr "பின்னர் தனிபயனாக்கு (-l)"
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "கூடுதல் மென்பொருள் தேர்வில் தனிபயனாக்குதல் இப்போது முடிக்கப்படும் அல்லது மென்பொருள் மேலாண்மை நிரல் வழியாக பின்னர் முடிக்கப்படும்."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6100,7 +6106,7 @@ msgid ""
 "The default installation of %s includes a set of  software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "%s ன் முன்னிருப்பு நிறுவல் பொதுவான இணைய பயன்படுத்தலுக்கு மென்பொருள் செயல்படுத்துதலை உள்ளடக்குகிறது. உங்கள் கணினியில் என்ன கூடுதலான பணியை செய்ய வேணடும் என கருதுகிறீர்கள்?"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Customize now"
@@ -6234,7 +6240,7 @@ msgstr "மைய நேரம்-கொஹாயுலியா,டுராங
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "மத்திய நேரம் - இந்தியானா - டேவீஸ், டுபோஸ், நாக்ஸ், மார்டின், ப்பெரி & புலாஸ்கி"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6317,29 +6323,24 @@ msgid "Eastern Time"
 msgstr "கிழக்கு நேரம்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "கிழக்கு தரநேரம்- கிழக்கு நுனவட்"
+msgstr "கிழக்கு தரநேரம் - கிழக்கு நுனவட்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "கிழக்கு தரநேரம்- இந்தியானா - க்ராவ்போர்ட் கவுன்டி"
+msgstr "கிழக்கு தரநேரம் - இந்தியானா - க்ராவ்போர்ட் கவுன்டி"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "கிழக்கு தரநேரம்- இந்தியான-எல்லா இடங்கள்"
+msgstr "கிழக்கு தரநேரம் - இந்தியானா  -எல்லா இடங்கள்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "கிழக்கு தரநேரம்- இந்தியான -ஸ்டெரெக் கவுன்டி"
+msgstr "கிழக்கத்திய நேரம் - இந்தியான - ஸ்டெரெக் கவுன்டி"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "கிழக்கு தரநேரம் -இண்டியானா - சுவிசர்லாந்து கவுன்டி"
+msgstr "கிழக்கத்திய நேரம் -இண்டியானா - சுவிசர்லாந்து கவுன்டி"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6362,9 +6363,8 @@ msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-19
 msgstr "கிழக்கு நேரம்  -  DST 1967-1973வை ஒன்டரியொ மற்றும் குபெக் இடங்கள் கவணிக்க வில்லை"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "கிழக்கு தரநேரம் - பங்னிர்டுங்,நுனவட்"
+msgstr "கிழக்கத்திய நேரம் - பங்னிர்டுங், நுனவட்"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -6708,12 +6708,11 @@ msgstr "சயொவ நிலையம் ,கிழக்கு ஒங்க�
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "டாஸ்மானியா - கிங் தீவு"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "குயின்ஸ் லான்ட் -அதிகமான இடங்கள்"
+msgstr "டாஸ்மானியா - அனைத்து இடங்கள்"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -6732,9 +6731,8 @@ msgid "Tocantins"
 msgstr "டொகான்டின்ஸ்"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "துருக் (Chuuk)"
+msgstr "Truk (Chuuk) and Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -6774,7 +6772,7 @@ msgstr "மேற்கு காஜகிஸ்தான்"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr "மெற்கு உஸ்பெகிஸ்தான்"
+msgstr "மேற்கு உஸ்பெகிஸ்தான்"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -6786,12 +6784,11 @@ msgstr "சாபொரஸ்யியெ இ லுகான்ஸ்க்"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "ஆப்ரிக்கன்"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "அரேபிய"
+msgstr "அம்ஹரிக்"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -6874,9 +6871,8 @@ msgid "Icelandic"
 msgstr "ஐஸ்லாந்து"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "மாசிடோனியன்"
+msgstr "இந்தோனேஷியன்"
 
 #. generated from lang-table
 msgid "Italian"
@@ -6903,9 +6899,8 @@ msgid "Norwegian"
 msgstr "நார்வீசியன்"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "வடக்கு நிலப்பகுதி"
+msgstr "வடக்கத்திய சோதோ"
 
 #. generated from lang-table
 msgid "Persian"
@@ -6932,19 +6927,16 @@ msgid "Russian"
 msgstr "ரஷ்ய"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "பெர்ஷியன்"
+msgstr "செரிபியன்"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "பெர்ஷியன்"
+msgstr "செரிபியன்(லத்தீன்)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "ஸ்லோவேனியன்"
+msgstr "ஸ்லோவேக்"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -6963,9 +6955,8 @@ msgid "Tamil"
 msgstr "தமிழ்"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "தமிழ்"
+msgstr "தாய்"
 
 #. generated from lang-table
 msgid "Turkish"
