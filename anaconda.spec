@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.11
+Version: 10.92.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 27 2006 Jeremy Katz <katzj@redhat.com> - 10.92.12-1
+- Dependency whiteout to fix ordering (clumens)
+- Fix swap on RAID in kickstart (#176537)
+- Add keymap overrides
+- Fix segfault with USB CD/DVD drives (#182589)
+
 * Fri Feb 24 2006 Jeremy Katz <katzj@redhat.com> - 10.92.11-1
 - fix traceback with segv handler (pjones)
 - various language fixes (dcantrel)
