@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.12
+Version: 10.92.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 28 2006 Jeremy Katz <katzj@redhat.com> - 10.92.13-1
+- fix traceback in pkgorder
+- don't display xen 
+- make partitioning type combo wider (dcantrel)
+- handle Serbian locales properly (#182591)
+
 * Mon Feb 27 2006 Jeremy Katz <katzj@redhat.com> - 10.92.12-1
 - Dependency whiteout to fix ordering (clumens)
 - Fix swap on RAID in kickstart (#176537)
