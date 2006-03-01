@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.13
+Version: 10.92.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Feb 28 2006 Jeremy Katz <katzj@redhat.com> - 10.92.13-1
+* Tue Feb 28 2006 Jeremy Katz <katzj@redhat.com> - 10.92.14-1
 - fix traceback in pkgorder
 - don't display xen 
 - make partitioning type combo wider (dcantrel)
