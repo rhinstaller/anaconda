@@ -28,15 +28,17 @@ log = logging.getLogger("anaconda")
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
 def expandLangs(astring):
     langs = [astring]
+    charset = None
     # remove charset ...
     if '.' in astring:
 	langs.append(string.split(astring, '.')[0])
 
     if '@' in astring:
-	langs.append(string.split(astring, '@')[0])
+        charset = string.split(astring, '@')[1]
 
     # also add 2 character language code ...
     if len(astring) > 2:
+        if charset: langs.append("%s@%s" %(astring[:2], charset))
 	langs.append(astring[:2])
 
     return langs

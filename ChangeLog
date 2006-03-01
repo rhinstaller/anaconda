@@ -1,3 +1,8 @@
+2006-02-28  Jeremy Katz  <katzj@redhat.com>
+
+	* language.py (expandLangs): Handle locales like sr@Latn 
+	properly (#182591)
+
 2006-02-28  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/autopart_type.py: Make the partitioning type combo box wider.
