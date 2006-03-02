@@ -241,7 +241,6 @@ class YumSorter(yum.YumBase):
         self.deps = {}
         self.path = []
         self.loops = []
-        self.conditionals = {}
 
     def isPackageInstalled(self, pkgname):
         # FIXME: this sucks.  we should probably suck it into yum proper
@@ -318,8 +317,6 @@ class YumSorter(yum.YumBase):
                 continue
             reqs = txmbr.po.returnPrco('requires')
             provs = txmbr.po.returnPrco('provides')
-            if self.conditionals.has_key(txmbr.name):
-                reqs.extend(self.conditionals[txmbr.name])
 
             for req in reqs:
                 if req[0].startswith('rpmlib(') or req[0].startswith('config('):
@@ -432,6 +429,12 @@ class AnacondaYum(YumSorter):
             # If we don't have any required media assume single disc
             if self.tsInfo.reqmedia == {}:
                 self.tsInfo.reqmedia[0] = None
+            # If we only need things on the current disc set don't split
+            import sets
+            s = sets.Set(self.tsInfo.reqmedia.keys())
+            t = sets.Set(self.method.currentMedia)
+            if s.issubset(t):
+                self.tsInfo.reqmedia = { 0 : None }
             for i in self.tsInfo.reqmedia.keys():
                 self.tsInfo.curmedia = i
                 if i > 0:
@@ -750,22 +753,10 @@ class YumBackend(AnacondaBackend):
         elif iutil.getArch() == "ia64":
             self.selectPackage("elilo")
 
-    def selectConditionalPackages(self):
-        for g in self.ayum.comps.get_groups():
-            if not g.selected:
-                continue
-            for pkg, cond in g.conditional_packages.iteritems():
-                req = (pkg, None, (None, None, None))
-                if self.ayum.conditionals.has_key(cond):
-                    self.ayum.conditionals[cond].append(req)
-                else:
-                    self.ayum.conditionals[cond] = [ req ]
-
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
-        self.selectConditionalPackages()
         
         if id.getUpgrade():
             from upgrade import upgrade_remove_blacklist
