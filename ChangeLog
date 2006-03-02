@@ -1,3 +1,9 @@
+2006-03-02  Chris Lumens  <clumens@redhat.com>
+
+	* isys/isys.py (compareNetDevices):  Add a function to more
+	intelligently sort network device names (#166842).
+	* textw/network_text.py:  Use compareNetDevices.
+
 2006-03-02  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: Conditionals in yum now

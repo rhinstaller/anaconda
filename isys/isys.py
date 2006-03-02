@@ -522,6 +522,18 @@ def compareDrives(first, second):
 
     return 0
 
+def compareNetDevices(first, second):
+    trimmed_first = int(first.lstrip(string.letters))
+    trimmed_second = int(second.lstrip(string.letters))
+
+    if trimmed_first < trimmed_second:
+        return -1
+    elif trimmed_first > trimmed_second:
+        return 1
+    else:
+        return 0
+
+
 def configNetDevice(device, ip, netmask, gw):
     return _isys.confignetdevice(device, ip, netmask, gw)
 

@@ -55,7 +55,7 @@ class NetworkDeviceWindow:
         onboot = dev.get("onboot")
 
         devnames = self.devices.keys()
-        devnames.sort()
+        devnames.sort(cmp=isys.compareNetDevices)
         if devnames.index(dev.get("DEVICE")) == 0 and not onboot:
             onbootIsOn = 1
         else:
@@ -204,7 +204,7 @@ class NetworkDeviceWindow:
             return INSTALL_NOOP
 
         list = self.devices.keys()
-        list.sort()
+        list.sort(cmp=isys.compareNetDevices)
         devLen = len(list)
         if dir == 1:
             currentDev = 0
