@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.15
+Version: 10.92.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar  3 2006 Paul Nasrat <pnasrat@redhat.com> - 10.92.16-1
+- Support Everything/globs in ks (pnasrat, clumens, #177621)
+- Allow changes if not enough disk space (clumens, #183878)
+- Set controlling tty in rescue mode (dcantrel,#182222)
+- Sort list of languages (dcantrel)
+
 * Fri Mar  3 2006 Jeremy Katz <katzj@redhat.com> - 10.92.15-1
 - conditional code is now in yum (pnasrat)
 - sort network devices smarter (clumens, #166842)
