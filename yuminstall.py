@@ -753,10 +753,15 @@ class YumBackend(AnacondaBackend):
         elif iutil.getArch() == "ia64":
             self.selectPackage("elilo")
 
+    def selectFSPackages(self, fsset):
+        for entry in fsset.entries:
+            map(self.selectPackage, entry.fsystem.getNeededPackages())
+
     def doPostSelection(self, intf, id, instPath):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
+        self.selectFSPackages(id.fsset)
         
         if id.getUpgrade():
             from upgrade import upgrade_remove_blacklist
