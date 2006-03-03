@@ -1,3 +1,11 @@
+2006-03-03  David Cantrell  <dcantrell@redhat.com>
+
+	* rescue.py: Added runShell() to handle spawning the tty1 shell for
+	rescue mode and set the controlling tty (#182222).
+
+	* loader2/init.c: Do not disable Ctrl+C, Ctrl+Z, and friends if we're
+	starting in rescue mode. Set controlling tty before dup2() calls.
+
 2006-03-03  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
