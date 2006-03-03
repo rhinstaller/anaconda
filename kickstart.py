@@ -26,6 +26,7 @@ import string
 import partRequests
 import urlgrabber.grabber as grabber
 import lvm
+import warnings
 from pykickstart.constants import *
 from pykickstart.parser import *
 from pykickstart.data import *
@@ -656,9 +657,10 @@ class AnacondaKSParser(KickstartParser):
     # Map old broken Everything group to the new futuristic package globs
     def addPackages (self, line):
         if line[0] == '@' and line[1:].lower().strip() == "everything":
-           KickstartParser.addPackages(self, "*")
+            warnings.warn("The Everything group syntax is deprecated.  It may be removed from future releases, which will result in an error from kickstart.  Please use an asterisk on its own line instead.", DeprecationWarning)
+            KickstartParser.addPackages(self, "*")
         else:
-           KickstartParser.addPackages(self, line)
+            KickstartParser.addPackages(self, line)
 
     def addScript (self):
         if string.join(self.script["body"]).strip() == "":
