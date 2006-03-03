@@ -1071,20 +1071,11 @@ class YumBackend(AnacondaBackend):
                 log.debug("no such group %s" %(group,))
 
     def selectPackage(self, pkg, *args):
-        sp = pkg.rsplit(".", 2)
-        if len(sp) == 2:
-            try:
-                mbrs = self.ayum.install(name = sp[0], arch = sp[1])
-                return len(mbrs)
-            except yum.Errors.InstallError:
-                # maybe the package has a . in the name
-                pass
-
         try:
-            mbrs = self.ayum.install(name=pkg)
+            mbrs = self.ayum.install(pattern=pkg)
             return len(mbrs)
         except yum.Errors.InstallError:
-            log.debug("no such package %s" %(pkg,))
+            log.debug("no package matching %s" %(pkg,))
             return 0
         
     def deselectPackage(self, pkg, *args):
