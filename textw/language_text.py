@@ -27,6 +27,7 @@ log = logging.getLogger("anaconda")
 class LanguageWindow:
     def __call__(self, screen, textInterface, instLanguage):
         languages = instLanguage.available ()
+        languages.sort()
 
         current = instLanguage.getCurrent()
 
