@@ -222,7 +222,22 @@ def smpAvailable():
 
 htavailable = _isys.htavailable
 coresavailable = _isys.coresavailable
-acpicpus = _isys.acpicpus
+
+# It's important that we cache this value.  If we access the memory while X is
+# running, bad things happen if you've got super-crappy video cards like the
+# ATI Rage XL (mach64).  So we hit it once up front when loading and then
+# never again.
+_acpi_ncpus = None
+def acpicpus():
+    global _acpi_ncpus
+
+    if _acpi_ncpus is None:
+	_acpi_ncpus = _isys.acpicpus
+
+    return _acpi_ncpus
+
+acpicpus()
+
 
 def summitavailable():
     try:
