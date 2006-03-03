@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.14
+Version: 10.92.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar  3 2006 Jeremy Katz <katzj@redhat.com> - 10.92.15-1
+- conditional code is now in yum (pnasrat)
+- sort network devices smarter (clumens, #166842)
+- select needed fs entries (#183271)
+- more serbian fixes (#182591)
+
 * Tue Feb 28 2006 Jeremy Katz <katzj@redhat.com> - 10.92.14-1
 - fix traceback in pkgorder
 - don't display xen 
