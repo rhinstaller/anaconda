@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.37
+Version: 10.1.1.38
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar  2 2006 Peter Jones <pjones@redhat.com> - 10.1.1.38-1
+- Make the ACPI probe happen when isys is imported, and return cached
+  data from there on out.
+
 * Mon Feb 20 2006 Peter Jones <pjones@redhat.com> - 10.1.1.37-1
 - Fix ACPI probing on amd64 (reported by pjones)
 - Fix cpuid fn 0x80000008 (cores-per-package) probe on amd64 (reported by katzj)
