@@ -758,6 +758,10 @@ class YumBackend(AnacondaBackend):
             map(self.selectPackage, entry.fsystem.getNeededPackages())
 
     def doPostSelection(self, intf, id, instPath):
+        # Only solve dependencies on the way through the installer, not the way back.
+        if intf.dispatch.dir == DISPATCH_BACK:
+            return
+
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
@@ -780,9 +784,32 @@ class YumBackend(AnacondaBackend):
 
         dscb = YumDepSolveProgress(intf)
         self.ayum.dsCallback = dscb
+
         try:
             (code, msgs) = self.ayum.buildTransaction()
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
+
+            usrPart = id.partitions.getRequestByMountPoint("/usr")
+            if usrPart is not None:
+                largePart = usrPart
+            else:
+                largePart = id.partitions.getRequestByMountPoint("/")
+
+            if largePart.getActualSize(id.partitions, id.diskset) < self.totalSize / 1024:
+                dscb.pop()
+                rc = intf.messageWindow(_("Error"),
+                                        _("Your selected packages require %d MB "
+                                          "of free space for installation, but "
+                                          "you do not have enough available.  "
+                                          "You can change your selections or "
+                                          "reboot." % (self.totalSize / 1024)),
+                                        type="custom", custom_icon="error",
+                                        custom_buttons=[_("_Back"), _("Re_boot")])
+
+                if rc == 1:
+                    sys.exit(1)
+                else:
+                    return DISPATCH_BACK
         finally:
             dscb.pop()
             self.ayum.dsCallback = None

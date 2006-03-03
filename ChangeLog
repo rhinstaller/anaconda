@@ -1,3 +1,9 @@
+2006-03-03  Chris Lumens  <clumens@redhat.com>
+
+	* backend.py (doPostSelection):  Support moving backwards.
+	* yuminstall.py (YumBackend.doPostSelection):  Error if there's not
+	enough disk space to install the selected packages (#183878).
+
 2006-03-03  David Cantrell  <dcantrell@redhat.com>
 
 	* rescue.py: Added runShell() to handle spawning the tty1 shell for

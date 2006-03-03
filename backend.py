@@ -150,7 +150,7 @@ def doRepoSetup(backend, intf, id, instPath):
         backend.checkSupportedUpgrade(intf, instPath)
 
 def doPostSelection(backend, intf, id, instPath):
-    backend.doPostSelection(intf, id, instPath)
+    return backend.doPostSelection(intf, id, instPath)
 
 def doPreInstall(backend, intf, id, instPath, dir):
     backend.doPreInstall(intf, id, instPath, dir)
