@@ -1,3 +1,9 @@
+2006-03-04  Jeremy Katz  <katzj@redhat.com>
+
+	* backend.py (doPostSelection): Pass direction
+	* dispatch.py (installSteps): Likewise.
+	* yuminstall.py (doPostSelection): Likewise.
+
 2006-03-03  Paul Nasrat <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.

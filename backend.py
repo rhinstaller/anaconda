@@ -39,7 +39,7 @@ class AnacondaBackend:
     def doPreSelection(self, intf, id, instPath):
         pass
 
-    def doPostSelection(self, intf, id, instPath):
+    def doPostSelection(self, intf, id, instPath, dir):
         pass
 
     def doPreInstall(self, intf, id, instPath, dir):
@@ -149,8 +149,8 @@ def doRepoSetup(backend, intf, id, instPath):
     if id.upgrade:
         backend.checkSupportedUpgrade(intf, instPath)
 
-def doPostSelection(backend, intf, id, instPath):
-    return backend.doPostSelection(intf, id, instPath)
+def doPostSelection(backend, intf, id, instPath, dir):
+    return backend.doPostSelection(intf, id, instPath, dir)
 
 def doPreInstall(backend, intf, id, instPath, dir):
     backend.doPreInstall(intf, id, instPath, dir)

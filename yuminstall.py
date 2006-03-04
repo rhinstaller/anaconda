@@ -757,9 +757,9 @@ class YumBackend(AnacondaBackend):
         for entry in fsset.entries:
             map(self.selectPackage, entry.fsystem.getNeededPackages())
 
-    def doPostSelection(self, intf, id, instPath):
+    def doPostSelection(self, intf, id, instPath, dir):
         # Only solve dependencies on the way through the installer, not the way back.
-        if intf.dispatch.dir == DISPATCH_BACK:
+        if dir == DISPATCH_BACK:
             return
 
         # do some sanity checks for kernel and bootloader

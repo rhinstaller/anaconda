@@ -104,7 +104,7 @@ installSteps = [
     ("basepkgsel", doBasePackageSelect, ("backend","id.instClass", "intf")),
     ("tasksel", ("intf", "backend", "dispatch", "id.instClass")),   
     ("group-selection", ("backend", "intf")),
-    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath")),
+    ("postselection", doPostSelection, ("backend", "intf", "id", "instPath", "dir")),
     #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
     #("fixupconditionals", fixupConditionals, ("id.grpset",)),
     ("confirminstall", ("intf", "id",)),
