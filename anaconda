@@ -430,7 +430,7 @@ try:
 	    'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
 	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx',
 	    'virtpconsole=', 'loglevel=', 'syslog=', 'nodmraid','dmraid',
-	    'iscsi'])
+	    'iscsi', 'vesa'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -463,6 +463,7 @@ progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
 display_mode = None
 graphical_failed = 0
+forcevesa = False               # force vesa driver for X instead of probed
 
 
 # should we ever try to probe for X stuff?  this will give us a convenient
@@ -574,6 +575,8 @@ for n in args:
 	flags.dmraid = 1
     elif (str == "--skipddc"):	
 	skipddc = 1
+    elif (str == "--vesa"):
+        forcevesa = True
     elif (str == "--autostep"):
 	flags.autostep = 1
     elif (str == '-r' or str == '--rootpath'):
@@ -885,7 +888,8 @@ if not isHeadless:
     skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
 
     (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
-						    skipMouseProbe = skipmouseprobe)
+						    skipMouseProbe=skipmouseprobe,
+                                                    forceVesa=forcevesa)
     # if the len(videocards) is zero, then let's assume we're isHeadless
     if len(videohw.videocards) == 0:
 	stdoutLog.info (_("No video hardware found, assuming headless"))

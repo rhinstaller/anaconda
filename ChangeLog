@@ -1,5 +1,9 @@
 2006-03-06  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda: Add magic 'vesa' flag to force the X driver to be vesa
+	instead of the native
+	* loader2/loader.c: Add it here.
+
 	* yuminstall.py (YumBackend.getBestKernelByArch): New xen kernel
 	package naming
 
