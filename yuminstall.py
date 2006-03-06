@@ -688,38 +688,38 @@ class YumBackend(AnacondaBackend):
 
         # FIXME: this is a bit of a hack.  we shouldn't hard-code and
         # instead check by provides.  but alas.
-        for k in ("kernel", "kernel-smp", "kernel-xen-hypervisor"):
+        for k in ("kernel", "kernel-smp", "kernel-xen0"):
             if len(self.ayum.tsInfo.matchNaevr(name=k)) > 0:            
                 foundkernel = True
 
         if not foundkernel and os.path.exists("/proc/xen"):
             try:
-                kxen = getBestKernelByArch("kernel-xen-guest", self.ayum)
-                log.info("selecting kernel-xen-guest package for kernel")
+                kxen = getBestKernelByArch("kernel-xenU", self.ayum)
+                log.info("selecting kernel-xenU package for kernel")
                 foundkernel = True
             except PackageSackError:
                 kxen = None
-                log.debug("no kernel-xen-guest package")
+                log.debug("no kernel-xenU package")
             else:
                 self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-xen-guest-devel")
-                    self.selectPackage("kernel-xen-guest-devel")
+                    log.debug("selecting kernel-xenU-devel")
+                    self.selectPackage("kernel-xenU-devel")
 
         if not foundkernel and \
                (open("/proc/cmdline").read().find("xen0") != -1):
             try:
-                kxen = getBestKernelByArch("kernel-xen-hypervisor", self.ayum)
-                log.info("selecting kernel-xen-hypervisor package for kernel")
+                kxen = getBestKernelByArch("kernel-xen0", self.ayum)
+                log.info("selecting kernel-xen0 package for kernel")
                 foundkernel = True
             except PackageSackError:
                 kxen = None
-                log.debug("no kernel-xen-hypervisor package")
+                log.debug("no kernel-xen0 package")
             else:
                 self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
-                    log.debug("selecting kernel-xen-hypervisor-devel")
-                    self.selectPackage("kernel-xen-hypervisor-devel")
+                    log.debug("selecting kernel-xen0-devel")
+                    self.selectPackage("kernel-xen0-devel")
 
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
@@ -1014,8 +1014,8 @@ class YumBackend(AnacondaBackend):
 
         # nick is used to generate the lilo name
         for (ktag, nick) in [ ('kernel-smp', 'smp'),
-                              ('kernel-xen-hypervisor', 'hypervisor'),
-                              ('kernel-xen-guest', 'guest') ]:
+                              ('kernel-xen0', 'xen0'),
+                              ('kernel-xenU', 'xenU') ]:
             tag = ktag.rsplit('-', 1)[1]
             for tsmbr in self.ayum.tsInfo.matchNaevr(name=ktag):
                 version = ( tsmbr.version + '-' + tsmbr.release + tag)
