@@ -789,27 +789,29 @@ class YumBackend(AnacondaBackend):
             (code, msgs) = self.ayum.buildTransaction()
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
-            usrPart = id.partitions.getRequestByMountPoint("/usr")
-            if usrPart is not None:
-                largePart = usrPart
-            else:
-                largePart = id.partitions.getRequestByMountPoint("/")
-
-            if largePart.getActualSize(id.partitions, id.diskset) < self.totalSize / 1024:
-                dscb.pop()
-                rc = intf.messageWindow(_("Error"),
-                                        _("Your selected packages require %d MB "
-                                          "of free space for installation, but "
-                                          "you do not have enough available.  "
-                                          "You can change your selections or "
-                                          "reboot." % (self.totalSize / 1024)),
-                                        type="custom", custom_icon="error",
-                                        custom_buttons=[_("_Back"), _("Re_boot")])
-
-                if rc == 1:
-                    sys.exit(1)
+            # FIXME:  Disable check on upgrades for now, fix for FC6.
+            if not id.getUpgrade():
+                usrPart = id.partitions.getRequestByMountPoint("/usr")
+                if usrPart is not None:
+                    largePart = usrPart
                 else:
-                    return DISPATCH_BACK
+                    largePart = id.partitions.getRequestByMountPoint("/")
+
+                if largePart.getActualSize(id.partitions, id.diskset) < self.totalSize / 1024:
+                    dscb.pop()
+                    rc = intf.messageWindow(_("Error"),
+                                            _("Your selected packages require %d MB "
+                                              "of free space for installation, but "
+                                              "you do not have enough available.  "
+                                              "You can change your selections or "
+                                              "reboot." % (self.totalSize / 1024)),
+                                            type="custom", custom_icon="error",
+                                            custom_buttons=[_("_Back"), _("Re_boot")])
+
+                    if rc == 1:
+                        sys.exit(1)
+                    else:
+                        return DISPATCH_BACK
         finally:
             dscb.pop()
             self.ayum.dsCallback = None

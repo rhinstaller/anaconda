@@ -1,3 +1,8 @@
+2006-03-06  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (doPostSelection):  Disable size check on upgrade
+	(#184112).
+
 2006-03-04  Jeremy Katz  <katzj@redhat.com>
 
 	* backend.py (doPostSelection): Pass direction
