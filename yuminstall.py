@@ -454,12 +454,28 @@ class AnacondaYum(YumSorter):
             self.runTransaction(cb=cb)
         except YumBaseError, probs:
             # FIXME: we need to actually look at these problems...
-            log.error("error running transaction: %s" %(probs,))
+            probTypes = { rpm.RPMPROB_NEW_FILE_CONFLICT : _('file conflicts'),
+                          rpm.RPMPROB_FILE_CONFLICT : _('file conflicts'),
+                          rpm.RPMPROB_OLDPACKAGE: _('older package(s)'),
+                          rpm.RPMPROB_DISKSPACE: _('insufficient disk space'),
+                          rpm.RPMPROB_DISKNODES: _('insufficient disk inodes'),
+                          rpm.RPMPROB_CONFLICT: _('package conflicts'),
+                          rpm.RPMPROB_PKG_INSTALLED: _('package already installed'),
+                          rpm.RPMPROB_REQUIRES: _('required package'),
+                          rpm.RPMPROB_BADARCH: _('package for incorrect arch'),
+                          rpm.RPMPROB_BADOS: _('package for incorrect os'),
+            }
+            uniqueProbs = {}
+            for (descr, (type, mount, need)) in probs:
+                if not uniqueProbs.has_key(type) and probTypes.has_key(type):
+                    uniqueProbs[type] = probTypes[type]
+                log.error("error running transaction: %s" %(descr,))
+
+            probString = ', '.join(uniqueProbs.values())
             intf.messageWindow(_("Error running transaction"),
                                ("There was an error running your transaction, "
-                                "probably a disk space problem.  For now, "
-                                "exiting on this although we should diagnose "
-                                "and then let you go back."))
+                                "for the following reason(s): "
+                                "%s " % (probString,)))
             sys.exit(1)
 
     def doCacheSetup(self):

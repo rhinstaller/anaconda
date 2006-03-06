@@ -1,3 +1,8 @@
+2006-03-06  Paul Nasrat <pnasrat@redhat.com>
+
+	* yuminstall.py: yum 2.6 runTransaction returns errorlist so
+	generate more meaningful errors.
+
 2006-03-06  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda: Add magic 'vesa' flag to force the X driver to be vesa
