@@ -13,6 +13,7 @@ from flags import flags
 
 import sys
 import os
+import os.path
 import shutil
 import timer
 import warnings
@@ -495,26 +496,8 @@ class AnacondaYum(YumSorter):
             if txmbr.ts_state in ['u', 'i']:
                 if ts_elem.has_key((txmbr.pkgtup, 'i')):
                     continue
-                try:
-                    self.downloadHeader(txmbr.po)
-                except FileCopyException:
-                    log.info("Failed loading header for %s" %(txmbr.name))
-                    self.method.unmountCD()
-                    rc = self.method.intf.messageWindow(_("Error"),
-                        _("The package %s-%s-%s.%s cannot be opened. This is due "
-                          "to a missing file or perhaps a corrupt package.  "
-                          "If you are installing from CD media this usually "
-                          "means the CD media is corrupt, or the CD drive is "
-                          "unable to read the media.\n\n") %
-                                               (txmbr.po.returnSimple('name'),
-                                                txmbr.po.returnSimple('version'),
-                                                txmbr.po.returnSimple('release'),
-                                                txmbr.po.returnSimple('arch')),
-                                            type="custom",
-                                            custom_icon="error",
-                                            custom_buttons = [ _("Re_boot")])
-                    if rc == 0:
-                        sys.exit(0)
+
+                self.downloadHeader(txmbr.po)
 
                 hdr = txmbr.po.returnLocalHeader()
                 rpmfile = txmbr.po.localPkg()
@@ -556,24 +539,31 @@ class AnacondaYum(YumSorter):
         # rpmdb
         return False
 
-    def downloadHeader(self, po):
-        tries = 0
-        while tries < 5:
-            try:
-                yum.YumBase.downloadHeader(self, po)
-            except yum.Errors.RepoError, e:
-                log.critical("Error occured downloading header %s: %s" 
-                             %(po, e))
-            else:
-                break
-
-            tries = tries + 1
-        if tries >= 5:
-            raise FileCopyException
-
 class YumBackend(AnacondaBackend):
     def __init__(self, method, instPath):
         AnacondaBackend.__init__(self, method, instPath)
+
+    def urlgrabberFailureCB (self, obj, *args, **kwargs):
+        log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
+
+        if obj.tries >= obj.retry:
+            if kwargs.has_key("method") and kwargs["method"]:
+                kwargs["method"].unmountCD()
+            
+            # We've already tried self.retries times to download this file.
+            # Nothing left to do but give up.
+            if kwargs.has_key("intf") and kwargs["intf"]:
+                (scheme, netloc, path, query, fragment) = urlparse.urlsplit(obj.url)
+                rc = kwargs["intf"].messageWindow(_("Error"),
+                    _("The file %s cannot be opened. This is due "
+                      "to a missing file or perhaps a corrupt package.  "
+                      "If you are installing from CD media this usually "
+                      "means the CD media is corrupt, or the CD drive is "
+                      "unable to read the media.\n\n") % os.path.basename(path),
+                    type="custom", custom_icon="error", custom_buttons=[_("Re_boot")])
+
+                if rc == 0:
+                    sys.exit(0)
 
     def doInitialSetup(self, id, instPath):
         if id.getUpgrade():
@@ -637,6 +627,8 @@ class YumBackend(AnacondaBackend):
             sys.exit(0)
 
         self.ayum.repos.callback = None
+        self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
+                                            {"intf":intf, "method":self.method}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in

@@ -16,6 +16,8 @@
 
 	* yuminstall.py (doPostSelection):  Disable size check on upgrade
 	(#184112).
+	(urlgrabberFailureCB):  Use urlgrabber's failure callback to handle
+	retries and catch when files cannot be downloaded.
 
 2006-03-04  Jeremy Katz  <katzj@redhat.com>
 
