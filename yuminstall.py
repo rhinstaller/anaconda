@@ -618,7 +618,7 @@ class YumBackend(AnacondaBackend):
         tot = 0
         for t in tasks:
             tot += t[1]
-	waitwin = YumProgress(intf, _("Retrieving installation information..."),
+        waitwin = YumProgress(intf, _("Retrieving installation information..."),
                               tot)
         self.ayum.repos.callback = waitwin
 
@@ -629,10 +629,10 @@ class YumBackend(AnacondaBackend):
                 task()
                 at += amt
                 waitwin.next_task()
-	    waitwin.pop()
+            waitwin.pop()
         except RepoError, e:
             log.error("reading package metadata: %s" %(e,))
-	    waitwin.pop()
+            waitwin.pop()
             intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
@@ -964,9 +964,9 @@ class YumBackend(AnacondaBackend):
                 sys.exit(0)
 
     def doInstall(self, intf, id, instPath):
-	log.info("Preparing to install packages")
+        log.info("Preparing to install packages")
         if flags.test:
-	    log.info("Test mode - not performing install")
+            log.info("Test mode - not performing install")
             return
 
 
