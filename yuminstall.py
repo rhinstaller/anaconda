@@ -1000,8 +1000,9 @@ class YumBackend(AnacondaBackend):
             break
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm'):
-            id.desktop.setDefaultRunLevel(5)
-            break
+            if id.displayMode == 'g':
+                id.desktop.setDefaultRunLevel(5)
+                break
 
 # XXX: write proper lvm config
 

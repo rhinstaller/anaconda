@@ -1,3 +1,8 @@
+2006-03-06  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (doPostInstall): Only set runlevel 5 if we're running
+	the installer in graphical mode (#184013).
+
 2006-03-06  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (doPostSelection):  Disable size check on upgrade
