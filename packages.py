@@ -391,7 +391,7 @@ def setFileCons(instPath, partitions):
         log.info("setting SELinux contexts for anaconda created files")
 
         files = ["/etc/rpm/platform", "/etc/rpm/macros",
-                 "/etc/lilo.conf.anaconda",
+                 "/etc/lilo.conf.anaconda", "/lib64", "/usr/lib64",
                  "/etc/blkid.tab", "/etc/blkid.tab.old", 
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
