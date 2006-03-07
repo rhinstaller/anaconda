@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.16
+Version: 10.92.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar  6 2006 Jeremy Katz <katzj@redhat.com> - 10.92.17-1
+- fix traceback in size check
+- disable size check on upgrade (clumens, #184112)
+- try to catch more failures to read repo metadata (clumens)
+- only do runlevel 5 if graphical install (dcantrel, #184013)
+- adjust to new xen kernel package naming
+- add 'vesa' flag to force the use of the vesa driver
+- more meaningful error messages on conflicts (pnasrat)
+- ensure some dirs are labelled correct (#182252)
+
 * Fri Mar  3 2006 Paul Nasrat <pnasrat@redhat.com> - 10.92.16-1
 - Support Everything/globs in ks (pnasrat, clumens, #177621)
 - Allow changes if not enough disk space (clumens, #183878)
