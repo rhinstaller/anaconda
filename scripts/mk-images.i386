@@ -65,7 +65,7 @@ be written to the device using dd.
 EOF
 
 makeBootImages() {
-  if [ "$kerneltag" != "guest" ]; then
+  if [ "$kerneltag" != "xenU" ]; then
     echo "Building $KERNELARCH initrd.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--initrdsize 7000 \
@@ -146,6 +146,6 @@ EOF
 	--loaderbin loader \
 	--modules "$INITRDMODS"
     [ $? = 0 ] || exit 1
-    cp $KERNELROOT/boot/vmlinuz-*guest $TOPDESTPATH/images/xen/vmlinuz
+    cp $KERNELROOT/boot/vmlinuz-*xenU $TOPDESTPATH/images/xen/vmlinuz
   fi
 }

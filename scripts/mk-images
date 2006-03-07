@@ -768,10 +768,10 @@ if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
     arches="ppc64pseries ppc64 ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
-    kerneltags="kernel kernel-xen-guest"
+    kerneltags="kernel kernel-xenU"
 elif [ "$BUILDARCH" = "x86_64" ]; then
     arches="x86_64"
-    kerneltags="kernel kernel-xen-guest"
+    kerneltags="kernel kernel-xenU"
 else
     arches="$BUILDARCH"
 fi
@@ -796,7 +796,7 @@ for KERNELARCH in $arches; do
 
     foundakernel="yes"
 
-    if [ "${kernelvers}" = "kernel-xen-guest" ]; then kerneltag="guest" ; fi
+    if [ "${kernelvers}" = "kernel-xenU" ]; then kerneltag="xenU" ; fi
 
     version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kerneltag}
     arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
