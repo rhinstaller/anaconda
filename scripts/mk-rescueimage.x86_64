@@ -122,12 +122,12 @@ else:
 
 msgfile.write("This is the %s x86_64 Rescue CD.\n" % (productstr,))
 msgfile.write("\n")
-msgfile.write(" -  To enter rescue mode press the 0f<ENTER>07 key.\n")
+msgfile.write(" -  To enter rescue mode press the 01<ENTER>07 key.\n")
 msgfile.write("\n")
-msgfile.write(" -  To install or upgrade %s type \"linux\" and then the 0f<ENTER>07 key.\n" % (productstr, ))
+msgfile.write(" -  To install or upgrade %s type \"linux\" and then the 01<ENTER>07 key.\n" % (productstr, ))
 msgfile.write("\n")
 msgfile.write(" -  Use the function keys listed below for more information.\n")
 msgfile.write("\n")
-msgfile.write("02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07\n")
+msgfile.write("0f[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07\n")
 msgfile.close()
 
