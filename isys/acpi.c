@@ -81,6 +81,7 @@ static void *mem_chunk(size_t base, size_t len, const char *devmem)
 		//perror("malloc");
 		return NULL;
 	}
+	printk("%d allocated %ld at %p\n", __LINE__, len, p);
 	
         mmoffset = base % pgsz;
 	/*
@@ -91,6 +92,7 @@ static void *mem_chunk(size_t base, size_t len, const char *devmem)
 	mmp=mmap(0, mmoffset+len, PROT_READ, MAP_SHARED, fd, base-mmoffset);
 	if(mmp==MAP_FAILED)
 	{
+		printk("%d freeing %p\n", __LINE__, p);
 		free(p);
 		return NULL;
 	}
@@ -532,6 +534,8 @@ acpi_get_table_header_early(enum acpi_table_id id,
 			       acpi_table_signatures[temp_id]);
 			return -ENODEV;
 		}
+                printk("%d mapped header %lu at %p\n", __LINE__,
+                        sdt_entry[i].size, (void *)sdt_entry[i].pa);
 		break;
 	}
 
@@ -559,8 +563,12 @@ acpi_get_table_header_early(enum acpi_table_id id,
 
 		if (!*header) {
 			printk(KERN_WARNING PREFIX "Unable to map DSDT\n");
+			printk("%d freeing %p\n", __LINE__, fadt);
+			free(fadt);
 			return -ENODEV;
 		}
+		printk("%d freeing %p\n", __LINE__, fadt);
+		free(fadt);
 	}
 
 	return 0;
@@ -594,6 +602,8 @@ acpi_table_parse_madt_family(enum acpi_table_id id,
 			       acpi_table_signatures[id]);
 			return -ENODEV;
 		}
+                printk("%d mapped header %lu at %p\n", __LINE__,
+                        sdt_entry[i].size, (void *)sdt_entry[i].pa);
 		break;
 	}
 
@@ -804,6 +814,7 @@ acpi_scan_rsdp(unsigned long start, unsigned long length)
 		free(ptr);
 		return (void *)start + offset;
 	}
+	free(ptr);
 
 	return 0;
 }
@@ -903,6 +914,7 @@ static int __init acpi_table_get_sdt(struct acpi_table_rsdp *rsdp)
 		}
 
 		/* remap in the entire table before processing */
+                printk("%d length: %u\n", __LINE__, header->length);
 		mapped_xsdt = (struct acpi_table_xsdt *)
 		    __acpi_map_table(sdt_pa, header->length);
                 free(header);
@@ -1015,6 +1027,8 @@ static int __init acpi_table_get_sdt(struct acpi_table_rsdp *rsdp)
 	for (i = 0; i < sdt_count; i++) {
                 struct acpi_table_header *h1;
 
+                if (sdt_entry[i].pa == 0 && sdt_entry[i].id == ACPI_TABLE_UNKNOWN)
+                    continue;
 		/* map in just the header */
 		header = (struct acpi_table_header *)
 		    __acpi_map_table(sdt_entry[i].pa,
@@ -1057,6 +1071,7 @@ static int __init acpi_table_get_sdt(struct acpi_table_rsdp *rsdp)
 	if (!acpi_get_table_header_early(ACPI_DSDT, &header))
 		acpi_table_print(header, 0);
 
+        printk("%d freeing %p\n", __LINE__, header);
         free(header);
 	return 0;
 }
@@ -1105,6 +1120,7 @@ static int acpi_table_init(void)
 
 	if (result) {
 		printk(KERN_WARNING "  >>> ERROR: Invalid checksum\n");
+		printk("%d freeing %p\n", __LINE__, rsdp);
                 free(rsdp);
                 rsdp = NULL;
 		return -ENODEV;
@@ -1114,6 +1130,7 @@ static int acpi_table_init(void)
 
 	result = acpi_table_get_sdt(rsdp);
 	if (result) {
+	    printk("%d freeing %p\n", __LINE__, rsdp);
             free(rsdp);
             rsdp = NULL;
             return -ENODEV;
@@ -1154,10 +1171,15 @@ int detectAcpiCpusAvailable(void)
         return 0;
     }
     acpi_parse_madt_lapic_entries();
-    if (mapped_xsdt)
+    if (mapped_xsdt) {
+	printk("%d freeing %p\n", __LINE__, mapped_xsdt);
         free(mapped_xsdt);
-    if (mapped_rsdt)
+    }
+    if (mapped_rsdt) {
+	printk("%d freeing %p\n", __LINE__, mapped_rsdt);
         free(mapped_rsdt);
+    }
+    printk("%d freeing %p\n", __LINE__, rsdp);
     free(rsdp);
 
     return ncpus;
