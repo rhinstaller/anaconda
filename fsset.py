@@ -2482,8 +2482,11 @@ def isValidExt2(device):
     if fd == -1:
         return 0
 
-    buf = os.read(fd, 2048)
-    os.close(fd)
+    try:
+        buf = os.read(fd, 2048)
+        os.close(fd)
+    except OSError, e:
+        return 0
 
     if len(buf) != 2048:
 	return 0
@@ -2498,8 +2501,11 @@ def isValidXFS(device):
     if fd == -1:
         return 0
     
-    buf = os.read(fd, 4)
-    os.close(fd)
+    try:
+        buf = os.read(fd, 4)
+        os.close(fd)
+    except OSError, e:
+        return 0
     
     if len(buf) != 4:
         return 0
