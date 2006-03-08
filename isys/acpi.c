@@ -701,7 +701,7 @@ static void acpi_table_print(struct acpi_table_header *header, unsigned long phy
 		name = header->signature;
 
 	printk(KERN_DEBUG PREFIX
-	       "%.4s (v%3.3d %6.6s %8.8s 0x%08x %.4s 0x%08x) @ 0x%p\n", name,
+	       "%.4s (v%3.3d %6.6s %8.8s 0x%08x %.4s 0x%08x) @ %p\n", name,
 	       header->revision, header->oem_id, header->oem_table_id,
 	       header->oem_revision, header->asl_compiler_id,
 	       header->asl_compiler_revision, (void *)phys_addr);
@@ -1105,7 +1105,7 @@ static int acpi_table_init(void)
 	}
 
 	printk(KERN_DEBUG PREFIX
-	       "RSDP (v%3.3d %6.6s                                ) @ 0x%p\n",
+	       "RSDP (v%3.3d %6.6s                                ) @ %p\n",
 	       rsdp->revision, rsdp->oem_id, (void *)rsdp_phys);
 
 	if (rsdp->revision < 2)
