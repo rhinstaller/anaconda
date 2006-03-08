@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.0.0
+Version: 11.0.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar  7 2006 Jeremy Katz <katzj@redhat.com> - 11.0.1-1
+- Fix text display for rescue CD isolinux
+- Fix usb-storage not showing up by default (#181739)
+
 * Tue Mar  7 2006 Jeremy Katz <katzj@redhat.com> - 11.0.0-1
 - Really fix the file contexts on the directories (#182252)
 - More fixing for Xen kernel naming
