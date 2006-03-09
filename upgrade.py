@@ -38,7 +38,7 @@ log = logging.getLogger("anaconda")
 
 # blacklist made up of (name, arch) or 
 # (name, ) to erase all matches
-upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)] 
+upgrade_remove_blacklist = [("system-config-mouse",), ("dev",), ("lvm2-cluster",),] 
 
 if iutil.getArch() == "x86_64":
     upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386")] )
