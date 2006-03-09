@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar  9 2006 Jeremy Katz <katzj@redhat.com> - 11.0.2-1
+- adjust blkid location
+- don't try to download packages being erased (clumens, #184531)
+- don't show group selection on upgrade (pnasrat, #184528)
+- don't make file conflicts kill upgrades (pnasrat, #184461)
+
 * Wed Mar  8 2006 Jeremy Katz <katzj@redhat.com> - 11.0.2-1
 - error handling on fs label reading (#184412)
 - add sis190 driver
