@@ -392,7 +392,7 @@ def setFileCons(instPath, partitions):
 
         files = ["/etc/rpm/platform", "/etc/rpm/macros",
                  "/etc/lilo.conf.anaconda", "/lib64", "/usr/lib64",
-                 "/etc/blkid.tab", "/etc/blkid.tab.old", 
+                 "/etc/blkid/blkid.tab", "/etc/blkid/blkid.tab.old", 
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
