@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.0.1
+Version: 11.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar  8 2006 Jeremy Katz <katzj@redhat.com> - 11.0.2-1
+- error handling on fs label reading (#184412)
+- add sis190 driver
+- remove no-longer shipped lvm2-cluster on upgrade (pjones)  
+
 * Tue Mar  7 2006 Jeremy Katz <katzj@redhat.com> - 11.0.1-1
 - Fix text display for rescue CD isolinux
 - Fix usb-storage not showing up by default (#181739)
