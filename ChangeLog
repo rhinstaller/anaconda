@@ -1,3 +1,8 @@
+2006-03-09  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (getDownloadPkgs):  Don't try to download packages
+	we're erasing (#184531).
+
 2006-03-07  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.x86_64: More fixing for new xen kernel naming.
