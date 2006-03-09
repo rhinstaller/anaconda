@@ -421,8 +421,10 @@ class AnacondaYum(YumSorter):
         rpmUtils.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
             self.ts.ts.setColor(3)
 
-    def run(self, instLog, cb, intf):
+    def run(self, instLog, cb, intf, id):
         self.initActionTs()
+        if id.getUpgrade():
+            self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
         self.setColor()
         if not self.method.splitmethod:
             self.populateTs(keepold=0)
@@ -987,7 +989,7 @@ class YumBackend(AnacondaBackend):
         cb.initWindow = intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
 
-        self.ayum.run(self.instLog, cb, intf)
+        self.ayum.run(self.instLog, cb, intf, id)
 
         if not cb.beenCalled:
             cb.initWindow.pop()
