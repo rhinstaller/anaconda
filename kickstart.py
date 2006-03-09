@@ -844,7 +844,9 @@ class Kickstart(BaseInstallClass):
 
         # If the package section included anything, skip group selection unless
         # they're in interactive.
-	if len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
+        if self.ksdata.upgrade:
+            self.handlers.skipSteps.append("group-selection")
+	elif len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
            len(self.ksdata.excludedList) > 0:
             if self.ksdata.interactive:
                 self.handlers.showSteps.append("group-selection")
