@@ -416,7 +416,7 @@ def handleException(dispatch, intf, (type, value, tb)):
             if scpRc == 0:
                 intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
-                      "the remote host.\nYour system will now be reset."),
+                      "the remote host.  Your system will now be rebooted."),
                     type="custom", custom_icon="info",
                     custom_buttons=[_("_Reboot")])
                 sys.exit(0)
