@@ -1034,6 +1034,9 @@ class AutoFileSystem(PsudoFileSystem):
         PsudoFileSystem.__init__(self, "auto")
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
+        errNum = 0
+        errMsg = "cannot mount auto filesystem on %s of this type" % device
+
         if not self.isMountable():
             return
         iutil.mkdirChain(mountpoint)

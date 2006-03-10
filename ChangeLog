@@ -2,6 +2,9 @@
 
 	* exception.py (handleException):  String consistency (#181916).
 
+	* fsset.py (AutoFileSystem.mount):  Don't traceback trying to mount
+	auto filesystems of types we don't actually support (#182730).
+
 2006-03-09  Paul Nasrat <pnasrat@redhat.com>
 
 	* yuminstall.py: ignore conflicts on upgrade (#184461)
