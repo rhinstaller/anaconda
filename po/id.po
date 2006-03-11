@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2005-04-21 13:58+0700\n"
+"PO-Revision-Date: 2006-03-12 02:45+0700\n"
 "Last-Translator: Teguh DC <dheche@bradjamoesti.or.id>\n"
 "Language-Team: Linux Indonesia <http://linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -185,20 +185,17 @@ msgid "Starting graphical installation..."
 msgstr "Memulai instalasi mode grafis...."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Metode Url %s tidak diketahui"
+msgstr "Metode instal tidak diketahui"
 
 #: ../anaconda:1100
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Anda mencoba menginstal pada mesin yang tidak didukung oleh %s rilis ini."
+msgstr "Anda telah menentukan metode instal yang tidak didukung oleh anaconda."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Metode Url %s tidak diketahui"
+msgstr "Metode instal tidak diketahui: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -557,7 +554,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Menginstal %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
@@ -572,35 +569,32 @@ msgid "Dump Written"
 msgstr "Dump telah ditulis"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
 "Status sistem anda telah berhasil ditulis ke dalam floppy. Sistem anda "
-"sekarang akan direset."
+"sekarang akan direboot."
 
 #: ../exception.py:428 ../exception.py:444
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Dump telah ditulis"
+msgstr "Dump tidak ditulis"
 
 #: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
 #: ../exception.py:437
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Status sistem anda telah berhasil ditulis ke dalam floppy. Sistem anda "
+"Status sistem anda telah berhasil ditulis ke host remote. Sistem anda "
 "sekarang akan direset."
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Ada masalah saat menulis status sistem ke host remote."
 
 #: ../fsset.py:199
 msgid "Checking for Bad Blocks"
@@ -1119,7 +1113,6 @@ msgid ""
 msgstr ""
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
 msgstr "Ulangi"
 
@@ -1146,17 +1139,16 @@ msgstr ""
 "Tekan tombol OK untuk melakukan boot ulang sistem anda."
 
 #: ../kickstart.py:711 ../kickstart.py:729
-#, fuzzy
 msgid "Running..."
-msgstr "Menghubungi..."
+msgstr "Berjalan..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Menjalankan skrip pre-instal"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Menjalankan skrip post-instal"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1408,13 +1400,13 @@ msgstr ""
 "Karakter yang benar adalah huruf, angka,'.' atau '_'."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Mount point tidak valid. Mount point harus dimulai dengan / dan jangan "
-"diakhiri dengan /, dan harus berisi karakter yang bisa dicetak, tanpa spasi."
+"Mount point %s tidak valid. Mount point harus dimulai dengan '/' dan jangan "
+"diakhiri dengan '/', dan harus berisi karakter yang bisa dicetak, dan tanpa spasi."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -2024,9 +2016,8 @@ msgid "Save"
 msgstr "Simpan"
 
 #: ../text.py:147 ../text.py:149 ../text.py:161
-#, fuzzy
 msgid "Remote"
-msgstr "Pindahkan"
+msgstr "Remote"
 
 #: ../text.py:147 ../text.py:149 ../text.py:157
 msgid "Debug"
@@ -2041,13 +2032,12 @@ msgid "Save to Remote Host"
 msgstr ""
 
 #: ../text.py:185
-#, fuzzy
 msgid "Host"
-msgstr "Nama host"
+msgstr "Host"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "Path remote"
 
 #: ../text.py:189
 msgid "User name"
@@ -2299,12 +2289,11 @@ msgid "Processing"
 msgstr "Memproses"
 
 #: ../yuminstall.py:92
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Persiapan Instalasi..."
+msgstr "Persiapan transaksi dari sumber instalasi..."
 
 #: ../yuminstall.py:135
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2312,11 +2301,11 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Paket %s-%s-%s tidak dapat dibuka. Ini disebabkan karena berkas tidak "
+"Paket %s-%s-%s.%s tidak dapat dibuka. Ini disebabkan karena berkas tidak "
 "ditemukan atau paket yang rusak. Jika anda menginstal dari CD ini biasanya "
 "berarti media CD rusak, atau drive CD tidak dapat membaca media.\n"
 "\n"
-"Tekan <return> untuk mencoba kembali."
+"Tekan 'Coba lagi' untuk mencoba kembali."
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
 msgid "Re_boot"
@@ -2336,42 +2325,40 @@ msgid "_Cancel"
 msgstr "Batal"
 
 #: ../yuminstall.py:441
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Mempersiapkan transaksi RPM..."
+msgstr "Kesalahan saat menjalankan transaksi"
 
 #: ../yuminstall.py:488
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Paket %s-%s-%s tidak dapat dibuka. Ini disebabkan karena berkas tidak "
+"Paket %s-%s-%s.%s tidak dapat dibuka. Ini disebabkan karena berkas tidak "
 "ditemukan atau paket yang rusak. Jika anda menginstal dari CD ini biasanya "
 "berarti media CD rusak, atau drive CD tidak dapat membaca media.\n"
 "\n"
-"Tekan <return> untuk mencoba kembali."
 
 #: ../yuminstall.py:599
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Membaca informasi paket..."
+msgstr "Mengambil informasi instalasi..."
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Berkas comps pada cabang instalasi anda kehilangan group yang terpenting. "
-"Silakan dipastikan kalau cabang instalasi anda telah dibetulkan."
+"Tidak dapat membaca metadata paket. Ini disebabkan karena direktori "
+"repodata tidak ditemukan. Silakan anda pastikan bahwa pohon instalasi "
+"telah dibangkitkan dengan benar. %s"
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "Tidak dikatagorikan"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
@@ -2382,9 +2369,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Memulai proses instalasi. Ini mungkin membutuhkan beberapa menit..."
 
 #: ../yuminstall.py:1033
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Tipe Instalasi"
+msgstr "Perkembangan Instalasi"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
@@ -2780,18 +2766,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "Alamat IP harus mengandung nomor antara 0 dan 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "Konfigurasi VNC"
+msgstr "Konfigurasi iSCSI"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Kesalahan Dengan Data"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Tidak ada alamat IP yang dimasukkan, melewati setup iSCSI"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -2984,15 +2968,16 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Nama logical volume \"%s\" sudah terpakai. Silahkan pilih nama lain."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Ukuran yang diminta (%10.2f MB) lebih besar dari ukuran volume logikal "
-"maksimum (%10.2f MB). Untuk meningkatkan batas ini Anda dapat meningkatkan "
-"ukuran kelompok volume."
+"maksimum (%10.2f MB). Untuk meningkatkan batas ini Anda dapat membuat Volume "
+"Fisik lainnya dari disk yang berlum dipartisi dan menambahkannya ke Grup Volume "
+"ini."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4494,9 +4479,8 @@ msgstr ""
 "simpan berkas ini untuk referensi nanti."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Please select the resolution you would like to use:"
+msgstr "Silakan pilih kelompok paket yang ingin anda instal."
 
 #: ../textw/grpselect_text.py:101
 msgid ""
@@ -4514,18 +4498,16 @@ msgid "What type of system would you like to install?"
 msgstr "Tipe sistem apa yang anda ingin install ?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "Alamat IP:"
+msgstr "Alamat IP Target:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "atau gunakan:"
+msgstr "Nomer Port:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Nama Inisiator iSCSI:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -4924,9 +4906,8 @@ msgid "Must have a / partition to install on."
 msgstr "Harus mempunyasi partisi / untuk menginstallnya."
 
 #: ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Partitioning Type"
-msgstr "Partisi"
+msgstr "Tipe Partisi"
 
 #: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
 msgid ""
@@ -4940,16 +4921,12 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Drive mana yang ingin digunakan untuk instalasi ini?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr ""
-"Lihat kembali (dan modifikasi jika diperlukan) partisi yang telah dibuat"
+msgstr "Lihat Kembali Layout Partisi"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr ""
-"Lihat kembali (dan modifikasi jika diperlukan) partisi yang telah dibuat"
+msgstr "Lihat kembali dan modifikasi layout partisi?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5005,9 +4982,8 @@ msgid "Remaining:  "
 msgstr "Sisa:  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Pilihan Kelompok Paket"
+msgstr "Pilihan Paket"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5182,9 +5158,8 @@ msgstr ""
 "instalasi, termasuk pemilihan paket dan partisi."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Format"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
@@ -5192,16 +5167,15 @@ msgstr ""
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Pengembangan Perangkat Lunak"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Nameserver"
+msgstr "Server Web"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualisasi (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5502,16 +5476,15 @@ msgid ""
 msgstr "Argument berikut invalid untuk perintah driver disk kickstart: %s %s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Masukkan parameter apa saja yang ingin diberikan untuk driver %s, dipisahkan "
+"Masukkan parameter apa saja yang ingin diberikan untuk modul %s, dipisahkan "
 "dengan spasi. Jika tidak tahu parameter yang diperlukan, lewati layar ini "
-"dengan menekan \"OK\". Daftar pilihan yang tersedia dapat dilihat dengan "
-"menekan F1."
+"dengan menekan tombol \"OK\". "
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5829,51 +5802,38 @@ msgid "FAILED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"GAGAL.\n"
-"\n"
-"Image yang baru saja dites ada kesalahan.Hal ini mungkin dikarenakan "
-"download yang korup atau disk yang jelek."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
 msgstr ""
-"PASS.\n"
-"\n"
-"Install dari media ini Ok."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"NA.\n"
-"Informasi checksum tidak tersedia. verifikasi media gagal."
+msgstr "Informasi checksum tidak tersedia. verifikasi media gagal."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Hasil Check Media"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"dari imgae:\n"
+"%s untuk image:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6228,9 +6188,8 @@ msgid "_Release Notes"
 msgstr "Catatan _Release"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Bagaimana anda ingin mempersiapkan filesistem di partisi ini?"
+msgstr ""
 
 #: tmp/autopart2.glade.h:2
 msgid ""
@@ -6239,58 +6198,49 @@ msgid ""
 msgstr ""
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "Pilih drive yang ingin digunakan untuk instalsi ini:"
+msgstr "Pilih drive yang ingin digunakan untuk instalasi ini."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr ""
-"Lihat kembali (dan modifikasi jika diperlukan) partisi yang telah dibuat"
+msgstr "Lihat kembali dan modifikasi layout partisi"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
 msgstr ""
-"Lihat kembali (dan modifikasi jika diperlukan) partisi yang telah dibuat"
+"Lihat kembali dan modifikasi layout partisi"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Pilih drive yang ingin digunakan untuk instalsi ini:"
+msgstr "Pilih drive yang ingin digunakan untuk instalasi ini."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Telah terjadi Pengecualian"
+msgstr "Info Eksepsi"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Telah terjadi Pengecualian"
+msgstr "Detail _Eksepsi"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>Nomer _Port:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>Alamat IP _Target:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "Konfigurasi VNC"
+msgstr "Konfigurasi iSCSI"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Kostumisasi"
+msgstr "Kostumisasi nanti"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
@@ -6307,9 +6257,8 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Kostumisasi"
+msgstr "Kostumisasi sekarang"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6370,16 +6319,14 @@ msgstr "Waktu bagian Atlantik - E Labrador"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Waktu bagian Atlantik - E Labrador"
+msgstr "Waktu bagian Atlantik - New Brunswick"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
 msgstr ""
-"Waktu bagian Atlantik - Nova Scotia (kebanyakan tempat), NB, W Labrador, E "
+"Waktu bagian Atlantik - Nova Scotia (kebanyakan tempat), W Labrador, E "
 "Quebec & PEI"
 
 #  generated from zone.tab
@@ -6426,9 +6373,8 @@ msgstr "Casey Station, Bailey Peninsula"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6462,9 +6408,8 @@ msgstr "Waktu bagian Tengah - Campeche, Yucatan"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Waktu bagian Tengah, Nunavut Barat"
+msgstr "Waktu bagian Tengah, Nunavut Tengah"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6473,13 +6418,12 @@ msgstr "Waktu bagian Tengah - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Waktu bagian Tengah - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Waktu Standar bagian Timur - Indiana - Starke County"
+msgstr "Waktu Standar bagian Timur - Indiana - Pike County"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6488,9 +6432,10 @@ msgstr "Waktu bagian Tengah - Manitoba & Ontario "
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Waktu bagian Tengah - Michigan - Wisconsin border"
+msgstr ""
+"Waktu bagian Tengah - Michigan - Dickinson, Gogebic, Iron & Menominee "
+"Counties"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6569,9 +6514,8 @@ msgstr "Easter Island & Sala y Gomez"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Waktu Standar bagian Timur - Nunavut Timur"
+msgstr "Waktu Standar bagian Timur - Pulau Southampton"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6580,31 +6524,26 @@ msgstr "Waktu bagian Timur"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
 msgstr "Waktu Standar bagian Timur - Nunavut Timur"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Waktu Standar bagian Timur - Indiana - Crawford County"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
 msgstr "Waktu Standar bagian Timur - Indiana - kebanyakan lokasi"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
 msgstr "Waktu Standar bagian Timur - Indiana - Starke County"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
 msgstr "Waktu Standar bagian Timur - Indiana - Switzerland County"
 
@@ -6633,12 +6572,11 @@ msgstr "Waktu bagian Timur - Ontario - kebanyakan lokasi"
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-"Waktu bagian Timur - Ontario & Quebec - tempat uang tidak melihat DST 1967-"
+"Waktu bagian Timur - Ontario & Quebec - tempat yang tidak melihat DST 1967-"
 "1973"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
 msgstr "Waktu Standar bagian Timur - Pangnirtung, Nunavut"
 
@@ -7047,9 +6985,8 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - dikebanyakan lokasi"
+msgstr "Tasmania - dikebanyakan lokasi"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7072,9 +7009,8 @@ msgstr "Tocantins"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) dan Yap"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7288,15 +7224,13 @@ msgstr "Rusia"
 
 #  generated from lang-table
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persia"
+msgstr "Serbia"
 
 #  generated from lang-table
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Persia"
+msgstr "Serbia(Latin)"
 
 #. generated from lang-table
 msgid "Slovak"
