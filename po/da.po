@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-13 22:01+0100\n"
+"PO-Revision-Date: 2006-03-13 22:58+0100\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1109,9 +1109,8 @@ msgid ""
 msgstr ""
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Prøv igen"
+msgstr "_Prøv igen"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1135,9 +1134,8 @@ msgstr ""
 "Tryk på O.k.-knappen for at starte systemet igen."
 
 #: ../kickstart.py:711 ../kickstart.py:729
-#, fuzzy
 msgid "Running..."
-msgstr "Tilslutter..."
+msgstr "Kører..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
@@ -1398,12 +1396,12 @@ msgstr ""
 "blanktegn. Tilladte tegn er bogstaver, cifre, \".\" eller \"-\"."
 
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Monteringspunktet er ugyldigt. Monteringspunkter skal begynde med '/', kan "
+"Monteringspunktet %s er ugyldigt. Monteringspunkter skal begynde med '/', kan "
 "ikke slutte med '/', og må bare indeholde udskrivbare tegn og ingen blanke."
 
 #: ../partIntfHelpers.py:102
@@ -2012,7 +2010,6 @@ msgid "Save"
 msgstr "Gem"
 
 #: ../text.py:147 ../text.py:149 ../text.py:161
-#, fuzzy
 msgid "Remote"
 msgstr "Fjern"
 
@@ -2029,7 +2026,6 @@ msgid "Save to Remote Host"
 msgstr ""
 
 #: ../text.py:185
-#, fuzzy
 msgid "Host"
 msgstr "Værtsnavn"
 
@@ -2284,9 +2280,8 @@ msgid "Processing"
 msgstr "Behandler"
 
 #: ../yuminstall.py:92
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "Forbereder installation..."
+msgstr "Forbereder installation fra installationskilde..."
 
 #: ../yuminstall.py:135
 #, fuzzy, python-format
@@ -2340,9 +2335,8 @@ msgstr ""
 "Tryk <Retur> for at forsøge igen."
 
 #: ../yuminstall.py:599
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "Læser pakkeinformation..."
+msgstr "Modtager installationsinformation..."
 
 #: ../yuminstall.py:615
 #, fuzzy, python-format
@@ -2367,9 +2361,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Starter installationsproces. Dette kan tage adskillige minutter..."
 
 #: ../yuminstall.py:1033
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Installationstype"
+msgstr "Installationsfremskridt"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
@@ -2765,14 +2758,12 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser skal indeholde tal mellem 0 og 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "SILO-konfiguration"
+msgstr "iSCSI-konfiguration"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
-msgstr "Fejl med data"
+msgstr "Fejl med Data"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
@@ -4502,14 +4493,12 @@ msgid "What type of system would you like to install?"
 msgstr "Hvilken type system ønsker du at installere?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "IP-adresse:"
+msgstr "IP-adresse for mål:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "eller brug:"
+msgstr "Portnummer:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
@@ -4909,7 +4898,6 @@ msgid "Must have a / partition to install on."
 msgstr "Skal have en \"/\"-partition at installere på."
 
 #: ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Partitioning Type"
 msgstr "Partitionstype"
 
@@ -4988,9 +4976,8 @@ msgid "Remaining:  "
 msgstr "Tilbage  :  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Pakkegruppevalg"
+msgstr "Pakkevalg"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -5169,9 +5156,8 @@ msgstr ""
 "installationsprocessen, inklusive valg af programpakker og partitionering."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formatér"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
@@ -5182,9 +5168,8 @@ msgid "Software Development"
 msgstr ""
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "Navneserver"
+msgstr "Webserver"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
@@ -5843,28 +5828,23 @@ msgstr ""
 "Det er O.k. at installere fra dette medie."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"I/T.\n"
-"\n"
-"Ingen tjeksums-information tilgængelig, kan ikke afprøve media."
+msgstr "Ingen tjeksums-information tilgængelig, kan ikke efterprøve medie."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
 msgstr "Resultat af afprøvning af medie"
 
 #: ../loader2/mediacheck.c:424
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
 msgstr ""
-"af billedet:\n"
+"%s af billedet:\n"
 "\n"
-"%s\n"
-"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -6213,9 +6193,8 @@ msgid "_Release Notes"
 msgstr "_Udgivelsesnoter"
 
 #: tmp/autopart2.glade.h:1
-#, fuzzy
 msgid "How would you like to get space to partition?"
-msgstr "Hvordan ønsker du at forberede filsystemet på denne partition?"
+msgstr "Hvordan ønsker du at få plads til at partitionere?"
 
 #: tmp/autopart2.glade.h:2
 msgid ""
@@ -6224,19 +6203,16 @@ msgid ""
 msgstr ""
 
 #: tmp/autopart2.glade.h:3
-#, fuzzy
 msgid "Select the drive(s) to use for this installation."
-msgstr "Vælg de drev du vil bruge til denne installation:"
+msgstr "Vælg de drev du vil bruge til denne installation."
 
 #: tmp/autopart2.glade.h:4
-#, fuzzy
 msgid "_Review and modify partitioning layout"
-msgstr "_Vis igen (og ændr om det behøves) de partitioner som oprettes"
+msgstr "Vis og ændr udlægning af partitioner"
 
 #: tmp/autopart.glade.h:2
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "_Vis igen (og ændr om det behøves) de partitioner som oprettes"
+msgstr "_Vis og ændr udlægning af partitioner"
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
