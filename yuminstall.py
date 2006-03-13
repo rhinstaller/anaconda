@@ -1007,7 +1007,8 @@ class YumBackend(AnacondaBackend):
         w = intf.progressWindow(_("Post Install"),
                                 _("Performing post install configuration..."), 6)
 
-        id.network.write(instPath)
+        if not id.getUpgrade():
+            id.network.write(instPath)
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
             id.bootloader.args.append("rhgb quiet")
