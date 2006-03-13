@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.0.2
+Version: 11.0.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 13 2006 Jeremy Katz <katzj@redhat.com> - 11.0.3-1
+- Check for none in size test (clumens, #185172)
+- Fix hard drive install (clumens)
+- Don't clobber network on upgrade (pnasrat, #183203)
+- Fix some simple syntax errors (#185275)
+- Allow 128M PE sizes (#185272)
+
 * Thu Mar  9 2006 Jeremy Katz <katzj@redhat.com> - 11.0.2-1
 - adjust blkid location
 - don't try to download packages being erased (clumens, #184531)
