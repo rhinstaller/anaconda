@@ -218,19 +218,17 @@ msgid "Starting graphical installation..."
 msgstr "Käynnistetään graafinen asennus..."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Tuntematon URL-tyyppi %s"
+msgstr "Tuntematon asennutapa"
 
 #: ../anaconda:1100
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Yrität asentaa koneeseen, jota tämä %s:n versio ei tue."
+msgstr "Anaconda ei tue valittua asennustapaa."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Tuntematon URL-tyyppi %s"
+msgstr "Tuntematon asennustapa: %s"
 
 # ../autopart.py:684
 #: ../autopart.py:967
@@ -631,54 +629,50 @@ msgstr "Asennetaan %s-%s-%s..."
 
 # ../gui.py:196 ../text.py:258
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "On ilmennyt käsittelemätön poikkeustilanne. Tämä on luultavasti "
-"ohjelmavirhe. Voit kopioida kaikki virhetekstit ja tehdä anacondasta "
-"yksityiskohtaisen virheraportin osoitteessa %s"
+"ohjelmavika. Voit tallentaa kopion poikkeustilanteen yksityiskohdista ja tehdä " "anacondasta vikaraportin osoitteessa %s"
 
 # ../exception.py:214
 #: ../exception.py:420 ../exception.py:436
 msgid "Dump Written"
-msgstr "Data dumpattu"
+msgstr "Vedos tallennettu"
 
 # ../exception.py:215
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"Järjestelmän tila on kirjoitettu levykkeelle. Järjestelmä käynnistetään "
+"Järjestelmän tila on kirjoitettu levykkeelle. Järjestelmä käynnistetään nyt "
 "uudelleen."
 
 # ../exception.py:214
 #: ../exception.py:428 ../exception.py:444
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Data dumpattu"
+msgstr "Vedosta ei kirjoitettu"
 
 #: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Järjestelmän tilaa levykkeelle kirjoitettaessa tapahtui virhe."
 
 # ../exception.py:215
 #: ../exception.py:437
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Järjestelmän tila on kirjoitettu levykkeelle. Järjestelmä käynnistetään "
-"uudelleen."
+"Järjestelmän tila on kirjoitettu etäkoneelle. Järjestelmä käynnistetään\n"
+"nyt uudelleen."
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Järjestelmän tilaa etäkoneelle kirjoitettaessa tapahtui virhe."
 
 # ../fsset.py:145
 #: ../fsset.py:199
@@ -1304,9 +1298,8 @@ msgstr ""
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Uudelleen"
+msgstr "_Uudelleen"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1330,9 +1323,8 @@ msgstr ""
 "Käynnistä järjestelmä uudelleen painamalla OK-painiketta."
 
 #: ../kickstart.py:711 ../kickstart.py:729
-#, fuzzy
 msgid "Running..."
-msgstr "Yhdistetään..."
+msgstr "Suoritetaan..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
@@ -1345,7 +1337,7 @@ msgstr ""
 # ../textw/userauth_text.py:55
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Konenimen tulee olla alle 65 merkkiä pitkä."
+msgstr "Konenimei saa olla korkeintaan 64 merkkiä pitkä."
 
 #: ../network.py:47
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1613,13 +1605,13 @@ msgstr ""
 
 # ../partitioning.py:353
 #: ../partIntfHelpers.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Liitospiste ei kelpaa. Liitospisteiden pitää alkaa merkillä \"/\" ja "
-"sisältää tulostuvia merkkejä. Ne eivät saa loppua \"/\"-merkkiin."
+"Liitospiste %s ei kelpaa. Liitospisteiden pitää alkaa merkillä \"/\" ja "
+"sisältää tulostuvia merkkejä, ei välejä. Ne eivät saa loppua \"/\"-merkkiin."
 
 # ../partitioning.py:360
 #: ../partIntfHelpers.py:102
@@ -2321,18 +2313,17 @@ msgstr "Tapahtui poikkeus"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Tallenna etäkoneelle"
 
 # ../iw/network_gui.py:251 ../loader/net.c:610 ../loader/net.c:808
 # ../textw/network_text.py:177
 #: ../text.py:185
-#, fuzzy
 msgid "Host"
 msgstr "Konenimi"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "Etäpolku"
 
 # ../textw/userauth_text.py:204
 #: ../text.py:189
@@ -2347,7 +2338,7 @@ msgstr "Salasana"
 # ../text.py:175
 #: ../text.py:248
 msgid "Help not available"
-msgstr "Ohjeita ei ole"
+msgstr "Ohjetta ei ole saatavilla"
 
 # ../text.py:176
 #: ../text.py:249
