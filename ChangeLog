@@ -7,6 +7,7 @@
 
 	* harddrive.py (HardDriveInstallMethod.mountMedia):  Prompt for
 	missing images like we do on NFS ISO installs (#185274).
+	(HardDriveInstallMethod.__init__):  Add currentMedia.
 
 	* yuminstall.py (YumBackend.doPostSelection):  Check the obvious
 	(#185172).
