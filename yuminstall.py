@@ -810,7 +810,8 @@ class YumBackend(AnacondaBackend):
                 else:
                     largePart = id.partitions.getRequestByMountPoint("/")
 
-                if largePart.getActualSize(id.partitions, id.diskset) < self.totalSize / 1024:
+                if largePart and \
+                   largePart.getActualSize(id.partitions, id.diskset) < self.totalSize / 1024:
                     dscb.pop()
                     rc = intf.messageWindow(_("Error"),
                                             _("Your selected packages require %d MB "
