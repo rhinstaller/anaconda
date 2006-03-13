@@ -21,7 +21,7 @@
 import sys
 import string
 import block
-import parted
+import partedUtils
 import raid
 from flags import flags
 

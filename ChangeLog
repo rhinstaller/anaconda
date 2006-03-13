@@ -1,3 +1,9 @@
+2006-03-13  Jeremy Katz  <katzj@redhat.com>
+
+	* dmraid.py: Fix syntax error (#185275)
+	* fsset.py (swapFileSystem.mount): Likewise.
+	* product.py: Likewise.
+
 2006-03-13  Paul Nasrat   <pnasrat@redhat.com>
 
 	* yuminstall.py (YumBackend.doPostSelection):  Don't clobber 
