@@ -24,6 +24,8 @@ ifeq (nosucharch, $(ARCH))
 USEDIET=1
 endif
 
+USESELINUX=1
+
 ifndef RPM_OPT_FLAGS
 RPM_OPT_FLAGS = -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions
 endif

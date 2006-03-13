@@ -38,7 +38,9 @@
 #include <sys/types.h>
 #include <linux/fb.h>
 #include <libintl.h>
+#ifdef USESELINUX
 #include <selinux/selinux.h>
+#endif
 #include <libgen.h>
 #include <linux/major.h>
 #include <linux/raid/md_u.h>
@@ -114,7 +116,9 @@ static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
+#ifdef USESELINUX
 static PyObject * doResetFileContext(PyObject * s, PyObject * args);
+#endif
 static PyObject * isWireless(PyObject * s, PyObject * args);
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
 static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
@@ -173,7 +177,9 @@ static PyMethodDef isysModuleMethods[] = {
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
     { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
     { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
+#ifdef USESELINUX
     { "resetFileContext", (PyCFunction) doResetFileContext, METH_VARARGS, NULL },
+#endif
     { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
@@ -1351,7 +1357,7 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
 
     return Py_BuildValue("s", ret);
 }
-
+#ifdef USESELINUX
 static PyObject * doResetFileContext(PyObject * s, PyObject * args) {
     char *fn, *buf = NULL;
     int ret;
@@ -1367,7 +1373,7 @@ static PyObject * doResetFileContext(PyObject * s, PyObject * args) {
 
     return Py_BuildValue("s", buf);
 }
-
+#endif
 static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 

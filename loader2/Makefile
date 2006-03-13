@@ -11,7 +11,10 @@ SLANGLIB = -lslang
 NEWTLIB = -lnewt
 ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
-DMLIB = -ldevmapper -lselinux -lsepol
+DMLIB = -ldevmapper
+ifeq (1, $(USESELINUX))
+DMLIB += -lselinux -lsepol
+endif
 
 BINS = loader
 

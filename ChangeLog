@@ -1,3 +1,10 @@
+2006-03-13  Matt Wilson  <msw@rpath.com>
+
+	* Makefile.inc: Add flag for whether or not to use SELinux.
+	* isys/Makefile: Conditionalize SELinux.
+	* isys/isys.c: Likewise.
+	* loader2/Makefile: Likewise.
+	
 2006-03-13  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/lvm_dialog_gui.py (VolumeGroupEditor.createPEOptionMenu): Cap
