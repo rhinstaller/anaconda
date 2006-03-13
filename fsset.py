@@ -745,7 +745,7 @@ class swapFileSystem(FileSystemType):
         else:
             num = 2048
         try:
-            fd = os.open(dev, os.O_RDONLY)
+            fd = os.open(device, os.O_RDONLY)
             buf = os.read(fd, num)
             os.close(fd)
         except:

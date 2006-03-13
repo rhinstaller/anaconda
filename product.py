@@ -18,7 +18,7 @@ elif os.access("/.buildstamp", os.R_OK):
     path = "/.buildstamp"
 elif os.environ.has_key("PRODBUILDPATH") and \
          os.access(os.environ["PRODBUILDPATH"], os.R_OK):
-    path = os.environ[PRODBUILDPATH]
+    path = os.environ["PRODBUILDPATH"]
 else:
     path = None
     
