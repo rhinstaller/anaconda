@@ -159,6 +159,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
         self.isoDirIsMounted = 0
         self.mediaIsMounted = 0
 	self.messageWindow = intf.messageWindow
+        self.currentMedia = []
 
 	# Go ahead and poke through the directory looking for interesting
 	# iso images

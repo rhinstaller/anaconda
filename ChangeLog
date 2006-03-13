@@ -5,6 +5,9 @@
 
 2006-03-13  Chris Lumens  <clumens@redhat.com>
 
+	* harddrive.py (HardDriveInstallMethod.__init__):  Add currentMedia to
+	make this method work again.
+
 	* yuminstall.py:  Check for None in size test (#185172).
 
 2006-03-09  Jeremy Katz  <katzj@redhat.com>
