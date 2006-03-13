@@ -3,6 +3,9 @@
 	* harddrive.py (HardDriveInstallMethod.mountMedia):  Prompt for
 	missing images like we do on NFS ISO installs (#185274).
 
+	* yuminstall.py (YumBackend.doPostSelection):  Check the obvious
+	(#185172).
+
 2006-03-10  Chris Lumens  <clumens@redhat.com>
 
 	* exception.py (handleException):  String consistency (#181916).
