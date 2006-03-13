@@ -17,7 +17,6 @@ import isys
 import os
 import iutil
 import time
-import rpm
 import sys
 import os.path
 import partedUtils

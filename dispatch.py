@@ -25,10 +25,8 @@ from packages import copyAnacondaLogs
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
-from packages import selectLanguageSupportGroups
 from packages import setupTimezone
 from packages import setFileCons
-from packages import fixupConditionals
 from partitioning import partitionObjectsInitialize
 from partitioning import partitioningComplete
 from bootloader import writeBootloader, bootloaderSetupChoices
@@ -105,8 +103,6 @@ installSteps = [
     ("tasksel", ("intf", "backend", "dispatch", "id.instClass")),   
     ("group-selection", ("backend", "intf")),
     ("postselection", doPostSelection, ("backend", "intf", "id", "instPath", "dir")),
-    #("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.instLanguage")),    
-    #("fixupconditionals", fixupConditionals, ("id.grpset",)),
     ("confirminstall", ("intf", "id",)),
     ("confirmupgrade", ("intf", "id",)),
     ("install", ("dir", "intf", "id")),

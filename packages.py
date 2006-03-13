@@ -6,7 +6,7 @@
 # Michael Fulbright <msf@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2003 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,7 +18,6 @@
 
 import iutil
 import isys
-import rpm
 import os
 import timer
 import time
@@ -193,194 +192,6 @@ def setupTimezone(timezone, upgrade, instPath, dir):
     except RuntimeError:
         log.error("Failed to set clock")
 
-def doPostInstall(method, id, intf, instPath):
-    if flags.test:
-	return
-
-    w = intf.progressWindow(_("Post Install"),
-                            _("Performing post install configuration..."), 6)
-
-    upgrade = id.getUpgrade()
-    arch = iutil.getArch ()
-
-    if upgrade:
-	logname = '/root/upgrade.log'
-    else:
-	logname = '/root/install.log'
-
-    instLogName = instPath + logname
-    instLog = open(instLogName, "a")
-    
-    try:
-	if not upgrade:
-	    w.set(1)
-
-	    copyExtraModules(instPath, id.grpset, id.extraModules)
-
-	    w.set(2)
-
-            # we need to write out the network bits before kudzu runs
-            # to avoid getting devices in the wrong order (#102276)
-            id.network.write(instPath)
-		       
-	    w.set(3)
-
-	    # blah.  If we're on a serial mouse, and we have X, we need to
-	    # close the mouse device, then run kudzu, then open it again.
-
-	    # turn it off
-	    mousedev = None
-
-	    # XXX currently Bad Things (X async reply) happen when doing
-	    # Mouse Magic on Sparc (Mach64, specificly)
-	    # The s390 doesn't even have a mouse!
-            if os.environ.get('DISPLAY') == ':1' and arch != 'sparc':
-		try:
-                    import xmouse
-		    mousedev = xmouse.get()[0]
-		except RuntimeError:
-		    pass
-
-	    if mousedev:
-		try:
-		    os.rename (mousedev, "/dev/disablemouse")
-		except OSError:
-		    pass
-		try:
-		    xmouse.reopen()
-		except RuntimeError:
-		    pass
-
-	    if arch != "s390" and flags.setupFilesystems:
-		# we need to unmount usbdevfs before mounting it
-		usbWasMounted = iutil.isUSBDevFSMounted()
-		if usbWasMounted:
-                    isys.umount('/proc/bus/usb', removeDir = 0)
-
-		    # see if unmount suceeded, if not pretent it isnt mounted
-		    # because we're screwed anywyas if system is going to
-		    # lock up
-		    if iutil.isUSBDevFSMounted():
-			usbWasMounted = 0
-		    
-                unmountUSB = 0
-                try:
-                    isys.mount('/usbfs', instPath+'/proc/bus/usb', 'usbfs')
-                    unmountUSB = 1
-                except:
-                    log.error("Mount of /proc/bus/usb in chroot failed")
-                    pass
-
-                argv = [ "/usr/sbin/kudzu", "-q" ]
-                if id.grpset.hdrlist.has_key("kernel"):
-                    ver = "%s-%s" %(id.grpset.hdrlist["kernel"][rpm.RPMTAG_VERSION],
-                                    id.grpset.hdrlist["kernel"][rpm.RPMTAG_RELEASE])
-                    argv.extend(["-k", ver])
-                
-                devnull = os.open("/dev/null", os.O_RDWR)
-                iutil.execWithRedirect(argv[0], argv, root = instPath,
-                                       stdout = devnull)
-                # turn it back on            
-                if mousedev:
-                    try:
-                        os.rename ("/dev/disablemouse", mousedev)
-                    except OSError:
-                        pass
-                    try:
-                        xmouse.reopen()
-                    except RuntimeError:
-                        pass
-
-                if unmountUSB:
-                    try:
-                        isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
-                    except SystemError:
-                        # if we fail to unmount, then we should just not
-                        # try to remount it.  this protects us from random
-                        # suckage
-                        usbWasMounted = 0
-
-		if usbWasMounted:
-                    isys.mount('/usbfs', '/proc/bus/usb', 'usbfs')
-
-	w.set(4)
-
-        if upgrade and id.dbpath is not None:
-            # remove the old rpmdb
-	    try:
-		iutil.rmrf (id.dbpath)
-	    except OSError:
-		pass
-
-        if upgrade:
-	    # needed for prior systems which were not xinetd based
-	    migrateXinetd(instPath, instLogName)
-
-            # needed for prior to 2.6 so that mice have some chance
-            # of working afterwards. FIXME: this is a hack
-            migrateMouseConfig(instPath, instLogName)
-
-        #if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
-        #    log.info("rhgb installed, adding to boot loader config")
-        #   id.bootloader.args.append("rhgb quiet")
-
-        w.set(5)
-
-        w.set(6)
-
-
-    finally:
-	pass
-
-    if upgrade:
-        instLog.write(_("\n\nThe following packages were available in "
-                        "this version but NOT upgraded:\n"))
-    else:
-        instLog.write(_("\n\nThe following packages were available in "
-                        "this version but NOT installed:\n"))
-        
-    # XXX hack - we should really write a proper lvm "config".  but for now
-    # just vgscan if they have /sbin/lvm and some appearance of volumes
-    if (os.access(instPath + "/sbin/lvm", os.X_OK) and
-        os.access(instPath + "/dev/mapper", os.X_OK) and
-        len(os.listdir("/dev/mapper")) > 1):
-        rc = iutil.execWithRedirect("/sbin/lvm",
-                                    ["lvm", "vgscan", "-v"],
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5",
-                                    root = instPath,
-                                    searchPath = 1)
-
-    # write out info on install method used
-    try:
-	if id.methodstr is not None:
-	    if os.access (instPath + "/etc/sysconfig/installinfo", os.R_OK):
-		os.rename (instPath + "/etc/sysconfig/installinfo",
-			   instPath + "/etc/sysconfig/installinfo.rpmsave")
-
-	    f = open(instPath + "/etc/sysconfig/installinfo", "w+")
-	    f.write("INSTALLMETHOD=%s\n" % (string.split(id.methodstr, ':')[0],))
-
-	    try:
-		ii = open("/tmp/isoinfo", "r")
-		il = ii.readlines()
-		ii.close()
-		for line in il:
-		    f.write(line)
-	    except:
-		pass
-	    f.close()
-	else:
-	    log.warning("methodstr not set for some reason")
-    except:
-	log.error("Failed to write out installinfo")
-        
-    w.pop ()
-
-    sys.stdout.flush()
-    
-    if flags.setupFilesystems:
-	syslog.stop()
 
 # FIXME: this is a huge gross hack.  hard coded list of files
 # created by anaconda so that we can not be killed by selinux
@@ -484,7 +295,7 @@ def copyExtraModules(instPath, grpset, extraModules):
                 pkg = "kernel"
             else:
                 pkg = "kernel-%s" %(tag,)
-            arch = grpset.hdrlist[pkg][rpm.RPMTAG_ARCH]
+            arch = grpset.hdrlist[pkg]['arch']
             # version 1 path
             pattern = pattern + " %s/%s/%s.ko " % (n, arch, name)
             # version 0 path
@@ -512,7 +323,7 @@ def copyExtraModules(instPath, grpset, extraModules):
             if not os.path.isdir(toDir):
                 continue
 
-            arch = grpset.hdrlist[pkg][rpm.RPMTAG_ARCH]
+            arch = grpset.hdrlist[pkg]['arch']
             for p in ("%s/%s.ko" %(arch, name), "%s.ko" %(name,)):
                 fromFile = "%s/lib/modules/%s/%s" % (instPath, n, p)
 

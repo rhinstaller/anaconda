@@ -61,7 +61,6 @@ class InstallData:
         self.rootPassword = users.RootPassword ()
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
-        self.grpset = None
 	self.upgrade = None
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()

@@ -34,6 +34,9 @@ from genheader import *
 from constants import *
 from rhpl.translate import _
 
+# specspo stuff
+rpm.addMacro("_i18ndomains", "redhat-dist")
+
 import logging
 log = logging.getLogger("anaconda")
 

@@ -34,7 +34,6 @@ import gtk
 import gtk.glade
 import gobject
 import htmlbuffer
-import rpm
 import kudzu
 import gettext
 import warnings
@@ -49,7 +48,6 @@ from rhpl.translate import _, N_
 import logging
 log = logging.getLogger("anaconda")
 
-rpm.addMacro("_i18ndomains", "redhat-dist")
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 
 StayOnScreen = "stayOnScreen"

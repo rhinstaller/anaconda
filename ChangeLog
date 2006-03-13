@@ -1,4 +1,20 @@
+2006-03-13  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py: Remove some obsolete code, convert a little bit of
+	copyExtraModules (... which needs to be hooked back up)
+
+	* gui.py: No longer import rpm
+	* yuminstall.py: Add specspo bits here instead
+
+	* exception.py (dumpException): Remove grpset code.
+	* instdata.py (InstallData.reset): Likewise.
+
 2006-03-13  Matt Wilson  <msw@rpath.com>
+
+	* dispatch.py: Remove obsolete code.
+	* floppy.py: Likewise.
+	* language.py: Likewise.
+	* upgrade.py: Likewise.
 
 	* Makefile.inc: Add flag for whether or not to use SELinux.
 	* isys/Makefile: Conditionalize SELinux.
