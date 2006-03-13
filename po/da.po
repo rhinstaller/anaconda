@@ -1,24 +1,24 @@
-# translation of da.po to 
+# translation of da.po to
 # translation of da.po to Danish
 # Danish translation of anaconda
 # Copyright (C) 1999-2004 Red Hat, Inc.
 # This file is distributed under the same license as the anaconda package.
 # Keld Simonsen <keld@dkuug.dk>, 2004, 2005.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004.
-# Keld Simonsen <keld@rap.dk>, 2005.
+# Keld Simonsen <keld@rap.dk>, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2005-10-21 21:11+0200\n"
+"PO-Revision-Date: 2006-03-13 22:01+0100\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -174,37 +174,32 @@ msgstr "Grafisk installation er ikke tilgængelig... Starter i teksttilstand."
 
 #: ../anaconda:930
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY-variabel ikke sat. Starter i teksttilstand!"
 
 #: ../anaconda:1013
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Tryk <enter> for at få en skál"
 
 #: ../anaconda:1045
 msgid "Starting graphical installation..."
 msgstr "Starter grafisk installation..."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Ukendt Url-metode %s"
+msgstr "Ukendt installerings-metode"
 
 #: ../anaconda:1100
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
-"Du forsøger at installere på en maskine som ikke understøttes af denne "
-"version af %s."
+msgstr "Du har angivet en installeringsmetode som ikke understøttes af anaconda."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Ukendt Url-metode %s"
+msgstr "Ukendt installeringsmetode %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Kunne ikke allokere cylinder-baserede partitioner som primære partitioner"
+msgstr "Kunne ikke allokere cylinder-baserede partitioner som primære partitioner"
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions as primary partitions"
@@ -259,8 +254,7 @@ msgstr ""
 
 #: ../autopart.py:1051
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartspartition %s opfylder muligvis ikke opstartsbegrænsningene for din "
 "maskinarkitektur. "
@@ -558,44 +552,41 @@ msgid "Installing %s-%s-%s... "
 msgstr "Installerer %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
 "En ubehandlet hændelse er sket. Dette er sandsynligvis en fejl. Kopiér den "
-"fulde tekst fra denne undtagelse, og udfyld så en detaljeret fejlrapport på %"
-"s"
+"fulde tekst fra denne undtagelse, og udfyld så en  fejlrapport om anaconda på %s"
 
 #: ../exception.py:420 ../exception.py:436
 msgid "Dump Written"
 msgstr "Kopi af stakken skrevet for senere fejlsøgning"
 
 #: ../exception.py:421
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
+msgstr "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../exception.py:428 ../exception.py:444
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "Kopi af stakken skrevet for senere fejlsøgning"
+msgstr "Dumpet blev ikke skrevet"
 
 #: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "Der var et problem ved skrivning af dit systems tilstand til disketten. "
 
 #: ../exception.py:437
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.\n"
 "Your system will now be reset."
 msgstr ""
-"Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
+"Dit systems tilstand er skrevet til den eksterne maskine. "
+"\n"
+"Systemet bliver nu genstartet."
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
@@ -1162,8 +1153,7 @@ msgstr "Værtsnavnet skal være højst 64 tegn langt."
 
 #: ../network.py:47
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
+msgstr "Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
 
 #: ../network.py:52
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1674,8 +1664,7 @@ msgid "Confirm Reset"
 msgstr "Bekræft nulstilling"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nulstille partitionstabellen til oprindelig "
 "tilstand?"
@@ -1727,10 +1716,8 @@ msgstr ""
 "til at installere %s."
 
 #: ../partitions.py:815
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
 
 #: ../partitions.py:835
 msgid "You must create an Apple Bootstrap partition."
@@ -1798,10 +1785,8 @@ msgstr "en partition som er medlem af en LVM-afsnitsgruppe."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
 
 #: ../partRequests.py:252
 #, python-format
@@ -2078,17 +2063,14 @@ msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
 #: ../text.py:412
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
 #: ../text.py:414
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
+msgstr "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2964,8 +2946,7 @@ msgstr "Ugyldig størrelse"
 
 #: ../iw/lvm_dialog_gui.py:514
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
+msgstr "Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Mount point in use"
@@ -2974,8 +2955,7 @@ msgstr "Monteringspunkt i brug"
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
+msgstr "Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -3058,8 +3038,7 @@ msgstr "Navnet er i brug"
 #: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
+msgstr "Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
 
 #: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
@@ -3549,14 +3528,12 @@ msgid "Partitioning"
 msgstr "Partitionering"
 
 #: ../iw/partition_gui.py:634
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Følgende kritiske fejl opstod med dit forespurgte partitionsoplæg."
 
 #: ../iw/partition_gui.py:637
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Disse fejl skal rettes op før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:643
@@ -4062,10 +4039,8 @@ msgstr "Dette vil opdatere din nuværende opstartsindlæser."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4204,8 +4179,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
 
 #: ../iw/zfcp_gui.py:24
@@ -4376,10 +4350,8 @@ msgstr ""
 "hvilket navn du vil bruge for hvert af dem."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr "<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:397
 msgid ""
@@ -4518,10 +4490,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Venligst vælg opløsningen du ønsker at bruge:"
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4802,8 +4772,7 @@ msgstr "Filsystemsvalgmuligheder"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
+msgstr "Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -4831,8 +4800,7 @@ msgstr "Ikke understøttet"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
+msgstr "LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -4929,10 +4897,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -5681,10 +5647,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Velkommen til %s - redningstilstand"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:151
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -5717,8 +5681,7 @@ msgstr ""
 #: ../loader2/loader.c:340
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader2/loader.c:342
 msgid "Updates Disk"
@@ -6207,8 +6170,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
+msgstr "Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
 
 #: ../loader2/urls.c:434
 msgid "Account name:"
@@ -6388,13 +6350,11 @@ msgstr "Atlantisk tid - Østlabrador"
 #. generated from zone.tab
 #, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantisk tid - (det meste af) Nova Scotia, NB, Vestlabrador, Østquebec & PEI"
+msgstr "Atlantisk tid - (det meste af) Nova Scotia, NB, Vestlabrador, Østquebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
+msgstr "Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6591,8 +6551,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Østamerikansk tid - Ontario - de fleste steder"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Østamerikansk tid - Ontario & Québec - steder, der ikke havde sommertid i "
 "1967-1973"
@@ -6783,8 +6742,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Amerikansk bjerg-standardtid - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Amerikansk bjerg-standardtid - Dawson Creek & Fort Saint John, Britisk "
 "Columbia"
@@ -7223,1604 +7181,3 @@ msgstr "Walisisk"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Denne gruppe indeholder alle tilgængelige pakker. Bemærk at der er "
-#~ "væsentligt flere pakker en blot dem, der er i alle de andre pakkegrupper "
-#~ "på denne side."
-
-#~ msgid "Everything"
-#~ msgstr "Altsammen"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Vælg denne gruppe for at få den mindst mulige samling af pakker. Nyttig "
-#~ "til at lave fx en lille boks med en ruter eller brandmur."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Diverse"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "Du forsøger at installere på en maskine som ikke understøttes af denne "
-#~ "version af %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Automatisk partitionering"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Jeg vil bruge automatisk partitionering:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Vælg de drev du vil bruge til denne installation:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "_Vis igen (og ændr om det behøves) de partitioner som oprettes"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Ændr opstartsindlæser"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Du har valgt ikke at installere nogen opstartsindlæser. Det anbefales "
-#~ "kraftigt, at du installerer en opstartsindlæser medmindre du har "
-#~ "avancerede behov. En opstartsindlæser er næsten altid påkrævet for at "
-#~ "genstarte dit system med Linux direkte fra harddisken.\n"
-#~ "\n"
-#~ "Er du sikker på, at du ønsker at fortsætte, og ikke installere en "
-#~ "opstartsindlæser?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "_Fortsæt uden en opstartsindlæser"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Venligst vælg opstartsindlæser som datamaskinen skal bruge. GRUB er "
-#~ "forvalgt opstartsindlæser. Hvis du ikke vil overskrive din nuværende "
-#~ "opstartsindlæser, vælger du \"Installér ikke en opstartsindlæser.\""
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "Brug _GRUB som opstartsindlæser"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "Installér _ikke en opstartsindlæser"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_Ændr opstartsindlæser"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Uløste afhængigheder"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Total størrelse: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Krav"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_Installér pakker for at opfylde afhængigheder"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "Installér _ikke pakker der har afhængigheder"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "Ignorér _pakkeafhængigheder"
-
-#~ msgid "Package Defaults"
-#~ msgstr "Standard for pakker"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Standardinstallationsmiljøet indeholder vores anbefalede pakkevalg, "
-#~ "inklusive:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Efter installationen kan yderligere programmel tilføjes eller fjernes via "
-#~ "brug af værktøjet \"system-config-packages\".\n"
-#~ "\n"
-#~ "Hvis du kender %s godt, har du måske visse specifikke pakker som du vil "
-#~ "installere eller undlade at installere. Markér boksen nedenfor for at "
-#~ "tilpasse din installation."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Hvis du vil ændre standardsamlingen af pakker som skal installeres kan du "
-#~ "vælge at tilpasse det nedenfor."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "_Installér standard programpakker"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Tilpas selv programpakker som skal installeres"
-
-#, fuzzy
-#~ msgid "Packages in %s"
-#~ msgstr "Pakker"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr ""
-#~ "Hvilken type medium befinder pakkerne, som skal installeres, sig på?"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "Standardinstallationsmiljøet indeholder vores anbefalede pakkevalg. Efter "
-#~ "installationen kan yderligere programmel tilføjes eller fjernes ved brug "
-#~ "af værktøjet \"system-config-packages\".\n"
-#~ "\n"
-#~ "Med %s følger dog mange flere programmer, og du kan tilrette valget af "
-#~ "programmel som installeres hvis du vil."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Vælg individuelle pakker"
-
-#~ msgid "Package :"
-#~ msgstr "Pakke   :"
-
-#~ msgid "Size    :"
-#~ msgstr "Størrelse: "
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f KByte"
-
-#~ msgid "Total size"
-#~ msgstr "Totalt"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Individuelt pakkevalg"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Mellemrum>,<+>,<-> valg   |   <F1> hjælp   |   <F2> pakkebeskrivelse "
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Pakkeafhængigheder"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Nogle af de pakker du har valgt at installere kræver pakker, som du ikke "
-#~ "har valgt, for at virke. Hvis du blot trykker O.k., vil alle disse "
-#~ "påkrævede pakker blive installeret."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Installér pakker for at opfylde afhængigheder"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Installér ikke pakker der har afhængigheder"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Ignorér pakkeafhængigheder"
-
-#, fuzzy
-#~ msgid "_Optional packages"
-#~ msgstr "Valgfri pakker"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Ingen mus fundet. Grafisk installation kræver at du har en mus. Starter "
-#~ "teksttilstand."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Fandt musetype: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Bruger musetype: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "En uhåndterbar hændelse er sket. Dette er sandsynligvis en fejl. Kopiér "
-#~ "den fulde tekst fra denne hændelse eller gem nedbrudsdump på en diskette, "
-#~ "og udfyld så en fejlrapport på %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Fjernindlogning (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Webtjener (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Filoverføring (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Post-tjener (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Kunne ikke lave opstartsdiskette."
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Størrelsen på kernemodulerne krævet af din maskine gør det umuligt at "
-#~ "lave en opstartsdiskette som vil kunne være på en diskette."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Indsæt en diskette"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Venligst fjern alle disketter fra diskettestationen og indsæt en tom "
-#~ "diskette.\n"
-#~ "\n"
-#~ "Alle data vil blive SLETTET ved oprettelsen af opstartsdisketten."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Opret opstartsdiskette"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "En fejl opstod under fremstillingen af opstartsdisketten. Se efter om der "
-#~ "er en formateret diskette i det første diskettedrev."
-
-#~ msgid "Creating"
-#~ msgstr "Opretter"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Opretter opstartsdiskette..."
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "En fejl opstod ved forsøg på at verificere opstartsdisketten. Se efter om "
-#~ "der er en god diskette i det første diskettedrev."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Din opstartsdiskette ser ud til at være ugyldig. iDette er nok på grund "
-#~ "af en dårlig diskette. Se efter om der er en god diskette i det første "
-#~ "diskettedrev."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Gem på diskette"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "De følgende ISO-aftryk, som er krævet af installationen, mangler.\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Systemet vil nu blive genstartet."
-
-#~ msgid "Missing Package"
-#~ msgstr "Pakke mangler"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "Du har angivet at pakken \"%s\" skal installeres. Denne pakke findes "
-#~ "ikke. Vil du fortsætte eller afbryde din installation?"
-
-#~ msgid "_Abort"
-#~ msgstr "_Afbryd"
-
-#~ msgid "Missing Group"
-#~ msgstr "Manglende gruppe"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "Du har angivet at gruppen \"%s\" skal installeres. Denne gruppe findes "
-#~ "ikke. Vil du fortsætte eller afbryde din installation?"
-
-#~ msgid "Reading"
-#~ msgstr "Læser"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Kan ikke læse hovedlisten. Dette kan bero på at filen mangler eller "
-#~ "fejlagtigt medium. Tryk på <Retur> for at forsøge igen."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Kan ikke læse comps-filen. Dette kan bero på at filen mangler eller "
-#~ "fejlagtigt medium. Tryk på <Retur> for at forsøge igen."
-
-#~ msgid "Installing..."
-#~ msgstr "Installerer..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Fejl ved installering af pakke"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Der var en fejl ved installation af %s. Dette kan betyde en fejl på "
-#~ "mediet, mangel på diskplads og/eller problemer med udstyr. Dette er en "
-#~ "afgørende fejl og din installation vil blive afbrudt. Kontrollér venligst "
-#~ "dit medie og prøv at installere igen.\n"
-#~ "Tryk O.k. for at starte systemet igen."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Kan ikke flette hovedlisten. Dette kan være fordi filen mangler eller "
-#~ "fejlagtigt medium. Tryk på <Retur> for at forsøge igen."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Opgraderer %s pakker\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Installerer %s pakker\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "De følgende pakker blev automatisk\n"
-#~ "valgt til at blive installeret:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Du ser ikke ud til at have nok diskplads til at installere de pakker du "
-#~ "har valgt. Du har brug for mere plads på følgende filsystemer:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Nødvendig plads"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Du ser ikke ud til at have nok filnoder til at installere de pakker du "
-#~ "har valgt. Du har brug for flere filnoder på følgende filsystemer:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Filnoder krævet"
-
-#~ msgid "Disk Space"
-#~ msgstr "Diskplads"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Den arkitektur for den udgave af %s som du opgraderer til ser ud til at "
-#~ "være %s, hvilket ikke passer med din tidligere installerede arkitektur %"
-#~ "s. Dette vil sandsynligvis ikke gå godt. Er du sikker på at du vil "
-#~ "fortsætte opgraderingen?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Dette system ser ud til at have tredjeparts-pakker installeret som "
-#~ "overlapper med pakker inkluderet i %s. Da disse pakker overlapper er det "
-#~ "muligt at du vil opleve at disse ikke fungerer eller at systemet bliver "
-#~ "ustabilt hvis du fortsætter med opgraderingen.  Se venligst i "
-#~ "udgivelsesnoterne for yderligere information.\n"
-#~ "\n"
-#~ "Vil du fortsætte med opgraderingsprocessen?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Dette system har ikke en /etc/redhat-release-fil. Det er muligt at dette "
-#~ "ikke er et %s system. Hvis du fortsætter opgraderingsprocessen kan du "
-#~ "risikere at systemet ender som ubrugeligt. Vil du fortsætte "
-#~ "opgraderingsprocessen?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Godkendelseskonfiguration"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "Brug _MD5-adgangskoder"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Brug _skygge-adgangskoder"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "Brug N_IS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "Benyt _rundkastning til at finde NIS-server"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS-_domæne: "
-
-#~ msgid "NIS _Server: "
-#~ msgstr "NIS-_Server: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "Anvend _LDAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "Brug _TLS-opslag."
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP-_server:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _basal DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "Aktivér _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "'R_ealm':"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "_Admin-Server:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "Aktivér SMB-_autentificering"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB-_server:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB-arbejds_gruppe:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Fremstil opstartsdiskette"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "Startdisketten lader dig starte dit %s-system fra en diskette. En "
-#~ "opstartsdiskette lader dig starte dit system, hvis din "
-#~ "opstartsindlæserskonfiguration holder op med at fungere, hvis du vælger "
-#~ "at ikke installere en opstartsindlæser, eller hvis din "
-#~ "tredjepartsopstartsindlæser ikke understøtter Linux.\n"
-#~ "\n"
-#~ "Det anbefales varmt at du opretter en opstartsdiskette.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Ja, jeg vil gerne oprette en opstartsdiskette"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "Nej, jeg vil _ikke oprette en opstartsdiskette"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Vælg drev som 'fdasd' skal køres på"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Formatering af den valgte DASD-enhed vil ødelægge alt indhold på enheden. "
-#~ "Vil du virkelig formatere den valgte DASD-enhed?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Partitionering med 'fdisk'"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Vælg drev som skal partitioneres med 'fdisk':"
-
-#~ msgid "Disabled"
-#~ msgstr "Deaktiveret"
-
-#~ msgid "Warn"
-#~ msgstr "Advar"
-
-#~ msgid "Active"
-#~ msgstr "Aktiv"
-
-#~ msgid "Firewall"
-#~ msgstr "Brandmur"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Advarsel - Ingen brandmur"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Hvis dette system er koblet direkte op til Internet eller hvis det findes "
-#~ "på et stort offentligt netværk, anbefales det at en brandmur konfigureres "
-#~ "for at hjælpe med at forhindre uønsket adgang. Du har dog valgt at ikke "
-#~ "konfigurere en brandmur. Vælg \"Fortsæt\" for at fortsætte uden en "
-#~ "brandmur."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "Konfigurér brandmur"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Fortsæt"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "En brandmur kan hjælpe med at forhindra uønsket adgang til din maskine "
-#~ "fra omverden. Vil du aktivere en brandmur?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_Ingen brandmur"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Aktivér brandmur"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "Du kan bruge en brandmur til at tillade adgang til specifikke tjenester "
-#~ "på din maskine fra andre maskiner. Hvilke tjenester, om nogen, ønsker du "
-#~ "at tillade adgang til?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) tilbyder mere finkornet "
-#~ "sikkerhedskontrol end dem som er tilgængelig i et traditionelt Linux-"
-#~ "system. SELinux kan blive sat op i en deaktiveret tilstand, en tilstand "
-#~ "der kun advare om ting som ellers ville være blevet afvist eller en fuldt "
-#~ "ud aktiv tilstand."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "Aktivér _SELinux?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Alle pakker"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Pakke:   %s\n"
-#~ "Version: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "_Trævisning"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Flad visning"
-
-#~ msgid "_Package"
-#~ msgstr "_Pakke"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Størrelse (Mb)"
-
-#~ msgid "Total size: "
-#~ msgstr "Totalt: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "Vælg _alt i gruppe"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "_Fravælg alt i gruppen"
-
-#~ msgid "Minimal"
-#~ msgstr "Minimalt"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Detaljer for \"%s\""
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "En pakkegruppe kan have både basispakkemedlemmer og valgfrie "
-#~ "pakkemedlemmer. Basispakke vælges altid så længe pakkegruppen er valgt.\n"
-#~ "\n"
-#~ "Vælg de valgfrie pakke som skal installeres:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Basispakker"
-
-#~ msgid "Details"
-#~ msgstr "Detaljer"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "_Vælg individuelle pakker"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "System-ur bruger _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Vælg den nærmeste by i din tidszone:"
-
-#~ msgid "_Location"
-#~ msgstr "_Placering"
-
-#~ msgid "Description"
-#~ msgstr "Beskrivelse"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Ikke-genkendt monitor"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Tilpas grafikindstillinger"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Farvedybde:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 farver (8 bit)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Mange farver (16 bit)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Ægte farver (24 bit)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Skærmopløsning:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Vælg dit standard skrivebordsmiljø:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Dit skrivebordsmiljø er:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "_Gnome"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Vælg din logind-type:"
-
-#~ msgid "_Text"
-#~ msgstr "_Tekst"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Grafisk"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Konfiguration af skærm"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Billedskærm ikke angivet"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "Du har ikke valgt en billedskærmstype. Det anbefales at du vælger den "
-#~ "nærmest passende model for at kunne få den bedste mulige billedkvalitet."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Vælg billedskærmstype"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "I de fleste tilfælde kan billedskærmen findes automatisk. Hvis de fundne "
-#~ "indstillinger ikke er de rette for billedskærmen bør du vælge de rigtige "
-#~ "indstillinger."
-
-#~ msgid "Restore _original values"
-#~ msgstr "Gendan _originale værdier"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "_Vandret synkron:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "_Lodret synkron:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Konfiguration af grafisk grænseflade (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Ukendt grafikkort"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "En fejl er sket ved valget af grafikkortet %s. Vær venlig og rapportere "
-#~ "denne fejl på %s."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Uspecificeret skærmkort"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "Du skal vælge et skærmkort før X-konfigurationen kan fortsætte. Hvis du "
-#~ "ønsker at hoppe over X-konfigurationen vælg 'Overspring konfiguration af "
-#~ "X'-knappen."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Dit system vil konfigureres for brug af rammebufferdrivrutinen for X "
-#~ "Window System. Hvis du ikke vil konfigurere X Window System bør du vælge "
-#~ "\"Overspring konfiguration af X\" nedenfor."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Kan ikke identificere mængden af hukommelse på grafikkortet. Vælg mængden "
-#~ "af video-hukommelse fra listen herunder:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "I de fleste tilfælde kan grafikudstyret findes automatisk. Hvis de fundne "
-#~ "indstillinger ikke er rigtige til udstyret, så vælg de korrekte "
-#~ "indstillinger."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "_Skærmkorthukommelse"
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_Undlad X-konfiguration"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "Opstartdisketten lader dig starte dit %s-system fra en diskette. En "
-#~ "opstartsdiskette lader dig starte dit system hvis din "
-#~ "opstartsindlæserskonfiguration holder op med at fungere.\n"
-#~ "\n"
-#~ "Det anbefales varmt at du opretter en opstartsdiskette.\n"
-#~ "\n"
-#~ "Vil du oprette en opstartsdiskette?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Opstartsdiskette"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Vælg et drev som 'fdasd' eller 'dasdfmt' skal køres på"
-
-#~ msgid "Next"
-#~ msgstr "Næste"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Redigér partitioner"
-
-#~ msgid "Format DASD"
-#~ msgstr "Formatér DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Diskopsætning"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Der skete en fejl ved kørsel af %s på drev %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "At køre dasdfmt indebærer at ALLE DATA\n"
-#~ "bliver tabt på enhed %s.\n"
-#~ "\n"
-#~ "Vil du virkelig dette?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "En fejl er opstået - ingen gyldige enheder blev fundet på hvilke nye "
-#~ "filsystemer kunne oprettes. Tjek venligst din maskine for at finde "
-#~ "grunden til dette problem, eller brug dasdfmt.\n"
-#~ "\n"
-#~ "Tilbage til fdasd-skærmen?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Vælg disk som 'fdisk' skal køres på"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Aktivér brandmur"
-
-#~ msgid "No firewall"
-#~ msgstr "Ingen brandmur"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Tillad indkommende:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Ugyldigt valg"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "Du kan ikke tilpasse en deaktiveret brandmur."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Tilpas opsætning af brandmur"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Med en brandmur ønsker du måske at tillade adgang til specifikke "
-#~ "tjenesterpå din maskine. Tillad adgang til hvilke tjenester?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Security Enhanced Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "Redigér bruger"
-
-#~ msgid "Add User"
-#~ msgstr "Tilføj bruger"
-
-#~ msgid "User Name"
-#~ msgstr "Brugernavn"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Adgangskode (bekræft)"
-
-#~ msgid "Full Name"
-#~ msgstr "Fulde navn"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Forkert brugernavn"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "Brugernavne må kun indeholde tegnene A-Z, a-z og 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Manglende brugernavn"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "Du skal angive et brugernavn"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "Adgangskoden skal være på mindst 6 tegn."
-
-#~ msgid "User Exists"
-#~ msgstr "Bruger eksisterer"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "'root'-brugeren er allerede konfigureret. Du behøver ikke at tilføje "
-#~ "denne bruger her."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Systembrugeren er allerede konfigureret. Du behøver ikke at tilføje denne "
-#~ "bruger her."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Denne bruger-ID eksisterer allerede. Vælg en anden."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Du bør bruge en almindelig brugerkonto for de fleste aktiviteter på dit "
-#~ "system. Ved ikke at bruge root kontoen til daglig reducerer du faren for "
-#~ "at beskadige din systemkonfiguration."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Brugerkontiopsætning"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Hvilke andre brugerkonti vil du gerne have på systemet? Du bør have "
-#~ "mindst én ikke-'root'-konto til dit almindelige arbejde, men "
-#~ "flerbrugersystemer kan opsætte så mange konti som behøves."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "Indtast brugerens informationer."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "Ændr denne brugers informationer."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Brug skygge-adgangskoder"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "Brug MD5-adgangskoder"
-
-#~ msgid "Enable NIS"
-#~ msgstr "Anvend NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS-domæne:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS-Server:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "Spørg efter server via rundkastning"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "Anvend LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP-server:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP basal DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "Brug TLS-forbindelser"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Aktivér Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "'Realm':"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Admin-Server:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Farvedybde"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Venligst vælg farvedybden du ønsker at bruge:"
-
-#~ msgid "Resolution"
-#~ msgstr "Skærmopløsning"
-
-#~ msgid "X Customization"
-#~ msgstr "X-konfiguration"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Vælg farvedybden og grafiktilstand du ønsker at bruge for dit system. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Farvedybde:"
-
-#~ msgid "Change"
-#~ msgstr "Skift"
-
-#~ msgid "Resolution:"
-#~ msgstr "Skærmopløsning:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Standard skrivebord:"
-
-#~ msgid "GNOME"
-#~ msgstr "Gnome"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Standard pålogning:"
-
-#~ msgid "Graphical"
-#~ msgstr "Brug grafisk logind"
-
-#~ msgid "Text"
-#~ msgstr "Tekst"
-
-#~ msgid "Monitor"
-#~ msgstr "Skærm"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Venligst vælg skærmen som er koblet til dit system."
-
-#~ msgid "horizontal"
-#~ msgstr "vandret"
-
-#~ msgid "vertical"
-#~ msgstr "lodret"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Ugyldig synkroniseringsfrekvens"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "%s-synkroniseringsfrekvenser er ugyldige:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "En gyldig synkroniseringsfrekvens skal være på formen:\n"
-#~ "\n"
-#~ "      31.5                   et enkelt tal\n"
-#~ "    50.1-90.2                et talområde\n"
-#~ "31.5,35.0,39.3-40.0          en liste med tal/områder\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Synkroniseringsrater for skærm"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Venligst skriv ind synkroniseringsfrekvenser for din skærm.\n"
-#~ "\n"
-#~ "BEMÆRK - det er ikke normalt nødvendig at redigere "
-#~ "synkroniseringsfrekvenser manuelt, og man bør forsikre sig om at "
-#~ "værdierne som opgives er korrekte."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "Vandret synkroniseringsfrekvens: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "Lodret synkroniseringsfrekvens: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Vælg skærmen for dit system. Brug '%s'-knappen for at gå tilbage til "
-#~ "værdierne fra autosøgningen."
-
-#~ msgid "Monitor:"
-#~ msgstr "Skærm:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "Hsync frekvens:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "VSync frekvens:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Vælg billedskærmstype"
-
-#~ msgid "Proceed"
-#~ msgstr "Fortsæt"
-
-#~ msgid "Video Card"
-#~ msgstr "Skærmkort"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Venligst vælg skærmkort for dit system. Vælg '%s' for at gå tilbage til "
-#~ "valget installationsprogrammet fandt for dit system."
-
-#~ msgid "Video RAM"
-#~ msgstr "Skærmhukommelse"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Venligst vælg mængden video-RAM som findes på dit skærmkort. Vælg '%s' "
-#~ "for at gå tilbage til mængden installationsprogrammet fandt på dit kort."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "Undlad X-konfiguration"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Konfiguration af skærmkort"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Vælg skærmkort og video-RAM for dit system."
-
-#~ msgid "Video Card:"
-#~ msgstr "Skærmkort:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Ukendt kort"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Skærm RAM:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Hvis du ønsker at afprøve flere medier, så indsæt den næste cd og tryk \"%"
-#~ "s\". Du behøver ikke afprøve alle cd'er selv om det anbefales at du gør "
-#~ "dette mindst én gang.\n"
-#~ "\n"
-#~ "For at begynde installationsprocessen skal du indsætte cd nummer 1 i "
-#~ "drevet og trykke \"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "Afprøvningen af mediet %s er færdig, og resultatet er: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Østamerikansk standardtid - Midtnunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Storbritannien"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Nordirland"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmanien"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "nordøstlige Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "sydvestlige Mali"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Yderligere understøttelse af sprog"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "Vælg standard_sprog for dette system:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "Vælg _yderligere sprog som skal installeres på systemet:"
-
-#~ msgid "_Select All"
-#~ msgstr "_Markér Alt"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "Vælg _kun standard"
-
-#~ msgid "Rese_t"
-#~ msgstr "_Nulstil"
-
-#~ msgid "Select All"
-#~ msgstr "Markér Alt"
-
-#~ msgid "Reset"
-#~ msgstr "Nulstil"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "Vælg yderligere sprog du ønsker at bruge på dette system:"
-
-#~ msgid "Language Support"
-#~ msgstr "Understøttelse af sprog"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "Du skal vælge mindst ét sprog at installere."
-
-#~ msgid "Default Language"
-#~ msgstr "Standard-sprog"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Vælg standardsprog for dette system: "
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s © 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "For information om opdateringer og fejlrettelser, besøg:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information om automatiske opdateringer gennem Red Hat Network, "
-#~ "besøg:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information om brug og konfiguration af systemet, besøg:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "For at registrere produktet for support, besøg:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Indstilling af SILO"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Installér SILO-opstartsblok på:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Lav PROM-alias"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Sæt standard PROM opstartsenhed til linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Kerneparametre"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Opret opstartsdiskette"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Installér ikke SILO"
-
-#~ msgid "Default boot image"
-#~ msgstr "Standard-opstartsbillede"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Opret PROM-alias 'linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Angiv standard PROM-opstartsenhed"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Hvor vil du installere opstartsindlæseren"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Opstartsprogrammet, som bruges af Red Hat, kan også starte andre "
-#~ "operativsystemer. Angiv hvilke partitioner du gerne vil kunne starte samt "
-#~ "et navn til hver."
-
-#~ msgid "no suggestion"
-#~ msgstr "ingen forslag"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Brug _LILO som opstartsindlæser"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Kunne ikke ændre rækkefølge af drev for LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Vi understøtter ikke ændring af rækkefølge af drev med LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Brug LILO opstartsindlæser"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s-installation på %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "Du har valgt at ikke installere en opstartsindlæser på dit system. Du "
-#~ "skal oprette en opstartsdiskette for at starte dit system hvis du bruger "
-#~ "dette alternativ.\n"
-#~ "\n"
-#~ "Vil du fortsætte og ikke installere en opstartsindlæser?"
-
-#~ msgid "Total"
-#~ msgstr "Total"
-
-#~ msgid "Remaining"
-#~ msgstr "Tilbage"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Installerer %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Pakkegrupper"
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Total    :"
-
-#~ msgid "Status"
-#~ msgstr "Status"
-
-#~ msgid "Time"
-#~ msgstr "Tid"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Opgraderinger for denne version af %s er kun understøttet fra Red Hat "
-#~ "Linux 6.2 eller højere. Dette ser ud til at være et ældre system. Ønsker "
-#~ "du at fortsætte opgraderingsprocessen?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsskál (GNOME)\n"
-#~ "\tKontorprogrammel (OpenOffice.org)\n"
-#~ "\tWeblæser (Mozilla) \n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tHurtig-meddelelser\n"
-#~ "\tProgrammer for lyd og video\n"
-#~ "\tSpil\n"
-#~ "\tAdministrationsværktøjer\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsskál (GNOME)\n"
-#~ "\tKontorprogrammel (OpenOffice)\n"
-#~ "\tWeblæser (Mozilla) \n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tHurtig-meddelelser\n"
-#~ "\tProgrammer for lyd og video\n"
-#~ "\tSpil\n"
-#~ "\tProgramudviklingsværktøjer\n"
-#~ "\tAdministrationsværktøjer\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Fysisk størrelse:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) giver strengere adgangskontrolller for "
-#~ "at forbedre sikkerheden på dit system. Hvordan ønsker du at denne "
-#~ "understøttelse skal aktiveres?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Deaktivér SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Advar ved overtrædelser"
-
-#, fuzzy
-#~ msgid "Device number:"
-#~ msgstr "Enhed"
-
-#, fuzzy
-#~ msgid "SCSI ID:"
-#~ msgstr "ESSID"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Østargentina (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Ugyldig port angivet: %s. Det rigtige format er 'port:protokol', hvor "
-#~ "port er mellem 1 og 65535, og protokol er enten 'tcp' eller 'udp'.\n"
-#~ "\n"
-#~ "Fx '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Advarsel: Dårligt symbol"
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "_Tillad indkommende:"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Andre _porte:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Security Enhanced Linux (SELinux) udvidelser:"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Troværdige enheder:"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "Web (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Post (SMTP)"
-
-#~ msgid "Other ports"
-#~ msgstr "Andre porte"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Tilpas konfigurationen af brandmur"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Du kan tilpasse en brandmur på to måder. For det første kan du vælge at "
-#~ "tillade alt trafik fra bestemte netkort. For det andet kan du tillade "
-#~ "bestemte protokoller at gå igennem brandmuren. Angiv flere porte med en "
-#~ "komma-separeret liste på formen 'service:protokol', fx 'imap:tcp'."
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Advarsel: %s er ikke en gyldig port."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "cdrom'en kunne ikke monteres."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr ""
-#~ "Indtast adgangskode for root-bruger (administrator) på dette system."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Tilpas brandmur"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Hvilke tjenester skal tillades at slippe igennem brandmuren?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr "Hvis du vil tillade al trafik fra en enhed, vælg denne nedenfor."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "_Troværdige enheder:"
