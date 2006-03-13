@@ -1,5 +1,8 @@
 2006-03-13  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.createPEOptionMenu): Cap
+	at 128M instead (#185272)
+
 	* dmraid.py: Fix syntax error (#185275)
 	* fsset.py (swapFileSystem.mount): Likewise.
 	* product.py: Likewise.

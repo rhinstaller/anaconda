@@ -245,8 +245,8 @@ class VolumeGroupEditor:
 	defindex = None
 	actualPE = lvm.getPossiblePhysicalExtents(floor=1024)
 	for curpe in actualPE:
-	    # dont show PE over 64M
-	    if curpe > 65536:
+	    # dont show PE over 128M
+	    if curpe > 131072:
 		continue
 	    
             val = self.prettyFormatPESize(curpe)
