@@ -56,5 +56,7 @@ class SplitMediaTransactionData(SortableTransactionData):
                 id = self.__getMedia(txmbr.po)
                 if id:
                     self.reqmedia[id].remove(pkgtup)
+                    if len(self.reqmedia[id]) == 0:
+                        self.reqmedia.pop(id)
                 del txmbr
                 SortableTransactionData.remove(self, pkgtup)
