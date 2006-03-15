@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-13 22:58+0100\n"
+"PO-Revision-Date: 2006-03-15 15:37+0100\n"
 "Last-Translator: Keld Simonsen <keld@rap.dk>\n"
 "Language-Team:  <da@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -590,7 +590,7 @@ msgstr ""
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "Der var et problem ved skrivning af systemtilstanden til den eksterne vært."
 
 #: ../fsset.py:199
 msgid "Checking for Bad Blocks"
@@ -1096,7 +1096,7 @@ msgstr "Kan ikke tilgå CDROM-drevet."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Mangler ISO 9660-aftryk"
 
 #: ../image.py:524
 #, python-format
@@ -1107,6 +1107,10 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Installeringsprogrammet har forsøgt at montere aftryk #%s, men kan ikke finde det på serveren.\n"
+"\n"
+"Kopiér gerne dette aftryk til den eksterne servers adresse for fildeling og klik Forsøg igen. "
+"Klik Genstart for at afbryde installationen."
 
 #: ../image.py:534
 msgid "Re_try"
@@ -1139,11 +1143,11 @@ msgstr "Kører..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Kører før-installerings-skripter"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Kører efter-installerings-skripter"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -2023,7 +2027,7 @@ msgstr "Undtagelse hændte"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Gem på ekstern vært"
 
 #: ../text.py:185
 msgid "Host"
@@ -2031,7 +2035,7 @@ msgstr "Værtsnavn"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "Ekstern sti"
 
 #: ../text.py:189
 msgid "User name"
@@ -2284,7 +2288,7 @@ msgid "Preparing transaction from installation source..."
 msgstr "Forbereder installation fra installationskilde..."
 
 #: ../yuminstall.py:135
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
@@ -2292,8 +2296,9 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
-"Pakken %s-%s-%s kan ikke åbnes. Dette beror på en manglende fil eller måske "
-"en beskadiget pakke. Hvis du installerer fra cd-medium kan dette være fordi "
+"Pakken %s-%s-%s.%s kan ikke åbnes. Dette beror på en manglende fil eller måske "
+"en beskadiget pakke. Hvis du installerer fra cd-medium er "
+"det normalt fordi "
 "cd-mediet er beskadiget, eller at cd-læseren ikke kan læse mediet.\n"
 "\n"
 "Tryk <Retur> for at forsøge igen."
@@ -2316,41 +2321,40 @@ msgid "_Cancel"
 msgstr "_Annullér"
 
 #: ../yuminstall.py:441
-#, fuzzy
 msgid "Error running transaction"
-msgstr "Forbereder RPM-transaktion..."
+msgstr "Fejl ved kørsel af transaktion..."
 
 #: ../yuminstall.py:488
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Pakken %s-%s-%s kan ikke åbnes. Dette beror på en manglende fil eller måske "
-"en beskadiget pakke. Hvis du installerer fra cd-medium kan dette være fordi "
+"Pakken %s-%s-%s.%s kan ikke åbnes. Dette beror på en manglende fil eller måske "
+"en beskadiget pakke. Hvis du installerer fra cd-medium er dette normalt fordi "
 "cd-mediet er beskadiget, eller at cd-læseren ikke kan læse mediet.\n"
 "\n"
-"Tryk <Retur> for at forsøge igen."
 
 #: ../yuminstall.py:599
 msgid "Retrieving installation information..."
 msgstr "Modtager installationsinformation..."
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
-"Comps-filen i dit installationstræ mangler nødvendige grupper. Forsikr dig "
-"venligst om at dit installationstræ er blevet genereret korrekt."
+"Kunne ikke læse overordnede data om pakke. Dette kan bero sig på et manglende 'repodata'-katalog."
+"Forsikr dig "
+"venligst om at dit installationstræ er blevet genereret korrekt.  %s"
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "Ukategoriseret"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
@@ -2767,7 +2771,7 @@ msgstr "Fejl med Data"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Ingen IP-adresse indtastet, overspringer opsætning af iSCSI"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -2962,15 +2966,14 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Det logiske afsnitnavn \"%s\" er allerede i brug. Vælg et andet."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "Den aktuelt anmodede størrelse (%10.2f MB) er større end den maksimale "
-"logiske afsnitstørrelse (%10.2f MB). For at forhøje denne grænse kan du øge "
-"størrelsen på det fysiske ydre for denne afsnitgruppe."
+"logiske afsnitstørrelse (%10.2f MB). For at forhøje denne grænse kan du oprette flere fysiske volumener fra upartitioneret diskplads og tilføje dem til denne afsnitgruppe."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4476,9 +4479,8 @@ msgstr ""
 "genstartet dit system. Du kan beholde denne fil til senere reference."
 
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Venligst vælg opløsningen du ønsker at bruge:"
+msgstr "Venligst vælg de pakkegrupper du ønsker at installere."
 
 #: ../textw/grpselect_text.py:101
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
@@ -4502,7 +4504,7 @@ msgstr "Portnummer:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI initiator-navn:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
@@ -4907,20 +4909,20 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"Installation kræver partitionering af din disk. Som standard vil "
+"en partitions-opdeling blive valgt som er fornuftig for de fleste brugere. Du kan enten vælge denne, eller lave din egen opdeling. "
 
 #: ../textw/partition_text.py:1544
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke drev vil du bruge til denne installation?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "_Vis igen (og ændr om det behøves) de partitioner som oprettes"
+msgstr "Vis igen de partitioner som oprettes"
 
 #: ../textw/partition_text.py:1603
-#, fuzzy
 msgid "Review and modify partitioning layout?"
-msgstr "_Vis igen (og ændr om det behøves) de partitioner som oprettes"
+msgstr "Vis igen (og ændr om det behøves) de partitioner som oprettes?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -4986,6 +4988,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Den normale installation af %s indbefatter et udvalg af programmel "
+"som passer til generel internet brug. Hvilke yderligere opgaver "
+"ønsker du at dit system skal have understøttelse for?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5161,11 +5166,11 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Kontor og produktivitet"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Udvikling af programmel"
 
 #: ../installclasses/fedora.py:22
 msgid "Web server"
@@ -5173,7 +5178,7 @@ msgstr "Webserver"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualisering (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5320,6 +5325,9 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"Hvis du ønsker at teste flere medier, så indsæt den næste cd og tryk  \"%s"
+"\". Afprøvning af hver cd er ikke strengt påkrævet, men det anbefales varmt. I det mindste bør cd'erne testes før brug af dem "
+"første gang. Efter de er blevet testet med succes, er det ikke nødvendigt at teste hver cd igen for at bruge dem igen."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5478,16 +5486,15 @@ msgstr ""
 "drivrutinediskette: %s:%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Angiv alle modulparametre som du vil sende til modulet %s, adskilte med "
+"Angiv alle parametre som du vil sende til modulet %s, adskilte med "
 "blanktegn. Hvis du ikke véd hvilke parametre du bør angive kan du "
-"overspringe denne skærm ved at trykke på knappen \"O.k.\". En liste med de "
-"tilgængelige alternativer kan fås ved at trykke på F1-tasten."
+"overspringe denne skærm ved at trykke på knappen \"O.k.\". "
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5799,33 +5806,26 @@ msgstr "Kunne ikke installere det første installeringsbillede %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "MISLYKKEDES"
 
 #: ../loader2/mediacheck.c:398
-#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
-"MISLYKKEDES.\n"
-"\n"
-"Blilledet som netop testedes indeholder fejl. Dette kan bero på en fejlagtig "
+"Aftrykket som netop testedes indeholder fejl. Dette kan bero på en fejlagtig "
 "hentning eller en beskadiget skive. Prøv at rengøre skiven om muligt og "
 "forsøg igen. Hvis denne test fortsætter med at mislykkes bør du ikke "
 "fortsætte installationen."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "LYKKEDES"
 
 #: ../loader2/mediacheck.c:409
-#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
-"BESTÅET.\n"
-"\n"
-"Det er O.k. at installere fra dette medie."
+msgstr "Det er O.k. at installere fra dette medie."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
@@ -5853,6 +5853,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Kontrol af medie %s\n"
+"\n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6028,7 +6031,7 @@ msgstr "NFS-opsætning"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "Værtsnavn angivet med ingen DNS konfigureret"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -6200,7 +6203,7 @@ msgstr "Hvordan ønsker du at få plads til at partitionere?"
 msgid ""
 "Installing <product> requires partitioning of your hard drive.  You can "
 "either use the default partitioning layout or create your own."
-msgstr ""
+msgstr "Installation af <product> kræver partitionering af din disk.  Du kan enten vælge standard-partitioneringen, eller lave din egen opdeling. "
 
 #: tmp/autopart2.glade.h:3
 msgid "Select the drive(s) to use for this installation."
@@ -6215,47 +6218,44 @@ msgid "Re_view and modify partitioning layout"
 msgstr "_Vis og ændr udlægning af partitioner"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "Vælg de drev du vil bruge til denne installation:"
+msgstr "_Vælg de drev du vil bruge til denne installation."
 
 #: tmp/exn.glade.h:1
-#, fuzzy
 msgid "Exception Info"
-msgstr "Undtagelse hændte"
+msgstr "Info om undtagelse"
 
 #: tmp/exn.glade.h:2
-#, fuzzy
 msgid "_Exception details"
-msgstr "Undtagelse hændte"
+msgstr "_Detaljer om undtagelse"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>_Portnummer:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>IP-addresse på målet:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI initiator_navn:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "SILO-konfiguration"
+msgstr "iSCSI-konfiguration"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "Manuel opgradering"
+msgstr "Tilpas _senere"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"Yderligere tilpasning af programmelvalget kan laves nu, "
+"eller efter installering via programmet til programmeladministration."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6264,11 +6264,13 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"Den normale installation af %s indbefatter et udvalg af programmel "
+"som passer til generel internet brug. Hvilke yderligere opgaver "
+"ønsker du at dit system skal have understøttelse for?"
 
 #: tmp/tasksel.glade.h:5
-#, fuzzy
 msgid "_Customize now"
-msgstr "Manuel opgradering"
+msgstr "_Tilpas nu"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6319,14 +6321,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantisk tid - Østlabrador"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr "Atlantisk tid - Østlabrador"
+msgstr "Atlantisk tid - New Brunswick"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr "Atlantisk tid - (det meste af) Nova Scotia, NB, Vestlabrador, Østquebec & PEI"
+msgstr "Atlantisk tid - (det meste af) Nova Scotia, Vestlabrador, Østquebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -6361,9 +6361,8 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey-stationen, Bailey-halvøen"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr "Catamarca (CT)"
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -6390,9 +6389,8 @@ msgid "Central Time - Campeche, Yucatan"
 msgstr "Centralamerikansk tid - Campeche, Yucatan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr "Centralamerikansk tid - Vestnunavut"
+msgstr "Centralamerikansk tid - Centrale Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
@@ -6400,21 +6398,19 @@ msgstr "Centralamerikansk tid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "Centralamerikansk tid - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr "Østamerikansk standardtid - Indiana - Starke County"
+msgstr "Centralamerikansk tid - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
 msgstr "Centralamerikansk tid - Manitoba & vestlige Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr "Centralamerikansk tid - Michigan - Wisconsin-grænsen"
+msgstr "Centralamerikansk tid - Michigan -  Dickinson, Gogebic, Iron & Menominee amter"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
@@ -6477,38 +6473,32 @@ msgid "Easter Island & Sala y Gomez"
 msgstr "Påskeøen & Sala y Gomez"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr "Østamerikansk standardtid - østnunavut"
+msgstr "Østamerikansk standardtid - Southampton Island"
 
 #. generated from zone.tab
 msgid "Eastern Time"
 msgstr "Østamerikansk tid"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr "Østamerikansk standardtid - østnunavut"
+msgstr "Østamerikansk standardtid - Østnunavut"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Østamerikansk standardtid - Indiana - Crawford County"
+msgstr "Østamerikansk tid - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr "Østamerikansk standardtid - Indiana - de fleste steder"
+msgstr "Østamerikansk tid - Indiana - de fleste steder"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Østamerikansk standardtid - Indiana - Starke County"
+msgstr "Østamerikansk tid - Indiana - Starke County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Østamerikansk standardtid - Indiana - Switzerland County"
+msgstr "Østamerikansk tid - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6533,9 +6523,8 @@ msgstr ""
 "1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr "Østamerikansk standardtid - Pangnirtung, Nunavut"
+msgstr "Østamerikansk tid - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -6883,12 +6872,11 @@ msgstr "Syowa-stationen, Østongul"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmania - King Island"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tasmania - most locations"
-msgstr "Queensland - de fleste steder"
+msgstr "Tasmania - de fleste steder"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -6907,9 +6895,8 @@ msgid "Tocantins"
 msgstr "Tocantinerne"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Truk (Chuuk) and Yap"
-msgstr "Truk (Chuuk)"
+msgstr "Truk (Chuuk) og Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
@@ -7104,14 +7091,12 @@ msgid "Russian"
 msgstr "Russisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Persisk"
+msgstr "Serbisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "Persisk"
+msgstr "Serbisk (Latinsk)"
 
 #. generated from lang-table
 msgid "Slovak"
