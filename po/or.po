@@ -1,42 +1,41 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Oriya translation of anaconda.pot
+# Copyright (C) 2006, Red Hat Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Subhransu Behera <sbehera@redhat.com>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-03-14 12:00+0530\n"
+"Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
+"Language-Team: Localisation Team <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
-msgstr ""
+msgstr "VNC ଆରମ୍ଭ କରୁଛି"
 
 #: ../anaconda:133
 #, c-format
 msgid "%s %s installation on host %s"
-msgstr ""
+msgstr "%s %s %s ଆଧାର ରେ ସ୍ଥାପିତ ହେଉ ଅଛି"
 
 #: ../anaconda:135
 #, c-format
 msgid "%s %s installation"
-msgstr ""
+msgstr "%s %s ସ୍ଥାପନ"
 
 #: ../anaconda:155
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "vnc ର ପ୍ରବେଶ ସଙ୍କେତ କୁ ସେଟ୍ କରିବା ରେ ଅସମର୍ଥ - କୌଣସି ପ୍ରବେଶ ସଙ୍କେତ ବ୍ଯବହାର କରୁ ନାହିଁ"
 
 #: ../anaconda:156
 msgid "Make sure your password is at least 6 characters in length."
-msgstr ""
+msgstr "ଏହା ନିଶ୍ଚିତ ହିଅନ୍ତୁ ଯେ ଆପଣ ଦେଇଥିବା ପ୍ରବେଶ ସଙ୍କେତ ଟି ୬ ଟି ଅକ୍ଷର ବିଶିଷ୍ଟ"
 
 #: ../anaconda:179
 msgid ""
@@ -47,45 +46,51 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"ଚେତାବନୀ!!! VNC ସେବକ ଟି ବିନା ପ୍ରବେଶ ସଙ୍କେତ ରେ ଚାଲିଛି!\n"
+"ଆପଣ vncpassword=<ପ୍ରବେଶ ସଙ୍କେତ> ବୁଟ୍ ପସନ୍ଦ କୁ ବ୍ଯବହାର କରି ପାରିବେ\n"
+"ଯଦି ଆପଣ ସେବକ କୁ ସୁରକ୍ଷିତ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି\n"
+"\n"
 
 #: ../anaconda:183
 msgid "The VNC server is now running."
-msgstr ""
+msgstr "VNC ସେବକ ଟି ବର୍ତ୍ତମାନ ଚାଲିଛି"
 
 #: ../anaconda:186
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "vnc ଗ୍ରାହକ ସହିତ %s ଆଧାର ରେ ସଂଯୋଗ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରୁଛି"
 
 #: ../anaconda:198
 msgid "Connected!"
-msgstr ""
+msgstr "ସଂଯୋଗ ହୋଇଗଲା"
 
 #: ../anaconda:203
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "୫୦ ଥର ଚେଷ୍ଟା କରିବା ପରେ ସଂଯୋଗ କରିବା ପ୍ରଚେଷ୍ଟା କୁ ପରିତ୍ଯାଗ କରିଛି!\n"
 
 #: ../anaconda:205
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା କୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି vnc ଗ୍ରାହକ କୁ %s ସହିତ ନିଜ ହାତ ରେ ସଂଯୋଗ କରନ୍ତୁ"
 
 #: ../anaconda:207
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା କୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି vnc ଗ୍ରାହକ କୁ ନିଜ ହାତ ରେ ସଂଯୋଗ କରନ୍ତୁ"
 
 #: ../anaconda:211
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "୧୫ ସେକେଣ୍ଡ ମଦ୍ଧ୍ଯ ରେ ପୂର୍ନବାର ସଂଯୋଗ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରିବ"
 
 #: ../anaconda:219
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା କୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି %s ସହିତ ସଂଯୋଗ କରନ୍ତୁ"
 
 #: ../anaconda:221
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା କୁ ଆରମ୍ଭ କରିବା ପାଇଁ ଦୟାକରି ସଂଯୋଗ କରନ୍ତୁ"
 
 #: ../anaconda:622 ../anaconda:813 ../gui.py:242 ../gui.py:1186
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
@@ -127,79 +132,79 @@ msgstr ""
 #: ../loader2/urls.c:191 ../loader2/urls.c:257 ../loader2/urls.c:322
 #: ../loader2/urls.c:327 ../loader2/urls.c:333 ../loader2/urls.c:447
 msgid "OK"
-msgstr ""
+msgstr "ଠିକ ଅଛି"
 
 #: ../anaconda:668
 msgid "Unknown Error"
-msgstr ""
+msgstr "ଅଜଣା ତ୍ରୁଟି"
 
 #: ../anaconda:671
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
+msgstr "kickstart config ର ଦ୍ବିତୀୟ ଅଂଶ କୁ ଟାଣିବା ସମୟ ରେ ତ୍ରୁଟି: %s!"
 
 #: ../anaconda:797
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
+msgstr "ଆଲେଖୀ ସ୍ଥାପନ କୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଆପଣଙ୍କ ପାଖରେ ଯଥେଷ୍ଟ RAM ନାହିଁ | ଅକ୍ଷରାବସ୍ଥା କୁ ଆରମ୍ଭ କରୁଅଛି"
 
 #: ../anaconda:860
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "ସ୍ଥାପନ ଶ୍ରେଣୀ ଅକ୍ଷରାବସ୍ଥା ସ୍ଥାପନ ପାଇଁ ବାଦ୍ଧ୍ଯ କରୁଅଛି"
 
 #: ../anaconda:887
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "କୌଣସି ଭିଡିଓ ହାର୍ଡଓ୍ବାର ମିଳିଲା ନାହିଁ, ଶୀର୍ଷବିହୀନ ଅଛି"
 
 #: ../anaconda:898 ../anaconda:1133
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "X ହାର୍ଡଓ୍ବାର ର ଅବସ୍ଥା କୁ ଅସମର୍ଥ"
 
 #: ../anaconda:922
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "ଆଲେଖୀ ସ୍ଥାପନ ଉପଲବ୍ଧ ନାହିଁ... ଅକ୍ଷରାବସ୍ଥା କୁ ଆରମ୍ଭ କରୁଅଛି"
 
 #: ../anaconda:930
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "ପ୍ରଦର୍ଶକ ଚଳ ସେଟି ହୋଇ ନାହିଁ | ଅକ୍ଷରାବସ୍ଥା କୁ ଆରମ୍ଭ କରୁଅଛି"
 
 #: ../anaconda:1013
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "ଆବରଣ ପାଇଁ <enter> ଦବାନ୍ତୁ "
 
 #: ../anaconda:1045
 msgid "Starting graphical installation..."
-msgstr ""
+msgstr "ଆଲେଖୀ ସ୍ଥାପନ ଆରମ୍ଭ କରୁଅଛି..."
 
 #: ../anaconda:1099
 msgid "Unknown install method"
-msgstr ""
+msgstr "ଅଜଣା ସ୍ଥାପନ ପ୍ରଣାଳୀ"
 
 #: ../anaconda:1100
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
+msgstr "ଆପଣ ଗୋଟିଏ ସ୍ଥାପନ ପ୍ରଣାଳୀ ଉଲ୍ଲେକ୍ଷିତ କରିଛନ୍ତି ଯାହାକି ଆନାକୋଣ୍ଡା ଦ୍ବାରା ସହାୟକ ନୁହଁ"
 
 #: ../anaconda:1102
 #, c-format
 msgid "unknown install method: %s"
-msgstr ""
+msgstr "ଅଜଣା ସ୍ଥାପନ ପ୍ରଣାଳୀ: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
+msgstr "ସିଲିଣ୍ଡର ଆଧାର ବିଶିଷ୍ଟ ବିଭାଜନ ମାନଙ୍କୁ ମୌଳିକ ବିଭାଜନ ଭାବ ରେ ବାଣ୍ଟି ହେବ ନାହିଁ"
 
 #: ../autopart.py:970
 msgid "Could not allocate partitions as primary partitions"
-msgstr ""
+msgstr "ବିଭାଜନ ମାନଙ୍କୁ ମୌଳିକ ବିଭାଜନ ଭାବ ରେ ବାଣ୍ଟି ହେବ ନାହିଁ"
 
 #: ../autopart.py:973
 msgid "Could not allocate cylinder-based partitions"
-msgstr ""
+msgstr "ସିଲିଣ୍ଡର ଆଧାର ବିଶିଷ୍ଟ ବିଭାଜନ ମାନଙ୍କୁ ବାଣ୍ଟି ହେବ ନାହିଁ"
 
 #: ../autopart.py:976
 msgid "Could not allocate partitions"
-msgstr ""
+msgstr "ବିଭାଜନ ମାନଙ୍କୁ ବାଣ୍ଟି ହେବ ନାହିଁ"
 
 #: ../autopart.py:1038
 #, python-format
@@ -207,7 +212,9 @@ msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
+msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି BSD ଡିସ୍କ୍ ଚିହ୍ନକ ର ଅନ୍ତର୍ଭୂକ୍ତ ନୁହଁ | ଏହି ବିଭାଜନ ରୁ SRM ବୁଟ୍ ହୋଇପାରିବ ନାହିଁ"
+"BSD ଡିସ୍କ୍ ଚିହ୍ନକ ର ଅନ୍ତର୍ଭୂକ୍ତ ଗୋଟିଏ ବିଭାଜନ କୁ ବ୍ଯବହାର କରନ୍ତୁ କିମ୍ବା ଏହି ଯନ୍ତ୍ର ର ଡିସ୍କ୍ ଚିହ୍ନକ କୁ BSD ରେ"
+"ପରିବର୍ତ୍ତନ କରନ୍ତୁ"
 
 #: ../autopart.py:1040
 #, python-format
@@ -215,37 +222,41 @@ msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
-msgstr ""
+msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି କୌଣସି ଡିସ୍କ୍ ର ଅନ୍ତର୍ଭୂକ୍ତ ନୁହଁ ଯାହାର ଆରମ୍ଭ ରେ ବୁଟ୍ଧାରଣ ର ସାଧନ ପାଇଁ ଯଥେଷ୍ଟ"
+"ଖାଲି ସ୍ଥାନ ଅଛି | ଆପଣ ଏହା ନିଶ୍ଚିତ ହୁଅନ୍ତୁ ଯେ  ଡିସ୍କ୍ ର ଆରମ୍ଭ ରେ ଅତି କମ ରେ ୫MB ଖାଲି ସ୍ଥାନ ଅଛି ଯାହାକି /boot"
+"କୁ ଧାରଣ କରିଛି"
 
 #: ../autopart.py:1042
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
+msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଗୋଟିଏ VFAT ବିଭାଜନ ନୁହେଁ | ଏହି ବିଭାଜନ ରୁ EFI ବୁଟ କରି ପାରିବ ନାହିଁ"
 
 #: ../autopart.py:1044
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
+msgstr "ବୁଟ୍ ବିଭାଜନ ଟି ପୂର୍ବ ରୁ ଡିସ୍କ୍ ରେ ଯଥେଷ୍ଟ ଭାବ ରେ ଅବସ୍ଥିତ ଅଛି | OpenFirmware ଏହି ସ୍ଥାପନ କୁ"
+"ବୁଟ କରି ପାରିବ ନାହିଁ"
 
 #: ../autopart.py:1051
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
+msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଆପଣଙ୍କ ର ଆର୍କିଟେକ୍ଚର ପାଇଁ ବୁଟିଙ୍ଗ ର ସ୍ଥିର ମୂଲ୍ଯ କୁ ପାଇ ନପାରେ"
 
 #: ../autopart.py:1077
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
+msgstr "ଏହି ବିଭାଜନ କୁ ସଂଯୋଗ କଲେ ଏହା %s ରେ ପୂର୍ବରୁ ବଣ୍ଟାଯାଇ ଥିବା ତାର୍କ୍କିକ ପ୍ରବଳତା ପାଇଁ ଯଥେଷ୍ଟ"
+"ଡିସ୍କ୍ ସ୍ଥାନ ଛାଡିବ ନାହିଁ"
 
 #: ../autopart.py:1267
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ବିଭାଜନ ଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1268
 #, python-format
@@ -254,10 +265,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"ବିଭାଜନ %s  କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବା ରେ ଅସମର୍ଥ \n"
+"\n"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1295
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ରେଡ୍ ଯନ୍ତ୍ର ଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1296
 #, python-format
@@ -266,10 +280,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"ରେଡ୍ ଯନ୍ତ୍ର %s  କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବା ରେ ଅସମର୍ଥ \n"
+"\n"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1327
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ପ୍ରବଳତା ସମୂହ ଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1328
 #, python-format
@@ -278,10 +295,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"ପ୍ରବଳତା ସମୂହ %s  କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବା ରେ ଅସମର୍ଥ \n"
+"\n"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1365
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "ଆପଣ ଅନୁରୋଧ କରିଥିବା ତାର୍କ୍କିକ ପ୍ରବଳତା ଟି ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../autopart.py:1366
 #, python-format
@@ -290,10 +310,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"ତାର୍କ୍କିକ ପ୍ରବଳତା %s  କୁ %s ର ବ୍ଯବହାର ପାଇଁ ଖୋଜିବା ରେ ଅସମର୍ଥ \n"
+"\n"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1480 ../autopart.py:1528
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "ସ୍ବୟଂଚାଳିତ ବିଭାଜନୀୟ ତ୍ରୁଟି"
 
 #: ../autopart.py:1481
 #, python-format
@@ -303,11 +326,15 @@ msgid ""
 "%s\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr ""
+msgstr "ଆପଣ ଙ୍କ ବିଭାଜନ ରେ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ମାନ ଉତ୍ପନ ହେଲା:\n"
+"\n"
+"%s\n"
+"\n"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1491
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "ସ୍ବୟଂଚାଳିତ ବିଭାଜନ ସମୟ ରେ ଚେତାବନୀ"
 
 #: ../autopart.py:1492
 #, python-format
@@ -316,6 +343,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ସ୍ବୟଂଚାଳିତ ବିଭାଜନ ସମୟ ରେ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ମାନ ଉତ୍ପନ ହେଲା:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1505 ../autopart.py:1522
 msgid ""
@@ -323,11 +353,14 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"ଆପଣ ଙ୍କ ତନ୍ତ୍ର କୁ ରିବୁଟ୍ କରିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1506 ../iw/partition_gui.py:998
 #: ../textw/partition_text.py:227
 msgid "Error Partitioning"
-msgstr ""
+msgstr "ବିଭାଜନ ସମୟ ରେ ତ୍ରୁଟି"
 
 #: ../autopart.py:1507
 #, python-format
@@ -336,6 +369,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+""
 
 #: ../autopart.py:1524
 msgid ""
