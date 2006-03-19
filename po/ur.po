@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ur\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-17 12:29+0500\n"
+"PO-Revision-Date: 2006-03-19 22:04+0500\n"
 "Last-Translator: Usman Siraj Sheikh <usman.siraj@gmail.com>\n"
 "Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu.scs.gift@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -592,7 +592,7 @@ msgstr "ڈنپ نہیں لکھا گیا"
 
 #: ../exception.py:429
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "فلاپی پر سسٹم کی حالت لکھنے میں ایک مسُلہ درپیش تھا۔"
 
 #: ../exception.py:437
 msgid ""
@@ -602,7 +602,7 @@ msgstr "آپ کے سسٹم کی حالت کامیابی سے ریموٹ ہوسٹ
 
 #: ../exception.py:445
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "ریموٹ میزبان  پر سسٹم کی حالت لکھنے میں ایک مسُلہ درپیش تھا۔"
 
 #: ../fsset.py:199
 msgid "Checking for Bad Blocks"
@@ -1108,7 +1108,7 @@ msgstr "... انسٹال امیج کو ہارڈ ڈرائیو پر منتقل ک�
 
 #: ../image.py:163
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
-msgstr ""
+msgstr "آپ کی ہارڈ ڈرایُو پر تنصیبی خاکہ منتقل کرنے میں نقص واقع ہو گیا ہے۔ آپ لازمی طور پر ڈسک کی جگہ سے باہر ہیں۔"
 
 #: ../image.py:291
 msgid "Change CDROM"
@@ -1117,7 +1117,7 @@ msgstr "کو تبدیل کریں CDROM"
 #: ../image.py:292
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr ""
+msgstr "ڈالیں%s disc %d  براےُ کرم جاری کرنے کے لیےُ"
 
 #: ../image.py:327
 msgid "Wrong CDROM"
@@ -1126,11 +1126,11 @@ msgstr "CDROM غلط"
 #: ../image.py:328
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "نھیں ہے۔ %s CDROM یہ درست "
 
 #: ../image.py:334
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr " کی رسایُ کرنے سے قاصر ہے۔CDROM"
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
@@ -1154,7 +1154,7 @@ msgstr "سسٹم پر تنصیب"
 
 #: ../kickstart.py:71
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "سکریپٹلیٹ ناکام ہو گیا ہے"
 
 #: ../kickstart.py:72
 #, python-format
@@ -1171,27 +1171,27 @@ msgstr "چل رہا ہے"
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "پری-انسٹال سکریپٹز چلا رہا ہے"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "پوسٹ-انسٹال سکریپٹز چلا رہا ہے"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "ہوسٹ کے نام 64 یا  کم کریکٹرز کے لازمی ہونے چاہییں"
 
 #: ../network.py:47
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
+msgstr "میں ہو 'a-z' or 'A-Z' ہوسٹ نیم ایک درست کریکٹر سے شروع ہونا چاہیے جس کی رینج"
 
 #: ../network.py:52
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
+msgstr "کریکٹر پر مشتمل ہو سکتے ہیں 'a-z', 'A-Z', '-', or '.'  میزبان کے نام صرف "
 
 #: ../packages.py:46
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "اپگریڈ کے ساتھ جاری رہنا چاہتے ہیں؟"
 
 #: ../packages.py:47
 msgid ""
@@ -1201,7 +1201,7 @@ msgstr ""
 
 #: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "کیا آپ اپگریڈ کے ساتھ جاری رہنا چاہتے ہیں؟ "
 
 #: ../packages.py:53
 #: ../textw/complete_text.py:47
@@ -1216,7 +1216,7 @@ msgstr "پوسٹ تنصیب"
 #: ../packages.py:201
 #: ../yuminstall.py:911
 msgid "Performing post install configuration..."
-msgstr ""
+msgstr "پوسٹ تنصیب ترتیبات نبھا رہا ہے۔۔۔"
 
 #: ../packages.py:336
 msgid ""
@@ -1224,6 +1224,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"مندرجہ ذیل پیکیجز اس ورین میں موجود ہیں لیکن یہ اپگریڈیڈ نھیں ہیں:\n"
 
 #: ../packages.py:339
 msgid ""
@@ -1231,10 +1234,13 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT installed:\n"
 msgstr ""
+"\n"
+"\n"
+"مندرجہ ذیل پیکیجز اس ورین میں موجود ہیں لیکن ان کی تنصیب نھیں ہویُ:\n"
 
 #: ../packages.py:560
 msgid "Warning! This is pre-release software!"
-msgstr ""
+msgstr "خبردار! یہ ایک ریلیز سے پہلے کا سوفٹ ویرُ ! ہے  "
 
 #: ../packages.py:561
 #, python-format
@@ -1277,25 +1283,25 @@ msgstr ""
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
-msgstr ""
+msgstr "نظرانداز ڈرایو_"
 
 #: ../partedUtils.py:345
 msgid "_Format drive"
-msgstr ""
+msgstr "فارمیٹ ڈرایو_"
 
 #: ../partedUtils.py:722
 #, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "میں ماونُٹ کرنے میں نقص %s: %s فایلُ سسٹم"
 
 #: ../partedUtils.py:810
 msgid "Initializing"
-msgstr ""
+msgstr "شروع کر رہا ہے"
 
 #: ../partedUtils.py:811
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "...%s  مہربانی فرما کر ڈرایوُ فارمیٹنگ کے دوران انتظار کریں\n"
 
 #: ../partedUtils.py:912
 #, python-format
@@ -1319,7 +1325,7 @@ msgstr ""
 
 #: ../partedUtils.py:1087
 msgid "No Drives Found"
-msgstr ""
+msgstr "کویُ ڈرایو ز نھیں ملی"
 
 #: ../partedUtils.py:1088
 msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
@@ -1331,7 +1337,7 @@ msgstr "مہربانی فرما کر والیم گروپ نام کا اندرا�
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "والیم گروپ کے نام 128 کریکٹرز سے لازمی کم ہونے چاہییں"
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1348,7 +1354,7 @@ msgstr "براےُ کرم لوجیکل والیم نام کا اندراج کر�
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "لوجیکل والیم گروپ کے نام 128 کریکٹرز سے لازمی کم ہونے چاہییں"
 
 #: ../partIntfHelpers.py:65
 #, python-format
@@ -1366,11 +1372,11 @@ msgstr ""
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "مہربانی فرما کر اس پارٹیشن کے لیےُ ماوُنٹ پواینٹ واضع کریں۔"
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "یہ پارٹیشن تنصیب شدہ ہارڈ ڈرایوُ کے لیے ڈیٹا رکھتی ہے۔"
 
 #: ../partIntfHelpers.py:116
 #, python-format
@@ -1400,7 +1406,7 @@ msgstr "ختم کرنے سے قاصر ہے"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "آپ کو پارٹیشن ختم کرنے سے پہلے منتخب کرنا پڑے گا۔ "
 
 #: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
@@ -1408,12 +1414,12 @@ msgstr "آپ خالی جگہ ختم نہیں کر سکتے۔"
 
 #: ../partIntfHelpers.py:158
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
+msgstr "آپ ایل ڈی ایل کی پارٹیشن جو کہ ڈی اے ایس ڈی فارمیٹیڈ ہے ختم نہیں کر سکتے"
 
 #: ../partIntfHelpers.py:168
 #, python-format
 msgid "You cannot delete this partition, as it is an extended partition which contains %s"
-msgstr ""
+msgstr " پر مشتمل  ہے%s آپ اِس پارٹیشن کو ختم نہیں کر سکتے، کیونکہ یہ ایک ایکسٹنڈیڈ پارٹیشن ہے جو"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1432,7 +1438,7 @@ msgstr "ختم کرنے کو یقینی بنایںُ"
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr " پر تمام  پارٹیشنز ختم کرنے والے ہیں۔ '/dev/%s' آپ اِس ڈیوایُس"
 
 #: ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:526
@@ -1454,6 +1460,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"مندرجہ ذیل پارٹیشنز ختم نہیں ہو سکتیں کیونکہ وہ استعمال میں ہیں\n"
+":\n"
+"%s"
 
 #: ../partIntfHelpers.py:308
 #: ../partIntfHelpers.py:321
@@ -1482,7 +1491,7 @@ msgstr "   آپ اس پارٹیشن کی  ترمیم  نہیں کرسکتے،�
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
-msgstr ""
+msgstr "سویپ کی طرح فارمیٹ؟"
 
 #: ../partIntfHelpers.py:381
 #, python-format
@@ -1564,16 +1573,16 @@ msgstr ""
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
+msgstr "آپ لوجیکل والیم   \"%s\"کو ختم کرنے والے ہیں۔  "
 
 #: ../partIntfHelpers.py:517
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "آپ ریڈ ڈیوایُس کو ختم کرنے والے ہیں۔"
 
 #: ../partIntfHelpers.py:520
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "  آپ  /dev/%s  پارٹیشن کو ختم کرنے والے ہیں۔"
 
 #: ../partIntfHelpers.py:523
 msgid "The partition you selected will be deleted."
@@ -1581,7 +1590,7 @@ msgstr "آپ کی منتخب شدہ پارٹیشن ختم ہو جاےُ گی۔
 
 #: ../partIntfHelpers.py:533
 msgid "Confirm Reset"
-msgstr ""
+msgstr "واقع شروع کرنا ہے"
 
 #: ../partIntfHelpers.py:534
 msgid "Are you sure you want to reset the partition table to its original state?"
@@ -1606,12 +1615,12 @@ msgstr ""
 #: ../partitions.py:803
 #, python-format
 msgid "You have not defined a root partition (/), which is required for installation of %s to continue."
-msgstr ""
+msgstr "آپ نے روٹ پارٹیشن  (/) کی تعریف نہیں کی، جو کہ  تنصیب %s کے جاری رہنے کے لیےُ  ضروری ہے۔                                                                                                                                                       "
 
 #: ../partitions.py:808
 #, python-format
 msgid "Your root partition is less than 250 megabytes which is usually too small to install %s."
-msgstr ""
+msgstr "تنصیب کے لیےُ ناکافی ہے۔ %s آپ کی روٹ پارٹیشن 250 میگابایٹُز سے کم ہے جو کہ "
 
 #: ../partitions.py:815
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
@@ -1619,11 +1628,11 @@ msgstr ""
 
 #: ../partitions.py:835
 msgid "You must create an Apple Bootstrap partition."
-msgstr ""
+msgstr "آپ کو ایپل بوٹ سٹریپ پارٹیشن لازمی طور پر بنانا پڑے گی۔ "
 
 #: ../partitions.py:857
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "آپ کو پی پی سی پی ریپ بوٹ پارٹیشن لازمی طور پر بنانا پڑے گی۔ "
 
 #: ../partitions.py:865
 #: ../partitions.py:876
@@ -1634,11 +1643,11 @@ msgstr ""
 #: ../partitions.py:905
 #: ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "قابلِ بوٹ پارٹیشنز صرف ریڈ1 ڈیوایُسز پر ہو سکتی ہیں۔"
 
 #: ../partitions.py:912
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "قابلِ بوٹ پارٹیشنز لوجیکل والیم نہیں ہو سکتیں۔"
 
 #: ../partitions.py:930
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
@@ -1678,12 +1687,12 @@ msgstr ""
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "اس ماونٹ پواینٹ کا لینکس فایل سسٹم پر ہونا لازمی ہے۔"
 
 #: ../partRequests.py:280
 #, python-format
 msgid "The mount point \"%s\" is already in use, please choose a different mount point."
-msgstr ""
+msgstr " پہلے سے استعمال میں ہے، مہربانی فرما کر مختلف ماُونٹ موایُنٹ کا انتخاب کریں۔ \"%s\"  ماوُنٹ پواینُٹ "
 
 #: ../partRequests.py:294
 #, python-format
@@ -1710,7 +1719,7 @@ msgstr "پارٹیشن منفی سلنڈر پر ختم نہیں ہو سکتی۔"
 
 #: ../partRequests.py:667
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "ریڈ کی درخواست میں کویُ میمبر نہیں ہے، یا ریڈ لا لیول واضع نہیں کیا گیا۔"
 
 #: ../partRequests.py:679
 #, python-format
@@ -1841,7 +1850,7 @@ msgstr ""
 #: ../rescue.py:438
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr ""
+msgstr "ڈیرکٹری کے  ماتحت ماونُٹ ہو گیا ہے۔  %s  آپ کا سسٹم"
 
 #: ../text.py:147
 #: ../text.py:159
@@ -2104,7 +2113,7 @@ msgstr "ختم_"
 
 #: ../yuminstall.py:441
 msgid "Error running transaction"
-msgstr ""
+msgstr "ٹرانسیکشن کو چلانے میں نقص"
 
 #: ../yuminstall.py:488
 #, python-format
@@ -2115,7 +2124,7 @@ msgstr ""
 
 #: ../yuminstall.py:599
 msgid "Retrieving installation information..."
-msgstr ""
+msgstr "تنصیب کی معلومات حاصل کر رہا ہے۔"
 
 #: ../yuminstall.py:615
 #, python-format
@@ -2124,7 +2133,7 @@ msgstr ""
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "کسی تقسیم کے بغیر"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
@@ -2132,7 +2141,7 @@ msgstr "تنصیب شروع ہو رہی ھے"
 
 #: ../yuminstall.py:894
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
+msgstr "تنصیب کے عمل کا آغاز ہو رہا ہے۔ یہ کافی منٹ لے سکتا ہے۔۔۔ "
 
 #: ../yuminstall.py:1033
 msgid "Installation Progress"
@@ -2140,11 +2149,11 @@ msgstr "انسٹالیش کی پیش رفت"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
-msgstr ""
+msgstr "انحصار چیک"
 
 #: ../yuminstall.py:1078
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "تنصیب کے لیےُ منتخب شدہ پیکیجیز میں انحصار چیک کر رہا ہے۔"
 
 #: ../zfcp.py:28
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
@@ -2277,6 +2286,9 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"آپ کا بوٹ لوڈر پاسورڈ چھ کریکٹرز سے کم ہے۔ ہم  لمبے  بوٹ لوڈر  پاسورڈ کا مشورہ دیتے ہیں۔\n"
+"\n"
+"کیا آپ اِس پاسورڈ کے ساتھ آگے جانا چاہتے ہیں؟ "
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2489,7 +2501,7 @@ msgstr "ڈیٹا میں نقص "
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "کوُی آیی پی درج نھیں کیا گیا ،  آییُ ایس سی ایس ایل نظام کو چھوڑ رہا ھے "
 
 #: ../iw/iscsi_gui.py:36
 #: ../textw/welcome_text.py:22
@@ -2725,7 +2737,7 @@ msgstr "نام  استعمال میں ہے"
 #: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "  پہلے سے استعمال میں ہے۔ مہربانی فرما کر کسی دوسرے کا انتخاب کریں۔\"%s\"  والیم گروپ نام "
 
 #: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
@@ -3381,7 +3393,7 @@ msgstr "ایل وی ایم_"
 
 #: ../iw/partition_gui.py:1403
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "ریڈ ڈیواُس/ایل وی ایم _گروپ ممبران کو چھپا دو"
 
 #: ../iw/partition_ui_helpers_gui.py:91
 #: ../iw/partition_ui_helpers_gui.py:112
@@ -3395,11 +3407,11 @@ msgstr "<لاگو نھیں ہے>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
+msgstr "آپ اس پارٹیشن پر فایُل سسٹم کس طرح تیار کرنا چاہتے ہیں؟"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
-msgstr ""
+msgstr "ترمیم کیےُ بغیر چھوڑ دیں (ڈیٹا کو محفوظ رکھیں)۔_"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
@@ -3407,11 +3419,11 @@ msgstr "پارٹیشن کو اس طرح فارمیٹ کرو: _"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "پارٹیشن کی ہجرت کا مقام:"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "خراب بلاکز کی جانچ پڑتال کریں؟_"
 
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
@@ -3421,7 +3433,7 @@ msgstr "قِسم کی پارٹیشنز ایک ہی ڈرائیو تک محدود 
 #: ../iw/partmethod_gui.py:25
 #: ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "ڈسک پارٹیشنگ کو درست کرنا"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
@@ -3429,7 +3441,7 @@ msgstr "خودبخود پارٹیشن_"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "ڈسک ڈریوڈ کے ساتھ خود پارٹیشن کریں_"
 
 #: ../iw/progress_gui.py:42
 #, python-format
@@ -4097,7 +4109,7 @@ msgstr "پورٹ نمبر:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "نام _انیٹیٹر: iSCSI"
 
 #: ../textw/iscsi_text.py:70
 #: ../textw/network_text.py:28
@@ -4429,7 +4441,7 @@ msgstr "بھت زیا دہ کم "
 
 #: ../textw/partition_text.py:1094
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "کے ساتھ فالتو تعداد زیادہ سے زیادہ 0 ہے۔  RAID0 array"
 
 #: ../textw/partition_text.py:1175
 msgid "No Volume Groups"
@@ -4747,6 +4759,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\t (GNOME)ڈیکسٹوپ شیل\n"
+"\t(OpenOffice.org)دفتر سیوُٹ \n"
+"\tویب کا جال \n"
+"\t (Evolution)ای میل\n"
+"\tتیز  پیغامات\n"
+"\tصوت اور تصویر پروگرامز\n"
+"\tکھیل\n"
 
 #: ../installclasses/rhel_as.py:9
 #: ../installclasses/rhel_as.py:11
@@ -4762,6 +4781,11 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\t (GNOME)ڈیکسٹوپ شیل\n"
+"\tایڈمنیسٹریٹر ہتھیار\n"
+"\tکارگزار کو ترتیب دینے والے ہتھیار\n"
+"\tویب کارگزار\n"
+"\t(SMB)ونڈوز فایُل کارگزار\n"
 
 #: ../installclasses/rhel_desktop.py:9
 #: ../installclasses/rhel_desktop.py:11
@@ -4791,6 +4815,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\t (GNOME)ڈیکسٹوپ شیل\n"
+"\t(OpenOffice.org)دفتر سیوُٹ \n"
+"\tویب کا جال \n"
+"\t (Evolution)ای میل\n"
+"\tتیز  پیغامات\n"
+"\tصوت اور تصویر پروگرامز\n"
+"\tکھیل\n"
+"\tسافٹ ویرُ تعمیراتی ہتھیار\n"
+"\tایڈمنیسٹریٹر ہتھیار\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -4891,7 +4924,7 @@ msgstr "آپ کے پاس بہت سی ڈوأسز ھیں جو کہ ڈرائیو�
 
 #: ../loader2/driverdisk.c:297
 msgid "There are multiple partitions on this device which could contain the driver disk image.  Which would you like to use?"
-msgstr ""
+msgstr "اس ڈیوایسُ میں بیشمار پارٹیشنز ایسی ہیں جو ڈرایور ڈسک خاکے پر مبنی ہیں۔ کیا آپ استعمال کرنا چاہتے ہیں؟"
 
 #: ../loader2/driverdisk.c:335
 msgid "Failed to mount partition."
@@ -4903,11 +4936,11 @@ msgstr "ڈرایور ڈیکس امیج کا انتخاب کریں"
 
 #: ../loader2/driverdisk.c:344
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "جو فایل آپ  کی ڈسک کے ڈرایور کا خاکہ ہے اس کا انتخاب کریں۔ "
 
 #: ../loader2/driverdisk.c:373
 msgid "Failed to load driver disk from file."
-msgstr ""
+msgstr "فایُل سے ڈیسک ڈرایور اٹھانے میں ناکام"
 
 #: ../loader2/driverdisk.c:384
 #, c-format
@@ -5063,7 +5096,7 @@ msgstr "فا ئل تلاش نھیں ھو سکی ھارڈ ڈرائیو پر  Kick
 #: ../loader2/hdinstall.c:580
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "کے لیُے ہارڈ ڈرایوُ  تلاش نھیں کر سکا %s بایوس ڈیسک "
 
 #: ../loader2/kbd.c:126
 msgid "Keyboard Type"
@@ -5450,7 +5483,7 @@ msgstr "این-ایف-ایس  سیٹ اپ"
 
 #: ../loader2/nfsinstall.c:126
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr " ترتیب کے بغیر میزبان کا نام واضع کیا گیا ہےDNS"
 
 #: ../loader2/nfsinstall.c:209
 #, c-format
@@ -5612,11 +5645,11 @@ msgstr "_ریلیز نوٹس"
 
 #: tmp/autopart2.glade.h:1
 msgid "How would you like to get space to partition?"
-msgstr ""
+msgstr "آپ پارٹیشن کے لیےُ کتنی جگہ چاہتے ہیں؟"
 
 #: tmp/autopart2.glade.h:2
 msgid "Installing <product> requires partitioning of your hard drive.  You can either use the default partitioning layout or create your own."
-msgstr ""
+msgstr "پررڈکٹ کی تنصیب آپ کی ہارڈ ڈرایوُ پر پارٹیشن چاہتی ہے۔ آپ موجودہ پارٹیشنگ لےآوٹ بھی استعمال کر سکتے ہیں یا اپنا بھی بنا سکتے ہیں۔"
 
 #: tmp/autopart2.glade.h:3
 msgid "Select the drive(s) to use for this installation."
@@ -5624,11 +5657,11 @@ msgstr ":اِس انسٹالیشن کےاستعمال لیے ڈرائیو(ز)چ�
 
 #: tmp/autopart2.glade.h:4
 msgid "_Review and modify partitioning layout"
-msgstr ""
+msgstr "پارٹیشنگ شکل کو _دوبارہ دیکھیں اور ترمیم کریں"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "پارٹیشنگ شکل کو دوبارہ_ دیکھیں اور ترمیم کریں"
 
 #: tmp/autopart.glade.h:3
 msgid "_Select the drive(s) to use for this installation."
@@ -5652,7 +5685,7 @@ msgstr "<b>ٹارگٹ آیی پی پتہ:_</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>: نام _انیٹیٹرiSCSI</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "iSCSI configuration"
@@ -5801,7 +5834,7 @@ msgstr "سينٹرل ٹائم - کاحوﻻ،دورانگو،نييوو،ليو�
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "  ڈیویعس، ڈوبواسُ، کنوص، مارٹین، پیری & پولاسکی- انڈیانا - سينٹرل ٹائم"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
