@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-02-17 23:20+0800\n"
+"PO-Revision-Date: 2006-03-20 17:52+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -226,28 +226,25 @@ msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
 #: ../anaconda:1013
-#, fuzzy
 msgid "Press <enter> for a shell"
-msgstr "Masukkan maklumat untuk pengguna"
+msgstr "Tekan <enter> untuk shell"
 
 #: ../anaconda:1045
 msgid "Starting graphical installation..."
 msgstr "Memulakan pemasangan bergrafik..."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Kaedah Url tidak diketahui %s"
+msgstr "Kaedah pemasangan tidak diketahui"
 
 #: ../anaconda:1100
-#, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "Anda cuba memasang pada mesin yang tidak disokong oleh keluaran bagi %s."
+msgstr "Anda telah menyatakan kaedah pemasangan yang tidak disokong oleh anaconda."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Kaedah Url tidak diketahui %s"
+msgstr "kaedah pemasangan tidak diketahui: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -573,9 +570,9 @@ msgid "Installing %s-%s-%s... "
 msgstr "Memasang %s-%s-%s... "
 
 #: ../constants.py:66
-#, fuzzy, python-format
+#, python-format
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report against anaconda at %s"
-msgstr "Pengecualian tanpa pengendalian telah berlaku.  Ini berkemungkinan besar adalah pepijat.  Sila salin teks penuh pengecualian ini dan laporkan pepijat secara terperinci terhadap anaconda di %s"
+msgstr "Pengecualian tanpa pengendalian telah berlaku.  Ini kemungkinan besar adalah pepijat.  Sila simpan salinan terperinci pengecualian dan laporkan pepijat terhadap anaconda di %s"
 
 #: ../exception.py:420
 #: ../exception.py:436
