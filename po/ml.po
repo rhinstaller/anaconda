@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-16 23:48+0530\n"
+"PO-Revision-Date: 2006-03-20 14:04+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam\n"
 "MIME-Version: 1.0\n"
@@ -71,29 +71,29 @@ msgstr "കണക്ഷന്‍ ഇപ്പോള്‍ ലഭ്യമാണ�
 
 #: ../anaconda:203
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "50ാം തവണ കണക്ട് ചെയ്വാനുളള ശ്രമവും പരാജയപ്പെട്ടതിനാല്‍ അവസാനിപ്പിക്കുന്നു!\n"
 
 #: ../anaconda:205
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
+msgstr "ഇന്‍സ്റ്റലേഷന്‍ ആരംഭിക്കുന്നതിനായി vnc ക്ളൈന്‍റുമായി %sനെ മാന്വലി കണക്ട് ചെയ്യിക്കുക."
 
 #: ../anaconda:207
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
+msgstr "ഇന്‍സ്റ്റലേഷന്‍ ആരംഭിക്കുന്നതിനായി vnc ക്ളൈന്‍റുമായി %sനെ മാന്വലി കണക്ട് ചെയ്യിക്കുക."
 
 #: ../anaconda:211
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "15 നിമിഷത്തിനുള്ളില്‍ വീണ്ടും കണക്ഷന് വേണ്ടി ശ്രമിക്കും..."
 
 #: ../anaconda:219
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "ഇന്‍സറ്റലേഷന്‍ തുടങ്ങുന്നതിനായി %s മായി കണക്ട് ചെയ്യുക..."
 
 #: ../anaconda:221
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "ഇന്‍സ്റ്റലേഷന്‍ ആരംഭിക്കുന്നതിനായി കണക്ട് ചെയ്യുക..."
 
 #: ../anaconda:622 ../anaconda:813 ../gui.py:242 ../gui.py:1186
 #: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
@@ -135,11 +135,11 @@ msgstr ""
 #: ../loader2/urls.c:191 ../loader2/urls.c:257 ../loader2/urls.c:322
 #: ../loader2/urls.c:327 ../loader2/urls.c:333 ../loader2/urls.c:447
 msgid "OK"
-msgstr ""
+msgstr "ശരി"
 
 #: ../anaconda:668
 msgid "Unknown Error"
-msgstr ""
+msgstr "പരിചയമില്ലാത്ത എററ്‍"
 
 #: ../anaconda:671
 #, c-format
@@ -150,7 +150,7 @@ msgstr ""
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
+msgstr "ഗ്രാഫിക്കല്‍ ഇന്‍സറ്റോളറിന് ആവശ്യമായ RAM നിങ്ങളുട് കംപ്യൂട്ടറിന് ഇല്ലാത്തതിനാല്‍ ടെക്സ്റ്റ് മോഡില്‍ ആരംഭിക്കുന്നു."
 
 #: ../anaconda:860
 msgid "Install class forcing text mode installation"
@@ -166,32 +166,32 @@ msgstr ""
 
 #: ../anaconda:922
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "ഗ്രാഫിക്കല്‍ ഇന്‍സ്റ്റലേഷന്‍ ലഭ്യമല്ല.... ടെക്സ്റ്റ് മോഡ് ആരംഭിക്കുന്നു."
 
 #: ../anaconda:930
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY വേരിയബിള്‍ സെറ്റ് ചെയ്തിട്ടില്ല. ടെക്സ്റ്റ് മോഡ് ആരംഭിക്കുന്നു!"
 
 #: ../anaconda:1013
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "ഒരു ഷെല്ലിനായി <enter> അമറ്‍ത്തുക"
 
 #: ../anaconda:1045
 msgid "Starting graphical installation..."
-msgstr ""
+msgstr "ഗ്രാഫിക്കല്‍ ഇന്‍സ്റ്റലേഷന്‍ ആരംഭിക്കുന്നു..."
 
 #: ../anaconda:1099
 msgid "Unknown install method"
-msgstr ""
+msgstr "ഇന്സ്റ്റോള്‍ ചെയ്യുന്ന രീതി അപരിചിതം"
 
 #: ../anaconda:1100
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
+msgstr "നിങ്ങള്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുവ്ന്‍ പറ‍ഞ്ഞിരിക്കുന്ന രീതി അനക്കോണ്ട സപ്പോറ്‍ട്ട് ചെയ്യുന്നില്ല."
 
 #: ../anaconda:1102
 #, c-format
 msgid "unknown install method: %s"
-msgstr ""
+msgstr "ഇന്സ്റ്റോള്‍ ചെയ്യുന്ന രീതി അപരിചിതം:%s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -264,7 +264,7 @@ msgstr ""
 
 #: ../autopart.py:1295
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "ആവശ്യപ്പെട്ട റെയ്ഡ് സറ്‍വീസ് നിലവിലില്ല"
 
 #: ../autopart.py:1296
 #, python-format
@@ -276,7 +276,7 @@ msgstr ""
 
 #: ../autopart.py:1327
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "ആവശ്യപ്പെട്ട വോള്യം ഗ്രൂപ്പ് നിലവിലില്ല"
 
 #: ../autopart.py:1328
 #, python-format
@@ -288,7 +288,7 @@ msgstr ""
 
 #: ../autopart.py:1365
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "ആവശ്യപ്പെട്ട വോള്യം ഗ്രൂപ്പ് നിലവിലില്ല"
 
 #: ../autopart.py:1366
 #, python-format
@@ -330,6 +330,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"കംപ്യൂട്ടറ്‍ വീണ്ടും ഓണ്‍ ചെയ്യുവാനായി 'OK' അമറ്‍ത്തുക."
 
 #: ../autopart.py:1506 ../iw/partition_gui.py:998
 #: ../textw/partition_text.py:227
@@ -371,7 +374,7 @@ msgstr ""
 
 #: ../autopart.py:1541
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
 #: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1183 ../image.py:456
 #: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:911
@@ -403,11 +406,11 @@ msgstr ""
 
 #: ../autopart.py:1710
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "ഈ കംപ്യൂട്ടറില്‍ ഉള്ള പാറ്‍ട്ടീഷനുകള്‍ മാറ്റുക"
 
 #: ../autopart.py:1711
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "ഈ കംപ്യൂട്ടറില്‍ ഉള്ള ലിനക്സ് പാറ്‍ട്ടീഷനുകള്‍ മാറ്റുക"
 
 #: ../autopart.py:1712
 msgid "Keep all partitions and use existing free space"
@@ -420,6 +423,9 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"ഇവിടെ പറഞ്ഞിട്ടുള്ള ഡ്രൈവുകളിലെ പാറ്‍ട്ടീഷനുകള്‍ (ALL DATA) മാറ്റുവാനാണ്  നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നത്:%s "
+"\n"
+"നിങ്ങള്‍ക്ക് ഇത് ചെയ്യണമെന്ന് ഉറപ്പ് വരുത്തുക?"
 
 #: ../autopart.py:1718
 #, python-format
@@ -428,6 +434,9 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"ഇവിടെ പറഞ്ഞിട്ടുള്ള ഡ്രൈവുകളിലെ ലിനക്സ് പാറ്‍ട്ടീഷനുകള്‍ (ALL DATA) മാറ്റുവാനാണ്  നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നത്:%s "
+"\n"
+"നിങ്ങള്‍ക്ക് ഇത് ചെയ്യണമെന്ന് ഉറപ്പ് വരുത്തുക?"
 
 #: ../backend.py:96
 #, python-format
@@ -441,11 +450,11 @@ msgstr ""
 
 #: ../bootloader.py:122
 msgid "Bootloader"
-msgstr ""
+msgstr "ബൂട്ട്ലോടറ്‍"
 
 #: ../bootloader.py:122
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "ബൂട്ട്ലോടറ്‍ ഇന്‍സ്റ്റോള്‍ .ചെയ്യപ്പെടുന്നു..."
 
 #: ../bootloader.py:186
 msgid ""
@@ -455,15 +464,15 @@ msgstr ""
 
 #: ../cmdline.py:44
 msgid "Completed"
-msgstr ""
+msgstr "പൂറ്‍ത്തീകരിച്ചു"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
-msgstr ""
+msgstr "പുരോഗമിക്കുന്നു..."
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "കമാന്ഡ് ലൈന്‍ മോഡില്‍ ചോദ്യം പാടില്ല!"
 
 #: ../cmdline.py:92
 msgid "Parted exceptions can't be handled in command line mode!"
@@ -472,7 +481,7 @@ msgstr ""
 #: ../cmdline.py:138
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "കഴിഞ്ഞിരിക്കുന്നു [%d/%d]"
 
 #: ../cmdline.py:144
 #, python-format
@@ -562,15 +571,15 @@ msgstr ""
 
 #: ../fsset.py:1332
 msgid "RAID Device"
-msgstr ""
+msgstr "റെയ്ഡ് ഡിവൈസ്"
 
 #: ../fsset.py:1336 ../fsset.py:1342
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "ആപ്പിള്‍ ബൂട്ട്സ്ട്രാപ്പ്"
 
 #: ../fsset.py:1347 ../partitions.py:868
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP ബൂട്ട്"
 
 #: ../fsset.py:1350
 msgid "First sector of boot partition"
@@ -578,7 +587,7 @@ msgstr ""
 
 #: ../fsset.py:1351
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "മാസ്റ്ററ്‍ ബൂട്ട് റക്കോറ്‍ഡ് (MBR)"
 
 #: ../fsset.py:1425
 #, python-format
@@ -705,11 +714,11 @@ msgstr ""
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "വീണ്ടും കംപ്യൂട്ടറ്‍ ഓണ്‍ ചെയ്ക(_R)"
 
 #: ../fsset.py:2610
 msgid "Formatting"
-msgstr ""
+msgstr "ഫോറ്‍മാറ്റിംഘങ്"
 
 #: ../fsset.py:2611
 #, python-format
@@ -722,7 +731,7 @@ msgstr ""
 
 #: ../gui.py:120
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "സ്ക്രീന്‍ഷോട്ടുകള്‍ പകറ്‍ത്തി കഴിഞ്ഞിരിക്കുന്നു"
 
 #: ../gui.py:121
 msgid ""
@@ -735,12 +744,12 @@ msgstr ""
 
 #: ../gui.py:165
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "സ്ക്രീല്‍ഷോട്ട് സംരക്ഷിക്കുന്നു"
 
 #: ../gui.py:166
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "'%s' എന്ന് പേരുള്ള സ്ക്രീന്‍ഷോട്ട് സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്ന."
 
 #: ../gui.py:169
 msgid "Error Saving Screenshot"
@@ -762,7 +771,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
 #: ../loader2/loader.c:396
 msgid "Yes"
-msgstr ""
+msgstr "ഉവ്വ്"
 
 #: ../gui.py:241 ../rescue.py:182 ../rescue.py:184 ../text.py:379
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
@@ -770,11 +779,11 @@ msgstr ""
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/loader.c:396
 msgid "No"
-msgstr ""
+msgstr "ഇല്ല"
 
 #: ../gui.py:243 ../text.py:381 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
-msgstr ""
+msgstr "വിണ്ടും ശ്രമിക്കുക"
 
 #: ../gui.py:244 ../text.py:382
 msgid "Ignore"
@@ -787,7 +796,7 @@ msgstr ""
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
 #: ../loader2/loader.c:342
 msgid "Cancel"
-msgstr ""
+msgstr "റദ്ദാക്കുക"
 
 #: ../gui.py:793 ../text.py:340
 #, python-format
@@ -834,11 +843,11 @@ msgstr ""
 #: ../gui.py:1288 ../gui.py:1293 ../packages.py:574 ../packages.py:579
 #: ../yuminstall.py:620
 msgid "_Exit"
-msgstr ""
+msgstr "പുറത്തേക്ക് പോവുക(_E)"
 
 #: ../gui.py:1289 ../yuminstall.py:148
 msgid "_Retry"
-msgstr ""
+msgstr "വീണ്ടും ശ്രമിക്കുക(_R)"
 
 #: ../gui.py:1292 ../packages.py:578
 msgid "The installer will now exit..."
@@ -846,16 +855,16 @@ msgstr ""
 
 #: ../gui.py:1295 ../packages.py:581
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "നിങ്ങളുടെ കംപ്യൂട്ടറ്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
 #: ../gui.py:1298 ../packages.py:583
 msgid "Rebooting System"
-msgstr ""
+msgstr "കംപ്യൂട്ടറ്‍ റീബൂട്ട് ചെയ്യപ്പെടുന്നു"
 
 #: ../gui.py:1380
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s ഇന്‍സ്റ്റോളറ്‍"
 
 #: ../gui.py:1386
 msgid "Unable to load title bar"
@@ -883,11 +892,11 @@ msgstr ""
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr ""
+msgstr "പുറകോട്ട്(_B)"
 
 #: ../image.py:92 ../image.py:467 ../iw/partition_gui.py:1012
 msgid "_Continue"
-msgstr ""
+msgstr "തുടരുക(_C)"
 
 #: ../image.py:134
 #, python-format
@@ -898,7 +907,7 @@ msgstr ""
 
 #: ../image.py:158
 msgid "Copying File"
-msgstr ""
+msgstr "ഫൈല്‍ പകറ്‍ത്തുന്നു"
 
 #: ../image.py:159
 msgid "Transferring install image to hard drive..."
@@ -912,21 +921,21 @@ msgstr ""
 
 #: ../image.py:291
 msgid "Change CDROM"
-msgstr ""
+msgstr "CDROM മാറ്റുക"
 
 #: ../image.py:292
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr ""
+msgstr "ഇന്‍സ്റ്റലേഷന്‍ തുടരുവാന്‍ %s ഡിസ്ക് %d ഇടുക."
 
 #: ../image.py:327
 msgid "Wrong CDROM"
-msgstr ""
+msgstr "തെറ്റായ CDROM"
 
 #: ../image.py:328
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "ഇത് ശരിയായ %s CDROM അല്ല."
 
 #: ../image.py:334
 msgid "Unable to access the CDROM."
@@ -948,11 +957,11 @@ msgstr ""
 
 #: ../image.py:534
 msgid "Re_try"
-msgstr ""
+msgstr "വീണ്ടും ശ്രമിക്കുക(_t)"
 
 #: ../installclass.py:56
 msgid "Install on System"
-msgstr ""
+msgstr "കംപ്യൂട്ടറില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
 #: ../kickstart.py:71
 msgid "Scriptlet Failure"
