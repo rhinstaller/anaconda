@@ -720,7 +720,7 @@ class YumBackend(AnacondaBackend):
                 self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xenU-devel")
-                    self.selectPackage("kernel-xenU-devel")
+                    self.selectPackage("kernel-xenU-devel.%s" % (kxen.arch,))
 
         if not foundkernel and \
                (open("/proc/cmdline").read().find("xen0") != -1):
@@ -735,7 +735,7 @@ class YumBackend(AnacondaBackend):
                 self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xen0-devel")
-                    self.selectPackage("kernel-xen0-devel")
+                    self.selectPackage("kernel-xen0-devel.%s" % (kxen.arch,))
 
         if not foundkernel and (isys.smpAvailable() or isys.htavailable()):
             try:
@@ -750,14 +750,14 @@ class YumBackend(AnacondaBackend):
                 self.ayum.install(po=ksmp)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
-                    self.selectPackage("kernel-smp-devel")
+                    self.selectPackage("kernel-smp-devel.%s" % (kpkg.arch,))
             
         if not foundkernel:
             log.info("selected kernel package for kernel")
             self.ayum.install(po=kpkg)
             if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                 log.debug("selecting kernel-devel")
-                self.selectPackage("kernel-devel")
+                self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
 
     def selectBootloader(self):
         if iutil.getArch() in ("i386", "x86_64"):
