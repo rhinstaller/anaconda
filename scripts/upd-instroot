@@ -1294,15 +1294,6 @@ patch -p0 > /dev/null <<EOF
 EOF
 cd -
 
-echo -n -e "Removing unused python files in hdimage... "
-
-if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    runroot $COMPONENT --onlyone --arch $ARCH "cd $DEST\; usr/lib/anaconda-runtime/pythondeps $DEST"
-else
-    $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
-fi
-echo "done."
-
 for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do
 	    rm -f ${fn}o
