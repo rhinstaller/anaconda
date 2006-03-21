@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.92.17
+Version: 11.1.0.0
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,30 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.0-1
+- Fix text for rescue images
+- Fix some file contexts (#182252)
+- Update for new xen kernel names
+- Don't try to download package being erased (clumens, #184531)
+- Don't show group selection on ks upgrade (pnasrat, #184528)
+- Ignore conflicts on upgrade (pnasrat, #184461)
+- Don't traceback trying to mount auto fs's (clumens, #182730)
+- String fixes (clumens, #181916)
+- rootpath fix (clumens, #185172) 
+- Prompt for missing images on hd installs (clumens, #185274)
+- Don't clobber network on upgrades (pnasrat, (#183203)
+- Fix some syntax errors (#185275)
+- Cap pe size at 128M (#185272)
+- Conditionalize selinux (msw)
+- Remove some obsolete code (msw, katzj)
+- Ensure we don't ask for no longer needed cds if packages are 
+  deselected (pnasrat, #185437) 
+- Remove amharic and thai since we don't have fonts (clumens)
+- Let's try not doing traceonly and see the size difference for minstg2.img
+- Fix i5 (pnasrat, #186070)
+- Misc cleanups to iutil (clumens)
+- Use system-config-date for text-mode timezone too (clumens)
+
 * Mon Mar  6 2006 Jeremy Katz <katzj@redhat.com> - 10.92.17-1
 - fix traceback in size check
 - disable size check on upgrade (clumens, #184112)
