@@ -11,6 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import sys
 import string
 import iutil
 import os
@@ -21,25 +22,17 @@ from rhpl.translate import _, textdomain
 
 textdomain("system-config-date")
 
+sys.path.append("/usr/share/system-config-date")
+
 class TimezoneWindow:
 
     def getTimezoneList(self):
-	if os.access("/usr/lib/timezones.gz", os.R_OK):
-	    cmd = "/usr/bin/gunzip"
-	    stdin = os.open("/usr/lib/timezones.gz", 0)
-	else:
-	    zoneList = iutil.findtz('/usr/share/zoneinfo', '')
-	    cmd = ""
-	    stdin = None
+        import zonetab
 
-        if cmd != "":
-            zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
-            zoneList = string.split(zones)
-
-	if (stdin != None):
-            os.close(stdin)
-
-	return zoneList
+        zt = zonetab.ZoneTab()
+        zoneList = [ x.tz for x in zt.getEntries() if x.lat != None and x.long != None ]
+        zoneList.sort()
+        return zoneList
 
     def updateSysClock(self):
 	if os.access("/sbin/hwclock", os.X_OK):

@@ -1,3 +1,15 @@
+2006-03-21  Chris Lumens  <clumens@redhat.com>
+
+	* image.py (CdromInstallMethod.systemMounted):  Use a WaitWindow for
+	now.
+
+	* iutil.py:  Remove lots of unused methods and methods that are better
+	implemented in the python library.  Add DeprecationWarnings to things
+	that we're now just wrapping.
+
+	* textw/timezone_text.py (TimezoneWindow.getTimezoneList):  Use
+	system-config-date instead of our own stuff.
+
 2006-03-21  Paul Nasrat <pnasrat@redhat.com>
 
 	* isys/isys.py: i5 returns as pSeries! (#186070)

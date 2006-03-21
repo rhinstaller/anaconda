@@ -13,19 +13,20 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import types, os, sys, isys, select, string, stat, signal
+import types, os, sys, isys, select, string, stat, signal, shutil
 import os.path
 import rhpl, rhpl.executil
+import warnings
+from rhpl.executil import getfd
 from flags import flags
 
 import logging
 log = logging.getLogger("anaconda")
 
 def getArch ():
+    warnings.warn("iutil.getArch is deprecated.  Use rhpl.getArch instead.",
+                  DeprecationWarning, stacklevel=2)
     return rhpl.getArch()
-
-def getfd(filespec, readOnly = 0):
-    return rhpl.executil.getfd(filespec, readOnly)
 
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
 		     searchPath = 0, root = '/', newPgrp = 0,
@@ -145,31 +146,10 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
 
     return rc
 
-def copyFile(source, to, pw = None):
-    f = os.open(source, os.O_RDONLY)
-    t = os.open(to, os.O_RDWR | os.O_TRUNC | os.O_CREAT)
-
-    if pw:
-	(fn, title, text) = pw
-	total = os.path.getsize(source)
-	win = fn(title, text, total)
-
-    try:
-	count = os.read(f, 262144)
-	total = 0
-	while (count):
-	    os.write(t, count)
-
-	    total = total + len(count)
-	    if pw:
-		win.set(total)
-	    count = os.read(f, 16384)
-    finally:
-	os.close(f)
-	os.close(t)
-
-	if pw:
-	    win.pop()
+def copyFile(source, to):
+    warnings.warn("iutil.copyFile is deprecated.  Use shutil.copyfile instead.",
+                  DeprecationWarning, stacklevel=2)
+    shutil.copyfile(source, to)
 
 # return size of directory (and subdirs) in kilobytes
 def getDirSize(dir):
@@ -252,129 +232,16 @@ def swapSuggestion(quiet=0):
 # this is a mkdir that won't fail if a directory already exists and will
 # happily make all of the directories leading up to it. 
 def mkdirChain(dir):
-    if (os.path.isdir(dir)): return
-    elements = string.splitfields(dir, "/")
-
-    if (len(elements[0])):
-	which = 1
-	path = elements[0] 
-    else:
-	which = 2
-	path = "/" + elements[1]
-
-    if (not os.path.isdir(path)): 
-	os.mkdir(path, 0755)
-
-    while (which < len(elements)):
-	path = path + "/" + elements[which]
-	which = which + 1
-	
-	if (not os.path.isdir(path)): 
-	    os.mkdir(path, 0755)
-
-def makerelname(relpath, filename):
-    if relpath != '':
-        return relpath+'/'+filename
-    else:
-        return filename
-    
-    
-def findtz(basepath, relpath):
-    tzdata = []
-    for n in os.listdir(basepath+'/'+relpath):
-        timezone = makerelname(relpath, n)
-        if relpath != '':
-            timezone = relpath+'/'+n
-        else:
-            timezone = n
-            
-        filestat = os.lstat(basepath+'/'+timezone)
-        [filemode] = filestat[:1]
-        
-        if (not (stat.S_ISLNK(filemode) or
-                 stat.S_ISREG(filemode) or
-                 stat.S_ISDIR(filemode))):
-            continue
-        elif n[:1] >= 'A' and n[:1] <= 'Z':
-            if stat.S_ISDIR(filemode):
-                tzdata.extend(findtz(basepath, timezone))
-            else:
-                tzdata.append(timezone)
-
-    tzdata.sort()
-                            
-    return tzdata
+    try:
+        os.makedirs(dir, 0755)
+    except OSError, (errno, msg):
+        log.error("could not create directory %s: %s" % (dir, msg))
+        pass
 
 def rmrf (path):
-    # this is only the very simple case.
-    # NOTE THAT THIS IS RACY IF USED ON AN INSTALLED SYSTEM
-    # IT IS ONLY SAFE FOR ANACONDA AS A CONTAINED ENVIRONMENT
-    if os.path.isdir(path):
-        files = os.listdir (path)
-    else:
-        os.unlink(path)
-        return
-    for file in files:
-        if (not os.path.islink(path + '/' + file) and
-            os.path.isdir(path + '/' + file)):
-            rmrf (path + '/' + file)
-        else:
-            os.unlink (path + '/' + file)
-    os.rmdir (path)
-
-def validUser (user):
-    if not user[0] in string.letters:
-        return 0
-
-    for letter in user:
-        if (letter == ':'
-            or letter == ','
-            or letter == '\n'
-            or ord (letter) < 33):
-            return 0
-
-    return 1
-
-def setClock (root):
-    # eeeeew, inline shell. ;)
-    args = ("bash", "-c", """
-if [ -f /etc/sysconfig/clock ]; then
-   . /etc/sysconfig/clock
-   
-   # convert old style clock config to new values
-   if [ "${CLOCKMODE}" = "GMT" ]; then
-      UTC=true
-   elif [ "${CLOCKMODE}" = "ARC" ]; then
-      ARC=true
-   fi
-fi
-
-CLOCKFLAGS="--hctosys"
-
-case "$UTC" in
-   yes|true)
-    CLOCKFLAGS="$CLOCKFLAGS -u";
-     ;;
-esac
-
-case "$ARC" in
-     yes|true)
-        CLOCKFLAGS="$CLOCKFLAGS -A";
-     ;;
-esac
-case "$SRM" in
-     yes|true)
-        CLOCKFLAGS="$CLOCKFLAGS -S";
-     ;;
-esac
-/sbin/hwclock $CLOCKFLAGS
-""")
-    try:
-        execWithRedirect('/bin/bash', args, stdin = None,
-                         stdout = None, stderr = None,
-                         root = root)
-    except RuntimeError:
-        log.error("Failed to set clock properly.  Going to try to continue anyway.")
+    warnings.warn("iutil.rmrf is deprecated.  Use shutil.rmtree instead.",
+                  DeprecationWarning, stacklevel=2)
+    shutil.rmtree(path)
 
 def swapAmount():
     f = open("/proc/meminfo", "r")
@@ -472,44 +339,6 @@ def makeDriveDeviceNodes():
     # make the node for the device mapper
     makeDMNode()
     
-def needsEnterpriseKernel():
-    rc = 0
-
-    try:
-        f = open("/proc/e820info", "r")
-    except IOError:
-        return 0
-    for l in f.readlines():
-	l = string.split(l)
-	if l[3] == '(reserved)': continue
-
-	regionEnd = (string.atol(l[0], 16) - 1) + string.atol(l[2], 16)
-	if regionEnd > 0xffffffffL:
-	    rc = 1
-
-    return rc
-
-#
-# scan /proc/mounts to see if we've already have USB mounted
-#
-# kernel can fall over if we mount it twice on some hw (bug #71554)
-#
-def isUSBDevFSMounted():
-    try:
-	f = open("/proc/mounts", "r")
-	lines = f.readlines()
-	f.close()
-	for l in lines:
-	    if string.find(l, "usbfs") != -1:
-		return 1
-	    if string.find(l, "usbdevfs") != -1:
-		return 1
-    except:
-	log.error("In isUSBMounted, failed to open /proc/mounts")
-	return 0
-
-    return 0
-
 # this is disgusting and I feel very dirty
 def hasiSeriesNativeStorage():
     if getArch() != "ppc":

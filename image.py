@@ -153,11 +153,15 @@ class CdromInstallMethod(ImageInstallMethod):
                                         "/rhinstall-stage2.img")
 
 	try:
+            win = self.waitWindow (_("Copying File"),
+                                   _("Transferring install image to hard drive..."))
 	    iutil.copyFile("%s/%s/base/stage2.img" % (self.tree, productPath), 
-			    self.loopbackFile,
-			    (self.progressWindow, _("Copying File"),
-			    _("Transferring install image to hard drive...")))
+			    self.loopbackFile)
+            win.pop()
 	except Exception, e:
+            if win:
+                win.pop()
+
             log.critical("error transferring stage2.img: %s" %(e,))
 	    self.messageWindow(_("Error"),
 		    _("An error occurred transferring the install image "
