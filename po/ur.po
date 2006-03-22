@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: ur\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-19 22:50+0500\n"
+"PO-Revision-Date: 2006-03-22 21:28+0500\n"
 "Last-Translator: Usman Siraj Sheikh <usman.siraj@gmail.com>\n"
-"Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu.scs.gift@gmail.com>\n"
+"Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu.desktop@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -196,12 +196,12 @@ msgstr "درست"
 
 #: ../anaconda:668
 msgid "Unknown Error"
-msgstr "نا معلوم نُکس"
+msgstr "نا معلوم نقص"
 
 #: ../anaconda:671
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "نُکس pulling second part of kickstart config: %s!"
+msgstr "نقص pulling second part of kickstart config: %s!"
 
 #: ../anaconda:797
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
@@ -744,6 +744,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"سویُپ ڈیوایُس کو چالو کرنے میں نقص%s: %s\n"
+"\n"
+"اِس کا یہی مطلب ہے کہ سویُپ پارٹیشن کا آغاز نہیں ہوا۔\n"
+"\n"
+"اپنے سسٹم کو ریبوٹ کرنے کے لیےُ ٹھیک ہے دبایںُ۔  "
 
 #: ../fsset.py:1525
 #, python-format
@@ -776,7 +781,7 @@ msgid ""
 msgstr ""
 "\"      اپنے سسٹم کو ریبوٹ کرنے کے لیے <Enter>دبایں \n"
 "\n"
-"۔ یہ ایک سنگین مسلہء ھے اور انسٹالیشن جاری نھیں ھو سکتی  %s ایک غلطی فارمیٹ کی کوشش کرتے ھوے واقع ھو گی ھے \""
+"۔ یہ ایک سنگین مسلہء ھے اور انسٹالیشن جاری نھیں ھو سکتی  %s ایک غلطی صاف کی کوشش کرتے ھوے واقع ھو گی ھے \""
 
 #: ../fsset.py:1621
 #, python-format
@@ -827,7 +832,7 @@ msgid ""
 msgstr ""
 "اپنے سسٹم کو ریبوٹ کرنے کے لیے ٹھیک ھے دبایے \n"
 " \n"
-" اس کا عام طور پر مطلب ھے کہ پاٹیشن فارمیٹ نھیں ھوی \n"
+" اس کا عام طور پر مطلب ھے کہ پاٹیشن صاف نھیں ھوی \n"
 "  %s\n"
 " :%s جیسا کہ  %s ماونٹ ڈیواس کی غلطی  "
 
@@ -869,7 +874,7 @@ msgstr "دوبارہ چلاؤ _"
 
 #: ../fsset.py:2610
 msgid "Formatting"
-msgstr "فارمیٹنگ"
+msgstr "صاف کر رہی ہے"
 
 #: ../fsset.py:2611
 #, python-format
@@ -882,7 +887,7 @@ msgstr "اسکرین شاٹ کو کاپی کرنے کے دوران غلطی ھو
 
 #: ../gui.py:120
 msgid "Screenshots Copied"
-msgstr "اسکرین شاٹ کو کاپی کر لیا گیا ھے۔"
+msgstr "اسکرین مناظر کو کاپی کر لیا گیا ھے۔"
 
 #: ../gui.py:121
 msgid ""
@@ -892,6 +897,11 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"سکرین کے مناظر ڈایکٹری میں محفوظ کر دیےُ جا چکے ہیں:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"  آپ اِن کی رسایُ تب کر سکتے ہیں جب آپ ریبوٹ کریں گے اور روٹ سے داخل ہوں گے۔"
 
 #: ../gui.py:165
 msgid "Saving Screenshot"
@@ -1198,6 +1208,8 @@ msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"لینکس کی تنصیب کے جن فایلُ سسٹمز کو آپ نے بہتر بنانے کے لیےُ چنا ہے وہ پہلے سے ماوُنٹیڈ  ہیں۔ آپ اس مقام سے واپس ماضی میں نہیں جا سکتے۔\n"
+" \n"
 
 #: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
@@ -1329,7 +1341,7 @@ msgstr "کویُ ڈرایو ز نھیں ملی"
 
 #: ../partedUtils.py:1088
 msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
-msgstr ""
+msgstr "ایک نقص واقع ہو گیا ہے - کویُ درست ڈیوایُسس نہیں ملیں جن پر نےُ فایُل سسٹم بنایں جا سکیں۔ اِس مسُلہ کی جانچ پڑتال کے لیےُ براہ کرم اپنے ہارڈ ویُر کو دیکھیں۔"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1346,7 +1358,7 @@ msgstr "درست نہیں ہے  %s نقص-   والیم گروپ "
 
 #: ../partIntfHelpers.py:47
 msgid "Error - the volume group name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "نقص -  والیم گروپ نام غیر قانونی کریکٹرز اور سپیسز پر مشتمل ہیں۔ قابلِ قبول کریکٹرز  لیٹرز، نمبرز، '.'، یا ، '_' ہیں۔"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1363,7 +1375,7 @@ msgstr "درست نہیں ہے  %s نقص-  لوجیکل والیم نام "
 
 #: ../partIntfHelpers.py:71
 msgid "Error - the logical volume name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "نقص -  لوجیکل والیم نام غیر قانونی کریکٹرز اور سپیسز پر مشتمل ہیں۔ قابلِ قبول کریکٹرز  لیٹرز، نمبرز، '.'، یا ، '_' ہیں۔"
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1447,7 +1459,7 @@ msgstr " پر تمام  پارٹیشنز ختم کرنے والے ہیں۔ '/dev
 #: ../iw/osbootwidget.py:104
 #: ../iw/partition_gui.py:1359
 msgid "_Delete"
-msgstr "ختم کریں_"
+msgstr "ختم کرو"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
@@ -1504,7 +1516,7 @@ msgstr ""
 #: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
+msgstr "کی تنصیب کے لیےُ کم از کم ایک ڈرایوُ کا انتخاب کرنا پڑے گا۔ %s آپ کو"
 
 #: ../partIntfHelpers.py:407
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
@@ -1548,15 +1560,20 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"آپ کی درخواست شدہ پارٹیشن سکیم سے مندرجہ ذیل دھمکیاں جاری ہویُ ہیں۔\n"
+"\n"
+"%s\n"
+"\n"
+"کیا آپ اپنی درخواست شدہ پارٹیشنگ سکیم کے ساتھ قایمُ رہنا چاہیں گے؟"
 
 #: ../partIntfHelpers.py:453
 #: ../iw/partition_gui.py:666
 msgid "The following pre-existing partitions have been selected to be formatted, destroying all data."
-msgstr ""
+msgstr "پہلے سے موجود مندرجہ ذیل پارٹیشنز کا انتخاب فارمیٹ کے لیُے ہوا ہے، تمام ڈیٹاختم ہو جاےُ گا۔  "
 
 #: ../partIntfHelpers.py:456
 msgid "Select 'Yes' to continue and format these partitions, or 'No' to go back and change these settings."
-msgstr ""
+msgstr "  جاری  رہنے کے لیےُ 'ہاں' اور اِن پارٹیشنز کو فارمیٹ کردیں، یا واپس جانے کے لیُے اور سیٹنگز کی ترمیم کے لیےُ 'نہ' کا انتخاب کریں۔   "
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
@@ -1569,6 +1586,9 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"آپ والیم گروپ  \"%s\".\n"
+" کو ختم کرنے والے ہیں \n"
+"اس والیم گروپ میں تمام لوجیکل والیمز کھوُ ! جاہُیں گے"
 
 #: ../partIntfHelpers.py:514
 #, python-format
@@ -1594,7 +1614,7 @@ msgstr "واقع شروع کرنا ہے"
 
 #: ../partIntfHelpers.py:534
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgstr "کیا آپ کو یقین ہے کہ پارٹیشن ٹیبل کو دوبارہ ٹھیک کر کے اس کی اصل حالت پر واپس لانا چاہتے ہیں؟"
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
@@ -1602,7 +1622,7 @@ msgstr "تنصیب جاری نھیں رہ سکتی۔"
 
 #: ../partitioning.py:58
 msgid "The partitioning options you have chosen have already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr ""
+msgstr "پارٹیشنینگ آپشنز جن کا آپ نے انتخاب کیا ہے پہلے سے چالو ہیں۔ آپ اب ڈسک کی ترمیم والی سکرین پر واپس نہیں جا سکتے۔ کیا آپ تنصیب کے عمل کے ساتھ جاری رہنا چاہتے ہیں؟"
 
 #: ../partitioning.py:89
 msgid "Low Memory"
@@ -1610,7 +1630,7 @@ msgstr "محدود میموری"
 
 #: ../partitioning.py:90
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that OK?"
-msgstr ""
+msgstr "جیسا کہ آپ کے پاس اِس مشین میں زیادہ میموری نہیں ہے، ہمیں اسی وقت سویُپ کی جگہ چالو کرنا پڑے گی۔ اس مقصد کے لیےُ ہمیں آپ کا نیا پارٹیشن ٹیبل اسی وقت ڈسک پر لکھنا پڑے گا۔ کیا یہ ٹھیک ہے؟ "
 
 #: ../partitions.py:803
 #, python-format
@@ -1624,7 +1644,7 @@ msgstr "تنصیب کے لیےُ ناکافی ہے۔ %s آپ کی روٹ پا�
 
 #: ../partitions.py:815
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "اور ہجم 50 میگابایٹُ ہو گا۔ FAT پارٹیشن بنانا پڑے گی جس کی قسم  /boot/efi آپ کو لازمی طور ایک"
 
 #: ../partitions.py:835
 msgid "You must create an Apple Bootstrap partition."
@@ -1651,12 +1671,12 @@ msgstr "قابلِ بوٹ پارٹیشنز لوجیکل والیم نہیں ہو
 
 #: ../partitions.py:930
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "آپ نے سوُیپ پارٹیشن منتخب نہیں کی۔ یہ تمام حالتوں میں لازمی نہیں چاہیے، یہ بیشتر تنصیبات کی کارکردگی بہتر بنا سکتی ہے۔"
 
 #: ../partitions.py:937
 #, python-format
 msgid "You have specified more than 32 swap devices.  The kernel for %s only supports 32 swap devices."
-msgstr ""
+msgstr "کرنل صرف 32 سویُپ ڈیوایُسز کی حمایت کرتا ہے۔ %s  آپ نے 32 سے زیادہ سویُپ ڈیوایُسز منتخب کی ہیں۔"
 
 #: ../partitions.py:948
 #, python-format
@@ -1678,7 +1698,7 @@ msgstr " کی رکن ہے۔LVM Volume Group پارٹیشن جو"
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "ڈایکٹری جزوی طور پر / فایل سسٹم پر ہونی چاہیے۔ %s یہ ماوُنٹ پوایُنٹ درست نہیں ہے۔ "
 
 #: ../partRequests.py:252
 #, python-format
@@ -1707,7 +1727,7 @@ msgstr ""
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "  (سایُز = %s MB )درخواست کندہ کا سایُز نفی!میں ہے"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -1845,7 +1865,7 @@ msgstr "مدادی موڈ"
 
 #: ../rescue.py:424
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "آپ کے پاس لینکس کی کویُ پارٹیشن نہیں ہے۔ شیل کو حاصل کرنے کے لیےُ ریٹرن دبایُں۔ سسٹم خود بخود دوبارہ سے شروع ہو جاےُ گا جب آپ شیل سے باہر نکلیں گے۔"
 
 #: ../rescue.py:438
 #, python-format
@@ -1948,6 +1968,8 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"آپ کے لینکس سسٹم کے مندرجہ ذیل فایل سسٹم بھرپور طریقے سے انماونُٹ نہیں ہوےُ۔ مہربانی فرما کر اپنی لینکس کی تنصیب کا آغاز کریں، فایل سسٹم کو بہتر کرنے کے لیےُ اِس کو چیک کریں اور بند کر دیں۔\n"
+"%s"
 
 #: ../upgrade.py:138
 #, python-format
@@ -1955,6 +1977,8 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"آپ کے لینکس سسٹم کے مندرجہ ذیل فایل سسٹم بھرپور طریقے سے انماونُٹ نہیں ہوےُ۔ کیا آپ انھیں کسی بھی طریقے سے ماوُنٹ کرنا چاہتے ہیں؟\n"
+"%s"
 
 #: ../upgrade.py:275
 #: ../upgrade.py:281
@@ -2105,7 +2129,7 @@ msgstr "Re_boot"
 
 #: ../yuminstall.py:151
 msgid "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "اگر آپ ریبوٹ کریں گے، آپ کا سسٹم ایک غیر معیاری حالت میں چلا جاےُ گا اور دوبارہ تنصیب درکار کرے گا۔ کیا آپ کو یقین ہے کہ آپ جاری رہیں گے؟"
 
 #: ../yuminstall.py:160
 msgid "_Cancel"
@@ -2415,6 +2439,8 @@ msgid ""
 "Remove any media used during the installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"دبایُں \"Reboot\" انسٹالیشن کے دوران کوُی بھی استعمال شدہ میڈیا ختم کریں  اور سسٹم کو ریبوٹ کرنےکےلیے  \n"
+"\n"
 
 #: ../iw/congrats_gui.py:68
 #, python-format
@@ -2451,7 +2477,7 @@ msgstr "تنصیب_ %s"
 
 #: ../iw/examine_gui.py:63
 msgid "Choose this option to freshly install your system. Existing software and data may be overwritten depending on your configuration choices."
-msgstr ""
+msgstr "اپنے سسٹم کی تازہ ترین تنصیب کے لیےُ اِس آپشن کا انتخاب کریں۔ موجودہ سافٹ ویرُ اور ڈیٹا دوبارہ سے لکہا جا سکتا ہے اس کا  انحصار آپ کی منتخب کردہ ترامیم پر ہے۔"
 
 #: ../iw/examine_gui.py:67
 msgid "_Upgrade an existing installation"
@@ -2719,7 +2745,7 @@ msgstr "کوئ خالی جگہ نہیں"
 
 #: ../iw/lvm_dialog_gui.py:719
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you will need to reduce the size of one or more of the currently existing logical volumes"
-msgstr ""
+msgstr "والیم گروپ میں نُیے لوجیکل والیمز بنانے کے لیےُ کویُ جگہ نہیں بچی۔ لوجیکل والیم کو جمع کرنے کے لیےُ آپ کو ایک یا اس سے زیادہ  پہلے سے موجودہ لوجیکل والیمز کا ہجم کم کرنا پٹرے گا  "
 
 #: ../iw/lvm_dialog_gui.py:747
 #, python-format
@@ -3348,6 +3374,8 @@ msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device which can be formatted and mounted.\n"
 "\n"
 msgstr ""
+"آلہ بنا سکتے ہیں جس کو صاف  اور چڑھایا جا سکتا ہے   RAID کی پارٹیشنز  بنائیں۔ پھر آپ ایک  'RAID استمعال کرنے سے پہلے دو 'سافٹ وئیر RAID\n"
+"\n"
 
 #: ../iw/partition_gui.py:1257
 msgid "What do you want to do now?"
@@ -4582,7 +4610,7 @@ msgstr "پیکج سیلیکشن"
 #: ../textw/task_text.py:45
 #, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to include  support for?"
-msgstr ""
+msgstr " کی موجودہ تنصیب سافٹ ویُر کے گہٹے پر مبنی ہے جو کہ عمومی طور پر انٹرنیٹ کے استعمال کے لیےُ ہے۔ کون سے اضافی کاموں کے لیےُ آپ اپنے سسٹم کے لیےُ رہنمایُ چاہتے ہیں؟ %s"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5697,12 +5725,12 @@ msgstr " بعد میں تبدیل کریں"
 
 #: tmp/tasksel.glade.h:2
 msgid "Further customization of the software selection can be completed now or after install via the software management application."
-msgstr ""
+msgstr "سافٹ ویُر کے انتخاب کی مزید ردوبدل اب بھی ہو سکتی ہے یا تنصیب کے بعد سافٹ ویُر مینیجمنٹ کے ذریعے بھی ہو سکتی ہے۔ "
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
 msgid "The default installation of %s includes a set of  software applicable for general internet usage.  What additional tasks would you like your system to include  support for?"
-msgstr ""
+msgstr " کی موجودہ تنصیب سافٹ ویُر کے گہٹے پر مبنی ہے جو کہ عمومی طور پر انٹرنیٹ کے استعمال کے لیےُ ہے۔ کون سے اضافی کاموں کے لیےُ آپ اپنے سسٹم کے لیےُ رہنمایُ چاہتے ہیں؟ %s"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Customize now"
