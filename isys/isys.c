@@ -72,7 +72,6 @@ static PyObject * pyMakeDev(PyObject * s, PyObject * args);
 static PyObject * doMknod(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
-static PyObject * summitAvailable(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
@@ -148,7 +147,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
-    { "summitavailable", (PyCFunction) summitAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
@@ -571,12 +569,6 @@ static PyObject * htAvailable(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     return Py_BuildValue("i", detectHT());
-}
-
-static PyObject * summitAvailable(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    return Py_BuildValue("i", detectSummit());
 }
 
 void init_isys(void) {

@@ -289,7 +289,6 @@ readType()
 }
 
 #define MODE_SMP_CHECK 1
-#define MODE_SUMMIT_CHECK 2
 
 static int groupForSMP(int mode)
 {
@@ -333,16 +332,6 @@ static int groupForSMP(int mode)
 	    return 0;
 	}
 
-	if (mode == MODE_SUMMIT_CHECK) {
-	    if (!strncmp(cth.oem_id, "IBM ENSW", 8) &&
-		(!strncmp(cth.product_id, "NF 6000R", 8) ||
-		 !strncmp(cth.product_id, "VIGIL SMP", 9) ||
-		 !strncmp(cth.product_id, "EXA", 3) ||
-		 !strncmp(cth.product_id, "RUTHLESS", 8)))
-		return 1;
-	    return 0;
-	}
-	
 	count = cth.entry_count;
 	for (i = 0; i < count; i++) {
 	    if ( readType() == 0 ) {
@@ -614,19 +603,9 @@ int detectHT(void)
     return 0;
 }
 
-int detectSummit(void)
-{
-    return groupForSMP(MODE_SUMMIT_CHECK);
-}
-
 #else /* ndef __i386__ */
 
 int detectHT(void)
-{
-    return 0;
-}
-
-int detectSummit(void)
 {
     return 0;
 }
