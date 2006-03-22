@@ -68,14 +68,11 @@ static PyObject * doRmmod(PyObject * s, PyObject * args);*/
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
-static PyObject * pyMakeDev(PyObject * s, PyObject * args);
-static PyObject * doMknod(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
-static PyObject * doPoptParse(PyObject * s, PyObject * args);
 static PyObject * doFbconProbe(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
@@ -140,10 +137,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "ddfile", (PyCFunction) doDdFile, METH_VARARGS, NULL },
     { "getopt", (PyCFunction) doGetOpt, METH_VARARGS, NULL },
-    { "poptParseArgv", (PyCFunction) doPoptParse, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
-    { "makedev", (PyCFunction) pyMakeDev, METH_VARARGS, NULL },
-    { "mknod", (PyCFunction) doMknod, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
@@ -185,13 +179,6 @@ static PyMethodDef isysModuleMethods[] = {
     { NULL, NULL, 0, NULL }
 } ;
 
-static PyObject * pyMakeDev(PyObject * s, PyObject * args) {
-    int major, minor;
-
-    if (!PyArg_ParseTuple(args, "ii", &major, &minor)) return NULL;
-    return Py_BuildValue("i", makedev(major, minor));
-}
-
 static PyObject * makeDevInode(PyObject * s, PyObject * args) {
     char * devName, * where;
 
@@ -201,21 +188,6 @@ static PyObject * makeDevInode(PyObject * s, PyObject * args) {
       case -1:
 	PyErr_SetString(PyExc_TypeError, "unknown device");
       case -2:
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doMknod(PyObject * s, PyObject * args) {
-    char * pathname;
-    int mode, dev;
-
-    if (!PyArg_ParseTuple(args, "sii", &pathname, &mode, &dev)) return NULL;
-
-    if (mknod(pathname, mode, dev)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
@@ -655,30 +627,6 @@ static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
 	rc = PyString_FromString("");
 
     return rc;
-}
-
-static PyObject * doPoptParse(PyObject * s, PyObject * args) {
-    char * str;
-    int argc = 0, i;
-    int ret;
-    const char ** argv = NULL;
-    PyObject * list;
-
-    if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
-
-    ret = poptParseArgvString(str, &argc, &argv);
-    if ((ret != 0) && (ret != POPT_ERROR_NOARG)) {
-	PyErr_SetString(PyExc_ValueError, "bad string for parsing");
-	return NULL;
-    }
-
-    list = PyList_New(argc);
-    for (i = 0; i < argc; i++)
-	PyList_SetItem(list, i, PyString_FromString(argv[i]));
-
-    free(argv);
-
-    return list;
 }
 
 #include <linux/fb.h>

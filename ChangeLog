@@ -34,6 +34,8 @@
 	network.py, partedUtils.py, text.py, yuminstall.py:  Use flags instead
 	of opening /proc/cmdline yet again.
 
+	* isys/isys.c, isys/isys.py:  Remove functions already in python.
+
 2006-03-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

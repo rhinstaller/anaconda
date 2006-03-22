@@ -19,6 +19,7 @@ import _isys
 import string
 import os
 import os.path
+import socket
 import posix
 import sys
 import kudzu
@@ -228,6 +229,8 @@ def smpAvailable():
 htavailable = _isys.htavailable
 
 def chroot (path):
+    warnings.warn("isys.chroot is deprecated.  Use os.chroot instead.",
+                  DeprecationWarning, stacklevel=2)
     return os.chroot (path)
 
 def checkBoot (path):
@@ -371,30 +374,24 @@ def makeDevInode(name, fn=None):
     return path
 
 def makedev(major, minor):
-    if posix.__dict__.has_key("makedev"):
-        return posix.makedev(major, minor)
-    else:
-        return _isys.makedev(major, minor)
+    warnings.warn("isys.makedev is deprecated.  Use os.makedev instead.",
+                  DeprecationWarning, stacklevel=2)
+    os.makedev(major, minor)
 
 def mknod(pathname, mode, dev):
-    return _isys.mknod(pathname, mode, dev)
+    warnings.warn("isys.mknod is deprecated.  Use os.mknod instead.",
+                  DeprecationWarning, stacklevel=2)
+    return os.mknod(pathname, mode, dev)
 
+# XXX: Use socket.getnameinfo for ipv6 compatibility
 def inet_ntoa (addr):
-    return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ffL,
-                            (addr >> 16) & 0x000000ffL,
-                            (addr >> 8) & 0x000000ffL,
-                            addr & 0x000000ffL)
+    return socket.inet_ntoa(addr)
     
 def inet_aton (addr):
-    quad = string.splitfields (addr, ".")
-    try: 
-        rc = ((long (quad[0]) << 24) +
-              (long (quad[1]) << 16) +
-              (long (quad[2]) << 8) +
-              long (quad[3]))
-    except IndexError:
+    try:
+        return socket.inet_aton(addr)
+    except:
         raise ValueError
-    return rc
 
 def inet_calcNetmask (ip):
     if isinstance (ip, type (0)):
@@ -443,9 +440,6 @@ def inet_calcNS (net):
         netaddr = net
 
     return inet_ntoa (netaddr + 1)
-
-def parseArgv(str):
-    return _isys.poptParseArgv(str)
 
 def getopt(*args):
     warnings.warn("isys.getopt is deprecated.  Use optparse instead.",
@@ -856,9 +850,6 @@ def getIPAddress(dev):
 
 def resetFileContext(fn):
     return _isys.resetFileContext(fn)
-
-def startBterm():
-    return _isys.startBterm()
 
 handleSegv = _isys.handleSegv
 
