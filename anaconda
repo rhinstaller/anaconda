@@ -26,6 +26,7 @@
 # This toplevel file is a little messy at the moment...
 
 import sys, os
+from optparse import OptionParser
 
 # keep up with process ID of miniwm if we start it
 
@@ -406,11 +407,6 @@ os.environ["GCONF_GLOBAL_LOCKS"] = "1"
 # In theory, this gets rid of our LVM file descriptor warnings
 os.environ["LVM_SUPPRESS_FD_WARNINGS"] = "1"
 
-if os.environ.has_key ("ANACONDAARGS"):
-    theargs = string.split (os.environ["ANACONDAARGS"])
-else:
-    theargs = sys.argv[1:]
-
 # we can't let the LD_PRELOAD hang around because it will leak into
 # rpm %post and the like.  ick :/
 if os.environ.has_key("LD_PRELOAD"):
@@ -420,237 +416,187 @@ if os.environ.has_key("LD_PRELOAD"):
 # is imported
 iutil.writeRpmPlatform()
 
-try:
-    (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
-	  [ 'graphical', 'text', 'test', 'debug',
-	    'method=', 'rootpath=', 'pcic=', "overhead=",
-	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
-	    'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
-	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-	    'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
-	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless', 'usefbx',
-	    'virtpconsole=', 'loglevel=', 'syslog=', 'nodmraid','dmraid',
-	    'iscsi', 'vesa'])
-except TypeError, msg:
-    sys.stderr.write("Error %s\n:" % msg)
-    sys.exit(-1)
-
-if extra:
-    sys.stderr.write("Unexpected arguments: %s\n" % extra)
-    sys.exit(-1)
-
-# Save the arguments in case we need to reexec anaconda for kon
-os.environ["ANACONDAARGS"] = string.join(sys.argv[1:])
-
-# remove the arguments - gnome_init doesn't understand them
-savedargs = sys.argv[1:]
-sys.argv = sys.argv[:1]
-sys.argc = 1
-
-# Parameters for the main anaconda routine
-#
-rootPath = '/mnt/sysimage'	# where to instal packages
-extraModules = []		# kernel modules to use
-debug = 0			# start up pdb immediately
-traceOnly = 0			# don't run, just list modules we use
-rescue = 0			# run in rescue mode
-rescue_nomount = 0		# don't automatically mount device in rescue
-runres = '800x600'		# resolution to run the GUI install in
-runres_override = 0		# was run resolution overridden by user?
-skipddc = 0			# if true skip ddcprobe (locks some machines)
-instClass = None		# the install class to use
-progmode = 'install' 		# 'rescue', or 'install'
-method = None			# URL representation of install method
-display_mode = None
+extraModules = []               # XXX: this would be better as a callback
+runres_override = False
 graphical_failed = 0
-forcevesa = False               # force vesa driver for X instead of probed
-
-
-# should we ever try to probe for X stuff?  this will give us a convenient
-# out eventually to circumvent all probing and just fall back to text mode
-# on hardware where we break things if we probe
-isHeadless = 0
-
-# should we use fbdev for X?
-useFBX = False
-
-# probing for hardware on an s390 seems silly...
-if iutil.getArch() == "s390":
-    isHeadless = 1
+instClass = None                # the install class to use
 
 #
 # xcfg       - xserver info (?)
 # mousehw    - mouseinfo info
 # videohw    - videocard info
 # monitorhw  - monitor info
-# lang       - language to use for install/machine default
-# keymap     - kbd map
 #
 xcfg = None
 monitorhw = None
 videohw = None
 mousehw = None
-lang = None
-method = None
-keymap = None
-kbdtype = None
-progmode = None
-customClass = None
 kbd = None
-ksfile = None
 vncpassword = ""
 vncconnecthost = ""
 vncconnectport = ""
 
-#
-# parse off command line arguments
-#
-for n in args:
-    (str, arg) = n
+def resolution_cb (option, opt_str, value, parser):
+    global runres_override
+    parser.values.runres = value
+    runres_override = True
 
-    if (str == '--class'):
-	customClass = arg
-    elif (str == '-d' or str == '--debug'):
-	debug = 1
-    elif (str == '--expert'):
-	flags.expert = 1 
-    elif (str == '--graphical'):
-	display_mode = 'g'
-    elif (str == '--iscsi'):
-	flags.iscsi = 1
-    elif (str == '--keymap'):
-	keymap = arg
-    elif (str == '--kickstart'):
-	from kickstart import Kickstart
-	ksfile = arg
-	instClass = Kickstart(ksfile, flags.serial)
-    elif (str == '--lang'):
-	lang = arg
-    elif (str == '--syslog'):
-	if arg.find(":") != -1:
-	    (host, port) = arg.split(':')
-	    logger.addSysLogHandler(log, host, port=int(port))
-	else:
-	    logger.addSysLogHandler(log, arg)
-    elif (str == '--loglevel'):
-	if arg == "debug":
-	    log.setHandlersLevel(logging.DEBUG)
-	elif arg == "info":
-	    log.setHandlersLevel(logging.INFO)
-	elif arg == "warning":
-	    log.setHandlersLevel(logging.WARNING)
-	elif arg == "error":
-	    log.setHandlersLevel(logging.ERROR)
-	elif arg == "critical":
-	    log.setHandlersLevel(logging.CRITICAL)
-    elif (str == '--lowres'):
-	runres = '640x480'
-    elif (str == '-m' or str == '--method'):
-	method = arg
-	if method[0] == '@':
-	    # ftp installs pass the password via a file in /tmp so
-	    # ps doesn't show it
-	    filename = method[1:]
-	    method = open(filename, "r").readline()
-	    method = method[:len(method) - 1]
-	    os.unlink(filename)
-    elif (str == '--module'):
-	(path, name) = string.split(arg, ":")
-	extraModules.append((path, name))
-    elif (str == "--nomount"):
-	rescue_nomount = 1
-    elif (str == '--rescue'):
-	progmode = 'rescue'
-    elif (str == '--resolution'):
-	# run native X server at specified resolution, ignore fb
-	runres = arg
-	runres_override = 1
-    elif (str == '--noselinux'):
-	flags.selinux = 0
-    elif (str == '--selinux'):
-	flags.selinux = 1
-    elif (str == '--nodmraid'):
-	flags.dmraid = 0
-    elif (str == '--dmraid'):
-	flags.dmraid = 1
-    elif (str == "--skipddc"):	
-	skipddc = 1
-    elif (str == "--vesa"):
-        forcevesa = True
-    elif (str == "--autostep"):
-	flags.autostep = 1
-    elif (str == '-r' or str == '--rootpath'):
-	rootPath = arg
-	flags.setupFilesystems = 0
-	flags.rootpath = 1
-    elif (str == '--traceonly'):
-	traceOnly = 1
-    elif (str == '--serial'):
-	flags.serial = 1
-    elif (str == '-t' or str == '--test'):
-	flags.test = 1
-	flags.setupFilesystems = 0
-    elif (str == '-T' or str == '--text'):
-	display_mode = 't'
-    elif (str == "-C" or str == "--cmdline"):
-	display_mode = 'c'
-    elif (str == '--kbdtype'):
-	kbdtype = arg
-    elif (str == '--virtpconsole'):
-	flags.virtpconsole = arg
-    elif (str == '--headless'):
-	isHeadless = 1
-    elif (str == '--usefbx'):
-	useFBX = True
-    elif (str == '--vnc'):
-	flags.usevnc = 1
+def rootpath_cb (option, opt_str, value, parser):
+    parser.values.rootPath = value
+    flags.setupFilesystems = False
+    flags.rootpath = True
 
-	# see if there is a vnc password file
-	try:
-	    pfile = open("/tmp/vncpassword.dat", "r")
-	    vncpassword=pfile.readline().strip()
-	    pfile.close()
-	    os.unlink("/tmp/vncpassword.dat")
-	except:
-	    vncpassword=""
-	    pass
+op = OptionParser()
+# Interface
+op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c")
+op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
+op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
 
-	# check length of vnc password	
-	if vncpassword != "" and len(vncpassword) < 6:
-	    from snack import *
-	    
-	    screen = SnackScreen()
-	    ButtonChoiceWindow(screen, _('VNC Password Error'),
-				_('You need to specify a vnc password of at least 6 characters long.\n\n'
-				  'Press <return> to reboot your system.\n'), 
-				  buttons = (_("OK"),))
-	    screen.finish()
-	    sys.exit(0)
-    elif (str == '--vncconnect'):
-	cargs = string.split(arg, ":")
-	vncconnecthost = cargs[0]
-	if len(cargs) > 1:
-	    if len(cargs[1]) > 0:
-		vncconnectport = cargs[1]
+# Method of operation
+op.add_option("--autostep", action="store_true", default=False)
+op.add_option("--class", dest="customClass")
+op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
+op.add_option("--expert", action="store_true", default=False)
+op.add_option("--kickstart", dest="ksfile")
+op.add_option("-m", "--method", default=None)
+op.add_option("--rescue", dest="progmode", action="store_const", const="rescue", default="install")
+op.add_option("-r", "--rootpath", action="callback", callback=rootpath_cb, dest="rootPath",
+              default="/mnt/sysimage", nargs=1)
+op.add_option("-t", "--test", action="store_true", default=False)
+
+# Display
+op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
+op.add_option("--lowres", dest="resolution", action="store_const", const="640x480")
+op.add_option("--nofb")
+op.add_option("--resolution", action="callback", callback=resolution_cb, dest="runres",
+              default="800x600", nargs=1)
+op.add_option("--serial", action="store_true", default=False)
+op.add_option("--skipddc", action="store_true", default=False)
+op.add_option("--usefbx", dest="useFBX", action="store_true", default=False)
+op.add_option("--vesa", dest="forcevesa", action="store_true", default=False)
+op.add_option("--virtpconsole")
+op.add_option("--vnc", action="store_true", default=False)
+op.add_option("--vncconnect")
+
+# Language
+op.add_option("--keymap")
+op.add_option("--kbdtype")
+op.add_option("--lang")
+
+# Obvious
+op.add_option("--loglevel")
+op.add_option("--syslog")
+
+op.add_option("--noselinux", dest="selinux", action="store_false", default=True)
+op.add_option("--selinux", action="store_true")
+
+op.add_option("--nodmraid", dest="dmraid", action="store_false", default=True)
+op.add_option("--dmraid", action="store_true")
+
+op.add_option("--noiscsi", dest="iscsi", action="store_false", default=False)
+op.add_option("--iscsi", action="store_true")
+
+# Miscellaneous
+op.add_option("--module", action="append", default=[])
+op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
+
+(opts, args) = op.parse_args()
+
+# Now that we've got arguments, do some extra processing.
+if opts.ksfile:
+    from kickstart import Kickstart
+    instClass = Kickstart(opts.ksfile, opts.serial)
+
+if opts.syslog:
+    if opts.syslog.find(":") != -1:
+        (host, port) = opts.syslog.split(":")
+        logger.addSysLogHandler(log, host, port=int(port))
+    else:
+        logger.addSysLogHandler(log, opts.syslog)
+
+if opts.loglevel:
+    if opts.loglevel == "debug":
+        log.setHandlersLevel(logging.DEBUG)
+    elif opts.loglevel == "info":
+        log.setHandlersLevel(logging.INFO)
+    elif opts.loglevel == "warning":
+        log.setHandlersLevel(logging.WARNING)
+    elif opts.loglevel == "error":
+        log.setHandlersLevel(logging.ERROR)
+    elif opts.loglevel == "critical":
+        log.setHandlersLevel(logging.CRITICAL)
+
+if opts.method and opts.method[0] == '@':
+    # ftp installs pass the password via a file in /tmp so
+    # ps doesn't show it
+    filename = method[1:]
+    method = open(filename, "r").readline()
+    opts.method = method[:len(method) - 1]
+    os.unlink(filename)
+
+if opts.module:
+    for mod in opts.module:
+        (path, name) = string.split(mod, ":")
+        extraModules.append((path, name))
+
+if opts.test:
+    flags.test = 1
+    flags.setupFilesystems = 0
+
+if opts.vnc:
+    flags.usevnc = 1
+
+    # see if there is a vnc password file
+    try:
+        pfile = open("/tmp/vncpassword.dat", "r")
+        vncpassword=pfile.readline().strip()
+        pfile.close()
+        os.unlink("/tmp/vncpassword.dat")
+    except:
+        vncpassword=""
+        pass
+    
+    # check length of vnc password	
+    if vncpassword != "" and len(vncpassword) < 6:
+        from snack import *
+    
+        screen = SnackScreen()
+        ButtonChoiceWindow(screen, _('VNC Password Error'),
+                           _('You need to specify a vnc password of at least 6 characters long.\n\n'
+    		     'Press <return> to reboot your system.\n'), 
+    		   buttons = (_("OK"),))
+        screen.finish()
+        sys.exit(0)
+
+if opts.vncconnect:
+    cargs = string.split(opts.vncconnect, ":")
+    vncconnecthost = cargs[0]
+    if len(cargs) > 1:
+        if len(cargs[1]) > 0:
+	    vncconnectport = cargs[1]
+
+# probing for hardware on an s390 seems silly...
+if iutil.getArch() == "s390":
+    opts.isHeadless = True
 
 #
 # must specify install, rescue mode
 #
 
-if (progmode == 'rescue'):
-    if (not method):
+if opts.progmode == "rescue":
+    if not opts.method:
 	sys.stderr.write('--method required for rescue mode\n')
 	sys.exit(1)
 
     import rescue, instdata
     
-    id = instdata.InstallData([], "fd0", method, display_mode)
-    rescue.runRescue(rootPath, not rescue_nomount, id)
+    id = instdata.InstallData([], "fd0", opts.method, opts.display_mode)
+    rescue.runRescue(opts.rootPath, not opts.rescue_nomount, id)
 
     # shouldn't get back here
     sys.exit(1)
 else:
-    if (not method):
+    if not opts.method:
 	sys.stderr.write('no install method specified\n')
 	sys.exit(1)
 
@@ -658,14 +604,14 @@ else:
 # Here we have a hook to pull in second half of kickstart file via https
 # if desired.
 #
-if ksfile is not None:
+if opts.ksfile:
     from kickstart import pullRemainingKickstartConfig, KickstartError
     from kickstart import VNCHandlers
     from pykickstart.data import KickstartData
     from pykickstart.parser import KickstartParser
 
     try:
-	rc = pullRemainingKickstartConfig(ksfile)
+	rc = pullRemainingKickstartConfig(opts.ksfile)
     except KickstartError, msg:
 	rc = msg
     except:
@@ -681,7 +627,7 @@ if ksfile is not None:
     ksdata = KickstartData()
     ksparser = KickstartParser(ksdata, VNCHandlers(ksdata),
                                missingIncludeIsFatal=False)
-    ksparser.readKickstart(ksfile)
+    ksparser.readKickstart(opts.ksfile)
 
     ksusevnc = ksdata.vnc["enabled"]
 
@@ -710,15 +656,15 @@ if ksfile is not None:
 # if display_mode wasnt set by command line parameters then set default
 #
 
-if display_mode is None:
-    if (method and
-	method.startswith('ftp://') or
-	method.startswith('http://')):
-	display_mode = 't'
+if not opts.display_mode:
+    if (opts.method and
+	opts.method.startswith('ftp://') or
+	opts.method.startswith('http://')):
+	opts.display_mode = 't'
     else:
-	display_mode = 'g'
+	opts.display_mode = 'g'
 
-if (debug):
+if opts.debug:
     import pdb
     pdb.set_trace()
 
@@ -735,66 +681,16 @@ import instdata
 import floppy
 import vnc
 
-if not isHeadless:
+if not opts.isHeadless:
     try:
 	import xsetup
 	import rhpxl.xhwstate as xhwstate
     except ImportError:
-	isHeadless = 1
+	opts.isHeadless = 1
 import rhpl.keyboard as keyboard
 
-# handle traceonly and exit
-if traceOnly:
-
-    if display_mode == 'g':
-	sys.stderr.write("traceonly is only supported for text mode\n")
-	sys.exit(0)
-    
-    # prints a list of all the modules imported
-    from text import InstallInterface
-    from text import stepToClasses
-    import pdb
-    import warnings
-    import image
-    import harddrive
-    import urlinstall
-    import mimetools
-    import mimetypes
-    import syslogd
-    import installclass
-    import re
-    import rescue
-    import kickstart
-    import whiteout
-    import findpackageset
-    import libxml2
-    import cmdline
-    from encodings import utf_8, idna, ascii, punycode
-    import email.Utils
-    import yuminstall
-    import yum.sqlitesack
-    import yum.sqlitecache
-    import sqlite
-
-    installclass.availableClasses()
-
-    if display_mode == 't':
-	for step in stepToClasses.keys():
-	    if stepToClasses[step]:
-		(mod, klass) = stepToClasses[step]
-		exec "import %s" % mod
-	
-    for module in sys.__dict__['modules'].keys ():
-	if module not in [ "__builtin__", "__main__" ]:
-	    foo = repr (sys.__dict__['modules'][module])
-	    bar = string.split (foo, "'")
-	    if len (bar) > 3:
-		print bar[3]
-	
-    sys.exit(0)
-
-log.info("Display mode = %s", display_mode)
-log.info("Method = %s", method)
+log.info("Display mode = %s", opts.display_mode)
+log.info("Method = %s", opts.method)
 
 #
 # override display mode if machine cannot nicely run X
@@ -803,7 +699,7 @@ if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
 	stdoutLog.warning(_("You do not have enough RAM to use the graphical "
 			    "installer.  Starting text mode."))
-	display_mode = 't'
+	opts.display_mode = 't'
 	time.sleep(2)
 
 
@@ -829,12 +725,12 @@ if not flags.test:
 #
 # handle class passed from loader
 #
-if customClass:
+if opts.customClass:
     import installclass
 
     classes = installclass.availableClasses(showHidden=1)
     for (className, objectClass, logo) in classes:
-	if className == customClass:
+	if className == opts.customClass:
 		instClass = objectClass(flags.expert)
 
     if not instClass:
@@ -865,7 +761,7 @@ if not instClass:
 # this lets install classes force text mode instlls
 if instClass.forceTextMode:
     stdoutLog.info(_("Install class forcing text mode installation"))
-    display_mode = 't'
+    opts.display_mode = 't'
 
 #
 # find out what video hardware is available to run installer 
@@ -873,30 +769,30 @@ if instClass.forceTextMode:
 
 # XXX kind of hacky - need to remember if we're running on an existing
 #                     X display later to avoid some initilization steps
-if os.environ.has_key('DISPLAY') and display_mode == 'g':
+if os.environ.has_key('DISPLAY') and opts.display_mode == 'g':
     x_already_set = 1
 else:
     x_already_set = 0
 
-if not isHeadless:
+if not opts.isHeadless:
     #
     # Probe what is available for X and setup a hardware state
     #
     # try to probe interesting hw
     import rhpxl.xserver as xserver
-    skipddcprobe = (skipddc or (x_already_set and flags.test))
+    skipddcprobe = (opts.skipddc or (x_already_set and flags.test))
     skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
 
     (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
 						    skipMouseProbe=skipmouseprobe,
-                                                    forceVesa=forcevesa)
+                                                    forceVesa=opts.forcevesa)
     # if the len(videocards) is zero, then let's assume we're isHeadless
     if len(videohw.videocards) == 0:
 	stdoutLog.info (_("No video hardware found, assuming headless"))
 	videohw = None
 	monitorhw = None
 	mousehw = None
-	isHeadless = 1
+	opts.isHeadless = 1
     else:
 	# setup a X hw state for use later with configuration.  
 	try:
@@ -913,8 +809,8 @@ else:
 
 # keyboard
 kbd = keyboard.Keyboard()
-if keymap:
-    kbd.set(keymap)
+if opts.keymap:
+    kbd.set(opts.keymap)
 
 #
 # delay to let use see status of attempt to probe hw 
@@ -930,24 +826,24 @@ if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.
      stdoutLog.warning(_("Graphical installation not available...  "
 			 "Starting text mode."))
      time.sleep(2)
-     display_mode = 't'
+     opts.display_mode = 't'
 
-if isHeadless: # s390/iSeries checks
-    if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
-				    flags.usevnc):
+if opts.isHeadless: # s390/iSeries checks
+    if opts.display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
+				         flags.usevnc):
 	stdoutLog.warning(_("DISPLAY variable not set. Starting text mode!"))
-	display_mode = 't'
+	opts.display_mode = 't'
 	graphical_failed = 1
 	time.sleep(2)
 
 # if DISPLAY not set either vnc server failed to start or we're not
 # running on a redirected X display, so start local X server
-if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
+if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
     if iutil.getPPCMachine() == "PMac":
-	runres = xhwstate.get_valid_resolution(videohw, monitorhw, runres,
+	opts.runres = xhwstate.get_valid_resolution(videohw, monitorhw, opts.runres,
 					       runres_override, onPMac=True)
     else:
-	runres = xhwstate.get_valid_resolution(videohw, monitorhw, runres,
+	opts.runres = xhwstate.get_valid_resolution(videohw, monitorhw, opts.runres,
 					       runres_override)
 
     # make sure we can write log to ramfs
@@ -958,29 +854,29 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
 
     xsetup_failed = False
     try:
-	xcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd,
+	xcfg = xserver.startX(opts.runres, videohw, monitorhw, mousehw, kbd,
 			      logfile = xlogfile,
 			      xStartedCB = doStartupX11Actions,
-			      xQuitCB = doShutdownX11Actions, useFB = useFBX)
+			      xQuitCB = doShutdownX11Actions, useFB = opts.useFBX)
     except RuntimeError:
 	xsetup_failed = True
 
     if xsetup_failed:
 	stdoutLog.warning(" X startup failed, falling back to text mode")
-	display_mode = 't'
+	opts.display_mode = 't'
 	graphical_failed = 1
 	time.sleep(2)
 
-if display_mode == 't' and graphical_failed and not ksfile:
+if opts.display_mode == 't' and graphical_failed and not opts.ksfile:
     ret = vnc.askVncWindow()
     if ret != -1:
-	display_mode = 'g'
+	opts.display_mode = 'g'
 	flags.usevnc = 1
 	if ret is not None:
 	    vncpassword = ret
 
 # if they want us to use VNC do that now
-if display_mode == 'g' and flags.usevnc:
+if opts.display_mode == 'g' and flags.usevnc:
     pidfile = "/tmp/vncshell.pid"
 
     def addpid(pidnum):
@@ -1049,7 +945,7 @@ for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
 #
 # setup links required by graphical mode if installing and verify display mode
 #
-if (display_mode == 'g'):
+if (opts.display_mode == 'g'):
     stdoutLog.info (_("Starting graphical installation..."))
     if not flags.test and flags.setupFilesystems:
 	for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
@@ -1071,18 +967,18 @@ if (display_mode == 'g'):
         if not x_already_set:
             isys.vtActivate (1)
         stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-        display_mode = 't'
+        opts.display_mode = 't'
         if 'DISPLAY' in os.environ.keys():
             del os.environ['DISPLAY']
         time.sleep(2)
 
-if (display_mode == 't'):
+if (opts.display_mode == 't'):
     from text import InstallInterface
 
-if (display_mode == 'c'):
+if (opts.display_mode == 'c'):
     from cmdline import InstallInterface
 
-if display_mode == "t":
+if opts.display_mode == "t":
     if not os.environ.has_key("LANG"):
         os.environ["LANG"] = "en_US.UTF-8"
 
@@ -1090,38 +986,38 @@ if display_mode == "t":
 intf = InstallInterface ()
 
 # imports after setting up the path
-if method:
-    if method.startswith('cdrom://'):
+if opts.method:
+    if opts.method.startswith('cdrom://'):
 	from image import CdromInstallMethod
-	methodobj = CdromInstallMethod(method, rootPath, intf)
-    elif method.startswith('nfs:/'):
+	methodobj = CdromInstallMethod(opts.method, opts.rootPath, intf)
+    elif opts.method.startswith('nfs:/'):
 	from image import NfsInstallMethod
-	methodobj = NfsInstallMethod(method, rootPath, intf)
-    elif method.startswith('nfsiso:/'):
+	methodobj = NfsInstallMethod(opts.method, opts.rootPath, intf)
+    elif opts.method.startswith('nfsiso:/'):
 	from image import NfsIsoInstallMethod
-	methodobj = NfsIsoInstallMethod(method, rootPath, intf)
-    elif method.startswith('ftp://') or method.startswith('http://'):
+	methodobj = NfsIsoInstallMethod(opts.method, opts.rootPath, intf)
+    elif opts.method.startswith('ftp://') or opts.method.startswith('http://'):
 	from urlinstall import UrlInstallMethod
-	methodobj = UrlInstallMethod(method, rootPath, intf)
-    elif method.startswith('hd://'):
+	methodobj = UrlInstallMethod(opts.method, opts.rootPath, intf)
+    elif opts.method.startswith('hd://'):
         from harddrive import HardDriveInstallMethod
-        methodobj = HardDriveInstallMethod(method, rootPath, intf)
+        methodobj = HardDriveInstallMethod(opts.method, opts.rootPath, intf)
     else:
         intf.messageWindow(_("Unknown install method"),
                            _("You have specified an install method "
                              "which isn't supported by anaconda."))
-	log.critical (_("unknown install method: %s"), method)
+	log.critical (_("unknown install method: %s"), opts.method)
 	sys.exit(1)
 
 from yuminstall import YumBackend 
-backend = YumBackend(methodobj, rootPath)
+backend = YumBackend(methodobj, opts.rootPath)
 floppyDevice = floppy.probeFloppyDevice()
 
 # create device nodes for detected devices if we're not running in test mode
 if not flags.test and flags.setupFilesystems:
     iutil.makeDriveDeviceNodes()
 
-id = instClass.installDataClass(extraModules, floppyDevice, method, display_mode, backend)
+id = instClass.installDataClass(extraModules, floppyDevice, opts.method, opts.display_mode, backend)
 
 id.x_already_set = x_already_set
 
@@ -1137,7 +1033,7 @@ if monitorhw:
 #
 # not sure what to do here - somehow we didnt detect anything
 #
-if xcfg is None and not isHeadless:
+if xcfg is None and not opts.isHeadless:
     try:
 	xcfg = xhwstate.XF86HardwareState()
     except Exception, e:
@@ -1157,23 +1053,23 @@ if xcfg is not None:
 if kbd:
     id.setKeyboard(kbd)
 
-id.setDisplayMode(display_mode)
+id.setDisplayMode(opts.display_mode)
 instClass.setInstallData(id, intf)
 
 # We need to copy the VNC-related kickstart stuff into the new ksdata
-if ksfile is not None:
+if opts.ksfile is not None:
     instClass.ksdata.vnc = ksdata.vnc
 
-dispatch = dispatch.Dispatcher(intf, id, methodobj, rootPath, backend)
+dispatch = dispatch.Dispatcher(intf, id, methodobj, opts.rootPath, backend)
 
-if lang:
+if opts.lang:
     dispatch.skipStep("language", permanent = 1)
-    instClass.setLanguage(id, lang)
-    instClass.setLanguageDefault(id, lang)
+    instClass.setLanguage(id, opts.lang)
+    instClass.setLanguageDefault(id, opts.lang)
 
-if keymap:
+if opts.keymap:
     dispatch.skipStep("keyboard", permanent = 1)
-    instClass.setKeyboard(id, keymap)
+    instClass.setKeyboard(id, opts.keymap)
 
 # Skip the disk options in rootpath mode
 if flags.rootpath:
@@ -1189,27 +1085,11 @@ if flags.rootpath:
     dispatch.skipStep("instbootloader", permanent = 1)
 
 # set up the headless case
-if isHeadless == 1:
-    id.setHeadless(isHeadless)
-    instClass.setAsHeadless(dispatch, isHeadless)
+if opts.isHeadless == 1:
+    id.setHeadless(opts.isHeadless)
+    instClass.setAsHeadless(dispatch, opts.isHeadless)
 
 instClass.setSteps(dispatch)
-
-# We shouldn't need this again
-# XXX
-#del id
-
-#
-# XXX This is surely broken
-#
-#if iutil.getArch() == "sparc":
-#    import kudzu
-#    mice = kudzu.probe (kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, kudzu.PROBE_ONE);
-#    if mice:
-#	(mouseDev, driver, descr) = mice[0]
-#	if mouseDev == 'sunmouse':
-#	    instClass.addToSkipList("mouse")
-#	    instClass.setMouseType("Sun - Mouse", "sunmouse")
 
 # comment out the next line to make exceptions non-fatal
 sys.excepthook = lambda type, value, tb, dispatch=dispatch, intf=intf: handleException(dispatch, intf, (type, value, tb))
@@ -1221,7 +1101,7 @@ except SystemExit, code:
 except:
     handleException(dispatch, intf, sys.exc_info())
 
-if ksfile is not None and instClass.ksdata.reboot["eject"] == True:
+if opts.ksfile is not None and instClass.ksdata.reboot["eject"] == True:
     isys.flushDriveDict()
     for drive in isys.cdromList():
         log.info("attempting to eject %s" % drive)

@@ -15,6 +15,11 @@
 
 2006-03-22  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Use optparse instead of isys.getopt.  Remove traceonly
+	mode.
+
+	* isys/isys.py (getopt):  Mark as deprecated.
+
 	* scripts/upd-instroot:  Move rhpxl to the non-X list (#185840).
 
 2006-03-21  Jeremy Katz  <katzj@redhat.com>
