@@ -23,6 +23,7 @@ import posix
 import sys
 import kudzu
 import iutil
+import warnings
 
 import logging
 log = logging.getLogger("anaconda")
@@ -459,6 +460,8 @@ def parseArgv(str):
     return _isys.poptParseArgv(str)
 
 def getopt(*args):
+    warnings.warn("isys.getopt is deprecated.  Use optparse instead.",
+                  DeprecationWarning, stacklevel=2)
     return apply(_isys.getopt, args)
 
 def doProbeBiosDisks():
