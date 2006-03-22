@@ -150,6 +150,14 @@ class LabelFactory:
         for device, label in labels.items():
             self.labels[label] = 1
 
+    def isLabelReserved(self, label):
+        if self.labels == None:
+            return False
+        elif self.labels.has_key(label):
+            return True
+        else:
+            return False
+
 labelFactory = LabelFactory()
 
 class FileSystemType:
@@ -398,7 +406,6 @@ class reiserfsFileSystem(FileSystemType):
 
         self.maxSizeMB = 8 * 1024 * 1024
 
-
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
@@ -415,6 +422,19 @@ class reiserfsFileSystem(FileSystemType):
         if rc:
             raise SystemError
                                   
+    def labelDevice(self, entry, chroot):
+        devicePath = entry.device.setupDevice(chroot)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
+                                         kslabel = entry.label)
+        rc = iutil.execWithRedirect("/usr/sbin/reiserfstune",
+                                    ["reiserfstune", "--label", label,
+                                     devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
+        
 fileSystemTypeRegister(reiserfsFileSystem())
 
 class xfsFileSystem(FileSystemType):
@@ -1488,7 +1508,9 @@ MAILADDR root
         label = entry.device.getLabel()
         if label:
             entry.setLabel(label)
-        elif entry.device.doLabel is not None:
+            if labelFactory.isLabelReserved(label):
+                entry.device.doLabel = 1
+        if entry.device.doLabel is not None:
             entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):

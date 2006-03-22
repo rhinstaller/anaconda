@@ -675,7 +675,20 @@ def readReiserFSLabel_int(device):
                 os.lseek(fd, start, 0)
                 # read 120 bytes to get s_magic and s_label
                 buf = os.read(fd, 120)
+
+                # see if this block is the superblock
+                # this reads reiserfs_super_block_v1.s_magic as defined
+                # in include/reiserfs_fs.h in the reiserfsprogs source
+                m = string.rstrip(buf[52:61], "\0x00")
+                if m == "ReIsErFs" or m == "ReIsEr2Fs" or m == "ReIsEr3Fs":
+                    # this reads reiserfs_super_block.s_label as
+                    # defined in include/reiserfs_fs.h
+                    label = string.rstrip(buf[100:116], "\0x00")
+                    os.close(fd)
+                    return label
             except OSError, e:
+                # [Error 22] probably means we're trying to read an
+                # extended partition. 
                 log.debug("error reading reiserfs label on %s: %s" %(device, e))
     
                 try:
@@ -685,16 +698,6 @@ def readReiserFSLabel_int(device):
     
                 return label
 
-    # see if this block is the superblock
-    # this reads reiserfs_super_block_v1.s_magic as defined
-    # in include/reiserfs_fs.h in the reiserfsprogs source
-    magic = string.rstrip(buf[52:61], "\0x00")
-    if magic == "ReIsErFs" or magic == "ReIsEr2Fs" or magic == "ReIsEr3Fs":
-        # this reads reiserfs_super_block.s_label as
-        # defined in include/reiserfs_fs.h
-        label = string.rstrip(buf[100:116], "\0x00")
-
-    os.close(fd)
     return label
 
 def readReiserFSLabel(device, makeDevNode = 1):

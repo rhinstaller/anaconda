@@ -1,3 +1,18 @@
+2006-03-22  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py (reiserfsFileSystem):  Added missing labelDevice method.
+	(#183183).
+
+	* fsset.py (LabelFactory):  Added isLabelReserved method (#183183).
+
+	* fsset.py (FileSystemSet.labelDevice):  Call isLabelReserved in the
+	label factory to see if we should relabel the device.  Handles weird
+	corner cases with existing partitions (#183183).
+
+	* isys/isys.py (readReiserFSLabel_int):  Problem reading reiserfs
+	labels, moved label reading code to _inside_ the for loop so it
+	actually does some thing useful (#183183).
+
 2006-03-22  Chris Lumens  <clumens@redhat.com>
 
 	* scripts/upd-instroot:  Move rhpxl to the non-X list (#185840).
