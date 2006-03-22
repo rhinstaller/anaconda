@@ -15,12 +15,12 @@
 #
 
 import os
+from flags import flags
 os.environ["PYGTK_DISABLE_THREADS"] = "1"
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 # we only want to enable the accessibility stuff if requested for now...
-buf = open("/proc/cmdline").read()
-if buf.find("dogtail") != -1:
+if flags.cmdline.has_key("dogtail"):
     os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
 import errno
@@ -38,7 +38,6 @@ import kudzu
 import gettext
 import warnings
 from language import expandLangs
-from flags import flags
 from constants import *
 from network import hasActiveNetDev
 import floppy
@@ -600,13 +599,13 @@ class ExceptionWindow:
         textbuf.set_text(shortTraceback)
 
         # Remove the floppy button if we don't need it.
-        if not floppy.hasFloppyDevice() and not DEBUG:
+        if not floppy.hasFloppyDevice() and not flags.debug:
             buttonBox = exnxml.get_widget("buttonBox")
             floppyButton = exnxml.get_widget("floppyButton")
             buttonBox.remove(floppyButton)
 
         # Remove the remote button if there's no network.
-        if not hasActiveNetDev() and not DEBUG:
+        if not hasActiveNetDev() and not flags.debug:
             buttonBox = exnxml.get_widget("buttonBox")
             remoteButton = exnxml.get_widget("remoteButton")
             buttonBox.remove(remoteButton)
@@ -1385,7 +1384,7 @@ class InstallControlWindow:
         if p is None:
             print _("Unable to load title bar")
 
-        if DEBUG:
+        if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
         self.installFrame = self.mainxml.get_widget("installFrame")
 

@@ -28,6 +28,12 @@
 	* isys/isys.c, isys/isys.py, isys/smp.c, isys.smp.h:  Remove
 	summitavailable support.
 
+	* constants.py:  Removed DEBUG since we can use cmdline for that.
+	* flags.py:  Add a dictionary representing /proc/cmdline.
+	* fsset.py, gui.py, installclass.py, instdata.py, iutil.py,
+	network.py, partedUtils.py, text.py, yuminstall.py:  Use flags instead
+	of opening /proc/cmdline yet again.
+
 2006-03-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

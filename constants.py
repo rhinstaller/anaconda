@@ -17,13 +17,7 @@ from rhpl.translate import _, N_
 
 BETANAG = 1
 
-DEBUG = 0
-
 SELINUX_DEFAULT = 1
-
-cmdline = open("/proc/cmdline", "r").read()
-if cmdline.find("debug") != -1:
-    DEBUG = 1
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1

@@ -28,6 +28,7 @@ import partedUtils
 import raid
 import lvm
 import types
+from flags import flags
 
 from rhpl.translate import _, N_
 
@@ -391,16 +392,11 @@ class reiserfsFileSystem(FileSystemType):
         # at the boot: prompt will let you make new reiserfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
         # WONTFIX.
-        try:
-            f = open("/proc/cmdline")
-            line = f.readline()
-            if string.find(line, " reiserfs") != -1:
-                self.supported = -1
-            else:
-                self.supported = 0
-            del f
-        except:
+        if flags.cmdline.has_key("resierfs"):
+            self.supported = -1
+        else:
             self.supported = 0
+
         self.name = "reiserfs"
         self.packages = [ "reiserfs-utils" ]
 
@@ -451,15 +447,9 @@ class xfsFileSystem(FileSystemType):
         # at the boot: prompt will let you make new xfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
         # WONTFIX.
-        try:
-            f = open("/proc/cmdline")
-            line = f.readline()
-            if string.find(line, " xfs") != -1:
-                self.supported = -1
-            else:
-                self.supported = 0
-            del f
-        except:
+        if flags.cmdline.has_key("xfs"):
+            self.supported = -1
+        else:
             self.supported = 0
 
         self.packages = [ "xfsprogs" ]
@@ -509,15 +499,9 @@ class jfsFileSystem(FileSystemType):
         # at the boot: prompt will let you make new reiserfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
         # WONTFIX.
-        try:
-            f = open("/proc/cmdline")
-            line = f.readline()
-            if string.find(line, " jfs") != -1:
-                self.supported = -1
-            else:
-                self.supported = 0
-            del f
-        except:
+        if flags.cmdline.has_key("jfs"):
+            self.supported = -1
+        else:
             self.supported = 0
 
         if not os.access("/usr/sbin/mkfs.jfs", os.X_OK):

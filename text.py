@@ -146,10 +146,10 @@ class ExceptionWindow:
 
         self.buttons=[TEXT_OK_BUTTON]
 
-        if floppy.hasFloppyDevice() == True or DEBUG:
+        if floppy.hasFloppyDevice() == True or flags.debug:
             self.buttons.append(_("Save"))
 
-        if hasActiveNetDev() or DEBUG:
+        if hasActiveNetDev() or flags.debug:
             self.buttons.append(_("Remote"))
 
         self.buttons.append(_("Debug"))
@@ -463,7 +463,7 @@ class InstallInterface:
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
         # drop into the python debugger on ctrl-z if we're running in test mode
-        if DEBUG or flags.test:
+        if flags.debug or flags.test:
             self.screen.suspendCallback(debugSelf, self.screen)
 
 	# clear out the old root text by writing spaces in the blank

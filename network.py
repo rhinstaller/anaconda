@@ -23,6 +23,7 @@ import socket
 import os
 import re
 import kudzu
+from flags import flags
 
 from rhpl.translate import _, N_
 from rhpl.simpleconfig import SimpleConfigFile
@@ -262,11 +263,8 @@ class Network:
 
     def available(self):
         ksdevice = None
-        cmdline = open("/proc/cmdline").read()
-        if cmdline.find("ksdevice=") != -1:
-            ksdevice = \
-                cmdline[cmdline.index("ksdevice="):].split(" ")[0]
-            ksdevice = ksdevice.split("=")[1].strip()
+        if flags.cmdline.has_key("ksdevice"):
+            ksdevice = flags.cmdline["ksdevice"]
 
         f = open("/proc/net/dev")
         lines = f.readlines()

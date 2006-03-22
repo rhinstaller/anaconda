@@ -234,14 +234,9 @@ class InstallData:
 	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()
         self.excludeDocs = 0
-        try:
-            f = open("/proc/cmdline")
-            line = f.readline()
-            if line.find(" excludedocs") != -1:
-                self.excludeDocs = 1
-            close(f)
-        except:
-            pass
+
+        if flags.cmdline.has_key("excludedocs"):
+            self.excludeDocs = 1
 
         self.methodstr = methodstr
 	self.reset()

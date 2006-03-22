@@ -646,6 +646,9 @@ class DiskSet:
 
         self.startAllRaid()
 
+        if flags.cmdline.has_key("upgradeany"):
+            upgradeany = 1
+
         for dev, devices, level, numActive in self.mdList:
             (errno, msg) = (None, None)
             found = 0
@@ -660,10 +663,8 @@ class DiskSet:
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
                     relstr = getReleaseString(mountpoint)
-                    cmdline = open('/proc/cmdline', 'r').read()
-                    
-                    if ((cmdline.find("upgradeany") != -1) or
-                        (upgradeany == 1) or
+
+                    if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         rootparts.append ((dev, fs, relstr))
                 isys.umount(mountpoint)
@@ -688,10 +689,8 @@ class DiskSet:
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
                     relstr = getReleaseString(mountpoint)
-                    cmdline = open('/proc/cmdline', 'r').read()
                     
-                    if ((cmdline.find("upgradeany") != -1) or
-                        (upgradeany == 1) or
+                    if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         rootparts.append ((dev, fs, relstr))
                 isys.umount(mountpoint)
@@ -725,10 +724,8 @@ class DiskSet:
 			continue
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
                         relstr = getReleaseString(mountpoint)
-                        cmdline = open('/proc/cmdline', 'r').read()
 
-                        if ((cmdline.find("upgradeany") != -1) or
-                            (upgradeany == 1) or
+                        if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
                             rootparts.append ((node, part.fs_type.name,
                                                relstr))

@@ -12,6 +12,7 @@
 #
 
 import os
+import shlex
 from constants import *
 
 # A lot of effort, but it only allows a limited set of flags to be referenced
@@ -28,6 +29,22 @@ class Flags:
 	    self.__dict__['flags'][attr] = val
 	else:
 	    raise AttributeError, attr
+
+    def createCmdlineDict(self):
+        cmdlineDict = {}
+        cmdline = open("/proc/cmdline", "r").read()
+        lst = shlex.split(cmdline)
+
+        for i in lst:
+            try:
+                (key, val) = i.split("=", 1)
+            except:
+                key = i
+                val = True
+
+            cmdlineDict[key] = val
+
+        return cmdlineDict
 	
     def __init__(self):
 	self.__dict__['flags'] = {}
@@ -42,26 +59,22 @@ class Flags:
 	self.__dict__['flags']['usevnc'] = 0
 	self.__dict__['flags']['dmraid'] = 1
 	self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
+        self.__dict__['flags']['debug'] = 0
+        self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that
         # device is
         self.__dict__['flags']['virtpconsole'] = None
 
-
-        # determine if selinux is enabled or not
-        f = open("/proc/cmdline", "r")
-        line = f.readline()
-        f.close()
-
-        tokens = line.split()
-        for tok in tokens:
-            if tok == "selinux":
+        if self.__dict__['flags']['cmdline'].has_key("selinux"):
+            if self.__dict__['flags']['cmdline']["selinux"]:
                 self.__dict__['flags']['selinux'] = 1
-            elif tok == "selinux=0":
+            else:
                 self.__dict__['flags']['selinux'] = 0
-            elif tok == "selinux=1":
-                self.__dict__['flags']['selinux'] = 1
+
+        if self.__dict__['flags']['cmdline'].has_key("debug"):
+            self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']
 
         if not os.path.exists("/selinux/load"):
             self.__dict__['flags']['selinux'] = 0

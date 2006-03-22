@@ -722,8 +722,7 @@ class YumBackend(AnacondaBackend):
                     log.debug("selecting kernel-xenU-devel")
                     self.selectPackage("kernel-xenU-devel.%s" % (kxen.arch,))
 
-        if not foundkernel and \
-               (open("/proc/cmdline").read().find("xen0") != -1):
+        if not foundkernel and flags.cmdline.has_key("xen0"):
             try:
                 kxen = getBestKernelByArch("kernel-xen0", self.ayum)
                 log.info("selecting kernel-xen0 package for kernel")

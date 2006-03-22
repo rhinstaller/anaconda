@@ -174,13 +174,11 @@ class BaseInstallClass:
 
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
-        cmdline = open("/proc/cmdline", "r").read()
-        cmdline = cmdline.split()
-        if "noupgrade" in cmdline:
+        if flags.cmdline.has_key("noupgrade"):
             dispatch.skipStep("findrootparts", skip = 1)
 
         # upgrade will also always force looking for an upgrade. 
-        if "upgrade" in cmdline:
+        if flags.cmdline.has_key("upgrade"):
             dispatch.skipStep("findrootparts", skip = 0)
 
         # Ask for iscsi configuration only when specifically requested
