@@ -454,7 +454,6 @@ op.add_option("-T", "--text", dest="display_mode", action="store_const", const="
 
 # Method of operation
 op.add_option("--autostep", action="store_true", default=False)
-op.add_option("--class", dest="customClass")
 op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
 op.add_option("--expert", action="store_true", default=False)
 op.add_option("--kickstart", dest="ksfile")
@@ -721,24 +720,6 @@ if iutil.memInstalled() < isys.MIN_RAM:
 # to do this early sine it's used for Synaptics, etc.
 if not flags.test:
     iutil.makeCharDeviceNodes()
-
-#
-# handle class passed from loader
-#
-if opts.customClass:
-    import installclass
-
-    classes = installclass.availableClasses(showHidden=1)
-    for (className, objectClass, logo) in classes:
-	if className == opts.customClass:
-		instClass = objectClass(flags.expert)
-
-    if not instClass:
-	sys.stderr.write("installation class %s not available\n" % customClass)
-	sys.stderr.write("\navailable classes:\n")
-	for (className, objectClass, logo) in classes:
-	    sys.stderr.write("\t%s\n" % className)
-	sys.exit(1)
 
 #
 # if no instClass declared by user figure it out based on other cmdline args
