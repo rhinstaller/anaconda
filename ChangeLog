@@ -5,6 +5,9 @@
 	* kickstart.py (Kickstart.setSteps):  Warn if %packages is given on
 	upgrade.
 
+	* partedUtils.py (DiskSet.openDevices):  Ignore disks listed in
+	ignoredisks, even if we have clearpart --all (#186438).
+
 2006-03-22  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py (reiserfsFileSystem):  Added missing labelDevice method.
