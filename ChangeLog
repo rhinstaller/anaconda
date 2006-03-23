@@ -2,6 +2,9 @@
 
 	* anaconda:  Remove customClass.
 
+	* kickstart.py (Kickstart.setSteps):  Warn if %packages is given on
+	upgrade.
+
 2006-03-22  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py (reiserfsFileSystem):  Added missing labelDevice method.

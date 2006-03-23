@@ -796,6 +796,10 @@ class Kickstart(BaseInstallClass):
             else:
                 raise KickstartError, e
 
+    def _havePackages(self):
+        return len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
+               len(self.ksdata.excludedList) > 0
+
     def setSteps(self, dispatch):
         if self.ksdata.upgrade:
             from upgradeclass import InstallClass
@@ -846,8 +850,11 @@ class Kickstart(BaseInstallClass):
         # they're in interactive.
         if self.ksdata.upgrade:
             self.handlers.skipSteps.append("group-selection")
-	elif len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
-           len(self.ksdata.excludedList) > 0:
+
+            # Special check for this, since it doesn't make any sense.
+            if self._havePackages():
+                warnings.warn("Ignoring contents of %packages section due to upgrade.")
+        elif self._havePackages():
             if self.ksdata.interactive:
                 self.handlers.showSteps.append("group-selection")
             else:
@@ -892,7 +899,6 @@ class Kickstart(BaseInstallClass):
         else:
             log.warning("not adding Base group")
 
-        # FIXME: handling of missing groups
         for grp in self.ksdata.groupList:
             num = backend.selectGroup(grp)
             if self.ksdata.handleMissing == KS_MISSING_IGNORE:
@@ -914,9 +920,6 @@ class Kickstart(BaseInstallClass):
             else:
                 pass
 
-
-
-        # FIXME: need to handle package exclusions here.
         map(backend.deselectPackage, self.ksdata.excludedList)
 
 #
