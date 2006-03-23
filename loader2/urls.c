@@ -75,11 +75,17 @@ int convertURLToUI(char *url, struct iurlinfo *ui) {
     
     /* url is left pointing at the hostname */
     chptr = strchr(url, '/');
-    *chptr = '\0';
-    ui->address = strdup(url);
-    url = chptr;
-    *url = '/';
-    ui->prefix = strdup(url);
+    if (chptr != NULL) {
+        *chptr = '\0';
+        ui->address = strdup(url);
+        url = chptr;
+        *url = '/';
+        ui->prefix = strdup(url);
+    }
+    else {
+       ui->address = strdup(url);
+       ui->prefix = strdup("/");
+    }
     
     logMessage(DEBUGLVL, "url address %s", ui->address);
     logMessage(DEBUGLVL, "url prefix %s", ui->prefix);
