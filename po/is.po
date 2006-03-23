@@ -1103,11 +1103,11 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"Uppsetningarforritið reyndi að tengja diskmyndina #%s en hún var ekki "
-"til staðar á þjóninum.\n"
+"Uppsetningarforritið reyndi að tengja diskmyndina #%s en hún var ekki til "
+"staðar á þjóninum.\n"
 "\n"
-"Vinsamlega afritaðu þessa diskmynd á réttan stað á þjónininum og smelltu "
-"á reyna aftur. Smelltu á Endurræsa til að hætta við uppsetninguna."
+"Vinsamlega afritaðu þessa diskmynd á réttan stað á þjónininum og smelltu á "
+"reyna aftur. Smelltu á Endurræsa til að hætta við uppsetninguna."
 
 #: ../image.py:534
 msgid "Re_try"
@@ -2632,7 +2632,7 @@ msgstr "Vélin þín mun nú endurræsa."
 #: ../iw/confirm_gui.py:82
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Veldu áfram-örina til að byrja uppsetningu %s."
+msgstr "Veldu áfram-örina til að hefja uppsetningu %s."
 
 #: ../iw/confirm_gui.py:83
 #, python-format
@@ -2717,7 +2717,7 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "Veldu þennan möguleika ef þú vilt setja upp kerfið þitt upp á nýtt. Gögn sem "
-"fyrir eru á diskunum gæti tapast ef þú kýst það síðar."
+"þegar eru á diskunum gætu tapast ef valkostir þínar síðar kalla á það."
 
 #: ../iw/examine_gui.py:67
 msgid "_Upgrade an existing installation"
@@ -3454,7 +3454,7 @@ msgstr "Breyta disksneið"
 
 #: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
 msgid "File System _Type:"
-msgstr "_Tegund skráarkerfis:"
+msgstr "_Gerð disksneiðar:"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
@@ -3684,7 +3684,7 @@ msgstr "Einhverra hluta vegna tókst ekki að opna diskafritunartólið."
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
-msgstr "_Nýtt"
+msgstr "_Ný"
 
 #: ../iw/partition_gui.py:1360
 msgid "Re_set"
@@ -6227,7 +6227,7 @@ msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
 
 #: tmp/autopart.glade.h:3
 msgid "_Select the drive(s) to use for this installation."
-msgstr "_Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu."
+msgstr "_Veldu hörðu diskana sem þú vilt nota í þessari uppsetningu."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
