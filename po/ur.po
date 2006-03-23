@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ur\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-22 21:40+0500\n"
+"PO-Revision-Date: 2006-03-23 22:31+0500\n"
 "Last-Translator: Usman Siraj Sheikh <usman.siraj@gmail.com>\n"
 "Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu.desktop@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -844,6 +844,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"اندراج ڈھونڈنے میں نقص۔/\n"
+" \n"
+"درست نہیں ہے۔  fstab اس کا یقینی طور پر یہی مطلب ہے کہ آپ کا \n"
+"\n"
+"اپنے سسٹم کو دوبارہ سے شروع کرنے کے لیےُ ٹھیک ہے دباُیں۔"
 
 #: ../fsset.py:2349
 msgid "Duplicate Labels"
@@ -856,6 +861,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"مہربانی فرما کر مسلہء حل کریں اور  تنصیب کا عمل دوبارہ شروع کریں \n"
+"\n"
+"آپ کے سسٹم کو صحیح طور پر کام کرنے کے لیے  ڈیواسس پرمختلف لیبل ھونے چاھیے۔   %sمختلف ڈیواسسز آپ کے سسٹم پر لیبل ھیں .  ."
 
 #: ../fsset.py:2357
 #: ../gui.py:798
@@ -1086,6 +1094,10 @@ msgid ""
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"تنصیب کرنے کے لیے جس سافٹ وئیرکا  آپ نےانتخاب کیا ھے، اس کی انسٹالیشن کے لیے مندرجہ زیل CDs:\n"
+"\n"
+"%s\n"
+"کی ضرورت ھے۔برائے مہربانی تنصیب کو آگے برھانے کے لیے اسے تیار رکھئیے۔اگر آپ کو تنصیب ختم کرنے یا دوبارہ سے بوٹ کرنے کی ضرورت ہے تو \"Reboot\".کا انتخاب کیجیئے۔"
 
 #: ../image.py:92
 #: ../packages.py:579
@@ -1153,10 +1165,13 @@ msgid ""
 "\n"
 "Please copy this image to the remote server's share path and click Retry. Click Reboot to abort the installation."
 msgstr ""
+" انسٹالر نے #%sخاکہ کو ماونُٹ کرنے کی کوشش کی ہے، لیکن اسے کارآمد پر تلاش نہیں کر سکا۔\n"
+"\n"
+"مہربانی فرما کر اس خاکہ کو ریموٹ کارآمد کے جڑے ہوےُ راستہ پر رکھیں اور دوبارہ کوشش کریں دبایُں۔ تنصیب کو ختم کرنے کے لیےُ دوبارہ بوٹ کریں دبایُں۔ "
 
 #: ../image.py:534
 msgid "Re_try"
-msgstr "دوبارہ_کوشش"
+msgstr "ری_ٹرایُ"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1173,6 +1188,9 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+" اس موقح پہ ایک غلطی سکڑیپلیٹ کو  دوڑارہی تھی۔ممکنہ طور پہ ٓاپ محاصل کی %s پڑتال میں کر سکتے ہیں۔ یہ ایک مھلک غلطی ہے اورآپ کی انسٹال بھی ختم ھوسکتی ہے۔ \n"
+"\n"
+"اپنےسسٹم کو دوبارہ سے بُوٹ کرنے کے لئےاوکے بٹن دبائیے۔ "
 
 #: ../kickstart.py:711
 #: ../kickstart.py:729
@@ -1267,6 +1285,15 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"پہلے سے جا ری کردہ%s.\n"
+"\n"
+" کی ڈائون لو ڈنگ پر   ٓاپ کا شکر یہ۔۔یہ اجراہ  حتمی نہیں اور یہ اجراہ پیداواری سسٹمز کو ذہن میں رکھہ کہ نہیں بنایا گیاھے اس جراہ  کا مقصدپڑکھنے والوں کی صلاح لینا ہے اور روزمرہ استعمال کے لیے یہ ناقابل استعمال ھے۔.\n"
+"\n"
+"برائے مھربانی معائنہ کیجیئے :\n"
+"\n"
+"%s\n"
+"\n"
+"اور '%s'کے خلاف ترتیب سے بیان دیجیئے.\n"
 
 #: ../packages.py:574
 msgid "_Install anyway"
@@ -1284,6 +1311,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"ڈیوائس%sسی۔ڈی۔ایل کی بجائے ایل۔ڈی۔ایل طریقے سے فارمیٹ ھو گئی ہے۔ ایل۔ڈی۔ایل فارمیٹڈ ڈی۔اے۔ایس۔ڈیز۔  %sکی انسٹال میں موضوع نہیں ہوتیں۔اگر ٓاپ یہ ڈسک انسٹال کے لئے استعمال کرنا چاھتے ہیں تو اس کا دوبارہ سے آغا ز ڈرائیو کے تمام ڈیٹا کو ضائع کر دے گا۔.\n"
+"\n"
+"کیا ٓاپ ڈی۔اے۔ایس۔ڈی کونئے سرے سے سی۔ڈی۔ایل طریقہ سے فارمیٹ کریں گے؟  "
 
 #: ../partedUtils.py:335
 #, python-format
@@ -1292,6 +1322,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
+"/dev/%s  اس وقت %s پارٹیشن لےٓاوٹ  ہے۔  کی تنصیب %s نئی پارٹیشنزبنانے  کے لئے ،ان کا آغازکار ،اس ڈرائیو پر موجود تمام ڈیٹا کو برباد کر دے گا\n"
+"\n"
+"۔کیا آپ اس ڈرائیو کو فارمیٹ کرنا چاہتے ہیں؟"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
@@ -1324,6 +1357,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"(%s)ڈیوائیس %s پر موجود پارٹیشن ٹیبل کو پڑھنا ممکن نہیںتھا۔نئی پارٹیشنز تخلیق کرنے کے لئے ،ان کا آغازکار ،اس ڈرائیو پر موجود تمام ڈیٹا کو برباد کر دے گا۔.\n"
+"\n"
+"یہ عمل کسی بھی گزشتہ تنصیب کے انتخاب کو ختم کر کے اس پہ دوبارہ سے  انتخاب کر دے گا، جن ڈرائیوز کو نظرانداز کیا گیا تھا۔\n"
+"\n"
+"کیا ٓاپ اس ڈرائیو پہ ٓاغازکار، جو تمام ڈیٹا کو مٹا دے گا،چاہیتے ہیں؟"
 
 #: ../partedUtils.py:969
 #, python-format
@@ -1334,6 +1372,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"%sڈیوائیسپر موجود پارٹیشن ٹیبل کو پڑھنا ممکن نہیںتھا۔نئی پارٹیشنز تخلیق کرنے کے لئے ،ان کا ٓاغازکار ،اس ڈرائیو پر موجود تمام ڈیٹا کو برباد کر دے گا۔.\n"
+"\n"
+"یہ عمل کسی بھی گزشتہ تنصیب انتخاب کو ختم کر کے اس پہ دوبارہ سے  انتخاب کر دے گا، جن ڈرائیوز کو نظرانداز کیا گیا تھا۔\n"
+"\n"
+"کیا ٓاپ اس ڈرائیو پہ آغاز، جو تمام ڈیٹا کو مٹا دے گا،چاہتے ہیں؟ "
 
 #: ../partedUtils.py:1087
 msgid "No Drives Found"
@@ -1380,7 +1423,7 @@ msgstr "نقص -  لوجیکل والیم نام غیر قانونی کریکٹ�
 #: ../partIntfHelpers.py:95
 #, python-format
 msgid "The mount point %s is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "ماوئنٹ نشان ضابطہ کے مطابق نہیں۔مائونٹ پوائنٹس کو ہمیشہ '/' سے شروع ھونا چاھئیے اور اس کا اختتام کبھی بھی '/' پہ نہیں ھونا چاھئیے۔ اور مائونٹ پوائنٹس میں چھپائی کی صلاحیت والی علامات ضرور شامل ھونی چاھئیں جبکہ کوئی خالی جگہ نہیں ھونی چاھئیے %s"
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1463,7 +1506,7 @@ msgstr "ختم کرو"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
-msgstr "اطلاع"
+msgstr "توجہ فرمایےُ"
 
 #: ../partIntfHelpers.py:292
 #, python-format
@@ -1511,7 +1554,7 @@ msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
-msgstr ""
+msgstr "/dev/%s کی پارٹیشن کی قسم 82*0(لینیکس سویپ) ہے۔مگر لینکس سویپ (ادل بدل) پارٹیشن کی طرح نہیں اسکتا۔ کیا ٓاپ اس پارٹیشن کو سویپ (ادل بدل) کی طرح فارمیٹ کرنا چاہتے ہیں؟ "
 
 #: ../partIntfHelpers.py:401
 #, python-format
@@ -1520,7 +1563,7 @@ msgstr "کی تنصیب کے لیےُ کم از کم ایک ڈرایوُ کا ا
 
 #: ../partIntfHelpers.py:407
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
-msgstr ""
+msgstr "آپ نے اس تنصیب کے لئے پہلے سے موجود پارٹیشن کا انتخاب بغیر اُسے فارمیٹ کے کیا ہے۔ہم ٓاپ کو مشورہ دیتے ہیں کہ ٓاپ اسے فارمیٹ کرلیں تاکہ یہ یقین ھو جائے کہ پہلے سے تنصیب شدہ اوپریٹنگ سسٹم کی فائل ،لینکس کی تنصیب میں کوئی مسئلہ نہیں کرے گی۔تاھم اگراس پارٹنشن پہ موجود فائلز ٓاپ کو درکار ہیں جیسا کہ ھوم ڈائیریکٹریز تو پھر اس پارٹیشن کو فارمیٹ کئے بغیر تنصیب جاری رکھیے"
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
@@ -1546,6 +1589,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"آپ کی منتخب کردہ پارٹیشن  کی تدبیرمیں مندرجہ زیل خطرناک غلطیاں پائی گئی ہیں %sکی تنصیب سے قبل ان غلطیوں کا درست ھونا ضروری ہے.\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:438
 msgid "Partitioning Warning"
@@ -1658,7 +1704,7 @@ msgstr "آپ کو پی پی سی پی ریپ بوٹ پارٹیشن لازمی 
 #: ../partitions.py:876
 #, python-format
 msgid "Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr ""
+msgstr "سے کم ہے۔  %s میگابایُٹ سے کم ہے جو  سفارش  کردہ نارمل تنصیب %s پارٹیشن %s آپ کی"
 
 #: ../partitions.py:905
 #: ../partRequests.py:675
@@ -1703,7 +1749,7 @@ msgstr "ڈایکٹری جزوی طور پر / فایل سسٹم پر ہونی چ
 #: ../partRequests.py:252
 #, python-format
 msgid "The mount point %s cannot be used.  It must be a symbolic link for proper system operation.  Please select a different mount point."
-msgstr ""
+msgstr "استعمال نہیں ہو سکتا۔ اس کا سسٹم کی صحیح کارکردگی کے لیےُ سمبالک رابطہ ہونا ضروری ہے۔ مہربانی فرما کر مختلف ماوُنٹ پواینٹ کا انتخاب کریں۔  %s ماوُنٹ پواُینٹ "
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -1717,12 +1763,12 @@ msgstr " پہلے سے استعمال میں ہے، مہربانی فرما کر
 #: ../partRequests.py:294
 #, python-format
 msgid "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f MB."
-msgstr ""
+msgstr "%sپارٹیشن کی مقدار،(%10.2f MB)کی آخری حد %10.2f MB) سے تجاوزکر چکی ھے"
 
 #: ../partRequests.py:490
 #, python-format
 msgid "The size of the requested partition (size = %s MB) exceeds the maximum size of %s MB."
-msgstr ""
+msgstr "سے  بھی زیادہ ھےsize  %s MB مطالبہ کیا ھے وہ اخروی حد (size = %s MB)  جس مقدار کی پارٹیشن "
 
 #: ../partRequests.py:495
 #, python-format
@@ -1837,7 +1883,7 @@ msgstr "اخراج"
 
 #: ../rescue.py:335
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "آپ کے سسٹم میں خراب فایل سسٹمز ہیں جن کا آپ نے ماونٹ  نہ کرنے کے لیےُ انتخاب کیا ہے۔ شیل کے حصول کے لیےُ واپس کر سکتے ہیں۔ آپ کا سسٹم خودبخود شروع ہو جاےُ گا جب آپ شیل سے باہر نکل آہیں گے۔ fsck  دباُیں جہاں آپ اپنی پارٹیشنز کو ماُونٹ اور  "
 
 #: ../rescue.py:343
 #, python-format
@@ -1850,6 +1896,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+" کے ماتحت ماونُٹ ہو گیا ہے۔   %s آپ کا سسٹم\n"
+"\n"
+"شیل کے حصول کے لیےُ واپس کو دبایُں۔ اگر آپ اپنے سسٹم کو روٹ ماحول میں استعمال کرنا چاہتے ہیں، اس کمانڈ کو چلایُں:\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"آپ کا سسٹم خود بخود شروع ہو جاےُ گا جب آپ شیل سے خارج ہوں گے۔"
 
 #: ../rescue.py:417
 #, python-format
@@ -1987,11 +2040,11 @@ msgstr "مونٹ فیلڈ"
 
 #: ../upgrade.py:276
 msgid "One or more of the file systems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "  میں درج ہیں ماوُنٹ نہیں ہو سکتے۔ مہربانی فرما کر اِس مسلہُ کو حل کریں اور دوبارہ بہتری کی کوشش کریں۔/etc/fstab  آپ کے لینکس سسٹم میں ایک یا اس سے زیادہ فایل سسٹمز  جو"
 
 #: ../upgrade.py:282
 msgid "One or more of the file systems listed in the /etc/fstab of your Linux system are inconsistent and cannot be mounted.  Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "  میں درج ہیں غیر جانبدار ہیں اور ماوُنٹ نہیں ہو سکتے۔ مہربانی فرما کر اِس مسلہُ کو حل کریں اور دوبارہ بہتری کی کوشش کریں۔/etc/fstab  آپ کے لینکس سسٹم میں ایک یا اس سے زیادہ فایل سسٹمز  جو"
 
 #: ../upgrade.py:299
 msgid ""
@@ -2049,7 +2102,7 @@ msgstr "شروع نھیں ھو سکا X"
 
 #: ../vnc.py:58
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
-msgstr ""
+msgstr "کو شروع کرنا چاہتے ہیں تاکہ وہ کسی دوسرے کمپیوٹر سے اس کمپیوٹر کے ساتھ رابطہ کرے اور گرافیکل تنصیب کرے یا ٹیکسٹ موڈ تنصیب کے ساتھ جاری رہے؟ VNC آپ کی مشین پر شروع ہونے سے قاصر ہے۔ کیا آپ X "
 
 #: ../vnc.py:65
 #: ../vnc.py:68
@@ -2070,7 +2123,7 @@ msgstr "کوئ پاسورڈ نھیں ھے"
 
 #: ../vnc.py:83
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
-msgstr ""
+msgstr "خفیہ الفاظ آپ کی تنصیب کی پیش رفت کو غیر یقینی رابطہ اور دہکھنے سے بچاتے ہیں۔ مہربانی فرما کر تنصیب کے استعمال کے لیےُ خفیہ الفاظ کا اندراج کریں"
 
 #: ../vnc.py:91
 #: ../textw/userauth_text.py:42
@@ -2121,6 +2174,9 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
+" پیکج کُھل نہیں سکتا ۔جسکی وجہ کسی فائل کاکم ھونا یا پیکیج کا خراب ھونا ھو سکتا ھے۔اگر آپ %s-%s-%s-%sسی ڈی میڈیا سے انسٹال کر رہے ہیں تو عموما اس کا مطلب سی۔ڈی میڈیا کا خراب ھونا ھے۔یا سی۔ڈی  ڈرائیو میڈیا کو پڑھ نہیں سکتا۔\n"
+"\n"
+"دوبارہ کوشش کے لئے 'Retry'کو دبائیں"
 
 #: ../yuminstall.py:147
 #: ../yuminstall.py:499
@@ -2145,6 +2201,8 @@ msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or perhaps a corrupt package.  If you are installing from CD media this usually means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
+" پیکج کُھل نہیں سکتا ۔جسکی وجہ کسی فائل کاکم ھونا یا پیکیج کا خراب ھونا ھو سکتا ھے۔اگر آپ %s-%s-%s-%sسی ڈی میڈیا سے انسٹال کر رہے ہیں تو عموما اس کا مطلب سی۔ڈی میڈیا کا خراب ھونا ھے۔یا سی۔ڈی  ڈرائیو میڈیا کو پڑھ نہیں سکتا۔\n"
+"\n"
 
 #: ../yuminstall.py:599
 msgid "Retrieving installation information..."
@@ -2284,7 +2342,7 @@ msgstr "بوٹ لوڈر پاسورڈ داخل کر یں"
 
 #: ../iw/blpasswidget.py:102
 msgid "Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"
-msgstr ""
+msgstr "کا نقشہ اصل نقشے جس سے آپ منسلک ہیں مختلف بھی ہو سکتا ہے)۔ BIOS بوٹ لوڈر خفیہ الفاظ کا اندراج کریں اور یقین دہانی کریں۔ (اس بات کا آپ خیال رکہیں کہ آپ کی "
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2561,11 +2619,11 @@ msgstr "پوری جگہ نہیں"
 
 #: ../iw/lvm_dialog_gui.py:116
 msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
-msgstr "فیزیکل سایز کو تبدیل نہیں کیا جاسکتا کیونکہ موجود "
+msgstr "فیزیکل ایکسٹنٹ  سایز کو تبدیل نہیں کیا جاسکتا کیونکہ  ورنہ موجودہ  لوجیکل والیمز کی مطلوبہ جگہ دستیاب جگہ سے زیادہ  بڑھ جاےُ گی۔  "
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr "یقین کرہں کہ فیزیکل بڑھا کر تبدیل کر دیا جاے "
+msgstr "یقین کریں کہ فیزیکل بڑھا کر تبدیل کر دیا جاے "
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -2585,12 +2643,12 @@ msgstr "جاری"
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
 msgid "The physical extent size cannot be changed because the value selected (%10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the volume group."
-msgstr ""
+msgstr "(%10.2f MB )  فیزیکل ایکسٹنٹ کے سایز کو تبدیل نہیں کیا جاسکتا کیونکہ   انتخاب  کیا  ہے اس کا والیم گروپ میں سایز بڑا ہے چھوٹے فیزیکل والیم(%10.2f MB)  سے   "
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
 msgid "The physical extent size cannot be changed because the value selected (%10.2f MB) is too large compared to the size of the smallest physical volume (%10.2f MB) in the volume group."
-msgstr ""
+msgstr "(%10.2f MB )  فیزیکل ایکسٹنٹ کے سایز کو تبدیل نہیں کیا جاسکتا کیونکہ   انتخاب کیا کیا اس کا والیم گروپ میں سایز بڑا ہے چھوٹے فیزیکل والیم(%10.2f MB)  سے   "
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -4487,7 +4545,7 @@ msgstr "موجودھ سایز (%10.2f MB) بڑا ھےاس سایز سے جو م�
 #: ../textw/partition_text.py:1311
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than the available size in the volume group (%10.2f MB)."
-msgstr ""
+msgstr "پارٹیشن کی مقدار،(%10.2f MB)کی آخری حد %10.2f MB) سے تجاوزکر چکی ھے"
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -4536,7 +4594,7 @@ msgstr "پارٹیشن کی قسم"
 #: ../textw/partition_text.py:1519
 #: tmp/autopart.glade.h:1
 msgid "Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own."
-msgstr ""
+msgstr "تنصیب کو آپ کی ہارڈ کی پارٹیشنگ درکار ہے۔ پہلے سے، ایک پارٹیشنگ صورت کا انتخاب کیا جا چکا ہے جو اکثر یوزرز کے لیےُ قابلِ قبول ہے۔  آپ استعمال کے لیےُ اس کا انتخاب بھی کر سکتے ہیں یا اپنا بھی بنا سکتے ہیں۔"
 
 #: ../textw/partition_text.py:1544
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4680,6 +4738,9 @@ msgid ""
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly install your system."
 msgstr ""
+"ایک یا زیادہ پہلے سے موجود لینکس تنصیبات آپ کے سسٹم پر مل چکی  ہیں۔\n"
+"\n"
+"مہربانی فرما کر اپنے سسٹم کو بہتر بنانے کے لیے کسی ایک کا انتخاب کریں، یا سسٹم کی تازہ ترین تنۡصیب کے لیےُ  'پھر سے سسٹم کی  تنصیب کا انتخاب کریں۔'  "
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
