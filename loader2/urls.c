@@ -157,16 +157,19 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     char * finalPrefix;
 
     if (!strcmp(ui->prefix, "/"))
-        finalPrefix = "/.";
+        finalPrefix = "";
     else
         finalPrefix = ui->prefix;
-    
-    logMessage(INFO, "transferring %s://%s/%s/%s to a fd",
-               ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-               ui->address, finalPrefix, filename);
 
     buf = alloca(strlen(finalPrefix) + strlen(filename) + 20);
-    sprintf(buf, "%s/%s", finalPrefix, filename);
+    if (*filename == '/')
+        sprintf(buf, "%s%s", finalPrefix, filename);
+    else
+        sprintf(buf, "%s/%s", finalPrefix, filename);
+    
+    logMessage(INFO, "transferring %s://%s/%s to a fd",
+               ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
+               ui->address, buf);
 
     if (ui->protocol == URL_METHOD_FTP) {
         ui->ftpPort = ftpOpen(ui->address, 

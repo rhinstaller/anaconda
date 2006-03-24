@@ -1,3 +1,8 @@
+2006-03-24  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/urls.c (urlinstStartTransfer):  Be a little less zealous
+	with slashes in URLs.
+
 2006-03-24  David Cantrell  <dcantrell@redhat.com>
 
 	* fsset.py:  Use resource.getpagesize() instead of isys.getpagesize().
