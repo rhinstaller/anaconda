@@ -6,6 +6,9 @@
 	* isys/isys.c:  Removed doGetPageSize().
 	* isys/isys.py:  replace getpagesize() with resource.getpagesize().
 
+	* iutil.py:  Change isys.mknod to os.mknod.  Change isys.makedev to
+	os.makedev.
+
 2006-03-24  Peter Jones  <pjones@redhat.com>
 
 	* Makefile.inc: Fix selinux conditional inclusion.

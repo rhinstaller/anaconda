@@ -268,7 +268,7 @@ def copyDeviceNode(src, dest):
         # XXX should we just fallback to copying normally?
         raise RuntimeError, "Tried to copy %s which isn't a device node" % (src,)
 
-    isys.mknod(dest, mode | type, filestat.st_rdev)
+    os.mknod(dest, mode | type, filestat.st_rdev)
 
 # make the device-mapper control node
 def makeDMNode(root="/"):
@@ -293,8 +293,8 @@ def makeDMNode(root="/"):
     if major is None or minor is None:
         return
     mkdirChain(root + "/dev/mapper")
-    isys.mknod(root + "/dev/mapper/control", stat.S_IFCHR | 0600,
-               isys.makedev(major, minor))
+    os.mknod(root + "/dev/mapper/control", stat.S_IFCHR | 0600,
+               os.makedev(major, minor))
 
 # make some miscellaneous character device nodes 
 def makeCharDeviceNodes():
