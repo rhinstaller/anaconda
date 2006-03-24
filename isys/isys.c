@@ -104,7 +104,6 @@ static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
-static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
@@ -160,7 +159,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
-    { "getpagesize", (PyCFunction) doGetPageSize, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
@@ -1244,10 +1242,6 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
     close(fd);
 
     return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
-}
-
-static PyObject * doGetPageSize(PyObject * s, PyObject * args) {
-    return Py_BuildValue("i", getpagesize());
 }
 
 static PyObject * getLinkStatus(PyObject * s, PyObject * args) {

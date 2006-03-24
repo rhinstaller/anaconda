@@ -17,6 +17,7 @@ import string
 import isys
 import iutil
 import os
+import resource
 import posix
 import stat
 import errno
@@ -742,7 +743,7 @@ class swapFileSystem(FileSystemType):
         
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
-        pagesize = isys.getpagesize()
+        pagesize = resource.getpagesize()
         buf = None
         if pagesize > 2048:
             num = pagesize
@@ -800,7 +801,7 @@ class swapFileSystem(FileSystemType):
         entry.setLabel(label)
 
     def clobberDevice(self, entry, chroot):
-        pagesize = isys.getpagesize()
+        pagesize = resource.getpagesize()
         dev = entry.device.setupDevice(chroot)
         try:
             fd = os.open(dev, os.O_RDWR)

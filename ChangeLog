@@ -1,3 +1,11 @@
+2006-03-24  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py:  Use resource.getpagesize() instead of isys.getpagesize().
+	* partedUtils.py:  Likewise.
+
+	* isys/isys.c:  Removed doGetPageSize().
+	* isys/isys.py:  replace getpagesize() with resource.getpagesize().
+
 2006-03-24  Peter Jones  <pjones@redhat.com>
 
 	* Makefile.inc: Fix selinux conditional inclusion.

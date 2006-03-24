@@ -25,6 +25,7 @@ import sys
 import kudzu
 import iutil
 import warnings
+import resource
 
 import logging
 log = logging.getLogger("anaconda")
@@ -608,7 +609,7 @@ def readSwapLabel_int(device):
     except:
         return label
 
-    pagesize = getpagesize()
+    pagesize = resource.getpagesize()
     try:
         buf = os.read(fd, pagesize)
         os.close(fd)
@@ -832,9 +833,6 @@ def ideCdRwList():
 	if dev[0:2] == 'hd': newList.append(dev)
 
     return newList
-
-def getpagesize():
-    return _isys.getpagesize()
 
 def getLinkStatus(dev):
     return _isys.getLinkStatus(dev)

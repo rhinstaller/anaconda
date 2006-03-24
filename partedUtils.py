@@ -19,7 +19,7 @@
 
 import parted
 import math
-import os, sys, string, struct
+import os, sys, string, struct, resource
 
 from product import *
 import fsset
@@ -410,7 +410,7 @@ def sniffFilesystemType(device):
             except:
                 pass
 
-    pagesize = isys.getpagesize()
+    pagesize = resource.getpagesize()
     if pagesize > 2048:
         num = pagesize
     else:
