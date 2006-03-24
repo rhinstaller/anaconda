@@ -9,10 +9,7 @@ OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o getmacaddr.o \
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -lz -lkudzu -lpci -ldevmapper
-ifeq ($(USESELINUX),1)
-LOADLIBES += -lselinux -lsepol
-SELINUXFLAGS = -DUSESELINUX=1
-endif
+LOADLIBES += $(SELINUXLIBES)
 PYMODULES = _isys.so
 SUBDIRS = gzlib
 DIET = diet
