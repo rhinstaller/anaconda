@@ -22,6 +22,7 @@ import crypt
 import language
 import iutil
 import string
+import rhpl
 from flags import flags
 from constants import *
 
@@ -191,7 +192,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
 # note that this function no longer actually creates an initrd.
 # the kernel's %post does this now
 def makeInitrd (kernelTag, instRoot):
-    if iutil.getArch() == 'ia64':
+    if rhpl.getArch() == 'ia64':
 	initrd = "/boot/efi/initrd%s.img" % (kernelTag, )
     else:
 	initrd = "/boot/initrd%s.img" % (kernelTag, )

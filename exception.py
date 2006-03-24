@@ -23,6 +23,7 @@ import iutil
 import types
 import rpm
 import bdb
+import rhpl
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
@@ -282,7 +283,7 @@ def copyExceptionToFloppy (intf, dispatch):
 
         os.close(fd)
 
-        if iutil.getArch() != "ia64":
+        if rhpl.getArch() != "ia64":
             args = [ 'mkdosfs', '/tmp/floppy' ]
             cmd = "/usr/sbin/mkdosfs"
 

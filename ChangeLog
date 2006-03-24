@@ -14,6 +14,25 @@
 	* iutil.py:  Change isys.mknod to os.mknod.  Change isys.makedev to
 	os.makedev.
 
+	* anaconda: Changed iutil.getArch() to rhpl.getArch().
+	* autopart.py: Likewise.
+	* bootloader.py: Likewise.
+	* exception.py: Likewise.
+	* fsset.py: Likewise. Also fix typo 'resierfs' -> 'reiserfs'.
+	* gui.py: Likewise.
+	* image.py: Likewise.
+	* installclass.py: Likewise.
+	* iutil.py: Likewise.
+	* network.py: Likewise.
+	* packages.py: Likewise.
+	* partedUtils.py: Likewise.
+	* partitions.py: Likewise.
+	* text.py: Likewise.
+	* upgrade.py: Likewise.
+	* upgradeclass.py: Likewise.
+	* xsetup.py: Likewise.
+	* yuminstall.py: Likewise.
+
 2006-03-24  Peter Jones  <pjones@redhat.com>
 
 	* Makefile.inc: Fix selinux conditional inclusion.

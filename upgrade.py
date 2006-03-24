@@ -30,6 +30,7 @@ from constants import *
 from installmethod import FileCopyException
 from product import productName
 
+import rhpl
 from rhpl.translate import _
 
 import logging
@@ -39,7 +40,7 @@ log = logging.getLogger("anaconda")
 # (name, ) to erase all matches
 upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)] 
 
-if iutil.getArch() == "x86_64":
+if rhpl.getArch() == "x86_64":
     upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386")] )
 
 def findRootParts(intf, id, dispatch, dir, chroot):

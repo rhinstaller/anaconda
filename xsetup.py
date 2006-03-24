@@ -17,6 +17,7 @@
 # should probably go in rhpl
 #
 import iutil
+import rhpl
 import rhpxl.xserver as xserver
 from rhpl.translate import _
 
@@ -36,7 +37,7 @@ class XSetup:
     #
     def write(self, fn, mouse, keyboard):
         # always turn dri on FIXME: except on ia64
-        if iutil.getArch() == "ia64":
+        if rhpl.getArch() == "ia64":
             self.xhwstate.set_dri_enabled(0)
         else:
             self.xhwstate.set_dri_enabled(1)
@@ -66,7 +67,7 @@ class XSetup:
     def writeKS(self, f, desktop=None):
         # FIXME: we really should have at least teh startxonboot and
         # defaultdesktop bits on s390
-        if iutil.getArch() == "s390":
+        if rhpl.getArch() == "s390":
             return
         
 	if self.skipx:

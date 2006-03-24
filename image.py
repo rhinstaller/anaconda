@@ -22,6 +22,7 @@ import kudzu
 import string
 import shutil
 import product
+import rhpl
 
 from constants import *
 
@@ -35,7 +36,7 @@ log = logging.getLogger("anaconda")
 if os.uname()[4] == "s390x":
     _arch = "s390x"
 else:
-    _arch = iutil.getArch()
+    _arch = rhpl.getArch()
 
 # given groupset containing information about selected packages, use
 # the disc number info in the headers to come up with message describing

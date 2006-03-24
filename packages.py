@@ -32,6 +32,7 @@ from constants import *
 from syslogd import syslog
 from installmethod import FileCopyException
 
+import rhpl
 from rhpl.translate import _
 import rhpl.arch
 
@@ -178,7 +179,7 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         except OSError, (errno, msg):
             log.error("Error copying timezone (from %s): %s" %(tzfile, msg))
 
-    if iutil.getArch() == "s390":
+    if rhpl.getArch() == "s390":
         return
     args = [ "/usr/sbin/hwclock", "--hctosys" ]
     if timezone.utc:

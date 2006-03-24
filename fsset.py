@@ -31,6 +31,7 @@ import lvm
 import types
 from flags import flags
 
+import rhpl
 from rhpl.translate import _, N_
 
 import logging
@@ -41,11 +42,11 @@ class BadBlocksError(Exception):
 
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
-if iutil.getArch() == "s390":
+if rhpl.getArch() == "s390":
     # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
     defaultMountPoints.insert(4, '/usr/share')
 
-if iutil.getArch() == "ia64":
+if rhpl.getArch() == "ia64":
     defaultMountPoints.insert(1, '/boot/efi')
 else:
     defaultMountPoints.insert(1, '/boot')
@@ -393,7 +394,7 @@ class reiserfsFileSystem(FileSystemType):
         # at the boot: prompt will let you make new reiserfs filesystems
         # in the installer.  Bugs filed when you use this will be closed
         # WONTFIX.
-        if flags.cmdline.has_key("resierfs"):
+        if flags.cmdline.has_key("reiserfs"):
             self.supported = -1
         else:
             self.supported = 0
@@ -762,7 +763,7 @@ class swapFileSystem(FileSystemType):
             if buf[pagesize - 10:] == "SWAP-SPACE":
                 log.warning("SWAP is of format 0, skipping it")
                 return
-        
+
         isys.swapon (device)
 
     def umount(self, device, path):
@@ -1318,7 +1319,7 @@ MAILADDR root
                     bestprep = entry
             if bestprep:
                 bootDev = bestprep.device
-        elif iutil.getArch() == "ia64":
+        elif rhpl.getArch() == "ia64":
             if mntDict.has_key("/boot/efi"):
                 bootDev = mntDict['/boot/efi']
 	elif mntDict.has_key("/boot"):
@@ -1372,7 +1373,7 @@ MAILADDR root
 
         # on ia64, *only* /boot/efi should be marked bootable
         # similarly, on pseries, we really only want the PReP partition active
-        if (iutil.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries"
+        if (rhpl.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries"
             or iutil.getPPCMachine() == "iSeries") or iutil.getPPCMachine() == "PMac":
             part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
             if part and part.is_flag_available(parted.PARTITION_BOOT):

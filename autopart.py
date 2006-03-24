@@ -20,6 +20,7 @@ import string, sys
 import fsset
 import lvm
 import logging
+import rhpl
 from anaconda_log import logger, logFile
 from partitioning import *
 import partedUtils
@@ -69,15 +70,15 @@ def bootRequestCheck(requests, diskset):
         return PARTITION_SUCCESS
 
     
-    if iutil.getArch() == "ia64":
+    if rhpl.getArch() == "ia64":
         if (part.fs_type.name != "FAT" and part.fs_type.name != "fat16"
             and part.fs_type.name != "fat32"):
             return BOOTEFI_NOT_VFAT
         pass
-    elif iutil.getArch() == "i386":
+    elif rhpl.getArch() == "i386":
         if partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end) >= 1024:
             return BOOT_ABOVE_1024
-    elif iutil.getArch() == "alpha":
+    elif rhpl.getArch() == "alpha":
         return bootAlphaCheckRequirements(part, diskset)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
@@ -1147,7 +1148,7 @@ def doClearPartAction(partitions, diskset):
             # bootable flag set, do not delete it and make it our
             # /boot/efi as it could contain system utils.
             # doesn't apply on kickstart installs or if no boot flag
-            if ((iutil.getArch() == "ia64") and (linuxOnly == 1)
+            if ((rhpl.getArch() == "ia64") and (linuxOnly == 1)
                 and (not partitions.isKickstart) and
                 part.is_flag_available(parted.PARTITION_BOOT)):
                 if part.fs_type and (part.fs_type.name == "FAT"
@@ -1636,7 +1637,7 @@ def autoCreateLVMPartitionRequests(autoreq):
 
 def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
-    if iutil.getArch() == "ia64":
+    if rhpl.getArch() == "ia64":
         return [ ("/boot/efi", "vfat", 100, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),

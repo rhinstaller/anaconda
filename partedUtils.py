@@ -25,7 +25,8 @@ from product import *
 import fsset
 import iutil, isys
 import raid
-if not iutil.getArch() in ('s390','s390x'):
+import rhpl
+if not rhpl.getArch() in ('s390','s390x'):
     import dmraid
     import block
 import lvm
@@ -245,21 +246,21 @@ def get_lvm_partitions(disk):
 
 def getDefaultDiskType():
     """Get the default partition table type for this architecture."""
-    if iutil.getArch() == "i386":
+    if rhpl.getArch() == "i386":
         return parted.disk_type_get("msdos")
-    elif iutil.getArch() == "ia64":
+    elif rhpl.getArch() == "ia64":
         return parted.disk_type_get("gpt")
-    elif iutil.getArch() == "s390":
+    elif rhpl.getArch() == "s390":
         # the "default" type is dasd, but we don't really do dasd
         # formatting with parted and use dasdfmt directly for them
         # so if we get here, it's an fcp disk and we should write
         # an msdos partition table (#144199)
         return parted.disk_type_get("msdos")
-    elif iutil.getArch() == "alpha":
+    elif rhpl.getArch() == "alpha":
         return parted.disk_type_get("bsd")
-    elif iutil.getArch() == "sparc":
+    elif rhpl.getArch() == "sparc":
         return parted.disk_type_get("sun")
-    elif iutil.getArch() == "ppc":
+    elif rhpl.getArch() == "ppc":
         ppcMachine = iutil.getPPCMachine()
 
         if ppcMachine == "PMac":
@@ -282,7 +283,7 @@ archLabels = {'i386': ['msdos'],
 # this is kind of crappy, but we don't really want to allow LDL formatted
 # dasd to be used during the install
 def checkDasdFmt(disk, intf):
-    if iutil.getArch() != "s390":
+    if rhpl.getArch() != "s390":
         return 0
 
     if disk.type.name != "dasd":
@@ -321,7 +322,7 @@ def checkDasdFmt(disk, intf):
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
-    arch = iutil.getArch()
+    arch = rhpl.getArch()
     if arch in archLabels.keys():
         if disk.type.name in archLabels[arch]:
             # this is kind of a hack since we don't want LDL to be used
@@ -575,7 +576,7 @@ class DiskSet:
         """Start all of the raid devices associated with the DiskSet."""
         testList = DiskSet.skippedDisks
 
-        if not iutil.getArch() in ('s390','s390x'):
+        if not rhpl.getArch() in ('s390','s390x'):
             if self.dmList is None:
                 self.startDmRaid()
             for rs in DiskSet.dmList or []:
@@ -885,7 +886,7 @@ class DiskSet:
         """Open the disks on the system and skip unopenable devices."""
         if self.disks:
             return
-        if not iutil.getArch() in ("s390", "s390x"):
+        if not rhpl.getArch() in ("s390", "s390x"):
             if DiskSet.dmList is None:
                 log.debug("starting dmraids")
                 self.startDmRaid()
@@ -901,7 +902,7 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             # FIXME: need the right fix for z/VM formatted dasd
-            if iutil.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
+            if rhpl.getArch() == "s390" and drive[:4] == "dasd" and isys.getDasdState(drive):
                 devs = isys.getDasdDevPort()
                 if intf is None:
                     DiskSet.skippedDisks.append(drive)
@@ -932,7 +933,7 @@ class DiskSet:
             
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test):
-                if iutil.getArch() == "s390" and drive[:4] == "dasd":
+                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                     if (intf is None or self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
@@ -958,7 +959,7 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
-                    if iutil.getArch() == "s390" and drive[:4] == "dasd":
+                    if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                          devs = isys.getDasdDevPort()
                          format = drive + " (" + devs[drive] + ")"
                     else:
@@ -980,7 +981,7 @@ class DiskSet:
                         recreate = 1
 
                 if recreate == 1 and not flags.test:
-                    if iutil.getArch() == "s390" and drive[:4] == "dasd":
+                    if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                         if (intf is None or self.dasdFmt(intf, drive)):
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -1006,7 +1007,7 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
-                if iutil.getArch() == "s390" and drive[:4] == "dasd":
+                if rhpl.getArch() == "s390" and drive[:4] == "dasd":
                     if (intf is None or self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    

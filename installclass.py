@@ -17,6 +17,7 @@
 import os, sys, iutil
 import string
 import language
+import rhpl
 
 from instdata import InstallData
 from partitioning import *
@@ -162,10 +163,10 @@ class BaseInstallClass:
 	if not BETANAG:
 	    dispatch.skipStep("betanag", permanent=1)
 
-	if iutil.getArch() != "s390":
+	if rhpl.getArch() != "s390":
             dispatch.skipStep("zfcpconfig", permanent=1)
 
-        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
+        if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
             dispatch.skipStep("bootloader", permanent=1)
 
         # allow install classes to turn off the upgrade 
@@ -520,7 +521,7 @@ def availableClasses(showHidden=0):
 		sortOrder = 0
 
 	    if obj.__dict__.has_key('arch'):
-                if obj.arch != iutil.getArch ():
+                if obj.arch != rhpl.getArch ():
                     obj.hidden = 1
                 
             if obj.hidden == 0 or showHidden == 1:

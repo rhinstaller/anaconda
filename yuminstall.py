@@ -23,6 +23,7 @@ import rpmUtils
 import urlgrabber.progress
 import urlgrabber.grabber
 import yum
+import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError
 from repomd.mdErrors import PackageSackError
@@ -759,13 +760,13 @@ class YumBackend(AnacondaBackend):
                 self.selectPackage("kernel-devel.%s" % (kpkg.arch,))
 
     def selectBootloader(self):
-        if iutil.getArch() in ("i386", "x86_64"):
+        if rhpl.getArch() in ("i386", "x86_64"):
             self.selectPackage("grub")
-        elif iutil.getArch() == "s390":
+        elif rhpl.getArch() == "s390":
             self.selectPackage("s390utils")
-        elif iutil.getArch() == "ppc":
+        elif rhpl.getArch() == "ppc":
             self.selectPackage("yaboot")
-        elif iutil.getArch() == "ia64":
+        elif rhpl.getArch() == "ia64":
             self.selectPackage("elilo")
 
     def selectFSPackages(self, fsset):

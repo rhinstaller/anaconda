@@ -31,6 +31,7 @@ from constants import *
 from network import hasActiveNetDev
 import floppy
 
+import rhpl
 from rhpl.translate import _, cat, N_
 
 import logging
@@ -70,7 +71,7 @@ stepToClasses = {
     "complete" : ("complete_text", "FinishedWindow"),
 }
 
-if iutil.getArch() == 's390':
+if rhpl.getArch() == 's390':
     stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 
 class InstallWindow:
@@ -226,7 +227,7 @@ class InstallInterface:
 	try:
             f = None
 
-            arch = "-%s" % (iutil.getArch(),)
+            arch = "-%s" % (rhpl.getArch(),)
             tags = ["%s" % (arch,), "" ]
 
 	    # XXX

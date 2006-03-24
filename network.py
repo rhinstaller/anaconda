@@ -23,6 +23,7 @@ import socket
 import os
 import re
 import kudzu
+import rhpl
 from flags import flags
 
 from rhpl.translate import _, N_
@@ -279,7 +280,7 @@ class Network:
                 self.netdevices[dev] = NetworkDevice(dev)
             try:
                 hwaddr = isys.getMacAddress(dev)
-                if iutil.getArch() != "s390" and hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
+                if rhpl.getArch() != "s390" and hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
                     self.netdevices[dev].set(("hwaddr", hwaddr))
             except Exception, e:
                 log.error("exception getting mac addr: %s" %(e,))

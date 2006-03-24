@@ -341,7 +341,7 @@ def makeDriveDeviceNodes():
     
 # this is disgusting and I feel very dirty
 def hasiSeriesNativeStorage():
-    if getArch() != "ppc":
+    if rhpl.getArch() != "ppc":
         return
 
     f = open("/proc/modules", "r")
@@ -359,7 +359,7 @@ def hasiSeriesNativeStorage():
 # return the ppc machine variety type
 def getPPCMachine():
     
-    if getArch() != "ppc":
+    if rhpl.getArch() != "ppc":
         return 0
     
     machine = rhpl.getPPCMachine()
@@ -374,7 +374,7 @@ def getPPCMachine():
 def getPPCMacID():
     machine = None
     
-    if getArch() != "ppc":
+    if rhpl.getArch() != "ppc":
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -396,7 +396,7 @@ def getPPCMacGen():
     # XXX: should NuBus be here?
     pmacGen = ['OldWorld', 'NewWorld', 'NuBus']
     
-    if getArch() != "ppc":
+    if rhpl.getArch() != "ppc":
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -422,7 +422,7 @@ def getPPCMacGen():
 
 # return if pmac machine is it an iBook/PowerBook
 def getPPCMacBook():
-    if getArch() != "ppc":
+    if rhpl.getArch() != "ppc":
         return 0
     if getPPCMachine() != "PMac":
         return 0
@@ -439,7 +439,7 @@ def getPPCMacBook():
 def hasNX():
     """Convenience function to see if a machine supports the nx bit. We want
     to install an smp kernel if NX is present since NX requires PAE (#173245)"""
-    if getArch() not in ("i386", "x86_64"):
+    if rhpl.getArch() not in ("i386", "x86_64"):
         return False
     f = open("/proc/cpuinfo", "r")
     lines = f.readlines()

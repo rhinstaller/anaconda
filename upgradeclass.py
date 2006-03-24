@@ -14,6 +14,7 @@ from rhpl.translate import N_, _
 
 import os
 import iutil
+import rhpl
 
 class InstallClass(BaseInstallClass):
     name = N_("Upgrade Existing System")
@@ -59,11 +60,11 @@ class InstallClass(BaseInstallClass):
 		    "complete"
 		)
 
-        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
+        if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderadvanced")
 
-        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
+        if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
             dispatch.skipStep("upgbootloader")            
 
     def setInstallData(self, id):

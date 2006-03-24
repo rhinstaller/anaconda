@@ -31,6 +31,7 @@ import lvm
 import partedUtils
 import partRequests
 
+import rhpl
 from rhpl.translate import _
 
 import logging
@@ -612,7 +613,7 @@ class Partitions:
         """Return the name of the current 'boot' mount point."""
         bootreq = None
 
-        if iutil.getArch() == "ia64":
+        if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
             if bootreq:
                 return [ bootreq ]
@@ -683,7 +684,7 @@ class Partitions:
         """Return a list of bootable valid mountpoints for this arch."""
         # FIXME: should be somewhere else, preferably some sort of arch object
 
-        if iutil.getArch() == "ia64":
+        if rhpl.getArch() == "ia64":
             return [ "/boot/efi" ]
         else:
             return [ "/boot", "/" ]
@@ -809,7 +810,7 @@ class Partitions:
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
 
-        if iutil.getArch() == "ia64":
+        if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
             if not bootreq or bootreq.getActualSize(self, diskset) < 50:
                 errors.append(_("You must create a /boot/efi partition of "
@@ -915,7 +916,7 @@ class Partitions:
                 # most arches can't have boot on RAID
                 if (bootreq and
                     (isinstance(bootreq, partRequests.RaidRequestSpec)) and
-                    (iutil.getArch() not in raid.raidBootArches)):
+                    (rhpl.getArch() not in raid.raidBootArches)):
                     errors.append("Bootable partitions cannot be on a RAID "
                                   "device.")
 

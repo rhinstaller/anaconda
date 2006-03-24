@@ -41,6 +41,7 @@ from language import expandLangs
 from constants import *
 from network import hasActiveNetDev
 import floppy
+import rhpl
 
 from rhpl.translate import _, N_
 
@@ -80,7 +81,7 @@ stepToClass = {
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }
 
-if iutil.getArch() == 's390':
+if rhpl.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
 #
@@ -1503,7 +1504,7 @@ class InstallControlState:
         if self.htmlFile:
             file = self.htmlFile
 
-            arch = "-%s" % (iutil.getArch(),)
+            arch = "-%s" % (rhpl.getArch(),)
             tags = [ "%s" % (arch,), "" ]
 
             found = 0
