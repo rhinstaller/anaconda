@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 09:50+0200\n"
+"PO-Revision-Date: 2006-03-25 10:03+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -793,24 +793,24 @@ msgstr ""
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "_Pārstartēt"
 
 #: ../fsset.py:2610
 msgid "Formatting"
-msgstr ""
+msgstr "Formatēšana"
 
 #: ../fsset.py:2611
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "Datņu sistēmas %s formatēšana..."
 
 #: ../gui.py:108
 msgid "An error occurred copying the screenshots over."
-msgstr ""
+msgstr "Kļūda ekrānattēlu kopēšanas laikā."
 
 #: ../gui.py:120
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Ekrānattēls nokopēts"
 
 #: ../gui.py:121
 msgid ""
@@ -820,29 +820,34 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"Ekrānattēli saglabāti mapē:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"Tiem piekļūt Jūs varat pārstartējot sistēmu un pieslēdzoties kā root lietotājs."
 
 #: ../gui.py:165
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Ekrānattēls saglabāts"
 
 #: ../gui.py:166
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "Ekrānattēls ar nosaukumu '%s' ir saglabāts."
 
 #: ../gui.py:169
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Kļūda saglabājot ekrānattēlu"
 
 #: ../gui.py:170
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
+msgstr "Kļūda ekrānattēla saglabāšanas laikā. Ja tā ir notikusi pakotņu uzstādīšanas laikā, nepieciešams mēģināt vēlreiz."
 
 #: ../gui.py:239 ../text.py:377
 msgid "Fix"
-msgstr ""
+msgstr "Labot"
 
 #: ../gui.py:240 ../packages.py:53 ../rescue.py:182 ../text.py:378
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
@@ -850,7 +855,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
 #: ../loader2/loader.c:396
 msgid "Yes"
-msgstr ""
+msgstr "Jā"
 
 #: ../gui.py:241 ../rescue.py:182 ../rescue.py:184 ../text.py:379
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
@@ -858,15 +863,15 @@ msgstr ""
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/loader.c:396
 msgid "No"
-msgstr ""
+msgstr "Nē"
 
 #: ../gui.py:243 ../text.py:381 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
-msgstr ""
+msgstr "Atkārtot"
 
 #: ../gui.py:244 ../text.py:382
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorēt"
 
 #: ../gui.py:245 ../gui.py:703 ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:526 ../text.py:102 ../text.py:103 ../text.py:354
@@ -875,7 +880,7 @@ msgstr ""
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
 #: ../loader2/loader.c:342
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: ../gui.py:793 ../text.py:340
 #, python-format
@@ -884,20 +889,23 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Kickstart konfigurācijas apstrādes laikā, konstatēta sekojoša kļūda:\n"
+"\n"
+"%s"
 
 #: ../gui.py:795 ../text.py:342
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "Kļūda Kickstart konfigurācijas apstrādes laikā"
 
 #: ../gui.py:803 ../text.py:352
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
+msgstr "Lūdzu ievietojiet disketi. Esiet uzmanīgs, jo viss disketes saturs tiks dzēsts."
 
 #: ../gui.py:918
 msgid "default:LTR"
-msgstr ""
+msgstr "pēc noklusējuma:LTR"
 
 #: ../gui.py:997 ../iw/release_notes_viewer_gui.py:51
 msgid "Release notes are missing.\n"
