@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 10:43+0200\n"
+"PO-Revision-Date: 2006-03-25 11:04+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -1210,28 +1210,31 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
+"Ierīcē /dev/%s jau ir %s tipa partīcijas.  Lai izmantotu šo ierīci %s uzstādīšanai, tā ir no jauna jāinicializē dzēšot VISU INFORMĀCIJU no šī diska.\n"
+"\n"
+"Vai Jūs vēlaties formatēt šo disku?"
 
 #: ../partedUtils.py:344
 msgid "_Ignore drive"
-msgstr ""
+msgstr "_Izlaist disku"
 
 #: ../partedUtils.py:345
 msgid "_Format drive"
-msgstr ""
+msgstr "_Formatēt disku"
 
 #: ../partedUtils.py:722
 #, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "Kļūda datņu sistēmas montēšanā uz %s: %s"
 
 #: ../partedUtils.py:810
 msgid "Initializing"
-msgstr ""
+msgstr "Inicializēšana"
 
 #: ../partedUtils.py:811
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "Lūdzu uzgaidiet, notiek diska %s formatēšana...\n"
 
 #: ../partedUtils.py:912
 #, python-format
@@ -1245,6 +1248,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"Partīciju tabula ierīcē %s (%s) nav nolasāma. Lai izveidotu jaunu partīciju, ierīce ir jāinicializē no jauna, dzēšot VISU INFORMĀCIJU.\n"
+"\n"
+"Šī procedūra atcels agrāk veiktās ignorējamo disku norādes.\n"
+"\n"
+"Vai Jūs vēlaties inicializēt šo disku, dzēšot VISU INFORMĀCIJU?"
 
 #: ../partedUtils.py:969
 #, python-format
