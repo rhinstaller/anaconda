@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 15:27+0200\n"
+"PO-Revision-Date: 2006-03-25 17:27+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -1528,11 +1528,11 @@ msgstr "Sekojošas agrāk eksistējušas partīcijas tiks formatētas, dzēšot 
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
+msgstr "Nospiediet 'Jā', lai turpinātu un formatētu šīs partīcijas vai 'Nē', lai ietu soli atpakaļ un mainītu šos iestatījumus."
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
-msgstr ""
+msgstr "Formatēšanas brīdinājums"
 
 #: ../partIntfHelpers.py:510
 #, python-format
@@ -1541,150 +1541,153 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"Jūs esat norādījis, ka jādzēš sadaļu grupa \"%s\".\n"
+"\n"
+"VISAS loģiskās sadaļas šajā sadaļu grupā tiks dzēstas!"
 
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
+msgstr "Jūs esat norādījis, ka loģiskā sadaļa \"%s\"."
 
 #: ../partIntfHelpers.py:517
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "Jūs esat norādījis, ka jādzēš RAID masīvs."
 
 #: ../partIntfHelpers.py:520
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "Jūs esat norādījis, ka jādzēš partīcija /dev/%s."
 
 #: ../partIntfHelpers.py:523
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "Jūsu izvēlētā partīcija tiks dzēsta."
 
 #: ../partIntfHelpers.py:533
 msgid "Confirm Reset"
-msgstr ""
+msgstr "Apstiprināt atiestatīšanu"
 
 #: ../partIntfHelpers.py:534
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgstr "Vai Jūs vēlaties atiestatīt partīciju tabulu tās sākotnējā stāvoklī?"
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "Instalācija nevar turpināties."
 
 #: ../partitioning.py:58
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
+msgstr "Partīciju veidošanas parametri jau ir aktivizēti. Jūs vairs nevarat atgriezties cietņa dalīšanas logā. Vai Jūs vēlaties turpināt instalācijas procesu?"
 
 #: ../partitioning.py:89
 msgid "Low Memory"
-msgstr ""
+msgstr "Nepietiek atmiņas"
 
 #: ../partitioning.py:90
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
-msgstr ""
+msgstr "Jūsu datorā nepietiek atmiņas, tāpēc jāpieslēdz swap sadaļa. Lai to izdarītu, nepieciešams jaunizveidoto partīciju shēmu ierakstīt cietnī nekavējoties. Vai Jūs piekrītat?"
 
 #: ../partitions.py:803
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
+msgstr "Jūs neesat norādījis root partīciju (/), kas ir nepieciešama, lai turpinātu %s instalāciju."
 
 #: ../partitions.py:808
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
+msgstr "Jūsu norādītā root partīcija ir mazāka par 250 megabaitiem, kas ir par maz, lai instalētu %s."
 
 #: ../partitions.py:815
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "Jums jāizveido VFAT tipa partīcija /boot/efi ar izmēru 50 megabaiti."
 
 #: ../partitions.py:835
 msgid "You must create an Apple Bootstrap partition."
-msgstr ""
+msgstr "Jums jāizveido Apple Ielādētāja partīcija."
 
 #: ../partitions.py:857
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Jums jāizveido PPC PReP ielādes partīcija."
 
 #: ../partitions.py:865 ../partitions.py:876
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
+msgstr "Jūsu izveidotā %s partīcija ir mazāka par %s megabaitiem, kas ir mazākais, kas nepieciešams, lai veiktu normālu %s instalēšanu."
 
 #: ../partitions.py:905 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "Ielādes partīcijas iespējams veidot tikai uz RAID1 ierīcēm."
 
 #: ../partitions.py:912
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "Ielādes partīciju nevar izveidot uz loģiskās sadaļas."
 
 #: ../partitions.py:930
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "Jūs neesat norādījis swap partīciju. Vairumā gadījumu swap partīcijas esamība var jūtami paātrināt sistēmas darbību."
 
 #: ../partitions.py:937
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
+msgstr "Jūs esat norādījis vairāk kā 32 swap ierīces. %s kodols darbojas tikai ar 32 swap ierīcēm."
 
 #: ../partitions.py:948
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
+msgstr "Jūs norādījāt swap sadaļu (%dM), kas ir mazāka par pieejamo datora atmiņu (%dM). Tas var negatīvi ietekmēt sistēmas ātrdarbību."
 
 #: ../partitions.py:1238
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "partīciju izmanto instalēšanas programma."
 
 #: ../partitions.py:1241
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "partīcija, kas ir RAID masīva sastāvdaļa."
 
 #: ../partitions.py:1244
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "partīcija, kas ir LVM Sadaļu Grupas sastāvdaļa."
 
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "Šis montēšanas punkts ir nekorekts. Katalogam %s jāatrodas / datņu sistēmā."
 
 #: ../partRequests.py:252
 #, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
+msgstr "Montēšanas punktu %s nevar izmantot. Normālai sistēmas darbībai tai ir jābūt simbolsaitei. Lūdzu norādiet citu montēšanas punktu."
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "Šim montēšanas punktam jāatrodas Linux sistēmā."
 
 #: ../partRequests.py:280
 #, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
+msgstr "Montēšanas punkts \"%s\" jau tiek izmantots, lūdzu norādiet citu montēšanas punktu."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1692,75 +1695,77 @@ msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
+"Partīcijas %s izmērs (%10.2f MB) pārsniedz maksimālo pieļaujamo izmēru %10.2f "
+"MB."
 
 #: ../partRequests.py:490
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
+msgstr "Norādītās partīcijas izmērs (izmērs = %s MB) pārsniedz maksimāli pieļaujamo izmēru %s MB."
 
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "Norādītās partīcijas izmērs ir negatīvs! (izmērs = %s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "Partīcijas nevar sākties pirms pirmā cilindra."
 
 #: ../partRequests.py:502
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "Partīcijas nevar beigties ar negatīvu cilindru."
 
 #: ../partRequests.py:667
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "RAID masīvā nav sastāvdaļu, vai arī nav norādīta RAID pakāpe."
 
 #: ../partRequests.py:679
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "%s tipa RAID ierīcei jābūt vismaz %s sastāvdaļu."
 
 #: ../partRequests.py:688
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
+msgstr "Šajā RAID ierīcē var būt maksimums %s disku. Ja Jūs vēlaties izmantot lielāku skaitu rezerves disku, jāpalielina RAID masīva sastāvdaļu skaits."
 
 #: ../rescue.py:126
 msgid "Starting Interface"
-msgstr ""
+msgstr "Saskarnes startēšana"
 
 #: ../rescue.py:127
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "Mēģinājums startēt %s"
 
 #: ../rescue.py:180
 msgid "Setup Networking"
-msgstr ""
+msgstr "Datortīkla iestatīšana"
 
 #: ../rescue.py:181
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Vai Jūs vēlaties šajā sistēmā startēt tīkla kartes?"
 
 #: ../rescue.py:226 ../text.py:549
 msgid "Cancelled"
-msgstr ""
+msgstr "Atcelts"
 
 #: ../rescue.py:227 ../text.py:550
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "No šīs vietas nav iespējams atgriezties iepriekšējā darbībā. Jums būs jāmēgina vēlreiz."
 
 #: ../rescue.py:245 ../rescue.py:281 ../rescue.py:441
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "Pēc pabeigšanas izejiet no komandčaulas un Jūsu sistēma tiks pārstartēta."
 
 #: ../rescue.py:265 ../rescue.py:334 ../rescue.py:342 ../rescue.py:416
 msgid "Rescue"
-msgstr ""
+msgstr "Atjaunot"
 
 #: ../rescue.py:266
 #, python-format
@@ -1775,40 +1780,44 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"Atjaunošanas vide tūliņ mēģinās atrast Jūsu Linux sistēmu un piemontēt to katalogā %s. Pēc tam varēsiet sistēmā ieviest nepieciešamās izmaiņas. Nospiediet taustiņu 'Turpināt'. Jūs varat piemontēt Jūsu datņu sistēmas režīmā 'tikai lasīt' nospiežot pogu 'Tikai lasīšanai'.\n"
+"\n"
+"Ja kaut kādu iemeslu dēļ notiek šī procesa pārtraukšana, Jūs varat nospiest pogu 'Izlaist' un tad Jūs nokļūsiet komandčaulas režīmā.\n"
+"\n"
 
 #: ../rescue.py:276 ../iw/partition_gui.py:568 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
 msgid "Continue"
-msgstr ""
+msgstr "Turpināt"
 
 #: ../rescue.py:276 ../rescue.py:285
 msgid "Read-Only"
-msgstr ""
+msgstr "Tikai lasīšana"
 
 #: ../rescue.py:276 ../rescue.py:278 ../textw/upgrade_text.py:122
 #: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:259
 #: ../loader2/method.c:419
 msgid "Skip"
-msgstr ""
+msgstr "Izlaist"
 
 #: ../rescue.py:308
 msgid "System to Rescue"
-msgstr ""
+msgstr "Sistēmas atjaunošana"
 
 #: ../rescue.py:309
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "Kura no partīcijām tika izmantota kā root?"
 
 #: ../rescue.py:311 ../rescue.py:315
 msgid "Exit"
-msgstr ""
+msgstr "Iziet"
 
 #: ../rescue.py:335
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "Jūsu sistēmā ir nekorektas datņu sistēmas, kas nav norādītas montēšanai.Nospiediet <enter>, lai nokļūtu komandčaulas režīmā, kurā iespējams nostartēt fsck un tās piemontēt. Pēc iziešanas no komandčaulas režīma sistēma automātiski tiks pārstartēta."
 
 #: ../rescue.py:343
 #, python-format
@@ -1822,6 +1831,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Jūsu sistēma ir piemontēta kā %s.\n"
+"\n"
+"Nospiediet <enter>, lai nokļūtu komandčaulā. Ja Jūs savu sistēmu vēlaties padarīt par pamatsistēmu, startējiet komandu:\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"Kad Jūs iziesiet no komandčaulas, sistēma tiks automātiski pārstartēta."
 
 #: ../rescue.py:417
 #, python-format
@@ -1832,105 +1848,108 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Sistēmas vai tās daļas montēšanas laikā konstatēta kļūda. Daļa ir montēta %s.\n"
+"\n"
+"Nospiediet <enter>, lai nokļūtu komandčaulā. Kad Jūs iziesiet no komandčaulas, sistēma automātiski tiks pārstartēta."
 
 #: ../rescue.py:423
 msgid "Rescue Mode"
-msgstr ""
+msgstr "Atjaunošanas režīms"
 
 #: ../rescue.py:424
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "Linux partīcijas nav atrastas. Nospiediet <enter>, lai nokļūtu komandčaulā. Kad Jūs iziesiet no komandčaulas, sistēma automātiski tiks pārstartēta."
 
 #: ../rescue.py:438
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr ""
+msgstr "Jūsu sistēma ir piemontēta %s katalogā."
 
 #: ../text.py:147 ../text.py:159
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: ../text.py:147 ../text.py:149 ../text.py:161
 msgid "Remote"
-msgstr ""
+msgstr "Pārsūtīt"
 
 #: ../text.py:147 ../text.py:149 ../text.py:157
 msgid "Debug"
-msgstr ""
+msgstr "Atkļūdošana"
 
 #: ../text.py:153
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Noticis izņēmums"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Saglabāt attālinātā datorā"
 
 #: ../text.py:185
 msgid "Host"
-msgstr ""
+msgstr "Dators"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "Attālinātais katalogs"
 
 #: ../text.py:189
 msgid "User name"
-msgstr ""
+msgstr "Lietotājvārds"
 
 #: ../text.py:191
 msgid "Password"
-msgstr ""
+msgstr "Parole"
 
 #: ../text.py:248
 msgid "Help not available"
-msgstr ""
+msgstr "Palīgs nav pieejams"
 
 #: ../text.py:249
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "Šim instalācijas posmam palīgs nav pieejams"
 
 #: ../text.py:351
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Saglabāt avārijas spoguļattēlu"
 
 #: ../text.py:405 ../loader2/lang.c:52 ../loader2/loader.c:145
 #, c-format, python-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Laipni aicināti %s"
 
 #: ../text.py:412
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
+msgstr " <F1> palīdzībai | <Tab> starp elementiem | <Space> izvēle | <F12> nākošais ekrāns"
 
 #: ../text.py:414
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> starp elementiem   |  <Space> izvēle   |  <F12> nākošais ekrāns"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "Jaunināt esošo sistēmu"
 
 #: ../upgradeclass.py:23
 msgid "Upgrade"
-msgstr ""
+msgstr "Jaunināt"
 
 #: ../upgrade.py:76
 msgid "Searching"
-msgstr ""
+msgstr "Meklēšana"
 
 #: ../upgrade.py:77
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr "%s instalācijas meklēšana..."
 
 #: ../upgrade.py:129 ../upgrade.py:137
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "Nekorektas datņu sistēmas"
 
 #: ../upgrade.py:130
 #, python-format
