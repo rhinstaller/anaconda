@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 11:30+0200\n"
+"PO-Revision-Date: 2006-03-25 15:21+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -1287,121 +1287,123 @@ msgstr "Lūdzu ievadiet sadaļu grupas vārdu."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "Sadaļu grupas vārds nedrīkst būt garāks par 128 simboliem"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "Kļūda - sadaļu grupas vārds %s ir nekorekts."
 
 #: ../partIntfHelpers.py:47
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "Kļūda - sadaļu grupas vārds satur nekorektus simbolus vai atstarpes. Pieļaujamie simboli ir burti, skaitļi, '.' vai '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr ""
+msgstr "Lūdzu ievadiet loģiskās sadaļas vārdu."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "Loģiskās sadaļas vārds nedrīkst būt garāks par 128 simboliem"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "Kļūda - loģiskās sadaļas vārds %s ir nekorekts."
 
 #: ../partIntfHelpers.py:71
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "Kļūda - loģiskās sadaļas vārds satur nekorektus simbolus vai atstarpes. Pieļaujamie simboli ir burti, skaitļi, '.' vai '_'."
 
 #: ../partIntfHelpers.py:95
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "Montēšanas punkts %s ir nekorekts. Montēšanas punkta nosaukuma jāsākas ar '/' un tas nedrīkst beigties ar '/', jāsatur vienkārši simboli bez atstarpēm."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "Lūdzu norādiet šīs partīcijas montēšanas punktu."
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "Šī partīcija satur instalācijas datus."
 
 #: ../partIntfHelpers.py:116
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
+msgstr "Šī partīcija ir daļa no RAID masīva /dev/md%s."
 
 #: ../partIntfHelpers.py:119
 msgid "This partition is part of a RAID device."
-msgstr ""
+msgstr "Šī partīcija ir daļa no RAID masīva."
 
 #: ../partIntfHelpers.py:124
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
+msgstr "Šī partīcija ir daļa no LVM masīva %s."
 
 #: ../partIntfHelpers.py:127
 msgid "This partition is part of a LVM volume group."
-msgstr ""
+msgstr "Šī partīcija ir daļa no LVM masīva."
 
 #: ../partIntfHelpers.py:142 ../partIntfHelpers.py:150
 #: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
 #: ../partIntfHelpers.py:184
 msgid "Unable To Delete"
-msgstr ""
+msgstr "Dzēst nav iespējams"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "Vispirms Jums jānorāda partīcija, kuru vēlaties dzēst."
 
 #: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "Jūs nevarat dzēst diska brīvo vietu."
 
 #: ../partIntfHelpers.py:158
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
+msgstr "Jūs nevarat dzēst LDL formāta DASD partīciju."
 
 #: ../partIntfHelpers.py:168
 #, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "Jūs nevarat dzēst šo partīciju, jo tā ir paplašinātā partīcija, kas satur %s"
 
 #: ../partIntfHelpers.py:185
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
+"Jūs nevarat dzēst šo partīciju:\n"
+"\n"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
 #: ../iw/lvm_dialog_gui.py:746
 msgid "Confirm Delete"
-msgstr ""
+msgstr "Apstiprināt dzēšanu"
 
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr "Jūs vēlaties dzēst visas partīcijas ierīcē '/dev/%s'."
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1359
 msgid "_Delete"
-msgstr ""
+msgstr "_Dzēst"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
-msgstr ""
+msgstr "Piezīme"
 
 #: ../partIntfHelpers.py:292
 #, python-format
@@ -1410,32 +1412,37 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Sekojošas partīcijas nav iespējams izdzēst, jo tās tiek izmantotas:\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
 #: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
 msgid "Unable To Edit"
-msgstr ""
+msgstr "Rediģēt nav iespējams"
 
 #: ../partIntfHelpers.py:309
 msgid "You must select a partition to edit"
-msgstr ""
+msgstr "Jums jāizvēlas partīcija, kuru vēlaties rediģēt"
 
 #: ../partIntfHelpers.py:321 ../partIntfHelpers.py:359
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
+"Jūs nevarat rediģēt šo partīciju:\n"
+"\n"
 
 #: ../partIntfHelpers.py:348
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "Jūs nevarat rediģēt šo partīciju, jo tā ir paplašinātā partīcija, kas satur %s"
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
-msgstr ""
+msgstr "Formatēt kā swap?"
 
 #: ../partIntfHelpers.py:381
 #, python-format
@@ -1445,11 +1452,14 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s kā partīcijas tips ir norādīts 0x82 (Linux swap), bet tā nav noformatēta kā Linux swap partīcija.\n"
+"\n"
+"Vai Jūs vēlaties to formatēt kā swap partīciju?"
 
 #: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
+msgstr "Jums jānorāda vismaz viens cietnis, lai varētu uzstādīt %s."
 
 #: ../partIntfHelpers.py:407
 msgid ""
@@ -1459,23 +1469,23 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
-msgstr ""
+msgstr "Instalācijai ir norādīta agrāk eksistējusi partīcija bez tās formatēšanas. Mēs rekomendējam šo partīciju formatēt, lai iepriekšizmantotās sistēmas datnes neizraisītu problēmas Linux sistēmas darbībā. Tajā pat laikā,- ja partīcija satur nozīmīgu informāciju, piemēram, lietotāju pamatkatalogus, Jūs varat turpināt instalēšanu bez partīcijas formatēšanas."
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
-msgstr ""
+msgstr "Formatēt?"
 
 #: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1010
 msgid "_Modify Partition"
-msgstr ""
+msgstr "_Rediģēt partīciju"
 
 #: ../partIntfHelpers.py:415
 msgid "Do _Not Format"
-msgstr ""
+msgstr "_Neformatēt"
 
 #: ../partIntfHelpers.py:423
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "Kļūda veidojot partīcijas"
 
 #: ../partIntfHelpers.py:424
 #, python-format
@@ -1485,10 +1495,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Jūsu izvēlētās partīciju shēmas veidošanas laikā konstatētas sekojošas kritiskas kļūdas. Šīs kļūdas ir jānovērš, ja vēlaties turpināt instalēt %s.\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:438
 msgid "Partitioning Warning"
-msgstr ""
+msgstr "Partīciju veidošanas brīdinājums"
 
 #: ../partIntfHelpers.py:439
 #, python-format
@@ -1499,6 +1512,11 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"The following warnings exist with your requested partition scheme.\n"
+"\n"
+"%s\n"
+"\n"
+"Would you like to continue with your requested partitioning scheme?"
 
 #: ../partIntfHelpers.py:453 ../iw/partition_gui.py:666
 msgid ""
