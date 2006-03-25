@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 11:04+0200\n"
+"PO-Revision-Date: 2006-03-25 11:30+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -1265,20 +1265,25 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"Partīciju tabula ierīcē %s nav nolasāma. Lai izveidotu jaunas partīcijas, tā ir jāinicializē no jauna, dzēšot VISU INFORMĀCIJU.\n"
+"\n"
+"Šī procedūra atcels visas iepriekšējās atzīmes par disku ignorēšanu.\n"
+"\n"
+"Vai Jūs vēlaties inicializēt šo disku, dzēšot VISU INFORMĀCIJU?"
 
 #: ../partedUtils.py:1087
 msgid "No Drives Found"
-msgstr ""
+msgstr "Diski nav atrasti"
 
 #: ../partedUtils.py:1088
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
-msgstr ""
+msgstr "Konstatēta kļūda: ierīces jaunu datņu sistēmu izveidei nav atrastas. Lūdzu, pārbaudiet Jūsu datora ierīces, lai šo problēmu novērstu."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr ""
+msgstr "Lūdzu ievadiet sadaļu grupas vārdu."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
