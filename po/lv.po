@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 17:27+0200\n"
+"PO-Revision-Date: 2006-03-25 18:04+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -1959,6 +1959,8 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"Ne visas datņu sistēmas tika pareizi nomontētas. Lūdzu nostartējiet Jūsu Linux instalāciju, ļaujiet pārbaudīt datņu sistēmas un korekti izslēdziet, lai varētu jaunināt.\n"
+"%s"
 
 #: ../upgrade.py:138
 #, python-format
@@ -1967,23 +1969,25 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"Sekojošas Jūsu Linux sistēmas datņu sistēmas ir nekorekti nomontētas. Vai Jūs vienalga vēlaties tās piemontēt?\n"
+"%s"
 
 #: ../upgrade.py:275 ../upgrade.py:281
 msgid "Mount failed"
-msgstr ""
+msgstr "Montēšana neizdevās"
 
 #: ../upgrade.py:276
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "Viena vai vairākas /etc/fstab norādītās datņu sistēmas nav iespējams piemontēt. Lūdzu izlabojiet šo problēmu un mēģiniet sistēmu jaunināt vēlreiz."
 
 #: ../upgrade.py:282
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr ""
+msgstr "Viena vai vairākas /etc/fstab norādītās datņu sistēmas ir kļūdainas un nav iespējams piemontēt. Lūdzu izlabojiet šo problēmu un mēģiniet sistēmu jaunināt vēlreiz."
 
 #: ../upgrade.py:299
 msgid ""
@@ -1992,10 +1996,12 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Skojoši faili ir absolutas simbolsaites, kas nav izmantojamas jaunināšanas procesa laikā. Lūdzu nomainiet tās pret relatīvām simbolsaitēm un pārstartējiet jaunināšanas procesu.\n"
+"\n"
 
 #: ../upgrade.py:305
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "Absolūtas simbolsaites"
 
 #: ../upgrade.py:316
 msgid ""
@@ -2004,115 +2010,117 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"Sekojoši katalogi, kuriem ir jābūt simbolsaitēm, var radīt problēmas jaunināšanas laikā. Atjaunojiet to sākotnējo stāvokli un pārstartējiet jaunināšanu.\n"
+"\n"
 
 #: ../upgrade.py:322
 msgid "Invalid Directories"
-msgstr ""
+msgstr "Nekorekti katalogi"
 
 #: ../upgrade.py:329
 #, python-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s nav atrasts"
 
 #: ../upgrade.py:362
 msgid "Finding"
-msgstr ""
+msgstr "Meklē"
 
 #: ../upgrade.py:363
 msgid "Finding packages to upgrade..."
-msgstr ""
+msgstr "Meklē pakotnes jaunināšanai..."
 
 #: ../upgrade.py:375
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
-msgstr ""
+msgstr "Instalācijas programma nevar jaunināt sistēmu, kas izmanto rpm datu bāzi, kas vecāka par 4.x versiju. Lūdzu uzstādiet rpm pakotnes no errata resursiem Jūsu izmantotajai versijai, kā tas ir norādīts sistēmas aprakstā un pēc tam startējiet jaunināšanu."
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
-msgstr ""
+msgstr "Kļūda meklējot jaunināmas pakotnes."
 
 #: ../upgrade.py:478
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Jūs cenšaties jaunināt sistēmu, kas ir pārāk novecojusi, lai to jauninātu uz versiju %s. Jūs tiešām vēlaties turpināt sistēmas jaunināšanu?"
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
-msgstr ""
+msgstr "Notiek pieslēgšanās..."
 
 #: ../vnc.py:57
 msgid "Unable to Start X"
-msgstr ""
+msgstr "Nevar nostartēt X serveri"
 
 #: ../vnc.py:58
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "Šajā datorā nav iespējams nostartēt X serveri. Vai Jūs vēlaties startēt VNC, lai šim datoram pieslēgtos no cita datora un sāktu grafisku instalēšanu vai arī turpināsiet instalēšanu teksta režīmā?"
 
 #: ../vnc.py:65 ../vnc.py:68
 msgid "Use text mode"
-msgstr ""
+msgstr "Izmantot teksta režīmu"
 
 #: ../vnc.py:66
 msgid "Start VNC"
-msgstr ""
+msgstr "Startē VNC"
 
 #: ../vnc.py:76
 msgid "VNC Configuration"
-msgstr ""
+msgstr "VNC konfigurēšana"
 
 #: ../vnc.py:80
 msgid "No password"
-msgstr ""
+msgstr "Bez paroles"
 
 #: ../vnc.py:83
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Paroles esamība ļauj novērst neautorizētu lietotāju pieslēgšanos instalēšanas procesam. Lūdzu ievadiet paroli, kas tiks izmantošana instalēšanas gaitā."
 
 #: ../vnc.py:91 ../textw/userauth_text.py:42 ../loader2/urls.c:437
 msgid "Password:"
-msgstr ""
+msgstr "Parole:"
 
 #: ../vnc.py:92 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Parole (atkārtot):"
 
 #: ../vnc.py:114 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
-msgstr ""
+msgstr "Paroles nesakrīt"
 
 #: ../vnc.py:115 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "Jūsu ievadītās paroles atšķiras. Mēģiniet vēlreiz."
 
 #: ../vnc.py:120 ../textw/userauth_text.py:59
 msgid "Password Length"
-msgstr ""
+msgstr "Paroles garums"
 
 #: ../vnc.py:121
 msgid "The password must be at least six characters long."
-msgstr ""
+msgstr "Parolei jāsatur vismaz seši simboli"
 
 #: ../xsetup.py:55
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "Monitors noteikts pēc DDC"
 
 #: ../yuminstall.py:91
 msgid "Processing"
-msgstr ""
+msgstr "Process notiek"
 
 #: ../yuminstall.py:92
 msgid "Preparing transaction from installation source..."
-msgstr ""
+msgstr "Pārbauda transakcijas no instalācijas avota..."
 
 #: ../yuminstall.py:135
 #, python-format
@@ -2123,24 +2131,27 @@ msgid ""
 "\n"
 "Press 'Retry' to try again."
 msgstr ""
+"Pakotni %s-%s-%s.%s nav iespējams atvērt. Iemesls - datnes neesamība vai bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, vai arī CD ierīce to nevar nolasīt.\n"
+"\n"
+"Nospiediet 'Atkārtot', lai mēģinātu vēlreiz."
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
 msgid "Re_boot"
-msgstr ""
+msgstr "Pārstartēšana"
 
 #: ../yuminstall.py:151
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "Ja Jūs sistēmu pārstartēsiet tagad, tā būs nestabilā stāvoklī un, visticamāk, instalēšana būs jāatkārto. Turpināt?"
 
 #: ../yuminstall.py:160
 msgid "_Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: ../yuminstall.py:441
 msgid "Error running transaction"
-msgstr ""
+msgstr "Kļūda transakciju pārbaudes laikā"
 
 #: ../yuminstall.py:488
 #, python-format
