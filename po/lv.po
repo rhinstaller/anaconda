@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 10:03+0200\n"
+"PO-Revision-Date: 2006-03-25 10:43+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -909,15 +909,15 @@ msgstr "pēc noklusējuma:LTR"
 
 #: ../gui.py:997 ../iw/release_notes_viewer_gui.py:51
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "Versijas apraksta nav.\n"
 
 #: ../gui.py:1184
 msgid "The release notes are missing."
-msgstr ""
+msgstr "Versijas apraksta nav."
 
 #: ../gui.py:1283
 msgid "Error!"
-msgstr ""
+msgstr "Kļūda!"
 
 #: ../gui.py:1284
 #, python-format
@@ -926,44 +926,47 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
+"Kļūda instalatora saskarnes komponentes ielādes laikā.\n"
+"\n"
+"className = %s"
 
 #: ../gui.py:1288 ../gui.py:1293 ../packages.py:574 ../packages.py:579
 #: ../yuminstall.py:620
 msgid "_Exit"
-msgstr ""
+msgstr "_Iziet"
 
 #: ../gui.py:1289 ../yuminstall.py:148
 msgid "_Retry"
-msgstr ""
+msgstr "_Atkārtot"
 
 #: ../gui.py:1292 ../packages.py:578
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Instalators tiek izslēgts..."
 
 #: ../gui.py:1295 ../packages.py:581
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "Jūsu sistēma tiek pārstartēta..."
 
 #: ../gui.py:1298 ../packages.py:583
 msgid "Rebooting System"
-msgstr ""
+msgstr "Sistēmas pārstartēšana"
 
 #: ../gui.py:1380
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s Instalators"
 
 #: ../gui.py:1386
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "Nav iespējams ielādēt virsrakstu"
 
 #: ../gui.py:1446
 msgid "Install Window"
-msgstr ""
+msgstr "Instalēšanas logs"
 
 #: ../image.py:83
 msgid "Required Install Media"
-msgstr ""
+msgstr "Nepieciešams instalācijas resurss"
 
 #: ../image.py:84
 #, python-format
@@ -974,63 +977,67 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Jūsu izvēlētās programmatūras uzstādīšanai nepieciešami sekojoši CD diski:\n"
+"\n"
+"%s\n"
+"Pirms instalēšanas uzsākšanas pārliecinieties, vai tie ir Jūsu rīcībā.  Ja nepieciešams pārtraukt instalēšanu un pārstartēt sistēmu, lūdzu spiediet \"Pārstartēt\"."
 
 #: ../image.py:92 ../packages.py:579 ../packages.py:582
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr ""
+msgstr "_Atpakaļ"
 
 #: ../image.py:92 ../image.py:467 ../iw/partition_gui.py:1012
 msgid "_Continue"
-msgstr ""
+msgstr "_Turpināt"
 
 #: ../image.py:134
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
-msgstr ""
+msgstr "Kļūda CD montēšanas laikā.  Pārliecinieties, ka neesat aizņēmis %s no čaulas tty2 un tad spiediet 'OK', lai atkārtotu procedūru."
 
 #: ../image.py:158
 msgid "Copying File"
-msgstr ""
+msgstr "Datnes kopēšana"
 
 #: ../image.py:159
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Instalēšanas spoguļattēla kopēšana uz cietņa..."
 
 #: ../image.py:163
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
+msgstr "Kļūda instalēšanas spoguļattēla kopēšanas laikā. Iespējams, ka Jūsu datora cietnī nav brīvas vietas."
 
 #: ../image.py:291
 msgid "Change CDROM"
-msgstr ""
+msgstr "Nomainiet CD"
 
 #: ../image.py:292
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr ""
+msgstr "Lūdzu ievietojiet %s disku %d, lai turpinātu."
 
 #: ../image.py:327
 msgid "Wrong CDROM"
-msgstr ""
+msgstr "Nekorekts CD"
 
 #: ../image.py:328
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "Nav pareizais %s CD."
 
 #: ../image.py:334
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Nav iespējams piekļūt CD saturam."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Nav diska spoguļattēla ISO 9660 formātā"
 
 #: ../image.py:524
 #, python-format
@@ -1041,18 +1048,22 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"Instalators mēģināja piemontēt diska spoguļattēlu #%s, bet tas uz servera nav atrodams.\n"
+"\n"
+"Lūdzu ievietojiet šī diska spoguļattēlu servera publiski pieejamā mapē un nospiediet 'Atkārtot'."
+"Nospiediet 'Pārstartēt', lai pārtrauktu instalēšanu."
 
 #: ../image.py:534
 msgid "Re_try"
-msgstr ""
+msgstr "_Atkārtot"
 
 #: ../installclass.py:56
 msgid "Install on System"
-msgstr ""
+msgstr "Sistēmas uzstādīšana"
 
 #: ../kickstart.py:71
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Skripleta kļūda"
 
 #: ../kickstart.py:72
 #, python-format
@@ -1062,34 +1073,37 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Kļūda startējot skripletu.  Jūs varat skatīt notiekošā secību %s.  Tā ir nopietna problēma, jo instalēšanu turpināt nav iespējams.\n"
+"\n"
+"Nospiediet 'OK', lai pārstartētu sistēmu."
 
 #: ../kickstart.py:711 ../kickstart.py:729
 msgid "Running..."
-msgstr ""
+msgstr "Process notiek..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Startēti sākotnējie instalēšanas skripti"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Startēti instalēšanas pabeigšanas skripti"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "Datora nosaukums nedrīkst būt garāks par 64 simboliem"
 
 #: ../network.py:47
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
+msgstr "Datora nosaukumam jāsākas ar korektu simbolu diapazonā 'a-z' vai 'A-Z'"
 
 #: ../network.py:52
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
+msgstr "Datora nosaukums drīkst saturēt simbolus 'a-z', 'A-Z', '-' vai '.'"
 
 #: ../packages.py:46
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Turpināt jaunināšanu?"
 
 #: ../packages.py:47
 msgid ""
@@ -1097,22 +1111,24 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Datņu sistēmas, konkrētās Linux sistēmas jaunināšanai jau ir piemontētas. Jūs nevarat atgriezties uz iepriekšējo procedūru. \n"
+"\n"
 
 #: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "Turpināt jaunināšanu?"
 
 #: ../packages.py:53 ../textw/complete_text.py:47
 msgid "Reboot"
-msgstr ""
+msgstr "Pārstartēšana"
 
 #: ../packages.py:200 ../yuminstall.py:910
 msgid "Post Install"
-msgstr ""
+msgstr "Iestatīšana pēc instalēšanas"
 
 #: ../packages.py:201 ../yuminstall.py:911
 msgid "Performing post install configuration..."
-msgstr ""
+msgstr "Notiek iestatīšana pēc instalēšanas..."
 
 #: ../packages.py:336
 msgid ""
@@ -1120,6 +1136,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"Sekojošas patreizējas versijas pakotnes bija pieejamas, bet NETIKA jauninātas:\n"
 
 #: ../packages.py:339
 msgid ""
@@ -1127,10 +1146,13 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT installed:\n"
 msgstr ""
+"\n"
+"\n"
+"Sekojošas patreizējas versijas pakotnes bija pieejamas, bet NETIKA uzstādītas:\n"
 
 #: ../packages.py:560
 msgid "Warning! This is pre-release software!"
-msgstr ""
+msgstr "Uzmanību! Šī ir testējama programmatūra!"
 
 #: ../packages.py:561
 #, python-format
@@ -1147,14 +1169,23 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"Pateicamies, ka lejupielādējāt šo %s testa versiju.\n"
+"\n"
+"Šī versija nav paredzēta ikdienas vai rūpnieciskai lietošanai, bet gan testētāju atsauksmju apkopošanai.\n"
+"\n"
+"Lai nosūtītu atskaiti par konstatētajām kļūdām, lūdzu apmeklējiet adresi:\n"
+"\n"
+"   %s\n"
+"\n"
+"un aizpildiet atskaiti par '%s'.\n"
 
 #: ../packages.py:574
 msgid "_Install anyway"
-msgstr ""
+msgstr "_Uzstādīt jebkurā gadījumā"
 
 #: ../partedUtils.py:205 ../textw/partition_text.py:558
 msgid "Foreign"
-msgstr ""
+msgstr "Svešs"
 
 #: ../partedUtils.py:305
 #, python-format
@@ -1166,6 +1197,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"Ierīces %s formāts ir LDL, bet jābūt CDL.  DASD LDL formātā netiek atbalstīts instalējot %s.  Ja Jūs vēlaties šo disku izmantot instalēšanai, tas ir atkārtoti jāinicializē, dzēšot VISU INFORMĀCIJU diskā.\n"
+"\n"
+"Vai Jūs patiešām vēlaties pārformatēt šo DASD CDL formātā?"
 
 #: ../partedUtils.py:335
 #, python-format
