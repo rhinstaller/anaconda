@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-25 18:04+0200\n"
+"PO-Revision-Date: 2006-03-25 19:52+0200\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -2161,10 +2161,12 @@ msgid ""
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
+"Pakotni %s-%s-%s.%s nav iespējams atvērt. Iemesls - datnes neesamība vai bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, vai arī CD ierīce to nevar nolasīt.\n"
+"\n"
 
 #: ../yuminstall.py:599
 msgid "Retrieving installation information..."
-msgstr ""
+msgstr "Instalēšanas informācijas saņemšana..."
 
 #: ../yuminstall.py:615
 #, python-format
@@ -2172,31 +2174,31 @@ msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
+msgstr "Nav iespējams nolasīt pakotnes metadatus. Iespējamais iemesls - kataloga repodata neesamība. Lūdzu pārliecinieties, ka uzstādīšanas direktorijs ir noformēts pareizi.  %s"
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "Nekategorizēts"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
-msgstr ""
+msgstr "Instalācijas startēšana"
 
 #: ../yuminstall.py:894
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
+msgstr "Instalēšanas process startēts. Tas var ilgt vairākas minūtes..."
 
 #: ../yuminstall.py:1033
 msgid "Installation Progress"
-msgstr ""
+msgstr "Instalēšanas progress"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
-msgstr ""
+msgstr "Atkarību pārbaude"
 
 #: ../yuminstall.py:1078
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "Izvēlēto pakotņu atkarību pārbaude..."
 
 #: ../zfcp.py:28
 msgid ""
@@ -2204,131 +2206,131 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "zSeries tipa datori standarta SCSI ierīces var izmantot ar Fibre Channel (FCP) palīdzību. Katrai ierīcei jānorāda 5 parametri: 16-bitu ierīces numurs, 16-bitu SCSI ID, 64-bitu World Wide Port Number (WWPN), 16-bitu SCSI LUN un 64-bitu FCP LUN."
 
 #: ../zfcp.py:30
 msgid "Device number"
-msgstr ""
+msgstr "Ierīces numurs"
 
 #: ../zfcp.py:31
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
+msgstr "Jūs neesat norādījis ierīces numuru vai arī numurs ir norādīts nepareizi"
 
 #: ../zfcp.py:33
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:34
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr ""
+msgstr "Jūs neesat norādījis SCSI ID vai arī ID ir nepareizs."
 
 #: ../zfcp.py:36 ../textw/zfcp_text.py:101
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:37
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
+msgstr "Jūs neesat norādījis WWPN vai arī numurs norādīts nepareizi."
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:40
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr ""
+msgstr "Jūs neesat norādījis SCSI LUN vai arī numurs norādīts nepareizi."
 
 #: ../zfcp.py:42 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:43
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr ""
+msgstr "Jūs neesat norādījis FCP LUN vai arī numurs norādīts nepareizi."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr ""
+msgstr "Root paroli"
 
 #: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:69
 msgid "Error with Password"
-msgstr ""
+msgstr "Paroles kļūda"
 
 #: ../iw/account_gui.py:42
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
+msgstr "Lai turpinātu Jums jāievada root parole un tā jāapstiprina, ievadot otrreiz."
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
+msgstr "Paroles atšķiras. Mēģiniet vēlreiz."
 
 #: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
-msgstr ""
+msgstr "Root parolei jābūt garākai par sešiem simboliem."
 
 #: ../iw/account_gui.py:66 ../textw/userauth_text.py:70
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
+msgstr "Ievadītā parole satur ne-ascii grupas simbolus, kas nav atļauti izmantošanai parolēs."
 
 #: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "Root profils nepieciešams sistēmas administrēšanai. Ievadiet root lietotāja paroli."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr ""
+msgstr "Root parole:"
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr ""
+msgstr "Atkārtot:"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
-msgstr ""
+msgstr "Sistēmas ielādētāja parole novērš iespēju mainīt kodola ielādes parametrus. Lielākai sistēmas drošībai ieteicams šo paroli izmantot."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr ""
+msgstr "Izmantot ielādētāja paroli"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr ""
+msgstr "Mainīt paroli"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
-msgstr ""
+msgstr "Ievadīt ielādētāja paroli"
 
 #: ../iw/blpasswidget.py:102
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
-msgstr ""
+msgstr "Ievadīt un atkārtot ielādētāja paroli. (Ņemiet vērā, ka BIOS klaviatūras izkārtojums var atšķirties no tā, kuru Jūs izmantojat tagad)."
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
-msgstr ""
+msgstr "Parole:"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr ""
+msgstr "Atkārtot:"
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Paroles nesakrīt"
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:450
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Paroles nesakrīt"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:460
 msgid ""
@@ -2337,10 +2339,13 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"Jūsu ielādētāja parole ir īsāka par sešiem simboliem. Mēs rekomendējam izmantot garāku paroli.\n"
+"\n"
+"Vai Jūs vēlaties turpināt ar šo paroli?"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr ""
+msgstr "Paplašināta ielādētāja konfigurācija"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:125
 msgid ""
@@ -2349,55 +2354,58 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"Piespiedu LBA32 režīma izmantošana, ja to neatbalsta BIOS, var novest pie tā, ka sistēma nestartēsies.\n"
+"\n"
+"Vai Jūs patiešām vēlaties ieslēgt LBA32 režīmu?"
 
 #: ../iw/bootloader_advanced_gui.py:49
 msgid "Force LBA32"
-msgstr ""
+msgstr "Izmantot LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:70
 msgid "_Force LBA32 (not normally required)"
-msgstr ""
+msgstr "Izmantot LBA32 (parasti nav nepieciešams)"
 
 #: ../iw/bootloader_advanced_gui.py:74
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
-msgstr ""
+msgstr "Ja Jūs vēlaties norādīt papildus kodola parametrus, ievadiet tos laukā 'Kodola vispārējie parametri'."
 
 #: ../iw/bootloader_advanced_gui.py:80
 msgid "_General kernel parameters"
-msgstr ""
+msgstr "Vispārējie kodola parametri"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
 #: ../textw/bootloader_text.py:288 ../textw/bootloader_text.py:402
 msgid "Boot Loader Configuration"
-msgstr ""
+msgstr "Ielādētāja konfigurācija"
 
 #: ../iw/bootloader_main_gui.py:118
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr ""
+msgstr "Ielādētājs %s tiks uzstādīts diskā /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:123
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "Ielādētājs netiks uzstādīts."
 
 #: ../iw/bootloader_main_gui.py:153
 msgid "Configure advanced boot loader _options"
-msgstr ""
+msgstr "Paplašināti konfigurēt ielādētāju."
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr ""
+msgstr "Uzstādīt ielādētāju:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "Mainīt disku secību"
 
 #: ../iw/bootlocwidget.py:82
 msgid "Edit Drive Order"
-msgstr ""
+msgstr "Labot disku secību"
 
 #: ../iw/bootlocwidget.py:87
 msgid ""
@@ -2408,25 +2416,28 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"Sakārtojiet diskus secībā, kā tos izmanto BIOS.Disku secības maiņa var būt noderīga gadījumos, ja Jūs izmantojat vairākus SCSI kontrolierus vai arī vienlaicīgi SCSI un IDE un vēlaties startēt sistēmu no SCSI ierīces.\n"
+"\n"
+"No disku secības ir atkarīgs, kur tieši instalēšanas programma izvietos galveno ielādes sektoru (MBR)."
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
-msgstr ""
+msgstr "Instalēšanas sākums"
 
 #: ../iw/confirm_gui.py:64 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
 msgid "Reboot?"
-msgstr ""
+msgstr "Pārstartēt?"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:99 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
 msgid "The system will be rebooted now."
-msgstr ""
+msgstr "Sistēma tiek pārstartēta."
 
 #: ../iw/confirm_gui.py:82
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "Nospiediet 'Tālāk', lai sāktu %s instalēšanu."
 
 #: ../iw/confirm_gui.py:83
 #, python-format
@@ -2437,26 +2448,29 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
+"Pilnīgu instalēšanas procesa norisi iespējams atrast datnē '%s' pēc sistēmas pārstartēšanas.\n"
+"\n"
+"Kickstart datne, kas satur Jūsu izvēlētos uzstādīšanas parametrus, tiks saglabāta ar nosaukumu '%s'."
 
 #: ../iw/confirm_gui.py:90
 msgid "About to Upgrade"
-msgstr ""
+msgstr "Jaunināšanas sākšana"
 
 #: ../iw/confirm_gui.py:115
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
+msgstr "Nospiediet 'Tālāk', lai sāktu %s jaunināšanu."
 
 #: ../iw/confirm_gui.py:116
 #, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
+msgstr "Pilnīga jaunināšanas norise atrodama datnē '%s' pēc sistēmas pārstartēšanas."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
-msgstr ""
+msgstr "Apsveicam"
 
 #: ../iw/congrats_gui.py:63
 msgid ""
@@ -2464,6 +2478,8 @@ msgid ""
 "\" button to reboot your system.\n"
 "\n"
 msgstr ""
+"Izņemiet informācijas nesēju, kas izmantots uzstādīšanas procesā un nospiediet pogu \"Pārstartēt\", lai pārstartētu sistēmu.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:68
 #, python-format
@@ -2472,93 +2488,96 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Apsveicam, uzstādīšana noritējusi sekmīgi.\n"
+"\n"
+"%s%s"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
-msgstr ""
+msgstr "Disks"
 
 #: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
 msgid "Size"
-msgstr ""
+msgstr "Izmērs"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
-msgstr ""
+msgstr "Modelis"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr ""
+msgstr "Jaunināšanas iespējas noteikšana"
 
 #: ../iw/examine_gui.py:61
 #, python-format
 msgid "_Install %s"
-msgstr ""
+msgstr "Instalēt %s"
 
 #: ../iw/examine_gui.py:63
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
+msgstr "Izvēlieties šo parametru, lai uzstādītu jaunu sistēmas programmu. Esošās programmas un informācija tiks dzēsti atkarībā no Jūsu izvēlētajiem parametriem."
 
 #: ../iw/examine_gui.py:67
 msgid "_Upgrade an existing installation"
-msgstr ""
+msgstr "Esošas sistēmas jaunināšana"
 
 #: ../iw/examine_gui.py:69
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
+msgstr "Izvēlieties šo punktu, ja vēlaties jaunināt esošo %s sistēmu. Esošā informācija uz cietņiem tiks saglabāta."
 
 #: ../iw/examine_gui.py:136 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr ""
+msgstr "Sekojoša sistēma tiks jaunināta:"
 
 #: ../iw/examine_gui.py:149
 msgid "Unknown Linux system"
-msgstr ""
+msgstr "Nezināma Linux sistēma"
 
 #: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
 msgid "Installation Type"
-msgstr ""
+msgstr "Uzstādīšanas tips"
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
-msgstr ""
+msgstr "IP adrese nav norādīta"
 
 #: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr ""
+msgstr "IP adresei jāsatur skaitļi diapazonā no 1 līdz 255"
 
 #: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr ""
+msgstr "IP adresei jāsatur skaitļi diapazonā no 0 līdz 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
 msgid "iSCSI Configuration"
-msgstr ""
+msgstr "iSCSI konfigurācija"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
 msgid "Error with Data"
-msgstr ""
+msgstr "Kļūda datos"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "IP adrese nav norādīta, iSCSI iestatīšana izlaista"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:40
 msgid "Language Selection"
-msgstr ""
+msgstr "Valodas izvēle"
 
 #: ../iw/language_gui.py:65 ../textw/language_text.py:41 ../loader2/lang.c:378
 msgid "What language would you like to use during the installation process?"
-msgstr ""
+msgstr "Kādu valodu vēlaties izmantot sistēmas uzstādīšanas procesā?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
@@ -2566,18 +2585,18 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
-msgstr ""
+msgstr "Nepietiek vietas"
 
 #: ../iw/lvm_dialog_gui.py:116
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr ""
+msgstr "Fiziskā apjoma izmēru izmainīt nevar, pretējā gadījumā apjoms, kas nepieciešams dažādām loģiskajām sadaļām, būs lielāks nekā pieejamā brīvā vieta."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr ""
+msgstr "Apstiprināt fiziskā apjoma maiņu"
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -2587,11 +2606,14 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"Fiziskā apjoma izmaiņas nosaka, ka pieprasītie loģisko sadaļu izmēri tiks noapaļoti līdz vērtībai, kas atbilst fiziskajam apjomam.\n"
+"\n"
+"Šīs izmaiņas stāsies spēkā nekavējoties."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:165 ../iw/network_gui.py:169 ../iw/network_gui.py:192
 msgid "C_ontinue"
-msgstr ""
+msgstr "Turpināt"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
