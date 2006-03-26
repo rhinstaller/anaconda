@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ur\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-23 22:31+0500\n"
+"PO-Revision-Date: 2006-03-25 21:52+0500\n"
 "Last-Translator: Usman Siraj Sheikh <usman.siraj@gmail.com>\n"
 "Language-Team: SCS GIFT UNIVERSITY (http://cs.gift.edu.pk) <urdu.desktop@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "%s %s تنصیب"
 
 #: ../anaconda:155
 msgid "Unable to set vnc password - using no password!"
-msgstr "خفٰیے الفاظ رکھنے سے قاصر ۔ کسی خفیہ الفاظ کے بغیر استعمالvnc "
+msgstr "خفیہ الفاظ رکھنے سے قاصر ہے ۔ کسی خفیہ الفاظ کے بغیر استعمالvnc "
 
 #: ../anaconda:156
 msgid "Make sure your password is at least 6 characters in length."
@@ -551,7 +551,7 @@ msgstr "ختم ھوا"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
-msgstr "بڑھ رھا ھے۔۔۔۔۔۔۔"
+msgstr "بڑھ رھا ھے۔"
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
@@ -674,7 +674,7 @@ msgstr "۔۔۔ %s/dev/برے بلاکوں کو دیکھ رھا ھے"
 #: ../loader2/urls.c:322
 #: ../loader2/urls.c:327
 msgid "Error"
-msgstr "غلطی"
+msgstr "نقص"
 
 #: ../fsset.py:633
 #, python-format
@@ -759,7 +759,7 @@ msgid ""
 msgstr ""
 "اپنے سسٹم کو ریبوٹ کرنے کے لیے <Enter>دبایں \n"
 "\n"
-"ہم اس ڈیواس کو استعمال کرنے کی ڈلاح نہیں چیتے %s/dev/ ڈیواس پر بیڈ بلاک ملے ھیں"
+"ہم اس ڈیواس کو استعمال کرنے کی صلاح نہیں دیتے %s/dev/ ڈیواس پر بیڈ بلاک ملے ھیں"
 
 #: ../fsset.py:1536
 #, python-format
@@ -971,7 +971,7 @@ msgstr "دوبارہ کوشش کریں۔"
 #: ../gui.py:244
 #: ../text.py:382
 msgid "Ignore"
-msgstr "رد کرنا۔"
+msgstr "پرواہ  نہ کرنا۔"
 
 #: ../gui.py:245
 #: ../gui.py:703
@@ -1727,7 +1727,7 @@ msgstr "کرنل صرف 32 سویُپ ڈیوایُسز کی حمایت کرتا 
 #: ../partitions.py:948
 #, python-format
 msgid "You have allocated less swap space (%dM) than available RAM (%dM) on your system.  This could negatively impact performance."
-msgstr ""
+msgstr "سے کم ہے۔ یہ آپ کے سسٹم کی پرفامنس کو بری طرح متاثر کرے گی۔ (%dM) آلاٹ کی ہے جو آپ کے سسٹم کی دستیاب شدہ ریم (%dM) آپ نے سویپ جگہ"
 
 #: ../partitions.py:1238
 msgid "the partition in use by the installer."
@@ -1845,6 +1845,10 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"  ڈایکٹری کے ماتحت ماوُنٹ کرے گا۔ آپ تب اپنے سسٹم کے لیےُ ضروری ترمیم کر سکتے ہیں۔ کا انتخاب کریں۔ آپ اپنےفایل سسٹم کو صرف پڑھنے لکھنے کے بجاےُ صرف پڑھنے کے لیےُ ماونُٹ  'Read-Only' کا انتخاب کر کے کر سکتے ہیں۔   'Continue'  اگر آپ اِس سٹیپ کےساتھ بڑھنا چاہتے ہیں تو %s حفاظتی ماحول اب آپ کی لینکس تنصیب کو تلاش کرے گا اور اسے\n"
+"\n"
+"کا انتخاب کریں تو یہ سٹیپ ختم ہو جاےُ گا اور آپ سیدھے کمانڈ شیل پر چلے جایُں گے۔\n"
+" 'Skip' اگر کسی وجہ سے یہ عمل ناکام ہو جاےُ تو آپ\n"
 
 #: ../rescue.py:276
 #: ../iw/partition_gui.py:568
@@ -1911,6 +1915,9 @@ msgid ""
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
+"کے ماتحت ماونٹ ہو گیا ہے۔ %s.\n"
+" آپ کےمکمل یا کچھ سسٹم کو ماونٹ کرنے کی کوشش میں نقص پیدا ہو گیا ہے۔ اِس کا کچھ حصہ \n"
+"دبایُں۔ جب آپ کا شیل سے خروج ہو گا تو آپ کا سسٹم خودبخود دوبارہ سے بوٹ ہو جاےُ گا۔  <return> شیل کے حصول کے لیے"
 
 #: ../rescue.py:423
 msgid "Rescue Mode"
@@ -2051,6 +2058,8 @@ msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"مندرجہ ذیل فایلز پرانی نشانی والے رابطے ہیں، جس کی ہم  بہتری کے دوران  ضمانت نہیں دیتے۔ مہربانی فرما \n"
+"کرانھیں ریلیٹیو نشانی والے رابطے میں منتۡل کریں اور بہتری کو دوبارہ سے شروع کریں۔  \n"
 
 #: ../upgrade.py:305
 msgid "Absolute Symlinks"
@@ -2061,6 +2070,8 @@ msgid ""
 "The following are directories which should instead be symbolic links, which will cause problems with the upgrade.  Please return them to their original state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"مندرجہ ذیل ڈایکٹریاں ہیں جو کہ سمبالک رابطےنہ ہونے کی وجہ سے، بہتری کے لیےُ مسلےُ کھڑے کر دیں گے۔ آپ اِن کو نشانی والے رابطہ کی حالت میں واپس لے آینُ اور اپگریڈ کو دوبارہ سے شروع کریں۔\n"
+" \n"
 
 #: ../upgrade.py:322
 msgid "Invalid Directories"
@@ -2081,7 +2092,7 @@ msgstr "اپ گریڈ کرنے کے پیکیجز ڈوھنڈ رہا ھے"
 
 #: ../upgrade.py:375
 msgid "The installation program is unable to upgrade systems with a pre-rpm 4.x database. Please install the errata rpm packages for your release as described in the release notes and then run the upgrade procedure."
-msgstr ""
+msgstr "ڈیٹا بیس والے سسٹمز کو بہتر بنانے سے قاصر ہے۔ مہربانی فرما کر ایریٹا آرپی ایم پیکیجز کی اپنی ریلیز کے لیےُ نصب کریں جیسا کہ شایعُ کیےُ گےُ نوٹز میں بیان کیا گیا ہے اور بہتری کے عمل کو دوبارہ چلایُں۔ pre-rpm 4.x تنصیب کا پروگرام "
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
@@ -2090,7 +2101,7 @@ msgstr "کا نمایا ھونا error  اپ گریڈ کرتے وقت"
 #: ../upgrade.py:478
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "کے ورین سے بہت پرانا ہے۔کیا آپ کو یقین ہے کہ آپ بہتری کے عمل کے ساتھ جاری رہنا چاہیں گے؟ %s  یہ دیکھنے میں آ رہا ہے کہ آپ ایسے سسٹم کو بہتر بنانا چاہتے ہیں جو اِس     "
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
@@ -2153,7 +2164,7 @@ msgstr "پاسورڈ کی لمبائ"
 
 #: ../vnc.py:121
 msgid "The password must be at least six characters long."
-msgstr "پاسورڈ کم از کم چھ حروف پر مشتمل ھونا چاھیے"
+msgstr "خفیہ الفاظ کم از کم چھ حروف پر مشتمل ھونا چاھیے"
 
 #: ../xsetup.py:55
 msgid "DDC Probed Monitor"
@@ -2211,7 +2222,7 @@ msgstr "تنصیب کی معلومات حاصل کر رہا ہے۔"
 #: ../yuminstall.py:615
 #, python-format
 msgid "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.  %s"
-msgstr ""
+msgstr "میٹا ڈیٹا پیکج پڑھنے سے قاصر ہے۔ اِس کی وجہ گم جانے والی ریپو ڈیٹا ڈایکٹری ہو سکتی ہے۔ مہربانی فرما کر آپ  %s اِس بات کی یقین دہانی کر لیں کہ آپ کا تنصیبی درخت صحیح طور پر ابھرا ہے۔ "
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
@@ -2239,7 +2250,7 @@ msgstr "تنصیب کے لیےُ منتخب شدہ پیکیجیز میں انح�
 
 #: ../zfcp.py:28
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr " کے ذریعے کر سکتی ہیں۔ آپ کو ہر ایک آلے کے لیےُ 5 پیرامیٹرز مہیا کرنے ہوں گے:a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN.  (FCP) آلات کی رسایُ فایُبر چینل SCSI مشینز صرف انڈسٹری معیار zSeries"
 
 #: ../zfcp.py:30
 msgid "Device number"
@@ -2326,7 +2337,7 @@ msgstr "کنفرم ۔ ۔"
 
 #: ../iw/blpasswidget.py:37
 msgid "A boot loader password prevents users from changing options passed to the kernel.  For greater system security, it is recommended that you set a password."
-msgstr ""
+msgstr "بوٹ لوڈر خفیہ الفاظ یوزرز کو کرنل کو دی جانے والی خفیہ آپشنز کی ترمیم سے بچاتا ہے۔ سسٹم کی زیادہ سیکیورٹی کے لیےُ، آپ کو خفیہ الفاظ رکھنے کا مشورہ دیا جاتا ہے۔"
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2383,6 +2394,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"سے منظور شدہ نہ ہو آپ کی مشین کو بوٹ نہیں ہونے دےگا۔  BIOS  آپ کے بوٹ لوڈر کے لیےُ ذبردستی  استعمال  جب یہ   LBA32 \n"
+"\n"
+"موڈ کو فورس کرناچاہتے ہیں؟ LBA32 کیا آپ جاری رہنا  اور "
 
 #: ../iw/bootloader_advanced_gui.py:49
 msgid "Force LBA32"
@@ -2440,6 +2454,9 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates the Master Boot Record (MBR)."
 msgstr ""
+" آلے سے بوٹ ہونا چاہتے ہوں۔SCSI اڈاپٹرز دونوں ہوں اور آپ IDE اور SCSI اڈاپٹرز یا SCSI استعمال کرتی ہے۔  ڈرایوُ کی ترتیب میں ترمیم سود مند ہو سکتی ہے اگر آپ کے پاس ایک سے زیادہ   BIOS ڈرایوُز کی ترتیب آپ اسی طرح کریں جیسے\n"
+"\n"
+"ڈرایوُ کی ترتیب میں ترمیم تنصیب شدہ پروگرام جہاں ماسٹر بوٹ ریکارڈ موجود ہے بدل دے گی۔"
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
@@ -2768,7 +2785,7 @@ msgstr "استعمال میں ہے ،دوسرے کا انتخاب کریں\"%s\"
 #: ../iw/lvm_dialog_gui.py:593
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than maximum logical volume size (%10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr ""
+msgstr "موجودہ سایز (%10.2f MB) بڑا ھےاس سایز سے جو موجود ھے (%10.2f MB)اِس کی حد  سے بڑھنے کے لیےُ آپ اور بھی زیادہ فیزیکل والیمز غیر پارٹیشنڈ ڈیکس جگہ سے بنا  اور انھیں اِس والیم گروپ  میں جمع کر سکتے ہیں۔   "
 
 #: ../iw/lvm_dialog_gui.py:637
 #: ../iw/partition_dialog_gui.py:179
@@ -2833,6 +2850,9 @@ msgid ""
 "\n"
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then select the \"LVM\" option again."
 msgstr ""
+"والیم گروپ کو بنانے کے لیےُ کم از کم ایک غیر استعمال شدہ فیزیکل والیم پارٹیشن درکار ہے۔ LVM \n"
+"\n"
+"   آپشن کا دوبارہ انتخاب کریں۔ \"LVM\"  فیزیکل والیم کی  قسم کی پارٹیشن یا ریڈ ایرے بنایُں اور\" (LVM)\"      "
 
 #: ../iw/lvm_dialog_gui.py:953
 msgid "Make LVM Volume Group"
@@ -2989,7 +3009,7 @@ msgstr "_DNS ٹرٹیری"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
-msgstr "نٹوارک کی سیٹنگز "
+msgstr "نٹورک کی سیٹنگز "
 
 #: ../iw/network_gui.py:164
 #: ../iw/network_gui.py:168
@@ -3002,7 +3022,7 @@ msgstr "نٹوارک کی سیٹنگز "
 #: ../iw/zfcp_gui.py:224
 #: ../textw/zfcp_text.py:62
 msgid "Error With Data"
-msgstr "غلطی ڈیٹا میں "
+msgstr "  ڈیٹا میں نقص "
 
 #: ../iw/network_gui.py:165
 msgid "You have not specified a hostname.  Depending on your network environment this may cause problems later."
@@ -3426,6 +3446,10 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"سافٹ ویرُ  ریڈ آپ کو کافی ڈیکسز کو ایک بڑی ریڈ ڈیوایسُ میں اکھٹا کرنے کی اجازت دیتی ہے۔  ایک ریڈ ڈیوایُس کی ترتیب آپ دستاویزات کو دیکھیں۔  %s  کو ایک ڈرایوُ کے مقابلے میں اضافی سپیڈ اور اعتماد مہیا کرتی ہے۔ ریڈ ڈیوایُسز پر مزید معلومات کے لیےُ براےُ کرم  \n"
+"\n"
+"ریڈ پارٹیشنز استعمال کے لیےُ باقی ہیں۔  %s آپ کے پاس اِس وقت \n"
+"\n"
 
 #: ../iw/partition_gui.py:1251
 msgid ""
@@ -3626,7 +3650,7 @@ msgstr " پارٹیشنز کو فارمیٹ کرنا ہے؟_"
 
 #: ../iw/raid_dialog_gui.py:476
 msgid "The source drive has no partitions to be cloned.  You must first define partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
+msgstr "سورس ڈرایُو کے پاس نقل بنانے کے لیےُ پارٹیشنز نہیں ہیں۔ آپ کے لیےُ ضروری ہے کہ آپ نقل بنانے سے پہلے اِس ڈرایوُ پر 'سافٹ ویرُ ریڈ' کی قسم کی پارٹیشنز متعارف کروایں۔"
 
 #: ../iw/raid_dialog_gui.py:480
 #: ../iw/raid_dialog_gui.py:486
@@ -3652,6 +3676,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed or restricted to this drive before this drive can be cloned. "
 msgstr ""
+"آپ کی منتخب کردہ سورس ڈرایوُ کے پاس ایسی پارٹیشنز ہیں جو ڈرایوُ تک محدود نہیں ہیں /dev/%s.\n"
+"\n"
+"اِس ڈرایوُ کی نقل بنانے سے پہلے اِن پارٹیشنز کو ختم کرنا یا اِس ڈرایوُ کے ساتھ جوڑنا ضروری ہے۔"
 
 #: ../iw/raid_dialog_gui.py:512
 msgid ""
@@ -4540,7 +4567,7 @@ msgstr "لوجیکل وا لیم کے لےّ کو ییّ والیم گر و پ �
 #: ../textw/partition_text.py:1292
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than maximum logical volume size (%10.2f MB). "
-msgstr "موجودھ سایز (%10.2f MB) بڑا ھےاس سایز سے جو موجود ھے (%10.2f MB)"
+msgstr "موجودہ سایز (%10.2f MB) بڑا ھےاس سایز سے جو موجود ھے (%10.2f MB)"
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -4957,7 +4984,7 @@ msgstr "سی ڈی باھر نکالے اور آزمائش کے لیے دوسر
 #: ../loader2/cdinstall.c:110
 #, c-format
 msgid "If you would like to test additional media, insert the next CD and press \"%s\". Testing each CD is not strictly required, however it is highly recommended.  Minimally, the CDs should be tested prior to using them for the first time. After they have been successfully tested, it is not required to retest each CD prior to using it again."
-msgstr ""
+msgstr "دبایُں۔ ہر سی ڈی کو ٹیسٹ کرنے کی اشد ضرورت نہیں ہے، تاہم اِس کا سخت مشورہ دیا جاتا ہے۔ سی ڈیز کو کم از کم پہلی بار استعمال کرنے سے پہلے ٹیسٹ کریں۔ جب اِن کی کامیابی کے ساتھ ٹیسٹ مکمل ہو جاےُ گا، تو یہ لازمی نہیں ہو گا کہ آپ ہر ایک سی ڈی کو استعمال کرنے سے پہلے ٹیسٹ کریں۔ \"%s\"  اگر آپ اضافی میڈیا کو ٹیسٹ کرنا چاہتے ہیں، اگلی سی ڈی ڈالیں اور "
 
 #: ../loader2/cdinstall.c:133
 #: ../loader2/cdinstall.c:378
