@@ -132,7 +132,7 @@ class simpleCallback:
 
             while self.fdnos[nvra] < 0:
                 try:
-                    fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None) 
+                    fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), self.pkgTimer) 
                 except FileCopyException, e:
                     log.info("Failed %s in %s" %(path, po.returnSimple('name')))
                     self.method.unmountCD()
@@ -188,7 +188,7 @@ class simpleCallback:
             hdr = po.returnLocalHeader()
             path = po.returnSimple('relativepath')
 
-            fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), None)
+            fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), self.pkgTimer)
             nvra = po.returnNevraPrintable()
 
             os.close(self.fdnos[nvra])
