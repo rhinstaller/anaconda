@@ -327,7 +327,7 @@ def handleException(dispatch, intf, (type, value, tb)):
     # see if /mnt/sysimage is present and put exception there as well
     if os.access("/mnt/sysimage/root", os.X_OK):
         try:
-            iutil.copyFile("/tmp/anacdump.txt", "/mnt/sysimage/root/anacdump.txt")
+            shutil.copyfile("/tmp/anacdump.txt", "/mnt/sysimage/root/anacdump.txt")
         except:
             log.error("Failed to copy anacdump.txt to /mnt/sysimage/root")
             pass
