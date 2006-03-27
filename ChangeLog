@@ -2,6 +2,14 @@
 
 	* exception.py (handleException): iutil.copyFile -> shutil.copyfile.
 
+	* fsset.py (swapFileSystems.mount): If the signature on the swap device
+	indicates software suspend, raise SuspendError (#186018).
+
+	* fsset.py (FileSystemSet.turnOnSwap): On SuspendError, alert the user
+	and offer Skip, Format, or Reboot. On skip, remove the partition from
+	self.entries. On format, format swap device and mount it, on reboot
+	reboot. On blitzen... (#186018).
+
 2006-03-27  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (simpleCallback.callback):  Pass in timer (#186761).

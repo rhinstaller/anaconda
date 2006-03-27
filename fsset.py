@@ -40,6 +40,9 @@ log = logging.getLogger("anaconda")
 class BadBlocksError(Exception):
     pass
 
+class SuspendError(Exception):
+    pass
+
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
 if rhpl.getArch() == "s390":
@@ -760,9 +763,12 @@ class swapFileSystem(FileSystemType):
         # FIXME: we should ask if they want to reinitialize swaps that
         # are of format 0 (#122101)
         if buf is not None and len(buf) == pagesize:
-            if buf[pagesize - 10:] == "SWAP-SPACE":
+            sig = buf[pagesize - 10:]
+            if sig == 'SWAP-SPACE':
                 log.warning("SWAP is of format 0, skipping it")
                 return
+            if sig == 'S1SUSPEND\x00' or sig == 'S2SUSPEND\x00':
+                raise SuspendError
 
         isys.swapon (device)
 
@@ -1465,6 +1471,48 @@ MAILADDR root
                 try:
                     entry.mount(chroot)
                     self.mountcount = self.mountcount + 1
+                except SuspendError:
+                    if self.messageWindow:
+                        if upgrading:
+                            msg = _("The swap device:\n\n     /dev/%s\n\n"
+                                    "in your /etc/fstab file is currently in "
+                                    "use as a software suspend partition, "
+                                    "which means your system is hibernating. "
+                                    "To perform an upgrade, please shut down "
+                                    "your system rather than hibernating it.") \
+                                  % (entry.device.getDevice())
+                        else:
+                            msg = _("The swap device:\n\n     /dev/%s\n\n"
+                                    "in your /etc/fstab file is currently in "
+                                    "use as a software suspend partition, "
+                                    "which means your system is hibernating. "
+                                    "If you are performing a new install, "
+                                    "make sure the installer is set to "
+                                    "to format all swap partitions.") \
+                                  % (entry.device.getDevice())
+
+                        # choose your own adventure swap partitions...
+                        msg = msg + _("\n\nChoose Skip if you want the "
+                              "installer to ignore this partition during "
+                              "the upgrade.  Choose Format to reformat "
+                              "the partition as swap space.  Choose Reboot "
+                              "to restart the system.")
+                        adv = self.messageWindow(_("Error"), msg, type="custom",
+                                                 custom_buttons=[_("Skip"),
+                                                                 _("Format"),
+                                                                 _("Reboot")],
+                                                 custom_icon="warning")
+
+                        if adv == 0:
+                            self.entries.remove(entry)
+                        elif adv == 1:
+                            self.formatEntry(entry, chroot)
+                            entry.mount(chroot)
+                            self.mountcount = self.mountcount + 1
+                        else:
+                            sys.exit(0)
+                    else:
+                        sys.exit(0)
                 except SystemError, (num, msg):
                     if self.messageWindow:
                         if upgrading:
