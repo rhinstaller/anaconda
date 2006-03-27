@@ -17,6 +17,7 @@
 import isys
 import sys
 import os
+import shutil
 import signal
 import traceback
 import iutil
