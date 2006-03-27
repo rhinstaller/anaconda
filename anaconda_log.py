@@ -24,6 +24,10 @@ DEFAULT_LEVEL = logging.INFO
 
 logFile = "/tmp/anaconda.log"
 
+logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
+               "warning": logging.WARNING, "error": logging.ERROR,
+               "critical": logging.CRITICAL}
+
 # Base class for logger instances.  This is what will be created any time
 # someone calls logging.getLogger("whatever").  We need this class to
 # provide the setHandlersLevel function.

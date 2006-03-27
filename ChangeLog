@@ -12,6 +12,12 @@
 
 2006-03-27  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Use logLevelMap from anaconda_log instead of duplicating.
+	* anaconda_log.py:  Add logLevelMap.
+	* kickstart.py (AnacondaKSHandlers.doLogging):  Add support for
+	logging function.
+	(AnacondaKSHandlers.doRepo):  Add stub function.
+
 	* yuminstall.py (simpleCallback.callback):  Pass in timer (#186761).
 
 2006-03-24  Chris Lumens  <clumens@redhat.com>

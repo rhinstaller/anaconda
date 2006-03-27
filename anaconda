@@ -351,7 +351,7 @@ except ImportError:
 
 # Set up logging as early as possible.
 import logging
-from anaconda_log import logger
+from anaconda_log import logger, logLevelMap
 
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
@@ -507,24 +507,15 @@ if opts.ksfile:
     from kickstart import Kickstart
     instClass = Kickstart(opts.ksfile, opts.serial)
 
+if opts.loglevel and logLevelMap.has_key(opts.loglevel):
+    log.setHandlersLevel(logLevelMap[opts.loglevel])
+
 if opts.syslog:
     if opts.syslog.find(":") != -1:
         (host, port) = opts.syslog.split(":")
         logger.addSysLogHandler(log, host, port=int(port))
     else:
         logger.addSysLogHandler(log, opts.syslog)
-
-if opts.loglevel:
-    if opts.loglevel == "debug":
-        log.setHandlersLevel(logging.DEBUG)
-    elif opts.loglevel == "info":
-        log.setHandlersLevel(logging.INFO)
-    elif opts.loglevel == "warning":
-        log.setHandlersLevel(logging.WARNING)
-    elif opts.loglevel == "error":
-        log.setHandlersLevel(logging.ERROR)
-    elif opts.loglevel == "critical":
-        log.setHandlersLevel(logging.CRITICAL)
 
 if opts.method and opts.method[0] == '@':
     # ftp installs pass the password via a file in /tmp so

@@ -34,6 +34,7 @@ from rhpl.translate import _
 
 import logging
 log = logging.getLogger("anaconda")
+from anaconda_log import logger, logLevelMap
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
@@ -256,6 +257,16 @@ class AnacondaKSHandlers(KickstartHandlers):
         id.instClass.addPartRequest(id.partitions, request)
         self.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
+    def doLogging(self, id, args):
+        KickstartHandlers.doLogging(self, args)
+        log.setHandlersLevel(logLevelMap[self.ksdata.logging["level"]])
+
+        if self.ksdata.logging["host"] != "" and self.ksdata.logging["port"] != "":
+            logger.addSysLogHandler(log, self.ksdata.logging["host"],
+                                    port=int(self.ksdata.logging["port"]))
+        elif self.ksdata.logging["host"] != "":
+            logger.addSysLogHandler(log, self.ksdata.logging["host"])
+
     def doMediaCheck(self, id, args):
         KickstartHandlers.doMediaCheck(self, args)
 
@@ -431,6 +442,9 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doReboot(self, id, args):
         KickstartHandlers.doReboot(self, args)
         self.skipSteps.append("complete")
+
+    def doRepo(self, id, args):
+        KickstartHandlers.doRepo(self, args)
 
     def doRaid(self, id, args):
         KickstartHandlers.doRaid(self, args)
