@@ -14,6 +14,7 @@ if (os.path.exists('rpmmodule')):
 
 sys.path.append('/usr/lib/anaconda')
 
+import anaconda_log
 import fsset
 import raid
 import isys

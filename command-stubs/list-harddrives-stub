@@ -12,6 +12,7 @@ if (os.path.exists('isys')):
 
 sys.path.append('/usr/lib/anaconda')
 
+import anaconda_log
 import parted
 import partedUtils
 import isys
