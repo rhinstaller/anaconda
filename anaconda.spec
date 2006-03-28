@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.1
+Version: 11.1.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 28 2006 Chris Lumens <clumens@redhat.com> 11.1.0.2-1
+- Remove reference to pythondeps.
+
 * Tue Mar 28 2006 Chris Lumens <clumens@redhat.com> 11.1.0.1-1
 - Prompt for reformatting ancient swap partitions (dcantrel, #122101)
 - Fix lots of deprecation warnings (dcantrel)
