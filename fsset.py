@@ -43,6 +43,9 @@ class BadBlocksError(Exception):
 class SuspendError(Exception):
     pass
 
+class OldSwapError(Exception):
+    pass
+
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
 if rhpl.getArch() == "s390":
@@ -745,7 +748,6 @@ class swapFileSystem(FileSystemType):
         self.supported = 1
         self.maxLabelChars = 15
         
-
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
         pagesize = resource.getpagesize()
         buf = None
@@ -760,13 +762,10 @@ class swapFileSystem(FileSystemType):
         except:
             pass
 
-        # FIXME: we should ask if they want to reinitialize swaps that
-        # are of format 0 (#122101)
         if buf is not None and len(buf) == pagesize:
             sig = buf[pagesize - 10:]
             if sig == 'SWAP-SPACE':
-                log.warning("SWAP is of format 0, skipping it")
-                return
+                raise OldSwapError
             if sig == 'S1SUSPEND\x00' or sig == 'S2SUSPEND\x00':
                 raise SuspendError
 
@@ -1465,12 +1464,36 @@ MAILADDR root
                 entry.setLabel(label)
                 
     def turnOnSwap (self, chroot, upgrading=False):
+        def swapErrorDialog (msg, format_button_text, entry):
+            buttons = [_("Skip"), format_button_text, _("Reboot")]
+            ret = self.messageWindow(_("Error"), msg, type="custom",
+                                     custom_buttons=buttons,
+                                     custom_icon="warning")
+            if ret == 0:
+                self.entries.remove(entry)
+            elif ret == 1:
+                self.formatEntry(entry, chroot)
+                entry.mount(chroot)
+                self.mountcount = self.mountcount + 1
+            else:
+                sys.exit(0)
+
         for entry in self.entries:
             if (entry.fsystem and entry.fsystem.getName() == "swap"
                 and not entry.isMounted()):
                 try:
                     entry.mount(chroot)
                     self.mountcount = self.mountcount + 1
+                except OldSwapError:
+                    if self.messageWindow:
+                        msg = _("The swap device:\n\n     /dev/%s\n\n"
+                                "is a version 0 Linux swap partition. If you "
+                                "want to use this device, you must reformat as "
+                                "a version 1 Linux swap partition. If you skip "
+                                "it, the installer will ignore it during the "
+                                "installation.") % (entry.device.getDevice())
+
+                        swapErrorDialog(msg, _("Reformat"), entry)
                 except SuspendError:
                     if self.messageWindow:
                         if upgrading:
@@ -1497,20 +1520,8 @@ MAILADDR root
                               "the upgrade.  Choose Format to reformat "
                               "the partition as swap space.  Choose Reboot "
                               "to restart the system.")
-                        adv = self.messageWindow(_("Error"), msg, type="custom",
-                                                 custom_buttons=[_("Skip"),
-                                                                 _("Format"),
-                                                                 _("Reboot")],
-                                                 custom_icon="warning")
 
-                        if adv == 0:
-                            self.entries.remove(entry)
-                        elif adv == 1:
-                            self.formatEntry(entry, chroot)
-                            entry.mount(chroot)
-                            self.mountcount = self.mountcount + 1
-                        else:
-                            sys.exit(0)
+                        swapErrorDialog(msg, _("Format"), entry)
                     else:
                         sys.exit(0)
                 except SystemError, (num, msg):

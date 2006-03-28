@@ -1,3 +1,12 @@
+2006-03-28  David Cantrell  <dcantrell@redhat.com>
+
+	* fsset.py (swapFileSystems.mount): If the signature is SWAP-SPACE,
+	raise OldSwapError so we can ask the user to reformat or skip it
+	(#122101).
+
+	* fsset.py (FileSystemSet.turnOnSwap): Added swapErrorDialog function
+	to handle the OldSwapError and SuspendError exceptions.
+
 2006-03-28  Chris Lumens  <clumens@redhat.com>
 
 	* command-stubs/list-harddrives-stub, command-stubs/raidstart-stub,
