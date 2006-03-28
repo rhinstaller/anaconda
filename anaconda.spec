@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.0
+Version: 11.1.0.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,22 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 28 2006 Chris Lumens <clumens@redhat.com> 11.1.0.1-1
+- Prompt for reformatting ancient swap partitions (dcantrel, #122101)
+- Fix lots of deprecation warnings (dcantrel)
+- Check for suspend signatures in swap (dcantrel, #186018)
+- Support logging command in kickstart
+- Clean up URLs we try to fetch in the loader
+- Fix SELinux conditional inclusion (pjones)
+- Remove customClass
+- Always ignore disks listed in ignoredisks (#186438)
+- Fix loader segmentation fault (#186210)
+- Reiser fs label avoidance (dcantrel, #183183)
+- Remove traceonly mode
+- Add rhpl to minstg2.img (#185840)
+- Remove lots of unneeded code in isys, iutil, and elsewhere
+  (clumens, dcantrel, pnasrat)
+
 * Tue Mar 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.0-1
 - Fix text for rescue images
 - Fix some file contexts (#182252)
