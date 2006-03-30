@@ -14,6 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import shutil
 import iutil
 import os, sys
 import logging
@@ -63,7 +64,7 @@ class AnacondaBackend:
 
         instLogName = instPath + logname
         try:
-            iutil.rmrf (instLogName)
+            shutil.rmtree (instLogName)
         except OSError:
             pass
 
@@ -75,7 +76,7 @@ class AnacondaBackend:
 
         instLogName = instPath + logname
         try:
-            iutil.rmrf (instLogName)
+            shutil.rmtree (instLogName)
         except OSError:
             pass
 
@@ -85,7 +86,7 @@ class AnacondaBackend:
         if flags.setupFilesystems:
             syslogname = "%s%s.syslog" % (instPath, logname)
             try:
-                iutil.rmrf (syslogname)
+                shutil.rmtree (syslogname)
             except OSError:
                 pass
             syslog.start (instPath, syslogname)

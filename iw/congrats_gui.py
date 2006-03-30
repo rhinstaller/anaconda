@@ -13,6 +13,7 @@
 
 import gtk
 import gui
+import rhpl
 from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
@@ -57,7 +58,7 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, False, False, 36)
 
         bootstr = ""
-        if iutil.getArch() == "s390":
+        if rhpl.getArch() == "s390":
             floppystr = ""
         else:
             floppystr = _("Remove any media used during the installation "

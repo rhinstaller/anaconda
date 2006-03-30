@@ -1,5 +1,12 @@
 2006-03-30  Chris Lumens  <clumens@redhat.com>
 
+	* backend.py (AnacondaBackend.initLog):  iutil.rmrf -> shutil.rmtree.
+	* packages.py: iutil.copyFile -> shutil.copyfile.
+	* timezone.py:  Likewise.
+	* yuminstall.py:  Likewise.
+	* isys/isys.py (hardDriveDict):  iutil.getArch -> rhpl.getArch.
+	* iw/congrats_gui.py:  Likewise.
+
 	* instdata.py (InstallData):  Don't use Accounts anymore.
 	* users.py (Accounts):  Removed.
 

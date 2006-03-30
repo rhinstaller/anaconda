@@ -11,6 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import shutil
 import iutil
 from flags import flags
 
@@ -37,7 +38,7 @@ class Timezone:
 	fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
 
 	try:
-	    iutil.copyFile(fromFile, instPath + "/etc/localtime")
+	    shutil.copyfile(fromFile, instPath + "/etc/localtime")
 	except OSError, (errno, msg):
 	    log.error("Error copying timezone (from %s): %s" % (fromFile, msg))
 

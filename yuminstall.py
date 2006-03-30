@@ -926,11 +926,11 @@ class YumBackend(AnacondaBackend):
             id.fsset.write(instPath)
             # rootpath mode doesn't have this file around
             if os.access("/tmp/modprobe.conf", os.R_OK):
-                iutil.copyFile("/tmp/modprobe.conf", 
-                               instPath + "/etc/modprobe.conf")
+                shutil.copyfile("/tmp/modprobe.conf", 
+                                instPath + "/etc/modprobe.conf")
             if os.access("/tmp/zfcp.conf", os.R_OK):
-                iutil.copyFile("/tmp/zfcp.conf", 
-                               instPath + "/etc/zfcp.conf")
+                shutil.copyfile("/tmp/zfcp.conf", 
+                                instPath + "/etc/zfcp.conf")
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(instPath + "/etc/mtab", "w+")

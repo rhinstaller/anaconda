@@ -26,6 +26,7 @@ import string
 import language
 import fsset
 import kudzu
+import shutil
 from flags import flags
 from product import *
 from constants import *
@@ -86,7 +87,7 @@ def copyAnacondaLogs(instPath):
                        ("/tmp/ramfs/X.log", "anaconda.xlog")):
         if os.access(fn, os.R_OK):
             try:
-                iutil.copyFile(fn, "%s/var/log/%s" %(instPath, dest))
+                shutil.copyfile(fn, "%s/var/log/%s" %(instPath, dest))
                 os.chmod("%s/var/log/%s" %(instPath, dest), 0600)
             except:
                 pass
@@ -175,7 +176,7 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         log.error("unable to set timezone")
     else:
         try:
-            iutil.copyFile(tzfile, "/etc/localtime")
+            shutil.copyfile(tzfile, "/etc/localtime")
         except OSError, (errno, msg):
             log.error("Error copying timezone (from %s): %s" %(tzfile, msg))
 
