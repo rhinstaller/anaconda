@@ -19,53 +19,6 @@ import random
 import crypt
 import os
 import string
-from flags import flags
-
-import logging
-log = logging.getLogger("anaconda")
-
-class Accounts:
-    def __repr__(self):
-	return "<Type Accounts>"
-
-    def __str__(self):
-	return "<Type Accounts>"
-
-    # List of (accountName, fullName, password) tupes
-    def setUserList(self, users):
-	self.users = users
-
-    def getUserList(self):
-	return self.users
-
-    def writeKScommands(self, f, useMD5):
-	for (account, name, password) in self.users:
-	    crypted = cryptPassword(password, useMD5)
-
-	    f.write("/usr/sbin/useradd %s\n" % (account));
-	    f.write("chfn -f '%s' %s\n" % (name, account))
-	    f.write("/usr/sbin/usermod -p '%s' %s\n" % (crypted, account))
-	    f.write("\n")
-
-    def write(self, instPath, useMD5):
-	if not self.users: return
-
-        if not flags.setupFilesystems:
-            return
-
-	for (account, name, password) in self.users:
-	    argv = [ "/usr/sbin/useradd", account ]
-	    iutil.execWithRedirect(argv[0], argv, root = instPath,
-				   stdout = None)
-
-	    argv = [ "/usr/bin/chfn", "-f", name, account]
-	    iutil.execWithRedirect(argv[0], argv, root = instPath,
-				   stdout = None)
-	
-	    setPassword(instPath, account, password, useMD5)
-
-    def __init__(self):
-	self.users = []
 
 class Password:
     def __init__ (self):

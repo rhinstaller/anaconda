@@ -57,7 +57,6 @@ class InstallData:
 	self.firewall = firewall.Firewall()
         self.security = security.Security()
 	self.timezone = timezone.Timezone()
-	self.accounts = users.Accounts()
         self.rootPassword = users.RootPassword ()
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
@@ -147,7 +146,6 @@ class InstallData:
 	self.firewall.write (instPath)
         self.security.write (instPath)
         self.rootPassword.write (instPath, useMD5)
-        self.accounts.write (instPath, useMD5)
 
     def writeKS(self, filename):
         if self.auth.find("--enablemd5"):
@@ -212,8 +210,6 @@ class InstallData:
         if self.backend is not None:
             self.backend.writePackagesKS(f)
 
-	f.write("\n%post\n")
-	self.accounts.writeKScommands(f, useMD5)
         # make it so only root can read, could have password
         os.chmod(filename, 0600)
 
