@@ -290,13 +290,6 @@ def setupPythonUpdates():
 
     for pypkg in ("rhpl", "yum", "rpmUtils", "urlgrabber", "repomd",
 		  "pykickstart", "rhpxl"):
-	# get the libdir.  *sigh*
-	if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
-		     os.X_OK):
-	    libdir = "lib64"
-	else:
-	    libdir = "lib"
-	
 	if os.access("/mnt/source/RHupdates/%s" %(pypkg,), os.X_OK):
 	    try:
 		os.mkdir("/tmp/updates/%s" %(pypkg,))
@@ -307,6 +300,19 @@ def setupPythonUpdates():
 	    for f in os.listdir("/mnt/source/RHupdates/%s" %(pypkg,)):
 		os.symlink("/mnt/source/RHupdates/%s/%s" %(pypkg, f),
 			   "/tmp/updates/%s/%s" %(pypkg, f))
+
+	# get the libdir.  *sigh*
+	if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
+		     os.X_OK):
+	    libdir = "lib64"
+        elif os.access("/usr/lib/python%s/site-packages/%s" %(pyver, pypkg),
+                       os.X_OK):
+	    libdir = "lib"
+	else:
+            # If the directory doesn't exist, there's nothing to link over.
+            # This happens if we forgot to include one of the above packages
+            # in the image, for instance.
+            return
 
 	if os.access("/tmp/updates/%s" %(pypkg,), os.X_OK):
 	    for f in os.listdir("/usr/%s/python%s/site-packages/%s" %(libdir,
