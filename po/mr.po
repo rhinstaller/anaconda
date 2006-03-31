@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-28 20:47+0530\n"
+"PO-Revision-Date: 2006-03-29 17:35+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -434,7 +434,7 @@ msgstr "तुमची प्रणाली आता रिबूट के�
 #: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
 #: ../textw/upgrade_text.py:176 ../loader2/loader.c:396
 msgid "Warning"
-msgstr "सूचना"
+msgstr "ताकीद"
 
 #: ../autopart.py:1694
 msgid ""
@@ -769,7 +769,7 @@ msgstr "ठीक ."
 
 #: ../fsset.py:2349
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "नक्कल लेबले"
 
 #: ../fsset.py:2350
 #, python-format
@@ -785,16 +785,16 @@ msgstr ""
 #: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "रीबूट करा(_R)"
 
 #: ../fsset.py:2610
 msgid "Formatting"
-msgstr ""
+msgstr "स्वरुपीकरण करत आहे"
 
 #: ../fsset.py:2611
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "%s फाइल प्रणालीचे स्वरुपीकरण करत आहे..."
 
 #: ../gui.py:108
 msgid "An error occurred copying the screenshots over."
@@ -823,8 +823,9 @@ msgid "A screenshot named '%s' has been saved."
 msgstr ""
 
 #: ../gui.py:169
+#, fuzzy
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "चूक"
 
 #: ../gui.py:170
 msgid ""
@@ -878,8 +879,9 @@ msgid ""
 msgstr ""
 
 #: ../gui.py:795 ../text.py:342
+#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "चूक"
 
 #: ../gui.py:803 ../text.py:352
 #, fuzzy
@@ -901,8 +903,9 @@ msgid "The release notes are missing."
 msgstr ""
 
 #: ../gui.py:1283
+#, fuzzy
 msgid "Error!"
-msgstr ""
+msgstr "चूक!"
 
 #: ../gui.py:1284
 #, python-format
@@ -1169,13 +1172,15 @@ msgid "_Ignore drive"
 msgstr ""
 
 #: ../partedUtils.py:345
+#, fuzzy
 msgid "_Format drive"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)"
 
 #: ../partedUtils.py:722
 #, python-format
+#, fuzzy
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "चूक"
 
 #: ../partedUtils.py:810
 msgid "Initializing"
@@ -1212,8 +1217,9 @@ msgid ""
 msgstr ""
 
 #: ../partedUtils.py:1087
+#, fuzzy
 msgid "No Drives Found"
-msgstr ""
+msgstr "ड्राइव्स"
 
 #: ../partedUtils.py:1088
 msgid ""
@@ -1231,14 +1237,16 @@ msgstr ""
 
 #: ../partIntfHelpers.py:42
 #, python-format
+#, fuzzy
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "चूक."
 
 #: ../partIntfHelpers.py:47
+#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "चूक."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1250,14 +1258,16 @@ msgstr ""
 
 #: ../partIntfHelpers.py:65
 #, python-format
+#, fuzzy
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "चूक."
 
 #: ../partIntfHelpers.py:71
+#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "चूक."
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1374,8 +1384,9 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:380
+#, fuzzy
 msgid "Format as Swap?"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)?"
 
 #: ../partIntfHelpers.py:381
 #, python-format
@@ -1402,20 +1413,23 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:415
+#, fuzzy
 msgid "Format?"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)?"
 
 #: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1010
 msgid "_Modify Partition"
 msgstr ""
 
 #: ../partIntfHelpers.py:415
+#, fuzzy
 msgid "Do _Not Format"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)"
 
 #: ../partIntfHelpers.py:423
+#, fuzzy
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "चूक"
 
 #: ../partIntfHelpers.py:424
 #, python-format
@@ -1453,9 +1467,8 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:462
-#, fuzzy
 msgid "Format Warning"
-msgstr "सूचना"
+msgstr "स्वरुपिकरण सूचना"
 
 #: ../partIntfHelpers.py:510
 #, python-format
@@ -1485,7 +1498,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:533
 msgid "Confirm Reset"
-msgstr ""
+msgstr "पुनर्निर्धारण निश्चिती"
 
 #: ../partIntfHelpers.py:534
 msgid "Are you sure you want to reset the partition table to its original state?"
@@ -1504,7 +1517,7 @@ msgstr ""
 
 #: ../partitioning.py:89
 msgid "Low Memory"
-msgstr ""
+msgstr "अल्प स्मृति"
 
 #: ../partitioning.py:90
 #, fuzzy
@@ -1660,11 +1673,11 @@ msgstr ""
 #: ../rescue.py:127
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%s सुरू करण्याचा प्रयत्न करतोय"
 
 #: ../rescue.py:180
 msgid "Setup Networking"
-msgstr ""
+msgstr "संजाळ व्यवस्थित करा"
 
 #: ../rescue.py:181
 msgid "Do you want to start the network interfaces on this system?"
@@ -1672,7 +1685,7 @@ msgstr ""
 
 #: ../rescue.py:226 ../text.py:549
 msgid "Cancelled"
-msgstr ""
+msgstr "रद्द केले "
 
 #: ../rescue.py:227 ../text.py:550
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -1684,10 +1697,11 @@ msgstr ""
 
 #: ../rescue.py:265 ../rescue.py:334 ../rescue.py:342 ../rescue.py:416
 msgid "Rescue"
-msgstr ""
+msgstr "बचाव"
 
 #: ../rescue.py:266
 #, python-format
+#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1698,33 +1712,32 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step "
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
-msgstr ""
+msgstr "चालू ठेवा टाळा"
 
 #: ../rescue.py:276 ../iw/partition_gui.py:568 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
 msgid "Continue"
-msgstr ""
+msgstr "चालू ठेवा"
 
 #: ../rescue.py:276 ../rescue.py:285
 msgid "Read-Only"
-msgstr ""
+msgstr "फक्त वाचण्याजोगा"
 
 #: ../rescue.py:276 ../rescue.py:278 ../textw/upgrade_text.py:122
 #: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:259
 #: ../loader2/method.c:419
 msgid "Skip"
-msgstr ""
+msgstr "टाळा"
 
 #: ../rescue.py:308
 msgid "System to Rescue"
-msgstr ""
+msgstr "बचावाची प्रणाली"
 
 #: ../rescue.py:309
 msgid "What partition holds the root partition of your installation?"
 msgstr ""
 
 #: ../rescue.py:311 ../rescue.py:315
-
 msgid "Exit"
 msgstr "बाहेर"
 
@@ -1760,7 +1773,7 @@ msgstr ""
 
 #: ../rescue.py:423
 msgid "Rescue Mode"
-msgstr ""
+msgstr "बचाव रीत"
 
 #: ../rescue.py:424
 msgid ""
@@ -1775,43 +1788,43 @@ msgstr ""
 
 #: ../text.py:147 ../text.py:159
 msgid "Save"
-msgstr ""
+msgstr "सुरक्षित करा"
 
 #: ../text.py:147 ../text.py:149 ../text.py:161
 msgid "Remote"
-msgstr ""
+msgstr "दूरस्थ"
 
 #: ../text.py:147 ../text.py:149 ../text.py:157
 msgid "Debug"
-msgstr ""
+msgstr "त्रुटीनिर्वारण"
 
 #: ../text.py:153
 msgid "Exception Occurred"
-msgstr ""
+msgstr "अपवाद उद्भवला"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "दूरस्थ यजमानावर सुरक्षित करा"
 
 #: ../text.py:185
 msgid "Host"
-msgstr ""
+msgstr "यजमान"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "दूरस्थ पथ"
 
 #: ../text.py:189
 msgid "User name"
-msgstr ""
+msgstr "उपयोक्ता नाम"
 
 #: ../text.py:191
 msgid "Password"
-msgstr ""
+msgstr "गुप्तशब्द"
 
 #: ../text.py:248
 msgid "Help not available"
-msgstr ""
+msgstr "मदत उपलब्ध नाही"
 
 #: ../text.py:249
 msgid "No help is available for this step of the install."
@@ -1819,7 +1832,7 @@ msgstr ""
 
 #: ../text.py:351
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "क्रॅश संन्निक्षेप सुरक्षित करा"
 
 #: ../text.py:405 ../loader2/lang.c:52 ../loader2/loader.c:145
 #, c-format, python-format
@@ -1828,34 +1841,34 @@ msgstr "%s मध्ये सुस्वागतम् "
 
 #: ../text.py:412
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
+msgstr "<F1> मदतीसाठी | <Tab> तत्वांदरम्यान | <Space> निवडते | <F12> पुढील स्क्रीन"
 
 #: ../text.py:414
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> तत्वांदरम्यान | <Space> निवडते | <F12> पुढील स्क्रीन"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "उपलब्ध प्रणाली अद्ययावत करा"
 
 #: ../upgradeclass.py:23
 msgid "Upgrade"
-msgstr ""
+msgstr "अद्ययावत करा"
 
 #: ../upgrade.py:76
 msgid "Searching"
-msgstr ""
+msgstr "शोधत आहे"
 
 #: ../upgrade.py:77
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr "%s प्रतिष्ठापनांसाठी शोधत आहे..."
 
 #: ../upgrade.py:129 ../upgrade.py:137
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "घाणेरड्या फाइल प्रणाली"
 
 #: ../upgrade.py:130
 #, python-format
@@ -1876,7 +1889,7 @@ msgstr ""
 
 #: ../upgrade.py:275 ../upgrade.py:281
 msgid "Mount failed"
-msgstr ""
+msgstr "आरोहण अयशस्वी"
 
 #: ../upgrade.py:276
 msgid ""
@@ -1901,7 +1914,7 @@ msgstr ""
 
 #: ../upgrade.py:305
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "संपूर्ण Symlinks"
 
 #: ../upgrade.py:316
 msgid ""
@@ -1913,20 +1926,20 @@ msgstr ""
 
 #: ../upgrade.py:322
 msgid "Invalid Directories"
-msgstr ""
+msgstr "अयोग्य निर्देशिका"
 
 #: ../upgrade.py:329
 #, python-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s सापडले नाही"
 
 #: ../upgrade.py:362
 msgid "Finding"
-msgstr ""
+msgstr "शोधत आहे"
 
 #: ../upgrade.py:363
 msgid "Finding packages to upgrade..."
-msgstr ""
+msgstr "अद्ययावत करावयाची संकुले शोधत आहे..."
 
 #: ../upgrade.py:375
 msgid ""
@@ -1948,7 +1961,7 @@ msgstr ""
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
-msgstr ""
+msgstr "जोडत आहे..."
 
 #: ../vnc.py:57
 msgid "Unable to Start X"
@@ -1967,7 +1980,7 @@ msgstr ""
 
 #: ../vnc.py:66
 msgid "Start VNC"
-msgstr "VNC सुरू कराभ"
+msgstr "VNC सुरू करा"
 
 #: ../vnc.py:76
 msgid "VNC Configuration"
@@ -2010,11 +2023,11 @@ msgstr ""
 
 #: ../xsetup.py:55
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC ने शोधून काढलेले मॉनिटर"
 
 #: ../yuminstall.py:91
 msgid "Processing"
-msgstr ""
+msgstr "प्रक्रिया होत आहे"
 
 #: ../yuminstall.py:92
 #, fuzzy
@@ -2033,7 +2046,7 @@ msgstr ""
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
 msgid "Re_boot"
-msgstr ""
+msgstr "रीबूट करा(_b)"
 
 #: ../yuminstall.py:151
 msgid ""
@@ -2043,11 +2056,11 @@ msgstr ""
 
 #: ../yuminstall.py:160
 msgid "_Cancel"
-msgstr ""
+msgstr "रद्द करा(_C)"
 
 #: ../yuminstall.py:441
 msgid "Error running transaction"
-msgstr ""
+msgstr "व्यवहार करताना चूक"
 
 #: ../yuminstall.py:488
 #, python-format
@@ -2072,11 +2085,11 @@ msgstr ""
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
-msgstr ""
+msgstr "अवर्गीकृत"
 
 #: ../yuminstall.py:893
 msgid "Install Starting"
-msgstr ""
+msgstr "प्रतिष्ठापन सुरू होत आहे"
 
 #: ../yuminstall.py:894
 msgid "Starting install process.  This may take several minutes..."
@@ -2084,27 +2097,28 @@ msgstr ""
 
 #: ../yuminstall.py:1033
 msgid "Installation Progress"
-msgstr ""
+msgstr "प्रतिष्ठापन प्रगती"
 
 #: ../yuminstall.py:1077
 msgid "Dependency Check"
-msgstr ""
+msgstr "अधीनता तपासणी"
 
 #: ../yuminstall.py:1078
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
 #: ../zfcp.py:28
+#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "WWPN."
 
 #: ../zfcp.py:30
 msgid "Device number"
-msgstr ""
+msgstr "यंत्र क्रमांक"
 
 #: ../zfcp.py:31
 msgid "You have not specified a device number or the number is invalid"
@@ -2112,7 +2126,7 @@ msgstr ""
 
 #: ../zfcp.py:33
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:34
 msgid "You have not specified a SCSI ID or the ID is invalid."
@@ -2120,7 +2134,7 @@ msgstr ""
 
 #: ../zfcp.py:36 ../textw/zfcp_text.py:101
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:37
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -2128,7 +2142,7 @@ msgstr ""
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:40
 msgid "You have not specified a SCSI LUN or the number is invalid."
@@ -2136,7 +2150,7 @@ msgstr ""
 
 #: ../zfcp.py:42 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:43
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -2144,12 +2158,12 @@ msgstr ""
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr ""
+msgstr "रूटसाठी गुप्तशब्द ठरवा"
 
 #: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:69
 msgid "Error with Password"
-msgstr ""
+msgstr "गुप्तशब्दाशी निगडीत चूक"
 
 #: ../iw/account_gui.py:42
 msgid ""
@@ -2179,11 +2193,11 @@ msgstr ""
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr ""
+msgstr "रूट गुप्तशब्द(_P):  "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr ""
+msgstr "निश्चित करा (_C): "
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2194,15 +2208,15 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr ""
+msgstr "बूट लोडर गुप्तशब्द वापरा(_U)"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr ""
+msgstr "गुप्तशब्द बदला(_p)"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
-msgstr ""
+msgstr "बूट लोडर गुप्तशब्द दाखल करा"
 
 #: ../iw/blpasswidget.py:102
 msgid ""
@@ -2211,21 +2225,20 @@ msgid ""
 msgstr ""
 
 #: ../iw/blpasswidget.py:109
-
 msgid "_Password:"
 msgstr "गुप्तशब्द(_P):"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr ""
+msgstr "निश्चित करा(_f): "
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
-msgstr ""
+msgstr "गुप्तशब्द जुळत नाहीत"
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:450
 msgid "Passwords do not match"
-msgstr ""
+msgstr "गुप्तशब्द जुळत नाहीत"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:460
 msgid ""
@@ -2236,9 +2249,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:27
-#, fuzzy
 msgid "Advanced Boot Loader Configuration"
-msgstr "प्रगत"
+msgstr "प्रगत बूट लोडर व्यूहरचना"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:125
 msgid ""
@@ -2250,11 +2262,11 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:49
 msgid "Force LBA32"
-msgstr ""
+msgstr "LBA32 चा आग्रह करा"
 
 #: ../iw/bootloader_advanced_gui.py:70
 msgid "_Force LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 चा आग्रह करा (सहसा आवश्यक नाही)"
 
 #: ../iw/bootloader_advanced_gui.py:74
 msgid ""
@@ -2270,7 +2282,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
 #: ../textw/bootloader_text.py:288 ../textw/bootloader_text.py:402
 msgid "Boot Loader Configuration"
-msgstr ""
+msgstr "बूट लोडर व्यूहरचना"
 
 #: ../iw/bootloader_main_gui.py:118
 #, python-format
@@ -2386,8 +2398,9 @@ msgid "Model"
 msgstr ""
 
 #: ../iw/examine_gui.py:32
+#, fuzzy
 msgid "Upgrade Examine"
-msgstr ""
+msgstr "अद्ययावत करा"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -2401,8 +2414,9 @@ msgid ""
 msgstr ""
 
 #: ../iw/examine_gui.py:67
+#, fuzzy
 msgid "_Upgrade an existing installation"
-msgstr ""
+msgstr "अद्ययावत करा"
 
 #: ../iw/examine_gui.py:69
 #, python-format
@@ -2440,8 +2454,9 @@ msgid "iSCSI Configuration"
 msgstr ""
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
+#, fuzzy
 msgid "Error with Data"
-msgstr ""
+msgstr "चूक"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
@@ -2552,16 +2567,17 @@ msgid "_Mount Point:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:396
+#, fuzzy
 msgid "_File System Type:"
-msgstr ""
+msgstr "प्रकार:"
 
 #: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:311
+#, fuzzy
 msgid "Original File System Type:"
-msgstr ""
+msgstr "प्रकार:"
 
 #: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:305
-
 msgid "Unknown"
 msgstr "अपरिचित"
 
@@ -2632,8 +2648,9 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
 #: ../textw/partition_text.py:1330
+#, fuzzy
 msgid "Error With Request"
-msgstr ""
+msgstr "चूक"
 
 #: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
 #, python-format
@@ -2728,8 +2745,9 @@ msgid "Used Space:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1028
+#, fuzzy
 msgid "Free Space:"
-msgstr ""
+msgstr "मुक्त:"
 
 #: ../iw/lvm_dialog_gui.py:1046
 msgid "Total Space:"
@@ -2838,8 +2856,9 @@ msgstr ""
 #: ../iw/network_gui.py:177 ../iw/network_gui.py:183 ../iw/network_gui.py:187
 #: ../iw/network_gui.py:192 ../iw/zfcp_gui.py:160 ../iw/zfcp_gui.py:224
 #: ../textw/zfcp_text.py:62
+#, fuzzy
 msgid "Error With Data"
-msgstr ""
+msgstr "चूक"
 
 #: ../iw/network_gui.py:165
 msgid ""
@@ -3065,41 +3084,40 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
-msgstr ""
+msgstr "विभाजन जोडा"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "हे विभाजन संपादित करा: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr ""
+msgstr "विभाजन संपादित करा"
 
 #: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
 msgid "File System _Type:"
-msgstr ""
+msgstr "फाइल सिस्टम प्रकार (_T):"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "अनुमति योग्य ड्राइव्स (_D):"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
-msgstr ""
+msgstr "ड्राइव:"
 
 #: ../iw/partition_dialog_gui.py:355
 msgid "Original File System Label:"
-msgstr ""
+msgstr "मूळ फाइल प्रणाली लेबलः"
 
 #: ../iw/partition_dialog_gui.py:390
-#, fuzzy
 msgid "_Start Cylinder:"
-msgstr "आरंभ:"
+msgstr "दंडगोल आरंभ(_S):"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "दंडगोल अंत(_E):"
 
 #: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
@@ -3107,36 +3125,39 @@ msgstr ""
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1438
 msgid "Type"
-msgstr ""
+msgstr "प्रकार"
 
 #: ../iw/partition_gui.py:368
 msgid "Format"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1438
-
 msgid "Start"
 msgstr "आरंभ"
 
 #: ../iw/partition_gui.py:371 ../textw/partition_text.py:1438
 msgid "End"
-msgstr ""
+msgstr "समाप्त"
 
 #: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
+"आरोहण बिंदू/\n"
+"RAID/खंड"
 
 #: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
+"आकार\n"
+"(MB)"
 
 #: ../iw/partition_gui.py:542 ../textw/partition_text.py:1432
 msgid "Partitioning"
-msgstr ""
+msgstr "विभाजन करत आहे"
 
 #: ../iw/partition_gui.py:634
 msgid "The following critical errors exist with your requested partitioning scheme."
@@ -3149,7 +3170,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:643
 msgid "Partitioning Errors"
-msgstr ""
+msgstr "विभाजन करताना चुका"
 
 #: ../iw/partition_gui.py:649
 msgid "The following warnings exist with your requested partition scheme."
@@ -3161,50 +3182,50 @@ msgstr ""
 
 #: ../iw/partition_gui.py:656
 msgid "Partitioning Warnings"
-msgstr ""
+msgstr "विभाजन ताकीद"
 
 #: ../iw/partition_gui.py:678
 msgid "Format Warnings"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट) ताकीद"
 
 #: ../iw/partition_gui.py:683
+#, fuzzy
 msgid "_Format"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)"
 
 #: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM खंड संच"
 
 #: ../iw/partition_gui.py:753
 msgid "RAID Devices"
-msgstr ""
+msgstr "RAID यंत्रे"
 
 #: ../iw/partition_gui.py:781 ../iw/partition_gui.py:907
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
-
 msgid "None"
 msgstr "काही नाही"
 
 #: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:327
 msgid "Hard Drives"
-msgstr ""
+msgstr "हार्ड ड्राइव्स"
 
 #: ../iw/partition_gui.py:870 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
 msgid "Free space"
-msgstr ""
+msgstr "मुक्त जागा"
 
 #: ../iw/partition_gui.py:872 ../textw/partition_text.py:143
 msgid "Extended"
-msgstr ""
+msgstr "विस्तारित"
 
 #: ../iw/partition_gui.py:874 ../textw/partition_text.py:145
 msgid "software RAID"
-msgstr ""
+msgstr "सॉफ्टवेयर RAID "
 
 #: ../iw/partition_gui.py:909
 msgid "Free"
-msgstr ""
+msgstr "मुक्त"
 
 #: ../iw/partition_gui.py:999 ../textw/partition_text.py:228
 #, python-format
@@ -3214,7 +3235,7 @@ msgstr ""
 #: ../iw/partition_gui.py:1008
 #, python-format
 msgid "Warning: %s."
-msgstr "सूचना: %s "
+msgstr "ताकीदना: %s "
 
 #: ../iw/partition_gui.py:1192 ../iw/partition_gui.py:1206
 msgid "Not supported"
@@ -3290,19 +3311,19 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
-msgstr ""
+msgstr "नविन(_w)"
 
 #: ../iw/partition_gui.py:1360
 msgid "Re_set"
-msgstr ""
+msgstr "पुनर्निर्धारण(_s)"
 
 #: ../iw/partition_gui.py:1361
 msgid "R_AID"
-msgstr ""
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1362
 msgid "_LVM"
-msgstr ""
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1403
 msgid "Hide RAID device/LVM Volume _Group members"
@@ -3313,7 +3334,7 @@ msgstr ""
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<लागू नाही>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
@@ -3325,11 +3346,11 @@ msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
-msgstr ""
+msgstr "विभजन असे स्वरुप(फॉरमॅट) करा(_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "विभजन स्थानांतरित करा(_g):"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
@@ -3337,18 +3358,20 @@ msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
+#, fuzzy
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "ड्राइव्स."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
+#, fuzzy
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "विभाजन करत आहे"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
-msgstr ""
+msgstr "स्वयंचलित विभाजन करा(_A)"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
@@ -3357,49 +3380,49 @@ msgstr ""
 #: ../iw/progress_gui.py:42
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:45
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:48
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s बाइट"
 
 #: ../iw/progress_gui.py:50
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s बाइट्स"
 
 #: ../iw/progress_gui.py:54
 msgid "Installing Packages"
-msgstr ""
+msgstr "संकुलांची प्रतिष्ठापना होत आहे"
 
 #: ../iw/progress_gui.py:168
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr ""
+msgstr "उर्वरित वेळ: %s मिनिटे"
 
 #: ../iw/progress_gui.py:184
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "%s डाउनलोड करत आहे"
 
 #: ../iw/progress_gui.py:224
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr ""
+msgstr "%s-%s-%s.%s (%s) प्रतिष्ठापित करतआहे"
 
 #: ../iw/progress_gui.py:348
 msgid "Package"
-msgstr ""
+msgstr "संकुल"
 
 #: ../iw/progress_gui.py:349
 msgid "Summary"
-msgstr ""
+msgstr "सारांश"
 
 #: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
 msgid "Status: "
@@ -3417,36 +3440,36 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
-msgstr ""
+msgstr "RAID यंत्र बनवा"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "हे RAID यंत्र संपादा: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "RAID यंत्र संपादा"
 
 #: ../iw/raid_dialog_gui.py:311
 msgid "RAID _Device:"
-msgstr ""
+msgstr "RAID यंत्र(_D):"
 
 #: ../iw/raid_dialog_gui.py:329
 msgid "RAID _Level:"
-msgstr ""
+msgstr "RAID स्तर (_L):"
 
 #: ../iw/raid_dialog_gui.py:370
 msgid "_RAID Members:"
-msgstr ""
+msgstr "_RAID सदस्यः"
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr ""
+msgstr "_spares ची संख्याः"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
-msgstr ""
+msgstr "विभाजन स्वरुपित(फॉरमॅट) करावे?(_F)"
 
 #: ../iw/raid_dialog_gui.py:476
 msgid ""
@@ -3457,7 +3480,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
 #: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
 msgid "Source Drive Error"
-msgstr ""
+msgstr "स्रोत ड्राइव चूक"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -3488,7 +3511,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:525 ../iw/raid_dialog_gui.py:531
 #: ../iw/raid_dialog_gui.py:544
 msgid "Target Drive Error"
-msgstr ""
+msgstr "लक्ष्य ड्राइव चूक"
 
 #: ../iw/raid_dialog_gui.py:526
 msgid "Please select the target drives for the clone operation."
@@ -3512,7 +3535,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:606
 msgid "Please select a source drive."
-msgstr ""
+msgstr "कृपया एक स्रोत ड्राइव निवडा."
 
 #: ../iw/raid_dialog_gui.py:626
 #, python-format
@@ -3530,11 +3553,11 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:634
 msgid "Final Warning"
-msgstr "अंतिम सूचना"
+msgstr "अंतिम सुचना"
 
 #: ../iw/raid_dialog_gui.py:636
 msgid "Clone Drives"
-msgstr ""
+msgstr "ड्राइव्स क्लोन करा"
 
 #: ../iw/raid_dialog_gui.py:645
 msgid "There was an error clearing the target drives.  Cloning failed."
@@ -3558,35 +3581,35 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:699
 msgid "Source Drive:"
-msgstr ""
+msgstr "स्रोत ड्राइव"
 
 #: ../iw/raid_dialog_gui.py:707
 msgid "Target Drive(s):"
-msgstr ""
+msgstr "लक्ष्य ड्राइव:"
 
 #: ../iw/raid_dialog_gui.py:715
 msgid "Drives"
-msgstr ""
+msgstr "ड्राइव्स"
 
 #: ../iw/release_notes_viewer_gui.py:187
 msgid "Release Notes"
-msgstr ""
+msgstr "प्रकाशन टिपा"
 
 #: ../iw/release_notes_viewer_gui.py:191
 msgid "Unable to load file!"
-msgstr ""
+msgstr "फाइल भारित करण्यास असमर्थ!"
 
 #: ../iw/timezone_gui.py:59 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "काळ क्षेत्र निवड"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr ""
+msgstr "बूट लोडर व्यूहरचना अद्ययावत करा"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr ""
+msgstr "बूट लोडर व्यूहरचना अद्ययावत करा(_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
@@ -3619,21 +3642,21 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr ""
+msgstr "बूट लोडर अद्ययावन टाळा(_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr ""
+msgstr "चालन"
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
-msgstr ""
+msgstr "तुम्हांस काय करायला आवडेल?"
 
 #: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
 msgid "Migrate File Systems"
-msgstr ""
+msgstr "फाइल प्रणाली स्थानांतरित करा"
 
 #: ../iw/upgrade_migratefs_gui.py:53 ../textw/upgrade_text.py:35
 #, python-format
@@ -3648,7 +3671,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:30
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "स्वॅप विभाजन अद्ययावत करा"
 
 #: ../iw/upgrade_swap_gui.py:100
 #, python-format
@@ -3677,11 +3700,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:147 ../textw/upgrade_text.py:111
 msgid "Partition"
-msgstr ""
+msgstr "विभाजन"
 
 #: ../iw/upgrade_swap_gui.py:147
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "मुक्त जागा (MB)"
 
 #: ../iw/upgrade_swap_gui.py:165
 #, python-format
@@ -3692,11 +3715,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:180
 msgid "Swap file _size (MB):"
-msgstr ""
+msgstr "स्वॅप फाइल आकार(MB):(_s)"
 
 #: ../iw/upgrade_swap_gui.py:190
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "मला स्वॅप फाइल नाही बनवायची"
 
 #: ../iw/upgrade_swap_gui.py:200
 msgid ""
@@ -3715,24 +3738,24 @@ msgstr ""
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
-msgstr ""
+msgstr "ZFCP व्यूहरचना"
 
 #: ../iw/zfcp_gui.py:104
 msgid "_Remove"
-msgstr ""
+msgstr "काढून टाका(_R)"
 
 #: ../iw/zfcp_gui.py:111 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
-msgstr ""
+msgstr "FCP यंत्रे"
 
 #: ../iw/zfcp_gui.py:122
 msgid "Add FCP device"
-msgstr ""
+msgstr "FCP यंत्रे जोडा"
 
 #: ../iw/zfcp_gui.py:185
 #, python-format
 msgid "Edit FCP device %s"
-msgstr ""
+msgstr "FCP यंत्र %s संपादा"
 
 #: ../iw/zfcp_gui.py:249
 msgid ""
@@ -3742,7 +3765,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "z/IPL बूट लोडर व्यूहरचना"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
@@ -3779,15 +3802,15 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "GRUB (ग्रब) बूट लोडर वापरा"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr ""
+msgstr "बूट लोडर नाही आहे"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "बूट लोडर टाळा"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -3817,19 +3840,19 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:264
 msgid "Boot label"
-msgstr ""
+msgstr "बूट लेबल"
 
 #: ../textw/bootloader_text.py:198
 msgid "Clear"
-msgstr ""
+msgstr "साफ करा"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "बूट लेबल संपादा"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "अयोग्य बूट लेबल"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
@@ -3842,7 +3865,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:279 ../textw/partition_text.py:1443
 #: ../textw/zfcp_text.py:108
 msgid "Edit"
-msgstr ""
+msgstr "संपादन करा"
 
 #: ../textw/bootloader_text.py:283
 #, python-format
@@ -3865,37 +3888,39 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:407
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "GRUB गुप्तशब्द वापरा"
 
 #: ../textw/bootloader_text.py:419
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "बूट लोडर गुप्तशब्द:"
 
 #: ../textw/bootloader_text.py:420
 msgid "Confirm:"
-msgstr ""
+msgstr "निश्चित करा:"
 
 #: ../textw/bootloader_text.py:449
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "गुप्तशब्द जुळत नाहीत"
 
 #: ../textw/bootloader_text.py:454
 msgid "Password Too Short"
-msgstr ""
+msgstr "गुप्तशब्द खूप लहान"
 
 #: ../textw/bootloader_text.py:455
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "बूट लोडर गुप्तशब्द खूप लहान आहे"
 
 #: ../textw/complete_text.py:27
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"प्रतिष्ठापन संपवण्यासाठी <Enter> दाबा.\n"
+"\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "बापेर जाण्यासाठी <Enter>"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -3906,7 +3931,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "रीबूटसाठी <Enter>"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -3928,11 +3953,11 @@ msgstr ""
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
-msgstr ""
+msgstr "संपन्न"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "प्रतिष्ठापना सुरू होण्यात आहे"
 
 #: ../textw/confirm_text.py:23
 #, python-format
@@ -3953,11 +3978,11 @@ msgstr ""
 #: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
 #: ../loader2/urls.c:447
 msgid "Back"
-msgstr ""
+msgstr "मागे"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "अद्ययावतीकरण सुरू होण्यात आहे"
 
 #: ../textw/confirm_text.py:51
 #, python-format
@@ -3976,7 +4001,7 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
-msgstr ""
+msgstr "संकुल संचाचा तपशील"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -3984,19 +4009,19 @@ msgstr ""
 
 #: ../textw/iscsi_text.py:35
 msgid "Target IP address:"
-msgstr ""
+msgstr "लक्ष्य IP पत्ताः"
 
 #: ../textw/iscsi_text.py:42
 msgid "Port Number:"
-msgstr ""
+msgstr "पोर्ट क्रमांक:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI आरंभकर्ता नाम:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
 msgid "Invalid IP string"
-msgstr ""
+msgstr "अयोग्य IP स्ट्रिंग"
 
 #: ../textw/iscsi_text.py:71 ../textw/network_text.py:29
 #, python-format
@@ -4005,7 +4030,7 @@ msgstr ""
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "कळफलकाची निवड"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
@@ -4021,27 +4046,27 @@ msgstr ""
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "३ बटनांचे अनुकरण करावे का?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr ""
+msgstr "माउस निवड"
 
 #: ../textw/network_text.py:66
 msgid "IP Address"
-msgstr ""
+msgstr "IP पत्ता"
 
 #: ../textw/network_text.py:67
 msgid "Netmask"
-msgstr ""
+msgstr "नेटमास्क(Netmask)"
 
 #: ../textw/network_text.py:69
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "Point to Point (IP)"
 
 #: ../textw/network_text.py:73 ../loader2/net.c:228
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:74 ../loader2/net.c:229
 msgid "Encryption Key"
@@ -4151,7 +4176,7 @@ msgstr ""
 #: ../textw/partition_text.py:231
 #, python-format
 msgid "Warning: %s"
-msgstr "सूचना: %s"
+msgstr "ताकीद: %s"
 
 #: ../textw/partition_text.py:232
 msgid "Modify Partition"
@@ -4170,8 +4195,9 @@ msgid "File System type:"
 msgstr ""
 
 #: ../textw/partition_text.py:356
+#, fuzzy
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "ड्राइव्स:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
@@ -4191,8 +4217,9 @@ msgid "Start Cylinder:"
 msgstr "आरंभ:"
 
 #: ../textw/partition_text.py:454
+#, fuzzy
 msgid "End Cylinder:"
-msgstr ""
+msgstr "समाप्त:"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
@@ -4211,8 +4238,9 @@ msgid "Number of spares?"
 msgstr ""
 
 #: ../textw/partition_text.py:550
+#, fuzzy
 msgid "File System Type:"
-msgstr ""
+msgstr "प्रकार:"
 
 #: ../textw/partition_text.py:563
 msgid "File System Label:"
@@ -4225,8 +4253,9 @@ msgstr ""
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
 #, python-format
+#, fuzzy
 msgid "Format as %s"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)"
 
 #: ../textw/partition_text.py:579 ../textw/partition_text.py:817
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
@@ -4259,8 +4288,9 @@ msgid "Leave unchanged (preserve data)"
 msgstr ""
 
 #: ../textw/partition_text.py:621
+#, fuzzy
 msgid "Format as:"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट):"
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
@@ -4291,8 +4321,9 @@ msgid "Invalid Entry for Starting Cylinder"
 msgstr ""
 
 #: ../textw/partition_text.py:892
+#, fuzzy
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "समाप्त"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
@@ -4303,8 +4334,9 @@ msgid "At least two software RAID partitions are needed."
 msgstr ""
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
+#, fuzzy
 msgid "Format partition?"
-msgstr ""
+msgstr "स्वरुप(फॉरमॅट)?"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
@@ -4418,8 +4450,9 @@ msgid "Downloading - %s"
 msgstr ""
 
 #: ../textw/progress_text.py:103
+#, fuzzy
 msgid "Package Installation"
-msgstr ""
+msgstr "संकुल"
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
@@ -4430,8 +4463,9 @@ msgid " Size   : "
 msgstr ""
 
 #: ../textw/progress_text.py:107
+#, fuzzy
 msgid " Summary: "
-msgstr ""
+msgstr "सारांश "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
@@ -4450,16 +4484,18 @@ msgid "Total    :"
 msgstr ""
 
 #: ../textw/progress_text.py:163
+#, fuzzy
 msgid "Completed:   "
-msgstr ""
+msgstr "पूर्ण  "
 
 #: ../textw/progress_text.py:173
 msgid "Remaining:  "
 msgstr ""
 
 #: ../textw/task_text.py:42
+#, fuzzy
 msgid "Package selection"
-msgstr ""
+msgstr "संकुल"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4487,8 +4523,9 @@ msgid "Update boot loader configuration"
 msgstr ""
 
 #: ../textw/upgrade_bootloader_text.py:64
+#, fuzzy
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "टाळा"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
@@ -4504,8 +4541,9 @@ msgid ""
 msgstr ""
 
 #: ../textw/upgrade_text.py:111
+#, fuzzy
 msgid "Free Space"
-msgstr ""
+msgstr "मुक्त"
 
 #: ../textw/upgrade_text.py:126
 msgid "RAM detected (MB):"
@@ -4532,8 +4570,9 @@ msgid "Reinstall System"
 msgstr ""
 
 #: ../textw/upgrade_text.py:207
+#, fuzzy
 msgid "System to Upgrade"
-msgstr ""
+msgstr "अद्ययावत करा"
 
 #: ../textw/upgrade_text.py:208
 msgid ""
@@ -4544,8 +4583,9 @@ msgid ""
 msgstr ""
 
 #: ../textw/upgrade_text.py:245
+#, fuzzy
 msgid "Customize Packages to Upgrade"
-msgstr ""
+msgstr "अद्ययावत करा"
 
 #: ../textw/upgrade_text.py:246
 msgid ""
@@ -4556,7 +4596,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr ""
+msgstr "रूट गुप्तशब्द"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -4879,8 +4919,9 @@ msgstr ""
 #: ../loader2/net.c:927 ../loader2/nfsinstall.c:259
 #: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
 #: ../loader2/urlinstall.c:470
+#, fuzzy
 msgid "Kickstart Error"
-msgstr ""
+msgstr "चूक"
 
 #: ../loader2/driverdisk.c:580
 #, c-format
@@ -4997,8 +5038,9 @@ msgid "Cannot find hard drive for BIOS disk %s"
 msgstr ""
 
 #: ../loader2/kbd.c:126
+#, fuzzy
 msgid "Keyboard Type"
-msgstr ""
+msgstr "प्रकार"
 
 #: ../loader2/kbd.c:127
 msgid "What type of keyboard do you have?"
@@ -5006,18 +5048,21 @@ msgstr ""
 
 #: ../loader2/kickstart.c:122
 #, c-format
+#, fuzzy
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "चूक"
 
 #: ../loader2/kickstart.c:132
 #, c-format
+#, fuzzy
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "चूक"
 
 #: ../loader2/kickstart.c:175
 #, c-format
+#, fuzzy
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "चूक."
 
 #: ../loader2/kickstart.c:274
 msgid "Cannot find ks.cfg on boot floppy."
@@ -5098,8 +5143,9 @@ msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
 #: ../loader2/loader.c:914
+#, fuzzy
 msgid "Rescue Method"
-msgstr ""
+msgstr "बचाव"
 
 #: ../loader2/loader.c:915
 msgid "Installation Method"
@@ -5539,8 +5585,9 @@ msgid "Show _Help"
 msgstr ""
 
 #: tmp/anaconda.glade.h:4
+#, fuzzy
 msgid "_Debug"
-msgstr ""
+msgstr "त्रुटीनिर्वारण"
 
 #: tmp/anaconda.glade.h:5
 msgid "_Next"
