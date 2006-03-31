@@ -3,6 +3,8 @@
 	* anaconda (setupPythonUpdates):  Allow updates to contain entire
 	directories we forgot in an image.
 
+	* scripts/pkgorder:  iutil.rmrf -> shutil.rmtree.
+
 2006-03-30  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.initLog):  iutil.rmrf -> shutil.rmtree.

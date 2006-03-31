@@ -13,6 +13,7 @@ import os.path
 import glob
 import rpm
 import rpmUtils
+import shutil
 import string
 import sys
 import yum
@@ -186,4 +187,4 @@ if __name__ == "__main__":
 
     processTransaction(ds)
     os.unlink(config)
-    iutil.rmrf(testpath)
+    shutil.rmtree(testpath)
