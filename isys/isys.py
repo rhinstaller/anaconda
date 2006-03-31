@@ -232,7 +232,7 @@ def acpicpus():
     global _acpi_ncpus
 
     if _acpi_ncpus is None:
-	_acpi_ncpus = _isys.acpicpus
+	_acpi_ncpus = _isys.acpicpus()
 
     return _acpi_ncpus
 
