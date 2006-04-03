@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-03-29 21:31+0300\n"
+"PO-Revision-Date: 2006-04-03 13:58+0300\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -3398,79 +3398,81 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
+"Lai izmantotu programmatisko RAID, nepieciešams izveidot vismaz divas 'programmatiskā RAID' tipa sadaļas. Pēc tam Jūs varat izveidot un piemontēt RAID ierīci.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1257
 msgid "What do you want to do now?"
-msgstr ""
+msgstr "Ko Jūs tagad vēlaties darīt?"
 
 #: ../iw/partition_gui.py:1266
 msgid "Create a software RAID _partition."
-msgstr ""
+msgstr "Izveidot programmatiskā RAID sadaļu."
 
 #: ../iw/partition_gui.py:1269
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "Izveidot RAID ierīci [pēc noklusējuma=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1273
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "Klonēt cietni RAID ierīces izveidei [pēc noklusējuma=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1312
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "Neizdodas izveidot cietņu klonēšanas redaktoru"
 
 #: ../iw/partition_gui.py:1313
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
+msgstr "Dažādu iemeslu dēļ nostartēt cietņu klonēšanas redaktoru nav iespējams."
 
 #: ../iw/partition_gui.py:1357
 msgid "Ne_w"
-msgstr ""
+msgstr "Izveidot"
 
 #: ../iw/partition_gui.py:1360
 msgid "Re_set"
-msgstr ""
+msgstr "Atcelt"
 
 #: ../iw/partition_gui.py:1361
 msgid "R_AID"
-msgstr ""
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1362
 msgid "_LVM"
-msgstr ""
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1403
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "Slēpt RAID ierīces/LVM sadaļu grupas"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<Nav lietojams>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
+msgstr "Kā Jūs vēlaties sagatavot šīs sadaļas datņu sistēmu?"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
-msgstr ""
+msgstr "Atstāt bez izmaiņām (saglabāt datus)"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
-msgstr ""
+msgstr "Formatēt sadaļu kā:"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "Pārveidot sadaļu uz:"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "Meklēt bojātus blokus?"
 
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
