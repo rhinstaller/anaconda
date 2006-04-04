@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.2
+Version: 11.1.0.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 04 2006 Chris Lumens <clumens@redhat.com> 11.1.0.3-1
+- Fix up for rhpxl Modes changes.
+- Fix handling of video driver if there's no list of drivers available.
+- Add modes files and libuser to images.
+- Allow updates to contain entire directories that may be missing.
+- Clean up deprecation warnings.
+
 * Tue Mar 28 2006 Chris Lumens <clumens@redhat.com> 11.1.0.2-1
 - Remove reference to pythondeps.
 
