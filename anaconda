@@ -682,6 +682,7 @@ if not opts.isHeadless:
     try:
 	import xsetup
 	import rhpxl.xhwstate as xhwstate
+        import rhpxl.monitor
     except ImportError:
 	opts.isHeadless = 1
 import rhpl.keyboard as keyboard
@@ -818,12 +819,14 @@ if opts.isHeadless: # s390/iSeries checks
 # if DISPLAY not set either vnc server failed to start or we're not
 # running on a redirected X display, so start local X server
 if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
+    modes = rhpxl.monitor.Modes()
+
     if iutil.getPPCMachine() == "PMac":
 	opts.runres = xhwstate.get_valid_resolution(videohw, monitorhw, opts.runres,
-					       runres_override, onPMac=True)
+					       modes, runres_override, onPMac=True)
     else:
 	opts.runres = xhwstate.get_valid_resolution(videohw, monitorhw, opts.runres,
-					       runres_override)
+					       modes, runres_override)
 
     # make sure we can write log to ramfs
     if os.access("/tmp/ramfs", os.W_OK):
