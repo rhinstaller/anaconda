@@ -121,7 +121,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
-	 db4 rhpxl"
+	 db4 rhpxl xorg-x11-server-Xorg"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils kernel-utils"
@@ -462,6 +462,8 @@ usr/share/hwdata/videoaliases
 usr/share/hwdata/videoaliases/*
 usr/share/hwdata/videodrivers
 usr/share/hwdata/MonitorsDB
+usr/share/xorg/extramodes
+usr/share/xorg/vesamodes
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -766,8 +768,6 @@ usr/share/terminfo/v/vt100-nav
 usr/share/themes/Clearlooks/gtk-2.0/*
 usr/share/themes/Clearlooks/index.theme
 usr/share/vte/termcap/xterm
-usr/share/xorg/extramodes
-usr/share/xorg/vesamodes
 usr/share/zoneinfo/zone.tab
 EOF
 
