@@ -121,7 +121,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
-	 db4 rhpxl xorg-x11-server-Xorg"
+	 db4 rhpxl xorg-x11-server-Xorg libuser"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils kernel-utils"
@@ -406,6 +406,8 @@ usr/$LIBDIR/librpmdb*4.?.so*
 usr/$LIBDIR/librpmio*4.?.so*
 usr/$LIBDIR/libslang*
 usr/$LIBDIR/libstdc++.so.6*
+usr/$LIBDIR/libuser.so*
+usr/$LIBDIR/libuser/*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
 usr/$LIBDIR/libreadline*
@@ -417,6 +419,7 @@ usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
 usr/$LIBDIR/python?.?/site-packages/partedmodule.so
 usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
 usr/$LIBDIR/python?.?/site-packages/xf86config.py
+usr/$LIBDIR/python?.?/site-packages/libusermodule.so
 usr/$LIBDIR/python?.?/site-packages/*sqlite*
 usr/$LIBDIR/python?.?/site-packages/rhpl
 usr/$LIBDIR/python?.?/site-packages/rhpxl
@@ -1064,8 +1067,21 @@ automount:  files
 aliases:    files
 EOF
 
+echo "Creating libuser.conf"
+cat > $DEST/etc/libuser.conf <<EOF
+[defaults]
+crypt_style = md5
+modules = files shadow
+create_modules = files shadow
+[files]
+directory = /mnt/sysimage/etc
+[shadow]
+directory = /mnt/sysimage/etc
+EOF
+
 cp $DEST/etc/shells $DESTGR/etc/shells
 cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
+cp $DEST/etc/libuser.conf $DESTGR/etc/libuser.conf
 
 # fixup man.config to point into /mnt/sysimage for rescue
 echo "Fixing up /etc/man.config to point into /mnt/sysimage"
