@@ -401,7 +401,7 @@ class BaseInstallClass:
                 id.xsetup.xhwstate.set_videocard_name(primary.getDescription())
                 id.xsetup.xhwstate.set_videocard_driver(driver)
             else:
-                raise RuntimeError, "Unknown videocard specified: %s" %(card,)
+                raise RuntimeError, "Unknown video driver specified: %s" %(driver,)
 
         if videoRam:
             # FIXME: this required casting is ugly
@@ -554,7 +554,3 @@ def ordering(first, second):
 	return 1
 
     return 0
-
-
-def requireDisplayMode():
-    return None
