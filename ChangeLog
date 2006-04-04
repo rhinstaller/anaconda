@@ -3,8 +3,12 @@
 	* anaconda:  Use rhpxl.monitor.Modes class.
 
 	* installclass.py (BaseInstallClass.setVideoCard):  Use the right
-	variable name.
+	variable name.  If there's no list of drivers available, trust what we got
+	from the user.
 	(requireDisplayMode):  Removed.
+
+	* scripts/upd-instroot:  Add xorg-x11-server-Xorg to $PACKAGES for the
+	modes files.
 
 2006-03-31  Chris Lumens  <clumens@redhat.com>
 
