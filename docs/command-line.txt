@@ -1,4 +1,4 @@
-7-07-2003
+6-Apr-2006
 ---------
 
 Boot time command args:
@@ -43,20 +43,6 @@ skipddc		Skips DDC probe of monitor, may help if its handing system.
 graphical	Force graphical install. Required to have ftp/http use GUI.
 
 text            Force text mode install.
-
-vnc             Enable vnc-based installation. You will need to connect
-                to the machine using a vnc client application.
-
-vncpassword=<password>  Enable a password for the vnc connection. This will
-                prevent someone from inadvertantly connecting to the
-                vnc-based installation.
-
-                Requires 'vnc' option to be specified as well.
-
-vncconnect=<host>[:<port>]   Once installation is up and running, connect to
-                the vnc client named <host>, and optionally use port <port>.
-
-                Requires 'vnc' option to be specified as well.
 
 updates         Prompt for floppy containing updates (bug fixes).
 
@@ -149,12 +135,14 @@ method=hd://<dev>/<path> Use <path> on <dev> for a hard drive installation
 
 method=cdrom     Do a CDROM based installation.
 
-vnc             Do graphical installation via VNC.  Instead of
-                starting a normal X server, vncserver will be started
-                and you can then connect remotely to do the
-                installation.
+vnc             Enable graphical installation via VNC.  A vnc client 
+		application will be required.
 
-vncpassword=<password>  Set a password for the vnc session.
+vncpassword=<password>  Set a password for the vnc session.  This will
+                prevent someone from inadvertantly connecting to the
+                vnc-based installation.
+
+                Requires 'vnc' option to be specified as well.
 
 vncconnect=<host>[:<port>]   Once installation is up and running, connect to
                 the vnc client named <host>, and optionally, on port <port>.
