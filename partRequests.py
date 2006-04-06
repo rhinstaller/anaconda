@@ -650,7 +650,7 @@ class RaidRequestSpec(RequestSpec):
             # XXX 390 can't have boot on raid
             if (self.mountpoint in partitions.getBootableMountpoints()
                  and not raid.isRaid1(self.raidlevel)):
-                return _("Bootable partitions can only be on RAID1 devices.")
+                return _("Bootable partitions can not be on a RAID device.")
 
         minmembers = raid.get_raid_min_members(self.raidlevel)
         if len(self.raidmembers) < minmembers:
