@@ -10,6 +10,8 @@
 	* loader2/module-info: add qla2xxx (#174993)
 	* loader2/init.c: always reset terminal attributes on ppc (#166302)
 	* docs/command-line.txt: eliminate dupe vnc entries (#175368)
+	* partRequests.py (RaidRequestSpec.sanityCheckRaid): fix error
+	message to be more clear (#184246)
 
 2006-02-17  Peter Jones  <pjones@redhat.com>
 
