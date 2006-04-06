@@ -4,6 +4,8 @@
 	hard drive list (#147504)
 	* kickstart.py (KickstartBase.defineLogicalVolume): Check for missing
 	vg declaration earlier so the error message makes sense (#176989).
+        * network.py (NetworkDevice.__str__): quote ethtool opts properly
+        (#176918)
 
 2006-02-17  Peter Jones  <pjones@redhat.com>
 
