@@ -850,6 +850,9 @@ if keymap:
 #
 time.sleep(3)
 
+# this is a collosal hack, but we _must_ do this before the X server starts,
+# or the ATI RageXL (mach64) stabs us in the back and we get a deadlock.
+acpicpus = isys.acpicpus()
 
 #
 # now determine if we're going to run in GUI or TUI mode
