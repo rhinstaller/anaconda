@@ -3,11 +3,12 @@
 	* isys/isys.py (hardDriveDict): don't put removable drives in the isys
 	hard drive list (#147504)
 	* kickstart.py (KickstartBase.defineLogicalVolume): Check for missing
-	vg declaration earlier so the error message makes sense (#176989).
-	* network.py (NetworkDevice.__str__): quote ethtool opts properly
-	(#176918)
+	vg declaration earlier so the error message makes sense (#176989)
+	* network.py (NetworkDevice.__str__): quote ethtool opts
+	properly (#176918)
 	* docs/kickstart-docs.txt: add selinux (#175868)
 	* loader2/module-info: add qla2xxx (#174993)
+	* loader2/init.c: always reset terminal attributes on ppc (#166302)
 
 2006-02-17  Peter Jones  <pjones@redhat.com>
 

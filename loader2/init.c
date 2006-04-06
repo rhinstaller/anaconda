@@ -554,9 +554,6 @@ int main(int argc, char **argv) {
     for (i = 0; consoles[i] != NULL; i++) {
 #if defined(__powerpc__)
         if ((fd = open(consoles[i], O_RDWR)) >= 0 && !tcgetattr(fd, &mode) && !termcmp(&cmode, &mode)) {
-            cfd = open("/dev/console", O_WRONLY);
-            tcsetattr(cfd,TCSANOW,&orig_cmode);
-            close(cfd); 
 #else
         if ((fd = open(consoles[i], O_RDWR)) >= 0) {
 #endif
@@ -567,6 +564,12 @@ int main(int argc, char **argv) {
             break;
         }
     }
+
+#if defined(__powerpc__)
+    cfd = open("/dev/console", O_WRONLY);
+    tcsetattr(cfd,TCSANOW,&orig_cmode);
+    close(cfd); 
+#endif
 
     if ((fd < 0) && (ioctl (0, TIOCLINUX, &twelve) < 0)) {
 	isSerial = 2;
