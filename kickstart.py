@@ -1001,15 +1001,14 @@ class KickstartBase(BaseInstallClass):
 
         if not name:
             raise KickstartError, "Must specify a logical volume name"
+        if not self.ksVGMapping.has_key(vgname):
+            raise KickstartValueError, "Logical volume specifies a non-existent volume group"
 
         vgid = self.ksVGMapping[vgname]
 	for areq in id.partitions.autoPartitionRequests:
 	    if areq.type == REQUEST_LV:
 		if areq.volumeGroup == vgid and areq.logicalVolumeName == name:
 		    raise KickstartValueError, "Logical volume name %s already used in volume group %s" % (name,vgname)
-
-        if not self.ksVGMapping.has_key(vgname):
-            raise KickstartValueError, "Logical volume specifies a non-existent volume group"
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
                                                         format = format,
