@@ -1033,6 +1033,28 @@ Creating the Kickstart File
                         If this is present, the password argument is assumed
                         to already be encrypted.
 
+    selinux (optional)
+
+        Sets the system's SELinux mode to one of the following arguments:
+
+        selinux [--enforcing|--permissive|--disabled]
+
+            --enforcing
+
+                Enables SELinux with the default targeted policy being
+                enforced.  If the selinux option is not present in the
+                kickstart file, SELinux is enabled and set to --enforcing
+                by default. 
+
+            --permissive
+
+                Outputs warnings only based on the SELinux policy, but does
+                not actually enforce the policy.
+
+            --disabled
+
+                Disables SELinux completely on the system.
+
    skipx (optional)
 
            If present, X is not configured on the installed system.
