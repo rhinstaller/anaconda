@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-07 00:36+0530\n"
+"PO-Revision-Date: 2006-04-07 19:36+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -3819,6 +3819,9 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"असे ठोसपणे सुचवण्यात येते कि तुम्ही स्वॅप फाइल निर्माण करावी. असे न "
+"केल्यास प्रतिष्ठापक अनियमीतरित्या बंद पडू शकतो. तुमची खात्री आहे तुम्ही "
+"पुढे चालू ठेऊ इच्छिता?"
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:177
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4092,6 +4095,8 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
+"तुमच्या प्रतिष्ठापनाच्या सर्व नोंदी प्रणाली रीबूट केल्यानंतर '%s' या फाइलमध्ये असतील. "
+"नंतर कधीतरी संदर्भ म्हणून तुम्ही ही फाइल सांभाळू शकता."
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
@@ -4099,7 +4104,7 @@ msgstr "कृपया तुम्ही प्रतिष्ठापित 
 
 #: ../textw/grpselect_text.py:101
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+msgstr "<Space>,<+>,<-> निवड   |   <F2> समूह विवरण   |   <F12> पुढचे पटल"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4172,13 +4177,12 @@ msgstr "ESSID"
 
 #: ../textw/network_text.py:74 ../loader2/net.c:229
 msgid "Encryption Key"
-msgstr ""
+msgstr "सांकेतीकरण किल्ली"
 
 #: ../textw/network_text.py:86
 #, python-format
-#, fuzzy
 msgid "Network Device: %s"
-msgstr "यंत्र"
+msgstr "संजाळ यंत्र: %s"
 
 #: ../textw/network_text.py:92
 #, python-format
@@ -4201,48 +4205,47 @@ msgstr "बूट होताना कार्यान्वीत करा
 #: ../textw/network_text.py:140
 #, python-format
 msgid "Network Configuration for %s"
-msgstr ""
+msgstr "%s साठी संजाळ व्यूहरचना"
 
 #: ../textw/network_text.py:173
 msgid "Invalid information"
-msgstr ""
+msgstr "अवैध माहिती"
 
 #: ../textw/network_text.py:174
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "पुढे जाण्यासाठी तुम्ही वैध IP माहिती दाखल करणे आवश्यक आहे"
 
 #: ../textw/network_text.py:258
-#, fuzzy
 msgid "Gateway:"
 msgstr "गेटवे:"
 
 #: ../textw/network_text.py:268
 msgid "Primary DNS:"
-msgstr ""
+msgstr "प्राथमिक DNS:"
 
 #: ../textw/network_text.py:273
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "द्वितीय DNS:"
 
 #: ../textw/network_text.py:278
 msgid "Tertiary DNS:"
-msgstr ""
+msgstr "तृतीय DNS:"
 
 #: ../textw/network_text.py:285
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "संकीर्ण संजाळ रचना"
 
 #: ../textw/network_text.py:353
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "DHCP द्वारे स्वयंचलित"
 
 #: ../textw/network_text.py:357
 msgid "manually"
-msgstr ""
+msgstr "स्वहस्ते"
 
 #: ../textw/network_text.py:376
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "यजमाननाम व्यूहरचना"
 
 #: ../textw/network_text.py:379
 msgid ""
@@ -4254,29 +4257,28 @@ msgstr ""
 
 #: ../textw/network_text.py:405 ../textw/network_text.py:411
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "अवैध यजमाननाम"
 
 #: ../textw/network_text.py:406
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "तुम्ही यजमाननाम दर्शविलेले नाही."
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
-msgstr ""
+msgstr "मूल्य दर्शवणे आवश्यक"
 
 #: ../textw/partition_text.py:45
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "निवेदित मूल्य पुर्णांक संख्या नाही"
 
 #: ../textw/partition_text.py:47
 msgid "Requested value is too large"
-msgstr ""
+msgstr "निवेदित मूल्य खूप मोठे आहे"
 
 #: ../textw/partition_text.py:101
 #, python-format
-#, fuzzy
 msgid "RAID Device %s"
-msgstr "यंत्र"
+msgstr "RAID यंत्र %s"
 
 #: ../textw/partition_text.py:231
 #, python-format
@@ -4284,49 +4286,44 @@ msgid "Warning: %s"
 msgstr "ताकीद: %s"
 
 #: ../textw/partition_text.py:232
-#, fuzzy
 msgid "Modify Partition"
-msgstr "विभाजन"
+msgstr "विभाजनात परिवर्तन करा "
 
 #: ../textw/partition_text.py:232
 msgid "Add anyway"
-msgstr ""
+msgstr "कसेही जोडा"
 
 #: ../textw/partition_text.py:270
 msgid "Mount Point:"
-msgstr ""
+msgstr "आरोहण बिंदू:"
 
 #: ../textw/partition_text.py:322
 msgid "File System type:"
-msgstr ""
+msgstr "फाइल प्रणाली प्रकार:"
 
 #: ../textw/partition_text.py:356
-#, fuzzy
 msgid "Allowable Drives:"
-msgstr "ड्राइव्स:"
+msgstr "अनुमतीयोग्य ड्राइव्स:"
 
 #: ../textw/partition_text.py:412
-#, fuzzy
 msgid "Fixed Size:"
-msgstr "आकार:"
+msgstr "निश्चित आकार:"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "कमाल इतका आकार भरा(MB):"
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
 msgstr "सर्व उपलब्ध जागा भरा:"
 
 #: ../textw/partition_text.py:441
-#, fuzzy
 msgid "Start Cylinder:"
-msgstr "आरंभ:"
+msgstr "आरंभ दंडगोल:"
 
 #: ../textw/partition_text.py:454
-#, fuzzy
 msgid "End Cylinder:"
-msgstr "समाप्त:"
+msgstr "शेवटचा दंडगोल:"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
@@ -4383,6 +4380,8 @@ msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr ""
+"कृपया या विभाजनावर फाइल प्रणाली तुम्हास कशी तयार करायला आवडेल "
+"ते निवडा."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -4410,7 +4409,7 @@ msgstr "असमर्थनीय"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "LVM खंड संच फक्त आलेखीय प्रतिष्ठापकातच संपादित केले जाऊ शकतात."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -4425,9 +4424,8 @@ msgid "Invalid Entry for Starting Cylinder"
 msgstr "प्रारंभीच्या दंडगोलासाठी अवैध प्रविष्ट(नोंद)"
 
 #: ../textw/partition_text.py:892
-#, fuzzy
 msgid "Invalid Entry for End Cylinder"
-msgstr "समाप्त"
+msgstr "शेवटच्या दंडगोलासाठी अवैध प्रविष्ट(नोंद)"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
@@ -4508,9 +4506,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1448
-#, fuzzy
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "ठीक  "
+msgstr "   F1-मदत     F2-नविन   F3-संपादन करा F4-नष्ट करा    F5-पुनःनिर्धारण    F12-ठीक        "
 
 #: ../textw/partition_text.py:1477
 msgid "No Root Partition"
@@ -4530,6 +4527,9 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"प्रतिष्ठापनास तुमची हार्ड ड्राइव विभाजित करण्याची गरज आहे. मुलभूत रित्या, बहुतांश "
+"उपयोक्त्यांस संयुक्तिक असा विभाजन पट निवडलेला असतो. तुम्ही एकतर हा "
+"वापरू शकता किंवा स्वतःचा निर्माण करू शकता."
 
 #: ../textw/partition_text.py:1544
 msgid "Which drive(s) do you want to use for this installation?"
@@ -4607,6 +4607,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"%s च्या मुलभूत प्रतिष्ठापनात आंतरजाल वापरासाठी उपयुक्त अशा बुद्धीभाग(सॉफ्टवेयर) संचाचा "
+"समावेश होतो. आणखी कोणती अतिरिक्त कार्ये तुमच्या प्रणालीमध्ये समर्थनीय असावीत "
+"असे तुम्हास वाटते?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -4681,6 +4684,10 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"एक किंवा अधिक अस्तित्वात असलेली Linux प्रतिष्ठापने तुमच्या प्रणालीवर सापडली आहेत.\n"
+"\n"
+"कृपया एक अद्ययावत करण्यासाठी निवडा किंवा ताज्या प्रणाली प्रतिष्ठापनासाठी "
+"'प्रणाली पुनर्प्रतिष्ठापित करा' निवडा."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -4692,6 +4699,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
+"तुम्ही प्रतिष्ठापित केलेली संकुले, आणि ज्यांची अधिनता संतुष्ट करण्याची गरज आहे अशी "
+"अन्य काही संकुले प्रतिष्ठापनासाठी निवडली आहेत. अद्ययावत केल्या जाणाऱ्या संकुलांच्या "
+"संचात आवडीनुसार फेरफार करणे तुम्हास आवडेल?"
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
@@ -4703,6 +4713,9 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"रूट गुप्तशब्द घ्या. तो काय आहे हे माहित असण्यासाठी आणि तुम्ही टाइप करताना चुक न केल्याची "
+"खात्री करण्यासाठी तुम्ही तो दोन वेळा टाइप करणे आवश्यक आहे. लक्षात ठेवा रूट गुप्तशब्द हा "
+"प्रणालीच्या सुरक्षेचा महत्वाचा घटक आहे!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -4739,6 +4752,9 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"प्रतिष्ठापन पूर्ण झाल्यानंतर तुमच्या प्रणालीवर z/IPL बूट लोडर प्रतिष्ठापित केला जाईल. "
+"आता तुम्ही तुमच्या यंत्रणेस किंवा व्यवस्थेस गरज असलेले काही अतिरिक्त कर्नल आणि "
+"chandev  पॅरामीटर दाखल करू शकता."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -4757,6 +4773,8 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
+"प्रतिष्ठापनावर सॉफ्टवेयर संकुल निवड व विभाजनासह सर्व ताबा "
+"मिळवण्यासाठी हा प्रतिष्ठापन प्रकार निवडा."
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
@@ -4800,6 +4818,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tकार्यक्षेत्र शेल (GNOME)\n"
+"\tकार्यालय संच (OpenOffice.org)\n"
+"\tवेब ब्राउजर \n"
+"\tईमेल (इवोल्यूशन)\n"
+"\tत्वरित संदेश\n"
+"\tध्वनी व चलचित्र अनुप्रयोग\n"
+"\tखेळ\n"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
@@ -4813,6 +4838,11 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tकार्यक्षेत्र शेल (GNOME)\n"
+"\tप्रशासनिक उपकरणे\n"
+"\tसेवक व्यूहरचना उपकरणे\n"
+"\tवेब सेवक\n"
+"\tWindows फाइल सेवक (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
@@ -4838,6 +4868,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tकार्यक्षेत्र शेल (GNOME)\n"
+"\tकार्यालय संच (OpenOffice.org)\n"
+"\tवेब ब्राउजर \n"
+"\tईमेल (इवोल्यूशन)\n"
+"\tत्वरित संदेश\n"
+"\tध्वनी व चलचित्र अनुप्रयोग\n"
+"\tखेळ\n"
+"\tबुद्धीभाग(सॉफ्टवेयर) विकास उपकरणे\n"
+"\tप्रशासनिक उपकरणे\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -4859,6 +4898,8 @@ msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
+"हा पर्याय आलेखीय कार्यक्षेत्र वातावरण बुद्धीभाग(सॉफ्टवेयर) विकास आणि प्रणाली प्रशासन "
+"उपकरणांसह प्रतिष्ठापित करतो."
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:346
@@ -4881,6 +4922,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"सध्या ड्राइवमध्ये असलली सीडी तपासण्यासाठी \"%s\" निवडा, किंवा \"%s\" सीडी बाहेर काढून "
+" दुसरी तपासण्यासाठी दाखल करण्यासाठी निवडा."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -4918,11 +4961,12 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:373
 #, c-format
-#, fuzzy
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr "नाही."
+msgstr ""
+"तुमच्या बूट माध्यमाशी जुळणारी %s सीडी सापडली नाही. कृपया %s सीडी दाखल करा आणि "
+"पुन्हा प्रयत्न करण्यासाठी %s दाबा."
 
 #: ../loader2/cdinstall.c:385
 msgid "CD Not Found"
@@ -4998,12 +5042,13 @@ msgid "Load another disk"
 msgstr "वेगळी डिस्क भारित करा"
 
 #: ../loader2/driverdisk.c:474
-#, fuzzy
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
-msgstr "नाही?"
+msgstr ""
+"या चालक डिस्कवर योग्य प्रकारची यंत्रे सापडली नाही. तुम्हास स्वहस्ते चालक निवडणे, "
+"कसेही पुढे जाणे, किंवा वेगळी चालक डिस्क भारित करणे आवडेल काय?"
 
 #: ../loader2/driverdisk.c:515
 msgid "Driver disk"
@@ -5045,12 +5090,14 @@ msgstr "किकस्टार्ट चालक डिस्क आज्ञ
 
 #: ../loader2/driverselect.c:60
 #, c-format
-#, fuzzy
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
-msgstr "ठीक ."
+msgstr ""
+"कृपया तुम्ही %s विभागास देऊ इच्छित असलेले पॅरामीटर स्थानांद्वारे पृथक करून "
+"दाखल करावेत. जर तुम्हास माहित नाही कोणते पॅरामीटर द्यावे तर \"ठीक\" हे बटन "
+"दाबून हे पटल टाळा ."
 
 #: ../loader2/driverselect.c:80
 msgid "Enter Module Parameters"
@@ -5243,12 +5290,14 @@ msgid "Reading anaconda updates..."
 msgstr "ऍनाकोंडा अपडेट्स वाचतोय..."
 
 #: ../loader2/loader.c:397
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
-msgstr "नाही?"
+msgstr ""
+"हार्ड ड्राइव सापडल्या नाही? प्रतिष्ठापन यशस्वी होण्यासाठी कदाचित तुम्हास "
+"स्वहस्ते यंत्र चालक निवडावे लागतील. तुम्हास आता चालक निवडणे "
+"आवडेल?"
 
 #: ../loader2/loader.c:756
 #, c-format
