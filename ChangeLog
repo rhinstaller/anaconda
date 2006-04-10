@@ -1,3 +1,11 @@
+2006-04-10  David Cantrell  <dcantrell@redhat.com>
+
+	* scripts/mk-rescueimage.i386:  Do not call sys.exit(0) from usage().
+	Modify usage text to indicated productpath is required.  Remove test
+	for optional productpath and just take the fourth argument (#188011).
+	* scripts/mk-rescueimage.ppc:  Likewise.
+	* scripts/mk-rescueimage.x86_64:  Likewise.
+
 2006-04-04  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
