@@ -29,6 +29,7 @@ import iscsi
 import zfcp
 import urllib
 import iutil
+import libuser
 from flags import *
 from constants import *
 
@@ -163,7 +164,6 @@ class InstallData:
         self.security.write (instPath)
 
         # User should already exist, just without a password.
-        import libuser
         self.luAdmin = libuser.admin()
         rootUser = self.luAdmin.lookupUserByName("root")
 
