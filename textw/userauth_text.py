@@ -33,11 +33,11 @@ class RootPasswordWindow:
 				"root password is a critical part "
 				"of system security!")), 0, 0, (0, 0, 0, 1))
 
-	pw = rootPw.getPure()
-	if not pw: pw = ""
+        if rootPw["isCrypted"]:
+            rootPw["password"] = ""
 
-        entry1 = Entry (24, password = 1, text = pw)
-        entry2 = Entry (24, password = 1, text = pw)
+        entry1 = Entry (24, password = 1, text = rootPw["password"])
+        entry2 = Entry (24, password = 1, text = rootPw["password"])
         passgrid = Grid (2, 2)
         passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
         passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
@@ -77,5 +77,5 @@ class RootPasswordWindow:
             entry2.set ("")
 
         screen.popWindow()
-        rootPw.set (entry1.value ())
+        rootPw["password"] = entry1.value()
         return INSTALL_OK

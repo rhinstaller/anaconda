@@ -21,7 +21,6 @@ import firewall
 import security
 import timezone
 import desktop
-import users
 import fsset
 import bootloader
 import partitions
@@ -38,6 +37,23 @@ import rhpl.keyboard as keyboard
 
 import logging
 log = logging.getLogger("anaconda")
+
+def cryptPassword(password, useMD5):
+    import crypt
+    import random
+
+    if useMD5:
+	salt = "$1$"
+	saltLen = 8
+    else:
+	salt = ""
+	saltLen = 2
+
+    for i in range(saltLen):
+	salt = salt + random.choice (string.letters +
+                                     string.digits + './')
+
+    return crypt.crypt (password, salt)
 
 # Collector class for all data related to an install/upgrade.
 
@@ -57,7 +73,7 @@ class InstallData:
 	self.firewall = firewall.Firewall()
         self.security = security.Security()
 	self.timezone = timezone.Timezone()
-        self.rootPassword = users.RootPassword ()
+        self.rootPassword = { "isCrypted": False, "password": "" }
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
 	self.upgrade = None
@@ -145,7 +161,20 @@ class InstallData:
 	
 	self.firewall.write (instPath)
         self.security.write (instPath)
-        self.rootPassword.write (instPath, useMD5)
+
+        # User should already exist, just without a password.
+        import libuser
+        self.luAdmin = libuser.admin()
+        rootUser = self.luAdmin.lookupUserByName("root")
+
+        if self.rootPassword["isCrypted"]:
+            log.warning("password is crypted, setting to %s" % self.rootPassword["password"])
+            self.luAdmin.setpassUser(rootUser, self.rootPassword["password"], True)
+            self.luAdmin.modifyUser(rootUser)
+        else:
+            log.warning("password is not crypted, setting to %s" % self.rootPassword["password"])
+            self.luAdmin.setpassUser(rootUser, cryptPassword(self.rootPassword["password"], useMD5), True)
+            self.luAdmin.modifyUser(rootUser)
 
     def writeKS(self, filename):
         if self.auth.find("--enablemd5"):
@@ -199,7 +228,12 @@ class InstallData:
             self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.zfcp.writeKS(f)
-	self.rootPassword.writeKS(f, useMD5)
+
+        if self.rootPassword["isCrypted"]:
+            f.write("rootpw --iscrypted %s" % self.rootPassword["password"])
+        else:
+            f.write("rootpw --iscrypted %s" % cryptPassword(self.rootPassword["password"], useMD5))
+
 	self.firewall.writeKS(f)
 	if self.auth.strip() != "":
 	    f.write("authconfig %s\n" % self.auth)

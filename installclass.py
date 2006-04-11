@@ -243,9 +243,6 @@ class BaseInstallClass:
     def setTimezoneInfo(self, id, timezone, asUtc = 0, asArc = 0):
 	id.timezone.setTimezoneInfo(timezone, asUtc, asArc)
 
-    def setRootPassword(self, id, pw, isCrypted = 0):
-	id.rootPassword.set(pw, isCrypted)
-
     def setAuthentication(self, id, authStr):
         id.auth = authStr
 
@@ -462,7 +459,6 @@ class BaseInstallClass:
 	#id.setFirewall()
 	#id.setLanguageDefault()
 	#id.setTimezone()
-	#id.setRootPassword()
 	#id.setAuthentication()
 	#id.setHostname()
 	#id.setDesktop()

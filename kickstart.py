@@ -515,8 +515,9 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doRootPw(self, id, args):
         KickstartHandlers.doRootPw(self, args)
         dict = self.ksdata.rootpw
-        
-	id.instClass.setRootPassword(id, dict["password"], dict["isCrypted"])
+
+        id.rootPassword["password"] = dict["password"]
+        id.rootPassword["isCrypted"] = dict["isCrypted"]
 	self.skipSteps.append("accounts")
 
     def doSELinux(self, id, args):

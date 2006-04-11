@@ -2,6 +2,15 @@
 
 	* anaconda:  Make some symlinks earlier.
 
+	* installclass.py (BaseInstallClass.setRootPassword):  Removed.
+	* instdata.py (InstallData):  Use libuser for handling the root
+	password.
+	* kickstart.py (AnacondaKSHandlers.doRootPassword):  Use instdata.
+	* users.py:  Removed, since we don't deal with non-root accounts
+	anymore.
+	* iw/account_gui.py:  Use new password handling system.
+	* textw/userauth_text.py:  Likewise.
+
 2006-04-10  David Cantrell  <dcantrell@redhat.com>
 
 	* scripts/mk-rescueimage.i386:  Do not call sys.exit(0) from usage().

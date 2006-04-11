@@ -69,7 +69,7 @@ class AccountWindow (InstallWindow):
                                         custom_icon="error")
                 passwordError()
 
-        self.rootPw.set (self.pw.get_text ())
+        self.rootPw["password"] = self.pw.get_text()
         return None
 
     def setFocus (self, area, data):
@@ -136,9 +136,8 @@ class AccountWindow (InstallWindow):
         wrapper.pack_start (self.rootStatus)
         box.pack_start (wrapper, False)
 
- 	pw = self.rootPw.getPure()
-	if pw:
-	    self.pw.set_text(pw)
-	    self.confirm.set_text(pw)
+        if not self.rootPw["isCrypted"]:
+	    self.pw.set_text(self.rootPw["password"])
+	    self.confirm.set_text(self.rootPw["password"])
 
         return box
