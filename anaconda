@@ -576,6 +576,13 @@ if opts.vncconnect:
 if rhpl.getArch() == "s390":
     opts.isHeadless = True
 
+# setup links required for all install types
+for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux", "libuser.conf"):
+    try:
+	os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+    except:
+	pass
+
 #
 # must specify install, rescue mode
 #
@@ -916,13 +923,6 @@ if opts.display_mode == 'g' and flags.usevnc:
 	addpid(child)
 	os.kill(child, signal.SIGCONT)
 
-
-# setup links required for all install types
-for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
-    try:
-	os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
-    except:
-	pass
 
 #
 # setup links required by graphical mode if installing and verify display mode
