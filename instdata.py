@@ -168,11 +168,9 @@ class InstallData:
         rootUser = self.luAdmin.lookupUserByName("root")
 
         if self.rootPassword["isCrypted"]:
-            log.warning("password is crypted, setting to %s" % self.rootPassword["password"])
             self.luAdmin.setpassUser(rootUser, self.rootPassword["password"], True)
             self.luAdmin.modifyUser(rootUser)
         else:
-            log.warning("password is not crypted, setting to %s" % self.rootPassword["password"])
             self.luAdmin.setpassUser(rootUser, cryptPassword(self.rootPassword["password"], useMD5), True)
             self.luAdmin.modifyUser(rootUser)
 
