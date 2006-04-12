@@ -80,7 +80,7 @@ class simpleCallback:
         self.beenCalled = 0
         self.initWindow = None
         self.ts = ts
-        self.fdnos = {}
+        self.files = {}
 
     def callback(self, what, amount, total, h, user):
         # first time here means we should pop the window telling
@@ -126,11 +126,11 @@ class simpleCallback:
 
             self.instLog.flush()
             nvra = po.returnNevraPrintable()
-            self.fdnos[nvra] = -1
+            self.files[nvra] = None
 
             self.size = po.returnSimple('installedsize')
 
-            while self.fdnos[nvra] < 0:
+            while self.files[nvra] == None:
                 try:
                     fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), self.pkgTimer) 
                 except FileCopyException, e:
@@ -171,10 +171,10 @@ class simpleCallback:
                     else:
                         continue
                     
-                fd = os.open(fn, os.O_RDONLY)
-                self.fdnos[nvra] = fd
+                f = open(fn, 'r')
+                self.files[nvra] = f
 
-            return self.fdnos[nvra]
+            return self.files[nvra].fileno()
 
         elif what == rpm.RPMCALLBACK_INST_PROGRESS:
             if amount > total:
@@ -188,10 +188,10 @@ class simpleCallback:
             hdr = po.returnLocalHeader()
             path = po.returnSimple('relativepath')
 
-            fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), self.pkgTimer)
             nvra = po.returnNevraPrintable()
 
-            os.close(self.fdnos[nvra])
+            fn = self.files[nvra].name
+            self.files[nvra].close()
             self.method.unlinkFilename(fn)
             self.progress.completePackage(hdr, self.pkgTimer)
             self.progress.processEvents()
