@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-10 17:00+0530\n"
+"PO-Revision-Date: 2006-04-12 14:35+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -1542,6 +1542,12 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
+"तुम्ही पूर्व-अस्तित्वात असलेले विभाजन स्वरूपीत न करताच प्रतिष्ठापनेसाठी "
+"निवडले आहे. हे विभाजन तुम्ही स्वरूपीत करावे असे आम्ही सुचवतो, जेणेकरून "
+"पूर्वीच्या कार्यकारी प्रणाली (ऑपरेटींग सिस्टम) प्रतिष्ठापनेच्या फाइल्समुळे या "
+"Linux प्रतिष्ठापनात काही समस्या उद्भवू नये. तरीही, जर तुम्ही या विभाजनातील "
+"काही फाइल्स, जसे गृह(होम) निर्देशिका, जतन करू इच्छित असाल, तर "
+"हे विभाजन स्वरूपीत न करताच पुढे चालू द्या. "
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
@@ -1567,6 +1573,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"तुमच्या निवेदित विभाजन योजनेत खालील गंभीर चुका अस्तित्वात आहेत. "
+"या चुका %s चे प्रतिष्ठापन चालू करण्यापूर्वीच सुधारल्या जाव्यात.\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:438
 msgid "Partitioning Warning"
@@ -1581,6 +1591,11 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"तुमच्या निवेदित विभाजन योजनेसाठी खालील सुचना अस्तित्वात आहेत.\n"
+"\n"
+"%s\n"
+"\n"
+"तुम्हास तुमच्या निवेदिच विभाजन योजनेसह कायम राहणे आवडेल?"
 
 #: ../partIntfHelpers.py:453 ../iw/partition_gui.py:666
 msgid ""
@@ -1649,18 +1664,23 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
+"तुम्ही निवडलेले विभाजन पर्याय आधीच कार्यान्वीत आहेत. तुम्ही डिस्क "
+"संपादन पटलाकडे परत जाऊ शकत नाही. तुम्हास प्रतिष्ठापन प्रक्रिया "
+"चालू ठेवणे आवडेल?"
 
 #: ../partitioning.py:89
 msgid "Low Memory"
 msgstr "अल्प स्मृति"
 
 #: ../partitioning.py:90
-#, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
-msgstr "ठीक ?"
+msgstr ""
+"या यंत्रणेवर पुरेशी स्मृती उपलब्ध नसल्याने, आम्ही स्वॅप जागा तातडीने कार्यरत "
+"करणे गरजेचे आहे. हे करण्यासाठी तुमचा नविन विभाजन तक्ता तातडीने "
+"डिस्कवर लिहावा लागेल. हे करणे ठीक आहे का?"
 
 #: ../partitions.py:803
 #, python-format
@@ -1800,9 +1820,8 @@ msgid "Partitions can't end on a negative cylinder."
 msgstr "विभाजन ऋण दंडगोलावर संपू शकत नाही."
 
 #: ../partRequests.py:667
-#, fuzzy
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "नाही."
+msgstr "RAID विनंतीमध्ये सदस्य नाही, किंवा RAID स्तर दर्शवलेला नाही."
 
 #: ../partRequests.py:679
 #, python-format
@@ -1853,7 +1872,6 @@ msgstr "बचाव"
 
 #: ../rescue.py:266
 #, python-format
-#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1864,7 +1882,16 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step "
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
-msgstr "चालू ठेवा टाळा"
+msgstr ""
+"बचाव वातावरण आता तुमचे Linux प्रतिष्ठापन शोधण्याचा आणि त्यास %s निर्देशिकेवर "
+"आरोहित करण्याचा प्रयत्न करेल. त्यानंतर तुम्ही तुमच्या प्रणालीत आवश्यक ते बदल करू "
+"शकता. जर तुम्ही ही पायरी चालू इच्छित असाल तर 'चालू ठेवा' ची निवड करा. तुम्ही तुमची "
+"फइल प्रणाली 'फक्त वाचण्याजोगा' निवडून लेखन-वाचन ऐवजी फक्त-वाचन म्हणून आरोहित "
+"करू शकता.\n"
+"\n"
+"जर काही कारणास्तव ही प्रक्रिया अयशस्वी झाल्यास तुम्ही 'टाळा' निवडून ही पायरी टाळू "
+"शकता आणि तुम्ही थेट आज्ञा शेलवर जाऊ शकाल.\n"
+"\n"
 
 #: ../rescue.py:276 ../iw/partition_gui.py:568 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
@@ -1899,6 +1926,9 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"तुमच्या प्रणालीवर घाणेरडी फाइल प्रणाली आहे जी तुम्ही आरोहित न करण्यासाठी निवडली आहे. "
+"रिटर्न दाबून शेल मिळवा जेथून तुम्ही fsck करून आपली विभाजने आरोहित करू शकाल. "
+"तुम्ही शेल मधून बाहेर पडल्यावर प्रणाली आपोआप रीबूट होईल."
 
 #: ../rescue.py:343
 #, python-format
