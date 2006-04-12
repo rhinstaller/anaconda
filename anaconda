@@ -526,9 +526,9 @@ if opts.syslog:
 if opts.method and opts.method[0] == '@':
     # ftp installs pass the password via a file in /tmp so
     # ps doesn't show it
-    filename = method[1:]
-    method = open(filename, "r").readline()
-    opts.method = method[:len(method) - 1]
+    filename = opts.method[1:]
+    opts.method = open(filename, "r").readline()
+    opts.method = opts.method[:len(opts.method) - 1]
     os.unlink(filename)
 
 if opts.module:
