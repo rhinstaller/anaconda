@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-12 14:53+0530\n"
+"PO-Revision-Date: 2006-04-13 17:02+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -908,7 +908,7 @@ msgstr "नाही"
 
 #: ../gui.py:243 ../text.py:381 ../loader2/net.c:276 ../loader2/net.c:593
 msgid "Retry"
-msgstr "पुन्हा प्रयत्न करा"
+msgstr "पुनः प्रयत्न"
 
 #: ../gui.py:244 ../text.py:382
 msgid "Ignore"
@@ -2075,6 +2075,10 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"तुमच्या Linux प्रणालीच्या खालील फाइल प्रणाली व्यवस्थित अनारोहित झाल्या नाहीत. "
+"कृपया तुमचे Linux प्रतिष्ठापन बूट करा, फाइल प्रणाली तपासली जाऊ द्या आणि "
+"सुधारणेसाठी व्यवस्थित बंद(शट डाउन) करा.\n"
+"%s"
 
 #: ../upgrade.py:138
 #, python-format
@@ -2105,6 +2109,9 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
+"तुमच्या Linux प्रणालीवरील  /etc/fstab मध्ये नमूद केलेल्या एक किंवा अधिक फाइल प्रणाल्या "
+"विसंगत असल्याने आरोहित करता आल्या नाहीत. कृपया ही समस्या सोडवा आणि पुन्हा "
+"सुधारणेचा प्रयत्न करा."
 
 #: ../upgrade.py:299
 msgid ""
@@ -2113,6 +2120,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"खालील फाइली स्वायत्त प्रतिकात्मक दुवे(ऍब्सलूट सिम्बॉलिक लिंक्स) आहेत, ज्यांचे आम्ही सुधारणे "
+"दरम्यान समर्थन करत नाही. कृपया त्यांना सापेक्ष प्रतिकात्मक दुव्यांमध्ये बदला आणि सुधारणा "
+"पुन्हा सुरू करा.\n"
+"\n"
 
 #: ../upgrade.py:305
 msgid "Absolute Symlinks"
@@ -2125,6 +2136,10 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"खालील निर्देशिका ज्या प्रतिकात्मक दुवे असायला हव्या होत्या, सुधारणेमध्ये "
+"समस्या निर्माण करतील. कृपया त्यांना त्याच्या प्रतिकात्मक दुव्यांच्या मूळ "
+"स्वरूपात परत करा आणि सुधारणा पुन्हा सुरू करा.\n"
+"\n"
 
 #: ../upgrade.py:322
 msgid "Invalid Directories"
@@ -2149,6 +2164,9 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
+"प्रतिष्ठापन कार्यक्रम pre-rpm 4.x डेटाबेस असलेल्या प्रणाल्या सुधारित करण्यास "
+"असमर्थ. कृपया प्रकाशन टीपांमध्ये वर्णन केल्याप्रमाणे तुमच्या प्रकाशनासाठी "
+"दुरूस्ती rpm संकुले प्रतिष्ठापित करा आणि सुधारणेची कृती  सुरू करा."
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
@@ -2177,6 +2195,9 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"तुमच्या यंत्रणेवर X सुरू होण्यास असमर्थ होता. तुम्ही VNC सुरू करून दुसऱ्या "
+"संगणकाद्वारे या संगणकास जोडून आलेखीय प्रतिष्ठापन करू इच्छिता की पाठ "
+"रीतीमध्येच प्रतिष्ठापन सुरू ठेवू इच्छिता?"
 
 #: ../vnc.py:65 ../vnc.py:68
 msgid "Use text mode"
@@ -2200,6 +2221,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"गुप्तशब्द अनधिकृत श्रोत्यांना तुमच्या प्रतिष्ठापन प्रगतीस जोडून टेहेळणी "
+"करण्यापासून रोखेल. कृपया प्रतिष्ठापनासाठी वापरायचा गुप्तशब्द "
+"दाखल करा"
 
 #: ../vnc.py:91 ../textw/userauth_text.py:42 ../loader2/urls.c:437
 msgid "Password:"
@@ -2234,20 +2258,23 @@ msgid "Processing"
 msgstr "प्रक्रिया होत आहे"
 
 #: ../yuminstall.py:92
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "आलेखात्मक  प्रतिष्ठापना सुरु होत आहे..."
+msgstr "प्रतिष्ठापना स्रोतापासून व्यवहार तयार करत आहे..."
 
 #: ../yuminstall.py:135
 #, python-format
-#, fuzzy
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 "Press 'Retry' to try again."
-msgstr "पुन्हा प्रयत्न करा."
+msgstr ""
+"संकुल  %s-%s-%s.%s उघडता आले नाही. याचे कारण एखादी फाइल न सापडणे किंवा "
+"संकुल खराब असणे हे आहे. जर तुम्ही सीडी(CD) माध्यमातून प्रतिष्ठापन करत असाल तर "
+"याचा अर्थ सीडी माध्यम खराब आहे, किंवा सीडी ड्राइव माध्यम वाचण्यास असमर्थ आहे.\n"
+"\n"
+"पुन्हा प्रयत्न करण्यासाठी 'पुन्हा प्रयत्न करा' वर दाबा."
 
 #: ../yuminstall.py:147 ../yuminstall.py:499
 msgid "Re_boot"
