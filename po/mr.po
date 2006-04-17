@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-13 17:02+0530\n"
+"PO-Revision-Date: 2006-04-17 21:14+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -2285,6 +2285,8 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"रीबूट केल्यास, प्रणाली विसंगत स्थितीमध्ये सोडून दिली जाईल ज्यामुळे पुनर्प्रतिष्ठापन "
+"करावे लागू शकते. तुमची खात्री आहे तुम्ही पुढे चालू ठेवू इच्छिता?"
 
 #: ../yuminstall.py:160
 msgid "_Cancel"
@@ -2302,6 +2304,10 @@ msgid ""
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
+"%s-%s-%s.%s संकुल उघडता येणार नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब "
+"झालेल्या संकुलामुळे असावे. जर तुम्ही सीडी(CD) माध्यमाद्वारे प्रतिष्ठापन करत असाल तर "
+"याचा अर्थ सीडी माध्यम खराब असावे, किंवा , सीडी ड्राइव माध्यम वापरण्यास असमर्थ असावी.\n"
+"\n"
 
 #: ../yuminstall.py:599
 msgid "Retrieving installation information..."
@@ -2314,6 +2320,9 @@ msgid ""
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
 msgstr ""
+"संकुल मेटाडेटा वाचण्यास असमर्थ. हे बहुदा न सापडलेल्या रेपोडेटा निर्देशिकेमुळे असू शकते. "
+"कृपया तुमचा प्रतिष्ठापन वृक्ष योग्यरित्या उत्पन्न झाल्याची खात्री करून घ्या. "
+"%s"
 
 #: ../yuminstall.py:642
 msgid "Uncategorized"
@@ -2340,13 +2349,16 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr "प्रतिष्ठापनेसाठी निवडलेल्या संकुलांमध्ये अधीनता तपासत आहे..."
 
 #: ../zfcp.py:28
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr "WWPN."
+msgstr ""
+"उद्योग-मानक SCSI यंत्रे zSeries यंत्रणांस फाइबर वाहिनी(FCP)द्वारे उपलब्ध होऊ शकतात. "
+"प्रत्येक यंत्रासाठी तुम्ही ५ पॅरामीटर पुरवणे आवश्यक आहे: १६ बिट यंत्र क्रमांक, "
+"१६ बिट SCSI ID, ६४ बिट वर्ल्ड वाइड पोर्ट क्रमांक (WWPN), १६ बिट SCSI LUN "
+"आणि ६४ बिट FCP LUN."
 
 #: ../zfcp.py:30
 msgid "Device number"
@@ -2439,6 +2451,9 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
+"बूट लोडर गुप्तशब्द उपयोगकर्त्यांस कर्नलला पुरवलेले पर्याय बदलण्यापासून रोखतो. "
+"अधिक चांगल्या प्रणाली सुरक्षिततेसाठी, तुम्ही एक गुप्तशब्द  निर्धारित करण्याचा "
+"सल्ला देण्यात येतो."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2499,6 +2514,10 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"BIOS चे समर्थन नसताना LBA32 चा तुमच्या बूटलोडरसाठी वापर लादणे तुमच्या यंत्रणेस बूट "
+"करण्यास असमर्थ करू शकते.\n"
+"\n"
+"पुढे चालू ठेवून LBA32 रीत लादणे तुम्हांस आवडेल काय?"
 
 #: ../iw/bootloader_advanced_gui.py:49
 msgid "Force LBA32"
@@ -2560,11 +2579,16 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
+"BIOS मध्ये वापरलेल्या क्रमानुसार ड्राइव्सचा क्रम लावा. ड्रइव क्रम बदलणे तेव्हा उपयोगी "
+"ठरेल, जर तुमच्याकडे एकापेक्षा अधिक SCSI अडाप्टर असतील किंवा SCSI आणि IDE "
+"हे दोन्ही अडाप्टर असतील आणि तुम्ही SCSI यंत्राद्वारे बूट करू इच्छित असाल.\n"
+"\n"
+"ड्राइव क्रम बदलण्याने प्रतिष्ठापन कार्यक्रम मास्टर बूट रेकॉर्ड(MBR) कोठे पाहतो ते "
+"स्थळ बदलेल."
 
 #: ../iw/confirm_gui.py:57
-#, fuzzy
 msgid "About to Install"
-msgstr "च्या विषयी"
+msgstr "प्रतिष्ठापन सुरू होण्यात आहे"
 
 #: ../iw/confirm_gui.py:64 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2590,6 +2614,11 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
+"प्रतिष्ठापनाच्या सर्व नोंदी तुमची प्रणाली रीबूट केल्यानंतर '%s' या फाइलमध्ये पाहता "
+"येतील.\n"
+"\n"
+"निवडलेले प्रतिष्ठापन पर्याय सामावलेली किकस्टार्ट फाइल प्रणाली रीबूट झाल्यानंतर "
+"'%s' या फाइलमध्ये पाहता येतील."
 
 #: ../iw/confirm_gui.py:90
 msgid "About to Upgrade"
@@ -2737,6 +2766,9 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
+"भौतिक विस्ताराचा आकार बदलता येणार नाही कारण तसे केल्याने सध्या "
+"स्पष्ट केलेल्या तार्किक खंडासाठी आवश्यक असलेली जागा उपलब्ध जागेपेक्षा "
+"जास्त होईल."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
@@ -2750,6 +2782,10 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"भौतिक विस्ताराच्या मुल्यामधील या बदलासाठी सध्याच्या तार्किक खंडांचे निवेदित "
+"आकार भौतिक विस्ताराच्या गुणक पुर्णांकाच्या आकारा इतके करावे लागतील.\n"
+"\n"
+"हा बदल तात्काळ अमलात येईल."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:165 ../iw/network_gui.py:169 ../iw/network_gui.py:192
@@ -2763,6 +2799,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
+"भौतिक विस्ताराचा आकार बदलता येणार नाही कारण निवडलेले मूल्य (%10.2f MB) "
+"खंड संचातील सर्वांत लहान खंडापेक्षा (%10.2f MB) मोठे आहे. "
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
@@ -2771,6 +2809,8 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
+"भौतिक विस्ताराचा आकार बदलता येणार नाही कारण निवडलेले मूल्य (%10.2f MB) "
+"खंड संचातील सर्वांत लहान खंडापेक्षा (%10.2f MB) खूप मोठे आहे. "
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -2791,6 +2831,9 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
+"भौतिक विस्ताराचा आकार बदलता येणार नाही कारण याचा फलस्वरूप कमाल "
+"तार्किक आकार (%10.2f MB) हा सध्या स्पष्ट केलेल्या तार्किक खंडांपैकी "
+"एका किंवा अधिकापेक्षा कमी आहे."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid ""
@@ -3062,7 +3105,7 @@ msgstr "३ बटनांचे अनुकरण(Emulate) करा(_E)"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "प्रणालीसाठी सुयोग्य माऊसची निवड करा."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:608
 msgid "Gateway"
@@ -3449,9 +3492,8 @@ msgid "Format Warnings"
 msgstr "स्वरुप(फॉरमॅट) सुचना"
 
 #: ../iw/partition_gui.py:683
-#, fuzzy
 msgid "_Format"
-msgstr "स्वरुप(फॉरमॅट)"
+msgstr "स्वरुप(फॉरमॅट)(_F)"
 
 #: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
