@@ -17,6 +17,7 @@ import os.path
 import shutil
 import timer
 import warnings
+import re
 
 import rpm
 import rpmUtils
@@ -49,6 +50,10 @@ import iutil
 import isys
 
 import whiteout
+
+# set to the number of CDs the distribution currently has.  might increase
+# or decrease over time
+NUMBER_OF_CDS = 5
 
 #XXX: this needs to be somewhere better - probably method
 def getcd(po):
@@ -206,9 +211,41 @@ class AnacondaYumConf:
     """Dynamic yum configuration"""
 
     def __init__( self, methodstr, configfile = "/tmp/yum.conf", root = '/'):
-        self.methodstr = methodstr
         self.configfile = configfile
         self.root = root
+        self.methodstr = methodstr
+        self.gpgstr = methodstr
+
+        if self.methodstr[:7] == "http://":
+            # account for multiple mounted ISOs on loopback...bleh
+            # assumes ISOs are mounted as AAAAN where AAAA is some alpha text
+            # and N is an integer.  so users could have these paths:
+            #     CD1, CD2, CD3
+            #     disc1, disc2, disc3
+            #     qux1, qux2, qux3
+            # as long as the alpha text is consistent and the ints increment
+            #
+            # NOTE: this code is basically a guess. we don't really know if
+            # they are doing a loopback ISO install, but make a guess and
+            # shove all that at yum and hope for the best   --dcantrell
+            discdir = os.path.basename(self.methodstr)
+            alpharm = re.compile("[A-Za-z]+")
+            discnum = alpharm.sub("", discdir)
+
+            try:
+                discnum = int(discnum)
+
+                stripnum = re.compile("%s$" % (discnum,))
+                basepath = stripnum.sub("", methodstr)
+
+                # add all possible baseurls
+                discnum = discnum + 1
+                while discnum <= NUMBER_OF_CDS:
+                    self.methodstr = self.methodstr + " " + basepath + "%s" % (discnum)
+                    discnum = discnum + 1
+            except ValueError:
+                # we didn't figure out the user's dir naming scheme
+                pass
 
         self.yumconfstr = """
 [main]
@@ -232,7 +269,7 @@ baseurl=%s
 enabled=1
 gpgcheck=0
 gpgkey=%s/RPM-GPG-KEY-fedora
-""" % (self.root, self.methodstr, self.methodstr)
+""" % (self.root, self.methodstr, self.gpgstr)
 
     def write(self):
         f = open(self.configfile, 'w')

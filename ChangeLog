@@ -2,6 +2,11 @@
 
 	* urlinstall.py:  Remove some traceonly mode stuff.
 
+	* yuminstall.py (AnacondaYumConf):  Make a guess as to whether or not
+	the user is doing an HTTP install using loopback mounted ISO 9660
+	images.  Add all possible CD paths to the baseurl in anaconda's
+	yum.conf and let it run.
+
 2006-04-18  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.
