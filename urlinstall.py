@@ -27,17 +27,8 @@ from constants import *
 
 from rhpl.translate import _
 
-# we import these explicitly because urllib loads them dynamically, which
-# stinks -- and we need to have them imported for the --traceonly option
-import ftplib
-import httplib
-import StringIO
-
 import logging
 log = logging.getLogger("anaconda")
-
-FILENAME = 1000000
-DISCNUM  = 1000002
 
 def urlretrieve(location, file, callback=None):
     """Downloads from location and saves to file."""
