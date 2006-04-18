@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.3
+Version: 11.1.0.4
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 18 2006 Chris Lumens <clumens@redhat.com> 11.1.0.4-1
+- Pass version to mkstamp for discinfo files (jkeating).
+- Fix FTP method handling.
+- Don't download RPMs twice on FTP and HTTP methods (pnasrat, #183654).
+- Use libuser for setting root password.
+- Fix up rescue image script problems (dcantrel, #188011).
+
 * Tue Apr 04 2006 Chris Lumens <clumens@redhat.com> 11.1.0.3-1
 - Fix up for rhpxl Modes changes.
 - Fix handling of video driver if there's no list of drivers available.
