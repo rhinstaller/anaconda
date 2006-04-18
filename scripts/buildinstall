@@ -177,7 +177,7 @@ else
 fi
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR $VERSION" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
 
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"
