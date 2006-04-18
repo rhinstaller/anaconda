@@ -116,10 +116,9 @@ ks=ftp://<path> Kickstart from FTP.
 ks=http://<path> Kickstart from HTTP.
 
 kssendmac	Adds HTTP headers to ks=http:// request that can be helpful
-                for provisioning systems.  Includes MAC address of all nics in
-                a CGI environment variable of the form 
-                HTTP_X_RHN_PROVISIONING_0, HTTP_X_RHN_PROVISIONING_1, etc, for
-                all nics.
+                for provisioning systems.  Includes MAC address of all
+		nics in CGI environment variables of the form:
+                "X-RHN-Provisioning-MAC-0: eth0 01:23:45:67:89:ab".
 
 dhcpclass=<class> Sends a custom DHCP vendor class identifier. ISC's dhcpcd can
                 inspect this value using "option vendor-class-identifier". 
