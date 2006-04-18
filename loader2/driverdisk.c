@@ -379,6 +379,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 break;
             }
             stage = DEV_LOAD;
+            break;
         }
 
         case DEV_INSERT: {

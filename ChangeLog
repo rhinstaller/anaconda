@@ -1,3 +1,8 @@
+2006-04-17  Peter Jones  <pjones@redhat.com>
+
+	* loader2/driverdisk.c (loadDriverFromMedia): don't ask for a disk
+	after loading the file from a disk on scsi (usb) devices (#186559)
+
 2006-04-06  Peter Jones  <pjones@redhat.com>
 
 	* isys/isys.py (hardDriveDict): don't put removable drives in the isys
