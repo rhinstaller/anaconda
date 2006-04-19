@@ -3,6 +3,9 @@
 	* isys/linkdetect.c (get_link_status): don't leak socket fd.
 	* loader2/loader.c: add post_link_sleep and "nicdelay=" option.
 	* loader2/net.c (waitForLink): handle post_link_sleep
+	* scripts/upd-instroot: add readline and ncurses to non-GR
+	images. (#177471).
+	add symlink for /bin/echo (#178781)
 	
 2006-04-17  Peter Jones  <pjones@redhat.com>
 

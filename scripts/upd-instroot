@@ -113,7 +113,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libsepol libtermcap zlib ash e2fsprogs util-linux raidtools popt mdadm
 	 procps rpm rpm-libs XFree86 Xconfigurator anaconda tzdata
-	 anaconda-runtime kudzu hwdata bzip2 beecrypt
+	 anaconda-runtime kudzu hwdata bzip2 beecrypt ncurses readline
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2
@@ -348,10 +348,12 @@ usr/$LIBDIR/libssl*
 usr/$LIBDIR/libcrypto*
 usr/$LIBDIR/libbz2*
 usr/$LIBDIR/libelf*
+usr/$LIBDIR/libncurses*
 usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libparted*
 usr/$LIBDIR/libpopt*
 usr/$LIBDIR/libpython*
+usr/$LIBDIR/libreadline*
 usr/$LIBDIR/librpm-*4.?.so*
 usr/$LIBDIR/librpmdb*4.?.so*
 usr/$LIBDIR/librpmio*4.?.so*
@@ -1014,6 +1016,7 @@ for p in $DEST $DESTGR; do
 	else
 	    ln -s ash $p/bin/sh
 	fi
+	ln -s /usr/bin/echo $p/bin/echo
 
 	[ -d $p/bin ] || die "ERROR: directory missing: $p/bin"
 	[ -d $p/sbin ] || die "ERROR: directory missing: $p/sbin"
