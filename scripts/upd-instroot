@@ -1172,7 +1172,6 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys
 	cp $p/usr/lib/anaconda/mknod-stub $p/usr/bin/mknod
-	cp $p/usr/lib/anaconda/rescue-startx-stub $p/usr/bin/rescue-startx
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
 
