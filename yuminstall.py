@@ -1044,10 +1044,12 @@ class YumBackend(AnacondaBackend):
         if flags.test:
             return
 
-        w = intf.progressWindow(_("Post Install"),
-                                _("Performing post install configuration..."), 6)
-
-        if not id.getUpgrade():
+        if id.getUpgrade()
+            w = intf.progressWindow(_("Post Upgrade"),
+                                    _("Performing post upgrade configuration..."), 6)
+        else:
+            w = intf.progressWindow(_("Post Install"),
+                                    _("Performing post install configuration..."), 6)
             id.network.write(instPath)
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):

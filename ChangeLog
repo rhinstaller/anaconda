@@ -7,6 +7,9 @@
 	* command-stubs/rescue-startx-stub:  Removed.
 	* scripts/upd-instroot:  Likewise.
 
+	* yuminstall.py (YumBackend.doPostInstall):  Different message on
+	upgrade (#189312).
+
 2006-04-18  David Cantrell  <dcantrell@redhat.com>
 
 	* urlinstall.py:  Remove some traceonly mode stuff.
