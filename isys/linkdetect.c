@@ -159,6 +159,7 @@ int get_link_status(char * devname) {
         return 1;
     }
 
+    close(sock);
     return 0;
 }
 

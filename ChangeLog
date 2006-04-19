@@ -1,3 +1,9 @@
+2006-04-19  Peter Jones  <pjones@redhat.com>
+
+	* isys/linkdetect.c (get_link_status): don't leak socket fd.
+	* loader2/loader.c: add post_link_sleep and "nicdelay=" option.
+	* loader2/net.c (waitForLink): handle post_link_sleep
+	
 2006-04-17  Peter Jones  <pjones@redhat.com>
 
 	* loader2/driverdisk.c (loadDriverFromMedia): don't ask for a disk

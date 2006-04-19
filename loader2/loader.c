@@ -101,6 +101,7 @@ static int newtRunning = 0;
 #endif
 
 int num_link_checks = 5;
+int post_link_sleep = 0;
 
 static struct installMethod installMethods[] = {
 #if !defined(__s390__) && !defined(__s390x__)
@@ -638,6 +639,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10))
             num_link_checks = atoi(argv[i] + 10);
+        else if (!strncasecmp(argv[i], "nicdelay=", 9))
+            post_link_sleep = atoi(argv[i] + 9);
         else if (!strncasecmp(argv[i], "selinux=0", 9))
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
