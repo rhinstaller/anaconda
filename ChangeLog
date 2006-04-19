@@ -1,3 +1,8 @@
+2006-04-19  David Cantrell  <dcantrell@redhat.com>
+
+	* yuminstall.py (AnacondaYumConf):  Better regexp for trimming the base
+	disc dir name.
+
 2006-04-19  Jesse Keating  <jkeating@redhat.com>
 
 	* scripts/buildinstall: don't pass version, I was dumb.
