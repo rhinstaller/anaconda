@@ -87,6 +87,7 @@ static int hasGraphicalOverride();
 static int newtRunning = 0;
 
 int num_link_checks = 15;
+int post_link_sleep = 0;
 
 #ifdef INCLUDE_LOCAL
 #include "cdinstall.h"
@@ -579,6 +580,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->ethtool = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "linksleep=", 10))
             num_link_checks = atoi(argv[i] + 10);
+        else if (!strncasecmp(argv[i], "nicdelay=", 9))
+            post_link_sleep = atoi(argv[i] + 9);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
