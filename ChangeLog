@@ -5,7 +5,10 @@
 	* loader2/net.c (waitForLink): handle post_link_sleep
 	* scripts/upd-instroot: add readline and ncurses to non-GR
 	images. (#177471).
-	add symlink for /bin/echo (#178781)
+	* scripts/upd-instroot: add symlink for /bin/echo (#178781)
+	* loader2/net.c (setupNetworkDeviceConfig): fix setting "mtu"
+	* loader2/net.c (writeNetInfo): get mtu from pump info
+	* loader2/net.h (networkDeviceConfig): remove mtu field
 	
 2006-04-17  Peter Jones  <pjones@redhat.com>
 

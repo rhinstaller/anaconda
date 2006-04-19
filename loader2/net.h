@@ -18,7 +18,6 @@ struct networkDeviceConfig {
     int preset;
 
     /* s390 settings */
-    int mtu;
     char *subchannels, *portname, *peerid, *nettype, *ctcprot;
 };
 

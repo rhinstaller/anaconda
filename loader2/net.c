@@ -418,7 +418,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     if (loaderData->mtu) {
-        cfg->mtu = loaderData->mtu;
+        cfg->dev.mtu = loaderData->mtu;
+        cfg->dev.set |= PUMP_INTFINFO_HAS_MTU;
     }
 
     if (loaderData->peerid) {
@@ -748,8 +749,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
-    if (dev->mtu)
-        fprintf(f, "MTU=%d\n", dev->mtu);
+    if (dev->dev.set & PUMP_INTFINFO_HAS_MTU)
+        fprintf(f, "MTU=%d\n", dev->dev.mtu);
     if (dev->peerid)
         fprintf(f, "PEERID=%s\n", dev->peerid);
     if (dev->subchannels)
