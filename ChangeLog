@@ -1,3 +1,8 @@
+2006-04-20  Chris Lumens  <clumens@redhat.com>
+
+	* iw/timezone_gui.py (TimezoneWindow.getScreen):  Default UTC box to
+	checked as long as we didn't find a Windows partition.
+
 2006-04-19  David Cantrell  <dcantrell@redhat.com>
 
 	* yuminstall.py (AnacondaYumConf):  Better regexp for trimming the base

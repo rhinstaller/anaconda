@@ -24,6 +24,7 @@ import sys
 from timezone_map_gui import TimezoneMap
 from rhpl.translate import _, textdomain
 from iw_gui import *
+from bootloaderInfo import dosFilesystems
 
 try:
     import gnomecanvas
@@ -103,6 +104,15 @@ class TimezoneWindow(InstallWindow):
         # Now fix the default we set when we made the timezone map widget.
         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
         self.utcCheckbox.set_active(asUTC)
+
+        # As long as we don't find a Windows partition, check the UTC box.
+        foundWindows = False
+        for (k,v) in self.getICS().cw.id.bootloader.images.getImages().iteritems():
+            if v[0].lower() == 'other' and v[2] in dosFilesystems:
+                foundWindows = True
+                break
+
+        self.utcCheckbox.set_active(not foundWindows)
 
         self.notebook.remove(self.vbox)
         return self.vbox
