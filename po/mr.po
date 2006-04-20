@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-19 20:14+0530\n"
+"PO-Revision-Date: 2006-04-20 17:04+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -3590,6 +3590,10 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
+"RAID वापरण्यासाठी तुम्ही प्रथम 'सॉफ्टवेयर RAID' या प्रकारची किमान दोन विभाजने निर्माण "
+"करावित. मग तुम्ही एक RAID यंत्र बनवू शकता ज्याचे स्वरूपण आणि आरोहण केले जाऊ "
+"शकते.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1257
 msgid "What do you want to do now?"
@@ -3665,11 +3669,13 @@ msgid "Check for _bad blocks?"
 msgstr "वाईट ब्लॉक्ससाठी तपासावे?"
 
 #: ../iw/partition_ui_helpers_gui.py:339
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr "ड्राइव्स."
+msgstr ""
+"'%s' या प्रकारची विभाजने फक्त एका ड्राइवपुरती मर्यादित असावीत. हे 'अनुमतीयोग्य ड्राइव्स' "
+"या यादीमधून ड्राइव निवडून करावे."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -3742,6 +3748,11 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"RAID यंत्र बनवण्यासाठी किमान दोन न वापरलेल्या सॉफ्टवेयर विभाजनांची गरज "
+"आहे.\n"
+"\n"
+"प्रथम \"सॉफ्टवेयर RAID\" प्रकारची किमान दोन विभाजने बनवा, आणि मग "
+"\"RAID\" हा पर्याय पुन्हा निवडा."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
@@ -3797,6 +3808,10 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"निवडलेल्या स्रोत ड्राइव वर 'सॉफ्टवेयर RAID' या प्रकारची नसलेली विभाजने "
+"आहेत.\n"
+"\n "
+"या ड्रइवला क्लोन करण्यापूर्वी ही विभाजने काढून टाकावी लागतील. "
 
 #: ../iw/raid_dialog_gui.py:499
 #, python-format
