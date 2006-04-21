@@ -1,9 +1,18 @@
+2006-04-21  David Cantrell  <dcantrell@redhat.com>
+
+	* rescue.py:  Added runShell() to handle spawning the tty1 shell for
+	rescue mode and set the controlling tty (#126620).
+
+	* loader2/init.c:  Do no disable Ctrl+C, Ctrl+Z, and friends if we're
+	starting in rescue mode.  Set controlling tty before dup2() calls.
+	(#126620).
+
 2006-04-19  Peter Jones  <pjones@redhat.com>
 
-        * isys/linkdetect.c (get_link_status): don't leak socket fd.
-        * loader2/loader.c: add post_link_sleep and "nicdelay=" option.
-        * loader2/loader.h: add post_link_sleep declaration.
-        * loader2/net.c (waitForLink): handle post_link_sleep 
+	* isys/linkdetect.c (get_link_status): don't leak socket fd.
+	* loader2/loader.c: add post_link_sleep and "nicdelay=" option.
+	* loader2/loader.h: add post_link_sleep declaration.
+	* loader2/net.c (waitForLink): handle post_link_sleep 
 
 2006-01-16  David Cantrell  <dcantrell@redhat.com>
 
