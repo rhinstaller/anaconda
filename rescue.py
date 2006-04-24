@@ -24,6 +24,8 @@ import isys
 import iutil
 import fsset
 import shutil
+import fcntl
+import termios
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -159,8 +161,16 @@ def startNetworking(network, intf):
                 f.write("nameserver %s\n" % (ns,))
 
         f.close()
-	
-    
+
+def runShell():
+    shpid = os.fork()
+    if shpid == 0:
+        os.setsid()
+        fcntl.ioctl(0, termios.TIOCSCTTY)
+        os.execv("/bin/sh", ["-/bin/sh"])
+    else:
+        os.waitpid(shpid, 0)
+   
 def runRescue(instPath, mountroot, id):
 
     for file in [ "services", "protocols", "group", "joe", "man.config",
@@ -243,7 +253,7 @@ def runRescue(instPath, mountroot, id):
         print _("When finished please exit from the shell and your "
                 "system will reboot.")
         print
-	os.system("/bin/sh")
+	runShell()
 	sys.exit(0)
 
     # lets create some devices
@@ -278,7 +288,7 @@ def runRescue(instPath, mountroot, id):
         print _("When finished please exit from the shell and your "
                 "system will reboot.")
         print
-        os.execv("/bin/sh", [ "-/bin/sh" ])
+        runShell()
     elif rc == string.lower(_("Read-Only")):
         readOnly = 1
     else:
@@ -438,5 +448,5 @@ def runRescue(instPath, mountroot, id):
     print _("When finished please exit from the shell and your "
                 "system will reboot.")
     print
-    os.system("/bin/sh")
+    runShell()
     sys.exit(0)

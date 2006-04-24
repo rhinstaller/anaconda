@@ -451,7 +451,7 @@ int main(int argc, char **argv) {
     char ** argvp = argvc;
     char twelve = 12;
     struct serial_struct si;
-    int i;
+    int i, disable_keys;
 
     if (!strncmp(basename(argv[0]), "poweroff", 8)) {
         printf("Running poweroff...\n");
@@ -615,6 +615,11 @@ int main(int argc, char **argv) {
     if (testing)
 	exit(0);
 
+    setsid();
+    if (ioctl(0, TIOCSCTTY, NULL)) {
+        printf("could not set new controlling tty\n");
+    }
+
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
@@ -625,16 +630,18 @@ int main(int argc, char **argv) {
     dup2(0, 2);
 #endif
 
-    /* disable Ctrl+Z, Ctrl+C, etc */
-    tcgetattr(0, &ts);
-    ts.c_iflag &= ~BRKINT;
-    ts.c_iflag |= IGNBRK;
-    ts.c_iflag &= ~ISIG;
-    tcsetattr(0, TCSANOW, &ts);
+    /* disable Ctrl+Z, Ctrl+C, etc ... but not in rescue mode */
+    disable_keys = 1;
+    if (argc > 1)
+        if (mystrstr(argv[1], "rescue"))
+            disable_keys = 0;
 
-    setsid();
-    if (ioctl(0, TIOCSCTTY, NULL)) {
-	printf("could not set new controlling tty\n");
+    if (disable_keys) {
+        tcgetattr(0, &ts);
+        ts.c_iflag &= ~BRKINT;
+        ts.c_iflag |= IGNBRK;
+        ts.c_iflag &= ~ISIG;
+        tcsetattr(0, TCSANOW, &ts);
     }
 
     if (!testing) {
