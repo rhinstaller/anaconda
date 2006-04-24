@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-03 19:02-0500\n"
-"PO-Revision-Date: 2006-02-21 15:37+0100\n"
+"PO-Revision-Date: 2006-04-24 09:40+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -2306,18 +2306,13 @@ msgid "Error running transaction"
 msgstr "Feil under kjøring av transaksjon"
 
 #: ../yuminstall.py:487
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
-msgstr ""
-"Pakken %s-%s-%s.%s kan ikke åpnes. Det kan være pga at filen mangler eller "
-"at pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at "
-"CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
-"\n"
-"Trykk «Prøv igjen» hvis du vil forsøke på nytt."
+msgstr "Pakken %s-%s-%s.%s kan ikke åpnes. Det kan være pga at filen mangler eller at pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n\n"
 
 #: ../yuminstall.py:592
 msgid "Retrieving installation information..."
@@ -4950,7 +4945,7 @@ msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "Forvalgt installasjon av %s inneholder et sett programmer som er tilpasset vanlig bruk av internett. Hvilke tilleggsoppgaver ønsker du at systemet skal inneholde støtte for?"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -6209,7 +6204,7 @@ msgstr "Tilpass _senere"
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "Videre tilpassing av programvareutvalget kan ferdigstilles nå eller etter innstallasjonen via program for pakkehåndtering."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6350,7 +6345,7 @@ msgstr "\"Central Time\" - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
-msgstr ""
+msgstr "«Central Time» - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
