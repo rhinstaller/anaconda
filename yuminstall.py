@@ -1044,7 +1044,7 @@ class YumBackend(AnacondaBackend):
         if flags.test:
             return
 
-        if id.getUpgrade()
+        if id.getUpgrade():
             w = intf.progressWindow(_("Post Upgrade"),
                                     _("Performing post upgrade configuration..."), 6)
         else:
