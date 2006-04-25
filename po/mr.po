@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-25 00:05+0530\n"
+"PO-Revision-Date: 2006-04-25 12:39+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -5254,6 +5254,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"जर तुम्ही अतिरिक्त माध्यमे तपासू इच्छित असाल, तर पुढील सीडी(CD) आत टाकून \"%s\" दाबा. "
+"प्रत्येक सीडी तपासणे सक्तीचे नाही, तरीही तसे करण्याची शिफारस करण्यात येते. "
+"किमानपक्षी, सीडी पहिल्या वेळी वापरण्यापुर्वी तपासलेली असावी. त्या यशस्वीपणे तपासून "
+"झाल्यानंतर, प्रत्येक सीडी पुन्हा वापरण्यापुर्वी तपासण्याची आवश्यकता नाही."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5486,6 +5490,9 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
+"%s साठी सीडी(CD)(iso9660) प्रतिमा कोणत्या विभाजन आणि त्या विभाजनावरील कोणत्या "
+"निर्देशिकेत आहेत? जर तुम्ही वापरत असलेली डिस्क ड्राइव येथे निर्दिष्ट नसेल, तर अतिरिक्त "
+"यंत्रांची रचना करण्यासाठी F2 दाबा."
 
 #: ../loader2/hdinstall.c:366
 msgid "Directory holding images:"
@@ -5696,6 +5703,8 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"प्रथमिक खंड वर्णनकारातून डिस्क चेकसम वाचण्यास असमर्थ. याचा अर्थ कदाचित डिस्क "
+"चेकसम न जोडताच निर्माण केली असावी."
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5722,6 +5731,9 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"नुकत्याच तपासलेल्या प्रतिमेवर चुका आहेत. हे कदाचित खराब डाउनलोड किंवा वाईट "
+"डिस्क मुळे असावे. लागू होत असल्यास, कृपया डिस्क साफ करा आणि पुन्हा प्रयत्न "
+"करा. ही कसोटी वारंवार असफल होत असल्यास तुम्ही प्रतिष्ठापन चालू ठेवू नये."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -5795,14 +5807,22 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"कृपया खालील माहिती भरा:\n"
+"\n"
+"    o तुमच्या %s सेवकाचे नाव किंवा IP क्रमांक\n"
+"    o त्या सेवकावरील निर्देशिका जिच्यामध्ये\n"
+"     तुमच्या आर्किटेक्चरसाठी %s आहे\n"
 
 #: ../loader2/net.c:222
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr "ESSID."
+msgstr ""
+"%s बिनतारी संजाळ अडॅप्टर आहे. कृपया तुमच्या बिनतारी संजाळास जोडण्यासाठी आवश्यक "
+"ESSID आणि सांकेतीकरण(एनक्रिप्शन) किल्ली द्या. जर किल्लीची गरज नसेल, तर ही जागा "
+"मोकळी सोडा आणि प्रतिष्ठापन चालू राहील."
 
 #: ../loader2/net.c:232
 msgid "Wireless Settings"
@@ -5823,6 +5843,10 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"तुमच्या गतिज IP विनंतीने IP रचना माहिती परत पाठवली, पण त्यात DNS नामसेवकाचा "
+"समावेश नव्हता. जर तुम्हास तुमचा नामसेवक माहित असेल, तर कृपया तो आता "
+"दाखल करा. जर तुमच्याकडे ही माहिती नसेल, तर तुम्ही ही जागा मोकळी सोडू शकता "
+"आणि प्रतिष्ठापन चालू राहील."
 
 #: ../loader2/net.c:276
 msgid "Invalid IP Information"
@@ -6155,6 +6179,9 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"%s च्या मुलभूत प्रतिष्ठापनात आंतरजालाच्या सामान्य वापरासाठी योग्य अशा बुद्धीभागांचा "
+"(सॉफ्टवेयर) समावेश होतो. कोणत्या अतिरिक्त कामांचे तुमच्या प्रणालीने समर्थन करावे "
+"असे तुम्हास वाटते?"
 
 #: tmp/tasksel.glade.h:5
 msgid "_Customize now"
