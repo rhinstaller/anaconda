@@ -1,5 +1,7 @@
 2006-04-26  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda: Don't symlink things that don't exist.
+
 	* packages.py (setupTimezone): Don't change timezone on rootpath
 	(Jane Dogalt, #185930)
 

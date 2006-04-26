@@ -579,7 +579,8 @@ if rhpl.getArch() == "s390":
 # setup links required for all install types
 for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux", "libuser.conf"):
     try:
-	os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+        if os.path.exists("/mnt/runtime/etc/" + i):
+            os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
     except:
 	pass
 
