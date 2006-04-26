@@ -673,14 +673,6 @@ if opts.debug:
     import pdb
     pdb.set_trace()
 
-# let people be stupid
-## # don't let folks do anything stupid on !s390
-## if (not flags.test and os.getpid() > 90 and flags.setupFilesystems and
-##     not rhpl.getArch() == "s390"):
-##     sys.stderr.write(
-##         "You're running me on a live system! that's incredibly stupid.\n")
-##     sys.exit(1)
-
 import isys
 import instdata
 import floppy
