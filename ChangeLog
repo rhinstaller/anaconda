@@ -1,5 +1,8 @@
 2006-04-26  Jeremy Katz  <katzj@redhat.com>
 
+	* network.py (Network.__init__): Don't reconfig network if using
+	rootpath mode
+
 	* anaconda: Remove dead comments
 
 	* network.py (Network.lookupHostname): Don't change network config

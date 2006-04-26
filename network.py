@@ -176,6 +176,9 @@ class Network:
 	# to see if its been override. Need some consolidation in future.
 	self.overrideDHCPhostname = 0
 
+        if flags.rootpath:
+            self.isConfigured = 1
+
         try:
             f = open("/tmp/netinfo", "r")
         except:
