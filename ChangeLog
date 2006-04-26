@@ -1,5 +1,8 @@
 2006-04-26  Jeremy Katz  <katzj@redhat.com>
 
+	* network.py (Network.lookupHostname): Don't change network config
+	in rootpath mode (#185930)
+
 	* anaconda: Don't symlink things that don't exist.
 
 	* packages.py (setupTimezone): Don't change timezone on rootpath

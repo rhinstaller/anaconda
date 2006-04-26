@@ -339,11 +339,12 @@ class Network:
             log.warning("no network devices were available to look up host name")
             return None
 
-	f = open("/etc/resolv.conf", "w")
-	f.write("nameserver %s\n" % myns)
-	f.close()
-	isys.resetResolv()
-	isys.setResolvRetry(1)
+        if not flags.rootpath:
+            f = open("/etc/resolv.conf", "w")
+            f.write("nameserver %s\n" % myns)
+            f.close()
+            isys.resetResolv()
+            isys.setResolvRetry(1)
 
 	try:
 	    ip = socket.gethostbyname(self.hostname)
