@@ -167,7 +167,7 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         return
 
     # dont do this in test mode!
-    if flags.test:
+    if flags.test or flags.rootpath:
 	return
     
     os.environ["TZ"] = timezone.tz

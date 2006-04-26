@@ -1,3 +1,8 @@
+2006-04-26  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (setupTimezone): Don't change timezone on rootpath
+	(Jane Dogalt, #185930)
+
 2006-04-26  Chris Lumens  <clumens@redhat.com>
 
 	* isys/isys.py (inet_ntoa, inet_aton):  Pass the right types to the
