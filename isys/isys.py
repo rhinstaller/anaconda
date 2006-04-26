@@ -27,6 +27,7 @@ import iutil
 import warnings
 import resource
 import rhpl
+import struct
 
 import logging
 log = logging.getLogger("anaconda")
@@ -387,11 +388,11 @@ def mknod(pathname, mode, dev):
 
 # XXX: Use socket.getnameinfo for ipv6 compatibility
 def inet_ntoa (addr):
-    return socket.inet_ntoa(addr)
+    return socket.inet_ntoa(struct.pack('l', addr))
     
 def inet_aton (addr):
     try:
-        return socket.inet_aton(addr)
+        return struct.unpack('L', socket.inet_aton(addr))[0]
     except:
         raise ValueError
 
