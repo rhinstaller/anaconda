@@ -496,6 +496,8 @@ class AnacondaYum(YumSorter):
         self.ts.ts.scriptFd = instLog.fileno()
         rpm.setLogFile(instLog)
 
+        spaceneeded = {}
+
         try:
             self.runTransaction(cb=cb)
         except YumBaseError, probs:
@@ -515,13 +517,35 @@ class AnacondaYum(YumSorter):
             for (descr, (type, mount, need)) in probs:
                 if not uniqueProbs.has_key(type) and probTypes.has_key(type):
                     uniqueProbs[type] = probTypes[type]
+
+                if type == rpm.RPMPROB_DISKSPACE:
+                    spaceneeded[mount] = need
+
                 log.error("error running transaction: %s" %(descr,))
 
-            probString = ', '.join(uniqueProbs.values())
+            if spaceneeded:
+                spaceprob = _("You need more space on the following "
+                              "file systems:\n")
+
+                for (mount, need) in spaceneeded.items():
+                    log.info("(%s, %s)" %(mount, need))
+
+                    if mount.startswith("/mnt/sysimage/"):
+                        mount.replace("/mnt/sysimage", "")
+                    elif mount.startswith("/mnt/sysimage"):
+                        mount = "/" + mount.replace("/mnt/sysimage", "")
+
+                    spaceprob = spaceprob + "%d M on %s\n" % (need / (1024*1024), mount)
+            else:
+                spaceprob = ""
+
+            probString = ', '.join(uniqueProbs.values()) + "\n\n" + spaceprob
             intf.messageWindow(_("Error running transaction"),
                                ("There was an error running your transaction, "
                                 "for the following reason(s): "
-                                "%s " % (probString,)))
+                                "%s " % (probString,)),
+                               type="custom", custom_icon="error",
+                               custom_buttons=[_("Re_boot")])
             sys.exit(1)
 
     def doCacheSetup(self):
@@ -842,7 +866,6 @@ class YumBackend(AnacondaBackend):
             (code, msgs) = self.ayum.buildTransaction()
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
-            # FIXME:  Disable check on upgrades for now, fix for FC6.
             if not id.getUpgrade():
                 usrPart = id.partitions.getRequestByMountPoint("/usr")
                 if usrPart is not None:
