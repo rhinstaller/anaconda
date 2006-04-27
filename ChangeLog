@@ -1,5 +1,8 @@
 2006-04-27  Chris Lumens  <clumens@redhat.com>
 
+	* partitions.py (Partitions.writeKS):  Emit --useexisting and --noformat
+	for VGs, RAID, and LVs (#189123).
+
 	* yuminstall.py (AnacondaYum._run):  Warn if there's not enough space
 	for an upgrade (#189022).
 

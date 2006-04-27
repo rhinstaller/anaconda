@@ -1079,8 +1079,8 @@ class Partitions:
                 continue
 
             f.write("#part %s\n" % (string.join(args)))
-                
-                
+
+
         for request in self.requests:
             args = []
             if request.type != REQUEST_RAID:
@@ -1108,6 +1108,8 @@ class Partitions:
             # generic options
             if not request.format:
                 args.append("--noformat")
+            if request.preexist:
+                args.append("--useexisting")
             if request.fstype:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
             if request.badblocks:
@@ -1136,6 +1138,12 @@ class Partitions:
                 continue
 
             args.append(request.volumeGroupName)
+
+            # generic options
+            if not request.format:
+                args.append("--noformat")
+            if request.preexist:
+                args.append("--useexisting")
 
             args.append("--pesize=%s" %(request.pesize,))
 
@@ -1175,6 +1183,8 @@ class Partitions:
             # generic options
             if not request.format:
                 args.append("--noformat")
+            if request.preexist:
+                args.append("--useexisting")
             if request.fstype:
                 args.extend(["--fstype", request.fstype.getName(quoted = 1)])
 
