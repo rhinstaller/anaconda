@@ -677,8 +677,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
             flags |= LOADER_FLAGS_SELINUX;
-        else if (!strncasecmp(argv[i], "nfsmountopts=", 13))
-            loaderData->nfsmountopts = strdup(argv[i] + 13);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */

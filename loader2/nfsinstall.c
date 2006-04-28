@@ -120,7 +120,6 @@ char * mountNfsImage(struct installMethod * method,
             int foundinvalid = 0;
             char * buf;
             struct in_addr ip;
-            char * nfsMountOpts = NULL;
 
             if (loaderData->noDns && !(inet_aton(host, &ip))) {
                 newtWinMessage(_("Error"), _("OK"),
@@ -135,12 +134,7 @@ char * mountNfsImage(struct installMethod * method,
             fullPath = alloca(strlen(host) + strlen(directory) + 2);
             sprintf(fullPath, "%s:%s", host, directory);
 
-            if (loaderData->nfsmountopts && *loaderData->nfsmountopts) {
-                nfsMountOpts = strdup(loaderData->nfsmountopts);
-                logMessage("mounting nfs path %s with options %s", fullPath, nfsMountOpts);
-            } else {
-                logMessage(INFO, "mounting nfs path %s", fullPath);
-            }
+            logMessage(INFO, "mounting nfs path %s", fullPath);
 
             if (FL_TESTING(flags)) {
                 stage = NFS_STAGE_DONE;
@@ -151,7 +145,7 @@ char * mountNfsImage(struct installMethod * method,
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", 
-                           IMOUNT_RDONLY, nfsMountOpts)) {
+                           IMOUNT_RDONLY, NULL)) {
 		char mntPath[1024];
 
 		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
