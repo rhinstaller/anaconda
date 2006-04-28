@@ -107,6 +107,7 @@ struct loaderData_s {
     void * methodData;
     char * logLevel;
     char * updatessrc;
+    char * nfsmountopts;
 
     moduleList modLoaded;
     moduleDeps * modDepsPtr;
