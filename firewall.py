@@ -64,7 +64,7 @@ class Firewall:
         args = args + self.getArgList()
 
         try:
-            if flags.setupFilesystems:
+            if not flags.test:
                 iutil.execWithRedirect(args[0], args, root = instPath,
                                        stdout = None, stderr = None)
             else:

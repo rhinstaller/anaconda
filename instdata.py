@@ -151,7 +151,7 @@ class InstallData:
         args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
 
         try:
-            if flags.setupFilesystems:
+            if not flags.test:
                 iutil.execWithRedirect("/usr/bin/authconfig", args,
                                        stdout = None, stderr = None,
                                        searchPath = 1, root = instPath)
