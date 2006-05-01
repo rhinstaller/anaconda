@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.9
+Version: 9.1.6.10
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,7 +72,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Nov 29 2005 Chris Lumens <clumens@redhat.com> 9.1.6.9-1.RHEL
+* Mon May 01 2006 Peter Jones <pjones@redhat.com> - 9.1.6.10-1.RHEL
+- Correct module info parsing on driver disks (dcantrel, #164549).
+- Add nicdelay= boot parameter (#162693).
+- Handle control characters correctly in rescue mode shell (dcantrel, #126620).
+- Set controlling terminal for rescue mode (dcantrel, #126620).
+- Don't use -Os in the loader makefile (#188089).
+- Allow vfat driver disks (#186400).
+
+* Tue Nov 29 2005 Chris Lumens <clumens@redhat.com> - 9.1.6.9-1.RHEL
 - Set HWADDR in ifcfg-eth* files (#159972).
 - Fix video card selection in text installs (#168807).
 - Fix smp detection for dual-core (pnasrat, #169266).
