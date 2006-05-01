@@ -1,5 +1,8 @@
 2006-05-01  Jeremy Katz  <katzj@redhat.com>
 
+	* docs/kickstart-docs.txt: Update for nfs mount options.
+	* docs/command-line.txt: Likewise.
+
 	* loader2/nfsinstall.c: Handle nfs mount options (Dave Lehman, #168384)
 	* loader2/nfsinstall.h: Add mount opts to struct
 

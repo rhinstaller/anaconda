@@ -103,7 +103,7 @@ ks              Kickstart over NFS.
 
 ks=cdrom:       Kickstart from CDROM
 
-ks=nfs:<path>   Kickstart from NFS.
+ks=nfs(:options):<path>   Kickstart from NFS.  NFS mount options are optional.
 
 ks=<url>        Kickstart via HTTP.
 
