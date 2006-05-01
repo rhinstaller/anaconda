@@ -170,25 +170,6 @@ def setupPythonUpdates():
 									f),
 			       "/tmp/updates/%s/%s" %(pypkg, f))
 
-def getMethod(opts, intf):
-    if opts.method.startswith('cdrom://'):
-	from image import CdromInstallMethod
-	return CdromInstallMethod(opts.method, opts.rootPath, intf)
-    elif opts.method.startswith('nfs:/'):
-	from image import NfsInstallMethod
-	return NfsInstallMethod(opts.method, opts.rootPath, intf)
-    elif opts.method.startswith('nfsiso:/'):
-	from image import NfsIsoInstallMethod
-	return NfsIsoInstallMethod(opts.method, opts.rootPath, intf)
-    elif opts.method.startswith('ftp://') or opts.method.startswith('http://'):
-	from urlinstall import UrlInstallMethod
-	return UrlInstallMethod(opts.method, opts.rootPath, intf)
-    elif opts.method.startswith('hd://'):
-        from harddrive import HardDriveInstallMethod
-        return HardDriveInstallMethod(opts.method, opts.rootPath, intf)
-    else:
-        return None
-
 def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
         global runres_override
@@ -553,7 +534,44 @@ def getInstallInterface(opts):
 
     return InstallInterface ()
 
+class Anaconda:
+    def __init__(self):
+        self.intf = None
+        self.dir = None
+        self.id = None
+        self.method = None
+        self.methodstr = None
+        self.backend = None
+        self.rootPath = None
+        self.instPath = None
+        self.dispatch = None
+        self.isKickstart = False
+
+    def setDispatch(self):
+        self.dispatch = dispatch.Dispatcher(self.intf, self.id, self.method, self.rootPath, self.backend)
+
+    def setMethod(self):
+        if self.methodstr.startswith('cdrom://'):
+            from image import CdromInstallMethod
+            self.method =  CdromInstallMethod(self.methodstr, self.rootPath, self.intf)
+        elif self.methodstr.startswith('nfs:/'):
+            from image import NfsInstallMethod
+            self.method =  NfsInstallMethod(self.methodstr, self.rootPath, self.intf)
+        elif self.methodstr.startswith('nfsiso:/'):
+            from image import NfsIsoInstallMethod
+            self.method =  NfsIsoInstallMethod(self.methodstr, self.rootPath, self.intf)
+        elif self.methodstr.startswith('ftp://') or self.methodstr.startswith('http://'):
+            from urlinstall import UrlInstallMethod
+            self.method =  UrlInstallMethod(self.methodstr, self.rootPath, self.intf)
+        elif self.methodstr.startswith('hd://'):
+            from harddrive import HardDriveInstallMethod
+            self.method =  HardDriveInstallMethod(self.methodstr, self.rootPath, self.intf)
+        else:
+            self.method =  None
+
 if __name__ == "__main__":
+    anaconda = Anaconda()
+
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -673,8 +691,8 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
-        id = instdata.InstallData([], "fd0", opts.method, opts.display_mode)
-        rescue.runRescue(opts.rootPath, not opts.rescue_nomount, id)
+        rescueid = instdata.InstallData([], "fd0", opts.method, opts.display_mode)
+        rescue.runRescue(opts.rootPath, not opts.rescue_nomount, rescueid)
 
         # shouldn't get back here
         sys.exit(1)
@@ -688,6 +706,7 @@ if __name__ == "__main__":
     # if desired.
     #
     if opts.ksfile:
+        anaconda.isKickstart = True
         vncksdata = setVNCFromKickstart(opts)
 
     #
@@ -815,42 +834,43 @@ if __name__ == "__main__":
     if opts.display_mode == 'g' and flags.usevnc:
         runVNC(vncpassword, vncconnecthost, vncconnectport, doStartupX11Actions)
 
-    # go ahead and set up the interface
-    intf = getInstallInterface(opts)
+    anaconda.rootPath = opts.rootPath
+    anaconda.intf = getInstallInterface(opts)
 
     # imports after setting up the path
     if opts.method:
-        methodobj = getMethod(opts, intf)
+        anaconda.methodstr = opts.method
+        anaconda.setMethod()
 
-        if not methodobj:
-            intf.messageWindow(_("Unknown install method"),
+        if not anaconda.method:
+            anaconda.intf.messageWindow(_("Unknown install method"),
                                _("You have specified an install method "
                                  "which isn't supported by anaconda."))
             log.critical (_("unknown install method: %s"), opts.method)
             sys.exit(1)
 
     from yuminstall import YumBackend
-    backend = YumBackend(methodobj, opts.rootPath)
+    anaconda.backend = YumBackend(anaconda.method, anaconda.rootPath)
 
     # create device nodes for detected devices if we're not running in test mode
     if not flags.test and flags.setupFilesystems:
         iutil.makeDriveDeviceNodes()
 
-    id = instClass.installDataClass(extraModules, floppyDevice, opts.method, opts.display_mode, backend)
+    anaconda.id = instClass.installDataClass(extraModules, floppyDevice, opts.method, opts.display_mode, anaconda.backend)
 
-    id.x_already_set = x_already_set
+    anaconda.id.x_already_set = x_already_set
 
     if mousehw:
-        id.setMouse(mousehw)
+        anaconda.id.setMouse(mousehw)
 
     if videohw:
-        id.setVideoCard(videohw)
+        anaconda.id.setVideoCard(videohw)
 
     if monitorhw:
-        id.setMonitor(monitorhw)
+        anaconda.id.setMonitor(monitorhw)
 
     #
-    # not sure what to do here - somehow we didnt detect anything
+    # not sure what to do here - somehow we danaconda.idnt detect anything
     #
     if xcfg is None and not opts.isHeadless:
         try:
@@ -867,63 +887,63 @@ if __name__ == "__main__":
         if runres_override:
             xsetup.imposed_sane_default = 1
 
-        id.setXSetup(xsetup)
+        anaconda.id.setXSetup(xsetup)
 
     if kbd:
-        id.setKeyboard(kbd)
+        anaconda.id.setKeyboard(kbd)
 
-    id.setDisplayMode(opts.display_mode)
-    instClass.setInstallData(id, intf)
+    anaconda.id.setDisplayMode(opts.display_mode)
+    instClass.setInstallData(anaconda.id, anaconda.intf)
 
     # We need to copy the VNC-related kickstart stuff into the new ksdata
     if opts.ksfile is not None:
         instClass.ksdata.vnc = vncksdata
 
-    dispatch = dispatch.Dispatcher(intf, id, methodobj, opts.rootPath, backend)
+    anaconda.setDispatch()
 
     if opts.lang:
-        dispatch.skipStep("language", permanent = 1)
-        instClass.setLanguage(id, opts.lang)
-        instClass.setLanguageDefault(id, opts.lang)
+        anaconda.dispatch.skipStep("language", permanent = 1)
+        instClass.setLanguage(anaconda.id, opts.lang)
+        instClass.setLanguageDefault(anaconda.id, opts.lang)
 
     if opts.keymap:
-        dispatch.skipStep("keyboard", permanent = 1)
-        instClass.setKeyboard(id, opts.keymap)
+        anaconda.dispatch.skipStep("keyboard", permanent = 1)
+        instClass.setKeyboard(anaconda.id, opts.keymap)
 
     # Skip the disk options in rootpath mode
     if flags.rootpath:
-        dispatch.skipStep("partitionobjinit", permanent = 1)
-        dispatch.skipStep("parttype", permanent = 1)
-        dispatch.skipStep("autopartitionexecute", permanent = 1)
-        dispatch.skipStep("partition", permanent = 1)
-        dispatch.skipStep("partitiondone", permanent = 1)
-        dispatch.skipStep("bootloadersetup", permanent = 1)
-        dispatch.skipStep("bootloader", permanent = 1)
-        dispatch.skipStep("bootloaderadvanced", permanent = 1)
-        dispatch.skipStep("upgbootloader", permanent = 1)
-        dispatch.skipStep("instbootloader", permanent = 1)
+        anaconda.dispatch.skipStep("partitionobjinit", permanent = 1)
+        anaconda.dispatch.skipStep("parttype", permanent = 1)
+        anaconda.dispatch.skipStep("autopartitionexecute", permanent = 1)
+        anaconda.dispatch.skipStep("partition", permanent = 1)
+        anaconda.dispatch.skipStep("partitiondone", permanent = 1)
+        anaconda.dispatch.skipStep("bootloadersetup", permanent = 1)
+        anaconda.dispatch.skipStep("bootloader", permanent = 1)
+        anaconda.dispatch.skipStep("bootloaderadvanced", permanent = 1)
+        anaconda.dispatch.skipStep("upgbootloader", permanent = 1)
+        anaconda.dispatch.skipStep("instbootloader", permanent = 1)
 
     # set up the headless case
     if opts.isHeadless == 1:
-        id.setHeadless(opts.isHeadless)
-        instClass.setAsHeadless(dispatch, opts.isHeadless)
+        anaconda.id.setHeadless(opts.isHeadless)
+        instClass.setAsHeadless(anaconda.dispatch, opts.isHeadless)
 
-    instClass.setSteps(dispatch)
+    instClass.setSteps(anaconda.dispatch)
 
     # comment out the next line to make exceptions non-fatal
-    sys.excepthook = lambda type, value, tb, dispatch=dispatch, intf=intf: handleException(dispatch, intf, (type, value, tb))
+    sys.excepthook = lambda type, value, tb, dispatch=anaconda.dispatch, intf=anaconda.intf: handleException(anaconda.dispatch, anaconda.intf, (type, value, tb))
 
     try:
-        intf.run(id, dispatch)
+        anaconda.intf.run(anaconda.id, anaconda.dispatch)
     except SystemExit, code:
-        intf.shutdown()
+        anaconda.intf.shutdown()
     except:
-        handleException(dispatch, intf, sys.exc_info())
+        handleException(anaconda.dispatch, anaconda.intf, sys.exc_info())
 
-    if opts.ksfile is not None and instClass.ksdata.reboot["eject"]:
+    if anaconda.isKickstart and instClass.ksdata.reboot["eject"]:
         isys.flushDriveDict()
         for drive in isys.cdromList():
             log.info("attempting to eject %s" % drive)
             isys.ejectCdrom(drive)
 
-    del intf
+    del anaconda.intf
