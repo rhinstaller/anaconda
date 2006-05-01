@@ -12,6 +12,9 @@
 	* syslogd.py:  Use syslogd command, not anaconda.
 	* scripts/upd-instroot:  Add syslogd-stub.
 
+	* anaconda (startVNCServer):  Moved to vnc.py.
+	* vnc.py (startVNCServer):  Likewise.
+
 2006-04-27  Chris Lumens  <clumens@redhat.com>
 
 	* partitions.py (Partitions.writeKS):  Emit --useexisting and --noformat

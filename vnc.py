@@ -19,6 +19,7 @@ from constants_text import *
 from rhpl.translate import _, N_
 import network
 import isys
+import product
 
 import logging
 log = logging.getLogger("anaconda")
@@ -118,6 +119,172 @@ def askVncWindow():
     screen.finish()
     return -1
 
+# startup vnc X server
+def startVNCServer(vncpassword="", root='/', vncconnecthost="",
+		   vncconnectport="", vncStartedCB=None):
+
+    stdoutLog = logging.getLogger("anaconda.stdout")
+    
+    def set_vnc_password(root, passwd, passwd_file):
+	(pid, fd) = os.forkpty()
+
+	if not pid:
+	    os.execv(root + "/usr/bin/vncpasswd", [root + "/usr/bin/vncpasswd", passwd_file])
+	    sys.exit(1)
+
+	# read password prompt
+	os.read(fd, 1000)
+
+	# write password
+	os.write(fd, passwd + "\n")
+
+	# read challenge again, and newline
+	os.read(fd, 1000)
+	os.read(fd, 1000)
+
+	# write password again
+	os.write(fd, passwd + "\n")
+
+	# read remaining output
+	os.read(fd, 1000)
+
+	# wait for status
+	try:
+	    (pid, status) = os.waitpid(pid, 0)
+	except OSError, (errno, msg):
+	    print __name__, "waitpid:", msg
+
+	return status
+
+    stdoutLog.info(_("Starting VNC..."))
+
+    # figure out host info
+    connxinfo = None
+    srvname = None
+    try:
+	import network
+
+	# try to load /tmp/netinfo and see if we can sniff out network info
+	netinfo = network.Network()
+	srvname = None
+	if netinfo.hostname != "localhost.localdomain":
+	    srvname = "%s" % (netinfo.hostname,)
+	else:
+	    for dev in netinfo.netdevices.keys():
+		try:
+		    ip = isys.getIPAddress(dev)
+		    log.info("ip of %s is %s" %(dev, ip))
+		except Exception, e:
+		    log.error("Got an exception trying to get the ip addr "
+			      "of %s: %s" %(dev, e))
+		    continue
+		if ip == '127.0.0.1' or ip is None:
+		    continue
+		srvname = ip
+		break
+
+	if srvname is not None:
+	    connxinfo = "%s:1" % (srvname,)
+
+    except:
+	log.error("Unable to determine VNC server network info")
+	
+    # figure out product info
+    if srvname is not None:
+	desktopname = _("%s %s installation on host %s") % (product.productName, product.productVersion, srvname)
+    else:
+	desktopname = _("%s %s installation") % (product.productName, product.productVersion)
+
+    vncpid = os.fork()
+
+    if not vncpid:
+	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
+		 "-depth", "16", "-geometry", "800x600",
+		 "IdleTimeout=0", "-auth", "/dev/null", "-once",
+		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
+
+	# set passwd if necessary
+        if vncpassword != "":
+	    try:
+		rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    except Exception, e:
+		stdoutLog.error("Unknown exception setting vnc password.")
+		log.error("Exception was: %s" %(e,))
+		rc = 1
+
+	    if rc:
+		stdoutLog.warning(_("Unable to set vnc password - using no password!"))
+		stdoutLog.warning(_("Make sure your password is at least 6 characters in length."))
+	    else:
+		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
+	else:
+	    # needed if no password specified
+	    args = args + ["SecurityTypes=None",]
+			     
+	tmplogFile = "/tmp/vncserver.log"
+	try:
+	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
+	    if err < 0:
+		sys.stderr.write("error opening %s\n", tmplogFile)
+	    else:
+		os.dup2(err, 2)
+		os.close(err)
+	except:
+	    # oh well
+	    pass
+
+	os.execv(args[0], args)
+	sys.exit (1)
+
+    if vncpassword == "":
+	stdoutLog.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
+			 "You can use the vncpassword=<password> boot option\n"
+			 "if you would like to secure the server.\n\n"))
+	
+    stdoutLog.info(_("The VNC server is now running."))
+
+    if vncconnecthost != "":
+	stdoutLog.info(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
+	
+	hostarg = vncconnecthost
+        if vncconnectport != "":
+	    hostarg = hostarg + ":" + vncconnectport
+	    
+	argv = ["/usr/bin/vncconfig", "-display", ":1", "-connect", hostarg]
+	ntries = 0
+	while 1:
+            output = iutil.execWithCapture(argv[0], argv, catchfd=2)
+
+            if output == "":
+                stdoutLog.info(_("Connected!"))
+                break
+            elif output.startswith("connecting") and output.endswith("failed"):
+		ntries += 1
+		if ntries > 50:
+		    stdoutLog.error(_("Giving up attempting to connect after 50 tries!\n"))
+		    if connxinfo is not None:
+			stdoutLog.info(_("Please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
+		    else:	    
+			stdoutLog.info(_("Please manually connect your vnc client to begin the install."))
+		    break
+		    
+		stdoutLog.info(output)
+		stdoutLog.info(_("Will try to connect again in 15 seconds..."))
+		time.sleep(15)
+		continue
+	    else:
+                stdoutLog.critical(output)
+	        sys.exit(1)
+    else:
+	if connxinfo is not None:
+	    stdoutLog.info(_("Please connect to %s to begin the install...") % (connxinfo,))
+	else:
+	    stdoutLog.info(_("Please connect to begin the install..."))
+
+    os.environ["DISPLAY"]=":1"
+
+    if vncStartedCB:
+        vncStartedCB()
 
 if __name__ == "__main__":
     askVncWindow()
