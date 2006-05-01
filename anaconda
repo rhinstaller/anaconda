@@ -365,17 +365,6 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 # pull this in to get product name and versioning
 import product
 
-# do this early to keep our import footprint as small as possible
-# Python passed my path as argv[0]!
-# if sys.argv[0][-7:] == "syslogd":
-if len(sys.argv) > 1:
-    if sys.argv[1] == "--syslogd":
-	from syslogd import Syslogd
-	root = sys.argv[2]
-	output = sys.argv[3]
-	syslog = Syslogd (root, open (output, "a"))
-	# this never returns
-
 # this handles setting up RHupdates for pypackages to minimize the set needed
 setupPythonUpdates()
 

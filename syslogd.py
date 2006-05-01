@@ -67,22 +67,14 @@ class InstSyslog:
         self.pid = os.fork ()
         if not self.pid:
             # look on PYTHONPATH first, so we use updated anaconda
-            path = None
+            path = "/usr/bin/syslogd"
             if os.environ.has_key('PYTHONPATH'):
                 for f in string.split(os.environ['PYTHONPATH'], ":"):
-                    if os.access (f+"/anaconda", os.X_OK):
-                        path = f+"/anaconda"
+                    if os.access (f+"/syslogd", os.X_OK):
+                        path = f+"/syslogd"
                         break
                 
-            if not path:
-                if os.access ("./anaconda", os.X_OK):
-                    path = "./anaconda"
-                elif os.access ("/usr/bin/anaconda.real", os.X_OK):
-                    path = "/usr/bin/anaconda.real"
-                else:
-                    path = "/usr/bin/anaconda"
-                    
-            os.execv (path, ("syslogd", "--syslogd", root, log))
+            os.execv (path, ("syslogd", root, log))
 
     def stop(self):
         if self.pid == -1:

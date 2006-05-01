@@ -1070,6 +1070,8 @@ EOF
 echo "Creating libuser.conf"
 cat > $DEST/etc/libuser.conf <<EOF
 [defaults]
+skeleton = /mnt/sysimage/etc/skel
+mailspooldir = /mnt/sysimage/var/mail
 crypt_style = md5
 modules = files shadow
 create_modules = files shadow
@@ -1172,6 +1174,7 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys
 	cp $p/usr/lib/anaconda/mknod-stub $p/usr/bin/mknod
+	cp $p/usr/lib/anaconda/syslogd-stub $p/usr/bin/syslogd
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
 
