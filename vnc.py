@@ -119,6 +119,29 @@ def askVncWindow():
     screen.finish()
     return -1
 
+def getVNCPassword():
+    # see if there is a vnc password file
+    try:
+        pfile = open("/tmp/vncpassword.dat", "r")
+        vncpassword=pfile.readline().strip()
+        pfile.close()
+        os.unlink("/tmp/vncpassword.dat")
+    except:
+        vncpassword=""
+        pass
+
+    # check length of vnc password
+    if vncpassword != "" and len(vncpassword) < 6:
+        screen = SnackScreen()
+        ButtonChoiceWindow(screen, _('VNC Password Error'),
+                           _('You need to specify a vnc password of at least 6 characters long.\n\n'
+    		     'Press <return> to reboot your system.\n'),
+    		   buttons = (_("OK"),))
+        screen.finish()
+        sys.exit(0)
+
+    return vncpassword
+
 # startup vnc X server
 def startVNCServer(vncpassword="", root='/', vncconnecthost="",
 		   vncconnectport="", vncStartedCB=None):

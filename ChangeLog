@@ -15,6 +15,9 @@
 	* anaconda (startVNCServer):  Moved to vnc.py.
 	* vnc.py (startVNCServer):  Likewise.
 
+	* anaconda:  Refactor into functions.
+	* vnc.py (getVNCPassword):  Moved here from anaconda.
+
 2006-04-27  Chris Lumens  <clumens@redhat.com>
 
 	* partitions.py (Partitions.writeKS):  Emit --useexisting and --noformat
