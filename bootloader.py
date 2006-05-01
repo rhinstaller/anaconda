@@ -4,12 +4,12 @@
 # Erik Troan <ewt@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
-# library public license.
+# general public license.
 #
-# You should have received a copy of the GNU Library Public License
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
@@ -124,14 +124,18 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
 
     kernelList = []
     otherList = []
-    rootDev = fsset.getEntryByMountPoint('/').device.getDevice()
+    root = fsset.getEntryByMountPoint('/')
+    if root:
+        rootDev = root.device.getDevice()
+    else:
+        rootDev = None
     defaultDev = bl.images.getDefault()
 
     kernelLabel = None
     kernelLongLabel = None
 
     for (dev, (label, longlabel, type)) in bl.images.getImages().items():
-	if dev == rootDev:
+        if (dev == rootDev) or (rootDev is None and kernelLabel is None):
 	    kernelLabel = label
             kernelLongLabel = longlabel
 	elif dev == defaultDev:

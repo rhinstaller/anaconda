@@ -1,5 +1,9 @@
 2006-05-01  Jeremy Katz  <katzj@redhat.com>
 
+	* bootloader.py (writeBootloader): Don't traceback if there's no
+	rootdev (eg, rootpath mode) so that we can have a bootloader setup
+	for live CDs. 
+
 	* docs/kickstart-docs.txt: Update for nfs mount options.
 	* docs/command-line.txt: Likewise.
 
