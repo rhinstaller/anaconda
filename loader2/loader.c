@@ -150,7 +150,7 @@ int setupRamdisk(void) {
         gunzip_close(f);
     }
     
-    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL, 0, 0))
+    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL, 0, 0, NULL))
         logMessage("failed to mount ramfs image");
     
     return 0;
@@ -159,7 +159,7 @@ int setupRamdisk(void) {
 
 void setupRamfs(void) {
     mkdirChain("/tmp/ramfs");
-    doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL, 0, 0);
+    doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL, 0, 0, NULL);
 }
 
 
@@ -345,9 +345,9 @@ void loadUpdates(int flags) {
 
         devMakeInode(device, "/tmp/upd.disk");
         if (doPwMount("/tmp/upd.disk", "/tmp/update-disk", "ext2", 1, 0, 
-                      NULL, NULL, 0, 0) && 
+                      NULL, NULL, 0, 0, NULL) && 
             doPwMount("/tmp/upd.disk", "/tmp/update-disk", "iso9660", 1, 0,
-                      NULL, NULL, 0, 0)) {
+                      NULL, NULL, 0, 0, NULL)) {
             newtWinMessage(_("Error"), _("OK"), 
                            _("Failed to mount updates disk"));
         } else {
@@ -645,6 +645,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
             flags |= LOADER_FLAGS_SELINUX;
+        else if (!strncasecmp(argv[i], "nfsmountopts=", 13))
+            loaderData->nfsmountopts = strdup(argv[i] + 13);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */

@@ -123,13 +123,13 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     /* FIXME: really, mountLoopback() should take a list of "valid" 
      * filesystems for the specific type of image being mounted */
     if (doPwMount(filename, mntpoint, "iso9660", 1,
-                  0, NULL, NULL, 0, 0)) {
+                  0, NULL, NULL, 0, 0, NULL)) {
         if (doPwMount(filename, mntpoint, "ext2", 1,
-                      0, NULL, NULL, 0, 0)) {
+                      0, NULL, NULL, 0, 0, NULL)) {
             if (doPwMount(filename, mntpoint, "cramfs", 1,
-                          0, NULL, NULL, 0, 0)) {
+                          0, NULL, NULL, 0, 0, NULL)) {
               if (doPwMount(filename, mntpoint, "vfat", 1,
-                            0, NULL, NULL, 0, 0)) {
+                            0, NULL, NULL, 0, 0, NULL)) {
                 logMessage("failed to mount loop: %s", 
                            strerror(errno));
                 loopfd = open(filename, O_RDONLY);
@@ -209,7 +209,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     if (S_ISBLK(sb.st_mode)) {
 	filetype = 1;
 	if (doPwMount(file, "/tmp/testmnt",
-		      "iso9660", 1, 0, NULL, NULL, 0, 0)) {
+		      "iso9660", 1, 0, NULL, NULL, 0, 0, NULL)) {
 	    logMessage("Failed to mount device %s to get description", file);
 	    return -1;
 	}
@@ -647,9 +647,9 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
     if (devMakeInode(device, "/tmp/srcdev"))
         return 1;
 
-    if ((doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", 1, 0, NULL, NULL, 0, 0)) && 
-        doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", 1, 0, NULL, NULL, 0, 0) && 
-        doPwMount("/tmp/srcdev", "/tmp/mnt", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
+    if ((doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", 1, 0, NULL, NULL, 0, 0, NULL)) && 
+        doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", 1, 0, NULL, NULL, 0, 0, NULL) && 
+        doPwMount("/tmp/srcdev", "/tmp/mnt", "iso9660", 1, 0, NULL, NULL, 0, 0, NULL)) {
         logMessage("failed to mount /dev/%s: %s", device, strerror(errno));
         return 2;
     }

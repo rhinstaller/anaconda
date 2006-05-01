@@ -473,7 +473,7 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "sssiii", &fs, &device, &mntpoint,
 			  &readOnly, &bindMount, &reMount)) return NULL;
 
-    rc = doPwMount(device, mntpoint, fs, readOnly, 0, NULL, NULL, bindMount, reMount);
+    rc = doPwMount(device, mntpoint, fs, readOnly, 0, NULL, NULL, bindMount, reMount, NULL);
     if (rc == IMOUNT_ERR_ERRNO) 
 	PyErr_SetFromErrno(PyExc_SystemError);
     else if (rc)

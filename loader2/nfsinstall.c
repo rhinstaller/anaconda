@@ -120,6 +120,7 @@ char * mountNfsImage(struct installMethod * method,
             int foundinvalid = 0;
             char * buf;
             struct in_addr ip;
+            char * nfsMountOpts = NULL;
 
             if (loaderData->noDns && !(inet_aton(host, &ip))) {
                 newtWinMessage(_("Error"), _("OK"),
@@ -134,6 +135,13 @@ char * mountNfsImage(struct installMethod * method,
             fullPath = alloca(strlen(host) + strlen(directory) + 2);
             sprintf(fullPath, "%s:%s", host, directory);
 
+            if (loaderData->nfsmountopts && *loaderData->nfsmountopts) {
+                nfsMountOpts = strdup(loaderData->nfsmountopts);
+                logMessage("mounting nfs path %s with options %s", fullPath, nfsMountOpts);
+            } else {
+                logMessage("mounting nfs path %s", fullPath);
+            }
+
             logMessage("mounting nfs path %s", fullPath);
 
             if (FL_TESTING(flags)) {
@@ -144,7 +152,7 @@ char * mountNfsImage(struct installMethod * method,
 
             stage = NFS_STAGE_NFS;
 
-            if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0, 0)) {
+            if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0, 0, nfsMountOpts)) {
 		char mntPath[1024];
 
                 logMessage("mounted %s on /mnt/source", fullPath);
@@ -325,7 +333,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
 
     logMessage("file location: nfs://%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/mnt", "nfs", 1, 0, NULL, NULL, 0, 0)) {
+    if (!doPwMount(host, "/tmp/mnt", "nfs", 1, 0, NULL, NULL, 0, 0, NULL)) {
         char * buf;
 
         buf = alloca(strlen(file) + 10);

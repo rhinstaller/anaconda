@@ -15,7 +15,7 @@
 static int mkdirIfNone(char * directory);
 
 int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
-              char * acct, char * pw, int bindmnt, int remount) { 
+              char * acct, char * pw, int bindmnt, int remount, char * extra_opts) { 
     char * buf = NULL;
     int isnfs = 0;
     char * mount_opt = NULL;
@@ -65,12 +65,14 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 	    strcat(buf, dev);
 	} else {
 #ifndef DISABLE_NETWORK
-	    char * extra_opts = NULL;
+	    /* char * extra_opts = NULL; */
 	    int flags = 0;
 
 	    buf = dev;
-	    /*logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
+	    /* logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
 			buf, where);*/
+        fprintf(stderr, "calling nfsmount(%s, %s, &flags, %s, &mount_opt)",
+            buf, where, extra_opts);
 
 	    if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
 		/*logMessage("\tnfsmount returned non-zero");*/

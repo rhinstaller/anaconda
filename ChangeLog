@@ -1,3 +1,21 @@
+2006-05-01  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/nfsinstall.c Add support for passing nfs mount options 
+	by specifying nfsmountopts= on the boot command line.  NOTE: this 
+	syntax will only exist in RHEL4.  For future major releases of
+	RHEL, this will be handled on a more fine-grained basis.  (Brian
+	Long, #168384)
+	* loader/loader.c: Likewise.
+	* loader2/loader.h: Likewise.
+	* isys/imount.c (doPwMount): Pass extra parameters
+	* isys/imount.h: (doPwMount): Prototype.
+	* isys/isys.c: Adjust for new parameter.
+	* loader2/cdinstall.c: Likewise.
+	* loader2/driverdisk.c: Likewise.
+	* loader2/hdinstall.c: Likewise.
+	* loader2/method.c: Likewise.
+	* loader2/usb.c: Likewise.
+
 2006-04-24  David Cantrell  <dcantrell@redhat.com>
 
 	* rescue.py:  Added runShell() to handle spawning the tty1 shell for

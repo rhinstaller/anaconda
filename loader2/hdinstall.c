@@ -189,7 +189,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 
 	/* XXX try to mount as ext2 and then vfat */
 	for (type=typetry; *type; type++) {
-	    if (!doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 1, 0, NULL, NULL, 0, 0))
+	    if (!doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 1, 0, NULL, NULL, 0, 0, NULL))
 		break;
 	}
 
