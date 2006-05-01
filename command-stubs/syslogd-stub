@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import sys
+sys.path.append('/usr/lib/anaconda')
+
+def usage():
+    sys.stderr.write("syslogd [root] [output file]")
+
+if __name__ == "__main__":
+    from syslogd import Syslogd
+    if len(sys.argv) != 3:
+        usage()
+        sys.exit(1)
+    root = sys.argv[1]
+    output = sys.argv[2]
+    syslog = Syslogd (root, open (output, "a"))
