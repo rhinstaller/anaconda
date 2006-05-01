@@ -6,6 +6,7 @@
 struct nfsInstallData {
     char * host;
     char * directory;
+    char * mountOpts;
 };
 
 

@@ -76,6 +76,7 @@ char * mountNfsImage(struct installMethod * method,
                      moduleDeps * modDepsPtr, int flags) {
     char * host = NULL;
     char * directory = NULL;
+    char * mountOpts = NULL;
     char * fullPath = NULL;
     char * path;
     char * url = NULL;
@@ -96,8 +97,9 @@ char * mountNfsImage(struct installMethod * method,
                 loaderData->methodData) {
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;
                 directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
+                mountOpts = ((struct nfsInstallData *)loaderData->methodData)->mountOpts;
 
-                logMessage(INFO, "host is %s, dir is %s", host, directory);
+                logMessage(INFO, "host is %s, dir is %s, opts are '%s'", host, directory, mountOpts);
 
                 if (!host || !directory) {
                     logMessage(ERROR, "missing host or directory specification");
@@ -145,7 +147,7 @@ char * mountNfsImage(struct installMethod * method,
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", 
-                           IMOUNT_RDONLY, NULL)) {
+                           IMOUNT_RDONLY, mountOpts)) {
 		char mntPath[1024];
 
 		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
@@ -243,12 +245,13 @@ char * mountNfsImage(struct installMethod * method,
 
 void setKickstartNfs(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
-    char * host = NULL, * dir = NULL;
+    char * host = NULL, * dir = NULL, * mountOpts = NULL;
     poptContext optCon;
     int rc;
     struct poptOption ksNfsOptions[] = {
         { "server", '\0', POPT_ARG_STRING, &host, 0, NULL, NULL },
         { "dir", '\0', POPT_ARG_STRING, &dir, 0, NULL, NULL },
+        { "opts", '\0', POPT_ARG_STRING, &mountOpts, 0, NULL, NULL},
         { 0, 0, 0, 0, 0, 0, 0 }
     };
 
@@ -275,14 +278,16 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
         ((struct nfsInstallData *)loaderData->methodData)->host = host;
     if (dir)
         ((struct nfsInstallData *)loaderData->methodData)->directory = dir;
+    if (mountOpts)
+        ((struct nfsInstallData *)loaderData->methodData)->mountOpts = mountOpts;
 
-    logMessage(INFO, "results of nfs, host is %s, dir is %s", host, dir);
+    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'", host, dir, mountOpts);
 }
 
 
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData, 
                    int flags) {
-    char * host = NULL, *path = NULL, * file = NULL;
+    char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
 
@@ -314,6 +319,16 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
 
     getHostandPath(url, &host, &path, inet_ntoa(netCfg.dev.ip));
 
+    opts = strchr(host, ':');
+    if (opts && (strlen(opts) > 1)) {
+        char * c = opts;
+        opts = host;
+        host = c + 1;
+        *c = '\0';
+    } else {
+        opts = NULL;
+    }
+
     /* nfs has to be a little bit different... split off the last part as
      * the file and then concatenate host + dir path */
     file = strrchr(path, '/');
@@ -326,7 +341,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
 
     logMessage(INFO, "file location: nfs://%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/mnt", "nfs", IMOUNT_RDONLY, NULL)) {
+    if (!doPwMount(host, "/tmp/mnt", "nfs", IMOUNT_RDONLY, opts)) {
         char * buf;
 
         buf = alloca(strlen(file) + 10);

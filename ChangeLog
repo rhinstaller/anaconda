@@ -1,3 +1,8 @@
+2006-05-01  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/nfsinstall.c: Handle nfs mount options (Dave Lehman, #168384)
+	* loader2/nfsinstall.h: Add mount opts to struct
+
 2006-05-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Remove syslogd mode.
