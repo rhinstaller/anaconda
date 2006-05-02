@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.4
+Version: 11.1.0.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May  1 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.5-1
+- Fix loopback mounted url installs (dcantrel, #189097, #183999)
+- Different message during upgrade post scripts (clumens, #189312)
+- Remove obsolete startx stub (clumens)
+- Default UTC box to checked if we don't find a windows partition (clumens)
+- Fix manual IP config (clumens)
+- Don't change timezone in rootpath mode (Jane Dogalt, #185930)
+- Don't symlink things that don't exist 
+- Don't change network config in rootpath mode (#185930)
+- Warn on lack of space on upgrade (clumens, #189022)
+- Emit --useexisting and --noformat in anaconda-ks.cfg (clumens, #189123)
+- Handle NFS mount options (Dave Lehman, #168384)
+- Do firewall and auth config in rootpath mode
+- Make bootloader code handle live cd case
+
 * Tue Apr 18 2006 Chris Lumens <clumens@redhat.com> 11.1.0.4-1
 - Pass version to mkstamp for discinfo files (jkeating).
 - Fix FTP method handling.
