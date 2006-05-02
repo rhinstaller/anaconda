@@ -177,6 +177,9 @@ def parseOptions():
         runres_override = True
 
     def rootpath_cb (option, opt_str, value, parser):
+        if value.startswith("cd:"):
+            flags.livecd = True
+            value = value[3:]
         parser.values.rootPath = value
         flags.setupFilesystems = False
         flags.rootpath = True

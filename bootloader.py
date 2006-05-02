@@ -31,8 +31,8 @@ from rhpl.translate import _
 import logging
 log = logging.getLogger("anaconda")
 
-from booty import *
-from bootloaderInfo import *
+import booty
+import bootloaderInfo
 from fsset import *
 
 def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
@@ -183,7 +183,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
                  justConfigFile, intf)
 	if not justConfigFile:
 	    w.pop()
-    except BootyNoKernelWarning:
+    except bootloaderInfo.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()
         if intf:
@@ -193,17 +193,9 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
                                  "will not be changed."))
     dosync()
 
-# note that this function no longer actually creates an initrd.
-# the kernel's %post does this now
-def makeInitrd (kernelTag, instRoot):
-    if rhpl.getArch() == 'ia64':
-	initrd = "/boot/efi/initrd%s.img" % (kernelTag, )
-    else:
-	initrd = "/boot/initrd%s.img" % (kernelTag, )
-
-    return initrd
-
 # return instance of the appropriate bootloader for our arch
 def getBootloader():
-    import booty
-    return booty.getBootloader()
+    if not flags.livecd:
+        return booty.getBootloader()
+    else:
+        return bootloaderInfo.isolinuxBootloaderInfo()

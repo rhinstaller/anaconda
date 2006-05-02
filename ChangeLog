@@ -1,5 +1,16 @@
 2006-05-01  Jeremy Katz  <katzj@redhat.com>
 
+	* bootloader.py: Clean up imports
+	(getBootloader): Use isolinuxBootloader for the livecd case.
+
+	* anaconda (rootpath_cb): Allow using --rootpath=cd:/path to
+	specify that we're doing a livecd.  This is likely to change...
+	* flags.py (Flags.__init__): Add livecd flag
+
+	* instdata.py (InstallData.write): It's safe to run authconfig
+	with --nostart in rootpath mode.
+	* firewall.py (Firewall.write): Likewise for lokkit.
+
 	* bootloader.py (writeBootloader): Don't traceback if there's no
 	rootdev (eg, rootpath mode) so that we can have a bootloader setup
 	for live CDs. 
