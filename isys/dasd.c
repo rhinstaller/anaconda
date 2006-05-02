@@ -7,13 +7,18 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <linux/types.h>
 #include <linux/fs.h>
 
 #include "isys.h"
 
 #if defined(__s390__) || defined(__s390x__)
+#define u8 __u8
+#define u16 __u16
+#define u32 __u32
+#define u64 __u64
+#include <asm/dasd.h>
 #include <asm/vtoc.h>
+typedef struct vtoc_volume_label volume_label_t;
 #endif
 
 

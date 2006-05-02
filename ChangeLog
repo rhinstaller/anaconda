@@ -1,5 +1,9 @@
 2006-05-01  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/dasd.c: Fix the s390 build for real with a temporary hack
+
+2006-05-01  Jeremy Katz  <katzj@redhat.com>
+	
 	* anaconda.spec: Bump version.
 
 	* isys/net.h: Include <linux/types.h> for ethtool.h
