@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.5
+Version: 11.1.0.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May  1 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.6-1
+- fix build
+
 * Mon May  1 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.5-1
 - Fix loopback mounted url installs (dcantrel, #189097, #183999)
 - Different message during upgrade post scripts (clumens, #189312)
