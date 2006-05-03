@@ -51,6 +51,26 @@ class AnacondaBackend:
         if flags.setupFilesystems:
             syslog.stop()
 
+        if id.partitions.isKickstart:
+            for svc in id.ksdata.services["disabled"]:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       ["/sbin/chkconfig", svc, "off"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root="/mnt/sysimage")
+
+            for svc in id.ksdata.services["enabled"]:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       ["/sbin/chkconfig", svc, "on"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root="/mnt/sysimage")
+
+            for ud in id.ksdata.userList:
+                if id.users.createUser(ud.name, ud.password, ud.isCrypted,
+                                       ud.groups, ud.homedir, ud.shell,
+                                       ud.uid) == None:
+                    log.error("User %s already exists, not creating." % ud.name)
+        
+
     def doInstall(self, intf, id, instPath):
         pass
 

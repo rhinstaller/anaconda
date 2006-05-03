@@ -1,3 +1,13 @@
+2006-05-03  Chris Lumens  <clumens@redhat.com>
+
+	* backend.py (AnacondaBackend.doPostInstall):  Enable/disable services
+	and create users after installation.
+	* instdata.py:  Remove password-related code.
+	* kickcstart.py (AnacondaKSHandlers.doServices,
+	AnacondaKSHandlers.doUser):  Add new command handlers.
+	* users.py:  Added back in code to create users, since kickstart can
+	do this now.
+
 2006-05-03  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.c: Don't include kernel fs headers -- the e2fsprogs

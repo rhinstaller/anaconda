@@ -29,7 +29,7 @@ import iscsi
 import zfcp
 import urllib
 import iutil
-import libuser
+import users
 from flags import *
 from constants import *
 
@@ -38,23 +38,6 @@ import rhpl.keyboard as keyboard
 
 import logging
 log = logging.getLogger("anaconda")
-
-def cryptPassword(password, useMD5):
-    import crypt
-    import random
-
-    if useMD5:
-	salt = "$1$"
-	saltLen = 8
-    else:
-	salt = ""
-	saltLen = 2
-
-    for i in range(saltLen):
-	salt = salt + random.choice (string.letters +
-                                     string.digits + './')
-
-    return crypt.crypt (password, salt)
 
 # Collector class for all data related to an install/upgrade.
 
@@ -74,6 +57,7 @@ class InstallData:
 	self.firewall = firewall.Firewall()
         self.security = security.Security()
 	self.timezone = timezone.Timezone()
+        self.users = users.Users()
         self.rootPassword = { "isCrypted": False, "password": "" }
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
@@ -92,6 +76,9 @@ class InstallData:
         self.upgradeRemove = []
         self.upgradeInfoFound = None
         self.firstboot = FIRSTBOOT_DEFAULT
+        # XXX I expect this to die in the future when we have a single data
+        # class and translate ksdata into that instead.
+        self.ksdata = None
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c
@@ -123,6 +110,9 @@ class InstallData:
     def setHeadless(self, isHeadless):
         self.isHeadless = isHeadless
 
+    def setKsdata(self, ksdata):
+        self.ksdata = ksdata
+
     # if upgrade is None, it really means False.  we use None to help the
     # installer ui figure out if it's the first time the user has entered
     # the examine_gui screen.   --dcantrell
@@ -151,7 +141,7 @@ class InstallData:
         args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
 
         try:
-            if not flags.test:
+            if flags.setupFilesystems:
                 iutil.execWithRedirect("/usr/bin/authconfig", args,
                                        stdout = None, stderr = None,
                                        searchPath = 1, root = instPath)
@@ -164,15 +154,9 @@ class InstallData:
         self.security.write (instPath)
 
         # User should already exist, just without a password.
-        self.luAdmin = libuser.admin()
-        rootUser = self.luAdmin.lookupUserByName("root")
+        self.users.setRootPassword(self.rootPassword["password"],
+                                   self.rootPassword["isCrypted"], useMD5)
 
-        if self.rootPassword["isCrypted"]:
-            self.luAdmin.setpassUser(rootUser, self.rootPassword["password"], True)
-            self.luAdmin.modifyUser(rootUser)
-        else:
-            self.luAdmin.setpassUser(rootUser, cryptPassword(self.rootPassword["password"], useMD5), True)
-            self.luAdmin.modifyUser(rootUser)
 
     def writeKS(self, filename):
         if self.auth.find("--enablemd5"):

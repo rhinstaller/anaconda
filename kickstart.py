@@ -524,6 +524,9 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doSELinux(self, args)
         id.instClass.setSELinux(id, self.ksdata.selinux)
 
+    def doServices(self, id, args):
+        KickstartHandlers.doServices(self, args)
+
     def doSkipX(self, id, args):
         KickstartHandlers.doSkipX(self, args)
         self.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
@@ -543,6 +546,9 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doUpgrade(self, id, args):
         KickstartHandlers.doUpgrade(self, args)
         id.setUpgrade(True)
+
+    def doUser(self, id, args):
+        KickstartHandlers.doUser(self, args)
 
     def doVnc(self, id, args):
         KickstartHandlers.doVnc(self, args)
@@ -810,6 +816,8 @@ class Kickstart(BaseInstallClass):
                 sys.exit(0)
             else:
                 raise KickstartError, e
+
+        self.id.setKsdata(self.ksdata)
 
     def _havePackages(self):
         return len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
