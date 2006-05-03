@@ -935,6 +935,22 @@ Creating the Kickstart File
            If this is present, SELinux is enabled, but only logs things that
            would be denied in enforcing mode.
 
+   services (optional)
+
+       Modifies the default set of services that will run under the default
+       runlevel.  The services listed in the disabled list will be disabled
+       before the services listed in the enabled list are enabled.
+
+       services [--disabled=<list>] [--enabled=<list>]
+
+       --disabled=
+
+           Disable the services given in the comma separated list.
+
+       --enabled=
+
+           Enable the services given in the comma separated list.
+
    skipx (optional)
 
        If present, X is not configured on the installed system.
@@ -962,6 +978,47 @@ Creating the Kickstart File
        a fresh system. You must specify one of cdrom, harddrive, nfs, or
        url (for ftp and http) as the location of the installation tree.
        Refer to install for details.
+
+   user (optional)
+
+       Creates a new user on the system.
+
+       user --name=<username> [--groups=<list>] [--homedir=<homedir>]
+            [--password=<password>] [--iscrypted] [--shell=<shell>]
+            [--uid=<uid>]
+
+       --name=
+
+           Provides the name of the user.  This option is required.
+
+       --groups=
+
+           In addition to the default group, a comma separated list of
+           group names the user should belong to.
+
+       --homedir=
+
+           The home directory for the user.  If not provided, this defaults
+           to /home/<username>.
+
+       --password=
+
+           The new user's password.  If not provided, the account will be
+           locked by default.
+
+       --iscrypted
+
+           Is the password provided by --password already encrypted or not?
+
+       --shell=
+
+           The user's login shell.  If not provided, this defaults to the
+           system default.
+
+       --uid=
+
+           The user's UID.  If not provided, this defaults to the next
+           available non-system UID.
 
    vnc (optional)
 
