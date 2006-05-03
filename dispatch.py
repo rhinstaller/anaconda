@@ -19,7 +19,6 @@ from constants import *
 from packages import writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
-from packages import queryUpgradeContinue
 from packages import doPostAction
 from packages import copyAnacondaLogs
 from autopart import doAutoPartition
@@ -33,7 +32,7 @@ from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
-from upgrade import findRootParts
+from upgrade import findRootParts, queryUpgradeContinue
 from network import networkDeviceCheck
 from installmethod import doMethodComplete
 
@@ -58,28 +57,21 @@ log = logging.getLogger("anaconda")
 
 installSteps = [
     ("welcome", ()),
-    ("betanag", betaNagScreen, ("intf", "dir")),
+    ("betanag", betaNagScreen, ("anaconda",)),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),
-    ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
+    ("findrootparts", findRootParts, ("anaconda",)),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("installtype", ("dispatch", "id", "method", "intf")),
     ("iscsi", ("id.iscsi", "intf")),
     ("zfcpconfig", ("id.zfcp", "id.diskset", "intf")),
-    ("partitionobjinit", partitionObjectsInitialize, ("id.diskset",
-                                                      "id.partitions",
-                                                      "dir", "intf",
-                                                      "dispatch")),
+    ("partitionobjinit", partitionObjectsInitialize, ("anaconda",)),
     ("parttype", ("id.diskset", "id.partitions", "intf", "dispatch")),    
-    ("autopartitionexecute", doAutoPartition, ("dir", "id.diskset",
-                                               "id.partitions", "intf",
-                                               "id.instClass", "dispatch")),
+    ("autopartitionexecute", doAutoPartition, ("anaconda",)),
     ("partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),
-    ("upgrademount", upgradeMountFilesystems, ("intf", "id.upgradeRoot",
-                                               "id.fsset", "instPath")),
-    ("upgradecontinue", queryUpgradeContinue, ("intf", "dir")),
-    ("upgradeswapsuggestion", upgradeSwapSuggestion, ("dispatch", "id",
-                                                      "instPath")),
+    ("upgrademount", upgradeMountFilesystems, ("anaconda",)),
+    ("upgradecontinue", queryUpgradeContinue, ("anaconda",)),
+    ("upgradeswapsuggestion", upgradeSwapSuggestion, ("anaconda",)),
     ("addswap", ("intf", "id.fsset", "instPath",
                  "id.upgradeSwapInfo", "dispatch")),
     ("partitiondone", partitioningComplete, ("id.bootloader", "id.fsset",
@@ -134,11 +126,11 @@ installSteps = [
 class Dispatcher:
 
     def gotoPrev(self):
-	self.dir = -1
+	self.dir = DISPATCH_BACK
 	self.moveStep()
 
     def gotoNext(self):
-	self.dir = 1
+	self.dir = DISPATCH_FORWARD
 	self.moveStep()
 
     def canGoBack(self):
@@ -211,10 +203,8 @@ class Dispatcher:
                 log.info("moving (%d) to step %s" %(self.dir, info[0]))
 		(func, args) = info[1:]
 		rc = apply(func, self.bindArgs(args))
-		if rc == DISPATCH_BACK:
-		    self.dir = -1
-		elif rc == DISPATCH_FORWARD:
-		    self.dir = 1
+                if rc in [DISPATCH_BACK, DISPATCH_FORWARD]:
+		    self.dir = rc
 		# if anything else, leave self.dir alone
 
 	    self.step = self.step + self.dir
@@ -259,16 +249,25 @@ class Dispatcher:
 
 	return (step, args)
 
-    def __init__(self, intf, id, method, instPath, backend):
-	self.dir = DISPATCH_FORWARD
+    def __init__(self, anaconda):
+        self.anaconda = anaconda
+	self.anaconda.dir = DISPATCH_FORWARD
 	self.step = None
 	self.skipSteps = {}
 
-	self.id = id
+	self.id = anaconda.id
 	self.flags = flags
-	self.intf = intf
-	self.method = method
+	self.intf = anaconda.intf
+	self.method = anaconda.method
 	self.dispatch = self
-	self.instPath = instPath
-        self.backend = backend
+	self.instPath = anaconda.rootPath
+        self.backend = anaconda.backend
 	self.firstStep = 0
+
+    def _getDir(self):
+        return self.anaconda.dir
+
+    def _setDir(self, dir):
+        self.anaconda.dir = dir
+
+    dir = property(_getDir,_setDir)

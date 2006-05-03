@@ -11,6 +11,21 @@
 	* kickstart.py (AnacondaKSParser.handleCommand):  Don't traceback if
 	pykickstart gets support for a new command before anaconda.
 
+        * instdata.py (InstallData.writeKS):  Fix root password traceback.
+
+        * anaconda:  Clean up dispatcher call mess.  Get rid of instPath.
+        * dispatch.py:  Start to make things use anaconda class.
+        * autopart.py (doAutoPartition):  Use anaconda object.
+        * packages.py (betaNagScreen):  Use anaconda object.
+        (queryUpgradeContinue):  Moved back to upgrade.py.
+        * partitioning.py (partitionObjectsInitialize):  Use anaconda object.
+        * upgrade.py (findRootParts, upgradeMountFilesystems,
+        upgradeSwapSuggestion):  Use anaconda object.
+        (queryUpgradeContinue):  Moved back from packages.py.
+        * iw/confirm_gui.py:  Change import.
+        * iw/upgrade_swap_gui.py:  Likewise.
+        * iw/zipl_gui.py:  Remove unused code.
+
 2006-05-03  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.c: Don't include kernel fs headers -- the e2fsprogs

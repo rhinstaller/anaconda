@@ -37,20 +37,20 @@ import partRequests
 
 from rhpl.translate import _
 
-def partitionObjectsInitialize(diskset, partitions, dir, intf, dispatch):
-    if dir == DISPATCH_BACK:
-        diskset.closeDevices()
+def partitionObjectsInitialize(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        anaconda.id.diskset.closeDevices()
         isys.flushDriveDict()
         return
 
     # read in drive info
-    diskset.refreshDevices(intf, partitions.reinitializeDisks,
-                           partitions.zeroMbr, partitions.autoClearPartDrives)
+    anaconda.id.diskset.refreshDevices(anaconda.intf, anaconda.id.partitions.reinitializeDisks,
+                           anaconda.id.partitions.zeroMbr, anaconda.id.partitions.autoClearPartDrives)
 
-    diskset.checkNoDisks(intf)
+    anaconda.id.diskset.checkNoDisks(anaconda.intf)
 
-    partitions.setFromDisk(diskset)
-    partitions.setProtected(dispatch)
+    anaconda.id.partitions.setFromDisk(anaconda.id.diskset)
+    anaconda.id.partitions.setProtected(anaconda.dispatch)
 
 def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
     if dir == DISPATCH_BACK and fsset.isActive():

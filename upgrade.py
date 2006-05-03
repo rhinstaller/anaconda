@@ -43,23 +43,39 @@ upgrade_remove_blacklist = [("system-config-mouse",), ("dev",)]
 if rhpl.getArch() == "x86_64":
     upgrade_remove_blacklist.extend( [("perl","i386"), ("e2fsprogs", "i386")] )
 
-def findRootParts(intf, id, dispatch, dir, chroot):
-    if dir == DISPATCH_BACK:
+def queryUpgradeContinue(anaconda):
+    if anaconda.dir == DISPATCH_FORWARD:
         return
-    if id.rootParts is None:
-        id.rootParts = findExistingRoots(intf, id, chroot)
 
-    id.upgradeRoot = []
-    for (dev, fs, meta) in id.rootParts:
-        id.upgradeRoot.append( (dev, fs) )
+    rc = anaconda.intf.messageWindow(_("Proceed with upgrade?"),
+                       _("The file systems of the Linux installation "
+                         "you have chosen to upgrade have already been "
+                         "mounted. You cannot go back past this point. "
+                         "\n\n") + 
+                       _("Would you like to continue with the upgrade?"),
+                         type="custom", custom_icon=["error","error"],
+                         custom_buttons=[_("Reboot"), _("Yes")])
+    if rc == 0:
+        sys.exit(0)
+    return DISPATCH_FORWARD
 
-    if id.rootParts is not None and len(id.rootParts) > 0:
-        dispatch.skipStep("findinstall", skip = 0)
+def findRootParts(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        return
+    if anaconda.id.rootParts is None:
+        anaconda.id.rootParts = findExistingRoots(anaconda.intf, anaconda.id, anaconda.rootPath)
+
+    anaconda.id.upgradeRoot = []
+    for (dev, fs, meta) in anaconda.id.rootParts:
+        anaconda.id.upgradeRoot.append( (dev, fs) )
+
+    if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
+        anaconda.dispatch.skipStep("findinstall", skip = 0)
         if productName.find("Red Hat Enterprise Linux") == -1:
-            dispatch.skipStep("installtype", skip = 1)
+            anaconda.dispatch.skipStep("installtype", skip = 1)
     else:
-        dispatch.skipStep("findinstall", skip = 1)
-        dispatch.skipStep("installtype", skip = 0)
+        anaconda.dispatch.skipStep("findinstall", skip = 1)
+        anaconda.dispatch.skipStep("installtype", skip = 0)
 
 def findExistingRoots(intf, id, chroot, upgradeany = 0):
     if not flags.setupFilesystems:
@@ -165,7 +181,7 @@ def upgradeMigrateFind(dispatch, thefsset):
     
 
 # returns None if no more swap is needed
-def upgradeSwapSuggestion(dispatch, id, instPath):
+def upgradeSwapSuggestion(anaconda):
     # mem is in kb -- round it up to the nearest 4Mb
     mem = iutil.memInstalled()
     rem = mem % 16384
@@ -173,7 +189,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
 	mem = mem + (16384 - rem)
     mem = mem / 1024
 
-    dispatch.skipStep("addswap", 0)
+    anaconda.dispatch.skipStep("addswap", 0)
     
     # don't do this if we have more then 250 MB
     if mem > 250:
@@ -185,21 +201,21 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     # if we have twice as much swap as ram and at least 192 megs
     # total, we're safe 
     if (swap >= (mem * 1.5)) and (swap + mem >= 192):
-        dispatch.skipStep("addswap", 1)
+        anaconda.dispatch.skipStep("addswap", 1)
 	return
 
     # if our total is 512 megs or more, we should be safe
     if (swap + mem >= 512):
-        dispatch.skipStep("addswap", 1)
+        anaconda.dispatch.skipStep("addswap", 1)
 	return
 
     fsList = []
 
-    for entry in id.fsset.entries:
+    for entry in anaconda.id.fsset.entries:
         if entry.fsystem.getName() in fsset.getUsableLinuxFs():
             if flags.setupFilesystems and not entry.isMounted():
                 continue
-            space = isys.pathSpaceAvailable(instPath + entry.mountpoint)
+            space = isys.pathSpaceAvailable(anaconda.rootPath + entry.mountpoint)
             if space > 16:
                 info = (entry.mountpoint, entry.device.getDevice(), space)
                 fsList.append(info)
@@ -215,7 +231,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
 	if (size > suggSize) and (size > (suggestion + 100)):
 	    suggMnt = mnt
 
-    id.upgradeSwapInfo = (fsList, suggestion, suggMnt)
+    anaconda.id.upgradeSwapInfo = (fsList, suggestion, suggMnt)
 
 def swapfileExists(swapname):
     try:
@@ -264,21 +280,21 @@ def createSwapFile(instPath, theFsset, mntPoint, size):
     f.close()
 
 # XXX handle going backwards
-def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
+def upgradeMountFilesystems(anaconda):
     # mount everything and turn on swap
 
     if flags.setupFilesystems:
 	try:
-	    mountRootPartition(intf, rootInfo[0], oldfsset, instPath,
-                               allowDirty = 0)
+	    mountRootPartition(anaconda.intf, anaconda.id.upgradeRoot[0], anaconda.id.fsset,
+                               anaconda.rootPath, allowDirty = 0)
 	except SystemError, msg:
-	    intf.messageWindow(_("Mount failed"),
+	    anaconda.intf.messageWindow(_("Mount failed"),
 		_("One or more of the file systems listed in the "
 		  "/etc/fstab on your Linux system cannot be mounted. "
 		  "Please fix this problem and try to upgrade again."))
 	    sys.exit(0)
         except RuntimeError, msg:
-            intf.messageWindow(_("Mount failed"),
+            anaconda.intf.messageWindow(_("Mount failed"),
 		_("One or more of the file systems listed in the "
                   "/etc/fstab of your Linux system are inconsistent and "
                   "cannot be mounted.  Please fix this problem and try to "
@@ -290,8 +306,8 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
                        '/bin/sh', '/usr/tmp')
 	badLinks = []
 	for n in checkLinks:
-	    if not os.path.islink(instPath + n): continue
-	    l = os.readlink(instPath + n)
+	    if not os.path.islink(anaconda.rootPath + n): continue
+	    l = os.readlink(anaconda.rootPath + n)
 	    if l[0] == '/':
 		badLinks.append(n)
 
@@ -302,14 +318,14 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 			"symbolic links and restart the upgrade.\n\n")
 	    for n in badLinks:
 		message = message + '\t' + n + '\n'
-	    intf.messageWindow(_("Absolute Symlinks"), message)
+	    anaconda.intf.messageWindow(_("Absolute Symlinks"), message)
 	    sys.exit(0)
 
         # fix for 80446
         badLinks = []
         mustBeLinks = ( '/usr/tmp', )
         for n in mustBeLinks:
-            if not os.path.islink(instPath + n):
+            if not os.path.islink(anaconda.rootPath + n):
                 badLinks.append(n)
 
         if badLinks: 
@@ -319,24 +335,22 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
                         "as symbolic links and restart the upgrade.\n\n")
             for n in badLinks:
                 message = message + '\t' + n + '\n'
-	    intf.messageWindow(_("Invalid Directories"), message)
+	    anaconda.intf.messageWindow(_("Invalid Directories"), message)
 	    sys.exit(0)
            
-        bindMountDevDirectory(instPath)
+        bindMountDevDirectory(anaconda.rootPath)
     else:
-        if not os.access (instPath + "/etc/fstab", os.R_OK):
-            rc = intf.messageWindow(_("Warning"),
+        if not os.access (anaconda.rootPath + "/etc/fstab", os.R_OK):
+            rc = anaconda.intf.messageWindow(_("Warning"),
                                     _("%s not found")
-                                    % (instPath + "/etc/fstab",),
+                                    % (anaconda.rootPath + "/etc/fstab",),
                                   type="ok")
             return DISPATCH_BACK
             
-	newfsset = fsset.readFstab(instPath + '/etc/fstab', intf)
+	newfsset = fsset.readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
         for entry in newfsset.entries:
-            oldfsset.add(entry)
+            anaconda.id.fsset.add(entry)
         
     if flags.setupFilesystems:
-        oldfsset.turnOnSwap(instPath, upgrading=True)
-        oldfsset.mkDevRoot(instPath)
-
-
+        anaconda.id.fsset.turnOnSwap(anaconda.rootPath, upgrading=True)
+        anaconda.id.fsset.mkDevRoot(anaconda.rootPath)

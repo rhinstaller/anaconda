@@ -1087,7 +1087,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
 # this the first time
-def doClearPartAction(partitions, diskset):
+def doClearPartAction(anaconda, partitions, diskset):
     type = partitions.autoClearPartType
     cleardrives = partitions.autoClearPartDrives
 
@@ -1149,7 +1149,7 @@ def doClearPartAction(partitions, diskset):
             # /boot/efi as it could contain system utils.
             # doesn't apply on kickstart installs or if no boot flag
             if ((rhpl.getArch() == "ia64") and (linuxOnly == 1)
-                and (not partitions.isKickstart) and
+                and (not anaconda.isKickstart) and
                 part.is_flag_available(parted.PARTITION_BOOT)):
                 if part.fs_type and (part.fs_type.name == "FAT"
                                      or part.fs_type.name == "fat16"
@@ -1170,7 +1170,7 @@ def doClearPartAction(partitions, diskset):
             elif (((iutil.getPPCMachine() == "pSeries") or
                    (iutil.getPPCMachine() == "iSeries"))
                   and (linuxOnly == 1)
-                  and (not partitions.isKickstart) and
+                  and (not anaconda.isKickstart) and
                   part.is_flag_available(parted.PARTITION_BOOT) and
                   (part.native_type == 0x41) and
                   part.get_flag(parted.PARTITION_BOOT)):
@@ -1205,18 +1205,18 @@ def doClearPartAction(partitions, diskset):
             deletePart(diskset, delete)
             continue
     
-def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
-    if instClass.name and instClass.name == "kickstart":
-        isKickstart = 1
-	# XXX hack
-	partitions.setProtected(dispatch)
-    else:
-        isKickstart = 0
+def doAutoPartition(anaconda):
+    instClass = anaconda.id.instClass
+    diskset = anaconda.id.diskset
+    partitions = anaconda.id.partitions
 
-    if dir == DISPATCH_BACK:
+    if anaconda.isKickstart:
+	partitions.setProtected(anaconda.dispatch)
+
+    if anaconda.dir == DISPATCH_BACK:
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
-        partitions.setProtected(dispatch)
+        partitions.setProtected(anaconda.dispatch)
         partitions.autoPartitionRequests = []
         return
 
@@ -1232,7 +1232,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     # XXX only do this if we're dirty
 ##     id.diskset.refreshDevices()
 ##     id.partrequests = PartitionRequests(id.diskset)
-    doClearPartAction(partitions, diskset)
+    doClearPartAction(anaconda, partitions, diskset)
 
     # XXX clearpartdrives is overloaded as drives we want to use for linux
     drives = []
@@ -1265,7 +1265,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             # get the preexisting partition they want to use
             req = partitions.getRequestByDeviceName(request.device)
             if not req or not req.type or req.type != REQUEST_PREEXIST:
-                intf.messageWindow(_("Requested Partition Does Not Exist"),
+                anaconda.intf.messageWindow(_("Requested Partition Does Not Exist"),
                                    _("Unable to locate partition %s to use "
                                      "for %s.\n\n"
                                      "Press 'OK' to reboot your system.")
@@ -1293,7 +1293,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
               request.preexist == 1):
             req = partitions.getRequestByDeviceName(request.device)
             if not req or req.preexist == 0:
-                 intf.messageWindow(_("Requested Raid Device Does Not Exist"),
+                 anaconda.intf.messageWindow(_("Requested Raid Device Does Not Exist"),
                                     _("Unable to locate raid device %s to use "
                                       "for %s.\n\n"
                                       "Press 'OK' to reboot your system.")
@@ -1325,7 +1325,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             # get the preexisting partition they want to use
             req = partitions.getRequestByVolumeGroupName(request.volumeGroupName)
             if not req or req.preexist == 0 or req.format == 1:
-                 intf.messageWindow(_("Requested Volume Group Does Not Exist"),
+                 anaconda.intf.messageWindow(_("Requested Volume Group Does Not Exist"),
                                     _("Unable to locate volume group %s to use "
                                       "for %s.\n\n"
                                       "Press 'OK' to reboot your system.")
@@ -1363,7 +1363,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             # get the preexisting partition they want to use
             req = partitions.getRequestByLogicalVolumeName(request.logicalVolumeName)
             if not req or req.preexist == 0:
-                intf.messageWindow(_("Requested Logical Volume Does Not Exist"),
+                anaconda.intf.messageWindow(_("Requested Logical Volume Does Not Exist"),
                                    _("Unable to locate logical volume %s to use "
                                      "for %s.\n\n"
                                      "Press 'OK' to reboot your system.")
@@ -1478,7 +1478,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     for req in partitions.requests:
         errors = req.sanityCheckRequest(partitions)
         if errors:
-            intf.messageWindow(_("Automatic Partitioning Errors"),
+            anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
                                _("The following errors occurred with your "
                                  "partitioning:\n\n%s\n\n"
                                  "Press 'OK' to reboot your system.") %
@@ -1488,8 +1488,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
     except PartitioningWarning, msg:
-        if not isKickstart:
-            intf.messageWindow(_("Warnings During Automatic Partitioning"),
+        if not anaconda.isKickstart:
+            anaconda.intf.messageWindow(_("Warnings During Automatic Partitioning"),
                            _("Following warnings occurred during automatic "
                            "partitioning:\n\n%s") % (msg.value,),
 			       custom_icon='warning')
@@ -1499,17 +1499,17 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         # restore drives to original state
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
-        if not isKickstart:
+        if not anaconda.isKickstart:
             extra = ""
-            dispatch.skipStep("partition", skip = 0)
+            anaconda.dispatch.skipStep("partition", skip = 0)
         else:
             extra = _("\n\nPress 'OK' to reboot your system.")
-        intf.messageWindow(_("Error Partitioning"),
+        anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
                  "%s.%s") % (msg.value, extra), custom_icon='error')
 
 
-        if isKickstart:
+        if anaconda.isKickstart:
             sys.exit(0)
 
     # now do a full check of the requests
@@ -1519,14 +1519,14 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             lvmLog.warning(warning)
     if errors:
         errortxt = string.join(errors, '\n')
-        if isKickstart:
+        if anaconda.isKickstart:
             extra = _("\n\nPress 'OK' to reboot your system.")
         else:
             extra = _("\n\nYou can choose a different automatic partitioning "
                       "option, or click 'Back' to select manual partitioning."
                       "\n\nPress 'OK' to continue.")
             
-        intf.messageWindow(_("Automatic Partitioning Errors"),
+        anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
                            _("The following errors occurred with your "
                              "partitioning:\n\n%s\n\n"
 			     "This can happen if there is not enough "
@@ -1537,8 +1537,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 	#
 	# XXX if in kickstart we reboot
 	#
-	if isKickstart:
-	    intf.messageWindow(_("Unrecoverable Error"),
+	if anaconda.isKickstart:
+	    anaconda.intf.messageWindow(_("Unrecoverable Error"),
 			       _("Your system will now be rebooted."))
 	    sys.exit(0)
         return DISPATCH_BACK

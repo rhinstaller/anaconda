@@ -546,12 +546,11 @@ class Anaconda:
         self.methodstr = None
         self.backend = None
         self.rootPath = None
-        self.instPath = None
         self.dispatch = None
         self.isKickstart = False
 
     def setDispatch(self):
-        self.dispatch = dispatch.Dispatcher(self.intf, self.id, self.method, self.rootPath, self.backend)
+        self.dispatch = dispatch.Dispatcher(self)
 
     def setMethod(self):
         if self.methodstr.startswith('cdrom://'):

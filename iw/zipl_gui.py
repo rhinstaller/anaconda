@@ -19,7 +19,6 @@ import iutil
 import string
 from iw_gui import *
 from rhpl.translate import _, N_
-from packages import queryUpgradeContinue
 
 class ZiplWindow (InstallWindow):
     checkMark = None
@@ -35,25 +34,6 @@ class ZiplWindow (InstallWindow):
         # avoid coming back in here if the user backs past and then tries
         # to skip this screen
 	pass
-
-	# XXX
-	#
-        # if doing an upgrade, offer choice of aborting upgrade.
-        # we can't allow them to go back in install, since we've
-        # started swap and mounted the systems filesystems
-        # if we've already started an upgrade, cannot back out
-        #
-        # if we are skipping indivual package selection, must stop it here
-        # very messy.
-        #
-        #if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
-            #rc = queryUpgradeContinue(self.todo.intf)
-            #if not rc:
-                #raise gui.StayOnScreen
-            #else:
-                #import sys
-                #print _("Aborting upgrade")
-                #sys.exit(0)
 
     def getNext (self):
         self.bl.args.set(self.kernelEntry.get_text())

@@ -40,22 +40,6 @@ import rhpl.arch
 import logging
 log = logging.getLogger("anaconda")
 
-def queryUpgradeContinue(intf, dir):
-    if dir == DISPATCH_FORWARD:
-        return
-
-    rc = intf.messageWindow(_("Proceed with upgrade?"),
-                       _("The file systems of the Linux installation "
-                         "you have chosen to upgrade have already been "
-                         "mounted. You cannot go back past this point. "
-                         "\n\n") + 
-                       _("Would you like to continue with the upgrade?"),
-                         type="custom", custom_icon=["error","error"],
-                         custom_buttons=[_("Reboot"), _("Yes")])
-    if rc == 0:
-        sys.exit(0)
-    return DISPATCH_FORWARD
-
 def doPostAction(id, instPath, intf = None):
     id.instClass.postAction(instPath, flags.serial, intf)
 
@@ -353,13 +337,13 @@ def recreateInitrd (kernelTag, instRoot):
                            stdout = None, stderr = None,
                            searchPath = 1, root = instRoot)
 
-def betaNagScreen(intf, dir):
+def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",
                     "Red Hat Enterprise Linux": "Red Hat Enterprise Linux Public Beta",
                     "Fedora Core": "Fedora Core" }
 
     
-    if dir == DISPATCH_BACK:
+    if anaconda.dir == DISPATCH_BACK:
 	return DISPATCH_NOOP
 
     fileagainst = None
@@ -370,7 +354,7 @@ def betaNagScreen(intf, dir):
         fileagainst = "%s Beta" %(productName,)
     
     while 1:
-	rc = intf.messageWindow( _("Warning! This is pre-release software!"),
+	rc = anaconda.intf.messageWindow( _("Warning! This is pre-release software!"),
 				 _("Thank you for downloading this "
 				   "pre-release of %s.\n\n"
 				   "This is not a final "
@@ -393,7 +377,7 @@ def betaNagScreen(intf, dir):
             else:
                 msg =  _("Your system will now be rebooted...")
                 buttons = [_("_Back"), _("_Reboot")]
-	    rc = intf.messageWindow( _("Rebooting System"),
+	    rc = anaconda.intf.messageWindow( _("Rebooting System"),
                                      msg,
                                      type="custom", custom_icon="warning",
                                      custom_buttons=buttons)
