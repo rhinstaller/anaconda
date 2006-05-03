@@ -37,9 +37,6 @@ def has_lvm():
             os.access("/sbin/lvm", os.X_OK)):
         return
 
-    if iutil.getArch() == "s390" and not os.access("/proc/devices", os.R_OK):
-        return
-    
     f = open("/proc/devices", "r")
     lines = f.readlines()
     f.close()
