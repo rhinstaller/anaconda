@@ -706,7 +706,13 @@ class AnacondaKSParser(KickstartParser):
             if self.handler.handlers[cmd] != None:
                 self.handler.currentCmd = cmd
                 self.handler.lineno = lineno
-                self.handler.handlers[cmd](self.id, cmdArgs)
+
+                # Don't crash if pykickstart gets rebuilt with a new command
+                # before anaconda also supports it.
+                try:
+                    self.handler.handlers[cmd](self.id, cmdArgs)
+                except TypeError:
+                    log.warning("anaconda does not yet support the %s kickstart command, ignoring for now" % cmd)
 
 # The anaconda kickstart processor.
 class Kickstart(BaseInstallClass):

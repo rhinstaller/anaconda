@@ -3,10 +3,13 @@
 	* backend.py (AnacondaBackend.doPostInstall):  Enable/disable services
 	and create users after installation.
 	* instdata.py:  Remove password-related code.
-	* kickcstart.py (AnacondaKSHandlers.doServices,
+	* kickstart.py (AnacondaKSHandlers.doServices,
 	AnacondaKSHandlers.doUser):  Add new command handlers.
 	* users.py:  Added back in code to create users, since kickstart can
 	do this now.
+
+	* kickstart.py (AnacondaKSParser.handleCommand):  Don't traceback if
+	pykickstart gets support for a new command before anaconda.
 
 2006-05-03  Jeremy Katz  <katzj@redhat.com>
 
