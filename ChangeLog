@@ -1,3 +1,8 @@
+2006-05-03  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.c: Don't include kernel fs headers -- the e2fsprogs
+	ones have what we need.
+
 2006-05-01  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/dasd.c: Fix the s390 build for real with a temporary hack
