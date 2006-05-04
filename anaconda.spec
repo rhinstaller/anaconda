@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.6
+Version: 11.1.0.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 04 2006 Paul Nasrat <pnasrat@redhat.com> - 11.1.0.7-1
+- class Anaconda (pnasrat, clumens)
+- User/service kickstart handlers (clumens)
+- Don't include kernel fs headers (katzj)
+
 * Mon May  1 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.6-1
 - fix build
 
