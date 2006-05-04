@@ -1,7 +1,7 @@
 #
 # timezone_text.py: text mode timezone selection dialog
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -61,11 +61,11 @@ class TimezoneWindow:
     def currentTime(self):
 	return "Current time: " + strftime("%X %Z", localtime(time()))
 
-    def __call__(self, screen, instLang, timezone):
+    def __call__(self, screen, anaconda):
 	timezones = self.getTimezoneList()
-	(default, asUtc, asArc) = timezone.getTimezoneInfo()
+	(default, asUtc, asArc) = anaconda.id.timezone.getTimezoneInfo()
         if not default:
-	    default = instLang.getDefaultTimeZone()
+	    default = anaconda.id.instLanguage.getDefaultTimeZone()
 
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 
@@ -119,7 +119,7 @@ class TimezoneWindow:
                 break
 
         screen.popWindow()
-	timezone.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
+	anaconda.id.timezone.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
 
 	return INSTALL_OK
 

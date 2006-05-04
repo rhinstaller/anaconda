@@ -74,8 +74,8 @@ class GroupSelectionWindow:
         else:
             map(lambda x: x.groups.append(grpid), txmbrs)
     
-    def __call__(self, screen, backend, intf):
-        self.ayum = backend.ayum
+    def __call__(self, screen, anaconda):
+        self.ayum = anaconda.backend.ayum
         
         g = GridFormHelp(screen, "Package Group Selection",
                          "packagetree", 1, 5)
@@ -86,7 +86,7 @@ class GroupSelectionWindow:
 
         # FIXME: this is very yum backend specific...
         groups = filter(lambda x: x.user_visible,
-                        backend.ayum.comps.groups)
+                        anaconda.backend.ayum.comps.groups)
         groups.sort(_ui_comps_sort)
         ct = CheckboxTree(height = 6, scroll = (len(groups) > 6))
         for grp in groups:
@@ -155,8 +155,8 @@ class GroupSelectionWindow:
         sel = ct.getSelection()
         for g in groups:
             if g in sel and not g.selected:
-                backend.selectGroup(g.groupid)
+                anaconda.backend.selectGroup(g.groupid)
             elif g not in sel and g.selected:
-                backend.deselectGroup(g.groupid)
+                anaconda.backend.deselectGroup(g.groupid)
 
         return INSTALL_OK

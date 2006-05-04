@@ -1,7 +1,7 @@
 #
 # timezone_gui.py: gui timezone selection.
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -90,12 +90,12 @@ class TimezoneWindow(InstallWindow):
         return None
 
     # TimezoneWindow tag="timezone"
-    def getScreen(self, instLang, timezone):
-        self.timezone = timezone
+    def getScreen(self, anaconda):
+        self.timezone = anaconda.id.timezone
         (self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
 
         if not self.default:
-            self.default = instLang.getDefaultTimeZone()
+            self.default = anaconda.id.instLanguage.getDefaultTimeZone()
             asUTC = 0
 
         if (string.find(self.default, "UTC") != -1):
@@ -107,7 +107,7 @@ class TimezoneWindow(InstallWindow):
 
         # As long as we don't find a Windows partition, check the UTC box.
         foundWindows = False
-        for (k,v) in self.getICS().cw.id.bootloader.images.getImages().iteritems():
+        for (k,v) in anaconda.id.bootloader.images.getImages().iteritems():
             if v[0].lower() == 'other' and v[2] in dosFilesystems:
                 foundWindows = True
                 break

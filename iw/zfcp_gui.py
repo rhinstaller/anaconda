@@ -3,7 +3,7 @@
 #
 # Karsten Hopp <karsten@redhat.com>
 #
-# Copyright 2000-2004 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -70,15 +70,15 @@ class ZFCPWindow(InstallWindow):
 
 
     # ZFCPWindow tag="zfcpconf"
-    def getScreen(self, fcp, diskset, intf):
-        self.diskset = diskset
-        self.intf = intf
-        self.options = fcp.options
+    def getScreen(self, anaconda):
+        self.diskset = anaconda.id.diskset
+        self.intf = anaconda.intf
+        self.options = anaconda.id.zfcp.options
         box = gtk.VBox(False)
         box.set_border_width(6)
         fcp.cleanFcpSysfs(fcp.fcpdevices)
-        self.fcp = fcp
-        self.fcpdevices = copy.copy(fcp.fcpdevices)
+        self.fcp = ancaonda.id.zfcp
+        self.fcpdevices = copy.copy(self.fcp.fcpdevices)
         
         devvbox = gtk.VBox(False)
 

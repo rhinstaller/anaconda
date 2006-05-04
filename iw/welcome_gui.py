@@ -26,7 +26,7 @@ class WelcomeWindow (InstallWindow):
         ics.setGrabNext (1)
 
     # WelcomeWindow tag="wel"
-    def getScreen (self):
+    def getScreen (self, anaconda):
         pix = gui.readImageFromFile("splash.png", dither=False)
         box = gtk.EventBox ()
         box.add (pix)

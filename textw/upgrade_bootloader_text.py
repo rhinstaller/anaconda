@@ -24,19 +24,19 @@ import checkbootloader
 
 class UpgradeBootloaderWindow:
 
-    def __call__(self, screen, dispatch, bl):
-        self.dispatch = dispatch
-        self.bl = bl
+    def __call__(self, screen, anaconda):
+        self.dispatch = anaconda.dispatch
+        self.bl = anaconda.id.bootloader
 
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(dispatch.instPath)
+                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
 
         blradio = RadioGroup()
 
         (update, newbl, nobl) = (0, 0, 0)
-        if not dispatch.stepInSkipList("bootloader"):
+        if not self.dispatch.stepInSkipList("bootloader"):
             newbl = 1
-        elif dispatch.stepInSkipList("instbootloader"):
+        elif self.dispatch.stepInSkipList("instbootloader"):
             nobl = 1
         else:
             if self.type is not None and self.bootDev is not None:

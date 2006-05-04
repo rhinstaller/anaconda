@@ -79,10 +79,10 @@ class MainBootloaderWindow(InstallWindow):
             widget.set_sensitive(active)
             
         
-    def getScreen(self, dispatch, bl, fsset, diskSet):
-        self.dispatch = dispatch
-        self.bl = bl
-        self.intf = dispatch.intf
+    def getScreen(self, anaconda):
+        self.dispatch = anaconda.dispatch
+        self.bl = anaconda.id.bootloader
+        self.intf = anaconda.intf
 
         if self.bl.getPassword():
             self.usePass = 1
@@ -103,12 +103,12 @@ class MainBootloaderWindow(InstallWindow):
             self.blname = None
 
         # make sure we get a valid device to say we're installing to
-        if bl.getDevice() is not None:
-            self.bldev = bl.getDevice()
+        if self.bl.getDevice() is not None:
+            self.bldev = self.bl.getDevice()
         else:
             # we don't know what it is yet... if mbr is possible, we want
             # it, else we want the boot dev
-            choices = fsset.bootloaderChoices(diskSet, self.bl)
+            choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset, self.bl)
             if choices.has_key('mbr'):
                 self.bldev = choices['mbr'][0]
             else:
@@ -138,14 +138,13 @@ class MainBootloaderWindow(InstallWindow):
         thebox.pack_start(spacer, False)
 
         # configure the systems available to boot from the boot loader
-        self.oslist = OSBootWidget(bl, fsset, diskSet, self.parent,
-                                   self.intf, self.blname)
+        self.oslist = OSBootWidget(anaconda, self.parent, self.blname)
         thebox.pack_start(self.oslist.getWidget(), False)
 
         thebox.pack_start (gtk.HSeparator(), False)
 
         # control whether or not there's a boot loader password and what it is
-        self.blpass = BootloaderPasswordWidget(bl, self.parent, self.intf)
+        self.blpass = BootloaderPasswordWidget(anaconda, self.parent)
         thebox.pack_start(self.blpass.getWidget(), False)
 
         thebox.pack_start (gtk.HSeparator(), False)
@@ -153,7 +152,7 @@ class MainBootloaderWindow(InstallWindow):
         # check box to control showing the advanced screen
         self.advanced = gtk.CheckButton(_("Configure advanced boot loader "
                                           "_options"))
-        if dispatch.stepInSkipList("bootloaderadvanced"):
+        if self.dispatch.stepInSkipList("bootloaderadvanced"):
             self.advanced.set_active(False)
         else:
             self.advanced.set_active(True)

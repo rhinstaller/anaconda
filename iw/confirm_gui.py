@@ -22,6 +22,23 @@ import sys
 
 class ConfirmWindow (InstallWindow):
 
+    def getNext(self):
+        if self.anaconda.methodstr.startswith("cdrom://") and not self.anaconda.isKickstart:
+	    rc = presentRequiredMediaMessage(self.anaconda.intf, self.anaconda.id.grpset)
+	    if rc == 0:
+		rc2 = self.anaconda.intf.messageWindow(_("Reboot?"),
+					_("The system will be rebooted now."),
+					type="custom", custom_icon="warning",
+					custom_buttons=[_("_Back"), _("_Reboot")])
+		if rc2 == 1:
+		    sys.exit(0)
+		else:
+		    raise gui.StayOnScreen
+            elif rc == 1: # they asked to go back
+                self.anaconda.intf.icw.prevClicked()
+                raise gui.StayOnScreen
+                return DISPATCH_BACK
+
     # ConfirmWindow tag="aboutupgrade" or "aboutinstall"
     def getScreen (self, labelText, longText):
         hbox = gtk.HBox (True, 5)
@@ -57,27 +74,9 @@ class InstallConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Install")
     htmlTag = "aboutinstall"
 
-    def getNext(self):
-	if self.id.methodstr.startswith("cdrom://") and (self.id.instClass.name and self.id.instClass.name != "kickstart"):
-	    rc = presentRequiredMediaMessage(self.intf, self.id.grpset)
-	    if rc == 0:
-		rc2 = self.intf.messageWindow(_("Reboot?"),
-					_("The system will be rebooted now."),
-					type="custom", custom_icon="warning",
-					custom_buttons=[_("_Back"), _("_Reboot")])
-		if rc2 == 1:
-		    sys.exit(0)
-		else:
-		    raise gui.StayOnScreen
-            elif rc == 1: # they asked to go back
-                self.intf.icw.prevClicked()
-                raise gui.StayOnScreen
-                return DISPATCH_BACK
+    def getScreen(self, anaconda):
+        self.anaconda = anaconda
 
-    def getScreen(self, intf, id):
-	self.intf = intf
-	self.id = id
-	
 	return ConfirmWindow.getScreen(self,
 	    _("Click next to begin installation of %s.") % (productName,),
 	    _("A complete log of the installation can be found in "
@@ -90,27 +89,9 @@ class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
     htmlTag = "aboutupgrade"
 
-    def getNext(self):
-	if self.id.methodstr.startswith("cdrom://") and (self.id.instClass.name and self.id.instClass.name != "kickstart"):
-	    rc = presentRequiredMediaMessage(self.intf, self.id.grpset)
-	    
-	    if rc == 0:
-		rc2 = self.intf.messageWindow(_("Reboot?"),
-					_("The system will be rebooted now."),
-					type="custom", custom_icon="warning",
-					custom_buttons=[_("_Back"), _("_Reboot")])
-		if rc2 == 1:
-		    sys.exit(0)
-		else:
-		    raise gui.StayOnScreen
-            elif rc == 1: # they asked to go back
-                self.intf.icw.prevClicked()
-                raise gui.StayOnScreen
-                return DISPATCH_BACK
+    def getScreen(self, anaconda):
+        self.anaconda = anaconda
 
-    def getScreen(self, intf, id):
-	self.intf = intf
-	self.id = id
 	return ConfirmWindow.getScreen(self,
             _("Click next to begin upgrade of %s.") % (productName,),
             _("A complete log of the upgrade can be found in "

@@ -24,13 +24,13 @@ from driveorderwidget import DriveOrderWidget
 class BootloaderLocationWidget:
     """Widget to set where to install the boot loader to"""
     
-    def __init__(self, bl, fsset, diskset, parent, intf):
-        self.bl = bl
-        self.fsset = fsset
-        self.diskset = diskset
+    def __init__(self, anaconda, parent):
+        self.bl = anaconda.id.bootloader
+        self.fsset = anaconda.id.fsset
+        self.diskset = anaconda.id.diskset
         self.parent = parent
-        self.intf = intf
-        self.driveOrder = bl.drivelist
+        self.intf = anaconda.intf
+        self.driveOrder = self.bl.drivelist
         self.usingGrub = self.bl.useGrub()
 
         locationBox = gtk.VBox (False, 2)
@@ -44,7 +44,7 @@ class BootloaderLocationWidget:
         spacer.set_size_request(10, 1)
         locationBox.pack_start(spacer, False)
 
-        choices = fsset.bootloaderChoices(diskset, self.bl)
+        choices = self.fsset.bootloaderChoices(self.diskset, self.bl)
         self.bootDevices = {}
         
 	if choices:

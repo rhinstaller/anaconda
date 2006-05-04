@@ -1652,9 +1652,9 @@ def getAutopartitionBoot():
     else:
         return [ ("/boot", None, 100, None, 0, 1, 0) ]
 
-def queryAutoPartitionOK(intf, diskset, partitions):
-    type = partitions.autoClearPartType
-    drives = partitions.autoClearPartDrives
+def queryAutoPartitionOK(anaconda):
+    type = anaconda.id.partitions.autoClearPartType
+    drives = anaconda.id.partitions.autoClearPartDrives
 
     if type == CLEARPART_TYPE_LINUX:
         msg = CLEARPART_TYPE_LINUX_WARNING_MSG
@@ -1667,7 +1667,7 @@ def queryAutoPartitionOK(intf, diskset, partitions):
 
     drvstr = "\n\n"
     if drives == None:
-        drives = diskset.disks.keys()
+        drives = anaconda.id.diskset.disks.keys()
 
     drives.sort()
     width = 44
@@ -1686,7 +1686,7 @@ def queryAutoPartitionOK(intf, diskset, partitions):
              str = "%-*s" % (maxlen, "/dev/"+drive)
     drvstr = drvstr + str + "\n"
     
-    rc = intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no", custom_icon ="warning")
+    rc = anaconda.intf.messageWindow(_("Warning"), _(msg) % drvstr, type="yesno", default="no", custom_icon ="warning")
 
     return rc
 

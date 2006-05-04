@@ -197,22 +197,22 @@ class NetworkDeviceWindow:
         return INSTALL_OK
 
 
-    def __call__(self, screen, network, dir, intf, id, showonboot=1):
+    def __call__(self, screen, anaconda, showonboot=1):
 
-        self.devices = network.available()
+        self.devices = anaconda.id.network.available()
         if not self.devices:
             return INSTALL_NOOP
 
         list = self.devices.keys()
         list.sort(cmp=isys.compareNetDevices)
         devLen = len(list)
-        if dir == 1:
+        if anaconda.dir == DISPATCH_FORWARD:
             currentDev = 0
         else:
             currentDev = devLen - 1
 
         while currentDev < devLen and currentDev >= 0:
-            rc = self.runScreen(screen, network,
+            rc = self.runScreen(screen, anaconda.id.network,
                                 self.devices[list[currentDev]],
                                 showonboot)
             if rc == INSTALL_BACK:
@@ -243,8 +243,8 @@ class NetworkGlobalWindow:
             return isys.inet_calcGateway(bcast)
         return ""
             
-    def __call__(self, screen, network, dir, intf, id):
-        devices = network.available()
+    def __call__(self, screen, anaconda):
+        devices = anaconda.id.network.available()
         if not devices:
             return INSTALL_NOOP
 
@@ -259,8 +259,8 @@ class NetworkGlobalWindow:
         gwEntry = Entry(16)
         # if it's set already, use that... otherwise, get the first
         # non-dhcp and active device and use it to guess the gateway
-        if network.gateway:
-            gwEntry.set(network.gateway)
+        if anaconda.id.network.gateway:
+            gwEntry.set(anaconda.id.network.gateway)
         else:
             gwEntry.set(self.getFirstGatewayGuess(devices))
         thegrid.setField(gwEntry, 1, 0, padding = (1, 0, 0, 0))
@@ -299,25 +299,25 @@ class NetworkGlobalWindow:
             if val and sanityCheckIPString(val) is None:
                 badIPDisplay(screen, val)
                 continue
-            network.gateway = val
+            anaconda.id.network.gateway = val
 
             val = ns1Entry.value()
             if val and sanityCheckIPString(val) is None:
                 badIPDisplay(screen, val)
                 continue
-            network.primaryNS = val
+            anaconda.id.network.primaryNS = val
 
             val = ns2Entry.value()
             if val and sanityCheckIPString(val) is None:
                 badIPDisplay(screen, val)
                 continue
-            network.secondaryNS = val
+            anaconda.id.network.secondaryNS = val
 
             val = ns3Entry.value()
             if val and sanityCheckIPString(val) is None:
                 badIPDisplay(screen, val)
                 continue
-            network.ternaryNS = val
+            anaconda.id.network.ternaryNS = val
             break
 
         screen.popWindow()        
@@ -333,15 +333,15 @@ class HostnameWindow:
 
         hostEntry.setFlags(FLAG_DISABLED, sense)
             
-    def __call__(self, screen, network, dir, intf, id):
-        devices = network.available ()
+    def __call__(self, screen, anaconda):
+        devices = anaconda.id.network.available ()
         if not devices:
             return INSTALL_NOOP
 
         # figure out if the hostname is currently manually set
         if anyUsingDHCP(devices):
-            if (network.hostname != "localhost.localdomain" and
-                network.overrideDHCPhostname):
+            if (anaconda.id.network.hostname != "localhost.localdomain" and
+                anaconda.id.network.overrideDHCPhostname):
                 manual = 1
             else:
                 manual = 0
@@ -357,8 +357,8 @@ class HostnameWindow:
         manualCb = radio.add(_("manually"), "manual", manual)
         thegrid.setField(manualCb, 0, 1, anchorLeft = 1)
         hostEntry = Entry(24)
-        if network.hostname != "localhost.localdomain":
-            hostEntry.set(network.hostname)
+        if anaconda.id.network.hostname != "localhost.localdomain":
+            hostEntry.set(anaconda.id.network.hostname)
         thegrid.setField(hostEntry, 1, 1, padding = (1, 0, 0, 0),
                          anchorLeft = 1)            
 
@@ -397,8 +397,8 @@ class HostnameWindow:
                 return INSTALL_BACK
 
             if radio.getSelection() != "manual":
-                network.overrideDHCPhostname = 0
-                network.hostname = "localhost.localdomain"
+                anaconda.id.network.overrideDHCPhostname = 0
+                anaconda.id.network.hostname = "localhost.localdomain"
             else:
                 hname = string.strip(hostEntry.value())
                 if len(hname) == 0:
@@ -415,8 +415,8 @@ class HostnameWindow:
                                        buttons = [ _("OK") ])
                     continue
 
-                network.overrideDHCPhostname = 1
-                network.hostname = hname
+                anaconda.id.network.overrideDHCPhostname = 1
+                anaconda.id.network.hostname = hname
             break
 
         screen.popWindow()

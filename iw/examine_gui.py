@@ -1,8 +1,7 @@
 #
 # examine_gui.py: dialog to allow selection of a RHL installation to upgrade
-#                 and if the user wishes to select individual packages.
 #
-# Copyright 2000-2003 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -36,22 +35,18 @@ class UpgradeExamineWindow (InstallWindow):
 	if self.doupgrade:
             # set the install class to be an upgrade
             c = UpgradeClass(flags.expert)
-            c.setSteps(self.dispatch)
-            c.setInstallData(self.id)
+            c.setSteps(self.anaconda.dispatch)
+            c.setInstallData(self.anaconda)
 
 	    rootfs = self.parts[self.upgradecombo.get_active()]
-            self.id.upgradeRoot = [(rootfs[0], rootfs[1])]
-            self.id.rootParts = self.parts
+            self.anaconda.id.upgradeRoot = [(rootfs[0], rootfs[1])]
+            self.anaconda.id.rootParts = self.parts
 
-            if self.individualPackages is not None and self.individualPackages.get_active():
-                self.dispatch.skipStep("indivpackage", skip = 0)
-            else:
-                self.dispatch.skipStep("indivpackage")
-            self.dispatch.skipStep("installtype", skip = 1)
-            self.id.upgrade = True
+            self.anaconda.dispatch.skipStep("installtype", skip = 1)
+            self.anaconda.id.upgrade = True
         else:
-            self.dispatch.skipStep("installtype", skip = 0)
-            self.id.upgrade = False
+            self.anaconda.dispatch.skipStep("installtype", skip = 0)
+            self.anaconda.id.upgrade = False
 	
         return None
 
@@ -76,8 +71,6 @@ class UpgradeExamineWindow (InstallWindow):
     def upgradeOptionsSetSensitivity(self, state):
 	self.uplabel.set_sensitive(state)
 	self.upgradecombo.set_sensitive(state)
-	if self.individualPackages is not None:
-	    self.individualPackages.set_sensitive(state)
 
     def optionToggled(self, widget, name):
 	if name == UPGRADE_STR:
@@ -85,19 +78,16 @@ class UpgradeExamineWindow (InstallWindow):
 	    self.doupgrade = widget.get_active()
 
     #UpgradeExamineWindow tag = "upgrade"
-    def getScreen (self, dispatch, intf, id, chroot):
-        self.dispatch = dispatch
-        self.intf = intf
-        self.id = id
-        self.chroot = chroot
+    def getScreen (self, anaconda):
+        self.anaconda = anaconda
 
-	if self.id.upgrade == None:
+	if self.anaconda.id.upgrade == None:
 	    # this is the first time we've entered this screen
-	    self.doupgrade = dispatch.stepInSkipList("installtype")
+	    self.doupgrade = self.anaconda.dispatch.stepInSkipList("installtype")
 	else:
-	    self.doupgrade = self.id.upgrade
+	    self.doupgrade = self.anaconda.id.upgrade
 
-        self.parts = self.id.rootParts 
+        self.parts = self.anaconda.id.rootParts 
 
         vbox = gtk.VBox (False, 10)
 	vbox.set_border_width (8)
@@ -115,21 +105,6 @@ class UpgradeExamineWindow (InstallWindow):
 
         vbox.pack_start (box, False)
         self.root = self.parts[0]
-
-#
-# lets remove this seemingly useless option - clutters display
-#
-#        self.individualPackages = gtk.CheckButton (_("_Customize packages to be "
-#                                                    "upgraded"))
-#        self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
-#	ipbox = gtk.HBox(False)
-#	crackhbox = gtk.HBox(False)
-#	crackhbox.set_size_request(70, -1)
-#	ipbox.pack_start(crackhbox, False, False)
-#	ipbox.pack_start(self.individualPackages, True, True)
-#	r.packWidgetInEntry(UPGRADE_STR, ipbox)
-        self.individualPackages = None
-
 
 	# hack hack hackity hack
 	upboxtmp = gtk.VBox(False, 5)
@@ -175,7 +150,7 @@ class UpgradeExamineWindow (InstallWindow):
 	# set default
 	idx = 0
 	for p in self.parts:
-	    if self.id.upgradeRoot[0][0] == p[0]:
+	    if self.anaconda.id.upgradeRoot[0][0] == p[0]:
 	        self.upgradecombo.set_active(idx)
 	        break
 	    idx = idx + 1

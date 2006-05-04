@@ -49,7 +49,7 @@ def size_string (size):
         else:
             return _("%s Bytes") %(number_format(size),)
 
-class InstallProgressWindow_NEW (InstallWindow):
+class InstallProgressWindow (InstallWindow):
 
     windowTitle = N_("Installing Packages")
     htmlTag = "installing"
@@ -251,13 +251,13 @@ class InstallProgressWindow_NEW (InstallWindow):
         width = widget.get_allocation ()[2] - 50
 
     # InstallProgressWindow tag="installing"
-    def getScreen (self, dir, intf, id):
+    def getScreen (self, anaconda):
         import glob
 
-	self.intf = intf
+	self.intf = anaconda.intf
 
-	if dir == DISPATCH_BACK:
-	    intf.icw.prevClicked()
+	if anaconda.dir == DISPATCH_BACK:
+	    self.intf.icw.prevClicked()
 
 	    return
 
@@ -292,7 +292,7 @@ class InstallProgressWindow_NEW (InstallWindow):
             files = ["progress_first.png"]
 
         #--Need to merge with if statement above...don't show ads in lowres
-        if intf.runres != '800x600':
+        if self.intf.runres != '800x600':
             files = ["progress_first-lowres.png"]
 
         # sort the list of filenames
@@ -367,10 +367,8 @@ class InstallProgressWindow_NEW (InstallWindow):
 
 	# some sort of table for status
 	statusflag = 0
-	for m in ['http://', 'ftp://']:
-	    if id.methodstr.startswith(m):
-		statusflag = 1
-		break
+        if anaconda.methodstr.startswith("http://") or anaconda.methodstr.startswith("ftp://"):
+	    statusflag = 1
 
 	if statusflag:
 	    statusTable = gtk.Table (2, 2, False)
@@ -382,8 +380,8 @@ class InstallProgressWindow_NEW (InstallWindow):
 	    self.pkgstatus = None
 	
 	# All done with creating components of UI
-	intf.setPackageProgressWindow (self)
-	id.setInstallProgressClass(self)
+	self.intf.setPackageProgressWindow (self)
+	anaconda.id.setInstallProgressClass(self)
 
 	vbox.set_border_width (5)
 

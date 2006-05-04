@@ -56,13 +56,12 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.bl.setDevice(self.bootDev)
 
 
-    def getScreen(self, dispatch, bl):
-        self.dispatch = dispatch
-        self.bl = bl
-        self.intf = dispatch.intf
+    def getScreen(self, anaconda):
+        self.dispatch = anaconda.dispatch
+        self.bl = anaconda.id.bootloader
 
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(dispatch.instPath)
+                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
 
 
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
@@ -117,9 +116,9 @@ class UpgradeBootloaderWindow (InstallWindow):
             default = self.nobl_radio
         
 
-        if not dispatch.stepInSkipList("bootloader"):
+        if not self.dispatch.stepInSkipList("bootloader"):
             self.newbl_radio.set_active(True)
-        elif dispatch.stepInSkipList("instbootloader"):
+        elif self.dispatch.stepInSkipList("instbootloader"):
             self.nobl_radio.set_active(True)
         else:
             default.set_active(True)

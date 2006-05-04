@@ -69,16 +69,16 @@ class AccountWindow (InstallWindow):
                                         custom_icon="error")
                 passwordError()
 
-        self.rootPw["password"] = self.pw.get_text()
+        self.rootPassword["password"] = self.pw.get_text()
         return None
 
     def setFocus (self, area, data):
         self.pw.grab_focus ()
 
     # AccountWindow tag="accts"
-    def getScreen (self, intf, rootPw):
-	self.rootPw = rootPw
-        self.intf = intf
+    def getScreen (self, anaconda):
+	self.rootPassword = anaconda.id.rootPassword
+        self.intf = anaconda.intf
 
 	self.passwords = {}
 
@@ -136,8 +136,8 @@ class AccountWindow (InstallWindow):
         wrapper.pack_start (self.rootStatus)
         box.pack_start (wrapper, False)
 
-        if not self.rootPw["isCrypted"]:
-	    self.pw.set_text(self.rootPw["password"])
-	    self.confirm.set_text(self.rootPw["password"])
+        if not self.rootPassword["isCrypted"]:
+	    self.pw.set_text(self.rootPassword["password"])
+	    self.confirm.set_text(self.rootPassword["password"])
 
         return box

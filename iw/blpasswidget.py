@@ -21,13 +21,13 @@ from rhpl.translate import _, N_
 
 
 class BootloaderPasswordWidget:
-    def __init__(self, bl, parent, intf):
+    def __init__(self, anaconda, parent):
         self.parent = parent
-        self.intf = intf
+        self.intf = anaconda.intf
         
-        if bl.getPassword():
+        if anaconda.id.bootloader.getPassword():
             usePass = 1
-            self.password = bl.getPassword()
+            self.password = anaconda.id.bootloader.getPassword()
         else:
             usePass = 0
             self.password = None

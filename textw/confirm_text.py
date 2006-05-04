@@ -18,7 +18,7 @@ from rhpl.translate import _
 from image import presentRequiredMediaMessage
 
 class BeginInstallWindow:
-    def __call__ (self, screen, intf, id):
+    def __call__ (self, screen, anaconda):
         rc = ButtonChoiceWindow (screen, _("Installation to begin"),
                                 _("A complete log of your installation will be in "
                                   "%s after rebooting your system. You "
@@ -28,11 +28,11 @@ class BeginInstallWindow:
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
 
-	if id.methodstr.startswith("cdrom://") and (id.instClass.name and id.instClass.name != "kickstart"):
-	    rc = presentRequiredMediaMessage(intf, id.grpset)
+        if anaconda.methodstr.startswith("cdrom://") and not anaconda.isKickstart:
+	    rc = presentRequiredMediaMessage(anaconda.intf, anaconda.id.grpset)
 
 	    if rc == 0:
-		rc2 = intf.messageWindow(_("Reboot?"),
+		rc2 = anaconda.intf.messageWindow(_("Reboot?"),
 					_("The system will be rebooted now."),
 					type="custom", custom_icon="warning",
 					custom_buttons=[_("_Back"), _("_Reboot")])
@@ -46,7 +46,7 @@ class BeginInstallWindow:
         return INSTALL_OK
 
 class BeginUpgradeWindow:
-    def __call__ (self, screen, intf, id) :
+    def __call__ (self, screen, anaconda):
         rc = ButtonChoiceWindow (screen, _("Upgrade to begin"),
                                 _("A complete log of your upgrade will be in "
                                   "%s after rebooting your system. You "
@@ -56,11 +56,11 @@ class BeginUpgradeWindow:
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
 
-	if id.methodstr.startswith("cdrom://") and (id.instClass.name and id.instClass.name != "kickstart"):
-	    rc = presentRequiredMediaMessage(intf, id.grpset)
+        if anaconda.methodstr.startswith("cdrom://") and not anaconda.isKickstart:
+	    rc = presentRequiredMediaMessage(anaconda.intf, anaconda.id.grpset)
 
 	    if rc == 0:
-		rc2 = intf.messageWindow(_("Reboot?"),
+		rc2 = anaconda.intf.messageWindow(_("Reboot?"),
 					_("The system will be rebooted now."),
 					type="custom", custom_icon="warning",
 					custom_buttons=[_("_Back"), _("_Reboot")])

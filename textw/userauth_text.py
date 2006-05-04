@@ -23,7 +23,7 @@ def has_bad_chars(pw):
     return 0
 
 class RootPasswordWindow:
-    def __call__ (self, screen, intf, rootPw):
+    def __call__ (self, screen, anaconda):
         toplevel = GridFormHelp (screen, _("Root Password"), "rootpw", 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
@@ -33,11 +33,11 @@ class RootPasswordWindow:
 				"root password is a critical part "
 				"of system security!")), 0, 0, (0, 0, 0, 1))
 
-        if rootPw["isCrypted"]:
-            rootPw["password"] = ""
+        if anaconda.id.rootPassword["isCrypted"]:
+            anaconda.id.rootPassword["password"] = ""
 
-        entry1 = Entry (24, password = 1, text = rootPw["password"])
-        entry2 = Entry (24, password = 1, text = rootPw["password"])
+        entry1 = Entry (24, password = 1, text = anaconda.id.rootPassword["password"])
+        entry2 = Entry (24, password = 1, text = anaconda.id.rootPassword["password"])
         passgrid = Grid (2, 2)
         passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
         passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
@@ -77,5 +77,5 @@ class RootPasswordWindow:
             entry2.set ("")
 
         screen.popWindow()
-        rootPw["password"] = entry1.value()
+        anaconda.id.rootPassword["password"] = entry1.value()
         return INSTALL_OK

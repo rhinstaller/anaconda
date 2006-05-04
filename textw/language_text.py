@@ -25,18 +25,18 @@ import logging
 log = logging.getLogger("anaconda")
 
 class LanguageWindow:
-    def __call__(self, screen, textInterface, instLanguage):
-        languages = instLanguage.available ()
+    def __call__(self, screen, anaconda):
+        languages = anaconda.id.instLanguage.available ()
         languages.sort()
 
-        current = instLanguage.getCurrent()
+        current = anaconda.id.instLanguage.getCurrent()
 
         height = min((8, len(languages)))
 	buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON]
 
         translated = []
         for lang in languages:
-            translated.append ((_(lang), instLanguage.getNickByName(lang)))
+            translated.append ((_(lang), anaconda.id.instLanguage.getNickByName(lang)))
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
@@ -47,28 +47,28 @@ class LanguageWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        if ((instLanguage.getFontFile(choice) == "none")):
+        if ((anaconda.id.instLanguage.getFontFile(choice) == "none")):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),
                                buttons=[TEXT_OK_BUTTON])
-            instLanguage.setRuntimeDefaults(choice)
+            anaconda.id.instLanguage.setRuntimeDefaults(choice)
             return INSTALL_OK
 
         if (flags.setupFilesystems and
-            instLanguage.getFontFile(choice) == "none"
-            and textInterface.isRealConsole()):
+            anaconda.id.instLanguage.getFontFile(choice) == "none"
+            and anaconda.intf.isRealConsole()):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  "
                                "The installation will continue in "
                                "English." % (choice,),
                                buttons=[TEXT_OK_BUTTON])
-            instLanguage.setRuntimeDefaults(choice)
+            anaconda.id.instLanguage.setRuntimeDefaults(choice)
             return INSTALL_OK
 
-	instLanguage.setRuntimeLanguage(choice)
-	instLanguage.setDefault(choice)
+	anaconda.id.instLanguage.setRuntimeLanguage(choice)
+	anaconda.id.instLanguage.setDefault(choice)
                 
-	textInterface.drawFrame()
+	anaconda.intf.drawFrame()
 	    
         return INSTALL_OK

@@ -22,12 +22,12 @@ import bootloader
 
 class BootloaderChoiceWindow:
 
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):
+    def __call__(self, screen, anaconda):
         # XXX need more text here
         t = TextboxReflowed(53,
                    _("Which boot loader would you like to use?"))
 
-        if dispatch.stepInSkipList("instbootloader"):
+        if anaconda.dispatch.stepInSkipList("instbootloader"):
             useGrub = 0
             noBl = 1
         else:
@@ -70,15 +70,15 @@ class BootloaderChoiceWindow:
 				width = 50)
                 if rc == "no":
                     continue
-                dispatch.skipStep("instbootloader", skip = (rc == "yes"))
-                dispatch.skipStep("bootloaderadvanced", skip = (rc == "yes"))
+                anaconda.dispatch.skipStep("instbootloader", skip = (rc == "yes"))
+                anaconda.dispatch.skipStep("bootloaderadvanced", skip = (rc == "yes"))
 
                 # kind of a hack...
-                bl.defaultDevice = None
+                anaconda.id.bootloader.defaultDevice = None
             else:
-                bl.setUseGrub(1)
-                dispatch.skipStep("instbootloader", 0)
-                dispatch.skipStep("bootloaderadvanced", 0)                
+                anaconda.id.bootloader.setUseGrub(1)
+                anaconda.dispatch.skipStep("instbootloader", 0)
+                anaconda.dispatch.skipStep("bootloaderadvanced", 0)                
 
             screen.popWindow()
             return INSTALL_OK
@@ -86,8 +86,8 @@ class BootloaderChoiceWindow:
 
 class BootloaderAppendWindow:
 
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):
-	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
+    def __call__(self, screen, anaconda):
+	if anaconda.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
         
 	t = TextboxReflowed(53,
 		     _("A few systems will need to pass special options "
@@ -97,10 +97,10 @@ class BootloaderAppendWindow:
 		       "aren't sure, leave this blank."))
 
 	entry = Entry(48, scroll = 1, returnExit = 1)
-	entry.set(bl.args.get())
+	entry.set(anaconda.id.bootloader.args.get())
 
         cb = Checkbox(_("Force use of LBA32 (not normally required)"))
-        if bl.forceLBA32:
+        if anaconda.id.bootloader.forceLBA32:
             cb.setValue("*")
 
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
@@ -120,8 +120,8 @@ class BootloaderAppendWindow:
                 screen.popWindow()
                 return INSTALL_BACK
 
-            if cb.selected() and not bl.forceLBA32:
-                rc = dispatch.intf.messageWindow(_("Warning"),
+            if cb.selected() and not anaconda.id.bootloader.forceLBA32:
+                rc = anaconda.intf.messageWindow(_("Warning"),
                         _("Forcing the use of LBA32 for your bootloader when "
                           "not supported by the BIOS can cause your machine "
                           "to be unable to boot.\n\n"                          
@@ -131,19 +131,19 @@ class BootloaderAppendWindow:
                 if rc != 1:
                     continue
 
-            bl.args.set(entry.value())
-            bl.setForceLBA(cb.selected())
+            anaconda.id.bootloader.args.set(entry.value())
+            anaconda.id.bootloader.setForceLBA(cb.selected())
 
             screen.popWindow()
             return INSTALL_OK
 
 class BootloaderLocationWindow:
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):
-	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
+    def __call__(self, screen, anaconda):
+	if anaconda.id.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
-	choices = fsset.bootloaderChoices(diskSet, bl)
+	choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset, anaconda.id.bootloader)
 	if len(choices.keys()) == 1:
-	    bl.setDevice(choices[choices.keys()[0]][0])
+	    anaconda.id.bootloader.setDevice(choices[choices.keys()[0]][0])
 	    return INSTALL_NOOP
         if len(choices.keys()) == 0:
             return INSTALL_NOOP
@@ -157,7 +157,7 @@ class BootloaderLocationWindow:
         keys.reverse()
         for key in keys:
             (device, desc) = choices[key]
-	    if device == bl.getDevice():
+	    if device == anaconda.id.bootloader.getDevice():
 		default = len(locations)
             locations.append (format % (device, _(desc)))
             devices.append(device)
@@ -171,7 +171,7 @@ class BootloaderLocationWindow:
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-	bl.setDevice(devices[sel])
+	anaconda.id.bootloader.setDevice(devices[sel])
 
         return INSTALL_OK
 
@@ -247,18 +247,13 @@ class BootloaderImagesWindow:
 	    
 	return "   %-4s  %-25s %-25s" % ( default, label, "/dev/" + device)
 
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):
-	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
+    def __call__(self, screen, anaconda):
+	if anaconda.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
+        
+        self.bl = anaconda.id.bootloader
 
 	images = bl.images.getImages()
 	default = bl.images.getDefault()
-
-        # XXX debug crap
-##         images = { 'hda2': ('linux', 'Red Hat Linux', 1),
-##                    'hda1': ('windows', 'Windows', 0) }
-##         default = 'hda1'
-        
-        self.bl = bl
 
 	listboxLabel = Label(     "%-7s  %-25s %-12s" % 
 		( _("Default"), _("Boot label"), _("Device")))
@@ -269,7 +264,7 @@ class BootloaderImagesWindow:
 
 	for dev in sortedKeys:
 	    (label, longlabel, isRoot) = images[dev]
-            if not bl.useGrub():
+            if not self.bl.useGrub():
                 listbox.append(self.formatDevice(label, dev, default), dev)
             else:
                 listbox.append(self.formatDevice(longlabel, dev, default), dev)                
@@ -293,14 +288,9 @@ class BootloaderImagesWindow:
 	g.add(buttons, 0, 3, growx = 1)
         g.addHotKey("F2")
         g.addHotKey("F4")
-#        g.addHotKey(" ")
-        screen.pushHelpLine(_(" <Space> selects button | <F2> select default boot entry | <F12> next screen>"))
-        # FIXME: uncomment this after FC4
-#        screen.pushHelpLine(_(" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"))        
+        screen.pushHelpLine(_(" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"))        
 
-        
-	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
-#        rootdev = "hda2"
+	rootdev = anaconda.id.fsset.getEntryByMountPoint("/").device.getDevice()
 
 	result = None
 	while (result != TEXT_OK_CHECK and result != TEXT_BACK_CHECK and result != TEXT_F12_CHECK):
@@ -311,7 +301,7 @@ class BootloaderImagesWindow:
 	    if (result == "edit" or result == listbox):
 		item = listbox.current()
 		(label, longlabel, type) = images[item]
-                if bl.useGrub():
+                if self.bl.useGrub():
                     label = longlabel
                 if label == None:
                     label = ""
@@ -323,16 +313,15 @@ class BootloaderImagesWindow:
 		listbox.replace(self.formatDevice(label, item, default), item)
 		listbox.setCurrent(item)
 	    elif result == "F2":
-#	    elif result == " ":
 		item = listbox.current()
 		(label, longlabel, isRoot) = images[item]
-                if bl.useGrub():
+                if self.bl.useGrub():
                     label = longlabel
                 
 		if (label):
 		    if (default):
 			(oldLabel, oldLong, oldIsRoot) = images[default]
-                        if bl.useGrub():
+                        if self.bl.useGrub():
                             oldLabel = oldLong
 			listbox.replace(self.formatDevice(oldLabel, default, 
 					""), default)
@@ -350,7 +339,7 @@ class BootloaderImagesWindow:
                     if default == item:
                         default = ""
                 else:
-                    dispatch.intf.messageWindow(_("Cannot Delete"),
+                    anaconda.intf.messageWindow(_("Cannot Delete"),
                                        _("This boot target cannot be "
                                          "deleted because it is for "
                                          "the %s system you are about "
@@ -368,10 +357,10 @@ class BootloaderImagesWindow:
             default = rootdev
 
         # copy our version over
-        bl.images.images = {}
+        self.bl.images.images = {}
 	for (dev, (label, longlabel, isRoot)) in images.items():
-            bl.images.images[dev] = (label, longlabel, isRoot)
-	bl.images.setDefault(default)
+            self.bl.images.images[dev] = (label, longlabel, isRoot)
+	self.bl.images.setDefault(default)
 
 	return INSTALL_OK
 
@@ -383,13 +372,14 @@ class BootloaderPasswordWindow:
         self.entry1.setFlags(FLAG_DISABLED, flag)
         self.entry2.setFlags(FLAG_DISABLED, flag)        
         
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):
-	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
-        if not bl.useGrub():
-            return INSTALL_NOOP
+    def __call__(self, screen, anaconda):
+	if anaconda.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
-        intf = dispatch.intf
-        self.bl = bl
+        intf = anaconda.intf
+        self.bl = anaconda.id.bootloader
+
+        if not self.bl.useGrub():
+            return INSTALL_NOOP
 
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 
@@ -438,7 +428,7 @@ class BootloaderPasswordWindow:
                 return INSTALL_BACK
 
             if not self.checkbox.selected():
-                bl.setPassword(None)
+                self.bl.setPassword(None)
                 screen.popWindow()
                 return INSTALL_OK
 
@@ -446,17 +436,17 @@ class BootloaderPasswordWindow:
             confirm = self.entry2.value()
 
             if pw != confirm:
-                intf.messageWindow(_("Passwords Do Not Match"),
+                anaconda.intf.messageWindow(_("Passwords Do Not Match"),
                         _("Passwords do not match"))
                 continue
 
             if len(pw) < 1:
-                intf.messageWindow(_("Password Too Short"),
+                anaconda.intf.messageWindow(_("Password Too Short"),
                         _("Boot loader password is too short"))
                 continue
 
             if len(pw) < 6:
-                rc = intf.messageWindow(_("Warning"),
+                rc = anaconda.intf.messageWindow(_("Warning"),
                                     _("Your boot loader password is less than "
                                       "six characters.  We recommend a longer "
                                       "boot loader password."
@@ -467,7 +457,7 @@ class BootloaderPasswordWindow:
                 if rc == 0:
                     continue
 
-            bl.setPassword(pw, isCrypted = 0)            
+            self.bl.setPassword(pw, isCrypted = 0)            
 
             screen.popWindow()
             return INSTALL_OK

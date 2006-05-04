@@ -21,9 +21,9 @@ from iw_gui import *
 from rhpl.translate import _, N_
 
 class GroupSelectionWindow (InstallWindow):
-    def getScreen(self, backend, intf):
-        self.backend = backend
-        self.intf = intf
+    def getScreen(self, anaconda):
+        self.backend = anaconda.backend
+        self.intf = anaconda.intf
         self.grpsel = GroupSelector(self.backend.ayum, gui.findGladeFile,
                                     gui.addFrame)
         self.grpsel.doRefresh()

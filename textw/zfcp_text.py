@@ -3,7 +3,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2004 Red Hat, Inc.
+# Copyright 2004-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -90,12 +90,12 @@ class ZFCPWindow:
             if dev != None:
                 listbox.append(self.formatDevice(dev[0], dev[2], dev[4]), dev[0])
 
-    def __call__(self, screen, fcp, diskset, intf):
-        fcp.cleanFcpSysfs(fcp.fcpdevices)
+    def __call__(self, screen, anaconda):
+        anaconda.id.zfcp.cleanFcpSysfs(anaconda.id.zfcp.fcpdevices)
 
-        fcpdevs = copy.copy(fcp.fcpdevices)
+        fcpdevs = copy.copy(anaconda.id.zfcp.fcpdevices)
 
-        self.options = fcp.options
+        self.options = anaconda.id.zfcp.options
 
         listboxLabel = Label(     "%-10s  %-25s %-15s" % 
             ( _("Device #"), _("WWPN"), _("FCP LUN")))
@@ -168,9 +168,10 @@ class ZFCPWindow:
         if (result == TEXT_BACK_CHECK):
             return INSTALL_BACK
 
-        fcp.fcpdevices = fcpdevs
+        anaconda.id.zfcp.fcpdevices = fcpdevs
 
-        fcp.updateConfig(fcp.fcpdevices, diskset, intf)
+        anaconda.id.zfcp.updateConfig(anaconda.id.zfcp.fcpdevices,
+                                      anaconda.id.diskset, anadonda.intf)
 
         return INSTALL_OK
 

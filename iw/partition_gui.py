@@ -1331,17 +1331,17 @@ class PartitionWindow(InstallWindow):
 	self.tree.clear()
 	self.populate()
 
-    def getScreen(self, fsset, diskset, partitions, intf):
-        self.fsset = fsset
-        self.diskset = diskset
-        self.intf = intf
+    def getScreen(self, anaconda):
+        self.fsset = anaconda.id.fsset
+        self.diskset = anaconda.id.diskset
+        self.intf = anaconda.intf
         
         self.diskset.openDevices()
-        self.partitions = partitions
+        self.partitions = anaconda.id.partitions
 
 	self.show_uneditable = 1
 
-        checkForSwapNoMatch(self.intf, self.diskset, self.partitions)
+        checkForSwapNoMatch(anaconda)
 
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in

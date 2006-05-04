@@ -365,19 +365,19 @@ def doEditPartitionByRequest(intf, requestlist, part):
                            % (partedUtils.get_partition_name(part)))
 
 
-def checkForSwapNoMatch(intf, diskset, partitions):
+def checkForSwapNoMatch(anaconda):
     """Check for any partitions of type 0x82 which don't have a swap fs."""
-    for request in partitions.requests:
+    for request in anaconda.id.partitions.requests:
         if not request.device or not request.fstype:
             continue
         
-        part = partedUtils.get_partition_by_name(diskset.disks,
+        part = partedUtils.get_partition_by_name(anaconda.id.diskset.disks,
                                                  request.device)
         if (part and (not part.type & parted.PARTITION_FREESPACE)
             and (part.native_type == 0x82)
             and (request.fstype and request.fstype.getName() != "swap")
             and (not request.format)):
-            rc = intf.messageWindow(_("Format as Swap?"),
+            rc = anaconda.intf.messageWindow(_("Format as Swap?"),
                                     _("/dev/%s has a partition type of 0x82 "
                                       "(Linux swap) but does not appear to "
                                       "be formatted as a Linux swap "

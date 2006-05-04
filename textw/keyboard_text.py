@@ -23,16 +23,16 @@ import logging
 log = logging.getLogger("anaconda")
 
 class KeyboardWindow:
-    def __call__(self, screen, defaultByLang, kbd):
+    def __call__(self, screen, anaconda):
         if flags.serial or flags.virtpconsole:
 	    return INSTALL_NOOP
-        keyboards = kbd.modelDict.keys()
+        keyboards = anaconda.id.keyboard.modelDict.keys()
         keyboards.sort ()
 
-	if kbd.beenset:
-	    default = kbd.get ()
+	if anaconda.id.keyboard.beenset:
+	    default = anaconda.id.keyboard.get ()
 	else:
-	    default = defaultByLang
+	    default = anaconda.id.instLanguage.getDefaultKeyboard()
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
@@ -43,10 +43,10 @@ class KeyboardWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        kbd.set (keyboards[choice])
-	kbd.beenset = 1
+        anaconda.id.keyboard.set (keyboards[choice])
+	anaconda.id.keyboard.beenset = 1
 
-        kbd.activate()
+        anaconda.id.keyboard.activate()
 
         # FIXME: eventually, kbd.activate will do this
 	try:

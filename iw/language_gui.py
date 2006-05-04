@@ -51,7 +51,7 @@ class LanguageWindow (InstallWindow):
 	self.listView.set_cursor(path, col, False)
 
     # LanguageWindow tag="lang"
-    def getScreen (self, intf, instLang):
+    def getScreen (self, anaconda):
         self.running = 0
         mainBox = gtk.VBox (False, 10)
 
@@ -68,13 +68,13 @@ class LanguageWindow (InstallWindow):
         label.set_size_request(350, -1)
         hbox.pack_start(label, False)
         
-	self.instLang = instLang
+	self.instLang = anaconda.id.instLanguage
 
         self.listStore = gtk.ListStore(gobject.TYPE_STRING,
                                        gobject.TYPE_STRING,
                                        gobject.TYPE_STRING)
 
-        for locale in instLang.available():
+        for locale in self.instLang.available():
             iter = self.listStore.append()
             nick = self.instLang.getNickByName(locale)
             lang = '%s (<span lang="%s">%s</span>)' % (
@@ -91,7 +91,7 @@ class LanguageWindow (InstallWindow):
         self.listView.append_column(col)
         self.listView.set_property("headers-visible", False)
 
-        current = instLang.getLangNameByNick(instLang.getCurrent())
+        current = self.instLang.getLangNameByNick(self.instLang.getCurrent())
         iter = self.listStore.get_iter_first()
         while iter:
             if self.listStore.get_value(iter, 1) == current:

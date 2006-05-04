@@ -19,8 +19,8 @@ from constants_text import *
 from rhpl.translate import _
 
 class iscsiWindow:
-    def __call__(self, screen, iscsi, intf):
-        self.iscsi = iscsi
+    def __call__(self, screen, anaconda):
+        self.iscsi = anaconda.id.iscsi
 
         # We have 3 values of interest: target IP address, port and
         # initiator name.

@@ -1,7 +1,5 @@
 #
-# bootloader_gui.py: gui bootloader configuration dialog
-#
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -40,13 +38,13 @@ class ZiplWindow (InstallWindow):
 
 
     # ZiplWindow tag="zipl"
-    def getScreen(self, dispatch, bl, fsset, diskSet):
-	self.dispatch = dispatch
-	self.bl = bl
-        self.intf = dispatch.intf
+    def getScreen(self, anaconda):
+	self.dispatch = anaconda.dispatch
+	self.bl = anaconda.id.bootloader
+        self.intf = anaconda.intf
 
-	imageList = bl.images.getImages()
-	defaultDevice = bl.images.getDefault()
+	imageList = self.bl.images.getImages()
+	defaultDevice = self.bl.images.getDefault()
         self.ignoreSignals = 0
 
         box  = gtk.VBox(False, 5)
@@ -91,8 +89,8 @@ class ZiplWindow (InstallWindow):
         clabel2.set_alignment(0.0, 0.5)
         self.chandeventry2 = gtk.Entry()
 
-        if bl.args and bl.args.get():
-            kernelparms = bl.args.get()
+        if self.bl.args and self.bl.args.get():
+            kernelparms = self.bl.args.get()
         else:
             kernelparms = ""
         if isys.getDasdPorts() and (kernelparms.find("dasd=") == -1):
@@ -102,8 +100,8 @@ class ZiplWindow (InstallWindow):
                 kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
         self.kernelEntry.set_text(kernelparms)
         
-        if bl.args and bl.args.chandevget():
-            cdevs = bl.args.chandevget()
+        if self.bl.args and self.bl.args.chandevget():
+            cdevs = self.bl.args.chandevget()
             self.chandeventry1.set_text('')
             self.chandeventry2.set_text('')
             if len(cdevs) > 0:

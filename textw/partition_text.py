@@ -1417,17 +1417,16 @@ class PartitionWindow:
     def shutdownMainUI(self):
         self.lb.clear()
 
-
-    def __call__(self, screen, fsset, diskset, partitions, intf):
+    def __call__(self, screen, anaconda):
         self.screen = screen
-        self.fsset = fsset
-        self.diskset = diskset
-        self.intf = intf
+        self.fsset = anaconda.id.fsset
+        self.diskset = anaconda.id.diskset
+        self.intf = anaconda.intf
 
         self.diskset.openDevices()
-        self.partitions = partitions
+        self.partitions = anaconda.id.partitions
 
-        checkForSwapNoMatch(self.intf, self.diskset, self.partitions)        
+        checkForSwapNoMatch(anaconda)
 
         self.g = GridFormHelp(screen, _("Partitioning"), "partition", 1, 5)
 
@@ -1513,7 +1512,7 @@ class PartitionTypeWindow:
         self.drivelist.key2item = {}
         self.drivelist.item2key = {}
     
-    def __call__(self, screen, diskset, partitions, intf, dispatch):
+    def __call__(self, screen, anaconda):
         g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
 
         txt = TextboxReflowed(65, _("Installation requires partitioning "
@@ -1532,10 +1531,10 @@ class PartitionTypeWindow:
         for (txt, val) in opts:
             typebox.append(txt, val)
 
-        if dispatch.stepInSkipList("autopartitionexecute"):
+        if anaconda.dispatch.stepInSkipList("autopartitionexecute"):
             typebox.setCurrent(-1)
         else:
-            typebox.setCurrent(partitions.autoClearPartType)        
+            typebox.setCurrent(anaconda.id.partitions.autoClearPartType)        
 
         g.add(typebox, 0, 1, (0, 1, 0, 0))
 
@@ -1544,8 +1543,8 @@ class PartitionTypeWindow:
         subgrid.setField(TextboxReflowed(55, _("Which drive(s) do you want to "
                                                "use for this installation?")),
                          0, 0)
-        cleardrives = partitions.autoClearPartDrives
-        disks = diskset.disks.keys()
+        cleardrives = anaconda.id.partitions.autoClearPartDrives
+        disks = anaconda.id.diskset.disks.keys()
         disks.sort()
         drivelist = CheckboxTree(height=2, scroll=1)
         if not cleardrives or len(cleardrives) < 1:
@@ -1582,37 +1581,35 @@ class PartitionTypeWindow:
                 return INSTALL_BACK
 
             if len(self.drivelist.getSelection()) < 1:
-                mustHaveSelectedDrive(intf)
+                mustHaveSelectedDrive(anaconda.intf)
                 continue
 
             cur = typebox.current()
             if cur == -1:
-                dispatch.skipStep("autopartitionexecute", skip = 1)
+                anaconda.dispatch.skipStep("autopartitionexecute", skip = 1)
                 break
             else:
-                dispatch.skipStep("autopartitionexecute", skip = 0)
+                anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
 
-                partitions.autoClearPartType = cur
-                partitions.autoClearPartDrives = self.drivelist.getSelection()
+                anaconda.id.partitions.autoClearPartType = cur
+                anaconda.id.partitions.autoClearPartDrives = self.drivelist.getSelection()
                 
-                if queryAutoPartitionOK(intf, diskset, partitions):
+                if queryAutoPartitionOK(anaconda):
                     break
 
         # ask to review autopartition layout
-        reviewLayout = dispatch.intf.messageWindow(_("Review Partition Layout"),
+        reviewLayout = anaconda.intf.messageWindow(_("Review Partition Layout"),
                            _("Review and modify partitioning layout?"),
                            type = "yesno")
 
         if reviewLayout == 1:
-            dispatch.skipStep("partition", skip = 0)
-            dispatch.skipStep("bootloader", skip = 0)
+            anaconda.dispatch.skipStep("partition", skip = 0)
+            anaconda.dispatch.skipStep("bootloader", skip = 0)
         else:
-            dispatch.skipStep("partition", skip = 1)
-            dispatch.skipStep("bootloader", skip = 1)
+            anaconda.dispatch.skipStep("partition", skip = 1)
+            anaconda.dispatch.skipStep("bootloader", skip = 1)
 
         self.shutdownUI()
         screen.popWindow()
 
         return INSTALL_OK
-                
-

@@ -33,9 +33,9 @@ class TaskWindow:
                 return False
         return True
     
-    def __call__(self, screen, intf, backend, dispatch, instClass):
-        self.backend = backend
-        tasks = instClass.tasks
+    def __call__(self, screen, anaconda):
+        self.backend = anaconda.backend
+        tasks = anaconda.id.instClass.tasks
         
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 	
@@ -56,7 +56,7 @@ class TaskWindow:
                 ct.append(_(txt), txt, False)
         toplevel.add (ct, 0, 2, (0,0,0,1))
                       
-	custom = not dispatch.stepInSkipList("group-selection")
+	custom = not anaconda.dispatch.stepInSkipList("group-selection")
 	customize = Checkbox (_("Customize software selection"), custom)
 	toplevel.add (customize, 0, 3, (0, 0, 0, 1))	 
 	toplevel.add (bb, 0, 4, (0, 0, 0, 0), growx = 1)
@@ -68,16 +68,16 @@ class TaskWindow:
 	    return INSTALL_BACK
 
 	if customize.selected():
-	    dispatch.skipStep("group-selection", skip = 0)
+	    anaconda.dispatch.skipStep("group-selection", skip = 0)
 	else:
-	    dispatch.skipStep("group-selection")
+	    anaconda.dispatch.skipStep("group-selection")
 
         sel = ct.getSelection()
         for (txt, grps) in tasks:
             if txt in sel:
-                map(backend.selectGroup, grps)
+                map(self.backend.selectGroup, grps)
             else:
-                map(backend.deselectGroup, grps)
+                map(self.backend.deselectGroup, grps)
 	screen.popWindow()
 				 
         return INSTALL_OK

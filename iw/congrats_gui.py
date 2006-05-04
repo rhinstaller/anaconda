@@ -1,7 +1,7 @@
 #
 # congrats_gui.py: install/upgrade complete screen.
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -44,7 +44,7 @@ class CongratulationWindow (InstallWindow):
 	gui.copyScreenshots()
 
     # CongratulationWindow tag=NA
-    def getScreen (self):
+    def getScreen (self, anaconda):
         self.ics.setHelpEnabled (False)
 
         hbox = gtk.HBox (False, 5)

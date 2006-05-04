@@ -1,7 +1,7 @@
 #
 # complete_text.py: text mode congratulations windows
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -20,7 +20,7 @@ import iutil
 
 class FinishedWindow:
   
-  def __call__ (self, screen):
+  def __call__ (self, screen, anaconda):
         bootstr = ""
 
         if iutil.getArch() == "s390":
@@ -47,5 +47,3 @@ class FinishedWindow:
                                  [ _("Reboot") ], help = "finished", width=60)
 
         return INSTALL_OK
-
-

@@ -3,7 +3,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2005 Red Hat, Inc.
+# Copyright 2005-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -59,8 +59,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.partitions.autoClearPartDrives = allowdrives
 
-            if not autopart.queryAutoPartitionOK(self.intf, self.diskset,
-                                                 self.partitions):
+            if not autopart.queryAutoPartitionOK(self.anaconda):
                 raise gui.StayOnScreen
 
             if self.xml.get_widget("reviewButton").get_active():
@@ -94,11 +93,12 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("reviewButton").set_sensitive(True)
 
-    def getScreen(self, diskset, partitions, intf, dispatch):
-        self.diskset = diskset
-        self.partitions = partitions
-        self.intf = intf
-        self.dispatch = dispatch
+    def getScreen(self, anaconda):
+        self.anaconda = anaconda
+        self.diskset = anaconda.id.diskset
+        self.partitions = anaconda.id.partitions
+        self.intf = anaconda.intf
+        self.dispatch = anaconda.dispatch
 
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeBox")
 
@@ -118,26 +118,24 @@ class PartitionTypeWindow(InstallWindow):
         for (txt, val) in opts:
             iter = store.append(None)
             store[iter] = (txt, val)
-            if val == partitions.autoClearPartType:
+            if val == self.partitions.autoClearPartType:
                 self.combo.set_active_iter(iter)
 
         if ((self.combo.get_active() == -1) or
-            dispatch.stepInSkipList("autopartitionexecute")):
+            self.dispatch.stepInSkipList("autopartitionexecute")):
             self.combo.set_active(len(opts) - 1) # yeah, it's a hack
 
-        self.drivelist = createAllowedDrivesList(diskset.disks,
-                                                 partitions.autoClearPartDrives)
+        self.drivelist = createAllowedDrivesList(self.diskset.disks,
+                                                 self.partitions.autoClearPartDrives)
         self.drivelist.set_size_request(375, 80)
 
         self.xml.get_widget("driveScroll").add(self.drivelist)
 
         self.prevrev = None
-        self.review = not dispatch.stepInSkipList("partition")
+        self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged }
         self.xml.signal_autoconnect(sigs)
 
         return vbox
-
-

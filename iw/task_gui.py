@@ -51,12 +51,12 @@ class TaskWindow(InstallWindow):
                 return False
         return True
 
-    def getScreen (self, intf, backend, dispatch, instClass):
-        self.intf = intf
-        self.dispatch = dispatch
-        self.backend = backend
+    def getScreen (self, anaconda):
+        self.intf = anaconda.intf
+        self.dispatch = anaconda.dispatch
+        self.backend = anaconda.backend
 
-        self.tasks = instClass.tasks
+        self.tasks = anaconda.id.instClass.tasks
         self.taskcbs = {}
 
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")

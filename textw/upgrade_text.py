@@ -26,9 +26,9 @@ UpgradeClass = upgradeclass.InstallClass
 from rhpl.translate import _
 
 class UpgradeMigrateFSWindow:
-    def __call__ (self, screen, thefsset):
+    def __call__ (self, screen, anaconda):
       
-        migent = thefsset.getMigratableEntries()
+        migent = anaconda.id.fsset.getMigratableEntries()
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
@@ -83,10 +83,8 @@ class UpgradeMigrateFSWindow:
             return INSTALL_OK
 
 class UpgradeSwapWindow:
-    def __call__ (self, screen, intf, fsset, instPath, swapInfo, dispatch):
-	rc = swapInfo
-
-	(fsList, suggSize, suggMntPoint) = rc
+    def __call__ (self, screen, anaconda):
+	(fsList, suggSize, suggMntPoint) = anaconda.id.upgradeSwapInfo
 
         ramDetected = iutil.memInstalled()/1024
 
@@ -161,33 +159,33 @@ class UpgradeSwapWindow:
 	    try:
 		val = int(val)
 	    except ValueError:
-		intf.messageWindow(_("Error"),
+		anaconda.intf.messageWindow(_("Error"),
                                    _("The value you entered is not a "
                                      "valid number."))
 
 	    if type(val) == type(1):
 		(mnt, part, size) = fsList[listbox.current()]
 		if size < (val + 16):
-		    intf.messageWindow(_("Error"),
+		    anaconda.intf.messageWindow(_("Error"),
                                        _("There is not enough space on the "
                                          "device you selected for the swap "
                                          "partition."))
                 elif val > 2000 or val < 1:
-                    intf.messageWindow(_("Warning"), 
+                    anaconda.intf.messageWindow(_("Warning"), 
                                        _("The swap file must be between 1 "
                                          "and 2000 MB in size."))
 		else:
 		    screen.popWindow()
                     if flags.setupFilesystems:
-                        upgrade.createSwapFile(instPath, fsset, mnt, val)
-                    dispatch.skipStep("addswap", 1)
+                        upgrade.createSwapFile(anaconda.rootPath, anaconda.id.fsset, mnt, val)
+                    anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 
 	raise ValueError
 	
 class UpgradeExamineWindow:
-    def __call__ (self, screen, dispatch, intf, id, chroot):
-        parts = id.rootParts
+    def __call__ (self, screen, anaconda):
+        parts = anaconda.id.rootParts
 
         height = min(len(parts), 11) + 1
         if height == 12:
@@ -226,41 +224,14 @@ class UpgradeExamineWindow:
 
         if root is not None:
             c = UpgradeClass(flags.expert)
-            c.setSteps(dispatch)
-            c.setInstallData(id)
+            c.setSteps(anaconda.dispatch)
+            c.setInstallData(anaconda)
 
-            id.upgradeRoot = [(root[0], root[1])]
-            id.rootParts = parts
-            dispatch.skipStep("installtype", skip = 1)
+            anaconda.id.upgradeRoot = [(root[0], root[1])]
+            anaconda.id.rootParts = parts
+            anaconda.dispatch.skipStep("installtype", skip = 1)
         else:
-            dispatch.skipStep("installtype", skip = 0)
-            id.upgradeRoot = None
+            anaconda.dispatch.skipStep("installtype", skip = 0)
+            anaconda.id.upgradeRoot = None
 
         return INSTALL_OK
-
-class CustomizeUpgradeWindow:
-    def __call__ (self, screen, dispatch, intf, id, chroot):
-        if id.upgradeRoot is None:
-            return INSTALL_NOOP
-        rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
-                                 _("The packages you have installed, "
-                                   "and any other packages which are "
-                                   "needed to satisfy their "
-                                   "dependencies, have been selected "
-                                   "for installation. Would you like "
-                                   "to customize the set of packages "
-                                   "that will be upgraded?"),
-                                 buttons = [ _("Yes"), _("No"),
-                                             TEXT_BACK_BUTTON],
-                                 help = "custupgrade")
-
-        if rc == TEXT_BACK_CHECK:
-            return INSTALL_BACK
-
-        if rc == string.lower (_("No")):
-            dispatch.skipStep("indivpackage")
-        else:
-            dispatch.skipStep("indivpackage", skip = 0)            
-
-        return INSTALL_OK
-

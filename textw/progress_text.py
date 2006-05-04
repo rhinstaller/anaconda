@@ -204,18 +204,16 @@ class InstallProgressWindow:
 
 class setupForInstall:
 
-    def __call__(self, screen, dir, intf, id):
-	if dir == DISPATCH_BACK:
-	    id.setInstallProgressClass(None)
+    def __call__(self, screen, anaconda):
+	if anaconda.dir == DISPATCH_BACK:
+	    anaconda.id.setInstallProgressClass(None)
 	    return INSTALL_BACK
 	else:
 	    flag = 0
-	    for m in ['http://', 'ftp://']:
-		if id.methodstr.startswith(m):
-		    flag = 1
-		    break
+            if anaconda.methodstr.startswith("http://") or anaconda.methodstr.startswith("ftp://"):
+                flag = 1
 
-	    log.info("id.methodstr = %s %s", id.methodstr, flag)
-	    id.setInstallProgressClass(InstallProgressWindow(screen, showdownload=flag))
+	    log.info("anaconda.methodstr = %s %s", anaconda.methodstr, flag)
+	    anaconda.id.setInstallProgressClass(InstallProgressWindow(screen, showdownload=flag))
 
 	return INSTALL_OK

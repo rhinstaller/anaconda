@@ -498,12 +498,12 @@ class NetworkWindow(InstallWindow):
 	    self.hostnameEntry.grab_focus()
 
     # NetworkWindow tag="netconf"
-    def getScreen(self, network, dir, intf, id):
-	self.intf = intf
-	self.id = id
+    def getScreen(self, anaconda):
+	self.intf = anaconda.intf
+	self.id = anaconda.id
         box = gtk.VBox(False)
         box.set_spacing(6)
-	self.network = network
+	self.network = anaconda.id.network
         
         self.devices = self.network.available()
 	

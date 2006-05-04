@@ -91,16 +91,15 @@ class AdvancedBootloaderWindow(InstallWindow):
         self.options_vbox.pack_start(al, False)
 
 
-    def getScreen(self, dispatch, bl, fsset, diskset):
-        self.dispatch = dispatch
-        self.bl = bl
-        self.intf = dispatch.intf
+    def getScreen(self, anaconda):
+        self.dispatch = anaconda.dispatch
+        self.bl = anaconda.id.bootloader
+        self.intf = anaconda.intf
 
         thebox = gtk.VBox (False, 10)
 
         # boot loader location bits (mbr vs boot, drive order)
-        self.blloc = BootloaderLocationWidget(bl, fsset, diskset,
-                                              self.parent, self.intf)
+        self.blloc = BootloaderLocationWidget(anaconda, self.parent)
         thebox.pack_start(self.blloc.getWidget(), False)
 
         thebox.pack_start (gtk.HSeparator(), False)

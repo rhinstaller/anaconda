@@ -1,7 +1,7 @@
 #
 # zipl_text.py: text mode z/IPL setup dialog
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -19,7 +19,9 @@ from constants_text import *
 from rhpl.translate import _
 
 class ZiplWindow:
-    def __call__(self, screen, dispatch, bl, fsset, diskSet):
+    def __call__(self, screen, anaconda):
+        self.bl = anaconda.id.bootloader
+
         t = TextboxReflowed(53,
                          _("The z/IPL Boot Loader will be installed "
                            "on your system after installation is complete. "
@@ -32,8 +34,8 @@ class ZiplWindow:
         chandeventry1 = Entry(48, scroll = 1, returnExit = 1)
         chandeventry2 = Entry(48, scroll = 1, returnExit = 1)
 
-        if bl.args and bl.args.get():
-            kernelparms = bl.args.get()
+        if self.bl.args and self.bl.args.get():
+            kernelparms = self.bl.args.get()
         if isys.getDasdPorts() and (kernelparms.find("dasd=") == -1):
             if len(kernelparms) > 0:
                 kernelparms = "%s dasd=%s" %(kernelparms, isys.getDasdPorts())
@@ -41,8 +43,8 @@ class ZiplWindow:
                 kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
         kernelentry.set(kernelparms)
 
-        if bl.args and bl.args.chandevget():
-            cdevs = bl.args.chandevget()
+        if self.bl.args and self.bl.args.chandevget():
+            cdevs = self.bl.args.chandevget()
             chandeventry1.set('')
             chandeventry2.set('')
             if len(cdevs) > 0:
@@ -77,14 +79,14 @@ class ZiplWindow:
             return INSTALL_BACK
 
         if kernelentry.value():
-            bl.args.set(string.strip(kernelentry.value()))
+            self.bl.args.set(string.strip(kernelentry.value()))
         else:
-            bl.args.set("")
+            self.bl.args.set("")
 
         cdevs = []
         if chandeventry1.value():
             cdevs.append(string.strip(chandeventry1.value()))
         if chandeventry2.value():
             cdevs.append(string.strip(chandeventry2.value()))
-        bl.args.chandevset(cdevs)
+        self.bl.args.chandevset(cdevs)
         return INSTALL_OK

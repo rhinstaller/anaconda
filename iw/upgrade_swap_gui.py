@@ -73,23 +73,14 @@ class UpgradeSwapWindow (InstallWindow):
     def clist_cb(self, clist, row, col, data):
         self.row = row
     
-    def getScreen (self, intf, fsset, instPath, swapInfo, dispatch):
-
-#
-# use to test function
-#
-#	fslist = [('/', 'hda1', 1000)]
-#	fslist.append(('/var', 'hda2', 100))
-#	fslist.append(('/opt', 'hda3', 500))
-#	swapInfo = (fslist, 1000, '/var')
-	
+    def getScreen (self, anaconda):
         self.neededSwap = 0
-        self.fsset = fsset
-        self.instPath = instPath
-        self.intf = intf
-        self.dispatch = dispatch
+        self.fsset = anaconda.id.fsset
+        self.instPath = anaconda.rootPath
+        self.intf = anaconda.intf
+        self.dispatch = anaconda.dispatch
         
-        rc = swapInfo
+        rc = anaconda.id.upgradeSwapInfo
 
         self.neededSwap = 1
         self.row = 0

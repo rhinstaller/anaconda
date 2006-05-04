@@ -43,9 +43,9 @@ class iscsiWindow(InstallWindow):
 
         return None
 
-    def getScreen(self, iscsi, intf):
-        self.intf = intf
-        self.iscsi = iscsi
+    def getScreen(self, anaconda):
+        self.intf = anaconda.intf
+        self.iscsi = anaconda.id.iscsi
 
         (self.xml, widget) = gui.getGladeWidget("iscsi-config.glade", "iscsiRows")
         self.ip_table = self.xml.get_widget("iscsiTable")

@@ -56,44 +56,41 @@ log = logging.getLogger("anaconda")
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
-    ("welcome", ()),
+    ("welcome", ("anaconda",)),
     ("betanag", betaNagScreen, ("anaconda",)),
-    ("language", ("intf", "id.instLanguage")),
-    ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),
+    ("language", ("anaconda",)),
+    ("keyboard", ("anaconda",)),
     ("findrootparts", findRootParts, ("anaconda",)),
-    ("findinstall", ("dispatch", "intf", "id", "instPath")),
-    ("installtype", ("dispatch", "id", "method", "intf")),
-    ("iscsi", ("id.iscsi", "intf")),
-    ("zfcpconfig", ("id.zfcp", "id.diskset", "intf")),
+    ("findinstall", ("anaconda",)),
+    ("iscsi", ("anaconda",)),
+    ("zfcpconfig", ("anaconda",)),
     ("partitionobjinit", partitionObjectsInitialize, ("anaconda",)),
-    ("parttype", ("id.diskset", "id.partitions", "intf", "dispatch")),    
+    ("parttype", ("anaconda",)),    
     ("autopartitionexecute", doAutoPartition, ("anaconda",)),
-    ("partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),
+    ("partition", ("anaconda",)),
     ("upgrademount", upgradeMountFilesystems, ("anaconda",)),
     ("upgradecontinue", queryUpgradeContinue, ("anaconda",)),
     ("upgradeswapsuggestion", upgradeSwapSuggestion, ("anaconda",)),
-    ("addswap", ("intf", "id.fsset", "instPath",
-                 "id.upgradeSwapInfo", "dispatch")),
+    ("addswap", ("anaconda",)),
     ("partitiondone", partitioningComplete, ("anaconda",)),
     ("upgrademigfind", upgradeMigrateFind, ("anaconda",)),
-    ("upgrademigratefs",  ("id.fsset",)),
-    ("upgbootloader", ("dispatch", "id.bootloader")),
+    ("upgrademigratefs", ("anaconda",)),
+    ("upgbootloader", ("anaconda",)),
     ("bootloadersetup", bootloaderSetupChoices, ("anaconda",)),
-    ("bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset")),
-    ("bootloaderadvanced", ("dispatch", "id.bootloader", "id.fsset",
-                            "id.diskset")),
+    ("bootloader", ("anaconda",)),
+    ("bootloaderadvanced", ("anaconda",)),
     ("networkdevicecheck", networkDeviceCheck, ("anaconda",)),
-    ("network", ("id.network", "dir", "intf", "id")),
-    ("timezone", ("id.instLanguage", "id.timezone")),
-    ("accounts", ("intf", "id.rootPassword")),
+    ("network", ("anaconda",)),
+    ("timezone", ("anaconda",)),
+    ("accounts", ("anaconda",)),
     ("reposetup", doRepoSetup, ("anaconda",)),
     ("basepkgsel", doBasePackageSelect, ("anaconda",)),
-    ("tasksel", ("intf", "backend", "dispatch", "id.instClass")),   
-    ("group-selection", ("backend", "intf")),
+    ("tasksel", ("anaconda",)),
+    ("group-selection", ("anaconda",)),
     ("postselection", doPostSelection, ("anaconda",)),
-    ("confirminstall", ("intf", "id",)),
-    ("confirmupgrade", ("intf", "id",)),
-    ("install", ("dir", "intf", "id")),
+    ("confirminstall", ("anaconda",)),
+    ("confirmupgrade", ("anaconda",)),
+    ("install", ("anaconda",)),
     ("enablefilesystems", turnOnFilesystems, ("anaconda",)),
     ("migratefilesystems", doMigrateFilesystems, ("anaconda",)),
     ("setuptime", setupTimezone, ("anaconda",)),
@@ -109,7 +106,7 @@ installSteps = [
     ("copylogs", copyAnacondaLogs, ("anaconda",)),
     ("dopostaction", doPostAction, ("anaconda",)),
     ("methodcomplete", doMethodComplete, ("anaconda",)),
-    ("complete", ()),
+    ("complete", ("anaconda",)),
     ]
 
 class Dispatcher:
@@ -244,13 +241,7 @@ class Dispatcher:
 	self.step = None
 	self.skipSteps = {}
 
-	self.id = anaconda.id
-	self.flags = flags
-	self.intf = anaconda.intf
 	self.method = anaconda.method
-	self.dispatch = self
-	self.instPath = anaconda.rootPath
-        self.backend = anaconda.backend
 	self.firstStep = 0
 
     def _getDir(self):
