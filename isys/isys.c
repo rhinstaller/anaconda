@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <errno.h>
+#define u32 __u32
+#include <linux/ext2_fs.h>
+#include <linux/ext3_fs.h>
 #include <ext2fs/ext2fs.h>
 #include <fcntl.h>
 #include <popt.h>

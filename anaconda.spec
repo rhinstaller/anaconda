@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.7
+Version: 11.1.0.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May  4 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.8-1
+- and fix the build
+
 * Thu May 04 2006 Paul Nasrat <pnasrat@redhat.com> - 11.1.0.7-1
 - class Anaconda (pnasrat, clumens)
 - User/service kickstart handlers (clumens)
