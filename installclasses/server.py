@@ -23,16 +23,16 @@ class InstallClass(BaseInstallClass):
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
 
-    def setGroupSelection(self, grpset, intf):
-	BaseInstallClass.__init__(self, grpset)
+    def setGroupSelection(self, anaconda):
+	BaseInstallClass.__init__(self, anaconda.backend)
 
-        grpset.unselectAll()
-        grpset.selectGroup("server", asMeta = 1)
-        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
+        anaconda.backend.unselectAll()
+        anaconda.backend.selectGroup("server", asMeta = 1)
+        anaconda.backend.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
 
-    def setInstallData(self, id):
-	BaseInstallClass.setInstallData(self, id)
-        BaseInstallClass.setDefaultPartitioning(self, id.partitions,
+    def setInstallData(self, anaconda):
+	BaseInstallClass.setInstallData(self, anaconda)
+        BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
                                                 CLEARPART_TYPE_ALL)
 
     def __init__(self, expert):

@@ -172,12 +172,12 @@ def bindMountDevDirectory(instPath):
     fs.mount("/dev", "%s/dev" % (instPath,), bindMount=1)
 
 # returns None if no filesystem exist to migrate
-def upgradeMigrateFind(dispatch, thefsset):
-    migents = thefsset.getMigratableEntries()
+def upgradeMigrateFind(anaconda):
+    migents = anaconda.id.fsset.getMigratableEntries()
     if not migents or len(migents) < 1:
-        dispatch.skipStep("upgrademigratefs")
+        anaconda.dispatch.skipStep("upgrademigratefs")
     else:
-        dispatch.skipStep("upgrademigratefs", skip = 0)
+        anaconda.dispatch.skipStep("upgrademigratefs", skip = 0)
     
 
 # returns None if no more swap is needed

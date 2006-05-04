@@ -1,3 +1,20 @@
+2006-05-04  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Pass anaconda object to setInstallData.
+	* dispatch.py:  Finish making non-UI steps use anaconda class.
+	* backend.py:  Use anaconda object.
+	* bootloader.py:  Likewise.
+	* installclass.py:  Likewise.
+	* installmethod.py:  Likewise.
+	* kickstart.py:  Likewise.
+	* network.py:  Likewise.
+	* packages.py:  Likewise.
+	* partitioning.py:  Likewise.
+	* upgrade.py:  Likewise.
+	* upgradeclass.py:  Likewise.
+	* yuminstall.py:  Likewise.
+	* installclasses/*.py:  Likewise.
+
 2006-05-03  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.doPostInstall):  Enable/disable services

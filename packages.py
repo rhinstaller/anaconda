@@ -40,43 +40,43 @@ import rhpl.arch
 import logging
 log = logging.getLogger("anaconda")
 
-def doPostAction(id, instPath, intf = None):
-    id.instClass.postAction(instPath, flags.serial, intf)
+def doPostAction(anaconda):
+    anaconda.id.instClass.postAction(anaconda, flags.serial)
 
-def firstbootConfiguration(id, instPath):
-    if id.firstboot == FIRSTBOOT_RECONFIG:
-        f = open(instPath + '/etc/reconfigSys', 'w+')
+def firstbootConfiguration(anaconda):
+    if anaconda.id.firstboot == FIRSTBOOT_RECONFIG:
+        f = open(anaconda.rootPath + '/etc/reconfigSys', 'w+')
         f.close()
-    elif id.firstboot == FIRSTBOOT_SKIP:
-        f = open(instPath + '/etc/sysconfig/firstboot', 'w+')
+    elif anaconda.id.firstboot == FIRSTBOOT_SKIP:
+        f = open(anaconda.rootPath + '/etc/sysconfig/firstboot', 'w+')
         f.write('RUN_FIRSTBOOT=NO')
         f.close()
 
     return
         
 
-def writeKSConfiguration(id, instPath):
+def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
     if not flags.test:
-	fn = instPath + "/root/anaconda-ks.cfg"
+	fn = anaconda.rootPath + "/root/anaconda-ks.cfg"
     else:
 	fn = "/tmp/anaconda-ks.cfg"
 
-    id.writeKS(fn)
+    anaconda.id.writeKS(fn)
 
-def copyAnacondaLogs(instPath):
+def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
                        ("/tmp/ramfs/X.log", "anaconda.xlog")):
         if os.access(fn, os.R_OK):
             try:
-                shutil.copyfile(fn, "%s/var/log/%s" %(instPath, dest))
-                os.chmod("%s/var/log/%s" %(instPath, dest), 0600)
+                shutil.copyfile(fn, "%s/var/log/%s" %(anaconda.rootPath, dest))
+                os.chmod("%s/var/log/%s" %(anaconda.rootPath, dest), 0600)
             except:
                 pass
 
-def writeXConfiguration(id, instPath):
+def writeXConfiguration(anaconda):
     testmode = flags.test
 
 # comment out to test
@@ -95,67 +95,67 @@ def writeXConfiguration(id, instPath):
 #    instPath = '/'
 # end code for test writing
 
-    if id.xsetup.skipx:
+    if anaconda.id.xsetup.skipx:
         return
 
-    card = id.videocard.primaryCard()
+    card = anaconda.id.videocard.primaryCard()
     if not card:
 	return
 
     log.info("Writing X configuration")
     if not testmode:
-        fn = instPath
+        fn = anaconda.rootPath
     else:
         fn = "/tmp/"
 
-    id.xsetup.write(fn+"/etc/X11", id.mouse, id.keyboard)
-    id.desktop.write(instPath)
+    anaconda.id.xsetup.write(fn+"/etc/X11", anaconda.id.mouse, anaconda.id.keyboard)
+    anaconda.id.desktop.write(anaconda.rootPath)
 
-def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
-    if dir == DISPATCH_BACK:
+def doMigrateFilesystems(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
         return DISPATCH_NOOP
 
-    if thefsset.haveMigratedFilesystems():
+    if anaconda.id.fsset.haveMigratedFilesystems():
         return DISPATCH_NOOP
 
-    thefsset.migrateFilesystems (instPath)
+    anaconda.id.fsset.migrateFilesystems (anaconda.rootPath)
 
     # if we're upgrading, we may need to do lvm device node hackery
-    if upgrade:
-        thefsset.makeLVMNodes(instPath, trylvm1 = 1)
+    if anaconda.id.upgrade:
+        anaconda.id.fsset.makeLVMNodes(anaconda.rootPath, trylvm1 = 1)
     
 
-def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
-    if dir == DISPATCH_BACK:
+def turnOnFilesystems(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
         log.info("unmounting filesystems")
-	thefsset.umountFilesystems(instPath)
+	anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
 	return
 
     if flags.setupFilesystems:
-	if not upgrade:
-            partitions.doMetaDeletes(diskset)
-            thefsset.setActive(diskset)
-            if not thefsset.isActive():
-                diskset.savePartitions ()
-            thefsset.checkBadblocks(instPath)
-            if not thefsset.volumesCreated:
-                thefsset.createLogicalVolumes(instPath)
-            thefsset.formatSwap(instPath)
-            thefsset.turnOnSwap(instPath)
-	    thefsset.makeFilesystems (instPath)
-            thefsset.mountFilesystems (instPath)
+	if not anaconda.id.upgrade:
+            anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)
+            anaconda.id.fsset.setActive(anaconda.id.diskset)
+            if not anaconda.id.fsset.isActive():
+                anaconda.id.diskset.savePartitions ()
+            anaconda.id.fsset.checkBadblocks(anaconda.rootPath)
+            if not anaconda.id.fsset.volumesCreated:
+                anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)
+            anaconda.id.fsset.formatSwap(anaconda.rootPath)
+            anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
+	    anaconda.id.fsset.makeFilesystems (anaconda.rootPath)
+            anaconda.id.fsset.mountFilesystems (anaconda.rootPath)
 
-def setupTimezone(timezone, upgrade, instPath, dir):
+def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards
-    if upgrade or (dir == DISPATCH_BACK):
+    if anaconda.id.upgrade or anaconda.dir == DISPATCH_BACK:
         return
 
     # dont do this in test mode!
     if flags.test or flags.rootpath:
 	return
     
-    os.environ["TZ"] = timezone.tz
-    tzfile = "/usr/share/zoneinfo/" + timezone.tz
+    os.environ["TZ"] = anaconda.id.timezone.tz
+    tzfile = "/usr/share/zoneinfo/" + anaconda.id.timezone.tz
     if not os.access(tzfile, os.R_OK):
         log.error("unable to set timezone")
     else:
@@ -167,9 +167,9 @@ def setupTimezone(timezone, upgrade, instPath, dir):
     if rhpl.getArch() == "s390":
         return
     args = [ "/usr/sbin/hwclock", "--hctosys" ]
-    if timezone.utc:
+    if anaconda.id.timezone.utc:
         args.append("-u")
-    elif timezone.arc:
+    elif anaconda.id.timezone.arc:
         args.append("-a")
 
     try:
@@ -181,7 +181,7 @@ def setupTimezone(timezone, upgrade, instPath, dir):
 
 # FIXME: this is a huge gross hack.  hard coded list of files
 # created by anaconda so that we can not be killed by selinux
-def setFileCons(instPath, partitions):
+def setFileCons(anaconda):
     import partRequests
     
     if flags.selinux:
@@ -197,7 +197,7 @@ def setFileCons(instPath, partitions):
                  "/etc/mdadm.conf"]
 
         vgs = []
-        for entry in partitions.requests:
+        for entry in anaconda.id.partitions.requests:
             if isinstance(entry, partRequests.VolumeGroupRequestSpec):
                 vgs.append("/dev/%s" %(entry.volumeGroupName,))
 
@@ -205,9 +205,9 @@ def setFileCons(instPath, partitions):
         for dir in ["/var/lib/rpm", "/etc/lvm", "/dev/mapper"] + vgs:
             def addpath(x): return dir + "/" + x
 
-            if not os.path.isdir(instPath + dir):
+            if not os.path.isdir(anaconda.rootPath + dir):
                 continue
-            dirfiles = os.listdir(instPath + dir)
+            dirfiles = os.listdir(anaconda.rootPath + dir)
             files.extend(map(addpath, dirfiles))
             files.append(dir)
 
@@ -215,7 +215,7 @@ def setFileCons(instPath, partitions):
         # regexes will work
         child = os.fork()
         if (not child):
-            os.chroot(instPath)
+            os.chroot(anaconda.rootPath)
             for f in files:
                 if not os.access("%s" %(f,), os.R_OK):
                     log.warning("%s doesn't exist" %(f,))

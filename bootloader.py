@@ -35,19 +35,19 @@ import booty
 import bootloaderInfo
 from fsset import *
 
-def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
-    if dir == DISPATCH_BACK:
+def bootloaderSetupChoices(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
         return
 
-    bl.updateDriveList()
+    anaconda.id.bootloader.updateDriveList()
 
 # iSeries bootloader on upgrades
-    if iutil.getPPCMachine() == "iSeries" and not bl.device:        
-        drives = diskSet.disks.keys()
+    if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:        
+        drives = anaconda.id.diskset.disks.keys()
         drives.sort()
         bootPart = None
         for drive in drives:
-            disk = diskSet.disks[drive]
+            disk = anaconda.id.diskset.disks[drive]
             part = disk.next_partition()
             while part:
                 if part.is_active() and part.native_type == 0x41:
@@ -57,45 +57,45 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
             if bootPart:
                 break
         if bootPart:
-            bl.setDevice(bootPart)
+            anaconda.id.bootloader.setDevice(bootPart)
             dev = Device()
             dev.device = bootPart
-            fsset.add(FileSystemSetEntry(dev, None, fileSystemTypeGet("PPC PReP Boot")))
+            anaconda.id.fsset.add(FileSystemSetEntry(dev, None, fileSystemTypeGet("PPC PReP Boot")))
 
-    choices = fsset.bootloaderChoices(diskSet, bl)
+    choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset, anaconda.id.bootloader)
     if not choices and iutil.getPPCMachine() != "iSeries":
-	dispatch.skipStep("instbootloader")
+	anaconda.dispatch.skipStep("instbootloader")
     else:
-	dispatch.skipStep("instbootloader", skip = 0)
+	anaconda.dispatch.skipStep("instbootloader", skip = 0)
 
-    bl.images.setup(diskSet, fsset)
+    anaconda.id.bootloader.images.setup(anaconda.id.diskset, anaconda.id.fsset)
 
-    if bl.defaultDevice != None and choices:
+    if anaconda.id.bootloader.defaultDevice != None and choices:
         keys = choices.keys()
         # there are only two possible things that can be in the keys
         # mbr and boot.  boot is ALWAYS present.  so if the dev isn't
         # listed, it was mbr and we should nicely fall back to boot
-        if bl.defaultDevice not in keys:
+        if anaconda.id.bootloader.defaultDevice not in keys:
             log.warning("MBR not suitable as boot device; installing to partition")
-            bl.defaultDevice = "boot"
-        bl.setDevice(choices[bl.defaultDevice][0])
+            anaconda.id.bootloader.defaultDevice = "boot"
+        anaconda.id.bootloader.setDevice(choices[anaconda.id.bootloader.defaultDevice][0])
     elif choices and choices.has_key("mbr"):
-        bl.setDevice(choices["mbr"][0])
+        anaconda.id.bootloader.setDevice(choices["mbr"][0])
     elif choices and choices.has_key("boot"):
-        bl.setDevice(choices["boot"][0])
+        anaconda.id.bootloader.setDevice(choices["boot"][0])
     
 
-    bootDev = fsset.getEntryByMountPoint("/")
+    bootDev = anaconda.id.fsset.getEntryByMountPoint("/")
     if not bootDev:
-        bootDev = fsset.getEntryByMountPoint("/boot")
-    part = partedUtils.get_partition_by_name(diskSet.disks,
+        bootDev = anaconda.id.fsset.getEntryByMountPoint("/boot")
+    part = partedUtils.get_partition_by_name(anaconda.id.diskset.disks,
                                               bootDev.device.getDevice())
     if part and partedUtils.end_sector_to_cyl(part.geom.dev,
                                                part.geom.end) >= 1024:
-        bl.above1024 = 1
+        anaconda.id.bootloader.above1024 = 1
     
 
-def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
+def writeBootloader(anaconda):
     def dosync():
         isys.sync()
         isys.sync()
@@ -103,38 +103,38 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
         
     justConfigFile = not flags.setupFilesystems
 
-    if bl.defaultDevice == -1:
+    if anaconda.id.bootloader.defaultDevice == -1:
         return
 
     # now make the upgrade stuff work for kickstart too. ick.
-    if bl.kickstart == 1 and bl.doUpgradeOnly == 1:
+    if anaconda.isKickstart and anaconda.id.bootloader.doUpgradeOnly:
         import checkbootloader
-        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(instRoot)
+        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath)
         
-        bl.doUpgradeonly = 1
+        anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
-            bl.useGrubVal = 1
-            bl.setDevice(theDev)
+            anaconda.id.bootloader.useGrubVal = 1
+            anaconda.id.bootloader.setDevice(theDev)
         else:
-            bl.doUpgradeOnly = 0    
+            anaconda.id.bootloader.doUpgradeOnly = 0    
 
     # We don't need to let the user know if we're just doing the bootloader.
     if not justConfigFile:
-        w = intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
+        w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
 
     kernelList = []
     otherList = []
-    root = fsset.getEntryByMountPoint('/')
+    root = anaconda.id.fsset.getEntryByMountPoint('/')
     if root:
         rootDev = root.device.getDevice()
     else:
         rootDev = None
-    defaultDev = bl.images.getDefault()
+    defaultDev = anaconda.id.bootloader.images.getDefault()
 
     kernelLabel = None
     kernelLongLabel = None
 
-    for (dev, (label, longlabel, type)) in bl.images.getImages().items():
+    for (dev, (label, longlabel, type)) in anaconda.id.bootloader.images.getImages().items():
         if (dev == rootDev) or (rootDev is None and kernelLabel is None):
 	    kernelLabel = label
             kernelLongLabel = longlabel
@@ -151,7 +151,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
 
     plainLabelUsed = 0
     defkern = "kernel"
-    for (version, nick) in backend.kernelVersionList():
+    for (version, nick) in anaconda.backend.kernelVersionList():
 	if plainLabelUsed:
             kernelList.append(("%s-%s" %(kernelLabel, nick),
                                "%s-%s" %(kernelLongLabel, nick),
@@ -164,7 +164,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
                 defkern = "kernel-%s" %(nick,)
 	    plainLabelUsed = 1
 
-    f = open(instRoot + "/etc/sysconfig/kernel", "w+")
+    f = open(anaconda.rootPath + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
@@ -179,15 +179,16 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, backend):
 
     dosync()
     try:
-        bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
-                 justConfigFile, intf)
+        anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.fsset, anaconda.id.bootloader,
+                                     anaconda.id.instLanguage, kernelList, otherList, defaultDev,
+                                     justConfigFile, anaconda.intf)
 	if not justConfigFile:
 	    w.pop()
     except bootloaderInfo.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()
         if intf:
-            intf.messageWindow(_("Warning"),
+            anaconda.intf.messageWindow(_("Warning"),
                                _("No kernel packages were installed on your "
                                  "system.  Your boot loader configuration "
                                  "will not be changed."))

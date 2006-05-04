@@ -59,7 +59,7 @@ class BaseInstallClass:
     # we can use a different install data class
     installDataClass = InstallData
 
-    def postAction(self, rootPath, serial, intf = None):
+    def postAction(self, anaconda, serial):
 	pass
 
     def setBootloader(self, id, location=None, forceLBA=0, password=None,
@@ -202,10 +202,10 @@ class BaseInstallClass:
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 
-    def setPackageSelection(self, backend, intf=None):
+    def setPackageSelection(self, anaconda):
 	pass
 
-    def setGroupSelection(self, backend, intf=None):
+    def setGroupSelection(self, anaconda):
 	pass
 
     def setZFCP(self, id, devnum, scsiid, wwpn, scsilun, fcplun):
@@ -448,9 +448,9 @@ class BaseInstallClass:
         partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
 
 
-    def setInstallData(self, id, intf = None):
-	id.reset()
-	id.instClass = self
+    def setInstallData(self, anaconda):
+	anaconda.id.reset()
+	anaconda.id.instClass = self
 
 	# Classes should call these on __init__ to set up install data
 	#id.setKeyboard()

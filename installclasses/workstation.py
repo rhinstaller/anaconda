@@ -26,14 +26,14 @@ class InstallClass(personal_desktop.InstallClass):
     showLoginChoice = 0
     hidden = 1
 
-    def setGroupSelection(self, grpset, intf):
-        personal_desktop.InstallClass.setGroupSelection(self, grpset, intf)
-        grpset.selectGroup("emacs")
-        grpset.selectGroup("gnome-software-development")
-	grpset.selectGroup("x-software-development")
-        grpset.selectGroup("development-tools")
-        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
-        grpset.selectGroup("compat-arch-development", asMeta = 1, missingOk = 1)
+    def setGroupSelection(self, anaconda):
+        personal_desktop.InstallClass.setGroupSelection(self, anaconda.backend, intf)
+        anaconda.backend.selectGroup("emacs")
+        anaconda.backend.selectGroup("gnome-software-development")
+	anaconda.backend.selectGroup("x-software-development")
+        anaconda.backend.selectGroup("development-tools")
+        anaconda.backend.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
+        anaconda.backend.selectGroup("compat-arch-development", asMeta = 1, missingOk = 1)
         
     def __init__(self, expert):
 	personal_desktop.InstallClass.__init__(self, expert)

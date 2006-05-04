@@ -26,17 +26,17 @@ class InstallClass(BaseInstallClass):
         dispatch.skipStep("desktopchoice", skip = 0)
         dispatch.skipStep("package-selection", skip = 1)
 
-    def setGroupSelection(self, grpset, intf):
-	BaseInstallClass.__init__(self, grpset)
+    def setGroupSelection(self, anaconda):
+	BaseInstallClass.__init__(self, anaconda)
 
-        grpset.unselectAll()
-        grpset.selectGroup("workstation-common", asMeta = 1)
-        grpset.selectGroup("gnome-desktop")        
-        grpset.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
+        anaconda.unselectAll()
+        anaconda.selectGroup("workstation-common", asMeta = 1)
+        anaconda.selectGroup("gnome-desktop")        
+        anaconda.selectGroup("compat-arch-support", asMeta = 1, missingOk = 1)
         
-    def setInstallData(self, id):
-	BaseInstallClass.setInstallData(self, id)
-        BaseInstallClass.setDefaultPartitioning(self, id.partitions,
+    def setInstallData(self, anaconda):
+	BaseInstallClass.setInstallData(self, anaconda)
+        BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
                                                 CLEARPART_TYPE_LINUX)
 
     def __init__(self, expert):

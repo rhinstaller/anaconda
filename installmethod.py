@@ -102,14 +102,14 @@ class InstallMethod:
 # this handles any cleanup needed for the method.  it occurs *very* late
 # (ie immediately before the congratulations screen).  main use right now
 # is ejecting the cdrom
-def doMethodComplete(method, fsset):
-    method.ejectCD()
+def doMethodComplete(anaconda):
+    anaconda.method.ejectCD()
 
     mtab = "/dev/root / ext3 ro 0 0\n"
-    for ent in fsset.entries:
+    for ent in anaconda.id.fsset.entries:
         if ent.mountpoint == "/":
             mtab = "/dev/root / %s ro 0 0\n" %(ent.fsystem.name,)
     
-    f = open(method.rootPath + "/etc/mtab", "w+")
+    f = open(anaconda.rootPath + "/etc/mtab", "w+")
     f.write(mtab)
     f.close()

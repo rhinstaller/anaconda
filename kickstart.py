@@ -739,7 +739,7 @@ class Kickstart(BaseInstallClass):
                 break
         partitions.autoPartitionRequests.append(request)            
 
-    def runPreScripts(self, intf = None):
+    def runPreScripts(self, anaconda):
         preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE,
                              self.ksdata.scripts)
 
@@ -747,17 +747,17 @@ class Kickstart(BaseInstallClass):
             return
 
 	log.info("Running kickstart %%pre script(s)")
-        if intf is not None:
-            w = intf.waitWindow(_("Running..."),
+        if anaconda.intf is not None:
+            w = anaconda.intf.waitWindow(_("Running..."),
                                 _("Running pre-install scripts"))
         
-        map (lambda s: s.run("/", self.serial, intf), preScripts)
+        map (lambda s: s.run("/", self.serial, anaconda.intf), preScripts)
 
 	log.info("All kickstart %%pre script(s) have been run")
-        if intf is not None:
+        if anaconda.intf is not None:
             w.pop()
 
-    def postAction(self, rootPath, serial, intf = None):
+    def postAction(self, anaconda, serial):
         postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
                               self.ksdata.scripts)
 
@@ -765,14 +765,14 @@ class Kickstart(BaseInstallClass):
             return
 
 	log.info("Running kickstart %%post script(s)")
-        if intf is not None:
-            w = intf.waitWindow(_("Running..."),
+        if anaconda.intf is not None:
+            w = anaconda.intf.waitWindow(_("Running..."),
                                 _("Running post-install scripts"))
             
-        map (lambda s: s.run(rootPath, serial, intf), postScripts)
+        map (lambda s: s.run(anaconda.rootPath, serial, anaconda.intf), postScripts)
 
 	log.info("All kickstart %%post script(s) have been run")
-        if intf is not None:
+        if anaconda.intf is not None:
             w.pop()
 
     def runTracebackScripts(self):
@@ -782,10 +782,10 @@ class Kickstart(BaseInstallClass):
 	    script.run("/", self.serial)
         log.info("All kickstart %%traceback script(s) have been run")
 
-    def setInstallData (self, id, intf = None):
-        BaseInstallClass.setInstallData(self, id)
+    def setInstallData (self, anaconda):
+        BaseInstallClass.setInstallData(self, anaconda)
         self.setEarlySwapOn(1)
-        self.id = id
+        self.id = anaconda.id
         self.id.firstboot = FIRSTBOOT_SKIP
 
         # make sure our disks are alive
@@ -800,14 +800,14 @@ class Kickstart(BaseInstallClass):
         try:
             self.ksparser.readKickstart(self.file)
         except KickstartError, e:
-           if intf:
-               intf.kickstartErrorWindow(e.__str__())
+           if anaconda.intf:
+               anaconda.intf.kickstartErrorWindow(e.__str__())
                sys.exit(0)
            else:
                raise KickstartError, e
 
         # run %pre scripts
-        self.runPreScripts(intf)
+        self.runPreScripts(anaconda)
 
         # now read the kickstart file for real
         self.ksdata = KickstartData()
@@ -899,14 +899,14 @@ class Kickstart(BaseInstallClass):
         for n in self.handlers.showSteps:
             dispatch.skipStep(n, skip = 0)
 
-    def setPackageSelection(self, backend, intf=None, *args):
+    def setPackageSelection(self, anaconda, *args):
         for pkg in self.ksdata.packageList:
-            num = backend.selectPackage(pkg)
+            num = anaconda.backend.selectPackage(pkg)
             if self.ksdata.handleMissing == KS_MISSING_IGNORE:
                 continue
             if num > 0:
                 continue
-            rc = intf.messageWindow(_("Missing Package"),
+            rc = anaconda.intf.messageWindow(_("Missing Package"),
                                     _("You have specified that the "
                                       "package '%s' should be installed.  "
                                       "This package does not exist. "
@@ -920,21 +920,21 @@ class Kickstart(BaseInstallClass):
             else:
                 pass
 
-    def setGroupSelection(self, backend, intf=None, *args):
-        backend.selectGroup("Core")
+    def setGroupSelection(self, anaconda, *args):
+        anaconda.backend.selectGroup("Core")
 
         if self.ksdata.addBase:
-            backend.selectGroup("Base")
+            anaconda.backend.selectGroup("Base")
         else:
             log.warning("not adding Base group")
 
         for grp in self.ksdata.groupList:
-            num = backend.selectGroup(grp)
+            num = anaconda.backend.selectGroup(grp)
             if self.ksdata.handleMissing == KS_MISSING_IGNORE:
                 continue
             if num > 0:
                 continue
-            rc = intf.messageWindow(_("Missing Group"),
+            rc = anaconda.intf.messageWindow(_("Missing Group"),
                                     _("You have specified that the "
                                       "group '%s' should be installed. "
                                       "This group does not exist. "
@@ -949,7 +949,7 @@ class Kickstart(BaseInstallClass):
             else:
                 pass
 
-        map(backend.deselectPackage, self.ksdata.excludedList)
+        map(anaconda.backend.deselectPackage, self.ksdata.excludedList)
 
 #
 # look through ksfile and if it contains a line:

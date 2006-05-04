@@ -40,38 +40,37 @@ class AnacondaBackend:
     def doPreSelection(self, intf, id, instPath):
         pass
 
-    def doPostSelection(self, intf, id, instPath, dir):
+    def doPostSelection(self, anaconda):
         pass
 
-    def doPreInstall(self, intf, id, instPath, dir):
+    def doPreInstall(self, anaconda):
         pass
 
-    def doPostInstall(self, intf, id, instPath):
+    def doPostInstall(self, anaconda):
         sys.stdout.flush()
         if flags.setupFilesystems:
             syslog.stop()
 
-        if id.partitions.isKickstart:
-            for svc in id.ksdata.services["disabled"]:
+        if anaconda.isKickstart:
+            for svc in anaconda.id.ksdata.services["disabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        ["/sbin/chkconfig", svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root="/mnt/sysimage")
 
-            for svc in id.ksdata.services["enabled"]:
+            for svc in anaconda.id.ksdata.services["enabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        ["/sbin/chkconfig", svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root="/mnt/sysimage")
 
-            for ud in id.ksdata.userList:
-                if id.users.createUser(ud.name, ud.password, ud.isCrypted,
-                                       ud.groups, ud.homedir, ud.shell,
-                                       ud.uid) == None:
+            for ud in anaconda.id.ksdata.userList:
+                if anaconda.id.users.createUser(ud.name, ud.password, ud.isCrypted,
+                                                ud.groups, ud.homedir, ud.shell,
+                                                ud.uid) == None:
                     log.error("User %s already exists, not creating." % ud.name)
-        
 
-    def doInstall(self, intf, id, instPath):
+    def doInstall(self, anaconda):
         pass
 
     def initLog(self, id, instPath):
@@ -121,10 +120,10 @@ class AnacondaBackend:
     def kernelVersionList(self):
         pass
 
-    def doInitialSetup(self, id, instPath):
+    def doInitialSetup(self, anaconda):
         pass
 
-    def doRepoSetup(self, intf, instPath):
+    def doRepoSetup(anaconda):
         log.warning("doRepoSetup not implemented for backend!")
         pass
 
@@ -164,32 +163,32 @@ class AnacondaBackend:
         log.warning("writeConfig not implemented for backend!")
         pass
 
-def doRepoSetup(backend, intf, id, instPath):
-    backend.doInitialSetup(id, instPath)
-    backend.doRepoSetup(intf, instPath)
-    if id.upgrade:
-        backend.checkSupportedUpgrade(intf, instPath)
+def doRepoSetup(anaconda):
+    anaconda.backend.doInitialSetup(anaconda)
+    anaconda.backend.doRepoSetup(anaconda)
+    if anaconda.id.upgrade:
+        anaconda.backend.checkSupportedUpgrade(anaconda)
 
-def doPostSelection(backend, intf, id, instPath, dir):
-    return backend.doPostSelection(intf, id, instPath, dir)
+def doPostSelection(anaconda):
+    return anaconda.backend.doPostSelection(anaconda)
 
-def doPreInstall(backend, intf, id, instPath, dir):
-    backend.doPreInstall(intf, id, instPath, dir)
+def doPreInstall(anaconda):
+    anaconda.backend.doPreInstall(anaconda)
 
-def doPostInstall(backend, intf, id, instPath):
-    backend.doPostInstall(intf, id, instPath)
+def doPostInstall(anaconda):
+    anaconda.backend.doPostInstall(anaconda)
 
-def doInstall(backend, intf, id, instPath):
-    backend.doInstall(intf, id, instPath)
+def doInstall(anaconda):
+    anaconda.backend.doInstall(anaconda)
 
 # does this need to be per-backend?  we'll just leave here until it does :)
-def doBasePackageSelect(backend, instClass, intf):
-    instClass.setPackageSelection(backend, intf)
-    instClass.setGroupSelection(backend, intf)
+def doBasePackageSelect(anaconda):
+    anaconda.id.instClass.setPackageSelection(anaconda)
+    anaconda.id.instClass.setGroupSelection(anaconda)
 
-def writeConfiguration(backend, id, instPath):
+def writeConfiguration(anaconda):
     log.info("Writing main configuration")
     if not flags.test:
-        backend.writeConfiguration()
-        id.write(instPath)
+        anaconda.backend.writeConfiguration()
+        anaconda.id.write(anaconda.rootPath)
    

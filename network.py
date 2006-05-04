@@ -56,10 +56,10 @@ def sanityCheckHostname(hostname):
     return None
 	    
 
-def networkDeviceCheck(network, dispatch):
-    devs = network.available()
+def networkDeviceCheck(anaconda):
+    devs = anaconda.id.network.available()
     if not devs:
-        dispatch.skipStep("network")
+        anaconda.dispatch.skipStep("network")
 
 
 # return if the device is of a type that requires a ptpaddr to be specified

@@ -895,7 +895,7 @@ if __name__ == "__main__":
         anaconda.id.setKeyboard(kbd)
 
     anaconda.id.setDisplayMode(opts.display_mode)
-    instClass.setInstallData(anaconda.id, anaconda.intf)
+    instClass.setInstallData(anaconda)
 
     # We need to copy the VNC-related kickstart stuff into the new ksdata
     if opts.ksfile is not None:

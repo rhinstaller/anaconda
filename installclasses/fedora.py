@@ -21,14 +21,14 @@ class InstallClass(BaseInstallClass):
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web server"), ["web-server"])]
 
-    def setInstallData(self, id, intf = None):
-	BaseInstallClass.setInstallData(self, id)
-        BaseInstallClass.setDefaultPartitioning(self, id.partitions,
+    def setInstallData(self, anaconda):
+	BaseInstallClass.setInstallData(self, anaconda)
+        BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
                                                 CLEARPART_TYPE_LINUX)
 
-    def setGroupSelection(self, backend, intf):
-        grps = backend.getDefaultGroups()
-        map(lambda x: backend.selectGroup(x), grps)
+    def setGroupSelection(self, anaconda):
+        grps = anaconda.backend.getDefaultGroups()
+        map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);

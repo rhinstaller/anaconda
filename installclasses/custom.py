@@ -18,9 +18,9 @@ class InstallClass(BaseInstallClass):
     showMinimal = 1
     hidden = 1
 
-    def setInstallData(self, id):
-	BaseInstallClass.setInstallData(self, id)
-        BaseInstallClass.setDefaultPartitioning(self, id.partitions,
+    def setInstallData(self, anaconda):
+	BaseInstallClass.setInstallData(self, anaconda)
+        BaseInstallClass.setDefaultPartitioning(self, anaconda.id.partitions,
                                                 CLEARPART_TYPE_LINUX)
 
     def __init__(self, expert):

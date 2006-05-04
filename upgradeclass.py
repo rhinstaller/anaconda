@@ -67,9 +67,9 @@ class InstallClass(BaseInstallClass):
         if rhpl.getArch() != "i386" and rhpl.getArch() != "x86_64":
             dispatch.skipStep("upgbootloader")            
 
-    def setInstallData(self, id):
-        BaseInstallClass.setInstallData(self, id)
-        id.setUpgrade(True)
+    def setInstallData(self, anaconda):
+        BaseInstallClass.setInstallData(self, anaconda)
+        anaconda.id.setUpgrade(True)
     
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

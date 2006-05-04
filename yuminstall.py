@@ -651,19 +651,19 @@ class YumBackend(AnacondaBackend):
                 if rc == 0:
                     sys.exit(0)
 
-    def doInitialSetup(self, id, instPath):
-        if id.getUpgrade():
+    def doInitialSetup(self, anaconda):
+        if anaconda.id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
             for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
                 try:
-                    os.unlink("%s/var/lib/rpm/%s" %(instPath, rpmfile))
+                    os.unlink("%s/var/lib/rpm/%s" %(anaconda.rootPath, rpmfile))
                 except:
                     log.error("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
 
         self.ac = AnacondaYumConf(self.method.getMethodUri(), 
-                                 configfile="/tmp/yum.conf", root=instPath)
+                                 configfile="/tmp/yum.conf", root=anaconda.rootPath)
         self.ac.write()
-        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=instPath, method=self.method)
+        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=anaconda.rootPath, method=self.method)
 
     def doGroupSetup(self):
         self.ayum.doGroupSetup()
@@ -672,7 +672,7 @@ class YumBackend(AnacondaBackend):
             if self.ayum.comps._groups.has_key("xen"):
                 del self.ayum.comps._groups["xen"]
 
-    def doRepoSetup(self, intf, instPath):
+    def doRepoSetup(self, anaconda):
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
 
@@ -688,7 +688,7 @@ class YumBackend(AnacondaBackend):
         tot = 0
         for t in tasks:
             tot += t[1]
-        waitwin = YumProgress(intf, _("Retrieving installation information..."),
+        waitwin = YumProgress(anaconda.intf, _("Retrieving installation information..."),
                               tot)
         self.ayum.repos.callback = waitwin
 
@@ -703,7 +703,7 @@ class YumBackend(AnacondaBackend):
         except RepoError, e:
             log.error("reading package metadata: %s" %(e,))
             waitwin.pop()
-            intf.messageWindow(_("Error"),
+            anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
                                  "ensure that your install tree has been "
@@ -714,7 +714,7 @@ class YumBackend(AnacondaBackend):
 
         self.ayum.repos.callback = None
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
-                                            {"intf":intf, "method":self.method}))
+                                            {"intf":anaconda.intf, "method":self.method}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in
@@ -834,17 +834,17 @@ class YumBackend(AnacondaBackend):
         for entry in fsset.entries:
             map(self.selectPackage, entry.fsystem.getNeededPackages())
 
-    def doPostSelection(self, intf, id, instPath, dir):
+    def doPostSelection(self, anaconda):
         # Only solve dependencies on the way through the installer, not the way back.
-        if dir == DISPATCH_BACK:
+        if anaconda.dir == DISPATCH_BACK:
             return
 
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
-        self.selectFSPackages(id.fsset)
-        
-        if id.getUpgrade():
+        self.selectFSPackages(anaconda.id.fsset)
+
+        if anaconda.id.getUpgrade():
             from upgrade import upgrade_remove_blacklist
             self.upgradeFindPackages()
             for pkg in upgrade_remove_blacklist:
@@ -859,24 +859,24 @@ class YumBackend(AnacondaBackend):
                 self.ayum.remove(name=pkgname, arch=pkgarch)
             self.ayum.update()
 
-        dscb = YumDepSolveProgress(intf)
+        dscb = YumDepSolveProgress(anaconda.intf)
         self.ayum.dsCallback = dscb
 
         try:
             (code, msgs) = self.ayum.buildTransaction()
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
-            if not id.getUpgrade():
-                usrPart = id.partitions.getRequestByMountPoint("/usr")
+            if not anaconda.id.getUpgrade():
+                usrPart = anaconda.id.partitions.getRequestByMountPoint("/usr")
                 if usrPart is not None:
                     largePart = usrPart
                 else:
-                    largePart = id.partitions.getRequestByMountPoint("/")
+                    largePart = anaconda.id.partitions.getRequestByMountPoint("/")
 
                 if largePart and \
-                   largePart.getActualSize(id.partitions, id.diskset) < self.totalSize / 1024:
+                   largePart.getActualSize(anaconda.id.partitions, anaconda.id.diskset) < self.totalSize / 1024:
                     dscb.pop()
-                    rc = intf.messageWindow(_("Error"),
+                    rc = anaconda.intf.messageWindow(_("Error"),
                                             _("Your selected packages require %d MB "
                                               "of free space for installation, but "
                                               "you do not have enough available.  "
@@ -893,11 +893,11 @@ class YumBackend(AnacondaBackend):
             dscb.pop()
             self.ayum.dsCallback = None
 
-    def doPreInstall(self, intf, id, instPath, dir):
-        if dir == DISPATCH_BACK:
+    def doPreInstall(self, anaconda):
+        if anaconda.dir == DISPATCH_BACK:
             for d in ("/selinux", "/dev"):
                 try:
-                    isys.umount(instPath + d, removeDir = 0)
+                    isys.umount(anaconda.rootPath + d, removeDir = 0)
                 except Exception, e:
                     log.error("unable to unmount %s: %s" %(d, e))
             return
@@ -906,44 +906,44 @@ class YumBackend(AnacondaBackend):
                 return
 
         # shorthand
-        upgrade = id.getUpgrade()
+        upgrade = anaconda.id.getUpgrade()
 
         if upgrade:
             # An old mtab can cause confusion (esp if loop devices are
             # in it)
-            f = open(instPath + "/etc/mtab", "w+")
+            f = open(anaconda.rootPath + "/etc/mtab", "w+")
             f.close()
 
             # we really started writing modprobe.conf out before things were
             # all completely ready.  so now we need to nuke old modprobe.conf's
             # if you're upgrading from a 2.4 dist so that we can get the
             # transition right
-            if (os.path.exists(instPath + "/etc/modules.conf") and
-                os.path.exists(instPath + "/etc/modprobe.conf") and
-                not os.path.exists(instPath + "/etc/modprobe.conf.anacbak")):
+            if (os.path.exists(anaconda.rootPath + "/etc/modules.conf") and
+                os.path.exists(anaconda.rootPath + "/etc/modprobe.conf") and
+                not os.path.exists(anaconda.rootPath + "/etc/modprobe.conf.anacbak")):
                 log.info("renaming old modprobe.conf -> modprobe.conf.anacbak")
-                os.rename(instPath + "/etc/modprobe.conf",
-                          instPath + "/etc/modprobe.conf.anacbak")
+                os.rename(anaconda.rootPath + "/etc/modprobe.conf",
+                          anaconda.rootPath + "/etc/modprobe.conf.anacbak")
                 
 
-        if self.method.systemMounted (id.fsset, instPath):
-            id.fsset.umountFilesystems(instPath)
+        if self.method.systemMounted (anaconda.id.fsset, anaconda.rootPath):
+            anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
             return DISPATCH_BACK
 
         for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
                    '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache', '/var/cache/yum' ):
             try:
-                os.mkdir(instPath + i)
+                os.mkdir(anaconda.rootPath + i)
             except os.error, (errno, msg):
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
-        self.initLog(id, instPath)
+        self.initLog(anaconda.id, anaconda.rootPath)
 
         if flags.setupFilesystems:
             # setup /etc/rpm/platform for the post-install environment
-            iutil.writeRpmPlatform(instPath)
+            iutil.writeRpmPlatform(anaconda.rootPath)
             
             try:
                 # FIXME: making the /var/lib/rpm symlink here is a hack to
@@ -964,40 +964,39 @@ class YumBackend(AnacondaBackend):
             # SELinux hackery (#121369)
             if flags.selinux:
                 try:
-                    os.mkdir(instPath + "/selinux")
+                    os.mkdir(anaconda.rootPath + "/selinux")
                 except Exception, e:
                     pass
                 try:
-                    isys.mount("/selinux", instPath + "/selinux", "selinuxfs")
+                    isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
                 except Exception, e:
                     log.error("error mounting selinuxfs: %s" %(e,))
 
             # we need to have a /dev during install and now that udev is
             # handling /dev, it gets to be more fun.  so just bind mount the
             # installer /dev
-            if 1:
-                log.warning("no dev package, going to bind mount /dev")
-                isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
-                if not upgrade:
-                    id.fsset.mkDevRoot("/mnt/sysimage/")
+            log.warning("no dev package, going to bind mount /dev")
+            isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
+            if not upgrade:
+                anaconda.id.fsset.mkDevRoot("/mnt/sysimage/")
 
         # write out the fstab
         if not upgrade:
-            id.fsset.write(instPath)
+            anaconda.id.fsset.write(anaconda.rootPath)
             # rootpath mode doesn't have this file around
             if os.access("/tmp/modprobe.conf", os.R_OK):
                 shutil.copyfile("/tmp/modprobe.conf", 
-                                instPath + "/etc/modprobe.conf")
+                                anaconda.rootPath + "/etc/modprobe.conf")
             if os.access("/tmp/zfcp.conf", os.R_OK):
                 shutil.copyfile("/tmp/zfcp.conf", 
-                                instPath + "/etc/zfcp.conf")
+                                anaconda.rootPath + "/etc/zfcp.conf")
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
-        f = open(instPath + "/etc/mtab", "w+")
-        f.write(id.fsset.mtab())
+        f = open(anaconda.rootPath + "/etc/mtab", "w+")
+        f.write(anaconda.id.fsset.mtab())
         f.close()
 
-    def checkSupportedUpgrade(self, intf, instPath):
+    def checkSupportedUpgrade(self, anaconda):
         # Figure out current version for upgrade nag and for determining weird
         # upgrade cases
         supportedUpgradeVersion = -1
@@ -1016,7 +1015,7 @@ class YumBackend(AnacondaBackend):
             supportedUpgradeVersion = 1
 
         if supportedUpgradeVersion == 0:
-            rc = intf.messageWindow(_("Warning"),
+            rc = anaconda.intf.messageWindow(_("Warning"),
                                     _("You appear to be upgrading from a system "
                                       "which is too old to upgrade to this "
                                       "version of %s.  Are you sure you wish to "
@@ -1026,34 +1025,33 @@ class YumBackend(AnacondaBackend):
             if rc == 0:
                 for rpmfile in ["__db.000", "__db.001", "__db.002", "__db.003"]:
                     try:
-                        os.unlink("%s/var/lib/rpm/%s" %(instPath, rpmfile))
+                        os.unlink("%s/var/lib/rpm/%s" %(anaconda.rootPath, rpmfile))
                     except:
                         log.info("error %s removing file: /var/lib/rpm/%s" %(e,rpmfile))
                         pass
                 sys.exit(0)
 
-    def doInstall(self, intf, id, instPath):
+    def doInstall(self, anaconda):
         log.info("Preparing to install packages")
         if flags.test:
             log.info("Test mode - not performing install")
             return
 
-
-        if not id.upgrade:
+        if not anaconda.id.upgrade:
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")        
 
         pkgTimer = timer.Timer(start = 0)
 
-        id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
-        id.instProgress.processEvents()
+        anaconda.id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
+        anaconda.id.instProgress.processEvents()
 
-        cb = simpleCallback(intf.messageWindow, id.instProgress, pkgTimer, self.method, intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = simpleCallback(anaconda.intf.messageWindow, anaconda.id.instProgress, pkgTimer, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
 
-        cb.initWindow = intf.waitWindow(_("Install Starting"),
+        cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))
 
-        self.ayum.run(self.instLog, cb, intf, id)
+        self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
 
         if not cb.beenCalled:
             cb.initWindow.pop()
@@ -1061,33 +1059,33 @@ class YumBackend(AnacondaBackend):
         self.method.filesDone()
         self.instLog.close ()
 
-        id.instProgress = None
+        anaconda.id.instProgress = None
 
-    def doPostInstall(self, intf, id, instPath):
+    def doPostInstall(self, anaconda):
         if flags.test:
             return
 
-        if id.getUpgrade():
-            w = intf.progressWindow(_("Post Upgrade"),
+        if anaconda.id.getUpgrade():
+            w = anaconda.intf.progressWindow(_("Post Upgrade"),
                                     _("Performing post upgrade configuration..."), 6)
         else:
-            w = intf.progressWindow(_("Post Install"),
+            w = anaconda.intf.progressWindow(_("Post Install"),
                                     _("Performing post install configuration..."), 6)
-            id.network.write(instPath)
+            anaconda.id.network.write(anaconda.rootPath)
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
-            id.bootloader.args.append("rhgb quiet")
+            anaconda.id.bootloader.args.append("rhgb quiet")
             break
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='gdm'):
-            if id.displayMode == 'g':
-                id.desktop.setDefaultRunLevel(5)
+            if anaconda.id.displayMode == 'g':
+                anaconda.id.desktop.setDefaultRunLevel(5)
                 break
 
 # XXX: write proper lvm config
 
         w.pop()
-        AnacondaBackend.doPostInstall(self, intf, id, instPath) 
+        AnacondaBackend.doPostInstall(self, anaconda)
 
     def kernelVersionList(self):
         kernelVersions = []

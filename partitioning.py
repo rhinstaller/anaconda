@@ -52,9 +52,9 @@ def partitionObjectsInitialize(anaconda):
     anaconda.id.partitions.setFromDisk(anaconda.id.diskset)
     anaconda.id.partitions.setProtected(anaconda.dispatch)
 
-def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
-    if dir == DISPATCH_BACK and fsset.isActive():
-        rc = intf.messageWindow(_("Installation cannot continue."),
+def partitioningComplete(anaconda):
+    if anaconda.dir == DISPATCH_BACK and anaconda.id.fsset.isActive():
+        rc = anaconda.intf.messageWindow(_("Installation cannot continue."),
                                 _("The partitioning options you have chosen "
                                   "have already been activated. You can "
                                   "no longer return to the disk editing "
@@ -65,17 +65,17 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
             sys.exit(0)
         return DISPATCH_FORWARD
 
-    partitions.sortRequests()
-    fsset.reset()
-    for request in partitions.requests:
+    anaconda.id.partitions.sortRequests()
+    anaconda.id.fsset.reset()
+    for request in anaconda.id.partitions.requests:
         # XXX improve sanity checking
 	if (not request.fstype or (request.fstype.isMountable()
 	    and not request.mountpoint)):
 	    continue
 	    
-        entry = request.toEntry(partitions)
+        entry = request.toEntry(anaconda.id.partitions)
         if entry:
-            fsset.add (entry)
+            anaconda.id.fsset.add (entry)
         else:
             raise RuntimeError, ("Managed to not get an entry back from "
                                  "request.toEntry")
@@ -84,9 +84,8 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         or iutil.memAvailable() > isys.EARLY_SWAP_RAM):
         return
     
-    # XXX this attribute is probably going away
-    if not partitions.isKickstart:
-        rc = intf.messageWindow(_("Low Memory"),
+    if not anaconda.isKickstart:
+        rc = anaconda.intf.messageWindow(_("Low Memory"),
                             _("As you don't have much memory in this "
                               "machine, we need to turn on swap space "
                               "immediately. To do this we'll have to "
@@ -96,14 +95,11 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         rc = 1
         
     if rc:
-        partitions.doMetaDeletes(diskSet)        
-        fsset.setActive(diskSet)
-        diskSet.savePartitions ()
-        fsset.createLogicalVolumes(instPath)        
-        fsset.formatSwap(instPath)
-        fsset.turnOnSwap(instPath)
+        anaconda.id.partitions.doMetaDeletes(anaconda.id.diskset)        
+        anaconda.id.fsset.setActive(anaconda.id.diskset)
+        anaconda.id.diskset.savePartitions ()
+        anaconda.id.fsset.createLogicalVolumes(anaconda.rootPath)        
+        anaconda.id.fsset.formatSwap(anaconda.rootPath)
+        anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
 
     return
-
-
-
