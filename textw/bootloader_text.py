@@ -139,7 +139,7 @@ class BootloaderAppendWindow:
 
 class BootloaderLocationWindow:
     def __call__(self, screen, anaconda):
-	if anaconda.id.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
+	if anaconda.dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
 	choices = anaconda.id.fsset.bootloaderChoices(anaconda.id.diskset, anaconda.id.bootloader)
 	if len(choices.keys()) == 1:
@@ -252,8 +252,8 @@ class BootloaderImagesWindow:
         
         self.bl = anaconda.id.bootloader
 
-	images = bl.images.getImages()
-	default = bl.images.getDefault()
+	images = self.bl.images.getImages()
+	default = self.bl.images.getDefault()
 
 	listboxLabel = Label(     "%-7s  %-25s %-12s" % 
 		( _("Default"), _("Boot label"), _("Device")))

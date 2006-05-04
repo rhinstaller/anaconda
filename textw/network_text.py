@@ -22,6 +22,7 @@ from network import isPtpDev, anyUsingDHCP, sanityCheckIPString
 from network import sanityCheckHostname
 from snack import *
 from constants_text import *
+from constants import *
 from rhpl.translate import _
 
 def badIPDisplay(screen, the_ip):
