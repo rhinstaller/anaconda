@@ -15,6 +15,30 @@
 	* yuminstall.py:  Likewise.
 	* installclasses/*.py:  Likewise.
 
+	* iw/kbd_gui.py:  Added in a shim around system-config-keyboard for
+	argument passing needs.
+
+	* gui.py:  Use system-config-keyboard shim.
+
+	* dispatch.py:  Make all UI steps use anaconda class.
+	* autopart.py:  Use anaconda object.
+	* exception.py:  Likewise.
+	* partIntfHelpers.py:  Likewise.
+	* iw/*.py:  Likewise.
+	* textw/*.py:  Likewise.
+
+	* iw/examine_gui.py:  Remove upgrade package customization.
+	* textw/upgrade_text.py:  Likewise.
+
+	* iw/installpath_gui.py:  Removed.
+	* textw/installpath_text.py:  Likewise.
+	* text.py:  Likewise.
+
+	* anaconda:  Fix callback options.  Correct path for s-c-keyboard.
+	Fix up exception handling arguments.
+
+	* upgrade.py (findExistingRoots):  Reference cmdline dict correctly.
+
 2006-05-03  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.doPostInstall):  Enable/disable services
