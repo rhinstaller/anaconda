@@ -55,10 +55,9 @@ mainWindow = None
 
 stepToClass = {
     "language" : ("language_gui", "LanguageWindow"),
-    "keyboard" : ("keyboard_gui", "KeyboardWindow"),
+    "keyboard" : ("kbd_gui", "KeyboardWindow"),
     "mouse" : ("mouse_gui", "MouseWindow"),
     "welcome" : ("welcome_gui", "WelcomeWindow"),
-    "installtype" : ("installpath_gui", "InstallPathWindow"),
     "iscsi" : ("iscsi_gui", "iscsiWindow"),
     "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
@@ -77,7 +76,7 @@ stepToClass = {
     "group-selection": ("package_gui", "GroupSelectionWindow"),
     "confirminstall" : ("confirm_gui", "InstallConfirmWindow"),
     "confirmupgrade" : ("confirm_gui", "UpgradeConfirmWindow"),
-    "install" : ("progress_gui", "InstallProgressWindow_NEW"),
+    "install" : ("progress_gui", "InstallProgressWindow"),
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }
 
@@ -936,7 +935,7 @@ class InstallControlWindow:
 	    return
 
 	self.dispatch.gotoPrev()
-	self.dir = -1
+	self.dir = DISPATCH_BACK
 
         self.setScreen ()
 
@@ -947,7 +946,7 @@ class InstallControlWindow:
 	    return
 
 	self.dispatch.gotoNext()
-	self.dir = 1
+	self.dir = DISPATCH_FORWARD
 
         self.setScreen ()
 
