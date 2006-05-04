@@ -483,7 +483,7 @@ class InstallInterface:
 	parted.exception_set_handler(self.partedExceptionWindow)        
         
 	lastrc = INSTALL_OK
-	(step, args) = dispatch.currentStep()
+	(step, anaconda) = dispatch.currentStep()
 	while step:
 	    (file, classNames) = stepToClasses[step]
 
@@ -509,7 +509,7 @@ class InstallInterface:
 		#log.info("TUI running step %s (class %s, file %s)" % 
 			 #(step, file, classNames))
 
-		rc = apply(win, (self.screen, ) + args)
+                rc = win(self.screen, anaconda)
 
 		if rc == INSTALL_NOOP:
 		    rc = lastrc

@@ -39,6 +39,14 @@
 
 	* upgrade.py (findExistingRoots):  Reference cmdline dict correctly.
 
+	* dispatch.py (installSteps):  Remove anaconda object argument as it
+	is now implied for every step.
+	(Dispatcher.bindArgs):  Removed.  Call functions directly instead of
+	using apply.
+	* gui.py (InstallControlWindow.setScreen):  Call functions directly
+	instead of using apply.
+	* text.py (InstallInterface.run): Likewise.
+
 2006-05-03  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.doPostInstall):  Enable/disable services

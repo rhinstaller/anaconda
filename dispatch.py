@@ -50,63 +50,65 @@ log = logging.getLogger("anaconda")
 #
 # items are one of
 #
-#	( name, tuple)
-#	( name, Function, tuple)
+#	( name )
+#	( name, Function )
 #
 # in the second case, the function is called directly from the dispatcher
 
+# All install steps take the anaconda object as their sole argument.  This
+# gets passed in when we call the function.
 installSteps = [
-    ("welcome", ("anaconda",)),
-    ("betanag", betaNagScreen, ("anaconda",)),
-    ("language", ("anaconda",)),
-    ("keyboard", ("anaconda",)),
-    ("findrootparts", findRootParts, ("anaconda",)),
-    ("findinstall", ("anaconda",)),
-    ("iscsi", ("anaconda",)),
-    ("zfcpconfig", ("anaconda",)),
-    ("partitionobjinit", partitionObjectsInitialize, ("anaconda",)),
-    ("parttype", ("anaconda",)),    
-    ("autopartitionexecute", doAutoPartition, ("anaconda",)),
-    ("partition", ("anaconda",)),
-    ("upgrademount", upgradeMountFilesystems, ("anaconda",)),
-    ("upgradecontinue", queryUpgradeContinue, ("anaconda",)),
-    ("upgradeswapsuggestion", upgradeSwapSuggestion, ("anaconda",)),
-    ("addswap", ("anaconda",)),
-    ("partitiondone", partitioningComplete, ("anaconda",)),
-    ("upgrademigfind", upgradeMigrateFind, ("anaconda",)),
-    ("upgrademigratefs", ("anaconda",)),
-    ("upgbootloader", ("anaconda",)),
-    ("bootloadersetup", bootloaderSetupChoices, ("anaconda",)),
-    ("bootloader", ("anaconda",)),
-    ("bootloaderadvanced", ("anaconda",)),
-    ("networkdevicecheck", networkDeviceCheck, ("anaconda",)),
-    ("network", ("anaconda",)),
-    ("timezone", ("anaconda",)),
-    ("accounts", ("anaconda",)),
-    ("reposetup", doRepoSetup, ("anaconda",)),
-    ("basepkgsel", doBasePackageSelect, ("anaconda",)),
-    ("tasksel", ("anaconda",)),
-    ("group-selection", ("anaconda",)),
-    ("postselection", doPostSelection, ("anaconda",)),
-    ("confirminstall", ("anaconda",)),
-    ("confirmupgrade", ("anaconda",)),
-    ("install", ("anaconda",)),
-    ("enablefilesystems", turnOnFilesystems, ("anaconda",)),
-    ("migratefilesystems", doMigrateFilesystems, ("anaconda",)),
-    ("setuptime", setupTimezone, ("anaconda",)),
-    ("preinstallconfig", doPreInstall, ("anaconda",)),
-    ("installpackages", doInstall, ("anaconda",)),
-    ("postinstallconfig", doPostInstall, ("anaconda",)),
-    ("writeconfig", writeConfiguration, ("anaconda",)),
-    ("firstboot", firstbootConfiguration, ("anaconda",)),
-    ("instbootloader", writeBootloader, ("anaconda",)),
-    ("writexconfig", writeXConfiguration, ("anaconda",)),
-    ("writeksconfig", writeKSConfiguration, ("anaconda",)),
-    ("setfilecon", setFileCons, ("anaconda",)),
-    ("copylogs", copyAnacondaLogs, ("anaconda",)),
-    ("dopostaction", doPostAction, ("anaconda",)),
-    ("methodcomplete", doMethodComplete, ("anaconda",)),
-    ("complete", ("anaconda",)),
+    ("welcome", ),
+    ("betanag", betaNagScreen, ),
+    ("language", ),
+    ("keyboard", ),
+    ("findrootparts", findRootParts, ),
+    ("findinstall", ),
+    ("iscsi", ),
+    ("zfcpconfig", ),
+    ("partitionobjinit", partitionObjectsInitialize, ),
+    ("parttype", ),    
+    ("autopartitionexecute", doAutoPartition, ),
+    ("partition", ),
+    ("upgrademount", upgradeMountFilesystems, ),
+    ("upgradecontinue", queryUpgradeContinue, ),
+    ("upgradeswapsuggestion", upgradeSwapSuggestion, ),
+    ("addswap", ),
+    ("partitiondone", partitioningComplete, ),
+    ("upgrademigfind", upgradeMigrateFind, ),
+    ("upgrademigratefs", ),
+    ("upgbootloader", ),
+    ("bootloadersetup", bootloaderSetupChoices, ),
+    ("bootloader", ),
+    ("bootloaderadvanced", ),
+    ("networkdevicecheck", networkDeviceCheck, ),
+    ("network", ),
+    ("timezone", ),
+    ("accounts", ),
+    ("reposetup", doRepoSetup, ),
+    ("basepkgsel", doBasePackageSelect, ),
+    ("tasksel", ),
+    ("group-selection", ),
+    ("postselection", doPostSelection, ),
+    ("confirminstall", ),
+    ("confirmupgrade", ),
+    ("install", ),
+    ("enablefilesystems", turnOnFilesystems, ),
+    ("migratefilesystems", doMigrateFilesystems, ),
+    ("setuptime", setupTimezone, ),
+    ("preinstallconfig", doPreInstall, ),
+    ("installpackages", doInstall, ),
+    ("postinstallconfig", doPostInstall, ),
+    ("writeconfig", writeConfiguration, ),
+    ("firstboot", firstbootConfiguration, ),
+    ("instbootloader", writeBootloader, ),
+    ("writexconfig", writeXConfiguration, ),
+    ("writeksconfig", writeKSConfiguration, ),
+    ("setfilecon", setFileCons, ),
+    ("copylogs", copyAnacondaLogs, ),
+    ("dopostaction", doPostAction, ),
+    ("methodcomplete", doMethodComplete, ),
+    ("complete", ),
     ]
 
 class Dispatcher:
@@ -150,6 +152,8 @@ class Dispatcher:
                 log.warning("step %s does not exist", name)
 
     def stepInSkipList(self, step):
+        if type(step) == type(1):
+            step = installSteps[step][0]
 	return self.skipSteps.has_key(step)
 
     def skipStep(self, stepToSkip, skip = 1, permanent = 0):
@@ -170,6 +174,13 @@ class Dispatcher:
 	#raise KeyError, ("unknown step %s" % stepToSkip)
         log.warning("step %s does not exist", name)
 
+    def stepIsDirect(self, step):
+        """Takes a step number"""
+        if len(installSteps[step]) == 2:
+            return True
+        else:
+            return False
+
     def moveStep(self):
 	if self.step == None:
 	    self.step = self.firstStep
@@ -179,16 +190,13 @@ class Dispatcher:
 	if self.step >= len(installSteps):
 	    return None
 
-	while ((self.step >= self.firstStep
-                and self.step < len(installSteps))
-               and (self.skipSteps.has_key(installSteps[self.step][0])
-                    or (type(installSteps[self.step][1]) == FunctionType))):
-	    info = installSteps[self.step]
-	    if ((type(info[1]) == FunctionType)
-                and (not self.skipSteps.has_key(info[0]))):
-                log.info("moving (%d) to step %s" %(self.dir, info[0]))
-		(func, args) = info[1:]
-		rc = apply(func, self.bindArgs(args))
+        while self.step >= self.firstStep and self.step < len(installSteps) \
+            and (self.stepInSkipList(self.step) or self.stepIsDirect(self.step)):
+
+            if self.stepIsDirect(self.step) and not self.stepInSkipList(self.step):
+	        (stepName, stepFunc) = installSteps[self.step]
+                log.info("moving (%d) to step %s" %(self.dir, stepName))
+		rc = stepFunc(self.anaconda)
                 if rc in [DISPATCH_BACK, DISPATCH_FORWARD]:
 		    self.dir = rc
 		# if anything else, leave self.dir alone
@@ -208,21 +216,6 @@ class Dispatcher:
 		self.step = self.step - 1
         log.info("moving (%d) to step %s" %(self.dir, installSteps[self.step][0]))
 
-    def bindArgs(self, args):
-	newArgs = ()
-
-	if type(args) == TupleType or type(args) == ListType:
-	    for arg in args:
-	        obj = self
-	        for item in string.split(arg, '.'):
-		    if not obj.__dict__.has_key(item):
-                        exec "obj = self.%s" %(arg,)
-                        break
-		    obj = obj.__dict__[item]
-	        newArgs = newArgs + (obj,)
-
-	return newArgs
-
     def currentStep(self):
 	if self.step == None:
 	    self.gotoNext()
@@ -231,9 +224,8 @@ class Dispatcher:
 
 	stepInfo = installSteps[self.step]
 	step = stepInfo[0]
-	args = self.bindArgs(stepInfo[1])
 
-	return (step, args)
+	return (step, self.anaconda)
 
     def __init__(self, anaconda):
         self.anaconda = anaconda

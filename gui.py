@@ -1259,7 +1259,7 @@ class InstallControlWindow:
             gobject.source_remove(self.handle)
 
     def setScreen (self):
-	(step, args) = self.dispatch.currentStep()
+	(step, anaconda) = self.dispatch.currentStep()
 	if step is None:
 	    gtk.main_quit()
 	    return
@@ -1307,7 +1307,7 @@ class InstallControlWindow:
 	self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 
-	new_screen = apply(self.currentWindow.getScreen, args)
+        new_screen = self.currentWindow.getScreen(anaconda)
 	if not new_screen:
             return
 
