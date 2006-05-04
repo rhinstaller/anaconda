@@ -104,34 +104,34 @@ def dumpClass(instance, fd, level=0, parentkey="", skipList=[]):
         else:
             fd.write("%s%s: %s\n" % (pad, curkey, value))
 
-def dumpException(out, text, tb, dispatch):
-    skipList = [ "dispatch.backend.ayum",
-                 "dispatch.backend.dlpkgs",
-                 "dispatch.id.accounts",
-                 "dispatch.id.bootloader.password",
-                 "dispatch.id.comps",
-                 "dispatch.id.dispatch",
-                 "dispatch.id.hdList",
-                 "dispatch.id.instClass.handlers.handlers",
-                 "dispatch.id.instClass.ksparser.handler",
-                 "dispatch.id.instClass.ksparser.handler.ksdata.bootloader",
-                 "dispatch.id.instClass.ksparser.handler.ksdata.rootpw",
-                 "dispatch.id.instClass.ksparser.handler.ksdata.vnc",
-                 "dispatch.id.instLanguage.font",
-                 "dispatch.id.instLanguage.kbd",
-                 "dispatch.id.instLanguage.info",
-                 "dispatch.id.instLanguage.localeInfo",
-                 "dispatch.id.instLanguage.nativeLangNames",
-                 "dispatch.id.instLanguage.tz",
-                 "dispatch.id.keyboard._mods._modelDict",
-                 "dispatch.id.keyboard.modelDict",
-                 "dispatch.id.rootPassword",
-                 "dispatch.id.tmpData",
-                 "dispatch.id.xsetup.xhwstate.monitor.monlist",
-                 "dispatch.id.xsetup.xhwstate.monitor.monids",
-                 "dispatch.intf.icw.buff",
-                 "dispatch.intf.icw.releaseNotesContents",
-                 "dispatch.intf.icw.stockButtons",
+def dumpException(out, text, tb, anaconda):
+    skipList = [ "anaconda.backend.ayum",
+                 "anaconda.backend.dlpkgs",
+                 "anaconda.id.accounts",
+                 "anaconda.id.bootloader.password",
+                 "anaconda.id.comps",
+                 "anaconda.id.dispatch",
+                 "anaconda.id.hdList",
+                 "anaconda.id.instClass.handlers.handlers",
+                 "anaconda.id.instClass.ksparser.handler",
+                 "anaconda.id.instClass.ksparser.handler.ksdata.bootloader",
+                 "anaconda.id.instClass.ksparser.handler.ksdata.rootpw",
+                 "anaconda.id.instClass.ksparser.handler.ksdata.vnc",
+                 "anaconda.id.instLanguage.font",
+                 "anaconda.id.instLanguage.kbd",
+                 "anaconda.id.instLanguage.info",
+                 "anaconda.id.instLanguage.localeInfo",
+                 "anaconda.id.instLanguage.nativeLangNames",
+                 "anaconda.id.instLanguage.tz",
+                 "anaconda.id.keyboard._mods._modelDict",
+                 "anaconda.id.keyboard.modelDict",
+                 "anaconda.id.rootPassword",
+                 "anaconda.id.tmpData",
+                 "anaconda.id.xsetup.xhwstate.monitor.monlist",
+                 "anaconda.id.xsetup.xhwstate.monitor.monids",
+                 "anaconda.intf.icw.buff",
+                 "anaconda.intf.icw.releaseNotesContents",
+                 "anaconda.intf.icw.stockButtons",
                  "dispatch.sack.excludes",
                ]
     idSkipList = []
@@ -161,15 +161,15 @@ def dumpException(out, text, tb, dispatch):
 
     try:
         out.write("\n\n")
-        dumpClass(dispatch, out, skipList=idSkipList)
+        dumpClass(anaconda, out, skipList=idSkipList)
     except:
         out.write("\nException occurred during state dump:\n")
         traceback.print_exc(None, out)
 
     for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
                  "/tmp/lvmout",
-                 dispatch.instPath + "/root/install.log",
-                 dispatch.instPath + "/root/upgrade.log"):
+                 anaconda.rootPath + "/root/install.log",
+                 anaconda.rootPath + "/root/upgrade.log"):
         try:
             f = open(file, 'r')
             line = "\n\n%s:\n" % (file,)
@@ -252,7 +252,7 @@ def copyExceptionToRemote(intf):
             scpWin.pop()
             return 2
 
-def copyExceptionToFloppy (intf, dispatch):
+def copyExceptionToFloppy (anaconda):
     # in test mode have save to floppy option just copy to new name
     if not flags.setupFilesystems:
         try:
@@ -261,16 +261,16 @@ def copyExceptionToFloppy (intf, dispatch):
             log.error("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
             pass
 
-        intf.__del__ ()
+        anaconda.intf.__del__ ()
         return 2
 
     while 1:
         # Bail if they hit the cancel button.
-        rc = intf.dumpWindow()
+        rc = anaconda.intf.dumpWindow()
         if rc:
             return 1
 
-        device = dispatch.id.floppyDevice
+        device = anaconda.id.floppyDevice
         file = "/tmp/floppy"
         try:
             isys.makeDevInode(device, file)
@@ -309,7 +309,7 @@ def copyExceptionToFloppy (intf, dispatch):
         isys.umount("/tmp/crash")
         return 0
 
-def handleException(dispatch, intf, (type, value, tb)):
+def handleException(anaconda, (type, value, tb)):
     if isinstance(value, bdb.BdbQuit):
         sys.exit(1)
         
@@ -322,7 +322,7 @@ def handleException(dispatch, intf, (type, value, tb)):
 
     # save to local storage first
     out = open("/tmp/anacdump.txt", "w")
-    dumpException (out, text, tb, dispatch)
+    dumpException (out, text, tb, anaconda)
     out.close()
 
     # see if /mnt/sysimage is present and put exception there as well
@@ -335,22 +335,22 @@ def handleException(dispatch, intf, (type, value, tb)):
 
     # run kickstart traceback scripts (if necessary)
     try:
-        if dispatch.id.instClass.name and dispatch.id.instClass.name == "kickstart":
-            dispatch.id.instClass.runTracebackScripts()
+        if anaconda.isKickstart:
+            anaconda.id.instClass.runTracebackScripts()
     except:
         pass
 
-    win = intf.exceptionWindow(text, "/tmp/anacdump.txt")
+    win = anaconda.intf.exceptionWindow(text, "/tmp/anacdump.txt")
 
     while 1:
         win.run()
         rc = win.getrc()
 
         if rc == 0:
-            intf.__del__ ()
+            anaconda.intf.__del__ ()
             os.kill(os.getpid(), signal.SIGKILL)
         elif rc == 1:
-            intf.__del__ ()
+            anaconda.intf.__del__ ()
             print text
 
             pidfl = "/tmp/vncshell.pid"
@@ -380,10 +380,10 @@ def handleException(dispatch, intf, (type, value, tb)):
             pdb.post_mortem (tb)
             os.kill(os.getpid(), signal.SIGKILL)
         elif rc == 2:
-            floppyRc = copyExceptionToFloppy(intf, dispatch)
+            floppyRc = copyExceptionToFloppy(anaconda)
 
             if floppyRc == 0:
-                intf.messageWindow(_("Dump Written"),
+                anaconda.intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
                       "the floppy. Your system will now be rebooted."),
                     type="custom", custom_icon="info",
@@ -392,15 +392,15 @@ def handleException(dispatch, intf, (type, value, tb)):
             elif floppyRc == 1:
                 continue
             elif floppyRc == 2:
-                intf.messageWindow(_("Dump Not Written"),
+                anaconda.intf.messageWindow(_("Dump Not Written"),
                     _("There was a problem writing the system state to the "
                       "floppy."))
                 continue
         elif rc == 3:
-            scpRc = copyExceptionToRemote(intf)
+            scpRc = copyExceptionToRemote(anaconda.intf)
 
             if scpRc == 0:
-                intf.messageWindow(_("Dump Written"),
+                anaconda.intf.messageWindow(_("Dump Written"),
                     _("Your system's state has been successfully written to "
                       "the remote host.  Your system will now be rebooted."),
                     type="custom", custom_icon="info",
@@ -409,7 +409,7 @@ def handleException(dispatch, intf, (type, value, tb)):
             elif scpRc == 1:
                 continue
             elif scpRc == 2:
-                intf.messageWindow(_("Dump Not Written"),
+                anaconda.intf.messageWindow(_("Dump Not Written"),
                     _("There was a problem writing the system state to the "
                       "remote host."))
                 continue

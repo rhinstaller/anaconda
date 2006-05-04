@@ -301,7 +301,6 @@ def setupPythonPath():
     else:
         sys.path.append('/usr/lib/booty')
 
-    sys.path.append('/usr/share/system-config-keyboard')
     sys.path.append('/usr/share/system-config-date')
 
 def setupTranslations():
@@ -933,14 +932,14 @@ if __name__ == "__main__":
     instClass.setSteps(anaconda.dispatch)
 
     # comment out the next line to make exceptions non-fatal
-    sys.excepthook = lambda type, value, tb, dispatch=anaconda.dispatch, intf=anaconda.intf: handleException(anaconda.dispatch, anaconda.intf, (type, value, tb))
+    sys.excepthook = lambda type, value, tb, anaconda=anaconda: handleException(anaconda, (type, value, tb))
 
     try:
         anaconda.intf.run(anaconda.id, anaconda.dispatch)
     except SystemExit, code:
         anaconda.intf.shutdown()
     except:
-        handleException(anaconda.dispatch, anaconda.intf, sys.exc_info())
+        handleException(anaconda, sys.exc_info())
 
     if anaconda.isKickstart and instClass.ksdata.reboot["eject"]:
         isys.flushDriveDict()
