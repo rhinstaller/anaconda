@@ -198,7 +198,7 @@ def parseOptions():
     op.add_option("-m", "--method", default=None)
     op.add_option("--rescue", dest="progmode", action="store_const", const="rescue", default="install")
     op.add_option("-r", "--rootpath", action="callback", callback=rootpath_cb, dest="rootPath",
-                  default="/mnt/sysimage", nargs=1)
+                  default="/mnt/sysimage", nargs=1, type="string")
     op.add_option("-t", "--test", action="store_true", default=False)
 
     # Display
@@ -206,7 +206,7 @@ def parseOptions():
     op.add_option("--lowres", dest="resolution", action="store_const", const="640x480")
     op.add_option("--nofb")
     op.add_option("--resolution", action="callback", callback=resolution_cb, dest="runres",
-                  default="800x600", nargs=1)
+                  default="800x600", nargs=1, type="string")
     op.add_option("--serial", action="store_true", default=False)
     op.add_option("--skipddc", action="store_true", default=False)
     op.add_option("--usefbx", dest="useFBX", action="store_true", default=False)
