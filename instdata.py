@@ -212,9 +212,9 @@ class InstallData:
 	self.zfcp.writeKS(f)
 
         if self.rootPassword["isCrypted"]:
-            f.write("rootpw --iscrypted %s" % self.rootPassword["password"])
+            f.write("rootpw --iscrypted %s\n" % self.rootPassword["password"])
         else:
-            f.write("rootpw --iscrypted %s" % users.cryptPassword(self.rootPassword["password"], useMD5))
+            f.write("rootpw --iscrypted %s\n" % users.cryptPassword(self.rootPassword["password"], useMD5))
 
 	self.firewall.writeKS(f)
 	if self.auth.strip() != "":
