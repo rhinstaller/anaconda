@@ -31,7 +31,7 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 HWLIBS = -lkudzu_loader  -lpci
 
 DEBUG = -ggdb
-COPTS = $(DEBUG) -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -Werror
+COPTS = $(DEBUG) -Os -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -Werror
 CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H 
 STATIC = -static
 REALCC=gcc

@@ -425,8 +425,8 @@ const char *ftpStrerror(int errorNumber) {
 int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders) {
     char * buf;
     struct timeval timeout;
-    char headers[4096];
-    char * nextChar = headers;
+    char *headers;
+    char *nextChar;
     char *hstr;
     int checkedCode;
     struct in_addr serverAddress;
@@ -467,6 +467,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
 	1) Get our first \r\n; which lets us check the return code
 	2) Get a \r\n\r\n, which means we're done */
 
+    nextChar = headers = alloca(4096);
     *nextChar = '\0';
     checkedCode = 0;
     while (!strstr(headers, "\r\n\r\n")) {
