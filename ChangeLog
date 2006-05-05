@@ -1,3 +1,9 @@
+2006-05-05  David Cantrell  <dcantrell@redhat.com>
+
+	* iw/release_notes_viewer.py:  I want to make classes to, so now we
+	have ReleaseNotesViewer class.  It's a start to fixing the many minor
+	bugs I have open for it.  More coming later.
+
 2006-05-05  Chris Lumens  <clumens@redhat.com>
 
 	* backend.py (AnacondaBackend.doPostInstall):  Move account creation

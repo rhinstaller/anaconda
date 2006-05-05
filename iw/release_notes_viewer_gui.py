@@ -1,10 +1,10 @@
 #!/usr/bin/python
 #
-# release_notes_viewer_iw.py - viewer for release notes
+# release_notes_viewer_iw.py - "I can't believe it's not a web browser."
 #
-# Michael Fulbright <msf@redhat.com>
+# David Cantrell <dcantrell@redhat.com>
 #
-# Copyright 2003 Red Hat, Inc.
+# Copyright 2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -17,191 +17,204 @@
 import sys
 import os
 import gtk
+import gtkhtml2
+import urllib
+import urlparse
 
 from rhpl.translate import _, N_
 
 sys.path.append('/usr/lib/anaconda')
+from gui import addFrame
 
-from gui import TextViewBrowser, addFrame
+class ReleaseNotesViewer:
+	def __init__(self, uri, w, h):
+		self.currentURI = None
+		self.htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
+		self.htmlfooter = "</pre></body></html>"
+		self.doc = gtkhtml2.Document()
+		self.vue = gtkhtml2.View()
+		self.opener = urllib.FancyURLopener()
 
-import gtkhtml2
+		self.doc.connect('request_url', self.requestURLCallBack)
+		self.doc.connect('link_clicked', self.linkClickedCallBack)
+		self.vue.connect('request_object', self.requestObjectCallBack)
 
-screenshot = None
+		if uri is not None:
+			self.load(uri)
 
-htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
-htmlfooter = "</pre></body></html>"
-
-def loadReleaseNotes(fn):
-    doc = gtkhtml2.Document()
-    doc.clear()
-    doc.open_stream("text/html")
-    
-    if os.access(fn, os.R_OK):
-	file = open(fn, "r")
-	if fn.endswith('.html'):
-            doc.write_stream(file.read())            
-	else:
-            doc.write_stream(htmlheader)
-            doc.write_stream(file.read())            
-            doc.write_stream(htmlfooter)
-        doc.close_stream()
-        file.close()
-    else:
-        doc.write_stream(htmlheader)        
-        doc.write_stream(_("Release notes are missing.\n"))
-        doc.write_stream(htmlfooter)
-        
-    view = gtkhtml2.View()
-    view.set_document(doc)
-    return view
-
-def relnotes_closed(widget, data):
-    # set mouse pointer to busy until callback func in gui.py realizes
-    # we've closed the release notes viewer (sure would like signals...)
-    root = gtk.gdk.get_default_root_window()
-    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-    root.set_cursor(cursor)
-    os._exit(0)
-
-
-def exposeCB(widget, event, data):
-    global screenshot
-    
-    width = gtk.gdk.screen_width()
-    height = gtk.gdk.screen_height()
-    gc = gtk.gdk.GC(widget.window)
-    screenshot.render_to_drawable(widget.window,
-				  gc,
-				  0, 0,
-				  0, 0,
-				  width, height,
-				  gtk.gdk.RGB_DITHER_NONE,
-				  0, 0)
-
-#
-# MAIN
-#
-if __name__ == "__main__":
-
-    take_screenshot = 0
-
-    #
-    # cover up background with screenshot so they cant do anything to it
-    #
-
-    if take_screenshot:
-	width = gtk.gdk.screen_width()
-	height = gtk.gdk.screen_height()
-	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
-					width, height)
-
-	screenshot.get_from_drawable(gtk.gdk.get_default_root_window(),
-					 gtk.gdk.colormap_get_system(),
-					 0, 0, 0, 0,
-					 width, height)
-
-	screenshot.save ("testimage", "png")
-
-	win = gtk.Window(gtk.WINDOW_TOPLEVEL)
-
-	area = gtk.DrawingArea()
-	area.set_size_request(width, height)
-	area.connect("expose-event", exposeCB, None)
-
-	win.add(area)
-	win.show_all()
-
-    #
-    # now do release notes dialog
-    #
-    
-    textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
-
-    table = gtk.Table(3, 3, False)
-    textWin.vbox.pack_start(table)
-    textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
-    textWin.connect("response", relnotes_closed)
-    vbox1 = gtk.VBox ()        
-    vbox1.set_border_width (10)
-    frame = gtk.Frame ("")
-    frame.add(vbox1)
-    frame.set_label_align (0.5, 0.5)
-    frame.set_shadow_type (gtk.SHADOW_NONE)
-
-    textWin.set_position (gtk.WIN_POS_NONE)
-    textWin.set_gravity (gtk.gdk.GRAVITY_NORTH_WEST)
-
-    relnotes = loadReleaseNotes(sys.argv[1])
-
-    if relnotes is not None:
-	sw = gtk.ScrolledWindow()
-	sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
-	sw.set_shadow_type(gtk.SHADOW_IN)
-	sw.add(relnotes)
-	vbox1.pack_start(sw)
-
-	a = gtk.Alignment (0, 0, 1.0, 1.0)
-	a.add (frame)
-
-	if len(sys.argv) <= 3:
-		# no window size passed in (or part of the window size,
-		# figure it out
-		if gtk.gdk.screen_width() >= 800:
-			rn_w = 800
-			rn_h = 600
+		if w is not None and h is not None:
+			# window size specified by caller
+			self.width = int(w)
+			self.height = int(h)
 		else:
-			rn_w = 640
-			rn_h = 480
+			# no window size specified, figure it out
+			if gtk.gdk.screen_width() >= 800:
+				self.width = 800
+				self.height = 600
+			else:
+				self.width = 640
+				self.height = 480
+
+	# FIXME: replace with logger from anaconda_log (fix exec first)
+	def log(self, string):
+		print string
+
+	def load(self, uri):
+		def loadWrapper(baloney):
+			self.doc.open_stream('text/html')
+			self.doc.write_stream(self.htmlheader)
+			self.doc.write_stream(baloney)
+			self.doc.write_stream(self.htmlfooter)
+
+		if os.access(uri, os.R_OK):
+			try:
+				f = self.openURI(uri)
+			except OSError:
+				log.info("Failed to open %s" % (link,))
+				return
+
+			self.doc.clear()
+			headers = f.info()
+
+			mime = headers.getheader('Content-type')
+			if mime:
+				self.doc.open_stream(mime)
+				self.doc.write_stream(f.read())
+			else:
+				loadWrapper(f.read())
+
+			self.doc.close_stream()
+			f.close()
+
+			self.currentURI = self.resolveURI(uri)
+		else:
+			loadWrapper(_("Release notes are missing.\n"))
+
+			self.currentURI = None
+
+	def view(self):
+		self.vue.set_document(self.doc)
+		textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+		table = gtk.Table(3, 3, False)
+		textWin.vbox.pack_start(table)
+		textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
+		textWin.connect("response", self.closedCallBack)
+
+		vbox1 = gtk.VBox()
+		vbox1.set_border_width(10)
+		frame = gtk.Frame("")
+		frame.add(vbox1)
+		frame.set_label_align(0.5, 0.5)
+		frame.set_shadow_type(gtk.SHADOW_NONE)
+
+		textWin.set_position(gtk.WIN_POS_NONE)
+		textWin.set_gravity(gtk.gdk.GRAVITY_NORTH_WEST)
+
+		if self.vue is not None:
+			sw = gtk.ScrolledWindow()
+			sw.set_policy(gtk.POLICY_AUTOMATIC,gtk.POLICY_AUTOMATIC)
+			sw.set_shadow_type(gtk.SHADOW_IN)
+			sw.add(self.vue)
+			vbox1.pack_start(sw)
+
+			a = gtk.Alignment(0, 0, 1.0, 1.0)
+			a.add(frame)
+
+			textWin.set_default_size(self.width, self.height)
+			textWin.set_size_request(self.width, self.height)
+
+			# we want the release notes dialog to be the same
+			# size as the main installer window so it covers it
+			# up completely.  this isn't always the same size
+			# as the root window, so figure out our northwest
+			# origin point and then move the window
+			if gtk.gdk.screen_width() == self.width:
+				textWin.move(0, 0)
+			else:
+				# the width will always be fixed, but our
+				# height changes depending on the installation
+				# stage, so do the origin point calculations
+				# using what would be the full height
+				if self.width == 800:
+					fullh = 600
+				elif self.width == 640:
+					fullh = 480
+
+				left = (gtk.gdk.screen_width() - self.width) / 2
+				top = (gtk.gdk.screen_height() - fullh) / 2
+				textWin.move(left, top)
+
+			table.attach(a, 1, 2, 1, 2, gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
+
+			textWin.set_border_width(0)
+			addFrame(textWin, _("Release Notes"))
+			textWin.show_all()
+		else:
+			textWin.set_position(gtk.WIN_POS_CENTER)
+			label = gtk.Label(_("Unable to load file!"))
+
+			table.attach(label, 1, 2, 1, 2, gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
+
+			textWin.set_border_width(0)
+			addFrame(textWin)
+			textWin.show_all()
+
+		# set cursor to normal (assuming that anaconda set it to busy
+		# when it exec'd this viewer app to give progress indicator
+		# to user).
+		root = gtk.gdk.get_default_root_window()
+		cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
+		root.set_cursor(cursor)
+
+		gtk.main()
+
+	def resolveURI(self, link):
+		parts = urlparse.urlparse(link)
+		if parts[0] or parts[1]:
+			return link
+		else:
+			return urlparse.urljoin(self.currentURI, link)
+
+	def openURI(self, link):
+		return self.opener.open(self.resolveURI(link))
+
+	def closedCallBack(self, widget, data):
+		# set mouse pointer to busy until callback func in gui.py
+		# realizes we've closed the release notes viewer (sure
+		# would like signals...)
+		root = gtk.gdk.get_default_root_window()
+		cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+		root.set_cursor(cursor)
+		os._exit(0)
+
+	def linkClickedCallBack(self, document, link):
+		if link[0] == '#':
+			self.log("jump to anchor: %s" % (link,))
+			self.vue.jump_to_anchor(link)
+		else:
+			self.load(link)
+
+	def requestURLCallBack(self, document, url, stream):
+		try:
+			f = self.openURI(url)
+			stream.write(f.read())
+		except:
+			# we'll try local from /mnt/source
+			url = '/mnt/source/' + url
+			try:
+				f = self.openURI(url)
+				stream.write(f.read())
+			except:
+				self.log("requested url not found: %s" % (url,))
+
+	def requestObjectCallBack(self, *args):
+		self.log("request objects call back: %s" % (args))
+
+
+if __name__ == "__main__":
+	if len(sys.argv) == 4:
+		win = ReleaseNotesViewer(sys.argv[1], sys.argv[2], sys.argv[3])
 	else:
-		# window size given to us, use that
-		rn_w = int(sys.argv[2])
-		rn_h = int(sys.argv[3])
+		win = ReleaseNotesViewer(sys.argv[1])
 
-	textWin.set_default_size (rn_w, rn_h)
-	textWin.set_size_request (rn_w, rn_h)
-
-	# we want the release notes dialog to be the same size as the main
-	# installer window so it covers it up completely.  this isn't always
-	# the same size as the root window, so figure out our northwest
-	# origin point and then move the window
-	if gtk.gdk.screen_width() == rn_w:
-		textWin.move (0, 0)
-	else:
-		# the width will always be fixed, but our height changes
-		# depending on the installation stage, so do the origin
-		# point calculations using what would be the full height
-		if rn_w == 800:
-			fullheight = 600
-		elif rn_w == 640:
-			fullheight = 480
-
-		leftedge = (gtk.gdk.screen_width() - rn_w) / 2
-		topedge = (gtk.gdk.screen_height() - fullheight) / 2
-		textWin.move (leftedge, topedge)
-
-	table.attach (a, 1, 2, 1, 2,
-		      gtk.FILL | gtk.EXPAND,
-		      gtk.FILL | gtk.EXPAND, 5, 5)
-
-	textWin.set_border_width(0)
-	addFrame(textWin, _("Release Notes"))
-	textWin.show_all()
-    else:
-	textWin.set_position (gtk.WIN_POS_CENTER)
-	label = gtk.Label(_("Unable to load file!"))
-
-	table.attach (label, 1, 2, 1, 2,
-		      gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
-
-	textWin.set_border_width(0)
-	addFrame(textWin)
-	textWin.show_all()
-
-    # set cursor to normal (assuming that anaconda set it to busy when
-    # it exec'd this viewer app to give progress indicator to user).
-    root = gtk.gdk.get_default_root_window()
-    cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
-    root.set_cursor(cursor)
-
-    gtk.main()
-    
+	win.view()
