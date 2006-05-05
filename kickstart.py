@@ -817,8 +817,8 @@ class Kickstart(BaseInstallClass):
         try:
             self.ksparser.readKickstart(self.file)
         except KickstartError, e:
-            if intf:
-                intf.kickstartErrorWindow(e.__str__())
+            if anaconda.intf:
+                anaconda.intf.kickstartErrorWindow(e.__str__())
                 sys.exit(0)
             else:
                 raise KickstartError, e
