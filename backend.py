@@ -51,25 +51,6 @@ class AnacondaBackend:
         if flags.setupFilesystems:
             syslog.stop()
 
-        if anaconda.isKickstart:
-            for svc in anaconda.id.ksdata.services["disabled"]:
-                iutil.execWithRedirect("/sbin/chkconfig",
-                                       ["/sbin/chkconfig", svc, "off"],
-                                       stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root="/mnt/sysimage")
-
-            for svc in anaconda.id.ksdata.services["enabled"]:
-                iutil.execWithRedirect("/sbin/chkconfig",
-                                       ["/sbin/chkconfig", svc, "on"],
-                                       stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root="/mnt/sysimage")
-
-            for ud in anaconda.id.ksdata.userList:
-                if anaconda.id.users.createUser(ud.name, ud.password, ud.isCrypted,
-                                                ud.groups, ud.homedir, ud.shell,
-                                                ud.uid) == None:
-                    log.error("User %s already exists, not creating." % ud.name)
-
     def doInstall(self, anaconda):
         pass
 
@@ -190,5 +171,5 @@ def writeConfiguration(anaconda):
     log.info("Writing main configuration")
     if not flags.test:
         anaconda.backend.writeConfiguration()
-        anaconda.id.write(anaconda.rootPath)
+        anaconda.id.write(anaconda)
    

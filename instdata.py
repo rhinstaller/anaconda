@@ -57,7 +57,7 @@ class InstallData:
 	self.firewall = firewall.Firewall()
         self.security = security.Security()
 	self.timezone = timezone.Timezone()
-        self.users = users.Users()
+        self.users = None
         self.rootPassword = { "isCrypted": False, "password": "" }
 	self.auth = "--enableshadow --enablemd5"
 	self.desktop = desktop.Desktop()
@@ -125,18 +125,18 @@ class InstallData:
     def setUpgrade (self, bool):
         self.upgrade = bool
 
-    def write(self, instPath):
+    def write(self, anaconda):
         if self.auth.find("--enablemd5"):
             useMD5 = True
         else:
             useMD5 = False
 
-        self.instLanguage.write (instPath)
+        self.instLanguage.write (anaconda.rootPath)
 
         if not self.isHeadless:
-            self.keyboard.write (instPath)
+            self.keyboard.write (anaconda.rootPath)
             
-        self.timezone.write (instPath)
+        self.timezone.write (anaconda.rootPath)
 
         args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
 
@@ -144,18 +144,39 @@ class InstallData:
             if flags.setupFilesystems:
                 iutil.execWithRedirect("/usr/bin/authconfig", args,
                                        stdout = None, stderr = None,
-                                       searchPath = 1, root = instPath)
+                                       searchPath = 1, root = anaconda.rootPath)
             else:
                 log.error("Would have run: %s", args)
         except RuntimeError, msg:
                 log.error("Error running %s: %s", args, msg)
 	
-	self.firewall.write (instPath)
-        self.security.write (instPath)
+	self.firewall.write (anaconda.rootPath)
+        self.security.write (anaconda.rootPath)
+
+        self.users = users.Users()
 
         # User should already exist, just without a password.
         self.users.setRootPassword(self.rootPassword["password"],
                                    self.rootPassword["isCrypted"], useMD5)
+
+        if anaconda.isKickstart:
+            for svc in self.ksdata.services["disabled"]:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       ["/sbin/chkconfig", svc, "off"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root="/mnt/sysimage")
+
+            for svc in self.ksdata.services["enabled"]:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       ["/sbin/chkconfig", svc, "on"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root="/mnt/sysimage")
+
+            for ud in self.ksdata.userList:
+                if self.users.createUser(ud.name, ud.password, ud.isCrypted,
+                                         ud.groups, ud.homedir, ud.shell,
+                                         ud.uid) == None:
+                    log.error("User %s already exists, not creating." % ud.name)
 
 
     def writeKS(self, filename):
