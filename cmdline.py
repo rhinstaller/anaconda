@@ -159,12 +159,12 @@ class progressDisplay:
             print state
 
 
-def setupProgressDisplay(dir, intf, id):
-    if dir == DISPATCH_BACK:
-        id.setInstallProgressClass(None)
+def setupProgressDisplay(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        anaconda.id.setInstallProgressClass(None)
         return DISPATCH_BACK
     else:
-        id.setInstallProgressClass(progressDisplay())
+        anaconda.id.setInstallProgressClass(progressDisplay())
         
     return DISPATCH_FORWARD
         

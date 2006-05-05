@@ -7,6 +7,8 @@
 	Load libuser after /etc/shadow has been created in the install root so
 	root's password gets written.
 
+	* cmdline.py (setupProgressDisplay):  Use anaconda object.
+
 2006-05-05  Peter Jones  <pjones@redhat.com>
 
 	* kickstart.py: fix bare intf usage to use anaconda class.
