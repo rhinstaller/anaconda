@@ -134,17 +134,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
             self.umountMedia()
             self.mountMedia(mediano)
 
-    # return reference to the RPM file specified by the header
-    # will mount the appropriate ISO image as required by CD # in header
-    def getRPMFilename(self, filename, mediano, timer, callback=None):
-        if mediano == 0:
-            log.warning("header for %s has no disc location tag, assuming "
-                        "it's on the currnt disc" %(filename,))
-        else:
-            self.switchMedia(mediano, filename=filename)
-
-        return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
-
     def systemMounted(self, fsset, mntPoint):
         self.switchMedia(1)
 

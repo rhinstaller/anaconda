@@ -110,12 +110,6 @@ class UrlInstallMethod(InstallMethod):
 
 	return file
 
-    def getRPMFilename(self, filename, mediano, timer, callback=None):
-
-	fullPath = "/%s/RPMS/%s" % (productPath, filename)
-
-	return self.getFilename(fullPath, callback=callback, disc = mediano) 
-
     def copyFileToTemp(self, filename):
         tmppath = self.getTempPath()
 

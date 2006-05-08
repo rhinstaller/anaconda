@@ -177,47 +177,6 @@ class CdromInstallMethod(ImageInstallMethod):
     def getFilename(self, filename, callback=None, destdir=None, retry=1):
 	return self.tree + "/" + filename
 
-    def getRPMFilename(self, filename, mediano, timer, callback=None):
-        if mediano == 0:
-            log.warning("header for %s has no disc location tag, assuming it's"
-                        "on the current CD" %(filename,))
-        elif mediano not in self.currentMedia:
-	    timer.stop()
-            self.switchMedia(mediano, filename)
-	    timer.start()
-
-        # if we haven't read a timestamp yet, let's try to get one
-        if (self.timestamp is None and
-            os.access("/mnt/source/.discinfo", os.R_OK)):
-            try:
-                f = open("/mnt/source/.discinfo")
-                self.timestamp = f.readline().strip()
-                f.close()
-            except:
-                pass
-
-        tmppath = self.getTempPath()
-        tries = 0
-        # FIXME: should retry a few times then prompt for new cd
-        while tries < 5:
-            try:
-                shutil.copy("%s/%s/RPMS/%s" % (self.tree, productPath,
-                                               filename),
-                            tmppath + filename)
-            except IOError, (errnum, msg):
-                log.critical("IOError %s occurred copying %s: %s",
-                             errnum, filename, str(msg))
-                time.sleep(5)
-            else:
-                break
-            tries = tries + 1
-
-        if tries >= 5:
-            raise FileCopyException
-                        
-	return tmppath + filename
-
-
     def switchMedia(self, mediano, filename=""):
         log.info("switching from CD %s to %s for %s" %(self.currentMedia, mediano, filename))
         if os.access("/mnt/source/.discinfo", os.R_OK):
@@ -394,9 +353,6 @@ class NfsInstallMethod(ImageInstallMethod):
         self.splitmethod = False
         self.currentMedia = []
 
-    def getRPMFilename(self, filename, mediano, timer, callback=None):
-	return "%s/%s/RPMS/%s" % (self.tree, productPath, filename)
-
 def getDiscNums(line):
     # get the disc numbers for this disc
     nums = line.split(",")
@@ -494,10 +450,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
             log.info("switching from iso %s to %s for %s" %(self.currentMedia, mediano, filename))
 	    self.umountImage()
 	    self.mountImage(mediano)
-    
-    def getRPMFilename(self, filename, mediano, timer, callback=None):
-        self.switchMedia(mediano, filename=filename)
-	return self.getFilename("%s/RPMS/%s" % (productPath, filename))
 
     def umountImage(self):
 	if self.currentMedia:

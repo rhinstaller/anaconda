@@ -4,6 +4,9 @@
 	Use repo.get instead of method.getRPMFilename.  Make multirepo support
 	work in kickstart.
 
+	* harddrive.py, image.py, installmethod.py, urlinstall.py
+	(getRPMFilename):  Remove obsolete method.
+
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6
