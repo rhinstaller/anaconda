@@ -210,7 +210,8 @@ class simpleCallback:
         self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
-    def __init__( self, uri, repoid='anaconda%s' % productStamp):
+    def __init__( self, uri=None, mirrorlist=None,
+                  repoid='anaconda%s' % productStamp):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
@@ -218,7 +219,11 @@ class AnacondaYumRepo(YumRepository):
                 self.set(k, v)
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
-        self.baseurl = [ uri ]
+        if uri and not mirrorlist:
+            self.baseurl = [ uri ]
+        elif mirrorlist and not uri:
+            self.mirrorlist = mirrorlist
+
         self.set('cachedir', '/tmp/cache/')
         self.set('pkgdir', '/mnt/sysimage/')
         self.set('hdrdir', '/tmp/cache/headers')
@@ -385,10 +390,14 @@ class AnacondaYum(YumSorter):
         self.conf.cachedir = '/tmp/cache/'
         #XXX: It'd be nice if the default repo was in the repoList
         repo = AnacondaYumRepo(self.method.getMethodUri())
+        repo.enable()
         self.repos.add(repo)
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repoList:
-                repo = AnacondaYumRepo(ksrepo.baseurl, repoid=ksrepo.name)
+                repo = AnacondaYumRepo(uri=ksrepo.baseurl,
+                                       mirrorlist=ksrepo.mirrorlist,
+                                       repoid=ksrepo.name)
+                repo.enable()
                 self.repos.add(repo)
         self.repos.setCacheDir('/tmp/cache')
 
@@ -668,7 +677,8 @@ class YumBackend(AnacondaBackend):
                                  "correctly generated.  %s" % e),
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
-            sys.exit(0)
+            import pdb
+            pdb.set_trace()
 
         self.ayum.repos.callback = None
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
