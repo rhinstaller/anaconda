@@ -677,8 +677,7 @@ class YumBackend(AnacondaBackend):
                                  "correctly generated.  %s" % e),
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
-            import pdb
-            pdb.set_trace()
+            sys.exit(0)
 
         self.ayum.repos.callback = None
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
