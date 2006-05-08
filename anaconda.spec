@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.38
+Version: 10.1.1.39
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May  8 2006 Peter Jones <pjones@redhat.com> - 10.1.1.39-1
+- Only probe ACPI on x86_64, not i386 (#171930)
+- Use /proc/lapics for ACPI probing (#171930)
+- Add support for nfs mount options on boot command line (#168384)
+- Handle tty1 mode for rescue mode shell correctly (#126620)
+- Don't put removable drives in the isys hard drive list (#147504)
+- Check for missing vg declaration earlier so the error message 
+  makes sense (#176989)
+- Quote ethtool opts properly (#176918)
+- Add selinux to kickstart doics (#175868)
+- Add qla2xxx to module-info (#174993)
+- Always reset terminal attributes in loader on ppc (#166302)
+- Eliminate dupe vnc entries in command line docs (#175368)
+- Fix RAID error messages to be more clear (#184246)
+
 * Thu Mar  2 2006 Peter Jones <pjones@redhat.com> - 10.1.1.38-1
 - Make the ACPI probe happen when isys is imported, and return cached
   data from there on out.

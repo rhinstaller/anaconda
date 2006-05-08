@@ -1,3 +1,13 @@
+2006-06-08  Peter Jones  <pjones@redhat.com>
+
+	* loader2/hardware.c: add lapicSetup, which loads lapic_support.ko if
+	you're on x86_64.
+	* loader2/hardware.c: add lapicSetup declaration.
+	* loader2/loader.c (main): run lapicSetup()
+	* scripts/mk-images.x86_64: add lapic_support to common modules
+	* isys/isys.py: parse /proc/lapics instead of doing acpi probing if
+	we're on x86_64.  Don't do acpi probing on i386. (#171930)
+
 2006-05-01  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/nfsinstall.c Add support for passing nfs mount options 
