@@ -25,6 +25,7 @@ import types
 import rpm
 import bdb
 import rhpl
+import time
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
@@ -341,6 +342,10 @@ def handleException(anaconda, (type, value, tb)):
         pass
 
     win = anaconda.intf.exceptionWindow(text, "/tmp/anacdump.txt")
+
+    if not win:
+        anaconda.intf.__del__()
+        os.kill(os.getpid(), signal.SIGKILL)
 
     while 1:
         win.run()

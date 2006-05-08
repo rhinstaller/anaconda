@@ -13,6 +13,9 @@
 
 	* cmdline.py:  Use anaconda object.
 
+	* exception.py (handleException):  Fix traceback in exception handler
+	for cmdline mode.
+
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6
