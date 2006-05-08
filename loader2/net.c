@@ -19,6 +19,8 @@
  *
  */
 
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <arpa/inet.h>
 #include <errno.h>
 #include <popt.h>
@@ -62,34 +64,50 @@ static int setupWireless(struct networkDeviceConfig *dev);
 
 static void ipCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
-    struct in_addr ipaddr, nmaddr, addr;
+    struct in_addr ipaddr, nmaddr, addr, naddr;
     char * ascii;
     int broadcast, network;
+    int af = AF_INET;                 /* accept as a parameter */
 
     if (co == data->ipEntry) {
         if (strlen(data->ip) && !strlen(data->nm)) {
-            if (inet_aton(data->ip, &ipaddr)) {
+            if (inet_pton(af, data->ip, &ipaddr)) {
                 ipaddr.s_addr = ntohl(ipaddr.s_addr);
-                ascii = "255.255.255.0";
-                newtEntrySet(data->nmEntry, ascii, 1);
+                switch (af) {
+                    case AF_INET:
+                        ascii = "255.255.255.0";
+                        /* does this line need to be for each case? */
+                        newtEntrySet(data->nmEntry, ascii, 1);
+                        break;
+                    case AF_INET6:
+                        /* FIXME: writeme */
+                        break;
+                }
             }
         }
     } else if (co == data->nmEntry) {
         if (!strlen(data->ip) || !strlen(data->nm)) return;
-        if (!inet_aton(data->ip, &ipaddr)) return;
-        if (!inet_aton(data->nm, &nmaddr)) return;
+        if (!inet_pton(af, data->ip, &ipaddr)) return;
+        if (!inet_pton(af, data->nm, &nmaddr)) return;
 
-        network = ipaddr.s_addr & nmaddr.s_addr;
-        broadcast = (ipaddr.s_addr & nmaddr.s_addr) | (~nmaddr.s_addr);
+        if (af == AF_INET) {
+            network = ipaddr.s_addr & nmaddr.s_addr;
+            broadcast = (ipaddr.s_addr & nmaddr.s_addr) | (~nmaddr.s_addr) ;
 
-        if (!strlen(data->gw)) {
-            addr.s_addr = htonl(ntohl(broadcast) - 1);
-            newtEntrySet(data->gwEntry, inet_ntoa(addr), 1);
-        }
+            if (!strlen(data->gw)) {
+                char gw[INET_ADDRSTRLEN]; 
+                addr.s_addr = htonl(ntohl(broadcast) - 1);
+                inet_ntop(af, &addr, gw, sizeof(gw));
+                newtEntrySet(data->gwEntry, gw, 1);
+            }
 
-        if (!strlen(data->ns)) {
-            addr.s_addr = htonl(ntohl(network) + 1);
-            newtEntrySet(data->nsEntry, inet_ntoa(addr), 1);
+            if (!strlen(data->ns)) {
+                char ns[INET_ADDRSTRLEN];
+                naddr.s_addr = network;
+                naddr.s_addr |= htonl(1);
+                inet_ntop(af, &naddr, ns, sizeof(ns));
+                newtEntrySet(data->nsEntry, ns, 1);
+            }
         }
     }
 }
@@ -103,7 +121,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
 
         nm = "255.255.255.0";
 
-        inet_aton(nm, &cfg->dev.netmask);
+        inet_pton(AF_INET, nm, &cfg->dev.netmask);
         cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
     }
 
@@ -186,9 +204,9 @@ void initLoopback(void) {
     struct pumpNetIntf dev;
 
     strcpy(dev.device, "lo");
-    inet_aton("127.0.0.1", &dev.ip);
-    inet_aton("255.0.0.0", &dev.netmask);
-    inet_aton("127.0.0.0", &dev.network);
+    inet_pton(AF_INET, "127.0.0.1", &dev.ip);
+    inet_pton(AF_INET, "255.0.0.0", &dev.netmask);
+    inet_pton(AF_INET, "127.0.0.0", &dev.network);
     dev.set = PUMP_INTFINFO_HAS_NETMASK | PUMP_INTFINFO_HAS_IP
                 | PUMP_INTFINFO_HAS_NETWORK;
 
@@ -272,7 +290,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 
         if (rc == 2) return LOADER_BACK;
 
-        if (ns && *ns && !inet_aton(ns, &cfg->dev.dnsServers[0])) {
+        if (ns && *ns && !inet_pton(AF_INET, ns, &cfg->dev.dnsServers[0])) {
             newtWinMessage(_("Invalid IP Information"), _("Retry"),
                         _("You entered an invalid IP address."));
             rc = 2;
@@ -368,7 +386,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             
             cfg->isDynamic = 1;
             cfg->preset = 1;
-        } else if (inet_aton(loaderData->ip, &addr)) {
+        } else if (inet_pton(AF_INET, loaderData->ip, &addr)) {
             cfg->dev.ip = addr;
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
@@ -379,12 +397,12 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         }
     }
 
-    if (loaderData->netmask && (inet_aton(loaderData->netmask, &addr))) {
+    if (loaderData->netmask && (inet_pton(AF_INET, loaderData->netmask, &addr))) {
         cfg->dev.netmask = addr;
         cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
     }
 
-    if (loaderData->gateway && (inet_aton(loaderData->gateway, &addr))) {
+    if (loaderData->gateway && (inet_pton(AF_INET, loaderData->gateway, &addr))) {
         cfg->dev.gateway = addr;
         cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
     }
@@ -396,7 +414,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         /* Scan the dns parameter for multiple comma-separated IP addresses */
          c = strtok(buf, ",");  
          while ((cfg->dev.numDns < MAX_DNS_SERVERS) && (c != NULL) && 
-                (inet_aton(c,&addr))) {
+                (inet_pton(AF_INET, c, &addr))) {
              cfg->dev.dnsServers[cfg->dev.numDns] = addr;
              cfg->dev.numDns++;
              logMessage(DEBUGLVL, "adding %s", inet_ntoa(addr));
@@ -573,19 +591,19 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         if (dhcpChoice == ' ') {
             i = 0;
             memset(&newCfg, 0, sizeof(newCfg));
-            if (*c.ip && inet_aton(c.ip, &addr)) {
+            if (*c.ip && inet_pton(AF_INET, c.ip, &addr)) {
                 i++;
                 newCfg.dev.ip = addr;
                 newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
             }
 
-            if (*c.nm && inet_aton(c.nm, &addr)) {
+            if (*c.nm && inet_pton(AF_INET, c.nm, &addr)) {
                 i++;
                 newCfg.dev.netmask = addr;
                 newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
             }
 
-            if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
+            if (c.ns && *c.ns && inet_pton(AF_INET, c.ns, &addr)) {
                 cfg->dev.dnsServers[0] = addr;
                 if (cfg->dev.numDns < 1)
                     cfg->dev.numDns = 1;
@@ -641,7 +659,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     fillInIpInfo(cfg);
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
-        if (c.gw && *c.gw && inet_aton(c.gw, &addr)) {
+        if (c.gw && *c.gw && inet_pton(AF_INET, c.gw, &addr)) {
             cfg->dev.gateway = addr;
             cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
         }

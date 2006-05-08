@@ -1,3 +1,10 @@
+2006-05-08  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6
+	integration.  Nothing exciting yet.
+	* loader2/ftp.c:  Likewise.
+	* loader2/nfsinstall.c:  Likewise.
+
 2006-05-05  David Cantrell  <dcantrell@redhat.com>
 
 	* iw/release_notes_viewer.py:  I want to make classes to, so now we

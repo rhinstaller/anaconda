@@ -123,7 +123,7 @@ char * mountNfsImage(struct installMethod * method,
             char * buf;
             struct in_addr ip;
 
-            if (loaderData->noDns && !(inet_aton(host, &ip))) {
+            if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Hostname specified with no DNS configured"));
                 if (loaderData->method) {

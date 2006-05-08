@@ -210,7 +210,7 @@ int ftpCommand(int sock, char * command, ...) {
 
 static int getHostAddress(const char * host, struct in_addr * address) {
     if (isdigit(host[0])) {
-      if (!inet_aton(host, address)) {
+      if (!inet_pton(AF_INET, host, address)) {
 	  return FTPERR_BAD_HOST_ADDR;
       }
     } else {
@@ -346,7 +346,7 @@ int ftpGetFileDesc(int sock, char * remotename) {
 	if (*chptr == ',') *chptr = '.';
     }
 
-    if (!inet_aton(passReply, &dataAddress.sin_addr)) 
+    if (!inet_pton(AF_INET, passReply, &dataAddress.sin_addr)) 
 	return FTPERR_PASSIVE_ERROR;
 
     dataSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
