@@ -11,6 +11,8 @@
 	* loader2/loader.py (doLoaderMain):  Don't pop up an invisible window
 	asking for keymap in cmdline mode.
 
+	* cmdline.py:  Use anaconda object.
+
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6

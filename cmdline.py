@@ -108,20 +108,19 @@ class InstallInterface:
         id.fsset.registerWaitWindow(self.waitWindow)        
         parted.exception_set_handler(self.partedExceptionWindow)        
 
-        (step, args) = dispatch.currentStep()
+        (step, anaconda) = dispatch.currentStep()
         while step:
             if stepToClasses.has_key(step):
                 s = "nextWin = %s" %(stepToClasses[step],)
                 exec s
-
-                apply(nextWin, args)
+                nextWin(anaconda)
             else:
                 print "In interactive step %s, can't continue" %(step,)
                 while 1:
                     time.sleep(1)
 
             dispatch.gotoNext()
-	    (step, args) = dispatch.currentStep()
+	    (step, anaconda) = dispatch.currentStep()
             
 
 class progressDisplay:
@@ -167,5 +166,3 @@ def setupProgressDisplay(anaconda):
         anaconda.id.setInstallProgressClass(progressDisplay())
         
     return DISPATCH_FORWARD
-        
-    
