@@ -1278,6 +1278,7 @@ int main(int argc, char ** argv) {
                     modLoaded, modDeps, modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
+    lapicSetup(modLoaded, modDeps, modInfo, flags);
     ideSetup(modLoaded, modDeps, modInfo, flags);
     scsiSetup(modLoaded, modDeps, modInfo, flags);
     dasdSetup(modLoaded, modDeps, modInfo, flags);
