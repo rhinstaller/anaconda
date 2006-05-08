@@ -232,7 +232,16 @@ def acpicpus():
     global _acpi_ncpus
 
     if _acpi_ncpus is None:
-	_acpi_ncpus = _isys.acpicpus()
+        if iutil.getArch() == "x86_64":
+            f = open("/proc/lapics", "r")
+            lapics = f.readlines()
+            _acpi_ncpus = len(lapics)
+            f.close()
+            del f
+	elif iutil.getArch() == "i386":
+            _acpi_ncpus = 0
+        else:
+            _acpi_ncpus = _isys.acpicpus()
 
     return _acpi_ncpus
 
