@@ -168,7 +168,7 @@ class simpleCallback:
                                                   "reinstallation.  Are you "
                                                   "sure you wish to "
                                                   "continue?"),
-                                                t      ype = "custom",
+                                                type = "custom",
                                                 custom_icon="warning",
                                                 custom_buttons = [_("_Cancel"),
                                                                   _("_Reboot")])
