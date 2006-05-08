@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,7 +15,6 @@
 
 from installmethod import InstallMethod, FileCopyException
 import os
-import rpm
 import time
 import string
 import struct

@@ -19,7 +19,6 @@ import os
 import sys
 import isys
 import iutil
-import rpm
 import string
 from rhpl.translate import _, cat, N_
 from constants import *
