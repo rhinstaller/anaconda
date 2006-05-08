@@ -24,25 +24,6 @@ class FileCopyException(Exception):
         
 
 class InstallMethod:
-
-    # find best match from several locations for a file
-    def findBestFileMatch(self, file):
-	# look in /tmp/updates first
-	rc = None
-	tryloc = ["/tmp/updates"]
-	if self.tree is not None:
-	    tryloc.append("%s/RHupdates" %(self.tree,))
-	    tryloc.append("%s/%s/base" % (self.tree, productPath))
-	    
-	for pre in tryloc:
-	    tmpname = pre + "/" + file
-	    if os.access(tmpname, os.R_OK):
-		log.info("Using file://%s", tmpname)
-		return "file://%s" %(tmpname,)
-
-	log.error("Unable to find %s", file)
-	return None
-	
     def protectedPartitions(self):
         return None
 
