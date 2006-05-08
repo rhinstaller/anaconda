@@ -315,6 +315,14 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 #endif
 }
 
+void lapicSetup(moduleList modLoaded, moduleDeps modDeps,
+                moduleInfoSet modInfo, int flags) {
+#ifdef (__x86_64__)
+    mlLoadModuleSet("lapic_status", modLoaded, modDeps, modInfo, flags);
+#endif
+    return;
+}
+
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
               moduleInfoSet modInfo, int flags) {
 #if 0
