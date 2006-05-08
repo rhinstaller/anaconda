@@ -904,6 +904,30 @@ Creating the Kickstart File
        Normally, kickstart displays a message and waits for the user to
        press a key before rebooting.
 
+   repo (optional) - EXPERIMENTAL
+
+       Configures additional yum repositories that may be used as sources
+       for package installation.  Multiple repo lines may be specified.
+
+       repo --name=<repoid> [--baseurl=<url>|--mirrorlist=<url>]
+
+       --name=
+
+           The repo id.  This option is required.
+
+       --baseurl=
+
+           The URL for the repository.  The variables that may be used in
+           yum repo config files are not supported here.  You may use one
+           of either this option or --mirrorlist, not both.
+
+       --mirrorlist=
+
+           The URL pointing at a list of mirrors for the repository.  The
+           variables that may be used in yum repo config files are not
+           supported here.  You may use one of either this option or
+           --baseurl, not both.
+
    rootpw (required)
 
        Sets the system's root password to the <password> argument.
