@@ -8,6 +8,9 @@
 	(getRPMFilename):  Remove obsolete method.
 	* installmethod.py (InstallMethod.findBestFileMatch):  Likewise.
 
+	* loader2/loader.py (doLoaderMain):  Don't pop up an invisible window
+	asking for keymap in cmdline mode.
+
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6
