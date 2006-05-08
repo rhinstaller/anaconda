@@ -1,5 +1,7 @@
 2006-05-08  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec:  Bump version
+
 	* yuminstall.py:  Use YumConf objects instead of writing config files.
 	Use repo.get instead of method.getRPMFilename.  Make multirepo support
 	work in kickstart.
@@ -20,6 +22,8 @@
 
 	* yuminstall.py (AnacondaYumRepo.__init__):  Make default repo id use
 	product stamp to prevent collisions.
+
+	* docs/kickstart-docs.txt:  Document repo keyword.
 
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 

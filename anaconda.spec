@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.8
+Version: 11.1.0.9
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 08 2006 Chris Lumens <clumens@redhat.com> 11.1.0.9-1
+- Fix cmdline installs (clumens, pnasrat).
+- Enable multirepo support in kickstart (clumens, pnasrat).
+- Begin IPv6 preparations (dcantrel).
+- More release notes viewer fixes (dcantrel).
+
 * Thu May  4 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.8-1
 - and fix the build
 
