@@ -27,6 +27,7 @@ import yum
 import rhpl
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError
+from yum.repos import Repository as YumRepository
 from repomd.mdErrors import PackageSackError
 from installmethod import FileCopyException
 from backend import AnacondaBackend
@@ -70,8 +71,9 @@ def getcd(po):
 
 class simpleCallback:
 
-    def __init__(self, messageWindow, progress, pkgTimer, method,
+    def __init__(self, repos, messageWindow, progress, pkgTimer, method,
                  progressWindowClass, instLog, modeText, ts):
+        self.repos = repos
         self.messageWindow = messageWindow
         self.progress = progress
         self.pkgTimer = pkgTimer
@@ -120,6 +122,7 @@ class simpleCallback:
             po = h
             hdr = po.returnLocalHeader()
             path = po.returnSimple('relativepath')
+            repo = self.repos.getRepo(po.repoid)
 
             self.progress.setPackage(hdr)
             self.progress.setPackageScale(0, 1)
@@ -137,8 +140,8 @@ class simpleCallback:
 
             while self.files[nvra] == None:
                 try:
-                    fn = self.method.getRPMFilename(os.path.basename(path), getcd(po), self.pkgTimer) 
-                except FileCopyException, e:
+                    fn =  repo.get(relative=path, local=po.localPkg())
+                except yum.Errors.RepoError, e:
                     log.info("Failed %s in %s" %(path, po.returnSimple('name')))
                     self.method.unmountCD()
                     rc = self.messageWindow(_("Error"),
@@ -165,7 +168,7 @@ class simpleCallback:
                                                   "reinstallation.  Are you "
                                                   "sure you wish to "
                                                   "continue?"),
-                                                type = "custom",
+                                                t      ype = "custom",
                                                 custom_icon="warning",
                                                 custom_buttons = [_("_Cancel"),
                                                                   _("_Reboot")])
@@ -206,75 +209,20 @@ class simpleCallback:
 
         self.progress.processEvents()
 
+class AnacondaYumRepo(YumRepository):
+    def __init__( self, uri, repoid='anaconda'):
+        YumRepository.__init__(self, repoid)
+        conf = yum.config.RepoConf()
+        for k, v in conf.iteritems():
+            if v or not hasattr(self, k):
+                self.set(k, v)
+        self.gpgcheck = False
+        #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
+        self.baseurl = [ uri ]
+        self.set('cachedir', '/tmp/cache/')
+        self.set('pkgdir', '/mnt/sysimage/')
+        self.set('hdrdir', '/tmp/cache/headers')
 
-class AnacondaYumConf:
-    """Dynamic yum configuration"""
-
-    def __init__( self, methodstr, configfile = "/tmp/yum.conf", root = '/'):
-        self.configfile = configfile
-        self.root = root
-        self.methodstr = methodstr
-        self.gpgstr = methodstr
-
-        if self.methodstr[:7] == "http://":
-            # account for multiple mounted ISOs on loopback...bleh
-            # assumes ISOs are mounted as AAAAN where AAAA is some alpha text
-            # and N is an integer.  so users could have these paths:
-            #     CD1, CD2, CD3
-            #     disc1, disc2, disc3
-            #     qux1, qux2, qux3
-            # as long as the alpha text is consistent and the ints increment
-            #
-            # NOTE: this code is basically a guess. we don't really know if
-            # they are doing a loopback ISO install, but make a guess and
-            # shove all that at yum and hope for the best   --dcantrell
-            discdir = os.path.basename(self.methodstr)
-            alpharm = re.compile("^[^0-9]+")
-            discnum = alpharm.sub("", discdir)
-
-            try:
-                discnum = int(discnum)
-
-                stripnum = re.compile("%s$" % (discnum,))
-                basepath = stripnum.sub("", methodstr)
-
-                # add all possible baseurls
-                discnum = discnum + 1
-                while discnum <= NUMBER_OF_CDS:
-                    self.methodstr = self.methodstr + " " + basepath + "%s" % (discnum)
-                    discnum = discnum + 1
-            except ValueError:
-                # we didn't figure out the user's dir naming scheme
-                pass
-
-        self.yumconfstr = """
-[main]
-cachedir=/var/cache/yum
-reposdir=/tmp/repos.d
-debuglevel=2
-logfile=/tmp/yum.log
-pkgpolicy=newest
-distroverpkg=redhat-release
-tolerant=1
-exactarch=1
-retries=5
-obsoletes=1
-gpgcheck=0
-installroot=%s
-exclude=*debuginfo*
-
-[anaconda]
-name=Anaconda
-baseurl=%s
-enabled=1
-gpgcheck=0
-gpgkey=%s/RPM-GPG-KEY-fedora
-""" % (self.root, self.methodstr, self.gpgstr)
-
-    def write(self):
-        f = open(self.configfile, 'w')
-        f.write(self.yumconfstr)
-        f.close()
 
 class YumSorter(yum.YumBase):
     
@@ -402,11 +350,12 @@ class YumSorter(yum.YumBase):
         return SplitMediaTransactionData()
   
 class AnacondaYum(YumSorter):
-    def __init__(self, fn="/etc/yum.conf", root="/", method=None):
+    def __init__(self, anaconda):
         YumSorter.__init__(self)
-        self.doConfigSetup(fn, root)
+        self.anaconda = anaconda
+        self.method = anaconda.method
+        self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
-        self.method = method
         self.macros = {}
         if flags.selinux:
             for directory in ("/tmp/updates", "/mnt/source/RHupdates",
@@ -424,6 +373,24 @@ class AnacondaYum(YumSorter):
 
         self.updates = []
         self.localPackages = []
+
+    def doConfigSetup(self, fn=None, root='/'):
+        self.conf = yum.config.YumConf()
+        self.conf.installroot = root
+        self.conf.reposdir="/tmp/repos.d"
+        self.conf.logfile="/tmp/yum.log"
+        self.conf.obsoletes=True
+        self.conf.exclude=["*debuginfo*"]
+        self.conf.cache=0
+        self.conf.cachedir = '/tmp/cache/'
+        #XXX: It'd be nice if the default repo was in the repoList
+        repo = AnacondaYumRepo(self.method.getMethodUri())
+        self.repos.add(repo)
+        if self.anaconda.isKickstart:
+            for ksrepo in self.anaconda.id.ksdata.repoList:
+                repo = AnacondaYumRepo(ksrepo.baseurl, repoid=ksrepo.name)
+                self.repos.add(repo)
+        self.repos.setCacheDir('/tmp/cache')
 
     def errorlog(self, value, msg):
         log.error(msg)
@@ -548,12 +515,6 @@ class AnacondaYum(YumSorter):
                                custom_buttons=[_("Re_boot")])
             sys.exit(1)
 
-    def doCacheSetup(self):
-        for repo in self.repos.repos.values():
-            repo.set('cachedir', '/tmp/cache/')
-            repo.set('pkgdir', '/mnt/sysimage/')
-            repo.set('hdrdir', '/tmp/cache/headers')
-
     def doMacros(self):
         for (key, val) in self.macros.items():
             rpm.addMacro(key, val)
@@ -660,10 +621,8 @@ class YumBackend(AnacondaBackend):
                 except:
                     log.error("failed to unlink /var/lib/rpm/%s" %(rpmfile,))
 
-        self.ac = AnacondaYumConf(self.method.getMethodUri(), 
-                                 configfile="/tmp/yum.conf", root=anaconda.rootPath)
-        self.ac.write()
-        self.ayum = AnacondaYum(fn="/tmp/yum.conf", root=anaconda.rootPath, method=self.method)
+        iutil.writeRpmPlatform()
+        self.ayum = AnacondaYum(anaconda)
 
     def doGroupSetup(self):
         self.ayum.doGroupSetup()
@@ -680,7 +639,6 @@ class YumBackend(AnacondaBackend):
                   (self.ayum.doTsSetup, 1),
                   (self.ayum.doRpmDBSetup, 5),
                   (self.ayum.doRepoSetup, 15),
-                  (self.ayum.doCacheSetup, 1),
                   (self.doGroupSetup, 1),
                   (self.ayum.doSackSetup, 50),
                   (self._catchallCategory, 1))
@@ -1046,7 +1004,7 @@ class YumBackend(AnacondaBackend):
         anaconda.id.instProgress.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
         anaconda.id.instProgress.processEvents()
 
-        cb = simpleCallback(anaconda.intf.messageWindow, anaconda.id.instProgress, pkgTimer, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
+        cb = simpleCallback(self.ayum.repos, anaconda.intf.messageWindow, anaconda.id.instProgress, pkgTimer, self.method, anaconda.intf.progressWindow, self.instLog, self.modeText, self.ayum.ts)
 
         cb.initWindow = anaconda.intf.waitWindow(_("Install Starting"),
                                         _("Starting install process.  This may take several minutes..."))

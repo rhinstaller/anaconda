@@ -1,3 +1,9 @@
+2006-05-08  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py:  Use YumConf objects instead of writing config files.
+	Use repo.get instead of method.getRPMFilename.  Make multirepo support
+	work in kickstart.
+
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6
