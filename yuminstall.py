@@ -31,7 +31,7 @@ from yum.repos import Repository as YumRepository
 from repomd.mdErrors import PackageSackError
 from installmethod import FileCopyException
 from backend import AnacondaBackend
-from product import productName
+from product import productName, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from genheader import *
 from constants import *
@@ -210,7 +210,7 @@ class simpleCallback:
         self.progress.processEvents()
 
 class AnacondaYumRepo(YumRepository):
-    def __init__( self, uri, repoid='anaconda'):
+    def __init__( self, uri, repoid='anaconda%s' % productStamp):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():

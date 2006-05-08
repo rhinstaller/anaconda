@@ -22,7 +22,7 @@ elif os.environ.has_key("PRODBUILDPATH") and \
 else:
     path = None
     
-
+productStamp = ""
 productName = "anaconda"
 productVersion = "bluesky"
 productPath = "anaconda"
@@ -32,6 +32,7 @@ if path is not None:
     f = open(path, "r")
     lines = f.readlines()
     if len(lines) >= 3:
+        productStamp = lines[0][:-1]
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
     if len(lines) >= 4:

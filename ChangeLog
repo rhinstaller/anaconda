@@ -16,6 +16,11 @@
 	* exception.py (handleException):  Fix traceback in exception handler
 	for cmdline mode.
 
+	* product.py:  Add productStamp.
+
+	* yuminstall.py (AnacondaYumRepo.__init__):  Make default repo id use
+	product stamp to prevent collisions.
+
 2006-05-08  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c:  Changes to inet_pton() and stuff preparing for IPv6
