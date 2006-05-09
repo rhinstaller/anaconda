@@ -559,8 +559,9 @@ class AnacondaYum(YumSorter):
                 rpmfile = txmbr.po.localPkg()
                 
                 if txmbr.ts_state == 'u':
-                    if txmbr.po.name.startswith("kernel-module-"):
-                        self.handleKernelModule(txmbr)
+                    # XXX: kernel-module-* support not in yum
+                    #if txmbr.po.name.startswith("kernel-module-"):
+                    #    self.handleKernelModule(txmbr)
                     if self.allowedMultipleInstalls(txmbr.po):
                         self.log(5, '%s converted to install' % (txmbr.po))
                         txmbr.ts_state = 'i'
