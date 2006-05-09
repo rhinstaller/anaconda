@@ -179,14 +179,17 @@ size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
     return wlite_mbrtowc (pwc, s, n, ps);
 }
 
-int mblen(const char *s, size_t l) {
+int anaconda_mblen(const char *s, size_t l) {
     return wlite_mblen(s, l);
 }
+int mblen(const char *, size_t)
+    __attribute__ ((weak, alias ("anaconda_mblen")));
 
-int
-mbtowc (wchar_t *pwc, const char *s, size_t n) {
-	return wlite_mbtowc(pwc, s, n);
+int anaconda_mbtowc (wchar_t *pwc, const char *s, size_t n) {
+    return wlite_mbtowc(pwc, s, n);
 }
+int mbtowc (wchar_t *pwc, const char *s, size_t n)
+    __attribute__ ((weak, alias ("anaconda_mbtowc")));
 
 #define mbstate_t wlite_mbstate_t
 size_t mbsrtowcs(wchar_t *pwc, const char **src, size_t n, mbstate_t *ps) {
@@ -227,6 +230,10 @@ int gzclose(void *str) {
 #endif
 
 size_t
-__ctype_get_mb_cur_max(void) {
+anaconda_ctype_get_mb_cur_max(void) {
     return ((size_t []) { 1, 1, 1, 2, 2, 3, 4})[1];
 }
+
+size_t
+__ctype_get_mb_cur_max(void)
+	__attribute__ ((weak, alias ("anaconda_ctype_get_mb_cur_max"))); 
