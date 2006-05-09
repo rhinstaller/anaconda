@@ -336,7 +336,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     /* FIXME: this is a hack, but usb-storage seems to
                      * like to take forever to enumerate.  try to 
                      * give it some time */
-                    if (!strcmp(modName, "usb-storage") && usbWasLoaded == 0) {
+                    if (!strcmp(modName, "usb-storage")) {
                         int slp;
                         usbWasLoaded++;
                         logMessage(DEBUGLVL, "sleeping for usb-storage stabilize...");
@@ -636,14 +636,6 @@ static int writeModulesConf(moduleList list, int fd) {
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
         if (!lm->weLoaded) continue;
         if (lm->written) continue;
-
-        /* JKFIXME: this is a hack for the fact that these are now
-         * DRIVER_SCSI so we can get /tmp/scsidisks, but we don't
-         * want them in modprobe.conf  :/ */
-        if (!strcmp(lm->name, "usb-storage") ||
-            !strcmp(lm->name, "sbp2")) {
-            continue;
-        }
 
         if (lm->major != DRIVER_NONE) {
             strcpy(buf, "alias ");

@@ -746,6 +746,34 @@ def ejectCdrom(device, makeDevice = 1):
     if makeDevice:
         os.unlink("/tmp/cdrom")
 
+def driveUsesModule(device, modules):
+    """Returns true if a drive is using a prticular module.  Only works
+       for SCSI devices right now."""
+
+    if not isinstance(modules, ().__class__) and not \
+            isinstance(modules, [].__class__):
+        modules = [modules]
+        
+    if device[:2] == "hd":
+        return False
+    rc = False
+    if os.access("/tmp/scsidisks", os.R_OK):
+        sdlist=open("/tmp/scsidisks", "r")
+        sdlines = sdlist.readlines()
+        sdlist.close()
+        for l in sdlines:
+            try:
+                # each line has format of:  <device>  <module>
+                (sddev, sdmod) = string.split(l)
+
+                if sddev == device:
+                    if sdmod in modules:
+                        rc = True
+                        break
+            except:
+                    pass
+    return rc
+
 def driveIsRemovable(device):
     # assume ide if starts with 'hd', and we don't have to create
     # device beforehand since it just reads /proc/ide
@@ -754,30 +782,11 @@ def driveIsRemovable(device):
     else:
         makeDevInode(device, "/tmp/disk")
         rc = (_isys.isScsiRemovable("/tmp/disk") == 1)
-
-        # need to test if its IEEE1394 even if it doesnt look removable
-        if not rc:
-            if os.access("/tmp/scsidisks", os.R_OK):
-                sdlist=open("/tmp/scsidisks", "r")
-                sdlines = sdlist.readlines()
-                sdlist.close()
-                for l in sdlines:
-                    try:
-                        # each line has format of:  <device>  <module>
-                        (sddev, sdmod) = string.split(l)
-
-                        if sddev == device:
-                            if sdmod in ['sbp2']:
-                                rc = 1
-                            else:
-                                rc = 0
-                            break
-                    except:
-                        pass
-                  
         os.unlink("/tmp/disk")
+        if rc:
+            return rc
 
-    return rc
+    return False
 
 def vtActivate (num):
     _isys.vtActivate (num)

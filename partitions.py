@@ -881,6 +881,9 @@ class Partitions:
 
         foundSwap = 0
         swapSize = 0
+        usesUSB = False
+        usesFireWire = False
+
         for request in self.requests:
             if request.fstype and request.fstype.getName() == "swap":
                 foundSwap = foundSwap + 1
@@ -896,6 +899,20 @@ class Partitions:
                     rc = request.sanityCheckRaid(self)
                     if rc:
                         errors.append(rc)
+            if not hasattr(request,'drive'):
+                continue
+            for x in request.drive:
+                if isys.driveUsesModule(x, ["usb-storage", "ub"]):
+                    usesUSB = True
+                elif isys.driveUsesModule(x, ["sbp2"]):
+                    usesFireWire = True
+            
+        if usesUSB:
+            warnings.append(_("Installing on a USB device.  This may "
+                              "or may not produce a working system."))
+        if usesFireWire:
+            warnings.append(_("Installing on a FireWire device.  This may "
+                              "or may not produce a working system."))
 
         bootreqs = self.getBootableRequest()
         if bootreqs:
