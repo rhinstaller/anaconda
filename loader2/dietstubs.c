@@ -179,6 +179,15 @@ size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
     return wlite_mbrtowc (pwc, s, n, ps);
 }
 
+int mblen(const char *s, size_t l) {
+    return wlite_mblen(s, l);
+}
+
+int
+mbtowc (wchar_t *pwc, const char *s, size_t n) {
+	return wlite_mbtowc(pwc, s, n);
+}
+
 #define mbstate_t wlite_mbstate_t
 size_t mbsrtowcs(wchar_t *pwc, const char **src, size_t n, mbstate_t *ps) {
     return wlite_mbsrtowcs (pwc, src, n, ps);
@@ -216,3 +225,8 @@ int gzclose(void *str) {
     return gunzip_close(str);
 }
 #endif
+
+size_t
+__ctype_get_mb_cur_max(void) {
+    return ((size_t []) { 1, 1, 1, 2, 2, 3, 4})[1];
+}
