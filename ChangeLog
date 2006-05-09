@@ -2,6 +2,8 @@
 
 	* isys/nfs_mountversion.h:  Removed since this is a generated file.
 	* isys/.cvsignore:  Ignore nfs_mountversion.h
+	* anaconda.spec:  We require glibc-kernheaders to generate the
+	nfs_mountversion.h file.
 
 2006-05-08  Chris Lumens  <clumens@redhat.com>
 

@@ -5,7 +5,7 @@ License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.2.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, libX11-devel, libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber, pykickstart, yum, device-mapper >= 1.01.05-3, libsepol-devel, pango-devel, pirut, libXt-devel
+BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.2.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, libX11-devel, libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber, pykickstart, yum, device-mapper >= 1.01.05-3, libsepol-devel, pango-devel, pirut, libXt-devel, glibc-kernheaders
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty, kudzu > 1.2.0, yum >= 2.5.1-3, pirut
 Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart
