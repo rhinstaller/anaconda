@@ -1,4 +1,10 @@
-2006-06-08  Peter Jones  <pjones@redhat.com>
+2006-05-09  Peter Jones  <pjones@redhat.com>
+
+	* loader2/dietstubs.c: Use bogl's wlite_mblen and wlite_mbtowc for
+	mblen and mbtowc, respectively.
+	Use __ctype_get_mb_cur_max from glibc so bogl will link.
+
+2006-05-08  Peter Jones  <pjones@redhat.com>
 
 	* loader2/hardware.c: add lapicSetup, which loads lapic_support.ko if
 	you're on x86_64.
