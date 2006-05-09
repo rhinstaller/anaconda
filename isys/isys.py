@@ -767,8 +767,11 @@ def driveIsRemovable(device):
                         (sddev, sdmod) = string.split(l)
 
                         if sddev == device:
-                            if sdmod in ['sbp2', 'usb-storage']:
+                            if sdmod in ['sbp2']:
                                 rc = 1
+                            elif sdmod in ['usb-storage']:
+                                log.warning("using usb-storage, which has a very high failure rate")
+                                rc = 0
                             else:
                                 rc = 0
                             break
