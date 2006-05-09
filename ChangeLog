@@ -1,3 +1,8 @@
+2006-05-09  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/nfs_mountversion.h:  Removed since this is a generated file.
+	* isys/.cvsignore:  Ignore nfs_mountversion.h
+
 2006-05-08  Chris Lumens  <clumens@redhat.com>
 
 	* isys/dasd.c:  More build fixes.

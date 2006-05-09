@@ -1,1 +1,0 @@
-#define KERNEL_NFS_MOUNT_VERSION	4
