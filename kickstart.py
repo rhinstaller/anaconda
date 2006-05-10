@@ -842,7 +842,6 @@ class Kickstart(BaseInstallClass):
             dispatch.skipStep("findinstall", permanent = 1)
             dispatch.skipStep("language")
             dispatch.skipStep("keyboard")
-            dispatch.skipStep("welcome")
             dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
         else:
@@ -861,15 +860,15 @@ class Kickstart(BaseInstallClass):
             return
 
         dispatch.skipStep("bootdisk")
-        dispatch.skipStep("welcome")
         dispatch.skipStep("betanag")
         dispatch.skipStep("installtype")
         dispatch.skipStep("tasksel")            
 
-        # Don't show confirmation screens in interactive.
+        # Don't show confirmation screens on non-interactive installs.
         if not self.ksdata.interactive:
             dispatch.skipStep("confirminstall")
             dispatch.skipStep("confirmupgrade")
+            dispatch.skipStep("welcome")
 
         # Make sure to automatically reboot even in interactive if told to.
         if self.ksdata.interactive and self.ksdata.reboot["action"] != KS_WAIT:

@@ -1,3 +1,8 @@
+2006-05-10  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (Kickstart.setSteps):  Don't skip the welcome screen on
+	interactive installs so we have somewhere to go back to (#191129).
+
 2006-05-10  Peter Jones  <pjones@redhat.com>
 
 	* isys/lang.c: change NR_KEYS to 128, as it used to be in the kernel
