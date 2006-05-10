@@ -9,6 +9,11 @@
 #include <unistd.h>
 
 #include <linux/keyboard.h>
+#ifdef NR_KEYS
+#undef NR_KEYS
+#define NR_KEYS 128
+#endif
+
 #include "linux/kd.h"
 
 #include "cpio.h"

@@ -1,3 +1,8 @@
+2006-05-10  Peter Jones  <pjones@redhat.com>
+
+	* isys/lang.c: change NR_KEYS to 128, as it used to be in the kernel
+	headers.
+
 2006-05-09  Paul Nasrat <pnasrat@redhat.com>
 
 	* nfsinstall.c, urls.c: Translatable strings (181594)
