@@ -1,3 +1,7 @@
+2006-05-11  Chris Lumens  <clumens@redhat.com>
+
+	* upgrade.py (findExistingRoots):  Fix traceback on dict access.
+
 2006-05-10  Chris Lumens  <clumens@redhat.com>
 
 	* kickstart.py (Kickstart.setSteps):  Don't skip the welcome screen on

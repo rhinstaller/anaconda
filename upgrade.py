@@ -80,7 +80,7 @@ def findRootParts(anaconda):
 def findExistingRoots(intf, id, chroot, upgradeany = 0):
     if not flags.setupFilesystems:
         relstr = partedUtils.getReleaseString (chroot)
-        if ((flags.cmdline.find("upgradeany") != -1) or
+        if ((flags.cmdline.has_key("upgradeany")) or
             (upgradeany == 1) or
             (partedUtils.productMatches(relstr, productName))):
             return [(chroot, 'ext2', "")]
