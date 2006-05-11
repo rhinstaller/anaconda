@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-04-03 13:58+0300\n"
+"PO-Revision-Date: 2006-05-11 15:09+0300\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -3479,70 +3479,70 @@ msgstr "Meklēt bojātus blokus?"
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "'%s' tipa partīcijām jābūt apvienotām vienā diskā. Tas izdarāms, izvēloties diskus izvēlnē 'Pieejamie diski'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "Cietņa dalījuma iestatīšana"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
-msgstr ""
+msgstr "Automātiskais dalījums"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "Manuālais dalījums ar Disk Druid"
 
 #: ../iw/progress_gui.py:42
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:45
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:48
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s baitu"
 
 #: ../iw/progress_gui.py:50
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s baiti"
 
 #: ../iw/progress_gui.py:54
 msgid "Installing Packages"
-msgstr ""
+msgstr "Pakotņu uzstādīšana"
 
 #: ../iw/progress_gui.py:168
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr ""
+msgstr "Atlikušais laiks: %s minūtes"
 
 #: ../iw/progress_gui.py:184
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "Lejupielāde: %s"
 
 #: ../iw/progress_gui.py:224
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr ""
+msgstr "Uzstādišana %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:348
 msgid "Package"
-msgstr ""
+msgstr "Pakotne"
 
 #: ../iw/progress_gui.py:349
 msgid "Summary"
-msgstr ""
+msgstr "Pavisam"
 
 #: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
 msgid "Status: "
-msgstr ""
+msgstr "Statuss: "
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -3552,51 +3552,54 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"RAID ierīces izveidei nepieciešamas vismaz divas neizmantotas RAID sadaļas.\n"
+"\n"
+"Izveidojiet vismaz divas sadaļas ar tipu \"programmiskais RAID\" un izvēlieties parametru \"RAID\" no jauna."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
-msgstr ""
+msgstr "Izveidot RAID ierīci"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "Labot RAID ierīci: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "Labot RAID ierīci"
 
 #: ../iw/raid_dialog_gui.py:311
 msgid "RAID _Device:"
-msgstr ""
+msgstr "RAID ierīce:"
 
 #: ../iw/raid_dialog_gui.py:329
 msgid "RAID _Level:"
-msgstr ""
+msgstr "RAID līmenis:"
 
 #: ../iw/raid_dialog_gui.py:370
 msgid "_RAID Members:"
-msgstr ""
+msgstr "RAID sastāvdaļas:"
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr ""
+msgstr "Rezervju skaits:"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
-msgstr ""
+msgstr "Formatēt sadaļu?"
 
 #: ../iw/raid_dialog_gui.py:476
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
+msgstr "Sākotnējais disks nesatur sadaļas, kuras būtu iespējams klonēt. Diska klonēšanai jānorāda sadaļas ar tipu \"programmiskais RAID\"."
 
 #: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
 #: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
 msgid "Source Drive Error"
-msgstr ""
+msgstr "Kļūme sākotnējā diskā"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -3605,6 +3608,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"Sākotnējais disks nesatur \"programmiskā RAID\" tipa sadaļas.\n"
+"\n"
+"Pirms klonēšanas šīs sadaļas ir jāizdzēš."
 
 #: ../iw/raid_dialog_gui.py:499
 #, python-format
