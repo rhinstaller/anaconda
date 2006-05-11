@@ -709,8 +709,6 @@ if __name__ == "__main__":
     if opts.ksfile:
         anaconda.isKickstart = True
         vncksdata = setVNCFromKickstart(opts)
-        if rhpl.getArch() == "s390":
-            opts.display_mode == 'c'
 
     #
     # Determine install method - GUI or TUI
