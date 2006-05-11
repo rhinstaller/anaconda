@@ -422,6 +422,7 @@ const char *ftpStrerror(int errorNumber) {
 /* extraHeaders is either NULL or a string with extra headers separated by '\r\n', ending with
  * '\r\n'
  */
+#define MAX_HTTP_HEADER_LEN 4096
 int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders) {
     char * buf;
     struct timeval timeout;
@@ -467,7 +468,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
 	1) Get our first \r\n; which lets us check the return code
 	2) Get a \r\n\r\n, which means we're done */
 
-    nextChar = headers = alloca(4096);
+    nextChar = headers = alloca(MAX_HTTP_HEADER_LEN);
     *nextChar = '\0';
     checkedCode = 0;
     while (!strstr(headers, "\r\n\r\n")) {
@@ -494,7 +495,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
 	nextChar++;
 	*nextChar = '\0';
 
-	if (nextChar - headers == sizeof(headers)) {
+	if (nextChar - headers == MAX_HTTP_HEADER_LEN) {
 	    close(sock);
 	    return FTPERR_SERVER_IO_ERROR;
 	}

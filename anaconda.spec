@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.11
+Version: 9.1.6.12
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 11 2006 Peter Jones <pjones@redhat.com> - 9.1.6.12-1.RHEL
+- Fix size checking of http header array (#191184).
+
 * Fri May 05 2006 Peter Jones <pjones@redhat.com> - 9.1.6.11-1.RHEL
 - Use -Os in the loader after all, or else boot images are too large (#190835).
 - Use a dynamic buffer for httpGetFileDesc in the loader (#188089).
