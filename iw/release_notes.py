@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# release_notes_viewer_iw.py - "I can't believe it's not a web browser."
+# release_notes.py - "I can't believe it's not a web browser."
 #
 # David Cantrell <dcantrell@redhat.com>
 #
@@ -20,14 +20,15 @@ import gtk
 import gtkhtml2
 import urllib
 import urlparse
+import thread
+import threading
+
+import gui
 
 from rhpl.translate import _, N_
 
-sys.path.append('/usr/lib/anaconda')
-from gui import addFrame
-
-class ReleaseNotesViewer:
-	def __init__(self, uri, w, h):
+class ReleaseNotesViewer(threading.Thread):
+	def __init__(self, id, dispatch, uri=None):
 		self.currentURI = None
 		self.htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
 		self.htmlfooter = "</pre></body></html>"
@@ -38,22 +39,83 @@ class ReleaseNotesViewer:
 		self.doc.connect('request_url', self.requestURLCallBack)
 		self.doc.connect('link_clicked', self.linkClickedCallBack)
 		self.vue.connect('request_object', self.requestObjectCallBack)
+		self.topDir = None
 
-		if uri is not None:
-			self.load(uri)
+		self.id = id
+		self.dispatch = dispatch
 
-		if w is not None and h is not None:
-			# window size specified by caller
-			self.width = int(w)
-			self.height = int(h)
-		else:
-			# no window size specified, figure it out
-			if gtk.gdk.screen_width() >= 800:
+		if uri is None:
+			uri = self.getReleaseNotes()
+
+		self.load(uri)
+		self.resize()
+
+		threading.Thread.__init__(self, name='RelNotesThr')
+		self.start()
+
+		self.view()
+
+	def getReleaseNotes(self):
+		langs = self.id.instLanguage.getCurrentLangSearchList() + [ "" ]
+		suffixList = []
+		for lang in langs:
+			if lang:
+				suffixList.append("-%s.html" % (lang,))
+				suffixList.append(".%s" % (lang,))
+
+		for suffix in suffixList:
+			fn = "RELEASE-NOTES%s" % (suffix,)
+			try:
+				tmpfile = os.path.abspath("/" +
+					self.dispatch.method.getFilename(fn,
+					destdir="/tmp", retry=0))
+				if tmpfile is None:
+					continue
+
+				# Just because we got a filename back doesn't
+				# mean it's a valid file.  Check that it's not
+				# zero length too.
+				st = os.stat(tmpfile)
+				if st.st_size == 0L:
+					os.remove(tmpfile)
+					continue
+
+				self.topDir = os.path.dirname(tmpfile)
+				return tmpfile
+			except:
+				continue
+
+		print "here"
+		return None
+
+	def resize(self, w=None, h=None):
+		sw = gtk.gdk.screen_width()
+		(step, args) = self.dispatch.currentStep()
+
+		if w is None:
+			if sw >= 800:
 				self.width = 800
-				self.height = 600
 			else:
 				self.width = 640
-				self.height = 480
+		else:
+			self.width = int(w)
+
+		# if we are at the installation progress bar step, make the
+		# release notes window smaller so the progress bar is still
+		# visible...otherwise, consume the entire screen
+		if h is None:
+			if sw >= 800:
+				if step == "installpackages":
+					self.height = 445
+				else:
+					self.height = 600
+			else:
+				if step == "installpackages":
+					self.height = 300
+				else:
+					self.height = 480
+		else:
+			self.height = int(h)
 
 	# FIXME: replace with logger from anaconda_log (fix exec first)
 	def log(self, string):
@@ -147,7 +209,7 @@ class ReleaseNotesViewer:
 			table.attach(a, 1, 2, 1, 2, gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
 
 			textWin.set_border_width(0)
-			addFrame(textWin, _("Release Notes"))
+			gui.addFrame(textWin, _("Release Notes"))
 			textWin.show_all()
 		else:
 			textWin.set_position(gtk.WIN_POS_CENTER)
@@ -156,7 +218,7 @@ class ReleaseNotesViewer:
 			table.attach(label, 1, 2, 1, 2, gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
 
 			textWin.set_border_width(0)
-			addFrame(textWin)
+			gui.addFrame(textWin)
 			textWin.show_all()
 
 		# set cursor to normal (assuming that anaconda set it to busy
@@ -179,13 +241,10 @@ class ReleaseNotesViewer:
 		return self.opener.open(self.resolveURI(link))
 
 	def closedCallBack(self, widget, data):
-		# set mouse pointer to busy until callback func in gui.py
-		# realizes we've closed the release notes viewer (sure
-		# would like signals...)
 		root = gtk.gdk.get_default_root_window()
 		cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
 		root.set_cursor(cursor)
-		os._exit(0)
+		thread.exit()
 
 	def linkClickedCallBack(self, document, link):
 		if link[0] == '#':
@@ -199,8 +258,8 @@ class ReleaseNotesViewer:
 			f = self.openURI(url)
 			stream.write(f.read())
 		except:
-			# we'll try local from /mnt/source
-			url = '/mnt/source/' + url
+			# we'll try local from self.topDir
+			url = os.path.abspath(self.topDir + '/' + url)
 			try:
 				f = self.openURI(url)
 				stream.write(f.read())
@@ -209,12 +268,3 @@ class ReleaseNotesViewer:
 
 	def requestObjectCallBack(self, *args):
 		self.log("request objects call back: %s" % (args))
-
-
-if __name__ == "__main__":
-	if len(sys.argv) == 4:
-		win = ReleaseNotesViewer(sys.argv[1], sys.argv[2], sys.argv[3])
-	else:
-		win = ReleaseNotesViewer(sys.argv[1])
-
-	win.view()
