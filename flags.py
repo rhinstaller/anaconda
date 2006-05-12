@@ -45,7 +45,8 @@ class Flags:
         # do things like bogl on them.  this preserves what that
         # device is
         self.__dict__['flags']['virtpconsole'] = None
-
+        self.__dict__['flags']['runks'] = 0
+        self.__dict__['flags']['display_mode'] = None
 
         # determine if selinux is enabled or not
         f = open("/proc/cmdline", "r")

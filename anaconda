@@ -437,7 +437,7 @@ instClass = None		# the install class to use
 progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
 logFile = None			# may be a file object or a file name
-display_mode = None
+flags.display_mode = None
 graphical_failed = 0
 
 
@@ -487,7 +487,7 @@ for n in args:
     elif (str == '--expert'):
 	flags.expert = 1 
     elif (str == '--graphical'):
-	display_mode = 'g'
+	flags.display_mode = 'g'
     elif (str == '--keymap'):
         keymap = arg
     elif (str == '--kickstart'):
@@ -542,9 +542,9 @@ for n in args:
 	flags.setupFilesystems = 0
 	logFile = "/tmp/anaconda-debug.log"
     elif (str == '-T' or str == '--text'):
-        display_mode = 't'
+        flags.display_mode = 't'
     elif (str == "-C" or str == "--cmdline"):
-        display_mode = 'c'
+        flags.display_mode = 'c'
     elif (str == '--kbdtype'):
         kbdtype = arg
     elif (str == '--virtpconsole'):
@@ -625,6 +625,8 @@ if ksfile is not None:
     except:
 	rc = _("Unknown Error")
 
+    flags.runks = 1
+
     if rc is not None:
 	dup_log(_("Error pulling second part of kickstart config: %s!") % (rc,))
 	sys.exit(1)
@@ -652,16 +654,16 @@ if ksfile is not None:
 # use GUI by default except for install methods that were traditionally
 # text based due to the requirement of a small stage 2
 #
-# if display_mode wasnt set by command line parameters then set default
+# if flags.display_mode wasnt set by command line parameters then set default
 #
 
-if display_mode is None:
+if flags.display_mode is None:
     if (method and
 	method.startswith('ftp://') or
 	method.startswith('http://')):
-	display_mode = 't'
+	flags.display_mode = 't'
     else:
-	display_mode = 'g'
+	flags.display_mode = 'g'
 
 if (debug):
     import pdb
@@ -691,7 +693,7 @@ import rhpl.keyboard as keyboard
 # handle traceonly and exit
 if traceOnly:
 
-    if display_mode == 'g':
+    if flags.display_mode == 'g':
         sys.stderr.write("traceonly is only supported for text mode\n")
         sys.exit(0)
     
@@ -719,7 +721,7 @@ if traceOnly:
 
     installclass.availableClasses()
 
-    if display_mode == 't':
+    if flags.display_mode == 't':
         for step in stepToClasses.keys():
             if stepToClasses[step]:
                 (mod, klass) = stepToClasses[step]
@@ -734,7 +736,7 @@ if traceOnly:
         
     sys.exit(0)
 
-log("Display mode = %s", display_mode)
+log("Display mode = %s", flags.display_mode)
 log("Method = %s", method)
 
 #
@@ -744,7 +746,7 @@ if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
 	dup_log(_("You do not have enough RAM to use the graphical "
 		  "installer.  Starting text mode."))
-	display_mode = 't'
+	flags.display_mode = 't'
         time.sleep(2)
 
 
@@ -795,7 +797,7 @@ if not instClass:
 # this lets install classes force text mode instlls
 if instClass.forceTextMode:
     dup_log(_("Install class forcing text mode installation"))
-    display_mode = 't'
+    flags.display_mode = 't'
 
 #
 # find out what video hardware is available to run installer 
@@ -803,7 +805,7 @@ if instClass.forceTextMode:
 
 # XXX kind of hacky - need to remember if we're running on an existing
 #                     X display later to avoid some initilization steps
-if os.environ.has_key('DISPLAY') and display_mode == 'g':
+if os.environ.has_key('DISPLAY') and flags.display_mode == 'g':
     x_already_set = 1
 else:
     x_already_set = 0
@@ -862,12 +864,12 @@ if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.
      dup_log(_("Graphical installation not available...  "
               "Starting text mode."))
      time.sleep(2)
-     display_mode = 't'
+     flags.display_mode = 't'
 
 if not isHeadless:
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if ksfile is None and not flags.usevnc and not os.environ.has_key("DISPLAY") and display_mode == 'g' and mousedev[0] == "No - mouse":
+    if ksfile is None and not flags.usevnc and not os.environ.has_key("DISPLAY") and flags.display_mode == 'g' and mousedev[0] == "No - mouse":
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
@@ -876,7 +878,7 @@ if not isHeadless:
 	    if mouserc == 0:
 		dup_log(_("No mouse was detected.  A mouse is required for "
 			  "graphical installation.  Starting text mode."))
-		display_mode = 't'
+		flags.display_mode = 't'
 		time.sleep(2)
 		break
 	    elif mouserc == -1:
@@ -893,16 +895,16 @@ if not isHeadless:
 
 	    
 else: # s390/iSeries checks
-    if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
+    if flags.display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
                                     flags.usevnc):
 	dup_log("DISPLAY variable not set. Starting text mode!")
-        display_mode = 't'
+        flags.display_mode = 't'
         graphical_failed = 1
         time.sleep(2)
 
 # if DISPLAY not set either vnc server failed to start or we're not
 # running on a redirected X display, so start local X server
-if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
+if flags.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
     import rhpl.monitor as monitor
     
     # if no monitor probed lets guess based on runres
@@ -936,20 +938,20 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevn
 
     if xsetup_failed:
 	dup_log(" X startup failed, falling back to text mode")
-	display_mode = 't'
+	flags.display_mode = 't'
         graphical_failed = 1
 	time.sleep(2)
 
-if display_mode == 't' and graphical_failed:
+if flags.display_mode == 't' and graphical_failed:
     ret = vnc.askVncWindow()
     if ret != -1:
-        display_mode = 'g'
+        flags.display_mode = 'g'
         flags.usevnc = 1
         if ret is not None:
             vncpassword = ret
 
 # if they want us to use VNC do that now
-if display_mode == 'g' and flags.usevnc:
+if flags.display_mode == 'g' and flags.usevnc:
     # dont run vncpassword if in test mode
     if flags.test:
 	vncpassword = None
@@ -976,7 +978,7 @@ for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
 #
 # setup links required by graphical mode if installing and verify display mode
 #
-if (display_mode == 'g'):
+if (flags.display_mode == 'g'):
     print _("Starting graphical installation...")
     if not flags.test and flags.setupFilesystems:
         for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
@@ -1007,15 +1009,15 @@ if (display_mode == 'g'):
 	    if not x_already_set:
                 isys.vtActivate (1)
             dup_log("GUI installer startup failed, falling back to text mode.")
-            display_mode = 't'
+            flags.display_mode = 't'
 	    if 'DISPLAY' in os.environ.keys():
 		del os.environ['DISPLAY']
             time.sleep(2)            
 
-if (display_mode == 't'):
+if (flags.display_mode == 't'):
     from text import InstallInterface
 
-if (display_mode == 'c'):
+if (flags.display_mode == 'c'):
     from cmdline import InstallInterface
 
 

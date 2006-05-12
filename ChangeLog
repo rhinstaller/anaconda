@@ -1,3 +1,11 @@
+2006-05-11  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda:  display_mode -> flags.display_mode, set flags.runks.
+	* flags.py:  Added display_mode and runks flags.
+	* partedUtils.py (DiskSet.openDevices):  If in cmdline mode and
+	using kickstart on s390 and an unformatted DASD is encountered,
+	format it (#177463).
+
 2006-05-09  Peter Jones  <pjones@redhat.com>
 
 	* loader2/dietstubs.c: Use bogl's wlite_mblen and wlite_mbtowc for

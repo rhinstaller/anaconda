@@ -839,16 +839,21 @@ class DiskSet:
                 if intf is None:
                     DiskSet.skippedDisks.append(drive)
                     continue
-                rc = intf.messageWindow(_("Warning"),
-                        _("The partition table on device %s (%s) was unreadable. "
-                          "To create new partitions it must be initialized, "
-                          "causing the loss of ALL DATA on this drive.\n\n"
-                          "This operation will override any previous "
-                          "installation choices about which drives to "
-                          "ignore.\n\n"
-                          "Would you like to initialize this drive, "
-                          "erasing ALL DATA?")
-                                        % (drive, devs[drive]), type = "yesno")
+
+                if flags.runks == 1 and flags.display_mode == 'c':
+                    rc = 1
+                else:
+                    rc = intf.messageWindow(_("Warning"),
+                      _("The partition table on device %s (%s) was unreadable. "
+                        "To create new partitions it must be initialized, "
+                        "causing the loss of ALL DATA on this drive.\n\n"
+                        "This operation will override any previous "
+                        "installation choices about which drives to "
+                        "ignore.\n\n"
+                        "Would you like to initialize this drive, "
+                        "erasing ALL DATA?")
+                      % (drive, devs[drive]), type = "yesno")
+
                 if rc == 0:
                     DiskSet.skippedDisks.append(drive)
                     continue
@@ -896,16 +901,20 @@ class DiskSet:
                          format = drive + " (" + devs[drive] + ")"
                     else:
                          format = drive
-                    rc = intf.messageWindow(_("Warning"),
-                             _("The partition table on device %s was unreadable. "
-                               "To create new partitions it must be initialized, "
-                               "causing the loss of ALL DATA on this drive.\n\n"
-                               "This operation will override any previous "
-                               "installation choices about which drives to "
-                               "ignore.\n\n"
-                               "Would you like to initialize this drive, "
-                               "erasing ALL DATA?")
-                                           % (format,), type = "yesno")
+
+                    if iutil.getArch() == "s390" and drive[:4] == "dasd" and flags.runks == 1 and flags.display_mode == 'c':
+                         rc = 1
+                    else:
+                         rc = intf.messageWindow(_("Warning"),
+                           _("The partition table on device %s was unreadable. "
+                             "To create new partitions it must be initialized, "
+                             "causing the loss of ALL DATA on this drive.\n\n"
+                             "This operation will override any previous "
+                             "installation choices about which drives to "
+                             "ignore.\n\n"
+                             "Would you like to initialize this drive, "
+                             "erasing ALL DATA?") % (format,), type = "yesno")
+
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
                         continue
