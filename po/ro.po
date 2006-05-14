@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-05-14 15:50+0200\n"
+"PO-Revision-Date: 2006-05-14 20:08+0200\n"
 "Last-Translator: Felix Kerekes <StTwister@yahoo.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr "Variabila DISPLAY nu este setată. Pornesc modul text! "
 
 #: ../anaconda:1013
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "Apasă <enter> pentru un shell"
 
 #: ../anaconda:1045
 msgid "Starting graphical installation..."
@@ -2886,7 +2886,7 @@ msgstr "Spaţiu pe Disc"
 
 #: ../iw/lvm_dialog_gui.py:719
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you will need to reduce the size of one or more of the currently existing logical volumes"
-msgstr ""
+msgstr "Nu există spaţiu liber in grupul de volume pentru a crea volume logice. Pentru a adăuga un volum logic trebuie să reduceţi mărime unor volume logice deja existente"
 
 #: ../iw/lvm_dialog_gui.py:747
 #, fuzzy, python-format
@@ -2947,7 +2947,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1005
 msgid "Physical Volumes to _Use:"
-msgstr ""
+msgstr "Volume fizice de utilizat:"
 
 #: ../iw/lvm_dialog_gui.py:1011
 #, fuzzy
@@ -3000,7 +3000,7 @@ msgstr "Editare"
 
 #: ../iw/lvm_dialog_gui.py:1113
 msgid "Logical Volumes"
-msgstr ""
+msgstr "Volume Logice"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -3112,7 +3112,7 @@ msgstr "Nu aţi specificat un nume de host. În funcţie de mediul reţelei, ace
 #: ../iw/network_gui.py:169
 #, python-format
 msgid "You have not specified the field \"%s\".  Depending on your network environment this may cause problems later."
-msgstr ""
+msgstr "Nu aţi specificat câmpul \"%s\". În funcţie de mediul reţelei dvs., acest lucru ar putea cauza probleme mai târziu."
 
 #: ../iw/network_gui.py:173
 #: ../textw/network_text.py:412
@@ -3122,6 +3122,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Numele de host \"%s\" nu este valid din următoarele motive:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:178
 #, python-format
@@ -3133,7 +3136,7 @@ msgstr ""
 #: ../iw/network_gui.py:184
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "O valoare este necesară pentru câmpul \"%s\"."
 
 #: ../iw/network_gui.py:188
 #, fuzzy
@@ -3315,7 +3318,7 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr ""
+msgstr "Opţiuni suplimentare legate de mărime"
 
 #: ../iw/partition_dialog_gui.py:63
 #, fuzzy
@@ -3332,7 +3335,7 @@ msgstr "Umple pana la mărimea maxim admisa"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "Cilindrul de sfârşit trebuie să fie mai mare decât cel de început."
 
 #: ../iw/partition_dialog_gui.py:269
 #: ../textw/partition_text.py:711
@@ -3372,11 +3375,11 @@ msgstr "Marime Root Filesystem"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "Cilindrul de început:"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "Cilindrul de sfârşit:"
 
 #: ../iw/partition_dialog_gui.py:459
 #, fuzzy
@@ -3426,7 +3429,7 @@ msgstr "Partiţionare"
 
 #: ../iw/partition_gui.py:634
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "Există următoarele error cu schema dvs. de partiţionare."
 
 #: ../iw/partition_gui.py:637
 #, python-format
@@ -3464,7 +3467,7 @@ msgstr "Formatare sistem fişiere"
 
 #: ../iw/partition_gui.py:718
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "Grupuri de volum LVM"
 
 #: ../iw/partition_gui.py:753
 #, fuzzy
@@ -3494,7 +3497,7 @@ msgstr "Spaţiu pe Disc"
 #: ../iw/partition_gui.py:872
 #: ../textw/partition_text.py:143
 msgid "Extended"
-msgstr ""
+msgstr "Extins"
 
 #: ../iw/partition_gui.py:874
 #: ../textw/partition_text.py:145
@@ -4333,7 +4336,7 @@ msgstr "sau folosiţi:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Numele de iniţiator iSCSI"
 
 #: ../textw/iscsi_text.py:70
 #: ../textw/network_text.py:28
@@ -4385,7 +4388,7 @@ msgstr "Punct-la-Punct (IP)"
 #: ../textw/network_text.py:73
 #: ../loader2/net.c:228
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:74
 #: ../loader2/net.c:229
@@ -4405,7 +4408,7 @@ msgstr "Descriere: %s"
 #: ../textw/network_text.py:96
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Adresă hardwareŞ %s"
 
 #: ../textw/network_text.py:101
 msgid "Configure using DHCP"
@@ -4705,7 +4708,7 @@ msgstr "Partiţionare"
 
 #: ../textw/partition_text.py:1368
 msgid "logical volume"
-msgstr ""
+msgstr "volum logic"
 
 #: ../textw/partition_text.py:1442
 msgid "New"
@@ -4887,6 +4890,9 @@ msgid ""
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly install your system."
 msgstr ""
+"Unul sau mai multe instalări Linux au fost găsite pe calculatorul dvs.\n"
+"\n"
+"Vă rog selectaţi una pentru upgrade sau apăsaţi \"Reinstalează sistem\" pentru o nou instalare."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -4933,7 +4939,7 @@ msgstr "Adăugare"
 
 #: ../textw/zfcp_text.py:109
 msgid "Remove"
-msgstr ""
+msgstr "Îndepărtează"
 
 #: ../textw/zipl_text.py:24
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup may require."
@@ -4964,11 +4970,11 @@ msgstr "Formatare sistem fişiere"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Birou şi productivitate"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Dezvoltare Software"
 
 #: ../installclasses/fedora.py:22
 #, fuzzy
@@ -4977,7 +4983,7 @@ msgstr "Server DNS"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualizare (Zen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5010,7 +5016,7 @@ msgstr ""
 #: ../installclasses/rhel_as.py:9
 #: ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16
 #: ../installclasses/rhel_es.py:16
@@ -5021,21 +5027,26 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tInterfaţă Vizuală (GNOME)\n"
+"\tUtilitare de Administrare\n"
+"\tUtilitare de Configurare a Serverului\n"
+"\tServer Web\n"
+"\tWindows File Server (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9
 #: ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9
 #: ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9
 #: ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
 #: ../installclasses/workstation.py:14
@@ -5175,7 +5186,7 @@ msgstr "Selectaţi driver"
 
 #: ../loader2/driverdisk.c:344
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Selectaţi fişierul care este imaginea discului de driver."
 
 #: ../loader2/driverdisk.c:373
 #, fuzzy
@@ -5336,7 +5347,7 @@ msgstr "Nu am putut găsi fişierul kickstart pe discul dur."
 #: ../loader2/hdinstall.c:580
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Nu pot găsi hard drive pentru discul BIOS %s"
 
 #: ../loader2/kbd.c:126
 msgid "Keyboard Type"
@@ -5487,9 +5498,9 @@ msgid "Add Device"
 msgstr "Adaugă Periferic"
 
 #: ../loader2/loader.c:1254
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "programul de încărcare a fost deja rulat. Pornesc shell-ul"
+msgstr "programul de încărcare a fost deja rulat. Pornesc shell-ul.\n"
 
 #: ../loader2/loader.c:1618
 #, c-format
@@ -5523,7 +5534,7 @@ msgstr "Nu am putut găsi imaginea de instalare %s"
 #: ../loader2/mediacheck.c:397
 #: ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "EŞUAT"
 
 #: ../loader2/mediacheck.c:398
 #, fuzzy
