@@ -81,6 +81,7 @@ class InstallMethod:
 # (ie immediately before the congratulations screen).  main use right now
 # is ejecting the cdrom
 def doMethodComplete(anaconda):
+    anaconda.method.filesDone()
     anaconda.method.ejectCD()
 
     mtab = "/dev/root / ext3 ro 0 0\n"

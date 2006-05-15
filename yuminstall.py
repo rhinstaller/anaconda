@@ -1024,7 +1024,6 @@ class YumBackend(AnacondaBackend):
         if not cb.beenCalled:
             cb.initWindow.pop()
 
-        self.method.filesDone()
         self.instLog.close ()
 
         anaconda.id.instProgress = None

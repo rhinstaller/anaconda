@@ -5,6 +5,10 @@
 
 2006-05-15  Chris Lumens  <clumens@redhat.com>
 
+	* installmethod.py (doMethodComplete):  Unmount media here so it's
+	still available for kickstart %post scripts (#191381).
+	* yuminstall.py (YumBackend.doInstall):  Move media unmount to later.
+
 	* vnc.py:  Import iutil (#191548).
 
 2006-05-12  David Cantrell  <dcantrell@redhat.com>
