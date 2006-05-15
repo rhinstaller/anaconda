@@ -268,17 +268,17 @@ class NetworkGlobalWindow:
         
         thegrid.setField(Label(_("Primary DNS:")), 0, 1, anchorLeft = 1)
         ns1Entry = Entry(16)
-        ns1Entry.set(network.primaryNS)
+        ns1Entry.set(anaconda.id.network.primaryNS)
         thegrid.setField(ns1Entry, 1, 1, padding = (1, 0, 0, 0))
         
         thegrid.setField(Label(_("Secondary DNS:")), 0, 2, anchorLeft = 1)
         ns2Entry = Entry(16)
-        ns2Entry.set(network.secondaryNS)
+        ns2Entry.set(anaconda.id.network.secondaryNS)
         thegrid.setField(ns2Entry, 1, 2, padding = (1, 0, 0, 0))
         
         thegrid.setField(Label(_("Tertiary DNS:")), 0, 3, anchorLeft = 1)
         ns3Entry = Entry(16)
-        ns3Entry.set(network.ternaryNS)
+        ns3Entry.set(anaconda.id.network.ternaryNS)
         thegrid.setField(ns3Entry, 1, 3, padding = (1, 0, 0, 0))
 
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
