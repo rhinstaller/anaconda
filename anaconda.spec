@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.10
+Version: 11.1.0.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon May 15 2006 Chris Lumens <clumens@redhat.com> 11.1.0.11-1
+- Fix anaconda class typos (katzj).
+- Unmount media after running post scripts (#191381).
+- Fix VNC installs.
+- Support --mtu= in kickstart files (#191328).
+- Rework release notes viewer (dcantrel).
+- Fix upgrade traceback.
+- Fix console keymaps (pjones, #190983, #191541).
+- Allow USB and firewire installs, with a warning (pjones).
+
 * Mon May 08 2006 Chris Lumens <clumens@redhat.com> 11.1.0.10-1
 - s390x build fix.
 
