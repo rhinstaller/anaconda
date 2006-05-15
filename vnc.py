@@ -20,6 +20,7 @@ from rhpl.translate import _, N_
 import network
 import isys
 import product
+import iutil
 
 import logging
 log = logging.getLogger("anaconda")
