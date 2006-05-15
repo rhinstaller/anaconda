@@ -9,12 +9,14 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-05-15 12:23+0100\n"
+"PO-Revision-Date: 2006-05-15 14:13+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
 
 #: ../anaconda:98
 msgid "Starting VNC..."
@@ -215,9 +217,6 @@ msgstr "Nenašiel som video hardvér, predpokladám nenainštalovanú"
 
 #: ../anaconda:898
 #: ../anaconda:1133
-msgid "Unable to instantiate a X hardware state object."
-msgstr ""
-
 #: ../anaconda:922
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafická inštalácia nie je dostupná... Spúšťam textový režim."
@@ -235,9 +234,8 @@ msgid "Starting graphical installation..."
 msgstr "Spúšťa sa grafická inštalácia..."
 
 #: ../anaconda:1099
-#, fuzzy
 msgid "Unknown install method"
-msgstr "Neznáma karta"
+msgstr "Neznáma metóda inštalácie"
 
 #: ../anaconda:1100
 #, fuzzy
@@ -245,9 +243,9 @@ msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "Pokúšate sa inštalovať na počítačí, ktorý nie je podporovaný týmto vydaním %s."
 
 #: ../anaconda:1102
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
-msgstr "Neznáma karta"
+msgstr "neznáma inštalačná metóda: %s"
 
 #: ../autopart.py:967
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -743,6 +741,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Nastala chyba pri povoľovaní odkladacieho priestoru %s: %s\n"
+"\n"
+"Najčastejšie to znamená, ze tento odkladací priestor nebol inicializovaný.\n"
+"\n"
+"Stlačte OK pre reštart vášho systému."
 
 #: ../fsset.py:1525
 #, python-format
@@ -784,6 +787,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Nastala chyba pri pokuse o migráciu %s. Tento problém je vážny a inštalácia nemôže pokračovať.\n"
+"\n"
+"Stlačte <Enter> pre reštart vášho systému."
 
 #: ../fsset.py:1642
 #: ../fsset.py:1651
@@ -1049,7 +1055,7 @@ msgstr "_Znovu"
 #: ../gui.py:1292
 #: ../packages.py:578
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Inštalátor sa teraz ukončí..."
 
 #: ../gui.py:1295
 #: ../packages.py:581
@@ -1086,6 +1092,10 @@ msgid ""
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Softvér, ktorý ste zvolili na inštaláciu bude vyžadovať nasledujúce CD:\n"
+"\n"
+"%s\n"
+"Prosím, pripravte si ich skôr ako budete pokračovať v inštalácii. Ak potrebujete zrušiť inštaláciu a reštartovať, prosím zvoľte \"Reštart\"."
 
 #: ../image.py:92
 #: ../packages.py:579
@@ -1144,7 +1154,7 @@ msgstr "Nepodaril sa prístup k CDROM."
 
 #: ../image.py:523
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Chýbajúci ISO 9660 obraz"
 
 #: ../image.py:524
 #, python-format
@@ -1153,11 +1163,13 @@ msgid ""
 "\n"
 "Please copy this image to the remote server's share path and click Retry. Click Reboot to abort the installation."
 msgstr ""
+"Inštalátor sa pokúsil pripojiť obraz #%s, ale nemohol ho nájsť na servri.\n"
+"\n"
+"Prosím, skopírujte tento obraz zdieľaný adresár vzdialeného servra a stlačte Opakovať. Stlačte Reštart pre zrušenie inštalácie."
 
 #: ../image.py:534
-#, fuzzy
 msgid "Re_try"
-msgstr "Znovu"
+msgstr "_Znovu"
 
 #: ../installclass.py:56
 msgid "Install on System"
@@ -1165,7 +1177,7 @@ msgstr "Inštalovať na systém"
 
 #: ../kickstart.py:71
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Chyba skriptu"
 
 #: ../kickstart.py:72
 #, fuzzy, python-format
@@ -1186,11 +1198,11 @@ msgstr "Pripájanie..."
 
 #: ../kickstart.py:712
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "Spúšťam predinštalačné skripty"
 
 #: ../kickstart.py:730
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "Spúšťap poinštalačné skripty"
 
 #: ../network.py:44
 msgid "Hostname must be 64 or less characters in length."
@@ -1213,6 +1225,8 @@ msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Súborové systémy inštalácie Linuxu, ktoré ste zvolili na aktualizáciu už boli pripojené. V tejto chvíli sa už nemôžete vrátiť späť od tohto bodu.\n"
+"\n"
 
 #: ../packages.py:51
 msgid "Would you like to continue with the upgrade?"
@@ -1270,6 +1284,15 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"Ďakujeme, že ste si stiahli túto predbežnú verziu %s.\n"
+"\n"
+"Toto nie je konečná verzia and nie je určená pre použitie na produkčných systémoch. Účel tejto verzie je získať odozvu od testerov a nie je vhodna pre bežné použidie.\n"
+"\n"
+"Pre nahlásenie odozvy, prosím navštívte:\n"
+"\n"
+"   %s\n"
+"\n"
+"a založte hlásenie o '%s'.\n"
 
 #: ../packages.py:574
 msgid "_Install anyway"
@@ -1898,9 +1921,8 @@ msgstr "Uložiť"
 #: ../text.py:147
 #: ../text.py:149
 #: ../text.py:161
-#, fuzzy
 msgid "Remote"
-msgstr "Reštart"
+msgstr "Vzdialený"
 
 #: ../text.py:147
 #: ../text.py:149
@@ -1914,16 +1936,15 @@ msgstr "Vyskytla sa výnimka"
 
 #: ../text.py:182
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "Uložiť na vzdialený počítač"
 
 #: ../text.py:185
-#, fuzzy
 msgid "Host"
-msgstr "Názov hostiteľa"
+msgstr "Hostiteľ"
 
 #: ../text.py:187
 msgid "Remote path"
-msgstr ""
+msgstr "Vzdialený adresár"
 
 #: ../text.py:189
 msgid "User name"
@@ -1979,9 +2000,8 @@ msgstr "Vyhľadávanie inštalácií %s..."
 
 #: ../upgrade.py:129
 #: ../upgrade.py:137
-#, fuzzy
 msgid "Dirty File Systems"
-msgstr "Typ súborového systému:"
+msgstr "Súborový systém s chybami"
 
 #: ../upgrade.py:130
 #, python-format
@@ -3057,11 +3077,11 @@ msgstr "_Bod-bod (IP)"
 
 #: ../iw/network_gui.py:247
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:248
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Šifrovací _kľúč"
 
 #: ../iw/network_gui.py:259
 #, fuzzy
@@ -3866,23 +3886,21 @@ msgstr "Konfigurácia Silo"
 
 #: ../iw/zfcp_gui.py:104
 msgid "_Remove"
-msgstr ""
+msgstr "Odst_rániť"
 
 #: ../iw/zfcp_gui.py:111
 #: ../textw/zfcp_text.py:115
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Zariadenia"
+msgstr "Zariadenia FCP"
 
 #: ../iw/zfcp_gui.py:122
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Pridať zariadenie"
+msgstr "Pridať FCP zariadenie"
 
 #: ../iw/zfcp_gui.py:185
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Upraviť RAID zariadenie"
+msgstr "Upraviť FCP zariadenie %s"
 
 #: ../iw/zfcp_gui.py:249
 msgid "You're about to remove a FCP disk from your configuration. Are you sure that you wish to continue?"
@@ -4139,14 +4157,12 @@ msgid "What type of system would you like to install?"
 msgstr "Aký typ systému si želáte nainštalovať?"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "IP adresa:"
+msgstr "Cieľová IP adresa:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "alebo použiť:"
+msgstr "Číslo portu:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
@@ -4202,12 +4218,12 @@ msgstr "Bod-bod (IP)"
 #: ../textw/network_text.py:73
 #: ../loader2/net.c:228
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:74
 #: ../loader2/net.c:229
 msgid "Encryption Key"
-msgstr ""
+msgstr "Šifrovací kľúč"
 
 #: ../textw/network_text.py:86
 #, python-format
@@ -4353,9 +4369,8 @@ msgid "End Cylinder:"
 msgstr "Koncový valec:"
 
 #: ../textw/partition_text.py:477
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Názov skupiny zväzkov:"
+msgstr "Skupina zväzkov:"
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
@@ -4518,14 +4533,12 @@ msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Zavádzacie oddiely nemôžu byť na logickom zväzku."
 
 #: ../textw/partition_text.py:1368
-#, fuzzy
 msgid "partition"
-msgstr "Oddiel"
+msgstr "oddiel"
 
 #: ../textw/partition_text.py:1368
-#, fuzzy
 msgid "logical volume"
-msgstr "Logické zväzky"
+msgstr "logický zväzok"
 
 #: ../textw/partition_text.py:1442
 msgid "New"
@@ -4552,7 +4565,6 @@ msgid "Must have a / partition to install on."
 msgstr "Musíte mať oddiel /, na ktorý budete inštalovať."
 
 #: ../textw/partition_text.py:1517
-#, fuzzy
 msgid "Partitioning Type"
 msgstr "Typ oddielu"
 
@@ -4566,9 +4578,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Ktorú jednotku/jednotky si želáte použiť pre túto inštaláciu?"
 
 #: ../textw/partition_text.py:1602
-#, fuzzy
 msgid "Review Partition Layout"
-msgstr "Upraviť logický zväzok"
+msgstr "Upraviť návrh oddielov"
 
 #: ../textw/partition_text.py:1603
 msgid "Review and modify partitioning layout?"
@@ -4628,9 +4639,8 @@ msgid "Remaining:  "
 msgstr "Zostáva  :  "
 
 #: ../textw/task_text.py:42
-#, fuzzy
 msgid "Package selection"
-msgstr "Výber skupín balíkov"
+msgstr "Výber balíkov"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4646,9 +4656,8 @@ msgid "What time zone are you located in?"
 msgstr "V ktorom časovom pásme sa nachádzate?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Systémové hodiny používajú _UTC"
+msgstr "Systémové hodiny používajú UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -4740,14 +4749,12 @@ msgstr ""
 "\n"
 
 #: ../textw/zfcp_text.py:43
-#, fuzzy
 msgid "FCP Device"
-msgstr "Zariadenie"
+msgstr "Zariadenie FCP"
 
 #: ../textw/zfcp_text.py:101
-#, fuzzy
 msgid "Device #"
-msgstr "Zariadenie"
+msgstr "Zariadenie #"
 
 #: ../textw/zfcp_text.py:107
 msgid "Add"
@@ -4755,7 +4762,7 @@ msgstr "Pridať"
 
 #: ../textw/zfcp_text.py:109
 msgid "Remove"
-msgstr ""
+msgstr "Odstrániť"
 
 #: ../textw/zipl_text.py:24
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup may require."
@@ -4780,9 +4787,8 @@ msgid "Select this installation type to gain complete control over the installat
 msgstr ""
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Formátovať"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
@@ -4790,16 +4796,15 @@ msgstr ""
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "Softvérový vývoj"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "_Server"
+msgstr "Web server"
 
 #: ../installclasses/fedora.py:23
 msgid "Virtualization (Xen)"
-msgstr ""
+msgstr "Virtualizácia (Xen)"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -4832,7 +4837,7 @@ msgstr ""
 #: ../installclasses/rhel_as.py:9
 #: ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16
 #: ../installclasses/rhel_es.py:16
@@ -4847,17 +4852,17 @@ msgstr ""
 #: ../installclasses/rhel_desktop.py:9
 #: ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9
 #: ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9
 #: ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
 #: ../installclasses/workstation.py:14
@@ -5342,7 +5347,7 @@ msgstr "Nepodarilo sa nájsť inštalačný obraz %s"
 #: ../loader2/mediacheck.c:397
 #: ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "ZLYHALO"
 
 #: ../loader2/mediacheck.c:398
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
@@ -5350,7 +5355,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "PREŠLO"
 
 #: ../loader2/mediacheck.c:409
 #, fuzzy
