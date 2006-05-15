@@ -381,6 +381,10 @@ class Network:
 
             if dev.get('bootproto') == 'dhcp' or dev.get('ipaddr'):
                 f.write("network --device %s" % dev.get('device'))
+
+                if dev.get('MTU') and dev.get('MTU') != 0:
+                    f.write(" --mtu=%s" % dev.get('MTU'))
+
 		onboot = dev.get("onboot")
 		if onboot and onboot == "no":
 		    f.write(" --onboot no")
@@ -431,6 +435,9 @@ class Network:
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
             if dev.get('dhcpclass'):
                 f.write("DHCP_CLASSID=%s\n" % dev.get('dhcpclass'))
+
+            if dev.get('MTU') and dev.get('MTU') != 0:
+                f.write("MTU=%s\n" % dev.get('MTU'))
 
             f.close()
 

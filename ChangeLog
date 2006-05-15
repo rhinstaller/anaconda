@@ -11,6 +11,12 @@
 
 	* vnc.py:  Import iutil (#191548).
 
+	* network.py (Network.write):  Put MTU= into the ifcfg script if it
+	was used on the command line or kickstart file (#191328).
+	(Network.writeKS):  Likewise for --mtu=.
+	* loader2/net.c (setKickstartNetwork):  Look for mtu= option in the
+	kickstart file.
+
 2006-05-12  David Cantrell  <dcantrell@redhat.com>
 
 	* gui.py:  Moved a lot of the release notes viewer code to the new

@@ -873,7 +873,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int noDns = 0, noksdev = 0, rc;
+    int noDns = 0, noksdev = 0, rc, mtu = 0;
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
@@ -882,6 +882,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "dhcpclass", '\0', POPT_ARG_STRING, &class, 0, NULL, NULL },
         { "gateway", '\0', POPT_ARG_STRING, NULL, 'g', NULL, NULL },
         { "ip", '\0', POPT_ARG_STRING, NULL, 'i', NULL, NULL },
+        { "mtu", '\0', POPT_ARG_INT, &mtu, 0, NULL, NULL },
         { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n', NULL, NULL },
         { "netmask", '\0', POPT_ARG_STRING, NULL, 'm', NULL, NULL },
         { "nodns", '\0', POPT_ARG_NONE, &noDns, 0, NULL, NULL },
@@ -979,6 +980,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                 free(loaderData->wepkey);
             loaderData->wepkey = strdup(wepkey);
             free(wepkey);
+        }
+
+        if (mtu) {
+           loaderData->mtu = mtu;
         }
     }
 
