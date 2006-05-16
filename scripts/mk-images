@@ -758,14 +758,17 @@ doPostImages() {
 if [ ${BUILDARCH} = s390x ]; then
     # FIXME: this is a bad hack for s390, but better than copying for now
     source $TOPDIR/mk-images.s390
+elif [ ${BUILDARCH} = ppc64 ]; then
+    # ... and similar for ppc64
+    source $TOPDIR/mk-images.ppc 
 else
     source $TOPDIR/mk-images.${BUILDARCH}
 fi
 
 # Find the kernel, unpack it, and verify it
 kerneltags="kernel"
-if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-    arches="ppc64pseries ppc64 ppc64iseries ppc"
+if [ "$BUILDARCH" = "ppc" ]; then
+    arches="ppc64 ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
     kerneltags="kernel kernel-xenU"
