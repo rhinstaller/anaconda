@@ -16,7 +16,6 @@
 
 import os
 from flags import flags
-os.environ["PYGTK_DISABLE_THREADS"] = "1"
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 # we only want to enable the accessibility stuff if requested for now...
@@ -50,6 +49,8 @@ from release_notes import ReleaseNotesViewer
 
 import logging
 log = logging.getLogger("anaconda")
+
+gtk.gdk.threads_init()
 
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 
@@ -942,27 +943,13 @@ class InstallControlWindow:
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
-	# we make cursor busy, on assumption when viewer app runs it will
-	# make it normal
 	setCursorToBusy()
-
-	## this is the child executing the release notes viewer
-	#child = os.fork()
-	#if (child == 0):
-	#    # close unneeded fd's
-	#    for i in range(3,255):
-	#        try:
-	#            os.close(i)
-	#        except:
-	#            pass
-        #
-	#    win = ReleaseNotesViewer(self.id, self.dispatch)
-	#    win.view()
-	win = ReleaseNotesViewer(self.id, self.dispatch)
-
+	win = ReleaseNotesViewer()
+	win.setId(self.id)
+	win.setDispatch(self.dispatch)
+	win.start()
 	## desensitize button bar at bottom of screen
         #self.mainxml.get_widget("buttonBar").set_sensitive(False)
-
 	setCursorToNormal()
 
     def helpClicked (self, *args):
@@ -1204,7 +1191,9 @@ class InstallControlWindow:
         
     def run (self, runres):
         self.setup_window(runres)
+        gtk.threads_enter()
         gtk.main()
+        gtk.threads_leave()
             
 class InstallControlState:
     def __init__ (self, cw):

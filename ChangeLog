@@ -1,3 +1,16 @@
+2006-05-16  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py:  Remove PYGTK_DISABLE_THREADS environment variable.  Call
+	gtk.gdk.threads_init() early on.  Wrap gtk.main() in threads_enter
+	and threads_leave calls.
+
+	* htmlbuffer.py:  Wrap gtk.main() in threads_enter and threads_leave
+	calls.
+	* iw/checklist.py:  Likewise.
+	* iw/datacombo.py:  Likewise.
+	* iw/ipwidget.py:  Likewise.
+	* iw/pixmapRadioButtonGroup_gui.py:  Likewise.
+
 2006-05-16  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/progress_gui.py: Ellipsize text instead of just 

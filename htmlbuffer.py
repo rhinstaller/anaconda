@@ -231,5 +231,7 @@ if __name__ == '__main__':
     win.add(sw)
     win.show_all()
     win.set_size_request(600, 600)
+    gtk.threads_enter()
     gtk.main()
+    gtk.threads_leave()
 

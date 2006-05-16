@@ -175,7 +175,9 @@ def main():
     win.set_size_request(250, 250)
     win.show_all()
 
+    gtk.threads_enter()
     gtk.main()
+    gtk.threads_leave()
 
 if __name__ == "__main__":
     main()
