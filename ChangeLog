@@ -1,5 +1,8 @@
 2006-05-16  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: Given that we run upd-instroot inside of
+	runroot, don't use runroot constantly inside of upd-instroot
+
 	* scripts/upd-instroot: Remove references to /usr/X11R6.
 	* scripts/mk-images: Likewise.
 	* scripts/scrubtree: Likewise.

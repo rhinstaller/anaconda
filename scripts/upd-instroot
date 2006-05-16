@@ -971,11 +971,7 @@ fi
 
 # change mtimes to 0 (to match what happens on the cramfs)
 for p in $DEST $DESTGR; do
-    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p"
-    else
-	$p/usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p
-    fi
+    $p/usr/lib/anaconda-runtime/fixmtime.py $DEBUG $p
 done
 
 # Remove locales unused during the install
@@ -1002,11 +998,7 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 # that ends up taking less space
 for p in $DEST $DESTGR; do
     echo "Building locale archive"
-    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
-    else
-	/usr/sbin/chroot $p /usr/sbin/build-locale-archive
-    fi
+    /usr/sbin/chroot $p /usr/sbin/build-locale-archive
     mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
     rm -rf $p/usr/lib/locale/*
     rm -f $p/usr/sbin/build-locale-archive
@@ -1087,9 +1079,7 @@ if [ -n "$NEEDGR" ]; then
 fi
 
 echo "Creating SELinux policy..."
-if [ -x $DESTGR/usr/sbin/semodule -a -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted"
-else
+if [ -x $DESTGR/usr/sbin/semodule ]; then
     /usr/sbin/chroot $DESTGR /usr/sbin/semodule -b /usr/share/selinux/targeted/base.pp -n -s targeted
 fi
 rm -rf $DEST/etc/selinux
@@ -1100,11 +1090,7 @@ echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
     # sick sick sick hack for pango-querymodules being -32 or -64
     mv $DESTGR/usr/bin/pango-querymodules* $DESTGR/usr/bin/pango-querymodules
-    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
-    else
-	/usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
-    fi
+    /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     rm -f $DESTGR/usr/bin/pango-querymodules
     # more sick hackery since it doesn't fall back to this like owen thought
     cat > $DESTGR/etc/pango/pangorc <<EOF
@@ -1131,22 +1117,14 @@ mkdir -p $DESTGR/etc/gtk-2.0/$HOSTTRIPLET
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     mv $DESTGR/usr/bin/gtk-query-immodules-2.0* $DESTGR/usr/bin/gtk-query-immodules-2.0
-    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules"
-    else
-	/usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
-    fi
+    /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
 
 echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
     mv $DESTGR/usr/bin/gdk-pixbuf-query-loaders* $DESTGR/usr/bin/gdk-pixbuf-query-loaders
-    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders"
-    else
-	/usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
-    fi
+    /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
 fi
 
@@ -1239,11 +1217,7 @@ for p in $DEST $DESTGR; do
 	    echo "ERROR: unable to explode tzdata for small images"
 	fi
 
-	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-            runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/scrubtree $DEBUG $p"
-	else
-	    $p/usr/lib/anaconda-runtime/scrubtree $p
-	fi
+	$p/usr/lib/anaconda-runtime/scrubtree $p
 done
 
 echo "Compressing .mo files in stage2 images..."
@@ -1256,11 +1230,7 @@ fi
 
 echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
-    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/fc-cache"
-    else
-	/usr/sbin/chroot $DESTGR /usr/bin/fc-cache
-    fi
+    /usr/sbin/chroot $DESTGR /usr/bin/fc-cache
     rm -f $DESTGR/usr/bin/fc-cache
 fi
 
@@ -1309,13 +1279,8 @@ for p in $DEST $DESTGR; do
 done
 
 # do some stripping of debugging symbols
-if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    runroot $COMPONENT --onlyone --arch $ARCH "\"find $DEST -type f -name '*.so' -exec strip -g '{}' ';'\""
-    runroot $COMPONENT --onlyone --arch $ARCH "\"find $DESTGR -type f -name '*.so' -exec strip -g '{}' ';'\""
-else
-    find $DEST -type f -name '*.so' |xargs strip -g
-    find $DESTGR -type f -name '*.so' |xargs strip -g
-fi
+find $DEST -type f -name '*.so' |xargs strip -g
+find $DESTGR -type f -name '*.so' |xargs strip -g
 
 # some python stuff we don't need for stage2
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
