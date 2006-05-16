@@ -761,6 +761,8 @@ if [ ${BUILDARCH} = s390x ]; then
 elif [ ${BUILDARCH} = ppc64 ]; then
     # ... and similar for ppc64
     source $TOPDIR/mk-images.ppc 
+elif [ ${BUILDARCH} = "x86_64" -o ${BUILDARCH} = "i386" ]
+    source $TOPDIR/mk-images.x86
 else
     source $TOPDIR/mk-images.${BUILDARCH}
 fi
