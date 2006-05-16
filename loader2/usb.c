@@ -129,13 +129,11 @@ void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
                         moduleInfoSet modInfo, int flags) {
     if (FL_NOUSB(flags)) return;
 
-    if (access("/proc/bus/usb/devices", R_OK)) return;
-    
     logMessage(INFO, "looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
         logMessage(INFO, "USB mouse found, loading mousedev module");
         if (mlLoadModuleSet("mousedev", modLoaded, modDeps, modInfo, flags)) {
-            logMessage (ERROR, "failed to loading mousedev module");
+            logMessage (DEBUGLVL, "failed to loading mousedev module");
             return;
         }
     }

@@ -1,3 +1,8 @@
+2006-05-16  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/usb.c (usbInitializeMouse): Better mousedev looking,
+	less verbose in the case of, eg, built-in (#191814) 
+
 2006-05-15  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version
