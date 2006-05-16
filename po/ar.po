@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-13 13:24-0500\n"
+"POT-Creation-Date: 2006-05-16 17:57-0400\n"
 "PO-Revision-Date: 2005-06-30 23:45+0300\n"
 "Last-Translator: Munzir Taha <munzirtaha@newhorizons.com.sa>\n"
 "Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
@@ -24,90 +24,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../anaconda:98
-msgid "Starting VNC..."
-msgstr "جاري تشغيل VNC..."
+#: ../anaconda:255
+msgid "Unknown Error"
+msgstr "خطأ مجهول"
 
-#: ../anaconda:133
+#: ../anaconda:258
 #, c-format
-msgid "%s %s installation on host %s"
-msgstr "تثبيت %s%s على المضيف %s"
+msgid "Error pulling second part of kickstart config: %s!"
+msgstr "خطأ في قراءة الجزء الثّاني من تهيئة kickstart: %s!"
 
-#: ../anaconda:135
-#, c-format
-msgid "%s %s installation"
-msgstr "تثبيت %s %s"
-
-#: ../anaconda:155
-msgid "Unable to set vnc password - using no password!"
-msgstr "لم يمكن تحديد كلمة السّر - استخدام دون كلمة سرّ!"
-
-#: ../anaconda:156
-msgid "Make sure your password is at least 6 characters in length."
-msgstr "تأكّد من أن طول كلمة السّرّ لا يقل عنّ 6 أحرف."
-
-#: ../anaconda:179
-msgid ""
-"\n"
-"\n"
-"WARNING!!! VNC server running with NO PASSWORD!\n"
-"You can use the vncpassword=<password> boot option\n"
-"if you would like to secure the server.\n"
-"\n"
+#: ../anaconda:411
+msgid "Press <enter> for a shell"
 msgstr ""
-"\n"
-"\n"
-"تحذير!!! خادم VNC يعمل بلا كلمة سرّ!\n"
-"يمكنك استخدام خيار الإقلاع vncpassword=<password>\n"
-"إن كنت ترغب بتأمين الخادم.\n"
-"\n"
 
-#: ../anaconda:183
-msgid "The VNC server is now running."
-msgstr "خادم VNC يعمل حاليّاً."
-
-#: ../anaconda:186
-#, c-format
-msgid "Attempting to connect to vnc client on host %s..."
-msgstr "جاري محاولة الاتّصال بمضيف vnc %s..."
-
-#: ../anaconda:198
-msgid "Connected!"
-msgstr "مُتّصل!"
-
-#: ../anaconda:203
-msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr "جاري الاستسلام بعد المحاولة خمسين مرّة!\n"
-
-#: ../anaconda:205
-#, c-format
-msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "رجاء اتصل يدويّاً بمستفيد vnc %s لتبدأ التثبيت."
-
-#: ../anaconda:207
-msgid "Please manually connect your vnc client to begin the install."
-msgstr "رجاء اتصل يدويّاً بمستفيد vnc لتبدأ التثبيت."
-
-#: ../anaconda:211
-msgid "Will try to connect again in 15 seconds..."
-msgstr "سوف أعاود المحاولة خلال 15 ثانية..."
-
-#: ../anaconda:219
-#, c-format
-msgid "Please connect to %s to begin the install..."
-msgstr "رجاء اتصل يدويّاً بـ %s لتبدأ التثبيت..."
-
-#: ../anaconda:221
-msgid "Please connect to begin the install..."
-msgstr "رجاءً قم بالاتّصال حتى تبدأ التثبيت..."
-
-#: ../anaconda:622 ../anaconda:813 ../gui.py:242 ../gui.py:1186
-#: ../rescue.py:43 ../rescue.py:230 ../rescue.py:311 ../rescue.py:339
-#: ../rescue.py:349 ../rescue.py:421 ../rescue.py:427 ../text.py:380
-#: ../text.py:553 ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
+#: ../anaconda:442 ../gui.py:244 ../rescue.py:46 ../rescue.py:241
+#: ../rescue.py:322 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
+#: ../rescue.py:447 ../text.py:386 ../text.py:532 ../vnc.py:140
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:36 ../textw/iscsi_text.py:73
-#: ../textw/network_text.py:30 ../textw/network_text.py:176
-#: ../textw/network_text.py:407 ../textw/network_text.py:415
+#: ../textw/network_text.py:31 ../textw/network_text.py:177
+#: ../textw/network_text.py:408 ../textw/network_text.py:416
 #: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:259
 #: ../loader2/cdinstall.c:376 ../loader2/cdinstall.c:381
@@ -124,101 +60,88 @@ msgstr "رجاءً قم بالاتّصال حتى تبدأ التثبيت..."
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592 ../loader2/kbd.c:128
 #: ../loader2/kickstart.c:121 ../loader2/kickstart.c:131
 #: ../loader2/kickstart.c:174 ../loader2/kickstart.c:273
-#: ../loader2/kickstart.c:409 ../loader2/lang.c:103 ../loader2/lang.c:380
+#: ../loader2/kickstart.c:409 ../loader2/lang.c:101 ../loader2/lang.c:364
 #: ../loader2/loader.c:329 ../loader2/loader.c:342 ../loader2/loader.c:353
-#: ../loader2/loader.c:759 ../loader2/loader.c:922 ../loader2/mediacheck.c:329
+#: ../loader2/loader.c:760 ../loader2/loader.c:926 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
 #: ../loader2/method.c:153 ../loader2/method.c:372 ../loader2/method.c:457
-#: ../loader2/modules.c:972 ../loader2/net.c:233 ../loader2/net.c:271
-#: ../loader2/net.c:542 ../loader2/net.c:904 ../loader2/net.c:927
-#: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54
-#: ../loader2/nfsinstall.c:125 ../loader2/nfsinstall.c:212
-#: ../loader2/nfsinstall.c:221 ../loader2/nfsinstall.c:259
+#: ../loader2/modules.c:964 ../loader2/net.c:251 ../loader2/net.c:289
+#: ../loader2/net.c:562 ../loader2/net.c:925 ../loader2/net.c:948
+#: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54
+#: ../loader2/nfsinstall.c:127 ../loader2/nfsinstall.c:214
+#: ../loader2/nfsinstall.c:223 ../loader2/nfsinstall.c:262
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
 #: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
 #: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
-#: ../loader2/urlinstall.c:470 ../loader2/urls.c:172 ../loader2/urls.c:182
-#: ../loader2/urls.c:191 ../loader2/urls.c:257 ../loader2/urls.c:322
-#: ../loader2/urls.c:327 ../loader2/urls.c:333 ../loader2/urls.c:447
+#: ../loader2/urlinstall.c:470 ../loader2/urls.c:181 ../loader2/urls.c:191
+#: ../loader2/urls.c:200 ../loader2/urls.c:266 ../loader2/urls.c:331
+#: ../loader2/urls.c:336 ../loader2/urls.c:342 ../loader2/urls.c:456
 msgid "OK"
 msgstr "موافق"
 
-#: ../anaconda:668
-msgid "Unknown Error"
-msgstr "خطأ مجهول"
-
-#: ../anaconda:671
-#, c-format
-msgid "Error pulling second part of kickstart config: %s!"
-msgstr "خطأ في قراءة الجزء الثّاني من تهيئة kickstart: %s!"
-
-#: ../anaconda:797
+#: ../anaconda:449
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 "لا يوجد لديك ذاكرة مؤقّتة كافية لتستخدم المُثبّت الرسوميّ. جاري بدء الوضع النّصّي."
 
-#: ../anaconda:860
-msgid "Install class forcing text mode installation"
-msgstr "صنف التثبيت النّصي الاجباري"
-
-#: ../anaconda:887
+#: ../anaconda:473
 msgid "No video hardware found, assuming headless"
 msgstr "لم يتمّ العثور على عتاد فيديو، افتراض عدم وجوده"
 
-#: ../anaconda:898 ../anaconda:1133
+#: ../anaconda:484 ../anaconda:880
 msgid "Unable to instantiate a X hardware state object."
 msgstr "لا يمكن ابتداء كائن لحالة عتاد X."
 
-#: ../anaconda:922
-msgid "Graphical installation not available...  Starting text mode."
-msgstr "التثبيت الرسومي غير متوفر... جاري بدء التثبيت النّصّي."
-
-#: ../anaconda:930
-msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
-
-#: ../anaconda:1013
-msgid "Press <enter> for a shell"
-msgstr ""
-
-#: ../anaconda:1045
+#: ../anaconda:509
 msgid "Starting graphical installation..."
 msgstr "جاري بدء التثبيت الرّسوميّ"
 
-#: ../anaconda:1099
+#: ../anaconda:758
+msgid "Install class forcing text mode installation"
+msgstr "صنف التثبيت النّصي الاجباري"
+
+#: ../anaconda:784
+msgid "Graphical installation not available...  Starting text mode."
+msgstr "التثبيت الرسومي غير متوفر... جاري بدء التثبيت النّصّي."
+
+#: ../anaconda:792
+msgid "DISPLAY variable not set. Starting text mode!"
+msgstr ""
+
+#: ../anaconda:847
 #, fuzzy
 msgid "Unknown install method"
 msgstr "طريقة Url غير معروفة %s"
 
-#: ../anaconda:1100
+#: ../anaconda:848
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "أنت تحاول التثبيت على جهاز غير مدعوم من قبل هذه الإصدارة من %s."
 
-#: ../anaconda:1102
+#: ../anaconda:850
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "طريقة Url غير معروفة %s"
 
-#: ../autopart.py:967
+#: ../autopart.py:968
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "لم يمكن تعيين التّجزيئات المبنيّة على الاسطوانات كتجزيئات أوّليّة"
 
-#: ../autopart.py:970
+#: ../autopart.py:971
 msgid "Could not allocate partitions as primary partitions"
 msgstr "لم يمكن تعيين التجزيئات كتجزيئات أوّليّة"
 
-#: ../autopart.py:973
+#: ../autopart.py:974
 msgid "Could not allocate cylinder-based partitions"
 msgstr "لم يمكن تعيين التجزيئات المبنيّة على الاسطوانات"
 
-#: ../autopart.py:976
+#: ../autopart.py:977
 msgid "Could not allocate partitions"
 msgstr "لم يمكن تعيين التجزيئات"
 
-#: ../autopart.py:1038
+#: ../autopart.py:1039
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -228,7 +151,7 @@ msgstr ""
 "جزء الإقلاع %s لا ينتمي إلى علامة قرص BSD. لن يستطيع SRM الإقلاع من هذا "
 "الجزء. استخدم جزء ينتمي إلى علامة قرص BSD أو غيّر علامة هذا القرص إلى BSD."
 
-#: ../autopart.py:1040
+#: ../autopart.py:1041
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -239,14 +162,14 @@ msgstr ""
 "مُحمّل الإقلاع. تأكّد من أنّ هناك على الأقل 5 ميجابايت مساحة حرّة على بداية القرص "
 "الذي يحتوي /boot"
 
-#: ../autopart.py:1042
+#: ../autopart.py:1043
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr "قسم الإقلاع %s ليس قسم VFAT.  لن يستطيع EFI الإقلاع من هذا التّجزيء."
 
-#: ../autopart.py:1044
+#: ../autopart.py:1045
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
@@ -254,13 +177,13 @@ msgstr ""
 "قسم الإقلاع غير واقع على القرص بقُرب كافي.  لن يستطيع OpenFirmware إقلاع هذا "
 "التّثبيت."
 
-#: ../autopart.py:1051
+#: ../autopart.py:1052
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "قسم الإقلاع %s قد لا يوافق قيود الإقلاع لبنية نظامك."
 
-#: ../autopart.py:1077
+#: ../autopart.py:1078
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -268,11 +191,11 @@ msgid ""
 msgstr ""
 "إضافة هذا القسم لن تترك مساحة قرص كافية للكتل المنطقيّة المعينّة مسبقاً في %s."
 
-#: ../autopart.py:1267
+#: ../autopart.py:1268
 msgid "Requested Partition Does Not Exist"
 msgstr "القسم المطلوب غير موجود"
 
-#: ../autopart.py:1268
+#: ../autopart.py:1269
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -283,11 +206,11 @@ msgstr ""
 "\n"
 "اضغط الزّر ‘موافق‘ لإعادة تشغيل نظامك."
 
-#: ../autopart.py:1295
+#: ../autopart.py:1296
 msgid "Requested Raid Device Does Not Exist"
 msgstr "جهاز RAID المطلوب غير موجود"
 
-#: ../autopart.py:1296
+#: ../autopart.py:1297
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -298,11 +221,11 @@ msgstr ""
 "\n"
 "اضغط 'موافق' لتعيد تشغيل نظامك."
 
-#: ../autopart.py:1327
+#: ../autopart.py:1328
 msgid "Requested Volume Group Does Not Exist"
 msgstr "مجموعة الكُتل المطلوبة غير موجودة"
 
-#: ../autopart.py:1328
+#: ../autopart.py:1329
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -313,11 +236,11 @@ msgstr ""
 "\n"
 "اضغط 'موافق' لتعيد تشغيل نظامك."
 
-#: ../autopart.py:1365
+#: ../autopart.py:1366
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "الكتلة المنطقيّة المطلوبة غير موجودة"
 
-#: ../autopart.py:1366
+#: ../autopart.py:1367
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -328,11 +251,11 @@ msgstr ""
 "\n"
 "اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
 
-#: ../autopart.py:1480 ../autopart.py:1528
+#: ../autopart.py:1481 ../autopart.py:1529
 msgid "Automatic Partitioning Errors"
 msgstr "أخطاء التجزئة التلقائيّة"
 
-#: ../autopart.py:1481
+#: ../autopart.py:1482
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -347,11 +270,11 @@ msgstr ""
 "\n"
 "اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
 
-#: ../autopart.py:1491
+#: ../autopart.py:1492
 msgid "Warnings During Automatic Partitioning"
 msgstr "تحذيرات خلال التّجزئة التّلقائيّة"
 
-#: ../autopart.py:1492
+#: ../autopart.py:1493
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -362,7 +285,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1505 ../autopart.py:1522
+#: ../autopart.py:1506 ../autopart.py:1523
 msgid ""
 "\n"
 "\n"
@@ -372,12 +295,12 @@ msgstr ""
 "\n"
 "اضغط على الزر ‘موافق‘ لتعيد تشغيل نظامك."
 
-#: ../autopart.py:1506 ../iw/partition_gui.py:998
+#: ../autopart.py:1507 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
 msgid "Error Partitioning"
 msgstr "خطأ في التّجزئة"
 
-#: ../autopart.py:1507
+#: ../autopart.py:1508
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -388,7 +311,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1524
+#: ../autopart.py:1525
 msgid ""
 "\n"
 "\n"
@@ -404,7 +327,7 @@ msgstr ""
 "\n"
 "اضغط ‘موافق‘ لتكمل."
 
-#: ../autopart.py:1529
+#: ../autopart.py:1530
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -420,27 +343,27 @@ msgstr ""
 "\n"
 "يمكن أن يحدث هذا إن لم يكن هناك مساحة كافية على قرصك الصّلب من أجل التّثبيت.%s"
 
-#: ../autopart.py:1540
+#: ../autopart.py:1541
 msgid "Unrecoverable Error"
 msgstr "خطأ غير قابل للإصلاح"
 
-#: ../autopart.py:1541
+#: ../autopart.py:1542
 msgid "Your system will now be rebooted."
 msgstr "سوف يتمّ الآن إعادة تشغيل نظامك."
 
-#: ../autopart.py:1688 ../bootloader.py:185 ../gui.py:1183 ../image.py:456
-#: ../partedUtils.py:304 ../partedUtils.py:334 ../partedUtils.py:911
-#: ../partedUtils.py:968 ../upgrade.py:328 ../upgrade.py:477
-#: ../yuminstall.py:150 ../iw/blpasswidget.py:145
-#: ../iw/bootloader_advanced_gui.py:42 ../iw/upgrade_swap_gui.py:199
-#: ../iw/upgrade_swap_gui.py:207 ../iw/upgrade_swap_gui.py:214
-#: ../iw/zfcp_gui.py:248 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:459 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:176 ../loader2/loader.c:396
+#: ../autopart.py:1689 ../bootloader.py:191 ../image.py:417
+#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:910
+#: ../partedUtils.py:967 ../upgrade.py:344 ../yuminstall.py:163
+#: ../yuminstall.py:986 ../iw/blpasswidget.py:145
+#: ../iw/bootloader_advanced_gui.py:41 ../iw/upgrade_swap_gui.py:188
+#: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
+#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
+#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
+#: ../textw/upgrade_text.py:174 ../loader2/loader.c:396
 msgid "Warning"
 msgstr "تحذير"
 
-#: ../autopart.py:1694
+#: ../autopart.py:1695
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -456,7 +379,7 @@ msgstr ""
 "تفاعليّة. يمكنك تحديد أنواع أنظمة الملفّات، أماكن التّجهيز، أحجام التّجزيئات، "
 "والمزيد."
 
-#: ../autopart.py:1705
+#: ../autopart.py:1706
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -464,19 +387,19 @@ msgstr ""
 "قبل أن يتمكّن برنامج التثبيت من إعداد التّجزئة التّلقائيّة، عليك أن تحدّد كيفيّة "
 "استخدام المساحة على أقراصك الصّلبة."
 
-#: ../autopart.py:1710
+#: ../autopart.py:1711
 msgid "Remove all partitions on this system"
 msgstr "أزل كلّ التجزيئات على هذا النّظام"
 
-#: ../autopart.py:1711
+#: ../autopart.py:1712
 msgid "Remove all Linux partitions on this system"
 msgstr "أزل كلّ تجزيئات لينكس على هذا النّظام"
 
-#: ../autopart.py:1712
+#: ../autopart.py:1713
 msgid "Keep all partitions and use existing free space"
 msgstr "أبْقِ كلّ التجزيئات واستخدم المساحة الحرّة"
 
-#: ../autopart.py:1714
+#: ../autopart.py:1715
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -486,7 +409,7 @@ msgstr ""
 "لقد اخترت أن تزيل كل التّجزيئات (كلّ البيانات) على السّوّاقات التّالية:%s\n"
 "هل أنت متأكّد أنّك تريد القيام بهذا؟"
 
-#: ../autopart.py:1718
+#: ../autopart.py:1719
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -497,25 +420,25 @@ msgstr ""
 "التّالية:%s\n"
 "هل أنت متأكّد أنّك تريد القيام بهذا؟"
 
-#: ../backend.py:96
+#: ../backend.py:97
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "جاري تحديث %s-%s-%s.%s.\n"
 
-#: ../backend.py:98
+#: ../backend.py:99
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "جاري تثبيت %s-%s-%s.%s.\n"
 
-#: ../bootloader.py:122
+#: ../bootloader.py:123
 msgid "Bootloader"
 msgstr "مُحمّل الإقلاع"
 
-#: ../bootloader.py:122
+#: ../bootloader.py:123
 msgid "Installing bootloader..."
 msgstr "جاري تثبيت مُحمّل الإقلاع..."
 
-#: ../bootloader.py:186
+#: ../bootloader.py:192
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -537,17 +460,17 @@ msgstr "لا يمكن وضع سؤال في وضع سطر الأوامر!"
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr "استثناءات parted لا يمكن التّعامل معها في وضع سطر الأوامر!"
 
-#: ../cmdline.py:138
+#: ../cmdline.py:137
 #, python-format
 msgid "Done [%d/%d]"
 msgstr "تمّ [%d/%d]"
 
-#: ../cmdline.py:144
+#: ../cmdline.py:143
 #, python-format
 msgid "Installing %s-%s-%s... "
 msgstr "جاري تثبيت %s-%s-%s... "
 
-#: ../constants.py:66
+#: ../constants.py:60
 #, fuzzy, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -557,11 +480,11 @@ msgstr ""
 "حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً انسخ النّصّ الكامل "
 "لهذا الاستثناء أو أرسل تقرير عَيْب برمجيّ مفصّل بخصوص  anaconda على %s"
 
-#: ../exception.py:420 ../exception.py:436
+#: ../exception.py:391 ../exception.py:408
 msgid "Dump Written"
 msgstr "كتبت مخرجات الخلل"
 
-#: ../exception.py:421
+#: ../exception.py:392
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
@@ -569,64 +492,72 @@ msgid ""
 msgstr ""
 "تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
 
-#: ../exception.py:428 ../exception.py:444
+#: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
+#: ../gui.py:977 ../harddrive.py:70 ../image.py:93 ../image.py:427
+#: ../image.py:490 ../packages.py:379 ../yuminstall.py:174
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
+msgid "_Reboot"
+msgstr "ا_عد التّشغيل"
+
+#: ../exception.py:400 ../exception.py:417
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "كتبت مخرجات الخلل"
 
-#: ../exception.py:429
+#: ../exception.py:401
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:437
+#: ../exception.py:409
 #, fuzzy
 msgid ""
-"Your system's state has been successfully written to the remote host.\n"
-"Your system will now be reset."
+"Your system's state has been successfully written to the remote host.  Your "
+"system will now be rebooted."
 msgstr ""
 "تمّت كتابة حالة نظامك بنجاح إلى القرص المرن. سوف يتمّ الآن إعادة تشغيل نظامك."
 
-#: ../exception.py:445
+#: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
-#: ../fsset.py:199
+#: ../fsset.py:216
 msgid "Checking for Bad Blocks"
 msgstr "جاري تفحّص وجود كتل سيّئة"
 
-#: ../fsset.py:200
+#: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "جاري تفحّص وجود كتل سيّئة على /dev/%s..."
 
-#: ../fsset.py:632 ../fsset.py:1424 ../fsset.py:1462 ../fsset.py:1473
-#: ../fsset.py:1524 ../fsset.py:1535 ../fsset.py:1570 ../fsset.py:1620
-#: ../fsset.py:1664 ../fsset.py:1683 ../image.py:133 ../image.py:162
-#: ../image.py:333 ../partedUtils.py:721 ../partIntfHelpers.py:403
-#: ../upgrade.py:374 ../upgrade.py:401 ../yuminstall.py:134
-#: ../yuminstall.py:487 ../yuminstall.py:614 ../iw/osbootwidget.py:216
+#: ../fsset.py:644 ../fsset.py:1438 ../fsset.py:1469 ../fsset.py:1530
+#: ../fsset.py:1541 ../fsset.py:1594 ../fsset.py:1605 ../fsset.py:1640
+#: ../fsset.py:1690 ../fsset.py:1734 ../fsset.py:1753 ../image.py:134
+#: ../image.py:167 ../image.py:297 ../partedUtils.py:721
+#: ../partIntfHelpers.py:403 ../yuminstall.py:147 ../yuminstall.py:614
+#: ../yuminstall.py:674 ../yuminstall.py:847 ../iw/osbootwidget.py:216
 #: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
-#: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:164
-#: ../textw/upgrade_text.py:171 ../loader2/cdinstall.c:137
+#: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:162
+#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:137
 #: ../loader2/cdinstall.c:450 ../loader2/driverdisk.c:334
 #: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:400
 #: ../loader2/driverdisk.c:472 ../loader2/hdinstall.c:104
 #: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
 #: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
 #: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:103 ../loader2/loader.c:353
-#: ../loader2/loader.c:759 ../loader2/mediacheck.c:329
+#: ../loader2/kickstart.c:273 ../loader2/lang.c:101 ../loader2/loader.c:353
+#: ../loader2/loader.c:760 ../loader2/mediacheck.c:329
 #: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
-#: ../loader2/method.c:457 ../loader2/nfsinstall.c:125
-#: ../loader2/nfsinstall.c:212 ../loader2/nfsinstall.c:221
+#: ../loader2/method.c:457 ../loader2/nfsinstall.c:127
+#: ../loader2/nfsinstall.c:214 ../loader2/nfsinstall.c:223
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
 #: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
-#: ../loader2/urls.c:172 ../loader2/urls.c:182 ../loader2/urls.c:191
-#: ../loader2/urls.c:322 ../loader2/urls.c:327
+#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
+#: ../loader2/urls.c:331 ../loader2/urls.c:336
 msgid "Error"
 msgstr "خطأ"
 
-#: ../fsset.py:633
+#: ../fsset.py:645
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -639,27 +570,27 @@ msgstr ""
 "\n"
 "هل تودّ الاستمرار دون ترحيل %s؟"
 
-#: ../fsset.py:1332
+#: ../fsset.py:1346
 msgid "RAID Device"
 msgstr "جهاز RAID"
 
-#: ../fsset.py:1336 ../fsset.py:1342
+#: ../fsset.py:1350 ../fsset.py:1356
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1347 ../partitions.py:868
+#: ../fsset.py:1361 ../partitions.py:869
 msgid "PPC PReP Boot"
 msgstr "إقلاع PPC PReP"
 
-#: ../fsset.py:1350
+#: ../fsset.py:1364
 msgid "First sector of boot partition"
 msgstr "القطاع الأوّل من قسم الإقلاع"
 
-#: ../fsset.py:1351
+#: ../fsset.py:1365
 msgid "Master Boot Record (MBR)"
 msgstr "سجلّ الإقلاع الرّئيسي (MBR)"
 
-#: ../fsset.py:1425
+#: ../fsset.py:1439
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -672,7 +603,71 @@ msgstr ""
 "\n"
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1463
+#: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
+#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:259 ../loader2/method.c:419
+msgid "Skip"
+msgstr "تخطّي"
+
+#: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
+msgid "Reboot"
+msgstr "أعد التّشغيل"
+
+#: ../fsset.py:1489
+#, python-format
+msgid ""
+"The swap device:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"is a version 0 Linux swap partition. If you want to use this device, you "
+"must reformat as a version 1 Linux swap partition. If you skip it, the "
+"installer will ignore it during the installation."
+msgstr ""
+
+#: ../fsset.py:1496
+#, fuzzy
+msgid "Reformat"
+msgstr "تنسيق"
+
+#: ../fsset.py:1500
+#, python-format
+msgid ""
+"The swap device:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"in your /etc/fstab file is currently in use as a software suspend partition, "
+"which means your system is hibernating. To perform an upgrade, please shut "
+"down your system rather than hibernating it."
+msgstr ""
+
+#: ../fsset.py:1508
+#, python-format
+msgid ""
+"The swap device:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"in your /etc/fstab file is currently in use as a software suspend partition, "
+"which means your system is hibernating. If you are performing a new install, "
+"make sure the installer is set to to format all swap partitions."
+msgstr ""
+
+#: ../fsset.py:1518
+msgid ""
+"\n"
+"\n"
+"Choose Skip if you want the installer to ignore this partition during the "
+"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
+"Reboot to restart the system."
+msgstr ""
+
+#: ../fsset.py:1524 ../iw/partition_gui.py:368
+msgid "Format"
+msgstr "تنسيق"
+
+#: ../fsset.py:1531
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -688,7 +683,7 @@ msgstr ""
 "\n"
 "اضغط موافق لإعادة تشغيل نظامك."
 
-#: ../fsset.py:1474
+#: ../fsset.py:1542
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -703,7 +698,7 @@ msgstr ""
 "\n"
 "اضغط موافق لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1525
+#: ../fsset.py:1595
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -715,7 +710,7 @@ msgstr ""
 "\n"
 "إضغط <Enter> لتعيد تشغيل نظامك"
 
-#: ../fsset.py:1536
+#: ../fsset.py:1606
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -728,7 +723,7 @@ msgstr ""
 "\n"
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1571
+#: ../fsset.py:1641
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -739,7 +734,7 @@ msgstr ""
 "حدث خطأ خلال محاولة تنسيق %s.  هذه المشكلة جادّة، ولا يمكن أن يستمرّ التّثبيت.\n"
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1621
+#: ../fsset.py:1691
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -751,11 +746,11 @@ msgstr ""
 "\n"
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1642 ../fsset.py:1651
+#: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
 msgstr "نقطة تجهيز غير صالحة"
 
-#: ../fsset.py:1643
+#: ../fsset.py:1713
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -768,7 +763,7 @@ msgstr ""
 "\n"
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1652
+#: ../fsset.py:1722
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -780,7 +775,7 @@ msgstr ""
 "\n"
 "إضغط <Enter> لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1665
+#: ../fsset.py:1735
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -795,7 +790,7 @@ msgstr ""
 "\n"
 "اضغط موافق لتعيد تشغيل نظامك."
 
-#: ../fsset.py:1684
+#: ../fsset.py:1754
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -809,11 +804,11 @@ msgstr ""
 "\n"
 "اضغط موافق لإعادة تشغيل نظامك."
 
-#: ../fsset.py:2349
+#: ../fsset.py:2419
 msgid "Duplicate Labels"
 msgstr "عناوين متكرّرة"
 
-#: ../fsset.py:2350
+#: ../fsset.py:2420
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -826,31 +821,24 @@ msgstr ""
 "\n"
 "رجاء صحّح هذه المشكلة وأعد تشغيل عمليّة التّثبيت."
 
-#: ../fsset.py:2357 ../gui.py:798 ../gui.py:1296 ../image.py:92
-#: ../image.py:466 ../image.py:533 ../packages.py:582 ../yuminstall.py:161
-#: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
-msgid "_Reboot"
-msgstr "ا_عد التّشغيل"
-
-#: ../fsset.py:2610
+#: ../fsset.py:2680
 msgid "Formatting"
 msgstr "جاري التّنسيق"
 
-#: ../fsset.py:2611
+#: ../fsset.py:2681
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "تهيئة نظام الملفّات %s..."
 
-#: ../gui.py:108
+#: ../gui.py:110
 msgid "An error occurred copying the screenshots over."
 msgstr "حدث خطأ في نسخ لقطات الشّاشة."
 
-#: ../gui.py:120
+#: ../gui.py:122
 msgid "Screenshots Copied"
 msgstr "تمّ نسخ لقطات الشّاشة"
 
-#: ../gui.py:121
+#: ../gui.py:123
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -864,20 +852,20 @@ msgstr ""
 "\n"
 "يمكنك الوصول إليها عندما تعيد التّشغيل وتسجّل الدخول كمستخدم جذري."
 
-#: ../gui.py:165
+#: ../gui.py:167
 msgid "Saving Screenshot"
 msgstr "جاري حفظ لقطة الشّاشة"
 
-#: ../gui.py:166
+#: ../gui.py:168
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "تمّ حفظ لقطة شاشة باسم '%s'."
 
-#: ../gui.py:169
+#: ../gui.py:171
 msgid "Error Saving Screenshot"
 msgstr "خطأ في حفظ لقطة الشّاشة"
 
-#: ../gui.py:170
+#: ../gui.py:172
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -885,44 +873,42 @@ msgstr ""
 "حدث خطأ خلال حفظ لقطة الشّاشة. إذا حدث هذا خلال تثبيت الحزم، عليك التجريب عدّة "
 "مرّات حتّى ينجح ذلك."
 
-#: ../gui.py:239 ../text.py:377
+#: ../gui.py:241 ../text.py:383
 msgid "Fix"
 msgstr "أصْلح"
 
-#: ../gui.py:240 ../packages.py:53 ../rescue.py:182 ../text.py:378
+#: ../gui.py:242 ../rescue.py:193 ../text.py:384 ../upgrade.py:57
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:515
-#: ../loader2/driverdisk.c:526 ../loader2/hdinstall.c:327
-#: ../loader2/loader.c:396
+#: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
+#: ../loader2/hdinstall.c:327 ../loader2/loader.c:396
 msgid "Yes"
 msgstr "نعم"
 
-#: ../gui.py:241 ../rescue.py:182 ../rescue.py:184 ../text.py:379
+#: ../gui.py:243 ../rescue.py:193 ../rescue.py:195 ../text.py:385
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/loader.c:396
 msgid "No"
 msgstr "لا"
 
-#: ../gui.py:243 ../text.py:381 ../loader2/net.c:276 ../loader2/net.c:593
+#: ../gui.py:245 ../text.py:387 ../loader2/net.c:294 ../loader2/net.c:613
 msgid "Retry"
 msgstr "أعد المحاولة"
 
-#: ../gui.py:244 ../text.py:382
+#: ../gui.py:246 ../text.py:388
 msgid "Ignore"
 msgstr "تجاهل"
 
-#: ../gui.py:245 ../gui.py:703 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:102 ../text.py:103 ../text.py:354
-#: ../text.py:356 ../text.py:383 ../iw/bootloader_advanced_gui.py:48
+#: ../gui.py:247 ../gui.py:711 ../partIntfHelpers.py:233
+#: ../partIntfHelpers.py:526 ../text.py:103 ../text.py:104 ../text.py:360
+#: ../text.py:362 ../text.py:389 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
 #: ../loader2/loader.c:342
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: ../gui.py:793 ../text.py:340
+#: ../gui.py:801 ../text.py:346
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -933,11 +919,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:795 ../text.py:342
+#: ../gui.py:803 ../text.py:348
 msgid "Error Parsing Kickstart Config"
 msgstr "خطأ عند تحليل ملف إعدادات Kickstart "
 
-#: ../gui.py:803 ../text.py:352
+#: ../gui.py:811 ../text.py:358
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -945,23 +931,15 @@ msgstr ""
 "الرجاء إدخال قرص مرن الآن. سوف تحذف جميع محتويات القرص، لذا رجاء اختر القرص "
 "بحذر."
 
-#: ../gui.py:918
+#: ../gui.py:872
 msgid "default:LTR"
 msgstr "افتراض: من اليسار إلى اليمين (LTR)"
 
-#: ../gui.py:997 ../iw/release_notes_viewer_gui.py:51
-msgid "Release notes are missing.\n"
-msgstr "ملاحظات الإصدارة مفقودة.\n"
-
-#: ../gui.py:1184
-msgid "The release notes are missing."
-msgstr "ملاحظات الإصدارة مفقودة."
-
-#: ../gui.py:1283
+#: ../gui.py:964
 msgid "Error!"
 msgstr "خطأ!"
 
-#: ../gui.py:1284
+#: ../gui.py:965
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -972,45 +950,64 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1288 ../gui.py:1293 ../packages.py:574 ../packages.py:579
-#: ../yuminstall.py:620
+#: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
+#: ../yuminstall.py:680
 msgid "_Exit"
 msgstr "ا_خرج"
 
-#: ../gui.py:1289 ../yuminstall.py:148
+#: ../gui.py:970 ../yuminstall.py:161
 msgid "_Retry"
 msgstr "ا_عد المحاولة"
 
-#: ../gui.py:1292 ../packages.py:578
+#: ../gui.py:973 ../packages.py:375
 msgid "The installer will now exit..."
 msgstr "المثبّت سيخرج الآن"
 
-#: ../gui.py:1295 ../packages.py:581
+#: ../gui.py:976 ../packages.py:378
 msgid "Your system will now be rebooted..."
 msgstr "سوف يتمّ الآن إعادة تشغيل نظامك..."
 
-#: ../gui.py:1298 ../packages.py:583
+#: ../gui.py:979 ../packages.py:380
 msgid "Rebooting System"
 msgstr "جاري إعادة تشغيل النّظام"
 
-#: ../gui.py:1380
+#: ../gui.py:1044
 #, python-format
 msgid "%s Installer"
 msgstr "مُثبّت %s"
 
-#: ../gui.py:1386
+#: ../gui.py:1050
 msgid "Unable to load title bar"
 msgstr "لم يمكن تحميل سطر العنوان"
 
-#: ../gui.py:1446
+#: ../gui.py:1103
 msgid "Install Window"
 msgstr "نافذة التثبيت"
 
-#: ../image.py:83
+#: ../harddrive.py:61 ../image.py:480
+msgid "Missing ISO 9660 Image"
+msgstr ""
+
+#: ../harddrive.py:62
+#, python-format
+msgid ""
+"The installer has tried to mount image #%s, but cannot find it on the hard "
+"drive.\n"
+"\n"
+"Please copy this image to the drive and click Retry. Click Reboot  to abort "
+"the installation."
+msgstr ""
+
+#: ../harddrive.py:71 ../image.py:491
+#, fuzzy
+msgid "Re_try"
+msgstr "أعد المحاولة"
+
+#: ../image.py:84
 msgid "Required Install Media"
 msgstr "وسط التثبيت مطلوب"
 
-#: ../image.py:84
+#: ../image.py:85
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -1025,17 +1022,18 @@ msgstr ""
 "رجاء أبقها جاهزة قبل الاستمرار بالتثبيت. إن احتجت أن تجهض التثبيت وتعيد "
 "التّشغيل رجاء اختر \"أعد التّشغيل\"."
 
-#: ../image.py:92 ../packages.py:579 ../packages.py:582
-#: ../iw/confirm_gui.py:67 ../iw/confirm_gui.py:101
-#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
+#: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
+#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "ال_سّابق"
 
-#: ../image.py:92 ../image.py:467 ../iw/partition_gui.py:1012
+#: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
+#: ../iw/partition_gui.py:1011
 msgid "_Continue"
 msgstr "ا_ستمر"
 
-#: ../image.py:134
+#: ../image.py:135
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1044,48 +1042,44 @@ msgstr ""
 "حدث خطأ خلال إزالة تجهيز القرص المدمج.  رجاءً تأكّد أنّك لا تستخدم %s من سطر "
 "الأوامر على tty2 ثم اضغط على موافق لتعيد المحاولة."
 
-#: ../image.py:158
+#: ../image.py:157
 msgid "Copying File"
 msgstr "جاري نسخ الملف"
 
-#: ../image.py:159
+#: ../image.py:158
 msgid "Transferring install image to hard drive..."
 msgstr "جاري نقل صورة التثبيت إلى القرص الصّلب..."
 
-#: ../image.py:163
+#: ../image.py:168
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 "حدث خطأ في نقل صورة التثبيت إلى قرصك الصّلب. على ما يبدو أنّ مساحة القرص نفذت."
 
-#: ../image.py:291
+#: ../image.py:255
 msgid "Change CDROM"
 msgstr "بدّل القرص المدمج"
 
-#: ../image.py:292
+#: ../image.py:256
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "من فضلك أدخل قرص %s رقم %d للمتابعة.."
 
-#: ../image.py:327
+#: ../image.py:291
 msgid "Wrong CDROM"
 msgstr "قرص مدمج خطأ"
 
-#: ../image.py:328
+#: ../image.py:292
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "ليس هذا هو قرص %s الصّحيح."
 
-#: ../image.py:334
+#: ../image.py:298
 msgid "Unable to access the CDROM."
 msgstr "لم أتمكّن من التّوصّل إلى القرص المدمج."
 
-#: ../image.py:523
-msgid "Missing ISO 9660 Image"
-msgstr ""
-
-#: ../image.py:524
+#: ../image.py:481
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1095,20 +1089,15 @@ msgid ""
 "Click Reboot to abort the installation."
 msgstr ""
 
-#: ../image.py:534
-#, fuzzy
-msgid "Re_try"
-msgstr "أعد المحاولة"
-
-#: ../installclass.py:56
+#: ../installclass.py:57
 msgid "Install on System"
 msgstr "ثبّت على النّظام"
 
-#: ../kickstart.py:71
+#: ../kickstart.py:74
 msgid "Scriptlet Failure"
 msgstr "فشلت المخطوطة"
 
-#: ../kickstart.py:72
+#: ../kickstart.py:75
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1121,86 +1110,66 @@ msgstr ""
 "\n"
 "اضغط زرّ موافق لإعادة تشغيل جهازك."
 
-#: ../kickstart.py:711 ../kickstart.py:729
+#: ../kickstart.py:751 ../kickstart.py:769
 #, fuzzy
 msgid "Running..."
 msgstr "جاري الاتّصال..."
 
-#: ../kickstart.py:712
+#: ../kickstart.py:752
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:730
+#: ../kickstart.py:770
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../network.py:44
+#: ../kickstart.py:908
+msgid "Missing Package"
+msgstr "حزمة مفقودة"
+
+#: ../kickstart.py:909
+#, python-format
+msgid ""
+"You have specified that the package '%s' should be installed.  This package "
+"does not exist. Would you like to continue or abort your installation?"
+msgstr ""
+"لقد حدّدت أنّ الحزمة '%s' يجب تثبيتها. هذه الحزمة غير موجودة. هل تريد "
+"الاستمرار أو إجهاض التّثبيت؟"
+
+#: ../kickstart.py:915 ../kickstart.py:944
+msgid "_Abort"
+msgstr "ا_جهض"
+
+#: ../kickstart.py:936
+msgid "Missing Group"
+msgstr "مجموعة مفقودة"
+
+#: ../kickstart.py:937
+#, fuzzy, python-format
+msgid ""
+"You have specified that the group '%s' should be installed. This group does "
+"not exist. Would you like to continue or abort your installation?"
+msgstr ""
+"لقد حدّدت أنّ المجموعة '%s' يجب أن تُثبّت. هذه المجموعة غير موجودة. هل تودّ "
+"الاستمرار أو إجهاض التثبيت؟"
+
+#: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
 msgstr "يجب أن يكون طول اسم المضيف 64 حرفاً أو أقل."
 
-#: ../network.py:47
+#: ../network.py:49
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr "يجب أن يبدأ اسم المضيف بحرف صالح من المدى 'a-z' أو 'A-Z'"
 
-#: ../network.py:52
+#: ../network.py:54
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "يمكن لاسم المضيف أن يحتوي فقط الأحرف 'a-z'، 'A-Z'، '-'، أو '.'"
 
-#: ../packages.py:46
-msgid "Proceed with upgrade?"
-msgstr "هل أستمر بالتّحديث؟"
-
-#: ../packages.py:47
-msgid ""
-"The file systems of the Linux installation you have chosen to upgrade have "
-"already been mounted. You cannot go back past this point. \n"
-"\n"
-msgstr ""
-"أنظمة الملفّات الخاصّة بتثبيت لينكس التي اخترت تحديثها تمّ تجهيزها مسبقاً. لا "
-"يمكنك العودة قبل هذه النّقطة. \n"
-"\n"
-
-#: ../packages.py:51
-msgid "Would you like to continue with the upgrade?"
-msgstr "هل تريد الاستمرار بالتّحديث؟"
-
-#: ../packages.py:53 ../textw/complete_text.py:47
-msgid "Reboot"
-msgstr "أعد التّشغيل"
-
-#: ../packages.py:200 ../yuminstall.py:910
-msgid "Post Install"
-msgstr "ما بعد التثبيت"
-
-#: ../packages.py:201 ../yuminstall.py:911
-msgid "Performing post install configuration..."
-msgstr "جاري القيام بإعداد ما بعد التثبيت..."
-
-#: ../packages.py:336
-msgid ""
-"\n"
-"\n"
-"The following packages were available in this version but NOT upgraded:\n"
-msgstr ""
-"\n"
-"\n"
-"الحزم التّالية كانت متوفّرة في هذه النّسخة إلا أنها لم تحدّث:\n"
-
-#: ../packages.py:339
-msgid ""
-"\n"
-"\n"
-"The following packages were available in this version but NOT installed:\n"
-msgstr ""
-"\n"
-"\n"
-"الحزم التّالية كانت متوفّرة في هذه النّسخة إلا أنّها لم تثبّت:\n"
-
-#: ../packages.py:560
+#: ../packages.py:357
 msgid "Warning! This is pre-release software!"
 msgstr "تحذير! هذا برنامج ما قبل الإصدار!"
 
-#: ../packages.py:561
+#: ../packages.py:358
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1226,15 +1195,15 @@ msgstr ""
 "\n"
 "وإضافة تقريراً مقابل '%s'.\n"
 
-#: ../packages.py:574
+#: ../packages.py:371
 msgid "_Install anyway"
 msgstr "_قم بالتثبيت على كل حال"
 
-#: ../partedUtils.py:205 ../textw/partition_text.py:558
+#: ../partedUtils.py:206 ../textw/partition_text.py:558
 msgid "Foreign"
 msgstr "غريب"
 
-#: ../partedUtils.py:305
+#: ../partedUtils.py:306
 #, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
@@ -1250,7 +1219,7 @@ msgstr ""
 "\n"
 "هل تودّ إعادة تهيئة الجهاز DASD باستخدام نسق CDL؟"
 
-#: ../partedUtils.py:335
+#: ../partedUtils.py:336
 #, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
@@ -1264,11 +1233,11 @@ msgstr ""
 "\n"
 "هل تودّ تهيئة هذا القرص؟"
 
-#: ../partedUtils.py:344
+#: ../partedUtils.py:345
 msgid "_Ignore drive"
 msgstr "تجاهل القرص"
 
-#: ../partedUtils.py:345
+#: ../partedUtils.py:346
 msgid "_Format drive"
 msgstr "_تنسيق القرص"
 
@@ -1277,16 +1246,16 @@ msgstr "_تنسيق القرص"
 msgid "Error mounting file system on %s: %s"
 msgstr "خطأ في تجهيز نظام الملفّات على %s: %s"
 
-#: ../partedUtils.py:810
+#: ../partedUtils.py:808
 msgid "Initializing"
 msgstr "جاري عملية التهيئة"
 
-#: ../partedUtils.py:811
+#: ../partedUtils.py:809
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "رجاء الانتظار بينما يتمّ تهيئة القرص %s...\n"
 
-#: ../partedUtils.py:912
+#: ../partedUtils.py:911
 #, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1305,7 +1274,7 @@ msgstr ""
 "\n"
 "هل تودّ تهيئة القرص، مزيلاً كلّ البيانات؟"
 
-#: ../partedUtils.py:969
+#: ../partedUtils.py:968
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1323,11 +1292,11 @@ msgstr ""
 "\n"
 "هل تودّ تهيئة القرص، مزيلاً كلّ البيانات؟"
 
-#: ../partedUtils.py:1087
+#: ../partedUtils.py:1086
 msgid "No Drives Found"
 msgstr "لم يُعثر على أقراص"
 
-#: ../partedUtils.py:1088
+#: ../partedUtils.py:1087
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1457,7 +1426,7 @@ msgstr "أنت على وشك حذف كلّ التّجزيئات على الجه�
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1359
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
 msgstr "ا_حذف"
 
@@ -1540,7 +1509,7 @@ msgstr ""
 msgid "Format?"
 msgstr "أقوم بالتهيئة؟"
 
-#: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1010
+#: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "_عدّل التّجزيء"
 
@@ -1584,7 +1553,7 @@ msgstr ""
 "\n"
 "هل تودّ الاستمرار بمُخطّط التّجزئة الذي طلبته؟"
 
-#: ../partIntfHelpers.py:453 ../iw/partition_gui.py:666
+#: ../partIntfHelpers.py:453 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1652,11 +1621,11 @@ msgstr ""
 "خيارات التّجزئة التي اخترتها تمّ تفعيلها مسبقاً. لا يمكنك العودة إلى شاشة تحرير "
 "القرص بعد الآن. هل تريد الاستمرار بعمليّة التّثبيت؟"
 
-#: ../partitioning.py:89
+#: ../partitioning.py:88
 msgid "Low Memory"
 msgstr "ذاكرة منخفضة"
 
-#: ../partitioning.py:90
+#: ../partitioning.py:89
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1666,34 +1635,34 @@ msgstr ""
 "البديلة فوراً. لعمل ذلك يجب أن نقوم بكتابة جدول التّجزئة الجديد إلى القرص "
 "حالاً. هل ذلك مقبول؟"
 
-#: ../partitions.py:803
+#: ../partitions.py:804
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "لم تُعرّف قسم جذري (/)، والذي هو مطلوب لاستمرار تثبيت %s."
 
-#: ../partitions.py:808
+#: ../partitions.py:809
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "القسم الجذريّ أقل من 250 ميجابايت والذي هو عادة قليل جداً لتثبيت %s."
 
-#: ../partitions.py:815
+#: ../partitions.py:816
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "يجب عليك إنشاء قسم /boot/efi من نوع FAT وبحجم 50 ميجابايت"
 
-#: ../partitions.py:835
+#: ../partitions.py:836
 msgid "You must create an Apple Bootstrap partition."
 msgstr "يجب عليك إنشاء جزء إقلاع من طراز Apple Bootstrap."
 
-#: ../partitions.py:857
+#: ../partitions.py:858
 msgid "You must create a PPC PReP Boot partition."
 msgstr "يجب عليك إنشاء قسم إقلاع PPC PReP."
 
-#: ../partitions.py:865 ../partitions.py:876
+#: ../partitions.py:866 ../partitions.py:877
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1701,15 +1670,26 @@ msgid ""
 msgstr ""
 "التّجزيء %s أقلّ حجماً من %s ميجابايت والذي هو أقلّ من المستحسن لتثبيت %s طبيعي."
 
-#: ../partitions.py:905 ../partRequests.py:675
+#: ../partitions.py:911
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+
+#: ../partitions.py:914
+msgid ""
+"Installing on a FireWire device.  This may or may not produce a working "
+"system."
+msgstr ""
+
+#: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "التجزيئات القابلة للإقلاع يمكن أن تكون على أجهزة RAID1 فقط."
 
-#: ../partitions.py:912
+#: ../partitions.py:930
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "تجزيئات الإقلاع لا يمكن إنشاءها على كتلة منطقيّة."
 
-#: ../partitions.py:930
+#: ../partitions.py:948
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1717,7 +1697,7 @@ msgstr ""
 "لم تقم بتحديد قسم ذاكرة بديلة.  مع أنّه ليس مطلوباً بشكل إلزامي بكل الحالات، "
 "إلا أنّه قد يحسّن أداء معظم التّثبيتات."
 
-#: ../partitions.py:937
+#: ../partitions.py:955
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1726,7 +1706,7 @@ msgstr ""
 "لقد حدّدت أكثر من 32 جهاز ذاكرة بديلة.  النّواة الخاصّة بـ%s تدعم فقط 32 جهاز "
 "ذاكرة بديلة."
 
-#: ../partitions.py:948
+#: ../partitions.py:966
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1735,15 +1715,15 @@ msgstr ""
 "لقد قمت بتعيين مساحة ذاكرة بديلة أقل (%dميجا) من الذاكرة RAM المتوفّرة (%"
 "dميجا) على نظامك.  قد يؤثّر هذا سلبيّاً على الأداء."
 
-#: ../partitions.py:1238
+#: ../partitions.py:1266
 msgid "the partition in use by the installer."
 msgstr "القسم المستخدم حاليّاً من قبل المُثبّت."
 
-#: ../partitions.py:1241
+#: ../partitions.py:1269
 msgid "a partition which is a member of a RAID array."
 msgstr "التّجزيء الذي هو عضو من صفّ RAID."
 
-#: ../partitions.py:1244
+#: ../partitions.py:1272
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "قسم عضو في جموعة كتل LVM."
 
@@ -1820,40 +1800,40 @@ msgstr ""
 "جهاز RAID يمكن أن يحتوي %s احتياط بحدّ أقصى. كي تحصل على احتياطات أكثر سوف "
 "تحتاج أن تضيف أعضاءً إلى جهاز RAID."
 
-#: ../rescue.py:126
+#: ../rescue.py:129
 msgid "Starting Interface"
 msgstr "جاري تشغيل الواجهة"
 
-#: ../rescue.py:127
+#: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
 msgstr "محاولة تشغيل %s"
 
-#: ../rescue.py:180
+#: ../rescue.py:191
 msgid "Setup Networking"
 msgstr "أعدّ الشّبكة"
 
-#: ../rescue.py:181
+#: ../rescue.py:192
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "هل تريد تشغيل واجهات الشّبكة على هذا النّظام؟"
 
-#: ../rescue.py:226 ../text.py:549
+#: ../rescue.py:237 ../text.py:528
 msgid "Cancelled"
 msgstr "أُلغي"
 
-#: ../rescue.py:227 ../text.py:550
+#: ../rescue.py:238 ../text.py:529
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "لا أستطيع العودة إلى الخطوة السّابقة من هنا. سيكون عليك إعادة المحاولة."
 
-#: ../rescue.py:245 ../rescue.py:281 ../rescue.py:441
+#: ../rescue.py:256 ../rescue.py:292 ../rescue.py:461
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "عندما تنتهي رجاء اختر من الصَّدفة وسيقوم نظامك بإعادة التّشغيل."
 
-#: ../rescue.py:265 ../rescue.py:334 ../rescue.py:342 ../rescue.py:416
+#: ../rescue.py:276 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
 msgstr "إنقاذ"
 
-#: ../rescue.py:266
+#: ../rescue.py:277
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1875,34 +1855,28 @@ msgstr ""
 "مباشرةً إلى سطر الأوامر.\n"
 "\n"
 
-#: ../rescue.py:276 ../iw/partition_gui.py:568 ../loader2/cdinstall.c:109
+#: ../rescue.py:287 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
 msgid "Continue"
 msgstr "استمر"
 
-#: ../rescue.py:276 ../rescue.py:285
+#: ../rescue.py:287 ../rescue.py:296
 msgid "Read-Only"
 msgstr "قراءة فقط"
 
-#: ../rescue.py:276 ../rescue.py:278 ../textw/upgrade_text.py:122
-#: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:259
-#: ../loader2/method.c:419
-msgid "Skip"
-msgstr "تخطّي"
-
-#: ../rescue.py:308
+#: ../rescue.py:319
 msgid "System to Rescue"
 msgstr "النّظام المطلوب إنقاذه"
 
-#: ../rescue.py:309
+#: ../rescue.py:320
 msgid "What partition holds the root partition of your installation?"
 msgstr "ما هو التّجزيء الذي يحمل التّجزيء الجذري لتثبيتك؟"
 
-#: ../rescue.py:311 ../rescue.py:315
+#: ../rescue.py:322 ../rescue.py:326
 msgid "Exit"
 msgstr "اخرج"
 
-#: ../rescue.py:335
+#: ../rescue.py:346
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1912,7 +1886,7 @@ msgstr ""
 "لتحصل على صدفة يمكنك منه استخدام fsck وتجهيز تقسيماتك.  سوف يقوم النّظام "
 "بإعادة التّشغيل تلقائيّاً بعدما تخرج من الصّدفة."
 
-#: ../rescue.py:343
+#: ../rescue.py:354
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1932,7 +1906,7 @@ msgstr ""
 "\n"
 "سوف يقوم النّظام بإعادة التّشغيل تلقائيّاً عندما تخرج من الصّدفة."
 
-#: ../rescue.py:417
+#: ../rescue.py:437
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1946,11 +1920,11 @@ msgstr ""
 "اضغط <return> لتحصل على صدفة. سوف يقوم النّظام بإعادة التّشغيل تلقائيّاً عندما "
 "تخرج من الصّدفة."
 
-#: ../rescue.py:423
+#: ../rescue.py:443
 msgid "Rescue Mode"
 msgstr "وضع الإنقاذ"
 
-#: ../rescue.py:424
+#: ../rescue.py:444
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1958,101 +1932,119 @@ msgstr ""
 "ليس لديك أية تقسيمات لينكس. اضغط مفتاح الإدخال لتحصل على صدفة. سوف يقوم "
 "النّظام بإعادة التّشغيل تلقائيّاً عندما تخرج من الصّدفة."
 
-#: ../rescue.py:438
+#: ../rescue.py:458
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "نظام مُجهّز ضمن دليل %s."
 
-#: ../text.py:147 ../text.py:159
+#: ../text.py:150 ../text.py:165
 msgid "Save"
 msgstr "احفظ"
 
-#: ../text.py:147 ../text.py:149 ../text.py:161
+#: ../text.py:153 ../text.py:167
 #, fuzzy
 msgid "Remote"
 msgstr "احذف"
 
-#: ../text.py:147 ../text.py:149 ../text.py:157
+#: ../text.py:155 ../text.py:163
 msgid "Debug"
 msgstr "أزل العلل"
 
-#: ../text.py:153
+#: ../text.py:159
 msgid "Exception Occurred"
 msgstr "حدث استثناء"
 
-#: ../text.py:182
+#: ../text.py:188
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:185
+#: ../text.py:191
 #, fuzzy
 msgid "Host"
 msgstr "اسم المضيف"
 
-#: ../text.py:187
+#: ../text.py:193
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:189
+#: ../text.py:195
 msgid "User name"
 msgstr "اسم مستخدم"
 
-#: ../text.py:191
+#: ../text.py:197
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: ../text.py:248
+#: ../text.py:254
 msgid "Help not available"
 msgstr "المساعدة غير متوفّرة"
 
-#: ../text.py:249
+#: ../text.py:255
 msgid "No help is available for this step of the install."
 msgstr "لا توجد مساعدة متوفّرة لهذه الخطوة من التثبيت."
 
-#: ../text.py:351
+#: ../text.py:357
 msgid "Save Crash Dump"
 msgstr "احفظ مُخرجات الخلل"
 
-#: ../text.py:405 ../loader2/lang.c:52 ../loader2/loader.c:145
+#: ../text.py:411 ../loader2/lang.c:50 ../loader2/loader.c:145
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "أهلاً بكم إلى %s"
 
-#: ../text.py:412
+#: ../text.py:418
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> للمساعدة | <Tab> بين العناصر | <Space> يحدّد | <F12> الشّاشة التّالية"
 
-#: ../text.py:414
+#: ../text.py:420
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> بين العناصر   |  <Space> يحدّد   |  <F12> الشّاشة التّالية"
 
-#: ../upgradeclass.py:19
+#: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
 msgstr "بتحديث النظام الحالي"
 
-#: ../upgradeclass.py:23
+#: ../upgradeclass.py:24
 msgid "Upgrade"
 msgstr "تحديث"
 
-#: ../upgrade.py:76
+#: ../upgrade.py:50
+msgid "Proceed with upgrade?"
+msgstr "هل أستمر بالتّحديث؟"
+
+#: ../upgrade.py:51
+msgid ""
+"The file systems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+"أنظمة الملفّات الخاصّة بتثبيت لينكس التي اخترت تحديثها تمّ تجهيزها مسبقاً. لا "
+"يمكنك العودة قبل هذه النّقطة. \n"
+"\n"
+
+#: ../upgrade.py:55
+msgid "Would you like to continue with the upgrade?"
+msgstr "هل تريد الاستمرار بالتّحديث؟"
+
+#: ../upgrade.py:92
 msgid "Searching"
 msgstr "جاري البحث"
 
-#: ../upgrade.py:77
+#: ../upgrade.py:93
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "البحث عن تثبيتات %s..."
 
-#: ../upgrade.py:129 ../upgrade.py:137
+#: ../upgrade.py:145 ../upgrade.py:153
 msgid "Dirty File Systems"
 msgstr "أنظمة الملفّات القذرة"
 
-#: ../upgrade.py:130
+#: ../upgrade.py:146
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2065,7 +2057,7 @@ msgstr ""
 "سليم كي تستطيع التّحديث.\n"
 "%s"
 
-#: ../upgrade.py:138
+#: ../upgrade.py:154
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2076,11 +2068,11 @@ msgstr ""
 "هل تريد تجهيزها على أي حال؟\n"
 "%s"
 
-#: ../upgrade.py:275 ../upgrade.py:281
+#: ../upgrade.py:291 ../upgrade.py:297
 msgid "Mount failed"
 msgstr "فشل التّجهيز"
 
-#: ../upgrade.py:276
+#: ../upgrade.py:292
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2088,7 +2080,7 @@ msgstr ""
 "واحد أو أكثر من أنظمة الملفّات المسردة في /etc/fstab على نظام لينكس خاصّتك لا "
 "يمكن تجهيزه. رجاء أصلح هذه المشكلة وحاول التّحديث مرّة أخرى."
 
-#: ../upgrade.py:282
+#: ../upgrade.py:298
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2097,7 +2089,7 @@ msgstr ""
 "واحد أو أكثر من أنظمة الملفّات المسردة في /etc/fstab على نظام لينكس خاصّتك غير "
 "متماسكة ولا يمكن تجهيزها. رجاء أصلح هذه المشكلة وحاول التّحديث مرّة أخرى."
 
-#: ../upgrade.py:299
+#: ../upgrade.py:315
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2108,11 +2100,11 @@ msgstr ""
 "غيّرها إلى روابط رمزيّة نسبيّة وأعد تشغيل التّطوير.\n"
 "\n"
 
-#: ../upgrade.py:305
+#: ../upgrade.py:321
 msgid "Absolute Symlinks"
 msgstr "روابط رمزيّة مطلقة"
 
-#: ../upgrade.py:316
+#: ../upgrade.py:332
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2123,55 +2115,24 @@ msgstr ""
 "أعدها إلى وضعها الأصلي كروابط رمزيّة وأعد تشغيل التّطوير.\n"
 "\n"
 
-#: ../upgrade.py:322
+#: ../upgrade.py:338
 msgid "Invalid Directories"
 msgstr "أدلّة غير صالحة"
 
-#: ../upgrade.py:329
+#: ../upgrade.py:345
 #, python-format
 msgid "%s not found"
 msgstr "لم يُعثر على %s"
 
-#: ../upgrade.py:362
-msgid "Finding"
-msgstr "جاري البحث"
-
-#: ../upgrade.py:363
-msgid "Finding packages to upgrade..."
-msgstr "جاري البحث عن الحزم المطلوب تحديثها..."
-
-#: ../upgrade.py:375
-msgid ""
-"The installation program is unable to upgrade systems with a pre-rpm 4.x "
-"database. Please install the errata rpm packages for your release as "
-"described in the release notes and then run the upgrade procedure."
-msgstr ""
-"برنامج التثبيت غير قادر على تطوير الأنظمة السّابقة لقاعدة بيانات rpm النّسخة 4."
-"x. رجاء قم بتثبيت حزم rpm المُصحّحة لإصدارك كما هو مشروح في ملاحظات الإصدار ثم "
-"شغّل إجراء التّطوير."
-
-#: ../upgrade.py:402
-msgid "An error occurred when finding the packages to upgrade."
-msgstr "حدث خطأ أثناء البحث عن الحزم المطلوب تحديثها."
-
-#: ../upgrade.py:478
-#, python-format
-msgid ""
-"You appear to be upgrading from a system which is too old to upgrade to this "
-"version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"يبدو أن النظام الذي تريد ترقيته إلى هذه النسخة من %s قديم جدا. هل أنت متأكد "
-"من أنك تريد الإستمرار في عملية الترقية؟"
-
-#: ../urlinstall.py:45
+#: ../urlinstall.py:35
 msgid "Connecting..."
 msgstr "جاري الاتّصال..."
 
-#: ../vnc.py:57
+#: ../vnc.py:43
 msgid "Unable to Start X"
 msgstr "لم أتمكّن من تشغيل X"
 
-#: ../vnc.py:58
+#: ../vnc.py:44
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
@@ -2181,23 +2142,23 @@ msgstr ""
 "انطلاقا من حاسوب آخر و القيام بتثبيت رسومي أم تودّ المتابعة بالتثبيت على "
 "النّمط النّصّي ؟"
 
-#: ../vnc.py:65 ../vnc.py:68
+#: ../vnc.py:51 ../vnc.py:54
 msgid "Use text mode"
 msgstr "إستعمل النّمط النّصي"
 
-#: ../vnc.py:66
+#: ../vnc.py:52
 msgid "Start VNC"
 msgstr "إبدأ VNC"
 
-#: ../vnc.py:76
+#: ../vnc.py:62
 msgid "VNC Configuration"
 msgstr "تهيئة VNC"
 
-#: ../vnc.py:80
+#: ../vnc.py:66
 msgid "No password"
 msgstr "ليست هناك كلمة مرور"
 
-#: ../vnc.py:83
+#: ../vnc.py:69
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
@@ -2206,44 +2167,133 @@ msgstr ""
 "كلمة المرور وقاية من اتّصال المستمعين غير المسموح لهم و مراقبتهم لتقدّم "
 "تثبيتك. أدخل من فضلك كلمة مرور تستعمل للتثبيت"
 
-#: ../vnc.py:91 ../textw/userauth_text.py:42 ../loader2/urls.c:437
+#: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
 msgid "Password:"
 msgstr "كلمة المرور:"
 
-#: ../vnc.py:92 ../textw/userauth_text.py:43
+#: ../vnc.py:78 ../textw/userauth_text.py:43
 msgid "Password (confirm):"
 msgstr "كلمة المرور (تأكيد):"
 
-#: ../vnc.py:114 ../textw/userauth_text.py:64
+#: ../vnc.py:100 ../textw/userauth_text.py:64
 msgid "Password Mismatch"
 msgstr "كلمة المرور غير مطابقة"
 
-#: ../vnc.py:115 ../textw/userauth_text.py:65
+#: ../vnc.py:101 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr "كلمات المرور التي أدخلتها مُختلفة. رجاء حاول مرّة أخرى."
 
-#: ../vnc.py:120 ../textw/userauth_text.py:59
+#: ../vnc.py:106 ../textw/userauth_text.py:59
 msgid "Password Length"
 msgstr "طول كلمة المرور"
 
-#: ../vnc.py:121
+#: ../vnc.py:107
 msgid "The password must be at least six characters long."
 msgstr "يجب أن يكون طول كلمة المرور 6 رموز على الأقلّ."
 
-#: ../xsetup.py:55
+#: ../vnc.py:137
+#, fuzzy
+msgid "VNC Password Error"
+msgstr "ليست هناك كلمة مرور"
+
+#: ../vnc.py:138
+msgid ""
+"You need to specify a vnc password of at least 6 characters long.\n"
+"\n"
+"Press <return> to reboot your system.\n"
+msgstr ""
+
+#: ../vnc.py:183
+msgid "Starting VNC..."
+msgstr "جاري تشغيل VNC..."
+
+#: ../vnc.py:218
+#, python-format
+msgid "%s %s installation on host %s"
+msgstr "تثبيت %s%s على المضيف %s"
+
+#: ../vnc.py:220
+#, python-format
+msgid "%s %s installation"
+msgstr "تثبيت %s %s"
+
+#: ../vnc.py:240
+msgid "Unable to set vnc password - using no password!"
+msgstr "لم يمكن تحديد كلمة السّر - استخدام دون كلمة سرّ!"
+
+#: ../vnc.py:241
+msgid "Make sure your password is at least 6 characters in length."
+msgstr "تأكّد من أن طول كلمة السّرّ لا يقل عنّ 6 أحرف."
+
+#: ../vnc.py:264
+msgid ""
+"\n"
+"\n"
+"WARNING!!! VNC server running with NO PASSWORD!\n"
+"You can use the vncpassword=<password> boot option\n"
+"if you would like to secure the server.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"تحذير!!! خادم VNC يعمل بلا كلمة سرّ!\n"
+"يمكنك استخدام خيار الإقلاع vncpassword=<password>\n"
+"إن كنت ترغب بتأمين الخادم.\n"
+"\n"
+
+#: ../vnc.py:268
+msgid "The VNC server is now running."
+msgstr "خادم VNC يعمل حاليّاً."
+
+#: ../vnc.py:271
+#, python-format
+msgid "Attempting to connect to vnc client on host %s..."
+msgstr "جاري محاولة الاتّصال بمضيف vnc %s..."
+
+#: ../vnc.py:283
+msgid "Connected!"
+msgstr "مُتّصل!"
+
+#: ../vnc.py:288
+msgid "Giving up attempting to connect after 50 tries!\n"
+msgstr "جاري الاستسلام بعد المحاولة خمسين مرّة!\n"
+
+#: ../vnc.py:290
+#, python-format
+msgid "Please manually connect your vnc client to %s to begin the install."
+msgstr "رجاء اتصل يدويّاً بمستفيد vnc %s لتبدأ التثبيت."
+
+#: ../vnc.py:292
+msgid "Please manually connect your vnc client to begin the install."
+msgstr "رجاء اتصل يدويّاً بمستفيد vnc لتبدأ التثبيت."
+
+#: ../vnc.py:296
+msgid "Will try to connect again in 15 seconds..."
+msgstr "سوف أعاود المحاولة خلال 15 ثانية..."
+
+#: ../vnc.py:304
+#, python-format
+msgid "Please connect to %s to begin the install..."
+msgstr "رجاء اتصل يدويّاً بـ %s لتبدأ التثبيت..."
+
+#: ../vnc.py:306
+msgid "Please connect to begin the install..."
+msgstr "رجاءً قم بالاتّصال حتى تبدأ التثبيت..."
+
+#: ../xsetup.py:56
 msgid "DDC Probed Monitor"
 msgstr "شاشة مُجسّة بواسطة DDC"
 
-#: ../yuminstall.py:91
+#: ../yuminstall.py:103
 msgid "Processing"
 msgstr "جاري المعالجة"
 
-#: ../yuminstall.py:92
+#: ../yuminstall.py:104
 #, fuzzy
 msgid "Preparing transaction from installation source..."
 msgstr "جاري التّجهيز للتثبيت..."
 
-#: ../yuminstall.py:135
+#: ../yuminstall.py:148
 #, fuzzy, python-format
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
@@ -2258,11 +2308,12 @@ msgstr ""
 "\n"
 "اضغط <return> لتحاول مرّة أخرى."
 
-#: ../yuminstall.py:147 ../yuminstall.py:499
+#: ../yuminstall.py:160 ../yuminstall.py:524 ../yuminstall.py:620
+#: ../yuminstall.py:854
 msgid "Re_boot"
 msgstr "أعد التّشغيل"
 
-#: ../yuminstall.py:151
+#: ../yuminstall.py:164
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
@@ -2270,21 +2321,64 @@ msgstr ""
 "إذا قمت بإعادة التشغيل سيظل نظامك في حالة مضطربة قد تتطلب إعادة تثبيته. هل "
 "تريد الاستمرار فعلا ؟"
 
-#: ../yuminstall.py:160
+#: ../yuminstall.py:173
 msgid "_Cancel"
 msgstr "ا_لغاء"
 
-#: ../yuminstall.py:441
+#: ../yuminstall.py:481 ../yuminstall.py:482
+msgid "file conflicts"
+msgstr ""
+
+#: ../yuminstall.py:483
+#, fuzzy
+msgid "older package(s)"
+msgstr "الحزم الاختياريّة"
+
+#: ../yuminstall.py:484
+msgid "insufficient disk space"
+msgstr ""
+
+#: ../yuminstall.py:485
+msgid "insufficient disk inodes"
+msgstr ""
+
+#: ../yuminstall.py:486
+#, fuzzy
+msgid "package conflicts"
+msgstr "افتراضيّات الحزم"
+
+#: ../yuminstall.py:487
+msgid "package already installed"
+msgstr ""
+
+#: ../yuminstall.py:488
+#, fuzzy
+msgid "required package"
+msgstr "المساحة الفارغة"
+
+#: ../yuminstall.py:489
+msgid "package for incorrect arch"
+msgstr ""
+
+#: ../yuminstall.py:490
+msgid "package for incorrect os"
+msgstr ""
+
+#: ../yuminstall.py:503
+msgid "You need more space on the following file systems:\n"
+msgstr ""
+
+#: ../yuminstall.py:519
 #, fuzzy
 msgid "Error running transaction"
 msgstr "جاري تحضير عمليّة RPM..."
 
-#: ../yuminstall.py:488
+#: ../yuminstall.py:615
 #, fuzzy, python-format
 msgid ""
-"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
-"perhaps a corrupt package.  If you are installing from CD media this usually "
-"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"The file %s cannot be opened. This is due to a missing file or perhaps a "
+"corrupt package.  If you are installing from CD media this usually means the "
+"CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
 "الحزمة %s-%s-%s لا يمكن فتحها. هذا بسبب الملف المفقود أو ربّما الحزمة فاسدة.  "
@@ -2293,12 +2387,12 @@ msgstr ""
 "\n"
 "اضغط <return> لتحاول مرّة أخرى."
 
-#: ../yuminstall.py:599
+#: ../yuminstall.py:659
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "جاري قراءة معلومات الحزمة..."
 
-#: ../yuminstall.py:615
+#: ../yuminstall.py:675
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2308,28 +2402,62 @@ msgstr ""
 "ملف comps المرفق بشجرة التثبيت الخاصة بكم ينقصه فئات حرجة. رجاء التأكد من "
 "صحة إنشاء شجرة التثبيت."
 
-#: ../yuminstall.py:642
+#: ../yuminstall.py:704
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:893
+#: ../yuminstall.py:848
+#, python-format
+msgid ""
+"Your selected packages require %d MB of free space for installation, but you "
+"do not have enough available.  You can change your selections or reboot."
+msgstr ""
+
+#: ../yuminstall.py:987
+#, python-format
+msgid ""
+"You appear to be upgrading from a system which is too old to upgrade to this "
+"version of %s.  Are you sure you wish to continue the upgrade process?"
+msgstr ""
+"يبدو أن النظام الذي تريد ترقيته إلى هذه النسخة من %s قديم جدا. هل أنت متأكد "
+"من أنك تريد الإستمرار في عملية الترقية؟"
+
+#: ../yuminstall.py:1019
 msgid "Install Starting"
 msgstr "التثبيت على وشك البدء"
 
-#: ../yuminstall.py:894
+#: ../yuminstall.py:1020
 msgid "Starting install process.  This may take several minutes..."
 msgstr "جاري بدء عمليّة التثبيت، قد يستغرق هذا بضع دقائق..."
 
-#: ../yuminstall.py:1033
+#: ../yuminstall.py:1036
+#, fuzzy
+msgid "Post Upgrade"
+msgstr "تحديث"
+
+#: ../yuminstall.py:1037
+#, fuzzy
+msgid "Performing post upgrade configuration..."
+msgstr "جاري القيام بإعداد ما بعد التثبيت..."
+
+#: ../yuminstall.py:1039
+msgid "Post Install"
+msgstr "ما بعد التثبيت"
+
+#: ../yuminstall.py:1040
+msgid "Performing post install configuration..."
+msgstr "جاري القيام بإعداد ما بعد التثبيت..."
+
+#: ../yuminstall.py:1185
 #, fuzzy
 msgid "Installation Progress"
 msgstr "نوع التثبيت"
 
-#: ../yuminstall.py:1077
+#: ../yuminstall.py:1229
 msgid "Dependency Check"
 msgstr "التّحقّق من المعتمدات"
 
-#: ../yuminstall.py:1078
+#: ../yuminstall.py:1230
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "جاري التّحقّق من المعتمدات في الحزم المحدّدة للتثبيت..."
 
@@ -2389,27 +2517,27 @@ msgstr "لم تقم بتحديد رقم وحدة FCP منطقي أو الرقم 
 msgid "Set Root Password"
 msgstr "حدّد كلمة مرور Root"
 
-#: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
-#: ../iw/account_gui.py:65 ../textw/userauth_text.py:69
+#: ../iw/account_gui.py:40 ../iw/account_gui.py:48 ../iw/account_gui.py:55
+#: ../iw/account_gui.py:64 ../textw/userauth_text.py:69
 msgid "Error with Password"
 msgstr "خطأ في كلمة المرور"
 
-#: ../iw/account_gui.py:42
+#: ../iw/account_gui.py:41
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 "يجب أن تدخل كلمة مرور المستخدم root وتؤكّدها بكتابتها مرّة ثانية كي تستمرّ."
 
-#: ../iw/account_gui.py:50
+#: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
 msgstr "كلمات المرور التي أدخلتها كانت مختلفة.  رجاء حاول مجدّداً."
 
-#: ../iw/account_gui.py:57
+#: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
 msgstr "كلمة مرور المستخدم root يجب أن تكون بطول ستّة أحرف على الأقلّ."
 
-#: ../iw/account_gui.py:66 ../textw/userauth_text.py:70
+#: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
@@ -2417,19 +2545,36 @@ msgstr ""
 "كلمة المرور المطلوبة تحتوي أحرف غير ascii والتي هي غير مسموحة للاستخدام في "
 "كلمة المرور."
 
-#: ../iw/account_gui.py:93
+#: ../iw/account_gui.py:92
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr "الحساب الجذري مستعمل لإدارة النّظام. أدخل كلمة مرور للمستخدم الجذري."
 
-#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:109
 msgid "Root _Password: "
 msgstr "كلمة _مرور root: "
 
-#: ../iw/account_gui.py:113
+#: ../iw/account_gui.py:112
 msgid "_Confirm: "
 msgstr "_تأكيد: "
+
+#: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
+#, fuzzy
+msgid "Remove all partitions on selected drives and create default layout."
+msgstr "أزل كلّ التجزيئات على هذا النّظام"
+
+#: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
+msgid "Remove linux partitions on selected drives and create default layout."
+msgstr ""
+
+#: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
+msgid "Use free space on selected drives and create default layout."
+msgstr ""
+
+#: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
+msgid "Create custom layout."
+msgstr ""
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2472,11 +2617,11 @@ msgstr "أكّ_د:"
 msgid "Passwords don't match"
 msgstr "كلمات المرور غير متطابقة"
 
-#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:450
+#: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
 msgid "Passwords do not match"
 msgstr "كلمات المرور غير متطابقة"
 
-#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:460
+#: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2491,7 +2636,7 @@ msgstr ""
 msgid "Advanced Boot Loader Configuration"
 msgstr "تهيئة محمّل الإقلاع المتقدّمة"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:125
+#: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2503,15 +2648,15 @@ msgstr ""
 "\n"
 "هل تريد الاستمرار وإجبار وضع LBA32؟"
 
-#: ../iw/bootloader_advanced_gui.py:49
+#: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
 msgstr "أجبر استخدام LBA32"
 
-#: ../iw/bootloader_advanced_gui.py:70
+#: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
 msgstr "أجبر استخدام LBA32 (غير مطلوب عادةً)"
 
-#: ../iw/bootloader_advanced_gui.py:74
+#: ../iw/bootloader_advanced_gui.py:73
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
@@ -2519,17 +2664,17 @@ msgstr ""
 "إن كنت تودّ إضافة الخيارات الافتراضيّة إلى أمر الإقلاع، أدخلها في حقل "
 "'المُعطيات العامّة للنّواة'."
 
-#: ../iw/bootloader_advanced_gui.py:80
+#: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
 msgstr "ال_مُعطيات العامّة للنّواة"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
-#: ../textw/bootloader_text.py:288 ../textw/bootloader_text.py:402
+#: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
 msgid "Boot Loader Configuration"
 msgstr "تهيئة محمّل الإقلاع"
 
-#: ../iw/bootloader_main_gui.py:118
+#: ../iw/bootloader_main_gui.py:117
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "محمّل الإقلاع %s سوف يتمّ تثبيته على /dev/%s."
@@ -2538,7 +2683,7 @@ msgstr "محمّل الإقلاع %s سوف يتمّ تثبيته على /dev/%s
 msgid "No boot loader will be installed."
 msgstr "لن يتمّ تثبيت أي محمّل إقلاع."
 
-#: ../iw/bootloader_main_gui.py:153
+#: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
 msgstr "هيّء _خيارات محمّل الإقلاع المتقدّمة"
 
@@ -2546,15 +2691,15 @@ msgstr "هيّء _خيارات محمّل الإقلاع المتقدّمة"
 msgid "Install Boot Loader record on:"
 msgstr "ثبّت سجلّ محمّل الإقلاع على:"
 
-#: ../iw/bootlocwidget.py:70
+#: ../iw/bootlocwidget.py:72
 msgid "_Change Drive Order"
 msgstr "_غيّر ترتيب الأقراص"
 
-#: ../iw/bootlocwidget.py:82
+#: ../iw/bootlocwidget.py:84
 msgid "Edit Drive Order"
 msgstr "عدّل ترتيب الأقراص"
 
-#: ../iw/bootlocwidget.py:87
+#: ../iw/bootlocwidget.py:89
 msgid ""
 "Arrange the drives to be in the same order as used by the BIOS. Changing the "
 "drive order may be useful if you have multiple SCSI adapters or both SCSI "
@@ -2570,26 +2715,26 @@ msgstr ""
 "تغيير ترتيب الأقراص سوف يغيّر مكان بحث برنامج التّثبيت عن سجلّ الإقلاع الرّئيسي "
 "(MBR)."
 
-#: ../iw/confirm_gui.py:57
-msgid "About to Install"
-msgstr "على وشك التثبيت"
-
-#: ../iw/confirm_gui.py:64 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:35
+#: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
 msgid "Reboot?"
 msgstr "أعيد التّشغيل؟"
 
-#: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:99 ../textw/confirm_text.py:36
+#: ../iw/confirm_gui.py:30 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
 msgid "The system will be rebooted now."
 msgstr "سوف يتمّ إعادة تشغيل النّظام الآن."
 
-#: ../iw/confirm_gui.py:82
+#: ../iw/confirm_gui.py:74
+msgid "About to Install"
+msgstr "على وشك التثبيت"
+
+#: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
 msgstr "اضغط التّالي لبدء تثبيت %s."
 
-#: ../iw/confirm_gui.py:83
+#: ../iw/confirm_gui.py:81
 #, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
@@ -2603,27 +2748,27 @@ msgstr ""
 "يمكن العثور على ملف kickstart المُحتوي لخيارات التثبيت في الملفّ '%s' بعد "
 "إعادة تشغيل النّظام."
 
-#: ../iw/confirm_gui.py:90
+#: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
 msgstr "على وشك التّحديث"
 
-#: ../iw/confirm_gui.py:115
+#: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
 msgstr "اضغط التّالي لتبدأ تحديث %s."
 
-#: ../iw/confirm_gui.py:116
+#: ../iw/confirm_gui.py:95
 #, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr "يمكن العثور على سجلّ كامل للتّطوير في الملفّ '%s' بعد إعادة تشغيل نظامك."
 
-#: ../iw/congrats_gui.py:23
+#: ../iw/congrats_gui.py:24
 msgid "Congratulations"
 msgstr "تهانينا"
 
-#: ../iw/congrats_gui.py:63
+#: ../iw/congrats_gui.py:60
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
@@ -2633,7 +2778,7 @@ msgstr ""
 "تعيد تشغيل نظامك.\n"
 "\n"
 
-#: ../iw/congrats_gui.py:68
+#: ../iw/congrats_gui.py:65
 #, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
@@ -2648,7 +2793,7 @@ msgstr ""
 msgid "Drive"
 msgstr "القرص"
 
-#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1438
+#: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1437
 msgid "Size"
 msgstr "الحجم"
 
@@ -2656,16 +2801,16 @@ msgstr "الحجم"
 msgid "Model"
 msgstr "الطّراز"
 
-#: ../iw/examine_gui.py:32
+#: ../iw/examine_gui.py:31
 msgid "Upgrade Examine"
 msgstr "اختبار التّطوير"
 
-#: ../iw/examine_gui.py:61
+#: ../iw/examine_gui.py:55
 #, python-format
 msgid "_Install %s"
 msgstr "_ثبّت %s"
 
-#: ../iw/examine_gui.py:63
+#: ../iw/examine_gui.py:57
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
@@ -2673,11 +2818,11 @@ msgstr ""
 "اختر هذا الخيار كي تقوم بتثبيت نظامك من البداية. البرامج الموجودة والبيانات "
 "قد يكتب فوقها بناء على خيارات تهيئتك."
 
-#: ../iw/examine_gui.py:67
+#: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
 msgstr "_طوّر تثبيتاً موجود مسبقاً"
 
-#: ../iw/examine_gui.py:69
+#: ../iw/examine_gui.py:63
 #, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
@@ -2686,17 +2831,13 @@ msgstr ""
 "اختر هذا الخيار إن كنت تريد تطوير نظامك %s الموجود. هذا الخيار يحافظ على "
 "البيانات الموجودة على أقراصك."
 
-#: ../iw/examine_gui.py:136 ../iw/pixmapRadioButtonGroup_gui.py:197
+#: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr "النّظام التّالي المثبّت سوف يتمّ تطويره:"
 
-#: ../iw/examine_gui.py:149
+#: ../iw/examine_gui.py:123
 msgid "Unknown Linux system"
 msgstr "نظام لينكس غير معروف"
-
-#: ../iw/installpath_gui.py:26 ../textw/installpath_text.py:48
-msgid "Installation Type"
-msgstr "نوع التثبيت"
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
@@ -2729,11 +2870,11 @@ msgstr ""
 msgid "%s"
 msgstr "%s"
 
-#: ../iw/language_gui.py:24 ../textw/language_text.py:40
+#: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
 msgstr "خيار اللّغة"
 
-#: ../iw/language_gui.py:65 ../textw/language_text.py:41 ../loader2/lang.c:378
+#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:362
 msgid "What language would you like to use during the installation process?"
 msgstr "ما اللّغة التي تودّ استخدامها أثناء عمليّة التثبيت؟"
 
@@ -2772,7 +2913,7 @@ msgstr ""
 "هذا التّغيير سينطبق مباشرة."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
-#: ../iw/network_gui.py:165 ../iw/network_gui.py:169 ../iw/network_gui.py:192
+#: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
 msgid "C_ontinue"
 msgstr "ا_ستمر"
 
@@ -3043,8 +3184,8 @@ msgid "Logical Volume Name"
 msgstr "اسم الكتلة المنطقيّة"
 
 #: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
-#: ../iw/upgrade_swap_gui.py:147 ../textw/partition_text.py:1438
-#: ../textw/upgrade_text.py:110
+#: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
+#: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "مكان التّجهيز"
 
@@ -3052,12 +3193,12 @@ msgstr "مكان التّجهيز"
 msgid "Size (MB)"
 msgstr "الحجم (ميجابايت)"
 
-#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:98
+#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
 msgstr "_أضف"
 
-#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:531
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1358 ../iw/zfcp_gui.py:101
+#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:530
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
 msgstr "_عدّل"
 
@@ -3069,51 +3210,51 @@ msgstr "كتل منطقيّة"
 msgid "Mouse Configuration"
 msgstr "تهيئة الماوس"
 
-#: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
+#: ../iw/mouse_gui.py:77 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr "/dev/ttyS0 (COM1 ضمن نظام تشغيل الأقراص (DOS))"
 
-#: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
+#: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr "/dev/ttyS0 (COM2 ضمن نظام تشغيل الأقراص (DOS))"
 
-#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
+#: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr "/dev/ttyS0 (COM3 ضمن نظام تشغيل الأقراص (DOS))"
 
-#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
+#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS0 (COM4 ضمن نظام تشغيل الأقراص (DOS))"
 
-#: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:157
+#: ../iw/mouse_gui.py:90 ../iw/osbootwidget.py:157
 msgid "_Device"
 msgstr "_جهاز"
 
-#: ../iw/mouse_gui.py:137
+#: ../iw/mouse_gui.py:136
 msgid "_Model"
 msgstr "_طراز"
 
-#: ../iw/mouse_gui.py:235
+#: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
 msgstr "_محاكاة 3 أزرار"
 
-#: ../iw/mouse_gui.py:250
+#: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
 msgstr "اختر الماوس الملائمة للنّظام."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:608
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:607
 msgid "Gateway"
 msgstr "البوّابة"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:610
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
 msgid "Primary DNS"
 msgstr "DNS الأوّلي"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:612
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:611
 msgid "Secondary DNS"
 msgstr "DNS الثّانوي"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:614
+#: ../iw/network_gui.py:28 ../iw/network_gui.py:613
 msgid "Tertiary DNS"
 msgstr "DNS الاحتياطي"
 
@@ -3137,21 +3278,21 @@ msgstr "DNS ال_ثّانوي"
 msgid "Network Configuration"
 msgstr "تهيئة الشّبكة"
 
-#: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:172
-#: ../iw/network_gui.py:177 ../iw/network_gui.py:183 ../iw/network_gui.py:187
-#: ../iw/network_gui.py:192 ../iw/zfcp_gui.py:160 ../iw/zfcp_gui.py:224
+#: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
+#: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
+#: ../iw/network_gui.py:191 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
 #: ../textw/zfcp_text.py:62
 msgid "Error With Data"
 msgstr "خطأ في البيانات"
 
-#: ../iw/network_gui.py:165
+#: ../iw/network_gui.py:164
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
 "لم تقم بتحديد اسم مضيف.  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
 
-#: ../iw/network_gui.py:169
+#: ../iw/network_gui.py:168
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
@@ -3159,7 +3300,7 @@ msgid ""
 msgstr ""
 "لم تحدّد قيمة الحقل \"%s\".  اعتماداً على بيئة شبكتك قد يسبّب هذا مشاكل لاحقاً."
 
-#: ../iw/network_gui.py:173 ../textw/network_text.py:412
+#: ../iw/network_gui.py:172 ../textw/network_text.py:413
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3170,7 +3311,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:178
+#: ../iw/network_gui.py:177
 #, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
@@ -3179,16 +3320,16 @@ msgstr ""
 "حدث خطأ في تحويل القيمة المُدخلة لـ\"%s\":\n"
 "%s"
 
-#: ../iw/network_gui.py:184
+#: ../iw/network_gui.py:183
 #, python-format
 msgid "A value is required for the field \"%s\"."
 msgstr "مطلوب قيمة للحقل \"%s\"."
 
-#: ../iw/network_gui.py:188
+#: ../iw/network_gui.py:187
 msgid "The IP information you have entered is invalid."
 msgstr "معلومات IP التي أدخلتها غير صالحة."
 
-#: ../iw/network_gui.py:192
+#: ../iw/network_gui.py:191
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3203,88 +3344,88 @@ msgstr ""
 "ملاحظة: إن كان لديك مُحوّل شبكة PCMCIA عليك بتركه غير نشط عند هذه النّقطة. "
 "عندما تقوم بإعادة تشغيل نظامك سوف يتمّ تنشيط المحوّل تلقائيّاً."
 
-#: ../iw/network_gui.py:211
+#: ../iw/network_gui.py:210
 #, python-format
 msgid "Edit Interface %s"
 msgstr "عدّل الواجهة %s"
 
-#: ../iw/network_gui.py:222
+#: ../iw/network_gui.py:221
 msgid "Configure using _DHCP"
 msgstr "هيّئ با_ستخدام DHCP"
 
-#: ../iw/network_gui.py:228
+#: ../iw/network_gui.py:227
 msgid "_Activate on boot"
 msgstr "_نشّط عند الإقلاع"
 
-#: ../iw/network_gui.py:237
+#: ../iw/network_gui.py:236
 msgid "_IP Address"
 msgstr "_عنوان IP"
 
-#: ../iw/network_gui.py:238
+#: ../iw/network_gui.py:237
 msgid "Net_mask"
 msgstr "قناع ال_شّبكة"
 
-#: ../iw/network_gui.py:243
+#: ../iw/network_gui.py:242
 msgid "_Point to Point (IP)"
 msgstr "_نقطة إلى نقطة (IP)"
 
-#: ../iw/network_gui.py:247
+#: ../iw/network_gui.py:246
 msgid "_ESSID"
 msgstr "_ESSID"
 
-#: ../iw/network_gui.py:248
+#: ../iw/network_gui.py:247
 msgid "Encryption _Key"
 msgstr "مفتاح _التّرميز"
 
-#: ../iw/network_gui.py:259
+#: ../iw/network_gui.py:258
 msgid "Hardware address:"
 msgstr "عنوان الجهاز:"
 
-#: ../iw/network_gui.py:298
+#: ../iw/network_gui.py:297
 #, python-format
 msgid "Configure %s"
 msgstr "هيّئ %s"
 
-#: ../iw/network_gui.py:472
+#: ../iw/network_gui.py:471
 msgid "Active on Boot"
 msgstr "نشط عند الإقلاع"
 
-#: ../iw/network_gui.py:474 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:473 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
-#: ../textw/bootloader_text.py:264 ../textw/mouse_text.py:38
-#: ../textw/partition_text.py:1438
+#: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
+#: ../textw/partition_text.py:1437
 msgid "Device"
 msgstr "جهاز"
 
-#: ../iw/network_gui.py:476
+#: ../iw/network_gui.py:475
 msgid "IP/Netmask"
 msgstr "IP/قناع الشّبكة"
 
-#: ../iw/network_gui.py:538
+#: ../iw/network_gui.py:537
 msgid "Network Devices"
 msgstr "أجهزة الشّبكة"
 
-#: ../iw/network_gui.py:549
+#: ../iw/network_gui.py:548
 msgid "Set the hostname:"
 msgstr "حدّد اسم المضيف:"
 
-#: ../iw/network_gui.py:554
+#: ../iw/network_gui.py:553
 msgid "_automatically via DHCP"
 msgstr "آ_ليّاً عبر DHCP"
 
-#: ../iw/network_gui.py:561
+#: ../iw/network_gui.py:560
 msgid "_manually"
 msgstr "_يديويّاً"
 
-#: ../iw/network_gui.py:565
+#: ../iw/network_gui.py:564
 msgid "(ex. \"host.domain.com\")"
 msgstr "(مثال. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:571 ../loader2/net.c:817
+#: ../iw/network_gui.py:570 ../loader2/net.c:837
 msgid "Hostname"
 msgstr "اسم المضيف"
 
-#: ../iw/network_gui.py:619
+#: ../iw/network_gui.py:618
 msgid "Miscellaneous Settings"
 msgstr "إعدادات متفرّقة"
 
@@ -3301,7 +3442,7 @@ msgstr ""
 "تلقائيّاً، اضغط 'أضف'. كي تغيّر نظام التّشغيل المُقلع بشكل افتراضي، اختر "
 "'افتراضي' إلى جنب نظام التّشغيل المطلوب."
 
-#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:264
+#: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
 msgid "Default"
 msgstr "افتراضي"
 
@@ -3353,11 +3494,11 @@ msgstr "جهاز متكرّر"
 msgid "This device is already being used for another boot entry."
 msgstr "هذا الجهاز مستخدم مسبقاً من قبل مُدخل إقلاع آخر."
 
-#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:353
+#: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
 msgstr "لا يمكن الحذف"
 
-#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:354
+#: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3426,19 +3567,15 @@ msgstr "اسطوا_نة النّهاية:"
 msgid "Force to be a _primary partition"
 msgstr "فرض كونه قسماً أوّليّاً"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1438
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
 msgstr "النّوع"
 
-#: ../iw/partition_gui.py:368
-msgid "Format"
-msgstr "تنسيق"
-
-#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1438
+#: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
 msgid "Start"
 msgstr "بداية"
 
-#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1438
+#: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
 msgid "End"
 msgstr "نهاية"
 
@@ -3458,106 +3595,106 @@ msgstr ""
 "الحجم\n"
 "(ميجابايت)"
 
-#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1432
+#: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
 msgid "Partitioning"
 msgstr "التّجزئة"
 
-#: ../iw/partition_gui.py:634
+#: ../iw/partition_gui.py:633
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr "توجد الأخطاء الحرجة التّالية بخريطة التّجزئة التي طلبتها."
 
-#: ../iw/partition_gui.py:637
+#: ../iw/partition_gui.py:636
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr "يجب تصحيح هذه الأخطاء قبل الاستمرار بتثبيت %s."
 
-#: ../iw/partition_gui.py:643
+#: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
 msgstr "أخطاء التّجزئة"
 
-#: ../iw/partition_gui.py:649
+#: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
 msgstr "توجد التّحذيرات التّالية بخريطة التّجزئة التي طلبتها."
 
-#: ../iw/partition_gui.py:651
+#: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "هل تودّ الاستمرار بخريطة التّجزئة التي طلبتها؟"
 
-#: ../iw/partition_gui.py:656
+#: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
 msgstr "تحذيرات التّجزئة"
 
-#: ../iw/partition_gui.py:678
+#: ../iw/partition_gui.py:677
 msgid "Format Warnings"
 msgstr "تحذيرات التّنسيق"
 
-#: ../iw/partition_gui.py:683
+#: ../iw/partition_gui.py:682
 msgid "_Format"
 msgstr "_تنسيق"
 
-#: ../iw/partition_gui.py:718
+#: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
 msgstr "مجموعات كتل LVM"
 
-#: ../iw/partition_gui.py:753
+#: ../iw/partition_gui.py:752
 msgid "RAID Devices"
 msgstr "أجهزة RAID"
 
-#: ../iw/partition_gui.py:781 ../iw/partition_gui.py:907
+#: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
 msgid "None"
 msgstr "لاشيء"
 
-#: ../iw/partition_gui.py:799 ../loader2/hdinstall.c:327
+#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:327
 msgid "Hard Drives"
 msgstr "الأقراص الصّلبة"
 
-#: ../iw/partition_gui.py:870 ../textw/partition_text.py:141
+#: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
 msgid "Free space"
 msgstr "المساحة الفارغة"
 
-#: ../iw/partition_gui.py:872 ../textw/partition_text.py:143
+#: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
 msgid "Extended"
 msgstr "مُمتد"
 
-#: ../iw/partition_gui.py:874 ../textw/partition_text.py:145
+#: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
 msgid "software RAID"
 msgstr "RAID برمجي"
 
-#: ../iw/partition_gui.py:909
+#: ../iw/partition_gui.py:908
 msgid "Free"
 msgstr "فارغ"
 
-#: ../iw/partition_gui.py:999 ../textw/partition_text.py:228
+#: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "لم يمكن تعيين التّجزيءات المطلوبة: %s."
 
-#: ../iw/partition_gui.py:1008
+#: ../iw/partition_gui.py:1007
 #, python-format
 msgid "Warning: %s."
 msgstr "تحذير: %s."
 
-#: ../iw/partition_gui.py:1192 ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
 msgstr "غير مدعوم"
 
-#: ../iw/partition_gui.py:1193
+#: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM غير مدعوم على هذه البُنية"
 
-#: ../iw/partition_gui.py:1207
+#: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
 msgstr "RAID البرمجي غير مدعوم على هذه البُنية."
 
-#: ../iw/partition_gui.py:1214
+#: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
 msgstr "ليس هناك أرقام صُغرى لجهاز RAID متوفّرة"
 
-#: ../iw/partition_gui.py:1215
+#: ../iw/partition_gui.py:1214
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -3565,11 +3702,11 @@ msgstr ""
 "لا يمكن إنشاء جهاز RAID برمجي لأنّ كلّ الأرقام المتوفّرةالصّغرى لجهاز RAID تمّ "
 "استخدامها."
 
-#: ../iw/partition_gui.py:1229
+#: ../iw/partition_gui.py:1228
 msgid "RAID Options"
 msgstr "خيارات RAID"
 
-#: ../iw/partition_gui.py:1240
+#: ../iw/partition_gui.py:1239
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3587,7 +3724,7 @@ msgstr ""
 "لديك حاليّاً %s تقسيمات RAID برمجيّة قابلة للاستخدام.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1251
+#: ../iw/partition_gui.py:1250
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3598,49 +3735,49 @@ msgstr ""
 "إنشاء جهاز RAID والذي يمكن تنسيقه و تجهيزه.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1257
+#: ../iw/partition_gui.py:1256
 msgid "What do you want to do now?"
 msgstr "ما الذي تريد فعله الآن؟"
 
-#: ../iw/partition_gui.py:1266
+#: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
 msgstr "أنشئ _قسم RAID برمجي."
 
-#: ../iw/partition_gui.py:1269
+#: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "إنشاء جهاز RAID [المفترض=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1273
+#: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "استنساخ قرص لإنشاء جهاز RAID [المفترض=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1312
+#: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "لم يمكن إنشاء مُحرّر استنساخ القرص"
 
-#: ../iw/partition_gui.py:1313
+#: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
 msgstr "مُحرّر استنساخ القرص لم يمكن إنشاءه لسبب ما."
 
-#: ../iw/partition_gui.py:1357
+#: ../iw/partition_gui.py:1356
 msgid "Ne_w"
 msgstr "ج_ديد"
 
-#: ../iw/partition_gui.py:1360
+#: ../iw/partition_gui.py:1359
 msgid "Re_set"
 msgstr "ا_عادة للأصل"
 
-#: ../iw/partition_gui.py:1361
+#: ../iw/partition_gui.py:1360
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1362
+#: ../iw/partition_gui.py:1361
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1403
+#: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "إخفاء أعضاء جهاز RAID/_مجموعة كتل LVM"
 
@@ -3684,62 +3821,62 @@ msgstr ""
 msgid "Disk Partitioning Setup"
 msgstr "إعداد تجزئة القرص"
 
-#: ../iw/partmethod_gui.py:53
+#: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
 msgstr "نسّق _تلقائيّاً"
 
-#: ../iw/partmethod_gui.py:56
+#: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
 msgstr "نسّق يدويّاً _باستخدام Disk Druid"
 
-#: ../iw/progress_gui.py:42
+#: ../iw/progress_gui.py:43
 #, python-format
 msgid "%s MB"
 msgstr "%s ميجابايت"
 
-#: ../iw/progress_gui.py:45
+#: ../iw/progress_gui.py:46
 #, python-format
 msgid "%s KB"
 msgstr "%s كيلوبايت"
 
-#: ../iw/progress_gui.py:48
+#: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Byte"
 msgstr "%s بايت"
 
-#: ../iw/progress_gui.py:50
+#: ../iw/progress_gui.py:51
 #, python-format
 msgid "%s Bytes"
 msgstr "%s بايت"
 
-#: ../iw/progress_gui.py:54
+#: ../iw/progress_gui.py:55
 msgid "Installing Packages"
 msgstr "جاري تثبيت الحزم"
 
-#: ../iw/progress_gui.py:168
+#: ../iw/progress_gui.py:166
 #, python-format
 msgid "Remaining time: %s minutes"
 msgstr "الوقت المتبقّي: %s دقيقة"
 
-#: ../iw/progress_gui.py:184
+#: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
 msgstr "جاري تنزيل %s"
 
-#: ../iw/progress_gui.py:224
+#: ../iw/progress_gui.py:222
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
 msgstr "جاري تثبيت %s-%s-%s.%s (%s)"
 
-#: ../iw/progress_gui.py:348
+#: ../iw/progress_gui.py:346
 msgid "Package"
 msgstr "حزمة"
 
-#: ../iw/progress_gui.py:349
+#: ../iw/progress_gui.py:347
 msgid "Summary"
 msgstr "المُلخّص"
 
-#: ../iw/progress_gui.py:378 ../textw/progress_text.py:135
+#: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
 msgid "Status: "
 msgstr "الوضع: "
 
@@ -3943,15 +4080,19 @@ msgstr "الأقراص المستهدفة:"
 msgid "Drives"
 msgstr "سوّاقات"
 
-#: ../iw/release_notes_viewer_gui.py:187
+#: ../iw/release_notes.py:153
+msgid "Release notes are missing.\n"
+msgstr "ملاحظات الإصدارة مفقودة.\n"
+
+#: ../iw/release_notes.py:212
 msgid "Release Notes"
 msgstr "ملاحظات الإصدار"
 
-#: ../iw/release_notes_viewer_gui.py:191
+#: ../iw/release_notes.py:216
 msgid "Unable to load file!"
 msgstr "لم يمكن تحميل الملف!"
 
-#: ../iw/timezone_gui.py:59 ../textw/timezone_text.py:97
+#: ../iw/timezone_gui.py:60 ../textw/timezone_text.py:90
 msgid "Time Zone Selection"
 msgstr "اختيار المنطقة الزّمنيّة"
 
@@ -3959,35 +4100,35 @@ msgstr "اختيار المنطقة الزّمنيّة"
 msgid "Upgrade Boot Loader Configuration"
 msgstr "_طوّر تهيئة مُحمّل الإقلاع"
 
-#: ../iw/upgrade_bootloader_gui.py:68
+#: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
 msgstr "طوّر تهيئة مُحمّل الإقلاع"
 
-#: ../iw/upgrade_bootloader_gui.py:69
+#: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
 msgstr "سوف يُطوّر هذا محمّل الإقلاع الحاليّ."
 
-#: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
+#: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr "اكتشف المُثبّت مُحمّل الإقلاع %s المثبّت حاليّاً على %s."
 
-#: ../iw/upgrade_bootloader_gui.py:76
+#: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
 msgstr "هذا هو الخيار المستحسن."
 
-#: ../iw/upgrade_bootloader_gui.py:80 ../textw/upgrade_bootloader_text.py:57
+#: ../iw/upgrade_bootloader_gui.py:78 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr "المُثبّت غير قادر على اكتشاف محمّل الإقلاع المستخدم حاليّاً على نظامك."
 
-#: ../iw/upgrade_bootloader_gui.py:89
+#: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
 msgstr "أ_نشئ تهيئة محمّل إقلاع جديدة"
 
-#: ../iw/upgrade_bootloader_gui.py:91
+#: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
@@ -3995,11 +4136,11 @@ msgstr ""
 "سوف يسمح لك هذا بإنشاء تهيئة محمّل إقلاع جديدة.  إن كنت تودّ تبديل محمّلات "
 "الإقلاع، عليك باختيار هذا."
 
-#: ../iw/upgrade_bootloader_gui.py:98
+#: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
 msgstr "_تخطَّ تحديث محمّل الإقلاع"
 
-#: ../iw/upgrade_bootloader_gui.py:99
+#: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
@@ -4007,7 +4148,7 @@ msgstr ""
 "لن يقوم هذا بأيّ تغييرات على تهيئة محمّل الإقلاع.  إن كنت تستخدم محمّل إقلاع "
 "طرف ثالث، عليك باختيار هذا."
 
-#: ../iw/upgrade_bootloader_gui.py:111
+#: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
 msgstr "ماذا تودّ أن تفعل؟"
 
@@ -4015,7 +4156,7 @@ msgstr "ماذا تودّ أن تفعل؟"
 msgid "Migrate File Systems"
 msgstr "رحّل أنظمة الملفّات"
 
-#: ../iw/upgrade_migratefs_gui.py:53 ../textw/upgrade_text.py:35
+#: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
 #, python-format
 msgid ""
 "This release of %s supports the ext3 journalling file system.  It has "
@@ -4031,11 +4172,11 @@ msgstr ""
 "\n"
 "أيّ هذه التّجزيءات تودّ ترحيلها؟"
 
-#: ../iw/upgrade_swap_gui.py:30
+#: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
 msgstr "طوّر قسم الذّاكرة البديلة"
 
-#: ../iw/upgrade_swap_gui.py:100
+#: ../iw/upgrade_swap_gui.py:89
 #, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -4047,7 +4188,7 @@ msgstr ""
 "حجم الذّاكرة المُؤقّتة (RAM) على النّظام. لديك حاليّاً %d م.ب. من الذّاكرة البديلة "
 "مُهيّئة، لكن يمكنك إنشاء مساحة إضافيّة على واحد من أنظمة ملفّاتك الآن."
 
-#: ../iw/upgrade_swap_gui.py:107
+#: ../iw/upgrade_swap_gui.py:96
 #, python-format
 msgid ""
 "\n"
@@ -4058,23 +4199,23 @@ msgstr ""
 "\n"
 "اكتشف المُثبّت %s ميجابايت من الذّاكرة المؤقّتة (RAM).\n"
 
-#: ../iw/upgrade_swap_gui.py:119
+#: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
 msgstr "أ_ريد أن أنشئ ملفّ ذاكرة بديلة"
 
-#: ../iw/upgrade_swap_gui.py:128
+#: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
 msgstr "اختر التّ_جزيء الذي تريد وضع ملفّ الذّاكرة البديلة عليه:"
 
-#: ../iw/upgrade_swap_gui.py:147 ../textw/upgrade_text.py:111
+#: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
 msgstr "قسم"
 
-#: ../iw/upgrade_swap_gui.py:147
+#: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
 msgstr "المساحة الفارغة (ميجابايت)"
 
-#: ../iw/upgrade_swap_gui.py:165
+#: ../iw/upgrade_swap_gui.py:154
 #, python-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
@@ -4083,15 +4224,15 @@ msgstr ""
 "من المستحسن أن يكون ملفّ الذّاكرة البديلة %d ميجابايت على الأقل.  رجاء أدخل "
 "حجم ملف الذّاكرة البديلة:"
 
-#: ../iw/upgrade_swap_gui.py:180
+#: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
 msgstr "_حجم ملفّ الذّاكرة البديلة (ميجابايت):"
 
-#: ../iw/upgrade_swap_gui.py:190
+#: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
 msgstr "لا أ_ريد إنشاء ملفّ ذاكرة بديلة"
 
-#: ../iw/upgrade_swap_gui.py:200
+#: ../iw/upgrade_swap_gui.py:189
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
@@ -4100,11 +4241,11 @@ msgstr ""
 "من المستحسن جدّاً أن تقوم بإنشاء ملفّ ذاكرة بديلة.  الفشل بالقيام بذلك قد يتسبّب "
 "بإجهاض المُثبّت بشكل غير طبيعيّ.  هل أنت متأكّد أنّك تريد الاستمرار؟"
 
-#: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:177
+#: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "يجب أن يكون حجم ملفّ الذّاكرة البديلة بين 1 و 2000 ميجابايت."
 
-#: ../iw/upgrade_swap_gui.py:215 ../textw/upgrade_text.py:172
+#: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr "ليس هناك مساحة كافية على الجهاز الذي اخترته لقسم الذّاكرة البديلة."
@@ -4113,38 +4254,38 @@ msgstr "ليس هناك مساحة كافية على الجهاز الذي اخ�
 msgid "ZFCP Configuration"
 msgstr "تهيئة ZFCP"
 
-#: ../iw/zfcp_gui.py:104
+#: ../iw/zfcp_gui.py:103
 msgid "_Remove"
 msgstr "_احذف"
 
-#: ../iw/zfcp_gui.py:111 ../textw/zfcp_text.py:115
+#: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
 msgstr "أجهزة FCP"
 
-#: ../iw/zfcp_gui.py:122
+#: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
 msgstr "أضف جهاز FCP"
 
-#: ../iw/zfcp_gui.py:185
+#: ../iw/zfcp_gui.py:184
 #, python-format
 msgid "Edit FCP device %s"
 msgstr "عدّل جهاز FCP %s"
 
-#: ../iw/zfcp_gui.py:249
+#: ../iw/zfcp_gui.py:248
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr "أنت على وشك حذف قرص FCP من اعدادك. هل أنت متأكد أنّك تود الاستمرار؟"
 
-#: ../iw/zipl_gui.py:32
+#: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
 msgstr "تهيئة محمّل الإقلاع z/IPL"
 
-#: ../iw/zipl_gui.py:75
+#: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
 msgstr "سوف يتمّ تثبيت محمّل الإقلاع z/IPL على نظامك."
 
-#: ../iw/zipl_gui.py:77
+#: ../iw/zipl_gui.py:54
 msgid ""
 "The z/IPL Boot Loader will now be installed on your system.\n"
 "\n"
@@ -4169,11 +4310,11 @@ msgstr ""
 "\n"
 "يمكن الآن إدخال أيّ مُعطيات إضافيّة للنّواة تتطلّبها ماكينتك أو إعدادك."
 
-#: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
+#: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
 msgstr "مُعطيات النّواة"
 
-#: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
+#: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
 msgstr "مُعطيات Chandev"
 
@@ -4227,7 +4368,7 @@ msgstr "أجْبِر استخدام LBA32 (ليس عادة مطلوباً)"
 msgid "Where do you want to install the boot loader?"
 msgstr "أين تريد أن تقوم بتثبيت محمّل الإقلاع؟"
 
-#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:264
+#: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
 msgstr "عنوان الإقلاع"
 
@@ -4251,12 +4392,12 @@ msgstr "لا يمكن أن يكون عنوان الإقلاع فارغاً."
 msgid "Boot label contains illegal characters."
 msgstr "عنوان الإقلاع يحتوي أحرف غير شرعيّة."
 
-#: ../textw/bootloader_text.py:279 ../textw/partition_text.py:1443
+#: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
 #: ../textw/zfcp_text.py:108
 msgid "Edit"
 msgstr "حرّر"
 
-#: ../textw/bootloader_text.py:283
+#: ../textw/bootloader_text.py:278
 #, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
@@ -4267,14 +4408,15 @@ msgstr ""
 "تُخبرني ما هي التّجزيءات التي تودّ أن تكون قادراً على إقلاعها وما هو العنوان "
 "الذي تريد استخدامه لكلّ منها."
 
-#: ../textw/bootloader_text.py:297
+#: ../textw/bootloader_text.py:291
+#, fuzzy
 msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <مسافة> تُحدّد الزّر | <F2> تختار مُدخل الإقلاع الافتراضي | <F12> الشّاشة "
 "التّالية>"
 
-#: ../textw/bootloader_text.py:397
+#: ../textw/bootloader_text.py:387
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4284,27 +4426,27 @@ msgstr ""
 "أمن، نستحسن وضع كلمة مرور، إلّا أن هذا ليس ضروريّاً لمعظم المستخدمين "
 "الاعتياديّين."
 
-#: ../textw/bootloader_text.py:407
+#: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
 msgstr "استخدم كلمة مرور GRUB"
 
-#: ../textw/bootloader_text.py:419
+#: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
 msgstr "كلمة مرور محمّل الإقلاع:"
 
-#: ../textw/bootloader_text.py:420
+#: ../textw/bootloader_text.py:410
 msgid "Confirm:"
 msgstr "أكّد:"
 
-#: ../textw/bootloader_text.py:449
+#: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
 msgstr "كلمات المرور غير متطابقة"
 
-#: ../textw/bootloader_text.py:454
+#: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
 msgstr "كلمة المرور قصيرة جدّاً"
 
-#: ../textw/bootloader_text.py:455
+#: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
 msgstr "كلمة مرور محمّل الإقلاع قصيرة جدّاً"
 
@@ -4384,10 +4526,10 @@ msgstr ""
 #: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
 #: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
 #: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:329 ../loader2/loader.c:922 ../loader2/loader.c:944
-#: ../loader2/net.c:233 ../loader2/net.c:271 ../loader2/net.c:542
-#: ../loader2/net.c:1084 ../loader2/nfsinstall.c:54 ../loader2/urls.c:257
-#: ../loader2/urls.c:447
+#: ../loader2/loader.c:329 ../loader2/loader.c:926 ../loader2/loader.c:948
+#: ../loader2/net.c:251 ../loader2/net.c:289 ../loader2/net.c:562
+#: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54 ../loader2/urls.c:266
+#: ../loader2/urls.c:456
 msgid "Back"
 msgstr "ارجع"
 
@@ -4420,10 +4562,6 @@ msgstr ""
 msgid "Package Group Details"
 msgstr "تفاصيل مجموعة الحزم"
 
-#: ../textw/installpath_text.py:49
-msgid "What type of system would you like to install?"
-msgstr "ما نوع النّظام الذي تودّ تثبيته؟"
-
 #: ../textw/iscsi_text.py:35
 #, fuzzy
 msgid "Target IP address:"
@@ -4438,11 +4576,11 @@ msgstr "أو استخدم:"
 msgid "iSCSI Initiator Name:"
 msgstr ""
 
-#: ../textw/iscsi_text.py:70 ../textw/network_text.py:28
+#: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
 msgid "Invalid IP string"
 msgstr "عنوان IP غير صالح"
 
-#: ../textw/iscsi_text.py:71 ../textw/network_text.py:29
+#: ../textw/iscsi_text.py:71 ../textw/network_text.py:30
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
 msgstr "عنوان IP المُدخل '%s' هو غير صالح."
@@ -4471,95 +4609,95 @@ msgstr "مُحاكاة 3 أزرار؟"
 msgid "Mouse Selection"
 msgstr "اختيار الماوس"
 
-#: ../textw/network_text.py:66
+#: ../textw/network_text.py:67
 msgid "IP Address"
 msgstr "عنوان IP"
 
-#: ../textw/network_text.py:67
+#: ../textw/network_text.py:68
 msgid "Netmask"
 msgstr "قناع الشّبكة"
 
-#: ../textw/network_text.py:69
+#: ../textw/network_text.py:70
 msgid "Point to Point (IP)"
 msgstr "نقطة إلى نقطة (IP)"
 
-#: ../textw/network_text.py:73 ../loader2/net.c:228
+#: ../textw/network_text.py:74 ../loader2/net.c:246
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:74 ../loader2/net.c:229
+#: ../textw/network_text.py:75 ../loader2/net.c:247
 msgid "Encryption Key"
 msgstr "مفتاح التّرميز"
 
-#: ../textw/network_text.py:86
+#: ../textw/network_text.py:87
 #, python-format
 msgid "Network Device: %s"
 msgstr "جهاز الشّبكة: %s"
 
-#: ../textw/network_text.py:92
+#: ../textw/network_text.py:93
 #, python-format
 msgid "Description: %s"
 msgstr "الوصف: %s"
 
-#: ../textw/network_text.py:96
+#: ../textw/network_text.py:97
 #, python-format
 msgid "Hardware Address: %s"
 msgstr "عنوان الجهاز: %s"
 
-#: ../textw/network_text.py:101
+#: ../textw/network_text.py:102
 msgid "Configure using DHCP"
 msgstr "هيّء باستخدام بروتوكول تهيئة المُضيف الدّيناميكيّة (DHCP)"
 
-#: ../textw/network_text.py:114
+#: ../textw/network_text.py:115
 msgid "Activate on boot"
 msgstr "نشّط عند الإقلاع"
 
-#: ../textw/network_text.py:140
+#: ../textw/network_text.py:141
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "تهيئة الشّبكة لـ%s"
 
-#: ../textw/network_text.py:173
+#: ../textw/network_text.py:174
 msgid "Invalid information"
 msgstr "معلومات غير صالحة"
 
-#: ../textw/network_text.py:174
+#: ../textw/network_text.py:175
 msgid "You must enter valid IP information to continue"
 msgstr "يجب أن تُدخل معلومات IP صالحة كي تستمر"
 
-#: ../textw/network_text.py:258
+#: ../textw/network_text.py:259
 msgid "Gateway:"
 msgstr "البوّابة:"
 
-#: ../textw/network_text.py:268
+#: ../textw/network_text.py:269
 msgid "Primary DNS:"
 msgstr "DNS الأوّلي:"
 
-#: ../textw/network_text.py:273
+#: ../textw/network_text.py:274
 msgid "Secondary DNS:"
 msgstr "DNS الثّانوي:"
 
-#: ../textw/network_text.py:278
+#: ../textw/network_text.py:279
 msgid "Tertiary DNS:"
 msgstr "DNS إضافي:"
 
-#: ../textw/network_text.py:285
+#: ../textw/network_text.py:286
 msgid "Miscellaneous Network Settings"
 msgstr "إعدادت الشّبكة المُتفرّقة"
 
-#: ../textw/network_text.py:353
+#: ../textw/network_text.py:354
 msgid "automatically via DHCP"
 msgstr "آليّاً من خلال بروتوكول تهيئة المُضيف الدّيناميكيّة (DHCP)"
 
-#: ../textw/network_text.py:357
+#: ../textw/network_text.py:358
 msgid "manually"
 msgstr "يدويّاً"
 
-#: ../textw/network_text.py:376
+#: ../textw/network_text.py:377
 msgid "Hostname Configuration"
 msgstr "تهيئة اسم المضيف"
 
-#: ../textw/network_text.py:379
+#: ../textw/network_text.py:380
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4570,11 +4708,11 @@ msgstr ""
 "المُضيف الدّيناميكيّة (DHCP)، اختر تلقائيّاً عبر DHCP. وإلا، اختر يدويّاً وأدخل اسم "
 "مضيف لنظامك. إن لم تقم بذلك، فسوف يكون نظامك معروفاً بإسم 'localhost.'"
 
-#: ../textw/network_text.py:405 ../textw/network_text.py:411
+#: ../textw/network_text.py:406 ../textw/network_text.py:412
 msgid "Invalid Hostname"
 msgstr "اسم مضيف غير صالح"
 
-#: ../textw/network_text.py:406
+#: ../textw/network_text.py:407
 msgid "You have not specified a hostname."
 msgstr "لم تقم بتحديد اسم مضيف."
 
@@ -4807,55 +4945,55 @@ msgstr "قسم"
 msgid "logical volume"
 msgstr "كتلة منطقيّة"
 
-#: ../textw/partition_text.py:1442
+#: ../textw/partition_text.py:1441
 msgid "New"
 msgstr "جديد"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1443
 msgid "Delete"
 msgstr "احذف"
 
-#: ../textw/partition_text.py:1445
+#: ../textw/partition_text.py:1444
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1448
+#: ../textw/partition_text.py:1447
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-مساعدة     F2-جديد      F3-عدّل   F4-احذف    F5-أعد للأصل    F12-"
 "موافق        "
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1476
 msgid "No Root Partition"
 msgstr "لا قسم جذري"
 
-#: ../textw/partition_text.py:1478
+#: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
 msgstr "يجب أن يكون لديك قسم / تُثبّت عليه."
 
-#: ../textw/partition_text.py:1517
+#: ../textw/partition_text.py:1516
 #, fuzzy
 msgid "Partitioning Type"
 msgstr "نوع الجزء"
 
-#: ../textw/partition_text.py:1519 tmp/autopart.glade.h:1
+#: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
 
-#: ../textw/partition_text.py:1544
+#: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "أيّ الأقراص تريد أن تستخدمها لهذا التّثبيت؟"
 
-#: ../textw/partition_text.py:1602
+#: ../textw/partition_text.py:1601
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
 
-#: ../textw/partition_text.py:1603
+#: ../textw/partition_text.py:1602
 #, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
@@ -4930,11 +5068,11 @@ msgstr ""
 msgid "Customize software selection"
 msgstr "خصّص خيارات البرامج"
 
-#: ../textw/timezone_text.py:79
+#: ../textw/timezone_text.py:72
 msgid "What time zone are you located in?"
 msgstr "ما هي المنطقة الزّمنيّة التي أنت فيها؟"
 
-#: ../textw/timezone_text.py:94
+#: ../textw/timezone_text.py:87
 msgid "System clock uses UTC"
 msgstr "ساعة النّظام موافقة لتوقيت UTC"
 
@@ -4951,7 +5089,7 @@ msgstr "تخطّ تحديث مُحمّل الإقلاع"
 msgid "Create new boot loader configuration"
 msgstr "أنشئ تهيئة جديدة لمُحمّل الإقلاع "
 
-#: ../textw/upgrade_text.py:93
+#: ../textw/upgrade_text.py:91
 #, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -4963,39 +5101,39 @@ msgstr ""
 "حجم الذّاكرة المُؤقّتة (RAM) على النّظام. لديك حاليّاً %d م.ب. من الذّاكرة البديلة "
 "مُهيّئة، لكن يمكنك إنشاء مساحة إضافيّة على واحد من أنظمة ملفّاتك الآن."
 
-#: ../textw/upgrade_text.py:111
+#: ../textw/upgrade_text.py:109
 msgid "Free Space"
 msgstr "المساحة الفارغة"
 
-#: ../textw/upgrade_text.py:126
+#: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
 msgstr "الذّاكرة المؤقّتة (RAM) المُكتشفة (ميجابايت):"
 
-#: ../textw/upgrade_text.py:129
+#: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
 msgstr "الحجم المُقترح (ميجابايت):"
 
-#: ../textw/upgrade_text.py:132
+#: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
 msgstr "حجم ملف الذّاكرة البديلة (ميجابايت):"
 
-#: ../textw/upgrade_text.py:140
+#: ../textw/upgrade_text.py:138
 msgid "Add Swap"
 msgstr "أضف ذاكرة بديلة"
 
-#: ../textw/upgrade_text.py:165
+#: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
 msgstr "القيمة التي أدخلتها هي رقم غير صالح."
 
-#: ../textw/upgrade_text.py:198
+#: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
 msgstr "أعد تثبيت النّظام"
 
-#: ../textw/upgrade_text.py:207
+#: ../textw/upgrade_text.py:205
 msgid "System to Upgrade"
 msgstr "النّظام المطلوب تثبيته"
 
-#: ../textw/upgrade_text.py:208
+#: ../textw/upgrade_text.py:206
 msgid ""
 "One or more existing Linux installations have been found on your system.\n"
 "\n"
@@ -5005,19 +5143,6 @@ msgstr ""
 "تمّ العثور على واحد أو أكثر من تثبيتات لينكس على نظامك.\n"
 "\n"
 "رجاء اختر واحداً لتطويره، أو اختر 'إعادة تثبيت النّظام' لتثبيت جديد لنظامك."
-
-#: ../textw/upgrade_text.py:245
-msgid "Customize Packages to Upgrade"
-msgstr "خصّص الحزم المطلوب تطويرها"
-
-#: ../textw/upgrade_text.py:246
-msgid ""
-"The packages you have installed, and any other packages which are needed to "
-"satisfy their dependencies, have been selected for installation. Would you "
-"like to customize the set of packages that will be upgraded?"
-msgstr ""
-"الحزم التي قمت بتثبيتها ويّ حزم أخرى تحتاجها كي تُرضي مُعتمداتها، قد تمّ "
-"اختيارها للتّثبيت. هل تودّ تخصيص مجموعة الحزم التي سيتمّ تطويرها؟"
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
@@ -5061,7 +5186,7 @@ msgstr "أضف"
 msgid "Remove"
 msgstr "احذف"
 
-#: ../textw/zipl_text.py:24
+#: ../textw/zipl_text.py:26
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
@@ -5070,11 +5195,11 @@ msgstr ""
 "سوف يتمّ تثبيت محمّل الإقلاع z/IPL على نظامك بعد اكتمال التّثبيت. يمكنك الآن "
 "إدخال أيّ معطيات للنّواة أو chandev قد تتطلبّها ماكينتك أو إعدادك."
 
-#: ../textw/zipl_text.py:56
+#: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
 msgstr "تهيئة z/IPL"
 
-#: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
+#: ../textw/zipl_text.py:66 ../textw/zipl_text.py:70
 msgid "Chandev line "
 msgstr "سطر Chandev "
 
@@ -5107,10 +5232,6 @@ msgstr ""
 #, fuzzy
 msgid "Web server"
 msgstr "خادم النّطاق"
-
-#: ../installclasses/fedora.py:23
-msgid "Virtualization (Xen)"
-msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5390,8 +5511,8 @@ msgstr "هل تودّ تحميل أيّة أقراص برامج تعريف إض�
 #: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
 #: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
 #: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:409 ../loader2/modules.c:972 ../loader2/net.c:904
-#: ../loader2/net.c:927 ../loader2/nfsinstall.c:259
+#: ../loader2/kickstart.c:409 ../loader2/modules.c:964 ../loader2/net.c:925
+#: ../loader2/net.c:948 ../loader2/nfsinstall.c:262
 #: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
 #: ../loader2/urlinstall.c:470
 msgid "Kickstart Error"
@@ -5463,7 +5584,7 @@ msgid "Loading %s driver..."
 msgstr "جاري تحميل برنامج تعريف %s..."
 
 #: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
-#: ../loader2/nfsinstall.c:205 ../loader2/urlinstall.c:153
+#: ../loader2/nfsinstall.c:207 ../loader2/urlinstall.c:153
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5552,17 +5673,17 @@ msgstr "لا يمكن العثور على kd.cfg على القرص المرن."
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "مُعطى الأمر  لطريقة القرص الصّلب kickstart لا يصلح %s: %s"
 
-#: ../loader2/lang.c:53
+#: ../loader2/lang.c:51
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "أهلاً بكم إلى %s - نظام الإنقاذ"
 
-#: ../loader2/lang.c:54 ../loader2/loader.c:151
+#: ../loader2/lang.c:52 ../loader2/loader.c:151
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> بين العناصر  | <Space> يحدّد | <F12> الشّاشة التّالية "
 
-#: ../loader2/lang.c:377
+#: ../loader2/lang.c:361
 msgid "Choose a Language"
 msgstr "اختر لغة"
 
@@ -5618,40 +5739,40 @@ msgstr ""
 "يم يعثر على أيّة أقراص صلبة.  ربّما عليك اختيار برنامج تعريف الجهازيدويّاً كي "
 "ينجح هذا التّثبيت.  هل تودّ اختيار برامج التّعريف الآن؟"
 
-#: ../loader2/loader.c:756
+#: ../loader2/loader.c:757
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ليس لديك ذاكرة كافية كي تثبّت %s على هذه الماكينة."
 
-#: ../loader2/loader.c:914
+#: ../loader2/loader.c:918
 msgid "Rescue Method"
 msgstr "طريقة الإنقاذ"
 
-#: ../loader2/loader.c:915
+#: ../loader2/loader.c:919
 msgid "Installation Method"
 msgstr "طريقة التّثبيت"
 
-#: ../loader2/loader.c:917
+#: ../loader2/loader.c:921
 msgid "What type of media contains the rescue image?"
 msgstr "ما نوع الوسط الذي يحتوي صورة الإنقاذ؟"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:923
 msgid "What type of media contains the packages to be installed?"
 msgstr "ما نوع الوسط الذي يحتوي الحزم لتثبيتها؟"
 
-#: ../loader2/loader.c:943
+#: ../loader2/loader.c:947
 msgid "No driver found"
 msgstr "لم يُعثر على أيّ برنامج تعريف"
 
-#: ../loader2/loader.c:943
+#: ../loader2/loader.c:947
 msgid "Select driver"
 msgstr "اختر برنامج تعريف"
 
-#: ../loader2/loader.c:944
+#: ../loader2/loader.c:948
 msgid "Use a driver disk"
 msgstr "اسم قرص برنامج تعريف"
 
-#: ../loader2/loader.c:945
+#: ../loader2/loader.c:949
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5659,39 +5780,39 @@ msgstr ""
 "لم يمكن العثور على أية أجهزة من النّوع المطلوب لنوع التّثبيت هذا.  هل تودّ "
 "اختيار برنامج التّعريف يدويّاً أو استخدام قرص برنامج تعريف؟"
 
-#: ../loader2/loader.c:1106
+#: ../loader2/loader.c:1110
 msgid "The following devices have been found on your system."
 msgstr "تمّ العثور على الأجهزة التّالية في نظامك."
 
-#: ../loader2/loader.c:1108
+#: ../loader2/loader.c:1112
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "لم يتمّ تحميل أيّ برامج تعريف لنظامك.  هل تودّ تحميل أيّها الآن؟"
 
-#: ../loader2/loader.c:1112
+#: ../loader2/loader.c:1116
 msgid "Devices"
 msgstr "الأجهزة"
 
-#: ../loader2/loader.c:1113
+#: ../loader2/loader.c:1117
 msgid "Done"
 msgstr "تمّ"
 
-#: ../loader2/loader.c:1114
+#: ../loader2/loader.c:1118
 msgid "Add Device"
 msgstr "أضف جهازاً"
 
-#: ../loader2/loader.c:1254
+#: ../loader2/loader.c:1258
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "تمّ تشغيل المُحمّل مسبّقاً. يجري بدأ الصّدفة.\n"
 
-#: ../loader2/loader.c:1618
+#: ../loader2/loader.c:1622
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "جاري تشغيل anaconda، وضع الإنقاذ لـ%s  - الرّجاء الانتظار...\n"
 
-#: ../loader2/loader.c:1620
+#: ../loader2/loader.c:1624
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "جاري تشغيل anaconda، مُثبّت نظام %s - الرّجاء الانتظار...\n"
@@ -5800,12 +5921,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "فحص Checksum"
 
-#: ../loader2/modules.c:973
+#: ../loader2/modules.c:965
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "مُعطى الأمر %s لا يصلح لطريق جهاز kickstart:%s"
 
-#: ../loader2/net.c:48
+#: ../loader2/net.c:50
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -5820,7 +5941,7 @@ msgstr ""
 "    o الدّليل على ذلك الخادم الذي يحتوي\n"
 "      %s لبناء نظامك\n"
 
-#: ../loader2/net.c:222
+#: ../loader2/net.c:240
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -5831,19 +5952,19 @@ msgstr ""
 "بشبكتك اللّاسلكية. في حالة عدم الحاجة إلى مفتاح، أترك هذا الحقل فارغا و "
 "سيواصل التّثبيت."
 
-#: ../loader2/net.c:232
+#: ../loader2/net.c:250
 msgid "Wireless Settings"
 msgstr "إعدادات اللّاسلكي"
 
-#: ../loader2/net.c:261
+#: ../loader2/net.c:279
 msgid "Nameserver IP"
 msgstr "عنوان IP لخادم النّطاق"
 
-#: ../loader2/net.c:265
+#: ../loader2/net.c:283
 msgid "Nameserver"
 msgstr "خادم النّطاق"
 
-#: ../loader2/net.c:266
+#: ../loader2/net.c:284
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -5854,24 +5975,24 @@ msgstr ""
 "إن كنت تعرف ما هو اسم خادم الاسم، رجاء أدخله الآن. إن لم تكن لديك هذه "
 "المعلومات، يمكنك ترك هذا الحقل فارغاً وسوف يستمرّ التّثبيت."
 
-#: ../loader2/net.c:276
+#: ../loader2/net.c:294
 msgid "Invalid IP Information"
 msgstr "معلومات IP غير صالحة"
 
-#: ../loader2/net.c:277
+#: ../loader2/net.c:295
 msgid "You entered an invalid IP address."
 msgstr "لقد أدخلت عنوان IP غير صالح."
 
-#: ../loader2/net.c:346 ../loader2/net.c:602
+#: ../loader2/net.c:364 ../loader2/net.c:622
 msgid "Dynamic IP"
 msgstr "IP ديناميكي"
 
-#: ../loader2/net.c:347 ../loader2/net.c:603
+#: ../loader2/net.c:365 ../loader2/net.c:623
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "جاري إرسال طلب معلومات IP من أجل %s..."
 
-#: ../loader2/net.c:486
+#: ../loader2/net.c:506
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -5879,57 +6000,57 @@ msgstr ""
 "رجاءً أدخل تهيئة IP لهذا الجهاز. كلّ عنصر يجب أن يُدخل على شكل عنوان IP بأرقام "
 "عشريّة تفصلها نقاط (مثلاً، 1.2.3.4)."
 
-#: ../loader2/net.c:492
+#: ../loader2/net.c:512
 msgid "IP address:"
 msgstr "عنوان IP:"
 
-#: ../loader2/net.c:495
+#: ../loader2/net.c:515
 msgid "Netmask:"
 msgstr "قناع الشّبكة:"
 
-#: ../loader2/net.c:498
+#: ../loader2/net.c:518
 msgid "Default gateway (IP):"
 msgstr "البوّابة الافتراضيّة (IP):"
 
-#: ../loader2/net.c:501
+#: ../loader2/net.c:521
 msgid "Primary nameserver:"
 msgstr "خادم النّطاق الأوّلي:"
 
-#: ../loader2/net.c:528
+#: ../loader2/net.c:548
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "استخدام تهيئة IP الديناميكيّة (BOOTP/DHCP)"
 
-#: ../loader2/net.c:556
+#: ../loader2/net.c:576
 msgid "Configure TCP/IP"
 msgstr "هيّئ TCP/IP"
 
-#: ../loader2/net.c:593
+#: ../loader2/net.c:613
 msgid "Missing Information"
 msgstr "معلومات مفقودة"
 
-#: ../loader2/net.c:594
+#: ../loader2/net.c:614
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "يجب أن تدخل كلّاً من عنوان IP صالح وقناع شبكة."
 
-#: ../loader2/net.c:818
+#: ../loader2/net.c:838
 msgid "Determining host name and domain..."
 msgstr "جاري إقرار اسم المضيف والمجال..."
 
-#: ../loader2/net.c:905
+#: ../loader2/net.c:926
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "مُعطى سيّئ لأمر شبكة kickstart %s: %s"
 
-#: ../loader2/net.c:928
+#: ../loader2/net.c:949
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "بروتوكول إقلاع غير صالح %s حدّد في أمر الشّبكة"
 
-#: ../loader2/net.c:1080
+#: ../loader2/net.c:1105
 msgid "Networking Device"
 msgstr "جهاز التّشبيك"
 
-#: ../loader2/net.c:1081
+#: ../loader2/net.c:1106
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -5939,29 +6060,34 @@ msgstr "لديك عدّة أجهزة شبكة على هذا النّظام. من
 msgid "NFS server name:"
 msgstr "اسم خادم NFS:"
 
-#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:288
+#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:297
 #, c-format
 msgid "%s directory:"
 msgstr "دليل %s:"
+
+#: ../loader2/nfsinstall.c:52
+#, fuzzy
+msgid "NFS"
+msgstr "NIS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
 msgstr "إعداد NFS"
 
-#: ../loader2/nfsinstall.c:126
+#: ../loader2/nfsinstall.c:128
 msgid "Hostname specified with no DNS configured"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:209
+#: ../loader2/nfsinstall.c:211
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "يبدو أن الدّليل لا يحتوي على شجرة تثبيت %s."
 
-#: ../loader2/nfsinstall.c:222
+#: ../loader2/nfsinstall.c:224
 msgid "That directory could not be mounted from the server."
 msgstr "لم يمكن تجهيز الدّليل من الخادم."
 
-#: ../loader2/nfsinstall.c:260
+#: ../loader2/nfsinstall.c:263
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "مُعطى سيّء لأمر طريقة kickstart NFS %s: %s"
@@ -6009,58 +6135,66 @@ msgstr "يجب أن تُزوّد المُعطى --url لطريقة Url kickstart
 msgid "Unknown Url method %s"
 msgstr "طريقة Url غير معروفة %s"
 
-#: ../loader2/urls.c:173
+#: ../loader2/urls.c:182
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "فشل الدّخول إلى %s: %s"
 
-#: ../loader2/urls.c:183 ../loader2/urls.c:192
+#: ../loader2/urls.c:192 ../loader2/urls.c:201
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "فشل جَلْب %s: %s"
 
-#: ../loader2/urls.c:199
+#: ../loader2/urls.c:208
 msgid "Retrieving"
 msgstr "جاري الجَلْب"
 
-#: ../loader2/urls.c:283
+#: ../loader2/urls.c:270
+msgid "FTP"
+msgstr ""
+
+#: ../loader2/urls.c:275
+msgid "Web"
+msgstr ""
+
+#: ../loader2/urls.c:292
 msgid "FTP site name:"
 msgstr "اسم موقع FTP:"
 
-#: ../loader2/urls.c:284
+#: ../loader2/urls.c:293
 msgid "Web site name:"
 msgstr "اسم موقع Web:"
 
-#: ../loader2/urls.c:303
+#: ../loader2/urls.c:312
 msgid "Use non-anonymous ftp"
 msgstr "استخدم ftp غير المجهول"
 
-#: ../loader2/urls.c:312
+#: ../loader2/urls.c:321
 msgid "FTP Setup"
 msgstr "إعداد FTP"
 
-#: ../loader2/urls.c:313
+#: ../loader2/urls.c:322
 msgid "HTTP Setup"
 msgstr "إعداد HTTP"
 
-#: ../loader2/urls.c:323
+#: ../loader2/urls.c:332
 msgid "You must enter a server name."
 msgstr "يجب عليك إدخال اسم خادم."
 
-#: ../loader2/urls.c:328
+#: ../loader2/urls.c:337
 msgid "You must enter a directory."
 msgstr "يجب عليك إدخال دليل."
 
-#: ../loader2/urls.c:333
+#: ../loader2/urls.c:342
 msgid "Unknown Host"
 msgstr "مضيف غير معروف"
 
-#: ../loader2/urls.c:334
+#: ../loader2/urls.c:343
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s ليس اسم مضيف صالح."
 
-#: ../loader2/urls.c:407
+#: ../loader2/urls.c:416
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6068,21 +6202,21 @@ msgstr ""
 "إن كنت تستخدم غير ftp المجهول، أدخل اسم الحساب وكلمة المرور التي تودّ "
 "استخدامها أدناه."
 
-#: ../loader2/urls.c:412
+#: ../loader2/urls.c:421
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "إن كنت تستخدم خادم بروكسي HTTP أدخل اسمه لاستخدامه."
 
-#: ../loader2/urls.c:434
+#: ../loader2/urls.c:443
 msgid "Account name:"
 msgstr "اسم الحساب:"
 
-#: ../loader2/urls.c:459
+#: ../loader2/urls.c:468
 msgid "Further FTP Setup"
 msgstr "إعداد تفصيلي ل FTP"
 
-#: ../loader2/urls.c:462
+#: ../loader2/urls.c:471
 msgid "Further HTTP Setup"
 msgstr "إعداد تفصيلي ل HTTP"
 
@@ -6091,49 +6225,20 @@ msgid "Loading SCSI driver"
 msgstr "جاري تحميل برنامج تعريف SCSI"
 
 #: tmp/anaconda.glade.h:1
-msgid "Hide _Help"
-msgstr "أخْفِ ال_مساعدة"
-
-#: tmp/anaconda.glade.h:2
 msgid "Reboo_t"
 msgstr "أعد ال_تّشغيل"
 
-#: tmp/anaconda.glade.h:3
-msgid "Show _Help"
-msgstr "اعرض ال_مساعدة"
-
-#: tmp/anaconda.glade.h:4
+#: tmp/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "ا_صلح العيب"
 
-#: tmp/anaconda.glade.h:5
+#: tmp/anaconda.glade.h:3
 msgid "_Next"
 msgstr "ال_تّالي"
 
-#: tmp/anaconda.glade.h:6
+#: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
 msgstr "_ملاحظات الإصدارة"
-
-#: tmp/autopart2.glade.h:1
-#, fuzzy
-msgid "How would you like to get space to partition?"
-msgstr "كيف تودّ تحضير نظام الملفّات على هذا التّجزيء؟"
-
-#: tmp/autopart2.glade.h:2
-msgid ""
-"Installing <product> requires partitioning of your hard drive.  You can "
-"either use the default partitioning layout or create your own."
-msgstr ""
-
-#: tmp/autopart2.glade.h:3
-#, fuzzy
-msgid "Select the drive(s) to use for this installation."
-msgstr "حدّد الأقراص لاستخدامها لهذا التّثبيت:"
-
-#: tmp/autopart2.glade.h:4
-#, fuzzy
-msgid "_Review and modify partitioning layout"
-msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
 
 #: tmp/autopart.glade.h:2
 #, fuzzy
@@ -6327,7 +6432,9 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "التّوقيت المركزي - كواهويلا، دورانغو، نويفو ليون، تاماليباس"
 
 #. generated from zone.tab
-msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgid ""
+"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Counties"
 msgstr ""
 
 #. generated from zone.tab
@@ -6347,6 +6454,11 @@ msgstr "التّوقيت المركزي - ميتشيغان - حدود وِسْك
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "التّوقيت المركزي - معظم المواقع"
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Central Time - North Dakota - Morton County (except Mandan area)"
+msgstr "التّوقيت المركزي - شمال داكوتا - مقاطعة أوليفر"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6888,10 +7000,6 @@ msgid "Afrikaans"
 msgstr "الأفريكانز"
 
 #. generated from lang-table
-msgid "Amharic"
-msgstr "الأمهرية"
-
-#. generated from lang-table
 msgid "Arabic"
 msgstr "العربية"
 
@@ -7058,10 +7166,6 @@ msgid "Tamil"
 msgstr "التاميلية"
 
 #. generated from lang-table
-msgid "Thai"
-msgstr "التاي"
-
-#. generated from lang-table
 msgid "Turkish"
 msgstr "التّركيّة"
 
@@ -7080,6 +7184,86 @@ msgstr "وِلْش"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "الزولو"
+
+#~ msgid "The release notes are missing."
+#~ msgstr "ملاحظات الإصدارة مفقودة."
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The following packages were available in this version but NOT upgraded:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "الحزم التّالية كانت متوفّرة في هذه النّسخة إلا أنها لم تحدّث:\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The following packages were available in this version but NOT installed:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "الحزم التّالية كانت متوفّرة في هذه النّسخة إلا أنّها لم تثبّت:\n"
+
+#~ msgid "Finding"
+#~ msgstr "جاري البحث"
+
+#~ msgid "Finding packages to upgrade..."
+#~ msgstr "جاري البحث عن الحزم المطلوب تحديثها..."
+
+#~ msgid ""
+#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
+#~ "database. Please install the errata rpm packages for your release as "
+#~ "described in the release notes and then run the upgrade procedure."
+#~ msgstr ""
+#~ "برنامج التثبيت غير قادر على تطوير الأنظمة السّابقة لقاعدة بيانات rpm "
+#~ "النّسخة 4.x. رجاء قم بتثبيت حزم rpm المُصحّحة لإصدارك كما هو مشروح في "
+#~ "ملاحظات الإصدار ثم شغّل إجراء التّطوير."
+
+#~ msgid "An error occurred when finding the packages to upgrade."
+#~ msgstr "حدث خطأ أثناء البحث عن الحزم المطلوب تحديثها."
+
+#~ msgid "Installation Type"
+#~ msgstr "نوع التثبيت"
+
+#~ msgid "What type of system would you like to install?"
+#~ msgstr "ما نوع النّظام الذي تودّ تثبيته؟"
+
+#~ msgid "Customize Packages to Upgrade"
+#~ msgstr "خصّص الحزم المطلوب تطويرها"
+
+#~ msgid ""
+#~ "The packages you have installed, and any other packages which are needed "
+#~ "to satisfy their dependencies, have been selected for installation. Would "
+#~ "you like to customize the set of packages that will be upgraded?"
+#~ msgstr ""
+#~ "الحزم التي قمت بتثبيتها ويّ حزم أخرى تحتاجها كي تُرضي مُعتمداتها، قد تمّ "
+#~ "اختيارها للتّثبيت. هل تودّ تخصيص مجموعة الحزم التي سيتمّ تطويرها؟"
+
+#~ msgid "Hide _Help"
+#~ msgstr "أخْفِ ال_مساعدة"
+
+#~ msgid "Show _Help"
+#~ msgstr "اعرض ال_مساعدة"
+
+#, fuzzy
+#~ msgid "How would you like to get space to partition?"
+#~ msgstr "كيف تودّ تحضير نظام الملفّات على هذا التّجزيء؟"
+
+#, fuzzy
+#~ msgid "Select the drive(s) to use for this installation."
+#~ msgstr "حدّد الأقراص لاستخدامها لهذا التّثبيت:"
+
+#, fuzzy
+#~ msgid "_Review and modify partitioning layout"
+#~ msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
+
+#~ msgid "Amharic"
+#~ msgstr "الأمهرية"
+
+#~ msgid "Thai"
+#~ msgstr "التاي"
 
 #~ msgid ""
 #~ "This group includes all the packages available.  Note that there are "
@@ -7174,9 +7358,6 @@ msgstr "الزولو"
 
 #~ msgid "I_gnore package dependencies"
 #~ msgstr "ت_جاهل معتمدات الحزم"
-
-#~ msgid "Package Defaults"
-#~ msgstr "افتراضيّات الحزم"
 
 #~ msgid ""
 #~ "The default installation environment includes our recommended package "
@@ -7282,10 +7463,6 @@ msgstr "الزولو"
 #~ msgid "Ignore package dependencies"
 #~ msgstr "تجاهل مُعتمدات الحزم"
 
-#, fuzzy
-#~ msgid "_Optional packages"
-#~ msgstr "الحزم الاختياريّة"
-
 #~ msgid ""
 #~ "No mouse was detected.  A mouse is required for graphical installation.  "
 #~ "Starting text mode."
@@ -7387,30 +7564,6 @@ msgstr "الزولو"
 #~ "\n"
 #~ "%s\n"
 #~ "سوف يقوم النّظام بإعادة التّشغيل الآن."
-
-#~ msgid "Missing Package"
-#~ msgstr "حزمة مفقودة"
-
-#~ msgid ""
-#~ "You have specified that the package '%s' should be installed.  This "
-#~ "package does not exist. Would you like to continue or abort your "
-#~ "installation?"
-#~ msgstr ""
-#~ "لقد حدّدت أنّ الحزمة '%s' يجب تثبيتها. هذه الحزمة غير موجودة. هل تريد "
-#~ "الاستمرار أو إجهاض التّثبيت؟"
-
-#~ msgid "_Abort"
-#~ msgstr "ا_جهض"
-
-#~ msgid "Missing Group"
-#~ msgstr "مجموعة مفقودة"
-
-#~ msgid ""
-#~ "You have specified that the group '%s' should be installed.  This group "
-#~ "does not exist. Would you like to continue or abort your installation?"
-#~ msgstr ""
-#~ "لقد حدّدت أنّ المجموعة '%s' يجب أن تُثبّت. هذه المجموعة غير موجودة. هل تودّ "
-#~ "الاستمرار أو إجهاض التثبيت؟"
 
 #~ msgid "Reading"
 #~ msgstr "جاري القراءة"
@@ -7600,9 +7753,6 @@ msgstr "الزولو"
 
 #~ msgid "SMB Work_group:"
 #~ msgstr "م_جموعة عمل SMB:"
-
-#~ msgid "NIS"
-#~ msgstr "NIS"
 
 #~ msgid "LDAP"
 #~ msgstr "LDAP"
