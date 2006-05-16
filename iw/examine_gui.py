@@ -29,7 +29,6 @@ REINSTALL_STR = "reinstall"
 class UpgradeExamineWindow (InstallWindow):		
 
     windowTitle = N_("Upgrade Examine")
-    htmlTag = "upgradeexamine"
 
     def getNext (self):
 	if self.doupgrade:

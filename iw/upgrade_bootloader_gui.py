@@ -25,7 +25,6 @@ import checkbootloader
 
 class UpgradeBootloaderWindow (InstallWindow):
     windowTitle = N_("Upgrade Boot Loader Configuration")
-    htmlTag = "bl-upgrade"
 
     def getPrev(self):
         pass

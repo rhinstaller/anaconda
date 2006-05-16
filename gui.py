@@ -848,48 +848,6 @@ class InstallInterface:
         self.icw = InstallControlWindow (self, self.dispatch, id)
         self.icw.run (self.runres)
 
-class TextViewBrowser(gtk.TextView):
-    def __init__(self):
-        self.hadj = None
-        self.vadj = None
-
-        gtk.TextView.__init__(self)
-        self.set_property('editable', False)
-        self.set_property('cursor_visible', False)
-        self.set_left_margin(10)
-        self.set_wrap_mode(gtk.WRAP_WORD)
-        self.connect('set-scroll-adjustments', self.cacheAdjustments)
-
-    def swallowFocus(self, *args):
-        self.emit_stop_by_name('focus-in-event')        
-        
-    def cacheAdjustments(self, view, hadj, vadj):
-        self.hadj = hadj
-        self.vadj = vadj
-
-    def moveCursor(self, view, step, count, extend_selection):
-        if step == gtk.MOVEMENT_DISPLAY_LINES:
-            if count == -1 and self.vadj != None:
-                self.vadj.value = max(self.vadj.value - self.vadj.step_increment,
-                                      self.vadj.lower)
-                self.vadj.value_changed()
-            elif count == 1 and self.vadj != None:
-                self.vadj.value = min(self.vadj.value + self.vadj.step_increment - 1,
-                                      self.vadj.upper - self.vadj.page_increment - 1)
-                self.vadj.value_changed()
-        elif step == gtk.MOVEMENT_PAGES:
-            if count == -1 and self.vadj != None:
-                self.vadj.value = max(self.vadj.value - self.vadj.page_increment,
-                                      self.vadj.lower)
-                self.vadj.value_changed()
-            elif count == 1 and self.vadj != None:
-                self.vadj.value = min(self.vadj.value + self.vadj.page_increment - 1,
-                                      self.vadj.upper - self.vadj.page_increment - 1)
-                self.vadj.value_changed()
-
-        self.emit_stop_by_name ('move-cursor')
-
-    
 class InstallControlWindow:
     def setLanguage (self):
 	if not self.__dict__.has_key('window'): return
@@ -952,10 +910,6 @@ class InstallControlWindow:
         #self.mainxml.get_widget("buttonBar").set_sensitive(False)
 	setCursorToNormal()
 
-    def helpClicked (self, *args):
-        self.displayHelp = not self.displayHelp
-        self.refreshHelp()
-
     def debugClicked (self, *args):
         try:
             # switch to VC1 so we can debug
@@ -972,44 +926,6 @@ class InstallControlWindow:
             isys.vtActivate (7)
         except SystemError:
             pass
-        
-    def refreshHelp(self):
-        # make sure we're refreshing the help for an actual screen
-        if self.currentWindow is None:
-            return
-
-        ics = self.currentWindow.getICS()
-
-        # This became more complicated than I'd like.  The problem is that
-        # displaying the help box and enabling the help buttons are
-        # independent of each other.  The congrats screen has no help box
-        # or button, while the progress screen has help but no buttons.
-        # So it takes a couple variables to sort all this out.
-        if ics.getHelpEnabled() and self.displayHelp:
-            if ics.getHelpButtonEnabled():
-                self.mainxml.get_widget("showHelpButton").hide()
-                self.mainxml.get_widget("hideHelpButton").show()
-                self.mainxml.get_widget("hideHelpButton").grab_focus()
-
-            self.mainxml.get_widget("help").show_all()
-            self.mainxml.get_widget("mainTable").set_homogeneous(True)
-        else:
-            if ics.getHelpButtonEnabled():
-#                self.mainxml.get_widget("showHelpButton").show()
-                self.mainxml.get_widget("hideHelpButton").hide()
-#                self.mainxml.get_widget("showHelpButton").grab_focus()
-
-            self.mainxml.get_widget("help").hide_all()
-            self.mainxml.get_widget("mainTable").set_homogeneous(False)
-        
-        buffer = htmlbuffer.HTMLBuffer()
-        buffer.feed(ics.getHTML(self.id.instLanguage.getCurrentLangSearchList()))
-        textbuffer = buffer.get_buffer()
-        self.help.set_buffer(textbuffer)
-        # scroll to the top.  Do this with a mark so it's done in the idle loop
-        iter = textbuffer.get_iter_at_offset(0)
-        mark = textbuffer.create_mark("top", iter, False)
-        self.help.scroll_to_mark(mark, 0.0, False, 0.0, 0.0)
 
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()
@@ -1087,9 +1003,6 @@ class InstallControlWindow:
             self.window.reset_rc_styles()
             self.reloadRcQueued = 0
 
-        if self.displayHelp:
-            self.refreshHelp()
-            
     def destroyCurrentWindow(self):
         children = self.installFrame.get_children ()
         if children:
@@ -1101,13 +1014,7 @@ class InstallControlWindow:
     def update (self, ics):
         self.mainxml.get_widget("backButton").set_sensitive(ics.getPrevEnabled())
         self.mainxml.get_widget("nextButton").set_sensitive(ics.getNextEnabled())
-        self.mainxml.get_widget("hideHelpButton").set_sensitive(ics.getHelpButtonEnabled())
-        self.mainxml.get_widget("showHelpButton").set_sensitive(ics.getHelpButtonEnabled())
 
-        if ics.getHelpEnabled() == False and self.displayHelp:
-            self.refreshHelp()
-        elif ics.getHelpEnabled() == True and not self.displayHelp:
-            self.refreshHelp()
         if ics.getGrabNext():
             self.mainxml.get_widget("nextButton").grab_focus()
 
@@ -1118,7 +1025,6 @@ class InstallControlWindow:
         self.id = id
         self.dispatch = dispatch
         self.handle = None
-        self.displayHelp = False
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete
@@ -1147,18 +1053,12 @@ class InstallControlWindow:
             self.mainxml.get_widget("debugButton").show_now()
         self.installFrame = self.mainxml.get_widget("installFrame")
 
-        self.help = TextViewBrowser()
-        self.mainxml.get_widget("helpView").add(self.help)
-        self.help.show_all()
-
     def connectSignals(self):
         def noop (window, event):
             return True
         sigs = { "on_nextButton_clicked": self.nextClicked,
                  "on_rebootButton_clicked": self.nextClicked,                 
                  "on_backButton_clicked": self.prevClicked,
-                 "on_hideHelpButton_clicked": self.helpClicked,
-                 "on_showHelpButton_clicked": self.helpClicked,
                  "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
                  "on_debugButton_clicked": self.debugClicked,
                  
@@ -1197,16 +1097,10 @@ class InstallControlWindow:
             
 class InstallControlState:
     def __init__ (self, cw):
-        self.searchPath = ("/mnt/source/RHupdates", "/tmp/updates",
-                           "./", "/usr/share/anaconda/")
         self.cw = cw
         self.prevEnabled = True
         self.nextEnabled = True
         self.title = _("Install Window")
-        self.html = ""
-        self.htmlFile = None
-        self.helpEnabled = True
-        self.helpButtonEnabled = True
         self.grabNext = True
 
     def setTitle (self, title):
@@ -1232,13 +1126,6 @@ class InstallControlState:
     def getNextEnabled (self):
         return self.nextEnabled
 
-    def setHelpButtonEnabled (self, value):
-        self.helpButtonEnabled = value
-        self.cw.update (self)
-
-    def getHelpButtonEnabled (self):
-        return self.helpButtonEnabled
-
     def findPixmap(self, file):
         warnings.warn("ics.findPixmap is deprecated, use gui.findPixmap instead", DeprecationWarning, stacklevel=2)
         return findPixmap(file)
@@ -1252,57 +1139,13 @@ class InstallControlState:
         return readImageFromFile(file, height, width, dither = 1)
 
     def readHTML (self, file):
-        self.htmlFile = file
+        pass
 
-    def setHTML (self, text):
-        self.html = text
-        self.cw.update (self)
-
-    def getHTML (self, langPath):
-        text = None
-        if self.htmlFile:
-            file = self.htmlFile
-
-            arch = "-%s" % (rhpl.getArch(),)
-            tags = [ "%s" % (arch,), "" ]
-
-            found = 0
-            for path in self.searchPath:
-                if found:
-                    break
-                for lang in langPath + ['C']:
-                    if found:
-                        break
-                    for tag in tags:
-                        try:
-                            text = open("%s/help/%s/s1-help-screens-%s%s.html"
-                                        % (path, lang, file, tag)).read ()
-                            found = 1
-                            break
-                        except IOError:
-                            continue
-                if text:
-                    break
-
-            if text:
-                text = text.replace("@RHL@", productName)
-                text = text.replace("@RHLVER@", productVersion)
-                return text
-
-        return self.html
-    
     def setScreenPrev (self):
         self.cw.prevClicked ()
 
     def setScreenNext (self):
         self.cw.nextClicked ()
-
-    def setHelpEnabled (self, value):
-        self.helpEnabled = value
-        self.cw.update (self)
-
-    def getHelpEnabled (self):
-        return self.helpEnabled
 
     def setGrabNext (self, value):
         self.grabNext = value

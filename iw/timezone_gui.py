@@ -59,7 +59,6 @@ class TimezoneWindow(InstallWindow):
 
         ics.setTitle(_("Time Zone Selection"))
         ics.setNextEnabled(1)
-        ics.readHTML("timezone")
 
     def custom_widget_handler(self, xml, function_name, widget_name, str1, str2,
                               int1, int2):

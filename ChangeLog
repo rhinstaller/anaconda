@@ -1,3 +1,12 @@
+2006-05-16  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py:  Removed help-related methods and variables, since help will
+	not be coming back.  Removed TextViewBrowser class since it's only
+	being used by help.
+	* iw/*.py:  Removed htmlTag variable, readHTML method calls, and
+	querying help button status.
+	* ui/anaconda.glade:  Remove help-related bits.
+
 2006-05-16  David Cantrell  <dcantrell@redhat.com>
 
 	* gui.py:  Remove PYGTK_DISABLE_THREADS environment variable.  Call

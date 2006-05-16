@@ -22,7 +22,6 @@ from gui import setupTreeViewFixupIdleHandler
 class LanguageWindow (InstallWindow):
 
     windowTitle = N_("Language Selection")
-    htmlTag = "lang"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)

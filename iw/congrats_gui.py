@@ -27,8 +27,6 @@ class CongratulationWindow (InstallWindow):
 	InstallWindow.__init__(self, ics)
 
         ics.setPrevEnabled(False)
-        ics.setHelpButtonEnabled(False)
-        ics.setHelpEnabled(False)
 
         # force buttonbar on in case release notes viewer is running
         ics.cw.mainxml.get_widget("buttonBar").set_sensitive(True)
@@ -45,8 +43,6 @@ class CongratulationWindow (InstallWindow):
 
     # CongratulationWindow tag=NA
     def getScreen (self, anaconda):
-        self.ics.setHelpEnabled (False)
-
         hbox = gtk.HBox (False, 5)
         
         pix = gui.readImageFromFile ("done.png")

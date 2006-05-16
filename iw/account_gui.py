@@ -23,7 +23,6 @@ from flags import flags
 class AccountWindow (InstallWindow):
 
     windowTitle = N_("Set Root Password")
-    htmlTag = ("accts")
 
     def getNext (self):
         def passwordError():

@@ -19,7 +19,6 @@ from rhpl.translate import _, N_
 class WelcomeWindow (InstallWindow):		
 
     windowTitle = "" #N_("Welcome")
-    htmlTag = "wel"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)

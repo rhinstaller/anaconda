@@ -28,7 +28,6 @@ from blpasswidget import BootloaderPasswordWidget
 
 class MainBootloaderWindow(InstallWindow):
     windowTitle = N_("Boot Loader Configuration")
-    htmlTag = "bootloader"
 
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)

@@ -33,7 +33,6 @@ global_option_labels = [_("_Gateway"), _("_Primary DNS"),
 class NetworkWindow(InstallWindow):		
 
     windowTitle = N_("Network Configuration")
-    htmlTag = "netconf"
 
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)

@@ -22,7 +22,6 @@ from flags import flags
 
 class MouseWindow(InstallWindow):
     windowTitle = N_("Mouse Configuration")
-    htmlTag = "mouse"
 
     def getNext(self):
         self.mouse.setMouse(self.currentMouse,self.emulate3.get_active())

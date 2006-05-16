@@ -72,7 +72,6 @@ class ConfirmWindow (InstallWindow):
         
 class InstallConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Install")
-    htmlTag = "aboutinstall"
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
@@ -87,7 +86,6 @@ class InstallConfirmWindow (ConfirmWindow):
 
 class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
-    htmlTag = "aboutupgrade"
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda

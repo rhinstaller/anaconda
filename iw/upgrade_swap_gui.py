@@ -27,7 +27,6 @@ from rhpl.translate import _, N_
 
 class UpgradeSwapWindow (InstallWindow):		
     windowTitle = N_("Upgrade Swap Partition")
-    htmlTag = "upswapfile"
 
     def getNext (self):
         #-If the user doesn't need to add swap, we don't do anything

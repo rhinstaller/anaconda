@@ -31,7 +31,6 @@ class PartitionTypeWindow(InstallWindow):
         InstallWindow.__init__(self, ics)
         ics.setTitle("Automatic Partitioning")
         ics.setNextEnabled(True)
-        ics.readHTML("autopart")
 
     def getNext(self):
         active = self.combo.get_active_iter()

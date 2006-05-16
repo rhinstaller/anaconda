@@ -541,7 +541,6 @@ class PartitionWindow(InstallWindow):
 	InstallWindow.__init__(self, ics)
         ics.setTitle(_("Partitioning"))
         ics.setNextEnabled(True)
-        ics.readHTML("partition")
         self.parent = ics.getICW().window
 
     def quit(self):

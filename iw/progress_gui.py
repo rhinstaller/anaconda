@@ -53,7 +53,6 @@ def size_string (size):
 class InstallProgressWindow (InstallWindow):
 
     windowTitle = N_("Installing Packages")
-    htmlTag = "installing"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -61,8 +60,6 @@ class InstallProgressWindow (InstallWindow):
         ics.setPrevEnabled (False)
         ics.setNextEnabled (False)
         
-        ics.setHelpButtonEnabled (False)
-
 	self.numComplete = 0
 	self.sizeComplete = 0
 	self.filesComplete = 0

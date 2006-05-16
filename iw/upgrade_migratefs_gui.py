@@ -26,7 +26,6 @@ import gtk
 
 class UpgradeMigrateFSWindow (InstallWindow):		
     windowTitle = N_("Migrate File Systems")
-    htmlTag = "upmigfs"
 
     def getNext (self):
         for entry in self.migent:

@@ -15,14 +15,10 @@ from rhpl.translate import _
 
 class InstallWindow:
 
-    htmlTag = None
     windowTitle = None
 
     def __init__ (self,ics):
         self.ics = ics
-
-	if self.htmlTag:
-	    ics.readHTML (self.htmlTag)
 
 	if self.windowTitle:
 	    ics.setTitle (_(self.windowTitle))

@@ -34,9 +34,6 @@ class PartitionMethodWindow(InstallWindow):
 	return None
 
     def getScreen (self, partitions, instclass):
-
-        self.ics.readHTML("howpartition")
-
         self.partitions = partitions
         
         box = gtk.VBox (False)

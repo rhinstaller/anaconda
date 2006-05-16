@@ -25,7 +25,6 @@ from bootlocwidget import BootloaderLocationWidget
 
 class AdvancedBootloaderWindow(InstallWindow):
     windowTitle = N_("Advanced Boot Loader Configuration")
-    htmlTag = "advbootloader"
 
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
