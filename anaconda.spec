@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.11
+Version: 11.1.0.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.12-1
+- Make mousedev loading less verbose for built-in case (#191814) 
+- Ellipsize text (roozbeh, #191844)
+- Some more threads for release notes (dcantrel)
+- Remove lots of help related stuff (clumens)
+- Handle empty drive lists better looking for usb-storage and firewire (pjones)
+- Try to make ppc64 trees installable
+- Lots of cleanup to the scripts dir.
+
 * Mon May 15 2006 Chris Lumens <clumens@redhat.com> 11.1.0.11-1
 - Fix anaconda class typos (katzj).
 - Unmount media after running post scripts (#191381).
