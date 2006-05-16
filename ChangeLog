@@ -1,6 +1,11 @@
 2006-05-16  Jeremy Katz  <katzj@redhat.com>
 
-	* scripts/mk-images: Tr
+	* scripts/mk-images.s390: Good bye dead code.
+	* scripts/mk-images.i386: Likewise.
+	* scripts/mk-images.ppc: Likewise.
+
+	* scripts/mk-images: Try to make it so that ppc64 trees can be
+	installable. 
 
 2006-05-16  Peter Jones  <pjones@redhat.com>
 

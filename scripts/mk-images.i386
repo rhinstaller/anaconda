@@ -9,15 +9,6 @@ if [ ! -f $SYSLINUX ]; then
   fi
 fi
 
-prepareBootImage() {
-        dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
-	mkdosfs -r 16 -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
-	$SYSLINUX $MBD_TMPIMAGE
-	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
-
-	prepareBootTree
-}
-
 # prepare a directory with the kernel, initrd, and various message files
 # used to populate a boot image
 prepareBootTree() {

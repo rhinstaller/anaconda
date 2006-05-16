@@ -1,8 +1,3 @@
-prepareBootImage() {
-    mkdir -p $TOPDESTPATH/images
-    mkdir -p $TOPDESTPATH/isopath
-}
-
 makeBootImages() {
     echo "Building boot images for kernel $kernelvers"
     FAKEARCH=""

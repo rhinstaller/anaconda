@@ -1,13 +1,3 @@
-prepareBootImage() {
-        dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
-	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
-
-	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
-	
-	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
-	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
-}
-
 S390SCSIMODS="zfcp tape390"
 S390DASDMODS=" dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod"
 S390NETMODS="ctc netiucv smsgiucv lcs qdio qeth ccwgroup"
