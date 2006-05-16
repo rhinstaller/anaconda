@@ -901,7 +901,7 @@ class Partitions:
                         errors.append(rc)
             if not hasattr(request,'drive'):
                 continue
-            for x in request.drive:
+            for x in request.drive or []:
                 if isys.driveUsesModule(x, ["usb-storage", "ub"]):
                     usesUSB = True
                 elif isys.driveUsesModule(x, ["sbp2"]):

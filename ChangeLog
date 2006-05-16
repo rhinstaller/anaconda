@@ -1,3 +1,8 @@
+2006-05-16  Peter Jones  <pjones@redhat.com>
+
+	* partitions.py: Handle empty drive lists better when looking for 
+	usb-storage and firewire.
+
 2006-05-16  Chris Lumens  <clumens@redhat.com>
 
 	* gui.py:  Removed help-related methods and variables, since help will
