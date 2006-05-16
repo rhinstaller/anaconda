@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-13 13:24-0500\n"
-"PO-Revision-Date: 2006-05-15 14:13+0100\n"
+"PO-Revision-Date: 2006-05-16 15:16+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -483,6 +483,9 @@ msgid ""
 "\n"
 "The manual disk partitioning tool, Disk Druid, allows you to create partitions in an interactive environment. You can set the file system types, mount points, partition sizes, and more."
 msgstr ""
+"Automatické rozdeľovanie nastaví oddiely na zvolený typ inštalácie. Oddiely môžete upraviť aj po ich vytvorení.\n"
+"\n"
+"Nástroj na ručné rozdeľovanie disku, Disk Druid, vám umožňuje vytvoriť partície v interaktívnom prostredí. Možete nastaviť typy súborových systémov, prípojné body, veľkosti oddielov a viac. "
 
 #: ../autopart.py:1705
 msgid "Before automatic partitioning can be set up by the installation program, you must choose how to use the space on your hard drives."
@@ -1310,6 +1313,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"Zariadenie %s je formátované ako LDL namiesto CDL formátu.  DASD-y formátované ako LDL nie sú podporované pre použitie počas inštalácie %s.  Ak si želáte použiť tento disk na inštaláciu, musí byť znovu inicializovaný, čo spôsobí stratu VŠETKÝCH DÁT na tomto zariadení.\n"
+"\n"
+"Chceli by ste preformátovať tento DASD za použitia formátu CDL?"
 
 #: ../partedUtils.py:335
 #, fuzzy, python-format
@@ -1427,7 +1433,7 @@ msgstr "Prosím zadajte bod pripojenia pre tento oddiel."
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "Tento oddiel obsahuje údaje pre inštaláciu na pevný disk."
 
 #: ../partIntfHelpers.py:116
 #, python-format
@@ -1551,6 +1557,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s má typ oddielu 0x82 (odkladací priestor pre Linux) ale nevyzerá byť formátovaný ako odkladací oddiel pre Linux.\n"
+"\n"
+"Chceli by ste formátovať tento oddiel ako odkladací oddiel."
 
 #: ../partIntfHelpers.py:401
 #, python-format
@@ -1559,7 +1568,7 @@ msgstr "Potrebuje zvoliť aspoň jeden pevný disk, na ktorý chcete nainštalov
 
 #: ../partIntfHelpers.py:407
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
-msgstr ""
+msgstr "Vybrali ste už existujúci oddiel pre inštaláciu bez formátovania. Doporučujeme formátovanie tohto oddielu, aby ste si preverili, že súbory z predošlého operačného systému nebudú spôsobovať problémy s touto inštaláciou Linuxu. Ale ak tento oddiel obsahuje súbory, ktoré potrebujete zachovať, také ako domovské adresáre, potom pokračujte bez formátovania tohto oddielu."
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
@@ -1612,11 +1621,11 @@ msgstr ""
 #: ../partIntfHelpers.py:453
 #: ../iw/partition_gui.py:666
 msgid "The following pre-existing partitions have been selected to be formatted, destroying all data."
-msgstr ""
+msgstr "Nasledujúce už existujúce oddiely boli vybrané na formátovanie, čo spôsobí stratu všetkých údajov."
 
 #: ../partIntfHelpers.py:456
 msgid "Select 'Yes' to continue and format these partitions, or 'No' to go back and change these settings."
-msgstr ""
+msgstr "Voľte 'Áno' pre pokračovanie a formátovanie týchto oddielov, alebo 'Nie' pre návrat a zmenu týchto nastavení."
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
@@ -1662,7 +1671,7 @@ msgstr "Inštalácia nemôže pokračovať."
 
 #: ../partitioning.py:58
 msgid "The partitioning options you have chosen have already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr ""
+msgstr "Voľby rozdeľovania, ktoré ste zvolili už sú aktivované. Viac sa nemôžete vrátiť na obrazovku úprav disku. Chceli by ste pokračovať v inštalačnom procese?"
 
 #: ../partitioning.py:89
 msgid "Low Memory"
@@ -1675,16 +1684,16 @@ msgstr "Keďže vo vašom počítači nemáte dostatok pamäti, je potrebné akt
 #: ../partitions.py:803
 #, python-format
 msgid "You have not defined a root partition (/), which is required for installation of %s to continue."
-msgstr ""
+msgstr "Nestanovili ste žiaden koreňový oddiel (/), ktorý je vyžadovaný pre pokračovanie v inštalácii %s."
 
 #: ../partitions.py:808
 #, python-format
 msgid "Your root partition is less than 250 megabytes which is usually too small to install %s."
-msgstr ""
+msgstr "Váš koreňový oddiel je menší ako 250 megabajtov, čo je obvykle príliš málo na inštaláciu %s."
 
 #: ../partitions.py:815
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "Musíte vytvoriť /boot/efi oddiel typu FAT a o veľkosti 50 megabajtov."
 
 #: ../partitions.py:835
 #, fuzzy
