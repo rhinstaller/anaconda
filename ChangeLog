@@ -1,5 +1,8 @@
 2006-05-16  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/progress_gui.py: Ellipsize text instead of just 
+	truncating (Roozbeh Pournader, #191844)
+
 	* loader2/usb.c (usbInitializeMouse): Better mousedev looking,
 	less verbose in the case of, eg, built-in (#191814) 
 

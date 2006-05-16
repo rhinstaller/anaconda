@@ -19,6 +19,7 @@ import sys
 import time
 import timer
 import gobject
+import pango
 import gtk
 import locale
 import math
@@ -226,14 +227,14 @@ class InstallProgressWindow (InstallWindow):
                                                     header[rpm.RPMTAG_RELEASE],
                                                     header[rpm.RPMTAG_ARCH],
                                                     size)
-        self.curPackage["package"].set_text ("%.70s" %(pkgstr,))
+        self.curPackage["package"].set_text (pkgstr)
+        self.curPackage["package"].set_ellipsize (pango.ELLIPSIZE_END)
 
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):
             summary = "(none)"
-        else:
-            summary = "%.70s" %(summary,)
         self.curPackage["summary"].set_text (summary)
+        self.curPackage["summary"].set_ellipsize (pango.ELLIPSIZE_END)
 
     def setSizes (self, total, totalSize, totalFiles):
         self.numTotal = total
