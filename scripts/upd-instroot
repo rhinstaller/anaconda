@@ -1013,18 +1013,6 @@ for p in $DEST $DESTGR; do
     mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
 done
 
-# Remove unneeded XFree86 modules
-rm -rf $DESTGR/usr/X11R6/$LIBDIR/modules/dri
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/libscanpci.a
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/libxf1bpp.a
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/fonts/libspeedo.a
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/drivers/linux/v4l_drv.o
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libdri.a
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libxtrap.a
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
-
-rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
-
 # fixup joe links
 ln -fs jpicorc $DESTGR/etc/joe/picorc
 ln -fs jpicorc $DESTGR/etc/joe/jnanorc
@@ -1113,9 +1101,9 @@ if [ -n "$NEEDGR" ]; then
     # sick sick sick hack for pango-querymodules being -32 or -64
     mv $DESTGR/usr/bin/pango-querymodules* $DESTGR/usr/bin/pango-querymodules
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
+    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
+	/usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     fi
     rm -f $DESTGR/usr/bin/pango-querymodules
     # more sick hackery since it doesn't fall back to this like owen thought
@@ -1144,9 +1132,9 @@ echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     mv $DESTGR/usr/bin/gtk-query-immodules-2.0* $DESTGR/usr/bin/gtk-query-immodules-2.0
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
+	/usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gtk.immodules
     fi
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
@@ -1155,9 +1143,9 @@ echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
     mv $DESTGR/usr/bin/gdk-pixbuf-query-loaders* $DESTGR/usr/bin/gdk-pixbuf-query-loaders
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders"
+	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
+	/usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
     fi
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
 fi
@@ -1228,7 +1216,7 @@ for p in $DEST $DESTGR; do
 
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
-	find $p -name "*.a" | grep -v "usr/X11R6/$LIBDIR/modules" | xargs rm -rf
+	find $p -name "*.a" | xargs rm -rf
 	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
 	for f in newt popt rpm rpmio; do
 	    rm -f $p/usr/$LIBDIR/lib$f.so
@@ -1269,9 +1257,9 @@ fi
 echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache"
+	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $DESTGR /usr/bin/fc-cache"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache
+	/usr/sbin/chroot $DESTGR /usr/bin/fc-cache
     fi
     rm -f $DESTGR/usr/bin/fc-cache
 fi

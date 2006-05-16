@@ -1,5 +1,13 @@
 2006-05-16  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: Remove references to /usr/X11R6.
+	* scripts/mk-images: Likewise.
+	* scripts/scrubtree: Likewise.
+
+	* scripts/mk-rescueimage.x86_64: Let's autogenerate this from the
+	i386 script.
+	* scripts/Makefile: Autogenerating.
+
 	* scripts/mk-images.x86: Merge i386 and x86_64 script into one.
 	* scripts/mk-images.i386: And then remove the old.
 	* scripts/mk-images.x86_64: Likewise.

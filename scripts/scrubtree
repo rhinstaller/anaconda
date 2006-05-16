@@ -32,7 +32,6 @@ fi
 touch $p/etc/ld.so.conf
 mkdir $p/proc
 mount -t proc proc $p/proc
-[ -d $p/usr/X11R6/$LIBDIR ] && echo /usr/X11R6/$LIBDIR > $p/etc/ld.so.conf
 echo /usr/kerberos/$LIBDIR > $p/etc/ld.so.conf
 (cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
 
@@ -69,7 +68,7 @@ done
 
 umount $p/proc
 
-for l in `find $p -type f -perm +100 | grep -v "usr/X11R6/$LIBDIR/modules" | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
+for l in `find $p -type f -perm +100 | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
     $STRIP $l -R .comment -R .note `objdump -h $l | \
 	sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
 done

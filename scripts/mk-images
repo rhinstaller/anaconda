@@ -487,12 +487,12 @@ EOF
 	       $IMGPATH/$LIBDIR/libe2p* \
 	       $IMGPATH/$LIBDIR/libuuid* \
 	       $IMGPATH/usr/$LIBDIR/libwrap*.so* \
-               $IMGPATH/usr/X11R6/$LIBDIR/libX11.so* \
-	       $IMGPATH/usr/X11R6/$LIBDIR/libXmuu.so* \
-	       $IMGPATH/usr/X11R6/$LIBDIR/libXext.so* \
-	       $IMGPATH/usr/X11R6/$LIBDIR/libXt.so* \
-	       $IMGPATH/usr/X11R6/$LIBDIR/libSM.so* \
-	       $IMGPATH/usr/X11R6/$LIBDIR/libICE.so* ; do
+               $IMGPATH/usr/$LIBDIR/libX11.so* \
+	       $IMGPATH/usr/$LIBDIR/libXmuu.so* \
+	       $IMGPATH/usr/$LIBDIR/libXext.so* \
+	       $IMGPATH/usr/$LIBDIR/libXt.so* \
+	       $IMGPATH/usr/$LIBDIR/libSM.so* \
+	       $IMGPATH/usr/$LIBDIR/libICE.so* ; do
 	if [ -e $lib ]; then cp -df $lib $MBD_DIR/$LIBDIR/ ; fi
     done 
 
@@ -585,7 +585,7 @@ makeinitrd() {
 	mkdir -p $MBD_DIR/$LIBDIR/security
 	cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
 	ln -s /tmp $MBD_DIR/var/state/xkb
-	cp $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
+	cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
     fi
 
@@ -646,7 +646,7 @@ EOF
     fi
 
 cat > $MBD_DIR/.profile <<EOF
-PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
+PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
 export PATH
 EOF
 
