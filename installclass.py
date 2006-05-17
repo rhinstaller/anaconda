@@ -119,7 +119,6 @@ class BaseInstallClass:
 		 "zfcpconfig",
                  "partitionmethod",
                  "partitionobjinit",
-                 "partitionmethodsetup",
                  "parttype",
                  "autopartition",
                  "autopartitionexecute",
@@ -131,15 +130,10 @@ class BaseInstallClass:
 		 "network",
 		 "timezone",
 		 "accounts",
-		 "readcomps",
-                 "selectlangpackages",
                  "reposetup",
                  "basepkgsel",
 		 "tasksel",                                  
 		 "postselection",
-                 "handleX11pkgs",
-                 "handlemiscpkgs",
-                 "fixupconditionals",
 		 "confirminstall",
 		 "install",
 		 "enablefilesystems",
@@ -199,7 +193,6 @@ class BaseInstallClass:
             pass
         else:
 	    dispatch.skipStep("keyboard", permanent = 1)
-	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
 
     def setPackageSelection(self, anaconda):

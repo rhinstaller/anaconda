@@ -530,8 +530,7 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doSkipX(self, id, args):
         KickstartHandlers.doSkipX(self, args)
         self.skipSteps.extend(["checkmonitorok", "setsanex", "videocard",
-                               "monitor", "xcustom", "handleX11pkgs",
-                               "writexconfig"])
+                               "monitor", "xcustom", "writexconfig"])
 
         if id.xsetup is not None:
             id.xsetup.skipx = 1
@@ -593,7 +592,7 @@ class AnacondaKSHandlers(KickstartHandlers):
                                 dict["startX"])
         id.instClass.setDesktop(id, dict["defaultdesktop"])
         self.skipSteps.extend(["videocard", "monitor", "xcustom",
-                               "handleX11pkgs", "checkmonitorok", "setsanex"])
+                               "checkmonitorok", "setsanex"])
 
     def doZeroMbr(self, id, args):
         KickstartHandlers.doZeroMbr(self, args)
