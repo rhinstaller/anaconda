@@ -1,3 +1,8 @@
+2006-05-17  Jeremy Katz  <katzj@redhat.com>
+
+	* security.py (Security.write): Safe for all !test mode
+	* instdata.py (InstallData.write): Likewise.
+
 2006-05-17  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Fix runRescue to use anaconda class.

@@ -59,7 +59,7 @@ class Security:
         args = args + [ "--selinux=%s" %(selinux_states[self.selinux],) ]
 
         try:
-            if flags.setupFilesystems:
+            if not flags.test:
                 iutil.execWithRedirect(args[0], args, root = instPath,
                                        stdout = None, stderr = None)
             else:
