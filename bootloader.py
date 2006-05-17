@@ -151,7 +151,7 @@ def writeBootloader(anaconda):
 
     plainLabelUsed = 0
     defkern = "kernel"
-    for (version, nick) in anaconda.backend.kernelVersionList():
+    for (version, arch, nick) in anaconda.backend.kernelVersionList():
 	if plainLabelUsed:
             kernelList.append(("%s-%s" %(kernelLabel, nick),
                                "%s-%s" %(kernelLongLabel, nick),

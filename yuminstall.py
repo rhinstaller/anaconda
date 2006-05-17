@@ -25,6 +25,7 @@ import urlgrabber.progress
 import urlgrabber.grabber
 import yum
 import rhpl
+from packages import recreateInitrd
 from yum.constants import *
 from yum.Errors import RepoError, YumBaseError
 from yum.repos import Repository as YumRepository
@@ -716,6 +717,72 @@ class YumBackend(AnacondaBackend):
                 rc.append(g.groupid)
         return rc
 
+    def copyExtraModules(self, anaconda):
+        kernelVersions = self.kernelVersionList()
+        foundModule = 0
+
+        try:
+            f = open("/etc/arch")
+            arch = f.readline().strip()
+            del f
+        except IOError:
+            arch = os.uname()[2]
+
+        for (path, name) in anaconda.id.extraModules:
+            if not path:
+                path = "/modules.cgz"
+            pattern = ""
+            names = ""
+            for (n, arch, tag) in kernelVersions:
+                if tag == "up":
+                    pkg = "kernel"
+                else:
+                    pkg = "kernel-%s" %(tag,)
+
+                # version 1 path
+                pattern = pattern + " %s/%s/%s.ko " % (n, arch, name)
+                # version 0 path
+                pattern = pattern + " %s/%s.ko " % (n, name)
+                names = names + " %s.ko" % (name,)
+            command = ("cd %s/lib/modules; gunzip < %s | "
+                       "%s/bin/cpio --quiet -iumd %s" % 
+                       (anaconda.rootPath, path, anaconda.rootPath, pattern))
+            log.info("running: '%s'" % (command, ))
+            os.system(command)
+
+            for (n, arch, tag) in kernelVersions:
+                if tag == "up":
+                    pkg = "kernel"
+                else:
+                    pkg = "kernel-%s" %(tag,)
+                
+                toDir = "%s/lib/modules/%s/updates" % \
+                        (anaconda.rootPath, n)
+                to = "%s/%s.ko" % (toDir, name)
+
+                if (os.path.isdir("%s/lib/modules/%s" %(anaconda.rootPath, n)) and not
+                    os.path.isdir("%s/lib/modules/%s/updates" %(anaconda.rootPath, n))):
+                    os.mkdir("%s/lib/modules/%s/updates" %(anaconda.rootPath, n))
+                if not os.path.isdir(toDir):
+                    continue
+
+                for p in ("%s/%s.ko" %(arch, name), "%s.ko" %(name,)):
+                    fromFile = "%s/lib/modules/%s/%s" % (anaconda.rootPath, n, p)
+
+                    if (os.access(fromFile, os.R_OK)):
+                        log.info("moving %s to %s" % (fromFile, to))
+                        os.rename(fromFile, to)
+                        # the file might not have been owned by root in the cgz
+                        os.chown(to, 0, 0)
+                        foundModule = 1
+                    else:
+                        log.warning("missing DD module %s (this may be okay)" % 
+                            fromFile)
+
+        if foundModule == 1:
+            for (n, arch, tag) in kernelVersions:
+                recreateInitrd(n, anaconda.rootPath)
+
     def selectBestKernel(self):
         """Find the best kernel package which is available and select it."""
         
@@ -1040,6 +1107,8 @@ class YumBackend(AnacondaBackend):
                                     _("Performing post install configuration..."), 6)
             anaconda.id.network.write(anaconda.rootPath)
 
+        self.copyExtraModules(anaconda)
+
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='rhgb'):
             anaconda.id.bootloader.args.append("rhgb quiet")
             break
@@ -1064,11 +1133,11 @@ class YumBackend(AnacondaBackend):
             tag = ktag.rsplit('-', 1)[1]
             for tsmbr in self.ayum.tsInfo.matchNaevr(name=ktag):
                 version = ( tsmbr.version + '-' + tsmbr.release + tag)
-                kernelVersions.append((version, nick))
+                kernelVersions.append((version, tsmbr.arch, nick))
 
         for tsmbr in self.ayum.tsInfo.matchNaevr(name='kernel'):
             version = ( tsmbr.version + '-' + tsmbr.release)
-            kernelVersions.append((version, 'up'))
+            kernelVersions.append((version, tsmbr.arch, 'up'))
 
         return kernelVersions
 

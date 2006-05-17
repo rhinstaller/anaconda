@@ -12,6 +12,14 @@
 
 	* gui.py:  Remove more unused methods.
 
+	* bootloader.py (writeBootloader):  Adapted to new kernelVersionList
+	return value.
+	* packages.py (copyExtraModules):  Moved to yuminstall.py.
+	* yuminstall.py (YumBackend.copyExtraModules):  Moved here from
+	packages.py.
+	(YumBackend.doPostInstall):  Hookup copyExtraModules back up
+	(#185344).
+
 2006-05-17  David Cantrell  <dcantrell@redhat.com>
 
 	* installclass.py: Removed steps that don't exist anymore.
