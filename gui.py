@@ -1106,21 +1106,6 @@ class InstallControlState:
     def getNextEnabled (self):
         return self.nextEnabled
 
-    def findPixmap(self, file):
-        warnings.warn("ics.findPixmap is deprecated, use gui.findPixmap instead", DeprecationWarning, stacklevel=2)
-        return findPixmap(file)
-        
-    def readPixmap (self, file, height = None, width = None):
-        warnings.warn("ics.readPixmap is deprecated, use gui.readImageFromFile instead", DeprecationWarning, stacklevel=2)        
-        return readImageFromFile(file, height, width)
-
-    def readPixmapDithered(self, file, height = None, width = None):
-        warnings.warn("ics.readPixmapDithered is deprecated, use gui.readImageFromFile instead", DeprecationWarning, stacklevel=2)                
-        return readImageFromFile(file, height, width, dither = 1)
-
-    def readHTML (self, file):
-        pass
-
     def setScreenPrev (self):
         self.cw.prevClicked ()
 
