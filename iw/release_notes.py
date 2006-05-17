@@ -28,7 +28,7 @@ import gui
 from rhpl.translate import _, N_
 
 class ReleaseNotesViewer(threading.Thread):
-	def __init__(self, id, dispatch, uri=None):
+	def __init__(self):
 		self.currentURI = None
 		self.htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
 		self.htmlfooter = "</pre></body></html>"
@@ -41,19 +41,30 @@ class ReleaseNotesViewer(threading.Thread):
 		self.vue.connect('request_object', self.requestObjectCallBack)
 		self.topDir = None
 
-		self.id = id
-		self.dispatch = dispatch
+		self.width = None
+		self.height = None
 
-		if uri is None:
-			uri = self.getReleaseNotes()
+		#self.id = id
+		#self.dispatch = dispatch
+		self.id = None
+		self.dispatch = None
 
-		self.load(uri)
-		self.resize()
+		if self.id is not None and self.dispatch is not None:
+			self.load()
+			self.resize()
 
 		threading.Thread.__init__(self, name='RelNotesThr')
-		self.start()
 
+	def run(self):
+		self.load()
+		self.resize()
 		self.view()
+
+	def setId(self, id):
+		self.id = id
+
+	def setDispatch(self, dispatch):
+		self.dispatch = dispatch
 
 	def getReleaseNotes(self):
 		langs = self.id.instLanguage.getCurrentLangSearchList() + [ "" ]
@@ -121,12 +132,15 @@ class ReleaseNotesViewer(threading.Thread):
 	def log(self, string):
 		print string
 
-	def load(self, uri):
+	def load(self, uri=None):
 		def loadWrapper(baloney):
 			self.doc.open_stream('text/html')
 			self.doc.write_stream(self.htmlheader)
 			self.doc.write_stream(baloney)
 			self.doc.write_stream(self.htmlfooter)
+
+		if uri is None:
+			uri = self.getReleaseNotes()
 
 		if os.access(uri, os.R_OK):
 			try:
@@ -228,7 +242,9 @@ class ReleaseNotesViewer(threading.Thread):
 		cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
 		root.set_cursor(cursor)
 
+		gtk.threads_enter()
 		gtk.main()
+		gtk.threads_leave()
 
 	def resolveURI(self, link):
 		parts = urlparse.urlparse(link)

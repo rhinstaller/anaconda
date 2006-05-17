@@ -99,90 +99,84 @@ def copyScreenshots():
     
     # see if any screenshots taken
     if screenshotIndex == 0:
-	return
+        return
 
     destDir = "/mnt/sysimage/root/anaconda-screenshots"
     if not os.access(destDir, os.R_OK):
-	try:
-	    os.mkdir(destDir, 0750)
-	except:
-	    window = MessageWindow("Error Saving Screenshot", 
-				   _("An error occurred copying the "
-				     "screenshots over."), type="warning")
-	    return
+        try:
+            os.mkdir(destDir, 0750)
+        except:
+            window = MessageWindow("Error Saving Screenshot", 
+                                   _("An error occurred copying the "
+                                   "screenshots over."), type="warning")
+            return
 
     # copy all png's over
     for f in os.listdir(screenshotDir):
-	(path, fname) = os.path.split(f)
-	(b, ext) = os.path.splitext(f)
-	if ext == ".png":
-	    iutil.copyFile(screenshotDir + '/' + f,
-			   destDir + '/' + fname)
+        (path, fname) = os.path.split(f)
+        (b, ext) = os.path.splitext(f)
+        if ext == ".png":
+            iutil.copyFile(screenshotDir + '/' + f, destDir + '/' + fname)
 
     window = MessageWindow(_("Screenshots Copied"), 
-			   _("The screenshots have been saved into the "
-			     "directory:\n\n"
-			     "\t/root/anaconda-screenshots/\n\n"
-			     "You can access these when you reboot and "
-			     "login as root."))
-
-
+                           _("The screenshots have been saved into the "
+                             "directory:\n\n"
+                             "\t/root/anaconda-screenshots/\n\n"
+                             "You can access these when you reboot and "
+                             "login as root."))
 
 def takeScreenShot():
     global screenshotIndex
     global screenshotDir
 
     if screenshotDir is None:
-	screenshotDir = "/tmp/ramfs/anaconda-screenshots"
+        screenshotDir = "/tmp/ramfs/anaconda-screenshots"
 
-	if  not os.access(screenshotDir, os.R_OK):
-	    try:
-		os.mkdir(screenshotDir)
-	    except:
-		screenshotDir = None
-		return
+    if not os.access(screenshotDir, os.R_OK):
+        try:
+            os.mkdir(screenshotDir)
+        except:
+            screenshotDir = None
+            return
 
     try:
-	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
-				    gtk.gdk.screen_width(), gtk.gdk.screen_height())
-	screenshot.get_from_drawable(gtk.gdk.get_default_root_window(),
-				     gtk.gdk.colormap_get_system(),
-				     0, 0, 0, 0,
-				     gtk.gdk.screen_width(), gtk.gdk.screen_height())
+        screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
+                     gtk.gdk.screen_width(), gtk.gdk.screen_height())
+        screenshot.get_from_drawable(gtk.gdk.get_default_root_window(),
+                                     gtk.gdk.colormap_get_system(),
+                                     0, 0, 0, 0,
+                                     gtk.gdk.screen_width(),
+                                     gtk.gdk.screen_height())
 
-	if screenshot:
-	    while (1):
-		sname = "screenshot-%04d.png" % ( screenshotIndex,)
-		if not os.access(screenshotDir + '/' + sname, os.R_OK):
-		    break
+        if screenshot:
+            while (1):
+                sname = "screenshot-%04d.png" % ( screenshotIndex,)
+                if not os.access(screenshotDir + '/' + sname, os.R_OK):
+                    break
 
-		screenshotIndex = screenshotIndex + 1
-		if screenshotIndex > 9999:
-		    log.error("Too many screenshots!")
-		    return
+                screenshotIndex = screenshotIndex + 1
+                if screenshotIndex > 9999:
+                    log.error("Too many screenshots!")
+                    return
 
-	    screenshot.save (screenshotDir + '/' + sname, "png")
-	    screenshotIndex = screenshotIndex + 1
+                screenshot.save (screenshotDir + '/' + sname, "png")
+                screenshotIndex = screenshotIndex + 1
 
-	    window = MessageWindow(_("Saving Screenshot"), 
-				   _("A screenshot named '%s' has been saved.") % (sname,) ,
-				   type="ok")
+                window = MessageWindow(_("Saving Screenshot"), 
+                   _("A screenshot named '%s' has been saved.") % (sname,) ,
+                   type="ok")
     except:
-	window = MessageWindow(_("Error Saving Screenshot"), 
-			       _("An error occurred while saving "
-				 "the screenshot.  If this occurred "
-				 "during package installation, you may need "
-				 "to try several times for it to succeed."),
-			       type="warning")
+        window = MessageWindow(_("Error Saving Screenshot"), 
+                               _("An error occurred while saving "
+                                 "the screenshot.  If this occurred "
+                                 "during package installation, you may need "
+                                 "to try several times for it to succeed."),
+                               type="warning")
 
-		
 def handleShiftPrintScrnRelease (window, event):
     if (event.keyval == gtk.keysyms.Print and event.state & gtk.gdk.SHIFT_MASK):
-	takeScreenShot()
-	    
-	    
-	
-
+        takeScreenShot()
+        
 #
 # HACK to make treeview work
 # 
@@ -193,27 +187,27 @@ def setupTreeViewFixupIdleHandler(view, store):
 
 def scrollToIdleHandler((view, store, iddict)):
     if not view or not store or not iddict:
-	return
+        return
 
     try:
-	id = iddict["id"]
+        id = iddict["id"]
     except:
-	return
+        return
     
     selection = view.get_selection()
     if not selection:
-	return
+        return
     
     model, iter = selection.get_selected()
     if not iter:
-	return
+        return
 
     path = store.get_path(iter)
     col = view.get_column(0)
     view.scroll_to_cell(path, col, True, 0.5, 0.5)
 
     if id:
-	gobject.source_remove(id)
+        gobject.source_remove(id)
 
 # setup globals
 def processEvents():
@@ -237,7 +231,7 @@ def partedExceptionWindow(exc):
     win.vbox.pack_start (label)
     numButtons = 0
     buttonToAction = {}
-    
+
     exflags = ((parted.EXCEPTION_FIX, N_("Fix")),
              (parted.EXCEPTION_YES, N_("Yes")),
              (parted.EXCEPTION_NO, N_("No")),
@@ -251,6 +245,7 @@ def partedExceptionWindow(exc):
     win.show_all()
     rc = win.run()
     win.destroy()
+
     return rc
 
 def widgetExpander(widget, growTo=None):
@@ -288,13 +283,13 @@ def rootPushBusyCursor(process=1):
     global _busyCursor
     _busyCursor += 1
     if _busyCursor > 0:
-	setCursorToBusy(process)
+        setCursorToBusy(process)
 
 def rootPopBusyCursor():
     global _busyCursor
     _busyCursor -= 1
     if _busyCursor <= 0:
-	setCursorToNormal()
+        setCursorToNormal()
 
 def getBusyCursorStatus():
     global _busyCursor
@@ -313,65 +308,65 @@ class WrappingLabel(gtk.Label):
         gtk.Label.__init__(self, label)
         self.set_line_wrap(True)
         self.ignoreEvents = 0
-#        self.set_size_request(-1, 1)
         widgetExpander(self)
 
 def titleBarMousePressCB(widget, event, data):
     if event.type & gtk.gdk.BUTTON_PRESS:
-	data["state"] = 1
-	data["button"] = event.button
-	data["deltax"] = event.x
-	data["deltay"] = event.y
-	
+        data["state"] = 1
+        data["button"] = event.button
+        data["deltax"] = event.x
+        data["deltay"] = event.y
+    
 def titleBarMouseReleaseCB(widget, event, data):
     if data["state"] and event.button == data["button"]:
-	data["state"] = 0
-	data["button"] = 0
-	data["deltax"] = 0
-	data["deltay"] = 0
+        data["state"] = 0
+        data["button"] = 0
+        data["deltax"] = 0
+        data["deltay"] = 0
 
 def titleBarMotionEventCB(widget, event, data):
     if data["state"]:
-	newx = event.x_root-data["deltax"]
-	newy = event.y_root-data["deltay"]
-	if newx < 0:
-	    newx = 0
-	if newy < 0:
-	    newy = 0
-	(w, h) = data["window"].get_size()
-	if (newx+w) > gtk.gdk.screen_width():
-	    newx = gtk.gdk.screen_width() - w
-	if (newy+20) > (gtk.gdk.screen_height()):
-	    newy = gtk.gdk.screen_height() - 20
+        newx = event.x_root-data["deltax"]
+        newy = event.y_root-data["deltay"]
+        if newx < 0:
+            newx = 0
+        if newy < 0:
+            newy = 0
+        (w, h) = data["window"].get_size()
+        if (newx+w) > gtk.gdk.screen_width():
+            newx = gtk.gdk.screen_width() - w
+        if (newy+20) > (gtk.gdk.screen_height()):
+            newy = gtk.gdk.screen_height() - 20
 
-	data["window"].move(int(newx), int(newy))
+        data["window"].move(int(newx), int(newy))
 
 def addFrame(dialog, title=None, showtitle = 1):
-    # We don't add a Frame in rootpath mode, as we almost certainly have a window manager
+    # We don't add a Frame in rootpath mode, as we almost certainly
+    # have a window manager
     contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
     frame.set_shadow_type(gtk.SHADOW_OUT)
     box = gtk.VBox()
     try:
-	if title is None:
-	    title = dialog.get_title()
+        if title is None:
+            title = dialog.get_title()
 
-	if title and not flags.rootpath:
-	    data = {}
-	    data["state"] = 0
-	    data["button"] = 0
-	    data["deltax"] = 0
-	    data["deltay"] = 0
-	    data["window"] = dialog
-	    eventBox = gtk.EventBox()
-	    eventBox.connect("button-press-event", titleBarMousePressCB, data)
-	    eventBox.connect("button-release-event", titleBarMouseReleaseCB, data)
-	    eventBox.connect("motion-notify-event", titleBarMotionEventCB,data)
-	    titleBox = gtk.HBox(False, 5)
-	    eventBox.add(titleBox)
-	    eventBox.modify_bg(gtk.STATE_NORMAL,
-                               eventBox.rc_get_style().bg[gtk.STATE_SELECTED])
+        if title and not flags.rootpath:
+            data = {}
+            data["state"] = 0
+            data["button"] = 0
+            data["deltax"] = 0
+            data["deltay"] = 0
+            data["window"] = dialog
+            eventBox = gtk.EventBox()
+            eventBox.connect("button-press-event", titleBarMousePressCB, data)
+            eventBox.connect("button-release-event", titleBarMouseReleaseCB, data)
+            eventBox.connect("motion-notify-event", titleBarMotionEventCB,data)
+            titleBox = gtk.HBox(False, 5)
+            eventBox.add(titleBox)
+            eventBox.modify_bg(gtk.STATE_NORMAL, eventBox.rc_get_style().bg[gtk.STATE_SELECTED])
+
             if showtitle:
                 titlelbl = gtk.Label("")
                 titlelbl.set_markup("<b>"+_(title)+"</b>")
@@ -381,12 +376,12 @@ def addFrame(dialog, title=None, showtitle = 1):
             else:
                 s = gtk.Label("")
                 titleBox.pack_start(s)
-	    box.pack_start(eventBox, False, False)
+            box.pack_start(eventBox, False, False)
         elif flags.rootpath:
             dialog.set_title (title)
     except:
-	pass
-    
+        pass
+
     frame2=gtk.Frame()
     frame2.set_shadow_type(gtk.SHADOW_NONE)
     frame2.set_border_width(4)
@@ -398,7 +393,6 @@ def addFrame(dialog, title=None, showtitle = 1):
 
     # make screen shots work
     dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
-
 
 def findGladeFile(file):
     for dir in ("/mnt/source/RHupdates/", "/tmp/updates/",
@@ -415,6 +409,7 @@ def getGladeWidget(file, rootwidget, i18ndomain="anaconda"):
     w = xml.get_widget(rootwidget)
     if w is None:
         raise RuntimeError, "Unable to find root widget %s in %s" %(rootwidget, file)
+
     return (xml, w)
 
 def findPixmap(file):
@@ -435,12 +430,12 @@ def getPixbuf(file):
     if not fn:
         log.error("unable to load %s" %(file,))
         return None
-    
+
     try:
         pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
     except RuntimeError, msg:
         log.error("unable to read %s: %s" %(file, msg))
-        return None
+        pixbuf = None
     
     return pixbuf
 
@@ -449,7 +444,7 @@ def readImageFromFile(file, height = None, width = None, dither = None,
     pixbuf = getPixbuf(file)
     if pixbuf is None:
         log.warning("can't find pixmap %s" %(file,))
-        return None
+        pixbuf = None
 
     if (height is not None and width is not None
         and height != pixbuf.get_height()
@@ -478,7 +473,6 @@ def readImageFromFile(file, height = None, width = None, dither = None,
         p.set_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
 
     return p
-    
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -498,7 +492,7 @@ class WaitWindow:
         box.set_shadow_type(gtk.SHADOW_NONE)
         self.window.add(box)
         addFrame(self.window, showtitle = 0)
-	self.window.show_all()
+        self.window.show_all()
         rootPushBusyCursor()
             
     def pop(self):
@@ -525,30 +519,30 @@ class ProgressWindow:
         label = WrappingLabel (text)
         label.set_alignment (0.0, 0.5)
         box.pack_start (label, False)
-        
+
         self.total = total
         self.updpct = updpct
-	self.progress = gtk.ProgressBar ()
+        self.progress = gtk.ProgressBar ()
         box.pack_start (self.progress, True)
         self.window.add(box)
 
         addFrame(self.window, showtitle = 0)
-	self.window.show_all ()
+        self.window.show_all ()
         rootPushBusyCursor()
 
     def refresh(self):
         processEvents()
 
     def set (self, amount):
-	# only update widget if we've changed by 5%
-	curval = self.progress.get_fraction()
-	newval = float (amount) / self.total
-	if newval < 0.998:
-	    if (newval - curval) < self.updpct and newval > curval:
-		return
-	self.progress.set_fraction (newval)
-        processEvents ()        
-    
+        # only update widget if we've changed by 5%
+        curval = self.progress.get_fraction()
+        newval = float (amount) / self.total
+        if newval < 0.998:
+            if (newval - curval) < self.updpct and newval > curval:
+                return
+        self.progress.set_fraction (newval)
+        processEvents ()
+
     def pop(self):
         self.window.destroy ()
         rootPopBusyCursor()
@@ -571,8 +565,8 @@ class ScpWindow:
             remotePath = self.scpxml.get_widget("remotePathEntry")
             userName = self.scpxml.get_widget("userNameEntry")
             password = self.scpxml.get_widget("passwordEntry")
-            return (host.get_text(), remotePath.get_text(), userName.get_text(),
-                    password.get_text())
+            return (host.get_text(), remotePath.get_text(),
+                    userName.get_text(), password.get_text())
 
     def run(self):
         self.rc = self.window.run()
@@ -676,7 +670,7 @@ class MessageWindow:
             self.rc = 1
             return
         self.rc = None
-	docustom = 0
+        docustom = 0
         if type == 'ok':
             buttons = gtk.BUTTONS_OK
             style = gtk.MESSAGE_INFO
@@ -689,40 +683,40 @@ class MessageWindow:
         elif type == 'yesno':
             buttons = gtk.BUTTONS_YES_NO
             style = gtk.MESSAGE_QUESTION
-	elif type == 'custom':
-	    docustom = 1
-	    buttons = gtk.BUTTONS_NONE
-	    style = gtk.MESSAGE_QUESTION
+        elif type == 'custom':
+            docustom = 1
+            buttons = gtk.BUTTONS_NONE
+            style = gtk.MESSAGE_QUESTION
 
-	if custom_icon == "warning":
-	    style = gtk.MESSAGE_WARNING
-	elif custom_icon == "question":
-	    style = gtk.MESSAGE_QUESTION
-	elif custom_icon == "error":
-	    style = gtk.MESSAGE_ERROR
-	elif custom_icon == "info":
-	    style = gtk.MESSAGE_INFO
+        if custom_icon == "warning":
+            style = gtk.MESSAGE_WARNING
+        elif custom_icon == "question":
+            style = gtk.MESSAGE_QUESTION
+        elif custom_icon == "error":
+            style = gtk.MESSAGE_ERROR
+        elif custom_icon == "info":
+            style = gtk.MESSAGE_INFO
 
-	dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
+        dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
 
-	if docustom:
-	    rid=0
-	    for button in custom_buttons:
-		if button == _("Cancel"):
-		    tbutton = "gtk-cancel"
-		else:
-		    tbutton = button
+        if docustom:
+            rid=0
+            for button in custom_buttons:
+                if button == _("Cancel"):
+                    tbutton = "gtk-cancel"
+                else:
+                    tbutton = button
 
-		widget = dialog.add_button(tbutton, rid)
-		rid = rid + 1
+                widget = dialog.add_button(tbutton, rid)
+                rid = rid + 1
 
             defaultchoice = rid - 1
-	else:
-	    if default == "no":
+        else:
+            if default == "no":
                 defaultchoice = 0
-	    elif default == "yes" or default == "ok":
+            elif default == "yes" or default == "ok":
                 defaultchoice = 1
-	    else:
+            else:
                 defaultchoice = 0
 
         addFrame(dialog, title=title)
@@ -730,9 +724,9 @@ class MessageWindow:
         dialog.set_default_response(defaultchoice)
         dialog.show_all ()
 
-	# XXX - Messy - turn off busy cursor if necessary
-	busycursor = getBusyCursorStatus()
-	setCursorToNormal()
+        # XXX - Messy - turn off busy cursor if necessary
+        busycursor = getBusyCursorStatus()
+        setCursorToNormal()
         rc = dialog.run()
 
         if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
@@ -740,15 +734,15 @@ class MessageWindow:
         elif (rc == gtk.RESPONSE_CANCEL or rc == gtk.RESPONSE_NO
             or rc == gtk.RESPONSE_CLOSE):
             self.rc = 0
-	elif rc == gtk.RESPONSE_DELETE_EVENT:
-	    self.rc = 0
-	else:
-	    self.rc = rc
+        elif rc == gtk.RESPONSE_DELETE_EVENT:
+            self.rc = 0
+        else:
+            self.rc = rc
         dialog.destroy()
 
-	# restore busy cursor
-	if busycursor:
-	    setCursorToBusy()
+        # restore busy cursor
+        if busycursor:
+            setCursorToBusy()
     
 class InstallInterface:
     def __init__ (self):
@@ -765,25 +759,25 @@ class InstallInterface:
         pass
 
     def shutdown (self):
-	pass
+        pass
 
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw
 
     def waitWindow (self, title, text):
-	return WaitWindow (title, text)
+        return WaitWindow (title, text)
 
     def progressWindow (self, title, text, total, updpct = 0.05):
-	return ProgressWindow (title, text, total, updpct)
+        return ProgressWindow (title, text, total, updpct)
 
     def packageProgressWindow (self, total, totalSize):
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
     def messageWindow(self, title, text, type="ok", default = None,
-		     custom_buttons=None,  custom_icon=None):
+             custom_buttons=None,  custom_icon=None):
         rc = MessageWindow (title, text, type, default,
-			    custom_buttons, custom_icon).getrc()
+                custom_buttons, custom_icon).getrc()
         return rc
 
     def exceptionWindow(self, shortText, longTextFile):
@@ -813,31 +807,17 @@ class InstallInterface:
                                  "choose your diskette carefully."),
                                "okcancel")
         rc = window.getrc()
-	return not rc
+        return not rc
 
     def getBootdisk (self):
         return None
 
     def run(self, id, dispatch):
-##         from xkb import XKB
-##         kb = XKB()
-
-	self.dispatch = dispatch
-
-        # XXX users complain when the keypad doesn't work for input.
-##         if 0 and flags.setupFilesystems:
-##             try:
-##                 kb.setMouseKeys (1)
-##             except SystemError:
-##                 pass
+        self.dispatch = dispatch
 
         # XXX x_already_set is a hack
         if id.keyboard and not id.x_already_set:
             id.keyboard.activate()
-## 	    info = id.keyboard.getXKB()
-## 	    if info:
-##                 (rules, model, layout, variant, options) = info
-##                 kb.setRule (model, layout, variant, "complete")
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
@@ -850,7 +830,7 @@ class InstallInterface:
 
 class InstallControlWindow:
     def setLanguage (self):
-	if not self.__dict__.has_key('window'): return
+        if not self.__dict__.has_key('window'): return
 
         self.reloadRcQueued = 1
 
@@ -860,13 +840,13 @@ class InstallControlWindow:
         # reload the glade file, although we're going to keep our toplevel
         self.loadGlade()
 
-	self.window.destroy()
-	self.window = self.mainxml.get_widget("mainWindow")
+        self.window.destroy()
+        self.window = self.mainxml.get_widget("mainWindow")
         
         self.createWidgets()
         self.connectSignals()
-	self.setScreen()
-	self.window.show()
+        self.setScreen()
+        self.window.show()
 
     def setLtR(self):
         ltrrtl = gettext.dgettext("gtk20", "default:LTR")
@@ -879,36 +859,36 @@ class InstallControlWindow:
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
         
     def prevClicked (self, *args):
-	try:
-	    self.currentWindow.getPrev ()
-	except StayOnScreen:
-	    return
+        try:
+            self.currentWindow.getPrev ()
+        except StayOnScreen:
+            return
 
-	self.dispatch.gotoPrev()
-	self.dir = DISPATCH_BACK
+        self.dispatch.gotoPrev()
+        self.dir = DISPATCH_BACK
 
         self.setScreen ()
 
     def nextClicked (self, *args):
-	try:
-	    rc = self.currentWindow.getNext ()
-	except StayOnScreen:
-	    return
+        try:
+            rc = self.currentWindow.getNext ()
+        except StayOnScreen:
+            return
 
-	self.dispatch.gotoNext()
-	self.dir = DISPATCH_FORWARD
+        self.dispatch.gotoNext()
+        self.dir = DISPATCH_FORWARD
 
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
-	setCursorToBusy()
-	win = ReleaseNotesViewer()
-	win.setId(self.id)
-	win.setDispatch(self.dispatch)
-	win.start()
-	## desensitize button bar at bottom of screen
+        setCursorToBusy()
+        win = ReleaseNotesViewer()
+        win.setId(self.id)
+        win.setDispatch(self.dispatch)
+        win.start()
+        ## desensitize button bar at bottom of screen
         #self.mainxml.get_widget("buttonBar").set_sensitive(False)
-	setCursorToNormal()
+        setCursorToNormal()
 
     def debugClicked (self, *args):
         try:
@@ -930,31 +910,31 @@ class InstallControlWindow:
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()
         if flags.autostep:
-	    if flags.autoscreenshot:
-		# let things settle down graphically
-		processEvents()
-		time.sleep(1)
-		takeScreenShot()
-            self.nextClicked()
-        else:
-            gobject.source_remove(self.handle)
+            if flags.autoscreenshot:
+                # let things settle down graphically
+                processEvents()
+                time.sleep(1)
+                takeScreenShot()
+                self.nextClicked()
+            else:
+                gobject.source_remove(self.handle)
 
     def setScreen (self):
-	(step, anaconda) = self.dispatch.currentStep()
-	if step is None:
-	    gtk.main_quit()
-	    return
+        (step, anaconda) = self.dispatch.currentStep()
+        if step is None:
+            gtk.main_quit()
+            return
 
-	if not stepToClass[step]:
-	    if self.dir == 1:
-		return self.nextClicked()
-	    else:
-		return self.prevClicked()
+        if not stepToClass[step]:
+            if self.dir == 1:
+                return self.nextClicked()
+            else:
+                return self.prevClicked()
 
-	(file, className) = stepToClass[step]
+        (file, className) = stepToClass[step]
         newScreenClass = None
-	s = "from %s import %s; newScreenClass = %s" % (file, className,
-                                                        className)
+        s = "from %s import %s; newScreenClass = %s" % (file, className,
+                                                            className)
         while 1:
             try:
                 exec s
@@ -962,9 +942,10 @@ class InstallControlWindow:
             except ImportError, e:
                 print e
                 win = MessageWindow(_("Error!"),
-                                   _("An error occurred when attempting "
-                                     "to load an installer interface "
-                                     "component.\n\nclassName = %s") % (className,),
+                                    _("An error occurred when attempting "
+                                      "to load an installer interface "
+                                      "component.\n\nclassName = %s")
+                                    % (className,),
                                     type="custom", custom_icon="warning",
                                     custom_buttons=[_("_Exit"),
                                                     _("_Retry")])
@@ -983,13 +964,13 @@ class InstallControlWindow:
                                   custom_buttons=buttons)
                     sys.exit(0)
 
-	ics = InstallControlState (self)
-	ics.setPrevEnabled(self.dispatch.canGoBack())
-	self.destroyCurrentWindow()
+        ics = InstallControlState (self)
+        ics.setPrevEnabled(self.dispatch.canGoBack())
+        self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 
         new_screen = self.currentWindow.getScreen(anaconda)
-	if not new_screen:
+        if not new_screen:
             return
 
         self.update (ics)
@@ -997,7 +978,7 @@ class InstallControlWindow:
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
 
-	self.handle = gobject.idle_add(self.handleRenderCallback)
+        self.handle = gobject.idle_add(self.handleRenderCallback)
 
         if self.reloadRcQueued:
             self.window.reset_rc_styles()
@@ -1009,7 +990,7 @@ class InstallControlWindow:
             child = children[0]
             self.installFrame.remove (child)
             child.destroy ()
-	self.currentWindow = None
+        self.currentWindow = None
 
     def update (self, ics):
         self.mainxml.get_widget("backButton").set_sensitive(ics.getPrevEnabled())
@@ -1036,16 +1017,17 @@ class InstallControlWindow:
         elif (event.keyval == gtk.keysyms.F12
               and self.currentWindow.getICS().getNextEnabled()):
             self.nextClicked()
-	elif (event.keyval == gtk.keysyms.Print
-	      and event.state & gtk.gdk.SHIFT_MASK):
-	    takeScreenShot()
+        elif (event.keyval == gtk.keysyms.Print
+              and event.state & gtk.gdk.SHIFT_MASK):
+            takeScreenShot()
 
     def createWidgets (self):
         self.window.set_title(_("%s Installer") %(productName,))
         
         # FIXME: doesn't handle the lowres case
         i = self.mainxml.get_widget("headerImage")        
-        p = readImageFromFile("anaconda_header.png", dither = False, image = i)
+        p = readImageFromFile("anaconda_header.png",
+                              dither = False, image = i)
         if p is None:
             print _("Unable to load title bar")
 
@@ -1057,14 +1039,12 @@ class InstallControlWindow:
         def noop (window, event):
             return True
         sigs = { "on_nextButton_clicked": self.nextClicked,
-                 "on_rebootButton_clicked": self.nextClicked,                 
-                 "on_backButton_clicked": self.prevClicked,
-                 "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
-                 "on_debugButton_clicked": self.debugClicked,
-                 
-                 "on_mainWindow_key_release_event": self.keyRelease,
-                 "on_mainWindow_delete_event": noop,
-                 }
+            "on_rebootButton_clicked": self.nextClicked,
+            "on_backButton_clicked": self.prevClicked,
+            "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
+            "on_debugButton_clicked": self.debugClicked,
+            "on_mainWindow_key_release_event": self.keyRelease,
+            "on_mainWindow_delete_event": noop, }
         self.mainxml.signal_autoconnect(sigs)
 
     def loadGlade(self):

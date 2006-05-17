@@ -192,6 +192,7 @@ def writeBootloader(anaconda):
                                _("No kernel packages were installed on your "
                                  "system.  Your boot loader configuration "
                                  "will not be changed."))
+    w.pop()
     dosync()
 
 # return instance of the appropriate bootloader for our arch

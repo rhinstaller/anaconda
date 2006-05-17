@@ -1,8 +1,19 @@
 2006-05-17  David Cantrell  <dcantrell@redhat.com>
 
-	* installclass.py:  Removed steps that don't exist anymore.
-	* upgradeclass.py:  Likewise.
-	* kickstart.py:  Likewise.
+	* installclass.py: Removed steps that don't exist anymore.
+	* upgradeclass.py: Likewise.
+	* kickstart.py: Likewise.
+
+	* gui.py: 505 lines changes in the name of threads and easier
+	readability.
+
+	* bootloader.py (writeBootloader): Pop the WaitWindow at the end of
+	function, or we sit in gtk.main() indefinitely.
+
+	* iw/release_notes.py: Wrap gtk.main() in threads_enter/threads_leave.
+	Handle dispatch and id parameters differently for now.
+
+	* docs/threads.txt: Notes about threads in anaconda.
 
 2006-05-17  Jeremy Katz  <katzj@redhat.com>
 
