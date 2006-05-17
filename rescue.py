@@ -174,8 +174,7 @@ def runShell():
     else:
         os.waitpid(shpid, 0)
 
-def runRescue(instPath, mountroot, id):
-
+def runRescue(anaconda):
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux" ]:
         try:
@@ -184,7 +183,7 @@ def runRescue(instPath, mountroot, id):
             pass
 
     # see if they would like networking enabled
-    if not methodUsesNetworking(id.methodstr):
+    if not methodUsesNetworking(anaconda.id.methodstr):
 	screen = SnackScreen()
 
 	while 1:
@@ -193,7 +192,7 @@ def runRescue(instPath, mountroot, id):
 		  "this system?"), [_("Yes"), _("No")])
 
 	    if rc != string.lower(_("No")):
-		intf = RescueInterface(screen)
+		anaconda.intf = RescueInterface(screen)
 
 		# need to call sequence of screens, have to look in text.py
 		#
@@ -206,7 +205,7 @@ def runRescue(instPath, mountroot, id):
 
 		lastrc = INSTALL_OK
 		step = 0
-		dir = 1
+		anaconda.dir = 1
 
 		while 1:
 		    s = "from %s import %s; nextWindow = %s" % \
@@ -215,21 +214,17 @@ def runRescue(instPath, mountroot, id):
 
 		    win = nextWindow()
 
-		    if classNames[step] == "NetworkDeviceWindow":
-			args = (id.network, dir, intf, None, 0)
-		    else:
-			args = (id.network, dir, intf, None)
-		    rc = apply(win, (screen, ) + args)
+                    rc = win(screen, anaconda)
 
 		    if rc == INSTALL_NOOP:
 			rc = lastrc
 			
 		    if rc == INSTALL_BACK:
 			step = step - 1
-			dir = - 1
+			anaconda.dir = - 1
 		    elif rc == INSTALL_OK:
 			step = step + 1
-			dir = 1
+			anaconda.dir = 1
 
 		    lastrc = rc
 
@@ -239,19 +234,20 @@ def runRescue(instPath, mountroot, id):
 					     "from here. You will have to try "
 					     "again."),
 					   buttons=[_("OK")])
-                        dir = 1
+                        anaconda.dir = 1
                         step = 0
 		    elif step >= len(classNames):
 			break
 
-		startNetworking(id.network, intf)
+		startNetworking(anaconda.id.network, anaconda.intf)
 		break
 	    else:
 		break
 
 	screen.finish()
 
-    if (not mountroot):
+    # Early shell access with no disk access attempts
+    if not anaconda.rescue_mount:
         print
         print _("When finished please exit from the shell and your "
                 "system will reboot.")
@@ -269,7 +265,7 @@ def runRescue(instPath, mountroot, id):
 	isys.makeDevInode(dev, "/dev/" + dev)
 
     screen = SnackScreen()
-    intf = RescueInterface(screen)
+    anaconda.intf = RescueInterface(screen)
 
     # prompt to see if we should try and find root filesystem and mount
     # everything in /etc/fstab on that root
@@ -283,7 +279,7 @@ def runRescue(instPath, mountroot, id):
           "\n\n"
           "If for some reason this process fails you can choose 'Skip' "
           "and this step will be skipped and you will go directly to a "
-          "command shell.\n\n") % (instPath,),
+          "command shell.\n\n") % (anaconda.rootPath,),
           [_("Continue"), _("Read-Only"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
@@ -298,7 +294,7 @@ def runRescue(instPath, mountroot, id):
     else:
         readOnly = 0
 
-    disks = upgrade.findExistingRoots(intf, id, instPath, upgradeany = 1)
+    disks = upgrade.findExistingRoots(anaconda, upgradeany = 1)
 
     if not disks:
 	root = None
@@ -336,8 +332,8 @@ def runRescue(instPath, mountroot, id):
 
 	    # only pass first two parts of tuple for root, since third
 	    # element is a comment we dont want
-	    rc = upgrade.mountRootPartition(intf, root[:2],
-					    fs, instPath,
+	    rc = upgrade.mountRootPartition(anaconda.intf, root[:2],
+					    fs, anaconda.rootPath,
                                             allowDirty = 1, warnDirty = 1,
                                             readOnly = readOnly)
 
@@ -356,7 +352,7 @@ def runRescue(instPath, mountroot, id):
                      "make your system the root environment, run the command:\n\n"
                      "\tchroot %s\n\nThe system will reboot "
                      "automatically when you exit from the shell.") %
-                                   (instPath,instPath),
+                                   (anaconda.rootPath, anaconda.rootPath),
                                    [_("OK")] )
                 rootmounted = 1
 
@@ -368,12 +364,12 @@ def runRescue(instPath, mountroot, id):
 			log.error("Error enabling swap")
 
                 # now that dev is udev, bind mount the installer dev there
-                isys.mount("/dev", "%s/dev" %(instPath,), bindMount = 1)
+                isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
 
                 # and /selinux too
-                if flags.selinux and os.path.isdir("%s/selinux" %(instPath,)):
+                if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
                     try:
-                        isys.mount("/selinux", "%s/selinux" %(instPath,),
+                        isys.mount("/selinux", "%s/selinux" %(anaconda.rootPath,),
                                    "selinuxfs")
                     except Exception, e:
                         log.error("error mounting selinuxfs: %s" %(e,))
@@ -437,7 +433,7 @@ def runRescue(instPath, mountroot, id):
 		_("An error occurred trying to mount some or all of your "
 		  "system. Some of it may be mounted under %s.\n\n"
 		  "Press <return> to get a shell. The system will reboot "
-		  "automatically when you exit from the shell.") % (instPath,),
+		  "automatically when you exit from the shell.") % (anaconda.rootPath,),
 		  [_("OK")] )
     else:
 	ButtonChoiceWindow(screen, _("Rescue Mode"),
@@ -450,12 +446,12 @@ def runRescue(instPath, mountroot, id):
 
     print
     if rootmounted and not readOnly:
-        makeMtab(instPath, fs)
+        makeMtab(anaconda.rootPath, fs)
         try:
-            makeResolvConf(instPath)
+            makeResolvConf(anaconda.rootPath)
         except Exception, e:
             log.error("error making a resolv.conf: %s" %(e,))
-        print _("Your system is mounted under the %s directory.") % (instPath,)
+        print _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
         print
 
     print _("When finished please exit from the shell and your "

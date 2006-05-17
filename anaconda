@@ -547,6 +547,7 @@ class Anaconda:
         self.rootPath = None
         self.dispatch = None
         self.isKickstart = False
+        self.rescue_mount = True
 
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
@@ -647,6 +648,10 @@ if __name__ == "__main__":
 
     setupLoggingFromOpts(opts)
 
+    anaconda.rootPath = opts.rootPath
+    # Default is to prompt to mount the installed system.
+    anaconda.rescue_mount = not opts.rescue_nomount
+
     if opts.method and opts.method[0] == '@':
         expandFTPMethod(opts)
 
@@ -692,8 +697,8 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
-        rescueid = instdata.InstallData([], "fd0", opts.method, opts.display_mode)
-        rescue.runRescue(opts.rootPath, not opts.rescue_nomount, rescueid)
+        anaconda.id = instdata.InstallData([], "fd0", opts.method, opts.display_mode)
+        rescue.runRescue(anaconda)
 
         # shouldn't get back here
         sys.exit(1)
@@ -835,7 +840,6 @@ if __name__ == "__main__":
     if opts.display_mode == 'g' and flags.usevnc:
         runVNC(vncpassword, vncconnecthost, vncconnectport, doStartupX11Actions)
 
-    anaconda.rootPath = opts.rootPath
     anaconda.intf = getInstallInterface(opts)
 
     # imports after setting up the path

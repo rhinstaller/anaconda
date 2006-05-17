@@ -641,7 +641,7 @@ class DiskSet:
 
         return labels
 
-    def findExistingRootPartitions(self, intf, mountpoint, upgradeany = 0):
+    def findExistingRootPartitions(self, anaconda, upgradeany = 0):
         """Return a list of all of the partitions which look like a root fs."""
         rootparts = []
 
@@ -655,20 +655,20 @@ class DiskSet:
             found = 0
             for fs in fsset.getFStoTry(dev):
                 try:
-                    isys.mount(dev, mountpoint, fs, readOnly = 1)
+                    isys.mount(dev, anaconda.rootPath, fs, readOnly = 1)
                     found = 1
                     break
                 except SystemError, (errno, msg):
                     pass
 
             if found:
-                if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    relstr = getReleaseString(mountpoint)
+                if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):
+                    relstr = getReleaseString(anaconda.rootPath)
 
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         rootparts.append ((dev, fs, relstr))
-                isys.umount(mountpoint)
+                isys.umount(anaconda.rootPath)
 
         # now, look for candidate lvm roots
 	lvm.vgscan()
@@ -681,20 +681,20 @@ class DiskSet:
             found = 0
             for fs in fsset.getFStoTry(dev):
                 try:
-                    isys.mount(dev, mountpoint, fs, readOnly = 1)
+                    isys.mount(dev, anaconda.rootPath, fs, readOnly = 1)
                     found = 1
                     break
                 except SystemError:
                     pass
 
             if found:
-                if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    relstr = getReleaseString(mountpoint)
+                if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):
+                    relstr = getReleaseString(anaconda.rootPath)
                     
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
                         rootparts.append ((dev, fs, relstr))
-                isys.umount(mountpoint)
+                isys.umount(anaconda.rootPath)
 
 	lvm.vgdeactivate()
 
@@ -715,22 +715,29 @@ class DiskSet:
                 elif (part.fs_type and
                       part.fs_type.name in fsset.getUsableLinuxFs()):
                     node = get_partition_name(part)
+
+                    # In hard drive ISO method, don't try to mount the
+                    # protected partitions because that'll throw up a
+                    # useless error message.
+                    if node in anaconda.method.protectedPartitions():
+                        continue
+
 		    try:
-			isys.mount(node, mountpoint, part.fs_type.name)
+			isys.mount(node, anaconda.rootPath, part.fs_type.name)
 		    except SystemError, (errno, msg):
-			intf.messageWindow(_("Error"),
+			anaconda.intf.messageWindow(_("Error"),
                                            _("Error mounting file system on "
                                              "%s: %s") % (node, msg))
                         part = disk.next_partition(part)
 			continue
-		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                        relstr = getReleaseString(mountpoint)
+		    if os.access (anaconda.rootPath + '/etc/fstab', os.R_OK):
+                        relstr = getReleaseString(anaconda.rootPath)
 
                         if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
                             rootparts.append ((node, part.fs_type.name,
                                                relstr))
-		    isys.umount(mountpoint)
+		    isys.umount(anaconda.rootPath)
                     
                 part = disk.next_partition(part)
         return rootparts

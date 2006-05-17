@@ -1,3 +1,15 @@
+2006-05-17  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Fix runRescue to use anaconda class.
+	* rescue.py:  Likewise.
+
+	* upgrade.py (findExistingRoots):  Fix code path to use anaconda
+	class.
+
+	* partedUtils.py (DiskSet.findExistingRootPartitions):  Don't try to
+	mount protected partitions when looking for an installed system on
+	upgrade.
+
 2006-05-17  David Cantrell  <dcantrell@redhat.com>
 
 	* installclass.py: Removed steps that don't exist anymore.

@@ -63,7 +63,7 @@ def findRootParts(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
     if anaconda.id.rootParts is None:
-        anaconda.id.rootParts = findExistingRoots(anaconda.intf, anaconda.id, anaconda.rootPath)
+        anaconda.id.rootParts = findExistingRoots(anaconda)
 
     anaconda.id.upgradeRoot = []
     for (dev, fs, meta) in anaconda.id.rootParts:
@@ -77,23 +77,23 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("findinstall", skip = 1)
         anaconda.dispatch.skipStep("installtype", skip = 0)
 
-def findExistingRoots(intf, id, chroot, upgradeany = 0):
+def findExistingRoots(anaconda, upgradeany = 0):
     if not flags.setupFilesystems:
-        relstr = partedUtils.getReleaseString (chroot)
+        relstr = partedUtils.getReleaseString (anaconda.rootPath)
         if ((flags.cmdline.has_key("upgradeany")) or
             (upgradeany == 1) or
             (partedUtils.productMatches(relstr, productName))):
-            return [(chroot, 'ext2', "")]
+            return [(anaconda.rootPath, 'ext2', "")]
         return []
 
     diskset = partedUtils.DiskSet()
     diskset.openDevices()
     
-    win = intf.progressWindow(_("Searching"),
+    win = anaconda.intf.progressWindow(_("Searching"),
                               _("Searching for %s installations...") %
                               (productName,), 5)
 
-    rootparts = diskset.findExistingRootPartitions(intf, chroot,
+    rootparts = diskset.findExistingRootPartitions(anaconda,
                                                    upgradeany = upgradeany)
     for i in range(1, 6):
         time.sleep(0.25)
