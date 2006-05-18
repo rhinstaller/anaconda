@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-17 16:00+0100\n"
+"PO-Revision-Date: 2006-05-18 17:06+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -684,6 +684,11 @@ msgid ""
 "\n"
 "is a version 0 Linux swap partition. If you want to use this device, you must reformat as a version 1 Linux swap partition. If you skip it, the installer will ignore it during the installation."
 msgstr ""
+"Zariadenie odkladacieho priestoru:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"je verzie 0 odkladacieho priestoru Linuxu. Ak chcete použiť toto zariadenie, musíte ho preformátovať na verziu 1 odkladacieho pristoru Linuxu. Ak to neurobíte, inštalátor ho bude ignorovať počas inštalácie."
 
 #: ../fsset.py:1496
 #, fuzzy
@@ -699,6 +704,11 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. To perform an upgrade, please shut down your system rather than hibernating it."
 msgstr ""
+"Zariadenie odkladacieho priestoru:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"uvedené v súbore /etc/fstab je práve používaný ako oddiel softvérového dočasného zastavenia (software suspend), čo znamená, že váš systém hibernuje. Pre vykonanie aktualizácie prosím vypnite váš systém namiesto hibernácie."
 
 #: ../fsset.py:1508
 #, python-format
@@ -709,6 +719,11 @@ msgid ""
 "\n"
 "in your /etc/fstab file is currently in use as a software suspend partition, which means your system is hibernating. If you are performing a new install, make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Zariadenie odkladacieho priestoru:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"uvedené v súbore /etc/fstab je práve používaný ako oddiel softvérového dočasného zastavenia (software suspend), čo znamená, že váš systém hibernuje. Ak vykonávate novú inštaláciu, ubezpečte sa, že inštalátor je nastavený na formátovanie odkladacích oddielov."
 
 #: ../fsset.py:1518
 msgid ""
@@ -716,6 +731,9 @@ msgid ""
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the upgrade.  Choose Format to reformat the partition as swap space.  Choose Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Zvoľte Preskočiť, ak chcete aby inštalátor ignoroval tento oddiel počas inštalácie.  Zvoľte Formátovať na preformátovanie oddielu ako odkladací priestor.  Zvoľte Reštart pre reštart systému."
 
 #: ../fsset.py:1524
 #: ../iw/partition_gui.py:368
@@ -1600,6 +1618,9 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"Chcete odstrániť skupinu zväzkov \"%s\".\n"
+"\n"
+"VŠETKY logické zväzky v tejto skupine zväzkov budú stratené!"
 
 #: ../partIntfHelpers.py:514
 #, python-format
@@ -1670,15 +1691,15 @@ msgstr "Musíte vytvoriť zavádzací oddiel PPC PReP."
 #: ../partitions.py:877
 #, python-format
 msgid "Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr ""
+msgstr "Váš %s oddiel je menší ako %s megabajtov, čo je menej ako je odporúčané pre normálnu inštaláciu %s."
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Inštalácia na USB zariadenie.  Toto môže ale nemusí vytvoriť funkčný systém."
 
 #: ../partitions.py:914
 msgid "Installing on a FireWire device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Inštalácia na zariadenie FireWire.  Toto môže ale nemusí vytvoriť funkčný systém."
 
 #: ../partitions.py:923
 #: ../partRequests.py:675
@@ -1691,17 +1712,17 @@ msgstr "Zavádzacie oddiely nemôžu byť na logickom zväzku."
 
 #: ../partitions.py:948
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "Neurčili ste odkladací oddiel.  Aj keď to nie je nutné vo všetkých prípadoch, pre väčšinu inštalácií to významne zvýši výkon."
 
 #: ../partitions.py:955
 #, python-format
 msgid "You have specified more than 32 swap devices.  The kernel for %s only supports 32 swap devices."
-msgstr ""
+msgstr "Určili ste viac ako 32 odkladacích priestorov.  Kernel pre %s podporuje len 32 odkladacích priestorov."
 
 #: ../partitions.py:966
 #, python-format
 msgid "You have allocated less swap space (%dM) than available RAM (%dM) on your system.  This could negatively impact performance."
-msgstr ""
+msgstr "Pridelili ste menej odkladacieho pristoru (%dM) ako dostupnej RAM (%dM) na vašom systéme.  To môže mať negatívny dopad na výkon."
 
 #: ../partitions.py:1266
 msgid "the partition in use by the installer."
@@ -1759,12 +1780,12 @@ msgstr "Oblasti nemäžu končiť na zápornom valci."
 
 #: ../partRequests.py:667
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "Nezvolení členovia v požiadavke RAID alebo neurčená úroveň RAID."
 
 #: ../partRequests.py:679
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "RAID zariadenie typu %s vyžaduje aspoň %s členov."
 
 #: ../partRequests.py:688
 #, python-format
@@ -1802,7 +1823,7 @@ msgstr "Odtiaľto sa nedá vrátiť na predchádzajúci krok. Budete musieť sk�
 #: ../rescue.py:292
 #: ../rescue.py:461
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "Po dokončení práce ukončite shell a váš systém bude reštartovaný."
 
 #: ../rescue.py:276
 #: ../rescue.py:345
