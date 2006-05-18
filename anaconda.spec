@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.13
+Version: 11.1.0.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 18 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.14-1
+- Few more liveCD tweaks
+- And clean up the ppc64 tree a little
+- Enable ipv6 by default (pnasrat)
+- Fix a traceback in finding root part (clumens)
+
 * Wed May 17 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.13-1
 - Fix image building typo
 - Remove some dead code (clumens, dcantrel)
