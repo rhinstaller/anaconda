@@ -7,6 +7,8 @@
 	* anaconda.spec: Remove BuildRequires: glibc-kernheaders. Was told
 	this will break things soon. All I want to be is pedantic.
 
+	* htmlbuffer.py: Removed. Not used anywhere anymore.
+
 2006-05-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
