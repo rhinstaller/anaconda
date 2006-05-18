@@ -147,7 +147,7 @@ def writeBootloader(anaconda):
 	else:
 	    otherList.append((label, longlabel, dev))
 
-    if kernelLabel is None and not flags.livecd:
+    if kernelLabel is None and not flags.livecd: # FIXME
         log.error("unable to find default image, bailing")
 	if not justConfigFile:
 	    w.pop()
@@ -196,7 +196,9 @@ def writeBootloader(anaconda):
                                _("No kernel packages were installed on your "
                                  "system.  Your boot loader configuration "
                                  "will not be changed."))
-    w.pop()
+
+    if not justConfigFile:
+        w.pop()
     dosync()
 
 # return instance of the appropriate bootloader for our arch
