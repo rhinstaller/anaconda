@@ -1,7 +1,9 @@
+# translation of it.po to 
+# translation of it.po to
+# translation of it.po to
+# translation of it.po to
 # translation of it.po to Italiano
 # Copyright (C) 2001,2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-#
-#
 # Bettina De Monti <bdemonti@redhat.it>, 2001.
 # Tullio Dovera <tdovera@redhat.it>, 2001.
 # Gabriella Bertilaccio <gbertilaccio@redhat.it>, 2001.
@@ -11,18 +13,20 @@
 # Lorenzo Stobbione <lorenzo.stobbione@clsengineering.it>, 2004, 2005.
 # Nicolò Nepote <nepote@labinf.polito.it>, 2005.
 # Francesco Tombolini <tombo@adamantio.net>, 2006.
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-22 17:09+0100\n"
-"Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
+"PO-Revision-Date: 2006-05-18 04:27+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:255
@@ -94,8 +98,7 @@ msgstr "Nessun hardware video trovato, si presume senza monitor"
 
 #: ../anaconda:484 ../anaconda:880
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
-"Impossibile iniziare una istanza dell'oggetto dello stato di X hardware"
+msgstr "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware"
 
 #: ../anaconda:509
 msgid "Starting graphical installation..."
@@ -107,8 +110,7 @@ msgstr "Installare la classe forzando l'installazione in modalità testuale"
 
 #: ../anaconda:784
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Installazione grafica non disponibile...  Avvio della modalità di testo."
+msgstr "Installazione grafica non disponibile...  Avvio della modalità di testo."
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -189,8 +191,7 @@ msgstr ""
 
 #: ../autopart.py:1052
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "La partizione boot %s potrebbe non rispondere alle esigenze d'avvio della "
 "vostra architettura."
@@ -472,8 +473,7 @@ msgstr "In progresso...    "
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
-msgstr ""
-"Non è possibile avere un interrogativo nella modalità a linea di comando!"
+msgstr "Non è possibile avere un interrogativo nella modalità a linea di comando!"
 
 #: ../cmdline.py:92
 msgid "Parted exceptions can't be handled in command line mode!"
@@ -533,13 +533,12 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "C'è stato un problema nello scrivere lo stato del sistema sul floppy."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Lo stato del sistema è stato scritto con successo sull'host remoto.\n"
-"Il sistema verrà ora resettato."
+"Lo stato del sistema è stato salvato con successo sull'host remoto.  Il vostro "
+"sistema verrà ora riavviato."
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -648,11 +647,16 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Il dispositivo swap:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"è una versione 0 della partizione swap di Linux. Se desiderate utilizzare questo dispositivo, sarà necessario riformattare, come versione 1, la partizione swap di Linux. Se saltate "
+"questo processo, il programma d'installazione proseguirà con il proprio processo ignorando questo procedimento."
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Formattare"
+msgstr "Riformatta"
 
 #: ../fsset.py:1500
 #, python-format
@@ -665,6 +669,12 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Il dispositivo swap:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"nel vostro file /etc/fstab, è utilizzato attualmente come una partizione di sospensione software, "
+"ciò significa che il vostro sistema è stato 'congelato'. Per eseguire un aggiornamento, si prega di arrestare il vostro sistema invece di bloccarlo o'congelarlo'."
 
 #: ../fsset.py:1508
 #, python-format
@@ -677,6 +687,12 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Il dispositivo swap:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"nel vostro file /etc/fstab, è utilizzato attualmente come una partizione di sospensione software, "
+"ciò significa che il vostro sistema è stato 'congelato'. Se state eseguendo una nuova installazione, assicuratevi che il programma d'installazione sia stato impostato in modo da formattare tutte le partizioni swap."
 
 #: ../fsset.py:1518
 msgid ""
@@ -686,6 +702,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Selezionate Salta se desiderate che l'installatore ignori questa partizione durante il processo "
+"di aggiornamento.  Selezionate invece Formatta per riformattare la partizione come uno "
+"spazio, o Riavvia per riavviare il sistema."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1027,7 +1048,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Immagine ISO 9660 mancante"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1036,9 +1057,9 @@ msgid ""
 "the installation."
 msgstr ""
 "Il programma d'installazione ha tentato di montare l'immagine #%s, ma non "
-"può trovarla sul server.\n"
+"può trovarla sul disco fisso.\n"
 "\n"
-"Si prega di copiare questa immagine nel percorso condiviso sul server remoto "
+"Si prega di copiare questa immagine nel percorso condiviso sul drive "
 "e premere Riprova. Premere Riavvia per annullare l'installazione."
 
 #: ../harddrive.py:71 ../image.py:491
@@ -1174,9 +1195,8 @@ msgid "Running post-install scripts"
 msgstr "Esecuzione post-install scripts"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "Installazione dei pacchetti"
+msgstr "Pacchetto mancante"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1184,16 +1204,16 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Avete indicato che il pacchetto '%s' dovrebbe essere installato.  Questo pacchetto "
+"non è esistente. Desiderate continuare oppure interrompere la vostra installazione."
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "_Riavvia"
+msgstr "_Interrompi"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "Informazioni mancanti"
+msgstr "Gruppo mancante"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1201,6 +1221,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Avete indicato che il gruppo '%s' dovrebbe essere installato.  Questo gruppo "
+"non è esistente. Desiderate continuare oppure interrompere la vostra installazione."
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1214,8 +1236,7 @@ msgstr ""
 
 #: ../network.py:54
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"I nomi host possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
+msgstr "I nomi host possono contenere solo i caratteri 'a-z', 'A-Z', '-', o '.'"
 
 #: ../packages.py:357
 msgid "Warning! This is pre-release software!"
@@ -1675,10 +1696,8 @@ msgid "Confirm Reset"
 msgstr "Conferma Reimposta"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Reimpostare la tabella delle partizioni secondo il suo stato originario?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Reimpostare la tabella delle partizioni secondo il suo stato originario?"
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
@@ -1727,8 +1746,7 @@ msgstr ""
 "insufficiente per installare %s."
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Creare una partizione /boot/efi di tipo FAT di 50 megabyte."
 
 #: ../partitions.py:836
@@ -1749,15 +1767,14 @@ msgstr ""
 "capacità raccomandata per un'installazione di %s normale."
 
 #: ../partitions.py:911
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Installazione su di un dispositivo USB in corso.  Tale operazione potrebbe, o meno, produrre un sistema funzionante."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Installazione su di un dispositivo FireWire in corso.  Tale operazione potrebbe, o meno, produrre un sistema funzionante."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1808,8 +1825,7 @@ msgstr "una partizione che fa parte del gruppo di volumi LVM."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Il mount point richiesto non è valido. La directory %s deve essere sul "
 "filesystem /."
@@ -1833,8 +1849,7 @@ msgstr "Il mount point richiesto deve essere su un filesystem di Linux."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Il mount point \"%s\" è già in uso, scegliere un mount point differente."
+msgstr "Il mount point \"%s\" è già in uso, scegliere un mount point differente."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1857,8 +1872,7 @@ msgstr ""
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
-"Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
+msgstr "Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -2083,10 +2097,8 @@ msgid "Welcome to %s"
 msgstr "Benvenuti in %s"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> aiuto | <Tab> fra elementi | <Space> seleziona | <F12> schermo succ."
 
 #: ../text.py:420
 msgid ""
@@ -2289,9 +2301,8 @@ msgid "The password must be at least six characters long."
 msgstr "La password deve contenere almeno 6 caratteri."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Nessuna password"
+msgstr "Errore password VNC"
 
 #: ../vnc.py:138
 msgid ""
@@ -2299,6 +2310,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"È necessario specificare una password vnc lunga almeno 6 caratteri.\n"
+"\n"
+"Premere <return> per riavviare il vostro sistema.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2364,8 +2378,7 @@ msgstr ""
 
 #: ../vnc.py:292
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Connettete manualmente il vostro client vnc per far partire l'installazione."
+msgstr "Connettete manualmente il vostro client vnc per far partire l'installazione."
 
 #: ../vnc.py:296
 msgid "Will try to connect again in 15 seconds..."
@@ -2428,60 +2441,59 @@ msgstr "_Annulla"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "conflitti del file"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "pacchetti vecchi"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "spazio disco insufficiente"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "inode disco insufficienti"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "conflitti del pacchetto"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "pacchetto già installato"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Spazio libero"
+msgstr "pacchetto necessario"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pacchetto per architettura incorretta"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pacchetto per os incorretto"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Avete bisogno di più spazio sui seguenti file system:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Errore nell'esecuzione della transazione"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Il pacchetto %s-%s-%s.%s non puó essere aperto. Ciò é dovuto alla mancanza "
-"di un file o alla corruzione del pacchetto.  Se state installando da un CD, "
-"può significare che il CD é corrotto, oppure che il drive del CD non é in "
+"Il file %s non puó essere aperto. Ciò é dovuto alla mancanza "
+"di un file o ad un pacchetto corrotto.  Se state installando da un CD, "
+"è possibile che il CD sia corrotto, oppure che il drive del CD non é in "
 "grado di effettuare la lettura.\n"
 "\n"
 
@@ -2509,7 +2521,7 @@ msgstr "Non categorizzato"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Per poter installare i pacchetti da voi selezionati è necessario avere a disposizione %d MB di spazio, attualmente però non è disponibile spazio sufficiente.  È possibile modificare la scelta fatta oppure eseguire un processo di riavvio."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2527,18 +2539,15 @@ msgstr "Inizio installazione"
 
 #: ../yuminstall.py:1020
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
+msgstr "Inizio del processo di installazione.  Potrebbero occorrere alcuni minuti..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Aggiornamento"
+msgstr "Post Aggiornamento"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Configurazione post installazione..."
+msgstr "Esecuzione configurazione post aggiornamento..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2579,8 +2588,7 @@ msgstr "Numero del Dispositivo"
 
 #: ../zfcp.py:31
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Non avete specificato il numero del dispositivo o il numero non è valido"
+msgstr "Non avete specificato il numero del dispositivo o il numero non è valido"
 
 #: ../zfcp.py:33
 msgid "SCSI Id"
@@ -2666,21 +2674,20 @@ msgid "_Confirm: "
 msgstr "_Confermare:"
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Rimuovi tutte le partizioni dal sistema"
+msgstr "Rimuovi tutte le partizioni sulle unità selezionate e crea una struttura di default."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Rimuovi tutte le partizioni Linux sulle unità selezionate e crea una struttura di default."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Utilizza lo spazio disponibile sulle unità selezionate e crea la struttura di default."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Crea struttura personalizzata."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3239,8 +3246,7 @@ msgstr "Nome in uso"
 #: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
+msgstr "Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
 
 #: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
@@ -3730,16 +3736,14 @@ msgid "Partitioning"
 msgstr "Partizionamento in corso"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "I seguenti errori critici sono relativi allo schema di partizionamento "
 "richiesto."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Correggere gli errori prima di proseguire l'installazione di %s."
 
 #: ../iw/partition_gui.py:642
@@ -3748,8 +3752,7 @@ msgstr "Errori di partizionamento"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"I seguenti avvisi si riferiscono allo schema di partizionamento richiesto."
+msgstr "I seguenti avvisi si riferiscono allo schema di partizionamento richiesto."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4259,8 +4262,7 @@ msgstr "Il boot loader verrà aggiornato."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Il programma di installazione ha individuato il boot loader %s correntemente "
 "installato su %s."
@@ -4401,8 +4403,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "La dimensione del file di swap deve essere compresa fra 1 e 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Non c'è abbastanza spazio sul dispositivo selezionato per creare la "
 "partizione."
@@ -4572,11 +4573,9 @@ msgstr ""
 "Indicare le partizioni da avviare e associare a ognuna di esse un'etichetta."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Spazio> seleziona pulsante | <F2> seleziona boot entry predefinita | <F12> "
+" <Spazio> seleziona | <F2> seleziona predefinita | <F4> cancella |<F12> "
 "schermata successiva>"
 
 #: ../textw/bootloader_text.py:387
@@ -4720,8 +4719,7 @@ msgstr ""
 "installati."
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Spazio>,<+>,<-> selezione   |   <F2> Descrizione   |   <F12> prossima "
 "schermata"
@@ -5029,8 +5027,7 @@ msgstr "Non supportato"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"I gruppi di volumi LVM possono essere modificati solo nell'installer grafico."
+msgstr "I gruppi di volumi LVM possono essere modificati solo nell'installer grafico."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
@@ -5127,10 +5124,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Help  F2-Aggiungi   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Help  F2-Aggiungi   F3-Modifica   F4-Cancella   F5-Reimposta  F12-Ok   "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5648,8 +5643,7 @@ msgstr "Impossibile montare dal file il dischetto del driver ."
 #: ../loader2/driverdisk.c:384
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
+msgstr "Inserire il dischetto dei driver in /dev/%s e premere \"OK\" per continuare."
 
 #: ../loader2/driverdisk.c:386
 msgid "Insert Driver Disk"
@@ -5773,8 +5767,7 @@ msgstr "Caricamento del driver %s..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"L'albero d'installazione %s in tale directory non corrisponde al boot media."
+msgstr "L'albero d'installazione %s in tale directory non corrisponde al boot media."
 
 #: ../loader2/hdinstall.c:215
 msgid ""
@@ -5860,8 +5853,7 @@ msgstr "Impossibile trovare il file ks.cfg sul dischetto di avvio."
 #: ../loader2/kickstart.c:410
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
-"Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
+msgstr "Argomento non corretto per terminare un comando del metodo kickstart %s: %s"
 
 #: ../loader2/lang.c:51
 #, c-format
@@ -5869,10 +5861,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Benvenuti in %s - Modalità Rescue"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:151
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> schermata succ."
 
 #: ../loader2/lang.c:361
 msgid "Choose a Language"
@@ -5985,8 +5975,7 @@ msgstr "Nel sistema sono stati trovati i seguenti dispositivi."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
+msgstr "Non è stato caricato alcun driver dei dispositivi nel sistema. Caricarli ora?"
 
 #: ../loader2/loader.c:1116
 msgid "Devices"
@@ -6118,8 +6107,7 @@ msgstr "Controllo checksum"
 #: ../loader2/modules.c:965
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
-"Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
+msgstr "Argomento errato per il comando del metodo dispositivo del kickstart %s: %s"
 
 #: ../loader2/net.c:50
 #, c-format
@@ -6266,7 +6254,7 @@ msgstr "Directory %s:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6349,11 +6337,11 @@ msgstr "Recupero in corso"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6560,8 +6548,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Ora dell'Atlantico - Nuova Scozia - aree non rientranti in DST 1966-1971"
+msgstr "Ora dell'Atlantico - Nuova Scozia - aree non rientranti in DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -6628,12 +6615,10 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6645,17 +6630,15 @@ msgstr "Central Time - Manitoba e Ontario dell'Ovest"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
 msgstr "Central Time - maggior parte del territorio"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Central Time - Nord Dakota - Oliver County"
+msgstr "Central Time - Nord Dakota - Morton County (ad eccezione dell'area di Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6758,8 +6741,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Eastern Time - Ontario - maggior parte del territorio"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Eastern Time - Ontario e Quebec - aree non rientranti in DST 1967-1973"
 
 #. generated from zone.tab
@@ -6776,8 +6758,7 @@ msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo dell'Est e del Sud, Celebes, Bali, Nusa Tengarra, Timor dell'Ovest"
+msgstr "Borneo dell'Est e del Sud, Celebes, Bali, Nusa Tengarra, Timor dell'Ovest"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -6950,10 +6931,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek e Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek e Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7377,94 +7356,3 @@ msgstr "Gallese"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "The release notes are missing."
-#~ msgstr "Le Release Note non sono disponibili."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "I seguenti pacchetti sono disponibili in questa versione, ma NON "
-#~ "aggiornati:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "I seguenti pacchetti erano disponibili in questa versione, ma NON "
-#~ "installati:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Ricerca in corso..."
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Ricerca dei pacchetti da aggiornare..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Il programma d'installazione non puó effettuare l'aggiornamento del "
-#~ "sistema con un database pre-rpm 4.x. Si prega di installare i pacchetti "
-#~ "rpm errata per la vostra release come riportato nelle release note quindi "
-#~ "eseguite la procedura di aggiornamento."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Errore nella ricerca dei pacchetti da aggiornare."
-
-#~ msgid "Installation Type"
-#~ msgstr "Tipo di installazione"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Scegliere il tipo di installazione da effettuare:"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Personalizzazione dei pacchetti da aggiornare"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "I pacchetti installati e quelli necessari per soddisfare tutte le "
-#~ "dipendenze sono stati selezionati per l'installazione. Personalizzare "
-#~ "l'elenco dei pacchetti da aggiornare?"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Virtualizzazione (Xen)"
-
-#~ msgid "Hide _Help"
-#~ msgstr "Nascondi _Aiuto"
-
-#~ msgid "Show _Help"
-#~ msgstr "Mostra _Aiuto"
-
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr "Come distribuire lo spazio alle partizioni?"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "L'installazione di <product> richiede il partizionamento del disco "
-#~ "rigido.  Puoi sia scegliere di usare lo schema di partizionamento "
-#~ "predefinito che crearne uno tuo."
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Selezionare i dischi da utilizzare per l'installazione."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "_Revisionare e modificare lo schema di partizionamento"
-
-#~ msgid "Amharic"
-#~ msgstr "Aramaico"
-
-#~ msgid "Thai"
-#~ msgstr "Thailandesee"
