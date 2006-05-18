@@ -141,7 +141,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         if location is None:
             self.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
-            self.showSteps.append("bootloadersetup")
+            self.showSteps.append("bootloader")
             id.instClass.setBootloader(id, location, dict["forceLBA"],
                                        dict["password"], dict["md5pass"],
                                        dict["appendLine"], dict["driveorder"])
