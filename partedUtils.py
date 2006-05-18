@@ -719,7 +719,9 @@ class DiskSet:
                     # In hard drive ISO method, don't try to mount the
                     # protected partitions because that'll throw up a
                     # useless error message.
-                    if node in anaconda.method.protectedPartitions():
+                    protected = anaconda.method.protectedPartitions()
+
+                    if not protected or node in protected:
                         continue
 
 		    try:

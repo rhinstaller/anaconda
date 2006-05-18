@@ -1,3 +1,7 @@
+2006-05-18  Chris Lumens  <clumens@redhat.com>
+
+	* partedUtils.py (DiskSet.findExistingRootPartitions):  Fix traceback.
+
 2006-05-18  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images.ppc: Clean up so that ppc64 trees don't have
