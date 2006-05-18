@@ -1329,7 +1329,7 @@ MAILADDR root
                 bootDev = mntDict['/boot/efi']
 	elif mntDict.has_key("/boot"):
 	    bootDev = mntDict['/boot']
-	else:
+	elif mntDict.has_key("/"):
 	    bootDev = mntDict['/']
             
         return bootDev
