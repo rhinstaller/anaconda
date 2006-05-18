@@ -16,6 +16,29 @@ import libuser
 import string
 import crypt
 import random
+import tempfile
+import os
+
+def createLuserConf(instPath):
+    """Writes a libuser.conf for instPath."""
+    (fd, fn) = tempfile.mkstemp(prefix="libuser.")
+    buf = """
+[defaults]
+skeleton = %(instPath)s/etc/skel
+mailspooldir = %(instPath)s/var/mail
+crypt_style = md5
+modules = files shadow
+create_modules = files shadow
+[files]
+directory = %(instPath)s/etc
+[shadow]
+directory = %(instPath)s/etc
+""" % {"instPath": instPath}
+    os.write(fd, buf)
+    os.close(fd)
+
+    os.environ["LIBUSER_CONF"] = fn
+    
 
 def cryptPassword(password, useMD5):
     if useMD5:

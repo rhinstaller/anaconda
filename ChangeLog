@@ -1,5 +1,10 @@
 2006-05-17  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda (Anaconda.setMethod): Set up our libuser.conf
+
+	* users.py (createLuserConf): Create a libuser.conf that points to
+	our rootpath so that things work with live CD, etc
+
 	* security.py (Security.write): Safe for all !test mode
 	* instdata.py (InstallData.write): Likewise.
 

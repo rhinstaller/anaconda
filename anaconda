@@ -601,6 +601,7 @@ if __name__ == "__main__":
     import warnings
     import rhpl
     import vnc
+    import users
     from flags import flags
     from rhpl.translate import _, textdomain, addPoPath
 
@@ -679,8 +680,10 @@ if __name__ == "__main__":
     if rhpl.getArch() == "s390":
         opts.isHeadless = True
 
+    users.createLuserConf(anaconda.rootPath)
+
     # setup links required for all install types
-    for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux", "libuser.conf"):
+    for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
         try:
             if os.path.exists("/mnt/runtime/etc/" + i):
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
@@ -945,6 +948,12 @@ if __name__ == "__main__":
     except:
         handleException(anaconda, sys.exc_info())
 
+    # remove our libuser.conf
+    try:
+        os.unlink(os.environ["LIBUSER_CONF"])
+    except:
+        pass
+    
     if anaconda.isKickstart and instClass.ksdata.reboot["eject"]:
         isys.flushDriveDict()
         for drive in isys.cdromList():
