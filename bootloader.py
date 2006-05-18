@@ -39,6 +39,10 @@ def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
 
+    # FIXME: this is a hack...
+    if flags.livecd:
+        return 
+
     anaconda.id.bootloader.updateDriveList()
 
 # iSeries bootloader on upgrades
@@ -143,7 +147,7 @@ def writeBootloader(anaconda):
 	else:
 	    otherList.append((label, longlabel, dev))
 
-    if kernelLabel is None:
+    if kernelLabel is None and not flags.livecd:
         log.error("unable to find default image, bailing")
 	if not justConfigFile:
 	    w.pop()
