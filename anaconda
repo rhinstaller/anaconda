@@ -925,10 +925,13 @@ if __name__ == "__main__":
         anaconda.dispatch.skipStep("autopartitionexecute", permanent = 1)
         anaconda.dispatch.skipStep("partition", permanent = 1)
         anaconda.dispatch.skipStep("partitiondone", permanent = 1)
-        anaconda.dispatch.skipStep("bootloadersetup", permanent = 1)
         anaconda.dispatch.skipStep("bootloader", permanent = 1)
         anaconda.dispatch.skipStep("bootloaderadvanced", permanent = 1)
         anaconda.dispatch.skipStep("upgbootloader", permanent = 1)
+
+    # we need bootloader on livecds
+    if flags.rootpath and not flags.livecd:
+        anaconda.dispatch.skipStep("bootloadersetup", permanent = 1)
         anaconda.dispatch.skipStep("instbootloader", permanent = 1)
 
     # set up the headless case
