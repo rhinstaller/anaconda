@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.12
+Version: 11.1.0.13
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 17 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.13-1
+- Fix image building typo
+- Remove some dead code (clumens, dcantrel)
+- More thread fixing (dcantrel)
+- Fix rescue mode (clumens)
+- Fix upgrades (clumens)
+- Don't try to mount protected partitions on hd ugprades (clumens)
+- Hook copyExtraModules back up (clumens, #185344)
+- Don't modify the main fs for user/password info on --rootpath install
+- Fix kickstart bootloader install
+- Some fixes for live CD 
+
 * Tue May 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.12-1
 - Make mousedev loading less verbose for built-in case (#191814) 
 - Ellipsize text (roozbeh, #191844)
