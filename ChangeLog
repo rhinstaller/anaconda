@@ -1,5 +1,8 @@
 2006-05-18  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.ppc: Clean up so that ppc64 trees don't have
+	32-bit mac stuff
+
 	* bootloader.py: Window isn't always there.
 
 	* anaconda (Anaconda.setMethod): We need bootloader on CDs.

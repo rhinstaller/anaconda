@@ -45,6 +45,7 @@ makeBootImages() {
     elif [ "$KERNELARCH" = "ppc" ]; then
 	FAKEARCH="ppc"
 	mkdir -p $TOPDESTPATH/ppc/ppc32
+	mkdir -p $TOPDESTPATH/ppc/mac
 
         echo "Building ppc initrd"
         makeinitrd --initrdto $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz \
@@ -73,21 +74,24 @@ makeBootImages() {
 
 doPostImages() {
     # Create boot.iso here instead of above, so we can include it all
-
-    mkdir -p $TOPDESTPATH/ppc/chrp
-    mkdir -p $TOPDESTPATH/ppc/mac
     mkdir -p $TOPDESTPATH/etc
-
+    mkdir -p $TOPDESTPATH/ppc/chrp
+	
     # Create ofboot.b and bootinfo.txt files, and yaboot binaries for Mac and CHRP
     cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
-    cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
-    cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac/yaboot
-    cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp/yaboot
-    $IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
+
+    if [ -d $TOPDESTPATH/ppc/mac ]; then
+	cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
+	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac/yaboot
+    fi
+
+    if [ -d $TOPDESTPATH/ppc/chrp ]; then
+	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp/yaboot
+	$IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
+    fi
 
     # IBM firmware can't handle boot scripts properly, so for biarch installs
     # we use a yaboot.conf which asks the user to select 32-bit or 64-bit kernel. 
-
     if [ -r $TOPDESTPATH/ppc/ppc32/yaboot.conf -a -r $TOPDESTPATH/ppc/ppc64/yaboot.conf ]; then
         # Both kernels exist. Copy the biarch yaboot.conf into place.
         sed -e "s/%BITS%/32/" -e "s/%PRODUCT%/$PRODUCT/" -e "s/%VERSION%/$VERSION/" \
@@ -101,24 +105,28 @@ doPostImages() {
     mkdir -p $TOPDESTPATH/isopath
     cp -r $TOPDESTPATH/{ppc,etc} $TOPDESTPATH/isopath
 
-    # We want the netboot images in the boot.iso too.
+    # We want the ppc32 prep image in the boot.iso too.
     if [ -d $TOPDESTPATH/images/netboot ]; then
 	mkdir -p $TOPDESTPATH/isopath/images
 	cp -r $TOPDESTPATH/images/netboot $TOPDESTPATH/isopath/images
 	rm -f $TOPDESTPATH/isopath/images/ppc64.img
     fi
 
+    rm -rf $TOPDESTPATH/isopath/ppc/iSeries
+
     if [ -r $TOPDESTPATH/isopath/images/netboot/ppc32.img ]; then
 	PREPBOOT="-prep-boot images/netboot/ppc32.img"
     fi
 
-    rm -rf $TOPDESTPATH/isopath/ppc/iSeries
+    if [ -d $TOPDESTPATH/isopath/ppc/mac ]; then
+	MACBOOT='-hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac"'
+    fi
 
     # Create the boot.iso
     mkisofs -o $TOPDESTPATH/images/boot.iso -chrp-boot -U $PREPBOOT \
 	-part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC \
 	-V "PBOOT" -volset "$VERSION" -volset-size 1 -volset-seqno 1 \
-	-hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" \
+	$MACBOOT \
 	-map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic \
 	-no-desktop -allow-multidot $TOPDESTPATH/isopath
     rm -rf $TOPDESTPATH/isopath
