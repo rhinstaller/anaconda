@@ -722,6 +722,7 @@ class DiskSet:
                     protected = anaconda.method.protectedPartitions()
 
                     if protected and node in protected:
+                        part = disk.next_partition(part)
                         continue
 
 		    try:
