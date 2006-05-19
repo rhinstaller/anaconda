@@ -721,7 +721,7 @@ class DiskSet:
                     # useless error message.
                     protected = anaconda.method.protectedPartitions()
 
-                    if not protected or node in protected:
+                    if protected and node in protected:
                         continue
 
 		    try:
