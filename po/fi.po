@@ -9,12 +9,12 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2005-11-06 15:40+0200\n"
+"PO-Revision-Date: 2006-05-20 02:35+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
-"Language-Team: Finnish <>\n"
+"Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 # ../loader/urls.c:247
 #: ../anaconda:255
@@ -135,7 +135,7 @@ msgstr "Graafinen asennus ei ole käytettävissä... Käynnistetään tekstiasen
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY-muuttujaa ei ole asetettu. Käynnistetään tekstitila!"
 
 #: ../anaconda:847
 msgid "Unknown install method"
@@ -593,12 +593,11 @@ msgstr "Järjestelmän tilaa levykkeelle kirjoitettaessa tapahtui virhe."
 
 # ../exception.py:215
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Järjestelmän tila on kirjoitettu etäkoneelle. Järjestelmä käynnistetään\n"
+"Järjestelmän tila on kirjoitettu etäkoneelle. Järjestelmä käynnistetään "
 "nyt uudelleen."
 
 #: ../exception.py:418
@@ -738,9 +737,8 @@ msgstr ""
 
 # ../iw/partition_gui.py:1545
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Alusta"
+msgstr "Alusta uudelleen"
 
 #: ../fsset.py:1500
 #, python-format
@@ -1351,7 +1349,7 @@ msgid "Missing Group"
 msgstr "Puuttuva ryhmä"
 
 #: ../kickstart.py:937
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
@@ -1954,12 +1952,14 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"USB-laitteelle asennettu järjestelmä ei välttämättä tule toimimaan."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"FireWire-laitteelle·asennettu·järjestelmä·ei·välttämättä·tule·toimimaan."
 
 # ../partitioning.py:524 ../partitioning.py:605
 #: ../partitions.py:923 ../partRequests.py:675
@@ -2561,9 +2561,8 @@ msgstr "Salasanan on oltava vähintään kuusi merkkiä pitkä."
 
 # ../textw/userauth_text.py:22
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Ei salasanaa"
+msgstr "VNC:n salasanavirhe"
 
 #: ../vnc.py:138
 msgid ""
@@ -2571,6 +2570,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"On määriteltävä vähintään kuuden merkin pituinen VNC-salasana.\n"
+"\n"
+"Paina <enter> käynnistääksesi järjestelmän uudelleen.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -5138,10 +5140,9 @@ msgstr ""
 "nimiöitä niille käytetään."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Väli> valitsee | <F2> valitsee oletuksen | <F12> seuraava ruutu>"
+msgstr " <Väli> valitse | <F2> valitse oletus | <F4> poista | <F12> seuraava ruutu>"
 
 # ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
 #: ../textw/bootloader_text.py:387
@@ -6109,9 +6110,8 @@ msgstr ""
 
 # ../iw/partition_gui.py:1545
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
-msgstr "_Alusta"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
@@ -6123,9 +6123,8 @@ msgstr ""
 
 # ../installclasses/server.py:9
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
-msgstr "_Palvelin"
+msgstr "WWW-palvelin"
 
 # tähän jäätiin
 # ../textw/xconfig_text.py:188
@@ -7982,7 +7981,7 @@ msgstr "Syowa-asema, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmania - King Island"
 
 #. generated from zone.tab
 #, fuzzy
