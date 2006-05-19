@@ -1,5 +1,9 @@
 2006-05-19  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+2006-05-19  David Cantrell  <dcantrell@redhat.com>
+
 	* gui.py (handleRenderCallback): Sure would be nice if I could keep
 	indentation correct when modifying functions.  Discontinue use of
 	gtk.gdk.threads_init() and use gobject.threads_init() because of our

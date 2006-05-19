@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.14
+Version: 11.1.0.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri May 19 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.15-1
+- Fix indendation error in handleRenderCallback() that caused hang
+- Use gobject.threads_init() model
+- Remove gtk.threads_enter()/gtk.threads_leave() wrappers
+- Disk and filesystem scanning fixes (clumens)
+
 * Thu May 18 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.14-1
 - Few more liveCD tweaks
 - And clean up the ppc64 tree a little
