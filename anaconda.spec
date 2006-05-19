@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.15
+Version: 11.1.0.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri May 19 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.16-1
+- Added asix driver (pjones)
+- Fix i18n build
+
 * Fri May 19 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.15-1
 - Fix indendation error in handleRenderCallback() that caused hang
 - Use gobject.threads_init() model
