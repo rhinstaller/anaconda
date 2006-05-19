@@ -32,7 +32,6 @@ import parted
 import gtk
 import gtk.glade
 import gobject
-import htmlbuffer
 import kudzu
 import gettext
 import warnings
