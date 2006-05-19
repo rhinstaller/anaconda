@@ -242,9 +242,7 @@ class ReleaseNotesViewer(threading.Thread):
 		cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
 		root.set_cursor(cursor)
 
-		gtk.threads_enter()
 		gtk.main()
-		gtk.threads_leave()
 
 	def resolveURI(self, link):
 		parts = urlparse.urlparse(link)

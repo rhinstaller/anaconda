@@ -50,7 +50,7 @@ from release_notes import ReleaseNotesViewer
 import logging
 log = logging.getLogger("anaconda")
 
-gtk.gdk.threads_init()
+gobject.threads_init()
 
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 
@@ -915,9 +915,9 @@ class InstallControlWindow:
                 processEvents()
                 time.sleep(1)
                 takeScreenShot()
-                self.nextClicked()
-            else:
-                gobject.source_remove(self.handle)
+            self.nextClicked()
+        else:
+            gobject.source_remove(self.handle)
 
     def setScreen (self):
         (step, anaconda) = self.dispatch.currentStep()
@@ -1071,9 +1071,7 @@ class InstallControlWindow:
         
     def run (self, runres):
         self.setup_window(runres)
-        gtk.threads_enter()
         gtk.main()
-        gtk.threads_leave()
             
 class InstallControlState:
     def __init__ (self, cw):

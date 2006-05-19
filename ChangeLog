@@ -1,3 +1,17 @@
+2006-05-19  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py (handleRenderCallback): Sure would be nice if I could keep
+	indentation correct when modifying functions.  Discontinue use of
+	gtk.gdk.threads_init() and use gobject.threads_init() because of our
+	use of callbacks.  Remove threads_enter/leave wrapper around gtk.main()
+
+	* iw/checklist.py: Remove threads_enter/leave wrapper around gtk.main()
+	since we're using gobject.threads_init() now.
+	* iw/datacombo.py: Likewise.
+	* iw/ipwidget.py: Likewise.
+	* iw/pixmapRadioButtonGroup.py: Likewise.
+	* iw/release_notes.py: Likewise.
+
 2006-05-18  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

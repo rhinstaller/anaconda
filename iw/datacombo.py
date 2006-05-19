@@ -82,7 +82,5 @@ if __name__ == "__main__":
     win.add(cb)
     win.show_all()
 
-    gtk.threads_enter()
     gtk.main()
-    gtk.threads_leave()
 

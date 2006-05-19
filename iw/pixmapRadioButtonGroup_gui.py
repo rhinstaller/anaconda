@@ -240,6 +240,4 @@ if __name__ == "__main__":
     win.add(vbox)
     win.show_all()
 
-    gtk.threads_enter()
     gtk.main()
-    gtk.threads_leave()
