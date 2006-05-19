@@ -1,3 +1,7 @@
+2006-05-19  Paul Nasrat <pnasrat@redhat.com>
+
+	* packages.py (doPreInstall): Create lock file dir (#192383)
+
 2006-05-11  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda:  display_mode -> flags.display_mode, set flags.runks.

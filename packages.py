@@ -774,7 +774,8 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-	       '/etc/X11', '/root', '/var/tmp', '/etc/rpm' ):
+	       '/etc/X11', '/root', '/var/tmp', '/etc/rpm', 
+               '/var/lock', '/var/lock/rpm' ):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
