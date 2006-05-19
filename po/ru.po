@@ -1,26 +1,23 @@
-# translation of ru.po to
 # translation of ru.po to Russian
 #
-# translation of anaconda to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006.
 # Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-16 01:09+0300\n"
+"PO-Revision-Date: 2006-05-19 15:57+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.2\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -518,13 +515,12 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Невозможно записать состояние системы на флоппи-диск."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Состояние вашей системы было успешно сохранено на удаленую систему.\n"
-"Система будет перезагружена."
+"Состояние вашей системы было успешно сохранено на удаленую систему.  Система "
+"будет перезагружена."
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -633,11 +629,18 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Устройство подкачки:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"является устройством подкачки Linux версии 0. Если вы желаете использовать "
+"это устройство, вам потребуется отформатировать его как раздел подкачки "
+"Linux версии 1. Если вы пропустите этот шаг, установщик проигнорирует его в "
+"процессе установки."
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Формат"
+msgstr "Переформатирование"
 
 #: ../fsset.py:1500
 #, python-format
@@ -650,6 +653,14 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Устройство подкачки:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"из файла /etc/fstab в данный момент используется как раздел для приостанова "
+"работы, это означает, что ваша система находится в \"спящем режиме\". Для "
+"выполнения обновления полностью остановите работу вашей системы вместо "
+"перевода ее в \"спящий рещим\"."
 
 #: ../fsset.py:1508
 #, python-format
@@ -662,6 +673,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Устройство подкачки:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"из файла /etc/fstab в данный момент используется как раздел для приостанова "
+"работы, это означает, что ваша система находится в \"спящем режиме\". Если "
+"вы выполняете новую установку, обязательно укажите установщику "
+"переформатировать все разделы подкачки."
 
 #: ../fsset.py:1518
 msgid ""
@@ -671,6 +690,12 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Выберите Пропустить, если вы желаете, чтобы установщик игнорировал этот "
+"раздел в процессе обновления.  Выберите Формат для переформатирования "
+"раздела как пространства подкачки.  Выберите Перезагрузка для перезапуска "
+"системы."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1005,7 +1030,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Отсутствует образ диска ISO 9660"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1014,10 +1039,10 @@ msgid ""
 "the installation."
 msgstr ""
 "Программа установки попыталась смонтировать образ #%s, но он не найден на "
-"сервере.\n"
+"жестком диске.\n"
 "\n"
-"Скопируйте данный образ на удаленный сервер в используемый каталог и нажмите "
-"Повторить. Нажмите Перезагрузить чтобы прервать установку."
+"Скопируйте данный образ на накопитель и нажмите Повторить. Нажмите "
+"Перезагрузить, чтобы прервать установку."
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1151,9 +1176,8 @@ msgid "Running post-install scripts"
 msgstr "Выполняются пост-установочные сценарии"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "Установка пакетов"
+msgstr "Отсутствующий пакет"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1161,16 +1185,16 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Вы указали, что пакет '%s' должен быть установлен.  Этот пакет не "
+"существует. Продолжить или прервать установку?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "_Перегрузить"
+msgstr "_Прервать"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "Недостаточно информации"
+msgstr "Отсутствует группа"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1178,6 +1202,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Вы указали, что группа '%s' должна быть установлена.  Эта группа не "
+"существует. Продолжить или прервать установку?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1722,12 +1748,16 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Установка на USB устройство.  В результате вы можете получить или не "
+"получить работающую систему."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Установка на FireWire устройство.  В результате вы можете получить или не "
+"получить работающую систему."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2257,9 +2287,8 @@ msgid "The password must be at least six characters long."
 msgstr "Пароль должен содержать не менее 6 символов."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Без пароля"
+msgstr "Ошибка VNC пароля"
 
 #: ../vnc.py:138
 msgid ""
@@ -2267,6 +2296,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Вам необходимо указать vnc пароль длиной не менее 6 символов.\n"
+"\n"
+"Нажмите <return> для перезагрузки системы.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2392,62 +2424,59 @@ msgstr "_Отмена"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "конфликты файлов"
 
 #: ../yuminstall.py:483
-#, fuzzy
 msgid "older package(s)"
-msgstr "_Необязательные пакеты"
+msgstr "старый пакет(ы)"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "недостаточно места на диске"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "недостаточное кол-во inode на диске"
 
 #: ../yuminstall.py:486
-#, fuzzy
 msgid "package conflicts"
-msgstr "Набор пакетов по умолчанию"
+msgstr "конфликты пакетов"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "пакет уже установлен"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Свободное пространство"
+msgstr "требуется пакет"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "пакет с неверной архитектурой"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "пакет с неверной операционной системой"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Вам требуется больше места на следующих файловых системах:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Ошибка подготовки транзакции"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Не удается открыть пакет %s-%s-%s.%s. Возможная причина - отсутствие файла "
-"или сбойный пакет.  Если вы устанавливаете с CD, это может означать, что "
-"диск поврежден или привод не может прочитать носитель.\n"
+"Не удается открыть файл %s. Возможная причина - отсутствие файла или сбойный "
+"пакет.  Если вы устанавливаете с CD, это может означать, что диск поврежден "
+"или привод не может прочитать носитель.\n"
 "\n"
 
 #: ../yuminstall.py:659
@@ -2475,6 +2504,9 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Выбранные вами пакеты требуют для установки %d Мб свободного места, но у вас "
+"нет достаточного объема.  Вы можете изменить ваш выбор или перезагрузить "
+"систему."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2495,18 +2527,16 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Запуск процесса установки.  Это может занять несколько минут..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Обновление"
+msgstr "После обновления"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Выполняется настройка после установки..."
+msgstr "Выполняется настройка после обвновления..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
-msgstr "Настройка после установки"
+msgstr "После установки"
 
 #: ../yuminstall.py:1040
 msgid "Performing post install configuration..."
@@ -2627,21 +2657,24 @@ msgid "_Confirm: "
 msgstr "Подтвердите: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Удалить все разделы на этой системе"
+msgstr ""
+"Удалить все разделы на выбранных дисках и создать разбиение по умолчанию."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
+"Удалить разделы Linux на выбранных дисках и создать разбиение по умолчанию."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
+"Использовать свободное место на выбранных дисках и создать разбиение по "
+"умолчанию."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Создать собственное разбиение."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -4518,11 +4551,11 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
+" <Space> нажимает кнопку | <F2> запись по умолчанию | <F4> удалить | <F12> "
+"след. экран>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -6190,7 +6223,7 @@ msgstr "Каталог %s:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6273,11 +6306,11 @@ msgstr "Получение"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Веб"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6550,12 +6583,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Центральное время - Коауила, Durango, Нуэво-Леон, Тамаулипас"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
-"Центральное время - Индиана - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+"Центральное время - Индиана - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6575,9 +6608,10 @@ msgid "Central Time - most locations"
 msgstr "Центральное время - большая часть"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Центральное время - Северная Дакота - Oliver County"
+msgstr ""
+"Центральное время - Северная Дакота - Morton County (за исключением Mandan "
+"area)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
