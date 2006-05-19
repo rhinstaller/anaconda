@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.39
+Version: 10.1.1.40
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri May 19 2006 Paul Nasrat <pnasrat@redhat.com> - 10.1.1.40-1
+- Create lock file dir (#192383)
+
 * Mon May  8 2006 Peter Jones <pjones@redhat.com> - 10.1.1.39-1
 - Only probe ACPI on x86_64, not i386 (#171930)
 - Use /proc/lapics for ACPI probing (#171930)
