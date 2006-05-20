@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-17 22:41+0100\n"
+"PO-Revision-Date: 2006-05-20 01:56+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
-"Language-Team: Renato Pavicic <www.translator-shop.org>\n"
+"Language-Team: CROATIAN <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -721,6 +721,9 @@ msgid ""
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the upgrade.  Choose Format to reformat the partition as swap space.  Choose Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Ako želite da instalacijski program tijekom nadogradnje ignorira ovu particiju odaberite 'Preskoči'.  Da biste particiju oblikovali kao swap prostor odaberite 'Oblikovanje'.  Da biste ponovo pokrenuli sustav odaberite 'Ponovo pokreni'."
 
 #: ../fsset.py:1524
 #: ../iw/partition_gui.py:368
@@ -1207,7 +1210,7 @@ msgstr "Nedostaje paket"
 #: ../kickstart.py:909
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Odredili ste instaliranje paketa '%s'.  Ovaj paket ne postoji.  Želite li nastaviti ili prekinuti postupak instalacije?"
 
 #: ../kickstart.py:915
 #: ../kickstart.py:944
@@ -1221,7 +1224,7 @@ msgstr "Nedostaje grupa"
 #: ../kickstart.py:937
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Odredili ste instaliranje grupe '%s'.  Ova grupa ne postoji.  Želite li nastaviti ili prekinuti postupak instalacije?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1678,11 +1681,11 @@ msgstr "Particija %s manja je od %s MB, što je manje od preporučenog za normal
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Instaliranje na USB uređaj.  Ovaj postupak ne mora proizvesti funkcionalan sustav."
 
 #: ../partitions.py:914
 msgid "Installing on a FireWire device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Instaliranje na FireWire uređaj.  Ovaj postupak ne mora proizvesti funkcionalan sustav."
 
 #: ../partitions.py:923
 #: ../partRequests.py:675
@@ -2138,6 +2141,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Potrebno je odrediti VNC lozinku duljine najmanje 6 znakova.\n"
+"\n"
+"Pritisnite <Enter> da biste ponovno pokrenuli sustav.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2265,11 +2271,11 @@ msgstr "stariji paketi"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "nedovoljan prostor na disku"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "nedovoljan inodes na disku"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
@@ -2293,7 +2299,7 @@ msgstr "paket za nepravilan OS"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Na sljedećim datotečnim sustavima potreban je dodatan prostor:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
@@ -2324,7 +2330,7 @@ msgstr "Bez kategorije"
 #: ../yuminstall.py:848
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Vaš odabir paketa za instalaciju zahtijeva %d MB slobodnog prostora, ali nema dovoljno raspoloživog prostora.  Možete izmijeniti svoje postavke ili ponovno pokrenuti računalo."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2467,7 +2473,7 @@ msgstr "Uklanjanje Linux particija na odabranim diskovima i izrada po zadanom pr
 #: ../iw/autopart_type.py:115
 #: ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Upotrijebi slobodan prostor na odabranim diskovima i izradi zadani raspored."
 
 #: ../iw/autopart_type.py:116
 #: ../textw/partition_text.py:1529
@@ -6794,74 +6800,3 @@ msgstr "Velški"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Nedostaju detalji o izdanju."
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Sljedeći su paketi dostupni u ovoj verziji, ali NISU nadograđeni:\n"
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Sljedeći su paketi dostupni u ovoj verziji, ali NISU instalirani:\n"
-#~ msgid "Finding"
-#~ msgstr "Pronalaženje"
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Pronalaženje paketa za nadogradnju..."
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Instalacijski program ne može nadograditi sustav s bazom podataka koja "
-#~ "prethodi rpm 4.x verziji. Instalirajte errata rpm pakete za vaše izdanje "
-#~ "kao što je opisano u detaljima o izdanju distribucije i pokrenite "
-#~ "postupak nadogradnje."
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Tijekom pretraživanja paketa za nadogradnju došlo je do pogreške."
-#~ msgid "Installation Type"
-#~ msgstr "Vrsta instalacije"
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Koju vrstu sustava želite instalirati?"
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Prilagođavanje pakete nadogradnje"
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Bit će instalirani odabrani paketi i svi ostali paketi potrebni za "
-#~ "zadovoljavanje njihove zavisnosti. Želite li prilagoditi komplet paketa "
-#~ "koji će biti nadograđeni?"
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Virtualizacija (Xen)"
-#~ msgid "Hide _Help"
-#~ msgstr "_Sakrij pomoć"
-#~ msgid "Show _Help"
-#~ msgstr "_Prikaži pomoć"
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr "Na koji biste način željeli particionirati prostor?"
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "Instalacija <product> zahtijeva particioniranje tvrdog diska. Možete "
-#~ "odabrati zadani predložak ili izraditi vlastiti raspored particioniranja."
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Odaberite diskove koje želite upotrijebiti za ovu instalaciju."
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "_Pregled i uređivanje rasporeda particija"
-#~ msgid "Amharic"
-#~ msgstr "Amharijski"
-#~ msgid "Thai"
-#~ msgstr "Thai"
-
