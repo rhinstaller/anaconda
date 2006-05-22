@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-18 17:06+0100\n"
+"PO-Revision-Date: 2006-05-22 10:17+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -1790,7 +1790,7 @@ msgstr "RAID zariadenie typu %s vyžaduje aspoň %s členov."
 #: ../partRequests.py:688
 #, python-format
 msgid "This RAID device can have a maximum of %s spares. To have more spares you will need to add members to the RAID device."
-msgstr ""
+msgstr "Toto zariadenie RAID môže mať maximálne %s rezerv. Ak chcete mať viac rezerv, budete potrebovať pridať viac členov do zariadenia RAID."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -1840,6 +1840,10 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"Záchranné prostredie sa teraz pokúsi nájsť vašu inštaláciu Linuxu a pripojiť ju pod adresárom %s.  Potom môžete urobiť všetky požadované zmeny vášho systému.  Ak chcete pokračovať týmto spôsobom, zvoľte 'Pokračovať'.  Taktiež môžete zvoliť pripojenie vašich súborových systémov iba na čítanie namiesto čítania a zápisu, ak zvolíte 'Iba-na-čítanie'.\n"
+"\n"
+"Ak z nejakého dôvodu tento proces zlyhá, zvoľte 'Preskočiť', tento krok bude preskočený a dostanete sa priamo do príkazového riadku.\n"
+"\n"
 
 #: ../rescue.py:287
 #: ../iw/partition_gui.py:567
@@ -1882,6 +1886,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Váš systém bol pripojený pod %s.\n"
+"\n"
+"Stlačte <return> na získanie shellu. Ak chcete, aby váš systém bol v koreňovom prostredí, spustite príkaz:\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"Po opustení shellu sa systém automaticky reštartuje."
 
 #: ../rescue.py:437
 #, python-format
@@ -2259,7 +2270,7 @@ msgstr "_Zrušiť"
 #: ../yuminstall.py:481
 #: ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "súbor konfliktuje"
 
 #: ../yuminstall.py:483
 #, fuzzy
@@ -4324,7 +4335,7 @@ msgstr "Číslo portu:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Názov otváracieho programu iSCSI:"
 
 #: ../textw/iscsi_text.py:70
 #: ../textw/network_text.py:29
@@ -4396,7 +4407,7 @@ msgstr "Popis: %s"
 #: ../textw/network_text.py:97
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Hardvérová adresa: %s"
 
 #: ../textw/network_text.py:102
 msgid "Configure using DHCP"
@@ -4540,7 +4551,7 @@ msgstr "Členovia RAID:"
 
 #: ../textw/partition_text.py:536
 msgid "Number of spares?"
-msgstr ""
+msgstr "Počet rezerv?"
 
 #: ../textw/partition_text.py:550
 msgid "File System Type:"
@@ -5740,11 +5751,11 @@ msgstr "Nepodarilo sa získať inštalačný obraz."
 
 #: ../loader2/urlinstall.c:284
 msgid "Media Detected"
-msgstr ""
+msgstr "Médium nájdené"
 
 #: ../loader2/urlinstall.c:285
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "Lokálne inštalačné médium nájdené..."
 
 #: ../loader2/urlinstall.c:451
 #, fuzzy, c-format
@@ -5781,7 +5792,7 @@ msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -5864,7 +5875,7 @@ msgstr "_Poznámky k vydaniu"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "Skontroluj a upra_v rozdelenie disku"
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
@@ -5883,15 +5894,15 @@ msgstr "Vyskytla sa výnimka"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>Číslo _portu:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Cieľová IP adresa:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Názov otváracieho programu iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 #, fuzzy
@@ -5935,7 +5946,7 @@ msgstr "Aliašský čas - Aliašský cíp"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Aljašský čas - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
@@ -5947,7 +5958,7 @@ msgstr "Aleutské ostrovy"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
@@ -5955,7 +5966,7 @@ msgstr "Amundsenova-Scottova stanica, južný pól"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5963,23 +5974,23 @@ msgstr "Atlantické ostrovy"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Atlantický čas - Východný Labrador"
 
 #. generated from zone.tab
 msgid "Atlantic Time - New Brunswick"
-msgstr ""
+msgstr "Atlantický čas - New Brunswick"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
+msgstr "Atlantický čas - Nova Scotia (väčšina miest), Západný Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Atlantický čas - Nova Scotia - miesta, ktoré neprijaly DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5991,11 +6002,11 @@ msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -6003,27 +6014,27 @@ msgstr "Kanárske ostrovy"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT), Chubut (CH)"
-msgstr ""
+msgstr "Catamarca (CT), Chubut (CH)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "Centrálna Čína - Gansu, Guizhou, Sichuan, Yunnan, atď."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "Centrálna Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Centrálny štandardný čas - Saskatchewan - stredný západ"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Centrálny štandardný čas - Saskatchewan - väčšina miest"
 
 #. generated from zone.tab
 msgid "Central Time"
@@ -6031,99 +6042,99 @@ msgstr "Centrálny čas"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Centrálny čas - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - central Nunavut"
-msgstr ""
+msgstr "Centrálny čas - central Nunavut"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Centrálny čas - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
-msgstr ""
+msgstr "Centrálny čas - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr ""
+msgstr "Centrálny čas - Indiana - Pike County"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Centrálny čas - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
+msgstr "Centrálny čas - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Centrálny čas - väčšina meist"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
+msgstr "Centrálny čas - North Dakota - Morton County (okrem oblasti Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "Centrálny čas - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Centrálny čas - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Centrálny čas - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Centrálny čas - západ Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "Východná Amazónia"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "Východná Čína - Beijing, Guangdong, Shanghai, atď."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "Východné pobrežie, sever Scoresbysundu"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "Východná Dem. Rep. Kongo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Southampton Island"
-msgstr ""
+msgstr "Východný štandardný čas - Southampton Island"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -6136,7 +6147,7 @@ msgstr "Východný čas"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Východný čas - Indiana - Crawford County"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6159,31 +6170,31 @@ msgstr "Východný čas - Kentucky - oblasť Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Východný čas - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Východný čas - Michigan - väčšina miest"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Východný čas - Ontario - väčšina miest"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "Východný čas - Ontario & Quebec - miesta bez letného času 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Východný čas - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Východný čas - Quebec - väčšina miest"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Východný čas - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -6199,7 +6210,7 @@ msgstr "Galapágy"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
@@ -6215,11 +6226,11 @@ msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & the Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
@@ -6227,67 +6238,67 @@ msgstr "Jáva a Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira Islands"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "pevnina"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo Station, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway Islands"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -6356,47 +6367,47 @@ msgstr "väčšina polôh (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Horský štandardný čas - Arizona"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "Horský štandardný čas - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Horský štandardný čas - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Horský čas"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Horský čas - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Horský čas - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Horský čas - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Horský čas - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Horský čas - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Horský čas - south Idaho & east Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Horský čas - west Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -6404,19 +6415,19 @@ msgstr "Severovýchodná Brazília (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - väčšina miest"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
@@ -6436,67 +6447,67 @@ msgstr "Pacifický čas - západná Britská Kolumbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Phoenix Islands"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - väčšina miest"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Rothera Station, Adelaide Island"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
@@ -6504,7 +6515,7 @@ msgstr "Južná Austrália"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "southwest Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -6512,15 +6523,15 @@ msgstr "J a JV Brazília (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "Tasmánia - King Island"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6529,31 +6540,31 @@ msgstr "väčšina polôh"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk) and Yap"
-msgstr ""
+msgstr "Truk (Chuuk) and Yap"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -6561,11 +6572,11 @@ msgstr "Stanica Vostok, južný magnetický pól"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "Západná Amazónia"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -6573,7 +6584,7 @@ msgstr "západné a stredné Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "Východná Dem. Rep. Kongo"
 
 #. generated from zone.tab
 msgid "Western Australia"
@@ -6589,27 +6600,27 @@ msgstr "západný Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabčina"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengálčina"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Begálčina(India)"
 
 #. generated from lang-table
 #, fuzzy
@@ -6666,7 +6677,7 @@ msgstr "Nemecky"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 #, fuzzy
@@ -6683,7 +6694,7 @@ msgstr "Islandsky"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonézčina"
 
 #. generated from lang-table
 msgid "Italian"
@@ -6699,7 +6710,7 @@ msgstr "Kórejsky"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedónčina"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6733,7 +6744,7 @@ msgstr "Portugalsky (Brazília)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -6781,11 +6792,11 @@ msgstr "Ukrajinsky"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamčina"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Velčina"
 
 #. generated from lang-table
 msgid "Zulu"
