@@ -128,13 +128,10 @@ class simpleCallback:
             self.progress.setPackage(hdr)
             self.progress.setPackageScale(0, 1)
 
-            self.instLog.write(self.modeText % (po.returnSimple('name'),
-                                                po.returnSimple('version'),
-                                                po.returnSimple('release'),
-                                                po.returnSimple('arch')))
+            nvra = po.returnNevraPrintable()
+            self.instLog.write(self.modeText % (nvra,))
 
             self.instLog.flush()
-            nvra = po.returnNevraPrintable()
             self.files[nvra] = None
 
             self.size = po.returnSimple('installedsize')
