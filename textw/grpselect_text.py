@@ -12,6 +12,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+from repomd.mdErrors import PackageSackError
 from snack import *
 from constants_text import *
 from rhpl.translate import _, N_, getDefaultLangs
@@ -49,7 +50,7 @@ class GroupSelectionWindow:
         grpid = grp.groupid
         try:
             pkgs = self.ayum.pkgSack.returnNewestByName(pkg)
-        except mdErrors.PackageSackError:
+        except PackageSackError:
             self.ayum.log(4, "no such package %s from group %s" %
                      (pkg, self.group.groupid))
         if pkgs:
