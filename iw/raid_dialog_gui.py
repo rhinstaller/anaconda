@@ -540,6 +540,12 @@ class RaidCloneDialog:
 	    
             for req in requests:
                 rc = partIntfHelpers.isNotChangable(req, self.partitions)
+
+                # If the partition is protected, we also can't delete it so
+                # specify a reason why.
+                if rc is None and req.getProtected():
+                    rc = _("This partition is holding the data for the hard "
+                           "drive install.")
                 if rc:
                     self.intf.messageWindow(_("Target Drive Error"),
                                             _("The target drive /dev/%s "

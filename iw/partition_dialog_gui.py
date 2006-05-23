@@ -432,9 +432,10 @@ class PartitionEditor:
             
         row = row + 1
 
-        # format/migrate options for pre-existing partitions
+        # format/migrate options for pre-existing partitions, as long as they
+        # aren't protected (we'd still like to be able to mount them, though)
 	self.fsoptionsDict = {}
-        if self.origrequest.type == REQUEST_PREEXIST and self.origrequest.fstype:
+        if self.origrequest.type == REQUEST_PREEXIST and self.origrequest.fstype and not self.origrequest.getProtected():
 	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
 
         # size options

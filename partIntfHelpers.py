@@ -106,10 +106,6 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting, format):
 
 def isNotChangable(request, requestlist):
     if request:
-	if request.getProtected():
-	    return _("This partition is holding the data "
-		     "for the hard drive install.")
-
         if requestlist.isRaidMember(request):
 	    parentreq = requestlist.getRaidMemberParent(request)
 	    if parentreq.raidminor is not None:
@@ -179,7 +175,14 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
 	    
     if request:
 	state = isNotChangable(request, requestlist)
-	if state is not None:
+
+        # If the partition is protected, we also can't delete it so specify a
+        # reason why.
+        if state is None and request.getProtected():
+            state = _("This partition is holding the data for the hard "
+                      "drive install.")
+
+        if state:
             if not quiet:
                 intf.messageWindow(_("Unable To Delete"),
 				   _("You cannot delete this partition:\n\n") + state,

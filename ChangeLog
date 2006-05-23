@@ -1,3 +1,15 @@
+2006-05-23  Chris Lumens  <clumens@redhat.com>
+
+	* partIntfHelpers.py (isNotChangable):  Allow existing partitions
+	containing ISO images to be mounted (#105722).
+	(doDeletePartitionByRequest):  Understand new isNotChangable return
+	value.
+
+	* iw/partition_dialog_gui.py (PartitionEditor.__init__):  Don't allow
+	format and migrate options on protected partitions.
+	* iw/raid_dialog_gui.py (RaidCloneDialog.sanityCheckTargetDrives):
+	Understand new isNotChangable return value.
+
 2006-05-22  Peter Jones <pjones@redhat.com>
 
 	* anaconda (parseOptions): add flags for multipath
