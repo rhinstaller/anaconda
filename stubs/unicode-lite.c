@@ -71,6 +71,9 @@ const char *const _nl_category_names[] = {
     [LC_ALL] = "LC_ALL"
 };
 
+u_int8_t my_nl_category_name_idxs[1] = {0};
+strong_alias (my_nl_category_name_idxs, _nl_category_name_idxs);
+
 const size_t _nl_category_name_sizes[] = {
     [LC_COLLATE] = sizeof("LC_COLLATE") - 1,
     [LC_CTYPE] = sizeof("LC_CTYPE") -1,
