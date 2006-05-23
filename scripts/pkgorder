@@ -18,6 +18,7 @@ import string
 import sys
 import yum
 
+import anaconda_log
 import logging
 logger = logging.getLogger("anaconda")
 handler = logging.StreamHandler()

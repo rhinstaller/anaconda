@@ -16,6 +16,8 @@
 	* textw/grpselect_text.py (GroupSelectionWindow.__deselectPackage):
 	Fix a traceback on catching an exception.
 
+	* scripts/pkgorder:  Import anaconda_log to fix traceback.
+
 2006-05-22  Peter Jones <pjones@redhat.com>
 
 	* anaconda (parseOptions): add flags for multipath
