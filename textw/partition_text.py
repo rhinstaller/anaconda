@@ -264,7 +264,7 @@ class PartitionWindow:
         (listbox, entry) = obj
         self.fstypeSet((listbox.current(), entry))
 
-    # make the entry for the mount point and it's label
+    # make the entry for the mount point and its label
     def makeMountEntry(self, request):
         mountgrid = Grid(2, 1)
         mountLbl = Label(_("Mount Point:"))
@@ -312,7 +312,7 @@ class PartitionWindow:
         return (size, grid)
 
 
-    # make the list of available filesystems and it's label
+    # make the list of available filesystems and its label
     def makeFsList(self, request, usecallback=1, uselabel=1, usetypes=None,
                    ignorefs = None):
         subgrid = Grid(1, 2)

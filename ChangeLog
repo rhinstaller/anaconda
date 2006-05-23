@@ -10,6 +10,9 @@
 	* iw/raid_dialog_gui.py (RaidCloneDialog.sanityCheckTargetDrives):
 	Understand new isNotChangable return value.
 
+	* textw/partition_text.py:  Apostrophe does not mean "look out, here
+	comes an S".
+
 2006-05-22  Peter Jones <pjones@redhat.com>
 
 	* anaconda (parseOptions): add flags for multipath
