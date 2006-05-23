@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.16
+Version: 11.1.0.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 23 2006 Chris Lumens <clumens@redhat.com> 11.1.0.17-1
+- Display full package name in log (pnasrat, #189308).
+- Add flags for multipath (pjones).
+- Allow protected partitions to be mounted (#105722).
+- Fix pkgorder traceback.
+
 * Fri May 19 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.16-1
 - Added asix driver (pjones)
 - Fix i18n build
