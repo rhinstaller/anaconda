@@ -1,3 +1,8 @@
+2006-05-23  Chris Lumens  <clumens@redhat.com>
+
+	* iw/partition_ui_helpers_gui.py (mountptchangeCB):  Fix deprecation
+	warning.
+
 2006-05-23  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (LIBDIR): libdir on ppc64 is lib64

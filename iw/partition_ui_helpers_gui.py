@@ -27,6 +27,7 @@ from partIntfHelpers import *
 from partRequests import *
 from partedUtils import *
 
+import rhpl
 from rhpl.translate import _, N_
 
 class WideCheckList(checklist.CheckList):
@@ -193,8 +194,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
     return fstypecombo
 
 def mountptchangeCB(widget, fstypecombo):
-    if iutil.getArch() == "ia64" and widget.get_children()[0].get_text() == "/boot/efi":
-        
+    if rhpl.getArch() == "ia64" and widget.get_children()[0].get_text() == "/boot/efi":
         fstypecombo.set_active_text("vfat")
 
 def formatOptionCB(widget, data):
