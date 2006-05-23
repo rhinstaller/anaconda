@@ -245,9 +245,6 @@ def acpicpus():
 
     return _acpi_ncpus
 
-acpicpus()
-
-
 def summitavailable():
     try:
         f = open("/proc/cmdline")

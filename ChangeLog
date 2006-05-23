@@ -1,3 +1,8 @@
+2006-05-23  Peter Jones <pjones@redhat.com>
+
+	* isys/isys.py: don't run acpicpus() on import
+	* anaconda: run isys.acpicpus() immediately after import (#192819)
+
 2006-05-19  Paul Nasrat <pnasrat@redhat.com>
 
 	* packages.py (doPreInstall): Create lock file dir (#192383)

@@ -355,6 +355,9 @@ if (os.access("/mnt/source/RHupdates/rhpl", os.X_OK) or
 
 import signal, traceback, string, isys, iutil, time
 
+# should be done right after the first time we pull in isys
+isys.acpicpus()
+
 from exception import handleException
 import dispatch
 from flags import flags
