@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.19
+Version: 11.1.0.20
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 24 2006 David Cantrell <dcantrell@redhat.com> 11.1.0.20-1
+- Added Netlink helper functions to libisys.a
+- Do not pop wait window twice in writeBootloader (clumens)
+- For kickstart installs only: Do not allow logical volumes to be smaller
+  than the volume group's PE size (#186412, clumens)
+- initrd fixes to account for glib2 library movement (clumens)
+
 * Tue May 23 2006 Chris Lumens <clumens@redhat.com> 11.1.0.19-1
 - Fix unicode stubs (pjones).
 - Fix libdir on ppc64 (katzj).
