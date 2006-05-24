@@ -318,7 +318,7 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 void lapicSetup(moduleList modLoaded, moduleDeps modDeps,
                 moduleInfoSet modInfo, int flags) {
 #ifdef __x86_64__
-    mlLoadModule("lapic_status", modLoaded, modDeps, modInfo, flags);
+    mlLoadModule("lapic_status", modLoaded, modDeps, modInfo, NULL, flags);
 #endif
     return;
 }
