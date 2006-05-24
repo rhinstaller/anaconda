@@ -219,13 +219,6 @@ class AnacondaKSHandlers(KickstartHandlers):
 	if lvd.mountpoint != "" and lvd.mountpoint[0] != '/':
 	    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (lvd.mountpoint,))
 
-        if lvd.percent == 0:
-            if lvd.size == 0 and not lvd.preexist:
-                raise KickstartValueError, formatErrorMsg(self.lineno,
-                msg="Size required")
-        elif lvd.percent <= 0 or lvd.percent > 100:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
-
         try:
             vgid = self.ksVGMapping[lvd.vgname]
         except KeyError:
@@ -235,9 +228,20 @@ class AnacondaKSHandlers(KickstartHandlers):
 	    if areq.type == REQUEST_LV:
 		if areq.volumeGroup == vgid and areq.logicalVolumeName == lvd.name:
 		    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % lvd.vgname)
+            elif areq.type == REQUEST_VG and areq.uniqueID == vgid:
+                # Store a reference to the VG so we can do the PE size check.
+                vg = areq
 
         if not self.ksVGMapping.has_key(lvd.vgname):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume specifies a non-existent volume group" % lvd.name)
+
+        if lvd.percent == 0:
+            if lvd.size == 0 and not lvd.preexist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
+            elif lvd.size*1024 < vg.pesize and not lvd.grow:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
+        elif lvd.percent <= 0 or lvd.percent > 100:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
 
         request = partRequests.LogicalVolumeRequestSpec(filesystem,
                                       format = lvd.format,
