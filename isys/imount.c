@@ -69,10 +69,12 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 	    int flags = 0;
 
 	    buf = dev;
-	    /* logMessage("calling nfsmount(%s, %s, &flags, &extra_opts, &mount_opt)",
-			buf, where);*/
-        fprintf(stderr, "calling nfsmount(%s, %s, &flags, %s, &mount_opt)",
-            buf, where, extra_opts);
+#if 0
+	    logMessage(calling nfsmount(%s, %s, &flags, %s, &mount_opt)",
+            	buf, where, extra_opts);
+	    fprintf(stderr, "calling nfsmount(%s, %s, &flags, %s, &mount_opt)",
+            	buf, where, extra_opts);
+#endif
 
 	    if (nfsmount(buf, where, &flags, &extra_opts, &mount_opt, 0)) {
 		/*logMessage("\tnfsmount returned non-zero");*/
