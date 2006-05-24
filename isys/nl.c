@@ -24,6 +24,7 @@
 #include <linux/netlink.h>
 #include <linux/rtnetlink.h>
 #include <arpa/inet.h>
+#include <net/if_arp.h>
 
 #include <glib.h>
 
@@ -282,6 +283,12 @@ int netlink_init_interfaces_list(void) {
       ifi = NLMSG_DATA(nlh);
       rta = IFLA_RTA(ifi);
       len = IFLA_PAYLOAD(nlh);
+
+      /* void and none are bad */
+      if (ifi->ifi_type == ARPHRD_VOID || ifi->ifi_type == ARPHRD_NONE) {
+         nlh = NLMSG_NEXT(nlh, ret);
+         continue;
+      }
 
       while (RTA_OK(rta, len)) {
          if (rta->rta_type <= len)
