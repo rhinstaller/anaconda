@@ -315,6 +315,10 @@ $LIBDIR/libattr*
 $LIBDIR/libdm*
 $LIBDIR/libutil*
 $LIBDIR/libuuid*
+$LIBDIR/libglib*
+$LIBDIR/libgmodule*
+$LIBDIR/libgobject*
+$LIBDIR/libgthread*
 sbin/badblocks
 sbin/busybox.anaconda
 sbin/clock
@@ -385,10 +389,6 @@ usr/$LIBDIR/libgssapi_krb5.so*
 usr/$LIBDIR/gconv/ISO8859-1.so
 usr/$LIBDIR/gconv/gconv-modules
 usr/$LIBDIR/libbeecrypt*
-usr/$LIBDIR/libglib*
-usr/$LIBDIR/libgmodule*
-usr/$LIBDIR/libgobject*
-usr/$LIBDIR/libgthread*
 usr/$LIBDIR/libssl*
 usr/$LIBDIR/libcrypto*
 usr/$LIBDIR/libbz2*
