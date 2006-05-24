@@ -197,8 +197,6 @@ def writeBootloader(anaconda):
                                  "system.  Your boot loader configuration "
                                  "will not be changed."))
 
-    if not justConfigFile:
-        w.pop()
     dosync()
 
 # return instance of the appropriate bootloader for our arch

@@ -1,5 +1,8 @@
 2006-05-23  Chris Lumens  <clumens@redhat.com>
 
+	* bootloader.py (writeBootloader):  Don't try to pop the wait window
+	twice - fixes text UI hang.
+
 	* kickstart.py (AnacondaKSHandlers.doLogicalVolume):  Don't allow
 	logical volumes to be smaller than their volume group's PE size
 	(#186412).
