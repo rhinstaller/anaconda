@@ -4,8 +4,9 @@ CFLAGS +=  -I$(PYTHONINCLUDE) -I.. -DHAVE_NFS
 
 OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o getmacaddr.o \
           smp.o devnodes.o cpio.o uncpio.o dasd.o \
-	  lang.o isofs.o dns.o linkdetect.o vio.o \
-	  ethtool.o getipaddr.o wireless.o eddsupport.o
+          lang.o isofs.o dns.o linkdetect.o vio.o \
+          ethtool.o getipaddr.o wireless.o eddsupport.o \
+          nl.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -lz -lkudzu -lpci -ldevmapper
@@ -13,6 +14,10 @@ LOADLIBES += $(SELINUXLIBES)
 PYMODULES = _isys.so
 SUBDIRS = gzlib
 DIET = diet
+
+# using glib
+LOADLIBES += $(shell pkg-config --libs glib-2.0)
+CFLAGS    += $(shell pkg-config --cflags glib-2.0)
 
 DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS))
 
@@ -64,6 +69,7 @@ clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(DOBJECTS) 
 	rm -f $(DIETLIBS) $(OBJECTS) $(GENERATED)
 	rm -f .depend
+	rm -f nl
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
@@ -81,6 +87,10 @@ nfsmount.do: nfs_mountversion.h
 
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@
+
+nltest: nl.c nl.h
+	$(CC) -c $(CFLAGS) -DTESTING nl.c -o nl.o
+	$(CC) -DTESTING nl.o -o nl $(LOADLIBES)
 
 depend: nfs_mountversion.h
 	$(CPP) -M $(CFLAGS) $(SOURCES) > .depend

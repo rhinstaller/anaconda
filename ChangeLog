@@ -1,3 +1,9 @@
+2006-05-23  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/Makefile: Add nl.o, glib flags, and a target for nltest.
+	* isys/nl.h: Netlink helper functions, the header file.
+	* isys/nl.c: Netlink helper functions, the source file.
+
 2006-05-23  Chris Lumens  <clumens@redhat.com>
 
 	* bootloader.py (writeBootloader):  Don't try to pop the wait window
