@@ -1,3 +1,11 @@
+2006-05-24  Peter Jones <pjones@redhat.com>
+
+	* isys/imount.c (doPwMount): don't fprintf to stderr, which causes
+	polution on the text install console (update to #168384)
+	* loader2/hardware.c: use mlLoadModule() instead of mlLoadModuleSet()
+	to load lapic_status.ko
+	* loader2/module-info: add lapic_status
+
 2006-05-23  Peter Jones <pjones@redhat.com>
 
 	* isys/isys.py: don't run acpicpus() on import
