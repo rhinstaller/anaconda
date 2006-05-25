@@ -60,8 +60,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
                 isys.makeDevInode("loop3", "/tmp/loop3")
                 isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
 
-                isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
-                self.tree = "/tmp/isomedia/"
+                isys.mount("loop3", self.tree, fstype = 'iso9660', readOnly = 1);
                 self.mediaIsMounted = cdNum
 
                 retry = False
@@ -88,7 +87,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
 	    isys.makeDevInode("loop3", "/tmp/loop3")
 	    isys.unlosetup("/tmp/loop3")
 	    self.umountDirectory()
-	    self.tree = None
 	    self.mediaIsMounted = 0
 
     # This mounts the directory containing the iso images, and places the
@@ -116,7 +114,6 @@ class HardDriveInstallMethod(ImageInstallMethod):
     def umountDirectory(self):
 	if self.isoDirIsMounted:
 	    isys.umount(self.isoDir)
-	    self.tree = None
 	    self.isoDirIsMounted = 0
 	
     # return reference to file specified on ISO #1
@@ -168,8 +165,7 @@ class HardDriveInstallMethod(ImageInstallMethod):
         path = tmpmethod[tmpmethod.index("/") + 1:]
 
 	ImageInstallMethod.__init__(self, method, rootPath, intf)
-        self.tree = None
-        
+
 	self.device = device
 	self.path = path
 	self.fstype = fstype
@@ -177,11 +173,10 @@ class HardDriveInstallMethod(ImageInstallMethod):
         self.mediaIsMounted = 0
 	self.messageWindow = intf.messageWindow
         self.currentMedia = []
+        self.tree = "/tmp/isomedia/"
 
-	# Go ahead and poke through the directory looking for interesting
-	# iso images
+        # Mount the partition containing the ISO images just long enough for
+        # us to build up a list of all the path names.
 	self.mountDirectory()
 	self.discImages = findIsoImages(self.isoDir + '/' + self.path, self.messageWindow)
-	self.umountDirectory()
-
-
+        self.umountDirectory()

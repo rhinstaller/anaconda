@@ -617,6 +617,8 @@ class YumBackend(AnacondaBackend):
                 del self.ayum.comps._groups["xen"]
 
     def doRepoSetup(self, anaconda):
+        anaconda.method.switchMedia(1)
+
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
 

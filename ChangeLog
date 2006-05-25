@@ -46,6 +46,11 @@
 	set of urlgrabber error callbacks.  Allow retrying when the error
 	dialog is displayed (#183974).
 
+	* harddrive.py (HardDriveInstallmethod):  Don't unset self.tree to fix
+	hard drive ISO installs (#185292, #187941).
+	* yuminstall.py (YumBackend.doRepoSetup):  Switch media right off to
+	make sure hard drive ISO source is mounted.
+
 2006-05-24  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/nl.c: Skip Netlink messages with void ARP headers or zero-length
