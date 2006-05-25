@@ -1,3 +1,12 @@
+2006-05-25  Paul Nasrat <pnasrat@redhat.com>
+
+	* image.py(presentRequiredMediaMessage):  Fix for yum backend
+	* image.py (CdromInstallMethod.__init__): Fix traceback
+	* yuminstall.py: Remove cd number checking (now in image.py)
+	* iw/confirm_gui.py: presentRequireMediaMessage takes anaconda
+	* textw/confirm_text.py: Likewise
+
+
 2006-05-25  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda (__main__): Pass reference to anaconda rather than id and

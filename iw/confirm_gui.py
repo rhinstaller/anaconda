@@ -24,7 +24,7 @@ class ConfirmWindow (InstallWindow):
 
     def getNext(self):
         if self.anaconda.methodstr.startswith("cdrom://") and not self.anaconda.isKickstart:
-	    rc = presentRequiredMediaMessage(self.anaconda.intf, self.anaconda.id.grpset)
+	    rc = presentRequiredMediaMessage(self.anaconda)
 	    if rc == 0:
 		rc2 = self.anaconda.intf.messageWindow(_("Reboot?"),
 					_("The system will be rebooted now."),

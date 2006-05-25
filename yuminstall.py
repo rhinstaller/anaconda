@@ -415,12 +415,6 @@ class AnacondaYum(YumSorter):
             # If we don't have any required media assume single disc
             if self.tsInfo.reqmedia == {}:
                 self.tsInfo.reqmedia[0] = None
-            # If we only need things on the current disc set don't split
-            import sets
-            s = sets.Set(self.tsInfo.reqmedia.keys())
-            t = sets.Set(self.method.currentMedia)
-            if s.issubset(t):
-                self.tsInfo.reqmedia = { 0 : None }
             for i in self.tsInfo.reqmedia.keys():
                 self.tsInfo.curmedia = i
                 if i > 0:

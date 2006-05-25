@@ -29,7 +29,7 @@ class BeginInstallWindow:
             return INSTALL_BACK
 
         if anaconda.methodstr.startswith("cdrom://") and not anaconda.isKickstart:
-	    rc = presentRequiredMediaMessage(anaconda.intf, anaconda.id.grpset)
+	    rc = presentRequiredMediaMessage(anaconda)
 
 	    if rc == 0:
 		rc2 = anaconda.intf.messageWindow(_("Reboot?"),

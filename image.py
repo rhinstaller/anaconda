@@ -23,6 +23,7 @@ import string
 import shutil
 import product
 import rhpl
+import sets
 
 from constants import *
 
@@ -43,10 +44,9 @@ else:
 # the required CDs
 #
 # dialog returns a value of 0 if user selected to abort install
-def presentRequiredMediaMessage(intf, grpset):
+def presentRequiredMediaMessage(anaconda):
 #XXX: disable for now - possibly make part of confirminstall 
-    return
-    reqcds = []
+    reqcds = anaconda.backend.ayum.tsInfo.reqmedia.keys()
 
     # if only one CD required no need to pop up a message
     if len(reqcds) < 2:
@@ -66,12 +66,11 @@ def presentRequiredMediaMessage(intf, grpset):
             log.critical("Exception reading discinfo: %s" %(e,))
 
         log.info("discNums is %s" %(discNums,))
-        haveall = 1
-        for cd in reqcds:
-            if cd not in discNums:
-                log.error("don't have %s" %(cd,))
-                haveall = 0
-                break
+        haveall = 0
+        s = sets.Set(reqcds)
+        t = sets.Set(discNums)
+        if s.issubset(t):
+            haveall = 1
 
         if haveall == 1:
             return
@@ -81,16 +80,16 @@ def presentRequiredMediaMessage(intf, grpset):
     for cdnum in reqcds:
 	reqcdstr += "\t\t%s %s CD #%d\n" % (product.productName, product.productVersion, cdnum,)
 		
-    return intf.messageWindow( _("Required Install Media"),
-				    _("The software you have selected to "
-				      "install will require the following CDs:\n\n"
-				      "%s\nPlease "
-				      "have these ready before proceeding with "
-				      "the installation.  If you need to abort "
-				      "the installation and reboot please "
-				      "select \"Reboot\".") % (reqcdstr,),
-				    type="custom", custom_icon="warning",
-				    custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
+    return anaconda.intf.messageWindow( _("Required Install Media"),
+				        _("The software you have selected to "
+                                          "install will require the following CDs:\n\n"
+                                          "%s\nPlease "
+                                          "have these ready before proceeding with "
+                                          "the installation.  If you need to abort "
+                                          "the installation and reboot please "
+                                          "select \"Reboot\".") % (reqcdstr,),
+                                          type="custom", custom_icon="warning",
+                                          custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
 
 
@@ -306,7 +305,7 @@ class CdromInstallMethod(ImageInstallMethod):
                         _("Unable to access the CDROM."))
 
     def unlinkFilename(self, fullName):
-        os.remove(fullName)
+        pass
 
     def filesDone(self):
         # we're trying to unmount the CD here.  if it fails, oh well,
@@ -332,6 +331,7 @@ class CdromInstallMethod(ImageInstallMethod):
             tree = "/%s" %(tree,)
 	self.messageWindow = intf.messageWindow
 	self.progressWindow = intf.progressWindow
+	self.waitWindow = intf.waitWindow
         self.loopbackFile = None
 
         # figure out which disc is in.  if we fail for any reason,
