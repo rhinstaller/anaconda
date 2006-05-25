@@ -76,6 +76,9 @@ class InstallMethod:
     def ejectCD(self):
         pass
 
+    def badPackageError(self, pkgname):
+        pass
+
 
 # this handles any cleanup needed for the method.  it occurs *very* late
 # (ie immediately before the congratulations screen).  main use right now

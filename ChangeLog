@@ -1,3 +1,17 @@
+2006-05-25  Chris Lumens  <clumens@redhat.com>
+
+	* harddrive.py (HardDriveInstallMethod.badPackageError):  Add a
+	method-specific function to explain why the package may not be found.
+	* image.py (CdromInstallMethod.badPackageError):  Likewise.
+	(NfsInstallMethod.badPackageError):  Likewise.
+	(NfsIsoInstallMethod.badPackageError):  Likewise.
+	* installmethod.py (badPackageError):  Likewise.
+	* urlinstall.py (UrlInstallMethod.badPackageError):  Likewise.
+
+	* yuminstall.py:  Consolidate file fetching error handling into one
+	set of urlgrabber error callbacks.  Allow retrying when the error
+	dialog is displayed (#183974).
+
 2006-05-24  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/nl.c: Skip Netlink messages with void ARP headers or zero-length

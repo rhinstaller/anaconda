@@ -138,47 +138,12 @@ class simpleCallback:
 
             while self.files[nvra] == None:
                 try:
-                    fn =  repo.get(relative=path, local=po.localPkg())
+                    fn = repo.get(relative=path, local=po.localPkg())
+
+                    f = open(fn, 'r')
+                    self.files[nvra] = f
                 except yum.Errors.RepoError, e:
-                    log.info("Failed %s in %s" %(path, po.returnSimple('name')))
-                    self.method.unmountCD()
-                    rc = self.messageWindow(_("Error"),
-                        _("The package %s-%s-%s.%s cannot be opened. This is due "
-                          "to a missing file or perhaps a corrupt package.  "
-                          "If you are installing from CD media this usually "
-                          "means the CD media is corrupt, or the CD drive is "
-                          "unable to read the media.\n\n"
-                          "Press 'Retry' to try again.") %
-                                               (po.returnSimple('name'),
-                                                po.returnSimple('version'),
-                                                po.returnSimple('release'),
-                                                po.returnSimple('arch')),
-                                            type="custom",
-                                            custom_icon="error",
-                                            custom_buttons = [ _("Re_boot"),
-                                                               _("_Retry") ])
-                    if rc == 0:
-                        rc = self.messageWindow(_("Warning"),
-                                                _("If you reboot, your system "
-                                                  "will be left in an "
-                                                  "inconsistent state that "
-                                                  "will likely require "
-                                                  "reinstallation.  Are you "
-                                                  "sure you wish to "
-                                                  "continue?"),
-                                                type = "custom",
-                                                custom_icon="warning",
-                                                custom_buttons = [_("_Cancel"),
-                                                                  _("_Reboot")])
-                        if rc == 1:
-                            sys.exit(0)
-                        else:
-                            continue
-                    else:
-                        continue
-                    
-                f = open(fn, 'r')
-                self.files[nvra] = f
+                    continue
 
             return self.files[nvra].fileno()
 
@@ -551,7 +516,16 @@ class AnacondaYum(YumSorter):
                 if ts_elem.has_key((txmbr.pkgtup, 'i')):
                     continue
 
-                self.downloadHeader(txmbr.po)
+                # If we get a URLGrabError, that means we had trouble getting
+                # the package.  However, the user clicked retry in the
+                # urlgrabberFailureCB (since if they clicked Reboot, we exited)
+                # so use this as the indication to try again.
+                while True:
+                    try:
+                        self.downloadHeader(txmbr.po)
+                        break
+                    except RepoError:
+                        pass
 
                 hdr = txmbr.po.returnLocalHeader()
                 rpmfile = txmbr.po.localPkg()
@@ -595,30 +569,33 @@ class AnacondaYum(YumSorter):
         return False
 
 class YumBackend(AnacondaBackend):
-    def __init__(self, method, instPath):
-        AnacondaBackend.__init__(self, method, instPath)
+    def _handleFailure(self, url, intf):
+        (scheme, netloc, path, query, fragment) = urlparse.urlsplit(url)
+
+        rc = intf.messageWindow(_("Error"),
+                                self.method.badPackageError(os.path.basename(path)),
+                                type="custom", custom_icon="error",
+                                custom_buttons=[_("Re_boot"), _("_Retry")])
+
+        if rc == 0:
+            sys.exit(0)
+
+    def mirrorFailureCB (self, obj, *args, **kwargs):
+        log.warning("Failed to get %s from mirror" % obj.url)
+
+        self.method.unmountCD()
+
+        if kwargs.has_key("intf") and kwargs["intf"]:
+            self._handleFailure(obj.url, kwargs["intf"])
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
         log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
 
         if obj.tries >= obj.retry:
-            if kwargs.has_key("method") and kwargs["method"]:
-                kwargs["method"].unmountCD()
-            
-            # We've already tried self.retries times to download this file.
-            # Nothing left to do but give up.
-            if kwargs.has_key("intf") and kwargs["intf"]:
-                (scheme, netloc, path, query, fragment) = urlparse.urlsplit(obj.url)
-                rc = kwargs["intf"].messageWindow(_("Error"),
-                    _("The file %s cannot be opened. This is due "
-                      "to a missing file or perhaps a corrupt package.  "
-                      "If you are installing from CD media this usually "
-                      "means the CD media is corrupt, or the CD drive is "
-                      "unable to read the media.\n\n") % os.path.basename(path),
-                    type="custom", custom_icon="error", custom_buttons=[_("Re_boot")])
+            self.method.unmountCD()
 
-                if rc == 0:
-                    sys.exit(0)
+            if kwargs.has_key("intf") and kwargs["intf"]:
+                self._handleFailure(obj.url, kwargs["intf"])
 
     def doInitialSetup(self, anaconda):
         if anaconda.id.getUpgrade():
@@ -680,7 +657,9 @@ class YumBackend(AnacondaBackend):
 
         self.ayum.repos.callback = None
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
-                                            {"intf":anaconda.intf, "method":self.method}))
+                                            {"intf":anaconda.intf}))
+        self.ayum.repos.setMirrorFailureCallback((self.mirrorFailureCB, (),
+                                            {"intf":anaconda.intf}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in
@@ -1230,6 +1209,9 @@ class YumBackend(AnacondaBackend):
         for txmbr in self.ayum.tsInfo.installed:
             if not txmbr.groups:
                 packages.append(txmbr.name)
+
+        if len(self.ayum.tsInfo.instgroups) == 0 and len(packages) == 0:
+            return
 
         f.write("\n%packages\n")
         map(lambda grp: f.write("@%s\n" % grp), self.ayum.tsInfo.instgroups)

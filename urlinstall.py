@@ -70,6 +70,14 @@ def urlretrieve(location, file, callback=None):
 
 class UrlInstallMethod(InstallMethod):
 
+    def badPackageError(self, pkgname):
+        return _("The file %s cannot be opened.  This is due to a missing "
+                 "file or perhaps a corrupt package.  Please verify your "
+                 "mirror contains all required packages, and try using a "
+                 "different one.\n\n"
+                 "If you reboot, your system will be left in an inconsistent "
+                 "state that will likely require reinstallation.\n\n") % pkgname
+
     def getFilename(self, filename, callback=None, destdir=None, retry=1,
                     disc = 1):
 
