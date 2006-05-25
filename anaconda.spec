@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.20
+Version: 11.1.0.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 25 2006 Chris Lumens <clumens@redhat.com> 11.1.0.21-1
+- Fix required CD dialog (pnasrat).
+- More anaconda class in the interfaces (dcantrel).
+- More netlink helper functions (dcantrel).
+- Don't allow logical volumes to be smaller than the volume group's PE
+  size in interactive installs (#186412).
+- Make error handling for missing packages more robust and allow retrying
+  (clumens, pnasrat, #183974).
+- Fix hard drive installs (#185292, #187941).
+- Don't always show partition review dialog in text installs.
+- Fix text-mode installs by adding more stuff to minstg2.img (#191991).
+- Skip netlink messages with invalid ARP header (dcantrel).
+- Add pygobject to install images (katzj).
+
 * Wed May 24 2006 David Cantrell <dcantrell@redhat.com> 11.1.0.20-1
 - Added Netlink helper functions to libisys.a
 - Do not pop wait window twice in writeBootloader (clumens)

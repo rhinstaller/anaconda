@@ -1,3 +1,7 @@
+2006-05-25  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda.spec:  Bump version.
+
 2006-05-25  Paul Nasrat <pnasrat@redhat.com>
 
 	* image.py(presentRequiredMediaMessage):  Fix for yum backend
@@ -5,7 +9,6 @@
 	* yuminstall.py: Remove cd number checking (now in image.py)
 	* iw/confirm_gui.py: presentRequireMediaMessage takes anaconda
 	* textw/confirm_text.py: Likewise
-
 
 2006-05-25  David Cantrell  <dcantrell@redhat.com>
 
@@ -59,6 +62,17 @@
 	hard drive ISO installs (#185292, #187941).
 	* yuminstall.py (YumBackend.doRepoSetup):  Switch media right off to
 	make sure hard drive ISO source is mounted.
+
+	* installmethod.py (InstallMethod.switchMedia):  Add to abstract
+	class.
+
+	* textw/complete_text.py:  iutil.getArch -> rhpl.getArch.
+
+	* textw/partition_text.py (PartitionTypeWindow.__call__):  Skip
+	partition review dialog if it's custom partitioning.
+
+	* scripts/upd-instroot:  Add system-config-date, pam, and audit bits
+	into minstg2.img to fix text mode (#191991).
 
 2006-05-24  David Cantrell  <dcantrell@redhat.com>
 
