@@ -15,7 +15,7 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 from constants import *
-import iutil
+import rhpl
 
 
 class FinishedWindow:
@@ -23,7 +23,7 @@ class FinishedWindow:
   def __call__ (self, screen, anaconda):
         bootstr = ""
 
-        if iutil.getArch() == "s390":
+        if rhpl.getArch() == "s390":
           floppystr = _("Press <Enter> to end the installation process.\n\n")
           bottomstr = _("<Enter> to exit")
         else:
