@@ -1584,30 +1584,31 @@ class PartitionTypeWindow:
                 mustHaveSelectedDrive(anaconda.intf)
                 continue
 
-            cur = typebox.current()
-            if cur == -1:
+            partmethod_ans = typebox.current()
+            if partmethod_ans == -1:
                 anaconda.dispatch.skipStep("autopartitionexecute", skip = 1)
                 break
             else:
                 anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
 
-                anaconda.id.partitions.autoClearPartType = cur
+                anaconda.id.partitions.autoClearPartType = partmethod_ans
                 anaconda.id.partitions.autoClearPartDrives = self.drivelist.getSelection()
                 
                 if queryAutoPartitionOK(anaconda):
                     break
 
-        # ask to review autopartition layout
-        reviewLayout = anaconda.intf.messageWindow(_("Review Partition Layout"),
-                           _("Review and modify partitioning layout?"),
-                           type = "yesno")
+        # ask to review autopartition layout - but only if it's not custom partitioning
+        anaconda.dispatch.skipStep("partition", skip = 0)
+        anaconda.dispatch.skipStep("bootloader", skip = 0)
 
-        if reviewLayout == 1:
-            anaconda.dispatch.skipStep("partition", skip = 0)
-            anaconda.dispatch.skipStep("bootloader", skip = 0)
-        else:
-            anaconda.dispatch.skipStep("partition", skip = 1)
-            anaconda.dispatch.skipStep("bootloader", skip = 1)
+	if partmethod_ans != -1:
+            reviewLayout = anaconda.intf.messageWindow(_("Review Partition Layout"),
+                               _("Review and modify partitioning layout?"),
+                               type = "yesno")
+
+            if reviewLayout != 1:
+                anaconda.dispatch.skipStep("partition", skip = 1)
+                anaconda.dispatch.skipStep("bootloader", skip = 1)
 
         self.shutdownUI()
         screen.popWindow()
