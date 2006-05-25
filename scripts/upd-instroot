@@ -116,12 +116,12 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite neon
-	 elfutils-libelf krb5-libs convertdb1 jfsutils
+	 elfutils-libelf krb5-libs convertdb1 jfsutils audit-libs pam
  	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
-         policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
+	 policy policycoreutils pyparted xorg-x11 selinux-policy-targeted
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
-	 db4 rhpxl xorg-x11-server-Xorg libuser"
+	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils kernel-utils"
@@ -163,7 +163,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            popt specspo util-linux rpm rpm-libs tzdata
            procps bash cpio gpm pygtk2-libglade pygobject
            XFree86 Xconfigurator pygtk2 gdk-pixbuf 
-           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam libpixman
+           XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts libpixman
            reiserfs-utils atk pango freetype gnome-python2-canvas cairo
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help XFree86-base-fonts
@@ -174,7 +174,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            comps-extras XFree86-libs-data convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
            xfsprogs xfsdump dmapi attr acl policy policycoreutils
-           selinux-policy-targeted ttfonts-zh_CN redhat-artwork audit-libs
+           selinux-policy-targeted ttfonts-zh_CN redhat-artwork
            xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts
            xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-100dpi-fonts
            xorg-x11-xfs xorg-x11 xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts
@@ -285,6 +285,7 @@ etc/selinux/targeted/*
 usr/share/selinux/targeted/*
 etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
+$LIBDIR/libaudit*.so*
 $LIBDIR/libc[-.]*
 $LIBDIR/libm[-.]*
 $LIBDIR/libpthread*
@@ -304,6 +305,7 @@ $LIBDIR/libgcc_s*
 $LIBDIR/libnsl*
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
+$LIBDIR/libpam*
 $LIBDIR/libresolv*
 $LIBDIR/libselinux*
 $LIBDIR/libsemanage*
@@ -456,6 +458,7 @@ usr/sbin/lvm
 usr/sbin/build-locale-archive
 usr/share/anaconda/anaconda.conf
 usr/share/selinux/targeted/base.pp
+usr/share/system-config-date/zonetab.py*
 usr/share/terminfo/b/bterm
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
@@ -467,6 +470,7 @@ usr/share/hwdata/videodrivers
 usr/share/hwdata/MonitorsDB
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
+usr/share/zoneinfo/zone.tab
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -588,10 +592,8 @@ etc/prelink.conf
 etc/rpm/macros.prelink
 $LIBDIR/libacl*
 $LIBDIR/libattr*
-$LIBDIR/libaudit*.so*
 $LIBDIR/libgcc*
 $LIBDIR/libnss_dns*
-$LIBDIR/libpam*
 $LIBDIR/libproc*
 sbin/addRamDisk
 sbin/addSystemMap
