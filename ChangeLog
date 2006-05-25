@@ -1,5 +1,19 @@
 2006-05-25  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda (__main__): Pass reference to anaconda rather than id and
+	dispatch references when calling anaconda.intf.run().
+
+	* cmdline.py (InstallInterface.run): Changes to account for receiving
+	a reference to the anaconda object rather than an id and dispatch
+	object.
+	* gui.py (InstallInterface.run): Likewise.
+	* text.py (InstallInterface.run): Likewise.
+
+	* gui.py (InstallControlWindow.releaseNotesButtonClicked): Pass
+	reference to anaconda object to the ReleaseNotesViewerThread object.
+
+2006-05-25  David Cantrell  <dcantrell@redhat.com>
+
 	* isys/nl.h: Include glib.h and netinet/in.h.
 
 2006-05-25  David Cantrell  <dcantrell@redhat.com>

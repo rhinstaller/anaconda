@@ -102,25 +102,25 @@ class InstallInterface:
     def beep(self):
         pass
 
-    def run(self, id, dispatch):
-        id.fsset.registerMessageWindow(self.messageWindow)
-        id.fsset.registerProgressWindow(self.progressWindow)
-        id.fsset.registerWaitWindow(self.waitWindow)        
+    def run(self, anaconda):
+        anaconda.id.fsset.registerMessageWindow(self.messageWindow)
+        anaconda.id.fsset.registerProgressWindow(self.progressWindow)
+        anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
         parted.exception_set_handler(self.partedExceptionWindow)        
 
-        (step, anaconda) = dispatch.currentStep()
+        (step, instance) = anaconda.dispatch.currentStep()
         while step:
             if stepToClasses.has_key(step):
                 s = "nextWin = %s" %(stepToClasses[step],)
                 exec s
-                nextWin(anaconda)
+                nextWin(instance)
             else:
                 print "In interactive step %s, can't continue" %(step,)
                 while 1:
                     time.sleep(1)
 
-            dispatch.gotoNext()
-	    (step, anaconda) = dispatch.currentStep()
+            anaconda.dispatch.gotoNext()
+	    (step, instance) = anaconda.dispatch.currentStep()
             
 
 class progressDisplay:

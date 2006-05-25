@@ -44,7 +44,7 @@ from threading import *
 
 from rhpl.translate import _, N_
 
-from release_notes import ReleaseNotesViewer
+from release_notes import *
 
 import logging
 log = logging.getLogger("anaconda")
@@ -811,20 +811,20 @@ class InstallInterface:
     def getBootdisk (self):
         return None
 
-    def run(self, id, dispatch):
-        self.dispatch = dispatch
+    def run(self, anaconda):
+        self.anaconda = anaconda
 
         # XXX x_already_set is a hack
-        if id.keyboard and not id.x_already_set:
-            id.keyboard.activate()
+        if anaconda.id.keyboard and not anaconda.id.x_already_set:
+            anaconda.id.keyboard.activate()
 
-        id.fsset.registerMessageWindow(self.messageWindow)
-        id.fsset.registerProgressWindow(self.progressWindow)
-        id.fsset.registerWaitWindow(self.waitWindow)
+        anaconda.id.fsset.registerMessageWindow(self.messageWindow)
+        anaconda.id.fsset.registerProgressWindow(self.progressWindow)
+        anaconda.id.fsset.registerWaitWindow(self.waitWindow)
 
         parted.exception_set_handler(partedExceptionWindow)
 
-        self.icw = InstallControlWindow (self, self.dispatch, id)
+        self.icw = InstallControlWindow (self.anaconda)
         self.icw.run (self.runres)
 
 class InstallControlWindow:
@@ -863,7 +863,7 @@ class InstallControlWindow:
         except StayOnScreen:
             return
 
-        self.dispatch.gotoPrev()
+        self.anaconda.dispatch.gotoPrev()
         self.dir = DISPATCH_BACK
 
         self.setScreen ()
@@ -874,20 +874,14 @@ class InstallControlWindow:
         except StayOnScreen:
             return
 
-        self.dispatch.gotoNext()
+        self.anaconda.dispatch.gotoNext()
         self.dir = DISPATCH_FORWARD
 
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
-        setCursorToBusy()
-        win = ReleaseNotesViewer()
-        win.setId(self.id)
-        win.setDispatch(self.dispatch)
-        win.start()
-        ## desensitize button bar at bottom of screen
-        #self.mainxml.get_widget("buttonBar").set_sensitive(False)
-        setCursorToNormal()
+        rnv = ReleaseNotesViewerThread(self.anaconda)
+        rnv.start()
 
     def debugClicked (self, *args):
         try:
@@ -919,7 +913,7 @@ class InstallControlWindow:
             gobject.source_remove(self.handle)
 
     def setScreen (self):
-        (step, anaconda) = self.dispatch.currentStep()
+        (step, anaconda) = self.anaconda.dispatch.currentStep()
         if step is None:
             gtk.main_quit()
             return
@@ -964,7 +958,7 @@ class InstallControlWindow:
                     sys.exit(0)
 
         ics = InstallControlState (self)
-        ics.setPrevEnabled(self.dispatch.canGoBack())
+        ics.setPrevEnabled(self.anaconda.dispatch.canGoBack())
         self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 
@@ -998,12 +992,10 @@ class InstallControlWindow:
         if ics.getGrabNext():
             self.mainxml.get_widget("nextButton").grab_focus()
 
-    def __init__ (self, ii, dispatch, id):
+    def __init__ (self, anaconda):
         self.reloadRcQueued = 0
         self.currentWindow = None
-        self.ii = ii
-        self.id = id
-        self.dispatch = dispatch
+        self.anaconda = anaconda
         self.handle = None
 
     def keyRelease (self, window, event):

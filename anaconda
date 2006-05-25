@@ -948,7 +948,7 @@ if __name__ == "__main__":
     sys.excepthook = lambda type, value, tb, anaconda=anaconda: handleException(anaconda, (type, value, tb))
 
     try:
-        anaconda.intf.run(anaconda.id, anaconda.dispatch)
+        anaconda.intf.run(anaconda)
     except SystemExit, code:
         anaconda.intf.shutdown()
     except:

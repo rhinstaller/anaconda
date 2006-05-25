@@ -449,8 +449,8 @@ class InstallInterface:
             return False
         return True
 
-    def run(self, id, dispatch):
-        if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
+    def run(self, anaconda):
+        if anaconda.id.instLanguage.getFontFile(anaconda.id.instLanguage.getCurrent()) == "none":
             ButtonChoiceWindow(self.screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  "
                                "The installation will continue in "
@@ -471,19 +471,19 @@ class InstallInterface:
 	#self.screen.drawRootText (len(_(self.welcomeText)), 0,
 		  #(self.screen.width - len(_(self.welcomeText))) * " ")
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
-        self.instLanguage = id.instLanguage
+        self.instLanguage = anaconda.id.instLanguage
 
         # draw the frame after setting up the fallback
         self.drawFrame()
 
-        id.fsset.registerMessageWindow(self.messageWindow)
-        id.fsset.registerProgressWindow(self.progressWindow)
-        id.fsset.registerWaitWindow(self.waitWindow)        
+        anaconda.id.fsset.registerMessageWindow(self.messageWindow)
+        anaconda.id.fsset.registerProgressWindow(self.progressWindow)
+        anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
 
 	parted.exception_set_handler(self.partedExceptionWindow)        
         
 	lastrc = INSTALL_OK
-	(step, anaconda) = dispatch.currentStep()
+	(step, instance) = anaconda.dispatch.currentStep()
 	while step:
 	    (file, classNames) = stepToClasses[step]
 
@@ -497,7 +497,7 @@ class InstallInterface:
 
 	    while step >= 0 and step < len(classNames):
                 # reget the args.  they could change (especially direction)
-                (foo, args) = dispatch.currentStep()
+                (foo, args) = anaconda.dispatch.currentStep()
 
                 nextWindow = None
 		s = "from %s import %s; nextWindow = %s" % \
@@ -509,32 +509,32 @@ class InstallInterface:
 		#log.info("TUI running step %s (class %s, file %s)" % 
 			 #(step, file, classNames))
 
-                rc = win(self.screen, anaconda)
+                rc = win(self.screen, instance)
 
 		if rc == INSTALL_NOOP:
 		    rc = lastrc
 
 		if rc == INSTALL_BACK:
 		    step = step - 1
-                    dispatch.dir = DISPATCH_BACK
+                    anaconda.dispatch.dir = DISPATCH_BACK
 		elif rc == INSTALL_OK:
 		    step = step + 1
-                    dispatch.dir = DISPATCH_FORWARD
+                    anaconda.dispatch.dir = DISPATCH_FORWARD
 
 		lastrc = rc
 
 	    if step == -1:
-                if not dispatch.canGoBack():
+                if not anaconda.dispatch.canGoBack():
                     ButtonChoiceWindow(self.screen, _("Cancelled"),
                                        _("I can't go to the previous step "
                                          "from here. You will have to try "
                                          "again."),
                                        buttons=[_("OK")])
-		dispatch.gotoPrev()
+		anaconda.dispatch.gotoPrev()
 	    else:
-		dispatch.gotoNext()
+		anaconda.dispatch.gotoNext()
 
-	    (step, args) = dispatch.currentStep()
+	    (step, args) = anaconda.dispatch.currentStep()
 
         self.screen.finish()
 
