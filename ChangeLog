@@ -1,6 +1,10 @@
+2006-05-25  Peter Jones  <pjones@redhat.com>
+
+	* loader2/module-info: add adp94xx (#192951)
+
 2006-05-11  Peter Jones  <pjones@redhat.com>
 
-	* loader/ftp.c (httpGetFileDesc): don't use sizeof(header) anymore
+	* loader2/ftp.c (httpGetFileDesc): don't use sizeof(header) anymore
 	since it's not an array.
 
 2006-05-05  Peter Jones  <pjones@redhat.com>

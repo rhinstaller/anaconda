@@ -623,6 +623,10 @@ aic79xx
 	scsi_hostadapter
 	"Adaptec Aic79xx SCSI Host Bus Adapter driver"
 
+adp94xx
+	scsi_hostadapter
+	"Adaptec SAS/SATA Host Bus Adapter driver"
+
 ata_piix
         scsi_hostadapter
         "Intel PIIX/ICH ATA controllers"

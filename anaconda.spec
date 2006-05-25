@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.12
+Version: 9.1.6.13
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 25 2006 Peter Jones <pjones@redhat.com> - 9.1.6.13-1.RHEL
+- Add adp94xx driver to whitelist (#192951)
+
 * Thu May 11 2006 Peter Jones <pjones@redhat.com> - 9.1.6.12-1.RHEL
 - Fix size checking of http header array (#191184).
 
