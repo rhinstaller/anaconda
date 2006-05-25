@@ -13,6 +13,9 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <netinet/in.h>
+#include <glib.h>
+
 /* Information per interface */
 typedef struct _interface_info_t {
    int i;                            /* interface index        */

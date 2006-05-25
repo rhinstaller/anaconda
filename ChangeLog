@@ -1,5 +1,9 @@
 2006-05-25  David Cantrell  <dcantrell@redhat.com>
 
+	* isys/nl.h: Include glib.h and netinet/in.h.
+
+2006-05-25  David Cantrell  <dcantrell@redhat.com>
+
 	* isys/nl.h:  Prototypes for netlink_interfaces_list_free() and
 	netlink_interfaces_mac2str()...and their helper functions.
 	* isys/nl.c:  Several things... In netlink_format_mac_addr, make the
