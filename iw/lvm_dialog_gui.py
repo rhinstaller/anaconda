@@ -625,7 +625,7 @@ class VolumeGroupEditor:
 	    # in tests below. We check for mount point name conflicts
 	    # above within the current volume group, so it is not
 	    # necessary to do now.
- 	    err = request.sanityCheckRequest(self.partitions, skipMntPtExistCheck=1)
+ 	    err = request.sanityCheckRequest(self.partitions, skipMntPtExistCheck=1, pesize=pesize)
 	    if err is None:
 		skiplist = []
 		for lv in self.origvolreqs:

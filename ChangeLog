@@ -10,6 +10,12 @@
 
 2006-05-25  Chris Lumens  <clumens@redhat.com>
 
+	* partRequests.py (LogicalVolumeRequestSpec.sanityCheckRequest):  Don't
+	allow logical volumes to be smaller than their volume group's PE size
+	(#186412).
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.editLogicalVolume):  Pass PE
+	size to sanityCheckRequest for LVs.
+
 	* harddrive.py (HardDriveInstallMethod.badPackageError):  Add a
 	method-specific function to explain why the package may not be found.
 	* image.py (CdromInstallMethod.badPackageError):  Likewise.
