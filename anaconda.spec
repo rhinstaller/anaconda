@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.42
+Version: 10.1.1.43
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 25 2006 Peter Jones <pjones@redhat.com> - 10.1.1.43-1
+- Add adp94xx to module whitelist (#193083)
+
 * Wed May 24 2006 Peter Jones <pjones@redhat.com> - 10.1.1.42-1
 - Fix lapic_status import issues (#171930)
 - Fix console corruption from fprintf in #168384 .
