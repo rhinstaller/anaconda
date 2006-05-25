@@ -29,3 +29,9 @@ int netlink_create_socket(void);
 int netlink_send_dump_request(int sock, int type, int family);
 int netlink_get_interface_ip(int index, int family, void *addr);
 int netlink_init_interfaces_list(void);
+void netlink_interfaces_list_free(void);
+char *netlink_interfaces_mac2str(char *ifname);
+
+/* Private function prototypes -- used by the functions above */
+void _netlink_interfaces_elem_free(gpointer data, gpointer user_data);
+gint _netlink_interfaces_elem_mac2str(gconstpointer a, gconstpointer b);

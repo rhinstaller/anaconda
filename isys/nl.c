@@ -18,6 +18,7 @@
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -42,13 +43,22 @@ static GSList *interfaces = NULL;
  * @return Pointer to buf.
  */
 char *netlink_format_mac_addr(char *buf, unsigned char *mac) {
+   int i;
+
    sprintf(buf, "%02x:%02x:%02x:%02x:%02x:%02x",
            mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+   for (i=0; i<18; i++) {
+      if (buf[i] >= 'a' && buf[i] <= 'f')
+         buf[i] = toupper(buf[i]);
+   }
+
    return buf;
 }
 
 /**
- * Return a human-readable IP address (either v4 or v6).
+ * Convert cylon-readable IP address to human-readable format (either v4
+ * or v6).
  *
  * @param family The address family.
  * @param intf The interface_info_t structure with the IP address info.
@@ -342,6 +352,84 @@ int netlink_init_interfaces_list(void) {
    return 0;
 }
 
+/**
+ * Take the cylon-readable MAC address for the specified device and
+ * format it for human reading.
+ *
+ * @param ifname The interface name (e.g., eth0).
+ * @return The human-readable MAC address (e.g., 01:0A:3E:4B:91:12) or NULL
+ *         on error.
+ */
+char *netlink_interfaces_mac2str(char *ifname) {
+   char *ret;
+   GSList *e;
+   interface_info_t *intf;
+
+   if (ifname == NULL)
+      return NULL;
+
+   /* init the interfaces list if it's empty */
+   if (interfaces == NULL) {
+      if (netlink_init_interfaces_list() == -1) {
+         perror("netlink_init_interfaces_list in netlink_interface_mac2str");
+         return NULL;
+      }
+   }
+
+   e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_mac2str);
+   if (e == NULL) {
+      return NULL;
+   } else {
+      if ((ret=malloc(20)) == NULL) {
+         perror("malloc in netlink_interfaces_mac2str");
+         return NULL;
+      }
+
+      intf = (interface_info_t *) e->data;
+      ret = netlink_format_mac_addr(ret, intf->mac);
+      return ret;
+   }
+}
+
+/**
+ * Free memory for each element of the specified linked list.  Frees the
+ * list after all elements have been freed (say 'free' some more).
+ */
+void netlink_interfaces_list_free(void) {
+   g_slist_foreach(interfaces, &_netlink_interfaces_elem_free, NULL);
+   g_slist_free(interfaces);
+   interfaces = NULL;
+}
+
+/**
+ * Callback function for netlink_interfaces_list_free.  Frees an individual
+ * list element.
+ *
+ * @see netlink_interfaces_list_free
+ */
+void _netlink_interfaces_elem_free(gpointer data, gpointer user_data) {
+   free(data);
+   return;
+}
+
+/**
+ * Callback function for netlink_interfaces_mac2str.  Compares one list
+ * element to the specified interface name.
+ *
+ * @see netlink_interfaces_mac2str
+ */
+gint _netlink_interfaces_elem_mac2str(gconstpointer a, gconstpointer b) {
+   char *ifname = (char *) b;
+   GSList *elemdata = (GSList *) a;
+   interface_info_t *intf;
+
+   intf = (interface_info_t *) elemdata;
+   if (intf->name == NULL)
+      return -1;
+   else
+      return strncmp(ifname, intf->name, strlen(ifname));
+}
+
 #ifdef TESTING
 void print_interfaces(gpointer data, gpointer user_data) {
    char buf[20];
@@ -354,6 +442,10 @@ void print_interfaces(gpointer data, gpointer user_data) {
    printf("   IPv4: %s\n", netlink_format_ip_addr(AF_INET, intf, ipbuf));
    printf("   IPv6: %s\n", netlink_format_ip_addr(AF_INET6, intf, ipbuf));
    printf("    MAC: %s\n\n", netlink_format_mac_addr(buf, intf->mac));
+
+   printf("   mac2str test for %s: |%s|\n", intf->name, netlink_interfaces_mac2str(intf->name));
+
+   printf("----------------------------------------------------------------\n");
 
    return;
 }
