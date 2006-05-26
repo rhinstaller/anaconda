@@ -2,7 +2,7 @@ include ../Makefile.inc
 
 CFLAGS +=  -I$(PYTHONINCLUDE) -I.. -DHAVE_NFS
 
-OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o getmacaddr.o \
+OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o devnodes.o cpio.o uncpio.o dasd.o \
           lang.o isofs.o dns.o linkdetect.o vio.o \
           ethtool.o getipaddr.o wireless.o eddsupport.o \
@@ -15,7 +15,7 @@ PYMODULES = _isys.so
 SUBDIRS = gzlib
 DIET = diet
 
-# using glib
+# glib
 LOADLIBES += $(shell pkg-config --libs glib-2.0)
 CFLAGS    += $(shell pkg-config --cflags glib-2.0)
 

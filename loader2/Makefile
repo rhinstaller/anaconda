@@ -7,6 +7,9 @@ else
 TARGET=depend $(PROGS)
 endif
 
+GLIB   = /lib/libglib-2.0.a
+CFLAGS += $(shell pkg-config --cflags glib-2.0)
+
 SLANGLIB = -lslang
 NEWTLIB = -lnewt
 ISYSLIB = ../isys/libisys.a
@@ -118,7 +121,7 @@ loader-net.o: loader.c
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
-	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB)
+	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

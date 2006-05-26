@@ -49,13 +49,12 @@
 #include <signal.h>
 #include <execinfo.h>
 
-
+#include "nl.h"
 #include "imount.h"
 #include "isys.h"
 #include "net.h"
 #include "smp.h"
 #include "lang.h"
-#include "getmacaddr.h"
 #include "wireless.h"
 #include "eddsupport.h"
 
@@ -1264,7 +1263,7 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &dev))
 	return NULL;
 
-    ret = getMacAddr(dev);
+    ret = netlink_interfaces_mac2str(dev);
 
     return Py_BuildValue("s", ret);
 }

@@ -23,7 +23,7 @@
 #include <sys/mount.h>
 #include <unistd.h>
 
-#include "../isys/getmacaddr.h"
+#include "../isys/nl.h"
 
 #include "kickstart.h"
 #include "loader.h"
@@ -388,7 +388,7 @@ int getFileFromUrl(char * url, char * dest,
         devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
 	for (i = 0; devices && devices[i]; i++) {
 	    dev = devices[i]->device;
-	    mac = getMacAddr(dev);
+	    mac = netlink_interfaces_mac2str(dev);
 
 	    if (mac) {
 		snprintf(tmpstr, sizeof(tmpstr), "X-RHN-Provisioning-MAC-%d: %s %s\r\n", i, dev, mac);

@@ -1,3 +1,26 @@
+2006-05-26  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/Makefile: Remove getmacaddr references. Add glib CFLAGS and
+	LDFLAGS.
+
+	* isys/getmacaddr.c: Removed.
+	* isys/getmacaddr.h: Removed.
+
+	* isys/isys.c: Call netlink_interfaces_mac2str() in doGetMacAddress.
+
+	* isys/nl.c (netlink_format_mac_addr): Malloc space for buf if it's
+	NULL when we enter the function.
+	* isys/nl.c (netlink_interfaces_mac2str): Return buffer malloc is
+	handled by netlink_format_mac_addr).
+
+	* loader2/Makefile: Add glib CFLAGS and LDFLAGS.
+
+	* loader2/net.c: Call netlink_format_mac_addr() and
+	netlink_interfaces_mac2str().
+
+	* loader2/urlinstall.c: Call netlink_interfaces_mac2str() instead of
+	getMacAddr().
+
 2006-05-25  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.

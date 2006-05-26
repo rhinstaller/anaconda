@@ -37,7 +37,7 @@
 #include "../isys/isys.h"
 #include "../isys/net.h"
 #include "../isys/wireless.h"
-#include "../isys/getmacaddr.h"
+#include "../isys/nl.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -1017,11 +1017,11 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
     devices = alloca((i + 1) * sizeof(*devices));
     deviceNames = alloca((i + 1) * sizeof(*devices));
     if (loaderData->netDev && (loaderData->netDev_set) == 1) {
-      if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) &&
-	  !strcasecmp(loaderData->netDev, "bootif"))
-	    ksMacAddr = sanitizeMacAddr(loaderData->bootIf);
-	else
-	    ksMacAddr = sanitizeMacAddr(loaderData->netDev);
+        if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) && !strcasecmp(loaderData->netDev, "bootif")) {
+            ksMacAddr = netlink_format_mac_addr(ksMacAddr, (unsigned char *) loaderData->bootIf);
+        } else {
+            ksMacAddr = netlink_format_mac_addr(ksMacAddr, (unsigned char *) loaderData->netDev);
+        }
     }
 
     for (i = 0; devs[i]; i++) {
@@ -1048,7 +1048,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
             } else if (ksMacAddr != NULL) {
                 /* maybe it's a mac address */
                 char * devmacaddr;
-                devmacaddr = sanitizeMacAddr(getMacAddr(devs[i]->device));
+                devmacaddr = netlink_interfaces_mac2str(devs[i]->device);
                 if ((devmacaddr != NULL) && !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);

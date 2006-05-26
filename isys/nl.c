@@ -45,6 +45,13 @@ static GSList *interfaces = NULL;
 char *netlink_format_mac_addr(char *buf, unsigned char *mac) {
    int i;
 
+   if (buf == NULL) {
+      if ((buf = malloc(20)) == NULL) {
+         perror("malloc in netlink_format_mac_addr");
+         return NULL;
+      }
+   }
+
    sprintf(buf, "%02x:%02x:%02x:%02x:%02x:%02x",
            mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
@@ -361,7 +368,7 @@ int netlink_init_interfaces_list(void) {
  *         on error.
  */
 char *netlink_interfaces_mac2str(char *ifname) {
-   char *ret;
+   char *ret = NULL;
    GSList *e;
    interface_info_t *intf;
 
@@ -380,11 +387,6 @@ char *netlink_interfaces_mac2str(char *ifname) {
    if (e == NULL) {
       return NULL;
    } else {
-      if ((ret=malloc(20)) == NULL) {
-         perror("malloc in netlink_interfaces_mac2str");
-         return NULL;
-      }
-
       intf = (interface_info_t *) e->data;
       ret = netlink_format_mac_addr(ret, intf->mac);
       return ret;
