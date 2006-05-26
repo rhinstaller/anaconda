@@ -161,7 +161,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs coreutils glibc glibc-common
            popt specspo util-linux rpm rpm-libs tzdata
-           procps bash cpio gpm pygtk2-libglade pygobject
+           procps bash cpio gpm pygtk2-libglade pygobject2
            XFree86 Xconfigurator pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts libpixman
            reiserfs-utils atk pango freetype gnome-python2-canvas cairo
@@ -427,6 +427,7 @@ usr/$LIBDIR/python?.?/site-packages/rhpl
 usr/$LIBDIR/python?.?/site-packages/rhpxl
 usr/$LIBDIR/python?.?/site-packages/cElementTree.so
 usr/$LIBDIR/python?.?/site-packages/block
+usr/$LIBDIR/python?.?/site-packages/*.pth
 usr/lib/locale/*
 usr/lib/python?.?/site-packages/elementtree/*
 usr/lib/python?.?/site-packages/rpmUtils/*
