@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-22 17:07+0200\n"
+"PO-Revision-Date: 2006-05-26 23:40+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -2603,7 +2603,7 @@ msgstr "Installatievoortgang"
 
 #: ../yuminstall.py:1229
 msgid "Dependency Check"
-msgstr "Afhankelijkheden controle"
+msgstr "Controle van afhankelijkheden"
 
 #: ../yuminstall.py:1230
 msgid "Checking dependencies in packages selected for installation..."
@@ -2715,25 +2715,19 @@ msgstr "_Bevestigen: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
-"Alle partities op de geselecteerde stations verwijderen en aanmaken van "
-"standaard partitieopmaak."
+msgstr "Verwijder alle partities op de stations en gebruik standaard opmaak."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
-"Linux partities op de geselecteerde stations verwijderen en aanmaken van "
-"standaard opmaak."
+msgstr "Verwijder Linux partities op de stations en gebruik standaard opmaak."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
-"Gebruik vrije ruimte op de geselecteerde stations en aanmaken van standaard "
-"partitieopmaak."
+msgstr "Gebruik vrije ruimte op de stations en gebruik standaard opmaak."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr "Aangepaste partitieopmaak kiezen."
+msgstr "Gebruik aangepaste opmaak."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3024,7 +3018,7 @@ msgstr "IP-adressen moeten bestaan uit getallen tussen 0 en 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
 msgid "iSCSI Configuration"
-msgstr "iSCSI configuratie"
+msgstr "iSCSI-configuratie"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
 msgid "Error with Data"
@@ -3547,7 +3541,7 @@ msgstr "_Actief bij opstarten"
 
 #: ../iw/network_gui.py:236
 msgid "_IP Address"
-msgstr "_IP Adres"
+msgstr "_IP-adres"
 
 #: ../iw/network_gui.py:237
 msgid "Net_mask"
@@ -4797,7 +4791,7 @@ msgstr "Selecteer de pakketgroepen die u geïnstalleerd wilt hebben."
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
-"<Spatie>,<+>,<-> selectie   |   <F2> groep details   |   <F12> volgend scherm"
+"   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4813,7 +4807,7 @@ msgstr "Poortnummer:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr "iSCSI initiator naam:"
+msgstr "iSCSI-initiator naam:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
 msgid "Invalid IP string"
@@ -4852,7 +4846,7 @@ msgstr "Muis keuze"
 
 #: ../textw/network_text.py:67
 msgid "IP Address"
-msgstr "IP Adres"
+msgstr "IP-adres"
 
 #: ../textw/network_text.py:68
 msgid "Netmask"
@@ -5378,7 +5372,7 @@ msgstr "Systeem herinstalleren"
 # Wat is een mooie vertaling hiervoor?
 #: ../textw/upgrade_text.py:205
 msgid "System to Upgrade"
-msgstr "Systeem om te upgraden"
+msgstr "Te upgraden systeem"
 
 #: ../textw/upgrade_text.py:206
 msgid ""
@@ -5387,10 +5381,10 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"Een of meerdere Linux installaties zijn gevonden op uw systeem.\n"
+"Er zijn een of meerdere Linux installaties gevonden op uw systeem.\n"
 "\n"
-"Kies er een om te upgraden of selecteer 'Systeem herinstalleren' om opnieuw "
-"uw systeem te installeren."
+"Kies er een om te upgraden of selecteer 'Systeem herinstalleren' om uw "
+"systeem opnieuw te installeren."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
@@ -5600,7 +5594,7 @@ msgstr ""
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr "Controle mediadrager"
+msgstr "Controle van mediadrager"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
@@ -6269,7 +6263,7 @@ msgstr "Dynamisch IP"
 #: ../loader2/net.c:365 ../loader2/net.c:623
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Versturen IP-informatie verzoek voor %s..."
+msgstr "Versturen van IP-informatie verzoek voor %s..."
 
 #: ../loader2/net.c:506
 msgid ""
@@ -6553,7 +6547,7 @@ msgstr "<b>iSCSI initiator _naam:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "iSCSI configuration"
-msgstr "iSCSI configuratie"
+msgstr "iSCSI-configuratie"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
