@@ -143,7 +143,7 @@ def turnOnFilesystems(anaconda):
             anaconda.id.fsset.formatSwap(anaconda.rootPath)
             anaconda.id.fsset.turnOnSwap(anaconda.rootPath)
 	    anaconda.id.fsset.makeFilesystems (anaconda.rootPath)
-            anaconda.id.fsset.mountFilesystems (anaconda.rootPath)
+            anaconda.id.fsset.mountFilesystems (anaconda)
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards

@@ -118,7 +118,7 @@ def getDirtyDevString(dirtyDevs):
             ret = "%s\n" % (dev,)
     return ret
 
-def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
+def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 		       raiseErrors = 0, warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
 
@@ -128,21 +128,21 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     lvm.vgscan()
     lvm.vgactivate()
 
-    log.info("going to mount %s on %s as %s" %(root, instPath, rootFs))
-    isys.mount(root, instPath, rootFs)
+    log.info("going to mount %s on %s as %s" %(root, anaconda.rootPath, rootFs))
+    isys.mount(root, anaconda.rootPath, rootFs)
 
     oldfsset.reset()
-    newfsset = fsset.readFstab(instPath + '/etc/fstab', intf)
+    newfsset = fsset.readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
-    isys.umount(instPath)        
+    isys.umount(anaconda.rootPath)
 
-    dirtyDevs = oldfsset.hasDirtyFilesystems(instPath)
+    dirtyDevs = oldfsset.hasDirtyFilesystems(anaconda.rootPath)
     if not allowDirty and dirtyDevs != []:
         diskset.stopAllRaid()
         lvm.vgdeactivate()
-	intf.messageWindow(_("Dirty File Systems"),
+	anaconda.intf.messageWindow(_("Dirty File Systems"),
                            _("The following file systems for your Linux system "
                              "were not unmounted cleanly.  Please boot your "
                              "Linux installation, let the file systems be "
@@ -150,7 +150,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
                              "%s" %(getDirtyDevString(dirtyDevs),)))
 	sys.exit(0)
     elif warnDirty and dirtyDevs != []:
-        rc = intf.messageWindow(_("Dirty File Systems"),
+        rc = anaconda.intf.messageWindow(_("Dirty File Systems"),
                                 _("The following file systems for your Linux "
                                   "system were not unmounted cleanly.  Would "
                                   "you like to mount them anyway?\n"
@@ -160,7 +160,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
-        oldfsset.mountFilesystems(instPath, readOnly = readOnly)
+        oldfsset.mountFilesystems(anaconda, readOnly = readOnly)
 
     if (not oldfsset.getEntryByMountPoint("/") or
         not oldfsset.getEntryByMountPoint("/").fsystem or
@@ -285,8 +285,8 @@ def upgradeMountFilesystems(anaconda):
 
     if flags.setupFilesystems:
 	try:
-	    mountRootPartition(anaconda.intf, anaconda.id.upgradeRoot[0], anaconda.id.fsset,
-                               anaconda.rootPath, allowDirty = 0)
+	    mountRootPartition(anaconda, anaconda.id.upgradeRoot[0], anaconda.id.fsset,
+                               allowDirty = 0)
 	except SystemError, msg:
 	    anaconda.intf.messageWindow(_("Mount failed"),
 		_("One or more of the file systems listed in the "

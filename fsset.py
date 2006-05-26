@@ -1698,13 +1698,18 @@ MAILADDR root
 
         self.migratedfs = 1
 
-    def mountFilesystems(self, instPath = '/', raiseErrors = 0, readOnly = 0):
+    def mountFilesystems(self, anaconda, raiseErrors = 0, readOnly = 0):
+        protected = anaconda.method.protectedPartitions()
+
 	for entry in self.entries:
-            if not entry.fsystem.isMountable():
+            # Don't try to mount a protected partition, since it will already
+            # have been mounted as the installation source.
+            if not entry.fsystem.isMountable() or (protected and entry.device.getDevice() in protected):
 		continue
+
             try:
                 log.info("trying to mount %s on %s" %(entry.device.getDevice(), entry.mountpoint))
-                entry.mount(instPath, readOnly = readOnly)
+                entry.mount(anaconda.rootPath, readOnly = readOnly)
                 self.mountcount = self.mountcount + 1
             except OSError, (num, msg):
                 if self.messageWindow:
@@ -1742,7 +1747,7 @@ MAILADDR root
                                           entry.mountpoint, msg))
                 sys.exit(0)
 
-        self.makeLVMNodes(instPath)
+        self.makeLVMNodes(anaconda.rootPath)
 
     def makeLVMNodes(self, instPath, trylvm1 = 0):
         # XXX hack to make the device node exist for the root fs if

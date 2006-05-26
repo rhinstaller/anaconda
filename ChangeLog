@@ -1,3 +1,13 @@
+2005-05-26  Chris Lumens  <clumens@redhat.com>
+
+	* fsset.py (FileSystemSet.mountFilesystems):  Don't try to mount any
+	protected partitions since they are already mounted as the
+	installation source, and trying again will cause an error.
+
+	* packages.py (turnOnFilesystems):  Use anaconda class.
+	* rescue.py (runRescue):  Likewise.
+	* upgrade.py (mountRootPartition):  Likewise.
+
 2006-05-26  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/Makefile: Remove getipaddr.o reference.

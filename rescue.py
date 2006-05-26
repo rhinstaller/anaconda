@@ -332,8 +332,7 @@ def runRescue(anaconda):
 
 	    # only pass first two parts of tuple for root, since third
 	    # element is a comment we dont want
-	    rc = upgrade.mountRootPartition(anaconda.intf, root[:2],
-					    fs, anaconda.rootPath,
+	    rc = upgrade.mountRootPartition(anaconda, root[:2], fs,
                                             allowDirty = 1, warnDirty = 1,
                                             readOnly = readOnly)
 
