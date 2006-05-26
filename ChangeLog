@@ -1,5 +1,16 @@
 2006-05-26  David Cantrell  <dcantrell@redhat.com>
 
+	* isys/Makefile: Remove getipaddr.o reference.
+
+	* isys/getipaddr.c: Removed.
+
+	* isys/isys.c (doGetIPAddress): Call netlink_interfaces_ip2str()
+	instead of getIPAddr().
+
+	* isys/net.h: Removed getIPAddr() prototype.
+
+2006-05-26  David Cantrell  <dcantrell@redhat.com>
+
 	* isys/nl.c (netlink_format_ip_addr): Rewrote to malloc for space
 	in the function and handle IPv4 and IPv6 address lengths more
 	gracefully.

@@ -1287,7 +1287,7 @@ static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "s", &dev))
 	return NULL;
 
-    ret = getIPAddr(dev);
+    ret = netlink_interfaces_ip2str(dev);
 
     return Py_BuildValue("s", ret);
 }

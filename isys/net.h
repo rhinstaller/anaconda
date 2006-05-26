@@ -36,7 +36,4 @@ typedef enum ethtool_duplex_t { ETHTOOL_DUPLEX_UNSPEC = -1,
 /* set ethtool settings */
 int setEthtoolSettings(char * dev, ethtool_speed speed, ethtool_duplex duplex);
 
-/* get the ip address of an interface */
-char *getIPAddr(char *ifname);
-
 #endif
