@@ -1,3 +1,23 @@
+2006-05-26  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/nl.c (netlink_format_ip_addr): Rewrote to malloc for space
+	in the function and handle IPv4 and IPv6 address lengths more
+	gracefully.
+
+	* isys/nl.c (netlink_interfaces_ip2str): Added function to return the
+	IP address of the specified device name. If you have an IPv4 address
+	for the device, that's returned. If you only have an IPv6 address,
+	that's returned. The string returned is the human-readable IP addr.
+
+	* isys/nl.c (_netlink_interfaces_elem_find): Renamed the
+	_netlink_interfaces_elem_mac2str function since it's a generic intf
+	search routine.
+
+	* isys/nl.c (netlink_init_interfaces_list): If there is no IPv6
+	address, memset intfinfo->ip6_addr to all zeros.
+
+	* isys/nl.h: Prototype updates.
+
 2006-05-26  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILE): pygobject2, keep pth files

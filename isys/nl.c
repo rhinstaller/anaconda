@@ -73,19 +73,31 @@ char *netlink_format_mac_addr(char *buf, unsigned char *mac) {
  * @return A pointer to buf.
  */
 char *netlink_format_ip_addr(int family, interface_info_t *intf, char *buf) {
-   char ipbuf[256];
+   int iplen;
 
-   memset(ipbuf, 0, sizeof(ipbuf));
+   if (family == AF_INET6)
+      iplen = INET6_ADDRSTRLEN;
+   else
+      iplen = INET_ADDRSTRLEN;
+
+   if (buf == NULL) {
+      if ((buf = malloc(iplen)) == NULL) {
+         perror("malloc in netlink_format_ip_addr");
+         return NULL;
+      }
+
+      memset(buf, 0, iplen);
+   }
+
    switch (family) {
       case AF_INET:
-         inet_ntop(family, &(intf->ip_addr), ipbuf, sizeof(ipbuf));
+         inet_ntop(family, &(intf->ip_addr), buf, iplen);
          break;
       case AF_INET6:
-         inet_ntop(family, &(intf->ip6_addr), ipbuf, sizeof(ipbuf));
+         inet_ntop(family, &(intf->ip6_addr), buf, iplen);
          break;
    }
 
-   memcpy(buf, ipbuf, sizeof(ipbuf));
    return buf;
 }
 
@@ -342,10 +354,8 @@ int netlink_init_interfaces_list(void) {
 
          /* get the IPv6 address of this interface (if any) */
          r = netlink_get_interface_ip(intfinfo->i,AF_INET6,&intfinfo->ip6_addr);
-/* XXX: why this no work?
          if (r == -1)
-            intfinfo->ip6_addr.s6_addr = 0;
-*/
+            memset(intfinfo->ip6_addr.s6_addr, 0, sizeof(intfinfo->ip6_addr.s6_addr));
 
          /* add this interface */
          interfaces = g_slist_append(interfaces, intfinfo);
@@ -357,6 +367,56 @@ int netlink_init_interfaces_list(void) {
 
    close(sock);
    return 0;
+}
+
+/**
+ * Take the cylon-readable IP address for the specified device and format
+ * it for human reading.  NOTE:  This function will check for IPv6 and IPv4
+ * addresses.  In the case where the interface has both, the IPv4 address
+ * is returned.  The only way you will get an IPv6 address from this function
+ * is if that's the only address configured for the interface.
+ *
+ * @param ifname The interface name (e.g., eth0).
+ * @return The human-readable IP address (either IPv4 or IPv6) or NULL on
+ *         error/no match.
+ */
+char *netlink_interfaces_ip2str(char *ifname) {
+   char *ret = NULL;
+   GSList *e;
+   interface_info_t *intf;
+
+   if (ifname == NULL)
+      return NULL;
+
+   /* init the interfaces list if it's empty */
+   if (interfaces == NULL) {
+      if (netlink_init_interfaces_list() == -1) {
+         perror("netlink_init_interfaces_list in netlink_interface_mac2str");
+         return NULL;
+      }
+   }
+
+   e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_find);
+   if (e == NULL) {
+      return NULL;
+   } else {
+      intf = (interface_info_t *) e->data;
+
+      if (intf->ip_addr.s_addr == 0 && intf->ip6_addr.s6_addr[0] == 0)
+         /* neither IP set, return null */
+         ret = NULL;
+      else if (intf->ip_addr.s_addr == 0 && intf->ip6_addr.s6_addr[0] != 0)
+         /* only IPv6 addr, return that */
+         ret = netlink_format_ip_addr(AF_INET6, intf, ret);
+      else if (intf->ip_addr.s_addr != 0)
+         /* if IPv4 is set, return that (regardless of IPv6 value) */
+         ret = netlink_format_ip_addr(AF_INET, intf, ret);
+      else
+         /* we have no idea what happened, return NULL */
+         ret = NULL;
+
+      return ret;
+   }
 }
 
 /**
@@ -383,7 +443,7 @@ char *netlink_interfaces_mac2str(char *ifname) {
       }
    }
 
-   e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_mac2str);
+   e = g_slist_find_custom(interfaces,ifname,&_netlink_interfaces_elem_find);
    if (e == NULL) {
       return NULL;
    } else {
@@ -415,12 +475,13 @@ void _netlink_interfaces_elem_free(gpointer data, gpointer user_data) {
 }
 
 /**
- * Callback function for netlink_interfaces_mac2str.  Compares one list
- * element to the specified interface name.
+ * Compares one list element to the specified interface name.  Callback
+ * function used to locate a list element by interface name.
  *
  * @see netlink_interfaces_mac2str
+ * @see netlink_interfaces_ip2str
  */
-gint _netlink_interfaces_elem_mac2str(gconstpointer a, gconstpointer b) {
+gint _netlink_interfaces_elem_find(gconstpointer a, gconstpointer b) {
    char *ifname = (char *) b;
    GSList *elemdata = (GSList *) a;
    interface_info_t *intf;
@@ -434,18 +495,25 @@ gint _netlink_interfaces_elem_mac2str(gconstpointer a, gconstpointer b) {
 
 #ifdef TESTING
 void print_interfaces(gpointer data, gpointer user_data) {
-   char buf[20];
-   char ipbuf[256];
+   char *buf = NULL;
+   char *ipbuf = NULL;
    interface_info_t *intf;
 
    intf = (interface_info_t *) data;
    printf("Interface %d\n", intf->i);
    printf("   Name: %s\n", intf->name);
-   printf("   IPv4: %s\n", netlink_format_ip_addr(AF_INET, intf, ipbuf));
-   printf("   IPv6: %s\n", netlink_format_ip_addr(AF_INET6, intf, ipbuf));
+   if (intf->ip_addr.s_addr != 0)
+      printf("   IPv4: %s\n", netlink_format_ip_addr(AF_INET, intf, ipbuf));
+   else
+      printf("   IPv4: not set\n");
+   if (intf->ip6_addr.s6_addr[0] != 0)
+      printf("   IPv6: %s\n", netlink_format_ip_addr(AF_INET6, intf, ipbuf));
+   else
+      printf("   IPv6: not set\n");
    printf("    MAC: %s\n\n", netlink_format_mac_addr(buf, intf->mac));
 
    printf("   mac2str test for %s: |%s|\n", intf->name, netlink_interfaces_mac2str(intf->name));
+   printf("    ip2str test for %s: |%s|\n", intf->name, netlink_interfaces_ip2str(intf->name));
 
    printf("----------------------------------------------------------------\n");
 
