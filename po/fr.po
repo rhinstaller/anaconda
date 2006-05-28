@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-28 16:34+0200\n"
+"PO-Revision-Date: 2006-05-28 16:40+0200\n"
 "Last-Translator:  <>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -689,7 +689,7 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
-"###Le périphérique de swap :\n"
+"Le périphérique de swap :\n"
 "     /dev/%s\n"
 "\n"
 "défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système hiberne. Si vous réalisez une nouvelle installation, assurez-vous que l'installeur est configuré pour formater toutes les partitions de swap."
@@ -2479,7 +2479,7 @@ msgstr "Espace disque insuffisant"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "Nombre d'i-nodes insuffisant"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
@@ -2546,7 +2546,6 @@ msgstr "Sans catégorie"
 
 #: ../yuminstall.py:848
 #, python-format
-#, fuzzy
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
