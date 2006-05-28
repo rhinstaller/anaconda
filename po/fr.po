@@ -7,19 +7,19 @@
 # Audrey Simons <asimons@redhat.com>, 2003,2004.
 # Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004, 2005.
 # Stephane Raimbault <stephane.raimbault@free.fr>, 2004, 2006.
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-21 10:28+1000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2006-05-28 16:34+0200\n"
+"Last-Translator:  <>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:255
 msgid "Unknown Error"
@@ -650,7 +650,11 @@ msgid ""
 "is a version 0 Linux swap partition. If you want to use this device, you "
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
-msgstr ""
+msgstr "Le périphérique de swap :\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"est une partition de swap Linux de version 0. Si vous souhaitez utiliser ce périphérique, vous devez le reformater en une partiton de swap Linux de version 1. Si vous ne le faites pas, l'installeur l'ignorera durant l'installation."
 
 #: ../fsset.py:1496
 #, fuzzy
@@ -668,6 +672,11 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Le périphérique de swap :\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"défini dans le fichier /etc/fstab est actuellement utilisé en tant que partition de ..., ce qui signifie que votre système est en hibernation. Pour une mise à jour, veuillez éteindre votre système plutôt que de le mettre en hibernation."
 
 #: ../fsset.py:1508
 #, python-format
@@ -680,6 +689,10 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"###Le périphérique de swap :\n"
+"     /dev/%s\n"
+"\n"
+"défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système hiberne. Si vous réalisez une nouvelle installation, assurez-vous que l'installeur est configuré pour formater toutes les partitions de swap."
 
 #: ../fsset.py:1518
 msgid ""
@@ -1184,7 +1197,7 @@ msgstr "Installation des paquetages"
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Vous avez sélectionné le paquetage '%s' pour installation. Ce paquetage n'existe pas. Souhaitez-vous poursuivre ou annuler votre installation ?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 #, fuzzy
@@ -1201,7 +1214,7 @@ msgstr "Informations manquantes"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Vous avez sélectionné le groupe '%s' pour installation. Ce groupe n'existe pas. Souhaitez-vous poursuivre ou annuler vore installation ?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -2319,7 +2332,9 @@ msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr ""
+msgstr "Vous devez spécifier un mot de passe d'une longueur minimale de 6 caractères pour VNC.\n"
+"\n"
+"Appuyer sur <Entrée> pour redémarrer votre système.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2450,8 +2465,9 @@ msgid "_Cancel"
 msgstr "_Annuler"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
+#, fuzzy
 msgid "file conflicts"
-msgstr ""
+msgstr "Conflits entre fichiers"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
@@ -2459,7 +2475,7 @@ msgstr ""
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "Espace disque insuffisant"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
@@ -2467,11 +2483,11 @@ msgstr ""
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "Conflits entre paquetages."
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "Paquetage déjà installé"
 
 #: ../yuminstall.py:488
 #, fuzzy
@@ -2480,15 +2496,16 @@ msgstr "Espace libre"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "Paquetage non prévu pour cette architecture."
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "Paquetage non prévu pour ce système."
 
 #: ../yuminstall.py:503
+#, fuzzy
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Vous devez libérer plus d'espace sur les systèmes de fichiers suivants :\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
@@ -2529,10 +2546,11 @@ msgstr "Sans catégorie"
 
 #: ../yuminstall.py:848
 #, python-format
+#, fuzzy
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Les paquetages sélectionnés nécessitent %d M d'espace pour leur installation, mais vous n'avez pas suffisament d'espace libre. Vous pouvez modifier votre sélection ou redémarrer."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2699,16 +2717,18 @@ msgid "Remove all partitions on selected drives and create default layout."
 msgstr "Supprimer toutes les partitions du système"
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
+#, fuzzy
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Supprimer les partitions Linux sur les disques sélectionnés et créer un partionnement par défaut."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
+#, fuzzy
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Utiliser l'espace libre sur les disques sélectionnés et créer un partionnement par défaut."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Créer un partitionnement personnalisé."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
