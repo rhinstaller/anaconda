@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-28 16:40+0200\n"
+"PO-Revision-Date: 2006-05-29 10:33+0200\n"
 "Last-Translator:  <>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Méthode d'installation inconnue"
 #: ../anaconda:848
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
-"Vous avez spécifié une méthode d'installation qui qui n'est pas prise en "
+"Vous avez spécifié une méthode d'installation qui n'est pas prise en "
 "charge par anaconda."
 
 #: ../anaconda:850
@@ -198,12 +198,12 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-"Si vous ajoutez une partition, vous n'aurez plus assez d'espace disque pour "
+"Si vous ajoutez cette partition, vous n'aurez plus assez d'espace disque pour "
 "les volumes logiques déjà alloués %s."
 
 #: ../autopart.py:1268
 msgid "Requested Partition Does Not Exist"
-msgstr "La partition requise n'existe pas"
+msgstr "La partition demandée n'existe pas"
 
 #: ../autopart.py:1269
 #, python-format
@@ -218,7 +218,7 @@ msgstr ""
 
 #: ../autopart.py:1296
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Le périphérique Raid requis n'existe pas"
+msgstr "Le périphérique Raid demandé n'existe pas"
 
 #: ../autopart.py:1297
 #, python-format
@@ -233,7 +233,7 @@ msgstr ""
 
 #: ../autopart.py:1328
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Le volume de groupes requis n'existe pas"
+msgstr "Le volume de groupes demandé n'existe pas"
 
 #: ../autopart.py:1329
 #, python-format
@@ -248,7 +248,7 @@ msgstr ""
 
 #: ../autopart.py:1366
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Le volume logique requis n'existe pas"
+msgstr "Le volume logique demandé n'existe pas"
 
 #: ../autopart.py:1367
 #, python-format
@@ -318,7 +318,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Impossible d'allouer les partitions requises :\n"
+"Impossible d'allouer les partitions demandées :\n"
 "\n"
 "%s.%s"
 
@@ -388,7 +388,7 @@ msgstr ""
 "d'installation. Vous pouvez également personnaliser les partitions en "
 "fonction de vos besoins, après leur création.\n"
 "\n"
-"L'outil de partitionnement manuel, Disk Druid, vous permet de créer vos "
+"L'outil de partitionnement manuel Disk Druid vous permet de créer vos "
 "partitions dans un environnement interactif. Vous pouvez configurer les "
 "types de systèmes de fichiers, les points de montage, les tailles de "
 "partitions et bien plus encore."
@@ -404,7 +404,7 @@ msgstr ""
 
 #: ../autopart.py:1711
 msgid "Remove all partitions on this system"
-msgstr "Supprimer toutes les partitions du système"
+msgstr "Supprimer toutes les partitions de ce système"
 
 #: ../autopart.py:1712
 msgid "Remove all Linux partitions on this system"
@@ -628,7 +628,7 @@ msgstr ""
 "le disque %s. Le problème est sérieux, le programme d'installation ne peut "
 "continuer.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
@@ -650,11 +650,15 @@ msgid ""
 "is a version 0 Linux swap partition. If you want to use this device, you "
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
-msgstr "Le périphérique de swap :\n"
+msgstr ""
+"Le périphérique de swap :\n"
 "\n"
 "     /dev/%s\n"
 "\n"
-"est une partition de swap Linux de version 0. Si vous souhaitez utiliser ce périphérique, vous devez le reformater en une partiton de swap Linux de version 1. Si vous ne le faites pas, l'installeur l'ignorera durant l'installation."
+"est une partition de swap Linux de version 0. Si vous souhaitez utiliser "
+"ce périphérique, vous devez le reformater en une partiton de swap Linux "
+"de version 1. Si vous ne le faites pas, le programme d'installation l'ignorera "
+"durant l'installation."
 
 #: ../fsset.py:1496
 #, fuzzy
@@ -676,7 +680,10 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"défini dans le fichier /etc/fstab est actuellement utilisé en tant que partition de ..., ce qui signifie que votre système est en hibernation. Pour une mise à jour, veuillez éteindre votre système plutôt que de le mettre en hibernation."
+"défini dans le fichier /etc/fstab est actuellement utilisé comme partition "
+"d'hibernation, ce qui signifie que votre système est en veille prolongée. "
+"Pour une mise à jour, veuillez éteindre votre système plutôt que de le "
+"mettre en hibernation."
 
 #: ../fsset.py:1508
 #, python-format
@@ -692,7 +699,10 @@ msgstr ""
 "Le périphérique de swap :\n"
 "     /dev/%s\n"
 "\n"
-"défini dans le fichier /etc/fstab est actuellement utilisé comme partition d'hibernation, ce qui signifie que votre système hiberne. Si vous réalisez une nouvelle installation, assurez-vous que l'installeur est configuré pour formater toutes les partitions de swap."
+"défini dans le fichier /etc/fstab est actuellement utilisé comme partition "
+"d'hibernation, ce qui signifie que votre système est en veille prolongée. "
+"Si vous réalisez une nouvelle installation, assurez-vous que le programme "
+"d'installation est configuré pour formater toutes les partitions de swap."
 
 #: ../fsset.py:1518
 msgid ""
@@ -701,7 +711,11 @@ msgid ""
 "Choose Skip if you want the installer to ignore this partition during the "
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
-msgstr ""
+msgstr "\n"
+"\n"
+"Choisissez Ignorer si vous souhaitez que le programme d'installation ignore "
+"cette partition durant la mise à jour. Choisissez Formater pour formater la partition "
+"en un espace de swap. Choisissze Redémarrer pour redémarrer le système."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -750,7 +764,7 @@ msgstr ""
 "De mauvais blocs ont été détectés sur le périphérique /dev/%s. Nous vous "
 "déconseillons l'utilisation de ce périphérique.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1606
 #, python-format
@@ -763,7 +777,7 @@ msgstr ""
 "Une erreur s'est produite lors de la recherche de blocs défectueux sur %s. "
 "Le problème est sérieux, le programme d'installation ne peut continuer.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1641
 #, python-format
@@ -776,7 +790,7 @@ msgstr ""
 "Une erreur s'est produite lors du formatage de %s. Le problème est sérieux, "
 "le programme d'installation ne peut continuer.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1691
 #, python-format
@@ -789,7 +803,7 @@ msgstr ""
 "Une erreur s'est produite lors de la migration de %s. Le problème est "
 "sérieux, le programme d'installation ne peut continuer.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
@@ -807,7 +821,7 @@ msgstr ""
 "chemin ne sont pas des répertoires. Le problème est sérieux, le programme "
 "d'installation ne peut continuer.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1722
 #, python-format
@@ -820,7 +834,7 @@ msgstr ""
 "Une erreur s'est produite lors de la création de %s : %s. Le problème est "
 "sérieux, le programme d'installation ne peut continuer.\n"
 "\n"
-"Appuyez sur Entrée pour redémarrer le système."
+"Appuyez sur <Entrée> pour redémarrer le système."
 
 #: ../fsset.py:1735
 #, python-format
@@ -979,7 +993,7 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Insérez une disquette. Tout le contenu du disque va être effacé, choisissez "
+"Veuillez insérer une disquette. Tout le contenu du disque va être effacé, choisissez "
 "donc soigneusement votre disquette."
 
 #: ../gui.py:872
@@ -1159,7 +1173,7 @@ msgstr "Installer sur le système"
 
 #: ../kickstart.py:74
 msgid "Scriptlet Failure"
-msgstr "Echec du script"
+msgstr "Échec du script"
 
 #: ../kickstart.py:75
 #, python-format
@@ -1197,7 +1211,8 @@ msgstr "Installation des paquetages"
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr "Vous avez sélectionné le paquetage '%s' pour installation. Ce paquetage n'existe pas. Souhaitez-vous poursuivre ou annuler votre installation ?"
+msgstr "Vous avez sélectionné le paquetage '%s' pour installation. Ce paquetage n'existe pas. "
+"Souhaitez-vous poursuivre ou annuler votre installation ?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 #, fuzzy
@@ -1214,11 +1229,12 @@ msgstr "Informations manquantes"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr "Vous avez sélectionné le groupe '%s' pour installation. Ce groupe n'existe pas. Souhaitez-vous poursuivre ou annuler vore installation ?"
+msgstr "Vous avez sélectionné le groupe « %s » pour installation. Ce groupe n'existe pas. "
+"Souhaitez-vous poursuivre ou annuler votre installation ?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Le nom d'hôte doit comporter au minimum 64 caractères."
+msgstr "Le nom d'hôte doit comporter au maximum 64 caractères."
 
 #: ../network.py:49
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1499,7 +1515,7 @@ msgstr ""
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
 #: ../iw/lvm_dialog_gui.py:746
 msgid "Confirm Delete"
-msgstr "Confirmer la suppression "
+msgstr "Confirmer la suppression"
 
 #: ../partIntfHelpers.py:230
 #, python-format
@@ -2117,14 +2133,14 @@ msgstr "Bienvenue à %s"
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-"  <F1> Aide|<Tab> Changer d'élément|<Espace> Sélectionner|<F12> Écran suivant"
+" <F1> Aide | <Tab> Changer d'élément | <Espace> Sélectionner | <F12> Écran suivant"
 
 #: ../text.py:420
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> Changer d'élément|<Espace> Sélectionner|<F12> Écran suivant"
+"  <Tab>/<Alt-Tab> Changer d'élément   |  <Espace> Sélectionner   |  <F12> Écran suivant"
 
 #: ../upgradeclass.py:20
 msgid "Upgrade Existing System"
@@ -2332,7 +2348,7 @@ msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "Vous devez spécifier un mot de passe d'une longueur minimale de 6 caractères pour VNC.\n"
+msgstr "Vous devez spécifier un mot de passe d'une longueur minimale de 6 caractères pour vnc.\n"
 "\n"
 "Appuyer sur <Entrée> pour redémarrer votre système.\n"
 
@@ -2711,19 +2727,16 @@ msgid "_Confirm: "
 msgstr "_Confirmer : "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Supprimer toutes les partitions du système"
+msgstr "Supprimer toutes les partitions des disques sélectionnés et utiliser le partitionnement par défaut."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
-#, fuzzy
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Supprimer les partitions Linux sur les disques sélectionnés et créer un partionnement par défaut."
+msgstr "Supprimer les partitions Linux sur les disques sélectionnés et utiliser le partionnement par défaut."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
-#, fuzzy
 msgid "Use free space on selected drives and create default layout."
-msgstr "Utiliser l'espace libre sur les disques sélectionnés et créer un partionnement par défaut."
+msgstr "Utiliser l'espace libre sur les disques sélectionnés et utiliser le partionnement par défaut."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
@@ -5946,7 +5959,7 @@ msgstr "Bienvenue à %s - Mode de secours"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-"<Tab>/<Alt-Tab> Changer d'élément |<Espace> Sélectionner |<F12> Écran suivant"
+"  <Tab>/<Alt-Tab> Changer d'élément  | <Espace> Sélectionner |<F12> Écran suivant "
 
 #: ../loader2/lang.c:361
 msgid "Choose a Language"
@@ -6120,7 +6133,7 @@ msgstr "Impossible de trouver l'image d'installation %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr "ÉCHEC"
+msgstr "ÉCHOUÉ"
 
 #: ../loader2/mediacheck.c:398
 msgid ""
@@ -6332,7 +6345,7 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Ce système comprend plusieurs périphériques réseau. Lequel voulez-vous "
+"Ce système comprend plusieurs périphériques réseau. Lequel souhaitez-vous "
 "utiliser pour l'installation ?"
 
 #: ../loader2/nfsinstall.c:44
@@ -6346,7 +6359,7 @@ msgstr "Répertoire %s :"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6430,15 +6443,15 @@ msgstr "Récupération"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
-msgstr "Nom du site FTP :"
+msgstr "Nom du site FTP :"
 
 #: ../loader2/urls.c:293
 msgid "Web site name:"
