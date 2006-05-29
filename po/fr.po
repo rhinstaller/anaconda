@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-29 10:33+0200\n"
+"PO-Revision-Date: 2006-05-29 12:29+0200\n"
 "Last-Translator:  <>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1788,15 +1788,19 @@ msgstr ""
 "recommandée pour une installation %s normale."
 
 #: ../partitions.py:911
+#, fuzzy
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Installation sur un périphérique USB. Il peut en résulter un système inopérant."
 
 #: ../partitions.py:914
+#, fuzzy
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Installation sur un périphérique FireWire. Il peut en résulter un système inopérant."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2486,8 +2490,9 @@ msgid "file conflicts"
 msgstr "Conflits entre fichiers"
 
 #: ../yuminstall.py:483
+#, fuzzy
 msgid "older package(s)"
-msgstr ""
+msgstr "Paquetage(s) plus ancien(s)"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
@@ -2519,7 +2524,6 @@ msgid "package for incorrect os"
 msgstr "Paquetage non prévu pour ce système."
 
 #: ../yuminstall.py:503
-#, fuzzy
 msgid "You need more space on the following file systems:\n"
 msgstr "Vous devez libérer plus d'espace sur les systèmes de fichiers suivants :\n"
 
