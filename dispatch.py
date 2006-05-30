@@ -114,11 +114,11 @@ installSteps = [
 class Dispatcher:
 
     def gotoPrev(self):
-	self.dir = DISPATCH_BACK
+        self._setDir(DISPATCH_BACK)
 	self.moveStep()
 
     def gotoNext(self):
-	self.dir = DISPATCH_FORWARD
+	self._setDir(DISPATCH_FORWARD)
 	self.moveStep()
 
     def canGoBack(self):
