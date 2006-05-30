@@ -7,7 +7,7 @@ else
 TARGET=depend $(PROGS)
 endif
 
-GLIB   = /lib/libglib-2.0.a
+GLIB   = $(shell pkg-config --libs glib-2.0)
 CFLAGS += $(shell pkg-config --cflags glib-2.0)
 
 SLANGLIB = -lslang
