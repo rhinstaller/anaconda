@@ -40,6 +40,7 @@ depend:
 
 clean:
 	rm -f *.o *.so *.pyc lang-names
+	rm -rf docs/api
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
@@ -133,3 +134,5 @@ local: clean
 	@rm -rf /tmp/${PKGNAME}-$(VERSION)
 	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.bz2"
 
+api:
+	doxygen docs/api.cfg

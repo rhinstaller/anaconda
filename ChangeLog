@@ -1,4 +1,11 @@
-2005-05-26  Chris Lumens  <clumens@redhat.com>
+2006-05-30  David Cantrell  <dcantrell@redhat.com>
+
+	* Makefile: Added api doxygen target.
+
+	* docs/api.cfg: Doxygen configuration file for generating anaconda
+	API documentation.
+
+2006-05-26  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (FileSystemSet.mountFilesystems):  Don't try to mount any
 	protected partitions since they are already mounted as the
