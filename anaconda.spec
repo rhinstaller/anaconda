@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.21
+Version: 11.1.0.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -79,6 +79,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 30 2006 Chris Lumens <clumens@redhat.com> 11.1.0.22-1
+- Fix going back in the UI.
+- Don't try to mount protected partitions twice.
+- Hook up new netlink code, debugging (dcantrell).
+- Package is actually named pyobject2 (katzj).
+
 * Thu May 25 2006 Chris Lumens <clumens@redhat.com> 11.1.0.21-1
 - Fix required CD dialog (pnasrat).
 - More anaconda class in the interfaces (dcantrel).
