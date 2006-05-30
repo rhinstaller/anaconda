@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-22 10:17+0100\n"
+"PO-Revision-Date: 2006-05-30 17:35+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -139,8 +139,9 @@ msgstr "Nenašiel som video hardvér, predpokladám nenainštalovanú"
 
 #: ../anaconda:484
 #: ../anaconda:880
+#, fuzzy
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Nemožno inštancovať objekt stavu hardvéru X."
 
 #: ../anaconda:509
 msgid "Starting graphical installation..."
@@ -1873,7 +1874,7 @@ msgstr "Ukončiť"
 
 #: ../rescue.py:346
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "Váš systém má chyby na súborových systémoch, ktoré ste zvolili na pripojenie.  Stlačte return pre vstup do shellu, z ktorého môžete skontrolovať a pripojiť partície.  Systém sa reštartuje automaticky po ukončení shellu."
 
 #: ../rescue.py:354
 #, python-format
@@ -1901,6 +1902,9 @@ msgid ""
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Nastala chyba pri pokuse o pripojenie časti alebo celého systému. Časť z neho môže byť pripojená pod %s.\n"
+"\n"
+"Stlačte <return> pre vstup do shellu. Systém sa reštartuje automaticky po ukončení shellu."
 
 #: ../rescue.py:443
 msgid "Rescue Mode"
@@ -1908,7 +1912,7 @@ msgstr "Záchranný režim"
 
 #: ../rescue.py:444
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "Nemáte ani jednu partíciu Linux. Stlačte return pre vstup do shellu. Systém sa reštartuje automaticky po ukončení shellu."
 
 #: ../rescue.py:458
 #, python-format
@@ -2085,7 +2089,7 @@ msgstr "Nepodarilo sa spustiť X"
 
 #: ../vnc.py:44
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
-msgstr ""
+msgstr "X nemôže spustiť váš stroj.  Želáte si spustiť VNC pre pripojenie na tento počítač z iného počítača a vykonanie grafickej inštalácie alebo pokračovať s inštaláciou v textovom režime?"
 
 #: ../vnc.py:51
 #: ../vnc.py:54
@@ -2106,7 +2110,7 @@ msgstr "Bez hesla"
 
 #: ../vnc.py:69
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
-msgstr ""
+msgstr "Heslo bude brániť neautorizovaným poslucháčom v pripojení a monitorovaní vašej inštalácie.  Prosím zadajte heslo pre použitie v inštalácii"
 
 #: ../vnc.py:77
 #: ../textw/userauth_text.py:42
@@ -2149,6 +2153,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Musíte uviesť vnc heslo minimálne 6 znakov dlhé.\n"
+"\n"
+"Stlačte <return> pre reštart vášho systému.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2261,7 +2268,7 @@ msgstr "Reštart"
 
 #: ../yuminstall.py:164
 msgid "If you reboot, your system will be left in an inconsistent state that will likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "Ak budete reštartovat systém, zostane v nekonzistentnom stave, čo zaiste bude vyžadovat reinštaláciu.  Ste si istý, že si želáte pokračovať?"
 
 #: ../yuminstall.py:173
 msgid "_Cancel"
@@ -2343,7 +2350,7 @@ msgstr "Nezaradené"
 #: ../yuminstall.py:848
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Zvolené balíky vyžadujú %d MB voľného priestoru pre inštaláciu, ale nemáte ho dostatok k dispozícii.  Môžete zmeniť váš výber alebo reštartovať."
 
 #: ../yuminstall.py:987
 #, fuzzy, python-format
@@ -2392,7 +2399,7 @@ msgstr "Kontrolovanie závislostí v balíkoch vybraných na inštaláciu..."
 
 #: ../zfcp.py:28
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "Stroje zSeries môžu pristupovať na zariadenia priemyselného štandardu SCSI cez Fibre Channel (FCP). Potrebujete poskytnúť 5 parametrov pre každé zariadenie: 16-bitové číslo zariadenia, 16-bitové SCSI ID, 64-bitové World Wide Port Name (WWPN), 16-bitové SCSI LUN a 64-bitové FCP LUN."
 
 #: ../zfcp.py:30
 msgid "Device number"
@@ -2467,7 +2474,7 @@ msgstr "Požadované heslo obsahuje nie ascii znaky, ktoré nie sú povolené pr
 
 #: ../iw/account_gui.py:92
 msgid "The root account is used for administering the system.  Enter a password for the root user."
-msgstr ""
+msgstr "Konto root je používané pre administráciu systému.  Zadajte heslo pre používateľa root."
 
 #: ../iw/account_gui.py:109
 msgid "Root _Password: "
@@ -2486,12 +2493,12 @@ msgstr "Odstrániť všetky oddiely v systéme"
 #: ../iw/autopart_type.py:114
 #: ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Odstrániť linuxové partície na vybraných jednotkách a vytvoriť predvolenú schému."
 
 #: ../iw/autopart_type.py:115
 #: ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Použiť voľné miesto na vybraných jednotkách a vytvoriť predvolenú schému."
 
 #: ../iw/autopart_type.py:116
 #: ../textw/partition_text.py:1529
@@ -2557,6 +2564,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"Vynútenie použitia LBA32 pre váš zavádzač v prípade nepodporovania BIOS-om môže spôsobiť, že váš stroj nebude vedieť zaviesť systém.\n"
+"\n"
+"Chcete pokračovať a vynútiť režim LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -2568,7 +2578,7 @@ msgstr "_Vynútiť LBA32 (bežne nie je potrebné)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid "If you wish to add default options to the boot command, enter them into the 'General kernel parameters' field."
-msgstr ""
+msgstr "Ak si želáte pridať predvolené parametre pre zavádzací príkaz, zadajte ich do položky \"Všeobecné parametre jadra\"."
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
@@ -2720,7 +2730,7 @@ msgstr ""
 #: ../iw/examine_gui.py:110
 #: ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr ""
+msgstr "Nasledujúce nainštalované systémy budú aktualizované:"
 
 #: ../iw/examine_gui.py:123
 msgid "Unknown Linux system"
@@ -2753,7 +2763,7 @@ msgstr "Chyba dát"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "IP adresa nezadaná, vynechávam nastavenia iSCSI"
 
 #: ../iw/iscsi_gui.py:36
 #: ../textw/welcome_text.py:22
@@ -2791,7 +2801,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
-msgstr ""
+msgstr "Potvrdiť zmenu fyzickej oblasti"
 
 #: ../iw/lvm_dialog_gui.py:126
 msgid ""
@@ -3026,7 +3036,7 @@ msgstr "Názov skupiny zväzkov:"
 
 #: ../iw/lvm_dialog_gui.py:990
 msgid "_Physical Extent:"
-msgstr ""
+msgstr "_Fyzická oblasť:"
 
 #: ../iw/lvm_dialog_gui.py:1005
 msgid "Physical Volumes to _Use:"
@@ -3575,7 +3585,7 @@ msgstr "Softvérový RAID nie je podporovaný na tejto platforme."
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "Vedľajšie číslo zariadenia RAID nedostupné"
 
 #: ../iw/partition_gui.py:1214
 msgid "A software RAID device cannot be created because all of the available RAID minor device numbers have been used."
@@ -3656,7 +3666,7 @@ msgstr ""
 #: ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<Nemožno aplikovať>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
@@ -3786,7 +3796,7 @@ msgstr "_RAID členovia:"
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr ""
+msgstr "Počet _rezerv:"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
@@ -4953,7 +4963,7 @@ msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "Kacelária a produktivita"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
@@ -5155,7 +5165,7 @@ msgstr "Zvoľte ovládač"
 
 #: ../loader2/driverdisk.c:344
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Zvoľte súbor, ktorý je obrazom vášho ovládača disku."
 
 #: ../loader2/driverdisk.c:373
 #, fuzzy
