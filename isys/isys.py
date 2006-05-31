@@ -392,7 +392,7 @@ def inet_ntoa (addr):
     
 def inet_aton (addr):
     try:
-        return struct.unpack('L', socket.inet_aton(addr))[0]
+        return struct.unpack('I', socket.inet_aton(addr))[0]
     except:
         raise ValueError
 

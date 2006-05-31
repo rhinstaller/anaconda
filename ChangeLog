@@ -1,3 +1,7 @@
+2006-05-31  Chris Lumens  <clumens@redhat.com>
+
+	* isys/isys.py (inet_aton):  Fix on 64-bit machines (#193609).
+
 2006-05-30  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.  Require glib2-devel.
