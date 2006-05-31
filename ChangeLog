@@ -2,6 +2,9 @@
 
 	* isys/isys.py (inet_aton):  Fix on 64-bit machines (#193609).
 
+	* kickstart.py (AnacondaKSScript.run):  Read from the right stdin when
+	running scripts (#192067, Hannu Martikka <hannu.martikka@nokia.com>).
+
 2006-05-30  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Bump version.  Require glib2-devel.

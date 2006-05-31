@@ -61,7 +61,7 @@ class AnacondaKSScript(Script):
 
         rc = iutil.execWithRedirect(self.interp, [self.interp,
                                     "/tmp/%s" % os.path.basename(path)],
-                                    stdout = messages, stderr = messages,
+                                    stdin = messages, stdout = messages, stderr = messages,
                                     root = scriptRoot)
 
         # Always log an error.  Only fail if we have a handle on the
