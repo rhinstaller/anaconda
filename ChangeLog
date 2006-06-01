@@ -1,7 +1,8 @@
 2006-06-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Set methodstr early on so we have it in runRescue.  Add a
-	rescue boolean to the anaconda class.
+	rescue boolean to the anaconda class.  Move getInstallInterface into
+	the anaconda class.
 
 	* rescue.py (runRescue):  Make sure to set the install method in
 	rescue mode.

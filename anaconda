@@ -506,39 +506,6 @@ def setupGraphicalLinks():
         except:
 	    pass
 
-def getInstallInterface(opts):
-    # setup links required by graphical mode if installing and verify display mode
-    if (opts.display_mode == 'g'):
-        stdoutLog.info (_("Starting graphical installation..."))
-        if not flags.test and flags.setupFilesystems:
-            setupGraphicalLinks()
-
-        try:
-            from gui import InstallInterface
-        except Exception, e:
-            stdoutLog.error("Exception starting GUI installer: %s" %(e,))
-            if flags.test:
-                sys.exit(1)
-            # if we're not going to really go into GUI mode, we need to get
-            # back to vc1 where the text install is going to pop up.
-            if not x_already_set:
-                isys.vtActivate (1)
-            stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-            opts.display_mode = 't'
-            if 'DISPLAY' in os.environ.keys():
-                del os.environ['DISPLAY']
-            time.sleep(2)
-
-    if (opts.display_mode == 't'):
-        from text import InstallInterface
-        if not os.environ.has_key("LANG"):
-            os.environ["LANG"] = "en_US.UTF-8"
-
-    if (opts.display_mode == 'c'):
-        from cmdline import InstallInterface
-
-    return InstallInterface ()
-
 class Anaconda:
     def __init__(self):
         self.intf = None
@@ -555,6 +522,39 @@ class Anaconda:
 
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
+
+    def setInstallInterface(self, display_mode):
+        # setup links required by graphical mode if installing and verify display mode
+        if display_mode == 'g':
+            stdoutLog.info (_("Starting graphical installation..."))
+            if not flags.test and flags.setupFilesystems:
+                setupGraphicalLinks()
+
+            try:
+                from gui import InstallInterface
+            except Exception, e:
+                stdoutLog.error("Exception starting GUI installer: %s" %(e,))
+                if flags.test:
+                    sys.exit(1)
+                # if we're not going to really go into GUI mode, we need to get
+                # back to vc1 where the text install is going to pop up.
+                if not x_already_set:
+                    isys.vtActivate (1)
+                stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
+                display_mode = 't'
+                if 'DISPLAY' in os.environ.keys():
+                    del os.environ['DISPLAY']
+                time.sleep(2)
+
+        if display_mode == 't':
+            from text import InstallInterface
+            if not os.environ.has_key("LANG"):
+                os.environ["LANG"] = "en_US.UTF-8"
+
+        if display_mode == 'c':
+            from cmdline import InstallInterface
+
+        self.intf = InstallInterface()
 
     def setMethod(self):
         if self.methodstr.startswith('cdrom://'):
@@ -855,7 +855,7 @@ if __name__ == "__main__":
     if opts.display_mode == 'g' and flags.usevnc:
         runVNC(vncpassword, vncconnecthost, vncconnectport, doStartupX11Actions)
 
-    anaconda.intf = getInstallInterface(opts)
+    anaconda.setInstallInterface(opts.display_mode)
 
     # imports after setting up the path
     if anaconda.methodstr:
