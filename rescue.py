@@ -266,6 +266,7 @@ def runRescue(anaconda):
 
     screen = SnackScreen()
     anaconda.intf = RescueInterface(screen)
+    anaconda.setMethod()
 
     # prompt to see if we should try and find root filesystem and mount
     # everything in /etc/fstab on that root

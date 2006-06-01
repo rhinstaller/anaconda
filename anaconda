@@ -196,7 +196,7 @@ def parseOptions():
     op.add_option("--expert", action="store_true", default=False)
     op.add_option("--kickstart", dest="ksfile")
     op.add_option("-m", "--method", default=None)
-    op.add_option("--rescue", dest="progmode", action="store_const", const="rescue", default="install")
+    op.add_option("--rescue", dest="rescue", action="store_true", default=False)
     op.add_option("-r", "--rootpath", action="callback", callback=rootpath_cb, dest="rootPath",
                   default="/mnt/sysimage", nargs=1, type="string")
     op.add_option("-t", "--test", action="store_true", default=False)
@@ -551,6 +551,7 @@ class Anaconda:
         self.dispatch = None
         self.isKickstart = False
         self.rescue_mount = True
+        self.rescue = False
 
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
@@ -656,8 +657,14 @@ if __name__ == "__main__":
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
 
-    if opts.method and opts.method[0] == '@':
-        expandFTPMethod(opts)
+    if opts.method:
+        anaconda.methodstr = opts.method
+
+    if opts.method:
+        if opts.method[0] == '@':
+            expandFTPMethod(opts)
+
+        anaconda.methodstr = opts.method
 
     if opts.module:
         for mod in opts.module:
@@ -696,20 +703,22 @@ if __name__ == "__main__":
     #
     # must specify install, rescue mode
     #
-    if opts.progmode == "rescue":
-        if not opts.method:
+    if opts.rescue:
+        anaconda.rescue = True
+
+        if not anaconda.methodstr:
             sys.stderr.write('--method required for rescue mode\n')
             sys.exit(1)
 
         import rescue, instdata
 
-        anaconda.id = instdata.InstallData([], "fd0", opts.method, opts.display_mode)
+        anaconda.id = instdata.InstallData([], "fd0", anaconda.methodstr, opts.display_mode)
         rescue.runRescue(anaconda)
 
         # shouldn't get back here
         sys.exit(1)
     else:
-        if not opts.method:
+        if not anaconda.methodstr:
             sys.stderr.write('no install method specified\n')
             sys.exit(1)
 
@@ -730,9 +739,9 @@ if __name__ == "__main__":
     # if display_mode wasnt set by command line parameters then set default
     #
     if not opts.display_mode:
-        if (opts.method and
-            opts.method.startswith('ftp://') or
-            opts.method.startswith('http://')):
+        if (anaconda.methodstr and 
+            anaconda.methodstr.startswith('ftp://') or
+            anaconda.methodstr.startswith('http://')):
             opts.display_mode = 't'
         else:
             opts.display_mode = 'g'
@@ -755,7 +764,7 @@ if __name__ == "__main__":
     import rhpl.keyboard as keyboard
 
     log.info("Display mode = %s", opts.display_mode)
-    log.info("Method = %s", opts.method)
+    log.info("Method = %s", anaconda.methodstr)
 
     checkMemory(opts)
 
@@ -849,8 +858,7 @@ if __name__ == "__main__":
     anaconda.intf = getInstallInterface(opts)
 
     # imports after setting up the path
-    if opts.method:
-        anaconda.methodstr = opts.method
+    if anaconda.methodstr:
         anaconda.setMethod()
 
         if not anaconda.method:
@@ -867,7 +875,7 @@ if __name__ == "__main__":
     if not flags.test and flags.setupFilesystems:
         iutil.makeDriveDeviceNodes()
 
-    anaconda.id = instClass.installDataClass(extraModules, floppyDevice, opts.method, opts.display_mode, anaconda.backend)
+    anaconda.id = instClass.installDataClass(extraModules, floppyDevice, anaconda.methodstr, opts.display_mode, anaconda.backend)
 
     anaconda.id.x_already_set = x_already_set
 

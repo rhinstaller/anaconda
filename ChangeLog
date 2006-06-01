@@ -1,5 +1,11 @@
 2006-06-01  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda:  Set methodstr early on so we have it in runRescue.  Add a
+	rescue boolean to the anaconda class.
+
+	* rescue.py (runRescue):  Make sure to set the install method in
+	rescue mode.
+
 	* ui/anaconda.glade:  Don't specify a window position.  This will help
 	when the new rhpxl stuff makes it in.
 
