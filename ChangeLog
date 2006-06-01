@@ -7,6 +7,10 @@
 	* rescue.py (runRescue):  Make sure to set the install method in
 	rescue mode.
 
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.createPEOptionMenu):  If the
+	volume group's physical extent size is other than what we expect, make
+	sure to add it to the list (#185272).
+
 	* ui/anaconda.glade:  Don't specify a window position.  This will help
 	when the new rhpxl stuff makes it in.
 
