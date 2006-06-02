@@ -22,11 +22,7 @@ class WelcomeWindow:
         rc = ButtonChoiceWindow(screen, _("%s") % (productName,), 
                                 _("Welcome to %s!\n\n")
                                 % (productName, ),
-                                buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON], width = 50,
+                                buttons = [TEXT_OK_BUTTON], width = 50,
 				help = "welcome")
 
-	if rc == TEXT_BACK_CHECK:
-	    return INSTALL_BACK
-
         return INSTALL_OK
-
