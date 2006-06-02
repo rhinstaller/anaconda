@@ -3,6 +3,10 @@
 	* vnc.py (startVNCServer):  If we don't have a valid hostname, tell
 	the user to connect to the IP address instead (#191561).
 
+	* loader2/urlinstall.c (loadSingleUrlImage):  Add User-Agent header to
+	HTTP requests (#98617).
+	(getFileFromUrl):  Likewise.
+
 2006-06-01  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Set methodstr early on so we have it in runRescue.  Add a

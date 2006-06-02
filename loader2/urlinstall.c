@@ -45,6 +45,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     int rc = 0;
     char * newFile = NULL;
     char filepath[1024];
+    char *ehdrs = NULL;
 
     /* Not all callers want product/<foo>, most notably getting the repomd.xml
      * file (see comment below about hardcoding backend knowledge).
@@ -54,9 +55,17 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     else
         snprintf(filepath, sizeof(filepath), "%s", file);
 
-    fd = urlinstStartTransfer(ui, filepath, NULL, silentErrors, flags);
+    if (ui->protocol == URL_METHOD_HTTP) {
+        ehdrs = (char *) malloc(24+strlen(VERSION));
+        sprintf(ehdrs, "User-Agent: anaconda/%s\r\n", VERSION);
+    }
 
-    if (fd == -2) return 2;
+    fd = urlinstStartTransfer(ui, filepath, ehdrs, silentErrors, flags);
+
+    if (fd == -2) {
+        if (ehdrs) free (ehdrs);
+        return 2;
+    }
 
     if (fd < 0) {
         /* file not found */
@@ -64,7 +73,8 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         newFile = alloca(strlen(filepath) + 20);
         sprintf(newFile, "disc1/%s", filepath);
 
-        fd = urlinstStartTransfer(ui, newFile, NULL, silentErrors, flags);
+        fd = urlinstStartTransfer(ui, newFile, ehdrs, silentErrors, flags);
+        if (ehdrs) free (ehdrs);
 
         if (fd == -2) return 2;
         if (fd < 0) {
@@ -348,7 +358,7 @@ int getFileFromUrl(char * url, char * dest,
     char * host = NULL, * file = NULL, * chptr = NULL;
     int fd, rc;
     struct networkDeviceConfig netCfg;
-    char * ehdrs;
+    char * ehdrs = NULL;
 
     if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
         logMessage(ERROR, "unable to bring up network");
@@ -376,7 +386,11 @@ int getFileFromUrl(char * url, char * dest,
         ui.prefix = strdup(host);
     }
 
-    ehdrs = NULL;
+    if (proto == URL_METHOD_HTTP) {
+        ehdrs = (char *) malloc(24+strlen(VERSION));
+        sprintf(ehdrs, "User-Agent: anaconda/%s\r\n", VERSION);
+    }
+
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
 	/* find all ethernet devices and make a header entry for each one */
 	int i;
@@ -398,7 +412,7 @@ int getFileFromUrl(char * url, char * dest,
 		    hdrlen = 128;
 		    ehdrs = (char *) malloc(hdrlen);
 		    *ehdrs = '\0';
-		} else if ( strlen(tmpstr) + strlen(ehdrs) +2 > hdrlen) {
+		} else if ( strlen(tmpstr) + strlen(ehdrs) + 2 > hdrlen) {
 		    hdrlen += 128;
 		    ehdrs = (char *) realloc(ehdrs, hdrlen);
 		}
@@ -411,6 +425,7 @@ int getFileFromUrl(char * url, char * dest,
     fd = urlinstStartTransfer(&ui, file, ehdrs, 0, flags);
     if (fd < 0) {
         logMessage(ERROR, "failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
+        if (ehdrs) free(ehdrs);
         return 1;
     }
            
@@ -418,11 +433,13 @@ int getFileFromUrl(char * url, char * dest,
     if (rc) {
         unlink (dest);
         logMessage(ERROR, "failed to copy file to %s", dest);
+        if (ehdrs) free(ehdrs);
         return 1;
     }
 
     urlinstFinishTransfer(&ui, fd, flags);
 
+    if (ehdrs) free(ehdrs);
     return 0;
 }
 
