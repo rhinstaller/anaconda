@@ -1,5 +1,7 @@
 2006-06-02  Chris Lumens  <clumens@redhat.com>
 
+	* network.py (Network.write):  Write out IPv6 localhost (#44984).
+
 	* vnc.py (startVNCServer):  If we don't have a valid hostname, tell
 	the user to connect to the IP address instead (#191561).
 

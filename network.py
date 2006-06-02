@@ -467,7 +467,7 @@ class Network:
 
         # /etc/hosts
         f = open(instPath + "/etc/hosts", "w")
-        localline = "127.0.0.1\t\t"
+        localline = ""
 
         log.info("self.hostname = %s", self.hostname)
 
@@ -475,15 +475,16 @@ class Network:
 
 	# If the hostname is not resolvable, tie it to 127.0.0.1
 	if not ip and self.hostname != "localhost.localdomain":
-	    localline = localline + self.hostname + " "
+	    localline += self.hostname + " "
 	    l = string.split(self.hostname, ".")
 	    if len(l) > 1:
-		localline = localline + l[0] + " "
+		localline += l[0] + " "
                 
-	localline = localline + "localhost.localdomain localhost\n"
+	localline += "localhost.localdomain localhost\n"
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
-        f.write(localline)
+        f.write("127.0.0.1\t\t" + localline)
+        f.write("::1\t\t" + localline)
 
 	if ip:
             nameline = "%s\t\t%s" % (ip, self.hostname)
