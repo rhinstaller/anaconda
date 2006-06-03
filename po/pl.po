@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-16 22:14+0200\n"
+"PO-Revision-Date: 2006-05-24 13:27+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -526,7 +526,6 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Wystąpił problem podczas zapisywania stanu systemu na dyskietkę."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -642,11 +641,17 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Urządzenie wymiany:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"jest wersją 0 linuksowej partycji wymiany. Jeśli chcesz użyć tego "
+"urządzenia, musisz sformatować je ponownie jako wersję 1 linuksowej partycji "
+"wymiany. Jeśli to pominiesz, instalator zignoruje ją podczas instalacji."
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Format"
+msgstr "Ponownie sformatuj"
 
 #: ../fsset.py:1500
 #, python-format
@@ -659,6 +664,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Urządzenie wymiany:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"w pliku /etc/fstab jest aktualnie użyty jako partycja wstrzymania "
+"systemowego, co oznacza, że system jest w stanie hibernacji. Aby "
+"przeprowadzić aktualizację, wyłącz system zamiast hibernować go."
 
 #: ../fsset.py:1508
 #, python-format
@@ -671,6 +683,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Urządzenie wymiany:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"w pliku /etc/fstab jest aktualnie użyty jako partycja wstrzymania "
+"systemowego, co oznacza, że system jest w stanie hibernacji. Aby "
+"przeprowadzić nową instalację, upewnij się, że instalator jest ustawiony "
+"tak, aby sformatować wszystkie partycje wymiany."
 
 #: ../fsset.py:1518
 msgid ""
@@ -680,6 +700,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Wybierz Pomiń, jeśli chcesz, abyinstalator zignorował tę partycję podczas "
+"aktualizacji. Wybierz Sformatuj, aby ponownie sformatować partycję jako "
+"przestrzeń wymiany. Wybierz Uruchom ponownie, aby ponownie uruchomić system."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1015,7 +1040,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Brak obrazu ISO 9660"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1024,10 +1049,10 @@ msgid ""
 "the installation."
 msgstr ""
 "Instalator spróbował zamontować obraz #%s, ale nie mógł znaleźć go na "
-"serwerze.\n"
+"dysku twardym.\n"
 "\n"
-"Skopiuj ten obraz na ścieżkę współdzielenia zdalnego serwera i naciśnij "
-"Ponów. Naciśnij Uruchom ponownie, aby przerwać instalację."
+"Skopiuj ten obraz na dysk i naciśnij Ponów. Naciśnij Uruchom ponownie, "
+"aby przerwać instalację."
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1160,9 +1185,8 @@ msgid "Running post-install scripts"
 msgstr "Uruchamianie skryptów poinstalacyjnych"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "Instalowanie pakietów"
+msgstr "Brakujący pakiet"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1170,16 +1194,16 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Określono, że pakiet \"%s\" powinien zostać zainstalowany. Ten pakiet nie "
+"istnieje. Chcesz kontynuować czy przerwać instalację?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "U_ruchom ponownie"
+msgstr "_Przerwij"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "Brak informacji"
+msgstr "Brakująca grupa"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1187,6 +1211,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Określono, że grupa \"%s\" powinna zostać zainstalowana. Ta grupa nie "
+"istnieje. Chcesz kontynuować czy przerwać instalację?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1738,12 +1764,16 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Instalowanie na urządzeniu USB. W ten sposób można lub nie uzyskać "
+"działający system."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Instalowanie na urządzeniu FireWire. W ten sposób można lub nie uzyskać "
+"działający system."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2273,9 +2303,8 @@ msgid "The password must be at least six characters long."
 msgstr "Hasło musi mieć co najmniej 6 znaków."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Bez hasła"
+msgstr "Błąd hasła VNC"
 
 #: ../vnc.py:138
 msgid ""
@@ -2283,6 +2312,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Wymagane jest określenie hasła VNC z przynajmniej 6 znakami długości.\n"
+"\n"
+"Naciśnij <return>, aby ponownie uruchomić system.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2408,59 +2440,58 @@ msgstr "_Anuluj"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "konflikty plików"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "stare pakiety"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "niewystarczająca ilość miejsca na dysku"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "niewystarczająca ilość i-węzłów na dysku"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "konflikty pakietów"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "pakiet jest już zainstalowany"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Wolne miejsce"
+msgstr "wymagany pakiet"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pakiet dla niepoprawnej architektury"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pakiet dla niepoprawnego systemu operacyjnego"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Wymagane jest więcej miejsca na następujących systemach plików:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Błąd podczas uruchamiania transakcji"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Nie można otworzyć pakietu %s-%s-%s.%s. Powodem może być brak pliku lub "
-"możliwe uszkodzenie pakietu. Jeśli instalacja prowadzona jest z nośnika CD, "
+"Nie można otworzyć pakietu %s. Powodem może być brak pliku lub możliwe "
+"uszkodzenie pakietu. Jeśli instalacja prowadzona jest z nośnika CD, "
 "zwykle oznacza to, że nośnik jest uszkodzony lub napęd CD nie może go "
 "odczytać.\n"
 "\n"
@@ -2489,6 +2520,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Wybrane pakiety wymagają %d MB wolnej przestrzeni do instalacji, ale nie "
+"jest tyle dostępne. Można zmienić wybór lub ponownie uruchomić."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2509,14 +2542,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Rozpoczynanie procesu instalacji. Może to potrwać kilka minut..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Zaktualizuj"
+msgstr "Po aktualizacji"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Przeprowadzanie konfiguracji systemu po instalacji..."
+msgstr "Przeprowadzanie konfiguracji systemu po aktualizacji..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2640,21 +2671,20 @@ msgid "_Confirm: "
 msgstr "_Potwierdź: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Usuń wszystkie partycje w systemie"
+msgstr "Usuń wszystkie partycje na wybranych dyskach i utwórz domyślny układ."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Usuń partycje linuksowe na wybranych dyskach i utwórz domyślny układ."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Użyj wolnego miejsca na wybranych dyskach i utwórz domyślny układ."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Utwórz indywidualny układ."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -4527,11 +4557,11 @@ msgstr ""
 "podać etykiety dla systemów na tych partycjach."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Spacja> zaznaczenie | <F2> wybierz domyślny system | <F12> następny ekran>"
+" <Spacja> zaznaczenie | <F2> wybierz domyślne | <F4> usunięcie | <F12> "
+"następny ekran>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -5258,7 +5288,7 @@ msgid ""
 msgstr ""
 "Na komputerze znaleziono co najmniej jedną instalację Linuksa.\n"
 "\n"
-"Wybierz którąś z nich do aktualizacji lub zaznacz \"Ponownie zainstaluj "
+"Wybierz którąś z nich do aktualizacji lub wybierz \"Ponownie zainstaluj "
 "system\", aby zainstalować system od nowa."
 
 #: ../textw/userauth_text.py:27
@@ -5690,8 +5720,9 @@ msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Który ze sterowników wypróbować? Jeśli potrzebnego sterownika nie ma na tej "
-"liście, a masz osobny dysk ze sterownikami, naciśnij F2."
+"Wybierz poniżej sterownik, który chcesz wczytać. Jeśli potrzebnego "
+"sterownika nie ma na tej liście, a masz osobny dysk ze sterownikami, "
+"naciśnij F2."
 
 #: ../loader2/driverselect.c:209
 msgid "Specify optional module arguments"
@@ -6199,7 +6230,7 @@ msgstr "Folder %s:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6282,11 +6313,11 @@ msgstr "Pobieranie"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "WWW"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6555,16 +6586,16 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Czas środkowy - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
-"Czas środkowy - Indiana - Daviess, Dubois, Knox, Martin, Perry i Pulaski"
+"Czas środkowy - Indiana - okręgi Daviess, Dubois, Knox, Martin, Perry i "
+"Pulaski"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
-msgstr "Czas środkowy - Indiana - Starke County"
+msgstr "Czas środkowy - Indiana - okręg Starke"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
@@ -6580,13 +6611,12 @@ msgid "Central Time - most locations"
 msgstr "Czas środkowy - większość lokalizacji"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Czas środkowy - Północna Dakota - Oliver County"
+msgstr "Czas środkowy - Północna Dakota - okręg Morton (oprócz obszaru Mandan)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr "Czas środkowy - Północna Dakota - Oliver County"
+msgstr "Czas środkowy - Północna Dakota - okręg Oliver"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -6654,7 +6684,7 @@ msgstr "Czas wschodni - wschodni Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr "Czas wschodni - Indiana - Crawford County"
+msgstr "Czas wschodni - Indiana - okręg Crawford"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - most locations"
@@ -6662,11 +6692,11 @@ msgstr "Czas wschodni - Indiana - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
-msgstr "Czas wschodni - Indiana - Starke County"
+msgstr "Czas wschodni - Indiana - okręg Starke"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr "Czas wschodni - Indiana - Switzerland County"
+msgstr "Czas wschodni - Indiana - okręg Switzerland"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -6674,7 +6704,7 @@ msgstr "Czas wschodni - Kentucky - obszar Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr "Czas wschodni- Kentucky - Wayne County"
+msgstr "Czas wschodni- Kentucky - okręg Wayne"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
@@ -7304,95 +7334,3 @@ msgstr "walijski"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zuluski"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Brak informacji o wydaniu."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Następujące pakiety były dostępne w tej wersji, ale NIE zostały "
-#~ "zaktualizowane:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Następujące pakiety były dostępne w tej wersji, ale NIE zostały "
-#~ "zainstalowane:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Wyszukiwanie"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Wyszukiwanie pakietów do aktualizacji..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Program instalacyjny nie może zaktualizować systemu z bazą danych RPM w "
-#~ "wersji starszej niż 4.x. Zainstaluj pakiety z poprawkami do tej wersji "
-#~ "systemu, tak jak opisano w informacjach o wydaniu, a potem uruchom "
-#~ "aktualizację."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Podczas wyszukiwania pakietów do aktualizacji wystąpił błąd."
-
-#~ msgid "Installation Type"
-#~ msgstr "Typ instalacji"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Jaki typ systemu chcesz zainstalować?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Dostosuj pakiety do zaktualizowania"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Zostały wybrane pakiety, które masz już zainstalowane oraz wszystkie "
-#~ "inne, od których te są zależne. Czy chcesz wybrać dodatkowe pakiety, "
-#~ "które powinny zostać zaktualizowane?"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Wirtualizacja (Xen)"
-
-#~ msgid "Hide _Help"
-#~ msgstr "Ukryj pomo_c"
-
-#~ msgid "Show _Help"
-#~ msgstr "Wyświetl pomo_c"
-
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr "Jak chcesz uzyskać miejsce na partycje?"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "Instalowanie <product> wymaga partycjonowania dysków twardych. Możesz "
-#~ "użyć domyślnego układu partycjonowania lub utworzyć swój."
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Wybierz dyski do użycia dla tej instalacji."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "P_rzejrzyj i zmodyfikuj układ partycjonowania"
-
-#~ msgid "Amharic"
-#~ msgstr "amharski"
-
-#  generated from zone.tab
-#~ msgid "Thai"
-#~ msgstr "tajski"
