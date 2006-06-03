@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-29 13:09+0200\n"
+"PO-Revision-Date: 2006-06-04 00:46+0200\n"
 "Last-Translator:  <>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -533,12 +533,11 @@ msgstr ""
 "disquette."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"L'état de votre système a été copié sur l'hôte distant. Votre système va\n"
+"L'état de votre système a été copié sur l'hôte distant avec succès.  Votre système va"
 "maintenant redémarrer."
 
 #: ../exception.py:418
@@ -661,7 +660,6 @@ msgstr ""
 "durant l'installation."
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
 msgstr "Reformater"
 
@@ -1055,7 +1053,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Pas d'image ISO 9660"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1064,9 +1062,9 @@ msgid ""
 "the installation."
 msgstr ""
 "Le programme d'installation a essayé de monter l'image #%s, mais ne peut pas "
-"la trouver sur le serveur.\n"
+"la trouver sur le disque dur.\n"
 "\n"
-"Copiez cette image sur le chemin de partage du serveur distant et cliquez "
+"Copiez cette image sur le disque et cliquez "
 "sur Réessayer. Cliquez sur Redémarrer pour annuler l'installation."
 
 #: ../harddrive.py:71 ../image.py:491
@@ -1202,7 +1200,6 @@ msgid "Running post-install scripts"
 msgstr "Exécution des scripts après l'installation"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
 msgstr "Paquetage manquant"
 
@@ -1215,14 +1212,12 @@ msgstr "Vous avez sélectionné le paquetage '%s' pour installation. Ce paquetag
 "Souhaitez-vous poursuivre ou annuler votre installation ?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
 msgstr "_Redémarrer"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "Informations manquantes"
+msgstr "Groupe manquant"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1788,19 +1783,17 @@ msgstr ""
 "recommandée pour une installation %s normale."
 
 #: ../partitions.py:911
-#, fuzzy
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
-"Installation sur un périphérique USB. Il peut en résulter un système inopérant."
+"Installation sur un périphérique USB.  Il peut en résulter un système inopérant."
 
 #: ../partitions.py:914
-#, fuzzy
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
-"Installation sur un périphérique FireWire. Il peut en résulter un système inopérant."
+"Installation sur un périphérique FireWire.  Il peut en résulter un système inopérant."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2343,9 +2336,8 @@ msgid "The password must be at least six characters long."
 msgstr "Le mot de passe doit compter au minimum six caractères."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Aucun mot de passe"
+msgstr "Erreur de mot de passe VNC"
 
 #: ../vnc.py:138
 msgid ""
@@ -2485,12 +2477,10 @@ msgid "_Cancel"
 msgstr "_Annuler"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
-#, fuzzy
 msgid "file conflicts"
-msgstr "Conflits entre fichiers"
+msgstr "Conflits de fichiers"
 
 #: ../yuminstall.py:483
-#, fuzzy
 msgid "older package(s)"
 msgstr "Paquetage(s) plus ancien(s)"
 
@@ -2511,7 +2501,6 @@ msgid "package already installed"
 msgstr "Paquetage déjà installé"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
 msgstr "Paquetage requis"
 
@@ -2532,17 +2521,17 @@ msgid "Error running transaction"
 msgstr "Erreur d'exécution de la transaction"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Le paquetage %s-%s-%s.%s ne peut pas être ouvert. Cela est du à un fichier "
-"manquant ou peut-être à un paquetage corrompu. Si vous effectuez "
-"l'installation à partir d'un CD-ROM, cela signifie en général que le CD-ROM "
-"est corrompu ou que le lecteur de CD-ROM ne peut pas lire le support.\n"
+"Le fichier-%s ne peut pas être ouvert. Cela est du à un fichier "
+"manquant ou peut-être à un paquetage corrompu.  Si vous effectuez "
+"l'installation à partir un CD-ROM, cela signifie en général que le CD-ROM "
+"est corrompu ou que le lecteur de CD-ROM ne peut pas lire le disque.\n"
 "\n"
 
 #: ../yuminstall.py:659
@@ -2592,12 +2581,10 @@ msgstr ""
 "minutes... "
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
 msgstr "Mise à niveau"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Exécution de la configuration post-installation..."
 
@@ -4653,12 +4640,11 @@ msgstr ""
 "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune d'elles."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Espace> Sélectionner le bouton | <F2> Sélectionner l'entrée de démarrage "
-"par défaut | <F12> Écran suivant>"
+" <Espace> Sélectionnerle bouton | <F2> Sélectionner l'entrée de démarrage "
+"par défaut | <F4> Effacer | <F12> Écran suivant>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -6732,12 +6718,12 @@ msgstr ""
 "Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
-"Heure centrale - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+"Heure centrale - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Comtés"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6758,10 +6744,9 @@ msgid "Central Time - most locations"
 msgstr "Heure des états du Centre des États-Unis - plupart du territoire"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
 msgstr ""
-"Heure des États du Centre des États-Unis - North Dakota - Oliver County"
+"Heure des États du Centre des États-Unis - Dakota du Nord - Comté de Morton (sauf les territoires Mandans)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
