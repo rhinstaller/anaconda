@@ -45,7 +45,6 @@ else:
 #
 # dialog returns a value of 0 if user selected to abort install
 def presentRequiredMediaMessage(anaconda):
-#XXX: disable for now - possibly make part of confirminstall 
     reqcds = anaconda.backend.ayum.tsInfo.reqmedia.keys()
 
     # if only one CD required no need to pop up a message
