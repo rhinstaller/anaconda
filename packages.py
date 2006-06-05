@@ -656,7 +656,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             if ncpus == 1: # machines that have one socket
                 nthreads = nthreads;
             else: # machines with more than one socket
-                nthreads = (nthreads / ncores) * ncpus
+                nthreads = (int(nthreads / ncores) or 1) * ncpus
 
         largesmp_min = -1
         if iutil.getArch() == "x86_64":
