@@ -232,16 +232,15 @@ def acpicpus():
     global _acpi_ncpus
 
     if _acpi_ncpus is None:
-        if iutil.getArch() == "x86_64":
-            f = open("/proc/lapics", "r")
-            lapics = f.readlines()
-            _acpi_ncpus = len(lapics)
-            f.close()
-            del f
-	elif iutil.getArch() == "i386":
-            _acpi_ncpus = 0
-        else:
-            _acpi_ncpus = _isys.acpicpus()
+	# returning 0 will cause packages.py to fall back to the mptables way.
+	_acpi_ncpus = 0
+	if iutil.getArch() in ("x86_64", "i386"):
+	    if os.path.exists("/proc/lapics"):
+		f = open("/proc/lapics", "r")
+		lapics = f.readlines()
+		_acpi_ncpus = len(lapics)
+		f.close()
+		del f
 
     return _acpi_ncpus
 
