@@ -496,7 +496,8 @@ EOF
 	if [ -e $lib ]; then cp -df $lib $MBD_DIR/$LIBDIR/ ; fi
     done 
 
-    if [ -e $IMGPATH/lib/ld-*.so* ]; then cp -df $IMGPATH/lib/ld-*.so.* $MBD_DIR/lib/ ; fi 
+    if [ -e $IMGPATH/lib/ld64.so* ]; then cp -df $IMGPATH/lib/ld64.so.* $MBD_DIR/lib/ ; fi 
+    if [ -e $IMGPATH/lib64/ld64.so* ]; then cp -df $IMGPATH/lib64/ld64.so.* $MBD_DIR/lib/ ; fi 
 
     mkdir -p $MBD_DIR/usr/$LIBDIR
     for lib in $IMGPATH/usr/$LIBDIR/libkrb5.so* \
