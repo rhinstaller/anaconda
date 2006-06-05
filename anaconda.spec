@@ -77,6 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Jun  5 2006 Peter Jones <pjones@redhat.com> - 10.1.1.44-1
 - Don't traceback if /proc/lapics is missing (#192818)
 - Fix another weird cpu counting issue on i386 HT Xeons (#193816)
+- Add more mpt drivers (#130482)
 
 * Thu May 25 2006 Peter Jones <pjones@redhat.com> - 10.1.1.43-1
 - Add adp94xx to module whitelist (#193083)
