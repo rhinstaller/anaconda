@@ -1,3 +1,12 @@
+2006-06-05  Peter Jones <pjones@redhat.com>
+
+	* isys/isys.py (acpicpus):
+	Don't traceback if /proc/lapics is missing (#192818)
+	* packages.py (doPreInstall):
+	Assume nthreads/ncores should always be at least 1, which handles
+	the case where the machine tells us cores * threads as "cores per
+	package" (see xeon3.lab.boston.redhat.com for an example). (#193816)
+
 2006-05-25  Peter Jones <pjones@redhat.com>
 
 	* loader2/module-info: add adp94xx (#193083)
