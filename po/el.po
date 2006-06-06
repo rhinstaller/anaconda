@@ -102,7 +102,7 @@ msgstr "Εκκίνηση γραφικής εγκατάστασης..."
 
 #: ../anaconda:758
 msgid "Install class forcing text mode installation"
-msgstr "Η κλάση εγκάταστασης επιβάλλει αναγκαστική εγκατάσταση σε λειτουργία κειμένου"
+msgstr "Η κλάση εγκατάστασης επιβάλλει αναγκαστική εγκατάσταση σε λειτουργία κειμένου"
 
 #: ../anaconda:784
 msgid "Graphical installation not available...  Starting text mode."
@@ -155,7 +155,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 "Η κατάτμηση Boot %s δεν ανήκει σε ετικέτα δίσκου BSD. Το SRM δεν θα μπορέσει "
-"να εκκινήσει από αυτή τη κατάτμηση. Χρησιμοποιήστε μια κατάτμηση που ανήκει "
+"να εκκινήσει από αυτή την κατάτμηση. Χρησιμοποιήστε μια κατάτμηση που ανήκει "
 "σε μια ετικέτα δίσκου BSD ή αλλάξτε αυτή τη ετικέτα δίσκου σε BSD."
 
 #: ../autopart.py:1041
@@ -167,7 +167,7 @@ msgid ""
 msgstr ""
 "Η κατάτμηση Boot %s δεν ανήκει σε δίσκο που έχει αρκετό ελεύθερο χώρο στη "
 "αρχή του, για να ξεκινήσει ο Bootloader. Βεβαιωθείτε ότι υπάρχουν "
-"τουλάχιστον 5ΜΒ ελεύθερα στην ασρχή του δίσκου που περιέχει το /boot"
+"τουλάχιστον 5MB ελεύθερα στην αρχή του δίσκου που περιέχει το /boot"
 
 #: ../autopart.py:1043
 #, python-format
@@ -176,7 +176,7 @@ msgid ""
 "this partition."
 msgstr ""
 "Η κατάτμηση boot %s δεν είναι μια κατάτμηση VFAT. Το  EFI δεν θα μπορεί να "
-"εκκινήσει από αυτήν τη κατάτμηση."
+"εκκινήσει από αυτήν την κατάτμηση."
 
 #: ../autopart.py:1045
 msgid ""
@@ -184,7 +184,7 @@ msgid ""
 "be able to boot this installation."
 msgstr ""
 "Η κατάτμηση boot δεν είναι τοποθετημένη στην αρχή του δίσκου. Το  "
-"OpenFirmware δεν θα μπορεί να εκκινήσει από αυτήν τη κατάτμηση."
+"OpenFirmware δεν θα μπορεί να εκκινήσει από αυτήν την κατάτμηση."
 
 #: ../autopart.py:1052
 #, python-format
@@ -271,7 +271,7 @@ msgid ""
 "%s\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr "Συνέβηκαν τα παρακάτων σφάλματα με τις κατατμήσεις σας:\n"
+msgstr "Συνέβηκαν τα παρακάτω σφάλματα με τις κατατμήσεις σας:\n"
 "\n"
 "%s\n"
 "\n"
@@ -279,7 +279,7 @@ msgstr "Συνέβηκαν τα παρακάτων σφάλματα με τις 
 
 #: ../autopart.py:1492
 msgid "Warnings During Automatic Partitioning"
-msgstr "Προειδοποιήσεις κατά την αυτόματη κατάμηση"
+msgstr "Προειδοποιήσεις κατά την αυτόματη κατάτμηση"
 
 #: ../autopart.py:1493
 #, python-format
@@ -329,7 +329,7 @@ msgstr ""
 "\n"
 "\n"
 "Μπορείτε να επιλέξετε μια διαφορετική επιλογή αυτόματης κατάτμησης, ή "
-"πατήστε  'Πίσω' για να επιλέξετε χεροκίνητη μέθοδο κατάτμησης.\n"
+"πατήστε  'Πίσω' για να επιλέξετε χειροκίνητη μέθοδο κατάτμησης.\n"
 "\n"
 "Πατήστε 'Εντάξει' για συνέχεια."
 
@@ -583,7 +583,7 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 "Δημιουργήθηκε σφάλμα κατά την μετατροπή %s σε ext3. Μπορείτε να "
-"συνεχίσετεχωρίς να εισάγετε αυτό το σύστημα αρχείων αν το επιθυμείτε.\n"
+"συνεχίσετε χωρίς να εισάγετε αυτό το σύστημα αρχείων αν το επιθυμείτε.\n"
 "\n"
 "Θέλετε να συνεχίσετε χωρίς να εισάγετε το %s;"
 
@@ -644,7 +644,7 @@ msgstr "Η συσκευή  swap :\n"
 "\n"
 "/dev/%s\n"
 "\n"
-"είναι κατάτμηση έκδοσης 0 Linux swap. Αν θέλετε να χρησιμοποιήσετε αυτή τη συσκευή, θα πορέπει να την μορφοποιήσετε ξανά ως έκδοση 1 Linux swap partition. Αν παραμάμψετε αυτό το βήμα, η κατάτμηση θα αγνοηθεί στην εγκατάσταση."
+"είναι κατάτμηση έκδοσης 0 Linux swap. Αν θέλετε να χρησιμοποιήσετε αυτή τη συσκευή, θα πρέπει να την μορφοποιήσετε ξανά ως έκδοση 1 Linux swap partition. Αν παρακάμψετε αυτό το βήμα, η κατάτμηση θα αγνοηθεί στην εγκατάσταση."
 
 #: ../fsset.py:1496
 msgid "Reformat"
@@ -693,7 +693,7 @@ msgid ""
 "Reboot to restart the system."
 msgstr "\n"
 "\n"
-"Επιλέξτε Παράκαμψη αν θέλετε η εγκατάσταση να αγνοήσει αυτή τη κατάτμηση κατά την αναβάθμιση. Επιλέξτε Μορφοποίηση για να μορφοποιήσετε ξανά τη κατάτμηση ως κατάτμηση swap. Επιλέξτε Επανεκκίνηση για να επανεκκινήσετε το σύστημα σας."
+"Επιλέξτε Παράκαμψη αν θέλετε η εγκατάσταση να αγνοήσει αυτή την κατάτμηση κατά την αναβάθμιση. Επιλέξτε Μορφοποίηση για να μορφοποιήσετε ξανά την κατάτμηση ως κατάτμηση swap. Επιλέξτε Επανεκκίνηση για να επανεκκινήσετε το σύστημα σας."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -738,7 +738,7 @@ msgid ""
 "Press <Enter> to reboot your system"
 msgstr ""
 "Εντοπίσθηκαν χαλασμένα blocks στη συσκευή /dev/%s. Δεν σας προτείνουμε να "
-"χρησιμοποιήσετε αυτή τη συκευή.\n"
+"χρησιμοποιήσετε αυτή τη συσκευή.\n"
 "\n"
 "Πατήστε <Enter> για να επανεκκινήσετε το σύστημα σας"
 
@@ -848,7 +848,7 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Μερικές συσκευές του συστήματος σας έχουν ετικέτα %s.  Οι ετικέτεςσυσκευών "
+"Μερικές συσκευές του συστήματος σας έχουν ετικέτα %s.  Οι ετικέτες συσκευών "
 "θα πρέπει να είναι μοναδικές ώστε να λειτουργήσει το σύστημα σωστά.\n"
 "\n"
 "Παρακαλώ διορθώστε το πρόβλημα και ξεκινήστε ξανά τη διαδικασία εγκατάστασης."
@@ -902,8 +902,8 @@ msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"Σφάλμα αποθήκευσης στιγμιότυπου οθόνης. Αν αυτό συνέβηκε κατάτην εγκατάσταση "
-"πακέτου, πιθανόν να χρειαστεί να προσπαθήσετεμερικές φορές για να το "
+"Σφάλμα αποθήκευσης στιγμιότυπου οθόνης. Αν αυτό συνέβηκε κατά την εγκατάσταση "
+"πακέτου, πιθανόν να χρειαστεί να προσπαθήσετε μερικές φορές για να το "
 "επιτύχετε."
 
 #: ../gui.py:241 ../text.py:383
@@ -962,7 +962,7 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Εισάγετε μια δισκέτα τώρα. Όλα τα περιεχόμενα της θα διαγραφούν, διαλέξτετη "
+"Εισάγετε μια δισκέτα τώρα. Όλα τα περιεχόμενα της θα διαγραφούν, διαλέξτε τη "
 "δισκέτα σας προσεκτικά."
 
 #: ../gui.py:872
@@ -1078,7 +1078,7 @@ msgid ""
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "Δημιουργήθηκε σφάλμα κατά την αποπροσάρτηση του CD. Βεβαιωθείτε ότι δεν "
-"έχετε πρόσβασηστο %s μέσω του κελύφους στο tty2 και πατήστε Εντάξει για να "
+"έχετε πρόσβαση στο %s μέσω του κελύφους στο tty2 και πατήστε Εντάξει για να "
 "ξαναπροσπαθήσετε."
 
 #: ../image.py:157
@@ -1150,7 +1150,7 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Υπήρξε ένα σφάλμα κατά την εκτέλεση του scriptlet. Πρέπει να εξετάσετετο "
+"Υπήρξε ένα σφάλμα κατά την εκτέλεση του scriptlet. Πρέπει να εξετάσετε το "
 "αποτέλεσμα στο %s. Αυτό είναι ένα μοιραίο σφάλμα και η εγκατάσταση θα "
 "τερματιστεί.\n"
 "\n"
@@ -1178,7 +1178,7 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr "Έχετε επιλέξει να εγκατασταθεί το πακέτο '%s'. Αυτό το πακέτο"
-"δεν υπάρχει. Θέλετε να συνεχίσετε ή να τερματήσετε την εγκατάσταση;"
+"δεν υπάρχει. Θέλετε να συνεχίσετε ή να τερματίσετε την εγκατάσταση;"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1194,7 +1194,7 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr "Έχετε επιλέξει να εγκατασταθεί η ομάδα πακέτων '%s'. Αυτή η ομάδα"
-"δεν υπάρχει. Θέλετε να συνεχίσετε ή να τερματήσετε την εγκατάσταση;"
+"δεν υπάρχει. Θέλετε να συνεχίσετε ή να τερματίσετε την εγκατάσταση;"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1277,7 +1277,7 @@ msgid ""
 "Would you like to format this drive?"
 msgstr ""
 "Το /dev/%s αυτή τη στιγμή έχει μια διάταξη κατατμήσεων %s.  Για να "
-"χρησιμοποιήσετε αυτόν το δίσκοστην εγκατάσταση του %s, θα πρέπει να τον "
+"χρησιμοποιήσετε αυτόν το δίσκο στην εγκατάσταση του %s, θα πρέπει να τον "
 "επαναρχικοποιήσετε προκαλώντας την διαγραφή ΟΛΩΝ ΤΩΝ ΔΕΔΟΔΕΝΩΝ του.\n"
 "\n"
 "Θέλετε να μορφοποιήσετε ξανά αυτόν το δίσκο;"
@@ -1318,7 +1318,7 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr "Ο πίνακας διαμερισμάτων στη συσκευή %s (%s) δεν είναι αναγνώσιμος. Για να δημιουργήσετε νέες κατατμήσεις θα πρέπει να αρχικοποιηθεί με αποτέλεσμα τη διαγραφή ΟΛΩΝ των δεδομένων από αυτό το δίσκο.\n"
 "\n"
-"Αυτή η διεργασία θα αντικαταστήσει όλες τις προγούμενες επιλογές εγκατάστασης για τους δίσκους που θέλετε να αγνοήσετε.\n"
+"Αυτή η διεργασία θα αντικαταστήσει όλες τις προηγούμενες επιλογές εγκατάστασης για τους δίσκους που θέλετε να αγνοήσετε.\n"
 "\n"
 "Θέλετε να αρχικοποιηθεί αυτός ο δίσκος και να διαγραφούν ΟΛΑ ΤΑ ΔΕΔΟΜΕΝΑ;"
 
@@ -1334,7 +1334,7 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr "Ο πίνακας διαμερισμάτων στη συσκευή %s  δεν είναι αναγνώσιμος. Για να δημιουργήσετε νέες κατατμήσεις θα πρέπει να αρχικοποιηθεί με αποτέλεσμα τη διαγραφή ΟΛΩΝ των δεδομένων από αυτό το δίσκο.\n"
 "\n"
-"Αυτή η διεργασία θα αντικαταστήσει όλες τις προγούμενες επιλογές εγκατάστασης για τους δίσκους που θέλετε να αγνοήσετε.\n"
+"Αυτή η διεργασία θα αντικαταστήσει όλες τις προηγούμενες επιλογές εγκατάστασης για τους δίσκους που θέλετε να αγνοήσετε.\n"
 "\n"
 "Θέλετε να αρχικοποιηθεί αυτός ο δίσκος και να διαγραφούν ΟΛΑ ΤΑ ΔΕΔΟΜΕΝΑ;"
 
@@ -1402,12 +1402,12 @@ msgid ""
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
 "Το σημείο προσάρτησης %s δεν είναι έγκυρο. Τα σημεία προσάρτησης πρέπει να "
-"ξεκινάνε με '/', δεν πρέπεινα τελειώνουν σε  '/' και πρέπει να περιέχουν "
+"ξεκινάνε με '/', δεν πρέπει να τελειώνουν σε  '/' και πρέπει να περιέχουν "
 "εκτυπώσιμους χαρακτήρες χωρίς διαστήματα."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
-msgstr "Παρακαλώ καθορίστε ένα σημείο προσάρτησης για αυτή τη κατάτμηση."
+msgstr "Παρακαλώ καθορίστε ένα σημείο προσάρτησης για αυτή την κατάτμηση."
 
 #: ../partIntfHelpers.py:110
 msgid "This partition is holding the data for the hard drive install."
@@ -1439,7 +1439,7 @@ msgstr "Αδύνατη η διαγραφή"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
-msgstr "Πρέπει να επιλέξετε πρώτα τη κατάτμηση που θα διαγραφεί."
+msgstr "Πρέπει να επιλέξετε πρώτα την κατάτμηση που θα διαγραφεί."
 
 #: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
@@ -1457,15 +1457,15 @@ msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Δεν μπορείτε να διαγράψετε αυτή τη κατάτμηση, μιας και είναι μα εκτεταμένη "
-"κατάτμηση πουπεριέχει %s"
+"Δεν μπορείτε να διαγράψετε αυτή την κατάτμηση, μιας και είναι μα εκτεταμένη "
+"κατάτμηση που περιέχει %s"
 
 #: ../partIntfHelpers.py:185
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"Δεν μπορείτε να διαγράψετε αυτή τη κατάτμηση:\n"
+"Δεν μπορείτε να διαγράψετε αυτή την κατάτμηση:\n"
 "\n"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
@@ -1514,7 +1514,7 @@ msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
-"Δεν μπορείτε να επεξεργαστείτε αυτήν τη κατάτμηση:\n"
+"Δεν μπορείτε να επεξεργαστείτε αυτή την κατάτμηση:\n"
 "\n"
 
 #: ../partIntfHelpers.py:348
@@ -1523,7 +1523,7 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Δεν μπορείτε να επεξεργαστείτε αυτήν τη κατάτμηση, μιας και είναι μια "
+"Δεν μπορείτε να επεξεργαστείτε αυτή την κατάτμηση, μιας και είναι μια "
 "εκτεταμένη κατάτμηση που περιέχει %s"
 
 #: ../partIntfHelpers.py:380
@@ -1541,7 +1541,7 @@ msgstr ""
 "Το /dev/%s περιέχει ένα τύπο κατάτμησης τύπου 0x82 (Linux swap) αλλά δεν "
 "φαίνεται να έχει μορφοποιηθεί ως κατάτμηση  Linux swap.\n"
 "\n"
-"Θέλετε να μορφοποιήσετε αυτή τη κατάτμηση ως κατάτμηση swap τώρα;"
+"Θέλετε να μορφοποιήσετε αυτή την κατάτμηση ως κατάτμηση swap τώρα;"
 
 #: ../partIntfHelpers.py:401
 #, python-format
@@ -1559,9 +1559,9 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Επιλέξατε να χρησιμοποιήσετε μια προυπάρχουσα κατάτμηση για αυτή την "
+"Επιλέξατε να χρησιμοποιήσετε μια προϋπάρχουσα κατάτμηση για αυτή την "
 "εγκατάσταση χωρίς να την μορφοποιήσετε. Σας προτείνουμε να μορφοποιήσετε "
-"αυτή τη κατάτμηση ώστε να αποφύγετε τυχόν προβλήματα με τα υπάρχοντα αρχεία "
+"αυτή την κατάτμηση ώστε να αποφύγετε τυχόν προβλήματα με τα υπάρχοντα αρχεία "
 "του προηγούμενου λειτουργικού σας συστήματος. Αν όμως η κατάτμηση περιέχει "
 "αρχεία που χρειάζεστε, όπως κατάλογους χρηστών, τότε συνεχίστε χωρίς να "
 "μορφοποιήσετε την κατάτμηση."
@@ -1738,13 +1738,13 @@ msgstr "Η κατάτμηση σας %s είναι μικρότερη από %s 
 #: ../partitions.py:911
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
-msgstr "Εγκατάσταση σε μια συσκευή USB . Δεν είναι σίγουρο ότι το σύστημα θα δουλέυει μετά την εγκατάσταση."
+msgstr "Εγκατάσταση σε μια συσκευή USB . Δεν είναι σίγουρο ότι το σύστημα θα δουλεύει μετά την εγκατάσταση."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr "Εγκατάσταση σε μια συσκευή FireWire. Δεν είναι σίγουρο ότι το σύστημα θα δουλέυει μετά την εγκατάσταση."
+msgstr "Εγκατάσταση σε μια συσκευή FireWire. Δεν είναι σίγουρο ότι το σύστημα θα δουλεύει μετά την εγκατάσταση."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1774,11 +1774,11 @@ msgstr "Καθορίσατε περισσότερες από 32 συσκευές
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr "Έχετε αναθέσει λιγότερο χώρο swap (%dM) από τη διαθέσημη μνήμη RAM (%dM) που υπάρχει στο σύστημα σας. Αυτό μπορεί να επηρεάσει αρνητικά την απόδοση."
+msgstr "Έχετε αναθέσει λιγότερο χώρο swap (%dM) από τη διαθέσιμη μνήμη RAM (%dM) που υπάρχει στο σύστημα σας. Αυτό μπορεί να επηρεάσει αρνητικά την απόδοση."
 
 #: ../partitions.py:1266
 msgid "the partition in use by the installer."
-msgstr "η κατάτμηση σε χρηση από την εγκατάσταση."
+msgstr "η κατάτμηση σε χρήση από την εγκατάσταση."
 
 #: ../partitions.py:1269
 msgid "a partition which is a member of a RAID array."
@@ -1801,7 +1801,7 @@ msgstr ""
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr "Το σημείο προσάρτησης %s δεν μπορεί να χρησιμοποιηθεί. Θα πρέπει να είναι ένας συμβολικός δεσμός για τη σβστή λειτουργία του συστήματος. Παρακαλώ επιλέξτε ένα διαφορετικό σημείο προσάρτησης."
+msgstr "Το σημείο προσάρτησης %s δεν μπορεί να χρησιμοποιηθεί. Θα πρέπει να είναι ένας συμβολικός δεσμός για τη σωστή λειτουργία του συστήματος. Παρακαλώ επιλέξτε ένα διαφορετικό σημείο προσάρτησης."
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -1816,7 +1816,7 @@ msgid ""
 "point."
 msgstr ""
 "Το σημείο προσάρτησης \"%s\" χρησιμοποιείται ήδη, παρακαλώ επιλέξτε ένα "
-"διαφορετικόσημείο προσάρτησης."
+"διαφορετικό σημείο προσάρτησης."
 
 #: ../partRequests.py:294
 #, python-format
@@ -1861,7 +1861,7 @@ msgstr "Μία συσκευή RAID τύπου %s απαιτεί τουλάχισ
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr "Αυτή η συσκευή RAID μπορεί να έχει το πολύ μέχρι %s εφεδρίες. Για να έχετε περισσότερες εφεδρίες θα"
+msgstr "Αυτή η συσκευή RAID μπορεί να έχει το πολύ μέχρι %s εφεδρείες. Για να έχετε περισσότερες εφεδρείες θα"
 "χρειαστεί να προσθέσετε μέλη στη συσκευή RAID."
 
 #: ../rescue.py:129
@@ -1871,7 +1871,7 @@ msgstr "Εκκίνηση διεπαφής"
 #: ../rescue.py:130
 #, python-format
 msgid "Attempting to start %s"
-msgstr "Γίνεται προσπαθεια εκκίνησης %s"
+msgstr "Γίνεται προσπάθεια εκκίνησης %s"
 
 #: ../rescue.py:191
 msgid "Setup Networking"
@@ -1933,7 +1933,7 @@ msgstr "Σύστημα για rescue"
 
 #: ../rescue.py:320
 msgid "What partition holds the root partition of your installation?"
-msgstr "Ποια κατάτμηση έχει τη κατάτμηση root της εγκατάστασης;"
+msgstr "Ποια κατάτμηση έχει την κατάτμηση root της εγκατάστασης;"
 
 #: ../rescue.py:322 ../rescue.py:326
 msgid "Exit"
@@ -1958,7 +1958,7 @@ msgid ""
 "\tchroot %s\n"
 "\n"
 "The system will reboot automatically when you exit from the shell."
-msgstr "Το σύστημα σας έχει προσαρτηθεί κάτω απότο %s.\n"
+msgstr "Το σύστημα σας έχει προσαρτηθεί κάτω από το %s.\n"
 "\n"
 "Πατήστε <return> για να βγείτε σε κέλυφος. Αν θέλετε να κάνετε το σύστημα "
 "σας περιβάλλον root, εκτελέστε την εντολή:\n"
@@ -2085,7 +2085,7 @@ msgid ""
 "\n"
 msgstr ""
 "Το σύστημα αρχείων της εγκατάστασης Linux που επιλέξατε να αναβαθμίσετε "
-"έχειήδη προσαρτηθεί. Δεν μπορείτε να επιστρέψετε μετά από αυτό το σημείο. \n"
+"έχει ήδη προσαρτηθεί. Δεν μπορείτε να επιστρέψετε μετά από αυτό το σημείο. \n"
 "\n"
 
 #: ../upgrade.py:55
@@ -2122,7 +2122,7 @@ msgid ""
 "The following file systems for your Linux system were not unmounted "
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
-msgstr "Τα παρακάτω συστήματα αρχείων για το σύστημα Linux σας δεν έχουν γίνει σωστά unmount. Θα θέλατε να τα προσαρτίσετε πάραυτα;\n"
+msgstr "Τα παρακάτω συστήματα αρχείων για το σύστημα Linux σας δεν έχουν γίνει σωστά unmount. Θα θέλατε να τα προσαρτήσετε πάραυτα;\n"
 "%s"
 
 #: ../upgrade.py:291 ../upgrade.py:297
@@ -2133,14 +2133,14 @@ msgstr "Αποτυχία προσάρτησης"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr "Ένα ή περισσότερα συστήματα αρχείων που υπάρχουν στο /etc/fstab  του Linux συστήματος σας δεν μπόρεσαν να προσαρτηθούν. Παρακαλώ διορθώστε το πρόβλημα και προσπαθήστε να αναβάθμισετε το σύστημα ξανά."
+msgstr "Ένα ή περισσότερα συστήματα αρχείων που υπάρχουν στο /etc/fstab  του Linux συστήματος σας δεν μπόρεσαν να προσαρτηθούν. Παρακαλώ διορθώστε το πρόβλημα και προσπαθήστε να αναβαθμίσετε το σύστημα ξανά."
 
 #: ../upgrade.py:298
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr "Ένα ή περισσότερα συστήματα αρχείων που υπάρχουν στο /etc/fstab του Linux συστήματος σας είναι ανακόλουθα και δεν μπόρεσαν να προσαρτηθούν. Παρακαλώ διορθώστε το πρόβλημα και προσπαθήστε να αναβάθμισετε το σύστημα ξανά."
+msgstr "Ένα ή περισσότερα συστήματα αρχείων που υπάρχουν στο /etc/fstab του Linux συστήματος σας είναι ανακόλουθα και δεν μπόρεσαν να προσαρτηθούν. Παρακαλώ διορθώστε το πρόβλημα και προσπαθήστε να αναβαθμίσετε το σύστημα ξανά."
 
 #: ../upgrade.py:315
 msgid ""
@@ -2351,7 +2351,7 @@ msgid ""
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 "Press 'Retry' to try again."
-msgstr "Δεν μπόρεσε να ανοιχτεί το πακέτο %s-%s-%s.%s. Αυτό μπορεί να οφείλεται σε κάποιο αρχείο που λείπει ή στο ότι είναι κατεστραμμένο το ίδιο το πακέτο. Αν κάνετε εγκατάσταση από δίσκο CD πιθανότατα να έχετε ελλατωματικό CD ή ο οδηγός ανάγνωσης του CD να μην μπορεί να  το διαβάσει.\n"
+msgstr "Δεν μπόρεσε να ανοιχτεί το πακέτο %s-%s-%s.%s. Αυτό μπορεί να οφείλεται σε κάποιο αρχείο που λείπει ή στο ότι είναι κατεστραμμένο το ίδιο το πακέτο. Αν κάνετε εγκατάσταση από δίσκο CD πιθανότατα να έχετε ελαττωματικό CD ή ο οδηγός ανάγνωσης του CD να μην μπορεί να  το διαβάσει.\n"
 "\n"
 "Πατήστε 'Επανάληψη' για να προσπαθήσετε ξανά."
 
@@ -2599,7 +2599,7 @@ msgstr "Αφαίρεση όλων των κατατμήσεων από τις ε
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Αφαίρεση όλων των κατατμήσεων linux από τoυς επιλεγμένους δίσκους και δημιουργία προεπιλεγμένης διάταξης."
+msgstr "Αφαίρεση όλων των κατατμήσεων linux από τους επιλεγμένους δίσκους και δημιουργία προεπιλεγμένης διάταξης."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
@@ -2614,7 +2614,7 @@ msgid ""
 "A boot loader password prevents users from changing options passed to the "
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
-msgstr "Ένας κωδικός πρόσβασης boot loader δεν επιτρέπει στους χρήστες να αλλάζουν τις παραμέτρους που περνάνε στο πυρήνα. Για μεγαλύτερη ασφάλεια του συστήματος, σας συστήνουμε να χρησιμοποιήσετε ένα κωδικπο πρόσβασης."
+msgstr "Ένας κωδικός πρόσβασης boot loader δεν επιτρέπει στους χρήστες να αλλάζουν τις παραμέτρους που περνάνε στο πυρήνα. Για μεγαλύτερη ασφάλεια του συστήματος, σας συστήνουμε να χρησιμοποιήσετε ένα κωδικό πρόσβασης."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2632,7 +2632,7 @@ msgstr "Εισάγετε το κωδικό πρόσβασης Boot Loader"
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
-msgstr "Εισάγετε τον κωδικό πρόσβασης boot loader και μετά επιβεβαιώστε τον. (Σημειώστε οτι ο χάρτης πλήκτρων του BIOS σας μπορεί να είναι διαφορετικός από αυτόν του συστήματος σας.)"
+msgstr "Εισάγετε τον κωδικό πρόσβασης boot loader και μετά επιβεβαιώστε τον. (Σημειώστε ότι ο χάρτης πλήκτρων του BIOS σας μπορεί να είναι διαφορετικός από αυτόν του συστήματος σας.)"
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2731,7 +2731,7 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
-msgstr "Τακτοποιήστε τους δίσκους λετσι ώστε να έχουν την ίδια σειρά όπως είναι στο BIOS. Η αλλαγή της σειράς των δίσκων μπορεί να είναι χρήσιμη αν έχετε πολλαπλούς SCSI adapters ή SCSI"
+msgstr "Τακτοποιήστε τους δίσκους έτσι ώστε να έχουν την ίδια σειρά όπως είναι στο BIOS. Η αλλαγή της σειράς των δίσκων μπορεί να είναι χρήσιμη αν έχετε πολλαπλούς SCSI adapters ή SCSI"
 "και IDE adapters μαζί και θέλετε να εκκινείτε το σύστημα σας από τη συσκευή SCSI.\n"
 "\n"
 "Η αλλαγή της σειράς των δίσκων θα αλλάξει και την τοποθεσία εγκατάστασης του Master Boot Record (MBR)."
@@ -2786,7 +2786,7 @@ msgstr "Μια πλήρης καταγραφή της αναβάθμισης θ�
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
-msgstr "Συγχαρτήρια"
+msgstr "Συγχαρητήρια"
 
 #: ../iw/congrats_gui.py:60
 msgid ""
@@ -3010,14 +3010,14 @@ msgstr "Όνομα Λογικού Τόμου:"
 
 #: ../iw/lvm_dialog_gui.py:431 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
-msgstr "_Μέγεθος (ΜΒ):"
+msgstr "_Μέγεθος (MB):"
 
 #: ../iw/lvm_dialog_gui.py:437 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
 msgid "Size (MB):"
-msgstr "Μέγεθος (ΜΒ):"
+msgstr "Μέγεθος (MB):"
 
 #: ../iw/lvm_dialog_gui.py:452
 #, python-format
@@ -3063,7 +3063,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "Το μέγεθος που ζητάται (%10.2f MB) είναι μεγαλύτερο από το μέγιστο μέγεθος λογικού τόμου (%10.2f MB). Για να αυξήσετε αυτό το όριο μπορείτε να δημιουργήσετε περισσότερους Φυσικούς Τόμους από χώρο στο δίσκο που δεν περιέχει κατατμήσεις και να τους προσθέσετε σε αυτή την Ομάδα Τόμων."
+msgstr "Το μέγεθος που ζητάτε (%10.2f MB) είναι μεγαλύτερο από το μέγιστο μέγεθος λογικού τόμου (%10.2f MB). Για να αυξήσετε αυτό το όριο μπορείτε να δημιουργήσετε περισσότερους Φυσικούς Τόμους από χώρο στο δίσκο που δεν περιέχει κατατμήσεις και να τους προσθέσετε σε αυτή την Ομάδα Τόμων."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3187,7 +3187,7 @@ msgstr "Σημείο Προσάρτησης"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
 msgid "Size (MB)"
-msgstr "Μέγεθος (ΜΒ)"
+msgstr "Μέγεθος (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
@@ -3694,7 +3694,7 @@ msgstr "Δεν υπάρχουν διαθέσιμοι αριθμοί minor για
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr "Δεν είναι δυναατή η δημιουργία μιας συσκευής software RAID, επειδή όλες οι διαθέσιμοι αριθμοί συσκευών RAID χρησιμοποιούνται."
+msgstr "Δεν είναι δυνατή η δημιουργία μιας συσκευής software RAID, επειδή όλες οι διαθέσιμοι αριθμοί συσκευών RAID χρησιμοποιούνται."
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3721,7 +3721,7 @@ msgid ""
 "RAID'.  Then you can create a RAID device which can be formatted and "
 "mounted.\n"
 "\n"
-msgstr "Για να χρησιμοποήσετε RAID πρέπει πρώτα να δημιουργήσετε τουλάχιστον δύο κατατμήσεις του τύπου 'software RAID'. Μετά από αυτό μπορείτε να δημιουργήσετε μια συσκευή RAID η οποία μπορεί να μορφοποιηθεί και να προσαρτηθεί.\n"
+msgstr "Για να χρησιμοποιήσετε RAID πρέπει πρώτα να δημιουργήσετε τουλάχιστον δύο κατατμήσεις του τύπου 'software RAID'. Μετά από αυτό μπορείτε να δημιουργήσετε μια συσκευή RAID η οποία μπορεί να μορφοποιηθεί και να προσαρτηθεί.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1256
@@ -3804,7 +3804,7 @@ msgstr "Έλεγχος για _χαλασμένα μπλοκ;"
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr "Οι κατατμήσεις του τύπου '%s' θα πρέπει να περορίζονται σε ένα δίσκο. Αυτό μπορεί να γίνει μεωτην επιλογή του δίσκου στη λίστα 'Επιτρεπόμενοι τόμοι'."
+msgstr "Οι κατατμήσεις του τύπου '%s' θα πρέπει να περιορίζονται σε ένα δίσκο. Αυτό μπορεί να γίνει με την επιλογή του δίσκου στη λίστα 'Επιτρεπόμενοι τόμοι'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -3880,7 +3880,7 @@ msgid ""
 "select the \"RAID\" option again."
 msgstr "Το ελάχιστο απαιτούνται δύο κενές κατατμήσεις software RAID για να δημιουργήσετε μια συσκευή RAID.\n"
 "\n"
-"Πρώτα δημιουργήστε τουλάχιστον δύο κατατμήσεις \"software RAID\", και μετά επιλεξτε ξανά την επιλογή \"RAID\"."
+"Πρώτα δημιουργήστε τουλάχιστον δύο κατατμήσεις \"software RAID\", και μετά επιλέξτε ξανά την επιλογή \"RAID\"."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
@@ -3910,7 +3910,7 @@ msgstr "Μέλη _RAID:"
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr "Αριθμός ε_φεδριών:"
+msgstr "Αριθμός ε_φεδρειών:"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
@@ -3986,7 +3986,7 @@ msgstr "Ο πηγαίος δίσκος /dev/%s έχει μια κατάτμησ�
 "\n"
 "\"%s\"\n"
 "\n"
-"Αυτή η κατάτμηση πρέπει να απαομακρυνθεί πριν αυτός ο δίσκος να γίνει δίσκος προορισμού."
+"Αυτή η κατάτμηση πρέπει να απομακρυνθεί πριν αυτός ο δίσκος να γίνει δίσκος προορισμού."
 
 #: ../iw/raid_dialog_gui.py:606
 msgid "Please select a source drive."
@@ -4041,9 +4041,9 @@ msgid ""
 msgstr "Εργαλείο κλωνοποίησης δίσκου\n"
 "\n"
 "Αυτό το εργαλείο σας επιτρέπει να ρυθμίσετε εύκολα τις σειρές RAID.Μέσω "
-"αυτού του εργαλείου γίνεται κλωνοποίηση ενός πηγαίου δίσκου πουέχει "
+"αυτού του εργαλείου γίνεται κλωνοποίηση ενός πηγαίου δίσκου που έχει "
 "μορφοποιηθεί με την επιθυμητή διάταξη, σε άλλους παρόμοιους δίσκους. "
-"Μετάδημιουργείται μια συσκευή RAID.\n"
+"Μετά δημιουργείται μια συσκευή RAID.\n"
 "\n"
 "ΣΗΜΕΙΩΣΗ: Ο πηγαίος δίσκος πρέπει να έχει κατατμήσεις που ανήκουν μόνο σε "
 "αυτόν,και να έχει αχρησιμοποίητες κατατμήσεις RAID. Δεν επιτρέπονται άλλου "
@@ -4108,7 +4108,7 @@ msgid ""
 "system."
 msgstr ""
 "Η εγκατάσταση δεν μπόρεσε να εντοπίσει τον boot loader που χρησιμοποιείται "
-"απότο σύστημα σας."
+"από το σύστημα σας."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4120,7 +4120,7 @@ msgid ""
 "switch boot loaders, you should choose this."
 msgstr ""
 "Αυτό θα σας επιτρέψει να δημιουργήσετε μια νέα ρύθμιση boot loader . "
-"Επιλέξτε αυτόαν θέλετε να αλλάξετε boot loaders."
+"Επιλέξτε αυτό αν θέλετε να αλλάξετε boot loaders."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
@@ -4153,8 +4153,8 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr "Αυτή η έκδοση του %s υποστηρίζει το σύστημα αρχείων ext3 journalling. Έχει "
-"αρκετάπλεονεκτήματα σε σχέση με το ext2 που παραδοσιακά έρχεται με το %s. "
-"Είναιδυνατόν α εισάγετε τις ήδη μορφοποιημένες ext2 κατατμήσεις σας σε ext3 "
+"αρκετά πλεονεκτήματα σε σχέση με το ext2 που παραδοσιακά έρχεται με το %s. "
+"Είναι δυνατόν α εισάγετε τις ήδη μορφοποιημένες ext2 κατατμήσεις σας σε ext3 "
 "χωρίς να υπάρχει απώλεια δεδομένων.\n"
 "\n"
 "Ποιες από αυτές τις κατατμήσεις θα θέλατε να εισάγετε;"
@@ -4172,9 +4172,9 @@ msgid ""
 "file systems now."
 msgstr ""
 "Ο πυρήνας 2.4 χρειάζεται περισσότερο swap σε σχέση με παλαιότερους πυρήνες, "
-"τουλάχιστοντο διπλάσιο μέγεθος της εγκατεστημένης RAM του συστήματος σας. "
+"τουλάχιστον το διπλάσιο μέγεθος της εγκατεστημένης RAM του συστήματος σας. "
 "Αυτή τη στιγμή έχετε%dMB swap, αλλά μπορείτε να δημιουργήσετε επιπρόσθετο "
-"χώρο swap σε ένα από τα συστήματα αρχείωνσας τώρα."
+"χώρο swap σε ένα από τα συστήματα αρχείων σας τώρα."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4194,7 +4194,7 @@ msgstr "_Θέλω να δημιουργήσω ένα αρχείο swap"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Επιλέ_ξτε τη κατάτμηση για το αρχείο swap:"
+msgstr "Επιλέ_ξτε την κατάτμηση για το αρχείο swap:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4202,7 +4202,7 @@ msgstr "Κατάτμηση"
 
 #: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
-msgstr "Ελεύθερος Χώρος (ΜΒ)"
+msgstr "Ελεύθερος Χώρος (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
@@ -4211,7 +4211,7 @@ msgid ""
 "size for the swap file:"
 msgstr ""
 "Συνίσταται ότι το αρχείο swap θα πρέπει να είναι τουλάχιστον %d MB. Παρακαλώ "
-"εισάγετεένα μέγεθος για το αρχείο swap:"
+"εισάγετε ένα μέγεθος για το αρχείο swap:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
@@ -4229,7 +4229,7 @@ msgid ""
 "to continue?"
 msgstr ""
 "Σας συστήνουμε να δημιουργήσετε οπωσδήποτε ένα αρχείο swap. Αν αποτύχετε "
-"ναδημιουργήσετε ένα η εγκατάσταση θα τερματιστεί. Είστε σίγουροι ότι θέλετε "
+"να δημιουργήσετε ένα η εγκατάσταση θα τερματιστεί. Είστε σίγουροι ότι θέλετε "
 "να συνεχίσετε; "
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
@@ -4396,7 +4396,7 @@ msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
-msgstr "Ένας κωδικός πρόσβασης για τον bootloader απότρέπει κακόβουλους χρήστες να δώσουν παραμέτρους κατά την εκκίνηση στον πυρήνα.  "
+msgstr "Ένας κωδικός πρόσβασης για τον bootloader αποτρέπει κακόβουλους χρήστες να δώσουν παραμέτρους κατά την εκκίνηση στον πυρήνα.  "
 "Αν θέλετε υψηλό επίπεδο ασφάλειας, προτείνουμε να ορίσετε ένα κωδικό πρόσβασης, αυτό όμως δεν είναι αναγκαίο για τις περισσότερες χρήσεις."
 
 #: ../textw/bootloader_text.py:397
@@ -4469,7 +4469,7 @@ msgid ""
 msgstr "Για πληροφορίες για ενημερώσεις και διορθώσεις σφαλμάτων, επισκεφτείτε το http://www.redhat."
 "com/errata/.\n"
 "\n"
-"Πλήροφορίες για τη  χρήση του συστήματος σας είναι διαθέσιμες στα εγχειρίδια %s στο http://"
+"Πληροφορίες για τη  χρήση του συστήματος σας είναι διαθέσιμες στα εγχειρίδια %s στο http://"
 "www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:46
@@ -4674,7 +4674,7 @@ msgid ""
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr "Αν το σύστημα σας είναι μέλος σε ένα μεγαλύτερο δίκτυο όπου τα ονόματα των υπολογιστών αποδίδονται από το DHCP, επιλέξτε αυτόματα μέσω DHCP. Διαφορετικάμ επιλέξτε μη αυτόματη επιλογή και εισάγετε ένα όνομα για το σύστημα. Αν δεν ορίσετε ένα όνομα, το σύστημα σας θα ονομαστεί 'localhost.'"
+msgstr "Αν το σύστημα σας είναι μέλος σε ένα μεγαλύτερο δίκτυο όπου τα ονόματα των υπολογιστών αποδίδονται από το DHCP, επιλέξτε αυτόματα μέσω DHCP. Διαφορετικά επιλέξτε μη αυτόματη επιλογή και εισάγετε ένα όνομα για το σύστημα. Αν δεν ορίσετε ένα όνομα, το σύστημα σας θα ονομαστεί 'localhost.'"
 
 #: ../textw/network_text.py:406 ../textw/network_text.py:412
 msgid "Invalid Hostname"
@@ -4806,7 +4806,7 @@ msgid ""
 "partition."
 msgstr ""
 "Παρακαλώ καθορίστε τον τρόπο που θέλετε να προετοιμαστεί το σύστημα αρχείων "
-"σε αυτήτη κατάτμηση."
+"σε αυτή την κατάτμηση."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
@@ -4954,7 +4954,7 @@ msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr "Η εγκατάσταση απαιτεί την κατάτμηση του σκληρού σας δίσκου. Ως προεπιλογή έχει επιλεχθεί μια διάταξη κατάτμησης που είναι κατάλληλη για τους περισσότερους χρήστες. Υπάρχει επίσης η δυνατότητα να επιλέξετε την δική σας διάταξη κατάτμησεων."
+msgstr "Η εγκατάσταση απαιτεί την κατάτμηση του σκληρού σας δίσκου. Ως προεπιλογή έχει επιλεχθεί μια διάταξη κατάτμησης που είναι κατάλληλη για τους περισσότερους χρήστες. Υπάρχει επίσης η δυνατότητα να επιλέξετε την δική σας διάταξη κατατμήσεων."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5070,9 +5070,9 @@ msgid ""
 "file systems now."
 msgstr ""
 "Ο πυρήνας 2.4 χρειάζεται περισσότερο swap σε σχέση με παλαιότερους πυρήνες, "
-"τουλάχιστοντο διπλάσιο μέγεθος της εγκατεστημένης RAM του συστήματος σας. "
+"τουλάχιστον το διπλάσιο μέγεθος της εγκατεστημένης RAM του συστήματος σας. "
 "Αυτή τη στιγμή έχετε%dMB swap, αλλά μπορείτε να δημιουργήσετε επιπρόσθετο "
-"χώρο swap σε ένα από τα συστήματα αρχείωνσας τώρα."
+"χώρο swap σε ένα από τα συστήματα αρχείων σας τώρα."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -5084,7 +5084,7 @@ msgstr "Αναγνωρίστηκε RAM (MB):"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr "Προτεινόμενο μέγεθος (ΜΒ):"
+msgstr "Προτεινόμενο μέγεθος (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
@@ -5213,7 +5213,7 @@ msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
-msgstr "Ιδανικό για προσωπικούς ή φορητούς υπολογιστές, επιλέξτε αυτό τον τύπο της εγκατάστασης για να έχετε ένα γραφικό περιβάλλον εργασίας και ενα σύστημα κατάλληλο για χρήση στο σπίτι ή στο γραφείο."
+msgstr "Ιδανικό για προσωπικούς ή φορητούς υπολογιστές, επιλέξτε αυτό τον τύπο της εγκατάστασης για να έχετε ένα γραφικό περιβάλλον εργασίας και ένα σύστημα κατάλληλο για χρήση στο σπίτι ή στο γραφείο."
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
@@ -5295,7 +5295,7 @@ msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
-msgstr "Επιλέξτε αυτόν τον τύπο αν θέλετε να χρησιμοποιήσετε κοινή χρήση αρχείων, εκτυπωτών και υπηρεσίες εξυπηρέτησης ιστοδελίδων. Περισσότερες υπηρεσίες μπορού ν επίσης να ενεργοποιηθούν, και μπορείτε ακόμα να επιλέξετε αν θέλετε να έχετε γραφικό περιβάλλον ή περιβάλλον κειμένου."
+msgstr "Επιλέξτε αυτόν τον τύπο αν θέλετε να χρησιμοποιήσετε κοινή χρήση αρχείων, εκτυπωτών και υπηρεσίες εξυπηρέτησης ιστοσελίδων. Περισσότερες υπηρεσίες μπορούν επίσης να ενεργοποιηθούν, και μπορείτε ακόμα να επιλέξετε αν θέλετε να έχετε γραφικό περιβάλλον ή περιβάλλον κειμένου."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -5449,7 +5449,7 @@ msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
-msgstr "Δεν βρέθηκαν συσκευές κατάλληλου τύπου σε αυτλο το δίσκο. Θα θέλατε να επιλέξετε μη αυτόματα το πρόγραμμα οδήγησης, να συνεχίσετε ή να εισάγετε ένα άλλο δίσκο με προγράμματα οδήγησης;"
+msgstr "Δεν βρέθηκαν συσκευές κατάλληλου τύπου σε αυτό το δίσκο. Θα θέλατε να επιλέξετε μη αυτόματα το πρόγραμμα οδήγησης, να συνεχίσετε ή να εισάγετε ένα άλλο δίσκο με προγράμματα οδήγησης;"
 
 #: ../loader2/driverdisk.c:515
 msgid "Driver disk"
@@ -5553,7 +5553,7 @@ msgstr "Υπήρξε ένα σφάλμα κατά την ανάγνωση των
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "Δεν φάινεται να έχετε σκληρούς δίσκους στο σύστημα σας! Θέλετε να ρυθμίσετε επιπρόσθετες συσκευές;"
+msgstr "Δεν φαίνεται να έχετε σκληρούς δίσκους στο σύστημα σας! Θέλετε να ρυθμίσετε επιπρόσθετες συσκευές;"
 
 #: ../loader2/hdinstall.c:344
 #, c-format
@@ -5897,7 +5897,7 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr "ο %s είναι μια συσκευή ασύρματης δικτύωσης. Παρακαλώ καθορίστε το ESSID και το κλειδί κρυπτογράφησης που απαιτούνται για να έχετε πρόσβαση στο ασύρματο δίκτυο σας. Αν δεν χρειάζεται κλειδί, αφήστε κενό το πεδίο και η εγκτάσταση θα προχωρήσει."
+msgstr "ο %s είναι μια συσκευή ασύρματης δικτύωσης. Παρακαλώ καθορίστε το ESSID και το κλειδί κρυπτογράφησης που απαιτούνται για να έχετε πρόσβαση στο ασύρματο δίκτυο σας. Αν δεν χρειάζεται κλειδί, αφήστε κενό το πεδίο και η εγκατάσταση θα προχωρήσει."
 
 #: ../loader2/net.c:250
 msgid "Wireless Settings"
@@ -6001,7 +6001,7 @@ msgstr "Συσκευή Δικτύου"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "Έχετε πολλέςς συσκευές δικτύου σε αυτό το σύστημα. Ποιά θα θέλατε να χρησιμοποιήσετε για την εγκατάσταση;"
+msgstr "Έχετε πολλές συσκευές δικτύου σε αυτό το σύστημα. Ποιά θα θέλατε να χρησιμοποιήσετε για την εγκατάσταση;"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
@@ -6027,7 +6027,7 @@ msgstr "Καθορίστηκε όνομα συστήματος χωρίς ρύθ
 #: ../loader2/nfsinstall.c:211
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Ο κατάλογος δεν φάινεται να περιέχει ένα δέντρο εγκατάστασης %s."
+msgstr "Ο κατάλογος δεν φαίνεται να περιέχει ένα δέντρο εγκατάστασης %s."
 
 #: ../loader2/nfsinstall.c:224
 msgid "That directory could not be mounted from the server."
@@ -6155,13 +6155,13 @@ msgstr "Το %s δεν είναι ένα έγκυρο όνομα συστήμα�
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr "Αν χρησιμοποιείτε μη ανώνυμο ftp, εισάγετε παρακάτω το όνομα και τον κωδικό του λογαριασμού σας που θέλετε να χρησιμοποιείσετε."
+msgstr "Αν χρησιμοποιείτε μη ανώνυμο ftp, εισάγετε παρακάτω το όνομα και τον κωδικό του λογαριασμού σας που θέλετε να χρησιμοποιήσετε."
 
 #: ../loader2/urls.c:421
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Αν χρησιμοποιείετε ένα διακομιστή HTTP proxy εισάγετε το όνομα του διακομιστή HTTP proxy server "
+msgstr "Αν χρησιμοποιείτε ένα διακομιστή HTTP proxy εισάγετε το όνομα του διακομιστή HTTP proxy server "
 "που θα χρησιμοποιηθεί."
 
 #: ../loader2/urls.c:443
@@ -6242,7 +6242,7 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
-"Περαιτέρω προσαρμογή του λογισμικού που επιλέξατε μπορεί να γίνει τώρα ήμετά "
+"Περαιτέρω προσαρμογή του λογισμικού που επιλέξατε μπορεί να γίνει τώρα ή μετά "
 "την εγκατάσταση μέσω της εφαρμογής διαχείρισης λογισμικού."
 
 #: tmp/tasksel.glade.h:4
