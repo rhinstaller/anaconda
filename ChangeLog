@@ -1,3 +1,7 @@
+2006-06-06  Chris Lumens  <clumens@redhat.com>
+
+	* scripts/upd-instroot:  rhpxl is in /usr/lib, not $LIBDIR.
+
 2006-06-05  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images: s390x ld.so is in /lib now (#192862)
