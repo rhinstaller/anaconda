@@ -1,13 +1,12 @@
 # translation of anaconda.po to Greek
 # Anaconda installer in Greek
 # This file is distributed under the same license as the Anaconda package.
-#
 # Copyright (C) 2002 Simos Xenitellis.
 # Simos initial translation
 # Nikos start updating
 # Simos Xenitellis <simos@hellug.gr>, 2002.
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2002, 2005.
-# Dimitris Michelinakis <dimitris@michelinakis.gr>, 2006.
+# Dimitrios Michelinakis <dimitris@michelinakis.gr>, 2006.
 # Kostas Papadimas <pkst@gnome.org>, 2006.
 # Δημήτρης Γλέζος <dimitris@glezos.com>, 2006.
 # 
@@ -17,7 +16,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-02 22:21+0300\n"
+"PO-Revision-Date: 2006-06-06 12:12+0300\n"
 "Last-Translator: Dimitrios Michelinakis <dimitris@michelinakis.gr>\n"
 "Language-Team: Greek\n"
 "MIME-Version: 1.0\n"
@@ -4296,6 +4295,15 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"Ο z/IPL Boot Loader θα εγκατασταθεί στο σύστημα σας.\n"
+"\n"
+"Η κατάτμηση root θα είναι αυτή που επιλέχθηκε κατά την διάρκεια επιλογών κατάτμησης.\n"
+"\n"
+"Ο πυρήνας που θα χρησιμοποιηθεί για την εκκίνηση είναι ο προεπιλεγμένος πυρήνας εγκατάστασης.\n"
+"\n"
+"Σε περίπτωση που θέλετε να κάνετε αλλαγές μετά την εγκατάσταση το αρχείο επιλογών είναι /etc/zipl.conf.\n"
+"\n"
+"Τώρα μπορείτε να εισάγετε πρόσθετες παραμέτρους για τον πυρήνα ανάλογα με τις ανάγκες σας."
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
@@ -4385,6 +4393,7 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
+"Ο διαχειριστής εκκίνησης %s έχει την δυνατότητα να εκκινήσει και άλλα λειτουργικά συστήματα. Πρέπει να διαλέξετε τις κατατμήσεις που θέλετε να μπορείτε να εκκινήσετε και την ετικέτα θα τους αντιστοιχεί."
 
 #: ../textw/bootloader_text.py:291
 msgid ""
