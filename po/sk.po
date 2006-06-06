@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-30 17:35+0100\n"
+"PO-Revision-Date: 2006-06-06 16:29+0100\n"
 "Last-Translator: Ján Ondrej <ondrejj@salstar.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -2624,6 +2624,9 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates the Master Boot Record (MBR)."
 msgstr ""
+"Zostavte disky tak, aby boli v tom istom poradí, ako boli použité BIOS-om. Zmena poradia diskov môže byť vhodná, ak máte viac SCSI adaptérov, alebo oba SCSI a IDE adaptéry a chcete zaviesť systém z SCSI zariadenia.\n"
+"\n"
+"Zmena poradia diskov ovplyvní to, kde bude inštalačný program nájde hlavný záznam zavádzača (MBR)."
 
 #: ../iw/confirm_gui.py:29
 #: ../textw/confirm_text.py:35
@@ -2653,6 +2656,9 @@ msgid ""
 "\n"
 "A kickstart file containing the installation options selected can be found in the file '%s' after rebooting the system."
 msgstr ""
+"Kompletný záznam z inštalácie môžete nájsť v súbore '%s' po reštarte vášho systému.\n"
+"\n"
+"Súbor kickstart obsahujúci voľby zvolené pri inštalácii môžete nájsť v súbore '%s' po reštarte systému."
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -2716,7 +2722,7 @@ msgstr "_Inštalácia %s"
 
 #: ../iw/examine_gui.py:57
 msgid "Choose this option to freshly install your system. Existing software and data may be overwritten depending on your configuration choices."
-msgstr ""
+msgstr "Zvoľte túto voľbu pre novú inštaláciu systému. Existujúci softvér a údaje môžu byť prepísané v závislosti na vašich konfiguračných voľbách."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -2725,7 +2731,7 @@ msgstr "_Aktualizovať existujúcu inštaláciu"
 #: ../iw/examine_gui.py:63
 #, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your drives."
-msgstr ""
+msgstr "Zvoľte túto voľbu, ak chcete aktualizovať váš %s systém.  Táto voľba zachová existujúce údaje na vašich diskoch."
 
 #: ../iw/examine_gui.py:110
 #: ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -2797,7 +2803,7 @@ msgstr "Nie je dostatok miesta"
 
 #: ../iw/lvm_dialog_gui.py:116
 msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
-msgstr ""
+msgstr "Fyzická veľkosť oblasti nemôže byť zmenená, pretože inak veľkosť požadovaná súčasnou definíciou logických zväzkov bude zväčšená na viac ako je dostupného miesta."
 
 #: ../iw/lvm_dialog_gui.py:125
 msgid "Confirm Physical Extent Change"
@@ -2809,6 +2815,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"Táto zmena v hodnotách fyzickej oblasti bude znamenať, že sa veľkosti aktuálnych požiadaviek logických zväzkov zaokrúhlia nahor na násobok fyzického oddielu.\n"
+"\n"
+"Táto zmena bude mať okamžitý účinok."
 
 #: ../iw/lvm_dialog_gui.py:135
 #: ../iw/lvm_dialog_gui.py:195
@@ -2821,12 +2830,12 @@ msgstr "P_okračovať"
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
 msgid "The physical extent size cannot be changed because the value selected (%10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the volume group."
-msgstr ""
+msgstr "Fyzická veľkosť oddielu nemôže byť zmenená, pretože zvolená veľkosť (%10.2f MB) je väčšia ako najmenší fyzický oddiel (%10.2f MB) v skupine zväzkov."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
 msgid "The physical extent size cannot be changed because the value selected (%10.2f MB) is too large compared to the size of the smallest physical volume (%10.2f MB) in the volume group."
-msgstr ""
+msgstr "Fyzická veľkosť oddielu nemôže byť zmenená, pretože zvolená veľkosť (%10.2f MB) je príliš veľká v porovnaní s veľkosťou najmenšieho fyzického zväzku (%10.2f MB) v skupine zväzkov."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
@@ -2834,12 +2843,12 @@ msgstr "Príliš malé"
 
 #: ../iw/lvm_dialog_gui.py:189
 msgid "This change in the value of the physical extent will waste substantial space on one or more of the physical volumes in the volume group."
-msgstr ""
+msgstr "Táto zmena v hodnote fyzického oddielu spôsobí nezanedbateľné plytvanie miestom na jednom alebo viacerých fyzických zväzkoch v skupine zväzkov."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
 msgid "The physical extent size cannot be changed because the resulting maximum logical volume size (%10.2f MB) is smaller than one or more of the currently defined logical volumes."
-msgstr ""
+msgstr "Fyzická veľkosť oddielu nemôže byť zmenená, pretože výsledná maximálna veľkosť logického zväzku (%10.2f MB) je menšia ako jeden alebo viac aktuálne definovaných logických zväzkov."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid "You cannot remove this physical volume because otherwise the volume group will be too small to hold the currently defined logical volumes."
@@ -2974,7 +2983,7 @@ msgstr "Nie je voľné miesto"
 #: ../iw/lvm_dialog_gui.py:712
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "Nemôžete vytvoriť viac ako %s logických zväzkov na skupinu zväzku."
 
 #: ../iw/lvm_dialog_gui.py:718
 msgid "No free space"
