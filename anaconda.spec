@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.23
+Version: 11.1.0.24
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -88,6 +88,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun  6 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.24-1
+- Read from right stdin for kickstart scripts (Hannu Martikka, #192067)
+- Fix ip addr getting on 64bit boxes (clumens, #193609)
+- Don't specify window position (clumens)
+- Handle PE sizes we don't expect in the UI (clumens, #185272)
+- Rescue mode fixes (clumens)
+- Remove pointless back button (clumens, #187158)
+- Add user-agent to loader HTTP requests (clumens, #98617)
+- Use IP instead of hostname if needed (clumens, #191561)
+- Write out ipv6 localhost (clumens, #44984)
+- Add greek (#193872)
+- Fix s390x images (#192862)
+- Fix rhpxl location (clumens)
+
 * Tue May 30 2006 Chris Lumens <clumens@redhat.com> 11.1.0.23-1
 - Require glib2-devel.
 - Look for libglib in the right place on 64-bit machines.
