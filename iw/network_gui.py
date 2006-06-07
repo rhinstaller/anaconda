@@ -188,7 +188,7 @@ class NetworkWindow(InstallWindow):
 				  "invalid."))
 
     def handleNoActiveDevices(self):
-	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active.\n\nNOTE: If you have a PCMCIA-based network adapter you should leave it inactive at this point. When you reboot your system the adapter will be activated automatically."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
+	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
     
     def editDevice(self, data):
 	if self.ignoreEvents:

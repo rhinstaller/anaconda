@@ -6,6 +6,7 @@
 	* iw/ipwidget.py:  Removed.
 	* iw/iscsi_gui.py:  Use a gtk.Entry instead of an IPEditor.
 	* iw/network_gui.py:  Likewise.
+	(NetworkWindow.handleNoActiveDevices):  Remove misleading text (#135828).
 
 2006-06-07  David Cantrell  <dcantrell@redhat.com>
 
