@@ -14,6 +14,7 @@ BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
 BuildPreReq: pykickstart, yum, device-mapper >= 1.01.05-3, libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
+BuildPreReq: libdhcp-devel, libdhcp4client-devel, libdhcp6client-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
 Requires: kudzu > 1.2.0, yum >= 2.5.1-3, pirut
 Requires: pyparted, libxml2-python, python-urlgrabber

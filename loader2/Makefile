@@ -7,8 +7,13 @@ else
 TARGET=depend $(PROGS)
 endif
 
+# glib - for utility stuff
 GLIB   = $(shell pkg-config --libs glib-2.0)
 CFLAGS += $(shell pkg-config --cflags glib-2.0)
+
+# dhcp library flags
+DHCP   = $(shell pkg-config --libs libdhcp)
+CFLAGS += $(shell pkg-config --cflags libdhcp)
 
 SLANGLIB = -lslang
 NEWTLIB = -lnewt
@@ -121,7 +126,7 @@ loader-net.o: loader.c
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
-	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB)
+	-lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB) $(DHCP) -lm
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

@@ -228,14 +228,18 @@ int beTelnet(int flags) {
 void startTelnetd(struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, moduleList modLoaded, 
                   moduleDeps modDeps, int flags) {
+    char ret[47];
     struct networkDeviceConfig netCfg;
+    ip_addr_t *tip;
 
     if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
         logMessage(ERROR, "unable to bring up network");
         return;
     }
 
-    logMessage(INFO, "going to beTelnet for %s", inet_ntoa(netCfg.dev.ip));
+    tip = &(netCfg.dev.ip);
+    inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+    logMessage(INFO, "going to beTelnet for %s", ret);
     if (!beTelnet(flags))
         flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
 

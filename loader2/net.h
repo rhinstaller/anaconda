@@ -2,8 +2,20 @@
 #define H_LOADER_NET
 
 #include "loader.h"
-#include "pump.h"
+#include <ip_addr.h>
+#include <libdhcp.h>
+#include <pump.h>
 
+#define IP_STRLEN( ip ) \
+    ( ((ip)->sa_family == AF_INET) ? INET_ADDRSTRLEN : \
+      ((ip)->sa_family == AF_INET6) ? INET6_ADDRSTRLEN : 0 )
+
+/* return values for doDhcp in net.c */
+enum {
+   DO_DHCP_SUCCESS,
+   DO_DHCP_OUT_OF_MEMORY,
+   DO_DHCP_FAILURE
+};
 
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
@@ -45,7 +57,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        int flags);
 
 char * setupInterface(struct networkDeviceConfig *dev);
-char * doDhcp(char * ifname, 
-              struct networkDeviceConfig *dev, char * dhcpclass);
+int doDhcp(char * ifname, 
+           struct networkDeviceConfig *dev, char * dhcpclass);
 
 #endif

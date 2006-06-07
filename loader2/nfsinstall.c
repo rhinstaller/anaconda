@@ -287,9 +287,11 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData, 
                    int flags) {
+    char ret[47];
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
+    ip_addr_t *tip;
 
     if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
         logMessage(ERROR, "unable to bring up network");
@@ -304,20 +306,23 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
             logMessage(ERROR, "no bootserver was found");
             return 1;
         }
-         
+
+        tip = &(netCfg.dev.nextServer);
         if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
-            url = sdupprintf("%s:%s", inet_ntoa(netCfg.dev.nextServer),
-                             "/kickstart/");
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            url = sdupprintf("%s:%s", ret, "/kickstart/");
             logMessage(ERROR, "bootp: no bootfile received");
         } else {
-            url = sdupprintf("%s:%s", inet_ntoa(netCfg.dev.nextServer),
-                             netCfg.dev.bootFile);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            url = sdupprintf("%s:%s", ret, netCfg.dev.bootFile);
+            logMessage(INFO, "foo bar");
         }
     } 
       
     logMessage(INFO, "url is %s", url);
 
-    getHostandPath(url, &host, &path, inet_ntoa(netCfg.dev.ip));
+    inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+    getHostandPath(url, &host, &path, ret);
 
     opts = strchr(host, ':');
     if (opts && (strlen(opts) > 1)) {

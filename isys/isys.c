@@ -32,7 +32,6 @@
 #include <sys/vfs.h>
 #include <unistd.h>
 #include <resolv.h>
-#include <pump.h>
 #include <scsi/scsi.h>
 #include <scsi/scsi_ioctl.h>
 #include <sys/vt.h>
@@ -84,8 +83,6 @@ static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
-static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
-static PyObject * doPumpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadFont(PyObject * s, PyObject * args);
@@ -141,8 +138,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
-    { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
-    { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
@@ -550,81 +545,6 @@ void init_isys(void) {
     PyDict_SetItemString(d, "MIN_RAM", PyInt_FromLong(MIN_RAM));
     PyDict_SetItemString(d, "MIN_GUI_RAM", PyInt_FromLong(MIN_GUI_RAM));
     PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
-}
-
-static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
-    char * dev, * ip, * netmask;
-    char * gateway;
-    struct pumpNetIntf device;
-    typedef int int32;
-    
-    if (!PyArg_ParseTuple(args, "ssss", &dev, &ip, &netmask, &gateway)) 
-	return NULL;
-
-    memset(&device,'\0',sizeof(struct pumpNetIntf));
-    strncpy(device.device, dev, sizeof(device.device) - 1);
-    device.ip.s_addr = inet_addr(ip);
-    device.netmask.s_addr = inet_addr(netmask);
-
-    *((int32 *) &device.broadcast) = (*((int32 *) &device.ip) & 
-		       *((int32 *) &device.netmask)) | 
-		       ~(*((int32 *) &device.netmask));
-
-    *((int32 *) &device.network) = 
-	    *((int32 *) &device.ip) & *((int32 *) &device.netmask);
-
-    device.set = PUMP_INTFINFO_HAS_IP | PUMP_INTFINFO_HAS_NETMASK |
-		 PUMP_INTFINFO_HAS_BROADCAST | PUMP_INTFINFO_HAS_NETWORK;
-    
-    if (pumpSetupInterface(&device)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (strlen(gateway)) {
-	device.gateway.s_addr = inet_addr(gateway);
-	if (pumpSetupDefaultGateway(&device.gateway)) {
-	    PyErr_SetFromErrno(PyExc_SystemError);
-	    return NULL;
-	}
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
-    char * device;
-    char * dhcpclass = NULL;
-    char * chptr;
-    struct pumpNetIntf cfg;
-    PyObject * rc;
-
-    if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
-	return NULL;
-
-    chptr = pumpDhcpClassRun(device, 0, 0, NULL, dhcpclass, &cfg, NULL);
-    if (chptr) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    if (pumpSetupInterface(&cfg)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (pumpSetupDefaultGateway(&cfg.gateway)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (cfg.numDns)
-	rc = PyString_FromString(inet_ntoa(cfg.dnsServers[0]));
-    else
-	rc = PyString_FromString("");
-
-    return rc;
 }
 
 #include <linux/fb.h>
