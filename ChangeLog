@@ -1,3 +1,19 @@
+2006-06-07  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec: Require libdhcp-devel, libdhcp4client-devel, and
+	libdhcp6client-devel
+
+	* loader2/Makefile: Link with libdhcp, remove libpump stuff
+
+	* loader2/net.c: Changes to use libdhcp instead of pump, support IPv6
+	* loader2/net.h: Likewise
+	* loader2/nfsinstall.c: Likewise
+	* loader2/telnetd.c: Likewise
+	* loader2/urlinstall.c: Likewise
+
+	* isys/Makefile: Remove -lpump
+	* isys/isys.c: Remove doPumpNetDevice and doConfigNetDevice
+
 2006-06-06  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
