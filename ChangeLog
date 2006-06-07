@@ -1,3 +1,12 @@
+2006-06-07  Chris Lumens  <clumens@redhat.com>
+
+	* network.py (IPError, IPMissing):  Moved here from iw/ipwidget.py.
+	(sanityCheckIPString):  Simplified to just check the string, so we can
+	complicate it up later for IPv6.
+	* iw/ipwidget.py:  Removed.
+	* iw/iscsi_gui.py:  Use a gtk.Entry instead of an IPEditor.
+	* iw/network_gui.py:  Likewise.
+
 2006-06-07  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Require libdhcp-devel, libdhcp4client-devel, and

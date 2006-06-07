@@ -22,7 +22,6 @@ import gui
 from rhpl.translate import _, N_
 import network
 import checklist
-import ipwidget
 
 global_options = [_("Gateway"), _("Primary DNS"),
 		  _("Secondary DNS"), _("Tertiary DNS")]
@@ -71,8 +70,9 @@ class NetworkWindow(InstallWindow):
 	    tmpvals = {}
 	    for t in range(len(global_options)):
 		try:
-		    tmpvals[t] = self.globals[global_options[t]].dehydrate()
-		except ipwidget.IPMissing, msg:
+                    network.sanityCheckIPString(self.globals[global_options[t]].get_text())
+		    tmpvals[t] = self.globals[global_options[t]].get_text()
+		except network.IPMissing, msg:
                     if t < 2 and self.getNumberActiveDevices() > 0:
 			if self.handleMissingOptionalIP(global_options[t]):
 			    raise gui.StayOnScreen
@@ -81,8 +81,8 @@ class NetworkWindow(InstallWindow):
 		    else:
 			    tmpvals[t] = None
 			
-		except ipwidget.IPError, msg:
-		    self.handleIPError(global_options[t], msg[0])
+		except network.IPError, msg:
+		    self.handleIPError(global_options[t], msg)
 		    raise gui.StayOnScreen
 
 	    self.network.gateway = tmpvals[0]
@@ -190,9 +190,6 @@ class NetworkWindow(InstallWindow):
     def handleNoActiveDevices(self):
 	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active.\n\nNOTE: If you have a PCMCIA-based network adapter you should leave it inactive at this point. When you reboot your system the adapter will be activated automatically."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
     
-    def setHostnameRadioState(self):
-	pass
-
     def editDevice(self, data):
 	if self.ignoreEvents:
 	    return
@@ -266,11 +263,10 @@ class NetworkWindow(InstallWindow):
 	    label.set_property("use-underline", True)
 	    ipTable.attach(label, 0, 1, t+1, t+2, gtk.FILL, 0, 10)
 
-	    entry = ipwidget.IPEditor()
-	    entry.hydrate(self.devices[dev].get(options[t][1]))
+            entry = gtk.Entry()
 	    entrys[t] = entry
-	    label.set_mnemonic_widget(entry.getFocusableWidget())
-	    ipTable.attach(entry.getWidget(), 1, 2, t+1, t+2, 0, gtk.FILL|gtk.EXPAND)
+	    label.set_mnemonic_widget(entry)
+	    ipTable.attach(entry, 1, 2, t+1, t+2, 0, gtk.FILL|gtk.EXPAND)
 
 	devbox.pack_start(ipTable, False, False, 6)
         devbox.set_border_width(6)
@@ -336,13 +332,14 @@ class NetworkWindow(InstallWindow):
 		tmpvals = {}
 		for t in range(len(options)):
 		    try:
-			tmpvals[t] = entrys[t].dehydrate()
-		    except ipwidget.IPMissing, msg:
+                        network.sanityCheckIPString(entrys[t].get_text())
+                        tmpvals[t] = entrys[t].get_text()
+		    except network.IPMissing, msg:
 			self.handleIPMissing(options[t][0])
 			valsgood = 0
 			break
-		    except ipwidget.IPError, msg:
-			self.handleIPError(options[t][0], msg[0])
+		    except network.IPError, msg:
+			self.handleIPError(options[t][0], msg)
 			valsgood = 0
 			break
 
@@ -588,9 +585,9 @@ class NetworkWindow(InstallWindow):
 	    label.set_alignment(0.0, 0.0)
 	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0)
 	    align = gtk.Alignment(0, 0.5)
-	    options[i] = ipwidget.IPEditor()
-	    align.add(options[i].getWidget())
-	    label.set_mnemonic_widget(options[i].getFocusableWidget())
+	    options[i] = gtk.Entry()
+	    align.add(options[i])
+	    label.set_mnemonic_widget(options[i])
 
 	    self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
 
@@ -604,13 +601,17 @@ class NetworkWindow(InstallWindow):
 
 	if not self.anyUsingDHCP():
 	    if self.network.gateway:
-		self.globals[_("Gateway")].hydrate(self.network.gateway)
+                self.globals[_("Gateway")] = self.network.gateway
+                options[0].set_text(self.network.gateway)
 	    if self.network.primaryNS:
-		self.globals[_("Primary DNS")].hydrate(self.network.primaryNS)
+                self.globals[_("Primary DNS")] = self.network.primaryNS
+                options[1].set_text(self.network.primaryNS)
 	    if self.network.secondaryNS:
-		self.globals[_("Secondary DNS")].hydrate(self.network.secondaryNS)
+                self.globals[_("Secondary DNS")] = self.network.secondaryNS
+                options[2].set_text(self.network.secondaryNS)
 	    if self.network.ternaryNS:
-		self.globals[_("Tertiary DNS")].hydrate(self.network.ternaryNS)
+                self.globals[_("Tertiary DNS")] = self.network.ternaryNS
+                options[3].set_text(self.network.ternaryNS)
 
 	self.ipTable.set_border_width(6)
 

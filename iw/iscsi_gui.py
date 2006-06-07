@@ -11,14 +11,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-
 import gtk
 import gobject
 import gui
 import iutil
+import network
 from rhpl.translate import _, N_
 from iw_gui import *
-import ipwidget
 
 class iscsiWindow(InstallWindow):
     def __init__(self, ics):
@@ -28,12 +27,13 @@ class iscsiWindow(InstallWindow):
 
     def getNext(self):
         try:
-            self.iscsi.ipaddr = self.ip_widget.dehydrate()
-        except ipwidget.IPMissing, msg:
+            network.sanityCheckIPString(self.ip_widget.get_text())
+            self.iscsi.ipaddr = self.ip_widget.get_text()
+        except network.IPMissing, msg:
             self.intf.messageWindow(_("Error with Data"),
                                     _("No IP address entered, skipping iSCSI setup"))
-        except ipwidget.IPError, msg:
-            self.intf.messageWindow(_("Error with Data"), _("%s") % (msg[0],))
+        except network.IPError, msg:
+            self.intf.messageWindow(_("Error with Data"), _("%s") % (msg,))
             raise gui.StayOnScreen
 
         self.iscsi.port = self.port.get_text()
@@ -49,8 +49,8 @@ class iscsiWindow(InstallWindow):
 
         (self.xml, widget) = gui.getGladeWidget("iscsi-config.glade", "iscsiRows")
         self.ip_table = self.xml.get_widget("iscsiTable")
-        self.ip_widget = ipwidget.IPEditor()
-        self.ip_widget.hydrate(self.iscsi.ipaddr)
+        self.ip_widget = gtk.Entry()
+        self.ip_widget.set_text(self.iscsi.ipaddr)
 
         self.port = self.xml.get_widget("iscsiPort")
         if self.iscsi.port:
@@ -65,8 +65,8 @@ class iscsiWindow(InstallWindow):
 
         # XXX there is too much space around the IP address. Using this
         # variant had no affect:
-        # self.ip_table.attach(self.ip_widget.getWidget(), 1, 2, 0, 1, gtk.FILL|gtk.EXPAND)
-        self.ip_table.attach(self.ip_widget.getWidget(), 1, 2, 0, 1)
+        # self.ip_table.attach(self.ip_widget, 1, 2, 0, 1, gtk.FILL|gtk.EXPAND)
+        self.ip_table.attach(self.ip_widget, 1, 2, 0, 1)
         return widget
 
 # vim:tw=78:ts=4:et:sw=4

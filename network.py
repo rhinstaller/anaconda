@@ -32,6 +32,12 @@ from rhpl.simpleconfig import SimpleConfigFile
 import logging
 log = logging.getLogger("anaconda")
 
+class IPError(Exception):
+    pass
+
+class IPMissing(Exception):
+    pass
+
 def inStrRange(v, s):
     if string.find(s, v) == -1:
 	return 0
@@ -78,25 +84,15 @@ def anyUsingDHCP(devices):
                 return 1
     return 0
 
-# sanity check an IP string.  if valid, returns octets, if invalid, return None
+# sanity check an IP string.
 def sanityCheckIPString(ip_string):
     ip_re = re.compile('^([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])$')
-    
-    #Sanity check the string
-    m = ip_re.match (ip_string)
-    try:
-        if not m:
-            return None
-        octets = m.groups()
-        if len(octets) != 4:
-            return None
-        for octet in octets:
-            if (int(octet) < 0) or (int(octet) > 255):
-                return None
-    except TypeError:
-        return None
 
-    return octets
+    if ip_string.strip() == "":
+	raise IPMissing, _("IP Address is missing.")
+
+    if not ip_re.match(ip_string):
+        raise IPError, _("IP Addresses must contain four numbers between 0 and 255, separated by periods.")
 
 def hasActiveNetDev():
     # try to load /tmp/netinfo and see if we can sniff out network info
