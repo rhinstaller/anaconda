@@ -81,7 +81,7 @@ static void ipCallback(newtComponent co, void * dptr) {
                         newtEntrySet(data->nmEntry, ascii, 1);
                         break;
                     case AF_INET6:
-                        /* FIXME: writeme */
+                        /* FIXME: writeme? */
                         break;
                 }
             }
@@ -207,8 +207,41 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     free(buf);
 }
 
+/* FIXME: use netlink to bring up lo device */
 void initLoopback(void) {
-    /* this function needs to configure IPv4 and IPv6 localhost using Netlink */
+    struct in_addr addr;
+    struct in6_addr addr6;
+    NLH_t nh;
+    NIC_t nic;
+    IPaddr_t a1, a2;
+    IPaddr_list_t *al;
+    ip_addr_t tip;
+
+    /* open nic handle and set device name */
+    nh = nic_open(nic_stderr_logger);
+    nic = nic_by_name(nh, "lo");
+
+    /* IPv4 address for loopback */
+    inet_pton(AF_INET, "127.0.0.1", &addr);
+    tip = ip_addr_in(&addr);
+    a1 = nic_addr_ip(nh, &tip);
+
+    /* IPv6 address for loopback */
+    inet_pton(AF_INET6, "::1/128", &addr6);
+    tip = ip_addr_in6(&addr6);
+    a2 = nic_addr_ip(nh, &tip);
+
+    /* list of addresses */
+    al = nic_address_list_new(a1, a2, 0);
+
+    /* bring the interface up */
+    nic_set_flags(nic, IFF_UP | IFF_RUNNING);
+    nic_configure(nh, nic, al, NULL, NULL, "localdomain", "localhost");
+
+    /* clean up */
+    nic_address_list_free(al);
+    nic_close(&nh);
+
     return;
 }
 
@@ -352,7 +385,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ip, "dhcp", 4)) {
-            int ret = -1;
+            char *ret = NULL;
 
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
              * be broken out into a function too */
@@ -371,16 +404,14 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                ret = doDhcp(loaderData->netDev, cfg, loaderData->netCls);
+                ret = doDhcp(cfg);
             }
 
             if (!FL_CMDLINE(flags))
                 newtPopWindow();
 
-            if (ret) {
-                logMessage(DEBUGLVL, "dhcp: %s",
-                    (ret==DO_DHCP_OUT_OF_MEMORY) ? "out of memory" :
-                    (ret==DO_DHCP_FAILURE) ? "failure" : "unknown error");
+            if (ret != NULL) {
+                logMessage(DEBUGLVL, "dhcp: %s", ret);
                 return;
             }
             
@@ -496,7 +527,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     struct in_addr addr;
     struct in6_addr addr6;
     char dhcpChoice;
-    int dret = -1;
+    char *dret = NULL;
     char ret[47];
     ip_addr_t *tip;
 
@@ -677,23 +708,21 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                dret = doDhcp(device, &newCfg, dhcpclass);
+                dret = doDhcp(&newCfg);
                 newtPopWindow();
             }
 
-            if (dret==DO_DHCP_SUCCESS) {
+            if (dret==NULL) {
                 newCfg.isDynamic = 1;
                 if (!(newCfg.dev.set & PUMP_NETINFO_HAS_DNS)) {
-                    logMessage(WARNING, "pump worked, but didn't return a DNS server");
+                    logMessage(WARNING, "dhcp worked, but did not return a DNS server");
                     i = getDnsServers(&newCfg);
                     i = i ? 0 : 2;
                 } else {
                     i = 2; 
                 }
             } else {
-                logMessage(DEBUGLVL, "dhcp: %s",
-                    (dret==DO_DHCP_OUT_OF_MEMORY) ? "out of memory" :
-                    (dret==DO_DHCP_FAILURE) ? "failure" : "unknown error");
+                logMessage(DEBUGLVL, "dhcp: %s", dret);
                 i = 0;
             }
         }
@@ -759,210 +788,25 @@ static int setupWireless(struct networkDeviceConfig *dev) {
     return 0;
 }
 
-char * setupInterface(struct networkDeviceConfig *dev) {
+char *setupInterface(struct networkDeviceConfig *dev) {
     setupWireless(dev);
     return pumpSetupInterface(&dev->dev);
 }
 
-void ifxDHCPv6(struct pumpNetIntf *ifx) {
-    IPaddr_t addr = STAILQ_FIRST( &(ifx->dhcp_nic->dhcpv6->address_list) )->addr;
-
-    if( ifx->set & PUMP_INTFINFO_HAS_IP ) {
-        ifx->ipv6 = nic_ip_addr( addr );
-        if( (ifx->ipv6_prefixlen = nic_addr_get_prefix( addr )) > 0 )
-            ifx->set |= PUMP_INTFINFO_HAS_IPV6_PREFIX;
-        ifx->set |= PUMP_INTFINFO_HAS_IPV6_IP;
-    } else {
-        ifx->ip = nic_ip_addr( addr );
-        ifx->set |= PUMP_INTFINFO_HAS_IP;
-        ifx->ipv6_prefixlen = nic_addr_get_prefix( addr );
-        if ( ifx->ipv6_prefixlen ) {
-            ifx->network = ip_mask(&ifx->ip, ifx->ipv6_prefixlen);
-            ifx->set |= PUMP_INTFINFO_HAS_NETWORK;
-        }
-    }
-
-    if( !STAILQ_EMPTY(&(ifx->dhcp_nic->dhcpv6->dns_list)) ) {
-        IPaddr_list_node_t *n=0;
-        STAILQ_FOREACH(n, &(ifx->dhcp_nic->dhcpv6->dns_list), link) {
-            if( ifx->numDns >= MAX_DNS_SERVERS )
-                break;
-            ifx->dnsServers[ ifx->numDns++ ] = nic_ip_addr( n->addr );
-            ifx->set |= PUMP_NETINFO_HAS_DNS;
-        }
-    }
-
-    if(  (ifx->set & PUMP_NETINFO_HAS_DNS) && ifx->dhcp_nic->dhcpv6->search_list) {
-        char *s=ifx->domain;
-        asprintf(&(ifx->domain), "%s%s%s", s ? s : "", s ? " " : "" , ifx->dhcp_nic->dhcpv6->search_list);
-        if( s )
-            free(s);
-        ifx->set |= PUMP_NETINFO_HAS_DOMAIN;
-    }
+void logger(void *arg, int priority, char *fmt, va_list va) {
+    /* Uncomment the line below to get lots of libdhcp noise:
+    libdhcp_stderr_logger(0, priority, fmt, va);
+    */
+    return;
 }
 
-void ifxDHCPv4( struct pumpNetIntf *ifx )
-{
-    IPaddr_t addr = STAILQ_FIRST( &(ifx->dhcp_nic->dhcpv4->address_list) )->addr;
-    if( ifx->set & PUMP_INTFINFO_HAS_IP )
-    {
-        ifx->ipv4 = nic_ip_addr( addr );
-        ifx->set |= PUMP_INTFINFO_HAS_IPV4_IP;
-    }else
-    {
-        ifx->ip = nic_ip_addr( addr );
-        ifx->set |= PUMP_INTFINFO_HAS_IP;
-        if ( nic_addr_get_prefix( addr ) )
-        {
-            ifx->network = ip_mask(&ifx->ip, nic_addr_get_prefix( addr ) );
-            ifx->set |= PUMP_INTFINFO_HAS_NETWORK;
-        }
-    }
-    if ( nic_addr_get_prefix( addr ) )
-    {
-        ifx->netmask = ip_v4_prefix_to_netmask( nic_addr_get_prefix( addr ) );
-        ifx->set |= PUMP_INTFINFO_HAS_NETMASK;
+char *doDhcp(struct networkDeviceConfig *dev) {
+    struct pumpNetIntf *ifx;
+    char *ret = NULL;
 
-        ip_addr_t broadcast = nic_addr_get_broadcast( addr );
-        if( broadcast.sa_family )
-        {
-            ifx->broadcast = broadcast;
-            ifx->set |= PUMP_INTFINFO_HAS_BROADCAST;
-        }
-    }
-    if(  ifx->dhcp_nic->dhcpv4
-       &&( !STAILQ_EMPTY( &( ifx->dhcp_nic->dhcpv4->route_list )) )
-      )
-    {
-        IProute_list_node_t *n;
-        STAILQ_FOREACH( n, &( ifx->dhcp_nic->dhcpv4->route_list ), link )
-        {
-            ip_addr_t dst   = nic_route_get_dst( n->route );
-            ip_addr_t gw    = nic_route_get_gateway( n->route );
-            uint8_t dst_len = nic_route_get_dst_len( n->route );
-            if(  (dst.sa_family == 0)
-               &&(dst_len == 0)
-               &&(gw.sa_family == AF_INET)
-              )
-            {
-                ifx->gateway = gw;
-                ifx->set |= PUMP_NETINFO_HAS_GATEWAY;
-                break;
-            }
-        }
-    }
-    if(   ifx->dhcp_nic->dhc4ctl
-       && dhcpv4_mtu_option( ifx->dhcp_nic->dhc4ctl )
-      )
-    {
-        ifx->mtu =  dhcpv4_mtu_option( ifx->dhcp_nic->dhc4ctl );
-        ifx->set |= PUMP_INTFINFO_HAS_MTU;
-    }
-    if(  ifx->dhcp_nic->dhcpv4->lease.dhcp4_lease )
-    {
-        DHCPv4_lease *lease=ifx->dhcp_nic->dhcpv4->lease.dhcp4_lease;
-        if ( lease->server_address.s_addr != 0 )
-        {
-            ifx->nextServer = ip_addr_in(&(lease->server_address));
-            ifx->set |= PUMP_INTFINFO_HAS_NEXTSERVER;
-        }
-        if ( lease->filename )
-        {
-            ifx->bootFile = strdup( lease->filename );
-            ifx->set |= PUMP_INTFINFO_HAS_BOOTFILE;
-        }
-    }
-
-    if( !STAILQ_EMPTY(&(ifx->dhcp_nic->dhcpv4->dns_list)) )
-    {
-        IPaddr_list_node_t *n=0;
-        STAILQ_FOREACH(n, &(ifx->dhcp_nic->dhcpv4->dns_list), link)
-        {
-            if( ifx->numDns >= MAX_DNS_SERVERS )
-                break;
-            ifx->dnsServers[ ifx->numDns++ ] = nic_ip_addr( n->addr );
-            ifx->set |= PUMP_NETINFO_HAS_DNS;
-        }
-    }
-    if(  (ifx->set & PUMP_NETINFO_HAS_DNS)
-       && ifx->dhcp_nic->dhcpv4->search_list
-      )
-    {
-        char *s=ifx->domain;
-        asprintf
-            (   &(ifx->domain),
-                "%s%s%s",
-                s ? s : "",
-                s ? " " : "" ,
-                ifx->dhcp_nic->dhcpv4->search_list
-            );
-        if( s )
-            free(s);
-        ifx->set |= PUMP_NETINFO_HAS_DOMAIN;
-    }
-    if( ifx->dhcp_nic->dhcpv4->host_name )
-    {
-        ifx->set |= PUMP_NETINFO_HAS_HOSTNAME;
-        if(ifx->hostname)
-            free(ifx->hostname);
-        ifx->hostname = strdup( ifx->dhcp_nic->dhcpv4->host_name );
-    }
-}
-
-int doDhcp(char * ifname, 
-              struct networkDeviceConfig *dev, char * dhcpclass) {
-    struct pumpNetIntf *ifx = &dev->dev;
-    LIBDHCP_Capability cap = DHCP_CONFIGURE_INTERFACES;
-
-/* no work yet
-    DHCP_Preference dhcp_preference = IPv6_PREFERENCE;
-*/
-    DHCP_Preference dhcp_preference = DHCPv6_DISABLE;
-
-    setupWireless(dev);
-    logMessage(INFO, "running dhcp for %s", ifname);
-    cap |= DHCP_CONFIGURE_ADDRESSES|DHCP_CONFIGURE_RADVD;
-    cap |= DHCP_CONFIGURE_ROUTES|DHCP_CONFIGURE_RESOLVER;
-
-    if (ifx->nh == 0) {
-        ifx->nh = nic_open(0);
-        if (ifx->nh == 0L)
-            return DO_DHCP_OUT_OF_MEMORY;
-    }
-
-    ifx->dhcp_nic = dhcp_nic(ifx->nh, dhcp_preference, ifx->device,
-                             cap, 20, NULL, 0,
-                             "-V", dhcpclass,
-                             0L, 0L, 0L);
-
-    if (ifx->dhcp_nic) {
-        /* fill in the pumpNetIntf structure.
-         * We'll just use the FIRST configured address as ifx->ip -
-         * users should realize that a list of addresses may have
-         * been configured.
-         */
-        if ((ifx->dhcp_nic->dhcpv4 && ifx->dhcp_nic->dhcpv6 )
-            &&(!STAILQ_EMPTY(&(ifx->dhcp_nic->dhcpv4->address_list)))
-            &&(!STAILQ_EMPTY(&(ifx->dhcp_nic->dhcpv6->address_list)))) {
-            if (dhcp_preference & IPv6_PREFERENCE) {
-                ifxDHCPv6 (ifx);
-                ifxDHCPv4 (ifx);
-            } else {
-                ifxDHCPv4 (ifx);
-                ifxDHCPv6 (ifx);
-            }
-        } else if (ifx->dhcp_nic->dhcpv4
-                   &&(!STAILQ_EMPTY(&(ifx->dhcp_nic->dhcpv4->address_list)))) {
-            ifxDHCPv4 (ifx);
-        } else if (ifx->dhcp_nic->dhcpv6
-                   &&(!STAILQ_EMPTY(&(ifx->dhcp_nic->dhcpv6->address_list)))) {
-            ifxDHCPv6 (ifx);
-        }
-    } else {
-        return DO_DHCP_FAILURE;
-    }
-
-    return DO_DHCP_SUCCESS;
+    ifx = &dev->dev;
+    ret = pumpDhcpClassRun(ifx, 0L, 0L, 0, 0, 10, logger, LOG_INFO);
+    return ret;
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
@@ -970,7 +814,7 @@ int configureNetwork(struct networkDeviceConfig * dev) {
 
     rc = setupInterface(dev);
     if (rc)
-	logMessage(INFO, "result of pumpSetupInterface is %s", rc);
+	logMessage(INFO, "result of setupInterface is %s", rc);
 
     /* we need to wait for a link after setting up the interface as some
      * switches decide to reconfigure themselves after that (#115825)
