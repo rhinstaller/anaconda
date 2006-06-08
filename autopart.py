@@ -235,11 +235,11 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 if (disk.extended_partition.geom.start < startSec) and (disk.extended_partition.geom.end >= endSec):
                     partType = parted.PARTITION_LOGICAL
                     if request.primary: # they've required a primary and we can't do it
-                        return PARTITION_FAIL
+                        raise PartitioningError, "Cannot create another primary partition for %s." % request.mountpoint
                     # check to make sure we can still create more logical parts
                     if (len(partedUtils.get_logical_partitions(disk)) ==
                         partedUtils.get_max_logical_partitions(disk)):
-                        return PARTITION_FAIL
+                        raise PartitioningError, "Cannot create another logical partition for %s." % request.mountpoint
                 else:
                     partType = parted.PARTITION_PRIMARY
             else:
@@ -264,8 +264,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 disk.add_partition (newp, constraint)
 
             except parted.error, msg:
-                return PARTITION_FAIL
-#                raise PartitioningError, msg
+                raise PartitioningError, msg
             for flag in request.fstype.getPartedPartitionFlags():
                 if not newp.is_flag_available(flag):
                     disk.delete_partition(newp)
@@ -960,18 +959,20 @@ def processPartitioning(diskset, requests, newParts):
     # size
 
     # run through with primary only constraints first
-    ret = fitConstrained(diskset, requests, 1, newParts)
-    if ret == PARTITION_FAIL:
-        return (ret, _("Could not allocate cylinder-based partitions as primary partitions"))
+    try:
+        fitConstrained(diskset, requests, 1, newParts)
+    except ParititioningError, msg:
+        return (PARTITION_FAIL, _("Could not allocate cylinder-based partitions as primary partitions.\n\n%s") % msg)
 
     try:
         fitSized(diskset, requests, 1, newParts)
     except PartitioningError, msg:
-        return (PARTITION_FAIL, _("Could not allocate partitions as primary partitions.\n\n%s" % msg))
+        return (PARTITION_FAIL, _("Could not allocate partitions as primary partitions.\n\n%s") % msg)
 
-    ret = fitConstrained(diskset, requests, 0, newParts)
-    if ret == PARTITION_FAIL:
-        return (ret, _("Could not allocate cylinder-based partitions"))
+    try:
+        fitConstrained(diskset, requests, 0, newParts)
+    except PartitioningError, msg:
+        return (PARTITION_FAIL, _("Could not allocate cylinder-based partitions.\n\n%s") % msg)
 
     try:
         fitSized(diskset, requests, 0, newParts)
@@ -989,7 +990,6 @@ def processPartitioning(diskset, requests, newParts):
             request.device = str(request.uniqueID)
 
         if not request.device:
-#            return PARTITION_FAIL
             raise PartitioningError, "Unsatisfied partition request\n%s" %(request)
 
 
