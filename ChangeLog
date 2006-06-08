@@ -1,8 +1,15 @@
 2006-06-08  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.c (initLoopback): No need to specify addresses, it's
+	loopback.
+	* ChangeLog: Fix previous formatting error in my ChangeLog entry.
+
+2006-06-08  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/net.c: Add some stuff to initLoopback() that should work, but
 	appears not to (looking in to it).  Return to using pumpDhcpClassRun()
-	for doDhcp() for now, converting later.  Removed ifxDHCPv6 and ifxDHCPv4.
+	for doDhcp() for now, converting later.  Removed ifxDHCPv6 and
+	ifxDHCPv4.
 	* loader2/net.h: doDhcp() returns a pointer again.
 
 2006-06-08  David Cantrell  <dcantrell@redhat.com>

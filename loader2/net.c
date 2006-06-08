@@ -207,39 +207,23 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     free(buf);
 }
 
-/* FIXME: use netlink to bring up lo device */
 void initLoopback(void) {
-    struct in_addr addr;
-    struct in6_addr addr6;
     NLH_t nh;
     NIC_t nic;
-    IPaddr_t a1, a2;
-    IPaddr_list_t *al;
-    ip_addr_t tip;
+    uint32_t flags;
 
     /* open nic handle and set device name */
     nh = nic_open(nic_stderr_logger);
     nic = nic_by_name(nh, "lo");
 
-    /* IPv4 address for loopback */
-    inet_pton(AF_INET, "127.0.0.1", &addr);
-    tip = ip_addr_in(&addr);
-    a1 = nic_addr_ip(nh, &tip);
-
-    /* IPv6 address for loopback */
-    inet_pton(AF_INET6, "::1/128", &addr6);
-    tip = ip_addr_in6(&addr6);
-    a2 = nic_addr_ip(nh, &tip);
-
-    /* list of addresses */
-    al = nic_address_list_new(a1, a2, 0);
-
     /* bring the interface up */
-    nic_set_flags(nic, IFF_UP | IFF_RUNNING);
-    nic_configure(nh, nic, al, NULL, NULL, "localdomain", "localhost");
+    flags = nic_get_flags(nic);
+    if ((flags & (IFF_UP | IFF_RUNNING)) == 0) {
+        nic_set_flags(nic, flags | IFF_UP | IFF_RUNNING);
+        nic_update(nic);
+    }
 
     /* clean up */
-    nic_address_list_free(al);
     nic_close(&nh);
 
     return;
