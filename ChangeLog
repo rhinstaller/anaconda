@@ -1,3 +1,8 @@
+2006-06-08  Chris Lumens  <clumens@redhat.com>
+
+	* network.py (sanityCheckIPString):  A better validation check that
+	takes IPv6 into account.
+
 2006-06-07  Chris Lumens  <clumens@redhat.com>
 
 	* network.py (IPError, IPMissing):  Moved here from iw/ipwidget.py.

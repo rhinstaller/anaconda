@@ -21,7 +21,6 @@ import isys
 import iutil
 import socket
 import os
-import re
 import kudzu
 import rhpl
 from flags import flags
@@ -86,13 +85,20 @@ def anyUsingDHCP(devices):
 
 # sanity check an IP string.
 def sanityCheckIPString(ip_string):
-    ip_re = re.compile('^([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])$')
-
     if ip_string.strip() == "":
-	raise IPMissing, _("IP Address is missing.")
+        raise IPMissing, _("IP Address is missing.")
 
-    if not ip_re.match(ip_string):
-        raise IPError, _("IP Addresses must contain four numbers between 0 and 255, separated by periods.")
+    if ip_string.find(':') == -1:
+        family = socket.AF_INET
+        errstr = _("IP Addresses must contain four numbers between 0 and 255, separated by periods.")
+    else:
+        family = socket.AF_INET6
+        errstr = _("'%s' is not a valid IPv6 address.") % ip_string
+
+    try:
+        socket.inet_pton(family, ip_string)
+    except socket.error:
+        raise IPError, errstr
 
 def hasActiveNetDev():
     # try to load /tmp/netinfo and see if we can sniff out network info
