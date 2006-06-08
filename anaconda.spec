@@ -41,8 +41,8 @@ Group: Applications/System
 AutoReqProv: false
 Requires: libxml2-python, python, rpm-python >= 4.2-0.61, yum >= 2.4.0
 Requires: anaconda = %{version}-%{release}
-Requires: createrepo >= 0.4.3-3.1, squashfs-tools
-Requires: /usr/bin/strip
+Requires: createrepo >= 0.4.3-3.1, squashfs-tools, mkisofs, syslinux
+Requires: /usr/bin/strip, xorg-x11-font-utils, netpbm-tools
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
@@ -83,7 +83,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files runtime
 %defattr(-,root,root)
-/usr/lib/anaconda-runtime
+/usr/lib/anaconda-runtime/*md5
+/usr/lib/anaconda-runtime/*.py*
+/usr/lib/anaconda-runtime/*.so*
+/usr/lib/anaconda-runtime/boot/*.msg
+/usr/lib/anaconda-runtime/boot/syslinux.cfg
+/usr/lib/anaconda-runtime/loader/
+/usr/lib/anaconda-runtime/buildinstall
+/usr/lib/anaconda-runtime/filtermoddeps
+/usr/lib/anaconda-runtime/getkeymaps
+/usr/lib/anaconda-runtime/keymaps-override*
+/usr/lib/anaconda-runtime/mapshdr
+/usr/lib/anaconda-runtime/mk-images*
+/usr/lib/anaconda-runtime/mk-rescueimage*
+/usr/lib/anaconda-runtime/moddeps
+/usr/lib/anaconda-runtime/modlist
+/usr/lib/anaconda-runtime/pkgorder
+/usr/lib/anaconda-runtime/readmap
+/usr/lib/anaconda-runtime/screenfont-i386.gz
+/usr/lib/anaconda-runtime/scrubtree
+/usr/lib/anaconda-runtime/trimmodalias
+/usr/lib/anaconda-runtime/trimpciids
+/usr/lib/anaconda-runtime/upd-instroot
+/usr/lib/anaconda-runtime/yumcache
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
