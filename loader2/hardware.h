@@ -20,4 +20,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo, int flags);
 
+void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
+               moduleInfoSet modInfo, int flags);
+
 #endif

@@ -1,3 +1,16 @@
+2006-06-08  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/hardware.c: Added ipv6Setup() to load the ipv6.ko module.
+	* loader2/hardware.h: Added ipv6Setup() prototype.
+
+	* loader2/loader.c: Run ipv6Setup() on start. Look for a 'noipv6' flag
+	passed to the installer. If we see that, disable IPv6 during install.
+	* loader2/loader.h: Order flags numerically. Add NOIPV6 flag.
+
+	* loader2/module-info: Add ipv6 module.
+
+	* docs/command-line.txt: Added note about noipv6 option.
+
 2006-06-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec (Requires): And dosfstools is needed too

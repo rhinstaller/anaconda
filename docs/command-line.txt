@@ -172,3 +172,5 @@ syslog=<host>[:<port>]	Once installation is up and running, send log
 		messages to the syslog process on <host>, and optionally, on
 		port <port>.  Requires the remote syslog process to accept
 		connections (the -r option).
+
+noipv6          Disable IPv6 networking during installation.

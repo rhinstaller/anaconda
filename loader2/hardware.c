@@ -239,6 +239,13 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 }
 
 
+void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
+               moduleInfoSet modInfo, int flags) {
+    if (!FL_NOIPV6(flags))
+        mlLoadModule("ipv6", modLoaded, modDeps, modInfo, NULL, flags);
+}
+
+
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo, int flags) {
     mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);

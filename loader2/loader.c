@@ -120,7 +120,6 @@ void setupRamfs(void) {
     doPwMount("none", "/tmp/ramfs", "ramfs", 0, NULL);
 }
 
-
 void doSuspend(void) {
     newtFinished();
     exit(1);
@@ -208,10 +207,6 @@ char * getProductPath(void) {
     }
     return productPath;
 }
-
-
-
-	
 
 void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
                        moduleInfoSet modInfo, int flags) {
@@ -708,6 +703,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
 		    flags |= LOADER_FLAGS_GRAPHICAL;
 		else if (!strncasecmp(argv[i], "iscsi", 5))
 		    flags |= LOADER_FLAGS_ISCSI;
+		else if (!strncasecmp(argv[i], "noipv6", 6))
+		    flags |= LOADER_FLAGS_NOIPV6;
 
                 arglen = strlen(argv[i])+3;
                 extraArgs[numExtraArgs] = (char *) malloc(arglen*sizeof(char));
@@ -1332,6 +1329,9 @@ int main(int argc, char ** argv) {
     mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:pcspkr:squashfs", 
                     modLoaded, modDeps, modInfo, flags);
 #endif
+
+    /* IPv6 support is conditional */
+    ipv6Setup(modLoaded, modDeps, modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
     ideSetup(modLoaded, modDeps, modInfo, flags);

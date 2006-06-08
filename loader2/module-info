@@ -269,6 +269,10 @@ ibmtr
 	"Shared-memory IBM Token Ring 16/4"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
+ipv6
+	net
+	"IPv6 protocol stack for Linux"
+
 ixgb
 	eth
 	"Intel PRO/10GbE"
