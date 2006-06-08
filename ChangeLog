@@ -6,6 +6,9 @@
 	* network.py (sanityCheckIPString):  A better validation check that
 	takes IPv6 into account.
 
+	* yuminstall.py (YumBackend.doPostInstall):  No point in a progress
+	bar that never updates.
+
 2006-06-07  Chris Lumens  <clumens@redhat.com>
 
 	* network.py (IPError, IPMissing):  Moved here from iw/ipwidget.py.

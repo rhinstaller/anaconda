@@ -1072,11 +1072,11 @@ class YumBackend(AnacondaBackend):
             return
 
         if anaconda.id.getUpgrade():
-            w = anaconda.intf.progressWindow(_("Post Upgrade"),
-                                    _("Performing post upgrade configuration..."), 6)
+            w = anaconda.intf.waitWindow(_("Post Upgrade"),
+                                    _("Performing post upgrade configuration..."))
         else:
-            w = anaconda.intf.progressWindow(_("Post Install"),
-                                    _("Performing post install configuration..."), 6)
+            w = anaconda.intf.waitWindow(_("Post Install"),
+                                    _("Performing post install configuration..."))
             anaconda.id.network.write(anaconda.rootPath)
 
         self.copyExtraModules(anaconda)
