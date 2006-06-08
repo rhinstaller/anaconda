@@ -245,8 +245,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             else:
                 # XXX need a better way to do primary vs logical stuff
                 ret = bestPartType(disk, request)
-                if ret == PARTITION_FAIL:
-                    return ret
+
                 if ret == parted.PARTITION_PRIMARY:
                     partType = parted.PARTITION_PRIMARY
                 elif ret == parted.PARTITION_EXTENDED:
@@ -389,7 +388,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 # if the request has a size of zero, it can be allowed to not
                 # exist without any problems
                 if request.size > 0:
-                    return PARTITION_FAIL
+                    raise PartitioningError, "Not enough space left to create partition for %s" % request.mountpoint
                 else:
                     request.device = None
                     request.currentDrive = None
@@ -417,8 +416,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             else:
                 # XXX need a better way to do primary vs logical stuff
                 ret = bestPartType(disk, request)
-                if ret == PARTITION_FAIL:
-                    return ret
+
                 if ret == parted.PARTITION_PRIMARY:
                     partType = parted.PARTITION_PRIMARY
                 elif ret == parted.PARTITION_EXTENDED:
@@ -466,8 +464,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             try:
                 disk.add_partition (newp, constraint)
             except parted.error, msg:
-                return PARTITION_FAIL                
-#                raise PartitioningError, msg
+                raise PartitioningError, msg
             for flag in request.fstype.getPartedPartitionFlags():
                 if not newp.is_flag_available(flag):
                     disk.delete_partition(newp)                    
@@ -966,15 +963,21 @@ def processPartitioning(diskset, requests, newParts):
     ret = fitConstrained(diskset, requests, 1, newParts)
     if ret == PARTITION_FAIL:
         return (ret, _("Could not allocate cylinder-based partitions as primary partitions"))
-    ret = fitSized(diskset, requests, 1, newParts)
-    if ret == PARTITION_FAIL:
-        return (ret, _("Could not allocate partitions as primary partitions"))
+
+    try:
+        fitSized(diskset, requests, 1, newParts)
+    except PartitioningError, msg:
+        return (PARTITION_FAIL, _("Could not allocate partitions as primary partitions.\n\n%s" % msg))
+
     ret = fitConstrained(diskset, requests, 0, newParts)
     if ret == PARTITION_FAIL:
         return (ret, _("Could not allocate cylinder-based partitions"))
-    ret = fitSized(diskset, requests, 0, newParts)
-    if ret == PARTITION_FAIL:
-        return (ret, _("Could not allocate partitions"))
+
+    try:
+        fitSized(diskset, requests, 0, newParts)
+    except PartitioningError, msg:
+        return (PARTITION_FAIL, msg)
+
     for request in requests.requests:
         # set the unique identifier for raid and lvm devices
         if request.type == REQUEST_RAID and not request.device:

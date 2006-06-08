@@ -27,6 +27,9 @@
 	* anaconda.spec:  Specify anaconda-runtime files better (#198415).
 	Add Requires for anaconda-runtime (#194237).
 
+	* autopart.py (fitSized):  Display a better error message if there's
+	not enough space for the requested partitioning (#181571).
+
 	* fsset.py (FileSystemSet.mountFilesystems):  Raise a warning dialog
 	on upgrade if mounting a non-linux filesystem fails (#185086).
 
