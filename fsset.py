@@ -1736,15 +1736,32 @@ MAILADDR root
                 if raiseErrors:
                     raise SystemError, (num, msg)
                 if self.messageWindow:
-                    self.messageWindow(_("Error"), 
-                                       _("Error mounting device %s as %s: "
-                                         "%s\n\n"
-                                         "This most likely means this "
-                                         "partition has not been formatted."
-                                         "\n\n"
-                                         "Press OK to reboot your system.")
-                                       % (entry.device.getDevice(),
-                                          entry.mountpoint, msg))
+                    if not entry.fsystem.isLinuxNativeFS():
+                        ret = self.messageWindow(_("Unable to mount filesystem"),
+                                                 _("An error occurred mounting "
+                                                 "device %s as %s.  You may "
+                                                 "continue installation, but "
+                                                 "there may be problems.") %
+                                                 (entry.device.getDevice(),
+                                                  entry.mountpoint),
+                                                 type="custom", custom_icon="warning",
+                                                 custom_buttons=[_("_Reboot"),
+                                                                _("_Continue")])
+
+                        if ret == 0:
+                            sys.exit(0)
+                        else:
+                            continue
+                    else:
+                        self.messageWindow(_("Error"), 
+                                           _("Error mounting device %s as %s: "
+                                             "%s\n\n"
+                                             "This most likely means this "
+                                             "partition has not been formatted."
+                                             "\n\n"
+                                             "Press OK to reboot your system.")
+                                           % (entry.device.getDevice(),
+                                              entry.mountpoint, msg))
                 sys.exit(0)
 
         self.makeLVMNodes(anaconda.rootPath)
