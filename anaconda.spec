@@ -20,6 +20,7 @@ Requires: kudzu > 1.2.0, yum >= 2.5.1-3, pirut
 Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart
 Requires: device-mapper >= 1.01.05-3
+Requires: dosfstools e2fsprogs
 %ifnarch s390 s390x
 Requires: python-pyblock >= 0.7-1
 %endif
