@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.24
+Version: 11.1.0.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -112,6 +112,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 08 2006 Chris Lumens <clumens@redhat.com> 11.1.0.25-1
+- More IPv6 fixes (dcantrell).
+- Add ipv6 kernel module to image (dcantrell).
+- Add noipv6 installer flag (dcantrell).
+- Add dosfstools to requires (katzj).
+- Fix anaconda-runtime spec file segment (#198415, #194237).
+- Better partitioning error messages (#181571).
+- Warn if non-linux filesystems can't be mounted on upgrade (#185086).
+- Simplify IP address widgets for IPv6 support.
+- Use libdhcp instead of pump, fix requires (dcantrell).
+
 * Tue Jun  6 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.24-1
 - Read from right stdin for kickstart scripts (Hannu Martikka, #192067)
 - Fix ip addr getting on 64bit boxes (clumens, #193609)
