@@ -272,13 +272,13 @@ def getDefaultDiskType():
     else:
         return parted.disk_type_get("msdos")
 
-archLabels = {'i386': ['msdos'],
+archLabels = {'i386': ['msdos', 'gpt'],
               's390': ['dasd', 'msdos'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
               'ia64': ['msdos', 'gpt'],
               'ppc': ['msdos', 'mac', 'amiga'],
-              'x86_64': ['msdos']}
+              'x86_64': ['msdos', 'gpt']}
 
 # this is kind of crappy, but we don't really want to allow LDL formatted
 # dasd to be used during the install
@@ -792,7 +792,12 @@ class DiskSet:
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
             disk.commit()
-            #disk.close()
+            # FIXME: this belongs in parted itself, but let's do a hack...
+            if iutil.isMactel() and disk.type.name == "gpt" and \
+                   os.path.exists("/usr/sbin/gptsync"):
+                iutil.execWithRedirect("/usr/sbin/gptsync",
+                                       ["gptsync", disk.dev.path],
+                                       stdout="/dev/tty5", stderr="/dev/tty5")
             del disk
         self.refreshDevices()
 

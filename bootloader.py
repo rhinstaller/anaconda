@@ -83,6 +83,8 @@ def bootloaderSetupChoices(anaconda):
             log.warning("MBR not suitable as boot device; installing to partition")
             anaconda.id.bootloader.defaultDevice = "boot"
         anaconda.id.bootloader.setDevice(choices[anaconda.id.bootloader.defaultDevice][0])
+    elif choices and iutil.isMactel() and choices.has_key("boot"): # haccckkkk
+        anaconda.id.bootloader.setDevice(choices["boot"][0])        
     elif choices and choices.has_key("mbr"):
         anaconda.id.bootloader.setDevice(choices["mbr"][0])
     elif choices and choices.has_key("boot"):

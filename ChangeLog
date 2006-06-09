@@ -1,5 +1,15 @@
 2006-06-09  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.sanityCheckAllRequests): Sanity check
+	to ensure /boot on the mactels is on one of the first 4 parts
+
+	* partedUtils.py (DiskSet.savePartitions): Use gptsync to sync
+	gpt->mbr on mactels
+	(archLabels): Allow gpt on i386, x86_64
+
+	* bootloader.py (bootloaderSetupChoices): mactels need their
+	bootloader on the partition.
+
 	* iutil.py (isMactel): Add a way to check if a box is a mactel
 
 	* scripts/upd-instroot (PACKAGES): kernel-utils is no more, make

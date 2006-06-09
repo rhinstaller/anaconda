@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2002-2005 Red Hat, Inc.
+# Copyright 2002-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -809,6 +809,25 @@ class Partitions:
             warnings.append(_("Your root partition is less than 250 "
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
+
+        if rhpl.getArch() in ("i386", "x86_64") and iutil.isMactel():
+            # mactel checks.  
+            bootreqs = self.getBootableRequest() or []
+            # FIXME: missing a check to ensure this is gpt.
+            for br in bootreqs:
+                dev = br.device
+                # simplified getDiskPart() for sata only
+                if dev[-2] in string.digits:
+                    num = dev[-2:]
+                elif dev[-1] in string.digits:
+                    num = dev[-1]
+                else:
+                    continue # we should never get here, but you never know...
+                if int(num) > 4:
+                    print dev, num
+                    errors.append(_("Your boot partition isn't on one of "
+                                    "the first four partitions and thus "
+                                    "won't be bootable."))
 
         if rhpl.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
