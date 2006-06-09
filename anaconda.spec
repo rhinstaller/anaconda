@@ -43,7 +43,7 @@ AutoReqProv: false
 Requires: libxml2-python, python, rpm-python >= 4.2-0.61, yum >= 2.4.0
 Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.3-3.1, squashfs-tools, mkisofs, syslinux
-Requires: /usr/bin/strip, xorg-x11-font-utils, netpbm-tools
+Requires: /usr/bin/strip, xorg-x11-font-utils, netpbm-progs
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
