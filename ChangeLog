@@ -1,5 +1,13 @@
 2006-06-09  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/loader.c: Clean up formatting to make the file more readable.
+	Set useipv6 in the netDev structure depending on 'noipv6' param.
+	* loader2/net.c: Sure can't make up my mind. Put doDhcp back so that I
+	can conditionally do the IPv6 thing or not from one place.
+	* loader2/net.h: doDhcp() prototype.
+
+2006-06-09  David Cantrell  <dcantrell@redhat.com>
+
 	* scripts/mk-images: Added ipv6 to COMMONMODS
 
 	* loader2/module-info: Upstream says we don't need ipv6 listed here.

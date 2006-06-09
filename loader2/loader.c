@@ -547,8 +547,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         if (!strcasecmp(argv[i], "expert")) {
             flags |= LOADER_FLAGS_EXPERT;
             logMessage(INFO, "expert got used, ignoring");
-            /*            flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
-                          LOADER_FLAGS_ASKMETHOD);*/
+            /* flags |= (LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK | 
+                        LOADER_FLAGS_ASKMETHOD);*/
         } else if (!strcasecmp(argv[i], "askmethod"))
             flags |= LOADER_FLAGS_ASKMETHOD;
         else if (!strcasecmp(argv[i], "noshell"))
@@ -575,8 +575,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text")) {
             flags |= LOADER_FLAGS_TEXT;
-	    flags &= ~LOADER_FLAGS_GRAPHICAL;
-	} else if (!strcasecmp(argv[i], "graphical"))
+            flags &= ~LOADER_FLAGS_GRAPHICAL;
+        }
+        else if (!strcasecmp(argv[i], "graphical"))
             flags |= LOADER_FLAGS_GRAPHICAL;
         else if (!strcasecmp(argv[i], "cmdline"))
             flags |= LOADER_FLAGS_CMDLINE;
@@ -590,8 +591,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                  !strncasecmp(argv[i], "driverdisk=", 11)) {
             loaderData->ddsrc = strdup(argv[i] + 
                                        (argv[i][1] == 'r' ? 11 : 3));
-        } else if (!strcasecmp(argv[i], "dd") || 
-                   !strcasecmp(argv[i], "driverdisk"))
+        }
+        else if (!strcasecmp(argv[i], "dd") || 
+                 !strcasecmp(argv[i], "driverdisk"))
             flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
             flags |= LOADER_FLAGS_RESCUE;
@@ -601,6 +603,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "nofb"))
             flags |= LOADER_FLAGS_NOFB;
+        else if (!strcasecmp(argv[i], "noipv6"))
+            flags |= LOADER_FLAGS_NOIPV6;
         else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         else if (!strncasecmp(argv[i], "loglevel=", 9)) {
@@ -628,8 +632,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
-	} else if (!strncmp(argv[i], "BOOTIF=", 7)) {
-	    /* +10 so that we skip over the leading 01- */
+        }
+        else if (!strncmp(argv[i], "BOOTIF=", 7)) {
+            /* +10 so that we skip over the leading 01- */
             loaderData->bootIf = strdup(argv[i] + 10);
             loaderData->bootIf_set = 1;
         } else if (!strncasecmp(argv[i], "dhcpclass=", 10)) {
@@ -644,15 +649,19 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                  (strlen(argv[i]) > 5))  {
             loaderData->lang = strdup(argv[i] + 5);
             loaderData->lang_set = 1;
-        } else if (!strncasecmp(argv[i], "keymap=", 7) &&
+        }
+        else if (!strncasecmp(argv[i], "keymap=", 7) &&
                    (strlen(argv[i]) > 7)) {
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
-        } else if (!strncasecmp(argv[i], "method=", 7)) {
+        }
+        else if (!strncasecmp(argv[i], "method=", 7)) {
             setMethodFromCmdline(argv[i] + 7, loaderData);
-        } else if (!strncasecmp(argv[i], "ip=", 3)) {
+        }
+        else if (!strncasecmp(argv[i], "ip=", 3)) {
             parseCmdLineIp(loaderData, argv[i]);
-        } else if (!strncasecmp(argv[i], "netmask=", 8)) 
+        }
+        else if (!strncasecmp(argv[i], "netmask=", 8)) 
             loaderData->netmask = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "gateway=", 8))
             loaderData->gateway = strdup(argv[i] + 8);
@@ -677,47 +686,46 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             /* the anaconda script, but don't want to represent as a */
             /* LOADER_FLAGS_XXX since loader doesn't care about these */
             /* particular options.                                   */
-	    /* do vncpassword case first */
+            /* do vncpassword case first */
             if (!strncasecmp(argv[i], "vncpassword=", 12)) {
-		if (!FL_TESTING(flags))
-		    writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
-	    } else if (!strncasecmp(argv[i], "resolution=", 11) ||
-                !strncasecmp(argv[i], "lowres", 6) ||
-                !strncasecmp(argv[i], "skipddc", 7) ||
-                !strncasecmp(argv[i], "nomount", 7) ||
-                !strncasecmp(argv[i], "vnc", 3) ||
-		!strncasecmp(argv[i], "vncconnect=", 11) ||
-                !strncasecmp(argv[i], "headless", 8) ||
-                !strncasecmp(argv[i], "iscsi", 5) ||
-                !strncasecmp(argv[i], "usefbx", 6) ||
-                !strncasecmp(argv[i], "mpath", 6) ||
-                !strncasecmp(argv[i], "nompath", 8) ||
-                !strncasecmp(argv[i], "dmraid", 6) ||
-                !strncasecmp(argv[i], "nodmraid", 8) ||
-                !strncasecmp(argv[i], "vesa", 4) ||
-                !strncasecmp(argv[i], "syslog=", 7)) { 
+                if (!FL_TESTING(flags))
+                    writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
+            }
+            else if (!strncasecmp(argv[i], "resolution=", 11) ||
+                     !strncasecmp(argv[i], "lowres", 6) ||
+                     !strncasecmp(argv[i], "skipddc", 7) ||
+                     !strncasecmp(argv[i], "nomount", 7) ||
+                     !strncasecmp(argv[i], "vnc", 3) ||
+                     !strncasecmp(argv[i], "vncconnect=", 11) ||
+                     !strncasecmp(argv[i], "headless", 8) ||
+                     !strncasecmp(argv[i], "iscsi", 5) ||
+                     !strncasecmp(argv[i], "usefbx", 6) ||
+                     !strncasecmp(argv[i], "mpath", 6) ||
+                     !strncasecmp(argv[i], "nompath", 8) ||
+                     !strncasecmp(argv[i], "dmraid", 6) ||
+                     !strncasecmp(argv[i], "nodmraid", 8) ||
+                     !strncasecmp(argv[i], "vesa", 4) ||
+                     !strncasecmp(argv[i], "syslog=", 7)) { 
                 int arglen;
 
-		/* vnc implies graphical */
-		if (!strncasecmp(argv[i], "vnc", 3))
-		    flags |= LOADER_FLAGS_GRAPHICAL;
-		else if (!strncasecmp(argv[i], "iscsi", 5))
-		    flags |= LOADER_FLAGS_ISCSI;
-		else if (!strncasecmp(argv[i], "noipv6", 6))
-		    flags |= LOADER_FLAGS_NOIPV6;
+                /* vnc implies graphical */
+                if (!strncasecmp(argv[i], "vnc", 3))
+                    flags |= LOADER_FLAGS_GRAPHICAL;
+                else if (!strncasecmp(argv[i], "iscsi", 5))
+                    flags |= LOADER_FLAGS_ISCSI;
 
                 arglen = strlen(argv[i])+3;
                 extraArgs[numExtraArgs] = (char *) malloc(arglen*sizeof(char));
                 snprintf(extraArgs[numExtraArgs], arglen, "--%s", argv[i]);
                 numExtraArgs = numExtraArgs + 1;
-        
+
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
-                    logMessage(WARNING, "Too many command line arguments (max "
-                               "allowed is %d), rest will be dropped.",
-                               MAX_EXTRA_ARGS);
+                     logMessage(WARNING, "Too many command line arguments (max "
+                                "allowed is %d), rest will be dropped.",
+                                MAX_EXTRA_ARGS);
                 }
-	    }
-	}
+            }
+        }
     }
 
     readNetInfo(flags, &loaderData);
@@ -822,12 +830,12 @@ static char *doLoaderMain(char * location,
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
         url = findAnacondaCD(location, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
-	/* if we found a CD and we're not in rescue or vnc mode return */
-	/* so we can short circuit straight to stage 2 from CD         */
-	if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
-	    return url;
-	else {
-	    rhcdfnd = 1;
+        /* if we found a CD and we're not in rescue or vnc mode return */
+        /* so we can short circuit straight to stage 2 from CD         */
+        if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
+            return url;
+        else {
+            rhcdfnd = 1;
             methodNum = 0; /* FIXME: this assumes cdrom is always first */
         }
     }
@@ -893,14 +901,14 @@ static char *doLoaderMain(char * location,
              * Alternately, if we're in a VNC install based from CD we
              * can skip this step because we already found the CD */
             if (url) {
-		if (FL_RESCUE(flags)) {
-		    return url;
-	        } else if (rhcdfnd) {
-		    step = STEP_NETWORK;
-		    dir = 1;
-		    break;
-		}
-	    }	    
+                if (FL_RESCUE(flags)) {
+                    return url;
+                } else if (rhcdfnd) {
+                    step = STEP_NETWORK;
+                    dir = 1;
+                    break;
+                }
+            }	    
 
             needed = -1;
 
@@ -960,7 +968,7 @@ static char *doLoaderMain(char * location,
             }
             
             chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
-                                    modLoaded, modDepsPtr, modInfo, flags);
+                               modLoaded, modDepsPtr, modInfo, flags);
             /* it doesn't really matter what we return here; we just want
              * to reprobe and make sure we have the driver */
             step = STEP_DRIVER;
@@ -1006,6 +1014,11 @@ static char *doLoaderMain(char * location,
             initLoopback();
             memset(&netDev, 0, sizeof(netDev));
             netDev.isDynamic = 1;
+
+            if (FL_NOIPV6(flags))
+                netDev.useipv6 = 0;
+            else
+                netDev.useipv6 = 1;
             
             /* fall through to interface selection */
         case STEP_IFACE:
@@ -1029,8 +1042,8 @@ static char *doLoaderMain(char * location,
             }
 
             logMessage(INFO, "going to do getNetConfig");
-	    /* populate netDev based on any kickstart data */
-	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
+            /* populate netDev based on any kickstart data */
+            setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
             rc = readNetConfig(devName, &netDev, loaderData->netCls, flags);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
@@ -1046,12 +1059,12 @@ static char *doLoaderMain(char * location,
             
         case STEP_URL:
             logMessage(INFO, "starting to STEP_URL");
-	    /* if we found a CD already short circuit out */
-	    /* we get this case when we're doing a VNC install from CD */
-	    /* and we didnt short circuit earlier because we had to */
-	    /* prompt for network info for vnc to work */
+            /* if we found a CD already short circuit out */
+            /* we get this case when we're doing a VNC install from CD */
+            /* and we didnt short circuit earlier because we had to */
+            /* prompt for network info for vnc to work */
             if (url && rhcdfnd)
-		return url;
+                return url;
 
             url = installMethods[validMethods[methodNum]].mountImage(
                                       installMethods + validMethods[methodNum],
@@ -1066,8 +1079,6 @@ static char *doLoaderMain(char * location,
                 dir = 1;
             }
             break;
-            
-            
         default:
             break;
         }
@@ -1217,7 +1228,7 @@ int main(int argc, char ** argv) {
     char * virtpcon = NULL;
     poptContext optCon;
     struct poptOption optionTable[] = {
-	{ "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0, NULL, NULL },
+        { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0, NULL, NULL },
         { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0, NULL, NULL },
         { "test", '\0', POPT_ARG_NONE, &testing, 0, NULL, NULL },
         { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0, NULL, NULL},
@@ -1320,7 +1331,7 @@ int main(int argc, char ** argv) {
     /* iSeries vio console users will be telnetting in to the primary
        partition, so use a terminal type that is appripriate */
     if (isVioConsole())
-	setenv("TERM", "vt100", 1);
+        setenv("TERM", "vt100", 1);
 
 #if defined(__powerpc__)  /* hack for pcspkr breaking ppc right now */
     mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd:squashfs", 
@@ -1377,7 +1388,6 @@ int main(int argc, char ** argv) {
      *        but is done as a quick hack for the present.
      */
     earlyModuleLoad(modInfo, modLoaded, modDeps, 0, flags);
-    
 
     busProbe(modInfo, modLoaded, modDeps, 0, flags);
 
@@ -1387,7 +1397,6 @@ int main(int argc, char ** argv) {
     if (loaderData.ddsrc != NULL) {
         getDDFromSource(&loaderData, loaderData.ddsrc, flags);
     }
-
 
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
@@ -1475,7 +1484,7 @@ int main(int argc, char ** argv) {
 
     /* if we are in rescue mode lets load st.ko for tape support */
     if (FL_RESCUE(flags))
-	scsiTapeInitialize(modLoaded, modDeps, modInfo, flags);
+        scsiTapeInitialize(modLoaded, modDeps, modInfo, flags);
 
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
@@ -1497,7 +1506,6 @@ int main(int argc, char ** argv) {
                sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
     }
 
-
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
         setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);
     if (!access("/mnt/runtime/usr/lib64/libunicode-lite.so.1", R_OK))
@@ -1515,7 +1523,7 @@ int main(int argc, char ** argv) {
     /* make sure /tmp/updates exists so that magic in anaconda to */
     /* symlink rhpl/ will work                                    */
     if (access("/tmp/updates", F_OK))
-	mkdirChain("/tmp/updates");
+        mkdirChain("/tmp/updates");
 
     logMessage(INFO, "Running anaconda script %s", *(argptr-1));
     

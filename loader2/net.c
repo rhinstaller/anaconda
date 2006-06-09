@@ -388,7 +388,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                ret = pumpDhcpClassRun(&cfg->dev, 0L, 0L, 0, 0, 10, NULL, 0);
+                ret = doDhcp(cfg);
             }
 
             if (!FL_CMDLINE(flags))
@@ -692,7 +692,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                dret = pumpDhcpClassRun(&(newCfg.dev), 0L,0L,0,0,10,NULL,0);
+                dret = doDhcp(&newCfg);
                 newtPopWindow();
             }
 
@@ -779,6 +779,20 @@ char *setupInterface(struct networkDeviceConfig *dev) {
 
 void netlogger(void *arg, int priority, char *fmt, va_list va) {
     logMessage(priority, fmt, va);
+}
+
+char *doDhcp(struct networkDeviceConfig *dev) {
+   struct pumpNetIntf *i;
+   char *r = NULL;
+
+   i = &dev->dev;
+
+   if (dev->useipv6)
+      r = pumpDhcpClassRun(i,0L,0L,0,0,10,netlogger,LOG_DEBUG);
+   else
+      r = pumpDhcpClassRun(i,0L,0L,DHCPv6_DISABLE,0,10,netlogger,LOG_DEBUG);
+
+   return r;
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
