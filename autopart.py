@@ -14,7 +14,6 @@
 #
 
 import parted
-import math
 import copy
 import string, sys
 import fsset
@@ -69,7 +68,6 @@ def bootRequestCheck(requests, diskset):
     if not part:
         return PARTITION_SUCCESS
 
-    
     if rhpl.getArch() == "ia64":
         if (part.fs_type.name != "FAT" and part.fs_type.name != "fat16"
             and part.fs_type.name != "fat32"):
@@ -275,9 +273,6 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
             request.currentDrive = request.drive[0]
             newParts.parts.append(newp)
 
-    return PARTITION_SUCCESS
-
-
 # get the list of the "best" drives to try to use...
 # if currentdrive is set, use that, else use the drive list, or use
 # all the drives
@@ -477,8 +472,6 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             newParts.parts.append(newp)
             free = findFreespace(diskset)
 
-    return PARTITION_SUCCESS
-
 # grow logical partitions
 #
 # do this ONLY after all other requests have been allocated
@@ -584,20 +577,17 @@ def growLogicalVolumes(diskset, requests):
 		cursize[req.logicalVolumeName] = req.size
 
 		lvmLog.debug("Name, size, cursize, vgfree, fraction = %s %s %s %s %s", req.logicalVolumeName, req.size, cursize[req.logicalVolumeName], vgfree, fraction)
-		    
+
 		completed.append(req)
 
 	    if nochange:
 		lvmLog.info("In growLogicalVolumes, no changes in size so breaking")
 		break
-		
+
 	    bailcount = bailcount + 1
 	    if bailcount > 10:
 		lvmLog.info("In growLogicalVolumes, bailing after 10 interations.")
 		break
-		
-
-	
 
 # grow partitions
 def growParts(diskset, requests, newParts):
@@ -652,7 +642,7 @@ def growParts(diskset, requests, newParts):
 
     # there aren't any drives with growable partitions, this is easy!
     if not growable.keys():
-        return PARTITION_SUCCESS
+        return
     
 ##     print "new requests before looping"
 ##     printNewRequestsCyl(diskset, requests)
@@ -809,14 +799,13 @@ def growParts(diskset, requests, newParts):
                     request.requestSize = (cur*sector_size)/1024.0/1024.0
 
                     # try adding
-                    (ret, msg) = processPartitioning(diskset, newRequest, newParts)
-##                     if ret == PARTITION_FAIL:
-##                         print "!!!!!!!!!!! processPartitioning failed - %s" % msg
-                       
-                    if ret == PARTITION_SUCCESS:
+                    try:
+                        processPartitioning(diskset, newRequest, newParts)
                         min = cur
-                    else:
+                    except PartitioningError, msg:
+                        ret = PARTITION_FAIL
                         max = cur
+##                        print "!!!!!!!!!!! processPartitioning failed - %s" % msg
 
                     lastDiff = diff
                     diff = max - min
@@ -840,8 +829,7 @@ def growParts(diskset, requests, newParts):
                 if ret == PARTITION_FAIL:
 #                    print "growing finally failed at size", min
                     request.requestSize = min*sector_size/1024.0/1024.0
-                    # XXX this can't fail (?)
-                    (retxxx, msgxxx) = processPartitioning(diskset, newRequest, newParts)
+                    processPartitioning(diskset, newRequest, newParts)
 
 #                print "end min, max, cur, diffs = ",min,max,cur,diff,lastDiff
 #                print "%s took %s loops" % (request.mountpoint, inner_iter)
@@ -856,9 +844,6 @@ def growParts(diskset, requests, newParts):
                     if growSize[drive] < 0:
 #                        print "growsize < 0!"
                         growSize[drive] = 0
-
-    return PARTITION_SUCCESS
-
 
 def setPreexistParts(diskset, requests, newParts):
     for request in requests:
@@ -889,7 +874,6 @@ def setPreexistParts(diskset, requests, newParts):
                             
                 break
             part = disk.next_partition(part)
-
 
 def deletePart(diskset, delete):
     disk = diskset.disks[delete.drive]
@@ -962,22 +946,20 @@ def processPartitioning(diskset, requests, newParts):
     try:
         fitConstrained(diskset, requests, 1, newParts)
     except ParititioningError, msg:
-        return (PARTITION_FAIL, _("Could not allocate cylinder-based partitions as primary partitions.\n\n%s") % msg)
+        raise PartitioningError, _("Could not allocate cylinder-based partitions as primary partitions.\n\n%s") % msg
 
     try:
         fitSized(diskset, requests, 1, newParts)
     except PartitioningError, msg:
-        return (PARTITION_FAIL, _("Could not allocate partitions as primary partitions.\n\n%s") % msg)
+        raise PartitioningError, _("Could not allocate partitions as primary partitions.\n\n%s") % msg
 
     try:
         fitConstrained(diskset, requests, 0, newParts)
     except PartitioningError, msg:
-        return (PARTITION_FAIL, _("Could not allocate cylinder-based partitions.\n\n%s") % msg)
+        raise PartitioningError, _("Could not allocate cylinder-based partitions.\n\n%s") % msg
 
-    try:
-        fitSized(diskset, requests, 0, newParts)
-    except PartitioningError, msg:
-        return (PARTITION_FAIL, msg)
+    # Don't need to handle the exception here since we leave the message alone.
+    fitSized(diskset, requests, 0, newParts)
 
     for request in requests.requests:
         # set the unique identifier for raid and lvm devices
@@ -990,8 +972,7 @@ def processPartitioning(diskset, requests, newParts):
             request.device = str(request.uniqueID)
 
         if not request.device:
-            raise PartitioningError, "Unsatisfied partition request\n%s" %(request)
-
+            raise PartitioningError, "Unsatisfied partition request\n%s" % request
 
     # get the sizes for raid devices, vgs, and logical volumes
     for request in requests.requests:
@@ -1007,7 +988,6 @@ def processPartitioning(diskset, requests, newParts):
 		
             vgreq = requests.getRequestByID(request.volumeGroup)
 
-    return (PARTITION_SUCCESS, "success")            
 ##     print "disk layout after everything is done"
 ##     print diskset.diskState()
 
@@ -1025,16 +1005,15 @@ def doPartitioning(diskset, requests, doRefresh = 1):
             # FIXME: do we need to do anything with other types of deletes??
 
     newParts = partlist()
-    (ret, msg) = processPartitioning(diskset, requests, newParts)
 
-    if ret == PARTITION_FAIL:
-        raise PartitioningError, "Partitioning failed: %s" %(msg)
-    ret = growParts(diskset, requests, newParts)
+    try:
+        processPartitioning(diskset, requests, newParts)
+    except PartitioningError, msg:
+        raise PartitioningError, "Partitioning failed: %s" % msg
+
+    growParts(diskset, requests, newParts)
 
     newParts.reset()
-
-    if ret != PARTITION_SUCCESS:
-        raise PartitioningError, "Growing partitions failed"
 
     ret = bootRequestCheck(requests, diskset)
 
@@ -1082,10 +1061,6 @@ def doPartitioning(diskset, requests, doRefresh = 1):
                                        "leave enough disk space for already "
                                        "allocated logical volumes in "
                                        "%s." % (request.volumeGroupName))
-
-    if ret == PARTITION_SUCCESS:
-        return
-
 
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
