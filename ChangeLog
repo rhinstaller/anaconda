@@ -1,5 +1,8 @@
 2006-06-09  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot (PACKAGES): kernel-utils is no more, make
+	sure we get dmidecode
+
 	* scripts/mk-images: More trying to beat s390 into working.
 
 2006-06-09  David Cantrell  <dcantrell@redhat.com>

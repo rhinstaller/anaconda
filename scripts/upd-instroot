@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES pcmciautils kernel-utils"
+    PACKAGES="$PACKAGES pcmciautils dmidecode"
 fi
 
 if [ $ARCH = ia64 ]; then
