@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.25
+Version: 11.1.0.26
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -84,34 +84,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files runtime
 %defattr(-,root,root)
-/usr/lib/anaconda-runtime/*md5
-/usr/lib/anaconda-runtime/*.py*
-/usr/lib/anaconda-runtime/*.so*
-/usr/lib/anaconda-runtime/boot/*.msg
-/usr/lib/anaconda-runtime/boot/syslinux.cfg
-/usr/lib/anaconda-runtime/loader/
-/usr/lib/anaconda-runtime/buildinstall
-/usr/lib/anaconda-runtime/filtermoddeps
-/usr/lib/anaconda-runtime/getkeymaps
-/usr/lib/anaconda-runtime/keymaps-override*
-/usr/lib/anaconda-runtime/mapshdr
-/usr/lib/anaconda-runtime/mk-images*
-/usr/lib/anaconda-runtime/mk-rescueimage*
-/usr/lib/anaconda-runtime/moddeps
-/usr/lib/anaconda-runtime/modlist
-/usr/lib/anaconda-runtime/pkgorder
-/usr/lib/anaconda-runtime/readmap
-/usr/lib/anaconda-runtime/screenfont-i386.gz
-/usr/lib/anaconda-runtime/scrubtree
-/usr/lib/anaconda-runtime/trimmodalias
-/usr/lib/anaconda-runtime/trimpciids
-/usr/lib/anaconda-runtime/upd-instroot
-/usr/lib/anaconda-runtime/yumcache
+/usr/lib/anaconda-runtime
 
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 08 2006 Chris Lumens <clumens@redhat.com> 11.1.0.26-1
+- Revert anaconda-runtime files fix.
+
 * Thu Jun 08 2006 Chris Lumens <clumens@redhat.com> 11.1.0.25-1
 - More IPv6 fixes (dcantrell).
 - Add ipv6 kernel module to image (dcantrell).
