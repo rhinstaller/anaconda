@@ -4,6 +4,10 @@
 
 	* loader2/module-info: Upstream says we don't need ipv6 listed here.
 
+	* loader2/net.c: Removed doDhcp and call pumpDhcpClassRun() directly.
+	Use netlogger() to catch libdhcp log messages.
+	* loader2/net.h: Removed doDhcp() prototype, added netlogger() one.
+
 2006-06-09  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  netpbm-tools -> netpbm-progs.

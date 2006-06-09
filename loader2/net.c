@@ -213,7 +213,7 @@ void initLoopback(void) {
     uint32_t flags;
 
     /* open nic handle and set device name */
-    nh = nic_open(nic_stderr_logger);
+    nh = nic_open(nic_sys_logger);
     nic = nic_by_name(nh, "lo");
 
     /* bring the interface up */
@@ -388,7 +388,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                ret = doDhcp(cfg);
+                ret = pumpDhcpClassRun(&cfg->dev, 0L, 0L, 0, 0, 10, NULL, 0);
             }
 
             if (!FL_CMDLINE(flags))
@@ -692,7 +692,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                dret = doDhcp(&newCfg);
+                dret = pumpDhcpClassRun(&(newCfg.dev), 0L,0L,0,0,10,NULL,0);
                 newtPopWindow();
             }
 
@@ -777,20 +777,8 @@ char *setupInterface(struct networkDeviceConfig *dev) {
     return pumpSetupInterface(&dev->dev);
 }
 
-void logger(void *arg, int priority, char *fmt, va_list va) {
-    /* Uncomment the line below to get lots of libdhcp noise:
-    libdhcp_stderr_logger(0, priority, fmt, va);
-    */
-    return;
-}
-
-char *doDhcp(struct networkDeviceConfig *dev) {
-    struct pumpNetIntf *ifx;
-    char *ret = NULL;
-
-    ifx = &dev->dev;
-    ret = pumpDhcpClassRun(ifx, 0L, 0L, 0, 0, 10, logger, LOG_INFO);
-    return ret;
+void netlogger(void *arg, int priority, char *fmt, va_list va) {
+    logMessage(priority, fmt, va);
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
@@ -798,7 +786,7 @@ int configureNetwork(struct networkDeviceConfig * dev) {
 
     rc = setupInterface(dev);
     if (rc)
-	logMessage(INFO, "result of setupInterface is %s", rc);
+        logMessage(INFO, "result of setupInterface is %s", rc);
 
     /* we need to wait for a link after setting up the interface as some
      * switches decide to reconfigure themselves after that (#115825)

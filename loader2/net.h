@@ -50,6 +50,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        int flags);
 
 char * setupInterface(struct networkDeviceConfig *dev);
-char * doDhcp(struct networkDeviceConfig *dev);
+void netlogger(void *arg, int priority, char *fmt, va_list va);
 
 #endif
