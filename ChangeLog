@@ -25,6 +25,10 @@
 	* anaconda.spec:  netpbm-tools -> netpbm-progs.
 
 	* autopart.py:  Simplify error handling and return values.
+	(doAutoPartition):  Fix up a nonsensical error message.
+
+	* dispatch.py:  Fix handling of dir yet again.
+	* gui.py:  We don't need yet another dir variable.
 
 2006-06-08  Jeremy Katz  <katzj@redhat.com>
 

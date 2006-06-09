@@ -864,8 +864,6 @@ class InstallControlWindow:
             return
 
         self.anaconda.dispatch.gotoPrev()
-        self.dir = DISPATCH_BACK
-
         self.setScreen ()
 
     def nextClicked (self, *args):
@@ -875,8 +873,6 @@ class InstallControlWindow:
             return
 
         self.anaconda.dispatch.gotoNext()
-        self.dir = DISPATCH_FORWARD
-
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
@@ -919,7 +915,7 @@ class InstallControlWindow:
             return
 
         if not stepToClass[step]:
-            if self.dir == 1:
+            if self.anaconda.dispatch.dir == DISPATCH_FORWARD:
                 return self.nextClicked()
             else:
                 return self.prevClicked()

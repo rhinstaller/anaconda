@@ -185,7 +185,7 @@ class Dispatcher:
 	if self.step == None:
 	    self.step = self.firstStep
 	else:
-	    self.step = self.step + self.dir
+	    self.step = self.step + self._getDir()
 
 	if self.step >= len(installSteps):
 	    return None
@@ -195,13 +195,13 @@ class Dispatcher:
 
             if self.stepIsDirect(self.step) and not self.stepInSkipList(self.step):
 	        (stepName, stepFunc) = installSteps[self.step]
-                log.info("moving (%d) to step %s" %(self.dir, stepName))
+                log.info("moving (%d) to step %s" %(self._getDir(), stepName))
 		rc = stepFunc(self.anaconda)
                 if rc in [DISPATCH_BACK, DISPATCH_FORWARD]:
-		    self.dir = rc
+		    self._setDir(rc)
 		# if anything else, leave self.dir alone
 
-	    self.step = self.step + self.dir
+	    self.step = self.step + self._getDir()
 	    if self.step == len(installSteps):
 		return None
 
@@ -214,7 +214,7 @@ class Dispatcher:
 	    self.step = len(installSteps) - 1
 	    while self.skipSteps.has_key(installSteps[self.step][0]):
 		self.step = self.step - 1
-        log.info("moving (%d) to step %s" %(self.dir, installSteps[self.step][0]))
+        log.info("moving (%d) to step %s" %(self._getDir(), installSteps[self.step][0]))
 
     def currentStep(self):
 	if self.step == None:
