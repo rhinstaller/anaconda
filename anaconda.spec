@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 - Add ipv6 kernel module to image (dcantrell).
 - Add noipv6 installer flag (dcantrell).
 - Add dosfstools to requires (katzj).
-- Fix anaconda-runtime spec file segment (#198415, #194237).
+- Fix anaconda-runtime spec file segment (#189415, #194237).
 - Better partitioning error messages (#181571).
 - Warn if non-linux filesystems can't be mounted on upgrade (#185086).
 - Simplify IP address widgets for IPv6 support.
