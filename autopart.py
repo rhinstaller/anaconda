@@ -1500,10 +1500,8 @@ def doAutoPartition(anaconda):
         if anaconda.isKickstart:
             extra = _("\n\nPress 'OK' to reboot your system.")
         else:
-            extra = _("\n\nYou can choose a different automatic partitioning "
-                      "option, or click 'Back' to select manual partitioning."
-                      "\n\nPress 'OK' to continue.")
-            
+            extra = _("\n\nPress 'OK' to choose a different partitioning option.")
+
         anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
                            _("The following errors occurred with your "
                              "partitioning:\n\n%s\n\n"
