@@ -14,6 +14,11 @@ SUBDIRS += fonts
 endif
 endif
 
+# gptsync only on x86 for mactels right now
+ifeq (i386, $(ARCH))
+SUBDIRS += gptsync
+endif
+
 CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
