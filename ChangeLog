@@ -1,5 +1,9 @@
 2006-06-10  Jeremy Katz  <katzj@redhat.com>
 
+	* autopart.py (doClearPartAction): Clear partition on mactels if
+	it doesn't have a filesystem so that we can do auto-partitioning
+	on them.
+
 	* anaconda.spec (Requires): ifarch the syslinux requires
 
 2006-06-09  Jeremy Katz  <katzj@redhat.com>
