@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.27
+Version: 11.1.0.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -93,7 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Fri Jun  9 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.27-1
+* Fri Jun  9 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.28-1
 - fix dep problem (clumens)
 - initial pass at support for the intel-based macs
 - more trying to get s390 trees so they work
