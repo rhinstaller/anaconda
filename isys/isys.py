@@ -686,6 +686,7 @@ def readReiserFSLabel_int(device):
     
                 return label
 
+    os.close(fd)
     return label
 
 def readReiserFSLabel(device, makeDevNode = 1):
