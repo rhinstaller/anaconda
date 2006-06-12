@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda FC5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-04-24 09:40+0200\n"
+"PO-Revision-Date: 2006-06-12 14:35+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -509,7 +509,6 @@ msgstr ""
 "Det oppsto et problem under skriving av systemets tilstand til disketten."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
@@ -627,9 +626,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Formater"
+msgstr "Formater på nytt"
 
 #: ../fsset.py:1500
 #, python-format
@@ -996,7 +994,7 @@ msgstr "Installasjonsvindu"
 
 #: ../harddrive.py:61 ../image.py:480
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Mangler ISO 9660-avtrykk"
 
 #: ../harddrive.py:62
 #, python-format
@@ -1009,7 +1007,6 @@ msgid ""
 msgstr ""
 
 #: ../harddrive.py:71 ../image.py:491
-#, fuzzy
 msgid "Re_try"
 msgstr "Prøv igjen"
 
@@ -1155,7 +1152,7 @@ msgid "Missing Group"
 msgstr "Manglende gruppe"
 
 #: ../kickstart.py:937
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
@@ -2237,9 +2234,8 @@ msgid "The password must be at least six characters long."
 msgstr "Passordet må være minst seks tegn langt."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Ingen passord"
+msgstr "Feil med VNC-passord"
 
 #: ../vnc.py:138
 msgid ""
@@ -2374,63 +2370,56 @@ msgstr "_Avbryt"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "filen er i konflikt"
 
 #: ../yuminstall.py:483
-#, fuzzy
 msgid "older package(s)"
-msgstr "Tilleggs_pakker"
+msgstr "eldre pakker"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "ikke nok diskplass"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "ikke nok inoder på disken"
 
 #: ../yuminstall.py:486
-#, fuzzy
 msgid "package conflicts"
-msgstr "Forvalg for pakker"
+msgstr " konflikt mellom pakker"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "pakken er allerede installert"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Ledig plass"
+msgstr "nødvendig pakke"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pakke for ugyldig arkitektur"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pakke for feil OS"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Du trenger mer plass på følgende filsystemer:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Feil under kjøring av transaksjon"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
-msgstr ""
-"Pakken %s-%s-%s.%s kan ikke åpnes. Det kan være pga at filen mangler eller "
-"at pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at "
-"CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
-"\n"
+msgstr "Filen %s kan ikke åpnes. Det kan være pga at filen mangler eller at pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at CDen er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n\n"
 
 #: ../yuminstall.py:659
 msgid "Retrieving installation information..."
@@ -2477,14 +2466,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Starter installasjon. Dette kan ta flere minutter..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Oppgrader"
+msgstr "Etter oppgradering"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Utfører etter-installasjons konfigurasjon..."
+msgstr "Utfører konfigurasjon etter oppgradering..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2492,7 +2479,7 @@ msgstr "Etter-installasjon"
 
 #: ../yuminstall.py:1040
 msgid "Performing post install configuration..."
-msgstr "Utfører etter-installasjons konfigurasjon..."
+msgstr "Utfører konfigurasjon etter installering..."
 
 #: ../yuminstall.py:1185
 msgid "Installation Progress"
@@ -2606,21 +2593,20 @@ msgid "_Confirm: "
 msgstr "_Bekreft: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Fjern alle partisjoner på dette systemet"
+msgstr "Fjern alle partisjoner valgte stasjoner og opprett forvalgt utforming."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Fjern Linux-partisjoner på valgte stasjoner og opprett forvalgt utforming."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Bruk ledig plass på valgte stasjoner og opprett forvalgt utforming."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Opprett egendefinert utforming."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2902,18 +2888,16 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser må inneholde tall mellom 0 og 255"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "VNC-konfigurasjon"
+msgstr "iSCSI-konfigurasjon"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
 msgstr "Feil med data"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Ingen IP-adresse oppgitt, hopper over oppsett av iSCSI"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -3106,15 +3090,12 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Navn på logisk volum «%s» er allerede i bruk. Vennligst velg et annet."
 
 #: ../iw/lvm_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr ""
-"Nåværende forespurt størrelse (%10.2f MB) er større enn maksimal størrelse "
-"på logiske volum (%10.2f MB). For å øke denne grensen kan du øke størrelsen "
-"for Fysisk område i denne volumgruppen."
+msgstr "Forespurt størrelse (%10.2f MB) er større enn maksimal størrelse på logiske volum (%10.2f MB). For å øke denne grensen kan du opprette flere fysiske volumer fra diskplass som ikke er partisjonert og legge dem til i denne volumgruppen."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -4490,12 +4471,9 @@ msgstr ""
 "vil gi hvert av dem."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-"<Mellomrom> velger knapp | <F2> velger oppstartsalternativ | <F12> neste "
-"skjerm"
+msgstr "<Mellomrom> velg | <F2> velg forvalg | <F4> slett | <F12> neste skjerm"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4642,18 +4620,16 @@ msgid "Package Group Details"
 msgstr "Detaljer om pakkegruppe"
 
 #: ../textw/iscsi_text.py:35
-#, fuzzy
 msgid "Target IP address:"
-msgstr "IP-adresse:"
+msgstr "IP-adresse for mål:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "eller bruk:"
+msgstr "Portnummer:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "Navn på iSCSI-initiator:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
 msgid "Invalid IP string"
@@ -6162,9 +6138,8 @@ msgid "%s directory:"
 msgstr "Katalog for %s:"
 
 #: ../loader2/nfsinstall.c:52
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6247,11 +6222,11 @@ msgstr "Henter"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6357,20 +6332,19 @@ msgstr "D_etaljer om unntak"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>_Portnummer:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>IP-adresse for _mål:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>_Navn på iSCSI-initiator:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "VNC-konfigurasjon"
+msgstr "iSCSI-konfigurasjon"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6524,12 +6498,10 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "\"Central Time\" - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"«Central Time» - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+msgstr "«Central Time» - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6549,9 +6521,8 @@ msgid "Central Time - most locations"
 msgstr "De fleste steder med \"Central Time\""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "\"Central Time\" - Nord-Dakota, Oliver County"
+msgstr "\"Central Time\" - Nord-Dakota, Morton County (unntatt Mandan-området)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -7339,24 +7310,6 @@ msgstr "Zulu"
 
 #~ msgid "How would you like to get space to partition?"
 #~ msgstr "Hvordan ønsker du å lage plass til partisjonering?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "Installasjonen krever partisjonering av harddisken. Forvalgt utforming av "
-#~ "partisjoner er ok for de fleste brukere. Du kan velge å bruke denne eller "
-#~ "å lage din egen."
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Velg stasjonen(e) du vil bruke for denne installasjonen."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "Se ove_r og endre utforming av partisjoner"
-
-#~ msgid "Amharic"
-#~ msgstr "Ahmharisk"
 
 #~ msgid "Thai"
 #~ msgstr "Thai"
