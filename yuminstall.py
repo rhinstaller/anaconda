@@ -27,9 +27,8 @@ import yum
 import rhpl
 from packages import recreateInitrd
 from yum.constants import *
-from yum.Errors import RepoError, YumBaseError
-from yum.repos import Repository as YumRepository
-from repomd.mdErrors import PackageSackError
+from yum.Errors import RepoError, YumBaseError, PackageSackError
+from yum.yumRepo import YumRepository
 from installmethod import FileCopyException
 from backend import AnacondaBackend
 from product import productName, productStamp
@@ -178,8 +177,8 @@ class AnacondaYumRepo(YumRepository):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
-            if v or not hasattr(self, k):
-                self.set(k, v)
+            if v or not k in self.getAttributeKeys():
+                self.setAttribute(k, v)
         self.gpgcheck = False
         #self.gpgkey = "%s/RPM-GPG-KEY-fedora" % (method, )
         if uri and not mirrorlist:
@@ -187,9 +186,9 @@ class AnacondaYumRepo(YumRepository):
         elif mirrorlist and not uri:
             self.mirrorlist = mirrorlist
 
-        self.set('cachedir', '/tmp/cache/')
-        self.set('pkgdir', '/mnt/sysimage/')
-        self.set('hdrdir', '/tmp/cache/headers')
+        self.setAttribute('cachedir', '/tmp/cache/')
+        self.setAttribute('pkgdir', '/mnt/sysimage/')
+        self.setAttribute('hdrdir', '/tmp/cache/headers')
 
 
 class YumSorter(yum.YumBase):
@@ -322,7 +321,8 @@ class AnacondaYum(YumSorter):
         YumSorter.__init__(self)
         self.anaconda = anaconda
         self.method = anaconda.method
-        self.doConfigSetup(root=anaconda.rootPath)
+        self.doStartupConfig(root=anaconda.rootPath)
+        self.doConfigSetup()
         self.conf.installonlypkgs = []
         self.macros = {}
         if flags.selinux:

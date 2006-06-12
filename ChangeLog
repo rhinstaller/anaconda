@@ -1,3 +1,11 @@
+2006-06-12  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec (Requires): Bump yum version requires
+
+	* yuminstall.py: Fixup imports for yum 2.9.x
+	(AnacondaYumRepo.__init__): Fixup for Repo code in yum 2.9.x
+	(AnacondaYum.__init__): Fix for config startup in yum 2.9.x
+
 2006-06-12  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c: Define boot loader flags as the global 'flags' so we
