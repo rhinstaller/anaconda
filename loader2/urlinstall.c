@@ -38,7 +38,10 @@
 #include "urls.h"
 #include "windows.h"
 
-static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
+/* boot flags */
+extern int flags;
+
+static int loadSingleUrlImage(struct iurlinfo * ui, char * file,
                               char * dest, char * mntpoint, char * device,
                               int silentErrors, int addProduct) {
     int fd;
@@ -60,7 +63,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         sprintf(ehdrs, "User-Agent: anaconda/%s\r\n", VERSION);
     }
 
-    fd = urlinstStartTransfer(ui, filepath, ehdrs, silentErrors, flags);
+    fd = urlinstStartTransfer(ui, filepath, ehdrs, silentErrors);
 
     if (fd == -2) {
         if (ehdrs) free (ehdrs);
@@ -73,7 +76,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         newFile = alloca(strlen(filepath) + 20);
         sprintf(newFile, "disc1/%s", filepath);
 
-        fd = urlinstStartTransfer(ui, newFile, ehdrs, silentErrors, flags);
+        fd = urlinstStartTransfer(ui, newFile, ehdrs, silentErrors);
         if (ehdrs) free (ehdrs);
 
         if (fd == -2) return 2;
@@ -89,10 +92,10 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     }
 
     if (dest != NULL) {
-        rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
+        rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint);
     }
 
-    urlinstFinishTransfer(ui, fd, flags);
+    urlinstFinishTransfer(ui, fd);
 
     if (newFile) {
         newFile = malloc(strlen(ui->prefix) + 20);
@@ -105,7 +108,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 }
 
 
-static int loadUrlImages(struct iurlinfo * ui, int flags) {
+static int loadUrlImages(struct iurlinfo * ui) {
     char *stage2img;
     char tmpstr1[1024], tmpstr2[1024];
     int rc;
@@ -114,7 +117,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 
     /* grab the updates.img before netstg1.img so that we minimize our
      * ramdisk usage */
-    if (!loadSingleUrlImage(ui, "base/updates.img", flags,
+    if (!loadSingleUrlImage(ui, "base/updates.img",
                             "/tmp/ramfs/updates-disk.img", "/tmp/update-disk",
                             "loop7", 1, 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates");
@@ -125,7 +128,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 
     /* grab the product.img before netstg1.img so that we minimize our
      * ramdisk usage */
-    if (!loadSingleUrlImage(ui, "base/product.img", flags,
+    if (!loadSingleUrlImage(ui, "base/product.img",
                             "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
                             "loop7", 1, 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product");
@@ -147,7 +150,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     snprintf(tmpstr1, sizeof(tmpstr1), "base/%s", stage2img);
     snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
 
-    rc = loadSingleUrlImage(ui, tmpstr1, flags, tmpstr2,
+    rc = loadSingleUrlImage(ui, tmpstr1, tmpstr2,
                             "/mnt/runtime", "loop0", 0, 1);
     if (rc) {
         if (rc != 2) 
@@ -207,7 +210,7 @@ static char * getLoginName(char * login, struct iurlinfo ui) {
 char * mountUrlImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
-                     moduleDeps * modDeps, int flags) {
+                     moduleDeps * modDeps) {
     int rc;
     char * url, *p;
     struct iurlinfo ui;
@@ -284,11 +287,11 @@ char * mountUrlImage(struct installMethod * method,
 	    /* ok messy - see if we have a stage2 on local CD */
 	    /* before trying to pull one over network         */
 	    cdurl = findAnacondaCD(location, modInfo, modLoaded, 
-				 *modDeps, flags, 0);
+				 *modDeps, 0);
             /* FIXME: this hard-codes info about the backend type 
                which sucks */
 	    if (cdurl && 
-                (loadSingleUrlImage(&ui, "repodata/repomd.xml", flags, NULL, 
+                (loadSingleUrlImage(&ui, "repodata/repomd.xml", NULL, 
                                     NULL, NULL, 0, 0) == 0)) {
 		logMessage(INFO, "Detected stage 2 image on CD");
 		winStatus(50, 3, _("Media Detected"), 
@@ -306,7 +309,7 @@ char * mountUrlImage(struct installMethod * method,
                 dir = -1;
             } else {
 		/* need to find stage 2 on remote site */
-		if (loadUrlImages(&ui, flags)) {
+		if (loadUrlImages(&ui)) {
 		    stage = URL_STAGE_MAIN;
 		    dir = -1;
 		    if (loaderData->method) {
@@ -351,7 +354,7 @@ char * mountUrlImage(struct installMethod * method,
 }
 
 int getFileFromUrl(char * url, char * dest, 
-                   struct loaderData_s * loaderData, int flags) {
+                   struct loaderData_s * loaderData) {
     char ret[47];
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
@@ -362,7 +365,7 @@ int getFileFromUrl(char * url, char * dest,
     char * ehdrs = NULL;
     ip_addr_t *tip;
 
-    if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
+    if (kickstartNetworkUp(loaderData, &netCfg)) {
         logMessage(ERROR, "unable to bring up network");
         return 1;
     }
@@ -426,7 +429,7 @@ int getFileFromUrl(char * url, char * dest,
 	}
     }
 	
-    fd = urlinstStartTransfer(&ui, file, ehdrs, 0, flags);
+    fd = urlinstStartTransfer(&ui, file, ehdrs, 0);
     if (fd < 0) {
         logMessage(ERROR, "failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         if (ehdrs) free(ehdrs);
@@ -441,20 +444,19 @@ int getFileFromUrl(char * url, char * dest,
         return 1;
     }
 
-    urlinstFinishTransfer(&ui, fd, flags);
+    urlinstFinishTransfer(&ui, fd);
 
     if (ehdrs) free(ehdrs);
     return 0;
 }
 
 /* pull kickstart configuration file via http */
-int kickstartFromUrl(char * url, struct loaderData_s * loaderData, 
-                     int flags) {
-    return getFileFromUrl(url, "/tmp/ks.cfg", loaderData, flags);
+int kickstartFromUrl(char * url, struct loaderData_s * loaderData) {
+    return getFileFromUrl(url, "/tmp/ks.cfg", loaderData);
 }
 
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
-		    char ** argv, int * flagsPtr) {
+		    char ** argv) {
 
     char *url = NULL;
     poptContext optCon;
@@ -467,7 +469,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     logMessage(INFO, "kickstartFromUrl");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksUrlOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
-        startNewt(*flagsPtr);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to Url kickstart method "
                          "command %s: %s"),

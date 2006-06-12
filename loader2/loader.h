@@ -78,8 +78,8 @@
 #define FL_UB(a)            ((a) & LOADER_FLAGS_UB)
 #define FL_NOIPV6(a)        ((a) & LOADER_FLAGS_NOIPV6)
 
-void startNewt(int flags);
-void stopNewt();
+void startNewt(void);
+void stopNewt(void);
 char * getProductName(void);
 char * getProductPath(void);
 

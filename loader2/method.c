@@ -47,6 +47,9 @@
 #include "hdinstall.h"
 #include "urlinstall.h"
 
+/* boot flags */
+extern int flags;
+
 int umountLoopback(char * mntpoint, char * device) {
     int loopfd;
 
@@ -333,7 +336,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
  * Given a starting isoFile, will offer choice to mediacheck it and
  * all other ISO images in the same directory with the same stamp
  */
-void queryIsoMediaCheck(char *isoFile, int flags) {
+void queryIsoMediaCheck(char *isoFile) {
     DIR * dir;
     struct dirent * ent;
     char *isoDir;
@@ -613,7 +616,7 @@ int mountStage2(char * path) {
 
 
 /* copies a second stage from fd to dest and mounts on mntpoint */
-int copyFileAndLoopbackMount(int fd, char * dest, int flags,
+int copyFileAndLoopbackMount(int fd, char * dest,
                              char * device, char * mntpoint) {
     int rc;
     struct stat sb;

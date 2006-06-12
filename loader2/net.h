@@ -29,26 +29,23 @@ struct networkDeviceConfig {
 };
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev, 
-		  char * dhcpclass, int flags);
+		  char * dhcpclass);
 int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
-int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
+int findHostAndDomain(struct networkDeviceConfig * dev);
 int writeResolvConf(struct networkDeviceConfig * net);
 extern char *netServerPrompt;
 int nfsGetSetup(char ** hostptr, char ** dirptr);
 void initLoopback(void);
-int chooseNetworkInterface(struct loaderData_s * loaderData,
-                           int flags);
+int chooseNetworkInterface(struct loaderData_s * loaderData);
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
-                              struct loaderData_s * loaderData, 
-                              int flags);
+                              struct loaderData_s * loaderData);
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
-                         char ** argv, int * flagsPtr);
+                         char ** argv);
 
 int kickstartNetworkUp(struct loaderData_s * loaderData,
-                       struct networkDeviceConfig *netCfgPtr,
-                       int flags);
+                       struct networkDeviceConfig *netCfgPtr);
 
 char * setupInterface(struct networkDeviceConfig *dev);
 char *doDhcp(struct networkDeviceConfig *dev);

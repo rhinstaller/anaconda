@@ -34,6 +34,9 @@
 
 #include "../isys/imount.h"
 
+/* boot flags */
+extern int flags;
+
 int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];
     char * buf;
@@ -73,7 +76,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 char * mountNfsImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
-                     moduleDeps * modDepsPtr, int flags) {
+                     moduleDeps * modDepsPtr) {
     char * host = NULL;
     char * directory = NULL;
     char * mountOpts = NULL;
@@ -191,7 +194,7 @@ char * mountNfsImage(struct installMethod * method,
 			    snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/product.img", getProductPath());
                             copyProductImg(mntPath);
 
-                            queryIsoMediaCheck(path, flags);
+                            queryIsoMediaCheck(path);
 
                             stage = NFS_STAGE_DONE;
                             url = "nfsiso:/mnt/source";
@@ -244,7 +247,7 @@ char * mountNfsImage(struct installMethod * method,
 
 
 void setKickstartNfs(struct loaderData_s * loaderData, int argc,
-                     char ** argv, int * flagsPtr) {
+                     char ** argv) {
     char * host = NULL, * dir = NULL, * mountOpts = NULL;
     poptContext optCon;
     int rc;
@@ -258,7 +261,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     logMessage(INFO, "kickstartFromNfs");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksNfsOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
-        startNewt(*flagsPtr);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to NFS kickstart method "
                          "command %s: %s"),
@@ -285,15 +288,14 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 }
 
 
-int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData, 
-                   int flags) {
+int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char ret[47];
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
     ip_addr_t *tip;
 
-    if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
+    if (kickstartNetworkUp(loaderData, &netCfg)) {
         logMessage(ERROR, "unable to bring up network");
         return 1;
     }
@@ -367,7 +369,6 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData,
     return failed;
 }
 
-int kickstartFromNfs(char * url, struct loaderData_s * loaderData, 
-                     int flags) {
-    return getFileFromNfs(url, "/tmp/ks.cfg", loaderData, flags);    
+int kickstartFromNfs(char * url, struct loaderData_s * loaderData) {
+    return getFileFromNfs(url, "/tmp/ks.cfg", loaderData);    
 }

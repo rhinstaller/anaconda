@@ -42,8 +42,11 @@
 #define IPPORT_TELNET 23
 #endif
 
+/* boot flags */
+extern int flags;
+
 /* Forks, keeping the loader as our child (so we know when it dies). */
-int beTelnet(int flags) {
+int beTelnet(void) {
     int sock;
     int conn;
     socklen_t addrLength;
@@ -118,7 +121,7 @@ int beTelnet(int flags) {
 
     if (child) {
 #ifndef DEBUG_TELNET
-	startNewt(flags);
+	startNewt();
 	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
 #endif
 
@@ -220,19 +223,19 @@ int beTelnet(int flags) {
     /* brand new tty! */
     setenv("TERM", termType, 1);
 
-    startNewt(flags);
+    startNewt();
 
     return 0;
 }
 
 void startTelnetd(struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, moduleList modLoaded, 
-                  moduleDeps modDeps, int flags) {
+                  moduleDeps modDeps) {
     char ret[47];
     struct networkDeviceConfig netCfg;
     ip_addr_t *tip;
 
-    if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
+    if (kickstartNetworkUp(loaderData, &netCfg)) {
         logMessage(ERROR, "unable to bring up network");
         return;
     }
@@ -240,7 +243,7 @@ void startTelnetd(struct loaderData_s * loaderData,
     tip = &(netCfg.dev.ip);
     inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
     logMessage(INFO, "going to beTelnet for %s", ret);
-    if (!beTelnet(flags))
+    if (!beTelnet())
         flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
 
     return;

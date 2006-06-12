@@ -30,16 +30,15 @@ struct moduleList_s {
 int mlReadLoadedList(moduleList * mlp);
 int mlLoadModule(const char * module, moduleList modLoaded, 
                  moduleDeps modDeps, moduleInfoSet modInfo, 
-                 char ** args, int flags);
+                 char ** args);
 int mlLoadModuleSet(const char * modNames, 
 		    moduleList modLoaded, moduleDeps modDeps, 
-		    moduleInfoSet modInfo, int flags);
+		    moduleInfoSet modInfo);
 
 int mlModuleInList(const char * modName, moduleList list);
 void writeScsiDisks(moduleList list);
 
-int removeLoadedModule(const char * modName, moduleList modLoaded,
-                             int flags);
+int removeLoadedModule(const char * modName, moduleList modLoaded);
 char * getModuleLocation(int version);
 
 #endif

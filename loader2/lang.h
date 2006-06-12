@@ -11,12 +11,12 @@ struct langInfo {
 } ;
 
 
-int chooseLanguage(char ** lang, int flags);
+int chooseLanguage(char ** lang);
 char * translateString(char * str);
-int setLanguage (char * key, int flags);
-int getLangInfo(struct langInfo **langs, int flags);
+int setLanguage (char * key);
+int getLangInfo(struct langInfo **langs);
 
 void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
-                          char ** argv, int * flagsPtr);
+                          char ** argv);
 
 #endif /* _LANG_H_ */

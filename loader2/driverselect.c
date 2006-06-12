@@ -135,8 +135,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
 }
 
 int chooseManualDriver(int class, moduleList modLoaded, 
-                       moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                       int flags) {
+                       moduleDeps * modDepsPtr, moduleInfoSet modInfo) {
     int i, numSorted, num = 0, done = 0;
     enum driverMajor type;
     struct sortModuleList * sortedOrder;
@@ -185,8 +184,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
             if (i != 1)
                 return LOADER_BACK;
             
-            loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo,
-                                flags, 1, 1);
+            loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, 1, 1);
             continue;
         } else {
             break;
@@ -260,14 +258,12 @@ int chooseManualDriver(int class, moduleList modLoaded,
     if (done == -1) 
         return LOADER_BACK;
     if (done == -2) {
-        loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo,
-                            flags, 1, 1);
-        return chooseManualDriver(class, modLoaded, modDepsPtr, modInfo, 
-                                  flags);
+        loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, 1, 1);
+        return chooseManualDriver(class, modLoaded, modDepsPtr, modInfo);
     }
 
     mlLoadModule(modInfo->moduleList[num].moduleName, modLoaded, modDeps,
-                 modInfo, moduleArgs, flags);
+                 modInfo, moduleArgs);
     free(sortedOrder);
 
     return LOADER_OK;

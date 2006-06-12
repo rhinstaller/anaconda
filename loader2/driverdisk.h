@@ -8,20 +8,18 @@
 
 int loadDriverFromMedia(int class, moduleList modLoaded, 
                         moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                        int flags, int usecancel, int noprobe);
+                        int usecancel, int noprobe);
 
 int loadDriverDisks(int class, moduleList modLoaded, 
-                    moduleDeps * modDepsPtr, moduleInfoSet modInfo, int flags);
+                    moduleDeps * modDepsPtr, moduleInfoSet modInfo);
 
 int getRemovableDevices(char *** devNames);
 
 int chooseManualDriver(int class, moduleList modLoaded, 
-                       moduleDeps * modDepsPtr, moduleInfoSet modInfo,
-                       int flags);
+                       moduleDeps * modDepsPtr, moduleInfoSet modInfo);
 void useKickstartDD(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr);
+                    char ** argv);
 
-void getDDFromSource(struct loaderData_s * loaderData,
-                     char * src, int flags);
+void getDDFromSource(struct loaderData_s * loaderData, char * src);
 
 #endif

@@ -2,8 +2,8 @@
 #define H_USB
 
 int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
-		  moduleInfoSet modInfo, int flags);
+		  moduleInfoSet modInfo);
 void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
-                        moduleInfoSet modInfo, int flags);
+                        moduleInfoSet modInfo);
 
 #endif

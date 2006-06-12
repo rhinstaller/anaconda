@@ -42,9 +42,11 @@
 #include "../isys/isys.h"
 #include "../isys/eddsupport.h"
 
+/* boot flags */
+extern int flags;
 
 /* pull in second stage image for hard drive install */
-static int loadHDImages(char * prefix, char * dir, int flags, 
+static int loadHDImages(char * prefix, char * dir, 
 			   char * device, char * mntpoint) {
     int fd, rc, idx;
     char *path, *target, *dest;
@@ -92,7 +94,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 
     dest = alloca(strlen(target) + 50);
     sprintf(dest,"/tmp/ramfs/%s", target);
-    rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
+    rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint);
     close(fd);
 
     if (!verifyStamp(mntpoint)) {
@@ -111,7 +113,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 
 #if 0 /* Unused now */
 /* mount loopback  second stage image for hard drive install */
-static int mountHDImages(char * prefix, char * dir, int flags, 
+static int mountHDImages(char * prefix, char * dir,
 			 char * device, char * mntpoint,
 			 int checkstamp) {
     int idx, rc;
@@ -169,7 +171,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 #endif
 
 /* given a partition device and directory, tries to mount hd install image */
-static char * setupIsoImages(char * device, char * dirName,  int flags) {
+static char * setupIsoImages(char * device, char * dirName) {
     int rc;
     char * url;
     char filespec[1024];
@@ -208,7 +210,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	    if (!rc) {
 		/* This code is for copying small stage2 into ram */
 		/* and mounting                                   */
-		rc = loadHDImages("/tmp/loopimage", "/", flags, "loop1",
+		rc = loadHDImages("/tmp/loopimage", "/", "loop1",
 				  "/mnt/runtime");
 		if (rc) {
 		  newtWinMessage(_("Error"), _("OK"),
@@ -216,7 +218,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 			  "from the ISO images. Please check your ISO "
 			  "images and try again."));
 		} else {
-		    queryIsoMediaCheck(path, flags);
+		    queryIsoMediaCheck(path);
 		}
 	    }
 
@@ -249,7 +251,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 char * mountHardDrive(struct installMethod * method,
 		      char * location, struct loaderData_s * loaderData,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps * modDepsPtr, int flags) {
+		      moduleDeps * modDepsPtr) {
     int rc;
     int i;
 
@@ -293,7 +295,7 @@ char * mountHardDrive(struct installMethod * method,
             if (!strncmp(kspart, "/dev/", 5))
                 kspart = kspart + 5;
 
-	    url = setupIsoImages(kspart, ksdirectory, flags);
+	    url = setupIsoImages(kspart, ksdirectory);
 	    if (!url) {
 		logMessage(ERROR, "unable to find %s installation images on hd",getProductName());
 		free(loaderData->method);
@@ -332,7 +334,7 @@ char * mountHardDrive(struct installMethod * method,
 		return NULL;
 
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, flags, 0, 0);
+				     modInfo, 0, 0);
             if (rc == LOADER_BACK)
 		return NULL;
 
@@ -418,7 +420,7 @@ char * mountHardDrive(struct installMethod * method,
 	    return NULL;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, flags, 0, 0);
+				     modInfo, 0, 0);
             if (rc == LOADER_BACK)
 		return NULL;
 
@@ -427,7 +429,7 @@ char * mountHardDrive(struct installMethod * method,
 
 	logMessage(INFO, "partition %s selected", selpart);
 	
-	url = setupIsoImages(selpart + 5, dir, flags);
+	url = setupIsoImages(selpart + 5, dir);
 	if (!url) {
 	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
@@ -447,7 +449,7 @@ char * mountHardDrive(struct installMethod * method,
 }
 
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
-                     char ** argv, int * flagsPtr) {
+                     char ** argv) {
     char *biospart = NULL, *partition = NULL, *dir = NULL, *p;
     poptContext optCon;
     int rc;
@@ -463,7 +465,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     logMessage(INFO, "kickstartFromHD");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
-        startNewt(*flagsPtr);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to HD kickstart method "
                          "command %s: %s"),
@@ -501,7 +503,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
                dir);
 }
 
-int kickstartFromHD(char *kssrc, int flags) {
+int kickstartFromHD(char *kssrc) {
     int rc;
     char *p, *q = NULL, *tmpstr, *ksdev, *kspath;
 
@@ -532,7 +534,7 @@ int kickstartFromHD(char *kssrc, int flags) {
     logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
 	if (rc == 3) {
-	    startNewt(flags);
+	    startNewt();
 	    newtWinMessage(_("Error"), _("OK"),
 			   _("Cannot find kickstart file on hard drive."));
 	}
@@ -543,7 +545,7 @@ int kickstartFromHD(char *kssrc, int flags) {
 }
 
 
-int kickstartFromBD(char *kssrc, int flags) {
+int kickstartFromBD(char *kssrc) {
     int rc;
     char *p, *q = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
 
@@ -575,7 +577,7 @@ int kickstartFromBD(char *kssrc, int flags) {
     *r = '\0';
     biosksdev = getBiosDisk((p + 1));
     if(!biosksdev){
-        startNewt(flags);
+        startNewt();
         newtWinMessage(_("Error"), _("OK"),
                        _("Cannot find hard drive for BIOS disk %s"),
                        p + 1);
@@ -588,7 +590,7 @@ int kickstartFromBD(char *kssrc, int flags) {
     logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
 	if (rc == 3) {
-	    startNewt(flags);
+	    startNewt();
 	    newtWinMessage(_("Error"), _("OK"),
 			   _("Cannot find kickstart file on hard drive."));
 	}

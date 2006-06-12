@@ -16,7 +16,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 #include <arpa/inet.h>
 #include <ctype.h>
 #include <fcntl.h>
@@ -37,6 +36,9 @@
 #include "log.h"
 #include "windows.h"
 #include "net.h"
+
+/* boot flags */
+extern int flags;
 
 /* convert a url (ftp or http) to a ui */
 int convertURLToUI(char *url, struct iurlinfo *ui) {
@@ -150,8 +152,7 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
-                         char *extraHeaders, int silentErrors,
-                         int flags) {
+                         char *extraHeaders, int silentErrors) {
     char * buf;
     int fd;
     char * finalPrefix;
@@ -211,7 +212,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
     return fd;
 }
 
-int urlinstFinishTransfer(struct iurlinfo * ui, int fd, int flags) {
+int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
     if (ui->protocol == URL_METHOD_FTP)
         close(ui->ftpPort);
     close(fd);

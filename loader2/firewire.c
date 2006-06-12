@@ -25,8 +25,11 @@
 #include "modules.h"
 #include "windows.h"
 
+/* boot flags */
+extern int flags;
+
 int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
-			      moduleInfoSet modInfo, int flags) {
+			      moduleInfoSet modInfo) {
     struct device ** devices;
     int i = 0;
     int found = 0;
@@ -40,7 +43,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 	return 0;
     }
 
-    startNewt(flags);
+    startNewt();
 
     /* JKFIXME: if we looked for all of them, we could batch this up and it
      * would be faster */
@@ -52,8 +55,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
         winStatus(40, 3, _("Loading"), _("Loading %s driver..."), 
                   devices[0]->driver);
 
-        if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps,
-                            modInfo, flags)) {
+        if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, modInfo)) {
             logMessage(ERROR, "failed to insert firewire module");
         } else {
            found++;
@@ -80,8 +82,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 	if ((devices[i]->detached == 0) && (devices[i]->driver != NULL)) {
  	    logMessage(INFO, "found firewire device using %s",
 		       devices[i]->device);
-	    mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, 
-			    modInfo, flags);
+	    mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, modInfo);
 	}
     }
 

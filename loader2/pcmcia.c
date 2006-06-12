@@ -30,6 +30,9 @@
 #include "log.h"
 #include "modules.h"
 
+/* boot flags */
+extern int flags;
+
 char * getPcicController() {
     struct device ** devices;
     static int probed = 0;
@@ -121,7 +124,7 @@ int startupPcmciaControllers() {
 }
 
 int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
-                               moduleInfoSet modInfo, int flags) {
+                               moduleInfoSet modInfo) {
     char * pcic = NULL;
     char * mods;
 
@@ -133,7 +136,7 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
         return 0;
 
     mods = sdupprintf("pcmcia_core:%s:pcmcia", pcic);
-    mlLoadModuleSet(mods, modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet(mods, modLoaded, modDeps, modInfo);
 	
     startupPcmciaControllers();
     return 0;

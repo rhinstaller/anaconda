@@ -3,6 +3,6 @@
 
 void startTelnetd(struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, moduleList modLoaded, 
-                  moduleDeps modDeps, int flags);
+                  moduleDeps modDeps);
 
 #endif

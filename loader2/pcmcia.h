@@ -4,7 +4,7 @@
 #include <kudzu/kudzu.h>
 
 int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
-                                moduleInfoSet modInfo, int flags);
-void startPcmciaDevices(moduleList modLoaded, int flags);
+                                moduleInfoSet modInfo);
+void startPcmciaDevices(moduleList modLoaded);
 
 #endif

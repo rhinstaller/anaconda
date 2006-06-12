@@ -39,6 +39,9 @@
 
 #include "../isys/cpio.h"
 
+/* boot flags */
+extern int flags;
+
 static int writeModulesConf(moduleList list, int fd);
 static struct extractedModule * extractModules (char * const * modNames,
                                                 struct extractedModule * oldPaths,
@@ -247,7 +250,7 @@ static struct loadedModuleInfo * getLoadedModuleInfo(moduleList modLoaded,
 /* load a single module.  this is the real workhorse of loading modules */
 static int loadModule(const char * modName, struct extractedModule * path,
                       moduleList modLoaded, char ** args, 
-                      moduleInfoSet modInfo, int flags) {
+                      moduleInfoSet modInfo) {
     char fileName[300];
     char ** argPtr, ** newArgs, ** arg;
     struct moduleInfo * mi = NULL;
@@ -270,7 +273,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
         if (mi->major == DRIVER_SCSI) {
             deviceCount = scsiDiskCount();
             if (!FL_CMDLINE(flags)) {
-                startNewt(flags);
+                startNewt();
                 scsiWindow(modName);
                 popWindow = 1;
             }
@@ -431,7 +434,7 @@ static char ** lateModuleSort(char **allmods, int num) {
  * *ALL* modules?  this would probably want for auto module-info generation */
 static int doLoadModules(const char * origModNames, moduleList modLoaded,
                          moduleDeps modDeps, moduleInfoSet modInfo,
-                         int flags, const char * argModule, char ** args,
+                         const char * argModule, char ** args,
                          struct moduleBallLocation * modLocation) {
     char * modNames;
     char * start, * next, * end;
@@ -547,7 +550,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
         }
 
         /* here we need to save the state of stage2 */
-        removeLoadedModule("usb-storage", modLoaded, flags);
+        removeLoadedModule("usb-storage", modLoaded);
         
         /* JKFIXME: here are the big hacks... for now, just described.
          * 1) figure out which scsi devs are claimed by usb-storage.
@@ -566,7 +569,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
             continue;
         if (loadModule(*l, p, modLoaded,
                        (argModule && !strcmp(argModule, *l)) ? args : NULL,
-                       modInfo, flags)) {
+                       modInfo)) {
             logMessage(ERROR, "failed to insert %s", p->path);
         } else {
             logMessage(INFO, "inserted %s", p->path);
@@ -574,7 +577,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     if (reloadUsbStorage) {
-        mlLoadModule("usb-storage", modLoaded, modDeps, modInfo, NULL, flags);
+        mlLoadModule("usb-storage", modLoaded, modDeps, modInfo, NULL);
         /* JKFIXME: here's the rest of the hacks.  basically do the reverse
          * of what we did before.
          */
@@ -610,17 +613,17 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 /* load a module with a given list of arguments */
 int mlLoadModule(const char * module, moduleList modLoaded, 
                  moduleDeps modDeps, moduleInfoSet modInfo, 
-                 char ** args, int flags) {
-    return doLoadModules(module, modLoaded, modDeps, modInfo, flags, module,
+                 char ** args) {
+    return doLoadModules(module, modLoaded, modDeps, modInfo, module,
                          args, NULL);
 }
 
 /* loads a : separated list of modules */
 int mlLoadModuleSet(const char * modNames, 
                     moduleList modLoaded, moduleDeps modDeps, 
-                    moduleInfoSet modInfo, int flags) {
+                    moduleInfoSet modInfo) {
     return doLoadModules(modNames, modLoaded, modDeps, modInfo, 
-                         flags, NULL, NULL, NULL);
+                         NULL, NULL, NULL);
 }
 
 static int writeModulesConf(moduleList list, int fd) {
@@ -884,8 +887,7 @@ static struct extractedModule * extractModules (char * const * modNames,
 /* remove a module which has been loaded, including removal from the 
  * modLoaded struct
  */
-int removeLoadedModule(const char * modName, moduleList modLoaded,
-                       int flags) {
+int removeLoadedModule(const char * modName, moduleList modLoaded) {
     int status, rc = 0;
     pid_t child;
     struct loadedModuleInfo * mod;
@@ -900,27 +902,27 @@ int removeLoadedModule(const char * modName, moduleList modLoaded,
     mod->lastDevNum = 0;
     
     if (FL_TESTING(flags)) {
-	logMessage(INFO, "would have rmmod %s", modName);
-	rc = 0;
+        logMessage(INFO, "would have rmmod %s", modName);
+        rc = 0;
     } else {
-	logMessage(INFO, "going to rmmod %s", modName);
-	if (!(child = fork())) {
-	    int fd = open("/dev/tty3", O_RDWR);
+        logMessage(INFO, "going to rmmod %s", modName);
+        if (!(child = fork())) {
+            int fd = open("/dev/tty3", O_RDWR);
 
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-	    close(fd);
+            dup2(fd, 0);
+            dup2(fd, 1);
+            dup2(fd, 2);
+            close(fd);
 
-	    execl("/sbin/rmmod", "/sbin/rmmod", modName, NULL);
-	    _exit(rc);
-	}
+            execl("/sbin/rmmod", "/sbin/rmmod", modName, NULL);
+            _exit(rc);
+        }
 
-	waitpid(child, &status, 0);
+        waitpid(child, &status, 0);
 	
-	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-	    rc = 1;
-	} else {
+        if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+            rc = 1;
+        } else {
             int found = -1;
             int i;
 
@@ -938,20 +940,19 @@ int removeLoadedModule(const char * modName, moduleList modLoaded,
             modLoaded->numModules--;
 
             rc = 0;
-	}
+        }
     }
     return rc;
 }
 
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
-                         char ** argv, int * flagsPtr) {
+                         char ** argv) {
     char * opts = NULL;
     char * module = NULL;
     char * type = NULL;
     char ** args = NULL;
     poptContext optCon;
     int rc;
-    int flags = *flagsPtr;
     struct poptOption ksDeviceOptions[] = {
         { "opts", '\0', POPT_ARG_STRING, &opts, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
@@ -960,7 +961,7 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     optCon = poptGetContext(NULL, argc, (const char **) argv, 
                             ksDeviceOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
-        startNewt(flags);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to device kickstart method "
                          "command %s: %s"),
@@ -1004,6 +1005,6 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
 
 
     mlLoadModule(module, loaderData->modLoaded, *(loaderData->modDepsPtr),
-                 loaderData->modInfo, args, flags);
+                 loaderData->modInfo, args);
 }
 

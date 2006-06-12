@@ -6,21 +6,21 @@
 int canProbeDevices(void);
 
 int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
-                      moduleInfoSet modInfo, int flags);
+                      moduleInfoSet modInfo);
 
 int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
-                    moduleDeps modDeps, int justProbe, int flags);
+                    moduleDeps modDeps, int justProbe);
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe, int flags);
+             int justProbe);
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags);
+               moduleInfoSet modInfo);
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-              moduleInfoSet modInfo, int flags);
+              moduleInfoSet modInfo);
 void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags);
+               moduleInfoSet modInfo);
 
 void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags);
+               moduleInfoSet modInfo);
 
 #endif

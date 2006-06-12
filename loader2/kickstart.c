@@ -48,11 +48,14 @@
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 
+/* boot flags */
+extern int flags;
+
 struct ksCommandNames {
     int code;
     char * name;
     void (*setupData) (struct loaderData_s *loaderData,
-                       int argc, char ** argv, int * flagsPtr);
+                       int argc, char ** argv);
 } ;
 
 struct ksCommand {
@@ -61,23 +64,23 @@ struct ksCommand {
 };
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr);
+                        char ** argv);
 static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
-                             char ** argv, int * flagsPtr);
+                             char ** argv);
 static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
-                           char ** argv, int * flagsPtr);
+                           char ** argv);
 static void setSELinux(struct loaderData_s * loaderData, int argc, 
-                       char ** argv, int * flagsPtr);
+                       char ** argv);
 static void setPowerOff(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr);
+                        char ** argv);
 static void setHalt(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr);
+                    char ** argv);
 static void setShutdown(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr);
+                        char ** argv);
 static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
-                          char ** argv, int * flagsPtr);
+                          char ** argv);
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
-                         char ** argv, int * flagsPtr);
+                         char ** argv);
 
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs", setKickstartNfs },
@@ -103,7 +106,7 @@ struct ksCommandNames ksTable[] = {
 struct ksCommand * commands = NULL;
 int numCommands = 0;
 
-int ksReadCommands(char * cmdFile, int flags) {
+int ksReadCommands(char * cmdFile) {
     int fd;
     char * buf;
     struct stat sb;
@@ -117,7 +120,7 @@ int ksReadCommands(char * cmdFile, int flags) {
     int commandsAlloced = 5;
 
     if ((fd = open(cmdFile, O_RDONLY)) < 0) {
-        startNewt(flags);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Error opening kickstart file %s: %s"),
                        cmdFile, strerror(errno));
@@ -127,7 +130,7 @@ int ksReadCommands(char * cmdFile, int flags) {
     fstat(fd, &sb);
     buf = alloca(sb.st_size + 1);
     if (read(fd, buf, sb.st_size) != sb.st_size) {
-        startNewt(flags);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Error reading contents of kickstart file %s: %s"),
                        cmdFile, strerror(errno));
@@ -234,7 +237,7 @@ int ksGetCommand(int cmd, char ** last, int * argc, char *** argv) {
     return 1;
 }
 
-int kickstartFromFloppy(char *kssrc, int flags) {
+int kickstartFromFloppy(char *kssrc) {
     struct device ** devices;
     char *p, *kspath;
     int i, rc;
@@ -269,7 +272,7 @@ int kickstartFromFloppy(char *kssrc, int flags) {
 
     if ((rc=getKickstartFromBlockDevice(devices[i]->device, kspath))) {
 	if (rc == 3) {
-	    startNewt(flags);
+	    startNewt();
 	    newtWinMessage(_("Error"), _("OK"),
 			   _("Cannot find ks.cfg on boot floppy."));
 	}
@@ -311,86 +314,85 @@ void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
     }
 }
 
-void getKickstartFile(struct loaderData_s * loaderData, int * flagsPtr) {
+void getKickstartFile(struct loaderData_s * loaderData) {
     char * c = loaderData->ksFile;
-    int flags = *flagsPtr;
 
     loaderData->ksFile = NULL;
 
     if (!strncmp(c, "ks=http://", 10) || !strncmp(c, "ks=ftp://", 9)) {
-        if (kickstartFromUrl(c + 3, loaderData, flags))
+        if (kickstartFromUrl(c + 3, loaderData))
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=nfs:", 7)) {
-        if (kickstartFromNfs(c + 7, loaderData, flags))
+        if (kickstartFromNfs(c + 7, loaderData))
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=floppy", 9)) {
-        if (kickstartFromFloppy(c, *flagsPtr)) 
+        if (kickstartFromFloppy(c)) 
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=hd:", 6)) {
-        if (kickstartFromHD(c, *flagsPtr)) 
+        if (kickstartFromHD(c)) 
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=bd:", 6)) {
-        if (kickstartFromBD(c, *flagsPtr))
+        if (kickstartFromBD(c))
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=cdrom", 8)) {
-        if (kickstartFromCD(c, *flagsPtr)) 
+        if (kickstartFromCD(c)) 
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=file:", 8)) {
         loaderData->ksFile = c + 8;
     } else if (!strcmp(c, "ks")) {
-        if (kickstartFromNfs(NULL, loaderData, flags))
+        if (kickstartFromNfs(NULL, loaderData))
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
     }
 
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_KICKSTART;
+    flags |= LOADER_FLAGS_KICKSTART;
     return;
 }
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_TEXT;
+                        char ** argv) {
+    flags |= LOADER_FLAGS_TEXT;
     return;
 }
 
 static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_GRAPHICAL;
+                        char ** argv) {
+    flags |= LOADER_FLAGS_GRAPHICAL;
     return;
 }
 
 static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
-                           char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_CMDLINE;
+                           char ** argv) {
+    flags |= LOADER_FLAGS_CMDLINE;
     return;
 }
 
 static void setSELinux(struct loaderData_s * loaderData, int argc, 
-                       char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_SELINUX;
+                       char ** argv) {
+    flags |= LOADER_FLAGS_SELINUX;
     return;
 }
 
 static void setPowerOff(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_POWEROFF;
+                        char ** argv) {
+    flags |= LOADER_FLAGS_POWEROFF;
     return;
 }
 
 static void setHalt(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_HALT;
+                    char ** argv) {
+    flags |= LOADER_FLAGS_HALT;
     return;
 }
 
 static void setShutdown(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr) {
+                    char ** argv) {
     poptContext optCon;
     int reboot = 0, halt = 0, poweroff = 0;
     int rc;
@@ -405,7 +407,7 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
 
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
-        startNewt(*flagsPtr);
+        startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to shutdown kickstart method "
                          "command %s: %s"),
@@ -416,21 +418,20 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
 
 
     if (poweroff) 
-        (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_POWEROFF;
+        flags |= LOADER_FLAGS_POWEROFF;
     if ((!poweroff && !reboot) || (halt))
-        (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_HALT;
+        flags |= LOADER_FLAGS_HALT;
 
     return;
 }
 
 static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
-                          char ** argv, int * flagsPtr) {
-    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_MEDIACHECK;
+                          char ** argv) {
+    flags |= LOADER_FLAGS_MEDIACHECK;
     return;
 }
 
-void runKickstart(struct loaderData_s * loaderData, 
-                  int * flagsPtr) {
+void runKickstart(struct loaderData_s * loaderData) {
     struct ksCommandNames * cmd;
     int argc;
     char ** argv;
@@ -438,7 +439,7 @@ void runKickstart(struct loaderData_s * loaderData,
     logMessage(INFO, "setting up kickstart");
     for (cmd = ksTable; cmd->name; cmd++) {
         if ((!ksGetCommand(cmd->code, NULL, &argc, &argv)) && cmd->setupData) {
-            cmd->setupData(loaderData, argc, argv, flagsPtr);
+            cmd->setupData(loaderData, argc, argv);
         }
     }
 }

@@ -46,6 +46,9 @@
 #include "net.h"
 #include "windows.h"
 
+/* boot flags */
+extern int flags;
+
 char *netServerPrompt = \
     N_("Please enter the following information:\n"
        "\n"
@@ -210,16 +213,16 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
 void initLoopback(void) {
     NLH_t nh;
     NIC_t nic;
-    uint32_t flags;
+    uint32_t nflags;
 
     /* open nic handle and set device name */
     nh = nic_open(nic_sys_logger);
     nic = nic_by_name(nh, "lo");
 
     /* bring the interface up */
-    flags = nic_get_flags(nic);
-    if ((flags & (IFF_UP | IFF_RUNNING)) == 0) {
-        nic_set_flags(nic, flags | IFF_UP | IFF_RUNNING);
+    nflags = nic_get_flags(nic);
+    if ((nflags & (IFF_UP | IFF_RUNNING)) == 0) {
+        nic_set_flags(nic, nflags | IFF_UP | IFF_RUNNING);
         nic_update(nic);
     }
 
@@ -336,8 +339,7 @@ void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
 
 /* given loader data from kickstart, populate network configuration struct */
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
-                              struct loaderData_s * loaderData, 
-                              int flags) {
+                              struct loaderData_s * loaderData) {
     struct in_addr addr;
     struct in6_addr addr6;
     char * c;
@@ -377,7 +379,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                        loaderData->netDev);
 
             if (!FL_CMDLINE(flags)) {
-                startNewt(flags);
+                startNewt();
                 winStatus(55, 3, _("Dynamic IP"), 
                           _("Sending request for IP information for %s..."), 
                           loaderData->netDev, 0);
@@ -502,7 +504,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg, 
-                  char * dhcpclass, int flags) {
+                  char * dhcpclass) {
     newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
     struct networkDeviceConfig newCfg;
@@ -522,7 +524,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     if (!FL_TESTING(flags) && cfg->preset) {
         logMessage(INFO, "doing kickstart... setting it up");
         configureNetwork(cfg);
-        findHostAndDomain(cfg, flags);
+        findHostAndDomain(cfg);
 
         if (!cfg->noDns)
             writeResolvConf(cfg);
@@ -741,7 +743,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
     if (!FL_TESTING(flags)) {
         configureNetwork(cfg);
-        findHostAndDomain(cfg, flags);
+        findHostAndDomain(cfg);
         writeResolvConf(cfg);
     }
 
@@ -788,9 +790,9 @@ char *doDhcp(struct networkDeviceConfig *dev) {
    i = &dev->dev;
 
    if (dev->useipv6)
-      r = pumpDhcpClassRun(i,0L,0L,0,0,10,netlogger,LOG_DEBUG);
+      r = pumpDhcpClassRun(i,0L,0L,0,0,10,netlogger,LOG_INFO);
    else
-      r = pumpDhcpClassRun(i,0L,0L,DHCPv6_DISABLE,0,10,netlogger,LOG_DEBUG);
+      r = pumpDhcpClassRun(i,0L,0L,DHCPv6_DISABLE,0,10,netlogger,LOG_INFO);
 
    return r;
 }
@@ -917,7 +919,7 @@ int writeResolvConf(struct networkDeviceConfig * net) {
     return 0;
 }
 
-int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
+int findHostAndDomain(struct networkDeviceConfig * dev) {
     char * name, * chptr;
     char ret[47];
     ip_addr_t *tip;
@@ -971,7 +973,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 }
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
-                         char ** argv, int * flagsPtr) {
+                         char ** argv) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
     int noDns = 0, noksdev = 0, rc, mtu = 0;
@@ -1095,8 +1097,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
 /* if multiple interfaces get one to use from user.   */
 /* NOTE - uses kickstart data available in loaderData */
-int chooseNetworkInterface(struct loaderData_s * loaderData,
-                           int flags) {
+int chooseNetworkInterface(struct loaderData_s * loaderData) {
     int i, rc;
     unsigned int max = 40;
     int deviceNums = 0;
@@ -1196,7 +1197,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
         logMessage(WARNING, "wanted netdev with link, but none present.  prompting");
     }
 
-    startNewt(flags);
+    startNewt();
 
     if (max > 70)
         max = 70;
@@ -1229,8 +1230,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData,
-                       struct networkDeviceConfig *netCfgPtr,
-                       int flags) {
+                       struct networkDeviceConfig *netCfgPtr) {
     int rc;
 
     initLoopback();
@@ -1241,7 +1241,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     do {
         /* this is smart and does the right thing based on whether or not
          * we have ksdevice= specified */
-        rc = chooseNetworkInterface(loaderData, flags);
+        rc = chooseNetworkInterface(loaderData);
         
         if (rc == LOADER_ERROR) {
             /* JKFIXME: ask for a driver disk? */
@@ -1269,10 +1269,9 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
     } 
     loaderData->ipinfo_set = 1;
 
-    setupNetworkDeviceConfig(netCfgPtr, loaderData, flags);
+    setupNetworkDeviceConfig(netCfgPtr, loaderData);
 
-    rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls, 
-                       flags);
+    rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls);
     if ((rc == LOADER_BACK) || (rc == LOADER_ERROR)) {
         logMessage(ERROR, "unable to setup networking");
         return -1;

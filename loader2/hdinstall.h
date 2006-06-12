@@ -10,12 +10,12 @@ struct hdInstallData {
 
 
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
-		    char ** argv, int * flagsPtr);
+		    char ** argv);
 char * mountHardDrive(struct installMethod * method,
                       char * location, struct loaderData_s * loaderData,
                       moduleInfoSet modInfo, moduleList modLoaded,
-                      moduleDeps * modDepsPtr, int flags);
-int kickstartFromHD(char *kssrc, int flags);
-int kickstartFromBD(char *kssrc, int flags);
+                      moduleDeps * modDepsPtr);
+int kickstartFromHD(char *kssrc);
+int kickstartFromBD(char *kssrc);
 
 #endif

@@ -32,6 +32,8 @@
 
 #include "../isys/imount.h"
 
+/* boot flags */
+extern int flags;
 
 /* This forces a pause between initializing usb and trusting the /proc 
    stuff */
@@ -61,7 +63,7 @@ static void sleepUntilUsbIsStable(void) {
 }
 
 int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
-			 moduleInfoSet modInfo, int flags) {
+			 moduleInfoSet modInfo) {
     struct device ** devices;
     char * buf;
     int i;
@@ -74,8 +76,8 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     devices = probeDevices(CLASS_USB, BUS_PCI, 0);
 
     if (!devices) {
-	logMessage(DEBUGLVL, "no usb controller found");
-	return 0;
+        logMessage(DEBUGLVL, "no usb controller found");
+        return 0;
     }
 
     /* JKFIXME: if we looked for all of them, we could batch this up and it
@@ -84,8 +86,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
         if (!devices[i]->driver) continue;
         logMessage(INFO, "found USB controller %s", devices[i]->driver);
 
-        if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps,
-                            modInfo, flags)) {
+        if (mlLoadModuleSet(devices[i]->driver, modLoaded, modDeps, modInfo)) {
             /* dont return, just keep going. */
             /* may have USB built into kernel */
             /* return 1; */
@@ -119,20 +120,20 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     buf = alloca(40);
     sprintf(buf, "hid:keybdev%s", (loadUsbStorage ? loadUsbStorage : ""));
-    mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet(buf, modLoaded, modDeps, modInfo);
     sleep(1);
 
     return 0;
 }
 
 void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
-                        moduleInfoSet modInfo, int flags) {
+                        moduleInfoSet modInfo) {
     if (FL_NOUSB(flags)) return;
 
     logMessage(INFO, "looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
         logMessage(INFO, "USB mouse found, loading mousedev module");
-        if (mlLoadModuleSet("mousedev", modLoaded, modDeps, modInfo, flags)) {
+        if (mlLoadModuleSet("mousedev", modLoaded, modDeps, modInfo)) {
             logMessage (DEBUGLVL, "failed to loading mousedev module");
             return;
         }

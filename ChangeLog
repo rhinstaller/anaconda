@@ -1,3 +1,48 @@
+2006-06-12  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c: Define boot loader flags as the global 'flags' so we
+	can use it from anywhere within the loader. Remove all passing of flags
+	to different functions.
+
+	* loader2/cdinstall.c: Reference global flags variable, remove passing of
+	flags to different functions.
+	* loader2/driverdisk.c: Likewise.
+	* loader2/driverselect.c: Likewise.
+	* loader2/firewire.c: Likewise.
+	* loader2/hardware.c: Likewise.
+	* loader2/hdinstall.c: Likewise.
+	* loader2/kbd.c: Likewise.
+	* loader2/kickstart.c: Likewise.
+	* loader2/lang.c: Likewise.
+	* loader2/method.c: Likewise.
+	* loader2/modules.c: Likewise.
+	* loader2/net.c: Likewise.
+	* loader2/nfsinstall.c: Likewise.
+	* loader2/pcmcia.c: Likewise.
+	* loader2/telnetd.c: Likewise.
+	* loader2/urlinstall.c: Likewise.
+	* loader2/urls.c: Likewise.
+	* loader2/usb.c: Likewise.
+
+	* loader2/cdinstall.h: Clean up prototypes to match flags being global.
+	* loader2/driverdisk.h: Likewise.
+	* loader2/firewire.h: Likewise.
+	* loader2/hardware.h: Likewise.
+	* loader2/hdinstall.h: Likewise.
+	* loader2/kbd.h: Likewise.
+	* loader2/kickstart.h: Likewise.
+	* loader2/lang.h: Likewise.
+	* loader2/loader.h: Likewise.
+	* loader2/method.h: Likewise.
+	* loader2/modules.h: Likewise.
+	* loader2/net.h: Likewise.
+	* loader2/nfsinstall.h: Likewise.
+	* loader2/pcmcia.h: Likewise.
+	* loader2/telnetd.h: Likewise.
+	* loader2/urlinstall.h: Likewise.
+	* loader2/urls.h: Likewise.
+	* loader2/usb.h: Likewise.
+
 2006-06-10  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

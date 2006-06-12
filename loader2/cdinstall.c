@@ -42,6 +42,9 @@
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 
+/* boot flags */
+extern int flags;
+
 static int getISOStatusFromFD(int isofd, char *mediasum);
 
 /* ejects the CD device the device node /tmp/cdrom points at */
@@ -235,7 +238,7 @@ static void writeISOStatus(int status, char *mediasum) {
 
 /* ask about doing media check */
 /* JKFIXME: Assumes CD is mounted as /mnt/source                      */
-static void queryCDMediaCheck(char *dev, int flags) {
+static void queryCDMediaCheck(char *dev) {
   int rc;
   char mediasum[33];
   int isostatus;
@@ -252,7 +255,7 @@ static void queryCDMediaCheck(char *dev, int flags) {
   /* in rescue mode only test if they explicitly asked to */
   if ((!isostatus && !FL_RESCUE(flags)) || FL_MEDIACHECK(flags)) {
     
-    startNewt(flags);
+    startNewt();
     rc = newtWinChoice(_("CD Found"), _("OK"),
 		       _("Skip"), 
        _("To begin testing the CD media before installation press %s.\n\n"
@@ -277,7 +280,6 @@ static void queryCDMediaCheck(char *dev, int flags) {
 /* set up a cdrom, nominally for installation 
  *
  * location: where to mount the cdrom at JKFIXME: ignored
- * flags: usual loader flags
  * interactive: whether or not to prompt about questions/errors (1 is yes)
  *
  * loaderData is the kickstart info, can be NULL meaning no info
@@ -292,7 +294,6 @@ char * setupCdrom(char * location,
                   moduleInfoSet modInfo, 
                   moduleList modLoaded, 
                   moduleDeps modDeps, 
-                  int flags,
                   int interactive, 
 		  int requirepkgs) {
     int i, rc;
@@ -347,7 +348,7 @@ char * setupCdrom(char * location,
                     }
 
                     /* do the media check */
-                    queryCDMediaCheck(devices[i]->device, flags);
+                    queryCDMediaCheck(devices[i]->device);
 
 		    /* if in rescue mode and we copied stage2 to RAM */
 		    /* we can now unmount the CD                     */
@@ -399,9 +400,8 @@ char * findAnacondaCD(char * location,
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
-                    int flags,
-		    int requirepkgs) {
-    return setupCdrom(location, NULL, modInfo, modLoaded, modDeps, flags, 0, requirepkgs);
+                    int requirepkgs) {
+    return setupCdrom(location, NULL, modInfo, modLoaded, modDeps, 0, requirepkgs);
 }
 
 
@@ -410,19 +410,18 @@ char * findAnacondaCD(char * location,
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct loaderData_s * loaderData,
                        moduleInfoSet modInfo, moduleList modLoaded,
-                       moduleDeps * modDepsPtr, int flags) {
+                       moduleDeps * modDepsPtr) {
 
-    return setupCdrom(location, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1, 1);
+    return setupCdrom(location, loaderData, modInfo, modLoaded, *modDepsPtr, 1, 1);
 }
 
-void setKickstartCD(struct loaderData_s * loaderData, int argc,
-		    char ** argv, int * flagsPtr) {
+void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
 
     logMessage(INFO, "kickstartFromCD");
     loaderData->method = strdup("cdrom");
 }
 
-int kickstartFromCD(char *kssrc, int flags) {
+int kickstartFromCD(char *kssrc) {
     int rc;
     char *p, *kspath;
     struct device ** devices;
@@ -446,7 +445,7 @@ int kickstartFromCD(char *kssrc, int flags) {
 
     if ((rc=getKickstartFromBlockDevice(devices[0]->device, kspath))) {
 	if (rc == 3) {
-	    startNewt(flags);
+	    startNewt();
 	    newtWinMessage(_("Error"), _("OK"),
 			   _("Cannot find kickstart file on CDROM."));
 	}

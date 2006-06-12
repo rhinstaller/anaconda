@@ -38,6 +38,9 @@
 #include "../isys/lang.h"
 #include "../isys/isys.h"
 
+/* boot flags */
+extern int flags;
+
 struct aString {
     unsigned int hash;
     short length;
@@ -87,7 +90,7 @@ char * translateString(char * str) {
 static struct langInfo * languages = NULL;
 static int numLanguages = 0;
 
-static void loadLanguageList(int flags) {
+static void loadLanguageList(void) {
     char * file = FL_TESTING(flags) ? "../lang-table" :
                     "/etc/lang-table";
     FILE * f;
@@ -121,15 +124,15 @@ static void loadLanguageList(int flags) {
     fclose(f);
 }
 
-int getLangInfo(struct langInfo ** langs, int flags) {
+int getLangInfo(struct langInfo ** langs) {
     if (!languages)
-	loadLanguageList(flags);
+        loadLanguageList();
 
     *langs = languages;
     return numLanguages;
 }
 
-void loadLanguage (char * file, int flags) {
+void loadLanguage (char * file) {
     char filename[200];
     gzFile stream;
     int fd, hash, rc;
@@ -205,7 +208,7 @@ void loadLanguage (char * file, int flags) {
  *
  * ASSUMPTION: languages exists
  */
-static void setLangEnv (int i, int flags) {
+static void setLangEnv (int i) {
     if (i > numLanguages)
         return;
 
@@ -216,11 +219,11 @@ static void setLangEnv (int i, int flags) {
     setenv("LANG", languages[i].lc_all, 1);
     setenv("LANGKEY", languages[i].key, 1);
     setenv("LINGUAS", languages[i].lang, 1);
-    loadLanguage (NULL, flags);
+    loadLanguage (NULL);
 }
 
 /* choice is the index of the chosen language in languages */
-static int setupLanguage(int choice, int flags) {
+static int setupLanguage(int choice) {
     char * buf;
     int i;
 
@@ -239,7 +242,7 @@ static int setupLanguage(int choice, int flags) {
 	return 0;
     }
     
-    setLangEnv (choice, flags);
+    setLangEnv (choice);
 
     /* clear out top line */
     buf = alloca(80);
@@ -298,14 +301,14 @@ static char * getLangNick(char * oldLang) {
     return lang;
 }
 
-int setLanguage (char * key, int flags) {
+int setLanguage (char * key) {
     int i;
 
-    if (!languages) loadLanguageList(flags);
+    if (!languages) loadLanguageList();
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(languages[i].lc_all, key)) {
-            return setupLanguage(i, flags);
+            return setupLanguage(i);
         }
     }
 
@@ -313,13 +316,13 @@ int setLanguage (char * key, int flags) {
      * against short forms and nicks */
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangShortForm(languages[i].lc_all), key)) {
-            return setupLanguage(i, flags);
+            return setupLanguage(i);
         }
     }
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangNick(languages[i].lc_all), key)) {
-            return setupLanguage(i, flags);
+            return setupLanguage(i);
         }
     }
 
@@ -327,7 +330,7 @@ int setLanguage (char * key, int flags) {
     return -1;
 }
 
-int chooseLanguage(char ** lang, int flags) {
+int chooseLanguage(char ** lang) {
     int choice = 0;
     char ** langs;
     int i;
@@ -337,7 +340,7 @@ int chooseLanguage(char ** lang, int flags) {
     int numLangs = 0;
     char * langPicked;
 
-    if (!languages) loadLanguageList(flags);
+    if (!languages) loadLanguageList();
 
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
@@ -375,11 +378,11 @@ int chooseLanguage(char ** lang, int flags) {
     /* this can't happen */
     if (i == numLanguages) abort();
 
-    return setupLanguage(choice, flags);
+    return setupLanguage(choice);
 }
 
 void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
-                          char ** argv, int * flagsPtr) {
+                          char ** argv) {
     if (argc < 2) {
         logMessage(ERROR, "no argument passed to lang kickstart command");
         return;

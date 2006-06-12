@@ -21,12 +21,12 @@
 #define KS_CMD_SHUTDOWN    16
 #define KS_CMD_MEDIACHECK  17
 
-int ksReadCommands(char * cmdFile, int flags);
+int ksReadCommands(char * cmdFile);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);
 int ksHasCommand(int cmd);
 
-void getKickstartFile(struct loaderData_s * loaderData, int * flagsPtr);
-void runKickstart(struct loaderData_s * loaderData, int * flagsPtr);
+void getKickstartFile(struct loaderData_s * loaderData);
+void runKickstart(struct loaderData_s * loaderData);
 int getKickstartFromBlockDevice(char *device, char *path);
 void getHostandPath(char * ksSource, char **host, char ** file, char * ip);
 

@@ -36,6 +36,8 @@
 #include <linux/hdreg.h>
 #include "../isys/isys.h"
 
+/* boot flags */
+extern int flags;
 
 /* returns whether or not we can probe devices automatically or have to 
  * ask for them manually. */
@@ -56,8 +58,7 @@ int canProbeDevices(void) {
     return 1;    
 }
 
-static int detectHardware(moduleInfoSet modInfo, 
-                          char *** modules, int flags) {
+static int detectHardware(moduleInfoSet modInfo, char *** modules) {
     struct device ** devices, ** device;
     char ** modList;
     int numMods;
@@ -128,7 +129,7 @@ static int detectHardware(moduleInfoSet modInfo,
 }
 
 int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
-                      moduleInfoSet modInfo, int flags) {
+                      moduleInfoSet modInfo) {
     struct device ** devices;
 
     if (FL_TESTING(flags)) return 0;
@@ -144,7 +145,7 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     logMessage(INFO, "scsi tape device(s) found, loading st.ko");
 
-    if (mlLoadModuleSet("st", modLoaded, modDeps, modInfo, flags)) {
+    if (mlLoadModuleSet("st", modLoaded, modDeps, modInfo)) {
 	logMessage(ERROR, "failed to insert st module");
 	return 1;
     }
@@ -154,11 +155,11 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 
 
 int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded, 
-		 moduleDeps modDeps, int flags) {
+		 moduleDeps modDeps) {
     /* this is a hack since we can't really probe on iSeries */
 #ifdef __powerpc__
     if (!access("/proc/iSeries", X_OK)) {
-	mlLoadModuleSet("iseries_veth:veth:viodasd:viocd", modLoaded, modDeps, modInfo, flags);
+	mlLoadModuleSet("iseries_veth:veth:viodasd:viocd", modLoaded, modDeps, modInfo);
     }
 #endif
     return 0;
@@ -171,7 +172,7 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
  *        but is done as a quick hack for the present.
  */
 int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
-                    moduleDeps modDeps, int justProbe, int flags) {
+                    moduleDeps modDeps, int justProbe) {
     int fd, len, i;
     char buf[1024], *cmdLine;
     int argc;
@@ -195,28 +196,28 @@ int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded,
     for (i=0; i < argc; i++) {
         if (!strncasecmp(argv[i], "driverload=", 11)) {
             logMessage(INFO, "loading %s early", argv[i] + 11);
-            mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo, flags);
+            mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo);
         }
     }
     return 0;
 }
 
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe, int flags) {
+             int justProbe) {
     int i;
     char ** modList;
     char modules[1024];
     
     /* we always want to try to find out about pcmcia controllers even
      * if using noprobe */
-    initializePcmciaController(modLoaded, modDeps, modInfo, flags);
+    initializePcmciaController(modLoaded, modDeps, modInfo);
 
     /* we can't really *probe* on iSeries, but we can pretend */
-    probeiSeries(modInfo, modLoaded, modDeps, flags);
+    probeiSeries(modInfo, modLoaded, modDeps);
     
     if (canProbeDevices()) {
         /* autodetect whatever we can */
-        if (detectHardware(modInfo, &modList, flags)) {
+        if (detectHardware(modInfo, &modList)) {
             logMessage(ERROR, "failed to scan pci bus!");
             return 0;
         } else if (modList && justProbe) {
@@ -230,7 +231,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
                 strcat(modules, modList[i]);
             }
             
-            mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
+            mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
         } else 
             logMessage(INFO, "found nothing");
     }
@@ -240,31 +241,31 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 
 void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags) {
+               moduleInfoSet modInfo) {
     if (!FL_NOIPV6(flags))
-        mlLoadModule("ipv6", modLoaded, modDeps, modInfo, NULL, flags);
+        mlLoadModule("ipv6", modLoaded, modDeps, modInfo, NULL);
 }
 
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags) {
-    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
+               moduleInfoSet modInfo) {
+    mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo);
 #if defined(__s390__) || defined(__s390x__)
-    mlLoadModule("zfcp", modLoaded, modDeps, modInfo, NULL, flags);
+    mlLoadModule("zfcp", modLoaded, modDeps, modInfo, NULL);
 #endif
     if (FL_ISCSI(flags))
-        mlLoadModule("iscsi_tcp", modLoaded, modDeps, modInfo, NULL, flags);
+        mlLoadModule("iscsi_tcp", modLoaded, modDeps, modInfo, NULL);
 
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-              moduleInfoSet modInfo, int flags) {
+              moduleInfoSet modInfo) {
 #if 0
     struct device ** devices;
     int fd, i;
 #endif
 
-    mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo);
 
     /* nuke this for now */
 #if 0
@@ -309,7 +310,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 /* then parse proc to find active DASDs */
 /* Reload dasd_mod with correct range of DASD ports */
 void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags) {
+               moduleInfoSet modInfo) {
 #if !defined(__s390__) && !defined(__s390x__)
     return;
 #else
@@ -341,18 +342,17 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
         free(line);
     }
     if(dasd_parms[0]) {
-        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo,
-                     dasd_parms, flags);
+        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms);
 
         mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
-                        modLoaded, modDeps, modInfo, flags);
+                        modLoaded, modDeps, modInfo);
         free(dasd_parms);
         return;
     } else {
         dasd_parms[0] = "dasd=autodetect";
-        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms, flags);
+        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms);
         mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
-                        modLoaded, modDeps, modInfo, flags);
+                        modLoaded, modDeps, modInfo);
         free(dasd_parms);
     }
 #endif

@@ -31,7 +31,10 @@
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
 
-int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep, int flags) {
+/* boot flags */
+extern int flags;
+
+int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     int num = -1;
     int rc;
     gzFile f;
@@ -65,7 +68,7 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep, int flags
     }
 #endif /* sparc */
 
-    numLanguages = getLangInfo(&languages, flags);
+    numLanguages = getLangInfo(&languages);
 
     lang = getenv("LANG");
     if (!lang)
@@ -166,7 +169,7 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep, int flags
 }
 
 void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
-                          char ** argv, int * flagsPtr) {
+                          char ** argv) {
     if (argc < 2) {
         logMessage(ERROR, "no argument passed to keyboard kickstart command");
         return;
