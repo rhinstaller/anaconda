@@ -4,8 +4,8 @@
 	can use it from anywhere within the loader. Remove all passing of flags
 	to different functions.
 
-	* loader2/cdinstall.c: Reference global flags variable, remove passing of
-	flags to different functions.
+	* loader2/cdinstall.c: Reference global flags variable, remove passing
+	of flags to different functions.
 	* loader2/driverdisk.c: Likewise.
 	* loader2/driverselect.c: Likewise.
 	* loader2/firewire.c: Likewise.
