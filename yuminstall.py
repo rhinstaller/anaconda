@@ -137,7 +137,7 @@ class simpleCallback:
 
             while self.files[nvra] == None:
                 try:
-                    fn = repo.getAttribute(relative=path, local=po.localPkg())
+                    fn = repo.getPackage(po)
 
                     f = open(fn, 'r')
                     self.files[nvra] = f
