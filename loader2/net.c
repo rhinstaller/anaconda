@@ -518,6 +518,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     ip_addr_t *tip;
 
     /* init newCfg */
+    memset(&newCfg, '\0', sizeof(newCfg));
     strcpy(newCfg.dev.device, device);
     newCfg.essid = NULL;
     newCfg.wepkey = NULL;
@@ -525,8 +526,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     newCfg.noDns = cfg->noDns;
     newCfg.preset = cfg->preset;
 
-    memset(&newCfg, 0, sizeof(newCfg));
-    memset(&c, 0, sizeof(c));
+    memset(&c, '\0', sizeof(c));
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */

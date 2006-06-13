@@ -1,3 +1,7 @@
+2006-06-13  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (readNetConfig): Put memset for newCfg in correct place.
+
 2006-06-13  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (AnacondaYum.doStartupConfig):  Override superclass
