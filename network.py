@@ -279,16 +279,18 @@ class Network:
         lines = lines[2:]
         for line in lines:
             dev = string.strip(line[0:6])
-            if dev != "lo" and not self.netdevices.has_key(dev):
+            if dev != "lo" and dev[0:3] != "sit" and not self.netdevices.has_key(dev):
 		if self.firstnetdevice is None:
 		    self.firstnetdevice = dev
+
                 self.netdevices[dev] = NetworkDevice(dev)
-            try:
-                hwaddr = isys.getMacAddress(dev)
-                if rhpl.getArch() != "s390" and hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
-                    self.netdevices[dev].set(("hwaddr", hwaddr))
-            except Exception, e:
-                log.error("exception getting mac addr: %s" %(e,))
+
+                try:
+                    hwaddr = isys.getMacAddress(dev)
+                    if rhpl.getArch() != "s390" and hwaddr and hwaddr != "00:00:00:00:00:00" and hwaddr != "ff:ff:ff:ff:ff:ff":
+                        self.netdevices[dev].set(("hwaddr", hwaddr))
+                except Exception, e:
+                    log.error("exception getting mac addr: %s" %(e,))
 
         if ksdevice and self.netdevices.has_key(ksdevice):
             self.firstnetdevice = ksdevice

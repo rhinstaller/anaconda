@@ -6,6 +6,8 @@
 	* gui.py: Release notes viewer updates.
 	* iw/release_notes.py: Likewise.
 
+	* network.py (Network.available): Filter out sitX devices.
+
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/log.c: Added vaLogMessage() to take va_list argument, make
