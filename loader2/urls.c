@@ -226,6 +226,7 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
 char * addrToIp(char * hostname) {
     struct in_addr ad;
     char * chptr;
+    char *ret;
 
     for (chptr = hostname; *chptr; chptr++)
         if (!(isdigit(*chptr) || *chptr == '.')) break;
@@ -236,7 +237,11 @@ char * addrToIp(char * hostname) {
     if (mygethostbyname(hostname, &ad))
         return NULL;
 
-    return inet_ntoa(ad);
+    if ((ret = malloc(48)) == NULL)
+        return NULL;
+
+    inet_ntop(AF_INET, &ad, ret, INET_ADDRSTRLEN);
+    return ret;
 }
 
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
@@ -400,9 +405,11 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtFormDestroy(form);
     newtPopWindow();
 
-    return 0;
+    free(site);
 
+    return 0;
 }
+
 int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     newtComponent form, okay, cancel, answer, text, accountEntry = NULL;
     newtComponent passwordEntry = NULL, proxyEntry = NULL;

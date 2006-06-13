@@ -1,5 +1,10 @@
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.c: Last inet_ntoa() -> inet_ntop() conversions.
+	* loader2/urls.c: Likewise.
+
+2006-06-13  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/log.c: Added vaLogMessage() to take va_list argument, make
 	logMessage() call this function.
 	* loader2/log.c: vaLogMessage() prototype.

@@ -441,26 +441,29 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
     if (loaderData->dns) {
         char * buf;
+        char ret[47];
         buf = strdup(loaderData->dns);
 
         /* Scan the dns parameter for multiple comma-separated IP addresses */
-         c = strtok(buf, ",");  
-         while ((cfg->dev.numDns < MAX_DNS_SERVERS) && (c != NULL)) {
-             if (inet_pton(AF_INET, c, &addr)) {
-                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
-                 cfg->dev.numDns++;
-                 logMessage(DEBUGLVL, "adding %s", inet_ntoa(addr));
-                 c = strtok(NULL, ",");
-             } else if (inet_pton(AF_INET6, c, &addr6)) {
-                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in6(&addr6);
-                 cfg->dev.numDns++;
-                 logMessage(DEBUGLVL, "adding %s", inet_ntoa(addr));
-                 c = strtok(NULL, ",");
-             }
-         }
-         logMessage(INFO, "dnsservers is %s", loaderData->dns);
-         if (cfg->dev.numDns)
-             cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+        c = strtok(buf, ",");  
+        while ((cfg->dev.numDns < MAX_DNS_SERVERS) && (c != NULL)) {
+            if (inet_pton(AF_INET, c, &addr)) {
+                cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
+                cfg->dev.numDns++;
+                inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN);
+                logMessage(DEBUGLVL, "adding %s", ret);
+                c = strtok(NULL, ",");
+            } else if (inet_pton(AF_INET6, c, &addr6)) {
+                cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in6(&addr6);
+                cfg->dev.numDns++;
+                inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN);
+                logMessage(DEBUGLVL, "adding %s", ret);
+                c = strtok(NULL, ",");
+            }
+        }
+        logMessage(INFO, "dnsservers is %s", loaderData->dns);
+        if (cfg->dev.numDns)
+            cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
     }
 
     if (loaderData->hostname) {
