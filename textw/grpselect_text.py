@@ -12,7 +12,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from repomd.mdErrors import PackageSackError
+from yum.Errors import PackageSackError
 from snack import *
 from constants_text import *
 from rhpl.translate import _, N_, getDefaultLangs
