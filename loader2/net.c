@@ -804,12 +804,6 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
         p = INFO;
 
     vaLogMessage(p, fmt, va);
-
-    /*
-     * Uncomment the function below to get lots of debugging output on
-     * stderr.  Be sure to comment out the logMessage() call above.
-     */
-    /* libdhcp_stderr_logger(0, priority, fmt, va); */
 }
 
 char *doDhcp(struct networkDeviceConfig *dev) {
