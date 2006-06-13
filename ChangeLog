@@ -1,5 +1,9 @@
 2006-06-13  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version
+
+	* yuminstall.py (simpleCallback.callback): Another API fix
+
 	* scripts/pkgorder: Fix up for new yum API, don't import
 	anaconda_log until after we've put /usr/lib/anaconda into the path
 
@@ -14,7 +18,7 @@
 2006-06-13  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (AnacondaYum.doStartupConfig):  Override superclass
-	method.
+	method (#194987)
 
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 
