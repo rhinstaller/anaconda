@@ -70,8 +70,8 @@ class NetworkWindow(InstallWindow):
 	    tmpvals = {}
 	    for t in range(len(global_options)):
 		try:
-                    network.sanityCheckIPString(self.globals[global_options[t]].get_text())
-		    tmpvals[t] = self.globals[global_options[t]].get_text()
+                    network.sanityCheckIPString(self.globals[global_options[t]])
+		    tmpvals[t] = self.globals[global_options[t]]
 		except network.IPMissing, msg:
                     if t < 2 and self.getNumberActiveDevices() > 0:
 			if self.handleMissingOptionalIP(global_options[t]):
