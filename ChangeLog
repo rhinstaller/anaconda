@@ -1,3 +1,11 @@
+2006-06-13  David Cantrell  <dcantrell@redhat.com>
+
+	* gui.py (InstallControlWindow.releaseNotesButtonClicked): Run
+	ReleaseNotesViewerLauncher.
+
+	* iw/release_notes.py: Shift functions around, catch more exceptions,
+	peel more potatos.
+
 2006-06-13  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version

@@ -40,7 +40,6 @@ from constants import *
 from network import hasActiveNetDev
 import floppy
 import rhpl
-from threading import *
 
 from rhpl.translate import _, N_
 
@@ -48,8 +47,6 @@ from release_notes import *
 
 import logging
 log = logging.getLogger("anaconda")
-
-gobject.threads_init()
 
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 
@@ -876,8 +873,7 @@ class InstallControlWindow:
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
-        rnv = ReleaseNotesViewerThread(self.anaconda)
-        rnv.start()
+        rnv = ReleaseNotesViewerLauncher(self.anaconda)
 
     def debugClicked (self, *args):
         try:

@@ -20,15 +20,21 @@ import gtk
 import gtkhtml2
 import urllib
 import urlparse
-import thread
-import threading
 
 import gui
 
 from rhpl.translate import _, N_
 
-class ReleaseNotesViewer(threading.Thread):
-	def __init__(self):
+class ReleaseNotesViewerLauncher:
+	def __init__(self, anaconda):
+		child = os.fork()
+		if child == 0:
+			win = ReleaseNotesViewer(anaconda)
+		else:
+			os.waitpid(child, 0)
+
+class ReleaseNotesViewer:
+	def __init__(self, anaconda):
 		self.currentURI = None
 		self.htmlheader = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body bgcolor=\"white\"><pre>"
 		self.htmlfooter = "</pre></body></html>"
@@ -44,30 +50,12 @@ class ReleaseNotesViewer(threading.Thread):
 		self.width = None
 		self.height = None
 
-		#self.id = id
-		#self.dispatch = dispatch
-		self.id = None
-		self.dispatch = None
-
-		if self.id is not None and self.dispatch is not None:
-			self.load()
-			self.resize()
-
-		threading.Thread.__init__(self, name='RelNotesThr')
-
-	def run(self):
+		self.anaconda = anaconda
 		self.load()
 		self.resize()
-		self.view()
-
-	def setId(self, id):
-		self.id = id
-
-	def setDispatch(self, dispatch):
-		self.dispatch = dispatch
 
 	def getReleaseNotes(self):
-		langs = self.id.instLanguage.getCurrentLangSearchList() + [ "" ]
+		langs = self.anaconda.id.instLanguage.getCurrentLangSearchList() + [ "" ]
 		suffixList = []
 		for lang in langs:
 			if lang:
@@ -78,7 +66,7 @@ class ReleaseNotesViewer(threading.Thread):
 			fn = "RELEASE-NOTES%s" % (suffix,)
 			try:
 				tmpfile = os.path.abspath("/" +
-					self.dispatch.method.getFilename(fn,
+					self.anaconda.dispatch.method.getFilename(fn,
 					destdir="/tmp", retry=0))
 				if tmpfile is None:
 					continue
@@ -96,12 +84,11 @@ class ReleaseNotesViewer(threading.Thread):
 			except:
 				continue
 
-		print "here"
 		return None
 
 	def resize(self, w=None, h=None):
 		sw = gtk.gdk.screen_width()
-		(step, args) = self.dispatch.currentStep()
+		(step, args) = self.anaconda.dispatch.currentStep()
 
 		if w is None:
 			if sw >= 800:
@@ -142,27 +129,33 @@ class ReleaseNotesViewer(threading.Thread):
 		if uri is None:
 			uri = self.getReleaseNotes()
 
-		if os.access(uri, os.R_OK):
-			try:
-				f = self.openURI(uri)
-			except OSError:
-				log.info("Failed to open %s" % (link,))
-				return
+		if uri is not None:
+			if  os.access(uri, os.R_OK):
+				try:
+					f = self.openURI(uri)
+				except OSError:
+					log.info("Failed to open %s" % (link,))
+					return
 
-			self.doc.clear()
-			headers = f.info()
+				if f is not None:
+					self.doc.clear()
+					headers = f.info()
 
-			mime = headers.getheader('Content-type')
-			if mime:
-				self.doc.open_stream(mime)
-				self.doc.write_stream(f.read())
+					mime = headers.getheader('Content-type')
+					if mime:
+						self.doc.open_stream(mime)
+						self.doc.write_stream(f.read())
+					else:
+						loadWrapper(f.read())
+
+					self.doc.close_stream()
+					f.close()
+
+					self.currentURI = self.resolveURI(uri)
 			else:
-				loadWrapper(f.read())
+				loadWrapper(_("Release notes are missing.\n"))
 
-			self.doc.close_stream()
-			f.close()
-
-			self.currentURI = self.resolveURI(uri)
+				self.currentURI = None
 		else:
 			loadWrapper(_("Release notes are missing.\n"))
 
@@ -249,10 +242,17 @@ class ReleaseNotesViewer(threading.Thread):
 		if parts[0] or parts[1]:
 			return link
 		else:
-			return urlparse.urljoin(self.currentURI, link)
+			# FIXME: does not work right now
+			#return urlparse.urljoin(self.currentURI, link)
+			return link
 
 	def openURI(self, link):
-		return self.opener.open(self.resolveURI(link))
+		try:
+			ret = self.opener.open(self.resolveURI(link))
+		except IOError:
+			ret = None
+
+		return ret
 
 	def closedCallBack(self, widget, data):
 		root = gtk.gdk.get_default_root_window()
