@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.31
+Version: 11.1.0.32
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 13 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.32-1
+- fix ppc images
+
 * Tue Jun 13 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.31-1
 - Fix loader sigsegv (dcantrel, #194882)
 - Fix so we don't require yum.conf (clumens, #194987)
