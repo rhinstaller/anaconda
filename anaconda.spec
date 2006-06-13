@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.29
+Version: 11.1.0.30
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 12 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.30-1
+- make loader flags global (dcantrel)
+- fixups for yum 2.9, pull in yum-metadata-parser
+
 * Sat Jun 10 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.29-1
 - Fix syslinux requires
 - Fix autopartitioning on the mactels
