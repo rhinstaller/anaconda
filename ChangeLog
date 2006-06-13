@@ -1,5 +1,7 @@
 2006-06-12  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot (PACKAGES): Add yum-metadata-parser
+
 	* anaconda.spec (Requires): Bump yum version requires
 
 	* yuminstall.py: Fixup imports for yum 2.9.x
