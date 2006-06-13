@@ -800,7 +800,7 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     else
         p = INFO;
 
-    logMessage(p, fmt, va);
+    vaLogMessage(p, fmt, va);
 
     /*
      * Uncomment the function below to get lots of debugging output on

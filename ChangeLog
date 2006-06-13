@@ -1,3 +1,10 @@
+2006-06-13  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/log.c: Added vaLogMessage() to take va_list argument, make
+	logMessage() call this function.
+	* loader2/log.c: vaLogMessage() prototype.
+	* loader2/net.c (netlogger): Call vaLogMessage instead of logMessage().
+
 2006-06-13  Chris Lumens  <clumens@redhat.com>
 
 	* iw/network_gui.py (NetworkWindow.getNext):  This one's a string
