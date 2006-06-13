@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.30
+Version: 11.1.0.31
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 13 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.31-1
+- Fix loader sigsegv (dcantrel, #194882)
+- Fix so we don't require yum.conf (clumens, #194987)
+- Fix s390 tree
+- Fix pkgorder for new yum API
+- Fix release notes (dcantrel)
+- More api fixing (clumens/nasrat)
+
 * Mon Jun 12 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.30-1
 - make loader flags global (dcantrel)
 - fixups for yum 2.9, pull in yum-metadata-parser
