@@ -873,7 +873,10 @@ class InstallControlWindow:
         self.setScreen ()
 
     def releaseNotesButtonClicked (self, widget):
-        rnv = ReleaseNotesViewerLauncher(self.anaconda)
+	if not self.rnv.isShowing():
+		self.rnv.view()
+	else:
+		print "Release notes viewer already running"
 
     def debugClicked (self, *args):
         try:
@@ -989,6 +992,7 @@ class InstallControlWindow:
         self.currentWindow = None
         self.anaconda = anaconda
         self.handle = None
+        self.rnv = ReleaseNotesViewer(self.anaconda)
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete

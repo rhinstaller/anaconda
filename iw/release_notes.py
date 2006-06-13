@@ -16,6 +16,7 @@
 
 import sys
 import os
+import signal
 import gtk
 import gtkhtml2
 import urllib
@@ -24,14 +25,6 @@ import urlparse
 import gui
 
 from rhpl.translate import _, N_
-
-class ReleaseNotesViewerLauncher:
-	def __init__(self, anaconda):
-		child = os.fork()
-		if child == 0:
-			win = ReleaseNotesViewer(anaconda)
-		else:
-			os.waitpid(child, 0)
 
 class ReleaseNotesViewer:
 	def __init__(self, anaconda):
@@ -49,6 +42,8 @@ class ReleaseNotesViewer:
 
 		self.width = None
 		self.height = None
+
+		self.is_showing = False
 
 		self.anaconda = anaconda
 		self.load()
@@ -161,13 +156,21 @@ class ReleaseNotesViewer:
 
 			self.currentURI = None
 
+	def isShowing(self):
+		return self.is_showing
+
+	def hide(self):
+		if self.textWin is not None:
+			self.textWin.hide_all()
+			self.is_showing = False
+
 	def view(self):
 		self.vue.set_document(self.doc)
-		textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+		self.textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
 		table = gtk.Table(3, 3, False)
-		textWin.vbox.pack_start(table)
-		textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
-		textWin.connect("response", self.closedCallBack)
+		self.textWin.vbox.pack_start(table)
+		self.textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
+		self.textWin.connect("response", self.closedCallBack)
 
 		vbox1 = gtk.VBox()
 		vbox1.set_border_width(10)
@@ -176,8 +179,8 @@ class ReleaseNotesViewer:
 		frame.set_label_align(0.5, 0.5)
 		frame.set_shadow_type(gtk.SHADOW_NONE)
 
-		textWin.set_position(gtk.WIN_POS_NONE)
-		textWin.set_gravity(gtk.gdk.GRAVITY_NORTH_WEST)
+		self.textWin.set_position(gtk.WIN_POS_NONE)
+		self.textWin.set_gravity(gtk.gdk.GRAVITY_NORTH_WEST)
 
 		if self.vue is not None:
 			sw = gtk.ScrolledWindow()
@@ -189,8 +192,8 @@ class ReleaseNotesViewer:
 			a = gtk.Alignment(0, 0, 1.0, 1.0)
 			a.add(frame)
 
-			textWin.set_default_size(self.width, self.height)
-			textWin.set_size_request(self.width, self.height)
+			self.textWin.set_default_size(self.width, self.height)
+			self.textWin.set_size_request(self.width, self.height)
 
 			# we want the release notes dialog to be the same
 			# size as the main installer window so it covers it
@@ -198,7 +201,7 @@ class ReleaseNotesViewer:
 			# as the root window, so figure out our northwest
 			# origin point and then move the window
 			if gtk.gdk.screen_width() == self.width:
-				textWin.move(0, 0)
+				self.textWin.move(0, 0)
 			else:
 				# the width will always be fixed, but our
 				# height changes depending on the installation
@@ -211,22 +214,22 @@ class ReleaseNotesViewer:
 
 				left = (gtk.gdk.screen_width() - self.width) / 2
 				top = (gtk.gdk.screen_height() - fullh) / 2
-				textWin.move(left, top)
+				self.textWin.move(left, top)
 
 			table.attach(a, 1, 2, 1, 2, gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
 
-			textWin.set_border_width(0)
-			gui.addFrame(textWin, _("Release Notes"))
-			textWin.show_all()
+			self.textWin.set_border_width(0)
+			gui.addFrame(self.textWin, _("Release Notes"))
+			self.textWin.show_all()
 		else:
-			textWin.set_position(gtk.WIN_POS_CENTER)
+			self.textWin.set_position(gtk.WIN_POS_CENTER)
 			label = gtk.Label(_("Unable to load file!"))
 
 			table.attach(label, 1, 2, 1, 2, gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
 
-			textWin.set_border_width(0)
-			gui.addFrame(textWin)
-			textWin.show_all()
+			self.textWin.set_border_width(0)
+			gui.addFrame(self.textWin)
+			self.textWin.show_all()
 
 		# set cursor to normal (assuming that anaconda set it to busy
 		# when it exec'd this viewer app to give progress indicator
@@ -235,7 +238,7 @@ class ReleaseNotesViewer:
 		cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
 		root.set_cursor(cursor)
 
-		gtk.main()
+		self.is_showing = True
 
 	def resolveURI(self, link):
 		parts = urlparse.urlparse(link)
@@ -255,10 +258,7 @@ class ReleaseNotesViewer:
 		return ret
 
 	def closedCallBack(self, widget, data):
-		root = gtk.gdk.get_default_root_window()
-		cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-		root.set_cursor(cursor)
-		thread.exit()
+		self.textWin.hide_all()
 
 	def linkClickedCallBack(self, document, link):
 		if link[0] == '#':
