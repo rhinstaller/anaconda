@@ -348,7 +348,8 @@ class NetworkWindow(InstallWindow):
 
 		try:
                     (net, bc) = isys.inet_calcNetBroad (tmpvals[0], tmpvals[1])
-		except:
+		except Exception, e:
+                    print e
 		    self.handleBroadCastError()
 		    valsgood = 0
 

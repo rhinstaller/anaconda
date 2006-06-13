@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.32
+Version: 11.1.0.33
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 13 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.33-1
+- Fix text mode package selection (clumens)
+- Fix IP editing (clumens)
+- Fix segfault on x86_64 dhcp (dcantrel)
+- Filter out sitX devs (dcantrel)
+- More release notes fixes (dcantrel)
+- More pkgorder fixage 
+
 * Tue Jun 13 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.32-1
 - fix ppc images
 
