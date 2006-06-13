@@ -1,3 +1,8 @@
+2006-06-13  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (AnacondaYum.doStartupConfig):  Override superclass
+	method.
+
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/loader.c: parseCmdLineFlags() does not need to return flags.

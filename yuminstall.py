@@ -342,6 +342,9 @@ class AnacondaYum(YumSorter):
         self.updates = []
         self.localPackages = []
 
+    def doStartupConfig(self, fn='/etc/yum.conf', root='/'):
+        pass
+
     def doConfigSetup(self, fn=None, root='/'):
         self.conf = yum.config.YumConf()
         self.conf.installroot = root
