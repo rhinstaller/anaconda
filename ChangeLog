@@ -1,3 +1,14 @@
+2006-06-13  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/loader.c: parseCmdLineFlags() does not need to return flags.
+	We don't need to set netDev.useipv6 anymore because flags are global.
+
+	* loader2/net.h: Removed useipv6 from networkDeviceConfig struct.
+
+	* loader2/net.c (waitForLink): Note which interface we are waiting on.
+	* loader2/net.c (readNetConfig): Initialize newCfg (#194882).
+	* loader2/net.c (doDhcp): Read global flags rather than useipv6.
+
 2006-06-12  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

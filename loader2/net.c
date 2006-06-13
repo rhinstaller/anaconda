@@ -157,17 +157,17 @@ static int waitForLink(char * dev) {
     /* try to wait for a valid link -- if the status is unknown or
      * up continue, else sleep for 1 second and try again for up
      * to five times */
-    logMessage(DEBUGLVL, "waiting for link...");
+    logMessage(DEBUGLVL, "waiting for link %s...", dev);
     while (tries < num_link_checks) {
       if (get_link_status(dev) != 0)
             break;
         sleep(1);
         tries++;
     }
-    logMessage(DEBUGLVL, "%d seconds.", tries);
+    logMessage(DEBUGLVL, "   %d seconds.", tries);
     if (tries < num_link_checks)
         return 0;
-    logMessage(WARNING, "no network link detected on %s", dev);
+    logMessage(WARNING, "    no network link detected on %s", dev);
     return 1;
 }
 
@@ -517,6 +517,15 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     char ret[47];
     ip_addr_t *tip;
 
+    /* init newCfg */
+    strcpy(newCfg.dev.device, device);
+    newCfg.essid = NULL;
+    newCfg.wepkey = NULL;
+    newCfg.isDynamic = cfg->isDynamic;
+    newCfg.noDns = cfg->noDns;
+    newCfg.preset = cfg->preset;
+
+    memset(&newCfg, 0, sizeof(newCfg));
     memset(&c, 0, sizeof(c));
 
     /* JKFIXME: we really need a way to override this and be able to change
@@ -532,16 +541,14 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }        
 
     if (is_wireless_interface(device)) {
-        logMessage(INFO, "%s is a wireless adaptor", device);
+        logMessage(INFO, "%s is a wireless adapter", device);
         if (getWirelessConfig(cfg, device) == LOADER_BACK)
             return LOADER_BACK;
-        /* FIXME: this is a bit of a hack */
-        strcpy(newCfg.dev.device, device);
-        newCfg.essid = cfg->essid;
-        newCfg.wepkey = cfg->wepkey;
+        newCfg.essid = strdup(cfg->essid);
+        newCfg.wepkey = strdup(cfg->wepkey);
+    } else {
+        logMessage(INFO, "%s is not a wireless adaptor", device);
     }
-    else
-        logMessage(INFO, "%s isn't a wireless adaptor", device);
 
     text = newtTextboxReflowed(-1, -1, 
                 _("Please enter the IP configuration for this machine. Each "
@@ -780,21 +787,40 @@ char *setupInterface(struct networkDeviceConfig *dev) {
 }
 
 void netlogger(void *arg, int priority, char *fmt, va_list va) {
-    logMessage(priority, fmt, va);
+    int p;
+
+    if (priority == LOG_ERR)
+        p = ERROR;
+    else if (priority == LOG_INFO)
+        p = INFO;
+    else if (priority == LOG_DEBUG)
+        p = DEBUGLVL;
+    else if (priority == LOG_FATAL)
+        p = CRITICAL;
+    else
+        p = INFO;
+
+    logMessage(p, fmt, va);
+
+    /*
+     * Uncomment the function below to get lots of debugging output on
+     * stderr.  Be sure to comment out the logMessage() call above.
+     */
+    /* libdhcp_stderr_logger(0, priority, fmt, va); */
 }
 
 char *doDhcp(struct networkDeviceConfig *dev) {
-   struct pumpNetIntf *i;
-   char *r = NULL;
+    struct pumpNetIntf *i;
+    char *r = NULL;
 
-   i = &dev->dev;
+    i = &dev->dev;
 
-   if (dev->useipv6)
-      r = pumpDhcpClassRun(i,0L,0L,0,0,10,netlogger,LOG_INFO);
-   else
-      r = pumpDhcpClassRun(i,0L,0L,DHCPv6_DISABLE,0,10,netlogger,LOG_INFO);
+    if (FL_NOIPV6(flags))
+        r = pumpDhcpClassRun(i,0L,0L,DHCPv6_DISABLE,0,10,netlogger,LOG_INFO);
+    else
+        r = pumpDhcpClassRun(i,0L,0L,0,0,10,netlogger,LOG_INFO);
 
-   return r;
+    return r;
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
@@ -1128,7 +1154,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 
     for (i = 0; devs[i]; i++) {
         if (!devs[i]->device)
-	    continue;
+            continue;
         if (devs[i]->desc) {
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
                                           strlen(devs[i]->desc) + 4);
@@ -1181,7 +1207,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         return LOADER_NOOP;
     }
 
-    if ((loaderData->netDev && (loaderData->netDev_set) == 1) &&
+    if ((loaderData->netDev && (loaderData->netDev_set == 1)) &&
         !strcmp(loaderData->netDev, "link")) {
         logMessage(INFO, "looking for first netDev with link");
         for (rc = 0; rc < 5; rc++) {
@@ -1251,8 +1277,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
             return -1;
         }
 
-	/* insert device into pump structure */
-	strcpy(netCfgPtr->dev.device, loaderData->netDev);
+        /* insert device into pump structure */
+        strcpy(netCfgPtr->dev.device, loaderData->netDev);
 
         break;
     } while (1);

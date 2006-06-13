@@ -517,8 +517,8 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
-static int parseCmdLineFlags(struct loaderData_s * loaderData,
-                             char * cmdLine) {
+static void parseCmdLineFlags(struct loaderData_s * loaderData,
+                              char * cmdLine) {
     int fd;
     char buf[1024];
     int len;
@@ -530,17 +530,17 @@ static int parseCmdLineFlags(struct loaderData_s * loaderData,
     /* if we have any explicit cmdline (probably test mode), we don't want
      * to parse /proc/cmdline */
     if (!cmdLine) {
-        if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return flags;
+        if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return;
         len = read(fd, buf, sizeof(buf) - 1);
         close(fd);
-        if (len <= 0) return flags;
+        if (len <= 0) return;
         
         buf[len] = '\0';
         cmdLine = buf;
     }
     
     if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
-        return flags;
+        return;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
@@ -735,7 +735,7 @@ static int parseCmdLineFlags(struct loaderData_s * loaderData,
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;
 
-    return flags;
+    return;
 }
 
 
@@ -1015,11 +1015,6 @@ static char *doLoaderMain(char * location,
             memset(&netDev, 0, sizeof(netDev));
             netDev.isDynamic = 1;
 
-            if (FL_NOIPV6(flags))
-                netDev.useipv6 = 0;
-            else
-                netDev.useipv6 = 1;
-            
             /* fall through to interface selection */
         case STEP_IFACE:
             logMessage(INFO, "going to pick interface");
@@ -1302,7 +1297,7 @@ int main(int argc, char ** argv) {
     memset(&loaderData, 0, sizeof(loaderData));
 
     extraArgs[0] = NULL;
-    flags = parseCmdLineFlags(&loaderData, cmdLine);
+    parseCmdLineFlags(&loaderData, cmdLine);
 
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
         !hasGraphicalOverride())

@@ -14,14 +14,14 @@ struct networkDeviceConfig {
     struct pumpNetIntf dev;
 
     /* wireless settings */
-    char * essid; /* side effect: if this is non-NULL, then assume wireless */
+    /* side effect: if this is non-NULL, then assume wireless */
+    char * essid;
     char * wepkey;
 
     /* misc settings */
     int isDynamic;
     int noDns;
     int preset;
-    int useipv6;
 
     /* s390 settings */
     int mtu;
