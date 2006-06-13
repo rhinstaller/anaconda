@@ -1,6 +1,9 @@
 2006-06-13  Jeremy Katz  <katzj@redhat.com>
 
-	* scripts/mk-images (tty): I will learn to type someday.
+	* scripts/pkgorder: Fix up for new yum API, don't import
+	anaconda_log until after we've put /usr/lib/anaconda into the path
+
+	* scripts/mk-images: I will learn to type someday.
 
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 

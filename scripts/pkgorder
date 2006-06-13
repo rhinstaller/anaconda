@@ -18,6 +18,8 @@ import string
 import sys
 import yum
 
+sys.path.append("/usr/lib/anaconda")
+
 import anaconda_log
 import logging
 logger = logging.getLogger("anaconda")
@@ -25,11 +27,9 @@ handler = logging.StreamHandler()
 handler.setLevel(logging.ERROR)
 logger.addHandler(handler)
 
-sys.path.append("/usr/lib/anaconda")
-
 from optparse import OptionParser
-from repomd.packageSack import PackageSack
-from repomd.packageObject import PackageObject
+from yum.packageSack import PackageSack
+from yum.packages import PackageObject
 from yuminstall import YumSorter
 import iutil
 
