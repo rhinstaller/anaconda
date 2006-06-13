@@ -343,9 +343,6 @@ class AnacondaYum(YumSorter):
         self.localPackages = []
 
     def doStartupConfig(self, fn='/etc/yum.conf', root='/'):
-        pass
-
-    def doConfigSetup(self, fn=None, root='/'):
         self.conf = yum.config.YumConf()
         self.conf.installroot = root
         self.conf.reposdir="/tmp/repos.d"
@@ -354,6 +351,8 @@ class AnacondaYum(YumSorter):
         self.conf.exclude=["*debuginfo*"]
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
+
+    def doConfigSetup(self):
         #XXX: It'd be nice if the default repo was in the repoList
         repo = AnacondaYumRepo(self.method.getMethodUri())
         repo.enable()

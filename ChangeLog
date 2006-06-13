@@ -1,3 +1,8 @@
+2006-06-13  Chris Lumens  <clumens@redhat.com>
+
+	* yuminstall.py (doStartupConfig):  Move configuration steps around to
+	better reflect API.  Also, packages actually get installed this way.
+
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 
 	* gui.py (InstallControlWindow.releaseNotesButtonClicked): Run
