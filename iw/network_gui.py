@@ -594,7 +594,7 @@ class NetworkWindow(InstallWindow):
 
 	self.globals = {}
 	for t in range(len(global_options)):
-	    self.globals[global_options[t]] = options[t]
+	    self.globals[global_options[t]] = options[t].get_text()
 
 	# bring over the value from the loader
 	self.hostnameEntry.set_text(self.network.hostname)
