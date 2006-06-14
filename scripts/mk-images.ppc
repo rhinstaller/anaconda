@@ -119,7 +119,7 @@ doPostImages() {
     fi
 
     if [ -d $TOPDESTPATH/isopath/ppc/mac ]; then
-	MACBOOT="-hfs-volid \"$VERSION\" -hfs-bless \"$TOPDESTPATH/isopath/ppc/mac\""
+	MACBOOT="-hfs-volid $VERSION -hfs-bless $TOPDESTPATH/isopath/ppc/mac"
     fi
 
     # Create the boot.iso
