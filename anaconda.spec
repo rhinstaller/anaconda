@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.36
+Version: 11.1.0.37
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 14 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.37-1
+- Remove the step ordering debug commit
+- Fix traceback due to new xen kernel names
+- Another attempt at s390
+- Include gptsync in install image so that mactels will boot
+
 * Wed Jun 14 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.36-1
 - new xen kernel names
 - more trying to fix s390
