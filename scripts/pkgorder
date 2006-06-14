@@ -95,8 +95,13 @@ def printMatchingPkgs(fpattern):
         print mname
 
 def addGroups(ds, groupLst):
+    def selGrp(ds, grp):
+        if not ds.comps.has_group(grp):
+            return
+        ds.selectGroup(grp)
+        
     ds.initActionTs()
-    map(ds.selectGroup, groupLst)
+    map(ds.selectGroup, filter(lambda x: ds.comps.has_group(x), groupLst))
     ds.resolveDeps()
     processTransaction(ds)
 

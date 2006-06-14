@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.38
+Version: 11.1.0.39
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 14 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.39-1
+- only select groups which exist
+
 * Wed Jun 14 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.38-1
 - and fix ppc boot.iso (pnasrat)
 
