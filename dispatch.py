@@ -58,9 +58,6 @@ log = logging.getLogger("anaconda")
 # All install steps take the anaconda object as their sole argument.  This
 # gets passed in when we call the function.
 installSteps = [
-    ("networkdevicecheck", networkDeviceCheck, ),
-    ("network", ),
-    
     ("welcome", ),
     ("betanag", betaNagScreen, ),
     ("language", ),
