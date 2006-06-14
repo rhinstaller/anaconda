@@ -234,6 +234,7 @@ static void initializeTtys(void) {
 
     for (n = 9; n > 0; n--) {
 	sprintf(dev, "/dev/tty%d", n);
+	mknod(dev, 0600, S_IFCHR | makedev(4, n));
 	fd = open(dev, O_RDWR|O_NOCTTY);
 	if (fd >= 0) {
 	    ioctl(fd, VT_ACTIVATE, n);
@@ -1319,6 +1320,10 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     initializeConsole(modLoaded, modDeps, modInfo);
+    /* We have to do this before we init bogl(), which doLoaderMain will do
+     * when setting fonts for different languages. */
+    initializeTtys();
+
     checkForRam();
 
     /* iSeries vio console users will be telnetting in to the primary
@@ -1408,10 +1413,6 @@ int main(int argc, char ** argv) {
         startTelnetd(&loaderData, modInfo, modLoaded, modDeps);
 
     url = doLoaderMain("/mnt/source", &loaderData, modInfo, modLoaded, &modDeps);
-
-    /* We have to do this before we init bogl(), which doLoaderMain will do
-     * when setting fonts for different languages. */
-    initializeTtys();
 
     if (!FL_TESTING(flags)) {
         /* unlink dirs and link to the ones in /mnt/runtime */
