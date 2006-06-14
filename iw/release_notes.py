@@ -259,6 +259,7 @@ class ReleaseNotesViewer:
 
 	def closedCallBack(self, widget, data):
 		self.textWin.hide_all()
+		self.is_showing = False
 
 	def linkClickedCallBack(self, document, link):
 		if link[0] == '#':

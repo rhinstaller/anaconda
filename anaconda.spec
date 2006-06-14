@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.33
+Version: 11.1.0.34
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -97,6 +97,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 13 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.34-1
+- Fix logging segfaults in loader on x86_64
+- More release notes viewer fixes
+
 * Tue Jun 13 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.33-1
 - Fix text mode package selection (clumens)
 - Fix IP editing (clumens)

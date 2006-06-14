@@ -1,5 +1,9 @@
 2006-06-13  David Cantrell  <dcantrell@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+	* iw/release_notes.py: Set is_showing to false on hide.
+
 	* loader2/log.c: Removed vaLogMessage() and made logMessage() what
 	it was in a past life.
 	* loader2/log.h: Removed vaLogMessage() prototype.
