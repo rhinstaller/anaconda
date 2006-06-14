@@ -95,11 +95,6 @@ def printMatchingPkgs(fpattern):
         print mname
 
 def addGroups(ds, groupLst):
-    def selGrp(ds, grp):
-        if not ds.comps.has_group(grp):
-            return
-        ds.selectGroup(grp)
-        
     ds.initActionTs()
     map(ds.selectGroup, filter(lambda x: ds.comps.has_group(x), groupLst))
     ds.resolveDeps()
@@ -155,7 +150,7 @@ if __name__ == "__main__":
         arch = "i686"
 
     for pattern in ["kernel-[0-9]*", "kernel-smp-[0-9]*",
-                    "kernel-xen*"]:
+                    "kernel-xen*", "kernel-PAE-[0-9]*", "kernel-kdump-[0-9]*"]:
         printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, pattern))
 
     testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
