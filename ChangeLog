@@ -1,3 +1,12 @@
+2006-06-13  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/log.c: Removed vaLogMessage() and made logMessage() what
+	it was in a past life.
+	* loader2/log.h: Removed vaLogMessage() prototype.
+
+	* loader2/net.c (netlogger): Make a buffer of an arbitrary size, cram
+	the va_list in to that using vsnprintf(), pass to logMessage().
+
 2006-06-13  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

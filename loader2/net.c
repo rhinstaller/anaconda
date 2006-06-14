@@ -791,6 +791,8 @@ char *setupInterface(struct networkDeviceConfig *dev) {
 
 void netlogger(void *arg, int priority, char *fmt, va_list va) {
     int p;
+    int len = 4096;
+    char buf[len];
 
     if (priority == LOG_ERR)
         p = ERROR;
@@ -803,7 +805,8 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     else
         p = INFO;
 
-    vaLogMessage(p, fmt, va);
+    vsnprintf(buf, len - 1, fmt, va);
+    logMessage(p, buf);
 }
 
 char *doDhcp(struct networkDeviceConfig *dev) {

@@ -11,7 +11,6 @@
 
 void logMessage(int level, const char * s, ...)
 	__attribute__ ((format (printf, 2, 3)));
-void vaLogMessage(int level, const char * s, va_list va);
 void openLog(int useLocal);
 void closeLog(void);
 void setLogLevel(int minLevel);
