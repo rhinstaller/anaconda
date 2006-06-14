@@ -1103,7 +1103,7 @@ class YumBackend(AnacondaBackend):
         # nick is used to generate the lilo name
         for (ktag, nick) in [ ('kernel-smp', 'smp'),
                               ('kernel-xen0', 'xen0'),
-                              ('kernel-xenU', 'xenU').
+                              ('kernel-xenU', 'xenU'),
                               ('kernel-xen', 'xen')]:
             tag = ktag.rsplit('-', 1)[1]
             for tsmbr in self.ayum.tsInfo.matchNaevr(name=ktag):
