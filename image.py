@@ -185,6 +185,8 @@ class CdromInstallMethod(ImageInstallMethod):
 
     def switchMedia(self, mediano, filename=""):
         log.info("switching from CD %s to %s for %s" %(self.currentMedia, mediano, filename))
+        if mediano in self.currentMedia:
+            return
         if os.access("/mnt/source/.discinfo", os.R_OK):
             f = open("/mnt/source/.discinfo")
             timestamp = f.readline().strip()

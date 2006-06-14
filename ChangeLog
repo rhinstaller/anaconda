@@ -5,6 +5,9 @@
 
 2006-06-14  Jeremy Katz  <katzj@redhat.com>
 
+	* image.py (CdromInstallMethod.switchMedia): Don't switch if we're
+	already there.
+
 	* scripts/pkgorder: add some kernels
 
 2006-06-14  Jeremy Katz  <katzj@redhat.com>	
