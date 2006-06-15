@@ -110,7 +110,7 @@ class ZFCPWindow:
                                       TEXT_BACK_BUTTON ])
 
         text = TextboxReflowed(55,
-                               (fcp.description))
+                               (anaconda.id.zfcp.description))
 
         g = GridFormHelp(screen, _("FCP Devices"), 
             "zfcpconfig", 1, 4)
@@ -171,7 +171,7 @@ class ZFCPWindow:
         anaconda.id.zfcp.fcpdevices = fcpdevs
 
         anaconda.id.zfcp.updateConfig(anaconda.id.zfcp.fcpdevices,
-                                      anaconda.id.diskset, anadonda.intf)
+                                      anaconda.id.diskset, anaconda.intf)
 
         return INSTALL_OK
 
