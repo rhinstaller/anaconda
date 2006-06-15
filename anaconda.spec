@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.40
+Version: 11.1.0.41
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 15 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.41-1
+- fix dep problem
+
 * Wed Jun 14 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.40-1
 - add some more kernels to the pkgorder fun
 - don't try to switch cds if we've already got the right one inserted

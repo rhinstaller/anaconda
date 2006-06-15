@@ -1,7 +1,8 @@
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
-	* anaconda.spec (BuildPreReq): *sigh*  We need the newer kudzu to
+	* anaconda.spec (BuildPreReq): We need the newer kudzu to
 	avoid segfaults in the loader, not explicitly at runtime
+	(Version): Bump
 
 2006-06-14  Jeremy Katz  <katzj@redhat.com>
 
