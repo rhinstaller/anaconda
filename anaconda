@@ -686,6 +686,9 @@ if __name__ == "__main__":
             if len(cargs[1]) > 0:
                 vncconnectport = cargs[1]
 
+    if opts.iscsi:
+        flags.iscsi = 1
+
     # probing for hardware on an s390 seems silly...
     if rhpl.getArch() == "s390":
         opts.isHeadless = True

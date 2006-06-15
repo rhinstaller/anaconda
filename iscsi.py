@@ -110,15 +110,19 @@ class iscsi:
                                stdout = "/dev/tty5", stderr="/dev/tty5")
 
         self.action("--login")
-        self.iscsidStarted = True;
+        self.iscsidStarted = True
 
     def writeKS(self):
         # XXX Useful if we have auto-generated kickstart files.
         return
 
-    def write(self):
-        # XXX copy config files and any files needed by mkinitrd, depends on
-        # mkinitrd and open-iscsi work in progress.
-        return
+    def write(self, instPath):
+        fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
+        os.write(fd, "InitiatorName=%s\n" %(self.initiator))
+        os.close(fd)
+
+        if not os.path.isdir(instPath  + "/var/db/iscsi"):
+            iutil.mkdirChain(instPath + "/var/db/iscsi")
+        shutil.copytree("/var/db/iscsi", instPath + "/var/db/iscsi")
 
 # vim:tw=78:ts=4:et:sw=4

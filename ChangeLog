@@ -1,5 +1,11 @@
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/iscsi_gui.py (iscsiWindow.getNext): Hack for iscsi to stabilize
+
+	* iscsi.py (iscsi.write): Write out iscsi config bits
+
+	* anaconda (opts.iscsi): Actually handle the iscsi flag
+
 	* loader2/net.c: Hack for s390 to work for now
 
 	* isys/isys.py (inet_ntoa): Fix on 64bit machines

@@ -39,7 +39,11 @@ class iscsiWindow(InstallWindow):
         self.iscsi.port = self.port.get_text()
         self.iscsi.initiator = self.initiator.get_text()
 
+        w = self.intf.waitWindow(_("Initializing iSCSI initiator"), "")
         self.iscsi.startup()
+        import time # XXX mmmm. hacktastic.
+        time.sleep(5)
+        w.pop()
 
         return None
 
