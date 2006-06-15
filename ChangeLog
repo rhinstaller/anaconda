@@ -1,5 +1,7 @@
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (inet_ntoa): Fix on 64bit machines
+
 	* textw/zfcp_text.py (ZFCPWindow.__call__): Fix syntax errors.
 
 	* scripts/pkgorder: Make sure all kernel packages are in

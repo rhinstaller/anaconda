@@ -388,7 +388,7 @@ def mknod(pathname, mode, dev):
 
 # XXX: Use socket.getnameinfo for ipv6 compatibility
 def inet_ntoa (addr):
-    return socket.inet_ntoa(struct.pack('l', addr))
+    return socket.inet_ntoa(struct.pack('i', addr))
     
 def inet_aton (addr):
     try:
