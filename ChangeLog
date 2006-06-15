@@ -1,5 +1,10 @@
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/pkgorder: Make sure all kernel packages are in
+	pkgorder.  We don't really want kernel-devel on the last CD anyway.
+
+2006-06-15  Jeremy Katz  <katzj@redhat.com>
+	
 	* anaconda.spec (BuildPreReq): We need the newer kudzu to
 	avoid segfaults in the loader, not explicitly at runtime
 	(Version): Bump

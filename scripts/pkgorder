@@ -149,9 +149,8 @@ if __name__ == "__main__":
     if arch == "i386":
         arch = "i686"
 
-    for pattern in ["kernel-[0-9]*", "kernel-smp-[0-9]*",
-                    "kernel-xen*", "kernel-PAE-[0-9]*", "kernel-kdump-[0-9]*"]:
-        printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, pattern))
+    # print out kernel related packages first
+    printMatchingPkgs("%s/%s/RPMS/%s" % (toppath, product, "kernel-*"))
 
     testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
     os.system("mkdir -p %s/var/lib/rpm" %(testpath,))
