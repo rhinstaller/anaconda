@@ -1,3 +1,8 @@
+2006-06-16  Peter Jones  <pjones@redhat.com>
+
+	* iutil.py (makeDMNode): don't throw an exception if
+	/dev/mapper/control is already present
+
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
 	* partedUtils.py (DiskSet.startDmRaid): No dmraid on s390

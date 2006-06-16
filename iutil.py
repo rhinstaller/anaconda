@@ -293,8 +293,11 @@ def makeDMNode(root="/"):
     if major is None or minor is None:
         return
     mkdirChain(root + "/dev/mapper")
-    os.mknod(root + "/dev/mapper/control", stat.S_IFCHR | 0600,
+    try:
+        os.mknod(root + "/dev/mapper/control", stat.S_IFCHR | 0600,
                os.makedev(major, minor))
+    except:
+        pass
 
 # make some miscellaneous character device nodes 
 def makeCharDeviceNodes():
