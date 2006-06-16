@@ -299,6 +299,7 @@ class YumSorter(yum.YumBase):
                     pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
                     member = self.bestPackagesFromList(pkgs)[0]
                 else:
+                    log.info("adding %s for %s" %(dep.name, req[0]))
                     member = self.tsInfo.addInstall(dep)
                     unresolved.append(member)
 

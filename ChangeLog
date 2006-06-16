@@ -1,3 +1,8 @@
+2006-06-16  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (YumSorter.tsCheck): Give info about when we add
+	packages as deps.  (#189050, others)
+
 2006-06-16  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Require newer libdhcp, bump version.
