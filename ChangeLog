@@ -1,5 +1,9 @@
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (DiskSet.startDmRaid): No dmraid on s390
+
+2006-06-15  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* iw/iscsi_gui.py (iscsiWindow.getNext): Hack for iscsi to stabilize

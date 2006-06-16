@@ -558,6 +558,8 @@ class DiskSet:
 
     def startDmRaid(self):
         """Start all of the dmraid devices associated with the DiskSet."""
+        if rhpl.getArch() in ('s390', 's390x'):
+            return
 
         log.debug("self.driveList(): %s" % (self.driveList(),))
         log.debug("DiskSet.skippedDisks: %s" % (DiskSet.skippedDisks,))
