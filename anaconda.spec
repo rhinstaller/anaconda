@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.43
+Version: 11.1.0.44
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -15,7 +15,8 @@ BuildPreReq: pykickstart, yum >= 2.9.0, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
-BuildPreReq: libdhcp-devel, libdhcp4client-devel, libdhcp6client-devel
+BuildPreReq: libdhcp-devel >= 1.5, libdhcp >= 1.5,
+BuildPreReq: libdhcp4client-devel, libdhcp6client-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
 Requires: kudzu > 1.2.0, yum >= 2.9.0, pirut >= 1.1.0
 Requires: pyparted, libxml2-python, python-urlgrabber
@@ -100,6 +101,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 16 2006 Peter Jones <pjones@redhat.com> - 11.1.0.44-1
+- require newer libdhcp
+- fix rescue mode console setup (clumens and pnasrat)
+
 * Thu Jun 15 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.43-1
 - Some s390 fixes
 - dmraid fixing (pjones)
