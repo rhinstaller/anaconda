@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.42
+Version: 11.1.0.43
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 15 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.43-1
+- Some s390 fixes
+- dmraid fixing (pjones)
+
 * Thu Jun 15 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.42-1
 - Ensure all kernel packages end up in pkgorder
 - Fix syntax errors in zfcp code
