@@ -26,7 +26,6 @@ import kudzu
 import iutil
 import warnings
 import resource
-import re
 import rhpl
 import struct
 
@@ -466,6 +465,9 @@ for d in range(80, 80 + 15):
         biosdisks[disk] = d
 
 def compareDrives(first, second):
+    type1 = first[0:2]
+    type2 = second[0:2]
+
     if biosdisks.has_key(first) and biosdisks.has_key(second):
         one = biosdisks[first]
         two = biosdisks[second]
@@ -474,21 +476,17 @@ def compareDrives(first, second):
         elif (one > two):
             return 1
 
-    if first.startswith("hd"):
-        type1 = 0
-    elif first.startswith("sd"):
-        type1 = 1
-    elif first.startswith("xvd"):
-        type1 = -1
+    if type1 == "hd":
+	type1 = 0
+    elif type1 == "sd":
+	type1 = 1
     else:
-        type1 = 2
+	type1 = 2
 
-    if second.startswith("hd"):
-        type2 = 0
-    elif second.startswith("sd"):
+    if type2 == "hd":
+	type2 = 0
+    elif type2 == "sd":
 	type2 = 1
-    elif second.startswith("xvd"):
-        type2 = -1
     else:
 	type2 = 2
 
@@ -789,15 +787,6 @@ def driveIsRemovable(device):
         if rc:
             return rc
 
-    return False
-
-def driveIsIscsi(device):
-    # ewww.  just ewww.
-    if not os.path.islink("/sys/block/%s/device" %(device,)):
-        return False
-    target = os.readlink("/sys/block/%s/device" %(device,))
-    if re.search("/platform/host[0-9]*/session[0-9]*/target[0-9]*:[0-9]*:[0-9]*/[0-9]*:[0-9]*:[0-9]*:[0-9]*", target) is not None:
-        return True
     return False
 
 def vtActivate (num):
