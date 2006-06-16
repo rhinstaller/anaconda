@@ -1,5 +1,9 @@
 2006-06-16  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
+	* scripts/upd-instroot (KEEPFILE): setfiles moved.
+
 	* yuminstall.py (YumSorter.tsCheck): Give info about when we add
 	packages as deps.  (#189050, others)
 

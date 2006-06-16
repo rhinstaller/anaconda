@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.44
+Version: 11.1.0.45
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.45-1
+- setfiles moved.  more fixing of policy
+- Give info on when we add packages as deps (#189050)
+
 * Fri Jun 16 2006 Peter Jones <pjones@redhat.com> - 11.1.0.44-1
 - require newer libdhcp
 - fix rescue mode console setup (clumens and pnasrat)
