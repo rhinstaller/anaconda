@@ -164,15 +164,24 @@ def startNetworking(network, intf):
                 f.write("nameserver %s\n" % (ns,))
 
         f.close()
-	
-def runShell():
-    shpid = os.fork()
-    if shpid == 0:
-        os.setsid()
-        fcntl.ioctl(0, termios.TIOCSCTTY)
-        os.execv("/bin/sh", ["-/bin/sh"])
+
+def runShell(screen, msg=""):
+    screen.suspend()
+
+    print
+    if msg:
+        print (msg)
+    print _("When finished please exit from the shell and your "
+            "system will reboot.")
+    print
+
+    if os.path.exists("/bin/sh"):
+        iutil.execWithRedirect("/bin/sh", ["-/bin/sh"])
     else:
-        os.waitpid(shpid, 0)
+        print "Unable to find /bin/sh to execute!  Not starting shell"
+        time.sleep(5)
+
+    screen.finish()
 
 def runRescue(anaconda):
     for file in [ "services", "protocols", "group", "joe", "man.config",
@@ -248,11 +257,7 @@ def runRescue(anaconda):
 
     # Early shell access with no disk access attempts
     if not anaconda.rescue_mount:
-        print
-        print _("When finished please exit from the shell and your "
-                "system will reboot.")
-        print
-	runShell()
+	runShell(screen)
 	sys.exit(0)
 
     # lets create some devices
@@ -284,12 +289,8 @@ def runRescue(anaconda):
           [_("Continue"), _("Read-Only"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
-        screen.finish()
-        print
-        print _("When finished please exit from the shell and your "
-                "system will reboot.")
-        print
-        runShell()
+        runShell(screen)
+        sys.exit(0)
     elif rc == string.lower(_("Read-Only")):
         readOnly = 1
     else:
@@ -442,20 +443,15 @@ def runRescue(anaconda):
 			     "automatically when you exit from the shell."),
 			   [ _("OK") ], width = 50)
 
-    screen.finish()
+    msgStr = ""
 
-    print
     if rootmounted and not readOnly:
         makeMtab(anaconda.rootPath, fs)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:
             log.error("error making a resolv.conf: %s" %(e,))
-        print _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
-        print
+        msgStr = _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
 
-    print _("When finished please exit from the shell and your "
-                "system will reboot.")
-    print
-    runShell()
+    runShell(screen, msgStr)
     sys.exit(0)

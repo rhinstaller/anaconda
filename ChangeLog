@@ -1,3 +1,8 @@
+2006-06-16  Chris Lumens  <clumens@redhat.com>
+
+	* rescue.py (runShell):  Use shell running code from text mode instead
+	to fix ctrl-characters and other terminal weirdness in rescue mode.
+
 2006-06-15  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
