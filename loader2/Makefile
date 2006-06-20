@@ -45,6 +45,9 @@ else
 HWLIBS += -lpci
 endif
 
+# NSS linker flags
+NSSFLAGS = -Wl,-rpath-link,/nss
+
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
 REALCC=gcc
@@ -124,7 +127,7 @@ loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader: loader.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
+	$(CC) -g $(STATIC) $(NSSFLAGS) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
 	-lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB) $(DHCP) -lm
 

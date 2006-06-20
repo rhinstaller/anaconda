@@ -580,6 +580,13 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/lock/rpm
 
+    # copy in name service switch stuff
+    mkdir -p $MBD_DIR/nss
+    cp -a $IMGPATH/$LIBDIR/libnss_dns* $MBD_DIR/nss
+    cp -a $IMGPATH/$LIBDIR/libnss_files* $MBD_DIR/nss
+    strip $MBD_DIR/nss/libnss_dns-*.*.*.so
+    strip $MBD_DIR/nss/libnss_files-*.*.*.so
+
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	mkdir -p $MBD_DIR/dev/iseries
     fi

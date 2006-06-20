@@ -1,3 +1,11 @@
+2006-06-20  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/Makefile: Cram a new linker path in to loader so that we can
+	find libnss_* stuff in stage1.
+
+	* scripts/mk-images (makeinitrd): Copy in libnss_dns* and libnss_files*
+	to the stage1 image.
+
 2006-06-20  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaYum._run): Translate the error 
