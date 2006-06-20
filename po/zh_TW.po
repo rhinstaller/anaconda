@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-21 15:37+1000\n"
+"PO-Revision-Date: 2006-06-20 11:28+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -174,8 +174,7 @@ msgstr ""
 
 #: ../autopart.py:1052
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Boot 分割區 %s 可能不符合您系統架構的開機限制。"
 
 #: ../autopart.py:1078
@@ -496,13 +495,10 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "將系統狀態寫入軟碟時出現問題。"
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
-msgstr ""
-"你的系統狀態已經成功寫入到遠端機器中。\n"
-"現在系統將重新啟動。"
+msgstr "你的系統狀態已經成功寫入到遠端機器中。現在系統將重新啟動。"
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -609,11 +605,15 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Swap 裝置：\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"是第 0 版的 Linux swap 分割區。如果您想要使用這個裝置，您必須重新格式化，使其成為第 1 版的 Linux swap 分割區。如果您跳過這個步驟，安裝程式會在安裝過程中，忽略這個分割區。"
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "格式化"
+msgstr "重新格式化"
 
 #: ../fsset.py:1500
 #, python-format
@@ -626,6 +626,11 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Swap 裝置：\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"目前您使用的 /etc/fstab 檔案中，這裝置是軟體中止的分割區，這表示您的系統正在休眠中。要進行升級，請關閉您的電腦，而不是使其處於休眠狀態中。"
 
 #: ../fsset.py:1508
 #, python-format
@@ -638,6 +643,11 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Swap 裝置：\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"目前您使用的 /etc/fstab 檔案中，這裝置是軟體中止的分割區，這表示您的系統正在休眠中。要進行全新的安裝，請確定安裝程式會對所有 swap 分割區進行格式化。"
 
 #: ../fsset.py:1518
 msgid ""
@@ -647,6 +657,9 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"如果您希望安裝程式在升級過程中，忽略這個分割區，請選「跳過」。請選擇「格式化」，好將這個分割區重新格式化為 swap 空間。要重新啟動電腦，請選擇「重新開機」。"
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -974,7 +987,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "找不到 ISO 9660 映像檔"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -982,10 +995,9 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"安裝程式試圖掛載映像檔 #%s，但在伺服器上找不到該映像檔。\n"
+"安裝程式試圖掛載映像檔 #%s，但在硬碟上找不到該映像檔。\n"
 "\n"
-"請將這映像檔複製到遠端伺服器的共享路徑中，然後按下「重試」。請按下「重新啟"
-"動」中止安裝程序。"
+"請將這映像檔複製到硬碟中，然後按下「重試」。請按下「重新啟動」中止安裝程序。"
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1114,33 +1126,30 @@ msgid "Running post-install scripts"
 msgstr "執行安裝後的程序檔"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "正在安裝套件"
+msgstr "找不到套件"
 
 #: ../kickstart.py:909
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "您已經指定安裝「%s」套件。這套件並不存在。您要繼續，還是要放棄安裝？"
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "重新開機(_R)"
+msgstr "放棄(_A)"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "資訊不足"
+msgstr "找不到群組"
 
 #: ../kickstart.py:937
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "您已經指定安裝「%s」群組。這群組並不存在。您要繼續，還是要放棄安裝？"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1590,8 +1599,7 @@ msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: ../partitioning.py:57
@@ -1603,8 +1611,7 @@ msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
+msgstr "您選擇的磁碟分割選項已經啟動了。 您無法再回到磁碟編輯視窗。 您想要繼續安裝嗎?"
 
 #: ../partitioning.py:88
 msgid "Low Memory"
@@ -1634,8 +1641,7 @@ msgid ""
 msgstr "您的 root 分割區小於 250 MB，空間太小不足以安裝 %s。"
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區，大小為 50 MB。"
 
 #: ../partitions.py:836
@@ -1654,15 +1660,14 @@ msgid ""
 msgstr "你的 %s 分割區小於 %s MB，比正常安裝 %s 的建議值還要小。"
 
 #: ../partitions.py:911
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "安裝至火線（Firewire）裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1692,8 +1697,7 @@ msgstr "您指定了超過 32 個 swap 裝置。 %s 的核心只支援到 32 個
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
+msgstr "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM)。 這可能會影響效能。"
 
 #: ../partitions.py:1266
 msgid "the partition in use by the installer."
@@ -1709,8 +1713,7 @@ msgstr "LVM 磁區群組成員的一個分割區。"
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 
 #: ../partRequests.py:252
@@ -1718,8 +1721,7 @@ msgstr "掛載點無效。  %s 目錄必須在 / 檔案系統上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
+msgstr "無法使用掛載點 \"%s\"，它必須是符號連結，系統才能正常運作。請另外指定一個。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
@@ -1964,8 +1966,7 @@ msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "      <F1> 輔助訊息 | <Tab> 移動游標 | <space> 選取 | <F12> 下一個畫面"
 
 #: ../text.py:420
@@ -2128,8 +2129,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
-"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
 msgid "Password:"
@@ -2156,9 +2156,8 @@ msgid "The password must be at least six characters long."
 msgstr "密碼長度不得少於六個字元。"
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "不設定密碼"
+msgstr "VNC 密碼錯誤"
 
 #: ../vnc.py:138
 msgid ""
@@ -2166,6 +2165,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"請指定至少六個字母長的 vnc 密碼。\n"
+"\n"
+"請按下「輸入鍵」（Enter），重新啟動電腦。\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2279,8 +2281,7 @@ msgstr "重新開機(_B)"
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
-"如果您重開機，系統會處於不一致的狀態，可能會需要重新安裝。您確定要繼續嗎？"
+msgstr "如果您重開機，系統會處於不一致的狀態，可能會需要重新安裝。您確定要繼續嗎？"
 
 #: ../yuminstall.py:173
 msgid "_Cancel"
@@ -2288,59 +2289,57 @@ msgstr "取消(_C)"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "檔案衝突"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "舊的套件"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "磁碟空間不足"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "磁碟 inode 不足"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "套件相衝突"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "套件已經安裝"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "剩餘空間"
+msgstr "所需套件"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "套件的架構不正確"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "套件的作業系統不正確"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "以下檔案系統需要更多空間：\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "執行異動程序時發生錯誤"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"無法開啟 %s-%s-%s.%s 套件，這個因為檔案遺失或者是套件已毀損。假如您是從 CD 媒"
-"體安裝，通常這表示該 CD 媒體已毀損，或者光碟機無法讀取該媒體。\n"
+"無法開啟 %s 檔案，這是因為檔案遺失或是套件毀損。假如您是從 CD 片安裝，通常這表示該 CD 片已毀損，或者光碟機無法讀取該光碟片。\n"
 "\n"
 
 #: ../yuminstall.py:659
@@ -2366,7 +2365,7 @@ msgstr "未分類"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "要安裝您所選擇的套件，需要 %d MB 的磁碟空間；但電腦上沒有足夠的空間。您可以變更選擇，或重新開機。"
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2384,14 +2383,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "開始安裝程序，這要花上幾分鐘..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "升級"
+msgstr "升級後"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "正在執行最後階段的安裝設定..."
+msgstr "正在執行升級後的設定..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2509,21 +2506,20 @@ msgid "_Confirm: "
 msgstr "密碼確認(_C): "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "移除系統上所有的分割區"
+msgstr "移除所選磁碟上的所有分割區，並建立預設的分割模式。"
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "移除所選磁碟上的 Linux 分割區，並建立預設的分割模式。"
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "使用所選取磁碟上的未使用空間，建立預設的分割模式。"
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "建立自訂的分割模式。"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2887,8 +2883,7 @@ msgstr "太小"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
-"這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
+msgstr "這個實體容量數值的變更將會浪費在磁區群組中一或更多的實體磁區上相當大的空間。"
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
@@ -3237,8 +3232,7 @@ msgstr "您還未指定主機名稱。 取決於您的網路環境，這也許�
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
+msgstr "您還未指定 \"%s\" 欄位。  取決於您的網路環境，這樣的設定也許會造成問題。"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:413
 #, python-format
@@ -3538,14 +3532,12 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "您的磁碟分割發生下列錯誤。"
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤。"
 
 #: ../iw/partition_gui.py:642
@@ -3636,8 +3628,7 @@ msgstr "找不到 RAID 鏡像（minor）裝置的號碼"
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
+msgstr "無法建立軟體 RAID 裝置，因為所有的 RAID 鏡像（minor）裝置號碼都已經被使用了。"
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -4043,8 +4034,7 @@ msgstr "這將會更新您目前的開機管理程式。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s。"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4175,8 +4165,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: ../iw/zfcp_gui.py:24
@@ -4336,10 +4325,8 @@ msgstr ""
 "區，並分別給予一個識別標籤。"
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr "      <Space> 選取按鈕 | <F2> 選取預設開機項目 | <F12> 下一個畫面"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Space> 選取 | <F2> 選取預設開機項目 | <F4> 刪除 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4439,8 +4426,7 @@ msgstr "開始安裝"
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
-"重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr "重新開機後，完整的安裝過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -4465,16 +4451,14 @@ msgstr "開始升級系統"
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr ""
-"重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
+msgstr "重新開機後，完整的升級過程會記錄在 %s。您可以留下這個檔案以供日後參考。"
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
 msgstr "請選擇您想要安裝的套件群組。"
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "      <Space>,<+>,<-> 選擇   |   <F2> 群組細節   |   <F12> 下一個畫面"
 
 #: ../textw/grpselect_text.py:129
@@ -4870,8 +4854,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "    F1-求助     F2-新增     F3-修改    F4-刪除    F5-重置     F12-確定"
 
 #: ../textw/partition_text.py:1476
@@ -5120,8 +5103,7 @@ msgstr "自訂安裝(_C)"
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
-"藉由這個安裝類型，您可以完全控制整個安裝過程，包括選擇軟體套件與分割硬碟。"
+msgstr "藉由這個安裝類型，您可以完全控制整個安裝過程，包括選擇軟體套件與分割硬碟。"
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
@@ -5310,8 +5292,7 @@ msgstr ""
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
+msgstr "在您的光碟機中找不到開機媒體光碟片 %s，請置入 %s 光碟片，並按下 %s 重試。"
 
 #: ../loader2/cdinstall.c:385
 msgid "CD Not Found"
@@ -5573,8 +5554,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "歡迎使用 %s - 救援模式"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:151
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: ../loader2/lang.c:361
@@ -5715,8 +5695,7 @@ msgstr "正在執行 anaconda，%s 系統安裝程式 - 請稍候...\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
-"無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
+msgstr "無法從主卷冊描述中讀取磁碟數值。 這也許表示在建立此磁碟時沒有加上檢測值資訊。"
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5948,7 +5927,7 @@ msgstr "%s 安裝目錄:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6031,11 +6010,11 @@ msgstr "正在擷取資訊"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6301,12 +6280,10 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "中部標準時間 - 柯省、杜蘭哥、Nuevo Leon、Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"中央標準時間 - 印地安那州 - 戴維斯、杜伯依斯、諾克斯、馬丁、派里與普拉斯基"
+msgstr "中央標準時間 - 印地安那州 - 戴維斯、杜伯依斯、諾克斯、馬丁、派里與普拉斯基郡"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6325,9 +6302,8 @@ msgid "Central Time - most locations"
 msgstr "中部標準時間 - 大部分地區"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "中部標準時間 - 北達科達州 -  奧立佛郡"
+msgstr "中部標準時間 - 北達科達州 - 摩頓郡（不包括曼敦地區）"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -6430,8 +6406,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "東部標準時間 -  安大略省 - 大部分地方"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "東部標準時間 - 安大略省 & 魁北克 - 不遵照 DST 1967-1973 的地方"
 
 #. generated from zone.tab
@@ -6619,8 +6594,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山岳部標準時間 - 亞利桑那"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "山岳部標準時間 - 道森河 & 福聖約翰、英屬哥倫比亞"
 
 #. generated from zone.tab
@@ -7043,87 +7017,3 @@ msgstr "威爾斯語"
 msgid "Zulu"
 msgstr "祖魯語"
 
-#~ msgid "The release notes are missing."
-#~ msgstr "找不到發行公告。"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "以下套件已收入此版本但並沒有升級:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "以下套件已收入此版本但並沒有安裝:\n"
-
-#~ msgid "Finding"
-#~ msgstr "搜尋中"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "正在尋找要升級的套件..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "安裝程式無法升級使用 rpm 4.x 或以前版本的資料庫的系統。請依照發行公告中所"
-#~ "描述的事項來安裝適用於此發行的除錯 rpm 套件，然後再執行升級程序。"
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "尋找要升級的套件時發生錯誤。"
-
-#~ msgid "Installation Type"
-#~ msgstr "安裝類型"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "您想要安裝哪一種系統？"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "自訂升級套件"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "您原來已經安裝的套件及其所需的附屬套件已被選擇要安裝，您想自訂要升級的套件"
-#~ "嗎？"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "虛擬機器（Xen）"
-
-#~ msgid "Hide _Help"
-#~ msgstr "隱藏輔助訊息(_H)"
-
-#~ msgid "Show _Help"
-#~ msgstr "顯示輔助訊息(_H)"
-
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr "您想要如何分割空間？"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "安裝 <product> 需要重新分割您的硬碟。您可以使用預設分割方式，或自行建立。"
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "選擇您想要用於安裝的磁碟機。"
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "檢視並修改分割區(_R)"
-
-#~ msgid "Amharic"
-#~ msgstr "阿姆哈拉語"
-
-#~ msgid "Thai"
-#~ msgstr "泰文"
