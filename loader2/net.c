@@ -19,6 +19,7 @@
  *
  */
 
+#include <ctype.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -799,8 +800,7 @@ char *setupInterface(struct networkDeviceConfig *dev) {
 
 void netlogger(void *arg, int priority, char *fmt, va_list va) {
     int p;
-    int len = 4096;
-    char buf[len];
+    char *buf = NULL;
 
     if (priority == LOG_ERR)
         p = ERROR;
@@ -813,8 +813,14 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     else
         p = INFO;
 
-    vsnprintf(buf, len - 1, fmt, va);
-    logMessage(p, buf);
+    if (vasprintf(&buf, fmt, va) != -1) {
+        logMessage(p, buf);
+        free(buf);
+    } else {
+        logMessage(ERROR, "unable to log network message");
+    }
+
+    return;
 }
 
 char *doDhcp(struct networkDeviceConfig *dev) {
@@ -1132,7 +1138,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 /* if multiple interfaces get one to use from user.   */
 /* NOTE - uses kickstart data available in loaderData */
 int chooseNetworkInterface(struct loaderData_s * loaderData) {
-    int i, rc;
+    int i, j, rc;
     unsigned int max = 40;
     int deviceNums = 0;
     int deviceNum;
@@ -1154,9 +1160,14 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     deviceNames = alloca((i + 1) * sizeof(*devices));
     if (loaderData->netDev && (loaderData->netDev_set) == 1) {
         if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) && !strcasecmp(loaderData->netDev, "bootif")) {
-            ksMacAddr = netlink_format_mac_addr(ksMacAddr, (unsigned char *) loaderData->bootIf);
+            ksMacAddr = strdup(loaderData->bootIf);
         } else {
-            ksMacAddr = netlink_format_mac_addr(ksMacAddr, (unsigned char *) loaderData->netDev);
+            ksMacAddr = strdup(loaderData->netDev);
+        }
+
+        for (j=0; j<strlen(ksMacAddr); j++) {
+            if (ksMacAddr[j] >= 'a' && ksMacAddr[j] <= 'f')
+                ksMacAddr[j] = toupper(ksMacAddr[j]);
         }
     }
 
@@ -1190,6 +1201,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                     free(loaderData->netDev);
                     loaderData->netDev = devs[i]->device;
                 }
+                free(ksMacAddr);
+                free(devmacaddr);
             }
         }
     }

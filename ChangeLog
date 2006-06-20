@@ -6,6 +6,11 @@
 	* scripts/mk-images (makeinitrd): Copy in libnss_dns* and libnss_files*
 	to the stage1 image.
 
+	* loader2/net.c (chooseNetworkInterface): Correctly handly ksdevice
+	parameters that contain MAC addresses (#195907).
+
+	* loader2/net.c (netlogger): I suppose I can use vasprintf().
+
 2006-06-20  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (AnacondaYum._run): Translate the error 
