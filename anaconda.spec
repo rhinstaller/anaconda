@@ -1,12 +1,12 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.14
-Release: 1.RHEL
+Version: 9.1.6.13
+Release: 2.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel >= 0.8.15, kudzu-devel >= 1.1.0, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, modutils-devel, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel
+BuildPreReq: pump-devel >= 0.8.15, kudzu-devel >= 1.1.22.15-1, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, modutils-devel, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel
 %ifarch i386
 BuildRequires: dietlibc
 %endif
@@ -72,8 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue Jun 20 2006 Peter Jones <pjones@redhat.com> - 9.1.6.14-1.RHEL
-- Make the driver image fit on a disk again (#192005)
+* Tue May 30 2006 Paul Nasrat <pnasrat@redhat.com> - 9.1.6.13-2.RHEL
+- Rebuild against later kudzu for (#140772)
 
 * Thu May 25 2006 Peter Jones <pjones@redhat.com> - 9.1.6.13-1.RHEL
 - Add adp94xx driver to whitelist (#192951)
