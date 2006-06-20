@@ -477,9 +477,9 @@ class AnacondaYum(YumSorter):
 
             probString = ', '.join(uniqueProbs.values()) + "\n\n" + spaceprob
             intf.messageWindow(_("Error running transaction"),
-                               ("There was an error running your transaction, "
-                                "for the following reason(s): "
-                                "%s " % (probString,)),
+                               _("There was an error running your transaction, "
+                                "for the following reason(s): %s")
+                               %(probString,),
                                type="custom", custom_icon="error",
                                custom_buttons=[_("Re_boot")])
             sys.exit(1)
