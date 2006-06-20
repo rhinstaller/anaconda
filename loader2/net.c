@@ -814,7 +814,7 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
         p = INFO;
 
     if (vasprintf(&buf, fmt, va) != -1) {
-        logMessage(p, buf);
+        logMessage(p, "%s", buf);
         free(buf);
     } else {
         logMessage(ERROR, "unable to log network message");

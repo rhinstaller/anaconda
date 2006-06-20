@@ -1,5 +1,10 @@
 2006-06-20  Peter Jones  <pjones@redhat.com>
 
+	* loader2/net.c (netlogger): don't pass our output to logMessage as a
+	format specifier, it may have special characters in it.
+
+2006-06-20  Peter Jones  <pjones@redhat.com>
+
 	* loader2/usb.c: make sleepUntilUsbIsStable not static
 	* loader2/usb.h: export sleepUntilUsbIsStable (and make the other
 	functions extern aswell)
