@@ -1,3 +1,10 @@
+2006-06-20  Peter Jones  <pjones@redhat.com>
+
+	* loader2/usb.c: make sleepUntilUsbIsStable not static
+	* loader2/usb.h: export sleepUntilUsbIsStable (and make the other
+	functions extern aswell)
+	* loader2/modules.c: use sleepUntilUsbIsStable() to wait for usb
+
 2006-06-20  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda (setupPythonUpdates):  continue instead of return if a

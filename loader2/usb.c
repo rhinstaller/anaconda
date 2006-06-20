@@ -37,7 +37,7 @@ extern int flags;
 
 /* This forces a pause between initializing usb and trusting the /proc 
    stuff */
-static void sleepUntilUsbIsStable(void) {
+void sleepUntilUsbIsStable(void) {
     struct stat sb;
     time_t last = 0;
     int i, count = 0;

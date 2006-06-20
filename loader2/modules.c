@@ -36,6 +36,7 @@
 #include "modules.h"
 #include "modstubs.h"
 #include "windows.h"
+#include "usb.h"
 
 #include "../isys/cpio.h"
 
@@ -339,15 +340,9 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     /* FIXME: this is a hack, but usb-storage seems to
                      * like to take forever to enumerate.  try to 
                      * give it some time */
-                    if (!strcmp(modName, "usb-storage")) {
-                        int slp;
-                        usbWasLoaded++;
-                        logMessage(DEBUGLVL, "sleeping for usb-storage stabilize...");
-                        for (slp = 0; slp < 10; slp++) {
-                            if (scsiDiskCount() > 0) break;
-                            sleep(2);
-                        }
-                        logMessage(DEBUGLVL, "slept %d seconds", slp * 2);
+                    if (!strcmp(modName, "usb-storage") && !usbWasLoaded) {
+                        usbWasLoaded = 1;
+                        sleepUntilUsbIsStable();
                     }
                     modLoaded->mods[num].firstDevNum = deviceCount;
                     modLoaded->mods[num].lastDevNum = scsiDiskCount();
@@ -369,7 +364,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
         
         modLoaded->mods[modLoaded->numModules++].args = newArgs;
     }
-    
+
     if (popWindow) {
         sleep(1);
         newtPopWindow();
