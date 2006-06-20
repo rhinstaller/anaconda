@@ -828,7 +828,7 @@ makedriverdisk () {
 
     #XXX: Hack for large driver
     if [ "$diskname" == "drvblock" ]; then
-        modlist=$(echo $modlist | sed 's/3w-9xxx//g')
+        modlist=$(echo $modlist | sed 's/\(3w-9xxx\|lpfc\)//g')
     fi
 
     rm -rf $diskpath
