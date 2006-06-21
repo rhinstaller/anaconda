@@ -75,8 +75,8 @@ class ZFCPWindow(InstallWindow):
         self.options = anaconda.id.zfcp.options
         box = gtk.VBox(False)
         box.set_border_width(6)
-        fcp.cleanFcpSysfs(fcp.fcpdevices)
         self.fcp = ancaonda.id.zfcp
+        self.fcp.cleanFcpSysfs(self.fcp.fcpdevices)
         self.fcpdevices = copy.copy(self.fcp.fcpdevices)
         
         devvbox = gtk.VBox(False)
