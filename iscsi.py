@@ -31,12 +31,10 @@ INITIATOR_FILE="/etc/initiatorname.iscsi"
 
 class iscsi:
     def __init__(self):
-        if flags.iscsi:
-            self.ipaddr = ""
-            self.port = "3260"
-            self.initiator = ""
-            self.iscsidStarted = False
-
+        self.ipaddr = ""
+        self.port = "3260"
+        self.initiator = ""
+        self.iscsidStarted = False
 
 
     def action(self, action):

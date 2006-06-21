@@ -1,5 +1,9 @@
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
+	* iscsi.py (iscsi.__init__): Fix for the case of not using iscsi
+
+2006-06-21  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* iw/iscsi_gui.py (iscsiWindow.getNext): Don't need to do the
