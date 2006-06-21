@@ -1,3 +1,7 @@
+2006-06-21  Peter Jones  <pjones@redhat.com>
+
+	* loader2/init.c: set MALLOC_CHECK_ and _MALLOC_PERTURB for the loader
+
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
 	* iscsi.py (iscsi.__init__): Fix for the case of not using iscsi

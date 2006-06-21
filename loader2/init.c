@@ -68,6 +68,10 @@
 #define ENV_HOME		2
 #define ENV_TERM		3
 #define ENV_DEBUG		4
+#define ENV_TERMINFO		5
+#define ENV_PYTHONPATH		6
+#define ENV_MALLOC_CHECK	7
+#define ENV_MALLOC_PERTURB	8
 
 char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:"
@@ -86,6 +90,8 @@ char * env[] = {
     "DEBUG=",
     "TERMINFO=/etc/linux-terminfo",
     "PYTHONPATH=/tmp/updates",
+    "_MALLOC_CHECK=2",
+    "MALLOC_PERTURB_=204",
     NULL
 };
 
