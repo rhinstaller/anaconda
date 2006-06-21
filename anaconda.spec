@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.45
+Version: 11.1.0.46
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.46-1
+- more tweaking of greek lang-table (#193872)
+- mark some strings for translation (#194617)
+- add back handling of ksdevice=macaddr (dcantrel, #195907) 
+- copy libnss_dns* and libnss_files* to stage1 image to try to fix some 
+  of the dhcp oddities (dcantrel)
+- fix setupPythonUpdates (clumens)
+- wait for usb to be stable when reloading (pjones)
+- don't pass netlogger output as a format specifier (pjones)
+- fix traceback in zfcp_gui (#196097)
+- sort drive list more correctly in autopartitioning
+- bunch of tweaking to iscsi code
+- ensure that xvd devices are sorted as "first" so they're in front 
+  of things like iscsi devices
+
 * Fri Jun 16 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.45-1
 - setfiles moved.  more fixing of policy
 - Give info on when we add packages as deps (#189050)
