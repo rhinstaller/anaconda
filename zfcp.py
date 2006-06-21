@@ -17,6 +17,7 @@ import string
 import os
 import iutil
 import isys
+import shutil
 
 from rhpl.translate import _, N_
 
@@ -233,6 +234,10 @@ class ZFCP:
     def writeKS(self,fcpdevices):
         # FIXME KH not implemented yet
         return
+
+    def write(self, instPath):
+        if os.path.exists("/tmp/zfcp.conf"):
+            shutil.copyfile("/tmp/zfcp.conf", instPath + "/etc/zfcp.conf")
 
     def readConfig(self):
         self.fcpdevices = []

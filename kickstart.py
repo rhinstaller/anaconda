@@ -184,6 +184,14 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doInteractive(self, id, args):
         KickstartHandlers.doInteractive(self, args)
 
+    def doIscsi(self, id, args):
+        KickstartHandlers.doIscsi(self, args)
+        self.skipSteps.append("iscsi")
+
+        id.iscsi.ipaddr = self.ksdata.iscsi["target"]
+        id.iscsi.port = self.ksdata.iscsi["port"]
+        id.iscsi.initiator = self.ksdata.iscsi["initiator"]   
+
     def doKeyboard(self, id, args):
         KickstartHandlers.doKeyboard(self, args)
         id.instClass.setKeyboard(id, self.ksdata.keyboard)

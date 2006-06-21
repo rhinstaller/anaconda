@@ -40,8 +40,15 @@ from rhpl.translate import _
 def partitionObjectsInitialize(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         anaconda.id.diskset.closeDevices()
+        anaconda.id.iscsi.shutdown()
         isys.flushDriveDict()
         return
+
+    # clean slate about drives
+    isys.flushDriveDict()
+
+    # ensure iscsi devs are up
+    anaconda.id.iscsi.startup(anaconda.intf)
 
     # read in drive info
     anaconda.id.diskset.refreshDevices(anaconda.intf, anaconda.id.partitions.reinitializeDisks,
@@ -51,6 +58,9 @@ def partitionObjectsInitialize(anaconda):
 
     anaconda.id.partitions.setFromDisk(anaconda.id.diskset)
     anaconda.id.partitions.setProtected(anaconda.dispatch)
+
+    # make sure we have all the device nodes we'll want
+    iutil.makeDriveDeviceNodes()
 
 def partitioningComplete(anaconda):
     if anaconda.dir == DISPATCH_BACK and anaconda.id.fsset.isActive():

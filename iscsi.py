@@ -17,7 +17,10 @@ import signal
 import iutil
 from flags import flags
 import logging
+import shutil
 log = logging.getLogger("anaconda")
+
+from rhpl.translate import _, N_
 
 
 # Note that stage2 copies all files under /sbin to /usr/sbin
@@ -59,6 +62,13 @@ class iscsi:
                                        stdout = "/dev/tty5",
                                        stderr = "/dev/tty5")
 
+                # ... and now we have to make it start automatically
+                argv = [ ISCSIADM, "-m", "node", "-r", "%s" %(recnum,),
+                         "-o", "update", "-n", "node.startup",
+                         "-v", "automatic" ]
+                iutil.execWithRedirect(argv[0], argv, searchPath = 1,
+                                       stdout = "/dev/tty5",
+                                       stderr = "/dev/tty5")
 
     def shutdown(self):
         if not self.iscsidStarted:
@@ -78,7 +88,7 @@ class iscsi:
         self.iscsidStarted = False;
 
 
-    def startup(self):
+    def startup(self, intf = None):
         log.info("iSCSI IP address %s, port %s" % (self.ipaddr, self.port))
         log.info("iSCSI initiator name %s", self.initiator)
 
@@ -90,6 +100,10 @@ class iscsi:
         if not self.ipaddr:
             log.info("iSCSI: Not starting, no iscsi IP address specified")
             return
+
+        if intf:
+            w = intf.waitWindow(_("Initializing iSCSI initiator"),
+                                _("Initializing iSCSI initiator"))
 
         log.debug("Setting up %s" % (INITIATOR_FILE, ))
         if os.path.exists(INITIATOR_FILE):
@@ -112,6 +126,9 @@ class iscsi:
         self.action("--login")
         self.iscsidStarted = True
 
+        if intf:
+            w.pop()
+
     def writeKS(self):
         # XXX Useful if we have auto-generated kickstart files.
         return
@@ -121,8 +138,8 @@ class iscsi:
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
 
-        if not os.path.isdir(instPath  + "/var/db/iscsi"):
-            iutil.mkdirChain(instPath + "/var/db/iscsi")
+        if not os.path.isdir(instPath  + "/var/db"):
+            iutil.mkdirChain(instPath + "/var/db")
         shutil.copytree("/var/db/iscsi", instPath + "/var/db/iscsi")
 
 # vim:tw=78:ts=4:et:sw=4

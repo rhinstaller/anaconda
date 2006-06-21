@@ -1000,6 +1000,9 @@ class YumBackend(AnacondaBackend):
             if os.access("/tmp/zfcp.conf", os.R_OK):
                 shutil.copyfile("/tmp/zfcp.conf", 
                                 anaconda.rootPath + "/etc/zfcp.conf")
+            anaconda.id.network.write(anaconda.rootPath)
+            anaconda.id.iscsi.write(anaconda.rootPath)
+            anaconda.id.zfcp.write(anaconda.rootPath)
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
@@ -1080,7 +1083,6 @@ class YumBackend(AnacondaBackend):
         else:
             w = anaconda.intf.waitWindow(_("Post Install"),
                                     _("Performing post install configuration..."))
-            anaconda.id.network.write(anaconda.rootPath)
 
         self.copyExtraModules(anaconda)
 

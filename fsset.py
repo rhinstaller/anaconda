@@ -929,38 +929,6 @@ class prepbootFileSystem(FileSystemType):
             self.formattable = 0
 
     def formatDevice(self, entry, progress, chroot='/'):
-        # copy and paste job from booty/bootloaderInfo.py...
-        def getDiskPart(dev):
-            cut = len(dev)
-            if (dev.startswith('rd/') or dev.startswith('ida/') or
-                dev.startswith('cciss/') or dev.startswith('i2o/')
-                or dev.startswith("sx8/")):
-                if dev[-2] == 'p':
-                    cut = -1
-                elif dev[-3] == 'p':
-                    cut = -2
-            else:
-                if dev[-2] in string.digits:
-                    cut = -2
-                elif dev[-1] in string.digits:
-                    cut = -1
-
-            name = dev[:cut]
-
-            # hack off the trailing 'p' from /dev/cciss/*, for example
-            if name[-1] == 'p':
-                for letter in name:
-                    if letter not in string.letters and letter != "/":
-                        name = name[:-1]
-                        break
-
-            if cut < 0:
-                partNum = int(dev[cut:])
-            else:
-                partNum = None
-
-            return (name, partNum)
-        
         # FIXME: oh dear is this a hack beyond my wildest imagination.
         # parted doesn't really know how to do these, so we're going to
         # exec sfdisk and make it set the partition type.  this is bloody
@@ -1613,15 +1581,20 @@ MAILADDR root
                 sys.exit(0)
 
     def createLogicalVolumes (self, chroot='/'):
+        vgs = {}
         # first set up the volume groups
         for entry in self.entries:
             if entry.fsystem.name == "volume group (LVM)":
                 entry.device.setupDevice(chroot)
+                vgs[entry.device.name] = entry.device
 
         # then set up the logical volumes
         for entry in self.entries:
             if isinstance(entry.device, LogicalVolumeDevice):
-                entry.device.setupDevice(chroot)
+                vg = None
+                if vgs.has_key(entry.device.vgname):
+                    vg = vgs[entry.device.vgname]
+                entry.device.setupDevice(chroot, vgdevice = vg)
         self.volumesCreated = 1
 
 
@@ -1893,6 +1866,7 @@ class FileSystemSetEntry:
             self.options = options
         else:
             self.options = fsystem.getDefaultOptions(mountpoint)
+        self.options += device.getDeviceOptions()
         self.mountcount = 0
         self.label = None
         if fsck == -1:
@@ -2001,10 +1975,10 @@ class FileSystemSetEntry:
 class Device:
     def __init__(self, device = "none"):
         self.device = device
-        self.fsoptions = {}
         self.label = None
         self.isSetup = 0
         self.doLabel = 1
+        self.deviceOptions = ""
 
     def getComment (self):
         return ""
@@ -2029,6 +2003,20 @@ class Device:
             return isys.readFSLabel(self.setupDevice(), makeDevNode = 0)
         except:
             return ""
+
+    def setAsNetdev(self):
+        """Ensure we're set up so that _netdev is in our device options."""
+        if "_netdev" not in self.deviceOptions:
+            self.deviceOptions += ",_netdev"
+
+    def isNetdev(self):
+        """Check to see if we're set as a netdev"""
+        if "_netdev" in self.deviceOptions:
+            return True
+        return False
+
+    def getDeviceOptions(self):
+        return self.deviceOptions
 
 class DevDevice(Device):
     """Device with a device node rooted in /dev that we just always use
@@ -2159,8 +2147,9 @@ class RAIDDevice(Device):
 
         if not self.isSetup:
             for device in self.members:
-                PartitionDevice(device).setupDevice(chroot,
-                                                    devPrefix=devPrefix)
+                pd = PartitionDevice(device)
+                pd.setupDevice(chroot, devPrefix=devPrefix)
+                if pd.isNetdev(): self.setAsNetdev()
 
             args = ["/usr/sbin/mdadm", "--create", "/dev/%s" %(self.device,),
                     "--run", "--chunk=%s" %(self.chunksize,),
@@ -2217,6 +2206,7 @@ class VolumeGroupDevice(Device):
         for volume in self.physicalVolumes:
             # XXX the lvm tools are broken and will only work for /dev
             node = volume.setupDevice(chroot, devPrefix="/dev")
+            if volume.isNetdev(): self.setAsNetdev()
 
             # XXX I should check if the pv is set up somehow so that we
             # can have preexisting vgs and add new pvs to them.
@@ -2286,7 +2276,7 @@ class LogicalVolumeDevice(Device):
         # self.extents
         # self.readaheadsectors
 
-    def setupDevice(self, chroot="/", devPrefix='/tmp'):
+    def setupDevice(self, chroot="/", devPrefix='/tmp', vgdevice = None):
         if not self.isSetup:
             lvm.writeForceConf()
             rc = iutil.execWithRedirect("lvm",
@@ -2301,6 +2291,8 @@ class LogicalVolumeDevice(Device):
                 raise SystemError, "lvcreate failed for %s" %(self.name,)
             lvm.unlinkConf()
             self.isSetup = 1
+
+            if vgdevice and vgdevice.isNetdev(): self.setAsNetdev()
 
         return "/dev/%s" % (self.getDevice(),)
 
@@ -2317,6 +2309,10 @@ class PartitionDevice(Device):
         if type(partition) != types.StringType:
             raise ValueError, "partition must be a string"
         self.device = partition
+
+        (disk, pnum) = getDiskPart(partition)
+        if isys.driveIsIscsi(disk):
+            self.setAsNetdev()
 
     def setupDevice(self, chroot="/", devPrefix='/tmp'):
         path = '%s/%s' % (devPrefix, self.getDevice(),)
@@ -2777,6 +2773,39 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 	return 0
 
     return 1
+
+# copy and paste job from booty/bootloaderInfo.py...
+def getDiskPart(dev):
+    cut = len(dev)
+    if (dev.startswith('rd/') or dev.startswith('ida/') or
+            dev.startswith('cciss/') or dev.startswith('sx8/') or
+            dev.startswith('mapper/')):
+        if dev[-2] == 'p':
+            cut = -1
+        elif dev[-3] == 'p':
+            cut = -2
+    else:
+        if dev[-2] in string.digits:
+            cut = -2
+        elif dev[-1] in string.digits:
+            cut = -1
+
+    name = dev[:cut]
+    
+    # hack off the trailing 'p' from /dev/cciss/*, for example
+    if name[-1] == 'p':
+        for letter in name:
+            if letter not in string.letters and letter != "/":
+                name = name[:-1]
+                break
+
+    if cut < 0:
+        partNum = int(dev[cut:]) - 1
+    else:
+        partNum = None
+
+    return (name, partNum)
+
 
 if __name__ == "__main__":
     fsset = readFstab("fstab")
