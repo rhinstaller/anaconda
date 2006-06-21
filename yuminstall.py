@@ -792,7 +792,7 @@ class YumBackend(AnacondaBackend):
                 self.ayum.install(po = kxen)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-xen-devel")
-                    self.selectPackage("kernel-xen-devel.%s" % (kxen.arch,))
+
 
         if not foundkernel and flags.cmdline.has_key("xen0"):
             try:
@@ -812,12 +812,12 @@ class YumBackend(AnacondaBackend):
             try:
                 ksmp = getBestKernelByArch("kernel-smp", self.ayum)
                 log.info("selected kernel-smp package for kernel")
-                foundkernel = True
             except PackageSackError:
                 ksmp = None
                 log.debug("no kernel-smp package")
 
             if ksmp and ksmp.returnSimple("arch") == kpkg.returnSimple("arch"):
+                foundkernel = True
                 self.ayum.install(po=ksmp)
                 if len(self.ayum.tsInfo.matchNaevr(name="gcc")) > 0:
                     log.debug("selecting kernel-smp-devel")
