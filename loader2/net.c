@@ -76,7 +76,7 @@ static void ipCallback(newtComponent co, void * dptr) {
 
     if (co == data->ipEntry) {
         if (strlen(data->ip) && !strlen(data->nm)) {
-            if (inet_pton(af, data->ip, &ipaddr)) {
+            if (inet_pton(af, data->ip, &ipaddr) >= 1) {
                 ipaddr.s_addr = ntohl(ipaddr.s_addr);
                 switch (af) {
                     case AF_INET:
@@ -92,8 +92,8 @@ static void ipCallback(newtComponent co, void * dptr) {
         }
     } else if (co == data->nmEntry) {
         if (!strlen(data->ip) || !strlen(data->nm)) return;
-        if (!inet_pton(af, data->ip, &ipaddr)) return;
-        if (!inet_pton(af, data->nm, &nmaddr)) return;
+        if (inet_pton(af, data->ip, &ipaddr) < 1) return;
+        if (inet_pton(af, data->nm, &nmaddr) < 1) return;
 
         if (af == AF_INET) {
             l = INET_ADDRSTRLEN;
@@ -295,6 +295,8 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
 
 static int getDnsServers(struct networkDeviceConfig * cfg) {
     int rc;
+    struct in_addr addr;
+    struct in6_addr addr6;
     const char * ns = "";
     struct newtWinEntry entry[] = { { N_("Nameserver IP"), &ns, 0 },
                                       { NULL, NULL, 0 } };
@@ -310,12 +312,20 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 
         if (rc == 2) return LOADER_BACK;
 
-        if (ns && *ns && !inet_pton(AF_INET, ns, &cfg->dev.dnsServers[0])) {
+        rc = 0;
+        if (!ns || !*ns) {
+            rc = 2;
+        } else {
+            if (inet_pton(AF_INET, ns, &addr) >= 1)
+                cfg->dev.dnsServers[0] = ip_addr_in(&addr);
+            else if (inet_pton(AF_INET6, ns, &addr6) >= 1)
+                cfg->dev.dnsServers[0] = ip_addr_in6(&addr6);
+            else
+                rc = 2;
+        }
+        if (rc)
             newtWinMessage(_("Invalid IP Information"), _("Retry"),
                         _("You entered an invalid IP address."));
-            rc = 2;
-        } 
-
     } while (rc == 2);
 
     cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
@@ -404,12 +414,12 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             
             cfg->isDynamic = 1;
             cfg->preset = 1;
-        } else if (inet_pton(AF_INET, loaderData->ip, &addr)) {
+        } else if (inet_pton(AF_INET, loaderData->ip, &addr) >= 1) {
             cfg->dev.ip = ip_addr_in(&addr);
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
             cfg->preset = 1;
-        } else if (inet_pton(AF_INET6, loaderData->ip, &addr6)) {
+        } else if (inet_pton(AF_INET6, loaderData->ip, &addr6) >= 1) {
             cfg->dev.ip = ip_addr_in6(&addr6);
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
@@ -420,22 +430,22 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         }
     }
 
-    if (loaderData->netmask && (inet_pton(AF_INET, loaderData->netmask, &addr))) {
+    if (loaderData->netmask && (inet_pton(AF_INET, loaderData->netmask, &addr) >= 1)) {
         cfg->dev.netmask = ip_addr_in(&addr);
         cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
     }
 
-    if (loaderData->netmask && (inet_pton(AF_INET6, loaderData->netmask, &addr6))) {
+    if (loaderData->netmask && (inet_pton(AF_INET6, loaderData->netmask, &addr6) >= 1)) {
         cfg->dev.netmask = ip_addr_in6(&addr6);
         cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
     }
 
-    if (loaderData->gateway && (inet_pton(AF_INET, loaderData->gateway, &addr))) {
+    if (loaderData->gateway && (inet_pton(AF_INET, loaderData->gateway, &addr) >= 1)) {
         cfg->dev.gateway = ip_addr_in(&addr);
         cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
     }
 
-    if (loaderData->gateway && (inet_pton(AF_INET6, loaderData->gateway, &addr6))) {
+    if (loaderData->gateway && (inet_pton(AF_INET6, loaderData->gateway, &addr6) >= 1)) {
         cfg->dev.gateway = ip_addr_in6(&addr6);
         cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
     }
@@ -448,13 +458,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         /* Scan the dns parameter for multiple comma-separated IP addresses */
         c = strtok(buf, ",");  
         while ((cfg->dev.numDns < MAX_DNS_SERVERS) && (c != NULL)) {
-            if (inet_pton(AF_INET, c, &addr)) {
+            if (inet_pton(AF_INET, c, &addr) >= 1) {
                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
                 cfg->dev.numDns++;
                 inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN);
                 logMessage(DEBUGLVL, "adding %s", ret);
                 c = strtok(NULL, ",");
-            } else if (inet_pton(AF_INET6, c, &addr6)) {
+            } else if (inet_pton(AF_INET6, c, &addr6) >= 1) {
                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in6(&addr6);
                 cfg->dev.numDns++;
                 inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN);
@@ -656,11 +666,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             i = 0;
             memset(&newCfg, 0, sizeof(newCfg));
             if (*c.ip) {
-                if (inet_pton(AF_INET, c.ip, &addr)) {
+                if (inet_pton(AF_INET, c.ip, &addr) >= 1) {
                     i++;
                     newCfg.dev.ip = ip_addr_in(&addr);
                     newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
-                } else if (inet_pton(AF_INET6, c.ip, &addr6)) {
+                } else if (inet_pton(AF_INET6, c.ip, &addr6) >= 1) {
                     i++;
                     newCfg.dev.ip = ip_addr_in6(&addr6);
                     newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
@@ -668,11 +678,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             }
 
             if (*c.nm) {
-                if (inet_pton(AF_INET, c.nm, &addr)) {
+                if (inet_pton(AF_INET, c.nm, &addr) >= 1) {
                     i++;
                     newCfg.dev.netmask = ip_addr_in(&addr);
                     newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-                } else if (inet_pton(AF_INET6, c.nm, &addr6)) {
+                } else if (inet_pton(AF_INET6, c.nm, &addr6) >= 1) {
                     i++;
                     newCfg.dev.netmask = ip_addr_in6(&addr6);
                     newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
@@ -680,11 +690,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             }
 
             if (c.ns && *c.ns) {
-                if (inet_pton(AF_INET, c.ns, &addr)) {
+                if (inet_pton(AF_INET, c.ns, &addr) >= 1) {
                     cfg->dev.dnsServers[0] = ip_addr_in(&addr);
                     if (cfg->dev.numDns < 1)
                         cfg->dev.numDns = 1;
-                } else if (inet_pton(AF_INET6, c.ns, &addr6)) {
+                } else if (inet_pton(AF_INET6, c.ns, &addr6) >= 1) {
                     cfg->dev.dnsServers[0] = ip_addr_in6(&addr6);
                     if (cfg->dev.numDns < 1)
                         cfg->dev.numDns = 1;
@@ -728,7 +738,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* preserve extra dns servers for the sake of being nice */
     if (cfg->dev.numDns > newCfg.dev.numDns) {
         for (i = newCfg.dev.numDns; i < cfg->dev.numDns; i++) {
-            newCfg.dev.dnsServers[i] = cfg->dev.dnsServers[i];
+            memcpy(&newCfg.dev.dnsServers[i], &cfg->dev.dnsServers[i],
+                sizeof (newCfg.dev.dnsServers[i]));
         }
         newCfg.dev.numDns = cfg->dev.numDns;
     }
@@ -740,10 +751,10 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
         if (c.gw && *c.gw) {
-            if (inet_pton(AF_INET, c.gw, &addr)) {
+            if (inet_pton(AF_INET, c.gw, &addr) >= 1) {
                 cfg->dev.gateway = ip_addr_in(&addr);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-            } else if (inet_pton(AF_INET6, c.gw, &addr6)) {
+            } else if (inet_pton(AF_INET6, c.gw, &addr6) >= 1) {
                 cfg->dev.gateway = ip_addr_in6(&addr6);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
             }
