@@ -132,6 +132,9 @@ class iscsi:
         return
 
     def write(self, instPath):
+        if not self.ipaddr:
+            return
+
         fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)

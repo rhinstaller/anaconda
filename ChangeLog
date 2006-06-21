@@ -1,3 +1,8 @@
+2006-06-21  Chris Lumens  <clumens@redhat.com>
+
+	* iscsi.py (iscsi.write):  Don't try to write if we weren't using
+	iscsi to begin with.
+
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py (YumBackend.getBestKernelByArch): Make sure we
