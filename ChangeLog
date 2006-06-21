@@ -1,3 +1,8 @@
+2006-06-21  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/net.c (doDhcp): Use a timeout of 45 seconds instead of
+	10 so that we're in compliance with the dhcp rfc
+
 2006-06-21  Peter Jones  <pjones@redhat.com>
 
 	* net.c (ipCallback): check return values correctly on inet_pton()

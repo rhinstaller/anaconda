@@ -411,7 +411,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 logMessage(DEBUGLVL, "dhcp: %s", ret);
                 return;
             }
-            
+
             cfg->isDynamic = 1;
             cfg->preset = 1;
         } else if (inet_pton(AF_INET, loaderData->ip, &addr) >= 1) {
@@ -462,13 +462,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in(&addr);
                 cfg->dev.numDns++;
                 inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN);
-                logMessage(DEBUGLVL, "adding %s", ret);
+                logMessage(DEBUGLVL, "adding dns4 %s", ret);
                 c = strtok(NULL, ",");
             } else if (inet_pton(AF_INET6, c, &addr6) >= 1) {
                 cfg->dev.dnsServers[cfg->dev.numDns] = ip_addr_in6(&addr6);
                 cfg->dev.numDns++;
                 inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN);
-                logMessage(DEBUGLVL, "adding %s", ret);
+                logMessage(DEBUGLVL, "adding dns6 %s", ret);
                 c = strtok(NULL, ",");
             }
         }
@@ -829,13 +829,14 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
 char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL;
+    time_t timeout = 45;
 
     i = &dev->dev;
 
     if (FL_NOIPV6(flags))
-        r = pumpDhcpClassRun(i,0L,0L,DHCPv6_DISABLE,0,10,netlogger,LOG_INFO);
+        r = pumpDhcpClassRun(i,0L,"anaconda",DHCPv6_DISABLE,0,timeout,netlogger,LOG_INFO);
     else
-        r = pumpDhcpClassRun(i,0L,0L,0,0,10,netlogger,LOG_INFO);
+        r = pumpDhcpClassRun(i,0L,"anaconda",0,0,timeout,netlogger,LOG_INFO);
 
     return r;
 }
