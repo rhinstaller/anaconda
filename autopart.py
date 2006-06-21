@@ -287,7 +287,7 @@ def getDriveList(request, diskset):
     if not type(drives) == type([]):
         drives = [ drives ]
 
-    drives.sort()
+    drives.sort(isys.compareDrives)
 
     return drives
     
