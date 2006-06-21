@@ -95,13 +95,6 @@ def sanityCheckIPString(ip_string):
         family = socket.AF_INET6
         errstr = _("'%s' is not a valid IPv6 address.") % ip_string
 
-    if rhpl.getArch() in ("s390", "s390x"): # inet_pton is busted on s390
-        try:
-            isys.inet_aton(ip_string)
-        except:
-            raise IPError, errstr
-        return
-    
     try:
         socket.inet_pton(family, ip_string)
     except socket.error:

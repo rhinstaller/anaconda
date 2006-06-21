@@ -404,13 +404,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             
             cfg->isDynamic = 1;
             cfg->preset = 1;
-#if defined(__s390__) || defined(__s390x__) /* FIXME: hack s390 for now */
-        } else if (inet_aton(loaderData->ip, &addr)) {
-            cfg->dev.ip = ip_addr_in(&addr);
-            cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
-            cfg->isDynamic = 0;
-            cfg->preset = 1;
-#else
         } else if (inet_pton(AF_INET, loaderData->ip, &addr)) {
             cfg->dev.ip = ip_addr_in(&addr);
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
@@ -421,7 +414,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
             cfg->preset = 1;
-#endif
         } else { /* invalid ip information, disable the setting of ip info */
             loaderData->ipinfo_set = 0;
             loaderData->ip = NULL;

@@ -807,8 +807,7 @@ def isPsudoTTY (fd):
     return _isys.isPsudoTTY (fd)
 
 def sync ():
-    if rhpl.getArch() not in ("s390", "s390x"):
-        return _isys.sync ()
+    return _isys.sync ()
 
 def isIsoImage(file):
     return _isys.isisoimage(file)

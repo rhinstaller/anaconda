@@ -4,6 +4,12 @@
 
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/net.c (setupNetworkDeviceConfig): Remove s390 hack
+
+	* network.py (sanityCheckIPString): Remove s390 hack
+
+	* isys/isys.py (sync): Remove s390 hack
+
 	* iscsi.py (iscsi.__init__): Fix for the case of not using iscsi
 
 2006-06-21  Jeremy Katz  <katzj@redhat.com>	
