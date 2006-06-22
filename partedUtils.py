@@ -915,7 +915,7 @@ class DiskSet:
             if drive in DiskSet.skippedDisks:
                 continue
             deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
-            if isys.driveIsRemovable(drive) and not flags.expert:
+            if not isys.mediaPresent(drive):
                 DiskSet.skippedDisks.append(drive)
                 continue
             # FIXME: need the right fix for z/VM formatted dasd

@@ -1,3 +1,12 @@
+2006-06-22  Chris Lumens  <clumens@redhat.com>
+
+	* isys/isys.c:  Removed doIsScsiRemovable and doIsIdeRemovable.
+	* isys/isys.py:  Removed driveIsRemovable.  Added mediaPresent to
+	check if a device is present/media is in the removable device.
+
+	* partedUtils.py (DiskSet.openDevices):  Use mediaPresent.
+	* command-stubs/list-harddrives-stub:  Likewise.
+
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

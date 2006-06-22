@@ -777,19 +777,18 @@ def driveUsesModule(device, modules):
                     pass
     return rc
 
-def driveIsRemovable(device):
-    # assume ide if starts with 'hd', and we don't have to create
-    # device beforehand since it just reads /proc/ide
-    if device[:2] == "hd":
-        rc = (_isys.isIdeRemovable("/dev/"+device) == 1)
+def mediaPresent(device):
+    try:
+        fd = os.open("/dev/%s" % device, os.O_RDONLY)
+    except OSError, (errno, strerror):
+        # error 123 = No medium found
+        if errno == 123:
+            return False
+        else:
+            return True
     else:
-        makeDevInode(device, "/tmp/disk")
-        rc = (_isys.isScsiRemovable("/tmp/disk") == 1)
-        os.unlink("/tmp/disk")
-        if rc:
-            return rc
-
-    return False
+        os.close(fd)
+        return True
 
 def driveIsIscsi(device):
     # ewww.  just ewww.

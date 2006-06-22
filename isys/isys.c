@@ -91,8 +91,6 @@ static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
 static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
-static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
-static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 static PyObject * doVtActivate(PyObject * s, PyObject * args);
 static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
@@ -146,8 +144,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
     { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
-    { "isScsiRemovable", (PyCFunction) doIsScsiRemovable, METH_VARARGS, NULL},
-    { "isIdeRemovable", (PyCFunction) doIsIdeRemovable, METH_VARARGS, NULL},
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
@@ -973,108 +969,6 @@ static PyObject * doExt2HasJournal(PyObject * s, PyObject * args) {
     ext2fs_close(fsys);
 
     return Py_BuildValue("i", hasjournal); 
-}
-/* doIsScsiRemovable()
-   Returns:
-    -1 on error
-     0 if not removable
-     0 if removable, but is aacraid driver (should be treated as not removable)
-     1 if removable (not to be used by installer)
-*/
-static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
-    char *path;
-    int fd;
-    int rc;
-    typedef struct sdata_t {
-	u_int32_t inlen;
-	u_int32_t outlen;
-	unsigned char cmd[128];
-    } sdata;
-    sdata inq;
-    
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    memset (&inq, 0, sizeof (sdata));
-    
-    inq.inlen = 0;
-    inq.outlen = 96;
-    
-    inq.cmd[0] = 0x12;          /* INQUIRY */
-    inq.cmd[1] = 0x00;          /* lun=0, evpd=0 */
-    inq.cmd[2] = 0x00;          /* page code = 0 */
-    inq.cmd[3] = 0x00;          /* (reserved) */
-    inq.cmd[4] = 96;            /* allocation length */
-    inq.cmd[5] = 0x00;          /* control */
-    
-    fd = open (path, O_RDONLY);
-    if (fd == -1) {
-	if (errno == ENOMEDIUM)
-	    return Py_BuildValue("i", 1); 
-	else {
-	    return Py_BuildValue("i", -1);
-	}
-    }
-
-    /* look at byte 1, bit 7 for removable flag */
-    if (!(rc = ioctl(fd, SCSI_IOCTL_SEND_COMMAND, &inq))) {
-	if (inq.cmd[1] & (1 << 7)) {
-	    /* XXX check the vendor, if it's DELL, HP, or ADAPTEC it could be
-	       an adaptec perc RAID (aacraid) device */
-	    if ((!strncmp ((char *)inq.cmd +8, "DELL", 4))
-		|| (!strncmp ((char *)inq.cmd + 8, "HP", 2))
-		|| (!strncmp ((char *)inq.cmd + 8, "ADAPTEC", 7))) {
-		rc = 0;
-	    } else
-		rc = 1;
-	} else
-	    rc = 0;
-    } else {
-/*	printf ("ioctl resulted in error %d\n", rc); */
-	rc = -1;
-    }
-
-    close (fd);
-    
-    return Py_BuildValue("i", rc); 
-}
-
-static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args) {
-    char *path;
-    char str[100];
-    char devpath[250];
-    char *t;
-    int fd;
-    int rc, i;
-    DIR * dir;
-    
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    if (access("/proc/ide", R_OK))
-	return Py_BuildValue("i", -1); 
-
-    if (!(dir = opendir("/proc/ide")))
-	return Py_BuildValue("i", -1); 
-
-    t = strrchr(path, '/');
-    if (!t)
-	return Py_BuildValue("i", -1); 
-
-    /* set errno to 0, so we can tell when readdir() fails */
-    snprintf(devpath, sizeof(devpath), "/proc/ide/%s/media", t+1);
-    if ((fd = open(devpath, O_RDONLY)) >= 0) {
-	i = read(fd, str, sizeof(str));
-	close(fd);
-	str[i - 1] = '\0';		/* chop off trailing \n */
-
-	if (!strcmp(str, "floppy") || !strcmp(str, "cdrom"))
-	    rc = 1;
-	else
-	    rc = 0;
-    } else {
-	rc = -1;
-    }
-
-    return Py_BuildValue("i", rc); 
 }
 
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args) {

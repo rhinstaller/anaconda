@@ -23,7 +23,7 @@ driveList = drives.keys()
 driveList.sort()
 for drive in driveList:
 
-    if isys.driveIsRemovable(drive):
+    if not isys.mediaPresent(drive):
 	continue
 
     # try to open and get size
