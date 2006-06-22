@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.46
+Version: 11.1.0.47
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -15,7 +15,7 @@ BuildPreReq: pykickstart, yum >= 2.9.0, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
-BuildPreReq: libdhcp-devel >= 1.5, libdhcp >= 1.5
+BuildPreReq: libdhcp-devel >= 1.5-2, libdhcp >= 1.5-2
 BuildPreReq: libdhcp4client-devel, libdhcp6client-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
 Requires: kudzu > 1.2.0, yum >= 2.9.0, pirut >= 1.1.0
@@ -101,6 +101,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.47-1
+- Fix iscsi-related tracebacks (clumens/katzj)
+- Remove some hacks that were added for s390 so that we fix them right
+- Set MALLOC_CHECK_ and _MALLOC_PERTURB for the loader to help flush 
+  out possible problems
+- Fix kernel selection on s390 (#196150)
+- Fixes for inet_pton usage (pjones)
+- Use a longer timeout for dhcp requests
+
 * Wed Jun 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.46-1
 - more tweaking of greek lang-table (#193872)
 - mark some strings for translation (#194617)
