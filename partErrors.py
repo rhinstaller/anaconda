@@ -17,7 +17,7 @@
 """Exceptions for use in partitioning."""
 
 
-class PartitioningError:
+class PartitioningError(Exception):
     """A critical error which must be resolved to continue the installation."""
     def __init__ (self, value):
         self.value = value
@@ -25,7 +25,7 @@ class PartitioningError:
     def __str__ (self):
         return self.value
 
-class PartitioningWarning:
+class PartitioningWarning(Exception):
     """A warning which may be ignored and still complete the installation."""
     def __init__ (self, value):
         self.value = value

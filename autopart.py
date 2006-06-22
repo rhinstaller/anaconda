@@ -77,7 +77,7 @@ def bootRequestCheck(requests, diskset):
         if partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end) >= 1024:
             return BOOT_ABOVE_1024
     elif rhpl.getArch() == "alpha":
-        return bootAlphaCheckRequirements(part, diskset)
+        return bootAlphaCheckRequirements(part)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
         for req in reqs:
@@ -101,7 +101,7 @@ def bootRequestCheck(requests, diskset):
 #   - There has to be at least 1 MB free at the begining of the disk
 #     (or so says the aboot manual.)
 
-def bootAlphaCheckRequirements(part, diskset):
+def bootAlphaCheckRequirements(part):
     disk = part.disk
 
     # Disklabel check
@@ -845,7 +845,7 @@ def growParts(diskset, requests, newParts):
 #                        print "growsize < 0!"
                         growSize[drive] = 0
 
-def setPreexistParts(diskset, requests, newParts):
+def setPreexistParts(diskset, requests):
     for request in requests:
         if request.type != REQUEST_PREEXIST:
             continue
@@ -918,7 +918,7 @@ def processPartitioning(diskset, requests, newParts):
         if request.type == REQUEST_NEW:
             request.device = None
 
-    setPreexistParts(diskset, requests.requests, newParts)
+    setPreexistParts(diskset, requests.requests)
 
     # sort requests by size
     requests.sortRequests()
@@ -945,7 +945,7 @@ def processPartitioning(diskset, requests, newParts):
     # run through with primary only constraints first
     try:
         fitConstrained(diskset, requests, 1, newParts)
-    except ParititioningError, msg:
+    except PartitioningError, msg:
         raise PartitioningError, _("Could not allocate cylinder-based partitions as primary partitions.\n\n%s") % msg
 
     try:
@@ -985,8 +985,6 @@ def processPartitioning(diskset, requests, newParts):
 		request.setSize(request.getStartSize())
 	    else:
 		request.size = request.getActualSize(requests, diskset)
-		
-            vgreq = requests.getRequestByID(request.volumeGroup)
 
 ##     print "disk layout after everything is done"
 ##     print diskset.diskState()
@@ -1218,8 +1216,6 @@ def doAutoPartition(anaconda):
     initial_free = findFreespace(diskset)
     if partitions.autoClearPartDrives:
       for drive in partitions.autoClearPartDrives:
-        disk = diskset.disks[drive]
-
         free = 0
         for f in initial_free[drive]:
             size = f.geom.end - f.geom.start

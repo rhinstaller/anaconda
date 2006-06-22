@@ -10,6 +10,10 @@
 	* yuminstall.py:  Don't try to unmount a CD twice.  Don't log deps
 	added for themselves.
 
+	* autopart.py:  Some minor cleanups suggested by pychecker.
+	* partErrors.py (PartitioningError, PartitioningWarning):  These
+	should inherit from Exception, since that's what they are.
+
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
