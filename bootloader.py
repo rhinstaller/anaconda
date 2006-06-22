@@ -15,11 +15,8 @@
 #
 
 import isys
-import partitioning
 import partedUtils
 import os
-import crypt
-import language
 import iutil
 import string
 import rhpl
@@ -193,7 +190,7 @@ def writeBootloader(anaconda):
     except bootloaderInfo.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()
-        if intf:
+        if anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),
                                _("No kernel packages were installed on your "
                                  "system.  Your boot loader configuration "

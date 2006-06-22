@@ -16,24 +16,12 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-if __name__ == "__main__":
-    import sys
-    sys.path.append ("isys")
-
 import isys
-import parted
-import raid
-import fsset
-import os
 import sys
-import string
 import iutil
-import partedUtils
-import raid
 from constants import *
 from flags import flags
 from partErrors import *
-import partRequests
 
 from rhpl.translate import _
 

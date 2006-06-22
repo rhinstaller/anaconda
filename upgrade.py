@@ -21,7 +21,6 @@ import sys
 import os.path
 import partedUtils
 import string
-import shutil
 import lvm
 from flags import flags
 from fsset import *
@@ -119,7 +118,7 @@ def getDirtyDevString(dirtyDevs):
     return ret
 
 def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
-		       raiseErrors = 0, warnDirty = 0, readOnly = 0):
+		       warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
 
     diskset = partedUtils.DiskSet()
@@ -132,7 +131,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
     isys.mount(root, anaconda.rootPath, rootFs)
 
     oldfsset.reset()
-    newfsset = fsset.readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
+    newfsset = readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
@@ -168,7 +167,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
         raise RuntimeError, "/etc/fstab did not list a fstype for the root partition which we support"
 
 def bindMountDevDirectory(instPath):
-    fs = fsset.fileSystemTypeGet("bind")
+    fs = fileSystemTypeGet("bind")
     fs.mount("/dev", "%s/dev" % (instPath,), bindMount=1)
 
 # returns None if no filesystem exist to migrate
@@ -193,7 +192,7 @@ def upgradeSwapSuggestion(anaconda):
     
     # don't do this if we have more then 250 MB
     if mem > 250:
-        dispatch.skipStep("addswap", 1)
+        anaconda.dispatch.skipStep("addswap", 1)
         return
     
     swap = iutil.swapAmount() / 1024
@@ -212,7 +211,7 @@ def upgradeSwapSuggestion(anaconda):
     fsList = []
 
     for entry in anaconda.id.fsset.entries:
-        if entry.fsystem.getName() in fsset.getUsableLinuxFs():
+        if entry.fsystem.getName() in getUsableLinuxFs():
             if flags.setupFilesystems and not entry.isMounted():
                 continue
             space = isys.pathSpaceAvailable(anaconda.rootPath + entry.mountpoint)
@@ -287,13 +286,13 @@ def upgradeMountFilesystems(anaconda):
 	try:
 	    mountRootPartition(anaconda, anaconda.id.upgradeRoot[0], anaconda.id.fsset,
                                allowDirty = 0)
-	except SystemError, msg:
+        except SystemError:
 	    anaconda.intf.messageWindow(_("Mount failed"),
 		_("One or more of the file systems listed in the "
 		  "/etc/fstab on your Linux system cannot be mounted. "
 		  "Please fix this problem and try to upgrade again."))
 	    sys.exit(0)
-        except RuntimeError, msg:
+        except RuntimeError:
             anaconda.intf.messageWindow(_("Mount failed"),
 		_("One or more of the file systems listed in the "
                   "/etc/fstab of your Linux system are inconsistent and "
@@ -341,13 +340,13 @@ def upgradeMountFilesystems(anaconda):
         bindMountDevDirectory(anaconda.rootPath)
     else:
         if not os.access (anaconda.rootPath + "/etc/fstab", os.R_OK):
-            rc = anaconda.intf.messageWindow(_("Warning"),
-                                    _("%s not found")
-                                    % (anaconda.rootPath + "/etc/fstab",),
-                                  type="ok")
+            anaconda.intf.messageWindow(_("Warning"),
+                                        _("%s not found")
+                                        % (anaconda.rootPath + "/etc/fstab",),
+                                        type="ok")
             return DISPATCH_BACK
             
-	newfsset = fsset.readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
+	newfsset = readFstab(anaconda.rootPath + '/etc/fstab', anaconda.intf)
         for entry in newfsset.entries:
             anaconda.id.fsset.add(entry)
         

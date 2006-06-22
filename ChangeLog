@@ -11,6 +11,10 @@
 	added for themselves.
 
 	* autopart.py:  Some minor cleanups suggested by pychecker.
+	* bootloader.py:  Likewise.
+	* partitioning.py:  Likewise.
+	* upgrade.py:  Likewise.
+
 	* partErrors.py (PartitioningError, PartitioningWarning):  These
 	should inherit from Exception, since that's what they are.
 
