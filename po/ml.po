@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-09 09:40+0530\n"
+"PO-Revision-Date: 2006-06-22 18:37+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam\n"
 "MIME-Version: 1.0\n"
@@ -4086,38 +4086,40 @@ msgstr ""
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
-msgstr ""
+msgstr "ZFCP കോണ്‍ഫിഗറേഷന്‍"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr ""
+msgstr "നീക്കം ചെയ്യുക(_R)"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
-msgstr ""
+msgstr "FCP ഡിവൈസുകള്‍"
 
 #: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
-msgstr ""
+msgstr "FCP ഡിവൈസ് ചേര്‍ക്കുക"
 
 #: ../iw/zfcp_gui.py:184
 #, python-format
 msgid "Edit FCP device %s"
-msgstr ""
+msgstr "%s എന്ന FCP ഡിവൈസില്‍ മാറ്റം വരുത്തുക"
 
 #: ../iw/zfcp_gui.py:248
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"നിങ്ങളുടെ കോണ്‍ഫിഗറേഷനില്‍ നിന്നും ഒരു FCP ഡിസ്ക്കിനെ നീക്കം ചെയ്യുവാനുളള പുറപ്പാടിലാണ് "
+"നിങ്ങള്‍ ഇപ്പോള്‍. മുന്നോട്ട് പോകണമെന്ന് നിങ്ങള്‍ക്ക് ഉറപ്പാണോ?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "z/IPL ബൂട്ട് ലോഡര്‍ കോണ്‍ഫിഗറേഷന്‍"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr ""
+msgstr "z/IPL ബൂട്ട് ലോഡര്‍ നിങ്ങളുടെ കംപ്യൂട്ടറില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യപ്പെടും."
 
 #: ../iw/zipl_gui.py:54
 msgid ""
@@ -4135,30 +4137,43 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"z/IPL ബൂട്ട് ലോഡര്‍ നിങ്ങളുടെ കംപ്യൂട്ടറില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യപ്പെടും.   \n"
+"\n"
+"പാര്‍ട്ടീഷന്‍ സെറ്റപ്പില്‍ നിങ്ങള്‍ മുന്പ് തിരഞ്ഞെടുത്തത് റൂട്ട് "
+"പാര്‍ട്ടീഷനാവും.\n"
+"\n"
+"കംപ്യൂട്ടര്‍ ആരംഭിച്ചിരുന്ന കേര്‍ണല്‍ ആണ് ഡീഫോള്‍ട്ടായി ഇന്‍സ്റ്റോള്‍ "
+"ചെയ്യപ്പെടുന്നത്.\n"
+"\n"
+"ഇന്‍സ്റ്റലേഷന് ശേഷം പിന്നീട് മാറ്റങ്ങള്‍ വരുത്തണമെങ്കില്‍ /etc/zipl.conf എന്ന "
+"കോണ്‍ഫിഗറേഷന്‍ ഫൈലില്‍ മാറ്റം വരുത്താം.\n"
+"\n"
+"നിങ്ങളുടെ കംപ്യൂട്ടറിനോ സെറ്റപ്പിനോ ആവശ്യമുളള ഏത് അടീഷണല്‍ പരാമീറ്ററുകളും "
+"ഇനി എന്‍റര്‍ ചെയ്യാവുന്നതാണ്."
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "കേര്‍ണല്‍ പരാമീറ്ററുകള്‍"
 
 #: ../iw/zipl_gui.py:84 ../iw/zipl_gui.py:87
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "Chandev പരാമീറ്ററുകള്‍"
 
 #: ../textw/bootloader_text.py:28
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "ഏത് ബൂട്ട് ലോഡര്‍ ആണ് നിങ്ങള്‍ക്ക് ഉപയോഗിക്കുവാന്‍ താത്പര്യം?"
 
 #: ../textw/bootloader_text.py:38
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "GRUB ബൂട്ട് ലോഡര്‍ ഉപയോഗിക്കുക"
 
 #: ../textw/bootloader_text.py:39
 msgid "No Boot Loader"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ ഇല്ല"
 
 #: ../textw/bootloader_text.py:59
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ സ്കിപ്പ് ചെയ്യുക"
 
 #: ../textw/bootloader_text.py:60
 msgid ""
@@ -4180,40 +4195,40 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:102
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32ന്‍റെ നിര്‍ബന്ധമായ ഉപയോഗം (സാധാരണ ആവശ്യമില്ല)"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ എവിടെയാണ് നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റോള്‍ ചെയ്യേണ്ടത്?"
 
 #: ../textw/bootloader_text.py:194 ../textw/bootloader_text.py:259
 msgid "Boot label"
-msgstr ""
+msgstr "ബൂട്ട് ലേബല്‍"
 
 #: ../textw/bootloader_text.py:198
 msgid "Clear"
-msgstr ""
+msgstr "വൃത്തിയാക്കുക"
 
 #: ../textw/bootloader_text.py:206
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "ബൂട്ട് ലേബലില്‍ മാറ്റം വരുത്തുക"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "അസാധുവായ ബൂട്ട് ലേബല്‍"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "ബൂട്ട് ലേബല്‍ കാലിയായിരിക്കില്ല."
 
 #: ../textw/bootloader_text.py:230
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "ബൂട്ട് ലേബലില്‍ അസാധുവായ അക്ഷരങ്ങള്‍."
 
 #: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
 #: ../textw/zfcp_text.py:108
 msgid "Edit"
-msgstr ""
+msgstr "മാറ്റം വരുത്തുക"
 
 #: ../textw/bootloader_text.py:278
 #, python-format
@@ -4225,7 +4240,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
+msgstr " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4236,37 +4251,39 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "ഒരു GRUB പാസ്വേര്‍ഡ് ഉപയോഗിക്കുക"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ പാസ്വേര്‍ഡ്:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
-msgstr ""
+msgstr "ഉറപ്പ് വരുത്തുക:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "പാസ്വേഡുകള്‍ തമ്മില്‍ പൊരുത്തക്കേട്"
 
 #: ../textw/bootloader_text.py:444
 msgid "Password Too Short"
-msgstr ""
+msgstr "പാസ്വേഡ് വളരെ ചെറുതാണ്"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ പാസ്വേഡ് വളരെ ചെറുതാണ്"
 
 #: ../textw/complete_text.py:27
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"ഇന്‍സ്റ്റലേഷന്‍ അവസാനിപ്പിക്കുന്നതിനായി <Enter> അമര്‍ത്തുക.\n"
+"\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "പുറത്തേക്ക് പോകുന്നതിനായി<Enter> "
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -4274,10 +4291,12 @@ msgid ""
 "reboot your system.\n"
 "\n"
 msgstr ""
+"ഇന്‍സ്റ്റലേഷനായി ഏതെങ്കിലും മീഡിയ ഉപയോഗിച്ചിരുന്നു എങ്കില്‍ അവ മാറ്റിയശേഷം കംപ്യൂട്ടര്‍ റീബൂട്ട് ചെയ്യുന്നതിനായി <Enter> അമര്‍ത്തുക.\n"
+"\n"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "റീബൂട്ട് ചെയ്യുന്നതിനായി <Enter> അമര്‍ത്തുക"
 
 #: ../textw/complete_text.py:37
 #, python-format
@@ -4286,6 +4305,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"അഭിനന്ദനങ്ങള്‍, നിങ്ങളുടെ %s ഇന്‍സ്റ്റലേഷന്‍ പൂര്‍ത്തിയായിരിക്കുന്നു.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:40
 #, python-format
@@ -4296,14 +4318,19 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
+"errata സംബന്ധിച്ചുളള വിവരങ്ങള്‍ക്കായി (പുതുതായി വരുത്തുന്ന മാറ്റങ്ങളും തിരുത്തലുകളും), http://www.redhat."
+"com/errata/ സന്ദര്‍ശിക്കുക.\n"
+"\n"
+"നിങ്ങളുടെ കംപ്യൂട്ടറിന്‍റെ ഉപയോഗസംബന്ധമായ ആവശ്യങ്ങള്‍ http:"
+"//www.redhat.com/docs/ല്‍ %s മാനുവലില്‍ ലഭ്യമാണ്."
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
-msgstr ""
+msgstr "പൂര്‍ത്തിയാക്കി"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "ഇന്‍സ്റ്റലേഷനായി ആരംഭിക്കുന്നു"
 
 #: ../textw/confirm_text.py:23
 #, python-format
@@ -4311,6 +4338,8 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
+"റീബൂട്ട് ചെയ്തതിന് ശേഷം, ഇന്‍സ്റ്റലേഷന്‍റെ മുഴുവന്‍ ലോഗും %sല്‍ ലഭ്യമാണ്. ഭാവി ആവശ്യങ്ങള്‍ക്കായി "
+"ഈ ഫൈല്‍ ഉപയോഗപ്രതമാണ്. "
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -4324,11 +4353,11 @@ msgstr ""
 #: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54 ../loader2/urls.c:266
 #: ../loader2/urls.c:456
 msgid "Back"
-msgstr ""
+msgstr "പുറകോട്ട്"
 
 #: ../textw/confirm_text.py:50
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "അപ്ഗ്രഡേഷന്‍ ആരംഭിക്കുന്നു"
 
 #: ../textw/confirm_text.py:51
 #, python-format
@@ -4336,6 +4365,8 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
+"റീബൂട്ട് ചെയ്തതിന് ശേഷം, അപ്ഗ്രഡേഷന്‍റെ മുഴുവന്‍ ലോഗും %sല്‍ ലഭ്യമാണ്. ഭാവി ആവശ്യങ്ങള്‍ക്കായി "
+"ഈ ഫൈല്‍ ഉപയോഗപ്രതമാണ്. "
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
@@ -4343,144 +4374,144 @@ msgstr ""
 
 #: ../textw/grpselect_text.py:101
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+msgstr "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
-msgstr ""
+msgstr "പാക്കേജ് ഗ്രൂപ്പിന്‍റെ വിവരങ്ങള്‍"
 
 #: ../textw/iscsi_text.py:35
 msgid "Target IP address:"
-msgstr ""
+msgstr "ടാര്‍ഗെറ്റ് IP അഡ്രസ്സ്:"
 
 #: ../textw/iscsi_text.py:42
 msgid "Port Number:"
-msgstr ""
+msgstr "പോര്‍ട്ട് നംബര്‍:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI ഇനിഷ്യേറ്ററിന്‍റെ പേര്:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
 msgid "Invalid IP string"
-msgstr ""
+msgstr "അസാധുവായ IP സ്ട്ട്രിങ്"
 
 #: ../textw/iscsi_text.py:71 ../textw/network_text.py:30
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr ""
+msgstr "എന്‍റര്‍ ചെയ്ത IP '%s' അസാധുവാണ്."
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "കീബോര്‍‍ഡ് തിരഞ്ഞെടുക്കല്‍"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "ഏത് മോഡല്‍ കീബോര്‍ഡ് ആണ് കംപ്യൂട്ടറില്‍ ഘടിപ്പിച്ചിരിക്കുന്നത്?"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr ""
+msgstr "ഏത് ഡിവൈസിലാണ് നിങ്ങളുടെ മൌസ് സ്ഥാപിച്ചിരിക്കുന്നത്?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "ഏത് മോഡല്‍ മൌസ് ആണ് കംപ്യൂട്ടറില്‍ ഘടിപ്പിച്ചിരിക്കുന്നത്?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "3 ബട്ടണുകള്‍ എമുലേറ്റ് ചെയ്യണമോ?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr ""
+msgstr "മൌസ് തിരഞ്ഞെടുക്കല്‍"
 
 #: ../textw/network_text.py:67
 msgid "IP Address"
-msgstr ""
+msgstr "IP അഡ്രസ്സ്"
 
 #: ../textw/network_text.py:68
 msgid "Netmask"
-msgstr ""
+msgstr "നെറ്റമാസ്ക്ക്"
 
 #: ../textw/network_text.py:70
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "പോയിന്‍റ് ‍ടു പോയിന്‍റ് (IP)"
 
 #: ../textw/network_text.py:74 ../loader2/net.c:246
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:247
 msgid "Encryption Key"
-msgstr ""
+msgstr "എന്‍ക്രിപ്ഷന്‍ കീ"
 
 #: ../textw/network_text.py:87
 #, python-format
 msgid "Network Device: %s"
-msgstr ""
+msgstr "നെറ്റവര്‍ക്ക് ഡിവൈസ്: %s"
 
 #: ../textw/network_text.py:93
 #, python-format
 msgid "Description: %s"
-msgstr ""
+msgstr "വിശദാംശം: %s"
 
 #: ../textw/network_text.py:97
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "ഹാര്‍ഡ്വയര്‍ അഡ്രസ്സ്: %s"
 
 #: ../textw/network_text.py:102
 msgid "Configure using DHCP"
-msgstr ""
+msgstr "DHCP ഉപയോഗിച്ച് കോണ്‍ഫിഗര്‍ ചെയ്യുക"
 
 #: ../textw/network_text.py:115
 msgid "Activate on boot"
-msgstr ""
+msgstr "ബൂട്ട് ചെയ്യുന്പോള്‍ ആക്റ്റിവേറ്റ് ആകുക"
 
 #: ../textw/network_text.py:141
 #, python-format
 msgid "Network Configuration for %s"
-msgstr ""
+msgstr "%s ആയുളള നെറ്റവര്‍ക്ക് കോണ്‍ഫിഗറേഷന്‍"
 
 #: ../textw/network_text.py:174
 msgid "Invalid information"
-msgstr ""
+msgstr "തെറ്റായ വിവരം"
 
 #: ../textw/network_text.py:175
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "മുന്പോട്ട് പോകണമെങ്കില്‍ ശരിയായ IPയുടെ വിവരങ്ങള്‍ എന്‍റര്‍ ചെയ്യേണ്ടതാണ്"
 
 #: ../textw/network_text.py:259
 msgid "Gateway:"
-msgstr ""
+msgstr "ഗേറ്റ്വേ:"
 
 #: ../textw/network_text.py:269
 msgid "Primary DNS:"
-msgstr ""
+msgstr "പ്രൈമറി DNS:"
 
 #: ../textw/network_text.py:274
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "സെക്കന്‍ഡറി DNS:"
 
 #: ../textw/network_text.py:279
 msgid "Tertiary DNS:"
-msgstr ""
+msgstr "ടെറിഷ്യറി DNS:"
 
 #: ../textw/network_text.py:286
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "മറ്റു നെറ്റ്വര്‍ക്ക് സെറ്റിങുകള്‍"
 
 #: ../textw/network_text.py:354
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "DHCP വഴി ഓട്ടോമാറ്റിക്കായി"
 
 #: ../textw/network_text.py:358
 msgid "manually"
-msgstr ""
+msgstr "നിങ്ങള്‍ സ്വന്തമായി (മാനുവലായി)"
 
 #: ../textw/network_text.py:377
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "ഹോസ്റ്റ്നെയിം കോണ്‍ഫിഗറേഷന്‍"
 
 #: ../textw/network_text.py:380
 msgid ""
@@ -4492,205 +4523,205 @@ msgstr ""
 
 #: ../textw/network_text.py:406 ../textw/network_text.py:412
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "അസാധുവായ ഹോസ്റ്റ്നെയിം"
 
 #: ../textw/network_text.py:407
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "നിങ്ങള്‍ ഹോസ്റ്റ്നെയിം പറഞ്ഞിട്ടില്ല."
 
 #: ../textw/partition_text.py:42
 msgid "Must specify a value"
-msgstr ""
+msgstr "ഒരു മൂല്ല്യം പറഞ്ഞിരിക്കണം"
 
 #: ../textw/partition_text.py:45
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "ആവശ്യപ്പെട്ട മൂല്ല്യം ഇന്‍റിജര്‍ അല്ല"
 
 #: ../textw/partition_text.py:47
 msgid "Requested value is too large"
-msgstr ""
+msgstr "ആവശ്യപ്പെട്ട മൂല്ല്യം വളരെ വലുതാണ്"
 
 #: ../textw/partition_text.py:101
 #, python-format
 msgid "RAID Device %s"
-msgstr ""
+msgstr "RAID ഡിവൈസ് %s"
 
 #: ../textw/partition_text.py:231
 #, python-format
 msgid "Warning: %s"
-msgstr ""
+msgstr "മുന്നറിയിപ്പ്: %s"
 
 #: ../textw/partition_text.py:232
 msgid "Modify Partition"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷനില്‍ വ്യത്യാസങ്ങള്‍ വരുത്തുക"
 
 #: ../textw/partition_text.py:232
 msgid "Add anyway"
-msgstr ""
+msgstr "എന്തായാലും ചേര്‍ക്കുക"
 
 #: ../textw/partition_text.py:270
 msgid "Mount Point:"
-msgstr ""
+msgstr "മൌണ്ട് പോയിന്‍റ്"
 
 #: ../textw/partition_text.py:322
 msgid "File System type:"
-msgstr ""
+msgstr "ഫൈല്‍ സിസ്റ്റം ടൈപ്പ്:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "അനുവാദമുളള ഡ്രൈവുകള്‍:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
-msgstr ""
+msgstr "ഫിക്സ്ഡ് സൈസ്:"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "നിറയ്ക്കണ്ട ഏറ്റവും കൂടുതല്‍ വലിപ്പം (MB):"
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
-msgstr ""
+msgstr "ലഭ്യമായ സ്പെയ്സെല്ലാം നിറയ്ക്കുക:"
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "ആരംഭിക്കുന്ന സിലിന്‍ഡര്‍:"
 
 #: ../textw/partition_text.py:454
 msgid "End Cylinder:"
-msgstr ""
+msgstr "അവസാനിക്കുന്ന സിലിന്‍ഡര്‍ :"
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
-msgstr ""
+msgstr "വോള്യം ഗ്രൂപ്പ്:"
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
-msgstr ""
+msgstr "RAID ലവല്‍:"
 
 #: ../textw/partition_text.py:517
 msgid "RAID Members:"
-msgstr ""
+msgstr "RAID അംഗങ്ങള്‍:"
 
 #: ../textw/partition_text.py:536
 msgid "Number of spares?"
-msgstr ""
+msgstr "സ്പെയറുകളുടെ എണ്ണം?"
 
 #: ../textw/partition_text.py:550
 msgid "File System Type:"
-msgstr ""
+msgstr "ഫൈല്‍ സിസ്റ്റം ടൈപ്പ്:"
 
 #: ../textw/partition_text.py:563
 msgid "File System Label:"
-msgstr ""
+msgstr "ഫൈല്‍ സിസ്റ്റം ലേബല്‍‍:"
 
 #: ../textw/partition_text.py:574
 msgid "File System Option:"
-msgstr ""
+msgstr "ഫൈല്‍ സിസ്റ്റം ഉപാധി:"
 
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
 #, python-format
 msgid "Format as %s"
-msgstr ""
+msgstr "%s പോലെ ഫോര്‍മാറ്റ്"
 
 #: ../textw/partition_text.py:579 ../textw/partition_text.py:817
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
 #, python-format
 msgid "Migrate to %s"
-msgstr ""
+msgstr "%sലേക്ക് നീങ്ങുക"
 
 #: ../textw/partition_text.py:581 ../textw/partition_text.py:819
 #: ../textw/partition_text.py:1056 ../textw/partition_text.py:1226
 msgid "Leave unchanged"
-msgstr ""
+msgstr "മാറ്റം വരുത്താതെ ഇരിക്കുക"
 
 #: ../textw/partition_text.py:597 ../textw/partition_text.py:792
 #: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
 msgid "File System Options"
-msgstr ""
+msgstr "ഫൈല്‍ സിസ്റ്റം ഉപാധികള്‍"
 
 #: ../textw/partition_text.py:600
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
+msgstr "ഈ പാര്‍ട്ടീഷനില്‍ ഫൈല്‍ സിസ്റ്റം എങ്ങനെ തയ്യാറക്കണമെന്ന തിരഞ്ഞെടുക്കുക."
 
 #: ../textw/partition_text.py:608
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "ബാട് ബ്ളോക്കുകള്‍ തിരയുക"
 
 #: ../textw/partition_text.py:612
 msgid "Leave unchanged (preserve data)"
-msgstr ""
+msgstr "മാറ്റം വരുത്താതെ ഇരിക്കുക (ഡാറ്റാ സംരക്ഷിക്കുക)"
 
 #: ../textw/partition_text.py:621
 msgid "Format as:"
-msgstr ""
+msgstr "ഏത് ഫോര്‍മാറ്റ്:"
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
-msgstr ""
+msgstr "നീക്കേണ്ടത് എങ്ങോട്ട്:"
 
 #: ../textw/partition_text.py:753
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "പ്രൈമറി പാര്‍ട്ടീഷനാകാന്‍ നിര്‍ബന്ധിക്കുക"
 
 #: ../textw/partition_text.py:770
 msgid "Not Supported"
-msgstr ""
+msgstr "സഹായമില്ല"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "ഗ്രാഫിക്കല്‍ ഇന്‍സ്റ്റോളറില്‍ മാത്രമേ LVM വോള്യം ഗ്രൂപ്പുകള്‍ക്ക് മാറ്റം വരുത്തുവാന്‍ പറ്റുള്ളൂ."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷന്‍ സൈസില്‍ അസാധുവായ എന്‍ട്രി"
 
 #: ../textw/partition_text.py:859
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "ഏറ്റവും കൂടുതല്‍ സൈസില്‍ തെറ്റായ എന്‍ട്രി"
 
 #: ../textw/partition_text.py:878
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "ആരംഭിക്കുന്ന സിലിന്‍ഡറില്‍ അസാധുവായ എന്‍ട്രി"
 
 #: ../textw/partition_text.py:892
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "അവസാനിക്കുന്ന സിലിന്‍ഡറില്‍ അസാധുവായ എന്‍ട്രി"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
-msgstr ""
+msgstr "RAID പാര്‍ട്ടീഷനുകള്‍ ഇല്ല"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "കുറഞ്ഞത് രണ്ട് സോഫ്റ്റവയര്‍ RAID പാര്‍ട്ടീഷനുകള്‍ എങ്കിലും ആവശ്യമുണ്ട്."
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
 msgid "Format partition?"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷന്‍ ഫോര്‍മാറ്റ് ചെയ്യണമോ?"
 
 #: ../textw/partition_text.py:1080
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "RAID സ്പെയറുകളില്‍ തെറ്റായ എന്‍ട്രി"
 
 #: ../textw/partition_text.py:1093
 msgid "Too many spares"
-msgstr ""
+msgstr "ഒരുപാട് സ്പെയറുകള്‍"
 
 #: ../textw/partition_text.py:1094
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "RAID0 അറയിലുളള ഏറ്റവും കൂടുതല്‍ സ്പെയറുകള്‍ 0 ആണ്."
 
 #: ../textw/partition_text.py:1175
 msgid "No Volume Groups"
-msgstr ""
+msgstr "വോള്യം ഗ്രൂപ്പുകള്‍ ഇല്ല"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
-msgstr ""
+msgstr "ലോജിക്കല്‍ വോള്യം നിര്‍മ്മിക്കുവാനുളള വോള്യം ഗ്രൂപ്പുകള്‍ ഇല്ല"
 
 #: ../textw/partition_text.py:1292
 #, python-format
@@ -4698,6 +4729,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
+"നിങ്ങള്‍ ആവശ്യപ്പെടുന്ന വലിപ്പം (%10.2f MB) ഏറ്റവും കൂടുതല്‍ ലോജിക്കല്‍ വോള്യം വലിപ്പത്തേക്കാള്‍ "
+"കൂടുതലാണ് (%10.2f MB). "
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -4705,50 +4738,52 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"നിങ്ങള്‍ ആവശ്യപ്പെടുന്ന വലിപ്പം (%10.2f MB) ലഭ്യമായ വോള്യം ഗ്രൂപ്പിലുളള  വലിപ്പത്തേക്കാള്‍ "
+"കൂടുതലാണ് (%10.2f MB). "
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
-msgstr ""
+msgstr "പുതിയ പാര്‍ട്ടീഷന്‍ അതോ ലോജിക്കല്‍ വോള്യം?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr ""
+msgstr "നിങ്ങള്‍ക്ക് പുതിയ പാര്‍ട്ടീഷന്‍ അതോ ലോജിക്കല്‍ വോള്യം ആണോ നിര്‍മ്മിക്കേണ്ടത്?"
 
 #: ../textw/partition_text.py:1368
 msgid "partition"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷന്‍"
 
 #: ../textw/partition_text.py:1368
 msgid "logical volume"
-msgstr ""
+msgstr "ലോജിക്കല്‍ വോള്യം"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
-msgstr ""
+msgstr "പുതിയ"
 
 #: ../textw/partition_text.py:1443
 msgid "Delete"
-msgstr ""
+msgstr "നീക്കം ചെയ്യുക"
 
 #: ../textw/partition_text.py:1444
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
+msgstr "    F1-സഹായം     F2-പുതിയ      F3-മാറ്റം വരുത്തുക   F4-നീക്കം ചെയ്യുക    F5-റീസെറ്റ്    F12-ശരി        "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
-msgstr ""
+msgstr "റൂട്ട് പാര്‍ട്ടീഷന്‍ ഇല്ല"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr ""
+msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനായി ഒരു / പാര്‍ട്ടീഷന്‍ ആവശ്യമാണ്."
 
 #: ../textw/partition_text.py:1516
 msgid "Partitioning Type"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷനിംങ് ടൈപ്പ്"
 
 #: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
 msgid ""
@@ -4759,72 +4794,72 @@ msgstr ""
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr ""
+msgstr "ഈ ഇന്‍സ്റ്റലേഷനു വേണ്ടി നിങ്ങള്‍ക്ക് ഏതെല്ലാം ഡ്രൈവുകള്‍ ആവശ്യമുണ്ട്?"
 
 #: ../textw/partition_text.py:1601
 msgid "Review Partition Layout"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷന്‍ ലേയൌട്ട് വീണ്ടും പരിശോധിക്കുക"
 
 #: ../textw/partition_text.py:1602
 msgid "Review and modify partitioning layout?"
-msgstr ""
+msgstr "പാര്‍ട്ടീഷന്‍ ലേയൌട്ട് വീണ്ടും പരിശോധിച്ച് വ്യത്യാസം വരുത്തണമോ?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr ""
+msgstr "ഓട്ടോപാര്‍ട്ടീഷന്‍"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
-msgstr ""
+msgstr "ഡിസ്ക്ക് ‍ഡ്രുയിഡ്"
 
 #: ../textw/progress_text.py:66
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "ഡൌണ്‍ലോഡ് ചെയ്യുന്നു - %s"
 
 #: ../textw/progress_text.py:103
 msgid "Package Installation"
-msgstr ""
+msgstr "പാക്കേജിന്‍റെ ഇന്‍സ്റ്റലേഷന്‍"
 
 #: ../textw/progress_text.py:105
 msgid " Name   : "
-msgstr ""
+msgstr " പേര്   : "
 
 #: ../textw/progress_text.py:106
 msgid " Size   : "
-msgstr ""
+msgstr " വലിപ്പം   : "
 
 #: ../textw/progress_text.py:107
 msgid " Summary: "
-msgstr ""
+msgstr " സമ്മറി: "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
-msgstr ""
+msgstr "    പാക്കേജുകള്‍"
 
 #: ../textw/progress_text.py:153
 msgid "      Bytes"
-msgstr ""
+msgstr "      ബൈറ്റുകള്‍"
 
 #: ../textw/progress_text.py:154
 msgid "        Time"
-msgstr ""
+msgstr "        സമയം"
 
 #: ../textw/progress_text.py:156
 msgid "Total    :"
-msgstr ""
+msgstr "മുഴുവന്‍    :"
 
 #: ../textw/progress_text.py:163
 msgid "Completed:   "
-msgstr ""
+msgstr "പൂര്‍ത്തീകരിച്ചു:   "
 
 #: ../textw/progress_text.py:173
 msgid "Remaining:  "
-msgstr ""
+msgstr "ബാക്കിയുളളത്:  "
 
 #: ../textw/task_text.py:42
 msgid "Package selection"
-msgstr ""
+msgstr "പാക്കേജ് തിരഞ്ഞടുക്കല്‍"
 
 #: ../textw/task_text.py:45
 #, python-format
@@ -4836,28 +4871,28 @@ msgstr ""
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
-msgstr ""
+msgstr "സോഫ്റ്റവയര്‍ തിരഞ്ഞെടുക്കല്‍ കസ്റ്റമൈസ് ചെയ്യുക"
 
 #: ../textw/timezone_text.py:72
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "നിങ്ങള്‍ സ്ഥിതി ചെയ്യുന്ന ടൈം സോണ്‍ ഏതാണ്?"
 
 #: ../textw/timezone_text.py:87
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "സിസ്റ്റം ക്ളോക്ക് UTC ഉപയോഗിക്കുന്നു"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ കോണ്‍ഫിഗറേഷന്‍ പരിവര്‍ത്തനം ചെയ്യുക"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "ബൂട്ട് ലോഡര്‍ പരിവര്‍ത്തനം സ്ക്കിപ്പ് ചെയ്യുക"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "പുതിയ ബൂട്ട് ലോഡര്‍ കോണ്‍ഫിഗറേഷന്‍ നിര്‍മ്മിക്കുക"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
@@ -4870,35 +4905,35 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
-msgstr ""
+msgstr "ഫ്രീ സ്പെയ്സ്"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "RAM കണ്ടുപിടിതച്ചു (MB):"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "നിര്‍ദ്ദേശിക്കപ്പെട്ട വലിപ്പം (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "സ്വാപ്പ് ഫൈല്‍ വലിപ്പം (MB):"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
-msgstr ""
+msgstr "സ്വാപ്പ് ചേര്‍ക്കുക"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "നിങ്ങള്‍ എന്‍റര്‍ ചെയ്തിരിക്കുന്നത് തെറ്റായ അക്കമാണ്."
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
-msgstr ""
+msgstr "സിസ്റ്റം വീണ്ടും ഇന്‍സ്റ്റോള്‍ ചെയ്യുക"
 
 #: ../textw/upgrade_text.py:205
 msgid "System to Upgrade"
-msgstr ""
+msgstr "സിസ്റ്റം അപ്ഗ്രേഡ് ചെയ്യുന്നതിനായി"
 
 #: ../textw/upgrade_text.py:206
 msgid ""
@@ -4907,10 +4942,14 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"നിലവില്‍ ഒന്നോ അതിലേറയോ ലിനക്സ് ഇന്‍സ്റ്റലേഷനുകള്‍ നിങ്ങളുടെ കംപ്യൂട്ടറില്‍ കാണപ്പെട്ടു.\n"
+"\n"
+"അപ്ഗ്രേഡ് ചെയ്യുന്നതിനായി ദയവായി ഒരെണ്ണം തിരഞ്ഞെടുക്കുക, അല്ലെങ്കില്‍ 'Reinstall System'"
+"തിരഞ്ഞെടുത്ത് പുതുതായി ഇന്‍സ്റ്റോള്‍ ചെയ്യുക."
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
-msgstr ""
+msgstr "റൂട്ട് പാസ്വേര്‍ഡ്"
 
 #: ../textw/userauth_text.py:29
 msgid ""
@@ -4918,10 +4957,13 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"ഒരു റൂട്ട് പാസ്വേര്‍ഡ് തിരഞ്ഞെടുക്കുക. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr " റൂട്ട് പാസ്വേര്‍ഡ്കുറഞ്ഞത് 6 അക്കങ്ങളോ അക്ഷരങ്ങളോ ആയിരിക്കണം. "
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -4929,22 +4971,24 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
+"%sലേക്ക് സ്വാഗതം!\n"
+"\n"
 
 #: ../textw/zfcp_text.py:43
 msgid "FCP Device"
-msgstr ""
+msgstr "FCP ഡിവൈസ്"
 
 #: ../textw/zfcp_text.py:101
 msgid "Device #"
-msgstr ""
+msgstr "ഡിവൈസ് #"
 
 #: ../textw/zfcp_text.py:107
 msgid "Add"
-msgstr ""
+msgstr "ചേര്‍ക്കുക"
 
 #: ../textw/zfcp_text.py:109
 msgid "Remove"
-msgstr ""
+msgstr "നീക്കം ചെയ്യുക"
 
 #: ../textw/zipl_text.py:26
 msgid ""
@@ -4955,15 +4999,15 @@ msgstr ""
 
 #: ../textw/zipl_text.py:58
 msgid "z/IPL Configuration"
-msgstr ""
+msgstr "z/IPL കോണ്‍ഫിഗറേഷന്‍"
 
 #: ../textw/zipl_text.py:66 ../textw/zipl_text.py:70
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev line "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr ""
+msgstr "കസ്റ്റം(_C)"
 
 #: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
 msgid ""
@@ -4973,23 +5017,23 @@ msgstr ""
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
-msgstr ""
+msgstr "Fedora(_F)"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr ""
+msgstr "ഓഫീസും ഉത്പാദനവും"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "സോഫ്റ്റവയര്‍ ഡവലപ്പ്മെന്‍റ്"
 
 #: ../installclasses/fedora.py:22
 msgid "Web server"
-msgstr ""
+msgstr "വെബ് സര്‍വര്‍"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr ""
+msgstr "സ്വകാര്യ(_P) ഡസ്ക്ക്ടോപ്പ്"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5009,10 +5053,17 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tഡസ്ക്ക്ടോപ്പ് ഷെല്ല് (GNOME)\n"
+"\tഓഫീസ് സ്യൂട്ട് (OpenOffice.org)\n"
+"\tവെബ് ബ്രൌസര്‍ \n"
+"\tഈമെയില്‍ (Evolution)\n"
+"\tഇന്‍സ്റ്റന്‍റ് മെസ്സേജിംങ്\n"
+"\tSound and video applications\n"
+"\tകളികള്‍\n"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -5022,18 +5073,23 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tഡസ്ക്ക്ടോപ്പ് ഷെല്ല് (GNOME)\n"
+"\tഅഡ്മിനിസ്ട്രേഷന്‍ ടൂളുകള്‍\n"
+"\tസര്‍വര്‍ കോണ്‍ഫിഗറേഷന്‍ ടൂളുകള്‍\n"
+"\tവെബ് സര്‍വര്‍\n"
+"\tWindows ഫൈല്‍ സര്‍വര്‍ (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
 msgid ""
@@ -5047,10 +5103,19 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tഡസ്ക്ക്ടോപ്പ് ഷെല്ല് (GNOME)\n"
+"\tഓഫീസ് സ്യൂട്ട് (OpenOffice.org)\n"
+"\tവെബ് ബ്രൌസര്‍ \n"
+"\tഈമെയില്‍  (Evolution)\n"
+"\tഇന്‍സ്റ്റന്‍റ് മെസ്സേജിംങ്\n"
+"\tSound and video applications\n"
+"\tകളികള്‍\n"
+"\tസോഫ്റ്റവയര്‍ ഡവലപ്പ്മെന്‍റ് ടൂളുകള്‍\n"
+"\tഅഡ്മിനിസ്ട്രേഷന്‍ ടൂളുകള്‍\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr ""
+msgstr "സര്‍വര്‍(_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5061,7 +5126,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr ""
+msgstr "വര്‍ക്ക്സ്റ്റേഷന്‍(_W)"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -5072,17 +5137,17 @@ msgstr ""
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
-msgstr ""
+msgstr "മീഡിയ ചെക്ക്"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
 #: ../loader2/method.c:419
 msgid "Test"
-msgstr ""
+msgstr "‍ടെസ്റ്റ്"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
-msgstr ""
+msgstr "CD പുറത്തെടുക്കുക"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -5110,7 +5175,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:256
 msgid "CD Found"
-msgstr ""
+msgstr "CD കണ്ടുകിട്ടി"
 
 #: ../loader2/cdinstall.c:258
 #, c-format
@@ -5129,23 +5194,23 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:385
 msgid "CD Not Found"
-msgstr ""
+msgstr "CD കണ്ടുകിട്ടിയില്ല"
 
 #: ../loader2/cdinstall.c:451
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "CDROMല്‍ കിക്ക്സ്റ്റാര്‍ട്ട് ഫൈല്‍ കണ്ടുപിടിക്കുവാന്‍ സാധിക്കുന്നില്ല."
 
 #: ../loader2/driverdisk.c:124 ../loader2/firewire.c:52
 msgid "Loading"
-msgstr ""
+msgstr "ലോഡിംങ്"
 
 #: ../loader2/driverdisk.c:124
 msgid "Reading driver disk..."
-msgstr ""
+msgstr "റീഡര്‍ സിസ്ക്ക് റീഡ് ചെയ്യുന്നു..."
 
 #: ../loader2/driverdisk.c:264 ../loader2/driverdisk.c:296
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് സോഴ്സ്"
 
 #: ../loader2/driverdisk.c:265
 msgid ""
@@ -5161,15 +5226,15 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:335
 msgid "Failed to mount partition."
-msgstr ""
+msgstr "പാര്‍ട്ടീഷന്‍ മൌണ്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
 #: ../loader2/driverdisk.c:343
 msgid "Select driver disk image"
-msgstr ""
+msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് ഇമേജ് തിരഞ്ഞെടുക്കുക"
 
 #: ../loader2/driverdisk.c:344
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് ഇമേജ് ആയ നിങ്ങളുടെ ഫൈല്‍ തിരഞ്ഞെടുക്കുക."
 
 #: ../loader2/driverdisk.c:373
 msgid "Failed to load driver disk from file."
@@ -5380,23 +5445,23 @@ msgstr ""
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:151
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 
 #: ../loader2/lang.c:361
 msgid "Choose a Language"
-msgstr ""
+msgstr "ഒരു ഭാഷ തിരഞ്ഞെടുക്കുക"
 
 #: ../loader2/loader.c:109
 msgid "Local CDROM"
-msgstr ""
+msgstr "ലോക്കല്‍ CDROM"
 
 #: ../loader2/loader.c:111
 msgid "Hard drive"
-msgstr ""
+msgstr "ഹാര്‍ഡ് ഡ്രൈവ്"
 
 #: ../loader2/loader.c:112
 msgid "NFS image"
-msgstr ""
+msgstr "NFS ഇമേജ്"
 
 #: ../loader2/loader.c:324
 msgid "Update Disk Source"
@@ -5443,11 +5508,11 @@ msgstr ""
 
 #: ../loader2/loader.c:918
 msgid "Rescue Method"
-msgstr ""
+msgstr "റെസ്ക്യൂ മെഥേഡ്"
 
 #: ../loader2/loader.c:919
 msgid "Installation Method"
-msgstr ""
+msgstr "ഇന്‍സ്റ്റലേഷന്‍ മെഥേഡ്"
 
 #: ../loader2/loader.c:921
 msgid "What type of media contains the rescue image?"
@@ -5487,7 +5552,7 @@ msgstr ""
 
 #: ../loader2/loader.c:1116
 msgid "Devices"
-msgstr ""
+msgstr "ഡിവൈസുകള്‍"
 
 #: ../loader2/loader.c:1117
 msgid "Done"
@@ -5495,7 +5560,7 @@ msgstr ""
 
 #: ../loader2/loader.c:1118
 msgid "Add Device"
-msgstr ""
+msgstr "ഡിവൈസ് ചേര്‍ക്കുക"
 
 #: ../loader2/loader.c:1258
 #, c-format
@@ -5521,12 +5586,12 @@ msgstr ""
 #: ../loader2/mediacheck.c:338
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "\"%s\" പരിശോധിക്കുന്നു..."
 
 #: ../loader2/mediacheck.c:340
 #, c-format
 msgid "Checking media now..."
-msgstr ""
+msgstr "ഇപ്പോള്‍ മീഡിയ പരിശോധിക്കുന്നു..."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
@@ -5535,7 +5600,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "പരാജയപ്പെട്ടു"
 
 #: ../loader2/mediacheck.c:398
 msgid ""
@@ -5546,7 +5611,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "വിജയിച്ചിരിക്കുന്നു"
 
 #: ../loader2/mediacheck.c:409
 msgid "It is OK to install from this media."
@@ -5567,6 +5632,9 @@ msgid ""
 "\n"
 "   %s"
 msgstr ""
+"ഇമേജിനായി %s:\n"
+"\n"
+"   %s"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
@@ -5618,15 +5686,15 @@ msgstr ""
 
 #: ../loader2/net.c:250
 msgid "Wireless Settings"
-msgstr ""
+msgstr "വൈര്‍ലസ്സ് സെറ്റിംങുകള്‍"
 
 #: ../loader2/net.c:279
 msgid "Nameserver IP"
-msgstr ""
+msgstr "നെയിംസര്‍വര്‍ IP"
 
 #: ../loader2/net.c:283
 msgid "Nameserver"
-msgstr ""
+msgstr "നെയിംസര്‍വര്‍"
 
 #: ../loader2/net.c:284
 msgid ""
@@ -5638,15 +5706,15 @@ msgstr ""
 
 #: ../loader2/net.c:294
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "തെറ്റായ IP വിവരം"
 
 #: ../loader2/net.c:295
 msgid "You entered an invalid IP address."
-msgstr ""
+msgstr "തെറ്റായ IP അഡ്രസ്സ് ആണ് നിങ്ങള്‍ എന്‍റര്‍ ചെയ്തിരിക്കുന്നത്."
 
 #: ../loader2/net.c:364 ../loader2/net.c:622
 msgid "Dynamic IP"
-msgstr ""
+msgstr "ഡൈനാമിക്ക് IP"
 
 #: ../loader2/net.c:365 ../loader2/net.c:623
 #, c-format
@@ -5661,27 +5729,27 @@ msgstr ""
 
 #: ../loader2/net.c:512
 msgid "IP address:"
-msgstr ""
+msgstr "IP അഡ്രസ്സ്:"
 
 #: ../loader2/net.c:515
 msgid "Netmask:"
-msgstr ""
+msgstr "നെറ്റ്മാസ്ക്:"
 
 #: ../loader2/net.c:518
 msgid "Default gateway (IP):"
-msgstr ""
+msgstr "ഡീഫോള്‍ട്ട് ഗെയ്റ്റ്വെ (IP):"
 
 #: ../loader2/net.c:521
 msgid "Primary nameserver:"
-msgstr ""
+msgstr "പ്രൈമറി നെയിംസര്‍വര്‍:"
 
 #: ../loader2/net.c:548
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "ഡൈനാമിക്ക് IP കോണ്‍ഫിഗറേഷന്‍ ഉപയോഗിക്കുക (BOOTP/DHCP)"
 
 #: ../loader2/net.c:576
 msgid "Configure TCP/IP"
-msgstr ""
+msgstr "TCP/IP കോണ്‍ഫിഗര്‍ ചെയ്യുക"
 
 #: ../loader2/net.c:613
 msgid "Missing Information"
@@ -5717,20 +5785,20 @@ msgstr ""
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
-msgstr ""
+msgstr "NFS സര്‍വര്‍ നെയിം:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:297
 #, c-format
 msgid "%s directory:"
-msgstr ""
+msgstr "%s ഡയറക്ടറി:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
-msgstr ""
+msgstr "NFS സെറ്റപ്പ്"
 
 #: ../loader2/nfsinstall.c:128
 msgid "Hostname specified with no DNS configured"
@@ -5752,20 +5820,20 @@ msgstr ""
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
-msgstr ""
+msgstr "ടെല്‍നറ്റ്"
 
 #: ../loader2/telnetd.c:80
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "ടെല്‍നറ്റ് കണക്ഷനായി കാത്തിരിക്കുന്നു..."
 
 #: ../loader2/telnetd.c:122
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "ടെല്‍നറ്റ് വഴി anaconda പ്രവര്‍ത്തിപ്പിക്കുന്നു..."
 
 #: ../loader2/urlinstall.c:73
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr ""
+msgstr "Unable to retrieve %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:145
 msgid "Unable to retrieve the install image."
@@ -5809,19 +5877,19 @@ msgstr ""
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "വെബ്"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
-msgstr ""
+msgstr "FTP സൈറ്റിന്‍റെ പേര്:"
 
 #: ../loader2/urls.c:293
 msgid "Web site name:"
-msgstr ""
+msgstr "വെബ് സൈറ്റിന്‍റെ പേര്:"
 
 #: ../loader2/urls.c:312
 msgid "Use non-anonymous ftp"
@@ -5829,28 +5897,28 @@ msgstr ""
 
 #: ../loader2/urls.c:321
 msgid "FTP Setup"
-msgstr ""
+msgstr "FTP സെറ്റപ്പ്"
 
 #: ../loader2/urls.c:322
 msgid "HTTP Setup"
-msgstr ""
+msgstr "HTTP സെറ്റപ്പ്"
 
 #: ../loader2/urls.c:332
 msgid "You must enter a server name."
-msgstr ""
+msgstr "സര്‍വര്‍ നെയിം എന്‍റര്‍ ചെയ്യണം."
 
 #: ../loader2/urls.c:337
 msgid "You must enter a directory."
-msgstr ""
+msgstr "ഡയറക്ടറി എന്‍റര്‍ ചെയ്യണം."
 
 #: ../loader2/urls.c:342
 msgid "Unknown Host"
-msgstr ""
+msgstr "അപരിചിതമായ ഹോസ്റ്റ്"
 
 #: ../loader2/urls.c:343
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s അസാധുവായ ഹോസ്റ്റ്നെയിം ആണ്."
 
 #: ../loader2/urls.c:416
 msgid ""
@@ -5866,35 +5934,35 @@ msgstr ""
 
 #: ../loader2/urls.c:443
 msgid "Account name:"
-msgstr ""
+msgstr "അക്കൌണ്ടിന്‍റെ പേര്:"
 
 #: ../loader2/urls.c:468
 msgid "Further FTP Setup"
-msgstr ""
+msgstr "കൂടുതല്‍ FTP സെറ്റപ്പ്"
 
 #: ../loader2/urls.c:471
 msgid "Further HTTP Setup"
-msgstr ""
+msgstr "കൂടുതല്‍ HTTP സെറ്റപ്പ്"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "SCSI ഡ്രൈവര്‍ ലോഡ് ചെയ്യുന്നു"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr ""
+msgstr "റീബൂട്ട് ചെയ്യുക(_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
-msgstr ""
+msgstr "ഡീബഗ് ചെയ്യുക(_D)"
 
 #: tmp/anaconda.glade.h:3
 msgid "_Next"
-msgstr ""
+msgstr "അടുത്തത്(_N)"
 
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr ""
+msgstr "റിലീസ് നോട്ടുകള്‍(_R)"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -5914,19 +5982,19 @@ msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>പോര്‍ട്ട് നംബര്‍(_P):</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>ടാര്‍ഗെറ്റ്(_T) IP അഡ്രസ്സ്:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>iSCSI ഇനിഷ്യേറ്റരിന്‍റെ പേര്(_N):</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "iSCSI configuration"
-msgstr ""
+msgstr "iSCSI കോണ്‍ഫിഗറേഷന്‍"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -5952,11 +6020,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
@@ -6742,73 +6810,73 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "പേര്‍ഷ്യന്‍"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "പോളിഷ്"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "പോര്‍ച്ച്യുഗീസ്"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "പോര്‍ച്ച്യുഗീസ്(ബ്രസീലിയന്‍)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "പഞ്ചാബി"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "റഷ്യന്‍"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "സര്‍ബിയന്‍"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "സര്‍ബിയന്‍(ലാറ്റിന്‍)"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "സ്ലോവാക്ക്"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "സ്ലോവേനിയന്‍"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "സ്പാനിഷ്"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "സ്വീഡിഷ്"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr ""
+msgstr "തമിഴ്"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "ടര്‍ക്കിഷ്"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "യുക്രേനിയന്‍"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "വിയറ്റ്നാമീസ്"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "വെല്‍ഷ്"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "സുളു"
 
