@@ -299,7 +299,9 @@ class YumSorter(yum.YumBase):
                     pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
                     member = self.bestPackagesFromList(pkgs)[0]
                 else:
-                    log.info("adding %s for %s" %(dep.name, req[0]))
+                    if dep.name != req[0]:
+                        log.info("adding %s for %s" %(dep.name, req[0]))
+
                     member = self.tsInfo.addInstall(dep)
                     unresolved.append(member)
 
@@ -421,7 +423,8 @@ class AnacondaYum(YumSorter):
             for i in self.tsInfo.reqmedia.keys():
                 self.tsInfo.curmedia = i
                 if i > 0:
-                    self.method.switchMedia(i)
+                    pkgtup = self.tsInfo.reqmedia[i][0]
+                    self.method.switchMedia(i, filename=pkgtup)
                 self.populateTs(keepold=0)
                 self.ts.check()
                 self.ts.order()
@@ -566,6 +569,10 @@ class AnacondaYum(YumSorter):
         return False
 
 class YumBackend(AnacondaBackend):
+    def __init__ (self, method, instPath):
+        AnacondaBackend.__init__(self, method, instPath)
+        self.prevmedia = None
+
     def _handleFailure(self, url, intf):
         (scheme, netloc, path, query, fragment) = urlparse.urlsplit(url)
 
@@ -576,11 +583,17 @@ class YumBackend(AnacondaBackend):
 
         if rc == 0:
             sys.exit(0)
+        else:
+            if self.prevmedia:
+                self.method.switchMedia(self.prevmedia)
 
     def mirrorFailureCB (self, obj, *args, **kwargs):
         log.warning("Failed to get %s from mirror" % obj.url)
-
-        self.method.unmountCD()
+        
+        if self.method.currentMedia:
+            if kwargs.has_key("tsInfo"):
+                self.prevmedia = kwargs["tsInfo"].curmedia
+            self.method.unmountCD()
 
         if kwargs.has_key("intf") and kwargs["intf"]:
             self._handleFailure(obj.url, kwargs["intf"])
@@ -589,7 +602,10 @@ class YumBackend(AnacondaBackend):
         log.warning("Try %s/%s for %s failed" % (obj.tries, obj.retry, obj.url))
 
         if obj.tries >= obj.retry:
-            self.method.unmountCD()
+            if self.method.currentMedia:
+                if kwargs.has_key("tsInfo"):
+                    self.prevmedia = kwargs["tsInfo"].curmedia
+                self.method.unmountCD()
 
             if kwargs.has_key("intf") and kwargs["intf"]:
                 self._handleFailure(obj.url, kwargs["intf"])
@@ -656,9 +672,9 @@ class YumBackend(AnacondaBackend):
 
         self.ayum.repos.callback = None
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
-                                            {"intf":anaconda.intf}))
+                                           {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo}))
         self.ayum.repos.setMirrorFailureCallback((self.mirrorFailureCB, (),
-                                            {"intf":anaconda.intf}))
+                                                 {"intf":anaconda.intf, "tsInfo":self.ayum.tsInfo}))
 
     def _catchallCategory(self):
         # FIXME: this is a bad hack, but catch groups which aren't in

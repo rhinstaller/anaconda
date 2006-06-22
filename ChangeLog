@@ -7,6 +7,9 @@
 	* partedUtils.py (DiskSet.openDevices):  Use mediaPresent.
 	* command-stubs/list-harddrives-stub:  Likewise.
 
+	* yuminstall.py:  Don't try to unmount a CD twice.  Don't log deps
+	added for themselves.
+
 2006-06-21  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
