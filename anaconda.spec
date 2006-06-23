@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.47
+Version: 11.1.0.48
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 23 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.48-1
+- various pychecker inspired cleanups (clumsn)
+- don't try to unmount CDs twice (clumens)
+- filter devices without media rather than removable devices (clumens)
+- add iscsistart to second stage
+- fix pkgorder for yum api changes
+- fix manual ip entry (#196154)
+- fix tyop in zfcp gui
+- fix serial console being propagated to installed system (#196375)
+
 * Wed Jun 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.47-1
 - Fix iscsi-related tracebacks (clumens/katzj)
 - Remove some hacks that were added for s390 so that we fix them right
