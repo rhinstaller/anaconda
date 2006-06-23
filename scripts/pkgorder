@@ -41,8 +41,7 @@ class PackageOrderer(YumSorter):
         self._installed = PackageSack()
 
     def setup(self, fn="/etc/yum.conf", root="/", excludes=[]):
-        self.doStartupConfig(fn, root)
-        self.doConfigSetup()
+        self.doConfigSetup(fn, root, init_plugins = False)
         self.conf.cache = 0
 #         if hasattr(self.repos, 'sqlite'):
 #             self.repos.sqlite = False
