@@ -18,8 +18,7 @@ import iutil
 import os
 import isys
 import string
-from network import isPtpDev, anyUsingDHCP, sanityCheckIPString
-from network import sanityCheckHostname
+import network
 from snack import *
 from constants_text import *
 from constants import *
@@ -30,6 +29,12 @@ def badIPDisplay(screen, the_ip):
                        _("The entered IP '%s' is not a valid IP.") %(the_ip,),
                        buttons = [ _("OK") ])
     return
+
+def sanityCheckIPString(val):
+    try:
+        network.sanityCheckIPString(val)
+    except IPError, err:
+        return err
 
 class NetworkDeviceWindow:
     def setsensitive(self):
@@ -51,7 +56,7 @@ class NetworkDeviceWindow:
 
             self.entries["netmask"].set (mask)
         
-    def runScreen(self, screen, network, dev, showonboot=1):
+    def runScreen(self, screen, net, dev, showonboot=1):
         boot = dev.get("bootproto")
         onboot = dev.get("onboot")
 
@@ -66,7 +71,7 @@ class NetworkDeviceWindow:
 
 	options = [(_("IP Address"), "ipaddr", 1),
 		   (_("Netmask"),    "netmask", 1)]
-        if (isPtpDev(dev.info["DEVICE"])):
+        if (network.isPtpDev(dev.info["DEVICE"])):
 	    newopt = (_("Point to Point (IP)"), "remip", 1)
 	    options.append(newopt)
 
@@ -251,7 +256,7 @@ class NetworkGlobalWindow:
 
         # we don't let you set gateway/dns if you've got any interfaces
         # using dhcp (for better or worse)
-        if anyUsingDHCP(devices):
+        if network.anyUsingDHCP(devices):
             return INSTALL_NOOP
 
         thegrid = Grid(2, 4)
@@ -297,25 +302,29 @@ class NetworkGlobalWindow:
                 return INSTALL_BACK
 
             val = gwEntry.value()
-            if val and sanityCheckIPString(val) is None:
+            if val and sanityCheckIPString(val) is not None:
+                screen.suspend()
+                print "gw", val, sanityCheckIPString(val)
+                import pdb; pdb.set_trace()
+                screen.resume()
                 badIPDisplay(screen, val)
                 continue
             anaconda.id.network.gateway = val
 
             val = ns1Entry.value()
-            if val and sanityCheckIPString(val) is None:
+            if val and sanityCheckIPString(val) is not None:
                 badIPDisplay(screen, val)
                 continue
             anaconda.id.network.primaryNS = val
 
             val = ns2Entry.value()
-            if val and sanityCheckIPString(val) is None:
+            if val and sanityCheckIPString(val) is not None:
                 badIPDisplay(screen, val)
                 continue
             anaconda.id.network.secondaryNS = val
 
             val = ns3Entry.value()
-            if val and sanityCheckIPString(val) is None:
+            if val and sanityCheckIPString(val) is not None:
                 badIPDisplay(screen, val)
                 continue
             anaconda.id.network.ternaryNS = val
@@ -340,7 +349,7 @@ class HostnameWindow:
             return INSTALL_NOOP
 
         # figure out if the hostname is currently manually set
-        if anyUsingDHCP(devices):
+        if network.anyUsingDHCP(devices):
             if (anaconda.id.network.hostname != "localhost.localdomain" and
                 anaconda.id.network.overrideDHCPhostname):
                 manual = 1
@@ -364,7 +373,7 @@ class HostnameWindow:
                          anchorLeft = 1)            
 
         # disable the dhcp if we don't have any dhcp
-        if anyUsingDHCP(devices):
+        if network.anyUsingDHCP(devices):
             autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)            
         else:
             autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
@@ -407,7 +416,7 @@ class HostnameWindow:
                                        _("You have not specified a hostname."),
                                        buttons = [ _("OK") ])
                     continue
-                neterrors = sanityCheckHostname(hname)
+                neterrors = network.sanityCheckHostname(hname)
                 if neterrors is not None:
                     ButtonChoiceWindow(screen, _("Invalid Hostname"),
                                        _("The hostname \"%s\" is not valid "

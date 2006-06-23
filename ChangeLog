@@ -1,5 +1,8 @@
 2006-06-23  Jeremy Katz  <katzj@redhat.com>
 
+	* textw/network_text.py (sanityCheckIPString): Fix for internal
+	API changes (#196154)
+
 	* scripts/pkgorder (PackageOrderer.setup): Fix for yum api changes.
 
 2006-06-22  Jeremy Katz  <katzj@redhat.com>
