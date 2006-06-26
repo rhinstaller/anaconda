@@ -1,3 +1,7 @@
+2006-06-26  Peter Jones  <pjones@redhat.com>
+
+	* loader2/modstubs.c (extractModule): don't leak memory
+
 2006-06-23  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
@@ -20,6 +24,7 @@
 
 	* scripts/upd-instroot (KEEPFILE): Add iscsistart
 
+>>>>>>> 1.1629
 2006-06-22  Chris Lumens  <clumens@redhat.com>
 
 	* isys/isys.c:  Removed doIsScsiRemovable and doIsIdeRemovable.

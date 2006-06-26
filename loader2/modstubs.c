@@ -54,6 +54,7 @@ static char * extractModule(char * file, char * ballPath, int version,
        longer valid. */
     static char finalName[100], fullName[100];
     char * chptr = NULL;
+    char *loc = NULL;
 
     if (access(file, R_OK)) {
         /* it might be having a ball */
@@ -64,10 +65,11 @@ static char * extractModule(char * file, char * ballPath, int version,
         chptr = strrchr(file, '/');
         if (chptr) file = chptr + 1;
         sprintf(finalName, "/tmp/%s", file);
-        
-        /* XXX: leak */
-        sprintf(fullName, "%s/%s", getModuleLocation(version), file);
-        
+
+        loc = getModuleLocation(version);
+        sprintf(fullName, "%s/%s", loc, file);
+        free(loc);
+
         if (installCpioFile(fd, fullName, finalName, 0))
             return NULL;
         
