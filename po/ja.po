@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-23 17:18\n"
+"PO-Revision-Date: 2006-06-26 17:08\n"
 "Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -426,7 +426,7 @@ msgstr ""
 #: ../backend.py:97
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "%s-%s-%s.%s のアップグレード中\n"
+msgstr "%s-%s-%s.%s のアップグレード\n"
 
 #: ../backend.py:99
 #, python-format
@@ -637,9 +637,8 @@ msgstr ""
 "これをスキップしてしまうと、インストーラはインストール過程でこれを無視します。"
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "フォーマット"
+msgstr "再フォーマット"
 
 #: ../fsset.py:1500
 #, python-format
@@ -1026,7 +1025,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 イメージがありません"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1034,10 +1033,10 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"インストーラーはイメージ #%s をマウントしようと試みましたが、サーバー上に見つ"
-"けられませんでした。\n"
+"インストーラーはイメージ #%s をマウントしようと試みましたが、ハードドライブでそれを"
+"見つけられませんでした。\n"
 "\n"
-"このイメージをリモートサーバーの共有パスにコピーして再試行をクリックしてくだ"
+"このイメージをドライブにコピーして再試行をクリックしてくだ"
 "さい。リブートをクリックするとインストールを中止します。"
 
 #: ../harddrive.py:71 ../image.py:491
@@ -1170,9 +1169,8 @@ msgid "Running post-install scripts"
 msgstr "post-install スクリプトを実行中"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "パッケージのインストール"
+msgstr "不在のパッケージ"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1184,14 +1182,12 @@ msgstr ""
 "存在しません。インストールを継続しますか、それとも中断しますか?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "再起動(_R)"
+msgstr "中止(_A)"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "情報が不足しています。"
+msgstr "不在グループ"
 
 #: ../kickstart.py:937
 #, python-format
@@ -2262,9 +2258,8 @@ msgid "The password must be at least six characters long."
 msgstr "パスワードは6文字以上でなければなりません。"
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "パスワードなし"
+msgstr "VNC パスワードエラー"
 
 #: ../vnc.py:138
 msgid ""
@@ -2425,9 +2420,8 @@ msgid "package already installed"
 msgstr "パッケージは既にインストール済みです"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "自由領域"
+msgstr "必要なパッケージ"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
@@ -2446,18 +2440,17 @@ msgid "Error running transaction"
 msgstr "トランザクション実行中にえらーが発生しました"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"パッケージ %s-%s-%s.%s を開けません。原因は多分、ファイルの欠落、またはパッ"
+"ファイル %s を開けません。原因は多分、ファイルの欠落、またはパッ"
 "ケージの破損です。CDメディアからインストールしている場合、これは、通常 CD メ"
 "ディアの破損か、または CD ドライブがメディアを読み込めないことを意味しま"
 "す。\n"
-"\n"
 
 #: ../yuminstall.py:659
 msgid "Retrieving installation information..."
@@ -2505,14 +2498,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "インストールプロセスを開始しています。数分かかることがあります..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "アップグレード"
+msgstr "アップグレード後"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "インストール後の設定を実行中..."
+msgstr "アップグレード後の設定を実行中..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2636,9 +2627,10 @@ msgid "_Confirm: "
 msgstr "確認(_C): "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "システムのすべてのパーティションを削除"
+msgstr ""
+"選択したドライブの全てのパーティションを削除してデフォルトのレイアウトを"
+"作成。"
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
@@ -4521,9 +4513,8 @@ msgstr ""
 "ブートラベルを設定してください。"
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr "<Space>はボタン選択 | <F2>はディフォルトのブートエントリ| <F12> 次の画面>"
+msgstr "<Space> 選択 | <F2> ディフォルト選択| <F4> 削除 | <F12> 次の画面"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -6539,13 +6530,10 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "中央時間 - コアウィラ、デュランゴ、ヌエボ=レオン、タモゥリパス"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr ""
-"中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン、ペリーおよ"
-"びプラスキ"
+msgstr "中央時間 - インディアナ - デービス、デュボア、ノックス、マーチン、ペリーとプラスキ地区"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6564,9 +6552,8 @@ msgid "Central Time - most locations"
 msgstr "中央時間 - ほとんどの地域"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "中央時間 - ノースダコタ..オリバー地区"
+msgstr "中央時間 - ノースダコタ.-.モートン地区(マンダン区を除く)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
