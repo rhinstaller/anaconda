@@ -45,6 +45,10 @@
 #include <linux/serial.h>
 #include <linux/vt.h>
 
+#ifdef USE_MTRACE
+#include <mcheck.h>
+#endif
+
 #include "loader.h"
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
 #include "log.h"
@@ -1179,25 +1183,54 @@ static void loaderSegvHandler(int signum) {
     size_t size;
     char **strings;
     size_t i;
+    const char const * const errmsg = "loader received SIGSEGV!  Backtrace:\n";
 
     signal(SIGSEGV, SIG_DFL); /* back to default */
-    
+
     newtFinished();
     size = backtrace (array, 10);
     strings = backtrace_symbols (array, size);
-    
-    printf ("loader received SIGSEGV!.  Backtrace:\n");
-    for (i = 0; i < size; i++)
-        printf ("%s\n", strings[i]);
-     
+
+    write(STDERR_FILENO, errmsg, strlen(errmsg));
+    for (i = 0; i < size; i++) {
+        write(STDERR_FILENO, strings[i], strlen(strings[i]));
+        write(STDERR_FILENO, "\n", 1);
+    }
+ 
     free (strings);
     exit(1);
 }
 
+int anaconda_trace_init(void) {
+    int fd;
+
+#ifdef USE_MTRACE
+    setenv("MALLOC_TRACE","/malloc",1);
+    mtrace();
+#endif
+    /* We have to do this before we init bogl(), which doLoaderMain will do
+     * when setting fonts for different languages.  It's also best if this
+     * is well before we might take a SEGV, so they'll go to tty8 */
+    initializeTtys();
+
+    fd = open("/dev/tty8", O_RDWR);
+    close(STDERR_FILENO);
+    dup2(fd, STDERR_FILENO);
+    close(fd);
+
+    /* set up signal handler */
+    signal(SIGSEGV, loaderSegvHandler);
+
+    return 0;
+}
+
 int main(int argc, char ** argv) {
+    /* Very first thing, set up tracebacks and debug features. */
+    int rc = anaconda_trace_init();
+
     struct stat sb;
     struct serial_struct si;
-    int rc, i;
+    int i;
     char * arg;
     FILE *f;
 
@@ -1229,9 +1262,6 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
-
-    /* set up signal handler */
-    signal(SIGSEGV, loaderSegvHandler);
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
@@ -1320,9 +1350,6 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     initializeConsole(modLoaded, modDeps, modInfo);
-    /* We have to do this before we init bogl(), which doLoaderMain will do
-     * when setting fonts for different languages. */
-    initializeTtys();
 
     checkForRam();
 

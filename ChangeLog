@@ -1,6 +1,8 @@
 2006-06-26  Peter Jones  <pjones@redhat.com>
 
 	* loader2/modstubs.c (extractModule): don't leak memory
+	* loader2/loader.c: set up mtrace and segfault handling very early, and
+	put the segfault on tty8 so newt won't garble it.
 
 2006-06-23  Jeremy Katz  <katzj@redhat.com>
 
