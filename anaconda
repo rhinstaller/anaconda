@@ -677,6 +677,7 @@ if __name__ == "__main__":
 
     if opts.vnc:
         flags.usevnc = 1
+        opts.display_mode = 'g'
         vncpassword = vnc.getVNCPassword()
 
     if opts.vncconnect:
