@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-26 11:58+1000\n"
+"PO-Revision-Date: 2006-06-26 16:14+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -627,9 +627,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "포맷"
+msgstr "재포맷"
 
 #: ../fsset.py:1500
 #, python-format
@@ -997,7 +996,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 이미지가 없습니다"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1005,9 +1004,9 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"설치 관리자는 #%s 이미지 설치를 시도했으나, 서버에서 찾을 수 없습니다.\n"
+"설치 관리자는 #%s 이미지 설치를 시도했으나, 이를 하드 드라이브에서 찾을 수 없습니다.\n"
 "\n"
-"이미지를 원격 서버의 공유 경로에 복사하시고 재시도를 누르십시오오. 이 설치를 "
+"이미지를 하드 드라이브에 복사하시고 재시도를 누르십시오. 이 설치를 "
 "중단하시려면 재부팅을 누르십시오."
 
 #: ../harddrive.py:71 ../image.py:491
@@ -1139,9 +1138,8 @@ msgid "Running post-install scripts"
 msgstr "설치후 스크립트를 실행 중 입니다"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "패키지 설치"
+msgstr "패키지 부재"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1151,14 +1149,12 @@ msgid ""
 msgstr ""
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "재부팅(_R)"
+msgstr "중지(_A)"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "정보 부족"
+msgstr "그룹 부재"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1205,7 +1201,7 @@ msgstr ""
 "이 출시 이전 버전(pre-release) %s을 다운로드 해주셔서 감사드립니다.\n"
 "\n"
 "이 버전은 최종 배포판이 아니므로 실제 시스템에서는 사용하지 마십시오. 이 버"
-"전 테스트를 통한 의견을 수렴을 위하여 배포되기 때문에 일반 용도로 사용하기에"
+"전은 의견 수렴을 위해 배포되는 테스트 버젼이므로 일반 용도로 사용하기에"
 "는 적합하지 않습니다. \n"
 "\n"
 "의견을 보내주시려면, 다음의 사이트를 방문하셔서: \n"
@@ -2227,9 +2223,8 @@ msgid "The password must be at least six characters long."
 msgstr "암호는 적어도 6자 이상이어야 합니다."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "암호 없음"
+msgstr "VNC 암호 오류 "
 
 #: ../vnc.py:138
 msgid ""
@@ -2361,7 +2356,7 @@ msgstr "취소(_C)"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "파일 충돌"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
@@ -2377,11 +2372,11 @@ msgstr ""
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "팩키지 충돌"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "이미 팩키지가 설치됨 "
 
 #: ../yuminstall.py:488
 #, fuzzy
@@ -2405,14 +2400,14 @@ msgid "Error running transaction"
 msgstr "트랜잭션 실행 오류"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"%s-%s-%s.%s 패키지를 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니"
+"%s 파일 열 수 없습니다. 파일이 없거나, 패키지 불량인 것 같습니"
 "다.  CD 매체를 사용하여 설치하신다면, CD가 손상되었거나 CD 드라이브가 CD를 읽"
 "지 못하는 것 같습니다. \n"
 "\n"
@@ -2461,9 +2456,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "설치를 시작합니다, 이 단계는 몇분 소요될 수 도 있습니다..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "업그레이드"
+msgstr "사후 업그레이드"
 
 #: ../yuminstall.py:1037
 #, fuzzy
@@ -2472,7 +2466,7 @@ msgstr "설치 후 설정을 하고 있습니다...."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
-msgstr "설치 후 설정"
+msgstr "설치후 설정"
 
 #: ../yuminstall.py:1040
 msgid "Performing post install configuration..."
