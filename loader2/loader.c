@@ -1182,7 +1182,7 @@ static void loaderSegvHandler(int signum) {
     void *array[10];
     size_t size;
     char **strings;
-    size_t i;
+    size_t i, j;
     const char const * const errmsg = "loader received SIGSEGV!  Backtrace:\n";
 
     signal(SIGSEGV, SIG_DFL); /* back to default */
@@ -1191,10 +1191,10 @@ static void loaderSegvHandler(int signum) {
     size = backtrace (array, 10);
     strings = backtrace_symbols (array, size);
 
-    write(STDERR_FILENO, errmsg, strlen(errmsg));
+    j = write(STDERR_FILENO, errmsg, strlen(errmsg));
     for (i = 0; i < size; i++) {
-        write(STDERR_FILENO, strings[i], strlen(strings[i]));
-        write(STDERR_FILENO, "\n", 1);
+        j = write(STDERR_FILENO, strings[i], strlen(strings[i]));
+        j = write(STDERR_FILENO, "\n", 1);
     }
  
     free (strings);
