@@ -1201,7 +1201,7 @@ static void loaderSegvHandler(int signum) {
     exit(1);
 }
 
-int anaconda_trace_init(void) {
+static int anaconda_trace_init(void) {
     int fd;
 
 #ifdef USE_MTRACE
