@@ -311,7 +311,15 @@ def runRescue(anaconda):
 
 	partList = []
 	for (drive, fs, relstr) in disks:
-	    partList.append(drive)
+            try:
+                label = isys.readFSLabel(drive, makeDevNode=0)
+            except:
+                label = None
+
+            if label:
+	        partList.append("%s (%s)" % (drive, label))
+            else:
+                partList.append(drive)
 
 	(button, choice) = \
 	    ListboxChoiceWindow(screen, _("System to Rescue"),
