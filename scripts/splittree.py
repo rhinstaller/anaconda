@@ -104,16 +104,16 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
 
 
     def getSize(self, path, blocksize=None):
-        """Gets the size as reported by du -s"""
+        """Gets the size as reported by du -sL"""
 
         if blocksize:
-            p = os.popen("du -s --block-size=1 %s" % path, 'r')
+            p = os.popen("du -sL --block-size=1 %s" % path, 'r')
             thesize = p.read()
             p.close()
             thesize = long(string.split(thesize)[0])
             return thesize
         else:
-            p = os.popen("du -sh %s" % path, 'r')
+            p = os.popen("du -sLh %s" % path, 'r')
             thesize = p.read()
             p.close()
             thesize = string.split(thesize)[0]
