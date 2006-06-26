@@ -896,7 +896,7 @@ if __name__ == "__main__":
         anaconda.id.setMonitor(monitorhw)
 
     #
-    # not sure what to do here - somehow we danaconda.idnt detect anything
+    # not sure what to do here - somehow we didn't detect anything
     #
     if xcfg is None and not opts.isHeadless:
         try:
