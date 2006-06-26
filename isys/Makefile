@@ -12,19 +12,12 @@ LOADLIBES = -lresolv -lpci -lpopt -lext2fs -lz -lkudzu -lpci -ldevmapper
 LOADLIBES += $(SELINUXLIBES)
 PYMODULES = _isys.so
 SUBDIRS = gzlib
-DIET = diet
 
 # glib
 LOADLIBES += $(shell pkg-config --libs glib-2.0)
 CFLAGS    += $(shell pkg-config --cflags glib-2.0)
 
-DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS))
-
 GENERATED = nfs_mountversion.h
-
-ifeq (1, $(USEDIET))
-DIETLIB=libisys-diet.a
-endif
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
@@ -44,13 +37,10 @@ endif
 
 everything: $(TARGET)
 
-all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
+all: subdirs $(PYMODULES) libisys.a
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
-
-%.do: %.c
-	$(DIET) $(CC) -c $(CFLAGS) -DGZLIB=1 -DDIET=1 "-Du_char=unsigned char" -o $(SELINUXFLAGS) $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -fPIC -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
@@ -60,13 +50,11 @@ _silo.so: silo.c
 
 libisys.a: libisys.a($(OBJECTS))
 
-libisys-diet.a: libisys-diet.a($(DOBJECTS))
-
 filtertest: filtertest.o libisys.a
 
 clean:
-	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(DOBJECTS) 
-	rm -f $(DIETLIBS) $(OBJECTS) $(GENERATED)
+	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS)
+	rm -f $(OBJECTS) $(GENERATED)
 	rm -f .depend
 	rm -f nl
 	for d in $(SUBDIRS); do make -C $$d clean; done

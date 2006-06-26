@@ -38,12 +38,7 @@ NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-HWLIBS = -lkudzu_loader  
-ifeq (1, $(USEDIET))
-HWLIBS += -lpci_loader
-else
-HWLIBS += -lpci
-endif
+HWLIBS = -lkudzu_loader -lpci
 
 # NSS linker flags
 NSSFLAGS = -Wl,-rpath-link,/nss
@@ -52,19 +47,7 @@ CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
 REALCC=gcc
 
-ifeq (1, $(USEDIET))
-CFLAGS += -DGZLIB=1 -DDIET=1
-DIET=diet
-CC=$(DIET) $(REALCC)
-ISYSLIB = ../isys/libisys-diet.a
-GUNZIP = ../isys/gzlib/libgunzip-diet.a
-
-OBJS += dietstubs.o ctype.o
-ISYSLIB += -lrpc
-CTYPEDEP = ctype.c
-else
 UNICODELIB = ../stubs/libunicode-lite.a
-endif
 
 # linuxrc + shutdown on s390, init everywhere else
 ifneq (,$(filter s390 s390x,$(ARCH)))

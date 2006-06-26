@@ -26,10 +26,6 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
-#ifdef DIET
-typedef void * caddr_t;
-#endif
-
 #include <linux/wireless.h>
 
 static struct iwreq get_wreq(char * ifname) {

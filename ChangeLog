@@ -1,5 +1,17 @@
 2006-06-26  Peter Jones  <pjones@redhat.com>
 
+	* Makefile.inc: get rid of USEDIET
+	* isys/gzlib/Makefile: get rid of USEDIET and DIETLIB
+	* isys/Makefile: get rid of USEDIET and DOBJECTS
+	* loader2/Makefile: ditto
+	* isys/ethtool.c: get rid of DIET
+	* isys/nfsmount.h: ditto
+	* isys/smp.c: ditto
+	* isys/wireless.c: ditto
+	* loader2/md5.h: ditto
+
+2006-06-26  Peter Jones  <pjones@redhat.com>
+
 	* loader2/modstubs.c (extractModule): don't leak memory
 	* loader2/loader.c: set up mtrace and segfault handling very early, and
 	put the segfault on tty8 so newt won't garble it.

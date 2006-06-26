@@ -3,11 +3,7 @@
 
 #include <sys/types.h>
 
-#ifdef DIET
-typedef uint32_t uint32;
-#else
 typedef u_int32_t uint32;
-#endif
 
 struct MD5Context {
 	uint32 buf[4];

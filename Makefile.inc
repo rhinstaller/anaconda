@@ -18,12 +18,6 @@ else
 LIBDIR = lib
 endif
 
-# diet defines
-USEDIET=0
-ifeq (nosucharch, $(ARCH))
-USEDIET=1
-endif
-
 USESELINUX=1
 
 ifeq ($(USESELINUX),1)

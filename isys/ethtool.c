@@ -24,10 +24,6 @@
 #include <sys/types.h>
 #include <net/if.h>
 
-#ifdef DIET
-typedef void * caddr_t;
-#endif
-
 #include <linux/sockios.h>
 #include "net.h"
 

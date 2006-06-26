@@ -16,13 +16,6 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-#ifdef DIET
-typedef unsigned short u_short;
-typedef unsigned long u_long;
-typedef unsigned int u_int;
-#endif
-
-
 #ifdef __alpha__
 int alphaDetectSMP(void)
 {

@@ -58,12 +58,6 @@ extern "C" {
 
 typedef char fhandle[FHSIZE];
 
-#ifdef DIET
-typedef unsigned int u_int;
-typedef unsigned long u_long;
-typedef void * caddr_t;
-#endif
-
 typedef struct {
 	u_int fhandle3_len;
 	char *fhandle3_val;
