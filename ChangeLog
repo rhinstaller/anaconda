@@ -2,6 +2,8 @@
 
 	* loader2/windows.c (winStatus): Use vasprintf().
 
+	* loader2/dietstubs.c: Removed.
+
 2006-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Require system-config-date (#196452).
