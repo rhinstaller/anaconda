@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-26 17:20+1000\n"
+"PO-Revision-Date: 2006-06-27 10:25+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2579,9 +2579,8 @@ msgid "_Confirm: "
 msgstr "확인(_C): "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "시스템 상의 모든 파티션 삭제"
+msgstr " 선택한 드라이브 상의 모든 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
@@ -2589,11 +2588,11 @@ msgstr ""
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "선택한 드라이브의 여유 공간에서 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "사용자 레이아웃 만들기"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -4440,10 +4439,9 @@ msgstr ""
 "시오."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
+" <Space> 는 버튼 선택 | <F2> 는 디폴트 | 선택하기 <F4> 는 지우기 | <F12> 는 다음 화면으"
 "로 가기>"
 
 #: ../textw/bootloader_text.py:387
@@ -6102,7 +6100,7 @@ msgstr "%s 디렉토리:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6185,11 +6183,11 @@ msgstr "읽는 중"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "웹"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6461,11 +6459,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "중부시 - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
-msgstr "중부 시 - 인디애나 - Daviess, Dubois, Knox, Martin, Perry 와 Pulaski"
+msgstr ""
+"중부 시 - 인디애나 - Daviess, Dubois, Knox, Martin, Perry 와 Pulaski "
+"국가 "
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6484,9 +6483,8 @@ msgid "Central Time - most locations"
 msgstr "중부시 - 대부분 지역"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "중부시 - 노스 다코타 - Oliver 군"
+msgstr "중부시 - 노스 다코타 - 모튼 카운티 (만단 지역 제외)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
