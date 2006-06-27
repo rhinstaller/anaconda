@@ -1,3 +1,7 @@
+2006-06-27  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/windows.c (winStatus): Use vasprintf().
+
 2006-06-27  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Require system-config-date (#196452).
