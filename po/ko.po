@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-27 10:25+1000\n"
+"PO-Revision-Date: 2006-06-27 12:12+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -625,6 +625,11 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"스왑 장치:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"리눅스 버젼 0의 스왑 파티션입니다. 이 장치를 사용하시려면 리눅스 버젼 1의 스왑 파티션으로 재포맷해야합니다. 스킵하시려면 설치자가 프로그램을 설치하는 도중 이를 무시하면 됩니다. "
 
 #: ../fsset.py:1496
 msgid "Reformat"
@@ -641,6 +646,11 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"스왑 장치\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"/etc/fstab 파일은 소프트웨어 중지 파티션으로 현재 사용 중이므로, 시스템은 휴면상태입니다. 업그래이드하시려면 시스템 전원을 끄십시오. "
 
 #: ../fsset.py:1508
 #, python-format
@@ -653,6 +663,11 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"스왑 장치:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"/etc/fstab 파일은 소프트웨어 중지 파티션으로 현재 사용 중이므로, 시스템은 휴면상태입니다. 새롭게 설치하시려면 설치자가 모든 스왑 파티션을 포맷했는지 확인하십시오. "
 
 #: ../fsset.py:1518
 msgid ""
@@ -662,6 +677,9 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"업그레이드중 설치자가 파티션을 무시하고자 한다면 스킵 (Skip) 을 선택하세요. 스왑 공간으로서 파티션을 재포맷하려면 포맷 (Format)을 선택하세요. 시스템을 다시 시작하려면 재부팅 (Reboot)을 선택하세요."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1146,7 +1164,7 @@ msgstr "패키지 부재"
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "설치한 '%s'팩키지를 지정해 주십시오. 이 그룹은 존재하지 않습니다. 계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1161,7 +1179,7 @@ msgstr "그룹 부재"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "설치한 '%s'그룹을 지정해 주십시오. 이 그룹은 존재하지 않습니다. 계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1705,13 +1723,13 @@ msgstr ""
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "USB디바이스에 설치하면 워킹 시스템에 작동할 수 도, 작동하지 않을 수도 있습니다. "
+msgstr "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 수도 있습니다. "
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "방화벽을 설치중입니다. 이는 작업 시스템에 작동할 수 도 작동하지 않을 수 도 있습니다."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2232,6 +2250,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"최소 6자 이상의 vnc 패스워드를 지정해야 합니다.\n"
+"\n"
+"시스템 재부팅 위하여 <return>을 누르세요.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2360,15 +2381,15 @@ msgstr "파일 충돌"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "이전 팩키지"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "디스크 공간 부족"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "디스크 inode 부족"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
@@ -2384,15 +2405,15 @@ msgstr "필요한 팩키지"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "아키텍쳐가 잘못된 팩키지"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "운영체제가 잘못된 팩키지"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "다음의 파일 시스템에서 더 많은 공간이 필요합니다:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
@@ -2434,7 +2455,7 @@ msgstr "분류되지 않음"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "선택하신 팩키지 설치를 위하여 %d MB의 여유 공간이 필요하나 충분한 공간이 없습니다. 다른 팩키지로 바꾸거나 재부팅하실 수 있습니다. "
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2584,7 +2605,7 @@ msgstr " 선택한 드라이브 상의 모든 파티션을 삭제하고 디폴�
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "선택한 드라이브 상의 리눅스 파티션을 삭제하고 디폴트 레이아웃을 만듭니다"
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
