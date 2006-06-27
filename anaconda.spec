@@ -1,7 +1,7 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.44
-Release: 2
+Version: 10.1.1.45
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 27 2006 Peter Jones <pjones@redhat.com> - 10.1.1.45-1
+- Revert bogus translation changes (#194153)
+- Backport new runShell code from HEAD so rescue mode works (#193285)
+
 * Mon Jun  5 2006 Peter Jones <pjones@redhat.com> - 10.1.1.44-2
 - Don't traceback if /proc/lapics is missing (#192818)
 - Fix another weird cpu counting issue on i386 HT Xeons (#193816)
