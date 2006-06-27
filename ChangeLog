@@ -4,6 +4,9 @@
 
 	* loader2/dietstubs.c: Removed.
 
+	* loader2/net.c (chooseNetworkInterface): Fix double free() when using
+	a MAC address for ksdevice. Use str2upper() for ksMacAddr.
+
 	* isys/str.c: Added str2upper() that doesn't use ctype.h or string.h.
 	* isys/str.h: And the header file.
 	* isys/Makefile: Added str.o

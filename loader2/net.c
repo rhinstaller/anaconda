@@ -19,7 +19,6 @@
  *
  */
 
-#include <ctype.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -39,6 +38,7 @@
 #include "../isys/net.h"
 #include "../isys/wireless.h"
 #include "../isys/nl.h"
+#include "../isys/str.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -1142,7 +1142,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 /* if multiple interfaces get one to use from user.   */
 /* NOTE - uses kickstart data available in loaderData */
 int chooseNetworkInterface(struct loaderData_s * loaderData) {
-    int i, j, rc;
+    int i, rc;
     unsigned int max = 40;
     int deviceNums = 0;
     int deviceNum;
@@ -1169,10 +1169,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             ksMacAddr = strdup(loaderData->netDev);
         }
 
-        for (j=0; j<strlen(ksMacAddr); j++) {
-            if (ksMacAddr[j] >= 'a' && ksMacAddr[j] <= 'f')
-                ksMacAddr[j] = toupper(ksMacAddr[j]);
-        }
+        ksMacAddr = str2upper(ksMacAddr);
     }
 
     for (i = 0; devs[i]; i++) {
@@ -1198,15 +1195,19 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                 foundDev = 1;
             } else if (ksMacAddr != NULL) {
                 /* maybe it's a mac address */
-                char * devmacaddr;
+                char *devmacaddr = NULL;
                 devmacaddr = netlink_interfaces_mac2str(devs[i]->device);
                 if ((devmacaddr != NULL) && !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);
                     loaderData->netDev = devs[i]->device;
+                } else {
+                    free(ksMacAddr);
                 }
-                free(ksMacAddr);
-                free(devmacaddr);
+
+                if (devmacaddr != NULL) {
+                    free(devmacaddr);
+                }
             }
         }
     }
@@ -1330,3 +1331,5 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
 
     return 0;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */
