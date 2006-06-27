@@ -70,8 +70,8 @@ class NetworkWindow(InstallWindow):
 	    tmpvals = {}
 	    for t in range(len(global_options)):
 		try:
-                    network.sanityCheckIPString(self.globals[global_options[t]])
-		    tmpvals[t] = self.globals[global_options[t]]
+                    network.sanityCheckIPString(self.globals[global_options[t]].get_text())
+		    tmpvals[t] = self.globals[global_options[t]].get_text()
 		except network.IPMissing, msg:
                     if t < 2 and self.getNumberActiveDevices() > 0:
 			if self.handleMissingOptionalIP(global_options[t]):
@@ -595,24 +595,20 @@ class NetworkWindow(InstallWindow):
 
 	self.globals = {}
 	for t in range(len(global_options)):
-	    self.globals[global_options[t]] = options[t].get_text()
+	    self.globals[global_options[t]] = options[t]
 
 	# bring over the value from the loader
 	self.hostnameEntry.set_text(self.network.hostname)
 
 	if not self.anyUsingDHCP():
 	    if self.network.gateway:
-                self.globals[_("Gateway")] = self.network.gateway
-                options[0].set_text(self.network.gateway)
+                self.globals[_("Gateway")].set_text(self.network.gateway)
 	    if self.network.primaryNS:
-                self.globals[_("Primary DNS")] = self.network.primaryNS
-                options[1].set_text(self.network.primaryNS)
+                self.globals[_("Primary DNS")].set_text(self.network.primaryNS)
 	    if self.network.secondaryNS:
-                self.globals[_("Secondary DNS")] = self.network.secondaryNS
-                options[2].set_text(self.network.secondaryNS)
+                self.globals[_("Secondary DNS")].set_text(self.network.secondaryNS)
 	    if self.network.ternaryNS:
-                self.globals[_("Tertiary DNS")] = self.network.ternaryNS
-                options[3].set_text(self.network.ternaryNS)
+                self.globals[_("Tertiary DNS")].set_text(self.network.ternaryNS)
 
 	self.ipTable.set_border_width(6)
 

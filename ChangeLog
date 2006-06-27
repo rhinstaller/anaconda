@@ -16,6 +16,9 @@
 
 	* anaconda.spec:  Require system-config-date (#196452).
 
+	* iw/network_gui.py (NetworkWindow.getNext):  Make sure the contents
+	of the UI end up in network.* variables (#196756).
+
 2006-06-26  Paul Nasrat   <pnasrat@redhat.com>
 
 	* scripts/splittree.py: Make trees with symlinks work (#195240).
