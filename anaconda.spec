@@ -20,7 +20,7 @@ BuildPreReq: libdhcp4client-devel, libdhcp6client-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
 Requires: kudzu > 1.2.0, yum >= 2.9.0, pirut >= 1.1.0
 Requires: pyparted, libxml2-python, python-urlgrabber
-Requires: system-logos, pykickstart
+Requires: system-logos, pykickstart, system-config-date
 Requires: device-mapper >= 1.01.05-3
 Requires: dosfstools e2fsprogs
 %ifnarch s390 s390x
