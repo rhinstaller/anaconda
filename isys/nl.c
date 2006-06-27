@@ -18,7 +18,6 @@
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
-#include <ctype.h>
 
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -30,6 +29,7 @@
 #include <glib.h>
 
 #include "nl.h"
+#include "str.h"
 
 /* A linked list of interface_info_t structures (see nl.h) */
 static GSList *interfaces = NULL;
@@ -43,8 +43,6 @@ static GSList *interfaces = NULL;
  * @return Pointer to buf.
  */
 char *netlink_format_mac_addr(char *buf, unsigned char *mac) {
-   int i;
-
    if (buf == NULL) {
       if ((buf = malloc(20)) == NULL) {
          perror("malloc in netlink_format_mac_addr");
@@ -55,12 +53,7 @@ char *netlink_format_mac_addr(char *buf, unsigned char *mac) {
    sprintf(buf, "%02x:%02x:%02x:%02x:%02x:%02x",
            mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
-   for (i=0; i<18; i++) {
-      if (buf[i] >= 'a' && buf[i] <= 'f')
-         buf[i] = toupper(buf[i]);
-   }
-
-   return buf;
+   return str2upper(buf);
 }
 
 /**
