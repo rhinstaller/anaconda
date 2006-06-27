@@ -315,8 +315,8 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
                      0, 0, 0, 1, 0, 0);
 
     if (protocol == URL_METHOD_FTP) {
-	cb = newtCheckbox(3, 11, _("Use non-anonymous ftp"),
-			  *doSecondarySetup, NULL, doSecondarySetup);
+        cb = newtCheckbox(3, 11, _("Use non-anonymous ftp"),
+                          *doSecondarySetup, NULL, doSecondarySetup);
         newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, cb,
                          0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
     }
@@ -392,20 +392,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
         if (ui->proxyPort)
             free(ui->proxyPort);
         ui->login = ui->password = ui->proxy = ui->proxyPort = NULL;
-        /*
-        delMacro(NULL, "_httpproxy");
-        delMacro(NULL, "_ftpproxy");
-        delMacro(NULL, "_httpproxyport");
-        delMacro(NULL, "_ftpproxyport");
-        */
     }
 
     ui->protocol = protocol;
 
     newtFormDestroy(form);
     newtPopWindow();
-
-    free(site);
 
     return 0;
 }
@@ -510,3 +502,5 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
 
     return 0;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */
