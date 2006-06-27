@@ -289,19 +289,15 @@ static void queryCDMediaCheck(char *dev) {
  * side effect: found cdrom is mounted as /mnt/source.  stage2 mounted
  * as /mnt/runtime.
  */
-char * setupCdrom(char * location, 
-		  struct loaderData_s * loaderData,
-                  moduleInfoSet modInfo, 
-                  moduleList modLoaded, 
-                  moduleDeps modDeps, 
-                  int interactive, 
-		  int requirepkgs) {
-    int i, rc;
+char * setupCdrom(char * location, struct loaderData_s * loaderData,
+                  moduleInfoSet modInfo, moduleList modLoaded, 
+                  moduleDeps modDeps, int interactive, int requirepkgs) {
+    int i, r, rc;
     int foundinvalid = 0;
     int stage2inram = 0;
     char * buf;
     char *stage2img;
-    struct device ** devices = NULL;
+    struct device ** devices;
 
     devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
     if (!devices) {
@@ -312,61 +308,73 @@ char * setupCdrom(char * location,
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
         for (i = 0; devices[i]; i++) {
-	    if (!devices[i]->device) continue;
-            logMessage(INFO, "trying to mount CD device %s", devices[i]->device);
+            if (!devices[i]->device)
+                continue;
+
+            logMessage(INFO,"trying to mount CD device %s",devices[i]->device);
+
             devMakeInode(devices[i]->device, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 
                            IMOUNT_RDONLY, NULL)) {
-		char path[1024];
+                char path[1024];
 
-		snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath()); 
+                snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img",
+                         getProductPath()); 
+
                 if (!access(path, R_OK) &&
-		    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
+                    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
 
-
-		    /* if in rescue mode lets copy stage 2 into RAM so we can */
-		    /* free up the CD drive and user can have it avaiable to  */
-		    /* aid system recovery.                                   */
-		    if (FL_RESCUE(flags) && !FL_TEXT(flags) && totalMemory() > 128000) {
-		        snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
-			rc = copyFile(path, "/tmp/ramfs/stage2.img");
-			stage2img = "/tmp/ramfs/stage2.img";
-			stage2inram = 1;
-		    } else {
-			snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
-			stage2img = strdup(path);
-			stage2inram = 0;
-		    }
+                    /* if in rescue mode lets copy stage 2 into RAM so we can */
+                    /* free up the CD drive and user can have it avaiable to  */
+                    /* aid system recovery.                                   */
+                    if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
+                        totalMemory() > 128000) {
+                        snprintf(path, sizeof(path),
+                            "/mnt/source/%s/base/stage2.img", getProductPath());
+                        rc = copyFile(path, "/tmp/ramfs/stage2.img");
+                        stage2img = "/tmp/ramfs/stage2.img";
+                        stage2inram = 1;
+                    } else {
+                        snprintf(path, sizeof(path),
+                            "/mnt/source/%s/base/stage2.img", getProductPath());
+                        stage2img = strdup(path);
+                        stage2inram = 0;
+                    }
 	
-		    rc = mountStage2(stage2img);
+                    rc = mountStage2(stage2img);
 
                     /* if we failed, umount /mnt/source and keep going */
                     if (rc) {
                         umount("/mnt/source");
-                        if (rc == -1) foundinvalid = 1;
+                        if (rc == -1)
+                            foundinvalid = 1;
                         continue;
                     }
 
                     /* do the media check */
                     queryCDMediaCheck(devices[i]->device);
 
-		    /* if in rescue mode and we copied stage2 to RAM */
-		    /* we can now unmount the CD                     */
-		    if (FL_RESCUE(flags) && stage2inram) {
-			umount("/mnt/source");
-			unlink("/tmp/cdrom");
-		    }
+                    /* if in rescue mode and we copied stage2 to RAM */
+                    /* we can now unmount the CD                     */
+                    if (FL_RESCUE(flags) && stage2inram) {
+                        umount("/mnt/source");
+                        unlink("/tmp/cdrom");
+                    }
 
-                    buf = malloc(200);
-                    sprintf(buf, "cdrom://%s:/mnt/source", devices[i]->device);
-                    return buf;
+                    r = asprintf(&buf, "cdrom://%s:/mnt/source",
+                                 devices[i]->device);
+                    if (r == -1)
+                        return NULL;
+                    else
+                        return buf;
+
                 }
 
-		/* this wasnt the CD we were looking for, clean up and */
-		/* try the next CD drive                               */
-		umount("/mnt/source");
-            } 
-        } 
+                /* this wasnt the CD we were looking for, clean up and */
+                /* try the next CD drive                               */
+                umount("/mnt/source");
+            }
+        }
 
         if (interactive) {
             char * buf;
@@ -386,12 +394,14 @@ char * setupCdrom(char * location,
             rc = newtWinChoice(_("CD Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
-            if (rc == 2) return NULL;
+            if (rc == 2)
+                return NULL;
         } else {
             /* we can't ask them about it, so just return not found */
             return NULL;
         }
     } while (1);
+
     return NULL;
 }
 
@@ -403,8 +413,6 @@ char * findAnacondaCD(char * location,
                     int requirepkgs) {
     return setupCdrom(location, NULL, modInfo, modLoaded, modDeps, 0, requirepkgs);
 }
-
-
 
 /* look for a CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
@@ -454,3 +462,5 @@ int kickstartFromCD(char *kssrc) {
 
     return 0;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */

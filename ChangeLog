@@ -1,5 +1,8 @@
 2006-06-27  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/cdinstall.c (setupCdrom): Fix corrupted double-linked list
+	problem.
+
 	* loader2/windows.c (winStatus): Use vasprintf().
 
 	* loader2/dietstubs.c: Removed.
