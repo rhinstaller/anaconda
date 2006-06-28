@@ -24,6 +24,9 @@ class KeyboardWindow(InstallWindow, installKeyboardWindow):
         InstallWindow.__init__(self, ics)
         installKeyboardWindow.__init__(self, ics)
 
+    def getNext(self):
+        installKeyboardWindow.getNext(self)
+
     def getScreen(self, anaconda):
         return installKeyboardWindow.getScreen(self, anaconda.id.instLanguage.getDefaultKeyboard(),
                                                anaconda.id.keyboard)

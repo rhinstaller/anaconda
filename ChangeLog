@@ -1,3 +1,8 @@
+2006-06-28  Chris Lumens  <clumens@redhat.com>
+
+	* iw/kbd_gui.py (KeyboardWindow.getNext):  Make sure we call the
+	correct getNext function so the keyboard layout is set (#196466).
+
 2006-06-28  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/urls.c (urlMainSetupPanel): Don't redefine buf, realloc it
