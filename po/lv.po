@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-28 14:59+0300\n"
+"PO-Revision-Date: 2006-06-28 15:06+0300\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -4255,53 +4255,53 @@ msgstr "Maiņatmiņas izmērs (MB):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "Es vēlos izveidot maiņatmiņas sadaļu"
+msgstr "Es nevēlos izveidot maiņatmiņas sadaļu"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
+msgstr "Noteikti rekomendējam izveidot maiņatmiņas sadaļu. Pretējā gadījumā uzstādīšana var tikt pārtraukta. Vai esat pārliecināts, ka vēlaties turpināt bez maiņatmiņas sadaļas izveides?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "Maiņatmiņas sadaļas izmēram jābūt starp 1 un 2000 Mbaitiem."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "Ierīcē, kuru esat izvēlējies maiņatmiņas sadaļas izveidei, nepietiek vietas."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
-msgstr ""
+msgstr "ZFCP iestatīšana"
 
 #: ../iw/zfcp_gui.py:103
 msgid "_Remove"
-msgstr ""
+msgstr "Dzēst"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
-msgstr ""
+msgstr "FCP ierīces"
 
 #: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
-msgstr ""
+msgstr "Pievienot FCP ierīci"
 
 #: ../iw/zfcp_gui.py:184
 #, python-format
 msgid "Edit FCP device %s"
-msgstr ""
+msgstr "Labot FCP ierīci %s"
 
 #: ../iw/zfcp_gui.py:248
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Jūs cenšaties dzēst FCP disku. Vai tiešām vēlaties turpināt?"
 
 #: ../iw/zipl_gui.py:28
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "Ielādētāja z/IPL iestatīšana"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
@@ -4412,11 +4412,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <F1> palīdzībai | <Tab> starp elementiem | <Space> izvēle | <F12> nākošais "
-"ekrāns"
+msgstr "<Space> izvēle | <F2> izvēlēties noklusēto | <F4> dzēst | <F12> nākošais ekrāns"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
