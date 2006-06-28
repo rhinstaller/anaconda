@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-28 14:21+0300\n"
+"PO-Revision-Date: 2006-06-28 14:59+0300\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -4178,15 +4178,15 @@ msgstr "Izlaist ielādētāja jaunināšanu"
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr ""
+msgstr "Tas palīdzēs nemainīt ielādētāja iestatījumus. Izvēlieties šo parametru, ja izmantojat ielādētāju, kas neietilpst distribūcijā."
 
 #: ../iw/upgrade_bootloader_gui.py:109
 msgid "What would you like to do?"
-msgstr ""
+msgstr "Ko Jūs vēlaties darīt?"
 
 #: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
 msgid "Migrate File Systems"
-msgstr ""
+msgstr "Datņu sistēmu pārveide (migrācija)"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
 #, python-format
@@ -4198,10 +4198,13 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
+"Šī %s versija uztur žurnalējamo datņu sistēmu ext3. Tai ir dažas priekšrocības salīdzinājumā ar ext2, kas bija tradicionāla vecākām %s versijām. Ext2 sadaļas iespējams pārveidot uz ext3 bez informācijas zudumiem.\n"
+"\n"
+"Kuras sadaļas vēlaties pārveidot?"
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "Jaunināt maiņatmiņas sadaļu"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
@@ -4210,7 +4213,7 @@ msgid ""
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
+msgstr "2.4 versijas kodolam nepieciešama lielāka maiņatmiņas sadaļa (minimums divas reizes lielāka nekā sistēmas operatīvā atmiņa) nekā agrāko versiju kodoliem. Patreiz Jūsu sistēmā maiņatmiņai ir izdalīti %d MB, taču Jūs varat pievienot papildus maiņatmiņas sadaļas jebkurās no datņu sistēmām."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4219,37 +4222,40 @@ msgid ""
 "\n"
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
+"\n"
+"\n"
+"Uzstādīšanas programma ir noteikusi, ka operatīvās atmiņas apjoms ir %s MB.\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr ""
+msgstr "Es vēlos izmantot maiņatmiņas sadaļu"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr ""
+msgstr "Norādiet sadaļu, kur tiks izvietota maiņatmiņas sadaļa:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
-msgstr ""
+msgstr "Sadaļa"
 
 #: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "Brīvā vieta (MB)"
 
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
-msgstr ""
+msgstr "Rekomendējam, ka maiņatmiņas sadaļai jābūt ne mazākai par %d MB. Norādiet maiņatmiņas sadaļas izmēru:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr ""
+msgstr "Maiņatmiņas izmērs (MB):"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "Es vēlos izveidot maiņatmiņas sadaļu"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
