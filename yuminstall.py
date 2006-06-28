@@ -324,8 +324,7 @@ class AnacondaYum(YumSorter):
         YumSorter.__init__(self)
         self.anaconda = anaconda
         self.method = anaconda.method
-        self.doStartupConfig(root=anaconda.rootPath)
-        self.doConfigSetup()
+        self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
         self.macros = {}
         if flags.selinux:
@@ -345,7 +344,7 @@ class AnacondaYum(YumSorter):
         self.updates = []
         self.localPackages = []
 
-    def doStartupConfig(self, fn='/etc/yum.conf', root='/'):
+    def doConfigSetup(self, fn='/etc/yum.conf', root='/'):
         self.conf = yum.config.YumConf()
         self.conf.installroot = root
         self.conf.reposdir="/tmp/repos.d"
@@ -354,8 +353,7 @@ class AnacondaYum(YumSorter):
         self.conf.exclude=["*debuginfo*"]
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
-
-    def doConfigSetup(self):
+        
         #XXX: It'd be nice if the default repo was in the repoList
         repo = AnacondaYumRepo(self.method.getMethodUri())
         repo.enable()
