@@ -450,11 +450,13 @@ class InstallInterface:
         return True
 
     def run(self, anaconda):
-        if anaconda.id.instLanguage.getFontFile(anaconda.id.instLanguage.getCurrent()) == "none":
+        instLang = anaconda.id.instLanguage
+
+        if instLang.getFontFile(instLang.getCurrent()) == "none":
             ButtonChoiceWindow(self.screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  "
                                "The installation will continue in "
-                               "English." % (oldlang,),
+                               "English." % (instLang.getCurrent(),),
                                buttons=[TEXT_OK_BUTTON])
         
 	self.screen.helpCallback(self.helpWindow)
@@ -466,11 +468,6 @@ class InstallInterface:
         if flags.debug or flags.test:
             self.screen.suspendCallback(debugSelf, self.screen)
 
-	# clear out the old root text by writing spaces in the blank
-	# area on the right side of the screen
-	#self.screen.drawRootText (len(_(self.welcomeText)), 0,
-		  #(self.screen.width - len(_(self.welcomeText))) * " ")
-	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
         self.instLanguage = anaconda.id.instLanguage
 
         # draw the frame after setting up the fallback

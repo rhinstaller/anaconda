@@ -1,5 +1,8 @@
 2006-06-28  Chris Lumens  <clumens@redhat.com>
 
+	* text.py (InstallInterface.run):  Fix traceback on nonexistant
+	variable (#196615).
+
 	* iw/kbd_gui.py (KeyboardWindow.getNext):  Make sure we call the
 	correct getNext function so the keyboard layout is set (#196466).
 
