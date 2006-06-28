@@ -1,3 +1,8 @@
+2006-06-28  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/urls.c (urlMainSetupPanel): Don't redefine buf, realloc it
+	and free when done. Consistently set ui->prefix in the function.
+
 2006-06-27  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/cdinstall.c (setupCdrom): Fix corrupted double-linked list

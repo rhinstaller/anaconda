@@ -125,7 +125,6 @@ static char * getLoginName(char * login, struct iurlinfo *ui) {
     return login;
 }
 
-
 /* convert a UI to a URL, returns allocated string */
 char *convertUIToURL(struct iurlinfo *ui) {
     char * login;
@@ -254,7 +253,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     int width, height;
     newtGrid entryGrid, buttons, grid;
     char * chptr;
-    char * buf;
+    char * buf = NULL;
 
     if (ui->address) {
         site = ui->address;
@@ -368,13 +367,16 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 
     /* add a slash at the start of the dir if it is missing */
     if (*dir != '/') {
-        char *buf = malloc(strlen(dir) + 2);
-        buf[0] = '/';
-        buf[1] = '\0';
-        strcat (buf, dir);
-        ui->prefix = buf;
-    } else
+        if ((buf = realloc(buf, strlen(dir) + 2)) == NULL) {
+            buf = strdup(dir);        /* try dir anyway */
+        } else {
+            sprintf(buf, "/%s", dir);
+        }
+        ui->prefix = strdup(buf);
+        free(buf);
+    } else {
         ui->prefix = strdup(dir);
+    }
 
     /* Get rid of trailing /'s */
     chptr = ui->prefix + strlen(ui->prefix) - 1;
@@ -462,8 +464,6 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons, 
                      0, 1, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
-    
-    
     if (protocol == URL_METHOD_FTP) {
         newtGridWrappedWindow(grid, _("Further FTP Setup"));
     } else {
