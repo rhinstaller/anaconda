@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-11 15:09+0300\n"
+"PO-Revision-Date: 2006-06-28 13:58+0300\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../anaconda:255
 msgid "Unknown Error"
@@ -81,8 +81,7 @@ msgstr ""
 
 #: ../anaconda:473
 msgid "No video hardware found, assuming headless"
-msgstr ""
-"Video karte nav atrasta; tas tiek interpretēts kā dators bez video kartes"
+msgstr "Video karte nav atrasta; tas tiek interpretēts kā dators bez video kartes"
 
 #: ../anaconda:484 ../anaconda:880
 msgid "Unable to instantiate a X hardware state object."
@@ -174,8 +173,7 @@ msgstr ""
 
 #: ../autopart.py:1052
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "Ielādes partīcija %s neatbilst Jūsu sistēmas arhitektūrai."
 
 #: ../autopart.py:1078
@@ -183,8 +181,7 @@ msgstr "Ielādes partīcija %s neatbilst Jūsu sistēmas arhitektūrai."
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"Šīs partīcijas pievienošana neatstās vietu citām loģiskajām sadaļām diskā %s."
+msgstr "Šīs partīcijas pievienošana neatstās vietu citām loģiskajām sadaļām diskā %s."
 
 #: ../autopart.py:1268
 msgid "Requested Partition Does Not Exist"
@@ -509,18 +506,14 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Konstatētas problēmas sistēmas stāvokļa fiksācijā disketē"
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
-msgstr ""
-"Jūsu sistēmas stāvoklis ir sekmīgi fiksēts attālinātā datorā.\n"
-"Jūsu sistēma tiks pārstartēta."
+msgstr "Jūsu sistēmas stāvoklis ir sekmīgi fiksēts attālinātā datorā. Jūsu sistēma tiks pārstartēta."
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
-"Konstatētas problēmas sistēmas stāvokļa fiksēšanā uz attālināta datora."
+msgstr "Konstatētas problēmas sistēmas stāvokļa fiksēšanā uz attālināta datora."
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
@@ -625,11 +618,15 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Maiņatmiņas ierīce:\n"
+"\n"
+"...../dev/%s\n"
+"\n"
+"ir 0.versijas Linux sistēmas maiņatmiņas ierīce. Ja Jūs to vēlaties izmantot, šī sadaļa jāpārformatē kā 1.versijas Linux maiņatmiņas ierīce. Ja Jūs šo soli izlaidīsiet, sistēmas uzstādīšanas programma to ignorēs uzstādīšanas laikā."
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Formāts"
+msgstr "Pārformatēšana"
 
 #: ../fsset.py:1500
 #, python-format
@@ -642,6 +639,11 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Maiņatmiņas ierīce:\n"
+"\n"
+"...../dev/%s\n"
+"\n"
+"kas norādīta datnē /etc/fstab, patlaban tiek izmantota kā sadaļa sistēmas uzturēšanai, tas nozīmē, ka Jūsu sistēma atrodas \"aizmigušā stāvoklī\"."
 
 #: ../fsset.py:1508
 #, python-format
@@ -654,6 +656,11 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Maiņatmiņas ierīce:\n"
+"\n"
+"...../dev/%s\n"
+"\n"
+"kas norādīta datnē /etc/fstab, patlaban tiek izmantota kā sadaļa sistēmas uzturēšanai, tas nozīmē, ka Jūsu sistēma atrodas \"aizmigušā stāvoklī\". Ja Jūs veicat jaunas sistēmas uzstādīšanu, obligāti veiciet visu maiņatmiņas sadaļu pārformatēšanu."
 
 #: ../fsset.py:1518
 msgid ""
@@ -663,6 +670,9 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Nospiediet \"Izlaist\", ja vēlaties, lai uzstādīšanas programma šo sadaļu ignorētu jaunināšanas procesa laikā. Nospiediet \"Formatēt\", lai sadaļu pārformatētu, kā maiņatmiņas sadaļu. Nospiediet \"Pārstartēt\", lai pārstartētu sistēmu."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -995,7 +1005,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Nav diska spoguļattēla ISO 9660 formātā"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1003,11 +1013,9 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"Instalators mēģināja piemontēt diska spoguļattēlu #%s, bet tas uz servera "
-"nav atrodams.\n"
+"Instalators mēģināja piemontēt diska spoguļattēlu #%s, bet tas uz cietā diska nav atrodams.\n"
 "\n"
-"Lūdzu ievietojiet šī diska spoguļattēlu servera publiski pieejamā mapē un "
-"nospiediet 'Atkārtot'.Nospiediet 'Pārstartēt', lai pārtrauktu instalēšanu."
+"Lūdzu ierakstiet šī diska spoguļattēlu informācijas nesējā un nospiediet 'Atkārtot'.Nospiediet 'Pārstartēt', lai pārtrauktu instalēšanu."
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1140,32 +1148,30 @@ msgid "Running post-install scripts"
 msgstr "Startēti instalēšanas pabeigšanas skripti"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "Pakotņu uzstādīšana"
+msgstr "Trūkstošā pakotne"
 
 #: ../kickstart.py:909
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Jūs norādījāt, ka jāuzstāda pakotne '%s'. Šī pakotne neeksistē. Vai vēlaties uzstādīšanu turpināt vai pārtraukt?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "_Pārstartēt"
+msgstr "_Atcelt"
 
 #: ../kickstart.py:936
 msgid "Missing Group"
-msgstr ""
+msgstr "Trūkstoša grupa"
 
 #: ../kickstart.py:937
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Jūs norādījāt, ka jāuzstāda grupa '%s'. Šāda grupa neeksistē. Vai vēlaties uzstādīšanu turpināt vai pārtraukt?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1419,8 +1425,7 @@ msgstr "Jūs nevarat dzēst LDL formāta DASD partīciju."
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Jūs nevarat dzēst šo partīciju, jo tā ir paplašinātā partīcija, kas satur %s"
+msgstr "Jūs nevarat dzēst šo partīciju, jo tā ir paplašinātā partīcija, kas satur %s"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1576,8 +1581,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"Sekojošas agrāk eksistējušas partīcijas tiks formatētas, dzēšot visus datus."
+msgstr "Sekojošas agrāk eksistējušas partīcijas tiks formatētas, dzēšot visus datus."
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -1625,8 +1629,7 @@ msgid "Confirm Reset"
 msgstr "Apstiprināt atiestatīšanu"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Vai Jūs vēlaties atiestatīt partīciju tabulu tās sākotnējā stāvoklī?"
 
 #: ../partitioning.py:57
@@ -1676,8 +1679,7 @@ msgstr ""
 "lai instalētu %s."
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Jums jāizveido VFAT tipa partīcija /boot/efi ar izmēru 50 megabaiti."
 
 #: ../partitions.py:836
@@ -1698,15 +1700,14 @@ msgstr ""
 "kas nepieciešams, lai veiktu normālu %s instalēšanu."
 
 #: ../partitions.py:911
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Uzstādīšana uz USB ierīces. Iespējams, ka pēc uzstādīšanas sistēma nedarbosies."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Uzstādīšana uz FireWire ierīces. Iespējams, ka pēc uzstādīšanas sistēma nedarbosies."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1756,10 +1757,8 @@ msgstr "partīcija, kas ir LVM Sadaļu Grupas sastāvdaļa."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Šis montēšanas punkts ir nekorekts. Katalogam %s jāatrodas / datņu sistēmā."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Šis montēšanas punkts ir nekorekts. Katalogam %s jāatrodas / datņu sistēmā."
 
 #: ../partRequests.py:252
 #, python-format
@@ -1861,8 +1860,7 @@ msgstr ""
 
 #: ../rescue.py:256 ../rescue.py:292 ../rescue.py:461
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Pēc pabeigšanas izejiet no komandčaulas un Jūsu sistēma tiks pārstartēta."
+msgstr "Pēc pabeigšanas izejiet no komandčaulas un Jūsu sistēma tiks pārstartēta."
 
 #: ../rescue.py:276 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
@@ -2029,8 +2027,7 @@ msgid "Welcome to %s"
 msgstr "Laipni aicināti %s"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> palīdzībai | <Tab> starp elementiem | <Space> izvēle | <F12> nākošais "
 "ekrāns"
@@ -2234,9 +2231,8 @@ msgid "The password must be at least six characters long."
 msgstr "Parolei jāsatur vismaz seši simboli"
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Bez paroles"
+msgstr "Kļūdaina VNC parole"
 
 #: ../vnc.py:138
 msgid ""
@@ -2244,6 +2240,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Jums jānorāda VNC parole, kas nav mazāka par 6 simboliem.\n"
+"\n"
+"Nospiediet <return>, lai pārstartētu sistēmu.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2303,8 +2302,7 @@ msgstr "Pieslēgšanās bloķēšana pēc 50 neveiksmīgiem mēģinājumiem!\n"
 #: ../vnc.py:290
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Lūdzu, manuāli pieslēdziet Jūsu VNC klientu pie %s, lai sāktu instalāciju."
+msgstr "Lūdzu, manuāli pieslēdziet Jūsu VNC klientu pie %s, lai sāktu instalāciju."
 
 #: ../vnc.py:292
 msgid "Please manually connect your vnc client to begin the install."
@@ -2369,59 +2367,57 @@ msgstr "Atcelt"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "datņu konflikts"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "veca pakotne(s)"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "nepietiek vietas cietajā diskā"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "nepietiekošs inode skaits cietajā diskā"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "pakotņu konflikts"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "pakotne jau ir uzstādīta"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Brīvā vieta"
+msgstr "nepieciešama pakotne"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pakotne ar nekorektu arhitektūru"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pakotne ar nekorektu operētājsistēmu"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Nepieciešams vairāk vietas sekojošās datņu sistēmās:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Kļūda transakciju pārbaudes laikā"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Pakotni %s-%s-%s.%s nav iespējams atvērt. Iemesls - datnes neesamība vai "
-"bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, "
+"Pakotni %s nav iespējams atvērt. Iemesls - datnes neesamība vai bojāta pakotne. Ja Jūs veicat instalēšanu no CD, iespējams, ka CD ir bojāts, "
 "vai arī CD ierīce to nevar nolasīt.\n"
 "\n"
 
@@ -2449,7 +2445,7 @@ msgstr "Nekategorizēts"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Jūsu izvēlētās pakotnes aizņem %d MB brīvās vietas, taču cietajā diskā šāda brīvā vieta nav pieejama. Jūs varat izmainīt nepieciešamo pakotņu sarakstu vai arī pārstartēt sistēmu."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2469,14 +2465,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Instalēšanas process startēts. Tas var ilgt vairākas minūtes..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Jaunināt"
+msgstr "Pēcjaunināšanas procedūra"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Notiek iestatīšana pēc instalēšanas..."
+msgstr "Notiek iestatīšana pēc jaunināšanas..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2516,8 +2510,7 @@ msgstr "Ierīces numurs"
 
 #: ../zfcp.py:31
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
-"Jūs neesat norādījis ierīces numuru vai arī numurs ir norādīts nepareizi"
+msgstr "Jūs neesat norādījis ierīces numuru vai arī numurs ir norādīts nepareizi"
 
 #: ../zfcp.py:33
 msgid "SCSI Id"
@@ -2564,8 +2557,7 @@ msgstr "Paroles kļūda"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"Lai turpinātu Jums jāievada root parole un tā jāapstiprina, ievadot otrreiz."
+msgstr "Lai turpinātu Jums jāievada root parole un tā jāapstiprina, ievadot otrreiz."
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
@@ -2600,21 +2592,20 @@ msgid "_Confirm: "
 msgstr "Atkārtot:"
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Dzēst visas partīcijas, kas atrodas cietnī"
+msgstr "Dzēst visas partīcijas, kas atrodas cietnī un izveidot dalījumu pēc noklusējuma."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Dzēst visas Linux partīcijas, kas atrodas cietnī un izveidot dalījumu pēc noklusējuma."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Izmantot cietņa brīvo vietu un izveidot dalījumu pēc noklusējuma."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Izveidot pašrocīgu sadalījumu."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2804,8 +2795,7 @@ msgstr "Nospiediet 'Tālāk', lai sāktu %s jaunināšanu."
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
-"Pilnīga jaunināšanas norise atrodama datnē '%s' pēc sistēmas pārstartēšanas."
+msgstr "Pilnīga jaunināšanas norise atrodama datnē '%s' pēc sistēmas pārstartēšanas."
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
@@ -3652,14 +3642,12 @@ msgid "Partitioning"
 msgstr "Sadalīšana"
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Izvēlētā dalīšanas shēma, radījusi šādas kritiskas kļūmes."
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Šīs kļūdas ir jāizlabo, lai varētu turpināt %s uzstādīšanu."
 
 #: ../iw/partition_gui.py:642
@@ -3813,8 +3801,7 @@ msgstr "Neizdodas izveidot cietņu klonēšanas redaktoru"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Dažādu iemeslu dēļ nostartēt cietņu klonēšanas redaktoru nav iespējams."
+msgstr "Dažādu iemeslu dēļ nostartēt cietņu klonēšanas redaktoru nav iespējams."
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
@@ -4015,6 +4002,9 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
+"Izvēlētais disks satur sadaļas, kas apvienotas diskā /dev/%s.\n"
+"\n"
+"Pirms diska klonēšanas šīs sadaļas ir jāizdzēš, vai arī jāierobežo šī diska ietvaros."
 
 #: ../iw/raid_dialog_gui.py:512
 msgid ""
@@ -4137,8 +4127,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4254,8 +4243,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zfcp_gui.py:24
@@ -4399,8 +4387,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 #, fuzzy
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 " <F1> palīdzībai | <Tab> starp elementiem | <Space> izvēle | <F12> nākošais "
 "ekrāns"
@@ -4520,8 +4507,7 @@ msgid "Please select the package groups you would like to have installed."
 msgstr ""
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/grpselect_text.py:129
@@ -4914,8 +4900,7 @@ msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1476
@@ -5559,8 +5544,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr ""
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:151
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:361
@@ -6382,8 +6366,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6571,8 +6554,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -6995,47 +6977,3 @@ msgstr ""
 msgid "Zulu"
 msgstr ""
 
-#~ msgid "The release notes are missing."
-#~ msgstr "Versijas apraksta nav."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Sekojošas patreizējas versijas pakotnes bija pieejamas, bet NETIKA "
-#~ "jauninātas:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Sekojošas patreizējas versijas pakotnes bija pieejamas, bet NETIKA "
-#~ "uzstādītas:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Meklē"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Meklē pakotnes jaunināšanai..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Instalācijas programma nevar jaunināt sistēmu, kas izmanto rpm datu bāzi, "
-#~ "kas vecāka par 4.x versiju. Lūdzu uzstādiet rpm pakotnes no errata "
-#~ "resursiem Jūsu izmantotajai versijai, kā tas ir norādīts sistēmas "
-#~ "aprakstā un pēc tam startējiet jaunināšanu."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Kļūda meklējot jaunināmas pakotnes."
-
-#~ msgid "Installation Type"
-#~ msgstr "Uzstādīšanas tips"
