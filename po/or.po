@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-27 10:59+0530\n"
+"PO-Revision-Date: 2006-06-28 13:23+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -3121,7 +3121,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
-msgstr ""
+msgstr "ଉପସାରିତ କରି ପାରିବ ନାହିଁ"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
 #, python-format
@@ -3132,185 +3132,189 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr ""
+msgstr "ଅତିରିକ୍ତ ଆକାର ବିକଲ୍ପ"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr ""
+msgstr "ସ୍ଥିର ଆକାର (_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "(ମେଗା ବାଇଟ୍) ପର୍ଯ୍ଯନ୍ତ ସମସ୍ତ ଖାଲି ସ୍ଥାନ କୁ ପୂର୍ଣ୍ଣ କରନ୍ତୁ (_u):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "ସର୍ବାଧିକ ସ୍ବୀକାର୍ଯ୍ଯ ଆକାର କୁ ପୂର୍ଣ୍ଣ କରନ୍ତୁ (_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "ଅନ୍ତିମ ସିଲିଣ୍ଡର ଟି ପ୍ରାରମ୍ଭିକ ସିଲିଣ୍ଡର ଠାରୁ ବ୍ରୁହତର ହେବା ଉଚିତ।"
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
-msgstr ""
+msgstr "ବିଭାଜନ କୁ ଯୋଗ କରନ୍ତୁ"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "ବିଭାଜନ କୁ ସମ୍ପାଦିତ କରନ୍ତୁ: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr ""
+msgstr "ବିଭାଜନ କୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
 
 #: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
 msgid "File System _Type:"
-msgstr ""
+msgstr "ଫାଇଲ ତନ୍ତ୍ର ର ପ୍ରକାର (_T):"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "ସ୍ବୀକାର୍ଯ୍ଯ ଡ୍ରାଇଭ (_D):"
 
 #: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
-msgstr ""
+msgstr "ଡ୍ରାଇଭ:"
 
 #: ../iw/partition_dialog_gui.py:355
 msgid "Original File System Label:"
-msgstr ""
+msgstr "ମୂଳ ଫାଇଲ ତନ୍ତ୍ର ସୂଚକ:"
 
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "ପ୍ରାରମ୍ଭିକ ସିଲିଣ୍ଡର (_S):"
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "ଅନ୍ତିମ ସିଲିଣ୍ଡର (_E):"
 
 #: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
-msgstr ""
+msgstr "ଗୋଟିଏ ପ୍ରାଥମିକ ଷ୍ଟେସନ ହେବା ପାଇଁ ବଳ ପ୍ରୟୋଗ କରନ୍ତୁ (_p)"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
 msgid "Type"
-msgstr ""
+msgstr "ପ୍ରକାର"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
 msgid "Start"
-msgstr ""
+msgstr "ପ୍ରାରମ୍ଭ"
 
 #: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
 msgid "End"
-msgstr ""
+msgstr "ଶେଷ"
 
 #: ../iw/partition_gui.py:408
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
+"ଆରୋହଣ ବିନ୍ଦୁ/\n"
+"RAID/ପ୍ରବଳତା"
 
 #: ../iw/partition_gui.py:410
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
+"ଆକାର\n"
+"(ମେଗା ବାଇଟ୍)"
 
 #: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
 msgid "Partitioning"
-msgstr ""
+msgstr "ବିଭାଜନ କରୁଅଛି"
 
 #: ../iw/partition_gui.py:633
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "ଆପଣଙ୍କ ଦ୍ବାରା ନିବେଦିତ ବିଭାଜନୀୟ ଯୋଜନା ସହିତ ନିମ୍ନଲିଖିତ ଗୁରୁତର ତ୍ରୁଟି ଗୁଡିକ ଅବସ୍ଥିତ ଅଛନ୍ତି।"
 
 #: ../iw/partition_gui.py:636
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
+msgstr "ଆପଣଙ୍କ %s ସ୍ଥାପନ ସହିତ ଆଗକୁ ବଢିବା ପୂର୍ବରୁ ଏହି ତ୍ରୁଟି ମାନଙ୍କୁ ଠିକ କରିବା ଉଚିତ।"
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
-msgstr ""
+msgstr "ବିଭାଜନୀୟ ତ୍ରୁଟି ମାନ"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
+msgstr "ଆପଣଙ୍କ ଦ୍ବାରା ନିବେଦିତ ବିଭାଜନୀୟ ଯୋଜନା ସହିତ ନିମ୍ନଲିକିତ ତ୍ରୁଟି ଗୁଡିକ ଉପସ୍ଥିତ ଅଛନ୍ତି।"
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "ଆପଣ ଆପଣଙ୍କ ବିଭାଜନୀୟ ଯୋଜନା ସହିତ ଆଗେଇବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
-msgstr ""
+msgstr "ବିଭାଜନୀୟ ଚେତାବନୀ"
 
 #: ../iw/partition_gui.py:677
 msgid "Format Warnings"
-msgstr ""
+msgstr "ସଂରୂପ ଚେତାବନୀ"
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
-msgstr ""
+msgstr "ସଂରୂପିତ କରନ୍ତୁ (_F)"
 
 #: ../iw/partition_gui.py:717
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM ପ୍ରବଳତା ସମୂହ"
 
 #: ../iw/partition_gui.py:752
 msgid "RAID Devices"
-msgstr ""
+msgstr "RAID ଯନ୍ତ୍ର ମାନ"
 
 #: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
 msgid "None"
-msgstr ""
+msgstr "କେହି ନୁହେଁ"
 
 #: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:327
 msgid "Hard Drives"
-msgstr ""
+msgstr "ହାର୍ଡ ଡ୍ରାଇଭ"
 
 #: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
 msgid "Free space"
-msgstr ""
+msgstr "ଖାଲି ସ୍ଥାନ"
 
 #: ../iw/partition_gui.py:871 ../textw/partition_text.py:143
 msgid "Extended"
-msgstr ""
+msgstr "ବିସ୍ତାରିତ"
 
 #: ../iw/partition_gui.py:873 ../textw/partition_text.py:145
 msgid "software RAID"
-msgstr ""
+msgstr "ସଫଟ୍ଓ୍ବେର RAID"
 
 #: ../iw/partition_gui.py:908
 msgid "Free"
-msgstr ""
+msgstr "ମୁକ୍ତ"
 
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr ""
+msgstr "ନିବେଦିତ ବିଭାଜନ ମାନଙ୍କୁ ବାଣ୍ଟି ପାରିଲା ନାହିଁ: %s।"
 
 #: ../iw/partition_gui.py:1007
 #, python-format
 msgid "Warning: %s."
-msgstr ""
+msgstr "ଚେତାବନୀ: %s।"
 
 #: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
-msgstr ""
+msgstr "ସମର୍ଥିତ ନୁହେଁ"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "ଏହି ପ୍ଲାଟଫର୍ମ ରେ LVM ସମର୍ଥିତ ନୁହେଁ।"
 
 #: ../iw/partition_gui.py:1206
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "ଏହି ପ୍ଲାଟଫର୍ମ ରେ ସଫଟ୍ଓ୍ବେର RAID ସମର୍ଥିତ ନୁହେଁ।"
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "କୌଣସି RAID କ୍ଷୁଦ୍ର ଯନ୍ତ୍ର ସଂଖ୍ଯା ଉପଲବ୍ଧ ନାହିଁ"
 
 #: ../iw/partition_gui.py:1214
 msgid ""
@@ -3320,7 +3324,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
-msgstr ""
+msgstr "RAID ବିକଲ୍ପ"
 
 #: ../iw/partition_gui.py:1239
 #, python-format
@@ -3344,76 +3348,76 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1256
 msgid "What do you want to do now?"
-msgstr ""
+msgstr "ଆପଣ ବର୍ତମାନ କଣ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr ""
+msgstr "ଗୋଟିଏ ସଫଟଓ୍ବେର RAID ବିଭାଜନ କୁ ସ୍ରୁଷ୍ଟି କରନ୍ତୁ (_p)।"
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "ଗୋଟିଏ RAID ଯନ୍ତ୍ର [ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ=/dev/md%s] କୁ ସ୍ରୁଷ୍ଟି କରନ୍ତୁ (_d)।"
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "ଗୋଟିଏ RAID ଯନ୍ତ୍ର [ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ=/dev/md%s] କୁ ସ୍ରୁଷ୍ଟି କରିବା ପାଇଁ ଗୋଟିଏ ଡ୍ରାଇଭ କୁ କ୍ଲୋନ କରନ୍ତୁ (_d)।"
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "ଡ୍ରାଇଭ କ୍ଲୋନ ସମ୍ପାଦକ କୁ ସ୍ରୁଷ୍ଟି କରି ପାରିଲା ନାହିଁ।"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
+msgstr "କିଛି କାରଣ ବଶତଃ ଡ୍ରାଇଭ କ୍ଲୋନ ସମ୍ପାଦକ କୁ ସ୍ରୁଷ୍ଟି କରି ପାରିଲା ନାହିଁ।"
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr ""
+msgstr "ନୂତନ (_w)"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr ""
+msgstr "ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ (_s)"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
-msgstr ""
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1361
 msgid "_LVM"
-msgstr ""
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1402
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "RAID ଯନ୍ତ୍ର/LVM ପ୍ରବଳତା ସମୂହ ସଦସ୍ଯ ମାନଙ୍କୁ ଲୁଚାଇ ରଖନ୍ତୁ (_G)"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<ପ୍ରଯୁଜ୍ଯ ନୁହେଁ>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
+msgstr "ଏହି ବିଭାଜନ ରେ ଫାଇଲ ତନ୍ତ୍ରକୁ ଆପଣ କିପରି ଭାବରେ ପ୍ରସ୍ତୁତ କରିବା ପାଇଁ ଚାହିଁବେ?"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
-msgstr ""
+msgstr "ଅପରିବର୍ତନୀୟ ଭାବରେ ଛାଡି ଦିଅନ୍ତୁ (ତଥ୍ଯ କୁ ସୁରକ୍ଷିତ କରନ୍ତୁ) (_u)"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
-msgstr ""
+msgstr "ବିଭାଜନ କୁ ଏଭଳି ଭାବରେ ସଂରୂପିତ କରନ୍ତୁ (_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "ବିଭାଜନ କୁ ଏଠାକୁ ଉତ୍ପ୍ରବାସିତ କରନ୍ତୁ (_g):"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "ଖରାପ ଖଣ୍ଡ ପାଇଁ ଯାଞ୍ଚ କରନ୍ତୁ (_b)?"
 
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
@@ -3424,66 +3428,66 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "ଡିସ୍କ ବିଭାଜନ ବ୍ଯବସ୍ଥା"
 
 #: ../iw/partmethod_gui.py:50
 msgid "_Automatically partition"
-msgstr ""
+msgstr "ସ୍ବତଃ ବିଭାଜନ କରନ୍ତୁ (_A)"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "ଡିସ୍କ ଡ୍ରୁଇଡ ସହିତ ହସ୍ତକ୍ରୁତ ଭାବରେ ବିଭାଜନ କରନ୍ତୁ (_D)"
 
 #: ../iw/progress_gui.py:43
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s ମେଗା-ବାଇଟ୍"
 
 #: ../iw/progress_gui.py:46
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s କିଲୋ-ବାଇଟ୍"
 
 #: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s ବାଇଟ୍"
 
 #: ../iw/progress_gui.py:51
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s ବାଇଟ୍ସ"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
-msgstr ""
+msgstr "ପ୍ଯାକେଜ ମାନଙ୍କୁ ସ୍ଥାପିତ କରୁଅଛି"
 
 #: ../iw/progress_gui.py:166
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr ""
+msgstr "ଅବଶେଷ ସମୟ: %s ମିନିଟ"
 
 #: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "%s କୁ ଆହରଣ କରୁଅଛି"
 
 #: ../iw/progress_gui.py:222
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr ""
+msgstr "%s-%s-%s.%s (%s) କୁ ସ୍ଥାପିତ କରୁଅଛି"
 
 #: ../iw/progress_gui.py:346
 msgid "Package"
-msgstr ""
+msgstr "ପ୍ଯାକେଜ"
 
 #: ../iw/progress_gui.py:347
 msgid "Summary"
-msgstr ""
+msgstr "ସାରାଂଶ"
 
 #: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
 msgid "Status: "
-msgstr ""
+msgstr "ଅବସ୍ଥିତି: "
 
 #: ../iw/raid_dialog_gui.py:251
 msgid ""
@@ -3497,36 +3501,36 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
-msgstr ""
+msgstr "RAID ଯନ୍ତ୍ର କୁ ତିଆରି କରନ୍ତୁ"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "RAID ଯନ୍ତ୍ର କୁ ସମ୍ପାଦିତ କରନ୍ତୁ: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "RAID ଯନ୍ତ୍ର କୁ ସମ୍ପାଦିତ କରନ୍ତୁ"
 
 #: ../iw/raid_dialog_gui.py:311
 msgid "RAID _Device:"
-msgstr ""
+msgstr "RAID ଉପକରଣ (_D):"
 
 #: ../iw/raid_dialog_gui.py:329
 msgid "RAID _Level:"
-msgstr ""
+msgstr "RAID ସ୍ତର (_L):"
 
 #: ../iw/raid_dialog_gui.py:370
 msgid "_RAID Members:"
-msgstr ""
+msgstr "_RAID ସଦସ୍ଯ:"
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr ""
+msgstr "ଅତିରିକ୍ତ ମାନଙ୍କ ସଂଖ୍ଯା (_s):"
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
-msgstr ""
+msgstr "ବିଭାଜନ କୁ ସଂରୂପିତ କରନ୍ତୁ (_F)?"
 
 #: ../iw/raid_dialog_gui.py:476
 msgid ""
@@ -3607,6 +3611,9 @@ msgid ""
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
+"\n"
+"\n"
+"ଚେତାବନୀ! ଲକ୍ଷ ଡ୍ରାଇଭ ରେ ସମସ୍ତ ତଥ୍ଯ ନଷ୍ଟ ହୋଇଯିବ।"
 
 #: ../iw/raid_dialog_gui.py:634
 msgid "Final Warning"
@@ -3941,7 +3948,8 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> ଚୟନ କରନ୍ତୁ | <F2> ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ କୁ ଚୟନ କରନ୍ତୁ | <F4> ଅପସାରଣ କରନ୍ତୁ | "
+msgstr ""
+" <Space> ଚୟନ କରନ୍ତୁ | <F2> ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ କୁ ଚୟନ କରନ୍ତୁ | <F4> ଅପସାରଣ କରନ୍ତୁ | "
 "<F12> ପରବର୍ତ୍ତୀ ପରଦା>"
 
 #: ../textw/bootloader_text.py:387
@@ -4260,7 +4268,7 @@ msgstr "ଫାଇଲ ତନ୍ତ୍ର ର ପ୍ରକାର:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
-msgstr "ସ୍ବୀକ୍ରୁତ ଡ୍ରାଇଭ:"
+msgstr "ସ୍ବୀକାର୍ଯ୍ଯ ଡ୍ରାଇଭ:"
 
 #: ../textw/partition_text.py:412
 msgid "Fixed Size:"
@@ -4458,7 +4466,8 @@ msgstr "ରେଡ୍"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-ସହାୟତା     F2-ନୂତନ      F3-ଅଦ୍ଯତନ କରନ୍ତୁ   F4-ଅପସାରଣ କରନ୍ତୁ   F5-ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ    "
+msgstr ""
+"    F1-ସହାୟତା     F2-ନୂତନ      F3-ଅଦ୍ଯତନ କରନ୍ତୁ   F4-ଅପସାରଣ କରନ୍ତୁ   F5-ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ    "
 "F12-ଠିକ ଅଛି        "
 
 #: ../textw/partition_text.py:1476
