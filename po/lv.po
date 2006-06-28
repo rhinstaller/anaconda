@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-28 13:58+0300\n"
+"PO-Revision-Date: 2006-06-28 14:21+0300\n"
 "Last-Translator: Gatis Kalnins <gatis.kalnins@metatrons.lv>\n"
 "Language-Team: latvian <locale@laka.lv>\n"
 "MIME-Version: 1.0\n"
@@ -4013,20 +4013,23 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
+"Izvēlētais disks satur programmātiskā RAID sadaļas, kas apvienotas RAID sadaļā.\n"
+"\n"
+"Pirms diska klonēšanas šīs sadaļas ir jāizdzēš."
 
 #: ../iw/raid_dialog_gui.py:525 ../iw/raid_dialog_gui.py:531
 #: ../iw/raid_dialog_gui.py:544
 msgid "Target Drive Error"
-msgstr ""
+msgstr "Kļūme rezultātu diskā"
 
 #: ../iw/raid_dialog_gui.py:526
 msgid "Please select the target drives for the clone operation."
-msgstr ""
+msgstr "Klonēšanas veikšanai jānorāda rezultātu disks."
 
 #: ../iw/raid_dialog_gui.py:532
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "Avota disku /dev/%s nedrīkst norādīt kā rezultātu disku."
 
 #: ../iw/raid_dialog_gui.py:545
 #, python-format
@@ -4038,10 +4041,15 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"Rezultātu diskā /dev/%s ir sadaļa, kuru nav iespējams izdzēst sekojošu iemeslu dēļ:\n"
+"\n"
+"\"%s\"\n"
+"\n"
+"Šī sadaļa ir jāizdzēš agrāk."
 
 #: ../iw/raid_dialog_gui.py:606
 msgid "Please select a source drive."
-msgstr ""
+msgstr "Lūdzu norādiet avota disku."
 
 #: ../iw/raid_dialog_gui.py:626
 #, python-format
@@ -4049,6 +4057,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"Disks /dev/%s tiks klonēts uz sekojošiem diskiem:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:631
 msgid ""
@@ -4056,18 +4066,21 @@ msgid ""
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
+"\n"
+"\n"
+"UZMANĪBU! VISA INFORMĀCIJA UZ REZULTĀTU DISKA TIKS DZĒSTA!"
 
 #: ../iw/raid_dialog_gui.py:634
 msgid "Final Warning"
-msgstr ""
+msgstr "Pēdējais brīdinājums"
 
 #: ../iw/raid_dialog_gui.py:636
 msgid "Clone Drives"
-msgstr ""
+msgstr "Disku klonēšana"
 
 #: ../iw/raid_dialog_gui.py:645
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "Kļūme klonēšanā: kļūme rezultātu diska dzēšanā."
 
 #: ../iw/raid_dialog_gui.py:679
 msgid ""
@@ -4084,18 +4097,25 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"Disku klonēšanas rīks\n"
+"\n"
+"Šis rīks ļauj jūtami samazināt darbību skaitu, kas nepieciešamas RAID masīva izveidei. Tas ļauj esošu disku ar jau izveidotām sadaļām klonēt uz citām līdzīga apjoma ierīcēm. Pēc tam tiks izveidota RAID ierīce.\n"
+"\n"
+"PIEZĪME: Uz avota diska iespējamas tikai \"Programmātiskā RAID\" tipa sadaļas. Cita tipa sadaļas nav pieļaujamas.\n"
+"\n"
+"VISA INFORMĀCIJA rezultātu diskā tiks izdzēsta!"
 
 #: ../iw/raid_dialog_gui.py:699
 msgid "Source Drive:"
-msgstr ""
+msgstr "Avota disks:"
 
 #: ../iw/raid_dialog_gui.py:707
 msgid "Target Drive(s):"
-msgstr ""
+msgstr "Rezultātu disks(i):"
 
 #: ../iw/raid_dialog_gui.py:715
 msgid "Drives"
-msgstr ""
+msgstr "Ierīces"
 
 #: ../iw/release_notes.py:153
 msgid "Release notes are missing.\n"
@@ -4103,56 +4123,56 @@ msgstr "Versijas apraksta nav.\n"
 
 #: ../iw/release_notes.py:212
 msgid "Release Notes"
-msgstr ""
+msgstr "Versijas apraksts"
 
 #: ../iw/release_notes.py:216
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Failu ielādēt nav iespējams!"
 
 #: ../iw/timezone_gui.py:60 ../textw/timezone_text.py:90
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Laika zonas izvēle"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr ""
+msgstr "Ielādētāja iestatījumu jaunināšana"
 
 #: ../iw/upgrade_bootloader_gui.py:66
 msgid "_Update boot loader configuration"
-msgstr ""
+msgstr "Jaunināt ielādētāja iestatījumus"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Jūsu sistēmas patreizējais ielādētājs tiks jaunināts."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "Uzstādīšanas programma atrada ielādētāju %s, kas atrodas uz %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Šis ir rekomendējamais parametrs."
 
 #: ../iw/upgrade_bootloader_gui.py:78 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
+msgstr "Uzstādīšanas programmai neizdodas noteikt Jūsu patreizējās sistēmas ielādētāju."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
-msgstr ""
+msgstr "Izveidot jaunus ielādētāja iestatījumus"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
-msgstr ""
+msgstr "Tas palīdzēs izveidot jaunus ielādētāja iestatījumus. Izvēlieties šo parametru, ja vēlaties mainīt ielādētāju."
 
 #: ../iw/upgrade_bootloader_gui.py:96
 msgid "_Skip boot loader updating"
-msgstr ""
+msgstr "Izlaist ielādētāja jaunināšanu"
 
 #: ../iw/upgrade_bootloader_gui.py:97
 msgid ""
