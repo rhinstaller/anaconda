@@ -367,20 +367,6 @@ class AnacondaYum(YumSorter):
                 self.repos.add(repo)
         self.repos.setCacheDir('/tmp/cache')
 
-    def errorlog(self, value, msg):
-        log.error(msg)
-
-    def filelog(self, value, msg):
-        pass
-
-    def log(self, value, msg):
-        if value >= 2:
-            pass
-        elif value == 1:
-            log.info(msg)
-        else:
-            log.warning(msg)
-
     def getDownloadPkgs(self):
         downloadpkgs = []
         totalSize = 0
@@ -509,7 +495,7 @@ class AnacondaYum(YumSorter):
                 ts_elem[(pkginfo, mode)] = 1
                 
         for txmbr in self.tsInfo.getMembers():
-            self.log(6, 'Member: %s' % txmbr)
+            log.debug('Member: %s' % txmbr)
             if txmbr.ts_state in ['u', 'i']:
                 if ts_elem.has_key((txmbr.pkgtup, 'i')):
                     continue
@@ -533,13 +519,13 @@ class AnacondaYum(YumSorter):
                     #if txmbr.po.name.startswith("kernel-module-"):
                     #    self.handleKernelModule(txmbr)
                     if self.allowedMultipleInstalls(txmbr.po):
-                        self.log(5, '%s converted to install' % (txmbr.po))
+                        log.debug('%s converted to install' % (txmbr.po))
                         txmbr.ts_state = 'i'
                         txmbr.output_state = TS_INSTALL
 
 #XXX: Changed callback api to take a package object
                 self.ts.addInstall(hdr, txmbr.po, txmbr.ts_state)
-                self.log(4, 'Adding Package %s in mode %s' % (txmbr.po, txmbr.ts_state))
+                log.debug('Adding Package %s in mode %s' % (txmbr.po, txmbr.ts_state))
                 if self.dsCallback: 
                     self.dsCallback.pkgAdded(txmbr.pkgtup, txmbr.ts_state)
             
@@ -550,7 +536,7 @@ class AnacondaYum(YumSorter):
                 for idx in indexes:
                     self.ts.addErase(idx)
                     if self.dsCallback: self.dsCallback.pkgAdded(txmbr.pkgtup, 'e')
-                    self.log(4, 'Removing Package %s' % txmbr.po)
+                    log.debug('Removing Package %s' % txmbr.po)
 
     def isGroupInstalled(self, grp):
         # FIXME: move down to yum itself.
@@ -1279,15 +1265,6 @@ class YumProgress:
             warnings.warn("YumProgress.set called when popped",
                           RuntimeWarning, stacklevel=2)             
 
-    def errorlog(self, value, msg):
-        log.error(msg)
-
-    def filelog(self, value, msg):
-        pass
-
-    def log(self, value, msg):
-        log.info(msg)
-
 class YumDepSolveProgress:
     def __init__(self, intf):
         window = intf.progressWindow(_("Dependency Check"),
@@ -1333,12 +1310,3 @@ class YumDepSolveProgress:
 
     def pop(self):
         self.window.pop()
-
-    def errorlog(self, value, msg):
-        log.error(msg)
-
-    def filelog(self, value, msg):
-        pass
-
-    def log(self, value, msg):
-        log.info(msg)
