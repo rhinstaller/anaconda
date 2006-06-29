@@ -1,6 +1,7 @@
 2006-06-28  Jeremy Katz  <katzj@redhat.com>
 
 	* yuminstall.py: Fix up for logging API changes in 2.9.2
+	* scripts/pkgorder: Likewise.
 
 	* yuminstall.py (AnacondaYum.doConfigSetup): Move stuff around to
 	match current yum API

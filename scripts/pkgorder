@@ -59,15 +59,6 @@ class PackageOrderer(YumSorter):
         self.doGroupSetup()
         self.repos.populateSack(with='filelists')
 
-    def errorlog(self, value, msg):
-        pass
-
-    def filelog(self, value, msg):
-        pass
-
-    def log(self, value, msg):
-        pass
-
     def getDownloadPkgs(self):
         pass
 
