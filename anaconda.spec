@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.48
+Version: 11.1.0.49
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -11,14 +11,14 @@ BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
 BuildPreReq: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
 BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
-BuildPreReq: pykickstart, yum >= 2.9.0, device-mapper >= 1.01.05-3, 
+BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
 BuildPreReq: libdhcp-devel >= 1.5-2, libdhcp >= 1.5-2
 BuildPreReq: libdhcp4client-devel, libdhcp6client-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
-Requires: kudzu > 1.2.0, yum >= 2.9.0, pirut >= 1.1.0
+Requires: kudzu > 1.2.0, yum >= 2.9.2, pirut >= 1.1.0
 Requires: pyparted, libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart, system-config-date
 Requires: device-mapper >= 1.01.05-3
@@ -42,7 +42,7 @@ system.  These files are of little use on an already installed system.
 Summary: Graphical system installer portions needed only for fresh installs.
 Group: Applications/System
 AutoReqProv: false
-Requires: libxml2-python, python, rpm-python >= 4.2-0.61, yum >= 2.4.0
+Requires: libxml2-python, python, rpm-python >= 4.2-0.61
 Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.3-3.1, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
@@ -101,6 +101,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 28 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.49-1
+- Fix some memory leaks in the loader (pjones)
+- Display fs labels next to rescue choices (clumens, #196345)
+- Force graphical mode under vnc (clumens, #190099)
+- Fix splitting trees with symlinks (pnasrat, #195240)
+- Require system-config-date (clumens, #196452)
+- Ensure network UI bits end up written out (clumens, #196756)
+- Fix memory corruption in CD install (dcantrel)
+- Fix double free with ksdevice=macaddr (dcantrel)
+- Fix double free with HTTP/FTP installs (dcantrel, #195749)
+- Ensure keyboard layout gets set (clumens, #196466)
+- Fix text mode traceback for langs not supported in text 
+  mode (clumens, #196615)
+- Fix up for yum 2.9.2
+
 * Fri Jun 23 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.48-1
 - various pychecker inspired cleanups (clumsn)
 - don't try to unmount CDs twice (clumens)
