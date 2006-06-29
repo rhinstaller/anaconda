@@ -1,3 +1,12 @@
+2006-06-29  Peter Jones  <pjones@redhat.com>
+
+	* wlite/: add libwlite
+	* Makefile: at wlite to subdirs
+	* loader2/Makefile: add libwlite.a to unicode library list
+	* stubs/Makefile: add includes for wlite
+	* stubs/unicode-lite.c: add wc support (#196099, #186701).
+	get rid of libc_freeres_fn, it doesn't help anything.
+
 2006-06-29  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/cdinstall.c (kickstartFromCD):  Look for the kickstart file
