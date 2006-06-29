@@ -830,13 +830,19 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL;
     time_t timeout = 45;
+    int loglevel;
 
     i = &dev->dev;
 
-    if (FL_NOIPV6(flags))
-        r = pumpDhcpClassRun(i,0L,"anaconda",DHCPv6_DISABLE,0,timeout,netlogger,LOG_INFO);
+    if (getLogLevel() == DEBUGLVL)
+        loglevel = LOG_DEBUG;
     else
-        r = pumpDhcpClassRun(i,0L,"anaconda",0,0,timeout,netlogger,LOG_INFO);
+        loglevel = LOG_INFO;
+
+    if (FL_NOIPV6(flags))
+        r = pumpDhcpClassRun(i,0L,"anaconda",DHCPv6_DISABLE,0,timeout,netlogger,loglevel);
+    else
+        r = pumpDhcpClassRun(i,0L,"anaconda",0,0,timeout,netlogger,loglevel);
 
     return r;
 }

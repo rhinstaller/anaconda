@@ -127,3 +127,7 @@ void closeLog(void) {
 void setLogLevel(int level) {
     minLevel = level;
 }
+
+int getLogLevel(void) {
+    return minLevel;
+}

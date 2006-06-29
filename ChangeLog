@@ -3,6 +3,9 @@
 	* loader2/cdinstall.c (kickstartFromCD):  Look for the kickstart file
 	on all CD drives (notting, #197192).
 
+	* loader2/net.c (doDhcp):  Pass the debug log level to
+	pumpDhcpClassRun (markmc, #197175).
+
 2006-06-28  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version, require yum 2.9.2

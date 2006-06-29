@@ -14,5 +14,6 @@ void logMessage(int level, const char * s, ...)
 void openLog(int useLocal);
 void closeLog(void);
 void setLogLevel(int minLevel);
+int getLogLevel(void);
 
 #endif /* _LOG_H_ */
