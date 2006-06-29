@@ -47,7 +47,7 @@ CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
 REALCC=gcc
 
-UNICODELIB = ../stubs/libunicode-lite.a
+UNICODELIB = ../stubs/libunicode-lite.a ../wlite/libwlite.a
 
 # linuxrc + shutdown on s390, init everywhere else
 ifneq (,$(filter s390 s390x,$(ARCH)))

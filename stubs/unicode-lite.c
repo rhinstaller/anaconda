@@ -18,6 +18,27 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#define WLITE_REDEF_STDC 0
+#include <wlite_wchar.h>
+#include <wlite_wctype.h>
+
+
+int wcwidth (wchar_t c) {
+    return wlite_wcwidth(c);
+}
+
+size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
+    return wlite_mbrtowc (pwc, s, n, ps);
+}
+
+int iswspace (wchar_t c) {
+    return wlite_iswctype((c), wlite_space_);
+}
+
+size_t wcrtomb(char *s, wchar_t wc, void *ps) {
+    return wlite_wcrtomb (s, wc, ps);
+}
+
 const char * __dgettext(const char * domainname, const char * msgid) {
     return msgid;
 }
@@ -36,14 +57,14 @@ strong_alias (__dgettext, dgettext);
 strong_alias (__dcgettext, dcgettext);
 
 /* lie to slang to trick it into using unicode chars for linedrawing */
-char * setlocale (int category, const char *locale) {
+char *setlocale (int category, const char *locale) {
     if (locale == NULL || *locale == '\0')
 	return "en_US.UTF-8";
     return 0;
 }
 
 /* lie to slang some more */
-char * nl_langinfo(int item) {
+char *nl_langinfo(int item) {
     return NULL;
 }
 
@@ -52,8 +73,6 @@ char * nl_langinfo(int item) {
 
 void __libc_freeres_fn_section ___nl_locale_subfreeres (void) {}
 strong_alias (___nl_locale_subfreeres, _nl_locale_subfreeres);
-
-void libc_freeres_fn (void * free_mem) {}
 
 const char *const _nl_category_names[] = {
     [LC_COLLATE] = "LC_COLLATE",

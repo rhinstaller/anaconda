@@ -4,7 +4,7 @@ VERSION := $(shell awk '/Version:/ { print $$2 }' anaconda.spec)
 RELEASE := $(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
-SUBDIRS = isys stubs loader2 po \
+SUBDIRS = isys wlite stubs loader2 po \
 	    textw utils scripts bootdisk installclasses \
 	    iw pixmaps isomd5sum command-stubs ui
 # fonts aren't on s390/s390x
