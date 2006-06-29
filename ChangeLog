@@ -1,3 +1,8 @@
+2006-06-29  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/cdinstall.c (kickstartFromCD):  Look for the kickstart file
+	on all CD drives (notting, #197192).
+
 2006-06-28  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version, require yum 2.9.2
