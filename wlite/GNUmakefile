@@ -135,13 +135,3 @@ maintainer-clean: distclean
 	$(RM) $(archives) TAGS tags $(wildcard core core.*) $(wildcard *.tmp)
 mostlyclean:
 	$(RM) $(objects)
-install: installdirs $(includes) $(libraries)
-	install $(filter $(libraries),$^) $(libdir)
-	install -m 644 $(filter $(includes),$^) $(includedir)
-installdirs: $(libdir) $(includedir)
-	install -d $^
-install-strip: install
-	for symbols in $(libraries); do strip -x -g $(libdir)/$${symbols}; done
-uninstall:
-	for installed in $(libraries); do $(RM) $(libdir)/$${installed}; done
-	for installed in $(includes); do $(RM) $(includedir)/$${installed}; done
