@@ -1,7 +1,7 @@
 #
 # image.py - Install method for disk image installs (CD & NFS)
 #
-# Copyright 1999-2004 Red Hat, Inc.
+# Copyright 1999-2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -151,7 +151,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	if self.loopbackFile:
 	    isys.makeDevInode("loop0", "/tmp/loop")
 	    isys.lochangefd("/tmp/loop", 
-			"%s/%s/base/stage2.img" % (self.tree, productPath))
+			"%s/images/stage2.img" % (self.tree,))
 	    self.loopbackFile = None
 
     def systemMounted(self, fsset, chroot):
@@ -162,7 +162,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	try:
             win = self.waitWindow (_("Copying File"),
                                    _("Transferring install image to hard drive..."))
-	    iutil.copyFile("%s/%s/base/stage2.img" % (self.tree, productPath), 
+	    iutil.copyFile("%s/images/stage2.img" % (self.tree,), 
 			    self.loopbackFile)
             win.pop()
 	except Exception, e:
@@ -415,10 +415,9 @@ def findIsoImages(path, messageWindow):
                     if num not in discNum or discArch != arch:
                         continue
 
-                    # if it's disc1, it needs to have product/base/stage2.img
+                    # if it's disc1, it needs to have images/stage2.img
                     if (num == 1 and not
-                        os.access("/mnt/cdimage/%s/base/stage2.img" % (productPath,),
-                                  os.R_OK)):
+                        os.access("/mnt/cdimage/images/stage2.img", os.R_OK)):
                         log.warning("%s doesn't have a stage2.img, skipping" %(what,))
                         continue
                     # we only install binary packages and they have to be

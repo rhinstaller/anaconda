@@ -149,7 +149,6 @@ static void wrongCDMessage(void) {
 static void mountCdromStage2(char *cddev) {
     int gotcd1=0;
     int rc;
-    char path[1024];
 
     devMakeInode(cddev, "/tmp/cdrom");
     do {
@@ -163,8 +162,7 @@ static void mountCdromStage2(char *cddev) {
 	    }
 	} while (1);
 
-	snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img", getProductPath());
-	rc = mountStage2(path);
+	rc = mountStage2("/mnt/source/images/stage2.img");
 
 	/* if we failed, umount /mnt/source and keep going */
 	if (rc) {
@@ -316,12 +314,7 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
             devMakeInode(devices[i]->device, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 
                            IMOUNT_RDONLY, NULL)) {
-                char path[1024];
-
-                snprintf(path, sizeof(path), "/mnt/source/%s/base/stage2.img",
-                         getProductPath()); 
-
-                if (!access(path, R_OK) &&
+                if (!access("/mnt/source/images/stage2.img", R_OK) &&
                     (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
 
                     /* if in rescue mode lets copy stage 2 into RAM so we can */
@@ -329,15 +322,12 @@ char * setupCdrom(char * location, struct loaderData_s * loaderData,
                     /* aid system recovery.                                   */
                     if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
                         totalMemory() > 128000) {
-                        snprintf(path, sizeof(path),
-                            "/mnt/source/%s/base/stage2.img", getProductPath());
-                        rc = copyFile(path, "/tmp/ramfs/stage2.img");
+                        rc = copyFile("/mnt/source/images/stage2.img", 
+                                      "/tmp/ramfs/stage2.img");
                         stage2img = "/tmp/ramfs/stage2.img";
                         stage2inram = 1;
                     } else {
-                        snprintf(path, sizeof(path),
-                            "/mnt/source/%s/base/stage2.img", getProductPath());
-                        stage2img = strdup(path);
+                        stage2img = strdup("/mnt/source/images/stage2.img");
                         stage2inram = 0;
                     }
 	

@@ -1,5 +1,15 @@
 2006-06-30  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images: Move second stage images to images/ dir.
+	* image.py: Adjust for stage2 in images/
+	* loader2/cdinstall.c: Likewise.
+	* loader2/hdinstall.c: Likewise.
+	* loader2/method.c: Likewise.
+	* loader2/nfsinstall.c: Likewise.
+	* loader2/urlinstall.c: Likewise.
+
+2006-06-30  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* wlite/GNUmakefile: Don't install wlite stuff

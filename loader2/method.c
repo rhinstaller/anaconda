@@ -150,7 +150,6 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
     DIR * dir;
     struct dirent * ent;
     char isoImage[1024];
-    char path[1024];
 
     if (!(dir = opendir(dirName))) {
         newtWinMessage(_("Error"), _("OK"), 
@@ -175,8 +174,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
             continue;
         }
         
-	snprintf(path, sizeof(path), "/tmp/loopimage/%s/base/stage2.img", getProductPath());
-	if (mountLoopback(path, "/mnt/runtime", "loop0")) {
+	if (mountLoopback("/tmp/loopimage/images/stage2.img", "/mnt/runtime", "loop0")) {
 	    umountLoopback("/mnt/runtime", "loop0");
 	} else {
 	    if (verifyStamp("/mnt/runtime")) {
@@ -589,7 +587,6 @@ void umountStage2(void) {
 /* mount a second stage, verify the stamp file, copy updates 
  * Returns 0 on success, 1 on failure to mount, -1 on bad stamp */
 int mountStage2(char * path) {
-    char imgPath[1024];
     if (access(path, R_OK)) {
         return 1;
     }
@@ -604,12 +601,10 @@ int mountStage2(char * path) {
     }
 
     /* JKFIXME: this is kind of silly.. /mnt/source is hardcoded :/ */
-    snprintf(imgPath, sizeof(imgPath), "/mnt/source/%s/base/updates.img", getProductPath());
-    copyUpdatesImg(imgPath);
+    copyUpdatesImg("/mnt/source/images/updates.img");
 
     /* more hard coding */
-    snprintf(imgPath, sizeof(imgPath), "/mnt/source/%s/base/product.img", getProductPath());
-    copyProductImg(imgPath);
+    copyProductImg("/mnt/source/images/product.img");
 
     return 0;
 }

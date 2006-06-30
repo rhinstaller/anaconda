@@ -151,12 +151,9 @@ char * mountNfsImage(struct installMethod * method,
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", 
                            IMOUNT_RDONLY, mountOpts)) {
-		char mntPath[1024];
-
-		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
-                if (!access(mntPath, R_OK)) {
-                    logMessage(INFO, "can access %s", mntPath);
-                    rc = mountStage2(mntPath);
+                if (!access("/mnt/source/images/stage2.img", R_OK)) {
+                    logMessage(INFO, "can access /mnt/source/images/stage2.img");
+                    rc = mountStage2("/mnt/source/images/stage2.img");
                     logMessage(DEBUGLVL, "after mountStage2, rc is %d", rc);
                     if (rc) {
                         if (rc == -1) { 
@@ -169,7 +166,7 @@ char * mountNfsImage(struct installMethod * method,
                         break;
                     }
                 } else {
-                    logMessage(WARNING, "unable to access %s", mntPath);
+                    logMessage(WARNING, "unable to access /mnt/source/images/stage2.img");
                 }
 
                 if ((path = validIsoImages("/mnt/source", &foundinvalid))) {
@@ -180,8 +177,7 @@ char * mountNfsImage(struct installMethod * method,
                     if (mountLoopback(path, "/mnt/source2", "loop1")) 
                         logMessage(WARNING, "failed to mount iso %s loopback", path);
                     else {
-			snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/stage2.img", getProductPath());
-                        rc = mountStage2(mntPath);
+                        rc = mountStage2("/mnt/source2/images/stage2.img");
                         if (rc) {
                             umountLoopback("/mnt/source2", "loop1");
                             if (rc == -1)
@@ -189,10 +185,8 @@ char * mountNfsImage(struct installMethod * method,
                         } else {
                             /* JKFIXME: hack because /mnt/source is hard-coded
                              * in mountStage2() */
-			    snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/updates.img", getProductPath());
-                            copyUpdatesImg(mntPath);
-			    snprintf(mntPath, sizeof(mntPath), "/mnt/source2/%s/base/product.img", getProductPath());
-                            copyProductImg(mntPath);
+                            copyUpdatesImg("/mnt/source2/images/updates.img");
+                            copyProductImg("/mnt/source2/images/product.img");
 
                             queryIsoMediaCheck(path);
 
