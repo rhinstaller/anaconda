@@ -1,11 +1,10 @@
 #!/bin/bash
 
 usage() {
-	echo "Usage: buildinstall [--comp <component>] [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] [--discs <discstring>] <root>" >&2
+	echo "Usage: buildinstall [--pkgorder <file>] [--version <version>] [--product <product>] [--release <comment>] [--prodpath <path>] [--discs <discstring>] <root>" >&2
 	exit 1
 }
 
-RUN=1
 PRODUCTPATH="anaconda"
 
 while [ $# -gt 0 ]; do
@@ -37,10 +36,6 @@ while [ $# -gt 0 ]; do
 	    ;;
 	--debug)
 	    DEBUGSTR="--debug"
-	    shift
-	    ;;
-	--second)
-	    RUN=2
 	    shift
 	    ;;
 	--buildinstdir)
@@ -82,7 +77,7 @@ if [ -z "$RELEASESTR" ]; then
 fi
 
 if [ -z "$DISCSTR" ]; then
-    DISCSTR="1,2,3"
+    DISCSTR="ALL"
 fi
 
 if [ -z "$BUGURL" ]; then
@@ -105,7 +100,6 @@ BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/$PRODUCTPATH/RPMS/anaconda-runtime-[0-9]*`
 
-firstRun() {
 echo "Running buildinstall..."
 
 pushd $BUILDINSTDIR
@@ -130,64 +124,22 @@ MK_IMAGES=$BUILDINSTDIR/mk-images
 MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
-rm -rf $BUILDINSTDIR/usr
-
-echo "Going to run buildinstall again"
-# run it again for the second half
-if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL $DEBUGSTR --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --prodpath $PRODUCTPATH --discs '\"$DISCSTR\"' --bugurl '\"$BUGURL\"' $DIR" 
-else
-    $BUILDINSTALL $DEBUGSTR --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" --prodpath $PRODUCTPATH --discs "$DISCSTR" --bugurl "$BUGURL" $DIR 
-fi
-
-rm -rf $BUILDINSTDIR
-}
-
-secondRun() {
 echo "Building images..."
-if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage"
-else
-    $UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage
-fi
+$UPD_INSTROOT $DEBUGSTR $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage
 
 echo "Creating repository metadata..."
-if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "createrepo -g $PRODUCTPATH/base/comps.xml -q $p"
-else
-   createrepo -g $PRODUCTPATH/base/comps.xml -q $p
-fi
+createrepo -g $PRODUCTPATH/base/comps.xml -q $p
 
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
     echo "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH"
-    if [ -x /usr/bin/runroot ]; then
-	runroot --quiet $COMPNAME --onlyone --arch $BUILDARCH \
-	    "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH" > $PKGORDER
-    else
-	PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH > $PKGORDER
-    fi
+    PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH $PRODUCTPATH > $PKGORDER
 fi
 
 echo "Making images..."
-if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION $PRODUCTPATH '\"$BUGURL\"'"
-else
-    $MK_IMAGES $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
-fi
+$MK_IMAGES $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
 
-if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"
-else
-    rm -rf $TREEDIR/image-template $TREEDIR/instimage
-fi
-}
-
-if [ $RUN == 1 ]; then
-    firstRun
-else
-    secondRun
-fi
+rm -rf $TREEDIR/image-template $TREEDIR/instimage $BUILDINSTDIR
