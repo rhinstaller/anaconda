@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.49
+Version: 11.1.0.50
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -15,7 +15,7 @@ BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
-BuildPreReq: libdhcp-devel >= 1.5-2, libdhcp >= 1.5-2
+BuildPreReq: libdhcp-devel >= 1.6
 BuildPreReq: libdhcp4client-devel, libdhcp6client-devel
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
 Requires: kudzu > 1.2.0, yum >= 2.9.2, pirut >= 1.1.0
@@ -101,6 +101,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 30 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.50-1
+- Rebuild against new libdhcp for fixing more loader segfaults
+- Pass the debug log level to libdhcp (markmc, #197175)
+- Look for the ks.cfg on all cd drives (notting, #197192)
+- Add wlite here, use it (pjones, #196099, #186701)
+- Add the start of gfs2 support
+
 * Wed Jun 28 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.49-1
 - Fix some memory leaks in the loader (pjones)
 - Display fs labels next to rescue choices (clumens, #196345)
