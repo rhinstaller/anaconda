@@ -11,6 +11,11 @@
 
 2006-06-30  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/buildinstall: Nuke runroot stuff since everything is
+	runroot'd now.  Get rid of first/second run of buildinstall,
+	--comp is now a no-op
+	* scripts/upd-instroot: --comp argument no longer makes sense to take
+
 	* partitions.py (Partitions.sanityCheckAllRequests): Don't allow
 	/boot on gfs2
 
