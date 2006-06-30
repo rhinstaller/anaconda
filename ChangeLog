@@ -13,6 +13,16 @@
 
 	* loader2/net.h: Removed setupInterface prototype.
 
+	* loader2/init.c: Fix up tabs and alignment and junk. Added a debugging
+	macro called SNAKES_ON_A_PLANE. The idea is you can have init load core
+	modules and then dump you in a shell (that you provide, of course) and
+	then you can go crazy debugging loader. It's an idea, might work, might
+	not. It's funny though. Also, use waitpid() instead of wait4().
+
+	* loader2/loader.c: Check return values on exec functions since they
+	only return on error, but still check it. Use WIFEXITED and WEXITSTATUS
+	more correctly.
+
 2006-06-30  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/buildinstall: Nuke runroot stuff since everything is

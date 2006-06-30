@@ -298,9 +298,10 @@ static void spawnShell(void) {
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         setenv("LANG", "C", 1);
         
-        execl("/bin/sh", "-/bin/sh", NULL);
-        logMessage(CRITICAL, "exec of /bin/sh failed: %s", strerror(errno));
-        exit(1);
+        if (execl("/bin/sh", "-/bin/sh", NULL) == -1) {
+            logMessage(CRITICAL, "exec of /bin/sh failed: %s", strerror(errno));
+            exit(1);
+        }
     }
 
     return;
@@ -1654,26 +1655,29 @@ int main(int argc, char ** argv) {
         printf("%s", buf);
 
         if (!(pid = fork())) {
-            execv(anacondaArgs[0], anacondaArgs);
-            fprintf(stderr, "exec of anaconda failed: %s\n", strerror(errno));
-            exit(1);
+            if (execv(anacondaArgs[0], anacondaArgs) == -1) {
+               fprintf(stderr,"exec of anaconda failed: %s\n",strerror(errno));
+               exit(1);
+            }
         }
 
         waitpid(pid, &status, 0);
 
-        if (!WIFEXITED(status) || WEXITSTATUS(status))
+        if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
             rc = 1;
-        else
+        } else {
             rc = 0;
+        }
 
         if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
             if (!(pid = fork())) {
                 char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
                               strdup("/sbin/halt"));
-                execl(cmd, cmd, NULL);
-                fprintf(stderr, "exec of poweroff failed: %s", 
-                        strerror(errno));
-                exit(1);
+                if (execl(cmd, cmd, NULL) == -1) {
+                    fprintf(stderr, "exec of poweroff failed: %s", 
+                            strerror(errno));
+                    exit(1);
+                }
             }
             waitpid(pid, &status, 0);
         }
