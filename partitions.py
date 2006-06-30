@@ -963,6 +963,13 @@ class Partitions:
                     errors.append("Bootable partitions cannot be on an XFS "
                                   "filesystem.")
 
+                # no gfs support in grub
+                if (bootreq and bootreq.fstype and
+                    bootreq.fstype.getName() == "gfs2"):
+                    errors.append("Bootable partitions cannot be on a GFS2 "
+                                  "filesystem.")
+                    
+
         if foundSwap == 0:
             warnings.append(_("You have not specified a swap partition.  "
                               "Although not strictly required in all cases, "

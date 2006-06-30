@@ -1,5 +1,8 @@
 2006-06-30  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.sanityCheckAllRequests): Don't allow
+	/boot on gfs2
+
 	* fsset.py (gfsFileSystem.__init__): Can't do this until parted
 	actually knows about it.
 
