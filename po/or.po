@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-29 11:20+0530\n"
+"PO-Revision-Date: 2006-06-30 14:01+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -329,14 +329,19 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"ଆପଣଙ୍କର ବିଭାଜନ ସମୟରେ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ମାନ ପରିଲିଖିତ ହେଲା:\n"
+"\n"
+"%s\n"
+"\n"
+"ଏହା ସମ୍ଭବପର ଯଦି ଆପଣଙ୍କ ହାର୍ଡ ଡ୍ରାଇଭ(ରେ/ମାନଙ୍କରେ) ସ୍ଥାପନ ପାଇଁ ଯଥେଷ୍ଟ ସ୍ଥାନ ନାହିଁ।%s"
 
 #: ../autopart.py:1541
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "ଅପ୍ରାପ୍ଯ ତ୍ରୁଟି"
 
 #: ../autopart.py:1542
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
 
 #: ../autopart.py:1689 ../bootloader.py:191 ../image.py:417
 #: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:910
@@ -348,7 +353,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
 #: ../textw/upgrade_text.py:174 ../loader2/loader.c:396
 msgid "Warning"
-msgstr ""
+msgstr "ଚେତାବନୀ"
 
 #: ../autopart.py:1695
 msgid ""
@@ -368,15 +373,15 @@ msgstr ""
 
 #: ../autopart.py:1711
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "ଏହି ତନ୍ତ୍ରରୁ ସମସ୍ତ ବିଭାଜନକୁ ଅପସାରିତ କରନ୍ତୁ"
 
 #: ../autopart.py:1712
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "ଏହି ତନ୍ତ୍ରରୁ ସମସ୍ତ Linux ବିଭାଜନକୁ ଅପସାରିତ କରନ୍ତୁ"
 
 #: ../autopart.py:1713
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "ସମସ୍ତ ବିଭାଜନକୁ ରଖନ୍ତୁ ଏବଂ ଉପସ୍ଥିତ ଖାଲି ସ୍ଥାନକୁ ବ୍ଯବହାର କରନ୍ତୁ"
 
 #: ../autopart.py:1715
 #, python-format
@@ -397,52 +402,54 @@ msgstr ""
 #: ../backend.py:97
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr ""
+msgstr "%s-%s-%s.%s. ର ଉନ୍ନୟନ କରୁଅଛି\n"
 
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr ""
+msgstr "%s-%s-%s.%s. କୁ ସ୍ଥାପିତ କରୁଅଛି\n"
 
 #: ../bootloader.py:123
 msgid "Bootloader"
-msgstr ""
+msgstr "ବୁଟ ଲୋଡର"
 
 #: ../bootloader.py:123
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "ବୁଟ ଲୋଡରକୁ ସ୍ଥାପିତ କରୁଅଛି"
 
 #: ../bootloader.py:192
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରରେ କୌଣସି କର୍ଣ୍ଣଲ ପ୍ଯାକେଜ ମାନ ସ୍ଥାପିତ ହୋଇନାହିଁ। ଆପଣଙ୍କ ବୁଟ ଲୋଡରର ବିନ୍ଯାସକୁ "
+"ବଦଳା ଯିବ ନାହିଁ।"
 
 #: ../cmdline.py:44
 msgid "Completed"
-msgstr ""
+msgstr "ସମାପ୍ତ"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
-msgstr ""
+msgstr "ପ୍ରଗତି ପଥେ..."
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ଧାରାରେ କୌଣସି ପ୍ରଶ୍ନ ରହି ପାରିବ ନାହିଁ!"
 
 #: ../cmdline.py:92
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "ପାଠ୍ଯ ନିର୍ଦ୍ଦେଶ ଧାରାରେ ବିଭାଜିତ ବ୍ଯତିକ୍ରମ ମାନଙ୍କୁ ନିୟନ୍ତ୍ରଣ କରାଯାଇ ପାରିବ ନାହିଁ!"
 
 #: ../cmdline.py:137
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "[%d/%d] ସମ୍ପନ୍ନ ହେଲା"
 
 #: ../cmdline.py:143
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr ""
+msgstr "%s-%s-%s କୁ ସ୍ଥାପିତ କରୁଅଛି... "
 
 #: ../constants.py:60
 #, python-format
@@ -454,7 +461,7 @@ msgstr ""
 
 #: ../exception.py:391 ../exception.py:408
 msgid "Dump Written"
-msgstr ""
+msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇଛି"
 
 #: ../exception.py:392
 msgid ""
@@ -468,34 +475,35 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "ପୁନର୍ଚାଳିତ କରନ୍ତୁ (_R)"
 
 #: ../exception.py:400 ../exception.py:417
 msgid "Dump Not Written"
-msgstr ""
+msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇନାହିଁ"
 
 #: ../exception.py:401
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "ଫ୍ଲଫି ରେ ତନ୍ତ୍ରର ସ୍ଥିତି ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
 
 #: ../exception.py:409
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
+"ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଲେଖାଗଲା। ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ବର୍ତମାନ ପୁନର୍ଚାଳିତ ହେବ।"
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ଲେଖିବା ସମୟରେ ଗୋଟିଏ ସମସ୍ଯା ଦେଖାଗଲା।"
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
-msgstr ""
+msgstr "ଖରାପ ଖଣ୍ଡ ପାଇଁ ଯାଞ୍ଚ କରୁଅଛି"
 
 #: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr ""
+msgstr "/dev/%s ରେ ଖରାପ ଖଣ୍ଡ ପାଇଁ ଯାଞ୍ଚ କରୁଅଛି..."
 
 #: ../fsset.py:644 ../fsset.py:1438 ../fsset.py:1469 ../fsset.py:1530
 #: ../fsset.py:1541 ../fsset.py:1594 ../fsset.py:1605 ../fsset.py:1640
@@ -522,7 +530,7 @@ msgstr ""
 #: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
 #: ../loader2/urls.c:331 ../loader2/urls.c:336
 msgid "Error"
-msgstr ""
+msgstr "ତ୍ରୁଟି"
 
 #: ../fsset.py:645
 #, python-format
@@ -535,23 +543,23 @@ msgstr ""
 
 #: ../fsset.py:1346
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID ଉପକରଣ"
 
 #: ../fsset.py:1350 ../fsset.py:1356
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Apple ବୁଟ-ଷ୍ଟ୍ରାପ"
 
 #: ../fsset.py:1361 ../partitions.py:869
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP ବୁଟ"
 
 #: ../fsset.py:1364
 msgid "First sector of boot partition"
-msgstr ""
+msgstr "ବୁଟ ବିଭାଜନର ପ୍ରଥମ ଖଣ୍ଡ"
 
 #: ../fsset.py:1365
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "ପ୍ରଧାନ ବୁଟ ଅନୁଲିପି (MBR)"
 
 #: ../fsset.py:1439
 #, python-format
@@ -566,11 +574,11 @@ msgstr ""
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
 #: ../loader2/cdinstall.c:259 ../loader2/method.c:419
 msgid "Skip"
-msgstr ""
+msgstr "ଛାଡି ଦିଅନ୍ତୁ"
 
 #: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
 msgid "Reboot"
-msgstr ""
+msgstr "ପୁନର୍ଚାଳନ କରନ୍ତୁ"
 
 #: ../fsset.py:1489
 #, python-format
@@ -586,7 +594,7 @@ msgstr ""
 
 #: ../fsset.py:1496
 msgid "Reformat"
-msgstr ""
+msgstr "ପୁନଃ ସଂରୂପିତ କରନ୍ତୁ"
 
 #: ../fsset.py:1500
 #, python-format
@@ -623,7 +631,7 @@ msgstr ""
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
-msgstr ""
+msgstr "ସଂରୂପିତ କରନ୍ତୁ"
 
 #: ../fsset.py:1531
 #, python-format
@@ -684,7 +692,7 @@ msgstr ""
 
 #: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
-msgstr ""
+msgstr "ଅବୈଧ ଆରୋହଣ ବିନ୍ଦୁ"
 
 #: ../fsset.py:1713
 #, python-format
@@ -725,7 +733,7 @@ msgstr ""
 
 #: ../fsset.py:2419
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "ନକଲି ସୂଚକ"
 
 #: ../fsset.py:2420
 #, python-format
@@ -738,20 +746,20 @@ msgstr ""
 
 #: ../fsset.py:2680
 msgid "Formatting"
-msgstr ""
+msgstr "ସଂରୂପିତ କରୁଅଛି"
 
 #: ../fsset.py:2681
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "%s ଫାଇଲ ତନ୍ତ୍ରକୁ ସଂରୂପିତ କରୁଅଛି..."
 
 #: ../gui.py:110
 msgid "An error occurred copying the screenshots over."
-msgstr ""
+msgstr "ପରଦା ପ୍ରତିଛବିକୁ ନକଲ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା।"
 
 #: ../gui.py:122
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "ପରଦା ପ୍ରତିଛବିର ନକଲ କରାଗଲା"
 
 #: ../gui.py:123
 msgid ""
@@ -764,16 +772,16 @@ msgstr ""
 
 #: ../gui.py:167
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "ପରଦା ପ୍ରତିଛବିକୁ ସଂରକ୍ଷିତ କରୁଅଛି"
 
 #: ../gui.py:168
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "'%s' ନାମରେ ନାମିତ ଗୋଟିଏ ପରଦା ପ୍ରତିଛବିକୁ ସଂରକ୍ଷିତ କରାଗଲା।"
 
 #: ../gui.py:171
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "ପରଦା ପ୍ରତିଛବିକୁ ସଂରକ୍ଷିତ କରିବା ସମୟରେ ତ୍ରୁଟି"
 
 #: ../gui.py:172
 msgid ""
@@ -783,29 +791,29 @@ msgstr ""
 
 #: ../gui.py:241 ../text.py:383
 msgid "Fix"
-msgstr ""
+msgstr "ସଠିକ କରନ୍ତୁ"
 
 #: ../gui.py:242 ../rescue.py:193 ../text.py:384 ../upgrade.py:57
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/hdinstall.c:327 ../loader2/loader.c:396
 msgid "Yes"
-msgstr ""
+msgstr "ହଁ"
 
 #: ../gui.py:243 ../rescue.py:193 ../rescue.py:195 ../text.py:385
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/loader.c:396
 msgid "No"
-msgstr ""
+msgstr "ନାଁ"
 
 #: ../gui.py:245 ../text.py:387 ../loader2/net.c:294 ../loader2/net.c:613
 msgid "Retry"
-msgstr ""
+msgstr "ପୁନଃ ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ"
 
 #: ../gui.py:246 ../text.py:388
 msgid "Ignore"
-msgstr ""
+msgstr "ଆଗ୍ରହ୍ଯ କରିଦିଅନ୍ତୁ"
 
 #: ../gui.py:247 ../gui.py:711 ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:526 ../text.py:103 ../text.py:104 ../text.py:360
@@ -814,7 +822,7 @@ msgstr ""
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
 #: ../loader2/loader.c:342
 msgid "Cancel"
-msgstr ""
+msgstr "ବାତିଲ କରନ୍ତୁ"
 
 #: ../gui.py:801 ../text.py:346
 #, python-format
@@ -823,10 +831,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ଆପଣଙ୍କର କିକ୍-ଷ୍ଟାର୍ଟ ବିନ୍ଯାସକୁ ବିଶ୍ଳେଷଣ କରିବା ସମୟରେ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ମାନ ପରିଲିଖିତ ହେଲା:\n"
+"\n"
+"%s"
 
 #: ../gui.py:803 ../text.py:348
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "କିକ୍-ଷ୍ଟାର୍ଟ ବିନ୍ଯାସକୁ ବିଶ୍ଲେଷଣ କରିବା ସମୟରେ ତ୍ରୁଟି"
 
 #: ../gui.py:811 ../text.py:358
 msgid ""
@@ -836,11 +847,11 @@ msgstr ""
 
 #: ../gui.py:872
 msgid "default:LTR"
-msgstr ""
+msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ:LTR"
 
 #: ../gui.py:964
 msgid "Error!"
-msgstr ""
+msgstr "ତ୍ରୁଟି!"
 
 #: ../gui.py:965
 #, python-format
@@ -853,40 +864,40 @@ msgstr ""
 #: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
 #: ../yuminstall.py:680
 msgid "_Exit"
-msgstr ""
+msgstr "ପ୍ରସ୍ଥାନ କରନ୍ତୁ (_E)"
 
 #: ../gui.py:970 ../yuminstall.py:161
 msgid "_Retry"
-msgstr ""
+msgstr "ପୁନଃ ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ (_R)"
 
 #: ../gui.py:973 ../packages.py:375
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "ସ୍ଥାପକଟି ବର୍ତମାନ ବାହାରକୁ ବାହାରି ଯିବ..."
 
 #: ../gui.py:976 ../packages.py:378
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ..."
 
 #: ../gui.py:979 ../packages.py:380
 msgid "Rebooting System"
-msgstr ""
+msgstr "ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରୁଅଛି"
 
 #: ../gui.py:1044
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s ସ୍ଥାପକ"
 
 #: ../gui.py:1050
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "ଶୀର୍ଷକ ଦଣ୍ଡକୁ ଧାରଣ କରିବାରେ ଅସମର୍ଥ"
 
 #: ../gui.py:1103
 msgid "Install Window"
-msgstr ""
+msgstr "ଓ୍ବେଣ୍ଡୋକୁ ସ୍ଥାପିତ କରନ୍ତୁ"
 
 #: ../harddrive.py:61 ../image.py:480
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ଅନୁପସ୍ଥିତ ISO 9660 ପ୍ରତିଛବି"
 
 #: ../harddrive.py:62
 #, python-format
@@ -900,11 +911,11 @@ msgstr ""
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
-msgstr ""
+msgstr "ପୁନଃ ପ୍ରଚେଷ୍ଟା କରନ୍ତୁ (_t)"
 
 #: ../image.py:84
 msgid "Required Install Media"
-msgstr ""
+msgstr "ଜରୂରୀ ସ୍ଥାପନ ମାଧ୍ଯମ"
 
 #: ../image.py:85
 #, python-format
@@ -920,12 +931,12 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
-msgstr ""
+msgstr "ପଛକୁ (_B)"
 
 #: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
 #: ../iw/partition_gui.py:1011
 msgid "_Continue"
-msgstr ""
+msgstr "ଆଗକୁ ବଢନ୍ତୁ (_C)"
 
 #: ../image.py:135
 #, python-format
@@ -936,11 +947,11 @@ msgstr ""
 
 #: ../image.py:157
 msgid "Copying File"
-msgstr ""
+msgstr "ଫାଇଲର ନକଲ କରୁଅଛି"
 
 #: ../image.py:158
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "ସ୍ଥାପନ ପ୍ରତିଛିବିକୁ ହାର୍ଡ ଡ୍ରାଇଭକୁ ସ୍ଥାନାନ୍ତରିତ କରୁଅଛି..."
 
 #: ../image.py:168
 msgid ""
@@ -950,25 +961,25 @@ msgstr ""
 
 #: ../image.py:255
 msgid "Change CDROM"
-msgstr ""
+msgstr "CDROMକୁ ପରିବର୍ତିତ କରନ୍ତୁ"
 
 #: ../image.py:256
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr ""
+msgstr "ଆଗକୁ ବଢିବା ପାଇଁ ଦୟାକରି %s ଡିସ୍କ %d କୁ ଭର୍ତି କରନ୍ତୁ।"
 
 #: ../image.py:291
 msgid "Wrong CDROM"
-msgstr ""
+msgstr "ଭୂଲ CDROM"
 
 #: ../image.py:292
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "ତାହା ସଠିକ %s CDROM ନୁହେଁ।"
 
 #: ../image.py:298
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "CDROM କୁ ଚଳାଇବାରେ ଅସମର୍ଥ।"
 
 #: ../image.py:481
 #, python-format
@@ -982,7 +993,7 @@ msgstr ""
 
 #: ../installclass.py:57
 msgid "Install on System"
-msgstr ""
+msgstr "ତନ୍ତ୍ରରେ ସ୍ଥାପନ କରନ୍ତୁ"
 
 #: ../kickstart.py:74
 msgid "Scriptlet Failure"
