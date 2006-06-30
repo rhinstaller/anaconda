@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.50
+Version: 11.1.0.51
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 30 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.51-1
+- Remove non-existent paths from LD_LIBRARY_PATH (katzj)
+- Calculate IPv4 broadcast address for static IP config
+- Started adding debugging mode to init
+- Return value checking for exec calls in init and loader
+- Do not use wait4()
+- WIFEXITED and WEXITSTATUS logic fixes
+- Remove runroot stuff from buildinstall (katzj)
+- Remove --comp argument from upd-instroot (katzj)
+- Do not allow /boot on GFS2 (katzj)
+- Move second images to images/ subdirectory (katzj)
+
 * Fri Jun 30 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.50-1
 - Rebuild against new libdhcp for fixing more loader segfaults
 - Pass the debug log level to libdhcp (markmc, #197175)
