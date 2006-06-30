@@ -1,3 +1,7 @@
+2006-06-30  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/init.c: Nuke non-existent paths from LD_LIBRARY_PATH 
+
 2006-06-30  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (setupInterface): Removed and moved those two lines to
