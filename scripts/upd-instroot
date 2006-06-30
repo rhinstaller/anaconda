@@ -122,7 +122,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser"
+         yum-metadata-parser gfs2-utils"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils dmidecode"
@@ -365,6 +365,7 @@ sbin/xfs_repair
 usr/sbin/xfs_db
 usr/sbin/xfs_check
 usr/sbin/xfs_copy
+sbin/*gfs*
 sbin/iscsid
 sbin/iscsiadm
 sbin/iscsistart

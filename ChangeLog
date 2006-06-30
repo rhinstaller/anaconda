@@ -1,3 +1,13 @@
+2006-06-30  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot (KEEPFILE): Add gfs utils
+
+	* fsset.py (gfsFileSystem): Start to add gfs2 support 
+
+	* scripts/mk-images (FSMODS): Add gfs2 modules
+
+	* loader2/loader.c: Load gfs2 modules
+
 2006-06-29  Peter Jones  <pjones@redhat.com>
 
 	* wlite/: add libwlite
