@@ -47,7 +47,6 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr);
 
-char * setupInterface(struct networkDeviceConfig *dev);
 char *doDhcp(struct networkDeviceConfig *dev);
 void netlogger(void *arg, int priority, char *fmt, va_list va);
 

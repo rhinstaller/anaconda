@@ -1,3 +1,14 @@
+2006-06-30  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (setupInterface): Removed and moved those two lines to
+	the calling function (configureNetwork).
+
+	* loader2/net.c (readNetConfig): Spelling error fix. Calculate IPv4
+	broadcast if user did a static IP config, close any possibly open
+	dhcp_nic handle if doing a static IP config.
+
+	* loader2/net.h: Removed setupInterface prototype.
+
 2006-06-30  Jeremy Katz  <katzj@redhat.com>
 
 	* partitions.py (Partitions.sanityCheckAllRequests): Don't allow

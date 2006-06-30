@@ -524,7 +524,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     struct networkDeviceConfig newCfg;
     struct intfconfig_s c;
     int i;
-    struct in_addr addr;
+    struct in_addr addr, nm;
     struct in6_addr addr6;
     char dhcpChoice;
     char *dret = NULL;
@@ -561,7 +561,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         newCfg.essid = strdup(cfg->essid);
         newCfg.wepkey = strdup(cfg->wepkey);
     } else {
-        logMessage(INFO, "%s is not a wireless adaptor", device);
+        logMessage(INFO, "%s is not a wireless adapter", device);
     }
 
     text = newtTextboxReflowed(-1, -1, 
@@ -763,13 +763,24 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
     newtPopWindow();
 
+    /* calculate broadcast address for IPv4 */
+    addr = ip_in_addr(&cfg->dev.ip);
+    nm = ip_in_addr(&cfg->dev.netmask);
+    cfg->dev.broadcast = ip_addr_v4(ntohl((addr.s_addr & nm.s_addr) | ~nm.s_addr));
+
+    /* make sure we don't have a dhcp_nic handle for static */
+    if ((cfg->isDynamic == 0) && (cfg->dev.dhcp_nic != NULL)) {
+        dhcp_nic_free(cfg->dev.dhcp_nic);
+        cfg->dev.dhcp_nic = NULL;
+    }
+
     if (!FL_TESTING(flags)) {
         configureNetwork(cfg);
         findHostAndDomain(cfg);
         writeResolvConf(cfg);
     }
 
-    return 0;
+    return LOADER_OK;
 }
 
 static int setupWireless(struct networkDeviceConfig *dev) {
@@ -794,11 +805,6 @@ static int setupWireless(struct networkDeviceConfig *dev) {
     }
 
     return 0;
-}
-
-char *setupInterface(struct networkDeviceConfig *dev) {
-    setupWireless(dev);
-    return pumpSetupInterface(&dev->dev);
 }
 
 void netlogger(void *arg, int priority, char *fmt, va_list va) {
@@ -850,9 +856,10 @@ char *doDhcp(struct networkDeviceConfig *dev) {
 int configureNetwork(struct networkDeviceConfig * dev) {
     char *rc;
 
-    rc = setupInterface(dev);
+    setupWireless(dev);
+    rc = pumpSetupInterface(&dev->dev);
     if (rc)
-        logMessage(INFO, "result of setupInterface is %s", rc);
+        logMessage(INFO, "result of pumpSetupInterface is %s", rc);
 
     /* we need to wait for a link after setting up the interface as some
      * switches decide to reconfigure themselves after that (#115825)
