@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.45
+Version: 10.1.1.46
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 28 2006 Peter Jones <pjones@redhat.com> - 10.1.1.46-1
+- Add Marvell SATA driver to module-info (#181852)
+
 * Tue Jun 27 2006 Peter Jones <pjones@redhat.com> - 10.1.1.45-1
 - Revert bogus translation changes (#194153)
 - Backport new runShell code from HEAD so rescue mode works (#193285)
