@@ -1,4 +1,4 @@
-# Dutch translation of anaconda-po
+# Dutch translation of anaconda
 # Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 #
 # Arjan van de Ven <arjanv@redhat.com>, 2001.
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-26 23:40+0200\n"
+"PO-Revision-Date: 2006-06-30 22:20+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1359,7 +1359,7 @@ msgstr ""
 "maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS "
 "op dit station verloren gaan.\n"
 "\n"
-"Deze actie zal alle voorgaande installatie keuzes met betrekking tot welke "
+"Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
 "stations worden genegeerd teniet doen.\n"
 "\n"
 "Wilt u dit station initialiseren?"
@@ -1380,7 +1380,7 @@ msgstr ""
 "moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS op "
 "dit station verloren gaan.\n"
 "\n"
-"Deze actie zal alle voorgaande installatie keuzes met betrekking tot welke "
+"Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
 "stations worden genegeerd teniet doen.\n"
 "\n"
 "Wilt u dit station initialiseren?"
@@ -2052,7 +2052,7 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Een fout is opgetreden tijdens het aankoppelen van (een deel van) uw "
+"Er is een fout opgetreden tijdens het aankoppelen van (een deel van) uw "
 "systeem. Een deel is mogelijk aangekoppeld onder %s.\n"
 "\n"
 "Druk op <Enter> om een shellprompt te krijgen. Het systeem zal automatisch "
@@ -2170,7 +2170,7 @@ msgstr "Wilt u doorgaan met de upgrade?"
 
 #: ../upgrade.py:92
 msgid "Searching"
-msgstr "Zoekende"
+msgstr "Bezig met zoeken"
 
 #: ../upgrade.py:93
 #, python-format
@@ -2757,7 +2757,8 @@ msgid ""
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
 "Voer een bootloader-wachtwoord in en bevestig deze.  (Hou er rekening mee "
-"dat uw BIOS 'keymap' instelling anders kan zijn dan de huidige 'keymap'.)"
+"dat uw BIOS-toetsenbordinstelling anders kan zijn dan uw huidige "
+"toetsenbordinstelling.)"
 
 #: ../iw/blpasswidget.py:109
 msgid "_Password:"
@@ -2817,7 +2818,7 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Als u standaard-opties wilt toevoegen aan de opstart-opdracht, voer deze dan "
+"Als u standaardopties wilt toevoegen aan de opstartopdracht, voer deze dan "
 "in in het veld: 'Algemene kernel-parameters'."
 
 #: ../iw/bootloader_advanced_gui.py:79
@@ -2885,7 +2886,7 @@ msgstr "Het systeem zal nu herstarten."
 # about to--op het punt te, betekent kennelijk dat vanaf nu er geen weg meer terug is. Hierna gaat het beginnen, vandaar: (daadwerkelijk) beginnen met de installatie.
 #: ../iw/confirm_gui.py:74
 msgid "About to Install"
-msgstr "Beginnen met Installatie"
+msgstr "Beginnen met installatie"
 
 #: ../iw/confirm_gui.py:80
 #, python-format
@@ -2980,7 +2981,7 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "Kies deze optie om uw systeem opnieuw te installeren. Bestaande software en "
-"data kan (afhankelijk van uw configuratie keuzes) overschreven worden."
+"data kan (afhankelijk van uw configuratiekeuzes) overschreven worden."
 
 #: ../iw/examine_gui.py:61
 msgid "_Upgrade an existing installation"
@@ -3537,7 +3538,7 @@ msgstr "Configureren via _DHCP"
 
 #: ../iw/network_gui.py:227
 msgid "_Activate on boot"
-msgstr "_Actief bij opstarten"
+msgstr "_Activeren bij opstarten"
 
 #: ../iw/network_gui.py:236
 msgid "_IP Address"
@@ -3561,7 +3562,7 @@ msgstr "Encryptie _sleutel"
 
 #: ../iw/network_gui.py:258
 msgid "Hardware address:"
-msgstr "Hardware adres:"
+msgstr "Hardware-adres:"
 
 #: ../iw/network_gui.py:297
 #, python-format
@@ -3807,7 +3808,8 @@ msgstr "Partitioneringsfouten"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "Er zijn de volgende waarschuwingen met uw opgegeven partitieschema."
+msgstr ""
+"Bij uw opgegeven partitieschema worden de volgende waarschuwingen gegeven."
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3912,7 +3914,7 @@ msgstr ""
 "combineren tot een grotere RAID-opstelling. Een RAID-opstelling kan zo "
 "worden geconfigureerd dat het extra snelheid of betrouwbaarheid levert ten "
 "opzichte van een enkele harde schijf. Voor meer informatie over het gebruik "
-"van RAID-opstelling, zie de %s documentatie.\n"
+"van een RAID-opstelling, zie de %s documentatie.\n"
 "\n"
 "U hebt momenteel %s softwarematige RAID-partitie(s) vrij voor gebruik.\n"
 "\n"
@@ -4491,7 +4493,7 @@ msgstr "FCP apparaten"
 
 #: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
-msgstr "FCP apparaat toevoegen"
+msgstr "FCP-apparaat toevoegen"
 
 #: ../iw/zfcp_gui.py:184
 #, python-format
@@ -4592,7 +4594,7 @@ msgid ""
 "blank."
 msgstr ""
 "Een aantal systemen moeten bij het opstarten speciale opties aan de kernel "
-"meegeven om juist te kunnen functioneren. Als u opstart-opties aan de kernel "
+"meegeven om juist te kunnen functioneren. Als u opstartopties aan de kernel "
 "moet meegeven, voer deze dan nu in. Als u geen opties nodig hebt of u bent "
 "er niet zeker van, laat dit dan open."
 
@@ -4656,10 +4658,10 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"Een bootloader-wachtwoord weerhoudt gewone gebruikers ervan om willekeurige "
-"opties aan de kernel mee te geven.  Voor de beste beveiliging raden we dan "
-"ook aan om een wachtwoord in te stellen. Voor normaal gebruik is dit echter "
-"niet noodzakelijk."
+"Een bootloader-wachtwoord weerhoudt gebruikers ervan willekeurige opties aan "
+"de kernel mee te geven.  Voor de beste beveiliging raden we dan ook aan om "
+"een wachtwoord in te stellen. Voor normaal gebruik is dit echter niet "
+"noodzakelijk."
 
 #: ../textw/bootloader_text.py:397
 msgid "Use a GRUB Password"
@@ -4667,7 +4669,7 @@ msgstr "Wachtwoord voor GRUB gebruiken"
 
 #: ../textw/bootloader_text.py:409
 msgid "Boot Loader Password:"
-msgstr "Bootloader wachtwoord:"
+msgstr "Bootloader-wachtwoord:"
 
 #: ../textw/bootloader_text.py:410
 msgid "Confirm:"
@@ -4877,7 +4879,7 @@ msgstr "Beschrijving: %s"
 #: ../textw/network_text.py:97
 #, python-format
 msgid "Hardware Address: %s"
-msgstr "Hardware adres: %s"
+msgstr "Hardware-adres: %s"
 
 #: ../textw/network_text.py:102
 msgid "Configure using DHCP"
@@ -4885,7 +4887,7 @@ msgstr "Configureren via DHCP"
 
 #: ../textw/network_text.py:115
 msgid "Activate on boot"
-msgstr "Bij opstarten activeren"
+msgstr "Activeren bij opstarten"
 
 #: ../textw/network_text.py:141
 #, python-format
