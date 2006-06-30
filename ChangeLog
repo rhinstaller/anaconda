@@ -1,5 +1,8 @@
 2006-06-30  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (gfsFileSystem.__init__): Can't do this until parted
+	actually knows about it.
+
 	* scripts/mk-images: Move second stage images to images/ dir.
 	* image.py: Adjust for stage2 in images/
 	* loader2/cdinstall.c: Likewise.

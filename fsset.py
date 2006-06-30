@@ -549,10 +549,15 @@ fileSystemTypeRegister(jfsFileSystem())
 class gfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("gfs")
+        self.partedFileSystemType = None
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
+        if flags.cmdline.has_key("gfs2"):
+            self.supported = -1
+        else:
+            self.supported = 0
+
         self.supported = 0
 
         self.name = "gfs"
