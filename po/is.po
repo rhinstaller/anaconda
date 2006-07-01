@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-21 01:31+0000\n"
+"PO-Revision-Date: 2006-07-01 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -509,12 +509,11 @@ msgid "There was a problem writing the system state to the floppy."
 msgstr "Það kom upp villa við að skrifa stöðu kerfisins á disklinginn."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Staða vélarinnar þinnar hefur verið vistuð á fjartengdu vélina. Vélin \n"
+"Staða vélarinnar þinnar hefur verið vistuð á fjartengdu vélina. Vélin "
 "þín mun nú endurræsa."
 
 #: ../exception.py:418
@@ -626,9 +625,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Forsníða"
+msgstr "Endurforsníða"
 
 #: ../fsset.py:1500
 #, python-format
@@ -996,7 +994,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 diskmynd vantar"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1005,9 +1003,9 @@ msgid ""
 "the installation."
 msgstr ""
 "Uppsetningarforritið reyndi að tengja diskmyndina #%s en hún var ekki til "
-"staðar á þjóninum.\n"
+"staðar á harða disknum.\n"
 "\n"
-"Vinsamlega afritaðu þessa diskmynd á réttan stað á þjónininum og smelltu á "
+"Vinsamlega afritaðu þessa diskmynd á harða diskinn og smelltu á "
 "reyna aftur. Smelltu á Endurræsa til að hætta við uppsetninguna."
 
 #: ../harddrive.py:71 ../image.py:491
@@ -1142,9 +1140,8 @@ msgid "Running post-install scripts"
 msgstr "Keyri skeljaforrit eftir uppsetningu"
 
 #: ../kickstart.py:908
-#, fuzzy
 msgid "Missing Package"
-msgstr "Set inn pakka"
+msgstr "Pakka vantar"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1152,16 +1149,16 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Þú kaust að setja inn pakkann '%s' sem er ekki til. Viltu halda áfram "
+"með uppsetninguna eða hætta við?" 
 
 #: ../kickstart.py:915 ../kickstart.py:944
-#, fuzzy
 msgid "_Abort"
-msgstr "En_durræsa"
+msgstr "_Hætta við"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "Upplýsingar vantar"
+msgstr "Hóp vantar"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1169,6 +1166,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Þú kaust að setja inn pakkahópinn '%s' sem er ekki til. Viltu halda áfram "
+"með uppsetninguna eða hætta við?" 
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1711,12 +1710,14 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Uppsetning á USB tæki.  Ekki er víst að út komi kerfi sem virkar."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Uppsetning á FireWire tæki.  Ekki er víst að út komi kerfi sem virkar."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2241,9 +2242,8 @@ msgid "The password must be at least six characters long."
 msgstr "Lykilorðið verður að vera minnst 6 stafir að lengd."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Ekkert lykilorð"
+msgstr "VNC lykilorðavilla"
 
 #: ../vnc.py:138
 msgid ""
@@ -2251,6 +2251,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Þú þarft að gefa upp vnc lykilorð sem er að minnsta kosti 6 stafir.\n"
+"\n"
+"Sláðu á <return> til að endurræsa vélina.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2375,58 +2378,57 @@ msgstr "_Hætta við"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "árekstrar milli skráa"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "eldri pakki/pakkar"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "ekki nóg diskpláss"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "ekki nægar inóður á disknum"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "árekstrar milli pakka"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "pakkinn þegar uppsettur"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Laust pláss"
+msgstr "nauðsynlegur pakki"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "pakkinn er fyrir rangan vélbúnað"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "pakkinn er fyrir rangt stýrikerfi"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Þig vantar meira pláss á eftirfarandi skráarkerfum:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Villa við að keyra færsluna"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Ekki var hægt að opna pakkann %s-%s-%s.%s Þetta orsakast af skrá sem vantar "
+"Ekki var hægt að opna skrána %s. Þetta orsakast af skrá sem vantar "
 "eða skemmdum pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast "
 "að hann sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
 "\n"
@@ -2456,6 +2458,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"Þú hefur valið pakka sem þurfa %d MB af lausu diskplássi til uppsetningar en "
+"þú hefur það ekki til reiðu. Þú getur breytt vali þínu eða endurræst."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2476,14 +2480,12 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Ræsi uppsetningarferlið. Þetta gæti tekið nokkrar mínútur..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Uppfæra"
+msgstr "Eftir uppfærslu"
 
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Breyta stillingum eftir uppsetningu..."
+msgstr "Breyta stillingum eftir uppfærslu..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2607,21 +2609,20 @@ msgid "_Confirm: "
 msgstr "_Staðfesta: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Fjarlægja allar disksneiðar á þessari vél"
+msgstr "Fjarlægja allar disksneiðar völdum drifum og smíða sjálfgefnar disksneiðar."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Fjarlægja linux disksneiðar á völdum drifum og smíða sjálfgefnar disksneiðar."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Nota laust pláss á völdum drifum og smíða sjálfgefnar disksneiðar."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Búa til sérsniðnar disksneiðar."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -4484,11 +4485,10 @@ msgstr ""
 "eiga að fá."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Bilslá> velur hnapp | <F2> velur sjálfgefna ræsifærslu | <F12> Næsti skjár>"
+" <Bilslá> velur | <F2> velur sjálfgefið | <F4> eyðir | <F12> Næsti skjár>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -6155,7 +6155,7 @@ msgstr "%s mappa:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6239,11 +6239,11 @@ msgstr "Sæki"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Vef"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6511,12 +6511,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski"
+"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
+"Counties"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6536,9 +6536,8 @@ msgid "Central Time - most locations"
 msgstr "Central Time - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Central Time - North Dakota - Oliver County"
+msgstr "Central Time - North Dakota - Morton County (except Mandan area)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -7255,91 +7254,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Útgáfuupplýsingarnar vantar."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Eftirfarandi pakkar voru til staðar í þessari útgáfu en EKKI uppfærðir:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Eftirfarandi pakkar voru til staðar í þessari útgáfu en EKKI settir inn:\n"
-
-#~ msgid "Finding"
-#~ msgstr "Leita"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Leita að pökkum sem þarf að uppfæra..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Það er ekki hægt að uppfæra þær útgáfur af stýrikerfinu sem nota eldri "
-#~ "útgáfur af rpm en 4.x. Vinsamlegast settu inn rpm uppfærslurnar fyrir "
-#~ "núverandi stýrikerfi og reyndu svo að uppfæra aftur."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr "Það kom upp villa þegar leitað var að pökkum til uppfærslu."
-
-#~ msgid "Installation Type"
-#~ msgstr "Tegund uppsetningar"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Hverskonar kerfi viltu setja upp?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Velja pakka sem skal uppfæra"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Pakkarnir sem þegar eru á vélinni og aðrir pakkar sem þeim eru háðir til "
-#~ "að uppfylla skilyrði þeirra hafa verið valdir til uppsetningar. Viltu "
-#~ "skoða listann og kannski breyta honum?"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Sýndarþjónar (Xen)"
-
-#~ msgid "Hide _Help"
-#~ msgstr "_Fela hjálp"
-
-#~ msgid "Show _Help"
-#~ msgstr "Sýna _hjálp"
-
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr "Hvernig viltu nálgast pláss til að sneiða?"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "Til þess að setja upp <product> þarftu að sneiða harða diskinn. Þú átt "
-#~ "þann kost að nota sjálfgefnu sneiðarnar eða búa til þínar eigin."
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Veldu þá hörðu diska sem þú vilt nota fyrir þessa uppsetningu."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "_Endurskoða og breyta ef þarf disksneiðunum"
-
-#~ msgid "Amharic"
-#~ msgstr "Amharic"
-
-#~ msgid "Thai"
-#~ msgstr "Tælenska"
