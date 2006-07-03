@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-11 23:44+0530\n"
+"PO-Revision-Date: 2006-07-02 01:01+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -619,6 +619,13 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"स्वॅप यंत्र:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"हे आवृत्ती ० Linux स्वॅप विभाजन. जर तुम्हास हे यंत्र वापरायचे असेल, तर तुम्हास "
+"आवृत्ती १ Linux स्वॅप विभाजनाप्रमाणे पुनः स्वरूपित करावे लागेल. जर हे तुम्ही "
+"टाळले, तर प्रतिष्ठापनादरम्यान प्रतिष्ठापक ते दुर्लक्षित करेल."
 
 #: ../fsset.py:1496
 msgid "Reformat"
@@ -2339,7 +2346,7 @@ msgstr "अपुरी डिस्क जागा"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "अपुरे डिस्क आइनोड"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
@@ -2347,7 +2354,7 @@ msgstr ""
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "संकुल आधीच प्रतिष्ठापित"
 
 #: ../yuminstall.py:488
 msgid "required package"
@@ -2355,15 +2362,15 @@ msgstr "आवश्यक संकूल"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "संकुल चुकीच्या आर्किटेक्चरसाठी"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "संकुल चुकीच्या os साठी"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "खालील फाइल प्रणाल्यांवर तुम्हांस अधिक जागेची गरज आहे:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
@@ -4402,9 +4409,8 @@ msgstr ""
 "प्रत्येकास कोणते लेबल लावावे."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> बटन निवडते | <F2> मुलभूत बूट प्रविष्ट निवडा | <F12> पुढचे पटल>"
+msgstr " <Space> निवडा | <F2> मुलभूत निवडा | <F4> नष्ट करा | <F12> पुढचे पटल>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
