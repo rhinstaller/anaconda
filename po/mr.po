@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-02 01:01+0530\n"
+"PO-Revision-Date: 2006-07-03 16:05+0530\n"
 "Last-Translator: Rahul Bhalerao <rbhalera@redhat.com>\n"
 "Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
@@ -642,6 +642,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"स्वॅप यंत्र:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"जे तुमच्या /etc/fstab या फाइलमध्ये आहे ते सध्या सॉफ्टवेअर निलंबन विभाजन म्हणून "
+"वापरात आहे, ज्याचा अर्थ तुमची प्रणाली शीतनिद्रेत आहे. सुधारणा राबवण्यासाठी, कृपया "
+"तुमची प्रणाली शीतनिद्रित करण्याऐवजी बंद(शट डाउन) करा."
 
 #: ../fsset.py:1508
 #, python-format
@@ -654,6 +661,13 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"स्वॅप यंत्र:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"जे तुमच्या /etc/fstab या फाइलमध्ये आहे ते सध्या सॉफ्टवेअर निलंबन विभाजन म्हणून "
+"वापरात आहे, ज्याचा अर्थ तुमची प्रणाली शीतनिद्रेत आहे. जर तुम्ही नविन प्रतिष्ठापना करत असाल, "
+"तर प्रतिष्ठापक सर्व स्वॅप विभाजने स्वरूपित (फॉरमॅट) करण्यासाठी रचल्याची खात्री करून घ्या."
 
 #: ../fsset.py:1518
 msgid ""
@@ -663,6 +677,11 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"सुधारणा करताना प्रतिष्ठापकाने या विभाजनाकडे दुर्लक्ष करण्यासाठी 'टाळा' निवडा. विभाजनास "
+"स्वॅप विभाजनाप्रमाणे स्वरूपित करण्यासाठी 'स्वरुप(फॉरमॅट)' निवडा. प्रणाली पुन्हा सुरू करण्यासाठी "
+"रीबूट निवडा."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1146,6 +1165,8 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"संकुल %s प्रतिष्ठापित असावे असे तुम्ही दर्शविले होते. हे संकुल अस्तित्वात नाही. तुम्ही हे "
+"प्रतिष्ठापन सुरू ठेऊ इच्छिता कि येथेच सोडून देऊ इच्छिता?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1161,6 +1182,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"समुह %s प्रतिष्ठापित असावा असे तुम्ही दर्शविले होते. हा समुह अस्तित्वात नाही. "
+"तुम्ही हे प्रतिष्ठापन सुरू ठेऊ इच्छिता कि येथेच सोडून देऊ इच्छिता."
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1688,13 +1711,15 @@ msgstr ""
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "USB यंत्रावर प्रतिष्ठापना करत आहे. यातून एक कार्यक्षम प्रणाली निर्माण होऊ शकते किंवा नाहीपण होऊ शकत."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"FireWire यंत्रावर प्रतिष्ठापना करत आहे. यातून एक कार्यक्षम प्रणाली निर्माण होऊ शकते किंवा नाहीपण "
+"होऊ शकत."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2210,6 +2235,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"तुम्हांस किमान ६ अक्षरे लांबीचा vnc गुप्तशब्द दर्शवावा लागेल.\n"
+"\n"
+"तुमची प्रणाली रीबूट करण्यासाठी <return> दाबा.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2334,7 +2362,7 @@ msgstr "रद्द करा(_C)"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "फाइल संघर्ष"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
@@ -2350,7 +2378,7 @@ msgstr "अपुरे डिस्क आइनोड"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "संकुल संघर्ष"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
@@ -2377,14 +2405,14 @@ msgid "Error running transaction"
 msgstr "व्यवहार करताना चूक"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"%s-%s-%s.%s संकुल उघडता येणार नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब झालेल्या "
+"%s फाइल उघडता आली नाही. हे बहुदा न सापडलेल्या फाइलमुळे किंवा खराब झालेल्या "
 "संकुलामुळे असावे. जर तुम्ही सीडी(CD) माध्यमाद्वारे प्रतिष्ठापन करत असाल तर याचा अर्थ सीडी "
 "माध्यम खराब असावे, किंवा , सीडी ड्राइव माध्यम वापरण्यास असमर्थ असावी.\n"
 "\n"
@@ -2413,6 +2441,8 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"तुम्ही निवडलेल्या संकुलांस प्रतिष्ठापनासाठी %d MB मुक्त जागेची गरज आहे, पण तुमच्याकडे "
+"पुरेशी उपलब्ध नाही. तुम्ही तुमच्या निवडी बदलू शकता किंवा रीबूट करू शकता."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2556,21 +2586,20 @@ msgid "_Confirm: "
 msgstr "निश्चित करा (_C): "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "या प्रणालीवरिल सर्व विभाजने नष्ट करा"
+msgstr "निवडलेल्या ड्राइव्जवरील सर्व विभाजने नष्ट करा आणि मुलभूत पट तयार करा."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "निवडलेल्या ड्राइव्जवरील linux विभाजने नष्ट करा आणि मुलभूत पट तयार करा."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "निवडलेल्या ड्राइव्जवरील मुक्त जागा वापरा आणि मुलभूत पट तयार करा."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "स्वैच्छेनुसार पट निर्माण करा."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
