@@ -4,7 +4,7 @@
 # Copyright (C) 2001 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
 # James Hashida <khashida@redhat.com>, 2002,2003.
-# Noriko Mizumoto <noriko@redhat.com>, 2003, 2004.
+# Noriko Mizumoto <noriko@redhat.com>, 2003, 2004, 2006.
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2004, 2005.
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
@@ -16,9 +16,9 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-26 17:08\n"
-"Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
-"Language-Team: Japanese <ja@li.org>\n"
+"PO-Revision-Date: 2006-07-04 16:57+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
+"Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: ../anaconda:255
 msgid "Unknown Error"
-msgstr "不明なエラーです。"
+msgstr "不明なエラーです"
 
 #: ../anaconda:258
 #, c-format
@@ -83,9 +83,7 @@ msgstr "OK"
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
-"グラフィカルインストールのための十分なメモリがありません。テキストモードを起"
-"動します"
+msgstr "グラフィカルインストーラを使用するにはメモリが足りません。テキストモードを起動します"
 
 #: ../anaconda:473
 msgid "No video hardware found, assuming headless"
@@ -93,7 +91,7 @@ msgstr "ビデオハードウェアが検出されませんでした。モニタ
 
 #: ../anaconda:484 ../anaconda:880
 msgid "Unable to instantiate a X hardware state object."
-msgstr "Xハードウェア状態オブジェクトのインスタンス生成が出来ません。"
+msgstr "X ハードウェア状態オブジェクトのインスタンス生成ができません。"
 
 #: ../anaconda:509
 msgid "Starting graphical installation..."
@@ -101,19 +99,19 @@ msgstr "グラフィカルインストールを開始中..."
 
 #: ../anaconda:758
 msgid "Install class forcing text mode installation"
-msgstr "テキストモードインストールを強制するクラスをインストールする"
+msgstr "テキストモードインストールを強制するインストールクラス"
 
 #: ../anaconda:784
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "グラフィカルインストールが利用できません...テキストモードを起動中です。"
+msgstr "グラフィカルインストールは使用できません...テキストモードを起動中です。"
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "変数 DISPLAY がセットされていません。テキストモードで起動します!"
+msgstr "DISPLAY 変数がセットされていません。テキストモードで起動します!"
 
 #: ../anaconda:847
 msgid "Unknown install method"
-msgstr "インストール方法が不明です"
+msgstr "不明なインストール方法です"
 
 #: ../anaconda:848
 msgid "You have specified an install method which isn't supported by anaconda."
@@ -122,23 +120,23 @@ msgstr "anaconda がサポートしていないインストール方法が指定
 #: ../anaconda:850
 #, c-format
 msgid "unknown install method: %s"
-msgstr "インストール方法が不明です: %s"
+msgstr "不明なインストール方法です: %s"
 
 #: ../autopart.py:968
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "シリンダベースパーティションを第一パーティションとして確保できませんでした。"
+msgstr "シリンダベースのパーティションを基本パーティションとして割り当てることができませんでした"
 
 #: ../autopart.py:971
 msgid "Could not allocate partitions as primary partitions"
-msgstr "パーティションを第一パーティションとして確保できませんでした。"
+msgstr "パーティションを基本パーティションとして割り当てることができませんでした"
 
 #: ../autopart.py:974
 msgid "Could not allocate cylinder-based partitions"
-msgstr "シリンダベースパーティションを確保できませんでした。"
+msgstr "シリンダベースのパーティションを割り当てることができませんでした"
 
 #: ../autopart.py:977
 msgid "Could not allocate partitions"
-msgstr "パーティションを確保できませんでした。"
+msgstr "パーティションを割り当てることができませんでした"
 
 #: ../autopart.py:1039
 #, python-format
@@ -146,10 +144,7 @@ msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
-"ブートパーティション %s は BSD ディスクラベルに属しません。SRM はこのパーティ"
-"ションからブートできません。BSD ディスクラベルに属するパーティションを使用す"
-"るか、またはこのデバイスディスクラベルを BSD に変更します。"
+msgstr "ブートパーティション %s は BSD ディスクラベルに属しません。SRM はこのパーティションからブートできません。 BSD ディスクラベルに属するパーティションを使用するか、このデバイスディスクラベルを BSD に変更してください。"
 
 #: ../autopart.py:1041
 #, python-format
@@ -157,45 +152,36 @@ msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
-msgstr ""
-"ブートパーティション %s は、ブートローダーが存在する為の先頭部分に充分な空き"
-"領域を持つディスクに属していません。/boot を含むディスクには先頭に最低 5 MB "
-"の 空き領域があることを確認してください。"
+msgstr "ブートパーティション %s は、ブートローダーが格納されるべき先頭部分に充分な空き領域を持つディスクに属していません。ディスクの先頭に /boot を格納する空き領域が最低 5 MB あることを確認してください。"
 
 #: ../autopart.py:1043
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"ブートパーティション %s は VFAT パーティションではありません。EFI はこのパー"
-"ティションから起動できません。"
+msgstr "ブートパーティション %s は VFAT パーティションではありません。 EFI はこのパーティションから起動できません。"
 
 #: ../autopart.py:1045
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
-"ブートパーティションはディスクの十分前に位置していません。オープンファーム"
-"ウェアを今回のインストールでブートさせることはできません。"
+msgstr "ブートパーティションはディスクの十分手前に位置していません。オープンファームウェアをこのインストールでブートさせることはできません。"
 
 #: ../autopart.py:1052
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "ブートパーティション %s はこのアーキテクチャではブートに適していません。"
+msgstr "ブートパーティション %s は、ご使用のアーキテクチャに関するブート制限を満たしていない可能性があります。"
 
 #: ../autopart.py:1078
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"このパーティションを追加すると、既に割り当てられている%s内の論理ボリュームに"
-"十分な領域が残りません。"
+msgstr "このパーティションを追加すると、既に割り当てられている %s 内の論理ボリュームに十分な領域が残りません。"
 
 #: ../autopart.py:1268
 msgid "Requested Partition Does Not Exist"
-msgstr "要求されたパーティションが存在しません。"
+msgstr "要求されたパーティションは存在しません"
 
 #: ../autopart.py:1269
 #, python-format
@@ -204,13 +190,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s に使用するパーティション %s が見付かりません。\n"
+"%s に使用するパーティション %s が見つかりません。\n"
 "\n"
 "OK を押すとシステムを再起動します。"
 
 #: ../autopart.py:1296
 msgid "Requested Raid Device Does Not Exist"
-msgstr "要求された RAID デバイスは存在しません。"
+msgstr "要求された RAID デバイスは存在しません"
 
 #: ../autopart.py:1297
 #, python-format
@@ -219,13 +205,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"RAID デバイス %s で %s に使用するものが見付かりません。\n"
+"%s に使用する RAID デバイス %s が見つかりません。\n"
 "\n"
 "OK を押すとシステムを再起動します。"
 
 #: ../autopart.py:1328
 msgid "Requested Volume Group Does Not Exist"
-msgstr "要求されたボリュームグループは存在しません。"
+msgstr "要求されたボリュームグループは存在しません"
 
 #: ../autopart.py:1329
 #, python-format
@@ -234,13 +220,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"ボリュームグループ %s で %s に使用するものが見付かりません。\n"
+"%s に使用するボリュームグループ %s が見つかりません。\n"
 "\n"
 "OK を押すとシステムを再起動します。"
 
 #: ../autopart.py:1366
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "要求された論理ボリュームは存在しません。"
+msgstr "要求された論理ボリュームは存在しません"
 
 #: ../autopart.py:1367
 #, python-format
@@ -249,13 +235,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"論理ボリューム %s で %s に使用するものが見付かりません。\n"
+"%s に使用する論理ボリューム %s が見つかりません。\n"
 "\n"
 "OK を押すとシステムを再起動します。"
 
 #: ../autopart.py:1481 ../autopart.py:1529
 msgid "Automatic Partitioning Errors"
-msgstr "自動パーティション設定のエラーです。"
+msgstr "自動パーティション設定のエラーです"
 
 #: ../autopart.py:1482
 #, python-format
@@ -274,7 +260,7 @@ msgstr ""
 
 #: ../autopart.py:1492
 msgid "Warnings During Automatic Partitioning"
-msgstr "自動パーティション設定中に警告"
+msgstr "自動パーティション設定中の警告"
 
 #: ../autopart.py:1493
 #, python-format
@@ -283,7 +269,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"自動パーティション設定中の警告:\n"
+"自動パーティション設定中に次の警告が発生しました:\n"
 "\n"
 "%s"
 
@@ -295,7 +281,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"'OK'を押すとシステムを再起動します。"
+"「OK」を押すとシステムを再起動します。"
 
 #: ../autopart.py:1507 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
@@ -324,10 +310,10 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"あなたは異なった自動パーティーション設定オプションを選択するか、'戻る'をク"
-"リックして手動パーティーション設定を選択することもできます。\n"
+"別の自動パーティション設定オプションを選択するか、「戻る」をク"
+"リックして手動パーティーション設定を選択することができます。\n"
 "\n"
-"'OK'を押すと続行します。"
+"「OK」を押すと続行します。"
 
 #: ../autopart.py:1530
 #, python-format
@@ -343,7 +329,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"これはインストールの為にハードドライブ上に十分な領域がない時に発生します。%s"
+"インストールに十分な領域がハードドライブ上にない場合に発生します。%s"
 
 #: ../autopart.py:1541
 msgid "Unrecoverable Error"
@@ -374,28 +360,23 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"自動パーティション設定はインストールタイプに応じたパーティション設定を行いま"
-"す。作成されたパーティションをさらにカスタマイズすることもできます。\n"
+"自動パーティション設定は選択したインストールタイプに応じてパーティション設定を行います。作成されたパーティションをさらにカスタマイズすることもできます。\n"
 "\n"
-"手動ディスクパーティション設定ツール、Disk Druid によって対話的にパーティショ"
-"ンを設定することができます。ファイルシステムの種類、マウントポイント、 パー"
-"ティションサイズ、その他が設定できます。"
+"手動ディスクパーティション設定ツールの Disk Druid を使用すると対話式の環境でパーティションを設定することができます。ファイルシステムの種類、マウントポイント、パーティションのサイズ、その他が設定できます。"
 
 #: ../autopart.py:1706
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
-msgstr ""
-"インストールプログラムで自動パーティション設定する前に、ハードディスクの領域"
-"の使用法を選択しておく必要があります。"
+msgstr "インストールプログラムで自動パーティション設定する前に、ハードドライブの領域の使用法を選択しておく必要があります。"
 
 #: ../autopart.py:1711
 msgid "Remove all partitions on this system"
-msgstr "システムのすべてのパーティションを削除"
+msgstr "このシステムのすべてのパーティションを削除"
 
 #: ../autopart.py:1712
 msgid "Remove all Linux partitions on this system"
-msgstr "システムのすべてのLinux パーティションを削除"
+msgstr "このシステムのすべての Linux パーティションを削除"
 
 #: ../autopart.py:1713
 msgid "Keep all partitions and use existing free space"
@@ -408,8 +389,7 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"次のドライブにあるすべてのパーティション(すべてのデータ)を削除することを選択"
-"しています:%s\n"
+"次のドライブにあるすべてのパーティション(全データ)を削除することを選択しています:%s\n"
 "本当にすべて削除しますか?"
 
 #: ../autopart.py:1719
@@ -419,35 +399,32 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"次のドライブにあるすべてのLinuxパーティション(そしてその中のすべてのデータ)を"
-"削除することを選択しています:%s\n"
+"次のドライブにあるすべての Linux パーティション(及びそのパーティションにある全データ)を削除することを選択しています:%s\n"
 "本当にすべてを削除しますか?"
 
 #: ../backend.py:97
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "%s-%s-%s.%s のアップグレード\n"
+msgstr "%s-%s-%s.%s をアップグレードしています。\n"
 
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "%s-%s-%s.%s をインストール中\n"
+msgstr "%s-%s-%s.%s をインストールしています。\n"
 
 #: ../bootloader.py:123
 msgid "Bootloader"
-msgstr "ブートローダー"
+msgstr "ブートローダ"
 
 #: ../bootloader.py:123
 msgid "Installing bootloader..."
-msgstr "ブートローダーをインストール中です..."
+msgstr "ブートローダをインストール中です..."
 
 #: ../bootloader.py:192
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"カーネルパッケージがインストールされていませんので、ブートローダー設定は変更"
-"されません。"
+msgstr "システムにカーネルパッケージはインストールされなかったため、ブートローダ設定は変更されません。"
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -481,20 +458,18 @@ msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
-msgstr ""
-"未処理の例外が発生しました。バグの可能性が考えられます。この例外の全メッセー"
-"ジをコピーし、%s で anaconda に対する詳細なバグ報告を送ってください。"
+msgstr "未処理の例外が発生しました。バグの可能性が考えられます。この例外の全メッセージをコピーし、 %s で anaconda のバグとして報告を行ってください。"
 
 #: ../exception.py:391 ../exception.py:408
 msgid "Dump Written"
-msgstr "dump が書き込まれました。"
+msgstr "dump が書き込まれました"
 
 #: ../exception.py:392
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"システムの状態をフロッピーに書き込むことに成功しました。システムを再起動しま"
+"システムの状態が正常にフロッピーに書き込まれました。システムを再起動しま"
 "す。"
 
 #: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
@@ -507,7 +482,7 @@ msgstr "再起動(_R)"
 
 #: ../exception.py:400 ../exception.py:417
 msgid "Dump Not Written"
-msgstr "dump が書き込まれていません"
+msgstr "dump が書き込まれませんでした"
 
 #: ../exception.py:401
 msgid "There was a problem writing the system state to the floppy."
@@ -518,8 +493,8 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"システムの状態をリモートホストに書き込むのに成功しました。\n"
-"システムは再起動されます。"
+"システムの状態が正常にリモートホストに書き込まれました。  "
+"システムが再起動されます。"
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -569,8 +544,7 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"%s を ext3 に転換する際にエラーが発生しました。このファイルシステムを転換させ"
-"ないで続けることも可能です。\n"
+"%s を ext3 に転換する際にエラーが発生しました。このファイルシステムを転換させないで続行することも可能です。\n"
 "\n"
 "%s を転換しないで続行しますか?"
 
@@ -602,8 +576,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"デバイス %s 上のスワップを初期化中にエラー発生。この問題は深刻で、インストー"
-"ルを続けることができません。\n"
+"デバイス %s 上のスワップを初期化中にエラーが発生しました。深刻な問題となるためインストールを続行できません。\n"
 "\n"
 "[Enter] を押してシステムを再起動してください。"
 
@@ -611,11 +584,11 @@ msgstr ""
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
 #: ../loader2/cdinstall.c:259 ../loader2/method.c:419
 msgid "Skip"
-msgstr "スキップ"
+msgstr "省略する"
 
 #: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
 msgid "Reboot"
-msgstr "再起動"
+msgstr "再起動する"
 
 #: ../fsset.py:1489
 #, python-format
@@ -632,13 +605,12 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"はバージョン 0 Linux スワップパーティションです。このデバイスを使用したい場合は、"
-"バージョン 1 Linux スワップパーティションとして再フォーマットする必要があります。"
-"これをスキップしてしまうと、インストーラはインストール過程でこれを無視します。"
+"はバージョン 0 Linux スワップパーティションです。このデバイスを使用する場合は、バージョン 1 Linux スワップパーティションとして再フォーマットする必要があります。"
+"省略すると、インストーラはインストール過程でこれを無視します。"
 
 #: ../fsset.py:1496
 msgid "Reformat"
-msgstr "再フォーマット"
+msgstr "再フォーマットする"
 
 #: ../fsset.py:1500
 #, python-format
@@ -653,10 +625,9 @@ msgid ""
 msgstr ""
 "スワップデバイス:\n"
 "\n"
-"/etc/fstab ファイル内の /dev/%s\n"
-"は現在、ソフトウェアサスペンドパーティション"
-"として使用されており、これはシステムが眠っていることを意味します。アップグレードを"
-"実行するには、システムを眠らせるのではなく、シャットダウンして下さい。"
+"     /etc/fstab ファイル内の /dev/%s\n"
+"\n"
+"は現在、ソフトウェアサスペンドパーティションとして使用されており、これはシステムがハイバネート状態であることを意味します。アップグレードを実行するには、システムをハイバネートするのではなく、シャットダウンしてください。"
 
 #: ../fsset.py:1508
 #, python-format
@@ -671,10 +642,9 @@ msgid ""
 msgstr ""
 "スワップデバイス:\n"
 "\n"
-"/etc/fstab ファイル内の /dev/%s\n は現在、ソフトウェアサスペンドパーティション"
-"として使用されており、これはシステムが眠っていることを意味します。新規のインストールを"
-"実行している場合は、インストーラが全てのスワップパーティションをフォーマットするように"
-"セットしてあることを確認して下さい。"
+"     /etc/fstab ファイル内の /dev/%s\n"
+"\n"
+"は現在、ソフトウェアサスペンドパーティションとして使用されており、これはシステムがハイバネート状態であることを意味します。新規のインストールを実行している場合は、インストーラがすべてのスワップパーティションをフォーマットするよう設定されていることを確認してください。"
 
 #: ../fsset.py:1518
 msgid ""
@@ -686,14 +656,12 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"インストーラがアップグレード中にこのパーティションを無視するようにしたい場合は、"
-"Skip (スキップ)を選択します。スワップスペースをパーティションとして再フォーマットする"
-"には Format (フォーマット)を選択します。Reboot (再起動)を選択してシステムを再スタート"
-"します。"
+"アップグレード中、インストーラにこのパーティションを無視させたい場合は、"
+"「省略する」を選択します。「フォーマットする」を選択してこのパーティションを swap 領域として再フォーマットします。「再起動する」を選択してシステムを再起動します。"
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
-msgstr "フォーマット"
+msgstr "フォーマットする"
 
 #: ../fsset.py:1531
 #, python-format
@@ -705,10 +673,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"スワップデバイス %s を有効にしている最中にエラー発生: %s\n"
+"スワップデバイス %s を有効にしている際にエラー発生: %s\n"
 "\n"
-"アップグレードしたパーティション用の /etc/fstab が有効なスワップを参照してい"
-"ません。\n"
+"アップグレードしたパーティションの /etc/fstab が有効な swap パーティションを参照していません。\n"
 "\n"
 "OK を押してシステムを再起動してください。"
 
@@ -721,10 +688,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"スワップデバイス %s を有効にしている最中にエラー発生: %s\n"
+"スワップデバイス %s を有効にしている際にエラー発生: %s\n"
 "\n"
-"これは大抵の場合、スワップパーティションが初期化されていないことを意味しま"
-"す\n"
+"swap パーティションが初期化されていない可能性があります。\n"
 "\n"
 "[OK] を押してシステムを再起動してください。"
 
@@ -736,10 +702,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"デバイス /dev/%s上に不良ブロックが検出されました。このデバイスの使用は推薦で"
-"きません。\n"
+"デバイス /dev/%s 上に不良ブロックが検出されました。このデバイスの使用は推薦できません。\n"
 "\n"
-"[Enter] を押してシステムを再起動してください。"
+"<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1606
 #, python-format
@@ -749,10 +714,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s上 の不良ブロックを検索中にエラー発生。この問題は深刻で、インストールを続け"
-"ることができません。\n"
+"%s 上の不良ブロックを検索中にエラーが発生しました。深刻な問題となるためインストールを続行できません。\n"
 "\n"
-"[Enter] を押してシステムを再起動してください。"
+"<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1641
 #, python-format
@@ -762,10 +726,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s をフォーマット中にエラー発生。この問題は深刻で、インストールを続けることが"
-"できません\n"
+"%s をフォーマット中にエラーが発生しました。深刻な問題となるためインストールを続行できません\n"
 "\n"
-"[Enter] を押してシステムを再起動してください。"
+"<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1691
 #, python-format
@@ -775,14 +738,13 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s を移動中にエラー発生。この問題は深刻で、インストールを続けることができませ"
-"ん。\n"
+"%s を移行中にエラーが発生しました。深刻な問題のためインストールを続行できません。\n"
 "\n"
-"[Enter] を押してシステムを再起動してください。"
+"<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
-msgstr "不適切なマウントポイント"
+msgstr "無効なマウントポイント"
 
 #: ../fsset.py:1713
 #, python-format
@@ -792,10 +754,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s を作成中にエラー発生。このパスのどこかがディレクトリではありません。これは"
-"致命的なエラーであり、インストールを続けることができません。\n"
+"%s を作成中にエラーが発生しました。このパスのどこかがディレクトリではありません。致命的なエラーとなるためインストールを続行できません。\n"
 "\n"
-"[Enter]を押してシステムを再起動してください。"
+"<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1722
 #, python-format
@@ -805,10 +766,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s を作成中にエラー発生: %s。致命的なエラーであり、インストールを続けることが"
-"できません。\n"
+"%s を作成中にエラーが発生しました: %s。致命的なエラーとなるためインストールを続行できません。\n"
 "\n"
-"[Enter] を押してシステムを再。起動してください。"
+"<Enter> を押してシステムを再起動してください。"
 
 #: ../fsset.py:1735
 #, python-format
@@ -819,9 +779,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"デバイス %s を %s としてマウントする際にエラー発生:%s\n"
+"デバイス %s を %s としてマウントする際にエラーが発生しました:%s。\n"
 "\n"
-"大抵の場合はこのパーティションがフォーマットされていないことを意味します。\n"
+"このパーティションがフォーマットされていない可能性があります。\n"
 "\n"
 "「OK」を押してシステムを再起動してください。"
 
@@ -833,15 +793,15 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"/ エントリーを検索中にエラー発生。\n"
+"/ エントリを検索中にエラーが発生しました。\n"
 "\n"
-"大抵の場合、fstab が正しくないことを意味します。\n"
+"fstab が正しくない可能性があります。\n"
 "\n"
 "OK を押してシステムを再起動してください。"
 
 #: ../fsset.py:2419
 msgid "Duplicate Labels"
-msgstr "ラベルを複製"
+msgstr "ラベルの重複"
 
 #: ../fsset.py:2420
 #, python-format
@@ -851,10 +811,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"システム上の複数のデバイスに %s というラベルがついています。デバイスに付ける"
-"ラベルは、適切に機能するためにユニークなものをつけなければなりません。\n"
+"システム上の複数のデバイスに %s というラベルが付けられてます。システムが正しく機能するためには、デバイスに固有のラベルを付ける必要があります。\n"
 "\n"
-"この問題を解決し、インストールをやり直してください。"
+"この問題を解決してからインストールをやり直してください。"
 
 #: ../fsset.py:2680
 msgid "Formatting"
@@ -871,7 +830,7 @@ msgstr "スクリーンショットのコピー中にエラーが発生しまし
 
 #: ../gui.py:122
 msgid "Screenshots Copied"
-msgstr "スクリーンショットがコピーされました。"
+msgstr "スクリーンショットがコピーされました"
 
 #: ../gui.py:123
 msgid ""
@@ -881,32 +840,30 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"スクリーンショットは次のディレクトリに保存しました:\n"
-" \n"
+"スクリーンショットは次のディレクトリに保存されました。\n"
+"\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"再起動して root でログインしてアクセスできます。"
+"再起動して root でログインするとアクセスできます。"
 
 #: ../gui.py:167
 msgid "Saving Screenshot"
-msgstr "スクリーンショットを保存しています。"
+msgstr "スクリーンショットを保存中"
 
 #: ../gui.py:168
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "スクリーンショット '%s' が保存されました。"
+msgstr "「%s」 と言う名前のスクリーンショットが保存されました。"
 
 #: ../gui.py:171
 msgid "Error Saving Screenshot"
-msgstr "スクリーンショット保存中にエラーが発生しました。"
+msgstr "スクリーンショット保存中にエラー発生"
 
 #: ../gui.py:172
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
-"スクリーンショット保存中にエラーが発生しました。パッケージインストール中に発"
-"生した場合、完了するのに数回試す必要が出て来るでしょう。"
+msgstr "スクリーンショット保存中にエラーが発生しました。パッケージインストール中に発生した場合、完了するには数回試行する必要があるかもしれません。"
 
 #: ../gui.py:241 ../text.py:383
 msgid "Fix"
@@ -962,9 +919,7 @@ msgstr "キックスタート設定ファイル解析エラー"
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
-"フロッピーディスクを挿入してください。ディスクの内容はすべて消去されます。注"
-"意してディスクを選択してください。"
+msgstr "フロッピーディスクを挿入してください。ディスクの内容はすべて消去されますので、注意してディスクを選択してください。"
 
 #: ../gui.py:872
 msgid "default:LTR"
@@ -981,8 +936,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"インストーラーインターフェイスコンポーネントを読み込もうとしてエラーが発生し"
-"ました。\n"
+"インストーラーインターフェイスコンポーネントを読み込もうとしてエラーが発生しました。\n"
 "\n"
 "className = %s"
 
@@ -997,24 +951,24 @@ msgstr "再試行(_R)"
 
 #: ../gui.py:973 ../packages.py:375
 msgid "The installer will now exit..."
-msgstr "インストーラーは今終了するでしょう..."
+msgstr "インストーラが終了します..."
 
 #: ../gui.py:976 ../packages.py:378
 msgid "Your system will now be rebooted..."
-msgstr "システムは再起動します..."
+msgstr "システムが再起動します..."
 
 #: ../gui.py:979 ../packages.py:380
 msgid "Rebooting System"
-msgstr "システムの再起動"
+msgstr "システムを再起動中"
 
 #: ../gui.py:1044
 #, python-format
 msgid "%s Installer"
-msgstr "%s インストーラー"
+msgstr "%s インストーラ"
 
 #: ../gui.py:1050
 msgid "Unable to load title bar"
-msgstr "タイトルバーを読み込めません。"
+msgstr "タイトルバーを読み込めません"
 
 #: ../gui.py:1103
 msgid "Install Window"
@@ -1033,11 +987,10 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"インストーラーはイメージ #%s をマウントしようと試みましたが、ハードドライブでそれを"
-"見つけられませんでした。\n"
+"インストーラはイメージ #%s のマウントを試行しましたが、ハードドライブ上に見つかりませんでした。\n"
 "\n"
-"このイメージをドライブにコピーして再試行をクリックしてくだ"
-"さい。リブートをクリックするとインストールを中止します。"
+"このイメージをドライブにコピーしてから再試行をクリックしてくだ"
+"さい。再起動をクリックするとインストールを中止します。"
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1056,11 +1009,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"選択したソフトウェアをインストールするには次の CD が必要です:\n"
+"選択したソフトウェアをインストールするには次の CD が必要です。\n"
 "\n"
 "%s\n"
-"インストールを続行する前にこれらのCDを用意してください。仮にインストールを中"
-"止する場合、\"再起動\"を選択してください。"
+"インストールを続行する前にこれらの CD を用意してください。インストールを中"
+"止して再起動しなければならない場合は「再起動」を選択します。"
 
 #: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1078,9 +1031,7 @@ msgstr "続行(_C)"
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
-msgstr ""
-"CDをアンマウント中にエラーが発生しました。tty2上でシェルから%sにアクセスして "
-"いないことを確認してから[OK]を押して再試行してください。"
+msgstr "CD をアンマウント中にエラーが発生しました。tty2 のシェルから %s にアクセスしていないことを確認してから [OK] を押して再試行してください。"
 
 #: ../image.py:157
 msgid "Copying File"
@@ -1088,33 +1039,31 @@ msgstr "ファイルをコピー中"
 
 #: ../image.py:158
 msgid "Transferring install image to hard drive..."
-msgstr "インストールイメージをハードディスクドライブに転送中..."
+msgstr "インストールイメージをハードドライブに転送中..."
 
 #: ../image.py:168
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
-"インストールイメージをハードディスクドライブへ転送中にエラー発生。おそらく"
-"ディスク容量が不足しています。"
+msgstr "インストールイメージをハードドライブへ転送中にエラーが発生しました。おそらくディスク容量が不足しています。"
 
 #: ../image.py:255
 msgid "Change CDROM"
-msgstr "CD-ROM変更"
+msgstr "CD-ROM を変更"
 
 #: ../image.py:256
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "続行するには %s ディスク %d を挿入してください。"
+msgstr "%s ディスク %d を挿入して続行します。"
 
 #: ../image.py:291
 msgid "Wrong CDROM"
-msgstr "不適切なCD-ROMです。"
+msgstr "不適切な CD-ROM です"
 
 #: ../image.py:292
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "適切な %s CD-ROM ではありません。"
+msgstr "正しい %s CD-ROM ではありません。"
 
 #: ../image.py:298
 msgid "Unable to access the CDROM."
@@ -1129,11 +1078,9 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"インストーラーはイメージ #%s をマウントしようと試みましたが、サーバー上に見つ"
-"けられませんでした。\n"
+"インストーラはイメージ #%s のマウントを試行しましたが、サーバー上に見つかりませんでした。\n"
 "\n"
-"このイメージをリモートサーバーの共有パスにコピーして再試行をクリックしてくだ"
-"さい。リブートをクリックするとインストールを中止します。"
+"このイメージをリモートサーバーの共有パスにコピーしてから再試行をクリックしてください。インストールを中止するには再起動をクリックします。"
 
 #: ../installclass.py:57
 msgid "Install on System"
@@ -1151,8 +1098,8 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"scriptlet の実行中にエラーが発生しました。%s の中のアウトプットを調査した方が"
-"良いでしょう。これは致命的なエラーなのでインストールは中断されます。\n"
+"scriptlet の実行中にエラーが発生しました。 %s 内の出力を調査した方が"
+"良いでしょう。致命的なエラーとなるためインストールは中止されます。\n"
 " \n"
 "OK ボタンを押すとシステムを再起動します。"
 
@@ -1170,7 +1117,7 @@ msgstr "post-install スクリプトを実行中"
 
 #: ../kickstart.py:908
 msgid "Missing Package"
-msgstr "不在のパッケージ"
+msgstr "見つからないパッケージ"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1179,7 +1126,7 @@ msgid ""
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "パッケージ '%s'をインストールするように指定しています。このパッケージは"
-"存在しません。インストールを継続しますか、それとも中断しますか?"
+"存在しません。インストールを続行しますか、中止しますか?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1187,7 +1134,7 @@ msgstr "中止(_A)"
 
 #: ../kickstart.py:936
 msgid "Missing Group"
-msgstr "不在グループ"
+msgstr "見つからないグループ"
 
 #: ../kickstart.py:937
 #, python-format
@@ -1196,21 +1143,19 @@ msgid ""
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "グループ '%s'をインストールするように指定しています。このグループは存在"
-"しません。インストールを継続しますか、それとも中断しますか?"
+"しません。インストールを継続しますか、中止しますか?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
-msgstr "ホスト名は長さが64文字以下でなくてはなりません。"
+msgstr "ホスト名は 64 文字以下の長さにしてください。"
 
 #: ../network.py:49
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"ホスト名は 'a-z' 又は 'A-Z' の範囲の有効な文字からスタートする必要がありま"
-"す。"
+msgstr "ホスト名は 「a-z」 又は 「A-Z」 の範囲の有効な文字で始めてください。"
 
 #: ../network.py:54
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "ホスト名は 'a-z', 'A-Z', '-', 又は '.'の文字のみを含んでいる必要があります。"
+msgstr "ホスト名には 「a-z」、 「A-Z」、 「-」、 「.」以外の文字は使用できません。"
 
 #: ../packages.py:357
 msgid "Warning! This is pre-release software!"
@@ -1233,15 +1178,13 @@ msgid ""
 msgstr ""
 "本 %s のプレリリースをダウンロードして頂きありがとうございます。\n"
 "\n"
-"これは最終リリースではありません。また実稼働用システムでの使用を目的としたも"
-"のではありません。このリリースの目的は、テスターからのフィードバックを集める"
-"ことであり、毎日の使用には適しません。\n"
+"これは最終リリースではありません。また実稼働用システムでの使用を目的としたものではありません。このリリースの目的は、テスターからのフィードバックを収集することであり、日常の使用には適しません。\n"
 "\n"
-"フィードバックを報告するには、次のサイトを訪れてください:\n"
+"フィードバックを報告するには\n"
 "\n"
 "    %s\n"
 "\n"
-"'%s' に報告をファイルしてください。\n"
+"上記ののサイトに行き、「%s」に対して報告をファイルしてください。\n"
 
 #: ../packages.py:371
 msgid "_Install anyway"
