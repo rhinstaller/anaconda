@@ -1,5 +1,11 @@
 2006-07-03  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/method.c (getFileFromBlockDevice): Give a message if we
+	fail to make the device node for some reason (markmc, #197514)
+
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.__init__): Try to make
+	things fit a little better (#197334)
+
 	* lang-table: Add Marathi (#194572)
 
 2006-06-30  David Cantrell  <dcantrell@redhat.com>

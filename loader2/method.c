@@ -650,8 +650,10 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
-    if (devMakeInode(device, "/tmp/srcdev"))
+    if (devMakeInode(device, "/tmp/srcdev")) {
+        logMessage(ERROR, "failed to make device node for /dev/%s", device);
         return 1;
+    }
 
     if (doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", IMOUNT_RDONLY, NULL) &&
         doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", IMOUNT_RDONLY, NULL) && 
