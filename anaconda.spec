@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.51
+Version: 11.1.0.52
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.52-1
+- Add Marathi (#194572)
+- Try to let UI fit a little better in LVM dialog (#197334)
+- Give a message if we fail to make teh device node (markmc, #197514)
+- Fix rescue CD
+- Fix minstg2 linking error (#197593)
+- Log the transaction error
+- gfs2 fixes
+
 * Fri Jun 30 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.51-1
 - Remove non-existent paths from LD_LIBRARY_PATH (katzj)
 - Calculate IPv4 broadcast address for static IP config
