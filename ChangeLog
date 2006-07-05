@@ -1,5 +1,7 @@
 2006-07-05  Jeremy Katz  <katzj@redhat.com>
 
+	* stubs/Makefile: Link the stub lib against wlite (#197593)
+
 	* scripts/mk-rescueimage.i386 (productpath): Fix for new stage2 
 	location.
 	* scripts/mk-rescueimage.ppc (productpath): Likewise.
