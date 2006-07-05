@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-30 14:01+0530\n"
+"PO-Revision-Date: 2006-07-05 17:21+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -489,8 +489,7 @@ msgstr "ଫ୍ଲଫି ରେ ତନ୍ତ୍ରର ସ୍ଥିତି ଲେ�
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
-msgstr ""
-"ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଲେଖାଗଲା। ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ବର୍ତମାନ ପୁନର୍ଚାଳିତ ହେବ।"
+msgstr "ଦୂର ଆଧାରରେ ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଲେଖାଗଲା। ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ବର୍ତମାନ ପୁନର୍ଚାଳିତ ହେବ।"
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -1243,15 +1242,15 @@ msgstr "ଅପସାରିତ କରିବାରେ ଅସମର୍ଥ"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "ଆପଣ ଅପସାରିତ କରିବା ପାଇଁ ପ୍ରଥମେ ଗୋଟିଏ ବିଭାଜନକୁ ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "ଆପଣ ଖାଲି ସ୍ଥାନ ମାନଙ୍କୁ ଅପସାରିତ କରି ପାରିବେ ନାହିଁ।"
 
 #: ../partIntfHelpers.py:158
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
+msgstr "ଗୋଟିଏ LDL ସଂରୂପିତ DASDର ଏକ ବିଭାଜନକୁ ଆପଣ ଅପସାରିତ କରିପାରିବେ ନାହିଁ।"
 
 #: ../partIntfHelpers.py:168
 #, python-format
@@ -1259,32 +1258,35 @@ msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ କରିଅଛି"
 
 #: ../partIntfHelpers.py:185
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
+"ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରିତ କରିପାରିବେ ନାହିଁ:\n"
+"\n"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
 #: ../iw/lvm_dialog_gui.py:746
 msgid "Confirm Delete"
-msgstr ""
+msgstr "ଅପସାରଣକୁ ନିଶ୍ଚିତ କରନ୍ତୁ"
 
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr "ଆପଣ '/dev/%s' ଯନ୍ତ୍ରର ସମସ୍ତ ବିଭାଜନକୁ ଅପସାରିତ କରିବା ଉପରେ।"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
-msgstr ""
+msgstr "ଅପସାରଣ କରନ୍ତୁ (_D)"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
-msgstr ""
+msgstr "ଅଧିସୂଚନା"
 
 #: ../partIntfHelpers.py:292
 #, python-format
@@ -1293,21 +1295,26 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ନିମ୍ନଲିଖିତ ବିଭାଜନ ମାନଙ୍କୁ ଅପସାରିତ କରିହେଲା ନାହିଁ କାରଣ ସେଗୁଡିକ ବ୍ଯବହ୍ରୁତ ହେଉଛନ୍ତି:\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
 #: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
 msgid "Unable To Edit"
-msgstr ""
+msgstr "ସମ୍ପାଦନ କରିବାରେ ଅସମର୍ଥ"
 
 #: ../partIntfHelpers.py:309
 msgid "You must select a partition to edit"
-msgstr ""
+msgstr "ସମ୍ପାଦନ କରିବା ପାଇଁ ଆପଣ ଗୋଟିଏ ବିଭାଜନକୁ ଚୟନ କରିବା ଉଚିତ"
 
 #: ../partIntfHelpers.py:321 ../partIntfHelpers.py:359
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
+"ଆପଣ ଏହି ବିଭାଜନକୁ ସମ୍ପାଦିତ କରିପାରିବେ ନାହିଁ:\n"
+"\n"
 
 #: ../partIntfHelpers.py:348
 #, python-format
@@ -1315,10 +1322,11 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"ଆପଣ ଏହି ବିଭାଜନକୁ ସମ୍ପାଦିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ କରିଅଛି"
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
-msgstr ""
+msgstr "ସ୍ବାପ ରୂପରେ ସଂରୂପିତ କରନ୍ତୁ?"
 
 #: ../partIntfHelpers.py:381
 #, python-format
@@ -1346,19 +1354,19 @@ msgstr ""
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
-msgstr ""
+msgstr "ସଂରୂପିତ କରିବ କି?"
 
 #: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
-msgstr ""
+msgstr "ବିଭାଜନକୁ ରୂପାନ୍ତରିତ କରନ୍ତୁ (_M)"
 
 #: ../partIntfHelpers.py:415
 msgid "Do _Not Format"
-msgstr ""
+msgstr "ସଂରୂପିତ କରନ୍ତୁ ନାହିଁ (_N)"
 
 #: ../partIntfHelpers.py:423
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "ବିଭାଜନ ସମୟରେ ତ୍ରୁଟି"
 
 #: ../partIntfHelpers.py:424
 #, python-format
@@ -1371,7 +1379,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:438
 msgid "Partitioning Warning"
-msgstr ""
+msgstr "ବିଭାଜନୀୟ ଚେତାବନୀ"
 
 #: ../partIntfHelpers.py:439
 #, python-format
@@ -1388,6 +1396,7 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
+"ନିମ୍ନଲିଖିତ ପୂର୍ବ-ଉପସ୍ଥିତ ବିଭାଜନର ସମସ୍ତ ପୂର୍ବ ତଥ୍ଯ ମାନଙ୍କୁ ନଷ୍ଟ କରି ସଂରୂପିତ କରିବା ପାଇଁ ଚୟନ କରାଯାଇଛି"
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -1397,7 +1406,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
-msgstr ""
+msgstr "ସଂରୂପ ଚେତାବନୀ"
 
 #: ../partIntfHelpers.py:510
 #, python-format
