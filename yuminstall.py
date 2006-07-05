@@ -438,6 +438,7 @@ class AnacondaYum(YumSorter):
             }
             uniqueProbs = {}
             for (descr, (type, mount, need)) in probs:
+                log.error("%s: %s" %(probTypes[type], descr))
                 if not uniqueProbs.has_key(type) and probTypes.has_key(type):
                     uniqueProbs[type] = probTypes[type]
 
