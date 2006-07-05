@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-04 16:57+1000\n"
+"PO-Revision-Date: 2006-07-05 16:50+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1188,7 +1188,7 @@ msgstr ""
 
 #: ../packages.py:371
 msgid "_Install anyway"
-msgstr "インストール(_I)"
+msgstr "とにかくインストールする(_I)"
 
 #: ../partedUtils.py:206 ../textw/partition_text.py:558
 msgid "Foreign"
@@ -1237,7 +1237,7 @@ msgstr "ドライブをフォーマット(_F)"
 #: ../partedUtils.py:722
 #, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr "%s: 上にファイルシステムをマウント中にエラー発生 %s"
+msgstr "%s 上にファイルシステムをマウント中にエラー発生: %s"
 
 #: ../partedUtils.py:808
 msgid "Initializing"
@@ -1246,7 +1246,7 @@ msgstr "初期化中"
 #: ../partedUtils.py:809
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "ドライブ %s をフォーマットの間、お待ちください...\n"
+msgstr "ドライブ %s をフォーマット中です、しばらくお待ちください...\n"
 
 #: ../partedUtils.py:911
 #, python-format
@@ -1260,14 +1260,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"デバイス %s (%s) にあるパーティションテーブルを読み込めませんでした。新規パー"
-"ティションを作成するには初期化が必要ですが、本ドライブのデータを全て喪失しま"
-"す。\n"
+"デバイス %s にあるパーティションテーブルを読み込めませんでした (%s)。新規パーティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを失うことになります。\n"
 "\n"
-"この操作は無視するドライブに関する以前のインストール選択を全て上書きしてしま"
-"います。\n"
+"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて上書きしてしまいます。\n"
 "\n"
-"全てのデータを喪失しますがこのドライブを初期化しますか?"
+"すべてのデータを消去して、このドライブを初期化しますか?"
 
 #: ../partedUtils.py:968
 #, python-format
@@ -1280,13 +1277,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"デバイス%s のパーティションテーブルが壊れています。新規パーティションを作成す"
-"るには初期化が必要ですが、本ドライブのデータを全て喪失します。\n"
+"デバイス %s のパーティションテーブルが読み込めませんでした。新規パーティションを作成するには初期化が必要ですが、本ドライブにあるすべてのデータを失うことになります。\n"
 "\n"
-"この操作は無視するドライブに関する以前のインストール選択を全て上書きしてしま"
-"います。\n"
-" \n"
-"全てのデータを喪失しますがこのドライブを初期化しますか?"
+"この操作を行うと、以前のインストールで選択した無視するドライブの選択をすべて上書きしてしまいます。\n"
+"\n"
+"すべてのデータを消去して、このドライブを初期化しますか?"
 
 #: ../partedUtils.py:1086
 msgid "No Drives Found"
@@ -1306,7 +1301,7 @@ msgstr "ボリュームグループ名を入力してください。"
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "ボリュームグループ名は 128 文字以下でなければなりません"
+msgstr "ボリュームグループ名は 128 文字以下にしてください"
 
 #: ../partIntfHelpers.py:42
 #, python-format
@@ -1317,9 +1312,7 @@ msgstr "エラー - ボリュームグループ名 %s は有効ではありま�
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"エラー - ボリュームグループ名に不適切な文字又は空白が含まれています。認可でき"
-"る符号は文字、数字、'.'、'_'です。"
+msgstr "エラー - ボリュームグループ名に不適切な文字または空白が含まれています。ボリュームグループ名として使用できる符号は文字、数字、「.」、「_」になります。"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1327,7 +1320,7 @@ msgstr "論理ボリューム名を入力してください。"
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "論理ボリューム名は128文字以下でなければなりません。"
+msgstr "論理ボリューム名は 128 文字以下にしてください"
 
 #: ../partIntfHelpers.py:65
 #, python-format
@@ -1338,19 +1331,14 @@ msgstr "エラー - 論理ボリューム名 %s は有効ではありません�
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"エラー - 論理ボリューム名に不適切な文字又は空白が含まれています。認可できる符"
-"号は文字、数字、'.'、'_'です。"
+msgstr "エラー - 論理ボリューム名に不適切な文字または空白が含まれています。論理ボリューム名に使用できる符号は文字、数字、「.」、「_」になります。"
 
 #: ../partIntfHelpers.py:95
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
-msgstr ""
-"マウントポイント %s が不適切です。マウントポイントは '/' ではじまりますが "
-"'/' では閉じることはできませんし、スペースのない表示可能な文字で構成されてい"
-"なければなりません。"
+msgstr "マウントポイント %s は無効です。マウントポイントは 「/」 で始まらなければならず、「/」 で終ることはできません。また、空白がなく表示可能な文字で構成されていなければなりません。"
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1372,7 +1360,7 @@ msgstr "このパーティションは RAID デバイスの一部です。"
 #: ../partIntfHelpers.py:124
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "このパーティションは LVM ボリュームグループ '%s' の一部です。"
+msgstr "このパーティションは LVM ボリュームグループ 「%s」 の一部です。"
 
 #: ../partIntfHelpers.py:127
 msgid "This partition is part of a LVM volume group."
@@ -1382,11 +1370,11 @@ msgstr "このパーティションは LVM ボリュームグループの一部�
 #: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
 #: ../partIntfHelpers.py:184
 msgid "Unable To Delete"
-msgstr "削除することが出来ません。"
+msgstr "削除できません"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
-msgstr "まず削除するパーティションを選択しなければなりません。"
+msgstr "まず削除するパーティションを選択してください。"
 
 #: ../partIntfHelpers.py:151
 msgid "You cannot delete free space."
@@ -1394,7 +1382,7 @@ msgstr "空白領域は削除できません。"
 
 #: ../partIntfHelpers.py:158
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "DASD 形式でフォーマットされた LDL パーティションを削除できません。"
+msgstr "DASD 形式でフォーマットされた LDL パーティションは削除できません。"
 
 #: ../partIntfHelpers.py:168
 #, python-format
@@ -1419,7 +1407,7 @@ msgstr "削除の確認"
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "デバイス '/dev/%s'上の全てのパーティションを削除しようとしています。"
+msgstr "デバイス 「/dev/%s」上のすべてのパーティションを削除しようとしています。"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
@@ -1429,7 +1417,7 @@ msgstr "削除(_D)"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
-msgstr "案内"
+msgstr "通知"
 
 #: ../partIntfHelpers.py:292
 #, python-format
@@ -1438,18 +1426,18 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"次のパーティションは使用中の為、削除されていません:\n"
-" \n"
+"次のパーティションは使用中のため削除されませんでした。\n"
+"\n"
 "%s"
 
 #: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
 #: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
 msgid "Unable To Edit"
-msgstr "編集できません。"
+msgstr "編集できません"
 
 #: ../partIntfHelpers.py:309
 msgid "You must select a partition to edit"
-msgstr "編集するパーティションを選択しなければなりません。"
+msgstr "編集するパーティションを選択してください"
 
 #: ../partIntfHelpers.py:321 ../partIntfHelpers.py:359
 msgid ""
@@ -1468,7 +1456,7 @@ msgstr "これは %s を含む拡張パーティションなので編集でき�
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
-msgstr "スワップパーティションとしてフォーマットしますか?"
+msgstr "swap としてフォーマットしますか?"
 
 #: ../partIntfHelpers.py:381
 #, python-format
@@ -1478,10 +1466,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s はパーティションタイプ 0x82(Linuxスワップ)となっていますが、Linux ス"
-"ワップパーティションとしてフォーマットされているようには見えません。\n"
+"/dev/%s にはパーティションタイプ 0x82 (Linux swap) がありますが、Linux swap パーティションとしてフォーマットされるようには見えません。\n"
 "\n"
-"このパーティションをスワップパーティションとしてフォーマットしますか?"
+"このパーティションを swap パーティションとしてフォーマットしますか?"
 
 #: ../partIntfHelpers.py:401
 #, python-format
