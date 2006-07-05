@@ -42,8 +42,8 @@ for pat in ["*eula*", "*EULA*", "README*", "RELEASE*", "GPL", "RPM-*"]:
 os.system("cp -a %s/isolinux     %s/" % (srcdir, destdir))
 
 # cp stage image
-os.system("mkdir -p %s/%s/base" % (destdir,productpath))
-os.system("cp -a %s/%s/base/stage2.img %s/%s/base" % (srcdir, productpath, destdir, productpath))
+os.system("mkdir -p %s/images" % (destdir,))
+os.system("cp -a %s/images/stage2.img %s/images" % (srcdir, destdir))
 
 # munge syslinux config to have a default of rescue mode
 cfgfile = open("%s/isolinux/isolinux.cfg" % (destdir,), "r")

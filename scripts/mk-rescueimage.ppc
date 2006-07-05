@@ -46,8 +46,8 @@ os.system("cp -a %s/ppc     %s/" % (srcdir, destdir))
 os.system("cp -a %s/etc     %s/" % (srcdir, destdir))
 
 # cp stage image
-os.system("mkdir -p %s/%s/base" % (destdir, productpath))
-os.system("cp -a %s/%s/base/stage2.img %s/%s/base" % (srcdir, productpath, destdir, productpath))
+os.system("mkdir -p %s/images" % (destdir,))
+os.system("cp -a %s/images/stage2.img %s/images" % (srcdir, destdir))
 
 for arch in ("ppc32", "ppc64"):
     # munge various yaboot configs to have a default of rescue mode

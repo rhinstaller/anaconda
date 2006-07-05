@@ -1,3 +1,9 @@
+2006-07-05  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-rescueimage.i386 (productpath): Fix for new stage2 
+	location.
+	* scripts/mk-rescueimage.ppc (productpath): Likewise.
+
 2006-07-03  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/method.c (getFileFromBlockDevice): Give a message if we
