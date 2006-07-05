@@ -546,7 +546,7 @@ class jfsFileSystem(FileSystemType):
                                   
 fileSystemTypeRegister(jfsFileSystem())
 
-class gfsFileSystem(FileSystemType):
+class gfs2FileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = None
@@ -560,24 +560,23 @@ class gfsFileSystem(FileSystemType):
 
         self.supported = 0
 
-        self.name = "gfs"
+        self.name = "gfs2"
         self.packages = [ "gfs2-utils" ]
 
         self.maxSizeMB = 8 * 1024 * 1024
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
-
-        rc = iutil.execWithRedirect("/usr/sbin/mkfs.gfs2",
+        rc = iutil.execWithRedirect(/usr/sbin/mkfs.gfs2,
                                     ["mkfs.gfs2", "-j", "1", "-p",
-                                     "lock_nolock", devicePath ],
+                                     "lock_nolock", "-O", devicePath ],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
         if rc:
             raise SystemError
         
-fileSystemTypeRegister(gfsFileSystem())
+fileSystemTypeRegister(gfs2FileSystem())
 
 class extFileSystem(FileSystemType):
     def __init__(self):

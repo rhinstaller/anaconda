@@ -1,5 +1,8 @@
 2006-07-05  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (gfs2FileSystem.__init__): Use gfs2 consistently, have
+	mkfs not require confirmation
+
 	* yuminstall.py (AnacondaYum._run): At least try to log the real
 	transaction error
 
