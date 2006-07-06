@@ -567,7 +567,7 @@ class gfs2FileSystem(FileSystemType):
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
-        rc = iutil.execWithRedirect(/usr/sbin/mkfs.gfs2,
+        rc = iutil.execWithRedirect("/usr/sbin/mkfs.gfs2",
                                     ["mkfs.gfs2", "-j", "1", "-p",
                                      "lock_nolock", "-O", devicePath ],
                                     stdout = "/dev/tty5",

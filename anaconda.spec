@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.52
+Version: 11.1.0.53
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.53-1
+- fix typo
+
 * Wed Jul  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.52-1
 - Add Marathi (#194572)
 - Try to let UI fit a little better in LVM dialog (#197334)
