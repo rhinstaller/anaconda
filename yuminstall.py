@@ -300,7 +300,7 @@ class YumSorter(yum.YumBase):
                     member = self.bestPackagesFromList(pkgs)[0]
                 else:
                     if dep.name != req[0]:
-                        log.info("adding %s for %s" %(dep.name, req[0]))
+                        log.info("adding %s for %s, required by %s" %(dep.name, req[0], txmbr.name))
 
                     member = self.tsInfo.addInstall(dep)
                     unresolved.append(member)
