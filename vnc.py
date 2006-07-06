@@ -197,24 +197,22 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
         if netinfo.hostname != "localhost.localdomain" and netinfo.lookupHostname() is not None:
 	    srvname = netinfo.hostname
 	else:
-            # Otherwise, look for any configured interface and use its IP
-            # address for the name to connect to.
-	    for dev in netinfo.netdevices.keys():
-		try:
-		    ip = isys.getIPAddress(dev)
-		    log.info("ip of %s is %s" %(dev, ip))
-		except Exception, e:
-		    log.warning("Got an exception trying to get the ip addr "
-			        "of %s: %s" %(dev, e))
-		    continue
+            # Otherwise, look for the first configured interface and use its
+            # IP address for the name to connect to.
+            dev = netinfo.getFirstDeviceName()
 
-		if ip != '127.0.0.1' and ip is not None:
-		    srvname = ip
-		    break
+            try:
+                ip = isys.getIPAddress(dev)
+                log.info("ip of %s is %s" % (dev, ip))
+            except Exception, e:
+                log.warning("Got an exception trying to get the ip addr "
+                            "of %s: %s" % (dev, e))
 
-            # If we get here and there's no valid IP address, just use the
-            # hostname and hope for the best (better than displaying nothing)
-            if ip == '127.0.0.1' or ip is None:
+            if ip != "127.0.0.1" and ip is not None:
+                srvname = ip
+            else:
+                # If we get here and there's no valid IP address, just use the
+                # hostname and hope for the best (better than displaying nothing)
                 srvname = netinfo.hostname
 
 	if srvname is not None:

@@ -1,3 +1,9 @@
+2006-07-06  Chris Lumens  <clumens@redhat.com>
+
+	* vnc.py (startVNCServer):  Use the configured interface for VNC
+	connections, instead of the first one that returns anything
+	(#197721).
+
 2006-07-06  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/init.c: WIFEXITED() and WEXITSTATUS() fixes.
