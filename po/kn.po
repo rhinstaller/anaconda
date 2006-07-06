@@ -1,32 +1,34 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of anaconda_kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Umesh Rudrapatn <urudrapatna@yahoo.com>, 2006.
+# Umesh Rudrapatna <urudrapatna@yahoo.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: anaconda_kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-23 17:47-0400\n"
-"Last-Translator: none\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2006-07-05 23:53+0530\n"
+"Last-Translator: Umesh Rudrapatna <urudrapatna@yahoo.com>\n"
+"Language-Team: Kannada <kde-l10n-kn@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: ../anaconda:255
 msgid "Unknown Error"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ ದೋಷ"
 
 #: ../anaconda:258
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
+msgstr "ಕಿಕ್ಸ್ಟಾರ್ಟ ಸಂರಚನೆಯ (kickstart config) ನ ಎರಡನೇ ಭಾಗವನ್ನು ಪ್ರಾರಂಭಿಸುವಾಗ ದೋಷ ಕಂಡುಬಂದಿತು: %s!"
 
 #: ../anaconda:411
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "ಆದೇಶತೆರೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು <enter> ಒತ್ತಿರಿ"
 
 #: ../anaconda:442 ../gui.py:244 ../rescue.py:46 ../rescue.py:241
 #: ../rescue.py:322 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
@@ -68,66 +70,67 @@ msgstr ""
 #: ../loader2/urls.c:200 ../loader2/urls.c:266 ../loader2/urls.c:331
 #: ../loader2/urls.c:336 ../loader2/urls.c:342 ../loader2/urls.c:456
 msgid "OK"
-msgstr ""
+msgstr "ಸರಿ"
 
 #: ../anaconda:449
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
+msgstr "ಚಿತ್ರಿವಿಧ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಬಳಸಲು ನಿಮ್ಮ ಗಣಕದಲ್ಲಿ ಸಾಕಷ್ಟು ಮೂಲಸ್ಮೃತಿ ಇಲ್ಲ. ಪಠ್ಯವಿಧ ಅನುಸ್ಥಾಪನೆ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ."
 
 #: ../anaconda:473
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "ಚಿತ್ರಣ ಯಂತ್ರಾಂಶ ಕಂಡುಬರಲಿಲ್ಲ"
 
 #: ../anaconda:484 ../anaconda:880
+#, fuzzy
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "X."
 
 #: ../anaconda:509
 msgid "Starting graphical installation..."
-msgstr ""
+msgstr "ಚಿತ್ರಿವಿಧ ಅನುಸ್ಥಾಪನೆ ಲಭ್ಯವಿಲ್ಲ... ಪಠ್ಯವಿಧ ಅನುಸ್ಥಾಪನೆ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ"
 
 #: ../anaconda:758
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನಾ ವರ್ಗ ಪಠ್ಯವಿಧ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಒತ್ತಾಯಿಸುತ್ತಿದೆ"
 
 #: ../anaconda:784
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "ಚಿತ್ರಿವಿಧ ಅನುಸ್ಥಾಪನೆ ಲಭ್ಯವಿಲ್ಲ... ಪಠ್ಯವಿಧ ಅನುಸ್ಥಾಪನೆ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ"
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY ಚರಮೌಲ್ಯ ನಿಗದಿಗೊಂಡಿಲ್ಲ. ಪಠ್ಯವಿಧ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ!"
 
 #: ../anaconda:847
 msgid "Unknown install method"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ ಅನುಸ್ಥಾಪನಾ ಕ್ರಮ"
 
 #: ../anaconda:848
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr ""
+msgstr "ಅಲಕೊಂಡಾ ಸಮರ್ಥಿಸಲಾಗದ ಅನುಸ್ಥಾಪನಾ ಕ್ರಮವನ್ನು ನೀವು ನಮೂದಿಸಿದ್ದೀರಿ."
 
 #: ../anaconda:850
 #, c-format
 msgid "unknown install method: %s"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ ಅನುಸ್ಥಾಪನಾ ಕ್ರಮ: %s"
 
 #: ../autopart.py:968
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
+msgstr "ಸಿಲಿಂಡರ್ ಆಧಾರಿತ ವಿಭಾಗಗಳನ್ನು ಪ್ರಾಥಮಿಕ ವಿಭಾಗಗಳಾಗಿ ನಿಗದಿಗೊಳಿಸಲಾಗಲಿಲ್ಲ"
 
 #: ../autopart.py:971
 msgid "Could not allocate partitions as primary partitions"
-msgstr ""
+msgstr "ವಿಭಾಗಗಳನ್ನು ಪ್ರಾಥಮಿಕ ವಿಭಾಗಗಳಾಗಿ ನಿಗದಿಗೊಳಿಸಲಾಗಲಿಲ್ಲ"
 
 #: ../autopart.py:974
 msgid "Could not allocate cylinder-based partitions"
-msgstr ""
+msgstr "ಸಿಲಿಂಡರ್ ಆಧಾರಿತ ವಿಭಾಗಗಳನ್ನು ನಿಗದಿಗೊಳಿಸಲಾಗಲಿಲ್ಲ"
 
 #: ../autopart.py:977
 msgid "Could not allocate partitions"
-msgstr ""
+msgstr "ವಿಭಾಗಗಳನ್ನು ನಿಗದಿಗೊಳಿಸಲಾಗಲಿಲ್ಲ"
 
 #: ../autopart.py:1039
 #, python-format
@@ -135,7 +138,7 @@ msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
+msgstr "ಆರಾರಂಭಿಕ ವಿಭಾಗ %s BSD ಮುದ್ರಿಕಾಗುರುತುಪಟ್ಟಿಗೆ ಸೇರಿಲ್ಲ. ದ S ಈ ವಿಭಾಗದಿಂದ ಕಾರ್ಯಾರಂಭಗೆಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. BSD ಮುದ್ರಿಕಾಗುರುತುಪಟ್ಟಿಗೆ ಸೇರೀದ ವಿಭಾಗವನ್ನು ಬಳಸಿ, ಇಲ್ಲವೇ ಈ ಮುದ್ರಿಕಾಗುರುತನ್ನು BSD ಮುದ್ರಿಕಾಗುರುತಿಗೆ ಬದಲಾಯಿಸಿ."
 
 #: ../autopart.py:1041
 #, python-format
@@ -143,14 +146,14 @@ msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
-msgstr ""
+msgstr "ಆರಾರಂಭಿಕ ವಿಭಾಗ %s ಪ್ರಾರಂಭಕಕ್ಕೆ ಬೇಕಾದಷ್ಟು ಸ್ಥಳವನ್ನು ಮೊದಲಿನಲ್ಲಿ ಉಳ್ಳ ಮುದ್ರಿಕೆಗೆ ಸೇರಿಲ್ಲ. /boot ಹೊಂದಿರುವ ಮುದ್ರಿಕೆಯ ಮೊದಲಿನಲ್ಲಿ ೫ ಎಂಬಿ ಯಷ್ಟಾದರೂ ಸ್ಥಳವಿದೆಯೆಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ."
 
 #: ../autopart.py:1043
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
+msgstr "ಆರಾರಂಭಿಕ ವಿಭಾಗ %s VFAT ವಿಭಾಗವಲ್ಲ. EFI ಗೆ ಈ ವಿಭಾಗದಿಂದ ಕಾರ್ಯಾರಂಭಗೊಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #: ../autopart.py:1045
 msgid ""
@@ -160,8 +163,7 @@ msgstr ""
 
 #: ../autopart.py:1052
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 
 #: ../autopart.py:1078
@@ -201,71 +203,82 @@ msgstr ""
 
 #: ../autopart.py:1329
 #, python-format
+#, fuzzy
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr ""
+msgstr "ನಾ ಸರಿ."
 
 #: ../autopart.py:1366
+#, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../autopart.py:1367
 #, python-format
+#, fuzzy
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr ""
+msgstr "ನಾ ಸರಿ."
 
 #: ../autopart.py:1481 ../autopart.py:1529
+#, fuzzy
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "ಸ್ವಯಂಚಾಲಿತ"
 
 #: ../autopart.py:1482
 #, python-format
+#, fuzzy
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
 "%s\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr ""
+msgstr "ನಾ ನಾ ನಾ ಸರಿ."
 
 #: ../autopart.py:1492
+#, fuzzy
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "ಸ್ವಯಂಚಾಲಿತ"
 
 #: ../autopart.py:1493
 #, python-format
+#, fuzzy
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../autopart.py:1506 ../autopart.py:1523
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr ""
+msgstr "ನಾ ಸರಿ."
 
 #: ../autopart.py:1507 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
+#, fuzzy
 msgid "Error Partitioning"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../autopart.py:1508
 #, python-format
+#, fuzzy
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
 "%s.%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../autopart.py:1525
+#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -273,7 +286,7 @@ msgid ""
 "select manual partitioning.\n"
 "\n"
 "Press 'OK' to continue."
-msgstr ""
+msgstr "ನಾ ಹಿಂದೆ ನಾ ಸರಿ."
 
 #: ../autopart.py:1530
 #, python-format
@@ -288,11 +301,11 @@ msgstr ""
 
 #: ../autopart.py:1541
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "ಮಾರಕ ದೋಷ"
 
 #: ../autopart.py:1542
 msgid "Your system will now be rebooted."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಗಣಕವನ್ನು ಈಗ ಪುನರಾರಂಭಿಸಲಾಗುತ್ತದೆ"
 
 #: ../autopart.py:1689 ../bootloader.py:191 ../image.py:417
 #: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:910
@@ -303,8 +316,9 @@ msgstr ""
 #: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
 #: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
 #: ../textw/upgrade_text.py:174 ../loader2/loader.c:396
+#, fuzzy
 msgid "Warning"
-msgstr ""
+msgstr "ಎಚ್ಚರಿಕೆ"
 
 #: ../autopart.py:1695
 msgid ""
@@ -353,52 +367,54 @@ msgstr ""
 #: ../backend.py:97
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr ""
+msgstr "ಉತ್ತಮಪಡಿಸಲಾಗುತ್ತಿದೆ %s-%s-%s.%s.\n"
 
 #: ../backend.py:99
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನೆಗೊಳ್ಳುತ್ತಿದೆ %s-%s-%s.%s.\n"
 
 #: ../bootloader.py:123
 msgid "Bootloader"
-msgstr ""
+msgstr "ಪ್ರಾರಂಭಕ"
 
 #: ../bootloader.py:123
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "ಪ್ರಾರಂಭಕವು ಅನುಸ್ಥಾಪನೆಗೊಳ್ಳುತ್ತಿದೆ..."
 
 #: ../bootloader.py:192
+#, fuzzy
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
+msgstr "ಇಲ್ಲ."
 
 #: ../cmdline.py:44
 msgid "Completed"
-msgstr ""
+msgstr "ಪೂರ್ಣಗೊಂಡಿದೆ"
 
 #: ../cmdline.py:52
 msgid "In progress...   "
-msgstr ""
+msgstr "ಪ್ರಗತಿಯಲ್ಲಿದೆ...   "
 
 #: ../cmdline.py:73
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "ಆದೇಶಸಾಲು ಸ್ಥಿತಿಯಲ್ಲಿ ಪ್ರಶ್ನೆಗಳಿರುವಂತಿಲ್ಲ!"
 
 #: ../cmdline.py:92
+#, fuzzy
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "ಇಂಚು!"
 
 #: ../cmdline.py:137
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "ಸಂಪೂರ್ಣ [%d/%d]"
 
 #: ../cmdline.py:143
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr ""
+msgstr " %s-%s-%s... ಅನುಸ್ಥಾಪನೆಗೊಳ್ಳುತ್ತಿದೆ"
 
 #: ../constants.py:60
 #, python-format
@@ -410,7 +426,7 @@ msgstr ""
 
 #: ../exception.py:391 ../exception.py:408
 msgid "Dump Written"
-msgstr ""
+msgstr "ಹೊರಹರಿವನ್ನು ಬರೆಯಲಾಗಿದೆ"
 
 #: ../exception.py:392
 msgid ""
@@ -424,21 +440,22 @@ msgstr ""
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Reboot"
-msgstr ""
+msgstr "_ಪುನರಾರಂಭಿಸು"
 
 #: ../exception.py:400 ../exception.py:417
 msgid "Dump Not Written"
-msgstr ""
+msgstr "ಹೊರಹರಿವನ್ನು ಬರೆದಿಲ್ಲ"
 
 #: ../exception.py:401
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
 #: ../exception.py:409
+#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -446,12 +463,12 @@ msgstr ""
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
-msgstr ""
+msgstr "ದೋಷಯಕ್ತ ಖಂಡಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸುತ್ತಿದ್ದೇನೆ"
 
 #: ../fsset.py:217
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr ""
+msgstr "/dev/%s ನಲದಲಿನ ದೋಯಕ್ತ ಖಂಡಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸುತ್ತಿದ್ದೇನೆ"
 
 #: ../fsset.py:644 ../fsset.py:1438 ../fsset.py:1469 ../fsset.py:1530
 #: ../fsset.py:1541 ../fsset.py:1594 ../fsset.py:1605 ../fsset.py:1640
@@ -478,7 +495,7 @@ msgstr ""
 #: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
 #: ../loader2/urls.c:331 ../loader2/urls.c:336
 msgid "Error"
-msgstr ""
+msgstr "ದೋಷ"
 
 #: ../fsset.py:645
 #, python-format
@@ -491,15 +508,15 @@ msgstr ""
 
 #: ../fsset.py:1346
 msgid "RAID Device"
-msgstr ""
+msgstr "ಸರಣಿಮುದ್ರಿಕೆ ಸಾಧನ"
 
 #: ../fsset.py:1350 ../fsset.py:1356
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "ಆಪೆಲ್ ಪ್ರಾರಂಭಕ"
 
 #: ../fsset.py:1361 ../partitions.py:869
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "ಪಿಪಿಸಿ ಪ್ರೆಪ್ ಪುನರಾರಂಭ"
 
 #: ../fsset.py:1364
 msgid "First sector of boot partition"
@@ -511,18 +528,20 @@ msgstr ""
 
 #: ../fsset.py:1439
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
-msgstr ""
+msgstr "ನಾ<Enter>."
 
 #: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
 #: ../loader2/cdinstall.c:259 ../loader2/method.c:419
+#, fuzzy
 msgid "Skip"
-msgstr ""
+msgstr "ಹಾರಿಸು"
 
 #: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
 msgid "Reboot"
@@ -530,6 +549,7 @@ msgstr ""
 
 #: ../fsset.py:1489
 #, python-format
+#, fuzzy
 msgid ""
 "The swap device:\n"
 "\n"
@@ -539,6 +559,8 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"ನಾ\n"
+" ನಾ ಲೀನಕ್ಸ್ ಲೀನಕ್ಸ್."
 
 #: ../fsset.py:1496
 msgid "Reformat"
@@ -546,6 +568,7 @@ msgstr ""
 
 #: ../fsset.py:1500
 #, python-format
+#, fuzzy
 msgid ""
 "The swap device:\n"
 "\n"
@@ -555,9 +578,12 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"ನಾ\n"
+" ನಾ ಇಂಚು."
 
 #: ../fsset.py:1508
 #, python-format
+#, fuzzy
 msgid ""
 "The swap device:\n"
 "\n"
@@ -567,22 +593,27 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"ನಾ\n"
+" ನಾ ಇಂಚು."
 
 #: ../fsset.py:1518
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Choose Skip if you want the installer to ignore this partition during the "
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
-msgstr ""
+msgstr "ನಾ ಹಾರಿಸು ಆಯ್ಕೆ ಮಾಡು ರಚಿಸು ಆಯ್ಕೆ ಮಾಡು."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
+#, fuzzy
 msgid "Format"
-msgstr ""
+msgstr "ರಚಿಸು"
 
 #: ../fsset.py:1531
 #, python-format
+#, fuzzy
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -590,53 +621,58 @@ msgid ""
 "partition.\n"
 "\n"
 "Press OK to reboot your system."
-msgstr ""
+msgstr "ತಪ್ಪು ನಾ ನಾ ಸರಿ."
 
 #: ../fsset.py:1542
 #, python-format
+#, fuzzy
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
 "This most likely means this swap partition has not been initialized.\n"
 "\n"
 "Press OK to reboot your system."
-msgstr ""
+msgstr "ತಪ್ಪು ನಾ ನಾ ಸರಿ."
 
 #: ../fsset.py:1595
 #, python-format
+#, fuzzy
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
 "Press <Enter> to reboot your system"
-msgstr ""
+msgstr "ನಾ<Enter>"
 
 #: ../fsset.py:1606
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
-msgstr ""
+msgstr "ನಾ<Enter>."
 
 #: ../fsset.py:1641
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
-msgstr ""
+msgstr "ನಾ<Enter>."
 
 #: ../fsset.py:1691
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
-msgstr ""
+msgstr "ನಾ<Enter>."
 
 #: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
@@ -644,40 +680,44 @@ msgstr ""
 
 #: ../fsset.py:1713
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
-msgstr ""
+msgstr "/ ನಾ<Enter>."
 
 #: ../fsset.py:1722
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
-msgstr ""
+msgstr "ನಾ<Enter>."
 
 #: ../fsset.py:1735
 #, python-format
+#, fuzzy
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
 "This most likely means this partition has not been formatted.\n"
 "\n"
 "Press OK to reboot your system."
-msgstr ""
+msgstr "ತಪ್ಪು ನಾ ನಾ ಸರಿ."
 
 #: ../fsset.py:1754
+#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
 "This is most likely means that your fstab is incorrect.\n"
 "\n"
 "Press OK to reboot your system."
-msgstr ""
+msgstr "ತಪ್ಪು ನಾ ನಾ ಸರಿ."
 
 #: ../fsset.py:2419
 msgid "Duplicate Labels"
@@ -685,21 +725,24 @@ msgstr ""
 
 #: ../fsset.py:2420
 #, python-format
+#, fuzzy
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
-msgstr ""
+msgstr "ನಾ."
 
 #: ../fsset.py:2680
+#, fuzzy
 msgid "Formatting"
-msgstr ""
+msgstr "ರಚನೆಯಾಗುತ್ತಿದೆ"
 
 #: ../fsset.py:2681
 #, python-format
+#, fuzzy
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "ರಚನೆಯಾಗುತ್ತಿದೆ."
 
 #: ../gui.py:110
 msgid "An error occurred copying the screenshots over."
@@ -710,17 +753,19 @@ msgid "Screenshots Copied"
 msgstr ""
 
 #: ../gui.py:123
+#, fuzzy
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
 "You can access these when you reboot and login as root."
-msgstr ""
+msgstr "ನಾ ನಾ ನಾ ಪ್ರವೇಶ."
 
 #: ../gui.py:167
+#, fuzzy
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "ಉಳಿಸಿತ್ತಿರುವ"
 
 #: ../gui.py:168
 #, python-format
@@ -728,8 +773,9 @@ msgid "A screenshot named '%s' has been saved."
 msgstr ""
 
 #: ../gui.py:171
+#, fuzzy
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "ತಪ್ಪು ಉಳಿಸಿತ್ತಿರುವ"
 
 #: ../gui.py:172
 msgid ""
@@ -745,23 +791,27 @@ msgstr ""
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/hdinstall.c:327 ../loader2/loader.c:396
+#, fuzzy
 msgid "Yes"
-msgstr ""
+msgstr "ಹೌದು"
 
 #: ../gui.py:243 ../rescue.py:193 ../rescue.py:195 ../text.py:385
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
 #: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
 #: ../loader2/loader.c:396
+#, fuzzy
 msgid "No"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../gui.py:245 ../text.py:387 ../loader2/net.c:294 ../loader2/net.c:613
+#, fuzzy
 msgid "Retry"
-msgstr ""
+msgstr "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸು"
 
 #: ../gui.py:246 ../text.py:388
+#, fuzzy
 msgid "Ignore"
-msgstr ""
+msgstr "ಕಡೆಗಣಿಸು"
 
 #: ../gui.py:247 ../gui.py:711 ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:526 ../text.py:103 ../text.py:104 ../text.py:360
@@ -769,63 +819,74 @@ msgstr ""
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
 #: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
 #: ../loader2/loader.c:342
+#, fuzzy
 msgid "Cancel"
-msgstr ""
+msgstr "ರದ್ದುಗೊಲಿಸು"
 
 #: ../gui.py:801 ../text.py:346
 #, python-format
+#, fuzzy
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../gui.py:803 ../text.py:348
+#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../gui.py:811 ../text.py:358
+#, fuzzy
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
+msgstr "ಈಗ ಎಲ್ಲ / ಮುದ್ರಿಕೆ."
 
 #: ../gui.py:872
 msgid "default:LTR"
 msgstr ""
 
 #: ../gui.py:964
+#, fuzzy
 msgid "Error!"
-msgstr ""
+msgstr "ತಪ್ಪು!"
 
 #: ../gui.py:965
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
 "\n"
 "className = %s"
-msgstr ""
+msgstr "ತುಂಬಿಸು ನಾ"
 
 #: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
 #: ../yuminstall.py:680
+#, fuzzy
 msgid "_Exit"
-msgstr ""
+msgstr "ಆಚೆ ಬಾ"
 
 #: ../gui.py:970 ../yuminstall.py:161
+#, fuzzy
 msgid "_Retry"
-msgstr ""
+msgstr "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸು"
 
 #: ../gui.py:973 ../packages.py:375
+#, fuzzy
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../gui.py:976 ../packages.py:378
+#, fuzzy
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../gui.py:979 ../packages.py:380
+#, fuzzy
 msgid "Rebooting System"
-msgstr ""
+msgstr "ಗಣಕ ವ್ಯವಸ್ಥೆ"
 
 #: ../gui.py:1044
 #, python-format
@@ -833,80 +894,93 @@ msgid "%s Installer"
 msgstr ""
 
 #: ../gui.py:1050
+#, fuzzy
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "ತುಂಬಿಸು"
 
 #: ../gui.py:1103
+#, fuzzy
 msgid "Install Window"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು ಕಿಟಕಿ"
 
 #: ../harddrive.py:61 ../image.py:480
+#, fuzzy
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ಚಿತ್ರ"
 
 #: ../harddrive.py:62
 #, python-format
+#, fuzzy
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
 "\n"
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
-msgstr ""
+msgstr "ಚಿತ್ರ ನಾ ಚಿತ್ರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸು ಕಾರ್ಯ ಭಂಗಿಸು."
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
 msgstr ""
 
 #: ../image.py:84
+#, fuzzy
 msgid "Required Install Media"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು"
 
 #: ../image.py:85
 #, python-format
+#, fuzzy
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
 "\n"
 "%s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
-msgstr ""
+msgstr "ನಾ ನಾ ಕಾರ್ಯ ಭಂಗಿಸು."
 
 #: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
+#, fuzzy
 msgid "_Back"
-msgstr ""
+msgstr "ಹಿಂದೆ"
 
 #: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
 #: ../iw/partition_gui.py:1011
+#, fuzzy
 msgid "_Continue"
-msgstr ""
+msgstr "ಮುಂದುವರಿಸು"
 
 #: ../image.py:135
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
-msgstr ""
+msgstr "from ಸರಿ."
 
 #: ../image.py:157
+#, fuzzy
 msgid "Copying File"
-msgstr ""
+msgstr "ಕಡತ"
 
 #: ../image.py:158
+#, fuzzy
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "ಚಿತ್ರ."
 
 #: ../image.py:168
+#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
+msgstr "ಚಿತ್ರ / ಮುದ್ರಿಕೆ."
 
 #: ../image.py:255
+#, fuzzy
 msgid "Change CDROM"
-msgstr ""
+msgstr "ಬದಲಿ"
 
 #: ../image.py:256
 #, python-format
@@ -923,22 +997,25 @@ msgid "That's not the correct %s CDROM."
 msgstr ""
 
 #: ../image.py:298
+#, fuzzy
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "ಪ್ರವೇಶ."
 
 #: ../image.py:481
 #, python-format
+#, fuzzy
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
 "server.\n"
 "\n"
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
-msgstr ""
+msgstr "ಚಿತ್ರ ನಾ ಚಿತ್ರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸು ಕಾರ್ಯ ಭಂಗಿಸು."
 
 #: ../installclass.py:57
+#, fuzzy
 msgid "Install on System"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು ಗಣಕ ವ್ಯವಸ್ಥೆ"
 
 #: ../kickstart.py:74
 msgid "Scriptlet Failure"
@@ -946,69 +1023,82 @@ msgstr ""
 
 #: ../kickstart.py:75
 #, python-format
+#, fuzzy
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
-msgstr ""
+msgstr "ಇಂಚು ನಾ ಸರಿ."
 
 #: ../kickstart.py:751 ../kickstart.py:769
+#, fuzzy
 msgid "Running..."
-msgstr ""
+msgstr "ಚಾಲ್ತಿಯಲ್ಲಿರುವ."
 
 #: ../kickstart.py:752
+#, fuzzy
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "ಚಾಲ್ತಿಯಲ್ಲಿರುವ"
 
 #: ../kickstart.py:770
+#, fuzzy
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "ಚಾಲ್ತಿಯಲ್ಲಿರುವ"
 
 #: ../kickstart.py:908
+#, fuzzy
 msgid "Missing Package"
-msgstr ""
+msgstr "ಕಟ್ಟು"
 
 #: ../kickstart.py:909
 #, python-format
+#, fuzzy
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "ಕಾರ್ಯ ಭಂಗಿಸು?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
+#, fuzzy
 msgid "_Abort"
-msgstr ""
+msgstr "ಕಾರ್ಯಭಂಗ"
 
 #: ../kickstart.py:936
+#, fuzzy
 msgid "Missing Group"
-msgstr ""
+msgstr "ಗುಂಪು"
 
 #: ../kickstart.py:937
 #, python-format
+#, fuzzy
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "ಕಾರ್ಯ ಭಂಗಿಸು?"
 
 #: ../network.py:46
+#, fuzzy
 msgid "Hostname must be 64 or less characters in length."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../network.py:49
+#, fuzzy
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
+msgstr "ಇಂಚು"
 
 #: ../network.py:54
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
 #: ../packages.py:357
+#, fuzzy
 msgid "Warning! This is pre-release software!"
-msgstr ""
+msgstr "ಎಚ್ಚರಿಕೆ!"
 
 #: ../packages.py:358
 #, python-format
+#, fuzzy
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1022,10 +1112,13 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"/ ನಾ / from ನಾ ನಾ\n"
+" ನಾ ನಾ"
 
 #: ../packages.py:371
+#, fuzzy
 msgid "_Install anyway"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು"
 
 #: ../partedUtils.py:206 ../textw/partition_text.py:558
 msgid "Foreign"
@@ -1033,6 +1126,7 @@ msgstr ""
 
 #: ../partedUtils.py:306
 #, python-format
+#, fuzzy
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1040,30 +1134,34 @@ msgid ""
 "of ALL DATA on this drive.\n"
 "\n"
 "Would you like to reformat this DASD using CDL format?"
-msgstr ""
+msgstr "/ / ಮುದ್ರಿಕೆ / ನಾ?"
 
 #: ../partedUtils.py:336
 #, python-format
+#, fuzzy
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
 "on this drive.\n"
 "\n"
 "Would you like to format this drive?"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ / / ನಾ?"
 
 #: ../partedUtils.py:345
+#, fuzzy
 msgid "_Ignore drive"
-msgstr ""
+msgstr "ಕಡೆಗಣಿಸು"
 
 #: ../partedUtils.py:346
+#, fuzzy
 msgid "_Format drive"
-msgstr ""
+msgstr "ರಚಿಸು"
 
 #: ../partedUtils.py:722
 #, python-format
+#, fuzzy
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../partedUtils.py:808
 msgid "Initializing"
@@ -1071,11 +1169,13 @@ msgstr ""
 
 #: ../partedUtils.py:809
 #, python-format
+#, fuzzy
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "ನಾ"
 
 #: ../partedUtils.py:911
 #, python-format
+#, fuzzy
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1085,10 +1185,11 @@ msgid ""
 "drives to ignore.\n"
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
+msgstr "/ ನಾ ನಾ?"
 
 #: ../partedUtils.py:968
 #, python-format
+#, fuzzy
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1097,62 +1198,71 @@ msgid ""
 "drives to ignore.\n"
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
-msgstr ""
+msgstr "/ ನಾ ನಾ?"
 
 #: ../partedUtils.py:1086
+#, fuzzy
 msgid "No Drives Found"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../partedUtils.py:1087
+#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
-msgstr ""
+msgstr "ಬೇಡ /."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
 msgstr ""
 
 #: ../partIntfHelpers.py:39
+#, fuzzy
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು"
 
 #: ../partIntfHelpers.py:42
 #, python-format
+#, fuzzy
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "ತಪ್ಪು."
 
 #: ../partIntfHelpers.py:47
+#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "ತಪ್ಪು."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
 msgstr ""
 
 #: ../partIntfHelpers.py:61
+#, fuzzy
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../partIntfHelpers.py:65
 #, python-format
+#, fuzzy
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "ತಪ್ಪು."
 
 #: ../partIntfHelpers.py:71
+#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "ತಪ್ಪು."
 
 #: ../partIntfHelpers.py:95
 #, python-format
+#, fuzzy
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "ಬೇಡ."
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1164,27 +1274,32 @@ msgstr ""
 
 #: ../partIntfHelpers.py:116
 #, python-format
+#, fuzzy
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
+msgstr "/."
 
 #: ../partIntfHelpers.py:119
+#, fuzzy
 msgid "This partition is part of a RAID device."
-msgstr ""
+msgstr "/."
 
 #: ../partIntfHelpers.py:124
 #, python-format
+#, fuzzy
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
+msgstr "/."
 
 #: ../partIntfHelpers.py:127
+#, fuzzy
 msgid "This partition is part of a LVM volume group."
-msgstr ""
+msgstr "/."
 
 #: ../partIntfHelpers.py:142 ../partIntfHelpers.py:150
 #: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
 #: ../partIntfHelpers.py:184
+#, fuzzy
 msgid "Unable To Delete"
-msgstr ""
+msgstr "ಅಳಿಸು"
 
 #: ../partIntfHelpers.py:143
 msgid "You must first select a partition to delete."
@@ -1195,8 +1310,9 @@ msgid "You cannot delete free space."
 msgstr ""
 
 #: ../partIntfHelpers.py:158
+#, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
+msgstr "/."
 
 #: ../partIntfHelpers.py:168
 #, python-format
@@ -1206,15 +1322,17 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:185
+#, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
 #: ../iw/lvm_dialog_gui.py:746
+#, fuzzy
 msgid "Confirm Delete"
-msgstr ""
+msgstr "ದೃಡಪಡಿಸು ಅಳಿಸು"
 
 #: ../partIntfHelpers.py:230
 #, python-format
@@ -1224,8 +1342,9 @@ msgstr ""
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
+#, fuzzy
 msgid "_Delete"
-msgstr ""
+msgstr "ಅಳಿಸು"
 
 #: ../partIntfHelpers.py:291
 msgid "Notice"
@@ -1233,26 +1352,29 @@ msgstr ""
 
 #: ../partIntfHelpers.py:292
 #, python-format
+#, fuzzy
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "ಇಂಚು ನಾ ನಾ"
 
 #: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
 #: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
+#, fuzzy
 msgid "Unable To Edit"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು"
 
 #: ../partIntfHelpers.py:309
 msgid "You must select a partition to edit"
 msgstr ""
 
 #: ../partIntfHelpers.py:321 ../partIntfHelpers.py:359
+#, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../partIntfHelpers.py:348
 #, python-format
@@ -1262,17 +1384,19 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:380
+#, fuzzy
 msgid "Format as Swap?"
-msgstr ""
+msgstr "ರಚಿಸು ಅದಳು-ಬದಳು ಕೋಶ?"
 
 #: ../partIntfHelpers.py:381
 #, python-format
+#, fuzzy
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
-msgstr ""
+msgstr "/ ಲೀನಕ್ಸ್ ಲೀನಕ್ಸ್ ನಾ?"
 
 #: ../partIntfHelpers.py:401
 #, python-format
@@ -1280,6 +1404,7 @@ msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
 
 #: ../partIntfHelpers.py:407
+#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1287,46 +1412,53 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
-msgstr ""
+msgstr "from / ಲೀನಕ್ಸ್."
 
 #: ../partIntfHelpers.py:415
+#, fuzzy
 msgid "Format?"
-msgstr ""
+msgstr "ರಚಿಸು?"
 
 #: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1009
+#, fuzzy
 msgid "_Modify Partition"
-msgstr ""
+msgstr "ಬದಲಾಯಿಸು ವಿಭಾಗ"
 
 #: ../partIntfHelpers.py:415
+#, fuzzy
 msgid "Do _Not Format"
-msgstr ""
+msgstr "ರಚಿಸು"
 
 #: ../partIntfHelpers.py:423
+#, fuzzy
 msgid "Error with Partitioning"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../partIntfHelpers.py:424
 #, python-format
+#, fuzzy
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "/ ನಾ ನಾ"
 
 #: ../partIntfHelpers.py:438
+#, fuzzy
 msgid "Partitioning Warning"
-msgstr ""
+msgstr "ಎಚ್ಚರಿಕೆ"
 
 #: ../partIntfHelpers.py:439
 #, python-format
+#, fuzzy
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
 "\n"
 "%s\n"
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "ನಾ ನಾ ನಾ?"
 
 #: ../partIntfHelpers.py:453 ../iw/partition_gui.py:665
 msgid ""
@@ -1335,22 +1467,25 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:456
+#, fuzzy
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು ಹೌದು ಇಲ್ಲ."
 
 #: ../partIntfHelpers.py:462
+#, fuzzy
 msgid "Format Warning"
-msgstr ""
+msgstr "ರಚಿಸು ಎಚ್ಚರಿಕೆ"
 
 #: ../partIntfHelpers.py:510
 #, python-format
+#, fuzzy
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
 "\n"
 "ALL logical volumes in this volume group will be lost!"
-msgstr ""
+msgstr "ನಾ ಇಂಚು!"
 
 #: ../partIntfHelpers.py:514
 #, python-format
@@ -1371,42 +1506,47 @@ msgid "The partition you selected will be deleted."
 msgstr ""
 
 #: ../partIntfHelpers.py:533
+#, fuzzy
 msgid "Confirm Reset"
-msgstr ""
+msgstr "ದೃಡಪಡಿಸು ಹಿಂದಿನ ಸ್ತಿತಿ"
 
 #: ../partIntfHelpers.py:534
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
 #: ../partitioning.py:57
+#, fuzzy
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನೆ."
 
 #: ../partitioning.py:58
+#, fuzzy
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
+msgstr "ಬೇಡ ಮುದ್ರಿಕೆ?"
 
 #: ../partitioning.py:88
+#, fuzzy
 msgid "Low Memory"
-msgstr ""
+msgstr "ಕಡಿಮೆ ಸ್ಮೃತಿ"
 
 #: ../partitioning.py:89
+#, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
-msgstr ""
+msgstr "ಇಂಚು ಮುದ್ರಿಕೆ ಸರಿ?"
 
 #: ../partitions.py:804
 #, python-format
+#, fuzzy
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
+msgstr "/."
 
 #: ../partitions.py:809
 #, python-format
@@ -1416,9 +1556,9 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:816
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+#, fuzzy
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "/ /."
 
 #: ../partitions.py:836
 msgid "You must create an Apple Bootstrap partition."
@@ -1436,8 +1576,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:911
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
 #: ../partitions.py:914
@@ -1455,10 +1594,11 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr ""
 
 #: ../partitions.py:948
+#, fuzzy
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../partitions.py:955
 #, python-format
@@ -1475,21 +1615,23 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:1266
+#, fuzzy
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../partitions.py:1269
+#, fuzzy
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "/."
 
 #: ../partitions.py:1272
+#, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "/ ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು."
 
 #: ../partRequests.py:249
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:252
@@ -1505,29 +1647,33 @@ msgstr ""
 
 #: ../partRequests.py:280
 #, python-format
+#, fuzzy
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../partRequests.py:294
 #, python-format
+#, fuzzy
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
+msgstr "/ MB / MB."
 
 #: ../partRequests.py:490
 #, python-format
+#, fuzzy
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
+msgstr "/ MB / MB."
 
 #: ../partRequests.py:495
 #, python-format
+#, fuzzy
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "/ MB"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -1538,24 +1684,28 @@ msgid "Partitions can't end on a negative cylinder."
 msgstr ""
 
 #: ../partRequests.py:667
+#, fuzzy
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "ಇಲ್ಲ ಇಂಚು."
 
 #: ../partRequests.py:679
 #, python-format
+#, fuzzy
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "/."
 
 #: ../partRequests.py:688
 #, python-format
+#, fuzzy
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
+msgstr "/."
 
 #: ../rescue.py:129
+#, fuzzy
 msgid "Starting Interface"
-msgstr ""
+msgstr "ಶುರುವಾಗುತ್ತಿರುವ ಸಂಪರ್ಕ"
 
 #: ../rescue.py:130
 #, python-format
@@ -1575,12 +1725,14 @@ msgid "Cancelled"
 msgstr ""
 
 #: ../rescue.py:238 ../text.py:529
+#, fuzzy
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "I from."
 
 #: ../rescue.py:256 ../rescue.py:292 ../rescue.py:461
+#, fuzzy
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "from."
 
 #: ../rescue.py:276 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
@@ -1588,6 +1740,7 @@ msgstr ""
 
 #: ../rescue.py:277
 #, python-format
+#, fuzzy
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1598,38 +1751,44 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step "
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
-msgstr ""
+msgstr "ಈಗ ಲೀನಕ್ಸ್ ಮುಂದುವರಿಸು / ನಾ ಹಾರಿಸು ನಾ ನಾ"
 
 #: ../rescue.py:287 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
+#, fuzzy
 msgid "Continue"
-msgstr ""
+msgstr "ಮುಂದುವರಿಸು"
 
 #: ../rescue.py:287 ../rescue.py:296
 msgid "Read-Only"
 msgstr ""
 
 #: ../rescue.py:319
+#, fuzzy
 msgid "System to Rescue"
-msgstr ""
+msgstr "ಗಣಕ ವ್ಯವಸ್ಥೆ"
 
 #: ../rescue.py:320
+#, fuzzy
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "/?"
 
 #: ../rescue.py:322 ../rescue.py:326
+#, fuzzy
 msgid "Exit"
-msgstr ""
+msgstr "ಆಚೆ ಬಾ"
 
 #: ../rescue.py:346
+#, fuzzy
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "ಗೆಟ್ from from."
 
 #: ../rescue.py:354
 #, python-format
+#, fuzzy
 msgid ""
 "Your system has been mounted under %s.\n"
 "\n"
@@ -1639,27 +1798,30 @@ msgid ""
 "\tchroot %s\n"
 "\n"
 "The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "ನಾ<return> ಗೆಟ್ ನಾ ನಾ ನಾ from."
 
 #: ../rescue.py:437
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
-msgstr ""
+msgstr "/ / ನಾ<return> ಗೆಟ್ from."
 
 #: ../rescue.py:443
+#, fuzzy
 msgid "Rescue Mode"
-msgstr ""
+msgstr "ಸ್ಥಿತಿ"
 
 #: ../rescue.py:444
+#, fuzzy
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್ ಗೆಟ್ from."
 
 #: ../rescue.py:458
 #, python-format
@@ -1667,61 +1829,70 @@ msgid "Your system is mounted under the %s directory."
 msgstr ""
 
 #: ../text.py:150 ../text.py:165
+#, fuzzy
 msgid "Save"
-msgstr ""
+msgstr "ಉಳಿಸು"
 
 #: ../text.py:153 ../text.py:167
 msgid "Remote"
 msgstr ""
 
 #: ../text.py:155 ../text.py:163
+#, fuzzy
 msgid "Debug"
-msgstr ""
+msgstr "ದೋಷದ ಹುಡುಕಾಟ"
 
 #: ../text.py:159
 msgid "Exception Occurred"
 msgstr ""
 
 #: ../text.py:188
+#, fuzzy
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "ಉಳಿಸು ಅತಿಥೇಯ ಗಣಕ"
 
 #: ../text.py:191
+#, fuzzy
 msgid "Host"
-msgstr ""
+msgstr "ಅತಿಥೇಯ ಗಣಕ"
 
 #: ../text.py:193
 msgid "Remote path"
 msgstr ""
 
 #: ../text.py:195
+#, fuzzy
 msgid "User name"
-msgstr ""
+msgstr "ಬಳಕೆದಾರನ ಹೆಸರು"
 
 #: ../text.py:197
+#, fuzzy
 msgid "Password"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ"
 
 #: ../text.py:254
+#, fuzzy
 msgid "Help not available"
-msgstr ""
+msgstr "ಸಹಾಯ"
 
 #: ../text.py:255
+#, fuzzy
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "ಇಲ್ಲ /."
 
 #: ../text.py:357
+#, fuzzy
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "ಉಳಿಸು"
 
 #: ../text.py:411 ../loader2/lang.c:50 ../loader2/loader.c:145
 #, c-format, python-format
+#, fuzzy
 msgid "Welcome to %s"
-msgstr ""
+msgstr "ಸ್ವಾಗತ"
 
 #: ../text.py:418
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:420
@@ -1731,23 +1902,26 @@ msgid ""
 msgstr ""
 
 #: ../upgradeclass.py:20
+#, fuzzy
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು ಗಣಕ ವ್ಯವಸ್ಥೆ"
 
 #: ../upgradeclass.py:24
+#, fuzzy
 msgid "Upgrade"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../upgrade.py:50
 msgid "Proceed with upgrade?"
 msgstr ""
 
 #: ../upgrade.py:51
+#, fuzzy
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
-msgstr ""
+msgstr "/ ಲೀನಕ್ಸ್ ನಾ ನಾ"
 
 #: ../upgrade.py:55
 msgid "Would you like to continue with the upgrade?"
@@ -1763,62 +1937,69 @@ msgid "Searching for %s installations..."
 msgstr ""
 
 #: ../upgrade.py:145 ../upgrade.py:153
+#, fuzzy
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "ಕಡತ"
 
 #: ../upgrade.py:146
 #, python-format
+#, fuzzy
 msgid ""
 "The following file systems for your Linux system were not unmounted "
 "cleanly.  Please boot your Linux installation, let the file systems be "
 "checked and shut down cleanly to upgrade.\n"
 "%s"
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್ ಲೀನಕ್ಸ್ ನಾ"
 
 #: ../upgrade.py:154
 #, python-format
+#, fuzzy
 msgid ""
 "The following file systems for your Linux system were not unmounted "
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್ ನಾ"
 
 #: ../upgrade.py:291 ../upgrade.py:297
 msgid "Mount failed"
 msgstr ""
 
 #: ../upgrade.py:292
+#, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "/ ಇಂಚು ಲೀನಕ್ಸ್."
 
 #: ../upgrade.py:298
+#, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr ""
+msgstr "/ ಇಂಚು / ಲೀನಕ್ಸ್."
 
 #: ../upgrade.py:315
+#, fuzzy
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
 "the upgrade.\n"
 "\n"
-msgstr ""
+msgstr "ಸಂಪರ್ಕಗಳು ಸಂಪರ್ಕಗಳು ನಾ ನಾ"
 
 #: ../upgrade.py:321
 msgid "Absolute Symlinks"
 msgstr ""
 
 #: ../upgrade.py:332
+#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as symbolic links and restart the upgrade.\n"
 "\n"
-msgstr ""
+msgstr "ಸಂಪರ್ಕಗಳು ಸಂಪರ್ಕಗಳು ನಾ ನಾ"
 
 #: ../upgrade.py:338
 msgid "Invalid Directories"
@@ -1834,31 +2015,37 @@ msgid "Connecting..."
 msgstr ""
 
 #: ../vnc.py:43
+#, fuzzy
 msgid "Unable to Start X"
-msgstr ""
+msgstr "ಶುರುಮಾಡು X"
 
 #: ../vnc.py:44
+#, fuzzy
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "X from ಪಠ್ಯ?"
 
 #: ../vnc.py:51 ../vnc.py:54
+#, fuzzy
 msgid "Use text mode"
-msgstr ""
+msgstr "ಪಠ್ಯ"
 
 #: ../vnc.py:52
+#, fuzzy
 msgid "Start VNC"
-msgstr ""
+msgstr "ಶುರುಮಾಡು"
 
 #: ../vnc.py:62
+#, fuzzy
 msgid "VNC Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../vnc.py:66
+#, fuzzy
 msgid "No password"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../vnc.py:69
 msgid ""
@@ -1868,43 +2055,50 @@ msgid ""
 msgstr ""
 
 #: ../vnc.py:77 ../textw/userauth_text.py:42 ../loader2/urls.c:446
+#, fuzzy
 msgid "Password:"
-msgstr ""
+msgstr "ಪ್ರವೇಶಪದ:"
 
 #: ../vnc.py:78 ../textw/userauth_text.py:43
+#, fuzzy
 msgid "Password (confirm):"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ:"
 
 #: ../vnc.py:100 ../textw/userauth_text.py:64
+#, fuzzy
 msgid "Password Mismatch"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ"
 
 #: ../vnc.py:101 ../textw/userauth_text.py:65
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
 #: ../vnc.py:106 ../textw/userauth_text.py:59
+#, fuzzy
 msgid "Password Length"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ"
 
 #: ../vnc.py:107
 msgid "The password must be at least six characters long."
 msgstr ""
 
 #: ../vnc.py:137
+#, fuzzy
 msgid "VNC Password Error"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ ತಪ್ಪು"
 
 #: ../vnc.py:138
+#, fuzzy
 msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr ""
+msgstr "/ ನಾ<return> ನಾ"
 
 #: ../vnc.py:183
+#, fuzzy
 msgid "Starting VNC..."
-msgstr ""
+msgstr "ಶುರುವಾಗುತ್ತಿರುವ."
 
 #: ../vnc.py:218
 #, python-format
@@ -1917,14 +2111,17 @@ msgid "%s %s installation"
 msgstr ""
 
 #: ../vnc.py:240
+#, fuzzy
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "ಬೇಡ!"
 
 #: ../vnc.py:241
+#, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../vnc.py:264
+#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1932,11 +2129,12 @@ msgid ""
 "You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
-msgstr ""
+msgstr "ನಾ<password> ನಾ ನಾ"
 
 #: ../vnc.py:268
+#, fuzzy
 msgid "The VNC server is now running."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../vnc.py:271
 #, python-format
@@ -1948,8 +2146,9 @@ msgid "Connected!"
 msgstr ""
 
 #: ../vnc.py:288
+#, fuzzy
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "ನಾ"
 
 #: ../vnc.py:290
 #, python-format
@@ -1961,8 +2160,9 @@ msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 
 #: ../vnc.py:296
+#, fuzzy
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "ಇಂಚು ಸೆಕೆಂಡುಗಳು."
 
 #: ../vnc.py:304
 #, python-format
@@ -1974,26 +2174,29 @@ msgid "Please connect to begin the install..."
 msgstr ""
 
 #: ../xsetup.py:56
+#, fuzzy
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "ಪ್ರದರ್ಷಕ"
 
 #: ../yuminstall.py:103
 msgid "Processing"
 msgstr ""
 
 #: ../yuminstall.py:104
+#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr ""
+msgstr "from."
 
 #: ../yuminstall.py:148
 #, python-format
+#, fuzzy
 msgid ""
 "The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
 "perhaps a corrupt package.  If you are installing from CD media this usually "
 "means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 "Press 'Retry' to try again."
-msgstr ""
+msgstr "from ನಾ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸು."
 
 #: ../yuminstall.py:160 ../yuminstall.py:524 ../yuminstall.py:620
 #: ../yuminstall.py:854
@@ -2001,14 +2204,16 @@ msgid "Re_boot"
 msgstr ""
 
 #: ../yuminstall.py:164
+#, fuzzy
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "ಇಂಚು?"
 
 #: ../yuminstall.py:173
+#, fuzzy
 msgid "_Cancel"
-msgstr ""
+msgstr "ರದ್ದುಗೊಲಿಸು"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
@@ -2019,12 +2224,14 @@ msgid "older package(s)"
 msgstr ""
 
 #: ../yuminstall.py:484
+#, fuzzy
 msgid "insufficient disk space"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ"
 
 #: ../yuminstall.py:485
+#, fuzzy
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
@@ -2047,21 +2254,24 @@ msgid "package for incorrect os"
 msgstr ""
 
 #: ../yuminstall.py:503
+#, fuzzy
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "ನಾ"
 
 #: ../yuminstall.py:519
+#, fuzzy
 msgid "Error running transaction"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../yuminstall.py:615
 #, python-format
+#, fuzzy
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
-msgstr ""
+msgstr "from ನಾ ನಾ"
 
 #: ../yuminstall.py:659
 msgid "Retrieving installation information..."
@@ -2069,11 +2279,12 @@ msgstr ""
 
 #: ../yuminstall.py:675
 #, python-format
+#, fuzzy
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
+msgstr "ವೃಕ್ಷ"
 
 #: ../yuminstall.py:704
 msgid "Uncategorized"
@@ -2081,65 +2292,75 @@ msgstr ""
 
 #: ../yuminstall.py:848
 #, python-format
+#, fuzzy
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "MB /."
 
 #: ../yuminstall.py:987
 #, python-format
+#, fuzzy
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "from /?"
 
 #: ../yuminstall.py:1019
+#, fuzzy
 msgid "Install Starting"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು ಶುರುವಾಗುತ್ತಿರುವ"
 
 #: ../yuminstall.py:1020
+#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
+msgstr "ಶುರುವಾಗುತ್ತಿರುವ."
 
 #: ../yuminstall.py:1036
+#, fuzzy
 msgid "Post Upgrade"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../yuminstall.py:1037
 msgid "Performing post upgrade configuration..."
 msgstr ""
 
 #: ../yuminstall.py:1039
+#, fuzzy
 msgid "Post Install"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು"
 
 #: ../yuminstall.py:1040
 msgid "Performing post install configuration..."
 msgstr ""
 
 #: ../yuminstall.py:1185
+#, fuzzy
 msgid "Installation Progress"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನೆ"
 
 #: ../yuminstall.py:1229
 msgid "Dependency Check"
 msgstr ""
 
 #: ../yuminstall.py:1230
+#, fuzzy
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../zfcp.py:28
+#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಸಂಪರ್ಕಸ್ಥಾನ ಹೆಸರು."
 
 #: ../zfcp.py:30
+#, fuzzy
 msgid "Device number"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../zfcp.py:31
 msgid "You have not specified a device number or the number is invalid"
@@ -2158,8 +2379,9 @@ msgid "WWPN"
 msgstr ""
 
 #: ../zfcp.py:37
+#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
+msgstr "ಸಂಪರ್ಕ ಸ್ತಾನ."
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
@@ -2178,13 +2400,15 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr ""
 
 #: ../iw/account_gui.py:25
+#, fuzzy
 msgid "Set Root Password"
-msgstr ""
+msgstr "ಗಣ ನಿರ್ವಹಕ ಪ್ರವೇಶ ಪದ"
 
 #: ../iw/account_gui.py:40 ../iw/account_gui.py:48 ../iw/account_gui.py:55
 #: ../iw/account_gui.py:64 ../textw/userauth_text.py:69
+#, fuzzy
 msgid "Error with Password"
-msgstr ""
+msgstr "ತಪ್ಪು ಪ್ರವೇಶ ಪದ"
 
 #: ../iw/account_gui.py:41
 msgid ""
@@ -2201,69 +2425,81 @@ msgid "The root password must be at least six characters long."
 msgstr ""
 
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:70
+#, fuzzy
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../iw/account_gui.py:92
+#, fuzzy
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "ಬಳಕೆದಾರ."
 
 #: ../iw/account_gui.py:109
+#, fuzzy
 msgid "Root _Password: "
-msgstr ""
+msgstr "ನಿರ್ವಹಕ ಪ್ರವೇಶ ಪದ "
 
 #: ../iw/account_gui.py:112
+#, fuzzy
 msgid "_Confirm: "
-msgstr ""
+msgstr "ದೃಡಪಡಿಸು "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
+#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr ""
+msgstr "ತೆಗೆ."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
+#, fuzzy
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "ತೆಗೆ."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
+#, fuzzy
 msgid "Create custom layout."
-msgstr ""
+msgstr "ತಯಾರಿಸು."
 
 #: ../iw/blpasswidget.py:37
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
-msgstr ""
+msgstr "from."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
 msgstr ""
 
 #: ../iw/blpasswidget.py:73
+#, fuzzy
 msgid "Change _password"
-msgstr ""
+msgstr "ಬದಲಿ"
 
 #: ../iw/blpasswidget.py:96
+#, fuzzy
 msgid "Enter Boot Loader Password"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ"
 
 #: ../iw/blpasswidget.py:102
+#, fuzzy
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
-msgstr ""
+msgstr "ಟಿಪ್ಪಣಿ"
 
 #: ../iw/blpasswidget.py:109
+#, fuzzy
 msgid "_Password:"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ:"
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
@@ -2274,28 +2510,32 @@ msgid "Passwords don't match"
 msgstr ""
 
 #: ../iw/blpasswidget.py:137 ../textw/bootloader_text.py:440
+#, fuzzy
 msgid "Passwords do not match"
-msgstr ""
+msgstr "ಪ್ರವೇಶಪದಗಳೆರಡು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ"
 
 #: ../iw/blpasswidget.py:146 ../textw/bootloader_text.py:450
+#, fuzzy
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr ""
+msgstr "ನಾ?"
 
 #: ../iw/bootloader_advanced_gui.py:27
+#, fuzzy
 msgid "Advanced Boot Loader Configuration"
-msgstr ""
+msgstr "ಮುಂದುವರಿದ ಸಂರಚನೆ"
 
 #: ../iw/bootloader_advanced_gui.py:42 ../textw/bootloader_text.py:125
+#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
-msgstr ""
+msgstr "/ ನಾ?"
 
 #: ../iw/bootloader_advanced_gui.py:48
 msgid "Force LBA32"
@@ -2306,20 +2546,23 @@ msgid "_Force LBA32 (not normally required)"
 msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:73
+#, fuzzy
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
-msgstr ""
+msgstr "ಸಾಮಾನ್ಯ."
 
 #: ../iw/bootloader_advanced_gui.py:79
+#, fuzzy
 msgid "_General kernel parameters"
-msgstr ""
+msgstr "ಸಾಮಾನ್ಯ"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:42
 #: ../textw/bootloader_text.py:108 ../textw/bootloader_text.py:165
 #: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:392
+#, fuzzy
 msgid "Boot Loader Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../iw/bootloader_main_gui.py:117
 #, python-format
@@ -2327,26 +2570,32 @@ msgid "The %s boot loader will be installed on /dev/%s."
 msgstr ""
 
 #: ../iw/bootloader_main_gui.py:123
+#, fuzzy
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "ಇಲ್ಲ."
 
 #: ../iw/bootloader_main_gui.py:152
+#, fuzzy
 msgid "Configure advanced boot loader _options"
-msgstr ""
+msgstr "ಸಂರಚಿಸು"
 
 #: ../iw/bootlocwidget.py:39
+#, fuzzy
 msgid "Install Boot Loader record on:"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು:"
 
 #: ../iw/bootlocwidget.py:72
+#, fuzzy
 msgid "_Change Drive Order"
-msgstr ""
+msgstr "ಬದಲಿ ಕ್ರಮ"
 
 #: ../iw/bootlocwidget.py:84
+#, fuzzy
 msgid "Edit Drive Order"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಕ್ರಮ"
 
 #: ../iw/bootlocwidget.py:89
+#, fuzzy
 msgid ""
 "Arrange the drives to be in the same order as used by the BIOS. Changing the "
 "drive order may be useful if you have multiple SCSI adapters or both SCSI "
@@ -2354,7 +2603,7 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
-msgstr ""
+msgstr "ಇಂಚು from ನಾ."
 
 #: ../iw/confirm_gui.py:29 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:63
@@ -2363,132 +2612,154 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:30 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:64
+#, fuzzy
 msgid "The system will be rebooted now."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../iw/confirm_gui.py:74
+#, fuzzy
 msgid "About to Install"
-msgstr ""
+msgstr "ಬಗ್ಗೆ ಅನುಸ್ಥಾಪಿಸು"
 
 #: ../iw/confirm_gui.py:80
 #, python-format
+#, fuzzy
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "/."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
+#, fuzzy
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
 "rebooting your system.\n"
 "\n"
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
-msgstr ""
+msgstr "/ ಇಂಚು ನಾ ಇಂಚು."
 
 #: ../iw/confirm_gui.py:88
+#, fuzzy
 msgid "About to Upgrade"
-msgstr ""
+msgstr "ಬಗ್ಗೆ ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../iw/confirm_gui.py:94
 #, python-format
+#, fuzzy
 msgid "Click next to begin upgrade of %s."
-msgstr ""
+msgstr "/."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
+#, fuzzy
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr ""
+msgstr "/ ಇಂಚು."
 
 #: ../iw/congrats_gui.py:24
 msgid "Congratulations"
 msgstr ""
 
 #: ../iw/congrats_gui.py:60
+#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press the \"Reboot"
 "\" button to reboot your system.\n"
 "\n"
-msgstr ""
+msgstr "ತೆಗೆ ನಾ ನಾ"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
+#, fuzzy
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
 "%s%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
 msgstr ""
 
 #: ../iw/driveorderwidget.py:44 ../textw/partition_text.py:1437
+#, fuzzy
 msgid "Size"
-msgstr ""
+msgstr "ಗಾತ್ರ"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Model"
 msgstr ""
 
 #: ../iw/examine_gui.py:31
+#, fuzzy
 msgid "Upgrade Examine"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../iw/examine_gui.py:55
 #, python-format
+#, fuzzy
 msgid "_Install %s"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪಿಸು"
 
 #: ../iw/examine_gui.py:57
+#, fuzzy
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡು."
 
 #: ../iw/examine_gui.py:61
+#, fuzzy
 msgid "_Upgrade an existing installation"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../iw/examine_gui.py:63
 #, python-format
+#, fuzzy
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡು."
 
 #: ../iw/examine_gui.py:110 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
 msgstr ""
 
 #: ../iw/examine_gui.py:123
+#, fuzzy
 msgid "Unknown Linux system"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ ಲೀನಕ್ಸ್"
 
 #: ../iw/ipwidget.py:92
+#, fuzzy
 msgid "IP Address is missing"
-msgstr ""
+msgstr "ವಿಳಾಸ"
 
 #: ../iw/ipwidget.py:97
+#, fuzzy
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr ""
+msgstr "ವಿಳಾಸಗಳು"
 
 #: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
+#, fuzzy
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr ""
+msgstr "ವಿಳಾಸಗಳು"
 
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
+#, fuzzy
 msgid "iSCSI Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
+#, fuzzy
 msgid "Error with Data"
-msgstr ""
+msgstr "ತಪ್ಪು ದತ್ತ"
 
 #: ../iw/iscsi_gui.py:34
+#, fuzzy
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -2496,8 +2767,9 @@ msgid "%s"
 msgstr ""
 
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
+#, fuzzy
 msgid "Language Selection"
-msgstr ""
+msgstr "ಭಾಷೆ ಆಯ್ಕೆ"
 
 #: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:362
 msgid "What language would you like to use during the installation process?"
@@ -2519,56 +2791,63 @@ msgid ""
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:125
+#, fuzzy
 msgid "Confirm Physical Extent Change"
-msgstr ""
+msgstr "ದೃಡಪಡಿಸು ಬದಲಿ"
 
 #: ../iw/lvm_dialog_gui.py:126
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
 "multiple of the physical extent.\n"
 "\n"
 "This change will take affect immediately."
-msgstr ""
+msgstr "ಇಂಚು / / ಇಂಚು / ನಾ."
 
 #: ../iw/lvm_dialog_gui.py:135 ../iw/lvm_dialog_gui.py:195
 #: ../iw/network_gui.py:164 ../iw/network_gui.py:168 ../iw/network_gui.py:191
+#, fuzzy
 msgid "C_ontinue"
-msgstr ""
+msgstr "ಸಿ"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
+#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
-msgstr ""
+msgstr "MB MB ಇಂಚು."
 
 #: ../iw/lvm_dialog_gui.py:174
 #, python-format
+#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
-msgstr ""
+msgstr "MB / MB ಇಂಚು."
 
 #: ../iw/lvm_dialog_gui.py:188
 msgid "Too small"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:189
+#, fuzzy
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
+msgstr "ಇಂಚು / / ಇಂಚು."
 
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
+#, fuzzy
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
-msgstr ""
+msgstr "MB /."
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid ""
@@ -2577,17 +2856,20 @@ msgid ""
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:370 ../textw/partition_text.py:1137
+#, fuzzy
 msgid "Make Logical Volume"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../iw/lvm_dialog_gui.py:373
 #, python-format
+#, fuzzy
 msgid "Edit Logical Volume: %s"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../iw/lvm_dialog_gui.py:375 ../textw/partition_text.py:1135
+#, fuzzy
 msgid "Edit Logical Volume"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:284
@@ -2595,41 +2877,49 @@ msgid "_Mount Point:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:396
+#, fuzzy
 msgid "_File System Type:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಶೈಲಿ:"
 
 #: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:311
+#, fuzzy
 msgid "Original File System Type:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಶೈಲಿ:"
 
 #: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:322
 #: ../iw/raid_dialog_gui.py:305
+#, fuzzy
 msgid "Unknown"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ"
 
 #: ../iw/lvm_dialog_gui.py:415
+#, fuzzy
 msgid "_Logical Volume Name:"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:423 ../textw/partition_text.py:286
+#, fuzzy
 msgid "Logical Volume Name:"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:431 ../iw/partition_dialog_gui.py:367
+#, fuzzy
 msgid "_Size (MB):"
-msgstr ""
+msgstr "ಗಾತ್ರ MB:"
 
 #: ../iw/lvm_dialog_gui.py:437 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
+#, fuzzy
 msgid "Size (MB):"
-msgstr ""
+msgstr "ಗಾತ್ರ MB:"
 
 #: ../iw/lvm_dialog_gui.py:452
 #, python-format
+#, fuzzy
 msgid "(Max size is %s MB)"
-msgstr ""
+msgstr "MB"
 
 #: ../iw/lvm_dialog_gui.py:513
 msgid "Illegal size"
@@ -2640,17 +2930,20 @@ msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:547
+#, fuzzy
 msgid "Mount point in use"
-msgstr ""
+msgstr "ಇಂಚು"
 
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
+#, fuzzy
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
+#, fuzzy
 msgid "Illegal Logical Volume Name"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಹೆಸರು"
 
 #: ../iw/lvm_dialog_gui.py:578 ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
@@ -2658,36 +2951,41 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:579 ../textw/partition_text.py:1277
 #, python-format
+#, fuzzy
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../iw/lvm_dialog_gui.py:593
 #, python-format
+#, fuzzy
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr ""
+msgstr "MB MB from ಮುದ್ರಿಕೆ ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು."
 
 #: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
 #: ../textw/partition_text.py:1330
+#, fuzzy
 msgid "Error With Request"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
 #, python-format
+#, fuzzy
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr ""
+msgstr "MB MB."
 
 #: ../iw/lvm_dialog_gui.py:711
+#, fuzzy
 msgid "No free slots"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../iw/lvm_dialog_gui.py:712
 #, python-format
@@ -2695,67 +2993,79 @@ msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:718
+#, fuzzy
 msgid "No free space"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../iw/lvm_dialog_gui.py:719
+#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
-msgstr ""
+msgstr "ಬೇಡ ಇಂಚು / /"
 
 #: ../iw/lvm_dialog_gui.py:747
 #, python-format
+#, fuzzy
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr ""
+msgstr "ಅಳಿಸು?"
 
 #: ../iw/lvm_dialog_gui.py:883
+#, fuzzy
 msgid "Invalid Volume Group Name"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು ಹೆಸರು"
 
 #: ../iw/lvm_dialog_gui.py:896
+#, fuzzy
 msgid "Name in use"
-msgstr ""
+msgstr "ಹೆಸರು ಇಂಚು"
 
 #: ../iw/lvm_dialog_gui.py:897
 #, python-format
+#, fuzzy
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:942
+#, fuzzy
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
 "\n"
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು ನಾ /."
 
 #: ../iw/lvm_dialog_gui.py:953
+#, fuzzy
 msgid "Make LVM Volume Group"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು"
 
 #: ../iw/lvm_dialog_gui.py:956
 #, python-format
+#, fuzzy
 msgid "Edit LVM Volume Group: %s"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು"
 
 #: ../iw/lvm_dialog_gui.py:958
+#, fuzzy
 msgid "Edit LVM Volume Group"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು"
 
 #: ../iw/lvm_dialog_gui.py:974
+#, fuzzy
 msgid "_Volume Group Name:"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:982
+#, fuzzy
 msgid "Volume Group Name:"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು ಹೆಸರು:"
 
 #: ../iw/lvm_dialog_gui.py:990
 msgid "_Physical Extent:"
@@ -2774,12 +3084,14 @@ msgid "Free Space:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1046
+#, fuzzy
 msgid "Total Space:"
-msgstr ""
+msgstr "ಒಟ್ಟು:"
 
 #: ../iw/lvm_dialog_gui.py:1075
+#, fuzzy
 msgid "Logical Volume Name"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಹೆಸರು"
 
 #: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
@@ -2788,25 +3100,29 @@ msgid "Mount Point"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
+#, fuzzy
 msgid "Size (MB)"
-msgstr ""
+msgstr "ಗಾತ್ರ MB"
 
 #: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#, fuzzy
 msgid "_Add"
-msgstr ""
+msgstr "ಸೇರಿಸು"
 
 #: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:530
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
+#, fuzzy
 msgid "_Edit"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು"
 
 #: ../iw/lvm_dialog_gui.py:1113
 msgid "Logical Volumes"
 msgstr ""
 
 #: ../iw/mouse_gui.py:24
+#, fuzzy
 msgid "Mouse Configuration"
-msgstr ""
+msgstr "Mouse ಸಂರಚನೆ"
 
 #: ../iw/mouse_gui.py:77 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -2825,8 +3141,9 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
 #: ../iw/mouse_gui.py:90 ../iw/osbootwidget.py:157
+#, fuzzy
 msgid "_Device"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../iw/mouse_gui.py:136
 msgid "_Model"
@@ -2837,8 +3154,9 @@ msgid "_Emulate 3 buttons"
 msgstr ""
 
 #: ../iw/mouse_gui.py:249
+#, fuzzy
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:607
 msgid "Gateway"
@@ -2873,15 +3191,17 @@ msgid "_Tertiary DNS"
 msgstr ""
 
 #: ../iw/network_gui.py:35
+#, fuzzy
 msgid "Network Configuration"
-msgstr ""
+msgstr "ಜಾಲ ಸಂರಚನೆ"
 
 #: ../iw/network_gui.py:163 ../iw/network_gui.py:167 ../iw/network_gui.py:171
 #: ../iw/network_gui.py:176 ../iw/network_gui.py:182 ../iw/network_gui.py:186
 #: ../iw/network_gui.py:191 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
 #: ../textw/zfcp_text.py:62
+#, fuzzy
 msgid "Error With Data"
-msgstr ""
+msgstr "ತಪ್ಪು ದತ್ತ"
 
 #: ../iw/network_gui.py:164
 msgid ""
@@ -2898,18 +3218,20 @@ msgstr ""
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:413
 #, python-format
+#, fuzzy
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../iw/network_gui.py:177
 #, python-format
+#, fuzzy
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
-msgstr ""
+msgstr "ನಾ"
 
 #: ../iw/network_gui.py:183
 #, python-format
@@ -2921,6 +3243,7 @@ msgid "The IP information you have entered is invalid."
 msgstr ""
 
 #: ../iw/network_gui.py:191
+#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -2928,24 +3251,27 @@ msgid ""
 "NOTE: If you have a PCMCIA-based network adapter you should leave it "
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
-msgstr ""
+msgstr "ಬೇಡ ನಾ."
 
 #: ../iw/network_gui.py:210
 #, python-format
+#, fuzzy
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಸಂಪರ್ಕ"
 
 #: ../iw/network_gui.py:221
+#, fuzzy
 msgid "Configure using _DHCP"
-msgstr ""
+msgstr "ಸಂರಚಿಸು"
 
 #: ../iw/network_gui.py:227
 msgid "_Activate on boot"
 msgstr ""
 
 #: ../iw/network_gui.py:236
+#, fuzzy
 msgid "_IP Address"
-msgstr ""
+msgstr "ವಿಳಾಸ"
 
 #: ../iw/network_gui.py:237
 msgid "Net_mask"
@@ -2960,8 +3286,9 @@ msgid "_ESSID"
 msgstr ""
 
 #: ../iw/network_gui.py:247
+#, fuzzy
 msgid "Encryption _Key"
-msgstr ""
+msgstr "ಕೀಲು"
 
 #: ../iw/network_gui.py:258
 msgid "Hardware address:"
@@ -2969,31 +3296,36 @@ msgstr ""
 
 #: ../iw/network_gui.py:297
 #, python-format
+#, fuzzy
 msgid "Configure %s"
-msgstr ""
+msgstr "ಸಂರಚಿಸು"
 
 #: ../iw/network_gui.py:471
+#, fuzzy
 msgid "Active on Boot"
-msgstr ""
+msgstr "ಕ್ರಿಯಾಶೀಲ"
 
 #: ../iw/network_gui.py:473 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
+#, fuzzy
 msgid "Device"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../iw/network_gui.py:475
 msgid "IP/Netmask"
 msgstr ""
 
 #: ../iw/network_gui.py:537
+#, fuzzy
 msgid "Network Devices"
-msgstr ""
+msgstr "ಜಾಲ"
 
 #: ../iw/network_gui.py:548
+#, fuzzy
 msgid "Set the hostname:"
-msgstr ""
+msgstr "ಗಣ:"
 
 #: ../iw/network_gui.py:553
 msgid "_automatically via DHCP"
@@ -3012,43 +3344,51 @@ msgid "Hostname"
 msgstr ""
 
 #: ../iw/network_gui.py:618
+#, fuzzy
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "ಮಿಶ್ರ ಪರಿಸ್ಥಿತಿಗಳು"
 
 #: ../iw/osbootwidget.py:43
+#, fuzzy
 msgid ""
 "You can configure the boot loader to boot other operating systems. It will "
 "allow you to select an operating system to boot from the list. To add "
 "additional operating systems, which are not automatically detected, click "
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
-msgstr ""
+msgstr "from ಪಟ್ಟಿ ಸೇರಿಸು ಪೂರ್ವನಿಯೋಜಿತ."
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
+#, fuzzy
 msgid "Default"
-msgstr ""
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ"
 
 #: ../iw/osbootwidget.py:67
+#, fuzzy
 msgid "Label"
-msgstr ""
+msgstr "ಗುರುತುಪಟ್ಟಿ"
 
 #: ../iw/osbootwidget.py:130
+#, fuzzy
 msgid "Image"
-msgstr ""
+msgstr "ಚಿತ್ರ"
 
 #: ../iw/osbootwidget.py:137
+#, fuzzy
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
-msgstr ""
+msgstr "ಇಂಚು ಪರಿವಿಡಿ from."
 
 #: ../iw/osbootwidget.py:149
+#, fuzzy
 msgid "_Label"
-msgstr ""
+msgstr "ಗುರುತುಪಟ್ಟಿ"
 
 #: ../iw/osbootwidget.py:188
+#, fuzzy
 msgid "Default Boot _Target"
-msgstr ""
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
@@ -3059,24 +3399,28 @@ msgid "Boot label contains illegal characters"
 msgstr ""
 
 #: ../iw/osbootwidget.py:250
+#, fuzzy
 msgid "Duplicate Label"
-msgstr ""
+msgstr "ಗುರುತುಪಟ್ಟಿ"
 
 #: ../iw/osbootwidget.py:251
+#, fuzzy
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../iw/osbootwidget.py:264
+#, fuzzy
 msgid "Duplicate Device"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
 msgstr ""
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
+#, fuzzy
 msgid "Cannot Delete"
-msgstr ""
+msgstr "ಅಳಿಸು"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
 #, python-format
@@ -3086,41 +3430,48 @@ msgid ""
 msgstr ""
 
 #: ../iw/partition_dialog_gui.py:58
+#, fuzzy
 msgid "Additional Size Options"
-msgstr ""
+msgstr "ಗಾತ್ರ ಆಯ್ಕೆಗಳು"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
 msgstr ""
 
 #: ../iw/partition_dialog_gui.py:65
+#, fuzzy
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "ತುಂಬು MB:"
 
 #: ../iw/partition_dialog_gui.py:75
+#, fuzzy
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "ತುಂಬು"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr ""
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
+#, fuzzy
 msgid "Add Partition"
-msgstr ""
+msgstr "ಸೇರಿಸು ವಿಭಾಗ"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
+#, fuzzy
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ವಿಭಾಗ"
 
 #: ../iw/partition_dialog_gui.py:274
+#, fuzzy
 msgid "Edit Partition"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ವಿಭಾಗ"
 
 #: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
+#, fuzzy
 msgid "File System _Type:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಶೈಲಿ:"
 
 #: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
@@ -3131,59 +3482,66 @@ msgid "Drive:"
 msgstr ""
 
 #: ../iw/partition_dialog_gui.py:355
+#, fuzzy
 msgid "Original File System Label:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಗುರುತುಪಟ್ಟಿ:"
 
 #: ../iw/partition_dialog_gui.py:390
+#, fuzzy
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "ಶುರುಮಾಡು:"
 
 #: ../iw/partition_dialog_gui.py:408
+#, fuzzy
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "ಕೊನೆ:"
 
 #: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
 msgstr ""
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "ಶೈಲಿ"
 
 #: ../iw/partition_gui.py:370 ../textw/partition_text.py:1437
+#, fuzzy
 msgid "Start"
-msgstr ""
+msgstr "ಶುರುಮಾಡು"
 
 #: ../iw/partition_gui.py:371 ../textw/partition_text.py:1437
+#, fuzzy
 msgid "End"
-msgstr ""
+msgstr "ಕೊನೆ"
 
 #: ../iw/partition_gui.py:408
+#, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../iw/partition_gui.py:410
+#, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
-msgstr ""
+msgstr "ಗಾತ್ರ ನಾ MB"
 
 #: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
 msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:633
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:636
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
+#, fuzzy
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "/."
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -3202,16 +3560,19 @@ msgid "Partitioning Warnings"
 msgstr ""
 
 #: ../iw/partition_gui.py:677
+#, fuzzy
 msgid "Format Warnings"
-msgstr ""
+msgstr "ರಚಿಸು"
 
 #: ../iw/partition_gui.py:682
+#, fuzzy
 msgid "_Format"
-msgstr ""
+msgstr "ರಚಿಸು"
 
 #: ../iw/partition_gui.py:717
+#, fuzzy
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../iw/partition_gui.py:752
 msgid "RAID Devices"
@@ -3219,8 +3580,9 @@ msgstr ""
 
 #: ../iw/partition_gui.py:780 ../iw/partition_gui.py:906
 #: ../textw/partition_text.py:96 ../textw/partition_text.py:159
+#, fuzzy
 msgid "None"
-msgstr ""
+msgstr "ಯಾವುದೂ ಇಲ್ಲ"
 
 #: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:327
 msgid "Hard Drives"
@@ -3250,8 +3612,9 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1007
 #, python-format
+#, fuzzy
 msgid "Warning: %s."
-msgstr ""
+msgstr "ಎಚ್ಚರಿಕೆ."
 
 #: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
@@ -3266,21 +3629,25 @@ msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
 #: ../iw/partition_gui.py:1213
+#, fuzzy
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../iw/partition_gui.py:1214
+#, fuzzy
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
+msgstr "/."
 
 #: ../iw/partition_gui.py:1228
+#, fuzzy
 msgid "RAID Options"
-msgstr ""
+msgstr "ಆಯ್ಕೆಗಳು"
 
 #: ../iw/partition_gui.py:1239
 #, python-format
+#, fuzzy
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
 "device.  A RAID device can be configured to provide additional speed and "
@@ -3289,28 +3656,32 @@ msgid ""
 "\n"
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
-msgstr ""
+msgstr "ನಾ ನಾ ನಾ"
 
 #: ../iw/partition_gui.py:1250
+#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
 "mounted.\n"
 "\n"
-msgstr ""
+msgstr "/ ನಾ ನಾ"
 
 #: ../iw/partition_gui.py:1256
+#, fuzzy
 msgid "What do you want to do now?"
-msgstr ""
+msgstr "ಈಗ?"
 
 #: ../iw/partition_gui.py:1265
+#, fuzzy
 msgid "Create a software RAID _partition."
-msgstr ""
+msgstr "ತಯಾರಿಸು."
 
 #: ../iw/partition_gui.py:1268
 #, python-format
+#, fuzzy
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "ತಯಾರಿಸು."
 
 #: ../iw/partition_gui.py:1272
 #, python-format
@@ -3318,8 +3689,9 @@ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
 #: ../iw/partition_gui.py:1311
+#, fuzzy
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "ತಯಾರಿಸು ಸಂಪಾದಕ"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
@@ -3342,8 +3714,9 @@ msgid "_LVM"
 msgstr ""
 
 #: ../iw/partition_gui.py:1402
+#, fuzzy
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "ಮುಚ್ಚಿಡು ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು"
 
 #: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
@@ -3361,8 +3734,9 @@ msgid "Leave _unchanged (preserve data)"
 msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:259
+#, fuzzy
 msgid "_Format partition as:"
-msgstr ""
+msgstr "ರಚಿಸು:"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
@@ -3374,10 +3748,11 @@ msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
+#, fuzzy
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "/ ಇಂಚು."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -3388,28 +3763,33 @@ msgid "_Automatically partition"
 msgstr ""
 
 #: ../iw/partmethod_gui.py:53
+#, fuzzy
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "ನಿಪುಣನ"
 
 #: ../iw/progress_gui.py:43
 #, python-format
+#, fuzzy
 msgid "%s MB"
-msgstr ""
+msgstr "MB"
 
 #: ../iw/progress_gui.py:46
 #, python-format
+#, fuzzy
 msgid "%s KB"
-msgstr ""
+msgstr "ಕೆ.ಬಿ."
 
 #: ../iw/progress_gui.py:49
 #, python-format
+#, fuzzy
 msgid "%s Byte"
-msgstr ""
+msgstr "ಅಷ್ಟಕ"
 
 #: ../iw/progress_gui.py:51
 #, python-format
+#, fuzzy
 msgid "%s Bytes"
-msgstr ""
+msgstr "ಅಷ್ಟಕಗಳು"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
@@ -3431,43 +3811,51 @@ msgid "Installing %s-%s-%s.%s (%s)"
 msgstr ""
 
 #: ../iw/progress_gui.py:346
+#, fuzzy
 msgid "Package"
-msgstr ""
+msgstr "ಕಟ್ಟು"
 
 #: ../iw/progress_gui.py:347
+#, fuzzy
 msgid "Summary"
-msgstr ""
+msgstr "ಸಾರಾಂಶ"
 
 #: ../iw/progress_gui.py:374 ../textw/progress_text.py:135
+#, fuzzy
 msgid "Status: "
-msgstr ""
+msgstr "ಸ್ಥಿತಿ "
 
 #: ../iw/raid_dialog_gui.py:251
+#, fuzzy
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
 "\n"
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
-msgstr ""
+msgstr "ನಾ /."
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
+#, fuzzy
 msgid "Make RAID Device"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
+#, fuzzy
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಸಾಧನ"
 
 #: ../iw/raid_dialog_gui.py:270 ../textw/partition_text.py:965
+#, fuzzy
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಸಾಧನ"
 
 #: ../iw/raid_dialog_gui.py:311
+#, fuzzy
 msgid "RAID _Device:"
-msgstr ""
+msgstr "ಸಾಧನ:"
 
 #: ../iw/raid_dialog_gui.py:329
 msgid "RAID _Level:"
@@ -3478,54 +3866,62 @@ msgid "_RAID Members:"
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:387
+#, fuzzy
 msgid "Number of _spares:"
-msgstr ""
+msgstr "ಸಂಖ್ಯೆ /:"
 
 #: ../iw/raid_dialog_gui.py:397
+#, fuzzy
 msgid "_Format partition?"
-msgstr ""
+msgstr "ರಚಿಸು?"
 
 #: ../iw/raid_dialog_gui.py:476
+#, fuzzy
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
+msgstr "ಬೇಡ /."
 
 #: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
 #: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
+#, fuzzy
 msgid "Source Drive Error"
-msgstr ""
+msgstr "ಆಕರ ತಪ್ಪು"
 
 #: ../iw/raid_dialog_gui.py:487
+#, fuzzy
 msgid ""
 "The source drive selected has partitions on it which are not of type "
 "'software RAID'.\n"
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
-msgstr ""
+msgstr "/ ನಾ "
 
 #: ../iw/raid_dialog_gui.py:499
 #, python-format
+#, fuzzy
 msgid ""
 "The source drive selected has partitions which are not constrained to the "
 "drive /dev/%s.\n"
 "\n"
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
-msgstr ""
+msgstr "ನಾ "
 
 #: ../iw/raid_dialog_gui.py:512
+#, fuzzy
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
 "of an active software RAID device.\n"
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
-msgstr ""
+msgstr "/ ನಾ."
 
 #: ../iw/raid_dialog_gui.py:525 ../iw/raid_dialog_gui.py:531
 #: ../iw/raid_dialog_gui.py:544
+#, fuzzy
 msgid "Target Drive Error"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../iw/raid_dialog_gui.py:526
 msgid "Please select the target drives for the clone operation."
@@ -3538,6 +3934,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:545
 #, python-format
+#, fuzzy
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3545,7 +3942,7 @@ msgid ""
 "\"%s\"\n"
 "\n"
 "This partition must be removed before this drive can be a target."
-msgstr ""
+msgstr "ನಾ ನಾ ನಾ."
 
 #: ../iw/raid_dialog_gui.py:606
 msgid "Please select a source drive."
@@ -3553,21 +3950,24 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:626
 #, python-format
+#, fuzzy
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
-msgstr ""
+msgstr "ಈಗ ನಾ ನಾ"
 
 #: ../iw/raid_dialog_gui.py:631
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
-msgstr ""
+msgstr "ನಾ."
 
 #: ../iw/raid_dialog_gui.py:634
+#, fuzzy
 msgid "Final Warning"
-msgstr ""
+msgstr "ಎಚ್ಚರಿಕೆ"
 
 #: ../iw/raid_dialog_gui.py:636
 msgid "Clone Drives"
@@ -3578,6 +3978,7 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:679
+#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -3591,11 +3992,12 @@ msgid ""
 "Other partition types are not allowed.\n"
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
-msgstr ""
+msgstr "ಉಪಕರಣ ನಾ / ನಾ ಬೇರೆ ನಾ."
 
 #: ../iw/raid_dialog_gui.py:699
+#, fuzzy
 msgid "Source Drive:"
-msgstr ""
+msgstr "ಆಕರ:"
 
 #: ../iw/raid_dialog_gui.py:707
 msgid "Target Drive(s):"
@@ -3606,28 +4008,34 @@ msgid "Drives"
 msgstr ""
 
 #: ../iw/release_notes.py:153
+#, fuzzy
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "ಬಿಡುಗಡೆ ನಾ"
 
 #: ../iw/release_notes.py:212
+#, fuzzy
 msgid "Release Notes"
-msgstr ""
+msgstr "ಬಿಡುಗಡೆ"
 
 #: ../iw/release_notes.py:216
+#, fuzzy
 msgid "Unable to load file!"
-msgstr ""
+msgstr "ತುಂಬಿಸು!"
 
 #: ../iw/timezone_gui.py:60 ../textw/timezone_text.py:90
+#, fuzzy
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "ಸಮಯ ಆಯ್ಕೆ"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
+#, fuzzy
 msgid "Upgrade Boot Loader Configuration"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು ಸಂರಚನೆ"
 
 #: ../iw/upgrade_bootloader_gui.py:66
+#, fuzzy
 msgid "_Update boot loader configuration"
-msgstr ""
+msgstr "ಪರಿಷ್ಕರಿಸು"
 
 #: ../iw/upgrade_bootloader_gui.py:67
 msgid "This will update your current boot loader."
@@ -3635,8 +4043,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -3644,14 +4051,16 @@ msgid "This is the recommended option."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:78 ../textw/upgrade_bootloader_text.py:57
+#, fuzzy
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../iw/upgrade_bootloader_gui.py:87
+#, fuzzy
 msgid "_Create new boot loader configuration"
-msgstr ""
+msgstr "ತಯಾರಿಸು"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid ""
@@ -3660,25 +4069,30 @@ msgid ""
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:96
+#, fuzzy
 msgid "_Skip boot loader updating"
-msgstr ""
+msgstr "ಹಾರಿಸು"
 
 #: ../iw/upgrade_bootloader_gui.py:97
+#, fuzzy
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr ""
+msgstr "ಬೇಡ."
 
 #: ../iw/upgrade_bootloader_gui.py:109
+#, fuzzy
 msgid "What would you like to do?"
-msgstr ""
+msgstr "ನೀವು ಎನು ಮಾಡಲು ಇಷ್ಟಪಡಿಯುತ್ತಿೀರಿ?"
 
 #: ../iw/upgrade_migratefs_gui.py:28 ../textw/upgrade_text.py:33
+#, fuzzy
 msgid "Migrate File Systems"
-msgstr ""
+msgstr "ಕಡತ"
 
 #: ../iw/upgrade_migratefs_gui.py:52 ../textw/upgrade_text.py:35
 #, python-format
+#, fuzzy
 msgid ""
 "This release of %s supports the ext3 journalling file system.  It has "
 "several benefits over the ext2 file system traditionally shipped in %s.  It "
@@ -3686,112 +4100,130 @@ msgid ""
 "loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
-msgstr ""
+msgstr "/ ಇಂಚು ನಾ /?"
 
 #: ../iw/upgrade_swap_gui.py:29
+#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು ಅದಳು-ಬದಳು ಕೋಶ ವಿಭಾಗ"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
+#, fuzzy
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
+msgstr "/ / ಈಗ."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
+#, fuzzy
 msgid ""
 "\n"
 "\n"
 "The installer has detected %s MB of RAM.\n"
-msgstr ""
+msgstr "ನಾ MB / ನಾ"
 
 #: ../iw/upgrade_swap_gui.py:108
+#, fuzzy
 msgid "I _want to create a swap file"
-msgstr ""
+msgstr "I"
 
 #: ../iw/upgrade_swap_gui.py:117
+#, fuzzy
 msgid "Select the _partition to put the swap file on:"
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
+#, fuzzy
 msgid "Partition"
-msgstr ""
+msgstr "ವಿಭಾಗ"
 
 #: ../iw/upgrade_swap_gui.py:136
+#, fuzzy
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "MB"
 
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
+#, fuzzy
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
-msgstr ""
+msgstr "MB:"
 
 #: ../iw/upgrade_swap_gui.py:169
+#, fuzzy
 msgid "Swap file _size (MB):"
-msgstr ""
+msgstr "ಅದಳು-ಬದಳು ಕೋಶ MB:"
 
 #: ../iw/upgrade_swap_gui.py:179
+#, fuzzy
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "I"
 
 #: ../iw/upgrade_swap_gui.py:189
+#, fuzzy
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
+msgstr "ಕಾರ್ಯ ಭಂಗಿಸು?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
+#, fuzzy
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "MB ಇಂಚು."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/zfcp_gui.py:24
+#, fuzzy
 msgid "ZFCP Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../iw/zfcp_gui.py:103
+#, fuzzy
 msgid "_Remove"
-msgstr ""
+msgstr "ತೆಗೆ"
 
 #: ../iw/zfcp_gui.py:110 ../textw/zfcp_text.py:115
 msgid "FCP Devices"
 msgstr ""
 
 #: ../iw/zfcp_gui.py:121
+#, fuzzy
 msgid "Add FCP device"
-msgstr ""
+msgstr "ಸೇರಿಸು"
 
 #: ../iw/zfcp_gui.py:184
 #, python-format
+#, fuzzy
 msgid "Edit FCP device %s"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು"
 
 #: ../iw/zfcp_gui.py:248
+#, fuzzy
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ from?"
 
 #: ../iw/zipl_gui.py:28
+#, fuzzy
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../iw/zipl_gui.py:52
 msgid "The z/IPL boot loader will be installed on your system."
 msgstr ""
 
 #: ../iw/zipl_gui.py:54
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will now be installed on your system.\n"
 "\n"
@@ -3806,7 +4238,7 @@ msgid ""
 "\n"
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
-msgstr ""
+msgstr "ಈಗ ನಾ ಇಂಚು ನಾ ನಾ ನಾ ಈಗ."
 
 #: ../iw/zipl_gui.py:81 ../textw/zipl_text.py:62
 msgid "Kernel Parameters"
@@ -3825,14 +4257,17 @@ msgid "Use GRUB Boot Loader"
 msgstr ""
 
 #: ../textw/bootloader_text.py:39
+#, fuzzy
 msgid "No Boot Loader"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../textw/bootloader_text.py:59
+#, fuzzy
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "ಹಾರಿಸು"
 
 #: ../textw/bootloader_text.py:60
+#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3840,19 +4275,21 @@ msgid ""
 "directly from the hard drive.\n"
 "\n"
 "Are you sure you want to skip boot loader installation?"
-msgstr ""
+msgstr "ಇಂಚು ಲೀನಕ್ಸ್ from ನಾ?"
 
 #: ../textw/bootloader_text.py:93
+#, fuzzy
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../textw/bootloader_text.py:102
+#, fuzzy
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "/"
 
 #: ../textw/bootloader_text.py:166
 msgid "Where do you want to install the boot loader?"
@@ -3863,16 +4300,19 @@ msgid "Boot label"
 msgstr ""
 
 #: ../textw/bootloader_text.py:198
+#, fuzzy
 msgid "Clear"
-msgstr ""
+msgstr "ಖಾಲಿಮಾಡು"
 
 #: ../textw/bootloader_text.py:206
+#, fuzzy
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಗುರುತುಪಟ್ಟಿ"
 
 #: ../textw/bootloader_text.py:224 ../textw/bootloader_text.py:229
+#, fuzzy
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "ಗುರುತುಪಟ್ಟಿ"
 
 #: ../textw/bootloader_text.py:225
 msgid "Boot label may not be empty."
@@ -3884,69 +4324,77 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:274 ../textw/partition_text.py:1442
 #: ../textw/zfcp_text.py:108
+#, fuzzy
 msgid "Edit"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸು/ತಿದ್ದು"
 
 #: ../textw/bootloader_text.py:278
 #, python-format
+#, fuzzy
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
-msgstr ""
+msgstr "/."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:387
+#, fuzzy
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
-msgstr ""
+msgstr "from."
 
 #: ../textw/bootloader_text.py:397
+#, fuzzy
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ"
 
 #: ../textw/bootloader_text.py:409
+#, fuzzy
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ:"
 
 #: ../textw/bootloader_text.py:410
+#, fuzzy
 msgid "Confirm:"
-msgstr ""
+msgstr "ದೃಡಪಡಿಸು:"
 
 #: ../textw/bootloader_text.py:439
 msgid "Passwords Do Not Match"
 msgstr ""
 
 #: ../textw/bootloader_text.py:444
+#, fuzzy
 msgid "Password Too Short"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಪದ"
 
 #: ../textw/bootloader_text.py:445
 msgid "Boot loader password is too short"
 msgstr ""
 
 #: ../textw/complete_text.py:27
+#, fuzzy
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
-msgstr ""
+msgstr "<Enter> ನಾ ನಾ"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
 msgstr ""
 
 #: ../textw/complete_text.py:30
+#, fuzzy
 msgid ""
 "Remove any media used during the installation process and press <Enter> to "
 "reboot your system.\n"
 "\n"
-msgstr ""
+msgstr "ತೆಗೆ<Enter> ನಾ ನಾ"
 
 #: ../textw/complete_text.py:33
 msgid "<Enter> to reboot"
@@ -3954,36 +4402,40 @@ msgstr ""
 
 #: ../textw/complete_text.py:37
 #, python-format
+#, fuzzy
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 "%s%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../textw/complete_text.py:40
 #, python-format
+#, fuzzy
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
 "\n"
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
-msgstr ""
+msgstr "ದೋಷhttp://www.redhat.com/errata/. ನಾ ಇಂಚುhttp://www.redhat.com/docs/.."
 
 #: ../textw/complete_text.py:46
 msgid "Complete"
 msgstr ""
 
 #: ../textw/confirm_text.py:22
+#, fuzzy
 msgid "Installation to begin"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನೆ"
 
 #: ../textw/confirm_text.py:23
 #, python-format
+#, fuzzy
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
+msgstr "/ ಇಂಚು."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
@@ -3996,44 +4448,50 @@ msgstr ""
 #: ../loader2/net.c:251 ../loader2/net.c:289 ../loader2/net.c:562
 #: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54 ../loader2/urls.c:266
 #: ../loader2/urls.c:456
+#, fuzzy
 msgid "Back"
-msgstr ""
+msgstr "ಹಿಂದೆ"
 
 #: ../textw/confirm_text.py:50
+#, fuzzy
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../textw/confirm_text.py:51
 #, python-format
+#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr ""
+msgstr "/ ಇಂಚು."
 
 #: ../textw/grpselect_text.py:83
 msgid "Please select the package groups you would like to have installed."
 msgstr ""
 
 #: ../textw/grpselect_text.py:101
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+#, fuzzy
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space><F2> ಗುಂಪು ವಿವರಗಳು<F12>"
 
 #: ../textw/grpselect_text.py:129
+#, fuzzy
 msgid "Package Group Details"
-msgstr ""
+msgstr "ಕಟ್ಟು ಗುಂಪು ವಿವರಗಳು"
 
 #: ../textw/iscsi_text.py:35
 msgid "Target IP address:"
 msgstr ""
 
 #: ../textw/iscsi_text.py:42
+#, fuzzy
 msgid "Port Number:"
-msgstr ""
+msgstr "ಸಂಪರ್ಕಸ್ಥಾನ ಸಂಖ್ಯೆ:"
 
 #: ../textw/iscsi_text.py:49
+#, fuzzy
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "ಹೆಸರು:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
 msgid "Invalid IP string"
@@ -4045,8 +4503,9 @@ msgid "The entered IP '%s' is not a valid IP."
 msgstr ""
 
 #: ../textw/keyboard_text.py:38
+#, fuzzy
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "ಕೀಲುಮನೆ ಆಯ್ಕೆ"
 
 #: ../textw/keyboard_text.py:39
 msgid "Which model keyboard is attached to this computer?"
@@ -4065,12 +4524,14 @@ msgid "Emulate 3 Buttons?"
 msgstr ""
 
 #: ../textw/mouse_text.py:85
+#, fuzzy
 msgid "Mouse Selection"
-msgstr ""
+msgstr "Mouse ಆಯ್ಕೆ"
 
 #: ../textw/network_text.py:67
+#, fuzzy
 msgid "IP Address"
-msgstr ""
+msgstr "ವಿಳಾಸ"
 
 #: ../textw/network_text.py:68
 msgid "Netmask"
@@ -4085,27 +4546,32 @@ msgid "ESSID"
 msgstr ""
 
 #: ../textw/network_text.py:75 ../loader2/net.c:247
+#, fuzzy
 msgid "Encryption Key"
-msgstr ""
+msgstr "ಕೀಲು"
 
 #: ../textw/network_text.py:87
 #, python-format
+#, fuzzy
 msgid "Network Device: %s"
-msgstr ""
+msgstr "ಜಾಲ ಸಾಧನ"
 
 #: ../textw/network_text.py:93
 #, python-format
+#, fuzzy
 msgid "Description: %s"
-msgstr ""
+msgstr "ವಿವರಣೆ"
 
 #: ../textw/network_text.py:97
 #, python-format
+#, fuzzy
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "ವಿಳಾಸ"
 
 #: ../textw/network_text.py:102
+#, fuzzy
 msgid "Configure using DHCP"
-msgstr ""
+msgstr "ಸಂರಚಿಸು"
 
 #: ../textw/network_text.py:115
 msgid "Activate on boot"
@@ -4113,8 +4579,9 @@ msgstr ""
 
 #: ../textw/network_text.py:141
 #, python-format
+#, fuzzy
 msgid "Network Configuration for %s"
-msgstr ""
+msgstr "ಜಾಲ ಸಂರಚನೆ"
 
 #: ../textw/network_text.py:174
 msgid "Invalid information"
@@ -4141,8 +4608,9 @@ msgid "Tertiary DNS:"
 msgstr ""
 
 #: ../textw/network_text.py:286
+#, fuzzy
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "ಮಿಶ್ರ ಜಾಲ ಪರಿಸ್ಥಿತಿಗಳು"
 
 #: ../textw/network_text.py:354
 msgid "automatically via DHCP"
@@ -4153,16 +4621,18 @@ msgid "manually"
 msgstr ""
 
 #: ../textw/network_text.py:377
+#, fuzzy
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../textw/network_text.py:380
+#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr ""
+msgstr "/ ಇಂಚು"
 
 #: ../textw/network_text.py:406 ../textw/network_text.py:412
 msgid "Invalid Hostname"
@@ -4186,57 +4656,68 @@ msgstr ""
 
 #: ../textw/partition_text.py:101
 #, python-format
+#, fuzzy
 msgid "RAID Device %s"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../textw/partition_text.py:231
 #, python-format
+#, fuzzy
 msgid "Warning: %s"
-msgstr ""
+msgstr "ಎಚ್ಚರಿಕೆ"
 
 #: ../textw/partition_text.py:232
+#, fuzzy
 msgid "Modify Partition"
-msgstr ""
+msgstr "ಬದಲಾಯಿಸು ವಿಭಾಗ"
 
 #: ../textw/partition_text.py:232
+#, fuzzy
 msgid "Add anyway"
-msgstr ""
+msgstr "ಸೇರಿಸು"
 
 #: ../textw/partition_text.py:270
 msgid "Mount Point:"
 msgstr ""
 
 #: ../textw/partition_text.py:322
+#, fuzzy
 msgid "File System type:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ:"
 
 #: ../textw/partition_text.py:356
 msgid "Allowable Drives:"
 msgstr ""
 
 #: ../textw/partition_text.py:412
+#, fuzzy
 msgid "Fixed Size:"
-msgstr ""
+msgstr "ಗಾತ್ರ:"
 
 #: ../textw/partition_text.py:414
+#, fuzzy
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "ತುಂಬು / MB:"
 
 #: ../textw/partition_text.py:418
+#, fuzzy
 msgid "Fill all available space:"
-msgstr ""
+msgstr "ತುಂಬು:"
 
 #: ../textw/partition_text.py:441
+#, fuzzy
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "ಶುರುಮಾಡು:"
 
 #: ../textw/partition_text.py:454
+#, fuzzy
 msgid "End Cylinder:"
-msgstr ""
+msgstr "ಕೊನೆ:"
 
 #: ../textw/partition_text.py:477
+#, fuzzy
 msgid "Volume Group:"
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಗುಂಪು:"
 
 #: ../textw/partition_text.py:499
 msgid "RAID Level:"
@@ -4247,26 +4728,31 @@ msgid "RAID Members:"
 msgstr ""
 
 #: ../textw/partition_text.py:536
+#, fuzzy
 msgid "Number of spares?"
-msgstr ""
+msgstr "ಸಂಖ್ಯೆ /?"
 
 #: ../textw/partition_text.py:550
+#, fuzzy
 msgid "File System Type:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಶೈಲಿ:"
 
 #: ../textw/partition_text.py:563
+#, fuzzy
 msgid "File System Label:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಗುರುತುಪಟ್ಟಿ:"
 
 #: ../textw/partition_text.py:574
+#, fuzzy
 msgid "File System Option:"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ:"
 
 #: ../textw/partition_text.py:577 ../textw/partition_text.py:815
 #: ../textw/partition_text.py:1052 ../textw/partition_text.py:1222
 #, python-format
+#, fuzzy
 msgid "Format as %s"
-msgstr ""
+msgstr "ರಚಿಸು"
 
 #: ../textw/partition_text.py:579 ../textw/partition_text.py:817
 #: ../textw/partition_text.py:1054 ../textw/partition_text.py:1224
@@ -4281,8 +4767,9 @@ msgstr ""
 
 #: ../textw/partition_text.py:597 ../textw/partition_text.py:792
 #: ../textw/partition_text.py:1032 ../textw/partition_text.py:1202
+#, fuzzy
 msgid "File System Options"
-msgstr ""
+msgstr "ಕಡತ ಗಣಕ ವ್ಯವಸ್ಥೆ ಆಯ್ಕೆಗಳು"
 
 #: ../textw/partition_text.py:600
 msgid ""
@@ -4299,8 +4786,9 @@ msgid "Leave unchanged (preserve data)"
 msgstr ""
 
 #: ../textw/partition_text.py:621
+#, fuzzy
 msgid "Format as:"
-msgstr ""
+msgstr "ರಚಿಸು:"
 
 #: ../textw/partition_text.py:641
 msgid "Migrate to:"
@@ -4315,74 +4803,88 @@ msgid "Not Supported"
 msgstr ""
 
 #: ../textw/partition_text.py:771
+#, fuzzy
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ ಇಂಚು."
 
 #: ../textw/partition_text.py:847 ../textw/partition_text.py:900
+#, fuzzy
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "ನಮೂದನೆ ವಿಭಾಗ ಗಾತ್ರ"
 
 #: ../textw/partition_text.py:859
+#, fuzzy
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "ನಮೂದನೆ ಗಾತ್ರ"
 
 #: ../textw/partition_text.py:878
+#, fuzzy
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "ನಮೂದನೆ ಶುರುವಾಗುತ್ತಿರುವ"
 
 #: ../textw/partition_text.py:892
+#, fuzzy
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "ನಮೂದನೆ ಕೊನೆ"
 
 #: ../textw/partition_text.py:1005
+#, fuzzy
 msgid "No RAID partitions"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../textw/partition_text.py:1006
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
 #: ../textw/partition_text.py:1018 ../textw/partition_text.py:1189
+#, fuzzy
 msgid "Format partition?"
-msgstr ""
+msgstr "ರಚಿಸು?"
 
 #: ../textw/partition_text.py:1080
+#, fuzzy
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "ನಮೂದನೆ"
 
 #: ../textw/partition_text.py:1093
 msgid "Too many spares"
 msgstr ""
 
 #: ../textw/partition_text.py:1094
+#, fuzzy
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "/."
 
 #: ../textw/partition_text.py:1175
+#, fuzzy
 msgid "No Volume Groups"
-msgstr ""
+msgstr "ಇಲ್ಲ ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ"
 
 #: ../textw/partition_text.py:1176
+#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr ""
+msgstr "ಇಲ್ಲ ಇಂಚು"
 
 #: ../textw/partition_text.py:1292
 #, python-format
+#, fuzzy
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
+msgstr "MB MB "
 
 #: ../textw/partition_text.py:1311
 #, python-format
+#, fuzzy
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "MB ಇಂಚು MB."
 
 #: ../textw/partition_text.py:1365
+#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr ""
+msgstr "ಹೊಸ ವಿಭಾಗ ಧ್ವನಿಯ ಗಾತ್ರ/ಗಾತ್ರ?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
@@ -4397,48 +4899,54 @@ msgid "logical volume"
 msgstr ""
 
 #: ../textw/partition_text.py:1441
+#, fuzzy
 msgid "New"
-msgstr ""
+msgstr "ಹೊಸ"
 
 #: ../textw/partition_text.py:1443
+#, fuzzy
 msgid "Delete"
-msgstr ""
+msgstr "ಅಳಿಸು"
 
 #: ../textw/partition_text.py:1444
 msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
+#, fuzzy
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "ಸಹಾಯ ಹೊಸ ಸಂಸ್ಕರಿಸು/ತಿದ್ದು ಅಳಿಸು ಹಿಂದಿನ ಸ್ತಿತಿ ಸರಿ "
 
 #: ../textw/partition_text.py:1476
+#, fuzzy
 msgid "No Root Partition"
-msgstr ""
+msgstr "ಇಲ್ಲ ನಿರ್ವಹಕ ವಿಭಾಗ"
 
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
 msgstr ""
 
 #: ../textw/partition_text.py:1516
+#, fuzzy
 msgid "Partitioning Type"
-msgstr ""
+msgstr "ಶೈಲಿ"
 
 #: ../textw/partition_text.py:1518 tmp/autopart.glade.h:1
+#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  By default, a "
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನೆ /."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr ""
 
 #: ../textw/partition_text.py:1601
+#, fuzzy
 msgid "Review Partition Layout"
-msgstr ""
+msgstr "ವಿಭಾಗ ವಿನ್ಯಾಸ"
 
 #: ../textw/partition_text.py:1602
 msgid "Review and modify partitioning layout?"
@@ -4449,8 +4957,9 @@ msgid "Autopartition"
 msgstr ""
 
 #: ../textw/partmethod_text.py:27
+#, fuzzy
 msgid "Disk Druid"
-msgstr ""
+msgstr "ನಿಪುಣನ"
 
 #: ../textw/progress_text.py:66
 #, python-format
@@ -4458,36 +4967,43 @@ msgid "Downloading - %s"
 msgstr ""
 
 #: ../textw/progress_text.py:103
+#, fuzzy
 msgid "Package Installation"
-msgstr ""
+msgstr "ಕಟ್ಟು ಅನುಸ್ಥಾಪನೆ"
 
 #: ../textw/progress_text.py:105
+#, fuzzy
 msgid " Name   : "
-msgstr ""
+msgstr "ಹೆಸರು "
 
 #: ../textw/progress_text.py:106
+#, fuzzy
 msgid " Size   : "
-msgstr ""
+msgstr "ಗಾತ್ರ "
 
 #: ../textw/progress_text.py:107
+#, fuzzy
 msgid " Summary: "
-msgstr ""
+msgstr "ಸಾರಾಂಶ "
 
 #: ../textw/progress_text.py:152
 msgid "    Packages"
 msgstr ""
 
 #: ../textw/progress_text.py:153
+#, fuzzy
 msgid "      Bytes"
-msgstr ""
+msgstr "ಅಷ್ಟಕಗಳು"
 
 #: ../textw/progress_text.py:154
+#, fuzzy
 msgid "        Time"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #: ../textw/progress_text.py:156
+#, fuzzy
 msgid "Total    :"
-msgstr ""
+msgstr "ಒಟ್ಟು:"
 
 #: ../textw/progress_text.py:163
 msgid "Completed:   "
@@ -4498,101 +5014,119 @@ msgid "Remaining:  "
 msgstr ""
 
 #: ../textw/task_text.py:42
+#, fuzzy
 msgid "Package selection"
-msgstr ""
+msgstr "ಕಟ್ಟು"
 
 #: ../textw/task_text.py:45
 #, python-format
+#, fuzzy
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "/ / ಸಾಮಾನ್ಯ?"
 
 #: ../textw/task_text.py:60
+#, fuzzy
 msgid "Customize software selection"
-msgstr ""
+msgstr "ಗ್ರಾಹಕೀಯಗೊಲಿಸಿ"
 
 #: ../textw/timezone_text.py:72
+#, fuzzy
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "ಇಂಚು?"
 
 #: ../textw/timezone_text.py:87
+#, fuzzy
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "ಗಣಕ ವ್ಯವಸ್ಥೆ"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
+#, fuzzy
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "ಪರಿಷ್ಕರಿಸು"
 
 #: ../textw/upgrade_bootloader_text.py:64
+#, fuzzy
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "ಹಾರಿಸು"
 
 #: ../textw/upgrade_bootloader_text.py:66
+#, fuzzy
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "ತಯಾರಿಸು"
 
 #: ../textw/upgrade_text.py:91
 #, python-format
+#, fuzzy
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
+msgstr "/ / ಈಗ."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
 msgstr ""
 
 #: ../textw/upgrade_text.py:124
+#, fuzzy
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "MB:"
 
 #: ../textw/upgrade_text.py:127
+#, fuzzy
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "MB:"
 
 #: ../textw/upgrade_text.py:130
+#, fuzzy
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "ಅದಳು-ಬದಳು ಕೋಶ MB:"
 
 #: ../textw/upgrade_text.py:138
+#, fuzzy
 msgid "Add Swap"
-msgstr ""
+msgstr "ಸೇರಿಸು ಅದಳು-ಬದಳು ಕೋಶ"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
 msgstr ""
 
 #: ../textw/upgrade_text.py:196
+#, fuzzy
 msgid "Reinstall System"
-msgstr ""
+msgstr "ಗಣಕ ವ್ಯವಸ್ಥೆ"
 
 #: ../textw/upgrade_text.py:205
+#, fuzzy
 msgid "System to Upgrade"
-msgstr ""
+msgstr "ಗಣಕ ವ್ಯವಸ್ಥೆ ಸುಧಾರಣೆಗೊಳಿಸು"
 
 #: ../textw/upgrade_text.py:206
+#, fuzzy
 msgid ""
 "One or more existing Linux installations have been found on your system.\n"
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್ ನಾ ಗಣಕ ವ್ಯವಸ್ಥೆ."
 
 #: ../textw/userauth_text.py:27
+#, fuzzy
 msgid "Root Password"
-msgstr ""
+msgstr "ನಿರ್ವಹಕ ಪ್ರವೇಶ ಪದ"
 
 #: ../textw/userauth_text.py:29
+#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
-msgstr ""
+msgstr "ಇಂಚು  ಜ್ಞಾಪ್ಕ ಇಟ್ಟಿಕೊ /!"
 
 #: ../textw/userauth_text.py:60
 msgid "The root password must be at least 6 characters long."
@@ -4600,71 +5134,84 @@ msgstr ""
 
 #: ../textw/welcome_text.py:23
 #, python-format
+#, fuzzy
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr ""
+msgstr "ಸ್ವಾಗತ ನಾ ನಾ"
 
 #: ../textw/zfcp_text.py:43
+#, fuzzy
 msgid "FCP Device"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../textw/zfcp_text.py:101
+#, fuzzy
 msgid "Device #"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../textw/zfcp_text.py:107
+#, fuzzy
 msgid "Add"
-msgstr ""
+msgstr "ಸೇರಿಸು"
 
 #: ../textw/zfcp_text.py:109
+#, fuzzy
 msgid "Remove"
-msgstr ""
+msgstr "ತೆಗೆ"
 
 #: ../textw/zipl_text.py:26
+#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../textw/zipl_text.py:58
+#, fuzzy
 msgid "z/IPL Configuration"
-msgstr ""
+msgstr "ಸಂರಚನೆ"
 
 #: ../textw/zipl_text.py:66 ../textw/zipl_text.py:70
 msgid "Chandev line "
 msgstr ""
 
 #: ../installclasses/custom.py:11
+#, fuzzy
 msgid "_Custom"
-msgstr ""
+msgstr "ಗ್ರಾಹಕ"
 
 #: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
+#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು."
 
 #: ../installclasses/fedora.py:11
 msgid "_Fedora"
 msgstr ""
 
 #: ../installclasses/fedora.py:20
+#, fuzzy
 msgid "Office and Productivity"
-msgstr ""
+msgstr "ಕಛೇರಿ"
 
 #: ../installclasses/fedora.py:21
+#, fuzzy
 msgid "Software Development"
-msgstr ""
+msgstr "ಅಭಿವೃದ್ಧಿ"
 
 #: ../installclasses/fedora.py:22
+#, fuzzy
 msgid "Web server"
-msgstr ""
+msgstr "ಅಂತರ್ಜಾಲ"
 
 #: ../installclasses/personal_desktop.py:11
+#, fuzzy
 msgid "_Personal Desktop"
-msgstr ""
+msgstr "ವಯಕ್ತಿಕ ಗಣಕತೆರೆ"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -4675,6 +5222,7 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
+#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -4683,34 +5231,40 @@ msgid ""
 "\tInstant messaging\n"
 "\tSound and video applications\n"
 "\tGames\n"
-msgstr ""
+msgstr "ಘನೋಮ್ ನಾ ನಾ ನಾ Evolution ನಾ ನಾ ನಾ ನಾ"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
+#, fuzzy
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
+#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tAdministration Tools\n"
 "\tServer Configuration Tools\n"
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
-msgstr ""
+msgstr "ಘನೋಮ್ ನಾ ನಾ ಸಂರಚನೆ ನಾ ಪೂರೈಕೆದಾರ ನಾ ಕಡತ ಪೂರೈಕೆದಾರ ನಾ"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
+#, fuzzy
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್ ಗಣಕತೆರೆ"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
+#, fuzzy
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
+#, fuzzy
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "ಲೀನಕ್ಸ್"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
+#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -4721,18 +5275,20 @@ msgid ""
 "\tGames\n"
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
-msgstr ""
+msgstr "ಘನೋಮ್ ನಾ ನಾ ನಾ Evolution ನಾ ನಾ ನಾ ನಾ ಅಭಿವೃದ್ಧಿ ನಾ ನಾ"
 
 #: ../installclasses/server.py:11
+#, fuzzy
 msgid "_Server"
-msgstr ""
+msgstr "ಪೂರೈಕೆದಾರ"
 
 #: ../installclasses/server.py:13
+#, fuzzy
 msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು ಅಂತರ್ಜಾಲ."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -4752,19 +5308,22 @@ msgstr ""
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
 #: ../loader2/method.c:419
+#, fuzzy
 msgid "Test"
-msgstr ""
+msgstr "ಪರೀಕ್ಷಿಸು"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
+#, fuzzy
 msgid "Eject CD"
-msgstr ""
+msgstr "ಹೊರತೆಗೆ"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
+#, fuzzy
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡು ಇಂಚು."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -4778,10 +5337,11 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
+#, fuzzy
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
+msgstr "ಇಂಚು /."
 
 #: ../loader2/cdinstall.c:256
 msgid "CD Found"
@@ -4789,18 +5349,20 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:258
 #, c-format
+#, fuzzy
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
-msgstr ""
+msgstr "ನಾ."
 
 #: ../loader2/cdinstall.c:373
 #, c-format
+#, fuzzy
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
+msgstr "ಇಲ್ಲ."
 
 #: ../loader2/cdinstall.c:385
 msgid "CD Not Found"
@@ -4815,84 +5377,101 @@ msgid "Loading"
 msgstr ""
 
 #: ../loader2/driverdisk.c:124
+#, fuzzy
 msgid "Reading driver disk..."
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ."
 
 #: ../loader2/driverdisk.c:264 ../loader2/driverdisk.c:296
+#, fuzzy
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "ಆಕರ"
 
 #: ../loader2/driverdisk.c:265
+#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ?"
 
 #: ../loader2/driverdisk.c:297
+#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ ಚಿತ್ರ?"
 
 #: ../loader2/driverdisk.c:335
+#, fuzzy
 msgid "Failed to mount partition."
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು."
 
 #: ../loader2/driverdisk.c:343
+#, fuzzy
 msgid "Select driver disk image"
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು ಮುದ್ರಿಕೆ ಚಿತ್ರ"
 
 #: ../loader2/driverdisk.c:344
+#, fuzzy
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು ಮುದ್ರಿಕೆ ಚಿತ್ರ."
 
 #: ../loader2/driverdisk.c:373
+#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು ತುಂಬಿಸು ಮುದ್ರಿಕೆ from."
 
 #: ../loader2/driverdisk.c:384
 #, c-format
+#, fuzzy
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "ಅಳವಡಿಸು ಮುದ್ರಿಕೆ ಸರಿ."
 
 #: ../loader2/driverdisk.c:386
+#, fuzzy
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "ಅಳವಡಿಸು"
 
 #: ../loader2/driverdisk.c:401
+#, fuzzy
 msgid "Failed to mount driver disk."
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು ಮುದ್ರಿಕೆ."
 
 #: ../loader2/driverdisk.c:472
 msgid "Manually choose"
 msgstr ""
 
 #: ../loader2/driverdisk.c:473
+#, fuzzy
 msgid "Load another disk"
-msgstr ""
+msgstr "ಒದು ಮುದ್ರಿಕೆ"
 
 #: ../loader2/driverdisk.c:474
+#, fuzzy
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
-msgstr ""
+msgstr "ಇಲ್ಲ / ಮುದ್ರಿಕೆ ತುಂಬಿಸು ಮುದ್ರಿಕೆ?"
 
 #: ../loader2/driverdisk.c:515
+#, fuzzy
 msgid "Driver disk"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ"
 
 #: ../loader2/driverdisk.c:516
+#, fuzzy
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ?"
 
 #: ../loader2/driverdisk.c:526
+#, fuzzy
 msgid "More Driver Disks?"
-msgstr ""
+msgstr "ಹೆಚ್ಚು?"
 
 #: ../loader2/driverdisk.c:527
+#, fuzzy
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "ತುಂಬಿಸು?"
 
 #: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
 #: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
@@ -4901,60 +5480,70 @@ msgstr ""
 #: ../loader2/net.c:948 ../loader2/nfsinstall.c:262
 #: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
 #: ../loader2/urlinstall.c:470
+#, fuzzy
 msgid "Kickstart Error"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../loader2/driverdisk.c:580
 #, c-format
+#, fuzzy
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ ಮುದ್ರಿಕೆ"
 
 #: ../loader2/driverdisk.c:618
 #, c-format
+#, fuzzy
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ"
 
 #: ../loader2/driverselect.c:60
 #, c-format
+#, fuzzy
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
-msgstr ""
+msgstr "ಸರಿ."
 
 #: ../loader2/driverselect.c:80
+#, fuzzy
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "ಉಪಘಟಕ"
 
 #: ../loader2/driverselect.c:181
+#, fuzzy
 msgid "No drivers found"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../loader2/driverselect.c:181
+#, fuzzy
 msgid "Load driver disk"
-msgstr ""
+msgstr "ಒದು ಮುದ್ರಿಕೆ"
 
 #: ../loader2/driverselect.c:182
+#, fuzzy
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
+msgstr "ಇಲ್ಲ ಮುದ್ರಿಕೆ?"
 
 #: ../loader2/driverselect.c:201
+#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
+msgstr "ತುಂಬಿಸು ಮುದ್ರಿಕೆ."
 
 #: ../loader2/driverselect.c:209
 msgid "Specify optional module arguments"
 msgstr ""
 
 #: ../loader2/driverselect.c:229
+#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು ಸಾಧನ ಒದು"
 
 #: ../loader2/firewire.c:52 ../loader2/windows.c:65
 #, c-format
@@ -4964,16 +5553,18 @@ msgstr ""
 #: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
 #: ../loader2/nfsinstall.c:207 ../loader2/urlinstall.c:153
 #, c-format
+#, fuzzy
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "ವೃಕ್ಷ ಇಂಚು."
 
 #: ../loader2/hdinstall.c:215
+#, fuzzy
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr ""
+msgstr "from."
 
 #: ../loader2/hdinstall.c:328
 msgid ""
@@ -4983,24 +5574,28 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:344
 #, c-format
+#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ."
 
 #: ../loader2/hdinstall.c:366
+#, fuzzy
 msgid "Directory holding images:"
-msgstr ""
+msgstr "ಸೂಚಿ:"
 
 #: ../loader2/hdinstall.c:393
+#, fuzzy
 msgid "Select Partition"
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು ವಿಭಾಗ"
 
 #: ../loader2/hdinstall.c:433
 #, c-format
+#, fuzzy
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "ಸಾಧನ."
 
 #: ../loader2/hdinstall.c:468
 #, c-format
@@ -5013,31 +5608,37 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:580
 #, c-format
+#, fuzzy
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ"
 
 #: ../loader2/kbd.c:126
+#, fuzzy
 msgid "Keyboard Type"
-msgstr ""
+msgstr "ಕೀಲುಮನೆ ಶೈಲಿ"
 
 #: ../loader2/kbd.c:127
+#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr ""
+msgstr "/?"
 
 #: ../loader2/kickstart.c:122
 #, c-format
+#, fuzzy
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "ತಪ್ಪು"
 
 #: ../loader2/kickstart.c:132
 #, c-format
+#, fuzzy
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "ತಪ್ಪು /"
 
 #: ../loader2/kickstart.c:175
 #, c-format
+#, fuzzy
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "ತಪ್ಪು ಇಂಚು /."
 
 #: ../loader2/kickstart.c:274
 msgid "Cannot find ks.cfg on boot floppy."
@@ -5050,52 +5651,59 @@ msgstr ""
 
 #: ../loader2/lang.c:51
 #, c-format
+#, fuzzy
 msgid "Welcome to %s - Rescue Mode"
-msgstr ""
+msgstr "ಸ್ವಾಗತ ಸ್ಥಿತಿ"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:151
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:361
+#, fuzzy
 msgid "Choose a Language"
-msgstr ""
+msgstr "ಆಯ್ಕೆ ಮಾಡು ಭಾಶೆ"
 
 #: ../loader2/loader.c:109
+#, fuzzy
 msgid "Local CDROM"
-msgstr ""
+msgstr "ಸ್ಥಳೀಯ"
 
 #: ../loader2/loader.c:111
 msgid "Hard drive"
 msgstr ""
 
 #: ../loader2/loader.c:112
+#, fuzzy
 msgid "NFS image"
-msgstr ""
+msgstr "ಚಿತ್ರ"
 
 #: ../loader2/loader.c:324
+#, fuzzy
 msgid "Update Disk Source"
-msgstr ""
+msgstr "ಪರಿಷ್ಕರಿಸು ಆಕರ"
 
 #: ../loader2/loader.c:325
+#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ?"
 
 #: ../loader2/loader.c:340
 #, c-format
+#, fuzzy
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "ಅಳವಡಿಸು ಮುದ್ರಿಕೆ ಸರಿ."
 
 #: ../loader2/loader.c:342
 msgid "Updates Disk"
 msgstr ""
 
 #: ../loader2/loader.c:354
+#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು ಮುದ್ರಿಕೆ"
 
 #: ../loader2/loader.c:357
 msgid "Updates"
@@ -5106,11 +5714,12 @@ msgid "Reading anaconda updates..."
 msgstr ""
 
 #: ../loader2/loader.c:397
+#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
-msgstr ""
+msgstr "ಇಲ್ಲ ಈಗ?"
 
 #: ../loader2/loader.c:757
 #, c-format
@@ -5122,77 +5731,91 @@ msgid "Rescue Method"
 msgstr ""
 
 #: ../loader2/loader.c:919
+#, fuzzy
 msgid "Installation Method"
-msgstr ""
+msgstr "ಅನುಸ್ಥಾಪನೆ"
 
 #: ../loader2/loader.c:921
+#, fuzzy
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "/ ಚಿತ್ರ?"
 
 #: ../loader2/loader.c:923
+#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "/?"
 
 #: ../loader2/loader.c:947
+#, fuzzy
 msgid "No driver found"
-msgstr ""
+msgstr "ಇಲ್ಲ"
 
 #: ../loader2/loader.c:947
+#, fuzzy
 msgid "Select driver"
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು"
 
 #: ../loader2/loader.c:948
+#, fuzzy
 msgid "Use a driver disk"
-msgstr ""
+msgstr "ಮುದ್ರಿಕೆ"
 
 #: ../loader2/loader.c:949
+#, fuzzy
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "/ ಮುದ್ರಿಕೆ?"
 
 #: ../loader2/loader.c:1110
 msgid "The following devices have been found on your system."
 msgstr ""
 
 #: ../loader2/loader.c:1112
+#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
+msgstr "ಇಲ್ಲ ತುಂಬಿಸು ಈಗ?"
 
 #: ../loader2/loader.c:1116
 msgid "Devices"
 msgstr ""
 
 #: ../loader2/loader.c:1117
+#, fuzzy
 msgid "Done"
-msgstr ""
+msgstr "ಮಾಡಾಯಿತು"
 
 #: ../loader2/loader.c:1118
+#, fuzzy
 msgid "Add Device"
-msgstr ""
+msgstr "ಸೇರಿಸು ಸಾಧನ"
 
 #: ../loader2/loader.c:1258
 #, c-format
+#, fuzzy
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
+msgstr "ಶುರುವಾಗುತ್ತಿರುವ ನಾ"
 
 #: ../loader2/loader.c:1622
 #, c-format
+#, fuzzy
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
+msgstr "ಚಾಲ್ತಿಯಲ್ಲಿರುವ ನಾ"
 
 #: ../loader2/loader.c:1624
 #, c-format
+#, fuzzy
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
+msgstr "ಚಾಲ್ತಿಯಲ್ಲಿರುವ ನಾ"
 
 #: ../loader2/mediacheck.c:330
+#, fuzzy
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr ""
+msgstr "from."
 
 #: ../loader2/mediacheck.c:338
 #, c-format
@@ -5201,36 +5824,41 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:340
 #, c-format
+#, fuzzy
 msgid "Checking media now..."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../loader2/mediacheck.c:387
 #, c-format
+#, fuzzy
 msgid "Unable to find install image %s"
-msgstr ""
+msgstr "ಚಿತ್ರ"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:398
+#, fuzzy
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
-msgstr ""
+msgstr "ಚಿತ್ರ."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
 msgstr ""
 
 #: ../loader2/mediacheck.c:409
+#, fuzzy
 msgid "It is OK to install from this media."
-msgstr ""
+msgstr "ಸರಿ from."
 
 #: ../loader2/mediacheck.c:415
+#, fuzzy
 msgid "No checksum information available, unable to verify media."
-msgstr ""
+msgstr "ಇಲ್ಲ."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -5238,36 +5866,43 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:424
 #, c-format
+#, fuzzy
 msgid ""
 "%s for the image:\n"
 "\n"
 "   %s"
-msgstr ""
+msgstr "ಚಿತ್ರ ನಾ\n"
 
 #: ../loader2/mediacheck.c:428
 #, c-format
+#, fuzzy
 msgid ""
 "The media check %s\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "ನಾ ನಾ"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
+#, fuzzy
 msgid "Failed to read directory %s: %s"
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು"
 
 #: ../loader2/method.c:416
 #, c-format
+#, fuzzy
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
 "\n"
 "   %s?"
 msgstr ""
+"/ ಚಿತ್ರ ನಾ\n"
+"?"
 
 #: ../loader2/method.c:419
+#, fuzzy
 msgid "Checksum Test"
-msgstr ""
+msgstr "ಪರೀಕ್ಷಿಸು"
 
 #: ../loader2/modules.c:965
 #, c-format
@@ -5276,6 +5911,7 @@ msgstr ""
 
 #: ../loader2/net.c:50
 #, c-format
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -5283,18 +5919,24 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"ನಾ\n"
+" /\n"
+"\n"
+" ನಾ"
 
 #: ../loader2/net.c:240
 #, c-format
+#, fuzzy
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಬೇಡ."
 
 #: ../loader2/net.c:250
+#, fuzzy
 msgid "Wireless Settings"
-msgstr ""
+msgstr "ಪರಿಸ್ಥಿತಿಗಳು"
 
 #: ../loader2/net.c:279
 msgid "Nameserver IP"
@@ -5305,16 +5947,18 @@ msgid "Nameserver"
 msgstr ""
 
 #: ../loader2/net.c:284
+#, fuzzy
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
-msgstr ""
+msgstr "ಈಗ."
 
 #: ../loader2/net.c:294
+#, fuzzy
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "ಮಾಹಿತಿ"
 
 #: ../loader2/net.c:295
 msgid "You entered an invalid IP address."
@@ -5330,10 +5974,11 @@ msgid "Sending request for IP information for %s..."
 msgstr ""
 
 #: ../loader2/net.c:506
+#, fuzzy
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
+msgstr "ಇಂಚು."
 
 #: ../loader2/net.c:512
 msgid "IP address:"
@@ -5344,8 +5989,9 @@ msgid "Netmask:"
 msgstr ""
 
 #: ../loader2/net.c:518
+#, fuzzy
 msgid "Default gateway (IP):"
-msgstr ""
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ:"
 
 #: ../loader2/net.c:521
 msgid "Primary nameserver:"
@@ -5356,12 +6002,14 @@ msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr ""
 
 #: ../loader2/net.c:576
+#, fuzzy
 msgid "Configure TCP/IP"
-msgstr ""
+msgstr "ಸಂರಚಿಸು"
 
 #: ../loader2/net.c:613
+#, fuzzy
 msgid "Missing Information"
-msgstr ""
+msgstr "ಮಾಹಿತಿ"
 
 #: ../loader2/net.c:614
 msgid "You must enter both a valid IP address and a netmask."
@@ -5378,12 +6026,14 @@ msgstr ""
 
 #: ../loader2/net.c:949
 #, c-format
+#, fuzzy
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "ಇಂಚು"
 
 #: ../loader2/net.c:1105
+#, fuzzy
 msgid "Networking Device"
-msgstr ""
+msgstr "ಸಾಧನ"
 
 #: ../loader2/net.c:1106
 msgid ""
@@ -5409,17 +6059,20 @@ msgid "NFS Setup"
 msgstr ""
 
 #: ../loader2/nfsinstall.c:128
+#, fuzzy
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "ಬೇಡ"
 
 #: ../loader2/nfsinstall.c:211
 #, c-format
+#, fuzzy
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "ವೃಕ್ಷ."
 
 #: ../loader2/nfsinstall.c:224
+#, fuzzy
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "from."
 
 #: ../loader2/nfsinstall.c:263
 #, c-format
@@ -5427,16 +6080,18 @@ msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr ""
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
+#, fuzzy
 msgid "Telnet"
-msgstr ""
+msgstr "ಟೆಲ್ನೆಟ್"
 
 #: ../loader2/telnetd.c:80
 msgid "Waiting for telnet connection..."
 msgstr ""
 
 #: ../loader2/telnetd.c:122
+#, fuzzy
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "ಚಾಲ್ತಿಯಲ್ಲಿರುವ."
 
 #: ../loader2/urlinstall.c:73
 #, c-format
@@ -5444,16 +6099,18 @@ msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr ""
 
 #: ../loader2/urlinstall.c:145
+#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "ಚಿತ್ರ."
 
 #: ../loader2/urlinstall.c:284
 msgid "Media Detected"
 msgstr ""
 
 #: ../loader2/urlinstall.c:285
+#, fuzzy
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "ಸ್ಥಳೀಯ."
 
 #: ../loader2/urlinstall.c:451
 #, c-format
@@ -5466,50 +6123,59 @@ msgstr ""
 
 #: ../loader2/urlinstall.c:471
 #, c-format
+#, fuzzy
 msgid "Unknown Url method %s"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ"
 
 #: ../loader2/urls.c:182
 #, c-format
+#, fuzzy
 msgid "Failed to log into %s: %s"
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು"
 
 #: ../loader2/urls.c:192 ../loader2/urls.c:201
 #, c-format
+#, fuzzy
 msgid "Failed to retrieve %s: %s"
-msgstr ""
+msgstr "ವಿಫಲವಾಯಿತು"
 
 #: ../loader2/urls.c:208
 msgid "Retrieving"
 msgstr ""
 
 #: ../loader2/urls.c:270
+#, fuzzy
 msgid "FTP"
-msgstr ""
+msgstr "ಎಫ್.ಟಿ.ಪಿ/ಕಡತ ವರ್ಗಾವಣೆಗೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ"
 
 #: ../loader2/urls.c:275
+#, fuzzy
 msgid "Web"
-msgstr ""
+msgstr "ಅಂತರ್ಜಾಲ"
 
 #: ../loader2/urls.c:292
+#, fuzzy
 msgid "FTP site name:"
-msgstr ""
+msgstr "ಎಫ್.ಟಿ.ಪಿ/ಕಡತ ವರ್ಗಾವಣೆಗೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ:"
 
 #: ../loader2/urls.c:293
+#, fuzzy
 msgid "Web site name:"
-msgstr ""
+msgstr "ಅಂತರ್ಜಾಲ:"
 
 #: ../loader2/urls.c:312
 msgid "Use non-anonymous ftp"
 msgstr ""
 
 #: ../loader2/urls.c:321
+#, fuzzy
 msgid "FTP Setup"
-msgstr ""
+msgstr "ಎಫ್.ಟಿ.ಪಿ/ಕಡತ ವರ್ಗಾವಣೆಗೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ"
 
 #: ../loader2/urls.c:322
+#, fuzzy
 msgid "HTTP Setup"
-msgstr ""
+msgstr "ಹೆಚ್.ಟಿ.ಟಿ.ಪಿ/ವಿಸ್ತೃತ ಪಠ್ಯ ರವಾನೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ"
 
 #: ../loader2/urls.c:332
 msgid "You must enter a server name."
@@ -5520,8 +6186,9 @@ msgid "You must enter a directory."
 msgstr ""
 
 #: ../loader2/urls.c:342
+#, fuzzy
 msgid "Unknown Host"
-msgstr ""
+msgstr "ಗೊತ್ತಿಲ್ಲದ ಅತಿಥೇಯ ಗಣಕ"
 
 #: ../loader2/urls.c:343
 #, c-format
@@ -5535,22 +6202,26 @@ msgid ""
 msgstr ""
 
 #: ../loader2/urls.c:421
+#, fuzzy
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
+msgstr "ಹೆಚ್.ಟಿ.ಟಿ.ಪಿ/ವಿಸ್ತೃತ ಪಠ್ಯ ರವಾನೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ / ಹೆಚ್.ಟಿ.ಟಿ.ಪಿ/ವಿಸ್ತೃತ ಪಠ್ಯ ರವಾನೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ."
 
 #: ../loader2/urls.c:443
+#, fuzzy
 msgid "Account name:"
-msgstr ""
+msgstr "ಖಾತೆ:"
 
 #: ../loader2/urls.c:468
+#, fuzzy
 msgid "Further FTP Setup"
-msgstr ""
+msgstr "ಎಫ್.ಟಿ.ಪಿ/ಕಡತ ವರ್ಗಾವಣೆಗೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ"
 
 #: ../loader2/urls.c:471
+#, fuzzy
 msgid "Further HTTP Setup"
-msgstr ""
+msgstr "ಹೆಚ್.ಟಿ.ಟಿ.ಪಿ/ವಿಸ್ತೃತ ಪಠ್ಯ ರವಾನೆ ಶಿಷ್ಟಾಚಾರ ಸಂಹಿತೆ"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -5561,70 +6232,82 @@ msgid "Reboo_t"
 msgstr ""
 
 #: tmp/anaconda.glade.h:2
+#, fuzzy
 msgid "_Debug"
-msgstr ""
+msgstr "ದೋಷದ ಹುಡುಕಾಟ"
 
 #: tmp/anaconda.glade.h:3
+#, fuzzy
 msgid "_Next"
-msgstr ""
+msgstr "ಮುಂದಿನ"
 
 #: tmp/anaconda.glade.h:4
+#, fuzzy
 msgid "_Release Notes"
-msgstr ""
+msgstr "ಬಿಡುಗಡೆ"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
 msgstr ""
 
 #: tmp/autopart.glade.h:3
+#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr ""
+msgstr "ಆಯ್ಕೆಮಾಡು."
 
 #: tmp/exn.glade.h:1
+#, fuzzy
 msgid "Exception Info"
-msgstr ""
+msgstr "ಮಾಹಿತಿ"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:1
+#, fuzzy
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b> ಸಂಪರ್ಕಸ್ಥಾನ ಸಂಖ್ಯೆ</b>"
 
 #: tmp/iscsi-config.glade.h:2
+#, fuzzy
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b> ವಿಳಾಸ</b>"
 
 #: tmp/iscsi-config.glade.h:3
+#, fuzzy
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b> ಹೆಸರು</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "iSCSI configuration"
 msgstr ""
 
 #: tmp/tasksel.glade.h:1
+#, fuzzy
 msgid "Customize _later"
-msgstr ""
+msgstr "ಗ್ರಾಹಕೀಯಗೊಲಿಸಿ"
 
 #: tmp/tasksel.glade.h:2
+#, fuzzy
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "/ ಈಗ ಅನ್ವಯ."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
+#, fuzzy
 msgid ""
 "The default installation of %s includes a set of  software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
-msgstr ""
+msgstr "/ / ಸಾಮಾನ್ಯ?"
 
 #: tmp/tasksel.glade.h:5
+#, fuzzy
 msgid "_Customize now"
-msgstr ""
+msgstr "ಗ್ರಾಹಕೀಯಗೊಲಿಸಿ ಈಗ"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -5635,20 +6318,24 @@ msgid "Alagoas, Sergipe"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
@@ -5671,20 +6358,24 @@ msgid "Atlantic islands"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Atlantic Time - New Brunswick"
-msgstr ""
+msgstr "ಸಮಯ ಹೊಸ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Atlantic Time - Nova Scotia (most places), W Labrador, E Quebec & PEI"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -5727,68 +6418,84 @@ msgid "central Crimea"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "ಶಿಷ್ಟತೆ ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "ಶಿಷ್ಟತೆ ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - central Nunavut"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski Counties"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Indiana - Pike County"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
@@ -5807,8 +6514,9 @@ msgid "Dornod, Sukhbaatar"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "ಮೂಲ"
 
 #. generated from zone.tab
 msgid "E Amazonas"
@@ -5819,76 +6527,94 @@ msgid "east China - Beijing, Guangdong, Shanghai, etc."
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "/"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "/"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "ಹಾ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Standard Time - Southampton Island"
-msgstr ""
+msgstr "ಶಿಷ್ಟತೆ ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - east Nunavut"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Indiana - Crawford County"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Indiana - most locations"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Indiana - Starke County"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -6059,140 +6785,153 @@ msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "ಶಿಷ್ಟತೆ ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "ಶಿಷ್ಟತೆ ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "ಶಿಷ್ಟತೆ ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "ಸಮಯ"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "ಉ ಪೂ ಬ್ರೆಜಿಲ್ (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "ನ್ಯೂಫೌಂಡ್ಲ್ಯಾಂಡ್ ದ್ವೀಪ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "ಹೊಸ"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "ಹೊಸ"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "ಉತ್ತರ ಪ್ರಾಂತ್ಯಗಳು"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "ಪೆಸಿಫಿಕ್ ಸಮಯ"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "ಪೆಸಿಫಿಕ್ ಸಮಯ _ ಉ. ಯೂಕಾನ್"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "ಪೆಸಿಫಿಕ್ ಸಮಯ _ ದ. ಯೂಕಾನ್"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "ಪೆಸಿಫಿಕ್ ಸಮಯ _ ಪ. ಬ್ರಿಟಿಷ್ ಕೊಲಂಬಿಯಾ"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "ಪಾಲ್ಮರ್ ಸ್ಟೇಷನ್, ಆನ್ವರ್ಸ್ ದ್ವೀಪ"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "ಪರ್ಯಾಯ ಮಲೆಯಾ"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "ಪೆಮಾಂಮ್ಬುಕೋ"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "ಫೀನಿಕ್ಸ ದ್ವೀಪಗಳು"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "ಪೋನಪೇ (ಪಾನ್ಪೇಯ್)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "ಕ್ವೀನ್ಸಲ್ಯಾಂಡ್ ಹಾಲಿಡೇ ದ್ವೀಪಿನ"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "ಕ್ವೀನ್ಸಲ್ಯಾಂಡ್ ಬಹುಪಾಲು ಸ್ಥಳಗಳು"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "ಕ್ವಿಜಿಲೋರ್ಡಾ"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "ರೊರೈಮಾ"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "ರೊಥೆರಾ ನಿಲ್ದಾಣ, ಅಡಿಲೇಡ್ ದ್ವೀಪ"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "ರುಥೇರಿಯಾ"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "ಸಬಹ್ ಮತ್ತು ಸಾರವಾಕ್"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "ಸಾನ್ ಜುವಾನ್ (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "ಸಂತ ಕ್ರೂಜ್ (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -6200,35 +6939,36 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "ಸೊಸೈಟಿ ದ್ವೀಪಗಳು"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "ದಕ್ಷಿಣ.ಆಸ್ಟ್ರೇಲಿಯಾಲಿಯಾ"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "ದ.ಪ.ಗ್ಸಿಂಗ್ಜಿಯಾಂಗ್ ಉಯ್ಘುರ್"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "ದ ಮತ್ತು ದ.ಪೂ.ಬ್ರೆಜಿಲ್"
 
 #. generated from zone.tab
 msgid "Svalbard"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "I"
 
 #. generated from zone.tab
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "ಟಾಸಮೇನಿಯಾ ಕಿಂಗ್ ದ್ವೀಪ"
 
 #. generated from zone.tab
 msgid "Tasmania - most locations"
-msgstr ""
+msgstr "ಟಾಸಮೇನಿಯಾ ಬಹುಪಾಲು ಸ್ಥಳಗಳು"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -6236,11 +6976,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "ಟಿಬೆಟ್ ಮತ್ತು.ಬಹುಪಾಲು ಗ್ಸಿಂಗ್ಜಿಯಾಂಗ್ ಉಯ್ಘುರ್"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "ಟಿಯಾರಾ ಡೆಲ್.ಫಿಗೋ"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -6256,39 +6996,39 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "ವಿಕ್ಟೋರಿಯಾ"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "ವೋಸ್ಟಾಕ್ ಸ್ಟೇಷನ್, ದಕ್ಷಿಣ ಧ್ರುವ"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "ವೇಕ್ ದ್ವೀಪ"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "ಪಶ್ಚಿಮ ಅಮೆಜೋನಾಸ್"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "ಪಶ್ಚಿಮ ಮತ್ತು ಮಧ್ಯ ಬೋರ್ನಿಯೋ"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "ಪಶ್ಚಿಮ ಕಾಂಗೋ "
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "ಪಶ್ಚಿಮ ಆಸ್ಚ್ರೇಲಿಯಾ"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "ಪಶ್ಚಿಮ ಕಜಾಕಿಬೇಕಿಸ್ತಾನ"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "ಪಶ್ಚಿಮ ಉಜ್ಬೇಕಿಸ್ತಾನ"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -6300,188 +7040,189 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "ಆಫ್ರಿಕಾನಾಸ್"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "ಅರೇಬಿಕ್"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "ಬಂಗಾಳಿ"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "ಬಂಗಾಳಿ(ಭಾರತ)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "ಬಲ್ಗೇರಿಯನ್"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "ಕ್ಯಾಟಲಾನ್"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "ಚೀನೀ(ಸರಳೀಕೃತ)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "ಚೀನೀ(ಸಾಂಪ್ರದಾಯಿಕ)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "ಕ್ರೊಯೇಶಿಯನ್"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "ಚೆಕ್"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "ಡ್ಯಾನಿಷ್"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "ಡಚ್"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "ಇಂಗ್ಲೀಷ್"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "ಎಸ್ಚೋನಿಯನ್"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr ""
+msgstr "ಫಿನ್ನಿಷ್"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "ಫ್ರೆಂಚ್"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "ಜರ್ಮನ್"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "ಗುಜರಾತಿ"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr ""
+msgstr "ಹಿಂದಿ"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "ಹಂಗೇರಿಯನ್"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "ಐಸ್ಲ್ಯಾಂಡಿಕ್"
 
 #. generated from lang-table
 msgid "Indonesian"
-msgstr ""
+msgstr "ಇಂಡೋನೇಷಿಯನ್"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "ಇಟಾಲಿಯನ್"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "ಜಪಾನೀಸ್"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "ಕೋರಿಯನ್"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "ಮೆಸಡೋನಿಯನ್"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "ಮಲೇಯ್"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "ನಾರ್ವೇಯಿಯನ್"
 
 #. generated from lang-table
 msgid "Northern Sotho"
-msgstr ""
+msgstr "ಉತ್ತರ ಸೋಥೋ"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "ಪರ್ಷಿಯನ್"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "ಪೋಲಿಷ್"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "ಪೋರ್ಚುಗೀಸ್"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "ಪೋರ್ಚುಗೀಸ್(ಬ್ರೆಜಿಲಿಯನ್)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "ಪಂಜಾಬಿ"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "ರಷಿಯನ್"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "ಸರ್ಬಿಯನ್"
 
 #. generated from lang-table
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "ಸರ್ಬಿಯನ್(ಲಾಟಿನ್)"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "ಸ್ಲೋವಾಕ್"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "ಸ್ಲೋವೇನಿಯನ್"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "ಸ್ಪ್ಯಾನಿಷ್"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "ಸ್ವೀಡಿಷ್"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr ""
+msgstr "ತಮಿಳು"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "ತುರ್ಕಿಶ್"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "ಯುಕ್ರೇನಿಯನ್"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "ವಿಯೆಟ್ನಾಮೀಸ್"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "ವೆಲ್ಷ್"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "ಜುಲು"
+
