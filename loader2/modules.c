@@ -304,8 +304,8 @@ static int loadModule(const char * modName, struct extractedModule * path,
         }
 
         waitpid(child, &status, 0);
-        
-        if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+
+        if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
             rc = 1;
         } else {
             rc = 0;

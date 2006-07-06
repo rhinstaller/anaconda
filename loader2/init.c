@@ -880,7 +880,8 @@ int main(int argc, char **argv) {
             doShutdown = 1;
     }
 
-    if (!WIFEXITED(waitStatus) || WEXITSTATUS(waitStatus)) {
+    if (!WIFEXITED(waitStatus) ||
+        (WIFEXITED(waitStatus) && WEXITSTATUS(waitStatus))) {
         printf("install exited abnormally [%d/%d] ", WIFEXITED(waitStatus),
                                                      WEXITSTATUS(waitStatus));
         if (WIFSIGNALED(waitStatus)) {
