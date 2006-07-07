@@ -1,3 +1,8 @@
+2006-07-07  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c (configureTCPIP): Pop Configure TCP/IP window before
+	opening the Manual Network Configuration window.
+
 2006-07-07  Jeremy Katz  <katzj@redhat.com>
 
 	* fsset.py (gfs2FileSystem.__init__): Actually let the command

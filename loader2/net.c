@@ -728,6 +728,8 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                                _("You must select at least one protocol (IPv4 "
                                   "or IPv6) for DHCP."));
             } else {
+                newtFormDestroy(f);
+                newtPopWindow();
                 return LOADER_OK;
             }
         }
