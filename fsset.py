@@ -558,8 +558,6 @@ class gfs2FileSystem(FileSystemType):
         else:
             self.supported = 0
 
-        self.supported = 0
-
         self.name = "gfs2"
         self.packages = [ "gfs2-utils" ]
 
