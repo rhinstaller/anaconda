@@ -28,8 +28,14 @@ struct networkDeviceConfig {
     char *subchannels, *portname, *peerid, *nettype, *ctcprot;
 };
 
-int readNetConfig(char * device, struct networkDeviceConfig * dev, 
-		  char * dhcpclass);
+int readNetConfig(char * device, struct networkDeviceConfig * dev,
+                  char * dhcpclass);
+int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
+                   struct networkDeviceConfig * newCfg,
+                   char * ipv4Choice, char * ipv6Choice);
+int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
+                    struct networkDeviceConfig * newCfg,
+                    char ipv4Choice, char ipv6Choice);
 int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev);
@@ -47,7 +53,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr);
 
-char *doDhcp(struct networkDeviceConfig *dev);
+char *doDhcp(struct networkDeviceConfig *dev, int ipv4Choice, int ipv6Choice);
 void netlogger(void *arg, int priority, char *fmt, va_list va);
 
 #endif

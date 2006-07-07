@@ -1,5 +1,7 @@
 /*
  * Copyright 1999-2004 Red Hat, Inc.
+ *
+ * David Cantrell <dcantrell@redhat.com>
  * 
  * All Rights Reserved.
  * 
@@ -18,6 +20,12 @@
  * in this Software without prior written authorization from Red Hat.
  *
  */
+
+/*
+ * Enable rawhide stupid options or not?  See, with rawhide we can have tons
+ * of fun with the UI code.
+ */
+#define RAWHIDE_STUPID_OPTIONS 1
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -71,7 +79,7 @@ static void ipCallback(newtComponent co, void * dptr) {
     struct in_addr ipaddr, nmaddr, addr, naddr;
     char * ascii;
     int broadcast, network;
-    int af = AF_INET;                 /* accept as a parameter */
+    int af = AF_INET;
     int l = 0;
 
     if (co == data->ipEntry) {
@@ -81,11 +89,9 @@ static void ipCallback(newtComponent co, void * dptr) {
                 switch (af) {
                     case AF_INET:
                         ascii = "255.255.255.0";
-                        /* does this line need to be for each case? */
                         newtEntrySet(data->nmEntry, ascii, 1);
                         break;
                     case AF_INET6:
-                        /* FIXME: writeme? */
                         break;
                 }
             }
@@ -231,15 +237,6 @@ void initLoopback(void) {
     nic_close(&nh);
 
     return;
-}
-
-static void dhcpBoxCallback(newtComponent co, void * ptr) {
-    struct intfconfig_s * c = ptr;
-
-    newtEntrySetFlags(c->ipEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
-    newtEntrySetFlags(c->gwEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
-    newtEntrySetFlags(c->nmEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
-    newtEntrySetFlags(c->nsEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
 }
 
 static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
@@ -401,7 +398,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                ret = doDhcp(cfg);
+                ret = doDhcp(cfg, 1, 1);
             }
 
             if (!FL_CMDLINE(flags))
@@ -517,19 +514,17 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     cfg->noDns = loaderData->noDns;
 }
 
-int readNetConfig(char * device, struct networkDeviceConfig * cfg, 
+int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                   char * dhcpclass) {
-    newtComponent text, f, okay, back, answer, dhcpCheckbox;
-    newtGrid grid, subgrid, buttons;
     struct networkDeviceConfig newCfg;
-    struct intfconfig_s c;
-    int i;
+    int ret;
+    int i = 0;
+    char ipv4Choice, ipv6Choice;
     struct in_addr addr, nm;
     struct in6_addr addr6;
-    char dhcpChoice;
-    char *dret = NULL;
-    char ret[47];
-    ip_addr_t *tip;
+    struct intfconfig_s ipv4comps;
+
+    memset(&ipv4comps, '\0', sizeof(ipv4comps));
 
     /* init newCfg */
     memset(&newCfg, '\0', sizeof(newCfg));
@@ -539,8 +534,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     newCfg.isDynamic = cfg->isDynamic;
     newCfg.noDns = cfg->noDns;
     newCfg.preset = cfg->preset;
-
-    memset(&c, '\0', sizeof(c));
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
@@ -554,6 +547,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         return LOADER_NOOP;
     }        
 
+    /* handle wireless device configuration */
     if (is_wireless_interface(device)) {
         logMessage(INFO, "%s is a wireless adapter", device);
         if (getWirelessConfig(cfg, device) == LOADER_BACK)
@@ -564,176 +558,27 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         logMessage(INFO, "%s is not a wireless adapter", device);
     }
 
-    text = newtTextboxReflowed(-1, -1, 
-                _("Please enter the IP configuration for this machine. Each "
-                  "item should be entered as an IP address in dotted-decimal "
-                  "notation (for example, 1.2.3.4)."), 50, 5, 10, 0);
+    /* dhcp/manual network configuration loop */
+    i = 1;
+    while (i == 1) {
+        ret = configureTCPIP(device, cfg, &newCfg, &ipv4Choice, &ipv6Choice);
 
-    subgrid = newtCreateGrid(2, 4);
-    newtGridSetField(subgrid, 0, 0, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("IP address:")),
-                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(subgrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Netmask:")),
-                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(subgrid, 0, 2, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Default gateway (IP):")),
-                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-    newtGridSetField(subgrid, 0, 3, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Primary nameserver:")),
-                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-
-    c.ipEntry = newtEntry(-1, -1, NULL, 16, &c.ip, 0);
-    c.nmEntry = newtEntry(-1, -1, NULL, 16, &c.nm, 0);
-    c.gwEntry = newtEntry(-1, -1, NULL, 16, &c.gw, 0);
-    c.nsEntry = newtEntry(-1, -1, NULL, 16, &c.ns, 0);
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IP) {
-        tip = &(cfg->dev.ip);
-        inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        newtEntrySet(c.ipEntry, ret, 1);
-    }
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK) {
-        tip = &(cfg->dev.netmask);
-        inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        newtEntrySet(c.nmEntry, ret, 1);
-    }
-    
-    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
-        tip = &(cfg->dev.gateway);
-        inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        newtEntrySet(c.gwEntry, ret, 1);
-    }
-    
-    if (cfg->dev.numDns) {
-        tip = &(cfg->dev.dnsServers[0]);
-        inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        newtEntrySet(c.nsEntry, ret, 1);
-    }
-
-    if (!cfg->isDynamic) {
-        dhcpChoice = ' ';
-    } else {
-        dhcpChoice = '*';
-    }
-
-    dhcpCheckbox = newtCheckbox(-1, -1, 
-                _("Use dynamic IP configuration (BOOTP/DHCP)"),
-                dhcpChoice, NULL, &dhcpChoice);
-    newtComponentAddCallback(dhcpCheckbox, dhcpBoxCallback, &c);
-    if (dhcpChoice == '*') dhcpBoxCallback(dhcpCheckbox, &c);
-
-    newtGridSetField(subgrid, 1, 0, NEWT_GRID_COMPONENT, c.ipEntry,
-                     1, 0, 0, 0, 0, 0);
-    newtGridSetField(subgrid, 1, 1, NEWT_GRID_COMPONENT, c.nmEntry,
-                     1, 0, 0, 0, 0, 0);
-    newtGridSetField(subgrid, 1, 2, NEWT_GRID_COMPONENT, c.gwEntry,
-                     1, 0, 0, 0, 0, 0);
-    newtGridSetField(subgrid, 1, 3, NEWT_GRID_COMPONENT, c.nsEntry,
-                     1, 0, 0, 0, 0, 0);
-
-    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
-
-    grid = newtCreateGrid(1, 4);
-    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
-                     0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, dhcpCheckbox,
-                     0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, subgrid,
-                     0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
-                     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
-
-    f = newtForm(NULL, NULL, 0);
-    newtGridAddComponentsToForm(grid, f, 1);
-    newtGridWrappedWindow(grid, _("Configure TCP/IP"));
-    newtGridFree(grid, 1);
-   
-    newtComponentAddCallback(c.ipEntry, ipCallback, &c);
-    newtComponentAddCallback(c.nmEntry, ipCallback, &c);
-    
-    do {
-        answer = newtRunForm(f);
-
-        if (answer == back) {
-            newtFormDestroy(f);
-            newtPopWindow();
-            return LOADER_BACK;
-        } 
-
-        if (dhcpChoice == ' ') {
+        if (ret == LOADER_NOOP) {
+            /* dhcp selected, proceed */
             i = 0;
-            memset(&newCfg, 0, sizeof(newCfg));
-            if (*c.ip) {
-                if (inet_pton(AF_INET, c.ip, &addr) >= 1) {
-                    i++;
-                    newCfg.dev.ip = ip_addr_in(&addr);
-                    newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
-                } else if (inet_pton(AF_INET6, c.ip, &addr6) >= 1) {
-                    i++;
-                    newCfg.dev.ip = ip_addr_in6(&addr6);
-                    newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
-                }
-            }
+        } else if (ret == LOADER_OK) {
+            /* do manual configuration */
+            ret = manualNetConfig(device, cfg, &newCfg, ipv4Choice, ipv6Choice);
 
-            if (*c.nm) {
-                if (inet_pton(AF_INET, c.nm, &addr) >= 1) {
-                    i++;
-                    newCfg.dev.netmask = ip_addr_in(&addr);
-                    newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-                } else if (inet_pton(AF_INET6, c.nm, &addr6) >= 1) {
-                    i++;
-                    newCfg.dev.netmask = ip_addr_in6(&addr6);
-                    newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-                }
-            }
-
-            if (c.ns && *c.ns) {
-                if (inet_pton(AF_INET, c.ns, &addr) >= 1) {
-                    cfg->dev.dnsServers[0] = ip_addr_in(&addr);
-                    if (cfg->dev.numDns < 1)
-                        cfg->dev.numDns = 1;
-                } else if (inet_pton(AF_INET6, c.ns, &addr6) >= 1) {
-                    cfg->dev.dnsServers[0] = ip_addr_in6(&addr6);
-                    if (cfg->dev.numDns < 1)
-                        cfg->dev.numDns = 1;
-                }
-            }
-
-            if (i != 2) {
-                newtWinMessage(_("Missing Information"), _("Retry"),
-                            _("You must enter both a valid IP address and a "
-                              "netmask."));
-            }
-
-            strcpy(newCfg.dev.device, device);
-            newCfg.isDynamic = 0;
-        } else {
-            if (!FL_TESTING(flags)) {
-                winStatus(55, 3, _("Dynamic IP"), 
-                          _("Sending request for IP information for %s..."), 
-                          device, 0);
-                waitForLink(device);
-                dret = doDhcp(&newCfg);
-                newtPopWindow();
-            }
-
-            if (dret==NULL) {
-                newCfg.isDynamic = 1;
-                if (!(newCfg.dev.set & PUMP_NETINFO_HAS_DNS)) {
-                    logMessage(WARNING, "dhcp worked, but did not return a DNS server");
-                    i = getDnsServers(&newCfg);
-                    i = i ? 0 : 2;
-                } else {
-                    i = 2; 
-                }
-            } else {
-                logMessage(DEBUGLVL, "dhcp: %s", dret);
+            if (ret == LOADER_BACK) {
+                continue;
+            } else if (ret == LOADER_OK) {
                 i = 0;
             }
+        } else if (ret == LOADER_BACK) {
+            return LOADER_BACK;
         }
-    } while (i != 2);
+    }
 
     /* preserve extra dns servers for the sake of being nice */
     if (cfg->dev.numDns > newCfg.dev.numDns) {
@@ -750,18 +595,16 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     fillInIpInfo(cfg);
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
-        if (c.gw && *c.gw) {
-            if (inet_pton(AF_INET, c.gw, &addr) >= 1) {
+        if (ipv4comps.gw && *ipv4comps.gw) {
+            if (inet_pton(AF_INET, ipv4comps.gw, &addr) >= 1) {
                 cfg->dev.gateway = ip_addr_in(&addr);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-            } else if (inet_pton(AF_INET6, c.gw, &addr6) >= 1) {
+            } else if (inet_pton(AF_INET6, ipv4comps.gw, &addr6) >= 1) {
                 cfg->dev.gateway = ip_addr_in6(&addr6);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
             }
         }
     }
-
-    newtPopWindow();
 
     /* calculate broadcast address for IPv4 */
     addr = ip_in_addr(&cfg->dev.ip);
@@ -779,6 +622,371 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         findHostAndDomain(cfg);
         writeResolvConf(cfg);
     }
+
+    return LOADER_OK;
+}
+
+int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
+                   struct networkDeviceConfig * newCfg,
+                   char * ipv4Choice, char * ipv6Choice) {
+    int i = 0;
+    char dhcpChoice, avoidcoll, highspeed;
+    char *dret = NULL;
+    newtComponent f, okay, back, answer;
+    newtComponent dhcpCheckbox, ipv4Checkbox, ipv6Checkbox;
+    newtComponent acBox, hsBox;
+    newtGrid grid, checkgrid, buttons;
+
+    /* UI WINDOW 1: ask for dhcp choice, ipv4 choice, ipv6 choice */
+    /* DHCP checkbox */
+    if (!cfg->isDynamic) {
+        dhcpChoice = ' ';
+    } else {
+        dhcpChoice = '*';
+    }
+
+    dhcpCheckbox = newtCheckbox(-1, -1, 
+                _("Use dynamic IP configuration (BOOTP/DHCP)"),
+                dhcpChoice, NULL, &dhcpChoice);
+
+    /* IPv4 checkbox */
+    *ipv4Choice = '*';
+    ipv4Checkbox = newtCheckbox(-1, -1, _("Enable IPv4 support"),
+                                *ipv4Choice, NULL, ipv4Choice);
+
+    /* IPv6 checkbox */
+    if (FL_NOIPV6(flags)) {
+        *ipv6Choice = ' ';
+    } else {
+        *ipv6Choice = '*';
+    }
+
+    ipv6Checkbox = newtCheckbox(-1, -1, _("Enable IPv6 support"),
+                                *ipv6Choice, NULL, ipv6Choice);
+
+#ifdef RAWHIDE_STUPID_OPTIONS
+    /* these options do nothing, they are purely for my enjoyment as I watch
+     * people talk about how much faster the install feels when they check
+     * this box.   --dcantrell
+     */
+    avoidcoll = ' ';
+    highspeed = ' ';
+    acBox = newtCheckbox(-1, -1, _("Avoid unwanted packet collisions"),
+                             avoidcoll, NULL, &avoidcoll);
+    hsBox = newtCheckbox(-1, -1, _("Maximize register values for high speed network traffic"), highspeed, NULL, &highspeed);
+#endif
+
+    /* button bar at the bottom of the window */
+    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
+
+    /* checkgrid contains the toggle options for net configuration */
+#ifdef RAWHIDE_STUPID_OPTIONS
+    checkgrid = newtCreateGrid(1, 5);
+#else
+    checkgrid = newtCreateGrid(1, 3);
+#endif
+
+    newtGridSetField(checkgrid, 0, 0, NEWT_GRID_COMPONENT, dhcpCheckbox,
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(checkgrid, 0, 1, NEWT_GRID_COMPONENT, ipv4Checkbox,
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(checkgrid, 0, 2, NEWT_GRID_COMPONENT, ipv6Checkbox,
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+#ifdef RAWHIDE_STUPID_OPTIONS
+    newtGridSetField(checkgrid, 0, 3, NEWT_GRID_COMPONENT, acBox,
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(checkgrid, 0, 4, NEWT_GRID_COMPONENT, hsBox,
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+#endif
+
+    /* main window layout */
+    grid = newtCreateGrid(1, 2);
+    newtGridSetField(grid, 0, 0, NEWT_GRID_SUBGRID, checkgrid,
+                     0, 0, 0, 1, 0, 0);
+    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, buttons,
+                     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+
+    f = newtForm(NULL, NULL, 0);
+    newtGridAddComponentsToForm(grid, f, 1);
+    newtGridWrappedWindow(grid, _("Configure TCP/IP"));
+    newtGridFree(grid, 1);
+
+    /* run the form */
+    do {
+        answer = newtRunForm(f);
+
+        if (answer == back) {
+            newtFormDestroy(f);
+            newtPopWindow();
+            return LOADER_BACK;
+        }
+
+        if (dhcpChoice == ' ') {
+            if (*ipv4Choice == ' ' && *ipv6Choice == ' ') {
+                newtWinMessage(_("Missing Protocol"), _("Retry"),
+                               _("You must select at least one protocol (IPv4 "
+                                  "or IPv6) for DHCP."));
+            } else {
+                return LOADER_OK;
+            }
+        }
+
+        if (*ipv4Choice == ' ' && *ipv6Choice == ' ') {
+            newtWinMessage(_("Missing Protocol"), _("Retry"),
+                           _("You must select at least one protocol (IPv4 "
+                             "or IPv6) for manual configuration."));
+        } else {
+            if (!FL_TESTING(flags)) {
+                winStatus(55, 3, _("Dynamic IP"), 
+                          _("Sending request for IP information for %s..."), 
+                          device, 0);
+                waitForLink(device);
+                dret = doDhcp(newCfg, (*ipv4Choice=='*') ? 1 : 0,
+                                      (*ipv6Choice=='*') ? 1 : 0);
+                newtPopWindow();
+            }
+
+            if (dret==NULL) {
+                newCfg->isDynamic = 1;
+                if (!(newCfg->dev.set & PUMP_NETINFO_HAS_DNS)) {
+                    logMessage(WARNING, "dhcp worked, but did not return a DNS server");
+                    i = getDnsServers(newCfg);
+                    i = i ? 0 : 2;
+                } else {
+                    i = 2; 
+                }
+            } else {
+                logMessage(DEBUGLVL, "dhcp: %s", dret);
+                i = 0;
+            }
+        }
+    } while (i != 2);
+
+    newtFormDestroy(f);
+    newtPopWindow();
+
+    return LOADER_NOOP;
+}
+
+int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
+                    struct networkDeviceConfig * newCfg,
+                    char ipv4Choice, char ipv6Choice) {
+    int i, rows, pos;
+    char ret[47];
+    ip_addr_t *tip;
+    struct in_addr addr;
+    struct in6_addr addr6;
+    struct intfconfig_s ipv4comps;
+    struct intfconfig_s ipv6comps;
+    newtComponent f, okay, back, answer;
+    newtGrid ipv4grid = NULL;
+    newtGrid ipv6grid = NULL;
+    newtGrid buttons, grid;
+
+    memset(&ipv4comps, '\0', sizeof(ipv4comps));
+    memset(&ipv6comps, '\0', sizeof(ipv6comps));
+
+    /* UI WINDOW 2 (optional): manual IP config for non-DHCP installs */
+    /* ipv4grid contains the IPv4 manual entry fields */
+    if (ipv4Choice == '*') {
+        ipv4grid = newtCreateGrid(2, 4);
+        newtGridSetField(ipv4grid, 0, 0, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("IP address:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv4grid, 0, 1, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("Netmask:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv4grid, 0, 2, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("Gateway:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv4grid, 0, 3, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("Nameserver:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+        ipv4comps.ipEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.ip, 0);
+        ipv4comps.nmEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.nm, 0);
+        ipv4comps.gwEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.gw, 0);
+        ipv4comps.nsEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.ns, 0);
+
+        newtGridSetField(ipv4grid, 1, 0, NEWT_GRID_COMPONENT, ipv4comps.ipEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv4grid, 1, 1, NEWT_GRID_COMPONENT, ipv4comps.nmEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv4grid, 1, 2, NEWT_GRID_COMPONENT, ipv4comps.gwEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv4grid, 1, 3, NEWT_GRID_COMPONENT, ipv4comps.nsEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IP) {
+            tip = &(cfg->dev.ip);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            newtEntrySet(ipv4comps.ipEntry, ret, 1);
+        }
+
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK) {
+            tip = &(cfg->dev.netmask);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            newtEntrySet(ipv4comps.nmEntry, ret, 1);
+        }
+    
+        if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
+            tip = &(cfg->dev.gateway);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            newtEntrySet(ipv4comps.gwEntry, ret, 1);
+        }
+    
+        if (cfg->dev.numDns) {
+            tip = &(cfg->dev.dnsServers[0]);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            newtEntrySet(ipv4comps.nsEntry, ret, 1);
+        }
+   
+        newtComponentAddCallback(ipv4comps.ipEntry, ipCallback, &ipv4comps);
+        newtComponentAddCallback(ipv4comps.nmEntry, ipCallback, &ipv4comps);
+    }
+
+    /* ipv6grid contains the IPv6 manual entry fields */
+    if (ipv6Choice == '*') {
+        ipv6grid = newtCreateGrid(2, 4);
+        newtGridSetField(ipv6grid, 0, 0, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("IP address:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv6grid, 0, 1, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("Netmask:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv6grid, 0, 2, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("Gateway:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv6grid, 0, 3, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("Nameserver:")),
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+        ipv6comps.ipEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.ip, 0);
+        ipv6comps.nmEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.nm, 0);
+        ipv6comps.gwEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.gw, 0);
+        ipv6comps.nsEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.ns, 0);
+
+        newtGridSetField(ipv6grid, 1, 0, NEWT_GRID_COMPONENT, ipv6comps.ipEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv6grid, 1, 1, NEWT_GRID_COMPONENT, ipv6comps.nmEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv6grid, 1, 2, NEWT_GRID_COMPONENT, ipv6comps.gwEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(ipv6grid, 1, 3, NEWT_GRID_COMPONENT, ipv6comps.nsEntry,
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+   
+        newtComponentAddCallback(ipv6comps.ipEntry, ipCallback, &ipv6comps);
+        newtComponentAddCallback(ipv6comps.nmEntry, ipCallback, &ipv6comps);
+    }
+
+    /* button bar at the bottom of the window */
+    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
+
+    /* main window layout */
+    rows = 1;
+
+    if (ipv4Choice == '*')
+        rows += 2;
+
+    if (ipv6Choice == '*')
+        rows += 2;
+
+    pos = 0;
+    grid = newtCreateGrid(1, rows);
+
+    if (ipv4Choice == '*') {
+        newtGridSetField(grid, 0, pos, NEWT_GRID_COMPONENT,
+                         newtTextboxReflowed(-1, -1, _("IPv4 Configuration:"),
+                                             50, 5, 10, 0),
+                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+        pos++;
+
+        newtGridSetField(grid, 0, pos, NEWT_GRID_SUBGRID, ipv4grid,
+                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+        pos++;
+    }
+
+    if (ipv6Choice == '*') {
+        newtGridSetField(grid, 0, pos, NEWT_GRID_COMPONENT,
+                         newtTextboxReflowed(-1, -1, _("IPv6 Configuration:"),
+                                             50, 5, 10, 0),
+                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+        pos++;
+
+        newtGridSetField(grid, 0, pos, NEWT_GRID_SUBGRID, ipv6grid,
+                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+        pos++;
+    }
+
+    newtGridSetField(grid, 0, pos, NEWT_GRID_SUBGRID, buttons,
+                     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+
+    f = newtForm(NULL, NULL, 0);
+    newtGridAddComponentsToForm(grid, f, 1);
+    newtGridWrappedWindow(grid, _("Manual TCP/IP Configuration"));
+    newtGridFree(grid, 1);
+
+    /* run the form */
+    i = 0;
+    do {
+        answer = newtRunForm(f);
+
+        if (answer == back) {
+            newtFormDestroy(f);
+            newtPopWindow();
+            return LOADER_BACK;
+        }
+
+        memset(&newCfg, 0, sizeof(newCfg));
+        if (*ipv4comps.ip) {
+            if (inet_pton(AF_INET, ipv4comps.ip, &addr) >= 1) {
+                i++;
+                newCfg->dev.ip = ip_addr_in(&addr);
+                newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+            } else if (inet_pton(AF_INET6, ipv4comps.ip, &addr6) >= 1) {
+                i++;
+                newCfg->dev.ip = ip_addr_in6(&addr6);
+                newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+            }
+        }
+
+        if (*ipv4comps.nm) {
+            if (inet_pton(AF_INET, ipv4comps.nm, &addr) >= 1) {
+                i++;
+                newCfg->dev.netmask = ip_addr_in(&addr);
+                newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+            } else if (inet_pton(AF_INET6, ipv4comps.nm, &addr6) >= 1) {
+                i++;
+                newCfg->dev.netmask = ip_addr_in6(&addr6);
+                newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+            }
+        }
+
+        if (ipv4comps.ns && *ipv4comps.ns) {
+            if (inet_pton(AF_INET, ipv4comps.ns, &addr) >= 1) {
+                cfg->dev.dnsServers[0] = ip_addr_in(&addr);
+                if (cfg->dev.numDns < 1)
+                    cfg->dev.numDns = 1;
+            } else if (inet_pton(AF_INET6, ipv4comps.ns, &addr6) >= 1) {
+                cfg->dev.dnsServers[0] = ip_addr_in6(&addr6);
+                if (cfg->dev.numDns < 1)
+                    cfg->dev.numDns = 1;
+            }
+        }
+
+        if (i != 2) {
+            newtWinMessage(_("Missing Information"), _("Retry"),
+                        _("You must enter both a valid IP address and a "
+                          "netmask."));
+        }
+
+        strcpy(newCfg->dev.device, device);
+        newCfg->isDynamic = 0;
+    } while (i != 2);
+
+    newtFormDestroy(f);
+    newtPopWindow();
 
     return LOADER_OK;
 }
@@ -832,11 +1040,12 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     return;
 }
 
-char *doDhcp(struct networkDeviceConfig *dev) {
+char *doDhcp(struct networkDeviceConfig *dev, int ipv4Choice, int ipv6Choice) {
     struct pumpNetIntf *i;
     char *r = NULL;
     time_t timeout = 45;
     int loglevel;
+    DHCP_Preference pref;
 
     i = &dev->dev;
 
@@ -845,11 +1054,17 @@ char *doDhcp(struct networkDeviceConfig *dev) {
     else
         loglevel = LOG_INFO;
 
-    if (FL_NOIPV6(flags))
-        r = pumpDhcpClassRun(i,0L,"anaconda",DHCPv6_DISABLE,0,timeout,netlogger,loglevel);
+    /* calling function should catch ipv4Choice & ipv6Choice both being ' ' */
+    if (!ipv4Choice && ipv6Choice)
+        pref = DHCPv4_DISABLE;
+    else if (ipv4Choice && !ipv6Choice)
+        pref = DHCPv6_DISABLE;
+    else if (ipv4Choice && ipv6Choice)
+        pref = 0;
     else
-        r = pumpDhcpClassRun(i,0L,"anaconda",0,0,timeout,netlogger,loglevel);
+        pref = 0;
 
+    r = pumpDhcpClassRun(i,0L,"anaconda",pref,0,timeout,netlogger,loglevel);
     return r;
 }
 

@@ -1,5 +1,16 @@
 2006-07-07  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.c: Rewrote readNetConfig() and added two new functions
+	(configureTCPIP and manualNetConfig) that handle the TCP/IP section
+	of loader.  Users can enable/disable IPv4 and IPv6 independently, as
+	well as some other options.  In the case of manual configuration, users
+	are only given entry fields for the protocol(s) selected.  Still some
+	more work to do, but the basic idea is there.
+	* loader2/net.h: Prototype changes to keep up with net.c and changing
+	times.
+
+2006-07-07  Chris Lumens  <clumens@redhat.com>
+
 	* rescue.py (runShell): Set stdout and stderr to /dev/console (#197315).
 
 2006-07-07  Chris Lumens  <clumens@redhat.com>
