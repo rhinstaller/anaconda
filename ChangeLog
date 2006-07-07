@@ -1,3 +1,7 @@
+2006-07-07  David Cantrell  <dcantrell@redhat.com>
+
+	* rescue.py (runShell): Set stdout and stderr to /dev/console (#197315).
+
 2006-07-07  Chris Lumens  <clumens@redhat.com>
 
 	* rescue.py (runRescue):  Move label reading to partedUtils.py.
