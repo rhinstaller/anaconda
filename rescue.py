@@ -310,12 +310,7 @@ def runRescue(anaconda):
 	    scroll = 0
 
 	partList = []
-	for (drive, fs, relstr) in disks:
-            try:
-                label = isys.readFSLabel(drive, makeDevNode=0)
-            except:
-                label = None
-
+	for (drive, fs, relstr, label) in disks:
             if label:
 	        partList.append("%s (%s)" % (drive, label))
             else:

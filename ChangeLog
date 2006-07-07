@@ -1,3 +1,10 @@
+2006-07-07  Chris Lumens  <clumens@redhat.com>
+
+	* rescue.py (runRescue):  Move label reading to partedUtils.py.
+	* partedUtils.py (DiskSet.findExistingRootPartitions):  Look up
+	filesystem labels as we find root partitions, as we won't have LVM
+	active if we wait until later (#196345).
+
 2006-07-06  Chris Lumens  <clumens@redhat.com>
 
 	* vnc.py (startVNCServer):  Use the configured interface for VNC

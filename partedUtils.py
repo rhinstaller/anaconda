@@ -669,7 +669,12 @@ class DiskSet:
 
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
-                        rootparts.append ((dev, fs, relstr))
+                        try:
+                            label = isys.readFSLabel(dev, makeDevNode=0)
+                        except:
+                            label = None
+            
+                        rootparts.append ((dev, fs, relstr, label))
                 isys.umount(anaconda.rootPath)
 
         # now, look for candidate lvm roots
@@ -695,7 +700,12 @@ class DiskSet:
                     
                     if ((upgradeany == 1) or
                         (productMatches(relstr, productName))):
-                        rootparts.append ((dev, fs, relstr))
+                        try:
+                            label = isys.readFSLabel(dev, makeDevNode=0)
+                        except:
+                            label = None
+            
+                        rootparts.append ((dev, fs, relstr, label))
                 isys.umount(anaconda.rootPath)
 
 	lvm.vgdeactivate()
@@ -740,8 +750,13 @@ class DiskSet:
 
                         if ((upgradeany == 1) or
                             (productMatches(relstr, productName))):
+                            try:
+                                label = isys.readFSLabel("/dev/%s" % node, makeDevNode=0)
+                            except:
+                                label = None
+            
                             rootparts.append ((node, part.fs_type.name,
-                                               relstr))
+                                               relstr, label))
 		    isys.umount(anaconda.rootPath)
                     
                 part = disk.next_partition(part)
