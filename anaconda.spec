@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.53
+Version: 11.1.0.54
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul  7 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.54-1
+- Loader changes to support enabling/disabling IPv4 & IPv6
+- Manual IP configuration changes in loader to better support IPv{4,6}
+- Rescue mode shell fixes (clumens, #197315)
+- Add filesystem label chooser to rescue mode (clumens, #196345)
+- Use configured interface for VNC connections (clumens, #197721)
+- Init process cleanups
+- Log requiring package as well as require name (pnasrat)
+
 * Wed Jul  5 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.53-1
 - fix typo
 
