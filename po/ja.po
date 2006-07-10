@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-05 16:50+1000\n"
+"PO-Revision-Date: 2006-07-10 14:30+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1466,14 +1466,14 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s にはパーティションタイプ 0x82 (Linux swap) がありますが、Linux swap パーティションとしてフォーマットされるようには見えません。\n"
+"/dev/%s にはタイプ 0x82 (Linux swap) のパーティションがありますが、Linux swap パーティションとしてフォーマットされるようには表示されていません。\n"
 "\n"
 "このパーティションを swap パーティションとしてフォーマットしますか?"
 
 #: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "%sをインストールするドライブを少なくとも一つ選択しなければなりません。"
+msgstr "%s をインストールするハードドライブを少なくとも 1 つ選択しなければなりません。"
 
 #: ../partIntfHelpers.py:407
 msgid ""
@@ -1483,13 +1483,7 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
-msgstr ""
-"フォーマットなしで既存のパーティションを使用することを選択しています。Red "
-"Hat は、以前のオペレーティングシステムでインストールされたファイルがこのイン"
-"ストールで問題を起こさないこと確実にするために、このパーティションのフォー"
-"マットをお勧めします。しかしこのパーティションがユーザーのホームディレクトリ"
-"など、保存する必要のあるファイルを含んでいる場合、このパーティションをフォー"
-"マットしないで続行してください。"
+msgstr "既存のパーティションをフォーマットせずにこのインストールに使用することを選択しています。前のオペレーティングシステムのファイル群が原因で本 Linux インストールに支障をきたさないようパーティションのフォーマットを行うことを推奨します。ただし、ユーザーのホームディレクトリなど保持しておく必要があるファイルを含んでいる場合は、パーティションのフォーマットを行わずに続行します。"
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
@@ -1505,7 +1499,7 @@ msgstr "フォーマットをしない(_N)"
 
 #: ../partIntfHelpers.py:423
 msgid "Error with Partitioning"
-msgstr "パーティション設定エラーです。"
+msgstr "パーティション設定エラー"
 
 #: ../partIntfHelpers.py:424
 #, python-format
@@ -1515,8 +1509,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"要求されたパーティション設定に次のような致命的なエラーが存在しています。これ"
-"らのエラーは %s のインストールの前に必ず修正しなければなりません。\n"
+"要求されたパーティション設定に次のような致命的なエラーが存在しています。 %s のインストールを続行する前に、これらのエラーを修正する必要があります。\n"
 "\n"
 "%s"
 
@@ -1537,23 +1530,19 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"このパーティション設定のままで続けますか?"
+"このパーティション設定のまま続行しますか?"
 
 #: ../partIntfHelpers.py:453 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"次の既存のパーティションはフォーマットし、すべてのデータを消去するように選択"
-"されています。"
+msgstr "次の既存のパーティションをフォーマットするよう選択されています。これによりすべてのデータが消去されます。"
 
 #: ../partIntfHelpers.py:456
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
-"'はい'を選択すると処理を続け、これらのパーティションをフォーマットします。'い"
-"いえ'なら前に戻ってこれらの設定を変更できます。"
+msgstr "処理を続行してこれらのパーティションをフォーマットするには、「はい」を選択します。前に戻り設定を変更するには「いいえ」を選択します。"
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
@@ -1568,7 +1557,7 @@ msgid ""
 msgstr ""
 "ボリュームグループ \"%s\" を削除しようとしています。\n"
 " \n"
-"このボリュームグループ内のすべての論理ボリュームは消去されます!"
+"このボリュームグループ内のすべての論理ボリュームが消去されます!"
 
 #: ../partIntfHelpers.py:514
 #, python-format
@@ -1598,7 +1587,7 @@ msgstr "本当に、パーティションテーブル設定をリセットして
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
-msgstr "インストール続行不能"
+msgstr "インストールを続行できません。"
 
 #: ../partitioning.py:58
 msgid ""
@@ -1606,8 +1595,8 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"指定されたパーティション設定オプションは既に選択されています。もうディスク編"
-"集画面には戻れません。インストールを続けますか?"
+"指定されたパーティション設定オプションは既に選択されています。ここからディスク編"
+"集画面に戻ることはできません。インストールを続けますか?"
 
 #: ../partitioning.py:88
 msgid "Low Memory"
@@ -1618,17 +1607,14 @@ msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
-msgstr ""
-"メモリが不足しています。ただちにスワップ領域を有効にする必要があります。この"
-"ため新しいパーティションテーブルをディスクに書き込む必要があります。 よろしい"
-"ですか?"
+msgstr "このマシンのメモリが不足しているため、ただちに swap 領域を有効にする必要があります。新しいパーティションテーブルを直ちにディスクに書き込まなければなりません。 よろしいですか?"
 
 #: ../partitions.py:804
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr "%s のインストールを継続するため必要なルートパーティション (/) が未指定です。"
+msgstr "%s のインストールを継続するために必要な root パーティション (/) が定義されていません。"
 
 #: ../partitions.py:809
 #, python-format
