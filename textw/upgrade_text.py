@@ -195,7 +195,7 @@ class UpgradeExamineWindow:
         partList = []
         partList.append(_("Reinstall System"))
 
-        for (drive, fs, desc) in parts:
+        for (drive, fs, desc, label) in parts:
 	    if drive[:5] != "/dev/":
 		devname = "/dev/" + drive
 	    else:
