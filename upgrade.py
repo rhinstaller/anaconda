@@ -65,7 +65,7 @@ def findRootParts(anaconda):
         anaconda.id.rootParts = findExistingRoots(anaconda)
 
     anaconda.id.upgradeRoot = []
-    for (dev, fs, meta) in anaconda.id.rootParts:
+    for (dev, fs, meta, label) in anaconda.id.rootParts:
         anaconda.id.upgradeRoot.append( (dev, fs) )
 
     if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
