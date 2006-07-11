@@ -1,5 +1,8 @@
 2006-07-10  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (RAIDDevice.mdadmLine): Fix raid6 and map raid levels 
+	sanely (#197844)
+
 	* anaconda (rootpath_cb): Allow relative path (markmc, #197669)
 
 2006-07-10  David Cantrell  <dcantrell@redhat.com>

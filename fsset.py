@@ -2120,8 +2120,11 @@ class RAIDDevice(Device):
         return []
 
     def mdadmLine (self, devPrefix="/dev"):
-        levels = ["multipath", "hsm", "translucent", "linear", "raid0",
-                  "raid1", "", "", "raid5", "raid5"]
+        levels = { 0: "raid0",
+                   1: "raid1",
+                   4: "raid5",
+                   5: "raid5",
+                   6: "raid6" }
 
         # If we can't find the device for some reason, revert to old behavior.
         try:
@@ -2138,7 +2141,7 @@ class RAIDDevice(Device):
                 (major, minor, uuid, level, nrDisks, totalDisks, mdMinor) = \
                     isys.raidsb(d)
                 return "ARRAY %s/%s level=%s num-devices=%d uuid=%s\n" \
-                    %(devPrefix, self.device, levels[level+4], nrDisks, uuid)
+                    %(devPrefix, self.device, levels[level], nrDisks, uuid)
             except ValueError:
                pass
 
