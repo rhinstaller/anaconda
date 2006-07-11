@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.55
+Version: 11.1.0.56
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 11 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.56-1
+- Many changes and fixes in the loader2 network configuration, both
+  dhcp and manual IP entry
+- Fix stdin/stdout on VNC shells (clumens)
+- Check all bootloader entries for Windows (clumens)
+- Set UTC box in text install based on Windows existing or not (clumens)
+- Remove standalone argument for rhpxl call (clumens)
+- Remove call to deprecated method in yuminstall (clumens)
+- Fix group selection traceback in text mode (katzj, #197858)
+
 * Mon Jul 10 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.55-1
 - Fix findExistingRoots (clumens, #197900)
 - Add smartctl to rescue image (dcantrel, #198052)
