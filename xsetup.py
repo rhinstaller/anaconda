@@ -58,8 +58,7 @@ class XSetup:
 		self.xhwstate.set_monitor_name(monname[len(ddc_monitor_string)+3:])
 		
 	outfile = fn + "/xorg.conf"
-	xserver.writeXConfig(outfile, self.xhwstate, mouse, keyboard,
-			     standalone = 0)
+	xserver.writeXConfig(outfile, self.xhwstate, mouse, keyboard)
 
 	# restore monitor name
 	self.xhwstate.set_monitor_name(monname)

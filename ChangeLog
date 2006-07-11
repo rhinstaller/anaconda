@@ -37,6 +37,8 @@
 	* textw/timezone_text.py (TimezoneWindow.__call):  Use hasWindows to
 	automatically check the UTC box like the GUI does.
 
+	* xsetup.py (XSetup.write):  No standalone mode in rhpxl anymore.
+
 	* yuminstall.py (YumBackend.doPreInstall):  Remove call to deprecated
 	method.
 
