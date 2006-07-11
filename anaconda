@@ -180,7 +180,7 @@ def parseOptions():
         if value.startswith("cd:"):
             flags.livecd = True
             value = value[3:]
-        parser.values.rootPath = value
+        parser.values.rootPath = os.path.abspath(value)
         flags.setupFilesystems = False
         flags.rootpath = True
 
