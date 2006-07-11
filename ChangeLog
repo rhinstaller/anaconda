@@ -1,5 +1,11 @@
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.c (cidrCallback): No need for cidr variable.
+	* loader2/net.c (manualNetConfig): Actually copy in an IP address
+	to the cfg->dev.ip variable.
+
+2006-07-11  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/net.{c,h}: An exhaustive list of updates:
 		- Moved struct intfconfig_s to net.h
 		- Init ipcomps members to NULL.

@@ -104,7 +104,6 @@ static void cidrCallback(newtComponent co, void * dptr) {
 static void ipCallback(newtComponent co, void * dptr) {
     int i;
     char *buf, *octet;
-    char *cidr = NULL;
     struct intfconfig_s * data = dptr;
 
     if (co == data->ipv4Entry) {
@@ -118,14 +117,11 @@ static void ipCallback(newtComponent co, void * dptr) {
             free(octet);
 
             if (i >= 0 && i <= 127)
-                cidr = "8";
+                newtEntrySet(data->cidr4Entry, "8", 1);
             else if (i >= 128 && i <= 191)
-                cidr = "16";
+                newtEntrySet(data->cidr4Entry, "16", 1);
             else if (i >= 192 && i <= 222)
-                cidr = "24";
-
-            if (cidr != NULL)
-                newtEntrySet(data->cidr4Entry, cidr, 1);
+                newtEntrySet(data->cidr4Entry, "24", 1);
         }
 
         return;
@@ -1033,11 +1029,19 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
              * gateway.
              */
             if (primary == AF_INET) {
-                memcpy(&cfg->dev.ip, &cfg->dev.ipv4, sizeof(cfg->dev.ipv4));
-                cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+                if (ipcomps->ipv4) {
+                    if (inet_pton(AF_INET, ipcomps->ipv4, &addr) >= 1) {
+                        newCfg->dev.ip = ip_addr_in(&addr);
+                        newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+                    }
+                }
             } else if (primary == AF_INET6) {
-                memcpy(&cfg->dev.ip, &cfg->dev.ipv6, sizeof(cfg->dev.ipv6));
-                cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+                if (ipcomps->ipv6) {
+                    if (inet_pton(AF_INET6, ipcomps->ipv6, &addr) >= 1) {
+                        newCfg->dev.ip = ip_addr_in6(&addr6);
+                        newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+                    }
+                }
             }
         }
 
