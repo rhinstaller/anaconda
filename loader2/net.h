@@ -46,6 +46,7 @@ void initLoopback(void);
 int chooseNetworkInterface(struct loaderData_s * loaderData);
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
                               struct loaderData_s * loaderData);
+int setupWireless(struct networkDeviceConfig *dev);
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv);

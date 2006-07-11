@@ -25,7 +25,7 @@
  * Enable rawhide stupid options or not?  See, with rawhide we can have tons
  * of fun with the UI code.
  */
-#define RAWHIDE_STUPID_OPTIONS 1
+/* #define RAWHIDE_STUPID_OPTIONS 1 */
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -66,94 +66,83 @@ char *netServerPrompt = \
        "      %s for your architecture\n");
 
 struct intfconfig_s {
-    newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
-    const char * ip, * nm, * gw, * ns;
+    newtComponent ipv4Entry, cidr4Entry;
+    newtComponent ipv6Entry, cidr6Entry;
+    newtComponent gwEntry, nsEntry;
+    const char *ipv4, *cidr4;
+    const char *ipv6, *cidr6;
+    const char *gw, *ns;
 };
 
 typedef int int32;
 
-static int setupWireless(struct networkDeviceConfig *dev);
-
-static void ipCallback(newtComponent co, void * dptr) {
+/**
+ * Callback function for the CIDR entry boxes on the manual TCP/IP
+ * configuration window.
+ *
+ * @param co The entry field that triggered the callback.
+ * @param dptr Pointer to intfconfig_s data structure for this field.
+ * @see intfconfig_s
+ */
+static void cidrCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
-    struct in_addr ipaddr, nmaddr, addr, naddr;
-    char * ascii;
-    int broadcast, network;
-    int af = AF_INET;
-    int l = 0;
+    int cidr, upper = 0;
 
-    if (co == data->ipEntry) {
-        if (strlen(data->ip) && !strlen(data->nm)) {
-            if (inet_pton(af, data->ip, &ipaddr) >= 1) {
-                ipaddr.s_addr = ntohl(ipaddr.s_addr);
-                switch (af) {
-                    case AF_INET:
-                        ascii = "255.255.255.0";
-                        newtEntrySet(data->nmEntry, ascii, 1);
-                        break;
-                    case AF_INET6:
-                        break;
-                }
-            }
-        }
-    } else if (co == data->nmEntry) {
-        if (!strlen(data->ip) || !strlen(data->nm)) return;
-        if (inet_pton(af, data->ip, &ipaddr) < 1) return;
-        if (inet_pton(af, data->nm, &nmaddr) < 1) return;
+    if (co == data->cidr4Entry) {
+        if (data->cidr4 == NULL)
+            return;
 
-        if (af == AF_INET) {
-            l = INET_ADDRSTRLEN;
-        } else if (af == AF_INET6) {
-            l = INET6_ADDRSTRLEN;
-        }
+        cidr = atoi(data->cidr4);
+        upper = 32;
+    } else if (co == data->cidr6Entry) {
+        if (data->cidr6 == NULL)
+            return;
 
-        if (af == AF_INET || af == AF_INET6) {
-            network = ipaddr.s_addr & nmaddr.s_addr;
-            broadcast = (ipaddr.s_addr & nmaddr.s_addr) | (~nmaddr.s_addr) ;
+        cidr = atoi(data->cidr6);
+        upper = 128;
+    }
 
-            if (!strlen(data->gw)) {
-                char gw[l]; 
-                addr.s_addr = htonl(ntohl(broadcast) - 1);
-                inet_ntop(af, &addr, gw, sizeof(gw));
-                newtEntrySet(data->gwEntry, gw, 1);
-            }
-
-            if (!strlen(data->ns)) {
-                char ns[l];
-                naddr.s_addr = network;
-                naddr.s_addr |= htonl(1);
-                inet_ntop(af, &naddr, ns, sizeof(ns));
-                newtEntrySet(data->nsEntry, ns, 1);
-            }
+    if (upper != 0) {
+        if (cidr < 1 || cidr > upper) {
+            newtWinMessage(_("Invalid CIDR Mask"), _("Retry"),
+                           _("CIDR mask value must be between 1 and 32 "
+                             "for IPv4 networks or between 1 and 128 "
+                             "for IPv6 networks"));
         }
     }
 }
 
-static void fillInIpInfo(struct networkDeviceConfig * cfg) {
-    int32 * i;
-    char * nm;
-   
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)) {
-        i = (int32 *) &cfg->dev.ip;
+static void ipCallback(newtComponent co, void * dptr) {
+    int i;
+    char *buf, *octet;
+    char *cidr = NULL;
+    struct intfconfig_s * data = dptr;
 
-        nm = "255.255.255.0";
+    if (co == data->ipv4Entry) {
+        /* do we need to guess a netmask for the user? */
+        if (data->cidr4 == NULL && data->ipv4 != NULL) {
+            buf = strdup(data->ipv4);
+            octet = strtok(buf, ".");
+            i = atoi(octet);
 
-        inet_pton(AF_INET, nm, &cfg->dev.netmask);
-        cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-    }
+            free(buf);
+            free(octet);
 
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
-        *((int32 *) &cfg->dev.broadcast) = (*((int32 *) &cfg->dev.ip) & 
-                           *((int32 *) &cfg->dev.netmask)) | 
-                           ~(*((int32 *) &cfg->dev.netmask));
-        cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-    }
+            if (i >= 0 && i <= 127)
+                cidr = "8";
+            else if (i >= 128 && i <= 191)
+                cidr = "16";
+            else if (i >= 192 && i <= 222)
+                cidr = "24";
 
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
-        *((int32 *) &cfg->dev.network) = 
-                *((int32 *) &cfg->dev.ip) &
-                *((int32 *) &cfg->dev.netmask);
-        cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
+            if (cidr != NULL)
+                newtEntrySet(data->cidr4Entry, cidr, 1);
+        }
+
+        return;
+    } else if (co == data->ipv6Entry) {
+        /* users must provide a mask, we can't guess for ipv6 */
+        return;
     }
 }
 
@@ -520,11 +509,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     int ret;
     int i = 0;
     char ipv4Choice, ipv6Choice;
-    struct in_addr addr, nm;
+    struct in_addr addr, nm, nw;
     struct in6_addr addr6;
-    struct intfconfig_s ipv4comps;
+    struct intfconfig_s ipcomps;
 
-    memset(&ipv4comps, '\0', sizeof(ipv4comps));
+    memset(&ipcomps, '\0', sizeof(ipcomps));
 
     /* init newCfg */
     memset(&newCfg, '\0', sizeof(newCfg));
@@ -592,24 +581,32 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     cfg->isDynamic = newCfg.isDynamic;
     memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
 
-    fillInIpInfo(cfg);
-
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
-        if (ipv4comps.gw && *ipv4comps.gw) {
-            if (inet_pton(AF_INET, ipv4comps.gw, &addr) >= 1) {
+        if (ipcomps.gw && *ipcomps.gw) {
+            if (inet_pton(AF_INET, ipcomps.gw, &addr) >= 1) {
                 cfg->dev.gateway = ip_addr_in(&addr);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-            } else if (inet_pton(AF_INET6, ipv4comps.gw, &addr6) >= 1) {
+            } else if (inet_pton(AF_INET6, ipcomps.gw, &addr6) >= 1) {
                 cfg->dev.gateway = ip_addr_in6(&addr6);
                 cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
             }
         }
     }
 
-    /* calculate broadcast address for IPv4 */
+    /* calculate any missing IPv4 pieces */
     addr = ip_in_addr(&cfg->dev.ip);
     nm = ip_in_addr(&cfg->dev.netmask);
-    cfg->dev.broadcast = ip_addr_v4(ntohl((addr.s_addr & nm.s_addr) | ~nm.s_addr));
+
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
+        cfg->dev.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
+        cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
+    }
+
+    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
+        nw = ip_in_addr(&cfg->dev.network);
+        cfg->dev.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
+        cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
+    }
 
     /* make sure we don't have a dhcp_nic handle for static */
     if ((cfg->isDynamic == 0) && (cfg->dev.dhcp_nic != NULL)) {
@@ -630,12 +627,15 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
                    char * ipv4Choice, char * ipv6Choice) {
     int i = 0;
-    char dhcpChoice, avoidcoll, highspeed;
+    char dhcpChoice;
     char *dret = NULL;
     newtComponent f, okay, back, answer;
     newtComponent dhcpCheckbox, ipv4Checkbox, ipv6Checkbox;
-    newtComponent acBox, hsBox;
     newtGrid grid, checkgrid, buttons;
+#ifdef RAWHIDE_STUPID_OPTIONS
+    char avoidcoll, highspeed;
+    newtComponent acBox, hsBox;
+#endif
 
     /* UI WINDOW 1: ask for dhcp choice, ipv4 choice, ipv6 choice */
     /* DHCP checkbox */
@@ -779,149 +779,134 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     ip_addr_t *tip;
     struct in_addr addr;
     struct in6_addr addr6;
-    struct intfconfig_s ipv4comps;
-    struct intfconfig_s ipv6comps;
+    struct intfconfig_s ipcomps;
     newtComponent f, okay, back, answer;
-    newtGrid ipv4grid = NULL;
-    newtGrid ipv6grid = NULL;
+    newtGrid egrid = NULL;
+    newtGrid qgrid = NULL;
     newtGrid buttons, grid;
 
-    memset(&ipv4comps, '\0', sizeof(ipv4comps));
-    memset(&ipv6comps, '\0', sizeof(ipv6comps));
+    memset(&ipcomps, '\0', sizeof(ipcomps));
 
     /* UI WINDOW 2 (optional): manual IP config for non-DHCP installs */
-    /* ipv4grid contains the IPv4 manual entry fields */
+    rows = 2;
+
+    if (ipv4Choice == '*')
+        rows++;
+
+    if (ipv6Choice == '*')
+        rows++;
+
+    egrid = newtCreateGrid(4, rows);
+
+    pos = 0;
+
+    /* IPv4 entry items */
     if (ipv4Choice == '*') {
-        ipv4grid = newtCreateGrid(2, 4);
-        newtGridSetField(ipv4grid, 0, 0, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("IP address:")),
-                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv4grid, 0, 1, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("Netmask:")),
-                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv4grid, 0, 2, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("Gateway:")),
-                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv4grid, 0, 3, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("Nameserver:")),
+        newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("IPv4 address:")),
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        ipv4comps.ipEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.ip, 0);
-        ipv4comps.nmEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.nm, 0);
-        ipv4comps.gwEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.gw, 0);
-        ipv4comps.nsEntry = newtEntry(-1, -1, NULL, 16, &ipv4comps.ns, 0);
+        ipcomps.ipv4Entry = newtEntry(-1, -1, NULL, 16, &ipcomps.ipv4, 0);
+        ipcomps.cidr4Entry = newtEntry(-1, -1, NULL, 16, &ipcomps.cidr4, 0);
 
-        newtGridSetField(ipv4grid, 1, 0, NEWT_GRID_COMPONENT, ipv4comps.ipEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv4grid, 1, 1, NEWT_GRID_COMPONENT, ipv4comps.nmEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv4grid, 1, 2, NEWT_GRID_COMPONENT, ipv4comps.gwEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv4grid, 1, 3, NEWT_GRID_COMPONENT, ipv4comps.nsEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        /* use a nested grid for ipv4 addr & netmask */
+        qgrid = newtCreateGrid(3, 1);
 
+        newtGridSetField(qgrid, 0, 0, NEWT_GRID_COMPONENT,
+                         ipcomps.ipv4Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(qgrid, 1, 0, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("/")),
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(qgrid, 2, 0, NEWT_GRID_COMPONENT,
+                         ipcomps.cidr4Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+        newtGridSetField(egrid, 1, pos, NEWT_GRID_SUBGRID, qgrid,
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+        newtComponentAddCallback(ipcomps.ipv4Entry, ipCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps.cidr4Entry, cidrCallback, &ipcomps);
+
+        /* populate fields if we have data already */
         if (cfg->dev.set & PUMP_INTFINFO_HAS_IP) {
             tip = &(cfg->dev.ip);
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            newtEntrySet(ipv4comps.ipEntry, ret, 1);
+            newtEntrySet(ipcomps.ipv4Entry, ret, 1);
         }
 
         if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK) {
             tip = &(cfg->dev.netmask);
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            newtEntrySet(ipv4comps.nmEntry, ret, 1);
+            newtEntrySet(ipcomps.cidr4Entry, ret, 1);
         }
-    
-        if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
-            tip = &(cfg->dev.gateway);
-            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            newtEntrySet(ipv4comps.gwEntry, ret, 1);
-        }
-    
-        if (cfg->dev.numDns) {
-            tip = &(cfg->dev.dnsServers[0]);
-            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            newtEntrySet(ipv4comps.nsEntry, ret, 1);
-        }
-   
-        newtComponentAddCallback(ipv4comps.ipEntry, ipCallback, &ipv4comps);
-        newtComponentAddCallback(ipv4comps.nmEntry, ipCallback, &ipv4comps);
+
+        pos++;
     }
 
-    /* ipv6grid contains the IPv6 manual entry fields */
+    /* IPv6 entry items */
     if (ipv6Choice == '*') {
-        ipv6grid = newtCreateGrid(2, 4);
-        newtGridSetField(ipv6grid, 0, 0, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("IP address:")),
+        newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("IPv6 address:")),
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv6grid, 0, 1, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("Netmask:")),
-                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv6grid, 0, 2, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("Gateway:")),
-                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv6grid, 0, 3, NEWT_GRID_COMPONENT,
-                         newtLabel(-1, -1, _("Nameserver:")),
-                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(egrid, 2, pos, NEWT_GRID_COMPONENT,
+                         newtLabel(-1, -1, _("/")),
+                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        ipv6comps.ipEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.ip, 0);
-        ipv6comps.nmEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.nm, 0);
-        ipv6comps.gwEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.gw, 0);
-        ipv6comps.nsEntry = newtEntry(-1, -1, NULL, 41, &ipv6comps.ns, 0);
+        ipcomps.ipv6Entry = newtEntry(-1, -1, NULL, 41, &ipcomps.ipv6, 0);
+        ipcomps.cidr6Entry = newtEntry(-1, -1, NULL, 4, &ipcomps.cidr6, 0);
 
-        newtGridSetField(ipv6grid, 1, 0, NEWT_GRID_COMPONENT, ipv6comps.ipEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv6grid, 1, 1, NEWT_GRID_COMPONENT, ipv6comps.nmEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv6grid, 1, 2, NEWT_GRID_COMPONENT, ipv6comps.gwEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(ipv6grid, 1, 3, NEWT_GRID_COMPONENT, ipv6comps.nsEntry,
-                         1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
+                         ipcomps.ipv6Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(egrid, 3, pos, NEWT_GRID_COMPONENT,
+                         ipcomps.cidr6Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
    
-        newtComponentAddCallback(ipv6comps.ipEntry, ipCallback, &ipv6comps);
-        newtComponentAddCallback(ipv6comps.nmEntry, ipCallback, &ipv6comps);
+        newtComponentAddCallback(ipcomps.ipv6Entry, ipCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps.cidr6Entry, cidrCallback, &ipcomps);
+
+        pos++;
     }
+
+    /* common entry items */
+    ipcomps.gwEntry = newtEntry(-1, -1, NULL, 41, &ipcomps.gw, 0);
+    ipcomps.nsEntry = newtEntry(-1, -1, NULL, 41, &ipcomps.ns, 0);
+
+    newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Gateway:")),
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
+                     ipcomps.gwEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+    pos++;
+
+    newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Name Server:")),
+                     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
+                     ipcomps.nsEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+
+    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
+        tip = &(cfg->dev.gateway);
+        inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+        newtEntrySet(ipcomps.gwEntry, ret, 1);
+    }
+
+    if (cfg->dev.numDns) {
+        tip = &(cfg->dev.dnsServers[0]);
+        inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+        newtEntrySet(ipcomps.nsEntry, ret, 1);
+    }
+
+    newtComponentAddCallback(ipcomps.gwEntry, ipCallback, &ipcomps);
+    newtComponentAddCallback(ipcomps.nsEntry, ipCallback, &ipcomps);
 
     /* button bar at the bottom of the window */
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 
     /* main window layout */
-    rows = 1;
+    grid = newtCreateGrid(1, 2);
 
-    if (ipv4Choice == '*')
-        rows += 2;
-
-    if (ipv6Choice == '*')
-        rows += 2;
-
-    pos = 0;
-    grid = newtCreateGrid(1, rows);
-
-    if (ipv4Choice == '*') {
-        newtGridSetField(grid, 0, pos, NEWT_GRID_COMPONENT,
-                         newtTextboxReflowed(-1, -1, _("IPv4 Configuration:"),
-                                             50, 5, 10, 0),
-                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-        pos++;
-
-        newtGridSetField(grid, 0, pos, NEWT_GRID_SUBGRID, ipv4grid,
-                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-        pos++;
-    }
-
-    if (ipv6Choice == '*') {
-        newtGridSetField(grid, 0, pos, NEWT_GRID_COMPONENT,
-                         newtTextboxReflowed(-1, -1, _("IPv6 Configuration:"),
-                                             50, 5, 10, 0),
-                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-        pos++;
-
-        newtGridSetField(grid, 0, pos, NEWT_GRID_SUBGRID, ipv6grid,
-                         0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
-        pos++;
-    }
-
-    newtGridSetField(grid, 0, pos, NEWT_GRID_SUBGRID, buttons,
+    newtGridSetField(grid, 0, 0, NEWT_GRID_SUBGRID, egrid,
+                     0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+    newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
     f = newtForm(NULL, NULL, 0);
@@ -941,36 +926,42 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
         }
 
         memset(&newCfg, 0, sizeof(newCfg));
-        if (*ipv4comps.ip) {
-            if (inet_pton(AF_INET, ipv4comps.ip, &addr) >= 1) {
+        if (*ipcomps.ipv4) {
+            if (inet_pton(AF_INET, ipcomps.ipv4, &addr) >= 1) {
                 i++;
                 newCfg->dev.ip = ip_addr_in(&addr);
                 newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
-            } else if (inet_pton(AF_INET6, ipv4comps.ip, &addr6) >= 1) {
+            }
+        }
+
+        if (*ipcomps.ipv6) {
+            if (inet_pton(AF_INET6, ipcomps.ipv6, &addr6) >= 1) {
                 i++;
                 newCfg->dev.ip = ip_addr_in6(&addr6);
                 newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             }
         }
 
-        if (*ipv4comps.nm) {
-            if (inet_pton(AF_INET, ipv4comps.nm, &addr) >= 1) {
+/*
+        if (*ipcomps.nm) {
+            if (inet_pton(AF_INET, ipcomps.nm, &addr) >= 1) {
                 i++;
                 newCfg->dev.netmask = ip_addr_in(&addr);
                 newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-            } else if (inet_pton(AF_INET6, ipv4comps.nm, &addr6) >= 1) {
+            } else if (inet_pton(AF_INET6, ipcomps.nm, &addr6) >= 1) {
                 i++;
                 newCfg->dev.netmask = ip_addr_in6(&addr6);
                 newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
             }
         }
+*/
 
-        if (ipv4comps.ns && *ipv4comps.ns) {
-            if (inet_pton(AF_INET, ipv4comps.ns, &addr) >= 1) {
+        if (ipcomps.ns && *ipcomps.ns) {
+            if (inet_pton(AF_INET, ipcomps.ns, &addr) >= 1) {
                 cfg->dev.dnsServers[0] = ip_addr_in(&addr);
                 if (cfg->dev.numDns < 1)
                     cfg->dev.numDns = 1;
-            } else if (inet_pton(AF_INET6, ipv4comps.ns, &addr6) >= 1) {
+            } else if (inet_pton(AF_INET6, ipcomps.ns, &addr6) >= 1) {
                 cfg->dev.dnsServers[0] = ip_addr_in6(&addr6);
                 if (cfg->dev.numDns < 1)
                     cfg->dev.numDns = 1;
@@ -993,7 +984,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     return LOADER_OK;
 }
 
-static int setupWireless(struct networkDeviceConfig *dev) {
+int setupWireless(struct networkDeviceConfig *dev) {
     /* wireless config needs to be set up before we can bring the interface
      * up */
     if (!is_wireless_interface(dev->dev.device))

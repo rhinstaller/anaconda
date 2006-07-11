@@ -1,3 +1,13 @@
+2006-07-11  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/net.c: More manual TCP/IP configuration changes.  The UI has
+	been changed around a bit to make more sense.  Removed some unnecessary
+	functions in net.c and changed some internal structs to match the needs
+	of the brave new IPv4/IPv6 future.  Users can specify the IPv4 netmask
+	in CIDR notation or the old/deprecated dotted-quad notation.  Not all
+	of the UI bits are hooked up yet, but that's coming to completion soon.
+	* loader2/net.h: Changes to reflect changes in net.c.
+
 2006-07-11  Chris Lumens  <clumens@redhat.com>
 
 	* yuminstall.py (YumBackend.doPreInstall):  Remove call to deprecated
