@@ -12,7 +12,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from yum.Errors import PackageSackError
+import yum.Errors
 from snack import *
 from constants_text import *
 from rhpl.translate import _, N_, getDefaultLangs
@@ -50,7 +50,7 @@ class GroupSelectionWindow:
         grpid = grp.groupid
         try:
             pkgs = self.ayum.pkgSack.returnNewestByName(pkg)
-        except PackageSackError:
+        except yum.Errors.PackageSackError:
             self.ayum.log(4, "no such package %s from group %s" %
                      (pkg, self.group.groupid))
         if pkgs:
