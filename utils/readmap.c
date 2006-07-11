@@ -36,9 +36,9 @@ int main(int argc, char ** argv) {
  
     memset(keymaps, 0, sizeof(keymaps));
 
-    console = open("/dev/console", O_RDWR);
+    console = open("/dev/tty0", O_RDWR);
     if (console < 0) {
-	perror("open console");
+	perror("open VGA+KBD");
 	exit(1);
     }
 

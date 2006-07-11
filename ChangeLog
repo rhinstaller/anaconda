@@ -1,7 +1,10 @@
 2006-07-10  Jeremy Katz  <katzj@redhat.com>
 
+	* utils/readmap.c (main): Try to fix things for serial console
+	(Alexander Dupuy, #198310)
+
 	* fsset.py (RAIDDevice.mdadmLine): Fix raid6 and map raid levels 
-	sanely (#197844)
+	 sanely (#197844)
 
 	* anaconda (rootpath_cb): Allow relative path (markmc, #197669)
 
