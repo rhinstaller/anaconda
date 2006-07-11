@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.54
+Version: 11.1.0.55
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -101,6 +101,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 10 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.55-1
+- Fix findExistingRoots (clumens, #197900)
+- Add smartctl to rescue image (dcantrel, #198052)
+- Allow relative --rootpath (markmc, #197669)
+- Try to fix up RAID6 (#197844)
+- Fix keymap generation with serial console (Alexander Dupuy, #198310)
+
 * Fri Jul  7 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.54-1
 - Loader changes to support enabling/disabling IPv4 & IPv6
 - Manual IP configuration changes in loader to better support IPv{4,6}
