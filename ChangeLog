@@ -31,6 +31,8 @@
 
 2006-07-11  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.py (runVNC):  Fix stdin/stdout on VNC shell.
+
 	* bootloader.py (hasWindows):  Add a function to check all the
 	bootloader entries for Windows.
 	* iw/timezone_gui.py (TimezoneWindow.getScreen):  Use hasWindows.
