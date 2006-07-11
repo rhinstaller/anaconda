@@ -19,6 +19,7 @@ from time import *
 from snack import *
 from constants_text import *
 from rhpl.translate import _, textdomain
+from bootloader import hasWindows
 
 textdomain("system-config-date")
 
@@ -70,6 +71,9 @@ class TimezoneWindow:
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 
 			_("What time zone are you located in?"))
+
+        if not hasWindows(anaconda.id.bootloader):
+            asUtc = True
 
 #
 # disabling this for now

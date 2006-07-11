@@ -25,6 +25,7 @@ from timezone_map_gui import TimezoneMap
 from rhpl.translate import _, textdomain
 from iw_gui import *
 from bootloaderInfo import dosFilesystems
+from bootloader import hasWindows
 
 try:
     import gnomecanvas
@@ -104,14 +105,7 @@ class TimezoneWindow(InstallWindow):
         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
         self.utcCheckbox.set_active(asUTC)
 
-        # As long as we don't find a Windows partition, check the UTC box.
-        foundWindows = False
-        for (k,v) in anaconda.id.bootloader.images.getImages().iteritems():
-            if v[0].lower() == 'other' and v[2] in dosFilesystems:
-                foundWindows = True
-                break
-
-        self.utcCheckbox.set_active(not foundWindows)
+        self.utcCheckbox.set_active(not hasWindows(anaconda.id.bootloader))
 
         self.notebook.remove(self.vbox)
         return self.vbox

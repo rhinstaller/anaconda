@@ -10,6 +10,12 @@
 
 2006-07-11  Chris Lumens  <clumens@redhat.com>
 
+	* bootloader.py (hasWindows):  Add a function to check all the
+	bootloader entries for Windows.
+	* iw/timezone_gui.py (TimezoneWindow.getScreen):  Use hasWindows.
+	* textw/timezone_text.py (TimezoneWindow.__call):  Use hasWindows to
+	automatically check the UTC box like the GUI does.
+
 	* yuminstall.py (YumBackend.doPreInstall):  Remove call to deprecated
 	method.
 
