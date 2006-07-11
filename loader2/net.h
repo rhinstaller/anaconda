@@ -28,6 +28,17 @@ struct networkDeviceConfig {
     char *subchannels, *portname, *peerid, *nettype, *ctcprot;
 };
 
+struct intfconfig_s {
+    newtComponent ipv4Entry, cidr4Entry;
+    newtComponent ipv6Entry, cidr6Entry;
+    newtComponent gwEntry, nsEntry;
+    const char *ipv4, *cidr4;
+    const char *ipv6, *cidr6;
+    const char *gw, *ns;
+};
+
+typedef int int32;
+
 int readNetConfig(char * device, struct networkDeviceConfig * dev,
                   char * dhcpclass);
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
@@ -35,7 +46,8 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    char * ipv4Choice, char * ipv6Choice);
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
-                    char ipv4Choice, char ipv6Choice);
+                    struct intfconfig_s * ipcomps,
+                    int ipv4Choice, int ipv6Choice);
 int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev);

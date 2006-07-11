@@ -1,5 +1,26 @@
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.{c,h}: An exhaustive list of updates:
+		- Moved struct intfconfig_s to net.h
+		- Init ipcomps members to NULL.
+		- Catch return value from configureNetwork() and tell user the
+		  network config failed.
+		- Pass an int for ipv4Choice and ipv6Choice to manualNetConfig()
+		- Use cfg->dev.ipv4 to calculate missing IPv4 components
+		- Pass a pointer to ipcomps to manualNetConfig()
+		- Fix tab order for IPv6 address and prefix fields (subgrid)
+		- Populate IPv4 address field if PUMP_INTFINFO_HAS_IPV4_IP set
+		- Use cfg->dev.ipv4 to populate IPv4 address field
+		- Populate IPv6 address and prefix if we already have those
+		- In run form loop in manualNetConfig(), pull data in to newCfg
+		  struct and set flags
+		- Handle CIDR or dotted-quad entry for IPv4 netmask
+		- Set cfg->dev.ip with ipv4 or ipv6 depending on the address
+		  family of the gateway
+		- In configureNetwork(), return nonzero on error
+
+2006-07-11  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/net.c: More manual TCP/IP configuration changes.  The UI has
 	been changed around a bit to make more sense.  Removed some unnecessary
 	functions in net.c and changed some internal structs to match the needs

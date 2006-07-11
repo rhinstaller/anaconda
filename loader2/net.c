@@ -65,17 +65,6 @@ char *netServerPrompt = \
        "    o the directory on that server containing\n" 
        "      %s for your architecture\n");
 
-struct intfconfig_s {
-    newtComponent ipv4Entry, cidr4Entry;
-    newtComponent ipv6Entry, cidr6Entry;
-    newtComponent gwEntry, nsEntry;
-    const char *ipv4, *cidr4;
-    const char *ipv6, *cidr6;
-    const char *gw, *ns;
-};
-
-typedef int int32;
-
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP
  * configuration window.
@@ -89,13 +78,13 @@ static void cidrCallback(newtComponent co, void * dptr) {
     int cidr, upper = 0;
 
     if (co == data->cidr4Entry) {
-        if (data->cidr4 == NULL)
+        if (data->cidr4 == NULL && data->ipv4 == NULL)
             return;
 
         cidr = atoi(data->cidr4);
         upper = 32;
     } else if (co == data->cidr6Entry) {
-        if (data->cidr6 == NULL)
+        if (data->cidr6 == NULL && data->ipv6 == NULL)
             return;
 
         cidr = atoi(data->cidr6);
@@ -387,6 +376,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
+                /* FIXME: need enable/disable flags for IPv4/6 in kickstart */
                 ret = doDhcp(cfg, 1, 1);
             }
 
@@ -514,6 +504,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     struct intfconfig_s ipcomps;
 
     memset(&ipcomps, '\0', sizeof(ipcomps));
+    ipcomps.ipv4 = NULL;
+    ipcomps.ipv6 = NULL;
+    ipcomps.cidr4 = NULL;
+    ipcomps.cidr6 = NULL;
+    ipcomps.gw = NULL;
+    ipcomps.ns = NULL;
 
     /* init newCfg */
     memset(&newCfg, '\0', sizeof(newCfg));
@@ -528,7 +524,13 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
      * our network config */
     if (!FL_TESTING(flags) && cfg->preset) {
         logMessage(INFO, "doing kickstart... setting it up");
-        configureNetwork(cfg);
+        if (configureNetwork(cfg)) {
+            newtWinMessage(_("Network Error"), _("Retry"),
+                           _("There was an error configuring your network "
+                             "interface."));
+            return LOADER_BACK;
+        }
+
         findHostAndDomain(cfg);
 
         if (!cfg->noDns)
@@ -557,7 +559,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
             i = 0;
         } else if (ret == LOADER_OK) {
             /* do manual configuration */
-            ret = manualNetConfig(device, cfg, &newCfg, ipv4Choice, ipv6Choice);
+            ret = manualNetConfig(device, cfg, &newCfg, &ipcomps,
+                                  (ipv4Choice == '*') ? 1 : 0,
+                                  (ipv6Choice == '*') ? 1 : 0);
 
             if (ret == LOADER_BACK) {
                 continue;
@@ -594,18 +598,20 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }
 
     /* calculate any missing IPv4 pieces */
-    addr = ip_in_addr(&cfg->dev.ip);
-    nm = ip_in_addr(&cfg->dev.netmask);
+    if (ipv4Choice == '*') {
+        addr = ip_in_addr(&cfg->dev.ipv4);
+        nm = ip_in_addr(&cfg->dev.netmask);
 
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
-        cfg->dev.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
-        cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
-    }
+        if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)) {
+            cfg->dev.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
+            cfg->dev.set |= PUMP_INTFINFO_HAS_NETWORK;
+        }
 
-    if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
-        nw = ip_in_addr(&cfg->dev.network);
-        cfg->dev.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
-        cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
+        if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
+            nw = ip_in_addr(&cfg->dev.network);
+            cfg->dev.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
+            cfg->dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
+        }
     }
 
     /* make sure we don't have a dhcp_nic handle for static */
@@ -615,7 +621,13 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     }
 
     if (!FL_TESTING(flags)) {
-        configureNetwork(cfg);
+        if (configureNetwork(cfg)) {
+            newtWinMessage(_("Network Error"), _("Retry"),
+                           _("There was an error configuring your network "
+                             "interface."));
+            return LOADER_BACK;
+        }
+
         findHostAndDomain(cfg);
         writeResolvConf(cfg);
     }
@@ -773,27 +785,27 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
 
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
-                    char ipv4Choice, char ipv6Choice) {
-    int i, rows, pos;
+                    struct intfconfig_s * ipcomps,
+                    int ipv4Choice, int ipv6Choice) {
+    int ifour, isix, rows, pos, primary, prefix, cidr;
+    char buf[4];
     char ret[47];
     ip_addr_t *tip;
     struct in_addr addr;
     struct in6_addr addr6;
-    struct intfconfig_s ipcomps;
     newtComponent f, okay, back, answer;
     newtGrid egrid = NULL;
     newtGrid qgrid = NULL;
+    newtGrid rgrid = NULL;
     newtGrid buttons, grid;
-
-    memset(&ipcomps, '\0', sizeof(ipcomps));
 
     /* UI WINDOW 2 (optional): manual IP config for non-DHCP installs */
     rows = 2;
 
-    if (ipv4Choice == '*')
+    if (ipv4Choice)
         rows++;
 
-    if (ipv6Choice == '*')
+    if (ipv6Choice)
         rows++;
 
     egrid = newtCreateGrid(4, rows);
@@ -801,79 +813,98 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     pos = 0;
 
     /* IPv4 entry items */
-    if (ipv4Choice == '*') {
+    if (ipv4Choice) {
         newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
                          newtLabel(-1, -1, _("IPv4 address:")),
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        ipcomps.ipv4Entry = newtEntry(-1, -1, NULL, 16, &ipcomps.ipv4, 0);
-        ipcomps.cidr4Entry = newtEntry(-1, -1, NULL, 16, &ipcomps.cidr4, 0);
+        ipcomps->ipv4Entry = newtEntry(-1, -1, NULL, 16, &ipcomps->ipv4, 0);
+        ipcomps->cidr4Entry = newtEntry(-1, -1, NULL, 16, &ipcomps->cidr4, 0);
 
         /* use a nested grid for ipv4 addr & netmask */
         qgrid = newtCreateGrid(3, 1);
 
         newtGridSetField(qgrid, 0, 0, NEWT_GRID_COMPONENT,
-                         ipcomps.ipv4Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+                         ipcomps->ipv4Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
         newtGridSetField(qgrid, 1, 0, NEWT_GRID_COMPONENT,
                          newtLabel(-1, -1, _("/")),
                          1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
         newtGridSetField(qgrid, 2, 0, NEWT_GRID_COMPONENT,
-                         ipcomps.cidr4Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+                         ipcomps->cidr4Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
         newtGridSetField(egrid, 1, pos, NEWT_GRID_SUBGRID, qgrid,
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        newtComponentAddCallback(ipcomps.ipv4Entry, ipCallback, &ipcomps);
-        newtComponentAddCallback(ipcomps.cidr4Entry, cidrCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps->ipv4Entry, ipCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps->cidr4Entry, cidrCallback, &ipcomps);
 
         /* populate fields if we have data already */
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_IP) {
-            tip = &(cfg->dev.ip);
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP) {
+            tip = &(cfg->dev.ipv4);
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            newtEntrySet(ipcomps.ipv4Entry, ret, 1);
+            newtEntrySet(ipcomps->ipv4Entry, ret, 1);
         }
 
         if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK) {
             tip = &(cfg->dev.netmask);
             inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-            newtEntrySet(ipcomps.cidr4Entry, ret, 1);
+            newtEntrySet(ipcomps->cidr4Entry, ret, 1);
         }
 
         pos++;
     }
 
     /* IPv6 entry items */
-    if (ipv6Choice == '*') {
+    if (ipv6Choice) {
         newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
                          newtLabel(-1, -1, _("IPv6 address:")),
                          0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(egrid, 2, pos, NEWT_GRID_COMPONENT,
+
+        ipcomps->ipv6Entry = newtEntry(-1, -1, NULL, 41, &ipcomps->ipv6, 0);
+        ipcomps->cidr6Entry = newtEntry(-1, -1, NULL, 4, &ipcomps->cidr6, 0);
+
+        /* use a nested grid for ipv6 addr & netmask */
+        rgrid = newtCreateGrid(3, 1);
+
+        newtGridSetField(rgrid, 0, 0, NEWT_GRID_COMPONENT,
+                         ipcomps->ipv6Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(rgrid, 1, 0, NEWT_GRID_COMPONENT,
                          newtLabel(-1, -1, _("/")),
                          1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+        newtGridSetField(rgrid, 2, 0, NEWT_GRID_COMPONENT,
+                         ipcomps->cidr6Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        ipcomps.ipv6Entry = newtEntry(-1, -1, NULL, 41, &ipcomps.ipv6, 0);
-        ipcomps.cidr6Entry = newtEntry(-1, -1, NULL, 4, &ipcomps.cidr6, 0);
+        newtGridSetField(egrid, 1, pos, NEWT_GRID_SUBGRID, rgrid,
+                         0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-        newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
-                         ipcomps.ipv6Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-        newtGridSetField(egrid, 3, pos, NEWT_GRID_COMPONENT,
-                         ipcomps.cidr6Entry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
-   
-        newtComponentAddCallback(ipcomps.ipv6Entry, ipCallback, &ipcomps);
-        newtComponentAddCallback(ipcomps.cidr6Entry, cidrCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps->ipv6Entry, ipCallback, &ipcomps);
+        newtComponentAddCallback(ipcomps->cidr6Entry, cidrCallback, &ipcomps);
+
+        /* populate fields if we have data already */
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP) {
+            tip = &(cfg->dev.ipv6);
+            inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
+            newtEntrySet(ipcomps->ipv6Entry, ret, 1);
+        }
+
+        if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX) {
+            sprintf(buf, "%d", cfg->dev.ipv6_prefixlen);
+            memcpy(ipcomps->cidr4Entry, buf, strlen(buf));
+            newtEntrySet(ipcomps->cidr4Entry, ret, 1);
+        }
 
         pos++;
     }
 
     /* common entry items */
-    ipcomps.gwEntry = newtEntry(-1, -1, NULL, 41, &ipcomps.gw, 0);
-    ipcomps.nsEntry = newtEntry(-1, -1, NULL, 41, &ipcomps.ns, 0);
+    ipcomps->gwEntry = newtEntry(-1, -1, NULL, 41, &ipcomps->gw, 0);
+    ipcomps->nsEntry = newtEntry(-1, -1, NULL, 41, &ipcomps->ns, 0);
 
     newtGridSetField(egrid, 0, pos, NEWT_GRID_COMPONENT,
                      newtLabel(-1, -1, _("Gateway:")),
                      0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
     newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
-                     ipcomps.gwEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+                     ipcomps->gwEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
     pos++;
 
@@ -881,22 +912,22 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                      newtLabel(-1, -1, _("Name Server:")),
                      0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
     newtGridSetField(egrid, 1, pos, NEWT_GRID_COMPONENT,
-                     ipcomps.nsEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
+                     ipcomps->nsEntry, 1, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
     if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
         tip = &(cfg->dev.gateway);
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        newtEntrySet(ipcomps.gwEntry, ret, 1);
+        newtEntrySet(ipcomps->gwEntry, ret, 1);
     }
 
     if (cfg->dev.numDns) {
         tip = &(cfg->dev.dnsServers[0]);
         inet_ntop(tip->sa_family, IP_ADDR(tip), ret, IP_STRLEN(tip));
-        newtEntrySet(ipcomps.nsEntry, ret, 1);
+        newtEntrySet(ipcomps->nsEntry, ret, 1);
     }
 
-    newtComponentAddCallback(ipcomps.gwEntry, ipCallback, &ipcomps);
-    newtComponentAddCallback(ipcomps.nsEntry, ipCallback, &ipcomps);
+    newtComponentAddCallback(ipcomps->gwEntry, ipCallback, &ipcomps);
+    newtComponentAddCallback(ipcomps->nsEntry, ipCallback, &ipcomps);
 
     /* button bar at the bottom of the window */
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
@@ -915,8 +946,15 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     newtGridFree(grid, 1);
 
     /* run the form */
-    i = 0;
-    do {
+    ifour = 0;
+    isix = 0;
+    while ((ifour != 2) || (isix != 2)) {
+        if (!ipv4Choice)
+            ifour = 2;
+
+        if (!ipv6Choice)
+            isix = 2;
+
         answer = newtRunForm(f);
 
         if (answer == back) {
@@ -925,58 +963,114 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
             return LOADER_BACK;
         }
 
-        memset(&newCfg, 0, sizeof(newCfg));
-        if (*ipcomps.ipv4) {
-            if (inet_pton(AF_INET, ipcomps.ipv4, &addr) >= 1) {
-                i++;
-                newCfg->dev.ip = ip_addr_in(&addr);
-                newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+        memset(newCfg, 0, sizeof(*newCfg));
+
+        /* collect IPv4 data */
+        if (ipv4Choice) {
+            if (ipcomps->ipv4) {
+                if (inet_pton(AF_INET, ipcomps->ipv4, &addr) >= 1) {
+                    newCfg->dev.ipv4 = ip_addr_in(&addr);
+                    newCfg->dev.set |= PUMP_INTFINFO_HAS_IPV4_IP;
+                    ifour++;
+                }
+            }
+
+            if (ipcomps->cidr4) {
+                if (inet_pton(AF_INET, ipcomps->cidr4, &addr) >= 1) {
+                    newCfg->dev.netmask = ip_addr_in(&addr);
+                    newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+                    ifour++;
+                } else {
+                    cidr = atoi(ipcomps->cidr4);
+                    if (cidr >= 1 && cidr <= 32) {
+                        if (inet_pton(AF_INET, "255.255.255.255", &addr) >= 1) {
+                            addr.s_addr = htonl(ntohl(addr.s_addr) << (32 - cidr));
+                            newCfg->dev.netmask = ip_addr_in(&addr);
+                            newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+                            ifour++;
+                        }
+                    }
+                }
             }
         }
 
-        if (*ipcomps.ipv6) {
-            if (inet_pton(AF_INET6, ipcomps.ipv6, &addr6) >= 1) {
-                i++;
-                newCfg->dev.ip = ip_addr_in6(&addr6);
-                newCfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+        /* collect IPv6 data */
+        if (ipv6Choice) {
+            if (ipcomps->ipv6) {
+                if (inet_pton(AF_INET6, ipcomps->ipv6, &addr6) >= 1) {
+                    newCfg->dev.ipv6 = ip_addr_in6(&addr6);
+                    newCfg->dev.set |= PUMP_INTFINFO_HAS_IPV6_IP;
+                    isix++;
+                }
+            }
+
+            if (ipcomps->cidr6) {
+                prefix = atoi(ipcomps->cidr6);
+                if (prefix > 0 || prefix <= 128) {
+                    newCfg->dev.ipv6_prefixlen = prefix;
+                    newCfg->dev.set |= PUMP_INTFINFO_HAS_IPV6_PREFIX;
+                    isix++;
+                }
             }
         }
 
-/*
-        if (*ipcomps.nm) {
-            if (inet_pton(AF_INET, ipcomps.nm, &addr) >= 1) {
-                i++;
-                newCfg->dev.netmask = ip_addr_in(&addr);
-                newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-            } else if (inet_pton(AF_INET6, ipcomps.nm, &addr6) >= 1) {
-                i++;
-                newCfg->dev.netmask = ip_addr_in6(&addr6);
-                newCfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+        /* collect common network settings */
+        if (ipcomps->gw) {
+            primary = 0;
+
+            if (inet_pton(AF_INET, ipcomps->gw, &addr) >= 1) {
+                cfg->dev.gateway = ip_addr_in(&addr);
+                cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+                primary = AF_INET;
+            } else if (inet_pton(AF_INET6, ipcomps->gw, &addr6) >= 1) {
+                cfg->dev.gateway = ip_addr_in6(&addr6);
+                cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+                primary = AF_INET6;
+            }
+
+            /* We set cfg->dev.ip to the IP address of the dominant
+             * network.  Determine that by the address family of the
+             * gateway.
+             */
+            if (primary == AF_INET) {
+                memcpy(&cfg->dev.ip, &cfg->dev.ipv4, sizeof(cfg->dev.ipv4));
+                cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+            } else if (primary == AF_INET6) {
+                memcpy(&cfg->dev.ip, &cfg->dev.ipv6, sizeof(cfg->dev.ipv6));
+                cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             }
         }
-*/
 
-        if (ipcomps.ns && *ipcomps.ns) {
-            if (inet_pton(AF_INET, ipcomps.ns, &addr) >= 1) {
+        if (ipcomps->ns) {
+            if (inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) {
                 cfg->dev.dnsServers[0] = ip_addr_in(&addr);
+                cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
                 if (cfg->dev.numDns < 1)
                     cfg->dev.numDns = 1;
-            } else if (inet_pton(AF_INET6, ipcomps.ns, &addr6) >= 1) {
+            } else if (inet_pton(AF_INET6, ipcomps->ns, &addr6) >= 1) {
                 cfg->dev.dnsServers[0] = ip_addr_in6(&addr6);
+                cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
                 if (cfg->dev.numDns < 1)
                     cfg->dev.numDns = 1;
             }
         }
 
-        if (i != 2) {
+        /* we might be done now */
+        if (ifour != 2) {
             newtWinMessage(_("Missing Information"), _("Retry"),
-                        _("You must enter both a valid IP address and a "
-                          "netmask."));
+                           _("You must enter both a valid IPv4 address and a "
+                             "network mask or CIDR prefix."));
+        }
+
+        if (isix != 2) {
+            newtWinMessage(_("Missing Information"), _("Retry"),
+                           _("You must enter both a valid IPv6 address and a"
+                             "CIDR prefix."));
         }
 
         strcpy(newCfg->dev.device, device);
         newCfg->isDynamic = 0;
-    } while (i != 2);
+    }
 
     newtFormDestroy(f);
     newtPopWindow();
@@ -1066,8 +1160,10 @@ int configureNetwork(struct networkDeviceConfig * dev) {
 
     setupWireless(dev);
     rc = pumpSetupInterface(&dev->dev);
-    if (rc)
+    if (rc) {
         logMessage(INFO, "result of pumpSetupInterface is %s", rc);
+        return 1;
+    }
 
     /* we need to wait for a link after setting up the interface as some
      * switches decide to reconfigure themselves after that (#115825)
