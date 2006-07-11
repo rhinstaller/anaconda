@@ -962,7 +962,7 @@ class YumBackend(AnacondaBackend):
                 iutil.mkdirChain("/var/lib")
                 for path in ("/var/tmp", "/var/lib/rpm"):
                     if os.path.exists(path) and not os.path.islink(path):
-                        iutil.rmrf(path)
+                        shutil.rmtree(path)
                     if not os.path.islink(path):
                         os.symlink("/mnt/sysimage/%s" %(path,), "%s" %(path,))
                     else:
