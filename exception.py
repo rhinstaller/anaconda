@@ -257,7 +257,7 @@ def copyExceptionToFloppy (anaconda):
     # in test mode have save to floppy option just copy to new name
     if not flags.setupFilesystems:
         try:
-            iutil.copyFile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
+            shutil.copyfile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
         except:
             log.error("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
             pass
@@ -301,7 +301,7 @@ def copyExceptionToFloppy (anaconda):
 
         # copy trace dump we wrote to local storage to floppy
         try:
-            iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
+            shutil.copyfile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
         except:
             log.error("Failed to copy anacdump.txt to floppy")
             return 2

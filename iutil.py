@@ -72,11 +72,6 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
     pipe.wait()
     return rc
 
-def copyFile(source, to):
-    warnings.warn("iutil.copyFile is deprecated.  Use shutil.copyfile instead.",
-                  DeprecationWarning, stacklevel=2)
-    shutil.copyfile(source, to)
-
 # return size of directory (and subdirs) in kilobytes
 def getDirSize(dir):
     def getSubdirSize(dir):

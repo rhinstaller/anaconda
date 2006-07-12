@@ -12,7 +12,7 @@
 #
 
 from installmethod import InstallMethod, FileCopyException
-import iutil
+import shutil
 import os
 import sys
 import isys
@@ -162,7 +162,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	try:
             win = self.waitWindow (_("Copying File"),
                                    _("Transferring install image to hard drive..."))
-	    iutil.copyFile("%s/images/stage2.img" % (self.tree,), 
+	    shutil.copyfile("%s/images/stage2.img" % (self.tree,), 
 			    self.loopbackFile)
             win.pop()
 	except Exception, e:

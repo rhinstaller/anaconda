@@ -23,12 +23,12 @@ if flags.cmdline.has_key("dogtail"):
     os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
 import errno
-import iutil
 import string
 import time
 import isys
 import sys
 import parted
+import shutil
 import gtk
 import gtk.glade
 import gobject
@@ -112,7 +112,7 @@ def copyScreenshots():
         (path, fname) = os.path.split(f)
         (b, ext) = os.path.splitext(f)
         if ext == ".png":
-            iutil.copyFile(screenshotDir + '/' + f, destDir + '/' + fname)
+            shutil.copyfile(screenshotDir + '/' + f, destDir + '/' + fname)
 
     window = MessageWindow(_("Screenshots Copied"), 
                            _("The screenshots have been saved into the "

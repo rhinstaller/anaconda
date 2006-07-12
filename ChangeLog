@@ -4,6 +4,7 @@
 	instead of our own code.
 	(memInstalled):  Remove /proc/e820info cruft.
 	(rmrf):  Removed.
+	(copyFile):  Removed.
 
 	* anaconda, exception.py, firewall.py, fsset.py, instdata.py,
 	iscsi.py, iutil.py, kickstart.py, lvm.py, packages.py, partedUtils.py,
@@ -13,6 +14,8 @@
 
 	* xsetup.py (XSetup.write):  No way to enable/disable DRI in rhpxl
 	anymore.
+
+	* exception.py, gui.py, image.py:  iutil.copyFile -> shutil.copyfile
 
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
