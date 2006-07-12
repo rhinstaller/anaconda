@@ -36,13 +36,6 @@ class XSetup:
     # really all of this should be in rhpl probably
     #
     def write(self, fn, mouse, keyboard):
-        # always turn dri on FIXME: except on ia64
-        if rhpl.getArch() == "ia64":
-            self.xhwstate.set_dri_enabled(0)
-        else:
-            self.xhwstate.set_dri_enabled(1)
-
-	#
 	# XXX - cleanup monitor name to not include 'DDC Probed Monitor'
 	#       in its string if its there.
 	#
@@ -50,7 +43,6 @@ class XSetup:
 	#       string passed around inside anaconda includes this prefix
 	#       so that the UI can properly display the monitor as a DDC
 	#       probed value versus a user selected value.
-	#
 	monname = self.xhwstate.get_monitor_name()
 	if monname is not None:
 	    ddc_monitor_string = _("DDC Probed Monitor")

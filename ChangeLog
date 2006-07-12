@@ -11,6 +11,9 @@
 	Don't pass the command we're running as the first element of the
 	argument list, as subprocess doesn't want things that way.
 
+	* xsetup.py (XSetup.write):  No way to enable/disable DRI in rhpxl
+	anymore.
+
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
