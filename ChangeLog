@@ -1,3 +1,11 @@
+2006-07-12  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/netconfig_dialog.py: Add dialog for doing network device
+	config for stage2 as a prereq of better iscsi support and extra repo
+	config.  This is basically just the UI bits without things hooked
+	up, but a good chunk of what's needed
+	* ui/netconfig.glade: Add the glade file.
+
 2006-07-12  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c: Remove BOOTP from "Use dynamic IP configuration
