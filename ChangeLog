@@ -24,6 +24,11 @@
 
 	* exception.py, gui.py, image.py:  iutil.copyFile -> shutil.copyfile
 
+	* textw/network_text.py (NetworkGlobalWindow.getFirstGatewayGuess):
+	Don't guess the gateway for consistency with loader's UI (#197578).
+
+	* isys/isys.py (inet_calcGateway):  Removed.
+
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

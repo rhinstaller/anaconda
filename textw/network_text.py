@@ -232,23 +232,6 @@ class NetworkDeviceWindow:
             return INSTALL_OK
 
 class NetworkGlobalWindow:
-    def getFirstGatewayGuess(self, devices):
-        list = devices.keys()
-        list.sort()
-        for dev in list:
-            thedev = devices[dev]
-            bootproto = thedev.get("bootproto")
-            if bootproto and bootproto == "dhcp":
-                continue
-            onboot = thedev.get("onboot")
-            if onboot and onboot == "no":
-                continue
-            bcast = thedev.get("broadcast")
-            if not bcast:
-                continue
-            return isys.inet_calcGateway(bcast)
-        return ""
-            
     def __call__(self, screen, anaconda):
         devices = anaconda.id.network.available()
         if not devices:
@@ -263,12 +246,11 @@ class NetworkGlobalWindow:
 
         thegrid.setField(Label(_("Gateway:")), 0, 0, anchorLeft = 1)
         gwEntry = Entry(16)
-        # if it's set already, use that... otherwise, get the first
-        # non-dhcp and active device and use it to guess the gateway
+        # if it's set already, use that... otherwise, make them enter it
         if anaconda.id.network.gateway:
             gwEntry.set(anaconda.id.network.gateway)
         else:
-            gwEntry.set(self.getFirstGatewayGuess(devices))
+            gwEntry.set("")
         thegrid.setField(gwEntry, 1, 0, padding = (1, 0, 0, 0))
         
         thegrid.setField(Label(_("Primary DNS:")), 0, 1, anchorLeft = 1)

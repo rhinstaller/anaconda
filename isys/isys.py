@@ -429,14 +429,6 @@ def inet_calcNetBroad (ip, nm):
             
     return (inet_ntoa (netaddr), inet_ntoa (bcaddr))
 
-def inet_calcGateway (bc):
-    if isinstance (bc, type ("")):
-        bcaddr = inet_aton (bc)
-    else:
-        bcaddr = bc
-
-    return inet_ntoa (bcaddr - 1)
-
 def inet_calcNS (net):
     if isinstance (net, type ("")):
         netaddr = inet_aton (net)
