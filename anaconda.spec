@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.6.14
+Version: 9.1.6.15
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 12 2006 Peter Jones <pjones@redhat.com> - 9.1.6.15-1.RHEL
+- Make the driver image fit on a disk again (#192005).  Again.
+
 * Tue Jun 20 2006 Peter Jones <pjones@redhat.com> - 9.1.6.14-1.RHEL
 - Make the driver image fit on a disk again (#192005)
 
