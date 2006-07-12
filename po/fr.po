@@ -3,6 +3,7 @@
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
+# translation of fr.po to
 # translation of fr.po to French
 # Copyright (C) 2001 Red Hat, Inc.
 #  <>, 2006.
@@ -11,8 +12,8 @@
 # Jean-Paul Aubry <jpaubry@redhat.com>, 2003,2004, 2005.
 # Stephane Raimbault <stephane.raimbault@free.fr>, 2004, 2006.
 # Thomas Canniot <thomas.canniot@laposte.net>, 2006.
-# 
-# 
+#
+#
 #
 #
 msgid ""
@@ -20,12 +21,13 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-22 22:41+0200\n"
-"Last-Translator:  <thomas.canniot@laposte.net>\n"
+"PO-Revision-Date: 2006-07-12 12:14+1000\n"
+"Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../anaconda:255
 msgid "Unknown Error"
@@ -2710,15 +2712,21 @@ msgstr "_Confirmer�: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Supprimer toutes les partitions des disques s�lectionn�s et utiliser le partitionnement par d�faut."
+msgstr ""
+"Supprimer toutes les partitions des disques s�lectionn�s et utiliser\n"
+"le partitionnement par d�faut."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Supprimer les partitions Linux sur les disques s�lectionn�s et utiliser le partionnement par d�faut."
+msgstr ""
+"Supprimer les partitions Linux sur les disques s�lectionn�s et utiliser\n"
+"le partionnement par d�faut."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr "Utiliser l'espace libre sur les disques s�lectionn�s et utiliser le partionnement par d�faut."
+msgstr ""
+"Utiliser l'espace libre sur les disques s�lectionn�s et utiliser le\n"
+"partionnement par d�faut."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
@@ -7433,98 +7441,3 @@ msgstr "Gallois"
 msgid "Zulu"
 msgstr "Zoulou"
 
-#~ msgid "The release notes are missing."
-#~ msgstr "Les notes de mise ÃÂÃÂ  jour ne sont pas prÃÂÃÂ©sentes."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Les paquetages suivants sont disponibles dans cette version mais ils "
-#~ "n'ont pas ÃÂÃÂ©tÃÂÃÂ© mis ÃÂÃÂ  niveauÃÂÃÂ :\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Les paquetages suivants ÃÂÃÂ©taient disponibles dans cette version mais ne "
-#~ "sont PAS installÃÂÃÂ©sÃÂÃÂ :\n"
-
-#~ msgid "Finding"
-#~ msgstr "Recherche"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Recherche des paquetages ÃÂÃÂ  mettre ÃÂÃÂ  niveau..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Le programme d'installation ne peut pas mettre ÃÂÃÂ  niveau les systÃÂÃÂ¨mes avec "
-#~ "une base de donnÃÂÃÂ©es pre-rpm 4.x. Veuillez installer les paquetages rpm "
-#~ "d'errata pour votre version comme dÃÂÃÂ©crit dans les notes de mise ÃÂÃÂ  jour et "
-#~ "ensuite exÃÂÃÂ©cuter la procÃÂÃÂ©dure de mise ÃÂÃÂ  niveau."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr ""
-#~ "Une erreur s'est produite lors de la recherche des paquetages ÃÂÃÂ  mettre ÃÂÃÂ  "
-#~ "niveau."
-
-#~ msgid "Installation Type"
-#~ msgstr "Type d'installation"
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Quel type de systÃÂÃÂ¨me souhaitez-vous installerÃÂÃÂ ?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Personnalisation des paquetages ÃÂÃÂ  mettre ÃÂÃÂ  niveau"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "Les paquetages installÃÂÃÂ©s ainsi que tous les autres paquetages nÃÂÃÂ©cessaires "
-#~ "ÃÂÃÂ  leur fonctionnement ont ÃÂÃÂ©tÃÂÃÂ© sÃÂÃÂ©lectionnÃÂÃÂ©s pour l'installation. Voulez-"
-#~ "vous personnaliser l'ensemble des paquetages qui seront mis ÃÂÃÂ  niveauÃÂÃÂ ?"
-
-#~ msgid "Virtualization (Xen)"
-#~ msgstr "Virtualisation (Xen)"
-
-#~ msgid "Hide _Help"
-#~ msgstr "Masquer _l'aide"
-
-#~ msgid "Show _Help"
-#~ msgstr "Afficher _l'aide"
-
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr ""
-#~ "Comment souhaitez-vous obtenir de l'espace pour le partitionnementÃÂÃÂ ?"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "L'installation requiert le partitionnement de votre disque dur. Vous "
-#~ "pouvez utiliser la structure de partitionnement par dÃÂÃÂ©faut ou crÃÂÃÂ©er la "
-#~ "votre."
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr ""
-#~ "SÃÂÃÂ©lectionner le(s) pÃÂÃÂ©riphÃÂÃÂ©rique(s) ÃÂÃÂ  utiliser pour cette installation."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "Examine_r et modifier la structure de partitionnement"
-
-#~ msgid "Amharic"
-#~ msgstr "Ethiopien"
-
-#~ msgid "Thai"
-#~ msgstr "Thai"
