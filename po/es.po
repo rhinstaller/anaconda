@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-17 11:21+1000\n"
+"PO-Revision-Date: 2006-07-12 11:03+1000\n"
 "Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3787,7 +3787,9 @@ msgstr "Eliminar todas las particiones en los dispositivos seleccionados y crear
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "Remover las particiones de linux en los dispositivos seleccionados y crear disposición predeterminada"
+msgstr ""
+"Remover las particiones de linux en los dispositivos seleccionados\n"
+"y crear disposición predeterminada"
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
@@ -4038,7 +4040,7 @@ msgstr "Comenzar la instalación"
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "Pulse en Siguiente para empezar la instalación de %s."
+msgstr "Pulse en Siguiente para iniciar la instalación de %s."
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -4068,7 +4070,7 @@ msgstr "Sobre la actualización"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Pulse en Siguiente para empezar la actualización de %s."
+msgstr "Pulse en Siguiente para iniciar la actualización de %s."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -4147,10 +4149,7 @@ msgstr "_Instalar %s"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"Seleccione esta opción para realizar una instalación fresca. El software y "
-"los datos existentes puede que sean sobreescritos dependiendo de sus "
-"selecciones de configuración."
+msgstr "Seleccione esta opción para realizar una instalación fresca. Dependiendo de la configuración que seleccione, el software y los datos existentes podrían ser sobreescritos."
 
 # ../installclasses/upgradeclass.py:8
 # ../installclasses/upgradeclass.py:8
@@ -5066,10 +5065,10 @@ msgid ""
 "the desired operating system."
 msgstr ""
 "Puede configurar el gestor de arranque para reiniciar otros sistemas "
-"operativos. Le permitirá seleccionar un sistema operativo de la lista a "
-"arrancar. Para añadir sistemas operativos adicionales, que no han sido "
-"detectados automáticamente, pulse en 'Añadir'. Para cambiar el sistema "
-"operativo a iniciar de forma predeterminada, seleccione 'Por defecto' en el "
+"operativos. Ésto le permitirá seleccionar un sistema operativo de la lista a "
+"arrancar. Para añadir sistemas operativos adicionales que no han sido "
+"detectados automáticamente, pulse 'Añadir'. Para cambiar el sistema "
+"operativo que será iniciado de forma predeterminada, seleccione 'Por defecto' en el "
 "sistema operativo que desee."
 
 # ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
@@ -5193,7 +5192,7 @@ msgstr "_Tamaño fijo"
 # ../iw/partition_gui.py:809
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "Complete todo el espacio _hasta (MB):"
+msgstr "Completar todo el espacio _hasta (MB):"
 
 # ../iw/partition_gui.py:814
 # ../iw/partition_gui.py:816
@@ -6027,14 +6026,14 @@ msgstr "Unidades"
 # ../gui.py:497
 #: ../iw/release_notes.py:153
 msgid "Release notes are missing.\n"
-msgstr "Faltan las notas de última hora.\n"
+msgstr "Faltan las notas de lanzamiento.\n"
 
 # ../gui.py:445 ../gui.py:607
 # ../gui.py:445 ../gui.py:607
 # ../gui.py:445 ../gui.py:607
 #: ../iw/release_notes.py:212
 msgid "Release Notes"
-msgstr "Notas de última hora"
+msgstr "Notas de lanzamiento"
 
 # ../gui.py:476
 # ../gui.py:476
@@ -8081,10 +8080,10 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Para empezar con la prueba de los medios del CD antes de la instalación "
+"Para iniciar la prueba de medios para el CD antes de la instalación "
 "pulse %s\n"
 "\n"
-"Escoja %s para omitir el test de medios e iniciar la instalación."
+"Escoja %s para omitir la prueba de medios e iniciar la instalación."
 
 # ../loader/loader.c:968
 # ../loader/loader.c:968
@@ -9338,7 +9337,7 @@ msgstr "_Siguiente"
 # ../gui.py:445 ../gui.py:607
 #: tmp/anaconda.glade.h:4
 msgid "_Release Notes"
-msgstr "_Notas de última hora"
+msgstr "_Notas de lanzamiento"
 
 #: tmp/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -9393,9 +9392,8 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
-"La personalización de la selección de software puede completarse ahora o "
-"después de la instalación a través de la aplicación de administración de "
-"software."
+"La selección de software puede personalizarse en estos momentos o con la aplicación de administración de "
+"software después de la instalación."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
