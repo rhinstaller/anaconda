@@ -30,7 +30,6 @@ import shutil
 from flags import flags
 from product import *
 from constants import *
-from syslogd import syslog
 from installmethod import FileCopyException
 
 import rhpl
