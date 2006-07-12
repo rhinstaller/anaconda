@@ -1,5 +1,10 @@
 2006-07-12  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.c: Remove BOOTP from "Use dynamic IP configuration
+	(BOOTP/DHCP)" string.
+
+2006-07-12  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/net.c: Added NETWORK_DEBUG mode for readNetConfig().
 	Set to 1 if you want readNetConfig() to dump pump info and then
 	exit.

@@ -701,7 +701,7 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
     }
 
     dhcpCheckbox = newtCheckbox(-1, -1, 
-                _("Use dynamic IP configuration (BOOTP/DHCP)"),
+                _("Use dynamic IP configuration (DHCP)"),
                 dhcpChoice, NULL, &dhcpChoice);
 
     /* IPv4 checkbox */
