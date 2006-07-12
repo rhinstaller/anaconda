@@ -59,14 +59,12 @@ class Firewall:
 	return args
 
     def write (self, instPath):
-	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart", "-f" ]
-
-        args = args + self.getArgList()
+	args = [ "--quiet", "--nostart", "-f" ] + self.getArgList()
 
         try:
             if not flags.test:
-                iutil.execWithRedirect(args[0], args, root = instPath,
-                                       stdout = None, stderr = None)
+                iutil.execWithRedirect("/usr/sbin/lokkit", args,
+                                       root=instPath, stdout=None, stderr=None)
             else:
                 log.error("would have run %s", args)
         except RuntimeError, msg:

@@ -59,8 +59,7 @@ class AnacondaKSScript(Script):
         else:
             messages = "/dev/tty3"
 
-        rc = iutil.execWithRedirect(self.interp, [self.interp,
-                                    "/tmp/%s" % os.path.basename(path)],
+        rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                     stdin = messages, stdout = messages, stderr = messages,
                                     root = scriptRoot)
 

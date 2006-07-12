@@ -36,16 +36,11 @@ class TimezoneWindow:
         return zoneList
 
     def updateSysClock(self):
-	if os.access("/sbin/hwclock", os.X_OK):
-	    args = [ "/sbin/hwclock" ]
-	else:
-	    args = [ "/usr/sbin/hwclock" ]
-
-	args.append("--hctosys")
+	args = ["--hctosys"]
 	if self.c.selected():
 	    args.append("--utc")
 
-	iutil.execWithRedirect(args[0], args)
+	iutil.execWithRedirect("hwclock", args, searchPath=1)
 	self.g.setTimer(500)
 	self.updateClock()
 

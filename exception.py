@@ -286,13 +286,12 @@ def copyExceptionToFloppy (anaconda):
         os.close(fd)
 
         if rhpl.getArch() != "ia64":
-            args = [ 'mkdosfs', '/tmp/floppy' ]
             cmd = "/usr/sbin/mkdosfs"
 
             if os.access("/sbin/mkdosfs", os.X_OK):
                 cmd = "/sbin/mkdosfs"
 
-            iutil.execWithRedirect (cmd, args, stdout = '/dev/tty5',
+            iutil.execWithRedirect (cmd, ["/tmp/floppy"], stdout = '/dev/tty5',
                                     stderr = '/dev/tty5')
 
         try:

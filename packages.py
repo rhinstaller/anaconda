@@ -166,14 +166,14 @@ def setupTimezone(anaconda):
 
     if rhpl.getArch() == "s390":
         return
-    args = [ "/usr/sbin/hwclock", "--hctosys" ]
+    args = [ "--hctosys" ]
     if anaconda.id.timezone.utc:
         args.append("-u")
     elif anaconda.id.timezone.arc:
         args.append("-a")
 
     try:
-        iutil.execWithRedirect(args[0], args, stdin = None,
+        iutil.execWithRedirect("/usr/sbin/hwclock", args, stdin = None,
                                stdout = "/dev/tty5", stderr = "/dev/tty5")
     except RuntimeError:
         log.error("Failed to set clock")
@@ -232,41 +232,11 @@ def setFileCons(anaconda):
 
     return
 
-# XXX: large hack lies here
-def migrateMouseConfig(instPath, instLog):
-    if not os.access (instPath + "/usr/sbin/fix-mouse-psaux", os.X_OK):
-        return
-
-    argv = [ "/usr/sbin/fix-mouse-psaux" ]
-
-    logfile = os.open (instLog, os.O_APPEND)
-    iutil.execWithRedirect(argv[0], argv, root = instPath,
-			   stdout = logfile, stderr = logfile)
-    os.close(logfile)
-
-
-def migrateXinetd(instPath, instLog):
-    if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):
-	return
-
-    if not os.access (instPath + "/etc/inetd.conf.rpmsave", os.R_OK):
-	return
-
-    argv = [ "/usr/sbin/inetdconvert", "--convertremaining",
-	     "--inetdfile", "/etc/inetd.conf.rpmsave" ]
-
-    logfile = os.open (instLog, os.O_APPEND)
-    iutil.execWithRedirect(argv[0], argv, root = instPath,
-			   stdout = logfile, stderr = logfile)
-    os.close(logfile)
-
-
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
     log.info("recreating initrd for %s" % (kernelTag,))
     iutil.execWithRedirect("/sbin/new-kernel-pkg",
-                           [ "/sbin/new-kernel-pkg", "--mkinitrd",
-                             "--depmod", "--install", kernelTag ],
+                           [ "--mkinitrd", "--depmod", "--install", kernelTag ],
                            stdout = None, stderr = None,
                            searchPath = 1, root = instRoot)
 

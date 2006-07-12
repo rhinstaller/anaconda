@@ -176,7 +176,7 @@ def runShell(screen, msg=""):
     print
 
     if os.path.exists("/bin/sh"):
-        iutil.execWithRedirect("/bin/sh", ["-/bin/sh"], stdout="/dev/console", stderr="/dev/console")
+        iutil.execWithRedirect("/bin/sh", [], stdout="/dev/console", stderr="/dev/console")
     else:
         print "Unable to find /bin/sh to execute!  Not starting shell"
         time.sleep(5)

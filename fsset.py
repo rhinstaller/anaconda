@@ -418,7 +418,7 @@ class reiserfsFileSystem(FileSystemType):
         os.close(p[1])
 
         rc = iutil.execWithRedirect("/usr/sbin/mkreiserfs",
-                                    ["mkreiserfs", devicePath ],
+                                    [devicePath],
                                     stdin = p[0],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
@@ -431,8 +431,7 @@ class reiserfsFileSystem(FileSystemType):
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
         rc = iutil.execWithRedirect("/usr/sbin/reiserfstune",
-                                    ["reiserfstune", "--label", label,
-                                     devicePath],
+                                    ["--label", label, devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         if rc:
@@ -470,9 +469,9 @@ class xfsFileSystem(FileSystemType):
             xfsBytesPerInode = entry.bytesPerInode
 
         rc = iutil.execWithRedirect("/usr/sbin/mkfs.xfs",
-                                    ["mkfs.xfs", "-f", "-l", "internal",
-                                     "-i", "size=" + str(xfsBytesPerInode),
-                                     devicePath ],
+                                    ["-f", "-l", "internal", "-i",
+                                     "size=" + str(xfsBytesPerInode),
+                                     devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         
@@ -485,8 +484,7 @@ class xfsFileSystem(FileSystemType):
                                          kslabel = entry.label)
         db_cmd = "label " + label
         rc = iutil.execWithRedirect("/usr/sbin/xfs_db",
-                                    ["xfs_db", "-x", "-c", db_cmd,
-                                     devicePath],
+                                    ["-x", "-c", db_cmd, devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         if rc:
@@ -525,7 +523,7 @@ class jfsFileSystem(FileSystemType):
         label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars,
                                          kslabel = entry.label)
 	rc = iutil.execWithRedirect("/usr/sbin/jfs_tune",
-	                            ["jfs_tune", "-L", label, devicePath],
+	                            ["-L", label, devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         if rc:
@@ -536,8 +534,7 @@ class jfsFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
 
         rc = iutil.execWithRedirect("/usr/sbin/mkfs.jfs",
-                                    ["mkfs.jfs", "-q",
-                                     devicePath ],
+                                    ["-q", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         
@@ -566,8 +563,8 @@ class gfs2FileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         rc = iutil.execWithRedirect("/usr/sbin/mkfs.gfs2",
-                                    ["mkfs.gfs2", "-j", "1", "-p",
-                                     "lock_nolock", "-O", devicePath ],
+                                    ["-j", "1", "-p", "lock_nolock",
+                                     "-O", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
@@ -592,7 +589,7 @@ class extFileSystem(FileSystemType):
                                          kslabel = entry.label)
 
         rc = iutil.execWithRedirect("/usr/sbin/e2label",
-                                    ["e2label", devicePath, label],
+                                    [devicePath, label],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         if rc:
@@ -629,9 +626,8 @@ class extFileSystem(FileSystemType):
             return
 
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
-                                    ["tunefs", "-c0", "-i0", "-Odir_index",
-                                     "-ouser_xattr,acl",
-                                     devicePath],
+                                    ["-c0", "-i0", "-Odir_index",
+                                     "-ouser_xattr,acl", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
@@ -658,7 +654,7 @@ class ext2FileSystem(extFileSystem):
             return
 
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
-                                    ["tune2fs", "-j", devicePath ],
+                                    ["-j", devicePath ],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
@@ -809,7 +805,7 @@ class swapFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         file = entry.device.setupDevice(chroot)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
-                                     [ "mkswap", '-v1', file ],
+                                     ['-v1', file],
                                      stdout = "/dev/tty5",
                                      stderr = "/dev/tty5",
                                      searchPath = 1)
@@ -829,7 +825,7 @@ class swapFileSystem(FileSystemType):
             swapLabel = "SWAP-%s" % (devName)
         label = labelFactory.createLabel(swapLabel, self.maxLabelChars)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
-                                     [ "mkswap", '-v1', "-L", label, file ],
+                                     ['-v1', "-L", label, file],
                                      stdout = "/dev/tty5",
                                      stderr = "/dev/tty5",
                                      searchPath = 1)
@@ -863,7 +859,7 @@ class FATFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        args = [ "mkdosfs", devicePath ]
+        args = [ devicePath ]
         args.extend(devArgs)
         
         rc = iutil.execWithRedirect("/usr/sbin/mkdosfs", args,
@@ -899,7 +895,7 @@ class hfsFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        args = [ "hformat", devicePath ]
+        args = [ devicePath ]
         args.extend(devArgs)
         
         rc = iutil.execWithRedirect("/usr/bin/hformat", args,
@@ -970,7 +966,7 @@ class prepbootFileSystem(FileSystemType):
                       "(%s)" %(devicePath,))
             return
 
-        args = [ "sfdisk", "--change-id", disk, "%d" %(part,), "41" ]
+        args = [ "--change-id", disk, "%d" %(part,), "41" ]
         if disk.startswith("/tmp/") and not os.access(disk, os.R_OK):
             isys.makeDevInode(disk[5:], disk)
         
@@ -1795,7 +1791,7 @@ MAILADDR root
         if isinstance(root.device, LogicalVolumeDevice) or rootlvm1:
             # now make sure all of the device nodes exist.  *sigh*
             rc = iutil.execWithRedirect("lvm",
-                                        ["lvm", "vgmknodes", "-v"],
+                                        ["vgmknodes", "-v"],
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
@@ -2184,7 +2180,7 @@ class RAIDDevice(Device):
                 pd.setupDevice(chroot, devPrefix=devPrefix)
                 if pd.isNetdev(): self.setAsNetdev()
 
-            args = ["/usr/sbin/mdadm", "--create", "/dev/%s" %(self.device,),
+            args = ["--create", "/dev/%s" %(self.device,),
                     "--run", "--chunk=%s" %(self.chunksize,),
                     "--level=%s" %(self.level,),
                     "--raid-devices=%s" %(self.numDisks,)]
@@ -2194,7 +2190,7 @@ class RAIDDevice(Device):
             
             args.extend(map(devify, self.members))
             log.info("going to run: %s" %(args,))
-            iutil.execWithRedirect (args[0], args,
+            iutil.execWithRedirect ("/usr/sbin/mdadm", args,
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],
                                       self.level, self.numDisks)
@@ -2249,7 +2245,7 @@ class VolumeGroupDevice(Device):
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
                 lvm.writeForceConf()
                 rc = iutil.execWithRedirect("lvm",
-                                            ["lvm", "pvcreate", "-ff", "-y",
+                                            ["pvcreate", "-ff", "-y",
                                              "-v", node],
                                             stdout = "/tmp/lvmout",
                                             stderr = "/tmp/lvmout",
@@ -2267,11 +2263,11 @@ class VolumeGroupDevice(Device):
             lvm.writeForceConf()
             lvm.vgscan()
 
-            args = [ "lvm", "vgcreate", "-v", "-An",
+            args = [ "vgcreate", "-v", "-An",
                      "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
             args.extend(nodes)
-            rc = iutil.execWithRedirect(args[0], args,
+            rc = iutil.execWithRedirect("lvm", args,
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
@@ -2313,7 +2309,7 @@ class LogicalVolumeDevice(Device):
         if not self.isSetup:
             lvm.writeForceConf()
             rc = iutil.execWithRedirect("lvm",
-                                        ["lvm", "lvcreate", "-L",
+                                        ["lvcreate", "-L",
                                          "%dM" % (self.size,),
                                          "-n", self.name, "-An",
                                          self.vgname],

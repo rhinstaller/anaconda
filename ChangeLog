@@ -1,3 +1,16 @@
+2006-07-12  Chris Lumens  <clumens@redhat.com>
+
+	* iutil.py (execWithCapture, execWithRedirect):  Use subprocess
+	instead of our own code.
+	(memInstalled):  Remove /proc/e820info cruft.
+	(rmrf):  Removed.
+
+	* anaconda, exception.py, firewall.py, fsset.py, instdata.py,
+	iscsi.py, iutil.py, kickstart.py, lvm.py, packages.py, partedUtils.py,
+	rescue.py, security.py, text.py, vnc.py, textw/timezone_text.py:
+	Don't pass the command we're running as the first element of the
+	argument list, as subprocess doesn't want things that way.
+
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.

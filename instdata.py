@@ -138,7 +138,7 @@ class InstallData:
             
         self.timezone.write (anaconda.rootPath)
 
-        args = ["/usr/bin/authconfig", "--update", "--nostart"] + self.auth.split()
+        args = ["--update", "--nostart"] + self.auth.split()
 
         try:
             if not flags.test:
@@ -162,13 +162,13 @@ class InstallData:
         if anaconda.isKickstart:
             for svc in self.ksdata.services["disabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
-                                       ["/sbin/chkconfig", svc, "off"],
+                                       [svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root="/mnt/sysimage")
 
             for svc in self.ksdata.services["enabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
-                                       ["/sbin/chkconfig", svc, "on"],
+                                       [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root="/mnt/sysimage")
 

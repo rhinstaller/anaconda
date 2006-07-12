@@ -282,10 +282,10 @@ def startVNCServer(vncpassword="", root='/', vncconnecthost="",
         if vncconnectport != "":
 	    hostarg = hostarg + ":" + vncconnectport
 	    
-	argv = ["/usr/bin/vncconfig", "-display", ":1", "-connect", hostarg]
+	argv = ["-display", ":1", "-connect", hostarg]
 	ntries = 0
 	while 1:
-            output = iutil.execWithCapture(argv[0], argv, catchfd=2)
+            output = iutil.execWithCapture("/usr/bin/vncconfig", argv)
 
             if output == "":
                 stdoutLog.info(_("Connected!"))

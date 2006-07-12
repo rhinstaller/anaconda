@@ -49,22 +49,22 @@ class iscsi:
         #
         # Issue the "action" request to recnum.
         #
-        argv = [ ISCSIADM, "-m", "node" ]
-        records = iutil.execWithCapture(argv[0], argv, searchPath = 1)
+        argv = [ "-m", "node" ]
+        records = iutil.execWithCapture(ISCSIADM, argv)
         for line in records.split("\n"):
             if line:
                 recnum = line.split()[0][1:-1]
-                argv = [ ISCSIADM, "-m", "node", "-r", "%s" % (recnum,),
+                argv = [ "-m", "node", "-r", "%s" % (recnum,),
                          "%s" % (action,) ]
-                iutil.execWithRedirect(argv[0], argv, searchPath = 1,
+                iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
                                        stdout = "/dev/tty5",
                                        stderr = "/dev/tty5")
 
                 # ... and now we have to make it start automatically
-                argv = [ ISCSIADM, "-m", "node", "-r", "%s" %(recnum,),
+                argv = [ "-m", "node", "-r", "%s" %(recnum,),
                          "-o", "update", "-n", "node.startup",
                          "-v", "automatic" ]
-                iutil.execWithRedirect(argv[0], argv, searchPath = 1,
+                iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
                                        stdout = "/dev/tty5",
                                        stderr = "/dev/tty5")
 
@@ -76,8 +76,8 @@ class iscsi:
         self.action("--logout")
 
         # XXX use iscsiadm shutdown when it's available.
-        argv = [ "ps", "--no-headers", "-C", "%s" % (ISCSID,) ]
-        psout = iutil.execWithCapture(argv[0], argv, searchPath = 1)
+        argv = [ "--no-headers", "-C", "%s" % (ISCSID,) ]
+        psout = iutil.execWithCapture("ps", argv)
         for line in psout.split("\n"):
             if line:
                 pid = string.atoi(string.split(line)[0])
@@ -113,12 +113,11 @@ class iscsi:
         if not os.path.exists(ISCSID_DB_DIR):
             iutil.mkdirChain(ISCSID_DB_DIR)
 
-        argv = [ ISCSID ]
-        iutil.execWithRedirect(argv[0], argv, searchPath = 1)
+        iutil.execWithRedirect(ISCSIID, [], searchPath = 1)
 
-        argv = [ ISCSIADM, "-m", "discovery", "-t", "st", "-p", 
+        argv = [ "-m", "discovery", "-t", "st", "-p", 
                  "%s:%s" % (self.ipaddr, self.port) ]
-        iutil.execWithRedirect(argv[0], argv, searchPath = 1,
+        iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
                                stdout = "/dev/tty5", stderr="/dev/tty5")
 
         self.action("--login")

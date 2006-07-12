@@ -812,8 +812,7 @@ class DiskSet:
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isMactel() and disk.type.name == "gpt" and \
                    os.path.exists("/usr/sbin/gptsync"):
-                iutil.execWithRedirect("/usr/sbin/gptsync",
-                                       ["gptsync", disk.dev.path],
+                iutil.execWithRedirect("/usr/sbin/gptsync", [disk.dev.path],
                                        stdout="/dev/tty5", stderr="/dev/tty5")
             del disk
         self.refreshDevices()

@@ -50,7 +50,7 @@ class Security:
 	f.write("selinux --%s\n" %(selinux_states[self.selinux],))
 
     def write(self, instPath):
-        args = [ "/usr/sbin/lokkit", "--quiet", "--nostart" ]
+        args = [ "--quiet", "--nostart" ]
 
         if not selinux_states.has_key(self.selinux):
             log.error("unknown selinux state: %s" %(self.selinux,))
@@ -60,8 +60,9 @@ class Security:
 
         try:
             if not flags.test:
-                iutil.execWithRedirect(args[0], args, root = instPath,
-                                       stdout = None, stderr = None)
+                iutil.execWithRedirect("/usr/sbin/lokkit", args,
+                                       root = instPath, stdout = None,
+                                       stderr = None)
             else:
                 log.info("would have run %s" %(args,))
         except RuntimeError, msg:

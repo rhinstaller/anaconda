@@ -13,11 +13,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import types, os, sys, isys, select, string, stat, signal, shutil
+import os, isys, string, stat, shutil
 import os.path
 import rhpl, rhpl.executil
 import warnings
-from rhpl.executil import getfd
+import subprocess
 from flags import flags
 
 import logging
@@ -29,121 +29,47 @@ def getArch ():
     return rhpl.getArch()
 
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
-		     searchPath = 0, root = '/', newPgrp = 0,
-		     ignoreTermSigs = 0):
-    if not searchPath and not os.access (root + command, os.X_OK):
-	raise RuntimeError, command + " can not be run"
-
-    childpid = os.fork()
-    if childpid == 0:
-        if (root and root != '/'): 
-	    os.chroot (root)
-	    os.chdir("/")
-
-	if ignoreTermSigs:
-	    signal.signal(signal.SIGTSTP, signal.SIG_IGN)
-	    signal.signal(signal.SIGINT, signal.SIG_IGN)
-
-        stdin = getfd(stdin)
-        if stdout == stderr:
-            stdout = getfd(stdout)
-            stderr = stdout
-        else:
-            stdout = getfd(stdout)
-            stderr = getfd(stderr)
-
-	if stdin != 0:
-	    os.dup2(stdin, 0)
-	    os.close(stdin)
-	if stdout != 1:
-	    os.dup2(stdout, 1)
-	    if stdout != stderr:
-		os.close(stdout)
-	if stderr != 2:
-	    os.dup2(stderr, 2)
-	    os.close(stderr)
-
-        try:
-            if (searchPath):
-                os.execvp(command, argv)
-            else:
-                os.execv(command, argv)
-        except OSError:
-            # let the caller deal with the exit code of 1.
-            pass
-
-	os._exit(1)
-
-    if newPgrp:
-	os.setpgid(childpid, childpid)
-	oldPgrp = os.tcgetpgrp(0)
-	os.tcsetpgrp(0, childpid)
-
-    status = -1
-    try:
-        (pid, status) = os.waitpid(childpid, 0)
-    except OSError, (errno, msg):
-        print __name__, "waitpid:", msg
-
-    if newPgrp:
-	os.tcsetpgrp(0, oldPgrp)
-
-    return status
-
-def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
-		    stderr = 2, catchfd = 1, closefd = -1):
+                     searchPath = 0, root = '/'):
+    def chroot ():
+        os.chroot(root)
 
     if not searchPath and not os.access (root + command, os.X_OK):
 	raise RuntimeError, command + " can not be run"
 
-    (read, write) = os.pipe()
-
-    childpid = os.fork()
-    if (not childpid):
-        if (root and root != '/'): os.chroot (root)
-	os.dup2(write, catchfd)
-	os.close(write)
-	os.close(read)
-
-	if closefd != -1:
-	    os.close(closefd)
-
-	if stdin:
-	    os.dup2(stdin, 0)
-	    os.close(stdin)
-
-        if stderr == sys.stdout:
-            stderr = sys.stdout.fileno()
-        else:
-            stderr = getfd(stderr)
-
-	if stderr != 2:
-	    os.dup2(stderr, 2)
-	    os.close(stderr)
-
-	if (searchPath):
-	    os.execvp(command, argv)
-	else:
-	    os.execv(command, argv)
-
-	os._exit(1)
-
-    os.close(write)
-
-    rc = ""
-    s = "1"
-    while (s):
-	select.select([read], [], [])
-	s = os.read(read, 1000)
-	rc = rc + s
-
-    os.close(read)
+    if type(stdin) == type("string"):
+        stdin = open(stdin)
+    if type(stdout) == type("string"):
+        stdout = open(stdout, "w")
+    if type(stderr) == type("string"):
+        stderr = open(stderr, "w")
 
     try:
-        os.waitpid(childpid, 0)
+        proc = subprocess.Popen([command] + argv, stdin=stdin, stdout=stdout,
+                                stderr=stderr, preexec_fn=chroot)
+        ret = proc.wait()
     except OSError, (errno, msg):
-        print __name__, "waitpid:", msg
+        raise RuntimeError, "Error running " + command + ": " + msg
 
+    return ret
+
+def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
+    def chroot():
+        os.chroot(root)
+
+    if type(stdin) == type("string"):
+        stdin = open(stdin)
+    if type(stderr) == type("string"):
+        stderr = open(stderr, "w")
+
+    try:
+        pipe = subprocess.Popen([command] + argv, stdin=stdin,
+                                stdout=subprocess.PIPE,
+                                stderr=stderr, preexec_fn=chroot)
+    except OSError, (errno, msg):
+        raise RuntimeError, "Error running " + command + ": " + msg
+
+    rc = pipe.stdout.read()
+    pipe.wait()
     return rc
 
 def copyFile(source, to):
@@ -184,24 +110,15 @@ def memAvailable():
 
 # this is in kilobytes
 def memInstalled():
-    if not os.access('/proc/e820info', os.R_OK):
-        f = open("/proc/meminfo", "r")
-        lines = f.readlines()
-        f.close()
+    f = open("/proc/meminfo", "r")
+    lines = f.readlines()
+    f.close()
 
-        for l in lines:
-            if l.startswith("MemTotal:"):
-                fields = string.split(l)
-                mem = fields[1]
-                break
-    else:
-        f = open("/proc/e820info", "r")
-        lines = f.readlines()
-        mem = 0
-        for line in lines:
-            fields = string.split(line)
-            if fields[3] == "(usable)":
-                mem = mem + (string.atol(fields[0], 16) / 1024)
+    for l in lines:
+        if l.startswith("MemTotal:"):
+            fields = string.split(l)
+            mem = fields[1]
+            break
 
     return int(mem)
 
@@ -237,11 +154,6 @@ def mkdirChain(dir):
     except OSError, (errno, msg):
         log.error("could not create directory %s: %s" % (dir, msg))
         pass
-
-def rmrf (path):
-    warnings.warn("iutil.rmrf is deprecated.  Use shutil.rmtree instead.",
-                  DeprecationWarning, stacklevel=2)
-    shutil.rmtree(path)
 
 def swapAmount():
     f = open("/proc/meminfo", "r")
@@ -306,8 +218,6 @@ def makeCharDeviceNodes():
 
 # make the device nodes for all of the drives on the system
 def makeDriveDeviceNodes():
-    import raid
-    
     hardDrives = isys.hardDriveDict()
     for drive in hardDrives.keys():
         if drive.startswith("mapper"):
