@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-21 11:26+1000\n"
+"PO-Revision-Date: 2006-07-12 10:43+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -197,7 +197,7 @@ msgid ""
 msgstr ""
 "無法找到 %s 分割區以讓 %s 使用。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../autopart.py:1296
 msgid "Requested Raid Device Does Not Exist"
@@ -212,7 +212,7 @@ msgid ""
 msgstr ""
 "無法找到 %s Raid 裝置以讓 %s 使用。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../autopart.py:1328
 msgid "Requested Volume Group Does Not Exist"
@@ -227,7 +227,7 @@ msgid ""
 msgstr ""
 "無法找到 %s 磁區群組以讓 %s 使用。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../autopart.py:1366
 msgid "Requested Logical Volume Does Not Exist"
@@ -242,7 +242,7 @@ msgid ""
 msgstr ""
 "無法找到 %s 邏輯磁區以讓 %s 使用。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../autopart.py:1481 ../autopart.py:1529
 msgid "Automatic Partitioning Errors"
@@ -261,7 +261,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../autopart.py:1492
 msgid "Warnings During Automatic Partitioning"
@@ -286,7 +286,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"按下『確定』以重新啟動您的系統。"
+"按下「確定」以重新啟動您的系統。"
 
 #: ../autopart.py:1507 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
@@ -315,9 +315,9 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"您可以選擇不同的自動磁碟分割選項，或點選『上一頁』以選取手動磁碟分割。\n"
+"您可以選擇不同的自動磁碟分割選項，或點選「上一頁」以選取手動磁碟分割。\n"
 "\n"
-"請按下『確定』以繼續。"
+"請按下「確定」以繼續。"
 
 #: ../autopart.py:1530
 #, python-format
@@ -679,7 +679,7 @@ msgstr ""
 "\n"
 "您升級後的分割區上的 /etc/fstab 並沒有參照到可用的 swap 分割區。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../fsset.py:1542
 #, python-format
@@ -694,7 +694,7 @@ msgstr ""
 "\n"
 "很有可能是您的 swap 分割區尚未初始化。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../fsset.py:1595
 #, python-format
@@ -786,7 +786,7 @@ msgstr ""
 "\n"
 "很有可能是因為此分割區並未格式化。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../fsset.py:1754
 msgid ""
@@ -800,7 +800,7 @@ msgstr ""
 "\n"
 "這有可能是因為您的 fstab 不正確。\n"
 "\n"
-"請按『確定』重新啟動您的系統。"
+"請按「確定」重新啟動您的系統。"
 
 #: ../fsset.py:2419
 msgid "Duplicate Labels"
@@ -1019,8 +1019,8 @@ msgstr ""
 "您所選取要安裝的軟體需要下列的光碟片：\n"
 "\n"
 "%s\n"
-"請在開始安裝之前準備好這些光碟片，假如您需要放棄安裝並且重新開機，請選擇『重"
-"新開機』。"
+"請在開始安裝之前準備好這些光碟片，假如您需要放棄安裝並且重新開機，請選擇「重"
+"新開機」。"
 
 #: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -1040,7 +1040,7 @@ msgid ""
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "卸載光碟時發生一個錯誤。  請確定您沒有從 shell 存取 tty2 上的 %s， 然後點選"
-"『確定』再試一次。"
+"「確定」再試一次。"
 
 #: ../image.py:157
 msgid "Copying File"
@@ -1111,7 +1111,7 @@ msgstr ""
 "執行小型程序時發生錯誤。　請檢查 %s 的訊息。　這是嚴重的錯誤，您的安裝過程將"
 "會中止。\n"
 "\n"
-"請按下『確定』重新啟動您的系統。"
+"請按下「確定」重新啟動您的系統。"
 
 #: ../kickstart.py:751 ../kickstart.py:769
 msgid "Running..."
@@ -1213,7 +1213,7 @@ msgid ""
 msgstr ""
 "裝置 %s 為 LDL 格式化的，非為 CDL 格式化的。  在 %s 的安裝過程中，並不支援 使"
 "用 LDL 格式化的 DASDs，如要使用這個磁碟來進行安裝，必須先初始化磁碟，這將 會"
-"造成磁碟上『所有資料』的流失。\n"
+"造成磁碟上「所有資料」的流失。\n"
 "\n"
 "您想要使用 CDL 格式重新格式化這個 DASD 嗎？"
 
@@ -1420,7 +1420,7 @@ msgstr "確認刪除"
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "您將要刪除『/dev/%s』裝置上的所有分割區。"
+msgstr "您將要刪除「/dev/%s」裝置上的所有分割區。"
 
 #: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
 #: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
@@ -1826,10 +1826,10 @@ msgid ""
 "\n"
 msgstr ""
 "緊急救援環境會自動幫您找 Linux 安裝的地方並幫您掛載在 %s 目錄下。 您可以視需"
-"求做任何的變更。 若您想要執行這個步驟，請選擇 『繼續』。 您也可以選取『只能讀"
-"取』來掛載您的檔案系統為只能讀取而不是可以讀寫。\n"
+"求做任何的變更。 若您想要執行這個步驟，請選擇 「繼續」。 您也可以選取「只能讀"
+"取」來掛載您的檔案系統為只能讀取而不是可以讀寫。\n"
 "\n"
-"若有其他原因造成執行失敗，您可以選擇『跳過』，系統將會帶您進入命令列狀態。\n"
+"若有其他原因造成執行失敗，您可以選擇「跳過」，系統將會帶您進入命令列狀態。\n"
 "\n"
 
 #: ../rescue.py:287 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:109
@@ -2270,7 +2270,7 @@ msgstr ""
 "無法開啟 %s-%s-%s.%s 套件，這個因為檔案遺失或者是套件已毀損。 假如您是從 CD "
 "媒體安裝，通常這表示該 CD 媒體已毀損，或者光碟機無法讀取該媒體。\n"
 "\n"
-"請按『重試』再試一次。"
+"請按「重試」再試一次。"
 
 #: ../yuminstall.py:160 ../yuminstall.py:524 ../yuminstall.py:620
 #: ../yuminstall.py:854
@@ -2604,7 +2604,7 @@ msgstr "強制使用 LBA32 (_F)（通常不需要）"
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
-msgstr "假如您想要新增預設的開機選項，請在『一般核心參數』欄位中輸入它們。"
+msgstr "假如您想要新增預設的開機選項，請在「一般核心參數」欄位中輸入它們。"
 
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
@@ -2672,7 +2672,7 @@ msgstr "即將開始安裝"
 #: ../iw/confirm_gui.py:80
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr "按『下一步』開始安裝 %s。"
+msgstr "按「下一步」開始安裝 %s。"
 
 #: ../iw/confirm_gui.py:81
 #, python-format
@@ -2685,8 +2685,7 @@ msgid ""
 msgstr ""
 "重新開機後，安裝過程的完整紀錄可以在 '%s' 檔案中找到。\n"
 "\n"
-"包含您所選擇之安裝選項的一個 kickstart 檔案，在重新開機後，也可在 '%s' 檔案中"
-"找到。"
+"重新開機後，您可以在 '%s' kickstart 檔案中，找到所選擇的安裝選項。"
 
 #: ../iw/confirm_gui.py:88
 msgid "About to Upgrade"
@@ -2695,7 +2694,7 @@ msgstr "即將開始升級"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "按『下一步』開始升級 %s。"
+msgstr "按「下一步」開始升級 %s。"
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3372,8 +3371,8 @@ msgid ""
 "the desired operating system."
 msgstr ""
 "您可以設定開機管理程式來啟動其他的作業系統。 您可以從清單中選擇您要啟動的作業"
-"系統。 如要增加沒有被自動偵測到的作業系統， 請點選『新增』。 如要更改預設開機"
-"的作業系統，請在想要的作業系統上選取『預設開機』。"
+"系統。 如要增加沒有被自動偵測到的作業系統， 請點選「新增」。 如要更改預設開機"
+"的作業系統，請在想要的作業系統上選取「預設開機」。"
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
 msgid "Default"
@@ -3659,7 +3658,7 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-"如要使用 RAID，您必須首先建立至少兩個『軟體 RAID』類型的分割區。 然後您便可以"
+"如要使用 RAID，您必須首先建立至少兩個「軟體 RAID」類型的分割區。 然後您便可以"
 "建立可格式化與被掛載的 RAID 裝置。\n"
 "\n"
 
@@ -3714,7 +3713,7 @@ msgstr "隱藏 RAID 裝置/LVM 磁區群組成員(_G)"
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
-msgstr "『不適用』"
+msgstr "「不適用」"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
@@ -3742,7 +3741,7 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"'%s' 類型的分割區必須限制在單一的磁碟中。  這可藉由在 『可使用的磁碟』清單中"
+"'%s' 類型的分割區必須限制在單一的磁碟中。  這可藉由在 「可使用的磁碟」清單中"
 "選擇磁碟來做到。"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -3859,8 +3858,8 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"來源磁碟沒有要複製的分割區。  在做磁碟複製之前，您必須在該磁碟上先定義『軟體 "
-"RAID』類型的分割區。"
+"來源磁碟沒有要複製的分割區。  在做磁碟複製之前，您必須在該磁碟上先定義「軟體 "
+"RAID」類型的分割區。"
 
 #: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
 #: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
@@ -3874,7 +3873,7 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"選取的來源磁碟含有非『軟體 RAID』類型的分割區。\n"
+"選取的來源磁碟含有非「軟體 RAID」類型的分割區。\n"
 "在做磁碟複製之前，必須先移除這些分割區。"
 
 #: ../iw/raid_dialog_gui.py:499
@@ -5034,7 +5033,7 @@ msgid ""
 msgstr ""
 "在您的系統上找到一個或更多舊有的 Linux 安裝。\n"
 "\n"
-"請選擇一個來做升級，或選擇『重新安裝系統』來完整安裝您的系統。"
+"請選擇一個來做升級，或選擇「重新安裝系統」來完整安裝您的系統。"
 
 #: ../textw/userauth_text.py:27
 msgid "Root Password"
