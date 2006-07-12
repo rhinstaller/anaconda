@@ -142,9 +142,9 @@ class InstallData:
 
         try:
             if not flags.test:
-                iutil.execWithRedirect("/usr/bin/authconfig", args,
+                iutil.execWithRedirect("/usr/sbin/authconfig", args,
                                        stdout = None, stderr = None,
-                                       searchPath = 1, root = anaconda.rootPath)
+                                       root = anaconda.rootPath)
             else:
                 log.error("Would have run: %s", args)
         except RuntimeError, msg:

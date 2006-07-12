@@ -42,6 +42,9 @@
 
 	* isys/isys.py (inet_calcGateway):  Removed.
 
+	* instdata.py (InstallData.write): Fix "unknown error" on shadow file
+	(#196705).
+
 2006-07-11  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version.
