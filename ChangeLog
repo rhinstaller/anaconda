@@ -2,9 +2,10 @@
 
 	* iutil.py (execWithCapture, execWithRedirect):  Use subprocess
 	instead of our own code.
+	(copyFile):  Removed.
+	(getArch):  Removed.
 	(memInstalled):  Remove /proc/e820info cruft.
 	(rmrf):  Removed.
-	(copyFile):  Removed.
 
 	* anaconda, exception.py, firewall.py, fsset.py, instdata.py,
 	iscsi.py, iutil.py, kickstart.py, lvm.py, packages.py, partedUtils.py,

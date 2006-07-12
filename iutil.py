@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import os, isys, string, stat, shutil
+import os, isys, string, stat
 import os.path
 import rhpl, rhpl.executil
 import warnings
@@ -22,11 +22,6 @@ from flags import flags
 
 import logging
 log = logging.getLogger("anaconda")
-
-def getArch ():
-    warnings.warn("iutil.getArch is deprecated.  Use rhpl.getArch instead.",
-                  DeprecationWarning, stacklevel=2)
-    return rhpl.getArch()
 
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
                      searchPath = 0, root = '/'):
