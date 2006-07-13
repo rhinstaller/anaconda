@@ -18,6 +18,7 @@ import gtk
 import gobject
 
 import autopart
+import rhpl
 from rhpl.translate import _, N_
 from constants import *
 import gui
@@ -25,6 +26,8 @@ from partition_ui_helpers_gui import *
 
 from iw_gui import *
 from flags import flags
+import network
+import partitioning
 
 class PartitionTypeWindow(InstallWindow):
     def __init__(self, ics):
@@ -92,6 +95,95 @@ class PartitionTypeWindow(InstallWindow):
 
             self.xml.get_widget("reviewButton").set_sensitive(True)
 
+    def addIscsiDrive(self):
+        if not network.hasActiveNetDev():
+            self.intf.messageWindow("Need network",
+                                    "iSCSI devices can only be configured "
+                                    "if you have a network available.",
+                                    custom_icon="error")
+            return gtk.RESPONSE_CANCEL
+            
+        # FIXME: need to ensure network is up
+        (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade",
+                                            "iscsiDialog")
+        gui.addFrame(dialog)        
+        sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
+        map(lambda x: sg.add_widget(dxml.get_widget(x)),
+            ("iscsiAddrEntry", "iscsiInitiatorEntry"))
+
+        # get the initiator name if it exists and don't allow changing
+        # once set
+        if self.anaconda.id.iscsi.initiator:
+            e = dxml.get_widget("iscsiInitiatorEntry")
+            e.set_text(self.anaconda.id.iscsi.initiator)
+            e.set_sensitive(False)
+
+        while 1:
+            rc = dialog.run()
+            if rc == gtk.RESPONSE_CANCEL:
+                break
+                return rc
+
+            initiator = dxml.get_widget("iscsiInitiatorEntry").get_text()
+            initiator.strip()
+            if len(initiator) == 0:
+                self.intf.messageWindow(_("Invalid Initiator Name"),
+                                        _("You must provide a non-zero length "
+                                          "initiator name."))
+                continue
+            self.anaconda.id.iscsi.initiator = initiator
+
+            target = dxml.get_widget("iscsiAddrEntry").get_text()
+            target.strip()
+            err = None
+            try:
+                idx = target.rfind(":")
+                if idx != -1:
+                    ip = target[:idx]
+                    port = target[idx:]
+                else:
+                    ip = target
+                    port = "3260"
+                network.sanityCheckIPString(ip)
+            except network.IPMissing, msg:
+                err = msg
+            except network.IPError, msg:
+                err = msg
+            if err:
+                self.intf.messageWindow(_("Error with Data"), msg)
+                continue
+            self.anaconda.id.iscsi.targets.append(target)
+
+            self.anaconda.id.iscsi.discoverTarget(ip, port)
+            self.anaconda.id.iscsi.loginTarget(ip)
+            break
+
+        dialog.destroy()
+        return rc
+        
+
+    def addDrive(self, button):
+        (dxml, dialog) = gui.getGladeWidget("adddrive.glade", "addDriveDialog")
+        if rhpl.getArch() not in ("s390", "s390x"):
+            dxml.get_widget("zfcpRadio").hide()
+        gui.addFrame(dialog)
+        rc = dialog.run()
+        dialog.hide()
+        if rc == gtk.RESPONSE_CANCEL:
+            return
+        if dxml.get_widget("iscsiRadio").get_active():
+            rc = self.addIscsiDrive()
+        elif dxml.get_widget("zfcpRadio").get_active():
+            print "do zfcp"
+        dialog.destroy()
+
+        if rc != gtk.RESPONSE_CANCEL:
+            partitioning.partitionObjectsInitialize(self.anaconda)
+            createAllowedDrivesStore(self.diskset.disks,
+                                     self.partitions.autoClearPartDrives,
+                                     self.drivelist)
+        
+
     def getScreen(self, anaconda):
         self.anaconda = anaconda
         self.diskset = anaconda.id.diskset
@@ -134,7 +226,12 @@ class PartitionTypeWindow(InstallWindow):
         self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
-        sigs = { "on_partitionTypeCombo_changed": self.comboChanged }
+        # FIXME: while iscsi is broken in the kernel...
+        if not flags.iscsi:
+            self.xml.get_widget("addButton").hide()
+
+        sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
+                 "on_addButton_clicked": self.addDrive }
         self.xml.signal_autoconnect(sigs)
 
         return vbox
