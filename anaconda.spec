@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.56
+Version: 11.1.0.57
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,24 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 13 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.57-1
+- Fix unknown error on shadow file (#196705, clumens)
+- Removed inet_calcGateway (clumens)
+- Don't guess gateway address in text network UI (#197578, clumens)
+- Change iutil.copyFile calls to shutil.copyfile (clumens)
+- Removed DRI enable/disable code from xsetup (clumens)
+- Removed copyFile, getArch, memInstalled, and rmrf from iutil (clumens)
+- Don't pass command as first argument to subprocess calls (clumens)
+- Added network debugging mode for readNetConfig() in loader
+- Removed "BOOTP" string from loader network config UI
+- Added new dialog for network device config in stage2 (katzj)
+- Write gateway address to correct struct in manualNetConfig
+- Removed IP_STRLEN macro since that's moved to libdhcp
+- Link and compile libisys with libdhcp
+- Added back 'confignetdevice' and 'pumpnetdevice' in iutil
+- Removed isys_calcNetmask and isys_calcNS (clumens)
+- Added xkeyboard-config to fix VT switching (katzj)
+
 * Tue Jul 11 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.56-1
 - Many changes and fixes in the loader2 network configuration, both
   dhcp and manual IP entry
