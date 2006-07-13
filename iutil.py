@@ -15,7 +15,7 @@
 
 import os, isys, string, stat
 import os.path
-import rhpl, rhpl.executil
+import rhpl
 import warnings
 import subprocess
 from flags import flags
