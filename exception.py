@@ -341,7 +341,6 @@ def handleException(anaconda, (type, value, tb)):
         pass
 
     win = anaconda.intf.exceptionWindow(text, "/tmp/anacdump.txt")
-
     if not win:
         anaconda.intf.__del__()
         os.kill(os.getpid(), signal.SIGKILL)
@@ -365,12 +364,13 @@ def handleException(anaconda, (type, value, tb)):
                         os.kill(int(pid), signal.SIGKILL)
                 pf.close()
 
-            os.open("/dev/console", os.O_RDWR)   # reclaim stdin
-            os.dup2(0, 1)                        # reclaim stdout
-            os.dup2(0, 2)                        # reclaim stderr
-            #   ^
-            #   |
-            #   +------ dup2 is magic, I tells ya!
+            if not flags.test:
+                os.open("/dev/console", os.O_RDWR)   # reclaim stdin
+                os.dup2(0, 1)                        # reclaim stdout
+                os.dup2(0, 2)                        # reclaim stderr
+                #   ^
+                #   |
+                #   +------ dup2 is magic, I tells ya!
 
             # bring back the echo
             import termios
