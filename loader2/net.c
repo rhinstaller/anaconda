@@ -1062,12 +1062,12 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
             primary = 0;
 
             if (inet_pton(AF_INET, ipcomps->gw, &addr) >= 1) {
-                cfg->dev.gateway = ip_addr_in(&addr);
-                cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+                newCfg->dev.gateway = ip_addr_in(&addr);
+                newCfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
                 primary = AF_INET;
             } else if (inet_pton(AF_INET6, ipcomps->gw, &addr6) >= 1) {
-                cfg->dev.gateway = ip_addr_in6(&addr6);
-                cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+                newCfg->dev.gateway = ip_addr_in6(&addr6);
+                newCfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
                 primary = AF_INET6;
             }
 
@@ -1211,7 +1211,7 @@ int configureNetwork(struct networkDeviceConfig * dev) {
 
     setupWireless(dev);
     rc = pumpSetupInterface(&dev->dev);
-    if (rc) {
+    if (rc != NULL) {
         logMessage(INFO, "result of pumpSetupInterface is %s", rc);
         return 1;
     }
