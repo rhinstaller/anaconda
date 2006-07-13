@@ -24,20 +24,21 @@ from rhpl.translate import _, N_
 
 
 # Note that stage2 copies all files under /sbin to /usr/sbin
-ISCSID="iscsid"
-ISCSIADM = "iscsiadm"
+ISCSID="/usr/sbin/iscsid"
+ISCSIADM = "/usr/sbin/iscsiadm"
 ISCSID_DB_DIR="/var/db/iscsi"
 INITIATOR_FILE="/etc/initiatorname.iscsi"
 
 class iscsi:
     def __init__(self):
+        self.targets = []
         self.ipaddr = ""
         self.port = "3260"
         self.initiator = ""
         self.iscsidStarted = False
 
 
-    def action(self, action):
+    def action(self, action, ipaddr = None):
         #
         # run action for all iSCSI targets.
         #
@@ -50,16 +51,27 @@ class iscsi:
         # Issue the "action" request to recnum.
         #
         argv = [ "-m", "node" ]
+
+        if ipaddr is not None:
+            argv.extend(["-p", ipaddr])
+
+        log.info("going to run iscsiadm: %s" %(argv,))
         records = iutil.execWithCapture(ISCSIADM, argv)
         for line in records.split("\n"):
-            if line:
+            if line and line.find("no records found!") == -1:
                 recnum = line.split()[0][1:-1]
                 argv = [ "-m", "node", "-r", "%s" % (recnum,),
                          "%s" % (action,) ]
-                iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
-                                       stdout = "/dev/tty5",
-                                       stderr = "/dev/tty5")
+                rc = iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
+                                            stdout = "/dev/tty5",
+                                            stderr = "/dev/tty5")
+                if rc != 0:
+                    log.info("iscsiadm failed!")
+                    continue
 
+                if action != "--login":
+                    continue
+                
                 # ... and now we have to make it start automatically
                 argv = [ "-m", "node", "-r", "%s" %(recnum,),
                          "-o", "update", "-n", "node.startup",
@@ -77,7 +89,7 @@ class iscsi:
 
         # XXX use iscsiadm shutdown when it's available.
         argv = [ "--no-headers", "-C", "%s" % (ISCSID,) ]
-        psout = iutil.execWithCapture("ps", argv)
+        psout = iutil.execWithCapture("/usr/bin/ps", argv)
         for line in psout.split("\n"):
             if line:
                 pid = string.atoi(string.split(line)[0])
@@ -85,19 +97,33 @@ class iscsi:
                 os.kill(pid, signal.SIGKILL)
         self.iscsidStarted = False;
 
-
-    def startup(self, intf = None):
-        log.info("iSCSI IP address %s, port %s" % (self.ipaddr, self.port))
-        log.info("iSCSI initiator name %s", self.initiator)
-
+    def discoverTarget(self, ipaddr, port, intf = None):
+        if not self.iscsidStarted:
+            self.startup(intf)
         if flags.test:
             return
+            
+        argv = [ "-m", "discovery", "-t", "st", "-p", 
+                 "%s:%s" % (ipaddr, port) ]
+        log.info("going to run with args: %s" %(argv,))
+        iutil.execWithRedirect(ISCSIADM, argv,
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
 
-        self.shutdown()
-
-        if not self.ipaddr:
-            log.info("iSCSI: Not starting, no iscsi IP address specified")
+    def loginTarget(self, ipaddr = None):
+        if flags.test:
             return
+        self.action("--login", ipaddr)
+
+    def startup(self, intf = None):
+        if flags.test:
+            return
+        if not self.initiator:
+            log.info("no initiator set")
+            return
+        if self.iscsidStarted:
+            return
+        
+        log.info("iSCSI initiator name %s", self.initiator)
 
         if intf:
             w = intf.waitWindow(_("Initializing iSCSI initiator"),
@@ -112,16 +138,20 @@ class iscsi:
 
         if not os.path.exists(ISCSID_DB_DIR):
             iutil.mkdirChain(ISCSID_DB_DIR)
-
-        iutil.execWithRedirect(ISCSIID, [], searchPath = 1)
-
-        argv = [ "-m", "discovery", "-t", "st", "-p", 
-                 "%s:%s" % (self.ipaddr, self.port) ]
-        iutil.execWithRedirect(ISCSIADM, argv, searchPath = 1,
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
-
-        self.action("--login")
+        iutil.execWithRedirect(ISCSID, [], searchPath = 1)
         self.iscsidStarted = True
+
+        for t in self.targets:
+            idx = t.rfind(":")
+            if idx == -1:
+                ipaddr = t
+                port = "3260"
+            else:
+                ipaddr = t[:idx]
+                port = t[idx:]
+
+            self.discoverTarget(ipaddr, port, intf)
+            self.loginTarget(ipaddr)
 
         if intf:
             w.pop()
