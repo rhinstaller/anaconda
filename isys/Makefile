@@ -17,6 +17,10 @@ SUBDIRS = gzlib
 LOADLIBES += $(shell pkg-config --libs glib-2.0)
 CFLAGS    += $(shell pkg-config --cflags glib-2.0)
 
+# libdhcp
+LOADLIBES += $(shell pkg-config --libs libdhcp)
+CFLAGS += $(shell pkg-config --cflags libdhcp)
+
 GENERATED = nfs_mountversion.h
 
 ifeq ($(ARCH),sparc)

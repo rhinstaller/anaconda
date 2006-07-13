@@ -48,6 +48,9 @@
 #include <signal.h>
 #include <execinfo.h>
 
+#include <libdhcp/ip_addr.h>
+#include <libdhcp/pump.h>
+
 #include "nl.h"
 #include "imount.h"
 #include "isys.h"
@@ -83,6 +86,8 @@ static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
+static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
+static PyObject * doPumpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadFont(PyObject * s, PyObject * args);
@@ -136,6 +141,8 @@ static PyMethodDef isysModuleMethods[] = {
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
+    { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
+    { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
@@ -541,6 +548,97 @@ void init_isys(void) {
     PyDict_SetItemString(d, "MIN_RAM", PyInt_FromLong(MIN_RAM));
     PyDict_SetItemString(d, "MIN_GUI_RAM", PyInt_FromLong(MIN_GUI_RAM));
     PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
+}
+
+/* FIXME: add IPv6 support once the UI changes are made   --dcantrell */
+static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
+    char * dev, * ip, * netmask;
+    char * gateway;
+    struct pumpNetIntf cfg;
+    struct in_addr addr, nm, nw;
+    struct in6_addr addr6;
+
+    if (!PyArg_ParseTuple(args, "ssss", &dev, &ip, &netmask, &gateway))
+        return NULL;
+
+    memset(&cfg,'\0',sizeof(struct pumpNetIntf));
+    strncpy(cfg.device, dev, sizeof(cfg.device) - 1);
+
+    if (inet_pton(AF_INET, ip, &addr) >= 1) {
+        /* IPv4 */
+        cfg.ip = ip_addr_in(&addr);
+        cfg.set |= PUMP_INTFINFO_HAS_IP;
+
+        if (inet_pton(AF_INET, netmask, &nm) >= 1) {
+            cfg.netmask = ip_addr_in(&nm);
+            cfg.set |= PUMP_INTFINFO_HAS_NETMASK;
+        }
+
+        cfg.network = ip_addr_v4(ntohl((addr.s_addr) & nm.s_addr));
+        nw = ip_in_addr(&cfg.network);
+        cfg.set |= PUMP_INTFINFO_HAS_NETWORK;
+
+        cfg.broadcast = ip_addr_v4(ntohl(nw.s_addr | ~nm.s_addr));
+        cfg.set |= PUMP_INTFINFO_HAS_BROADCAST;
+    } else if (inet_pton(AF_INET6, ip, &addr) >= 1) {
+        /* IPv6 */
+
+        /* FIXME */
+        return NULL;
+    }
+
+    if (strlen(gateway)) {
+        if (inet_pton(AF_INET, gateway, &addr) >= 1) {
+            cfg.gateway = ip_addr_in(&addr);
+            cfg.set |= PUMP_NETINFO_HAS_GATEWAY;
+        } else if (inet_pton(AF_INET6, gateway, &addr6) >= 1) {
+            /* FIXME */
+            return NULL;
+        }
+    }
+
+    if (pumpSetupInterface(&cfg)) {
+        PyErr_SetFromErrno(PyExc_SystemError);
+        return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+/* FIXME: add IPv6 support once the UI changes are made   --dcantrell */
+static PyObject * doPumpNetDevice(PyObject * s, PyObject * args) {
+    char * device;
+    char * dhcpclass = NULL;
+    char * r;
+    char buf[47];
+    time_t timeout = 45;
+    struct pumpNetIntf cfg;
+    DHCP_Preference pref = 0;
+    ip_addr_t *tip;
+    PyObject * rc;
+
+    if (!PyArg_ParseTuple(args, "s|s", &device, &dhcpclass))
+        return NULL;
+
+    memset(&cfg,'\0',sizeof(struct pumpNetIntf));
+    strncpy(cfg.device, device, sizeof(cfg.device) - 1);
+
+    r = pumpDhcpClassRun(&cfg, 0L, "anaconda", pref, 0, timeout, NULL, 0L);
+    if (r) {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+
+    if (cfg.numDns) {
+        tip = &(cfg.dnsServers[0]);
+        inet_ntop(tip->sa_family, IP_ADDR(tip), buf, IP_STRLEN(tip));
+        rc = PyString_FromString(buf);
+    } else {
+        rc = PyString_FromString("");
+    }
+
+    return rc;
 }
 
 #include <linux/fb.h>
@@ -1208,3 +1306,5 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
     free (strings);
     exit(1);
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */

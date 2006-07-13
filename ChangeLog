@@ -1,3 +1,12 @@
+2006-07-13  David Cantrell  <dcantrell@redhat.com>
+
+	* isys/isys.c: Added back the doConfigNetDevice() and
+	doPumpNetDevice() functions, but rewritten to use libdhcp instead
+	of pump.  Since the UI has not changed for IPv6, these two functions
+	don't really do IPv6 stuff yet.
+
+	* isys/Makefile: Link and compile with libdhcp.
+
 2006-07-12  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/netconfig_dialog.py: Add dialog for doing network device
