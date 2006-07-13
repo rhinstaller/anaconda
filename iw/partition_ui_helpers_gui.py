@@ -121,14 +121,8 @@ def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
 
-def createAllowedDrivesList(disks, reqdrives):
-    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING)
-    drivelist = WideCheckList(3, store)
-
-    driverow = 0
+def createAllowedDrivesStore(disks, reqdrives, drivelist):
+    drivelist.clear()
     drives = disks.keys()
     drives.sort()
     for drive in drives:
@@ -143,10 +137,21 @@ def createAllowedDrivesList(disks, reqdrives):
 	sizestr = "%8.0f MB" % size
 	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
 
-    if len(drives) < 2:
+
+def createAllowedDrivesList(disks, reqdrives):
+    store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING,
+			  gobject.TYPE_STRING)
+    drivelist = WideCheckList(3, store)
+    createAllowedDrivesStore(disks, reqdrives, drivelist)
+
+    if len(disks.keys()) < 2:
 	drivelist.set_sensitive(0)
 
     return drivelist
+    
+    
 
 # pass in callback for when fs changes because of python scope issues
 def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
