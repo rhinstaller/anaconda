@@ -397,22 +397,6 @@ def inet_aton (addr):
     except:
         raise ValueError
 
-def inet_calcNetmask (ip):
-    if isinstance (ip, type (0)):
-        addr = inet_ntoa (ip)
-    else:
-        addr = ip
-    quad = string.splitfields (addr, ".")
-    if len (quad) > 0:
-        klass = string.atoi (quad[0])
-        if klass <= 127:
-            mask = "255.0.0.0";
-        elif klass <= 191:
-            mask = "255.255.0.0";
-        else:
-            mask = "255.255.255.0";
-    return mask
-    
 def inet_calcNetBroad (ip, nm):
     if isinstance (ip, type ("")):
         ipaddr = inet_aton (ip)
@@ -428,14 +412,6 @@ def inet_calcNetBroad (ip, nm):
     bcaddr = netaddr | (~nmaddr);
             
     return (inet_ntoa (netaddr), inet_ntoa (bcaddr))
-
-def inet_calcNS (net):
-    if isinstance (net, type ("")):
-        netaddr = inet_aton (net)
-    else:
-        netaddr = net
-
-    return inet_ntoa (netaddr + 1)
 
 def getopt(*args):
     warnings.warn("isys.getopt is deprecated.  Use optparse instead.",
