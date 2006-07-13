@@ -103,6 +103,7 @@ struct loaderData_s {
     int mtu;
     int noDns;
     int ipinfo_set;
+    int noipv4, noipv6;
     char * ksFile;
     char * method;
     char * ddsrc;

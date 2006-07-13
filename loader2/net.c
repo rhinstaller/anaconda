@@ -378,8 +378,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                /* FIXME: need enable/disable flags for IPv4/6 in kickstart */
-                ret = doDhcp(cfg, 1, 1);
+                ret = doDhcp(cfg);
             }
 
             if (!FL_CMDLINE(flags))
@@ -492,6 +491,8 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         parseEthtoolSettings(loaderData);
     }
 
+    cfg->noipv4 = loaderData->noipv4;
+    cfg->noipv6 = loaderData->noipv6;
     cfg->noDns = loaderData->noDns;
 }
 
@@ -799,8 +800,9 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                dret = doDhcp(newCfg, (*ipv4Choice=='*') ? 1 : 0,
-                                      (*ipv6Choice=='*') ? 1 : 0);
+                newCfg->noipv4 = (*ipv4Choice == '*') ? 0 : 1;
+                newCfg->noipv6 = (*ipv6Choice == '*') ? 0 : 1;
+                dret = doDhcp(newCfg);
                 newtPopWindow();
             }
 
@@ -1178,7 +1180,7 @@ void netlogger(void *arg, int priority, char *fmt, va_list va) {
     return;
 }
 
-char *doDhcp(struct networkDeviceConfig *dev, int ipv4Choice, int ipv6Choice) {
+char *doDhcp(struct networkDeviceConfig *dev) {
     struct pumpNetIntf *i;
     char *r = NULL;
     time_t timeout = 45;
@@ -1193,12 +1195,10 @@ char *doDhcp(struct networkDeviceConfig *dev, int ipv4Choice, int ipv6Choice) {
         loglevel = LOG_INFO;
 
     /* calling function should catch ipv4Choice & ipv6Choice both being ' ' */
-    if (!ipv4Choice && ipv6Choice)
+    if (dev->noipv4 && !dev->noipv6)
         pref = DHCPv4_DISABLE;
-    else if (ipv4Choice && !ipv6Choice)
+    else if (!dev->noipv4 && dev->noipv6)
         pref = DHCPv6_DISABLE;
-    else if (ipv4Choice && ipv6Choice)
-        pref = 0;
     else
         pref = 0;
 
@@ -1388,7 +1388,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int noDns = 0, noksdev = 0, rc, mtu = 0;
+    int noDns = 0, noksdev = 0, rc, mtu = 0, noipv4 = 0, noipv6 = 0;
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
@@ -1400,6 +1400,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "mtu", '\0', POPT_ARG_INT, &mtu, 0, NULL, NULL },
         { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n', NULL, NULL },
         { "netmask", '\0', POPT_ARG_STRING, NULL, 'm', NULL, NULL },
+        { "noipv4", '\0', POPT_ARG_NONE, &noipv4, 0, NULL, NULL },
+        { "noipv6", '\0', POPT_ARG_NONE, &noipv6, 0, NULL, NULL },
         { "nodns", '\0', POPT_ARG_NONE, &noDns, 0, NULL, NULL },
         { "hostname", '\0', POPT_ARG_STRING, NULL, 'h', NULL, NULL},
         { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0, NULL, NULL },
@@ -1500,6 +1502,12 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         if (mtu) {
            loaderData->mtu = mtu;
         }
+
+        if (noipv4)
+            loaderData->noipv4 = 1;
+
+        if (noipv6)
+            loaderData->noipv6 = 1;
     }
 
     if (noDns) {

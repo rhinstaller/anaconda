@@ -18,6 +18,7 @@ struct networkDeviceConfig {
     int isDynamic;
     int noDns;
     int preset;
+    int noipv4, noipv6;
 
     /* s390 settings */
     int mtu;
@@ -62,7 +63,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr);
 
-char *doDhcp(struct networkDeviceConfig *dev, int ipv4Choice, int ipv6Choice);
+char *doDhcp(struct networkDeviceConfig *dev);
 void netlogger(void *arg, int priority, char *fmt, va_list va);
 
 #endif

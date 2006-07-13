@@ -1,3 +1,12 @@
+2006-07-13  Chris Lumens  <clumens@redhat.com>
+
+	* loader2/loader.h:  Add noipv4 and noipv6 elements to loaderData.
+	* loader2/net.c:  Pass around noipv4 and noipv6 flags that can be
+	specified on kickstart network command lines.  Clean up arguments to
+	doDhcp.
+	* loader2/net.h:  Add noipv4 and noipv6 elements to
+	networkDeviceConfig.
+
 2006-07-13  David Cantrell  <dcantrell@redhat.com>
 
 	* anaconda.spec: Bump version
