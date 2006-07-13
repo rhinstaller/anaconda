@@ -1699,20 +1699,20 @@
 	* kickstart.py (AnacondaKSParser.handleCommand):  Don't traceback if
 	pykickstart gets support for a new command before anaconda.
 
-        * instdata.py (InstallData.writeKS):  Fix root password traceback.
+	* instdata.py (InstallData.writeKS):  Fix root password traceback.
 
-        * anaconda:  Clean up dispatcher call mess.  Get rid of instPath.
-        * dispatch.py:  Start to make things use anaconda class.
-        * autopart.py (doAutoPartition):  Use anaconda object.
-        * packages.py (betaNagScreen):  Use anaconda object.
-        (queryUpgradeContinue):  Moved back to upgrade.py.
-        * partitioning.py (partitionObjectsInitialize):  Use anaconda object.
-        * upgrade.py (findRootParts, upgradeMountFilesystems,
-        upgradeSwapSuggestion):  Use anaconda object.
-        (queryUpgradeContinue):  Moved back from packages.py.
-        * iw/confirm_gui.py:  Change import.
-        * iw/upgrade_swap_gui.py:  Likewise.
-        * iw/zipl_gui.py:  Remove unused code.
+	* anaconda:  Clean up dispatcher call mess.  Get rid of instPath.
+	* dispatch.py:  Start to make things use anaconda class.
+	* autopart.py (doAutoPartition):  Use anaconda object.
+	* packages.py (betaNagScreen):  Use anaconda object.
+	(queryUpgradeContinue):  Moved back to upgrade.py.
+	* partitioning.py (partitionObjectsInitialize):  Use anaconda object.
+	* upgrade.py (findRootParts, upgradeMountFilesystems,
+	(upgradeSwapSuggestion):  Use anaconda object.
+	(queryUpgradeContinue):  Moved back from packages.py.
+	* iw/confirm_gui.py:  Change import.
+	* iw/upgrade_swap_gui.py:  Likewise.
+	* iw/zipl_gui.py:  Remove unused code.
 
 2006-05-03  Jeremy Katz  <katzj@redhat.com>
 
@@ -2751,7 +2751,7 @@
 	labelDevice.  Add correct swapFileSystem.maxLabelChars .
 
 	* yuminstall.py (YumBackend.writeConfiguration): self.ayum.repos,
-        not self.repos .
+	not self.repos .
 
 2006-02-03  Chris Lumens  <clumens@redhat.com>
 
@@ -3192,8 +3192,8 @@
 	
 	revision 1.19
 	date: 2004/05/07 01:22:44;  author: katzj;  state: Exp; lines: +1 -1
-        the unbreakable stuff isn't working anyway now and it causes ppc gui
-        installs to die.  so remove it for now
+	the unbreakable stuff isn't working anyway now and it causes ppc gui
+	installs to die.  so remove it for now
 
 	to the other place where it happens. (#177537)
 
@@ -4165,7 +4165,8 @@
 
 	* yuminstall.py (AnacondaYumMedia): Stub media class
 
-	* genheader.py (YumHeader): Don't change original po epoch, tag addition method
+	* genheader.py (YumHeader): Don't change original po epoch, tag
+	addition method
 
 2005-11-14  Chris Lumens  <clumens@redhat.com>
 
@@ -4992,18 +4993,18 @@
 	* loader2/hardware.h: Likewise.
 	* loader2/loader.c: Adjust accordingly.
 
-        * loader2/pcmcia.c (getPcicController): Handle multiple
-          PCIC types in one box.
-        * loader2/pcmcia.c (startupPcmciaControllers): Add code to
-          set resources for PCMCIA controllers, and enable them.
-          (initializePcmciaController): Call it.
-          (has_pcmcia, startPcmciaDevices, activate_device): Remove
-          obsolete and ugly cruft.
-        * loader2/pcmciatest.c: Remove obsolete file
-        * loader2/hardware.c: Adjust for changes.
-        * scripts/mk-images: Remove obsolete PCMCIA options
-        * scripts/upd-instroot: Ship pcmciautils socket startup program.
-          (mainly for debugging. It's tiny.)	
+	* loader2/pcmcia.c (getPcicController): Handle multiple
+	PCIC types in one box.
+	* loader2/pcmcia.c (startupPcmciaControllers): Add code to
+	set resources for PCMCIA controllers, and enable them.
+	(initializePcmciaController): Call it.
+	(has_pcmcia, startPcmciaDevices, activate_device): Remove
+	obsolete and ugly cruft.
+	* loader2/pcmciatest.c: Remove obsolete file
+	* loader2/hardware.c: Adjust for changes.
+	* scripts/mk-images: Remove obsolete PCMCIA options
+	* scripts/upd-instroot: Ship pcmciautils socket startup program.
+	(mainly for debugging. It's tiny.)	
 	
 2005-09-13  Jeremy Katz  <katzj@redhat.com>
 
@@ -5116,7 +5117,7 @@
 	* loader2/driverdisk.c, loader2/loader.c: Pass in the right
 	  filename to pciReadDrivers()
 	  
-        * scripts/mk-images: Fix tyop.
+	* scripts/mk-images: Fix tyop.
 	
 	* scripts/mk-images: Ship videodrivers in first stage too.
 
@@ -6062,7 +6063,7 @@
 
 	* docs/kickstart-docs.txt:  Updated for new --label parameter.
 	* fsset.py:  Modify LabelFactory to use kickstart-provided
-        filesystem labels if possible, and make up new ones otherwise.
+	filesystem labels if possible, and make up new ones otherwise.
 	* kickstart.py:  Recognize --label for the part keyword  (#79832).
 	* partRequests.py:  Pass labels between kickstart and requests.
 
@@ -6760,21 +6761,21 @@
 2005-03-11  Peter Jones  <pjones@redhat.com>
 
 	* gui.py htmlbuffer.py splashscreen.py iw/account_gui.py
-        iw/auth_gui.py iw/blpasswidget.py iw/bootdisk_gui.py
-        iw/bootloader_advanced_gui.py iw/bootloader_main_gui.py
-        iw/bootlocwidget.py iw/checklist.py iw/confirm_gui.py
-        iw/congrats_gui.py iw/dependencies_gui.py iw/zfcp_gui.py
-        iw/driveorderwidget.py iw/examine_gui.py iw/fdisk_gui.py
-        iw/firewall_gui.py iw/installpath_gui.py iw/ipwidget.py
-        iw/language_gui.py iw/language_support_gui.py iw/lvm_dialog_gui.py
-        iw/mouse_gui.py iw/network_gui.py iw/osbootwidget.py
-        iw/package_gui.py iw/partition_dialog_gui.py iw/partition_gui.py
-        iw/partition_ui_helpers_gui.py iw/partmethod_gui.py
-        iw/pixmapRadioButtonGroup_gui.py iw/progress_gui.py
-        iw/raid_dialog_gui.py iw/release_notes_viewer_gui.py
-        iw/timezone_gui.py iw/timezone_map_gui.py iw/zipl_gui.py
-        iw/upgrade_bootloader_gui.py iw/upgrade_migratefs_gui.py
-        iw/upgrade_swap_gui.py iw/xconfig_gui.py
+	iw/auth_gui.py iw/blpasswidget.py iw/bootdisk_gui.py
+	iw/bootloader_advanced_gui.py iw/bootloader_main_gui.py
+	iw/bootlocwidget.py iw/checklist.py iw/confirm_gui.py
+	iw/congrats_gui.py iw/dependencies_gui.py iw/zfcp_gui.py
+	iw/driveorderwidget.py iw/examine_gui.py iw/fdisk_gui.py
+	iw/firewall_gui.py iw/installpath_gui.py iw/ipwidget.py
+	iw/language_gui.py iw/language_support_gui.py iw/lvm_dialog_gui.py
+	iw/mouse_gui.py iw/network_gui.py iw/osbootwidget.py
+	iw/package_gui.py iw/partition_dialog_gui.py iw/partition_gui.py
+	iw/partition_ui_helpers_gui.py iw/partmethod_gui.py
+	iw/pixmapRadioButtonGroup_gui.py iw/progress_gui.py
+	iw/raid_dialog_gui.py iw/release_notes_viewer_gui.py
+	iw/timezone_gui.py iw/timezone_map_gui.py iw/zipl_gui.py
+	iw/upgrade_bootloader_gui.py iw/upgrade_migratefs_gui.py
+	iw/upgrade_swap_gui.py iw/xconfig_gui.py
 	iw/desktop_choice_gui.py: fix warnings about gtk.TRUE and gtk.FALSE,
 	partly based on a patch from Colin Charles.
 
@@ -7352,7 +7353,7 @@
 2004-12-21  Chris Lumens  <clumens@redhat.com>
 
 	* fsset.py (turnOnSwap): Print out a more descriptive error
-        message if swap partition cannot be mounted (#143000).
+	message if swap partition cannot be mounted (#143000).
 	* upgrade.py (createSwapFile,upgradeMountFilesystems): Likewise.
 
 2004-12-21  Jeremy Katz  <katzj@redhat.com>
@@ -7808,7 +7809,7 @@
 2004-10-19  Karsten Hopp <karsten@redhat.com>
 
 	* loader2/linuxrc.s390: make sure to lowercase SUBCHANNELS sourced 
-          from the .parm/.conf file, too
+	from the .parm/.conf file, too
 
 2004-10-19  Jeremy Katz  <katzj@redhat.com>
 
