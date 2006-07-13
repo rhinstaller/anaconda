@@ -1,3 +1,32 @@
+2006-07-13  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/hardware.c (scsiSetup): Always load iSCSI modules.
+
+	* iw/autopart_type.py: Support add drive button, add basic
+	infrastructure for adding disks, specifically for iSCSI.
+
+	* ui/iscsi-config.glade: Change around to use a dialog for
+	configuring iSCSI targets.
+
+	* ui/adddrive.glade: Glade file for adding disks.
+
+	* ui/autopart.glade: Add add disk button.
+
+	* iscsi.py: Rework a bit to handle multiple targets.
+
+	* iw/partition_ui_helpers_gui.py (createAllowedDrivesStore): Split
+	store creation out of drive list creation so we can recreate it.
+
+	* iw/iscsi_gui.py: Remove in favor of more integrated way of 
+	configuring
+	* textw/iscsi_text.py: Likewise.
+	* dispatch.py (installSteps): Remove iscsi step.
+	* installclass.py: Likewise.
+	* gui.py: Likewise.
+	* text.py: Likewise.
+
+	* exception.py (handleException): Don't do stdio bits for test mode.
+
 2006-07-13  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/loader.h:  Add noipv4 and noipv6 elements to loaderData.
@@ -11,7 +40,7 @@
 
 	* anaconda.spec: Bump version
 
-2006-07-13  Jeremy Katz  <katzj@redhat.com>
+2006-07-13  Jeremy Katz  <katzj@redhat.com>	
 
 	* scripts/upd-instroot (XORG): Add xkeyboard-config to fix VT switching
 
