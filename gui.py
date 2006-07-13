@@ -58,7 +58,6 @@ stepToClass = {
     "keyboard" : ("kbd_gui", "KeyboardWindow"),
     "mouse" : ("mouse_gui", "MouseWindow"),
     "welcome" : ("welcome_gui", "WelcomeWindow"),
-    "iscsi" : ("iscsi_gui", "iscsiWindow"),
     "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partitionmethod" : ("partmethod_gui", "PartitionMethodWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),

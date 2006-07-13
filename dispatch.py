@@ -64,7 +64,6 @@ installSteps = [
     ("keyboard", ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
-    ("iscsi", ),
     ("zfcpconfig", ),
     ("partitionobjinit", partitionObjectsInitialize, ),
     ("parttype", ),    

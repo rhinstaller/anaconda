@@ -115,7 +115,6 @@ class BaseInstallClass:
                  "findrootparts",
 		 "betanag",
 		 "installtype",
-		 "iscsi",
 		 "zfcpconfig",
                  "partitionobjinit",
                  "parttype",
@@ -174,10 +173,6 @@ class BaseInstallClass:
         if flags.cmdline.has_key("upgrade"):
             dispatch.skipStep("findrootparts", skip = 0)
 
-        # Ask for iscsi configuration only when specifically requested
-        if not flags.iscsi:
-             dispatch.skipStep("iscsi", skip = 1)
-		
         # if there's only one install class, it doesn't make much sense
         # to show it
         if len(availableClasses()) < 2:
