@@ -6,10 +6,6 @@
 #include <libdhcp.h>
 #include <pump.h>
 
-#define IP_STRLEN( ip ) \
-    ( ((ip)->sa_family == AF_INET) ? INET_ADDRSTRLEN : \
-      ((ip)->sa_family == AF_INET6) ? INET6_ADDRSTRLEN : 0 )
-
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
 

@@ -11,6 +11,8 @@
 
 	* isys/Makefile: Link and compile with libdhcp.
 
+	* loader2/net.h: Removed IP_STRLEN macro (moved to libdhcp headers).
+
 2006-07-12  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/netconfig_dialog.py: Add dialog for doing network device
