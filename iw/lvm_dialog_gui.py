@@ -1121,7 +1121,7 @@ class VolumeGroupEditor:
 	row = row + 1
 	
         dialog.vbox.pack_start(maintable)
-	dialog.set_size_request(500, 450)
+	dialog.set_size_request(550, 450)
         dialog.show_all()
 
 	# set space labels to correct values
