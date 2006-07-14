@@ -12,6 +12,8 @@
 # translation of ru.po to
 # translation of ru.po to
 # translation of ru.po to
+# translation of ru.po to
+# translation of ru.po to
 # translation of ru.po to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
@@ -25,7 +27,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-13 17:07+1000\n"
+"PO-Revision-Date: 2006-07-14 17:11+1000\n"
 "Last-Translator: Yuliya Poyarkova <ypoyarko@redhat.com>\n"
 "Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3098,19 +3100,19 @@ msgstr "Имя логического тома:"
 
 #: ../iw/lvm_dialog_gui.py:431 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
-msgstr "Размер (Мбайт):"
+msgstr "Размер (Мб):"
 
 #: ../iw/lvm_dialog_gui.py:437 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
 msgid "Size (MB):"
-msgstr "Размер (Мбайт):"
+msgstr "Размер (Мб):"
 
 #: ../iw/lvm_dialog_gui.py:452
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "(Макс. размер %s Мбайт)"
+msgstr "(Макс. размер %s Мб)"
 
 #: ../iw/lvm_dialog_gui.py:513
 msgid "Illegal size"
@@ -3151,8 +3153,8 @@ msgid ""
 "size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
-"Запрошенный размер (%10.2f Мбайт) больше, чем максимальный размер "
-"логического тома (%10.2f Мбайт). Чтобы увеличить это ограничение, вы можете "
+"Запрошенный размер (%10.2f Мб) больше, чем максимальный размер "
+"логического тома (%10.2f Мб). Чтобы увеличить это ограничение, вы можете "
 "создать дополнительные Физические тома (PV) в неиспользуемом пространстве "
 "диска и добавить их в Группу томов (VG)."
 
@@ -3171,9 +3173,9 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Настроенные вами логические тома требуют %g Мбайт, но группа томов имеет "
-"только %g Мбайт.  Необходимо либо увеличить размер группы томов, либо "
-"уменьшить логический том (тома)."
+"Настроенные вами логические тома требуют %g Мб, но группа томов имеет "
+"только %g Мб.  Необходимо либо увеличить размер группы томов, либо "
+"уменьшить размеры логических томов."
 
 #: ../iw/lvm_dialog_gui.py:711
 msgid "No free slots"
@@ -3195,7 +3197,7 @@ msgid ""
 "currently existing logical volumes"
 msgstr ""
 "В группе томов нет места для создания новых логических томов. Чтобы добавить "
-"логический том, вам необходимо уменьшить размер одного или нескольких из уже "
+"логический том, вам необходимо уменьшить размер одного или нескольких уже "
 "существующих логических томов"
 
 #: ../iw/lvm_dialog_gui.py:747
@@ -3241,7 +3243,7 @@ msgstr "Создать группу томов LVM"
 #: ../iw/lvm_dialog_gui.py:956
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "Правка группы томом LVM: %s"
+msgstr "Правка группы томов LVM: %s"
 
 #: ../iw/lvm_dialog_gui.py:958
 msgid "Edit LVM Volume Group"
@@ -3287,7 +3289,7 @@ msgstr "Точка монтирования"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
 msgid "Size (MB)"
-msgstr "Размер (Мбайт)"
+msgstr "Размер (Мб)"
 
 #: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
@@ -3620,7 +3622,7 @@ msgstr "Фикс. размер"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "Заполнить все пространство до (Мбайт):"
+msgstr "Заполнить все пространство до (Мб):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
@@ -3697,7 +3699,7 @@ msgid ""
 "(MB)"
 msgstr ""
 "Размер\n"
-"(Мбайт)"
+"(Мб)"
 
 #: ../iw/partition_gui.py:542 ../textw/partition_text.py:1431
 msgid "Partitioning"
@@ -3726,11 +3728,11 @@ msgstr "Продолжить с текущей схемой разбиения?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
-msgstr "Предостережения при разбиении"
+msgstr "Предупреждения разбиения"
 
 #: ../iw/partition_gui.py:677
 msgid "Format Warnings"
-msgstr "Предостережения при форматировании"
+msgstr "Предупреждения форматирования"
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
@@ -3822,10 +3824,10 @@ msgstr ""
 "Программный RAID позволяет объединить несколько дисков в одно большое "
 "устройство RAID.  Устройство RAID может иметь большую производительность и "
 "надежность по сравнению с отдельным устройством. Для получения "
-"дополнительной информации о устройствах RAID обратитесь к документации по %"
-"s.\n"
+"дополнительной информации об устройствах RAID обратитесь к документации по \n"
+"%s.\n"
 "\n"
-"Сейчас у вас готово к использованию %s разделов RAID.\n"
+"Число разделов RAID, готовых к использованию - %s.\n"
 "\n"
 
 #: ../iw/partition_gui.py:1250
@@ -3932,27 +3934,27 @@ msgstr "_Автоматическое разбиение"
 
 #: ../iw/partmethod_gui.py:53
 msgid "Manually partition with _Disk Druid"
-msgstr "Ручное разбиение программой _Disk Druid"
+msgstr "Ручное разбиение с помощью _Disk Druid"
 
 #: ../iw/progress_gui.py:43
 #, python-format
 msgid "%s MB"
-msgstr "%s Мбайт"
+msgstr "%s Мб"
 
 #: ../iw/progress_gui.py:46
 #, python-format
 msgid "%s KB"
-msgstr "%s Кбайт"
+msgstr "%s Кб"
 
 #: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Byte"
-msgstr "%s байт"
+msgstr "%s б"
 
 #: ../iw/progress_gui.py:51
 #, python-format
 msgid "%s Bytes"
-msgstr "%s байт"
+msgstr "%s б"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
@@ -4052,8 +4054,8 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"Диск-источник имеет разделы, которые не являются разделами типа 'software "
-"RAID'.\n"
+"Диск-источник имеет разделы, которые не являются разделами типа \"программный "
+"RAID\".\n"
 "\n"
 "Перед клонированием эти разделы должны быть удалены. "
 
@@ -4082,7 +4084,7 @@ msgstr ""
 "Выбранный исходный диск содержит разделы программного RAID, которые являются "
 "участниками активного устройства RAID.\n"
 "\n"
-"Эти разделы должны быть удалены, чтобы можно было клонировать этот диск."
+"Эти разделы должны быть удалены перед операцией клонирования диска."
 
 #: ../iw/raid_dialog_gui.py:525 ../iw/raid_dialog_gui.py:531
 #: ../iw/raid_dialog_gui.py:544
@@ -4113,7 +4115,7 @@ msgstr ""
 "\n"
 "\"%s\"\n"
 "\n"
-"Этот раздел должен быть уделен заранее."
+"Этот раздел должен быть удален заранее."
 
 #: ../iw/raid_dialog_gui.py:606
 msgid "Please select a source drive."
@@ -4140,7 +4142,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:634
 msgid "Final Warning"
-msgstr "Последнее предостережение"
+msgstr "Последнее предупреждение"
 
 #: ../iw/raid_dialog_gui.py:636
 msgid "Clone Drives"
@@ -4168,11 +4170,10 @@ msgstr ""
 "Утилита клонирования дисков\n"
 "Эта утилита позволяет значительно снизить количество усилий, необходимых для "
 "создания массива RAID. Она позволяет взять исходный диск с уже "
-"подготовленными разделами и клонировать его на другие устройства близкого "
-"размера. После этого будет создано устройство RAID.\n"
+"подготовленными разделами и клонировать его на другие устройства "
+"подобного размера. После этого будет создано устройство RAID.\n"
 " \n"
-"ПРИМЕЧАНИЕ: На исходном диске допускаются разделы только типа \"Software RAID"
-"\". Разделы другого типа не допускаются.\n"
+"ПРИМЕЧАНИЕ: На исходном диске допускаются разделы только типа \"программный RAID\". Разделы другого типа не допускаются.\n"
 "\n"
 "ВСЕ ДАННЫЕ на диске назначения будут уничтожены."
 
@@ -4283,7 +4284,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:29
 msgid "Upgrade Swap Partition"
-msgstr "Обновление раздела свопинга"
+msgstr "Обновление раздела подкачки"
 
 #: ../iw/upgrade_swap_gui.py:89
 #, python-format
@@ -4293,10 +4294,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Ядру 2.4 нужно значительно больше пространства свопинга, чем более ранним "
-"ядрам, как минимум вдвое больше, чем объем ОЗУ в вашей системе.  Сейчас у "
-"вас выделено  для свопинга %dМбайт, но вы можете добавить дополнительное "
-"пространство свопинга на одной из ваших файловых систем сейчас."
+"Ядру 2.4 нужно значительно больше пространства подкачки, чем более ранним "
+"ядрам, как минимум вдвое больше объема ОЗУ в вашей системе.  Сейчас у "
+"вас выделено для подкачки %d Мб, но вы можете добавить дополнительное "
+"пространство подкачки на одной из ваших файловых систем."
 
 #: ../iw/upgrade_swap_gui.py:96
 #, python-format
@@ -4307,15 +4308,15 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Установщик обнаружил %s Мбайт ОЗУ.\n"
+"Установщик обнаружил %s Мб ОЗУ.\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "Я хочу создать файл свопинга"
+msgstr "Я хочу создать файл подкачки"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "Выберите раздел, на котором будет размещен файл свопинга:"
+msgstr "Выберите раздел, где будет размещен файл подкачки:"
 
 #: ../iw/upgrade_swap_gui.py:136 ../textw/upgrade_text.py:109
 msgid "Partition"
@@ -4323,7 +4324,7 @@ msgstr "Раздел"
 
 #: ../iw/upgrade_swap_gui.py:136
 msgid "Free Space (MB)"
-msgstr "Свободно (Мбайт)"
+msgstr "Свободно (Мб)"
 
 #: ../iw/upgrade_swap_gui.py:154
 #, python-format
@@ -4331,16 +4332,16 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
-"Рекомендуется, чтобы размер файла свопинга был не менее %d Мбайт. Введите "
-"размер файла свопинга:"
+"Рекомендуется, чтобы размер файла подкачки был не менее %d Мб. Введите "
+"размер файла:"
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "Размер файла _свопинга (Мбайт):"
+msgstr "Размер файла _подкачки (Мб)"
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "Я не хочу создавать файл свопинга"
+msgstr "Я не хочу создавать файл подкачки"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid ""
@@ -4348,17 +4349,17 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
-"Вам настоятельно рекомендуется создать файл свопинга. В противном случае "
+"Настоятельно рекомендуется создать файл подкачки. В противном случае "
 "работа установщика может быть аварийно прекращена. Вы уверены, что хотите "
-"продолжить без файла свопинга?"
+"продолжить без файла подкачки?"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Размер файла свопинга должен быть между 1 и 2000 Мбайт."
+msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 Мб."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:170
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr "На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
+msgstr "Недостаточно места на устройстве, выбранном для раздела подкачки."
 
 #: ../iw/zfcp_gui.py:24
 msgid "ZFCP Configuration"
@@ -4386,7 +4387,7 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
-"Вы пытаетесь удалить FCP диск из вашей конфигурации. Вы действительно хотите "
+"FCP диск будет удалён из вашей конфигурации. Вы действительно хотите "
 "продолжить?"
 
 #: ../iw/zipl_gui.py:28
@@ -4413,7 +4414,7 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
-"Cейчас будет установлен начальный загрузчик z/IPL в вашей системе.\n"
+"Сейчас будет установлен начальный загрузчик z/IPL в вашей системе.\n"
 "\n"
 "Корневым разделом будет тот, который вы ранее задали при настройке "
 "разделов.\n"
@@ -4460,9 +4461,8 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Вы решили вообще не устанавливать загрузчик. Настоятельно рекомендуется "
-"установить загрузчик, если только у вас нет особой необходимости. Начальный "
-"загрузчик необходим в большинстве случаев для загрузки Linux непосредственно "
-"с жесткого диска. \n"
+"установить загрузчик. Начальный загрузчик необходим в большинстве случаев "
+"для загрузки Linux непосредственно с жесткого диска.\n"
 "Вы действительно хотите пропустить установку загрузчика?"
 
 #: ../textw/bootloader_text.py:93
@@ -4528,7 +4528,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:291
 msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Space> нажимает кнопку | <F2> запись по умолчанию | <F4> удалить | <F12> "
+" <Space> выбор | <F2> запись по умолчанию | <F4> удалить | <F12> "
 "след. экран>"
 
 #: ../textw/bootloader_text.py:387
@@ -4611,7 +4611,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Информацию об исправлениях к данному выпуску Red Hat Linux, можно найти в "
+"Информацию об исправлениях к данному выпуску можно найти в "
 "разделе Errata на http://www.redhat.com/errata.\n"
 "\n"
 "Информацию о использовании и настройке вашей системы можно почерпнуть в "
@@ -4667,7 +4667,7 @@ msgstr "Укажите группы пакетов, которые вы хоти
 
 #: ../textw/grpselect_text.py:101
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Пробел>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
+msgstr "<Space>,<+>,<-> выбор   |   <F2> Описание группы   |  <F12> след. экран"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -4874,11 +4874,11 @@ msgstr "Фикс. размер:"
 
 #: ../textw/partition_text.py:414
 msgid "Fill maximum size of (MB):"
-msgstr "Заполнить максимальный размер (Мбайт):"
+msgstr "Заполнить максимальный размер (Мб):"
 
 #: ../textw/partition_text.py:418
 msgid "Fill all available space:"
-msgstr "Заполнить все доступное место:"
+msgstr "Занять все доступное пространство:"
 
 #: ../textw/partition_text.py:441
 msgid "Start Cylinder:"
@@ -5026,8 +5026,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
-"Запрошенный размер (%10.2f Мбайт) больше, чем максимальный размер "
-"логического тома (%10.2f Мбайт)."
+"Запрошенный размер (%10.2f Мб) больше, чем максимальный размер "
+"логического тома (%10.2f Мб)."
 
 #: ../textw/partition_text.py:1311
 #, python-format
@@ -5035,8 +5035,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
-"Запрошенный размер (%10.2f Мбайт) больше, чем доступно в группе томов (%"
-"10.2f Мбайт)."
+"Запрошенный размер (%10.2f Мб) больше, чем доступно в группе томов (%"
+"10.2f Мб)."
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
@@ -5068,7 +5068,7 @@ msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-Ok    "
+msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-ОК    "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -5205,10 +5205,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Ядру 2.4 нужно значительно больше пространства свопинга, чем более ранним "
-"ядрам, как минимум вдвое больше, чем объем ОЗУ в вашей системе.  Сейчас у "
-"вас выделено  для свопинга %dМбайт, но вы можете добавить дополнительное "
-"пространство свопинга на одной из ваших файловых систем сейчас."
+"Ядру 2.4 нужно значительно больше пространства подкачки, чем более ранним "
+"ядрам, как минимум вдвое больше объема ОЗУ в вашей системе.  Сейчас у "
+"вас выделено для подкачки %d Мб, но вы можете добавить дополнительное "
+"пространство подкачки на одной из ваших файловых систем."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -5216,23 +5216,23 @@ msgstr "Свободное пространство"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
-msgstr "Обнаружено ОЗУ (Мбайт):"
+msgstr "Обнаружено ОЗУ (Мб):"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
-msgstr "Прогнозируемый размер (Мбайт):"
+msgstr "Прогнозируемый размер (Мб):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
-msgstr "Размер файла свопинга (Мбайт):"
+msgstr "Размер файла подкачки (Мб):"
 
 #: ../textw/upgrade_text.py:138
 msgid "Add Swap"
-msgstr "Добавить пространство свопинга"
+msgstr "Добавить пространство подкачки"
 
 #: ../textw/upgrade_text.py:163
 msgid "The value you entered is not a valid number."
-msgstr "Введенный вами размер должен быть цифровой величиной"
+msgstr "Введенное значение должно быть числовой величиной."
 
 #: ../textw/upgrade_text.py:196
 msgid "Reinstall System"
@@ -5249,9 +5249,9 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
-"В вашей системе было найдено одну или несколько установок Linux.\n"
+"В вашей системе найдена одна или несколько установок Linux.\n"
 "\n"
-"Выберите одну из них для обновления, или выберите 'Переустановка системы' "
+"Выберите одну из них для обновления, или выберите \"Переустановка системы\" "
 "для установки новой системы."
 
 #: ../textw/userauth_text.py:27
@@ -5264,8 +5264,7 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Выберите пароль пользователя root. Вы должны ввести его дважды, чтобы "
-"исключить ошибку при вводе. Помните, что пароль пользователя root - ключевой "
+"Выберите пароль пользователя root. Вы должны ввести его дважды для исключения ошибки при вводе. Помните, что пароль пользователя root - ключевой "
 "момент безопасности системы!"
 
 #: ../textw/userauth_text.py:60
@@ -5304,7 +5303,7 @@ msgid ""
 "which your machine or your setup may require."
 msgstr ""
 "Начальный загрузчик z/IPL может быть установлен в системе после завершения "
-"установки. Сейчас вы можете ввести дополнительные параметры ядра и chandev "
+"установки. Сейчас вы можете ввести дополнительные параметры ядра и chandev, "
 "которые могут требоваться для вашей машины или для вашей настройки."
 
 #: ../textw/zipl_text.py:58
@@ -5341,7 +5340,7 @@ msgstr "Разработка ПО"
 
 #: ../installclasses/fedora.py:22
 msgid "Web server"
-msgstr "Веб сервер"
+msgstr "Веб-сервер"
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -5468,7 +5467,7 @@ msgstr "Проверка"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
-msgstr "Выброс CD"
+msgstr "Извлечь CD"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -5476,7 +5475,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Нажмите \"%s\" для проверки находящегося в устройстве CD, или \"%s\" для "
+"Нажмите \"%s\" для проверки находящегося в устройстве CD или \"%s\" для "
 "извлечения CD и установки другого CD для тестирования."
 
 #: ../loader2/cdinstall.c:110
@@ -5488,11 +5487,11 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
-"Если у вас есть для проверки дополнительные носители, вставте следующий диск "
-"и нажмите  \"%s\". Тестирование каждого диска не требуется, однако "
+"Если у вас есть для проверки дополнительные носители, вставьте следующий диск "
+"и нажмите \"%s\". Тестирование каждого диска не требуется, однако "
 "настоятельно рекомендуется. Желательно протестировать каждый CD перед первым "
 "использованием. После успешного тестирования, не требуется тестировать их "
-"перед каждым использованием."
+"повторно перед каждым использованием."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5500,7 +5499,7 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"CD %s не был обнаружен в устройствах CDROM. Вставьте диск %s нажмите %s для "
+"CD %s не был обнаружен в устройствах CDROM. Вставьте диск %s и нажмите %s для "
 "продолжения."
 
 #: ../loader2/cdinstall.c:256
@@ -5514,9 +5513,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Для начала проверки носителей CD перед установкий нажмите %s.\n"
+"Для начала проверки носителей CD перед установкой нажмите %s.\n"
 "\n"
-"Нажмите %s, чтобы пропустить проверку носителя и запустить установку."
+"Нажмите %s чтобы пропустить проверку носителя и запустить установку."
 
 #: ../loader2/cdinstall.c:373
 #, c-format
@@ -5936,7 +5935,7 @@ msgstr "Загрузчик уже выполнялся.  Запускается 
 #: ../loader2/loader.c:1622
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda, режим восстановления %s - подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1624
 #, c-format
@@ -6158,7 +6157,7 @@ msgstr "Определение имени узла и домена..."
 #: ../loader2/net.c:926
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Неверный аргумент сетевой команды kickstart  %s: :%s"
+msgstr "Неверный аргумент сетевой команды kickstart %s: :%s"
 
 #: ../loader2/net.c:949
 #, c-format
