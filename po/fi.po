@@ -4,13 +4,12 @@
 # Lauri Nurmi <lanurmi@iki.fi>, 2004, 2005.
 # Mikko Ikola <ikola@iki.fi>, 2004.
 # 
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-25 19:43+0300\n"
+"PO-Revision-Date: 2006-07-14 17:50+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
@@ -372,9 +371,9 @@ msgstr ""
 "\n"
 "\n"
 "Voit valita erilaisia automaattisia osiointivaihtoehtoja tai napsauttaa "
-"\"Takaisin\"-painiketta valitaksesi manuaalisen osioinnin.\n"
+"”Takaisin”-painiketta valitaksesi manuaalisen osioinnin.\n"
 "\n"
-"Valitse \"OK\" jatkaaksesi."
+"Valitse ”OK” jatkaaksesi."
 
 #: ../autopart.py:1530
 #, python-format
@@ -1204,7 +1203,7 @@ msgstr ""
 "%s\n"
 "Jatka asennusta vasta kun nämä CD-levyt ovat saatavilla. Jos haluat "
 "keskeyttää asennukset ja käynnistää järjestelmän uudelleen, valitse "
-"\"Käynnistä uudelleen\"."
+"”Käynnistä uudelleen”."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 # ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
@@ -1336,7 +1335,7 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Olet valinnut paketin \"%s\" asennettavaksi. Sitä ei kuitenkaan löydy. "
+"Olet valinnut paketin ”%s” asennettavaksi. Sitä ei kuitenkaan löydy. "
 "Halautko jatkaa vai keskeyttää asennuksen?"
 
 # ../iw/partition_gui.py:1528
@@ -1355,7 +1354,7 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"Valitsit ryhmän \"%s\" asennettavaksi. Sitä ei kuitenkaan löydy. Haluatko "
+"Valitsit ryhmän ”%s” asennettavaksi. Sitä ei kuitenkaan löydy. Haluatko "
 "jatkaa vai keskeyttää asennuksen?"
 
 # ../textw/userauth_text.py:55
@@ -1366,11 +1365,11 @@ msgstr "Konenimei saa olla korkeintaan 64 merkkiä pitkä."
 #: ../network.py:49
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
-"Konenimen ensimmäinen merkki on oltava kirjain väliltä \"a-z\" tai \"A-Z\""
+"Konenimen ensimmäinen merkki on oltava kirjain väliltä ”a-z” tai ”A-Z”"
 
 #: ../network.py:54
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr "Konenimessä saa käyttää vain merkkejä \"a-z\", \"A-Z\" tai \".\""
+msgstr "Konenimessä saa käyttää vain merkkejä ”a-z”, ”A-Z” tai ”.”"
 
 #: ../packages.py:357
 msgid "Warning! This is pre-release software!"
@@ -1401,7 +1400,7 @@ msgstr ""
 "\n"
 "   %s\n"
 "\n"
-"ja lähetä raportti koskien pakettia \"%s\".\n"
+"ja lähetä raportti koskien pakettia ”%s”.\n"
 
 # ../gui.py:791
 #: ../packages.py:371
@@ -1547,7 +1546,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Virhe - taltioryhmän nimessä on epäkelpoja merkkejä tai välilyöntejä. "
-"Sallittuja merkkejä ovat kirjaimet, numerot, \".\" ja \"_\"."
+"Sallittuja merkkejä ovat kirjaimet, numerot, ”.” ja ”_”."
 
 # ../iw/account_gui.py:192
 #: ../partIntfHelpers.py:57
@@ -1569,7 +1568,7 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 "Virhe - taltioryhmän nimessä on epäkelpoja merkkejä tai välilyöntejä.  "
-"Sallittuja merkkejä ovat kirjaimet, numerot, \".\" ja \"_\"."
+"Sallittuja merkkejä ovat kirjaimet, numerot, ”.” ja ”_”."
 
 # ../partitioning.py:353
 #: ../partIntfHelpers.py:95
@@ -1578,8 +1577,8 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Liitospiste %s ei kelpaa. Liitospisteiden pitää alkaa merkillä \"/\" ja "
-"sisältää tulostuvia merkkejä, ei välejä. Ne eivät saa loppua \"/\"-merkkiin."
+"Liitospiste %s ei kelpaa. Liitospisteiden pitää alkaa merkillä ”/” ja "
+"sisältää tulostuvia merkkejä, ei välejä. Ne eivät saa loppua ”/”-merkkiin."
 
 # ../partitioning.py:360
 #: ../partIntfHelpers.py:102
@@ -1607,7 +1606,7 @@ msgstr "Tämä osio on osa RAID-laitetta."
 #: ../partIntfHelpers.py:124
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Tämä osio on osa taltioryhmää \"%s\"."
+msgstr "Tämä osio on osa taltioryhmää ”%s”."
 
 #: ../partIntfHelpers.py:127
 msgid "This partition is part of a LVM volume group."
@@ -1823,7 +1822,7 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Valitse \"kyllä\", jos haluat jatkaa ja alustaa nämä osiot. Valitse \"ei\", "
+"Valitse ”kyllä”, jos haluat jatkaa ja alustaa nämä osiot. Valitse ”ei”, "
 "jos haluat palata muuttamaan näitä asetuksia."
 
 # ../partitioning.py:1860
@@ -1838,7 +1837,7 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"Olet poistamassa taltioryhmää \"%s\".\n"
+"Olet poistamassa taltioryhmää ”%s”.\n"
 "\n"
 "KAIKKI taltioryhmän taltiot poistetaan!"
 
@@ -1846,7 +1845,7 @@ msgstr ""
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "Olet poistamassa taltioryhmän \"%s\"."
+msgstr "Olet poistamassa taltioryhmän ”%s”."
 
 # ../partitioning.py:1581
 #: ../partIntfHelpers.py:517
@@ -2032,7 +2031,7 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"Liitospistettä \"%s\" ei voida käyttää. Sen pitää olla symbolinen linkki. "
+"Liitospistettä ”%s” ei voida käyttää. Sen pitää olla symbolinen linkki. "
 "Valitse jokin muu liitospiste."
 
 # ../partitioning.py:441
@@ -2046,7 +2045,7 @@ msgstr "Tämän liitospisteen pitää sijaita Linux-tiedostojärjestelmässä."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr "Liitospiste \"%s\" on jo käytössä. Valitse jokin muu liitospiste."
+msgstr "Liitospiste ”%s” on jo käytössä. Valitse jokin muu liitospiste."
 
 # ../partitioning.py:454
 #: ../partRequests.py:294
@@ -2156,10 +2155,10 @@ msgid ""
 msgstr ""
 "Pelastusympäristö yrittää nyt löytää Linux-asennuksen ja liittää sen "
 "hakemistoon %s. Sen jälkeen voit tehdä järjestelmään tarvittavat muutokset. "
-"Jos haluat käynnistää tämän vaiheen, valitse \"Jatka\". Voit valita "
-"osioidesi liittämisen kirjoitussuojattuna valitsemalla \"Vain luku\"\n"
+"Jos haluat käynnistää tämän vaiheen, valitse ”Jatka”. Voit valita "
+"osioidesi liittämisen kirjoitussuojattuna valitsemalla ”Vain luku”\n"
 "\n"
-"Jos tämä prosessi jostain syystä epäonnistuu, voit valita \"Ohita\", jolloin "
+"Jos tämä prosessi jostain syystä epäonnistuu, voit valita ”Ohita”, jolloin "
 "tämä vaihe ohitetaan ja pääset suoraan komentoriville.\n"
 "\n"
 
@@ -2847,9 +2846,8 @@ msgstr "Tehdään asennusta täydentäviä asetuksia..."
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 #: ../yuminstall.py:1185
-#, fuzzy
 msgid "Installation Progress"
-msgstr "Asennuksen tyyppi"
+msgstr "Asennuksen edistyminen"
 
 # ../packages.py:157
 #: ../yuminstall.py:1229
@@ -2871,7 +2869,7 @@ msgstr ""
 "zSeries-sarjan koneet voivat käyttää teollisuusstandardin mukaisia SCSI-"
 "laitteita kuitukanavan (FCP) kautta. Jokainen laite tarvitsee viisi "
 "parametria: 16-bittisen laitenumeron, 16-bittisen SCSI ID:n, 64-bittisen "
-"\"maailmanlaajuisen porttinimen\" (WWPN), 16-bittisen SCSI LUN:in sekä 64-"
+"”maailmanlaajuisen porttinimen” (WWPN), 16-bittisen SCSI LUN:in sekä 64-"
 "bittisen FCP LUN:in."
 
 # ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
@@ -2973,17 +2971,16 @@ msgstr "_Vahvista: "
 
 # ../autopart.py:975
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Poista tämän järjestelmän kaikki osiot"
+msgstr "Poista valittujen asemien kaikki osiot ja luo oletusosiot."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Poista valittujen asemien Linux-osiot ja luo oletusosiot."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Käytä valittujen asemien vapaa tila oletusosioiden luomiseen."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
@@ -3090,13 +3087,13 @@ msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Jos haluat lisätä käynnistyskomentoja, syötä ne kenttään \"Yleiset ytimen "
-"parametrit\"."
+"Jos haluat lisätä käynnistyskomentoja, syötä ne kenttään ”Yleiset ytimen "
+"parametrit”."
 
 # ../iw/silo_gui.py:216
 #: ../iw/bootloader_advanced_gui.py:79
 msgid "_General kernel parameters"
-msgstr "Yleiset ytimen parametrit"
+msgstr "_Yleiset ytimen parametrit"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
@@ -3197,7 +3194,7 @@ msgstr "Päivitys alkamassa"
 #: ../iw/confirm_gui.py:94
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Paina \"seuraava\" aloittaaksesi %sn päivitysasennuksen."
+msgstr "Paina ”seuraava” aloittaaksesi %sn päivitysasennuksen."
 
 #: ../iw/confirm_gui.py:95
 #, python-format
@@ -3219,7 +3216,7 @@ msgid ""
 "\n"
 msgstr ""
 "Poista kaikki asennukseen käytetyt levyt asemista, ja käynnistä kone "
-"uudelleen \"Käynnistä uudelleen\"-painikkeella.\n"
+"uudelleen ”Käynnistä uudelleen”-painikkeella.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -3305,9 +3302,8 @@ msgstr "IP-osoitteessa on käytettävä lukuja väliltä 0 ja 255"
 # ../textw/silo_text.py:39 ../textw/silo_text.py:112
 # ../textw/silo_text.py:224
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
 msgid "iSCSI Configuration"
-msgstr "SILOn asetukset"
+msgstr "iSCSI-asetukset"
 
 # ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
 # ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
@@ -3521,7 +3517,7 @@ msgstr "Liitospiste on käytössä"
 #: ../iw/lvm_dialog_gui.py:548
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "Liitospiste \"%s\" on jo käytössä. Valitse jokin muu liitospiste."
+msgstr "Liitospiste ”%s” on jo käytössä. Valitse jokin muu liitospiste."
 
 #: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
@@ -3534,7 +3530,7 @@ msgstr "Virheellinen loogisen taltion nimi"
 #: ../iw/lvm_dialog_gui.py:579 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "Looginen taltio \"%s\" on jo käytössä. Valitse toinen laite."
+msgstr "Looginen taltio ”%s” on jo käytössä. Valitse toinen laite."
 
 #: ../iw/lvm_dialog_gui.py:593
 #, fuzzy, python-format
@@ -3600,7 +3596,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:747
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Haluatko varmasti poistaa loogisen taltion \"%s\"?"
+msgstr "Haluatko varmasti poistaa loogisen taltion ”%s”?"
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 #: ../iw/lvm_dialog_gui.py:883
@@ -3615,7 +3611,7 @@ msgstr "Käytössä oleva nimi"
 #: ../iw/lvm_dialog_gui.py:897
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr "Taltioryhmän nimi \"%s\" on jo käytössä. Valitse jokin muu."
+msgstr "Taltioryhmän nimi ”%s” on jo käytössä. Valitse jokin muu."
 
 #: ../iw/lvm_dialog_gui.py:941
 msgid "Not enough physical volumes"
@@ -3631,8 +3627,8 @@ msgid ""
 msgstr ""
 "Vähintään yksi käyttämätön osio tarvitaan taltioryhmän luontiin.\n"
 "\n"
-"Luo osio tai RAID-laite ja aseta sen tyypiksi \"fyysinen taltio (LVM)\" ja "
-"valitse \"LVM\" uudelleen."
+"Luo osio tai RAID-laite ja aseta sen tyypiksi ”fyysinen taltio (LVM)” ja "
+"valitse ”LVM” uudelleen."
 
 #: ../iw/lvm_dialog_gui.py:953
 msgid "Make LVM Volume Group"
@@ -3833,7 +3829,7 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"Kenttää \"%s\" ei ole täytetty. Riippuen verkon asetuksista, tämä voi "
+"Kenttää ”%s” ei ole täytetty. Riippuen verkon asetuksista, tämä voi "
 "tuottaa ongelmia myöhemmin."
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:413
@@ -3843,7 +3839,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Konenimi \"%s\" ei kelpaa seuraavasta syystä:\n"
+"Konenimi ”%s” ei kelpaa seuraavasta syystä:\n"
 "\n"
 "%s"
 
@@ -3853,13 +3849,13 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"Kentän \"%s\" arvoa muunnettaessa tapahtui virhe:\n"
+"Kentän ”%s” arvoa muunnettaessa tapahtui virhe:\n"
 "%s"
 
 #: ../iw/network_gui.py:183
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr "Kenttään \"%s\" pitää syöttää arvo."
+msgstr "Kenttään ”%s” pitää syöttää arvo."
 
 # ../textw/upgrade_text.py:161
 #: ../iw/network_gui.py:187
@@ -3973,7 +3969,7 @@ msgstr "_käsin"
 
 #: ../iw/network_gui.py:564
 msgid "(ex. \"host.domain.com\")"
-msgstr "(\"kone.esimerkki.fi\")"
+msgstr "(”kone.esimerkki.fi”)"
 
 # ../iw/network_gui.py:251 ../loader/net.c:610 ../loader/net.c:808
 # ../textw/network_text.py:177
@@ -3997,8 +3993,8 @@ msgstr ""
 "Voit konfiguroida käynnistyslataimen käynnistämään muita käyttöjärjestelmiä. "
 "Voit valita sen avulla käynnistettäviä käyttöjärjestelmiä listasta. Jos "
 "haluat lisätä käyttöjärjestelmiä, joita ei automaattisesti tunnistettu, "
-"valitse \"Lisää\". Voit valita oletuksena käynnistyvän käyttöjärjestelmän "
-"valitsemalla \"Oletus\"."
+"valitse ”Lisää”. Voit valita oletuksena käynnistyvän käyttöjärjestelmän "
+"valitsemalla ”Oletus”."
 
 # ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
 # ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
@@ -4348,7 +4344,7 @@ msgid ""
 "\n"
 msgstr ""
 "Ennen kuin voit määritellä RAID-laitteita, pitää ensin määritellä vähintään "
-"kaksi osiota, joiden tyypiksi tulee \"Ohjelmistopohjainen RAID\". Sen "
+"kaksi osiota, joiden tyypiksi tulee ”Ohjelmistopohjainen RAID”. Sen "
 "jälkeen voit luoda RAID-laitteen, joka voidaan alustaa ja liittää.\n"
 "\n"
 
@@ -4446,8 +4442,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"%s-tyypin osiot luodaan tietylle levylle. Valitse ensin levy \"Sallitut levyt"
-"\" -listasta."
+"%s-tyypin osiot luodaan tietylle levylle. Valitse ensin levy ”Sallitut levyt"
+"” -listasta."
 
 # ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -4535,8 +4531,8 @@ msgstr ""
 "RAID-laitteen luomiseksi tarvitaan vähintään kaksi käyttämätöntä\n"
 "ohjelmisto-RAID-osiota.\n"
 "\n"
-"Luo ensin vähintään kaksi osiota, joiden tyypiksi on valittava \"ohjelmisto-"
-"RAID\", ja valitse sitten \"RAID\" uudelleen."
+"Luo ensin vähintään kaksi osiota, joiden tyypiksi on valittava ”ohjelmisto-"
+"RAID”, ja valitse sitten ”RAID” uudelleen."
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
@@ -4585,7 +4581,7 @@ msgid ""
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 "Lähdelevyllä ei ole osioita, joiden määrittelyjä voitaisiin kopioida. Luo "
-"ensin osioita, joiden tyyppi on \"ohjelmisto-RAID\"."
+"ensin osioita, joiden tyyppi on ”ohjelmisto-RAID”."
 
 #: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
 #: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
@@ -4599,7 +4595,7 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
-"Lähdelevyllä on osioita, joiden tyyppi ei ole \"ohjelmisto-RAID\".\n"
+"Lähdelevyllä on osioita, joiden tyyppi ei ole ”ohjelmisto-RAID”.\n"
 "\n"
 "Nämä osiot on poistettava, jotta määrittelyt voidaan kopioida."
 
@@ -4656,7 +4652,7 @@ msgid ""
 msgstr ""
 "Kohdelevyllä /dev/%s on osio, jota ei voida poistaa seuraavasta syystä:\n"
 "\n"
-"\"%s\"\n"
+"”%s”\n"
 "\n"
 "Tämä osio on poistettava ennen kuin tämä levy voi olla kohde."
 
@@ -5304,15 +5300,15 @@ msgstr ""
 
 # ../textw/xconfig_text.py:43
 #: ../textw/grpselect_text.py:83
-#, fuzzy
 msgid "Please select the package groups you would like to have installed."
-msgstr "Valitse resoluutio, jota haluat käyttää:"
+msgstr "Valitse asennettavat pakettiryhmät."
 
 # ../textw/packages_text.py:245
 #: ../textw/grpselect_text.py:101
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr " <Väli>,<+>,<-> valinta |   <F2> paketin kuvaus    |   <F12> seuraava"
+msgstr ""
+" <Väli>,<+>,<-> valinta  |  <F2> paketin kuvaus    |   <F12> seuraava"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
@@ -5343,7 +5339,7 @@ msgstr "Virheelliset IP-tiedot"
 #: ../textw/iscsi_text.py:71 ../textw/network_text.py:30
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr "Annettu IP \"%s\" ei ole kelvollinen IP."
+msgstr "Annettu IP ”%s” ei ole kelvollinen IP."
 
 # ../textw/keyboard_text.py:35
 #: ../textw/keyboard_text.py:38
@@ -5486,8 +5482,8 @@ msgid ""
 msgstr ""
 "Jos koneesi on osa suurempaa verkkoa, jossa konenimet jaetaan DHCP:llä, "
 "valitse automaattisesti DHCP:llä. Muussa tapauksessa valitse manuaalinen ja "
-"syötä konenimi. Jos et syötä mitään, järjestelmän nimeksi tulee \"localhost"
-"\"."
+"syötä konenimi. Jos et syötä mitään, järjestelmän nimeksi tulee ”localhost"
+"”."
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 #: ../textw/network_text.py:406 ../textw/network_text.py:412
@@ -5805,7 +5801,7 @@ msgstr "Ei juuriosiota"
 # ../textw/partition_text.py:1020
 #: ../textw/partition_text.py:1477
 msgid "Must have a / partition to install on."
-msgstr "Asennusta varten tarvitaan \"/\"-osio."
+msgstr "Asennusta varten tarvitaan ”/”-osio."
 
 # ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
 # ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
@@ -6015,7 +6011,7 @@ msgid ""
 msgstr ""
 "Järjestelmästä löytyi yksi tai useampi Linux-asennus.\n"
 "\n"
-"Valitse jokin päivitettäväksi, tai valitse \"Asenna järjestelmä uudelleen\","
+"Valitse jokin päivitettäväksi, tai valitse ”Asenna järjestelmä uudelleen”,"
 "jolloin asennetaan puhdas järjestelmä."
 
 # ../textw/userauth_text.py:22
@@ -6264,7 +6260,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Valitse \"%s\" tarkastaaksesi asemassa olevan CD-levyn, tai \"%s\" "
+"Valitse ”%s” tarkastaaksesi asemassa olevan CD-levyn, tai ”%s” "
 "poistaaksesi sen ja syöttääksesi toisen levyn testausta varten."
 
 #: ../loader2/cdinstall.c:110
@@ -6378,7 +6374,7 @@ msgstr "Ajurilevykkeen lataaminen tiedostosta epäonnistui."
 #: ../loader2/driverdisk.c:384
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Syötä ajurilevyke /dev/%s:iin ja jatka painamalla \"OK\"."
+msgstr "Syötä ajurilevyke /dev/%s:iin ja jatka painamalla ”OK”."
 
 # ../loader/devices.c:532
 #: ../loader2/driverdisk.c:386
@@ -6462,7 +6458,7 @@ msgid ""
 msgstr ""
 "Tälle moduulille (%s) voidaan antaa sen toimintaan vaikuttavia parametreja "
 "välilyönneillä erotettuna. Jos et tiedä syötettäviä parametreja, voit "
-"ohittaa tämän ruudun painamalla \"OK\"-painiketta. Saat mahdolliset "
+"ohittaa tämän ruudun painamalla ”OK”-painiketta. Saat mahdolliset "
 "vaihtoehdot näkyviin painamalla F1-näppäintä."
 
 # ../loader/devices.c:91
@@ -6672,7 +6668,7 @@ msgstr ""
 #: ../loader2/loader.c:340
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Syötä päivityslevyke laitteeseen /dev/%s ja jatka painamalla \"OK\"."
+msgstr "Syötä päivityslevyke laitteeseen /dev/%s ja jatka painamalla ”OK”."
 
 # ../loader/loader.c:2300
 #: ../loader2/loader.c:342
@@ -6810,7 +6806,7 @@ msgstr ""
 #: ../loader2/mediacheck.c:338
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Tarkastetaan \"%s\"..."
+msgstr "Tarkastetaan ”%s”..."
 
 #: ../loader2/mediacheck.c:340
 #, c-format
@@ -8421,7 +8417,7 @@ msgstr "zulu"
 #~ msgstr ""
 #~ "Valitse käynnistyslatain, jota tietokone tulee käyttämään. "
 #~ "Oletusvaihtoehto on GRUB. Jos et kuitenkaan halua ylikirjoittaa nykyistä "
-#~ "käynnistyslatainta, valitse \"Älä asenna käynnistyslatainta\"."
+#~ "käynnistyslatainta, valitse ”Älä asenna käynnistyslatainta”."
 
 # ../iw/bootloader_gui.py:358
 #~ msgid "Use _GRUB as the boot loader"
