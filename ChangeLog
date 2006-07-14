@@ -1,5 +1,8 @@
 2006-07-14  Chris Lumens  <clumens@redhat.com>
 
+	* installclass.py (BaseInstallClass.setClearParts):  Nuke more unused
+	code.
+
 	* yuminstall.py (YumBackend.doPreInstall):  Create mount points for
 	protected partitions that the user has selected to mount.
 

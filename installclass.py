@@ -94,18 +94,11 @@ class BaseInstallClass:
             if not drive in diskset.skippedDisks:
                 diskset.skippedDisks.append(drive)
         
-    def setClearParts(self, id, clear, drives = None, warningText = None,
-                      initAll = False):
+    def setClearParts(self, id, clear, drives = None, initAll = False):
 	id.partitions.autoClearPartType = clear
         id.partitions.autoClearPartDrives = drives
         if initAll:
             id.partitions.reinitializeDisks = initAll
-        # XXX hack for install help text in GUI mode
-        if clear == CLEARPART_TYPE_LINUX:
-            self.clearType = "wkst"
-        if clear == CLEARPART_TYPE_ALL:
-            self.clearType = "svr"
-	self.clearPartText = warningText
 
     def setSteps(self, dispatch):
 	dispatch.setStepList(
