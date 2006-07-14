@@ -941,9 +941,21 @@ class YumBackend(AnacondaBackend):
             anaconda.id.fsset.umountFilesystems(anaconda.rootPath)
             return DISPATCH_BACK
 
-        for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
+        dirList = ['/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-                   '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache', '/var/cache/yum' ):
+                   '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache',
+                   '/var/cache/yum']
+
+        # If there are any protected partitions we want to mount, create their
+        # mount points now.
+        protected = self.method.protectedPartitions()
+        if protected:
+            for protectedDev in protected:
+                request = anaconda.id.partitions.getRequestByDeviceName(protectedDev)
+                if request and request.mountpoint:
+                    dirList.append(request.mountpoint)
+
+        for i in dirList:
             try:
                 os.mkdir(anaconda.rootPath + i)
             except os.error, (errno, msg):
