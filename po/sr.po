@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-05-28 12:19+0100\n"
+"PO-Revision-Date: 2006-07-09 23:32-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -716,7 +716,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"у Вашој /etc/fstab датотеци се тренутно користи као партиција за софтверски прекид, што значи да се Ваш систем успављује. Ако вршите нову инсталацију, уверите се да је инсталатор подешен да форматира све свап партиције."
+"у Вашој /etc/fstab датотеци се тренутно користи као партиција за софтверски прекид, што значи да се Ваш систем успављује. Ако вршите нову инсталацију, уверите се да је инсталатер подешен да форматира све свап партиције."
 
 #: ../fsset.py:1518
 msgid ""
@@ -1023,7 +1023,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Дошло је до грешке при покушају учитавања саставног дела инсталаторовог сучеља.\n"
+"Дошло је до грешке при покушају учитавања саставног дела инсталатеровог сучеља.\n"
 "\n"
 "className = %s"
 
@@ -1080,7 +1080,7 @@ msgid ""
 "\n"
 "Please copy this image to the drive and click Retry. Click Reboot  to abort the installation."
 msgstr ""
-"Инсталатор је покушао да монтира #%s одраз, али га не може пронаћи на чврстом диску.\n"
+"Инсталатер је покушао да монтира #%s одраз, али га не може пронаћи на чврстом диску.\n"
 "\n"
 "Молим умножите овај одраз на диск и притисните „Покушај поново“. Притисните „Покрени поново“ за прекид инсталације."
 
@@ -1170,7 +1170,7 @@ msgid ""
 "\n"
 "Please copy this image to the remote server's share path and click Retry. Click Reboot to abort the installation."
 msgstr ""
-"Инсталатор је покушао да монтира #%s одраз, али га не може пронаћи на серверу.\n"
+"Инсталатер је покушао да монтира #%s одраз, али га не може пронаћи на серверу.\n"
 "\n"
 "Молим умножите овај одраз на раздељену путању сервера и притисните „Покушај поново“. Притисните „Покрени поново“ за прекид инсталације."
 
@@ -1189,7 +1189,7 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Постојала је грешка код извршавања скриптице.  Можете да испитате излаз у %s.  Ово је кобна грешка и Ваша инсталацијa ће бити обустављена.\n"
+"Постојала је грешка код извршавања скриптице.  Можете да испитате излаз у %s.  Ово је кобна грешка и Ваша инсталација ће бити обустављена.\n"
 "\n"
 "Притисните „У реду“ за поновно покретање Вашег система."
 
@@ -1715,7 +1715,7 @@ msgstr "Доделили сте мање свап простора (%dМ) нег
 
 #: ../partitions.py:1266
 msgid "the partition in use by the installer."
-msgstr "партиција у употреби од стране инсталатора."
+msgstr "партиција у употреби од стране инсталатера."
 
 #: ../partitions.py:1269
 msgid "a partition which is a member of a RAID array."
@@ -3963,7 +3963,7 @@ msgstr "Ово ће ажурирати Ваш текући покретачки 
 #: ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Инсталатор је пронашао покретачки програм %s тренутно инсталиран на %s."
+msgstr "Инсталатер је пронашао покретачки програм %s тренутно инсталиран на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:74
 msgid "This is the recommended option."
@@ -3972,7 +3972,7 @@ msgstr "Препоручујемо ову опцију."
 #: ../iw/upgrade_bootloader_gui.py:78
 #: ../textw/upgrade_bootloader_text.py:57
 msgid "The installer is unable to detect the boot loader currently in use on your system."
-msgstr "Инсталатор није могао да пронађе ниједан покретачки програм тренутно у употреби на Вашем систему."
+msgstr "Инсталатер није могао да пронађе ниједан покретачки програм тренутно у употреби на Вашем систему."
 
 #: ../iw/upgrade_bootloader_gui.py:87
 msgid "_Create new boot loader configuration"
@@ -4029,7 +4029,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Инсталатор је пронашао %s МБ RAM-а.\n"
+"Инсталатер је пронашао %s МБ RAM-а.\n"
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
@@ -4063,7 +4063,7 @@ msgstr "_Не желим да направим свап датотеку"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid "It is stongly recommended that you create a swap file.  Failure to do so could cause the installer to abort abnormally.  Are you sure that you wish to continue?"
-msgstr "Јако је препоручљиво да направите свап датотеку.  Неизвршавање тога може да изазове ненормално одустајање инсталатора. Сигурно желите да наставите?"
+msgstr "Јако је препоручљиво да направите свап датотеку.  Неизвршавање тога може да изазове ненормално одустајање инсталатера. Сигурно желите да наставите?"
 
 #: ../iw/upgrade_swap_gui.py:197
 #: ../textw/upgrade_text.py:175
@@ -4656,7 +4656,7 @@ msgstr "Није подржано"
 
 #: ../textw/partition_text.py:771
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr "LVM диск групе је могуће уредити само у графичком инсталатору."
+msgstr "LVM диск групе је могуће уредити само у графичком инсталатеру."
 
 #: ../textw/partition_text.py:847
 #: ../textw/partition_text.py:900
@@ -4765,7 +4765,7 @@ msgstr "Врста поделе диска"
 #: ../textw/partition_text.py:1518
 #: tmp/autopart.glade.h:1
 msgid "Installation requires partitioning of your hard drive.  By default, a partitioning layout is chosen which is reasonable for most users.  You can either choose to use this or create your own."
-msgstr "Инсталација захтева поделу Вашег диска на партиције.  Подразумевано је изабран нацрт поделе диска који је  оправдан за већину корисника.  Можете изабрати или да га употребите, или да направите свој."
+msgstr "Инсталација захтева поделу Вашег диска на партиције.  Подразумевано је изабран нацрт поделе диска који је прихватљив за већину корисника.  Можете изабрати или да га употребите, или да направите свој."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5507,7 +5507,7 @@ msgstr "Покрећем anaconda-у, режим спашавања %s-а - мо
 #: ../loader2/loader.c:1624
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Покрећем anaconda-у, инсталатор %s система - молим сачекајте...\n"
+msgstr "Покрећем anaconda-у, инсталатер %s система - молим сачекајте...\n"
 
 #: ../loader2/mediacheck.c:330
 msgid "Unable to read the disc checksum from the primary volume descriptor.  This probably means the disc was created without adding the checksum."
