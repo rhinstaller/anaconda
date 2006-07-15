@@ -16,13 +16,12 @@ msgstr ""
 "Project-Id-Version: ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2005-06-30 23:45+0300\n"
-"Last-Translator: Munzir Taha <munzirtaha@newhorizons.com.sa>\n"
+"PO-Revision-Date: 2006-07-15 03:38+0200\n"
+"Last-Translator: Maha <ms.helwa@gmail.com>\n"
 "Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
 
 #: ../anaconda:255
 msgid "Unknown Error"
@@ -35,7 +34,7 @@ msgstr "خطأ في قراءة الجزء الثّاني من تهيئة kicksta
 
 #: ../anaconda:411
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "إضغط على مفتاح الإدخال enter من أجل shell."
 
 #: ../anaconda:442 ../gui.py:244 ../rescue.py:46 ../rescue.py:241
 #: ../rescue.py:322 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
@@ -108,10 +107,9 @@ msgstr "التثبيت الرسومي غير متوفر... جاري بدء ال�
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "لم يوضع قيمة للمتغير العرضDISPLAY . جارى بدء النهج النصى."
 
 #: ../anaconda:847
-#, fuzzy
 msgid "Unknown install method"
 msgstr "طريقة Url غير معروفة %s"
 
@@ -121,7 +119,7 @@ msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "أنت تحاول التثبيت على جهاز غير مدعوم من قبل هذه الإصدارة من %s."
 
 #: ../anaconda:850
-#, fuzzy, c-format
+#, c-format
 msgid "unknown install method: %s"
 msgstr "طريقة Url غير معروفة %s"
 
@@ -507,7 +505,7 @@ msgstr "كتبت مخرجات الخلل"
 
 #: ../exception.py:401
 msgid "There was a problem writing the system state to the floppy."
-msgstr ""
+msgstr "حدثت مشكلة أثناء كتابة حالة النظام على القرص المرن."
 
 #: ../exception.py:409
 #, fuzzy
@@ -519,7 +517,7 @@ msgstr ""
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "حدثت مشكلة أثناء كتابة حالة النظام إلى المضيف البعيد remote host. "
 
 #: ../fsset.py:216
 msgid "Checking for Bad Blocks"
@@ -1117,15 +1115,16 @@ msgstr "جاري الاتّصال..."
 
 #: ../kickstart.py:752
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "جارى تشغيل النصوص ما قبل التثبيت."
 
 #: ../kickstart.py:770
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "جارى تشغيل النصوص ما بعد التثبيت."
 
 #: ../kickstart.py:908
+#, fuzzy
 msgid "Missing Package"
-msgstr "حزمة مفقودة"
+msgstr "جاري تثبيت الحزم"
 
 #: ../kickstart.py:909
 #, python-format
@@ -1133,25 +1132,23 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"لقد حدّدت أنّ الحزمة '%s' يجب تثبيتها. هذه الحزمة غير موجودة. هل تريد "
-"الاستمرار أو إجهاض التّثبيت؟"
 
 #: ../kickstart.py:915 ../kickstart.py:944
+#, fuzzy
 msgid "_Abort"
-msgstr "ا_جهض"
+msgstr "ا_عد التّشغيل"
 
 #: ../kickstart.py:936
+#, fuzzy
 msgid "Missing Group"
-msgstr "مجموعة مفقودة"
+msgstr "معلومات مفقودة"
 
 #: ../kickstart.py:937
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
-"لقد حدّدت أنّ المجموعة '%s' يجب أن تُثبّت. هذه المجموعة غير موجودة. هل تودّ "
-"الاستمرار أو إجهاض التثبيت؟"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1956,7 +1953,7 @@ msgstr "حدث استثناء"
 
 #: ../text.py:188
 msgid "Save to Remote Host"
-msgstr ""
+msgstr "الحفظ على المضيف البعيد remote host."
 
 #: ../text.py:191
 #, fuzzy
@@ -1965,7 +1962,7 @@ msgstr "اسم المضيف"
 
 #: ../text.py:193
 msgid "Remote path"
-msgstr ""
+msgstr "المسار البعيد."
 
 #: ../text.py:195
 msgid "User name"
@@ -2330,9 +2327,8 @@ msgid "file conflicts"
 msgstr ""
 
 #: ../yuminstall.py:483
-#, fuzzy
 msgid "older package(s)"
-msgstr "الحزم الاختياريّة"
+msgstr ""
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
@@ -2343,9 +2339,8 @@ msgid "insufficient disk inodes"
 msgstr ""
 
 #: ../yuminstall.py:486
-#, fuzzy
 msgid "package conflicts"
-msgstr "افتراضيّات الحزم"
+msgstr ""
 
 #: ../yuminstall.py:487
 msgid "package already installed"
@@ -2369,7 +2364,6 @@ msgid "You need more space on the following file systems:\n"
 msgstr ""
 
 #: ../yuminstall.py:519
-#, fuzzy
 msgid "Error running transaction"
 msgstr "جاري تحضير عمليّة RPM..."
 
@@ -2404,7 +2398,7 @@ msgstr ""
 
 #: ../yuminstall.py:704
 msgid "Uncategorized"
-msgstr ""
+msgstr "غير مصنف"
 
 #: ../yuminstall.py:848
 #, python-format
@@ -2854,7 +2848,7 @@ msgstr "عناوين IP يجب أن تحتوي أرقاماً بين 0 و 255"
 #: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
 #, fuzzy
 msgid "iSCSI Configuration"
-msgstr "تهيئة SILO"
+msgstr "تهيئة VNC"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
 #, fuzzy
@@ -3252,11 +3246,11 @@ msgstr "DNS الأوّلي"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:611
 msgid "Secondary DNS"
-msgstr "DNS الثّانوي"
+msgstr "DNS الثّاني"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:613
 msgid "Tertiary DNS"
-msgstr "DNS الاحتياطي"
+msgstr "DNS الثالث"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
@@ -3268,11 +3262,11 @@ msgstr "DNS الأ_وّلي"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "DNS"
+msgstr "DNS ال_ثّاني"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "DNS ال_ثّانوي"
+msgstr "DNS ال_ثّالث"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
@@ -4568,9 +4562,8 @@ msgid "Target IP address:"
 msgstr "عنوان IP:"
 
 #: ../textw/iscsi_text.py:42
-#, fuzzy
 msgid "Port Number:"
-msgstr "أو استخدم:"
+msgstr ""
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
@@ -4983,6 +4976,8 @@ msgid ""
 "partitioning layout is chosen which is reasonable for most users.  You can "
 "either choose to use this or create your own."
 msgstr ""
+"التثبيت يتطلب تجزئة قرصك الصلب. عادةً يتم إختيار التصميم التجزيئى الذى يتلائم "
+"مع معظم المستخدمين. بإمكانك استعمال هذا التصميم أو إنشاء واحد خاص بك."
 
 #: ../textw/partition_text.py:1543
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5063,6 +5058,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"التثبيت الإفتراضى ل %s يتضمن مجموعة من البرمجيات لإستعمال العام لشبكة "
+"internet. ما هى المهام الإضافية التى قد تود النظام ان يدعمها؟"
 
 #: ../textw/task_text.py:60
 msgid "Customize software selection"
@@ -5216,20 +5213,19 @@ msgstr ""
 "حزم البرامج والتّجزئة."
 
 #: ../installclasses/fedora.py:11
-#, fuzzy
 msgid "_Fedora"
 msgstr "_تنسيق"
 
 #: ../installclasses/fedora.py:20
+#, fuzzy
 msgid "Office and Productivity"
-msgstr ""
+msgstr "إنتاجية و أدوات مكتبية"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
-msgstr ""
+msgstr "تطوير البرمجيات"
 
 #: ../installclasses/fedora.py:22
-#, fuzzy
 msgid "Web server"
 msgstr "خادم النّطاق"
 
@@ -5376,6 +5372,10 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
 msgstr ""
+"إن تود اختبار المزيد من الأوساط, قم بادخال القرص المدمج التالى ثم إضغط على "
+"\"%s\". قد لا يلزم اختبار كل قرص مدمج على حده, لكنه يفضل القيام بذلك, على "
+"الأقل يتم اختبار تلك الأقراص التى سيتم إستخدامها للمرة الإولى. على ألا يتم "
+"إعادة فحصها مرة آخرى قبل الإستخدام, إذا تم نجاح الإختبار فى المرة الأولى.  "
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
@@ -5842,7 +5842,7 @@ msgstr "لم يمكن العثور على صورة التّثبيت %s"
 
 #: ../loader2/mediacheck.c:397 ../loader2/mediacheck.c:414
 msgid "FAILED"
-msgstr ""
+msgstr "فشل"
 
 #: ../loader2/mediacheck.c:398
 #, fuzzy
@@ -5859,7 +5859,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
-msgstr ""
+msgstr "تم بنجاح"
 
 #: ../loader2/mediacheck.c:409
 #, fuzzy
@@ -5870,7 +5870,6 @@ msgstr ""
 "من الممكن التثبيت من هذا الوسط."
 
 #: ../loader2/mediacheck.c:415
-#, fuzzy
 msgid "No checksum information available, unable to verify media."
 msgstr ""
 "NA.\n"
@@ -5900,6 +5899,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"%s\n"
+" الفحص الوسطى \n"
+"%s"
 
 #: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
 #, c-format
@@ -6066,9 +6068,8 @@ msgid "%s directory:"
 msgstr "دليل %s:"
 
 #: ../loader2/nfsinstall.c:52
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr ""
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6076,7 +6077,7 @@ msgstr "إعداد NFS"
 
 #: ../loader2/nfsinstall.c:128
 msgid "Hostname specified with no DNS configured"
-msgstr ""
+msgstr "ُحدِدَ اسم المضيف بدون تهيئة DNS."
 
 #: ../loader2/nfsinstall.c:211
 #, c-format
@@ -6275,7 +6276,7 @@ msgstr ""
 #: tmp/iscsi-config.glade.h:4
 #, fuzzy
 msgid "iSCSI configuration"
-msgstr "تهيئة SILO"
+msgstr "تهيئة VNC"
 
 #: tmp/tasksel.glade.h:1
 #, fuzzy
@@ -6287,6 +6288,8 @@ msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
 msgstr ""
+"يمكن إكمال عملية إنتقاء البرمجيات حالياً أو بعد التثبيت بواسطة استعمال تطبيق "
+"إدارة البرمجيات."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -6295,6 +6298,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "include  support for?"
 msgstr ""
+"التثبيت الإفتراضى ل %s يتضمن مجموعة من البرمجيات للأستخدام العام لشبكة "
+"internet. ما هى المهام الإضافية التى ترغب النظام أن يدعمها؟ "
 
 #: tmp/tasksel.glade.h:5
 #, fuzzy
@@ -6432,10 +6437,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "التّوقيت المركزي - كواهويلا، دورانغو، نويفو ليون، تاماليباس"
 
 #. generated from zone.tab
+#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
+"الوقت المركزى - Indiana - Daviess, Dubois, Knox, Martin, Perry& Pulaski"
 
 #. generated from zone.tab
 #, fuzzy
@@ -6918,8 +6925,9 @@ msgid "Syowa Station, E Ongul I"
 msgstr "سيووا ستايشن، شرق أونغول آي"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Tasmania - King Island"
-msgstr ""
+msgstr "جزر مملكة - التسمانية"
 
 #. generated from zone.tab
 #, fuzzy
@@ -7251,6 +7259,13 @@ msgstr "الزولو"
 #~ msgid "How would you like to get space to partition?"
 #~ msgstr "كيف تودّ تحضير نظام الملفّات على هذا التّجزيء؟"
 
+#~ msgid ""
+#~ "Installing <product> requires partitioning of your hard drive.  You can "
+#~ "either use the default partitioning layout or create your own."
+#~ msgstr ""
+#~ "تثبيت المنتج <product> التصيمم الإفتراضى للتجزئة أو بناء تصميم خاص بك. "
+#~ "يتطلب تجزئة قرصك الصلب. بإمكانك استخدام إما "
+
 #, fuzzy
 #~ msgid "Select the drive(s) to use for this installation."
 #~ msgstr "حدّد الأقراص لاستخدامها لهذا التّثبيت:"
@@ -7264,1430 +7279,3 @@ msgstr "الزولو"
 
 #~ msgid "Thai"
 #~ msgstr "التاي"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "هذه المجموعة تتضمّن كلّ الحزم المتوفّرة.  لاحظ أن هناك فعليّاً حزم أكثر من تلك "
-#~ "التي في كلّ مجموعات الحزم في هذه الصّفحة."
-
-#~ msgid "Everything"
-#~ msgstr "كلّ شيء"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "اختر هذه المجموعة لتحصل على أقل مجموعة ممكنة من الحزم .  يفيد هذا بإنشاء "
-#~ "أجهزة راوتر/جدار ناري، على سبيل المثال."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "متنوّعات"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr "أنت تحاول التثبيت على جهاز غير مدعوم من قبل هذه الإصدارة من %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "التجزئة التّلقائيّة"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "أريد الحصول على التجزئة التّلقائيّة:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "حدّد الأقراص لاستخدامها لهذا التّثبيت:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "عاين (وعدّل إن كان ضروريّاً) التقسيمات المنشأة"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "غيّر محمّل الإقلاع"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "لقد اخترت عدم تثبيت أيّ مُحمّل إقلاع. يستحسن جدّاً أن تقوم بتثبيت مُحمّل إقلاع "
-#~ "إلا إذا كان لديك حاجة خاصّة. مُحمّل الإقلاع مطلوب في أغلب الحالات حتّى تستطيع "
-#~ "إقلاع نظامك بواسطة لينكس مباشرة من القرص الصّلب.\n"
-#~ "\n"
-#~ "هل أنت متأكّد أنّك تريد تخطّي تثبيت مُحمّل الإقلاع؟"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "ا_ستمرّ دون محمّل إقلاع"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "رجاءً اختر محمّل الإقلاع الذي سيستخدمه الحاسوب.  GRUB هو محمّل الإقلاع "
-#~ "الافتراضي. على أي حال، إن لم تكن ترغب بالكتابة فوق محمّل الإقلاع الحالي، "
-#~ "اختر \"لا تُثبّت محمّل إقلاع.\"  "
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "استخدم GRUB _كمحمّل الإقلاع"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_لا تُثبّت محمّل إقلاع"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "_غيّر محمّل الإقلاع"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "معتمدات غير محلولة"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "حجم التثبيت الكلّي: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "متطلّب"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "_ثبّت الحزم لإرضاء المعتمدات"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "_لا تثبّت الحزم التي لها معتمدات"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "ت_جاهل معتمدات الحزم"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "بيئة التثبيت الافتراضيّة تشمل اختيار الحزم الذي نستحسنه، بما فيها:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "بعد التثبيت، يمكن إضافة أو إزالة البرامج باستخدام أداة 'system-config-"
-#~ "packages'.\n"
-#~ "\n"
-#~ "إن كنت تأْلف %s، فقد تكون لديك حزم تودّ أن تقوم بتثبيتها أو تجاهلها. اختر "
-#~ "المربّع أدناه كي تخصّص تثبيتك."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "إن أردت أن تغيّر مجموعة الحزم الافتراضيّة لتثبيتها يمكنك اختيار تخصيصها "
-#~ "أدناه."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "ث_بّت حزم البرامج الافتراضيّة"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_خصّص حزم البرامج المطلوب تثبيتها"
-
-#, fuzzy
-#~ msgid "Packages in %s"
-#~ msgstr "الحزم"
-
-#, fuzzy
-#~ msgid "[%d of %d optional packages installed]"
-#~ msgstr "ما نوع الوسط الذي يحتوي الحزم لتثبيتها؟"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "بيئة التّثبيت الافتراضي تشمل خيار الحزم التي نستحسنه.  بعد التّثبيت، يمكن "
-#~ "إضافة أو إزالة برامج إضافيّة باستخدام أداة 'system-config-packages'.\n"
-#~ "\n"
-#~ "على كلّ حال يشمل %s تطبيقات إضافيّة عديدة، ويمكنك تخصيص اختيار البرامج "
-#~ "المُثبّتة إن أردْت."
-
-#~ msgid "Select individual packages"
-#~ msgstr "اختر الحزم فرديّاً"
-
-#~ msgid "Package :"
-#~ msgstr "حزمة:"
-
-#~ msgid "Size    :"
-#~ msgstr "الحجم    :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f كيلوبايت"
-
-#~ msgid "Total size"
-#~ msgstr "الحجم الكلّي"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "الاختيار الفرديّ للحزم"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr "   <مسافة>,<+>,<-> الاختيار   |   <F1> مساعدة   |   <F2> وَصْف الحزمة"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "مُعتمدات الحزمة"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "بعض الحزم التي اخترت تثبيتها تتطلّب حزما لم تقم باختيارها. إن قمت فقط "
-#~ "باختيار موافق فسوف يتمّ تثبيت كلّ تلك الحزم."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "ثبّت الحزم كي تُرضي المُعتمدات"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "لا تقم بتثبيت الحزم التي لها مُعتمدات"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "تجاهل مُعتمدات الحزم"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "لم يعثر على ماوس. التثبيت الرّسوميّ يتطلّب وجود واحدة. بدء التثبيت النّصّي."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "تم اكتشاف نوع ماوس: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "استخدام ماوس نوع: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "حدث استثناء غير معالج.  على الأرجح أنّ هذا عَيْب برمجي.  رجاءً انسخ النّصّ "
-#~ "الكامل لهذا الاستثناء أو احفظ مخرجات الخلل في قرص مرن ثمّ أرسل تقرير عَيْب "
-#~ "برمجيّ مفصّل بخصوص anaconda على %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "الدّخول عن بعد (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "ملقم وب (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "نقل الملفّات (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "خادم البريد (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "لم يمكن عمل قرص الإقلاع المرن"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "حجم وحدات النّواة المطلوب لجهازك يجعل من المستحيل إنشاء قرص إقلاع بحيث "
-#~ "يمكن حفظه في قرص مرن."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "أدخل قرصاً مرناً"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "رجاء ازل أي أقراص مرنة من السّوّاقة، وأدخل القرص المرن الذي يحتوي قرص "
-#~ "الإقلاع.\n"
-#~ "\n"
-#~ "سيتمّ إزالة كلّ البيانات خلال إنشاء قرص الإقلاع."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "ا_نشئ قرص إقلاع"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "حدث خطأ خلال إنشاء قرص الإقلاع. رجاء تأكّد من أنّه هناك قرص مرن في سوّاقة "
-#~ "الأقراص المرنة الأولى."
-
-#~ msgid "Creating"
-#~ msgstr "جاري الإنشاء"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "جاري إنشاء قرص إقلاع"
-
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "حدث خطأ خلال محاولة التّحقّق من قرص الإقلاع. رجاء تأكّد من أنّه لديك قرص مرن "
-#~ "جيّد في سوّاقة الأقراص المرنة الأولى."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "يبدو أن قرص الإقلاع غير صالح. غالباً ما يكون هذا بسبب قرص مرن سيّء. رجاءً "
-#~ "تأكّد من أنّه لديك قرص مرن جيّد في سوّاقة الأقراص المرنة الأولى."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_حفظ على قرص مرن"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "صور ISO التّالية مفقودة وهي مطلوبة للتثبيت:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "سوف يقوم النّظام بإعادة التّشغيل الآن."
-
-#~ msgid "Reading"
-#~ msgstr "جاري القراءة"
-
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "لم يمكن قراءة لائحة التّرويسات. قد يكون هذا بسبب الملف المفقود أو القرص "
-#~ "السّيّء. اضغط <enter> لتحاول مرّة أخرى."
-
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "لم يمكن قراءة ملف comps. قد يكون هذا بسبب ملف مفقود أو قرص سيّء. اضغط "
-#~ "<return> لتحاول مرّة أخرى."
-
-#~ msgid "Installing..."
-#~ msgstr "جاري التثبيت..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "خطأ في تثبيت الحزمة"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "كان هناك خطأ في تثبيت %s.  يمكن أن يشير هذا إلى فشل في الوسط، قلّة مساحة "
-#~ "القرص، و/أو مشاكل عتاد.  هذا خطأ حرج و سوف يتم إجهاض التثبيت.  رجاءً تحقّق "
-#~ "من الوسط وحاول التثبيت مجدّداً.\n"
-#~ "\n"
-#~ "اضغط زرّ موافق لإعادة تشغيل جهازك."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "لم يمكن قراءة لائحة دمج التّرويسات. قد يكون هذا بسبب ملف مفقود أو قرص سيّء. "
-#~ "اضغط <return> لتحاول مرّة أخرى."
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "جاري تحديث حزم %s \n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "جاري تثبيت حزم %s \n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "تمّ تحديد الحزمة التّالية تلقائيّاً\n"
-#~ "كي يتمّ تثبيتها:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "لا يبدو أنّه لديك مساحة قرص كافية لتثبيت الحزم التّي اخترتها. تحتاج إلى "
-#~ "مساحة إضافيّة على أنظمة الملفّات التالية:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "بحاجة لمساحة"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "لا يبدو أنه لديك نقاط ملفّات كافية لتثبيت الحزم التي حدّدتها. تحتاج إلى "
-#~ "المزيد من نقاط الملفّات على أنظمة الملفّات التّالية:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "بحاجة للنّقاط"
-
-#~ msgid "Disk Space"
-#~ msgstr "مساحة القرص"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "بنية النّظام لهذا الإصدار من %s الذي تقوم بالتّطوير إليه يبدو أنّه %s والذي "
-#~ "لا يطابق بنية نظامك %s المثبّتة مسبقاً.  على ما يبدو أن هذا لن ينجح.  هل "
-#~ "أنت متأكّد أنّك تريد إكمال عمليّة التّطوير؟"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "يبدو أن النّظام يحتوي حزم طرف ثالث مثبّتة تتعارض مع الحزم المشمولة في %s. "
-#~ "لأنّ هذه الحزم تتعارض، فإن الاستمرار بعمليّة التحديث قد يتسبّب بتوقّف عملها "
-#~ "بشكل طبيعي أو يتسبّب بعدم استقرار آخر في النظام.  رجاء راجع ملاحظات "
-#~ "الإصدار للمزيد من المعلومات.\n"
-#~ "\n"
-#~ "هل تريد إكمال عمليّة التّحديث؟"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "لا يحتوي النّظام على ملف /etc/redhat-release.  من الممكن أن أن لا يكون هذا "
-#~ "نظام %s. الاستمرار بعمليّة التّطوير قد تترك النّظام بوضع غير مستقر.  هل تريد "
-#~ "إكمال عمليّة التّحديث؟"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "إعداد التّوثيق"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "مكّن _كلمات مرور MD5"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "مكّن كلمات مرور ال_مُظلّلة"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "مكّن _NIS"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "استخدم ال_بثّ للعثور على خادم NIS"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "_نطاق NIS:"
-
-#~ msgid "NIS _Server: "
-#~ msgstr "_خادم NIS:"
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "مكّن L_DAP"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "استخدم ا_ستطلاعات TLS"
-
-#~ msgid "LDAP _Server:"
-#~ msgstr "_خادم LDAP:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "الاسم المميّز الأ_ساسي (DN) لـLDAP:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "مكّن _Kerberos"
-
-#~ msgid "R_ealm:"
-#~ msgstr "ال_مملكة:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-#~ msgid "_Admin Server:"
-#~ msgstr "خادم ال_إدارة:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "مكّن ت_وثيق SMB"
-
-#~ msgid "SMB _Server:"
-#~ msgstr "_خادم SMB:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "م_جموعة عمل SMB:"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "إنشاء قرص الإقلاع"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "قرص الإقلاع يمكّنك من إقلاع نظامك %s من قرص مرن.  قرص الإقلاع المرن يمكّنك "
-#~ "من إقلاع نظامك في حال توقّفت تهيئة محمّل الإقلاع عن العمل، أو إن اخترت عدم "
-#~ "تثبيت محمّل إقلاع، أو إن كان محمّل الإقلاع من الطّرف الثّالث لا يدعم لينكس.\n"
-#~ "\n"
-#~ "من المستحسن جدّاً أن تقوم بإنشاء قرص إقلاع.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_نعم، أودّ إنشاء قرص إقلاع"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "لا، لا أريد إ_نشاء قرص إقلاع"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "اختر القرص لتشغيل fdasd عليه"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "تهيئة جهاز DASD المختار سوف يدمّر كلّ محتوياته. هل تريد حقّاً تهيئة جهاز DASD "
-#~ "المختار؟"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "التّجزئة باستخدام fdisk"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "اختر القرص للتجزئ باستخدام fdisk:"
-
-#~ msgid "Disabled"
-#~ msgstr "مُعطّل"
-
-#~ msgid "Warn"
-#~ msgstr "حذّر"
-
-#~ msgid "Active"
-#~ msgstr "نشط"
-
-#~ msgid "Firewall"
-#~ msgstr "الجدار النّاري"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "تحذير - لا جدار ناري"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "إذا كان هذا النّظام متّصل مباشرة بالإنترنت أو بشبكة عامّة كبيرة، فمن "
-#~ "المستحسن أن يتم إعداد جدار ناري حيث يساعد في منع الوصول الغير مخوّل.  على "
-#~ "أي حال، لقد اخترت عدم القيام بإعداد جدار ناريّ.  اختر \"تقدّم\" كي تستمرّ "
-#~ "دون القيام بإعداد جدار ناريّ."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "إ_عداد جدار ناري"
-
-#~ msgid "_Proceed"
-#~ msgstr "_تقدّم"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "يساعد الجدار النّاري في منع الوصول الغير مخوّل إلى حاسوبك من العالم "
-#~ "الخارجي.  هل تودّ تمكين جدار ناريّ؟"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_لا جدار ناريّ"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_مكّن الجداري النّاريّ"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "يمكنك استخدام جدار ناري لإتاحة الوصول إلى خدمات محددة على جهازك من قبل "
-#~ "الاجهزة الأخرى. أي من هذه الخدمات تود اتاحة الوصول إليها؟"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "لينكس محسَّن الأمان (SELinux( يوفر تحكم أفضل بالأمان من أنظمة لينكس "
-#~ "التقليدية. يمكن أن توضع في حالة توقف، وهي حالة تحذر مما يمكن ان يكون "
-#~ "محظوراً، أو في حالة كامل النشاط."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "مكّن لينكس محسّن الأمان (_SELinux)؟:"
-
-#~ msgid "All Packages"
-#~ msgstr "كلّ الحزم"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "الحزمة: %s\n"
-#~ "النّسخة: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "_عرض الشّجرة"
-
-#~ msgid "_Flat View"
-#~ msgstr "_عرض السّرد"
-
-#~ msgid "_Package"
-#~ msgstr "_حزمة"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "ال_حجم (ميجابايت)"
-
-#~ msgid "Total size: "
-#~ msgstr "الحجم الكلّي: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "اختر _كلّ ما في المجموعة"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "أ_زل اختيار كلّ ما في المجموعة"
-
-#~ msgid "Minimal"
-#~ msgstr "أدنى"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "تفاصيل '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "يمكن أن تحتوي مجموعة الحزم كلاً من أعضاء الحزم الأساسيّة والاختياريّة.  "
-#~ "الحزم الأساسيّة مُحدّدة دائماً طلما أنّ مجموعة الحزم محدّدة.\n"
-#~ "\n"
-#~ "اختر الحزم الاختياريّة لتثبيتها:"
-
-#~ msgid "Base Packages"
-#~ msgstr "الحزم الأساسيّة"
-
-#~ msgid "Details"
-#~ msgstr "التّفاصيل"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "ا_ختر الحزم فرديّاً"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "ساعة النّظام _تستخدم توقيت UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "رجاء اختر المدينة الأقرب في منطقتك الزّمنيّة:"
-
-#~ msgid "_Location"
-#~ msgstr "ال_موقع"
-
-#~ msgid "Description"
-#~ msgstr "الوصف"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "شاشة غير مُعرّفة"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "خصّص التّهيئة الرّسوميّة"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_عمق الألوان:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 لون (8 بتّات)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "ألوان مرتفعة (16 بت)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "ألوان حقيقيّة (24 بت)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "دقّة عرض ال_شّاشة:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "رجاءً اختر بيئة سطح مكتبك الافتراضيّة:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "بيئة سطح مكتبك هي:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "جين_وم"
-
-#~ msgid "_KDE"
-#~ msgstr "_كيدي"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "رجاء اختر طريقة تسجيل دخولك:"
-
-#~ msgid "_Text"
-#~ msgstr "_نصّيّة"
-
-#~ msgid "_Graphical"
-#~ msgstr "_رسوميّة"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "تهيئة الشّاشة"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "شاشة غير معرّفة"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "لم تقم باختيار نوع شاشة.  من المستحسن أن تختار أقرب طراز مطابق حتّى تحصل "
-#~ "على أعلى جودة عرض ممكنة."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "ا_ختر نوع الشّاشة"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "في معظم الحالات، يمكن أن يتمّ اكتشاف الشّاشة آليّاً. إن كانت الإعدادات "
-#~ "المُكتشفة غير صحيحة للشّاشة، اختر الإعدادات الصّحيحة."
-
-#~ msgid "Restore _original values"
-#~ msgstr "استعِدْ ال_قِيَم الأصليّة"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "التّزامن الأ_فقي:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "التّزامن الع_مودي:"
-
-#~ msgid "kHz"
-#~ msgstr "كيلوهرتز"
-
-#~ msgid "Hz"
-#~ msgstr "هرتز"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "تهيئة الواجهة الرّسوميّة (X)"
-
-#~ msgid "Unknown video card"
-#~ msgstr "بطاقة فيديويّة غير معروفة"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "حدث خطأ في اختيار بطاقة الفيديو %s. رجاء يلغ عن هذا الخطأ عن طريق %s.."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "بطاقة فيديو غير معرّفة"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "عليك أن تختار بطاقة فيديو قبل أن تستطيع تهيئة X الاستمرار. إن أردت أن "
-#~ "تتخطّى تهيئة X بالكامل اختر زرّ 'تخطَّ تهيئة X'."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "سوف يُعدّ نظامك لاستخدام تخزين الأُطر لنظام نوافذ X. إن لم تكن تريد إعداد "
-#~ "نظام نوافذ X، اختر 'تخطَّ تهيئة X أدناه'."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "حجم الذّاكرة المؤقّتة لبطاقة الفيديو خاصّتك لا يمكن اكتشافها.  اختر حجم "
-#~ "الذّاكرة المؤقّتة من الخيارات أدناه:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "في معظم الحالات، يمكن اكتشاف العتاد الفيديويّ آليّاً. إن كانت الإعدادات "
-#~ "المُكتشفة غير صحيحة لهذا العتاد، اختر الإعدادات الصّحيحة."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "الذّاكرة المؤقّتة لبطاقة ال_فيديو:"
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "_تخطَّ تهيئة X"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "قرص الإقلاع يمكّنك من إقلاع نظامك %s من قرص مرن. قرص الإقلاع يمكّنك من "
-#~ "إقلاع نظامك في حالة توقّف تهيئة مُحمّل الإقلاع عن العمل.\n"
-#~ "\n"
-#~ "من المُستحسن جدّاً أن تقوم بإنشاء قرص إقلاع.\n"
-#~ "\n"
-#~ "هل تودّ إنشاء قرص إقلاع؟"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "قرص إقلاع"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "اختر القرص الذي تريد تشغيل fdasd أو dasdfmt عليه"
-
-#~ msgid "Next"
-#~ msgstr "التّالي"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "حرّر التّجزيءات"
-
-#~ msgid "Format DASD"
-#~ msgstr "نسّق DASD"
-
-#~ msgid "Disk Setup"
-#~ msgstr "إعداد القرص"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "حدث خطأ خلال تنفيد %s على السّوّاقة %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "تشغيل dasdfmt يعني خسارة كل\n"
-#~ "البيانات على السّوّاقة %s.\n"
-#~ "\n"
-#~ "هل تريد هذا حقّاً؟"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "حدث خطأ - لم يُعثر على أجهزة صالحة يتمّ عليها إنشاء أنظمة ملفّات جديدة. رجاء "
-#~ "تحقّق من عتادك عن سبب المشكلة أو استخدم dasdfmt.\n"
-#~ "\n"
-#~ "رجوع إلى شاشة fdasd؟"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "اختر قرصاً كي تُشغّل fdisk عليه"
-
-#~ msgid "Enable firewall"
-#~ msgstr "مكّن الجدار النّاري"
-
-#~ msgid "No firewall"
-#~ msgstr "لا جدار ناري"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "اسمح بالقادم:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "خيار غير صالح"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "لا يمكنك تخصيص جدار ناريّ مُعطّل."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "تخصيص إعدادات الجدار الناري"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "باستخدام الجدار الناري بإمكانك اتاحة الوصول إلى خدمات محددة على جهازك من "
-#~ "قبل الاجهزة الأخرى. أي من هذه الخدمات تود اتاحة الوصول إليها؟"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "لينكس المُحسّن الأمن"
-
-#~ msgid "Edit User"
-#~ msgstr "عدّل المستخدم"
-
-#~ msgid "Add User"
-#~ msgstr "أضف مستخدم"
-
-#~ msgid "User Name"
-#~ msgstr "اسم المستخدم"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "كلمة المرور (تأكيد)"
-
-#~ msgid "Full Name"
-#~ msgstr "الاسم الكامل"
-
-#~ msgid "Bad User Name"
-#~ msgstr "اسم مستخدم سيّء"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr ""
-#~ "أسماء المستخدمين يجب أن تحتوي فقط على الأحرف A-Z، a-z، والأرقام 0-9."
-
-#~ msgid "Missing User Name"
-#~ msgstr "اسم المستخدم مفقود"
-
-#~ msgid "You must provide a user name"
-#~ msgstr "يجب أن تُدخل اسم مستخدم"
-
-#~ msgid "The password must be at least 6 characters long."
-#~ msgstr "كلمة المرور يجب أن تكون بطول 6 أحرف على الأقلّ."
-
-#~ msgid "User Exists"
-#~ msgstr "المستخدم موجود مسبقاً"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr "المستخدم root مهيّءٌ مسبقاً. لا تحتاج إلى إضافة هذا المستخدم هنا."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr "المستخدم system مُهيّءٌ مسبقاً. لا تحتاج إلى إضافة هذا المستخدم هنا."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "رقم هويّة المستخدم هذا موجود مسبقاً.  اختر آخر."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "يجب أن تستخدم مستخدماً عاديّاً لمُعظم النّشاطات على نظامك. عن طريق عدم استخدام "
-#~ "حساب root بشكل عَرَضيّ، سوف تُقلّل من احتمالات تعطيل تهيئة نظامك."
-
-#~ msgid "User Account Setup"
-#~ msgstr "إعداد حساب المستخدم"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "ما هي حسابات المستخدمين الأخرى التي تودّ أن تكون لديك على النّظام؟ يجب أن "
-#~ "يكون لديك على الأقل حساب واحد غير حساب root للعمل العادي، إلا أن أنظمة "
-#~ "المستخدمين العديدين يمكن أن يكون لها إعداد أيّ عدد من الحسابات."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "أدخل المعلومات لهذا المستخدم."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "غيّر المعلومات لهذا المستخدم."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "استخدام كلمات المرور المُظلّلة"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "مكّن كلمات مرور MD5"
-
-#~ msgid "Enable NIS"
-#~ msgstr "مكّن NIS"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "نطاق NIS:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "خادم NIS:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "طلب الخادم عبر البثّ"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "مكّن LDAP"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "خادم LDAP:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "الاسم المميّز الأساسي (DN) لـLDAP:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "استخدام اتّصالات TLS"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "مكّن Kerberos"
-
-#~ msgid "Realm:"
-#~ msgstr "المملكة:"
-
-#~ msgid "KDC:"
-#~ msgstr "مُتحكّم نطاق كِرْبِرُس (KDC):"
-
-#~ msgid "Admin Server:"
-#~ msgstr "خادم الإدارة:"
-
-#~ msgid "Color Depth"
-#~ msgstr "عمق الألوان"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "رجاء اختر عمق الألوان الذي تودّ استخدامه:"
-
-#~ msgid "Resolution"
-#~ msgstr "دقّة العرض"
-
-#~ msgid "X Customization"
-#~ msgstr "تخصيص X"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr "اختر عمق الألوان ووضع الفيديو الذي تريد استخدامه لنظامك. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "عمق الألوان:"
-
-#~ msgid "Change"
-#~ msgstr "غيّر"
-
-#~ msgid "Resolution:"
-#~ msgstr "دقّة العرض:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "سطح المكتب الافتراضي:"
-
-#~ msgid "GNOME"
-#~ msgstr "جينوم"
-
-#~ msgid "KDE"
-#~ msgstr "كيدي"
-
-#~ msgid "Default Login:"
-#~ msgstr "اسم الدّخول الافتراضي:"
-
-#~ msgid "Graphical"
-#~ msgstr "رسوميّ"
-
-#~ msgid "Text"
-#~ msgstr "نصّيّ"
-
-#~ msgid "Monitor"
-#~ msgstr "الشّاشة"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "رجاء اختر الشّاشة المتّصلة بنظامك."
-
-#~ msgid "horizontal"
-#~ msgstr "أفقي"
-
-#~ msgid "vertical"
-#~ msgstr "عمودي"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "مُعدّلات تزامن غير صالحة"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "معدّل التزامن %s غير صالح:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "معدّل التّزامن الصّالح يمكن أن يكون بالشّكل:\n"
-#~ "\n"
-#~ "      31.5                   رقماً مفرداً\n"
-#~ "    50.1-90.2                مدى أرقام\n"
-#~ "31.5,35.0,39.3-40.0          لائحة من الأرقام/المجالات\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "معدّلات تزامن الشّاشة"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "رجاء أدخل معدّلات التّزامن لشاشتك. \n"
-#~ "\n"
-#~ "ملاحظة - ليس من الضّروريّ عادة تحرير معدّلات التّزامن يدويّاً، ويجب أخذ الحيطة "
-#~ "في التّأكّد من صحّة القيم المدخلة."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "معدّل التّزامن الأفقي (HSync): "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "معدّل التّزامن العمودي (VSync): "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "رجاء اختر الشّاشة لنظامك.  استخدم الزّرّ '%s' لاستعادة القيم المستكشفة أصلاً."
-
-#~ msgid "Monitor:"
-#~ msgstr "الشّاشة:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "معدّل التّزامن الأفقي (HSync):"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "معدّل التّزامن العمودي (VSync):"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "اختر نوع الشّاشة"
-
-#~ msgid "Proceed"
-#~ msgstr "أكمل"
-
-#~ msgid "Video Card"
-#~ msgstr "بطاقة الفيديو"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "رجاء اختر بطاقة الفيديو الموجودة في نظامك.  اختر '%s' كي تعيد الاختيار "
-#~ "إلى البطاقة التي اكتشفها برنامج التّثبيت في نظامك."
-
-#~ msgid "Video RAM"
-#~ msgstr "ذاكرة الفيديو المؤقّتة (RAM)"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "رجاء اختر كمّيّة ذاكرة الفيديو المؤقّتة (RAM) الموجودة على بطاقتك الفيديويّة. "
-#~ "اختر '%s' كي تعيد الاختيار للكميّة التي اكتشفها برنامج التّثبيت على بطاقتك."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "تخطّ تهيئة X"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "تهيئة بطاقة الفيديو"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "اختر بطاقة وذاكرة الفيديو المؤقّتة (RAM) لنظامك."
-
-#~ msgid "Video Card:"
-#~ msgstr "بطاقة الفيديو:"
-
-#~ msgid "Unknown card"
-#~ msgstr "بطاقة غير معروفة"
-
-#~ msgid "Video RAM:"
-#~ msgstr "ذاكرة الفيديو المؤقّتة (RAM):"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "إن كنت تريد اختبار وسط إضافيّ، أدخل القرص المدمج التّالي واضغط \"%s \". لا "
-#~ "يتوجّب عليك اختبار كل الأقراص المدمجة، مع أنّه مستحسن فعل ذلك مرّة على "
-#~ "الأقل.\n"
-#~ "\n"
-#~ "كي تبدأ عمليّة التّثبيت أدخل القرص المدمج #1 في السّوّاقة واضغط \"%s \"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "فحص الوسط %s اكتمل، والنتيجة هي: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "تشبوت (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "التّوقيت الشّرقي القياسي - مركز نونافوت"
-
-#~ msgid "Great Britain"
-#~ msgstr "بريطانيا العظمى"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "إيرلنده الشّماليّة"
-
-#~ msgid "Tasmania"
-#~ msgstr "تاسمانيا"
-
-#~ msgid "Yap"
-#~ msgstr "ياب"
-
-#~ msgid "northeast Mali"
-#~ msgstr "شمال شرق مالي"
-
-#~ msgid "southwest Mali"
-#~ msgstr "جنوب غرب مالي"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "دعم لغة إضافيّة"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "اختر اللّغة الا_فتراضيّة للنّظام:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "اختر لغات إ_ضافيّة لتثبيتها على النّظام:"
-
-#~ msgid "_Select All"
-#~ msgstr "تحديد ال_كلّ"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "اختر الا_فتراضيّة فقط"
-
-#~ msgid "Rese_t"
-#~ msgstr "إ_عادة للأصل"
-
-#~ msgid "Select All"
-#~ msgstr "حدّد الكلّ"
-
-#~ msgid "Reset"
-#~ msgstr "أعد للأصل"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "اختر لغات إضافيّة تودّ أن تستخدمها على هذا النّظام:"
-
-#~ msgid "Language Support"
-#~ msgstr "دعم اللّغة"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "عليك أن تختار لغة واحدة على الأقل كي تُثبّتها."
-
-#~ msgid "Default Language"
-#~ msgstr "اللّغة الافتراضيّة"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "اختر اللّغة الافتراضيّة لهذا النّظام:"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "لمعلومات عن لائحة الإصلاحات (التّحديثات وإصلاحات العلل)، زُر:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "لمعلومات عن التّحديثات الآليّة من خلال شبكة ردهات، زُر:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "لمعلومات عن استخدام وتهيئة النّظام، زُر:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "لتقوم بتسجيل المنتج لتحصل على الدّعم، زُر:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "تهيئة Silo"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "ثبّت سجلّ لإقلا SILOع على:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "أنشئ اسم PROM بديل"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "حدّد جهاز إقلاع PROM الافتراضي بلينكس"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "مُعطيات النّواة"
-
-#~ msgid "Create boot disk"
-#~ msgstr "إنشاء قرص إقلاع"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "لا تُثبّت SILOع"
-
-#~ msgid "Default boot image"
-#~ msgstr "صورة الإقلاع الافتراضيّ"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "أنشئ PROM بديل `linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "تحديد جهاز إقلاع PROM الافتراضي"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "أين تريد أن تقوم بتثبيت محمّل الإقلاع؟"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "مُدير الإقلاع الذي تستخدمه Red Hat يمكنه إقلاع أنظمة تشغيل أخرى أيضاً. "
-#~ "تحتاج لأن تُخبرني ما هي الأفسام التي تودّ أن تكون قادراً على إقلاعها وما هو "
-#~ "العنوان الذي تريد استخدامه لكلّ منها."
-
-#~ msgid "no suggestion"
-#~ msgstr "لا اقتراح"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "استخدم  _LILO كمحمّل الإقلاع"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "غير قادر على تغييرر ترتيب الأقرا لـ LILOص"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "نحن لا ندعم تغيير ترتيب الأقراص للاستخدام مع LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "استخدم محمّل الإقلاع LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s مثبّت على %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "لقد اخترت عدم تثبيت أيّ مُحمّل إقلاع على نظامك. يجب ً أتقوم بإنشاء قرص إقلاع "
-#~ "مع هذا الخيار لتتمكن من إقلاع النظام.\n"
-#~ "لصّلب.\n"
-#~ "\n"
-#~ "هل أنمن أنّك تريد الاستمرار من غير تثبيت محمّل إقلاع؟ الإقلاع؟"
-
-#~ msgid "Total"
-#~ msgstr "المجموع"
-
-#~ msgid "Remaining"
-#~ msgstr "المتبقّي:  "
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "جاري تثبيت %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "تقدّم الحزم:"
-
-#~ msgid "Total Progress:   "
-#~ msgstr "التقدّم الإجمالي:   "
-
-#~ msgid "Status"
-#~ msgstr "الحالة: "
-
-#~ msgid "Time"
-#~ msgstr "الوقت"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "التحديثات لهذه النّسخة من %s مدعومة فقط من ردهات لينكس 6.2 أو ما بعده.  "
-#~ "يبدو أن هذا نظام أقدم.  هل تريد إكمال عمليّة التّطوير؟"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tصدفة سطح المكتب (جينوم)\n"
-#~ "\tالباقة المكتبيّة (OpenOffice.org)\n"
-#~ "\tمتصفّح الوب (موزيلا)\n"
-#~ "\tالبريد الالكتروني (إيفوليوشن)\n"
-#~ "\tالتّراسل الفوري\n"
-#~ "\tتطبيقات الصّوت والفيديو\n"
-#~ "\tالألعاب\n"
-#~ "\tأدوات الإدراة\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tصدفة سطح المكتب (جينوم)\n"
-#~ "\tالباقة المكتبيّة (OpenOffice.org)\n"
-#~ "\tمتصفّح الوب (موزيلا)\n"
-#~ "\tالبريد الالكتروني (إيفوليوشن)\n"
-#~ "\tالتّراسل الفوري\n"
-#~ "\tتطبيقات الصّوت والفيديو\n"
-#~ "\tالألعاب\n"
-#~ "\tأدوات تطوير البرامج\n"
-#~ "\tأدوات الإدارة\n"
