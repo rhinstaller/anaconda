@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: anaconda_tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-16 20:27+0300\n"
+"PO-Revision-Date: 2006-07-16 21:47+0300\n"
 "Last-Translator:  <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -624,7 +624,6 @@ msgstr "Yeniden Başlat"
 
 #: ../fsset.py:1489
 #, python-format
-#, fuzzy
 msgid ""
 "The swap device:\n"
 "\n"
@@ -637,7 +636,7 @@ msgstr "Swap·aygıtı:\n"
 "\n"
 "·····/dev/%s\n"
 "\n"
-"bir sürüm 0 Linux takas aygıtı. Bu aygıtı kullanmak istiyorsanız, sürüm 1 Linux takas alanı olarak tekrar biçimlendirmelisiniz.Eğer bu uyarıyı atlarsanız kurulum programı bunu görmezlikten gelecek."
+"sürüm 0 bir Linux takas aygıtı. Bu aygıtı kullanmak istiyorsanız, sürüm 1 Linux takas alanı olarak tekrar biçimlendirmelisiniz.Eğer bu uyarıyı atlarsanız kurulum programı bunu görmezlikten gelecek."
 
 #: ../fsset.py:1496
 msgid "Reformat"
@@ -668,7 +667,6 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1518
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -678,7 +676,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Eğer kurulum programının süregelen güncelleme işleminde bu disk bölümünü görmezlikten gelmesini istiyorsanız, \"Atla\" yı seçin.··Bu disk bölümünü takas alanı olarak tekrar biçimlendirmek için \"Format\" ı seçin.··Sistemi yeniden başlatmak için \"Yeniden Başlat\" ı seçin."
+"Eğer kurulum programının süregelen güncelleme işleminde bu disk bölümünü görmezlikten gelmesini istiyorsanız, \"Atla\" yı seçin.··Bu disk bölümünü takas alanı olarak tekrar biçimlendirmek için \"Biçimlendir\" i seçin.··Sistemi yeniden başlatmak için \"Yeniden Başlat\" ı seçin."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1164,9 +1162,8 @@ msgid "_Abort"
 msgstr "İ_ptal et"
 
 #: ../kickstart.py:936
-#, fuzzy
 msgid "Missing Group"
-msgstr "Eksik Bilgi"
+msgstr "Eksik Grup"
 
 #: ../kickstart.py:937
 #, python-format
@@ -2424,16 +2421,16 @@ msgid "Error running transaction"
 msgstr "RPM aktarımında hata"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"%s-%s-%s.%s paketi açılamıyor. Bu, bir eksik dosya ya da hatalı bir ortamdan "
-"kaynaklanabilir. Kurulumu CD'den yapıyorsanız disk hatalı olabilir ya da "
-"sürücü diski okuyamıyordur.\n"
+"%s paketi açılamıyor. Bu, bir eksik dosya ya da hatalı bir ortamdan "
+"kaynaklanabilir. Kurulumu CD'den yapıyorsanız CD hatalı olabilir ya da "
+"CD sürücü CDyii okuyamıyordur.\n"
 "\n"
 
 #: ../yuminstall.py:659
@@ -2477,9 +2474,8 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Kurulum süreci başlatılıyor. Bu işlem biraz uzun sürebilir..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Güncelle"
+msgstr "Sonra Güncelle"
 
 #: ../yuminstall.py:1037
 msgid "Performing post upgrade configuration..."
@@ -2906,9 +2902,8 @@ msgid "iSCSI Configuration"
 msgstr "iSCSI Yapılandırması"
 
 #: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
 msgid "Error with Data"
-msgstr "Veri hataya yol açtı"
+msgstr "Veriyle birlikte hata"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
