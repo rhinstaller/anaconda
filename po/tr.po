@@ -1,13 +1,14 @@
-# translation of anaconda_tr.po to translation of anaconda_tr.po totranslation of anaconda_tr.po totranslation of tr.po to Türkçetranslation of tr.po to Turkish$Id$Nilgün Belma Bugüner <nilgun@superonline.com>, 2003.Erçin EKER <erc.caldera@gmx.net>, 2003.Bahadir Yagan <bahadir.yagan@mentorsystem.com>, 2004.Onur Gungor <onurgu@boun.edu.tr>, 2004, 2006.
+# translation of anaconda_tr.po totranslation of anaconda_tr.po totranslation of tr.po to Türkçetranslation of tr.po to Turkish$Id$Nilgün Belma Bugüner <nilgun@superonline.com>, 2003.Erçin EKER <erc.caldera@gmx.net>, 2003.Bahadir Yagan <bahadir.yagan@mentorsystem.com>, 2004.Onur Gungor <onurgu@boun.edu.tr>, 2004, 2006.İsmail AŞCI <ismail.asci@gmail.com>,2006 <>, 2006.
+# 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda_tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-27 16:52+0300\n"
-"Last-Translator:  <>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2006-07-16 13:47+0300\n"
+"Last-Translator: Ismail ASCI <ismail.asci@gmail.com>\n"
+"Language-Team: Turkish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -998,7 +999,7 @@ msgstr "Kurulum Penceresi"
 
 #: ../harddrive.py:61 ../image.py:480
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "Kayıp ISO 9660 Görüntüsü"
 
 #: ../harddrive.py:62
 #, python-format
@@ -1705,13 +1706,13 @@ msgstr "%s bölümü bir normal kurulum için gereken en az %s MBdan küçük. %
 #: ../partitions.py:911
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "Bir USB aygıtı üzerine kuruluyor.  Bunun sonucunda düzgün çalışan bir sistem elde edilemeyebilir."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "Bir FireWire aygıtı üzerine kuruluyor.  Bunun sonucunda düzgün çalışan bir sistem elde edilemeyebilir."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2241,7 +2242,9 @@ msgid ""
 "You need to specify a vnc password of at least 6 characters long.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr ""
+msgstr "En az 6 karakter uzunluğunda bir vnc parolası tanımlamalısınız.\n"
+"\n"
+"Sisteminizi yeniden başlatmak için <return> 'a basın.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2367,15 +2370,15 @@ msgstr "İp_tal"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "dosya çakışması"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr ""
+msgstr "eski paket(ler)"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "yetersiz disk alanı"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
@@ -2383,11 +2386,11 @@ msgstr ""
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr ""
+msgstr "paket çakışması"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "paket zaten kurulu"
 
 #: ../yuminstall.py:488
 msgid "required package"
@@ -2403,7 +2406,7 @@ msgstr ""
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Takip eden dosya sistemleri üzerinde daha fazla boş alana ihtiyacınız var:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
@@ -2594,15 +2597,15 @@ msgstr "Seçili aygıtlar üzerindeki tüm disk bölümlerini kaldır ve öntan�
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr ""
+msgstr "Seçili sürücüler üzerindeki Linux disk bölümlerini kaldır ve öntanımlı yerleşimi oluştur."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Seçili sürücüler üzerindeki boş alanı kullan ve öntanımlı yerleşimi oluştur."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Özel yerleşim oluştur."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2898,7 +2901,7 @@ msgstr "Veri hataya yol açtı"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
+msgstr "Ip adresi girilmedi, iSCSI kurulumu atlanıyor"
 
 #: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
 #, python-format
@@ -4630,7 +4633,7 @@ msgstr "Hedef IP adresi:"
 
 #: ../textw/iscsi_text.py:42
 msgid "Port Number:"
-msgstr ""
+msgstr "Port Numarası:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
@@ -4993,7 +4996,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1365
 msgid "New Partition or Logical Volume?"
-msgstr ""
+msgstr "Yeni Dik Bölümü ya da Mantıksal Hacim?"
 
 #: ../textw/partition_text.py:1366
 msgid "Would you like to create a new partition or a new logical volume?"
@@ -6132,7 +6135,7 @@ msgstr "%s dizini:"
 
 #: ../loader2/nfsinstall.c:52
 msgid "NFS"
-msgstr ""
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6216,11 +6219,11 @@ msgstr "Alınıyor"
 
 #: ../loader2/urls.c:270
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6314,28 +6317,27 @@ msgstr "_Bu kurulum için kullanılacak disk(leri)i seçiniz."
 
 #: tmp/exn.glade.h:1
 msgid "Exception Info"
-msgstr ""
+msgstr "Hata Bilgisi"
 
 #: tmp/exn.glade.h:2
 msgid "_Exception details"
-msgstr ""
+msgstr "_Hata ayrıntıları"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr ""
+msgstr "<b>_Port·Numarası:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_Hedef·IP·Adresi:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "iSCSI configuration"
-msgstr "VNC Yapılandırması"
+msgstr "iSCSI yapılandırması"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6484,7 +6486,6 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Merkezî Zaman - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
@@ -6508,9 +6509,8 @@ msgid "Central Time - most locations"
 msgstr "Merkezî Zaman - çoğu bölgeleri"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Merkezi Zaman - North Dakota - Oliver County"
+msgstr "Merkezi Zaman - North·Dakota·-·Morton·County·(Mandan·bölgesi hariç)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
