@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: anaconda_tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-16 22:06+0300\n"
+"PO-Revision-Date: 2006-07-16 22:34+0300\n"
 "Last-Translator:  <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2532,7 +2532,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:37
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
+msgstr "worldwide port ismi (WWPN) girmediniz veya girilen isim geçersiz"
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
@@ -4643,7 +4643,7 @@ msgstr "Port Numarası:"
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
-msgstr ""
+msgstr "iSCSI Başlatıcı İsim:"
 
 #: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
 msgid "Invalid IP string"
@@ -4980,7 +4980,7 @@ msgstr "Oylum Grubu BulunamadıLVM Oylum Grupları"
 
 #: ../textw/partition_text.py:1176
 msgid "No volume groups in which to create a logical volume"
-msgstr ""
+msgstr "içinde sanal vlolume oluşturulacak volume grubu yok"
 
 #: ../textw/partition_text.py:1292
 #, python-format
@@ -5934,7 +5934,9 @@ msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
-msgstr ""
+msgstr "Test edilen imaj hatalar içeriyor. Bu bozulmuş bir indirme veya kötü diskten kaynaklanıyor"
+"olabilir. Eğer uygunsa diski temizleyip tekrar deneyiniz. Eğer test tekrar başarısız olursa"
+"kuruluma devam etmemelisiniz."
 
 #: ../loader2/mediacheck.c:408
 msgid "PASSED"
@@ -6354,7 +6356,8 @@ msgstr "Daha sonra _kişiselleştir"
 msgid ""
 "Further customization of the software selection can be completed now or "
 "after install via the software management application."
-msgstr ""
+msgstr "Yazılım seçimini daha fazla kişiselleştirme işlemi şimdi yapılabilir veya kurulum sonrası"
+"yazılım yönetim uygulaması ile de yapılabilir."
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
