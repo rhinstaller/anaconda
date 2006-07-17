@@ -21,6 +21,7 @@
 import sys
 import string
 import block
+block.setBdevidPath('/lib/bdevid/:/usr/lib/bdevid/:/mnt/source/RHupdates/bdevid/')
 import partedUtils
 import raid
 from flags import flags
@@ -46,47 +47,53 @@ class DmDriveCache:
     def __init__(self):
         self.cache = {}
 
-    def add(self, rs):
-        isys.cachedDrives["mapper/" + rs.name] = rs
-        log.debug("adding %s to isys cache" % ("mapper/" + rs.name,))
-        for m in rs.members:
-            if isinstance(m, block.RaidDev):
-                disk = m.rd.device.path.split('/')[-1]
-                if isys.cachedDrives.has_key(disk):
-                    self.cache.setdefault(rs.name, {})
-                    self.cache[rs.name][rs.name] = rs
-                    log.debug("adding %s to dmraid cache" % (disk,))
-                    self.cache[rs.name][disk] = isys.cachedDrives[disk]
-                    log.debug("removing %s from isys cache" % (disk,))
-                    del isys.cachedDrives[disk]
+    def _addMapDevs(self, name, devs, obj):
+        isys.cachedDrives["mapper/" + name] = obj
+        log.debug("adding %s to isys cache" % ("mapper/" + name,))
+        for dev in devs:
+            disk = dev.split('/')[-1]
+            if isys.cachedDrives.has_key(disk):
+                self.cache.setdefault(name, {})
+                self.cache[name][name] = obj
+                log.debug("adding %s to dm cache" % (disk,))
+                self.cache[name][disk] = isys.cachedDrives[disk]
+                log.debug("removing %s from isys cache" % (disk,))
+                del isys.cachedDrives[disk]
+
+    def add(self, obj):
+        if isinstance(obj, block.MultiPath):
+            return self._addMapDevs(obj.name, obj.bdevs, obj)
+        else:
+            members = []
+            for m in obj.members:
+                if isinstance(m, block.RaidDev):
+                    members.append(m.rd.device.path)
+            return self._addMapDevs(obj.name, members, obj)
 
     def remove(self, name):
         if isys.cachedDrives.has_key(name):
-            rs = isys.cachedDrives[name]
+            obj = isys.cachedDrives[name]
             log.debug("removing %s from isys cache" % (name,))
             del isys.cachedDrives[name]
-            if self.cache.has_key(rs.name):
-                del self.cache[rs.name][rs.name]
-                for k,v in self.cache[rs.name].items():
+            if self.cache.has_key(obj.name):
+                del self.cache[obj.name][obj.name]
+                for k,v in self.cache[obj.name].items():
                     log.debug("adding %s from to isys cache" % (name,))
                     isys.cachedDrives[k] = v
-                log.debug("removing %s from dmraid cache" % (rs,))
-                del self.cache[rs.name]
+                log.debug("removing %s from dm cache" % (obj,))
+                del self.cache[obj.name]
 
-    def rename(self, rs, newname):
-        oldname = 'mapper/' + rs.name
+    def rename(self, obj, newname):
+        oldname = 'mapper/' + obj.name
         if isys.cachedDrives.has_key(oldname):
-            dmNameUpdates[rs.name] = newname
+            dmNameUpdates[obj.name] = newname
             self.remove(oldname)
             # XXX why doesn't setting the property work?
-            rs.set_name(newname)
-            self.add(rs)
+            obj.set_name(newname)
+            self.add(obj)
 
     def __contains__(self, name):
-        for k in self.cache.keys():
-            if k.name == name:
-                return True
-        return False
+        return self.cache.has_key(name)
 
 cacheDrives = DmDriveCache()
 
@@ -213,3 +220,71 @@ def lookup_raid_device(dmname):
         if dmname == rs.name:
             return (rs.name, devices, level, totalDisks)
     raise KeyError, "dm device not found"
+
+def scanForMPath(drives):
+    log.debug("scanning for multipath on drives %s" % (drives,))
+    MPaths = []
+    n = 0
+    Devices = {}
+
+    probeDrives = []
+    for d in drives:
+        dp = "/dev/" + d
+        isys.makeDevInode(d, dp)
+        probeDrives.append(dp)
+        dp = "/tmp/" + d
+        isys.makeDevInode(d, dp)
+
+    mpaths = block.getMPaths(probeDrives)
+    log.debug("mpaths: %s" % (mpaths,))
+
+    def updateName(mp):
+        if dmNameUpdates.has_key(mp.name):
+            mp.set_name(dmNameUpdates[mp.name])
+        cacheDrives.add(mp)
+        return mp
+
+    return reduce(lambda x,y: x + [updateName(y),], mpaths, [])
+
+def renameMPath(mpath, name):
+    cacheDrives.rename(rs, name)
+
+def startMPath(mpath):
+    if flags.mpath == 0:
+        return
+    mpath.prefix = '/dev/mapper/'
+    log.debug("starting mpath %s with mknod=True" % (mpath,))
+    mpath.activate(mknod=True)
+
+def startAllMPaths(driveList):
+    """Start all of the MPaths of the specified drives."""
+
+    if not flags.mpath:
+        return []
+    log.debug("starting all mpaths on drives %s" % (driveList,))
+
+    mpList = scanForMPath(driveList)
+    for mp in mpList:
+        startMPath(mp)
+    return mpList
+
+def stopMPath(mp):
+    if flags.mpath == 0:
+        return
+    log.debug("stopping mpath %s" % (mp,))
+    name = "mapper/" + mp.name
+    if name in cacheDrives:
+        cacheDrives.remove(name)
+
+        mp.deactivate()
+        #block.removeDeviceMap(map)
+
+def stopAllMPaths(mpList):
+    """Do a mpath stop on each of the mpath device tuples given."""
+
+    if not flags.mpath:
+        return
+    log.debug("stopping all mpaths")
+    for mp in mpList:
+        stopMPath(mp)
+
