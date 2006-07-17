@@ -15,6 +15,10 @@ CFLAGS += $(shell pkg-config --cflags glib-2.0)
 DHCP   = $(shell pkg-config --libs libdhcp)
 CFLAGS += $(shell pkg-config --cflags libdhcp)
 
+# nash library flags
+NASH	= $(shell pkg-config --libs libnash)
+CFLAGS += $(shell pkg-config --cflags libnash)
+
 SLANGLIB = -lslang
 NEWTLIB = -lnewt
 ISYSLIB = ../isys/libisys.a
@@ -112,7 +116,7 @@ loader-net.o: loader.c
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) $(NSSFLAGS) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
-	-lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB) $(DHCP) -lm
+	-lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB) $(DHCP) $(NASH) -lm
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

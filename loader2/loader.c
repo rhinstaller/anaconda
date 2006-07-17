@@ -36,6 +36,8 @@
 #include <syslog.h>
 #include <unistd.h>
 
+#include <nash.h>
+
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -1186,7 +1188,7 @@ static void loaderSegvHandler(int signum) {
     size_t i, j;
     const char const * const errmsg = "loader received SIGSEGV!  Backtrace:\n";
 
-    signal(SIGSEGV, SIG_DFL); /* back to default */
+    signal(signum, SIG_DFL); /* back to default */
 
     newtFinished();
     size = backtrace (array, 10);
@@ -1221,8 +1223,26 @@ static int anaconda_trace_init(void) {
 
     /* set up signal handler */
     signal(SIGSEGV, loaderSegvHandler);
+    signal(SIGABRT, loaderSegvHandler);
 
     return 0;
+}
+
+int nashHotplugLogger(nashContext *nc, const nash_log_level level,
+        const char *fmt, va_list ap) {
+    FILE *f = fopen("/tmp/hotplug.log", "a+");
+    int ret;
+    va_list apc;
+
+    ret = fprintf(f ? f : stderr, "<%d> ", level);
+    va_copy(apc, ap);
+    if (ret > 0)
+        ret = vfprintf(f ? f : stderr, fmt, apc);
+    va_end(apc);
+
+    if (f)
+        fclose(f);
+    return ret;
 }
 
 int main(int argc, char ** argv) {
@@ -1263,6 +1283,7 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
+    nashContext *nc = nashNewContext();
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
@@ -1273,6 +1294,9 @@ int main(int argc, char ** argv) {
         return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return ourRmmodCommand(argc, argv);
+
+    nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
+    nashSetLogger(nc, nashHotplugLogger);
 
     /* now we parse command line options */
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
@@ -1299,6 +1323,7 @@ int main(int argc, char ** argv) {
     fprintf(f, "%d\n", getpid());
     fclose(f);
 
+    nashHotplugInit(nc);
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
@@ -1344,6 +1369,7 @@ int main(int argc, char ** argv) {
     if (readModuleInfo(arg, modInfo, NULL, 0)) {
         fprintf(stderr, "failed to read %s\n", arg);
         sleep(5);
+        nashHotplugKill(nc);
         exit(1);
     }
     mlReadLoadedList(&modLoaded);
@@ -1520,10 +1546,16 @@ int main(int argc, char ** argv) {
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
                            LIBPATH), 1);
+        nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware:/mnt/source/RHupdates/firmware/");
+        nashHotplugKill(nc);
+        nashHotplugInit(nc);
     } else {
         setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
         setenv("LD_LIBRARY_PATH", 
                sdupprintf("/tmp/updates:/tmp/product:%s", LIBPATH), 1);
+        nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
+        nashHotplugKill(nc);
+        nashHotplugInit(nc);
     }
 
     if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
@@ -1697,6 +1729,7 @@ int main(int argc, char ** argv) {
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
         }
+        nashHotplugKill(nc);
         kill(pid, SIGUSR1);
         return rc;
 #else

@@ -1,3 +1,11 @@
+2006-07-17  Peter Jones  <pjones@redhat.com>
+
+	* loader2/loader.c: use nash's hotplug handler
+	
+	* loader2/Makefile: link against libnash
+
+	* anaconda.spec: add mkinitrd-devel buildprereq
+
 2006-07-17  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
