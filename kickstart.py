@@ -316,6 +316,32 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         self.skipSteps.append("network")
 
+    def doMultiPath(self, id, args):
+        KickstartHandlers.doMPath(self, args)
+
+        from partedUtils import DiskSet
+        ds = DiskSet()
+        ds.startMPath()
+
+        mpath = self.ksdata.mpaths[-1]
+        log.debug("Searching for mpath '%s'" % (mpath.name,))
+        for mp in DiskSet.mpList or []:
+            it = True
+            for dev in mpath.devices:
+                dev = dev.split('/')[-1]
+                log.debug("mpath '%s' has members %s" % (mp.name, list(mp.members)))
+                if not dev in mp.members:
+                    log.debug("mpath '%s' does not have device %s, skipping" \
+                        % (mp.name, dev))
+                    it = False
+            if it:
+                log.debug("found mpath '%s', changing name to %s" \
+                    % (mp.name, mpath.name))
+                newname = mpath.name
+                ds.renameMPath(mp, newname)
+                return
+        ds.startMPath()
+
     def doDmRaid(self, id, args):
         KickstartHandlers.doDmRaid(self, args)
 
@@ -801,6 +827,7 @@ class Kickstart(BaseInstallClass):
         # make sure our disks are alive
         from partedUtils import DiskSet
         ds = DiskSet()
+        ds.startMPath()
         ds.startDmRaid()
 
         # parse the %pre

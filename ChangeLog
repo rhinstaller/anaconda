@@ -3,6 +3,8 @@
 	* dmraid.py: multipath functions analogous to those for dmraid.  Also
 	make DmDriveCache more generic.
 
+	* kickstart.py: add doMultiPath handler
+
 2006-07-17  Chris Lumens  <clumens@redhat.com>
 
 	* iutil.py (execWithRedirect):  Move path check into preexec_fn so
