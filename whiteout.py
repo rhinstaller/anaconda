@@ -71,7 +71,6 @@ whiteout="""
         info>ncurses \
         aspell>aspell-en \
         dbus>dbus-glib \
-        openjade>docbook-dtds \
         xemacs>xemacs-sumo \
         ncurses>gpm \
         cyrus-sasl>openldap \
