@@ -226,10 +226,6 @@ class PartitionTypeWindow(InstallWindow):
         self.review = not self.dispatch.stepInSkipList("partition")
         self.xml.get_widget("reviewButton").set_active(self.review)
 
-        # FIXME: while iscsi is broken in the kernel...
-        if not flags.iscsi:
-            self.xml.get_widget("addButton").hide()
-
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }
         self.xml.signal_autoconnect(sigs)
