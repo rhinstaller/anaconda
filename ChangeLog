@@ -1,3 +1,8 @@
+2006-07-17  Chris Lumens  <clumens@redhat.com>
+
+	* iutil.py (execWithRedirect):  Move path check into preexec_fn so
+	absolute symlinks to things that don't exist in the stage2 image work.
+
 2006-07-17  Paul Nasrat  <pnasrat@redhat.com>
 
 	* whiteout.py: drop openjade>docbook-dtds  (#196733)

@@ -28,8 +28,8 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     def chroot ():
         os.chroot(root)
 
-    if not searchPath and not os.access (root + command, os.X_OK):
-	raise RuntimeError, command + " can not be run"
+        if not searchPath and not os.access (command, os.X_OK):
+            raise RuntimeError, command + " can not be run"
 
     if type(stdin) == type("string"):
         stdin = open(stdin)
