@@ -4,6 +4,7 @@
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.po to
+# translation of fr.po to
 # translation of fr.po to French
 # Copyright (C) 2001 Red Hat, Inc.
 #  <>, 2006.
@@ -21,7 +22,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-12 12:14+1000\n"
+"PO-Revision-Date: 2006-07-17 20:42+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +93,7 @@ msgid ""
 "mode."
 msgstr ""
 "Vous n'avez pas assez de mémoire vive pour utiliser le programme "
-"d'installation graphique. Démarrage du mode texte en cours."
+"d'installation graphique. Démarrage en mode texte."
 
 #: ../anaconda:473
 msgid "No video hardware found, assuming headless"
@@ -112,7 +113,7 @@ msgstr "Méthode d'installation forçant une installation en mode texte"
 
 #: ../anaconda:784
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Installation graphique non disponible... Démarrage du mode texte."
+msgstr "Installation graphique non disponible... Démarrage en mode texte."
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -145,11 +146,11 @@ msgstr "Impossible d'allouer les partitions comme partitions primaires"
 
 #: ../autopart.py:974
 msgid "Could not allocate cylinder-based partitions"
-msgstr "Impossible d'allouer les partitions basées sur cylindre."
+msgstr "Impossible d'allouer les partitions basées sur cylindre"
 
 #: ../autopart.py:977
 msgid "Could not allocate partitions"
-msgstr "Impossible d'allouer les partitions."
+msgstr "Impossible d'allouer les partitions"
 
 #: ../autopart.py:1039
 #, python-format
@@ -206,7 +207,7 @@ msgid ""
 "allocated logical volumes in %s."
 msgstr ""
 "Si vous ajoutez cette partition, vous n'aurez plus assez d'espace disque pour "
-"les volumes logiques déjà alloués %s."
+"les volumes logiques déjà alloués dans %s."
 
 #: ../autopart.py:1268
 msgid "Requested Partition Does Not Exist"
