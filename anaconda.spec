@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.57
+Version: 11.1.0.58
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 17 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.58-1
+- Clean up noipv4/noipv6 stuff stuff (clumens)
+- Fix exception handling for test mode 
+- Lots of iscsi changes
+- Create mount points for protected partitions (clumens)
+- Add multipath kernel modules (pjones)
+- Add dhcp libs needed by isys to stage2
+
 * Thu Jul 13 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.57-1
 - Fix unknown error on shadow file (#196705, clumens)
 - Removed inet_calcGateway (clumens)
