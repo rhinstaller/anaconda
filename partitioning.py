@@ -32,11 +32,17 @@ def partitionObjectsInitialize(anaconda):
         isys.flushDriveDict()
         return
 
+    # shut down all dm devices
+    anaconda.id.diskset.stopAllRaid(stopDmRaid=True, stopMPath=True)
+
     # clean slate about drives
     isys.flushDriveDict()
 
     # ensure iscsi devs are up
     anaconda.id.iscsi.startup(anaconda.intf)
+
+    # start mpath and dmraid devices
+    anaconda.id.diskset.startAllRaid(startMdRaid=False)
 
     # read in drive info
     anaconda.id.diskset.refreshDevices(anaconda.intf, anaconda.id.partitions.reinitializeDisks,

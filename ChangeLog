@@ -8,6 +8,10 @@
 	* partedUtils.py: add start/stop/renameMPath.  Tidy up the loging of
 	when mpath and dmraid are started and stopped.
 
+	* partitioning.py (Anaconda.partitionObjectsInitialize):
+	stop dm devices before we reinitialize the disk subsystem, and then
+	restart them afterwards.
+
 2006-07-17  Chris Lumens  <clumens@redhat.com>
 
 	* iutil.py (execWithRedirect):  Move path check into preexec_fn so
