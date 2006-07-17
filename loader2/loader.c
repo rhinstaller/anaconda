@@ -1520,7 +1520,7 @@ int main(int argc, char ** argv) {
     else if (FL_UPDATES(flags))
         loadUpdates();
 
-    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:fat:msdos:jbd:ext3:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot", modLoaded, modDeps, modInfo);
+    mlLoadModuleSet("md:raid0:raid1:raid5:raid6:fat:msdos:jbd:ext3:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc", modLoaded, modDeps, modInfo);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo);
 

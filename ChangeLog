@@ -14,6 +14,8 @@
 
 	* partitions.py (Partitions): start and stop ppaths appropriately.
 
+	* loader.c (main): add multipath kernel modules to our module list
+
 2006-07-17  Chris Lumens  <clumens@redhat.com>
 
 	* iutil.py (execWithRedirect):  Move path check into preexec_fn so
