@@ -86,8 +86,8 @@ class Partitions:
         """Clear the delete list and set self.requests to reflect disk."""
         self.deletes = []
         self.requests = []
+        diskset.startMPath()
         diskset.startDmRaid()
-        diskset.refreshDevices()
         labels = diskset.getLabels()
         drives = diskset.disks.keys()
         drives.sort()
@@ -252,9 +252,7 @@ class Partitions:
             
         lvm.vgdeactivate()
 
-        diskset.stopAllRaid(stopDmRaid=False)
-            
-        
+        diskset.stopAllRaid(stopDmRaid=False, stopMPath=False)
 
     def addRequest (self, request):
         """Add a new request to the list."""
@@ -297,7 +295,7 @@ class Partitions:
 		if tmp == device:
 		    return request
 	    elif request.device == device:
-                return request
+                    return request
         return None
 
 
@@ -1344,7 +1342,7 @@ class Partitions:
                     delete.setDeleted(1)
 
         lvm.vgdeactivate()
-        diskset.stopAllRaid(stopDmRaid=False)
+        diskset.stopAllRaid(stopDmRaid=False, stopMPath=False)
 
 
     def deleteDependentRequests(self, request):
