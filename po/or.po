@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-05 17:21+0530\n"
+"PO-Revision-Date: 2006-07-17 11:08+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -153,28 +153,28 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "%s ବୁଟ୍ ବିଭାଜନ ଟି କୌଣସି ଡିସ୍କ୍ ର ଅନ୍ତର୍ଭୂକ୍ତ ନୁହଁ ଯାହାର ଆରମ୍ଭ ରେ ବୁଟ୍ଧାରଣ ର ସାଧନ ପାଇଁ ଯଥେଷ୍ଟଖାଲି "
-"ସ୍ଥାନ ଅଛି | ଆପଣ ଏହା ନିଶ୍ଚିତ ହୁଅନ୍ତୁ ଯେ  ଡିସ୍କ୍ ର ଆରମ୍ଭ ରେ ଅତି କମ ରେ ୫MB ଖାଲି ସ୍ଥାନ ଅଛି "
-"ଯାହାକି /bootକୁ ଧାରଣ କରିଛି"
+"ସ୍ଥାନ ଅଛି। ଆପଣ ଏହା ନିଶ୍ଚିତ ହୁଅନ୍ତୁ ଯେ  ଡିସ୍କ୍ ର ଆରମ୍ଭ ରେ ଅତି କମ ରେ ୫MB ଖାଲି ସ୍ଥାନ ଅଛି "
+"ଯାହାକି /bootକୁ ଧାରଣ କରିଛି।"
 
 #: ../autopart.py:1043
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଗୋଟିଏ VFAT ବିଭାଜନ ନୁହେଁ | ଏହି ବିଭାଜନ ରୁ EFI ବୁଟ କରି ପାରିବ ନାହିଁ"
+msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଗୋଟିଏ VFAT ବିଭାଜନ ନୁହେଁ। ଏହି ବିଭାଜନ ରୁ EFI ବୁଟ କରି ପାରିବ ନାହିଁ।"
 
 #: ../autopart.py:1045
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
-"ବୁଟ୍ ବିଭାଜନ ଟି ପୂର୍ବ ରୁ ଡିସ୍କ୍ ରେ ଯଥେଷ୍ଟ ଭାବ ରେ ଅବସ୍ଥିତ ଅଛି | OpenFirmware ଏହି ସ୍ଥାପନ କୁବୁଟ କରି "
-"ପାରିବ ନାହିଁ"
+"ବୁଟ୍ ବିଭାଜନ ଟି ପୂର୍ବରୁ ଡିସ୍କ୍ରେ ଯଥେଷ୍ଟ ଭାବରେ ଅବସ୍ଥିତ ଅଛି। OpenFirmware ଏହି ସ୍ଥାପନକୁ ବୁଟ କରି "
+"ପାରିବ ନାହିଁ।"
 
 #: ../autopart.py:1052
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଆପଣଙ୍କ ର ଆର୍କିଟେକ୍ଚର ପାଇଁ ବୁଟିଙ୍ଗ ର ସ୍ଥିର ମୂଲ୍ଯ କୁ ପାଇ ନପାରେ"
+msgstr "%s ବୁଟ୍ ବିଭାଜନ ଟି ଆପଣଙ୍କର ଆର୍କିଟେକ୍ଚର ପାଇଁ ବୁଟିଙ୍ଗର ସ୍ଥିର ମୂଲ୍ଯ କୁ ପାଇ ନପାରେ।"
 
 #: ../autopart.py:1078
 #, python-format
@@ -182,8 +182,8 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-"ଏହି ବିଭାଜନ କୁ ସଂଯୋଗ କଲେ ଏହା %s ରେ ପୂର୍ବରୁ ବଣ୍ଟାଯାଇ ଥିବା ତାର୍କ୍କିକ ପ୍ରବଳତା ପାଇଁ ଯଥେଷ୍ଟଡିସ୍କ୍ "
-"ସ୍ଥାନ ଛାଡିବ ନାହିଁ"
+"ଏହି ବିଭାଜନକୁ ସଂଯୋଗ କଲେ ଏହା %s ରେ ପୂର୍ବରୁ ବଣ୍ଟାଯାଇ ଥିବା ତାର୍କ୍କିକ ପ୍ରବଳତା ପାଇଁ ଯଥେଷ୍ଟଡିସ୍କ୍ "
+"ସ୍ଥାନ ଛାଡିବ ନାହିଁ।"
 
 #: ../autopart.py:1268
 msgid "Requested Partition Does Not Exist"
@@ -317,7 +317,7 @@ msgstr ""
 "\n"
 "ଆପଣ ଅନ୍ଯ କୌଣସି ସ୍ବୟଂଚାଳିତ ବିଭାଜନ ପସନ୍ଦ କୁ ଚୟନ କରି ପାରନ୍ତି, କିମ୍ବା 'ଫଛ' କୁ ଦବାନ୍ତୁ \n"
 "\n"
-"ଆଗକୁ ଯିବା ପାଇଁ 'OK' ଦବାନ୍ତୁ"
+"ଆଗକୁ ଯିବା ପାଇଁ 'ଠିକ ଅଛି'କୁ ଦବାନ୍ତୁ"
 
 #: ../autopart.py:1530
 #, python-format
@@ -364,12 +364,20 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
+"ସ୍ବତଃ ବିଭାଜନ ଚୟିତ ସ୍ଥାପନ ପ୍ରକାର ଉପରେ ଆଧାରିତ ବିଭାଜନ ମାନଙ୍କୁ ବ୍ଯବସ୍ଥାପିତ କରିଥାଏ।"
+" ଥରେ ନିର୍ମିତ ହୋଇଗଲେ ଆପଣ ମଧ୍ଯ ବିଭାଦନ ମାନଙ୍କୁ ଇଚ୍ଛାରୂପଣ କରିପାରିବେ।\n"
+"\n"
+"ମେନ୍ଯୁଆଲ ଡିସ୍କ ବିଭାଜନୀୟ ଉପକରଣ, ଡିସ୍କ ଡ୍ରୁଇଡ, ଆପଣଙ୍କୁ ପାରସ୍ପରିକ କ୍ରିୟାତ୍ମକ ବିଭାଜନ "
+"ସ୍ରୁଷ୍ଟି କରିବା ପାଇଁ ଅନୁମତି ପ୍ରଦାନ କରିଥାଏ। ଆପଣ ଫାଇଲ ତନ୍ତ୍ରର ପ୍ରକାର, ଆରୋହଣ ବିନ୍ଦୁ, "
+"ବିଭାଜନ ଆକାର, ଏବଂ ଆହୁରି ଅଧିକ ସାଧନ ମାନଙ୍କୁ ସେଟ କରିପାରିବେ।"
 
 #: ../autopart.py:1706
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
+"ସ୍ଥାପନ କାର୍ଯ୍ଯକ୍ରମ ଦ୍ବାରା ସ୍ବତଃ ବିଭାଜନ ବ୍ଯବସ୍ଥାପିତ ହେବା ପୂର୍ବରୁ, ଆପଣଙ୍କ ହାର୍ଡ-ଡ୍ରାଇଭରେ ଥିବା"
+"ସ୍ଥାନକୁ ବ୍ଯବହାର କରିବାର ଉପାୟକୁ ଆପଣ ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../autopart.py:1711
 msgid "Remove all partitions on this system"
@@ -390,6 +398,9 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"ଆପଣ ନିମ୍ନଲିଖିତ ଡ୍ରାଇଭ ମାନଙ୍କରୁ ସମସ୍ତ ବିଭାଜନ (ସମସ୍ତ ତଥ୍ଯ) ମାନଙ୍କୁ ଅପସାରିତ କରିବାର ସିଦ୍ଧାନ୍ତ ନେଇଛନ୍ତି:%"
+"s\n"
+"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏପରି କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../autopart.py:1719
 #, python-format
@@ -398,6 +409,9 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"ଆପଣ ନିମ୍ନଲିଖିତ ଡ୍ରାଇଭ ମାନଙ୍କରୁ ସମସ୍ତ Linux ବିଭାଜନ (ଏବଂ ସେମାନଙ୍କ ମଧ୍ଯରେ ଥିବା ସମସ୍ତ ତଥ୍ଯ) ମାନଙ୍କୁ "
+"ଅପସାରିତ କରିବାର ସିଦ୍ଧାନ୍ତ ନେଇଛନ୍ତି:%s\n"
+"ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏପରି କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../backend.py:97
 #, python-format
@@ -458,6 +472,8 @@ msgid ""
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
+"ଗୋଟିଏ ଅନିୟନ୍ତ୍ରିତ ଅପବାଦ ଘଟିତ ହେଲା। ଏହା ସମ୍ଭବତଃ ଗୋଟିଏ ତ୍ରୁଟି ଅଟେ। ଦୟାକରି ବିସ୍ତ୍ରୁତ ବ୍ଯତିକ୍ରମର ଗୋଟିଏ ନକଲକୁ "
+"ସଂରକ୍ଷଣ କରନ୍ତୁ ଏବଂ %sରେ ଗୋଟିଏ ତ୍ରୁଟି ବିବରଣୀ ଦାଖଲ କରନ୍ତୁ।"
 
 #: ../exception.py:391 ../exception.py:408
 msgid "Dump Written"
@@ -468,6 +484,7 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
 
 #: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
 #: ../gui.py:977 ../harddrive.py:70 ../image.py:93 ../image.py:427
@@ -539,6 +556,10 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"%sକୁ ext3ରେ ଉତ୍ପ୍ରବାସନ କରିବା ସମୟରେ ତ୍ରୁଟି। ଅଭିଳାଷା ମୁତାବକ ଉତ୍ପ୍ରବାସନ ବିନାଏହି ଫାଇଲ ତନ୍ତ୍ରକୁ "
+"ଜାରି ରଖିବା ସମ୍ଭାବ୍ଯ।\n"
+"\n"
+"ଆପଣ %sକୁ ଉତ୍ପ୍ରବାସିତ ନକରି ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../fsset.py:1346
 msgid "RAID Device"
@@ -568,6 +589,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%sରେ ସ୍ବାପକୁ ପ୍ରାରମ୍ଭିକୀକରଣ କରିବା ପାଇଁ ପ୍ରଚେଷ୍ଟା କରୁଥିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଏହି ସମସ୍ଯାଟି ଗମ୍ଭୀର ଅଟେ, "
+"ଏବଂ ଏଥିପାଇଁ ସ୍ଥାପନ କାର୍ଯ୍ଯକ୍ରମ ଆଗକୁ ବଢିପାରିବ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
@@ -590,6 +615,13 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"ଅଦଳ ବଦଳ ଯନ୍ତ୍ର:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"0 Linux ଅଦଳ ବଦଳ ବିଭାଜନର ଗୋଟିଏ ସଂସ୍କରଣ ଅଟେ। ଯଦି ଆପଣ ଏହି ଯନ୍ତ୍ରକୁ ବ୍ଯବହାର କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି, ଆପଣ "
+"ଏହାକୁ 1 Linux ଅଦଳ ବଦଳ ବିଭାଜନ ଭାବରେ ପୁନଃ ସଂରୂପିତ କରିବା ଉଚିତ। ଆପଣ ଯଦି ଏହାକୁ ଏଡାଇ ଦେବେ, ସ୍ଥାପକ "
+"ଏହାକୁ ସ୍ଥାପନ ସମୟରେ ଆଗ୍ରହ୍ଯ କରିବେବ।"
 
 #: ../fsset.py:1496
 msgid "Reformat"
@@ -606,6 +638,13 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"ଅଦଳ ବଦଳ ଯନ୍ତ୍ର:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"ଆପଣଙ୍କର /etc/fstab ଫାଇଲଟି ବର୍ତମାନ ଗୋଟିଏ ସଫଟଓ୍ବେର ସ୍ଥଗିତ ବିଭାଜନ ଭାବରେ ବ୍ଯବହ୍ରୁତ ହେଉଛି, "
+"ଯାହାର ଅର୍ଥ ଆପଣଙ୍କର ତନ୍ତ୍ରଟି ସୁପ୍ତାବସ୍ଥାରେ ଅଛି। ଗୋଟିଏ ଉନ୍ନୟନ ପ୍ରକ୍ରିୟା ସମ୍ପାଦନ କରିବା ପାଇଁ, ଦୟାକରି ଆପଣଙ୍କ "
+"ତନ୍ତ୍ରକୁ ନିଭ୍ରୁତ କରିବା ପରିବର୍ତ୍ତେ ତାହାକୁ ବନ୍ଦ କରନ୍ତୁ।"
 
 #: ../fsset.py:1508
 #, python-format
@@ -618,6 +657,13 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"ଅଦଳ ବଦଳ ଯନ୍ତ୍ର:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"ଆପଣଙ୍କର /etc/fstab ଫାଇଲଟି ବର୍ତମାନ ଗୋଟିଏ ସଫଟଓ୍ବେର ସ୍ଥଗିତ ବିଭାଜନ ଭାବରେ ବ୍ଯବହ୍ରୁତ ହେଉଛି, "
+"ଯାହାର ଅର୍ଥ ଆପଣଙ୍କର ତନ୍ତ୍ରଟି ସୁପ୍ତାବସ୍ଥାରେ ଅଛି। ଯଦି ଆପଣ ଗୋଟିଏ ନୂତନ ସ୍ଥାପନ ସମ୍ପାଦନ କରୁଛନ୍ତି, "
+"ଏହା ନିଶ୍ଚିତ ହୁଅନ୍ତୁଯେ ସ୍ଥାପକକୁ ସମସ୍ତ ସ୍ବାପ ବିଭାଜନ ମାନଙ୍କୁ ସଂରୂପିତ କରିବା ପାଇଁ ସେଟ କରାଯାଇଛି।"
 
 #: ../fsset.py:1518
 msgid ""
@@ -627,6 +673,10 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"ଉନ୍ନୟନ ସମୟରେ ଯଦି ସ୍ଥାପକଟି ଏହି ବିଭାଜନକୁ ଏଡାଇବାକୁ ଚାହୁଁଥାଏ ତାହାହେଲେ ଆଗ୍ରହ୍ଯକୁ ଚୟନ କରନ୍ତୁ। ଅଦଳ ବଦଳ ସ୍ଥାନ "
+"ଭାବରେ ଏହି ବିଭାଜନକୁ ସଂରୂପିତ କରିବା ପାଇଁ ସଂରୂପଣକୁ ଚୟନ କରନ୍ତୁ। ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନଃ ପ୍ରାରମ୍ଭ କରିବା ପାଇଁ ପୁନର୍ଚାଳନ କରନ୍ତୁ।"
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -642,6 +692,13 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"%s ସ୍ବାପ ଯନ୍ତ୍ରକୁ ସକ୍ରିୟ କରିବା ସମୟରେ ତ୍ରୁଟି: %s\n"
+"\n"
+"ଆପଣଙ୍କ ଉନ୍ନତ ବିଭାଜନରେ /etc/fstabଟି ଗୋଟିଏ ବୈଧ ସ୍ବାପ ବିଭାଜନକୁ "
+"ସଙ୍କେତ କରୁନାହିଁ।\n"
+"\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1542
 #, python-format
@@ -652,6 +709,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"%s ସ୍ବାପ ଯନ୍ତ୍ରକୁ ସକ୍ରିୟ କରିବା ସମୟରେ ତ୍ରୁଟି: %s\n"
+"\n"
+"ସମ୍ଭବତଃ ଏହି ସ୍ବାପ ବିଭାଜନଟି ଏ ପର୍ଯ୍ଯନ୍ତ ପ୍ରାରମ୍ଭକ୍ରୁତ ହୋଇନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1595
 #, python-format
@@ -661,6 +723,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
+"/dev/%s ଯନ୍ତ୍ରରେ ଖରାପ ଖଣ୍ଡ ମିଳିଲା। ଆମେ ଆପଣଙ୍କୁ ଏହି ଯନ୍ତ୍ରକୁ ବ୍ଯବହାର କରିବାର ପରାମର୍ଶ "
+"ଦେଉନାହୁଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1606
 #, python-format
@@ -670,6 +736,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%s ଖରାପ ଖଣ୍ଡ ମାନଙ୍କୁ ଖୋଜିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଏହି ସମସ୍ଯାଟି ଗମ୍ଭୀର ଅଟେ, ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା "
+"ଆଗକୁ ବଢି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1641
 #, python-format
@@ -679,6 +749,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%sକୁ ସଂରୂପିତ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଏହି ସମସ୍ଯାଟି ଗମ୍ଭୀର ଅଟେ, ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରାୟା "
+"ଆଗକୁ ବଢି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1691
 #, python-format
@@ -688,6 +762,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%sକୁ ଉତ୍ପ୍ରବାସିତ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଏହି ସମସ୍ଯାଟି ଗମ୍ଭୀର ଅଟେ, ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା "
+"ଆଗକୁ ବଢି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
@@ -701,6 +779,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%sକୁ ସ୍ରୁଷ୍ଟି କରିବାର ପ୍ରଚେଷ୍ଟା କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଏହି ପଥରେ ଥିବା କିଛି ବସ୍ତୁ ଗୋଟିଏ ଡିରେକ୍ଟୋରି "
+"ନୁହେଁ। ଏହା ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ଅଟେ ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଆଗକୁ ବଢି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1722
 #, python-format
@@ -710,6 +792,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"%sକୁ ସ୍ରୁଷ୍ଟି କରିବାର ପ୍ରଚେଷ୍ଟା କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା: %s। ଏହା ଗୋଟିଏ ମାରାତ୍ମକ "
+"ତ୍ରୁଟି ଅଟେ ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଆଗକୁ ବଢି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ <Enter> ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1735
 #, python-format
@@ -720,6 +806,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"%s ଯନ୍ତ୍ରକୁ %s ଭାବରେ ଆରୋହିଣ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା: %s\n"
+"\n"
+"ସମ୍ଭବତଃ ଏହାର ଅର୍ଥ ହେଉଛି ଏହି ବିଭାଜନଟି ସଂରୂପିତ ହୋଇନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:1754
 msgid ""
@@ -729,6 +820,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"/ ପ୍ରବିଷ୍ଟିକୁ ପାଇବା ସମୟରେ ତ୍ରୁଟି।\n"
+"\n"
+"ସମ୍ଭବତଃ ଏହାର ଅର୍ଥ ହେଉଛି ଆପଣଙ୍କର fstabଟି ଠିକ ନାହିଁ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳିତ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../fsset.py:2419
 msgid "Duplicate Labels"
@@ -742,6 +838,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ଏକାଧିକ ଯନ୍ତ୍ର %s ଭାବରେ ସୂଚୀତ ହୋଇଛନ୍ତି। ଆପଣଙ୍କ ତନ୍ତ୍ରର ସଠିକ ଚାଳନ "
+"ପାଇଁ ଯନ୍ତ୍ର ମାନଙ୍କ ପାଇଁ ବ୍ଯବହ୍ରୁତ ସୂଚକ ଗୁଡିକ ଅନନ୍ଯ ହେବା ଉଚିତ।\n"
+"\n"
+"ଦୟାକରି ଏହି ସମସ୍ଯାକୁ ସମାଧାନ କରନ୍ତୁ ଏବଂ ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପୁନର୍ଚାଳିତ କରନ୍ତୁ।"
 
 #: ../fsset.py:2680
 msgid "Formatting"
@@ -768,6 +868,11 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"ପରଦା ପ୍ରତିଛବି ମାନଙ୍କୁ ଡିରେକ୍ଟୋରିରେ ସଂରକ୍ଷିତ କରାଯାଇଛି:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"ପୁନର୍ଚାଳନ କରି ଏବଂ ପ୍ରମୂଖ ଚାଳକ ଭାବରେ ଲଗଇନ କରି ଆପଣ ଏଗୁଡିକୁ ଅଭିଗମ କରିପାରିବେ।"
 
 #: ../gui.py:167
 msgid "Saving Screenshot"
@@ -787,6 +892,8 @@ msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
+"ପରଦା ପ୍ରତିଛବି ମାନଙ୍କୁ ସଂରକ୍ଷିତ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଯଦି ଏହା ପ୍ଯାକେଜ ସ୍ଥାପନ ସମୟରେ "
+"ଘଟିଥାଏ, ଏହାର ସଫଳତା ପାଇଁ ଆପଣଙ୍କୁ ଏକାଧିକ ଥର ପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ ପଡିବ।"
 
 #: ../gui.py:241 ../text.py:383
 msgid "Fix"
@@ -859,6 +966,9 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
+"ଗୋଟିଏ ସ୍ଥାପକ ଅନ୍ତରାପ୍ରୁଷ୍ଠ ଉପାଦାନକୁ ଧାରଣ କରିବାର ପ୍ରଚେଷ୍ଟା କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା।\n"
+"\n"
+"ଶ୍ରେଣୀନାମ = %s"
 
 #: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
 #: ../yuminstall.py:680
@@ -907,6 +1017,11 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
+"ସ୍ଥାପକଟି #%s ପ୍ରତିଛବିକୁ ଆରୋହଣ କରିବାର ପ୍ରଚେଷ୍ଟା କରିଅଛି, କିନ୍ତୁ ଏହାକୁ ହାର୍ଡ-ଡ୍ରାଇଭରେ "
+"ଖୋଜି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଦୟାକରି ଏହି ପ୍ରତିଛବିକୁ ଡ୍ରାଇଭରେ ନକଲ କରନ୍ତୁ ଏବଂ 'ପୁନଃ ପ୍ରଚେଷ୍ଟା'କୁ ଦବାନ୍ତୁ। ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପରିତ୍ଯାଗ କରିବା ପାଇଁ "
+"'ପୁନର୍ଚାଳନ' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -925,6 +1040,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"ସ୍ଥାପନ ପାଇଁ ଚୟିତ କରାଯାଇଥିବା ସଫଟଓ୍ବେର ନିମ୍ନଲିଖିତ ସି.ଡି. ମାନଙ୍କୁ ଆବଶ୍ଯକ କରିଥାଏ:\n"
+"\n"
+"%s\n"
+"ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ସହିତ ଆଗକୁ ବଢିବା ପୂର୍ବରୁ ଦୟାକରି ଏଗୁଡିକୁ ପ୍ରସ୍ତୁତ ରଖନ୍ତୁ। ଯଦି ଆପଣଙ୍କୁ ଏହି ସ୍ଥାପନ ପରିତ୍ଯାଗ "
+"କରି ପୁନର୍ଚାଳନ କରିବା ପାଇଁ ପଡେ ତାହାହେଲେ ଦୟାକରି \"ପୁନର୍ଚାଳନ\"କୁ ଚୟନ କରନ୍ତୁ।"
 
 #: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
@@ -943,6 +1063,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"ସି.ଡି.କୁ ଅବତୋରଣ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଦୟାକରି ଏହା ନିଶ୍ଚିତ କରନ୍ତୁ ଯେ ଆପଣ %sକୁ ଆବରଣରୁ tty2ରେ"
+"ଅଭିଗମ କରୁ ନାହାଁନ୍ତି ଏବଂ ତାହାପରେ ପୁନଃ ପ୍ରଚେଷ୍ଟା କରିବା ପାଇଁ 'ଠିକ ଅଛି'କୁ ଦବାନ୍ତୁ।"
 
 #: ../image.py:157
 msgid "Copying File"
@@ -957,6 +1079,8 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"ସ୍ଥାପନ ପ୍ରତିଛବିକୁ ସ୍ଥାନାନ୍ତରିତ କରିବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିିଲିଖିତ ହେଲା। ବୋଧହୁଏ ଆପଣଙ୍କ "
+"ନିକଟରେ ଯଥେଷ୍ଟ ଡିସ୍କ ସ୍ଥାନ ନାହିଁ।"
 
 #: ../image.py:255
 msgid "Change CDROM"
@@ -989,6 +1113,11 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
+"ସ୍ଥାପକଟି #%s ପ୍ରତିଛବିକୁ ଆରୋହଣ କରିବାର ପ୍ରଚେଷ୍ଟା କରିଅଛି, କିନ୍ତୁ ଏହାକୁ ସେବକରେ "
+"ଖୋଜି ପାରିବ ନାହିଁ।\n"
+"\n"
+"ଦୟାକରି ଏହି ପ୍ରତିଛବିକୁ ଦୂର ସେବକର ସହଭାଗ ପଥରେ ନକଲ କରନ୍ତୁ ଏବଂ 'ପୁନଃ ପ୍ରଚେଷ୍ଟା'କୁ ଦବାନ୍ତୁ। ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ପରିତ୍ଯାଗ କରିବା ପାଇଁ "
+"'ପୁନର୍ଚାଳନ' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../installclass.py:57
 msgid "Install on System"
@@ -1257,8 +1386,7 @@ msgstr "ଗୋଟିଏ LDL ସଂରୂପିତ DASDର ଏକ ବିଭାଜ
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ କରିଅଛି"
+msgstr "ଆପଣ ଏହି ବିଭାଜନକୁ ଅପସାରିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ କରିଅଛି"
 
 #: ../partIntfHelpers.py:185
 msgid ""
@@ -1321,8 +1449,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"ଆପଣ ଏହି ବିଭାଜନକୁ ସମ୍ପାଦିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ କରିଅଛି"
+msgstr "ଆପଣ ଏହି ବିଭାଜନକୁ ସମ୍ପାଦିତ କରିପାରିବେ ନାହିଁ, ଯେହେତୁ ଏହା ଗୋଟିଏ ବିସ୍ତାରିତ ବିଭାଜନ ଯାହାକି %sକୁ ଧାରଣ କରିଅଛି"
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
@@ -1395,8 +1522,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"ନିମ୍ନଲିଖିତ ପୂର୍ବ-ଉପସ୍ଥିତ ବିଭାଜନର ସମସ୍ତ ପୂର୍ବ ତଥ୍ଯ ମାନଙ୍କୁ ନଷ୍ଟ କରି ସଂରୂପିତ କରିବା ପାଇଁ ଚୟନ କରାଯାଇଛି"
+msgstr "ନିମ୍ନଲିଖିତ ପୂର୍ବ-ଉପସ୍ଥିତ ବିଭାଜନର ସମସ୍ତ ପୂର୍ବ ତଥ୍ଯ ମାନଙ୍କୁ ନଷ୍ଟ କରି ସଂରୂପିତ କରିବା ପାଇଁ ଚୟନ କରାଯାଇଛି"
 
 #: ../partIntfHelpers.py:456
 msgid ""
