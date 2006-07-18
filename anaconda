@@ -754,6 +754,7 @@ if __name__ == "__main__":
             opts.display_mode = 'g'
 
     if opts.debug:
+        flags.debug = True
         import pdb
         pdb.set_trace()
 
