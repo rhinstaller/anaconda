@@ -1,5 +1,13 @@
 2006-07-17  Peter Jones  <pjones@redhat.com>
 
+	* loader2/log.c: add logMessageV()
+
+	* loader2/log.h: ditto
+
+	* loader2/loader.c (nashHotplugLogger): make this use logMessageV
+
+2006-07-17  Peter Jones  <pjones@redhat.com>
+
 	* dmraid.py: multipath functions analogous to those for dmraid.  Also
 	make DmDriveCache more generic.
 

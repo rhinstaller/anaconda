@@ -61,34 +61,43 @@ static void printLogHeader(int level, FILE *outfile) {
     }
 }
 
-void logMessage(int level, const char * s, ...) {
-    va_list args;
+void logMessageV(int level, const char * s, va_list ap) {
 
     /* Only log to the screen things that are above the minimum level. */
     if (tty_logfile && level >= minLevel) {
-        va_start(args, s);
+        va_list apc;
+
+        va_copy(ap, apc);
 
         printLogHeader(level, tty_logfile);
-        vfprintf(tty_logfile, s, args);
+        vfprintf(tty_logfile, s, apc);
         fprintf(tty_logfile, "\n");
         fflush(tty_logfile);
 
-        va_end(args);
+        va_end(apc);
     }
 
     /* But log everything to the file. */
     if (file_logfile) {
-        va_start(args, s);
+        va_list apc;
+
+        va_copy(ap, apc);
 
         printLogHeader(level, file_logfile);
-        vfprintf(file_logfile, s, args);
+        vfprintf(file_logfile, s, apc);
         fprintf(file_logfile, "\n");
         fflush(file_logfile);
 
-        va_end(args);
+        va_end(apc);
     }
+}
 
-    return;
+void logMessage(int level, const char * s, ...) {
+    va_list args;
+
+    va_start(args, s);
+    logMessageV(level, s, args);
+    va_end(args);
 }
 
 void openLog(int useLocal) {

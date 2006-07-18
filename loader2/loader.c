@@ -1230,19 +1230,29 @@ static int anaconda_trace_init(void) {
 
 int nashHotplugLogger(nashContext *nc, const nash_log_level level,
         const char *fmt, va_list ap) {
-    FILE *f = fopen("/tmp/hotplug.log", "a+");
-    int ret;
+    int loglevel;
     va_list apc;
+    
+    switch (level) {
+        case NASH_DEBUG:
+            loglevel = DEBUGLVL;
+            break;
+        case NASH_WARNING:
+            loglevel = WARNING;
+            break;
+        case NASH_ERROR:
+            loglevel = ERROR;
+            break;
+        default:
+        case NASH_NOTICE:
+            loglevel = INFO;
+            break;
+    }
 
-    ret = fprintf(f ? f : stderr, "<%d> ", level);
-    va_copy(apc, ap);
-    if (ret > 0)
-        ret = vfprintf(f ? f : stderr, fmt, apc);
+    va_copy(ap, apc);
+    logMessageV(loglevel, fmt, apc);
     va_end(apc);
-
-    if (f)
-        fclose(f);
-    return ret;
+    return 0;
 }
 
 int main(int argc, char ** argv) {
