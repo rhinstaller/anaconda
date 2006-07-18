@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.59
+Version: 11.1.0.60
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 18 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.60-1
+- Fix va_copy() argument ordering in logMessageV() in loader
+
 * Tue Jul 18 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.59-1
 - Add rudimentary firmware loading support to the loader (pjones)
 - Drop some whiteout (pnasrat, #196733)
