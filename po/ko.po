@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-06-27 12:12+1000\n"
+"PO-Revision-Date: 2006-07-18 18:06+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "알 수 없는 오류"
 #: ../anaconda:258
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "킥스타트 설정의 두번째 부분을 읽는 도중 오류가 발생했습니다: %s"
+msgstr "킥스타트 설정의 두번째 부분을 읽는 도중 오류가 발생했습니다: %s!"
 
 #: ../anaconda:411
 msgid "Press <enter> for a shell"
@@ -104,7 +104,7 @@ msgstr "그래픽 모드 설치를 사용할 수 없습니다...  텍스트 모�
 
 #: ../anaconda:792
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "DISPLAY 변수가 설정되지 않았습니다. 텍스트모드로 시작합니다!"
+msgstr "DISPLAY 변수가 설정되지 않았습니다. 텍스트 모드로 시작합니다!"
 
 #: ../anaconda:847
 msgid "Unknown install method"
@@ -112,7 +112,7 @@ msgstr "알 수 없는 설치 방식"
 
 #: ../anaconda:848
 msgid "You have specified an install method which isn't supported by anaconda."
-msgstr "anaconda에서 지원하지 않는 설치 방식을 지정하셨습니다."
+msgstr "anaconda에서 지원하지 않는 설치 방식을 지정하습니다."
 
 #: ../anaconda:850
 #, c-format
@@ -172,12 +172,12 @@ msgid ""
 "be able to boot this installation."
 msgstr ""
 "부트 파티션은 디스크 상 유효한 위치 (첫 부분)에 위치하지 않았습니다.  "
-"OpenFirmware는 이 설치를 부팅하지 못할 것입니다."
+"OpenFirmware는 이 설치를 부팅하지 못 할 것입니다."
 
 #: ../autopart.py:1052
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다."
+msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못 할 수 있습니다."
 
 #: ../autopart.py:1078
 #, python-format
@@ -199,9 +199,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s 파티션을 %s에 사용하기 위해 찾을 수 없습니다.\n"
+"%s에 사용하기 위한 %s 파티션을 찾을 수 없습니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
+"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../autopart.py:1296
 msgid "Requested Raid Device Does Not Exist"
@@ -214,9 +214,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s raid 장치를 %s에 사용하기 위해 찾을 수 없습니다.\n"
+"%s에 사용하기 위한 %s raid 장치를 찾을 수 없습니다.\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅 합니다."
+"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../autopart.py:1328
 msgid "Requested Volume Group Does Not Exist"
@@ -229,9 +229,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s 볼륨 그룹을 %s에 사용하기 위해 찾을 수 없습니다.\n"
+"%s에 사용하기 위한 %s 볼륨 그룹을 찾을 수 없습니다.\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅 합니다."
+"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../autopart.py:1366
 msgid "Requested Logical Volume Does Not Exist"
@@ -244,9 +244,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s 논리 볼륨을 %s에 사용하기 위해 찾을 수 없습니다.\n"
+"%s에 사용하기 위한 %s 논리 볼륨을 찾을 수 없습니다.\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅 합니다."
+"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../autopart.py:1481 ../autopart.py:1529
 msgid "Automatic Partitioning Errors"
@@ -265,7 +265,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"'확인' 버튼을 누르시면, 시스템을 재부팅 합니다."
+"'확인' 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../autopart.py:1492
 msgid "Warnings During Automatic Partitioning"
@@ -295,7 +295,7 @@ msgstr ""
 #: ../autopart.py:1507 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
 msgid "Error Partitioning"
-msgstr "파티션의 오류"
+msgstr "파티션 작업 오류"
 
 #: ../autopart.py:1508
 #, python-format
@@ -334,12 +334,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
-"파티션 도중 다음과 같은 오류가 발생하였습니다:\n"
+"파티션 작업 도중 다음과 같은 오류가 발생하였습니다:\n"
 "\n"
 "%s\n"
 "\n"
-"자동 파티션이 성공적으로 이루어지기에는 디스크 드라이브 공간이 부족한 경우 이"
-"와 같은 오류가 발생할 수 있습니다.%s"
+"파티션이 성공적으로 이루어지기에 하드 드라이브 공간이 부족한 경우 "
+"이와 같은 오류가 발생할 수 있습니다.%s"
 
 #: ../autopart.py:1541
 msgid "Unrecoverable Error"
@@ -375,7 +375,7 @@ msgstr ""
 "원하시는 대로 직접 파티션을 설정하실 수도 있습니다.\n"
 "\n"
 "수동 디스크 파티션 도구인 Disk Druid는 상호 호환 환경에서 파일 시스템 유형, "
-"마운트할 지점, 용량 등을 쉽고도 편하게 설정하실 수 있도록 도와드릴 것입니다."
+"마운트할 지점, 용량 등을 쉽고 편하게 설정하실 수 있도록 도와드립니다."
 
 #: ../autopart.py:1706
 msgid ""
@@ -404,8 +404,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"다음의 드라이브 상에 존재하는 모든 파티션들 (모든 자료) 을 삭제하기로 하셨습"
-"니다: %s\n"
+"다음의 드라이브 상에 존재하는 모든 파티션 (모든 자료) 을 삭제합니다:%"
+"s\n"
 "정말로 삭제하시겠습니까?"
 
 #: ../autopart.py:1719
@@ -416,7 +416,7 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 "다음의 드라이브 상에 존재하는 모든 리눅스 파티션을 (리눅스 파티션 상의 모든 "
-"자료를) 삭제하기로 하셨습니다:%s\n"
+"자료를) 삭제합니다:%s\n"
 "정말로 삭제하시겠습니까?"
 
 #: ../backend.py:97
@@ -442,8 +442,8 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"시스템에 아무런 커널 패키지도 설치되지 않았습니다.  여러분의 부트로더 설정은 "
-"바뀌지 않을 것입니다."
+"시스템에 아무런 커널 패키지도 설치되지 않았습니다.  설정하신 부트로더는"
+"바뀌지 않습니다."
 
 #: ../cmdline.py:44
 msgid "Completed"
@@ -478,7 +478,7 @@ msgid ""
 "save a copy of the detailed exception and file a bug report against anaconda "
 "at %s"
 msgstr ""
-"처리할 수 없는 예외 상황이 발생되었습니다.  지금 상황은 버그로 추정됩니다.  "
+"처리할 수 없는 예외 상황이 발생하였습니다.  지금 상황은 버그로 추정됩니다.  "
 "현재 발생된 예외적인 오류의 자세한 내용을 %s 의 anaconda 항목에 자세히 보고"
 "해 주시기 바랍니다"
 
@@ -491,8 +491,8 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr ""
-"현재 시스템의 상태는 플로피 디스켓에 성공적으로 기록되었습니다. 여러분의 시스"
-"템을 재부팅 합니다."
+"현재 시스템의 상태는 플로피 디스켓에 성공적으로 기록되었습니다. 시스템을 "
+"재부팅 합니다."
 
 #: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
 #: ../gui.py:977 ../harddrive.py:70 ../image.py:93 ../image.py:427
@@ -515,8 +515,8 @@ msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"현재 시스템의 상태를 원격 호스트에 성공적으로 기록했습니다.  여러분의 시스템"
-"을 리셋합니다."
+"현재 시스템의 상태를 원격 호스트에 성공적으로 기록했습니다.  시스템을 "
+"재부팅합니다."
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -602,13 +602,13 @@ msgstr ""
 "%s 장치의 스왑을 초기화중 오류가 발생되었습니다.  지금과 같은 상황은 매우 심"
 "각한 상황이므로, 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
 #: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
 #: ../loader2/cdinstall.c:259 ../loader2/method.c:419
 msgid "Skip"
-msgstr "생략"
+msgstr "스킵"
 
 #: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
 msgid "Reboot"
@@ -650,7 +650,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"/etc/fstab 파일은 소프트웨어 중지 파티션으로 현재 사용 중이므로, 시스템은 휴면상태입니다. 업그래이드하시려면 시스템 전원을 끄십시오. "
+"/etc/fstab 파일은 소프트웨어 중지 파티션으로 현재 사용 중이므로, 시스템은 휴면상태입니다. 업그레이드하시려면 시스템 전원을 끄십시오."
 
 #: ../fsset.py:1508
 #, python-format
