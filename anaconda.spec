@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.58
+Version: 11.1.0.59
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 18 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.59-1
+- Add rudimentary firmware loading support to the loader (pjones)
+- Drop some whiteout (pnasrat, #196733)
+- Fix exec'ing of symlinks (clumens)
+- Add basic multipath support (pjones)
+- Basic support for multiple repo setup in graphical mode
+- Add missing files (clumens)
+
 * Mon Jul 17 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.58-1
 - Clean up noipv4/noipv6 stuff stuff (clumens)
 - Fix exception handling for test mode 
