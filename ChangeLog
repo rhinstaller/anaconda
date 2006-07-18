@@ -1,3 +1,9 @@
+2006-07-18  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/log.c (logMessageV): Fix argument order for va_copy()
+	calls.
+	* loader2/log.c: Cleaned up some indentation.
+
 2006-07-18  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -67,7 +67,7 @@ void logMessageV(int level, const char * s, va_list ap) {
     if (tty_logfile && level >= minLevel) {
         va_list apc;
 
-        va_copy(ap, apc);
+        va_copy(apc, ap);
 
         printLogHeader(level, tty_logfile);
         vfprintf(tty_logfile, s, apc);
@@ -81,7 +81,7 @@ void logMessageV(int level, const char * s, va_list ap) {
     if (file_logfile) {
         va_list apc;
 
-        va_copy(ap, apc);
+        va_copy(apc, ap);
 
         printLogHeader(level, file_logfile);
         vfprintf(file_logfile, s, apc);
@@ -104,11 +104,11 @@ void openLog(int useLocal) {
     int flags, fd;
 
     if (!useLocal) {
-	tty_logfile = fopen("/dev/tty3", "w");
+        tty_logfile = fopen("/dev/tty3", "w");
         file_logfile = fopen("/tmp/anaconda.log", "w");
     } else {
-	tty_logfile = NULL;
-	file_logfile = fopen("debug.log", "w");
+        tty_logfile = NULL;
+        file_logfile = fopen("debug.log", "w");
     }
 
     if (tty_logfile) {
@@ -126,10 +126,10 @@ void openLog(int useLocal) {
 
 void closeLog(void) {
     if (tty_logfile)
-	fclose(tty_logfile);
+        fclose(tty_logfile);
 
     if (file_logfile)
-	fclose(file_logfile);
+        fclose(file_logfile);
 }
 
 /* set the level.  higher means you see more verbosity */
@@ -140,3 +140,5 @@ void setLogLevel(int level) {
 int getLogLevel(void) {
     return minLevel;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */
