@@ -1,3 +1,15 @@
+2006-07-17  Jeremy Katz  <katzj@redhat.com>
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): Using metadata_expire
+	doesn't make sense for anaconda
+	(YumBackend.doRepoSetup): Allow setup of a single repo, reorganize
+	so that this works
+
+	* iw/task_gui.py (TaskWindow._addRepo): Support for adding repos.
+	* ui/tasksel.glade: Add button to bring up add repo dialopg 
+	* ui/addrepo.glade: Initial pass at dialog for adding additional 
+	repos.
+
 2006-07-17  Peter Jones  <pjones@redhat.com>
 
 	* loader2/log.c: add logMessageV()

@@ -353,6 +353,7 @@ class AnacondaYum(YumSorter):
         self.conf.exclude=["*debuginfo*"]
         self.conf.cache=0
         self.conf.cachedir = '/tmp/cache/'
+        self.conf.metadata_expire = 0
         
         #XXX: It'd be nice if the default repo was in the repoList
         repo = AnacondaYumRepo(self.method.getMethodUri())
@@ -614,38 +615,36 @@ class YumBackend(AnacondaBackend):
             if self.ayum.comps._groups.has_key("xen"):
                 del self.ayum.comps._groups["xen"]
 
-    def doRepoSetup(self, anaconda):
+    def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         anaconda.method.switchMedia(1)
 
         if not os.path.exists("/tmp/cache"):
             iutil.mkdirChain("/tmp/cache/headers")
 
-        tasks = ( (self.ayum.doMacros, 1),
-                  (self.ayum.doTsSetup, 1),
-                  (self.ayum.doRpmDBSetup, 5),
-                  (self.ayum.doRepoSetup, 15),
-                  (self.doGroupSetup, 1),
-                  (self.ayum.doSackSetup, 50),
-                  (self._catchallCategory, 1))
+        self.ayum.doMacros()
+        self.ayum.doTsSetup()
+        self.ayum.doRpmDBSetup()
+
+        longtasks = ( (self.ayum.doRepoSetup, 4),
+                      (self.ayum.doSackSetup, 6) )
 
         tot = 0
-        for t in tasks:
+        for t in longtasks:
             tot += t[1]
-        waitwin = YumProgress(anaconda.intf, _("Retrieving installation information..."),
-                              tot)
+        waitwin = YumProgress(anaconda.intf, _("Retrieving installation information..."), tot)
         self.ayum.repos.callback = waitwin
 
         try:
-            at = 0
-            for (task, amt) in tasks:
-                waitwin.set_incr(amt)
-                task()
-                at += amt
+            for (task, incr) in longtasks:
+                waitwin.set_incr(incr)
+                task(thisrepo = thisrepo)
                 waitwin.next_task()
             waitwin.pop()
         except RepoError, e:
             log.error("reading package metadata: %s" %(e,))
             waitwin.pop()
+            if not fatalerrors:
+                raise RepoError, e
             anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
                                  "due to a missing repodata directory.  Please "
@@ -654,6 +653,9 @@ class YumBackend(AnacondaBackend):
                                  type="custom", custom_icon="error",
                                  custom_buttons=[_("_Exit")])
             sys.exit(0)
+
+        self.doGroupSetup()
+        self._catchallCategory()
 
         self.ayum.repos.callback = None
         self.ayum.repos.setFailureCallback((self.urlgrabberFailureCB, (),
