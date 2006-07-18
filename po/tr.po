@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: anaconda_tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-16 22:34+0300\n"
+"PO-Revision-Date: 2006-07-18 20:51+0300\n"
 "Last-Translator:  <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -652,7 +652,13 @@ msgid ""
 "in your /etc/fstab file is currently in use as a software suspend partition, "
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
-msgstr ""
+msgstr "/etc/fstab dosyasındaki\n"
+"\n"
+"       /dev/%s\n"
+"\n"
+"takas alanı uyku moduna alma yazılımı tarafından kullanılıyor. Bu sistemin "
+"uyku moduna alındığı anlamına gelir. Güncelleme yapmak için sistemi uyku moduna"
+"almak yerine yeniden başlatın."
 
 #: ../fsset.py:1508
 #, python-format
@@ -664,7 +670,13 @@ msgid ""
 "in your /etc/fstab file is currently in use as a software suspend partition, "
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
-msgstr ""
+msgstr "/etc/fstab·dosyasındaki\n"
+"\n"
+"·······/dev/%s\n"
+"\n"
+"takas·alanı·uyku·moduna·alma·yazılımı·tarafından·kullanılıyor.·Bu·sistemin·"
+"uyku·moduna·alındığı·anlamına·gelir.·Yeni bir kurulum yapmak için tüm takas "
+"alanlarının biçimlendirlecek şekilde ayarlandığından emin olun."
 
 #: ../fsset.py:1518
 msgid ""
@@ -1018,7 +1030,10 @@ msgid ""
 "\n"
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
-msgstr ""
+msgstr "Kurulum·yazılımı·#%s·imajını·bağlamayı·denedi,·ama·sabit diskte·"
+"bulamadı.\n"
+"Lütfen·imajı·diske·kopyalayıp·Yeniden·Dene'ye·basınız."
+"Yeniden·başlatmak·için·Yeniden·Başlat·butonunu·kullanabilirsiniz."
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1110,7 +1125,10 @@ msgid ""
 "\n"
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
-msgstr ""
+msgstr "Kurulum yazılımı #%s imajını bağlamayı denedi, ama sunucuda "
+"bulamadı.\n"
+"Lütfen imajı uzak sunucudaki paylaşıma kopyalayıp Yeniden Dene'ye basınız."
+"Yeniden başlatmak için Yeniden Başlat butonunu kullanabilirsiniz."
 
 #: ../installclass.py:57
 msgid "Install on System"
@@ -1155,7 +1173,8 @@ msgstr "Kayıp paket"
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "'%s' paketinin kurumunu belirlediniz.. Böyle bir paket yok. Devam etmek mi yoksa "
+"kurulumu iptal etmek mi istersiniz?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1170,7 +1189,8 @@ msgstr "Eksik Grup"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "'%s' grubunun kurulumunu belirlediniz.. Böyle bir grup yok. Devam etmek mi yoksa "
+"kurulumu iptal etmek mi istersiniz?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -2390,7 +2410,7 @@ msgstr "yetersiz disk alanı"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "yetersiz disk inode'u"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
@@ -2443,7 +2463,8 @@ msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
 "generated.  %s"
-msgstr ""
+msgstr "Paket önbilgisi okunamıyor. Eksik depo bilgisi dizini buna neden oluyor"
+"olabilir. Kurulum ağacının düzgün oluşturulduğundan emin olun.  %s"
 
 #: ../yuminstall.py:704
 msgid "Uncategorized"
@@ -2454,7 +2475,8 @@ msgstr "Sınıflandırılmamış"
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
-msgstr ""
+msgstr "Seçtiğiniz paketler %d MB disk alanına ihtiyaç duymaktadır, ancak yeterli"
+"disk alanınız bulunmamaktadır. Seçiminizi değiştirebilir veya yeniden başlatabilirsiniz."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2507,7 +2529,8 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "ZSerisi makinalar endüstri standartı SCSI aygıtlarına Fiber Kanal (FCP) üzerinden erişebilir."
+"Her aygıt için 5 paramatere belirlemelisiniz: 16 bit aygıt numarası, 16 bit SCSI ID, 64 bit Dünya Çapında Port Numarası (WWPN), 16 bit SCSI L"
 
 #: ../zfcp.py:30
 msgid "Device number"
@@ -5447,7 +5470,10 @@ msgid ""
 "recommended.  Minimally, the CDs should be tested prior to using them for "
 "the first time. After they have been successfully tested, it is not required "
 "to retest each CD prior to using it again."
-msgstr ""
+msgstr "Daha fazla medya test etmek için sonraki CD'yi takın ve %s butonuna basınız."
+"Her CD'nin test edilmesi zorunlu değildir ama şiddetle tavsiye edilir. En azından "
+"ilk kullanımda CD'lerin test edilmesi tavsiye edilir. Bir defa test edilmesinden sonra"
+"tekrar test edilmesine gerek yoktur."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
 #, c-format
