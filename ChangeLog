@@ -1,5 +1,10 @@
 2006-07-19  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/net.c (configureTCPIP): Error messages were reversed and
+	did not make sense (#199452).
+
+2006-07-19  David Cantrell  <dcantrell@redhat.com>
+
 	* loader2/init.c: Modify the snakes on a plane debugging mode a
 	bit.
 	* loader2/net.{c,h}: Removed NETWORK_DEBUG mode and send data to the

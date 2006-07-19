@@ -739,42 +739,43 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
             if (*ipv4Choice == ' ' && *ipv6Choice == ' ') {
                 newtWinMessage(_("Missing Protocol"), _("Retry"),
                                _("You must select at least one protocol (IPv4 "
-                                  "or IPv6) for DHCP."));
+                                  "or IPv6) for manual configuration."));
             } else {
                 newtFormDestroy(f);
                 newtPopWindow();
                 return LOADER_OK;
             }
-        }
-
-        if (*ipv4Choice == ' ' && *ipv6Choice == ' ') {
-            newtWinMessage(_("Missing Protocol"), _("Retry"),
-                           _("You must select at least one protocol (IPv4 "
-                             "or IPv6) for manual configuration."));
         } else {
-            if (!FL_TESTING(flags)) {
-                winStatus(55, 3, _("Dynamic IP"), 
-                          _("Sending request for IP information for %s..."), 
-                          device, 0);
-                waitForLink(device);
-                newCfg->noipv4 = (*ipv4Choice == '*') ? 0 : 1;
-                newCfg->noipv6 = (*ipv6Choice == '*') ? 0 : 1;
-                dret = doDhcp(newCfg);
-                newtPopWindow();
-            }
-
-            if (dret==NULL) {
-                newCfg->isDynamic = 1;
-                if (!(newCfg->dev.set & PUMP_NETINFO_HAS_DNS)) {
-                    logMessage(WARNING, "dhcp worked, but did not return a DNS server");
-                    i = getDnsServers(newCfg);
-                    i = i ? 0 : 2;
-                } else {
-                    i = 2; 
-                }
+            if (*ipv4Choice == ' ' && *ipv6Choice == ' ') {
+                newtWinMessage(_("Missing Protocol"), _("Retry"),
+                               _("You must select at least one protocol (IPv4 "
+                                 "or IPv6) for DHCP."));
             } else {
-                logMessage(DEBUGLVL, "dhcp: %s", dret);
-                i = 0;
+                if (!FL_TESTING(flags)) {
+                    winStatus(55, 3, _("Dynamic IP"), 
+                              _("Sending request for IP information for %s..."),
+                              device, 0);
+                    waitForLink(device);
+                    newCfg->noipv4 = (*ipv4Choice == '*') ? 0 : 1;
+                    newCfg->noipv6 = (*ipv6Choice == '*') ? 0 : 1;
+                    dret = doDhcp(newCfg);
+                    newtPopWindow();
+                }
+
+                if (dret==NULL) {
+                    newCfg->isDynamic = 1;
+                    if (!(newCfg->dev.set & PUMP_NETINFO_HAS_DNS)) {
+                        logMessage(WARNING,
+                            "dhcp worked, but did not return a DNS server");
+                        i = getDnsServers(newCfg);
+                        i = i ? 0 : 2;
+                    } else {
+                        i = 2; 
+                    }
+                } else {
+                    logMessage(DEBUGLVL, "dhcp: %s", dret);
+                    i = 0;
+                }
             }
         }
     } while (i != 2);
