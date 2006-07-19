@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-18 18:06+1000\n"
+"PO-Revision-Date: 2006-07-19 14:03+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -679,7 +679,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"업그레이드중 설치자가 파티션을 무시하고자 한다면 스킵 (Skip) 을 선택하세요. 스왑 공간으로서 파티션을 재포맷하려면 포맷 (Format)을 선택하세요. 시스템을 다시 시작하려면 재부팅 (Reboot)을 선택하세요."
+"업그레이드중 설치자가 파티션을 무시하고자 한다면 스킵(Skip)을 선택하세요. 스왑 공간으로서 파티션을 재포맷하려면 포맷 (Format)을 선택하세요. 시스템을 다시 시작하려면 재부팅 (Reboot)을 선택하세요."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -700,7 +700,7 @@ msgstr ""
 "이와같은 상황은 업그레이드된 파티션의 /etc/fstab 파일에 올바른 스왑 파티션이 "
 "설정되지 않았기 때문입니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
+"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1542
 #, python-format
@@ -728,7 +728,7 @@ msgstr ""
 "/dev/%s 장치에서 불량 섹터가 발견되었습니다. 이 장치를 사용하지 않는 것이 좋"
 "습니다.\n"
 "\n"
-"Enter 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1606
 #, python-format
@@ -738,10 +738,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s 의 불량 섹터를 검색중 오류가 발생되었습니다.  지금과 같은 상황은 매우 심각"
+"%s에서 불량 섹터를 검색중 오류가 발생되었습니다.  이는 매우 심각"
 "한 상황이므로, 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1641
 #, python-format
@@ -751,10 +751,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s (을)를 포맷중 오류가 발생되었습니다.  지금과 같은 상황은 매우 심각한 상황"
+"%s (을)를 포맷중 오류가 발생되었습니다.  이는 매우 심각한 상황"
 "이므로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1691
 #, python-format
@@ -764,10 +764,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s (을)를 전환하는 도중 오류가 발생되었습니다.  지금과 같은 상황은 매우 심각"
+"%s (을)를 전환하는 도중 오류가 발생되었습니다.  이는 매우 심각"
 "한 상황이므로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1712 ../fsset.py:1721
 msgid "Invalid mount point"
@@ -782,10 +782,10 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 "%s (을)를 생성하는 도중 오류가 발생되었습니다.  이 경로의 내용 중 디렉토리가 "
-"아닌 것이 포함되어 있습니다. 이 것은 매우 심각한 오류이므로 설치를 계속 진행"
+"아닌 것이 포함되어 있습니다. 이는 매우 심각한 오류이므로 설치를 계속 진행"
 "할 수 없습니다.\n"
 "\n"
-"[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1722
 #, python-format
@@ -795,10 +795,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s (을)를 생성하는 도중 오류가 발생되었습니다: %s.  이 것은 매우 심각한 오류"
+"%s (을)를 생성하는 도중 오류가 발생되었습니다: %s.  이는 매우 심각한 오류"
 "이므로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
-"[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
+"<Enter> 키를 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1735
 #, python-format
@@ -811,9 +811,9 @@ msgid ""
 msgstr ""
 "%s 장치를 %s (으)로 마운트하는 도중 오류가 발생되었습니다: %s\n"
 "\n"
-"이와같은 상황은 마운트할 파티션이 포맷되어 있지 않기 때문입니다.\n"
+"이는 마운트할 파티션이 포맷되어 있지 않기 때문입니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
+"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:1754
 msgid ""
@@ -823,11 +823,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"/ 파티션을 찾는 도중 오류가 발생되었습니다: %s\n"
+"/ 엔트리를 찾는 도중 오류가 발생되었습니다: %s\n"
 "\n"
 "fstab이 올바르게 설정되지 않은 것 같습니다.\n"
 "\n"
-"[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
+"[확인] 버튼을 누르시면, 시스템을 재부팅합니다."
 
 #: ../fsset.py:2419
 msgid "Duplicate Labels"
@@ -875,7 +875,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"재부팅 후 루트로 로그인하시면 이 스크린샷들을 보실 수 있습니다."
+"재부팅 후 루트로 로그인하시면 이 스크린샷을 보실 수 있습니다."
 
 #: ../gui.py:167
 msgid "Saving Screenshot"
@@ -888,7 +888,7 @@ msgstr "'%s' 스크린샷이 저장되었습니다."
 
 #: ../gui.py:171
 msgid "Error Saving Screenshot"
-msgstr "스크린샷을 저장중에 오류가 발생했습니다."
+msgstr "스크린샷을 저장 중에 오류가 발생했습니다."
 
 #: ../gui.py:172
 msgid ""
@@ -896,7 +896,7 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 "스크린샷을 저장하는데 오류가 발생했습니다.  만일 패키지 설치 과정에서 오류가 "
-"발생했다면, 여러 번 시도하시면 성공할 것입니다."
+"발생했다면, 여러번 시도해 보시기 바랍니다."
 
 #: ../gui.py:241 ../text.py:383
 msgid "Fix"
@@ -946,7 +946,7 @@ msgstr ""
 
 #: ../gui.py:803 ../text.py:348
 msgid "Error Parsing Kickstart Config"
-msgstr "킥스타트 파일을 읽는 도중 오류가 발생했습니다"
+msgstr "킥스타트 설정을 읽는 도중 오류가 발생했습니다"
 
 #: ../gui.py:811 ../text.py:358
 msgid ""
@@ -986,11 +986,11 @@ msgstr "재시도(_R)"
 
 #: ../gui.py:973 ../packages.py:375
 msgid "The installer will now exit..."
-msgstr "설치프로그램을 나가겠습니다..."
+msgstr "설치 프로그램을 종료합니다..."
 
 #: ../gui.py:976 ../packages.py:378
 msgid "Your system will now be rebooted..."
-msgstr "이제 시스템을 재부팅합니다..."
+msgstr "시스템을 재부팅합니다..."
 
 #: ../gui.py:979 ../packages.py:380
 msgid "Rebooting System"
@@ -1044,7 +1044,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
-"여러분이 선택하신 소프트웨어를 설치하기 위해서는 다음 CD가 필요합니다:\n"
+"선택하신 소프트웨어를 설치하기 위해서는 다음 CD가 필요합니다:\n"
 "\n"
 "%s\n"
 "설치를 진행하시기 전에 이 CD를 준비하시기 바랍니다.  설치를 중단하고 재부팅하"
@@ -1059,7 +1059,7 @@ msgstr "뒤로(_B)"
 #: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
 #: ../iw/partition_gui.py:1011
 msgid "_Continue"
-msgstr "진행(_C)"
+msgstr "계속 진행(_C)"
 
 #: ../image.py:135
 #, python-format
@@ -1067,8 +1067,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"CD를 마운트 해제하는데 오류가 발생했습니다.  tty2 쉘에서 %s를 사용하고 있는"
-"지 확인해 주신 후 확인 버튼을 눌러 재시도 해주십시오."
+"CD를 마운트 해제하는데 오류가 발생했습니다.  tty2 쉘에서 %s를 사용하지 않는"
+"지 확인하신 후 확인 버튼을 눌러 재시도 해주십시오."
 
 #: ../image.py:157
 msgid "Copying File"
@@ -1093,7 +1093,7 @@ msgstr "CDROM 교체"
 #: ../image.py:256
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "%s CD # %d을(를) 넣어 주십시오."
+msgstr "계속 진행하시려면 %s 디스크 %d을(를) 넣어 주십시오."
 
 #: ../image.py:291
 msgid "Wrong CDROM"
@@ -1117,9 +1117,9 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"설치 관리자는 #%s 이미지 설치를 시도했으나, 서버에서 찾을 수 없습니다.\n"
+"설치 관리자는 #%s 이미지 설치를 시도했으나, 이를 서버에서 찾을 수 없습니다.\n"
 "\n"
-"이미지를 원격 서버의 공유 경로에 복사하시고 재시도를 누르십시오오. 이 설치를 "
+"이미지를 원격 서버의 공유 경로에 복사하시고 재시도를 누르십시오. 이 설치를 "
 "중단하시려면 재부팅을 누르십시오."
 
 #: ../installclass.py:57
@@ -1164,7 +1164,9 @@ msgstr "패키지 부재"
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
-msgstr "설치한 '%s'팩키지를 지정해 주십시오. 이 그룹은 존재하지 않습니다. 계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까?"
+msgstr ""
+"설치해야 할 '%s'팩키지를 지정해 주십시오. 이 팩키지는 존재하지 않습니다. "
+"계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1179,7 +1181,9 @@ msgstr "그룹 부재"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr "설치한 '%s'그룹을 지정해 주십시오. 이 그룹은 존재하지 않습니다. 계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까?"
+msgstr ""
+"설치해야 할 '%s'그룹을 지정해 주십시오. 이 그룹은 존재하지 않습니다. "
+"계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1188,13 +1192,13 @@ msgstr "호스트명은 64자까지의 문자로 구성됩니다."
 #: ../network.py:49
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
-"호스트명의 첫 문자는 영문자 'a-z'와 'A-Z' 사이의 문자만을 이용하여 지정해 주"
-"셔야 합니다."
+"호스트명의 첫 문자는 영문자 'a-z' 또는 'A-Z' 사이의 문자만을 이용하여 "
+"지정하셔야 합니다."
 
 #: ../network.py:54
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"호스트명은 영문자 'a-z', 'A-Z', 와 기호 '-', '.' 만을 이용하여 지정해 주셔야 "
+"호스트명은 영문자 'a-z', 'A-Z', 와 기호 '-', '.' 만을 이용하여 지정하셔야 "
 "합니다. "
 
 #: ../packages.py:357
@@ -1246,8 +1250,8 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"%s 장치는 CDL 대신 LDL 포맷되었습니다. LDL 포맷된 DASD는 %s 설치중사용이 지원"
-"되지 않습니다.  설치에 이 디스크를 사용하시려면, 반드시 드라이브를 초기화해"
+"%s 장치는 CDL 대신 LDL 포맷되었습니다. LDL 포맷된 DASD는 %s 설치 중 사용이 지원"
+"되지 않습니다.  이 디스크를 사용하여 설치하시려면, 반드시 드라이브를 초기화해"
 "야 합니다. 단, 초기화로 인해 드라이브 안의 모든 자료는 삭제됩니다.\n"
 "\n"
 "CDL 포맷을 사용하여 이 DASD를 재포맷하시겠습니까? "
@@ -1261,11 +1265,11 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"/dev/%s 장치는 %s 파티션 유형입니다. %s 설치에 이 드라이브를 사용하시려면, 반"
+"/dev/%s 장치는 %s 파티션 유형입니다. %s 설치에 이 디스크를 사용하시려면, 반"
 "드시 드라이브를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 자료"
 "는 삭제됩니다.\n"
 "\n"
-"이 드라이브를 초기화 하시겠습니까? "
+"이 드라이브를 초기화 하시겠습니까?"
 
 #: ../partedUtils.py:345
 msgid "_Ignore drive"
@@ -1305,7 +1309,7 @@ msgstr ""
 "서는 반드시 이 드라이브를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 "
 "모든 자료는 삭제됩니다.\n"
 "\n"
-"초기화 작업을 수행하시면 드라이브의 기존 설치된 내용을 무시하고 덮어쓸것입니"
+"초기화 작업을 수행하시면 드라이브의 기존 설치된 내용을 무시하고 덮어 쓸 것입니"
 "다.\n"
 "\n"
 "그래도 이 드라이브를 초기화하시겠습니까?"
@@ -1325,10 +1329,10 @@ msgstr ""
 "반드시 이 드라이브를 초기화해야 합니다. 단, 초기화로 인해 드라이브 안의 모든 "
 "자료는 삭제됩니다.\n"
 "\n"
-"초기화 작업을 수행하시면 드라이브의 기존 설치된 내용을 무시하고덮어 씌울것입"
+"초기화 작업을 수행하시면 드라이브의 기존 설치된 내용을 무시하고 덮어 쓸 것입"
 "니다\n"
 "\n"
-"이 드라이브를 초기화 하시겠습니까?"
+"그래도 이 드라이브를 초기화 하시겠습니까?"
 
 #: ../partedUtils.py:1086
 msgid "No Drives Found"
