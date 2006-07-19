@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-19 14:58+1000\n"
+"PO-Revision-Date: 2006-07-19 16:50+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1203,7 +1203,7 @@ msgstr ""
 #: ../kickstart.py:751
 #: ../kickstart.py:769
 msgid "Running..."
-msgstr "正在运行 ..."
+msgstr "正在运行..."
 
 #: ../kickstart.py:752
 msgid "Running pre-install scripts"
@@ -1273,7 +1273,7 @@ msgstr ""
 "\n"
 "    %s\n"
 "\n"
-"然后向“%s”部分提交报告。\n"
+"然后向“%s”提交报告。\n"
 
 #: ../packages.py:371
 msgid "_Install anyway"
@@ -1291,7 +1291,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"设备 %s 是 LDL 格式化的，而不是 CDL 格式化的。LDL 格式化的 DASD 在 %s 的安装中不被支持。如果您想使用这个磁盘来安装，它一定要被重新初始化，从而导致所有数据丢失。\n"
+"设备 %s 是 LDL 格式的，而不是 CDL 格式的。LDL 格式的 DASD 在 %s 的安装中不被支持。如果您想使用这个磁盘来安装，它一定要被重新初始化，从而导致所有数据丢失。\n"
 "\n"
 "您想使用 CDL 格式来重新格式化这个 DASD 吗？"
 
@@ -1339,7 +1339,7 @@ msgid ""
 msgstr ""
 "设备 %s 上的分区表 %s 无法被读取。创建新分区时必须对其执行初始化，从而会导致该驱动器中的所有数据丢失。\n"
 "\n"
-"该操作会超越所有先前关于要忽略的驱动器的安装选择。\n"
+"该操作会覆盖所有先前关于要忽略的驱动器的安装选择。\n"
 "\n"
 "您想要初始化这个驱动器并删除所有数据吗？"
 
@@ -1354,9 +1354,9 @@ msgid ""
 msgstr ""
 "设备 %s 上的分区表无法被读取。创建新分区时必须对其执行初始化，从而会导致该驱动器中的所有数据丢失。\n"
 "\n"
-"该操作会超越所有先前关于要忽略的驱动器的安装选择。\n"
+"该操作会覆盖所有先前关于要忽略的驱动器的安装选择。\n"
 "\n"
-"您想要初始化这个驱动器吗并删除所有数据吗？"
+"您想要初始化这个驱动器并删除所有数据吗？"
 
 #: ../partedUtils.py:1086
 msgid "No Drives Found"
@@ -1381,29 +1381,29 @@ msgstr "错误 - 卷组名 %s 无效。"
 
 #: ../partIntfHelpers.py:47
 msgid "Error - the volume group name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr "错误 - 卷组名包含不合法字符或空格。可被接受的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr "请输入逻辑卷组名称。"
+msgstr "请输入逻辑卷名称。"
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "逻辑卷组名称必须小于 128 个字符"
+msgstr "逻辑卷名称必须小于 128 个字符"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr "错误 - 逻辑卷组名称 %s 无效。"
+msgstr "错误 - 逻辑卷名称 %s 无效。"
 
 #: ../partIntfHelpers.py:71
 msgid "Error - the logical volume name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr "错误 - 逻辑卷组名包含不合法字符或空格。可被接受的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:95
 #, python-format
 msgid "The mount point %s is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr "挂载点%s无效。挂载点必须以'/'开始，但不能以'/'终止，并且必须使用可打印字符，不能包含空格。"
+msgstr "挂载点%s无效。挂载点必须以“/”开始，但不能以“/”结束，并且必须使用可打印字符，并不能包含空格。"
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1449,7 +1449,7 @@ msgstr "您不能删除空闲空间。"
 
 #: ../partIntfHelpers.py:158
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "您不能删除被 LDL 格式化的 DASD 上的分区。"
+msgstr "您不能删除 LDL 格式的 DASD 上的分区。"
 
 #: ../partIntfHelpers.py:168
 #, python-format
@@ -1473,7 +1473,7 @@ msgstr "确认删除"
 #: ../partIntfHelpers.py:230
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "即将删除“/dev/%s”设备上的所有分区。"
+msgstr "要删除“/dev/%s”设备上的所有分区。"
 
 #: ../partIntfHelpers.py:233
 #: ../partIntfHelpers.py:526
@@ -1495,7 +1495,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"下列要安装的软件包没有被删除，因为它们正被使用：\n"
+"下列分区没有被删除，因为它们正被使用：\n"
 "\n"
 "%s"
 
@@ -1526,7 +1526,7 @@ msgstr "您不能编辑该分区，因为它是一个包含 %s 的扩展分区�
 
 #: ../partIntfHelpers.py:380
 msgid "Format as Swap?"
-msgstr "是否格式化成交换区？"
+msgstr "格式化成交换区？"
 
 #: ../partIntfHelpers.py:381
 #, python-format
@@ -1535,18 +1535,18 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s 中有一个类型为 0x82 的分区（Linux swap），但它似乎还没有被格式化成 Linux 交换分区。\n"
+"/dev/%s 中有一个类型为 0x82 的分区（Linux 交换分区），但它似乎还没有被格式化成 Linux 交换分区。\n"
 "\n"
 "您想把该分区格式化成交换分区吗？"
 
 #: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "您至少要在一个硬盘驱动器上安装 %s。"
+msgstr "您至少需要选择一个硬盘驱动器来安装 %s。"
 
 #: ../partIntfHelpers.py:407
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
-msgstr "您选择了在本次安装中使用已有的分区而不进行格式化。我们建议您格式化该分区，以确保以前安装的操作系统文件不会在这次 Linux 安装中导致问题。可是，如果该分区包含您需要保留的文件，例如用户的主目录，那么您应该继续，而无需格式化该分区。"
+msgstr "您选择了在本次安装中使用已有的分区而不进行格式化。我们建议您格式化该分区，以确保以前安装的操作系统文件不会在这次 Linux 安装中导致问题。可是，如果该分区包含您需要保留的文件，例如用户的主目录，那么您应该继续，而不要格式化该分区。"
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
@@ -1598,11 +1598,11 @@ msgstr ""
 #: ../partIntfHelpers.py:453
 #: ../iw/partition_gui.py:665
 msgid "The following pre-existing partitions have been selected to be formatted, destroying all data."
-msgstr "下列预存的分区将被格式化，正在破坏所有数据。"
+msgstr "下列存在的分区将被格式化，这会破坏所有数据。"
 
 #: ../partIntfHelpers.py:456
 msgid "Select 'Yes' to continue and format these partitions, or 'No' to go back and change these settings."
-msgstr "选择“是”来继续格式化这些分区，或“否”来返回修改这些设置。"
+msgstr "选择“是”来继续并格式化这些分区，或选择“否”返回修改这些设置。"
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
@@ -1651,7 +1651,7 @@ msgstr "安装无法继续。"
 
 #: ../partitioning.py:58
 msgid "The partitioning options you have chosen have already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr "您选择的分区选项已被激活，再不能返回到磁盘编辑屏幕，您想继续安装吗？"
+msgstr "您选择的分区选项已被激活，您将无法返回到磁盘编辑屏幕。您想继续安装吗？"
 
 #: ../partitioning.py:88
 msgid "Low Memory"
@@ -1659,7 +1659,7 @@ msgstr "内存不足"
 
 #: ../partitioning.py:89
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that OK?"
-msgstr "因为本机内存不足，您必须立即打开交换空间。要执行该项操作，必须将新分区表立即写入磁盘。是否执行？"
+msgstr "因为本机内存不足，我们需要立即打开交换空间。要执行该项操作，必须将新分区表立即写入磁盘。是否执行？"
 
 #: ../partitions.py:804
 #, python-format
@@ -1673,11 +1673,11 @@ msgstr "您的根分区小于 250 MB，这个空间通常太小，不足以安�
 
 #: ../partitions.py:816
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr "您必须创建一个 /boot/efl 分区，类型为 FAT，大小为 50MB。"
+msgstr "您必须创建一个 FAT 类型的 /boot/efl 分区，大小为 50MB。"
 
 #: ../partitions.py:836
 msgid "You must create an Apple Bootstrap partition."
-msgstr "您必须创建一个 PPC PReP 引导分区。"
+msgstr "您必须创建一个 Apple 引导分区。"
 
 #: ../partitions.py:858
 msgid "You must create a PPC PReP Boot partition."
@@ -1687,20 +1687,20 @@ msgstr "您必须创建一个 PPC PReP 引导分区。"
 #: ../partitions.py:877
 #, python-format
 msgid "Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install."
-msgstr "您的 %s 分区小于 %s MB，比正常安装 %s 的建议值还小。"
+msgstr "您的 %s 分区小于 %s MB，小于正常安装 %s 的建议值。"
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "正在一个USB设备上安装.不能保证可以成功安装."
+msgstr "正在一个 USB 设备上安装。不能保证可以成功安装。"
 
 #: ../partitions.py:914
 msgid "Installing on a FireWire device.  This may or may not produce a working system."
-msgstr "正在一个FireWire设备上安装.不能保证可以成功安装."
+msgstr "正在一个 FireWire 设备上安装。不能保证可以成功安装。"
 
 #: ../partitions.py:923
 #: ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "可引导分区仅允许指定在 RAID1 设备上。"
+msgstr "可引导分区仅允许在 RAID1 设备上。"
 
 #: ../partitions.py:930
 msgid "Bootable partitions cannot be on a logical volume."
@@ -1713,7 +1713,7 @@ msgstr "您还没有指定一个交换分区。虽然在大多情况下这并非
 #: ../partitions.py:955
 #, python-format
 msgid "You have specified more than 32 swap devices.  The kernel for %s only supports 32 swap devices."
-msgstr "您指定的交换设备已超过32个。%s 的内核只支持32个交换设备。"
+msgstr "您指定的交换分区设备已超过32个。%s 的内核只支持32个交换分区设备。"
 
 #: ../partitions.py:966
 #, python-format
@@ -1726,11 +1726,11 @@ msgstr "安装程序正在使用该分区。"
 
 #: ../partitions.py:1269
 msgid "a partition which is a member of a RAID array."
-msgstr "是 RAID 成员之一的分区。"
+msgstr "RAID 阵列中的一个分区。"
 
 #: ../partitions.py:1272
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "是 LVM 卷组成员之一的分区。"
+msgstr "一个是 LVM 卷组成员之一的分区。"
 
 #: ../partRequests.py:249
 #, python-format
@@ -1740,7 +1740,7 @@ msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 #: ../partRequests.py:252
 #, python-format
 msgid "The mount point %s cannot be used.  It must be a symbolic link for proper system operation.  Please select a different mount point."
-msgstr "挂载点 %s 无法被使用。它必须是符号链接才能是系统正确运行。请另选一个挂载点。"
+msgstr "挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
 
 #: ../partRequests.py:259
 msgid "This mount point must be on a linux file system."
