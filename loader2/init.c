@@ -817,9 +817,9 @@ int main(int argc, char **argv) {
     char * modvc[15];
     char ** modvp = modvc;
     *modvp++ = "/bin/modprobe";
-    *modvp++ = "usb-ehci";
-    *modvp++ = "usb-uhci";
-    *modvp++ = "usb-ohci";
+    *modvp++ = "ehci-hcd";
+    *modvp++ = "uhci-hcd";
+    *modvp++ = "ohci-hcd";
     *modvp++ = NULL;
     pid_t blah = fork();
     int qux;
@@ -834,20 +834,21 @@ int main(int argc, char **argv) {
     if (!(installpid = fork())) {
         /* child */
 #ifdef SNAKES_ON_A_PLANE
-        *argvp++ = "/bin/bash";
-#else
-        *argvp++ = "/sbin/loader";
+        *argvp++ = "/bin/strace";
 #endif
+        *argvp++ = "/sbin/loader";
+
         if (isSerial == 3) {
             *argvp++ = "--virtpconsole";
             *argvp++ = console;
         }
+
         *argvp++ = NULL;
 
         printf("running %s\n", argvc[0]);
         execve(argvc[0], argvc, env);
-	
-        exit(0);
+
+        shutDown(1, 0, 0);
     }
 
     /* signal handlers for halt/poweroff */

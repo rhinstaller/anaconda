@@ -19,6 +19,7 @@ struct networkDeviceConfig {
     int noDns;
     int preset;
     int noipv4, noipv6;
+    char * vendor_class;
 
     /* s390 settings */
     int mtu;
@@ -45,6 +46,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
                     struct intfconfig_s * ipcomps,
                     int ipv4Choice, int ipv6Choice);
+void debugNetworkInfo(struct networkDeviceConfig *cfg);
 int configureNetwork(struct networkDeviceConfig * dev);
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev);

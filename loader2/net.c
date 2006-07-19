@@ -27,12 +27,6 @@
  */
 /* #define RAWHIDE_STUPID_OPTIONS 1 */
 
-/*
- * Exit installer after gathering network info manually or by DHCP.  Print
- * the results and exit.
- */
-/* #define NETWORK_DEBUG 1 */
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -623,47 +617,10 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         cfg->dev.dhcp_nic = NULL;
     }
 
-#ifdef NETWORK_DEBUG
-    /* exit installer now and print current network configuration */
-    newtFinished();
+    /* dump some network debugging info */
+    debugNetworkInfo(cfg);
 
-    char *buf = NULL;
-
-    printf("    device:    |%s|\n", cfg->dev.device);
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IP)
-        printf("    ip:        |%s|\n", ip_text(cfg->dev.ip, buf, 0));
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP)
-        printf("    ipv4:      |%s|\n", ip_text(cfg->dev.ipv4, buf, 0));
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
-        printf("    broadcast: |%s|\n", ip_text(cfg->dev.broadcast, buf, 0));
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
-        printf("    netmask:   |%s|\n", ip_text(cfg->dev.netmask, buf, 0));
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)
-        printf("    network:   |%s|\n", ip_text(cfg->dev.network, buf, 0));
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP)
-        printf("    ipv6:      |%s|\n", ip_text(cfg->dev.ipv6, buf, 0));
-
-    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
-        printf("    ipv6cidr:  |%d|\n", cfg->dev.ipv6_prefixlen);
-
-    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
-        printf("    gateway:   |%s|\n", ip_text(cfg->dev.gateway, buf, 0));
-
-    if (cfg->dev.set & PUMP_NETINFO_HAS_DNS)
-        for (i=0; i < cfg->dev.numDns; i++)
-            printf("    dns:       |%s|\n",
-                   ip_text(cfg->dev.dnsServers[i], buf, 0));
-
-    printf("INSTALL EXITING NOW FOR DEBUGGING PORPOISES\n");
-    exit(1);
-#endif
-
+    /* bring up the interface */
     if (!FL_TESTING(flags)) {
         if (configureNetwork(cfg)) {
             newtWinMessage(_("Network Error"), _("Retry"),
@@ -1129,6 +1086,39 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
     newtPopWindow();
 
     return LOADER_OK;
+}
+
+void debugNetworkInfo(struct networkDeviceConfig *cfg) {
+    int i;
+    char *buf = NULL;
+
+    logMessage(DEBUGLVL, "device = %s", cfg->dev.device);
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV4_IP)
+        logMessage(DEBUGLVL, "ipv4 = %s", ip_text(cfg->dev.ipv4, buf, 0));
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+        logMessage(DEBUGLVL,"broadcast = %s",ip_text(cfg->dev.broadcast,buf,0));
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
+        logMessage(DEBUGLVL, "netmask = %s", ip_text(cfg->dev.netmask, buf, 0));
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETWORK)
+        logMessage(DEBUGLVL, "network = %s", ip_text(cfg->dev.network, buf, 0));
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_IP)
+        logMessage(DEBUGLVL, "ipv6 = %s", ip_text(cfg->dev.ipv6, buf, 0));
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IPV6_PREFIX)
+        logMessage(DEBUGLVL, "ipv6_prefixlen = %d", cfg->dev.ipv6_prefixlen);
+
+    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+        logMessage(DEBUGLVL, "gateway = %s", ip_text(cfg->dev.gateway, buf, 0));
+
+    if (cfg->dev.set & PUMP_NETINFO_HAS_DNS)
+        for (i=0; i < cfg->dev.numDns; i++)
+            logMessage(DEBUGLVL, "dns[%d] = %s", i,
+                       ip_text(cfg->dev.dnsServers[i], buf, 0));
 }
 
 int setupWireless(struct networkDeviceConfig *dev) {
