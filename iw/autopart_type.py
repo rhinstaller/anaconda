@@ -112,6 +112,10 @@ class PartitionTypeWindow(InstallWindow):
         map(lambda x: sg.add_widget(dxml.get_widget(x)),
             ("iscsiAddrEntry", "iscsiInitiatorEntry"))
 
+        # we don't currently support username or password...
+        map(lambda x: dxml.get_widget(x).hide(),
+            ("userLabel", "passLabel", "userEntry", "passEntry"))
+
         # get the initiator name if it exists and don't allow changing
         # once set
         if self.anaconda.id.iscsi.initiator:

@@ -1,5 +1,13 @@
 2006-07-19  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive): Don't
+	use the username/pass stuff yet
+	* ui/iscsi-config.glade: Some minor tweaks, prepare for CHAP
+	username/password
+
+	* ui/adddrive.glade: Clean up text a little bit
+	* ui/autopart.glade: Likewise.
+
 	* iw/autopart_type.py: Fix add drive dialog to be displayed (#199451)
 
 	* ui/addrepo.glade (window_position): Center dialog.
