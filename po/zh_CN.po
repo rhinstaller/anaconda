@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-19 13:16+1000\n"
+"PO-Revision-Date: 2006-07-19 14:58+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -915,7 +915,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"重新引导后再登录为根用户，您便可以存取它们。"
+"重新引导后再以根用户的身份登录，您便可以存取它们。"
 
 #: ../gui.py:167
 msgid "Saving Screenshot"
@@ -1078,7 +1078,7 @@ msgstr "安装窗口"
 #: ../harddrive.py:61
 #: ../image.py:480
 msgid "Missing ISO 9660 Image"
-msgstr "缺少ISO 9660 图像"
+msgstr "缺少 ISO 9660图像"
 
 #: ../harddrive.py:62
 #, python-format
@@ -1087,14 +1087,14 @@ msgid ""
 "\n"
 "Please copy this image to the drive and click Retry. Click Reboot  to abort the installation."
 msgstr ""
-"安装程序试图抓取图像#%s，但在服务器上无法找到该图像。\n"
+"安装程序试图加载图像#%s，但在硬盘上无法找到该图像。\n"
 "\n"
-"请将此图像复制到远程服务器共享路径，并点击重试。点击重起来终止安装。"
+"请将此图像复制到硬盘中，并点击重试。点击重启来终止安装。"
 
 #: ../harddrive.py:71
 #: ../image.py:491
 msgid "Re_try"
-msgstr "重_试"
+msgstr "重试(_t)"
 
 #: ../image.py:84
 msgid "Required Install Media"
@@ -1134,7 +1134,7 @@ msgstr "继续(_C)"
 #: ../image.py:135
 #, python-format
 msgid "An error occurred unmounting the CD.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "卸载光盘时出错。请确定您不是从 tty2 上的 shell 进入 %s，然后点击“确定”来重试。"
+msgstr "卸载光盘时出错。请确定您不是从 tty2 上的 shell 访问 %s，然后点击“确定”来重试。"
 
 #: ../image.py:157
 msgid "Copying File"
@@ -1177,9 +1177,9 @@ msgid ""
 "\n"
 "Please copy this image to the remote server's share path and click Retry. Click Reboot to abort the installation."
 msgstr ""
-"安装者试图抓取图像#%s，但在服务器上无法找到该图像。\n"
+"安装程序试图加载图像#%s，但在服务器上无法找到该图像。\n"
 "\n"
-"请将此图像复制到远程服务器共享路径，并点击重试。点击重起来终止安装。"
+"请将此图像复制到远程服务器的共享目录中，并点击重试。点击重启来终止安装。"
 
 #: ../installclass.py:57
 msgid "Install on System"
@@ -1187,7 +1187,7 @@ msgstr "在系统上安装"
 
 #: ../kickstart.py:74
 msgid "Scriptlet Failure"
-msgstr "Scriptlet失败"
+msgstr "Scriptlet 失败"
 
 #: ../kickstart.py:75
 #, python-format
@@ -1196,7 +1196,7 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"安装 %s 时出错。这可能意味着介质失败，缺乏空间，以及（或者）硬件问题。这是一个致命错误，安装将会中止。请校验您的介质后再试图安装。\n"
+"运行 sciptlet 时出错。您可以在 %s 上检查它的输出。这是一个致命错误，安装将会中止。\n"
 "\n"
 "请按确定按钮来重新引导您的系统。"
 
