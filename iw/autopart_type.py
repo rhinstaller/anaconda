@@ -96,6 +96,7 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("reviewButton").set_sensitive(True)
 
     def addIscsiDrive(self):
+        # FIXME: need to bring up the network
         if not network.hasActiveNetDev():
             self.intf.messageWindow("Need network",
                                     "iSCSI devices can only be configured "
@@ -103,10 +104,10 @@ class PartitionTypeWindow(InstallWindow):
                                     custom_icon="error")
             return gtk.RESPONSE_CANCEL
             
-        # FIXME: need to ensure network is up
         (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade",
                                             "iscsiDialog")
-        gui.addFrame(dialog)        
+        gui.addFrame(dialog)
+        dialog.show_all()
         sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
         map(lambda x: sg.add_widget(dxml.get_widget(x)),
             ("iscsiAddrEntry", "iscsiInitiatorEntry"))
@@ -164,9 +165,10 @@ class PartitionTypeWindow(InstallWindow):
 
     def addDrive(self, button):
         (dxml, dialog) = gui.getGladeWidget("adddrive.glade", "addDriveDialog")
+        gui.addFrame(dialog)
+        dialog.show_all()
         if rhpl.getArch() not in ("s390", "s390x"):
             dxml.get_widget("zfcpRadio").hide()
-        gui.addFrame(dialog)
         rc = dialog.run()
         dialog.hide()
         if rc == gtk.RESPONSE_CANCEL:
