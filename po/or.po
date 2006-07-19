@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-17 11:08+0530\n"
+"PO-Revision-Date: 2006-07-19 12:18+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
@@ -483,8 +483,7 @@ msgstr "ଅଦରକାରୀ ଜିନିଷ ଲେଖା ଯାଇଛି"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
-msgstr ""
-"ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
+msgstr "ଆପଣଙ୍କ ତନ୍ତ୍ରର ସ୍ଥିତିକୁ ସଫଳତାର ସହିତ ଫ୍ଲପିରେ ଲେଖାଯାଇଛି। ବର୍ତମାନ ଆପଣଙ୍କ ତନ୍ତ୍ରଟି ପୁନର୍ଚାଳିତ ହେବ।"
 
 #: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
 #: ../gui.py:977 ../harddrive.py:70 ../image.py:93 ../image.py:427
@@ -1135,6 +1134,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"ସ୍କ୍ରିପ୍ଟ-ଲେଟକୁ ଚଳାଇବା ସମୟରେ ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା। ଆପଣ ନିର୍ଗମକୁ %sରେ ପରୀକ୍ଷଣ କରିପାରିବେ।"
+"ଏହା ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ଏବଂ ଆପଣଙ୍କର ସ୍ଥାପନକୁ ପରିତ୍ଯାଗ କରି ଦିଆଯିବ।\n"
+"\n"
+"ଆପଣଙ୍କ ତନ୍ତ୍ରକୁ ପୁନର୍ଚାଳନ କରିବା ପାଇଁ 'ଠିକ ଅଛି' ବଟନକୁ ଦବାନ୍ତୁ।"
 
 #: ../kickstart.py:751 ../kickstart.py:769
 msgid "Running..."
@@ -1158,6 +1161,8 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"'%s' ପ୍ଯାକେଜଟି ସ୍ଥାପିତ ହେବ ବୋଲି ଆପଣ ଉଲ୍ଲେଖ କରିଛନ୍ତି। ଏହି ପ୍ଯାକେଜଟି ଉପଲବ୍ଧ ନାହିଁ।"
+"ଆପଣ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି ନା ଏହି ସ୍ଥାପନକୁ ପରିତ୍ଯାଗ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../kickstart.py:915 ../kickstart.py:944
 msgid "_Abort"
@@ -1173,6 +1178,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"'%s' ପ୍ଯାକେଜଟି ସ୍ଥାପିତ ହେବ ବୋଲି ଆପଣ ଉଲ୍ଲେଖ କରିଛନ୍ତି। ଏହି ପ୍ଯାକେଜଟି ଉପଲବ୍ଧ ନାହିଁ।"
+"ଆପଣ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି ନା ଏହି ସ୍ଥାପନକୁ ପରିତ୍ଯାଗ କରିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../network.py:46
 msgid "Hostname must be 64 or less characters in length."
@@ -1205,6 +1212,17 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"ଏହି %s ବୀଟାକୁ ଡାଉନ-ଲୋଡ (ଆହରଣ) କରିଥିବାରୁ ଧନ୍ଯବାଦ।\n"
+"\n"
+"ଏହା ଅନ୍ତିମ ସଂସ୍କରଣ ନୁହେଁ ଏବଂ ଏହାକୁ ଉତ୍ପାଦନ ତନ୍ତ୍ରରେ ପ୍ରୟୋଗ କରିବା ଉଦ୍ଦେଶ୍ଯରେ "
+"ପ୍ରସ୍ତୁତ କରାଯାଇ ନାହିଁ। ପରୀକ୍ଷକ ମାନଙ୍କ ପ୍ରତିକ୍ରିୟାକୁ ସଂଗ୍ରହ କରିବା ଉଦ୍ଦେଶ୍ଯରେ ଏହି ସଂସ୍କରଣକୁ ପ୍ରସ୍ତୁତ କରାଯାଇଛି, "
+"ଏବଂ ଏହା ଦୈନିକ ବ୍ଯବହାର ପାଇଁ ଉପଯୁକ୍ତ ନୁହେଁ।\n"
+"\n"
+"ପ୍ରତିକ୍ରିୟା ଗୁଡିକୁ ଜଣାଇବା ପାଇଁ, ଦୟାକରି ଏଠାକୁ ଜାଆନ୍ତୁ:\n"
+"\n"
+"   %s\n"
+"\n"
+"ଏବଂ '%s' ବିରୋଧରେ ଗୋଟିଏ ତ୍ରୁଟି ଦାଖଲ କରନ୍ତୁ।\n"
 
 #: ../packages.py:371
 msgid "_Install anyway"
@@ -1224,6 +1242,11 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"%s ଯନ୍ତ୍ରଟି CDL ଦ୍ବାରା ସଂରୂପିତ ହେବା ପରିବର୍ତ୍ତେ LDL ଦ୍ବାରା ସଂରୂପିତ ହୋଇଛି। %sର ଗୋଟିଏ ସ୍ଥାପନ ସମୟରେ "
+"ବ୍ଯବହାର ପାଇଁ LDL ଦ୍ବାରା ସଂରୂପିତ DASD ଗୁଡିକ ସହାୟକ ନୁହଁନ୍ତି। ଯଦି ଆପଣ ସ୍ଥାପନ ପାଇଁ ଏହି ଡିସ୍କକୁ ବ୍ଯବହାର କରିବା "
+"ପାଇଁ ଚାହୁଁଛନ୍ତି, ଏହି ଚାଳନରେ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ କରି ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ କରିବା ଉଚିତ।\n"
+"\n"
+"ଆପଣ CDL ଶୈଳୀ ବ୍ଯବହାର କରି DASDକୁ ପୁନଃ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହିଁବେ କି?"
 
 #: ../partedUtils.py:336
 #, python-format
@@ -1234,6 +1257,11 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
+"ବର୍ତମାନ /dev/%s ପାଖରେ ଗୋଟିଏ %s ବିଭାଜନ ଢାଞ୍ଚା ଅଛି। %sର ସ୍ଥାପନ ପାଇଁ ଏହି ଡିସ୍କକୁ ବ୍ଯବହାର କରିବାକୁ, "
+"ଏହାକୁ ପୁନଃ ପ୍ରାରମ୍ଭିକରଣ କରିବା ଉଚିତ, ଯେପରି ଏହି ଚାଳନରେ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ "
+"ହୋଇଯିବ।\n"
+"\n"
+"ଆପଣ ଏହି ଚାଳନକୁ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହିଁବେ କି?"
 
 #: ../partedUtils.py:345
 msgid "_Ignore drive"
@@ -1269,6 +1297,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"%s (%s) ଉପକରଣରେ ବିଭାଜନ ସାରଣୀକୁ ପଢି ହେଲା ନାହିଁ। ନୂତନ ବିଭାଜନ ସ୍ରୁଷ୍ଟି କରିବା ପାଇଁ "
+"ଏହା ପ୍ରାରମ୍ଭିକ୍ରୁତ ହୋଇଥିବା ଉଚିତ, ଏହି ଚାଳନରୁ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ "
+"କରି।\n"
+"କେଉଁ ଉପକରଣକୁ ଆଗ୍ରହ୍ଯ କରାଯିବ ତାହାର ବିବରଣୀ ଧାରଣ କରିଥିବା ପୂର୍ବ ସ୍ଥାପନ ବିକଲ୍ପକୁ "
+"ଏହି ପ୍ରକ୍ରିୟାଟି ଦାବିଦେଇଯିବ।\n"
+"ସମସ୍ତ ତଥ୍ଯକୁ ଉପସାରିତ କରି, ଆପଣ ଏହି ଉପକରଣକୁ ପ୍ରାରମ୍ଭକରଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
 
 #: ../partedUtils.py:968
 #, python-format
@@ -1281,6 +1315,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"%s ଉପକରଣରେ ଥିବା ବିଭାଜନ ସାରଣୀକୁ ପଢି ହେଲା ନାହିଁ। ନୂତନ ବିଭାଜନ ସ୍ରୁଷ୍ଟି କରିବା ପାଇଁ "
+"ଏହା ପ୍ରାରମ୍ଭିକ୍ରୁତ ହୋଇଥିବା ଉଚିତ, ଏହି ଚାଳନରୁ ସମସ୍ତ ତଥ୍ଯକୁ ନଷ୍ଟ "
+"କରି।\n"
+"କେଉଁ ଉପକରଣକୁ ଆଗ୍ରହ୍ଯ କରାଯିବ ତାହାର ବିବରଣୀ ଧାରଣ କରିଥିବା ପୂର୍ବ ସ୍ଥାପନ ବିକଲ୍ପକୁ "
+"ଏହି ପ୍ରକ୍ରିୟାଟି ଦାବିଦେଇଯିବ।\n"
+"ସମସ୍ତ ତଥ୍ଯକୁ ଉପସାରିତ କରି, ଆପଣ ଏହି ଉପକରଣକୁ ପ୍ରାରମ୍ଭକରଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
 
 #: ../partedUtils.py:1086
 msgid "No Drives Found"
@@ -1291,6 +1331,8 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
+"ଗୋଟିଏ ତ୍ରୁଟି ପରିଲିଖିତ ହେଲା - କୌଣସି ବୈଧ ଉପକରଣ ମିଳିଲା ନାହିଁ ଯାହା ଉପରେ ନୂତନ ଫାଇଲ ତନ୍ତ୍ର ସ୍ରୁଷ୍ଟି କରାଯିବ।"
+"ଏହି ସମସ୍ଯାର କାରଣ ପାଇଁ ଆପଣଙ୍କର ହାର୍ଡଓ୍ବେରକୁ ଯାଞ୍ଚ କରନ୍ତୁ।"
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1310,6 +1352,8 @@ msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"ତ୍ରୁଟି - ପ୍ରବଳତା ସମୂହର ନାମ ଅବୈଧ ଅକ୍ଷର ଏବଂ ଖାଲି ସ୍ଥାନ ମାନଙ୍କୁ ଧାରଣ କରିଛି।  "
+"ଗ୍ରହଣୀୟ ଅକ୍ଷର ଗୁଡିକ ହେଲା ଲିପି, ଅଙ୍କ, '.' କିମ୍ବା '_'।"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1329,6 +1373,8 @@ msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"ତ୍ରୁଟି - ତାର୍କିକ ପ୍ରବଳତାର ନାମ ଅବୈଧ ଅକ୍ଷର ଏବଂ ଖାଲି ସ୍ଥାନ ମାନଙ୍କୁ ଧାରଣ କରିଛି।  "
+"ଗ୍ରହଣୀୟ ଅକ୍ଷର ଗୁଡିକ ହେଲା ଲିପି, ଅଙ୍କ, '.' କିମ୍ବା '_'।"
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1336,6 +1382,8 @@ msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
+"%s ଆରୋହଣ ବିନ୍ଦୁଟି ଅବୈଧ ଅଟେ। ଆରୋହଣ ବିନ୍ଦୁ ଗୁଡିକ '/' ସହିତ ପ୍ରାରମ୍ଭ ହେବା ଉଚିତ ଏବଂ କଦାପି '/' ସହ ଶେଷ "
+"ହୋଇ ପାରିବେ ନାହିଁ, ସେଗୁଡିକ ମୂଦ୍ରଣଯୋଗ୍ଯ ଅକ୍ଷରରୂପ ଧାରଣ କରୁଥିବା ଉଟିତ ଉଟିତ ଏବଂ କୌଣସି ଖାଲି ସ୍ଥାନି ଧାରଣ କରୁ ନ ଥିବା ଉଚିତ।"
 
 #: ../partIntfHelpers.py:102
 msgid "Please specify a mount point for this partition."
@@ -1463,11 +1511,15 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%sର ଗୋଟିଏ 0x82 (Linux ସ୍ବାପ ପ୍ରକାର ଅଛି) କିନ୍ତୁ ଏହା ଗୋଟିଏ Linux ସ୍ବାପ ବିଭାଜନ ଭଳି "
+"ସଂରୂପିତ ହୋଇନାହିଁ।\n"
+"\n"
+"ଆପଣ ଏହି ବିଭାଜନକୁ ଗୋଟିଏ ସ୍ବାପ ବିଭାଜନ ରୂପରେ ସଂରୂପଣ କରିବା ପାଇଁ ଚାହାଁନ୍ତି କି?"
 
 #: ../partIntfHelpers.py:401
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
+msgstr "%sକୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଆପଣ ଅତି କମରେ ଗୋଟିଏ ହାର୍ଡ-ଡ୍ରାଇଭକୁ ଚୟନ କରିବା ଉଚିତ।"
 
 #: ../partIntfHelpers.py:407
 msgid ""
@@ -1478,6 +1530,10 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
+"ଆପଣ ଏହି ସ୍ଥାପନ ପାଇଁ ବିନା ସଂରୂପିତ ଗୋଟିଏ ପୂର୍ବ ଉପସ୍ଥିତ ବିଭାଜନର ପ୍ରୟୋଗକୁ ବାଛିଛନ୍ତି। ଆମେ ପରାମର୍ଶ ଦେଉଛୁ ଯେ "
+"ଆପଣ ଏହି ବିଭାଜନକୁ ସଂରୂପିତ କରନ୍ତୁ ଯାହାଦ୍ବାରା ପୂର୍ବ ପ୍ରଚାଳନ ତନ୍ତ୍ରର ସ୍ଥାପନ Linuxର ଏହି ସ୍ଥାପନ ପାଇଁ କୌଣସି "
+"ସମସ୍ଯା ସ୍ରୁଷ୍ଟି କରିବ ନାହିଁ। ତଥାପି, ଯଦି ଏହି ବିଭାଜନରେ ଆପଣଙ୍କର ଆବଶ୍ଯକ ଫାଇଲ ଗୁଡିକ ଅଛି, ଯେପରିକି ମୂଳସ୍ଥାନ ପଞ୍ଜିକା, ତାହାହେଲେ "
+"ଏହି ବିଭାଜନକୁ ସଂରୂପିତ ନ କରି ଆଗକୁ ବଢନ୍ତୁ।"
 
 #: ../partIntfHelpers.py:415
 msgid "Format?"
@@ -1503,6 +1559,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ନିମ୍ନଲିଖିତ ଗୁରୁତର ତ୍ରୁଟି ଗୁଡିକ ଆପଣଙ୍କ ଦ୍ବାରା ନିବେଦିତ ବିଭାଜନ ଯୋଜନା ସହିତ ଉପସ୍ଥିତ ଅଛନ୍ତି। ଏହି ତ୍ରୁଟି ଗୁଡିକୁ "
+"ଆପଣଙ୍କର %sର ସ୍ଥାପନକୁ ଜାରି କରିବା ପୂର୍ବରୁ ସଠିକ କରାଯିବା ଉଚିତ।\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:438
 msgid "Partitioning Warning"
@@ -1517,6 +1577,11 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"ଆପଣଙ୍କ ଦ୍ବାରା ନିବେଦିତ ବିଭାଜନ ଯୋଜନା ସହିତ ନିମ୍ନଲିଖିତ ଚେତାବନୀ ଗୁଡିକ ଉପସ୍ଥିତ ଅଛନ୍ତି।\n"
+"\n"
+"%s\n"
+"\n"
+"ଆପଣ ନିବେଦିତ ବିଭାଜନ ଯୋଜନା ସହିତ ଆଗକୁ ବଢିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../partIntfHelpers.py:453 ../iw/partition_gui.py:665
 msgid ""
@@ -1529,6 +1594,8 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
+"ଆଗକୁ ବଢି ଏହି ବିଭାଜନ ମାନଙ୍କୁ ସଂରୂପିତ କରିବା ପାଇଁ 'ହଁ' କୁ ଚୟନ କରନ୍ତୁ, କିମ୍ବା ପଛକୁ ଯାଇ ଏହି ବିନ୍ଯାସ ଗୁଡିକ "
+"ବଦଳାଇବା ପାଇଁ 'ନାଁ' କୁ ଦବାନ୍ତୁ।"
 
 #: ../partIntfHelpers.py:462
 msgid "Format Warning"
@@ -1541,36 +1608,39 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"ଆପଣ \"%s\" ପ୍ରବଳତା ସମୂହକୁ ଅପସାରିତ କରିବା ପାଇଁ ଯାଉଛନ୍ତି।\n"
+"\n"
+"ଏହି ପ୍ରବଳତା ସମୂହରେ ଥିବା ସମସ୍ତ ତାର୍କିକ ପ୍ରବଳତା ଗୁଡିକ ନଷ୍ଟ ହୋଇଯିବେ।"
 
 #: ../partIntfHelpers.py:514
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr ""
+msgstr "ଆପଣ \"%s\" ପ୍ରବଳତା ସମୂହକୁ ଅପସାରିତ କରିବା ପାଇଁ ଯାଉଛନ୍ତି।"
 
 #: ../partIntfHelpers.py:517
 msgid "You are about to delete a RAID device."
-msgstr ""
+msgstr "ଆପଣ ଗୋଟିଏ RAID ଉପକରଣ ଅପସାରିତ କରିବା ପାଇଁ ଯାଉଛନ୍ତି।"
 
 #: ../partIntfHelpers.py:520
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
-msgstr ""
+msgstr "ଆପଣ /dev/%s ବିଭାଜନକୁ ଅପସାରିତ କରିବା ପାଇଁ ଯାଉଛନ୍ତି।"
 
 #: ../partIntfHelpers.py:523
 msgid "The partition you selected will be deleted."
-msgstr ""
+msgstr "ଆପଣ ଚୟନ କରିଥିବା ବିଭାଜନଟି ଅପସାରିତ ହୋଇଯିବ।"
 
 #: ../partIntfHelpers.py:533
 msgid "Confirm Reset"
-msgstr ""
+msgstr "ପୁନଃ ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ନିଶ୍ଚିତ କରନ୍ତୁ"
 
 #: ../partIntfHelpers.py:534
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
+msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ବିଭାଜନ ସାରଣୀକୁ ଏହାର ପୂର୍ବାବସ୍ଥାକୁ ଆଣିବା ପାଇଁ ଚାହୁଁଛନ୍ତି?"
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
-msgstr ""
+msgstr "ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଜାରି ହୋଇ ପାରିବା ନାହିଁ।"
 
 #: ../partitioning.py:58
 msgid ""
@@ -1578,10 +1648,12 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
+"ଆପଣ ଚୟନ କରିଥିବା ବିଭଜନୀୟ ବିକଲ୍ପକୁ ପୂର୍ବରୁ ସକ୍ରିୟଣ କରାଯାଇଛି। ଆପଣ ପରଦାକୁ ସମ୍ପାଦନ କରି ଏହି ଡିସ୍କକୁ ପ୍ରତ୍ଯାବର୍ତ୍ତନ କରି ପାରିବେ"
+"ନାହିଁ। ଆପଣ ଏହି ସ୍ଥାପନ ପ୍ରକ୍ରିୟାକୁ ଜାରି ରଖିବା ପାଇଁ ଚାହୁଁଛନ୍ତି କି?"
 
 #: ../partitioning.py:88
 msgid "Low Memory"
-msgstr ""
+msgstr "ସ୍ବଲ୍ପ ସ୍ମ୍ରୁତି"
 
 #: ../partitioning.py:89
 msgid ""
@@ -1589,6 +1661,8 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
+"ଯେହେତୁ ଆପଣଙ୍କର ଏହି ଯନ୍ତ୍ରରେ ଯଥେଷ୍ଟ ସ୍ମ୍ରୁତି ନାହିଁ, ଆମକୁ ତୁରନ୍ତ ସ୍ବାପ ସ୍ଥାନର ପ୍ରତିକୂଳ ବ୍ଯବହାର କରିବାକୁ ହେବ। ଏପରି କରିବାକୁ ହେଲେ "
+"ଆମକୁ ନୂତନ ବିଭାଜନ ସାରଣୀକୁ ତୁରନ୍ତ ଡିସ୍କରେ ଲେଖିବା ପାଇଁ ହେବ। ଏହା ଠିକ ଅଛି କି?"
 
 #: ../partitions.py:804
 #, python-format
