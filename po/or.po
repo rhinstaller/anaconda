@@ -1670,6 +1670,8 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
+"ଆପଣ ଗୋଟିଏ ରୁଟ ବିଭାଜନ (/) କୁ ବ୍ଯାଖ୍ଯା କରି ନାହାଁନ୍ତି, ଯାହାକି %s ର ସ୍ଥାପନକୁ ଜାରି ରଖିବା ପାଇଁ "
+"ଆବଶ୍ଯକ।"
 
 #: ../partitions.py:809
 #, python-format
@@ -1677,18 +1679,19 @@ msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
+"ଆପଣଙ୍କର ରୁଟ ବିଭାଜନ ୨୫୦ ମେଗା-ବାଇଟରୁ କମ ଅଛି ଯାହାକି ସାଧାରଣତଃ %sର ସ୍ଥାପନ ପାଇଁ ବହୁତ କମ ଅଟେ।"
 
 #: ../partitions.py:816
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "FAT ଏବଂ ୫୦ ମେଗା-ବାଇଟର ଗୋଟିଏ ଆକାରକୁ ଟାଇପ କରିବା ପାଇଁ ଆପଣ ଗୋଟିଏ /boot/efiକୁ ସ୍ରୁଷ୍ଟି କରିବା ଉଚିତ।"
 
 #: ../partitions.py:836
 msgid "You must create an Apple Bootstrap partition."
-msgstr ""
+msgstr "ଆପଣ ଗୋଟିଏ Apple Bootstrap ବିଭାଜନ ସ୍ରୁଷ୍ଟି କରିବା ଉଚିତ।"
 
 #: ../partitions.py:858
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "ଆପଣ ଗୋଟିଏ PPC PReP ବୁଟ ବିଭାଜନ ସ୍ରୁଷ୍ଟି କରିବା ଉଚିତ।"
 
 #: ../partitions.py:866 ../partitions.py:877
 #, python-format
@@ -1696,30 +1699,35 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
+"ଆପଣଙ୍କର %s ବିଭାଜନଟି %s ମେଗା-ବାଇଟରୁ କମ ଅଟେ ଯାହାକି ଗୋଟିଏ ସାଧାରଣ %s ସ୍ଥାପନ ପାଇଁ "
+"ପ୍ରତ୍ଯାଶିତ ଆକାରରୁ ଛୋଟ ଅଟେ।"
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgstr "ଗୋଟିଏ USB ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି ନପାରେ।"
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"ଅଗ୍ନିକବଚ ଉପକରଣରେ ସ୍ଥାପନ କରୁଅଛି। ଏହା ଗୋଟିଏ କାର୍ଯ୍ଯକ୍ଷମ ତନ୍ତ୍ର ଉତ୍ପାଦନ କରିପାରେ କିମ୍ବା କରି ନପାରେ।"
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବଳ RAID1 ଉପକରଣରେ ଥାଇପାରେ।"
 
 #: ../partitions.py:930
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
+msgstr "ବୁଟ କରିବା ଯୋଗ୍ଯ ବିଭାଜନ କେବେହେଲେ ଗୋଟିଏ ତାର୍କିକ ପ୍ରବଳତାରେ ନ ଥିବ।"
 
 #: ../partitions.py:948
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
+"ଆପଣ ଗୋଟିଏ ସ୍ବାପ ବିଭାଜନକୁ ନିର୍ଦ୍ଦିଷ୍ଟ କରି ନାହାଁନ୍ତି। ଯଦିଓ ଏହା ବିଧିବଦ୍ଧ ଭାବରେ ସମସ୍ତ ସ୍ଥିତିରେ ଏହା ଆବଶ୍ଯକ ନୁହେଁ, "
+"ତଥାପି ଏହା ଅଧିକାଂଶ ସ୍ଥାପନର ଉତ୍ପାଦନ ଉଲ୍ଲେଖଯୋଗ୍ଯ ଭାବରେ ବ୍ରୁଦ୍ଧି କରାଇଥାଏ>"
 
 #: ../partitions.py:955
 #, python-format
@@ -1727,6 +1735,7 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
+"ଆପଣ ୩୨ରୁ ଅଧିକ ସ୍ବାପ ଉପକରଣକୁ ଉଲ୍ଲେଖ କରିଛନ୍ତି। କେବଳ %sର କର୍ଣ୍ଣଲ ୩୨ ସ୍ବାପ ଉପକରଣ ମାନଙ୍କୁ ସହାୟକ ହୋଇଥାଏ।"
 
 #: ../partitions.py:966
 #, python-format
@@ -1734,23 +1743,24 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
+""
 
 #: ../partitions.py:1266
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "ସ୍ଥାପକ ଦ୍ବାରା ବ୍ଯବହ୍ରୁତ ବିଭାଜନ।"
 
 #: ../partitions.py:1269
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି RAID ଆରେର ଏକ ସଦସ୍ଯ ଅଟେ।"
 
 #: ../partitions.py:1272
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "ଗୋଟିଏ ବିଭାଜନ ଯାହାକି LVM ପ୍ରବଳତା ସମୂହର ଏକ ସଦସ୍ଯ ଅଟେ।"
 
 #: ../partRequests.py:249
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "ଏହି ଆରୋହଣ ବିନ୍ଦୁଟି ଅବୈଧ ଅଟେ। %s ଡିରେକ୍ଟୋରିଟି / ଫାଇଲ ତନ୍ତ୍ରରେ ଥିବା ଉଚିତ।"
 
 #: ../partRequests.py:252
 #, python-format
