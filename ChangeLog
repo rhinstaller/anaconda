@@ -1,3 +1,11 @@
+2006-07-19  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/nfsinstall.c (getFileFromNfs): Bring down network iface after
+	fetching kickstart file.
+
+	* loader2/urlinstall.c (getFileFromUrl): Bring down network iface after
+	fetching file.
+
 2006-07-19  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (KEEPFILEGR): dejavu fonts instead of vera

@@ -349,6 +349,7 @@ char * mountUrlImage(struct installMethod * method,
 
 int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData) {
+    char *buf = NULL;
     char ret[47];
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
@@ -393,34 +394,35 @@ int getFileFromUrl(char * url, char * dest,
     }
 
     if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
-	/* find all ethernet devices and make a header entry for each one */
-	int i;
+        /* find all ethernet devices and make a header entry for each one */
+        int i;
         unsigned int hdrlen;
-	char *dev, *mac, tmpstr[128];
+        char *dev, *mac, tmpstr[128];
         struct device ** devices;
 
-	hdrlen = 0;
+        hdrlen = 0;
         devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
-	for (i = 0; devices && devices[i]; i++) {
-	    dev = devices[i]->device;
-	    mac = netlink_interfaces_mac2str(dev);
+        for (i = 0; devices && devices[i]; i++) {
+            dev = devices[i]->device;
+            mac = netlink_interfaces_mac2str(dev);
 
-	    if (mac) {
-		snprintf(tmpstr, sizeof(tmpstr), "X-RHN-Provisioning-MAC-%d: %s %s\r\n", i, dev, mac);
-		free(mac);
+            if (mac) {
+                snprintf(tmpstr, sizeof(tmpstr),
+                         "X-RHN-Provisioning-MAC-%d: %s %s\r\n", i, dev, mac);
+                free(mac);
 
-		if (!ehdrs) {
-		    hdrlen = 128;
-		    ehdrs = (char *) malloc(hdrlen);
-		    *ehdrs = '\0';
-		} else if ( strlen(tmpstr) + strlen(ehdrs) + 2 > hdrlen) {
-		    hdrlen += 128;
-		    ehdrs = (char *) realloc(ehdrs, hdrlen);
-		}
+                if (!ehdrs) {
+                    hdrlen = 128;
+                    ehdrs = (char *) malloc(hdrlen);
+                    *ehdrs = '\0';
+                } else if ( strlen(tmpstr) + strlen(ehdrs) + 2 > hdrlen) {
+                    hdrlen += 128;
+                    ehdrs = (char *) realloc(ehdrs, hdrlen);
+                }
 
-		strcat(ehdrs, tmpstr);
-	    }
-	}
+                strcat(ehdrs, tmpstr);
+            }
+        }
     }
 	
     fd = urlinstStartTransfer(&ui, file, ehdrs, 0);
@@ -441,6 +443,13 @@ int getFileFromUrl(char * url, char * dest,
     urlinstFinishTransfer(&ui, fd);
 
     if (ehdrs) free(ehdrs);
+
+    buf = pumpDisableInterface(netCfg.dev.device);
+    if (buf) {
+        logMessage(ERROR, "getFileFromUrl: %s", buf);
+        return 1;
+    }
+
     return 0;
 }
 
