@@ -67,6 +67,11 @@ class TaskWindow(InstallWindow):
         
         (dxml, dialog) = gui.getGladeWidget("addrepo.glade", "addRepoDialog")
         gui.addFrame(dialog)
+
+        lbl = dxml.get_widget("descLabel")
+        txt = lbl.get_text()
+        lbl.set_text(txt %(productName,))
+        
         dialog.show_all()
 
         while 1:

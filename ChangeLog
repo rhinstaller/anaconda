@@ -1,5 +1,8 @@
 2006-07-19  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/task_gui.py (TaskWindow._addRepo): Actually set the product 
+	name...
+
 	* scripts/scrubtree: Fix for new busybox so that we get links to
 	all of the busybox applets (#199463)
 	* scripts/mk-images: Likewise
