@@ -1,5 +1,9 @@
 2006-07-19  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/scrubtree: Fix for new busybox so that we get links to
+	all of the busybox applets (#199463)
+	* scripts/mk-images: Likewise
+
 	* scripts/mk-images: Use reboot instead of shutdown (#199262)
 
 2006-07-19  David Cantrell  <dcantrell@redhat.com>

@@ -445,7 +445,7 @@ EOF
     # make some symlinks
     ln -sf bash $MBD_DIR/sbin/sh
     (cd $MBD_DIR/sbin;
-    	set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
+    	set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
     	while [ -n "$1" ]; do
     	      if [ $1 != "busybox" -a $1 != "sh" ]; then
               	 # if file doesnt already exist, link to busybox
