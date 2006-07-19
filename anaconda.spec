@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.60
+Version: 11.1.0.61
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 19 2006 Chris Lumens <clumens@redhat.com> 11.1.0.61-1
+- Bring down network interface after fetching files (dcantrel).
+- Use dejavu fonts instead of vera (katzj).
+- Tweak iSCSI, partitioning, and tasksel UI (katzj, #199451).
+- Fix busybox symlinks (katzj, #199463).
+- Use reboot instead of shutdown (katzj, #199262).
+- Fix DHCP error messages (dcantrel, #199452).
+
 * Tue Jul 18 2006 David Cantrell <dcantrell@redhat.com> - 11.1.0.60-1
 - Fix va_copy() argument ordering in logMessageV() in loader
 
