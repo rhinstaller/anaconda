@@ -1,5 +1,8 @@
 2006-07-20  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (setFileCons): Fix labels of stuff that we create
+	before the install starts now (#199605)
+
 	* fsset.py (xfsFileSystem.formatDevice): Use attr=2 for xfs per
 	Eric Sandeen
 

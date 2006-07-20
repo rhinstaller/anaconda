@@ -193,7 +193,7 @@ def setFileCons(anaconda):
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
-                 "/etc/mdadm.conf"]
+                 "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network"]
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
@@ -201,7 +201,7 @@ def setFileCons(anaconda):
                 vgs.append("/dev/%s" %(entry.volumeGroupName,))
 
         # ugh, this is ugly
-        for dir in ["/var/lib/rpm", "/etc/lvm", "/dev/mapper"] + vgs:
+        for dir in ["/etc/sysconfig/network-scripts/", "/var/lib/rpm", "/etc/lvm", "/dev/mapper"] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(anaconda.rootPath + dir):
