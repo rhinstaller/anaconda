@@ -143,10 +143,10 @@ class GroupSelectionWindow:
 		# reflect new packages selected
 		selected = gct.getSelection()
                 for (opkg, osel) in orig.items():
-                    if pkg in selected and not osel:
-                        self.__selectPackage(grp, pkg)
-                    elif pkg not in selected and osel:
-                        self.__deselectPackage(grp, pkg)
+                    if opkg in selected and not osel:
+                        self.__selectPackage(grp, opkg)
+                    elif opkg not in selected and osel:
+                        self.__deselectPackage(grp, opkg)
 
         rc = bb.buttonPressed(result)
         screen.popWindow()
