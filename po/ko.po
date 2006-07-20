@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-20 12:28+1000\n"
+"PO-Revision-Date: 2006-07-20 14:41+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1901,9 +1901,9 @@ msgid ""
 "\n"
 msgstr ""
 "복구 환경은 기존에 설치되어 있는 리눅스 시스템을 검색하여 %s 디렉토리에 마운"
-"트시킬 것입니다.  그후 이 디렉토리를 수정하시면 됩니다. 이 복구 작업을 수행하"
-"시려면, [진행] 버튼을 눌러주십시오. 또한 '읽기-전용'을 선택하여 읽기-쓰기 대"
-"신 읽기-전용으로 파일 시스템을 마운트하실 수 있습니다.\n"
+"트시킬 것입니다.  그 후 시스템에 맞게 디렉토리를 수정하시면 됩니다. 이 복구 "
+"작업을 수행하시려면, [진행] 버튼을 눌러주십시오. 또한 '읽기-전용'을 선택하여 "
+"읽기-쓰기 대신 읽기-전용으로 파일 시스템을 마운트하실 수 있습니다.\n"
 "\n"
 "어떠한 이유로 인하여 이러한 과정이 실패하였을 경우에는 [생략] 버튼을 누르시"
 "면, 곧바로 명령 쉘 환경으로 되돌아갑니다.\n"
@@ -1916,7 +1916,7 @@ msgstr "진행"
 
 #: ../rescue.py:287 ../rescue.py:296
 msgid "Read-Only"
-msgstr "읽는 전용"
+msgstr "읽기-전용"
 
 #: ../rescue.py:319
 msgid "System to Rescue"
@@ -1924,7 +1924,7 @@ msgstr "복구할 시스템"
 
 #: ../rescue.py:320
 msgid "What partition holds the root partition of your installation?"
-msgstr "루트 파티션이 있는 곳을 지정해 주십시오"
+msgstr "시스템 설치를 위한 루트(/) 파티션이 있는 곳은 어디입니까?"
 
 #: ../rescue.py:322 ../rescue.py:326
 msgid "Exit"
@@ -1938,7 +1938,7 @@ msgid ""
 msgstr ""
 "마운트하지 않기로 결정하신 파일 시스템에 오류가 있습니다. fsck와 파티션을 마"
 "운트 할 수 있는 쉘로 나가시려면, [ENTER] 키를 누르십시오. 쉘에서 빠져 나가시"
-"면, 시스템은 자동으로 재부팅 됩니다."
+"면, 시스템은 자동으로 재부팅됩니다."
 
 #: ../rescue.py:354
 #, python-format
@@ -1952,14 +1952,14 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"여러분의 시스템이 %s에 마운트 되었습니다.\n"
+"시스템이 %s에 마운트 되었습니다.\n"
 "\n"
-"쉘로 나가시려면, [ENTER] 키를 누르십시오. 여러분의 시스템을 Root 환경으로 하"
+"쉘로 나가시려면, [ENTER] 키를 누르십시오. 시스템을 Root 환경으로 하"
 "기 위해서는 다음의 명령을 내리시기 바랍니다:\n"
 "\n"
 "\tchroot %s\n"
 "\n"
-"쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅 됩니다."
+"쉘에서 빠져 나가시면, 시스템은 자동으로 재부팅됩니다."
 
 #: ../rescue.py:437
 #, python-format
