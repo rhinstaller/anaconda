@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-19 17:53+1000\n"
+"PO-Revision-Date: 2006-07-20 12:28+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1605,7 +1605,9 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "다음의 기존-파티션을 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
+msgstr ""
+"포맷하기 위해 다음의 기존-파티션을 선택합니다, "
+"파티션 안의 모든 자료는 삭제됩니다."
 
 #: ../partIntfHelpers.py:456
 msgid ""
@@ -1646,7 +1648,7 @@ msgstr "/dev/%s 파티션을 삭제하려고 합니다."
 
 #: ../partIntfHelpers.py:523
 msgid "The partition you selected will be deleted."
-msgstr "여러분이 선택하신 파티션을 삭제합니다."
+msgstr "선택하신 파티션을 삭제합니다."
 
 #: ../partIntfHelpers.py:533
 msgid "Confirm Reset"
@@ -1654,11 +1656,11 @@ msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:534
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "확실히 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
+msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:57
 msgid "Installation cannot continue."
-msgstr "설치를 진행할 수 없습니다."
+msgstr "설치를 계속 진행할 수 없습니다."
 
 #: ../partitioning.py:58
 msgid ""
@@ -1666,8 +1668,8 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"여러분이 선택하신 파티션 설정 옵션은 이미 진행 중에 있습니다. 더이상 드라이"
-"브 편집 화면으로는 되돌아 가실 수 없습니다. 설치를 계속 진행하시겠습니까?"
+"선택하신 파티션 설정 옵션은 이미 진행 중에 있습니다. 더이상 디스크 "
+"편집 화면으로는 되돌아 가실 수 없습니다. 설치를 계속 진행하시겠습니까?"
 
 #: ../partitioning.py:88
 msgid "Low Memory"
@@ -1679,8 +1681,8 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"여러분 시스템의 메모리가 부족하기 때문에 지금 즉시 스왑 공간을 사용해야 합니"
-"다. 스왑 공간을 사용하시려면, 현재 여러분의 새로운 파티션 정보를 드라이브에 "
+"시스템의 메모리가 부족하기 때문에 지금 즉시 스왑 공간을 사용해야 합니"
+"다. 스왑 공간을 사용하시려면, 현재 여러분의 새로운 파티션 정보를 디스크에 "
 "기록해야 합니다. 그렇게 하시겠습니까?"
 
 #: ../partitions.py:804
@@ -1721,12 +1723,12 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"여러분이 설정하신 %s 파티션의 용량이 %s MB 보다 적습니다. 이 용량은 %s를 설치"
+"설정하신 %s 파티션의 용량이 %s MB 보다 적습니다. 이 용량은 %s를 설치"
 "하는데 필요한 기본 용량보다 적습니다."
 
 #: ../partitions.py:911
 msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 수도 있습니다. "
+msgstr "USB디바이스를 설치중입니다. 이는 작업 시스템에 작동할 수 도, 작동하지 않을 수 도 있습니다."
 
 #: ../partitions.py:914
 msgid ""
@@ -1748,8 +1750,7 @@ msgid ""
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 "스왑 파티션을 지정하지 않으셨습니다.  스왑 파티션을 반드시 지정해야 하는 것"
-"은 아니지만, 스왑 파티션의 유/무가 설치시의 작업 속도에 상당한 영향을 미칩니"
-"다."
+"은 아니지만, 스왑 파티션을 지정하면 설치시 작업 속도를 증가시킵니다."
 
 #: ../partitions.py:955
 #, python-format
@@ -1757,7 +1758,7 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"여러분은 32개 이상의 스왑 장치를 지정하셨습니다.  %s의 커널에서는 32개 까지"
+"32개 이상의 스왑 장치를 지정하셨습니다.  %s의 커널에서는 32개 까지"
 "의 스왑 장치만을 지원합니다. "
 
 #: ../partitions.py:966
@@ -1766,12 +1767,12 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"여러분 시스템 상의 스왑 공간(%dMB)을 사용 가능한 램 용량(%dMB) 보다 적게 지정"
+"시스템 상의 스왑 공간(%dM)을 사용 가능한 램 용량(%dM) 보다 적게 지정"
 "하셨습니다.  이와 같은 설정은 오히려 성능을 감소시킬 수 있습니다."
 
 #: ../partitions.py:1266
 msgid "the partition in use by the installer."
-msgstr "파티션이 설치 프로그램에 의해 사용되고 있습니다."
+msgstr "파티션이 설치자에 의해 사용되고 있습니다."
 
 #: ../partitions.py:1269
 msgid "a partition which is a member of a RAID array."
@@ -1785,7 +1786,7 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
-"마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일시스템 "
+"마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일 시스템 "
 "상에 위치해야 합니다."
 
 #: ../partRequests.py:252
@@ -1794,7 +1795,7 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"%s 마운트 지점을 사용할 수 없습니다. 적절한 시스템 작업으로 심볼릭 연결되어"
+"%s 마운트 지점을 사용할 수 없습니다. 적절한 시스템 작업으로 심볼릭 연결이 되어"
 "야 합니다.  다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:259
@@ -1813,19 +1814,19 @@ msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳�
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "%s 파티션의 용량(%10.2f MB)이 최대 용량인%10.2f MB 를 초과했습니다."
+msgstr "%s 파티션의 용량(%10.2f MB)이 최대 용량인 %10.2f MB를 초과했습니다."
 
 #: ../partRequests.py:490
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr "요구하신 파티션의 용량(%s MB)이 최대 용량인 %s MB 를 초과했습니다."
+msgstr "요청하신 파티션의 용량(%s MB)이 최대 용량인 %s MB를 초과했습니다."
 
 #: ../partRequests.py:495
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "요구하신 파티션의 용량(%s MB)은 사용될 수 없습니다!"
+msgstr "요청하신 파티션의 용량(%s MB)은 사용될 수 없습니다!"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
@@ -1868,7 +1869,7 @@ msgstr "네트워크 설정"
 
 #: ../rescue.py:192
 msgid "Do you want to start the network interfaces on this system?"
-msgstr "이 시스템의 네트워크 인터페이스를 시작하시겠습니까?"
+msgstr "시스템 상에서 네트워크 인터페이스를 시작하시겠습니까?"
 
 #: ../rescue.py:237 ../text.py:528
 msgid "Cancelled"
@@ -1876,11 +1877,11 @@ msgstr "취소됨"
 
 #: ../rescue.py:238 ../text.py:529
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "이전 설정 화면으로 되돌아 갈 수 없습니다. 다시 한번 확인해 주십시오."
+msgstr "이전 설정 화면으로 되돌아 갈 수 없습니다. 다시 한번 시도해 주십시오."
 
 #: ../rescue.py:256 ../rescue.py:292 ../rescue.py:461
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "작업을 완료하신 후에 쉘에서 빠져 나가시면, 시스템이 재부팅 됩니다."
+msgstr "작업을 완료하신 후에 쉘에서 빠져 나가시면, 시스템이 재부팅됩니다."
 
 #: ../rescue.py:276 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
