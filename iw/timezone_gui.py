@@ -114,10 +114,15 @@ class TimezoneWindow(InstallWindow):
 # currently selected.
 def tzFilterFunc (model, iter, user_data):
     (longmin, latmin, longmax, latmax) = user_data.get_shown_region_long_lat()
-    curlat = model.get_value(iter, 2)
-    curlong = model.get_value(iter, 3)
 
-    if curlat >= latmin and curlat <= latmax and curlong >= longmin and curlong <= longmax:
+    tz = user_data.zonetab.findEntryByTZ(model.get_value(iter, 1))
+
+    # Allow the NoGeo timezones in all the time.  No good reason for this,
+    # but it has to be one way or the other.
+    if tz.lat is None and tz.long is None:
+        return True
+
+    if tz.lat >= latmin and tz.lat <= latmax and tz.long >= longmin and tz.long <= longmax:
         return True
     elif user_data.currentEntry == None:
         if model.get_value(iter, 1) == "America/New_York":
@@ -137,27 +142,24 @@ class AnacondaTZMap(TimezoneMap):
         iter = self.tzStore.get_iter_first()
 
         for entry in self.zonetab.getEntries():
-            if entry.lat is None or entry.long is None:
-                continue
+            if entry.lat is not None and entry.long is not None:
+                x, y = self.map2canvas(entry.lat, entry.long)
+                marker = root.add(gnomecanvas.CanvasText, x=x, y=y,
+                                  text=u'\u00B7', fill_color='yellow',
+                                  anchor=gtk.ANCHOR_CENTER,
+                                  weight=pango.WEIGHT_BOLD)
+                self.markers[entry.tz] = marker
 
-            x, y = self.map2canvas(entry.lat, entry.long)
-            marker = root.add(gnomecanvas.CanvasText, x=x, y=y,
-                              text=u'\u00B7', fill_color='yellow',
-                              anchor=gtk.ANCHOR_CENTER,
-                              weight=pango.WEIGHT_BOLD)
-            self.markers[entry.tz] = marker
+                if entry.tz == "America/New_York":
+                    # In case the /etc/sysconfig/clock is messed up, use New
+                    # York as the default.
+                    self.fallbackEntry = entry
 
-            if entry.tz == "America/New_York":
-                #In case the /etc/sysconfig/clock is messed up, use New York as default
-                self.fallbackEntry = entry
-
-            iter = self.tzStore.insert_after(iter, [_(entry.tz), entry.tz,
-                                                    entry.lat, entry.long])
+            iter = self.tzStore.insert_after(iter, [_(entry.tz), entry.tz])
 
     def timezone_list_init (self, default):
         self.hbox = gtk.HBox()
-        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
-                                     gobject.TYPE_INT, gobject.TYPE_INT)
+        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 
         root = self.canvas.root()
 

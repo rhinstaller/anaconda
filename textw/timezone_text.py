@@ -31,7 +31,7 @@ class TimezoneWindow:
         import zonetab
 
         zt = zonetab.ZoneTab()
-        zoneList = [ x.tz for x in zt.getEntries() if x.lat != None and x.long != None ]
+        zoneList = [ x.tz for x in zt.getEntries() ]
         zoneList.sort()
         return zoneList
 
