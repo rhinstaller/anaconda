@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-14 11:58+1000\n"
+"PO-Revision-Date: 2006-07-20 16:21+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
 "Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -3139,7 +3139,7 @@ msgstr "空き領域:"
 
 #: ../iw/lvm_dialog_gui.py:1046
 msgid "Total Space:"
-msgstr "合計容量:"
+msgstr "合計領域:"
 
 #: ../iw/lvm_dialog_gui.py:1075
 msgid "Logical Volume Name"
@@ -3153,7 +3153,7 @@ msgstr "マウントポイント"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
 msgid "Size (MB)"
-msgstr "容量 (MB):"
+msgstr "サイズ (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
@@ -3251,18 +3251,14 @@ msgstr "データにエラーがあります"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"ホスト名を指定していません。ネットワーク環境によっては、これが後で問題になる"
-"かも知れません。"
+msgstr "ホスト名を指定していません。ネットワーク環境によっては後で問題となる可能性があります。"
 
 #: ../iw/network_gui.py:168
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"フィールド\"%s\"を指定していません。ネットワークの環境によっては後で問題にな"
-"るかも知れません。"
+msgstr "フィールド \"%s\" を指定していません。ネットワーク環境によっては後で問題となる可能性があります。"
 
 #: ../iw/network_gui.py:172 ../textw/network_text.py:413
 #, python-format
@@ -3271,7 +3267,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"ホスト名\"%s\"は、次のような理由で有効ではありません:\n"
+"ホスト名 \"%s\" は、次のような理由で有効ではありません。\n"
 "\n"
 "%s"
 
@@ -3281,17 +3277,17 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"\"%s\"に入力された値を変換中にエラーが発生:\n"
+"\"%s\" に入力された値を変換中にエラーが発生:\n"
 "%s"
 
 #: ../iw/network_gui.py:183
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr "フィールド \"%s\" の為に値が要求されます。"
+msgstr "フィールド \"%s\" には値が必要です。"
 
 #: ../iw/network_gui.py:187
 msgid "The IP information you have entered is invalid."
-msgstr "入力された IP 情報は不適切です。"
+msgstr "入力した IP 情報は不適切です。"
 
 #: ../iw/network_gui.py:191
 msgid ""
@@ -3302,17 +3298,17 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
-"アクティブなネットワークデバイスがありません。 少なくとも1つのデバイスがアク"
+"アクティブなネットワークデバイスがありません。 少なくとも 1 つのデバイスがアク"
 "ティブでないとデフォルトではシステムがネットワーク上で通信できません。\n"
 " \n"
-"注意: PCMCIA ベースのネットワークアダプターを使用している場合、この時点ではま"
-"だ停止のままにします。システムを再起動する時にアダプターは自動的に起動してき"
+"注意: PCMCIA ベースのネットワークアダプタを使用している場合、この時点ではま"
+"だ停止のままにしておきます。システムを再起動する時にアダプタは自動的に起動してき"
 "ます。"
 
 #: ../iw/network_gui.py:210
 #, python-format
 msgid "Edit Interface %s"
-msgstr "インターフェイス%sを編集"
+msgstr "インターフェイス %s を編集"
 
 #: ../iw/network_gui.py:221
 msgid "Configure using _DHCP"
@@ -3340,7 +3336,7 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:247
 msgid "Encryption _Key"
-msgstr "暗号鍵(_K)"
+msgstr "暗号キー(_K)"
 
 #: ../iw/network_gui.py:258
 msgid "Hardware address:"
@@ -3403,10 +3399,10 @@ msgid ""
 "the desired operating system."
 msgstr ""
 "他のオペレーティングシステムがブートできるようにブートローダを設定できま"
-"す。 これによりリスト内からブートするオペレーティングシステムを選択できる様に"
+"す。 これにより、一覧からブートするオペレーティングシステムを選択できる様に"
 "なります。 自動的に認識されない他のオペレーティングシステムを追加するには、"
 "「追加」をクリックします。デフォルトでブートするオペレーティングシステムを変"
-"更する には、目的のオペレーティングシステムの側の「デフォルト」を選択します。"
+"更するには、目的のオペレーティングシステムで「デフォルト」を選択します。"
 
 #: ../iw/osbootwidget.py:67 ../textw/bootloader_text.py:259
 msgid "Default"
@@ -3425,8 +3421,8 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"ブートローダメニューに表示するラベルを入力します。デバイス(又は、ハードドラ"
-"イブとパーティション番号)とは起動用に使うデバイスのことです。"
+"ブートローダメニューに表示されるラベルを入力します。デバイス(または、ハードドラ"
+"イブとパーティション番号)とは、起動用に使うデバイスのことです。"
 
 #: ../iw/osbootwidget.py:149
 msgid "_Label"
@@ -3434,19 +3430,19 @@ msgstr "ラベル(_L)"
 
 #: ../iw/osbootwidget.py:188
 msgid "Default Boot _Target"
-msgstr "ディフォルトのブートターゲット(_T)"
+msgstr "デフォルトのブートターゲット(_T)"
 
 #: ../iw/osbootwidget.py:217
 msgid "You must specify a label for the entry"
-msgstr "入力項目用のラベルを指定する必要があります。"
+msgstr "ブートエントリのラベルを指定してください"
 
 #: ../iw/osbootwidget.py:226
 msgid "Boot label contains illegal characters"
-msgstr "ブートラベルに不適切な文字があります。"
+msgstr "ブートラベルに不適切な文字があります"
 
 #: ../iw/osbootwidget.py:250
 msgid "Duplicate Label"
-msgstr "ラベルを複製"
+msgstr "ラベルが重複しています"
 
 #: ../iw/osbootwidget.py:251
 msgid "This label is already in use for another boot entry."
@@ -3454,7 +3450,7 @@ msgstr "このラベルは既に別のブートエントリに使用されてい
 
 #: ../iw/osbootwidget.py:264
 msgid "Duplicate Device"
-msgstr "デバイスを複製"
+msgstr "デバイスが重複しています"
 
 #: ../iw/osbootwidget.py:265
 msgid "This device is already being used for another boot entry."
@@ -3462,7 +3458,7 @@ msgstr "このデバイスは既に別のブートエントリに使用されて
 
 #: ../iw/osbootwidget.py:329 ../textw/bootloader_text.py:342
 msgid "Cannot Delete"
-msgstr "削除できません。"
+msgstr "削除できません"
 
 #: ../iw/osbootwidget.py:330 ../textw/bootloader_text.py:343
 #, python-format
@@ -3470,8 +3466,8 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"このブートターゲットは、インストールしようとしている%sシステム用になっている"
-"為、削除できません。"
+"このブートターゲットは、インストールしようとしている %s システム用になっている"
+"ため削除できません。"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3491,20 +3487,20 @@ msgstr "最大許容量まで使用(_A)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "終了シリンダーは開始シリンダーよりも大きくなければなりません。"
+msgstr "終了シリンダは開始シリンダよりも大きくなければなりません。"
 
 #: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:711
 msgid "Add Partition"
-msgstr "パーティション追加"
+msgstr "パーティションの追加"
 
 #: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr "パーティション: /dev/%sを編集"
+msgstr "パーティションの編集: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
-msgstr "パーティションを編集"
+msgstr "パーティションの編集"
 
 #: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
 msgid "File System _Type:"
@@ -3551,8 +3547,8 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"Mount Point/\n"
-"RAID/Volume"
+"マウントポイント/\n"
+"RAID/ボリューム"
 
 #: ../iw/partition_gui.py:410
 msgid ""
@@ -3568,12 +3564,12 @@ msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:633
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr "要求されたパーティション設定に次のような致命的なエラーが存在しています。"
+msgstr "要求されたパーティション設定に次の致命的なエラーが存在しています。"
 
 #: ../iw/partition_gui.py:636
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr "これらのエラーは %s インストールの続行の前に必ず修正しなければなりません。"
+msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: ../iw/partition_gui.py:642
 msgid "Partitioning Errors"
@@ -3581,19 +3577,19 @@ msgstr "パーティション設定エラー"
 
 #: ../iw/partition_gui.py:648
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "要求されたパーティション設定について次のような警告があります。"
+msgstr "要求されたパーティション設定に次の警告があります。"
 
 #: ../iw/partition_gui.py:650
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "このパーティション設定のままでアップグレードを続行しますか?"
+msgstr "このパーティション設定のまま続行しますか?"
 
 #: ../iw/partition_gui.py:655
 msgid "Partitioning Warnings"
-msgstr "パーティション設定、警告"
+msgstr "パーティション設定の警告"
 
 #: ../iw/partition_gui.py:677
 msgid "Format Warnings"
-msgstr "フォーマット警告"
+msgstr "フォーマットの警告"
 
 #: ../iw/partition_gui.py:682
 msgid "_Format"
@@ -3614,7 +3610,7 @@ msgstr "なし"
 
 #: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:327
 msgid "Hard Drives"
-msgstr "ハードディスク"
+msgstr "ハードドライブ"
 
 #: ../iw/partition_gui.py:869 ../textw/partition_text.py:141
 #: ../textw/partition_text.py:180
@@ -3636,16 +3632,16 @@ msgstr "空き"
 #: ../iw/partition_gui.py:998 ../textw/partition_text.py:228
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "要求されたパーティション: %sを設定できません。"
+msgstr "要求されたパーティションを設定できませんでした: %s"
 
 #: ../iw/partition_gui.py:1007
 #, python-format
 msgid "Warning: %s."
-msgstr "警告: %s."
+msgstr "警告: %s"
 
 #: ../iw/partition_gui.py:1191 ../iw/partition_gui.py:1205
 msgid "Not supported"
-msgstr "サポートされていません。"
+msgstr "サポートされていません"
 
 #: ../iw/partition_gui.py:1192
 msgid "LVM is NOT supported on this platform."
@@ -3657,15 +3653,13 @@ msgstr "ソフトウェア RAID はこのプラットフォームではサポー
 
 #: ../iw/partition_gui.py:1213
 msgid "No RAID minor device numbers available"
-msgstr "RAID マイナーのデバイス番号は利用できません。"
+msgstr "RAID マイナーのデバイス番号は利用できません"
 
 #: ../iw/partition_gui.py:1214
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
-"ソフトウェア RAID デバイスは、すべての利用可能な RAID マイナーのデバイス番号"
-"が 使用中なので、作成できません。"
+msgstr "利用可能な RAID マイナーのデバイス番号はすべて使用中のため、ソフトウェア RAID デバイスは作成できません。"
 
 #: ../iw/partition_gui.py:1228
 msgid "RAID Options"
@@ -3682,12 +3676,12 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"ソフトウェア RAID を使用すれば、幾つかのディスクをより大きなRAIDデバイスに 結"
-"合できます。RAID デバイスは個別のドライブ使用に比べて、速度と信頼性を 増加す"
-"る設定をすることが出来ます。RAID デバイス使用の詳細情報については %sドキュメ"
+"ソフトウェア RAID を使用すれば、複数のディスクを 1 つの大きな RAID デバイスとして結"
+"合することができます。RAID デバイスを設定することで、個別のドライブ使用に比べ速度と信頼性を"
+"高めることができます。RAID デバイスの使用方法については %s ドキュメ"
 "ントを参照してください。\n"
 " \n"
-"現在、%sソフトウェア RAID パーティションが使用できます。\n"
+"現在、%s ソフトウェア RAID パーティションが使用できます。\n"
 "\n"
 
 #: ../iw/partition_gui.py:1250
@@ -3697,32 +3691,30 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
-"RAIDを使用するには、少なくとも２つの 'ソフトウェア RAID' タイプのパーティショ"
-"ンを作成する必要があります。そして、フォーマットとマウントができる RAID デバ"
-"イスを作成します。\n"
+"RAIDを使用するには、まず「ソフトウェア RAID」タイプのパーティションを少くとも 2 つ作成する必要があります。次に、フォーマット及びマウントが可能な RAID デバイスを作成します。\n"
 "\n"
 
 #: ../iw/partition_gui.py:1256
 msgid "What do you want to do now?"
-msgstr "この時点で何をしたいですか?"
+msgstr "どうしますか?"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "ソフトウェア RAID パーティションを作成(_P)"
+msgstr "ソフトウェア RAID パーティションを作成します(_P)。"
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "RAID デバイスを作成 [default=/dev/md%s](_D)"
+msgstr "RAID デバイスを作成します [default=/dev/md%s](_D)。"
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "RAID デバイス作成用にデバイスを互換ドライブを作成 [default=/dev/md%s](_D)"
+msgstr "RAID デバイスを作成するためにドライブのクローンを作成します [default=/dev/md%s](_D)。"
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "ドライブクローンエディタを作成できません。"
+msgstr "ドライブクローンエディタを作成できませんでした"
 
 #: ../iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
@@ -3757,7 +3749,7 @@ msgstr "<利用不可>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 msgid "How would you like to prepare the file system on this partition?"
-msgstr "このパーティションのファイルシステムをどの様に用意しますか?"
+msgstr "このパーティションのファイルシステムはどのようにしますか?"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
@@ -3765,11 +3757,11 @@ msgstr "変更しないで残す(データを保存)(_U)"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
-msgstr "このパーティションタイプでフォーマット(_F):"
+msgstr "次のパーティションタイプでフォーマット(_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr "パーティションの移動先(_G):"
+msgstr "パーティションを次に移動する(_G):"
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
@@ -3781,9 +3773,8 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"タイプ '%s' のパーティションは単独ドライブに入れる必要があります。これは "
-"'Allowable Drives' チックリストの中からそのドライブを選択することで達成しま"
-"す。"
+"タイプ '%s' のパーティションは単独ドライブに入れる必要があります。これは行うには、"
+"「選択可能なドライブ」のチックリストからそのドライブを選択します。"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -3819,22 +3810,22 @@ msgstr "%s バイト"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
-msgstr "パッケージのインストール"
+msgstr "パッケージをインストール中"
 
 #: ../iw/progress_gui.py:166
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr "残り: %s 分"
+msgstr "残り時間: %s 分"
 
 #: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
-msgstr "%sをダウンロード中"
+msgstr "%s をダウンロード中"
 
 #: ../iw/progress_gui.py:222
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "%s-%s-%s.%s(%s) インストール"
+msgstr "%s-%s-%s.%s(%s) をインストール中"
 
 #: ../iw/progress_gui.py:346
 msgid "Package"
@@ -3859,13 +3850,13 @@ msgstr ""
 "RAID デバイスを作成するには、少なくとも 2 つの未使用ソフトウェア RAID パー"
 "ティションが必要です。\n"
 " \n"
-"最初に少なくとも2つの \"ソフトウェア RAID\" タイプのパーティションを作成し、"
-"それから \"RAID\" オプションを選択します。 "
+"最初に「ソフトウェア RAID」タイプのパーティションを少なくとも2つ作成してから、"
+"再度「RAID」オプションを選択してください。"
 
 #: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
-msgstr "RAID デバイス作成"
+msgstr "RAID デバイスの作成"
 
 #: ../iw/raid_dialog_gui.py:268
 #, python-format
