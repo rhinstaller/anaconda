@@ -1,4 +1,5 @@
 # translation of zh_CN.po to 
+# translation of zh_CN.po to
 # translation of zh_CN.po to Chinese, Simplified
 # translation of zh_CN.po to zh_CN
 # translation of anaconda.po to Simplified Chinese
@@ -16,7 +17,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-19 16:50+1000\n"
+"PO-Revision-Date: 2006-07-20 13:50+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1768,11 +1769,11 @@ msgstr "所申请的分区大小是负数（%sMB）！"
 
 #: ../partRequests.py:499
 msgid "Partitions can't start below the first cylinder."
-msgstr "分区不能从第一个柱面以下开始。"
+msgstr "分区不能从第一个柱面前开始。"
 
 #: ../partRequests.py:502
 msgid "Partitions can't end on a negative cylinder."
-msgstr "分区不能终于负柱面。"
+msgstr "分区不能以负柱面结束。"
 
 #: ../partRequests.py:667
 msgid "No members in RAID request, or not RAID level specified."
@@ -1799,7 +1800,7 @@ msgstr "试图启动 %s"
 
 #: ../rescue.py:191
 msgid "Setup Networking"
-msgstr "设置联网"
+msgstr "设置网络"
 
 #: ../rescue.py:192
 msgid "Do you want to start the network interfaces on this system?"
@@ -1813,13 +1814,13 @@ msgstr "已取消"
 #: ../rescue.py:238
 #: ../text.py:529
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "无法从这里返回上一步，您只能重试。"
+msgstr "无法从这里返回到上一步，您只能重试。"
 
 #: ../rescue.py:256
 #: ../rescue.py:292
 #: ../rescue.py:461
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "结束后请退出 shell，您的系统将会被重新引导。"
+msgstr "结束后请退出 shell，您的系统将会被重新启动。"
 
 #: ../rescue.py:276
 #: ../rescue.py:345
@@ -1838,7 +1839,7 @@ msgid ""
 msgstr ""
 "救援环境现在将要开始寻找您所安装的 Linux，并将它挂载到 %s 目录下，然后您便可以对系统进行必要的更改。如果您想开始执行这一步骤，请选择“继续”。您也可以选择“只读”，将文件系统挂载成“只读”模式而不是“读写”模式。\n"
 "\n"
-"如果由于某种原因，这一过程失败，您可以选择“跳过”按钮，该步骤就会被跳过，您会直接进入命令行状态。\n"
+"如果由于某种原因，这一过程失败，您可以选择“跳过”按钮，该步骤就会被跳过，您会直接进入一个命令行 shell。\n"
 "\n"
 
 #: ../rescue.py:287
@@ -1869,7 +1870,7 @@ msgstr "退出"
 
 #: ../rescue.py:346
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
-msgstr "系统中存在您选择要不挂载的有问题的文件系统，按 <return> 键进入 shell，您便可以执行 fsck 命令，然后挂载分区。当您退出 shell 后，系统会自动被重新引导。"
+msgstr "系统中存在您选择不挂载的有问题的文件系统，按回车键进入 shell，您便可以执行 fsck 命令并挂载分区。当您退出 shell 后，系统会自动被重新引导。"
 
 #: ../rescue.py:354
 #, python-format
@@ -1963,7 +1964,7 @@ msgstr "这一安装步骤没有帮助信息。"
 
 #: ../text.py:357
 msgid "Save Crash Dump"
-msgstr "保存崩溃组合码"
+msgstr "保存崩溃 dump"
 
 #: ../text.py:411
 #: ../loader2/lang.c:50
@@ -2043,18 +2044,18 @@ msgstr "挂载失败"
 
 #: ../upgrade.py:292
 msgid "One or more of the file systems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr "您的 Linux 系统里，在 /etc/fstab 上列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
+msgstr "在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:298
 msgid "One or more of the file systems listed in the /etc/fstab of your Linux system are inconsistent and cannot be mounted.  Please fix this problem and try to upgrade again."
-msgstr "您的 Linux 系统里，/etc/fstab 上列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
+msgstr "/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:315
 msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-"下列文件是绝对符号链接，在升级中我们不支持。请将它们改成相对符号链结，然后重新开始升级。\n"
+"下列文件是绝对符号链接，在升级中我们不支持。请将它们改成相对符号链接，然后重新开始升级。\n"
 "\n"
 
 #: ../upgrade.py:321
@@ -2066,7 +2067,7 @@ msgid ""
 "The following are directories which should instead be symbolic links, which will cause problems with the upgrade.  Please return them to their original state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-"以下是目录，它们应该是符号链接。目录在升级中会导致问题。请将它们还原成原有的符号链接状态，然后重新开始升级。\n"
+"以下是目录，它们应该是符号链接。目录在升级中会导致问题。请将它们还原成原来的符号链接状态，然后重新开始升级。\n"
 "\n"
 
 #: ../upgrade.py:338
@@ -2151,9 +2152,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
-"你需要至少6位长的VNC密码.\n"
+"你需要至少6位长的VNC密码。\n"
 "\n"
-"按 <回车> 重启你的系统.\n"
+"按 <回车> 重启你的系统。\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2175,7 +2176,7 @@ msgstr "无法设置 vnc 口令 - 不使用口令！"
 
 #: ../vnc.py:241
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "请确定根口令最少包含六个字符。"
+msgstr "请确定您的口令最少包含六个字符。"
 
 #: ../vnc.py:264
 msgid ""
@@ -2188,7 +2189,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"警告！！！VNC 服务器没有使用口令在运行！\n"
+"警告！！！VNC 服务器没有口令！\n"
 "您可以使用 vncpassword=<password> 引导选项\n"
 "来保护服务器的安全。\n"
 "\n"
@@ -2253,7 +2254,7 @@ msgid ""
 msgstr ""
 "无法打开 %s-%s-%s,%s 软件包。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
 "\n"
-"请按 <重试> 键重试。"
+"请按“重试”键重试。"
 
 #: ../yuminstall.py:160
 #: ../yuminstall.py:524
@@ -2277,7 +2278,7 @@ msgstr "文件冲突"
 
 #: ../yuminstall.py:483
 msgid "older package(s)"
-msgstr "旧的软件包(_O)"
+msgstr "旧的软件包"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
@@ -2289,27 +2290,27 @@ msgstr "不足的磁盘节点"
 
 #: ../yuminstall.py:486
 msgid "package conflicts"
-msgstr "包冲突"
+msgstr "软件包冲突"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr "包已安装"
+msgstr "软件包已安装"
 
 #: ../yuminstall.py:488
 msgid "required package"
-msgstr "需要的包"
+msgstr "需要的软件包"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr "与硬件体系结构不兼容的包"
+msgstr "与硬件体系结构不兼容的软件包"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr "与操作系统不兼容的包"
+msgstr "与操作系统不兼容的软件包"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr "你在下一个文件系统需要更多空间:\n"
+msgstr "你在以下文件系统中需要更多空间:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
@@ -2321,17 +2322,17 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a corrupt package.  If you are installing from CD media this usually means the CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"无法打开 %s 软件包。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
+"无法打开 %s 文件。这是由于文件遗失或者软件包损坏造成的。如果您使用的是光盘安装，这通常意味着光盘介质已损坏，或者光盘驱动器无法读取介质。\n"
 "\n"
 
 #: ../yuminstall.py:659
 msgid "Retrieving installation information..."
-msgstr "恢复安装信息..."
+msgstr "获取安装信息..."
 
 #: ../yuminstall.py:675
 #, python-format
 msgid "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.  %s"
-msgstr "无法读取元数据。这可能是因为缺少repodata目录。请确定您已经正确建立了安装树。%s"
+msgstr "无法读取软件包的元数据。这可能是因为缺少 repodata 目录。请确定您已经正确建立了安装树。%s"
 
 #: ../yuminstall.py:704
 msgid "Uncategorized"
@@ -2340,7 +2341,7 @@ msgstr "未分类的"
 #: ../yuminstall.py:848
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or reboot."
-msgstr "你选择的包共需要 %d MB 大小的磁盘安装空间,但是你没有足够的磁盘空间.你可以重新选择包或者重启."
+msgstr "您选择的软件包共需要 %d MB 大小的磁盘安装空间，但是您没有足够的磁盘空间。您可以重新选择软件包或者重启。"
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2361,7 +2362,7 @@ msgstr "升级后"
 
 #: ../yuminstall.py:1037
 msgid "Performing post upgrade configuration..."
-msgstr "正在执行安装后更新配置..."
+msgstr "正在执行升级后配置..."
 
 #: ../yuminstall.py:1039
 msgid "Post Install"
@@ -2393,7 +2394,7 @@ msgstr "设备号码"
 
 #: ../zfcp.py:31
 msgid "You have not specified a device number or the number is invalid"
-msgstr "您还没有指定设备号码或号码无效。"
+msgstr "您没有指定设备号码或号码无效"
 
 #: ../zfcp.py:33
 msgid "SCSI Id"
@@ -2401,7 +2402,7 @@ msgstr "SCSI Id"
 
 #: ../zfcp.py:34
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "您还没有指定 SCSI ID 或 ID 无效。"
+msgstr "您没有指定 SCSI ID 或 ID 无效。"
 
 #: ../zfcp.py:36
 #: ../textw/zfcp_text.py:101
@@ -2410,7 +2411,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:37
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "您还没有指定全局端口号或号码无效。"
+msgstr "您没有指定全局端口号或号码无效。"
 
 #: ../zfcp.py:39
 msgid "SCSI LUN"
@@ -2418,7 +2419,7 @@ msgstr "SCSI LUN"
 
 #: ../zfcp.py:40
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "您还没有指定 SCSI LUN 或号码无效。"
+msgstr "您没有指定 SCSI LUN 或号码无效。"
 
 #: ../zfcp.py:42
 #: ../textw/zfcp_text.py:101
@@ -2427,7 +2428,7 @@ msgstr "FCP LUN"
 
 #: ../zfcp.py:43
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "您还没有指定 FCP LUN 或号码无效。"
+msgstr "您没有指定 FCP LUN 或号码无效。"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2473,22 +2474,22 @@ msgstr "确认(_C)："
 #: ../iw/autopart_type.py:113
 #: ../textw/partition_text.py:1526
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "在选定磁盘上删除所有分区并创建默认布局."
+msgstr "在选定磁盘上删除所有分区并创建默认分区结构。"
 
 #: ../iw/autopart_type.py:114
 #: ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
-msgstr "在选定驱动上删除linux分区并创建默认布局."
+msgstr "在选定驱动上删除 linux 分区并创建默认的分区结构。"
 
 #: ../iw/autopart_type.py:115
 #: ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr "在选定驱动使用空余空间并创建默认布局."
+msgstr "使用选定驱动器中的空余空间并创建默认的分区结构。"
 
 #: ../iw/autopart_type.py:116
 #: ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr "建立自定义布局."
+msgstr "建立自定义的分区结构。"
 
 #: ../iw/blpasswidget.py:37
 msgid "A boot loader password prevents users from changing options passed to the kernel.  For greater system security, it is recommended that you set a password."
@@ -2500,7 +2501,7 @@ msgstr "使用引导装载程序口令(_U)"
 
 #: ../iw/blpasswidget.py:73
 msgid "Change _password"
-msgstr "改变口令(_P)"
+msgstr "改变口令(_p)"
 
 #: ../iw/blpasswidget.py:96
 msgid "Enter Boot Loader Password"
@@ -2516,7 +2517,7 @@ msgstr "口令(_P)："
 
 #: ../iw/blpasswidget.py:115
 msgid "Con_firm:"
-msgstr "确认(_F)："
+msgstr "确认(_f)："
 
 #: ../iw/blpasswidget.py:136
 msgid "Passwords don't match"
@@ -2534,7 +2535,7 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"您的引导装载程序口令小于六个字符，建议使用一个较长的口令。\n"
+"您的引导装载程序口令少于六个字符，建议使用一个较长的口令。\n"
 "\n"
 "您想继续使用这一口令吗？"
 
@@ -2559,7 +2560,7 @@ msgstr "强制使用 LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:69
 msgid "_Force LBA32 (not normally required)"
-msgstr "强制使用 LBA32 (通常不需要)(_F)"
+msgstr "强制使用 LBA32(_F) (通常不需要)"
 
 #: ../iw/bootloader_advanced_gui.py:73
 msgid "If you wish to add default options to the boot command, enter them into the 'General kernel parameters' field."
@@ -2589,7 +2590,7 @@ msgstr "无引导装载程序将会被安装。"
 
 #: ../iw/bootloader_main_gui.py:152
 msgid "Configure advanced boot loader _options"
-msgstr "配置高级引导装载程序选项(_O)"
+msgstr "配置高级引导装载程序选项(_o)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2668,7 +2669,7 @@ msgid ""
 "Remove any media used during the installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"取出您在安装过程中使用的所有安装介质（软盘或光盘），然后按“重新引导”按钮来重新引导系统。\n"
+"取出您在安装过程中使用的所有安装介质，然后按“重新引导”按钮来重新引导系统。\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -2724,7 +2725,7 @@ msgstr "下列安装的系统将会被升级："
 
 #: ../iw/examine_gui.py:123
 msgid "Unknown Linux system"
-msgstr "未知 Linux 系统"
+msgstr "未知的 Linux 系统"
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
@@ -2742,7 +2743,7 @@ msgstr "IP 地址必须包含从 0 到 255 之间的数字"
 #: ../iw/iscsi_gui.py:26
 #: ../textw/iscsi_text.py:55
 msgid "iSCSI Configuration"
-msgstr "配置iSCSI"
+msgstr "配置 iSCSI"
 
 #: ../iw/iscsi_gui.py:33
 #: ../iw/iscsi_gui.py:36
@@ -2751,7 +2752,7 @@ msgstr "数据错误"
 
 #: ../iw/iscsi_gui.py:34
 msgid "No IP address entered, skipping iSCSI setup"
-msgstr "未输入IP地址，跳过iSCSI设置"
+msgstr "未输入 IP 地址，跳过 iSCSI 设置"
 
 #: ../iw/iscsi_gui.py:36
 #: ../textw/welcome_text.py:22
@@ -2807,7 +2808,7 @@ msgstr ""
 #: ../iw/network_gui.py:168
 #: ../iw/network_gui.py:191
 msgid "C_ontinue"
-msgstr "继续(_O)"
+msgstr "继续(_o)"
 
 #: ../iw/lvm_dialog_gui.py:163
 #, python-format
@@ -2830,7 +2831,7 @@ msgstr "改变物理范围的值会在卷组中一个或多个物理卷上浪费
 #: ../iw/lvm_dialog_gui.py:214
 #, python-format
 msgid "The physical extent size cannot be changed because the resulting maximum logical volume size (%10.2f MB) is smaller than one or more of the currently defined logical volumes."
-msgstr "物理范围大小无法被改变，因为改变的结果会导致逻辑卷大小（%10.2f MB）小于一个或多个当前已定义的逻辑卷。"
+msgstr "物理范围大小无法被改变，因为改变的结果会导致最大的逻辑卷大小（%10.2f MB）小于一个或多个当前已定义的逻辑卷。"
 
 #: ../iw/lvm_dialog_gui.py:290
 msgid "You cannot remove this physical volume because otherwise the volume group will be too small to hold the currently defined logical volumes."
@@ -2903,11 +2904,11 @@ msgstr "(最大大小是 %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:513
 msgid "Illegal size"
-msgstr "大小不合法"
+msgstr "大小无效"
 
 #: ../iw/lvm_dialog_gui.py:514
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "您所申请的大小值不是一个大于 0 的有效数字。"
+msgstr "您所申请的大小值不是一个大于0的有效数字。"
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Mount point in use"
@@ -2921,23 +2922,23 @@ msgstr "挂载点 %s 已被使用，请另选一个。"
 #: ../iw/lvm_dialog_gui.py:559
 #: ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
-msgstr "逻辑卷名称不合法"
+msgstr "逻辑卷名称无效"
 
 #: ../iw/lvm_dialog_gui.py:578
 #: ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
-msgstr "逻辑卷名称不合法"
+msgstr "逻辑卷名称无效"
 
 #: ../iw/lvm_dialog_gui.py:579
 #: ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "逻辑卷名称“%s”已被使用，请另选一个。"
+msgstr "逻辑卷名“%s”已被使用，请另选一个。"
 
 #: ../iw/lvm_dialog_gui.py:593
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than maximum logical volume size (%10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "目前所需的磁盘空间（%10.2f MB）大于逻辑卷磁盘空间的最大值（%10.2f MB）。要提高上限，您可以从未分区的磁盘空间中生成更多物理逻辑卷，并将其加入该逻辑卷组。"
+msgstr "目前设定的磁盘空间（%10.2f MB）大于逻辑卷磁盘空间的最大值（%10.2f MB）。要提高上限，您可以从未分区的磁盘空间中生成更多物理逻辑卷，并将其加入该逻辑卷组。"
 
 #: ../iw/lvm_dialog_gui.py:637
 #: ../iw/partition_dialog_gui.py:179
