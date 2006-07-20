@@ -471,7 +471,7 @@ class xfsFileSystem(FileSystemType):
         rc = iutil.execWithRedirect("/usr/sbin/mkfs.xfs",
                                     ["-f", "-l", "internal", "-i",
                                      "size=" + str(xfsBytesPerInode),
-                                     devicePath],
+                                     "-i", "attr=2", devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         
