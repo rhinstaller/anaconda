@@ -1,5 +1,9 @@
 2006-07-20  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (DiskSet.startAllRaid): Calling refreshDevices()
+	here totally breaks adding partitions... not sure what the intent
+	was, but needs to be handled differently. (#199459)
+
 	* lang-table: Add Malayalam and Oriya (#197783)
 
 	* scripts/upd-instroot (KEEPFILEGR): Add malayalam and oriya 

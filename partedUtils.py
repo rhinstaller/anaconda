@@ -614,7 +614,7 @@ class DiskSet:
                     for m in mp.members:
                         disk = m.split('/')[-1]
                         testList.append(disk)
-                self.refreshDevices()
+#                self.refreshDevices()
 
             if startMdRaid:
                 if self.dmList is None:
@@ -624,13 +624,13 @@ class DiskSet:
                         if isinstance(m, block.RaidDev):
                             disk = m.rd.device.path.split('/')[-1]
                             testList.append(disk)
-                self.refreshDevices()
+#                self.refreshDevices()
 
         if startMdRaid:
             driveList = filter(lambda x: x not in testList, self.driveList())
             DiskSet.mdList.extend(raid.startAllRaid(driveList))
 
-        self.refreshDevices()
+#        self.refreshDevices()
 
     def stopMPath(self):
         """Stop all of the MPaths associated with the DiskSet."""
