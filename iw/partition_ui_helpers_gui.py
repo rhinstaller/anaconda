@@ -137,6 +137,10 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist):
 	sizestr = "%8.0f MB" % size
 	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
 
+    if len(disks.keys()) < 2:
+	drivelist.set_sensitive(False)
+    else:
+        drivelist.set_sensitive(True)
 
 def createAllowedDrivesList(disks, reqdrives):
     store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
@@ -145,9 +149,6 @@ def createAllowedDrivesList(disks, reqdrives):
 			  gobject.TYPE_STRING)
     drivelist = WideCheckList(3, store)
     createAllowedDrivesStore(disks, reqdrives, drivelist)
-
-    if len(disks.keys()) < 2:
-	drivelist.set_sensitive(0)
 
     return drivelist
     
