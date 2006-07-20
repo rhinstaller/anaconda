@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.61
+Version: 11.1.0.62
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 20 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.62-1
+- Fix drivelist sensitivity when adding devices
+- Fix text mode package selection (clumens, #186043)
+- Make GMT offset timezones available (clumens, #199076)
+- Use attr=2 for xfs per sandeen
+- Fix labels of stuff created before install starts (#199605)
+- Add Malayalam and Oriya (#197783)
+- Fix partitioning (#199459)
+
 * Wed Jul 19 2006 Chris Lumens <clumens@redhat.com> 11.1.0.61-1
 - Bring down network interface after fetching files (dcantrel).
 - Use dejavu fonts instead of vera (katzj).
