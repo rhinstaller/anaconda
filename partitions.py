@@ -88,6 +88,7 @@ class Partitions:
         self.requests = []
         diskset.startMPath()
         diskset.startDmRaid()
+        diskset.refreshDevices()
         labels = diskset.getLabels()
         drives = diskset.disks.keys()
         drives.sort()

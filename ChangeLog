@@ -1,5 +1,7 @@
 2006-07-20  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.setFromDisk): Need to do the refresh here.
+
 	* partedUtils.py (DiskSet.startAllRaid): Calling refreshDevices()
 	here totally breaks adding partitions... not sure what the intent
 	was, but needs to be handled differently. (#199459)
