@@ -249,14 +249,19 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         """Creates links in the split dirs for the RPMs"""
         
         packages = {}
-                
-        rpmlist = os.listdir("%s/%s/RPMS" % (self.dist_dir, self.product_path))
+
+        if os.path.isdir("%s/%s/RPMS" %(self.dist_dir, self.product_path)):
+            pkgdir = "%s/RPMS" %(self.product_path, )
+        else:
+            pkgdir = "%s" %(self.product_path,)
+            
+        rpmlist = os.listdir("%s/%s" %(self.dist_dir, pkgdir))
         rpmlist.sort()
 
         # create the packages dictionary in this format: n-v-r.a:['n-v-r.arch.rpm']
         for filename in rpmlist:
-            filesize = os.path.getsize("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, filename))
-            pkg_nvr = nvra("%s/%s/RPMS/%s" %(self.dist_dir, self.product_path, filename))
+            filesize = os.path.getsize("%s/%s/%s" % (self.dist_dir, pkgdir, filename))
+            pkg_nvr = nvra("%s/%s/%s" %(self.dist_dir, pkgdir, filename))
             
             if packages.has_key(pkg_nvr):
                 # append in case we have multiple packages with the
@@ -291,7 +296,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                 continue
             for file_name in packages[rpm_nvr]:
                 curused = self.getSize("%s-disc%s" % (self.dist_dir, disc), blocksize=1)
-                filesize = self.getSize("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, file_name), blocksize=1)
+                filesize = self.getSize("%s/%s/%s" % (self.dist_dir, pkgdir, file_name), blocksize=1)
                 newsize = filesize + curused
 
                 # compensate for the size of the comps package which has yet to be created
@@ -312,8 +317,8 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                     try:
                         nextdisc=self.bin_list.index(disc+1)
                         disc = self.bin_list[nextdisc]
-                        os.link("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, file_name),
-                                "%s-disc%d/%s/RPMS/%s" % (self.dist_dir, disc, self.product_path, file_name))
+                        os.link("%s/%s/%s" % (self.dist_dir, pkgdir, file_name),
+                                "%s-disc%d/%s/%s" % (self.dist_dir, disc, pkgdir, file_name))
                         packagenum = 1
                         firstpackage = file_name
                         
@@ -324,8 +329,8 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
                         continue
                     
                 else:
-                    os.link("%s/%s/RPMS/%s" % (self.dist_dir, self.product_path, file_name),
-                            "%s-disc%d/%s/RPMS/%s" % (self.dist_dir, disc, self.product_path, file_name))
+                    os.link("%s/%s/%s" % (self.dist_dir, pkgdir, file_name),
+                            "%s-disc%d/%s/%s" % (self.dist_dir, disc, pkgdir, file_name))
                     lastpackage = file_name
 
         if reportSize == 1:

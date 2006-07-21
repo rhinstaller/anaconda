@@ -51,9 +51,6 @@ while [ $# -gt 0 ]; do
 	    shift; shift
 	    ;;
 	*)
-	    if [ -n "$DIR" -o ! -d $1/$PRODUCTPATH/RPMS ]; then
-		usage
-	    fi
 	    DIR=$1
 	    shift
 	    ;;
@@ -85,6 +82,11 @@ if [ -z "$BUGURL" ]; then
 fi
 
 p=`cd $DIR; /bin/pwd`
+if [ -d $DIR/$PRODUCTPATH/RPMS ]; then
+    PKGDIR=$p/$PRODUCTPATH/RPMS
+else
+    PKGDIR=$p/$PRODUCTPATH
+fi
 
 if [ -z "$BUILDINSTDIR" ]; then
     BUILDINSTDIR=$p/buildinstall.tree.$$
@@ -98,12 +100,12 @@ MK_IMAGES=$BUILDINSTDIR/mk-images
 MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
-BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/$PRODUCTPATH/RPMS/anaconda-runtime-[0-9]*`
+BUILDARCH=`rpm -qp --qf "%{ARCH}" $PKGDIR/anaconda-runtime-[0-9]*`
 
 echo "Running buildinstall..."
 
 pushd $BUILDINSTDIR
-rpm2cpio $p/$PRODUCTPATH/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
+rpm2cpio $PKGDIR/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
 popd
 
 UPD_INSTROOT=./upd-instroot
@@ -125,7 +127,7 @@ MK_STAMP=$BUILDINSTDIR/makestamp.py
 BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $p/$PRODUCTPATH/RPMS $TREEDIR/image-template $TREEDIR/instimage
+$UPD_INSTROOT $DEBUGSTR $PKGDIR $TREEDIR/image-template $TREEDIR/instimage
 
 echo "Creating repository metadata..."
 createrepo -g $PRODUCTPATH/base/comps.xml -q $p
@@ -137,9 +139,9 @@ if [ -n "$PKGORDER" ]; then
 fi
 
 echo "Making images..."
-$MK_IMAGES $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
+$MK_IMAGES $DEBUGSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PRODUCTPATH/RPMS --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
 
 rm -rf $TREEDIR/image-template $TREEDIR/instimage $BUILDINSTDIR

@@ -1,3 +1,10 @@
+2006-07-21  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/buildinstall: Handle having packages under
+	$PRODUCTPATH/RPMS or $PRODUCTPATH/
+	* scripts/pkgorder: Likewise.
+	* scripts/splittree.py: Likewise.
+
 2006-07-21  Paul Nasrat <pnasrat@redhat.com>
 
 	* bootloader.py: Fix traceback for no dosFilesystems
