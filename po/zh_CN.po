@@ -1,5 +1,6 @@
 # translation of zh_CN.po to 
 # translation of zh_CN.po to
+# translation of zh_CN.po to
 # translation of zh_CN.po to Chinese, Simplified
 # translation of zh_CN.po to zh_CN
 # translation of anaconda.po to Simplified Chinese
@@ -17,7 +18,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-20 13:50+1000\n"
+"PO-Revision-Date: 2006-07-21 11:20+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3132,12 +3133,12 @@ msgstr "网关"
 #: ../iw/network_gui.py:27
 #: ../iw/network_gui.py:609
 msgid "Primary DNS"
-msgstr "主要 DNS"
+msgstr "主 DNS"
 
 #: ../iw/network_gui.py:28
 #: ../iw/network_gui.py:611
 msgid "Secondary DNS"
-msgstr "次要 DNS"
+msgstr "从 DNS"
 
 #: ../iw/network_gui.py:28
 #: ../iw/network_gui.py:613
@@ -3150,11 +3151,11 @@ msgstr "网关(_G)"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "主要 DNS(_P)"
+msgstr "主 DNS(_P)"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "次要 DNS(_S)"
+msgstr "从 DNS(_S)"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
@@ -3245,7 +3246,7 @@ msgstr "IP 地址(_I)"
 
 #: ../iw/network_gui.py:237
 msgid "Net_mask"
-msgstr "子网掩码(_M)"
+msgstr "子网掩码(_m)"
 
 #: ../iw/network_gui.py:242
 msgid "_Point to Point (IP)"
@@ -3257,7 +3258,7 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:247
 msgid "Encryption _Key"
-msgstr "加密钥匙(_K)"
+msgstr "加密密钥(_K)"
 
 #: ../iw/network_gui.py:258
 msgid "Hardware address:"
@@ -3296,11 +3297,11 @@ msgstr "设置主机名："
 
 #: ../iw/network_gui.py:553
 msgid "_automatically via DHCP"
-msgstr "通过 DHCP 自动配置(_A)"
+msgstr "通过 DHCP 自动配置(_a)"
 
 #: ../iw/network_gui.py:560
 msgid "_manually"
-msgstr "手工设置(_M)"
+msgstr "手工设置(_m)"
 
 #: ../iw/network_gui.py:564
 msgid "(ex. \"host.domain.com\")"
@@ -3389,15 +3390,15 @@ msgstr "固定大小(_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "指定空间大小(MB)(_U)："
+msgstr "指定空间大小(MB)(_u)："
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "使用全部可用空间(_A)"
+msgstr "使用全部可用空间(_a)"
 
 #: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "终止柱面必须大于起始柱面。"
+msgstr "结束柱面必须大于起始柱面。"
 
 #: ../iw/partition_dialog_gui.py:269
 #: ../textw/partition_text.py:711
@@ -3436,11 +3437,11 @@ msgstr "起始柱面(_S)："
 
 #: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
-msgstr "终止柱面(_E)："
+msgstr "结束柱面(_E)："
 
 #: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
-msgstr "强制为主分区(_P)"
+msgstr "强制为主分区(_p)"
 
 #: ../iw/partition_gui.py:365
 #: ../textw/partition_text.py:1437
@@ -3613,17 +3614,17 @@ msgstr "您现在想怎么办？"
 
 #: ../iw/partition_gui.py:1265
 msgid "Create a software RAID _partition."
-msgstr "创建软件 RAID 分区(_P)。"
+msgstr "创建软件 RAID 分区(_p)。"
 
 #: ../iw/partition_gui.py:1268
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "创建 RAID 设备(_D) [default=/dev/md%s]。"
+msgstr "创建 RAID 设备(_d) [default=/dev/md%s]。"
 
 #: ../iw/partition_gui.py:1272
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "克隆驱动器来创建 RAID 设备(_D) [default=/dev/md%s]。"
+msgstr "克隆驱动器来创建 RAID 设备(_d) [default=/dev/md%s]。"
 
 #: ../iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
@@ -3635,11 +3636,11 @@ msgstr "由于某种原因，驱动器克隆编辑器无法被创建。"
 
 #: ../iw/partition_gui.py:1356
 msgid "Ne_w"
-msgstr "新建(_W)"
+msgstr "新建(_w)"
 
 #: ../iw/partition_gui.py:1359
 msgid "Re_set"
-msgstr "重设(_S)"
+msgstr "重设(_s)"
 
 #: ../iw/partition_gui.py:1360
 msgid "R_AID"
@@ -3669,7 +3670,7 @@ msgstr "您想如何在该分区上筹备文件系统？"
 
 #: ../iw/partition_ui_helpers_gui.py:253
 msgid "Leave _unchanged (preserve data)"
-msgstr "保持不变（保留信息）(_U)"
+msgstr "保持不变（保留信息）(_u)"
 
 #: ../iw/partition_ui_helpers_gui.py:259
 msgid "_Format partition as:"
@@ -3677,11 +3678,11 @@ msgstr "将分区格式化成(_F)："
 
 #: ../iw/partition_ui_helpers_gui.py:282
 msgid "Mi_grate partition to:"
-msgstr "将分区迁移至(_G)："
+msgstr "将分区迁移至(_g)："
 
 #: ../iw/partition_ui_helpers_gui.py:304
 msgid "Check for _bad blocks?"
-msgstr "要检查磁盘坏块吗(_B)？"
+msgstr "要检查磁盘坏块吗(_b)？"
 
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
@@ -3733,7 +3734,7 @@ msgstr "剩余时间：%s分钟"
 #: ../iw/progress_gui.py:182
 #, python-format
 msgid "Downloading %s"
-msgstr "正在下载 - %s"
+msgstr "正在下载 %s"
 
 #: ../iw/progress_gui.py:222
 #, python-format
@@ -3793,7 +3794,7 @@ msgstr "RAID 成员(_R)："
 
 #: ../iw/raid_dialog_gui.py:387
 msgid "Number of _spares:"
-msgstr "备件数量(_S)："
+msgstr "备件数量(_s)："
 
 #: ../iw/raid_dialog_gui.py:397
 msgid "_Format partition?"
@@ -4040,11 +4041,11 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:108
 msgid "I _want to create a swap file"
-msgstr "我想创建一个交换文件(_W)"
+msgstr "我想创建一个交换文件(_w)"
 
 #: ../iw/upgrade_swap_gui.py:117
 msgid "Select the _partition to put the swap file on:"
-msgstr "选择存放交换文件的分区(_P)："
+msgstr "选择存放交换文件的分区(_p)："
 
 #: ../iw/upgrade_swap_gui.py:136
 #: ../textw/upgrade_text.py:109
@@ -4062,11 +4063,11 @@ msgstr "推荐您将交换文件至少定为 %dMB。请输入交换文件的大�
 
 #: ../iw/upgrade_swap_gui.py:169
 msgid "Swap file _size (MB):"
-msgstr "交换文件大小(MB)(_S)："
+msgstr "交换文件大小(MB)(_s)："
 
 #: ../iw/upgrade_swap_gui.py:179
 msgid "I _don't want to create a swap file"
-msgstr "我不想创建交换文件(_D)"
+msgstr "我不想创建交换文件(_d)"
 
 #: ../iw/upgrade_swap_gui.py:189
 msgid "It is stongly recommended that you create a swap file.  Failure to do so could cause the installer to abort abnormally.  Are you sure that you wish to continue?"
@@ -4298,6 +4299,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://www.redhat.com/docs/."
 msgstr ""
 "有关勘误信息（更新及错误修正），请访问 http://www.redhat.com/errata。\n"
+"\n"
 "有关使用系统的信息，则可到 http://www.redhat.com/docs 网页上 %s 指南手册中查阅。"
 
 #: ../textw/complete_text.py:46
@@ -4356,19 +4358,19 @@ msgstr "请选择您想安装的软件包"
 
 #: ../textw/grpselect_text.py:101
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> 选择   |   <F2> 软件包组细节   |   <F12> 下一屏幕"
+msgstr "<Space>,<+>,<-> 选择   |   <F2> 软件包组详情   |   <F12> 下一屏幕"
 
 #: ../textw/grpselect_text.py:129
 msgid "Package Group Details"
-msgstr "软件包组细节"
+msgstr "软件包组详情"
 
 #: ../textw/iscsi_text.py:35
 msgid "Target IP address:"
-msgstr "目标IP 地址："
+msgstr "目标 IP 地址："
 
 #: ../textw/iscsi_text.py:42
 msgid "Port Number:"
-msgstr "端口数："
+msgstr "端口号："
 
 #: ../textw/iscsi_text.py:49
 msgid "iSCSI Initiator Name:"
@@ -4429,7 +4431,7 @@ msgstr "ESSID"
 #: ../textw/network_text.py:75
 #: ../loader2/net.c:247
 msgid "Encryption Key"
-msgstr "加密钥匙"
+msgstr "加密密钥"
 
 #: ../textw/network_text.py:87
 #, python-format
@@ -4473,11 +4475,11 @@ msgstr "网关："
 
 #: ../textw/network_text.py:269
 msgid "Primary DNS:"
-msgstr "主要 DNS："
+msgstr "主 DNS："
 
 #: ../textw/network_text.py:274
 msgid "Secondary DNS:"
-msgstr "次要 DNS："
+msgstr "从 DNS："
 
 #: ../textw/network_text.py:279
 msgid "Tertiary DNS:"
@@ -4572,7 +4574,7 @@ msgstr "起始柱面："
 
 #: ../textw/partition_text.py:454
 msgid "End Cylinder:"
-msgstr "终止柱面："
+msgstr "结束柱面："
 
 #: ../textw/partition_text.py:477
 msgid "Volume Group:"
@@ -4679,7 +4681,7 @@ msgstr "起始柱面项目无效"
 
 #: ../textw/partition_text.py:892
 msgid "Invalid Entry for End Cylinder"
-msgstr "终止柱面项目无效"
+msgstr "结束柱面项目无效"
 
 #: ../textw/partition_text.py:1005
 msgid "No RAID partitions"
@@ -4857,7 +4859,7 @@ msgstr "您位于哪一个时区？"
 
 #: ../textw/timezone_text.py:87
 msgid "System clock uses UTC"
-msgstr "系统时钟使用 UTC(_U)"
+msgstr "系统时钟使用 UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -4875,7 +4877,7 @@ msgstr "创建新的引导装载程序配置"
 #: ../textw/upgrade_text.py:91
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "2.4 内核所需交换区要比老版内核大得多，大至您系统内存的两倍。您目前配置了%dMB 交换区，但现在您可以在任何一个文件系统中创建额外的交换区。"
+msgstr "2.4内核所需交换区要比老版内核大得多，大至您系统内存的两倍。您目前配置了%dMB 交换区，但现在您可以在任何一个文件系统中创建额外的交换区。"
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -4984,7 +4986,7 @@ msgstr "Fedora(_F)"
 
 #: ../installclasses/fedora.py:20
 msgid "Office and Productivity"
-msgstr "办公和实用性"
+msgstr "办公"
 
 #: ../installclasses/fedora.py:21
 msgid "Software Development"
@@ -5024,7 +5026,7 @@ msgstr ""
 #: ../installclasses/rhel_as.py:9
 #: ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr "Red Hat 企业版 Linux AS"
+msgstr "红帽企业 Linux AS"
 
 #: ../installclasses/rhel_as.py:16
 #: ../installclasses/rhel_es.py:16
@@ -5044,17 +5046,17 @@ msgstr ""
 #: ../installclasses/rhel_desktop.py:9
 #: ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr "Red Hat 企业版 Linux 桌面"
+msgstr "红帽企业 Linux 桌面"
 
 #: ../installclasses/rhel_es.py:9
 #: ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr "Red Hat 企业版 Linux ES"
+msgstr "红帽企业 Linux ES"
 
 #: ../installclasses/rhel_ws.py:9
 #: ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr "Red Hat 企业版 Linux WS"
+msgstr "红帽企业 Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
 #: ../installclasses/workstation.py:14
@@ -5577,7 +5579,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"媒体检测%s\n"
+"介质检测%s\n"
 "\n"
 "%s"
 
@@ -5601,7 +5603,7 @@ msgstr ""
 
 #: ../loader2/method.c:419
 msgid "Checksum Test"
-msgstr "校验和的测试"
+msgstr "校验和测试"
 
 #: ../loader2/modules.c:965
 #, c-format
@@ -5681,7 +5683,7 @@ msgstr "默认网关(IP)："
 
 #: ../loader2/net.c:521
 msgid "Primary nameserver:"
-msgstr "主要名称服务器："
+msgstr "主名称服务器："
 
 #: ../loader2/net.c:548
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -5773,11 +5775,11 @@ msgstr "通过 telnet 运行 anaconda ..."
 #: ../loader2/urlinstall.c:73
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "无法检索 %s://%s/%s/%s."
+msgstr "无法获取 %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:145
 msgid "Unable to retrieve the install image."
-msgstr "无法检索安装映像。"
+msgstr "无法获取安装映像。"
 
 #: ../loader2/urlinstall.c:284
 msgid "Media Detected"
@@ -5790,7 +5792,7 @@ msgstr "检测到本地安装介质..."
 #: ../loader2/urlinstall.c:451
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "URL kickstart 命令 %s 的参数不对：%s"
+msgstr "URL kickstart 方法命令 %s 的参数不对：%s"
 
 #: ../loader2/urlinstall.c:460
 msgid "Must supply a --url argument to Url kickstart method."
@@ -5887,7 +5889,7 @@ msgstr "载入 SCSI 驱动程序"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "重新引导(_T)"
+msgstr "重新引导(_t)"
 
 #: tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -5919,23 +5921,23 @@ msgstr "Exception详情(_E)"
 
 #: tmp/iscsi-config.glade.h:1
 msgid "<b>_Port Number:</b>"
-msgstr "<b>_端口数:</b>"
+msgstr "<b>(_P)端口号:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
-msgstr "<b>_目标IP地址:</b>"
+msgstr "<b>(_T)目标 IP 地址:</b>"
 
 #: tmp/iscsi-config.glade.h:3
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>iSCSI 启动器 _名称:</b>"
+msgstr "<b>(_N)iSCSI 启动器名称:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "iSCSI configuration"
-msgstr " 配置iSCSI"
+msgstr "配置iSCSI"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "优化 _稍后"
+msgstr "优化稍后(_l)"
 
 #: tmp/tasksel.glade.h:2
 msgid "Further customization of the software selection can be completed now or after install via the software management application."
@@ -5948,7 +5950,7 @@ msgstr "%s的默认安装包含一系列用于互联网常规应用的软件。�
 
 #: tmp/tasksel.glade.h:5
 msgid "_Customize now"
-msgstr "定制(_C)"
+msgstr "现在定制(_C)"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6153,7 +6155,7 @@ msgstr "刚果民主共和国东部"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr "复活岛 & 萨雷戈麦兹"
+msgstr "复活岛和萨雷戈麦兹"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Southampton Island"
@@ -6245,7 +6247,7 @@ msgstr "黑龙江"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr "伊赖安查亚 & 摩鹿加群岛"
+msgstr "伊赖安查亚和摩鹿加群岛"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -6253,7 +6255,7 @@ msgstr "扬马延岛"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr "爪哇 & 苏门答腊"
+msgstr "爪哇和苏门答腊"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -6403,7 +6405,7 @@ msgstr "山区时间"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr "山区时间 - 阿尔伯达省，英属哥伦比亚东部 & 沙斯喀彻温西部"
+msgstr "山区时间 - 阿尔伯达省，英属哥伦比亚东部和沙斯喀彻温西部"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -6423,7 +6425,7 @@ msgstr "山区时间 - 南下，纳亚里特，锡纳罗罗亚"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "山区时间 - 爱达荷南部 & 俄勒冈东部"
+msgstr "山区时间 - 爱达荷南部和俄勒冈东部"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
@@ -6511,7 +6513,7 @@ msgstr "卢森尼亚"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr "萨巴 & 砂拉越"
+msgstr "萨巴和砂拉越"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6565,7 +6567,7 @@ msgstr "图勒（皮图非克）"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "西藏 & 新疆维吾尔自治区大部"
+msgstr "西藏和新疆维吾尔自治区大部"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -6664,7 +6666,7 @@ msgstr "繁体中文"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr "克罗地亚"
+msgstr "克罗地亚语"
 
 #. generated from lang-table
 msgid "Czech"
