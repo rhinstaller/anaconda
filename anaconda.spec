@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.62
+Version: 11.1.0.63
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.63-1
+- Fix serial kickstart installs (clumens)
+- Add labels for LVM and RAID (clumens)
+- Show preexisting labels when they exist (clumens, #149375)
+- Fix traceback for no dosFilesystems (pnasrat)
+- Clean up to handle packages in $PRODUCTPATH or $PRODUCTPATH/RPMS
+- Various iscsi fixups 
+
 * Thu Jul 20 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.62-1
 - Fix drivelist sensitivity when adding devices
 - Fix text mode package selection (clumens, #186043)
