@@ -390,7 +390,7 @@ class VolumeGroupEditor:
         mountCombo = createMountPointCombo(logrequest, excludeMountPoints=["/boot"])
         lbl.set_mnemonic_widget(mountCombo)
         maintable.attach(mountCombo, 1, 2, row, row + 1)
-        row = row + 1
+        row += 1
 
         if not logrequest or not logrequest.getPreExisting():
             lbl = createAlignedLabel(_("_File System Type:"))
@@ -400,6 +400,8 @@ class VolumeGroupEditor:
                                               mountCombo,
                                               ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "PPC PReP Boot", "Apple Bootstrap"])
             lbl.set_mnemonic_widget(newfstypeCombo)
+            maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
+            row += 1
         else:
             maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
@@ -407,8 +409,17 @@ class VolumeGroupEditor:
                 newfstypeCombo = gtk.Label(logrequest.origfstype.getName())
             else:
                 newfstypeCombo = gtk.Label(_("Unknown"))
-	maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
-	row = row+1
+
+            maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
+            row += 1
+
+            if logrequest.fslabel:
+                maintable.attach(createAlignedLabel(_("Original File System "
+                                                      "Label:")),
+                                 0, 1, row, row + 1)
+                maintable.attach(gtk.Label(logrequest.fslabel), 1, 2, row,
+                                 row + 1)
+                row += 1
 
 
         if not logrequest or not logrequest.getPreExisting():
@@ -425,7 +436,7 @@ class VolumeGroupEditor:
             
         maintable.attach(lbl, 0, 1, row, row + 1)
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
-        row = row + 1
+        row += 1
 
         if not logrequest or not logrequest.getPreExisting():
             lbl = createAlignedLabel(_("_Size (MB):"))
@@ -439,7 +450,7 @@ class VolumeGroupEditor:
             
         maintable.attach(lbl, 0, 1, row, row+1)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
-        row = row + 1
+        row += 1
 
         if not logrequest or not logrequest.getPreExisting():
             pesize = int(self.peCombo.get_active_value())

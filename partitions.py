@@ -172,10 +172,15 @@ class Partitions:
                 
 
             fs = partedUtils.sniffFilesystemType(theDev)
+            fslabel = None
             if fs is None:
                 fsystem = fsset.fileSystemTypeGet("foreign")
             else:
                 fsystem = fsset.fileSystemTypeGet(fs)
+                try:
+                    fslabel = isys.readFSLabel(theDev, makeDevNode=0)
+                except:
+                    fslabel = None
 
             mnt = None
             format = 0
@@ -188,7 +193,8 @@ class Partitions:
                                                 raidspares = spares,
                                                 mountpoint = mnt,
                                                 preexist = 1,
-                                                chunksize = chunk)
+                                                chunksize = chunk,
+                                                fslabel = fslabel)
             spec.size = spec.getActualSize(self, diskset)
             self.addRequest(spec)
 
@@ -234,17 +240,24 @@ class Partitions:
 
                 theDev = "/dev/%s/%s" %(vg, lv)
                 fs = partedUtils.sniffFilesystemType(theDev)
+                fslabel = None
+
                 if fs is None:
                     fsystem = fsset.fileSystemTypeGet("foreign")
                 else:
                     fsystem = fsset.fileSystemTypeGet(fs)
+                    try:
+                        fslabel = isys.readFSLabel(theDev, makeDevNode=0)
+                    except:
+                        fslabel = None
 
                 mnt = None
                 format = 0
 
                 spec = partRequests.LogicalVolumeRequestSpec(fsystem,
                     format = format, size = lvsize, volgroup = vgid,
-                    lvname = lv, mountpoint = mnt, preexist = 1)
+                    lvname = lv, mountpoint = mnt, fslabel = fslabel,
+                    preexist = 1)
                 self.addRequest(spec)
 
         for vg in lvm.partialvgs():

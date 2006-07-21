@@ -12,6 +12,15 @@
 	given for stdin is available before trying to read from it.
 	Otherwise, use the regular stdin instead.
 
+	* partitions.py (Partitions.setFromDisk):  Add labels from LVM and
+	RAID when creating partition objects from the existing layout.
+	* partRequests.py (RaidRequestSpec, LogicalVolumeRequestSpec):  Add
+	fslabel attribute.
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.editLogicalVolume):  Show
+	preexisting label if any exists to the UI and the mount point combo
+	(#149375).
+	* raid/raid_dialog_gui.py:  Likewise.
+
 2006-07-20  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

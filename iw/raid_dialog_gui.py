@@ -289,23 +289,37 @@ class RaidEditor:
 	row = row + 1
 
 	# Filesystem Type
-	lbl = createAlignedLabel(_("File System _Type:"))
-	maintable.attach(lbl, 0, 1, row, row + 1)
-
         if not origrequest.getPreExisting():
+            lbl = createAlignedLabel(_("_File System Type:"))
+            maintable.attach(lbl, 0, 1, row, row + 1)
             self.fstypeCombo = createFSTypeMenu(origrequest.fstype,
                                                 fstypechangeCB,
                                                 self.mountCombo,
                                                 ignorefs = ["software RAID", "PPC PReP Boot", "Apple Bootstrap"])
 	    lbl.set_mnemonic_widget(self.fstypeCombo)
+            maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
+            row += 1
         else:
+            maintable.attach(createAlignedLabel(_("Original File System Type:")),
+                             0, 1, row, row + 1)
             if origrequest.fstype.getName():
                 self.fstypeCombo = gtk.Label(origrequest.fstype.getName())
             else:
                 self.fstypeCombo = gtk.Label(_("Unknown"))
-            
-	maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
-	row = row + 1
+
+            import pdb
+            pdb.set_trace()
+
+            maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
+            row += 1
+
+            if origrequest.fslabel:
+                maintable.attach(createAlignedLabel(_("Original File System "
+                                                      "Label:")),
+                                 0, 1, row, row + 1)
+                maintable.attach(gtk.Label(origrequest.fslabel), 1, 2, row,
+                                 row + 1)
+                row += 1
 
 	# raid minors
 	lbl = createAlignedLabel(_("RAID _Device:"))	

@@ -561,7 +561,7 @@ class RaidRequestSpec(RequestSpec):
     
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
-                 raidspares = None, raidminor = None,
+                 raidspares = None, raidminor = None, fslabe = None,
                  preexist = 0, chunksize = None, bytesPerInode=4096):
         """Create a new RaidRequestSpec object.
 
@@ -574,6 +574,7 @@ class RaidRequestSpec(RequestSpec):
         raidspares is the number of spares to setup.
         raidminor is the minor of the device which should be used.
         bytesPerInode is the size of the inodes on the filesystem.
+        fslabel is the label of the filesystem.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -584,7 +585,8 @@ class RaidRequestSpec(RequestSpec):
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
                              mountpoint = mountpoint, preexist = preexist,
-                             origfstype = origfs, bytesPerInode=bytesPerInode)
+                             origfstype = origfs, bytesPerInode=bytesPerInode,
+                             fslabel=fslabel)
         self.type = REQUEST_RAID
         
 
@@ -810,7 +812,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
     def __init__(self, fstype, format = None, mountpoint = None,
                  size = None, volgroup = None, lvname = None,
                  preexist = 0, percent = None, grow=0, maxSizeMB=0,
-		 bytesPerInode = 4096):
+		 bytesPerInode = 4096, fslabel = None):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -824,6 +826,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
 	grow is whether or not to use free space remaining.
 	maxSizeMB is max size to grow to.
 	bytesPerInode is the size of the inodes on the partition.
+        fslabel is the label of the filesystem on the logical volume.
         """
 
         # if it's preexisting, the original fstype should be set
@@ -840,7 +843,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
 	RequestSpec.__init__(self, fstype = fstype, format = format,
 			     mountpoint = mountpoint, size = size,
 			     preexist = preexist, origfstype = origfs,
-			     bytesPerInode = bytesPerInode)
+			     bytesPerInode = bytesPerInode, fslabel = fslabel)
 	    
         self.type = REQUEST_LV
 
