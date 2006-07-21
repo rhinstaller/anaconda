@@ -1216,10 +1216,12 @@ static int anaconda_trace_init(void) {
      * is well before we might take a SEGV, so they'll go to tty8 */
     initializeTtys();
 
+#if 0
     fd = open("/dev/tty8", O_RDWR);
     close(STDERR_FILENO);
     dup2(fd, STDERR_FILENO);
     close(fd);
+#endif
 
     /* set up signal handler */
     signal(SIGSEGV, loaderSegvHandler);
