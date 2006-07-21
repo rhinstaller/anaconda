@@ -1,3 +1,9 @@
+2006-07-20  Chris Lumens  <clumens@redhat.com>
+
+	* iutil.py (execWithRedirect, execWithCapture):  Check that any file
+	given for stdin is available before trying to read from it.
+	Otherwise, use the regular stdin instead.
+
 2006-07-20  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

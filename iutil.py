@@ -32,7 +32,10 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
             raise RuntimeError, command + " can not be run"
 
     if type(stdin) == type("string"):
-        stdin = open(stdin)
+        if os.access(stdin, os.R_OK):
+            stdin = open(stdin)
+        else:
+            stdin = 0
     if type(stdout) == type("string"):
         stdout = open(stdout, "w")
     if type(stderr) == type("string"):
@@ -52,7 +55,10 @@ def execWithCapture(command, argv, stdin = 0, stderr = 2, root='/'):
         os.chroot(root)
 
     if type(stdin) == type("string"):
-        stdin = open(stdin)
+        if os.access(stdin, os.R_OK):
+            stdin = open(stdin)
+        else:
+            stdin = 0
     if type(stderr) == type("string"):
         stderr = open(stderr, "w")
 
