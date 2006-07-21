@@ -843,9 +843,15 @@ class YumBackend(AnacondaBackend):
         elif rhpl.getArch() == "ia64":
             self.selectPackage("elilo")
 
-    def selectFSPackages(self, fsset):
+    def selectFSPackages(self, fsset, diskset):
         for entry in fsset.entries:
             map(self.selectPackage, entry.fsystem.getNeededPackages())
+
+        for disk in diskset.disks.keys():
+            if isys.driveIsIscsi(disk):
+                log.info("ensuring iscsi is installed")
+                self.selectPackage("iscsi-initiator-utils")
+                break
 
     def doPostSelection(self, anaconda):
         # Only solve dependencies on the way through the installer, not the way back.
@@ -855,7 +861,7 @@ class YumBackend(AnacondaBackend):
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel()
         self.selectBootloader()
-        self.selectFSPackages(anaconda.id.fsset)
+        self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
 
         if anaconda.id.getUpgrade():
             from upgrade import upgrade_remove_blacklist

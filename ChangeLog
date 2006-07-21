@@ -1,5 +1,18 @@
 2006-07-21  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive): Show
+	dialog while iscsid is starting
+
+	* yuminstall.py (YumBackend.selectFSPackages): Ensure that
+	iscsi-initiator-utils gets installed if installing on iscsi
+
+	* kickstart.py (AnacondaKSHandlers.doIscsi): Fixes for new iscsi
+	setup, startup iscsi targets at iscsi config
+
+	* iscsi.py: Sleep after starting iscsid, ensure we get the port
+	correct, redirect output from iscsid to avoid spinning, fix
+	writing out iscsi config
+
 	* scripts/buildinstall: Handle having packages under
 	$PRODUCTPATH/RPMS or $PRODUCTPATH/
 	* scripts/pkgorder: Likewise.

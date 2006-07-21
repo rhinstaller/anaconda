@@ -18,10 +18,10 @@ import iutil
 from flags import flags
 import logging
 import shutil
+import time
 log = logging.getLogger("anaconda")
 
 from rhpl.translate import _, N_
-
 
 # Note that stage2 copies all files under /sbin to /usr/sbin
 ISCSID="/usr/sbin/iscsid"
@@ -32,8 +32,6 @@ INITIATOR_FILE="/etc/initiatorname.iscsi"
 class iscsi:
     def __init__(self):
         self.targets = []
-        self.ipaddr = ""
-        self.port = "3260"
         self.initiator = ""
         self.iscsidStarted = False
 
@@ -97,7 +95,7 @@ class iscsi:
                 os.kill(pid, signal.SIGKILL)
         self.iscsidStarted = False;
 
-    def discoverTarget(self, ipaddr, port, intf = None):
+    def discoverTarget(self, ipaddr, port = "3260", intf = None):
         if not self.iscsidStarted:
             self.startup(intf)
         if flags.test:
@@ -138,8 +136,11 @@ class iscsi:
 
         if not os.path.exists(ISCSID_DB_DIR):
             iutil.mkdirChain(ISCSID_DB_DIR)
-        iutil.execWithRedirect(ISCSID, [], searchPath = 1)
+        log.info("ISCSID is %s", ISCSID)
+        iutil.execWithRedirect(ISCSID, [],
+                               stdout="/dev/tty5", stderr="/dev/tty5")
         self.iscsidStarted = True
+        time.sleep(2)
 
         for t in self.targets:
             idx = t.rfind(":")
@@ -148,7 +149,7 @@ class iscsi:
                 port = "3260"
             else:
                 ipaddr = t[:idx]
-                port = t[idx:]
+                port = t[idx+1:]
 
             self.discoverTarget(ipaddr, port, intf)
             self.loginTarget(ipaddr)
@@ -161,7 +162,7 @@ class iscsi:
         return
 
     def write(self, instPath):
-        if not self.ipaddr:
+        if not self.initiator:
             return
 
         fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)

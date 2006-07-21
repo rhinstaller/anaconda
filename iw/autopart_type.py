@@ -159,7 +159,7 @@ class PartitionTypeWindow(InstallWindow):
                 continue
             self.anaconda.id.iscsi.targets.append(target)
 
-            self.anaconda.id.iscsi.discoverTarget(ip, port)
+            self.anaconda.id.iscsi.discoverTarget(ip, port, self.intf)
             self.anaconda.id.iscsi.loginTarget(ip)
             break
 

@@ -189,7 +189,24 @@ class AnacondaKSHandlers(KickstartHandlers):
 
         id.iscsi.ipaddr = self.ksdata.iscsi["target"]
         id.iscsi.port = self.ksdata.iscsi["port"]
-        id.iscsi.initiator = self.ksdata.iscsi["initiator"]   
+
+        id.iscsi.initiator = self.ksdata.iscsi["initiator"]
+
+        if self.ksdata.iscsi["target"]:
+            ip = t = self.ksdata.iscsi["target"]
+            port = None
+            if self.ksdata.iscsi["port"]:
+                t = "%s:%s" %(t, self.ksdata.iscsi["port"])
+                port = self.ksdata.iscsi["port"]
+            id.iscsi.targets.append(t)
+
+            # FIXME: have to startup iscsi now so that we know the disk later
+            log.info("added iscsi target: %s" %(t,))
+            id.iscsi.discoverTarget(ip, port)
+            id.iscsi.loginTarget(ip)
+
+        # FIXME: flush the drive dict so we figure drives out again
+        isys.flushDriveDict()
 
     def doKeyboard(self, id, args):
         KickstartHandlers.doKeyboard(self, args)
