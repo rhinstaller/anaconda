@@ -307,9 +307,6 @@ class RaidEditor:
             else:
                 self.fstypeCombo = gtk.Label(_("Unknown"))
 
-            import pdb
-            pdb.set_trace()
-
             maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
             row += 1
 
