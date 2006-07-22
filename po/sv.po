@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-02-15 23:16+0100\n"
+"PO-Revision-Date: 2006-07-22 14:28+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -512,13 +512,12 @@ msgstr ""
 "Det uppstod ett problem vid skrivning av systemtillståndet till en diskett."
 
 #: ../exception.py:409
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr ""
-"Ditt systemtillstånd har skrivits till fjärrvärden utan problem.\n"
-"Ditt system kommer nu att startas om."
+"Ditt systemtillstånd har skrivits till fjärrvärden utan problem. Ditt system "
+"kommer nu att startas om."
 
 #: ../exception.py:418
 msgid "There was a problem writing the system state to the remote host."
@@ -629,11 +628,18 @@ msgid ""
 "must reformat as a version 1 Linux swap partition. If you skip it, the "
 "installer will ignore it during the installation."
 msgstr ""
+"Växlingsenheten:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"är en Linuxväxlingspartition av typen version 0. Om du vill använda denna "
+"enhet måste du formatera om den till en Linuxväxlingspartition av typen "
+"version 1. Om du hoppar över det kommer installationsprogrammet att hoppa "
+"över det under installationen."
 
 #: ../fsset.py:1496
-#, fuzzy
 msgid "Reformat"
-msgstr "Formatera"
+msgstr "Formatera om"
 
 #: ../fsset.py:1500
 #, python-format
@@ -646,6 +652,14 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"Växlingsenheten:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"i din /etc/fstab-fil används för tillfället som en partition för "
+"programvarususpendering, vilket innebär att ditt system är i viloläge. "
+"För att utföra en uppgradering bör du stänga ner ditt system istället för "
+"att försätta det i viloläge."
 
 #: ../fsset.py:1508
 #, python-format
@@ -658,6 +672,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
+"Växlingsenheten:\n"
+"\n"
+"     /dev/%s\n"
+"\n"
+"i din /etc/fstab-fil används för tillfället som en partition för "
+"programvarususpendering, vilket innebär att ditt system är i viloläge. "
+"Om du utför en nyinstallation bör du se till att installationsprogrammet "
+"är inställt att formatera alla växlingspartitioner."
 
 #: ../fsset.py:1518
 msgid ""
@@ -667,6 +689,20 @@ msgid ""
 "upgrade.  Choose Format to reformat the partition as swap space.  Choose "
 "Reboot to restart the system."
 msgstr ""
+"\n"
+"\n"
+"Välj Hoppa över om du vill att installationsprogrammet ska ignorera denna "
+"partition under uppgraderingen. Välj Formatera för att formatera partitionen "
+"som växlingsutrymme. Välj Starta om för att starta om systemet."
+
+msgid ""
+"Choose Skip if you want the installer to ignore this partition during the "
+"upgrade.  Choose Format to reformat the partition as swap space.  Choose "
+"Reboot to restart the system."
+msgstr ""
+"Välj Hoppa över om du vill att installationsprogrammet ska ignorera denna "
+"partition under uppgraderingen. Välj Formatera för att formatera partitionen "
+"som växlingsutrymme. Välj Starta om för att starta om systemet."
 
 #: ../fsset.py:1524 ../iw/partition_gui.py:368
 msgid "Format"
@@ -1004,7 +1040,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660-avbild saknas"
 
 #: ../harddrive.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -1012,12 +1048,24 @@ msgid ""
 "Please copy this image to the drive and click Retry. Click Reboot  to abort "
 "the installation."
 msgstr ""
-"Installationsprogrammet har försökt montera avbilden #%s, men kan inte hitta "
-"den på servern.\n"
+"Installationsprogrammet har försökt att montera avbilden #%s, men kan inte "
+"hitta den på hårddisken.\n"
 "\n"
-"Kopiera denna avbild till fjärrserverns utdelningssökväg och klicka på "
-"Försök igen.\n"
-"Klicka på Starta om för att avbryta installationen."
+"Kopiera denna avbild till hårddisken och klicka på Försök igen. Klicka på "
+"Starta om för att avbryta installationen."
+
+msgid ""
+"The installer has tried to mount image #%s, but cannot find it on the hard "
+"drive.\n"
+"\n"
+"Please copy this image to the drive and click Retry. Click Reboot to abort "
+"the installation."
+msgstr ""
+"Installationsprogrammet har försökt att montera avbilden #%s, men kan inte "
+"hitta den på hårddisken.\n"
+"\n"
+"Kopiera denna avbild till hårddisken och klicka på Försök igen. Klicka på "
+"Starta om för att avbryta installationen."
 
 #: ../harddrive.py:71 ../image.py:491
 msgid "Re_try"
@@ -1111,8 +1159,8 @@ msgid ""
 "Please copy this image to the remote server's share path and click Retry. "
 "Click Reboot to abort the installation."
 msgstr ""
-"Installationsprogrammet har försökt montera avbilden #%s, men kan inte hitta "
-"den på servern.\n"
+"Installationsprogrammet har försökt att montera avbilden #%s, men kan inte "
+"hitta den på servern.\n"
 "\n"
 "Kopiera denna avbild till fjärrserverns utdelningssökväg och klicka på "
 "Försök igen.\n"
@@ -1173,7 +1221,7 @@ msgid "Missing Group"
 msgstr "Grupp saknas"
 
 #: ../kickstart.py:937
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
@@ -1733,12 +1781,16 @@ msgstr ""
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
+"Installerar på en USB-enhet. Detta kan skapa ett fungerande system, men "
+"det är inte säkert."
 
 #: ../partitions.py:914
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
+"Installerar på en FireWire-enhet. Detta kan skapa ett fungerande system, men "
+"det är inte säkert."
 
 #: ../partitions.py:923 ../partRequests.py:675
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2268,9 +2320,8 @@ msgid "The password must be at least six characters long."
 msgstr "Lösenordet måste vara minst sex tecken långt."
 
 #: ../vnc.py:137
-#, fuzzy
 msgid "VNC Password Error"
-msgstr "Inget lösenord"
+msgstr "VNC-lösenordsfel"
 
 #: ../vnc.py:138
 msgid ""
@@ -2278,6 +2329,9 @@ msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
+"Du måste ange ett vnc-lösenord som är minst 6 tecken långt.\n"
+"\n"
+"Tryck <retur> för att starta om ditt system.\n"
 
 #: ../vnc.py:183
 msgid "Starting VNC..."
@@ -2403,62 +2457,65 @@ msgstr "Av_bryt"
 
 #: ../yuminstall.py:481 ../yuminstall.py:482
 msgid "file conflicts"
-msgstr ""
+msgstr "filkonflikter"
 
 #: ../yuminstall.py:483
-#, fuzzy
 msgid "older package(s)"
-msgstr "Valfria paket"
+msgstr "äldre paket"
+
+msgid "Older packages"
+msgstr "Äldre paket"
 
 #: ../yuminstall.py:484
 msgid "insufficient disk space"
-msgstr ""
+msgstr "inte tillräckligt med diskutrymme"
 
 #: ../yuminstall.py:485
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "inte tillräckligt med diskinoder"
 
 #: ../yuminstall.py:486
-#, fuzzy
 msgid "package conflicts"
-msgstr "Paketstandardalternativ"
+msgstr "paketkonflikter"
+
+msgid "Package Conflicts"
+msgstr "Paketkonflikter"
 
 #: ../yuminstall.py:487
 msgid "package already installed"
-msgstr ""
+msgstr "paket som redan är installerat"
 
 #: ../yuminstall.py:488
-#, fuzzy
 msgid "required package"
-msgstr "Ledigt utrymme"
+msgstr "paket som krävs"
 
 #: ../yuminstall.py:489
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "paket för felaktig arkitektur"
 
 #: ../yuminstall.py:490
 msgid "package for incorrect os"
-msgstr ""
+msgstr "paket för felaktigt os"
 
 #: ../yuminstall.py:503
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "Du behöver mer utrymme på följande filsystem:\n"
 
 #: ../yuminstall.py:519
 msgid "Error running transaction"
 msgstr "Fel vid körning av transaktion"
 
 #: ../yuminstall.py:615
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file or perhaps a "
 "corrupt package.  If you are installing from CD media this usually means the "
 "CD media is corrupt, or the CD drive is unable to read the media.\n"
 "\n"
 msgstr ""
-"Paketet %s-%s-%s.%s kan inte öppnas. Detta beror på en saknad fil eller "
-"kanske ett trasigt paket. Om du installerar från cd-medium kan detta bero på "
-"att cd-mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"Filen %s kan inte öppnas. Detta beror på en saknad fil eller kanske ett "
+"trasigt paket. Om du installerar från cd-medium kan detta bero på att "
+"cd-mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
 "\n"
 
 #: ../yuminstall.py:659
@@ -2485,6 +2542,9 @@ msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
+"De paket som du har valt kräver %d MB ledigt utrymme för installationen, men "
+"du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller starta "
+"om."
 
 #: ../yuminstall.py:987
 #, python-format
@@ -2505,16 +2565,14 @@ msgid "Starting install process.  This may take several minutes..."
 msgstr "Startar installationen. Detta kan ta flera minuter..."
 
 #: ../yuminstall.py:1036
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "Uppgradera"
+msgstr "Efteruppgradering"
 
 # För många klagomål på "postinstallationskonfiguration", det får bli
-# "efterinstallationskonfiguration" istället.
+# "efterinstallationskonfiguration" istället, och motsvarande.
 #: ../yuminstall.py:1037
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "Utför efterinstallationskonfiguration..."
+msgstr "Utför efteruppgraderingskonfiguration..."
 
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
@@ -2644,21 +2702,22 @@ msgid "_Confirm: "
 msgstr "B_ekräfta: "
 
 #: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
-#, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
-msgstr "Ta bort alla partitioner på detta system"
+msgstr ""
+"Ta bort alla partitioner på valda enheter och skapa en anpassad layout."
 
 #: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
+"Ta bort Linuxpartitioner på valda enheter och skapa en anpassad layout."
 
 #: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
-msgstr ""
+msgstr "Använd ledigt utrymme på valda enheter och skapa en anpassad layout."
 
 #: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
 msgid "Create custom layout."
-msgstr ""
+msgstr "Skapa anpassad layout."
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -4538,11 +4597,15 @@ msgstr ""
 "startetiketter du vill använda för att starta dem."
 
 #: ../textw/bootloader_text.py:291
-#, fuzzy
 msgid ""
 " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
 msgstr ""
-" <Blanksteg> väljer knapp | <F2> välj standardstartpost | <F12> nästa skärm>"
+" <Blanksteg> välj | <F2> välj standard | <F4> ta bort | <F12> nästa skärm>"
+
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen"
+msgstr ""
+" <Blanksteg> välj | <F2> välj standard | <F4> ta bort | <F12> nästa skärm"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -6224,9 +6287,8 @@ msgid "%s directory:"
 msgstr "%s-katalog:"
 
 #: ../loader2/nfsinstall.c:52
-#, fuzzy
 msgid "NFS"
-msgstr "NIS"
+msgstr "NFS"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -6313,7 +6375,7 @@ msgstr "FTP"
 
 #: ../loader2/urls.c:275
 msgid "Web"
-msgstr ""
+msgstr "Webb"
 
 #: ../loader2/urls.c:292
 msgid "FTP site name:"
@@ -6587,12 +6649,12 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Centraltid - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid ""
 "Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
 "Counties"
 msgstr ""
-"Centraltid - Indiana - Daviess, Dubois, Knox, Martin, Perry och Pulaski"
+"Centraltid - Indiana - Daviess-, Dubois-, Knox-, Martin-, Perry- och "
+"Pulaski-länen"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -6611,9 +6673,8 @@ msgid "Central Time - most locations"
 msgstr "Centraltid - större delen"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
-msgstr "Centraltid - North Dakota - Oliver County"
+msgstr "Centraltid - North Dakota - Morton County (utom Mandan-området)"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
@@ -8634,6 +8695,9 @@ msgstr "Zulu"
 
 #~ msgid "Enable NIS"
 #~ msgstr "Använd NIS"
+
+#~ msgid "NIS"
+#~ msgstr "NIS"
 
 #~ msgid "NIS Domain:"
 #~ msgstr "NIS-domän:"
