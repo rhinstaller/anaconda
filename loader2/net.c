@@ -331,6 +331,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     printLoaderDataIPINFO(loaderData);
 #endif
 
+    cfg->noipv4 = 0;
+    if (FL_NOIPV6(flags)) {
+        cfg->noipv6 = 1;
+    } else {
+        cfg->noipv6 = 0;
+    }
+
     if (loaderData->ethtool) {
         parseEthtoolSettings(loaderData);
     }
