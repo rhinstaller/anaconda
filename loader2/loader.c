@@ -1205,7 +1205,9 @@ static void loaderSegvHandler(int signum) {
 }
 
 static int anaconda_trace_init(void) {
+#if 0
     int fd;
+#endif
 
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
