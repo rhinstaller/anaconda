@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.63
+Version: 11.1.0.64
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 24 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.64-1
+- Fix build failure (pjones)
+- Fix error handling when adding iscsi 
+- Make things a bit more flexible based on the install class
+- Fix noipv4 (dcantrel)
+- Try not to run dmidecode a bazillion times
+- Cleanups for various package selection things
+
 * Fri Jul 21 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.63-1
 - Fix serial kickstart installs (clumens)
 - Add labels for LVM and RAID (clumens)
