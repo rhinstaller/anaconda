@@ -155,7 +155,7 @@ class PartitionTypeWindow(InstallWindow):
             except network.IPError, msg:
                 err = msg
             if err:
-                self.intf.messageWindow(_("Error with Data"), msg)
+                self.intf.messageWindow(_("Error with Data"), "%s" %(msg,))
                 continue
             self.anaconda.id.iscsi.targets.append(target)
 
