@@ -5,6 +5,39 @@
 
 2006-07-24  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (YumBackend.doRepoSetup): Make text better for
+	adding an additional repo
+
+	* iw/task_gui.py (TaskWindow.getScreen): Allow hiding additional
+	repo button on a per-installclass basis
+
+	* yuminstall.py (AnacondaYum.doConfigSetup): Allow having more
+	than one default repo for the installclass
+	(YumBackend._catchallCategory): Fix catchall category
+
+	* packages.py (regKeyScreen): Add reg key screen.
+
+	* installclass.py (BaseInstallClass.getPackagePaths): Add method
+	to handle mapping with a URI to the repo paths we want to have
+	(BaseInstallClass.handleRegKey): Method for handling the reg key
+	and validating it
+
+	* installclasses/rhel.py: Add Red Hat Enterprise Linux
+	installclass.  Have it enable the regkey step
+	* installclasses/rhel_as.py: Remove old RHEL class
+	* installclasses/rhel_desktop.py: Likewise.
+	* installclasses/rhel_es.py: Likewise.
+	* installclasses/rhel_ws.py: Likewise.
+
+	* gui.py (EntryWindow.__init__): Add intf.entryWindow taking
+	advantage of messageWindow stuff.
+	* text.py (InstallInterface.entryWindow): Likewise.
+
+	* dispatch.py (installSteps): Add regkey step.
+
+	* installclasses/fedora.py: Disable the fedora install class if on 
+	RHEL.
+
 	* iw/autopart_type.py (PartitionTypeWindow.addIscsiDrive): Fix
 	error handling
 
