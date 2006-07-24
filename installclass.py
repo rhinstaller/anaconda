@@ -52,6 +52,9 @@ class BaseInstallClass:
     # don't force text mode
     forceTextMode = 0
 
+    # allow additional software repositories beyond the base to be configured
+    allowExtraRepos = True
+
     # by default, place this under the "install" category; it gets it's
     # own toplevel category otherwise
     parentClass = ( _("Install on System"), "install.png" )
@@ -180,6 +183,15 @@ class BaseInstallClass:
         else:
 	    dispatch.skipStep("keyboard", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
+
+    # modifies the uri from installmethod.getMethodUri() to take into
+    # account any installclass specific things including multiple base
+    # repositories.  takes a string, returns a list of strings
+    def getPackagePaths(self, uri):
+        return { "base": uri }
+
+    def handleRegKey(self, key, intf):
+        pass
 
     def setPackageSelection(self, anaconda):
 	pass

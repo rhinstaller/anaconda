@@ -239,6 +239,25 @@ def recreateInitrd (kernelTag, instRoot):
                            stdout = None, stderr = None,
                            searchPath = 1, root = instRoot)
 
+def regKeyScreen(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        return DISPATCH_NOOP
+
+    while 1:
+        rc = anaconda.intf.entryWindow(_("Enter Registration Key"),
+                                      _("Please enter the registration key for your version of %s.") %(productName,), _("Key:"))
+
+        try:
+            anaconda.id.instClass.handleRegKey(rc, anaconda.intf)
+        except Exception, e:
+            log.info("exception handling regkey: %s" %(e,))
+            continue
+        break
+
+    # FIXME: currently, we only allow this screen to ever be hit _once_
+    anaconda.dispatch.skipStep("regkey", permanent = 1)
+    return 
+
 def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",
                     "Red Hat Enterprise Linux": "Red Hat Enterprise Linux Public Beta",

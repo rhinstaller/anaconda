@@ -355,10 +355,12 @@ class AnacondaYum(YumSorter):
         self.conf.cachedir = '/tmp/cache/'
         self.conf.metadata_expire = 0
         
-        #XXX: It'd be nice if the default repo was in the repoList
-        repo = AnacondaYumRepo(self.method.getMethodUri())
-        repo.enable()
-        self.repos.add(repo)
+        # add default repos
+        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
+            repo = AnacondaYumRepo(uri, repoid="anaconda-%s-%s" %(name, productStamp))
+            repo.enable()
+            self.repos.add(repo)
+
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repoList:
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
@@ -678,12 +680,13 @@ class YumBackend(AnacondaBackend):
                     del grps[g]
 
         if len(grps.keys()) == 0:
+            log.info("no groups missing")
             return
         c = yum.comps.Category()
         c.name = _("Uncategorized")
         c._groups = grps
         c.categoryid = "uncategorized"
-        self.ayum.comps.categories.append(c)
+        self.ayum.comps._categories[c.categoryid] = c
 
     def getDefaultGroups(self):
         import language

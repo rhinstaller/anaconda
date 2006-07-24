@@ -16,6 +16,8 @@ class InstallClass(BaseInstallClass):
     sortPriority = 10000
     showLoginChoice = 1
     showMinimal = 1
+    if productName.startswith("Red Hat Enterprise"):
+        hidden = 1
 
     tasks = [(N_("Office and Productivity"), ["graphics", "office", "games", "sound-and-video"]),
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),

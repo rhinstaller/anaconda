@@ -26,6 +26,7 @@ from packages import firstbootConfiguration
 from packages import betaNagScreen
 from packages import setupTimezone
 from packages import setFileCons
+from packages import regKeyScreen
 from partitioning import partitionObjectsInitialize
 from partitioning import partitioningComplete
 from bootloader import writeBootloader, bootloaderSetupChoices
@@ -62,6 +63,7 @@ installSteps = [
     ("betanag", betaNagScreen, ),
     ("language", ),
     ("keyboard", ),
+    ("regkey", regKeyScreen, ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
     ("zfcpconfig", ),

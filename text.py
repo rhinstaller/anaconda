@@ -341,6 +341,15 @@ class InstallInterface:
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
+    def entryWindow(self, title, text, prompt, entrylength = None):
+        (res, value) = EntryWindow(self.screen, title, text, [prompt])
+        if res == "cancel":
+            return None
+        r = value[0]
+        r.strip()
+        return r
+
+
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing your "
               "kickstart configuration:\n\n%s") %(text,)

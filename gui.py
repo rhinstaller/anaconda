@@ -660,11 +660,13 @@ class MessageWindow:
     def getrc (self):
         return self.rc
     
-    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None):
+    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None, run = True, destroyAfterRun = True):
+        self.title = title
         if flags.autostep:
             self.rc = 1
             return
         self.rc = None
+        self.framed = False
         docustom = 0
         if type == 'ok':
             buttons = gtk.BUTTONS_OK
@@ -692,7 +694,7 @@ class MessageWindow:
         elif custom_icon == "info":
             style = gtk.MESSAGE_INFO
 
-        dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
+        self.dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
 
         if docustom:
             rid=0
@@ -702,7 +704,7 @@ class MessageWindow:
                 else:
                     tbutton = button
 
-                widget = dialog.add_button(tbutton, rid)
+                widget = self.dialog.add_button(tbutton, rid)
                 rid = rid + 1
 
             defaultchoice = rid - 1
@@ -714,15 +716,21 @@ class MessageWindow:
             else:
                 defaultchoice = 0
 
-        addFrame(dialog, title=title)
-        dialog.set_position (gtk.WIN_POS_CENTER)
-        dialog.set_default_response(defaultchoice)
-        dialog.show_all ()
+        self.dialog.set_position (gtk.WIN_POS_CENTER)
+        self.dialog.set_default_response(defaultchoice)
+        if run:
+            self.run(destroyAfterRun)
+
+    def run(self, destroy = False):
+        if not self.framed:
+            addFrame(self.dialog, title=self.title)
+            self.framed = True
+        self.dialog.show_all ()
 
         # XXX - Messy - turn off busy cursor if necessary
         busycursor = getBusyCursorStatus()
         setCursorToNormal()
-        rc = dialog.run()
+        rc = self.dialog.run()
 
         if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
             self.rc = 1
@@ -733,11 +741,39 @@ class MessageWindow:
             self.rc = 0
         else:
             self.rc = rc
-        dialog.destroy()
+        if destroy:
+            self.dialog.destroy()
 
         # restore busy cursor
         if busycursor:
             setCursorToBusy()
+
+class EntryWindow(MessageWindow):
+    def __init__ (self, title, text, prompt, entrylength = None):
+        mainWindow = None
+        MessageWindow.__init__(self, title, text, type = "okcancel", custom_icon="question", run = False)
+        self.entry = gtk.Entry()
+        if entrylength:
+            self.entry.set_width_chars(entrylength)
+            self.entry.set_max_length(entrylength)
+            
+        # eww, eww, eww... but if we pack in the vbox, it goes to the right
+        # place!
+        self.dialog.child.pack_start(self.entry)
+
+    def run(self):
+        MessageWindow.run(self)
+        if self.rc == 0:
+            return None
+        t = self.entry.get_text()
+        t.strip()
+        if len(t) == 0:
+            return None
+        return t
+
+    def destroy(self):
+        self.dialog.destroy()
+        
     
 class InstallInterface:
     def __init__ (self):
@@ -773,6 +809,12 @@ class InstallInterface:
              custom_buttons=None,  custom_icon=None):
         rc = MessageWindow (title, text, type, default,
                 custom_buttons, custom_icon).getrc()
+        return rc
+
+    def entryWindow(self, title, text, type="ok", entrylength = None):
+        d = EntryWindow(title, text, type, entrylength)
+        rc = d.run()
+        d.destroy()
         return rc
 
     def exceptionWindow(self, shortText, longTextFile):
