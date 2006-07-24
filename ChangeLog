@@ -1,3 +1,8 @@
+2006-07-24  Jeremy Katz  <katzj@redhat.com>
+
+	* iutil.py (isMactel): Make this persist so we don't run dmidecode
+	a bazillion times
+
 2006-07-24  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/net.c (setupNetworkDeviceConfig): Init the noipv4 and

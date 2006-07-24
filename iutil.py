@@ -345,17 +345,25 @@ def getPPCMacBook():
         return 1
     return 0
 
+mactel = None
 # return True if this is one of the Intel-based Apple Macs
 def isMactel():
+    global mactel
+    if mactel is not None:
+        return mactel
+    
     if rhpl.getArch() not in ("x86_64", "i386"):
-        return False
-    if not os.path.exists("/usr/sbin/dmidecode"):
-        return False
-    buf = execWithCapture("/usr/sbin/dmidecode",
-                          ["dmidecode", "-s", "system-manufacturer"])
-    if buf.lower().find("apple") != -1:
-        return True
-    return False
+        mactel = False
+    elif not os.path.exists("/usr/sbin/dmidecode"):
+        mactel = False
+    else:
+        buf = execWithCapture("/usr/sbin/dmidecode",
+                              ["dmidecode", "-s", "system-manufacturer"])
+        if buf.lower().find("apple") != -1:
+            mactel = True
+        else:
+            mactel = False
+    return mactel
 
 def hasNX():
     """Convenience function to see if a machine supports the nx bit. We want
