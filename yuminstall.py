@@ -633,7 +633,12 @@ class YumBackend(AnacondaBackend):
         tot = 0
         for t in longtasks:
             tot += t[1]
-        waitwin = YumProgress(anaconda.intf, _("Retrieving installation information..."), tot)
+
+        if thisrepo is None:
+            txt = _("Retrieving installation information...")
+        else:
+            txt = _("Retrieving installation information for %s...")%(thisrepo)
+        waitwin = YumProgress(anaconda.intf, txt, tot)
         self.ayum.repos.callback = waitwin
 
         try:

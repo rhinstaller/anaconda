@@ -155,6 +155,8 @@ class TaskWindow(InstallWindow):
         if not found:
             self.xml.get_widget("mainLabel").hide()
             self.xml.get_widget("cbVBox").hide()
+        if not anaconda.id.instClass.allowExtraRepos:
+            self.xml.get_widget("addRepoButton").hide()
 
         self.xml.get_widget("addRepoButton").connect("clicked", self._addRepo)
 
