@@ -1,5 +1,9 @@
 2006-07-25  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py: Make kickstart installclass inherit from the
+	installclass being used for the install so that we get product
+	specific behaviors. 
+
 	* whiteout.py (whiteout): Remove gstreamer/gstreamer-tools
 	no-longer-a-loop (#197139)
 

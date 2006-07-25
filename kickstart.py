@@ -14,7 +14,7 @@
 import iutil
 import isys
 import os
-from installclass import BaseInstallClass
+from installclass import BaseInstallClass, availableClasses
 from partitioning import *
 from autopart import *
 from fsset import *
@@ -767,8 +767,25 @@ class AnacondaKSParser(KickstartParser):
                 except TypeError:
                     log.warning("anaconda does not yet support the %s kickstart command, ignoring for now" % cmd)
 
+# figure out what installclass we should base on.  if kickstart wasn't
+# an installclass and was instead a data source, this nonsense wouldn't be
+# needed
+allavail = availableClasses(showHidden = 1)
+avail = availableClasses(showHidden = 0)
+if len(avail) == 1:
+    (cname, cobject, clogo) = avail[0]
+    log.info("%s is only installclass, using for kickstart" %(cname,))
+elif len(allavail) == 1:
+    (cname, cobject, clogo) = allavail[0]
+    log.info("%s is only installclass, using for kickstart" %(cname,))
+    retval = cobject(flags.expert)
+else:
+    cobject = BaseInstallClass
+    log.info("using baseinstallclass for kickstart")
+
+
 # The anaconda kickstart processor.
-class Kickstart(BaseInstallClass):
+class Kickstart(cobject):
     name = "kickstart"
 
     def __init__(self, file, serial):
@@ -777,7 +794,7 @@ class Kickstart(BaseInstallClass):
         self.serial = serial
         self.file = file
 
-        BaseInstallClass.__init__(self, 0)
+        cobject.__init__(self, 0)
 
     # this adds a partition to the autopartition list replacing anything
     # else with this mountpoint so that you can use autopart and override /
@@ -899,7 +916,7 @@ class Kickstart(BaseInstallClass):
             dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
         else:
-            BaseInstallClass.setSteps(self, dispatch)
+            cobject.setSteps(self, dispatch)
             dispatch.skipStep("findrootparts")
 
         if self.ksdata.interactive or flags.autostep:
@@ -915,6 +932,7 @@ class Kickstart(BaseInstallClass):
 
         dispatch.skipStep("bootdisk")
         dispatch.skipStep("betanag")
+        dispatch.skipStep("regkey")
         dispatch.skipStep("installtype")
         dispatch.skipStep("tasksel")            
 
