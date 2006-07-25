@@ -7,6 +7,12 @@
 
 	* scripts/upd-instroot: Removed sbin/sfdisk.
 
+	* loader2/net.c: Bump inet_pton() buffers to length 48.
+	Let users skip entering a DNS server in getDnsServers(), but still
+	require a valid one if they enter anything.
+
+	* loader2/urls.c (addrToIp): Update to support IPv6.
+
 2006-07-25  Paul Nasrat  <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.

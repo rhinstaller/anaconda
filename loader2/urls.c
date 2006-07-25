@@ -224,23 +224,21 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
 
 char * addrToIp(char * hostname) {
     struct in_addr ad;
-    char * chptr;
+    struct in6_addr ad6;
     char *ret;
 
-    for (chptr = hostname; *chptr; chptr++)
-        if (!(isdigit(*chptr) || *chptr == '.')) break;
-
-    if (!*chptr)
+    if (mygethostbyname(hostname, &ad))
         return hostname;
 
-    if (mygethostbyname(hostname, &ad))
-        return NULL;
-
     if ((ret = malloc(48)) == NULL)
-        return NULL;
+        return hostname;
 
-    inet_ntop(AF_INET, &ad, ret, INET_ADDRSTRLEN);
-    return ret;
+    if (inet_ntop(AF_INET, &ad, ret, INET_ADDRSTRLEN) != NULL)
+        return ret;
+    else if (inet_ntop(AF_INET, &ad6, ret, INET6_ADDRSTRLEN) != NULL)
+        return ret;
+    else
+        return NULL;
 }
 
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,

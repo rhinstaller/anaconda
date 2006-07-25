@@ -285,7 +285,8 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 
         rc = 0;
         if (!ns || !*ns) {
-            rc = 2;
+            cfg->dev.numDns = 0;
+            break;
         } else {
             if (inet_pton(AF_INET, ns, &addr) >= 1)
                 cfg->dev.dnsServers[0] = ip_addr_in(&addr);
@@ -294,13 +295,15 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
             else
                 rc = 2;
         }
-        if (rc)
-            newtWinMessage(_("Invalid IP Information"), _("Retry"),
-                        _("You entered an invalid IP address."));
-    } while (rc == 2);
 
-    cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
-    cfg->dev.numDns = 1;
+        if (rc) {
+            newtWinMessage(_("Invalid IP Information"), _("Retry"),
+                           _("You entered an invalid IP address."));
+        } else {
+            cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+            cfg->dev.numDns = 1;
+        }
+    } while (rc == 2);
 
     return LOADER_OK;
 }
@@ -433,7 +436,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
     if (loaderData->dns) {
         char * buf;
-        char ret[47];
+        char ret[48];
         buf = strdup(loaderData->dns);
 
         /* Scan the dns parameter for multiple comma-separated IP addresses */
@@ -802,7 +805,7 @@ int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     int ipv4Choice, int ipv6Choice) {
     int ifour, isix, rows, pos, primary, prefix, cidr;
     char buf[4];
-    char ret[47];
+    char ret[48];
     ip_addr_t *tip;
     struct in_addr addr;
     struct in6_addr addr6;
@@ -1228,7 +1231,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     FILE * f;
     int i;
     struct device ** devices;
-    char ret[47];
+    char ret[48];
     ip_addr_t *tip;
 
     devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_LOADED);
@@ -1301,7 +1304,7 @@ int writeResolvConf(struct networkDeviceConfig * net) {
     char * filename = "/etc/resolv.conf";
     FILE * f;
     int i;
-    char ret[47];
+    char ret[48];
     ip_addr_t *tip;
 #if defined(__s390__) || defined(__s390x__)
     return 0;
@@ -1334,7 +1337,7 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 
 int findHostAndDomain(struct networkDeviceConfig * dev) {
     char * name, * chptr;
-    char ret[47];
+    char ret[48];
     ip_addr_t *tip;
 
     if (!FL_TESTING(flags)) {
