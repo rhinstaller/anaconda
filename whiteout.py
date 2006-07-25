@@ -65,7 +65,6 @@ whiteout="""
 	xinitrc>XFree86 \
         xinitrc>xorg-x11 \
 	xemacs>apel-xemacs \
-	gstreamer-tools>gstreamer \
 	gimp>gimp-print-plugin \
         redhat-lsb>redhat-lsb \
         info>ncurses \
