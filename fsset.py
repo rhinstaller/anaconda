@@ -955,10 +955,6 @@ class prepbootFileSystem(FileSystemType):
             self.formattable = 0
 
     def formatDevice(self, entry, progress, chroot='/'):
-        # FIXME: oh dear is this a hack beyond my wildest imagination.
-        # parted doesn't really know how to do these, so we're going to
-        # exec sfdisk and make it set the partition type.  this is bloody
-        # ugly
         devicePath = entry.device.setupDevice(chroot)
         (disk, part) = getDiskPart(devicePath)
         if disk is None or part is None:
@@ -966,15 +962,8 @@ class prepbootFileSystem(FileSystemType):
                       "(%s)" %(devicePath,))
             return
 
-        args = [ "--change-id", disk, "%d" %(part,), "41" ]
-        if disk.startswith("/tmp/") and not os.access(disk, os.R_OK):
-            isys.makeDevInode(disk[5:], disk)
-        
-        log.info("going to run %s" %(args,))
-        rc = iutil.execWithRedirect("/usr/sbin/sfdisk", args,
-                                    stdout = "/dev/tty5", stderr = "/dev/tty5")
-        if rc:
-            raise SystemError
+        if part and part.is_flag_available(parted.PARTITION_PREP):
+            part.set_flag(parted.PARTITION_PREP, 1)
 
 fileSystemTypeRegister(prepbootFileSystem())
 

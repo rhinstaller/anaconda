@@ -1,4 +1,13 @@
-2006-07-25  Paul Nasrat <pnasrat@redhat.com>
+2006-07-25  David Cantrell  <dcantrell@redhat.com>
+
+	* anaconda.spec: Require parted >= 1.7.1, pyparted >= 1.7.2
+
+	* fsset.py (prepbootFileSystem.formatDevice): Don't need to run sfdisk
+	anymore, parted handles this now.
+
+	* scripts/upd-instroot: Removed sbin/sfdisk.
+
+2006-07-25  Paul Nasrat  <pnasrat@redhat.com>
 
 	* anaconda.spec: Bump version.
 

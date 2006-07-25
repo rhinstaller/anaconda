@@ -16,9 +16,10 @@ BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
 BuildPreReq: libdhcp-devel >= 1.9, mkinitrd-devel
-Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, parted >= 1.6.3-7, booty
+Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
+Requires: parted >= 1.7.1, pyparted >= 1.7.2
 Requires: kudzu > 1.2.0, yum >= 2.9.2, pirut >= 1.1.0
-Requires: pyparted, libxml2-python, python-urlgrabber
+Requires: libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart, system-config-date
 Requires: device-mapper >= 1.01.05-3
 Requires: dosfstools e2fsprogs
