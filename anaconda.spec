@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.64
+Version: 11.1.0.65
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -100,6 +100,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 25 2006 Paul Nasrat <pnasrat@redhat.com> - 11.1.0.65-1
+- Fix noipv6 (pjones)
+- Fix nodmraid and nompath (katzj)
+- Make kickstart inherit from used installclass (katzj)
+- Hide rhel installclass by default (katzj)
+- Remove gstreamer/gstreamer-tools whiteout (#197139, katzj)
+
 * Mon Jul 24 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.64-1
 - Fix build failure (pjones)
 - Fix error handling when adding iscsi 
