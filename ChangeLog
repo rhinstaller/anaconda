@@ -1,5 +1,9 @@
 2006-07-25  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda: Fix nodmraid and nompath
+
+	* installclasses/rhel.py: This should be hidden by default
+
 	* kickstart.py: Make kickstart installclass inherit from the
 	installclass being used for the install so that we get product
 	specific behaviors. 
