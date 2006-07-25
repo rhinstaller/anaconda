@@ -379,6 +379,9 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
+                cfg->noipv4 = loaderData->noipv4;
+                cfg->noipv6 = loaderData->noipv6;
+                cfg->noDns = loaderData->noDns;
                 ret = doDhcp(cfg);
             }
 

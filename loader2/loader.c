@@ -613,9 +613,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "nofb"))
             flags |= LOADER_FLAGS_NOFB;
-        else if (!strcasecmp(argv[i], "noipv6"))
+        else if (!strcasecmp(argv[i], "noipv6")) {
             flags |= LOADER_FLAGS_NOIPV6;
-        else if (!strcasecmp(argv[i], "kssendmac"))
+            loaderData->noipv6 = 1;
+        } else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
         else if (!strncasecmp(argv[i], "loglevel=", 9)) {
             if (!strcasecmp(argv[i]+9, "debug")) {
