@@ -136,7 +136,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 fi
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGES="$PACKAGES python-pyblock libbdevid"
+    PACKAGES="$PACKAGES python-pyblock libbdevid libbdevid-python"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -239,7 +239,7 @@ PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
 
 # dmraid stuff
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGESGR="$PACKAGESGR python-pyblock libbdevid"
+    PACKAGESGR="$PACKAGESGR python-pyblock libbdevid libbdevid-python"
 fi
 
 # modular xorg...
