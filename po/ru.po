@@ -16,6 +16,7 @@
 # translation of ru.po to
 # translation of ru.po to
 # translation of ru.po to
+# translation of ru.po to
 # translation of ru.po to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
@@ -29,7 +30,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-16 17:57-0400\n"
-"PO-Revision-Date: 2006-07-17 11:24+1000\n"
+"PO-Revision-Date: 2006-07-26 10:39+1000\n"
 "Last-Translator: Yuliya Poyarkova <ypoyarko@redhat.com>\n"
 "Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6211,7 +6212,7 @@ msgstr "Этот каталог не может быть смонтирован 
 #: ../loader2/nfsinstall.c:263
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "Неверный аргумент команды kickstart метода NFS %s: :%s"
+msgstr "Неверный аргумент NFS метода kickstart %s: %s"
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
@@ -6245,11 +6246,11 @@ msgstr "Обнаружен локальный установочный носи�
 #: ../loader2/urlinstall.c:451
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Неверный аргумент команды kickstart метода URL %s: :%s"
+msgstr "Неверный аргумент URL метода kickstart %s: %s"
 
 #: ../loader2/urlinstall.c:460
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Для метода Url команды kickstart необходимо передать параметр --url."
+msgstr "Для Url метода необходимо передать параметр --url."
 
 #: ../loader2/urlinstall.c:471
 #, c-format
