@@ -55,7 +55,7 @@ class AnacondaKSScript(Script):
         if self.logfile is not None:
             messages = self.logfile
         elif serial:
-            messages = "/tmp/ks-script.log"
+            messages = "%s.log" % path
         else:
             messages = "/dev/tty3"
 
@@ -82,7 +82,7 @@ class AnacondaKSScript(Script):
         os.unlink(path)
 
         if serial or self.logfile is not None:
-            os.chmod("%s/%s" % (scriptRoot, messages), 0600)
+            os.chmod("%s" % messages, 0600)
 
 class AnacondaKSHandlers(KickstartHandlers):
     def __init__ (self, ksdata):

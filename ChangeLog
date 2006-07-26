@@ -1,3 +1,8 @@
+2006-07-26  Chris Lumens  <clumens@redhat.com>
+
+	* kickstart.py (AnacondaKSScript.run):  Be smarter about where the log
+	files are.
+
 2006-07-26  Peter Jones  <pjones@redhat.com>
 
 	* dmraid.py: consolidate startRaidDev and startAllRaid, likewise for
