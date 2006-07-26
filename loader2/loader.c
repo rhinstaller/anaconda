@@ -180,22 +180,22 @@ static void initProductInfo(void) {
     f = fopen("/.buildstamp", "r");
     if (!f) {
         productName = strdup("anaconda");
-	productPath = strdup("anaconda");
+        productPath = strdup("anaconda");
     } else {
-	productName = malloc(256);
-	productPath = malloc(256);
+        productName = malloc(256);
+        productPath = malloc(256);
         productName = fgets(productName, 256, f); /* stamp time */
         productName = fgets(productName, 256, f); /* product name */
-	productPath = fgets(productPath, 256, f); /* product version */
-	productPath = fgets(productPath, 256, f); /* product path */
+        productPath = fgets(productPath, 256, f); /* product version */
+        productPath = fgets(productPath, 256, f); /* product path */
 
         i = strlen(productName) - 1;
-	while (isspace(*(productName + i))) {
+        while (isspace(*(productName + i))) {
             *(productName + i) = '\0';
             i--;
         }
         i = strlen(productPath) - 1;
-	while (isspace(*(productPath + i))) {
+        while (isspace(*(productPath + i))) {
             *(productPath + i) = '\0';
             i--;
         }

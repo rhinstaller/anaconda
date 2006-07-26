@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <netdb.h>
 
 #include "../isys/dns.h"
 
@@ -154,7 +155,10 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
                          char *extraHeaders, int silentErrors) {
     char * buf;
     int fd;
+    int family = -1;
     char * finalPrefix;
+    struct in_addr addr;
+    struct in6_addr addr6;
 
     if (!strcmp(ui->prefix, "/"))
         finalPrefix = "";
@@ -171,8 +175,16 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
                ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
                ui->address, buf);
 
+    if (inet_pton(AF_INET, ui->address, &addr) >= 1)
+        family = AF_INET;
+    else if (inet_pton(AF_INET6, ui->address, &addr6) >= 1)
+        family = AF_INET6;
+    else
+        logMessage(ERROR, "cannot determine address family of %s",
+                   ui->address);
+
     if (ui->protocol == URL_METHOD_FTP) {
-        ui->ftpPort = ftpOpen(ui->address, 
+        ui->ftpPort = ftpOpen(ui->address, family,
                               ui->login ? ui->login : "anonymous", 
                               ui->password ? ui->password : "rhinstall@", 
                               NULL, -1);
@@ -189,8 +201,8 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             close(ui->ftpPort);
             if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"), 
-                    _("Failed to retrieve %s: %s"), buf,
-		    ftpStrerror(fd, ui->protocol));
+                               _("Failed to retrieve %s: %s"), buf,
+                               ftpStrerror(fd, ui->protocol));
             return -1;
         }
     } else {
@@ -198,8 +210,8 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
         if (fd < 0) {
             if (!silentErrors)
                 newtWinMessage(_("Error"), _("OK"), 
-                    _("Failed to retrieve %s: %s"), buf,
-		    ftpStrerror(fd, ui->protocol));
+                               _("Failed to retrieve %s: %s"), buf,
+                               ftpStrerror(fd, ui->protocol));
             return -1;
         }
     }
@@ -223,12 +235,18 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
 }
 
 char * addrToIp(char * hostname) {
+    struct hostent *he;
     struct in_addr ad;
     struct in6_addr ad6;
     char *ret;
 
-    if (mygethostbyname(hostname, &ad))
-        return hostname;
+    he = gethostbyname2(hostname, AF_INET);
+    if (he)
+        return he->h_name;
+
+    he = gethostbyname2(hostname, AF_INET6);
+    if (he)
+        return he->h_name;
 
     if ((ret = malloc(48)) == NULL)
         return hostname;

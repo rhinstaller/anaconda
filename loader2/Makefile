@@ -7,26 +7,26 @@ else
 TARGET=depend $(PROGS)
 endif
 
+LIBS = -lnewt -lslang -lz -ldevmapper -lpopt ../isys/libisys.a
+
 # glib - for utility stuff
-GLIB   = $(shell pkg-config --libs glib-2.0)
+LIBS   += $(shell pkg-config --libs glib-2.0)
 CFLAGS += $(shell pkg-config --cflags glib-2.0)
 
 # dhcp library flags
-DHCP   = $(shell pkg-config --libs libdhcp)
+LIBS   += $(shell pkg-config --libs libdhcp)
 CFLAGS += $(shell pkg-config --cflags libdhcp)
 
 # nash library flags
-NASH	= $(shell pkg-config --libs libnash)
+LIBS   += $(shell pkg-config --libs libnash)
 CFLAGS += $(shell pkg-config --cflags libnash)
 
-SLANGLIB = -lslang
-NEWTLIB = -lnewt
-ISYSLIB = ../isys/libisys.a
-GUNZIP = -lz
-DMLIB = -ldevmapper
 ifeq (1, $(USESELINUX))
-DMLIB += -lselinux -lsepol
+LIBS += -lselinux -lsepol
 endif
+
+# These libs need to be on the end of the link list
+LIBS += -lresolv -lm
 
 BINS = loader
 
@@ -42,7 +42,7 @@ NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-HWLIBS = -lkudzu_loader -lpci
+LIBS += -lkudzu_loader -lpci
 
 # NSS linker flags
 NSSFLAGS = -Wl,-rpath-link,/nss
@@ -51,7 +51,7 @@ CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
 REALCC=gcc
 
-UNICODELIB = ../stubs/libunicode-lite.a ../wlite/libwlite.a
+LIBS += ../stubs/libunicode-lite.a ../wlite/libwlite.a
 
 # linuxrc + shutdown on s390, init everywhere else
 ifneq (,$(filter s390 s390x,$(ARCH)))
@@ -114,9 +114,7 @@ loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader: loader.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) $(NSSFLAGS) -o $@ $^ -lpopt     \
-	$(HWLIBS) $(ISYSLIB) $(GUNZIP) $(UNICODELIB) \
-	-lresolv $(NEWTLIB) $(SLANGLIB) $(DMLIB) $(GLIB) $(DHCP) $(NASH) -lm
+	$(CC) -g $(STATIC) $(NSSFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

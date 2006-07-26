@@ -18,9 +18,12 @@ const char * ftpStrerror(int ftpErrno, urlprotocol protocol);
 #define FTPERR_TOO_MANY_CONNECTIONS  -11
 #define FTPERR_BAD_URL               -12
 #define FTPERR_TOO_MANY_REDIRECTS    -13
+#define FTPERR_UNSUPPORTED_FAMILY    -14
+#define FTPERR_PERMISSION_DENIED     -15
 #define FTPERR_UNKNOWN               -100
 
-int ftpOpen(char * host, char * name, char * password, char * proxy, int port);
+int ftpOpen(char * host, int family, char * name, char * password,
+            char * proxy, int port);
 int ftpGetFile(int sock, char * remotename, int dest);
 int ftpGetFileDesc(int sock, char * remotename);
 int ftpGetFileDone(int sock);

@@ -310,11 +310,13 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	if (!inet_aton(hostname, &server_addr.sin_addr))
 #endif
 	{
-		if (mygethostbyname(hostname, &server_addr.sin_addr)) {
+      struct hostent * he = gethostbyname(hostname);
+      if (he) {
+         memcpy(&server_addr.sin_addr, he->h_addr_list[0], he->h_length);
+			server_addr.sin_family = AF_INET;
+      } else {
 			myerror = ERROR_HOSTNAME;
 			goto fail;
-		} else {
-			server_addr.sin_family = AF_INET;
 		}
 	}
 
@@ -548,12 +550,14 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	    mount_server_addr.sin_family = AF_INET;
 	    mount_server_addr.sin_addr.s_addr = inet_addr(hostname);
 	  } else {
-		if (mygethostbyname(hostname, &mount_server_addr.sin_addr)) {
-			  myerror = ERROR_HOSTNAME;
-			  goto fail;
-		  } else {
-			mount_server_addr.sin_family = AF_INET;
-		  }
+       struct hostent * he = gethostbyname(hostname);
+       if (he) {
+          memcpy(&server_addr.sin_addr, he->h_addr_list[0], he->h_length);
+          server_addr.sin_family = AF_INET;
+       } else {
+          myerror = ERROR_HOSTNAME;
+          goto fail;
+       }
 	  }
 	}
 

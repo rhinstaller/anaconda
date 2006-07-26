@@ -19,6 +19,7 @@ import time
 import string
 import struct
 import socket
+import urlparse
 import urlgrabber.grabber as grabber
 
 from snack import *
@@ -157,37 +158,28 @@ class UrlInstallMethod(InstallMethod):
     def __init__(self, url, rootPath, intf):
 	InstallMethod.__init__(self, url, rootPath, intf)
 
-        if url.startswith("ftp"):
-            isFtp = 1
-        else:
-            isFtp = 0
+        (scheme, netloc, path, query, fragid) = urlparse.urlsplit(url)
 
-        # build up the url.  this is tricky so that we can replace
-        # the first instance of // with /%3F to do absolute URLs right
-        i = string.index(url, '://') + 3
-        self.baseUrl = url[:i]
-        rem = url[i:]
+	try:
+            socket.inet_pton(socket.AF_INET6, netloc)
+            netloc = '[' + netloc + ']'
+        except:
+            pass
 
-        i = string.index(rem, '/') + 1
-        self.baseUrl = self.baseUrl + rem[:i]
-        rem = rem[i:]
-        
         # encoding fun so that we can handle absolute paths
-        if rem.startswith("/") and isFtp:
-            rem = "%2F" + rem[1:]
+        if path[1] == '/' and scheme == 'ftp':
+            path = "/%2F" + path[1:]
 
-        self.baseUrl = self.baseUrl + rem
+        self.baseUrl = urlparse.urlunsplit((scheme,netloc,path,query,fragid))
 
-        if self.baseUrl[-1] == "/":
-            self.baseUrl = self.baseUrl[:-1]
-
-	# self.baseUrl points at the path which contains the 'product'
-	# directory with the hdlist.
-
-	if self.baseUrl[-6:] == "/disc1":
-	    self.multiDiscs = 1
-	    self.pkgUrl = self.baseUrl[:-6]
-	else:
-	    self.multiDiscs = 0
-	    self.pkgUrl = self.baseUrl
+        # FIXME: does not work
+#	# self.baseUrl points at the path which contains the 'product'
+#	# directory with the hdlist.
+#
+#	if self.baseUrl[-6:] == "/disc1":
+#	    self.multiDiscs = 1
+#	    self.pkgUrl = self.baseUrl[:-6]
+#	else:
+#	    self.multiDiscs = 0
+#	    self.pkgUrl = self.baseUrl
 	

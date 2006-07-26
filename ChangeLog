@@ -1,3 +1,22 @@
+2006-07-26  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/urls.c (urlinstStartTransfer): Determine address family
+	and pass that to the ftpOpen() call.
+
+	* urlinstall.py (UrlInstallMethod.__init__): Use urlparse.
+
+	* isys/dns.c, isys/dns.h: Updated for IPv6 support.
+
+	* loader2/Makefile: Cleanups.
+
+	* loader2/ftp.c, loader2/ftp.h: Updated for IPv6 support.
+
+	* loader2/loader.c: Whitespace consistency.
+
+	* loader2/method.c: Whitespace consistency.
+
+	* loader2/urls.c: Updated for IPv6 support.
+
 2006-07-26  Peter Jones  <pjones@redhat.com>
 
 	* partRequests.py (RaidRequestSpec.__init__): fslabel, not fslabe.
