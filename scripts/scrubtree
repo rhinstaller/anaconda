@@ -57,7 +57,7 @@ while [ -n "$1" ]; do
 	fi
     done
     # if it's not in our list and it doesn't exist, link to busybox
-    if [ -z "$save" -a ! -f "$1" ]; then
+    if [ -z "$save" -a ! -f "$1" -a ! -f "$p/usr/sbin/$1" ]; then
 	ln -sf ./busybox $1
     else
 	[ -n "$DEBUG" ] && echo "Overriding busybox version of $1"
