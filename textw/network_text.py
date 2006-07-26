@@ -232,7 +232,7 @@ class NetworkDeviceWindow:
             return INSTALL_OK
 
 class NetworkGlobalWindow:
-    def __call__(self, screen, anaconda):
+    def __call__(self, screen, anaconda, showonboot = 1):
         devices = anaconda.id.network.available()
         if not devices:
             return INSTALL_NOOP

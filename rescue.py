@@ -223,7 +223,7 @@ def runRescue(anaconda):
 
 		    win = nextWindow()
 
-                    rc = win(screen, anaconda)
+                    rc = win(screen, anaconda, showonboot = 0)
 
 		    if rc == INSTALL_NOOP:
 			rc = lastrc
