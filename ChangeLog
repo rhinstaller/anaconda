@@ -1,3 +1,14 @@
+2006-07-26  Jeremy Katz  <katzj@redhat.com>
+
+	* lang-table: Add Kannada
+
+	* scripts/upd-instroot (KEEPFILEGR): Add Kannada font
+
+	* rescue.py (runRescue): Don't show onboot for rescue (#200237)
+
+	* textw/network_text.py (NetworkGlobalWindow.__call__): Take
+	(unused and optional) showonboot parameter
+
 2006-07-25  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/urls.c (addrToIp): Use AF_INET6 when making an in6_addr.
