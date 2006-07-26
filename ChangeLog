@@ -1,5 +1,9 @@
 2006-07-25  David Cantrell  <dcantrell@redhat.com>
 
+	* loader2/urls.c (addrToIp): Use AF_INET6 when making an in6_addr.
+
+2006-07-25  David Cantrell  <dcantrell@redhat.com>
+
 	* anaconda.spec: Require parted >= 1.7.1, pyparted >= 1.7.2
 
 	* fsset.py (prepbootFileSystem.formatDevice): Don't need to run sfdisk

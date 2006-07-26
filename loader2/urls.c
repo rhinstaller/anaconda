@@ -235,7 +235,7 @@ char * addrToIp(char * hostname) {
 
     if (inet_ntop(AF_INET, &ad, ret, INET_ADDRSTRLEN) != NULL)
         return ret;
-    else if (inet_ntop(AF_INET, &ad6, ret, INET6_ADDRSTRLEN) != NULL)
+    else if (inet_ntop(AF_INET6, &ad6, ret, INET6_ADDRSTRLEN) != NULL)
         return ret;
     else
         return NULL;
