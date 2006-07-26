@@ -142,7 +142,9 @@ class Partitions:
                 part = disk.next_partition(part)
 
         # now we need to read in all pre-existing RAID stuff
-        diskset.startAllRaid()
+        diskset.startMPath()
+        diskset.startDmRaid()
+        diskset.startMdRaid()
         mdList = diskset.mdList
         for raidDev in mdList:
             (theDev, devices, level, numActive) = raidDev
@@ -266,7 +268,7 @@ class Partitions:
             
         lvm.vgdeactivate()
 
-        diskset.stopAllRaid(stopDmRaid=False, stopMPath=False)
+        diskset.stopMdRaid()
 
     def addRequest (self, request):
         """Add a new request to the list."""
@@ -1317,7 +1319,9 @@ class Partitions:
         """Does the removal of all of the non-physical volumes in the delete list."""
 
         # have to have lvm on, which requires raid to be started
-        diskset.startAllRaid()
+        diskset.startMPath()
+        diskset.startDmRaid()
+        diskset.startMdRaid()
         lvm.vgactivate()
 
         snapshots = {}
@@ -1356,8 +1360,7 @@ class Partitions:
                     delete.setDeleted(1)
 
         lvm.vgdeactivate()
-        diskset.stopAllRaid(stopDmRaid=False, stopMPath=False)
-
+        diskset.stopMdRaid()
 
     def deleteDependentRequests(self, request):
         """Handle deletion of this request and all requests which depend on it.

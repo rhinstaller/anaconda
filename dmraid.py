@@ -146,13 +146,6 @@ def scanForRaid(drives, degradedOk=False):
 def renameRaidSet(rs, name):
     cacheDrives.rename(rs, name)
             
-def startRaidDev(rs):
-    if flags.dmraid == 0:
-        return
-    rs.prefix = '/dev/mapper/'
-    log.debug("starting raid %s with mknod=True" % (rs,))
-    rs.activate(mknod=True)
-
 def startAllRaid(driveList):
     """Do a raid start on raid devices."""
 
@@ -162,19 +155,10 @@ def startAllRaid(driveList):
 
     dmList = scanForRaid(driveList)
     for rs in dmList:
-        startRaidDev(rs)
+        rs.prefix = '/dev/mapper/'
+        log.debug("starting raid %s with mknod=True" % (rs,))
+        rs.activate(mknod=True)
     return dmList
-
-def stopRaidSet(rs):
-    if flags.dmraid == 0:
-        return
-    log.debug("stopping raid %s" % (rs,))
-    name = "mapper/" + rs.name
-    if name in cacheDrives:
-        cacheDrives.remove(name)
-
-        rs.deactivate()
-        #block.removeDeviceMap(map)
 
 def stopAllRaid(dmList):
     """Do a raid stop on each of the raid device tuples given."""
@@ -183,7 +167,12 @@ def stopAllRaid(dmList):
         return
     log.debug("stopping all dmraids")
     for rs in dmList:
-        stopRaidSet(rs)
+        log.debug("stopping raid %s" % (rs,))
+        if rs.name in cacheDrives:
+            cacheDrives.remove(rs.name)
+
+            rs.deactivate()
+            #block.removeDeviceMap(map)
 
 def isRaid6(raidlevel):
     """Return whether raidlevel is a valid descriptor of RAID6."""
@@ -256,7 +245,7 @@ def startMPath(mpath):
     log.debug("starting mpath %s with mknod=True" % (mpath,))
     mpath.activate(mknod=True)
 
-def startAllMPaths(driveList):
+def startAllMPath(driveList):
     """Start all of the MPaths of the specified drives."""
 
     if not flags.mpath:
@@ -271,15 +260,15 @@ def startAllMPaths(driveList):
 def stopMPath(mp):
     if flags.mpath == 0:
         return
+
     log.debug("stopping mpath %s" % (mp,))
-    name = "mapper/" + mp.name
-    if name in cacheDrives:
-        cacheDrives.remove(name)
+    if mp.name in cacheDrives:
+        cacheDrives.remove(mp.name)
 
         mp.deactivate()
         #block.removeDeviceMap(map)
 
-def stopAllMPaths(mpList):
+def stopAllMPath(mpList):
     """Do a mpath stop on each of the mpath device tuples given."""
 
     if not flags.mpath:

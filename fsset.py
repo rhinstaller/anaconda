@@ -125,8 +125,8 @@ class LabelFactory:
             self.labels = {}
             diskset = partedUtils.DiskSet()            
             diskset.openDevices()
-            diskset.stopAllRaid(stopDmRaid=False)
-            diskset.startAllRaid()
+            diskset.stopMdRaid()
+            diskset.startMdRaid()
             labels = diskset.getLabels()
             del diskset
             self.reserveLabels(labels)

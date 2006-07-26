@@ -123,7 +123,9 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 
     diskset = partedUtils.DiskSet()
     diskset.openDevices()
-    diskset.startAllRaid()
+    diskset.startMPath()
+    diskset.startDmRaid()
+    diskset.startMdRaid()
     lvm.vgscan()
     lvm.vgactivate()
 
@@ -139,15 +141,17 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(anaconda.rootPath)
     if not allowDirty and dirtyDevs != []:
-        diskset.stopAllRaid()
         lvm.vgdeactivate()
-	anaconda.intf.messageWindow(_("Dirty File Systems"),
+        diskset.stopMdRaid()
+        diskset.stopDmRaid()
+        diskset.stopMPath()
+        anaconda.intf.messageWindow(_("Dirty File Systems"),
                            _("The following file systems for your Linux system "
                              "were not unmounted cleanly.  Please boot your "
                              "Linux installation, let the file systems be "
                              "checked and shut down cleanly to upgrade.\n"
                              "%s" %(getDirtyDevString(dirtyDevs),)))
-	sys.exit(0)
+        sys.exit(0)
     elif warnDirty and dirtyDevs != []:
         rc = anaconda.intf.messageWindow(_("Dirty File Systems"),
                                 _("The following file systems for your Linux "

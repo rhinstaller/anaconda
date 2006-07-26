@@ -559,9 +559,9 @@ class DiskSet:
 
     def startMPath(self):
         """Start all of the dm multipath devices associated with the DiskSet."""
+
         if rhpl.getArch() in ('s390', 's390x'):
             return
-
         if not DiskSet.mpList is None:
             return
 
@@ -572,16 +572,28 @@ class DiskSet:
                 self.driveList())
         log.debug("DiskSet.skippedDisks: %s" % (DiskSet.skippedDisks,))
 
-        mpList = dmraid.startAllMPaths(driveList)
+        mpList = dmraid.startAllMPath(driveList)
         DiskSet.mpList = mpList
         log.debug("done starting mpaths.  Drivelist: %s" % \
             (self.driveList(),))
 
     def renameMPath(self, mp, name):
+        if rhpl.getArch() in ('s390', 's390x'):
+            return
         dmraid.renameMPath(mp, name)
+ 
+    def stopMPath(self):
+        """Stop all of the mpath devices associated with the DiskSet."""
+
+        if rhpl.getArch() in ('s390', 's390x'):
+            return
+        if DiskSet.mpList:
+            dmraid.stopAllMPath(DiskSet.mpList)
+            DiskSet.mpList = None
 
     def startDmRaid(self):
         """Start all of the dmraid devices associated with the DiskSet."""
+
         if rhpl.getArch() in ('s390', 's390x'):
             return
         if not DiskSet.dmList is None:
@@ -600,67 +612,45 @@ class DiskSet:
             (self.driveList(),))
 
     def renameDmRaid(self, rs, name):
-        dmraid.renameRaidSet(rs, name)
-
-    def startAllRaid(self, startDmRaid=True, startMPath=True, startMdRaid=True):
-        """Start all of the raid devices associated with the DiskSet."""
-        testList = DiskSet.skippedDisks
-
-        if not rhpl.getArch() in ('s390','s390x'):
-            if startMPath:
-                if self.mpList is None:
-                    self.startMPath()
-                for mp in DiskSet.mpList or []:
-                    for m in mp.members:
-                        disk = m.split('/')[-1]
-                        testList.append(disk)
-#                self.refreshDevices()
-
-            if startMdRaid:
-                if self.dmList is None:
-                    self.startDmRaid()
-                for rs in DiskSet.dmList or []:
-                    for m in rs.members:
-                        if isinstance(m, block.RaidDev):
-                            disk = m.rd.device.path.split('/')[-1]
-                            testList.append(disk)
-#                self.refreshDevices()
-
-        if startMdRaid:
-            driveList = filter(lambda x: x not in testList, self.driveList())
-            DiskSet.mdList.extend(raid.startAllRaid(driveList))
-
-#        self.refreshDevices()
-
-    def stopMPath(self):
-        """Stop all of the MPaths associated with the DiskSet."""
-        if not DiskSet.mpList:
+        if rhpl.getArch() in ('s390', 's390x'):
             return
-
-        dmraid.stopAllMPaths(DiskSet.mpList)
-        DiskSet.mpList = None
+        dmraid.renameRaidSet(rs, name)
 
     def stopDmRaid(self):
         """Stop all of the dmraid devices associated with the DiskSet."""
-        if not DiskSet.dmList:
+
+        if rhpl.getArch() in ('s390', 's390x'):
             return
+        if DiskSet.dmList or []:
+            dmraid.stopAllRaid(DiskSet.dmList)
+            DiskSet.dmList = None
 
-        dmraid.stopAllRaid(DiskSet.dmList)
-        DiskSet.dmList = None
+    def startMdRaid(self):
+        """Start all of the md raid devices associated with the DiskSet."""
 
-    def stopAllRaid(self, stopDmRaid=True, stopMPath=True):
-        """Stop all of the raid devices associated with the DiskSet."""
+        testList = DiskSet.skippedDisks
+
+        if not rhpl.getArch() in ('s390','s390x'):
+            for mp in DiskSet.mpList or []:
+                for m in mp.members:
+                    disk = m.split('/')[-1]
+                    testList.append(disk)
+            for rs in DiskSet.dmList or []:
+                for m in rs.members:
+                    if isinstance(m, block.RaidDev):
+                        disk = m.rd.device.path.split('/')[-1]
+                        testList.append(disk)
+
+        driveList = filter(lambda x: x not in testList, self.driveList())
+        DiskSet.mdList.extend(raid.startAllRaid(driveList))
+
+    def stopMdRaid(self):
+        """Stop all of the md raid devices associated with the DiskSet."""
 
         raid.stopAllRaid(DiskSet.mdList)
 
         while DiskSet.mdList:
             DiskSet.mdList.pop()
-
-        if stopDmRaid and DiskSet.dmList:
-            self.stopDmRaid()
-
-        if stopMPath and DiskSet.mpList:
-            self.stopMPath()
 
     def getLabels(self):
         """Return a list of all of the labels used on partitions."""
@@ -700,7 +690,9 @@ class DiskSet:
         """Return a list of all of the partitions which look like a root fs."""
         rootparts = []
 
-        self.startAllRaid()
+        self.startMPath()
+        self.startDmRaid()
+        self.startMdRaid()
 
         if flags.cmdline.has_key("upgradeany"):
             upgradeany = 1
@@ -764,7 +756,7 @@ class DiskSet:
 	lvm.vgdeactivate()
 
         # don't stop raid until after we've looked for lvm on top of it
-        self.stopAllRaid(stopDmRaid=False, stopMPath=False)
+        self.stopMdRaid()
 
         drives = self.disks.keys()
         drives.sort()

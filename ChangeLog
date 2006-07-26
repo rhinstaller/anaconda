@@ -1,3 +1,20 @@
+2006-07-26  Peter Jones  <pjones@redhat.com>
+
+	* dmraid.py: consolidate startRaidDev and startAllRaid, likewise for
+	stop.  fix mpath names in device cache.  name startAllMPath like
+	everything else.
+
+	* partedUtils.py: split up startAllRaid and stopAllRaid into individual
+	functions for MdRaid, DmRaid, and MPath.
+	
+	* fsset.py: call individual start/stop functions
+
+	* partitioning.py: ditto
+
+	* partitions.py: ditto
+
+	* upgrade.py: ditto
+
 2006-07-26  Jeremy Katz  <katzj@redhat.com>
 
 	* lang-table: Add Kannada
