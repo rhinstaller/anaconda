@@ -103,6 +103,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Wed Jul 26 2006 Peter Jones <pjones@redhat.com> - 11.1.0.66-1
+- Fix md raid request class
+- Check for busybox utilties in /usr/sbin (katzj)
 - Be smarter about log files during kickstart (clumens)
 - Make multipath and dmraid work
 - Add Kannada language (katzj)

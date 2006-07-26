@@ -561,7 +561,7 @@ class RaidRequestSpec(RequestSpec):
     
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
-                 raidspares = None, raidminor = None, fslabe = None,
+                 raidspares = None, raidminor = None, fslabel = None,
                  preexist = 0, chunksize = None, bytesPerInode=4096):
         """Create a new RaidRequestSpec object.
 
