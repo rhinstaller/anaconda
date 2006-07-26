@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.65
+Version: 11.1.0.66
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -15,7 +15,7 @@ BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3,
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: glib2-devel >= 2.11.1-5
-BuildPreReq: libdhcp-devel >= 1.9, mkinitrd-devel
+BuildPreReq: libdhcp-devel >= 1.9, mkinitrd-devel >= 5.1.2-1
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.7.1, pyparted >= 1.7.2
 Requires: kudzu > 1.2.0, yum >= 2.9.2, pirut >= 1.1.0
@@ -102,6 +102,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 26 2006 Peter Jones <pjones@redhat.com> - 11.1.0.66-1
+- Be smarter about log files during kickstart (clumens)
+- Make multipath and dmraid work
+- Add Kannada language (katzj)
+- Don't show onboot for rescue mode (katzj)
+- Fix AF_INET6 usage when making in6_addr (dcantrell)
+
 * Tue Jul 25 2006 Paul Nasrat <pnasrat@redhat.com> - 11.1.0.65-1
 - Fix noipv6 (pjones)
 - Fix nodmraid and nompath (katzj)
