@@ -103,6 +103,9 @@ int ourInsmodCommand(int argc, char ** argv) {
             version = atoi(argv[2]);
             argv += 2;
             argc -= 2;
+        } else if (!strncmp(argv[1], "-", 1)) { /* ignore all other options */
+            argc -= 1;
+            argv += 1;
         } else {
             break;
         }

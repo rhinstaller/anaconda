@@ -1,3 +1,7 @@
+2006-07-27  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modstubs.c: Ignore options we don't understand to modprobe
+
 2006-07-27  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/ftp.c (ftpOpen, ftpGetFileDesc): Support IPv6 hosts, which
