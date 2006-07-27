@@ -57,7 +57,7 @@ void ejectCdrom(void) {
             logMessage(ERROR, "eject failed %d ", errno);
         close(ejectfd);
     } else {
-        ogMessage(ERROR, "eject failed %d ", errno);
+        logMessage(ERROR, "eject failed %d ", errno);
     }
 }
 
