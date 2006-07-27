@@ -58,8 +58,12 @@ class InstallClass(BaseInstallClass):
         # if V is in the key, add Virtualization.
         if key.find("C") != -1:
             self.repopaths["cluster"] = "Cluster"
+        if key.find("S") != -1:
+            self.repopaths["cs"] = "ClusterStorage"            
         if key.find("V") != -1:
             self.repopaths["virt"] = "VT"
+        if key.find("D") != -1:
+            self.repopaths["desktop"] = "Desktop"
 
         self.regkey = key
 
