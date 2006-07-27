@@ -1,3 +1,9 @@
+2006-07-27  Peter Jones  <pjones@redhat.com>
+
+	* loader2/net.c chooseNetworkInterface(): when trying to find the ks
+	macaddr, exit the loop when we find the match, and free the target
+	there, not in the loop (#200451).
+
 2006-07-27  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/cdinstall.c: ogMessage -> logMessage

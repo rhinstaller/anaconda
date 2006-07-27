@@ -1589,16 +1589,18 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                     foundDev = 1;
                     free(loaderData->netDev);
                     loaderData->netDev = devs[i]->device;
-                } else {
-                    free(ksMacAddr);
+                    if (devmacaddr != NULL)
+                        free(devmacaddr);
+                    break;
                 }
 
-                if (devmacaddr != NULL) {
+                if (devmacaddr != NULL)
                     free(devmacaddr);
-                }
             }
         }
     }
+    if (ksMacAddr)
+        free(ksMacAddr);
     if (foundDev == 1)
         return LOADER_NOOP;
 
