@@ -1,5 +1,8 @@
 2006-07-27  Jeremy Katz  <katzj@redhat.com>
 
+	* installclasses/rhel.py (InstallClass.__init__): base repopath
+	didn't really change
+
 	* anaconda.spec: Bump version.
 
 2006-07-27  Paul Nasrat <pnasrat@redhat.com>

@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.67
+Version: 11.1.0.68
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.68-1
+- And another fix for the RHEL installclass
+
 * Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.67-1
 - FTP/HTTP ipv6 fixes (dcantrel)
 - Better prepboot handling (pnasrat)

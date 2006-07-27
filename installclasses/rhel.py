@@ -70,5 +70,5 @@ class InstallClass(BaseInstallClass):
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
-        self.repopaths = { "base": "" }
+        self.repopaths = { "base": "%s" %(productPath,) }
         self.regkey = None
