@@ -1,3 +1,16 @@
+2006-07-27  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/ftp.c (ftpOpen, ftpGetFileDesc): Support IPv6 hosts, which
+	means using the EPSV command instead of PASV.  We don't get the IP
+	address of the server in the response, so ftpGetFileDesc needs to
+	bring in the in6_addr we already made for the server so we can then
+	make the socket connection.
+
+	* loader2/ftp.h: Prototype updates.
+
+	* loader2/urls.c: Pass the in6_addr for the FTP server to the
+	ftpGetFileDesc() function.
+
 2006-07-27  Peter Jones  <pjones@redhat.com>
 
 	* loader2/net.c chooseNetworkInterface(): when trying to find the ks

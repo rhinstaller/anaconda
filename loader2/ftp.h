@@ -25,7 +25,8 @@ const char * ftpStrerror(int ftpErrno, urlprotocol protocol);
 int ftpOpen(char * host, int family, char * name, char * password,
             char * proxy, int port);
 int ftpGetFile(int sock, char * remotename, int dest);
-int ftpGetFileDesc(int sock, char * remotename);
+int ftpGetFileDesc(int sock, struct in6_addr host, int family,
+                   char * remotename);
 int ftpGetFileDone(int sock);
 
 int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHeaders);

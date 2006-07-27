@@ -196,7 +196,7 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
             return -2;
         }
 
-        fd = ftpGetFileDesc(ui->ftpPort, buf);
+        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, buf);
         if (fd < 0) {
             close(ui->ftpPort);
             if (!silentErrors)

@@ -250,11 +250,13 @@ static int getHostAddress(const char * host, void * address, int family) {
 int ftpOpen(char *host, int family, char *name, char *password,
             char *proxy, int port) {
     static int sock;
-    struct in_addr serverAddress;
+    struct in_addr addr;
+    struct in6_addr addr6;
     struct sockaddr_in destPort;
+    struct sockaddr_in6 destPort6;
     struct passwd * pw;
     char * buf;
-    int rc;
+    int rc = 0;
 
     if (port < 0) port = IPPORT_FTP;
 
@@ -279,20 +281,37 @@ int ftpOpen(char *host, int family, char *name, char *password,
         host = proxy;
     }
 
-    if ((rc = getHostAddress(host, &serverAddress, AF_INET))) return rc;
+    if (family == AF_INET)
+        rc = getHostAddress(host, &addr, AF_INET);
+    else if (family == AF_INET6)
+        rc = getHostAddress(host, &addr6, AF_INET6);
 
-    sock = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
+    if (rc)
+        return rc;
+
+    sock = socket(family, SOCK_STREAM, IPPROTO_IP);
     if (sock < 0) {
         return FTPERR_FAILED_CONNECT;
     }
 
-    destPort.sin_family = AF_INET;
-    destPort.sin_port = htons(port);
-    destPort.sin_addr = serverAddress;
+    if (family == AF_INET) {
+        destPort.sin_family = family;
+        destPort.sin_port = htons(port);
+        destPort.sin_addr = addr;
 
-    if (connect(sock, (struct sockaddr *) &destPort, sizeof(destPort))) {
-        close(sock);
-        return FTPERR_FAILED_CONNECT;
+        if (connect(sock, (struct sockaddr *) &destPort, sizeof(destPort))) {
+            close(sock);
+            return FTPERR_FAILED_CONNECT;
+        }
+    } else if (family == AF_INET6) {
+        destPort6.sin6_family = family;
+        destPort6.sin6_port = htons(port);
+        destPort6.sin6_addr = addr6;
+
+        if (connect(sock, (struct sockaddr *) &destPort6, sizeof(destPort6))) {
+            close(sock);
+            return FTPERR_FAILED_CONNECT;
+        }
     }
 
     /* ftpCheckResponse() assumes the socket is nonblocking */
@@ -323,55 +342,115 @@ int ftpOpen(char *host, int family, char *name, char *password,
     return sock;
 }
 
-int ftpGetFileDesc(int sock, char * remotename) {
+int ftpGetFileDesc(int sock, struct in6_addr host, int family,
+                   char * remotename) {
     int dataSocket;
     struct sockaddr_in dataAddress;
+    struct sockaddr_in6 dataAddress6;
     int i, j;
     char * passReply;
     char * chptr;
     char * retrCommand;
     int rc;
 
-    if (write(sock, "PASV\r\n", 6) != 6) {
-        return FTPERR_SERVER_IO_ERROR;
+    if (family == AF_INET) {
+        if (write(sock, "PASV\r\n", 6) != 6) {
+            return FTPERR_SERVER_IO_ERROR;
+        }
+    } else if (family == AF_INET6) {
+        if (write(sock, "EPSV\r\n", 6) != 6) {
+            return FTPERR_SERVER_IO_ERROR;
+        }
     }
-    if ((rc = ftpCheckResponse(sock, &passReply)))
+
+    if ((rc = ftpCheckResponse(sock, &passReply))) {
         return FTPERR_PASSIVE_ERROR;
+    }
 
-    chptr = passReply;
-    while (*chptr && *chptr != '(') chptr++;
-    if (*chptr != '(') return FTPERR_PASSIVE_ERROR; 
-    chptr++;
-    passReply = chptr;
-    while (*chptr && *chptr != ')') chptr++;
-    if (*chptr != ')') return FTPERR_PASSIVE_ERROR;
-    *chptr-- = '\0';
-
-    while (*chptr && *chptr != ',') chptr--;
-    if (*chptr != ',') return FTPERR_PASSIVE_ERROR;
-    chptr--;
-    while (*chptr && *chptr != ',') chptr--;
-    if (*chptr != ',') return FTPERR_PASSIVE_ERROR;
-    *chptr++ = '\0';
+    /* get IP address and port number from server response */
+    if (family == AF_INET) {
+        /* we have a PASV response of the form:
+         * 227 Entering Passive Mode (209,132,176,30,57,229)
+         * where 209.132.176.30 is the IP, and 57 & 229 are the ports
+         */
+        chptr = passReply;
+        while (*chptr && *chptr != '(') chptr++;
+        if (*chptr != '(') {
+            return FTPERR_PASSIVE_ERROR;
+        }
+        chptr++;
+        passReply = chptr;
+        while (*chptr && *chptr != ')') chptr++;
+        if (*chptr != ')') {
+            return FTPERR_PASSIVE_ERROR;
+        }
+        *chptr-- = '\0';
+        while (*chptr && *chptr != ',') chptr--;
+        if (*chptr != ',') {
+            return FTPERR_PASSIVE_ERROR;
+        }
+        chptr--;
+        while (*chptr && *chptr != ',') chptr--;
+        if (*chptr != ',') {
+            return FTPERR_PASSIVE_ERROR;
+        }
+        *chptr++ = '\0';
     
-    /* now passReply points to the IP portion, and chptr points to the
-       port number portion */
+        /* now passReply points to the IP portion
+         * and chptr points to the port number portion
+         */
+        if (sscanf(chptr, "%d,%d", &i, &j) != 2) {
+            return FTPERR_PASSIVE_ERROR;
+        }
+    } else if (family == AF_INET6) {
+        /* we have an EPSV response of the form:
+         * 229 Entering Extended Passive Mode (|||51626|)
+         * where 51626 is the port
+         */
+        chptr = passReply;
+        while (*chptr && *chptr != '(') chptr++;
+        if (*chptr != '(') {
+            return FTPERR_PASSIVE_ERROR;
+        }
+        chptr++;
+        while (*chptr && *chptr == '|') chptr++;
+        passReply = chptr;
+        while (*chptr && *chptr != '|') chptr++;
+        *chptr = '\0';
+        chptr = passReply;
 
-    dataAddress.sin_family = AF_INET;
-    if (sscanf(chptr, "%d,%d", &i, &j) != 2) {
-        return FTPERR_PASSIVE_ERROR;
+        /* now chptr contains our port number */
+        if (sscanf(chptr, "%d", &i) != 1) {
+            return FTPERR_PASSIVE_ERROR;
+        }
     }
-    dataAddress.sin_port = htons((i << 8) + j);
 
-    chptr = passReply;
-    while (*chptr++) {
-        if (*chptr == ',') *chptr = '.';
+    /* build our sockaddr */
+    if (family == AF_INET) {
+        dataAddress.sin_family = family;
+        dataAddress.sin_port = htons((i << 8) + j);
+
+        /* passReply contains the IP address, but with commands insteaad of
+         * periods, so change those
+         */
+        chptr = passReply;
+        while (*chptr++) {
+            if (*chptr == ',') *chptr = '.';
+        }
+
+        if (!inet_pton(family, passReply, &dataAddress.sin_addr)) {
+            return FTPERR_PASSIVE_ERROR;
+        }
+    } else if (family == AF_INET6) {
+        dataAddress6.sin6_family = family;
+        dataAddress6.sin6_port = htons(i);
+
+        /* we don't get this in an EPSV reply, but we got it as a param */
+        memset(&dataAddress6.sin6_addr, 0, sizeof(struct in6_addr));
+        memcpy(&dataAddress6.sin6_addr, &host, sizeof(host));
     }
 
-    if (!inet_pton(AF_INET, passReply, &dataAddress.sin_addr)) 
-        return FTPERR_PASSIVE_ERROR;
-
-    dataSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
+    dataSocket = socket(family, SOCK_STREAM, IPPROTO_IP);
     if (dataSocket < 0) {
         return FTPERR_FAILED_CONNECT;
     }
@@ -384,10 +463,18 @@ int ftpGetFileDesc(int sock, char * remotename) {
         return FTPERR_SERVER_IO_ERROR;
     }
 
-    if (connect(dataSocket, (struct sockaddr *) &dataAddress, 
-        sizeof(dataAddress))) {
-        close(dataSocket);
-        return FTPERR_FAILED_DATA_CONNECT;
+    if (family == AF_INET) {
+        if (connect(dataSocket, (struct sockaddr *) &dataAddress, 
+            sizeof(dataAddress))) {
+            close(dataSocket);
+            return FTPERR_FAILED_DATA_CONNECT;
+        }
+    } else if (family == AF_INET6) {
+        if (connect(dataSocket, (struct sockaddr *) &dataAddress6,
+            sizeof(dataAddress6))) {
+            close(dataSocket);
+            return FTPERR_FAILED_DATA_CONNECT;
+        }
     }
 
     if ((rc = ftpCheckResponse(sock, NULL))) {
@@ -625,3 +712,5 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
     
     return sock;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */
