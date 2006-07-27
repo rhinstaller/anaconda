@@ -105,7 +105,7 @@ struct loaderData_s {
     int ipinfo_set;
     int noipv4, noipv6;
     char * ksFile;
-    char * method;
+    int method;
     char * ddsrc;
     void * methodData;
     char * logLevel;
@@ -131,6 +131,5 @@ struct loaderData_s {
 #else
 #define LIBPATH "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib"
 #endif
-
 
 #endif

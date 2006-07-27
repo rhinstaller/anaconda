@@ -1,5 +1,5 @@
 /*
- * Copyright 1999-2004 Red Hat, Inc.
+ * Copyright 1999-2006 Red Hat, Inc.
  *
  * David Cantrell <dcantrell@redhat.com>
  * 
@@ -52,6 +52,7 @@
 #include "loader.h"
 #include "loadermisc.h"
 #include "log.h"
+#include "method.h"
 #include "net.h"
 #include "windows.h"
 
@@ -93,8 +94,8 @@ static void cidrCallback(newtComponent co, void * dptr) {
 
     if (upper != 0) {
         if (cidr < 1 || cidr > upper) {
-            newtWinMessage(_("Invalid CIDR Mask"), _("Retry"),
-                           _("CIDR mask value must be between 1 and 32 "
+            newtWinMessage(_("Invalid Prefix"), _("Retry"),
+                           _("Prefix must be between 1 and 32 "
                              "for IPv4 networks or between 1 and 128 "
                              "for IPv6 networks"));
         }
@@ -504,7 +505,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 }
 
 int readNetConfig(char * device, struct networkDeviceConfig * cfg,
-                  char * dhcpclass) {
+                  char * dhcpclass, int methodNum) {
     struct networkDeviceConfig newCfg;
     int ret;
     int i = 0;
@@ -562,7 +563,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     /* dhcp/manual network configuration loop */
     i = 1;
     while (i == 1) {
-        ret = configureTCPIP(device, cfg, &newCfg, &ipv4Choice, &ipv6Choice);
+        ret = configureTCPIP(device, cfg, &newCfg, &ipv4Choice, &ipv6Choice,
+                             methodNum);
 
         if (ret == LOADER_NOOP) {
             /* dhcp selected, proceed */
@@ -651,7 +653,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
 
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
-                   char * ipv4Choice, char * ipv6Choice) {
+                   char * ipv4Choice, char * ipv6Choice, int methodNum) {
     int i = 0;
     char dhcpChoice;
     char *dret = NULL;
@@ -746,6 +748,12 @@ int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
             newtFormDestroy(f);
             newtPopWindow();
             return LOADER_BACK;
+        }
+
+        if (*ipv4Choice == ' ' && methodNum == METHOD_NFS) {
+            newtWinMessage(_("IPv4 Needed for NFS"), _("Retry"),
+                           _("NFS installation method requires IPv4 support."));
+            continue;
         }
 
         if (dhcpChoice == ' ') {
@@ -1703,7 +1711,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
 
     setupNetworkDeviceConfig(netCfgPtr, loaderData);
 
-    rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls);
+    rc = readNetConfig(loaderData->netDev, netCfgPtr, loaderData->netCls,
+                       loaderData->method);
     if ((rc == LOADER_BACK) || (rc == LOADER_ERROR)) {
         logMessage(ERROR, "unable to setup networking");
         return -1;

@@ -71,8 +71,6 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     return 0;
 }
 
-
-
 char * mountNfsImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
@@ -95,9 +93,7 @@ char * mountNfsImage(struct installMethod * method,
         switch (stage) {
         case NFS_STAGE_NFS:
             logMessage(INFO, "going to do nfsGetSetup");
-            if (loaderData->method && *loaderData->method &&
-                !strncmp(loaderData->method, "nfs", 3) &&
-                loaderData->methodData) {
+            if (loaderData->method == METHOD_NFS && loaderData->methodData) {
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;
                 directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
                 mountOpts = ((struct nfsInstallData *)loaderData->methodData)->mountOpts;
@@ -106,8 +102,7 @@ char * mountNfsImage(struct installMethod * method,
 
                 if (!host || !directory) {
                     logMessage(ERROR, "missing host or directory specification");
-                    free(loaderData->method);
-                    loaderData->method = NULL;
+                    loaderData->method = -1;
                     break;
                 } else {
                     host = strdup(host);
@@ -129,9 +124,8 @@ char * mountNfsImage(struct installMethod * method,
             if (loaderData->noDns && !(inet_pton(AF_INET, host, &ip))) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Hostname specified with no DNS configured"));
-                if (loaderData->method) {
-                    free(loaderData->method);
-                    loaderData->method = NULL;
+                if (loaderData->method >= 0) {
+                    loaderData->method = -1;
                 }
                 break;
             }
@@ -209,9 +203,8 @@ char * mountNfsImage(struct installMethod * method,
                                        "contain a %s installation tree."),
                                      getProductName());
                 newtWinMessage(_("Error"), _("OK"), buf);
-                if (loaderData->method) {
-                    free(loaderData->method);
-                    loaderData->method = NULL;
+                if (loaderData->method >= 0) {
+                    loaderData->method = -1;
                 }
 
 		
@@ -220,9 +213,8 @@ char * mountNfsImage(struct installMethod * method,
                 newtWinMessage(_("Error"), _("OK"),
                                _("That directory could not be mounted from "
                                  "the server."));
-                if (loaderData->method) {
-                    free(loaderData->method);
-                    loaderData->method = NULL;
+                if (loaderData->method >= 0) {
+                    loaderData->method = -1;
                 }
                 break;
             }
@@ -269,7 +261,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
         return;
     }
 
-    loaderData->method = strdup("nfs");
+    loaderData->method = METHOD_NFS;
     loaderData->methodData = calloc(sizeof(struct nfsInstallData *), 1);
     if (host)
         ((struct nfsInstallData *)loaderData->methodData)->host = host;
@@ -373,3 +365,5 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 int kickstartFromNfs(char * url, struct loaderData_s * loaderData) {
     return getFileFromNfs(url, "/tmp/ks.cfg", loaderData);    
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */

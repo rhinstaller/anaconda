@@ -825,8 +825,7 @@ static char *doLoaderMain(char * location,
         validMethods[numValidMethods] = i;
 
         /* have we preselected this to be our install method? */
-        if (loaderData->method && *loaderData->method && 
-            !strcmp(loaderData->method, installMethods[i].shortname)) {
+        if (loaderData->method >= 0) {
             methodNum = numValidMethods;
             /* disable the fast path (#102652) */
             flags |= LOADER_FLAGS_ASKMETHOD;
@@ -1049,7 +1048,7 @@ static char *doLoaderMain(char * location,
             /* populate netDev based on any kickstart data */
             setupNetworkDeviceConfig(&netDev, loaderData);
 
-            rc = readNetConfig(devName, &netDev, loaderData->netCls);
+            rc = readNetConfig(devName, &netDev, loaderData->netCls, methodNum);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_IFACE;

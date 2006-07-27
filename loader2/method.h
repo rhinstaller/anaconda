@@ -6,6 +6,17 @@
 #include "loader.h"
 #include <kudzu/kudzu.h>
 
+/* method identifiers, needs to match struct installMethod order in loader.c */
+enum {
+#if !defined(__s390__) && !defined(__s390x__)
+    METHOD_CDROM,
+#endif
+    METHOD_HD,
+    METHOD_NFS,
+    METHOD_FTP,
+    METHOD_HTTP
+};
+
 struct installMethod {
     char * name;
     char * shortname;
@@ -16,7 +27,6 @@ struct installMethod {
                          moduleInfoSet modInfo, moduleList modLoaded,
                          moduleDeps * modDepsPtr);
 };
-
 
 int umountLoopback(char * mntpoint, char * device);
 int mountLoopback(char * fsystem, char * mntpoint, char * device);

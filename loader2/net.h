@@ -38,10 +38,10 @@ struct intfconfig_s {
 typedef int int32;
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev,
-                  char * dhcpclass);
+                  char * dhcpclass, int methodNum);
 int configureTCPIP(char * device, struct networkDeviceConfig * cfg,
                    struct networkDeviceConfig * newCfg,
-                   char * ipv4Choice, char * ipv6Choice);
+                   char * ipv4Choice, char * ipv6Choice, int methodNum);
 int manualNetConfig(char * device, struct networkDeviceConfig * cfg,
                     struct networkDeviceConfig * newCfg,
                     struct intfconfig_s * ipcomps,

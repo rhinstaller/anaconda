@@ -49,20 +49,21 @@ static int getISOStatusFromFD(int isofd, char *mediasum);
 
 /* ejects the CD device the device node /tmp/cdrom points at */
 void ejectCdrom(void) {
-  int ejectfd;
+    int ejectfd;
 
-  logMessage(INFO, "ejecting /tmp/cdrom...");
-  if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
-      if (ioctl(ejectfd, CDROMEJECT, 0))
-        logMessage(ERROR, "eject failed %d ", errno);
-      close(ejectfd);
-  } else {
-      logMessage(ERROR, "eject failed %d ", errno);
-  }
+    logMessage(INFO, "ejecting /tmp/cdrom...");
+    if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+        if (ioctl(ejectfd, CDROMEJECT, 0))
+            logMessage(ERROR, "eject failed %d ", errno);
+        close(ejectfd);
+    } else {
+        ogMessage(ERROR, "eject failed %d ", errno);
+    }
 }
 
 /*
- * Given cd device cddriver, this function will attempt to check its internal checksum.
+ * Given cd device cddriver, this function will attempt to check its internal
+ * checksum.
  *
  * JKFIXME: this ignores "location", which should be fixed */
 static char * mediaCheckCdrom(char *cddriver) {
@@ -73,58 +74,58 @@ static char * mediaCheckCdrom(char *cddriver) {
 
     first = 1;
     do {
-	char *descr;
-	char *tstamp;
-	int ejectcd;
+        char *descr;
+        char *tstamp;
+        int ejectcd;
 
-	/* init every pass */
-	ejectcd = 0;
-	descr = NULL;
+        /* init every pass */
+        ejectcd = 0;
+        descr = NULL;
 
-	/* if first time through, see if they want to eject the CD      */
-	/* currently in the drive (most likely the CD they booted from) */
-	/* and test a different disk.  Otherwise just test the disk in  */
-	/* the drive since it was inserted in the previous pass through */
-	/* this loop, so they want it tested.                           */
-	if (first) {
-	    first = 0;
-	    rc = newtWinChoice(_("Media Check"), _("Test"), _("Eject CD"),
-			       _("Choose \"%s\" to test the CD currently in "
-				 "the drive, or \"%s\" to eject the CD and "
-				 "insert another for testing."), _("Test"),
-			       _("Eject CD"));
+        /* if first time through, see if they want to eject the CD      */
+        /* currently in the drive (most likely the CD they booted from) */
+        /* and test a different disk.  Otherwise just test the disk in  */
+        /* the drive since it was inserted in the previous pass through */
+        /* this loop, so they want it tested.                           */
+        if (first) {
+            first = 0;
+            rc = newtWinChoice(_("Media Check"), _("Test"), _("Eject CD"),
+                               _("Choose \"%s\" to test the CD currently in "
+                                 "the drive, or \"%s\" to eject the CD and "
+                                 "insert another for testing."), _("Test"),
+                               _("Eject CD"));
 
-	    if (rc == 2)
-		ejectcd = 1;
-	}
+            if (rc == 2)
+                ejectcd = 1;
+        }
 
-	if (!ejectcd) {
-	    /* XXX MSFFIXME: should check return code for error */
-	    readStampFileFromIso("/tmp/cdrom", &tstamp, &descr);
-	    mediaCheckFile("/tmp/cdrom", descr);
+        if (!ejectcd) {
+            /* XXX MSFFIXME: should check return code for error */
+            readStampFileFromIso("/tmp/cdrom", &tstamp, &descr);
+            mediaCheckFile("/tmp/cdrom", descr);
 
-	    if (descr)
-		free(descr);
-	}
+            if (descr)
+                free(descr);
+        }
 
-	ejectCdrom();
+        ejectCdrom();
 	
-	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
-			   _("If you would like to test additional media, "
-			     "insert the next CD and press \"%s\". "
-			     "Testing each CD is not strictly required, however "
-			     "it is highly recommended.  Minimally, the CDs should "
-			     "be tested prior to using them for the first time. "
-			     "After they have been successfully tested, it is not "
-			     "required to retest each CD prior to using it again."),
-			   _("Test"), _("Continue"));
+        rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
+                       _("If you would like to test additional media, "
+                       "insert the next CD and press \"%s\". "
+                       "Testing each CD is not strictly required, however "
+                       "it is highly recommended.  Minimally, the CDs should "
+                       "be tested prior to using them for the first time. "
+                       "After they have been successfully tested, it is not "
+                       "required to retest each CD prior to using it again."),
+                       _("Test"), _("Continue"));
 
-	if (rc == 2) {
-	    unlink("/tmp/cdrom");
-	    return NULL;
-	} else {
-	    continue;
-	}
+        if (rc == 2) {
+            unlink("/tmp/cdrom");
+            return NULL;
+        } else {
+            continue;
+        }
     } while (1);
     
     return NULL;
@@ -134,9 +135,9 @@ static char * mediaCheckCdrom(char *cddriver) {
 /* Used by mountCdromStage2()                                      */
 static void wrongCDMessage(void) {
     char *buf = sdupprintf(_("The %s CD was not found "
-			     "in any of your CDROM drives. Please insert "
-			     "the %s CD and press %s to retry."), getProductName(),
-			   getProductName(), _("OK"));
+                             "in any of your CDROM drives. Please insert "
+                             "the %s CD and press %s to retry."),
+                           getProductName(), getProductName(), _("OK"));
     newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
     free(buf);
 }
@@ -152,26 +153,26 @@ static void mountCdromStage2(char *cddev) {
 
     devMakeInode(cddev, "/tmp/cdrom");
     do {
-	do {
-	    if (doPwMount("/tmp/cdrom", "/mnt/source", 
-			  "iso9660", IMOUNT_RDONLY, NULL)) {
-		ejectCdrom();
-		wrongCDMessage();
-	    } else {
-		break;
-	    }
-	} while (1);
+        do {
+            if (doPwMount("/tmp/cdrom", "/mnt/source", 
+                          "iso9660", IMOUNT_RDONLY, NULL)) {
+                ejectCdrom();
+                wrongCDMessage();
+            } else {
+                break;
+            }
+        } while (1);
 
-	rc = mountStage2("/mnt/source/images/stage2.img");
+        rc = mountStage2("/mnt/source/images/stage2.img");
 
-	/* if we failed, umount /mnt/source and keep going */
-	if (rc) {
-	    umount("/mnt/source");
-	    ejectCdrom();
-	    wrongCDMessage();
-	} else {
-	    gotcd1 = 1;
-	}
+        /* if we failed, umount /mnt/source and keep going */
+        if (rc) {
+            umount("/mnt/source");
+            ejectCdrom();
+            wrongCDMessage();
+        } else {
+            gotcd1 = 1;
+        }
     } while (!gotcd1);
 }
 
@@ -183,9 +184,9 @@ static int getISOStatusFromCDROM(char *cddriver, char *mediasum) {
     devMakeInode(cddriver, "/tmp/cdrom");
     isofd = open("/tmp/cdrom", O_RDONLY);
     if (isofd < 0) {
-	logMessage(WARNING, "Could not check iso status: %s", strerror(errno));
-	unlink("/tmp/cdrom");
-	return 0;
+        logMessage(WARNING, "Could not check iso status: %s", strerror(errno));
+        unlink("/tmp/cdrom");
+        return 0;
     }
 
     isostatus = getISOStatusFromFD(isofd, mediasum);
@@ -205,17 +206,19 @@ static int getISOStatusFromFD(int isofd, char *mediasum) {
     long long isosize, pvd_offset, fragmentcount = 0;
 
     if (mediasum)
-	mediasum[0] = '\0';
+        mediasum[0] = '\0';
 
     fragmentsums[0] = '\0';
 
-    if ((pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus, fragmentsums, &fragmentcount)) < 0) {
-	logMessage(ERROR, "Could not parse pvd");
-	return 0;
+    pvd_offset = parsepvd(isofd, tmpsum, &skipsectors, &isosize, &isostatus,
+                          fragmentsums, &fragmentcount);
+    if (pvd_offset < 0) {
+        logMessage(ERROR, "Could not parse pvd");
+        return 0;
     }
 
     if (mediasum)
-	strcpy(mediasum, tmpsum);
+        strcpy(mediasum, tmpsum);
 
     return isostatus;
 }
@@ -225,54 +228,51 @@ static void writeISOStatus(int status, char *mediasum) {
     FILE *f;
 
     if (!(f = fopen("/tmp/isoinfo", "w")))
-	return;
+        return;
 
     fprintf(f, "ISOSTATUS=%d\n", status);
     fprintf(f, "MEDIASUM=%s\n", mediasum);
 
     fclose(f);
-
 }
 
 /* ask about doing media check */
 /* JKFIXME: Assumes CD is mounted as /mnt/source                      */
 static void queryCDMediaCheck(char *dev) {
-  int rc;
-  char mediasum[33];
-  int isostatus;
+    int rc;
+    char mediasum[33];
+    int isostatus;
 
-  /* dont bother to test in automated installs */
-  if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
-      return;
+    /* dont bother to test in automated installs */
+    if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
+        return;
 
-  /* see what status is */
-  isostatus = getISOStatusFromCDROM(dev, mediasum);
-  writeISOStatus(isostatus, mediasum);
+    /* see what status is */
+    isostatus = getISOStatusFromCDROM(dev, mediasum);
+    writeISOStatus(isostatus, mediasum);
 
-  /* see if we should check image(s) */
-  /* in rescue mode only test if they explicitly asked to */
-  if ((!isostatus && !FL_RESCUE(flags)) || FL_MEDIACHECK(flags)) {
-    
-    startNewt();
-    rc = newtWinChoice(_("CD Found"), _("OK"),
-		       _("Skip"), 
-       _("To begin testing the CD media before installation press %s.\n\n"
-	 "Choose %s to skip the media test and start the installation."), _("OK"), _("Skip"));
+    /* see if we should check image(s) */
+    /* in rescue mode only test if they explicitly asked to */
+    if ((!isostatus && !FL_RESCUE(flags)) || FL_MEDIACHECK(flags)) {
+        startNewt();
+        rc = newtWinChoice(_("CD Found"), _("OK"), _("Skip"), 
+             _("To begin testing the CD media before installation press %s.\n\n"
+               "Choose %s to skip the media test and start the installation."),
+             _("OK"), _("Skip"));
 
-    if (rc != 2) {
+        if (rc != 2) {
+            /* unmount CD now we've identified */
+            /* a valid disc #1 is present */
+            umountStage2();
+            umount("/mnt/source");
       
-      /* unmount CD now we've identified */
-      /* a valid disc #1 is present */
-      umountStage2();
-      umount("/mnt/source");
+            /* test CD(s) */
+            mediaCheckCdrom(dev);
       
-      /* test CD(s) */
-      mediaCheckCdrom(dev);
-      
-      /* remount stage2 from CD #1 and proceed */
-      mountCdromStage2(dev);
+            /* remount stage2 from CD #1 and proceed */
+            mountCdromStage2(dev);
+        }
     }
-  }
 }
 
 /* set up a cdrom, nominally for installation 
@@ -416,7 +416,7 @@ char * mountCdromImage(struct installMethod * method,
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
 
     logMessage(INFO, "kickstartFromCD");
-    loaderData->method = strdup("cdrom");
+    loaderData->method = METHOD_CDROM;
 }
 
 int kickstartFromCD(char *kssrc) {
@@ -428,18 +428,18 @@ int kickstartFromCD(char *kssrc) {
 
     devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
     if (!devices) {
-	logMessage(ERROR, "No CDROM devices found!");
-	return 1;
+        logMessage(ERROR, "No CDROM devices found!");
+        return 1;
     }
 
     /* format is ks=cdrom:[/path/to/ks.cfg] */
     kspath = "";
     p = strchr(kssrc, ':');
     if (p)
-	kspath = p + 1;
+        kspath = p + 1;
 
     if (!p || strlen(kspath) < 1)
-	kspath = "/ks.cfg";
+        kspath = "/ks.cfg";
 
     for (i=0; devices[i]; i++) {
         if (!devices[i]->device)
@@ -452,7 +452,7 @@ int kickstartFromCD(char *kssrc) {
 
     startNewt();
     newtWinMessage(_("Error"), _("OK"),
-		   _("Cannot find kickstart file on CDROM."));
+                   _("Cannot find kickstart file on CDROM."));
     return 1;
 }
 

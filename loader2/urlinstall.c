@@ -227,9 +227,8 @@ char * mountUrlImage(struct installMethod * method,
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
         case URL_STAGE_MAIN:
-            if (loaderData->method && *loaderData->method &&
-                (!strncmp(loaderData->method, "ftp", 3) ||
-		 !strncmp(loaderData->method, "http", 3)) &&
+            if ((loaderData->method == METHOD_FTP ||
+                 loaderData->method == METHOD_HTTP) &&
                 loaderData->methodData) {
 		
                 url = ((struct urlInstallData *)loaderData->methodData)->url;
@@ -238,8 +237,7 @@ char * mountUrlImage(struct installMethod * method,
 
                 if (!url) {
                     logMessage(ERROR, "missing url specification");
-                    free(loaderData->method);
-                    loaderData->method = NULL;
+                    loaderData->method = -1;
                     break;
                 }
 		
@@ -306,9 +304,8 @@ char * mountUrlImage(struct installMethod * method,
 		if (loadUrlImages(&ui)) {
 		    stage = URL_STAGE_MAIN;
 		    dir = -1;
-		    if (loaderData->method) {
-			free(loaderData->method);
-			loaderData->method = NULL;
+		    if (loaderData->method >= 0) {
+			loaderData->method = -1;
 		    }
 		} else {
 		    stage = URL_STAGE_DONE;
@@ -489,9 +486,9 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 
     /* determine install type */
     if (strstr(url, "http://"))
-	loaderData->method = strdup("http");
+	loaderData->method = METHOD_HTTP;
     else if (strstr(url, "ftp://"))
-	loaderData->method = strdup("ftp");
+	loaderData->method = METHOD_FTP;
     else {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown Url method %s"), url);
@@ -504,3 +501,4 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     logMessage(INFO, "results of url ks, url %s", url);
 }
 
+/* vim:set shiftwidth=4 softtabstop=4: */

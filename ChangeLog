@@ -1,3 +1,38 @@
+2006-07-27  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/cdinstall.c: loaderData->method is now an int.
+
+	* loader2/hdinstall.c: Whitespace consistency, loaderData->method
+	is now an int.
+
+	* loader2/loader.c (doLoaderMain): loaderData->method is now an
+	int, pass methodNum to readNetConfig().
+
+	* loader2/loader.h: char * method -> int method.
+
+	* loader2/method.c: Set loaderData->method to appropriate METHOD_
+	value since it's now an int.
+
+	* loader2/method.h: Add METHOD_* macros.
+
+	* loader2/net.c (cidrCallback): Dialog wording change.
+
+	* loader2/net.c (readNetConfig): Take methodNum as a param, pass
+	methodNum to configureTCPIP().
+
+	* loader2/net.c (configureTCPIP): Take methodNum as a param, if
+	user selects METHOD_NFS and unchecks IPv4, display error dialog
+	and ask user to try again.
+
+	* loader2/net.c (kickstartNetworkUp): Pass methodNum to
+	readNetConfig().
+
+	* loader2/net.h: Prototype updates.
+
+	* loader2/nfsinstall.c: loaderData->method is now an int.
+
+	* loader2/urlinstall.c: loaderData->method is now an int.
+
 2006-07-27  Jeremy Katz  <katzj@redhat.com>
 
 	* installclasses/rhel.py (InstallClass.__init__): base repopath

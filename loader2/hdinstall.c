@@ -55,31 +55,31 @@ static int loadHDImages(char * prefix, char * dir,
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
     if (totalMemory() < 128000)
-	idx = 1;
+        idx = 1;
     else
-	idx = 0;
+        idx = 0;
 
     target = NULL;
     for (; stg2list[idx]; idx++) {
-	target = stg2list[idx];
-	sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
+        target = stg2list[idx];
+        sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
 
-	logMessage(INFO, "Looking for hd stage2 image %s", path);
-	if (!access(path, F_OK))
-	    break;
-	logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
+        logMessage(INFO, "Looking for hd stage2 image %s", path);
+        if (!access(path, F_OK))
+            break;
+        logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
     }
 
     if (!(*target)) {
-	logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
-	return 1;
+        logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
+        return 1;
     } 
 
     logMessage(INFO, "Found hd stage2, copying %s in RAM as stage2", path);
 
     if ((fd = open(path, O_RDONLY)) < 0) {
-	logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
-	return 1;
+        logMessage(ERROR, "failed to open %s: %s", path, strerror(errno));
+        return 1;
     } 
 
     /* handle updates.img now before we copy stage2 over... this allows
@@ -111,65 +111,6 @@ static int loadHDImages(char * prefix, char * dir,
     return rc;
 }
 
-#if 0 /* Unused now */
-/* mount loopback  second stage image for hard drive install */
-static int mountHDImages(char * prefix, char * dir,
-			 char * device, char * mntpoint,
-			 int checkstamp) {
-    int idx, rc;
-    char * path, *target;
-    char *stg2list[] = {"stage2.img", "minstg2.img", NULL};
-
-    path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
-
-    target = NULL;
-    for (idx=0; stg2list[idx]; idx++) {
-	target = stg2list[idx];
-	sprintf(path, "%s/%s/images/%s", prefix, dir ? dir : "", target);
-
-	logMessage(INFO, "Looking for hd stage2 image %s", path);
-	if (!access(path, F_OK))
-	    break;
-	logMessage(INFO, "%s does not exist: %s, trying next target", path, strerror(errno));
-    }
-
-    if (!(*target)) {
-	logMessage(ERROR, "failed to find hd stage 2 image%s: %s", path, strerror(errno));
-	return 1;
-    } 
-
-    logMessage(INFO, "Found hd stage2, mounting %s on loop %s as mntpoint %s", path, device, mntpoint);
-    rc = mountLoopback(path, mntpoint, device);
-
-    if (rc) {
-	logMessage(ERROR, "Unable to mount hdstage2 loopback");
-	return rc;
-    }
-
-    /* now verify the stamp... */
-    if (checkstamp && !verifyStamp(mntpoint)) {
-	char * buf;
-
-	buf = sdupprintf(_("The %s installation tree in that directory does "
-			   "not seem to match your boot media."), 
-                         getProductName());
-
-	newtWinMessage(_("Error"), _("OK"), buf);
-
-	umountLoopback(mntpoint, device);
-	return 1;
-    }
-
-
-    /* handle updates.img now before we copy stage2 over... this allows
-     * us to keep our ramdisk size as small as possible */
-    sprintf(path, "%s/%s/images/updates.img", prefix, dir ? dir : "");
-    copyUpdatesImg(path);
-
-    return rc;
-}
-#endif
-
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName) {
     int rc;
@@ -182,60 +123,60 @@ static char * setupIsoImages(char * device, char * dirName) {
     logMessage(INFO, "mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
-	if (devMakeInode(device, "/tmp/hddev"))
-	    logMessage(WARNING, "devMakeInode failed!");
+        if (devMakeInode(device, "/tmp/hddev"))
+            logMessage(WARNING, "devMakeInode failed!");
 
-	/* XXX try to mount as ext2 and then vfat */
-	for (type=typetry; *type; type++) {
-	    if (!doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 
-                           IMOUNT_RDONLY, NULL))
-		break;
-	}
+        /* XXX try to mount as ext2 and then vfat */
+        for (type=typetry; *type; type++) {
+            if (!doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 
+                IMOUNT_RDONLY, NULL))
+                break;
+        }
 
-	if (!type)
-	    return NULL;
+        if (!type)
+            return NULL;
 
-	sprintf(filespec, "/tmp/hdimage/%s", dirName);
+        sprintf(filespec, "/tmp/hdimage/%s", dirName);
 
-	if ((path = validIsoImages(filespec, 0))) {
-	    char updpath[4096];
+        if ((path = validIsoImages(filespec, 0))) {
+            char updpath[4096];
 
-	    logMessage(INFO, "Path to valid iso is %s", path);
+            logMessage(INFO, "Path to valid iso is %s", path);
 
-	    snprintf(updpath, sizeof(updpath), "%s/updates.img", filespec);
-	    logMessage(INFO, "Looking for updates for HD in %s", updpath);
-	    copyUpdatesImg(updpath);
+            snprintf(updpath, sizeof(updpath), "%s/updates.img", filespec);
+            logMessage(INFO, "Looking for updates for HD in %s", updpath);
+            copyUpdatesImg(updpath);
 	    
-	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
-	    if (!rc) {
-		/* This code is for copying small stage2 into ram */
-		/* and mounting                                   */
-		rc = loadHDImages("/tmp/loopimage", "/", "loop1",
-				  "/mnt/runtime");
-		if (rc) {
-		  newtWinMessage(_("Error"), _("OK"),
-			_("An error occured reading the install "
-			  "from the ISO images. Please check your ISO "
-			  "images and try again."));
-		} else {
-		    queryIsoMediaCheck(path);
-		}
-	    }
+            rc = mountLoopback(path, "/tmp/loopimage", "loop0");
+            if (!rc) {
+                /* This code is for copying small stage2 into ram */
+                /* and mounting                                   */
+                rc = loadHDImages("/tmp/loopimage", "/", "loop1",
+                                  "/mnt/runtime");
+                if (rc) {
+                    newtWinMessage(_("Error"), _("OK"),
+                                   _("An error occured reading the install "
+                                   "from the ISO images. Please check your ISO "
+                                   "images and try again."));
+                } else {
+                    queryIsoMediaCheck(path);
+                }
+            }
 
-	    /* we copied stage2 into RAM so we can now umount image */
-	    umountLoopback("/tmp/loopimage", "loop0");
+            /* we copied stage2 into RAM so we can now umount image */
+            umountLoopback("/tmp/loopimage", "loop0");
 
-	} else {
-	    rc = 1;
-	}
+        } else {
+            rc = 1;
+        }
 
-	/* we copied stage2 into RAM so now umount partition */
-	umount("/tmp/hdimage");
-	if (rc)
-	    return NULL;
+        /* we copied stage2 into RAM so now umount partition */
+        umount("/tmp/hdimage");
+        if (rc)
+            return NULL;
     } else {
-	/* in test mode I dont know what to do - just pretend I guess */
-	type = typetry;
+        /* in test mode I dont know what to do - just pretend I guess */
+        type = typetry;
     }
    
     url = malloc(50 + strlen(dirName ? dirName : ""));
@@ -243,7 +184,6 @@ static char * setupIsoImages(char * device, char * dirName) {
 
     return url;
 }
-
 
 /* setup hard drive based install from a partition with a filesystem and
  * ISO images on that filesystem
@@ -271,44 +211,40 @@ char * mountHardDrive(struct installMethod * method,
     char *kspartition, *ksdirectory;
 
     /* handle kickstart data first if available */
-    if (loaderData->method &&
-	!strncmp(loaderData->method, "hd", 2) &&
-	loaderData->methodData) {
-	
-	kspartition = ((struct hdInstallData *)loaderData->methodData)->partition;
-	ksdirectory = ((struct hdInstallData *)loaderData->methodData)->directory;
-	logMessage(INFO, "partition  is %s, dir is %s", kspartition, ksdirectory);
+    if (loaderData->method == METHOD_HD && loaderData->methodData) {
+        kspartition = ((struct hdInstallData *)loaderData->methodData)->partition;
+        ksdirectory = ((struct hdInstallData *)loaderData->methodData)->directory;
+        logMessage(INFO, "partition  is %s, dir is %s", kspartition, ksdirectory);
 
-	/* if exist, duplicate */
-	if (kspartition)
-	    kspartition = strdup(kspartition);
-	if (ksdirectory)
-	    ksdirectory = strdup(ksdirectory);
+        /* if exist, duplicate */
+        if (kspartition)
+            kspartition = strdup(kspartition);
+        if (ksdirectory)
+            ksdirectory = strdup(ksdirectory);
 
-	if (!kspartition || !ksdirectory) {
-	    logMessage(ERROR, "missing partition or directory specification");
-	    free(loaderData->method);
-	    loaderData->method = NULL;
-	} else {
+        if (!kspartition || !ksdirectory) {
+            logMessage(ERROR, "missing partition or directory specification");
+            loaderData->method = -1;
+        } else {
             /* if we start with /dev, strip it (#121486) */
             char *kspart = kspartition;
             if (!strncmp(kspart, "/dev/", 5))
                 kspart = kspart + 5;
 
-	    url = setupIsoImages(kspart, ksdirectory);
-	    if (!url) {
-		logMessage(ERROR, "unable to find %s installation images on hd",getProductName());
-		free(loaderData->method);
-		loaderData->method = NULL;
-	    } else {
-		free(kspartition);
-		free(ksdirectory);
-		return url;
-	    }
-	}
+            url = setupIsoImages(kspart, ksdirectory);
+            if (!url) {
+                logMessage(ERROR, "unable to find %s installation images on hd",
+                           getProductName());
+                loaderData->method = -1;
+            } else {
+                free(kspartition);
+                free(ksdirectory);
+                return url;
+            }
+        }
     } else {
-	kspartition = NULL;
-	ksdirectory = NULL;
+        kspartition = NULL;
+        ksdirectory = NULL;
     }
 
     /* if we're here its either because this is interactive, or the */
@@ -317,130 +253,131 @@ char * mountHardDrive(struct installMethod * method,
 
     partition_list = NULL;
     while (!done) {
-	/* if we're doing another pass free this up first */
-	if (partition_list)
-	    freePartitionsList(partition_list);
+        /* if we're doing another pass free this up first */
+        if (partition_list)
+            freePartitionsList(partition_list);
 
-	partition_list = getPartitionsList(NULL);
-	numPartitions = lenPartitionsList(partition_list);
+        partition_list = getPartitionsList(NULL);
+        numPartitions = lenPartitionsList(partition_list);
 
-	/* no partitions found, try to load a device driver disk for storage */
-	if (!numPartitions) {
-	    rc = newtWinChoice(_("Hard Drives"), _("Yes"), _("Back"),
-			    _("You don't seem to have any hard drives on "
-			      "your system! Would you like to configure "
-			      "additional devices?"));
-	    if (rc == 2)
-		return NULL;
+        /* no partitions found, try to load a device driver disk for storage */
+        if (!numPartitions) {
+            rc = newtWinChoice(_("Hard Drives"), _("Yes"), _("Back"),
+                               _("You don't seem to have any hard drives on "
+                                 "your system! Would you like to configure "
+                                 "additional devices?"));
+            if (rc == 2)
+                return NULL;
 
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, 0, 0);
+                                     modInfo, 0, 0);
             if (rc == LOADER_BACK)
-		return NULL;
+                return NULL;
 
-	    continue;
-	}
+            continue;
+        }
 
-
-	/* now find out which partition has the hard drive install images */
-	buf = sdupprintf(_("What partition and directory on that "
-			   "partition hold the CD (iso9660) images "
-			   "for %s? If you don't see the disk drive "
-			   "you're using listed here, press F2 "
-			   "to configure additional devices."), getProductName());
-	text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
-	free(buf);
+        /* now find out which partition has the hard drive install images */
+        buf = sdupprintf(_("What partition and directory on that "
+                           "partition hold the CD (iso9660) images "
+                           "for %s? If you don't see the disk drive "
+                           "you're using listed here, press F2 "
+                           "to configure additional devices."),
+                         getProductName());
+        text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
+        free(buf);
 	
-	listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
-			      NEWT_FLAG_RETURNEXIT | 
-			      (numPartitions > 5 ? NEWT_FLAG_SCROLL : 0));
+        listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
+                              NEWT_FLAG_RETURNEXIT | 
+                              (numPartitions > 5 ? NEWT_FLAG_SCROLL : 0));
 	
-	for (i = 0; i < numPartitions; i++)
-	    newtListboxAppendEntry(listbox, partition_list[i], partition_list[i]);
+        for (i = 0; i < numPartitions; i++)
+            newtListboxAppendEntry(listbox,partition_list[i],partition_list[i]);
 
-	/* if we had ks data around use it to prime entry, then get rid of it*/
-	if (kspartition) {
-	    newtListboxSetCurrentByKey(listbox, kspartition);
-	    free(kspartition);
-	    kspartition = NULL;
-	}
+        /* if we had ks data around use it to prime entry, then get rid of it*/
+        if (kspartition) {
+            newtListboxSetCurrentByKey(listbox, kspartition);
+            free(kspartition);
+            kspartition = NULL;
+        }
 
-	label = newtLabel(-1, -1, _("Directory holding images:"));
+        label = newtLabel(-1, -1, _("Directory holding images:"));
 
-	dirEntry = newtEntry(28, 11, dir, 28, (const char **) &tmpDir, NEWT_ENTRY_SCROLL);
+        dirEntry = newtEntry(28, 11, dir, 28, (const char **) &tmpDir,
+                             NEWT_ENTRY_SCROLL);
 
-	/* if we had ks data around use it to prime entry, then get rid of it*/
-	if (ksdirectory) {
-	    newtEntrySet(dirEntry, ksdirectory, 1);
-	    free(ksdirectory);
-	    ksdirectory = NULL;
-	}
+        /* if we had ks data around use it to prime entry, then get rid of it*/
+        if (ksdirectory) {
+            newtEntrySet(dirEntry, ksdirectory, 1);
+            free(ksdirectory);
+            ksdirectory = NULL;
+        }
 
-	entryGrid = newtGridHStacked(NEWT_GRID_COMPONENT, label,
-				     NEWT_GRID_COMPONENT, dirEntry,
-				     NEWT_GRID_EMPTY);
+        entryGrid = newtGridHStacked(NEWT_GRID_COMPONENT, label,
+                                     NEWT_GRID_COMPONENT, dirEntry,
+                                     NEWT_GRID_EMPTY);
 
-	buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
+        buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 	
-	grid = newtCreateGrid(1, 4);
-	newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
-			 0, 0, 0, 1, 0, 0);
-	newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, listbox,
-			 0, 0, 0, 1, 0, 0);
-	newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, entryGrid,
-			 0, 0, 0, 1, 0, 0);
-	newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
-			 0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+        grid = newtCreateGrid(1, 4);
+        newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
+                         0, 0, 0, 1, 0, 0);
+        newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, listbox,
+                         0, 0, 0, 1, 0, 0);
+        newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, entryGrid,
+                         0, 0, 0, 1, 0, 0);
+        newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
+                         0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 	
-	newtGridWrappedWindow(grid, _("Select Partition"));
+        newtGridWrappedWindow(grid, _("Select Partition"));
 	
-	form = newtForm(NULL, NULL, 0);
-	newtFormAddHotKey(form, NEWT_KEY_F2);
-	newtFormAddHotKey(form, NEWT_KEY_F12);
+        form = newtForm(NULL, NULL, 0);
+        newtFormAddHotKey(form, NEWT_KEY_F2);
+        newtFormAddHotKey(form, NEWT_KEY_F12);
 
-	newtGridAddComponentsToForm(grid, form, 1);
-	newtGridFree(grid, 1);
+        newtGridAddComponentsToForm(grid, form, 1);
+        newtGridFree(grid, 1);
 
-	newtFormRun(form, &es);
+        newtFormRun(form, &es);
 
-	selpart = newtListboxGetCurrent(listbox);
+        selpart = newtListboxGetCurrent(listbox);
 	
-	free(dir);
-	if (tmpDir && *tmpDir) {
-	    /* Protect from form free. */
-	    dir = strdup(tmpDir);
-	} else  {
-	    dir = strdup("");
-	}
+        free(dir);
+        if (tmpDir && *tmpDir) {
+            /* Protect from form free. */
+            dir = strdup(tmpDir);
+        } else  {
+            dir = strdup("");
+        }
 	
-	newtFormDestroy(form);
-	newtPopWindow();
+        newtFormDestroy(form);
+        newtPopWindow();
 
-	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
-	    return NULL;
-	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
+        if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
+            return NULL;
+        } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, 0, 0);
+                                     modInfo, 0, 0);
             if (rc == LOADER_BACK)
-		return NULL;
+                return NULL;
 
-	    continue;
-	}
+            continue;
+        }
 
-	logMessage(INFO, "partition %s selected", selpart);
+        logMessage(INFO, "partition %s selected", selpart);
 	
-	url = setupIsoImages(selpart + 5, dir);
-	if (!url) {
-	    newtWinMessage(_("Error"), _("OK"), 
-			_("Device %s does not appear to contain "
-			  "%s CDROM images."), selpart, getProductName());
-	    continue;
-	}
+        url = setupIsoImages(selpart + 5, dir);
+        if (!url) {
+            newtWinMessage(_("Error"), _("OK"), 
+                           _("Device %s does not appear to contain "
+                             "%s CDROM images."), selpart, getProductName());
+            continue;
+        }
 
-	done = 1; 
+        done = 1; 
 
-	umount("/tmp/hdimage");
-	rmdir("/tmp/hdimage");
+        umount("/tmp/hdimage");
+        rmdir("/tmp/hdimage");
     }
 
     free(dir);
@@ -492,7 +429,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
         sprintf(partition, "%s%s", dev, p + 1);
     }
 
-    loaderData->method = strdup("hd");
+    loaderData->method = METHOD_HD;
     loaderData->methodData = calloc(sizeof(struct hdInstallData *), 1);
     if (partition)
         ((struct hdInstallData *)loaderData->methodData)->partition = partition;
@@ -505,7 +442,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
 
 int kickstartFromHD(char *kssrc) {
     int rc;
-    char *p, *q = NULL, *tmpstr, *ksdev, *kspath;
+    char *p, *np = NULL, *tmpstr, *ksdev, *kspath;
 
     logMessage(INFO, "getting kickstart file from harddrive");
 
@@ -514,31 +451,32 @@ int kickstartFromHD(char *kssrc) {
     tmpstr = strdup(kssrc);
     p = strchr(tmpstr, ':');
     if (p)
-	q = strchr(p+1, ':');
+        np = strchr(p+1, ':');
     
-    /* no second colon, assume its the old format of ks=hd:[device]/path/to/ks.cfg */
+    /* no second colon, assume its the old format of                     */
+    /*     ks=hd:[device]/path/to/ks.cfg                                 */
     /* this format is bad however because some devices have '/' in them! */
-    if (!q)
-	q = strchr(p+1, '/');
+    if (!np)
+        np = strchr(p+1, '/');
 
-    if (!p || !q) {
-	logMessage(WARNING, "Format of command line is ks=hd:[device]:/path/to/ks.cfg");
-	free(tmpstr);
-	return 1;
+    if (!p || !np) {
+        logMessage(WARNING, "Format of command line is ks=hd:[device]:/path/to/ks.cfg");
+        free(tmpstr);
+        return 1;
     }
 
-    *q = '\0';
+    *np = '\0';
     ksdev = p+1;
-    kspath = q+1;
+    kspath = np+1;
 
     logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
-	if (rc == 3) {
-	    startNewt();
-	    newtWinMessage(_("Error"), _("OK"),
-			   _("Cannot find kickstart file on hard drive."));
-	}
-	return 1;
+        if (rc == 3) {
+            startNewt();
+            newtWinMessage(_("Error"), _("OK"),
+                           _("Cannot find kickstart file on hard drive."));
+        }
+        return 1;
     }
 
     return 0;
@@ -547,7 +485,7 @@ int kickstartFromHD(char *kssrc) {
 
 int kickstartFromBD(char *kssrc) {
     int rc;
-    char *p, *q = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
+    char *p, *np = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
 
     logMessage(INFO, "getting kickstart file from biosdrive");
 
@@ -556,16 +494,16 @@ int kickstartFromBD(char *kssrc) {
     tmpstr = strdup(kssrc);
     p = strchr(tmpstr, ':');
     if (p)
-	q = strchr(p+1, ':');
+        np = strchr(p+1, ':');
     
-    if (!p || !q) {
-	logMessage(WARNING, "Format of command line is ks=bd:device:/path/to/ks.cfg");
-	free(tmpstr);
-	return 1;
+    if (!p || !np) {
+        logMessage(WARNING, "Format of command line is ks=bd:device:/path/to/ks.cfg");
+        free(tmpstr);
+        return 1;
     }
 
-    *q = '\0';
-    kspath = q+1;
+    *np = '\0';
+    kspath = np+1;
 
     r = strchr(p+1,'p');
     if(!r){
@@ -589,13 +527,15 @@ int kickstartFromBD(char *kssrc) {
     sprintf(ksdev, "%s%s", biosksdev, r + 1);
     logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
-	if (rc == 3) {
-	    startNewt();
-	    newtWinMessage(_("Error"), _("OK"),
-			   _("Cannot find kickstart file on hard drive."));
-	}
-	return 1;
+        if (rc == 3) {
+            startNewt();
+            newtWinMessage(_("Error"), _("OK"),
+                           _("Cannot find kickstart file on hard drive."));
+        }
+        return 1;
     }
 
     return 0;
 }
+
+/* vim:set shiftwidth=4 softtabstop=4: */
