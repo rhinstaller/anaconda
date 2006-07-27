@@ -118,6 +118,9 @@ int ourInsmodCommand(int argc, char ** argv) {
     file = extractModule(argv[1], ballPath, version, &rmObj);
     free(ballPath);
 
+    if (file == NULL)
+        return 1;
+
     if (stat(file, &sb) == -1) {
         logMessage(ERROR, "unable to stat file %s: %s", file, strerror(errno));
         return 1;
