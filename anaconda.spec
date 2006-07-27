@@ -80,6 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc COPYING
+%doc ChangeLog
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
 %doc docs/kickstart-docs.txt
