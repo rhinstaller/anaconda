@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-16 17:57-0400\n"
+"POT-Creation-Date: 2006-07-26 17:08-0400\n"
 "PO-Revision-Date: 2006-05-14 20:08+0200\n"
 "Last-Translator: Felix Kerekes <StTwister@yahoo.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -17,63 +17,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.1\n"
 
-#: ../anaconda:255
+#: ../anaconda:258
 msgid "Unknown Error"
 msgstr "Eroare necunoscută"
 
-#: ../anaconda:258
+#: ../anaconda:261
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
 "Eroare la recuperarea celei de-a 2-a părţi a configuraţiei kickstart: %s"
 
-#: ../anaconda:411
+#: ../anaconda:414
 msgid "Press <enter> for a shell"
 msgstr "Apasă <enter> pentru un shell"
 
-#: ../anaconda:442 ../gui.py:244 ../rescue.py:46 ../rescue.py:241
-#: ../rescue.py:322 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
-#: ../rescue.py:447 ../text.py:386 ../text.py:532 ../vnc.py:140
+#: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
+#: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
+#: ../rescue.py:447 ../text.py:394 ../text.py:537 ../vnc.py:140
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/iscsi_text.py:73
-#: ../textw/network_text.py:31 ../textw/network_text.py:177
-#: ../textw/network_text.py:408 ../textw/network_text.py:416
-#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:259
-#: ../loader2/cdinstall.c:376 ../loader2/cdinstall.c:381
-#: ../loader2/cdinstall.c:386 ../loader2/cdinstall.c:450
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
-#: ../loader2/driverdisk.c:300 ../loader2/driverdisk.c:334
-#: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:386
-#: ../loader2/driverdisk.c:400 ../loader2/driverdisk.c:579
-#: ../loader2/driverdisk.c:617 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:208 ../loader2/hdinstall.c:104
-#: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
-#: ../loader2/hdinstall.c:381 ../loader2/hdinstall.c:432
-#: ../loader2/hdinstall.c:467 ../loader2/hdinstall.c:536
-#: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592 ../loader2/kbd.c:128
-#: ../loader2/kickstart.c:121 ../loader2/kickstart.c:131
-#: ../loader2/kickstart.c:174 ../loader2/kickstart.c:273
-#: ../loader2/kickstart.c:409 ../loader2/lang.c:101 ../loader2/lang.c:364
-#: ../loader2/loader.c:329 ../loader2/loader.c:342 ../loader2/loader.c:353
-#: ../loader2/loader.c:760 ../loader2/loader.c:926 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:153 ../loader2/method.c:372 ../loader2/method.c:457
-#: ../loader2/modules.c:964 ../loader2/net.c:251 ../loader2/net.c:289
-#: ../loader2/net.c:562 ../loader2/net.c:925 ../loader2/net.c:948
-#: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54
-#: ../loader2/nfsinstall.c:127 ../loader2/nfsinstall.c:214
-#: ../loader2/nfsinstall.c:223 ../loader2/nfsinstall.c:262
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
-#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
-#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
-#: ../loader2/urlinstall.c:470 ../loader2/urls.c:181 ../loader2/urls.c:191
-#: ../loader2/urls.c:200 ../loader2/urls.c:266 ../loader2/urls.c:331
-#: ../loader2/urls.c:336 ../loader2/urls.c:342 ../loader2/urls.c:456
+#: ../textw/constants_text.py:36 ../textw/network_text.py:30
+#: ../textw/network_text.py:182 ../textw/network_text.py:399
+#: ../textw/network_text.py:407 ../loader2/cdinstall.c:139
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:260 ../loader2/cdinstall.c:375
+#: ../loader2/cdinstall.c:380 ../loader2/cdinstall.c:385
+#: ../loader2/cdinstall.c:454 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:272 ../loader2/driverdisk.c:303
+#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
+#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
+#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:206
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:216 ../loader2/hdinstall.c:383
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
+#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:581
+#: ../loader2/hdinstall.c:594 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:411 ../loader2/lang.c:104
+#: ../loader2/lang.c:367 ../loader2/loader.c:335 ../loader2/loader.c:348
+#: ../loader2/loader.c:359 ../loader2/loader.c:778 ../loader2/loader.c:943
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
+#: ../loader2/method.c:458 ../loader2/modules.c:960 ../loader2/net.c:242
+#: ../loader2/net.c:282 ../loader2/net.c:706 ../loader2/net.c:949
+#: ../loader2/net.c:1446 ../loader2/net.c:1469 ../loader2/net.c:1643
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:130
+#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:259 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:476
+#: ../loader2/urlinstall.c:485 ../loader2/urlinstall.c:496
+#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
+#: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
+#: ../loader2/urls.c:345 ../loader2/urls.c:456
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:449
+#: ../anaconda:452
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -81,61 +81,69 @@ msgstr ""
 "Nu aveţi destul RAM instalat pentru a utiliza instalarea grafică. Pornesc "
 "instalarea în mod text"
 
-#: ../anaconda:473
+#: ../anaconda:476
 msgid "No video hardware found, assuming headless"
 msgstr "Nu am găsit nici un adaptor video, presupun lipsa lor"
 
-#: ../anaconda:484 ../anaconda:880
+#: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nu s-a putut instanţia un obiect X pentru starea hardware."
 
-#: ../anaconda:509
+#: ../anaconda:529
 msgid "Starting graphical installation..."
 msgstr "Pornesc instalarea grafică..."
 
-#: ../anaconda:758
+#: ../anaconda:790
 msgid "Install class forcing text mode installation"
 msgstr "Tipul instalării impune o instalare în mod text"
 
-#: ../anaconda:784
+#: ../anaconda:816
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Instalarea în mod grafic nu este disponibilă... Pornesc în mod text."
 
-#: ../anaconda:792
+#: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr "Variabila DISPLAY nu este setată. Pornesc modul text! "
 
-#: ../anaconda:847
+#: ../anaconda:877
 msgid "Unknown install method"
 msgstr "Metoda de instalare necunoscuta"
 
-#: ../anaconda:848
+#: ../anaconda:878
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr ""
 "Aţi specificat o metodă de instalare care nu este suportată de anaconda"
 
-#: ../anaconda:850
+#: ../anaconda:880
 #, c-format
 msgid "unknown install method: %s"
 msgstr "Metodaă de instalare necunoscutaŞ %s"
 
-#: ../autopart.py:968
-msgid "Could not allocate cylinder-based partitions as primary partitions"
+#: ../autopart.py:949
+#, fuzzy, python-format
+msgid ""
+"Could not allocate cylinder-based partitions as primary partitions.\n"
+"\n"
+"%s"
 msgstr "Nu am putut aloca partiţiile bazate pe cilindru ca partiţii primare"
 
-#: ../autopart.py:971
-msgid "Could not allocate partitions as primary partitions"
+#: ../autopart.py:954
+#, fuzzy, python-format
+msgid ""
+"Could not allocate partitions as primary partitions.\n"
+"\n"
+"%s"
 msgstr "Nu am putut aloca partiţiile ca partiţii primare"
 
-#: ../autopart.py:974
-msgid "Could not allocate cylinder-based partitions"
+#: ../autopart.py:959
+#, fuzzy, python-format
+msgid ""
+"Could not allocate cylinder-based partitions.\n"
+"\n"
+"%s"
 msgstr "Nu am putut aloca partiţiile bazate pe cilindru"
 
-#: ../autopart.py:977
-msgid "Could not allocate partitions"
-msgstr "Nu am putut aloca partiţiile"
-
-#: ../autopart.py:1039
+#: ../autopart.py:1019
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -147,7 +155,7 @@ msgstr ""
 "aparţineunei etichete de disc BSD sau schimbaţi eticheta acestui disc în "
 "BSD. "
 
-#: ../autopart.py:1041
+#: ../autopart.py:1021
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -158,7 +166,7 @@ msgstr ""
 "său pentru a instala bootloader-ul. Asiguraţi-vă că sunt disponibili cel "
 "puţin 5 MB la începutul discului care conţine partiţia /boot"
 
-#: ../autopart.py:1043
+#: ../autopart.py:1023
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
@@ -167,7 +175,7 @@ msgstr ""
 "Partiţia de boot %s nu este o partiţie VFAT.  EFI nu va putea boota din "
 "această partiţie.."
 
-#: ../autopart.py:1045
+#: ../autopart.py:1025
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
@@ -175,7 +183,7 @@ msgstr ""
 "Partiţia de boot nu se află suficient de aproape de începutul discului. "
 "OpenFirmware nu va putea boota această instalare."
 
-#: ../autopart.py:1052
+#: ../autopart.py:1032
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
@@ -183,7 +191,7 @@ msgstr ""
 "S-ar putea ca partiţia de boot %s să nu îndeplinească criteriile de bootare "
 "pentru arhitecura dvs."
 
-#: ../autopart.py:1078
+#: ../autopart.py:1058
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -192,11 +200,11 @@ msgstr ""
 "Adăugarea acestei partiţii nu ar lăsa suficient spaţiu pe disc pentru "
 "volumele logice deja alocate în %s."
 
-#: ../autopart.py:1268
+#: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
 msgstr "Partiţiile menţionate nu există"
 
-#: ../autopart.py:1269
+#: ../autopart.py:1244
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -207,11 +215,11 @@ msgstr ""
 "\n"
 "Apăsaţi 'OK' pentru a restarta sistemul."
 
-#: ../autopart.py:1296
+#: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
 msgstr "Dispozitivul RAID menţionat nu există"
 
-#: ../autopart.py:1297
+#: ../autopart.py:1272
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -223,11 +231,11 @@ msgstr ""
 "\n"
 "Apăsaţi 'OK' pentru a restarta sistemul."
 
-#: ../autopart.py:1328
+#: ../autopart.py:1303
 msgid "Requested Volume Group Does Not Exist"
 msgstr "Grupul de volume menţionat nu există"
 
-#: ../autopart.py:1329
+#: ../autopart.py:1304
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -238,11 +246,11 @@ msgstr ""
 "\n"
 "Apăsaţi 'OK' pentru a restarta sistemul."
 
-#: ../autopart.py:1366
+#: ../autopart.py:1341
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "Grupul de volume menţionat nu există"
 
-#: ../autopart.py:1367
+#: ../autopart.py:1342
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -253,11 +261,11 @@ msgstr ""
 "\n"
 "Apăsaţi 'OK' pentru a restarta sistemul."
 
-#: ../autopart.py:1481 ../autopart.py:1529
+#: ../autopart.py:1456 ../autopart.py:1502
 msgid "Automatic Partitioning Errors"
 msgstr "Erori de la partiţionarea automată"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1457
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -272,11 +280,11 @@ msgstr ""
 "\n"
 "Apăsaţi 'OK' pentru a restarta sistemul."
 
-#: ../autopart.py:1492
+#: ../autopart.py:1467
 msgid "Warnings During Automatic Partitioning"
 msgstr "Avertizări în timpul partiţionării automate"
 
-#: ../autopart.py:1493
+#: ../autopart.py:1468
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -287,7 +295,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1506 ../autopart.py:1523
+#: ../autopart.py:1481 ../autopart.py:1498
 msgid ""
 "\n"
 "\n"
@@ -297,12 +305,12 @@ msgstr ""
 "\n"
 "Apăsaţi 'OK' pentru a restarta sistemul."
 
-#: ../autopart.py:1507 ../iw/partition_gui.py:997
+#: ../autopart.py:1482 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
 msgid "Error Partitioning"
 msgstr "Eroare la partiţionare"
 
-#: ../autopart.py:1508
+#: ../autopart.py:1483
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -313,23 +321,14 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1525
+#: ../autopart.py:1500
 msgid ""
 "\n"
 "\n"
-"You can choose a different automatic partitioning option, or click 'Back' to "
-"select manual partitioning.\n"
-"\n"
-"Press 'OK' to continue."
+"Press 'OK' to choose a different partitioning option."
 msgstr ""
-"\n"
-"\n"
-"Puteţi alege o opţiune diferită de partiţionare automată, sau puteţi apăsa "
-"'Înapoi' pentru a alege partiţionarea manuală.\n"
-"\n"
-"Apăsaţi 'OK' pentru a continua."
 
-#: ../autopart.py:1530
+#: ../autopart.py:1503
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -346,27 +345,27 @@ msgstr ""
 "Acest lucru se poate întâmpla dacă nu există suficient spaţiu pe disc(uri) "
 "pentru instalare.%s"
 
-#: ../autopart.py:1541
+#: ../autopart.py:1514
 msgid "Unrecoverable Error"
 msgstr "Eroare fatală"
 
-#: ../autopart.py:1542
+#: ../autopart.py:1515
 msgid "Your system will now be rebooted."
 msgstr "Sistemul va fi restartat în acest moment."
 
-#: ../autopart.py:1689 ../bootloader.py:191 ../image.py:417
-#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:910
-#: ../partedUtils.py:967 ../upgrade.py:344 ../yuminstall.py:163
-#: ../yuminstall.py:986 ../iw/blpasswidget.py:145
-#: ../iw/bootloader_advanced_gui.py:41 ../iw/upgrade_swap_gui.py:188
-#: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:174 ../loader2/loader.c:396
+#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
+#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
+#: ../partedUtils.py:1041 ../upgrade.py:350 ../yuminstall.py:1060
+#: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
+#: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
+#: ../iw/upgrade_swap_gui.py:203 ../iw/zfcp_gui.py:247
+#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
+#: ../loader2/loader.c:400
 msgid "Warning"
 msgstr "Avertizare"
 
-#: ../autopart.py:1695
+#: ../autopart.py:1668
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -382,7 +381,7 @@ msgstr ""
 "într-un mediu interactiv. Puteţi alege tipul sistemelor de fisiere, punctele "
 "de montare, dimensiunile partiţiilor şi nu numai."
 
-#: ../autopart.py:1706
+#: ../autopart.py:1679
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -390,19 +389,19 @@ msgstr ""
 "Înainte ca programul de instalare să partiţioneze automat, trebuie să "
 "alegeţi modul în care va fi folosit spaţiul de pe discurile dvs."
 
-#: ../autopart.py:1711
+#: ../autopart.py:1684
 msgid "Remove all partitions on this system"
 msgstr "Şterge toate partiţiile din sistem"
 
-#: ../autopart.py:1712
+#: ../autopart.py:1685
 msgid "Remove all Linux partitions on this system"
 msgstr "Şterge toate partiţiile linux din sistem"
 
-#: ../autopart.py:1713
+#: ../autopart.py:1686
 msgid "Keep all partitions and use existing free space"
 msgstr "Păstrează toate partiţiile şi foloseşte spaţiul liber"
 
-#: ../autopart.py:1715
+#: ../autopart.py:1688
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -413,7 +412,7 @@ msgstr ""
 "uri:%s\n"
 "Sunteţi sigur că doriţi să faceţi acest lucru?"
 
-#: ../autopart.py:1719
+#: ../autopart.py:1692
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -425,24 +424,24 @@ msgstr ""
 "Sunteţi sigur că doriţi să faceţi acest lucru?"
 
 #: ../backend.py:97
-#, python-format
-msgid "Upgrading %s-%s-%s.%s.\n"
+#, fuzzy, python-format
+msgid "Upgrading %s\n"
 msgstr "Actualizare %s-%s-%s_%s.\n"
 
 #: ../backend.py:99
-#, python-format
-msgid "Installing %s-%s-%s.%s.\n"
-msgstr "Instalare %s-%s-%s-%s.\n"
+#, fuzzy, python-format
+msgid "Installing %s\n"
+msgstr "Instalare"
 
-#: ../bootloader.py:123
+#: ../bootloader.py:126
 msgid "Bootloader"
 msgstr "Bootloader "
 
-#: ../bootloader.py:123
+#: ../bootloader.py:126
 msgid "Installing bootloader..."
 msgstr "Se instalează bootloader-ul..."
 
-#: ../bootloader.py:192
+#: ../bootloader.py:195
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -488,11 +487,11 @@ msgstr ""
 "copiaţi întregul text al acestei excepţii si să îl introduceţi în sistemul "
 "de raportare a erorilor pt anaconda de la adresa %s"
 
-#: ../exception.py:391 ../exception.py:408
+#: ../exception.py:390 ../exception.py:407
 msgid "Dump Written"
 msgstr "Dump-ul a fost scris"
 
-#: ../exception.py:392
+#: ../exception.py:391
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
@@ -500,23 +499,22 @@ msgstr ""
 "Starea sistemului dvs. a fost scrisă cu succes pe dischetă. Sistemul dvs. va "
 "fi restartat. "
 
-#: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
-#: ../gui.py:977 ../harddrive.py:70 ../image.py:93 ../image.py:427
-#: ../image.py:490 ../packages.py:379 ../yuminstall.py:174
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:66
+#: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
+#: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
+#: ../image.py:442 ../image.py:513 ../packages.py:300 ../iw/confirm_gui.py:32
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "_Restartare"
 
-#: ../exception.py:400 ../exception.py:417
+#: ../exception.py:399 ../exception.py:416
 msgid "Dump Not Written"
 msgstr "Dump-nu ul a fost scris"
 
-#: ../exception.py:401
+#: ../exception.py:400
 msgid "There was a problem writing the system state to the floppy."
 msgstr "A fost o problemă în scrierea stării de succes pe discheta."
 
-#: ../exception.py:409
+#: ../exception.py:408
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
@@ -525,7 +523,7 @@ msgstr ""
 "Starea sistemului dvs. a fost scrisă cu succes pe dischetă. Sistemul dvs. va "
 "fi restartat. "
 
-#: ../exception.py:418
+#: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
 msgstr "A fost o problema în scrierea stării de sistem pe discheta."
 
@@ -538,34 +536,34 @@ msgstr "Verificare blocuri defecte "
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Verificare blocuri defecte în /dev/%s..."
 
-#: ../fsset.py:644 ../fsset.py:1438 ../fsset.py:1469 ../fsset.py:1530
-#: ../fsset.py:1541 ../fsset.py:1594 ../fsset.py:1605 ../fsset.py:1640
-#: ../fsset.py:1690 ../fsset.py:1734 ../fsset.py:1753 ../image.py:134
-#: ../image.py:167 ../image.py:297 ../partedUtils.py:721
-#: ../partIntfHelpers.py:403 ../yuminstall.py:147 ../yuminstall.py:614
-#: ../yuminstall.py:674 ../yuminstall.py:847 ../iw/osbootwidget.py:216
-#: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
-#: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:450 ../loader2/driverdisk.c:334
-#: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:400
-#: ../loader2/driverdisk.c:472 ../loader2/hdinstall.c:104
-#: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
-#: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
-#: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:101 ../loader2/loader.c:353
-#: ../loader2/loader.c:760 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
-#: ../loader2/method.c:457 ../loader2/nfsinstall.c:127
-#: ../loader2/nfsinstall.c:214 ../loader2/nfsinstall.c:223
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
-#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
+#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
+#: ../fsset.py:1525 ../fsset.py:1578 ../fsset.py:1589 ../fsset.py:1629
+#: ../fsset.py:1679 ../fsset.py:1745 ../fsset.py:1764 ../image.py:132
+#: ../image.py:173 ../image.py:305 ../partedUtils.py:788
+#: ../partIntfHelpers.py:406 ../yuminstall.py:567 ../yuminstall.py:655
+#: ../yuminstall.py:906 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
+#: ../iw/task_gui.py:110 ../textw/upgrade_text.py:162
+#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:454 ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:403
+#: ../loader2/driverdisk.c:475 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:216
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:538
+#: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:104 ../loader2/loader.c:359
+#: ../loader2/loader.c:778 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
+#: ../loader2/method.c:458 ../loader2/nfsinstall.c:130
+#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:331 ../loader2/urls.c:336
+#: ../loader2/urls.c:334 ../loader2/urls.c:339
 msgid "Error"
 msgstr "Eroare"
 
-#: ../fsset.py:645
+#: ../fsset.py:672
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -578,27 +576,27 @@ msgstr ""
 "\n"
 "Doriţi să continuaţi fără a migra %s?"
 
-#: ../fsset.py:1346
+#: ../fsset.py:1330
 msgid "RAID Device"
 msgstr "Dispozitiv RAID"
 
-#: ../fsset.py:1350 ../fsset.py:1356
+#: ../fsset.py:1334 ../fsset.py:1340
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1361 ../partitions.py:869
+#: ../fsset.py:1345 ../partitions.py:902
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1364
+#: ../fsset.py:1348
 msgid "First sector of boot partition"
 msgstr "Primul sector al partiţiei de bootare"
 
-#: ../fsset.py:1365
+#: ../fsset.py:1349
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1439
+#: ../fsset.py:1423
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -611,17 +609,17 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
-#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
-#: ../loader2/cdinstall.c:259 ../loader2/method.c:419
+#: ../fsset.py:1452 ../rescue.py:289 ../rescue.py:291
+#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:260 ../loader2/method.c:420
 msgid "Skip"
 msgstr "Următoarea etapă"
 
-#: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
+#: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "Resetare"
 
-#: ../fsset.py:1489
+#: ../fsset.py:1473
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -633,12 +631,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1496
+#: ../fsset.py:1480
 #, fuzzy
 msgid "Reformat"
 msgstr "Formatare sistem fişiere"
 
-#: ../fsset.py:1500
+#: ../fsset.py:1484
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -650,7 +648,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1508
+#: ../fsset.py:1492
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -662,7 +660,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1518
+#: ../fsset.py:1502
 msgid ""
 "\n"
 "\n"
@@ -671,12 +669,12 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1524 ../iw/partition_gui.py:368
+#: ../fsset.py:1508 ../iw/partition_gui.py:368
 #, fuzzy
 msgid "Format"
 msgstr "Formatare sistem fişiere"
 
-#: ../fsset.py:1531
+#: ../fsset.py:1515
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -693,7 +691,7 @@ msgstr ""
 "\n"
 "Apăsaţi OK pentru a restarta sistemul."
 
-#: ../fsset.py:1542
+#: ../fsset.py:1526
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -708,7 +706,7 @@ msgstr ""
 "\n"
 "Apăsaţi OK pentru a restarta sistemul."
 
-#: ../fsset.py:1595
+#: ../fsset.py:1579
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -721,7 +719,7 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1606
+#: ../fsset.py:1590
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -734,7 +732,7 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1641
+#: ../fsset.py:1630
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -747,7 +745,7 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1691
+#: ../fsset.py:1680
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -760,11 +758,11 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1712 ../fsset.py:1721
+#: ../fsset.py:1706 ../fsset.py:1715
 msgid "Invalid mount point"
 msgstr "Punct de mountare invalidă"
 
-#: ../fsset.py:1713
+#: ../fsset.py:1707
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -777,7 +775,7 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1722
+#: ../fsset.py:1716
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -790,7 +788,24 @@ msgstr ""
 "\n"
 "Apăsaţi <Enter> pentru a restarta sistemul."
 
-#: ../fsset.py:1735
+#: ../fsset.py:1729
+#, fuzzy
+msgid "Unable to mount filesystem"
+msgstr "Nu am putut să încarc fişierul"
+
+#: ../fsset.py:1730
+#, python-format
+msgid ""
+"An error occurred mounting device %s as %s.  You may continue installation, "
+"but there may be problems."
+msgstr ""
+
+#: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
+#: ../kickstart.py:1017 ../iw/partition_gui.py:1011
+msgid "_Continue"
+msgstr "_Continuare"
+
+#: ../fsset.py:1746
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -805,7 +820,7 @@ msgstr ""
 "\n"
 "Apăsaţi OK pentru a restarta sistemul."
 
-#: ../fsset.py:1754
+#: ../fsset.py:1765
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -819,11 +834,11 @@ msgstr ""
 "\n"
 "Apăsaţi OK pentru a restarta sistemul."
 
-#: ../fsset.py:2419
+#: ../fsset.py:2456
 msgid "Duplicate Labels"
 msgstr "Label-uri diferite"
 
-#: ../fsset.py:2420
+#: ../fsset.py:2457
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -837,24 +852,24 @@ msgstr ""
 "\n"
 "Vă rugăm rezolvaţi această problemă şi reporniţi procesul de instalare."
 
-#: ../fsset.py:2680
+#: ../fsset.py:2717
 msgid "Formatting"
 msgstr "Formatare sistem fişiere"
 
-#: ../fsset.py:2681
+#: ../fsset.py:2718
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Se formatează file system-ul %s "
 
-#: ../gui.py:110
+#: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
 msgstr "A apărut o eroare la copierea capturilor de ecran. "
 
-#: ../gui.py:122
+#: ../gui.py:116
 msgid "Screenshots Copied"
 msgstr "Screenshot-urile copiate"
 
-#: ../gui.py:123
+#: ../gui.py:117
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -868,20 +883,20 @@ msgstr ""
 "\n"
 "Le puteţi accesa ca root, după restart."
 
-#: ../gui.py:167
+#: ../gui.py:160
 msgid "Saving Screenshot"
 msgstr "Se salvează screenshotul"
 
-#: ../gui.py:168
+#: ../gui.py:161
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "O captură intitulată '%s' a fost salvată."
 
-#: ../gui.py:171
+#: ../gui.py:164
 msgid "Error Saving Screenshot"
 msgstr "Eroare la salvarea capturii de ecran"
 
-#: ../gui.py:172
+#: ../gui.py:165
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -890,42 +905,44 @@ msgstr ""
 "timpul unei instalări de pachet, s-ar putea să fie necesare câteva încercări "
 "pentru a reuşi."
 
-#: ../gui.py:241 ../text.py:383
+#: ../gui.py:230 ../text.py:391
 msgid "Fix"
 msgstr "Repară"
 
-#: ../gui.py:242 ../rescue.py:193 ../text.py:384 ../upgrade.py:57
+#: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/hdinstall.c:327 ../loader2/loader.c:396
+#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
+#: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
 msgid "Yes"
 msgstr "Da"
 
-#: ../gui.py:243 ../rescue.py:193 ../rescue.py:195 ../text.py:385
+#: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:396
+#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
+#: ../loader2/loader.c:400
 msgid "No"
 msgstr "Nu"
 
-#: ../gui.py:245 ../text.py:387 ../loader2/net.c:294 ../loader2/net.c:613
+#: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
+#: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
+#: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Retry"
 msgstr "Încearcă din nou"
 
-#: ../gui.py:246 ../text.py:388
+#: ../gui.py:235 ../text.py:396
 msgid "Ignore"
 msgstr "Ignoră"
 
-#: ../gui.py:247 ../gui.py:711 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:103 ../text.py:104 ../text.py:360
-#: ../text.py:362 ../text.py:389 ../iw/bootloader_advanced_gui.py:47
+#: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
+#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
-#: ../loader2/loader.c:342
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/loader.c:348
 msgid "Cancel"
 msgstr "Abandon"
 
-#: ../gui.py:801 ../text.py:346
+#: ../gui.py:832 ../text.py:354
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -937,11 +954,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:803 ../text.py:348
+#: ../gui.py:834 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "Eroare la evaluarea fişierului kickstart"
 
-#: ../gui.py:811 ../text.py:358
+#: ../gui.py:842 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -949,15 +966,15 @@ msgstr ""
 "Introduceţi o nouă dischetă în unitatea de floppy. Întregul conţinut al "
 "dischetei va fi şters, aşa că alegeţi discheta cu atenţie."
 
-#: ../gui.py:872
+#: ../gui.py:889
 msgid "default:LTR"
 msgstr "ImplicitLTR"
 
-#: ../gui.py:964
+#: ../gui.py:973
 msgid "Error!"
 msgstr "Eroare!"
 
-#: ../gui.py:965
+#: ../gui.py:974
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -968,45 +985,62 @@ msgstr ""
 "de instalare.\n"
 "className = %s"
 
-#: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
-#: ../yuminstall.py:680
+#: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
+#: ../yuminstall.py:661
 msgid "_Exit"
 msgstr "_Exit"
 
-#: ../gui.py:970 ../yuminstall.py:161
+#: ../gui.py:980 ../yuminstall.py:570
 msgid "_Retry"
 msgstr "_Încearcă din nou"
 
-#: ../gui.py:973 ../packages.py:375
+#: ../gui.py:983 ../packages.py:296
 msgid "The installer will now exit..."
 msgstr "Instalatorul se va închide..."
 
-#: ../gui.py:976 ../packages.py:378
+#: ../gui.py:986 ../packages.py:299
 msgid "Your system will now be rebooted..."
 msgstr "Sistemul va fi acum restartat..."
 
-#: ../gui.py:979 ../packages.py:380
+#: ../gui.py:989 ../packages.py:301
 msgid "Rebooting System"
 msgstr "Restartează sistemul"
 
-#: ../gui.py:1044
+#: ../gui.py:1053
 #, python-format
 msgid "%s Installer"
 msgstr "%sInstalarea"
 
-#: ../gui.py:1050
+#: ../gui.py:1060
 msgid "Unable to load title bar"
 msgstr "Nu s-a putut încărca bara de titlu"
 
-#: ../gui.py:1103
+#: ../gui.py:1109
 msgid "Install Window"
 msgstr "Ecran de Instalare"
 
-#: ../harddrive.py:61 ../image.py:480
+#: ../harddrive.py:41 ../image.py:143 ../image.py:470
+#, fuzzy, python-format
+msgid ""
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your installation images and that you have "
+"all the required media.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
+msgstr ""
+"Pachetul %s-%s-%s nu poate fi deschis. Acest lucru se întâmplă din cauza "
+"unui fişier lipsă sau a unui pachet corupt.  Dacă instalaţi de pe CD această "
+"eroare înseamnă de obicei că CD-ul este defect sau că unitatea nu-l poate "
+"citi.\n"
+"Apăsaţi <Enter> pentru a încerca din nou."
+
+#: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
 msgstr "Lipseşte imaginea ISO 9660"
 
-#: ../harddrive.py:62
+#: ../harddrive.py:69
 #, fuzzy, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -1021,15 +1055,15 @@ msgstr ""
 "Vă rugăm copiaţi aceasta imagine pe calea share a serverului si apăsaţi "
 "Retry. Apăsaţi Reboot pentru a abandona instalarea."
 
-#: ../harddrive.py:71 ../image.py:491
+#: ../harddrive.py:78 ../image.py:514
 msgid "Re_try"
 msgstr "Încearcă din nou "
 
-#: ../image.py:84
+#: ../image.py:82
 msgid "Required Install Media"
 msgstr "Medii de Instalare Necesare"
 
-#: ../image.py:85
+#: ../image.py:83
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -1044,18 +1078,13 @@ msgstr ""
 "Vă rugăm să le aveţi la dispoziţie înainte de a continua instalarea. Dacă "
 "trebuie să anulaţi instalarea şi să restartaţi vă rugăm apăsaţi \"Reboot\"."
 
-#: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
+#: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "_Înapoi"
 
-#: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
-#: ../iw/partition_gui.py:1011
-msgid "_Continue"
-msgstr "_Continuare"
-
-#: ../image.py:135
+#: ../image.py:133
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1064,15 +1093,15 @@ msgstr ""
 "A apărut o eroare la demontarea CD-ului. Vă rugăm asiguraţi-vă că nu "
 "accesaţi %s din shell-ul de pe tty2 şi apăsaţi OK pentru a încerca din nou."
 
-#: ../image.py:157
+#: ../image.py:163
 msgid "Copying File"
 msgstr "Copiere Fişier"
 
-#: ../image.py:158
+#: ../image.py:164
 msgid "Transferring install image to hard drive..."
 msgstr "Se transferă imaginea de instalare pe hard disc..."
 
-#: ../image.py:168
+#: ../image.py:174
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1080,29 +1109,46 @@ msgstr ""
 "Eroare la transferul imaginii de instalare pe hard disk. Cel mai probabil nu "
 "există suficient spaţiu pentru operaţia de copiere."
 
-#: ../image.py:255
+#: ../image.py:263
 msgid "Change CDROM"
 msgstr "Schimbă tip CDROM"
 
-#: ../image.py:256
+#: ../image.py:264
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Introduceţi discul %s %d pentru a continua."
 
-#: ../image.py:291
+#: ../image.py:299
 msgid "Wrong CDROM"
 msgstr "CDROM greşit"
 
-#: ../image.py:292
+#: ../image.py:300
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Acesta nu este discul CD %s"
 
-#: ../image.py:298
+#: ../image.py:306
 msgid "Unable to access the CDROM."
 msgstr "Nu pot accesa discul CDROM."
 
-#: ../image.py:481
+#: ../image.py:359
+#, fuzzy, python-format
+msgid ""
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your installation tree contains all required "
+"packages.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
+msgstr ""
+"Pachetul %s-%s-%s nu poate fi deschis. Acest lucru se întâmplă din cauza "
+"unui fişier lipsă sau a unui pachet corupt.  Dacă instalaţi de pe CD această "
+"eroare înseamnă de obicei că CD-ul este defect sau că unitatea nu-l poate "
+"citi.\n"
+"Apăsaţi <Enter> pentru a încerca din nou."
+
+#: ../image.py:504
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1117,15 +1163,20 @@ msgstr ""
 "Vă rugăm copiaţi aceasta imagine pe calea share a serverului si apăsaţi "
 "Retry. Apăsaţi Reboot pentru a abandona instalarea."
 
-#: ../installclass.py:57
+#: ../installclass.py:60
 msgid "Install on System"
 msgstr "Instalează pe sistem"
 
-#: ../kickstart.py:74
+#: ../iscsi.py:127 ../iscsi.py:128
+#, fuzzy
+msgid "Initializing iSCSI initiator"
+msgstr "Iniţializare"
+
+#: ../kickstart.py:73
 msgid "Scriptlet Failure"
 msgstr "Scripletul a eşuat"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:74
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1138,66 +1189,97 @@ msgstr ""
 "\n"
 "Apăsaţi OK pentru a restarta sistemul."
 
-#: ../kickstart.py:751 ../kickstart.py:769
+#: ../kickstart.py:821 ../kickstart.py:839
 msgid "Running..."
 msgstr "Rulare..."
 
-#: ../kickstart.py:752
+#: ../kickstart.py:822
 msgid "Running pre-install scripts"
 msgstr "Rularea scripturi pre-instalare"
 
-#: ../kickstart.py:770
+#: ../kickstart.py:840
 msgid "Running post-install scripts"
 msgstr "Rulare script-uri post+instalare"
 
-#: ../kickstart.py:908
+#: ../kickstart.py:980
 #, fuzzy
 msgid "Missing Package"
 msgstr "Instalare Aplicaţii"
 
-#: ../kickstart.py:909
+#: ../kickstart.py:981
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:915 ../kickstart.py:944
+#: ../kickstart.py:987 ../kickstart.py:1016
 #, fuzzy
 msgid "_Abort"
 msgstr "_Restartare"
 
-#: ../kickstart.py:936
+#: ../kickstart.py:1008
 #, fuzzy
 msgid "Missing Group"
 msgstr "Informaţie Inexistentă"
 
-#: ../kickstart.py:937
+#: ../kickstart.py:1009
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../network.py:46
+#: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
 msgstr "Numele de host trebuie să conţină 64 de caractere sau mai puţin."
 
-#: ../network.py:49
+#: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
 "Numele de host trebuie să înceapă cu un caracter valid, din gama 'a-z' sau "
 "'A-Z'"
 
-#: ../network.py:54
+#: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Numele de host pot conţine numai caracterele 'a-z', 'A-Z', '-' sau '.'"
 
-#: ../packages.py:357
+#: ../network.py:89
+#, fuzzy
+msgid "IP Address is missing."
+msgstr "Adresă IP"
+
+#: ../network.py:93
+#, fuzzy
+msgid ""
+"IP Addresses must contain four numbers between 0 and 255, separated by "
+"periods."
+msgstr "Adresele IP trebuie să conţină numere între 0 şi 255"
+
+#: ../network.py:96
+#, fuzzy, python-format
+msgid "'%s' is not a valid IPv6 address."
+msgstr "%s nu este un nume valid de sistem."
+
+#: ../packages.py:247
+#, fuzzy
+msgid "Enter Registration Key"
+msgstr "Cheia de encripţie:"
+
+#: ../packages.py:248
+#, python-format
+msgid "Please enter the registration key for your version of %s."
+msgstr ""
+
+#: ../packages.py:248
+msgid "Key:"
+msgstr ""
+
+#: ../packages.py:278
 msgid "Warning! This is pre-release software!"
 msgstr "Atenţie! Acest software este pre-release!"
 
-#: ../packages.py:358
+#: ../packages.py:279
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1224,7 +1306,7 @@ msgstr ""
 "\n"
 "şi creaţi un raport la rubrica '%s'.\n"
 
-#: ../packages.py:371
+#: ../packages.py:292
 #, fuzzy
 msgid "_Install anyway"
 msgstr "Instalare"
@@ -1270,21 +1352,21 @@ msgstr "Ignoră"
 msgid "_Format drive"
 msgstr "Formatare sistem fişiere"
 
-#: ../partedUtils.py:722
+#: ../partedUtils.py:789
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Eroare la activarea filesuystem de tip ext2 pe %s: %s"
 
-#: ../partedUtils.py:808
+#: ../partedUtils.py:884
 msgid "Initializing"
 msgstr "Iniţializare"
 
-#: ../partedUtils.py:809
+#: ../partedUtils.py:885
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vă rugăm aşteptaţi, se formatează drive-ul %s...\n"
 
-#: ../partedUtils.py:911
+#: ../partedUtils.py:985
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1300,7 +1382,7 @@ msgstr ""
 "aceasta trebuie initializată, ceea ce va conduce la pierderea TUTUROR "
 "informaţiilor de pe acest disc."
 
-#: ../partedUtils.py:968
+#: ../partedUtils.py:1042
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1315,11 +1397,11 @@ msgstr ""
 "aceasta trebuie initializată, ceea ce va conduce la pierderea TUTUROR "
 "informaţiilor de pe acest disc."
 
-#: ../partedUtils.py:1086
+#: ../partedUtils.py:1160
 msgid "No Drives Found"
 msgstr "Nu s-a identificat nici un disc"
 
-#: ../partedUtils.py:1087
+#: ../partedUtils.py:1161
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -1386,88 +1468,88 @@ msgstr ""
 msgid "Please specify a mount point for this partition."
 msgstr "Vă rugăm specificaţi un punct de montare pentru această partiţie."
 
-#: ../partIntfHelpers.py:110
-#, fuzzy
-msgid "This partition is holding the data for the hard drive install."
-msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
-
-#: ../partIntfHelpers.py:116
+#: ../partIntfHelpers.py:112
 #, fuzzy, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partIntfHelpers.py:119
+#: ../partIntfHelpers.py:115
 #, fuzzy
 msgid "This partition is part of a RAID device."
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partIntfHelpers.py:124
+#: ../partIntfHelpers.py:120
 #, fuzzy, python-format
 msgid "This partition is part of the LVM volume group '%s'."
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partIntfHelpers.py:127
+#: ../partIntfHelpers.py:123
 #, fuzzy
 msgid "This partition is part of a LVM volume group."
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partIntfHelpers.py:142 ../partIntfHelpers.py:150
-#: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
-#: ../partIntfHelpers.py:184
+#: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
+#: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
+#: ../partIntfHelpers.py:187
 #, fuzzy
 msgid "Unable To Delete"
 msgstr "Nu s-a putut detecta placa video"
 
-#: ../partIntfHelpers.py:143
+#: ../partIntfHelpers.py:139
 #, fuzzy
 msgid "You must first select a partition to delete."
 msgstr "Primul sector al partiţiei active"
 
-#: ../partIntfHelpers.py:151
+#: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
 msgstr "Nu puteţi şterge spaţiul neutilizat."
 
-#: ../partIntfHelpers.py:158
+#: ../partIntfHelpers.py:154
 #, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Sînteţi sigur că doriţi să ştergeţi această partiţie?"
 
-#: ../partIntfHelpers.py:168
+#: ../partIntfHelpers.py:164
 #, fuzzy, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partIntfHelpers.py:185
+#: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
+#, fuzzy
+msgid "This partition is holding the data for the hard drive install."
+msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
+
+#: ../partIntfHelpers.py:188
 #, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr "Sînteţi sigur că doriţi să ştergeţi această partiţie?"
 
-#: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
-#: ../iw/lvm_dialog_gui.py:746
+#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
+#: ../iw/lvm_dialog_gui.py:757
 #, fuzzy
 msgid "Confirm Delete"
 msgstr "Din nou: "
 
-#: ../partIntfHelpers.py:230
+#: ../partIntfHelpers.py:233
 #, fuzzy, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Sînteţi sigur că doriţi să ştergeţi această partiţie?"
 
-#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
-#: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
+#: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
+#: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
 msgstr "_Ştergere..."
 
-#: ../partIntfHelpers.py:291
+#: ../partIntfHelpers.py:294
 msgid "Notice"
 msgstr "Notificare"
 
-#: ../partIntfHelpers.py:292
+#: ../partIntfHelpers.py:295
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1478,36 +1560,36 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
-#: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
+#: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
+#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
 msgid "Unable To Edit"
 msgstr "Nu Pot Edita"
 
-#: ../partIntfHelpers.py:309
+#: ../partIntfHelpers.py:312
 #, fuzzy
 msgid "You must select a partition to edit"
 msgstr "Limbă program instalare"
 
-#: ../partIntfHelpers.py:321 ../partIntfHelpers.py:359
+#: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
 #, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr "Nu se pot edita partiţiile"
 
-#: ../partIntfHelpers.py:348
+#: ../partIntfHelpers.py:351
 #, fuzzy, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partIntfHelpers.py:380
+#: ../partIntfHelpers.py:383
 #, fuzzy
 msgid "Format as Swap?"
 msgstr "Formatare sistem fişiere"
 
-#: ../partIntfHelpers.py:381
+#: ../partIntfHelpers.py:384
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1520,12 +1602,12 @@ msgstr ""
 "\n"
 "Doriţi să formataţi această partiţie ca swap?"
 
-#: ../partIntfHelpers.py:401
+#: ../partIntfHelpers.py:404
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Limbă program instalare"
 
-#: ../partIntfHelpers.py:407
+#: ../partIntfHelpers.py:410
 #, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
@@ -1536,26 +1618,26 @@ msgid ""
 "continue without formatting this partition."
 msgstr "Aţi ales folosirea unei partiţii "
 
-#: ../partIntfHelpers.py:415
+#: ../partIntfHelpers.py:418
 #, fuzzy
 msgid "Format?"
 msgstr "Formatare sistem fişiere"
 
-#: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 #, fuzzy
 msgid "_Modify Partition"
 msgstr "Editare partiţie"
 
-#: ../partIntfHelpers.py:415
+#: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
 msgstr "_Nu Formata"
 
-#: ../partIntfHelpers.py:423
+#: ../partIntfHelpers.py:426
 #, fuzzy
 msgid "Error with Partitioning"
 msgstr "Partiţionare manuală"
 
-#: ../partIntfHelpers.py:424
+#: ../partIntfHelpers.py:427
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1568,12 +1650,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:438
+#: ../partIntfHelpers.py:441
 #, fuzzy
 msgid "Partitioning Warning"
 msgstr "Partiţionare Automată"
 
-#: ../partIntfHelpers.py:439
+#: ../partIntfHelpers.py:442
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1588,7 +1670,7 @@ msgstr ""
 "\n"
 "Doriţi să continuaţi cu această schemă de partiţionare?"
 
-#: ../partIntfHelpers.py:453 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1596,7 +1678,7 @@ msgstr ""
 "Următoarele partiţii deja existente au fost alese pentru a fi formatate, "
 "distrugându-se astfel toate datele."
 
-#: ../partIntfHelpers.py:456
+#: ../partIntfHelpers.py:459
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1604,12 +1686,12 @@ msgstr ""
 "Alegeţi 'Da' pentru a continua şi pentru a formata aceste partiţii, sau 'Nu' "
 "pentru a vă întoarce şi pentru a schimba setările."
 
-#: ../partIntfHelpers.py:462
+#: ../partIntfHelpers.py:465
 #, fuzzy
 msgid "Format Warning"
 msgstr "Formatare sistem fişiere"
 
-#: ../partIntfHelpers.py:510
+#: ../partIntfHelpers.py:513
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1620,42 +1702,42 @@ msgstr ""
 "\n"
 "TOATE volumele logice din acest grup de volume vor fi şterse!"
 
-#: ../partIntfHelpers.py:514
+#: ../partIntfHelpers.py:517
 #, fuzzy, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Trebuie să selectaţi o partiţie de RAID"
 
-#: ../partIntfHelpers.py:517
+#: ../partIntfHelpers.py:520
 #, fuzzy
 msgid "You are about to delete a RAID device."
 msgstr "Trebuie să selectaţi o partiţie de RAID"
 
-#: ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:523
 #, fuzzy, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "Sînteţi sigur că doriţi să ştergeţi această partiţie?"
 
-#: ../partIntfHelpers.py:523
+#: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
 msgstr "Partiţia pe care aţi ales-o va fi ştearsă."
 
-#: ../partIntfHelpers.py:533
+#: ../partIntfHelpers.py:536
 #, fuzzy
 msgid "Confirm Reset"
 msgstr "Din nou: "
 
-#: ../partIntfHelpers.py:534
+#: ../partIntfHelpers.py:537
 #, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Sînteţi sigur că doriţi să ştergeţi această partiţie?"
 
-#: ../partitioning.py:57
+#: ../partitioning.py:68
 #, fuzzy
 msgid "Installation cannot continue."
 msgstr "Începutul instalării"
 
-#: ../partitioning.py:58
+#: ../partitioning.py:69
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1665,11 +1747,11 @@ msgstr ""
 "mai puteţi întoarce în ecranul de editare a discului. Doriţi să continuaţi "
 "procesul de instalare?"
 
-#: ../partitioning.py:88
+#: ../partitioning.py:99
 msgid "Low Memory"
 msgstr "Memorie insuficientă"
 
-#: ../partitioning.py:89
+#: ../partitioning.py:100
 #, fuzzy
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
@@ -1682,7 +1764,7 @@ msgstr ""
 "tabela de partiţii să fie scrisă pe disk în acest moment. Doriţi ca noua "
 "tabelă de partiţii să fie scrisă?"
 
-#: ../partitions.py:804
+#: ../partitions.py:818
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1691,7 +1773,7 @@ msgstr ""
 "Nu aţi definit o partiţie rădăcină (/), partiţie necesară pentru continuarea "
 "instalării %s."
 
-#: ../partitions.py:809
+#: ../partitions.py:823
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1700,23 +1782,29 @@ msgstr ""
 "Partiţia rădăcină este mai mică de 250 megabytes, dimensiune de obicei prea "
 "mică pentru a instala %s."
 
-#: ../partitions.py:816
+#: ../partitions.py:842
+msgid ""
+"Your boot partition isn't on one of the first four partitions and thus won't "
+"be bootable."
+msgstr ""
+
+#: ../partitions.py:849
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Trebuie să creaţi o partiţie /boot/efi de tip FAT şi dimensiune de 50 "
 "megabytes."
 
-#: ../partitions.py:836
+#: ../partitions.py:869
 #, fuzzy
 msgid "You must create an Apple Bootstrap partition."
 msgstr "Trebuie să creaţi o partiţie PPC PReP Boot."
 
-#: ../partitions.py:858
+#: ../partitions.py:891
 msgid "You must create a PPC PReP Boot partition."
 msgstr "Trebuie să creaţi o partiţie PPC PReP Boot."
 
-#: ../partitions.py:866 ../partitions.py:877
+#: ../partitions.py:899 ../partitions.py:910
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1725,28 +1813,28 @@ msgstr ""
 "Partiţia %s este mai mică de %s megabytes, dimensiunea minimă recomandată "
 "pentru o instalare %s normală."
 
-#: ../partitions.py:911
+#: ../partitions.py:944
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: ../partitions.py:914
+#: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: ../partitions.py:923 ../partRequests.py:675
+#: ../partitions.py:956 ../partRequests.py:677
 #, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Partiţiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
 
-#: ../partitions.py:930
+#: ../partitions.py:963
 #, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Partiţiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
 
-#: ../partitions.py:948
+#: ../partitions.py:988
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1755,7 +1843,7 @@ msgstr ""
 "partiţie va îmbunătăţi semnificativ performanţele pentru majoritatea "
 "instalărilor."
 
-#: ../partitions.py:955
+#: ../partitions.py:995
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1764,7 +1852,7 @@ msgstr ""
 "Aţi specificat mai mult de 32 de dispozitive swap. Kernelul %s suportă cel "
 "mult 32 de dispozitive swap."
 
-#: ../partitions.py:966
+#: ../partitions.py:1006
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1773,16 +1861,16 @@ msgstr ""
 "Aţi alocat mai puţin spaţiu swap (%dM) decât RAM-ul disponibil pe sistemul "
 "dvs. (%dM). Acest lucru ar putea diminua performanţele."
 
-#: ../partitions.py:1266
+#: ../partitions.py:1306
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
 
-#: ../partitions.py:1269
+#: ../partitions.py:1309
 msgid "a partition which is a member of a RAID array."
 msgstr "o partiţie membră a unei matrici RAID."
 
-#: ../partitions.py:1272
+#: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "o partiţie membră a unui grup de volume LVM."
 
@@ -1844,16 +1932,16 @@ msgstr "Partiţiile nu pot începe înainte de primul cilindru."
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Partiţiile nu se pot termina pe un cilindru negativ."
 
-#: ../partRequests.py:667
+#: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Nu există membri în cererea RAID, sau nu s-a specificat nivelul RAID."
 
-#: ../partRequests.py:679
+#: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "O matrice RAID de tipul %s necesită cel puţin %s membri."
 
-#: ../partRequests.py:688
+#: ../partRequests.py:690
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -1861,6 +1949,12 @@ msgid ""
 msgstr ""
 "Această matrice RAID poate avea maxim %s rezerve. Pentru a putea folosi mai "
 "multe rezerve va trebui să adăugaţi mai mulţi membri la matricea RAID."
+
+#: ../partRequests.py:924
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -1871,34 +1965,34 @@ msgstr "Se porneşte interfaţa"
 msgid "Attempting to start %s"
 msgstr "Se încearcă pornirea %s"
 
-#: ../rescue.py:191
-msgid "Setup Networking"
-msgstr "Setarea pentru reţea "
-
-#: ../rescue.py:192
-msgid "Do you want to start the network interfaces on this system?"
-msgstr "Doriţi să porniţi interfaţa de reţea pentru acest sistem ?"
-
-#: ../rescue.py:237 ../text.py:528
-msgid "Cancelled"
-msgstr "Abandonat"
-
-#: ../rescue.py:238 ../text.py:529
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Nu se poate sări la o etapă anterioară de aici. Încercaţi din nou."
-
-#: ../rescue.py:256 ../rescue.py:292 ../rescue.py:461
+#: ../rescue.py:174
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "Când aţi terminat vă rugăm să părăsiţi shell-ul iar sistemul dvs. se va "
 "restarta."
 
-#: ../rescue.py:276 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
+#: ../rescue.py:199
+msgid "Setup Networking"
+msgstr "Setarea pentru reţea "
+
+#: ../rescue.py:200
+msgid "Do you want to start the network interfaces on this system?"
+msgstr "Doriţi să porniţi interfaţa de reţea pentru acest sistem ?"
+
+#: ../rescue.py:241 ../text.py:533
+msgid "Cancelled"
+msgstr "Abandonat"
+
+#: ../rescue.py:242 ../text.py:534
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Nu se poate sări la o etapă anterioară de aici. Încercaţi din nou."
+
+#: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 #, fuzzy
 msgid "Rescue"
 msgstr "_Resetare"
 
-#: ../rescue.py:277
+#: ../rescue.py:279
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1921,25 +2015,25 @@ msgstr ""
 "acest pas va fi sărit, ducându-vă direct la un shell.\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
+#: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
 msgid "Continue"
 msgstr "Continuare"
 
-#: ../rescue.py:287 ../rescue.py:296
+#: ../rescue.py:289 ../rescue.py:294
 msgid "Read-Only"
 msgstr "Numai citire"
 
-#: ../rescue.py:319
+#: ../rescue.py:320
 #, fuzzy
 msgid "System to Rescue"
 msgstr "System pentru actualizare"
 
-#: ../rescue.py:320
+#: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ce partiţie conţine partiţia de root a instalării Red Hat Linux?"
 
-#: ../rescue.py:322 ../rescue.py:326
+#: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
 msgstr "Exit"
 
@@ -2003,73 +2097,73 @@ msgstr ""
 "Nu aveţi nici o partiţie Linux. Apăsaţi <Enter> pentru a primi un shell. "
 "Sistemul se va restarta automat la ieşirea din shell."
 
-#: ../rescue.py:458
+#: ../rescue.py:457
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Sistemul a fost mountat în directorul %s."
 
-#: ../text.py:150 ../text.py:165
+#: ../text.py:149 ../text.py:164
 msgid "Save"
 msgstr "Salvare"
 
-#: ../text.py:153 ../text.py:167
+#: ../text.py:152 ../text.py:166
 #, fuzzy
 msgid "Remote"
 msgstr "Resetare"
 
-#: ../text.py:155 ../text.py:163
+#: ../text.py:154 ../text.py:162
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:159
+#: ../text.py:158
 msgid "Exception Occurred"
 msgstr "S-a detectat o excepţie în program"
 
-#: ../text.py:188
+#: ../text.py:187
 msgid "Save to Remote Host"
 msgstr "Salvează pe host-ul remote"
 
-#: ../text.py:191
+#: ../text.py:190
 #, fuzzy
 msgid "Host"
 msgstr "Nume host"
 
-#: ../text.py:193
+#: ../text.py:192
 msgid "Remote path"
 msgstr "Calea remote"
 
-#: ../text.py:195
+#: ../text.py:194
 msgid "User name"
 msgstr "Nume utilizator"
 
-#: ../text.py:197
+#: ../text.py:196
 msgid "Password"
 msgstr "Parola"
 
-#: ../text.py:254
+#: ../text.py:253
 msgid "Help not available"
 msgstr "Ajutor nedisponibil"
 
-#: ../text.py:255
+#: ../text.py:254
 msgid "No help is available for this step of the install."
 msgstr "Această porţiune de instalare nu are documentaţie de ajutor."
 
-#: ../text.py:357
+#: ../text.py:365
 msgid "Save Crash Dump"
 msgstr "Salvare Text Excepţie"
 
-#: ../text.py:411 ../loader2/lang.c:50 ../loader2/loader.c:145
+#: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "Bine aţi venit în %s"
 
-#: ../text.py:418
+#: ../text.py:426
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> help|<Tab> între elemente|<Space> selectează|<F12> următorul ecran"
 
-#: ../text.py:420
+#: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2085,11 +2179,11 @@ msgstr "Actualizarea sistemului actual"
 msgid "Upgrade"
 msgstr "Actualizare"
 
-#: ../upgrade.py:50
+#: ../upgrade.py:52
 msgid "Proceed with upgrade?"
 msgstr "Continuaţi upgrade-ul?"
 
-#: ../upgrade.py:51
+#: ../upgrade.py:53
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -2099,25 +2193,25 @@ msgstr ""
 "au fost deja montate. Nu vă puteţi întoarce dincolo de acest punct. \n"
 "\n"
 
-#: ../upgrade.py:55
+#: ../upgrade.py:57
 msgid "Would you like to continue with the upgrade?"
 msgstr "Doriţi să continuaţi upgrade-ul?"
 
-#: ../upgrade.py:92
+#: ../upgrade.py:94
 msgid "Searching"
 msgstr "Căutare"
 
-#: ../upgrade.py:93
+#: ../upgrade.py:95
 #, fuzzy, python-format
 msgid "Searching for %s installations..."
 msgstr "Se încearcă detectarea instalărilor precedente de Linux..."
 
-#: ../upgrade.py:145 ../upgrade.py:153
+#: ../upgrade.py:151 ../upgrade.py:159
 #, fuzzy
 msgid "Dirty File Systems"
 msgstr "Marime Root Filesystem"
 
-#: ../upgrade.py:146
+#: ../upgrade.py:152
 #, fuzzy, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2131,7 +2225,7 @@ msgstr ""
 "verificate pentru erori. După ce verificarea va fi completă puteţi porni din "
 "nou programul de instalare."
 
-#: ../upgrade.py:154
+#: ../upgrade.py:160
 #, fuzzy, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2144,11 +2238,11 @@ msgstr ""
 "verificate pentru erori. După ce verificarea va fi completă puteţi porni din "
 "nou programul de instalare."
 
-#: ../upgrade.py:291 ../upgrade.py:297
+#: ../upgrade.py:297 ../upgrade.py:303
 msgid "Mount failed"
 msgstr "Mountarea a eşuat"
 
-#: ../upgrade.py:292
+#: ../upgrade.py:298
 #, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
@@ -2157,7 +2251,7 @@ msgstr ""
 "Unul sau mai multe din sistemele de fişiere activate în /etc/fstab nu poate "
 "fi montat. Corectaţi această problemă şi reporniţi programul de instalare."
 
-#: ../upgrade.py:298
+#: ../upgrade.py:304
 #, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
@@ -2167,7 +2261,7 @@ msgstr ""
 "Unul sau mai multe din sistemele de fişiere activate în /etc/fstab nu poate "
 "fi montat. Corectaţi această problemă şi reporniţi programul de instalare."
 
-#: ../upgrade.py:315
+#: ../upgrade.py:321
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2179,11 +2273,11 @@ msgstr ""
 "reporniţi upgrade-ul.\n"
 "\n"
 
-#: ../upgrade.py:321
+#: ../upgrade.py:327
 msgid "Absolute Symlinks"
 msgstr "Linkuri Absolute"
 
-#: ../upgrade.py:332
+#: ../upgrade.py:338
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2195,11 +2289,11 @@ msgstr ""
 "originala de link-uri simbolice si restartaţi upgrade-ul.\n"
 "\n"
 
-#: ../upgrade.py:338
+#: ../upgrade.py:344
 msgid "Invalid Directories"
 msgstr "Directoare invalide"
 
-#: ../upgrade.py:345
+#: ../upgrade.py:351
 #, python-format
 msgid "%s not found"
 msgstr "%s nu a fost găsit"
@@ -2207,6 +2301,23 @@ msgstr "%s nu a fost găsit"
 #: ../urlinstall.py:35
 msgid "Connecting..."
 msgstr "Conectare..."
+
+#: ../urlinstall.py:74
+#, fuzzy, python-format
+msgid ""
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your mirror contains all required packages, "
+"and try using a different one.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
+msgstr ""
+"Pachetul %s-%s-%s nu poate fi deschis. Acest lucru se întâmplă din cauza "
+"unui fişier lipsă sau a unui pachet corupt.  Dacă instalaţi de pe CD această "
+"eroare înseamnă de obicei că CD-ul este defect sau că unitatea nu-l poate "
+"citi.\n"
+"Apăsaţi <Enter> pentru a încerca din nou."
 
 #: ../vnc.py:43
 #, fuzzy
@@ -2293,25 +2404,25 @@ msgstr ""
 msgid "Starting VNC..."
 msgstr "Pornesc VNC-ul..."
 
-#: ../vnc.py:218
+#: ../vnc.py:226
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "Program de Instalare %s %s pe %s"
 
-#: ../vnc.py:220
+#: ../vnc.py:228
 #, python-format
 msgid "%s %s installation"
 msgstr "instalare %s %s"
 
-#: ../vnc.py:240
+#: ../vnc.py:248
 msgid "Unable to set vnc password - using no password!"
 msgstr "Nu am putut configura parola vnc - folosesc fără parolă!"
 
-#: ../vnc.py:241
+#: ../vnc.py:249
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Parola de root trebuie să fie de cel putin şase caractere lungime."
 
-#: ../vnc.py:264
+#: ../vnc.py:272
 msgid ""
 "\n"
 "\n"
@@ -2327,49 +2438,49 @@ msgstr ""
 "dacă doriţi securizarea server-ului.\n"
 "\n"
 
-#: ../vnc.py:268
+#: ../vnc.py:276
 msgid "The VNC server is now running."
 msgstr "Server-ul VNC este acum funcţional."
 
-#: ../vnc.py:271
+#: ../vnc.py:279
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "Încerc să mă conectez la clientul vnc de pe sistemul %s..."
 
-#: ../vnc.py:283
+#: ../vnc.py:291
 msgid "Connected!"
 msgstr "Conectat!"
 
-#: ../vnc.py:288
+#: ../vnc.py:296
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "Renunţ la încercarea de conectare după 50 de conectări eşuate!\n"
 
-#: ../vnc.py:290
+#: ../vnc.py:298
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 "Vă rog să conectaţi manual clientul vnc la %s pentru a începe instalarea."
 
-#: ../vnc.py:292
+#: ../vnc.py:300
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 "Vă rog să încercaţi manual să conectaţi clientul d-voastră pentru a începe "
 "instalarea."
 
-#: ../vnc.py:296
+#: ../vnc.py:304
 msgid "Will try to connect again in 15 seconds..."
 msgstr "Voi încerca să mă reconectez din nou în 15 secunde..."
 
-#: ../vnc.py:304
+#: ../vnc.py:312
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "Vă rog să vă conectaţi la %s pentru a începe instalarea..."
 
-#: ../vnc.py:306
+#: ../vnc.py:314
 msgid "Please connect to begin the install..."
 msgstr "Vă rog să vă conectaţi pentru a începe instalarea."
 
-#: ../xsetup.py:56
+#: ../xsetup.py:48
 msgid "DDC Probed Monitor"
 msgstr "Monitor Detectat DDC"
 
@@ -2382,103 +2493,77 @@ msgstr "Procesare"
 msgid "Preparing transaction from installation source..."
 msgstr "Pregătire pentru instalare..."
 
-#: ../yuminstall.py:148
-#, fuzzy, python-format
-msgid ""
-"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
-"perhaps a corrupt package.  If you are installing from CD media this usually "
-"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
-"\n"
-"Press 'Retry' to try again."
-msgstr ""
-"Pachetul %s-%s-%s nu poate fi deschis. Acest lucru se întâmplă din cauza "
-"unui fişier lipsă sau a unui pachet corupt.  Dacă instalaţi de pe CD această "
-"eroare înseamnă de obicei că CD-ul este defect sau că unitatea nu-l poate "
-"citi.\n"
-"Apăsaţi <Enter> pentru a încerca din nou."
-
-#: ../yuminstall.py:160 ../yuminstall.py:524 ../yuminstall.py:620
-#: ../yuminstall.py:854
-#, fuzzy
-msgid "Re_boot"
-msgstr "Resetare"
-
-#: ../yuminstall.py:164
-msgid ""
-"If you reboot, your system will be left in an inconsistent state that will "
-"likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
-
-#: ../yuminstall.py:173
-msgid "_Cancel"
-msgstr "_Abandon"
-
-#: ../yuminstall.py:481 ../yuminstall.py:482
+#: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:483
+#: ../yuminstall.py:433
 msgid "older package(s)"
 msgstr ""
 
-#: ../yuminstall.py:484
+#: ../yuminstall.py:434
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:485
+#: ../yuminstall.py:435
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:486
+#: ../yuminstall.py:436
 msgid "package conflicts"
 msgstr ""
 
-#: ../yuminstall.py:487
+#: ../yuminstall.py:437
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:488
+#: ../yuminstall.py:438
 #, fuzzy
 msgid "required package"
 msgstr "Spaţiu pe Disc"
 
-#: ../yuminstall.py:489
+#: ../yuminstall.py:439
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:490
+#: ../yuminstall.py:440
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:503
+#: ../yuminstall.py:454
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:519
+#: ../yuminstall.py:470
 #, fuzzy
 msgid "Error running transaction"
 msgstr "Pregătire pentru instalare..."
 
-#: ../yuminstall.py:615
+#: ../yuminstall.py:471
 #, fuzzy, python-format
 msgid ""
-"The file %s cannot be opened. This is due to a missing file or perhaps a "
-"corrupt package.  If you are installing from CD media this usually means the "
-"CD media is corrupt, or the CD drive is unable to read the media.\n"
-"\n"
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"Pachetul %s-%s-%s nu poate fi deschis. Acest lucru se întâmplă din cauza "
-"unui fişier lipsă sau a unui pachet corupt.  Dacă instalaţi de pe CD această "
-"eroare înseamnă de obicei că CD-ul este defect sau că unitatea nu-l poate "
-"citi.\n"
-"Apăsaţi <Enter> pentru a încerca din nou."
+"Numele de host \"%s\" nu este valid din următoarele motive:\n"
+"\n"
+"%s"
 
-#: ../yuminstall.py:659
+#: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
+#, fuzzy
+msgid "Re_boot"
+msgstr "Resetare"
+
+#: ../yuminstall.py:638
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "Se încarcă informaţiile despre pachete..."
 
-#: ../yuminstall.py:675
+#: ../yuminstall.py:640
+#, fuzzy, python-format
+msgid "Retrieving installation information for %s..."
+msgstr "Se încarcă informaţiile despre pachete..."
+
+#: ../yuminstall.py:656
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2489,18 +2574,18 @@ msgstr ""
 "unui fişier lipsă sau a unui mediu de instalare defect. Apăsaţi <Enter> "
 "pentru a încerca din nou."
 
-#: ../yuminstall.py:704
+#: ../yuminstall.py:691
 msgid "Uncategorized"
 msgstr "Necategorisit"
 
-#: ../yuminstall.py:848
+#: ../yuminstall.py:907
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:987
+#: ../yuminstall.py:1061
 #, fuzzy, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2510,50 +2595,50 @@ msgstr ""
 "nu se potriveşte cu arhitectura precedentă %s. Această operaţiune are şanse "
 "minime de succes. Sunteţi sigur că doriţi să continuaţi procesul de upgrade?"
 
-#: ../yuminstall.py:1019
+#: ../yuminstall.py:1093
 #, fuzzy
 msgid "Install Starting"
 msgstr "Instalarea a început"
 
-#: ../yuminstall.py:1020
+#: ../yuminstall.py:1094
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "Pornesc procesul de instalare; acest lucru poate dura câteva minute..."
 
-#: ../yuminstall.py:1036
+#: ../yuminstall.py:1110
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "Actualizare"
 
-#: ../yuminstall.py:1037
+#: ../yuminstall.py:1111
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "Se rulează procesul de configurare post-instalare..."
 
-#: ../yuminstall.py:1039
+#: ../yuminstall.py:1113
 msgid "Post Install"
 msgstr "Post Instalare"
 
-#: ../yuminstall.py:1040
+#: ../yuminstall.py:1114
 msgid "Performing post install configuration..."
 msgstr "Se rulează procesul de configurare post-instalare..."
 
-#: ../yuminstall.py:1185
+#: ../yuminstall.py:1264
 #, fuzzy
 msgid "Installation Progress"
 msgstr "Tip instalare"
 
-#: ../yuminstall.py:1229
+#: ../yuminstall.py:1299
 msgid "Dependency Check"
 msgstr "Verificare lanţ de dependinţe"
 
-#: ../yuminstall.py:1230
+#: ../yuminstall.py:1300
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "Se verifică satisfacerea lanţului de dependinţe pentru pachetele alese "
 "pentru instalare..."
 
-#: ../zfcp.py:28
+#: ../zfcp.py:29
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -2561,48 +2646,48 @@ msgid ""
 "LUN and a 64 bit FCP LUN."
 msgstr ""
 
-#: ../zfcp.py:30
+#: ../zfcp.py:31
 #, fuzzy
 msgid "Device number"
 msgstr "Partiţie"
 
-#: ../zfcp.py:31
+#: ../zfcp.py:32
 #, fuzzy
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Nu aţi selectat un nume de sistem."
 
-#: ../zfcp.py:33
+#: ../zfcp.py:34
 msgid "SCSI Id"
 msgstr "SCSI Id"
 
-#: ../zfcp.py:34
+#: ../zfcp.py:35
 #, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
 msgstr "Nu aţi selectat un nume de sistem."
 
-#: ../zfcp.py:36 ../textw/zfcp_text.py:101
+#: ../zfcp.py:37 ../textw/zfcp_text.py:101
 msgid "WWPN"
 msgstr "WWPN"
 
-#: ../zfcp.py:37
+#: ../zfcp.py:38
 #, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "Nu aţi selectat un nume de sistem."
 
-#: ../zfcp.py:39
+#: ../zfcp.py:40
 msgid "SCSI LUN"
 msgstr "SCSI LUN"
 
-#: ../zfcp.py:40
+#: ../zfcp.py:41
 #, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
 msgstr "Nu aţi selectat un nume de sistem."
 
-#: ../zfcp.py:42 ../textw/zfcp_text.py:101
+#: ../zfcp.py:43 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
 msgstr "FCP LUN"
 
-#: ../zfcp.py:43
+#: ../zfcp.py:44
 #, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Nu aţi selectat un nume de sistem."
@@ -2656,20 +2741,34 @@ msgstr "_Parola de root:"
 msgid "_Confirm: "
 msgstr "_Confirmă"
 
-#: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:135
+#, fuzzy
+msgid "Invalid Initiator Name"
+msgstr "Numele de iniţiator iSCSI"
+
+#: ../iw/autopart_type.py:136
+msgid "You must provide a non-zero length initiator name."
+msgstr ""
+
+#: ../iw/autopart_type.py:158
+#, fuzzy
+msgid "Error with Data"
+msgstr "Partiţionare manuală"
+
+#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "Şterge toate partiţiile din sistem"
 
-#: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
 msgstr ""
 
@@ -2946,51 +3045,19 @@ msgstr "Următorul sistem instalat va fi îmbunătăţit:"
 msgid "Unknown Linux system"
 msgstr "Adresă calculator necunoscută"
 
-#: ../iw/ipwidget.py:92
-#, fuzzy
-msgid "IP Address is missing"
-msgstr "Adresă IP"
-
-#: ../iw/ipwidget.py:97
-msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr "Adresele IP trebuie să conţină numere între 1 şi 255"
-
-#: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
-msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr "Adresele IP trebuie să conţină numere între 0 şi 255"
-
-#: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
-msgid "iSCSI Configuration"
-msgstr "Configurare SILO"
-
-#: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
-msgid "Error with Data"
-msgstr "Partiţionare manuală"
-
-#: ../iw/iscsi_gui.py:34
-msgid "No IP address entered, skipping iSCSI setup"
-msgstr "Adrese IP nespecificate, se sare peste configurarea iSCSI"
-
-#: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr "%s"
-
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
 msgstr "Selecţie limbă de instalare"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:362
+#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 "Ce limbă doriţi să folosiţi în timpul rulării programului de instalare?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
-#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:592
-#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
+#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:603
+#: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
 msgstr "Spaţiu insuficient"
@@ -3080,35 +3147,42 @@ msgstr "Editeză volumul logic:"
 msgid "_Mount Point:"
 msgstr "Mount Point:"
 
-#: ../iw/lvm_dialog_gui.py:396
+#: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
 #, fuzzy
 msgid "_File System Type:"
 msgstr "Marime Root Filesystem"
 
-#: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:311
+#: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
+#: ../iw/raid_dialog_gui.py:303
 #, fuzzy
 msgid "Original File System Type:"
 msgstr "Marime Root Filesystem"
 
-#: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:322
-#: ../iw/raid_dialog_gui.py:305
+#: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
+#: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: ../iw/lvm_dialog_gui.py:415
+#: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
+#: ../iw/raid_dialog_gui.py:314
+#, fuzzy
+msgid "Original File System Label:"
+msgstr "Marime Root Filesystem"
+
+#: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
 msgstr "Numele volumului logic:"
 
-#: ../iw/lvm_dialog_gui.py:423 ../textw/partition_text.py:286
+#: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
 msgstr "Numele volumului logic:"
 
-#: ../iw/lvm_dialog_gui.py:431 ../iw/partition_dialog_gui.py:367
+#: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 #, fuzzy
 msgid "_Size (MB):"
 msgstr "Mărime (MB):"
 
-#: ../iw/lvm_dialog_gui.py:437 ../iw/partition_dialog_gui.py:384
+#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
@@ -3116,49 +3190,49 @@ msgstr "Mărime (MB):"
 msgid "Size (MB):"
 msgstr "Mărime (MB):"
 
-#: ../iw/lvm_dialog_gui.py:452
+#: ../iw/lvm_dialog_gui.py:463
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Mărimea maximă este de %s MB)"
 
-#: ../iw/lvm_dialog_gui.py:513
+#: ../iw/lvm_dialog_gui.py:524
 #, fuzzy
 msgid "Illegal size"
 msgstr "Mărime totală"
 
-#: ../iw/lvm_dialog_gui.py:514
+#: ../iw/lvm_dialog_gui.py:525
 #, fuzzy
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Mărimea introdusă trebuie să fie un număr."
 
-#: ../iw/lvm_dialog_gui.py:547
+#: ../iw/lvm_dialog_gui.py:558
 #, fuzzy
 msgid "Mount point in use"
 msgstr "Mount Point"
 
-#: ../iw/lvm_dialog_gui.py:548
+#: ../iw/lvm_dialog_gui.py:559
 #, fuzzy, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr ""
 "Directorul de montare specificat este deja utilizat. Selectaţi un director "
 "de montare valid."
 
-#: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
+#: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
 msgstr "Nume de Logical Volume ilegal"
 
-#: ../iw/lvm_dialog_gui.py:578 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
 msgstr "Nume de Logical Volume ilegal"
 
-#: ../iw/lvm_dialog_gui.py:579 ../textw/partition_text.py:1277
+#: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, fuzzy, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Partiţia RAID \"/dev/%s\" este configurată deja pentru un sistem RAID. "
 "Selectaţi o altă partiţie."
 
-#: ../iw/lvm_dialog_gui.py:593
+#: ../iw/lvm_dialog_gui.py:604
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -3166,7 +3240,7 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
@@ -3174,7 +3248,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "Eroare la cerere"
 
-#: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
+#: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3182,21 +3256,21 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:711
+#: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
 msgstr "Fără sloturi libere"
 
-#: ../iw/lvm_dialog_gui.py:712
+#: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:718
+#: ../iw/lvm_dialog_gui.py:729
 #, fuzzy
 msgid "No free space"
 msgstr "Spaţiu pe Disc"
 
-#: ../iw/lvm_dialog_gui.py:719
+#: ../iw/lvm_dialog_gui.py:730
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3206,32 +3280,32 @@ msgstr ""
 "Pentru a adăuga un volum logic trebuie să reduceţi mărime unor volume logice "
 "deja existente"
 
-#: ../iw/lvm_dialog_gui.py:747
+#: ../iw/lvm_dialog_gui.py:758
 #, fuzzy, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Sînteţi sigur că doriţi să ştergeţi această partiţie?"
 
-#: ../iw/lvm_dialog_gui.py:883
+#: ../iw/lvm_dialog_gui.py:894
 #, fuzzy
 msgid "Invalid Volume Group Name"
 msgstr "Eticheta boot invalidă"
 
-#: ../iw/lvm_dialog_gui.py:896
+#: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
 msgstr "Nume deja utilizat"
 
-#: ../iw/lvm_dialog_gui.py:897
+#: ../iw/lvm_dialog_gui.py:908
 #, fuzzy, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Directorul de montare specificat este deja utilizat. Selectaţi un director "
 "de montare valid."
 
-#: ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
 msgstr "Insuficiente volume fizice"
 
-#: ../iw/lvm_dialog_gui.py:942
+#: ../iw/lvm_dialog_gui.py:953
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3240,79 +3314,79 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:964
 #, fuzzy
 msgid "Make LVM Volume Group"
 msgstr "Eticheta boot invalidă"
 
-#: ../iw/lvm_dialog_gui.py:956
+#: ../iw/lvm_dialog_gui.py:967
 #, fuzzy, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Eticheta boot invalidă"
 
-#: ../iw/lvm_dialog_gui.py:958
+#: ../iw/lvm_dialog_gui.py:969
 #, fuzzy
 msgid "Edit LVM Volume Group"
 msgstr "Eticheta boot invalidă"
 
-#: ../iw/lvm_dialog_gui.py:974
+#: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:982
+#: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:990
+#: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1005
+#: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
 msgstr "Volume fizice de utilizat:"
 
-#: ../iw/lvm_dialog_gui.py:1011
+#: ../iw/lvm_dialog_gui.py:1022
 #, fuzzy
 msgid "Used Space:"
 msgstr "Spaţiu pe Disc"
 
-#: ../iw/lvm_dialog_gui.py:1028
+#: ../iw/lvm_dialog_gui.py:1039
 #, fuzzy
 msgid "Free Space:"
 msgstr "Spaţiu pe Disc"
 
-#: ../iw/lvm_dialog_gui.py:1046
+#: ../iw/lvm_dialog_gui.py:1057
 #, fuzzy
 msgid "Total Space:"
 msgstr "Mărime totală"
 
-#: ../iw/lvm_dialog_gui.py:1075
+#: ../iw/lvm_dialog_gui.py:1086
 msgid "Logical Volume Name"
 msgstr "Numele volumului logic"
 
-#: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
+#: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Mărime (MB):"
 
-#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 #, fuzzy
 msgid "_Add"
 msgstr "Adăugare"
 
-#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:530
+#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:528
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 #, fuzzy
 msgid "_Edit"
 msgstr "Editare"
 
-#: ../iw/lvm_dialog_gui.py:1113
+#: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
 msgstr "Volume Logice"
 
@@ -3355,44 +3429,44 @@ msgstr "Emulare 3 butoane"
 msgid "Select the appropriate mouse for the system."
 msgstr "Selectaţi mouse-ul corespunzător pentru sistem."
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:607
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:605
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:607
 msgid "Primary DNS"
 msgstr "Server DNS primar"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:611
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
 msgid "Secondary DNS"
 msgstr "Server DNS secundar"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:613
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:611
 #, fuzzy
 msgid "Tertiary DNS"
 msgstr "Server DNS terţiar"
 
-#: ../iw/network_gui.py:30
+#: ../iw/network_gui.py:29
 #, fuzzy
 msgid "_Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:30
+#: ../iw/network_gui.py:29
 #, fuzzy
 msgid "_Primary DNS"
 msgstr "Server DNS primar"
 
-#: ../iw/network_gui.py:31
+#: ../iw/network_gui.py:30
 #, fuzzy
 msgid "_Secondary DNS"
 msgstr "Server DNS secundar"
 
-#: ../iw/network_gui.py:31
+#: ../iw/network_gui.py:30
 #, fuzzy
 msgid "_Tertiary DNS"
 msgstr "Server DNS terţiar"
 
-#: ../iw/network_gui.py:35
+#: ../iw/network_gui.py:34
 msgid "Network Configuration"
 msgstr "Configurare Reţea"
 
@@ -3421,7 +3495,7 @@ msgstr ""
 "Nu aţi specificat câmpul \"%s\". În funcţie de mediul reţelei dvs., acest "
 "lucru ar putea cauza probleme mai târziu."
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:413
+#: ../iw/network_gui.py:172 ../textw/network_text.py:404
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3452,101 +3526,97 @@ msgstr "Mărimea introdusă trebuie să fie un număr."
 #: ../iw/network_gui.py:191
 msgid ""
 "You have no active network devices.  Your system will not be able to "
-"communicate over a network by default without at least one device active.\n"
-"\n"
-"NOTE: If you have a PCMCIA-based network adapter you should leave it "
-"inactive at this point. When you reboot your system the adapter will be "
-"activated automatically."
+"communicate over a network by default without at least one device active."
 msgstr ""
 
-#: ../iw/network_gui.py:210
+#: ../iw/network_gui.py:207
 #, python-format
 msgid "Edit Interface %s"
 msgstr "Editează interfaţa %s"
 
-#: ../iw/network_gui.py:221
+#: ../iw/network_gui.py:218
 #, fuzzy
 msgid "Configure using _DHCP"
 msgstr "Configurare folosind DHCP"
 
-#: ../iw/network_gui.py:227
+#: ../iw/network_gui.py:224
 #, fuzzy
 msgid "_Activate on boot"
 msgstr "Activare la iniţializarea sistemului"
 
-#: ../iw/network_gui.py:236
+#: ../iw/network_gui.py:233
 #, fuzzy
 msgid "_IP Address"
 msgstr "Adresă IP"
 
-#: ../iw/network_gui.py:237
+#: ../iw/network_gui.py:234
 #, fuzzy
 msgid "Net_mask"
 msgstr "Netmask"
 
-#: ../iw/network_gui.py:242
+#: ../iw/network_gui.py:239
 #, fuzzy
 msgid "_Point to Point (IP)"
 msgstr "Mount Point:"
 
-#: ../iw/network_gui.py:246
+#: ../iw/network_gui.py:243
 msgid "_ESSID"
 msgstr "?ESSID"
 
-#: ../iw/network_gui.py:247
+#: ../iw/network_gui.py:244
 msgid "Encryption _Key"
 msgstr "Cheia de encripţie"
 
-#: ../iw/network_gui.py:258
+#: ../iw/network_gui.py:255
 #, fuzzy
 msgid "Hardware address:"
 msgstr "Adresă IP:"
 
-#: ../iw/network_gui.py:297
+#: ../iw/network_gui.py:293
 #, python-format
 msgid "Configure %s"
 msgstr "Configurare %s"
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:469
 msgid "Active on Boot"
 msgstr "Activare la iniţializarea sistemului"
 
-#: ../iw/network_gui.py:473 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
 msgid "Device"
 msgstr "Partiţie"
 
-#: ../iw/network_gui.py:475
+#: ../iw/network_gui.py:473
 msgid "IP/Netmask"
 msgstr "IP/Netmask"
 
-#: ../iw/network_gui.py:537
+#: ../iw/network_gui.py:535
 msgid "Network Devices"
 msgstr "Plăci de reţea"
 
-#: ../iw/network_gui.py:548
+#: ../iw/network_gui.py:546
 msgid "Set the hostname:"
 msgstr "Setare nume host"
 
-#: ../iw/network_gui.py:553
+#: ../iw/network_gui.py:551
 msgid "_automatically via DHCP"
 msgstr "_automat prin intermediul DHCP"
 
-#: ../iw/network_gui.py:560
+#: ../iw/network_gui.py:558
 msgid "_manually"
 msgstr "_manual"
 
-#: ../iw/network_gui.py:564
+#: ../iw/network_gui.py:562
 msgid "(ex. \"host.domain.com\")"
 msgstr "(ex. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:570 ../loader2/net.c:837
+#: ../iw/network_gui.py:568 ../loader2/net.c:1354
 msgid "Hostname"
 msgstr "Nume host"
 
-#: ../iw/network_gui.py:618
+#: ../iw/network_gui.py:616
 #, fuzzy
 msgid "Miscellaneous Settings"
 msgstr "Alte Opţiuni"
@@ -3670,7 +3740,7 @@ msgstr "Editare partiţie"
 msgid "Edit Partition"
 msgstr "Editare partiţie"
 
-#: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
+#: ../iw/partition_dialog_gui.py:301
 #, fuzzy
 msgid "File System _Type:"
 msgstr "Marime Root Filesystem"
@@ -3685,11 +3755,6 @@ msgstr "Discuri Permise:"
 msgid "Drive:"
 msgstr "Drive"
 
-#: ../iw/partition_dialog_gui.py:355
-#, fuzzy
-msgid "Original File System Label:"
-msgstr "Marime Root Filesystem"
-
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
 msgstr "Cilindrul de început:"
@@ -3698,7 +3763,7 @@ msgstr "Cilindrul de început:"
 msgid "_End Cylinder:"
 msgstr "Cilindrul de sfârşit:"
 
-#: ../iw/partition_dialog_gui.py:459
+#: ../iw/partition_dialog_gui.py:460
 #, fuzzy
 msgid "Force to be a _primary partition"
 msgstr "Există Partiţii Nealocate..."
@@ -3790,7 +3855,7 @@ msgstr "System RAID inexistent"
 msgid "None"
 msgstr "Gata"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:327
+#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:329
 msgid "Hard Drives"
 msgstr "Hard Discuri"
 
@@ -3924,41 +3989,41 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
-#: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
+#: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
+#: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
 msgstr "<Nu se aplică>"
 
-#: ../iw/partition_ui_helpers_gui.py:245
+#: ../iw/partition_ui_helpers_gui.py:251
 #, fuzzy
 msgid "How would you like to prepare the file system on this partition?"
 msgstr ""
 "\n"
 "Alegeţi ce utilitar doriţi să folosiţi pentru partiţionarea sistemului."
 
-#: ../iw/partition_ui_helpers_gui.py:253
+#: ../iw/partition_ui_helpers_gui.py:259
 #, fuzzy
 msgid "Leave _unchanged (preserve data)"
 msgstr "Salvare"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:265
 #, fuzzy
 msgid "_Format partition as:"
 msgstr "Partiţia root nedefinita"
 
-#: ../iw/partition_ui_helpers_gui.py:282
+#: ../iw/partition_ui_helpers_gui.py:288
 #, fuzzy
 msgid "Mi_grate partition to:"
 msgstr "Partiţia root nedefinita"
 
-#: ../iw/partition_ui_helpers_gui.py:304
+#: ../iw/partition_ui_helpers_gui.py:310
 #, fuzzy
 msgid "Check for _bad blocks?"
 msgstr "Verificare blocuri defecte la formatare"
 
-#: ../iw/partition_ui_helpers_gui.py:339
+#: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -4039,7 +4104,7 @@ msgid ""
 "select the \"RAID\" option again."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
+#: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
 #: ../textw/partition_text.py:967
 #, fuzzy
 msgid "Make RAID Device"
@@ -4055,43 +4120,43 @@ msgstr "Partiţia RAID: /dev/"
 msgid "Edit RAID Device"
 msgstr "System RAID inexistent"
 
-#: ../iw/raid_dialog_gui.py:311
+#: ../iw/raid_dialog_gui.py:322
 #, fuzzy
 msgid "RAID _Device:"
 msgstr "System RAID inexistent"
 
-#: ../iw/raid_dialog_gui.py:329
+#: ../iw/raid_dialog_gui.py:340
 #, fuzzy
 msgid "RAID _Level:"
 msgstr "Tip RAID:"
 
-#: ../iw/raid_dialog_gui.py:370
+#: ../iw/raid_dialog_gui.py:381
 #, fuzzy
 msgid "_RAID Members:"
 msgstr "Tip RAID:"
 
-#: ../iw/raid_dialog_gui.py:387
+#: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:397
+#: ../iw/raid_dialog_gui.py:408
 #, fuzzy
 msgid "_Format partition?"
 msgstr "Partiţia root nedefinita"
 
-#: ../iw/raid_dialog_gui.py:476
+#: ../iw/raid_dialog_gui.py:487
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
-#: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
+#: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
+#: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 #, fuzzy
 msgid "Source Drive Error"
 msgstr "Eroare mărime"
 
-#: ../iw/raid_dialog_gui.py:487
+#: ../iw/raid_dialog_gui.py:498
 msgid ""
 "The source drive selected has partitions on it which are not of type "
 "'software RAID'.\n"
@@ -4099,7 +4164,7 @@ msgid ""
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:499
+#: ../iw/raid_dialog_gui.py:510
 #, python-format
 msgid ""
 "The source drive selected has partitions which are not constrained to the "
@@ -4109,7 +4174,7 @@ msgid ""
 "this drive can be cloned. "
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:512
+#: ../iw/raid_dialog_gui.py:523
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
 "of an active software RAID device.\n"
@@ -4117,23 +4182,23 @@ msgid ""
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:525 ../iw/raid_dialog_gui.py:531
-#: ../iw/raid_dialog_gui.py:544
+#: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
+#: ../iw/raid_dialog_gui.py:561
 #, fuzzy
 msgid "Target Drive Error"
 msgstr "Eroare mărime swap"
 
-#: ../iw/raid_dialog_gui.py:526
+#: ../iw/raid_dialog_gui.py:537
 #, fuzzy
 msgid "Please select the target drives for the clone operation."
 msgstr "Selectaţi partiţia care conţine systemul de fişiere rădăcină: "
 
-#: ../iw/raid_dialog_gui.py:532
+#: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:545
+#: ../iw/raid_dialog_gui.py:562
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4144,19 +4209,19 @@ msgid ""
 "This partition must be removed before this drive can be a target."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:606
+#: ../iw/raid_dialog_gui.py:623
 #, fuzzy
 msgid "Please select a source drive."
 msgstr "Inseraţi discul cu drivere %s acum."
 
-#: ../iw/raid_dialog_gui.py:626
+#: ../iw/raid_dialog_gui.py:643
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:631
+#: ../iw/raid_dialog_gui.py:648
 msgid ""
 "\n"
 "\n"
@@ -4166,21 +4231,21 @@ msgstr ""
 "\n"
 "ATENŢIE! TOATE DATELE VOR FI PIERDUTE"
 
-#: ../iw/raid_dialog_gui.py:634
+#: ../iw/raid_dialog_gui.py:651
 #, fuzzy
 msgid "Final Warning"
 msgstr "Formatare sistem fişiere"
 
-#: ../iw/raid_dialog_gui.py:636
+#: ../iw/raid_dialog_gui.py:653
 #, fuzzy
 msgid "Clone Drives"
 msgstr "Discuri Permise:"
 
-#: ../iw/raid_dialog_gui.py:645
+#: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:679
+#: ../iw/raid_dialog_gui.py:696
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4196,31 +4261,63 @@ msgid ""
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
 
-#: ../iw/raid_dialog_gui.py:699
+#: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
 msgstr "Unitatea Sursă:"
 
-#: ../iw/raid_dialog_gui.py:707
+#: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
 msgstr "Unitatea(ţile) Ţintă"
 
-#: ../iw/raid_dialog_gui.py:715
+#: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
 msgstr "Unităţi"
 
-#: ../iw/release_notes.py:153
+#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
 msgstr "Fişierul Release Notes lipseşte.\n"
 
-#: ../iw/release_notes.py:212
+#: ../iw/release_notes.py:222
 msgid "Release Notes"
 msgstr "Notiţe ale vesiunii"
 
-#: ../iw/release_notes.py:216
+#: ../iw/release_notes.py:226
 msgid "Unable to load file!"
 msgstr "Nu am putut să încarc fişierul"
 
-#: ../iw/timezone_gui.py:60 ../textw/timezone_text.py:90
+#: ../iw/task_gui.py:85
+#, fuzzy
+msgid "Invalid Repository Name"
+msgstr "Nume sistem invalid"
+
+#: ../iw/task_gui.py:86
+#, fuzzy
+msgid "You must provide a non-zero length repository name."
+msgstr "Trebuie introdus un nume de server."
+
+#: ../iw/task_gui.py:95
+#, fuzzy
+msgid "Invalid Repository URL"
+msgstr "Eticheta boot invalidă"
+
+#: ../iw/task_gui.py:96
+msgid "You must provide an HTTP or FTP URL to a repository."
+msgstr ""
+
+#: ../iw/task_gui.py:111
+#, fuzzy, python-format
+msgid ""
+"Unable to read package metadata from repository.  This may be due to a "
+"missing repodata directory.  Please ensure that your repository has been "
+"correctly generated.\n"
+"\n"
+"%s"
+msgstr ""
+"Nu s-a putut citi lista de headere. Acest lucru se poate întâmpla din cauza "
+"unui fişier lipsă sau a unui mediu de instalare defect. Apăsaţi <Enter> "
+"pentru a încerca din nou."
+
+#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "Selectare Zona de Timp"
 
@@ -4668,15 +4765,15 @@ msgstr ""
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:386
-#: ../loader2/driverdisk.c:270 ../loader2/driverdisk.c:301
-#: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
-#: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:329 ../loader2/loader.c:926 ../loader2/loader.c:948
-#: ../loader2/net.c:251 ../loader2/net.c:289 ../loader2/net.c:562
-#: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54 ../loader2/urls.c:266
-#: ../loader2/urls.c:456
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:385
+#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:181 ../loader2/driverselect.c:206
+#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:131
+#: ../loader2/loader.c:335 ../loader2/loader.c:943 ../loader2/loader.c:965
+#: ../loader2/net.c:242 ../loader2/net.c:282 ../loader2/net.c:706
+#: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:269 ../loader2/urls.c:456
 msgid "Back"
 msgstr "Înapoi"
 
@@ -4693,44 +4790,21 @@ msgstr ""
 "Un log complet al acestei actulizări se va găsi în %s după restartul "
 "sistemului. Puteţi să-l păstraţi pentru referinţe ulterioare."
 
-#: ../textw/grpselect_text.py:83
+#: ../textw/grpselect_text.py:84
 #, fuzzy
 msgid "Please select the package groups you would like to have installed."
 msgstr "Selectaţi rezoluţia pe care doriţi să o utilizaţi:"
 
-#: ../textw/grpselect_text.py:101
+#: ../textw/grpselect_text.py:102
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Space>,<+>,<-> selectare   | <F2> Detalii Categorie |   <F12> ecranul "
 "următor"
 
-#: ../textw/grpselect_text.py:129
+#: ../textw/grpselect_text.py:130
 msgid "Package Group Details"
 msgstr "Detalii Categorie de Pachete"
-
-#: ../textw/iscsi_text.py:35
-#, fuzzy
-msgid "Target IP address:"
-msgstr "Adresă IP:"
-
-#: ../textw/iscsi_text.py:42
-#, fuzzy
-msgid "Port Number:"
-msgstr "sau folosiţi:"
-
-#: ../textw/iscsi_text.py:49
-msgid "iSCSI Initiator Name:"
-msgstr "Numele de iniţiator iSCSI"
-
-#: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
-msgid "Invalid IP string"
-msgstr "IP invalid"
-
-#: ../textw/iscsi_text.py:71 ../textw/network_text.py:30
-#, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "IP-ul introdus '%s' nu este unul valid."
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
@@ -4756,95 +4830,104 @@ msgstr "Emulare 3 butoane?"
 msgid "Mouse Selection"
 msgstr "Selectare Mouse"
 
-#: ../textw/network_text.py:67
+#: ../textw/network_text.py:28
+msgid "Invalid IP string"
+msgstr "IP invalid"
+
+#: ../textw/network_text.py:29
+#, python-format
+msgid "The entered IP '%s' is not a valid IP."
+msgstr "IP-ul introdus '%s' nu este unul valid."
+
+#: ../textw/network_text.py:72
 msgid "IP Address"
 msgstr "Adresă IP"
 
-#: ../textw/network_text.py:68
+#: ../textw/network_text.py:73
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../textw/network_text.py:70
+#: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
 msgstr "Punct-la-Punct (IP)"
 
-#: ../textw/network_text.py:74 ../loader2/net.c:246
+#: ../textw/network_text.py:79 ../loader2/net.c:237
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:75 ../loader2/net.c:247
+#: ../textw/network_text.py:80 ../loader2/net.c:238
 msgid "Encryption Key"
 msgstr "Cheia de encripţie:"
 
-#: ../textw/network_text.py:87
+#: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
 msgstr "Adaptor de reţea: %s"
 
-#: ../textw/network_text.py:93
+#: ../textw/network_text.py:98
 #, python-format
 msgid "Description: %s"
 msgstr "Descriere: %s"
 
-#: ../textw/network_text.py:97
+#: ../textw/network_text.py:102
 #, python-format
 msgid "Hardware Address: %s"
 msgstr "Adresă hardwareŞ %s"
 
-#: ../textw/network_text.py:102
+#: ../textw/network_text.py:107
 msgid "Configure using DHCP"
 msgstr "Configurare folosind DHCP"
 
-#: ../textw/network_text.py:115
+#: ../textw/network_text.py:120
 msgid "Activate on boot"
 msgstr "Activare la iniţializarea sistemului"
 
-#: ../textw/network_text.py:141
+#: ../textw/network_text.py:146
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "Configurare Reţea pentru %s"
 
-#: ../textw/network_text.py:174
+#: ../textw/network_text.py:179
 msgid "Invalid information"
 msgstr "Informaţie incorectă"
 
-#: ../textw/network_text.py:175
+#: ../textw/network_text.py:180
 msgid "You must enter valid IP information to continue"
 msgstr "Trebuie să introduceţi date corecte pentru IP."
 
-#: ../textw/network_text.py:259
+#: ../textw/network_text.py:247 ../loader2/net.c:920
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: ../textw/network_text.py:269
+#: ../textw/network_text.py:256
 msgid "Primary DNS:"
 msgstr "Server DNS primar:"
 
-#: ../textw/network_text.py:274
+#: ../textw/network_text.py:261
 msgid "Secondary DNS:"
 msgstr "Server DNS secundar:"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:266
 msgid "Tertiary DNS:"
 msgstr "Server DNS terţiar:"
 
-#: ../textw/network_text.py:286
+#: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
 msgstr "Alte Opţiuni de Reţea"
 
-#: ../textw/network_text.py:354
+#: ../textw/network_text.py:345
 msgid "automatically via DHCP"
 msgstr "automat prin DHCP"
 
-#: ../textw/network_text.py:358
+#: ../textw/network_text.py:349
 msgid "manually"
 msgstr "manual"
 
-#: ../textw/network_text.py:377
+#: ../textw/network_text.py:368
 msgid "Hostname Configuration"
 msgstr "Configurare Nume Sistem"
 
-#: ../textw/network_text.py:380
+#: ../textw/network_text.py:371
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4856,11 +4939,11 @@ msgstr ""
 "Altfel, selectaţimanual şi introduceţi un nume. Daca nu introduceţi un nume, "
 "sistemul d-voastrăva fii cunoscut ca 'localhost'"
 
-#: ../textw/network_text.py:406 ../textw/network_text.py:412
+#: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
 msgstr "Nume sistem invalid"
 
-#: ../textw/network_text.py:407
+#: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
 msgstr "Nu aţi selectat un nume de sistem."
 
@@ -5137,12 +5220,12 @@ msgstr ""
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Ce discuri doriţi să folosiţi pentru această instalare?"
 
-#: ../textw/partition_text.py:1601
+#: ../textw/partition_text.py:1605
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "Re_vizuiţi (şi modificaţi dacă e cazul) partiţiile create"
 
-#: ../textw/partition_text.py:1602
+#: ../textw/partition_text.py:1606
 #, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "Re_vizuiţi (şi modificaţi dacă e cazul) partiţiile create"
@@ -5217,11 +5300,11 @@ msgstr ""
 msgid "Customize software selection"
 msgstr "Personalizează selecţia de software."
 
-#: ../textw/timezone_text.py:72
+#: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
 msgstr "Care este fusul orar în care sunteţi situat?"
 
-#: ../textw/timezone_text.py:87
+#: ../textw/timezone_text.py:86
 #, fuzzy
 msgid "System clock uses UTC"
 msgstr "Ceasul sistemului foloseşte ora _GMT"
@@ -5315,6 +5398,11 @@ msgstr ""
 msgid "The root password must be at least 6 characters long."
 msgstr "Parola de root trebuie să fie de cel putin 6 caractere lungime"
 
+#: ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr "%s"
+
 #: ../textw/welcome_text.py:23
 #, python-format
 msgid ""
@@ -5366,6 +5454,7 @@ msgid "_Custom"
 msgstr "_Personalizată"
 
 #: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
+#: ../installclasses/rhel.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -5378,15 +5467,15 @@ msgstr ""
 msgid "_Fedora"
 msgstr "Formatare sistem fişiere"
 
-#: ../installclasses/fedora.py:20
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
 msgid "Office and Productivity"
 msgstr "Birou şi productivitate"
 
-#: ../installclasses/fedora.py:21
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
 msgid "Software Development"
 msgstr "Dezvoltare Software"
 
-#: ../installclasses/fedora.py:22
+#: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
 #, fuzzy
 msgid "Web server"
 msgstr "Server DNS"
@@ -5406,7 +5495,6 @@ msgstr ""
 "ideal pentru utilizare acasă sau la serviciu."
 
 #: ../installclasses/personal_desktop.py:18
-#: ../installclasses/rhel_desktop.py:16
 #, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
@@ -5425,58 +5513,21 @@ msgstr ""
 "\tAplicaţii multi-media\n"
 "\tJocuri\n"
 
-#: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
-msgid "Red Hat Enterprise Linux AS"
-msgstr "Red Hat Enterprise Linux AS"
-
-#: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tAdministration Tools\n"
-"\tServer Configuration Tools\n"
-"\tWeb Server\n"
-"\tWindows File Server (SMB)\n"
-msgstr ""
-"\tInterfaţă Vizuală (GNOME)\n"
-"\tUtilitare de Administrare\n"
-"\tUtilitare de Configurare a Serverului\n"
-"\tServer Web\n"
-"\tWindows File Server (SMB)\n"
-
-#: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
-msgid "Red Hat Enterprise Linux Desktop"
-msgstr "Red Hat Enterprise Linux Desktop"
-
-#: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
-msgid "Red Hat Enterprise Linux ES"
-msgstr "Red Hat Enterprise Linux ES"
-
-#: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
-msgid "Red Hat Enterprise Linux WS"
+#: ../installclasses/rhel.py:11
+#, fuzzy
+msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux WS"
 
-#: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
+#: ../installclasses/rhel.py:49
+msgid "Registration Key Required"
 msgstr ""
-"\tInterfaţă vizuală (GNOME)\n"
-"\tSuită Office (OpenOffice.org)\n"
-"\tBrowser Web (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tMesagerie Instantanee\n"
-"\tAplicaţii multi-media\n"
-"\tJocuri\n"
-"\tUtilitare pentru Dezvoltare Software\n"
-"\tUtilitare de Administrare\n"
+
+#: ../installclasses/rhel.py:50
+#, python-format
+msgid ""
+"A registration key is required to install %s.  Please contact your support "
+"representative if you did not receive a key with your product."
+msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5505,22 +5556,45 @@ msgstr ""
 "Această opţiune instalează un mediu vizual grafic cu utilitare pentru "
 "dezvoltaresoftware şi administrare a sistemului. "
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
+#: ../installclasses/workstation.py:14
+#, fuzzy
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice.org)\n"
+"\tWeb browser \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tInterfaţă vizuală (GNOME)\n"
+"\tSuită Office (OpenOffice.org)\n"
+"\tBrowser Web (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tMesagerie Instantanee\n"
+"\tAplicaţii multi-media\n"
+"\tJocuri\n"
+"\tUtilitare pentru Dezvoltare Software\n"
+"\tUtilitare de Administrare\n"
+
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
 msgstr "Verificare Mediu Instalare"
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
-#: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:419
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
+#: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
+#: ../loader2/method.c:420
 msgid "Test"
 msgstr "Test"
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:95
 msgid "Eject CD"
 msgstr "Scoate CD"
 
-#: ../loader2/cdinstall.c:89
+#: ../loader2/cdinstall.c:92
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -5529,7 +5603,7 @@ msgstr ""
 "Apăsaţi \"%s\" pentru a testa CD-ul aflat în unitate acum, sau \"%s\" "
 "pentrua-l scoate şi a introduce un altul."
 
-#: ../loader2/cdinstall.c:110
+#: ../loader2/cdinstall.c:113
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5539,7 +5613,7 @@ msgid ""
 "to retest each CD prior to using it again."
 msgstr ""
 
-#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
+#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:377
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -5548,11 +5622,11 @@ msgstr ""
 "CD-ul %s nu a fost găsit în nici unua dintre unităţile CDROM. Vă rog "
 "introduceţi CD-ul %sşi apăsaţi %s pentru a reîncerca."
 
-#: ../loader2/cdinstall.c:256
+#: ../loader2/cdinstall.c:257
 msgid "CD Found"
 msgstr "A fost găsit CD-ul"
 
-#: ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:259
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -5563,7 +5637,7 @@ msgstr ""
 "\n"
 "Apăsaţi %s pentru a sări peste acest pas şi pentru a începe instalarea."
 
-#: ../loader2/cdinstall.c:373
+#: ../loader2/cdinstall.c:372
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -5572,27 +5646,27 @@ msgstr ""
 "Nu s-a putut detecta un CD %s care să corespundă mediului de instalare."
 "Încărcaţi CD-ul %s şi selectaţi %s pentru a reîncerca."
 
-#: ../loader2/cdinstall.c:385
+#: ../loader2/cdinstall.c:384
 msgid "CD Not Found"
 msgstr "Nu s-a identificat nici un CD"
 
-#: ../loader2/cdinstall.c:451
+#: ../loader2/cdinstall.c:455
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Nu am găsit fisierul kickstart pe CDROM."
 
-#: ../loader2/driverdisk.c:124 ../loader2/firewire.c:52
+#: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "Încărcare"
 
-#: ../loader2/driverdisk.c:124
+#: ../loader2/driverdisk.c:127
 msgid "Reading driver disk..."
 msgstr "Citire discul cu drivere..."
 
-#: ../loader2/driverdisk.c:264 ../loader2/driverdisk.c:296
+#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
 msgid "Driver Disk Source"
 msgstr "Sursa Discului cu Drivere"
 
-#: ../loader2/driverdisk.c:265
+#: ../loader2/driverdisk.c:268
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -5600,7 +5674,7 @@ msgstr ""
 "Acest sistem are multiple periferice care pot fii folosite pentru "
 "încărcareadiscului cu drivere. Pe care doriţi să îl folosiţi?"
 
-#: ../loader2/driverdisk.c:297
+#: ../loader2/driverdisk.c:300
 #, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
@@ -5609,49 +5683,49 @@ msgstr ""
 "Acest sistem are multiple periferice care pot fii folosite pentru "
 "încărcareadiscului cu drivere. Pe care doriţi să îl folosiţi?"
 
-#: ../loader2/driverdisk.c:335
+#: ../loader2/driverdisk.c:338
 #, fuzzy
 msgid "Failed to mount partition."
 msgstr "Nu am reuşit să montez discul cu actualizări"
 
-#: ../loader2/driverdisk.c:343
+#: ../loader2/driverdisk.c:346
 #, fuzzy
 msgid "Select driver disk image"
 msgstr "Selectaţi driver"
 
-#: ../loader2/driverdisk.c:344
+#: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
 msgstr "Selectaţi fişierul care este imaginea discului de driver."
 
-#: ../loader2/driverdisk.c:373
+#: ../loader2/driverdisk.c:376
 #, fuzzy
 msgid "Failed to load driver disk from file."
 msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
 
-#: ../loader2/driverdisk.c:384
+#: ../loader2/driverdisk.c:387
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Introduceţi discheta cu drivere în /dev/%s şi selectaţi \"OK\" pentru a "
 "continua."
 
-#: ../loader2/driverdisk.c:386
+#: ../loader2/driverdisk.c:389
 msgid "Insert Driver Disk"
 msgstr "Introduceţi Discul cu Drivere"
 
-#: ../loader2/driverdisk.c:401
+#: ../loader2/driverdisk.c:404
 msgid "Failed to mount driver disk."
 msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
 
-#: ../loader2/driverdisk.c:472
+#: ../loader2/driverdisk.c:475
 msgid "Manually choose"
 msgstr "Alegere manuală"
 
-#: ../loader2/driverdisk.c:473
+#: ../loader2/driverdisk.c:476
 msgid "Load another disk"
 msgstr "Încărcare alt disc"
 
-#: ../loader2/driverdisk.c:474
+#: ../loader2/driverdisk.c:477
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5661,38 +5735,38 @@ msgstr ""
 "Doriţi să selectaţi manual driver-ul, sa continuaţi oricum, sau să "
 "încărcaţialt disc cu drivere?"
 
-#: ../loader2/driverdisk.c:515
+#: ../loader2/driverdisk.c:516
 msgid "Driver disk"
 msgstr "Disc cu Drivere"
 
-#: ../loader2/driverdisk.c:516
+#: ../loader2/driverdisk.c:517
 msgid "Do you have a driver disk?"
 msgstr "Aveţi un disc cu drivere?"
 
-#: ../loader2/driverdisk.c:526
+#: ../loader2/driverdisk.c:527
 msgid "More Driver Disks?"
 msgstr "Mai multe discuri cu drivere?"
 
-#: ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:528
 msgid "Do you wish to load any more driver disks?"
 msgstr "Mai aveţi un disc cu drivere de încărcat?"
 
-#: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
-#: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
-#: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:409 ../loader2/modules.c:964 ../loader2/net.c:925
-#: ../loader2/net.c:948 ../loader2/nfsinstall.c:262
-#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
-#: ../loader2/urlinstall.c:470
+#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
+#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:124
+#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
+#: ../loader2/kickstart.c:411 ../loader2/modules.c:960 ../loader2/net.c:1446
+#: ../loader2/net.c:1469 ../loader2/nfsinstall.c:259
+#: ../loader2/urlinstall.c:476 ../loader2/urlinstall.c:485
+#: ../loader2/urlinstall.c:496
 msgid "Kickstart Error"
 msgstr "Eroare KickStart"
 
-#: ../loader2/driverdisk.c:580
+#: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Sursă necunoscută pentru discul de drivere kickstart: %s "
 
-#: ../loader2/driverdisk.c:618
+#: ../loader2/driverdisk.c:615
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5717,15 +5791,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "Introduceţi Parametrii Modul"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:180
 msgid "No drivers found"
 msgstr "Nu s-a identificat nici un driver"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:180
 msgid "Load driver disk"
 msgstr "Încarc disc drivere"
 
-#: ../loader2/driverselect.c:182
+#: ../loader2/driverselect.c:181
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -5733,7 +5807,7 @@ msgstr ""
 "Nu am găsit nici un driver pentru introducere manuală. Doriţi săutilizaţi un "
 "disc de drivere?"
 
-#: ../loader2/driverselect.c:201
+#: ../loader2/driverselect.c:199
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5741,21 +5815,21 @@ msgstr ""
 "Ce driver trebuie încercat? Dacă driverul dorit nu se regăseşte în lista de "
 "mai jos şi aveţi o dischetă de drivere separată, selectaţi F2."
 
-#: ../loader2/driverselect.c:209
+#: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
 msgstr "Specificaţi parametrii opţionali pentru modul"
 
-#: ../loader2/driverselect.c:229
+#: ../loader2/driverselect.c:227
 msgid "Select Device Driver to Load"
 msgstr "Selectaţi un Driver pentru a Fii Încărcare"
 
-#: ../loader2/firewire.c:52 ../loader2/windows.c:65
+#: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
 msgid "Loading %s driver..."
 msgstr "Încarc driver-ul %s..."
 
-#: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
-#: ../loader2/nfsinstall.c:207 ../loader2/urlinstall.c:153
+#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:153
+#: ../loader2/nfsinstall.c:204 ../loader2/urlinstall.c:160
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -5764,7 +5838,7 @@ msgstr ""
 "Arbrele de instalare %s din acel director nu pare să corespundă cu mediul "
 "dumneavoastră de iniţializare."
 
-#: ../loader2/hdinstall.c:215
+#: ../loader2/hdinstall.c:217
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -5772,7 +5846,7 @@ msgstr ""
 "A existat o eroare la citirea instalării de pe imaginile ISO. Vă rog "
 "veridicaţiimaginile ISO şi mai încercaţi odată."
 
-#: ../loader2/hdinstall.c:328
+#: ../loader2/hdinstall.c:330
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -5780,7 +5854,7 @@ msgstr ""
 "Nu am putut detecta nici un hard disk în acest calculator! Doriţi să "
 "configuraţi alte periferice?"
 
-#: ../loader2/hdinstall.c:344
+#: ../loader2/hdinstall.c:346
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5791,97 +5865,97 @@ msgstr ""
 "(iso9660) pentru %s? Dacă hard diskul dorit nu se regăseşte în lista de mai "
 "jos, apăsaţi F2 pentru a configura periferice adiţionale."
 
-#: ../loader2/hdinstall.c:366
+#: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
 msgstr "Directorul care conţine imaginile:"
 
-#: ../loader2/hdinstall.c:393
+#: ../loader2/hdinstall.c:395
 msgid "Select Partition"
 msgstr "Selectaţi o Partitie"
 
-#: ../loader2/hdinstall.c:433
+#: ../loader2/hdinstall.c:435
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Device-ul %s nu pare să conţină imagini de instalare pentru %s."
 
-#: ../loader2/hdinstall.c:468
+#: ../loader2/hdinstall.c:470
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Argument eronat pentru metoda HD în kickstart %s: %s "
 
-#: ../loader2/hdinstall.c:537 ../loader2/hdinstall.c:593
+#: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Nu am putut găsi fişierul kickstart pe discul dur."
 
-#: ../loader2/hdinstall.c:580
+#: ../loader2/hdinstall.c:582
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Nu pot găsi hard drive pentru discul BIOS %s"
 
-#: ../loader2/kbd.c:126
+#: ../loader2/kbd.c:129
 msgid "Keyboard Type"
 msgstr "Tip Tastatură"
 
-#: ../loader2/kbd.c:127
+#: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
 msgstr "Ce model de tastatură este conectată la acest calculator?"
 
-#: ../loader2/kickstart.c:122
+#: ../loader2/kickstart.c:125
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Eroare la deschiderea fişierului kickstart %s: %s"
 
-#: ../loader2/kickstart.c:132
+#: ../loader2/kickstart.c:135
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Eroare la citirea conţinutului fişierului kickstart %s: %s"
 
-#: ../loader2/kickstart.c:175
+#: ../loader2/kickstart.c:178
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Eroare în %s la linia %d a fişierului kickstart %s."
 
-#: ../loader2/kickstart.c:274
+#: ../loader2/kickstart.c:277
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Fişierul ks.cfg nu a fost găsit pe discheta de boot."
 
-#: ../loader2/kickstart.c:410
+#: ../loader2/kickstart.c:412
 #, fuzzy, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Argument eronat pentru metoda HD în kickstart %s: %s "
 
-#: ../loader2/lang.c:51
+#: ../loader2/lang.c:54
 #, fuzzy, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "Bine aţi venit în %s"
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:151
+#: ../loader2/lang.c:55 ../loader2/loader.c:158
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> între elemente|<Space> selectează|<F12> următorul ecran "
 
-#: ../loader2/lang.c:361
+#: ../loader2/lang.c:364
 msgid "Choose a Language"
 msgstr "Alegeţi o Limbă"
 
-#: ../loader2/loader.c:109
+#: ../loader2/loader.c:117
 msgid "Local CDROM"
 msgstr "CDROM Local"
 
-#: ../loader2/loader.c:111
+#: ../loader2/loader.c:119
 msgid "Hard drive"
 msgstr "Disc Dur"
 
-#: ../loader2/loader.c:112
+#: ../loader2/loader.c:120
 msgid "NFS image"
 msgstr "Imagine NFS"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:330
 msgid "Update Disk Source"
 msgstr "Sursa discului cu actualizări"
 
-#: ../loader2/loader.c:325
+#: ../loader2/loader.c:331
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -5889,30 +5963,30 @@ msgstr ""
 "Acest sistem are multiple periferice care ar putea fii surse pentru discul "
 "de actualizări. Care doriţi să-l utilizaţi?"
 
-#: ../loader2/loader.c:340
+#: ../loader2/loader.c:346
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Introduceţi discheta cu actualizări în /dev/%s şi selectaţi \"OK\" pentru a "
 "continua."
 
-#: ../loader2/loader.c:342
+#: ../loader2/loader.c:348
 msgid "Updates Disk"
 msgstr "Actualizări ale programului de instalare"
 
-#: ../loader2/loader.c:354
+#: ../loader2/loader.c:360
 msgid "Failed to mount updates disk"
 msgstr "Nu am reuşit să montez discul cu actualizări"
 
-#: ../loader2/loader.c:357
+#: ../loader2/loader.c:363
 msgid "Updates"
 msgstr "Actualizări"
 
-#: ../loader2/loader.c:357
+#: ../loader2/loader.c:363
 msgid "Reading anaconda updates..."
 msgstr "Se încarcă actualizările pentru anaconda..."
 
-#: ../loader2/loader.c:397
+#: ../loader2/loader.c:401
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5922,40 +5996,40 @@ msgstr ""
 "un driver pentru ca instalarea să aibă succes. Doriţi să selectaţi drivere "
 "acum?"
 
-#: ../loader2/loader.c:757
+#: ../loader2/loader.c:775
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nu aveţi destul RAM pentru a instala %s pe această maşină."
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:935
 msgid "Rescue Method"
 msgstr "Metodă de Restaurare"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:936
 msgid "Installation Method"
 msgstr "Metodă de Instalare"
 
-#: ../loader2/loader.c:921
+#: ../loader2/loader.c:938
 msgid "What type of media contains the rescue image?"
 msgstr "Unde se găseşte imaginea de restaurare?"
 
-#: ../loader2/loader.c:923
+#: ../loader2/loader.c:940
 msgid "What type of media contains the packages to be installed?"
 msgstr "Ce tip de mediu de instalare conţine pachetele pentru instalare?"
 
-#: ../loader2/loader.c:947
+#: ../loader2/loader.c:964
 msgid "No driver found"
 msgstr "Nu am găsit nici un driver"
 
-#: ../loader2/loader.c:947
+#: ../loader2/loader.c:964
 msgid "Select driver"
 msgstr "Selectaţi driver"
 
-#: ../loader2/loader.c:948
+#: ../loader2/loader.c:965
 msgid "Use a driver disk"
 msgstr "Aveţi un disc cu drivere?"
 
-#: ../loader2/loader.c:949
+#: ../loader2/loader.c:966
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5963,11 +6037,11 @@ msgstr ""
 "Nu am putut găsi nici un aparat de tipul necesar pentru această metodă de "
 "instalare. Doriţi să adaugaţi un driver de pe disc manual?"
 
-#: ../loader2/loader.c:1110
+#: ../loader2/loader.c:1124
 msgid "The following devices have been found on your system."
 msgstr "Am găsit următoarele periferice în acest sistem."
 
-#: ../loader2/loader.c:1112
+#: ../loader2/loader.c:1126
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -5975,29 +6049,29 @@ msgstr ""
 "Nu s-a încărcat nici un driver specific pentru acest sistem. Doriţi să "
 "încărcaţiunul acum?"
 
-#: ../loader2/loader.c:1116
+#: ../loader2/loader.c:1130
 msgid "Devices"
 msgstr "Devices"
 
-#: ../loader2/loader.c:1117
+#: ../loader2/loader.c:1131
 msgid "Done"
 msgstr "Gata"
 
-#: ../loader2/loader.c:1118
+#: ../loader2/loader.c:1132
 msgid "Add Device"
 msgstr "Adaugă Periferic"
 
-#: ../loader2/loader.c:1258
+#: ../loader2/loader.c:1332
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "programul de încărcare a fost deja rulat. Pornesc shell-ul.\n"
 
-#: ../loader2/loader.c:1622
+#: ../loader2/loader.c:1699
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Rulez anaconda, modul de recuperare pentru %s - vă rog aşteptaţi...\n"
 
-#: ../loader2/loader.c:1624
+#: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Rulez anaconda, programul de instalare al %s - vă rog aşteptaţi...\n"
@@ -6088,12 +6162,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
+#: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nu se poate citi directorul %s: %s"
 
-#: ../loader2/method.c:416
+#: ../loader2/method.c:417
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6104,16 +6178,16 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:419
+#: ../loader2/method.c:420
 msgid "Checksum Test"
 msgstr "Test Sumă de Control"
 
-#: ../loader2/modules.c:965
+#: ../loader2/modules.c:961
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Argument eronat pentru method device în kickstart %s: %s "
 
-#: ../loader2/net.c:50
+#: ../loader2/net.c:62
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6129,7 +6203,18 @@ msgstr ""
 "      distribuţia %s pentru arhitectura sistemului\n"
 "      dumneavoastră\n"
 
-#: ../loader2/net.c:240
+#: ../loader2/net.c:96
+#, fuzzy
+msgid "Invalid CIDR Mask"
+msgstr "IP invalid"
+
+#: ../loader2/net.c:97
+msgid ""
+"CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
+"128 for IPv6 networks"
+msgstr ""
+
+#: ../loader2/net.c:231
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -6137,20 +6222,20 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 
-#: ../loader2/net.c:250
+#: ../loader2/net.c:241
 #, fuzzy
 msgid "Wireless Settings"
 msgstr "Alte Opţiuni"
 
-#: ../loader2/net.c:279
+#: ../loader2/net.c:272
 msgid "Nameserver IP"
 msgstr "Adresa IP Server"
 
-#: ../loader2/net.c:283
+#: ../loader2/net.c:276
 msgid "Nameserver"
 msgstr "Server DNS"
 
-#: ../loader2/net.c:284
+#: ../loader2/net.c:277
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -6163,84 +6248,131 @@ msgstr ""
 "DNS, introduceţi-o acum. Dacă nu aveţi acestă informaţie, lăsaţi acest cîmp "
 "gol şi programul de instalare va continua."
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:300
 msgid "Invalid IP Information"
 msgstr "Informaţie IP invalidă"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:301
 msgid "You entered an invalid IP address."
 msgstr "Aţi introdus o adresă de IP incorectă."
 
-#: ../loader2/net.c:364 ../loader2/net.c:622
+#: ../loader2/net.c:375 ../loader2/net.c:768
 msgid "Dynamic IP"
 msgstr "Adresă IP dinamică"
 
-#: ../loader2/net.c:365 ../loader2/net.c:623
+#: ../loader2/net.c:376 ../loader2/net.c:769
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Trimit cererea pentru informaţiile IP pentru %s..."
 
-#: ../loader2/net.c:506
-msgid ""
-"Please enter the IP configuration for this machine. Each item should be "
-"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+#: ../loader2/net.c:538 ../loader2/net.c:639
+#, fuzzy
+msgid "Network Error"
+msgstr "Parola de root:"
+
+#: ../loader2/net.c:539 ../loader2/net.c:640
+msgid "There was an error configuring your network interface."
 msgstr ""
-"Introduceţi configuraţia IP oentru acest calculator. Fiecare valoare trebuie "
-"introdusă ca o adresă de IP în notaţie decimală cu punct (de exemplu, "
-"1.2.3.4)."
 
-#: ../loader2/net.c:512
-msgid "IP address:"
-msgstr "Adresă IP:"
-
-#: ../loader2/net.c:515
-msgid "Netmask:"
-msgstr "Netmask:"
-
-#: ../loader2/net.c:518
-msgid "Default gateway (IP):"
-msgstr "Gateway (IP):"
-
-#: ../loader2/net.c:521
-msgid "Primary nameserver:"
-msgstr "Server DNS primar:"
-
-#: ../loader2/net.c:548
-msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+#: ../loader2/net.c:675
+#, fuzzy
+msgid "Use dynamic IP configuration (DHCP)"
 msgstr "Configurare IP prin metodă dinamică (BOOTP/DHCP)"
 
-#: ../loader2/net.c:576
+#: ../loader2/net.c:680
+msgid "Enable IPv4 support"
+msgstr ""
+
+#: ../loader2/net.c:690
+msgid "Enable IPv6 support"
+msgstr ""
+
+#: ../loader2/net.c:700
+msgid "Avoid unwanted packet collisions"
+msgstr ""
+
+#: ../loader2/net.c:702
+msgid "Maximize register values for high speed network traffic"
+msgstr ""
+
+#: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "Configurare TCP/IP"
 
-#: ../loader2/net.c:613
+#: ../loader2/net.c:753 ../loader2/net.c:763
+#, fuzzy
+msgid "Missing Protocol"
+msgstr "Informaţie Inexistentă"
+
+#: ../loader2/net.c:754
+msgid ""
+"You must select at least one protocol (IPv4 or IPv6) for manual "
+"configuration."
+msgstr ""
+
+#: ../loader2/net.c:764
+msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
+msgstr ""
+
+#: ../loader2/net.c:834
+#, fuzzy
+msgid "IPv4 address:"
+msgstr "Adresă IP:"
+
+#: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
+msgid "/"
+msgstr ""
+
+#: ../loader2/net.c:876
+#, fuzzy
+msgid "IPv6 address:"
+msgstr "Adresă IP:"
+
+#: ../loader2/net.c:928
+#, fuzzy
+msgid "Name Server:"
+msgstr "Server DNS"
+
+#: ../loader2/net.c:961
+#, fuzzy
+msgid "Manual TCP/IP Configuration"
+msgstr "Configurare z/IPL"
+
+#: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Informaţie Inexistentă"
 
-#: ../loader2/net.c:614
-msgid "You must enter both a valid IP address and a netmask."
+#: ../loader2/net.c:1085
+#, fuzzy
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Trebuie să introduceţi o adresă de IP şi o mască de reţea valide."
 
-#: ../loader2/net.c:838
+#: ../loader2/net.c:1091
+#, fuzzy
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgstr "Trebuie să introduceţi o adresă de IP şi o mască de reţea valide."
+
+#: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
 msgstr "Determinare nume şi domeniu sistem..."
 
-#: ../loader2/net.c:926
+#: ../loader2/net.c:1447
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Argument eronat pentru comanda network în kickstart %s: %s "
 
-#: ../loader2/net.c:949
+#: ../loader2/net.c:1470
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 "Valoare invalidă pentru comanda bootproto %s specificată în comanda network"
 
-#: ../loader2/net.c:1105
+#: ../loader2/net.c:1639
 msgid "Networking Device"
 msgstr "Interfeţe de reţea"
 
-#: ../loader2/net.c:1106
+#: ../loader2/net.c:1640
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6248,82 +6380,82 @@ msgstr ""
 "Acest sistem are multiple plăci de reţea. Care dintre ele doriţi să o "
 "folosiţi pentru o instalare prin reţea?"
 
-#: ../loader2/nfsinstall.c:44
+#: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
 msgstr "Numele serverului NFS:"
 
-#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:297
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:300
 #, c-format
 msgid "%s directory:"
 msgstr "Directorul %s:"
 
-#: ../loader2/nfsinstall.c:52
+#: ../loader2/nfsinstall.c:55
 msgid "NFS"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:53
+#: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
 msgstr "Configurare NFS"
 
-#: ../loader2/nfsinstall.c:128
+#: ../loader2/nfsinstall.c:131
 msgid "Hostname specified with no DNS configured"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:211
+#: ../loader2/nfsinstall.c:208
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr ""
 "Directorul specificat nu pare să conţină un arbore de instalare al "
 "distribuţiei %s"
 
-#: ../loader2/nfsinstall.c:224
+#: ../loader2/nfsinstall.c:221
 msgid "That directory could not be mounted from the server."
 msgstr "Directorul de pe server nu a putut fii montat."
 
-#: ../loader2/nfsinstall.c:263
+#: ../loader2/nfsinstall.c:260
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "Argument eronat pentru metoda NFS în kickstart %s: %s "
 
-#: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
+#: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../loader2/telnetd.c:80
+#: ../loader2/telnetd.c:83
 msgid "Waiting for telnet connection..."
 msgstr "Se aşteaptă o conexiune prin telnet..."
 
-#: ../loader2/telnetd.c:122
+#: ../loader2/telnetd.c:125
 msgid "Running anaconda via telnet..."
 msgstr "Se rulează anaconda prin telnet..."
 
-#: ../loader2/urlinstall.c:73
+#: ../loader2/urlinstall.c:80
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Nu se poate citi %s://%s/%s/%s."
 
-#: ../loader2/urlinstall.c:145
+#: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
 msgstr "Nu s-a putut obţine imaginea de instalare"
 
-#: ../loader2/urlinstall.c:284
+#: ../loader2/urlinstall.c:291
 msgid "Media Detected"
 msgstr "Mediu de instalare a fost detectat"
 
-#: ../loader2/urlinstall.c:285
+#: ../loader2/urlinstall.c:292
 msgid "Local installation media detected..."
 msgstr "Am detectat un kit de instalare local..."
 
-#: ../loader2/urlinstall.c:451
+#: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Argument eronat pentru comanda Url în kickstart %s: %s "
 
-#: ../loader2/urlinstall.c:460
+#: ../loader2/urlinstall.c:486
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Trebuie ca metoda Url din kickstart să primească un argument --url"
 
-#: ../loader2/urlinstall.c:471
+#: ../loader2/urlinstall.c:497
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Metodă Url necunoscută %s"
@@ -6342,47 +6474,47 @@ msgstr "Nu se poate citi %s: %s"
 msgid "Retrieving"
 msgstr "Transfer"
 
-#: ../loader2/urls.c:270
+#: ../loader2/urls.c:273
 msgid "FTP"
 msgstr ""
 
-#: ../loader2/urls.c:275
+#: ../loader2/urls.c:278
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:295
 msgid "FTP site name:"
 msgstr "Numele serverului FTP:"
 
-#: ../loader2/urls.c:293
+#: ../loader2/urls.c:296
 msgid "Web site name:"
 msgstr "Numele serverului WWW:"
 
-#: ../loader2/urls.c:312
+#: ../loader2/urls.c:315
 msgid "Use non-anonymous ftp"
 msgstr "Foloseşte ftp ne-anonim"
 
-#: ../loader2/urls.c:321
+#: ../loader2/urls.c:324
 msgid "FTP Setup"
 msgstr "Setare FTP"
 
-#: ../loader2/urls.c:322
+#: ../loader2/urls.c:325
 msgid "HTTP Setup"
 msgstr "Setare HTTP"
 
-#: ../loader2/urls.c:332
+#: ../loader2/urls.c:335
 msgid "You must enter a server name."
 msgstr "Trebuie introdus un nume de server."
 
-#: ../loader2/urls.c:337
+#: ../loader2/urls.c:340
 msgid "You must enter a directory."
 msgstr "Trebuie introdus un director."
 
-#: ../loader2/urls.c:342
+#: ../loader2/urls.c:345
 msgid "Unknown Host"
 msgstr "Sistem necunoscut"
 
-#: ../loader2/urls.c:343
+#: ../loader2/urls.c:346
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s nu este un nume valid de sistem."
@@ -6406,19 +6538,67 @@ msgstr ""
 msgid "Account name:"
 msgstr "Nume Cont:"
 
-#: ../loader2/urls.c:468
+#: ../loader2/urls.c:466
 #, fuzzy
 msgid "Further FTP Setup"
 msgstr "Setare FTP"
 
-#: ../loader2/urls.c:471
+#: ../loader2/urls.c:469
 #, fuzzy
 msgid "Further HTTP Setup"
 msgstr "Setare HTTP"
 
-#: ../loader2/windows.c:64
+#: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
 msgstr "Încărcare Driver SCSI..."
+
+#: tmp/adddrive.glade.h:1
+#, fuzzy
+msgid "Add _ZFCP LUN"
+msgstr "FCP LUN"
+
+#: tmp/adddrive.glade.h:2
+msgid "Add _iSCSI target"
+msgstr ""
+
+#: tmp/adddrive.glade.h:3
+#, fuzzy
+msgid "Advanced Storage Options"
+msgstr "Opţiuni suplimentare legate de mărime"
+
+#: tmp/adddrive.glade.h:4
+msgid "Disable _dmraid device"
+msgstr ""
+
+#: tmp/adddrive.glade.h:5
+#, fuzzy
+msgid "How would you like to modify your drive configuration?"
+msgstr ""
+"\n"
+"Alegeţi ce utilitar doriţi să folosiţi pentru partiţionarea sistemului."
+
+#: tmp/addrepo.glade.h:1
+msgid "<b>Repository _URL:</b>"
+msgstr ""
+
+#: tmp/addrepo.glade.h:2
+msgid "<b>Repository _name:</b>"
+msgstr ""
+
+#: tmp/addrepo.glade.h:3
+msgid "Add Repository"
+msgstr ""
+
+#: tmp/addrepo.glade.h:5
+#, no-c-format
+msgid ""
+"Please provide the location where your additional software can be installed "
+"from.  Note that this must be a valid repository for %s."
+msgstr ""
+
+#: tmp/addrepo.glade.h:6
+msgid "_Add repository"
+msgstr ""
 
 #: tmp/anaconda.glade.h:1
 #, fuzzy
@@ -6444,6 +6624,11 @@ msgstr "Re_vizuiţi (şi modificaţi dacă e cazul) partiţiile create"
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
+msgid "_Advanced storage configuration"
+msgstr "Configurare Monitoare"
+
+#: tmp/autopart.glade.h:4
+#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
 msgstr "Unde doriţi să instalaţi managerul de încărcare Linux?"
 
@@ -6458,21 +6643,80 @@ msgid "_Exception details"
 msgstr "S-a detectat o excepţie în program"
 
 #: tmp/iscsi-config.glade.h:1
-msgid "<b>_Port Number:</b>"
-msgstr ""
+#, fuzzy
+msgid "<b>_Password:</b>"
+msgstr "Parola:"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:3
+#, fuzzy
+msgid "<b>_Username:</b>"
+msgstr "Nume utilizator"
+
+#: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
-#: tmp/iscsi-config.glade.h:4
+#: tmp/iscsi-config.glade.h:5
 #, fuzzy
-msgid "iSCSI configuration"
-msgstr "Configurare SILO"
+msgid "Configure iSCSI Parameters"
+msgstr "Parametri pentru Chandev"
+
+#: tmp/iscsi-config.glade.h:6
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
+msgstr ""
+
+#: tmp/netconfig.glade.h:2
+#, fuzzy
+msgid "<b>Gateway:</b>"
+msgstr "Gateway:"
+
+#: tmp/netconfig.glade.h:3
+#, fuzzy
+msgid "<b>IPv4 Address:</b>"
+msgstr "Adresă IP"
+
+#: tmp/netconfig.glade.h:4
+#, fuzzy
+msgid "<b>IPv6 Address:</b>"
+msgstr "Adresă IP"
+
+#: tmp/netconfig.glade.h:5
+#, fuzzy
+msgid "<b>Nameserver:</b>"
+msgstr "Server DNS"
+
+#: tmp/netconfig.glade.h:6
+msgid "<b>_Interface:</b>"
+msgstr ""
+
+#: tmp/netconfig.glade.h:7
+msgid "Enable IPv_4 support"
+msgstr ""
+
+#: tmp/netconfig.glade.h:8
+msgid "Enable IPv_6 support"
+msgstr ""
+
+#: tmp/netconfig.glade.h:9
+msgid "Enable network interface"
+msgstr ""
+
+#: tmp/netconfig.glade.h:10
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
+msgstr ""
+
+#: tmp/netconfig.glade.h:11
+#, fuzzy
+msgid "Use _dynamic IP configuration (DHCP)"
+msgstr "Configurare IP prin metodă dinamică (BOOTP/DHCP)"
 
 #: tmp/tasksel.glade.h:1
 #, fuzzy
@@ -6494,6 +6738,10 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
+msgid "_Add additional software repositories"
+msgstr ""
+
+#: tmp/tasksel.glade.h:6
 #, fuzzy
 msgid "_Customize now"
 msgstr "Personalizează"
@@ -7245,6 +7493,11 @@ msgid "German"
 msgstr "Germană"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Greek"
+msgstr "Free (M)"
+
+#. generated from lang-table
 msgid "Gujarati"
 msgstr ""
 
@@ -7274,6 +7527,10 @@ msgid "Japanese"
 msgstr "Japoneză"
 
 #. generated from lang-table
+msgid "Kannada"
+msgstr ""
+
+#. generated from lang-table
 msgid "Korean"
 msgstr "Koreană"
 
@@ -7286,11 +7543,24 @@ msgid "Malay"
 msgstr "Malaeziană"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Malayalam"
+msgstr "Malaeziană"
+
+#. generated from lang-table
+msgid "Marathi"
+msgstr ""
+
+#. generated from lang-table
 msgid "Norwegian"
 msgstr "Norvegiană"
 
 #. generated from lang-table
 msgid "Northern Sotho"
+msgstr ""
+
+#. generated from lang-table
+msgid "Oriya"
 msgstr ""
 
 #. generated from lang-table
@@ -7371,6 +7641,107 @@ msgstr ""
 msgid "Zulu"
 msgstr ""
 
+#~ msgid "Could not allocate partitions"
+#~ msgstr "Nu am putut aloca partiţiile"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "You can choose a different automatic partitioning option, or click 'Back' "
+#~ "to select manual partitioning.\n"
+#~ "\n"
+#~ "Press 'OK' to continue."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Puteţi alege o opţiune diferită de partiţionare automată, sau puteţi "
+#~ "apăsa 'Înapoi' pentru a alege partiţionarea manuală.\n"
+#~ "\n"
+#~ "Apăsaţi 'OK' pentru a continua."
+
+#~ msgid "Installing %s-%s-%s.%s.\n"
+#~ msgstr "Instalare %s-%s-%s-%s.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
+#~ "or perhaps a corrupt package.  If you are installing from CD media this "
+#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
+#~ "the media.\n"
+#~ "\n"
+#~ "Press 'Retry' to try again."
+#~ msgstr ""
+#~ "Pachetul %s-%s-%s nu poate fi deschis. Acest lucru se întâmplă din cauza "
+#~ "unui fişier lipsă sau a unui pachet corupt.  Dacă instalaţi de pe CD "
+#~ "această eroare înseamnă de obicei că CD-ul este defect sau că unitatea nu-"
+#~ "l poate citi.\n"
+#~ "Apăsaţi <Enter> pentru a încerca din nou."
+
+#~ msgid "_Cancel"
+#~ msgstr "_Abandon"
+
+#~ msgid "IP Addresses must contain numbers between 1 and 255"
+#~ msgstr "Adresele IP trebuie să conţină numere între 1 şi 255"
+
+#, fuzzy
+#~ msgid "iSCSI Configuration"
+#~ msgstr "Configurare SILO"
+
+#~ msgid "No IP address entered, skipping iSCSI setup"
+#~ msgstr "Adrese IP nespecificate, se sare peste configurarea iSCSI"
+
+#, fuzzy
+#~ msgid "Target IP address:"
+#~ msgstr "Adresă IP:"
+
+#, fuzzy
+#~ msgid "Port Number:"
+#~ msgstr "sau folosiţi:"
+
+#~ msgid "Red Hat Enterprise Linux AS"
+#~ msgstr "Red Hat Enterprise Linux AS"
+
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tAdministration Tools\n"
+#~ "\tServer Configuration Tools\n"
+#~ "\tWeb Server\n"
+#~ "\tWindows File Server (SMB)\n"
+#~ msgstr ""
+#~ "\tInterfaţă Vizuală (GNOME)\n"
+#~ "\tUtilitare de Administrare\n"
+#~ "\tUtilitare de Configurare a Serverului\n"
+#~ "\tServer Web\n"
+#~ "\tWindows File Server (SMB)\n"
+
+#~ msgid "Red Hat Enterprise Linux Desktop"
+#~ msgstr "Red Hat Enterprise Linux Desktop"
+
+#~ msgid "Red Hat Enterprise Linux ES"
+#~ msgstr "Red Hat Enterprise Linux ES"
+
+#~ msgid ""
+#~ "Please enter the IP configuration for this machine. Each item should be "
+#~ "entered as an IP address in dotted-decimal notation (for example, "
+#~ "1.2.3.4)."
+#~ msgstr ""
+#~ "Introduceţi configuraţia IP oentru acest calculator. Fiecare valoare "
+#~ "trebuie introdusă ca o adresă de IP în notaţie decimală cu punct (de "
+#~ "exemplu, 1.2.3.4)."
+
+#~ msgid "Netmask:"
+#~ msgstr "Netmask:"
+
+#~ msgid "Default gateway (IP):"
+#~ msgstr "Gateway (IP):"
+
+#~ msgid "Primary nameserver:"
+#~ msgstr "Server DNS primar:"
+
+#, fuzzy
+#~ msgid "iSCSI configuration"
+#~ msgstr "Configurare SILO"
+
 #~ msgid "The release notes are missing."
 #~ msgstr "Fişierul Release Notes lipseşte."
 
@@ -7438,12 +7809,6 @@ msgstr ""
 
 #~ msgid "Show _Help"
 #~ msgstr "Afişează _Help-ul"
-
-#, fuzzy
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr ""
-#~ "\n"
-#~ "Alegeţi ce utilitar doriţi să folosiţi pentru partiţionarea sistemului."
 
 #, fuzzy
 #~ msgid "Select the drive(s) to use for this installation."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-16 17:57-0400\n"
+"POT-Creation-Date: 2006-07-26 17:08-0400\n"
 "PO-Revision-Date: 2005-12-29 11:25+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <am-translate@geez.org>\n"
@@ -15,123 +15,131 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:255
+#: ../anaconda:258
 msgid "Unknown Error"
 msgstr "ያልታወቀ ስሕተት"
 
-#: ../anaconda:258
+#: ../anaconda:261
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "የኪክስታርቱን ማስተካከያ ሁለተኛ ክፍል በሚገፉበት ጊዜ ስሕተት ተፈጥሯል፦ %s!"
 
-#: ../anaconda:411
+#: ../anaconda:414
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: ../anaconda:442 ../gui.py:244 ../rescue.py:46 ../rescue.py:241
-#: ../rescue.py:322 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
-#: ../rescue.py:447 ../text.py:386 ../text.py:532 ../vnc.py:140
+#: ../anaconda:445 ../gui.py:233 ../rescue.py:46 ../rescue.py:245
+#: ../rescue.py:323 ../rescue.py:350 ../rescue.py:360 ../rescue.py:441
+#: ../rescue.py:447 ../text.py:394 ../text.py:537 ../vnc.py:140
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:54
-#: ../textw/constants_text.py:36 ../textw/iscsi_text.py:73
-#: ../textw/network_text.py:31 ../textw/network_text.py:177
-#: ../textw/network_text.py:408 ../textw/network_text.py:416
-#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:259
-#: ../loader2/cdinstall.c:376 ../loader2/cdinstall.c:381
-#: ../loader2/cdinstall.c:386 ../loader2/cdinstall.c:450
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:269
-#: ../loader2/driverdisk.c:300 ../loader2/driverdisk.c:334
-#: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:386
-#: ../loader2/driverdisk.c:400 ../loader2/driverdisk.c:579
-#: ../loader2/driverdisk.c:617 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:208 ../loader2/hdinstall.c:104
-#: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
-#: ../loader2/hdinstall.c:381 ../loader2/hdinstall.c:432
-#: ../loader2/hdinstall.c:467 ../loader2/hdinstall.c:536
-#: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592 ../loader2/kbd.c:128
-#: ../loader2/kickstart.c:121 ../loader2/kickstart.c:131
-#: ../loader2/kickstart.c:174 ../loader2/kickstart.c:273
-#: ../loader2/kickstart.c:409 ../loader2/lang.c:101 ../loader2/lang.c:364
-#: ../loader2/loader.c:329 ../loader2/loader.c:342 ../loader2/loader.c:353
-#: ../loader2/loader.c:760 ../loader2/loader.c:926 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/mediacheck.c:432
-#: ../loader2/method.c:153 ../loader2/method.c:372 ../loader2/method.c:457
-#: ../loader2/modules.c:964 ../loader2/net.c:251 ../loader2/net.c:289
-#: ../loader2/net.c:562 ../loader2/net.c:925 ../loader2/net.c:948
-#: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54
-#: ../loader2/nfsinstall.c:127 ../loader2/nfsinstall.c:214
-#: ../loader2/nfsinstall.c:223 ../loader2/nfsinstall.c:262
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
-#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
-#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
-#: ../loader2/urlinstall.c:470 ../loader2/urls.c:181 ../loader2/urls.c:191
-#: ../loader2/urls.c:200 ../loader2/urls.c:266 ../loader2/urls.c:331
-#: ../loader2/urls.c:336 ../loader2/urls.c:342 ../loader2/urls.c:456
+#: ../textw/constants_text.py:36 ../textw/network_text.py:30
+#: ../textw/network_text.py:182 ../textw/network_text.py:399
+#: ../textw/network_text.py:407 ../loader2/cdinstall.c:139
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:257
+#: ../loader2/cdinstall.c:260 ../loader2/cdinstall.c:375
+#: ../loader2/cdinstall.c:380 ../loader2/cdinstall.c:385
+#: ../loader2/cdinstall.c:454 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:272 ../loader2/driverdisk.c:303
+#: ../loader2/driverdisk.c:337 ../loader2/driverdisk.c:375
+#: ../loader2/driverdisk.c:389 ../loader2/driverdisk.c:403
+#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
+#: ../loader2/driverselect.c:70 ../loader2/driverselect.c:206
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:157
+#: ../loader2/hdinstall.c:216 ../loader2/hdinstall.c:383
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
+#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:581
+#: ../loader2/hdinstall.c:594 ../loader2/kbd.c:131 ../loader2/kickstart.c:124
+#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
+#: ../loader2/kickstart.c:276 ../loader2/kickstart.c:411 ../loader2/lang.c:104
+#: ../loader2/lang.c:367 ../loader2/loader.c:335 ../loader2/loader.c:348
+#: ../loader2/loader.c:359 ../loader2/loader.c:778 ../loader2/loader.c:943
+#: ../loader2/mediacheck.c:329 ../loader2/mediacheck.c:387
+#: ../loader2/mediacheck.c:432 ../loader2/method.c:155 ../loader2/method.c:373
+#: ../loader2/method.c:458 ../loader2/modules.c:960 ../loader2/net.c:242
+#: ../loader2/net.c:282 ../loader2/net.c:706 ../loader2/net.c:949
+#: ../loader2/net.c:1446 ../loader2/net.c:1469 ../loader2/net.c:1643
+#: ../loader2/nfsinstall.c:57 ../loader2/nfsinstall.c:130
+#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/nfsinstall.c:259 ../loader2/telnetd.c:87
+#: ../loader2/urlinstall.c:79 ../loader2/urlinstall.c:151
+#: ../loader2/urlinstall.c:164 ../loader2/urlinstall.c:476
+#: ../loader2/urlinstall.c:485 ../loader2/urlinstall.c:496
+#: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
+#: ../loader2/urls.c:269 ../loader2/urls.c:334 ../loader2/urls.c:339
+#: ../loader2/urls.c:345 ../loader2/urls.c:456
 msgid "OK"
 msgstr "እሺ"
 
-#: ../anaconda:449
+#: ../anaconda:452
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "የግራፊካሉን ማስገቢያ ለመጠቀም በቂ የሆነ RAM የልዎትም። የጽሑፍ አሠራር ዘዴ እየጀመረ ነው።"
 
-#: ../anaconda:473
+#: ../anaconda:476
 msgid "No video hardware found, assuming headless"
 msgstr "ምንም የቪዲዮ ሀርድዌር አልተገኘም።"
 
-#: ../anaconda:484 ../anaconda:880
+#: ../anaconda:487 ../anaconda:910
 msgid "Unable to instantiate a X hardware state object."
 msgstr "የ X ሀርድዌርን ያለበትን ሁኔታ ማስረጃ ማቅረብ አልተቻለም።"
 
-#: ../anaconda:509
+#: ../anaconda:529
 msgid "Starting graphical installation..."
 msgstr "ግራፍ የማስገባት ሥራን በመጀመር ላይ...."
 
-#: ../anaconda:758
+#: ../anaconda:790
 msgid "Install class forcing text mode installation"
 msgstr "የደረጃ ማስገደጃ የጽሑፍ አሠራር ዘዴ የማስገባት ሥራን አስገባ።"
 
-#: ../anaconda:784
+#: ../anaconda:816
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "ንድፉን ለማስገባት አልተገኘም... የጽሑፍ አሠራሩ ዘዴ ተጀምሯል።"
 
-#: ../anaconda:792
+#: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
 msgstr ""
 
-#: ../anaconda:847
+#: ../anaconda:877
 #, fuzzy
 msgid "Unknown install method"
 msgstr "የማይታወቅ የUrl ዘዴ %s"
 
-#: ../anaconda:848
+#: ../anaconda:878
 #, fuzzy
 msgid "You have specified an install method which isn't supported by anaconda."
 msgstr "በ%s ቀርቦ ያልተደገፈ ማሽን ላይ ለማስገባት እየሞከሩ ነው"
 
-#: ../anaconda:850
+#: ../anaconda:880
 #, fuzzy, c-format
 msgid "unknown install method: %s"
 msgstr "የማይታወቅ የUrl ዘዴ %s"
 
-#: ../autopart.py:968
-msgid "Could not allocate cylinder-based partitions as primary partitions"
+#: ../autopart.py:949
+#, fuzzy, python-format
+msgid ""
+"Could not allocate cylinder-based partitions as primary partitions.\n"
+"\n"
+"%s"
 msgstr "በክብ አምድ ላይ የተመሠረቱትን መከፋፈያዎችን እንደ ዋናው መከፋፈያዎች መደልደል አልተቻለም"
 
-#: ../autopart.py:971
-msgid "Could not allocate partitions as primary partitions"
+#: ../autopart.py:954
+#, fuzzy, python-format
+msgid ""
+"Could not allocate partitions as primary partitions.\n"
+"\n"
+"%s"
 msgstr "መከፋፈያዎችን እንደ ዋና መከፋፈያዎች መደልደል አልተቻለም"
 
-#: ../autopart.py:974
-msgid "Could not allocate cylinder-based partitions"
+#: ../autopart.py:959
+#, fuzzy, python-format
+msgid ""
+"Could not allocate cylinder-based partitions.\n"
+"\n"
+"%s"
 msgstr "በሲሊንደር ላይ የተመሠረቱትን መከፋፈያዎች መደልደል አልተቻለም"
 
-#: ../autopart.py:977
-msgid "Could not allocate partitions"
-msgstr "መከፋፈያዎቹን መደልደል አልተቻለም"
-
-#: ../autopart.py:1039
+#: ../autopart.py:1019
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -141,7 +149,7 @@ msgstr ""
 "የፕሮግራም መጫኛ መከፈያፈያ %s ከBSD ዲስክ ስም ጋር አባል አይደለም። ከዚህ መከፋፈያ SRMን ለመጫን አልተቻለም። "
 "የBSD ዲስክ ስም ጋር የሚስማማ መከፋፈያ ተጠቀም ወይንም ይህንን የመሥሪያ ዲስክ ስም ወደ BSD ለውጥ።"
 
-#: ../autopart.py:1041
+#: ../autopart.py:1021
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -151,7 +159,7 @@ msgstr ""
 "የማስጀመሪያው መከፋፈያ %s በጅማሬው ላይ ማስጀመሪያ መጫኛውን እንዳለ ለማስቀጠል በቂ የሆነ ነፃ ቦታ ካለው ዲስክ ጋር "
 "አይሄድም። በዲስኩ መጀመሪያ ላይ በትንሹ 5ሜጋባይት ነፃ ቦታ እንዳለና ማስጀመሪያውን ያጠቃለለ መሆኑን ያረጋግጡ"
 
-#: ../autopart.py:1043
+#: ../autopart.py:1023
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
@@ -159,19 +167,19 @@ msgid ""
 msgstr ""
 "ፕሮግራም ማስጀመሪያው %s መከፋፈያ የVFAT መከፋፈያ አይደለም። EFI ከዚህ መከፋፈያ ፕሮግራም ሊያስጀምር አይችልም።"
 
-#: ../autopart.py:1045
+#: ../autopart.py:1025
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr "ፕሮግራም መጫናው በጊዜው ዲስኩ ላይ አልታየም። ኦፕንፈርምዌር ይህንን ፕሮግራም ማስገባት አይችልም።"
 
-#: ../autopart.py:1052
+#: ../autopart.py:1032
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "ለግራፍዎት የማስጀመሪያ መከፋፈያው %s ከማስጀመሪያውን ግዴታዎች ጋር ላይገናኝ ይችላል።"
 
-#: ../autopart.py:1078
+#: ../autopart.py:1058
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -179,11 +187,11 @@ msgid ""
 msgstr ""
 "ይህንን መከፋፈያ መጨመር በቂ የሆነ የዲስክ ቦታ ቀደም ብሎ ለተደለደሉት ተገቢ የሆነ መጠን በ %s ውስጥ አይተውም።"
 
-#: ../autopart.py:1268
+#: ../autopart.py:1243
 msgid "Requested Partition Does Not Exist"
 msgstr "የተጠየቀው መከፋፈያ የለም"
 
-#: ../autopart.py:1269
+#: ../autopart.py:1244
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -194,11 +202,11 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../autopart.py:1296
+#: ../autopart.py:1271
 msgid "Requested Raid Device Does Not Exist"
 msgstr "የተጠየቀው የመፈለጊያ መሣሪያ የለም"
 
-#: ../autopart.py:1297
+#: ../autopart.py:1272
 #, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
@@ -209,11 +217,11 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../autopart.py:1328
+#: ../autopart.py:1303
 msgid "Requested Volume Group Does Not Exist"
 msgstr "የተጠየቀው የቮሊውም ቡድን የለም"
 
-#: ../autopart.py:1329
+#: ../autopart.py:1304
 #, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
@@ -223,11 +231,11 @@ msgstr ""
 "ለ%s ለመጠቀም ቮሊውም ቡድን %sን ያለበትን ቦታ ለመጠቆም አልተቻለም።\n"
 "እንደገና ሲስተሙን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../autopart.py:1366
+#: ../autopart.py:1341
 msgid "Requested Logical Volume Does Not Exist"
 msgstr "የተጠየቀው ተገቢው ድምጽ የለም"
 
-#: ../autopart.py:1367
+#: ../autopart.py:1342
 #, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
@@ -237,11 +245,11 @@ msgstr ""
 "ተገቢውን ድምጽ %sን ለ%s ለመጠቀም መጠቆም አልተቻለም።\n"
 "እንደገና ሲስተሙን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../autopart.py:1481 ../autopart.py:1529
+#: ../autopart.py:1456 ../autopart.py:1502
 msgid "Automatic Partitioning Errors"
 msgstr "አውቶማቲክ የመከፋፈል ስሕተቶች"
 
-#: ../autopart.py:1482
+#: ../autopart.py:1457
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -256,11 +264,11 @@ msgstr ""
 "\n"
 "እንደገና ሲስተሙን ለማስጀመር «እሺ»ን ይጫኑ።"
 
-#: ../autopart.py:1492
+#: ../autopart.py:1467
 msgid "Warnings During Automatic Partitioning"
 msgstr "ማስጠንቀቂያዎች በአውቶማቲክ መከፋፈል ወቅት"
 
-#: ../autopart.py:1493
+#: ../autopart.py:1468
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -271,7 +279,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1506 ../autopart.py:1523
+#: ../autopart.py:1481 ../autopart.py:1498
 msgid ""
 "\n"
 "\n"
@@ -281,12 +289,12 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../autopart.py:1507 ../iw/partition_gui.py:997
+#: ../autopart.py:1482 ../iw/partition_gui.py:997
 #: ../textw/partition_text.py:227
 msgid "Error Partitioning"
 msgstr "የክፍፍል ስሕተት"
 
-#: ../autopart.py:1508
+#: ../autopart.py:1483
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -297,23 +305,14 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1525
+#: ../autopart.py:1500
 msgid ""
 "\n"
 "\n"
-"You can choose a different automatic partitioning option, or click 'Back' to "
-"select manual partitioning.\n"
-"\n"
-"Press 'OK' to continue."
+"Press 'OK' to choose a different partitioning option."
 msgstr ""
-"\n"
-"\n"
-"የተለያዩ አውቶማቲክ የመከፋፈያ ምርጫ መምረጥ ይችላሉ ወይንም በእጅ የሚሰራውን መከፋፈያ ለመምረጥ ‹ወደኋላ› የሚለውን "
-"ያቃጭሉ።\n"
-"\n"
-"ለመቀጠል ‹እሺ› የሚለውን ይጫኑ።"
 
-#: ../autopart.py:1530
+#: ../autopart.py:1503
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -329,27 +328,27 @@ msgstr ""
 "\n"
 "በቂ የሆነ ቦታ ለማስገባት ሥራው በሀርድ ድራይቭዎት ላይ ከሌለ ይህ ሊከሰት ይችላል።"
 
-#: ../autopart.py:1541
+#: ../autopart.py:1514
 msgid "Unrecoverable Error"
 msgstr "የማይገኝ ስሕተት"
 
-#: ../autopart.py:1542
+#: ../autopart.py:1515
 msgid "Your system will now be rebooted."
 msgstr "አሁን ሲስተምዎት እንደገና ይጀምራል።"
 
-#: ../autopart.py:1689 ../bootloader.py:191 ../image.py:417
-#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:910
-#: ../partedUtils.py:967 ../upgrade.py:344 ../yuminstall.py:163
-#: ../yuminstall.py:986 ../iw/blpasswidget.py:145
-#: ../iw/bootloader_advanced_gui.py:41 ../iw/upgrade_swap_gui.py:188
-#: ../iw/upgrade_swap_gui.py:196 ../iw/upgrade_swap_gui.py:203
-#: ../iw/zfcp_gui.py:247 ../textw/bootloader_text.py:124
-#: ../textw/bootloader_text.py:449 ../textw/partition_text.py:231
-#: ../textw/upgrade_text.py:174 ../loader2/loader.c:396
+#: ../autopart.py:1662 ../bootloader.py:194 ../image.py:432
+#: ../partedUtils.py:305 ../partedUtils.py:335 ../partedUtils.py:984
+#: ../partedUtils.py:1041 ../upgrade.py:350 ../yuminstall.py:1060
+#: ../iw/blpasswidget.py:145 ../iw/bootloader_advanced_gui.py:41
+#: ../iw/upgrade_swap_gui.py:188 ../iw/upgrade_swap_gui.py:196
+#: ../iw/upgrade_swap_gui.py:203 ../iw/zfcp_gui.py:247
+#: ../textw/bootloader_text.py:124 ../textw/bootloader_text.py:449
+#: ../textw/partition_text.py:231 ../textw/upgrade_text.py:174
+#: ../loader2/loader.c:400
 msgid "Warning"
 msgstr "ማስጠንቀቂያ"
 
-#: ../autopart.py:1695
+#: ../autopart.py:1668
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -364,7 +363,7 @@ msgstr ""
 "የማኑዋሉ ዲስክ መከፋፈያ መሣሪያ፣ ዲስክ ድሩይድ፣ መስተጋብራዊ በሆነ አካቢቢ መከፋፈያዎችን እንዲፈጥሩ ያስችላል። የፋይል "
 "አሠራሮችን፤ ዓይነቶችን፤ የማከማቻ ነጥቦችን፤ የመከፋፈያ መጠኖችን እና ብዙ የተለያዩ ነገሮችን ማድረግ ይችላሉ።"
 
-#: ../autopart.py:1706
+#: ../autopart.py:1679
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -372,19 +371,19 @@ msgstr ""
 "የአውቶማቲክ መከፋፈያው በመጫኛው ፕሮግራም ከመቆሙ በፊት እንዴት አድርገው ሀርድ ዲራይቩ ላይ ያለውን ቦታ ለመጠቀም "
 "እንደሚችሉ መምረጥ አለብዎት።"
 
-#: ../autopart.py:1711
+#: ../autopart.py:1684
 msgid "Remove all partitions on this system"
 msgstr "እዚህ ሲስተም ላይ ያሉትን ሁሉንም መከፋፈያዎች አስወግድ"
 
-#: ../autopart.py:1712
+#: ../autopart.py:1685
 msgid "Remove all Linux partitions on this system"
 msgstr "እዚህ ሲስተም ላይ ያሉትን ሁሉንም የሊኑክስ መከፋፈያዎች አስወግድ"
 
-#: ../autopart.py:1713
+#: ../autopart.py:1686
 msgid "Keep all partitions and use existing free space"
 msgstr "ሁሉንም መከፋፈያዎች አቆይና ያለውን ነፃ ቦታ ተጠቀም"
 
-#: ../autopart.py:1715
+#: ../autopart.py:1688
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -394,7 +393,7 @@ msgstr ""
 "በሚከተሉት ድራይቮች ላይ ያሉትን ሁሉንም መከፋፈያዎች/ሁሉንም ዳታ/ ለማስወገድ መርጠዋል፦ %s \n"
 "ይህንን ማድረግ እንደሚፈልጉ እርግጠኛ ነዎት?"
 
-#: ../autopart.py:1719
+#: ../autopart.py:1692
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -405,26 +404,26 @@ msgstr ""
 "ይህንን ማድረግ እንደሚፈልጉ እርግጠኛ ነዎት?"
 
 #: ../backend.py:97
-#, python-format
-msgid "Upgrading %s-%s-%s.%s.\n"
+#, fuzzy, python-format
+msgid "Upgrading %s\n"
 msgstr ""
-"%s-%s-%s.%s.ን\n"
-" በማሻሻል ላይ። \n"
+"የ%sን ጥቅሎች በማሻሻል ላይ\n"
+"\n"
 
 #: ../backend.py:99
-#, python-format
-msgid "Installing %s-%s-%s.%s.\n"
-msgstr "%s-%s-%s.%s በማስገባት ላይ።\n"
+#, fuzzy, python-format
+msgid "Installing %s\n"
+msgstr "%sን አስገባ"
 
-#: ../bootloader.py:123
+#: ../bootloader.py:126
 msgid "Bootloader"
 msgstr "የማስጀመሪያ ተሸካሚ"
 
-#: ../bootloader.py:123
+#: ../bootloader.py:126
 msgid "Installing bootloader..."
 msgstr "የማስጀመሪያው ተሸካሚን በመጫን ላይ..."
 
-#: ../bootloader.py:192
+#: ../bootloader.py:195
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
@@ -466,42 +465,41 @@ msgstr ""
 "ሊቆጣጠሩት የማይቻል ከተለመደው ውጪ የሆነ ነገር ተከስቷውል። ብልሽት ሊሆን ይችላል። እባክዎን የዚህን ከተለመደው ውጪ "
 "የሆነውን ሙሉ ጽሑፍ ይቅዱ እና የብልሽቱን ዝርዝር ዘገባ ከአናኮዳ ላይ በ%s ላይ መረጃ ያድርጉ።"
 
-#: ../exception.py:391 ../exception.py:408
+#: ../exception.py:390 ../exception.py:407
 msgid "Dump Written"
 msgstr "የተጻፉትን ተዋቸው"
 
-#: ../exception.py:392
+#: ../exception.py:391
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be rebooted."
 msgstr "የሲስተምዎች ሁኔታ ለፍሎፒው በተሳካ ሁኔታ ተጽፏል። ሲስተምዎት አሁን እንደገና ይጀምራል።"
 
-#: ../exception.py:395 ../exception.py:412 ../fsset.py:2427 ../gui.py:806
-#: ../gui.py:977 ../harddrive.py:70 ../image.py:93 ../image.py:427
-#: ../image.py:490 ../packages.py:379 ../yuminstall.py:174
-#: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:66
+#: ../exception.py:394 ../exception.py:411 ../fsset.py:1737 ../fsset.py:2464
+#: ../gui.py:837 ../gui.py:987 ../harddrive.py:77 ../image.py:91
+#: ../image.py:442 ../image.py:513 ../packages.py:300 ../iw/confirm_gui.py:32
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:66
 msgid "_Reboot"
 msgstr "እንደገና አስጀምሩ"
 
-#: ../exception.py:400 ../exception.py:417
+#: ../exception.py:399 ../exception.py:416
 #, fuzzy
 msgid "Dump Not Written"
 msgstr "የተጻፉትን ተዋቸው"
 
-#: ../exception.py:401
+#: ../exception.py:400
 msgid "There was a problem writing the system state to the floppy."
 msgstr ""
 
-#: ../exception.py:409
+#: ../exception.py:408
 #, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  Your "
 "system will now be rebooted."
 msgstr "የሲስተምዎች ሁኔታ ለፍሎፒው በተሳካ ሁኔታ ተጽፏል። ሲስተምዎት አሁን እንደገና ይጀምራል።"
 
-#: ../exception.py:418
+#: ../exception.py:417
 msgid "There was a problem writing the system state to the remote host."
 msgstr ""
 
@@ -514,34 +512,34 @@ msgstr "መጥፎ እክሎችን በማጣራት ላይ"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "በ/dev/%s ላይ መጥፎ እክሎችን በማጣራት ላይ..."
 
-#: ../fsset.py:644 ../fsset.py:1438 ../fsset.py:1469 ../fsset.py:1530
-#: ../fsset.py:1541 ../fsset.py:1594 ../fsset.py:1605 ../fsset.py:1640
-#: ../fsset.py:1690 ../fsset.py:1734 ../fsset.py:1753 ../image.py:134
-#: ../image.py:167 ../image.py:297 ../partedUtils.py:721
-#: ../partIntfHelpers.py:403 ../yuminstall.py:147 ../yuminstall.py:614
-#: ../yuminstall.py:674 ../yuminstall.py:847 ../iw/osbootwidget.py:216
-#: ../iw/osbootwidget.py:225 ../iw/raid_dialog_gui.py:605
-#: ../iw/raid_dialog_gui.py:644 ../textw/upgrade_text.py:162
-#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:450 ../loader2/driverdisk.c:334
-#: ../loader2/driverdisk.c:372 ../loader2/driverdisk.c:400
-#: ../loader2/driverdisk.c:472 ../loader2/hdinstall.c:104
-#: ../loader2/hdinstall.c:155 ../loader2/hdinstall.c:214
-#: ../loader2/hdinstall.c:432 ../loader2/hdinstall.c:536
-#: ../loader2/hdinstall.c:579 ../loader2/hdinstall.c:592
-#: ../loader2/kickstart.c:273 ../loader2/lang.c:101 ../loader2/loader.c:353
-#: ../loader2/loader.c:760 ../loader2/mediacheck.c:329
-#: ../loader2/mediacheck.c:387 ../loader2/method.c:153 ../loader2/method.c:372
-#: ../loader2/method.c:457 ../loader2/nfsinstall.c:127
-#: ../loader2/nfsinstall.c:214 ../loader2/nfsinstall.c:223
-#: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:72
-#: ../loader2/urlinstall.c:144 ../loader2/urlinstall.c:157
+#: ../fsset.py:671 ../fsset.py:1422 ../fsset.py:1453 ../fsset.py:1514
+#: ../fsset.py:1525 ../fsset.py:1578 ../fsset.py:1589 ../fsset.py:1629
+#: ../fsset.py:1679 ../fsset.py:1745 ../fsset.py:1764 ../image.py:132
+#: ../image.py:173 ../image.py:305 ../partedUtils.py:788
+#: ../partIntfHelpers.py:406 ../yuminstall.py:567 ../yuminstall.py:655
+#: ../yuminstall.py:906 ../iw/osbootwidget.py:216 ../iw/osbootwidget.py:225
+#: ../iw/raid_dialog_gui.py:622 ../iw/raid_dialog_gui.py:661
+#: ../iw/task_gui.py:110 ../textw/upgrade_text.py:162
+#: ../textw/upgrade_text.py:169 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:454 ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:403
+#: ../loader2/driverdisk.c:475 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:157 ../loader2/hdinstall.c:216
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:538
+#: ../loader2/hdinstall.c:581 ../loader2/hdinstall.c:594
+#: ../loader2/kickstart.c:276 ../loader2/lang.c:104 ../loader2/loader.c:359
+#: ../loader2/loader.c:778 ../loader2/mediacheck.c:329
+#: ../loader2/mediacheck.c:387 ../loader2/method.c:155 ../loader2/method.c:373
+#: ../loader2/method.c:458 ../loader2/nfsinstall.c:130
+#: ../loader2/nfsinstall.c:211 ../loader2/nfsinstall.c:220
+#: ../loader2/telnetd.c:87 ../loader2/urlinstall.c:79
+#: ../loader2/urlinstall.c:151 ../loader2/urlinstall.c:164
 #: ../loader2/urls.c:181 ../loader2/urls.c:191 ../loader2/urls.c:200
-#: ../loader2/urls.c:331 ../loader2/urls.c:336
+#: ../loader2/urls.c:334 ../loader2/urls.c:339
 msgid "Error"
 msgstr "ስህተት"
 
-#: ../fsset.py:645
+#: ../fsset.py:672
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -553,27 +551,27 @@ msgstr ""
 "\n"
 "%sን ሳያሰፍሩ መቀጥል ይፈልጋሉ?"
 
-#: ../fsset.py:1346
+#: ../fsset.py:1330
 msgid "RAID Device"
 msgstr "የRAID  መሣሪያ"
 
-#: ../fsset.py:1350 ../fsset.py:1356
+#: ../fsset.py:1334 ../fsset.py:1340
 msgid "Apple Bootstrap"
 msgstr "አፕል ቡትስትራፕ"
 
-#: ../fsset.py:1361 ../partitions.py:869
+#: ../fsset.py:1345 ../partitions.py:902
 msgid "PPC PReP Boot"
 msgstr "PPC PReP ማስጀመሪያ"
 
-#: ../fsset.py:1364
+#: ../fsset.py:1348
 msgid "First sector of boot partition"
 msgstr "የማስጀመሪያው መከፋፈያ የመጀመሪያ ክፍል"
 
-#: ../fsset.py:1365
+#: ../fsset.py:1349
 msgid "Master Boot Record (MBR)"
 msgstr "ዋናው የማስጀመሪያ መረጃ (MBR)"
 
-#: ../fsset.py:1439
+#: ../fsset.py:1423
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -585,17 +583,17 @@ msgstr ""
 "ሥራ መቀጠል አይቻልም። \n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አጽድቅ>ን ይጫኑ።"
 
-#: ../fsset.py:1468 ../rescue.py:287 ../rescue.py:289
-#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:257
-#: ../loader2/cdinstall.c:259 ../loader2/method.c:419
+#: ../fsset.py:1452 ../rescue.py:289 ../rescue.py:291
+#: ../textw/upgrade_text.py:120 ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:260 ../loader2/method.c:420
 msgid "Skip"
 msgstr "ዝለል"
 
-#: ../fsset.py:1468 ../upgrade.py:57 ../textw/complete_text.py:47
+#: ../fsset.py:1452 ../upgrade.py:59 ../textw/complete_text.py:47
 msgid "Reboot"
 msgstr "እንደገና አስጀምር"
 
-#: ../fsset.py:1489
+#: ../fsset.py:1473
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -607,12 +605,12 @@ msgid ""
 "installer will ignore it during the installation."
 msgstr ""
 
-#: ../fsset.py:1496
+#: ../fsset.py:1480
 #, fuzzy
 msgid "Reformat"
 msgstr "ፎርማት"
 
-#: ../fsset.py:1500
+#: ../fsset.py:1484
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -624,7 +622,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: ../fsset.py:1508
+#: ../fsset.py:1492
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -636,7 +634,7 @@ msgid ""
 "make sure the installer is set to to format all swap partitions."
 msgstr ""
 
-#: ../fsset.py:1518
+#: ../fsset.py:1502
 msgid ""
 "\n"
 "\n"
@@ -645,11 +643,11 @@ msgid ""
 "Reboot to restart the system."
 msgstr ""
 
-#: ../fsset.py:1524 ../iw/partition_gui.py:368
+#: ../fsset.py:1508 ../iw/partition_gui.py:368
 msgid "Format"
 msgstr "ፎርማት"
 
-#: ../fsset.py:1531
+#: ../fsset.py:1515
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -665,7 +663,7 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር «እሺ»ን ይጫኑ።"
 
-#: ../fsset.py:1542
+#: ../fsset.py:1526
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -680,7 +678,7 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር «እሺ»ን ይጫኑ።"
 
-#: ../fsset.py:1595
+#: ../fsset.py:1579
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -692,7 +690,7 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ"
 
-#: ../fsset.py:1606
+#: ../fsset.py:1590
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -705,7 +703,7 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ።"
 
-#: ../fsset.py:1641
+#: ../fsset.py:1630
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -716,7 +714,7 @@ msgstr ""
 "%sን ለሟሟሸት በሚሞክርበት ጊዜ ስሕተት ተፈጥሯል። ይህ ችግር አሳሳቢ ስለሆነ የማስገቡትን ሥራ መቀጠል አይችልም።\n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ።"
 
-#: ../fsset.py:1691
+#: ../fsset.py:1680
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -728,11 +726,11 @@ msgstr ""
 "\n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ።"
 
-#: ../fsset.py:1712 ../fsset.py:1721
+#: ../fsset.py:1706 ../fsset.py:1715
 msgid "Invalid mount point"
 msgstr "ተቀባይነት የሌለው የማውጫ ነጥብ"
 
-#: ../fsset.py:1713
+#: ../fsset.py:1707
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -743,7 +741,7 @@ msgstr ""
 "%sን ለመፍጠር በሚሞክርበት ጊዜ ስሕተት ተከስቷውል። አንዳንድ የዚህ መንገድ ክፍል ማውጫ አይደለም።\n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ።"
 
-#: ../fsset.py:1722
+#: ../fsset.py:1716
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -755,7 +753,24 @@ msgstr ""
 "አይቻልም።\n"
 "ሲስተምዎትን እንደገና ለማስጀመር <አስገባ>ን ይጫኑ።"
 
-#: ../fsset.py:1735
+#: ../fsset.py:1729
+#, fuzzy
+msgid "Unable to mount filesystem"
+msgstr "ፋይል መጫን አልተቻለም!"
+
+#: ../fsset.py:1730
+#, python-format
+msgid ""
+"An error occurred mounting device %s as %s.  You may continue installation, "
+"but there may be problems."
+msgstr ""
+
+#: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
+#: ../kickstart.py:1017 ../iw/partition_gui.py:1011
+msgid "_Continue"
+msgstr "ቀጥል (_C)"
+
+#: ../fsset.py:1746
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -768,7 +783,7 @@ msgstr ""
 "ይሄ ምናልባት ይህ መከፋፈያ አልተሟሸ ይሆናል ማለት ነው።\n"
 "ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../fsset.py:1754
+#: ../fsset.py:1765
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -780,11 +795,11 @@ msgstr ""
 "ይሄ ምናልባት  የfstabዎት ትክክል አይደለም ማለት ሊሆን ይችላል።\n"
 "ሲስተምዎትን እንደገና ለማስጀመር ‹እሺ›ን ይጫኑ።"
 
-#: ../fsset.py:2419
+#: ../fsset.py:2456
 msgid "Duplicate Labels"
 msgstr "መለያዎችን አባዛ"
 
-#: ../fsset.py:2420
+#: ../fsset.py:2457
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -797,24 +812,24 @@ msgstr ""
 "\n"
 "እባክዎን ይህንን ችግር ያስተካክሉ እና የማስገባቱን ሂደት እንደገና ይጀምሩ።"
 
-#: ../fsset.py:2680
+#: ../fsset.py:2717
 msgid "Formatting"
 msgstr "አስተካክል"
 
-#: ../fsset.py:2681
+#: ../fsset.py:2718
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "የ%sን ዶሴ አሠራር በማስተካከል ላይ..."
 
-#: ../gui.py:110
+#: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
 msgstr "የሲኒማ ቅጂዎች ላይ ሲቀዱ ስሕተት ተከስቷ።"
 
-#: ../gui.py:122
+#: ../gui.py:116
 msgid "Screenshots Copied"
 msgstr "የሲኒማ ቅጂዎች ቅጂ"
 
-#: ../gui.py:123
+#: ../gui.py:117
 msgid ""
 "The screenshots have been saved into the directory:\n"
 "\n"
@@ -828,20 +843,20 @@ msgstr ""
 "\n"
 "እንደዋናው እንደገና ሲያስጀምሩ እና ሲገቡ እነዚህን መተቀም ይችላሉ።"
 
-#: ../gui.py:167
+#: ../gui.py:160
 msgid "Saving Screenshot"
 msgstr "የሲኒማ ቅጂዎችን በማስቀመጥ ላይ"
 
-#: ../gui.py:168
+#: ../gui.py:161
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "‹%s› የተባለ የሲኒማ ቅጂ ተቀምጧል።"
 
-#: ../gui.py:171
+#: ../gui.py:164
 msgid "Error Saving Screenshot"
 msgstr "የሲኒማ ቅጂውን ለማስቀመጥ ስሕተት ተከስቷውል"
 
-#: ../gui.py:172
+#: ../gui.py:165
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -849,42 +864,44 @@ msgstr ""
 "የሲኒማ ቅጂውን ሊያስቀምጥ ስሕተት ተከስቷል። ይህ የተከሰተው በጥቅሉ ማስገባቱ ወቅት ከሆነ እንዲሳካ ብዙ ጊዜ ደጋግመው "
 "መሞከር ሊኖርብዎት ይችላል።"
 
-#: ../gui.py:241 ../text.py:383
+#: ../gui.py:230 ../text.py:391
 msgid "Fix"
 msgstr "አስተካክል"
 
-#: ../gui.py:242 ../rescue.py:193 ../text.py:384 ../upgrade.py:57
+#: ../gui.py:231 ../rescue.py:201 ../text.py:392 ../upgrade.py:59
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:48
-#: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/hdinstall.c:327 ../loader2/loader.c:396
+#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
+#: ../loader2/hdinstall.c:329 ../loader2/loader.c:400
 msgid "Yes"
 msgstr "አዎ"
 
-#: ../gui.py:243 ../rescue.py:193 ../rescue.py:195 ../text.py:385
+#: ../gui.py:232 ../rescue.py:201 ../rescue.py:203 ../text.py:393
 #: ../textw/bootloader_text.py:69 ../textw/constants_text.py:52
-#: ../loader2/driverdisk.c:515 ../loader2/driverdisk.c:526
-#: ../loader2/loader.c:396
+#: ../loader2/driverdisk.c:516 ../loader2/driverdisk.c:527
+#: ../loader2/loader.c:400
 msgid "No"
 msgstr "አይ"
 
-#: ../gui.py:245 ../text.py:387 ../loader2/net.c:294 ../loader2/net.c:613
+#: ../gui.py:234 ../text.py:395 ../loader2/net.c:96 ../loader2/net.c:300
+#: ../loader2/net.c:538 ../loader2/net.c:639 ../loader2/net.c:753
+#: ../loader2/net.c:763 ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Retry"
 msgstr "እንደገና ሞክር"
 
-#: ../gui.py:246 ../text.py:388
+#: ../gui.py:235 ../text.py:396
 msgid "Ignore"
 msgstr "ተውት"
 
-#: ../gui.py:247 ../gui.py:711 ../partIntfHelpers.py:233
-#: ../partIntfHelpers.py:526 ../text.py:103 ../text.py:104 ../text.py:360
-#: ../text.py:362 ../text.py:389 ../iw/bootloader_advanced_gui.py:47
+#: ../gui.py:236 ../gui.py:702 ../partIntfHelpers.py:236
+#: ../partIntfHelpers.py:529 ../text.py:102 ../text.py:103 ../text.py:368
+#: ../text.py:370 ../text.py:397 ../iw/bootloader_advanced_gui.py:47
 #: ../textw/bootloader_text.py:199 ../textw/constants_text.py:40
-#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:270
-#: ../loader2/loader.c:342
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:273
+#: ../loader2/loader.c:348
 msgid "Cancel"
 msgstr "ተወው"
 
-#: ../gui.py:801 ../text.py:346
+#: ../gui.py:832 ../text.py:354
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
@@ -895,25 +912,25 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../gui.py:803 ../text.py:348
+#: ../gui.py:834 ../text.py:356
 msgid "Error Parsing Kickstart Config"
 msgstr "ስሕተት፦ Parsing Kickstart Config"
 
-#: ../gui.py:811 ../text.py:358
+#: ../gui.py:842 ../text.py:366
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr "አሁን ፍሎፒ ይክተቱ። ሁሉም ዲስኩ ላይ ያሉት ዝርዝሮች ለሚሰረዙ እባክዎትን ዲስከትዎትን በጥንቃቄ ይምረጡ።"
 
-#: ../gui.py:872
+#: ../gui.py:889
 msgid "default:LTR"
 msgstr "ነባሩ፥LTR"
 
-#: ../gui.py:964
+#: ../gui.py:973
 msgid "Error!"
 msgstr "ስሕተት!"
 
-#: ../gui.py:965
+#: ../gui.py:974
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -924,45 +941,62 @@ msgstr ""
 "\n"
 "የክፍል ስም = %s"
 
-#: ../gui.py:969 ../gui.py:974 ../packages.py:371 ../packages.py:376
-#: ../yuminstall.py:680
+#: ../gui.py:979 ../gui.py:984 ../packages.py:292 ../packages.py:297
+#: ../yuminstall.py:661
 msgid "_Exit"
 msgstr "ውጣ (_E)"
 
-#: ../gui.py:970 ../yuminstall.py:161
+#: ../gui.py:980 ../yuminstall.py:570
 msgid "_Retry"
 msgstr "እንደገና ሞክር (_R)"
 
-#: ../gui.py:973 ../packages.py:375
+#: ../gui.py:983 ../packages.py:296
 msgid "The installer will now exit..."
 msgstr "ማስገቢያው አሁን ይወጣል..."
 
-#: ../gui.py:976 ../packages.py:378
+#: ../gui.py:986 ../packages.py:299
 msgid "Your system will now be rebooted..."
 msgstr "ሲስተምዎት እንደገና አይጀምርም..."
 
-#: ../gui.py:979 ../packages.py:380
+#: ../gui.py:989 ../packages.py:301
 msgid "Rebooting System"
 msgstr "ሲስተሙን እንደገና አስጀምር"
 
-#: ../gui.py:1044
+#: ../gui.py:1053
 #, python-format
 msgid "%s Installer"
 msgstr "የ%s ማስገቢያ"
 
-#: ../gui.py:1050
+#: ../gui.py:1060
 msgid "Unable to load title bar"
 msgstr "የአርዕስቱን ባር መጫን አልተቻለም"
 
-#: ../gui.py:1103
+#: ../gui.py:1109
 msgid "Install Window"
 msgstr "መስኮት አስገባ"
 
-#: ../harddrive.py:61 ../image.py:480
+#: ../harddrive.py:41 ../image.py:143 ../image.py:470
+#, fuzzy, python-format
+msgid ""
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your installation images and that you have "
+"all the required media.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
+msgstr ""
+"የ%s-%s-%s ጥቅል ሊከፈት አይችልም። በጠፋው ፋይል ወይንም ምንልባት በተበላሸ ጥቅል ምክንያት ሊሆን ይችላል።  "
+"እያስገቡ ያሉት ከሲዲ ሚዲያ ከሆነ አብዛኛውን ጊዜ ይህ ማለት የሲዲው ሚዲያ ተበላሽቷል ወይንም የሲዲው ድራይቭ ሚዲያውን "
+"ማንበብ አልቻለም ማለት ነው።\n"
+"\n"
+"እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
+
+#: ../harddrive.py:68 ../image.py:503
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
-#: ../harddrive.py:62
+#: ../harddrive.py:69
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -972,16 +1006,16 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: ../harddrive.py:71 ../image.py:491
+#: ../harddrive.py:78 ../image.py:514
 #, fuzzy
 msgid "Re_try"
 msgstr "እንደገና ሞክር"
 
-#: ../image.py:84
+#: ../image.py:82
 msgid "Required Install Media"
 msgstr "የተፈለጉት የሚዲያ ማስገቢያ"
 
-#: ../image.py:85
+#: ../image.py:83
 #, python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
@@ -996,18 +1030,13 @@ msgstr ""
 "እባክዎን የማስገባቱን ሥራ ከመቀጠልዎት በፊት ይህንን ዝግጁ ያድርጉ። የማስገባቱን ሥራ አቋርጠው እንደገና ማስጀመር "
 "ከፈለጉ «እንደገና ያስጀምሩ» የሚለውን ይምረጡ።"
 
-#: ../image.py:93 ../packages.py:376 ../packages.py:379 ../yuminstall.py:854
+#: ../image.py:91 ../packages.py:297 ../packages.py:300 ../yuminstall.py:913
 #: ../iw/confirm_gui.py:32 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:66
 msgid "_Back"
 msgstr "ወደኋላ(_B)"
 
-#: ../image.py:93 ../image.py:428 ../kickstart.py:916 ../kickstart.py:945
-#: ../iw/partition_gui.py:1011
-msgid "_Continue"
-msgstr "ቀጥል (_C)"
-
-#: ../image.py:135
+#: ../image.py:133
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -1016,15 +1045,15 @@ msgstr ""
 "ሲዲውን በሚያውጠበት ጊዜ ስሕተት ተከስቷል። እባክዎ tty2 ላይ ካለው ሼል የ%sን መረጃ እየፈለጉ እንዳልሆነ ያረጋግጡ "
 "እና እንደገና ሞክሩ የሚለው ላይ ያቃጭሉ።"
 
-#: ../image.py:157
+#: ../image.py:163
 msgid "Copying File"
 msgstr "ፋይል በመቅዳት ላይ"
 
-#: ../image.py:158
+#: ../image.py:164
 msgid "Transferring install image to hard drive..."
 msgstr "የአገባቡን ገጽታ ወደ ሀርድ ድራይቩ በማስተላለፍ ላይ..."
 
-#: ../image.py:168
+#: ../image.py:174
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1032,29 +1061,46 @@ msgstr ""
 "ወደ ሀርድ ድራይቭዎት የአገባቡን ገጽታ በሚያስተላልፍበት ጊዜ ስሕተት ተከስቷል። ምናልባት በቂ የሆነ የመረጃ መያዣ ቦታ "
 "የለዎት ይሆናል።"
 
-#: ../image.py:255
+#: ../image.py:263
 msgid "Change CDROM"
 msgstr "ሲዲሮሙን ለውጥ"
 
-#: ../image.py:256
+#: ../image.py:264
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "እባክዎን የ%s %dን ዲስክ ለመቀጠል ያስገቡ።"
 
-#: ../image.py:291
+#: ../image.py:299
 msgid "Wrong CDROM"
 msgstr "የተሳሳተ ሲዲሮም"
 
-#: ../image.py:292
+#: ../image.py:300
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "ያ ትክክለኛው %s ሲዲሮም አይደለም።"
 
-#: ../image.py:298
+#: ../image.py:306
 msgid "Unable to access the CDROM."
 msgstr "ሲዲሮሙን ማስኬድ አልተቻለም።"
 
-#: ../image.py:481
+#: ../image.py:359
+#, fuzzy, python-format
+msgid ""
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your installation tree contains all required "
+"packages.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
+msgstr ""
+"የ%s-%s-%s ጥቅል ሊከፈት አይችልም። በጠፋው ፋይል ወይንም ምንልባት በተበላሸ ጥቅል ምክንያት ሊሆን ይችላል።  "
+"እያስገቡ ያሉት ከሲዲ ሚዲያ ከሆነ አብዛኛውን ጊዜ ይህ ማለት የሲዲው ሚዲያ ተበላሽቷል ወይንም የሲዲው ድራይቭ ሚዲያውን "
+"ማንበብ አልቻለም ማለት ነው።\n"
+"\n"
+"እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
+
+#: ../image.py:504
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the "
@@ -1064,15 +1110,20 @@ msgid ""
 "Click Reboot to abort the installation."
 msgstr ""
 
-#: ../installclass.py:57
+#: ../installclass.py:60
 msgid "Install on System"
 msgstr "ሲስተሙ ላይ ያስገቡ"
 
-#: ../kickstart.py:74
+#: ../iscsi.py:127 ../iscsi.py:128
+#, fuzzy
+msgid "Initializing iSCSI initiator"
+msgstr "መጀመሪያ በማድረግ ላይ"
+
+#: ../kickstart.py:73
 msgid "Scriptlet Failure"
 msgstr "የጽሑፍ ውድቀት"
 
-#: ../kickstart.py:75
+#: ../kickstart.py:74
 #, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
@@ -1085,24 +1136,24 @@ msgstr ""
 "\n"
 "እባክዎ ሲስተምዎትን እንደገና ለማስጀመር “እሺ” የሚለውን ቁልፍ ይጫኑ።"
 
-#: ../kickstart.py:751 ../kickstart.py:769
+#: ../kickstart.py:821 ../kickstart.py:839
 #, fuzzy
 msgid "Running..."
 msgstr "በማገናኘት ላይ..."
 
-#: ../kickstart.py:752
+#: ../kickstart.py:822
 msgid "Running pre-install scripts"
 msgstr ""
 
-#: ../kickstart.py:770
+#: ../kickstart.py:840
 msgid "Running post-install scripts"
 msgstr ""
 
-#: ../kickstart.py:908
+#: ../kickstart.py:980
 msgid "Missing Package"
 msgstr "የጠፋ ጥቅል"
 
-#: ../kickstart.py:909
+#: ../kickstart.py:981
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1110,15 +1161,15 @@ msgid ""
 msgstr ""
 "የ‹%s› ጥቅል መግባት እንዳለበት ጠቅሰዋል። ይህ ጥቅል የለም። መቀጠል ይፈልጋሉ ወይንስ የማስገባት ሥራውን ማቋረጥ?"
 
-#: ../kickstart.py:915 ../kickstart.py:944
+#: ../kickstart.py:987 ../kickstart.py:1016
 msgid "_Abort"
 msgstr "ውድቅ"
 
-#: ../kickstart.py:936
+#: ../kickstart.py:1008
 msgid "Missing Group"
 msgstr "የጠፋ ቡድን"
 
-#: ../kickstart.py:937
+#: ../kickstart.py:1009
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -1126,23 +1177,54 @@ msgid ""
 msgstr ""
 "የ‹%s› ቡድን መግባት እንዳለበት ጠቅሰዋል። ይህ ቡድን የለም። መቀጠል ይፈልጋሉ ወይንስ የማስገባት ሥራውን ማቋረጥ?"
 
-#: ../network.py:46
+#: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
 msgstr "የሆስቱ ስም የፊደሎቹ እርዝመት 64 ወይንም በታች መሆን አለበት።"
 
-#: ../network.py:49
+#: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr "የሆስቱ ስም ገደብ ከ‹a-z› ወይንም ከ‹A-Z› ውስጥ ተቀባይነት ካለው ጋር መጀመር አለበት"
 
-#: ../network.py:54
+#: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "የሆስቱ ስሞች ሊይዙ የሚችሉት ፊደሎች ‹a-z›, ‹A-Z›, ‹-›, ወይንም ‹.› ብቻ ናቸው"
 
-#: ../packages.py:357
+#: ../network.py:89
+#, fuzzy
+msgid "IP Address is missing."
+msgstr "የIP አድራሻ ጠፍቷል"
+
+#: ../network.py:93
+#, fuzzy
+msgid ""
+"IP Addresses must contain four numbers between 0 and 255, separated by "
+"periods."
+msgstr "የIP አድራሻዎች በ0 እና በ255 መካከል ያሉትን ቁጥሮች የያዙ መሆን አለባቸው"
+
+#: ../network.py:96
+#, fuzzy, python-format
+msgid "'%s' is not a valid IPv6 address."
+msgstr "%s ተቀባይነት የሌለው የሆስት ስም ነው።"
+
+#: ../packages.py:247
+#, fuzzy
+msgid "Enter Registration Key"
+msgstr "የኢንክሪፕሽን ቁልፍ"
+
+#: ../packages.py:248
+#, python-format
+msgid "Please enter the registration key for your version of %s."
+msgstr ""
+
+#: ../packages.py:248
+msgid "Key:"
+msgstr ""
+
+#: ../packages.py:278
 msgid "Warning! This is pre-release software!"
 msgstr "ማስጠንቀቂያ! ይህ በቅድሚያ የወጣ ሶፍትዌር ነው!"
 
-#: ../packages.py:358
+#: ../packages.py:279
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1168,7 +1250,7 @@ msgstr ""
 "ን\n"
 "ይጎብኙ እና በ‹%s› ላይ ሀተታዎትን ፋይል ያድርጉ።\n"
 
-#: ../packages.py:371
+#: ../packages.py:292
 msgid "_Install anyway"
 msgstr "ለማንኛውም አስገባ"
 
@@ -1215,21 +1297,21 @@ msgstr "ድራይቩን ተወው (_I)"
 msgid "_Format drive"
 msgstr "ድራይቩን አሟሸ (_F)"
 
-#: ../partedUtils.py:722
+#: ../partedUtils.py:789
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "በ%s ላይ የፋይሉን አሠራር በሚያስፋፋበት ጊዜ ስሕተት ተፈጥሯል፦ %s"
 
-#: ../partedUtils.py:808
+#: ../partedUtils.py:884
 msgid "Initializing"
 msgstr "መጀመሪያ በማድረግ ላይ"
 
-#: ../partedUtils.py:809
+#: ../partedUtils.py:885
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "እባክዎን ድራይቭ %sን እስኪያተካክል ድረስ ጠብቁ...\n"
 
-#: ../partedUtils.py:911
+#: ../partedUtils.py:985
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
@@ -1248,7 +1330,7 @@ msgstr ""
 "\n"
 "ይህንን ድራይቭ መጀመሪያ ማድረግ፤ ሁሉንም ዳታዎች መሰረዝ ይፈልጋሉ?"
 
-#: ../partedUtils.py:968
+#: ../partedUtils.py:1042
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1266,11 +1348,11 @@ msgstr ""
 "\n"
 "ይህንን ድራይቭ ምልክት ማድረግ፤ ሁሉንም ዳታ መሰረዝ ይፈልጋሉ?"
 
-#: ../partedUtils.py:1086
+#: ../partedUtils.py:1160
 msgid "No Drives Found"
 msgstr "ምንም ድራይቭ አልተገኘም"
 
-#: ../partedUtils.py:1087
+#: ../partedUtils.py:1161
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1333,54 +1415,54 @@ msgstr ""
 msgid "Please specify a mount point for this partition."
 msgstr "እባክዎን ለዚህ መከፋፈያ የማሳደጊያ ነጥብ ግለጹ።"
 
-#: ../partIntfHelpers.py:110
-msgid "This partition is holding the data for the hard drive install."
-msgstr "ይህ መከፋፈያ ዳታውን ለሀርድ ድራይቩ የማስገባት ሥራ አግቶታል።"
-
-#: ../partIntfHelpers.py:116
+#: ../partIntfHelpers.py:112
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
 msgstr "ይህ መከፋፈያ የRAID መሣሪያ /dev/md%s ክፍል ነው።"
 
-#: ../partIntfHelpers.py:119
+#: ../partIntfHelpers.py:115
 msgid "This partition is part of a RAID device."
 msgstr "ይህ መከፋፈያ የRAID መሣሪያ ክፍል ነው።"
 
-#: ../partIntfHelpers.py:124
+#: ../partIntfHelpers.py:120
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
 msgstr "ይህ መከፋፈያ የLVM  ድምጽ ቡድን ‹%s› ክፍል ነው።"
 
-#: ../partIntfHelpers.py:127
+#: ../partIntfHelpers.py:123
 msgid "This partition is part of a LVM volume group."
 msgstr "ይህ መከፋፈያ የLVM  ድምጽ ቡድን ክፍል ነው።"
 
-#: ../partIntfHelpers.py:142 ../partIntfHelpers.py:150
-#: ../partIntfHelpers.py:157 ../partIntfHelpers.py:167
-#: ../partIntfHelpers.py:184
+#: ../partIntfHelpers.py:138 ../partIntfHelpers.py:146
+#: ../partIntfHelpers.py:153 ../partIntfHelpers.py:163
+#: ../partIntfHelpers.py:187
 msgid "Unable To Delete"
 msgstr "መሰረዝ አልተቻለም"
 
-#: ../partIntfHelpers.py:143
+#: ../partIntfHelpers.py:139
 msgid "You must first select a partition to delete."
 msgstr "ለመሰረዝ መጀመሪያ መከፋፈያ መምረጥ አለብዎት።"
 
-#: ../partIntfHelpers.py:151
+#: ../partIntfHelpers.py:147
 msgid "You cannot delete free space."
 msgstr "ክፍት ቦታዎችን መሰረ አይችሉም።"
 
-#: ../partIntfHelpers.py:158
+#: ../partIntfHelpers.py:154
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "በLDL የተስተካከለ የDASDን መከፋፈያ ማጥፋት አይችሉም።"
 
-#: ../partIntfHelpers.py:168
+#: ../partIntfHelpers.py:164
 #, python-format
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr "%sን የያዘ የተራዘመ መከፋፈያ ስለሆነ ይህንን መከፋፈያ ማጥፋት አይችሉም"
 
-#: ../partIntfHelpers.py:185
+#: ../partIntfHelpers.py:182 ../iw/raid_dialog_gui.py:558
+msgid "This partition is holding the data for the hard drive install."
+msgstr "ይህ መከፋፈያ ዳታውን ለሀርድ ድራይቩ የማስገባት ሥራ አግቶታል።"
+
+#: ../partIntfHelpers.py:188
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
@@ -1388,27 +1470,27 @@ msgstr ""
 "ይህንን መከፋፈያ ማጥፋት አይችሉም፦ \n"
 "\n"
 
-#: ../partIntfHelpers.py:229 ../partIntfHelpers.py:525
-#: ../iw/lvm_dialog_gui.py:746
+#: ../partIntfHelpers.py:232 ../partIntfHelpers.py:528
+#: ../iw/lvm_dialog_gui.py:757
 msgid "Confirm Delete"
 msgstr "ስረዛውን ያረጋግጡ"
 
-#: ../partIntfHelpers.py:230
+#: ../partIntfHelpers.py:233
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "መሣሪያው ‹/dev/%s› ላይ ያሉትን ሁሉንም መከፋፈያዎች ሊያጠፉዋቸው ነው።"
 
-#: ../partIntfHelpers.py:233 ../partIntfHelpers.py:526
-#: ../iw/lvm_dialog_gui.py:749 ../iw/lvm_dialog_gui.py:1101
+#: ../partIntfHelpers.py:236 ../partIntfHelpers.py:529
+#: ../iw/lvm_dialog_gui.py:760 ../iw/lvm_dialog_gui.py:1112
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1358
 msgid "_Delete"
 msgstr "አጥፋ"
 
-#: ../partIntfHelpers.py:291
+#: ../partIntfHelpers.py:294
 msgid "Notice"
 msgstr "ማስታወቂያ"
 
-#: ../partIntfHelpers.py:292
+#: ../partIntfHelpers.py:295
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1419,16 +1501,16 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
-#: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
+#: ../partIntfHelpers.py:311 ../partIntfHelpers.py:324
+#: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
 msgid "Unable To Edit"
 msgstr "ለማረም አልተቻለም"
 
-#: ../partIntfHelpers.py:309
+#: ../partIntfHelpers.py:312
 msgid "You must select a partition to edit"
 msgstr "ለማረም መከፋፈያ መምረጥ አለብዎት"
 
-#: ../partIntfHelpers.py:321 ../partIntfHelpers.py:359
+#: ../partIntfHelpers.py:324 ../partIntfHelpers.py:362
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
@@ -1436,18 +1518,18 @@ msgstr ""
 "ይህንን መከፋፈያ ማረም አይችሉም፦\n"
 "\n"
 
-#: ../partIntfHelpers.py:348
+#: ../partIntfHelpers.py:351
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "%sን የያዘ መከፋፈያ ስለሆነ ይህንን ማረም አይችሉም።"
 
-#: ../partIntfHelpers.py:380
+#: ../partIntfHelpers.py:383
 msgid "Format as Swap?"
 msgstr "እንደ ስዋፕ ይስተካክል?"
 
-#: ../partIntfHelpers.py:381
+#: ../partIntfHelpers.py:384
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1460,12 +1542,12 @@ msgstr ""
 "\n"
 "ይህንን መከፋፈያ እንደ ስዋፕ መከፋፈያ ማስተካከል ይፈልጋሉ?"
 
-#: ../partIntfHelpers.py:401
+#: ../partIntfHelpers.py:404
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "%s በላዪ ላይ እንዲገባ በትንሹ አንድ ሀርድ ድራይች መምረጥ አለብዎት።"
 
-#: ../partIntfHelpers.py:407
+#: ../partIntfHelpers.py:410
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1479,23 +1561,23 @@ msgstr ""
 "ይህ መከፋፈያ ማስቀመጥ የሚፈልጓቸውን ፋይሎች ከያዘ ለምሳሌ እንደ ዋና ዳይሬክተሪዎች፤ ከዛ ይህንን መከፋፈያ ሳያሟሹ ዝም "
 "ብለው ይቀጥሉ።"
 
-#: ../partIntfHelpers.py:415
+#: ../partIntfHelpers.py:418
 msgid "Format?"
 msgstr "ይሟሸ/ፎርማት ይደረግ?"
 
-#: ../partIntfHelpers.py:415 ../iw/partition_gui.py:1009
+#: ../partIntfHelpers.py:418 ../iw/partition_gui.py:1009
 msgid "_Modify Partition"
 msgstr "መከፋፈያዎቹን አስተካክል"
 
-#: ../partIntfHelpers.py:415
+#: ../partIntfHelpers.py:418
 msgid "Do _Not Format"
 msgstr "ፎርማት አታድርግ"
 
-#: ../partIntfHelpers.py:423
+#: ../partIntfHelpers.py:426
 msgid "Error with Partitioning"
 msgstr "የመከፋፈል ስሕተት"
 
-#: ../partIntfHelpers.py:424
+#: ../partIntfHelpers.py:427
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1508,11 +1590,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partIntfHelpers.py:438
+#: ../partIntfHelpers.py:441
 msgid "Partitioning Warning"
 msgstr "የመከፋፈያ ማስጠንቀቂያ"
 
-#: ../partIntfHelpers.py:439
+#: ../partIntfHelpers.py:442
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1527,13 +1609,13 @@ msgstr ""
 "\n"
 "ከጠየቁት የመከፋፈያ ዘዴው ጋር መቀጠል ይፈልጋሉ?"
 
-#: ../partIntfHelpers.py:453 ../iw/partition_gui.py:665
+#: ../partIntfHelpers.py:456 ../iw/partition_gui.py:665
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr "የሚከተሉት በቅድሚያ የሚገኙት መከፋፈያዎች የተመረጡት ፎርማት እንዲደረጉ እና ዳታውን ሁሉ እንዲደመስሱ ነው።"
 
-#: ../partIntfHelpers.py:456
+#: ../partIntfHelpers.py:459
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1541,11 +1623,11 @@ msgstr ""
 "ለመቀጠል እና ይህንን መከፋፈያ ፎርማት ለማድረግ ‹እሺ›ን ይምረጡ ወይንም ወደኋላ ለመመለስ እና ይህንን አቀማመጥ "
 "ለመለወጥ ‹አይ›ን ይምረጡ።"
 
-#: ../partIntfHelpers.py:462
+#: ../partIntfHelpers.py:465
 msgid "Format Warning"
 msgstr "ማስጠንቀቂያዎችን ፎርማት አድርግ"
 
-#: ../partIntfHelpers.py:510
+#: ../partIntfHelpers.py:513
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1556,38 +1638,38 @@ msgstr ""
 "\n"
 "ሁሉም ተገቢ የሆኑ ድምጾች በዚህ የድምጽ ቡድን ውስጥ ያሉት ይጠፋሉ"
 
-#: ../partIntfHelpers.py:514
+#: ../partIntfHelpers.py:517
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "ተገቢውን ድምጽ/ብዛት «%s»ን ሊያጠፉት ነው።"
 
-#: ../partIntfHelpers.py:517
+#: ../partIntfHelpers.py:520
 msgid "You are about to delete a RAID device."
 msgstr "የሬይድን መሣሪያ ሊያጠፉት ነው።"
 
-#: ../partIntfHelpers.py:520
+#: ../partIntfHelpers.py:523
 #, python-format
 msgid "You are about to delete the /dev/%s partition."
 msgstr "የ/dev/%sን መከፋፈያ ሊያጠፉት ነው።"
 
-#: ../partIntfHelpers.py:523
+#: ../partIntfHelpers.py:526
 msgid "The partition you selected will be deleted."
 msgstr "የመረጡት መከፋፈያ ይጠፋል።"
 
-#: ../partIntfHelpers.py:533
+#: ../partIntfHelpers.py:536
 msgid "Confirm Reset"
 msgstr "እንደገና የማስጀመሩን ሥራ ያረጋግጡ"
 
-#: ../partIntfHelpers.py:534
+#: ../partIntfHelpers.py:537
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "የመከፋፈያውን ሠንጠረዥ ወደ ዋናው ሁኔታ እንደገና ለማስጀመር እርግጠኛ እንዎት?"
 
-#: ../partitioning.py:57
+#: ../partitioning.py:68
 msgid "Installation cannot continue."
 msgstr "የማስገባት ሥራው መቀጠል አይችልም"
 
-#: ../partitioning.py:58
+#: ../partitioning.py:69
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1596,11 +1678,11 @@ msgstr ""
 "የመረጡዋቸውን የመከፋፈያው ምርጭዎች ቀደም ብሎ መስራት ጀምሯል። ወደ መረጃ ማከማቻው ማረሚያ መስኮት ከአሁን በኋላ "
 "መመለስ አይችሉም። የማስገባት ሥራውን መቀጠል ይፈልጋሉ?"
 
-#: ../partitioning.py:88
+#: ../partitioning.py:99
 msgid "Low Memory"
 msgstr "አነስተኛ የመረጃ ማከማቻ ቦታ"
 
-#: ../partitioning.py:89
+#: ../partitioning.py:100
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1609,89 +1691,95 @@ msgstr ""
 "በዚህ ማሽን ውስጥ በቂ የመረጃ ማከማቻ ቦታ ስለሌልዎት የስቃፕን ቦታ ቶሎ መክፈት ያስፈልገናል። ይህንን ለማድረግ አዲሱን "
 "የመከፋፈያ ሠንጠረዥ ወደ ዲስኩ ወዲያውኑ መጻፍ አለብን። ይህ ይደረግ?"
 
-#: ../partitions.py:804
+#: ../partitions.py:818
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "%sም የማስገባት ሥራ ለመቀጠል የሚያስፈልገውን ዋና መከፋፈያውን (/) አልገለጹም።"
 
-#: ../partitions.py:809
+#: ../partitions.py:823
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "ዋናው መከፋፈያዎች ከ250 ሜጋባይት ያነሰና አብዛኛውን ጊዜ %sን ለማስገባት በጣም ትንሽ ነው።"
 
-#: ../partitions.py:816
+#: ../partitions.py:842
+msgid ""
+"Your boot partition isn't on one of the first four partitions and thus won't "
+"be bootable."
+msgstr ""
+
+#: ../partitions.py:849
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "የ/boot/efi መከፋፈያ ዓይነቱ የፋት እና የ50 ሜጋባይት መጠን መፍጠር አለብዎት።"
 
-#: ../partitions.py:836
+#: ../partitions.py:869
 msgid "You must create an Apple Bootstrap partition."
 msgstr "የአፐል 'Bootstrap' መከፋፈያ መፍጠር አለብዎት።"
 
-#: ../partitions.py:858
+#: ../partitions.py:891
 msgid "You must create a PPC PReP Boot partition."
 msgstr "የ PPC PReP Boot መከፋፈያ መፍጠር አለብዎት።"
 
-#: ../partitions.py:866 ../partitions.py:877
+#: ../partitions.py:899 ../partitions.py:910
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr "የ%s መከፋፈያዎት ከ%s ሜጋባይት ያነሰና %sን ለማስገባት ከሚመከረው መጠን በጣም ያነሰ ነው።"
 
-#: ../partitions.py:911
+#: ../partitions.py:944
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: ../partitions.py:914
+#: ../partitions.py:947
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: ../partitions.py:923 ../partRequests.py:675
+#: ../partitions.py:956 ../partRequests.py:677
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "ሊጫኑ የሚቻሉት መከፋፈያዎች በRAID1 መሣሪያ ላይ ብቻ ነው ሊሆን የሚችለው።"
 
-#: ../partitions.py:930
+#: ../partitions.py:963
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "ሊጫኑ የሚችሉ መከፋፈያዎች በተገቢው ድምፅ/መጠን መሆን አይችሉም።"
 
-#: ../partitions.py:948
+#: ../partitions.py:988
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 "የስዋፕን መከፋፈያ አልገለጹም። በሁሉም ጉዳይዎች ላይ በጥብቅ ባያስፈልጉም በእርግጥ ብዙ የማስገባት ሥራዎችን ያሻሽላል።"
 
-#: ../partitions.py:955
+#: ../partitions.py:995
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr "ከ32 የበለጡ የስዋፕ መሣሪያዎችን ጠቅሰዋል። የ%s ዋናው ክፍል 32 የስዋፕ መሣሪያዎችን ይደግፋል።"
 
-#: ../partitions.py:966
+#: ../partitions.py:1006
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr "አነስተኛ የስዋፕ ቦታ %dM)  ከRAM (%dM) ላይ ከሚገኘው ያነሰ ቦታ በሲስተምዎት ላይ አመልክተዋል።"
 
-#: ../partitions.py:1266
+#: ../partitions.py:1306
 msgid "the partition in use by the installer."
 msgstr "አስገቢው መከፋፈያውን እየተጠቀመበት ነው።"
 
-#: ../partitions.py:1269
+#: ../partitions.py:1309
 msgid "a partition which is a member of a RAID array."
 msgstr "የRAID ሰልፍ አባል የሆነ መከፋፈያ።"
 
-#: ../partitions.py:1272
+#: ../partitions.py:1312
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "የLVM ድምጽ ቡድን አባል የሆነ መከፋፈያ።"
 
@@ -1748,16 +1836,16 @@ msgstr "መከፋፈያዎች ከመጀመሪያው ክብ አምድ በታች �
 msgid "Partitions can't end on a negative cylinder."
 msgstr "መከፋፈያዎች ትክክል ባልሆኑ ክብ አምዶች ላይ መጨረስ አይችሉም።"
 
-#: ../partRequests.py:667
+#: ../partRequests.py:669
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "ምንም የRAID አባል አልተጠየቀም፥ ወይንም ምንም የRAID ደረጃ አልተጠቀሰም።"
 
-#: ../partRequests.py:679
+#: ../partRequests.py:681
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "የ%s ዓይነት የRAID መሣሪያ በትንሹ %s አባላት ያስፈልጋሉ።"
 
-#: ../partRequests.py:688
+#: ../partRequests.py:690
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -1765,6 +1853,12 @@ msgid ""
 msgstr ""
 "ይህ የRAID መሣሪያ በትልቁ %s ትርፎች ሊኖረው ይችላል። ተጨማሪ ትርፎች ኢንዲኖርዎት ለRAID መሣሪያ አባላት መጨመር "
 "ያስፈልግዎታል።"
+
+#: ../partRequests.py:924
+msgid ""
+"Logical volume size must be larger than the volume group's physical extent "
+"size."
+msgstr ""
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -1775,31 +1869,31 @@ msgstr "መነሻ ወሰን"
 msgid "Attempting to start %s"
 msgstr "%sን የማስጀመር ሙከራ"
 
-#: ../rescue.py:191
-msgid "Setup Networking"
-msgstr "አውታሩን አስተካክል"
-
-#: ../rescue.py:192
-msgid "Do you want to start the network interfaces on this system?"
-msgstr "የአውታሩን ወሰኖች በዚህ አሠራር ላይ መጀመር ይፈልጋሉ?"
-
-#: ../rescue.py:237 ../text.py:528
-msgid "Cancelled"
-msgstr "ተሰርዟል"
-
-#: ../rescue.py:238 ../text.py:529
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "ከዚህ ወደነበረው ደረጃ መሄድ አልችልም። እንደገና መሞከር ይኖርብዎታል።"
-
-#: ../rescue.py:256 ../rescue.py:292 ../rescue.py:461
+#: ../rescue.py:174
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "ሲጨርሱ እባክዎን ከሼሉ ይውጡ ከዚያ ኮምፒውተርዎት እንደገና ይጀምራል።"
 
-#: ../rescue.py:276 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
+#: ../rescue.py:199
+msgid "Setup Networking"
+msgstr "አውታሩን አስተካክል"
+
+#: ../rescue.py:200
+msgid "Do you want to start the network interfaces on this system?"
+msgstr "የአውታሩን ወሰኖች በዚህ አሠራር ላይ መጀመር ይፈልጋሉ?"
+
+#: ../rescue.py:241 ../text.py:533
+msgid "Cancelled"
+msgstr "ተሰርዟል"
+
+#: ../rescue.py:242 ../text.py:534
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "ከዚህ ወደነበረው ደረጃ መሄድ አልችልም። እንደገና መሞከር ይኖርብዎታል።"
+
+#: ../rescue.py:278 ../rescue.py:345 ../rescue.py:353 ../rescue.py:436
 msgid "Rescue"
 msgstr "አድን"
 
-#: ../rescue.py:277
+#: ../rescue.py:279
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1820,24 +1914,24 @@ msgstr ""
 "ይሄዳሉ።\n"
 "\n"
 
-#: ../rescue.py:287 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:473
+#: ../rescue.py:289 ../iw/partition_gui.py:567 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:476
 msgid "Continue"
 msgstr "ቀጥል"
 
-#: ../rescue.py:287 ../rescue.py:296
+#: ../rescue.py:289 ../rescue.py:294
 msgid "Read-Only"
 msgstr "ለንባብ ብቻ"
 
-#: ../rescue.py:319
+#: ../rescue.py:320
 msgid "System to Rescue"
 msgstr "ሲስተም ለማዳን"
 
-#: ../rescue.py:320
+#: ../rescue.py:321
 msgid "What partition holds the root partition of your installation?"
 msgstr "የማስገቢያዎትን ዋን መከፋፈያ የያዘው የትኛው መከፋፈያ ነው?"
 
-#: ../rescue.py:322 ../rescue.py:326
+#: ../rescue.py:323 ../rescue.py:327
 msgid "Exit"
 msgstr "ውጣ"
 
@@ -1896,72 +1990,72 @@ msgstr ""
 "ምንም የሊኑክስ መከፋፈያዎት የልዎትም። ሼል ለማግኘት ተመለስን ይጫኑ። ከሸሉ እንደወጡ ሲስተምዎት ወዲያውኑ እንደገና "
 "ይጀምራል።"
 
-#: ../rescue.py:458
+#: ../rescue.py:457
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "ሲስተምዎት የተከማቸው በ%s ማውጫ ሥር ነው።"
 
-#: ../text.py:150 ../text.py:165
+#: ../text.py:149 ../text.py:164
 msgid "Save"
 msgstr "አስቀምጥ"
 
-#: ../text.py:153 ../text.py:167
+#: ../text.py:152 ../text.py:166
 #, fuzzy
 msgid "Remote"
 msgstr "አስወግድ"
 
-#: ../text.py:155 ../text.py:163
+#: ../text.py:154 ../text.py:162
 msgid "Debug"
 msgstr "አስተካክል"
 
-#: ../text.py:159
+#: ../text.py:158
 msgid "Exception Occurred"
 msgstr "ከተለመደው ውጪ የሆነ ነገር ተከስቷውል"
 
-#: ../text.py:188
+#: ../text.py:187
 msgid "Save to Remote Host"
 msgstr ""
 
-#: ../text.py:191
+#: ../text.py:190
 #, fuzzy
 msgid "Host"
 msgstr "የእንግዳ ተቀባይ ስም"
 
-#: ../text.py:193
+#: ../text.py:192
 msgid "Remote path"
 msgstr ""
 
-#: ../text.py:195
+#: ../text.py:194
 msgid "User name"
 msgstr "የተጠቃሚው ስም"
 
-#: ../text.py:197
+#: ../text.py:196
 msgid "Password"
 msgstr "የሚስጢራዊ ቃል"
 
-#: ../text.py:254
+#: ../text.py:253
 msgid "Help not available"
 msgstr "እርዳታ ማግኘት አይቻልም"
 
-#: ../text.py:255
+#: ../text.py:254
 msgid "No help is available for this step of the install."
 msgstr "ለዚህ ለማስገቢያው ደረጃ ምንም እርዳታ ማግኘት አይቻለም።"
 
-#: ../text.py:357
+#: ../text.py:365
 msgid "Save Crash Dump"
 msgstr "ክራሽ ዱምፕን አስቀምጥ"
 
-#: ../text.py:411 ../loader2/lang.c:50 ../loader2/loader.c:145
+#: ../text.py:419 ../loader2/lang.c:53 ../loader2/loader.c:152
 #, c-format, python-format
 msgid "Welcome to %s"
 msgstr "ወደ %s እንኳን ደህና መጡ"
 
-#: ../text.py:418
+#: ../text.py:426
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "ለእርዳታ | በመሠረታዊ ነገሮች መሀከል | ምርጫዎች | የሚቀጥለው መስታወት"
 
-#: ../text.py:420
+#: ../text.py:428
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -1975,11 +2069,11 @@ msgstr "የሚገኘውን ሲስተም አሻሽል"
 msgid "Upgrade"
 msgstr "አሻሽል"
 
-#: ../upgrade.py:50
+#: ../upgrade.py:52
 msgid "Proceed with upgrade?"
 msgstr "ከማሻሻሉ ጋር ቀጥል?"
 
-#: ../upgrade.py:51
+#: ../upgrade.py:53
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1989,24 +2083,24 @@ msgstr ""
 "አይችሉም። \n"
 "\n"
 
-#: ../upgrade.py:55
+#: ../upgrade.py:57
 msgid "Would you like to continue with the upgrade?"
 msgstr "ማሻሻሉን መቀጥል ይፈልጋሉ?"
 
-#: ../upgrade.py:92
+#: ../upgrade.py:94
 msgid "Searching"
 msgstr "በፍለጋ ላይ"
 
-#: ../upgrade.py:93
+#: ../upgrade.py:95
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "%sን ለማስገባት ፍለጋ ላይ...."
 
-#: ../upgrade.py:145 ../upgrade.py:153
+#: ../upgrade.py:151 ../upgrade.py:159
 msgid "Dirty File Systems"
 msgstr "ንጹሕ ያልሆነ የፋይል ሲስተም"
 
-#: ../upgrade.py:146
+#: ../upgrade.py:152
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2018,7 +2112,7 @@ msgstr ""
 "ሥራውን ያስጀምሩና የፋይል ሲስተሙ ተጣርቶ በትክክል ይዘጋ።\n"
 "%s"
 
-#: ../upgrade.py:154
+#: ../upgrade.py:160
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2028,11 +2122,11 @@ msgstr ""
 "የሚከተሉት የፋይል ሲስትሞች በጥራት ያልተከማቹ የእርስዎ የሊኑክስ ሲስተም ነበሩ። ለማንኛውም እንዲከማቹ ይፈልጋሉ?\n"
 "%s"
 
-#: ../upgrade.py:291 ../upgrade.py:297
+#: ../upgrade.py:297 ../upgrade.py:303
 msgid "Mount failed"
 msgstr "ማከማቸቱ አልተሳካም"
 
-#: ../upgrade.py:292
+#: ../upgrade.py:298
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2040,7 +2134,7 @@ msgstr ""
 "አንድ ወይንም ከዛ በላይ በ/etc/fstab ውስጥ የተጠቀሱት የፋይል ሲስተሞች በእርስዎ ሊኑክስ ሲስተም ላይ ለማከማቸት "
 "አልተቻለም። እባክዎን ይህንን ችግር ያስተካክሉና እንደገና ለማሻሻል ይሞክሩ"
 
-#: ../upgrade.py:298
+#: ../upgrade.py:304
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2049,7 +2143,7 @@ msgstr ""
 "አንድ ወይንም ከዛ በላይ በ/etc/fstab ውስጥ ከተጠቀሱት የፋይል ሲስተሞች ከእርስዎ ሊኑክስ ሲስተም ዝብርቅርቅ ያሉና "
 "ለማከማቸት የማይቻሉ ናቸው። እባክዎን ይህንን ችግር ያስተካክሉና እንደገና ለማሻሻል ይሞክሩ።"
 
-#: ../upgrade.py:315
+#: ../upgrade.py:321
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2060,11 +2154,11 @@ msgstr ""
 "ማያያዣዎች ይቀይሩዋቸውና የማሻሻሉን ሥራ እንደገና ይጀምሩ።\n"
 "\n"
 
-#: ../upgrade.py:321
+#: ../upgrade.py:327
 msgid "Absolute Symlinks"
 msgstr "ፍጹም ምሳሌያዊ ማያያዣዎች"
 
-#: ../upgrade.py:332
+#: ../upgrade.py:338
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2075,11 +2169,11 @@ msgstr ""
 "ማያያዣዎች ይቀይሩዋቸውና የማሻሻሉን ሥራ እንደገና ይጀምሩ።\n"
 "\n"
 
-#: ../upgrade.py:338
+#: ../upgrade.py:344
 msgid "Invalid Directories"
 msgstr "የማያገለግሉ ማውጫዎች"
 
-#: ../upgrade.py:345
+#: ../upgrade.py:351
 #, python-format
 msgid "%s not found"
 msgstr "%s አልተገኘም"
@@ -2087,6 +2181,23 @@ msgstr "%s አልተገኘም"
 #: ../urlinstall.py:35
 msgid "Connecting..."
 msgstr "በማገናኘት ላይ..."
+
+#: ../urlinstall.py:74
+#, fuzzy, python-format
+msgid ""
+"The file %s cannot be opened.  This is due to a missing file or perhaps a "
+"corrupt package.  Please verify your mirror contains all required packages, "
+"and try using a different one.\n"
+"\n"
+"If you reboot, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
+msgstr ""
+"የ%s-%s-%s ጥቅል ሊከፈት አይችልም። በጠፋው ፋይል ወይንም ምንልባት በተበላሸ ጥቅል ምክንያት ሊሆን ይችላል።  "
+"እያስገቡ ያሉት ከሲዲ ሚዲያ ከሆነ አብዛኛውን ጊዜ ይህ ማለት የሲዲው ሚዲያ ተበላሽቷል ወይንም የሲዲው ድራይቭ ሚዲያውን "
+"ማንበብ አልቻለም ማለት ነው።\n"
+"\n"
+"እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
 
 #: ../vnc.py:43
 msgid "Unable to Start X"
@@ -2166,25 +2277,25 @@ msgstr ""
 msgid "Starting VNC..."
 msgstr "VNCን በመጀመር ላይ..."
 
-#: ../vnc.py:218
+#: ../vnc.py:226
 #, python-format
 msgid "%s %s installation on host %s"
 msgstr "%s %sን በሆስት %s ላይ ማስገባት"
 
-#: ../vnc.py:220
+#: ../vnc.py:228
 #, python-format
 msgid "%s %s installation"
 msgstr "%s %sን ማስገባት"
 
-#: ../vnc.py:240
+#: ../vnc.py:248
 msgid "Unable to set vnc password - using no password!"
 msgstr "የቪኤንሲን ምስጢራዊ ቃል ማስቀመጥ አልተቻለም - ምንም ምስጢራዊ ቃል ሳይጠቀም!"
 
-#: ../vnc.py:241
+#: ../vnc.py:249
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "ምስጢራዊ ቃሎች በትንሹ 6 ፊደሎችን የያዙ እንደሆኑ ያረጋግጡ።"
 
-#: ../vnc.py:264
+#: ../vnc.py:272
 msgid ""
 "\n"
 "\n"
@@ -2199,46 +2310,46 @@ msgstr ""
 "የቪኤንሲን ምስጢራዊ ቃል ማስጀመሪያ ምርጫን ሰርቨሩ እንዲጠበቅ ከፈለጉ መጠቀም ይችላሉ።\n"
 "\n"
 
-#: ../vnc.py:268
+#: ../vnc.py:276
 msgid "The VNC server is now running."
 msgstr "የVNC ሰርቨር አሁን እየሰራ ነው።"
 
-#: ../vnc.py:271
+#: ../vnc.py:279
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr "የVNCን እንግዳ በ%s ሆስት ላይ ለማገናኘት እየሞከረ ነው።"
 
-#: ../vnc.py:283
+#: ../vnc.py:291
 msgid "Connected!"
 msgstr "ተገናኝቷል!"
 
-#: ../vnc.py:288
+#: ../vnc.py:296
 msgid "Giving up attempting to connect after 50 tries!\n"
 msgstr "ከ50 ሙከራዎች በኋላ የማገናኘቱን ሥራ አቁሟል!\n"
 
-#: ../vnc.py:290
+#: ../vnc.py:298
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr "እባክዎን ማስገባት ለመጀመር የVNC ክሊያንትዎን ወደ %s በእጅዎ ያገናኙ።"
 
-#: ../vnc.py:292
+#: ../vnc.py:300
 msgid "Please manually connect your vnc client to begin the install."
 msgstr "እባክዎን ማስገባት ለመጀመር የVNC ክሊያንቶትን በእጅዎ ያገናኙ።"
 
-#: ../vnc.py:296
+#: ../vnc.py:304
 msgid "Will try to connect again in 15 seconds..."
 msgstr "በ15 ሰከንድ ውስጥ እንደገና ለማገናኘት ይሞክራል..."
 
-#: ../vnc.py:304
+#: ../vnc.py:312
 #, python-format
 msgid "Please connect to %s to begin the install..."
 msgstr "እባክዎን ማስገባት ለመጀመር ወደ %s አገናኙ..."
 
-#: ../vnc.py:306
+#: ../vnc.py:314
 msgid "Please connect to begin the install..."
 msgstr "እባክዎን ማስገባት ለመጀመር ያገናኙ..."
 
-#: ../xsetup.py:56
+#: ../xsetup.py:48
 msgid "DDC Probed Monitor"
 msgstr "በዲዲሲ የተመረመረ መቆጣጠሪያ"
 
@@ -2251,104 +2362,78 @@ msgstr "በሂደት ላይ"
 msgid "Preparing transaction from installation source..."
 msgstr "ለማስገባት በዝግጅት ላይ..."
 
-#: ../yuminstall.py:148
-#, fuzzy, python-format
-msgid ""
-"The package %s-%s-%s.%s cannot be opened. This is due to a missing file or "
-"perhaps a corrupt package.  If you are installing from CD media this usually "
-"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
-"\n"
-"Press 'Retry' to try again."
-msgstr ""
-"የ%s-%s-%s ጥቅል ሊከፈት አይችልም። በጠፋው ፋይል ወይንም ምንልባት በተበላሸ ጥቅል ምክንያት ሊሆን ይችላል።  "
-"እያስገቡ ያሉት ከሲዲ ሚዲያ ከሆነ አብዛኛውን ጊዜ ይህ ማለት የሲዲው ሚዲያ ተበላሽቷል ወይንም የሲዲው ድራይቭ ሚዲያውን "
-"ማንበብ አልቻለም ማለት ነው።\n"
-"\n"
-"እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
-
-#: ../yuminstall.py:160 ../yuminstall.py:524 ../yuminstall.py:620
-#: ../yuminstall.py:854
-msgid "Re_boot"
-msgstr "እንደገና አስጀምር (_b)"
-
-#: ../yuminstall.py:164
-msgid ""
-"If you reboot, your system will be left in an inconsistent state that will "
-"likely require reinstallation.  Are you sure you wish to continue?"
-msgstr "እንደገና ካስጀመሩ፤ ሲስተምዎት ዝብርቅርቅ ባለ ሁኔታ ይቀርና እንደገና የማስገባት ሥራ ሊያስፈልገው ይችላል።"
-
-#: ../yuminstall.py:173
-msgid "_Cancel"
-msgstr "ተወው"
-
-#: ../yuminstall.py:481 ../yuminstall.py:482
+#: ../yuminstall.py:431 ../yuminstall.py:432
 msgid "file conflicts"
 msgstr ""
 
-#: ../yuminstall.py:483
+#: ../yuminstall.py:433
 #, fuzzy
 msgid "older package(s)"
 msgstr "አማራጭ ጥቅሎች"
 
-#: ../yuminstall.py:484
+#: ../yuminstall.py:434
 msgid "insufficient disk space"
 msgstr ""
 
-#: ../yuminstall.py:485
+#: ../yuminstall.py:435
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: ../yuminstall.py:486
+#: ../yuminstall.py:436
 #, fuzzy
 msgid "package conflicts"
 msgstr "የጥቅል ነባሮች"
 
-#: ../yuminstall.py:487
+#: ../yuminstall.py:437
 msgid "package already installed"
 msgstr ""
 
-#: ../yuminstall.py:488
+#: ../yuminstall.py:438
 #, fuzzy
 msgid "required package"
 msgstr "ነፃ ቦታ"
 
-#: ../yuminstall.py:489
+#: ../yuminstall.py:439
 msgid "package for incorrect arch"
 msgstr ""
 
-#: ../yuminstall.py:490
+#: ../yuminstall.py:440
 msgid "package for incorrect os"
 msgstr ""
 
-#: ../yuminstall.py:503
+#: ../yuminstall.py:454
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: ../yuminstall.py:519
+#: ../yuminstall.py:470
 #, fuzzy
 msgid "Error running transaction"
 msgstr "የRPM ግብይት ዝግጅት..."
 
-#: ../yuminstall.py:615
+#: ../yuminstall.py:471
 #, fuzzy, python-format
 msgid ""
-"The file %s cannot be opened. This is due to a missing file or perhaps a "
-"corrupt package.  If you are installing from CD media this usually means the "
-"CD media is corrupt, or the CD drive is unable to read the media.\n"
-"\n"
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
-"የ%s-%s-%s ጥቅል ሊከፈት አይችልም። በጠፋው ፋይል ወይንም ምንልባት በተበላሸ ጥቅል ምክንያት ሊሆን ይችላል።  "
-"እያስገቡ ያሉት ከሲዲ ሚዲያ ከሆነ አብዛኛውን ጊዜ ይህ ማለት የሲዲው ሚዲያ ተበላሽቷል ወይንም የሲዲው ድራይቭ ሚዲያውን "
-"ማንበብ አልቻለም ማለት ነው።\n"
+"የሆስቱ ስም «%s» ለሚከተለው ምክንያት ተገቢ አይደለም፦\n"
 "\n"
-"እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
+"%s"
 
-#: ../yuminstall.py:659
+#: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
+msgid "Re_boot"
+msgstr "እንደገና አስጀምር (_b)"
+
+#: ../yuminstall.py:638
 #, fuzzy
 msgid "Retrieving installation information..."
 msgstr "የጥቅሉን መረጃ በማንበብ ላይ..."
 
-#: ../yuminstall.py:675
+#: ../yuminstall.py:640
+#, fuzzy, python-format
+msgid "Retrieving installation information for %s..."
+msgstr "የጥቅሉን መረጃ በማንበብ ላይ..."
+
+#: ../yuminstall.py:656
 #, fuzzy, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2356,18 +2441,18 @@ msgid ""
 "generated.  %s"
 msgstr "በማስገቢያው ሥራ ዛፍ ውስጥ የኮምፒውተሩ ፋይል አስፈላጊ ቡድኖችን እያጣ ነው። "
 
-#: ../yuminstall.py:704
+#: ../yuminstall.py:691
 msgid "Uncategorized"
 msgstr ""
 
-#: ../yuminstall.py:848
+#: ../yuminstall.py:907
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
 "do not have enough available.  You can change your selections or reboot."
 msgstr ""
 
-#: ../yuminstall.py:987
+#: ../yuminstall.py:1061
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2376,47 +2461,47 @@ msgstr ""
 "ለዚህ የ%s ቅጂ እያሻሻሉ ያሉት በጣም አሮጌ ከሆነ ሲስተም ሆኖ ተገኝቷል። የማሻሻሉን ሂደት መቀጠል እንደሚፈልጉ "
 "እርግጠኛ ነዎት?"
 
-#: ../yuminstall.py:1019
+#: ../yuminstall.py:1093
 msgid "Install Starting"
 msgstr "መነሻውን አስገባ"
 
-#: ../yuminstall.py:1020
+#: ../yuminstall.py:1094
 #, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "መነሻውን የማስገባት ሂደት፤ ይህ ድንገት ብዙ ደቂቃዎች ሊወስድ ይችላል..."
 
-#: ../yuminstall.py:1036
+#: ../yuminstall.py:1110
 #, fuzzy
 msgid "Post Upgrade"
 msgstr "አሻሽል"
 
-#: ../yuminstall.py:1037
+#: ../yuminstall.py:1111
 #, fuzzy
 msgid "Performing post upgrade configuration..."
 msgstr "የፖስትን የማስገባት አቀማመጥ በማሳየት ላይ...."
 
-#: ../yuminstall.py:1039
+#: ../yuminstall.py:1113
 msgid "Post Install"
 msgstr "ደብዳቤ ማስገባት"
 
-#: ../yuminstall.py:1040
+#: ../yuminstall.py:1114
 msgid "Performing post install configuration..."
 msgstr "የፖስትን የማስገባት አቀማመጥ በማሳየት ላይ...."
 
-#: ../yuminstall.py:1185
+#: ../yuminstall.py:1264
 #, fuzzy
 msgid "Installation Progress"
 msgstr "የማስገባት ሥራ ዓይነት"
 
-#: ../yuminstall.py:1229
+#: ../yuminstall.py:1299
 msgid "Dependency Check"
 msgstr "የጥገኝነት ማረጋገጫ"
 
-#: ../yuminstall.py:1230
+#: ../yuminstall.py:1300
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "ለማስገባት የተመረጥጡት ጥቅሎች ውስጥ ጠገኝነትን በማረጋገጥ ላይ..."
 
-#: ../zfcp.py:28
+#: ../zfcp.py:29
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -2427,43 +2512,43 @@ msgstr ""
 "ለእያንዳንዱ መሥሪያ 5 መለያ ባሕሪ ማቅረብ ያስፈልግዎታል፦ ባለ 16 ቢት መሥሪያ ቁጥር፣ ባለ 16 ቢት SCSI መለያ፣ "
 "ባለ 64ቢት አለም አቀፍ ወደብ ስም (WWPN)፣ ባለ 16 ቢት SCSI LUN እና ባለ 64 ቢት FCP LUN።"
 
-#: ../zfcp.py:30
+#: ../zfcp.py:31
 msgid "Device number"
 msgstr "የመሥሪያ ቁጥር"
 
-#: ../zfcp.py:31
+#: ../zfcp.py:32
 msgid "You have not specified a device number or the number is invalid"
 msgstr "የመሥሪያ ቁጥር ወይንም ቁጥሩ ተገቢ እንዳልሆነ ለይተው አልጠቀሱም።"
 
-#: ../zfcp.py:33
+#: ../zfcp.py:34
 msgid "SCSI Id"
 msgstr "የSCSI መለያ"
 
-#: ../zfcp.py:34
+#: ../zfcp.py:35
 msgid "You have not specified a SCSI ID or the ID is invalid."
 msgstr "የSCSI መለያ ወይንም መለያው ተገቢ እንዳልሆነ ለይተው አልጠቀሱም።"
 
-#: ../zfcp.py:36 ../textw/zfcp_text.py:101
+#: ../zfcp.py:37 ../textw/zfcp_text.py:101
 msgid "WWPN"
 msgstr "WWPN"
 
-#: ../zfcp.py:37
+#: ../zfcp.py:38
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "የዓለም አቀፍ የወደብ ስም ወይንም ስሙ ተገቢ እንዳልሆነ ለይተው አልጠቀሱም።"
 
-#: ../zfcp.py:39
+#: ../zfcp.py:40
 msgid "SCSI LUN"
 msgstr "SCSI LUN"
 
-#: ../zfcp.py:40
+#: ../zfcp.py:41
 msgid "You have not specified a SCSI LUN or the number is invalid."
 msgstr "የSCSI LUN ወይንም ቁጥሩ ተገቢ እንዳልሆነ ለይተው አልጠቀሱም።"
 
-#: ../zfcp.py:42 ../textw/zfcp_text.py:101
+#: ../zfcp.py:43 ../textw/zfcp_text.py:101
 msgid "FCP LUN"
 msgstr "FCP LUN"
 
-#: ../zfcp.py:43
+#: ../zfcp.py:44
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "የFCP LUN ወይንም ቁጥሩ ተገቢ እንዳልሆነ ለይተው አልጠቀሱም።"
 
@@ -2510,20 +2595,35 @@ msgstr "የመነሻው የሚስጢር ቃል፦ "
 msgid "_Confirm: "
 msgstr "አረጋግጥ፦ "
 
-#: ../iw/autopart_type.py:113 ../textw/partition_text.py:1526
+#: ../iw/autopart_type.py:135
+#, fuzzy
+msgid "Invalid Initiator Name"
+msgstr "ተገቢ ያልሆነ የድምጽ ቡድን ስም"
+
+#: ../iw/autopart_type.py:136
+#, fuzzy
+msgid "You must provide a non-zero length initiator name."
+msgstr "የተጠቃሚ ስም ማቅረብ አለብዎት"
+
+#: ../iw/autopart_type.py:158
+#, fuzzy
+msgid "Error with Data"
+msgstr "ከዳታው ስሕተት"
+
+#: ../iw/autopart_type.py:211 ../textw/partition_text.py:1526
 #, fuzzy
 msgid "Remove all partitions on selected drives and create default layout."
 msgstr "እዚህ ሲስተም ላይ ያሉትን ሁሉንም መከፋፈያዎች አስወግድ"
 
-#: ../iw/autopart_type.py:114 ../textw/partition_text.py:1527
+#: ../iw/autopart_type.py:212 ../textw/partition_text.py:1527
 msgid "Remove linux partitions on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:115 ../textw/partition_text.py:1528
+#: ../iw/autopart_type.py:213 ../textw/partition_text.py:1528
 msgid "Use free space on selected drives and create default layout."
 msgstr ""
 
-#: ../iw/autopart_type.py:116 ../textw/partition_text.py:1529
+#: ../iw/autopart_type.py:214 ../textw/partition_text.py:1529
 msgid "Create custom layout."
 msgstr ""
 
@@ -2789,49 +2889,18 @@ msgstr "የሚከተለው የገባው ሲስተም ይሻሻላል፦"
 msgid "Unknown Linux system"
 msgstr "የማይታወቅ የሊኑክስ ሲስተም"
 
-#: ../iw/ipwidget.py:92
-msgid "IP Address is missing"
-msgstr "የIP አድራሻ ጠፍቷል"
-
-#: ../iw/ipwidget.py:97
-msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr "የIP አድራሻዎች በ1 እና በ255 መካከል ያሉ ቁጥሮችን የያዙ መሆን አለባቸው"
-
-#: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
-msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr "የIP አድራሻዎች በ0 እና በ255 መካከል ያሉትን ቁጥሮች የያዙ መሆን አለባቸው"
-
-#: ../iw/iscsi_gui.py:26 ../textw/iscsi_text.py:55
-#, fuzzy
-msgid "iSCSI Configuration"
-msgstr "የሲሎ ማስተካከያ"
-
-#: ../iw/iscsi_gui.py:33 ../iw/iscsi_gui.py:36
-#, fuzzy
-msgid "Error with Data"
-msgstr "ከዳታው ስሕተት"
-
-#: ../iw/iscsi_gui.py:34
-msgid "No IP address entered, skipping iSCSI setup"
-msgstr ""
-
-#: ../iw/iscsi_gui.py:36 ../textw/welcome_text.py:22
-#, python-format
-msgid "%s"
-msgstr "%s"
-
 #: ../iw/language_gui.py:24 ../textw/language_text.py:41
 msgid "Language Selection"
 msgstr "የቋንቋ ምርጫ"
 
-#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:362
+#: ../iw/language_gui.py:64 ../textw/language_text.py:42 ../loader2/lang.c:365
 msgid "What language would you like to use during the installation process?"
 msgstr "በማስገባቱ ሂደት ወቅት የቱን ቋንቋ ነው መጠቀም የሚፈልጉት?"
 
 #: ../iw/lvm_dialog_gui.py:115 ../iw/lvm_dialog_gui.py:162
 #: ../iw/lvm_dialog_gui.py:173 ../iw/lvm_dialog_gui.py:213
-#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:592
-#: ../iw/lvm_dialog_gui.py:660 ../iw/lvm_dialog_gui.py:871
+#: ../iw/lvm_dialog_gui.py:289 ../iw/lvm_dialog_gui.py:603
+#: ../iw/lvm_dialog_gui.py:671 ../iw/lvm_dialog_gui.py:882
 #: ../textw/partition_text.py:1291 ../textw/partition_text.py:1310
 msgid "Not enough space"
 msgstr "በቂ ቦታ የለም"
@@ -2931,74 +3000,80 @@ msgstr "ተገቢ የሆነውን ድምጽ አርም"
 msgid "_Mount Point:"
 msgstr "የማከማቻ ነጥብ፦"
 
-#: ../iw/lvm_dialog_gui.py:396
+#: ../iw/lvm_dialog_gui.py:396 ../iw/raid_dialog_gui.py:293
 msgid "_File System Type:"
 msgstr "የፋይል አሠራር ዓይነት፦"
 
-#: ../iw/lvm_dialog_gui.py:404 ../iw/partition_dialog_gui.py:311
+#: ../iw/lvm_dialog_gui.py:406 ../iw/partition_dialog_gui.py:311
+#: ../iw/raid_dialog_gui.py:303
 msgid "Original File System Type:"
 msgstr "የመጀመሪያው ፋይል አሠራር ዓይነት፦"
 
-#: ../iw/lvm_dialog_gui.py:409 ../iw/partition_dialog_gui.py:322
-#: ../iw/raid_dialog_gui.py:305
+#: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:322
+#: ../iw/raid_dialog_gui.py:308
 msgid "Unknown"
 msgstr "ያልታወቀ"
 
-#: ../iw/lvm_dialog_gui.py:415
+#: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:355
+#: ../iw/raid_dialog_gui.py:314
+msgid "Original File System Label:"
+msgstr "የዋናው የፋይል አሠራር መለያ፦"
+
+#: ../iw/lvm_dialog_gui.py:426
 msgid "_Logical Volume Name:"
 msgstr "የተገቢው ድምጽ ስም፦"
 
-#: ../iw/lvm_dialog_gui.py:423 ../textw/partition_text.py:286
+#: ../iw/lvm_dialog_gui.py:434 ../textw/partition_text.py:286
 msgid "Logical Volume Name:"
 msgstr "የተገቢው ድምጽ ስም፦"
 
-#: ../iw/lvm_dialog_gui.py:431 ../iw/partition_dialog_gui.py:367
+#: ../iw/lvm_dialog_gui.py:442 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
 msgstr "መጠን (ሜጋባይት)፦"
 
-#: ../iw/lvm_dialog_gui.py:437 ../iw/partition_dialog_gui.py:384
+#: ../iw/lvm_dialog_gui.py:448 ../iw/partition_dialog_gui.py:384
 #: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:301
 #: ../textw/partition_text.py:378 ../textw/partition_text.py:461
 #: ../textw/partition_text.py:569
 msgid "Size (MB):"
 msgstr "መጠን (ሜጋባይት)፦"
 
-#: ../iw/lvm_dialog_gui.py:452
+#: ../iw/lvm_dialog_gui.py:463
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(ከፍተኛው መጠን %s ሜጋባይት ነው)"
 
-#: ../iw/lvm_dialog_gui.py:513
+#: ../iw/lvm_dialog_gui.py:524
 msgid "Illegal size"
 msgstr "ተገቢ ያልሆነ መጠን"
 
-#: ../iw/lvm_dialog_gui.py:514
+#: ../iw/lvm_dialog_gui.py:525
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "የተፈለገው መጠን እንደገባ ተገቢ ያልሆነ ከ0 የሚበልጥ ቁጥር ነው።"
 
-#: ../iw/lvm_dialog_gui.py:547
+#: ../iw/lvm_dialog_gui.py:558
 msgid "Mount point in use"
 msgstr "ማከማቻው ነጥብ በአገልግሎት ላይ ነው"
 
-#: ../iw/lvm_dialog_gui.py:548
+#: ../iw/lvm_dialog_gui.py:559
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr "ማከማቻው ነጥብ «%s» በአገልግሎት ላይ ስለሆነ እባክዎን ሌላ ይምረጡ።"
 
-#: ../iw/lvm_dialog_gui.py:559 ../textw/partition_text.py:1259
+#: ../iw/lvm_dialog_gui.py:570 ../textw/partition_text.py:1259
 msgid "Illegal Logical Volume Name"
 msgstr "ያልተፈቀደ ተገቢ የሆነ የድምጽ ስም"
 
-#: ../iw/lvm_dialog_gui.py:578 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:589 ../textw/partition_text.py:1276
 msgid "Illegal logical volume name"
 msgstr "ያልተፈቀደ ተገቢ የሆነ የድምጽ ስም"
 
-#: ../iw/lvm_dialog_gui.py:579 ../textw/partition_text.py:1277
+#: ../iw/lvm_dialog_gui.py:590 ../textw/partition_text.py:1277
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "ተገቢ የሆነው የድምጽ ስም «%s» ቀደም ብሎ አገልግሎት ላይ ነው። እባክዎን ሌላ ይምረጡ።"
 
-#: ../iw/lvm_dialog_gui.py:593
+#: ../iw/lvm_dialog_gui.py:604
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -3008,7 +3083,7 @@ msgstr ""
 "አሁን የተጠየቀው መጠን (%10.2f ሜጋባይት)ከከፍተኛው የድምፅ መጠን (%10.2f ሜጋባይት) ትልቅ ነው። ይህንን ገደብ "
 "ለመጨመር አካላዊ የብዛት መጠን ለድምጹ ቡድን መጨመር ይችላሉ።"
 
-#: ../iw/lvm_dialog_gui.py:637 ../iw/partition_dialog_gui.py:179
+#: ../iw/lvm_dialog_gui.py:648 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
 #: ../iw/raid_dialog_gui.py:211 ../textw/partition_text.py:910
 #: ../textw/partition_text.py:932 ../textw/partition_text.py:1105
@@ -3016,7 +3091,7 @@ msgstr ""
 msgid "Error With Request"
 msgstr "ከተጠየቀው ጋር ስሕተት"
 
-#: ../iw/lvm_dialog_gui.py:661 ../iw/lvm_dialog_gui.py:872
+#: ../iw/lvm_dialog_gui.py:672 ../iw/lvm_dialog_gui.py:883
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3026,20 +3101,20 @@ msgstr ""
 "ያስተካከሉት ተገቢው ድምጾች %g ሜጋባይት ያስፈልጋቸዋል ነገር ግን የድምጽ ቡድኑ %g ሜጋባይት ብቻ ነው ያለው። "
 "እባክዎን የድምጹን ቡድን ታለቅ አድርጉ ወይንም ተገቢውን ድምጽ(ጾች) አሳንሱ።"
 
-#: ../iw/lvm_dialog_gui.py:711
+#: ../iw/lvm_dialog_gui.py:722
 msgid "No free slots"
 msgstr "ምንም ነፃ ክፍተት የለም"
 
-#: ../iw/lvm_dialog_gui.py:712
+#: ../iw/lvm_dialog_gui.py:723
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "ከ%s የበለጠ ተገቢ የሆኑ ድምጾች በእያንዳንዱ ድምጽ ቡድን መፍጠር አይችሉም።"
 
-#: ../iw/lvm_dialog_gui.py:718
+#: ../iw/lvm_dialog_gui.py:729
 msgid "No free space"
 msgstr "ምንም ነፃ ቦታ የለም"
 
-#: ../iw/lvm_dialog_gui.py:719
+#: ../iw/lvm_dialog_gui.py:730
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3048,29 +3123,29 @@ msgstr ""
 "አዲስ ተገቢ የሆኑ ድምጾች ለመፍተር በቂ የሆነ ክፍል በድምጽ ቡድን ውስጥ የቀረ የለም። ተገቢ የሆነ ድምጽ ለመጨመር "
 "የአንድ ወይንም የበለጠ አሁን የሚገኙትን ተገቢ ድምጾች መቀነስ ያስፈልግዎታል።"
 
-#: ../iw/lvm_dialog_gui.py:747
+#: ../iw/lvm_dialog_gui.py:758
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "የተገቢውን ድምጽ «%s» ለመሰረዝ እንደሚፈልጉ እርግጠና ነዎት?"
 
-#: ../iw/lvm_dialog_gui.py:883
+#: ../iw/lvm_dialog_gui.py:894
 msgid "Invalid Volume Group Name"
 msgstr "ተገቢ ያልሆነ የድምጽ ቡድን ስም"
 
-#: ../iw/lvm_dialog_gui.py:896
+#: ../iw/lvm_dialog_gui.py:907
 msgid "Name in use"
 msgstr "በአገልግሎት ላይ ያለ ስም"
 
-#: ../iw/lvm_dialog_gui.py:897
+#: ../iw/lvm_dialog_gui.py:908
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "የድምጹ ቡድን ስም «%s» ቀደም ብሎ በአገልግሎት ላይ ነው። እባክዎን ሌላ ይምረጡ።"
 
-#: ../iw/lvm_dialog_gui.py:941
+#: ../iw/lvm_dialog_gui.py:952
 msgid "Not enough physical volumes"
 msgstr "በቂ ያልሆነ አካላዊ ድምጾች"
 
-#: ../iw/lvm_dialog_gui.py:942
+#: ../iw/lvm_dialog_gui.py:953
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3082,71 +3157,71 @@ msgstr ""
 "\n"
 "መከፋፈያ ወይንም  «የአካላዊ ድምጽ (LVM)» ዓይነት የRAID ስብስብ ፍጠር ኣን የ «LVM» ምርጫ እንደገና ምረጥ።"
 
-#: ../iw/lvm_dialog_gui.py:953
+#: ../iw/lvm_dialog_gui.py:964
 msgid "Make LVM Volume Group"
 msgstr "የLVM ድምጽ ቡድን ፍጠር"
 
-#: ../iw/lvm_dialog_gui.py:956
+#: ../iw/lvm_dialog_gui.py:967
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "የLVMን ድምጽ ቡድን አርም፦ %s"
 
-#: ../iw/lvm_dialog_gui.py:958
+#: ../iw/lvm_dialog_gui.py:969
 msgid "Edit LVM Volume Group"
 msgstr "የLVMን ድምጽ ቡድን አርም"
 
-#: ../iw/lvm_dialog_gui.py:974
+#: ../iw/lvm_dialog_gui.py:985
 msgid "_Volume Group Name:"
 msgstr "የድምጽ ቡድን ስም፡"
 
-#: ../iw/lvm_dialog_gui.py:982
+#: ../iw/lvm_dialog_gui.py:993
 msgid "Volume Group Name:"
 msgstr "የድምጽ ቡድን ስም፦"
 
-#: ../iw/lvm_dialog_gui.py:990
+#: ../iw/lvm_dialog_gui.py:1001
 msgid "_Physical Extent:"
 msgstr "አካላዊ መጠን፦"
 
-#: ../iw/lvm_dialog_gui.py:1005
+#: ../iw/lvm_dialog_gui.py:1016
 msgid "Physical Volumes to _Use:"
 msgstr "አካላዊ ድምጾችን ለመገልገል፦"
 
-#: ../iw/lvm_dialog_gui.py:1011
+#: ../iw/lvm_dialog_gui.py:1022
 msgid "Used Space:"
 msgstr "ጥቅም ላይ የዋሉ ቦታዎች፦"
 
-#: ../iw/lvm_dialog_gui.py:1028
+#: ../iw/lvm_dialog_gui.py:1039
 msgid "Free Space:"
 msgstr "ነፃ ቦታ፦"
 
-#: ../iw/lvm_dialog_gui.py:1046
+#: ../iw/lvm_dialog_gui.py:1057
 msgid "Total Space:"
 msgstr "አጠቃላይ ቦታ፦"
 
-#: ../iw/lvm_dialog_gui.py:1075
+#: ../iw/lvm_dialog_gui.py:1086
 msgid "Logical Volume Name"
 msgstr "ተገቢ የሆነ የድምጽ ስም"
 
-#: ../iw/lvm_dialog_gui.py:1078 ../iw/partition_gui.py:364
+#: ../iw/lvm_dialog_gui.py:1089 ../iw/partition_gui.py:364
 #: ../iw/upgrade_swap_gui.py:136 ../textw/partition_text.py:1437
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "የተከማቸ ነጥብ"
 
-#: ../iw/lvm_dialog_gui.py:1081 ../iw/partition_gui.py:369
+#: ../iw/lvm_dialog_gui.py:1092 ../iw/partition_gui.py:369
 msgid "Size (MB)"
 msgstr "መጠን (ሜጋባይት)"
 
-#: ../iw/lvm_dialog_gui.py:1095 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
+#: ../iw/lvm_dialog_gui.py:1106 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:97
 msgid "_Add"
 msgstr "_ጨምር"
 
-#: ../iw/lvm_dialog_gui.py:1098 ../iw/network_gui.py:530
+#: ../iw/lvm_dialog_gui.py:1109 ../iw/network_gui.py:528
 #: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1357 ../iw/zfcp_gui.py:100
 msgid "_Edit"
 msgstr "አስተካክል"
 
-#: ../iw/lvm_dialog_gui.py:1113
+#: ../iw/lvm_dialog_gui.py:1124
 msgid "Logical Volumes"
 msgstr "ተገቢ የሆኑ ድምጾች"
 
@@ -3186,39 +3261,39 @@ msgstr "3 ቁልፎችን አስመስለህ ሥራ"
 msgid "Select the appropriate mouse for the system."
 msgstr "ተስማሚውን የፕሮግራም መክፈቻና መፈለጊያ ለሲስተሙ ይምረጡ።"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:607
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:605
 msgid "Gateway"
 msgstr "መንገድ"
 
-#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
+#: ../iw/network_gui.py:26 ../iw/network_gui.py:607
 msgid "Primary DNS"
 msgstr "አንደኛ DNS"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:611
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:609
 msgid "Secondary DNS"
 msgstr "ሁለተኛ DNS"
 
-#: ../iw/network_gui.py:28 ../iw/network_gui.py:613
+#: ../iw/network_gui.py:27 ../iw/network_gui.py:611
 msgid "Tertiary DNS"
 msgstr "ሦስተኛ DNS"
 
-#: ../iw/network_gui.py:30
+#: ../iw/network_gui.py:29
 msgid "_Gateway"
 msgstr "መንገድ"
 
-#: ../iw/network_gui.py:30
+#: ../iw/network_gui.py:29
 msgid "_Primary DNS"
 msgstr "አንደኛ DNS"
 
-#: ../iw/network_gui.py:31
+#: ../iw/network_gui.py:30
 msgid "_Secondary DNS"
 msgstr "ሁለተኛ DNS"
 
-#: ../iw/network_gui.py:31
+#: ../iw/network_gui.py:30
 msgid "_Tertiary DNS"
 msgstr "ሦስተኛ DNS"
 
-#: ../iw/network_gui.py:35
+#: ../iw/network_gui.py:34
 msgid "Network Configuration"
 msgstr "የመረብ አቀማመጥ"
 
@@ -3242,7 +3317,7 @@ msgid ""
 "environment this may cause problems later."
 msgstr "የመጻፊያ ሣጥኑን «%s» አልገለጹም። እንደ መረብዎት አካባቢ ሁነታ ይሄ ችግር ሊያመጣ ይችላል።"
 
-#: ../iw/network_gui.py:172 ../textw/network_text.py:413
+#: ../iw/network_gui.py:172 ../textw/network_text.py:404
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3272,13 +3347,10 @@ msgid "The IP information you have entered is invalid."
 msgstr "ያስገቡት የIP መረጃ ተገቢ አይደለም።"
 
 #: ../iw/network_gui.py:191
+#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
-"communicate over a network by default without at least one device active.\n"
-"\n"
-"NOTE: If you have a PCMCIA-based network adapter you should leave it "
-"inactive at this point. When you reboot your system the adapter will be "
-"activated automatically."
+"communicate over a network by default without at least one device active."
 msgstr ""
 "ምንም የሚንቀሳቀስ የኔትወርክ መሥሪያዎች የልዎትም። በትንሹ ያለ አንድ እንኳውን መሥሪያ በእንቅስቃሴ ላይ ካልሆነ "
 "ሲስተምዎት በኔትወርኩ ላይ እንደነበረው ግንኙነት ማድረግ አይችለም።\n"
@@ -3286,88 +3358,88 @@ msgstr ""
 "ማስታወሻ፦ በPCMCIA ላይ የተመሠረተ የኔትወርክ ማገናኛ ካልዎት በዚህ ነጥብ ላይ ሳያንቀሳቅሱ ቢተውት ይሻላል። "
 "እንደገና ሲስተምዎትን ሲያስጀምሩ ማገናኛው አውቶማቲካሊ ሥራ ይጀምራል።"
 
-#: ../iw/network_gui.py:210
+#: ../iw/network_gui.py:207
 #, python-format
 msgid "Edit Interface %s"
 msgstr "የ%sን ወሰን አርም"
 
-#: ../iw/network_gui.py:221
+#: ../iw/network_gui.py:218
 msgid "Configure using _DHCP"
 msgstr "_DHCPን በመጠቀም አስተካክል"
 
-#: ../iw/network_gui.py:227
+#: ../iw/network_gui.py:224
 msgid "_Activate on boot"
 msgstr "በማስጀመሪያው ላይ አስጀምር"
 
-#: ../iw/network_gui.py:236
+#: ../iw/network_gui.py:233
 msgid "_IP Address"
 msgstr "ip አድራሻ"
 
-#: ../iw/network_gui.py:237
+#: ../iw/network_gui.py:234
 msgid "Net_mask"
 msgstr "የመረብ ጭምብል"
 
-#: ../iw/network_gui.py:242
+#: ../iw/network_gui.py:239
 msgid "_Point to Point (IP)"
 msgstr "_ነጥብ ለነጥብ (IP)"
 
-#: ../iw/network_gui.py:246
+#: ../iw/network_gui.py:243
 msgid "_ESSID"
 msgstr "_ESSID"
 
-#: ../iw/network_gui.py:247
+#: ../iw/network_gui.py:244
 msgid "Encryption _Key"
 msgstr "የኢንክሪፕሽን ቁልፍ (_K)"
 
-#: ../iw/network_gui.py:258
+#: ../iw/network_gui.py:255
 msgid "Hardware address:"
 msgstr "የሀርድዌር አድራሻ፦"
 
-#: ../iw/network_gui.py:297
+#: ../iw/network_gui.py:293
 #, python-format
 msgid "Configure %s"
 msgstr "%sን አስተካክሉ"
 
-#: ../iw/network_gui.py:471
+#: ../iw/network_gui.py:469
 msgid "Active on Boot"
 msgstr "በማስጀመሪያ ያሰሩ"
 
-#: ../iw/network_gui.py:473 ../iw/osbootwidget.py:67
+#: ../iw/network_gui.py:471 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:363 ../textw/bootloader_text.py:193
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/partition_text.py:1437
 msgid "Device"
 msgstr "መሥሪያ"
 
-#: ../iw/network_gui.py:475
+#: ../iw/network_gui.py:473
 msgid "IP/Netmask"
 msgstr "የ መረብ ጭምብል"
 
-#: ../iw/network_gui.py:537
+#: ../iw/network_gui.py:535
 msgid "Network Devices"
 msgstr "የመረብ መሥሪያዎች"
 
-#: ../iw/network_gui.py:548
+#: ../iw/network_gui.py:546
 msgid "Set the hostname:"
 msgstr "የእንግዳ ተቀባይ ስሙን አድርጉ፦"
 
-#: ../iw/network_gui.py:553
+#: ../iw/network_gui.py:551
 msgid "_automatically via DHCP"
 msgstr "አውቶማቲካሊ በDHCP በኩል"
 
-#: ../iw/network_gui.py:560
+#: ../iw/network_gui.py:558
 msgid "_manually"
 msgstr "በእጅ የሚሰራ"
 
-#: ../iw/network_gui.py:564
+#: ../iw/network_gui.py:562
 msgid "(ex. \"host.domain.com\")"
 msgstr "(ex. «host.domain.com»)"
 
-#: ../iw/network_gui.py:570 ../loader2/net.c:837
+#: ../iw/network_gui.py:568 ../loader2/net.c:1354
 msgid "Hostname"
 msgstr "የእንግዳ ተቀባይ ስም"
 
-#: ../iw/network_gui.py:618
+#: ../iw/network_gui.py:616
 msgid "Miscellaneous Settings"
 msgstr "ልዩ ልዩ አቀማመጦች"
 
@@ -3479,7 +3551,7 @@ msgstr "መከፋፈያዎችን አርም፦ /dev/%s"
 msgid "Edit Partition"
 msgstr "መከፋፈያዎችን አርም"
 
-#: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:292
+#: ../iw/partition_dialog_gui.py:301
 msgid "File System _Type:"
 msgstr "የፋይሉ አሠራር ዓይነት፦"
 
@@ -3491,10 +3563,6 @@ msgstr "የሚፈቀዱት ድራይቮች፦"
 msgid "Drive:"
 msgstr "ድራይቭ፦"
 
-#: ../iw/partition_dialog_gui.py:355
-msgid "Original File System Label:"
-msgstr "የዋናው የፋይል አሠራር መለያ፦"
-
 #: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
 msgstr "ሲሊንደሩን ጀምር፦"
@@ -3503,7 +3571,7 @@ msgstr "ሲሊንደሩን ጀምር፦"
 msgid "_End Cylinder:"
 msgstr "ሲሊንደሩን ጨርስ፦"
 
-#: ../iw/partition_dialog_gui.py:459
+#: ../iw/partition_dialog_gui.py:460
 msgid "Force to be a _primary partition"
 msgstr "የመጀመሪያ መከፋፈያ ለመሆን አስገድድ።"
 
@@ -3587,7 +3655,7 @@ msgstr "የRAID መስሪያዎች"
 msgid "None"
 msgstr "ምንም"
 
-#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:327
+#: ../iw/partition_gui.py:798 ../loader2/hdinstall.c:329
 msgid "Hard Drives"
 msgstr "ሀርድ ድራይቮች"
 
@@ -3721,34 +3789,34 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "የማጥቂያ መስሪያውን ደብቅ/ ኤልቪኤም ድምጽ - የቡድን አባሎች"
 
-#: ../iw/partition_ui_helpers_gui.py:91 ../iw/partition_ui_helpers_gui.py:112
-#: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:251
+#: ../iw/partition_ui_helpers_gui.py:92 ../iw/partition_ui_helpers_gui.py:113
+#: ../iw/partition_ui_helpers_gui.py:115 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:253 ../textw/partition_text.py:255
 #: ../textw/partition_text.py:280
 msgid "<Not Applicable>"
 msgstr "<ሊተገበር የማይችል>"
 
-#: ../iw/partition_ui_helpers_gui.py:245
+#: ../iw/partition_ui_helpers_gui.py:251
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "በዚህ መከፋፈያ ላይ እንዴት ነው የፋይሉን አሠራር ማዘጋጀት የሚፈልጉት?"
 
-#: ../iw/partition_ui_helpers_gui.py:253
+#: ../iw/partition_ui_helpers_gui.py:259
 msgid "Leave _unchanged (preserve data)"
 msgstr "ሳይለወጥ ይተውት (ዳታውን እንዳለ አቆይ)"
 
-#: ../iw/partition_ui_helpers_gui.py:259
+#: ../iw/partition_ui_helpers_gui.py:265
 msgid "_Format partition as:"
 msgstr "መከፋፈያውን በ ስም ፎርማት አድርግ፦"
 
-#: ../iw/partition_ui_helpers_gui.py:282
+#: ../iw/partition_ui_helpers_gui.py:288
 msgid "Mi_grate partition to:"
 msgstr "መከፋፈያዎቹን ወደ አጓጉዝ፦ (_g)"
 
-#: ../iw/partition_ui_helpers_gui.py:304
+#: ../iw/partition_ui_helpers_gui.py:310
 msgid "Check for _bad blocks?"
 msgstr "መጥፎ አጋጆች እንዳሉ ያረጋግጡ?"
 
-#: ../iw/partition_ui_helpers_gui.py:339
+#: ../iw/partition_ui_helpers_gui.py:345
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
@@ -3832,7 +3900,7 @@ msgstr ""
 "በትንሹ ሁለት መከፋፈያዎች ዓይነቶች ፍጠር «ሶፍትዌር RAID» ዓይነትን እና ከዛ «RAID» የሚለውን ምርጫ እንደገና "
 "ምረጥ።"
 
-#: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:669
+#: ../iw/raid_dialog_gui.py:265 ../iw/raid_dialog_gui.py:686
 #: ../textw/partition_text.py:967
 msgid "Make RAID Device"
 msgstr "የRAID መሥሪያ ሥራ"
@@ -3846,27 +3914,27 @@ msgstr "የRAID መሥሪያውን አርም፦ /dev/md%s"
 msgid "Edit RAID Device"
 msgstr "የRAID መሥሪያውን አርም"
 
-#: ../iw/raid_dialog_gui.py:311
+#: ../iw/raid_dialog_gui.py:322
 msgid "RAID _Device:"
 msgstr "የRAID መሥሪያ፦"
 
-#: ../iw/raid_dialog_gui.py:329
+#: ../iw/raid_dialog_gui.py:340
 msgid "RAID _Level:"
 msgstr "የRAID መጠን፦"
 
-#: ../iw/raid_dialog_gui.py:370
+#: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
 msgstr "የRAID አባሎች፦"
 
-#: ../iw/raid_dialog_gui.py:387
+#: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
 msgstr "የትርፎች ቁጥር፦"
 
-#: ../iw/raid_dialog_gui.py:397
+#: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
 msgstr "መከፋፈያው ይስተካከል?"
 
-#: ../iw/raid_dialog_gui.py:476
+#: ../iw/raid_dialog_gui.py:487
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -3874,12 +3942,12 @@ msgstr ""
 "የዚህ የምንጩ ድራይቭ አስመስለው ሊቀዱ የሚችል መከፋፈያዎች የሉትም። በመጀመሪያ የመከፋፈያውን ዓይነት ‹ሶፍትዌር "
 "RAID> በዚህ ድራይቭ ላይ መቀዳት ከመቻሉ በፊት መለየት አለብዎት።"
 
-#: ../iw/raid_dialog_gui.py:480 ../iw/raid_dialog_gui.py:486
-#: ../iw/raid_dialog_gui.py:498 ../iw/raid_dialog_gui.py:511
+#: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
+#: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
 msgstr "የምንጩ ድራይቭ ስሕተት"
 
-#: ../iw/raid_dialog_gui.py:487
+#: ../iw/raid_dialog_gui.py:498
 msgid ""
 "The source drive selected has partitions on it which are not of type "
 "'software RAID'.\n"
@@ -3890,7 +3958,7 @@ msgstr ""
 "\n"
 "እነዚህ መከፋፈያዎች ይህ ድራይቭ ሊቀዳ ከመቻሉ በፊት መወገድ አለባቸው።"
 
-#: ../iw/raid_dialog_gui.py:499
+#: ../iw/raid_dialog_gui.py:510
 #, python-format
 msgid ""
 "The source drive selected has partitions which are not constrained to the "
@@ -3903,7 +3971,7 @@ msgstr ""
 "\n"
 "እነዚህ መከፋፈያዎች ለእዚህ ድራይቭ ድራይቩ መቀዳት ከመቻሉ በፊት መወገድ ወይንም መገደብ አለባቸው። "
 
-#: ../iw/raid_dialog_gui.py:512
+#: ../iw/raid_dialog_gui.py:523
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
 "of an active software RAID device.\n"
@@ -3915,21 +3983,21 @@ msgstr ""
 "\n"
 "እነዚህ መከፋፈያዎች ይህ ድራይቭ መቀዳት ከመቻሉ በፊት መወገድ አለባቸው።"
 
-#: ../iw/raid_dialog_gui.py:525 ../iw/raid_dialog_gui.py:531
-#: ../iw/raid_dialog_gui.py:544
+#: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
+#: ../iw/raid_dialog_gui.py:561
 msgid "Target Drive Error"
 msgstr "የታለመው ድራይቭ ስሕተት"
 
-#: ../iw/raid_dialog_gui.py:526
+#: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
 msgstr "እባክዎን የታለሙትን ድራይቮች ለቅጂው ሥራ ይምረጡ።"
 
-#: ../iw/raid_dialog_gui.py:532
+#: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "የምንጩ ድራይቭ /dev/%s እንደታለመውም ድራይቭ ሆኖ መመረጥ አይችልም።"
 
-#: ../iw/raid_dialog_gui.py:545
+#: ../iw/raid_dialog_gui.py:562
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -3944,18 +4012,18 @@ msgstr ""
 "\n"
 "ድራይቩ ኢላማ ከመሆኑ በፊት ይህ መከፋፈያ መወገድ አለበት።"
 
-#: ../iw/raid_dialog_gui.py:606
+#: ../iw/raid_dialog_gui.py:623
 msgid "Please select a source drive."
 msgstr "እባክዎን ዋናውን ድራይቭ ይምረጡ።"
 
-#: ../iw/raid_dialog_gui.py:626
+#: ../iw/raid_dialog_gui.py:643
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr "አሁን የ/dev/%s ድራይቭ ለሚከተሉት ድራይቮች ቅጂ ይሆናል፦\n"
 
-#: ../iw/raid_dialog_gui.py:631
+#: ../iw/raid_dialog_gui.py:648
 msgid ""
 "\n"
 "\n"
@@ -3965,19 +4033,19 @@ msgstr ""
 "\n"
 "ማስጠንቀቂያ! የታለሙት ድራይቮች ላይ ያሉ ዳታዎች በሙሉ ይደመሰሳሉ።"
 
-#: ../iw/raid_dialog_gui.py:634
+#: ../iw/raid_dialog_gui.py:651
 msgid "Final Warning"
 msgstr "የመጨረሻ ማስጠንቀቂያ"
 
-#: ../iw/raid_dialog_gui.py:636
+#: ../iw/raid_dialog_gui.py:653
 msgid "Clone Drives"
 msgstr "ቅጂ ድራይቮች"
 
-#: ../iw/raid_dialog_gui.py:645
+#: ../iw/raid_dialog_gui.py:662
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "የታለሙት ድራይቮች በሚያፀዳበት ወቅት ስህተት ነበር። ቅጂው አልተሳካም።"
 
-#: ../iw/raid_dialog_gui.py:679
+#: ../iw/raid_dialog_gui.py:696
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4003,31 +4071,60 @@ msgstr ""
 "ሌሎች የመከፋፈያ ዓይነቶች አይፈቀዱም።\n"
 "በዚህ አሠራር በዋናው ድራይቭ(ቮች) ላይ ያሉት ነገሮች ሁሉ ይደመሰሳል።"
 
-#: ../iw/raid_dialog_gui.py:699
+#: ../iw/raid_dialog_gui.py:716
 msgid "Source Drive:"
 msgstr "ምንጩ ድራይቭ፦"
 
-#: ../iw/raid_dialog_gui.py:707
+#: ../iw/raid_dialog_gui.py:724
 msgid "Target Drive(s):"
 msgstr "የታለሙት ድራቭ(ቮች)፦"
 
-#: ../iw/raid_dialog_gui.py:715
+#: ../iw/raid_dialog_gui.py:732
 msgid "Drives"
 msgstr "ድራይቮች"
 
-#: ../iw/release_notes.py:153
+#: ../iw/release_notes.py:151 ../iw/release_notes.py:155
 msgid "Release notes are missing.\n"
 msgstr "የመልቀቂያ ማሳሰቢያዎች ጠፍተዋል። \n"
 
-#: ../iw/release_notes.py:212
+#: ../iw/release_notes.py:222
 msgid "Release Notes"
 msgstr "ማሳሰቢያ ስጥ"
 
-#: ../iw/release_notes.py:216
+#: ../iw/release_notes.py:226
 msgid "Unable to load file!"
 msgstr "ፋይል መጫን አልተቻለም!"
 
-#: ../iw/timezone_gui.py:60 ../textw/timezone_text.py:90
+#: ../iw/task_gui.py:85
+#, fuzzy
+msgid "Invalid Repository Name"
+msgstr "ተቀባይነት የሌለው የሆስት ስም"
+
+#: ../iw/task_gui.py:86
+#, fuzzy
+msgid "You must provide a non-zero length repository name."
+msgstr "የተጠቃሚ ስም ማቅረብ አለብዎት"
+
+#: ../iw/task_gui.py:95
+#, fuzzy
+msgid "Invalid Repository URL"
+msgstr "ተቀባይነት የለለው የማስጀመሪያ መለያ"
+
+#: ../iw/task_gui.py:96
+msgid "You must provide an HTTP or FTP URL to a repository."
+msgstr ""
+
+#: ../iw/task_gui.py:111
+#, fuzzy, python-format
+msgid ""
+"Unable to read package metadata from repository.  This may be due to a "
+"missing repodata directory.  Please ensure that your repository has been "
+"correctly generated.\n"
+"\n"
+"%s"
+msgstr "በማስገቢያው ሥራ ዛፍ ውስጥ የኮምፒውተሩ ፋይል አስፈላጊ ቡድኖችን እያጣ ነው። "
+
+#: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "የጊዜ ክልል ምርጫ"
 
@@ -4441,15 +4538,15 @@ msgstr ""
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:54 ../textw/confirm_text.py:56
-#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:386
-#: ../loader2/driverdisk.c:270 ../loader2/driverdisk.c:301
-#: ../loader2/driverdisk.c:386 ../loader2/driverselect.c:70
-#: ../loader2/driverselect.c:182 ../loader2/driverselect.c:208
-#: ../loader2/hdinstall.c:327 ../loader2/hdinstall.c:381 ../loader2/kbd.c:128
-#: ../loader2/loader.c:329 ../loader2/loader.c:926 ../loader2/loader.c:948
-#: ../loader2/net.c:251 ../loader2/net.c:289 ../loader2/net.c:562
-#: ../loader2/net.c:1109 ../loader2/nfsinstall.c:54 ../loader2/urls.c:266
-#: ../loader2/urls.c:456
+#: ../textw/constants_text.py:44 ../loader2/cdinstall.c:385
+#: ../loader2/driverdisk.c:273 ../loader2/driverdisk.c:304
+#: ../loader2/driverdisk.c:389 ../loader2/driverselect.c:70
+#: ../loader2/driverselect.c:181 ../loader2/driverselect.c:206
+#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:131
+#: ../loader2/loader.c:335 ../loader2/loader.c:943 ../loader2/loader.c:965
+#: ../loader2/net.c:242 ../loader2/net.c:282 ../loader2/net.c:706
+#: ../loader2/net.c:949 ../loader2/net.c:1643 ../loader2/nfsinstall.c:57
+#: ../loader2/urls.c:269 ../loader2/urls.c:456
 msgid "Back"
 msgstr "ወደኋላ"
 
@@ -4466,42 +4563,19 @@ msgstr ""
 "አጠቃላይ ተሻሽለው የተመዘገቡት እንደገና ሲስተምዎትን ካስጀመሩ በኋላ በ%s ውስጥ ይሆናሉ ይህንን ፋይል ቢያቆዩት ለበኋላ "
 "ማጣቀሻ ሊይስፈልግዎት ይችላል።"
 
-#: ../textw/grpselect_text.py:83
+#: ../textw/grpselect_text.py:84
 #, fuzzy
 msgid "Please select the package groups you would like to have installed."
 msgstr "እባክዎን መጠቀም የሚፈልጉትን ውሳኔ ይምረጡ፦"
 
-#: ../textw/grpselect_text.py:101
+#: ../textw/grpselect_text.py:102
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<ቦታ>,<+>,<-> ምርጫዎች   | <F2> የቡድን ዝርዝሮች   | <F12> የሚቀጥለው መመልከቻ"
 
-#: ../textw/grpselect_text.py:129
+#: ../textw/grpselect_text.py:130
 msgid "Package Group Details"
 msgstr "የጥቅል ቡድን ዝርዝሮች"
-
-#: ../textw/iscsi_text.py:35
-#, fuzzy
-msgid "Target IP address:"
-msgstr "የአይፒ አድራሻ፦"
-
-#: ../textw/iscsi_text.py:42
-#, fuzzy
-msgid "Port Number:"
-msgstr "ወይንም ተጠቀም፦"
-
-#: ../textw/iscsi_text.py:49
-msgid "iSCSI Initiator Name:"
-msgstr ""
-
-#: ../textw/iscsi_text.py:70 ../textw/network_text.py:29
-msgid "Invalid IP string"
-msgstr "ተቀባይነት የለለው የIP ሐረግ"
-
-#: ../textw/iscsi_text.py:71 ../textw/network_text.py:30
-#, python-format
-msgid "The entered IP '%s' is not a valid IP."
-msgstr "የተከተተው IP ‹%s› ተቀባይነት ያለው IP አይደለም"
 
 #: ../textw/keyboard_text.py:38
 msgid "Keyboard Selection"
@@ -4527,95 +4601,104 @@ msgstr "ሦስት ቁልፎችን ያስመስል?"
 msgid "Mouse Selection"
 msgstr "የመክፈቻና የመፈለጊያ ምርጫ"
 
-#: ../textw/network_text.py:67
+#: ../textw/network_text.py:28
+msgid "Invalid IP string"
+msgstr "ተቀባይነት የለለው የIP ሐረግ"
+
+#: ../textw/network_text.py:29
+#, python-format
+msgid "The entered IP '%s' is not a valid IP."
+msgstr "የተከተተው IP ‹%s› ተቀባይነት ያለው IP አይደለም"
+
+#: ../textw/network_text.py:72
 msgid "IP Address"
 msgstr "የip አድራሻ"
 
-#: ../textw/network_text.py:68
+#: ../textw/network_text.py:73
 msgid "Netmask"
 msgstr "ኔትማስክ"
 
-#: ../textw/network_text.py:70
+#: ../textw/network_text.py:75
 msgid "Point to Point (IP)"
 msgstr "ነጥብ ለነጥብ (IP)"
 
-#: ../textw/network_text.py:74 ../loader2/net.c:246
+#: ../textw/network_text.py:79 ../loader2/net.c:237
 msgid "ESSID"
 msgstr "ESSID"
 
-#: ../textw/network_text.py:75 ../loader2/net.c:247
+#: ../textw/network_text.py:80 ../loader2/net.c:238
 msgid "Encryption Key"
 msgstr "የኢንክሪፕሽን ቁልፍ"
 
-#: ../textw/network_text.py:87
+#: ../textw/network_text.py:92
 #, python-format
 msgid "Network Device: %s"
 msgstr "የመረብ መሳሪያ፦ %s"
 
-#: ../textw/network_text.py:93
+#: ../textw/network_text.py:98
 #, python-format
 msgid "Description: %s"
 msgstr "መግለጫ፦ %s"
 
-#: ../textw/network_text.py:97
+#: ../textw/network_text.py:102
 #, python-format
 msgid "Hardware Address: %s"
 msgstr "የሀርድዌር አድራሻ፦ %s"
 
-#: ../textw/network_text.py:102
+#: ../textw/network_text.py:107
 msgid "Configure using DHCP"
 msgstr "DHCPን በመጠቀም አስተካክል"
 
-#: ../textw/network_text.py:115
+#: ../textw/network_text.py:120
 msgid "Activate on boot"
 msgstr "በማስጀመሪያ ላይ አሰራ/አስጀምር"
 
-#: ../textw/network_text.py:141
+#: ../textw/network_text.py:146
 #, python-format
 msgid "Network Configuration for %s"
 msgstr "ለ%s የመረብ ማስተካከያ"
 
-#: ../textw/network_text.py:174
+#: ../textw/network_text.py:179
 msgid "Invalid information"
 msgstr "ተቀባይነት የሌለው መረጃ"
 
-#: ../textw/network_text.py:175
+#: ../textw/network_text.py:180
 msgid "You must enter valid IP information to continue"
 msgstr "ለመቀጠል ቀባይነት ያለው የIP መረጃ ማስገባት ይኖርብዎታል"
 
-#: ../textw/network_text.py:259
+#: ../textw/network_text.py:247 ../loader2/net.c:920
 msgid "Gateway:"
 msgstr "መንገድ/ጎዳና፦"
 
-#: ../textw/network_text.py:269
+#: ../textw/network_text.py:256
 msgid "Primary DNS:"
 msgstr "አንደኛ DNS:-"
 
-#: ../textw/network_text.py:274
+#: ../textw/network_text.py:261
 msgid "Secondary DNS:"
 msgstr "ሁለተኛ DNS:-"
 
-#: ../textw/network_text.py:279
+#: ../textw/network_text.py:266
 msgid "Tertiary DNS:"
 msgstr "ሦስተኛ DNS:-"
 
-#: ../textw/network_text.py:286
+#: ../textw/network_text.py:273
 msgid "Miscellaneous Network Settings"
 msgstr "ያልታወቁ የመረብ ይዞታዎች"
 
-#: ../textw/network_text.py:354
+#: ../textw/network_text.py:345
 msgid "automatically via DHCP"
 msgstr "አውቶማቲካሊ በDHCP ውስጥ"
 
-#: ../textw/network_text.py:358
+#: ../textw/network_text.py:349
 msgid "manually"
 msgstr "በእጅ የሚሰራ"
 
-#: ../textw/network_text.py:377
+#: ../textw/network_text.py:368
 msgid "Hostname Configuration"
 msgstr "የሆስቱ ስም ማስተካከያ"
 
-#: ../textw/network_text.py:380
+#: ../textw/network_text.py:371
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
@@ -4626,11 +4709,11 @@ msgstr ""
 "በDHCP ውስጥ ይምረጡ። አለበለዚያ እራስዎት ይምረጡ እና ለሲስተሙ የሆስት ስም ያስገቡ። ይህንን ካላደረጉ ሲስተምዎት "
 "‹ሎካል ሆስት› ተብሎ ይታወቃል።"
 
-#: ../textw/network_text.py:406 ../textw/network_text.py:412
+#: ../textw/network_text.py:397 ../textw/network_text.py:403
 msgid "Invalid Hostname"
 msgstr "ተቀባይነት የሌለው የሆስት ስም"
 
-#: ../textw/network_text.py:407
+#: ../textw/network_text.py:398
 msgid "You have not specified a hostname."
 msgstr "የሆስት ስም ለይተው አልጠቀሱም።"
 
@@ -4901,12 +4984,12 @@ msgstr ""
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ለዚህ የማስገባት ሥራ የትኛውን ድራይቭ(ቮች) ነው መተቀም የሚፈልጉት?"
 
-#: ../textw/partition_text.py:1601
+#: ../textw/partition_text.py:1605
 #, fuzzy
 msgid "Review Partition Layout"
 msgstr "የተፈጠሩትን መከፋፈያዎች እንደገና ይመልከቱአቸው (እና አስፈላጊ ከሆነ ያሻሽሉዋቸው) (_v)"
 
-#: ../textw/partition_text.py:1602
+#: ../textw/partition_text.py:1606
 #, fuzzy
 msgid "Review and modify partitioning layout?"
 msgstr "የተፈጠሩትን መከፋፈያዎች እንደገና ይመልከቱአቸው (እና አስፈላጊ ከሆነ ያሻሽሉዋቸው) (_v)"
@@ -4981,11 +5064,11 @@ msgstr ""
 msgid "Customize software selection"
 msgstr "የሶፍትዌሩን ምርጫ አስተካክል"
 
-#: ../textw/timezone_text.py:72
+#: ../textw/timezone_text.py:68
 msgid "What time zone are you located in?"
 msgstr "በየትኛው የሰዓት ክልል ውስጥነው የሚገኙት?"
 
-#: ../textw/timezone_text.py:87
+#: ../textw/timezone_text.py:86
 msgid "System clock uses UTC"
 msgstr "የሲስተሙ ሰዓት UTCን ይጠቀማል"
 
@@ -5073,6 +5156,11 @@ msgstr ""
 msgid "The root password must be at least 6 characters long."
 msgstr "ዋናው የሚስጢር ቃል በትንሹ 6 አኃዞችን የያዘ መሆን አለበት።"
 
+#: ../textw/welcome_text.py:22
+#, python-format
+msgid "%s"
+msgstr "%s"
+
 #: ../textw/welcome_text.py:23
 #, python-format
 msgid ""
@@ -5120,6 +5208,7 @@ msgid "_Custom"
 msgstr "የተለየ (_C)"
 
 #: ../installclasses/custom.py:13 ../installclasses/fedora.py:13
+#: ../installclasses/rhel.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -5131,15 +5220,15 @@ msgstr ""
 msgid "_Fedora"
 msgstr "ፎርማት (_F)"
 
-#: ../installclasses/fedora.py:20
+#: ../installclasses/fedora.py:22 ../installclasses/rhel.py:22
 msgid "Office and Productivity"
 msgstr ""
 
-#: ../installclasses/fedora.py:21
+#: ../installclasses/fedora.py:23 ../installclasses/rhel.py:23
 msgid "Software Development"
 msgstr ""
 
-#: ../installclasses/fedora.py:22
+#: ../installclasses/fedora.py:24 ../installclasses/rhel.py:24
 #, fuzzy
 msgid "Web server"
 msgstr "የዌብ ሰርበር"
@@ -5158,7 +5247,6 @@ msgstr ""
 "ለኮምፒውተር ጥቅም የሚመች ሲስተም ለመፍጠር ይህንን የማስገቢያ ዓይነት ምረጥ።"
 
 #: ../installclasses/personal_desktop.py:18
-#: ../installclasses/rhel_desktop.py:16
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -5176,57 +5264,21 @@ msgstr ""
 "\tድምጽ እና የቪዲዮ መጠቀሚያ ፕሮግራሞች\n"
 "\tጨዋታዎች\n"
 
-#: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
-msgid "Red Hat Enterprise Linux AS"
-msgstr "የተባበሩት የሬድ ሃት ሊኑክስ ድርጅት"
-
-#: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tAdministration Tools\n"
-"\tServer Configuration Tools\n"
-"\tWeb Server\n"
-"\tWindows File Server (SMB)\n"
-msgstr ""
-"\tዴስክቶፕ ሼል (ግኖም)\n"
-"\tየአስተዳደር መሣሪያዎች\n"
-"\tየሰርቨር አቀማመጥ መሣሪያዎች\n"
-"\tየድር ሰርቨር\n"
-"\tየመስኮቶች ፋይል ሰርቨር (SMB)\n"
-
-#: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
-msgid "Red Hat Enterprise Linux Desktop"
-msgstr "የሬድ ሀት ድርጅት ሊኑክስ ኮምፒውተር"
-
-#: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
-msgid "Red Hat Enterprise Linux ES"
-msgstr "የሬድ ሀት ድርጅት ሊኑክስ ኢኤስ"
-
-#: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
-msgid "Red Hat Enterprise Linux WS"
+#: ../installclasses/rhel.py:11
+#, fuzzy
+msgid "Red Hat Enterprise Linux"
 msgstr "ሬድ ሀት ድርጅት ሊኑክስ ደብሊውኤስ"
 
-#: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
+#: ../installclasses/rhel.py:49
+msgid "Registration Key Required"
 msgstr ""
-"\tዴስክቶፕ ሼል (ኖም)\n"
-"\tየቢሮ ስብስብ (OpenOffice.org)\n"
-"\tዌብ ብራውሰር (ሞዚላ)\n"
-"\tኢሜይል (አዝጋሚ ለውጥ)\n"
-"\tፈጣን መልእክት\n"
-"\tድምጽ እና የቪዲዮ መጠቀሚያ ፕሮግራሞች\n"
-"\tጨዋታዎች\n"
-"\tየሶፍትዌር እድገት መሣሪያዎች\n"
-"\tየመምሪያ መሣሪያዎች\n"
+
+#: ../installclasses/rhel.py:50
+#, python-format
+msgid ""
+"A registration key is required to install %s.  Please contact your support "
+"representative if you did not receive a key with your product."
+msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -5251,22 +5303,44 @@ msgid ""
 "development and system administration. "
 msgstr "ይህ ምርጫ ለሶፍትዌር እድገት እና ለሲስተም መምሪያ ሥዕላዊ የኮምፒውተር ከመሣሪያዎች አካባቢ ያስገባል። "
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
+#: ../installclasses/workstation.py:14
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice.org)\n"
+"\tWeb browser \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
+"\tዴስክቶፕ ሼል (ኖም)\n"
+"\tየቢሮ ስብስብ (OpenOffice.org)\n"
+"\tዌብ ብራውሰር (ሞዚላ)\n"
+"\tኢሜይል (አዝጋሚ ለውጥ)\n"
+"\tፈጣን መልእክት\n"
+"\tድምጽ እና የቪዲዮ መጠቀሚያ ፕሮግራሞች\n"
+"\tጨዋታዎች\n"
+"\tየሶፍትዌር እድገት መሣሪያዎች\n"
+"\tየመምሪያ መሣሪያዎች\n"
+
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
 #: ../loader2/mediacheck.c:346
 msgid "Media Check"
 msgstr "ማሰራጫ መቆጣጠር"
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
-#: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:419
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
+#: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
+#: ../loader2/method.c:420
 msgid "Test"
 msgstr "ሙከራ"
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:95
 msgid "Eject CD"
 msgstr "ሲዲ አውጣ (_E)"
 
-#: ../loader2/cdinstall.c:89
+#: ../loader2/cdinstall.c:92
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -5274,7 +5348,7 @@ msgid ""
 msgstr ""
 "ድራይቭ ውስጥ ያለውን ሲዲ ለመሞከር «%s»ን ምረጥ ወይንም ሲዲውን ለማውጣት «%s»ን ይምረጡና ለሙከራ ሌላ ሲዲ ይክተቱ።"
 
-#: ../loader2/cdinstall.c:110
+#: ../loader2/cdinstall.c:113
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -5284,7 +5358,7 @@ msgid ""
 "to retest each CD prior to using it again."
 msgstr ""
 
-#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:378
+#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:377
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -5293,11 +5367,11 @@ msgstr ""
 "በየትኛውም የሲዲሮም ድራይቮችዎት ውስጥ የ%s ሲዲ አልተገኘም። እንደገና ለመሞከር እባክዎትን የ%sን ሲዲ ይክተቱና %sን "
 "ይጫኑ።"
 
-#: ../loader2/cdinstall.c:256
+#: ../loader2/cdinstall.c:257
 msgid "CD Found"
 msgstr "ሲዲ ተገኝቷል"
 
-#: ../loader2/cdinstall.c:258
+#: ../loader2/cdinstall.c:259
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -5308,7 +5382,7 @@ msgstr ""
 "\n"
 "የማሰራጫ ሙከራውን ለመዝለል እና የማስገባቱን ሥራ ለመጀመር %sን ይምረጡ።"
 
-#: ../loader2/cdinstall.c:373
+#: ../loader2/cdinstall.c:372
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -5317,77 +5391,77 @@ msgstr ""
 "ከማስጀመሪያዎት ማሰራጫ ጋር የሚመሳሰል ምንም የ%s ሲዲ አልተገኘም። እባክዎን የ%sን ሲዲ ይክተቱና እንደገና ለመሞከር %"
 "sን ይጫኑ።"
 
-#: ../loader2/cdinstall.c:385
+#: ../loader2/cdinstall.c:384
 msgid "CD Not Found"
 msgstr "ሲዲ አልተገኘም"
 
-#: ../loader2/cdinstall.c:451
+#: ../loader2/cdinstall.c:455
 msgid "Cannot find kickstart file on CDROM."
 msgstr "የkickstart ፋይል በሲዲሮም ላይ አልተገኘም።"
 
-#: ../loader2/driverdisk.c:124 ../loader2/firewire.c:52
+#: ../loader2/driverdisk.c:127 ../loader2/firewire.c:55
 msgid "Loading"
 msgstr "በመጫን ላይ"
 
-#: ../loader2/driverdisk.c:124
+#: ../loader2/driverdisk.c:127
 msgid "Reading driver disk..."
 msgstr "የድራይቨሩን መርጃ ማከማቻ በማንበብ ላይ..."
 
-#: ../loader2/driverdisk.c:264 ../loader2/driverdisk.c:296
+#: ../loader2/driverdisk.c:267 ../loader2/driverdisk.c:299
 msgid "Driver Disk Source"
 msgstr "የድራይቭ መርጃ ማከማቻ ምንጭ"
 
-#: ../loader2/driverdisk.c:265
+#: ../loader2/driverdisk.c:268
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr "ለድራይቨሩ መርጃ ማከማቻ ሊያገለግሉ የሚችሉ በርከት ያሉ መሥሪያዎች አልዎት። የትኛውን ነው መጠቀም የሚፈልጉት?"
 
-#: ../loader2/driverdisk.c:297
+#: ../loader2/driverdisk.c:300
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
 "የድራይቨሩን መርጃ ማከማቻ ገጽታ የያዙ በርከት ያሉ መከፋፈያዎች እዚህ መሣሪያ ላይ አሉ። የትኛውን መጠቀም ይፈልጋሉ?"
 
-#: ../loader2/driverdisk.c:335
+#: ../loader2/driverdisk.c:338
 msgid "Failed to mount partition."
 msgstr "መከፋፈያዎችን የማሳደጉ ሥራ ውድቅ ሆኗል"
 
-#: ../loader2/driverdisk.c:343
+#: ../loader2/driverdisk.c:346
 msgid "Select driver disk image"
 msgstr "የድራይቨር መረጃ ማከማቻ ገጽታ ምረጥ"
 
-#: ../loader2/driverdisk.c:344
+#: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
 msgstr "የድራይቨሩ መረጃ ማከማቻ ገጽታ የሆነውን ፋይል ይምረጡ።"
 
-#: ../loader2/driverdisk.c:373
+#: ../loader2/driverdisk.c:376
 msgid "Failed to load driver disk from file."
 msgstr "የድራይቨሩን መረጃ ማከማቻ ከፋይሉ ላይ ለመጫን አልተቻለም።"
 
-#: ../loader2/driverdisk.c:384
+#: ../loader2/driverdisk.c:387
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "የድራይቨሩን መረጃ ማከማቻ በ/dev/%s ውስጥ ይክተቱና ለመቀጠል «እሺ»ን ይጫኑ።"
 
-#: ../loader2/driverdisk.c:386
+#: ../loader2/driverdisk.c:389
 msgid "Insert Driver Disk"
 msgstr "የድራይቨሩን መረጃ ማከማቻ ይክተቱ"
 
-#: ../loader2/driverdisk.c:401
+#: ../loader2/driverdisk.c:404
 msgid "Failed to mount driver disk."
 msgstr "የድራይቨሩን መረጃ ማከማቻ ለማሳደግ አልተቻለም።"
 
-#: ../loader2/driverdisk.c:472
+#: ../loader2/driverdisk.c:475
 msgid "Manually choose"
 msgstr "እራስዎት ይምረጡ"
 
-#: ../loader2/driverdisk.c:473
+#: ../loader2/driverdisk.c:476
 msgid "Load another disk"
 msgstr "ሌላ የመረጃ ማከማቻ ጫኑ"
 
-#: ../loader2/driverdisk.c:474
+#: ../loader2/driverdisk.c:477
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -5396,38 +5470,38 @@ msgstr ""
 "በዚህ የድራይቨር መረጃ ማከማቻ ላይ ምንም ተገቢ የሆነ መሥሪያዎች አልተገኙም። እራስዎት ድራይቩን መምረጥ፣ ምንም ቢሆን "
 "መቀጠል ወይንም ሌላ የድራይቨር መረጃ ማከማቻ መጫን ይፈልጋሉ?"
 
-#: ../loader2/driverdisk.c:515
+#: ../loader2/driverdisk.c:516
 msgid "Driver disk"
 msgstr "የድራይቨር መረጃ ማከማቻ"
 
-#: ../loader2/driverdisk.c:516
+#: ../loader2/driverdisk.c:517
 msgid "Do you have a driver disk?"
 msgstr "የድራይቨር መረጃ ማከማቻ አልዎት?"
 
-#: ../loader2/driverdisk.c:526
+#: ../loader2/driverdisk.c:527
 msgid "More Driver Disks?"
 msgstr "ተጨማሪ የድራይቨር መረጃ ማከማቻዎች?"
 
-#: ../loader2/driverdisk.c:527
+#: ../loader2/driverdisk.c:528
 msgid "Do you wish to load any more driver disks?"
 msgstr "ተጨማሪ የድራይቨር ማከማቻዎችን መጫን ይፈልጋሉ?"
 
-#: ../loader2/driverdisk.c:579 ../loader2/driverdisk.c:617
-#: ../loader2/hdinstall.c:467 ../loader2/kickstart.c:121
-#: ../loader2/kickstart.c:131 ../loader2/kickstart.c:174
-#: ../loader2/kickstart.c:409 ../loader2/modules.c:964 ../loader2/net.c:925
-#: ../loader2/net.c:948 ../loader2/nfsinstall.c:262
-#: ../loader2/urlinstall.c:450 ../loader2/urlinstall.c:459
-#: ../loader2/urlinstall.c:470
+#: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:614
+#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:124
+#: ../loader2/kickstart.c:134 ../loader2/kickstart.c:177
+#: ../loader2/kickstart.c:411 ../loader2/modules.c:960 ../loader2/net.c:1446
+#: ../loader2/net.c:1469 ../loader2/nfsinstall.c:259
+#: ../loader2/urlinstall.c:476 ../loader2/urlinstall.c:485
+#: ../loader2/urlinstall.c:496
 msgid "Kickstart Error"
 msgstr "የኪክስታርት ስሕተት"
 
-#: ../loader2/driverdisk.c:580
+#: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "ያልታወቀ የድራይቨር መረጃ ማከማቻ ኪክስታርት ምንጭ፦ %s"
 
-#: ../loader2/driverdisk.c:618
+#: ../loader2/driverdisk.c:615
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -5449,21 +5523,21 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "የሞድዩል ክፍል አስገባ"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:180
 msgid "No drivers found"
 msgstr "ምንም ድራይቨሮች አልተገኙም"
 
-#: ../loader2/driverselect.c:181
+#: ../loader2/driverselect.c:180
 msgid "Load driver disk"
 msgstr "የድራይቨሩ መረጃ ማከማቻ ጫን"
 
-#: ../loader2/driverselect.c:182
+#: ../loader2/driverselect.c:181
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr "ምንም ድራይቨር በእጅ የገቡ አልተገኙም። የድራይቨር መረጃ ማከማቻ መጠቀም ይፈልጋሉ?"
 
-#: ../loader2/driverselect.c:201
+#: ../loader2/driverselect.c:199
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -5471,41 +5545,41 @@ msgstr ""
 "እባክዎትን መጫን የሚፈልጉትን ከስር ያለውን ድራይቨር ይምረጡ። ካልተከሰተ እና የድራይቨር መረጃ ማከማቻ ካልዎት F2ን "
 "ይጫኑ።"
 
-#: ../loader2/driverselect.c:209
+#: ../loader2/driverselect.c:207
 msgid "Specify optional module arguments"
 msgstr "አማራጭ የክፍል ክርክሮችን ግለጽ"
 
-#: ../loader2/driverselect.c:229
+#: ../loader2/driverselect.c:227
 msgid "Select Device Driver to Load"
 msgstr "የመሥሪያ ድራይቨር ለመጫን ምረጥ"
 
-#: ../loader2/firewire.c:52 ../loader2/windows.c:65
+#: ../loader2/firewire.c:55 ../loader2/windows.c:57
 #, c-format
 msgid "Loading %s driver..."
 msgstr "የ%sን ድራይቨር በመጫን ላይ..."
 
-#: ../loader2/hdinstall.c:100 ../loader2/hdinstall.c:151
-#: ../loader2/nfsinstall.c:207 ../loader2/urlinstall.c:153
+#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:153
+#: ../loader2/nfsinstall.c:204 ../loader2/urlinstall.c:160
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr "በእዛ ማውጫ ውስጥ ያለው የ%s ማስገቢያ ዛፍ ከማስጀመሪያ ማሰራጫዎት ጋር አብሮ የሚሄድ አይመስልም።"
 
-#: ../loader2/hdinstall.c:215
+#: ../loader2/hdinstall.c:217
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
 "የገባውን ከISO ገጽታዎች ላይ በሚያነብበት ጊዜ ስሕተት ተከስቷል። እባክዎትን የISO ገጽታ ያጣሩና እንደገና ይሞክሩ።"
 
-#: ../loader2/hdinstall.c:328
+#: ../loader2/hdinstall.c:330
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr "በሲስተምዎት ላይ ምንም ሀርድ ድራይቭ ያለዎት አይመስልም። ተጨማሪ መሥሪያዎችን ማስተካከል ይፈልጋሉ?"
 
-#: ../loader2/hdinstall.c:344
+#: ../loader2/hdinstall.c:346
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -5515,123 +5589,123 @@ msgstr ""
 "ምን ዓይነት መከፋፈያና ማውጫ ነው በእዛ መከፋፈያ ላይ ያለውን የሲዲውን (iso9660) ገጽታ ለ%s የያዘው? እዚህ "
 "ከተዘረዘሩት የመረጃ ማከማቻ ድራይቭዎትን ካላዩት ተጨማሪ መሥሪያዎችን ለማስተካከል F2ን ይጫኑ"
 
-#: ../loader2/hdinstall.c:366
+#: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
 msgstr "ማውጫው የያዛቸው ገጽታዎች፦"
 
-#: ../loader2/hdinstall.c:393
+#: ../loader2/hdinstall.c:395
 msgid "Select Partition"
 msgstr "መከፋፈያ ምረጥ"
 
-#: ../loader2/hdinstall.c:433
+#: ../loader2/hdinstall.c:435
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "መስሪያው %s የ%s CDROMን ገጽታዎችን ይዞ አልተገኘም።"
 
-#: ../loader2/hdinstall.c:468
+#: ../loader2/hdinstall.c:470
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "መጥፎ ክርክር ለኤችዲ ኪክስታርት የትእዛዝ ዘዴ %s፦ %s"
 
-#: ../loader2/hdinstall.c:537 ../loader2/hdinstall.c:593
+#: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
 msgid "Cannot find kickstart file on hard drive."
 msgstr "የኪክስታርትን ፋይ ሀርድ ድራይቩ ላይ አልተገኘም።"
 
-#: ../loader2/hdinstall.c:580
+#: ../loader2/hdinstall.c:582
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "ለBIOS መረጃ ማከማቻ %s ሀርድ ድራይቭ ማግኘት አልተቻለም"
 
-#: ../loader2/kbd.c:126
+#: ../loader2/kbd.c:129
 msgid "Keyboard Type"
 msgstr "የፊደል ሠሌዳ ዓይነት"
 
-#: ../loader2/kbd.c:127
+#: ../loader2/kbd.c:130
 msgid "What type of keyboard do you have?"
 msgstr "ምን ዓይነት የፊደል ሠሌዳ ነው ያልዎት?"
 
-#: ../loader2/kickstart.c:122
+#: ../loader2/kickstart.c:125
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "የኪክስታርት ፋይል %s በሚከፈትበት ጊዜ ስሕተት፦ %s"
 
-#: ../loader2/kickstart.c:132
+#: ../loader2/kickstart.c:135
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "የኪክስታርት ፋይል %s ዝርዝሮች በሚያነብበት ጊዜ ስሕተት፦ %s"
 
-#: ../loader2/kickstart.c:175
+#: ../loader2/kickstart.c:178
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "%s ውስጥ በመስመር ላይ የ%d ኪክስታርት ፋይል ስሕተት፡ %s።"
 
-#: ../loader2/kickstart.c:274
+#: ../loader2/kickstart.c:277
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "በማስጀመሪያው የመረጃ ማከማቻው ላይ ks.cfgን ማግኘት አልተቻለም።"
 
-#: ../loader2/kickstart.c:410
+#: ../loader2/kickstart.c:412
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "ኪክስታርት የትእዛዝ ዘዴ %sን ለመዝጋት መጥፎ ክርክር፦ %s"
 
-#: ../loader2/lang.c:51
+#: ../loader2/lang.c:54
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
 msgstr "ወደ %s እንኳን ደህና መጡ - የማዳኛ ዘዴ"
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:151
+#: ../loader2/lang.c:55 ../loader2/loader.c:158
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab/<Alt-Tab> መሠረታዊ ነገሮች መካከል   | <ቦታ>  ምርጫዎች  | <F12> የሚቀጥለው ማሳያ "
 
-#: ../loader2/lang.c:361
+#: ../loader2/lang.c:364
 msgid "Choose a Language"
 msgstr "ቋንቋ ምረጥ"
 
-#: ../loader2/loader.c:109
+#: ../loader2/loader.c:117
 msgid "Local CDROM"
 msgstr "የውስጥ ሲዲሮም"
 
-#: ../loader2/loader.c:111
+#: ../loader2/loader.c:119
 msgid "Hard drive"
 msgstr "ሀርድ ድራይቭ"
 
-#: ../loader2/loader.c:112
+#: ../loader2/loader.c:120
 msgid "NFS image"
 msgstr "የNFS ገጽታ"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:330
 msgid "Update Disk Source"
 msgstr "የመረጃ ማከማቻ ምንጭን አሻሽል"
 
-#: ../loader2/loader.c:325
+#: ../loader2/loader.c:331
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr "ለተሻሻለ መረጃ ማከማቻን ሊያገለግሉ የሚችሉ በዛ ያሉ መሥሪያዎች አልዎት። የትኛውን መጠቀም ይፈልጋሉ?"
 
-#: ../loader2/loader.c:340
+#: ../loader2/loader.c:346
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "የተሻሻሉትን የመረጃ ማከማቻ በ/dev/%s ውስጥ ይክተቱና ለመቀጠል «እሺ»ን ይጫኑ።"
 
-#: ../loader2/loader.c:342
+#: ../loader2/loader.c:348
 msgid "Updates Disk"
 msgstr "መረጃ ማከማቻን ያሻሽላል"
 
-#: ../loader2/loader.c:354
+#: ../loader2/loader.c:360
 msgid "Failed to mount updates disk"
 msgstr "የተሻሻሉ የመረጃ ማከማቻዎችን ማሳደጉ ውድቅ ሆኗል"
 
-#: ../loader2/loader.c:357
+#: ../loader2/loader.c:363
 msgid "Updates"
 msgstr "የተሻሻሉ"
 
-#: ../loader2/loader.c:357
+#: ../loader2/loader.c:363
 msgid "Reading anaconda updates..."
 msgstr "የተሻሻሉትን አናኮዳ በማንበብ ላይ...."
 
-#: ../loader2/loader.c:397
+#: ../loader2/loader.c:401
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -5640,40 +5714,40 @@ msgstr ""
 "ምንም ሀርድ ድራቮች አልተገኙም። የማስገባቱ ሥራን ለማሳካት እራስዎት በእጅዎት የመሥሪያ ድራይቨሮችን መምረጥ ያስፈልግዎት "
 "ይሆናል። አሁን ድራይቨሮችን መምረጥ ይፈልጋሉ?"
 
-#: ../loader2/loader.c:757
+#: ../loader2/loader.c:775
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "በዚህ ማሽን ላይ %sን ለማስገባት በቂ የሆነ ራም የልዎትም።"
 
-#: ../loader2/loader.c:918
+#: ../loader2/loader.c:935
 msgid "Rescue Method"
 msgstr "ዘዴውን አድን"
 
-#: ../loader2/loader.c:919
+#: ../loader2/loader.c:936
 msgid "Installation Method"
 msgstr "የማስገባት ዘዴ"
 
-#: ../loader2/loader.c:921
+#: ../loader2/loader.c:938
 msgid "What type of media contains the rescue image?"
 msgstr "የማዳኛውን ገጽታ የያዘው ምን ዓይነት ማሰራጫ ነው?"
 
-#: ../loader2/loader.c:923
+#: ../loader2/loader.c:940
 msgid "What type of media contains the packages to be installed?"
 msgstr "የሚገቡትን ጥቅሎች የያዘው ምን ዓይነት ማሰራጫ ነው?"
 
-#: ../loader2/loader.c:947
+#: ../loader2/loader.c:964
 msgid "No driver found"
 msgstr "ምንም ድራይቨሮች አልተገኙም"
 
-#: ../loader2/loader.c:947
+#: ../loader2/loader.c:964
 msgid "Select driver"
 msgstr "ድራይቨሮች ምረጥ"
 
-#: ../loader2/loader.c:948
+#: ../loader2/loader.c:965
 msgid "Use a driver disk"
 msgstr "የድራይቨር መረጃ ማከማቻ ተጠቀም"
 
-#: ../loader2/loader.c:949
+#: ../loader2/loader.c:966
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -5681,39 +5755,39 @@ msgstr ""
 "ለዚህ የማስገቢያ ዓይነት የሚፈለጉትን ዓይነት መሥሪያዎች ሊገኙ አልቻሉም። በእጅዎት ድራይቨርዎትን ወይንም የድራይቨር "
 "መረጃ ማከማቻ መምረጥ ይፈልጋሉ?"
 
-#: ../loader2/loader.c:1110
+#: ../loader2/loader.c:1124
 msgid "The following devices have been found on your system."
 msgstr "የሚከተሉት መሥሪያዎች በሲስተምዎት ላይ ይገኛሉ።"
 
-#: ../loader2/loader.c:1112
+#: ../loader2/loader.c:1126
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "ምንም የመሥሪያ ድራይቨሮች ለሲስተምዎት አልተጫኑም። አሁን የሆነውን መጫን ይፈልጋሉ?"
 
-#: ../loader2/loader.c:1116
+#: ../loader2/loader.c:1130
 msgid "Devices"
 msgstr "መሥሪያዎች"
 
-#: ../loader2/loader.c:1117
+#: ../loader2/loader.c:1131
 msgid "Done"
 msgstr "ጨርሷል"
 
-#: ../loader2/loader.c:1118
+#: ../loader2/loader.c:1132
 msgid "Add Device"
 msgstr "መሥሪያ ጨምር"
 
-#: ../loader2/loader.c:1258
+#: ../loader2/loader.c:1332
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "መጫኛው ቀደም ብሎ ሥራ ጀምሯል። ሼል በመጀመር ላይ\n"
 
-#: ../loader2/loader.c:1622
+#: ../loader2/loader.c:1699
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "አናኮዳ በማስኬድ ላይ፣ የ%s የማዳኛ አሠራር ዘዴ - እባክዎን ይጠብቁ...\n"
 
-#: ../loader2/loader.c:1624
+#: ../loader2/loader.c:1701
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "አናኮዳን በማስኬድ ላይ፣ የ%s ሲስተም አስገቢ - እባክዎን ይጠብቁ...\n"
@@ -5796,12 +5870,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../loader2/method.c:154 ../loader2/method.c:373 ../loader2/method.c:458
+#: ../loader2/method.c:156 ../loader2/method.c:374 ../loader2/method.c:459
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "የ%sን ማውጫ ለማንበብ ውድቅ ሆኗል፦ %s"
 
-#: ../loader2/method.c:416
+#: ../loader2/method.c:417
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -5812,16 +5886,16 @@ msgstr ""
 "\n"
 " %s?"
 
-#: ../loader2/method.c:419
+#: ../loader2/method.c:420
 msgid "Checksum Test"
 msgstr "የቼክሳም ሙከራ"
 
-#: ../loader2/modules.c:965
+#: ../loader2/modules.c:961
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "መጥፎ ክርክር ለኪክስታርት ዘዴ ትዕዛዝ %s፦ %s"
 
-#: ../loader2/net.c:50
+#: ../loader2/net.c:62
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -5836,7 +5910,18 @@ msgstr ""
 "    o የያዘው የሰርበሩ ማውጫ\n"
 "      ለንድፍ ጥበብዎት %s\n"
 
-#: ../loader2/net.c:240
+#: ../loader2/net.c:96
+#, fuzzy
+msgid "Invalid CIDR Mask"
+msgstr "ተቀባይነት የለለው የIP ሐረግ"
+
+#: ../loader2/net.c:97
+msgid ""
+"CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
+"128 for IPv6 networks"
+msgstr ""
+
+#: ../loader2/net.c:231
 #, c-format
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
@@ -5846,19 +5931,19 @@ msgstr ""
 "%s የኔትወርክ ማገናኛ ራዲዮ ነው። እባክዎን የESSID እና ኢንክሪፕሽን ቅልፍ ገመድ የለሹን ኔትወርክዎትን ለማሰራት "
 "ያስፈልጋል። ምንም ቁልፍ ካተፈለገ ይህንን ቦታ ባዶውን ይተውትና የማስገባቱ ሥራ ይቀጥላል።"
 
-#: ../loader2/net.c:250
+#: ../loader2/net.c:241
 msgid "Wireless Settings"
 msgstr "የራዲዮ አቀማመጥ"
 
-#: ../loader2/net.c:279
+#: ../loader2/net.c:272
 msgid "Nameserver IP"
 msgstr "የስም ሰርቨር አይፒ"
 
-#: ../loader2/net.c:283
+#: ../loader2/net.c:276
 msgid "Nameserver"
 msgstr "የስም ስርቨር"
 
-#: ../loader2/net.c:284
+#: ../loader2/net.c:277
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -5868,162 +5953,213 @@ msgstr ""
 "ሀይለኛው የIP ጥያቄ የIP የመረጃ አቀማመጥ መልሶታል ግን የDNS ሰርቨር ስምን አላጠቃለለም። የሰርቨሩን ስም ካወቁት "
 "እባክዎን አሁን ያስገቡት። ካየዚህ መረጃ ከሌልዎት ይህንን ቦታ ባዶውን መተው ይችላሉ እና የማስገባቱ ሥራ ይቀጥላል።"
 
-#: ../loader2/net.c:294
+#: ../loader2/net.c:300
 msgid "Invalid IP Information"
 msgstr "ተቀባይነት የሌለው የአይፒ መረጃ"
 
-#: ../loader2/net.c:295
+#: ../loader2/net.c:301
 msgid "You entered an invalid IP address."
 msgstr "ያስገቡት ተቀባይነት የሌለው የአይፒ አድራሻ ነው።"
 
-#: ../loader2/net.c:364 ../loader2/net.c:622
+#: ../loader2/net.c:375 ../loader2/net.c:768
 msgid "Dynamic IP"
 msgstr "ሀይለኛ አይፒ"
 
-#: ../loader2/net.c:365 ../loader2/net.c:623
+#: ../loader2/net.c:376 ../loader2/net.c:769
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "ለአይፒ መረጃ ለ%s የተጠየቀውን በመላክ ላይ..."
 
-#: ../loader2/net.c:506
-msgid ""
-"Please enter the IP configuration for this machine. Each item should be "
-"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
-"ለዚህ ማሽን የIP አቀማመጥ ያስገቡለት። እያንዳንዱ ነገር እንደ IP አድራሻ የነጥብ ቁጥር ማስታወሻ መግባት አለበት "
-"(ለምሳሌ፦ 1.2.3.4)።"
+#: ../loader2/net.c:538 ../loader2/net.c:639
+#, fuzzy
+msgid "Network Error"
+msgstr "የሚስጢራዊ ቃል የለም"
 
-#: ../loader2/net.c:512
-msgid "IP address:"
-msgstr "የአይፒ አድራሻ፦"
+#: ../loader2/net.c:539 ../loader2/net.c:640
+#, fuzzy
+msgid "There was an error configuring your network interface."
+msgstr "የታለሙት ድራይቮች በሚያፀዳበት ወቅት ስህተት ነበር። ቅጂው አልተሳካም።"
 
-#: ../loader2/net.c:515
-msgid "Netmask:"
-msgstr "የመረቡ ጭምብል፦"
-
-#: ../loader2/net.c:518
-msgid "Default gateway (IP):"
-msgstr "የነባሩ መግቢያ (አይፒ)፦"
-
-#: ../loader2/net.c:521
-msgid "Primary nameserver:"
-msgstr "የዋናው የሰርበር ስም፦"
-
-#: ../loader2/net.c:548
-msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+#: ../loader2/net.c:675
+#, fuzzy
+msgid "Use dynamic IP configuration (DHCP)"
 msgstr "ሀይለኛ የሆነ የIP ማስተካከያ(BOOTP/DHCP) ተጠቀም"
 
-#: ../loader2/net.c:576
+#: ../loader2/net.c:680
+msgid "Enable IPv4 support"
+msgstr ""
+
+#: ../loader2/net.c:690
+msgid "Enable IPv6 support"
+msgstr ""
+
+#: ../loader2/net.c:700
+msgid "Avoid unwanted packet collisions"
+msgstr ""
+
+#: ../loader2/net.c:702
+msgid "Maximize register values for high speed network traffic"
+msgstr ""
+
+#: ../loader2/net.c:738
 msgid "Configure TCP/IP"
 msgstr "TCP/IPን አስተካክል"
 
-#: ../loader2/net.c:613
+#: ../loader2/net.c:753 ../loader2/net.c:763
+#, fuzzy
+msgid "Missing Protocol"
+msgstr "የጠፋ ቡድን"
+
+#: ../loader2/net.c:754
+#, fuzzy
+msgid ""
+"You must select at least one protocol (IPv4 or IPv6) for manual "
+"configuration."
+msgstr "ለማስገባት በትንሹ አንድ ቋንቋ መምረጥ አለብዎት።"
+
+#: ../loader2/net.c:764
+#, fuzzy
+msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
+msgstr "ለማስገባት በትንሹ አንድ ቋንቋ መምረጥ አለብዎት።"
+
+#: ../loader2/net.c:834
+#, fuzzy
+msgid "IPv4 address:"
+msgstr "የአይፒ አድራሻ፦"
+
+#: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
+msgid "/"
+msgstr ""
+
+#: ../loader2/net.c:876
+#, fuzzy
+msgid "IPv6 address:"
+msgstr "የአይፒ አድራሻ፦"
+
+#: ../loader2/net.c:928
+#, fuzzy
+msgid "Name Server:"
+msgstr "የስም ስርቨር"
+
+#: ../loader2/net.c:961
+#, fuzzy
+msgid "Manual TCP/IP Configuration"
+msgstr "የz/IPL አቀማመጥ"
+
+#: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "የጠፋ መረጃ"
 
-#: ../loader2/net.c:614
-msgid "You must enter both a valid IP address and a netmask."
+#: ../loader2/net.c:1085
+#, fuzzy
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "ሁለቱንም ተቀባይነት ያላቸውን የአይፒ አድራሻ እና የመረብ ጭምብሉን ማስገባት አለብዎት።"
 
-#: ../loader2/net.c:838
+#: ../loader2/net.c:1091
+#, fuzzy
+msgid "You must enter both a valid IPv6 address and aCIDR prefix."
+msgstr "ሁለቱንም ተቀባይነት ያላቸውን የአይፒ አድራሻ እና የመረብ ጭምብሉን ማስገባት አለብዎት።"
+
+#: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
 msgstr "የሆስቱን ስምና ዶሜኑን አካባቢ በመፈለግ ላይ..."
 
-#: ../loader2/net.c:926
+#: ../loader2/net.c:1447
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "ለኪክስታርት መረብ ትእዛዝ %s መጥፎ ክርክር፦ %s"
 
-#: ../loader2/net.c:949
+#: ../loader2/net.c:1470
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "በመረቡ ትእዛዝ ውስጥ መጥፎ የማስጀመሪያ ፕሮቶ %s ተጠቅሷል"
 
-#: ../loader2/net.c:1105
+#: ../loader2/net.c:1639
 msgid "Networking Device"
 msgstr "የመረብ መሥሪያዎች"
 
-#: ../loader2/net.c:1106
+#: ../loader2/net.c:1640
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "ብዙ የመረብ መሥሪያዎች በዚህ ሲስተም ላይ አሉ። የትኛውን ነው እስከመጨረሻው እንዲገባ የሚፈልጉት?"
 
-#: ../loader2/nfsinstall.c:44
+#: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
 msgstr "የNFS ሰርበር ስም፦"
 
-#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:297
+#: ../loader2/nfsinstall.c:50 ../loader2/urls.c:300
 #, c-format
 msgid "%s directory:"
 msgstr "የ%s ማውጫ፦"
 
-#: ../loader2/nfsinstall.c:52
+#: ../loader2/nfsinstall.c:55
 #, fuzzy
 msgid "NFS"
 msgstr "ኤንአይኤስ"
 
-#: ../loader2/nfsinstall.c:53
+#: ../loader2/nfsinstall.c:56
 msgid "NFS Setup"
 msgstr "የNFS አቀማመጥ"
 
-#: ../loader2/nfsinstall.c:128
+#: ../loader2/nfsinstall.c:131
 msgid "Hostname specified with no DNS configured"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:211
+#: ../loader2/nfsinstall.c:208
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "ያ ማውጫ ማስገቢያ ዛፉን %s ያጠቃለለ አይመስልም።"
 
-#: ../loader2/nfsinstall.c:224
+#: ../loader2/nfsinstall.c:221
 msgid "That directory could not be mounted from the server."
 msgstr "ያ ማውጫ ከሰርቨሩ ሊጨምር/ማውጣት አልተቻለም።"
 
-#: ../loader2/nfsinstall.c:263
+#: ../loader2/nfsinstall.c:260
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr "ለNFS ኪድስታርት ዘዴ ትእዛዝ %s መጥፎ ክርክር፦ %s"
 
-#: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
+#: ../loader2/telnetd.c:83 ../loader2/telnetd.c:125
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../loader2/telnetd.c:80
+#: ../loader2/telnetd.c:83
 msgid "Waiting for telnet connection..."
 msgstr "የቴሌኔት እስኪገናኝ ድረስ በመጠበቅ ላይ..."
 
-#: ../loader2/telnetd.c:122
+#: ../loader2/telnetd.c:125
 msgid "Running anaconda via telnet..."
 msgstr "አናኮዳን በቴልኔት በኩል ማስኬድ..."
 
-#: ../loader2/urlinstall.c:73
+#: ../loader2/urlinstall.c:80
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "%sን መልሶ ለማውጣት አልትቻለም://%s/%s/%s"
 
-#: ../loader2/urlinstall.c:145
+#: ../loader2/urlinstall.c:152
 msgid "Unable to retrieve the install image."
 msgstr "የማስገባቱን ገጽጋ መልሶ ለማውጣው አልተቻለም።"
 
-#: ../loader2/urlinstall.c:284
+#: ../loader2/urlinstall.c:291
 msgid "Media Detected"
 msgstr "የመገናኛ ዘዴዎች ተገኝተዋል"
 
-#: ../loader2/urlinstall.c:285
+#: ../loader2/urlinstall.c:292
 msgid "Local installation media detected..."
 msgstr "የአንድ ቦታ የመገናኛ ዘዴዎች የማስገባት ሥራ ተገኝቷል..."
 
-#: ../loader2/urlinstall.c:451
+#: ../loader2/urlinstall.c:477
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "ለUrl ኪክስታርት ዘዴ %s ትእዛዝ መጥፎ ክርክር፦ %s"
 
-#: ../loader2/urlinstall.c:460
+#: ../loader2/urlinstall.c:486
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "ለurl ኪክስታርት ዘዴ የ--url መከራከሪያ መቅረብ አለበት"
 
-#: ../loader2/urlinstall.c:471
+#: ../loader2/urlinstall.c:497
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "የማይታወቅ የUrl ዘዴ %s"
@@ -6042,47 +6178,47 @@ msgstr "%sን መልሶ ለማውጣት ውድቅ ሆኗል፦ %s"
 msgid "Retrieving"
 msgstr "መረጃን ማግኘት"
 
-#: ../loader2/urls.c:270
+#: ../loader2/urls.c:273
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader2/urls.c:275
+#: ../loader2/urls.c:278
 msgid "Web"
 msgstr ""
 
-#: ../loader2/urls.c:292
+#: ../loader2/urls.c:295
 msgid "FTP site name:"
 msgstr "የFTP አቅጣጫ ስም"
 
-#: ../loader2/urls.c:293
+#: ../loader2/urls.c:296
 msgid "Web site name:"
 msgstr "የዌብ ሳይቱ ስም፦"
 
-#: ../loader2/urls.c:312
+#: ../loader2/urls.c:315
 msgid "Use non-anonymous ftp"
 msgstr "የሚታወቅ ftp ተጠቀም"
 
-#: ../loader2/urls.c:321
+#: ../loader2/urls.c:324
 msgid "FTP Setup"
 msgstr "የFTP አቀማመጥ"
 
-#: ../loader2/urls.c:322
+#: ../loader2/urls.c:325
 msgid "HTTP Setup"
 msgstr "የHTTP አቀማመጥ"
 
-#: ../loader2/urls.c:332
+#: ../loader2/urls.c:335
 msgid "You must enter a server name."
 msgstr "የሰርበር ስም ማስገባት አለብዎት።"
 
-#: ../loader2/urls.c:337
+#: ../loader2/urls.c:340
 msgid "You must enter a directory."
 msgstr "ማውጫ ማስገባት አለብዎት።"
 
-#: ../loader2/urls.c:342
+#: ../loader2/urls.c:345
 msgid "Unknown Host"
 msgstr "የማይታወቅ ሆስት"
 
-#: ../loader2/urls.c:343
+#: ../loader2/urls.c:346
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s ተቀባይነት የሌለው የሆስት ስም ነው።"
@@ -6103,17 +6239,63 @@ msgstr "የHTTP ፕሮክሲ ሰርበርን እየተጠቀሙ ከሆነ ለመ
 msgid "Account name:"
 msgstr "መለያ ስም።"
 
-#: ../loader2/urls.c:468
+#: ../loader2/urls.c:466
 msgid "Further FTP Setup"
 msgstr "የFTP አቀማመጥ"
 
-#: ../loader2/urls.c:471
+#: ../loader2/urls.c:469
 msgid "Further HTTP Setup"
 msgstr "የHTTP አቀማመጥ"
 
-#: ../loader2/windows.c:64
+#: ../loader2/windows.c:56
 msgid "Loading SCSI driver"
 msgstr "የSCSIን ድራይቸር በመጫን ላይ"
+
+#: tmp/adddrive.glade.h:1
+#, fuzzy
+msgid "Add _ZFCP LUN"
+msgstr "FCP LUN"
+
+#: tmp/adddrive.glade.h:2
+msgid "Add _iSCSI target"
+msgstr ""
+
+#: tmp/adddrive.glade.h:3
+#, fuzzy
+msgid "Advanced Storage Options"
+msgstr "ተጨማሪ የመጠን ምርጫዎች"
+
+#: tmp/adddrive.glade.h:4
+msgid "Disable _dmraid device"
+msgstr ""
+
+#: tmp/adddrive.glade.h:5
+#, fuzzy
+msgid "How would you like to modify your drive configuration?"
+msgstr "በዚህ መከፋፈያ ላይ እንዴት ነው የፋይሉን አሠራር ማዘጋጀት የሚፈልጉት?"
+
+#: tmp/addrepo.glade.h:1
+msgid "<b>Repository _URL:</b>"
+msgstr ""
+
+#: tmp/addrepo.glade.h:2
+msgid "<b>Repository _name:</b>"
+msgstr ""
+
+#: tmp/addrepo.glade.h:3
+msgid "Add Repository"
+msgstr ""
+
+#: tmp/addrepo.glade.h:5
+#, no-c-format
+msgid ""
+"Please provide the location where your additional software can be installed "
+"from.  Note that this must be a valid repository for %s."
+msgstr ""
+
+#: tmp/addrepo.glade.h:6
+msgid "_Add repository"
+msgstr ""
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6138,6 +6320,11 @@ msgstr "የተፈጠሩትን መከፋፈያዎች እንደገና ይመልከ
 
 #: tmp/autopart.glade.h:3
 #, fuzzy
+msgid "_Advanced storage configuration"
+msgstr "ረቀቅ ያለ የማስጀመሪያ መጫና አቀማመጥ"
+
+#: tmp/autopart.glade.h:4
+#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
 msgstr "ለእዚህ የማስገባት ስራ ድራይች(ቮች) ይምረጡ፦"
 
@@ -6152,21 +6339,80 @@ msgid "_Exception details"
 msgstr "ከተለመደው ውጪ የሆነ ነገር ተከስቷውል"
 
 #: tmp/iscsi-config.glade.h:1
-msgid "<b>_Port Number:</b>"
-msgstr ""
+#, fuzzy
+msgid "<b>_Password:</b>"
+msgstr "ሚስጢራዊ ቃል"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr ""
 
 #: tmp/iscsi-config.glade.h:3
+#, fuzzy
+msgid "<b>_Username:</b>"
+msgstr "የተጠቃሚው ስም"
+
+#: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr ""
 
-#: tmp/iscsi-config.glade.h:4
+#: tmp/iscsi-config.glade.h:5
 #, fuzzy
-msgid "iSCSI configuration"
-msgstr "የሲሎ ማስተካከያ"
+msgid "Configure iSCSI Parameters"
+msgstr "የቻንዴቭ ፓራመትሮች"
+
+#: tmp/iscsi-config.glade.h:6
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
+msgstr ""
+
+#: tmp/netconfig.glade.h:2
+#, fuzzy
+msgid "<b>Gateway:</b>"
+msgstr "መንገድ/ጎዳና፦"
+
+#: tmp/netconfig.glade.h:3
+#, fuzzy
+msgid "<b>IPv4 Address:</b>"
+msgstr "የip አድራሻ"
+
+#: tmp/netconfig.glade.h:4
+#, fuzzy
+msgid "<b>IPv6 Address:</b>"
+msgstr "የip አድራሻ"
+
+#: tmp/netconfig.glade.h:5
+#, fuzzy
+msgid "<b>Nameserver:</b>"
+msgstr "የስም ስርቨር"
+
+#: tmp/netconfig.glade.h:6
+msgid "<b>_Interface:</b>"
+msgstr ""
+
+#: tmp/netconfig.glade.h:7
+msgid "Enable IPv_4 support"
+msgstr ""
+
+#: tmp/netconfig.glade.h:8
+msgid "Enable IPv_6 support"
+msgstr ""
+
+#: tmp/netconfig.glade.h:9
+msgid "Enable network interface"
+msgstr ""
+
+#: tmp/netconfig.glade.h:10
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
+msgstr ""
+
+#: tmp/netconfig.glade.h:11
+#, fuzzy
+msgid "Use _dynamic IP configuration (DHCP)"
+msgstr "ሀይለኛ የሆነ የIP ማስተካከያ(BOOTP/DHCP) ተጠቀም"
 
 #: tmp/tasksel.glade.h:1
 #, fuzzy
@@ -6188,6 +6434,10 @@ msgid ""
 msgstr ""
 
 #: tmp/tasksel.glade.h:5
+msgid "_Add additional software repositories"
+msgstr ""
+
+#: tmp/tasksel.glade.h:6
 #, fuzzy
 msgid "_Customize now"
 msgstr "አስተካክል"
@@ -6953,6 +7203,11 @@ msgid "German"
 msgstr "ጀርመንኛ"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Greek"
+msgstr "ነፃ"
+
+#. generated from lang-table
 msgid "Gujarati"
 msgstr "ጉጃራቲ"
 
@@ -6981,6 +7236,10 @@ msgid "Japanese"
 msgstr "ጃፓንኛ"
 
 #. generated from lang-table
+msgid "Kannada"
+msgstr ""
+
+#. generated from lang-table
 msgid "Korean"
 msgstr "ኮሪያኛ"
 
@@ -6993,12 +7252,26 @@ msgid "Malay"
 msgstr "ማሌይ"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Malayalam"
+msgstr "ማሌይ"
+
+#. generated from lang-table
+#, fuzzy
+msgid "Marathi"
+msgstr "ጉጃራቲ"
+
+#. generated from lang-table
 msgid "Norwegian"
 msgstr "ኖርዌጂያንኛ"
 
 #. generated from lang-table
 msgid "Northern Sotho"
 msgstr "የሰሜናዊ ሶቶኛ"
+
+#. generated from lang-table
+msgid "Oriya"
+msgstr ""
 
 #. generated from lang-table
 msgid "Persian"
@@ -7074,6 +7347,114 @@ msgstr "ወልሽ"
 msgid "Zulu"
 msgstr "ዙሉ"
 
+#~ msgid "Could not allocate partitions"
+#~ msgstr "መከፋፈያዎቹን መደልደል አልተቻለም"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "You can choose a different automatic partitioning option, or click 'Back' "
+#~ "to select manual partitioning.\n"
+#~ "\n"
+#~ "Press 'OK' to continue."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "የተለያዩ አውቶማቲክ የመከፋፈያ ምርጫ መምረጥ ይችላሉ ወይንም በእጅ የሚሰራውን መከፋፈያ ለመምረጥ ‹ወደኋላ› "
+#~ "የሚለውን ያቃጭሉ።\n"
+#~ "\n"
+#~ "ለመቀጠል ‹እሺ› የሚለውን ይጫኑ።"
+
+#~ msgid "Upgrading %s-%s-%s.%s.\n"
+#~ msgstr ""
+#~ "%s-%s-%s.%s.ን\n"
+#~ " በማሻሻል ላይ። \n"
+
+#~ msgid "Installing %s-%s-%s.%s.\n"
+#~ msgstr "%s-%s-%s.%s በማስገባት ላይ።\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
+#~ "or perhaps a corrupt package.  If you are installing from CD media this "
+#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
+#~ "the media.\n"
+#~ "\n"
+#~ "Press 'Retry' to try again."
+#~ msgstr ""
+#~ "የ%s-%s-%s ጥቅል ሊከፈት አይችልም። በጠፋው ፋይል ወይንም ምንልባት በተበላሸ ጥቅል ምክንያት ሊሆን ይችላል።  "
+#~ "እያስገቡ ያሉት ከሲዲ ሚዲያ ከሆነ አብዛኛውን ጊዜ ይህ ማለት የሲዲው ሚዲያ ተበላሽቷል ወይንም የሲዲው ድራይቭ "
+#~ "ሚዲያውን ማንበብ አልቻለም ማለት ነው።\n"
+#~ "\n"
+#~ "እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
+
+#~ msgid ""
+#~ "If you reboot, your system will be left in an inconsistent state that "
+#~ "will likely require reinstallation.  Are you sure you wish to continue?"
+#~ msgstr ""
+#~ "እንደገና ካስጀመሩ፤ ሲስተምዎት ዝብርቅርቅ ባለ ሁኔታ ይቀርና እንደገና የማስገባት ሥራ ሊያስፈልገው ይችላል።"
+
+#~ msgid "_Cancel"
+#~ msgstr "ተወው"
+
+#~ msgid "IP Addresses must contain numbers between 1 and 255"
+#~ msgstr "የIP አድራሻዎች በ1 እና በ255 መካከል ያሉ ቁጥሮችን የያዙ መሆን አለባቸው"
+
+#, fuzzy
+#~ msgid "iSCSI Configuration"
+#~ msgstr "የሲሎ ማስተካከያ"
+
+#, fuzzy
+#~ msgid "Target IP address:"
+#~ msgstr "የአይፒ አድራሻ፦"
+
+#, fuzzy
+#~ msgid "Port Number:"
+#~ msgstr "ወይንም ተጠቀም፦"
+
+#~ msgid "Red Hat Enterprise Linux AS"
+#~ msgstr "የተባበሩት የሬድ ሃት ሊኑክስ ድርጅት"
+
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tAdministration Tools\n"
+#~ "\tServer Configuration Tools\n"
+#~ "\tWeb Server\n"
+#~ "\tWindows File Server (SMB)\n"
+#~ msgstr ""
+#~ "\tዴስክቶፕ ሼል (ግኖም)\n"
+#~ "\tየአስተዳደር መሣሪያዎች\n"
+#~ "\tየሰርቨር አቀማመጥ መሣሪያዎች\n"
+#~ "\tየድር ሰርቨር\n"
+#~ "\tየመስኮቶች ፋይል ሰርቨር (SMB)\n"
+
+#~ msgid "Red Hat Enterprise Linux Desktop"
+#~ msgstr "የሬድ ሀት ድርጅት ሊኑክስ ኮምፒውተር"
+
+#~ msgid "Red Hat Enterprise Linux ES"
+#~ msgstr "የሬድ ሀት ድርጅት ሊኑክስ ኢኤስ"
+
+#~ msgid ""
+#~ "Please enter the IP configuration for this machine. Each item should be "
+#~ "entered as an IP address in dotted-decimal notation (for example, "
+#~ "1.2.3.4)."
+#~ msgstr ""
+#~ "ለዚህ ማሽን የIP አቀማመጥ ያስገቡለት። እያንዳንዱ ነገር እንደ IP አድራሻ የነጥብ ቁጥር ማስታወሻ መግባት አለበት "
+#~ "(ለምሳሌ፦ 1.2.3.4)።"
+
+#~ msgid "Netmask:"
+#~ msgstr "የመረቡ ጭምብል፦"
+
+#~ msgid "Default gateway (IP):"
+#~ msgstr "የነባሩ መግቢያ (አይፒ)፦"
+
+#~ msgid "Primary nameserver:"
+#~ msgstr "የዋናው የሰርበር ስም፦"
+
+#, fuzzy
+#~ msgid "iSCSI configuration"
+#~ msgstr "የሲሎ ማስተካከያ"
+
 #~ msgid "The release notes are missing."
 #~ msgstr "የመልቀቂያ ማሳሰቢያዎቹ ጠፍተዋል።"
 
@@ -7134,10 +7515,6 @@ msgstr "ዙሉ"
 
 #~ msgid "Show _Help"
 #~ msgstr "መረጃውን አሳይ"
-
-#, fuzzy
-#~ msgid "How would you like to get space to partition?"
-#~ msgstr "በዚህ መከፋፈያ ላይ እንዴት ነው የፋይሉን አሠራር ማዘጋጀት የሚፈልጉት?"
 
 #, fuzzy
 #~ msgid "Select the drive(s) to use for this installation."
@@ -7489,13 +7866,6 @@ msgstr "ዙሉ"
 #~ msgstr ""
 #~ "የሄደሩን ዝርዝር ማቀላቀል አልቻለም። ይህ ምናልባት በጠፋው ፋይል ወይንም በመጥፎ ሚዲያ ምክንያት ሊሆን ይችላል።  "
 #~ "እንደገና ለመሞከር <መልስ>ን ይጫኑ።"
-
-#~ msgid ""
-#~ "Upgrading %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "የ%sን ጥቅሎች በማሻሻል ላይ\n"
-#~ "\n"
 
 #~ msgid ""
 #~ "Installing %s packages\n"
@@ -8055,9 +8425,6 @@ msgstr "ዙሉ"
 #~ msgid "Missing User Name"
 #~ msgstr "የተጠቃሚው ስም ጠፍቷል"
 
-#~ msgid "You must provide a user name"
-#~ msgstr "የተጠቃሚ ስም ማቅረብ አለብዎት"
-
 #~ msgid "The password must be at least 6 characters long."
 #~ msgstr "ሚስጢራዊው ቃል በትንሹ 6 አኃዞችን የያዘ መሆን አለበት።"
 
@@ -8372,9 +8739,6 @@ msgstr "ዙሉ"
 
 #~ msgid "Language Support"
 #~ msgstr "የቋንቋ ድጋፍ"
-
-#~ msgid "You must select at least one language to install."
-#~ msgstr "ለማስገባት በትንሹ አንድ ቋንቋ መምረጥ አለብዎት።"
 
 #~ msgid "Default Language"
 #~ msgstr "የነበረው ቋንቋ"
