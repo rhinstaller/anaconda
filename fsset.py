@@ -935,7 +935,7 @@ class prepbootFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = None
-        self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
+        self.partedPartitionFlags = [ parted.PARTITION_BOOT, parted.PARTITION_PREP ]
         self.checked = 0
         self.name = "PPC PReP Boot"
         self.maxSizeMB = 10
@@ -955,15 +955,7 @@ class prepbootFileSystem(FileSystemType):
             self.formattable = 0
 
     def formatDevice(self, entry, progress, chroot='/'):
-        devicePath = entry.device.setupDevice(chroot)
-        (disk, part) = getDiskPart(devicePath)
-        if disk is None or part is None:
-            log.error("oops, somehow got a bogus device for the PReP partition "
-                      "(%s)" %(devicePath,))
-            return
-
-        if part and part.is_flag_available(parted.PARTITION_PREP):
-            part.set_flag(parted.PARTITION_PREP, 1)
+        return
 
 fileSystemTypeRegister(prepbootFileSystem())
 
