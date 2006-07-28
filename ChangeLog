@@ -1,3 +1,8 @@
+2006-07-28  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (setFileCons): Normalize path so we don't hit a bug
+	in matchpathcon
+
 2006-07-28  David Cantrell  <dcantrell@redhat.com>
 
 	* isys/dns.c: Removed code that's not in use anymore.

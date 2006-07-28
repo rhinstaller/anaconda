@@ -219,7 +219,7 @@ def setFileCons(anaconda):
                 if not os.access("%s" %(f,), os.R_OK):
                     log.warning("%s doesn't exist" %(f,))
                     continue
-                ret = isys.resetFileContext(f)
+                ret = isys.resetFileContext(os.path.normpath(f))
                 log.info("set fc of %s to %s" %(f, ret))
             os._exit(0)
 
