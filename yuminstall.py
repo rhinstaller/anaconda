@@ -173,7 +173,8 @@ class simpleCallback:
 
 class AnacondaYumRepo(YumRepository):
     def __init__( self, uri=None, mirrorlist=None,
-                  repoid='anaconda%s' % productStamp):
+                  repoid='anaconda%s' % productStamp,
+                  root = "/mnt/sysimage/"):
         YumRepository.__init__(self, repoid)
         conf = yum.config.RepoConf()
         for k, v in conf.iteritems():
@@ -187,7 +188,7 @@ class AnacondaYumRepo(YumRepository):
             self.mirrorlist = mirrorlist
 
         self.setAttribute('cachedir', '/tmp/cache/')
-        self.setAttribute('pkgdir', '/mnt/sysimage/')
+        self.setAttribute('pkgdir', root)
         self.setAttribute('hdrdir', '/tmp/cache/headers')
 
 
@@ -357,7 +358,10 @@ class AnacondaYum(YumSorter):
         
         # add default repos
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self.method.getMethodUri()).items():
-            repo = AnacondaYumRepo(uri, repoid="anaconda-%s-%s" %(name, productStamp))
+            repo = AnacondaYumRepo(uri,
+                                   repoid="anaconda-%s-%s" %(name,
+                                                             productStamp),
+                                   root = root)
             repo.enable()
             self.repos.add(repo)
 
@@ -992,7 +996,7 @@ class YumBackend(AnacondaBackend):
                     if os.path.exists(path) and not os.path.islink(path):
                         shutil.rmtree(path)
                     if not os.path.islink(path):
-                        os.symlink("/mnt/sysimage/%s" %(path,), "%s" %(path,))
+                        os.symlink("%s/%s" %(anaconda.rootPath, path), "%s" %(path,))
                     else:
                         log.warning("%s already exists as a symlink to %s" %(path, os.readlink(path),))
             except Exception, e:
@@ -1015,9 +1019,9 @@ class YumBackend(AnacondaBackend):
             # handling /dev, it gets to be more fun.  so just bind mount the
             # installer /dev
             log.warning("no dev package, going to bind mount /dev")
-            isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
+            isys.mount("/dev", "%s/dev" %(anaconda.rootPath,), bindMount = 1)
             if not upgrade:
-                anaconda.id.fsset.mkDevRoot("/mnt/sysimage/")
+                anaconda.id.fsset.mkDevRoot(anaconda.rootPath)
 
         # write out the fstab
         if not upgrade:

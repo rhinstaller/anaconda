@@ -1,5 +1,8 @@
 2006-07-27  Jeremy Katz  <katzj@redhat.com>
 
+	* yuminstall.py (AnacondaYumRepo.__init__): Fix for rootPath
+	(YumBackend.doPreInstall): Likewise.
+
 	* loader2/loader.c (doLoaderMain): Fix method=
 
 	* instdata.py (InstallData.write): Use anaconda.rootPath instead
