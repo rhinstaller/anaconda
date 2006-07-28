@@ -416,7 +416,9 @@ char * mountCdromImage(struct installMethod * method,
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
 
     logMessage(INFO, "kickstartFromCD");
+#if !defined(__s390__) && !defined(__s390x__)
     loaderData->method = METHOD_CDROM;
+#endif
 }
 
 int kickstartFromCD(char *kssrc) {

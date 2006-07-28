@@ -3,6 +3,7 @@
 	* anaconda.spec: Bump version.
 
 	* loader2/method.c: Fix build on s390
+	* loader2/cdinstall.c (setKickstartCD): Likewise
 
 	* yuminstall.py (AnacondaYumRepo.__init__): Fix for rootPath
 	(YumBackend.doPreInstall): Likewise.

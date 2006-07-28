@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.71
+Version: 11.1.0.72
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.71-1
+* Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.72-1
 - Don't allow ipv6-only nfs installs (dcantrel)
 - Fix segfault with ksdevice= (pjones, #200451)
 - Fix ipv6 ftp installs (dcantrel)
