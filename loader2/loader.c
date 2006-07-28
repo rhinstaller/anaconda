@@ -1260,7 +1260,7 @@ int nashHotplugLogger(nashContext *nc, const nash_log_level level,
 
 int main(int argc, char ** argv) {
     /* Very first thing, set up tracebacks and debug features. */
-    int rc = anaconda_trace_init();
+    int rc;
 
     struct stat sb;
     struct serial_struct si;
@@ -1307,6 +1307,8 @@ int main(int argc, char ** argv) {
         return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return ourRmmodCommand(argc, argv);
+
+    rc = anaconda_trace_init();
 
     nashSetFirmwarePath(nc, "/firmware/:/lib/firmware/:/tmp/updates/firmware/:/tmp/product/firmware");
     nashSetLogger(nc, nashHotplugLogger);
