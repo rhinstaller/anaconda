@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-05-22 01:08+0100\n"
+"PO-Revision-Date: 2006-07-28 16:42+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -196,30 +196,37 @@ msgid "unknown install method: %s"
 msgstr "Método de instalação desconhecido: %s"
 
 #: ../autopart.py:949
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions as primary partitions.\n"
 "\n"
 "%s"
 msgstr ""
-"Não foi possível alocar partições baseadas em cilindros como partições "
-"primárias"
+"Não foi possível alocar partições baseadas em cilindros como partições primárias.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:954
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate partitions as primary partitions.\n"
 "\n"
 "%s"
-msgstr "Não foi possível alocar partições como partições primárias"
+msgstr ""
+"Não foi possível alocar partições como partições primárias.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate cylinder-based partitions.\n"
 "\n"
 "%s"
-msgstr "Não foi possível alocar partições baseadas em cilindros"
+msgstr ""
+"Não foi possível alocar partições baseadas em cilindros.\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1019
 #, python-format
@@ -404,7 +411,7 @@ msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
-msgstr ""
+msgstr "\n\nCarregue em 'OK' para escolher uma opção de particionamento diferente."
 
 #: ../autopart.py:1503
 #, python-format
@@ -504,14 +511,14 @@ msgstr ""
 "Tem a certeza que quer fazer isso?"
 
 #: ../backend.py:97
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s\n"
-msgstr "A actualizar %s-%s-%s.%s.\n"
+msgstr "A actualizar o %s\n"
 
 #: ../backend.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s\n"
-msgstr "_Instalar o %s"
+msgstr "A instalar o %s\n"
 
 #: ../bootloader.py:126
 msgid "Bootloader"
@@ -895,16 +902,15 @@ msgstr ""
 "Carregue em <Enter> para reiniciar o sistema."
 
 #: ../fsset.py:1729
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "Não é possível carregar ficheiro!"
+msgstr "Não é possível montar o sistema de ficheiros"
 
 #: ../fsset.py:1730
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr ""
+msgstr "Ocorreu um erro ao montar o dispositivo %s em %s.  Poderá continuar a instalação, mas poderão ocorrer problemas."
 
 #: ../fsset.py:1738 ../image.py:91 ../image.py:443 ../kickstart.py:988
 #: ../kickstart.py:1017 ../iw/partition_gui.py:1011
@@ -1126,7 +1132,7 @@ msgid "Install Window"
 msgstr "Janela de Instalação"
 
 #: ../harddrive.py:41 ../image.py:143 ../image.py:470
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation images and that you have "
@@ -1136,10 +1142,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou "
-"talvez um pacote estragado.  Se está a efectuar a instalação a partir de um "
-"CD isto normalmente deve-se a um erro no CD ou a uma falha de leitura no "
-"leitor de CDs.\n"
+"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou talvez um pacote estragado. Verifique as suas imagens de instalação e se tem todos os discos necessários.\n"
+"\n"
+"Se reiniciar, o seu sistema ficará num estado inconsistente que poderá necessitar de reinstalação.\n"
 "\n"
 
 #: ../harddrive.py:68 ../image.py:503
@@ -1238,7 +1243,7 @@ msgid "Unable to access the CDROM."
 msgstr "Não foi possível aceder ao CDROM."
 
 #: ../image.py:359
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your installation tree contains all required "
@@ -1248,10 +1253,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou "
-"talvez um pacote estragado.  Se está a efectuar a instalação a partir de um "
-"CD isto normalmente deve-se a um erro no CD ou a uma falha de leitura no "
-"leitor de CDs.\n"
+"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou talvez um pacote estragado. Verifique se a sua árvore de instalação tem todos os pacotes necessários.\n"
+"\n"
+"Se reiniciar, o seu sistema ficará num estado inconsistente que poderá necessitar de reinstalação.\n"
 "\n"
 
 #: ../image.py:504
@@ -1274,9 +1278,8 @@ msgid "Install on System"
 msgstr "Instalar no Sistema"
 
 #: ../iscsi.py:127 ../iscsi.py:128
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "A inicializar"
+msgstr "A inicializar o iniciador de iSCSI"
 
 #: ../kickstart.py:73
 msgid "Scriptlet Failure"
@@ -1353,35 +1356,32 @@ msgstr ""
 "Os nomes das máquinas só podem conter os caracteres 'a-z', 'A-Z', '-' ou '.'"
 
 #: ../network.py:89
-#, fuzzy
 msgid "IP Address is missing."
-msgstr "Falta o Endereço IP"
+msgstr "Falta o endereço IP."
 
 #: ../network.py:93
-#, fuzzy
 msgid ""
 "IP Addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "Os endereços IP deverão conter números entre 0 e 255"
+msgstr "Os endereços IP deverão conter quatro números entre 0 e 255, separados por pontos."
 
 #: ../network.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "%s não é um nome de máquina válido."
+msgstr "O %s não é um endereço de IPv6 válido."
 
 #: ../packages.py:247
-#, fuzzy
 msgid "Enter Registration Key"
-msgstr "Chave de Encriptação"
+msgstr "Indique a Chave de Registo"
 
 #: ../packages.py:248
 #, python-format
 msgid "Please enter the registration key for your version of %s."
-msgstr ""
+msgstr "Indique por favor a chave de registo da sua versão do %s."
 
 #: ../packages.py:248
 msgid "Key:"
-msgstr ""
+msgstr "Chave:"
 
 #: ../packages.py:278
 msgid "Warning! This is pre-release software!"
@@ -1900,7 +1900,7 @@ msgstr ""
 msgid ""
 "Your boot partition isn't on one of the first four partitions and thus won't "
 "be bootable."
-msgstr ""
+msgstr "A sua partição de arranque não é uma das primeiras quatro, pelo que poderá não dar para arrancar a partir dela."
 
 #: ../partitions.py:849
 msgid ""
@@ -2072,7 +2072,7 @@ msgstr ""
 msgid ""
 "Logical volume size must be larger than the volume group's physical extent "
 "size."
-msgstr ""
+msgstr "O tamanho do volume lógico tem de ser maior que o tamanho da extensão física do grupo de volumes."
 
 #: ../rescue.py:129
 msgid "Starting Interface"
@@ -2414,7 +2414,7 @@ msgid "Connecting..."
 msgstr "A efectuar a ligação..."
 
 #: ../urlinstall.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file or perhaps a "
 "corrupt package.  Please verify your mirror contains all required packages, "
@@ -2424,10 +2424,9 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou "
-"talvez um pacote estragado.  Se está a efectuar a instalação a partir de um "
-"CD isto normalmente deve-se a um erro no CD ou a uma falha de leitura no "
-"leitor de CDs.\n"
+"Não foi possível abrir o ficheiro %s. Isto deve-se a um ficheiro em falta ou talvez um pacote estragado. Verifique se a sua réplica contém todos os pacotes necessários e tente usar uma diferente.\n"
+"\n"
+"Se reiniciar, o seu sistema ficará num estado inconsistente que poderá necessitar de reinstalação.\n"
 "\n"
 
 #: ../vnc.py:43
@@ -2645,13 +2644,10 @@ msgid "Error running transaction"
 msgstr "Erro ao executar a transacção"
 
 #: ../yuminstall.py:471
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction, for the following reason(s): %s"
-msgstr ""
-"O nome da máquina \"%s\" não é válido pela seguinte razão:\n"
-"\n"
-"%s"
+msgstr "Ocorreu um erro ao executar a sua transacção, pelas seguintes razões: %s"
 
 #: ../yuminstall.py:475 ../yuminstall.py:570 ../yuminstall.py:913
 msgid "Re_boot"
@@ -2662,9 +2658,9 @@ msgid "Retrieving installation information..."
 msgstr "A ler a informação de instalação..."
 
 #: ../yuminstall.py:640
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "A ler a informação de instalação..."
+msgstr "A obter a informação de instalação do %s..."
 
 #: ../yuminstall.py:656
 #, python-format
@@ -2840,13 +2836,12 @@ msgid "_Confirm: "
 msgstr "_Confirme: "
 
 #: ../iw/autopart_type.py:135
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Nome do Iniciador iSCSI:"
+msgstr "Nome do Iniciador Inválido"
 
 #: ../iw/autopart_type.py:136
 msgid "You must provide a non-zero length initiator name."
-msgstr ""
+msgstr "Terá de indicar um nome de iniciador não vazio."
 
 #: ../iw/autopart_type.py:158
 msgid "Error with Data"
@@ -3623,16 +3618,10 @@ msgid "The IP information you have entered is invalid."
 msgstr "Os dados IP inseriu são inválidos."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
-msgstr ""
-"Não tem dispositivos de rede activos.  O seu sistema não conseguirá "
-"comunicar com uma rede sem ter pelo menos um dispositivo activo.\n"
-"\n"
-"NOTA: Se tem uma placa de rede PCMCIA deve deixá-la inactiva por agora. "
-"Quando reiniciar o seu computador a placa será activada automaticamente."
+msgstr "Não tem dispositivos de rede activos.  O seu sistema não conseguirá comunicar com uma rede sem ter pelo menos um dispositivo activo."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -4401,26 +4390,23 @@ msgid "Unable to load file!"
 msgstr "Não é possível carregar ficheiro!"
 
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Nome de Máquina Inválido"
+msgstr "Nome de Repositório Inválido"
 
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Tem que inserir um nome de servidor."
+msgstr "Tem que inserir um nome de repositório não vazio."
 
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Nome de Arranque Inválido"
+msgstr "URL do Repositório Inválido"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
-msgstr ""
+msgstr "Terá de indicar um URL de um repositório em HTTP ou FTP."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -4428,9 +4414,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Não foi possível ler os meta-dados do pacote. Isto poderá ser devido a uma "
-"pasta 'repodata' em falta. Por favor verifique que a sua árvore de "
-"instalação foi gerada correctamente.  %s"
+"Não foi possível ler os meta-dados do pacote. Isto poderá ser devido a uma pasta 'repodata' em falta. Por favor verifique se o sue repositório foi gerado correctamente.\n"
+"\n"
+"%s"
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -5616,20 +5602,19 @@ msgstr ""
 "\tJogos\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
-msgstr ""
+msgstr "É Necessária uma Chave de Registo"
 
 #: ../installclasses/rhel.py:50
 #, python-format
 msgid ""
 "A registration key is required to install %s.  Please contact your support "
 "representative if you did not receive a key with your product."
-msgstr ""
+msgstr "É necessária uma chave de registo para instalar o %s. Contacte por favor o seu representante de suporte, se não recebeu uma chave com o seu produto."
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6300,15 +6285,14 @@ msgstr ""
 "      %s para a sua arquitectura\n"
 
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Informação IP inválida"
+msgstr "Máscara de CIDR Inválida"
 
 #: ../loader2/net.c:97
 msgid ""
 "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and "
 "128 for IPv6 networks"
-msgstr ""
+msgstr "O valor da máscara de CIDR terá de ser entre 1 e 32, para as redes de IPv4, ou entre 1 e 128 para as redes IPv6"
 
 #: ../loader2/net.c:231
 #, c-format
@@ -6363,93 +6347,83 @@ msgid "Sending request for IP information for %s..."
 msgstr "A enviar pedido para informações sobre IP para %s..."
 
 #: ../loader2/net.c:538 ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Erro da Senha de VNC"
+msgstr "Erro da Rede"
 
 #: ../loader2/net.c:539 ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Ocorreu um erro ao limpar os dispositivos de destino. A cópia falhou."
+msgstr "Ocorreu um erro ao configurar a sua interface de rede."
 
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Utilizar configuração de IP dinâmica (BOOTP/DHCP)"
+msgstr "Usar uma configuração de IP dinâmica (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "Activar o suporte de IPv4"
 
 #: ../loader2/net.c:690
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "Activar o suporte de IPv6"
 
 #: ../loader2/net.c:700
 msgid "Avoid unwanted packet collisions"
-msgstr ""
+msgstr "Evitar as colisões de pacotes indesejadas"
 
 #: ../loader2/net.c:702
 msgid "Maximize register values for high speed network traffic"
-msgstr ""
+msgstr "Maximizar os valores dos registos para um tráfego rápido de rede"
 
 #: ../loader2/net.c:738
 msgid "Configure TCP/IP"
-msgstr "Configurar TCP/IP"
+msgstr "Configurar o TCP/IP"
 
 #: ../loader2/net.c:753 ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Grupo em Falta"
+msgstr "Protocolo em Falta"
 
 #: ../loader2/net.c:754
 msgid ""
 "You must select at least one protocol (IPv4 or IPv6) for manual "
 "configuration."
-msgstr ""
+msgstr "Deverá seleccionar pelo menos um protocolo (IPv4 ou IPv6) para a configuração manual."
 
 #: ../loader2/net.c:764
 msgid "You must select at least one protocol (IPv4 or IPv6) for DHCP."
-msgstr ""
+msgstr "Terá de seleccionar pelo menos um protocolo (IPv4 ou IPv6) para o DHCP."
 
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Endereço IP:"
+msgstr "Endereço IPv4:"
 
 #: ../loader2/net.c:846 ../loader2/net.c:888 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Endereço IP:"
+msgstr "Endereço IPv6:"
 
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Servidor de nomes"
+msgstr "Servidor de Nomes:"
 
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Configuração do z/IPL"
+msgstr "Configuração Manual do TCP/IP"
 
 #: ../loader2/net.c:1084 ../loader2/net.c:1090
 msgid "Missing Information"
 msgstr "Informação em Falta"
 
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Deve inserir um endereço IP válido e uma máscara."
+msgstr "Deve inserir um endereço IPv4 e uma máscara ou um prefixo CIDR válidos."
 
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Deve inserir um endereço IP válido e uma máscara."
+msgstr "Deve inserir um endereço IPv6 e uma máscara ou um prefixo aCIDR válidos."
 
 #: ../loader2/net.c:1355
 msgid "Determining host name and domain..."
@@ -6646,51 +6620,47 @@ msgid "Loading SCSI driver"
 msgstr "A carregar o controlador SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "LUN FCP"
+msgstr "Adicionar um LUN _ZFCP"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "Adicionar um destino _iSCSI"
 
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Opções Adicionais de Tamanho"
+msgstr "Opções Adicionais de Armazenamento"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "Desactivar o dispositivo 'dmraid'"
 
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "Como deseja obter espaço para a partição?"
+msgstr "Como deseja obter modificar as suas opções da unidade?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
-msgstr ""
+msgstr "<b>_URL do Repositório:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nome do Iniciador iSCSI:</b>"
+msgstr "<b>_Nome do repositório:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "Adicionar um Repositório"
 
 #: tmp/addrepo.glade.h:5
 #, no-c-format
 msgid ""
 "Please provide the location where your additional software can be installed "
 "from.  Note that this must be a valid repository for %s."
-msgstr ""
+msgstr "Por favor, indique o local a partir de onde poderá instalar o 'software' adicional. Lembre-se que este deverá ser um repositório válido para o %s."
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr ""
+msgstr "_Adicionar um repositório"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6713,9 +6683,8 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Re_ver e modificar a disposição das partições"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Configuração Avançada do Gestor de Arranque"
+msgstr "Configuração avançada do &armazenamento"
 
 #: tmp/autopart.glade.h:4
 msgid "_Select the drive(s) to use for this installation."
@@ -6730,81 +6699,72 @@ msgid "_Exception details"
 msgstr "Detalhes da _excepção"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "Sen_ha:"
+msgstr "<b>Sen_ha:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>Endereço IP de Des_tino:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>Número de _Porto:</b>"
+msgstr "<b>_Utilizador:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Nome do Iniciador iSCSI:</b>"
 
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Parâmetros do Chandev"
+msgstr "Configurar os Parâmetros do iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "Para usar os discos iSCSI, deverá indicar o endereço do seu alvo iSCSI e o nome do seu iniciador de iSCSI, configurados para a sua máquina."
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "'Gateway':"
+msgstr "<b>'Gateway':</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>Endereço IP de Des_tino:</b>"
+msgstr "<b>Endereço IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>Endereço IP de Des_tino:</b>"
+msgstr "<b>Endereço IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Servidor de nomes"
+msgstr "<b>Servidor de nomes:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>Número de _Porto:</b>"
+msgstr "<b>_Interface:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "Activar o suporte de IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "Activar o suporte de IPv_6"
 
 #: tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "Activar a interface de rede"
 
 #: tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "Isto necessita que você tenha uma ligação de rede activa, durante o processo de instalação. Configure por favor uma interface de rede."
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Utilizar configuração de IP dinâmica (BOOTP/DHCP)"
+msgstr "Usar uma configuração de IP _dinâmica (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6831,7 +6791,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:5
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_Adicionar mais repositórios de 'software'"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Customize now"
@@ -7592,9 +7552,8 @@ msgid "German"
 msgstr "Alemão"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Livre"
+msgstr "Grego"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -7626,7 +7585,7 @@ msgstr "Japonês"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7641,14 +7600,12 @@ msgid "Malay"
 msgstr "Malaio"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "Malaio"
+msgstr "Malayalam"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7660,7 +7617,7 @@ msgstr "Sotho do Norte"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. generated from lang-table
 msgid "Persian"
