@@ -1,3 +1,10 @@
+2006-07-28  Chris Lumens  <clumens@redhat.com>
+
+	* anaconda:  Use rhpxl.xserver for all X startup tasks.  Remove global
+	X hardware variables.  Add an anaconda-specific screen section to the
+	X config file to start up at the right resolution and font size
+	(#199437).
+
 2006-07-28  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c: Don't do the trace init stuff until later --

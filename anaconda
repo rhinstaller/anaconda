@@ -52,7 +52,7 @@ def startMiniWM(root='/'):
 	
 	os.dup2(wr, 1)
 	os.close(wr)
-	args = [cmd, '--display', ':1']
+	args = [cmd, '--display', ':7']
 	os.execv(args[0], args)
 	sys.exit (1)
     else:
@@ -88,7 +88,6 @@ def doStartupX11Actions():
 		dpi = "96"
 	    else:
 		dpi = "75"
-
 
 	    xutils.setRootResource('Xcursor.size', '24')
 	    xutils.setRootResource('Xcursor.theme', 'Bluecurve')
@@ -128,7 +127,7 @@ def setupPythonUpdates():
 	pass
 
     for pypkg in ("rhpl", "yum", "rpmUtils", "urlgrabber", "pykickstart",
-                  "rhpxl"):
+                  "rhpxl", "pirut"):
 	if os.access("/mnt/source/RHupdates/%s" %(pypkg,), os.X_OK):
 	    try:
 		os.mkdir("/tmp/updates/%s" %(pypkg,))
@@ -454,12 +453,7 @@ def checkMemory(opts):
             opts.display_mode = 't'
             time.sleep(2)
 
-def probeHW(opts, x_already_set):
-    videohw = None
-    monitorhw = None
-    mousehw = None
-    xcfg = None
-
+def probeHW(opts, x_already_set, xserver):
     if not opts.isHeadless:
         #
         # Probe what is available for X and setup a hardware state
@@ -467,35 +461,27 @@ def probeHW(opts, x_already_set):
         # try to probe interesting hw
         skipddcprobe = (opts.skipddc or (x_already_set and flags.test))
         skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
+        xserver.probeHW(skipDDCProbe=skipddcprobe, skipMouseProbe=skipmouseprobe,
+                        forceVesa=opts.forcevesa)
 
-        (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
-                                                        skipMouseProbe=skipmouseprobe,
-                                                        forceVesa=opts.forcevesa)
         # if the len(videocards) is zero, then let's assume we're isHeadless
-        if len(videohw.videocards) == 0:
+        if len(xserver.videohw.videocards) == 0:
             stdoutLog.info (_("No video hardware found, assuming headless"))
-            videohw = None
-            monitorhw = None
-            mousehw = None
             opts.isHeadless = 1
         else:
             # setup a X hw state for use later with configuration.
             try:
-                xcfg = xhwstate.XF86HardwareState(defcard=videohw,
-                                                  defmon=monitorhw)
+                xserver.setHWState()
             except Exception, e:
                 stdoutLog.error (_("Unable to instantiate a X hardware state object."))
-                xcfg = None
 
     # keyboard
-    kbd = keyboard.Keyboard()
+    xserver.keyboard = keyboard.Keyboard()
     if opts.keymap:
-        kbd.set(opts.keymap)
+        xserver.keyboard.set(opts.keymap)
 
     # floppy
-    floppyDevice = floppy.probeFloppyDevice()
-
-    return (videohw, monitorhw, mousehw, xcfg, kbd, floppyDevice)
+    return floppy.probeFloppyDevice()
 
 def setupGraphicalLinks():
     for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
@@ -630,18 +616,6 @@ if __name__ == "__main__":
     runres_override = False
     graphical_failed = 0
     instClass = None                # the install class to use
-
-    #
-    # xcfg       - xserver info (?)
-    # mousehw    - mouseinfo info
-    # videohw    - videocard info
-    # monitorhw  - monitor info
-    #
-    xcfg = None
-    monitorhw = None
-    videohw = None
-    mousehw = None
-    kbd = None
     vncpassword = ""
     vncconnecthost = ""
     vncconnectport = ""
@@ -767,9 +741,10 @@ if __name__ == "__main__":
 
     if not opts.isHeadless:
         try:
+            import xf86config
             import xsetup
-            import rhpxl.xhwstate as xhwstate
-            import rhpxl.xserver as xserver
+            import rhpxl.xhwstate
+            import rhpxl.xserver
             import rhpxl.monitor
         except ImportError:
             opts.isHeadless = 1
@@ -801,7 +776,9 @@ if __name__ == "__main__":
     else:
         x_already_set = 0
 
-    (videohw, monitorhw, mousehw, xcfg, kbd, floppyDevice) = probeHW(opts, x_already_set)
+    xserver = rhpxl.xserver.XServer()
+    xserver.resolution = opts.runres
+    floppyDevice = probeHW(opts, x_already_set, xserver)
 
     #
     # delay to let use see status of attempt to probe hw
@@ -832,23 +809,32 @@ if __name__ == "__main__":
         modes = rhpxl.monitor.Modes()
 
         if iutil.getPPCMachine() == "PMac":
-            opts.runres = xhwstate.get_valid_resolution(videohw, monitorhw, opts.runres,
-                                                   modes, runres_override, onPMac=True)
+            rhpxl.xhwstate.get_valid_resolution(xserver, modes, runres_override, onPMac=True)
         else:
-            opts.runres = xhwstate.get_valid_resolution(videohw, monitorhw, opts.runres,
-                                                   modes, runres_override)
+            rhpxl.xhwstate.get_valid_resolution(xserver, modes, runres_override)
 
         # make sure we can write log to ramfs
         if os.access("/tmp/ramfs", os.W_OK):
-            xlogfile = "/tmp/ramfs/X.log"
-        else:
-            xlogfile = None
+            xserver.logfile = "/tmp/ramfs/X.log"
 
         try:
-            xcfg = xserver.startX(opts.runres, videohw, monitorhw, mousehw, kbd,
-                                  logfile = xlogfile,
-                                  xStartedCB = doStartupX11Actions,
-                                  xQuitCB = doShutdownX11Actions, useFB = opts.useFBX)
+            xserver.generateConfig()
+
+            # Add our own screen section so we make sure to start up at the
+            # resolution (this is more needed to fix font sizes).
+            screen = xf86config.XF86ConfScreen()
+            xserver.config.screen.insert(screen)
+            screen.identifier = "Anaconda"
+            screen.device = "Videocard0"
+            screen.defaultdepth = 16
+
+            display = xf86config.XF86ConfDisplay()
+            screen.display.insert(display)
+            display.modes.insert(xf86config.XF86Mode(xserver.resolution))
+
+            xserver.display = ":7"
+            xserver.serverflags.extend(["-screen", "Anaconda"])
+            xserver.startX(xStartedCB=doStartupX11Actions, useFB=opts.useFBX)
         except RuntimeError:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             opts.display_mode = 't'
@@ -891,27 +877,27 @@ if __name__ == "__main__":
 
     anaconda.id.x_already_set = x_already_set
 
-    if mousehw:
-        anaconda.id.setMouse(mousehw)
+    if xserver.mousehw:
+        anaconda.id.setMouse(xserver.mousehw)
 
-    if videohw:
-        anaconda.id.setVideoCard(videohw)
+    if xserver.videohw:
+        anaconda.id.setVideoCard(xserver.videohw)
 
-    if monitorhw:
-        anaconda.id.setMonitor(monitorhw)
+    if xserver.monitorhw:
+        anaconda.id.setMonitor(xserver.monitorhw)
 
     #
     # not sure what to do here - somehow we didn't detect anything
     #
-    if xcfg is None and not opts.isHeadless:
+    if xserver.hwstate is None and not opts.isHeadless:
         try:
-            xcfg = xhwstate.XF86HardwareState()
+            xserver.setHWState()
         except Exception, e:
             stdoutLog.error (_("Unable to instantiate a X hardware state object."))
-            xcfg = None
+            xserver.hwstate = None
 
-    if xcfg is not None:
-        xsetup = xsetup.XSetup(xcfg)
+    if xserver.hwstate is None:
+        xsetup = xsetup.XSetup(xserver.xhwstate)
 
         # HACK - if user overrides resolution then use it and disable
         #	     choosing a sane default for them
@@ -920,8 +906,8 @@ if __name__ == "__main__":
 
         anaconda.id.setXSetup(xsetup)
 
-    if kbd:
-        anaconda.id.setKeyboard(kbd)
+    if xserver.keyboard:
+        anaconda.id.setKeyboard(xserver.keyboard)
 
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
