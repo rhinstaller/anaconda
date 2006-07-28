@@ -18,6 +18,7 @@ import crypt
 import random
 import tempfile
 import os
+import os.path
 
 def createLuserConf(instPath):
     """Writes a libuser.conf for instPath."""
@@ -59,7 +60,7 @@ class Users:
         self.admin = libuser.admin()
 
     def createUser (self, name, password=None, isCrypted=False, groups=[],
-                    homedir=None, shell=None, uid=None):
+                    homedir=None, shell=None, uid=None, root="/mnt/sysimage"):
         if self.admin.lookupUserByName(name):
             return None
 
@@ -77,7 +78,7 @@ class Users:
             homedir = "/home/" + name
 
         # Do this to make the user's home dir under the install root.
-        userEnt.set(libuser.HOMEDIRECTORY, "/mnt/sysimage/" + homedir)
+        userEnt.set(libuser.HOMEDIRECTORY, os.path.join(root, homedir))
 
         if shell:
             userEnt.set(libuser.LOGINSHELL, shell)

@@ -175,7 +175,7 @@ class InstallData:
             for ud in self.ksdata.userList:
                 if self.users.createUser(ud.name, ud.password, ud.isCrypted,
                                          ud.groups, ud.homedir, ud.shell,
-                                         ud.uid) == None:
+                                         ud.uid, root=anaconda.rootPath) == None:
                     log.error("User %s already exists, not creating." % ud.name)
 
 

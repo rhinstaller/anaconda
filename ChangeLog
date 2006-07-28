@@ -1,5 +1,9 @@
 2006-07-28  Jeremy Katz  <katzj@redhat.com>
 
+	* users.py (Users.createUser): Create users under the rootpath
+	(Clark Williams)
+	* instdata.py (InstallData.write): Use the rootpath
+
 	* packages.py (setFileCons): Normalize path so we don't hit a bug
 	in matchpathcon
 
