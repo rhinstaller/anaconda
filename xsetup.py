@@ -17,43 +17,21 @@
 # should probably go in rhpl
 #
 import iutil
+import string
 import rhpl
-import rhpxl.xserver as xserver
 from rhpl.translate import _
 
-
-import string
 class XSetup:
-
-    def __init__(self, hwstate):
+    def __init__(self, xserver):
 	self.skipx = 0
 	self.imposed_sane_default = 0
-	self.xhwstate = hwstate
+	self.xserver = xserver
 
-    #
-    # mouse and keyboard maybe should be part of this object
-    #
-    # really all of this should be in rhpl probably
-    #
     def write(self, fn, mouse, keyboard):
-	# XXX - cleanup monitor name to not include 'DDC Probed Monitor'
-	#       in its string if its there.
-	#
-	#       This is around for legacy reasons.  The monitor description
-	#       string passed around inside anaconda includes this prefix
-	#       so that the UI can properly display the monitor as a DDC
-	#       probed value versus a user selected value.
-	monname = self.xhwstate.get_monitor_name()
-	if monname is not None:
-	    ddc_monitor_string = _("DDC Probed Monitor")
-	    if monname[:len(ddc_monitor_string)] == ddc_monitor_string:
-		self.xhwstate.set_monitor_name(monname[len(ddc_monitor_string)+3:])
-		
-	outfile = fn + "/xorg.conf"
-	xserver.writeXConfig(outfile, self.xhwstate, mouse, keyboard)
-
-	# restore monitor name
-	self.xhwstate.set_monitor_name(monname)
+        self.xserver.keyboard = keyboard
+        self.xserver.mousehw = mouse
+        self.xserver.generateConfig()
+        self.xserver.writeConfig(filename=fn+"/xorg.conf")
 
     def writeKS(self, f, desktop=None):
         # FIXME: we really should have at least teh startxonboot and
@@ -65,8 +43,8 @@ class XSetup:
 	    f.write("skipx\n")
 	    return
 
-        args = self.getArgList(self.xhwstate.get_resolution(),
-			       self.xhwstate.get_colordepth())
+        args = self.getArgList(self.xserver.hwstate.get_resolution(),
+			       self.xserver.hwstate.get_colordepth())
 	if desktop: 
 	    rl = desktop.getDefaultRunLevel() 
 	    if rl and str(rl) == '5': 
@@ -87,7 +65,7 @@ class XSetup:
 
     def getMonitorArgList(self):
         args = []
-        monitor = self.xhwstate.monitor
+        monitor = self.xserver.monitorhw
         
         args = args + [ "--hsync", monitor.getMonitorHorizSync() ]
         args = args + [ "--vsync", monitor.getMonitorVertSync() ]
@@ -96,7 +74,7 @@ class XSetup:
 
     def getArgList(self, res, depth):
         args = []
-	vc = self.xhwstate.videocard
+	vc = self.xserver.videohw
 
 	args = args + [ "--driver", '"' + vc.primaryCard().getDriver() + '"' ]
 	vram = vc.primaryCard().getVideoRam()

@@ -16,6 +16,11 @@
 	X config file to start up at the right resolution and font size
 	(#199437).
 
+	* instdata.py (InstallData):  Sync comment with reality.
+
+	* xsetup.py (XSetup):  Use rhpxl.xserver instead of xhwstate.  Remove
+	monitor name mangling since we don't even output a monitor section.
+
 2006-07-28  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c: Don't do the trace init stuff until later --

@@ -102,7 +102,7 @@ class InstallData:
     def setMonitor(self, monitor):
         self.monitor = monitor
 
-    # expects a XF86Config object
+    # expects an XSetup object
     def setXSetup(self, xsetup):
         self.xsetup = xsetup
 

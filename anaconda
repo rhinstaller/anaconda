@@ -896,8 +896,8 @@ if __name__ == "__main__":
             stdoutLog.error (_("Unable to instantiate a X hardware state object."))
             xserver.hwstate = None
 
-    if xserver.hwstate is None:
-        xsetup = xsetup.XSetup(xserver.xhwstate)
+    if xserver.hwstate is not None:
+        xsetup = xsetup.XSetup(xserver)
 
         # HACK - if user overrides resolution then use it and disable
         #	     choosing a sane default for them
