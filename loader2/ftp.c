@@ -342,6 +342,11 @@ int ftpOpen(char *host, int family, char *name, char *password,
     return sock;
 }
 
+/*
+ * FTP specification:
+ * RFC 959  FILE TRANSFER PROTOCOL (FTP)
+ * RFC 2428 FTP Extensions for IPv6 and NATs
+ */
 int ftpGetFileDesc(int sock, struct in6_addr host, int family,
                    char * remotename) {
     int dataSocket;
