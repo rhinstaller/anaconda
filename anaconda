@@ -741,7 +741,6 @@ if __name__ == "__main__":
 
     if not opts.isHeadless:
         try:
-            import xf86config
             import xsetup
             import rhpxl.xhwstate
             import rhpxl.xserver
@@ -819,19 +818,7 @@ if __name__ == "__main__":
 
         try:
             xserver.generateConfig()
-
-            # Add our own screen section so we make sure to start up at the
-            # resolution (this is more needed to fix font sizes).
-            screen = xf86config.XF86ConfScreen()
-            xserver.config.screen.insert(screen)
-            screen.identifier = "Anaconda"
-            screen.device = "Videocard0"
-            screen.defaultdepth = 16
-
-            display = xf86config.XF86ConfDisplay()
-            screen.display.insert(display)
-            display.modes.insert(xf86config.XF86Mode(xserver.resolution))
-
+            xserver.addExtraScreen("Anaconda")
             xserver.display = ":7"
             xserver.serverflags.extend(["-screen", "Anaconda"])
             xserver.startX(xStartedCB=doStartupX11Actions, useFB=opts.useFBX)
