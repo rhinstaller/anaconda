@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-26 17:08-0400\n"
-"PO-Revision-Date: 2006-07-27 22:41-0300\n"
+"PO-Revision-Date: 2006-07-28 00:20-0300\n"
 "Last-Translator: Domingo E. Becker <beckerde@hotmail.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Error al extraer la segunda parte del archivo kickstart: %s!"
 
 #: ../anaconda:414
 msgid "Press <enter> for a shell"
-msgstr "Presione <intro> para entrar a la shell"
+msgstr "Presione <intro> para entrar al shell"
 
 # ../anaconda:332 ../iw/account_gui.py:150 ../iw/account_gui.py:161
 # ../iw/partition_gui.py:496 ../iw/partition_gui.py:845
@@ -189,7 +189,7 @@ msgstr "Presione <intro> para entrar a la shell"
 #: ../loader2/urls.c:345
 #: ../loader2/urls.c:456
 msgid "OK"
-msgstr "OK"
+msgstr "Aceptar"
 
 # ../anaconda:313
 # ../anaconda:313
@@ -227,7 +227,7 @@ msgstr "La instalación gráfica no está disponible...Inicio en modo texto."
 
 #: ../anaconda:824
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "La variable DISPLAY no está establecida. ¡Iniciando modo texto!"
+msgstr "La variable DISPLAY no está establecida. ¡Iniciando en modo texto!"
 
 # ../textw/xconfig_text.py:564
 # ../textw/xconfig_text.py:576
@@ -339,9 +339,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Incapaz de localizar la partición %s para usarla para %s.\n"
+"No se pudo localizar la partición %s para usarla para %s.\n"
 "\n"
-"Pulse OK para rearrancar su sistema."
+"Presione Aceptar para reiniciar su sistema."
 
 # ../autopart.py:846
 # ../autopart.py:853
@@ -362,7 +362,7 @@ msgid ""
 msgstr ""
 "Incapaz de localizar el dispositivo raid %s para usarlo para %s.\n"
 "\n"
-"Pulse OK para rearrancar su sistema."
+"Presione Aceptar para reiniciar su sistema."
 
 # ../autopart.py:846
 # ../autopart.py:853
@@ -383,7 +383,7 @@ msgid ""
 msgstr ""
 "Incapaz de localizar el grupo volumen %s para usarlo para %s.\n"
 "\n"
-"Pulse OK para rearrancar su sistema."
+"Presione Aceptar para reiniciar su sistema."
 
 # ../autopart.py:846
 # ../autopart.py:853
@@ -404,7 +404,7 @@ msgid ""
 msgstr ""
 "Incapaz de localizar el volumen lógico %s para usarla para %s.\n"
 "\n"
-"Pulse 'OK' para rearrancar su sistema."
+"Presione 'Aceptar' para reiniciar su sistema."
 
 # ../iw/partition_gui.py:1578 ../textw/partition_text.py:1052
 # ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
@@ -430,7 +430,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Pulse 'OK' para rearrancar su sistema."
+"Presione 'Aceptar' para reiniciar su sistema."
 
 # ../autopart.py:890
 # ../autopart.py:897
@@ -466,7 +466,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Pulse 'OK' para rearrancar su sistema."
+"Presione 'Aceptar' para reiniciar su sistema."
 
 # ../autopart.py:903 ../iw/partition_gui.py:1268
 # ../textw/partition_text.py:163
@@ -1073,7 +1073,7 @@ msgstr ""
 "\n"
 "El /etc/fstab en su partición de actualización no hace referencia a una partición swap válida.\n"
 "\n"
-"Pulse OK para volver a arrancar su sistema"
+"Presione Aceptar para volver a arrancar su sistema"
 
 # ../fsset.py:734
 # ../fsset.py:771
@@ -1089,9 +1089,9 @@ msgid ""
 msgstr ""
 "Error al habilitar el dispositivo swap %s: %s\n"
 "\n"
-"Es probable que el error se deba a que esta partición swap no ha sido iniciada\n"
+"Es probable que el error se deba a que esta partición swap no ha sido inicializada\n"
 "\n"
-"Pulse OK para volver a arrancar su sistema"
+"Presione Aceptar para volver a arrancar su sistema"
 
 #: ../fsset.py:1579
 #, python-format
@@ -1220,9 +1220,9 @@ msgid ""
 msgstr ""
 "Error al montar el dispositivo %s como %s: %s\n"
 "\n"
-"Es probable que el error se deba a que esta partición no hay sido formateada\n"
+"Es probable que el error se deba a que esta partición no haya sido formateada\n"
 "\n"
-"Pulse OK para volver a arrancar su sistema"
+"Presione Aceptar para volver a arrancar su sistema"
 
 # ../fsset.py:848
 # ../fsset.py:913
@@ -1239,7 +1239,7 @@ msgstr ""
 "\n"
 "Es probable que el error se deba a que su fstab es incorrecto\n"
 "\n"
-"Pulse OK para volver a arrancar su sistema"
+"Presione Aceptar para volver a arrancar su sistema"
 
 #: ../fsset.py:2456
 msgid "Duplicate Labels"
@@ -1709,28 +1709,28 @@ msgstr "_Anterior"
 #: ../image.py:133
 #, python-format
 msgid "An error occurred unmounting the CD.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "Se ha producido un error al desmontar el CD.  Asegúrese de no acceder a %s desde la shell en tty2 y a continuación pulse OK para volver a probar. "
+msgstr "Se ha producido un error al desmontar el CD.  Asegúrese de no acceder a %s desde la shell en tty2 y a continuación presione Aceptar para volver a intentar. "
 
 # ../image.py:62
 # ../image.py:62
 # ../image.py:62
 #: ../image.py:163
 msgid "Copying File"
-msgstr "Copia del Fichero"
+msgstr "Copiando Archivo"
 
 # ../image.py:63
 # ../image.py:63
 # ../image.py:63
 #: ../image.py:164
 msgid "Transferring install image to hard drive..."
-msgstr "Transferencia de la imagen del programa de instalación al disco duro..."
+msgstr "Transfiriendo la imagen del programa de instalación al disco duro..."
 
 # ../image.py:66
 # ../image.py:66
 # ../image.py:66
 #: ../image.py:174
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
-msgstr "Se ha producido un error al transferir la imagen de instalación a su disco duro.  Probablemente no tenga espacio en el disco: "
+msgstr "Se ha producido un error al transferir la imagen de instalación a su disco duro.  Probablemente no tenga espacio en el disco."
 
 # ../image.py:119
 # ../image.py:119
@@ -1818,7 +1818,7 @@ msgid ""
 msgstr ""
 "Se ha producido un error al ejecutar el scriptlet. Usted puede revisar el flujo de salida en %s.  Esté es un error fatal, por lo cual la instalación será abortada.\n"
 "\n"
-"Pulse el botón OK para reiniciar su sistema."
+"Pulse el botón Aceptar para reiniciar su sistema."
 
 #: ../kickstart.py:821
 #: ../kickstart.py:839
@@ -4731,12 +4731,8 @@ msgid "The IP information you have entered is invalid."
 msgstr "La información IP que ha introducido no es válida."
 
 #: ../iw/network_gui.py:191
-#, fuzzy
 msgid "You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."
-msgstr ""
-"No posee dispositivos de red activos. Su sistema no será capaz de comunicar a través de una red por defecto sin al menos un dispositivo activo.\n"
-"\n"
-"NOTA: Si posee un adaptador de red compatible con PCMCIA debería dejarlo inactivo. Cuando vuelva a rearrancar su sistema el adaptador será activado de forma automática. "
+msgstr "No posee dispositivos de red activos. Su sistema no será capaz de comunicarse a través de una red por defecto sin al menos un dispositivo activo."
 
 #: ../iw/network_gui.py:207
 #, python-format
@@ -5826,37 +5822,37 @@ msgstr "¡Ha sido imposible cargar el archivo!"
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 #: ../iw/task_gui.py:85
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "Nombre de máquina inválido"
+msgstr "Nombre de Repositorio Inválido"
 
 # ../loader/urls.c:237
 # ../loader/urls.c:237
 # ../loader/urls.c:237
 #: ../iw/task_gui.py:86
-#, fuzzy
 msgid "You must provide a non-zero length repository name."
-msgstr "Debe introducir un nombre de servidor."
+msgstr "Debe dar un nombre de repositorio con longitud distinto de 0."
 
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 #: ../iw/task_gui.py:95
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "Etiqueta de inicio errónea"
+msgstr "URL del Repositorio Inválido"
 
 #: ../iw/task_gui.py:96
 msgid "You must provide an HTTP or FTP URL to a repository."
 msgstr "Debe proveer un URL de un repositorio HTTP o FTP."
 
 #: ../iw/task_gui.py:111
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
 "\n"
 "%s"
-msgstr "No fue posible leer los metadatos del paquete. Puede ser causa de un directorio de datos del repositorio faltante. Por favor asegúrese de que el árbol de instalación ha sido generado correctamente. %s"
+msgstr ""
+"No fue posible leer los metadatos del paquete desde el repositorio. Puede ser debido a que no hay un directorio de datos del repositorio. Por favor asegúrese de su repositorio ha sido correctamente generado.\n"
+"\n"
+"%s"
 
 # ../iw/timezone_gui.py:44 ../textw/timezone_text.py:95
 # ../iw/timezone_gui.py:44 ../textw/timezone_text.py:95
@@ -7177,7 +7173,7 @@ msgstr "RAID"
 # ../textw/partition_text.py:990
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "   F1-Ayuda   F2-Nuevo   F3-Modificar   F4-Eliminar   F5-Reiniciar   F12-OK  "
+msgstr "   F1-Ayuda   F2-Nuevo   F3-Modificar   F4-Eliminar   F5-Reiniciar   F12-Aceptar  "
 
 # ../textw/partition_text.py:1006
 # ../textw/partition_text.py:1006
@@ -7624,9 +7620,8 @@ msgstr ""
 "\tJuegos\n"
 
 #: ../installclasses/rhel.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Linux para Empresas de Red Hat"
 
 #: ../installclasses/rhel.py:49
 msgid "Registration Key Required"
@@ -7827,7 +7822,7 @@ msgstr "Falló al montar el disco de controladores desde el archivo."
 #: ../loader2/driverdisk.c:387
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Introduzca su disco de controladores en /dev/%s y pulse \"OK\" para continuar. "
+msgstr "Introduzca su disco de controladores en /dev/%s y pulse \"Aceptar\" para continuar. "
 
 # ../loader/devices.c:532
 # ../loader/devices.c:532
@@ -7925,7 +7920,7 @@ msgstr "Se especificó el siguiente argumento inválido para el comando  del con
 #: ../loader2/driverselect.c:60
 #, c-format
 msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button."
-msgstr "Por favor introduzca cualquier parámetro que desee pasar al módulo  %s separado con espacios. Si no sabe qué parámetros dar, sáltese esta pantalla pulsando el botón \"OK\"."
+msgstr "Por favor introduzca cualquier parámetro que desee pasar al módulo  %s separado con espacios. Si no sabe qué parámetros dar, sáltese esta pantalla pulsando el botón \"Aceptar\"."
 
 # ../loader/devices.c:91
 # ../loader/devices.c:91
@@ -8169,7 +8164,7 @@ msgstr "Tiene múltiples dispositivos que pueden servir como fuentes para discos
 #: ../loader2/loader.c:346
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Introduzca su disco de actualización en /dev/%s  y pulse \"OK\" para continuar. "
+msgstr "Introduzca su disco de actualización en /dev/%s  y presione \"Aceptar\" para continuar. "
 
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
@@ -8450,9 +8445,8 @@ msgstr ""
 # ../loader/net.c:277
 # ../loader/net.c:277
 #: ../loader2/net.c:96
-#, fuzzy
 msgid "Invalid CIDR Mask"
-msgstr "Cadena IP inválida"
+msgstr "Máscara de CIDR Inválida"
 
 #: ../loader2/net.c:97
 msgid "CIDR mask value must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
@@ -8527,23 +8521,20 @@ msgstr "Enviando petición de información IP para %s..."
 # ../textw/userauth_text.py:22
 #: ../loader2/net.c:538
 #: ../loader2/net.c:639
-#, fuzzy
 msgid "Network Error"
-msgstr "Contraseña VNC errónea"
+msgstr "Error de Red"
 
 #: ../loader2/net.c:539
 #: ../loader2/net.c:640
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "Se ha producido un error al eliminar las unidades en cuestión. Ha fallado la clonización."
+msgstr "Hubo un error al configurar su interfase de red."
 
 # ../loader/net.c:345
 # ../loader/net.c:345
 # ../loader/net.c:345
 #: ../loader2/net.c:675
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Utilizar la configuración IP dinámica (BOOT/DHCP)"
+msgstr "Utilizar la configuración de IP dinámica (DHCP)"
 
 #: ../loader2/net.c:680
 msgid "Enable IPv4 support"
@@ -8573,9 +8564,8 @@ msgstr "Configurar TCP/IP"
 # ../loader/net.c:404
 #: ../loader2/net.c:753
 #: ../loader2/net.c:763
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "Grupo ausente"
+msgstr "Falta Protocolo"
 
 #: ../loader2/net.c:754
 msgid "You must select at least one protocol (IPv4 or IPv6) for manual configuration."
@@ -8589,9 +8579,8 @@ msgstr "Debe seleccionar al menos un protocolo (IPv4 o IPv6) para DHCP."
 # ../loader/net.c:309 ../textw/network_text.py:82
 # ../loader/net.c:309 ../textw/network_text.py:82
 #: ../loader2/net.c:834
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "Dirección IP:"
+msgstr "Dirección IPv4:"
 
 #: ../loader2/net.c:846
 #: ../loader2/net.c:888
@@ -8603,17 +8592,15 @@ msgstr "/"
 # ../loader/net.c:309 ../textw/network_text.py:82
 # ../loader/net.c:309 ../textw/network_text.py:82
 #: ../loader2/net.c:876
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "Dirección IP:"
+msgstr "Dirección IPv6:"
 
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
 #: ../loader2/net.c:928
-#, fuzzy
 msgid "Name Server:"
-msgstr "Servidor de nombres"
+msgstr "Servidor de nombres:"
 
 # ../textw/silo_text.py:39 ../textw/silo_text.py:112
 # ../textw/silo_text.py:224
@@ -8622,9 +8609,8 @@ msgstr "Servidor de nombres"
 # ../textw/silo_text.py:39 ../textw/silo_text.py:112
 # ../textw/silo_text.py:224
 #: ../loader2/net.c:961
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "Configuración de z/IPL"
+msgstr "Configuración manual de TCP/IP"
 
 # ../loader/net.c:404
 # ../loader/net.c:404
@@ -8638,17 +8624,15 @@ msgstr "Falta de información"
 # ../loader/net.c:405
 # ../loader/net.c:405
 #: ../loader2/net.c:1085
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "Debe introducir una dirección IP y una máscara de red válidas."
+msgstr "Debe introducir una dirección IPv4 y una máscara de red o prefijo CIDR válidas."
 
 # ../loader/net.c:405
 # ../loader/net.c:405
 # ../loader/net.c:405
 #: ../loader2/net.c:1091
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and aCIDR prefix."
-msgstr "Debe introducir una dirección IP y una máscara de red válidas."
+msgstr "Debe ingresar una dirección IPv6 y un prefijo CIDR válidos."
 
 # ../loader/net.c:611
 # ../loader/net.c:611
@@ -8945,9 +8929,8 @@ msgid "Loading SCSI driver"
 msgstr "Carga del driver SCSI"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "Agregar _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
@@ -8957,9 +8940,8 @@ msgstr "Agregar destino _iSCSI"
 # ../iw/partition_gui.py:802
 # ../iw/partition_gui.py:803
 #: tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Opciones de tamaño adicionales"
+msgstr "Opciones Avanzadas de Almacenamiento"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
@@ -8969,18 +8951,16 @@ msgstr "Deshabilitar dispositivo _dmraid"
 # ../iw/partition_gui.py:997
 # ../iw/partition_gui.py:998
 #: tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "¿Cómo le gustaría que fuera el sistema de ficheros de esta partición?"
+msgstr "¿Desearía modificar la configuración de su disco?"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _URL:</b>"
 msgstr "<b>_URL del Repositorio:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nombre de inicializador iSCSI:</b>"
+msgstr "<b>_Nombre de repositorio:</b>"
 
 #: tmp/addrepo.glade.h:3
 msgid "Add Repository"
@@ -9037,9 +9017,8 @@ msgstr "Re_vise y modifique la capa de particiones"
 # ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
 # ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "Configuración avanzada del gestor de arranque"
+msgstr "Configuración _Avanzada de almacenamiento"
 
 # ../iw/partition_gui.py:1667 ../textw/partition_text.py:1075
 # ../iw/partition_gui.py:1669 ../textw/partition_text.py:1075
@@ -9069,18 +9048,16 @@ msgstr "Información de la _excepción"
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>_Password:</b>"
-msgstr "_Contraseña:"
+msgstr "<b>_Contraseña:</b>"
 
 #: tmp/iscsi-config.glade.h:2
 msgid "<b>_Target IP Address:</b>"
 msgstr "<b>Dirección IP obje_tivo:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>_Username:</b>"
-msgstr "<b>Número de Puerto:</b>"
+msgstr "<b>Número de Usuario:</b>"
 
 #: tmp/iscsi-config.glade.h:4
 msgid "<b>iSCSI Initiator _Name:</b>"
@@ -9090,9 +9067,8 @@ msgstr "<b>_Nombre de inicializador iSCSI:</b>"
 # ../iw/bootloader_gui.py:326
 # ../iw/bootloader_gui.py:326
 #: tmp/iscsi-config.glade.h:5
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "Parámetros Chandev "
+msgstr "Configurar Parámetros iSCSI"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
@@ -9102,32 +9078,27 @@ msgstr "Para usar discos iSCSI, debe proveer la dirección de su destino iSCSI y
 # ../iw/network_gui.py:251
 # ../iw/network_gui.py:251
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "Gateway:"
+msgstr "<b>Puerta de enlace:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "<b>Dirección IP obje_tivo:</b>"
+msgstr "<b>Dirección IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "<b>Dirección IP obje_tivo:</b>"
+msgstr "<b>Dirección IPv6:</b>"
 
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Servidor de nombres"
+msgstr "<b>Servidor de nombres:</b>"
 
 #: tmp/netconfig.glade.h:6
-#, fuzzy
 msgid "<b>_Interface:</b>"
-msgstr "<b>Número de Puerto:</b>"
+msgstr "<b>_Interfase:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -9149,9 +9120,8 @@ msgstr "Esto requiere que tenga una conexión de red activa durante el proceso d
 # ../loader/net.c:345
 # ../loader/net.c:345
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Utilizar la configuración IP dinámica (BOOT/DHCP)"
+msgstr "Utilizar la configuración de IP dinámica (DHCP)"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -9927,9 +9897,8 @@ msgstr "Alemán"
 # ../iw/partition_gui.py:666
 # ../iw/partition_gui.py:666
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "Libre"
+msgstr "Griego"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -9979,14 +9948,12 @@ msgid "Malay"
 msgstr "Malayo"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
 msgstr "Malayo"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "Gujarati"
+msgstr "Marathi"
 
 #. generated from lang-table
 msgid "Norwegian"
