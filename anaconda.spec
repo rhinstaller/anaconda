@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.0.69
+Version: 11.1.0.70
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.69-1
+* Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.70-1
 - Don't allow ipv6-only nfs installs (dcantrel)
 - Fix segfault with ksdevice= (pjones, #200451)
 - Fix ipv6 ftp installs (dcantrel)
@@ -111,6 +111,7 @@ rm -rf $RPM_BUILD_ROOT
   startup on radeon
 - Use rootpath in a few places we had /mnt/sysimage hardcoded
 - Fix method=
+- Fix translation mismatch
 
 * Thu Jul 27 2006 Jeremy Katz <katzj@redhat.com> - 11.1.0.68-1
 - And another fix for the RHEL installclass
