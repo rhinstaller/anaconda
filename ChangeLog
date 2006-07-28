@@ -1,5 +1,8 @@
 2006-07-27  Jeremy Katz  <katzj@redhat.com>
 
+	* instdata.py (InstallData.write): Use anaconda.rootPath instead
+	of hard-coding /mnt/sysimage
+
 	* loader2/modstubs.c: Ignore options we don't understand to
 	modprobe and properly handle the module not being in our modball
 

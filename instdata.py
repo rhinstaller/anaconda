@@ -164,13 +164,13 @@ class InstallData:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root="/mnt/sysimage")
+                                       root=anaconda.rootPath)
 
             for svc in self.ksdata.services["enabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root="/mnt/sysimage")
+                                       root=anaconda.rootPath)
 
             for ud in self.ksdata.userList:
                 if self.users.createUser(ud.name, ud.password, ud.isCrypted,
