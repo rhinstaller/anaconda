@@ -136,7 +136,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 fi
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGES="$PACKAGES python-pyblock libbdevid libbdevid-python"
+    PACKAGES="$PACKAGES dmraid python-pyblock libbdevid libbdevid-python"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -239,7 +239,7 @@ PACKAGESGR="$PACKAGESGR gail at-spi libbonobo ORBit2"
 
 # dmraid stuff
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    PACKAGESGR="$PACKAGESGR python-pyblock libbdevid libbdevid-python"
+    PACKAGESGR="$PACKAGESGR dmraid python-pyblock libbdevid libbdevid-python"
 fi
 
 # modular xorg...
@@ -383,6 +383,7 @@ usr/kerberos/$LIBDIR/libk5crypto.so*
 usr/kerberos/$LIBDIR/libcom_err.so*
 usr/kerberos/$LIBDIR/libgssapi_krb5.so*
 usr/$LIBDIR/libbdevid.so*
+usr/$LIBDIR/libdmraid.so*
 usr/$LIBDIR/libkrb5.so*
 usr/$LIBDIR/libkrb5support.so*
 usr/$LIBDIR/libk5crypto.so*

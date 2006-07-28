@@ -1,3 +1,9 @@
+2006-07-28  Peter Jones  <pjones@redhat.com>
+
+	* scripts/upd-instroot: include libdmraid.so
+
+	* anaconda.spec: reuire newer python-pyblock
+
 2006-07-28  Jeremy Katz  <katzj@redhat.com>
 
 	* users.py (Users.createUser): Create users under the rootpath
