@@ -1,3 +1,9 @@
+2006-07-28  David Cantrell  <dcantrell@redhat.com>
+
+	* loader2/Makefile: Remove /nss stuff.
+
+	* scripts/mk-images: Don't create /nss directory on boot image.
+
 2006-07-28  Peter Jones  <pjones@redhat.com>
 
 	* scripts/upd-instroot: include libdmraid.so

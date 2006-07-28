@@ -44,9 +44,6 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
 LIBS += -lkudzu_loader -lpci
 
-# NSS linker flags
-NSSFLAGS = -Wl,-rpath-link,/nss
-
 CFLAGS += -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 STATIC = -static
 REALCC=gcc
@@ -114,7 +111,7 @@ loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
 loader: loader.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) $(NSSFLAGS) -o $@ $^ $(LIBS)
+	$(CC) -g $(STATIC) -o $@ $^ $(LIBS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
