@@ -823,16 +823,15 @@ static char *doLoaderMain(char * location,
     for (i = 0; i < numMethods; i++, numValidMethods++) {
         installNames[numValidMethods] = installMethods[i].name;
         validMethods[numValidMethods] = i;
-
-        /* have we preselected this to be our install method? */
-        if (loaderData->method >= 0) {
-            methodNum = numValidMethods;
-            /* disable the fast path (#102652) */
-            flags |= LOADER_FLAGS_ASKMETHOD;
-        }
     }
-
     installNames[numValidMethods] = NULL;
+
+    /* have we preselected this to be our install method? */
+    if (loaderData->method >= 0) {
+        methodNum = loaderData->method;
+        /* disable the fast path (#102652) */
+        flags |= LOADER_FLAGS_ASKMETHOD;
+    }
 
     /* check to see if we have a CD.  If we have one, then
      * we can fast-path the CD and not make people answer questions in 
