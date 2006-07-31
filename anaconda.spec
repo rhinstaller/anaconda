@@ -28,7 +28,7 @@ Requires: python-pyblock >= 0.17-2
 Requires: libbdevid >= 5.1.2-1, libbdevid-python
 %endif
 %ifnarch s390 s390x ppc64
-Requires: rhpxl
+Requires: rhpxl >= 0.25
 %endif
 Obsoletes: anaconda-images <= 10
 Url: http://fedora.redhat.com/projects/anaconda-installer/
