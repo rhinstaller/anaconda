@@ -17,6 +17,9 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _, N_, getDefaultLangs
 
+import logging
+log = logging.getLogger("anaconda")
+
 # kind of lame caching of translations so we don't always have
 # to do all the looping
 strs = {}
@@ -51,8 +54,8 @@ class GroupSelectionWindow:
         try:
             pkgs = self.ayum.pkgSack.returnNewestByName(pkg)
         except yum.Errors.PackageSackError:
-            self.ayum.log(4, "no such package %s from group %s" %
-                     (pkg, self.group.groupid))
+            log.debug("no such package %s from group %s" %
+                      (pkg, self.group.groupid))
         if pkgs:
             pkgs = self.ayum.bestPackagesFromList(pkgs)
         for po in pkgs:
@@ -61,7 +64,7 @@ class GroupSelectionWindow:
                 try:
                     txmbr.groups.remove(grpid)
                 except ValueError:
-                    self.ayum.log(4, "package %s was not marked in group %s" %(po, grpid))
+                    log.debug("package %s was not marked in group %s" %(po, grpid))
                 if len(txmbr.groups) == 0:
                     self.ayum.tsInfo.remove(po.pkgtup)
 
@@ -70,8 +73,8 @@ class GroupSelectionWindow:
         try:
             txmbrs = self.ayum.install(name = pkg)
         except yum.Errors.InstallError, e:
-            self.ayum.log(3, "No package named %s available to "
-                          "be installed: %s" %(pkg, e))
+            log.debug("No package named %s available to be installed: %s"
+                      %(pkg, e))
         else:
             map(lambda x: x.groups.append(grpid), txmbrs)
     

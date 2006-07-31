@@ -1,3 +1,7 @@
+2006-07-31  Jeremy Katz  <katzj@redhat.com>
+
+	* textw/grpselect_text.py: Fix logging tracebacks
+
 2006-07-31  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec:  Update rhpxl requirement.
@@ -22,6 +26,7 @@
 
 	* anaconda.spec: reuire newer python-pyblock
 
+>>>>>>> 1.1817
 2006-07-28  Jeremy Katz  <katzj@redhat.com>
 
 	* users.py (Users.createUser): Create users under the rootpath
