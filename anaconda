@@ -475,10 +475,10 @@ def probeHW(opts, x_already_set, xserver):
             except Exception, e:
                 stdoutLog.error (_("Unable to instantiate a X hardware state object."))
 
-    # keyboard
-    xserver.keyboard = keyboard.Keyboard()
-    if opts.keymap:
-        xserver.keyboard.set(opts.keymap)
+        # keyboard
+        xserver.keyboard = keyboard.Keyboard()
+        if opts.keymap:
+            xserver.keyboard.set(opts.keymap)
 
     # floppy
     return floppy.probeFloppyDevice()
@@ -775,8 +775,12 @@ if __name__ == "__main__":
     else:
         x_already_set = 0
 
-    xserver = rhpxl.xserver.XServer()
-    xserver.resolution = opts.runres
+    if not opts.isHeadless:
+        xserver = rhpxl.xserver.XServer()
+        xserver.resolution = opts.runres
+    else:
+        xserver = None
+
     floppyDevice = probeHW(opts, x_already_set, xserver)
 
     #
@@ -864,37 +868,36 @@ if __name__ == "__main__":
 
     anaconda.id.x_already_set = x_already_set
 
-    if xserver.mousehw:
-        anaconda.id.setMouse(xserver.mousehw)
+    if xserver:
+        if xserver.mousehw:
+            anaconda.id.setMouse(xserver.mousehw)
 
-    if xserver.videohw:
-        anaconda.id.setVideoCard(xserver.videohw)
+        if xserver.videohw:
+            anaconda.id.setVideoCard(xserver.videohw)
 
-    if xserver.monitorhw:
-        anaconda.id.setMonitor(xserver.monitorhw)
+        if xserver.monitorhw:
+            anaconda.id.setMonitor(xserver.monitorhw)
 
-    #
-    # not sure what to do here - somehow we didn't detect anything
-    #
-    if xserver.hwstate is None and not opts.isHeadless:
-        try:
-            xserver.setHWState()
-        except Exception, e:
-            stdoutLog.error (_("Unable to instantiate a X hardware state object."))
-            xserver.hwstate = None
+        if xserver.keyboard:
+            anaconda.id.setKeyboard(xserver.keyboard)
 
-    if xserver.hwstate is not None:
-        xsetup = xsetup.XSetup(xserver)
+        # not sure what to do here - somehow we didn't detect anything
+        if xserver.hwstate is None and not opts.isHeadless:
+            try:
+                xserver.setHWState()
+            except Exception, e:
+                stdoutLog.error (_("Unable to instantiate a X hardware state object."))
+                xserver.hwstate = None
 
-        # HACK - if user overrides resolution then use it and disable
-        #	     choosing a sane default for them
-        if runres_override:
-            xsetup.imposed_sane_default = 1
+        if xserver.hwstate is not None:
+            xsetup = xsetup.XSetup(xserver)
 
-        anaconda.id.setXSetup(xsetup)
+            # HACK - if user overrides resolution then use it and disable
+            #	     choosing a sane default for them
+            if runres_override:
+                xsetup.imposed_sane_default = 1
 
-    if xserver.keyboard:
-        anaconda.id.setKeyboard(xserver.keyboard)
+            anaconda.id.setXSetup(xsetup)
 
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
