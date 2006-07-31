@@ -5,6 +5,7 @@
 2006-07-31  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Add some guards around accessing xserver.
+	Use $DISPLAY=:1 instead of :7 (#200758).
 
 	* anaconda.spec:  Update rhpxl requirement.
 

@@ -52,7 +52,7 @@ def startMiniWM(root='/'):
 	
 	os.dup2(wr, 1)
 	os.close(wr)
-	args = [cmd, '--display', ':7']
+	args = [cmd, '--display', ':1']
 	os.execv(args[0], args)
 	sys.exit (1)
     else:
@@ -823,7 +823,7 @@ if __name__ == "__main__":
         try:
             xserver.generateConfig()
             xserver.addExtraScreen("Anaconda")
-            xserver.display = ":7"
+            xserver.display = ":1"
             xserver.serverflags.extend(["-screen", "Anaconda"])
             xserver.startX(xStartedCB=doStartupX11Actions, useFB=opts.useFBX)
         except RuntimeError:
