@@ -380,7 +380,7 @@ def makeDevInode(name, fn=None):
 def makedev(major, minor):
     warnings.warn("isys.makedev is deprecated.  Use os.makedev instead.",
                   DeprecationWarning, stacklevel=2)
-    os.makedev(major, minor)
+    return os.makedev(major, minor)
 
 def mknod(pathname, mode, dev):
     warnings.warn("isys.mknod is deprecated.  Use os.mknod instead.",

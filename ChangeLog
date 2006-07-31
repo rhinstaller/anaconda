@@ -1,3 +1,9 @@
+2006-07-31  Peter Jones  <pjones@redhat.com>
+
+	* isys/isys.py (makedev): return the computed value
+
+	* command-stubs/mknod-stub: use os.makedev, not the deprecated isys one
+
 2006-07-31  David Cantrell  <dcantrell@redhat.com>
 
 	* loader2/ftp.c (getHostAddress): Use mygethostbyname() (BZ #200771).

@@ -5,6 +5,7 @@ sys.path.append('/usr/lib/anaconda')
 import isys
 import string
 import stat
+import os
 
 def usage():
     sys.stderr.write("Usage: %s <path> [b|c] <major> <minor> or\n" %(sys.argv[0],))
@@ -47,7 +48,7 @@ def main():
     minor = int(sys.argv[4])
     path = sys.argv[1]
     
-    isys.mknod(path, 0644 | type, isys.makedev(major, minor))
+    isys.mknod(path, 0644 | type, os.makedev(major, minor))
 
 if __name__ == "__main__":
     main()
